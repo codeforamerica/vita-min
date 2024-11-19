@@ -147,7 +147,16 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
         add_element_if_present(xml,"LocalTaxAfterCredits", :MD502_LINE_33)
       end
       add_element_if_present(xml, "TotalStateAndLocalTax", :MD502_LINE_34)
+      xml.TotalTaxAndContributions calculated_fields.fetch(:MD502_LINE_39)
       xml.TaxWithheld calculated_fields.fetch(:MD502_LINE_40)
+      xml.RefundableEIC calculated_fields.fetch(:MD502_LINE_42)
+      xml.TotalPaymentsAndCredits calculated_fields.fetch(:MD502_LINE_44)
+      add_element_if_present(xml, "BalanceDue", :MD502_LINE_45)
+      add_element_if_present(xml, "Overpayment", :MD502_LINE_46)
+      xml.AmountOverpayment do
+        xml.ToBeRefunded calculated_fields.fetch(:MD502_LINE_48)
+      end
+      xml.TotalAmountDue calculated_fields.fetch(:MD502_LINE_50)
       xml.DaytimePhoneNumber @direct_file_data.phone_number if @direct_file_data.phone_number.present?
     end
   end

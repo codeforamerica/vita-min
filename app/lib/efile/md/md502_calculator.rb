@@ -81,6 +81,8 @@ module Efile
         set_line(:MD502_LINE_44, :calculate_line_44)
         set_line(:MD502_LINE_45, :calculate_line_45)
         set_line(:MD502_LINE_46, :calculate_line_46)
+        set_line(:MD502_LINE_48, :calculate_line_48)
+        set_line(:MD502_LINE_50, :calculate_line_50)
 
         # MD502-CR
         set_line(:MD502CR_PART_B_LINE_2, @direct_file_data, :fed_credit_for_child_and_dependent_care_amount)
@@ -554,6 +556,14 @@ module Efile
         if line_or_zero(:MD502_LINE_39) < line_or_zero(:MD502_LINE_44)
           line_or_zero(:MD502_LINE_44) - line_or_zero(:MD502_LINE_39)
         end
+      end
+
+      def calculate_line_48
+        line_or_zero(:MD502_LINE_46) - line_or_zero(:MD502_LINE_47)
+      end
+
+      def calculate_line_50
+        line_or_zero(:MD502_LINE_45) + line_or_zero(:MD502_LINE_49)
       end
 
       def filing_status_dependent?

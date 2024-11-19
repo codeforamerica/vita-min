@@ -1434,6 +1434,7 @@ describe Efile::Md::Md502Calculator do
       it "subtracts line 39 from line 44" do
         instance.calculate
         expect(instance.lines[:MD502_LINE_45].value).to eq(100)
+        expect(instance.lines[:MD502_LINE_50].value).to eq(100)
       end
     end
   end
@@ -1447,6 +1448,7 @@ describe Efile::Md::Md502Calculator do
       it "subtracts line 39 from line 44" do
         instance.calculate
         expect(instance.lines[:MD502_LINE_46].value).to eq(100)
+        expect(instance.lines[:MD502_LINE_48].value).to eq(100)
       end
     end
 
