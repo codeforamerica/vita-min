@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Efile::Ny::It201 do
   let(:intake) { create(:state_file_ny_intake) }
-  let!(:dependent) { intake.dependents.create!(first_name: "Pat", last_name: "Biscuit", dob: 7.years.ago) }
+  let!(:dependent) { create :state_file_dependent, intake: intake, dob: 7.years.ago, relationship: "noneOfTheAbove" }
   let(:instance) do
     described_class.new(
       year: MultiTenantService.statefile.current_tax_year,
@@ -291,7 +291,7 @@ describe Efile::Ny::It201 do
 
       context "income between 20k and 22k and 2 dependents" do
         before do
-          intake.dependents.create!(first_name: "Bat", last_name: "Crickets", dob: 7.years.ago)
+          create :state_file_dependent, intake: intake, dob: 7.years.ago
           intake.direct_file_data.fed_wages = 21_000
           intake.direct_file_data.fed_total_adjustments = 0
           intake.direct_file_data.fed_taxable_income = 0
@@ -614,7 +614,7 @@ describe Efile::Ny::It201 do
     context "when the client has claimed fed_ctc > 0 and worksheet A line 8 <= worksheet A line 12" do
       before do
         intake.direct_file_data.fed_ctc = 1_000
-        intake.dependents.create!(first_name: "Cat", last_name: "Pizzabones", dob: 5.years.ago, ctc_qualifying: true)
+        create :state_file_dependent, intake: intake, dob: 5.years.ago, ctc_qualifying: true
       end
 
       it "calculated worksheets and finishes calculations" do
@@ -645,8 +645,8 @@ describe Efile::Ny::It201 do
 
     context 'when IT213_WORKSHEET_A_LINE_9 is nil' do
       before do
-        intake.dependents.create!(first_name: "Frank", last_name: "Clockhopper", dob: 5.years.ago, ctc_qualifying: true)
-        intake.dependents.create!(first_name: "Karen", last_name: "Frogpopper", dob: 3.years.ago, ctc_qualifying: true)
+        create :state_file_dependent, intake: intake, dob: 5.years.ago, ctc_qualifying: true
+        create :state_file_dependent, intake: intake, dob: 3.years.ago, ctc_qualifying: true
         intake.direct_file_data.fed_ctc = 1_000
         allow_any_instance_of(DirectFileData).to receive(:fed_tax_amt).and_return(nil)
       end
@@ -662,8 +662,8 @@ describe Efile::Ny::It201 do
 
     context "when the client has claimed fed_ctc > 0, worksheet A line 8 > worksheet A line 12, and less than 3 dependents" do
       before do
-        intake.dependents.create!(first_name: "Chiffon", last_name: "Boffin", dob: 5.years.ago, ctc_qualifying: true)
-        intake.dependents.create!(first_name: "Oscar", last_name: "Bento", dob: 3.years.ago, ctc_qualifying: true)
+        create :state_file_dependent, intake: intake, dob: 5.years.ago, ctc_qualifying: true
+        create :state_file_dependent, intake: intake, dob: 3.years.ago, ctc_qualifying: true
         intake.direct_file_data.fed_ctc = 1_000
       end
 
@@ -702,9 +702,10 @@ describe Efile::Ny::It201 do
 
     context "when the client has claimed fed_ctc > 0, worksheet A line 8 > worksheet A line 12, and has 3 dependents" do
       before do
-        intake.dependents.create!(first_name: "Alison", last_name: "Venti", dob: 5.years.ago, ctc_qualifying: true)
-        intake.dependents.create!(first_name: "Porpoise", last_name: "Borpoise", dob: 3.years.ago, ctc_qualifying: true)
-        intake.dependents.create!(first_name: "Jeff", last_name: "Gerbil", dob: 1.years.ago, ctc_qualifying: true)
+
+        create :state_file_dependent, intake: intake, dob: 5.years.ago, ctc_qualifying: true
+        create :state_file_dependent, intake: intake, dob: 3.years.ago, ctc_qualifying: true
+        create :state_file_dependent, intake: intake, dob: 1.years.ago, ctc_qualifying: true
         intake.direct_file_data.fed_tax_amt = 0
         intake.direct_file_data.fed_ctc = 1_000
       end

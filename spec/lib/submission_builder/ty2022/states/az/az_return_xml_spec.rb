@@ -6,7 +6,7 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
     let(:submission) { create(:efile_submission, data_source: intake.reload) }
     let!(:initial_efile_device_info) { create :state_file_efile_device_info, :initial_creation, :filled, intake: intake }
     let!(:submission_efile_device_info) { create :state_file_efile_device_info, :submission, :filled, intake: intake }
-    let(:instance) {described_class.new(submission)}
+    let(:instance) { described_class.new(submission) }
     let(:build_response) { instance.build }
     let(:xml) { Nokogiri::XML::Document.parse(build_response.document.to_xml) }
 
@@ -64,15 +64,15 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
         let(:dob) { MultiTenantService.statefile.end_of_current_tax_year - 65.years }
 
         before do
-          intake.dependents.create(
-            first_name: "Grammy",
-            last_name: "Grams",
-            dob: dob,
-            ssn: "111111111",
-            needed_assistance: "yes",
-            relationship: "parent",
-            months_in_home: 12
-          )
+          create :state_file_dependent,
+                 intake: intake,
+                 first_name: "Grammy",
+                 last_name: "Grams",
+                 dob: dob,
+                 ssn: "111111111",
+                 needed_assistance: "yes",
+                 relationship: "parent",
+                 months_in_home: 12
         end
 
         it "claims dependent in QualParentsAncestors" do
