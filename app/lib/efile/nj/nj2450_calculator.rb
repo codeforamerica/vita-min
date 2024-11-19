@@ -8,6 +8,7 @@ module Efile
         @lines = lines
         @intake = intake
         @person = person
+        @w2s = get_persons_w2s(intake, @person.ssn)
       end
 
       def calculate
@@ -18,21 +19,18 @@ module Efile
         @lines.transform_values(&:value)
       end
 
-      def w2s
-        @intake.state_file_w2s.all&.select { |w2| w2.employee_ssn == @person.ssn }
-      end
-
+      
       private
 
       def column_a_total
-        total = w2s.reduce(0) do |sum, w2|
+        total = @w2s.reduce(0) do |sum, w2|
           sum + (w2.box14_ui_hc_wd || 0) + (w2.box14_ui_wf_swf || 0)
         end
         total.round
       end
 
       def column_c_total
-        total = w2s.reduce(0) { |sum, w2| sum + (w2.box14_fli || 0) }
+        total = @w2s.reduce(0) { |sum, w2| sum + (w2.box14_fli || 0) }
         total.round
       end
 

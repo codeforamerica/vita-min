@@ -14,8 +14,10 @@ module SubmissionBuilder
             end
 
             def document
+              w2s = get_persons_w2s(intake, person.ssn)
+
               build_xml_doc("FormNJ2450") do |xml|
-                persons_w2s.each do |w2|
+                w2s.each do |w2|
                   xml.Body do
                     column_a = w2.box14_ui_wf_swf&.positive? ? w2.box14_ui_wf_swf : w2.box14_ui_hc_wd
 
@@ -52,10 +54,6 @@ module SubmissionBuilder
             
             def person
               @kwargs[:person]
-            end
-
-            def persons_w2s
-              intake.state_file_w2s.all&.select { |w2| w2.employee_ssn == person.ssn }
             end
 
             def filer_indicator
