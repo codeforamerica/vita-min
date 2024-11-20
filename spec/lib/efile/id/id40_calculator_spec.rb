@@ -547,11 +547,11 @@ describe Efile::Id::Id40Calculator do
 
   describe "Line 56: Refund" do
     before do
-      # allow_any_instance_of(described_class).to receive(:calculate_line_51).and_return(1200)
+      allow_any_instance_of(described_class).to receive(:calculate_line_55).and_return(1200)
       instance.calculate
     end
 
-    it "should return the refund" do
+    it "should return the line 55" do
       expect(instance.lines[:ID40_LINE_56].value).to eq(1200)
     end
   end

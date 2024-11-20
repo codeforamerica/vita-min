@@ -186,14 +186,14 @@ describe SubmissionBuilder::Ty2024::States::Id::Documents::Id40, required_schema
         allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_51).and_return 50
         allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_54).and_return 100
         allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_55).and_return 150
-        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_56).and_return 200
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_56).and_return 150
       end
 
       it "fills out section" do
         expect(xml.at("TaxDue").text.to_i).to eq 50
         expect(xml.at("TotalDue").text.to_i).to eq 100
         expect(xml.at("OverpaymentAfterPenaltyAndInt").text.to_i).to eq 150
-        expect(xml.at("OverpaymentRefunded").text.to_i).to eq 200
+        expect(xml.at("OverpaymentRefunded").text.to_i).to eq 150
       end
 
       context "when no values" do

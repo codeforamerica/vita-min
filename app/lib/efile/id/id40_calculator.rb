@@ -190,31 +190,27 @@ module Efile
       end
 
       def calculate_line_50
-        # Total Payments and Other Credits. Add lines 43 and 46.
         line_or_zero(:ID40_LINE_43) + line_or_zero(:ID40_LINE_46)
       end
 
       def calculate_line_51
-        # Tax Due. If line 42 is more than line 50, subtract line 50 from line 42
         if line_or_zero(:ID40_LINE_42) > line_or_zero(:ID40_LINE_50)
           line_or_zero(:ID40_LINE_42) - line_or_zero(:ID40_LINE_50)
         end
       end
 
       def calculate_line_54
-        # Total Due. Add lines 51 and 52, then subtract line 53. (line 52 and 53 out of scope)
         line_or_zero(:ID40_LINE_51)
       end
 
       def calculate_line_55
-        # Overpaid. If line 42 is less than line 50, subtract lines 42 and 52 from line 50
         if line_or_zero(:ID40_LINE_42) < line_or_zero(:ID40_LINE_50)
           line_or_zero(:ID40_LINE_50) - line_or_zero(:ID40_LINE_42)
         end
       end
 
       def calculate_line_56
-        # Fill “Refund” field with the amount from Line 56.???
+        line_or_zero(:ID40_LINE_55)
       end
     end
   end
