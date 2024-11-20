@@ -94,7 +94,7 @@ describe Efile::Md::TwoIncomeSubtractionWorksheet do
 
       before do
         # only populating minimum data required for this test
-        intake.direct_file_json_data.interest_reports = [{}, {}]
+        intake.raw_direct_file_intake_data["interestReports"] = [{}, {}]
         intake.direct_file_json_data.interest_reports[0].recipient_tin = primary_ssn
         intake.direct_file_json_data.interest_reports[1].recipient_tin = spouse_ssn
         intake.direct_file_json_data.interest_reports[0].amount_1099 = "1.00"
