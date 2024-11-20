@@ -171,7 +171,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
 
         it "correctly fills answers" do
           expect(xml.document.at('FilingStatus MarriedFilingSeparately').text).to eq "X"
-          expect(xml.document.at('FilingStatus MarriedFilingSeparately')['spouseSSN']).to eq "600000030"
+          expect(xml.document.at('FilingStatus MarriedFilingSeparately')['spouseSSN']).to eq "987654321"
         end
       end
 
