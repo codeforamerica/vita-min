@@ -4,7 +4,7 @@ RSpec.describe PdfFiller::Id40Pdf do
   include PdfSpecHelper
 
   let(:tomorrow_midnight) { DateTime.tomorrow.beginning_of_day }
-  let!(:intake) {
+  let(:intake) {
     create(:state_file_id_intake,
            :single_filer_with_json, # includes phone number data
            primary_esigned: "yes",
@@ -28,18 +28,26 @@ RSpec.describe PdfFiller::Id40Pdf do
         expect(pdf_fields["TaxpayerPhoneNo"]).to eq "2085551234"
       end
     end
-    
+
     context "pulling fields from xml" do
       let(:intake) {
         create(:state_file_id_intake,
                :single_filer_with_json,
                primary_first_name: "Ida",
                primary_last_name: "Idahoan",
-              )
+               payment_or_deposit_type: :direct_deposit,
+               routing_number: "123456789",
+               account_number: "87654321",
+               account_type: "checking"
+        )
       }
       before do
         allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_19).and_return(2000)
         allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_20).and_return(199.80)
+      end
+
+      before do
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:refund_or_owed_amount).and_return 500
       end
 
       it 'sets static fields to the correct values' do
@@ -85,6 +93,11 @@ RSpec.describe PdfFiller::Id40Pdf do
         expect(pdf_fields['TxCompL20']).to eq '200'
         expect(pdf_fields['L21']).to eq '200' # same as L20
         expect(pdf_fields['CreditsL23']).to eq '0'
+
+        expect(pdf_fields['DirectDepositL57Route']).to eq "123456789"
+        expect(pdf_fields['DirectDepositL57Acct']).to eq "87654321"
+        expect(pdf_fields['DirectDepositChecking']).to eq "Yes"
+        expect(pdf_fields['DirectDepositSavings ']).to eq "Off"
       end
 
       context "when claimed as dependent" do
@@ -239,7 +252,7 @@ RSpec.describe PdfFiller::Id40Pdf do
                    :single_filer_with_json,
                    :filing_requirement,
                    received_id_public_assistance: :yes
-                   )
+            )
           }
           it "sets the correct filing status field" do
             expect(pdf_fields['OtherTaxesL32Check']).to eq 'Yes'
@@ -252,7 +265,7 @@ RSpec.describe PdfFiller::Id40Pdf do
                    :single_filer_with_json,
                    :filing_requirement,
                    received_id_public_assistance: :no
-                   )
+            )
           }
           it "sets the correct filing status field" do
             expect(pdf_fields['OtherTaxesL32Check']).to eq 'Off'
@@ -265,7 +278,7 @@ RSpec.describe PdfFiller::Id40Pdf do
           create(:state_file_id_intake,
                  :single_filer_with_json,
                  :no_filing_requirement,
-                 )
+          )
         }
         it "sets the correct filing status field" do
           expect(pdf_fields['OtherTaxesL32Check']).to eq 'Off'
