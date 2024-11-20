@@ -2678,14 +2678,15 @@ en:
         edit:
           authorize_follow_up: If yes, the Comptroller’s Office will share your information and the email address on file with Maryland Health Connection.
           authorize_share_health_information: Do you authorize the Comptroller of Maryland to share information from this tax return with Maryland Health Connection for the purpose of determining pre-eligibility for no-cost or low-cost health care coverage?
-          bullet_blindness_status: Blindness status
-          bullet_fed_agi: Your federal adjusted gross income amount from Line 1
-          bullet_filing_status: Filing status reported on your return
-          bullet_insured_status: Insured/ uninsured status of each individual included in your return
-          bullet_mailing_address: Your current mailing address, email address, and phone number
-          bullet_name_ssn: Name, SSN/ITIN, and date of birth of each individual identified on your return
-          bullet_number_in_household: Total number of individuals in your household included in your return
-          bullet_relationship_to_primary: Relationship (self, spouse, or dependent) to the primary taxpayer for each individual included in your return
+          authorize_to_share_info:
+            - Blindness status
+            - Your federal adjusted gross income amount from Line 1
+            - Filing status reported on your return
+            - Insured/ uninsured status of each individual included in your return
+            - Your current mailing address, email address, and phone number
+            - Name, SSN/ITIN, and date of birth of each individual identified on your return
+            - Total number of individuals in your household included in your return
+            - Relationship (self, spouse, or dependent) to the primary taxpayer for each individual included in your return
           following_will_be_shared: 'If you authorize information sharing, we will share the following information with Maryland Health Connection (MHC):'
           information_use: Information shared with MHC will be used to determine eligibility for insurance affordability programs or to assist with enrollment in health coverage.
           more_info: If you would like more information about the health insurance affordability programs or healthcare coverage enrollment, visit Maryland Health Connection at <a href="%{link}" target="_blank" rel="noopener noreferrer">marylandhealthconnection.gov/easyenrollment/</a>.

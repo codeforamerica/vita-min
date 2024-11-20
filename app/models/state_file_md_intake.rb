@@ -162,7 +162,7 @@ class StateFileMdIntake < StateFileBaseIntake
 
   def has_dependent_without_health_insurance?
     dependents.any? do |dependent|
-      dependent.md_did_not_have_health_insurance == "yes"
+      dependent.md_did_not_have_health_insurance_yes?
     end
   end
 

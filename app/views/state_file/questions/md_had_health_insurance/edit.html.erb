@@ -1,4 +1,3 @@
-<% filing_year = Rails.configuration.statefile_current_tax_year %>
 <% title = t(".title") %>
 
 <% content_for :page_title, title %>
@@ -60,16 +59,9 @@
           </p>
           <div class="reveal__content">
             <p><%= t('.following_will_be_shared') %></p>
-            <ul>
-              <li><%= t('.bullet_name_ssn') %></li>
-              <li><%= t('.bullet_mailing_address') %></li>
-              <li><%= t('.bullet_filing_status') %></li>
-              <li><%= t('.bullet_number_in_household') %></li>
-              <li><%= t('.bullet_insured_status') %></li>
-              <li><%= t('.bullet_blindness_status') %></li>
-              <li><%= t('.bullet_relationship_to_primary') %></li>
-              <li><%= t('.bullet_fed_agi') %></li>
-            </ul>
+            <% t(".authorize_to_share_info").each do |client_info| %>
+              <li><%= client_info %></li>
+            <% end %>
             <p class="spacing-above-15"><%= t('.information_use') %></p>
             <p><%= t('.more_info', link: "https://marylandhealthconnection.gov/easyenrollment/").html_safe %></p>
           </div>
