@@ -294,14 +294,17 @@ RSpec.describe PdfFiller::Md502Pdf do
     end
 
     context "subtractions" do
+      let(:two_income_subtraction_amount) { 1200 }
       before do
         intake.direct_file_data.total_qualifying_dependent_care_expenses = 1200
         intake.direct_file_data.fed_taxable_ssb = 240
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_14).and_return two_income_subtraction_amount
       end
 
       it "fills out subtractions fields correctly" do
         expect(pdf_fields["Enter 9"].to_i).to eq 1200
         expect(pdf_fields["Enter 11"].to_i).to eq 240
+        expect(pdf_fields["Enter 14"].to_i).to eq two_income_subtraction_amount
       end
 
       context "with 502SU Subtractions" do

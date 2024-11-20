@@ -55,7 +55,9 @@ module Efile
         set_line(:MD502_LINE_7, :calculate_line_7)
 
         # Subtractions
+        set_line(:MD502_LINE_9, @direct_file_data, :total_qualifying_dependent_care_expenses)
         set_line(:MD502_LINE_10A, :calculate_line_10a) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
+        set_line(:MD502_LINE_11, @direct_file_data, :fed_taxable_ssb)
         @md502_su.calculate
         set_line(:MD502_LINE_13, :calculate_line_13)
         if filing_status_mfj?
@@ -337,9 +339,9 @@ module Efile
 
       def calculate_line_15
         [
-          @direct_file_data.total_qualifying_dependent_care_expenses, # line 9
-          @direct_file_data.fed_taxable_ssb, # line 11
+          line_or_zero(:MD502_LINE_9),
           line_or_zero(:MD502_LINE_10A),
+          line_or_zero(:MD502_LINE_11),
           line_or_zero(:MD502_LINE_13),
           line_or_zero(:MD502_LINE_14),
         ].sum

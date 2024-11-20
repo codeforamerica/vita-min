@@ -114,10 +114,10 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
         xml.FedAGIAndStateAdditions calculated_fields.fetch(:MD502_LINE_7)
       end
       xml.Subtractions do
-        xml.ChildAndDependentCareExpenses @direct_file_data.total_qualifying_dependent_care_expenses
-        xml.SocialSecurityRailRoadBenefits @direct_file_data.fed_taxable_ssb
-        xml.Other calculated_fields.fetch(:MD502_LINE_13)
-        xml.TwoIncome calculated_fields.fetch(:MD502_LINE_14)
+        add_element_if_present(xml, "ChildAndDependentCareExpenses", :MD502_LINE_9)
+        add_element_if_present(xml, "SocialSecurityRailRoadBenefits", :MD502_LINE_11)
+        add_element_if_present(xml, "Other", :MD502_LINE_13)
+        add_element_if_present(xml, "TwoIncome", :MD502_LINE_14)
         add_element_if_present(xml, "Total", :MD502_LINE_15)
         add_element_if_present(xml, "StateAdjustedGrossIncome", :MD502_LINE_16)
       end
@@ -199,5 +199,9 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
   def add_element_if_present(xml, tag, line_id)
     value = calculated_fields.fetch(line_id)
     xml.send(tag, value) if value.present?
+  end
+
+  def any_line_present?(line_ids)
+    line_ids.map { |line_id| calculated_fields.fetch(line_id).present? }.any?
   end
 end
