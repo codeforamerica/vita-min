@@ -2046,6 +2046,23 @@ en:
       standard_deduction: Standard deduction
       title: Free AZ and NY state tax filing
       total_tax: Total tax
+      id_fed_agi: Federal adjusted gross income
+      id_child_care_expenses: Subtraction for child and dependent care expenses
+      id_health_insurance: Subtraction for health insurance premiums
+      id_social_security_income: Social Security income (not taxed in Idaho)
+      id_retirement_benefits: Retirement Benefits Deduction
+      id_interest_income: Interest income from U.S. bonds (not taxed in Idaho)
+      id_adjusted_income: Total Idaho Adjusted Income
+      id_standard_deduction: Standard deduction
+      id_taxable_income: Idaho taxable income
+      id_tax: Idaho tax
+      id_child_tax_credit: Idaho Child Tax Credit
+      id_use_tax: Use tax
+      id_building_fund_tax: Permanent Building Fund tax
+      id_tax_after_credits: Tax after nonrefundable credits
+      id_tax_withheld: Idaho tax withheld
+      id_grocery_credit: Refundable Grocery Credit
+      id_total_payments: Total payments and refundable credits
     intake_logins:
       account_locked:
         body_html: This account has been locked due to too many failed login attempts. If you need help unlocking this account, please email us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
