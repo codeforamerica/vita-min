@@ -884,9 +884,9 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       it "totals line 6-12 and writes it to line 13" do
         # thousands
         expect(pdf_fields["undefined_15"]).to eq ""
-        expect(pdf_fields["undefined_16"]).to eq "1"
+        expect(pdf_fields["undefined_16"]).to eq "2"
         # hundreds
-        expect(pdf_fields["undefined_17"]).to eq "0"
+        expect(pdf_fields["undefined_17"]).to eq "5"
         expect(pdf_fields["Text50"]).to eq "0"
         expect(pdf_fields["Text51"]).to eq "0"
         # decimals
@@ -898,9 +898,9 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         # thousands
         expect(pdf_fields["30"]).to eq ""
         expect(pdf_fields["210"]).to eq ""
-        expect(pdf_fields["211"]).to eq "1"
+        expect(pdf_fields["211"]).to eq "2"
         # hundreds
-        expect(pdf_fields["undefined_90"]).to eq "0"
+        expect(pdf_fields["undefined_90"]).to eq "5"
         expect(pdf_fields["212"]).to eq "0"
         expect(pdf_fields["213"]).to eq "0"
         # decimals
