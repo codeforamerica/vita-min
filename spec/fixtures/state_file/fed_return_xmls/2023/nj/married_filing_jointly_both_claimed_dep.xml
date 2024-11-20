@@ -32,6 +32,7 @@
       <SpouseNm>Ernie Muppet</SpouseNm>
       <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
       <PrimaryClaimAsDependentInd>X</PrimaryClaimAsDependentInd>
+      <SpouseClaimAsDependentInd>X</SpouseClaimAsDependentInd>
       <TotalBoxesCheckedCnt>1</TotalBoxesCheckedCnt>
       <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
       <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>

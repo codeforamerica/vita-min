@@ -2340,7 +2340,7 @@ en:
       data_transfer_offboarding:
         edit:
           ineligible_reason:
-            exempt_interest_exceeds_10k: your tax exempt interest income exceeds $10,000.
+            exempt_interest_exceeds_10k: you had more than $10,000 in tax-exempt interest income.
             has_irc_125_code: W2 lists IRC 125 benefit plan amounts.
             has_out_of_state_w2: you earned income in another state in 2023.
             has_yonkers_income: lived, earned income, or maintained a home in Yonkers in 2023.
@@ -2373,6 +2373,7 @@ en:
             eligibility_withdrew_529: withdrew money from a 529 college savings account in 2023
             eligibility_withdrew_msa_fthb: withdrew money from a medical savings account or a first-time homebuyer account
             eligibility_yonkers: lived or earned income in Yonkers in 2023
+            health_insurance_eligibility: and all members of your tax household did not have health insurance (with minimum essential coverage) for every month in %{filing_year}
             nyc_maintained_home: you lived in or maintained a home in New York City for some of the year.
             nyc_residency: you lived in or maintained a home in New York City for some of the year.
             permanent_address_outside_ny: you did not live in New York for all of 2023
@@ -2826,6 +2827,12 @@ en:
           primary_eitc_qualifying_child_question: In %{filing_year}, could you be someone else's qualifying child for the Earned Income Tax Credit?
           spouse_eitc_qualifying_child_question: In %{filing_year}, could your spouse be someone else's qualifying child for the Earned Income Tax Credit?
           title: You may be eligible for the Earned Income Tax Credit
+      nj_eligibility_health_insurance:
+        edit:
+          helper_description_html: "<p>Most people who have health insurance have minimum essential coverage. “Minimal essential coverage” just refers to how much your plan covers. If you have any of the following, you most likely have it:</p>\n<ul>\n  <li>A plan through your employer</li>\n  <li>A plan bought through <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://nj.gov/getcoverednj/\">GetCoveredNJ</a></li>\n  <li>Medicare</li> \n  <li>Medicaid (NJ FamilyCare)</li>\n</ul>\n<p><a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml\">Here is the full list of insurance options that have minimum essential coverage.</a><p> \n<p>If you only had standalone vision and dental plans, workers' compensation coverage, and/or coverage limited to a specified disease or illness, you didn't have minimum essential coverage. In New Jersey, as of 2018, you need minimum essential coverage, or you will likely pay additional taxes.</p>\n"
+          helper_heading: What is health insurance with minimum essential coverage?
+          label: Did you and all members of your tax household have health insurance (with minimum essential coverage) for every month in %{filing_year}?
+          title: Let’s get started.
       nj_estimated_tax_payments:
         edit:
           label: Total
