@@ -594,8 +594,12 @@ MD502_LINE_D_COUNT_TOTAL:
   label: 'D Total Exemption Count: add lines A, B and C counts'
 MD502_LINE_D_AMOUNT_TOTAL:
   label: 'D Total Exemption Dollar Amount: add lines A, B and C amounts'
+MD502_LINE_9:
+  label: 'Child and dependent care expenses'
 MD502_LINE_10A:
   label: 'TBD'
+MD502_LINE_11:
+  label: 'Taxable Social Security and RR benefits (Tier I, II and supplemental) included in line 1'
 MD502_LINE_13:
   label: 'Subtractions from attached form 502SU'
 MD_TWO_INCOME_WK_LINE_1_A:
