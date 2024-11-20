@@ -41,11 +41,11 @@ module Efile
                                                 }
         retirement_income = @intake.state_file1099_rs
                                    .select { |form1099r| form1099r.recipient_ssn == filer.ssn }
-                                   .sum(&:taxable_amount)
+                                   .sum { |form1099r| form1099r.taxable_amount.round }
         # TODO: check in about getting this from DF JSON instead
         unemployment_income = @intake.state_file1099_gs
                                      .select { |form1099g| form1099g.recipient.to_sym == primary_or_spouse }
-                                     .sum(&:unemployment_compensation_amount)
+                                     .sum { |form1099g| form1099g.unemployment_compensation_amount.round }
 
         wage_income +
           interest_income +
@@ -121,7 +121,7 @@ module Efile
       end
 
       def calculate_line_7
-        [@lines[:MD_TWO_INCOME_WK_LINE_6].value, 1_200].min
+        @lines[:MD_TWO_INCOME_WK_LINE_6].value.clamp(0, 1_200)
       end
     end
   end

@@ -31,12 +31,7 @@ describe Efile::Md::TwoIncomeSubtractionWorksheet do
     end
 
     context "primary and spouse have only retirement income" do
-      before do
-        intake.direct_file_data.w2_nodes.each do |w2_node|
-          w2_node.content = nil
-        end
-        intake.update!(raw_direct_file_data: intake.direct_file_data.to_s)
-      end
+      let(:intake) { create(:state_file_md_intake, :with_spouse, :with_w2s_removed) }
       let(:primary_ssn) { intake.primary.ssn }
       let(:spouse_ssn) { intake.spouse.ssn }
       let!(:primary_state_file1099_r) { create(:state_file1099_r, intake: intake, recipient_ssn: primary_ssn, taxable_amount: 100) }
@@ -49,12 +44,7 @@ describe Efile::Md::TwoIncomeSubtractionWorksheet do
     end
 
     context "primary and spouse have only unemployment income" do
-      before do
-        intake.direct_file_data.w2_nodes.each do |w2_node|
-          w2_node.content = nil
-        end
-        intake.update!(raw_direct_file_data: intake.direct_file_data.to_s)
-      end
+      let(:intake) { create(:state_file_md_intake, :with_spouse, :with_w2s_removed) }
       let!(:primary_state_file1099_g) { create(:state_file1099_g, intake: intake, recipient: :primary, unemployment_compensation_amount: 600) }
       let!(:spouse_state_file1099_g) { create(:state_file1099_g, intake: intake, recipient: :spouse, unemployment_compensation_amount: 400) }
       it "calculates the fed income amount for primary and spouse" do
@@ -122,14 +112,73 @@ describe Efile::Md::TwoIncomeSubtractionWorksheet do
   end
 
   describe "#calculate_line_1" do
-    before do
-      instance.calculate
-      intake.synchronize_df_w2s_to_database
-    end
+    context "calculating federal agi" do
+      it "calculates a positive fed agi for primary and spouse" do
+        allow_any_instance_of(described_class).to receive(:calculate_fed_income) do |_, primary_or_spouse|
+          case primary_or_spouse
+          when :primary
+            100
+          when :spouse
+            200
+          end
+        end
+        allow_any_instance_of(described_class).to receive(:calculate_fed_subtractions) do |_, primary_or_spouse|
+          case primary_or_spouse
+          when :primary
+            10
+          when :spouse
+            20
+          end
+        end
+        instance.calculate
 
-    context "primary and spouse have only w2 income" do
-      it "calculates the fed income amount for primary and spouse" do
-        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_1_A].value).to eq(9_000)
+        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_1_A].value).to eq(90)
+        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_1_B].value).to eq(180)
+      end
+
+      it "calculates a negative fed agi for primary and spouse" do
+        allow_any_instance_of(described_class).to receive(:calculate_fed_income) do |_, primary_or_spouse|
+          case primary_or_spouse
+          when :primary
+            100
+          when :spouse
+            200
+          end
+        end
+        allow_any_instance_of(described_class).to receive(:calculate_fed_subtractions) do |_, primary_or_spouse|
+          case primary_or_spouse
+          when :primary
+            110
+          when :spouse
+            220
+          end
+        end
+        instance.calculate
+
+        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_1_A].value).to eq(-10)
+        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_1_B].value).to eq(-20)
+      end
+
+      it "calculates a 0 fed agi for primary and spouse" do
+        allow_any_instance_of(described_class).to receive(:calculate_fed_income) do |_, primary_or_spouse|
+          case primary_or_spouse
+          when :primary
+            100
+          when :spouse
+            200
+          end
+        end
+        allow_any_instance_of(described_class).to receive(:calculate_fed_subtractions) do |_, primary_or_spouse|
+          case primary_or_spouse
+          when :primary
+            100
+          when :spouse
+            200
+          end
+        end
+        instance.calculate
+
+        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_1_A].value).to eq(0)
         expect(instance.lines[:MD_TWO_INCOME_WK_LINE_1_B].value).to eq(0)
       end
     end
@@ -158,16 +207,73 @@ describe Efile::Md::TwoIncomeSubtractionWorksheet do
   end
 
   describe "#calculate_line_3" do
-    before do
-      instance.calculate
-    end
+    context "calculating federal agi plus state additions" do
+      it "calculates a positive amount for primary and spouse" do
+        allow_any_instance_of(described_class).to receive(:calculate_line_1) do |_, primary_or_spouse|
+          case primary_or_spouse
+          when :primary
+            100
+          when :spouse
+            200
+          end
+        end
+        allow_any_instance_of(described_class).to receive(:calculate_line_2) do |_, primary_or_spouse|
+          case primary_or_spouse
+          when :primary
+            10
+          when :spouse
+            20
+          end
+        end
+        instance.calculate
 
-    context "no fed income, no fed subtractions, no state additions" do
-      it "adds state additions to current amount" do
-        # allow_any_instance_of(Efile::Md::TwoIncomeSubtractionWorksheet).to receive(:calculate_line_1).and_return 1
-        # allow_any_instance_of(Efile::Md::TwoIncomeSubtractionWorksheet).to receive(:calculate_line_2).and_return 2
+        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_3_A].value).to eq(110)
+        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_3_B].value).to eq(220)
+      end
 
-        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_3_A].value).to eq(9_000)
+      it "calculates a negative amount for primary and spouse" do
+        allow_any_instance_of(described_class).to receive(:calculate_line_1) do |_, primary_or_spouse|
+          case primary_or_spouse
+          when :primary
+            -100
+          when :spouse
+            -200
+          end
+        end
+        allow_any_instance_of(described_class).to receive(:calculate_line_2) do |_, primary_or_spouse|
+          case primary_or_spouse
+          when :primary
+            10
+          when :spouse
+            20
+          end
+        end
+        instance.calculate
+
+        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_3_A].value).to eq(-90)
+        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_3_B].value).to eq(-180)
+      end
+
+      it "calculates a 0 for primary and spouse" do
+        allow_any_instance_of(described_class).to receive(:calculate_line_1) do |_, primary_or_spouse|
+          case primary_or_spouse
+          when :primary
+            -100
+          when :spouse
+            -200
+          end
+        end
+        allow_any_instance_of(described_class).to receive(:calculate_line_2) do |_, primary_or_spouse|
+          case primary_or_spouse
+          when :primary
+            100
+          when :spouse
+            200
+          end
+        end
+        instance.calculate
+
+        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_3_A].value).to eq(0)
         expect(instance.lines[:MD_TWO_INCOME_WK_LINE_3_B].value).to eq(0)
       end
     end
@@ -196,37 +302,144 @@ describe Efile::Md::TwoIncomeSubtractionWorksheet do
   end
 
   describe "#calculate_line_5" do
-    before do
-      instance.calculate
-    end
+    context "calculating federal agi plus state additions, minus state subtractions" do
+      it "calculates a positive amount for primary and spouse" do
+        allow_any_instance_of(described_class).to receive(:calculate_line_3) do |_, primary_or_spouse|
+          case primary_or_spouse
+          when :primary
+            100
+          when :spouse
+            200
+          end
+        end
+        allow_any_instance_of(described_class).to receive(:calculate_line_4) do |_, primary_or_spouse|
+          case primary_or_spouse
+          when :primary
+            10
+          when :spouse
+            20
+          end
+        end
+        instance.calculate
 
-    context "no fed income, no fed subtractions, no state additions" do
-      it "subtracts state subtractions from current amount" do
-        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_5_A].value).to eq(9_000)
+        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_5_A].value).to eq(90)
+        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_5_B].value).to eq(180)
+      end
+
+      it "calculates a negative amount for primary and spouse" do
+        allow_any_instance_of(described_class).to receive(:calculate_line_3) do |_, primary_or_spouse|
+          case primary_or_spouse
+          when :primary
+            100
+          when :spouse
+            200
+          end
+        end
+        allow_any_instance_of(described_class).to receive(:calculate_line_4) do |_, primary_or_spouse|
+          case primary_or_spouse
+          when :primary
+            110
+          when :spouse
+            220
+          end
+        end
+        instance.calculate
+
+        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_5_A].value).to eq(-10)
+        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_5_B].value).to eq(-20)
+      end
+
+      it "calculates a 0 for primary and spouse" do
+        allow_any_instance_of(described_class).to receive(:calculate_line_3) do |_, primary_or_spouse|
+          case primary_or_spouse
+          when :primary
+            100
+          when :spouse
+            200
+          end
+        end
+        allow_any_instance_of(described_class).to receive(:calculate_line_4) do |_, primary_or_spouse|
+          case primary_or_spouse
+          when :primary
+            100
+          when :spouse
+            200
+          end
+        end
+        instance.calculate
+
+        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_5_A].value).to eq(0)
         expect(instance.lines[:MD_TWO_INCOME_WK_LINE_5_B].value).to eq(0)
       end
     end
   end
 
   describe "#calculate_line_6" do
-    before do
-      instance.calculate
-    end
+    context "returning the lower income" do
+      it "returns an income greater than 1_200" do
+        allow_any_instance_of(described_class).to receive(:calculate_line_5) do |_, primary_or_spouse|
+          case primary_or_spouse
+          when :primary
+            1_201
+          when :spouse
+            1_202
+          end
+        end
+        instance.calculate
 
-    context "no agi" do
-      it "returns the lower agi of the two filers" do
+        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_6].value).to eq(1_201)
+      end
+
+      it "returns an income between 1200 and 0" do
+        allow_any_instance_of(described_class).to receive(:calculate_line_5) do |_, primary_or_spouse|
+          case primary_or_spouse
+          when :primary
+            1_201
+          when :spouse
+            1_000
+          end
+        end
+        instance.calculate
+
+        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_6].value).to eq(1000)
+      end
+
+      it "returns 0 if the lower income is below 0" do
+        allow_any_instance_of(described_class).to receive(:calculate_line_5) do |_, primary_or_spouse|
+          case primary_or_spouse
+          when :primary
+            1_201
+          when :spouse
+            -1
+          end
+        end
+        instance.calculate
+
         expect(instance.lines[:MD_TWO_INCOME_WK_LINE_6].value).to eq(0)
       end
     end
   end
 
   describe "#calculate_line_7" do
-    before do
-      instance.calculate
-    end
+    context "returning the final subtraction amount" do
+      it "returns the lower income amount when line 6 is within the limit" do
+        allow_any_instance_of(described_class).to receive(:calculate_line_6).and_return(1_000)
+        instance.calculate
 
-    context "no agi" do
-      it "returns the maximum subtraction amount" do
+        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_7].value).to eq(1_000)
+      end
+
+      it "returns the maximum subtraction amount when line 6 is greater than the limit" do
+        allow_any_instance_of(described_class).to receive(:calculate_line_6).and_return(1_201)
+        instance.calculate
+
+        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_7].value).to eq(1_200)
+      end
+
+      it "returns the minimum subtraction amount when line 6 is less than the limit" do
+        allow_any_instance_of(described_class).to receive(:calculate_line_6).and_return(-1)
+        instance.calculate
+
         expect(instance.lines[:MD_TWO_INCOME_WK_LINE_7].value).to eq(0)
       end
     end
