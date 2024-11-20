@@ -29,23 +29,22 @@ module Efile
       end
 
       def calculate_fed_income(primary_or_spouse)
-        filer = @intake.send(primary_or_spouse)
+        filer_ssn = @intake.send(primary_or_spouse).ssn
 
         wage_income = @direct_file_data.w2s
-          .select { |w2| w2.EmployeeSSN == filer.ssn }
+          .select { |w2| w2.EmployeeSSN == filer_ssn }
           .sum { |w2| w2.WagesAmt&.round }
 
         interest_income = @direct_file_json_data.interest_reports
-          .select { |interest_report| interest_report.recipient_tin.delete("-") == filer.ssn }
+          .select { |interest_report| interest_report.recipient_tin.delete("-") == filer_ssn }
           .sum { |interest_report|
             (interest_report.amount_1099&.round || 0) + (interest_report.amount_no_1099&.round || 0)
           }
 
         retirement_income = @intake.state_file1099_rs
-          .select { |form1099r| form1099r.recipient_ssn == filer.ssn }
+          .select { |form1099r| form1099r.recipient_ssn == filer_ssn }
           .sum { |form1099r| form1099r.taxable_amount&.round }
 
-        # TODO: check in about getting this from DF JSON instead
         unemployment_income = @intake.state_file1099_gs
           .select { |form1099g| form1099g.recipient.to_sym == primary_or_spouse }
           .sum { |form1099g| form1099g.unemployment_compensation_amount&.round }
