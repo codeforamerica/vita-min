@@ -1177,7 +1177,7 @@ describe Efile::Nj::Nj1040Calculator do
     end
 
     context 'married filing jointly' do
-      let(:intake) { create(:state_file_nj_intake, :df_data_mfj) }
+      let(:intake) { create(:state_file_nj_intake, :married_filing_jointly) }
       let(:primary_ssn_from_fixture) { intake.primary.ssn }
       let(:spouse_ssn_from_fixture) { intake.spouse.ssn }
       let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_ui_hc_wd: 10) }
@@ -1291,7 +1291,7 @@ describe Efile::Nj::Nj1040Calculator do
     end
 
     context 'married filing jointly' do
-      let(:intake) { create(:state_file_nj_intake, :df_data_mfj) }
+      let(:intake) { create(:state_file_nj_intake, :married_filing_jointly) }
       let(:primary_ssn_from_fixture) { intake.primary.ssn }
       let(:spouse_ssn_from_fixture) { intake.spouse.ssn }
       let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_fli: 10) }

@@ -1647,7 +1647,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
     end
 
     describe "line 59 - excess UI/WF/SWF or UI/HC/WD" do
-      let(:intake) { create(:state_file_nj_intake, :df_data_mfj) }
+      let(:intake) { create(:state_file_nj_intake) }
 
       context "without excess contributions" do 
         it "does not fill line 59" do 
@@ -1682,7 +1682,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
     end
 
     describe "line 61 - excess FLI" do
-      let(:intake) { create(:state_file_nj_intake, :df_data_mfj) }
+      let(:intake) { create(:state_file_nj_intake) }
 
       context "without excess contributions" do 
         it "does not fill line 61" do 

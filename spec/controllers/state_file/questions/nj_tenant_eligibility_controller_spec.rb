@@ -44,7 +44,7 @@ RSpec.describe StateFile::Questions::NjTenantEligibilityController do
     end
 
     context "when a user is not MFS" do
-      let(:intake) { create :state_file_nj_intake, :df_data_mfj }
+      let(:intake) { create :state_file_nj_intake, :married_filing_jointly }
 
       it "does not show the tenant_same_home_spouse checkbox" do
         get :edit
