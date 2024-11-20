@@ -16,6 +16,7 @@ module Efile
         set_line(:NJ1040_LINE_6_SPOUSE, :line_6_spouse_checkbox)
         set_line(:NJ1040_LINE_7_SELF, :line_7_self_checkbox)
         set_line(:NJ1040_LINE_7_SPOUSE, :line_7_spouse_checkbox)
+        set_line(:NJ1040_LINE_12_COUNT, :line_12_count)
         set_line(:NJ1040_LINE_13, :calculate_line_13)
         set_line(:NJ1040_LINE_15, :calculate_line_15)
         set_line(:NJ1040_LINE_16A, :calculate_line_16a)
@@ -157,6 +158,10 @@ module Efile
         @intake.spouse_senior?
       end
 
+      def line_12_count
+        @intake.dependents.count(&:nj_qualifies_for_college_exemption?)
+      end
+
       def calculate_line_7
         number_of_line_7_exemptions = number_of_true_checkboxes([line_7_self_checkbox,
                                                                  line_7_spouse_checkbox])
@@ -174,6 +179,10 @@ module Efile
         number_of_line_9_exemptions * 6_000
       end
 
+      def calculate_line_12
+        line_12_count * 1_000
+      end
+
       private
 
       def line_6_spouse_checkbox
@@ -181,7 +190,7 @@ module Efile
       end
 
       def calculate_line_13
-        calculate_line_6 + calculate_line_7 + calculate_line_8 + calculate_line_9
+        calculate_line_6 + calculate_line_7 + calculate_line_8 + calculate_line_9 + calculate_line_12
       end
 
       def calculate_line_15
