@@ -2765,27 +2765,27 @@ es:
         primary_veteran_question: "¿Eres un veterano?"
         spouse_veteran_question: "¿Es su cónyuge un veterano?"
         title: Pregunta sobre el estatus de veterano
+      nj_college_dependents_exemption:
+        edit:
+          birthdate_label: 'Birthdate:'
+          college_helper_description: '"College"  is an accredited college or post-secondary school, maintains a regular faculty and curriculum, and has a group of students in attendance.'
+          college_helper_heading: What counts as "college"?
+          dependent_attends_accredited_program: "%{dependent_first} is attending an accredited college or post-secondary school."
+          dependent_enrolled_full_time: "%{dependent_first} attends there full time."
+          dependent_five_months_in_college: "%{dependent_first} spends at least some part of each of five calendar months in that college."
+          dependent_header: "(dependent)"
+          filer_pays_tuition_books: I (or my spouse, if I am filing jointly) pay for more than one-half or more of %{dependent_first}'s tuition and college costs.
+          full_time_college_helper_description: '"Full time" is whatever the college considers to be full-time.'
+          full_time_college_helper_heading: What counts as "attending college full time"?
+          label_1: For each person claimed on your return (dependent) who is attending college, we need to confirm some details.
+          label_2: "(You can only claim this credit for dependents listed on your return.)"
+          title: You may qualify for an additional exemption for dependents who are attending college.
+          tuition_books_helper_description_html: To calculate the total amount, add together the cost of college tuition, the cost of books (and supplies), and any money earned by the student in college work study programs. Do not include other financial aid received.
+          tuition_books_helper_heading: How should I calculate the total amount of tuition and college costs?
       nj_county:
         edit:
           county: Condado
           title: Selecciona el condado donde viviste el 31 de diciembre de %{filing_year}
-      nj_college_dependents_exemption:
-        edit:
-          title: You may qualify for an additional exemption for dependents who are attending college.
-          label_1: For each person claimed on your return (dependent) who is attending college, we need to confirm some details.
-          label_2: (You can only claim this credit for dependents listed on your return.)
-          birthdate_label: "Birthdate:"
-          dependent_header: (dependent)
-          college_helper_heading: "What counts as \"college\"?"
-          college_helper_description: "\"College\"  is an accredited college or post-secondary school, maintains a regular faculty and curriculum, and has a group of students in attendance."
-          full_time_college_helper_heading: "What counts as \"attending college full time\"?"
-          full_time_college_helper_description: "\"Full time\" is whatever the college considers to be full-time."
-          tuition_books_helper_heading: How should I calculate the total amount of tuition and college costs?
-          tuition_books_helper_description_html: To calculate the total amount, add together the cost of college tuition, the cost of books (and supplies), and any money earned by the student in college work study programs. Do not include other financial aid received.
-          dependent_attends_accredited_program: "%{dependent_first} is attending an accredited college or post-secondary school."
-          dependent_enrolled_full_time: "%{dependent_first} attends there full time."
-          dependent_five_months_in_college: "%{dependent_first} spends at least some part of each of five calendar months in that college."
-          filer_pays_tuition_books: I (or my spouse, if I am filing jointly) pay for more than one-half or more of %{dependent_first}'s tuition and college costs.
       nj_disabled_exemption:
         edit:
           instructions_html: Las personas con discapacidad tienen derecho a exenciones de impuestos. <br><br> En Nueva Jersey, se le considera discapacitado si tiene una "incapacidad <b>total y permanente</b> para participar en cualquier actividad sustancial y lucrativa debido a cualquier impedimento físico o mental, incluida la ceguera". <br><br> (Esto es diferente de la definición de impuestos federales. Nueva Jersey no tiene en cuenta su edad ni su percepción de ingresos por discapacidad sujetos a impuestos.)
