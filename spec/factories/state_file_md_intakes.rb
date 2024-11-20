@@ -180,25 +180,5 @@ FactoryBot.define do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('md_todd_1099_int') }
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('md_todd_1099_int') }
     end
-
-    trait :df_data_1099_int_with_spouse do
-      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('md_todd_1099_int') }
-      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('md_todd_and_spouse_1099_int') }
-      filing_status { 'married_filing_jointly' }
-      spouse_first_name { "Marty" }
-      spouse_middle_initial { "B" }
-      spouse_last_name { "Lando" }
-      spouse_birth_date { MultiTenantService.statefile.end_of_current_tax_year - 40 }
-    end
-
-    trait :with_w2s_removed do
-      after :create do |intake|
-        intake.direct_file_data.w2_nodes.each do |w2_node|
-          w2_node.content = nil
-        end
-        intake.update!(raw_direct_file_data: intake.direct_file_data.to_s)
-        intake.synchronize_df_w2s_to_database
-      end
-    end
   end
 end

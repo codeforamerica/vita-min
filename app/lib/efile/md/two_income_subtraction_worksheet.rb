@@ -32,20 +32,23 @@ module Efile
         filer = @intake.send(primary_or_spouse)
 
         wage_income = @direct_file_data.w2s
-                                       .select { |w2| w2.EmployeeSSN == filer.ssn }
-                                       .sum(&:WagesAmt)
+          .select { |w2| w2.EmployeeSSN == filer.ssn }
+          .sum { |w2| w2.WagesAmt&.round }
+
         interest_income = @direct_file_json_data.interest_reports
-                                                .select { |interest_report| interest_report.recipient_tin.delete("-") == filer.ssn }
-                                                .sum { |interest_report|
-                                                  interest_report.amount_1099.round + interest_report.amount_no_1099.round
-                                                }
+          .select { |interest_report| interest_report.recipient_tin.delete("-") == filer.ssn }
+          .sum { |interest_report|
+            (interest_report.amount_1099&.round || 0) + (interest_report.amount_no_1099&.round || 0)
+          }
+
         retirement_income = @intake.state_file1099_rs
-                                   .select { |form1099r| form1099r.recipient_ssn == filer.ssn }
-                                   .sum { |form1099r| form1099r.taxable_amount.round }
+          .select { |form1099r| form1099r.recipient_ssn == filer.ssn }
+          .sum { |form1099r| form1099r.taxable_amount&.round }
+
         # TODO: check in about getting this from DF JSON instead
         unemployment_income = @intake.state_file1099_gs
-                                     .select { |form1099g| form1099g.recipient.to_sym == primary_or_spouse }
-                                     .sum { |form1099g| form1099g.unemployment_compensation_amount.round }
+          .select { |form1099g| form1099g.recipient.to_sym == primary_or_spouse }
+          .sum { |form1099g| form1099g.unemployment_compensation_amount&.round }
 
         wage_income +
           interest_income +
@@ -55,21 +58,21 @@ module Efile
 
       def calculate_fed_subtractions(primary_or_spouse)
         filer_json = @direct_file_json_data.filers
-                                           .find { |df_filer_data|
-                                             df_filer_data.tin.delete("-") == @intake.send(primary_or_spouse).ssn
-                                           }
-        return 0 unless filer_json # TODO: Some MFJ tests are missing spouse JSON - should not happen in prod
+          .find { |df_filer_data|
+            df_filer_data.tin.delete("-") == @intake.send(primary_or_spouse).ssn
+          }
+
+        # TODO: Some MFJ tests are missing spouse JSON - should not happen in prod
+        return 0 unless filer_json
 
         student_loan_interest = {
           primary: @intake.primary_student_loan_interest_ded_amount&.round,
           spouse: @intake.spouse_student_loan_interest_ded_amount&.round,
         }[primary_or_spouse]
-        educator_expenses = filer_json.educator_expenses&.round
-        hsa_deduction = filer_json.hsa_total_deductible_amount&.round
 
         student_loan_interest +
-          educator_expenses +
-          hsa_deduction
+          filer_json.educator_expenses&.round +
+          filer_json.hsa_total_deductible_amount&.round
       end
 
       private
@@ -95,7 +98,7 @@ module Efile
       end
 
       def calculate_line_4(primary_or_spouse)
-        cdc_expenses = @direct_file_data.total_qualifying_dependent_care_expenses / 2
+        cdc_expenses = (@direct_file_data.total_qualifying_dependent_care_expenses || 0) / 2
 
         # NOTE: Stub alert - this data relies on 1099R followup questions, which have been deprioritized
         pension_exclusion = 0

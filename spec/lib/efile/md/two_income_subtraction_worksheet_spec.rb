@@ -21,9 +21,10 @@ describe Efile::Md::TwoIncomeSubtractionWorksheet do
 
     context "primary and spouse have only interest income" do
       before do
+        intake.raw_direct_file_data = StateFile::DirectFileApiResponseSampleService.new.read_xml('md_todd_1099_int')
+        intake.raw_direct_file_intake_data = StateFile::DirectFileApiResponseSampleService.new.read_json('md_todd_and_spouse_1099_int')
         intake.direct_file_data.spouse_ssn = intake.direct_file_json_data.spouse_filer&.tin&.delete("-")
       end
-      let(:intake) { create(:state_file_md_intake, :df_data_1099_int_with_spouse) }
       it "calculates the fed income amount for primary and spouse" do
         expect(instance.calculate_fed_income(:primary)).to eq(4)
         expect(instance.calculate_fed_income(:spouse)).to eq(140)
@@ -31,7 +32,7 @@ describe Efile::Md::TwoIncomeSubtractionWorksheet do
     end
 
     context "primary and spouse have only retirement income" do
-      let(:intake) { create(:state_file_md_intake, :with_spouse, :with_w2s_removed) }
+      let(:intake) { create(:state_file_md_intake, :with_spouse) }
       let(:primary_ssn) { intake.primary.ssn }
       let(:spouse_ssn) { intake.spouse.ssn }
       let!(:primary_state_file1099_r) { create(:state_file1099_r, intake: intake, recipient_ssn: primary_ssn, taxable_amount: 100) }
@@ -44,7 +45,7 @@ describe Efile::Md::TwoIncomeSubtractionWorksheet do
     end
 
     context "primary and spouse have only unemployment income" do
-      let(:intake) { create(:state_file_md_intake, :with_spouse, :with_w2s_removed) }
+      let(:intake) { create(:state_file_md_intake, :with_spouse) }
       let!(:primary_state_file1099_g) { create(:state_file1099_g, intake: intake, recipient: :primary, unemployment_compensation_amount: 600) }
       let!(:spouse_state_file1099_g) { create(:state_file1099_g, intake: intake, recipient: :spouse, unemployment_compensation_amount: 400) }
       it "calculates the fed income amount for primary and spouse" do
