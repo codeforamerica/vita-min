@@ -59,11 +59,11 @@ module Efile
                                              df_filer_data.tin.delete("-") == @intake.send(primary_or_spouse).ssn
                                            }
         student_loan_interest = {
-          primary: @intake.primary_student_loan_interest_ded_amount.round,
-          spouse: @intake.spouse_student_loan_interest_ded_amount.round,
+          primary: @intake.primary_student_loan_interest_ded_amount&.round,
+          spouse: @intake.spouse_student_loan_interest_ded_amount&.round,
         }[primary_or_spouse]
-        educator_expenses = filer_json.educator_expenses.round
-        hsa_deduction = filer_json.hsa_total_deductible_amount.round
+        educator_expenses = filer_json.educator_expenses&.round
+        hsa_deduction = filer_json.hsa_total_deductible_amount&.round
 
         student_loan_interest +
           educator_expenses +
@@ -79,7 +79,7 @@ module Efile
       def calculate_line_2(primary_or_spouse)
         @intake.state_file_w2s
                .select { |w2| w2.employee_ssn == @intake.send(primary_or_spouse).ssn }
-               .sum { |w2| w2.box14_stpickup.round || 0 }
+               .sum { |w2| w2.box14_stpickup&.round || 0 }
       end
 
       def calculate_line_3(primary_or_spouse)
