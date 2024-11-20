@@ -37,10 +37,15 @@ RSpec.describe PdfFiller::Id40Pdf do
                primary_last_name: "Idahoan",
               )
       }
+      before do
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_19).and_return(2000)
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_20).and_return(199.80)
+      end
 
       it 'sets static fields to the correct values' do
         expect(pdf_fields['YearBeginning']).to eq Rails.configuration.statefile_current_tax_year.to_s
         expect(pdf_fields['YearEnding']).to eq Rails.configuration.statefile_current_tax_year.to_s
+        expect(pdf_fields['TxCompL15']).to eq "0" # always 0, not in xml
       end
 
       it "sets other fields to the correct values" do
@@ -68,7 +73,28 @@ RSpec.describe PdfFiller::Id40Pdf do
         expect(pdf_fields['IncomeL9']).to eq '10000'
         expect(pdf_fields['IncomeL10']).to eq '0'
         expect(pdf_fields['IncomeL11']).to eq '10000'
+        expect(pdf_fields['L12aYourself ']).to eq 'Yes'
+        expect(pdf_fields['L12aSpouse']).to eq 'Off'
+        expect(pdf_fields['L12bYourself']).to eq 'Yes'
+        expect(pdf_fields['L12bSpouse']).to eq 'Off'
+        expect(pdf_fields['L12cDependent']).to eq 'Off'
+        expect(pdf_fields['TxCompL16']).to eq '13850'
+        expect(pdf_fields['TxCompL17']).to eq '2000' # same as L19
+        expect(pdf_fields['TxCompL19']).to eq '2000'
+        expect(pdf_fields['TxCompL20']).to eq '200'
+        expect(pdf_fields['TxCompL20']).to eq '200'
+        expect(pdf_fields['L21']).to eq '200' # same as L20
         expect(pdf_fields['CreditsL23']).to eq '0'
+      end
+
+      context "when claimed as dependent" do
+        before do
+          intake.direct_file_data.primary_claim_as_dependent = "X"
+        end
+
+        it "fills in the correct fields" do
+          expect(pdf_fields['L12cDependent']).to eq 'Yes'
+        end
       end
 
       context "with dependents" do
@@ -125,6 +151,10 @@ RSpec.describe PdfFiller::Id40Pdf do
         it "sets spouse fields correctly" do
           expect(pdf_fields['6bSpouse']).to eq '1' # Spouse not claimed as dependent, so counted here
           expect(pdf_fields['6dTotalHousehold']).to eq '2'
+          expect(pdf_fields['L12aYourself ']).to eq 'Off'
+          expect(pdf_fields['L12aSpouse']).to eq 'Yes'
+          expect(pdf_fields['L12bYourself']).to eq 'Off'
+          expect(pdf_fields['L12bSpouse']).to eq 'Yes'
         end
       end
     end

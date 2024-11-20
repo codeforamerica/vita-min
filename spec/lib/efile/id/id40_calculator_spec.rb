@@ -105,6 +105,59 @@ describe Efile::Id::Id40Calculator do
     end
   end
 
+  describe "Line 19: Idaho taxable income" do
+    before do
+      allow(instance).to receive(:calculate_line_11).and_return 50
+    end
+
+    it "enters L11 - L16 if positive number" do
+      intake.direct_file_data.total_itemized_or_standard_deduction_amount = 40
+      instance.calculate
+      expect(instance.lines[:ID40_LINE_19].value).to eq(10)
+    end
+
+    it "enters 0 if difference is negative number" do
+      intake.direct_file_data.total_itemized_or_standard_deduction_amount = 60
+      instance.calculate
+      expect(instance.lines[:ID40_LINE_19].value).to eq(0)
+    end
+  end
+
+  describe "Line 20: Idaho income tax" do
+    {
+      4673 => [:single, :married_filing_separately],
+      9346 => [:married_filing_jointly, :head_of_household, :qualifying_widow]
+    }.each do |amount, filing_statuses|
+      filing_statuses.each do |filing_status|
+        context "#{filing_status}" do
+          let(:intake) { create(:state_file_id_intake, filing_status: filing_status) }
+          let(:calculator_instance) { described_class.new(year: MultiTenantService.statefile.current_tax_year, intake: intake) }
+          let(:line_19) { 10_000 }
+          before do
+            allow(calculator_instance).to receive(:calculate_line_19).and_return line_19
+          end
+
+          it "calculates the correct amount" do
+            expected_result = ((line_19 - amount) * 0.05695).round(2)
+            calculator_instance.calculate
+            expect(calculator_instance.lines[:ID40_LINE_20].value).to eq expected_result
+          end
+        end
+      end
+    end
+
+    context "must be positive value" do
+      before do
+        allow(instance).to receive(:calculate_line_19).and_return 2_000
+      end
+
+      it "returns 0 when calc is negative" do
+        instance.calculate
+        expect(instance.lines[:ID40_LINE_20].value).to eq 0
+      end
+    end
+  end
+
   describe "Line 25: Child Tax Credit" do
     context "when there are no dependents" do
       it "calculates correct child care credit to zero" do
@@ -177,18 +230,6 @@ describe Efile::Id::Id40Calculator do
     end
   end
 
-  describe "Line 33 and 42: Total Credits" do
-    it "adds line 29 and 32" do
-      allow(instance).to receive(:line_or_zero).and_call_original
-      allow(instance).to receive(:line_or_zero).with(:ID40_LINE_27).and_return(200)
-      allow(instance).to receive(:line_or_zero).with(:ID40_LINE_29).and_return(300)
-      allow(instance).to receive(:line_or_zero).with(:ID40_LINE_32A).and_return(300)
-      instance.calculate
-      expect(instance.lines[:ID40_LINE_33].value).to eq(800)
-      expect(instance.lines[:ID40_LINE_42].value).to eq(800)
-    end
-  end
-
   describe "Line 29: State Use Tax" do
     let(:purchase_amount) { nil }
 
@@ -254,7 +295,7 @@ describe Efile::Id::Id40Calculator do
       let(:intake) { create(:state_file_id_intake, :filing_requirement) }
 
       before do
-        intake.direct_file_data.set_primary_blind
+        intake.direct_file_data.primary_blind = "X"
         intake.received_id_public_assistance = "no"
       end
 
@@ -275,6 +316,18 @@ describe Efile::Id::Id40Calculator do
         instance.calculate
         expect(instance.lines[:ID40_LINE_32A].value).to eq(0)
       end
+    end
+  end
+
+  describe "Line 33 and 42: Total Credits" do
+    it "adds line 29 and 32" do
+      allow(instance).to receive(:line_or_zero).and_call_original
+      allow(instance).to receive(:line_or_zero).with(:ID40_LINE_27).and_return(200)
+      allow(instance).to receive(:line_or_zero).with(:ID40_LINE_29).and_return(300)
+      allow(instance).to receive(:line_or_zero).with(:ID40_LINE_32A).and_return(300)
+      instance.calculate
+      expect(instance.lines[:ID40_LINE_33].value).to eq(800)
+      expect(instance.lines[:ID40_LINE_42].value).to eq(800)
     end
   end
 

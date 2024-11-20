@@ -23,6 +23,8 @@ module Efile
         set_line(:ID40_LINE_9, :calculate_line_9)
         set_line(:ID40_LINE_10, :calculate_line_10)
         set_line(:ID40_LINE_11, :calculate_line_11)
+        set_line(:ID40_LINE_19, :calculate_line_19)
+        set_line(:ID40_LINE_20, :calculate_line_20)
         set_line(:ID40_LINE_23, :calculate_line_23)
         set_line(:ID40_LINE_25, :calculate_line_25)
         set_line(:ID40_LINE_26, :calculate_line_26)
@@ -86,6 +88,24 @@ module Efile
         [line_or_zero(:ID40_LINE_9) - line_or_zero(:ID40_LINE_10), 0].max
       end
 
+      # Subtract the larger of L15 or L16 from L11 but L15 is always 0
+      # L16 is pulled from df data
+      def calculate_line_19
+        [line_or_zero(:ID40_LINE_11) - @direct_file_data.total_itemized_or_standard_deduction_amount, 0].max
+      end
+
+      WK_LINE_2_AMTS = {
+        single: 4673,
+        married_filing_separately: 4673,
+        married_filing_jointly: 9346,
+        head_of_household: 9346,
+        qualifying_widow: 9346,
+      }.freeze
+      def calculate_line_20
+        worksheet_line_2_amount = WK_LINE_2_AMTS[@filing_status]
+        [((line_or_zero(:ID40_LINE_19) - worksheet_line_2_amount) * 0.05695).round(2), 0].max
+      end
+
       def calculate_line_23
         line_or_zero(:ID39R_D_LINE_4)
       end
@@ -141,7 +161,7 @@ module Efile
       end
 
       def calculate_grocery_credit
-        return 0 if @intake.direct_file_data.claimed_as_dependent?
+        return 0 if @direct_file_data.claimed_as_dependent?
 
         credit = 0
 
