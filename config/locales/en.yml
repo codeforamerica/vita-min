@@ -2609,6 +2609,7 @@ en:
       id_review:
         edit:
           health_insurance_premium_title: Idaho Health Insurance Premium Subtraction
+          idaho_grocery_credit: Idaho Grocery Credit
           permanent_building_fund_tax: Permanent Building Fund Tax
           purchases_without_sales_tax: Purchases without paying sales or use tax
           state_details_title: State Details
