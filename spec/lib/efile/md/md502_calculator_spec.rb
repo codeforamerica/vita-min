@@ -41,10 +41,17 @@ describe Efile::Md::Md502Calculator do
         end
       end
 
-      context "the agi is over $103,651" do
+      context "the agi is $103,651" do
         let(:agi) { 103_651 }
         it 'returns the correct decimal value' do
-          expect(instance.lines[:MD502CR_PART_B_LINE_3].value).to eq(0.000)
+          expect(instance.lines[:MD502CR_PART_B_LINE_3].value).to eq(0.1984e0)
+        end
+      end
+
+      context "the agi is over $107,001" do
+        let(:agi) { 107_001 }
+        it 'returns the correct decimal value' do
+          expect(instance.lines[:MD502CR_PART_B_LINE_3].value).to eq(0.1856e0)
         end
       end
     end
@@ -59,10 +66,10 @@ describe Efile::Md::Md502Calculator do
         end
       end
 
-      context 'the agi is $161,1001' do
-        let(:agi) { 161_101 }
+      context 'the agi is $167,1001' do
+        let(:agi) { 167_101 }
         it 'returns the correct decimal value' do
-          expect(instance.lines[:MD502CR_PART_B_LINE_3].value).to eq(0.000)
+          expect(instance.lines[:MD502CR_PART_B_LINE_3].value).to eq(0.192e0)
         end
       end
     end

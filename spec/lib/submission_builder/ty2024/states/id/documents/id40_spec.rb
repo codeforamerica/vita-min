@@ -9,6 +9,10 @@ describe SubmissionBuilder::Ty2024::States::Id::Documents::Id40, required_schema
 
     context "single filer" do
       let(:intake) { create(:state_file_id_intake, :single_filer_with_json) }
+      before do
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_19).and_return(2000)
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_20).and_return(200)
+      end
 
       it "correctly fills answers" do
         expect(xml.at("FilingStatus").text).to eq "SINGLE"
@@ -17,6 +21,39 @@ describe SubmissionBuilder::Ty2024::States::Id::Documents::Id40, required_schema
         expect(xml.at("FederalAGI").text).to eq "10000"
         # fed agi(32351) - [fed_taxable_ssb(5627) + total_qualifying_dependent_care_expenses(2000)] = 24724
         expect(xml.at("StateTotalAdjustedIncome").text).to eq "10000"
+        expect(xml.at("StandardDeduction").text).to eq "13850"
+        expect(xml.at("TaxableIncomeState").text).to eq "2000"
+        expect(xml.at("StateIncomeTax").text).to eq "200"
+      end
+
+      context "primary over 65, blind, claimed as dependent" do
+        context "when true" do
+          before do
+            intake.direct_file_data.primary_over_65 = "X"
+            intake.direct_file_data.primary_blind = "X"
+            intake.direct_file_data.primary_claim_as_dependent = "X"
+          end
+
+          it "fills a 1" do
+            expect(xml.at("PrimeOver65").text).to eq "1"
+            expect(xml.at("PrimeBlind").text).to eq "1"
+            expect(xml.at("ClaimedAsDependent").text).to eq "1"
+          end
+        end
+
+        context "when false" do
+          before do
+            intake.direct_file_data.primary_over_65 = ""
+            intake.direct_file_data.primary_blind = ""
+            intake.direct_file_data.primary_claim_as_dependent = ""
+          end
+
+          it "does not have the node" do
+            expect(xml.at("PrimeOver65")).to be_nil
+            expect(xml.at("PrimeBlind")).to be_nil
+            expect(xml.at("ClaimedAsDependent")).to be_nil
+          end
+        end
       end
     end
 
@@ -32,6 +69,32 @@ describe SubmissionBuilder::Ty2024::States::Id::Documents::Id40, required_schema
         expect(xml.at("PrimeExemption").text).to eq "1"
         expect(xml.at("SpouseExemption").text).to eq "1"
         expect(xml.at("TotalExemption").text).to eq "2"
+      end
+
+      context "spouse over 65" do
+        context "when true" do
+          before do
+            intake.direct_file_data.spouse_over_65 = "X"
+            intake.direct_file_data.spouse_blind = "X"
+          end
+
+          it "fills a 1" do
+            expect(xml.at("SpouseOver65").text).to eq "1"
+            expect(xml.at("SpouseBlind").text).to eq "1"
+          end
+        end
+
+        context "when false" do
+          before do
+            intake.direct_file_data.spouse_over_65 = ""
+            intake.direct_file_data.spouse_blind = ""
+          end
+
+          it "does not have the node" do
+            expect(xml.at("SpouseOver65")).to be_nil
+            expect(xml.at("SpouseBlind")).to be_nil
+          end
+        end
       end
     end
 
@@ -118,29 +181,12 @@ describe SubmissionBuilder::Ty2024::States::Id::Documents::Id40, required_schema
     end
 
     context "PermanentBuildingFund" do
-      context "when a client is not blind has filing requirements and does not receive public assistance" do
-        before do
-          intake.direct_file_data.total_income_amount = 40000
-          intake.direct_file_data.total_itemized_or_standard_deduction_amount = 2112
-          intake.received_id_public_assistance = "no"
-        end
-
-        it "fills out StateUseTax field with calculated value" do
-          expect(xml.at("PermanentBuildingFund").text).to eq '10'
-        end
+      before do
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_32a).and_return 10
       end
 
-      context "when a client is blind" do
-        before do
-          intake.direct_file_data.total_income_amount = 40000
-          intake.direct_file_data.total_itemized_or_standard_deduction_amount = 2112
-          intake.direct_file_data.set_primary_blind
-          intake.received_id_public_assistance = "no"
-        end
-
-        it "fills out StateUseTax field with 0" do
-          expect(xml.at("PermanentBuildingFund").text).to eq '0'
-        end
+      it "fills out StateUseTax field with calculated value" do
+        expect(xml.at("PermanentBuildingFund").text).to eq '10'
       end
     end
 

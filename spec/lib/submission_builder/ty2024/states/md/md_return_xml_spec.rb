@@ -21,6 +21,17 @@ describe SubmissionBuilder::Ty2024::States::Md::MdReturnXml, required_schema: "m
       # expect(build_response.errors).not_to be_present
     end
 
+    context "when there is a refund with banking info" do
+      let(:intake) { create(:state_file_md_refund_intake) }
+
+      it "generates FinancialTransaction xml with correct RefundAmt" do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:refund_or_owed_amount).and_return 500
+        xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
+        expect(xml.at("FinancialTransaction")).to be_present
+        expect(xml.at("RefundDirectDeposit Amount").text).to eq "500"
+      end
+    end
+    
     context "When there are 1099gs present" do
       let(:builder_class) { StateFile::StateInformationService.submission_builder_class(:md) }
       let(:intake) { create(:state_file_md_intake) }
