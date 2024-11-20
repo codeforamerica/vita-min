@@ -1464,10 +1464,11 @@ describe Efile::Md::Md502Calculator do
   end
 
   describe "#calculate_line_30" do
-    context "deduction method is standard" do
+    context "deduction method is standard and they qualify for state poverty level credit" do
       before do
         intake.direct_file_data.fed_wages_salaries_tips = 1001
         allow_any_instance_of(described_class).to receive(:calculate_deduction_method).and_return "S"
+        allow_any_instance_of(described_class).to receive(:calculate_line_23).and_return 100
         instance.calculate
       end
 
@@ -1490,6 +1491,16 @@ describe Efile::Md::Md502Calculator do
     context "deduction method is non-standard" do
       it "returns nil" do
         allow_any_instance_of(described_class).to receive(:calculate_deduction_method).and_return "N"
+        allow_any_instance_of(described_class).to receive(:calculate_line_23).and_return 100
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_30].value).to eq nil
+      end
+    end
+
+    context "they do not qualify for state poverty level credit" do
+      it "returns nil" do
+        allow_any_instance_of(described_class).to receive(:calculate_deduction_method).and_return "S"
+        allow_any_instance_of(described_class).to receive(:calculate_line_23).and_return 0
         instance.calculate
         expect(instance.lines[:MD502_LINE_30].value).to eq nil
       end

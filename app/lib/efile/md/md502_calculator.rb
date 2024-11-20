@@ -622,7 +622,7 @@ module Efile
       end
 
       def calculate_line_30
-        if deduction_method_is_standard?
+        if deduction_method_is_standard? && line_or_zero(:MD502_LINE_23).positive?
           (line_or_zero(:MD502_LINE_1B) * local_tax_rate).round
         end
       end
