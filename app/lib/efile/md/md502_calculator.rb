@@ -327,12 +327,21 @@ module Efile
 
       def calculate_line_10a; end
 
+      def calculate_line_13
+        @lines[:MD502_SU_LINE_1].value
+      end
+
+      def calculate_line_14
+        line_or_zero(:MD_TWO_INCOME_WK_LINE_7)
+      end
+
       def calculate_line_15
         [
           @direct_file_data.total_qualifying_dependent_care_expenses, # line 9
           @direct_file_data.fed_taxable_ssb, # line 11
           line_or_zero(:MD502_LINE_10A),
           line_or_zero(:MD502_LINE_13),
+          line_or_zero(:MD502_LINE_14),
         ].sum
       end
 
@@ -429,15 +438,6 @@ module Efile
         else
           0
         end
-      end
-
-      def calculate_line_13
-        @lines[:MD502_SU_LINE_1].value
-      end
-
-      def calculate_line_14
-        return 0 unless filing_status_mfj?
-        @lines[:MD_TWO_INCOME_WK_LINE_7].value
       end
 
       def calculate_line_21

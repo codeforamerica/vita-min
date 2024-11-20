@@ -824,10 +824,11 @@ describe Efile::Md::Md502Calculator do
       intake.direct_file_data.fed_taxable_ssb = 6
       allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_10a).and_return 4
       allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_13).and_return 8
+      allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_14).and_return 10
     end
     it "sums lines 8 - 14" do
       instance.calculate
-      expect(instance.lines[:MD502_LINE_15].value).to eq 20
+      expect(instance.lines[:MD502_LINE_15].value).to eq 30
     end
   end
 
