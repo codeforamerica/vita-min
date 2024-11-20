@@ -200,6 +200,10 @@ ID40_LINE_10:
   label: 'Subtractions from Form 39R, Part B, line 24'
 ID40_LINE_11:
   label: 'Total Adjusted Income. Subtract line 10 from line 9'
+ID40_LINE_19:
+  label: 'Taxable state income'
+ID40_LINE_20:
+  label: 'State income tax'
 ID40_LINE_23:
   label: 'Total credits from Form 39R, Part D, line 4. Include Form 39R'
 ID40_LINE_25:

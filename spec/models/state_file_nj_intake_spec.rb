@@ -18,6 +18,7 @@
 #  df_data_import_failed_at                               :datetime
 #  df_data_import_succeeded_at                            :datetime
 #  df_data_imported_at                                    :datetime
+#  eligibility_all_members_health_insurance               :integer          default("unfilled"), not null
 #  eligibility_lived_in_state                             :integer          default("unfilled"), not null
 #  eligibility_out_of_state_income                        :integer          default("unfilled"), not null
 #  email_address                                          :citext
@@ -132,6 +133,147 @@ RSpec.describe StateFileNjIntake, type: :model do
       let(:intake) { create :state_file_nj_intake, :df_data_two_deps }
       it "returns nil" do
         expect(intake.disqualifying_df_data_reason).to eq nil
+      end
+    end
+  end
+
+  describe "#health_insurance_eligibility" do
+    context "when answered yes to eligibility_all_members_health_insurance" do
+      let(:intake) { create :state_file_nj_intake, eligibility_all_members_health_insurance: "yes" }
+      it "returns eligible" do
+        expect(intake.health_insurance_eligibility).to eq "eligible"
+      end
+    end
+
+    context "when answered no to eligibility_all_members_health_insurance" do
+
+      context "when eligibility_made_less_than_threshold?=true and eligibility_claimed_as_dependent?=true" do
+        let(:intake) { create :state_file_nj_intake, eligibility_all_members_health_insurance: "no" }
+        it "returns eligible" do
+          allow(intake).to receive(:eligibility_made_less_than_threshold?).and_return true
+          allow(intake).to receive(:eligibility_claimed_as_dependent?).and_return true
+          expect(intake.health_insurance_eligibility).to eq "eligible"
+        end
+      end
+
+      context "when eligibility_made_less_than_threshold?=false and eligibility_claimed_as_dependent?=true" do
+        let(:intake) { create :state_file_nj_intake, eligibility_all_members_health_insurance: "no" }
+        it "returns eligible" do
+          allow(intake).to receive(:eligibility_made_less_than_threshold?).and_return false
+          allow(intake).to receive(:eligibility_claimed_as_dependent?).and_return true
+          expect(intake.health_insurance_eligibility).to eq "eligible"
+        end
+      end
+
+      context "when eligibility_made_less_than_threshold?=true and eligibility_claimed_as_dependent?=false" do
+        let(:intake) { create :state_file_nj_intake, eligibility_all_members_health_insurance: "no" }
+        it "returns eligible" do
+          allow(intake).to receive(:eligibility_made_less_than_threshold?).and_return true
+          allow(intake).to receive(:eligibility_claimed_as_dependent?).and_return false
+          expect(intake.health_insurance_eligibility).to eq "eligible"
+        end
+      end
+
+      context "when eligibility_made_less_than_threshold?=false and eligibility_claimed_as_dependent?=false" do
+        let(:intake) { create :state_file_nj_intake, eligibility_all_members_health_insurance: "no" }
+        it "returns ineligible" do
+          allow(intake).to receive(:eligibility_made_less_than_threshold?).and_return false
+          allow(intake).to receive(:eligibility_claimed_as_dependent?).and_return false
+          expect(intake.health_insurance_eligibility).to eq "ineligible"
+        end
+      end
+    end
+  end
+
+  describe "#eligibility_made_less_than_threshold?" do
+
+    shared_examples :eligibility_with_threshold do |threshold|
+      it "returns true if NJ gross income below #{threshold}" do
+        allow(intake.calculator.lines).to receive(:[]).with(:NJ1040_LINE_29).and_return(double(value: threshold-1))
+        expect(intake.eligibility_made_less_than_threshold?).to eq true
+      end
+
+      it "returns true if NJ gross income equals #{threshold}" do
+        allow(intake.calculator.lines).to receive(:[]).with(:NJ1040_LINE_29).and_return(double(value: threshold))
+        expect(intake.eligibility_made_less_than_threshold?).to eq true
+      end
+
+      it "returns false if NJ gross income over #{threshold}" do
+        allow(intake.calculator.lines).to receive(:[]).with(:NJ1040_LINE_29).and_return(double(value: threshold+1))
+        expect(intake.eligibility_made_less_than_threshold?).to eq false
+      end
+    end
+
+    context "when filing status single" do
+      let(:intake) { create :state_file_nj_intake }
+      it_behaves_like :eligibility_with_threshold, 10_000
+    end
+
+    context "when filing status MFS" do
+      let(:intake) { create :state_file_nj_intake, :married_filing_separately }
+      it_behaves_like :eligibility_with_threshold, 10_000
+    end
+
+    context "when filing status MFJ" do
+      let(:intake) { create :state_file_nj_intake, :married_filing_jointly }
+      it_behaves_like :eligibility_with_threshold, 20_000
+    end
+
+    context "when filing status HOH" do
+      let(:intake) { create :state_file_nj_intake, :head_of_household }
+      it_behaves_like :eligibility_with_threshold, 20_000
+    end
+
+    context "when filing status QW" do
+      let(:intake) { create :state_file_nj_intake, :qualifying_widow }
+      it_behaves_like :eligibility_with_threshold, 20_000
+    end
+  end
+
+  describe "#eligibility_claimed_as_dependent?" do
+    context "when mfj" do
+      context "when only spouse claimed as dependent" do
+        let(:intake) { create(:state_file_nj_intake, :df_data_mfj_spouse_claimed_dep) }
+        it "returns false" do
+          expect(intake.eligibility_claimed_as_dependent?).to eq false
+        end
+      end
+
+      context "when only primary claimed as dependent" do
+        let(:intake) { create(:state_file_nj_intake, :df_data_mfj_primary_claimed_dep) }
+        it "returns false" do
+          expect(intake.eligibility_claimed_as_dependent?).to eq false
+        end
+      end
+
+      context "when neither claimed as dependent" do
+        let(:intake) { create(:state_file_nj_intake, :df_data_mfj) }
+        it "returns false" do
+          expect(intake.eligibility_claimed_as_dependent?).to eq false
+        end
+      end
+
+      context "when both claimed as dependent" do
+        let(:intake) { create(:state_file_nj_intake, :df_data_mfj_both_claimed_dep) }
+        it "returns true" do
+          expect(intake.eligibility_claimed_as_dependent?).to eq true
+        end
+      end
+    end
+
+    context "when not mfj" do
+      context "when claimed as dependent" do
+        let(:intake) { create(:state_file_nj_intake, :df_data_claimed_as_dependent) }
+        it "returns true" do
+          expect(intake.eligibility_claimed_as_dependent?).to eq true
+        end
+      end
+
+      context "when not claimed as dependent" do
+        let(:intake) { create(:state_file_nj_intake) }
+        it "returns false" do
+          expect(intake.eligibility_claimed_as_dependent?).to eq false
+        end
       end
     end
   end

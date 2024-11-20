@@ -33,6 +33,27 @@ module SubmissionBuilder
                 end
                 xml.FederalAGI calculated_fields.fetch(:ID40_LINE_7)
                 xml.StateTotalAdjustedIncome calculated_fields.fetch(:ID40_LINE_11)
+
+                if @direct_file_data.primary_over_65 == "X"
+                  xml.PrimeOver65 1
+                end
+                if @intake.filing_status_mfj? && @direct_file_data.spouse_over_65 == "X"
+                  xml.SpouseOver65 1
+                end
+
+                if @direct_file_data.primary_blind == "X"
+                  xml.PrimeBlind 1
+                end
+                if @intake.filing_status_mfj? && @direct_file_data.spouse_blind == "X"
+                  xml.SpouseBlind 1
+                end
+                if @direct_file_data.primary_claim_as_dependent == "X"
+                  xml.ClaimedAsDependent 1
+                end
+
+                xml.StandardDeduction @direct_file_data.total_itemized_or_standard_deduction_amount
+                xml.TaxableIncomeState calculated_fields.fetch(:ID40_LINE_19)
+                xml.StateIncomeTax calculated_fields.fetch(:ID40_LINE_20)
                 xml.IdahoChildTaxCredit calculated_fields.fetch(:ID40_LINE_25)
                 xml.StateUseTax calculated_fields.fetch(:ID40_LINE_29)
                 xml.PermanentBuildingFund calculated_fields.fetch(:ID40_LINE_32A)
