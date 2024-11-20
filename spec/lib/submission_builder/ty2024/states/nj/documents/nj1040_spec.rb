@@ -240,6 +240,32 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
       end
     end
 
+    describe "qualified dependent children and other dependents" do
+      context 'when 1 qualified child and 1 other dependent' do
+        let(:intake) { create(:state_file_nj_intake, :df_data_two_deps) }
+        it "sets lines 10 and 11 to 1" do
+          expect(xml.document.at('NumOfQualiDependChild').text).to eq "1"
+          expect(xml.document.at('NumOfOtherDepend').text).to eq "1"
+        end
+      end
+  
+      context 'when 10 qualified children and 1 other dependent' do
+        let(:intake) { create(:state_file_nj_intake, :df_data_many_deps) }
+        it "sets line 10 to 10 and line 11 to 1" do
+          expect(xml.document.at('NumOfQualiDependChild').text).to eq "10"
+          expect(xml.document.at('NumOfOtherDepend').text).to eq "1"
+        end
+      end
+  
+      context 'when 0 qualified child and 0 other dependent' do
+        let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
+        it "sets lines 10 and 11 to 0" do
+          expect(xml.document.at('NumOfQualiDependChild').text).to eq "0"
+          expect(xml.document.at('NumOfOtherDepend').text).to eq "0"
+        end
+      end
+    end
+
     describe 'dependents' do
       context 'when no dependents' do
         let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
