@@ -339,13 +339,21 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
     end
 
     describe "total exemption - lines 13 and 30" do
-      let(:intake) { create(:state_file_nj_intake, :primary_over_65, :primary_blind, :primary_veteran) }
-      it "totals lines 6-9 and stores the result in both TotalExemptionAmountA and TotalExemptionAmountB" do
+      let(:intake) { create(:state_file_nj_intake, :df_data_many_deps, :primary_over_65, :primary_blind, :primary_veteran) }
+      it "totals lines 6-12 and stores the result in both TotalExemptionAmountA and TotalExemptionAmountB" do
         line_6_single_filer = 1_000
         line_7_over_65 = 1_000
         line_8_blind = 1_000
         line_9_veteran = 6_000
-        expected_sum = line_6_single_filer + line_7_over_65 + line_8_blind + line_9_veteran
+        line_10_qualified_children = 15_000
+        line_11_other_dependents = 1_500
+        expected_sum =
+          line_6_single_filer +
+          line_7_over_65 +
+          line_8_blind +
+          line_9_veteran +
+          line_10_qualified_children +
+          line_11_other_dependents
         expect(xml.at("Exemptions TotalExemptionAmountA").text).to eq(expected_sum.to_s)
         expect(xml.at("Body TotalExemptionAmountB").text).to eq(expected_sum.to_s)
       end
@@ -454,13 +462,21 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
     end
 
     describe "total exemptions and deductions - line 38" do
-      let(:intake) { create(:state_file_nj_intake, :primary_over_65, :primary_blind, :primary_veteran) }
+      let(:intake) { create(:state_file_nj_intake, :df_data_many_deps, :primary_over_65, :primary_blind, :primary_veteran) }
       it "fills TotalExemptDeductions with total exemptions and deductions" do
         line_6_single_filer = 1_000
         line_7_over_65 = 1_000
         line_8_blind = 1_000
         line_9_veteran = 6_000
-        expected_sum = line_6_single_filer + line_7_over_65 + line_8_blind + line_9_veteran
+        line_10_qualified_children = 15_000
+        line_11_other_dependents = 1_500
+        expected_sum =
+          line_6_single_filer +
+          line_7_over_65 +
+          line_8_blind +
+          line_9_veteran +
+          line_10_qualified_children +
+          line_11_other_dependents
         expect(xml.at("TotalExemptDeductions").text).to eq(expected_sum.to_s)
       end
     end
@@ -472,8 +488,17 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
         line_7_not_over_65 = 0
         line_8_not_blind = 0
         line_9_not_veteran = 0
+        line_10_qualified_children = 0
+        line_11_other_dependents = 1_500
+        exceptions =
+          line_6_single_filer +
+          line_7_not_over_65 +
+          line_8_not_blind +
+          line_9_not_veteran +
+          line_10_qualified_children +
+          line_11_other_dependents
         allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_15).and_return expected_line_15_w2_wages
-        expected_total = expected_line_15_w2_wages - (line_6_single_filer + line_7_not_over_65 + line_8_not_blind + line_9_not_veteran)
+        expected_total = expected_line_15_w2_wages - exceptions
         expect(xml.at("TaxableIncome").text).to eq(expected_total.to_s)
       end
     end
@@ -594,7 +619,17 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
         line_6_single_filer = 1_000
         line_7_not_over_65 = 0
         line_8_not_blind = 0
-        expected_total = expected_line_15_w2_wages - (line_6_single_filer + line_7_not_over_65 + line_8_not_blind)
+        line_9_not_veteran = 0
+        line_10_qualified_children = 0
+        line_11_other_dependents = 1_500
+        exceptions =
+          line_6_single_filer +
+          line_7_not_over_65 +
+          line_8_not_blind +
+          line_9_not_veteran +
+          line_10_qualified_children +
+          line_11_other_dependents
+        expected_total = expected_line_15_w2_wages - exceptions
         allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_15).and_return expected_line_15_w2_wages
         expect(xml.at("NewJerseyTaxableIncome").text).to eq(expected_total.to_s)
       end
