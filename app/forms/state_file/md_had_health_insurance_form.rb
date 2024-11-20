@@ -19,7 +19,7 @@ module StateFile
         @intake.assign_attributes(dependents_attributes: dependents_attributes.to_h)
       end
     end
-    
+
     def save
       base_attrs = attributes_for(:intake)
       base_attrs.merge({ dependents_attributes: dependents_attributes.to_h })
