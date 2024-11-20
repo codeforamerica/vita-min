@@ -58,6 +58,8 @@ module Efile
                                            .find { |df_filer_data|
                                              df_filer_data.tin.delete("-") == @intake.send(primary_or_spouse).ssn
                                            }
+        return 0 unless filer_json # TODO: Some MFJ tests are missing spouse JSON - should not happen in prod
+
         student_loan_interest = {
           primary: @intake.primary_student_loan_interest_ded_amount&.round,
           spouse: @intake.spouse_student_loan_interest_ded_amount&.round,

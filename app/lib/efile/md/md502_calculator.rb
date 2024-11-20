@@ -60,8 +60,8 @@ module Efile
         set_line(:MD502_LINE_13, :calculate_line_13)
         if filing_status_mfj?
           @two_income_subtraction_worksheet.calculate
-          set_line(:MD502_LINE_14, :calculate_line_14)
         end
+        set_line(:MD502_LINE_14, :calculate_line_14)
         # lines 15 and 16 depend on lines 8-14
         set_line(:MD502_LINE_15, :calculate_line_15)
         set_line(:MD502_LINE_16, :calculate_line_16)
