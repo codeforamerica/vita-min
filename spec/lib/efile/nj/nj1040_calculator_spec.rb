@@ -365,9 +365,35 @@ describe Efile::Nj::Nj1040Calculator do
     end
   end
 
+  describe 'line 12 - dependents attending college' do
+    context 'when has 2 dependents in college' do
+      let(:intake) { create(:state_file_nj_intake, :two_dependents_in_college) }
+      it 'sets line 12 count to 2 and calculation to $2000' do
+        expect(instance.lines[:NJ1040_LINE_12_COUNT].value).to eq(2)
+        expect(instance.calculate_line_12).to eq(2000)
+      end
+    end
+
+    context 'when has 11 dependents in college' do
+      let(:intake) { create(:state_file_nj_intake, :eleven_dependents_in_college) }
+      it 'sets line 12 count to 11 and calculation to $11000' do
+        expect(instance.lines[:NJ1040_LINE_12_COUNT].value).to eq(11)
+        expect(instance.calculate_line_12).to eq(11000)
+      end
+    end
+
+    context 'when does not have dependents in college' do
+      let(:intake) { create(:state_file_nj_intake) }
+      it 'sets line 12 count to 0 and calculation to 0' do
+        expect(instance.lines[:NJ1040_LINE_12_COUNT].value).to eq(0)
+        expect(instance.calculate_line_12).to eq(0)
+      end
+    end
+  end
+
   describe 'line 13 - total exemptions' do
-    let(:intake) { create(:state_file_nj_intake, :primary_over_65, :primary_blind, :primary_veteran) }
-    it 'sets line 13 to the sum of lines 6-9' do
+    let(:intake) { create(:state_file_nj_intake, :primary_over_65, :primary_blind, :primary_veteran, :two_dependents_in_college) }
+    it 'sets line 13 to the sum of lines 6-9 plus line 12' do
       self_exemption = 1_000
       expect(instance.calculate_line_6).to eq(self_exemption)
       self_over_65 = 1_000
@@ -376,7 +402,9 @@ describe Efile::Nj::Nj1040Calculator do
       expect(instance.calculate_line_8).to eq(self_blind)
       self_veteran = 6_000
       expect(instance.calculate_line_9).to eq(self_veteran)
-      expect(instance.lines[:NJ1040_LINE_13].value).to eq(self_exemption + self_over_65 + self_blind + self_veteran)
+      dependents_in_college = 2_000
+      expect(instance.calculate_line_12).to eq(dependents_in_college)
+      expect(instance.lines[:NJ1040_LINE_13].value).to eq(self_exemption + self_over_65 + self_blind + self_veteran + dependents_in_college)
     end
   end
 

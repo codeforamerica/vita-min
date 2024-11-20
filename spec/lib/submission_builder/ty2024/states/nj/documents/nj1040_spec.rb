@@ -312,14 +312,31 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
       end
     end
 
+    describe "dependents attending college - line 12" do
+      context 'when has dependents in college' do
+        let(:intake) { create(:state_file_nj_intake, :two_dependents_in_college) }
+        it 'sets DependAttendCollege to count 2' do
+          expect(xml.at("Exemptions DependAttendCollege").text).to eq("2")
+        end
+      end
+
+      context 'when does not have dependents in college' do
+        let(:intake) { create(:state_file_nj_intake) }
+        it 'does not fill DependAttendCollege' do
+          expect(xml.at("Exemptions DependAttendCollege")).to eq(nil)
+        end
+      end
+    end
+
     describe "total exemption - lines 13 and 30" do
-      let(:intake) { create(:state_file_nj_intake, :primary_over_65, :primary_blind, :primary_veteran) }
-      it "totals lines 6-9 and stores the result in both TotalExemptionAmountA and TotalExemptionAmountB" do
+      let(:intake) { create(:state_file_nj_intake, :primary_over_65, :primary_blind, :primary_veteran, :two_dependents_in_college) }
+      it "totals lines 6-9 + 12 and stores the result in both TotalExemptionAmountA and TotalExemptionAmountB" do
         line_6_single_filer = 1_000
         line_7_over_65 = 1_000
         line_8_blind = 1_000
         line_9_veteran = 6_000
-        expected_sum = line_6_single_filer + line_7_over_65 + line_8_blind + line_9_veteran
+        line_12_dependents_attending_college = 2_000
+        expected_sum = line_6_single_filer + line_7_over_65 + line_8_blind + line_9_veteran + line_12_dependents_attending_college
         expect(xml.at("Exemptions TotalExemptionAmountA").text).to eq(expected_sum.to_s)
         expect(xml.at("Body TotalExemptionAmountB").text).to eq(expected_sum.to_s)
       end
