@@ -79,8 +79,8 @@ module SubmissionBuilder
                     if intake.spouse_veteran_yes?
                       xml.SpouseCuPartnerVeteran "X"
                     end
-                    xml.NumOfQualiDependChild qualifying_dependents.count(&:qualifying_child?)
-                    xml.NumOfOtherDepend qualifying_dependents.count(&:qualifying_relative?)
+                    xml.NumOfQualiDependChild calculated_fields.fetch(:NJ1040_LINE_10)
+                    xml.NumOfOtherDepend calculated_fields.fetch(:NJ1040_LINE_11)
                     xml.TotalExemptionAmountA calculated_fields.fetch(:NJ1040_LINE_13)
                   end
 

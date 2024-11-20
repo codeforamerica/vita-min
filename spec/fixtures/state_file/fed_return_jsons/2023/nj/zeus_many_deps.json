@@ -53,7 +53,7 @@
       "eligibleDependent": true,
       "isClaimedDependent": true,
       "tin": "300-00-0027",
-      "qualifyingChild": false
+      "qualifyingChild": true
     },
     {
       "firstName": "Ares",

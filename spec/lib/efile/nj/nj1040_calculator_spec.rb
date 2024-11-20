@@ -374,11 +374,11 @@ describe Efile::Nj::Nj1040Calculator do
       end
     end
 
-    context 'when 9 qualified children and 2 other dependents' do
+    context 'when 10 qualified children and 1 other dependent' do
       let(:intake) { create(:state_file_nj_intake, :df_data_many_deps) }
-      it "sets line 10 to 9 and line 11 to 2" do
-        expect(instance.calculate_line_10).to eq(9)
-        expect(instance.calculate_line_11).to eq(2)
+      it "sets line 10 to 10 and line 11 to 1" do
+        expect(instance.calculate_line_10).to eq(10)
+        expect(instance.calculate_line_11).to eq(1)
       end
     end
 
@@ -393,7 +393,7 @@ describe Efile::Nj::Nj1040Calculator do
 
   describe 'line 13 - total exemptions' do
     let(:intake) { create(:state_file_nj_intake, :primary_over_65, :primary_blind, :primary_veteran) }
-    it 'sets line 13 to the sum of lines 6-9' do
+    it 'sets line 13 to the sum of lines 6-12' do
       self_exemption = 1_000
       expect(instance.calculate_line_6).to eq(self_exemption)
       self_over_65 = 1_000

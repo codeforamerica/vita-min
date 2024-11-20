@@ -103,6 +103,32 @@ module PdfFiller
         answers.merge!(dependent_hash)
       end
 
+      # line 10
+      if @xml_document.at("Header NumOfQualiDependChild")
+        qualifying_children_count = @xml_document.at("Header NumOfQualiDependChild").text.to_i
+        answers.merge!(
+          insert_digits_into_fields(
+            qualifying_children_count,
+            [ "undefined_12", "Text47" ],
+            as_decimal: false
+          )
+        )
+        answers.merge!({ 'x  1500': calculated_fields.fetch(:NJ1040_LINE_10_EXEMPTION) })
+      end
+
+      # line 11
+      if @xml_document.at("Header NumOfOtherDepend")
+        other_dependent_count = @xml_document.at("Header NumOfOtherDepend").text.to_i
+        answers.merge!(
+          insert_digits_into_fields(
+            other_dependent_count,
+            [ "undefined_13", "Text48" ],
+            as_decimal: false
+          )
+        )
+        answers.merge!({ 'x  1500_2': calculated_fields.fetch(:NJ1040_LINE_11_EXEMPTION) })
+      end
+
       # lines 13 and 30
       if @xml_document.at("Exemptions TotalExemptionAmountA")
         total_exemptions = @xml_document.at("Exemptions TotalExemptionAmountA").text.to_i
@@ -546,13 +572,18 @@ module PdfFiller
       [first_name, middle_initial, suffix].compact.join(" ")
     end
 
-    def insert_digits_into_fields(number, fields_ordered_decimals_to_millions)
+    def insert_digits_into_fields(number, fields_ordered_decimals_to_millions, as_decimal: true)
       digits = number.digits
       digits_hash = {}
-      digits_hash[fields_ordered_decimals_to_millions[0]] = "0"
-      digits_hash[fields_ordered_decimals_to_millions[1]] = "0"
 
-      fields_ordered_decimals_to_millions[2..].each.with_index do |field, i|
+      start_index = as_decimal ? 2 : 0
+
+      if as_decimal
+        digits_hash[fields_ordered_decimals_to_millions[0]] = "0"
+        digits_hash[fields_ordered_decimals_to_millions[1]] = "0"
+      end
+
+      fields_ordered_decimals_to_millions[start_index..].each.with_index do |field, i|
         digits_hash[field] = digits[i].nil? ? "" : digits[i].to_s
       end
 
@@ -692,5 +723,8 @@ module PdfFiller
       @xml_document.at("Body NJChildTaxCredit")&.text.to_i
     end
 
+    def calculated_fields
+      @calculated_fields ||= @submission.data_source.tax_calculator.calculate
+    end
   end
 end

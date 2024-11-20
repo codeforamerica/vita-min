@@ -17,7 +17,9 @@ module Efile
         set_line(:NJ1040_LINE_7_SELF, :line_7_self_checkbox)
         set_line(:NJ1040_LINE_7_SPOUSE, :line_7_spouse_checkbox)
         set_line(:NJ1040_LINE_10, :calculate_line_10)
+        set_line(:NJ1040_LINE_10_EXEMPTION, :calculate_line_10_exemption)
         set_line(:NJ1040_LINE_11, :calculate_line_11)
+        set_line(:NJ1040_LINE_11_EXEMPTION, :calculate_line_11_exemption)
         set_line(:NJ1040_LINE_13, :calculate_line_13)
         set_line(:NJ1040_LINE_15, :calculate_line_15)
         set_line(:NJ1040_LINE_16A, :calculate_line_16a)
@@ -182,10 +184,18 @@ module Efile
         end
       end
 
+      def calculate_line_10_exemption
+        calculate_line_10 * 1500
+      end
+
       def calculate_line_11
         @intake.direct_file_json_data.dependents.count do |dependent|
           !dependent.qualifying_child
         end
+      end
+
+      def calculate_line_11_exemption
+        calculate_line_11 * 1500
       end
 
       private
@@ -198,7 +208,9 @@ module Efile
         calculate_line_6 +
         calculate_line_7 +
         calculate_line_8 +
-        calculate_line_9
+        calculate_line_9 +
+        calculate_line_10_exemption + 
+        calculate_line_11_exemption
       end
 
       def calculate_line_15

@@ -380,6 +380,79 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           end
         end
       end
+
+      describe "Line 10 exemptions" do
+        context "0 qualified dependent children" do
+          let(:submission) {
+            create :efile_submission, tax_return: nil, data_source: create(
+              :state_file_nj_intake
+            )
+          }
+          it "fills in zeroes" do
+            expect(pdf_fields["Text47"]).to eq ""
+            expect(pdf_fields["undefined_12"]).to eq "0"
+            expect(pdf_fields["x  1500"]).to eq "0"
+          end
+        end
+
+        context "1 qualified dependent child" do
+          let(:submission) {
+            create :efile_submission, tax_return: nil, data_source: create(
+              :state_file_nj_intake,
+              :df_data_two_deps,
+            )
+          }
+          it "fills in properly" do
+            expect(pdf_fields["Text47"]).to eq ""
+            expect(pdf_fields["undefined_12"]).to eq "1"
+            expect(pdf_fields["x  1500"]).to eq "1500"
+          end
+        end
+
+        context "10 qualified dependent children" do
+          let(:submission) {
+            create :efile_submission, tax_return: nil, data_source: create(
+              :state_file_nj_intake,
+              :df_data_many_deps,
+            )
+          }
+          it "fills in properly" do
+            expect(pdf_fields["Text47"]).to eq "1"
+            expect(pdf_fields["undefined_12"]).to eq "0"
+            expect(pdf_fields["x  1500"]).to eq "15000"
+          end
+        end
+      end
+
+      describe "Line 11 exemptions" do
+        context "0 dependents not qualifying children" do
+          let(:submission) {
+            create :efile_submission, tax_return: nil, data_source: create(
+              :state_file_nj_intake,
+              :df_data_minimal,
+            )
+          }
+          it "fills in zeroes" do
+            expect(pdf_fields["Text48"]).to eq ""
+            expect(pdf_fields["undefined_13"]).to eq "0"
+            expect(pdf_fields["x  1500_2"]).to eq "0"
+          end
+        end
+
+        context "1 dependent not qualifying child" do
+          let(:submission) {
+            create :efile_submission, tax_return: nil, data_source: create(
+              :state_file_nj_intake,
+              :df_data_two_deps,
+            )
+          }
+          it "fills in properly" do
+            expect(pdf_fields["Text48"]).to eq ""
+            expect(pdf_fields["undefined_13"]).to eq "1"
+            expect(pdf_fields["x  1500_2"]).to eq "1500"
+          end
+        end
+      end
     end
 
     describe "name field" do
@@ -808,7 +881,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           :state_file_nj_intake
         )
       }
-      it "totals line 6-9 and writes it to line 13" do
+      it "totals line 6-12 and writes it to line 13" do
         # thousands
         expect(pdf_fields["undefined_15"]).to eq ""
         expect(pdf_fields["undefined_16"]).to eq "1"
@@ -821,7 +894,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         expect(pdf_fields["Text53"]).to eq "0"
       end
 
-      it "totals line 6-9 and writes it to line 30" do
+      it "totals line 6-12 and writes it to line 30" do
         # thousands
         expect(pdf_fields["30"]).to eq ""
         expect(pdf_fields["210"]).to eq ""
