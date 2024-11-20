@@ -538,6 +538,12 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text "$1,234.60"
       click_on I18n.t("general.continue")
 
+      # Refund page
+      expect(page).to have_text "Good news, you're getting a Idaho state tax refund of $1452. How would you like to receive your refund?"
+      expect(page).not_to have_text "Your responses are saved. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org."
+      choose I18n.t("state_file.questions.tax_refund.edit.mail")
+      click_on I18n.t("general.continue")
+
       expect(page).to have_text I18n.t("state_file.questions.esign_declaration.edit.title", state_name: "Idaho")
       check I18n.t("state_file.questions.esign_declaration.edit.primary_esign")
       click_on I18n.t("state_file.questions.esign_declaration.edit.submit")
