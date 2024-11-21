@@ -2679,14 +2679,14 @@ en:
           authorize_follow_up: If yes, the Comptroller’s Office will share your information and the email address on file with Maryland Health Connection.
           authorize_share_health_information: Do you authorize the Comptroller of Maryland to share information from this tax return with Maryland Health Connection for the purpose of determining pre-eligibility for no-cost or low-cost health care coverage?
           authorize_to_share_info:
-          - Blindness status
-          - Your federal adjusted gross income amount from Line 1
-          - Filing status reported on your return
-          - Insured/ uninsured status of each individual included in your return
-          - Your current mailing address, email address, and phone number
           - Name, SSN/ITIN, and date of birth of each individual identified on your return
+          - Your current mailing address, email address, and phone number
+          - Filing status reported on your return
           - Total number of individuals in your household included in your return
+          - Insured/ uninsured status of each individual included in your return
+          - Blindness status
           - Relationship (self, spouse, or dependent) to the primary taxpayer for each individual included in your return
+          - Your federal adjusted gross income amount from Line 1
           following_will_be_shared: 'If you authorize information sharing, we will share the following information with Maryland Health Connection (MHC):'
           information_use: Information shared with MHC will be used to determine eligibility for insurance affordability programs or to assist with enrollment in health coverage.
           more_info: If you would like more information about the health insurance affordability programs or healthcare coverage enrollment, visit Maryland Health Connection at <a href="%{link}" target="_blank" rel="noopener noreferrer">marylandhealthconnection.gov/easyenrollment/</a>.
@@ -2695,7 +2695,7 @@ en:
           title: Before you submit, we have a few questions to see if you qualify for additional benefits
           what_will_be_shared: What information will be shared with Maryland Health Connection?
           which_members_not_have_insurance: Select which member(s) of your household <strong> did not </strong> have health care coverage at the end of %{tax_year}?
-          why_ask_explanation: This information will help Maryland Health Connection determine eligibility for uninsured members of your household for no-cost or low-cost health coverage. It won't affect your tax return and there are no penalties for providing this information.
+          why_ask_explanation: This information will help Maryland Health Connection determine eligibility for uninsured members of your household for no-cost or low-cost health coverage. It <strong>won't affect</strong> your tax return and there are no penalties for providing this information.
           why_ask_this: Why are you asking this?
       md_permanent_address:
         edit:
