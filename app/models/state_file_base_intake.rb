@@ -135,7 +135,7 @@ class StateFileBaseIntake < ApplicationRecord
         employer_name: direct_file_w2.EmployerName,
         employee_name: direct_file_w2.EmployeeNm,
         employee_ssn: direct_file_w2.EmployeeSSN,
-        employer_state_id_num: direct_file_w2.EmployerStateIdNum&.delete('-'),
+        employer_state_id_num: direct_file_w2.EmployerStateIdNum,
         local_income_tax_amount: direct_file_w2.LocalIncomeTaxAmt,
         local_wages_and_tips_amount: direct_file_w2.LocalWagesAndTipsAmt,
         locality_nm: direct_file_w2.LocalityNm,
