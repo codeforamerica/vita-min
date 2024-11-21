@@ -191,6 +191,14 @@ module SubmissionBuilder
                   line_65 = calculated_fields.fetch(:NJ1040_LINE_65)
                   xml.NJChildTCNumOfDep calculated_fields.fetch(:NJ1040_LINE_65_DEPENDENTS) if line_65
                   xml.NJChildTaxCredit line_65 if line_65
+
+                  if intake.primary_contribution_gubernatorial_elections_yes?
+                    xml.PrimGubernElectFund "X"
+                  end
+
+                  if intake.spouse_contribution_gubernatorial_elections_yes?
+                    xml.SpouCuPartPrimGubernElectFund "X"
+                  end
                 end
               end
             end

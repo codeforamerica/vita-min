@@ -86,6 +86,7 @@ describe 'EfileError' do
       "nj-eitc-qualifying-child",
       "nj-eligibility-health-insurance",
       "nj-estimated-tax-payments",
+      "nj-gubernatorial-elections",
       "nj-homeowner-eligibility",
       "nj-homeowner-property-tax",
       "nj-household-rent-own",

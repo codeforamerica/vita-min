@@ -52,6 +52,7 @@
 #  phone_number                                           :string
 #  phone_number_verified_at                               :datetime
 #  primary_birth_date                                     :date
+#  primary_contribution_gubernatorial_elections           :integer          default("unfilled"), not null
 #  primary_disabled                                       :integer          default("unfilled"), not null
 #  primary_esigned                                        :integer          default("unfilled"), not null
 #  primary_esigned_at                                     :datetime
@@ -74,6 +75,7 @@
 #  source                                                 :string
 #  spouse_birth_date                                      :date
 #  spouse_claimed_as_eitc_qualifying_child                :integer          default("unfilled"), not null
+#  spouse_contribution_gubernatorial_elections            :integer          default("unfilled"), not null
 #  spouse_disabled                                        :integer          default("unfilled"), not null
 #  spouse_esigned                                         :integer          default("unfilled"), not null
 #  spouse_esigned_at                                      :datetime
@@ -125,6 +127,9 @@ class StateFileNjIntake < StateFileBaseIntake
 
   enum claimed_as_eitc_qualifying_child: { unfilled: 0, yes: 1, no: 2}, _prefix: :claimed_as_eitc_qualifying_child
   enum spouse_claimed_as_eitc_qualifying_child: { unfilled: 0, yes: 1, no: 2}, _prefix: :spouse_claimed_as_eitc_qualifying_child
+
+  enum primary_contribution_gubernatorial_elections: { unfilled: 0, yes: 1, no: 2}, _prefix: :primary_contribution_gubernatorial_elections
+  enum spouse_contribution_gubernatorial_elections: { unfilled: 0, yes: 1, no: 2}, _prefix: :spouse_contribution_gubernatorial_elections
 
   enum eligibility_all_members_health_insurance: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_all_members_health_insurance
 
