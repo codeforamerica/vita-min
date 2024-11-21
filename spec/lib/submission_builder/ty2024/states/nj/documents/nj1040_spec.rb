@@ -243,7 +243,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
     describe "qualified dependent children and other dependents" do
       context 'when 1 qualified child and 1 other dependent' do
         let(:intake) { create(:state_file_nj_intake, :df_data_two_deps) }
-        it "sets lines 10 and 11 to 1" do
+        it "sets NumOfQualiDependChild and NumOfOtherDepend to 1" do
           expect(xml.document.at('NumOfQualiDependChild').text).to eq "1"
           expect(xml.document.at('NumOfOtherDepend').text).to eq "1"
         end
@@ -251,7 +251,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
   
       context 'when 10 qualified children and 1 other dependent' do
         let(:intake) { create(:state_file_nj_intake, :df_data_many_deps) }
-        it "sets line 10 to 10 and line 11 to 1" do
+        it "sets NumOfQualiDependChild to 10 and NumOfOtherDepend to 1" do
           expect(xml.document.at('NumOfQualiDependChild').text).to eq "10"
           expect(xml.document.at('NumOfOtherDepend').text).to eq "1"
         end
@@ -259,9 +259,9 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
   
       context 'when 0 qualified child and 0 other dependent' do
         let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
-        it "sets lines 10 and 11 to 0" do
-          expect(xml.document.at('NumOfQualiDependChild').text).to eq "0"
-          expect(xml.document.at('NumOfOtherDepend').text).to eq "0"
+        it "leaves NumOfQualiDependChild and NumOfOtherDepend blank" do
+          expect(xml.document.at('NumOfQualiDependChild')).to eq nil
+          expect(xml.document.at('NumOfOtherDepend')).to eq nil
         end
       end
     end
@@ -340,14 +340,14 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
 
     describe "dependents attending college - line 12" do
       context 'when has dependents in college' do
-        let(:intake) { create(:state_file_nj_intake, :two_dependents_in_college) }
+        let(:intake) { create(:state_file_nj_intake, :df_data_two_deps, :dependents_in_college) }
         it 'sets DependAttendCollege to count 2' do
           expect(xml.at("Exemptions DependAttendCollege").text).to eq("2")
         end
       end
 
       context 'when does not have dependents in college' do
-        let(:intake) { create(:state_file_nj_intake) }
+        let(:intake) { create(:state_file_nj_intake, :df_data_two_deps) }
         it 'does not fill DependAttendCollege' do
           expect(xml.at("Exemptions DependAttendCollege")).to eq(nil)
         end
@@ -355,7 +355,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
     end
 
     describe "total exemption - lines 13 and 30" do
-      let(:intake) { create(:state_file_nj_intake, :df_data_many_deps, :primary_over_65, :primary_blind, :primary_veteran, :two_dependents_in_college) }
+      let(:intake) { create(:state_file_nj_intake, :df_data_many_deps, :primary_over_65, :primary_blind, :primary_veteran, :dependents_in_college) }
       it "totals lines 6-12 and stores the result in both TotalExemptionAmountA and TotalExemptionAmountB" do
         line_6_single_filer = 1_000
         line_7_over_65 = 1_000
@@ -363,7 +363,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
         line_9_veteran = 6_000
         line_10_qualified_children = 15_000
         line_11_other_dependents = 1_500
-        line_12_dependents_attending_college = 2_000
+        line_12_dependents_attending_college = 11_000
         expected_sum =
           line_6_single_filer +
           line_7_over_65 +

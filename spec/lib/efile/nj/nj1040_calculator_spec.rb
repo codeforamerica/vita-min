@@ -369,24 +369,24 @@ describe Efile::Nj::Nj1040Calculator do
     context 'when 1 qualified child and 1 other dependent' do
       let(:intake) { create(:state_file_nj_intake, :df_data_two_deps) }
       it "sets lines 10 and 11 to 1" do
-        expect(instance.calculate_line_10).to eq(1)
-        expect(instance.calculate_line_11).to eq(1)
+        expect(instance.lines[:NJ1040_LINE_10_COUNT].value).to eq(1)
+        expect(instance.lines[:NJ1040_LINE_11_COUNT].value).to eq(1)
       end
     end
 
     context 'when 10 qualified children and 1 other dependent' do
       let(:intake) { create(:state_file_nj_intake, :df_data_many_deps) }
       it "sets line 10 to 10 and line 11 to 1" do
-        expect(instance.calculate_line_10).to eq(10)
-        expect(instance.calculate_line_11).to eq(1)
+        expect(instance.lines[:NJ1040_LINE_10_COUNT].value).to eq(10)
+        expect(instance.lines[:NJ1040_LINE_11_COUNT].value).to eq(1)
       end
     end
 
     context 'when 0 qualified child and 0 other dependent' do
       let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
       it "sets lines 10 and 11 to 0" do
-        expect(instance.calculate_line_10).to eq(0)
-        expect(instance.calculate_line_11).to eq(0)
+        expect(instance.lines[:NJ1040_LINE_10_COUNT].value).to eq(0)
+        expect(instance.lines[:NJ1040_LINE_11_COUNT].value).to eq(0)
       end
     end
   end

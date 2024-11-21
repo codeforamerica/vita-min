@@ -190,7 +190,7 @@ module Efile
       end
 
       def calculate_line_10_exemption
-        calculate_line_10 * 1500
+        calculate_line_10_count * 1500
       end
 
       def calculate_line_11_count
@@ -200,7 +200,7 @@ module Efile
       end
 
       def calculate_line_11_exemption
-        calculate_line_11 * 1500
+        calculate_line_11_count * 1500
       end
       
       def calculate_line_12
