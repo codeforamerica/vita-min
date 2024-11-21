@@ -3045,6 +3045,16 @@ en:
           primary_veteran_question: Are you a veteran?
           spouse_veteran_question: Is your spouse a veteran?
           title: In NJ, veterans are eligible for a tax exemption.
+      notification_preferences:
+        edit:
+          email_notification_opt_in: Email
+          message_body_one: We will not share your information with any outside parties. Message frequency will vary. Message and data rates may apply.
+          message_body_two: Text HELP to 46207 for help. Text STOP to 46207 to cancel. Carriers (e.g. AT&T, Verizon, T-Mobile, Sprint, etc.) are not responsible or liable for undelivered or delayed messages. See our SMS Terms and Conditions and Privacy Policy.
+          message_title: Messaging Details
+          phone_number: Your phone number
+          sms_notification_opt_in: Text message
+          subtitle: We'll need to reach out with questions and updates.
+          title: What is the best way to reach you?
       ny_county:
         edit:
           county: County

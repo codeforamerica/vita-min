@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_21_162009) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_21_210319) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1920,6 +1920,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_21_162009) do
     t.integer "eligibility_out_of_state_income", default: 0, null: false
     t.citext "email_address"
     t.datetime "email_address_verified_at"
+    t.integer "email_notification_opt_in", default: 0, null: false
     t.integer "failed_attempts", default: 0, null: false
     t.string "federal_return_status"
     t.string "federal_submission_id"
@@ -1958,6 +1959,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_21_162009) do
     t.string "residence_county"
     t.string "routing_number"
     t.integer "sign_in_count", default: 0, null: false
+    t.integer "sms_notification_opt_in", default: 0, null: false
     t.string "source"
     t.date "spouse_birth_date"
     t.integer "spouse_did_not_have_health_insurance", default: 0, null: false

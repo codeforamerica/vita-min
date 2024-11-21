@@ -14,6 +14,7 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::EmailAddressController),
         Navigation::NavigationStep.new(StateFile::Questions::VerificationCodeController),
         Navigation::NavigationStep.new(StateFile::Questions::CodeVerifiedController),
+        Navigation::NavigationStep.new(StateFile::Questions::NotificationPreferencesController), # todo - add to all state navs
       ]),
       Navigation::NavigationSection.new("state_file.navigation.section_3", [
         Navigation::NavigationStep.new(StateFile::Questions::TermsAndConditionsController),
@@ -50,4 +51,3 @@ module Navigation
     FLOW = SECTIONS.map(&:controllers).flatten.freeze
   end
 end
-  
