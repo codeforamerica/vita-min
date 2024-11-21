@@ -5,7 +5,6 @@
 #  id                                             :bigint           not null, primary key
 #  account_number                                 :string
 #  account_type                                   :integer          default("unfilled"), not null
-#  bank_name                                      :string
 #  consented_to_terms_and_conditions              :integer          default("unfilled"), not null
 #  contact_preference                             :integer          default("unfilled"), not null
 #  current_sign_in_at                             :datetime
