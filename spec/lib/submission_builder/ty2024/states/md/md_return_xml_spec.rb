@@ -165,7 +165,7 @@ describe SubmissionBuilder::Ty2024::States::Md::MdReturnXml, required_schema: "m
               allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_24).and_return 0
             end
 
-            it "attaches a 502CR" do
+            it "does not attach a 502CR" do
               expect(xml.at("Form502CR")).not_to be_present
               expect(instance.pdf_documents).not_to be_any { |included_documents|
                 included_documents.pdf == PdfFiller::Md502CrPdf
@@ -231,7 +231,7 @@ describe SubmissionBuilder::Ty2024::States::Md::MdReturnXml, required_schema: "m
               allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_13).and_return 0
             end
 
-            it "attaches a 502SU" do
+            it "does not attach a 502SU" do
               expect(xml.at("Form502SU")).not_to be_present
               expect(instance.pdf_documents).not_to be_any { |included_documents|
                 included_documents.pdf == PdfFiller::Md502SuPdf
