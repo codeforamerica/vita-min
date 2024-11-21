@@ -50,7 +50,7 @@ class StateFileW2 < ApplicationRecord
   encrypts :employee_ssn
 
   validates :w2_index, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
-  validates :employer_state_id_num, format: { with: /\A(\d{0,17})\z/, message: ->(_object, _data) { I18n.t('state_file.questions.w2.edit.employer_state_id_error') } }
+  validates :employer_state_id_num, length: { maximum: 16, message: ->(_object, _data) { I18n.t('state_file.questions.w2.edit.employer_state_id_error') } }
   validates :state_wages_amount, numericality: { greater_than_or_equal_to: 0 }, if: -> { state_wages_amount.present? }
   validates :state_income_tax_amount, numericality: { greater_than_or_equal_to: 0 }, if: -> { state_income_tax_amount.present? }
   validates :local_wages_and_tips_amount, numericality: { greater_than_or_equal_to: 0 }, if: -> { local_wages_and_tips_amount.present? }

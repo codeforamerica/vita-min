@@ -3288,7 +3288,7 @@ es:
           box18_html: "<strong>Box 18</strong>: Salarios locales, propinas, etc."
           box19_html: "<strong>Box 19</strong>: Impuesto sobre la renta local"
           box20_locality_name: "<strong>Box 20</strong>: Nombre de la localidad"
-          employer_state_id_error: El EIN debe ser un número. No incluya un guión.
+          employer_state_id_error: El EIN no puede tener más de 16 caracteres.
           instructions_1_html: Revisa los detalles de tus ingresos estatales para <strong>%{employer}</strong>
           local_income_tax_amt_error: No puede ser mayor que los salarios y propinas locales.
           local_wages_and_tips_amt_error: Ingresa los salarios y propinas locales
