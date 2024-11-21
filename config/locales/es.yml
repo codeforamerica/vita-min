@@ -2664,7 +2664,7 @@ es:
           more_info: Si desea más información sobre los programas de asequibilidad de seguros o la inscripción en cobertura de salud, visite Maryland Health Connection en <a href="%{link}" target="_blank" rel="noopener noreferrer">marylandhealthconnection.gov/easyenrollment/</a>.
           no_insurance_question: "¿Algún miembro de su hogar incluido en esta declaración <strong> no </strong> tuvo cobertura de salud durante el año?"
           subtitle: Compartir esta información <strong>no</strong> afectará su declaración de impuestos.
-          title: Antes de enviar, tenemos algunas preguntas para ver si califica para beneficios adicionales.
+          title: Antes de enviar, tenemos algunas preguntas sobre la cobertura de seguro médico.
           what_will_be_shared: "¿Qué información se compartirá con Maryland Health Connection?"
           which_members_not_have_insurance: Seleccione qué miembro(s) de su hogar <strong> no </strong> tuvieron cobertura de salud al final de %{tax_year}.
           why_ask_explanation: Esta información ayudará a Maryland Health Connection a determinar la elegibilidad para los miembros no asegurados de su hogar para cobertura de salud sin costo o de bajo costo. <strong>No afectará</strong> su declaración de impuestos y no hay penalidades por proporcionar esta información.

@@ -2692,7 +2692,7 @@ en:
           more_info: If you would like more information about the health insurance affordability programs or healthcare coverage enrollment, visit Maryland Health Connection at <a href="%{link}" target="_blank" rel="noopener noreferrer">marylandhealthconnection.gov/easyenrollment/</a>.
           no_insurance_question: Did any member of your household included in this return <strong> not </strong> have health care coverage during the year?
           subtitle: Sharing this information <strong>won't</strong> impact your tax return.
-          title: Before you submit, we have a few questions to see if you qualify for additional benefits
+          title: Before you submit, we have a few questions about health insurance coverage
           what_will_be_shared: What information will be shared with Maryland Health Connection?
           which_members_not_have_insurance: Select which member(s) of your household <strong> did not </strong> have health care coverage at the end of %{tax_year}?
           why_ask_explanation: This information will help Maryland Health Connection determine eligibility for uninsured members of your household for no-cost or low-cost health coverage. It <strong>won't affect</strong> your tax return and there are no penalties for providing this information.

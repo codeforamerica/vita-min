@@ -59,9 +59,11 @@
           </p>
           <div class="reveal__content">
             <p><%= t('.following_will_be_shared') %></p>
-            <% t(".authorize_to_share_info").each do |client_info| %>
-              <li><%= client_info %></li>
-            <% end %>
+            <ul class="list--bulleted">
+              <% t(".authorize_to_share_info").each do |client_info| %>
+                <li><%= client_info %></li>
+              <% end %>
+            </ul>
             <p class="spacing-above-15"><%= t('.information_use') %></p>
             <p><%= t('.more_info', link: "https://marylandhealthconnection.gov/easyenrollment/").html_safe %></p>
           </div>
