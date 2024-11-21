@@ -2001,7 +2001,15 @@ es:
       index:
         title: 'Preguntas frecuentes de los contribuyentes de %{state}:'
     general:
+      fed_agi: Ingreso bruto ajustado federal
+      nc_income_tax: Impuesto sobre la renta de Carolina del Norte
+      nc_tax_withheld: Impuesto retenido en Carolina del Norte
+      nc_taxable_income: Ingresos imponibles de Carolina del Norte
+      nc_use_tax: Impuesto sobre el uso de Carolina del Norte
+      see_detailed_return: Consulta la información detallada de la declaración
+      standard_deduction: Deducción estándar
       title: Presentación de impuestos estatales de Arizona y Nueva York sin costo
+      total_tax: Impuesto total
     intake_logins:
       account_locked:
         body_html: Esta cuenta ha sido bloqueada debido a demasiados intentos fallidos de inicio de sesión. Si necesitas ayuda para desbloquear esta cuenta, por favor envíanos un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
@@ -2231,15 +2239,12 @@ es:
           charitable_noncash: Donaciones caritativas (en especie)
           dependent_tax_credit: Crédito tributario por dependientes
           family_income_tax_credit: Crédito tributario por ingresos familiares
-          fed_agi: Ingreso bruto ajustado federal
           household_excise_credit_claimed: Otros miembros de tu hogar han reclamado el Crédito por Aumento de Impuestos Especiales de Arizona
           incr_deduction_chrit_contributions: Deducción aumentada por donaciones caritativas
           increased_excise_tax_credit: Crédito por Aumento de Impuestos Especiales
           last_names: Otros apellidos usados en los últimos cuatro años
           made_az321_contributions: Hizo contribuciones a organizaciones benéficas calificadas
-          see_detailed_return: Consulta la información detallada de la declaración
           ssn_no_employment: '"Not valid for employment" escrita en tu tarjeta de Seguro Social'
-          standard_deduction: Deducción estándar
           total_arizona_subtractions: Restas totales de Arizona
           total_exemptions: Exenciones Totales
           total_payments: Total de pagos
@@ -2732,9 +2737,13 @@ es:
       nc_review:
         edit:
           amount: Cantidad
+          child_deduction: Deducción por hijos
+          interest_us_bonds: Ingresos por intereses de bonos estadounidenses (no sujetos a impuestos en Carolina del Norte)
           primary_veteran: Información del Veterano
+          social_security_benefits: Beneficios del Seguro Social (no sujetos a impuestos en Carolina del Norte)
           spouse_veteran: Información del Cónyuge Veterano
           state_credit: Cantidad ganada como miembro de una tribu indígena reconocida federalmente
+          subtraction_indian_tribe: Resta de ingresos de un miembro de una tribu india
           use_tax_applied: Impuesto de Uso Aplicado
       nc_sales_use_tax:
         edit:
