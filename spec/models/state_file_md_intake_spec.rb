@@ -3,7 +3,11 @@
 # Table name: state_file_md_intakes
 #
 #  id                                       :bigint           not null, primary key
+#  account_holder_first_name                :string
+#  account_holder_last_name                 :string
+#  account_holder_middle_initial            :string
 #  account_holder_name                      :string
+#  account_holder_suffix                    :string
 #  account_number                           :string
 #  account_type                             :integer          default("unfilled"), not null
 #  bank_authorization_confirmed             :integer          default("unfilled"), not null
@@ -29,7 +33,10 @@
 #  failed_attempts                          :integer          default(0), not null
 #  federal_return_status                    :string
 #  hashed_ssn                               :string
-#  joint_account_holder_name                :string
+#  joint_account_holder_first_name          :string
+#  joint_account_holder_last_name           :string
+#  joint_account_holder_middle_initial      :string
+#  joint_account_holder_suffix              :string
 #  last_sign_in_at                          :datetime
 #  last_sign_in_ip                          :inet
 #  locale                                   :string           default("en")
