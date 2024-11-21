@@ -11,7 +11,6 @@ describe SubmissionBuilder::Ty2024::States::Md::MdReturnXml, required_schema: "m
     let(:xml) { Nokogiri::XML::Document.parse(build_response.document.to_xml) }
     let(:intake) { create(:state_file_md_intake)}
 
-
     it "generates basic components of return" do
       expect(xml.document.root.namespaces).to include({ "xmlns:efile" => "http://www.irs.gov/efile", "xmlns" => "http://www.irs.gov/efile" })
       expect(xml.document.at('AuthenticationHeader').to_s).to include('xmlns="http://www.irs.gov/efile"')
@@ -47,11 +46,14 @@ describe SubmissionBuilder::Ty2024::States::Md::MdReturnXml, required_schema: "m
     end
 
     context "attached documents" do
+      before do
+        allow(instance).to receive(:form_has_non_zero_amounts) # allows mocking of specific arguments when the file calls with multiple combinations of args
+      end
+
       it "includes documents that are always attached" do
         expect(xml.document.at('ReturnDataState Form502')).to be_an_instance_of Nokogiri::XML::Element
-        expect(xml.document.at('ReturnDataState Form502CR')).to be_an_instance_of Nokogiri::XML::Element
         expect(instance.pdf_documents).to be_any { |included_documents|
-          included_documents.pdf = PdfFiller::Md502CrPdf
+          included_documents.pdf = PdfFiller::Md502Pdf
         }
         expect(instance.pdf_documents).to be_any { |included_documents|
           included_documents.pdf = PdfFiller::MdEl101Pdf
@@ -85,7 +87,7 @@ describe SubmissionBuilder::Ty2024::States::Md::MdReturnXml, required_schema: "m
           it "attaches a 502R" do
             expect(xml.at("Form502R")).to be_present
             expect(instance.pdf_documents).to be_any { |included_document|
-              included_document.pdf == PdfFiller::Md502RPdf
+              included_document.pdf = PdfFiller::Md502RPdf
             }
           end
         end
@@ -105,11 +107,134 @@ describe SubmissionBuilder::Ty2024::States::Md::MdReturnXml, required_schema: "m
       end
 
       context "502CR" do
-        it "attaches a 502CR" do
-          expect(xml.at("Form502CR")).to be_present
-          expect(instance.pdf_documents).to be_any { |included_documents|
-            included_documents.pdf = PdfFiller::Md502CrPdf
-          }
+        context "L24" do
+          before do
+            allow(instance).to receive(:form_has_non_zero_amounts).with("MD502CR_", anything).and_return false
+          end
+
+          context "Form 502 L24 has an amount" do
+            before do
+              allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_24).and_return 50
+            end
+
+            it "attaches a 502CR" do
+              expect(xml.at("Form502CR")).to be_present
+              expect(instance.pdf_documents).to be_any { |included_documents|
+                included_documents.pdf = PdfFiller::Md502CrPdf
+              }
+            end
+          end
+
+          context "Form 502 L24 does not have an amount" do
+            before do
+              allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_24).and_return 0
+            end
+
+            it "attaches a 502CR" do
+              expect(xml.at("Form502CR")).not_to be_present
+              expect(instance.pdf_documents).not_to be_any { |included_documents|
+                included_documents.pdf == PdfFiller::Md502CrPdf
+              }
+            end
+          end
+        end
+
+        context "L24 is blank but form may have amounts" do
+          before do
+            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_24).and_return 0
+          end
+
+          context "502CR has non-zero amounts" do
+            before do
+              allow(instance).to receive(:form_has_non_zero_amounts).with("MD502CR_", anything).and_return true
+            end
+
+            it "attaches a 502CR" do
+              expect(xml.at("Form502CR")).to be_present
+              expect(instance.pdf_documents).to be_any { |included_documents|
+                included_documents.pdf = PdfFiller::Md502CrPdf
+              }
+            end
+          end
+
+          context "502CR does not have non-zero amounts" do
+            before do
+              allow(instance).to receive(:form_has_non_zero_amounts).with("MD502CR_", anything).and_return false
+            end
+
+            it "does not attach a 502CR" do
+              expect(xml.at("Form502CR")).not_to be_present
+              expect(instance.pdf_documents).not_to be_any { |included_documents|
+                included_documents.pdf == PdfFiller::Md502CrPdf
+              }
+            end
+          end
+        end
+      end
+
+      context "502SU" do
+        context "L13" do
+          before do
+            allow(instance).to receive(:form_has_non_zero_amounts).with("MD502_SU_", anything).and_return false
+          end
+
+          context "Form 502 L13 has an amount" do
+            before do
+              allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_13).and_return 50
+            end
+
+            it "attaches a 502SU" do
+              expect(xml.at("Form502SU")).to be_present
+              expect(instance.pdf_documents).to be_any { |included_documents|
+                included_documents.pdf = PdfFiller::Md502SuPdf
+              }
+            end
+          end
+
+          context "Form 502 L13 does not have an amount" do
+            before do
+              allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_13).and_return 0
+            end
+
+            it "attaches a 502SU" do
+              expect(xml.at("Form502SU")).not_to be_present
+              expect(instance.pdf_documents).not_to be_any { |included_documents|
+                included_documents.pdf == PdfFiller::Md502SuPdf
+              }
+            end
+          end
+        end
+
+        context "L13 is zero but form may have amounts" do
+          before do
+            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_13).and_return 0
+          end
+
+          context "502SU has non-zero amounts" do
+            before do
+              allow(instance).to receive(:form_has_non_zero_amounts).with("MD502_SU_", anything).and_return true
+            end
+
+            it "attaches a 502SU" do
+              expect(xml.at("Form502SU")).to be_present
+              expect(instance.pdf_documents).to be_any { |included_documents|
+                included_documents.pdf = PdfFiller::Md502SuPdf
+              }
+            end
+          end
+
+          context "502SU does not have non-zero amounts" do
+            before do
+              allow(instance).to receive(:form_has_non_zero_amounts).with("MD502_SU_", anything).and_return false
+            end
+
+            it "does not attach a 502SU" do
+              expect(xml.at("Form502SU")).not_to be_present
+              expect(instance.pdf_documents).not_to be_any { |included_documents|
+                included_documents.pdf == PdfFiller::Md502SuPdf
+              }
+            end
+          end
         end
       end
     end

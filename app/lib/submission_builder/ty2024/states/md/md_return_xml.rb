@@ -41,7 +41,8 @@ module SubmissionBuilder
           def supported_documents
             calculated_fields = @submission.data_source.tax_calculator.calculate
             has_income_from_taxable_pensions_iras_annuities = calculated_fields.fetch(:MD502_LINE_1D)&.to_i.positive?
-            has_md_su_subtractions = calculated_fields.fetch(:MD502_SU_LINE_1).positive?
+            has_md_su_subtractions = calculated_fields.fetch(:MD502_LINE_13).positive? || form_has_non_zero_amounts("MD502_SU_", calculated_fields)
+            has_individual_tax_credits = calculated_fields.fetch(:MD502_LINE_24).positive? || form_has_non_zero_amounts("MD502CR_", calculated_fields)
 
             supported_docs = [
               {
@@ -62,7 +63,7 @@ module SubmissionBuilder
               {
                 xml: SubmissionBuilder::Ty2024::States::Md::Documents::Md502Cr,
                 pdf: PdfFiller::Md502CrPdf,
-                include: true,
+                include: has_individual_tax_credits,
               },
               {
                 xml: SubmissionBuilder::Ty2024::States::Md::Documents::Md502R,
@@ -92,6 +93,13 @@ module SubmissionBuilder
               validate: false,
               kwargs: { refund_amount: calculator.refund_or_owed_amount }
             ).document.at("*")
+          end
+
+          def form_has_non_zero_amounts(form_prefix, calculated_fields)
+            lines = calculated_fields.keys.select { |line_name| line_name.match?(/^"#{form_prefix}"/) }
+            lines.any? do |line_num|
+              calculated_fields.fetch(line_num) != 0
+            end
           end
         end
       end
