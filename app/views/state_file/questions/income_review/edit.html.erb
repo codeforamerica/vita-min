@@ -21,7 +21,7 @@
   <% end %>
 
   <% if current_intake.state_file_w2s.present? %>
-    <div class="white-group">
+    <div class="white-group" id="w2s">
       <p class="text--bold spacing-below-0"><%= t(".w2s_title") %></p>
       <% current_intake.state_file_w2s.each do |w2| %>
         <div class="spacing-above-25">
