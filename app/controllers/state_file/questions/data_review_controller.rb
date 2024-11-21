@@ -16,6 +16,8 @@ module StateFile
           ip_address: ip_for_irs,
           intake: current_intake,
         )
+
+        redirect_to next_path
       end
 
       private

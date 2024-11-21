@@ -19,7 +19,8 @@ RSpec.describe StateFile::Questions::DataReviewController do
         expect(efile_info.ip_address.to_s).to eq "72.34.67.178"
         expect(efile_info.device_id).to eq nil
         expect(efile_info.intake).to eq intake
-        expect(response).to render_template :edit
+        expect(response).not_to render_template :edit
+        expect(response).to redirect_to(StateFile::Questions::NameDobController.to_path_helper)
       end
     end
 
