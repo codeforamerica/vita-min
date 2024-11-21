@@ -315,7 +315,27 @@ FactoryBot.define do
       primary_veteran { "yes" }
     end
 
-    trait :dependents_in_college do
+    trait :two_dependents_in_college do
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_zeus_two_deps') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_zeus_two_deps') }
+
+      after(:create) do |intake|
+        intake.dependents.each do |dependent|
+          dependent.update(
+            dob: 1.years.ago,
+            nj_dependent_attends_accredited_program: "yes",
+            nj_dependent_enrolled_full_time: "yes",
+            nj_dependent_five_months_in_college: "yes",
+            nj_filer_pays_tuition_for_dependent: "yes"
+          )
+        end
+      end
+    end
+
+    trait :eleven_dependents_in_college do
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_zeus_many_deps') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_zeus_many_deps') }
+
       after(:create) do |intake|
         intake.dependents.each do |dependent|
           dependent.update(
