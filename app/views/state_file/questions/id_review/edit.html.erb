@@ -20,9 +20,17 @@
         <p><%=number_to_currency(current_intake.health_insurance_paid_amount || 0, precision: 2)%></p>
         <%= link_to t("general.edit"), StateFile::Questions::IdHealthInsurancePremiumController.to_path_helper(return_to_review: "y"), class: "button--small" %>
       </div>
+
+    </div>
+
+    <div id="grocery-credit-amount" class="white-group">
+      <div class="spacing-below-5">
+        <p class="text--bold spacing-below-5"><%=t(".idaho_grocery_credit") %></p>
+        <p><%= number_to_currency(current_intake.calculator.grocery_credit_amount || 0, precision: 2) %></p>
+        <%= link_to t("general.edit"), StateFile::Questions::IdGroceryCreditController.to_path_helper(return_to_review: "y"), class: "button--small" %>
+      </div>
     </div>
   </section>
-
 
   <% if current_intake.has_filing_requirement? && !current_intake.has_blind_filer? %>
     <div id="permanent-building-fund" class="white-group">

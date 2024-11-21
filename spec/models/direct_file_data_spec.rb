@@ -31,6 +31,11 @@ describe DirectFileData do
     ["fed_housing_deduction_amount", 700],
     ["fed_gross_income_exclusion_amount", 900],
     ["qualifying_children_under_age_ssn_count", "1"],
+    ["primary_over_65", "X"],
+    ["spouse_over_65", "X"],
+    ["primary_blind", "X"],
+    ["spouse_blind", "X"],
+    ["total_itemized_or_standard_deduction_amount", 20800],
     ["total_income_amount", 40000],
     ["total_itemized_or_standard_deduction_amount", 20800]
   ].each do |node_name, current_value|
@@ -51,6 +56,36 @@ describe DirectFileData do
           end
         end
       end
+    end
+
+    describe "##{node_name}=" do
+      it "can write a value" do
+        # test with something that can be converted .to_i for the amount fields
+        direct_file_data.send("#{node_name}=", "123")
+        expect(direct_file_data.send(node_name).to_s).to eq "123"
+      end
+    end
+  end
+
+  describe "#is_primary_blind?" do
+    it "returns true when value is X" do
+      expect(direct_file_data.is_primary_blind?).to eq true
+    end
+
+    it "returns false when node absent" do
+      xml.at('PrimaryBlindInd').remove
+      expect(direct_file_data.is_primary_blind?).to eq false
+    end
+  end
+
+  describe "#is_spouse_blind?" do
+    it "returns true when value is X" do
+      expect(direct_file_data.is_spouse_blind?).to eq true
+    end
+
+    it "returns false when node absent" do
+      xml.at('SpouseBlindInd').remove
+      expect(direct_file_data.is_spouse_blind?).to eq false
     end
   end
 

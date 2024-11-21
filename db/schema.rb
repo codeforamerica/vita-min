@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_18_194009) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_19_183818) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1860,7 +1860,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_18_194009) do
     t.jsonb "raw_direct_file_intake_data"
     t.integer "received_id_public_assistance", default: 0, null: false
     t.string "referrer"
-    t.integer "routing_number"
+    t.string "routing_number"
     t.integer "sign_in_count", default: 0, null: false
     t.string "source"
     t.date "spouse_birth_date"
@@ -2026,7 +2026,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_18_194009) do
     t.jsonb "raw_direct_file_intake_data"
     t.string "referrer"
     t.string "residence_county"
-    t.integer "routing_number"
+    t.string "routing_number"
     t.decimal "sales_use_tax", precision: 12, scale: 2
     t.integer "sales_use_tax_calculation_method", default: 0, null: false
     t.integer "sign_in_count", default: 0, null: false
@@ -2077,6 +2077,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_18_194009) do
     t.datetime "df_data_import_failed_at"
     t.datetime "df_data_import_succeeded_at"
     t.datetime "df_data_imported_at"
+    t.integer "eligibility_all_members_health_insurance", default: 0, null: false
     t.integer "eligibility_lived_in_state", default: 0, null: false
     t.integer "eligibility_out_of_state_income", default: 0, null: false
     t.citext "email_address"
@@ -2293,6 +2294,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_18_194009) do
     t.datetime "created_at", null: false
     t.string "employee_name"
     t.string "employee_ssn"
+    t.string "employer_ein"
     t.string "employer_name"
     t.string "employer_state_id_num"
     t.decimal "local_income_tax_amount", precision: 12, scale: 2
@@ -2304,6 +2306,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_18_194009) do
     t.decimal "state_wages_amount", precision: 12, scale: 2
     t.datetime "updated_at", null: false
     t.integer "w2_index"
+    t.decimal "wages", precision: 12, scale: 2
     t.index ["state_file_intake_type", "state_file_intake_id"], name: "index_state_file_w2s_on_state_file_intake"
   end
 

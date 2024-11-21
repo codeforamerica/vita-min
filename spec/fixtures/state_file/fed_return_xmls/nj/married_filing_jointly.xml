@@ -31,7 +31,7 @@
       <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
       <SpouseNm>Ernie Muppet</SpouseNm>
       <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
-      <SpouseClaimAsDependentInd>X</SpouseClaimAsDependentInd>
+      <PrimaryClaimAsDependentInd>X</PrimaryClaimAsDependentInd>
       <TotalBoxesCheckedCnt>1</TotalBoxesCheckedCnt>
       <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
       <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>

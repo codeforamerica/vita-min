@@ -102,6 +102,8 @@ describe StateFileBaseIntake do
       expect(w2.locality_nm).to eq "SOMECITY"
       expect(w2.state_income_tax_amount).to eq 500
       expect(w2.state_wages_amount).to eq 35000
+      expect(w2.wages).to eq 35000
+      expect(w2.employer_ein).to eq "234567891"
     end
 
     it "reads in w2s and removes dash/hyphen from employer_state_id_num" do

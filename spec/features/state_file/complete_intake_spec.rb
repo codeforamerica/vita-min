@@ -663,6 +663,10 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
       click_on I18n.t("general.continue")
 
+      expect(page).to have_text I18n.t("state_file.questions.nj_eligibility_health_insurance.edit.title")
+      choose I18n.t("general.affirmative")
+      click_on I18n.t("general.continue")
+
       select "Atlantic"
       click_on I18n.t("general.continue")
 

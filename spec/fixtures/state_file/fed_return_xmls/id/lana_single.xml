@@ -28,6 +28,8 @@
     <IRS1040 documentId="IRS10400001">
       <IndividualReturnFilingStatusCd>1</IndividualReturnFilingStatusCd>
       <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+      <Primary65OrOlderInd>X</Primary65OrOlderInd>
+      <PrimaryBlindInd>X</PrimaryBlindInd>
       <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
       <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
       <OtherDependentsListedCnt>0</OtherDependentsListedCnt>

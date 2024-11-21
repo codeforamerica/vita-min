@@ -1,6 +1,7 @@
 module PdfFiller
   class Nj1040Pdf
     include PdfHelper
+    include StateFile::NjPdfHelper
 
     def source_pdf_name
       "nj1040-TY2023"
@@ -24,9 +25,9 @@ module PdfFiller
         'Your Social Security Number': taxpayer_ssn.to_s,
         'Your Social Security Number_2': taxpayer_ssn.to_s,
         'Your Social Security Number_3': taxpayer_ssn.to_s,
-        'Names as shown on Form NJ1040': get_name,
-        'Names as shown on Form NJ1040_2': get_name,
-        'Names as shown on Form NJ1040_3': get_name,
+        'Names as shown on Form NJ1040': get_name(@xml_document),
+        'Names as shown on Form NJ1040_2': get_name(@xml_document),
+        'Names as shown on Form NJ1040_3': get_name(@xml_document),
 
         # county code
         CM4: county_code[1],
@@ -46,10 +47,10 @@ module PdfFiller
         Text8: taxpayer_ssn[8],
 
         # name
-        'Last Name First Name Initial Joint Filers enter first name and middle initial of each Enter spousesCU partners last name ONLY if different': get_name,
+        'Last Name First Name Initial Joint Filers enter first name and middle initial of each Enter spousesCU partners last name ONLY if different': get_name(@xml_document),
 
         # address
-        'SpousesCU Partners SSN if filing jointly': get_address, # address text field
+        'SpousesCU Partners SSN if filing jointly': get_address(@xml_document), # address text field
         'CountyMunicipality Code See Table page 50': @xml_document.at("ReturnHeaderState Filer USAddress CityNm")&.text, # city / town text field
         State: @xml_document.at("ReturnHeaderState Filer USAddress StateAbbreviationCd")&.text,
         'ZIP Code': @xml_document.at("ReturnHeaderState Filer USAddress ZIPCd")&.text,
@@ -497,12 +498,6 @@ module PdfFiller
       xml_selector_string_array.sum { |selector| @xml_document.at(selector)&.text == "X" ? 1 : 0 }
     end
 
-    def get_address
-      address_line_1 = @xml_document.at("ReturnHeaderState Filer USAddress AddressLine1Txt")&.text
-      address_line_2 = @xml_document.at("ReturnHeaderState Filer USAddress AddressLine2Txt")&.text
-      [address_line_1, address_line_2].compact.join(" ")
-    end
-
     def get_dependents
       @xml_document.css("Dependents").map do |dependent|
         {
@@ -514,36 +509,6 @@ module PdfFiller
           birth_year: dependent.at("BirthYear")&.text,
         }
       end
-    end
-
-    def get_name
-      first_name = @xml_document.at("ReturnHeaderState Filer Primary TaxpayerName FirstName")&.text
-      last_name = @xml_document.at("ReturnHeaderState Filer Primary TaxpayerName LastName")&.text
-      middle_initial = @xml_document.at("ReturnHeaderState Filer Primary TaxpayerName MiddleInitial")&.text
-      suffix = @xml_document.at("ReturnHeaderState Filer Primary TaxpayerName NameSuffix")&.text
-
-      spouse_first_name = @xml_document.at("ReturnHeaderState Filer Secondary TaxpayerName FirstName")&.text
-      spouse_last_name = @xml_document.at("ReturnHeaderState Filer Secondary TaxpayerName LastName")&.text
-      spouse_middle_initial = @xml_document.at("ReturnHeaderState Filer Secondary TaxpayerName MiddleInitial")&.text
-      spouse_suffix = @xml_document.at("ReturnHeaderState Filer Secondary TaxpayerName NameSuffix")&.text
-
-      if spouse_first_name.present? && spouse_last_name.present?
-        if last_name == spouse_last_name
-          return "#{format_name(first_name, last_name, middle_initial, suffix)} & #{format_no_last_name(spouse_first_name, spouse_middle_initial, spouse_suffix)}"
-        else
-          return "#{format_name(first_name, last_name, middle_initial, suffix)} & #{format_name(spouse_first_name, spouse_last_name, spouse_middle_initial, spouse_suffix)}"
-        end
-      end
-
-      format_name(first_name, last_name, middle_initial, suffix)
-    end
-
-    def format_name(first_name, last_name, middle_initial, suffix)
-      "#{last_name} #{format_no_last_name(first_name, middle_initial, suffix)}"
-    end
-
-    def format_no_last_name(first_name, middle_initial, suffix)
-      [first_name, middle_initial, suffix].compact.join(" ")
     end
 
     def insert_digits_into_fields(number, fields_ordered_decimals_to_millions)
