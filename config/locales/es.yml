@@ -2001,6 +2001,7 @@ es:
       index:
         title: 'Preguntas frecuentes de los contribuyentes de %{state}:'
     general:
+<<<<<<< HEAD
       fed_agi: Federal adjusted gross income
       id_adjusted_income: Total Idaho Adjusted Income
       id_building_fund_tax: Permanent Building Fund tax
@@ -2027,6 +2028,17 @@ es:
       standard_deduction: Standard deduction
       title: Free AZ and NY state tax filing
       total_tax: Total tax
+=======
+      fed_agi: Ingreso bruto ajustado federal
+      nc_income_tax: Impuesto sobre la renta de Carolina del Norte
+      nc_tax_withheld: Impuesto retenido en Carolina del Norte
+      nc_taxable_income: Ingresos imponibles de Carolina del Norte
+      nc_use_tax: Impuesto sobre el uso de Carolina del Norte
+      see_detailed_return: Consulta la información detallada de la declaración
+      standard_deduction: Deducción estándar
+      title: Presentación de impuestos estatales de Arizona y Nueva York sin costo
+      total_tax: Impuesto total
+>>>>>>> main
     intake_logins:
       account_locked:
         body_html: Esta cuenta ha sido bloqueada debido a demasiados intentos fallidos de inicio de sesión. Si necesitas ayuda para desbloquear esta cuenta, por favor envíanos un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
