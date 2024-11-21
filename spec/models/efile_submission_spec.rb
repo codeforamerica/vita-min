@@ -107,6 +107,76 @@ describe EfileSubmission do
         end
       end
 
+      context "when HOLD_OFF_EFILE_SUBMISSIONS_FOR_STATES includes a single state value" do
+        context "and it is the same as the submission" do
+          around do |example|
+            ENV['HOLD_OFF_EFILE_SUBMISSIONS_FOR_STATES'] = 'ny'
+            example.run
+            ENV.delete('HOLD_OFF_EFILE_SUBMISSIONS_FOR_STATES')
+          end
+
+          it "does not allow transitions from :preparing to :bundling" do
+            expect { submission.transition_to!(:bundling) }.to raise_error(Statesman::GuardFailedError)
+          end
+        end
+
+        context "and it is not the same as the submission" do
+          around do |example|
+            ENV['HOLD_OFF_EFILE_SUBMISSIONS_FOR_STATES'] = 'md'
+            example.run
+            ENV.delete('HOLD_OFF_EFILE_SUBMISSIONS_FOR_STATES')
+          end
+
+          it "does allow transitions from :preparing to :bundling" do
+            expect { submission.transition_to!(:bundling) }.not_to raise_error
+          end
+        end
+      end
+
+      context "when HOLD_OFF_EFILE_SUBMISSIONS_FOR_STATES includes multiple state values" do
+        context "and includes the same as the submission" do
+          around do |example|
+            ENV['HOLD_OFF_EFILE_SUBMISSIONS_FOR_STATES'] = 'ny md'
+            example.run
+            ENV.delete('HOLD_OFF_EFILE_SUBMISSIONS_FOR_STATES')
+          end
+
+          it "does not allow transitions from :preparing to :bundling" do
+            expect { submission.transition_to!(:bundling) }.to raise_error(Statesman::GuardFailedError)
+          end
+        end
+
+        context "and does not include the same as the submission" do
+          around do |example|
+            ENV['HOLD_OFF_EFILE_SUBMISSIONS_FOR_STATES'] = 'md id'
+            example.run
+            ENV.delete('HOLD_OFF_EFILE_SUBMISSIONS_FOR_STATES')
+          end
+
+          it "does allow transitions from :preparing to :bundling" do
+            expect { submission.transition_to!(:bundling) }.not_to raise_error
+          end
+        end
+      end
+
+      context "when HOLD_OFF_EFILE_SUBMISSIONS_FOR_STATES doesn't exist" do
+        it "does allow transitions from :preparing to :bundling" do
+          expect { submission.transition_to!(:bundling) }.not_to raise_error
+        end
+      end
+
+      context "when HOLD_OFF_EFILE_SUBMISSIONS_FOR_STATES contains nonsense" do
+        around do |example|
+          ENV['HOLD_OFF_EFILE_SUBMISSIONS_FOR_STATES'] = 'all mimsy were the borogroves did gyre and the mome rathes outgrabe'
+          example.run
+          ENV.delete('HOLD_OFF_EFILE_SUBMISSIONS_FOR_STATES')
+        end
+
+        it "does allow transitions from :preparing to :bundling" do
+          expect { submission.transition_to!(:bundling) }.not_to raise_error
+        end
+      end
+
       context "cannot transition to" do
         EfileSubmissionStateMachine.states.excluding("new", "bundling", "fraud_hold").each do |state|
           it state.to_s do
