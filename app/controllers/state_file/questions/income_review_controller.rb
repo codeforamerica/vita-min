@@ -2,6 +2,11 @@ module StateFile
   module Questions
     class IncomeReviewController < QuestionsController
       include ReturnToReviewConcern
+      before_action :set_sorted_vars
+
+      def set_sorted_vars 
+        @w2s = current_intake.state_file_w2s&.sort_by { |w2| [w2.employee_name, w2.employer_name] }
+      end
     end
   end
 end
