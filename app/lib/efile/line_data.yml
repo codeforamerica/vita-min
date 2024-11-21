@@ -230,6 +230,10 @@ ID40_LINE_43:
   label: 'To receive your grocery credit, enter the computed amount on line 43'
 ID40_LINE_46:
   label: '46 Idaho income tax withheld. Sum of all W2 state_income_tax_amount, 1099R state_tax_withheld_amount, 1099G state_income_tax_withheld_amount'
+ID40_LINE_54:
+  label: 'TBD'
+ID40_LINE_56:
+  label: 'TBD'
 IT201_LINE_1:
   label: '1 Wages, salaries, tips, etc.'
 IT201_LINE_2:
@@ -654,6 +658,8 @@ MD502_SU_LINE_V:
   label: "TBD"
 MD502_SU_LINE_1:
   label: "1 Add lines a. through yc. and enter this amount on line 13 of Form 502 with the appropriate code letters"
+NCD400_LINE_6:
+  label: '6 Federal Adjusted Gross Income'
 NCD400_LINE_9:
   label: '9 Deductions From Federal Adjusted Gross Income (From Form D-400 Schedule S, Part B, Line 41)'
 NCD400_LINE_10B:
