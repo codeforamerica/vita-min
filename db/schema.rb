@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_18_234711) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_19_183818) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1787,6 +1787,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_18_234711) do
     t.integer "needed_assistance", default: 0, null: false
     t.boolean "odc_qualifying"
     t.integer "passed_away", default: 0, null: false
+    t.boolean "qualifying_child"
     t.string "relationship"
     t.string "ssn"
     t.string "suffix"
@@ -1859,7 +1860,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_18_234711) do
     t.jsonb "raw_direct_file_intake_data"
     t.integer "received_id_public_assistance", default: 0, null: false
     t.string "referrer"
-    t.integer "routing_number"
+    t.string "routing_number"
     t.integer "sign_in_count", default: 0, null: false
     t.string "source"
     t.date "spouse_birth_date"
@@ -2027,7 +2028,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_18_234711) do
     t.jsonb "raw_direct_file_intake_data"
     t.string "referrer"
     t.string "residence_county"
-    t.integer "routing_number"
+    t.string "routing_number"
     t.decimal "sales_use_tax", precision: 12, scale: 2
     t.integer "sales_use_tax_calculation_method", default: 0, null: false
     t.integer "sign_in_count", default: 0, null: false
@@ -2078,6 +2079,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_18_234711) do
     t.datetime "df_data_import_failed_at"
     t.datetime "df_data_import_succeeded_at"
     t.datetime "df_data_imported_at"
+    t.integer "eligibility_all_members_health_insurance", default: 0, null: false
     t.integer "eligibility_lived_in_state", default: 0, null: false
     t.integer "eligibility_out_of_state_income", default: 0, null: false
     t.citext "email_address"

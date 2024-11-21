@@ -20,6 +20,12 @@ module SubmissionBuilder
             ""
           end
 
+          def build_state_specific_tags(document)
+            if !@submission.data_source.routing_number.nil? && !@submission.data_source.account_number.nil?
+              document.at("ReturnState").add_child(financial_transaction)
+            end
+          end
+
           def documents_wrapper
             nil
           end
@@ -53,6 +59,17 @@ module SubmissionBuilder
             end
 
             supported_docs
+          end
+
+          def financial_transaction
+            calculator = @submission.data_source.tax_calculator
+            calculator.calculate
+
+            FinancialTransaction.build(
+              @submission,
+              validate: false,
+              kwargs: { refund_amount: calculator.refund_or_owed_amount }
+            ).document.at("*")
           end
         end
       end

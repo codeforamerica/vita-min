@@ -48,9 +48,6 @@ class IrsApiService
       # Just cert and key are required
       http.cert = cert_finder.client_cert
       http.key = cert_finder.client_key
-
-      # CA chain for the IRS server certificate, so that we can verify it in mTLS
-      http.ca_file = "config/entrust_l1k_full_chain.cer"
     elsif server_url.host.include?('localhost')
       # nginx config for fake API server currently expects a cert + key + CA
       http.cert = cert_finder.client_cert
@@ -71,6 +68,10 @@ class IrsApiService
       # Capture the entire response (body + headers) from the IRS in a file
       filename = "irs_api_response-#{authorization_code}-#{Time.now.strftime("%Y-%m-%d")}.txt"
       save_response(response, filename)
+    end
+
+    if response.body.nil?
+      raise StandardError, "DF export-return API response Error: response.body is nil. header=#{response.header}"
     end
 
     undecrypted_body_json = JSON.parse(response.body)

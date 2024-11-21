@@ -44,7 +44,7 @@
 #  raw_direct_file_intake_data       :jsonb
 #  referrer                          :string
 #  residence_county                  :string
-#  routing_number                    :integer
+#  routing_number                    :string
 #  sales_use_tax                     :decimal(12, 2)
 #  sales_use_tax_calculation_method  :integer          default("unfilled"), not null
 #  sign_in_count                     :integer          default(0), not null
@@ -95,7 +95,7 @@ class StateFileNcIntake < StateFileBaseIntake
     nc_taxable_income = calculator.lines[:NCD400_LINE_14].value
     calculator.calculate_use_tax(nc_taxable_income)
   end
-  
+
   def disqualifying_df_data_reason
     w2_states = direct_file_data.parsed_xml.css('W2StateLocalTaxGrp W2StateTaxGrp StateAbbreviationCd')
     :has_out_of_state_w2 if w2_states.any? do |state|
