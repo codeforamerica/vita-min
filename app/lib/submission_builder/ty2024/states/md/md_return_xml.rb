@@ -5,6 +5,12 @@ module SubmissionBuilder
     module States
       module Md
         class MdReturnXml < SubmissionBuilder::StateReturn
+          def form_has_non_zero_amounts(form_prefix, calculated_fields)
+            lines = calculated_fields.keys.select { |line_name| line_name.starts_with?(form_prefix) }
+            lines.any? do |line_num|
+              calculated_fields.fetch(line_num) != 0
+            end
+          end
 
           private
 
@@ -93,13 +99,6 @@ module SubmissionBuilder
               validate: false,
               kwargs: { refund_amount: calculator.refund_or_owed_amount }
             ).document.at("*")
-          end
-
-          def form_has_non_zero_amounts(form_prefix, calculated_fields)
-            lines = calculated_fields.keys.select { |line_name| line_name.match?(/^"#{form_prefix}"/) }
-            lines.any? do |line_num|
-              calculated_fields.fetch(line_num) != 0
-            end
           end
         end
       end

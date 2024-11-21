@@ -2,7 +2,6 @@ require 'rails_helper'
 
 describe SubmissionBuilder::Ty2024::States::Md::MdReturnXml, required_schema: "md" do
   describe ".build" do
-    let(:intake) { create(:state_file_md_intake, filing_status: "single") }
     let(:submission) { create(:efile_submission, data_source: intake.reload) }
     let!(:initial_efile_device_info) { create :state_file_efile_device_info, :initial_creation, :filled, intake: intake }
     let!(:submission_efile_device_info) { create :state_file_efile_device_info, :submission, :filled, intake: intake }
@@ -42,6 +41,50 @@ describe SubmissionBuilder::Ty2024::States::Md::MdReturnXml, required_schema: "m
         xml = Nokogiri::XML::Document.parse(builder_class.build(submission).document.to_xml)
 
         expect(xml.css("MD1099G").count).to eq 2
+      end
+    end
+
+    describe "#form_has_non_zero_amounts" do
+      [
+        {
+          calculator: Efile::Md::Md502SuCalculator,
+          methods: [:calculate_line_ab, :calculate_line_u, :calculate_line_v, :calculate_line_1],
+          prefix: "MD502_SU_"
+        },
+        {
+          calculator: Efile::Md::Md502crCalculator,
+          methods: [:calculate_md502_cr_part_m_line_1, :calculate_md502_cr_part_b_line_3, :calculate_md502_cr_part_b_line_4],
+          prefix: "MD502CR_"
+        }
+      ].each do |form|
+        context "#{form[:prefix]}" do
+          context "only has zero values" do
+            before do
+              form[:methods].each do |method|
+                allow_any_instance_of(form[:calculator]).to receive(method).and_return 0
+              end
+            end
+
+            it "returns false" do
+              calculated_lines = intake.tax_calculator.calculate
+              expect(instance.form_has_non_zero_amounts(form[:prefix], calculated_lines)).to eq false
+            end
+          end
+
+          context "has non-zero values" do
+            before do
+              allow_any_instance_of(form[:calculator]).to receive(form[:methods][0]).and_return 100
+              form[:methods][1..-1].each do |method|
+                allow_any_instance_of(form[:calculator]).to receive(method).and_return 0
+              end
+            end
+
+            it "returns true" do
+              calculated_lines = intake.tax_calculator.calculate
+              expect(instance.form_has_non_zero_amounts(form[:prefix], calculated_lines)).to eq true
+            end
+          end
+        end
       end
     end
 
