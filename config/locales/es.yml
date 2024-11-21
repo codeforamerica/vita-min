@@ -2001,7 +2001,15 @@ es:
       index:
         title: 'Preguntas frecuentes de los contribuyentes de %{state}:'
     general:
+      fed_agi: Ingreso bruto ajustado federal
+      nc_income_tax: Impuesto sobre la renta de Carolina del Norte
+      nc_tax_withheld: Impuesto retenido en Carolina del Norte
+      nc_taxable_income: Ingresos imponibles de Carolina del Norte
+      nc_use_tax: Impuesto sobre el uso de Carolina del Norte
+      see_detailed_return: Consulta la información detallada de la declaración
+      standard_deduction: Deducción estándar
       title: Presentación de impuestos estatales de Arizona y Nueva York sin costo
+      total_tax: Impuesto total
     intake_logins:
       account_locked:
         body_html: Esta cuenta ha sido bloqueada debido a demasiados intentos fallidos de inicio de sesión. Si necesitas ayuda para desbloquear esta cuenta, por favor envíanos un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
@@ -2231,15 +2239,12 @@ es:
           charitable_noncash: Donaciones caritativas (en especie)
           dependent_tax_credit: Crédito tributario por dependientes
           family_income_tax_credit: Crédito tributario por ingresos familiares
-          fed_agi: Ingreso bruto ajustado federal
           household_excise_credit_claimed: Otros miembros de tu hogar han reclamado el Crédito por Aumento de Impuestos Especiales de Arizona
           incr_deduction_chrit_contributions: Deducción aumentada por donaciones caritativas
           increased_excise_tax_credit: Crédito por Aumento de Impuestos Especiales
           last_names: Otros apellidos usados en los últimos cuatro años
           made_az321_contributions: Hizo contribuciones a organizaciones benéficas calificadas
-          see_detailed_return: Consulta la información detallada de la declaración
           ssn_no_employment: '"Not valid for employment" escrita en tu tarjeta de Seguro Social'
-          standard_deduction: Deducción estándar
           total_arizona_subtractions: Restas totales de Arizona
           total_exemptions: Exenciones Totales
           total_payments: Total de pagos
@@ -2732,9 +2737,13 @@ es:
       nc_review:
         edit:
           amount: Cantidad
+          child_deduction: Deducción por hijos
+          interest_us_bonds: Ingresos por intereses de bonos estadounidenses (no sujetos a impuestos en Carolina del Norte)
           primary_veteran: Información del Veterano
+          social_security_benefits: Beneficios del Seguro Social (no sujetos a impuestos en Carolina del Norte)
           spouse_veteran: Información del Cónyuge Veterano
           state_credit: Cantidad ganada como miembro de una tribu indígena reconocida federalmente
+          subtraction_indian_tribe: Resta de ingresos de un miembro de una tribu india
           use_tax_applied: Impuesto de Uso Aplicado
       nc_sales_use_tax:
         edit:
@@ -2766,6 +2775,23 @@ es:
         primary_veteran_question: "¿Eres un veterano?"
         spouse_veteran_question: "¿Es su cónyuge un veterano?"
         title: Pregunta sobre el estatus de veterano
+      nj_college_dependents_exemption:
+        edit:
+          birthdate_label: 'Birthdate:'
+          college_helper_description: '"College"  is an accredited college or post-secondary school, maintains a regular faculty and curriculum, and has a group of students in attendance.'
+          college_helper_heading: What counts as "college"?
+          dependent_attends_accredited_program: "%{dependent_first} is attending an accredited college or post-secondary school."
+          dependent_enrolled_full_time: "%{dependent_first} attends there full time."
+          dependent_five_months_in_college: "%{dependent_first} spends at least some part of each of five calendar months in that college."
+          dependent_header: "(dependent)"
+          filer_pays_tuition_books: I (or my spouse, if I am filing jointly) pay for more than one-half or more of %{dependent_first}'s tuition and college costs.
+          full_time_college_helper_description: '"Full time" is whatever the college considers to be full-time.'
+          full_time_college_helper_heading: What counts as "attending college full time"?
+          label_1: For each person claimed on your return (dependent) who is attending college, we need to confirm some details.
+          label_2: "(You can only claim this credit for dependents listed on your return.)"
+          title: You may qualify for an additional exemption for dependents who are attending college.
+          tuition_books_helper_description_html: To calculate the total amount, add together the cost of college tuition, the cost of books (and supplies), and any money earned by the student in college work study programs. Do not include other financial aid received.
+          tuition_books_helper_heading: How should I calculate the total amount of tuition and college costs?
       nj_county:
         edit:
           county: Condado

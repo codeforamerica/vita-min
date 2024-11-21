@@ -658,6 +658,8 @@ MD502_SU_LINE_V:
   label: "TBD"
 MD502_SU_LINE_1:
   label: "1 Add lines a. through yc. and enter this amount on line 13 of Form 502 with the appropriate code letters"
+NCD400_LINE_6:
+  label: '6 Federal Adjusted Gross Income'
 NCD400_LINE_9:
   label: '9 Deductions From Federal Adjusted Gross Income (From Form D-400 Schedule S, Part B, Line 41)'
 NCD400_LINE_10B:
@@ -712,14 +714,16 @@ NJ1040_LINE_7_SELF:
   label: '7 Primary Senior 65+ Exemption'
 NJ1040_LINE_7_SPOUSE:
   label: '7 Spouse Senior 65+ Exemption'
-NJ1040_LINE_10:
+NJ1040_LINE_10_COUNT:
   label: 'Number of Qualified Dependent Children'
 NJ1040_LINE_10_EXEMPTION:
   label: 'Exemption amount from Qualified Dependent Children'
-NJ1040_LINE_11:
+NJ1040_LINE_11_COUNT:
   label: 'Number of Other Dependents'
 NJ1040_LINE_11_EXEMPTION:
   label: 'Exemption amount from Other Dependents'
+NJ1040_LINE_12_COUNT:
+  label: 'Dependents Attending Colleges (See instructions)'
 NJ1040_LINE_13:
   label: '13 Total Exemption Amount (Add totals from the lines at 6 through 12)'
 NJ1040_LINE_15:

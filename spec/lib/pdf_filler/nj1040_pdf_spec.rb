@@ -144,6 +144,141 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       end
     end
 
+
+    describe "name field" do
+      name_field = "Last Name First Name Initial Joint Filers enter first name and middle initial of each Enter spousesCU partners last name ONLY if different"
+      context "single filer" do
+        context "first and last name only" do
+          let(:submission) {
+            create :efile_submission, tax_return: nil, data_source: create(
+              :state_file_nj_intake,
+              primary_first_name: "Grace",
+              primary_last_name: "Hopper",
+              primary_middle_initial: ""
+            )
+          }
+          it 'fills pdf with LastName FirstName' do
+            expected_name = "Hopper Grace"
+            expect(pdf_fields[name_field]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040"]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040_2"]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040_3"]).to eq expected_name
+          end
+        end
+
+        context "with middle initial" do
+          let(:submission) {
+            create :efile_submission, tax_return: nil, data_source: create(
+              :state_file_nj_intake,
+              primary_first_name: "Grace",
+              primary_last_name: "Hopper",
+              primary_middle_initial: "B"
+            )
+          }
+          it 'fills pdf with LastName FirstName MI' do
+            expected_name = "Hopper Grace B"
+            expect(pdf_fields[name_field]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040"]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040_2"]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040_3"]).to eq expected_name
+          end
+        end
+
+        context "with suffix" do
+          let(:submission) {
+            create :efile_submission, tax_return: nil, data_source: create(
+              :state_file_nj_intake,
+              primary_first_name: "Grace",
+              primary_last_name: "Hopper",
+              primary_middle_initial: "",
+              primary_suffix: "JR"
+            )
+          }
+          it 'fills pdf with LastName FirstName Suf' do
+            expected_name = "Hopper Grace JR"
+            expect(pdf_fields[name_field]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040"]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040_2"]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040_3"]).to eq expected_name
+          end
+        end
+
+        context "with suffix and middle initial" do
+          let(:submission) {
+            create :efile_submission, tax_return: nil, data_source: create(
+              :state_file_nj_intake,
+              primary_first_name: "Grace",
+              primary_last_name: "Hopper",
+              primary_middle_initial: "B",
+              primary_suffix: "JR"
+            )
+          }
+          it 'fills pdf with LastName FirstName MI Suf' do
+            expected_name = "Hopper Grace B JR"
+            expect(pdf_fields[name_field]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040"]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040_2"]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040_3"]).to eq expected_name
+          end
+        end
+      end
+
+      context "joint filer" do
+        context "same last name" do
+          let(:submission) {
+            create :efile_submission, tax_return: nil, data_source: create(
+              :state_file_nj_intake,
+              primary_first_name: "Bert",
+              primary_last_name: "Muppet",
+              primary_middle_initial: "S",
+              spouse_first_name: "Ernie",
+              spouse_last_name: "Muppet",
+              spouse_ssn: "123456789"
+            )
+          }
+          it 'fills pdf with LastName FirstName & FirstName' do
+            expected_name = "Muppet Bert S & Ernie"
+            expect(pdf_fields[name_field]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040"]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040_2"]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040_3"]).to eq expected_name
+          end
+        end
+
+        context "different last names" do
+          let(:submission) {
+            create :efile_submission, tax_return: nil, data_source: create(
+              :state_file_nj_intake,
+              primary_first_name: "Blake",
+              primary_last_name: "Lively",
+              primary_middle_initial: "E",
+              spouse_first_name: "Ryan",
+              spouse_last_name: "Reynolds",
+              spouse_ssn: "123456789"
+            )
+          }
+
+          it 'fills pdf with LastName FirstName & LastName FirstName' do
+            expected_name = "Lively Blake E & Reynolds Ryan"
+            expect(pdf_fields[name_field]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040"]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040_2"]).to eq expected_name
+            expect(pdf_fields["Names as shown on Form NJ1040_3"]).to eq expected_name
+          end
+        end
+      end
+    end
+
+    describe "address fields" do
+      it 'enters values into PDF' do
+        # address values from zeus_one_dep.xml
+        expect(pdf_fields["SpousesCU Partners SSN if filing jointly"]).to eq "391 US-206 B"
+        expect(pdf_fields["CountyMunicipality Code See Table page 50"]).to eq "Hammonton"
+        expect(pdf_fields["State"]).to eq "NJ"
+        expect(pdf_fields["ZIP Code"]).to eq "08037"
+      end
+    end
+
     describe "exemptions" do
       describe "Line 6 exemptions" do
         context "single filer" do
@@ -332,7 +467,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
             expect(pdf_fields["undefined_11"]).to eq "0"
           end
         end
-  
+
         context "primary is veteran but spouse is not" do
           let(:submission) {
             create :efile_submission, tax_return: nil, data_source: create(
@@ -347,7 +482,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
             expect(pdf_fields["undefined_11"]).to eq "1"
           end
         end
-  
+
         context "primary is not veteran but spouse is veteran" do
           let(:submission) {
             create :efile_submission, tax_return: nil, data_source: create(
@@ -362,7 +497,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
             expect(pdf_fields["undefined_11"]).to eq "1"
           end
         end
-  
+
         context "primary and spouse are both veterans" do
           let(:submission) {
             create :efile_submission, tax_return: nil, data_source: create(
@@ -453,139 +588,80 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           end
         end
       end
-    end
 
-    describe "name field" do
-      name_field = "Last Name First Name Initial Joint Filers enter first name and middle initial of each Enter spousesCU partners last name ONLY if different"
-      context "single filer" do
-        context "first and last name only" do
+      describe "Line 12 dependents attending college" do
+        context 'when has 2 dependents in college' do
           let(:submission) {
             create :efile_submission, tax_return: nil, data_source: create(
-              :state_file_nj_intake,
-              primary_first_name: "Grace",
-              primary_last_name: "Hopper",
-              primary_middle_initial: ""
+              :state_file_nj_intake, :two_dependents_in_college
             )
           }
-          it 'fills pdf with LastName FirstName' do
-            expected_name = "Hopper Grace"
-            expect(pdf_fields[name_field]).to eq expected_name
-            expect(pdf_fields["Names as shown on Form NJ1040"]).to eq expected_name
-            expect(pdf_fields["Names as shown on Form NJ1040_2"]).to eq expected_name
-            expect(pdf_fields["Names as shown on Form NJ1040_3"]).to eq expected_name
+          it 'fills count 2 and exemption total $2000' do
+            expect(pdf_fields["Text49"]).to eq ""
+            expect(pdf_fields["undefined_14"]).to eq "2"
+            expect(pdf_fields["x  1000_4"]).to eq "2000"
           end
         end
 
-        context "with middle initial" do
+        context 'when has 10+ dependents in college' do
           let(:submission) {
             create :efile_submission, tax_return: nil, data_source: create(
-              :state_file_nj_intake,
-              primary_first_name: "Grace",
-              primary_last_name: "Hopper",
-              primary_middle_initial: "B"
+              :state_file_nj_intake, :eleven_dependents_in_college
             )
           }
-          it 'fills pdf with LastName FirstName MI' do
-            expected_name = "Hopper Grace B"
-            expect(pdf_fields[name_field]).to eq expected_name
-            expect(pdf_fields["Names as shown on Form NJ1040"]).to eq expected_name
-            expect(pdf_fields["Names as shown on Form NJ1040_2"]).to eq expected_name
-            expect(pdf_fields["Names as shown on Form NJ1040_3"]).to eq expected_name
+          it 'fills count 11 and exemption total $11000' do
+            expect(pdf_fields["Text49"]).to eq "1"
+            expect(pdf_fields["undefined_14"]).to eq "1"
+            expect(pdf_fields["x  1000_4"]).to eq "11000"
           end
         end
 
-        context "with suffix" do
+        context 'when does not have dependents in college' do
           let(:submission) {
             create :efile_submission, tax_return: nil, data_source: create(
-              :state_file_nj_intake,
-              primary_first_name: "Grace",
-              primary_last_name: "Hopper",
-              primary_middle_initial: "",
-              primary_suffix: "JR"
+              :state_file_nj_intake
             )
           }
-          it 'fills pdf with LastName FirstName Suf' do
-            expected_name = "Hopper Grace JR"
-            expect(pdf_fields[name_field]).to eq expected_name
-            expect(pdf_fields["Names as shown on Form NJ1040"]).to eq expected_name
-            expect(pdf_fields["Names as shown on Form NJ1040_2"]).to eq expected_name
-            expect(pdf_fields["Names as shown on Form NJ1040_3"]).to eq expected_name
-          end
-        end
-
-        context "with suffix and middle initial" do
-          let(:submission) {
-            create :efile_submission, tax_return: nil, data_source: create(
-              :state_file_nj_intake,
-              primary_first_name: "Grace",
-              primary_last_name: "Hopper",
-              primary_middle_initial: "B",
-              primary_suffix: "JR"
-            )
-          }
-          it 'fills pdf with LastName FirstName MI Suf' do
-            expected_name = "Hopper Grace B JR"
-            expect(pdf_fields[name_field]).to eq expected_name
-            expect(pdf_fields["Names as shown on Form NJ1040"]).to eq expected_name
-            expect(pdf_fields["Names as shown on Form NJ1040_2"]).to eq expected_name
-            expect(pdf_fields["Names as shown on Form NJ1040_3"]).to eq expected_name
-          end
-        end
-      end
-
-      context "joint filer" do
-        context "same last name" do
-          let(:submission) {
-            create :efile_submission, tax_return: nil, data_source: create(
-              :state_file_nj_intake,
-              primary_first_name: "Bert",
-              primary_last_name: "Muppet",
-              primary_middle_initial: "S",
-              spouse_first_name: "Ernie",
-              spouse_last_name: "Muppet",
-              spouse_ssn: "123456789"
-            )
-          }
-          it 'fills pdf with LastName FirstName & FirstName' do
-            expected_name = "Muppet Bert S & Ernie"
-            expect(pdf_fields[name_field]).to eq expected_name
-            expect(pdf_fields["Names as shown on Form NJ1040"]).to eq expected_name
-            expect(pdf_fields["Names as shown on Form NJ1040_2"]).to eq expected_name
-            expect(pdf_fields["Names as shown on Form NJ1040_3"]).to eq expected_name
-          end
-        end
-
-        context "different last names" do
-          let(:submission) {
-            create :efile_submission, tax_return: nil, data_source: create(
-              :state_file_nj_intake,
-              primary_first_name: "Blake",
-              primary_last_name: "Lively",
-              primary_middle_initial: "E",
-              spouse_first_name: "Ryan",
-              spouse_last_name: "Reynolds",
-              spouse_ssn: "123456789"
-            )
-          }
-
-          it 'fills pdf with LastName FirstName & LastName FirstName' do
-            expected_name = "Lively Blake E & Reynolds Ryan"
-            expect(pdf_fields[name_field]).to eq expected_name
-            expect(pdf_fields["Names as shown on Form NJ1040"]).to eq expected_name
-            expect(pdf_fields["Names as shown on Form NJ1040_2"]).to eq expected_name
-            expect(pdf_fields["Names as shown on Form NJ1040_3"]).to eq expected_name
+          it 'does not fill count nor exemption total' do
+            expect(pdf_fields["Text49"]).to eq ""
+            expect(pdf_fields["undefined_14"]).to eq ""
+            expect(pdf_fields["x  1000_4"]).to eq ""
           end
         end
       end
     end
 
-    describe "address fields" do
-      it 'enters values into PDF' do
-        # address values from zeus_one_dep.xml
-        expect(pdf_fields["SpousesCU Partners SSN if filing jointly"]).to eq "391 US-206 B"
-        expect(pdf_fields["CountyMunicipality Code See Table page 50"]).to eq "Hammonton"
-        expect(pdf_fields["State"]).to eq "NJ"
-        expect(pdf_fields["ZIP Code"]).to eq "08037"
+    describe "line 13/30 total exemptions" do
+      let(:submission) {
+        create :efile_submission, tax_return: nil, data_source: create(
+          :state_file_nj_intake
+        )
+      }
+      it "totals line 6-12 and writes it to line 13" do
+        # thousands
+        expect(pdf_fields["undefined_15"]).to eq ""
+        expect(pdf_fields["undefined_16"]).to eq "2"
+        # hundreds
+        expect(pdf_fields["undefined_17"]).to eq "5"
+        expect(pdf_fields["Text50"]).to eq "0"
+        expect(pdf_fields["Text51"]).to eq "0"
+        # decimals
+        expect(pdf_fields["Text52"]).to eq "0"
+        expect(pdf_fields["Text53"]).to eq "0"
+      end
+
+      it "totals line 6-12 and writes it to line 30" do
+        # thousands
+        expect(pdf_fields["30"]).to eq ""
+        expect(pdf_fields["210"]).to eq ""
+        expect(pdf_fields["211"]).to eq "2"
+        # hundreds
+        expect(pdf_fields["undefined_90"]).to eq "5"
+        expect(pdf_fields["212"]).to eq "0"
+        expect(pdf_fields["213"]).to eq "0"
+        # decimals
+        expect(pdf_fields["undefined_91"]).to eq "0"
+        expect(pdf_fields["214"]).to eq "0"
       end
     end
 
@@ -872,40 +948,6 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           expect(pdf_fields["116"]).to eq "0"
           expect(pdf_fields["117"]).to eq "0"
         end
-      end
-    end
-
-    describe "line 13/30 total exemptions" do
-      let(:submission) {
-        create :efile_submission, tax_return: nil, data_source: create(
-          :state_file_nj_intake
-        )
-      }
-      it "totals line 6-12 and writes it to line 13" do
-        # thousands
-        expect(pdf_fields["undefined_15"]).to eq ""
-        expect(pdf_fields["undefined_16"]).to eq "2"
-        # hundreds
-        expect(pdf_fields["undefined_17"]).to eq "5"
-        expect(pdf_fields["Text50"]).to eq "0"
-        expect(pdf_fields["Text51"]).to eq "0"
-        # decimals
-        expect(pdf_fields["Text52"]).to eq "0"
-        expect(pdf_fields["Text53"]).to eq "0"
-      end
-
-      it "totals line 6-12 and writes it to line 30" do
-        # thousands
-        expect(pdf_fields["30"]).to eq ""
-        expect(pdf_fields["210"]).to eq ""
-        expect(pdf_fields["211"]).to eq "2"
-        # hundreds
-        expect(pdf_fields["undefined_90"]).to eq "5"
-        expect(pdf_fields["212"]).to eq "0"
-        expect(pdf_fields["213"]).to eq "0"
-        # decimals
-        expect(pdf_fields["undefined_91"]).to eq "0"
-        expect(pdf_fields["214"]).to eq "0"
       end
     end
 
