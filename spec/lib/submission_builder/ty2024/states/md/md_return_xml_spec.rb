@@ -88,10 +88,10 @@ describe SubmissionBuilder::Ty2024::States::Md::MdReturnXml, required_schema: "m
       it "includes documents that are always attached" do
         expect(xml.document.at('ReturnDataState Form502')).to be_an_instance_of Nokogiri::XML::Element
         expect(instance.pdf_documents).to be_any { |included_documents|
-          included_documents.pdf = PdfFiller::Md502Pdf
+          included_documents.pdf == PdfFiller::Md502Pdf
         }
         expect(instance.pdf_documents).to be_any { |included_documents|
-          included_documents.pdf = PdfFiller::MdEl101Pdf
+          included_documents.pdf == PdfFiller::MdEl101Pdf
         }
       end
 
@@ -122,7 +122,7 @@ describe SubmissionBuilder::Ty2024::States::Md::MdReturnXml, required_schema: "m
           it "attaches a 502R" do
             expect(xml.at("Form502R")).to be_present
             expect(instance.pdf_documents).to be_any { |included_document|
-              included_document.pdf = PdfFiller::Md502RPdf
+              included_document.pdf == PdfFiller::Md502RPdf
             }
           end
         end
@@ -155,7 +155,7 @@ describe SubmissionBuilder::Ty2024::States::Md::MdReturnXml, required_schema: "m
             it "attaches a 502CR" do
               expect(xml.at("Form502CR")).to be_present
               expect(instance.pdf_documents).to be_any { |included_documents|
-                included_documents.pdf = PdfFiller::Md502CrPdf
+                included_documents.pdf == PdfFiller::Md502CrPdf
               }
             end
           end
@@ -187,7 +187,7 @@ describe SubmissionBuilder::Ty2024::States::Md::MdReturnXml, required_schema: "m
             it "attaches a 502CR" do
               expect(xml.at("Form502CR")).to be_present
               expect(instance.pdf_documents).to be_any { |included_documents|
-                included_documents.pdf = PdfFiller::Md502CrPdf
+                included_documents.pdf == PdfFiller::Md502CrPdf
               }
             end
           end
@@ -221,7 +221,7 @@ describe SubmissionBuilder::Ty2024::States::Md::MdReturnXml, required_schema: "m
             it "attaches a 502SU" do
               expect(xml.at("Form502SU")).to be_present
               expect(instance.pdf_documents).to be_any { |included_documents|
-                included_documents.pdf = PdfFiller::Md502SuPdf
+                included_documents.pdf == PdfFiller::Md502SuPdf
               }
             end
           end
@@ -253,7 +253,7 @@ describe SubmissionBuilder::Ty2024::States::Md::MdReturnXml, required_schema: "m
             it "attaches a 502SU" do
               expect(xml.at("Form502SU")).to be_present
               expect(instance.pdf_documents).to be_any { |included_documents|
-                included_documents.pdf = PdfFiller::Md502SuPdf
+                included_documents.pdf == PdfFiller::Md502SuPdf
               }
             end
           end
