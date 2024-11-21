@@ -16,7 +16,6 @@ module PdfFiller
     end
 
     def hash_for_pdf
-
       mfs_spouse_first_name = @xml_document.at("MFSSpouseName FirstName")&.text || ""
       mfs_spouse_middle_initial = @xml_document.at("MFSSpouseName MiddleInitial")&.text || ""
       mfs_spouse_last_name = @xml_document.at("MFSSpouseName LastName")&.text || ""

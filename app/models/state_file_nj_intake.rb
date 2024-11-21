@@ -7,6 +7,7 @@
 #  account_type                                           :integer          default("unfilled"), not null
 #  bank_name                                              :string
 #  claimed_as_dep                                         :integer
+#  claimed_as_eitc_qualifying_child                       :integer          default("unfilled"), not null
 #  consented_to_terms_and_conditions                      :integer          default("unfilled"), not null
 #  contact_preference                                     :integer          default("unfilled"), not null
 #  county                                                 :string
@@ -17,6 +18,7 @@
 #  df_data_import_failed_at                               :datetime
 #  df_data_import_succeeded_at                            :datetime
 #  df_data_imported_at                                    :datetime
+#  eligibility_all_members_health_insurance               :integer          default("unfilled"), not null
 #  eligibility_lived_in_state                             :integer          default("unfilled"), not null
 #  eligibility_out_of_state_income                        :integer          default("unfilled"), not null
 #  email_address                                          :citext
@@ -71,6 +73,7 @@
 #  sign_in_count                                          :integer          default(0), not null
 #  source                                                 :string
 #  spouse_birth_date                                      :date
+#  spouse_claimed_as_eitc_qualifying_child                :integer          default("unfilled"), not null
 #  spouse_disabled                                        :integer          default("unfilled"), not null
 #  spouse_esigned                                         :integer          default("unfilled"), not null
 #  spouse_esigned_at                                      :datetime
@@ -135,6 +138,11 @@ class StateFileNjIntake < StateFileBaseIntake
   enum untaxed_out_of_state_purchases: { unfilled: 0, yes: 1, no: 2 }, _prefix: :untaxed_out_of_state_purchases
   enum sales_use_tax_calculation_method: { unfilled: 0, automated: 1, manual: 2 }, _prefix: :sales_use_tax_calculation_method
 
+  enum claimed_as_eitc_qualifying_child: { unfilled: 0, yes: 1, no: 2}, _prefix: :claimed_as_eitc_qualifying_child
+  enum spouse_claimed_as_eitc_qualifying_child: { unfilled: 0, yes: 1, no: 2}, _prefix: :spouse_claimed_as_eitc_qualifying_child
+
+  enum eligibility_all_members_health_insurance: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_all_members_health_insurance
+
   def calculate_sales_use_tax
     nj_gross_income = calculator.lines[:NJ1040_LINE_29].value
     calculator.calculate_use_tax(nj_gross_income)
@@ -150,10 +158,32 @@ class StateFileNjIntake < StateFileBaseIntake
     return :exempt_interest_exceeds_10k if tax_exempt_interest_income > 10_000
   end
 
+  def eligibility_claimed_as_dependent?
+    if self.filing_status_mfj?
+      self.direct_file_data.claimed_as_dependent? && self.direct_file_data.spouse_is_a_dependent?
+    else
+      self.direct_file_data.claimed_as_dependent?
+    end
+  end
+
+  def eligibility_made_less_than_threshold?
+    nj_gross_income = calculator.lines[:NJ1040_LINE_29].value
+    threshold = self.filing_status_single? || self.filing_status_mfs? ? 10_000 : 20_000
+    nj_gross_income <= threshold
+  end
+
+  def health_insurance_eligibility
+    if self.eligibility_all_members_health_insurance_no?
+      has_exception = self.eligibility_made_less_than_threshold? || self.eligibility_claimed_as_dependent?
+      has_exception ? "eligible" : "ineligible"
+    else
+      "eligible"
+    end
+  end
+
   def disqualifying_eligibility_rules
     {
-      eligibility_lived_in_state: "no",
-      eligibility_out_of_state_income: "yes",
+      health_insurance_eligibility: "ineligible"
     }
   end
 end

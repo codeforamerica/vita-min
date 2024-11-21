@@ -1048,16 +1048,28 @@ describe Efile::Nj::Nj1040Calculator do
     context 'when there is EarnedIncomeCreditAmt on the federal 1040' do
       let(:intake) { create(:state_file_nj_intake) }
 
-      it 'sets line 58 to 40% of federal EITC (40% of $1490)' do
+      it 'sets line 58 to 40% of federal EITC (40% of $1490) and checks IRS box' do
         expect(instance.lines[:NJ1040_LINE_58].value).to eq(596)
+        expect(instance.lines[:NJ1040_LINE_58_IRS].value).to eq(true)
       end
     end
 
     context 'when there is no EarnedIncomeCreditAmt on the federal 1040' do
       let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
+      it 'sets line 58 to 0 when taxpayer not eligible' do
+        allow(Efile::Nj::NjFlatEitcEligibility).to receive(:eligible?).and_return false
+        instance.calculate
 
-      it 'sets line 58 to 0' do
         expect(instance.lines[:NJ1040_LINE_58].value).to eq(0)
+        expect(instance.lines[:NJ1040_LINE_58_IRS].value).to eq(false)
+      end
+
+      it 'sets line 58 to flat $240 and does not check IRS box when taxpayer eligible' do
+        allow(Efile::Nj::NjFlatEitcEligibility).to receive(:eligible?).and_return true
+        instance.calculate
+
+        expect(instance.lines[:NJ1040_LINE_58].value).to eq(240)
+        expect(instance.lines[:NJ1040_LINE_58_IRS].value).to eq(false)
       end
     end
   end
@@ -1131,7 +1143,7 @@ describe Efile::Nj::Nj1040Calculator do
     end
 
     context 'married filing jointly' do
-      let(:intake) { create(:state_file_nj_intake, :df_data_mfj) }
+      let(:intake) { create(:state_file_nj_intake, :married_filing_jointly) }
       let(:primary_ssn_from_fixture) { intake.primary.ssn }
       let(:spouse_ssn_from_fixture) { intake.spouse.ssn }
       let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_ui_hc_wd: 10) }
@@ -1245,7 +1257,7 @@ describe Efile::Nj::Nj1040Calculator do
     end
 
     context 'married filing jointly' do
-      let(:intake) { create(:state_file_nj_intake, :df_data_mfj) }
+      let(:intake) { create(:state_file_nj_intake, :married_filing_jointly) }
       let(:primary_ssn_from_fixture) { intake.primary.ssn }
       let(:spouse_ssn_from_fixture) { intake.spouse.ssn }
       let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_fli: 10) }

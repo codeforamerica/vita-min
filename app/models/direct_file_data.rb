@@ -23,6 +23,7 @@ class DirectFileData < DfXmlAccessor
     fed_tax_exempt_interest: 'IRS1040 TaxExemptInterestAmt',
     fed_taxable_income: 'IRS1040 TaxableInterestAmt',
     fed_taxable_pensions: 'IRS1040 TotalTaxablePensionsAmt',
+    fed_income_total: 'IRS1040 TotalIncomeAmt',
     fed_educator_expenses: 'IRS1040Schedule1 EducatorExpensesAmt',
     fed_student_loan_interest: 'IRS1040Schedule1 StudentLoanInterestDedAmt',
     fed_total_adjustments: 'IRS1040Schedule1 TotalAdjustmentsAmt',
@@ -66,6 +67,8 @@ class DirectFileData < DfXmlAccessor
     spouse_date_of_death: 'IRS1040 SpouseDeathDt',
     spouse_name: 'IRS1040 SpouseNm',
     non_resident_alien: 'IRS1040 NRALiteralCd',
+    primary_over_65: 'IRS1040 Primary65OrOlderInd',
+    spouse_over_65: 'IRS1040 Spouse65OrOlderInd',
     primary_blind: 'IRS1040 PrimaryBlindInd',
     spouse_blind: 'IRS1040 SpouseBlindInd',
     qualifying_children_under_age_ssn_count: 'IRS1040Schedule8812 QlfyChildUnderAgeSSNCnt',
@@ -118,6 +121,14 @@ class DirectFileData < DfXmlAccessor
 
   def phone_number=(value)
     create_or_destroy_df_xml_node(__method__, value, after="Filer USAddress")
+    write_df_xml_value(__method__, value)
+  end
+
+  def cell_phone_number=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def tax_payer_email=(value)
     write_df_xml_value(__method__, value)
   end
 
@@ -211,6 +222,10 @@ class DirectFileData < DfXmlAccessor
     write_df_xml_value(__method__, value)
   end
 
+  def total_itemized_or_standard_deduction_amount=(value)
+    write_df_xml_value(__method__, value)
+  end
+
   def fed_wages
     df_xml_value(__method__)&.to_i || 0
   end
@@ -249,6 +264,15 @@ class DirectFileData < DfXmlAccessor
   end
 
   def fed_taxable_pensions=(value)
+    create_or_destroy_df_xml_node(__method__, value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def fed_income_total
+    df_xml_value(__method__)&.to_i || 0
+  end
+
+  def fed_income_total=(value)
     create_or_destroy_df_xml_node(__method__, value)
     write_df_xml_value(__method__, value)
   end
@@ -533,14 +557,22 @@ class DirectFileData < DfXmlAccessor
     write_df_xml_value(__method__, value)
   end
 
-  def set_primary_blind
-    create_or_destroy_df_xml_node(:primary_blind, true, 'VirtualCurAcquiredDurTYInd')
-    write_df_xml_value(:primary_blind, 'X')
+  def primary_over_65=(value)
+    write_df_xml_value(__method__, value)
   end
 
-  def set_spouse_blind
-    create_or_destroy_df_xml_node(:spouse_blind, true, 'VirtualCurAcquiredDurTYInd')
-    write_df_xml_value(:spouse_blind, 'X')
+  def spouse_over_65=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def primary_blind=(value)
+    create_or_destroy_df_xml_node(__method__, true, 'VirtualCurAcquiredDurTYInd')
+    write_df_xml_value(__method__, value)
+  end
+
+  def spouse_blind=(value)
+    create_or_destroy_df_xml_node(__method__, true, 'VirtualCurAcquiredDurTYInd')
+    write_df_xml_value(__method__, value)
   end
 
   def is_primary_blind?
@@ -866,6 +898,7 @@ class DirectFileData < DfXmlAccessor
       fed_dc_homebuyer_credit_amount
       fed_adjustments_claimed
       fed_taxable_pensions
+      fed_income_total
       total_qualifying_dependent_care_expenses
     ].each_with_object({}) do |field, hsh|
       hsh[field] = send(field)

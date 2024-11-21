@@ -2001,7 +2001,15 @@ es:
       index:
         title: 'Preguntas frecuentes de los contribuyentes de %{state}:'
     general:
+      fed_agi: Ingreso bruto ajustado federal
+      nc_income_tax: Impuesto sobre la renta de Carolina del Norte
+      nc_tax_withheld: Impuesto retenido en Carolina del Norte
+      nc_taxable_income: Ingresos imponibles de Carolina del Norte
+      nc_use_tax: Impuesto sobre el uso de Carolina del Norte
+      see_detailed_return: Consulta la información detallada de la declaración
+      standard_deduction: Deducción estándar
       title: Presentación de impuestos estatales de Arizona y Nueva York sin costo
+      total_tax: Impuesto total
     intake_logins:
       account_locked:
         body_html: Esta cuenta ha sido bloqueada debido a demasiados intentos fallidos de inicio de sesión. Si necesitas ayuda para desbloquear esta cuenta, por favor envíanos un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
@@ -2231,15 +2239,12 @@ es:
           charitable_noncash: Donaciones caritativas (en especie)
           dependent_tax_credit: Crédito tributario por dependientes
           family_income_tax_credit: Crédito tributario por ingresos familiares
-          fed_agi: Ingreso bruto ajustado federal
           household_excise_credit_claimed: Otros miembros de tu hogar han reclamado el Crédito por Aumento de Impuestos Especiales de Arizona
           incr_deduction_chrit_contributions: Deducción aumentada por donaciones caritativas
           increased_excise_tax_credit: Crédito por Aumento de Impuestos Especiales
           last_names: Otros apellidos usados en los últimos cuatro años
           made_az321_contributions: Hizo contribuciones a organizaciones benéficas calificadas
-          see_detailed_return: Consulta la información detallada de la declaración
           ssn_no_employment: '"Not valid for employment" escrita en tu tarjeta de Seguro Social'
-          standard_deduction: Deducción estándar
           total_arizona_subtractions: Restas totales de Arizona
           total_exemptions: Exenciones Totales
           total_payments: Total de pagos
@@ -2314,7 +2319,7 @@ es:
       data_transfer_offboarding:
         edit:
           ineligible_reason:
-            exempt_interest_exceeds_10k: your tax exempt interest income exceeds $10,000.
+            exempt_interest_exceeds_10k: you had more than $10,000 in tax-exempt interest income.
             has_irc_125_code: tu formulario W-2 incluye cantidades del plan de beneficios del Código de Rentas Internas (IRC 125).
             has_out_of_state_w2: recibiste ingresos en otro estado en el 2023
             has_yonkers_income: viviste, recibiste ingresos o mantuviste un hogar en Yonkers en 2023.
@@ -2347,6 +2352,7 @@ es:
             eligibility_withdrew_529: retiraste dinero de una cuenta de ahorro universitario 529 en el 2023
             eligibility_withdrew_msa_fthb: retiró dinero de una cuenta de ahorros médicos o de una cuenta para compradores de vivienda por primera vez
             eligibility_yonkers: viviste o recibiste ingresos en Yonkers en el 2023
+            health_insurance_eligibility: and all members of your tax household did not have health insurance (with minimum essential coverage) for every month in %{filing_year}
             nyc_maintained_home: no viviste en Nueva York durante todo el 2023
             nyc_residency: viviste o mantuviste una casa en la Ciudad de Nueva York durante parte del año.
             permanent_address_outside_ny: no viviste en Nueva York durante todo el 2023
@@ -2580,6 +2586,7 @@ es:
       id_review:
         edit:
           health_insurance_premium_title: Resta de primas de seguro médico de Idaho
+          idaho_grocery_credit: Idaho Grocery Credit
           permanent_building_fund_tax: Impuesto del Fondo de Edificios Permanentes
           purchases_without_sales_tax: Compras sin pagar impuestos sobre ventas o uso
           state_details_title: Detalles del estado
@@ -2730,9 +2737,13 @@ es:
       nc_review:
         edit:
           amount: Cantidad
+          child_deduction: Deducción por hijos
+          interest_us_bonds: Ingresos por intereses de bonos estadounidenses (no sujetos a impuestos en Carolina del Norte)
           primary_veteran: Información del Veterano
+          social_security_benefits: Beneficios del Seguro Social (no sujetos a impuestos en Carolina del Norte)
           spouse_veteran: Información del Cónyuge Veterano
           state_credit: Cantidad ganada como miembro de una tribu indígena reconocida federalmente
+          subtraction_indian_tribe: Resta de ingresos de un miembro de una tribu india
           use_tax_applied: Impuesto de Uso Aplicado
       nc_sales_use_tax:
         edit:
@@ -2774,6 +2785,37 @@ es:
           primary_disabled_question: "¿Está usted discapacitado según la definición de Nueva Jersey?"
           spouse_disabled_question: "¿Su cónyuge está discapacitado según la definición de Nueva Jersey?"
           title: Exención para discapacitados
+      nj_eitc_qualifying_child:
+        edit:
+          helper_contents_html: |-
+            <p>You are the qualifying child of another taxpayer for the Earned Income Tax Credit (EITC) in 2024 if <strong>all</strong> of these are true.</p>
+            <ol>
+            <li class="spacing-below-25"><p>1. You are that person's:</p>
+            <ul><li>Child, stepchild, foster child, or a descendant of any of them, or</li>
+            <li>Sibling, half sibling, step sibling, or a descendant of any of them</li>
+            </ul></li>
+            <li class="spacing-below-25"><p>2. You were:</p>
+            <ul><li>Under age 19 at the end of the year and younger than that person (or that person's spouse, if they filed jointly), or</li>
+            <li>Under age 24 at the end of the year, a student, and younger than that person (or that person's spouse, if they filed jointly), or</li>
+            <li>Any age and had a permanent disability that prevented you from working and making money</li>
+            </ul></li>
+            <li class="spacing-below-25"><p>3. You lived:</p>
+            <ul><li>with that person in the United States for more than 6 months in 2024.</li>
+            </ul></li>
+            <li><p>4. You aren't filing a joint return with your spouse for the year. Or you're filing a joint return with your spouse only to get a refund of money you paid toward taxes.</p></li>
+            </ol>
+            <p>If <strong>all</strong> of these statements are true, you are the qualifying child of another taxpayer for EITC. This is the case even if they don't claim the credit or don't meet all of the rules to claim it.</p>
+          helper_heading: How do I know if I could be someone else's qualifying child for EITC?
+          instructions: We just have to make sure that you are not someone else's qualifying child for this credit first.
+          primary_eitc_qualifying_child_question: In %{filing_year}, could you be someone else's qualifying child for the Earned Income Tax Credit?
+          spouse_eitc_qualifying_child_question: In %{filing_year}, could your spouse be someone else's qualifying child for the Earned Income Tax Credit?
+          title: You may be eligible for the Earned Income Tax Credit
+      nj_eligibility_health_insurance:
+        edit:
+          helper_description_html: "<p>Most people who have health insurance have minimum essential coverage. “Minimal essential coverage” just refers to how much your plan covers. If you have any of the following, you most likely have it:</p>\n<ul>\n  <li>A plan through your employer</li>\n  <li>A plan bought through <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://nj.gov/getcoverednj/\">GetCoveredNJ</a></li>\n  <li>Medicare</li> \n  <li>Medicaid (NJ FamilyCare)</li>\n</ul>\n<p><a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml\">Here is the full list of insurance options that have minimum essential coverage.</a><p> \n<p>If you only had standalone vision and dental plans, workers' compensation coverage, and/or coverage limited to a specified disease or illness, you didn't have minimum essential coverage. In New Jersey, as of 2018, you need minimum essential coverage, or you will likely pay additional taxes.</p>\n"
+          helper_heading: What is health insurance with minimum essential coverage?
+          label: Did you and all members of your tax household have health insurance (with minimum essential coverage) for every month in %{filing_year}?
+          title: Let’s get started.
       nj_estimated_tax_payments:
         edit:
           label: Total
@@ -2842,6 +2884,7 @@ es:
       nj_review:
         edit:
           amount: Cantidad
+          claimed_as_eitc_qualifying_child: I could be someone else's qualifying child for the Earned Income Tax Credit.
           county: Condado
           estimated_tax_payments: Payments already made to New Jersey taxes
           household_rent_own: Vivienda en alquiler o en propiedad propia
@@ -2852,6 +2895,7 @@ es:
           property_tax_paid: Impuestos sobre la propiedad pagados
           rent_paid: Alquiler pagado
           rounding_html: "<strong>We have automatically rounded all dollar amounts to the nearest whole number.</strong> New Jersey will only accept whole numbers on the final tax return."
+          spouse_claimed_as_eitc_qualifying_child: My spouse could be someone else's qualifying child for the Earned Income Tax Credit.
           spouse_disabled: Spouse disabled
           spouse_veteran: Mi cónyuge es un veterano
           use_tax_applied: Impuesto sobre el uso del consumidor aplicado
@@ -3108,6 +3152,7 @@ es:
           dependent_months_in_home: Número de meses que vivieron contigo
           dependent_name: Nombre de tu dependiente
           household_info: Información del hogar
+          income_details: Detalles de ingresos
           nth_dependent_name: Nombre de tu %{ordinal} dependiente
           spouse_name: Nombre de tu cónyuge
           taxes_owed_header: Tu reembolso estimado o tus impuestos estimados a pagar

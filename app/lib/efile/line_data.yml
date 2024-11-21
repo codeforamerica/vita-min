@@ -200,14 +200,28 @@ ID40_LINE_10:
   label: 'Subtractions from Form 39R, Part B, line 24'
 ID40_LINE_11:
   label: 'Total Adjusted Income. Subtract line 10 from line 9'
+ID40_LINE_19:
+  label: 'Taxable state income'
+ID40_LINE_20:
+  label: 'State income tax'
 ID40_LINE_23:
   label: 'Total credits from Form 39R, Part D, line 4. Include Form 39R'
+ID40_LINE_25:
+  label: 'Idaho Child Tax Credit'
+ID40_LINE_26:
+  label: 'Total Credits. Add lines 22 through 25'
+ID40_LINE_27:
+  label: 'Subtract line 26 from line 21. If line 26 is more than line 21, enter zero'
 ID40_LINE_29:
   label: '29 Sales/Use Tax (multiply reported untaxed total purchase amount by 0.06)'
 ID40_LINE_32A:
   label: 'Amount required to pay for the Permanent Building Fund Tax'
 ID40_LINE_32B:
   label: 'Checkbox that determines if the Permanent Building Fund needs to be payed'
+ID40_LINE_33:
+  label: 'Total Tax. Add lines 27 to 32'
+ID40_LINE_42:
+  label: 'Total Tax Plus Donations. Add lines 33 through 41.'
 ID40_LINE_43_WORKSHEET:
   label: '43. Grocery Credit. Computed amount from worksheet on page 11'
 ID40_LINE_43_DONATE:
@@ -216,6 +230,10 @@ ID40_LINE_43:
   label: 'To receive your grocery credit, enter the computed amount on line 43'
 ID40_LINE_46:
   label: '46 Idaho income tax withheld. Sum of all W2 state_income_tax_amount, 1099R state_tax_withheld_amount, 1099G state_income_tax_withheld_amount'
+ID40_LINE_54:
+  label: 'TBD'
+ID40_LINE_56:
+  label: 'TBD'
 IT201_LINE_1:
   label: '1 Wages, salaries, tips, etc.'
 IT201_LINE_2:
@@ -640,6 +658,8 @@ MD502_SU_LINE_V:
   label: "TBD"
 MD502_SU_LINE_1:
   label: "1 Add lines a. through yc. and enter this amount on line 13 of Form 502 with the appropriate code letters"
+NCD400_LINE_6:
+  label: '6 Federal Adjusted Gross Income'
 NCD400_LINE_9:
   label: '9 Deductions From Federal Adjusted Gross Income (From Form D-400 Schedule S, Part B, Line 41)'
 NCD400_LINE_10B:
@@ -728,6 +748,8 @@ NJ1040_LINE_57:
   label: '57 New Jersey Estimated Tax Payments/Credit from prior year tax return'
 NJ1040_LINE_58:
   label: '58 New Jersey Earned Income Tax Credit (See instructions)'
+NJ1040_LINE_58_IRS:
+  label: '58 IRS calculated federal earned income credit'
 NJ1040_LINE_59:
   label: 'Excess New Jersey UI/WF/SWF Withheld (Enclose Form NJ-2450) (See instructions)'
 NJ1040_LINE_61:
