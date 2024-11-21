@@ -523,10 +523,10 @@ RSpec.describe PdfFiller::Nj1040Pdf do
               :state_file_nj_intake
             )
           }
-          it "fills in zeroes" do
+          it "does not fill in" do
             expect(pdf_fields["Text47"]).to eq ""
-            expect(pdf_fields["undefined_12"]).to eq "0"
-            expect(pdf_fields["x  1500"]).to eq "0"
+            expect(pdf_fields["undefined_12"]).to eq ""
+            expect(pdf_fields["x  1500"]).to eq ""
           end
         end
 
@@ -567,10 +567,10 @@ RSpec.describe PdfFiller::Nj1040Pdf do
               :df_data_minimal,
             )
           }
-          it "fills in zeroes" do
+          it "does not fill in" do
             expect(pdf_fields["Text48"]).to eq ""
-            expect(pdf_fields["undefined_13"]).to eq "0"
-            expect(pdf_fields["x  1500_2"]).to eq "0"
+            expect(pdf_fields["undefined_13"]).to eq ""
+            expect(pdf_fields["x  1500_2"]).to eq ""
           end
         end
 

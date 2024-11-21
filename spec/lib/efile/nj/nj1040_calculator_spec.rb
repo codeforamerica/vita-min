@@ -420,7 +420,6 @@ describe Efile::Nj::Nj1040Calculator do
   describe 'line 13 - total exemptions' do
     let(:intake) { create(
       :state_file_nj_intake,
-      :df_data_many_deps,
       :primary_over_65,
       :primary_blind,
       :primary_veteran,
@@ -435,7 +434,7 @@ describe Efile::Nj::Nj1040Calculator do
       expect(instance.calculate_line_8).to eq(self_blind)
       self_veteran = 6_000
       expect(instance.calculate_line_9).to eq(self_veteran)
-      qualified_children_exemption = 15_000
+      qualified_children_exemption = 1_500
       expect(instance.calculate_line_10_exemption).to eq(qualified_children_exemption)
       other_dependents_exemption = 1_500
       expect(instance.calculate_line_11_exemption).to eq(other_dependents_exemption)
