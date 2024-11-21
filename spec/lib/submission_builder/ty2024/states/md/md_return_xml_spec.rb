@@ -47,40 +47,32 @@ describe SubmissionBuilder::Ty2024::States::Md::MdReturnXml, required_schema: "m
     describe "#form_has_non_zero_amounts" do
       [
         {
-          calculator: Efile::Md::Md502SuCalculator,
-          methods: [:calculate_line_ab, :calculate_line_u, :calculate_line_v, :calculate_line_1],
-          prefix: "MD502_SU_"
+          prefix: "MD502_SU_",
+          lines: ["MD502_SU_LINE_AB", "MD502_SU_LINE_U", "MD502_SU_LINE_V", "MD502_SU_LINE_1"]
         },
         {
-          calculator: Efile::Md::Md502crCalculator,
-          methods: [:calculate_md502_cr_part_m_line_1, :calculate_md502_cr_part_b_line_3, :calculate_md502_cr_part_b_line_4],
-          prefix: "MD502CR_"
+          prefix: "MD502CR_",
+          lines: ["MD502CR_PART_M_LINE_1", "MD502CR_PART_B_LINE_2", "MD502CR_PART_B_LINE_3", "MD502CR_PART_B_LINE_4"]
         }
       ].each do |form|
         context "#{form[:prefix]}" do
           context "only has zero values" do
-            before do
-              form[:methods].each do |method|
-                allow_any_instance_of(form[:calculator]).to receive(method).and_return 0
-              end
-            end
-
             it "returns false" do
               calculated_lines = intake.tax_calculator.calculate
+              form[:lines].each do |line|
+                calculated_lines[line] = 0
+              end
               expect(instance.form_has_non_zero_amounts(form[:prefix], calculated_lines)).to eq false
             end
           end
 
-          context "has non-zero values" do
-            before do
-              allow_any_instance_of(form[:calculator]).to receive(form[:methods][0]).and_return 100
-              form[:methods][1..-1].each do |method|
-                allow_any_instance_of(form[:calculator]).to receive(method).and_return 0
-              end
-            end
-
+          context "has at least one non-zero value" do
             it "returns true" do
               calculated_lines = intake.tax_calculator.calculate
+              calculated_lines[form[:lines][0]] = 100
+              form[:lines][1..-1].each do |line|
+                calculated_lines[line] = 0
+              end
               expect(instance.form_has_non_zero_amounts(form[:prefix], calculated_lines)).to eq true
             end
           end
