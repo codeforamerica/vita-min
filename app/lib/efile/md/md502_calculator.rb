@@ -1,7 +1,7 @@
 module Efile
   module Md
     class Md502Calculator < ::Efile::TaxCalculator
-      attr_reader :lines
+      attr_reader :lines, :value_access_tracker
 
       def initialize(year:, intake:, include_source: false)
         super
@@ -48,7 +48,6 @@ module Efile
         set_line(:MD502_LINE_1B, @direct_file_data, :fed_wages_salaries_tips)
         set_line(:MD502_LINE_1D, @direct_file_data, :fed_taxable_pensions)
         set_line(:MD502_LINE_1E, :calculate_line_1e)
-        @md502_cr.calculate
 
         # Additions
         set_line(:MD502_LINE_3, :calculate_line_3)
@@ -72,16 +71,18 @@ module Efile
         set_line(:MD502_LINE_19, :calculate_line_19)
         set_line(:MD502_LINE_20, :calculate_line_20)
         set_line(:MD502_LINE_21, :calculate_line_21)
+        @md502_cr.calculate
 
         # EIC
         set_line(:MD502_LINE_22, :calculate_line_22)
         set_line(:MD502_LINE_22B, :calculate_line_22b)
 
         set_line(:MD502_LINE_23, :calculate_line_23)
-        set_line(:MD502_LINE_24, -> { @lines[:MD502CR_PART_AA_LINE_14]&.value })
+        set_line(:MD502_LINE_24, :calculate_line_24)
         set_line(:MD502_LINE_26, :calculate_line_26)
         set_line(:MD502_LINE_27, :calculate_line_27)
         set_line(:MD502_LINE_40, :calculate_line_40)
+        set_line(:MD502_LINE_43, :calculate_line_43)
         @lines.transform_values(&:value)
       end
 
@@ -401,6 +402,10 @@ module Efile
         end
       end
 
+      def calculate_line_24
+        line_or_zero(:MD502CR_PART_AA_LINE_14)
+      end
+
       def calculate_line_26
         (22..25).sum { |line_num| line_or_zero("MD502_LINE_#{line_num}") }
       end
@@ -414,6 +419,10 @@ module Efile
           @intake.state_file_w2s.sum { |item| item.local_income_tax_amount.round } +
           @intake.state_file1099_gs.sum { |item| item.state_income_tax_withheld_amount.round } +
           @intake.state_file1099_rs.sum { |item| item.state_tax_withheld_amount.round }
+      end
+
+      def calculate_line_43
+        line_or_zero(:MD502CR_PART_CC_LINE_10)
       end
 
       def filing_status_dependent?

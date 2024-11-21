@@ -265,8 +265,101 @@ describe Efile::Md::Md502CrCalculator do
       instance.calculate
     end
 
-    it "returns the sum of lines 22 through 25" do
+    it "returns the sum of part AA lines 2 and 13" do
       expect(instance.lines[:MD502CR_PART_AA_LINE_14].value).to eq(300)
+    end
+  end
+
+  describe "#calculate_part_cc_line_7" do
+    before do
+      intake.direct_file_data.fed_agi = agi
+      allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_21).and_return 25
+      allow_any_instance_of(described_class).to receive(:calculate_part_b_line_4).and_return 100
+      main_calculator.calculate
+    end
+
+    context "when single filer" do
+      let(:filing_status) { "single" }
+
+      context "when AGI is within limit" do
+        let(:agi) { 59_401 }
+        it "returns difference between part B line 4 and line 21" do
+          instance.calculate
+          expect(instance.lines[:MD502CR_PART_CC_LINE_7].value).to eq(75)
+        end
+      end
+
+      context "when AGI exceeds limit" do
+        let(:agi) { 59_402 }
+        it "returns nil" do
+          instance.calculate
+          expect(instance.lines[:MD502CR_PART_CC_LINE_7].value).to be_nil
+        end
+      end
+    end
+
+    context "when married filing jointly" do
+      let(:filing_status) { "married_filing_jointly" }
+
+      context "when AGI is within limit" do
+        let(:agi) { 89_101 }
+        it "returns difference between part B line 4 and line 21" do
+          instance.calculate
+          expect(instance.lines[:MD502CR_PART_CC_LINE_7].value).to eq(75)
+        end
+      end
+
+      context "when AGI exceeds limit" do
+        let(:agi) { 89_102 }
+        it "returns nil" do
+          expect(instance.lines[:MD502CR_PART_CC_LINE_7].value).to be_nil
+        end
+      end
+    end
+  end
+
+  describe 'calculate_part_cc_line_8' do
+    before do
+      intake.direct_file_data.fed_agi = agi
+      instance.calculate
+    end
+
+    context "when has an agi below 15,000 and has 2 qualifying children" do
+      let!(:intake) { create(:state_file_md_intake, :with_dependents) }
+      let(:agi) { 9_102 }
+
+      it 'calculates to 1000' do
+        expect(instance.lines[:MD502CR_PART_CC_LINE_8].value).to eq(1000)
+      end
+    end
+
+    context "when has an agi above 15,000 and has 2 qualifying children" do
+      let!(:intake) { create(:state_file_md_intake, :with_dependents) }
+      let(:agi) { 19_102 }
+
+      it 'calculates to 1000' do
+        expect(instance.lines[:MD502CR_PART_CC_LINE_8].value).to be_nil
+      end
+    end
+
+    context "when has an agi below 15,000 and there is no qualifying children" do
+      let(:agi) { 9_102 }
+
+      it 'calculates to 1000' do
+        expect(instance.lines[:MD502CR_PART_CC_LINE_8].value).to eq(0)
+      end
+    end
+  end
+
+  describe 'calculate_part_cc_line_10' do
+    before do
+      allow_any_instance_of(described_class).to receive(:calculate_part_cc_line_7).and_return(100)
+      allow_any_instance_of(described_class).to receive(:calculate_part_cc_line_8).and_return(200)
+      instance.calculate
+    end
+
+    it "returns the sum of part cc lines 1-9" do
+      expect(instance.lines[:MD502CR_PART_CC_LINE_10].value).to eq(300)
     end
   end
 end

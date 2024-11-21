@@ -1111,6 +1111,17 @@ describe Efile::Md::Md502Calculator do
     end
   end
 
+  describe "#calculate_line_43" do
+    before do
+      allow_any_instance_of(Efile::Md::Md502CrCalculator).to receive(:calculate_part_cc_line_10).and_return 100
+      instance.calculate
+    end
+
+    it "returns the value from MD502CR Part AA Line 14" do
+      expect(instance.lines[:MD502_LINE_43].value).to eq(100)
+    end
+  end
+
   describe "refund_or_owed_amount" do
     it "subtracts owed amount from refund amount" do
       # TEMP: stub calculator lines and test outcome of method once implemented

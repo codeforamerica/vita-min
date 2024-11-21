@@ -19,11 +19,12 @@ module Efile
         set_line(:MD502CR_PART_AA_LINE_2, :calculate_part_aa_line_2)
         set_line(:MD502CR_PART_AA_LINE_13, :calculate_part_aa_line_13)
         set_line(:MD502CR_PART_AA_LINE_14, :calculate_part_aa_line_14)
+        set_line(:MD502CR_PART_CC_LINE_7, :calculate_part_cc_line_7)
+        set_line(:MD502CR_PART_CC_LINE_8, :calculate_part_cc_line_8)
+        set_line(:MD502CR_PART_CC_LINE_10, :calculate_part_cc_line_10)
       end
 
       private
-
-
 
       def calculate_part_b_line_3
         table_from_pdf = <<~PDF_COPY
@@ -144,6 +145,31 @@ module Efile
 
       def calculate_part_aa_line_14
         line_or_zero(:MD502CR_PART_AA_LINE_2) + line_or_zero(:MD502CR_PART_AA_LINE_13)
+      end
+
+      def calculate_part_cc_line_7
+        qualified_for_credit = if filing_status_single? || filing_status_hoh? || filing_status_qw?
+                                 @direct_file_data.fed_agi <= 59_401
+                               elsif filing_status_mfj?
+                                 @direct_file_data.fed_agi <= 89_101
+                               end
+
+        return unless qualified_for_credit
+        [line_or_zero(:MD502CR_PART_B_LINE_4) - line_or_zero(:MD502_LINE_21), 0].max
+      end
+
+      def calculate_part_cc_line_8
+        return unless @direct_file_data.fed_agi < 15_000
+
+        qualifiying_children = @intake.dependents.count do |dependent|
+          @intake.calculate_age(dependent.dob, inclusive_of_jan_1: false) < 6
+        end
+
+        qualifiying_children * 500
+      end
+
+      def calculate_part_cc_line_10
+        (1..9).sum { |line_num| line_or_zero("MD502CR_PART_CC_LINE_#{line_num}") }
       end
     end
   end
