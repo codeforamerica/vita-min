@@ -156,6 +156,6 @@ class EfileSubmissionStateMachine
   end
 
   def self.currently_stopped_states
-    ENV.fetch('HOLD_OFF_EFILE_SUBMISSIONS_FOR_STATES', '').split.map(&:downcase)
+    ENV.fetch('HOLD_OFF_EFILE_SUBMISSIONS_FOR_STATES', '').downcase.split
   end
 end
