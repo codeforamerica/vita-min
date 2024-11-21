@@ -8,14 +8,14 @@ module Efile
         @lines = lines
         @intake = intake
         @direct_file_data = intake.direct_file_data
-        @filing_status = intake.filing_status
+        @filing_status = intake.filing_status.to_sym
       end
 
       def calculate
+        set_line(:MD502CR_PART_M_LINE_1, :calculate_md502_cr_part_m_line_1)
         set_line(:MD502CR_PART_B_LINE_2, @direct_file_data, :fed_credit_for_child_and_dependent_care_amount)
-        set_line(:MD502CR_PART_B_LINE_3, :calculate_part_b_line_3)
-        set_line(:MD502CR_PART_B_LINE_4, :calculate_part_b_line_4)
-        set_line(:MD502CR_PART_M_LINE_1, :calculate_part_m_line_1)
+        set_line(:MD502CR_PART_B_LINE_3, :calculate_md502_cr_part_b_line_3)
+        set_line(:MD502CR_PART_B_LINE_4, :calculate_md502_cr_part_b_line_4)
         set_line(:MD502CR_PART_AA_LINE_2, :calculate_part_aa_line_2)
         set_line(:MD502CR_PART_AA_LINE_13, :calculate_part_aa_line_13)
         set_line(:MD502CR_PART_AA_LINE_14, :calculate_part_aa_line_14)
@@ -26,7 +26,37 @@ module Efile
 
       private
 
-      def calculate_part_b_line_3
+      # filing status /	filer >= 65 /	spouse >= 65 /	agi <= threshold /	credit amount
+      # mfj/qss/hoh	T	T	T	1750
+      # mfj/qss/hoh	T	T	F	0
+      # mfj/qss/hoh	T	F	T	1000
+      # mfj/qss/hoh	T	F	F	0
+      # mfj/qss/hoh	F	T	T	1000
+      # mfj/qss/hoh	F	T	F	0
+      # mfj/qss/hoh	F	F	T	0
+      # mfj/qss/hoh	F	F	F	0
+      # single/mfs	T	X	T	1000
+      # single/mfs	T	X	F	0
+      # single/mfs	F	X	T	0
+      # single/mfs	F	X	F	0
+      def calculate_md502_cr_part_m_line_1
+        agi = line_or_zero(:MD502_LINE_1)
+        credit = 0
+        if (filing_status_mfj? || filing_status_qw? || filing_status_hoh?) && agi <= 150_000
+          if @intake.primary_senior? && @intake.spouse_senior?
+            credit = 1750
+          elsif @intake.primary_senior? ^ @intake.spouse_senior?
+            credit = 1000
+          end
+        elsif (filing_status_single? || filing_status_mfs?) && agi <= 100_000
+          if @intake.primary_senior?
+            credit = 1000
+          end
+        end
+        credit
+      end
+
+      def calculate_md502_cr_part_b_line_3
         table_from_pdf = <<~PDF_COPY
           $0 $30,001 0.3200 $0 $50,001
           $30,001 $32,001 0.3168 $50,001 $53,001
@@ -89,7 +119,7 @@ module Efile
         agi_bands[-1].mfj_ceiling = Float::INFINITY
         agi_bands[-1].non_mfj_ceiling = Float::INFINITY
 
-        agi = @direct_file_data.fed_agi
+        agi = line_or_zero(:MD502_LINE_1)
         agi_band = agi_bands.find do |row|
           if filing_status_mfj?
             row.mfj_floor <= agi && agi < row.mfj_ceiling
@@ -101,38 +131,8 @@ module Efile
         agi_band.decimal
       end
 
-      def calculate_part_b_line_4
+      def calculate_md502_cr_part_b_line_4
         (line_or_zero(:MD502CR_PART_B_LINE_2) * @lines[:MD502CR_PART_B_LINE_3]&.value).round(0)
-      end
-
-      # filing status /	filer >= 65 /	spouse >= 65 /	agi <= threshold /	credit amount
-      # mfj/qss/hoh	T	T	T	1750
-      # mfj/qss/hoh	T	T	F	0
-      # mfj/qss/hoh	T	F	T	1000
-      # mfj/qss/hoh	T	F	F	0
-      # mfj/qss/hoh	F	T	T	1000
-      # mfj/qss/hoh	F	T	F	0
-      # mfj/qss/hoh	F	F	T	0
-      # mfj/qss/hoh	F	F	F	0
-      # single/mfs	T	X	T	1000
-      # single/mfs	T	X	F	0
-      # single/mfs	F	X	T	0
-      # single/mfs	F	X	F	0
-      def calculate_part_m_line_1
-        agi = @direct_file_data.fed_agi
-        credit = 0
-        if (filing_status_mfj? || filing_status_qw? || filing_status_hoh?) && agi <= 150_000
-          if @intake.primary_senior? && @intake.spouse_senior?
-            credit = 1750
-          elsif @intake.primary_senior? ^ @intake.spouse_senior?
-            credit = 1000
-          end
-        elsif (filing_status_single? || filing_status_mfs?) && agi <= 100_000
-          if @intake.primary_senior?
-            credit = 1000
-          end
-        end
-        credit
       end
 
       def calculate_part_aa_line_2

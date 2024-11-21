@@ -1,16 +1,10 @@
 module Efile
   module Md
     class Md502Calculator < ::Efile::TaxCalculator
-      attr_reader :lines, :value_access_tracker
+      attr_reader :lines
 
       def initialize(year:, intake:, include_source: false)
         super
-        @md502_cr = Efile::Md::Md502CrCalculator.new(
-          value_access_tracker: @value_access_tracker,
-          lines: @lines,
-          intake: @intake
-        )
-
         @md502b = Efile::Md::Md502bCalculator.new(
           value_access_tracker: @value_access_tracker,
           lines: @lines,
@@ -18,6 +12,12 @@ module Efile
         )
 
         @md502_su = Efile::Md::Md502SuCalculator.new(
+          value_access_tracker: @value_access_tracker,
+          lines: @lines,
+          intake: @intake
+        )
+
+        @md502cr = Efile::Md::Md502CrCalculator.new(
           value_access_tracker: @value_access_tracker,
           lines: @lines,
           intake: @intake
@@ -71,7 +71,7 @@ module Efile
         set_line(:MD502_LINE_19, :calculate_line_19)
         set_line(:MD502_LINE_20, :calculate_line_20)
         set_line(:MD502_LINE_21, :calculate_line_21)
-        @md502_cr.calculate
+        @md502cr.calculate
 
         # EIC
         set_line(:MD502_LINE_22, :calculate_line_22)
