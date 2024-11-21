@@ -28,7 +28,8 @@ module Efile
         set_line(:AZ140_CCWS_LINE_2c, :calculate_line_2c)
         set_line(:AZ140_CCWS_LINE_3c, -> { 0 })
         set_line(:AZ140_CCWS_LINE_4c, :calculate_ccws_line_4c)
-        set_line(:AZ140_CCWS_LINE_5c, -> { 0 })
+        @az321.calculate
+        set_line(:AZ140_CCWS_LINE_5c, :calculate_ccws_line_5c)
         set_line(:AZ140_CCWS_LINE_6c, :calculate_ccws_line_6c)
         set_line(:AZ140_CCWS_LINE_7c, :calculate_ccws_line_7c)
         set_line(:AZ140_LINE_8, :calculate_line_8)
@@ -64,7 +65,6 @@ module Efile
         set_line(:AZ140_LINE_53, :calculate_line_53)
         set_line(:AZ140_LINE_56, :calculate_line_56)
         set_line(:AZ140_LINE_59, :calculate_line_59)
-        @az321.calculate
         @az322.calculate
         @az301.calculate
         # lines 51 and 52 are dependent on az301
@@ -319,8 +319,12 @@ module Efile
         line_or_zero(:AZ140_CCWS_LINE_1c) + line_or_zero(:AZ140_CCWS_LINE_2c)
       end
 
+      def calculate_ccws_line_5c
+        line_or_zero(:AZ321_LINE_13)
+      end
+
       def calculate_ccws_line_6c
-        line_or_zero(:AZ140_CCWS_LINE_4c)
+        [line_or_zero(:AZ140_CCWS_LINE_4c) - line_or_zero(:AZ140_CCWS_LINE_5c), 0].max
       end
 
       def calculate_ccws_line_7c
