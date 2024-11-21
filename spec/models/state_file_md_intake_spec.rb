@@ -7,7 +7,6 @@
 #  account_number                           :string
 #  account_type                             :integer          default("unfilled"), not null
 #  bank_authorization_confirmed             :integer          default("unfilled"), not null
-#  bank_name                                :string
 #  city                                     :string
 #  confirmed_permanent_address              :integer          default("unfilled"), not null
 #  consented_to_terms_and_conditions        :integer          default("unfilled"), not null
@@ -128,23 +127,23 @@ RSpec.describe StateFileMdIntake, type: :model do
         create :state_file_md_intake,
                payment_or_deposit_type: "direct_deposit",
                account_type: "checking",
-               bank_name: "Wells Fargo",
                routing_number: "123456789",
                account_number: "123",
                withdraw_amount: 123,
                date_electronic_withdrawal: Date.parse("April 1, 2023"),
-               account_holder_name: "Neil Peart"
+               account_holder_name: "Neil Peart",
+               joint_account_holder_name: "Beatrice Peart"
       end
 
       it "clears other account fields" do
         expect {
           intake.update(payment_or_deposit_type: "mail")
         }.to change(intake.reload, :account_type).to("unfilled")
-          .and change(intake.reload, :bank_name).to(nil)
           .and change(intake.reload, :routing_number).to(nil).and change(intake.reload, :account_number).to(nil)
           .and change(intake.reload, :withdraw_amount).to(nil)
           .and change(intake.reload, :date_electronic_withdrawal).to(nil)
           .and change(intake.reload, :account_holder_name).to(nil)
+          .and change(intake.reload, :joint_account_holder_name).to(nil)
       end
     end
   end

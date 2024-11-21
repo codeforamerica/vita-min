@@ -58,7 +58,8 @@ RSpec.describe StateFile::MdTaxRefundForm do
           routing_number: "019456124",
           account_number: "12345",
           account_type: "checking",
-          account_holder_name: "Laney Knope"
+          account_holder_name: "Laney Knope",
+          joint_account_holder_name: "Lacey Knope"
         )
       end
 
@@ -73,6 +74,7 @@ RSpec.describe StateFile::MdTaxRefundForm do
         expect(intake.account_number).to be_nil
         expect(intake.routing_number).to be_nil
         expect(intake.account_holder_name).to be_nil
+        expect(intake.joint_account_holder_name).to be_nil
       end
     end
   end
