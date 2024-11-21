@@ -6,8 +6,8 @@
 <% content_for :card do %>
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
     <h1 class="h2"><%= title %></h1>
-    <p><%= t(".label_1") %></p>
-    <p><%= t(".label_2") %></p>
+    <p><%= t(".subtitle_1") %></p>
+    <p><%= t(".subtitle_2") %></p>
 
     <div class="reveal">
       <button class="reveal__button"><%= t('.college_helper_heading') %></button>
@@ -34,14 +34,16 @@
       <% dependent = ff.object %>
       <%  if dependent.under_22? %>
         <div class="white-group">
-          <h2 class="h3"><%= dependent.full_name %> <%= t('.dependent_header') %></h2>
-          <p><%= t('.birthdate_label') %> <%= dependent.dob.strftime('%m/%d/%Y') %></p>
-          <div class="tight-checkboxes spacing-above-0">
-            <%= ff.cfa_checkbox(:nj_dependent_attends_accredited_program, t(".dependent_attends_accredited_program", dependent_first: dependent.first_name_title_case), options: { checked_value: "yes", unchecked_value: "no" }) %>
-            <%= ff.cfa_checkbox(:nj_dependent_enrolled_full_time, t(".dependent_enrolled_full_time", dependent_first: dependent.first_name_title_case), options: { checked_value: "yes", unchecked_value: "no" }) %>
-            <%= ff.cfa_checkbox(:nj_dependent_five_months_in_college, t(".dependent_five_months_in_college", dependent_first: dependent.first_name_title_case), options: { checked_value: "yes", unchecked_value: "no" }) %>
-            <%= ff.cfa_checkbox(:nj_filer_pays_tuition_for_dependent, t(".filer_pays_tuition_books", dependent_first: dependent.first_name_title_case), options: { checked_value: "yes", unchecked_value: "no" }) %>
-          </div>
+          <fieldset>
+            <legend class="h3"><%= dependent.full_name %> <%= t('.dependent_header') %></legend>
+            <p><%= t('.birthdate_label') %> <%= dependent.dob.strftime('%m/%d/%Y') %></p>
+            <div class="tight-checkboxes spacing-above-0">
+              <%= ff.cfa_checkbox(:nj_dependent_attends_accredited_program, t(".dependent_attends_accredited_program", dependent_first: dependent.first_name_title_case), options: { checked_value: "yes", unchecked_value: "no" }) %>
+              <%= ff.cfa_checkbox(:nj_dependent_enrolled_full_time, t(".dependent_enrolled_full_time", dependent_first: dependent.first_name_title_case), options: { checked_value: "yes", unchecked_value: "no" }) %>
+              <%= ff.cfa_checkbox(:nj_dependent_five_months_in_college, t(".dependent_five_months_in_college", dependent_first: dependent.first_name_title_case), options: { checked_value: "yes", unchecked_value: "no" }) %>
+              <%= ff.cfa_checkbox(:nj_filer_pays_tuition_for_dependent, t(".filer_pays_tuition_books", dependent_first: dependent.first_name_title_case), options: { checked_value: "yes", unchecked_value: "no" }) %>
+            </div>
+          </fieldset>
         </div>
       <%end%>
     <% end %>
