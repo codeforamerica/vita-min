@@ -8,7 +8,7 @@ module SubmissionBuilder
           def form_has_non_zero_amounts(form_prefix, calculated_fields)
             lines = calculated_fields.keys.select { |line_name| line_name.starts_with?(form_prefix) }
             lines.any? do |line_num|
-              calculated_fields.fetch(line_num) != 0
+              calculated_fields.fetch(line_num).present? && calculated_fields.fetch(line_num) != 0
             end
           end
 
