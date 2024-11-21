@@ -129,6 +129,19 @@ module PdfFiller
         answers.merge!({ 'x  1500_2': calculated_fields.fetch(:NJ1040_LINE_11_EXEMPTION) })
       end
 
+      # line 12
+      if @xml_document.at("Exemptions DependAttendCollege")
+        count = @xml_document.at("Exemptions DependAttendCollege").text.to_i
+        answers.merge!(
+          insert_digits_into_fields(
+            count,
+            [ "undefined_14", "Text49" ],
+            as_decimal: false
+          )
+        )
+        answers[:'x  1000_4'] = count * 1_000
+      end
+
       # lines 13 and 30
       if @xml_document.at("Exemptions TotalExemptionAmountA")
         total_exemptions = @xml_document.at("Exemptions TotalExemptionAmountA").text.to_i
@@ -141,17 +154,6 @@ module PdfFiller
                                                    "undefined_16",
                                                    "undefined_15"
                                                  ]))
-      end
-
-      # line 12
-      if @xml_document.at("Exemptions DependAttendCollege")
-        count = @xml_document.at("Exemptions DependAttendCollege").text.to_i
-        digits = count.digits
-        answers[:undefined_14] = digits[0]
-        answers[:'x  1000_4'] = count * 1_000
-        if digits.length.positive?
-          answers[:Text49] = digits[1]
-        end
       end
 
       # line 13
