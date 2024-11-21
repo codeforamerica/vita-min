@@ -20,10 +20,10 @@
     </div>
   <% end %>
 
-  <% if current_intake.state_file_w2s.present? %>
+  <% if @w2s.present? %>
     <div class="white-group">
       <p class="text--bold spacing-below-0"><%= t(".w2s_title") %></p>
-      <% current_intake.state_file_w2s.each do |w2| %>
+      <% @w2s.each do |w2| %>
         <div class="spacing-above-25">
           <p class="text--bold spacing-below-5"><%= w2.employee_name %></p>
           <p class="spacing-below-5"><%= w2.employer_name %></p>
