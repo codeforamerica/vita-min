@@ -143,10 +143,6 @@ describe SubmissionBuilder::Ty2024::States::Md::MdReturnXml, required_schema: "m
 
       context "502CR" do
         context "L24" do
-          before do
-            allow(instance).to receive(:form_has_non_zero_amounts).with("MD502CR_", anything).and_return false
-          end
-
           context "Form 502 L24 has an amount" do
             before do
               allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_24).and_return 50
@@ -163,38 +159,6 @@ describe SubmissionBuilder::Ty2024::States::Md::MdReturnXml, required_schema: "m
           context "Form 502 L24 does not have an amount" do
             before do
               allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_24).and_return 0
-            end
-
-            it "does not attach a 502CR" do
-              expect(xml.at("Form502CR")).not_to be_present
-              expect(instance.pdf_documents).not_to be_any { |included_documents|
-                included_documents.pdf == PdfFiller::Md502CrPdf
-              }
-            end
-          end
-        end
-
-        context "L24 is blank but form may have amounts" do
-          before do
-            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_24).and_return 0
-          end
-
-          context "502CR has non-zero amounts" do
-            before do
-              allow(instance).to receive(:form_has_non_zero_amounts).with("MD502CR_", anything).and_return true
-            end
-
-            it "attaches a 502CR" do
-              expect(xml.at("Form502CR")).to be_present
-              expect(instance.pdf_documents).to be_any { |included_documents|
-                included_documents.pdf == PdfFiller::Md502CrPdf
-              }
-            end
-          end
-
-          context "502CR does not have non-zero amounts" do
-            before do
-              allow(instance).to receive(:form_has_non_zero_amounts).with("MD502CR_", anything).and_return false
             end
 
             it "does not attach a 502CR" do

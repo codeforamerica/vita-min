@@ -48,7 +48,7 @@ module SubmissionBuilder
             calculated_fields = @submission.data_source.tax_calculator.calculate
             has_income_from_taxable_pensions_iras_annuities = calculated_fields.fetch(:MD502_LINE_1D)&.to_i.positive?
             has_md_su_subtractions = calculated_fields.fetch(:MD502_LINE_13).positive? || form_has_non_zero_amounts("MD502_SU_", calculated_fields)
-            has_individual_tax_credits = calculated_fields.fetch(:MD502_LINE_24).positive? || form_has_non_zero_amounts("MD502CR_", calculated_fields)
+            has_individual_tax_credits = calculated_fields.fetch(:MD502_LINE_24).positive?
 
             supported_docs = [
               {
