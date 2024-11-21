@@ -90,8 +90,10 @@ module PdfFiller
         "Enter 16": @xml_document.at('Form502 Subtractions StateAdjustedGrossIncome')&.text,
         'Text Box 30': @xml_document.at('Form502 StateTaxComputation StateIncomeTax')&.text,
         'Text Box 36': @xml_document.at('Form502 StateTaxComputation PovertyLevelCredit')&.text,
+        'Text Box 38': @xml_document.at('Form502 StateTaxComputation IndividualTaxCredits')&.text,
         'Text Box 40': @xml_document.at('Form502 StateTaxComputation TotalCredits')&.text,
         'Text Box 42': @xml_document.at('Form502 StateTaxComputation StateTaxAfterCredits')&.text,
+        'Text Box 74': @xml_document.at('Form502 RefundableTaxCredits')&.text,
       }
     end
 

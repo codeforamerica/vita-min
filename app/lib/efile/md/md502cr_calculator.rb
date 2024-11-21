@@ -1,6 +1,6 @@
 module Efile
   module Md
-    class Md502CrCalculator < ::Efile::TaxCalculator
+    class Md502crCalculator < ::Efile::TaxCalculator
       attr_reader :lines, :value_access_tracker
 
       def initialize(value_access_tracker:, lines:, intake:)

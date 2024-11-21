@@ -49,6 +49,30 @@ RSpec.describe PdfFiller::Md502CrPdf do
             expect(pdf_fields["Text Field 1051"]).to eq("1750")
           end
         end
+
+        context "Summary Section" do
+          before do
+            allow_any_instance_of(Efile::Md::Md502crCalculator).to receive(:calculate_part_aa_line_2).and_return 100
+            allow_any_instance_of(Efile::Md::Md502crCalculator).to receive(:calculate_part_aa_line_13).and_return 200
+          end
+          it "outputs all relevant values" do
+            expect(pdf_fields["Text Field 1049"]).to eq("100")
+            expect(pdf_fields["Text Field 1039"]).to eq("200")
+            expect(pdf_fields["Text Field 1038"]).to eq("300")
+          end
+        end
+
+        context "Refundable Section" do
+          before do
+            allow_any_instance_of(Efile::Md::Md502crCalculator).to receive(:calculate_part_cc_line_7).and_return 100
+            allow_any_instance_of(Efile::Md::Md502crCalculator).to receive(:calculate_part_cc_line_8).and_return 200
+          end
+          it "outputs all relevant values" do
+            expect(pdf_fields["Text Field 1031"]).to eq("100")
+            expect(pdf_fields["Text Field 1030"]).to eq("200")
+            expect(pdf_fields["Text Field 1028"]).to eq("300")
+          end
+        end
       end
     end
   end

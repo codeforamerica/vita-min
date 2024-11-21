@@ -1047,7 +1047,7 @@ describe Efile::Md::Md502Calculator do
 
   describe "#calculate_line_24" do
     before do
-      allow_any_instance_of(Efile::Md::Md502CrCalculator).to receive(:calculate_part_aa_line_14).and_return 100
+      allow_any_instance_of(Efile::Md::Md502crCalculator).to receive(:calculate_part_aa_line_14).and_return 100
       instance.calculate
     end
 
@@ -1113,7 +1113,7 @@ describe Efile::Md::Md502Calculator do
 
   describe "#calculate_line_43" do
     before do
-      allow_any_instance_of(Efile::Md::Md502CrCalculator).to receive(:calculate_part_cc_line_10).and_return 100
+      allow_any_instance_of(Efile::Md::Md502crCalculator).to receive(:calculate_part_cc_line_10).and_return 100
       instance.calculate
     end
 

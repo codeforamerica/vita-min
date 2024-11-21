@@ -383,6 +383,7 @@ RSpec.describe PdfFiller::Md502Pdf do
         allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_20).and_return 70
         allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_21).and_return 80
         allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_23).and_return 200
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_24).and_return 100
         allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_26).and_return 300
         allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_27).and_return 0
       end
@@ -394,6 +395,7 @@ RSpec.describe PdfFiller::Md502Pdf do
         expect(pdf_fields["Enter 20"]).to eq "70"
         expect(pdf_fields["Text Box 30"]).to eq "80"
         expect(pdf_fields["Text Box 36"]).to eq "200"
+        expect(pdf_fields["Text Box 38"]).to eq "100"
         expect(pdf_fields["Text Box 40"]).to eq "300"
         expect(pdf_fields["Text Box 42"]).to eq "0"
       end
@@ -453,6 +455,16 @@ RSpec.describe PdfFiller::Md502Pdf do
 
       it 'outputs the total state and local tax withheld' do
         expect(pdf_fields["Text Box 68"]).to eq "500"
+      end
+    end
+
+    context "Line 43: Refundable income tax credits from Part CC" do
+      before do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_43).and_return 400
+      end
+
+      it 'outputs the total refundable credit' do
+        expect(pdf_fields["Text Box 74"]).to eq "400"
       end
     end
   end

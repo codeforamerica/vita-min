@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Efile::Md::Md502CrCalculator do
+describe Efile::Md::Md502crCalculator do
   let(:filing_status) { "single" }
   let(:intake) { create(:state_file_md_intake, filing_status: filing_status) }
   let(:main_calculator) do
