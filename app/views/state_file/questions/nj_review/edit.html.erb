@@ -167,18 +167,5 @@
     </div>
   </div>
 
-  <div id="use-tax" class="white-group">
-    <div class="spacing-below-5">
-      <h2 class="text--body text--bold spacing-below-5">COLLEGE DEPENDNET</h2>
-      <% current_intake.dependents.each_with_index do |dependent, index| %>
-        <h3><%= dependent.first_name %></h3>
-        <p><%= dependent.nj_dependent_attends_accredited_program %></p>
-        <p><%= dependent.nj_dependent_enrolled_full_time %></p>
-        <p><%= dependent.nj_dependent_five_months_in_college %></p>
-        <p><%= dependent.nj_filer_pays_tuition_for_dependent %></p>
-      <% end %>
-    </div>
-  </div>
-
   <%= render "state_file/questions/shared/review_footer" %>
 <% end %>
