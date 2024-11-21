@@ -20,6 +20,15 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
   end
   render_views
 
+  describe "#update" do
+    # use the return_to_review_concern shared example if the page
+    # should skip to the review page when the return_to_review param is present
+    # requires form_params to be set with any other required params
+    it_behaves_like :return_to_review_concern do
+      let(:form_params) { {} }
+    end
+  end
+
   describe "W-2s card" do
     context "when there are no w2s" do
       it "does not show the card" do

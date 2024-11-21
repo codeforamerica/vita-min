@@ -4,37 +4,40 @@
     <TaxYr>2023</TaxYr>
     <TaxPeriodBeginDt>2023-01-01</TaxPeriodBeginDt>
     <TaxPeriodEndDt>2023-12-31</TaxPeriodEndDt>
-    <SoftwareVersionNum>2022.2.100</SoftwareVersionNum>
+    <SoftwareVersionNum>2023.0.1</SoftwareVersionNum>
     <ReturnTypeCd>1040</ReturnTypeCd>
     <Filer>
-      <PrimarySSN>400000012</PrimarySSN>
-      <NameLine1Txt>LANA&lt;TURNER</NameLine1Txt>
-      <PrimaryNameControlTxt>TURN</PrimaryNameControlTxt>
+      <PrimarySSN>400000031</PrimarySSN>
+      <SpouseSSN>123456789</SpouseSSN>
+      <NameLine1Txt>BERT &amp; ERNIE&lt;MUPPET</NameLine1Txt>
+      <PrimaryNameControlTxt>MUPP</PrimaryNameControlTxt>
+      <SpouseNameControlTxt>BERT</SpouseNameControlTxt>
       <USAddress>
-        <AddressLine1Txt>321 Creek Drive</AddressLine1Txt>
-        <CityNm>Wallace</CityNm>
-        <StateAbbreviationCd>ID</StateAbbreviationCd>
-        <ZIPCd>83873</ZIPCd>
+        <AddressLine1Txt>123 Sesame St Apt 1</AddressLine1Txt>
+        <CityNm>Hammonton</CityNm>
+        <StateAbbreviationCd>NJ</StateAbbreviationCd>
+        <ZIPCd>85034</ZIPCd>
       </USAddress>
-      <PhoneNum>2085551234</PhoneNum>
+      <PhoneNum>4805559876</PhoneNum>
     </Filer>
     <AdditionalFilerInformation>
       <AtSubmissionFilingGrp>
-        <EmailAddressTxt>lana@turner.com</EmailAddressTxt>
+        <EmailAddressTxt>bert@sesame.com</EmailAddressTxt>
       </AtSubmissionFilingGrp>
     </AdditionalFilerInformation>
   </ReturnHeader>
-  <ReturnData documentCnt="3">
+  <ReturnData documentCnt="2">
     <IRS1040 documentId="IRS10400001">
-      <IndividualReturnFilingStatusCd>1</IndividualReturnFilingStatusCd>
+      <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
+      <SpouseNm>Ernie Muppet</SpouseNm>
       <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
-      <Primary65OrOlderInd>X</Primary65OrOlderInd>
-      <PrimaryBlindInd>X</PrimaryBlindInd>
-      <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+      <SpouseClaimAsDependentInd>X</SpouseClaimAsDependentInd>
+      <TotalBoxesCheckedCnt>1</TotalBoxesCheckedCnt>
+      <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
       <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
       <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
-      <TotalExemptionsCnt>1</TotalExemptionsCnt>
-      <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">11000</WagesAmt>
+      <TotalExemptionsCnt>2</TotalExemptionsCnt>
+      <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">9000</WagesAmt>
       <HouseholdEmployeeWagesAmt>0</HouseholdEmployeeWagesAmt>
       <TipIncomeAmt>0</TipIncomeAmt>
       <MedicaidWaiverPymtNotRptW2Amt>0</MedicaidWaiverPymtNotRptW2Amt>
@@ -42,21 +45,21 @@
       <TaxableBenefitsForm8839Amt>0</TaxableBenefitsForm8839Amt>
       <TotalWagesWithNoWithholdingAmt>0</TotalWagesWithNoWithholdingAmt>
       <NontxCombatPayElectionAmt>0</NontxCombatPayElectionAmt>
-      <WagesSalariesAndTipsAmt>11000</WagesSalariesAndTipsAmt>
+      <WagesSalariesAndTipsAmt>9000</WagesSalariesAndTipsAmt>
       <TaxExemptInterestAmt>0</TaxExemptInterestAmt>
       <TaxableInterestAmt>0</TaxableInterestAmt>
       <QualifiedDividendsAmt>0</QualifiedDividendsAmt>
       <OrdinaryDividendsAmt>0</OrdinaryDividendsAmt>
       <TotalTaxablePensionsAmt>0</TotalTaxablePensionsAmt>
-      <SocSecBnftAmt socSecBnftCd="D">0</SocSecBnftAmt>
+      <SocSecBnftAmt>0</SocSecBnftAmt>
       <TaxableSocSecAmt>0</TaxableSocSecAmt>
       <CapitalGainLossAmt>0</CapitalGainLossAmt>
       <TotalAdditionalIncomeAmt>0</TotalAdditionalIncomeAmt>
-      <TotalIncomeAmt>11000</TotalIncomeAmt>
-      <TotalAdjustmentsAmt>1000</TotalAdjustmentsAmt>
-      <AdjustedGrossIncomeAmt>10000</AdjustedGrossIncomeAmt>
-      <TotalItemizedOrStandardDedAmt>13850</TotalItemizedOrStandardDedAmt>
-      <TotalDeductionsAmt>13850</TotalDeductionsAmt>
+      <TotalIncomeAmt>9000</TotalIncomeAmt>
+      <TotalAdjustmentsAmt>0</TotalAdjustmentsAmt>
+      <AdjustedGrossIncomeAmt>9000</AdjustedGrossIncomeAmt>
+      <TotalItemizedOrStandardDedAmt>29200</TotalItemizedOrStandardDedAmt>
+      <TotalDeductionsAmt>29200</TotalDeductionsAmt>
       <TaxableIncomeAmt>0</TaxableIncomeAmt>
       <TaxAmt>0</TaxAmt>
       <AdditionalTaxAmt>0</AdditionalTaxAmt>
@@ -67,68 +70,58 @@
       <TaxLessCreditsAmt>0</TaxLessCreditsAmt>
       <TotalOtherTaxesAmt>0</TotalOtherTaxesAmt>
       <TotalTaxAmt>0</TotalTaxAmt>
-      <FormW2WithheldTaxAmt>100</FormW2WithheldTaxAmt>
+      <FormW2WithheldTaxAmt>900</FormW2WithheldTaxAmt>
       <Form1099WithheldTaxAmt>0</Form1099WithheldTaxAmt>
       <TaxWithheldOtherAmt>0</TaxWithheldOtherAmt>
-      <WithholdingTaxAmt>100</WithholdingTaxAmt>
+      <WithholdingTaxAmt>900</WithholdingTaxAmt>
       <EstimatedTaxPaymentsAmt>0</EstimatedTaxPaymentsAmt>
-      <RefundableCreditsAmt>506</RefundableCreditsAmt>
-      <TotalPaymentsAmt>606</TotalPaymentsAmt>
-      <OverpaidAmt>606</OverpaidAmt>
-      <RefundAmt>606</RefundAmt>
+      <RefundableCreditsAmt>0</RefundableCreditsAmt>
+      <TotalPaymentsAmt>900</TotalPaymentsAmt>
+      <OverpaidAmt>900</OverpaidAmt>
+      <RefundAmt>900</RefundAmt>
       <AppliedToEsTaxAmt>0</AppliedToEsTaxAmt>
       <OwedAmt>0</OwedAmt>
       <EsPenaltyAmt>0</EsPenaltyAmt>
       <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
-      <PrimaryOccupationTxt>Actress</PrimaryOccupationTxt>
+      <PrimaryOccupationTxt>Eyebrow technician</PrimaryOccupationTxt>
+      <SpouseOccupationTxt>Rubber ducky manufacturer</SpouseOccupationTxt>
       <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
     </IRS1040>
-    <IRS1040Schedule1 documentId="IRS1040S1001">
-      <UnemploymentCompAmt>0</UnemploymentCompAmt>
-      <TotalAdditionalIncomeAmt>0</TotalAdditionalIncomeAmt>
-      <EducatorExpensesAmt>0</EducatorExpensesAmt>
-      <StudentLoanInterestDedAmt>1000</StudentLoanInterestDedAmt>
-      <TotalAdjustmentsAmt>1000</TotalAdjustmentsAmt>
-    </IRS1040Schedule1>
     <IRSW2 documentId="W20001" documentName="IRSW2">
-      <EmployeeSSN>400000012</EmployeeSSN>
+      <EmployeeSSN>400000030</EmployeeSSN>
       <EmployerEIN>678912345</EmployerEIN>
-      <EmployerNameControlTxt>SUPE</EmployerNameControlTxt>
+      <EmployerNameControlTxt>SESA</EmployerNameControlTxt>
       <EmployerName>
-        <BusinessNameLine1Txt>Supernova Star Charts</BusinessNameLine1Txt>
+        <BusinessNameLine1Txt>Sesame Street Eye Lip and Hair Removal</BusinessNameLine1Txt>
       </EmployerName>
       <EmployerUSAddress>
-        <AddressLine1Txt>300 Elm Court</AddressLine1Txt>
-        <CityNm>Wallace</CityNm>
-        <StateAbbreviationCd>ID</StateAbbreviationCd>
-        <ZIPCd>83873</ZIPCd>
+        <AddressLine1Txt>300 Josephine St</AddressLine1Txt>
+        <CityNm>Hammonton</CityNm>
+        <StateAbbreviationCd>NJ</StateAbbreviationCd>
+        <ZIPCd>80212</ZIPCd>
       </EmployerUSAddress>
-      <EmployeeNm>Lana Turner</EmployeeNm>
+      <EmployeeNm>Bert Muppet</EmployeeNm>
       <EmployeeUSAddress>
-        <AddressLine1Txt>321 Creek Drive</AddressLine1Txt>
-        <CityNm>Wallace</CityNm>
-        <StateAbbreviationCd>ID</StateAbbreviationCd>
-        <ZIPCd>83873</ZIPCd>
+        <AddressLine1Txt>123 Sesame St Apt 1</AddressLine1Txt>
+        <CityNm>Hammonton</CityNm>
+        <StateAbbreviationCd>NJ</StateAbbreviationCd>
+        <ZIPCd>85034</ZIPCd>
       </EmployeeUSAddress>
-      <WagesAmt>11000</WagesAmt>
-      <WithholdingAmt>100</WithholdingAmt>
-      <SocialSecurityWagesAmt>11000</SocialSecurityWagesAmt>
-      <SocialSecurityTaxAmt>682</SocialSecurityTaxAmt>
-      <MedicareWagesAndTipsAmt>11000</MedicareWagesAndTipsAmt>
-      <MedicareTaxWithheldAmt>160</MedicareTaxWithheldAmt>
+      <WagesAmt>9000</WagesAmt>
+      <WithholdingAmt>900</WithholdingAmt>
+      <SocialSecurityWagesAmt>9000</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>558</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>9000</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>131</MedicareTaxWithheldAmt>
       <SocialSecurityTipsAmt>0</SocialSecurityTipsAmt>
       <AllocatedTipsAmt>0</AllocatedTipsAmt>
       <NonqualifiedPlansAmt>0</NonqualifiedPlansAmt>
-      <EmployersUseGrp>
-        <EmployersUseCd>Q</EmployersUseCd>
-        <EmployersUseAmt>0</EmployersUseAmt>
-      </EmployersUseGrp>
       <W2StateLocalTaxGrp>
         <W2StateTaxGrp>
-          <StateAbbreviationCd>ID</StateAbbreviationCd>
+          <StateAbbreviationCd>NJ</StateAbbreviationCd>
           <EmployerStateIdNum>12345</EmployerStateIdNum>
-          <StateWagesAmt>11000</StateWagesAmt>
-          <StateIncomeTaxAmt>50</StateIncomeTaxAmt>
+          <StateWagesAmt>9000</StateWagesAmt>
+          <StateIncomeTaxAmt>15</StateIncomeTaxAmt>
           <W2LocalTaxGrp>
             <LocalWagesAndTipsAmt>0</LocalWagesAndTipsAmt>
             <LocalIncomeTaxAmt>0</LocalIncomeTaxAmt>
