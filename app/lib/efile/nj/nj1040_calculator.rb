@@ -189,16 +189,14 @@ module Efile
       end
 
       def line_59_primary
-        primary_excess = get_personal_excess(@intake.primary.ssn, :box14_ui_wf_swf, EXCESS_UI_WF_SWF_MAX)
-        primary_excess += get_personal_excess(@intake.primary.ssn, :box14_ui_hc_wd, EXCESS_UI_WF_SWF_MAX)
-        primary_excess
+        get_personal_excess(@intake.primary.ssn, :box14_ui_wf_swf, EXCESS_UI_WF_SWF_MAX) +
+          get_personal_excess(@intake.primary.ssn, :box14_ui_hc_wd, EXCESS_UI_WF_SWF_MAX)
       end
 
       def line_59_spouse
         if @intake.filing_status_mfj?
-          spouse_excess = get_personal_excess(@intake.spouse.ssn, :box14_ui_wf_swf, EXCESS_UI_WF_SWF_MAX)
-          spouse_excess += get_personal_excess(@intake.spouse.ssn, :box14_ui_hc_wd, EXCESS_UI_WF_SWF_MAX)
-          spouse_excess
+          get_personal_excess(@intake.spouse.ssn, :box14_ui_wf_swf, EXCESS_UI_WF_SWF_MAX) +
+            get_personal_excess(@intake.spouse.ssn, :box14_ui_hc_wd, EXCESS_UI_WF_SWF_MAX)
         end
       end
 
