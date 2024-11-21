@@ -115,7 +115,7 @@ describe StateFileBaseIntake do
       expect(intake.state_file_w2s.count).to eq 2
       w2 = intake.state_file_w2s.first
 
-      expect(w2.employer_state_id_num).to eq "000000005"
+      expect(w2.employer_state_id_num).to eq "00-0000005"
     end
 
     it "adds box 14 fields" do

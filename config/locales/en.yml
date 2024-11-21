@@ -3300,7 +3300,7 @@ en:
           box18_html: "<strong>Box 18,</strong> Local wages, tips, etc."
           box19_html: "<strong>Box 19,</strong> Local income tax"
           box20_locality_name: "<strong>Box 20,</strong> Locality name"
-          employer_state_id_error: EIN must be a number. Do not include a dash.
+          employer_state_id_error: EIN cannot be more than 16 characters.
           instructions_1_html: Please review your state income details for <strong>%{employer}</strong>
           local_income_tax_amt_error: Cannot be greater than local wages and tips.
           local_wages_and_tips_amt_error: Please enter local wages and tips
