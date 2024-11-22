@@ -320,9 +320,9 @@ FactoryBot.define do
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_zeus_two_deps') }
 
       after(:create) do |intake|
-        intake.dependents.each do |dependent|
+        intake.dependents.each_with_index do |dependent, i|
           dependent.update(
-            dob: 1.years.ago,
+            dob: i.years.ago,
             nj_dependent_attends_accredited_program: "yes",
             nj_dependent_enrolled_full_time: "yes",
             nj_dependent_five_months_in_college: "yes",

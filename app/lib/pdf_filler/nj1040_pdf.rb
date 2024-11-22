@@ -143,7 +143,7 @@ module PdfFiller
         answers[:'x  1000_4'] = count * 1_000
       end
 
-      # lines 13 and 30
+      # line 13
       if @xml_document.at("Exemptions TotalExemptionAmountA")
         total_exemptions = @xml_document.at("Exemptions TotalExemptionAmountA").text.to_i
         answers.merge!(insert_digits_into_fields(total_exemptions, [
@@ -157,18 +157,7 @@ module PdfFiller
                                                  ]))
       end
 
-      # line 12
-      if @xml_document.at("Exemptions DependAttendCollege")
-        count = @xml_document.at("Exemptions DependAttendCollege").text.to_i
-        digits = count.digits
-        answers[:undefined_14] = digits[0]
-        answers[:'x  1000_4'] = count * 1_000
-        if digits.length.positive?
-          answers[:Text49] = digits[1]
-        end
-      end
-
-      # line 13
+      # line 30
       if @xml_document.at("Body TotalExemptionAmountB")
         total_exemptions = @xml_document.at("Body TotalExemptionAmountB").text.to_i
         answers.merge!(insert_digits_into_fields(total_exemptions, [
@@ -559,36 +548,6 @@ module PdfFiller
           birth_year: dependent.at("BirthYear")&.text,
         }
       end
-    end
-
-    def get_name
-      first_name = @xml_document.at("ReturnHeaderState Filer Primary TaxpayerName FirstName")&.text
-      last_name = @xml_document.at("ReturnHeaderState Filer Primary TaxpayerName LastName")&.text
-      middle_initial = @xml_document.at("ReturnHeaderState Filer Primary TaxpayerName MiddleInitial")&.text
-      suffix = @xml_document.at("ReturnHeaderState Filer Primary TaxpayerName NameSuffix")&.text
-
-      spouse_first_name = @xml_document.at("ReturnHeaderState Filer Secondary TaxpayerName FirstName")&.text
-      spouse_last_name = @xml_document.at("ReturnHeaderState Filer Secondary TaxpayerName LastName")&.text
-      spouse_middle_initial = @xml_document.at("ReturnHeaderState Filer Secondary TaxpayerName MiddleInitial")&.text
-      spouse_suffix = @xml_document.at("ReturnHeaderState Filer Secondary TaxpayerName NameSuffix")&.text
-
-      if spouse_first_name.present? && spouse_last_name.present?
-        if last_name == spouse_last_name
-          return "#{format_name(first_name, last_name, middle_initial, suffix)} & #{format_no_last_name(spouse_first_name, spouse_middle_initial, spouse_suffix)}"
-        else
-          return "#{format_name(first_name, last_name, middle_initial, suffix)} & #{format_name(spouse_first_name, spouse_last_name, spouse_middle_initial, spouse_suffix)}"
-        end
-      end
-
-      format_name(first_name, last_name, middle_initial, suffix)
-    end
-
-    def format_name(first_name, last_name, middle_initial, suffix)
-      "#{last_name} #{format_no_last_name(first_name, middle_initial, suffix)}"
-    end
-
-    def format_no_last_name(first_name, middle_initial, suffix)
-      [first_name, middle_initial, suffix].compact.join(" ")
     end
 
     def insert_digits_into_fields(number, fields_ordered_decimals_to_millions, as_decimal: true)
