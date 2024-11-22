@@ -11,7 +11,7 @@ module StateFile
 
         if @state_file1099_r.valid?(:retirement_income_intake)
           @state_file1099_r.save(context: :retirement_income_intake)
-          redirect_to questions_income_review_path
+          redirect_to questions_income_review_path(return_to_review: params[:return_to_review])
         else
           render :edit
         end
