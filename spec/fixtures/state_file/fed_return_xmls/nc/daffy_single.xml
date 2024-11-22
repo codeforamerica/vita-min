@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v4.0">
+  <ReturnHeader binaryAttachmentCnt="0">
+    <TaxYr>2024</TaxYr>
+    <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+    <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+    <SoftwareVersionNum>eb055500</SoftwareVersionNum>
+    <ReturnTypeCd>1040</ReturnTypeCd>
+    <Filer>
+      <PrimarySSN>145004904</PrimarySSN>
+      <NameLine1Txt>DAFFY C&lt;DUCK</NameLine1Txt>
+      <PrimaryNameControlTxt>DUCK</PrimaryNameControlTxt>
+      <USAddress>
+        <AddressLine1Txt>7 Heavens Lane</AddressLine1Txt>
+        <CityNm>Cary</CityNm>
+        <StateAbbreviationCd>NC</StateAbbreviationCd>
+        <ZIPCd>27511</ZIPCd>
+      </USAddress>
+      <PhoneNum>8885564905</PhoneNum>
+    </Filer>
+    <AdditionalFilerInformation>
+      <AtSubmissionFilingGrp>
+        <EmailAddressTxt>test-user+14500490-418f-4dc4-8103-af4cb3778e64@directfile.test</EmailAddressTxt>
+      </AtSubmissionFilingGrp>
+    </AdditionalFilerInformation>
+  </ReturnHeader>
+  <ReturnData documentCnt="4">
+    <IRS1040 documentId="IRS10400001">
+      <IndividualReturnFilingStatusCd>1</IndividualReturnFilingStatusCd>
+      <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+      <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+      <DependentDetail>
+        <DependentFirstNm>Angela</DependentFirstNm>
+        <DependentLastNm>Duck</DependentLastNm>
+        <DependentNameControlTxt>DUCK</DependentNameControlTxt>
+        <DependentSSN>400004926</DependentSSN>
+        <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+        <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+      </DependentDetail>
+      <ChldWhoLivedWithYouCnt>1</ChldWhoLivedWithYouCnt>
+      <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+      <TotalExemptionsCnt>2</TotalExemptionsCnt>
+      <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">76902</WagesAmt>
+      <WagesSalariesAndTipsAmt>76902</WagesSalariesAndTipsAmt>
+      <TotalIncomeAmt>76902</TotalIncomeAmt>
+      <AdjustedGrossIncomeAmt>76902</AdjustedGrossIncomeAmt>
+      <TotalItemizedOrStandardDedAmt>14600</TotalItemizedOrStandardDedAmt>
+      <TotalDeductionsAmt>14600</TotalDeductionsAmt>
+      <TaxableIncomeAmt>62302</TaxableIncomeAmt>
+      <TaxAmt>8765</TaxAmt>
+      <TotalTaxBeforeCrAndOthTaxesAmt>8765</TotalTaxBeforeCrAndOthTaxesAmt>
+      <CTCODCAmt>2000</CTCODCAmt>
+      <TotalCreditsAmt>2000</TotalCreditsAmt>
+      <TaxLessCreditsAmt>6765</TaxLessCreditsAmt>
+      <TotalTaxAmt>6765</TotalTaxAmt>
+      <FormW2WithheldTaxAmt>3246</FormW2WithheldTaxAmt>
+      <WithholdingTaxAmt>3246</WithholdingTaxAmt>
+      <TotalPaymentsAmt>3246</TotalPaymentsAmt>
+      <OwedAmt>3519</OwedAmt>
+      <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+      <PrimaryOccupationTxt>Tree Trimmer</PrimaryOccupationTxt>
+      <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+    </IRS1040>
+    <IRS1040Schedule8812 documentId="IRS8812001" documentName="IRS1040Schedule8812">
+      <AdjustedGrossIncomeAmt>76902</AdjustedGrossIncomeAmt>
+      <ModifiedAGIAmt>76902</ModifiedAGIAmt>
+      <QlfyChildUnderAgeSSNCnt>1</QlfyChildUnderAgeSSNCnt>
+      <QlfyChildUnderAgeSSNLimtAmt>2000</QlfyChildUnderAgeSSNLimtAmt>
+      <OtherDependentCnt>0</OtherDependentCnt>
+      <InitialCTCODCAmt>2000</InitialCTCODCAmt>
+      <FilingStatusThresholdCd>200000</FilingStatusThresholdCd>
+      <ExcessAdjGrossIncomeAmt>0</ExcessAdjGrossIncomeAmt>
+      <ModifiedAGIPhaseOutAmt>0</ModifiedAGIPhaseOutAmt>
+      <CTCODCOverAGILimitInd>true</CTCODCOverAGILimitInd>
+      <CTCODCAfterAGILimitAmt>2000</CTCODCAfterAGILimitAmt>
+      <ACTCTaxLiabiltyLimitAmt>8765</ACTCTaxLiabiltyLimitAmt>
+      <CTCODCAmt>2000</CTCODCAmt>
+      <ClaimACTCAllFilersGrp/>
+    </IRS1040Schedule8812>
+    <IRSW2 documentId="W20001" documentName="IRSW2">
+      <EmployeeSSN>145004904</EmployeeSSN>
+      <EmployerEIN>000300245</EmployerEIN>
+      <EmployerNameControlTxt>FICA</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>FICA Circus</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>123 Bluebird Circle</AddressLine1Txt>
+        <CityNm>Bethlehem</CityNm>
+        <StateAbbreviationCd>KY</StateAbbreviationCd>
+        <ZIPCd>40007</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>Daffy C Duck</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>7 Heavens Lane</AddressLine1Txt>
+        <CityNm>Cary</CityNm>
+        <StateAbbreviationCd>NC</StateAbbreviationCd>
+        <ZIPCd>27511</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>76902</WagesAmt>
+      <WithholdingAmt>3246</WithholdingAmt>
+      <SocialSecurityWagesAmt>76902</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>1552</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>76902</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>129</MedicareTaxWithheldAmt>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>NC</StateAbbreviationCd>
+          <EmployerStateIdNum>NC 000003000</EmployerStateIdNum>
+          <StateWagesAmt>76902</StateWagesAmt>
+          <StateIncomeTaxAmt>4394</StateIncomeTaxAmt>
+          <W2LocalTaxGrp/>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+    <IRSPayment documentId="IRSPayment001">
+      <RoutingTransitNum>021000322</RoutingTransitNum>
+      <BankAccountNum>717171717171</BankAccountNum>
+      <BankAccountTypeCd>1</BankAccountTypeCd>
+      <PaymentAmt>3519</PaymentAmt>
+      <RequestedPaymentDt>2025-04-15</RequestedPaymentDt>
+      <TaxpayerDaytimePhoneNum>8885564905</TaxpayerDaytimePhoneNum>
+    </IRSPayment>
+  </ReturnData>
+</Return>
