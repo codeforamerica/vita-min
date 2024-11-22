@@ -537,7 +537,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
               :df_data_two_deps,
             )
           }
-          it "fills in properly" do
+          it "fills in 1 for count and $1500 for exception" do
             expect(pdf_fields["Text47"]).to eq ""
             expect(pdf_fields["undefined_12"]).to eq "1"
             expect(pdf_fields["x  1500"]).to eq "1500"
@@ -551,7 +551,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
               :df_data_many_deps,
             )
           }
-          it "fills in properly" do
+          it "fills in 10 for count and $15000 for exception" do
             expect(pdf_fields["Text47"]).to eq "1"
             expect(pdf_fields["undefined_12"]).to eq "0"
             expect(pdf_fields["x  1500"]).to eq "15000"
@@ -581,7 +581,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
               :df_data_two_deps,
             )
           }
-          it "fills in properly" do
+          it "fills in 1 for count and $1500 for exception" do
             expect(pdf_fields["Text48"]).to eq ""
             expect(pdf_fields["undefined_13"]).to eq "1"
             expect(pdf_fields["x  1500_2"]).to eq "1500"
