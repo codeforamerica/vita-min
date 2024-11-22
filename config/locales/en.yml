@@ -2038,6 +2038,23 @@ en:
         title: Common questions from %{state} taxpayers
     general:
       fed_agi: Federal adjusted gross income
+      id_adjusted_income: Total Idaho Adjusted Income
+      id_building_fund_tax: Permanent Building Fund tax
+      id_child_care_expenses: Subtraction for child and dependent care expenses
+      id_child_tax_credit: Idaho Child Tax Credit
+      id_fed_agi: Federal adjusted gross income
+      id_grocery_credit: Refundable Grocery Credit
+      id_health_insurance: Subtraction for health insurance premiums
+      id_interest_income: Interest income from U.S. bonds (not taxed in Idaho)
+      id_retirement_benefits: Retirement Benefits Deduction
+      id_social_security_income: Social Security income (not taxed in Idaho)
+      id_standard_deduction: Standard deduction
+      id_tax: Idaho tax
+      id_tax_after_credits: Tax after nonrefundable credits
+      id_tax_withheld: Idaho tax withheld
+      id_taxable_income: Idaho taxable income
+      id_total_payments: Total payments and refundable credits
+      id_use_tax: Use tax
       nc_income_tax: North Carolina income tax
       nc_tax_withheld: North Carolina tax withheld
       nc_taxable_income: North Carolina taxable income
