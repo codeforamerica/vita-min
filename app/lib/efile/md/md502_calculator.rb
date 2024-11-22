@@ -74,12 +74,12 @@ module Efile
         set_line(:MD502_LINE_22, :calculate_line_22)
         set_line(:MD502_LINE_22B, :calculate_line_22b)
 
+        @md502cr.calculate
         set_line(:MD502_LINE_23, :calculate_line_23)
         set_line(:MD502_LINE_24, :calculate_line_24)
         set_line(:MD502_LINE_26, :calculate_line_26)
         set_line(:MD502_LINE_27, :calculate_line_27)
         set_line(:MD502_LINE_40, :calculate_line_40)
-        @md502cr.calculate
         set_line(:MD502_LINE_43, :calculate_line_43)
         @lines.transform_values(&:value)
       end
