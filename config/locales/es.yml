@@ -2886,7 +2886,7 @@ es:
       nj_gubernatorial_elections:
         edit:
           details_1: You may have heard this referred to as “public financing” of campaigns.
-          details_2_html: You can contribute $1 of where your taxes go to the <a href="%{href}" target="_blank" rel="noopener noreferrer">Gubernatorial Elections Fund.</a>
+          details_2_html: You can contribute $1 of where your taxes go to the <a href="https://elec.nj.gov/pdffiles/temporary/WebsitePlugForGubfinProgram.pdf" target="_blank" rel="noopener noreferrer">Gubernatorial Elections Fund.</a>
           details_3: 'FYI: Your taxes won’t increase and your refund won’t be reduced. This just gives New Jersey permission to use $1 of your tax dollars for this fund.'
           primary_contribute: Would you like to contribute $1 to the fund?
           spouse_contribute: Would your spouse like to contribute $1 to the fund?
