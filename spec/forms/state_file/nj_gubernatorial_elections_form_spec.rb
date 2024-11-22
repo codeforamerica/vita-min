@@ -8,11 +8,7 @@ RSpec.describe StateFile::NjGubernatorialElectionsForm do
 
     context "invalid params" do
       context "all fields are required" do
-        let(:invalid_params) do
-          {
-            :primary_contribution_gubernatorial_elections => nil,
-          }
-        end
+        let(:invalid_params) { :primary_contribution_gubernatorial_elections => nil }
 
         it "is invalid" do
           expect(form.valid?).to eq false

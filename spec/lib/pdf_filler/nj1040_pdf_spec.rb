@@ -1745,26 +1745,27 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         let(:intake) { 
           create(:state_file_nj_intake)
         }
-        it "does not fill the field when the answer is no" do 
+        it "marks no for primary when answer is no and does not fill spouse field" do 
           expect(pdf_fields["Group245"]).to eq "Choice2"
-          expect(pdf_fields["Group246"]).to eq "Choice2"
+          expect(pdf_fields["Group246"]).to eq ""
         end
 
-        it "checks yes when the answer is yes" do
+        it "checks yes when the answer is yes and does not fill spouse field" do
           intake.primary_contribution_gubernatorial_elections = :yes
           expect(pdf_fields["Group245"]).to eq "Choice1"
+          expect(pdf_fields["Group246"]).to eq ""
         end
       end
 
       context "mfj" do 
-        context "when primary does not contribtue and spouse does" do 
+        context "when primary does not contribute and spouse does" do 
           let(:intake) { 
             create(:state_file_nj_intake, 
             :married_filing_jointly,
             primary_contribution_gubernatorial_elections: :no, spouse_contribution_gubernatorial_elections: :yes,
             )
           }
-          it "leaves primary blank and marks an X for spouse" do 
+          it "checks no for primary and marks an X for spouse" do 
             expect(pdf_fields["Group245"]).to eq "Choice2"
             expect(pdf_fields["Group246"]).to eq "Choice1"
           end

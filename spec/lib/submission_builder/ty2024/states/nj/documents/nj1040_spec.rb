@@ -787,7 +787,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
       end
 
       context "mfj" do 
-        context "when primary does not contribtue and spouse does" do 
+        context "when primary does not contribute and spouse does" do 
           let(:intake) { 
             create(:state_file_nj_intake, 
             :married_filing_jointly,
