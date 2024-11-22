@@ -2679,6 +2679,8 @@ es:
       md_tax_refund:
         md_bank_details:
           account_holder_name: Nombre del titular de la cuenta
+          bank_account_details: Detalles de la cuenta bancaria
+          bank_account_type: Tipo de cuenta bancaria
           bank_authorization_confirmation: Marque aquí para confirmar que autoriza al estado de Maryland a emitir su reembolso mediante depósito directo.
           bank_authorization_confirmation_error: Por favor confirme la autorización o seleccione pagar por correo
           joint_account_holder_name: Nombre del titular de la cuenta conjunta

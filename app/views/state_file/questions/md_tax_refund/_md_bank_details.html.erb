@@ -24,9 +24,9 @@
       <% end %>
     <% end %>
 
+    <p class="text--bold spacing-below-0"><%= t('.bank_account_type') %></p>
     <%= form.cfa_radio_set(
           :account_type,
-          label_text: t("views.questions.bank_details.account_type.label"),
           collection: [
             { value: :checking, label: t("views.questions.bank_details.account_type.checking") },
             { value: :savings, label: t("views.questions.bank_details.account_type.savings") },
@@ -37,7 +37,7 @@
       <div class="joint-account-holder question-with-follow-up__question">
         <%= form.cfa_checkbox(:has_joint_account_holder, "Check here if you have a joint account", options: { checked_value: "yes", unchecked_value: "no", "data-follow-up": "#joint-account-holder-questions"  }) %>
       </div>
-      <p><%= t('.account_holder_name') %></p>
+      <p class="text--bold spacing-below-0"><%= t('.account_holder_name') %></p>
       <%= form.cfa_input_field :account_holder_first_name, t("general.first_name"), classes: ["form-width--long"] %>
       <%= form.cfa_input_field :account_holder_middle_initial, t(".middle_initial"), classes: ["form-width--long"] %>
       <%= form.cfa_input_field :account_holder_last_name, t(".last_name"), classes: ["form-width--long"] %>
@@ -47,7 +47,7 @@
             suffix_options_for_state_select,
             prompt: t('general.select_prompt')) %>
       <div class="question-with-follow-up__follow-up same-card-as-question" id="joint-account-holder-questions">
-        <p><%= t('.joint_account_holder_name') %></p>
+        <p class="text--bold spacing-below-0"><%= t('.joint_account_holder_name') %></p>
         <%= form.cfa_input_field :joint_account_holder_first_name, t("general.first_name"), classes: ["form-width--long"] %>
         <%= form.cfa_input_field :joint_account_holder_middle_initial, t(".middle_initial"), classes: ["form-width--long"] %>
         <%= form.cfa_input_field :joint_account_holder_last_name, t(".last_name"), classes: ["form-width--long"] %>
@@ -58,6 +58,7 @@
               prompt: t('general.select_prompt')) %>
       </div>
     </div>
+    <p class="text--bold spacing-below-0"><%= t('.bank_account_details') %></p>
     <%= form.cfa_input_field(:routing_number, t("state_file.questions.tax_refund.bank_details.routing_number"), classes: ["form-width--long", "disablecopy"]) %>
     <%= form.cfa_input_field(:routing_number_confirmation, t("state_file.questions.tax_refund.bank_details.confirm_routing_number"), classes: ["form-width--long", "disablepaste", "disablecopy"]) %>
     <%= form.cfa_input_field(:account_number, t("state_file.questions.tax_refund.bank_details.account_number"), classes: ["form-width--long", "disablecopy"]) %>

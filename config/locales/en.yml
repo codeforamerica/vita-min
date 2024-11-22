@@ -2707,6 +2707,8 @@ en:
       md_tax_refund:
         md_bank_details:
           account_holder_name: Account Holder Name
+          bank_account_details: Bank Account Details
+          bank_account_type: Bank Account Type
           bank_authorization_confirmation: Check here to confirm you authorize the State of Maryland to issue your refund by direct deposit.
           bank_authorization_confirmation_error: Please confirm authorization or select pay by mail
           joint_account_holder_name: Joint Account Holder Name
