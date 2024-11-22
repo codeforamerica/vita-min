@@ -179,8 +179,8 @@ RSpec.describe StateFile::MdTaxRefundForm do
           let(:has_joint_account_holder) { 'yes' }
 
           context "has valid params" do
-            let(:joint_account_holder_first_name) { "Frand" }
-            let(:joint_account_holder_last_name) { "Stein" }
+            let(:joint_account_holder_first_name) { "ABCD EFGH-JKLM" }
+            let(:joint_account_holder_last_name) { "B'ONEIL" }
 
             it "is valid" do
               form = described_class.new(intake, params)
@@ -190,15 +190,15 @@ RSpec.describe StateFile::MdTaxRefundForm do
           end
 
           context "has invalid params" do
-            # let(:joint_account_holder_first_name) { "" }
+            let(:joint_account_holder_first_name) { "A123456789101112131415A1234567891" }
             let(:joint_account_holder_middle_initial) { 'AB' }
-            # let(:joint_account_holder_last_name) { "" }
+            let(:joint_account_holder_last_name) { "B'23%9" }
 
             it "is invalid" do
               form = described_class.new(intake, params)
               expect(form).not_to be_valid
-              expect(form.errors).to include :joint_account_holder_first_name
-              expect(form.errors).to include :joint_account_holder_last_name
+              expect(form.errors[:joint_account_holder_first_name]).to include("Only letters, hyphen, and apostrophe are accepted, and first name must be less than 16 characters.")
+              expect(form.errors[:joint_account_holder_last_name]).to include("Only letters, hyphen, and apostrophe are accepted, and last name must be less than 32 characters.")
             end
           end
         end

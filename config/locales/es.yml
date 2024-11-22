@@ -181,7 +181,7 @@ es:
         blank: Por favor, seleccione un número de trabajos.
       last_name:
         blank: Por favor, ingrese un apellido.
-        invalid_format: Solo se aceptan letras, guiones y apóstrofos.
+        invalid_format: Solo se aceptan letras, guiones y apóstrofos, y el nombre debe tener menos de 32 caracteres.
       password:
         insecure: Agregue algunas palabras más poco comunes para mejorar la seguridad de la contraseña.
         not_matching: Las contraseñas proporcionadas no coinciden.

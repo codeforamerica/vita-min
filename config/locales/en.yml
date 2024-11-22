@@ -180,7 +180,7 @@ en:
         blank: Please select a number of jobs.
       last_name:
         blank: Please enter a last name.
-        invalid_format: Only letters, hyphen, and apostrophe are accepted.
+        invalid_format: Only letters, hyphen, and apostrophe are accepted, and last name must be less than 32 characters.
       password:
         insecure: Add some more uncommon words to improve password strength.
         not_matching: The password provided does not match.
