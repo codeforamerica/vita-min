@@ -20,7 +20,7 @@ module StateFile
 
     validates :payment_or_deposit_type, presence: true
 
-    SUFFIX_OPTIONS = ["JR", "SR", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"]
+    SUFFIX_OPTIONS = %w[JR SR I II III IV V VI VII VIII IX X]
 
     with_options unless: -> { payment_or_deposit_type == "mail" } do
       validates :account_holder_first_name, presence: true
