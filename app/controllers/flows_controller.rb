@@ -627,6 +627,9 @@ class FlowsController < ApplicationController
         locale: 'en',
         unfinished_intake_ids: [],
         df_data_imported_at: 2.hours.ago,
+        email_notification_opt_in: "yes",
+        phone_number: "+15005550006",
+        sms_notification_opt_in: "yes",
       )
     end
 
