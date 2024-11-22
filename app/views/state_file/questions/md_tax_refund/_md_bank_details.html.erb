@@ -38,9 +38,9 @@
         <%= form.cfa_checkbox(:has_joint_account_holder, "Check here if you have a joint account", options: { checked_value: "yes", unchecked_value: "no", "data-follow-up": "#joint-account-holder-questions"  }) %>
       </div>
       <p><%= t('.account_holder_name') %></p>
-      <%= form.cfa_input_field :account_holder_first_name, "First Name", classes: ["form-width--long"] %>
-      <%= form.cfa_input_field :account_holder_middle_initial, "Middle Initial", classes: ["form-width--long"] %>
-      <%= form.cfa_input_field :account_holder_last_name, "Last Name", classes: ["form-width--long"] %>
+      <%= form.cfa_input_field :account_holder_first_name, t("general.first_name"), classes: ["form-width--long"] %>
+      <%= form.cfa_input_field :account_holder_middle_initial, t(".middle_initial"), classes: ["form-width--long"] %>
+      <%= form.cfa_input_field :account_holder_last_name, t(".last_name"), classes: ["form-width--long"] %>
       <%= form.vita_min_state_file_select(
             :account_holder_suffix,
             t(".suffix"),
@@ -48,9 +48,9 @@
             prompt: t('general.select_prompt')) %>
       <div class="question-with-follow-up__follow-up same-card-as-question" id="joint-account-holder-questions">
         <p><%= t('.joint_account_holder_name') %></p>
-        <%= form.cfa_input_field :joint_account_holder_first_name, "First Name", classes: ["form-width--long"] %>
-        <%= form.cfa_input_field :joint_account_holder_middle_initial, "Middle Initial", classes: ["form-width--long"] %>
-        <%= form.cfa_input_field :joint_account_holder_last_name, "Last Name", classes: ["form-width--long"] %>
+        <%= form.cfa_input_field :joint_account_holder_first_name, t("general.first_name"), classes: ["form-width--long"] %>
+        <%= form.cfa_input_field :joint_account_holder_middle_initial, t(".middle_initial"), classes: ["form-width--long"] %>
+        <%= form.cfa_input_field :joint_account_holder_last_name, t(".last_name"), classes: ["form-width--long"] %>
         <%= form.vita_min_state_file_select(
               :joint_account_holder_suffix,
               t(".suffix"),
