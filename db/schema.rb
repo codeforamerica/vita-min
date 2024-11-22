@@ -2298,6 +2298,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_19_203800) do
     t.datetime "created_at", null: false
     t.string "employee_name"
     t.string "employee_ssn"
+    t.string "employer_ein"
     t.string "employer_name"
     t.string "employer_state_id_num"
     t.decimal "local_income_tax_amount", precision: 12, scale: 2
@@ -2309,6 +2310,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_19_203800) do
     t.decimal "state_wages_amount", precision: 12, scale: 2
     t.datetime "updated_at", null: false
     t.integer "w2_index"
+    t.decimal "wages", precision: 12, scale: 2
     t.index ["state_file_intake_type", "state_file_intake_id"], name: "index_state_file_w2s_on_state_file_intake"
   end
 

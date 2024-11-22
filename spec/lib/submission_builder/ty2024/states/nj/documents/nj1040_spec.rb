@@ -340,14 +340,14 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
 
     describe "dependents attending college - line 12" do
       context 'when has dependents in college' do
-        let(:intake) { create(:state_file_nj_intake, :df_data_two_deps, :two_dependents_in_college) }
+        let(:intake) { create(:state_file_nj_intake, :two_dependents_in_college) }
         it 'sets DependAttendCollege to count 2' do
           expect(xml.at("Exemptions DependAttendCollege").text).to eq("2")
         end
       end
 
       context 'when does not have dependents in college' do
-        let(:intake) { create(:state_file_nj_intake, :df_data_two_deps) }
+        let(:intake) { create(:state_file_nj_intake) }
         it 'does not fill DependAttendCollege' do
           expect(xml.at("Exemptions DependAttendCollege")).to eq(nil)
         end

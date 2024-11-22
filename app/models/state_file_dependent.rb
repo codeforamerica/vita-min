@@ -64,6 +64,12 @@ class StateFileDependent < ApplicationRecord
   enum nj_dependent_five_months_in_college: { unfilled: 0, yes: 1, no: 2 }, _prefix: :nj_dependent_five_months_in_college
   enum nj_filer_pays_tuition_for_dependent: { unfilled: 0, yes: 1, no: 2 }, _prefix: :nj_filer_pays_tuition_for_dependent
 
+  # checkboxes - "unfilled" means not-yet-seen because it saves as "no" when unchecked
+  enum nj_dependent_attends_accredited_program: { unfilled: 0, yes: 1, no: 2 }, _prefix: :nj_dependent_attends_accredited_program
+  enum nj_dependent_enrolled_full_time: { unfilled: 0, yes: 1, no: 2 }, _prefix: :nj_dependent_enrolled_full_time
+  enum nj_dependent_five_months_in_college: { unfilled: 0, yes: 1, no: 2 }, _prefix: :nj_dependent_five_months_in_college
+  enum nj_filer_pays_tuition_for_dependent: { unfilled: 0, yes: 1, no: 2 }, _prefix: :nj_filer_pays_tuition_for_dependent
+
   # Create dob_* accessor methods for Honeycrisp's cfa_date_select
   delegate :month, :day, :year, to: :dob, prefix: :dob, allow_nil: true
   validates_presence_of :first_name, :last_name, :dob, on: :dob_form

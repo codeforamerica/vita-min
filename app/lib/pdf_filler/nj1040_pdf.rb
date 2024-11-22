@@ -1,6 +1,7 @@
 module PdfFiller
   class Nj1040Pdf
     include PdfHelper
+    include StateFile::NjPdfHelper
 
     def source_pdf_name
       "nj1040-TY2023"
@@ -24,9 +25,9 @@ module PdfFiller
         'Your Social Security Number': taxpayer_ssn.to_s,
         'Your Social Security Number_2': taxpayer_ssn.to_s,
         'Your Social Security Number_3': taxpayer_ssn.to_s,
-        'Names as shown on Form NJ1040': get_name,
-        'Names as shown on Form NJ1040_2': get_name,
-        'Names as shown on Form NJ1040_3': get_name,
+        'Names as shown on Form NJ1040': get_name(@xml_document),
+        'Names as shown on Form NJ1040_2': get_name(@xml_document),
+        'Names as shown on Form NJ1040_3': get_name(@xml_document),
 
         # county code
         CM4: county_code[1],
@@ -46,10 +47,10 @@ module PdfFiller
         Text8: taxpayer_ssn[8],
 
         # name
-        'Last Name First Name Initial Joint Filers enter first name and middle initial of each Enter spousesCU partners last name ONLY if different': get_name,
+        'Last Name First Name Initial Joint Filers enter first name and middle initial of each Enter spousesCU partners last name ONLY if different': get_name(@xml_document),
 
         # address
-        'SpousesCU Partners SSN if filing jointly': get_address, # address text field
+        'SpousesCU Partners SSN if filing jointly': get_address(@xml_document), # address text field
         'CountyMunicipality Code See Table page 50': @xml_document.at("ReturnHeaderState Filer USAddress CityNm")&.text, # city / town text field
         State: @xml_document.at("ReturnHeaderState Filer USAddress StateAbbreviationCd")&.text,
         'ZIP Code': @xml_document.at("ReturnHeaderState Filer USAddress ZIPCd")&.text,
@@ -154,6 +155,17 @@ module PdfFiller
                                                    "undefined_16",
                                                    "undefined_15"
                                                  ]))
+      end
+
+      # line 12
+      if @xml_document.at("Exemptions DependAttendCollege")
+        count = @xml_document.at("Exemptions DependAttendCollege").text.to_i
+        digits = count.digits
+        answers[:undefined_14] = digits[0]
+        answers[:'x  1000_4'] = count * 1_000
+        if digits.length.positive?
+          answers[:Text49] = digits[1]
+        end
       end
 
       # line 13
@@ -534,12 +546,6 @@ module PdfFiller
 
     def get_total_exemption_count(xml_selector_string_array)
       xml_selector_string_array.sum { |selector| @xml_document.at(selector)&.text == "X" ? 1 : 0 }
-    end
-
-    def get_address
-      address_line_1 = @xml_document.at("ReturnHeaderState Filer USAddress AddressLine1Txt")&.text
-      address_line_2 = @xml_document.at("ReturnHeaderState Filer USAddress AddressLine2Txt")&.text
-      [address_line_1, address_line_2].compact.join(" ")
     end
 
     def get_dependents

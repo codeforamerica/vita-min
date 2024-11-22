@@ -2814,8 +2814,8 @@ en:
           filer_pays_tuition_books: I (or my spouse, if I am filing jointly) pay for more than one-half or more of %{dependent_first}'s tuition and college costs.
           full_time_college_helper_description: '"Full time" is whatever the college considers to be full-time.'
           full_time_college_helper_heading: What counts as "attending college full time"?
-          label_1: For each person claimed on your return (dependent) who is attending college, we need to confirm some details.
-          label_2: "(You can only claim this credit for dependents listed on your return.)"
+          subtitle_1: For each person claimed on your return (dependent) who is attending college, we need to confirm some details.
+          subtitle_2: "(You can only claim this credit for dependents listed on your return.)"
           title: You may qualify for an additional exemption for dependents who are attending college.
           tuition_books_helper_description_html: To calculate the total amount, add together the cost of college tuition, the cost of books (and supplies), and any money earned by the student in college work study programs. Do not include other financial aid received.
           tuition_books_helper_heading: How should I calculate the total amount of tuition and college costs?
@@ -3317,7 +3317,7 @@ en:
           box18_html: "<strong>Box 18,</strong> Local wages, tips, etc."
           box19_html: "<strong>Box 19,</strong> Local income tax"
           box20_locality_name: "<strong>Box 20,</strong> Locality name"
-          employer_state_id_error: EIN must be a number. Do not include a dash.
+          employer_state_id_error: EIN cannot be more than 16 characters.
           instructions_1_html: Please review your state income details for <strong>%{employer}</strong>
           local_income_tax_amt_error: Cannot be greater than local wages and tips.
           local_wages_and_tips_amt_error: Please enter local wages and tips
