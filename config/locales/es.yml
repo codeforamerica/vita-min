@@ -2682,6 +2682,7 @@ es:
           bank_authorization_confirmation: Marque aquí para confirmar que autoriza al estado de Maryland a emitir su reembolso mediante depósito directo.
           bank_authorization_confirmation_error: Por favor confirme la autorización o seleccione pagar por correo
           joint_account_holder_name: Nombre del titular de la cuenta conjunta
+          suffix: Sufijo
       md_two_income_subtractions:
         edit:
           description: Para saber si califica y calcular la deducción, necesitamos más información sobre la deducción de intereses de préstamos estudiantiles que tomó en su declaración de impuestos federales.
