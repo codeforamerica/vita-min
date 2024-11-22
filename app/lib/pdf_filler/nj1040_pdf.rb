@@ -114,7 +114,7 @@ module PdfFiller
             as_decimal: false
           )
         )
-        answers.merge!({ 'x  1500': calculated_fields.fetch(:NJ1040_LINE_10_EXEMPTION) })
+        answers.merge!({ 'x  1500': calculated_fields_not_in_xml.fetch(:NJ1040_LINE_10_EXEMPTION) })
       end
 
       # line 11
@@ -127,7 +127,7 @@ module PdfFiller
             as_decimal: false
           )
         )
-        answers.merge!({ 'x  1500_2': calculated_fields.fetch(:NJ1040_LINE_11_EXEMPTION) })
+        answers.merge!({ 'x  1500_2': calculated_fields_not_in_xml.fetch(:NJ1040_LINE_11_EXEMPTION) })
       end
 
       # line 12
@@ -701,8 +701,8 @@ module PdfFiller
       @xml_document.at("Body NJChildTaxCredit")&.text.to_i
     end
 
-    def calculated_fields
-      @calculated_fields ||= @submission.data_source.tax_calculator.calculate
+    def calculated_fields_not_in_xml
+      @calculated_fields_not_in_xml ||= @submission.data_source.tax_calculator.calculate
     end
   end
 end
