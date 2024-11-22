@@ -92,6 +92,7 @@ module PdfFiller
         'Text Box 36': @xml_document.at('Form502 StateTaxComputation PovertyLevelCredit')&.text,
         'Text Box 40': @xml_document.at('Form502 StateTaxComputation TotalCredits')&.text,
         'Text Box 42': @xml_document.at('Form502 StateTaxComputation StateTaxAfterCredits')&.text,
+        'Check Box 39': @xml_document.at('Form502 AuthToDirectDepositInd')&.text == 'X' ? 'Yes' : 'Off'
       }
     end
 

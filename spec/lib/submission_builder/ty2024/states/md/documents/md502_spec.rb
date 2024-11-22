@@ -446,5 +446,15 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
         expect(xml.at("Form502 TaxWithheld")&.text).to eq('500')
       end
     end
+
+    context "AuthToDirectDepositInd" do
+      before do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_authorize_direct_deposit).and_return 'X'
+      end
+
+      it 'outputs the total state and local tax withheld' do
+        expect(xml.at("Form502 AuthToDirectDepositInd")&.text).to eq('X')
+      end
+    end
   end
 end

@@ -455,5 +455,15 @@ RSpec.describe PdfFiller::Md502Pdf do
         expect(pdf_fields["Text Box 68"]).to eq "500"
       end
     end
+
+    context "Direct deposit of refund" do
+      before do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_authorize_direct_deposit).and_return 'X'
+      end
+
+      it "checks the authorization box" do
+        expect(pdf_fields["Check Box 39"]).to eq "Yes"
+      end
+    end
   end
 end
