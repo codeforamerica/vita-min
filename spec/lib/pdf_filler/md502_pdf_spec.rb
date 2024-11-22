@@ -459,10 +459,12 @@ RSpec.describe PdfFiller::Md502Pdf do
     context "Direct deposit of refund" do
       before do
         allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_authorize_direct_deposit).and_return 'X'
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_51d).and_return 'Bully Nose'
       end
 
       it "checks the authorization box" do
         expect(pdf_fields["Check Box 39"]).to eq "Yes"
+        expect(pdf_fields["Text Box 95"]).to eq "Bully Nose"
       end
     end
   end

@@ -80,6 +80,7 @@ module Efile
         set_line(:MD502_LINE_27, :calculate_line_27)
         set_line(:MD502_LINE_40, :calculate_line_40)
         set_line(:MD502_AUTHORIZE_DIRECT_DEPOSIT, :calculate_authorize_direct_deposit)
+        set_line(:MD502_LINE_51D, :calculate_line_51d)
 
         @md502cr.calculate
         @lines.transform_values(&:value)
@@ -423,6 +424,23 @@ module Efile
 
       def calculate_authorize_direct_deposit
         @intake.bank_authorization_confirmed_yes? ? "X" : nil
+      end
+
+      def calculate_line_51d
+        if @intake.has_joint_account_holder_yes?
+          full_name + " and " + full_name(is_joint: true)
+        else
+          full_name
+        end
+      end
+
+      def full_name(is_joint: false)
+        first = @intake.send("#{is_joint ? 'joint_' : ""}account_holder_first_name")
+        middle_initial = @intake.send("#{is_joint ? 'joint_' : ""}account_holder_middle_initial")
+        last = @intake.send("#{is_joint ? 'joint_' : ""}account_holder_last_name")
+        suffix = @intake.send("#{is_joint ? 'joint_' : ""}account_holder_suffix")
+
+        [first, middle_initial, last, suffix].reject(&:blank?).join(" ")
       end
 
       def filing_status_dependent?

@@ -456,5 +456,15 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
         expect(xml.at("Form502 AuthToDirectDepositInd")&.text).to eq('X')
       end
     end
+
+    context "Line 51d: NameOnBankAccount" do
+      before do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_51d).and_return 'Anna Arendelle and Elsa Arendelle'
+      end
+
+      it 'outputs the total state and local tax withheld' do
+        expect(xml.at("Form502 NameOnBankAccount")&.text).to eq('Anna Arendelle and Elsa Arendelle')
+      end
+    end
   end
 end

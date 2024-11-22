@@ -141,6 +141,7 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
       end
       xml.TaxWithheld calculated_fields.fetch(:MD502_LINE_40)
       add_element_if_present(xml, "AuthToDirectDepositInd", :MD502_AUTHORIZE_DIRECT_DEPOSIT)
+      add_element_if_present(xml, 'NameOnBankAccount', :MD502_LINE_51D)
       xml.DaytimePhoneNumber @direct_file_data.phone_number if @direct_file_data.phone_number.present?
     end
   end

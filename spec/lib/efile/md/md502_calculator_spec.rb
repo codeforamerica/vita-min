@@ -1124,4 +1124,34 @@ describe Efile::Md::Md502Calculator do
       end
     end
   end
+
+  describe "#calculate_line_51d" do
+    before do
+      intake.account_holder_first_name = "Jack"
+      intake.account_holder_middle_initial = "D"
+      intake.account_holder_last_name = "Hansel"
+      intake.has_joint_account_holder = "unfilled"
+    end
+
+    context "no joint account holder" do
+      it "should return only the account holder name" do
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_51D].value).to eq("Jack D Hansel")
+      end
+    end
+
+    context "with joint account holder" do
+      before do
+        intake.joint_account_holder_first_name = "Jill"
+        intake.joint_account_holder_last_name = "Gretl"
+        intake.joint_account_holder_suffix = "II"
+        intake.has_joint_account_holder = "yes"
+      end
+
+      it "should return both names with an 'and' between them" do
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_51D].value).to eq("Jack D Hansel and Jill Gretl II")
+      end
+    end
+  end
 end
