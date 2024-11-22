@@ -1,38 +1,40 @@
 <%
-    title = t(".title")
-    content_for :page_title, title
+  title = t(".title")
+  content_for :page_title, title
 %>
 
 <% content_for :card do %>
+  <h1 class="h2"><%= title %></h1>
+  <p><%= t(".subtitle_1") %></p>
+  <p><%= t(".subtitle_2") %></p>
+
+
+  <div class="reveal">
+    <button class="reveal__button"><%= t('.college_helper_heading') %></button>
+    <div class="reveal__content">
+      <p><%= t('.college_helper_description') %></p>
+    </div>
+  </div>
+
+  <div class="reveal">
+    <button class="reveal__button"><%= t('.full_time_college_helper_heading') %></button>
+    <div class="reveal__content">
+      <p><%= t('.full_time_college_helper_description') %></p>
+    </div>
+  </div>
+
+  <div class="reveal">
+    <button class="reveal__button"><%= t('.tuition_books_helper_heading') %></button>
+    <div class="reveal__content">
+      <p><%= t('.tuition_books_helper_description_html') %></p>
+    </div>
+  </div>
+
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
-    <h1 class="h2"><%= title %></h1>
-    <p><%= t(".subtitle_1") %></p>
-    <p><%= t(".subtitle_2") %></p>
-
-    <div class="reveal">
-      <button class="reveal__button"><%= t('.college_helper_heading') %></button>
-      <div class="reveal__content">
-        <p><%= t('.college_helper_description') %></p>
-      </div>
-    </div>
-
-    <div class="reveal">
-      <button class="reveal__button"><%= t('.full_time_college_helper_heading') %></button>
-      <div class="reveal__content">
-        <p><%= t('.full_time_college_helper_description') %></p>
-      </div>
-    </div>
-
-    <div class="reveal">
-      <button class="reveal__button"><%= t('.tuition_books_helper_heading') %></button>
-      <div class="reveal__content">
-        <p><%= t('.tuition_books_helper_description_html') %></p>
-      </div>
-    </div>
 
     <%= f.fields_for :dependents do |ff| %>
       <% dependent = ff.object %>
-      <%  if dependent.under_22? %>
+      <% if dependent.under_22? %>
         <div class="white-group">
           <fieldset>
             <legend class="h3"><%= dependent.full_name %> <%= t('.dependent_header') %></legend>
@@ -45,7 +47,7 @@
             </div>
           </fieldset>
         </div>
-      <%end%>
+      <% end %>
     <% end %>
 
     <% if params[:return_to_review].present? %>
