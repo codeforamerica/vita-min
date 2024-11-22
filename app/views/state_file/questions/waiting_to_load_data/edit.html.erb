@@ -8,5 +8,10 @@
     <%= image_tag "loading.svg", alt: "" %>
   </div>
   <h1 class="h2" id="main-question"><%= title %></h1>
-  <%= link_to "HIDDEN BUTTON", next_path, class: "button button--primary", style: "display: none;", data: { after_data_transfer_button: true } %>
+  <%= form_with model: @form, url: { action: :update }, data: { efile_security_information: true, form_name: "state_file_waiting_to_load_data_form", after_data_transfer_button: true }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <%= f.hidden_field(:device_id) %>
+<!--    <span style="display: none;"><%#= f.continue %></span>-->
+    <%= f.submit "continue", class: "click-me-pls" %>
+
+  <% end %>
 <% end %>

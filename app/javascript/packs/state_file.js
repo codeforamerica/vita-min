@@ -9,6 +9,8 @@ if (controllerAction == "StateFile::Questions::WaitingToLoadDataController#edit"
         connected() {
             console.log("We're connected!")
             document.querySelector('[data-after-data-transfer-button]').setAttribute('data-subscribed', 'true')
+            console.log("trying to click after connection")
+            document.querySelector('.click-me-pls').click()
         },
 
         disconnected() {
@@ -16,6 +18,7 @@ if (controllerAction == "StateFile::Questions::WaitingToLoadDataController#edit"
         },
 
         received(data) {
+            console.log("trying to click...")
             document.querySelector('[data-after-data-transfer-button]').click()
         }
     })

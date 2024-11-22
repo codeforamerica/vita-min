@@ -11,11 +11,6 @@ module StateFile
         if current_intake&.df_data_import_succeeded_at.nil?
           redirect_to StateFilePagesController.to_path_helper(action: :data_import_failed) and return
         end
-        StateFileEfileDeviceInfo.find_or_create_by!(
-          event_type: "initial_creation",
-          ip_address: ip_for_irs,
-          intake: current_intake,
-        )
 
         redirect_to next_path
       end
