@@ -26,9 +26,12 @@ RSpec.feature "Completing a state file intake", active_job: true do
           primary_first_name: "Deedee",
           primary_last_name: "Doodoo",
           primary_birth_date: Date.new((MultiTenantService.statefile.current_tax_year - 65), 12, 1),
-          )
+        )
+        intake.direct_file_data.fed_unemployment = 1000
+        intake.update(raw_direct_file_data: intake.direct_file_data)
         create(:state_file_w2, state_file_intake: intake)
         create(:state_file1099_r, intake: intake)
+        create(:state_file1099_g, intake: intake)
 
         visit "/questions/#{state_code}-review"
 
@@ -89,6 +92,35 @@ RSpec.feature "Completing a state file intake", active_job: true do
         # 1099R edit page
         expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.retirement_income.edit.title", payer_name: intake.state_file1099_rs.first.payer_name))
         fill_in strip_html_tags(I18n.t("state_file.questions.retirement_income.edit.box15_html")), with: "123456789"
+        click_on I18n.t("general.continue")
+
+        # Back on income review page
+        expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
+        click_on I18n.t("general.continue")
+
+        # Final review page
+        expect(page).to have_text I18n.t("state_file.questions.shared.review_header.title")
+        within "#income-info" do
+          click_on I18n.t("general.edit")
+        end
+
+        # Income review page
+        expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
+        within "#form1099gs" do
+          click_on I18n.t("state_file.questions.income_review.edit.review_and_edit_state_info")
+        end
+
+        # 1099G edit page
+        expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.unemployment.edit.title", count: intake.filer_count, year: MultiTenantService.statefile.current_tax_year))
+        fill_in strip_html_tags(I18n.t("state_file.questions.unemployment.edit.payer_name")), with: "beepboop"
+        click_on I18n.t("general.continue")
+
+        # takes them to the 1099G index page first
+        expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.unemployment.index.lets_review"))
+
+        # TODO: click in to edit again and then back to index and then back to review
+        # find_by_id('state_file_id_eligibility_residence_form_eligibility_emergency_rental_assistance_no').click
+
         click_on I18n.t("general.continue")
 
         # Back on income review page

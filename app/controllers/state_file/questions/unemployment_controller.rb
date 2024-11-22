@@ -68,6 +68,10 @@ module StateFile
         redirect_to action: :index, return_to_review: params[:return_to_review]
       end
 
+      def review_step
+        StateFile::Questions::IncomeReviewController
+      end
+
       private
 
       def state_file1099_params
