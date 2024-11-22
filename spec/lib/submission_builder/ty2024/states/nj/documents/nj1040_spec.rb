@@ -831,5 +831,29 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
         end
       end
     end
+
+    describe "gubernatorial elections fund" do
+      [
+        { filing_status: :single, primary_contribution_gubernatorial_elections: :no, spouse_contribution_gubernatorial_elections: :no, expected_primary: nil, expected_spouse: nil },
+        { filing_status: :single, primary_contribution_gubernatorial_elections: :yes, spouse_contribution_gubernatorial_elections: :no, expected_primary: 'X', expected_spouse: nil },
+        { filing_status: :married_filing_jointly, primary_contribution_gubernatorial_elections: :no, spouse_contribution_gubernatorial_elections: :yes, expected_primary: nil, expected_spouse: 'X' },
+        { filing_status: :married_filing_jointly, primary_contribution_gubernatorial_elections: :yes, spouse_contribution_gubernatorial_elections: :no, expected_primary: 'X', expected_spouse: nil },
+      ].each do |test_case|
+        context "when #{test_case}" do 
+          let(:intake) { 
+            create(:state_file_nj_intake,
+              filing_status: test_case[:filing_status],
+              primary_contribution_gubernatorial_elections: test_case[:primary_contribution_gubernatorial_elections],
+              spouse_contribution_gubernatorial_elections: test_case[:spouse_contribution_gubernatorial_elections]
+            )
+          }
+
+          it "returns #{test_case[:expected]}" do
+            expect(xml.at("Body PrimGubernElectFund")&.text).to eq(test_case[:expected_primary])
+            expect(xml.at("Body SpouCuPartPrimGubernElectFund")&.text).to eq(test_case[:expected_spouse])
+          end
+        end
+      end
+    end
   end
 end

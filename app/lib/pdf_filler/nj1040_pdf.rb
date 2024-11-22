@@ -85,6 +85,12 @@ module PdfFiller
 
         # line 65 nj child tax credit
         '64': @xml_document.at("Body NJChildTCNumOfDep")&.text,
+
+        # Gubernatorial elections fund
+        Group245: @xml_document.at("Body PrimGubernElectFund").present? ? 'Choice1' : 'Choice2',
+        Group246: if get_mfj_spouse_ssn
+                    @xml_document.at("Body SpouCuPartPrimGubernElectFund").present? ? 'Choice1' : 'Choice2'
+                  end,
       }
 
       dependents = get_dependents

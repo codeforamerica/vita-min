@@ -2883,6 +2883,14 @@ es:
           subtitle_list_2: Overpayments on your %{prior_year} return that you chose to apply to your %{filing_year} New Jersey taxes
           subtitle_list_2_sub: 'Note: you would have selected this option when filing your %{prior_year} return'
           title: Please tell us if you already made any payments toward your %{filing_year} New Jersey taxes
+      nj_gubernatorial_elections:
+        edit:
+          details_1: You may have heard this referred to as “public financing” of campaigns.
+          details_2_html: You can contribute $1 of where your taxes go to the <a href="https://elec.nj.gov/pdffiles/temporary/WebsitePlugForGubfinProgram.pdf" target="_blank" rel="noopener noreferrer">Gubernatorial Elections Fund.</a>
+          details_3: 'FYI: Your taxes won’t increase and your refund won’t be reduced. This just gives New Jersey permission to use $1 of your tax dollars for this fund.'
+          primary_contribute: Would you like to contribute $1 to the fund?
+          spouse_contribute: Would your spouse like to contribute $1 to the fund?
+          title: The Gubernatorial Elections Fund helps qualified New Jersey governor candidates who need financial help.
       nj_homeowner_eligibility:
         edit:
           homeowner_home_subject_to_property_taxes: Mi vivienda principal, ya sea propia o alquilada, estaba sujeta a impuestos sobre la propiedad que se pagaban como impuestos sobre la propiedad reales o a través del alquiler.
@@ -2945,17 +2953,22 @@ es:
           amount: Cantidad
           claimed_as_eitc_qualifying_child: I could be someone else's qualifying child for the Earned Income Tax Credit.
           county: Condado
+          edit_disability: disability status
+          edit_gubernatorial: gubernatorial fund contributions
+          edit_veteran: veteran status
           estimated_tax_payments: Payments already made to New Jersey taxes
           household_rent_own: Vivienda en alquiler o en propiedad propia
           medical_expenses: Gastos médicos
           municipality: Municipio
           primary_disabled: Primary disabled
+          primary_gubernatorial: I want $1 of my taxes to go to the gubernatorial elections fund
           primary_veteran: Soy un veterano
           property_tax_paid: Impuestos sobre la propiedad pagados
           rent_paid: Alquiler pagado
           rounding_html: "<strong>We have automatically rounded all dollar amounts to the nearest whole number.</strong> New Jersey will only accept whole numbers on the final tax return."
           spouse_claimed_as_eitc_qualifying_child: My spouse could be someone else's qualifying child for the Earned Income Tax Credit.
           spouse_disabled: Spouse disabled
+          spouse_gubernatorial: My spouse wants $1 of their taxes to go to the gubernatorial elections fund
           spouse_veteran: Mi cónyuge es un veterano
           use_tax_applied: Impuesto sobre el uso del consumidor aplicado
       nj_sales_use_tax:

@@ -1812,5 +1812,51 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         expect(tax_credit).to eq 600
       end
     end
+
+    describe "gubernatorial elections fund" do
+      context "not mfj" do 
+        let(:intake) { 
+          create(:state_file_nj_intake)
+        }
+        it "marks no for primary when answer is no and does not fill spouse field" do 
+          expect(pdf_fields["Group245"]).to eq "Choice2"
+          expect(pdf_fields["Group246"]).to eq ""
+        end
+
+        it "checks yes when the answer is yes and does not fill spouse field" do
+          intake.primary_contribution_gubernatorial_elections = :yes
+          expect(pdf_fields["Group245"]).to eq "Choice1"
+          expect(pdf_fields["Group246"]).to eq ""
+        end
+      end
+
+      context "mfj" do 
+        context "when primary does not contribute and spouse does" do 
+          let(:intake) { 
+            create(:state_file_nj_intake, 
+            :married_filing_jointly,
+            primary_contribution_gubernatorial_elections: :no, spouse_contribution_gubernatorial_elections: :yes,
+            )
+          }
+          it "checks no for primary and marks yes for spouse" do 
+            expect(pdf_fields["Group245"]).to eq "Choice2"
+            expect(pdf_fields["Group246"]).to eq "Choice1"
+          end
+        end
+
+        context "when primary wants to contribute and spouse does not" do 
+          let(:intake) { 
+            create(:state_file_nj_intake, 
+            :married_filing_jointly,
+            primary_contribution_gubernatorial_elections: :yes, spouse_contribution_gubernatorial_elections: :no,
+            )
+          }
+          it "checks yes for primary and no for spouse" do 
+            expect(pdf_fields["Group245"]).to eq "Choice1"
+            expect(pdf_fields["Group246"]).to eq "Choice2"
+          end
+        end
+      end
+    end
   end
 end
