@@ -438,7 +438,7 @@ module PdfFiller
                                                  ]))
       end
 
-      # line 50
+      # line 54
       if @xml_document.at("TotalTaxAndPenalty").present?
         total_tax_and_penalty = @xml_document.at("TotalTaxAndPenalty").text.to_i
         answers.merge!(insert_digits_into_fields(total_tax_and_penalty, [

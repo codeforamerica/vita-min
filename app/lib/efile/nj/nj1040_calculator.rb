@@ -346,7 +346,7 @@ module Efile
 
       def calculate_line_50
         difference = calculate_line_45 - calculate_line_49
-        difference.positive? ? difference : 0
+        [difference, 0].max
       end
 
       def calculate_line_51
@@ -355,7 +355,7 @@ module Efile
 
       def calculate_line_54
         sum = calculate_line_50 + calculate_line_51
-        sum.positive? ? sum : 0
+        [sum, 0].max
       end
 
       def calculate_line_56
