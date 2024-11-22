@@ -12,7 +12,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
 
     it 'uses field names that exist in the pdf' do
       missing_fields = pdf.hash_for_pdf.keys.map(&:to_s) - pdf_fields.keys
-      expect(missing_fields).to eq(["4036y54ethdf\\(*H"]) # this field is a known divergence
+      expect(missing_fields).to eq(["4036y54ethdf\\(*H"]) # expected from NJ1040 Line 50 due to HTML-escaping issues
     end
 
     context "with county code" do

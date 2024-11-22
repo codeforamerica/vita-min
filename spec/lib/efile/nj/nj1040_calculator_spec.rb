@@ -1086,7 +1086,7 @@ describe Efile::Nj::Nj1040Calculator do
 
   describe 'line 45 - balance of tax' do
     let(:intake) { create(:state_file_nj_intake) }
-    it 'sets line 45 to equal line 43 (tax)' do
+    it 'sets line 45 to equal line 43' do
       expect(instance.lines[:NJ1040_LINE_45].value).to eq(instance.lines[:NJ1040_LINE_43].value)
     end
   end
