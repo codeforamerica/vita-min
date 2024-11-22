@@ -162,6 +162,7 @@ class StateFileMdIntake < StateFileBaseIntake
       self.joint_account_holder_middle_initial = nil
       self.joint_account_holder_last_name = nil
       self.joint_account_holder_suffix = nil
+      self.bank_authorization_confirmed = "unfilled"
     end
   end
 

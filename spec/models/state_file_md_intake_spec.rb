@@ -142,7 +142,14 @@ RSpec.describe StateFileMdIntake, type: :model do
                withdraw_amount: 123,
                date_electronic_withdrawal: Date.parse("April 1, #{Rails.configuration.statefile_current_tax_year}"),
                account_holder_first_name: "Neil",
-               account_holder_last_name: "Peart"
+               account_holder_middle_initial: "B",
+               account_holder_last_name: "Peart",
+               account_holder_suffix: 'VIII',
+               joint_account_holder_first_name: "Belle",
+               joint_account_holder_middle_initial: "C",
+               joint_account_holder_last_name: "Peart",
+               joint_account_holder_suffix: 'JR',
+               bank_authorization_confirmed: 'yes'
       end
 
       it "clears other account fields" do
@@ -153,7 +160,14 @@ RSpec.describe StateFileMdIntake, type: :model do
           .and change(intake.reload, :withdraw_amount).to(nil)
           .and change(intake.reload, :date_electronic_withdrawal).to(nil)
           .and change(intake.reload, :account_holder_first_name).to(nil)
+          .and change(intake.reload, :account_holder_middle_initial).to(nil)
           .and change(intake.reload, :account_holder_last_name).to(nil)
+          .and change(intake.reload, :account_holder_suffix).to(nil)
+          .and change(intake.reload, :joint_account_holder_first_name).to(nil)
+          .and change(intake.reload, :joint_account_holder_middle_initial).to(nil)
+          .and change(intake.reload, :joint_account_holder_last_name).to(nil)
+          .and change(intake.reload, :joint_account_holder_suffix).to(nil)
+          .and change(intake.reload, :bank_authorization_confirmed).to("unfilled")
       end
     end
   end
