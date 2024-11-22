@@ -158,6 +158,17 @@ describe Efile::Id::Id40Calculator do
     end
   end
 
+  describe "Line 21: Tax amount from line 20" do
+    before do
+      allow_any_instance_of(described_class).to receive(:calculate_line_20).and_return(1200)
+      instance.calculate
+    end
+
+    it "equals line 20" do
+      expect(instance.lines[:ID40_LINE_21].value).to eq(1200)
+    end
+  end
+
   describe "Line 25: Child Tax Credit" do
     context "when there are no dependents" do
       it "calculates correct child care credit to zero" do

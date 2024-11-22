@@ -26,6 +26,7 @@ module Efile
         set_line(:ID40_LINE_11, :calculate_line_11)
         set_line(:ID40_LINE_19, :calculate_line_19)
         set_line(:ID40_LINE_20, :calculate_line_20)
+        set_line(:ID40_LINE_21, :calculate_line_21)
         set_line(:ID40_LINE_23, :calculate_line_23)
         set_line(:ID40_LINE_25, :calculate_line_25)
         set_line(:ID40_LINE_26, :calculate_line_26)
@@ -110,6 +111,10 @@ module Efile
       def calculate_line_20
         worksheet_line_2_amount = WK_LINE_2_AMTS[@filing_status]
         [((line_or_zero(:ID40_LINE_19) - worksheet_line_2_amount) * 0.05695).round(2), 0].max
+      end
+
+      def calculate_line_21
+        line_or_zero(:ID40_LINE_20)
       end
 
       def calculate_line_23
