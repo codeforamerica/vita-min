@@ -9,7 +9,21 @@
       <%= f.vita_min_state_file_select(:residence_county, t(".county_html"), @counties, label_class: 'form-label--bold', prompt: t('general.select_prompt')) %>
     </div>
     <div class="white-group">
-      <%= f.vita_min_state_file_select(:subdivision_code, t('.political_subdivision_html'), [], include_blank: true, prompt: t('general.select_prompt')) %>
+      <strong> <%= t('.political_subdivision')%> </strong>
+      <p class="text--help spacing-below-10"> <%= t('.political_subdivision_label_html')%>  </p>
+      <%= f.vita_min_state_file_select(:subdivision_code, "", include_blank: true, prompt: t('general.select_prompt')) %>
+    </div>
+    <div class="reveal">
+      <p><button class="reveal__button"><%= t('.political_subdivision_helper_heading') %></button></p>
+      <div class="reveal__content">
+        <p> <%= t('.political_subdivision_helper_first_p') %> </p>
+        <ul>
+            <% t('.political_subdivision_helper_areas').each do |subdivision| %>
+              <li> <%= subdivision %></li>
+            <% end %>
+        </ul>
+        <p> <%= t('.political_subdivision_helper_last_p', filing_year: @filing_year) %> </p>
+      </div>
     </div>
     <% if params[:return_to_review].present? %>
       <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
