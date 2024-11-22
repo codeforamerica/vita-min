@@ -17,6 +17,7 @@
 #  current_step                               :string
 #  date_electronic_withdrawal                 :date
 #  df_data_import_failed_at                   :datetime
+#  df_data_import_succeeded_at                :datetime
 #  df_data_imported_at                        :datetime
 #  eligibility_filing_status_mfj              :integer          default("unfilled"), not null
 #  eligibility_home_different_areas           :integer          default("unfilled"), not null
@@ -54,6 +55,7 @@
 #  primary_signature                          :string
 #  primary_signature_pin                      :text
 #  primary_ssn                                :string
+#  primary_student_loan_interest_ded_amount   :decimal(12, 2)   default(0.0), not null
 #  primary_suffix                             :string
 #  raw_direct_file_data                       :text
 #  raw_direct_file_intake_data                :jsonb
@@ -71,6 +73,7 @@
 #  spouse_middle_initial                      :string
 #  spouse_signature_pin                       :text
 #  spouse_ssn                                 :string
+#  spouse_student_loan_interest_ded_amount    :decimal(12, 2)   default(0.0), not null
 #  spouse_suffix                              :string
 #  street_address                             :string
 #  subdivision_code                           :string
@@ -92,6 +95,7 @@
 #  index_state_file_md_intakes_on_primary_state_id_id  (primary_state_id_id)
 #  index_state_file_md_intakes_on_spouse_state_id_id   (spouse_state_id_id)
 #
+
 require 'rails_helper'
 
 RSpec.describe StateFileMdIntake, type: :model do
@@ -129,7 +133,7 @@ RSpec.describe StateFileMdIntake, type: :model do
                routing_number: "123456789",
                account_number: "123",
                withdraw_amount: 123,
-               date_electronic_withdrawal: Date.parse("April 1, 2023"),
+               date_electronic_withdrawal: Date.parse("April 1, #{Rails.configuration.statefile_current_tax_year}"),
                account_holder_name: "Neil Peart"
       end
 
@@ -238,6 +242,48 @@ RSpec.describe StateFileMdIntake, type: :model do
                                                                                                                                                                                      .and change(intake.reload, :withdraw_amount).to(nil)
                                                                                                                                                                                                                                  .and change(intake.reload, :date_electronic_withdrawal).to(nil)
                                                                                                                                                                                                                                                                                         .and change(intake.reload, :account_holder_name).to(nil)
+      end
+    end
+  end
+
+  describe "#has_dependent_without_health_insurance?" do
+    let(:intake) { create(:state_file_md_intake) }
+
+    context "when no dependents are present" do
+      it "returns false" do
+        expect(intake.has_dependent_without_health_insurance?).to eq(false)
+      end
+    end
+
+    context "when dependents are present" do
+      before do
+        intake.dependents = dependents
+      end
+
+      context "when no dependents lack health insurance" do
+        let(:dependents) do
+          [
+            create(:state_file_dependent, md_did_not_have_health_insurance: "no"),
+            create(:state_file_dependent, md_did_not_have_health_insurance: "no")
+          ]
+        end
+
+        it "returns false" do
+          expect(intake.has_dependent_without_health_insurance?).to eq(false)
+        end
+      end
+
+      context "when at least one dependent lacks health insurance" do
+        let(:dependents) do
+          [
+            create(:state_file_dependent, md_did_not_have_health_insurance: "no"),
+            create(:state_file_dependent, md_did_not_have_health_insurance: "yes")
+          ]
+        end
+
+        it "returns true" do
+          expect(intake.has_dependent_without_health_insurance?).to eq(true)
+        end
       end
     end
   end

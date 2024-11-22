@@ -17,6 +17,7 @@
 #  current_step                               :string
 #  date_electronic_withdrawal                 :date
 #  df_data_import_failed_at                   :datetime
+#  df_data_import_succeeded_at                :datetime
 #  df_data_imported_at                        :datetime
 #  eligibility_filing_status_mfj              :integer          default("unfilled"), not null
 #  eligibility_home_different_areas           :integer          default("unfilled"), not null
@@ -54,6 +55,7 @@
 #  primary_signature                          :string
 #  primary_signature_pin                      :text
 #  primary_ssn                                :string
+#  primary_student_loan_interest_ded_amount   :decimal(12, 2)   default(0.0), not null
 #  primary_suffix                             :string
 #  raw_direct_file_data                       :text
 #  raw_direct_file_intake_data                :jsonb
@@ -71,6 +73,7 @@
 #  spouse_middle_initial                      :string
 #  spouse_signature_pin                       :text
 #  spouse_ssn                                 :string
+#  spouse_student_loan_interest_ded_amount    :decimal(12, 2)   default(0.0), not null
 #  spouse_suffix                              :string
 #  street_address                             :string
 #  subdivision_code                           :string
@@ -159,7 +162,7 @@ class StateFileMdIntake < StateFileBaseIntake
 
   def has_dependent_without_health_insurance?
     dependents.any? do |dependent|
-      dependent.md_did_not_have_health_insurance == "yes"
+      dependent.md_did_not_have_health_insurance_yes?
     end
   end
 

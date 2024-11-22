@@ -26,13 +26,17 @@ module SubmissionBuilder
                 xml.FederalExtension 0
                 xml.FilingStatus filing_status
                 if @submission.data_source.filing_status_mfs?
-                  xml.MFSSpouseName @submission.data_source.direct_file_data.spouse_name
+                  xml.MFSSpouseName do
+                    xml.FirstName sanitize_for_xml(@submission.data_source.spouse.first_name, 16) if @submission.data_source.spouse.first_name.present?
+                    xml.MiddleInitial sanitize_for_xml(@submission.data_source.spouse.middle_initial, 1) if @submission.data_source.spouse.middle_initial.present?
+                    xml.LastName sanitize_for_xml(@submission.data_source.spouse.last_name, 32) if @submission.data_source.spouse.last_name.present?
+                  end
                   xml.MFSSpouseSSN @submission.data_source.direct_file_data.spouse_ssn
                 end
                 if @submission.data_source.filing_status_qw? && @submission.data_source.direct_file_data.spouse_date_of_death.present?
                   xml.QWYearSpouseDied Date.parse(@submission.data_source.direct_file_data.spouse_date_of_death).year
                 end
-                xml.FAGI @submission.data_source.direct_file_data.fed_agi
+                xml.FAGI calculated_fields.fetch(:NCD400_LINE_6)
                 # line 7 AdditionsToFAGI is blank
                 xml.FAGIPlusAdditions @submission.data_source.direct_file_data.fed_agi
                 xml.DeductionsFromFAGI calculated_fields.fetch(:NCD400_LINE_9)

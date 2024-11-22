@@ -320,8 +320,49 @@ RSpec.describe PdfFiller::Md502Pdf do
       end
 
       it "fills out subtractions fields correctly" do
-        expect(pdf_fields["Enter 9"].to_i).to eq intake.direct_file_data.total_qualifying_dependent_care_expenses
-        expect(pdf_fields["Enter 11"].to_i).to eq intake.direct_file_data.fed_taxable_ssb
+        expect(pdf_fields["Enter 9"].to_i).to eq 1200
+        expect(pdf_fields["Enter 11"].to_i).to eq 240
+      end
+
+      context "with 502SU Subtractions" do
+        before do
+          allow_any_instance_of(Efile::Md::Md502SuCalculator).to receive(:calculate_line_1).and_return 100
+          allow_any_instance_of(Efile::Md::Md502SuCalculator).to receive(:calculate_line_ab).and_return 100
+        end
+
+        it "fills out subtractions fields correctly" do
+          expect(pdf_fields["Text Field 9"]).to eq "ab"
+          expect(pdf_fields["Text Field 10"]).to eq ""
+          expect(pdf_fields["Text Field 11"]).to eq ""
+          expect(pdf_fields["Text Field 12"]).to eq ""
+          expect(pdf_fields["Enter 13"].to_i).to eq 100
+        end
+      end
+
+      context "without 502SU Subtractions" do
+        it "fills out subtractions fields correctly" do
+          expect(pdf_fields["Text Field 9"]).to eq ""
+          expect(pdf_fields["Text Field 10"]).to eq ""
+          expect(pdf_fields["Text Field 11"]).to eq ""
+          expect(pdf_fields["Text Field 12"]).to eq ""
+          expect(pdf_fields["Enter 13"].to_i).to eq 0
+        end
+      end
+
+      describe "Line 15" do
+        let(:total_subtractions) { 100 }
+        it "outputs the total subtractions" do
+          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_15).and_return total_subtractions
+          expect(pdf_fields["Enter 15"].to_i).to eq total_subtractions
+        end
+      end
+
+      describe "Line 16" do
+        let(:state_adjusted_gross_income) { 150 }
+        it "outputs the total subtractions" do
+          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_16).and_return state_adjusted_gross_income
+          expect(pdf_fields["Enter 16"].to_i).to eq state_adjusted_gross_income
+        end
       end
     end
 
@@ -361,6 +402,9 @@ RSpec.describe PdfFiller::Md502Pdf do
         allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_19).and_return 60
         allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_20).and_return 70
         allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_21).and_return 80
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_23).and_return 200
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_26).and_return 300
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_27).and_return 0
       end
 
       it "fills out amount if deduction method is standard" do
@@ -369,6 +413,9 @@ RSpec.describe PdfFiller::Md502Pdf do
         expect(pdf_fields["Enter 19 "]).to eq "60"
         expect(pdf_fields["Enter 20"]).to eq "70"
         expect(pdf_fields["Text Box 30"]).to eq "80"
+        expect(pdf_fields["Text Box 36"]).to eq "200"
+        expect(pdf_fields["Text Box 40"]).to eq "300"
+        expect(pdf_fields["Text Box 42"]).to eq "0"
       end
 
       it "leaves amount blank if deduction method is not standard" do
@@ -425,33 +472,7 @@ RSpec.describe PdfFiller::Md502Pdf do
       end
 
       it 'outputs the total state and local tax withheld' do
-        puts pdf_fields
         expect(pdf_fields["Text Box 68"]).to eq "500"
-      end
-    end
-
-    context "with 502SU Subtractions" do
-      before do
-        allow_any_instance_of(Efile::Md::Md502SuCalculator).to receive(:calculate_line_1).and_return 100
-        allow_any_instance_of(Efile::Md::Md502SuCalculator).to receive(:calculate_line_ab).and_return 100
-      end
-
-      it "fills out subtractions fields correctly" do
-        expect(pdf_fields["Text Field 9"]).to eq "ab"
-        expect(pdf_fields["Text Field 10"]).to eq ""
-        expect(pdf_fields["Text Field 11"]).to eq ""
-        expect(pdf_fields["Text Field 12"]).to eq ""
-        expect(pdf_fields["Enter 13"].to_i).to eq 100
-      end
-    end
-
-    context "without 502SU Subtractions" do
-      it "fills out subtractions fields correctly" do
-        expect(pdf_fields["Text Field 9"]).to eq ""
-        expect(pdf_fields["Text Field 10"]).to eq ""
-        expect(pdf_fields["Text Field 11"]).to eq ""
-        expect(pdf_fields["Text Field 12"]).to eq ""
-        expect(pdf_fields["Enter 13"].to_i).to eq 0
       end
     end
   end

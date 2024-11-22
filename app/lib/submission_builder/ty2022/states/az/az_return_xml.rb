@@ -31,7 +31,7 @@ module SubmissionBuilder
           end
 
           def state_schema_version
-            "AZIndividual2023v1.0"
+            "AZIndividual2024v2.0"
           end
 
           def build_state_specific_tags(document)
@@ -141,6 +141,7 @@ module SubmissionBuilder
                 xml.SubTotal calculated_fields.fetch(:AZ140_LINE_48)
                 xml.DepTaxCredit calculated_fields.fetch(:AZ140_LINE_49)
                 xml.FamilyIncomeTaxCredit calculated_fields.fetch(:AZ140_LINE_50)
+                xml.CreditsFromAZ301 calculated_fields.fetch(:AZ140_LINE_51)
                 xml.BalanceOfTaxDue calculated_fields.fetch(:AZ140_LINE_52)
               end
               xml.TotalPaymentAndCredits do
@@ -181,7 +182,7 @@ module SubmissionBuilder
           end
 
           def schema_file
-            SchemaFileLoader.load_file("us_states", "unpacked", "AZIndividual2023v1.0", "AZIndividual", "IndividualReturnAZ140.xsd")
+            SchemaFileLoader.load_file("us_states", "unpacked", "AZIndividual2024v2.0", "AZIndividual", "IndividualReturnAZ140.xsd")
           end
 
           def supported_documents

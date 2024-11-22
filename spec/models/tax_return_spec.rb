@@ -932,7 +932,7 @@ describe TaxReturn do
       end
     end
 
-    context "when born on/after Jan 2, 1958 for tax year 2023" do
+    context "when born on/after Jan 2, 1958 for tax year 2024" do
       before do
         tax_return.intake.update(primary_birth_date: Date.new(2023 - 64, 1, 2))
       end
@@ -946,7 +946,7 @@ describe TaxReturn do
   describe "#spouse_age_65_or_old" do
     let(:tax_return) { create :gyr_tax_return, filing_status: :married_filing_jointly }
 
-    context "when born before Jan 2, 1958 for tax year 2023" do
+    context "when born before Jan 2, 1958 for tax year 2024" do
       before do
         tax_return.intake.update(spouse_birth_date: Date.new(2023 - 64, 1, 1))
       end
@@ -956,7 +956,7 @@ describe TaxReturn do
       end
     end
 
-    context "when born on/after Jan 2, 1958 for tax year 2023" do
+    context "when born on/after Jan 2, 1958 for tax year 2024" do
       before do
         tax_return.intake.update(spouse_birth_date: Date.new(2023 - 64, 1, 2))
       end

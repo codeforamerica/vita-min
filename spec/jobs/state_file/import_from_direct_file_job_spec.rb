@@ -47,12 +47,11 @@ RSpec.describe StateFile::ImportFromDirectFileJob, type: :job do
         expect(DfDataTransferJobChannel).to have_received(:broadcast_job_complete)
       end
 
-      it "clears df_data_import_failed_at if there was a previous failure" do
-        intake.update(df_data_import_failed_at: DateTime.now - 5.minutes)
+      it "sets df_data_import_succeeded_at" do
         auth_code = "8700210c-781c-4db6-8e25-8db4e1082312"
         described_class.perform_now(authorization_code: auth_code, intake: intake)
 
-        expect(intake.df_data_import_failed_at).to eq nil
+        expect(intake.df_data_import_succeeded_at).to be_present
       end
     end
 
@@ -65,9 +64,23 @@ RSpec.describe StateFile::ImportFromDirectFileJob, type: :job do
         auth_code = "8700210c-781c-4db6-8e25-8db4e1082312"
         described_class.perform_now(authorization_code: auth_code, intake: intake)
 
-        expect(intake.df_data_import_failed_at).to be_present
+        expect(intake.df_data_import_succeeded_at).to be_nil
         expect(intake.df_data_import_errors.count).to eq(1)
         expect(intake.df_data_import_errors.first.message).to eq("Malformed data")
+      end
+    end
+
+    context "when the associated models are invalid after synching" do
+      let(:xml_result) { StateFile::DirectFileApiResponseSampleService.new.read_xml('id_miranda_1099r_with_df_w2_error') }
+      let(:direct_file_intake_json) { StateFile::DirectFileApiResponseSampleService.new.read_json('id_miranda_1099r_with_df_w2_error') }
+
+      it "catches the error and persists it to the intake record" do
+        auth_code = "miranda_1099r_with_df_w2_error"
+        described_class.perform_now(authorization_code: auth_code, intake: intake)
+
+        expect(intake.df_data_import_succeeded_at).to be_nil
+        expect(intake.df_data_import_errors.count).to eq(1)
+        expect(intake.df_data_import_errors.first.message).to eq("Validation failed: Employer state id num EIN cannot be more than 16 characters.")
       end
     end
 
@@ -77,7 +90,7 @@ RSpec.describe StateFile::ImportFromDirectFileJob, type: :job do
         auth_code = "8700210c-781c-4db6-8e25-8db4e1082312"
         described_class.perform_now(authorization_code: auth_code, intake: intake)
 
-        expect(intake.df_data_import_failed_at).to be_present
+        expect(intake.df_data_import_succeeded_at).to be_nil
         expect(intake.raw_direct_file_data).to_not be_present
         expect(intake.df_data_import_errors.count).to eq(1)
         expect(intake.df_data_import_errors.first.message).to eq("Direct file data was not transferred for intake id #{intake.id}.")

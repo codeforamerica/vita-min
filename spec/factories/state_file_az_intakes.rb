@@ -18,6 +18,7 @@
 #  current_step                           :string
 #  date_electronic_withdrawal             :date
 #  df_data_import_failed_at               :datetime
+#  df_data_import_succeeded_at            :datetime
 #  df_data_imported_at                    :datetime
 #  eligibility_529_for_non_qual_expense   :integer          default("unfilled"), not null
 #  eligibility_lived_in_state             :integer          default("unfilled"), not null
@@ -93,7 +94,9 @@ FactoryBot.define do
       hoh_qualifying_person_name { '' }
     end
 
-    raw_direct_file_data { File.read(Rails.root.join('app', 'controllers', 'state_file', 'questions', 'df_return_sample.xml')) }
+    raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.old_xml_sample }
+    raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.old_json_sample }
+
     primary_first_name { "Ariz" }
     primary_last_name { "Onian" }
     primary_birth_date { Date.new((MultiTenantService.statefile.current_tax_year - 65), 12, 1) }
@@ -141,66 +144,66 @@ FactoryBot.define do
     trait :with_az321_contributions do
       made_az321_contributions { "yes" }
 
-      after(:build) do |intake|
+      after(:create) do |intake|
         create :az321_contribution,
                amount: 505.90,
                state_file_az_intake: intake,
                charity_code: "22345",
                charity_name: "Heartland",
-               date_of_contribution: Date.parse("August 22 2023")
+               date_of_contribution: Date.parse("August 22 #{Rails.configuration.statefile_current_tax_year}")
         create :az321_contribution,
                amount: 234.89,
                state_file_az_intake: intake,
                charity_code: "25544",
                charity_name: "Crumbs and Whiskers",
-               date_of_contribution: Date.parse("July 31 2023")
+               date_of_contribution: Date.parse("July 31 #{Rails.configuration.statefile_current_tax_year}")
         create :az321_contribution,
                amount: 234.89,
                state_file_az_intake: intake,
                charity_code: "25999",
                charity_name: "The Flying Seagull Project",
-               date_of_contribution: Date.parse("June 1 2023")
+               date_of_contribution: Date.parse("June 1 #{Rails.configuration.statefile_current_tax_year}")
         create :az321_contribution,
                amount: 234.89,
                state_file_az_intake: intake,
                charity_code: "27661",
                charity_name: "Frogs Are Green",
-               date_of_contribution: Date.parse("January 15 2023")
+               date_of_contribution: Date.parse("January 15 #{Rails.configuration.statefile_current_tax_year}")
       end
     end
 
     trait :with_az322_contributions do
       after(:build) do |intake|
         create(:az322_contribution,
-               date_of_contribution: '2023-03-04',
+               date_of_contribution: "#{Rails.configuration.statefile_current_tax_year}-03-04",
                ctds_code: '123456789',
                school_name: 'School A',
                district_name: 'District A',
                amount: 100,
                state_file_az_intake: intake)
         create(:az322_contribution,
-               date_of_contribution: '2023-02-01',
+               date_of_contribution: "#{Rails.configuration.statefile_current_tax_year}-02-01",
                ctds_code: '123456789',
                school_name: 'School B',
                district_name: 'District B',
                amount: 200,
                state_file_az_intake: intake)
         create(:az322_contribution,
-               date_of_contribution: '2023-03-01',
+               date_of_contribution: "#{Rails.configuration.statefile_current_tax_year}-03-01",
                ctds_code: '123456789',
                school_name: 'School C',
                district_name: 'District C',
                amount: 300,
                state_file_az_intake: intake)
         create(:az322_contribution,
-               date_of_contribution: '2023-04-01',
+               date_of_contribution: "#{Rails.configuration.statefile_current_tax_year}-04-01",
                ctds_code: '123456789',
                school_name: 'School D',
                district_name: 'District D',
                amount: 400,
                state_file_az_intake: intake)
         create(:az322_contribution,
-               date_of_contribution: '2023-05-01',
+               date_of_contribution: "#{Rails.configuration.statefile_current_tax_year}-05-01",
                ctds_code: '123456789',
                school_name: 'School E',
                district_name: 'District E',
@@ -243,7 +246,7 @@ FactoryBot.define do
         intake.account_type = "checking"
         intake.routing_number = 111111111
         intake.account_number = 222222222
-        intake.date_electronic_withdrawal = Date.new(2024, 4, 15)
+        intake.date_electronic_withdrawal = Date.new(Rails.configuration.statefile_current_tax_year, 4, 15)
         intake.withdraw_amount = 5
       end
     end
@@ -255,6 +258,7 @@ FactoryBot.define do
     factory :state_file_az_johnny_intake do
       # Details of this scenario: https://docs.google.com/document/d/1Aq-1Qdna62gUQqzPyYY2CetC-VZWtCqK73LqBYBLINw/edit
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('az_johnny_mfj_8_deps') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('az_johnny_mfj_8_deps') }
 
       after(:create) do |intake|
         intake.synchronize_df_dependents_to_database

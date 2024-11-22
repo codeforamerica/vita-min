@@ -33,11 +33,12 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::DataTransferOffboardingController, false),
         Navigation::NavigationStep.new(StateFile::Questions::IncomeReviewController),
         Navigation::NavigationStep.new(StateFile::Questions::UnemploymentController),
+        Navigation::NavigationStep.new(StateFile::Questions::MdTwoIncomeSubtractionsController),
         Navigation::NavigationStep.new(StateFile::Questions::PrimaryStateIdController),
         Navigation::NavigationStep.new(StateFile::Questions::SpouseStateIdController),
         Navigation::NavigationStep.new(StateFile::Questions::MdReviewController),
         Navigation::NavigationStep.new(StateFile::Questions::TaxesOwedController),
-        Navigation::NavigationStep.new(StateFile::Questions::MdHealthcareScreenController),
+        Navigation::NavigationStep.new(StateFile::Questions::MdHadHealthInsuranceController),
         Navigation::NavigationStep.new(StateFile::Questions::MdTaxRefundController),
         Navigation::NavigationStep.new(StateFile::Questions::EsignDeclarationController), # creates EfileSubmission and transitions to preparing
       ]),

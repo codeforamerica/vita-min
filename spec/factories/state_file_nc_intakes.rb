@@ -14,6 +14,7 @@
 #  current_step                      :string
 #  date_electronic_withdrawal        :date
 #  df_data_import_failed_at          :datetime
+#  df_data_import_succeeded_at       :datetime
 #  df_data_imported_at               :datetime
 #  eligibility_lived_in_state        :integer          default("unfilled"), not null
 #  eligibility_out_of_state_income   :integer          default("unfilled"), not null
@@ -43,7 +44,7 @@
 #  raw_direct_file_intake_data       :jsonb
 #  referrer                          :string
 #  residence_county                  :string
-#  routing_number                    :integer
+#  routing_number                    :string
 #  sales_use_tax                     :decimal(12, 2)
 #  sales_use_tax_calculation_method  :integer          default("unfilled"), not null
 #  sign_in_count                     :integer          default(0), not null
@@ -83,7 +84,19 @@ FactoryBot.define do
       filing_status { 'married_filing_jointly' }
     end
 
-    raw_direct_file_data { File.read(Rails.root.join('spec', 'fixtures', 'state_file', 'fed_return_xmls', '2023', 'nc', 'nick.xml')) }
+    factory :state_file_nc_refund_intake do
+      after(:build) do |intake, _evaluator|
+        intake.direct_file_data.fed_agi = 10000
+        intake.raw_direct_file_data = intake.direct_file_data.to_s
+        intake.payment_or_deposit_type = "direct_deposit"
+        intake.account_type = "savings"
+        intake.routing_number = 111111111
+        intake.account_number = 222222222
+      end
+    end
+
+    raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nc_nick') }
+    raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nc_nick') }
     primary_first_name { "North" }
     primary_middle_initial { "A" }
     primary_last_name { "Carolinian" }
@@ -148,6 +161,10 @@ FactoryBot.define do
     trait :df_data_1099_int do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nc_tom_1099_int') }
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nc_tom_1099_int') }
+    end
+
+    trait :with_filers_synced do
+      after(:create, &:synchronize_filers_to_database)
     end
   end
 end

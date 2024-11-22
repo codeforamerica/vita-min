@@ -1,4 +1,6 @@
 class StateFileBaseIntake < ApplicationRecord
+  self.ignored_columns = [:df_data_import_failed]
+
   devise :lockable, :timeoutable, :trackable
 
   self.abstract_class = true
@@ -70,7 +72,7 @@ class StateFileBaseIntake < ApplicationRecord
       )
     end
 
-    if filing_status_mfj? && direct_file_json_data.spouse_filer.present?
+    if (filing_status_mfj? || filing_status_mfs?) && direct_file_json_data.spouse_filer.present?
       attributes_to_update.merge!(
         spouse_first_name: direct_file_json_data.spouse_filer.first_name,
         spouse_middle_initial: direct_file_json_data.spouse_filer.middle_initial,
@@ -99,7 +101,8 @@ class StateFileBaseIntake < ApplicationRecord
         json_attributes = {
           middle_initial: dependent_json.middle_initial,
           relationship: dependent_json.relationship,
-          dob: dependent_json.dob
+          dob: dependent_json.dob,
+          qualifying_child: dependent_json.qualifying_child,
         }
         dependent.assign_attributes(json_attributes)
       end
@@ -129,16 +132,18 @@ class StateFileBaseIntake < ApplicationRecord
         box14_ui_hc_wd: box_14_values['UI/HC/WD'],
         box14_fli: box_14_values['FLI'],
         box14_stpickup: box_14_values['STPICKUP'],
+        employer_ein: direct_file_w2.EmployerEIN,
         employer_name: direct_file_w2.EmployerName,
         employee_name: direct_file_w2.EmployeeNm,
         employee_ssn: direct_file_w2.EmployeeSSN,
-        employer_state_id_num: direct_file_w2.EmployerStateIdNum&.delete('-'),
+        employer_state_id_num: direct_file_w2.EmployerStateIdNum,
         local_income_tax_amount: direct_file_w2.LocalIncomeTaxAmt,
         local_wages_and_tips_amount: direct_file_w2.LocalWagesAndTipsAmt,
         locality_nm: direct_file_w2.LocalityNm,
         state_income_tax_amount: direct_file_w2.StateIncomeTaxAmt,
         state_wages_amount: direct_file_w2.StateWagesAmt,
         state_file_intake: self,
+        wages: direct_file_w2.WagesAmt,
         w2_index: i,
       )
       state_file_w2.save!
@@ -255,7 +260,7 @@ class StateFileBaseIntake < ApplicationRecord
   end
 
   class Person
-    attr_reader :first_name, :middle_initial, :last_name, :suffix, :birth_date, :ssn
+    attr_reader :first_name, :middle_initial, :last_name, :suffix, :birth_date, :ssn, :primary_or_spouse
 
     def initialize(intake, primary_or_spouse)
       @primary_or_spouse = primary_or_spouse

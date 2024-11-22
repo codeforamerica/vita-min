@@ -3,10 +3,15 @@ require 'rails_helper'
 describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "nj" do
   describe '.build' do
     let(:intake) { create(:state_file_nj_intake) }
-    let(:submission) { create(:efile_submission, data_source: intake) }
+    let(:submission) { create(:efile_submission, data_source: intake.reload) }
     let!(:initial_efile_device_info) { create :state_file_efile_device_info, :initial_creation, :filled, intake: intake }
     let!(:submission_efile_device_info) { create :state_file_efile_device_info, :submission, :filled, intake: intake }
-    let(:xml) { Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml) }
+    let(:build_response) { described_class.build(submission, validate: true) }
+    let(:xml) { Nokogiri::XML::Document.parse(build_response.document.to_xml) }
+
+    after do
+      expect(build_response.errors).not_to be_present
+    end
 
     describe "XML schema" do
       context "with JSON data" do
@@ -57,7 +62,6 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
           five_years = Date.new(MultiTenantService.new(:statefile).current_tax_year - 5, 1, 1)
           intake.synchronize_df_dependents_to_database
           intake.dependents.each do |d| d.update(dob: five_years) end
-          intake.dependents.reload
         end
 
         it "does not error" do
@@ -88,10 +92,55 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
       expect(xml.document.root.namespaces).to include({ "xmlns:efile" => "http://www.irs.gov/efile", "xmlns" => "http://www.irs.gov/efile" })
       expect(xml.document.at('AuthenticationHeader').to_s).to include('xmlns="http://www.irs.gov/efile"')
       expect(xml.document.at('ReturnHeaderState').to_s).to include('xmlns="http://www.irs.gov/efile"')
+
+      expect(build_response.errors).not_to be_present
     end
 
     it "includes attached documents" do
       expect(xml.document.at('ReturnDataState FormNJ1040 Header')).to be_an_instance_of Nokogiri::XML::Element
+    end
+
+    context "nj 2450" do
+      context "with nothing on nj 1040 lines 59 or 61" do
+        let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
+        it "does not include the nj 2450" do
+          expect(xml.document.at('FormNJ2450')).to eq(nil)
+        end
+      end
+
+      context "with excess contributions on line 59" do
+        context "mfj with multiple w2s per spouse that individually do not exceed the max and total more than the max for each spouse" do 
+          let(:intake) { create(:state_file_nj_intake, :df_data_mfj) }
+          let(:primary_ssn_from_fixture) { intake.primary.ssn }
+          let(:spouse_ssn_from_fixture) { intake.spouse.ssn }
+          let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_ui_hc_wd: 100) }
+          let!(:w2_2) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_ui_hc_wd: 101) }
+          let!(:w2_3) { create(:state_file_w2, state_file_intake: intake, employee_ssn: spouse_ssn_from_fixture, box14_ui_hc_wd: 102) }
+          let!(:w2_4) { create(:state_file_w2, state_file_intake: intake, employee_ssn: spouse_ssn_from_fixture, box14_ui_hc_wd: 103) }
+  
+          it "includes two NJ 2450 documents" do
+            expect(xml.document.at('FormNJ2450')).to be_an_instance_of Nokogiri::XML::Element
+            expect(xml.css('FormNJ2450').count).to eq(2)
+          end
+        end
+      end
+
+      context "with excess contributions on line 61" do
+        context "mfj with multiple w2s per spouse that individually do not exceed max and total more than max for each spouse" do 
+          let(:intake) { create(:state_file_nj_intake, :df_data_mfj) }
+          let(:primary_ssn_from_fixture) { intake.primary.ssn }
+          let(:spouse_ssn_from_fixture) { intake.spouse.ssn }
+          let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_fli: 100) }
+          let!(:w2_2) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_fli: 101) }
+          let!(:w2_3) { create(:state_file_w2, state_file_intake: intake, employee_ssn: spouse_ssn_from_fixture, box14_fli: 102) }
+          let!(:w2_4) { create(:state_file_w2, state_file_intake: intake, employee_ssn: spouse_ssn_from_fixture, box14_fli: 103) }
+  
+          it "includes two NJ 2450 documents" do
+            expect(xml.document.at('FormNJ2450')).to be_an_instance_of Nokogiri::XML::Element
+            expect(xml.css('FormNJ2450').count).to eq(2)
+          end
+        end
+      end
     end
   end
 end

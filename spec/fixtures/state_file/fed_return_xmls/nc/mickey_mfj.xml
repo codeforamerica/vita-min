@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v4.0">
+  <ReturnHeader binaryAttachmentCnt="0">
+    <TaxYr>2024</TaxYr>
+    <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+    <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+    <SoftwareVersionNum>eb055500</SoftwareVersionNum>
+    <ReturnTypeCd>1040</ReturnTypeCd>
+    <Filer>
+      <PrimarySSN>145004903</PrimarySSN>
+      <SpouseSSN>145004923</SpouseSSN>
+      <NameLine1Txt>MICKEY C &amp; MINNIE P&lt;MOUSE</NameLine1Txt>
+      <PrimaryNameControlTxt>MOUS</PrimaryNameControlTxt>
+      <SpouseNameControlTxt>MOUS</SpouseNameControlTxt>
+      <USAddress>
+        <AddressLine1Txt>123 Front St</AddressLine1Txt>
+        <CityNm>Raleigh</CityNm>
+        <StateAbbreviationCd>NC</StateAbbreviationCd>
+        <ZIPCd>27610</ZIPCd>
+      </USAddress>
+      <PhoneNum>5027764903</PhoneNum>
+    </Filer>
+    <AdditionalFilerInformation>
+      <AtSubmissionFilingGrp>
+        <EmailAddressTxt>test-user+14500490-3a2f-4384-a6ae-a7a464554f3a@directfile.test</EmailAddressTxt>
+      </AtSubmissionFilingGrp>
+    </AdditionalFilerInformation>
+  </ReturnHeader>
+  <ReturnData documentCnt="3">
+    <IRS1040 documentId="IRS10400001">
+      <Form1040SRInd>X</Form1040SRInd>
+      <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
+      <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+      <Primary65OrOlderInd>X</Primary65OrOlderInd>
+      <Spouse65OrOlderInd>X</Spouse65OrOlderInd>
+      <TotalBoxesCheckedCnt>2</TotalBoxesCheckedCnt>
+      <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
+      <DependentDetail>
+        <DependentFirstNm>Margie</DependentFirstNm>
+        <DependentLastNm>Mouse</DependentLastNm>
+        <DependentNameControlTxt>MOUS</DependentNameControlTxt>
+        <DependentSSN>400000002</DependentSSN>
+        <DependentRelationshipCd>PARENT</DependentRelationshipCd>
+        <EligibleForODCInd>X</EligibleForODCInd>
+      </DependentDetail>
+      <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+      <OtherDependentsListedCnt>1</OtherDependentsListedCnt>
+      <TotalExemptionsCnt>3</TotalExemptionsCnt>
+      <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">89843</WagesAmt>
+      <WagesSalariesAndTipsAmt>89843</WagesSalariesAndTipsAmt>
+      <TotalIncomeAmt>89843</TotalIncomeAmt>
+      <AdjustedGrossIncomeAmt>89843</AdjustedGrossIncomeAmt>
+      <TotalItemizedOrStandardDedAmt>32300</TotalItemizedOrStandardDedAmt>
+      <TotalDeductionsAmt>32300</TotalDeductionsAmt>
+      <TaxableIncomeAmt>57543</TaxableIncomeAmt>
+      <TaxAmt>6439</TaxAmt>
+      <TotalTaxBeforeCrAndOthTaxesAmt>6439</TotalTaxBeforeCrAndOthTaxesAmt>
+      <CTCODCAmt>500</CTCODCAmt>
+      <TotalCreditsAmt>500</TotalCreditsAmt>
+      <TaxLessCreditsAmt>5939</TaxLessCreditsAmt>
+      <TotalTaxAmt>5939</TotalTaxAmt>
+      <FormW2WithheldTaxAmt>9220</FormW2WithheldTaxAmt>
+      <WithholdingTaxAmt>9220</WithholdingTaxAmt>
+      <TotalPaymentsAmt>9220</TotalPaymentsAmt>
+      <OverpaidAmt>3281</OverpaidAmt>
+      <RefundAmt>3281</RefundAmt>
+      <OwedAmt>0</OwedAmt>
+      <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+      <PrimaryOccupationTxt>Sport Fishing Guide Volunteer</PrimaryOccupationTxt>
+      <SpouseOccupationTxt>Waitress</SpouseOccupationTxt>
+      <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+    </IRS1040>
+    <IRS1040Schedule8812 documentId="IRS8812001" documentName="IRS1040Schedule8812">
+      <AdjustedGrossIncomeAmt>89843</AdjustedGrossIncomeAmt>
+      <ModifiedAGIAmt>89843</ModifiedAGIAmt>
+      <QlfyChildUnderAgeSSNCnt>0</QlfyChildUnderAgeSSNCnt>
+      <OtherDependentCnt>1</OtherDependentCnt>
+      <OtherDependentCreditAmt>500</OtherDependentCreditAmt>
+      <InitialCTCODCAmt>500</InitialCTCODCAmt>
+      <FilingStatusThresholdCd>400000</FilingStatusThresholdCd>
+      <ExcessAdjGrossIncomeAmt>0</ExcessAdjGrossIncomeAmt>
+      <ModifiedAGIPhaseOutAmt>0</ModifiedAGIPhaseOutAmt>
+      <CTCODCOverAGILimitInd>true</CTCODCOverAGILimitInd>
+      <CTCODCAfterAGILimitAmt>500</CTCODCAfterAGILimitAmt>
+      <ACTCTaxLiabiltyLimitAmt>6439</ACTCTaxLiabiltyLimitAmt>
+      <CTCODCAmt>500</CTCODCAmt>
+      <ClaimACTCAllFilersGrp/>
+    </IRS1040Schedule8812>
+    <IRSW2 documentId="W20001" documentName="IRSW2">
+      <EmployeeSSN>145004923</EmployeeSSN>
+      <EmployerEIN>003000002</EmployerEIN>
+      <EmployerNameControlTxt>RONS</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>Rons Rib Rack on the River</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>15 River Front Road</AddressLine1Txt>
+        <CityNm>Punta Gorda</CityNm>
+        <StateAbbreviationCd>FL</StateAbbreviationCd>
+        <ZIPCd>33950</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>Minnie P Mouse</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>123 Front St</AddressLine1Txt>
+        <CityNm>Raleigh</CityNm>
+        <StateAbbreviationCd>NC</StateAbbreviationCd>
+        <ZIPCd>27610</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>89843</WagesAmt>
+      <WithholdingAmt>9220</WithholdingAmt>
+      <SocialSecurityWagesAmt>89843</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>4295</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>89843</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>1004</MedicareTaxWithheldAmt>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>NC</StateAbbreviationCd>
+          <EmployerStateIdNum>NC 21-0030003</EmployerStateIdNum>
+          <StateWagesAmt>89843</StateWagesAmt>
+          <W2LocalTaxGrp/>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+  </ReturnData>
+</Return>

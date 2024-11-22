@@ -15,6 +15,7 @@
 #  current_step                       :string
 #  date_electronic_withdrawal         :date
 #  df_data_import_failed_at           :datetime
+#  df_data_import_succeeded_at        :datetime
 #  df_data_imported_at                :datetime
 #  eligibility_lived_in_state         :integer          default("unfilled"), not null
 #  eligibility_out_of_state_income    :integer          default("unfilled"), not null
@@ -145,7 +146,7 @@ describe StateFileNyIntake do
                routing_number: "123456789",
                account_number: "123",
                withdraw_amount: 123,
-               date_electronic_withdrawal: Date.parse("April 1, 2023")
+               date_electronic_withdrawal: Date.parse("April 1, 2024")
       end
 
       it "clears other account fields" do
