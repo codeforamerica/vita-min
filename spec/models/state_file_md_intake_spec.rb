@@ -141,11 +141,12 @@ RSpec.describe StateFileMdIntake, type: :model do
         expect {
           intake.update(payment_or_deposit_type: "mail")
         }.to change(intake.reload, :account_type).to("unfilled")
-                                                 .and change(intake.reload, :bank_name).to(nil)
-                                                                                       .and change(intake.reload, :routing_number).to(nil).and change(intake.reload, :account_number).to(nil)
-                                                                                                                                                                                     .and change(intake.reload, :withdraw_amount).to(nil)
-                                                                                                                                                                                                                                 .and change(intake.reload, :date_electronic_withdrawal).to(nil)
-                                                                                                                                                                                                                                                                                        .and change(intake.reload, :account_holder_name).to(nil)
+           .and change(intake.reload, :bank_name).to(nil)
+           .and change(intake.reload, :routing_number).to(nil)
+           .and change(intake.reload, :account_number).to(nil)
+           .and change(intake.reload, :withdraw_amount).to(nil)
+           .and change(intake.reload, :date_electronic_withdrawal).to(nil)
+           .and change(intake.reload, :account_holder_name).to(nil)
       end
     end
   end
