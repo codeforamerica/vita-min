@@ -32,6 +32,7 @@
 #  email_address_verified_at                :datetime
 #  failed_attempts                          :integer          default(0), not null
 #  federal_return_status                    :string
+#  has_joint_account_holder                 :integer
 #  hashed_ssn                               :string
 #  joint_account_holder_first_name          :string
 #  joint_account_holder_last_name           :string
@@ -145,8 +146,14 @@ class StateFileMdIntake < StateFileBaseIntake
       self.account_number = nil
       self.withdraw_amount = nil
       self.date_electronic_withdrawal = nil
-      self.account_holder_name = nil
-      self.joint_account_holder_name = nil
+      self.account_holder_first_name = nil
+      self.account_holder_middle_initial = nil
+      self.account_holder_last_name = nil
+      self.account_holder_suffix = nil
+      self.joint_account_holder_first_name = nil
+      self.joint_account_holder_middle_initial = nil
+      self.joint_account_holder_last_name = nil
+      self.joint_account_holder_suffix = nil
     end
   end
 

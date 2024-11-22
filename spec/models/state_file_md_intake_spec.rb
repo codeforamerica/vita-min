@@ -32,6 +32,7 @@
 #  email_address_verified_at                :datetime
 #  failed_attempts                          :integer          default(0), not null
 #  federal_return_status                    :string
+#  has_joint_account_holder                 :integer
 #  hashed_ssn                               :string
 #  joint_account_holder_first_name          :string
 #  joint_account_holder_last_name           :string
