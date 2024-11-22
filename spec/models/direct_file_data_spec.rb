@@ -5,7 +5,7 @@ describe DirectFileData do
   let(:direct_file_data) { DirectFileData.new(xml.to_s) }
 
   [
-    ["tax_return_year", 2023],
+    ["tax_return_year", Rails.configuration.statefile_current_tax_year],
     ["filing_status", 4],
     ["phone_number", "4805555555"],
     ["cell_phone_number", "5551231234"],
