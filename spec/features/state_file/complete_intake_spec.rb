@@ -487,7 +487,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in 'state_file_id_sales_use_tax_form_total_purchase_amount', with: "290"
       click_on I18n.t("general.continue")
 
-      #Permanent Building Fund
+      # Permanent Building Fund
       expect(page).to have_text I18n.t('state_file.questions.id_permanent_building_fund.edit.title')
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
@@ -592,6 +592,10 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.questions.shared.review_header.title")
       click_on I18n.t("general.continue")
 
+      expect(page).to have_text I18n.t("state_file.questions.md_had_health_insurance.edit.title")
+      choose I18n.t("general.negative")
+      click_on I18n.t("general.continue")
+
       expect(page).to have_text I18n.t("state_file.questions.esign_declaration.edit.title", state_name: "Maryland")
       fill_in 'state_file_esign_declaration_form_primary_signature_pin', with: "12345"
       fill_in 'state_file_esign_declaration_form_spouse_signature_pin', with: "54321"
@@ -652,8 +656,35 @@ RSpec.feature "Completing a state file intake", active_job: true do
       choose I18n.t('state_file.questions.nj_household_rent_own.edit.neither')
       click_on I18n.t("general.continue")
 
+      click_on I18n.t("general.continue")
+
+      fill_in I18n.t('state_file.questions.nj_estimated_tax_payments.edit.label', filing_year: MultiTenantService.statefile.current_tax_year), with: 1000
+      click_on I18n.t("general.continue")
+
+      choose I18n.t('general.negative')
+      click_on I18n.t("general.continue")
+
+      # Gubernatorial elections fund
+      choose I18n.t('general.affirmative')
       expect(page).to be_axe_clean.within "main"
       click_on I18n.t("general.continue")
+
+      # Review
+      expect(page).to have_text I18n.t("state_file.questions.shared.review_header.title")
+      expect(page).to be_axe_clean.within "main"
+
+      groups = page.all(:css, '.white-group').count
+      has_h2 = page.all(:css, '.white-group:has(h2)').count
+      expect(groups).to eq(has_h2)
+
+      edit_buttons = page.all(:css, '.white-group a')
+      edit_buttons_count = edit_buttons.count
+      edit_buttons_with_sr_only_text = page.all(:css, '.white-group a span.sr-only').count
+      expect(edit_buttons_count).to eq(edit_buttons_with_sr_only_text)
+
+      edit_buttons_text = edit_buttons.map(&:text)
+      edit_buttons_unique_text_count = edit_buttons_text.uniq.count
+      expect(edit_buttons_unique_text_count).to eq(edit_buttons_count)
     end
   end
 end

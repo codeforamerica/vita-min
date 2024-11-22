@@ -241,6 +241,8 @@ es:
     errors:
       at_least_one_year: Por favor, elija al menos un año.
       general: Por favor, corrija los errores indicados antes de continuar.
+      healthcare:
+        one_box: Debes seleccionar al menos una casilla.
       hub:
         communication_opt_in: Si el método de la firma es "en línea", se requiere que opte por un método de comunicación y de contacto.
         contact_method_required: "%{attribute} es obligatorio si opta para recibir notificaciones "
@@ -2002,6 +2004,23 @@ es:
         title: 'Preguntas frecuentes de los contribuyentes de %{state}:'
     general:
       fed_agi: Ingreso bruto ajustado federal
+      id_adjusted_income: Total Idaho Adjusted Income
+      id_building_fund_tax: Permanent Building Fund tax
+      id_child_care_expenses: Subtraction for child and dependent care expenses
+      id_child_tax_credit: Idaho Child Tax Credit
+      id_fed_agi: Federal adjusted gross income
+      id_grocery_credit: Refundable Grocery Credit
+      id_health_insurance: Subtraction for health insurance premiums
+      id_interest_income: Interest income from U.S. bonds (not taxed in Idaho)
+      id_retirement_benefits: Retirement Benefits Deduction
+      id_social_security_income: Social Security income (not taxed in Idaho)
+      id_standard_deduction: Standard deduction
+      id_tax: Idaho tax
+      id_tax_after_credits: Tax after nonrefundable credits
+      id_tax_withheld: Idaho tax withheld
+      id_taxable_income: Idaho taxable income
+      id_total_payments: Total payments and refundable credits
+      id_use_tax: Use tax
       nc_income_tax: Impuesto sobre la renta de Carolina del Norte
       nc_tax_withheld: Impuesto retenido en Carolina del Norte
       nc_taxable_income: Ingresos imponibles de Carolina del Norte
@@ -2651,6 +2670,29 @@ es:
           permanent_home_heading: "¿Qué es una vivienda permanente?"
           subtitle: Para la temporada de %{year}, esta herramienta solo podrá servir a personas con situaciones tributarias específicas. Responda las siguientes preguntas para saber si puede usarla.
           title: Primero, veamos si puedes usar esta herramienta para presentar tus impuestos de Maryland de %{year}
+      md_had_health_insurance:
+        edit:
+          authorize_follow_up: Si responde sí, la Oficina del Contralor compartirá su información y la dirección de correo electrónico registrada con Maryland Health Connection.
+          authorize_share_health_information: "¿Autoriza al Contralor de Maryland a compartir información de esta declaración de impuestos con Maryland Health Connection para determinar la pre-elegibilidad para cobertura de salud sin costo o de bajo costo?"
+          authorize_to_share_info:
+          - Nombre, SSN/ITIN y fecha de nacimiento de cada persona identificada en su declaración
+          - Su dirección postal actual, dirección de correo electrónico y número de teléfono
+          - Estado civil declarado en su declaración
+          - Número total de personas en su hogar incluidas en su declaración
+          - Estado asegurado/no asegurado de cada persona incluida en su declaración
+          - Condición de ceguera
+          - Relación (titular, cónyuge o dependiente) con el contribuyente principal de cada persona incluida en su declaración
+          - Monto de su ingreso bruto ajustado federal de la Línea 1
+          following_will_be_shared: 'Si autoriza compartir información, compartiremos la siguiente información con Maryland Health Connection (MHC):'
+          information_use: La información compartida con MHC se usará para determinar la elegibilidad para programas de asequibilidad de seguros o para ayudar con la inscripción en cobertura de salud.
+          more_info: Si desea más información sobre los programas de asequibilidad de seguros o la inscripción en cobertura de salud, visite Maryland Health Connection en <a href="%{link}" target="_blank" rel="noopener noreferrer">marylandhealthconnection.gov/easyenrollment/</a>.
+          no_insurance_question: "¿Algún miembro de su hogar incluido en esta declaración <strong> no </strong> tuvo cobertura de salud durante el año?"
+          subtitle: Compartir esta información <strong>no</strong> afectará su declaración de impuestos.
+          title: Antes de enviar, tenemos algunas preguntas sobre la cobertura de seguro médico.
+          what_will_be_shared: "¿Qué información se compartirá con Maryland Health Connection?"
+          which_members_not_have_insurance: Seleccione qué miembro(s) de su hogar <strong> no </strong> tuvieron cobertura de salud al final de %{tax_year}.
+          why_ask_explanation: Esta información ayudará a Maryland Health Connection a determinar la elegibilidad para los miembros no asegurados de su hogar para cobertura de salud sin costo o de bajo costo. <strong>No afectará</strong> su declaración de impuestos y no hay penalidades por proporcionar esta información.
+          why_ask_this: "¿Por qué estamos preguntando esto?"
       md_permanent_address:
         edit:
           address_header: Dirección
@@ -2841,6 +2883,14 @@ es:
           subtitle_list_2: Overpayments on your %{prior_year} return that you chose to apply to your %{filing_year} New Jersey taxes
           subtitle_list_2_sub: 'Note: you would have selected this option when filing your %{prior_year} return'
           title: Please tell us if you already made any payments toward your %{filing_year} New Jersey taxes
+      nj_gubernatorial_elections:
+        edit:
+          details_1: You may have heard this referred to as “public financing” of campaigns.
+          details_2_html: You can contribute $1 of where your taxes go to the <a href="https://elec.nj.gov/pdffiles/temporary/WebsitePlugForGubfinProgram.pdf" target="_blank" rel="noopener noreferrer">Gubernatorial Elections Fund.</a>
+          details_3: 'FYI: Your taxes won’t increase and your refund won’t be reduced. This just gives New Jersey permission to use $1 of your tax dollars for this fund.'
+          primary_contribute: Would you like to contribute $1 to the fund?
+          spouse_contribute: Would your spouse like to contribute $1 to the fund?
+          title: The Gubernatorial Elections Fund helps qualified New Jersey governor candidates who need financial help.
       nj_homeowner_eligibility:
         edit:
           homeowner_home_subject_to_property_taxes: Mi vivienda principal, ya sea propia o alquilada, estaba sujeta a impuestos sobre la propiedad que se pagaban como impuestos sobre la propiedad reales o a través del alquiler.
@@ -2903,17 +2953,22 @@ es:
           amount: Cantidad
           claimed_as_eitc_qualifying_child: I could be someone else's qualifying child for the Earned Income Tax Credit.
           county: Condado
+          edit_disability: disability status
+          edit_gubernatorial: gubernatorial fund contributions
+          edit_veteran: veteran status
           estimated_tax_payments: Payments already made to New Jersey taxes
           household_rent_own: Vivienda en alquiler o en propiedad propia
           medical_expenses: Gastos médicos
           municipality: Municipio
           primary_disabled: Primary disabled
+          primary_gubernatorial: I want $1 of my taxes to go to the gubernatorial elections fund
           primary_veteran: Soy un veterano
           property_tax_paid: Impuestos sobre la propiedad pagados
           rent_paid: Alquiler pagado
           rounding_html: "<strong>We have automatically rounded all dollar amounts to the nearest whole number.</strong> New Jersey will only accept whole numbers on the final tax return."
           spouse_claimed_as_eitc_qualifying_child: My spouse could be someone else's qualifying child for the Earned Income Tax Credit.
           spouse_disabled: Spouse disabled
+          spouse_gubernatorial: My spouse wants $1 of their taxes to go to the gubernatorial elections fund
           spouse_veteran: Mi cónyuge es un veterano
           use_tax_applied: Impuesto sobre el uso del consumidor aplicado
       nj_sales_use_tax:

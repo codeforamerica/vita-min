@@ -1,0 +1,26 @@
+{
+  "familyAndHousehold": [],
+  "filers": [
+    {
+      "lastName": "Coyote",
+      "firstName": "Wylie",
+      "middleInitial": "E",
+      "tin": "145-00-4901",
+      "dateOfBirth": "1985-05-21",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "ssnNotValidForEmployment": null
+    },
+    {
+      "lastName": "Coyote",
+      "firstName": "Wilma",
+      "middleInitial": "D",
+      "tin": "145-00-4921",
+      "dateOfBirth": null,
+      "suffix": null,
+      "isPrimaryFiler": false,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "interestReports": []
+}

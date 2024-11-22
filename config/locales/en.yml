@@ -240,6 +240,8 @@ en:
     errors:
       at_least_one_year: Please pick at least one year.
       general: Please fix indicated errors before continuing.
+      healthcare:
+        one_box: You must select at least one box.
       hub:
         communication_opt_in: If signature method is "online", a contact method and communication opt-in is required.
         contact_method_required: "%{attribute} is required if opting into notifications"
@@ -2038,6 +2040,23 @@ en:
         title: Common questions from %{state} taxpayers
     general:
       fed_agi: Federal adjusted gross income
+      id_adjusted_income: Total Idaho Adjusted Income
+      id_building_fund_tax: Permanent Building Fund tax
+      id_child_care_expenses: Subtraction for child and dependent care expenses
+      id_child_tax_credit: Idaho Child Tax Credit
+      id_fed_agi: Federal adjusted gross income
+      id_grocery_credit: Refundable Grocery Credit
+      id_health_insurance: Subtraction for health insurance premiums
+      id_interest_income: Interest income from U.S. bonds (not taxed in Idaho)
+      id_retirement_benefits: Retirement Benefits Deduction
+      id_social_security_income: Social Security income (not taxed in Idaho)
+      id_standard_deduction: Standard deduction
+      id_tax: Idaho tax
+      id_tax_after_credits: Tax after nonrefundable credits
+      id_tax_withheld: Idaho tax withheld
+      id_taxable_income: Idaho taxable income
+      id_total_payments: Total payments and refundable credits
+      id_use_tax: Use tax
       nc_income_tax: North Carolina income tax
       nc_tax_withheld: North Carolina tax withheld
       nc_taxable_income: North Carolina taxable income
@@ -2679,6 +2698,29 @@ en:
           permanent_home_heading: What is a permanent home?
           subtitle: For the %{year} season, this tool will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
           title: First, let's see if you can use this tool to file your %{year} Maryland taxes
+      md_had_health_insurance:
+        edit:
+          authorize_follow_up: If yes, the Comptroller’s Office will share your information and the email address on file with Maryland Health Connection.
+          authorize_share_health_information: Do you authorize the Comptroller of Maryland to share information from this tax return with Maryland Health Connection for the purpose of determining pre-eligibility for no-cost or low-cost health care coverage?
+          authorize_to_share_info:
+          - Name, SSN/ITIN, and date of birth of each individual identified on your return
+          - Your current mailing address, email address, and phone number
+          - Filing status reported on your return
+          - Total number of individuals in your household included in your return
+          - Insured/ uninsured status of each individual included in your return
+          - Blindness status
+          - Relationship (self, spouse, or dependent) to the primary taxpayer for each individual included in your return
+          - Your federal adjusted gross income amount from Line 1
+          following_will_be_shared: 'If you authorize information sharing, we will share the following information with Maryland Health Connection (MHC):'
+          information_use: Information shared with MHC will be used to determine eligibility for insurance affordability programs or to assist with enrollment in health coverage.
+          more_info: If you would like more information about the health insurance affordability programs or healthcare coverage enrollment, visit Maryland Health Connection at <a href="%{link}" target="_blank" rel="noopener noreferrer">marylandhealthconnection.gov/easyenrollment/</a>.
+          no_insurance_question: Did any member of your household included in this return <strong> not </strong> have health care coverage during the year?
+          subtitle: Sharing this information <strong>won't</strong> impact your tax return.
+          title: Before you submit, we have a few questions about health insurance coverage
+          what_will_be_shared: What information will be shared with Maryland Health Connection?
+          which_members_not_have_insurance: Select which member(s) of your household <strong> did not </strong> have health care coverage at the end of %{tax_year}?
+          why_ask_explanation: This information will help Maryland Health Connection determine eligibility for uninsured members of your household for no-cost or low-cost health coverage. It <strong>won't affect</strong> your tax return and there are no penalties for providing this information.
+          why_ask_this: Why are you asking this?
       md_permanent_address:
         edit:
           address_header: Address
@@ -2868,6 +2910,14 @@ en:
           subtitle_list_2: Overpayments on your %{prior_year} return that you chose to apply to your %{filing_year} New Jersey taxes
           subtitle_list_2_sub: 'Note: you would have selected this option when filing your %{prior_year} return'
           title: Please tell us if you already made any payments toward your %{filing_year} New Jersey taxes
+      nj_gubernatorial_elections:
+        edit:
+          details_1: You may have heard this referred to as “public financing” of campaigns.
+          details_2_html: You can contribute $1 of where your taxes go to the <a href="https://elec.nj.gov/pdffiles/temporary/WebsitePlugForGubfinProgram.pdf" target="_blank" rel="noopener noreferrer">Gubernatorial Elections Fund.</a>
+          details_3: 'FYI: Your taxes won’t increase and your refund won’t be reduced. This just gives New Jersey permission to use $1 of your tax dollars for this fund.'
+          primary_contribute: Would you like to contribute $1 to the fund?
+          spouse_contribute: Would your spouse like to contribute $1 to the fund?
+          title: The Gubernatorial Elections Fund helps qualified New Jersey governor candidates who need financial help.
       nj_homeowner_eligibility:
         edit:
           homeowner_home_subject_to_property_taxes: My main home, whether owned or rented, was subject to property taxes that were paid either as actual property taxes or through rent.
@@ -2930,17 +2980,22 @@ en:
           amount: Amount
           claimed_as_eitc_qualifying_child: I could be someone else's qualifying child for the Earned Income Tax Credit.
           county: County
+          edit_disability: disability status
+          edit_gubernatorial: gubernatorial fund contributions
+          edit_veteran: veteran status
           estimated_tax_payments: Payments already made to New Jersey taxes
           household_rent_own: Rent or own home
           medical_expenses: Medical expenses
           municipality: Municipality
           primary_disabled: I have a disability
+          primary_gubernatorial: I want $1 of my taxes to go to the gubernatorial elections fund
           primary_veteran: I am a veteran
           property_tax_paid: Property taxes paid
           rent_paid: Rent paid
           rounding_html: "<strong>We have automatically rounded all dollar amounts to the nearest whole number.</strong> New Jersey will only accept whole numbers on the final tax return."
           spouse_claimed_as_eitc_qualifying_child: My spouse could be someone else's qualifying child for the Earned Income Tax Credit.
           spouse_disabled: My spouse has a disability
+          spouse_gubernatorial: My spouse wants $1 of their taxes to go to the gubernatorial elections fund
           spouse_veteran: My spouse is a veteran
           use_tax_applied: Consumer Use Tax Applied
       nj_sales_use_tax:
