@@ -81,6 +81,9 @@ module SubmissionBuilder
                     end
                     xml.NumOfQualiDependChild qualifying_dependents.count(&:qualifying_child?)
                     xml.NumOfOtherDepend qualifying_dependents.count(&:qualifying_relative?)
+                    if calculated_fields.fetch(:NJ1040_LINE_12_COUNT)&.positive?
+                      xml.DependAttendCollege calculated_fields.fetch(:NJ1040_LINE_12_COUNT)
+                    end
                     xml.TotalExemptionAmountA calculated_fields.fetch(:NJ1040_LINE_13)
                   end
 
