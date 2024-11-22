@@ -33,14 +33,17 @@
     <div id="disabled_exemption" class="white-group">
       <div class="spacing-below-5">
         <% if !current_intake.primary_disabled_unfilled? %>
-          <p class="text--bold spacing-below-5"><%=t(".primary_disabled") %></p>
+          <h2 class="text--body text--bold spacing-below-5"><%=t(".primary_disabled") %></h2>
           <p><%= current_intake.primary_disabled %></p>
         <% end %>
         <% if !current_intake.spouse_disabled_unfilled? %>
-          <p class="text--bold spacing-below-5"><%=t(".spouse_disabled") %></p>
+          <h2 class="text--body text--bold spacing-below-5"><%=t(".spouse_disabled") %></h2>
           <p><%= current_intake.spouse_disabled  %></p>
         <% end %>
-        <%= link_to t("general.edit"), StateFile::Questions::NjDisabledExemptionController.to_path_helper(return_to_review: "y"), class: "button--small" %>
+        <%= link_to StateFile::Questions::NjDisabledExemptionController.to_path_helper(return_to_review: "y"), class: "button--small" do %>
+          <%= t("general.edit") %>
+          <span class="sr-only"><%= t(".edit_disability")%></span>
+        <% end %>
       </div>
     </div>
   <% end %>
@@ -49,36 +52,33 @@
     <div id="veterans_exemption" class="white-group">
       <div class="spacing-below-5">
         <% if !current_intake.primary_veteran_unfilled? %>
-          <p class="text--bold spacing-below-5"><%=t(".primary_veteran") %></p>
+          <h2 class="text--body text--bold spacing-below-5"><%=t(".primary_veteran") %></h2>
           <p><%= current_intake.primary_veteran %></p>
         <% end %>
         <% if !current_intake.spouse_veteran_unfilled? %>
-          <p class="text--bold spacing-below-5"><%=t(".spouse_veteran") %></p>
+          <h2 class="text--body text--bold spacing-below-5"><%=t(".spouse_veteran") %></h2>
           <p><%= current_intake.spouse_veteran  %></p>
         <% end %>
-        <%= link_to t("general.edit"), StateFile::Questions::NjVeteransExemptionController.to_path_helper(return_to_review: "y"), class: "button--small" %>
+        <%= link_to StateFile::Questions::NjVeteransExemptionController.to_path_helper(return_to_review: "y"), class: "button--small" do %>
+          <%= t("general.edit") %>
+          <span class="sr-only"><%= t(".edit_veteran") %></span>
+        <% end %>
       </div>
     </div>
   <% end %>
 
-    <% unless current_intake.claimed_as_eitc_qualifying_child_unfilled? && current_intake.spouse_claimed_as_eitc_qualifying_child_unfilled? %>
-    <div id="eitc_qualifying_child" class="white-group">
-      <div class="spacing-below-5">
-        <% unless current_intake.claimed_as_eitc_qualifying_child_unfilled? %>
-          <h2 class="text--body text--bold spacing-below-5"><%=t(".claimed_as_eitc_qualifying_child") %></h2>
-          <p><%= current_intake.claimed_as_eitc_qualifying_child %></p>
-        <% end %>
-        <% unless current_intake.spouse_claimed_as_eitc_qualifying_child_unfilled? %>
-        <h2 class="text--body text--bold spacing-below-5"><%=t(".spouse_claimed_as_eitc_qualifying_child") %></h2>
-          <p><%= current_intake.spouse_claimed_as_eitc_qualifying_child  %></p>
-        <% end %>
-        <%= link_to StateFile::Questions::NjEitcQualifyingChildController.to_path_helper(return_to_review: "y"), class: "button--small" do %>
-          <%= t("general.edit") %>
-          <span class="sr-only"><%= t(".claimed_as_eitc_qualifying_child") %></span>
-        <% end %>
-      </div>
+  <%# Dependents %>
+
+  <div id="medical_expenses" class="white-group">
+    <div class="spacing-below-5">
+      <h2 class="text--body text--bold spacing-below-5"><%=t(".medical_expenses") %></h2>
+      <p><%= number_to_currency(current_intake.medical_expenses, precision: 0) %></p>
+      <%= link_to StateFile::Questions::NjMedicalExpensesController.to_path_helper(return_to_review: "y"), class: "button--small" do %>
+        <%= t("general.edit") %>
+        <span class="sr-only"><%= t(".medical_expenses") %></span>
+      <% end %>
     </div>
-  <% end %>
+  </div>
 
   <div id="household_rent_own" class="white-group">
     <div class="spacing-below-5">
@@ -117,41 +117,33 @@
     </div>
   <% end %>
 
-  <% if !current_intake.primary_disabled_unfilled? || !current_intake.spouse_disabled_unfilled? %>
-    <div id="disabled_exemption" class="white-group">
+  <% unless current_intake.claimed_as_eitc_qualifying_child_unfilled? && current_intake.spouse_claimed_as_eitc_qualifying_child_unfilled? %>
+    <div id="eitc_qualifying_child" class="white-group">
       <div class="spacing-below-5">
-        <% if !current_intake.primary_disabled_unfilled? %>
-          <h2 class="text--body text--bold spacing-below-5"><%=t(".primary_disabled") %></h2>
-          <p><%= current_intake.primary_disabled %></p>
+        <% unless current_intake.claimed_as_eitc_qualifying_child_unfilled? %>
+          <h2 class="text--body text--bold spacing-below-5"><%=t(".claimed_as_eitc_qualifying_child") %></h2>
+          <p><%= current_intake.claimed_as_eitc_qualifying_child %></p>
         <% end %>
-        <% if !current_intake.spouse_disabled_unfilled? %>
-          <h2 class="text--body text--bold spacing-below-5"><%=t(".spouse_disabled") %></h2>
-          <p><%= current_intake.spouse_disabled  %></p>
+        <% unless current_intake.spouse_claimed_as_eitc_qualifying_child_unfilled? %>
+        <h2 class="text--body text--bold spacing-below-5"><%=t(".spouse_claimed_as_eitc_qualifying_child") %></h2>
+          <p><%= current_intake.spouse_claimed_as_eitc_qualifying_child  %></p>
         <% end %>
-        <%= link_to StateFile::Questions::NjDisabledExemptionController.to_path_helper(return_to_review: "y"), class: "button--small" do %>
+        <%= link_to StateFile::Questions::NjEitcQualifyingChildController.to_path_helper(return_to_review: "y"), class: "button--small" do %>
           <%= t("general.edit") %>
-          <span class="sr-only"><%= t(".primary_disabled") + " " + t("general.and") + " " +  t(".spouse_disabled") %></span>
+          <span class="sr-only"><%= t(".claimed_as_eitc_qualifying_child") %></span>
         <% end %>
       </div>
     </div>
   <% end %>
-  
-  <div id="medical_expenses" class="white-group">
-    <div class="spacing-below-5">
-      <h2 class="text--body text--bold spacing-below-5"><%=t(".medical_expenses") %></h2>
-      <p><%= number_to_currency(current_intake.medical_expenses, precision: 0) %></p>
-      <%= link_to StateFile::Questions::NjMedicalExpensesController.to_path_helper(return_to_review: "y"), class: "button--small" do %>
-        <%= t("general.edit") %>
-        <span class="sr-only"><%= t(".medical_expenses") %></span>
-      <% end %>
-    </div>
-  </div>
 
   <div id="estimated-tax-payments" class="white-group">
     <div class="spacing-below-5">
       <h2 class="text--body text--bold spacing-below-5"><%=t(".estimated_tax_payments") %></h2>
       <p><%= number_to_currency(current_intake.estimated_tax_payments || 0, precision: 0) %></p>
-      <%= link_to t("general.edit"), StateFile::Questions::NjEstimatedTaxPaymentsController.to_path_helper(return_to_review: "y"), class: "button--small" %>
+      <%= link_to StateFile::Questions::NjEstimatedTaxPaymentsController.to_path_helper(return_to_review: "y"), class: "button--small" do %>
+          <%= t("general.edit") %>
+          <span class="sr-only"><%= t(".estimated_tax_payments") %></span>
+        <% end %>
     </div>
   </div>
 
@@ -163,7 +155,27 @@
         <p class="text--bold spacing-below-5"><%=t(".amount") %></p>
         <p><%=number_to_currency(current_intake.sales_use_tax, precision: 0)%></p>
       <% end %>
-      <%= link_to t("general.edit"), StateFile::Questions::NjSalesUseTaxController.to_path_helper(return_to_review: "y"), class: "button--small" %>
+      <%= link_to StateFile::Questions::NjSalesUseTaxController.to_path_helper(return_to_review: "y"), class: "button--small" do %>
+          <%= t("general.edit") %>
+          <span class="sr-only"><%= t(".use_tax_applied") %></span>
+        <% end %>
+    </div>
+  </div>
+
+  <div class="white-group">
+    <div class="spacing-below-5">
+      <h2 class="text--body text--bold spacing-below-5"><%=t(".primary_gubernatorial") %></h2>
+      <p><%=current_intake.primary_contribution_gubernatorial_elections %></p>
+
+      <% if current_intake.filing_status_mfj? %>
+        <h2 class="text--body text--bold spacing-below-5"><%=t(".spouse_gubernatorial") %></h2>
+        <p><%=current_intake.spouse_contribution_gubernatorial_elections %></p>
+      <% end %>
+
+      <%= link_to StateFile::Questions::NjGubernatorialElectionsController.to_path_helper(return_to_review: "y"), class: "button--small"  do%>
+        <%= t("general.edit") %>
+        <span class="sr-only"><%= t(".edit_gubernatorial") %></span>
+      <% end %>
     </div>
   </div>
 

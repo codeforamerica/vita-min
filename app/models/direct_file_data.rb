@@ -67,6 +67,8 @@ class DirectFileData < DfXmlAccessor
     spouse_date_of_death: 'IRS1040 SpouseDeathDt',
     spouse_name: 'IRS1040 SpouseNm',
     non_resident_alien: 'IRS1040 NRALiteralCd',
+    primary_over_65: 'IRS1040 Primary65OrOlderInd',
+    spouse_over_65: 'IRS1040 Spouse65OrOlderInd',
     primary_blind: 'IRS1040 PrimaryBlindInd',
     spouse_blind: 'IRS1040 SpouseBlindInd',
     qualifying_children_under_age_ssn_count: 'IRS1040Schedule8812 QlfyChildUnderAgeSSNCnt',
@@ -119,6 +121,14 @@ class DirectFileData < DfXmlAccessor
 
   def phone_number=(value)
     create_or_destroy_df_xml_node(__method__, value, after="Filer USAddress")
+    write_df_xml_value(__method__, value)
+  end
+
+  def cell_phone_number=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def tax_payer_email=(value)
     write_df_xml_value(__method__, value)
   end
 
@@ -209,6 +219,10 @@ class DirectFileData < DfXmlAccessor
   end
 
   def fed_agi=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def total_itemized_or_standard_deduction_amount=(value)
     write_df_xml_value(__method__, value)
   end
 
@@ -543,14 +557,22 @@ class DirectFileData < DfXmlAccessor
     write_df_xml_value(__method__, value)
   end
 
-  def set_primary_blind
-    create_or_destroy_df_xml_node(:primary_blind, true, 'VirtualCurAcquiredDurTYInd')
-    write_df_xml_value(:primary_blind, 'X')
+  def primary_over_65=(value)
+    write_df_xml_value(__method__, value)
   end
 
-  def set_spouse_blind
-    create_or_destroy_df_xml_node(:spouse_blind, true, 'VirtualCurAcquiredDurTYInd')
-    write_df_xml_value(:spouse_blind, 'X')
+  def spouse_over_65=(value)
+    write_df_xml_value(__method__, value)
+  end
+
+  def primary_blind=(value)
+    create_or_destroy_df_xml_node(__method__, true, 'VirtualCurAcquiredDurTYInd')
+    write_df_xml_value(__method__, value)
+  end
+
+  def spouse_blind=(value)
+    create_or_destroy_df_xml_node(__method__, true, 'VirtualCurAcquiredDurTYInd')
+    write_df_xml_value(__method__, value)
   end
 
   def is_primary_blind?

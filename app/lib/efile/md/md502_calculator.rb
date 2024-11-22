@@ -54,12 +54,10 @@ module Efile
         set_line(:MD502_LINE_6, :calculate_line_6)
         set_line(:MD502_LINE_7, :calculate_line_7)
 
-        # MD502SU Subtractions
-        @md502_su.calculate
-        set_line(:MD502_LINE_13, :calculate_line_13)
-
         # Subtractions
         set_line(:MD502_LINE_10A, :calculate_line_10a) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
+        @md502_su.calculate
+        set_line(:MD502_LINE_13, :calculate_line_13)
         # lines 15 and 16 depend on lines 8-14
         set_line(:MD502_LINE_15, :calculate_line_15)
         set_line(:MD502_LINE_16, :calculate_line_16)
@@ -71,7 +69,6 @@ module Efile
         set_line(:MD502_LINE_19, :calculate_line_19)
         set_line(:MD502_LINE_20, :calculate_line_20)
         set_line(:MD502_LINE_21, :calculate_line_21)
-        @md502cr.calculate
 
         # EIC
         set_line(:MD502_LINE_22, :calculate_line_22)
@@ -82,6 +79,7 @@ module Efile
         set_line(:MD502_LINE_26, :calculate_line_26)
         set_line(:MD502_LINE_27, :calculate_line_27)
         set_line(:MD502_LINE_40, :calculate_line_40)
+        @md502cr.calculate
         set_line(:MD502_LINE_43, :calculate_line_43)
         @lines.transform_values(&:value)
       end
@@ -99,6 +97,7 @@ module Efile
       end
 
       private
+
       def calculate_line_a_primary
         @direct_file_data.claimed_as_dependent? ? nil : "X"
       end

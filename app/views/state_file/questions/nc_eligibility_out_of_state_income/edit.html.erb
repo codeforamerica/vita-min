@@ -7,7 +7,7 @@
     <div class="white-group">
       <%= f.cfa_radio_set(
             :eligibility_out_of_state_income,
-            label_text: t(".out_of_state_income_html", filing_year: Rails.configuration.statefile_current_tax_year),
+            label_text: t(".out_of_state_income_html", filing_year: current_tax_year),
             collection: [
               { value: "yes", label: t("general.affirmative") },
               { value: "no", label: t("general.negative") },
@@ -18,7 +18,7 @@
     <div class="white-group">
       <%= f.cfa_radio_set(
             :eligibility_withdrew_529,
-            label_text: t(".withdraw_529_html", filing_year: Rails.configuration.statefile_current_tax_year),
+            label_text: t(".withdraw_529_html", filing_year: current_tax_year),
             collection: [
               { value: "yes", label: t("general.affirmative") },
               { value: "no", label: t("general.negative") },
