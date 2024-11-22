@@ -850,7 +850,7 @@ describe Efile::Md::Md502Calculator do
     end
     it "sums lines 8 - 14" do
       instance.calculate
-      expect(instance.lines[:MD502_LINE_15].value).to eq 30
+      expect(instance.lines[:MD502_LINE_15].value).to eq 2 + 4 + 6 + 8 + 10
     end
   end
 

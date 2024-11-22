@@ -87,13 +87,9 @@ module Efile
       end
 
       def calculate_line_3(primary_or_spouse)
-        if primary_or_spouse == :primary
-          @lines[:MD_TWO_INCOME_WK_LINE_1_A].value +
-            @lines[:MD_TWO_INCOME_WK_LINE_2_A].value
-        else
-          @lines[:MD_TWO_INCOME_WK_LINE_1_B].value +
-            @lines[:MD_TWO_INCOME_WK_LINE_2_B].value
-        end
+        filer = primary_or_spouse == :primary ? "A" : "B"
+        line_or_zero("MD_TWO_INCOME_WK_LINE_1_#{filer}") +
+          line_or_zero("MD_TWO_INCOME_WK_LINE_2_#{filer}")
       end
 
       def calculate_line_4(primary_or_spouse)
@@ -109,13 +105,9 @@ module Efile
       end
 
       def calculate_line_5(primary_or_spouse)
-        if primary_or_spouse == :primary
-          @lines[:MD_TWO_INCOME_WK_LINE_3_A].value -
-            @lines[:MD_TWO_INCOME_WK_LINE_4_A].value
-        else
-          @lines[:MD_TWO_INCOME_WK_LINE_3_B].value -
-            @lines[:MD_TWO_INCOME_WK_LINE_4_B].value
-        end
+        filer = primary_or_spouse == :primary ? "A" : "B"
+        line_or_zero("MD_TWO_INCOME_WK_LINE_3_#{filer}") -
+          line_or_zero("MD_TWO_INCOME_WK_LINE_4_#{filer}")
       end
 
       def calculate_line_6

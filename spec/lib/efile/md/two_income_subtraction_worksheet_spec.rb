@@ -171,8 +171,8 @@ describe Efile::Md::TwoIncomeSubtractionWorksheet do
         end
         instance.calculate
 
-        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_1_A].value).to eq(90)
-        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_1_B].value).to eq(180)
+        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_1_A].value).to eq(100 - 10)
+        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_1_B].value).to eq(200 - 20)
       end
 
       it "calculates a negative fed agi for primary and spouse" do
@@ -194,8 +194,8 @@ describe Efile::Md::TwoIncomeSubtractionWorksheet do
         end
         instance.calculate
 
-        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_1_A].value).to eq(-10)
-        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_1_B].value).to eq(-20)
+        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_1_A].value).to eq(100 - 110)
+        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_1_B].value).to eq(200 - 220)
       end
 
       it "calculates a 0 fed agi for primary and spouse" do
@@ -266,8 +266,8 @@ describe Efile::Md::TwoIncomeSubtractionWorksheet do
         end
         instance.calculate
 
-        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_3_A].value).to eq(110)
-        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_3_B].value).to eq(220)
+        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_3_A].value).to eq(100 + 10)
+        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_3_B].value).to eq(200 + 20)
       end
 
       it "calculates a negative amount for primary and spouse" do
@@ -289,8 +289,8 @@ describe Efile::Md::TwoIncomeSubtractionWorksheet do
         end
         instance.calculate
 
-        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_3_A].value).to eq(-90)
-        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_3_B].value).to eq(-180)
+        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_3_A].value).to eq(-100 + 10)
+        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_3_B].value).to eq(-200 + 20)
       end
 
       it "calculates a 0 for primary and spouse" do
@@ -312,8 +312,8 @@ describe Efile::Md::TwoIncomeSubtractionWorksheet do
         end
         instance.calculate
 
-        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_3_A].value).to eq(0)
-        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_3_B].value).to eq(0)
+        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_3_A].value).to eq(-100 + 100)
+        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_3_B].value).to eq(-200 + 200)
       end
     end
   end
@@ -361,8 +361,8 @@ describe Efile::Md::TwoIncomeSubtractionWorksheet do
         end
         instance.calculate
 
-        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_5_A].value).to eq(90)
-        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_5_B].value).to eq(180)
+        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_5_A].value).to eq(100 - 10)
+        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_5_B].value).to eq(200 - 20)
       end
 
       it "calculates a negative amount for primary and spouse" do
@@ -384,8 +384,8 @@ describe Efile::Md::TwoIncomeSubtractionWorksheet do
         end
         instance.calculate
 
-        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_5_A].value).to eq(-10)
-        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_5_B].value).to eq(-20)
+        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_5_A].value).to eq(100 - 110)
+        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_5_B].value).to eq(200 - 220)
       end
 
       it "calculates a 0 for primary and spouse" do
