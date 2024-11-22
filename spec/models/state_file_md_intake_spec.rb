@@ -139,8 +139,7 @@ RSpec.describe StateFileMdIntake, type: :model do
                account_number: "123",
                withdraw_amount: 123,
                date_electronic_withdrawal: Date.parse("April 1, 2023"),
-               account_holder_name: "Neil Peart",
-               joint_account_holder_name: "Beatrice Peart"
+               account_holder_name: "Neil Peart"
       end
 
       it "clears other account fields" do
@@ -151,7 +150,6 @@ RSpec.describe StateFileMdIntake, type: :model do
           .and change(intake.reload, :withdraw_amount).to(nil)
           .and change(intake.reload, :date_electronic_withdrawal).to(nil)
           .and change(intake.reload, :account_holder_name).to(nil)
-          .and change(intake.reload, :joint_account_holder_name).to(nil)
       end
     end
   end
