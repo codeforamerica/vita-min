@@ -65,7 +65,7 @@
               <% end %>
             <% else %>
               <div class="white-group spacing-below-60">
-                <%= t(".#{@state_code}.help_text_html", default: t(".help_text_html")) %>
+                <%= t(".#{@state_code}.help_text_html", default: t(".help_text_html"), filing_year: current_tax_year) %>
               </div>
               <%= form_with model: @form, url: { action: :update }, local: true, method: :put, builder: VitaMinFormBuilder do |f| %>
                 <%= f.submit t("general.get_started"), class: "button button--primary button--wide", id: "firstCta" %>

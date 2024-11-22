@@ -89,7 +89,7 @@ RSpec.describe PdfFiller::Nj2450Pdf do
       
       it "enters the date" do
         Timecop.freeze(fake_time) do
-          expect(pdf_fields["Date"]).to eq "2/6/2023"
+          expect(pdf_fields["Date"]).to eq "2/6/#{MultiTenantService.statefile.current_tax_year}"
         end
       end
 

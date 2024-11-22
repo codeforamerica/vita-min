@@ -714,6 +714,16 @@ NJ1040_LINE_7_SELF:
   label: '7 Primary Senior 65+ Exemption'
 NJ1040_LINE_7_SPOUSE:
   label: '7 Spouse Senior 65+ Exemption'
+NJ1040_LINE_10_COUNT:
+  label: 'Number of Qualified Dependent Children'
+NJ1040_LINE_10_EXEMPTION:
+  label: 'Exemption amount from Qualified Dependent Children'
+NJ1040_LINE_11_COUNT:
+  label: 'Number of Other Dependents'
+NJ1040_LINE_11_EXEMPTION:
+  label: 'Exemption amount from Other Dependents'
+NJ1040_LINE_12_COUNT:
+  label: 'Dependents Attending Colleges (See instructions)'
 NJ1040_LINE_13:
   label: '13 Total Exemption Amount (Add totals from the lines at 6 through 12)'
 NJ1040_LINE_15:

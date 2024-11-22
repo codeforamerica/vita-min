@@ -42,5 +42,99 @@
     </div>
   <% end %>
 
+  <div id="details" class="reveal">
+    <p><button class="reveal__button"><%= t("state_file.general.see_detailed_return") %></button></p>
+    <div class="reveal__content">
+      <div class="spacing-below-25 with-top-separator">
+        <p class="text--bold spacing-below-5"><%= t("state_file.general.id_fed_agi") %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:ID40_LINE_7)) %></p>
+      </div>
+
+      <div class="spacing-below-25">
+        <p class="text--bold spacing-below-5"><%= t("state_file.general.id_child_care_expenses") %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:ID39R_B_LINE_6)) %></p>
+      </div>
+
+      <div class="spacing-below-25">
+        <p class="text--bold spacing-below-5"><%= t("state_file.general.id_health_insurance") %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:ID39R_B_LINE_18)) %></p>
+      </div>
+
+      <div class="spacing-below-25">
+        <p class="text--bold spacing-below-5"><%= t("state_file.general.id_social_security_income") %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:ID39R_B_LINE_7)) %></p>
+      </div>
+
+      <div class="spacing-below-25">
+        <p class="text--bold spacing-below-5"><%= t("state_file.general.id_retirement_benefits") %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:ID39R_B_LINE_8f)) %></p>
+      </div>
+
+      <div class="spacing-below-25">
+        <p class="text--bold spacing-below-5"><%= t("state_file.general.id_interest_income") %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:ID39R_B_LINE_3)) %></p>
+      </div>
+
+      <div class="spacing-below-25">
+        <p class="text--bold spacing-below-5"><%= t("state_file.general.id_adjusted_income") %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:ID40_LINE_11)) %></p>
+      </div>
+
+      <div class="spacing-below-25">
+        <p class="text--bold spacing-below-5"><%= t("state_file.general.id_standard_deduction") %></p>
+<!--        <p><%#= number_to_currency(current_intake.calculator.line_or_zero(:ID40_LINE_16)) %></p>-->
+        WIP
+      </div>
+
+      <div class="spacing-below-25">
+        <p class="text--bold spacing-below-5"><%= t("state_file.general.id_taxable_income") %></p>
+<!--        <p><%#= number_to_currency(current_intake.calculator.line_or_zero(:ID40_LINE_19)) %></p>-->
+        WIP
+      </div>
+
+      <div class="spacing-below-25">
+        <p class="text--bold spacing-below-5"><%= t("state_file.general.id_tax") %></p>
+<!--        <p><%#= number_to_currency(current_intake.calculator.line_or_zero(:ID40_LINE_20)) %></p>-->
+        WIP
+      </div>
+
+      <div class="spacing-below-25">
+        <p class="text--bold spacing-below-5"><%= t("state_file.general.id_child_tax_credit") %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:ID40_LINE_25)) %></p>
+      </div>
+
+      <div class="spacing-below-25">
+        <p class="text--bold spacing-below-5"><%= t("state_file.general.id_use_tax") %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:ID40_LINE_29)) %></p>
+      </div>
+
+      <div class="spacing-below-25">
+        <p class="text--bold spacing-below-5"><%= t("state_file.general.id_building_fund_tax") %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:ID40_LINE_32A)) %></p>
+      </div>
+
+      <div class="spacing-below-25">
+        <p class="text--bold spacing-below-5"><%= t("state_file.general.id_tax_after_credits") %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:ID40_LINE_33)) %></p>
+      </div>
+
+      <div class="spacing-below-25">
+        <p class="text--bold spacing-below-5"><%= t("state_file.general.id_tax_withheld") %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:ID40_LINE_46)) %></p>
+      </div>
+
+      <div class="spacing-below-25">
+        <p class="text--bold spacing-below-5"><%= t("state_file.general.id_grocery_credit") %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:ID40_LINE_43)) %></p>
+      </div>
+
+      <div class="spacing-below-25">
+        <p class="text--bold spacing-below-5"><%= t("state_file.general.id_total_payments") %></p>
+<!--        <p><%#= number_to_currency(current_intake.calculator.line_or_zero(:ID40_LINE_50)) %></p>-->
+        WIP
+      </div>
+    </div>
+  </div>
+
   <%= render "state_file/questions/shared/review_footer" %>
 <% end %>

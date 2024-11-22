@@ -240,6 +240,32 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
       end
     end
 
+    describe "qualified dependent children and other dependents" do
+      context 'when 1 qualified child and 1 other dependent' do
+        let(:intake) { create(:state_file_nj_intake, :df_data_two_deps) }
+        it "sets NumOfQualiDependChild and NumOfOtherDepend to 1" do
+          expect(xml.document.at('NumOfQualiDependChild').text).to eq "1"
+          expect(xml.document.at('NumOfOtherDepend').text).to eq "1"
+        end
+      end
+  
+      context 'when 10 qualified children and 1 other dependent' do
+        let(:intake) { create(:state_file_nj_intake, :df_data_many_deps) }
+        it "sets NumOfQualiDependChild to 10 and NumOfOtherDepend to 1" do
+          expect(xml.document.at('NumOfQualiDependChild').text).to eq "10"
+          expect(xml.document.at('NumOfOtherDepend').text).to eq "1"
+        end
+      end
+  
+      context 'when 0 qualified child and 0 other dependent' do
+        let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
+        it "leaves NumOfQualiDependChild and NumOfOtherDepend blank" do
+          expect(xml.document.at('NumOfQualiDependChild')).to eq nil
+          expect(xml.document.at('NumOfOtherDepend')).to eq nil
+        end
+      end
+    end
+
     describe 'dependents' do
       context 'when no dependents' do
         let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
@@ -312,14 +338,40 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
       end
     end
 
+    describe "dependents attending college - line 12" do
+      context 'when has dependents in college' do
+        let(:intake) { create(:state_file_nj_intake, :two_dependents_in_college) }
+        it 'sets DependAttendCollege to count 2' do
+          expect(xml.at("Exemptions DependAttendCollege").text).to eq("2")
+        end
+      end
+
+      context 'when does not have dependents in college' do
+        let(:intake) { create(:state_file_nj_intake) }
+        it 'does not fill DependAttendCollege' do
+          expect(xml.at("Exemptions DependAttendCollege")).to eq(nil)
+        end
+      end
+    end
+
     describe "total exemption - lines 13 and 30" do
-      let(:intake) { create(:state_file_nj_intake, :primary_over_65, :primary_blind, :primary_veteran) }
-      it "totals lines 6-9 and stores the result in both TotalExemptionAmountA and TotalExemptionAmountB" do
+      let(:intake) { create(:state_file_nj_intake, :primary_over_65, :primary_blind, :primary_veteran, :two_dependents_in_college) }
+      it "totals lines 6-12 and stores the result in both TotalExemptionAmountA and TotalExemptionAmountB" do
         line_6_single_filer = 1_000
         line_7_over_65 = 1_000
         line_8_blind = 1_000
         line_9_veteran = 6_000
-        expected_sum = line_6_single_filer + line_7_over_65 + line_8_blind + line_9_veteran
+        line_10_qualified_children = 1_500
+        line_11_other_dependents = 1_500
+        line_12_dependents_attending_college = 2_000
+        expected_sum =
+          line_6_single_filer +
+          line_7_over_65 +
+          line_8_blind +
+          line_9_veteran +
+          line_10_qualified_children +
+          line_11_other_dependents +
+          line_12_dependents_attending_college
         expect(xml.at("Exemptions TotalExemptionAmountA").text).to eq(expected_sum.to_s)
         expect(xml.at("Body TotalExemptionAmountB").text).to eq(expected_sum.to_s)
       end
@@ -428,13 +480,21 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
     end
 
     describe "total exemptions and deductions - line 38" do
-      let(:intake) { create(:state_file_nj_intake, :primary_over_65, :primary_blind, :primary_veteran) }
+      let(:intake) { create(:state_file_nj_intake, :df_data_many_deps, :primary_over_65, :primary_blind, :primary_veteran) }
       it "fills TotalExemptDeductions with total exemptions and deductions" do
         line_6_single_filer = 1_000
         line_7_over_65 = 1_000
         line_8_blind = 1_000
         line_9_veteran = 6_000
-        expected_sum = line_6_single_filer + line_7_over_65 + line_8_blind + line_9_veteran
+        line_10_qualified_children = 15_000
+        line_11_other_dependents = 1_500
+        expected_sum =
+          line_6_single_filer +
+          line_7_over_65 +
+          line_8_blind +
+          line_9_veteran +
+          line_10_qualified_children +
+          line_11_other_dependents
         expect(xml.at("TotalExemptDeductions").text).to eq(expected_sum.to_s)
       end
     end
@@ -446,8 +506,17 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
         line_7_not_over_65 = 0
         line_8_not_blind = 0
         line_9_not_veteran = 0
+        line_10_qualified_children = 0
+        line_11_other_dependents = 1_500
+        exceptions =
+          line_6_single_filer +
+          line_7_not_over_65 +
+          line_8_not_blind +
+          line_9_not_veteran +
+          line_10_qualified_children +
+          line_11_other_dependents
         allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_15).and_return expected_line_15_w2_wages
-        expected_total = expected_line_15_w2_wages - (line_6_single_filer + line_7_not_over_65 + line_8_not_blind + line_9_not_veteran)
+        expected_total = expected_line_15_w2_wages - exceptions
         expect(xml.at("TaxableIncome").text).to eq(expected_total.to_s)
       end
     end
@@ -568,7 +637,17 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
         line_6_single_filer = 1_000
         line_7_not_over_65 = 0
         line_8_not_blind = 0
-        expected_total = expected_line_15_w2_wages - (line_6_single_filer + line_7_not_over_65 + line_8_not_blind)
+        line_9_not_veteran = 0
+        line_10_qualified_children = 0
+        line_11_other_dependents = 1_500
+        exceptions =
+          line_6_single_filer +
+          line_7_not_over_65 +
+          line_8_not_blind +
+          line_9_not_veteran +
+          line_10_qualified_children +
+          line_11_other_dependents
+        expected_total = expected_line_15_w2_wages - exceptions
         allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_15).and_return expected_line_15_w2_wages
         expect(xml.at("NewJerseyTaxableIncome").text).to eq(expected_total.to_s)
       end
@@ -749,6 +828,30 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
           allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_65).and_return 600
           expect(xml.at("Body NJChildTCNumOfDep").text).to eq(1.to_s)
           expect(xml.at("Body NJChildTaxCredit").text).to eq(600.to_s)
+        end
+      end
+    end
+
+    describe "gubernatorial elections fund" do
+      [
+        { filing_status: :single, primary_contribution_gubernatorial_elections: :no, spouse_contribution_gubernatorial_elections: :no, expected_primary: nil, expected_spouse: nil },
+        { filing_status: :single, primary_contribution_gubernatorial_elections: :yes, spouse_contribution_gubernatorial_elections: :no, expected_primary: 'X', expected_spouse: nil },
+        { filing_status: :married_filing_jointly, primary_contribution_gubernatorial_elections: :no, spouse_contribution_gubernatorial_elections: :yes, expected_primary: nil, expected_spouse: 'X' },
+        { filing_status: :married_filing_jointly, primary_contribution_gubernatorial_elections: :yes, spouse_contribution_gubernatorial_elections: :no, expected_primary: 'X', expected_spouse: nil },
+      ].each do |test_case|
+        context "when #{test_case}" do 
+          let(:intake) { 
+            create(:state_file_nj_intake,
+              filing_status: test_case[:filing_status],
+              primary_contribution_gubernatorial_elections: test_case[:primary_contribution_gubernatorial_elections],
+              spouse_contribution_gubernatorial_elections: test_case[:spouse_contribution_gubernatorial_elections]
+            )
+          }
+
+          it "returns #{test_case[:expected]}" do
+            expect(xml.at("Body PrimGubernElectFund")&.text).to eq(test_case[:expected_primary])
+            expect(xml.at("Body SpouCuPartPrimGubernElectFund")&.text).to eq(test_case[:expected_spouse])
+          end
         end
       end
     end

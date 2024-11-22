@@ -9,7 +9,7 @@ shared_examples :persona do
     generated_pdf = efile_submission.generate_filing_pdf
     generated_pdf_hash = PdfForms.new.get_fields(generated_pdf).to_h { |field| [field.name, field.value] }
 
-    approved_pdf_path = "#{approved_output_path}/#{tax_year}/#{state_code}/#{persona_name}_return.pdf"
+    approved_pdf_path = "#{approved_output_path}/#{state_code}/#{persona_name}_return.pdf"
     approved_pdf_hash = PdfForms.new.get_fields(File.open(approved_pdf_path)).to_h { |field| [field.name, field.value] }
 
     expect(generated_pdf_hash).to match(approved_pdf_hash)
@@ -22,7 +22,7 @@ shared_examples :persona do
     response = SubmissionBundle.new(efile_submission).build
     expect(response.valid?).to be(true), response.errors.join("\n")
 
-    approved_submission_bundle_path = "#{approved_output_path}/#{tax_year}/#{state_code}/#{persona_name}_return_xmls"
+    approved_submission_bundle_path = "#{approved_output_path}/#{state_code}/#{persona_name}_return_xmls"
     efile_submission.submission_bundle.open do |submission_bundle|
       Zip::File.open(submission_bundle.path) do |zipfile|
 

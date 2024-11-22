@@ -1,8 +1,8 @@
-<% content_for :page_title, t(".title", filing_year: @filing_year)  %>
+<% content_for :page_title, t(".title", filing_year: current_tax_year)  %>
 
 
 <% content_for :card do %>
-  <h1 class="h2"><%= t(".title_html", filing_year: @filing_year) %></h1>
+  <h1 class="h2"><%= t(".title_html", filing_year: current_tax_year) %></h1>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="white-group">

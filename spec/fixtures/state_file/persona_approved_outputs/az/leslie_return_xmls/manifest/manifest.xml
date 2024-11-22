@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StateSubmissionManifest xmlns:efile="http://www.irs.gov/efile" xmlns="http://www.irs.gov/efile">
+  <SubmissionId>1234562024321a876xk1</SubmissionId>
+  <EFIN>123456</EFIN>
+  <TaxYr>2024</TaxYr>
+  <GovernmentCd>AZST</GovernmentCd>
+  <StateSubmissionTyp>Form140</StateSubmissionTyp>
+  <SubmissionCategoryCd>IND</SubmissionCategoryCd>
+  <PrimarySSN>400000007</PrimarySSN>
+  <PrimaryNameControlTxt>KNOP</PrimaryNameControlTxt>
+  <IRSSubmissionId>1016422024018atw000x</IRSSubmissionId>
+</StateSubmissionManifest>
