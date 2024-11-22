@@ -17,7 +17,7 @@
 #
 FactoryBot.define do
   factory :az321_contribution do
-    date_of_contribution { Date.new(2023, 6, 4) }
+    date_of_contribution { Date.new(Rails.configuration.statefile_current_tax_year, 6, 4) }
     charity_code { 22541 }
     charity_name { "Center for Ants" }
     amount { 532.57 }
