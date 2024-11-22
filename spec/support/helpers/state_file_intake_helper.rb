@@ -6,49 +6,48 @@ module StateFileIntakeHelper
   def step_through_eligibility_screener(us_state:)
     case us_state
     when "ny"
-      expect(page).to have_text I18n.t("state_file.questions.#{us_state}_eligibility_residence.edit.title")
+      expect(page).to have_text I18n.t("state_file.questions.ny_eligibility_residence.edit.title")
       choose "state_file_ny_eligibility_residence_form_eligibility_lived_in_state_yes"
       choose "state_file_ny_eligibility_residence_form_eligibility_yonkers_no"
-      click_on "Continue"
+      click_on I18n.t("general.continue")
 
       choose "state_file_ny_eligibility_out_of_state_income_form_eligibility_out_of_state_income_no"
       choose "state_file_ny_eligibility_out_of_state_income_form_eligibility_part_year_nyc_resident_no"
-      click_on "Continue"
+      click_on I18n.t("general.continue")
 
       expect(page).to have_text "In #{filing_year}, did you contribute to a 529 college savings account, or did you withdraw funds from a 529 account and use them for non-qualified expenses?"
       choose "state_file_ny_eligibility_college_savings_withdrawal_form_eligibility_withdrew_529_no"
       click_on I18n.t("general.continue")
     when "az"
-      expect(page).to have_text I18n.t("state_file.questions.#{us_state}_eligibility_residence.edit.title")
+      expect(page).to have_text I18n.t("state_file.questions.az_eligibility_residence.edit.title")
       choose "state_file_az_eligibility_residence_form_eligibility_lived_in_state_yes"
       choose "state_file_az_eligibility_residence_form_eligibility_married_filing_separately_no"
-      click_on "Continue"
+      click_on I18n.t("general.continue")
 
       choose "state_file_az_eligibility_out_of_state_income_form_eligibility_out_of_state_income_no"
       choose "state_file_az_eligibility_out_of_state_income_form_eligibility_529_for_non_qual_expense_no"
       click_on I18n.t("general.continue")
     when "id"
-      filing_year = MultiTenantService.statefile.current_tax_year
-      expect(page).to have_text I18n.t("state_file.questions.#{us_state}_eligibility_residence.edit.title", filing_year: filing_year)
-      expect(page).to have_text I18n.t("state_file.questions.id_eligibility_residence.edit.emergency_rental_assistance")
+      expect(page).to have_text I18n.t("state_file.questions.id_eligibility_residence.edit.title", filing_year: filing_year)
+      expect(page).to have_text I18n.t("state_file.questions.id_eligibility_residence.edit.emergency_rental_assistance", filing_year: filing_year)
       expect(page).to have_text I18n.t("state_file.questions.id_eligibility_residence.edit.withdrew_msa_fthb", filing_year: filing_year)
 
       find_by_id('state_file_id_eligibility_residence_form_eligibility_withdrew_msa_fthb_no').click
       find_by_id('state_file_id_eligibility_residence_form_eligibility_emergency_rental_assistance_no').click
       click_on I18n.t("general.continue")
     when "md"
-      expect(page).to have_text I18n.t("state_file.questions.md_eligibility_filing_status.edit.title", year: MultiTenantService.statefile.current_tax_year)
-      click_on "Continue"
+      expect(page).to have_text I18n.t("state_file.questions.md_eligibility_filing_status.edit.title", year: filing_year)
+      click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t("state_file.questions.md_eligibility_filing_status.edit.title", year: MultiTenantService.statefile.current_tax_year)
+      expect(page).to have_text I18n.t("state_file.questions.md_eligibility_filing_status.edit.title", year: filing_year)
       choose I18n.t("general.affirmative"), id: "state_file_md_eligibility_filing_status_form_eligibility_filing_status_mfj_yes"
       choose I18n.t("general.negative"), id: "state_file_md_eligibility_filing_status_form_eligibility_homebuyer_withdrawal_mfj_no"
       choose I18n.t("general.negative"), id: "state_file_md_eligibility_filing_status_form_eligibility_home_different_areas_no"
       click_on I18n.t("general.continue")
     when "nc"
-      expect(page).to have_text I18n.t("state_file.questions.#{us_state}_eligibility_residence.edit.title")
+      expect(page).to have_text I18n.t("state_file.questions.nc_eligibility_residence.edit.title")
       choose "state_file_nc_eligibility_residence_form_eligibility_lived_in_state_yes"
-      click_on "Continue"
+      click_on I18n.t("general.continue")
 
       choose "state_file_nc_eligibility_out_of_state_income_form_eligibility_out_of_state_income_no"
       choose "state_file_nc_eligibility_out_of_state_income_form_eligibility_withdrew_529_no"
@@ -58,8 +57,7 @@ module StateFileIntakeHelper
     end
 
     unless us_state == "nj"
-      long_state_name = StateFile::StateInformationService.state_name(us_state)
-      expect(page).to have_text I18n.t("state_file.questions.eligible.edit.title1", year: MultiTenantService.statefile.current_tax_year, state: long_state_name)
+      expect(page).to have_text I18n.t("state_file.questions.eligible.edit.title1", year: filing_year, state: StateFile::StateInformationService.state_name(us_state))
       click_on "Continue"
     end
   end
