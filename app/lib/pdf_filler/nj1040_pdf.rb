@@ -118,6 +118,17 @@ module PdfFiller
                                                  ]))
       end
 
+      # line 12
+      if @xml_document.at("Exemptions DependAttendCollege")
+        count = @xml_document.at("Exemptions DependAttendCollege").text.to_i
+        digits = count.digits
+        answers[:undefined_14] = digits[0]
+        answers[:'x  1000_4'] = count * 1_000
+        if digits.length.positive?
+          answers[:Text49] = digits[1]
+        end
+      end
+
       # line 13
       if @xml_document.at("Body TotalExemptionAmountB")
         total_exemptions = @xml_document.at("Body TotalExemptionAmountB").text.to_i
