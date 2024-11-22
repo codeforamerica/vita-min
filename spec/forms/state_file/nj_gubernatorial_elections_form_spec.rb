@@ -6,13 +6,38 @@ RSpec.describe StateFile::NjGubernatorialElectionsForm do
   describe "validations" do
     let(:form) { described_class.new(intake, invalid_params) }
 
-    context "invalid params" do
+    context "single invalid params" do
       context "all fields are required" do
-        let(:invalid_params) { :primary_contribution_gubernatorial_elections => nil }
+        let(:invalid_params) do
+          {
+            :primary_contribution_gubernatorial_elections => nil,
+            :spouse_contribution_gubernatorial_elections => nil, 
+          }
+        end
 
         it "is invalid" do
           expect(form.valid?).to eq false
           expect(form.errors[:primary_contribution_gubernatorial_elections]).to include "Can't be blank."
+          expect(form.errors[:spouse_contribution_gubernatorial_elections].length).to be 0 
+        end
+      end
+    end
+
+    context "mfj invalid params" do
+      let(:intake) { create :state_file_nj_intake, :married_filing_jointly }
+
+      context "all fields are required" do
+        let(:invalid_params) do
+          {
+            :primary_contribution_gubernatorial_elections => nil,
+            :spouse_contribution_gubernatorial_elections => nil, 
+          }
+        end
+
+        it "is invalid" do
+          expect(form.valid?).to eq false
+          expect(form.errors[:primary_contribution_gubernatorial_elections]).to include "Can't be blank."
+          expect(form.errors[:spouse_contribution_gubernatorial_elections]).to include "Can't be blank."
         end
       end
     end
@@ -23,7 +48,7 @@ RSpec.describe StateFile::NjGubernatorialElectionsForm do
       create :state_file_nj_intake,
       :married_filing_jointly,
       primary_contribution_gubernatorial_elections: 'no',
-      spouse_contribution_gubernatorial_elections: 'yes'
+      spouse_contribution_gubernatorial_elections: 'no'
     }
     let(:form) { described_class.new(intake, valid_params) }
 
