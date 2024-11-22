@@ -67,6 +67,7 @@ describe 'EfileError' do
       "initiate-data-transfer",
       "md-county",
       "md-eligibility-filing-status",
+      "md-had-health-insurance",
       "md-permanent-address",
       "md-review",
       "md-tax-refund",

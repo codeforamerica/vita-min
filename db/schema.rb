@@ -1782,6 +1782,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_19_203800) do
     t.bigint "intake_id", null: false
     t.string "intake_type", null: false
     t.string "last_name"
+    t.integer "md_did_not_have_health_insurance", default: 0, null: false
     t.string "middle_initial"
     t.integer "months_in_home"
     t.integer "needed_assistance", default: 0, null: false
@@ -1897,6 +1898,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_19_203800) do
     t.string "account_holder_name"
     t.string "account_number"
     t.integer "account_type", default: 0, null: false
+    t.integer "authorize_sharing_of_health_insurance_info", default: 0, null: false
     t.string "bank_name"
     t.string "city"
     t.integer "confirmed_permanent_address", default: 0, null: false
@@ -1921,6 +1923,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_19_203800) do
     t.integer "failed_attempts", default: 0, null: false
     t.string "federal_return_status"
     t.string "federal_submission_id"
+    t.integer "had_hh_member_without_health_insurance", default: 0, null: false
     t.string "hashed_ssn"
     t.datetime "last_sign_in_at"
     t.inet "last_sign_in_ip"
@@ -1937,6 +1940,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_19_203800) do
     t.datetime "phone_number_verified_at"
     t.string "political_subdivision"
     t.date "primary_birth_date"
+    t.integer "primary_did_not_have_health_insurance", default: 0, null: false
     t.integer "primary_esigned", default: 0, null: false
     t.datetime "primary_esigned_at"
     t.string "primary_first_name"
@@ -1956,6 +1960,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_19_203800) do
     t.integer "sign_in_count", default: 0, null: false
     t.string "source"
     t.date "spouse_birth_date"
+    t.integer "spouse_did_not_have_health_insurance", default: 0, null: false
     t.integer "spouse_esigned", default: 0, null: false
     t.datetime "spouse_esigned_at"
     t.string "spouse_first_name"

@@ -13,6 +13,7 @@
 #  id_months_ineligible_for_grocery_credit :integer
 #  intake_type                             :string           not null
 #  last_name                               :string
+#  md_did_not_have_health_insurance        :integer          default("unfilled"), not null
 #  middle_initial                          :string
 #  months_in_home                          :integer
 #  needed_assistance                       :integer          default("unfilled"), not null
