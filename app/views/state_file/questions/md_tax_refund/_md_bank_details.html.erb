@@ -45,7 +45,7 @@
             :account_holder_suffix,
             t(".suffix"),
             suffix_options_for_state_select,
-            prompt: t('general.select_prompt'), include_blank: true) %>
+            prompt: t('general.select_prompt')) %>
       <div class="question-with-follow-up__follow-up same-card-as-question" id="joint-account-holder-questions">
         <p><%= t('.joint_account_holder_name') %></p>
         <%= form.cfa_input_field :joint_account_holder_first_name, "First Name", classes: ["form-width--long"] %>
@@ -55,7 +55,7 @@
               :joint_account_holder_suffix,
               t(".suffix"),
               suffix_options_for_state_select,
-              prompt: t('general.select_prompt'), include_blank: true) %>
+              prompt: t('general.select_prompt')) %>
       </div>
     </div>
     <%= form.cfa_input_field(:routing_number, t("state_file.questions.tax_refund.bank_details.routing_number"), classes: ["form-width--long", "disablecopy"]) %>
