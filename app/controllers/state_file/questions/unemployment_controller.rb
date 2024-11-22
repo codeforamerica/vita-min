@@ -35,12 +35,20 @@ module StateFile
 
         if @state_file1099_g.had_box_11_no?
           @state_file1099_g.destroy
-          return redirect_to action: :index, return_to_review: params[:return_to_review]
+          if params[:return_to_review].present?
+            redirect_to questions_income_review_path(return_to_review: params[:return_to_review])
+          else
+            return redirect_to action: :index, return_to_review: params[:return_to_review]
+          end
         end
 
         if @state_file1099_g.valid?
           @state_file1099_g.save
-          redirect_to action: :index, return_to_review: params[:return_to_review]
+          if params[:return_to_review].present?
+            redirect_to questions_income_review_path(return_to_review: params[:return_to_review])
+          else
+            return redirect_to action: :index, return_to_review: params[:return_to_review]
+          end
         else
           render :edit
         end
