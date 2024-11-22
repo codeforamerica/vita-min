@@ -1078,9 +1078,40 @@ describe Efile::Nj::Nj1040Calculator do
   end
 
   describe 'line 42 - new jersey taxable income' do
-    let(:intake) { create(:state_file_nj_intake, :primary_over_65, :primary_blind) }
+    let(:intake) { create(:state_file_nj_intake) }
     it 'sets line 42 to line 39 (taxable income)' do
       expect(instance.lines[:NJ1040_LINE_42].value).to eq(instance.lines[:NJ1040_LINE_39].value)
+    end
+  end
+
+  describe 'line 45 - balance of tax' do
+    let(:intake) { create(:state_file_nj_intake) }
+    it 'sets line 45 to equal line 43 (tax)' do
+      expect(instance.lines[:NJ1040_LINE_45].value).to eq(instance.lines[:NJ1040_LINE_43].value)
+    end
+  end
+
+  describe 'line 49 - total credits' do
+    let(:intake) { create(:state_file_nj_intake) }
+    it 'sets line 49 to equal 0 always' do
+      expect(instance.lines[:NJ1040_LINE_49].value).to eq(0)
+    end
+  end
+
+  describe 'line 50 - balance of tax after credits' do
+    let(:intake) { create(:state_file_nj_intake) }
+    it 'sets line 50 to equal line 45 minus line 49' do
+      allow(instance).to receive(:calculate_line_45).and_return 20_000
+      allow(instance).to receive(:calculate_line_49).and_return 8_000
+      instance.calculate
+      expect(instance.lines[:NJ1040_LINE_50].value).to eq(12_000)
+    end
+
+    it 'sets line 50 to 0 if the difference is negative' do
+      allow(instance).to receive(:calculate_line_45).and_return 20_000
+      allow(instance).to receive(:calculate_line_49).and_return 30_000
+      instance.calculate
+      expect(instance.lines[:NJ1040_LINE_50].value).to eq(0)
     end
   end
 
@@ -1098,6 +1129,23 @@ describe Efile::Nj::Nj1040Calculator do
       it 'sets line 51 to 0' do
         expect(instance.lines[:NJ1040_LINE_51].value).to eq 0
       end
+    end
+  end
+
+  describe 'line 54 - total tax due' do
+    let(:intake) { create(:state_file_nj_intake) }
+    it 'sets line 54 to equal line 50 plus line 51' do
+      allow(instance).to receive(:calculate_line_50).and_return 20_000
+      allow(instance).to receive(:calculate_line_51).and_return 8_000
+      instance.calculate
+      expect(instance.lines[:NJ1040_LINE_54].value).to eq(28_000)
+    end
+
+    it 'sets line 54 to 0 if the sum is negative' do
+      allow(instance).to receive(:calculate_line_50).and_return -20_000
+      allow(instance).to receive(:calculate_line_51).and_return 10_000
+      instance.calculate
+      expect(instance.lines[:NJ1040_LINE_54].value).to eq(0)
     end
   end
 

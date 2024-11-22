@@ -1481,6 +1481,87 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       end
     end
 
+    describe "line 45 - balance of tax" do
+      let(:submission) {
+        create :efile_submission, tax_return: nil, data_source: create(
+          :state_file_nj_intake,
+          :df_data_many_w2s,
+          :married_filing_jointly,
+          household_rent_own: 'own',
+          property_tax_paid: 15_000,
+          )
+      }
+
+      it "writes rounded tax amount $7,615.10 (same as line 43)" do
+        # millions
+        expect(pdf_fields["Enter Code4332243ewR@434"]).to eq ""
+        expect(pdf_fields["4036y54ethdf!!!##\$$"]).to eq ""
+        # thousands
+        expect(pdf_fields["45"]).to eq ""
+        expect(pdf_fields["undefined_125"]).to eq ""
+        expect(pdf_fields["undefined_126"]).to eq "7"
+        # hundreds
+        expect(pdf_fields["Text99"]).to eq "6"
+        expect(pdf_fields["Text102"]).to eq "1"
+        expect(pdf_fields["Text108"]).to eq "5"
+        # decimals
+        expect(pdf_fields["Text109"]).to eq "0"
+        expect(pdf_fields["Text110"]).to eq "0"
+      end
+    end
+
+    describe "line 49 - total credits" do
+      let(:submission) {
+        create :efile_submission, tax_return: nil, data_source: create(:state_file_nj_intake,)
+      }
+
+      it "writes total credits $0" do
+
+        p pdf_fields
+
+        # thousands
+        expect(pdf_fields["48"]).to eq ""
+        expect(pdf_fields["undefined_131"]).to eq ""
+        expect(pdf_fields["undefined_132"]).to eq ""
+        # hundreds
+        expect(pdf_fields["Text121"]).to eq ""
+        expect(pdf_fields["Text122"]).to eq ""
+        expect(pdf_fields["Text123"]).to eq "0"
+        # decimals
+        expect(pdf_fields["Text124"]).to eq "0"
+        expect(pdf_fields["Text125"]).to eq "0"
+      end
+    end
+
+    describe "line 50 - balance of tax after credit" do
+      let(:submission) {
+        create :efile_submission, tax_return: nil, data_source: create(
+          :state_file_nj_intake,
+          :df_data_many_w2s,
+          :married_filing_jointly,
+          household_rent_own: 'own',
+          property_tax_paid: 15_000,
+          )
+      }
+
+      it "writes rounded tax amount $7,615.10 (same as line 45)" do
+        # millions
+        expect(pdf_fields["Enter Code4332243ew6576z66z##"]).to eq ""
+        expect(pdf_fields["4036y54ethdf(*H"]).to eq ""
+        # thousands
+        expect(pdf_fields["49"]).to eq ""
+        expect(pdf_fields["undefined_133"]).to eq ""
+        expect(pdf_fields["undefined_134"]).to eq "7"
+        # hundreds
+        expect(pdf_fields["Text126"]).to eq "6"
+        expect(pdf_fields["Text127"]).to eq "1"
+        expect(pdf_fields["Text128"]).to eq "5"
+        # decimals
+        expect(pdf_fields["Text129"]).to eq "0"
+        expect(pdf_fields["Text130"]).to eq "0"
+      end
+    end
+
     describe "line 51 - use tax" do
       let(:submission) {
         create :efile_submission, tax_return: nil, data_source: create(
@@ -1489,7 +1570,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         )
       }
 
-      it "writes $123.00 property tax credit" do
+      it "writes $123.00 use tax" do
         # thousands
         expect(pdf_fields["50"]).to eq ""
         expect(pdf_fields["50_2"]).to eq ""
@@ -1501,6 +1582,36 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         # decimals
         expect(pdf_fields["Text134"]).to eq "0"
         expect(pdf_fields["50_7"]).to eq "0"
+      end
+    end
+
+    describe "line 54 - total tax and penalty" do
+      let(:submission) {
+        create :efile_submission, tax_return: nil, data_source: create(
+          :state_file_nj_intake,
+          :df_data_many_w2s,
+          :married_filing_jointly,
+          household_rent_own: 'own',
+          property_tax_paid: 15_000,
+          sales_use_tax: 200
+        )
+      }
+
+      it "writes $7815 (line 50 $7,615 + line 51 $200)" do
+        # millions
+        expect(pdf_fields["Enter Code4332243ew^^%$#"]).to eq ""
+        expect(pdf_fields["4036y54ethdf%%^87"]).to eq ""
+        # thousands
+        expect(pdf_fields["53"]).to eq ""
+        expect(pdf_fields["undefined_141"]).to eq ""
+        expect(pdf_fields["undefined_142"]).to eq "7"
+        # hundreds
+        expect(pdf_fields["Text148"]).to eq "8"
+        expect(pdf_fields["Text149"]).to eq "1"
+        expect(pdf_fields["Text150"]).to eq "5"
+        # decimals
+        expect(pdf_fields["Text151"]).to eq "0"
+        expect(pdf_fields["Text152"]).to eq "0"
       end
     end
 

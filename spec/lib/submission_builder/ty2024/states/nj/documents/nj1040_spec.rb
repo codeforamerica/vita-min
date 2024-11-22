@@ -670,12 +670,49 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
       end
     end
 
+    describe 'line 45 - balance of tax' do
+      let(:intake) { create(:state_file_nj_intake) }
+      it 'sets line 45 to calculated value' do
+        stub_value = 20_000
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_45).and_return stub_value
+        expect(xml.at("BalanceOfTaxA").text).to eq(stub_value.to_s)
+      end
+    end
+
+    describe 'line 49 - total credits' do
+      let(:intake) { create(:state_file_nj_intake) }
+      it 'sets line 49 to calculated value' do
+        stub_value = 0
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_49).and_return stub_value
+        expect(xml.at("TotalCredits").text).to eq(stub_value.to_s)
+      end
+    end
+
+    describe 'line 50 - balance of tax after credits' do
+      let(:intake) { create(:state_file_nj_intake) }
+      it 'sets line 50 to calculated value' do
+        stub_value = 10_000
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_50).and_return stub_value
+        expect(xml.at("BalanceOfTaxAfterCredit").text).to eq(stub_value.to_s)
+      end
+    end
+
     describe "use tax - line 51" do
       let(:intake) { create(:state_file_nj_intake, sales_use_tax: 123) }
       it "fills SalesAndUseTax with sales_use_tax" do
         expect(xml.at("SalesAndUseTax").text).to eq(123.to_s)
       end
     end
+
+    describe 'line 54 - total tax due' do
+      let(:intake) { create(:state_file_nj_intake) }
+      it 'sets line 54 to calculated value' do
+        stub_value = 10_000
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_54).and_return stub_value
+        expect(xml.at("TotalTaxAndPenalty").text).to eq(stub_value.to_s)
+      end
+    end
+
 
     describe "property tax credit - line 56" do
       context 'when no property tax paid' do
