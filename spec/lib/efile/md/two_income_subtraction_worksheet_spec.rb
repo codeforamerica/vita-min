@@ -72,14 +72,11 @@ describe Efile::Md::TwoIncomeSubtractionWorksheet do
     end
 
     context "primary and spouse have only unemployment income" do
-      let!(:primary_state_file1099_g_1) { create(:state_file1099_g, intake: intake, recipient: :primary, unemployment_compensation_amount: 10) }
-      let!(:primary_state_file1099_g_2) { create(:state_file1099_g, intake: intake, recipient: :primary, unemployment_compensation_amount: 20) }
-      let!(:spouse_state_file1099_g_1) { create(:state_file1099_g, intake: intake, recipient: :spouse, unemployment_compensation_amount: 30) }
-      let!(:spouse_state_file1099_g_2) { create(:state_file1099_g, intake: intake, recipient: :spouse, unemployment_compensation_amount: 40) }
-
       it "calculates the fed income amount for primary and spouse" do
-        expect(instance.calculate_fed_income(:primary)).to eq(10 + 20)
-        expect(instance.calculate_fed_income(:spouse)).to eq(30 + 40)
+        intake.direct_file_json_data.primary_filer&.form_1099_gs_total = "100.00"
+        intake.direct_file_json_data.spouse_filer&.form_1099_gs_total = "200.00"
+        expect(instance.calculate_fed_income(:primary)).to eq(100)
+        expect(instance.calculate_fed_income(:spouse)).to eq(200)
       end
     end
 
@@ -89,8 +86,6 @@ describe Efile::Md::TwoIncomeSubtractionWorksheet do
       let(:spouse_ssn) { intake.spouse.ssn }
       let!(:primary_state_file1099_r) { create(:state_file1099_r, intake: intake, recipient_ssn: primary_ssn, taxable_amount: 10) }
       let!(:spouse_state_file1099_r) { create(:state_file1099_r, intake: intake, recipient_ssn: spouse_ssn, taxable_amount: 20) }
-      let!(:primary_state_file1099_g) { create(:state_file1099_g, intake: intake, recipient: :primary, unemployment_compensation_amount: 100) }
-      let!(:spouse_state_file1099_g) { create(:state_file1099_g, intake: intake, recipient: :spouse, unemployment_compensation_amount: 200) }
 
       before do
         # only populating minimum data required for this test
@@ -99,6 +94,8 @@ describe Efile::Md::TwoIncomeSubtractionWorksheet do
         intake.direct_file_json_data.interest_reports[1].recipient_tin = spouse_ssn
         intake.direct_file_json_data.interest_reports[0].amount_1099 = "1.00"
         intake.direct_file_json_data.interest_reports[1].amount_no_1099 = "2.00"
+        intake.direct_file_json_data.primary_filer&.form_1099_gs_total = "100.00"
+        intake.direct_file_json_data.spouse_filer&.form_1099_gs_total = "200.00"
       end
 
       it "calculates the fed income amount for primary and spouse" do

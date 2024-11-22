@@ -160,6 +160,7 @@ FactoryBot.define do
 
     trait :df_data_many_w2s do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('md_zeus_many_w2s') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('md_zeus_many_w2s') }
     end
 
     trait :head_of_household do

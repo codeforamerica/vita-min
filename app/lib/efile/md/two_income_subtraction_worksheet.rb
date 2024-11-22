@@ -45,9 +45,7 @@ module Efile
           .select { |form1099r| form1099r.recipient_ssn == filer_ssn }
           .sum { |form1099r| form1099r.taxable_amount&.round }
 
-        unemployment_income = @intake.state_file1099_gs
-          .select { |form1099g| form1099g.recipient.to_sym == primary_or_spouse }
-          .sum { |form1099g| form1099g.unemployment_compensation_amount&.round }
+        unemployment_income = find_filer_json_for(primary_or_spouse)&.form_1099_gs_total&.round || 0
 
         wage_income +
           interest_income +
@@ -56,22 +54,20 @@ module Efile
       end
 
       def calculate_fed_subtractions(primary_or_spouse)
-        filer_json = @direct_file_json_data.filers
-          .find { |df_filer_data|
-            df_filer_data.tin.delete("-") == @intake.send(primary_or_spouse).ssn
-          }
-
-        # TODO: Some MFJ tests are missing spouse JSON - should not happen in prod
-        return 0 unless filer_json
+        filer_json = find_filer_json_for(primary_or_spouse)
 
         student_loan_interest = {
           primary: @intake.primary_student_loan_interest_ded_amount&.round,
           spouse: @intake.spouse_student_loan_interest_ded_amount&.round,
         }[primary_or_spouse]
 
+        educator_expenses = filer_json&.educator_expenses&.round || 0
+
+        hsa_total_deductible_amount = filer_json&.hsa_total_deductible_amount&.round || 0
+
         student_loan_interest +
-          filer_json.educator_expenses&.round +
-          filer_json.hsa_total_deductible_amount&.round
+          educator_expenses +
+          hsa_total_deductible_amount
       end
 
       private
@@ -118,6 +114,13 @@ module Efile
 
       def calculate_line_7
         @lines[:MD_TWO_INCOME_WK_LINE_6].value.clamp(0, 1_200)
+      end
+
+      def find_filer_json_for(primary_or_spouse)
+        @direct_file_json_data.filers
+          .find { |df_filer_data|
+            df_filer_data.tin.delete("-") == @intake.send(primary_or_spouse).ssn
+          }
       end
     end
   end
