@@ -1765,7 +1765,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
             primary_contribution_gubernatorial_elections: :no, spouse_contribution_gubernatorial_elections: :yes,
             )
           }
-          it "checks no for primary and marks an X for spouse" do 
+          it "checks no for primary and marks yes for spouse" do 
             expect(pdf_fields["Group245"]).to eq "Choice2"
             expect(pdf_fields["Group246"]).to eq "Choice1"
           end

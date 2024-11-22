@@ -771,45 +771,24 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
     end
 
     describe "gubernatorial elections fund" do
-      context "not mfj" do 
-        let(:intake) { 
-          create(:state_file_nj_intake)
-        }
-        it "does not fill the field when the answer is no" do 
-          expect(xml.at("Body PrimGubernElectFund")).to eq(nil)
-          expect(xml.at("Body SpouCuPartPrimGubernElectFund")).to eq(nil)
-        end
-
-        it "checks yes when the answer is yes" do
-          intake.primary_contribution_gubernatorial_elections = :yes
-          expect(xml.at("Body PrimGubernElectFund").text).to eq('X')
-        end
-      end
-
-      context "mfj" do 
-        context "when primary does not contribute and spouse does" do 
+      [
+        { filing_status: :single, primary_contribution_gubernatorial_elections: :no, spouse_contribution_gubernatorial_elections: :no, expected_primary: nil, expected_spouse: nil },
+        { filing_status: :single, primary_contribution_gubernatorial_elections: :yes, spouse_contribution_gubernatorial_elections: :no, expected_primary: 'X', expected_spouse: nil },
+        { filing_status: :married_filing_jointly, primary_contribution_gubernatorial_elections: :no, spouse_contribution_gubernatorial_elections: :yes, expected_primary: nil, expected_spouse: 'X' },
+        { filing_status: :married_filing_jointly, primary_contribution_gubernatorial_elections: :yes, spouse_contribution_gubernatorial_elections: :no, expected_primary: 'X', expected_spouse: nil },
+      ].each do |test_case|
+        context "when #{test_case}" do 
           let(:intake) { 
-            create(:state_file_nj_intake, 
-            :married_filing_jointly,
-            primary_contribution_gubernatorial_elections: :no, spouse_contribution_gubernatorial_elections: :yes,
+            create(:state_file_nj_intake,
+              filing_status: test_case[:filing_status],
+              primary_contribution_gubernatorial_elections: test_case[:primary_contribution_gubernatorial_elections],
+              spouse_contribution_gubernatorial_elections: test_case[:spouse_contribution_gubernatorial_elections]
             )
           }
-          it "leaves primary blank and marks an X for spouse" do 
-            expect(xml.at("Body PrimGubernElectFund")).to eq(nil)
-            expect(xml.at("Body SpouCuPartPrimGubernElectFund").text).to eq('X')
-          end
-        end
 
-        context "when primary wants to contribute and spouse does not" do 
-          let(:intake) { 
-            create(:state_file_nj_intake, 
-            :married_filing_jointly,
-            primary_contribution_gubernatorial_elections: :yes, spouse_contribution_gubernatorial_elections: :no,
-            )
-          }
-          it "checks yes for primary and no for spouse" do 
-            expect(xml.at("Body PrimGubernElectFund").text).to eq('X')
-            expect(xml.at("Body SpouCuPartPrimGubernElectFund")).to eq(nil)
+          it "returns #{test_case[:expected]}" do
+            expect(xml.at("Body PrimGubernElectFund")&.text).to eq(test_case[:expected_primary])
+            expect(xml.at("Body SpouCuPartPrimGubernElectFund")&.text).to eq(test_case[:expected_spouse])
           end
         end
       end
