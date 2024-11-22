@@ -35,6 +35,25 @@ module StateFileIntakeHelper
       find_by_id('state_file_id_eligibility_residence_form_eligibility_withdrew_msa_fthb_no').click
       find_by_id('state_file_id_eligibility_residence_form_eligibility_emergency_rental_assistance_no').click
       click_on I18n.t("general.continue")
+
+      expect(page).to have_text I18n.t("state_file.questions.eligible.id_supported.child_care_deduction")
+      expect(page).to have_text I18n.t("state_file.questions.eligible.id_supported.interest_from_obligations")
+      expect(page).to have_text I18n.t("state_file.questions.eligible.id_supported.social_security_retirement_deduction")
+      expect(page).to have_text I18n.t("state_file.questions.eligible.id_supported.id_child_tax_credit")
+      expect(page).to have_text I18n.t("state_file.questions.eligible.id_supported.id_grocery_credit")
+
+      click_on I18n.t("state_file.questions.eligible.edit.not_supported")
+
+      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.id_college_savings_program")
+      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.id_youth_rehab_contributions")
+      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.maintaining_elderly_disabled_credit")
+      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.long_term_care_insurance_subtraction")
+      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.earned_on_reservation")
+      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.education_contribution_credit")
+      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.itemized_deductions")
+      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.dependents_not_claimed_fed_return")
+      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.voluntary_donations")
+      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.change_in_filing_status")
     when "md"
       expect(page).to have_text I18n.t("state_file.questions.md_eligibility_filing_status.edit.title", year: filing_year)
       click_on I18n.t("general.continue")
