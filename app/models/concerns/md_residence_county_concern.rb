@@ -205,6 +205,7 @@ module MdResidenceCountyConcern
     "Somerset" => {
       "City Of Crisfield" => "2001",
       "Town Of Princess Anne" => "2002",
+      "All Other Areas" => "2000",
     },
     "Talbot" => {
       "Town Of Easton" => "2101",

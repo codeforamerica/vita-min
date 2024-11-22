@@ -2668,7 +2668,7 @@ en:
           - 'Counties: The 23 counties and Baltimore City.'
           - 'Municipalities: Towns and cities within the counties.'
           - 'Special Taxing Districts: Areas with specific tax rules for local services.'
-          - 'Unincorporated Areas: Regions that do not have their own municipal government and are governed at the county level.'
+          - 'All Other Areas: Regions that do not have their own municipal government and are governed at the county level.'
           political_subdivision_helper_first_p: 'A "political subdivision" is a specific area within Maryland that has its own local government. This includes:'
           political_subdivision_helper_heading: What is a political division?
           political_subdivision_helper_last_p: Select the political subdivision where you lived on December 31, %{filing_year} to make sure your tax filing is correct.
