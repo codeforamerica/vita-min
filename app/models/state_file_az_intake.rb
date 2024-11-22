@@ -7,7 +7,6 @@
 #  account_type                           :integer
 #  armed_forces_member                    :integer          default("unfilled"), not null
 #  armed_forces_wages_amount              :decimal(12, 2)
-#  bank_name                              :string
 #  charitable_cash_amount                 :decimal(12, 2)
 #  charitable_contributions               :integer          default("unfilled"), not null
 #  charitable_noncash_amount              :decimal(12, 2)
@@ -86,7 +85,7 @@
 #  index_state_file_az_intakes_on_spouse_state_id_id   (spouse_state_id_id)
 #
 class StateFileAzIntake < StateFileBaseIntake
-  self.ignored_columns = %w[charitable_cash charitable_noncash household_excise_credit_claimed_amt tribal_wages armed_forces_wages]
+  self.ignored_columns = %w[charitable_cash charitable_noncash household_excise_credit_claimed_amt tribal_wages armed_forces_wages bank_name]
   encrypts :account_number, :routing_number, :raw_direct_file_data, :raw_direct_file_intake_data
 
   has_many :az322_contributions, dependent: :destroy

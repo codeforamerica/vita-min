@@ -7,7 +7,6 @@
 #  account_type                           :integer
 #  armed_forces_member                    :integer          default("unfilled"), not null
 #  armed_forces_wages_amount              :decimal(12, 2)
-#  bank_name                              :string
 #  charitable_cash_amount                 :decimal(12, 2)
 #  charitable_contributions               :integer          default("unfilled"), not null
 #  charitable_noncash_amount              :decimal(12, 2)
