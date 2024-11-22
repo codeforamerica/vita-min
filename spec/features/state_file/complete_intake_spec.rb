@@ -547,6 +547,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
     before do
       # TODO: replace fixture used here with one that has all the characteristics we want to test
       allow_any_instance_of(DirectFileData).to receive(:fed_unemployment).and_return 100
+      allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:refund_or_owed_amount).and_return 1000
     end
 
     it "has content", required_schema: "md" do
@@ -628,6 +629,22 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       expect(page).to have_text I18n.t("state_file.questions.md_had_health_insurance.edit.title")
       choose I18n.t("general.negative")
+      click_on I18n.t("general.continue")
+
+      expect(strip_html_tags(page.body)).to have_text strip_html_tags(I18n.t("state_file.questions.tax_refund.edit.title_html", state_name: "Maryland", refund_amount: 1000))
+      choose I18n.t('state_file.questions.tax_refund.edit.direct_deposit')
+      choose I18n.t("views.questions.bank_details.account_type.checking")
+      check "Check here if you have a joint account"
+      fill_in 'state_file_md_tax_refund_form_account_holder_first_name', with: "Zeus"
+      fill_in 'state_file_md_tax_refund_form_account_holder_middle_initial', with: "A"
+      fill_in 'state_file_md_tax_refund_form_account_holder_last_name', with: "Thunder"
+      fill_in 'state_file_md_tax_refund_form_joint_account_holder_first_name', with: "Hera"
+      fill_in 'state_file_md_tax_refund_form_joint_account_holder_last_name', with: "Thunder"
+      fill_in 'state_file_md_tax_refund_form_routing_number', with: "019456124"
+      fill_in 'state_file_md_tax_refund_form_routing_number_confirmation', with: "019456124"
+      fill_in 'state_file_md_tax_refund_form_account_number', with: "123456789"
+      fill_in 'state_file_md_tax_refund_form_account_number_confirmation', with: "123456789"
+      check I18n.t('state_file.questions.md_tax_refund.md_bank_details.bank_authorization_confirmation')
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t("state_file.questions.esign_declaration.edit.title", state_name: "Maryland")
