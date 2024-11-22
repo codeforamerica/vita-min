@@ -1782,9 +1782,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_21_222604) do
     t.bigint "intake_id", null: false
     t.string "intake_type", null: false
     t.string "last_name"
+    t.integer "md_did_not_have_health_insurance", default: 0, null: false
     t.string "middle_initial"
     t.integer "months_in_home"
     t.integer "needed_assistance", default: 0, null: false
+    t.integer "nj_dependent_attends_accredited_program", default: 0, null: false
+    t.integer "nj_dependent_enrolled_full_time", default: 0, null: false
+    t.integer "nj_dependent_five_months_in_college", default: 0, null: false
+    t.integer "nj_filer_pays_tuition_for_dependent", default: 0, null: false
     t.boolean "odc_qualifying"
     t.integer "passed_away", default: 0, null: false
     t.boolean "qualifying_child"
@@ -1897,6 +1902,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_21_222604) do
     t.string "account_holder_suffix"
     t.string "account_number"
     t.integer "account_type", default: 0, null: false
+    t.integer "authorize_sharing_of_health_insurance_info", default: 0, null: false
     t.integer "bank_authorization_confirmed", default: 0, null: false
     t.string "bank_name"
     t.string "city"
@@ -1922,6 +1928,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_21_222604) do
     t.integer "failed_attempts", default: 0, null: false
     t.string "federal_return_status"
     t.string "federal_submission_id"
+    t.integer "had_hh_member_without_health_insurance", default: 0, null: false
     t.integer "has_joint_account_holder"
     t.string "hashed_ssn"
     t.string "joint_account_holder_first_name"
@@ -1943,6 +1950,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_21_222604) do
     t.datetime "phone_number_verified_at"
     t.string "political_subdivision"
     t.date "primary_birth_date"
+    t.integer "primary_did_not_have_health_insurance", default: 0, null: false
     t.integer "primary_esigned", default: 0, null: false
     t.datetime "primary_esigned_at"
     t.string "primary_first_name"
@@ -1962,6 +1970,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_21_222604) do
     t.integer "sign_in_count", default: 0, null: false
     t.string "source"
     t.date "spouse_birth_date"
+    t.integer "spouse_did_not_have_health_insurance", default: 0, null: false
     t.integer "spouse_esigned", default: 0, null: false
     t.datetime "spouse_esigned_at"
     t.string "spouse_first_name"
@@ -2122,6 +2131,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_21_222604) do
     t.string "phone_number"
     t.datetime "phone_number_verified_at"
     t.date "primary_birth_date"
+    t.integer "primary_contribution_gubernatorial_elections", default: 0, null: false
     t.integer "primary_disabled", default: 0, null: false
     t.integer "primary_esigned", default: 0, null: false
     t.datetime "primary_esigned_at"
@@ -2145,6 +2155,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_21_222604) do
     t.string "source"
     t.date "spouse_birth_date"
     t.integer "spouse_claimed_as_eitc_qualifying_child", default: 0, null: false
+    t.integer "spouse_contribution_gubernatorial_elections", default: 0, null: false
     t.integer "spouse_disabled", default: 0, null: false
     t.integer "spouse_esigned", default: 0, null: false
     t.datetime "spouse_esigned_at"
@@ -2304,6 +2315,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_21_222604) do
     t.datetime "created_at", null: false
     t.string "employee_name"
     t.string "employee_ssn"
+    t.string "employer_ein"
     t.string "employer_name"
     t.string "employer_state_id_num"
     t.decimal "local_income_tax_amount", precision: 12, scale: 2
@@ -2315,6 +2327,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_21_222604) do
     t.decimal "state_wages_amount", precision: 12, scale: 2
     t.datetime "updated_at", null: false
     t.integer "w2_index"
+    t.decimal "wages", precision: 12, scale: 2
     t.index ["state_file_intake_type", "state_file_intake_id"], name: "index_state_file_w2s_on_state_file_intake"
   end
 

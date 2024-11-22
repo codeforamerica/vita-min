@@ -1,11 +1,11 @@
-<% @main_heading = t('.main_heading', filing_year: @filing_year) %>
+<% @main_heading = t('.main_heading', filing_year: current_tax_year) %>
 <% show_yes_no = @contribution_count == 0  %>
 
 <% content_for :page_title, @main_heading %>
 
 <% content_for :card do %>
   <h1 class="form-question">
-    <%= t('.main_heading_html', filing_year: @filing_year) -%>
+    <%= t('.main_heading_html', filing_year: current_tax_year) -%>
   </h1>
 
   <%= form_with( model: @contribution, url: { action: @contribution.persisted? ? :update : :create }, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long' }) do |f| %>
@@ -29,9 +29,9 @@
           <div class="form-group-tight">
             <%= f.cfa_input_field(:charity_name, t('.charity_name'), classes: ["form-width--long"]) %>
             <%= f.cfa_input_field(:charity_code, t('.charity_code'), classes: ["form-width--long"]) %>
-            <%= f.vita_min_money_field(:amount, t('.amount', filing_year: @filing_year), classes: ["form-width--long"]) %>
+            <%= f.vita_min_money_field(:amount, t('.amount', filing_year: current_tax_year), classes: ["form-width--long"]) %>
             <div class="date-select">
-              <%= f.cfa_date_select( :date_of_contribution, t('.date_of_contribution', filing_year: @filing_year), options: { start_year: @filing_year, end_year: @filing_year }) %>
+              <%= f.cfa_date_select( :date_of_contribution, t('.date_of_contribution', filing_year: current_tax_year), options: { start_year: current_tax_year, end_year: current_tax_year }) %>
             </div>
           </div>
         </div>

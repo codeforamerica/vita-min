@@ -2,6 +2,8 @@ class EfileSubmissionStateMachine
   include Statesman::Machine
   CLIENT_INACCESSIBLE_STATUSES = %w[waiting investigating queued cancelled].freeze
 
+  US_STATE_MAPPING_CACHE = {}
+
   state :new, initial: true
   state :preparing
   state :bundling
@@ -42,6 +44,20 @@ class EfileSubmissionStateMachine
     ENV['HOLD_OFF_NEW_EFILE_SUBMISSIONS'].blank?
   end
 
+  guard_transition(to: :bundling) do |submission|
+    # There are no currently stopped states, allow
+    next true if currently_stopped_states.blank?
+
+    data_source_type = submission.data_source_type
+
+    state = source_to_state(data_source_type)
+
+    # We found a state, block transition
+    next false if currently_stopped_states.include?(state)
+    # Allow
+    next true
+  end
+
   guard_transition(from: :failed, to: :rejected) do |_submission|
     # we need this for testing since submissions will fail on bundle in heroku and staging
     !Rails.env.production?
@@ -70,8 +86,8 @@ class EfileSubmissionStateMachine
   after_transition(to: :failed, after_commit: true) do |submission, transition|
     Efile::SubmissionErrorParser.persist_errors(transition)
 
-    if transition.efile_errors.any?
-      submission.transition_to!(:waiting) if transition.efile_errors.all?(&:auto_wait)
+    if transition.efile_errors.any? && transition.efile_errors.all?(&:auto_wait)
+      submission.transition_to!(:waiting)
     end
 
     StateFile::SendStillProcessingNoticeJob.set(wait: 24.hours).perform_later(submission)
@@ -128,5 +144,18 @@ class EfileSubmissionStateMachine
       subject: intake,
       data: data,
     )
+  end
+
+  def self.source_to_state(source)
+    # Note that `state_info` here will contain a two member array of key and
+    # value from the original hash. will look something like
+    # ['az', {intake_class: "StateFileAzIntake"]
+    US_STATE_MAPPING_CACHE[source] ||= StateFile::StateInformationService::STATES_INFO.find do |state_info|
+      state_info[1][:intake_class].name == source
+    end[0]
+  end
+
+  def self.currently_stopped_states
+    ENV.fetch('HOLD_OFF_EFILE_SUBMISSIONS_FOR_STATES', '').downcase.split
   end
 end
