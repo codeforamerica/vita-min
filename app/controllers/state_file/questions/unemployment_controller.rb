@@ -37,7 +37,7 @@ module StateFile
 
         if @state_file1099_g.had_box_11_no?
           @state_file1099_g.destroy
-          redirect_with_review_param(:index)
+          return redirect_with_review_param(:index)
         end
 
         if @state_file1099_g.valid?
