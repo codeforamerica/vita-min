@@ -6,7 +6,6 @@
 #  account_holder_first_name                  :string
 #  account_holder_last_name                   :string
 #  account_holder_middle_initial              :string
-#  account_holder_name                        :string
 #  account_holder_suffix                      :string
 #  account_number                             :string
 #  account_type                               :integer          default("unfilled"), not null

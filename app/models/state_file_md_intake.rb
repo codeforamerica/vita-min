@@ -6,7 +6,6 @@
 #  account_holder_first_name                  :string
 #  account_holder_last_name                   :string
 #  account_holder_middle_initial              :string
-#  account_holder_name                        :string
 #  account_holder_suffix                      :string
 #  account_number                             :string
 #  account_type                               :integer          default("unfilled"), not null
@@ -105,6 +104,7 @@
 #  index_state_file_md_intakes_on_spouse_state_id_id   (spouse_state_id_id)
 #
 class StateFileMdIntake < StateFileBaseIntake
+  self.ignored_columns = [:df_data_import_failed, :account_holder_name, :bank_name]
   include MdResidenceCountyConcern
   encrypts :account_number, :routing_number, :raw_direct_file_data, :raw_direct_file_intake_data
 
