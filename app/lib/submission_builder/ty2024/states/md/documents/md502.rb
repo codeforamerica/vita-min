@@ -129,11 +129,11 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
         xml.ExemptionAmount calculated_fields.fetch(:MD502_LINE_19)
       end
       xml.MDHealthCareCoverage do
-        if @intake.primary_did_not_have_health_insurance
+        if @intake.primary_did_not_have_health_insurance_yes?
           xml.PriWithoutHealthCoverageInd "X"
           xml.PriDOB date_type(@intake.primary_birth_date)
         end
-        if @intake.spouse_did_not_have_health_insurance
+        if @intake.spouse_did_not_have_health_insurance_yes?
           xml.SecWithoutHealthCoverageInd "X"
           xml.SecDOB date_type(@intake.spouse_birth_date)
         end
