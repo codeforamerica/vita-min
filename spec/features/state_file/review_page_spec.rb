@@ -11,27 +11,9 @@ RSpec.feature "Completing a state file intake", active_job: true do
   StateFile::StateInformationService.active_state_codes.each do |state_code|
     context "#{state_code.upcase}" do
       it "allows user to navigate to income review page, edit an income form, and then navigate back to final review page", required_schema: "az" do
-        visit "/"
-        click_on "Start Test #{state_code.upcase}"
-
-        expect(page).to have_text I18n.t("state_file.landing_page.edit.#{state_code}.title")
-        click_on I18n.t('general.get_started'), id: "firstCta"
-        step_through_eligibility_screener(us_state: state_code)
-        step_through_initial_authentication(contact_preference: :email)
-        expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
+        set_up_intake_and_associated_records(state_code)
 
         intake = StateFile::StateInformationService.intake_class(state_code).last
-        intake.update(
-          raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml("az_df_complete_sample"),
-          primary_first_name: "Deedee",
-          primary_last_name: "Doodoo",
-          primary_birth_date: Date.new((MultiTenantService.statefile.current_tax_year - 65), 12, 1),
-        )
-        intake.direct_file_data.fed_unemployment = 1000
-        intake.update(raw_direct_file_data: intake.direct_file_data)
-        create(:state_file_w2, state_file_intake: intake)
-        create(:state_file1099_r, intake: intake)
-        create(:state_file1099_g, intake: intake)
 
         visit "/questions/#{state_code}-review"
 
@@ -118,9 +100,19 @@ RSpec.feature "Completing a state file intake", active_job: true do
         # takes them to the 1099G index page first
         expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.unemployment.index.lets_review"))
 
-        # TODO: click in to edit again and then back to index and then back to review
-        # find_by_id('state_file_id_eligibility_residence_form_eligibility_emergency_rental_assistance_no').click
+        # edit a 1099G (there's only one)
+        click_on I18n.t("general.edit")
+        click_on I18n.t("general.continue")
 
+        # back on index page
+        expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.unemployment.index.lets_review"))
+
+        # delete a 1099G (there's only one)
+        recipient_name = intake.state_file1099_gs.last.recipient_name
+        click_on I18n.t("general.delete")
+        # redirects to new because there are no 1099Gs left, need to select "no" in order to continue
+        expect(page).to have_text I18n.t("state_file.questions.unemployment.destroy.removed", name: recipient_name)
+        choose I18n.t("general.negative")
         click_on I18n.t("general.continue")
 
         # Back on income review page
@@ -131,5 +123,29 @@ RSpec.feature "Completing a state file intake", active_job: true do
         expect(page).to have_text I18n.t("state_file.questions.shared.review_header.title")
       end
     end
+  end
+
+  def set_up_intake_and_associated_records(state_code)
+    visit "/"
+    click_on "Start Test #{state_code.upcase}"
+
+    expect(page).to have_text I18n.t("state_file.landing_page.edit.#{state_code}.title")
+    click_on I18n.t('general.get_started'), id: "firstCta"
+    step_through_eligibility_screener(us_state: state_code)
+    step_through_initial_authentication(contact_preference: :email)
+    expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
+
+    intake = StateFile::StateInformationService.intake_class(state_code).last
+    intake.update(
+      raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml("az_df_complete_sample"),
+      primary_first_name: "Deedee",
+      primary_last_name: "Doodoo",
+      primary_birth_date: Date.new((MultiTenantService.statefile.current_tax_year - 65), 12, 1),
+      )
+    intake.direct_file_data.fed_unemployment = 1000
+    intake.update(raw_direct_file_data: intake.direct_file_data)
+    create(:state_file_w2, state_file_intake: intake)
+    create(:state_file1099_r, intake: intake)
+    create(:state_file1099_g, intake: intake)
   end
 end

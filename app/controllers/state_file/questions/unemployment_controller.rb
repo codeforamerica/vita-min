@@ -15,9 +15,11 @@ module StateFile
       end
 
       def index
+        @next_path_with_params = next_path_with_review_param
+
         @state_file1099_gs = current_intake.state_file1099_gs
         unless @state_file1099_gs.present?
-          redirect_to action: :new
+          redirect_with_review_param(:new)
         end
       end
 
@@ -35,12 +37,12 @@ module StateFile
 
         if @state_file1099_g.had_box_11_no?
           @state_file1099_g.destroy
-          return redirect_to action: :index, return_to_review: params[:return_to_review]
+          redirect_with_review_param(:index)
         end
 
         if @state_file1099_g.valid?
           @state_file1099_g.save
-          redirect_to action: :index, return_to_review: params[:return_to_review]
+          redirect_with_review_param(:index)
         else
           render :edit
         end
@@ -49,12 +51,12 @@ module StateFile
       def create
         @state_file1099_g = current_intake.state_file1099_gs.build(state_file1099_params)
         if @state_file1099_g.had_box_11_no?
-          return redirect_to next_path
+          return redirect_to next_path_with_review_param
         end
 
         if @state_file1099_g.valid?
           @state_file1099_g.save
-          redirect_to action: :index, return_to_review: params[:return_to_review]
+          redirect_with_review_param(:index)
         else
           render :new
         end
@@ -65,14 +67,26 @@ module StateFile
         if @state_file1099_g.destroy
           flash[:notice] = I18n.t("state_file.questions.unemployment.destroy.removed", name: @state_file1099_g.recipient_name)
         end
-        redirect_to action: :index, return_to_review: params[:return_to_review]
+        redirect_with_review_param(:index)
       end
 
+      # the review page a user should return to from here is the income review page
       def review_step
         StateFile::Questions::IncomeReviewController
       end
 
       private
+
+      def redirect_with_review_param(action)
+        redirect_to action: action, return_to_review: params[:return_to_review]
+      end
+
+      # returning to the review page is a 2-step process so we need to pass the return_to_review param through to the income review page if that is the next path
+      def next_path_with_review_param
+        next_path_uri = URI.parse(next_path)
+        next_path_uri.query = "return_to_review=#{params[:return_to_review]}"
+        next_path_uri.to_s
+      end
 
       def state_file1099_params
         state_file_params = params.require(:state_file1099_g).permit(

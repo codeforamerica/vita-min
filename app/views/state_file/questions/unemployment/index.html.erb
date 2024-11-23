@@ -23,7 +23,7 @@
     <% end %>
   <% end %>
 
-  <%= link_to(next_path, class: "button button--primary button--wide spacing-below-10") do %>
+  <%= link_to(@next_path_with_params, class: "button button--primary button--wide spacing-below-10") do %>
     <%= t('general.continue') %>
   <% end %>
   <%= link_to(StateFile::Questions::UnemploymentController.to_path_helper(action: :new, return_to_review: params[:return_to_review]), class: "button button--wide") do %>
