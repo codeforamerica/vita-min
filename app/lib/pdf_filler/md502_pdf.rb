@@ -15,7 +15,7 @@ module PdfFiller
     end
 
     def hash_for_pdf
-      {
+      answers = {
         'Enter 1': @xml_document.at("Form502 Income FederalAdjustedGrossIncome")&.text,
         'Enter 1a': @xml_document.at("Form502 Income WagesSalariesAndTips")&.text,
         'Enter 1b': @xml_document.at("Form502 Income EarnedIncome")&.text,
@@ -86,8 +86,8 @@ module PdfFiller
         'Enter 3': @xml_document.at('Form502 Additions StateRetirementPickup')&.text,
         'Enter 6': @xml_document.at('Form502 Additions Total')&.text,
         'Enter 7': @xml_document.at('Form502 Additions FedAGIAndStateAdditions')&.text,
-        "Enter 15": @xml_document.at('Form502 Subtractions Total')&.text,
-        "Enter 16": @xml_document.at('Form502 Subtractions StateAdjustedGrossIncome')&.text,
+        'Enter 15': @xml_document.at('Form502 Subtractions Total')&.text,
+        'Enter 16': @xml_document.at('Form502 Subtractions StateAdjustedGrossIncome')&.text,
         'Text Box 30': @xml_document.at('Form502 StateTaxComputation StateIncomeTax')&.text,
         'Text Box 36': @xml_document.at('Form502 StateTaxComputation PovertyLevelCredit')&.text,
         'Text Box 40': @xml_document.at('Form502 StateTaxComputation TotalCredits')&.text,
@@ -95,6 +95,15 @@ module PdfFiller
         'Check Box 39': @xml_document.at('Form502 AuthToDirectDepositInd')&.text == 'X' ? 'Yes' : 'Off',
         'Text Box 95': @xml_document.at('Form502 NameOnBankAccount')&.text
       }
+      if @xml_document.at('RefundDirectDeposit').present?
+        answers.merge!({
+                         'Check Box 41': @xml_document.at('Checking')&.text == "X" ? 'Yes' : 'Off',
+                         'Check Box 42': @xml_document.at('Savings')&.text == "X" ? 'Yes' : 'Off',
+                         'Text Box 93': @xml_document.at('RoutingTransitNumber')&.text,
+                         'Text Box 94': @xml_document.at('BankAccountNumber')&.text,
+                       })
+      end
+      answers
     end
 
     def spouse_ssn_if_mfs

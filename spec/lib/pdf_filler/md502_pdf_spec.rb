@@ -458,6 +458,13 @@ RSpec.describe PdfFiller::Md502Pdf do
 
     context "Direct deposit of refund" do
       before do
+        intake.update(
+        payment_or_deposit_type: :direct_deposit,
+          routing_number: "123456789",
+          account_number: "87654321",
+          account_type: "checking"
+        )
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:refund_or_owed_amount).and_return 500
         allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_authorize_direct_deposit).and_return 'X'
         allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_51d).and_return 'Bully Nose'
       end
@@ -465,6 +472,10 @@ RSpec.describe PdfFiller::Md502Pdf do
       it "checks the authorization box" do
         expect(pdf_fields["Check Box 39"]).to eq "Yes"
         expect(pdf_fields["Text Box 95"]).to eq "Bully Nose"
+        expect(pdf_fields['Check Box 41']).to eq "Yes"
+        expect(pdf_fields['Check Box 42']).to eq "Off"
+        expect(pdf_fields['Text Box 93']).to eq "123456789"
+        expect(pdf_fields['Text Box 94']).to eq "87654321"
       end
     end
   end

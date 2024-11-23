@@ -427,6 +427,7 @@ module Efile
       end
 
       def calculate_line_51d
+        return nil unless @intake.payment_or_deposit_type.to_sym == :direct_deposit
         if @intake.has_joint_account_holder_yes?
           full_name + " and " + full_name(is_joint: true)
         else
