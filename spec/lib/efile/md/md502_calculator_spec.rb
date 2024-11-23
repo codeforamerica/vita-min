@@ -1127,6 +1127,7 @@ describe Efile::Md::Md502Calculator do
 
   describe "#calculate_line_51d" do
     before do
+      intake.payment_or_deposit_type = :direct_deposit
       intake.account_holder_first_name = "Jack"
       intake.account_holder_middle_initial = "D"
       intake.account_holder_last_name = "Hansel"
