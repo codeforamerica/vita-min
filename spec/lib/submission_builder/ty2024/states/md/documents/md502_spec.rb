@@ -459,11 +459,43 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
 
     context "Line 51d: NameOnBankAccount" do
       before do
-        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_51d).and_return 'Anna Arendelle and Elsa Arendelle'
+        intake.payment_or_deposit_type = "direct_deposit"
+        intake.account_holder_first_name = "Jack"
+        intake.account_holder_middle_initial = "D"
+        intake.account_holder_last_name = "Hansel"
       end
 
       it 'outputs the total state and local tax withheld' do
-        expect(xml.at("Form502 NameOnBankAccount")&.text).to eq('Anna Arendelle and Elsa Arendelle')
+        expect(xml.at("Form502 NameOnBankAccount FirstName")&.text).to eq("Jack")
+        expect(xml.at("Form502 NameOnBankAccount MiddleInitial")&.text).to eq("D")
+        expect(xml.at("Form502 NameOnBankAccount LastName")&.text).to eq("Hansel")
+        expect(xml.at("Form502 NameOnBankAccount Suffix")).to be_nil
+      end
+
+      context "with joint account holder" do
+        before do
+          intake.joint_account_holder_first_name = "Jill"
+          intake.joint_account_holder_last_name = "Gretl"
+          intake.joint_account_holder_suffix = "II"
+          intake.has_joint_account_holder = "yes"
+        end
+
+        it "outputs names for both account holders" do
+          account_holder_xmls = xml.css('Form502 NameOnBankAccount')
+          expect(account_holder_xmls.count).to eq(2)
+
+          account_holder_xml = account_holder_xmls[0]
+          expect(account_holder_xml.at("FirstName")&.text).to eq("Jack")
+          expect(account_holder_xml.at("MiddleInitial")&.text).to eq("D")
+          expect(account_holder_xml.at("LastName")&.text).to eq("Hansel")
+          expect(account_holder_xml.at("NameSuffix")).to be_nil
+
+          joint_account_holder_xml = account_holder_xmls[1]
+          expect(joint_account_holder_xml.at("FirstName")&.text).to eq("Jill")
+          expect(joint_account_holder_xml.at("MiddleInitial")).to be_nil
+          expect(joint_account_holder_xml.at("LastName")&.text).to eq("Gretl")
+          expect(joint_account_holder_xml.at("NameSuffix")&.text).to eq("II")
+        end
       end
     end
   end

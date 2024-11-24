@@ -141,7 +141,22 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
       end
       xml.TaxWithheld calculated_fields.fetch(:MD502_LINE_40)
       add_element_if_present(xml, "AuthToDirectDepositInd", :MD502_AUTHORIZE_DIRECT_DEPOSIT)
-      add_element_if_present(xml, 'NameOnBankAccount', :MD502_LINE_51D)
+      if @intake.payment_or_deposit_type.to_sym == :direct_deposit
+        xml.NameOnBankAccount do
+          xml.FirstName sanitize_for_xml(@intake.account_holder_first_name) if @intake.account_holder_first_name
+          xml.MiddleInitial sanitize_for_xml(@intake.account_holder_middle_initial) if @intake.account_holder_middle_initial
+          xml.LastName sanitize_for_xml(@intake.account_holder_last_name) if @intake.account_holder_last_name
+          xml.NameSuffix @intake.account_holder_suffix if @intake.account_holder_suffix
+        end
+      end
+      if @intake.has_joint_account_holder_yes?
+        xml.NameOnBankAccount do
+          xml.FirstName sanitize_for_xml(@intake.joint_account_holder_first_name) if @intake.joint_account_holder_first_name
+          xml.MiddleInitial sanitize_for_xml(@intake.joint_account_holder_middle_initial) if @intake.joint_account_holder_middle_initial
+          xml.LastName sanitize_for_xml(@intake.joint_account_holder_last_name) if @intake.joint_account_holder_last_name
+          xml.NameSuffix @intake.joint_account_holder_suffix if @intake.joint_account_holder_suffix
+        end
+      end
       xml.DaytimePhoneNumber @direct_file_data.phone_number if @direct_file_data.phone_number.present?
     end
   end

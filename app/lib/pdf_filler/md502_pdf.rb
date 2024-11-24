@@ -8,6 +8,7 @@ module PdfFiller
 
     def initialize(submission)
       @submission = submission
+      @intake = @submission.data_source
 
       # Most PDF fields are grabbed right off the XML
       builder = StateFile::StateInformationService.submission_builder_class(:md)
@@ -93,7 +94,7 @@ module PdfFiller
         'Text Box 40': @xml_document.at('Form502 StateTaxComputation TotalCredits')&.text,
         'Text Box 42': @xml_document.at('Form502 StateTaxComputation StateTaxAfterCredits')&.text,
         'Check Box 39': @xml_document.at('Form502 AuthToDirectDepositInd')&.text == 'X' ? 'Yes' : 'Off',
-        'Text Box 95': @xml_document.at('Form502 NameOnBankAccount')&.text
+        'Text Box 95': full_names_of_bank_account_holders || ""
       }
       if @xml_document.at('RefundDirectDeposit').present?
         answers.merge!({
@@ -140,6 +141,26 @@ module PdfFiller
         end
       end
       applicable_codes
+    end
+
+    def full_names_of_bank_account_holders
+      return nil unless @intake.payment_or_deposit_type.to_sym == :direct_deposit
+
+      if @intake.has_joint_account_holder_yes?
+        account_holder_full_name + " and " + account_holder_full_name(for_joint: true)
+      else
+        account_holder_full_name
+      end
+    end
+
+    def account_holder_full_name(for_joint: false)
+      attributes = %w[account_holder_first_name account_holder_middle_initial account_holder_last_name account_holder_suffix]
+
+      if for_joint
+        attributes = attributes.map { |attr| attr.prepend("joint_")}
+      end
+
+      attributes.map { |attr| @intake.send(attr) }.filter_map(&:presence).join(" ")
     end
 
     def calculated_fields
