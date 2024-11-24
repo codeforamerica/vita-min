@@ -8,7 +8,6 @@ module PdfFiller
 
     def initialize(submission)
       @submission = submission
-      @intake = @submission.data_source
 
       # Most PDF fields are grabbed right off the XML
       builder = StateFile::StateInformationService.submission_builder_class(:md)
@@ -157,12 +156,7 @@ module PdfFiller
     def account_holder_full_name(for_joint: false)
       attributes = %w[FirstName MiddleInitial LastName NameSuffix]
       account_holder_xmls = @xml_document.css('Form502 NameOnBankAccount')
-      account_holder_xml =
-        if for_joint
-          account_holder_xmls[1]
-        else
-          account_holder_xmls[0]
-        end
+      account_holder_xml = for_joint ? account_holder_xmls[1] : account_holder_xmls[0]
       attributes.map { |attr| account_holder_xml.at(attr)&.text }.filter_map(&:presence).join(" ")
     end
 
