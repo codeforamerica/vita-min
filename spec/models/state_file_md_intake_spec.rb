@@ -147,8 +147,9 @@ RSpec.describe StateFileMdIntake, type: :model do
                joint_account_holder_first_name: "Belle",
                joint_account_holder_middle_initial: "C",
                joint_account_holder_last_name: "Peart",
-               joint_account_holder_suffix: 'JR',
-               bank_authorization_confirmed: 'yes'
+               joint_account_holder_suffix: "JR",
+               has_joint_account_holder: "yes",
+               bank_authorization_confirmed: "yes"
       end
 
       it "clears other account fields" do
@@ -166,6 +167,7 @@ RSpec.describe StateFileMdIntake, type: :model do
           .and change(intake.reload, :joint_account_holder_middle_initial).to(nil)
           .and change(intake.reload, :joint_account_holder_last_name).to(nil)
           .and change(intake.reload, :joint_account_holder_suffix).to(nil)
+          .and change(intake.reload, :has_joint_account_holder).to("unfilled")
           .and change(intake.reload, :bank_authorization_confirmed).to("unfilled")
       end
     end
