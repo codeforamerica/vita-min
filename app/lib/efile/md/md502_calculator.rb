@@ -430,19 +430,20 @@ module Efile
         return nil unless @intake.payment_or_deposit_type.to_sym == :direct_deposit
 
         if @intake.has_joint_account_holder_yes?
-          full_name + " and " + full_name(is_joint: true)
+          full_name + " and " + full_name(for_joint: true)
         else
           full_name
         end
       end
 
-      def full_name(is_joint: false)
-        first = @intake.send("#{is_joint ? 'joint_' : ""}account_holder_first_name")
-        middle_initial = @intake.send("#{is_joint ? 'joint_' : ""}account_holder_middle_initial")
-        last = @intake.send("#{is_joint ? 'joint_' : ""}account_holder_last_name")
-        suffix = @intake.send("#{is_joint ? 'joint_' : ""}account_holder_suffix")
+      def full_name(for_joint: false)
+        attributes = %w[account_holder_first_name account_holder_middle_initial account_holder_last_name account_holder_suffix]
 
-        [first, middle_initial, last, suffix].reject(&:blank?).join(" ")
+        if for_joint
+          attributes = attributes.map { |attr| attr.prepend("joint_")}
+        end
+
+        attributes.map { |attr| @intake.send(attr) }.filter_map(&:presence).join(" ")
       end
 
       def filing_status_dependent?
