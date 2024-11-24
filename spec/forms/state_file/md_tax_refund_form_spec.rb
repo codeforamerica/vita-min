@@ -30,7 +30,10 @@ RSpec.describe StateFile::MdTaxRefundForm do
         expect(intake.account_type).to eq "unfilled"
         expect(intake.account_number).to be_nil
         expect(intake.routing_number).to be_nil
-        expect(intake.account_holder_name).to be_nil
+        expect(intake.account_holder_first_name).to be_nil
+        expect(intake.account_holder_middle_initial).to be_nil
+        expect(intake.account_holder_last_name).to be_nil
+        expect(intake.account_holder_suffix).to be_nil
       end
     end
 
