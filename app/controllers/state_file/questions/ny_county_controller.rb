@@ -15,7 +15,6 @@ module StateFile
       include ReturnToReviewConcern
 
       def edit
-        @filing_year = Rails.configuration.statefile_current_tax_year
         @nyc_residency = current_intake.nyc_residency
         nyc_residency_full_year = @nyc_residency == "full_year"
         @permitted_counties = NySchoolDistricts.county_labels.filter { |c| NYC_COUNTIES.include?(c) != nyc_residency_full_year }

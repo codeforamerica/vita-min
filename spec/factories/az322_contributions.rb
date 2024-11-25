@@ -19,7 +19,7 @@
 #
 FactoryBot.define do
   factory :az322_contribution do
-    date_of_contribution_year { "2023" }
+    date_of_contribution_year { Rails.configuration.statefile_current_tax_year }
     date_of_contribution_month { "3" }
     date_of_contribution_day { "4" }
     made_contribution { "yes" }

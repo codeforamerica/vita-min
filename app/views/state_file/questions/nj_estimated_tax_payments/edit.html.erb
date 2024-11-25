@@ -1,18 +1,18 @@
 <%
-  title = t(".title", filing_year: @filing_year)
+  title = t(".title", filing_year: current_tax_year)
   content_for :page_title, title
 %>
 
 <% content_for :card do %>
-  <h1 class="h2"><%= t(".title", filing_year: @filing_year) %></h1>
+  <h1 class="h2"><%= t(".title", filing_year: current_tax_year) %></h1>
 
   <p><%= t(".subtitle") %></p>
   <ul class="list--bulleted spacing-below-25">
     <li><%= t(".subtitle_list_1") %></li>
     <li>
-      <%= t(".subtitle_list_2", filing_year: @filing_year, prior_year: @prior_year) %>
+      <%= t(".subtitle_list_2", filing_year: current_tax_year, prior_year: current_tax_year - 1) %>
       <ul class="list--bulleted">
-        <li><%= t(".subtitle_list_2_sub", prior_year: @prior_year) %></li>
+        <li><%= t(".subtitle_list_2_sub", prior_year: current_tax_year - 1) %></li>
       </ul>
     </li>
   </ul>

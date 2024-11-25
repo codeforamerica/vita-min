@@ -34,7 +34,7 @@ module SubmissionBuilder
     end
 
     def schema_file
-      SchemaFileLoader.load_file("us_states", "unpacked", "AZIndividual2023v1.0", "Common", "FinancialTransaction.xsd")
+      SchemaFileLoader.load_file("us_states", "unpacked", "AZIndividual2024v2.0", "Common", "FinancialTransaction.xsd")
     end
   end
 end

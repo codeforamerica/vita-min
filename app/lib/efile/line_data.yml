@@ -714,6 +714,16 @@ NJ1040_LINE_7_SELF:
   label: '7 Primary Senior 65+ Exemption'
 NJ1040_LINE_7_SPOUSE:
   label: '7 Spouse Senior 65+ Exemption'
+NJ1040_LINE_10_COUNT:
+  label: 'Number of Qualified Dependent Children'
+NJ1040_LINE_10_EXEMPTION:
+  label: 'Exemption amount from Qualified Dependent Children'
+NJ1040_LINE_11_COUNT:
+  label: 'Number of Other Dependents'
+NJ1040_LINE_11_EXEMPTION:
+  label: 'Exemption amount from Other Dependents'
+NJ1040_LINE_12_COUNT:
+  label: 'Dependents Attending Colleges (See instructions)'
 NJ1040_LINE_13:
   label: '13 Total Exemption Amount (Add totals from the lines at 6 through 12)'
 NJ1040_LINE_15:
@@ -760,3 +770,19 @@ NJ1040_LINE_65_DEPENDENTS:
   label: '65 Number of dependents age 5 or younger on 12/31/tax year'
 NJ1040_LINE_65:
   label: '65 New Jersey Child Tax Credit (See instructions)'
+NJ2450_COLUMN_A_TOTAL_PRIMARY:
+  label: 'Total Deducted. UI/WF/SWF Deducted'
+NJ2450_COLUMN_C_TOTAL_PRIMARY:
+  label: 'Total Deducted. Family Leave Insurance Deducted'
+NJ2450_COLUMN_A_EXCESS_PRIMARY:
+  label: 'Subtract line 3 column A from line 2 column A. Enter on line 59 of the NJ-1040.'
+NJ2450_COLUMN_C_EXCESS_PRIMARY:
+  label: 'Subtract line 3 column C from line 2 column C. Enter on line 61 of the NJ-1040.'
+NJ2450_COLUMN_A_TOTAL_SPOUSE:
+  label: 'Total Deducted. UI/WF/SWF Deducted'
+NJ2450_COLUMN_C_TOTAL_SPOUSE:
+  label: 'Total Deducted. Family Leave Insurance Deducted'
+NJ2450_COLUMN_A_EXCESS_SPOUSE:
+  label: 'Subtract line 3 column A from line 2 column A. Enter on line 59 of the NJ-1040.'
+NJ2450_COLUMN_C_EXCESS_SPOUSE:
+  label: 'Subtract line 3 column C from line 2 column C. Enter on line 61 of the NJ-1040.'
