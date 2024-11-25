@@ -287,8 +287,10 @@
       padding: 0 1rem;
     }
 
-    .question-with-follow-up__follow-up:not(.same-card-as-question) {
-      margin: 0;
+    .question-with-follow-up__follow-up {
+      :not(.not-centered) {
+        margin: 0;
+      }
 
       p.form-question {
         font-size: 1.3rem;

@@ -46,7 +46,7 @@
             t(".suffix"),
             suffix_options_for_state_select,
             prompt: t('general.select_prompt'), include_blank: true) %>
-      <div class="question-with-follow-up__follow-up same-card-as-question" id="joint-account-holder-questions">
+      <div class="question-with-follow-up__follow-up not-centered" id="joint-account-holder-questions">
         <p class="text--bold spacing-below-0"><%= t('.joint_account_holder_name') %></p>
         <%= form.cfa_input_field :joint_account_holder_first_name, t("general.first_name"), classes: ["form-width--long"] %>
         <%= form.cfa_input_field :joint_account_holder_middle_initial, t(".middle_initial"), classes: ["form-width--long"] %>
