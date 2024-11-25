@@ -22,7 +22,7 @@ class Az322Contribution < ApplicationRecord
 
   belongs_to :state_file_az_intake
 
-  enum made_contribution: { unfilled: 0, yes: 1, no: 2 }
+  enum made_contribution: { unfilled: 0, yes: 1, no: 2 }, _prefix: :made_contribution
 
   validates_inclusion_of :made_contribution, in: ['yes', 'no'], message: ->(_object, _data) { I18n.t("errors.messages.blank") }
   validates :school_name, presence: true, if: -> { made_contribution == "yes" }
