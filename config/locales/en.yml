@@ -240,6 +240,8 @@ en:
     errors:
       at_least_one_year: Please pick at least one year.
       general: Please fix indicated errors before continuing.
+      healthcare:
+        one_box: You must select at least one box.
       hub:
         communication_opt_in: If signature method is "online", a contact method and communication opt-in is required.
         contact_method_required: "%{attribute} is required if opting into notifications"
@@ -2037,7 +2039,32 @@ en:
       index:
         title: Common questions from %{state} taxpayers
     general:
+      fed_agi: Federal adjusted gross income
+      id_adjusted_income: Total Idaho Adjusted Income
+      id_building_fund_tax: Permanent Building Fund tax
+      id_child_care_expenses: Subtraction for child and dependent care expenses
+      id_child_tax_credit: Idaho Child Tax Credit
+      id_fed_agi: Federal adjusted gross income
+      id_grocery_credit: Refundable Grocery Credit
+      id_health_insurance: Subtraction for health insurance premiums
+      id_interest_income: Interest income from U.S. bonds (not taxed in Idaho)
+      id_retirement_benefits: Retirement Benefits Deduction
+      id_social_security_income: Social Security income (not taxed in Idaho)
+      id_standard_deduction: Standard deduction
+      id_tax: Idaho tax
+      id_tax_after_credits: Tax after nonrefundable credits
+      id_tax_withheld: Idaho tax withheld
+      id_taxable_income: Idaho taxable income
+      id_total_payments: Total payments and refundable credits
+      id_use_tax: Use tax
+      nc_income_tax: North Carolina income tax
+      nc_tax_withheld: North Carolina tax withheld
+      nc_taxable_income: North Carolina taxable income
+      nc_use_tax: North Carolina use tax
+      see_detailed_return: See detailed return information
+      standard_deduction: Standard deduction
       title: Free AZ and NY state tax filing
+      total_tax: Total tax
     intake_logins:
       account_locked:
         body_html: This account has been locked due to too many failed login attempts. If you need help unlocking this account, please email us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
@@ -2082,10 +2109,10 @@ en:
           <strong>What you’ll need:</strong>
           <br />
           <ul class="list--bulleted">
-            <li>An <strong>accepted</strong> 2023 federal return using <a href="https://directfile.irs.gov/">IRS Direct File</a>. (You don’t need a copy of this return; you’ll transfer your return here.)
+            <li>An <strong>accepted</strong> %{filing_year} federal return using <a href="https://directfile.irs.gov/">IRS Direct File</a>. (You don’t need a copy of this return; you’ll transfer your return here.)
             <li>Email address or phone number</li>
             <li>Driver’s license or state-issued ID</li>
-            <li>Form 1099-G (If you received unemployment benefits in 2023.)</li>
+            <li>Form 1099-G (If you received unemployment benefits in %{filing_year}.)</li>
             <li>Bank routing and account numbers (if you want to receive your refund or make a tax payment electronically)</li>
           </ul>
         id:
@@ -2116,7 +2143,7 @@ en:
             <strong>What you’ll need:</strong>
             <br />
             <ul class="list--bulleted">
-              <li>An <strong>accepted</strong> 2023 federal return using <a href="https://directfile.irs.gov/">IRS Direct File</a>. (You don’t need a copy of this return; you’ll transfer your return here.)
+              <li>An <strong>accepted</strong> %{filing_year} federal return using <a href="https://directfile.irs.gov/">IRS Direct File</a>. (You don’t need a copy of this return; you’ll transfer your return here.)
               <li>Email address or phone number</li>
               <li>Driver’s license or state-issued ID</li>
               <li>Bank routing and account numbers (if you want to receive your refund or make a tax payment electronically)</li>
@@ -2176,13 +2203,13 @@ en:
           expenses_helper_no_qualifying: You withdrew money from a 529 account and used it for qualifying expenses, or
           expenses_helper_nonqualifying_description: Most other uses of funds are non-qualifying expenses, including college application and testing fees, transportation costs, health insurance, and extracurricular costs.
           expenses_helper_qualifying_description: Qualifying expenses include tuition and fees, books, equipment (including computers and other tech), room and board, apprenticeship programs, and K-12 tuition up to $10,000.
-          out_of_state_income_html: Did you (or your spouse, if you’re filing together) earn any income in another state in 2023? (This includes unemployment income <strong>received</strong> from another state.)
+          out_of_state_income_html: Did you (or your spouse, if you’re filing together) earn any income in another state in %{filing_year}? (This includes unemployment income <strong>received</strong> from another state.)
           title: First, let's see if you can use this tool to file your taxes
-          used_529_for_non_qual_expense_html: Did you (or your spouse, if you’re filing together) withdraw money from a <a href="https://az529.gov/what-is-a-529-plan/" target="_blank" rel="noopener nofollow">529 college savings account</a> and use it for non-qualifying expenses in 2023?
+          used_529_for_non_qual_expense_html: Did you (or your spouse, if you’re filing together) withdraw money from a <a href="https://az529.gov/what-is-a-529-plan/" target="_blank" rel="noopener nofollow">529 college savings account</a> and use it for non-qualifying expenses in %{filing_year}?
       az_eligibility_residence:
         edit:
           filing_status_married_filing_separately: Are you filing as “married filing separately”?
-          lived_in_state_html: Did you (and your spouse, if you’re filing together) live in  %{state} for <strong>all</strong> of 2023?
+          lived_in_state_html: Did you (and your spouse, if you’re filing together) live in  %{state} for <strong>all</strong> of %{filing_year}?
           mfs_helper_description: Married filing separately is a tax filing status that is used by people who are legally married but choose to file separate returns.
           mfs_helper_heading: What does “married filing separately” mean?
           mfs_helper_no_if: 'Select no if:'
@@ -2191,7 +2218,7 @@ en:
           mfs_helper_yes_federal_mfs: You filed “married filing separately” on your federal return.
           mfs_helper_yes_if: 'Select yes if:'
           mfs_helper_yes_state_mfs: You want to file your state return as “married filing separately”.
-          subtitle: For the 2024 tax season, this tool will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
+          subtitle: For the %{current_year} tax season, this tool will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
           title: First, let's see if you can use this tool to file your taxes
       az_excise_credit:
         edit:
@@ -2262,25 +2289,22 @@ en:
           charitable_noncash: Charitable contributions (Non-Cash)
           dependent_tax_credit: Dependent tax credit
           family_income_tax_credit: Family income tax credit
-          fed_agi: Federal adjusted gross income
           household_excise_credit_claimed: Other members in your household have claimed the Arizona Increased Excise Tax Credit
           incr_deduction_chrit_contributions: Increased deduction for charitable contributions
           increased_excise_tax_credit: Increased Excise Tax Credit
           last_names: Other last names in the last four years
           made_az321_contributions: Made contributions to qualifying charitable organizations
-          see_detailed_return: See detailed return information
           ssn_no_employment: "‘Not valid for employment’ is written on your Social Security Card"
-          standard_deduction: Standard deduction
           total_arizona_subtractions: Total Arizona subtractions
           total_exemptions: Total Exemptions
           total_payments: Total payments
           tribal_member: Member of a federally recognized American Indian tribe
           tribal_wages: Amount earned while living and working on the reservation as a member of a federally recognized American Indian tribe
-          was_incarcerated: Incarcerated in a county, state, or federal prison for at least 60 days in 2023
+          was_incarcerated: Incarcerated in a county, state, or federal prison for at least 60 days in %{filing_year}
       az_senior_dependents:
         edit:
           assistance_label: Did %{name} need assistance with daily living activities such as dressing, eating, taking medication, shopping, or preparing their food?
-          passed_away_label: Did %{name} pass away in 2023?
+          passed_away_label: Did %{name} pass away in %{filing_year}?
           title: Please provide some more information about the people in your family who are 65 years of age or older.
       az_subtractions:
         edit:
@@ -2340,10 +2364,10 @@ en:
       data_transfer_offboarding:
         edit:
           ineligible_reason:
-            exempt_interest_exceeds_10k: your tax exempt interest income exceeds $10,000.
+            exempt_interest_exceeds_10k: you had more than $10,000 in tax-exempt interest income.
             has_irc_125_code: W2 lists IRC 125 benefit plan amounts.
-            has_out_of_state_w2: you earned income in another state in 2023.
-            has_yonkers_income: lived, earned income, or maintained a home in Yonkers in 2023.
+            has_out_of_state_w2: you earned income in another state in 2024.
+            has_yonkers_income: lived, earned income, or maintained a home in Yonkers in 2024.
             married_filing_separately: you are filing “married filing separately”.
           offboarding_reason: You cannot use this tool this year because %{reason}
           title: Unfortunately, after transferring your data, we found that you can’t use this tool this year. Don’t worry, here are other filing options.
@@ -2361,21 +2385,22 @@ en:
         edit:
           body_html: You cannot use this tool this year because you %{ineligible_reason}. <strong>Is this a mistake?</strong> <a href=%{prev_link}>Go back to correct.</a>
           ineligible_reason:
-            eligibility_529_for_non_qual_expense: withdrew money from a 529 college savings account and used it for a non-qualifying expense in 2023
-            eligibility_emergency_rental_assistance: received emergency rental assistance in 2024
+            eligibility_529_for_non_qual_expense: withdrew money from a 529 college savings account and used it for a non-qualifying expense in %{filing_year}
+            eligibility_emergency_rental_assistance: received emergency rental assistance in %{filing_year}
             eligibility_home_different_areas: or your spouse had your permanent homes in two different counties, cities, towns, or taxing areas on the last day the tax year
             eligibility_homebuyer_withdrawal: withdrew money from a first-time homebuyer account and used it for anything other than purchasing a home
             eligibility_homebuyer_withdrawal_mfj: or your spouse withdrew money from a first-time homebuyer account and used it for anything other than purchasing a home
-            eligibility_lived_in_state: did not live in %{state} for all of 2023
+            eligibility_lived_in_state: did not live in %{state} for all of %{filing_year}
             eligibility_married_filing_separately: are filing “married filing separately”
-            eligibility_out_of_state_income: earned income in another state in 2023
-            eligibility_part_year_nyc_resident: were a part-time New York City resident in 2023
-            eligibility_withdrew_529: withdrew money from a 529 college savings account in 2023
+            eligibility_out_of_state_income: earned income in another state in %{filing_year}
+            eligibility_part_year_nyc_resident: were a part-time New York City resident in %{filing_year}
+            eligibility_withdrew_529: withdrew money from a 529 college savings account in %{filing_year}
             eligibility_withdrew_msa_fthb: withdrew money from a medical savings account or a first-time homebuyer account
-            eligibility_yonkers: lived or earned income in Yonkers in 2023
+            eligibility_yonkers: lived or earned income in Yonkers in %{filing_year}
+            health_insurance_eligibility: and all members of your tax household did not have health insurance (with minimum essential coverage) for every month in %{filing_year}
             nyc_maintained_home: you lived in or maintained a home in New York City for some of the year.
             nyc_residency: you lived in or maintained a home in New York City for some of the year.
-            permanent_address_outside_ny: you did not live in New York for all of 2023
+            permanent_address_outside_ny: you did not live in New York for all of %{filing_year}
           title: Unfortunately, you can't use this tool this year. Don't worry, there are other filing options.
         other_options:
           faq_link: Visit our FAQ
@@ -2487,9 +2512,9 @@ en:
           already_submitted: You have already submitted your return.
           az:
             body_html: |
-              <p>Under penalties of perjury, I declare that I have examined a copy of my electronic Arizona individual income tax return and accompanying schedules and statements for the year ending December 31, 2023, and to the best of my knowledge and belief, it is true, correct, and complete.</p>
+              <p>Under penalties of perjury, I declare that I have examined a copy of my electronic Arizona individual income tax return and accompanying schedules and statements for the year ending December 31, %{filing_year}, and to the best of my knowledge and belief, it is true, correct, and complete.</p>
               <ul class="list--bulleted">
-                <li><em>If I am owed a refund and I provided direct deposit information,</em> I consent that my refund be directly deposited as designated in the electronic portion of my 2023 Arizona individual income tax return. If I have filed a joint return, this is an irrevocable appointment of the other spouse as an agent to receive the refund.</li>
+                <li><em>If I am owed a refund and I provided direct deposit information,</em> I consent that my refund be directly deposited as designated in the electronic portion of my %{filing_year} Arizona individual income tax return. If I have filed a joint return, this is an irrevocable appointment of the other spouse as an agent to receive the refund.</li>
                 <li><em>If I am not owed a refund or if I elected to receive my refund via mailed check,</em> I do not want direct deposit of my refund or I am not receiving a refund.</li>
                 <li><em>If I owe tax and I provided direct debit information,</em> I authorize the Arizona Department of Revenue (ADOR) and its designated Financial Agent to initiate an ACH electronic funds withdrawal (direct debit) entry to the financial institution account indicated in the tax preparation software for payment of my Arizona taxes owed on this return. I also authorize the financial institutions involved in the processing of the electronic payment of taxes to receive confidential information necessary to answer inquiries and resolve issues related to the payment.</li>
               </ul>
@@ -2516,7 +2541,7 @@ en:
           title: Electronically sign your %{state_name} state tax return
       id_eligibility_residence:
         edit:
-          emergency_rental_assistance: In 2024, did you (or your spouse if filing together) receive emergency rental assistance?
+          emergency_rental_assistance: In %{filing_year}, did you (or your spouse if filing together) receive emergency rental assistance?
           emergency_rental_assistance_explanation: The Emergency Rental Assistance (ERA) program is a federal program that gives money to help households pay for rent and utility bills. It was created in response to the Covid-19 pandemic.
           subtitle_1: For the %{filing_year} tax season, this tool will only be able to serve people with specific tax situations.
           subtitle_2: Please answer the following questions to find out if you can use it.
@@ -2529,8 +2554,8 @@ en:
         edit:
           answers_confidential_html: "<strong>Note:</strong> Your answers are confidential and only used to check credit eligibility."
           example_months: For example, if you experienced 2 of these situations in the month of April, that would count as 1 total month.
-          need_to_know_html: In order to finalize your credit amount, we need to know the <strong>total</strong> number of months these situations applied to %{name} in 2024.
-          need_to_know_you_html: In order to finalize your credit amount, we need to know the <strong>total</strong> number of months these situations applied to you in 2024.
+          need_to_know_html: In order to finalize your credit amount, we need to know the <strong>total</strong> number of months these situations applied to %{name} in %{filing_year}.
+          need_to_know_you_html: In order to finalize your credit amount, we need to know the <strong>total</strong> number of months these situations applied to you in %{filing_year}.
           see_if_you_qualify:
             one: To see if you qualify, we need more information about you.
             other: To see if you qualify, we need more information about you and your household.
@@ -2608,6 +2633,7 @@ en:
       id_review:
         edit:
           health_insurance_premium_title: Idaho Health Insurance Premium Subtraction
+          idaho_grocery_credit: Idaho Grocery Credit
           permanent_building_fund_tax: Permanent Building Fund Tax
           purchases_without_sales_tax: Purchases without paying sales or use tax
           state_details_title: State Details
@@ -2656,7 +2682,16 @@ en:
       md_county:
         edit:
           county_html: "<strong>County</strong>"
-          political_subdivision_html: "<strong>Political subdivision</strong>"
+          political_subdivision: Political subdivision
+          political_subdivision_helper_areas:
+          - 'Counties: The 23 counties and Baltimore City.'
+          - 'Municipalities: Towns and cities within the counties.'
+          - 'Special Taxing Districts: Areas with specific tax rules for local services.'
+          - 'All Other Areas: Regions that do not have their own municipal government and are governed at the county level.'
+          political_subdivision_helper_first_p: 'A "political subdivision" is a specific area within Maryland that has its own local government. This includes:'
+          political_subdivision_helper_heading: What is a political division?
+          political_subdivision_helper_last_p: Select the political subdivision where you lived on December 31, %{filing_year} to make sure your tax filing is correct.
+          political_subdivision_label_html: If you did not live within an incorporated city or area, choose “All other areas.” <a href="#">Find a full list here </a>
           title: Select the county and political subdivision where you lived on December 31, %{filing_year}
           title_html: Select the <strong>county</strong> and <strong>political subdivision</strong> where you lived on December 31, %{filing_year}
       md_eligibility_filing_status:
@@ -2672,16 +2707,39 @@ en:
           permanent_home_heading: What is a permanent home?
           subtitle: For the %{year} season, this tool will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
           title: First, let's see if you can use this tool to file your %{year} Maryland taxes
+      md_had_health_insurance:
+        edit:
+          authorize_follow_up: If yes, the Comptroller’s Office will share your information and the email address on file with Maryland Health Connection.
+          authorize_share_health_information: Do you authorize the Comptroller of Maryland to share information from this tax return with Maryland Health Connection for the purpose of determining pre-eligibility for no-cost or low-cost health care coverage?
+          authorize_to_share_info:
+          - Name, SSN/ITIN, and date of birth of each individual identified on your return
+          - Your current mailing address, email address, and phone number
+          - Filing status reported on your return
+          - Total number of individuals in your household included in your return
+          - Insured/ uninsured status of each individual included in your return
+          - Blindness status
+          - Relationship (self, spouse, or dependent) to the primary taxpayer for each individual included in your return
+          - Your federal adjusted gross income amount from Line 1
+          following_will_be_shared: 'If you authorize information sharing, we will share the following information with Maryland Health Connection (MHC):'
+          information_use: Information shared with MHC will be used to determine eligibility for insurance affordability programs or to assist with enrollment in health coverage.
+          more_info: If you would like more information about the health insurance affordability programs or healthcare coverage enrollment, visit Maryland Health Connection at <a href="%{link}" target="_blank" rel="noopener noreferrer">marylandhealthconnection.gov/easyenrollment/</a>.
+          no_insurance_question: Did any member of your household included in this return <strong> not </strong> have health care coverage during the year?
+          subtitle: Sharing this information <strong>won't</strong> impact your tax return.
+          title: Before you submit, we have a few questions about health insurance coverage
+          what_will_be_shared: What information will be shared with Maryland Health Connection?
+          which_members_not_have_insurance: Select which member(s) of your household <strong> did not </strong> have health care coverage at the end of %{tax_year}?
+          why_ask_explanation: This information will help Maryland Health Connection determine eligibility for uninsured members of your household for no-cost or low-cost health coverage. It <strong>won't affect</strong> your tax return and there are no penalties for providing this information.
+          why_ask_this: Why are you asking this?
       md_permanent_address:
         edit:
           address_header: Address
           apartment_number_label: Apartment/Unit Number
           city_label: City
-          mark_no_hint_html: Mark no if the address listed is a PO Box <strong>or</strong> if you lived at a different address on December 31, 2023
+          mark_no_hint_html: Mark no if the address listed is a PO Box <strong>or</strong> if you lived at a different address on December 31, %{filing_year}
           state_label: State
           street_address_label: Street Address
-          title: Did you live at this address on December 31, 2023?
-          where_did_you_live: Where did you live on December 31, 2023?
+          title: Did you live at this address on December 31, %{filing_year}?
+          where_did_you_live: Where did you live on December 31, %{filing_year}?
           zip_label: Zip Code
       md_primary_state_id:
         md_primary:
@@ -2741,9 +2799,13 @@ en:
       nc_review:
         edit:
           amount: Amount
+          child_deduction: Child deduction
+          interest_us_bonds: Interest income from U.S. bonds (not taxable in North Carolina)
           primary_veteran: Veteran Info
+          social_security_benefits: Social Security benefits (not taxable in North Carolina)
           spouse_veteran: Spouse Veteran Info
           state_credit: Amount earned as member of a federally recognized Indian tribe
+          subtraction_indian_tribe: Subtraction for income of a member of an Indian tribe
           use_tax_applied: Consumer Use Tax Applied
       nc_sales_use_tax:
         edit:
@@ -2774,6 +2836,23 @@ en:
         primary_veteran_question: Are you a veteran?
         spouse_veteran_question: Is your spouse a veteran?
         title: Veteran status question
+      nj_college_dependents_exemption:
+        edit:
+          birthdate_label: 'Birthdate:'
+          college_helper_description: '"College"  is an accredited college or post-secondary school, maintains a regular faculty and curriculum, and has a group of students in attendance.'
+          college_helper_heading: What counts as "college"?
+          dependent_attends_accredited_program: "%{dependent_first} is attending an accredited college or post-secondary school."
+          dependent_enrolled_full_time: "%{dependent_first} attends there full time."
+          dependent_five_months_in_college: "%{dependent_first} spends at least some part of each of five calendar months in that college."
+          dependent_header: "(dependent)"
+          filer_pays_tuition_books: I (or my spouse, if I am filing jointly) pay for more than one-half or more of %{dependent_first}'s tuition and college costs.
+          full_time_college_helper_description: '"Full time" is whatever the college considers to be full-time.'
+          full_time_college_helper_heading: What counts as "attending college full time"?
+          subtitle_1: For each person claimed on your return (dependent) who is attending college, we need to confirm some details.
+          subtitle_2: "(You can only claim this credit for dependents listed on your return.)"
+          title: You may qualify for an additional exemption for dependents who are attending college.
+          tuition_books_helper_description_html: To calculate the total amount, add together the cost of college tuition, the cost of books (and supplies), and any money earned by the student in college work study programs. Do not include other financial aid received.
+          tuition_books_helper_heading: How should I calculate the total amount of tuition and college costs?
       nj_county:
         edit:
           county: County
@@ -2809,6 +2888,12 @@ en:
           primary_eitc_qualifying_child_question: In %{filing_year}, could you be someone else's qualifying child for the Earned Income Tax Credit?
           spouse_eitc_qualifying_child_question: In %{filing_year}, could your spouse be someone else's qualifying child for the Earned Income Tax Credit?
           title: You may be eligible for the Earned Income Tax Credit
+      nj_eligibility_health_insurance:
+        edit:
+          helper_description_html: "<p>Most people who have health insurance have minimum essential coverage. “Minimal essential coverage” just refers to how much your plan covers. If you have any of the following, you most likely have it:</p>\n<ul>\n  <li>A plan through your employer</li>\n  <li>A plan bought through <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://nj.gov/getcoverednj/\">GetCoveredNJ</a></li>\n  <li>Medicare</li> \n  <li>Medicaid (NJ FamilyCare)</li>\n</ul>\n<p><a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml\">Here is the full list of insurance options that have minimum essential coverage.</a><p> \n<p>If you only had standalone vision and dental plans, workers' compensation coverage, and/or coverage limited to a specified disease or illness, you didn't have minimum essential coverage. In New Jersey, as of 2018, you need minimum essential coverage, or you will likely pay additional taxes.</p>\n"
+          helper_heading: What is health insurance with minimum essential coverage?
+          label: Did you and all members of your tax household have health insurance (with minimum essential coverage) for every month in %{filing_year}?
+          title: Let’s get started.
       nj_estimated_tax_payments:
         edit:
           label: Total
@@ -2817,6 +2902,14 @@ en:
           subtitle_list_2: Overpayments on your %{prior_year} return that you chose to apply to your %{filing_year} New Jersey taxes
           subtitle_list_2_sub: 'Note: you would have selected this option when filing your %{prior_year} return'
           title: Please tell us if you already made any payments toward your %{filing_year} New Jersey taxes
+      nj_gubernatorial_elections:
+        edit:
+          details_1: You may have heard this referred to as “public financing” of campaigns.
+          details_2_html: You can contribute $1 of where your taxes go to the <a href="https://elec.nj.gov/pdffiles/temporary/WebsitePlugForGubfinProgram.pdf" target="_blank" rel="noopener noreferrer">Gubernatorial Elections Fund.</a>
+          details_3: 'FYI: Your taxes won’t increase and your refund won’t be reduced. This just gives New Jersey permission to use $1 of your tax dollars for this fund.'
+          primary_contribute: Would you like to contribute $1 to the fund?
+          spouse_contribute: Would your spouse like to contribute $1 to the fund?
+          title: The Gubernatorial Elections Fund helps qualified New Jersey governor candidates who need financial help.
       nj_homeowner_eligibility:
         edit:
           homeowner_home_subject_to_property_taxes: My main home, whether owned or rented, was subject to property taxes that were paid either as actual property taxes or through rent.
@@ -2878,18 +2971,24 @@ en:
         edit:
           amount: Amount
           claimed_as_eitc_qualifying_child: I could be someone else's qualifying child for the Earned Income Tax Credit.
+          college_dependents: Dependents attending college
           county: County
+          edit_disability: disability status
+          edit_gubernatorial: gubernatorial fund contributions
+          edit_veteran: veteran status
           estimated_tax_payments: Payments already made to New Jersey taxes
           household_rent_own: Rent or own home
           medical_expenses: Medical expenses
           municipality: Municipality
           primary_disabled: I have a disability
+          primary_gubernatorial: I want $1 of my taxes to go to the gubernatorial elections fund
           primary_veteran: I am a veteran
           property_tax_paid: Property taxes paid
           rent_paid: Rent paid
           rounding_html: "<strong>We have automatically rounded all dollar amounts to the nearest whole number.</strong> New Jersey will only accept whole numbers on the final tax return."
           spouse_claimed_as_eitc_qualifying_child: My spouse could be someone else's qualifying child for the Earned Income Tax Credit.
           spouse_disabled: My spouse has a disability
+          spouse_gubernatorial: My spouse wants $1 of their taxes to go to the gubernatorial elections fund
           spouse_veteran: My spouse is a veteran
           use_tax_applied: Consumer Use Tax Applied
       nj_sales_use_tax:
@@ -2952,7 +3051,7 @@ en:
             reveal_info_html: "<p>Qualifying expenses include tuition and fees, books, equipment (including computers and other tech), room and board, apprenticeship programs, and K-12 tuition up to $10,000.</p> \n\n<p>Most other uses of funds are non-qualifying expenses, including college application and testing fees, transportation costs, health insurance, and extracurricular costs.</p>\n\n<p><strong>Select 'no' if:</strong></p>\n<ul>\n  <li>You withdrew money from a 529 account and used it for qualifying expenses, or</li>\n  <li>You didn't withdraw money from a 529 account at all.</li>\n</ul>\n"
             title: What are qualifying and non-qualifying expenses?
           title: First, let's see if you can use this tool to file your taxes
-          withdraw_529: In 2023, did you contribute to a <u>529 college savings account</u>, or did you withdraw funds from a 529 account and use them for non-qualified expenses?
+          withdraw_529: In %{filing_year}, did you contribute to a <u>529 college savings account</u>, or did you withdraw funds from a 529 account and use them for non-qualified expenses?
       ny_eligibility_out_of_state_income:
         edit:
           out_of_state_income_html: Did you (or your spouse, if you’re filing together) earn any income in another state in 2023? (This includes unemployment income <strong>received</strong> from another state.)
@@ -3084,17 +3183,17 @@ en:
           title: Please review your retirement income (1099-R) details for %{payer_name}.
       return_status:
         accepted:
-          check_payable: Make your check or money order payable to Arizona Department of Revenue. Write your full SSN, “2023 Tax” and 140 on your payment.
+          check_payable: Make your check or money order payable to Arizona Department of Revenue. Write your full SSN, “%{filing_year} Tax” and 140 on your payment.
           check_your_refund_html: <a target="_blank" rel="noopener nofollow" href="%{tax_refund_url}">Check on the status</a> of your refund.
           direct_debit_html: If you have a remaining tax balance, remember to <strong>pay your taxes online at <a target="_blank" rel="noopener nofollow" href="https://%{tax_payment_url}">%{tax_payment_url}</a></strong> or by mail before the April 15 filing deadline.
-          download_title: Download a copy of your 2023 %{state_name} state tax return until December 31, 2024
+          download_title: Download a copy of your %{filing_year} %{state_name} state tax return until December 31, %{filing_year + 1}
           download_voucher: Download payment voucher form
           feedback: We value your feedback—let us know what you think of this tool.
           include_payment: You'll need to include the payment voucher form.
           mail_voucher_and_payment: 'Mail the voucher form and payment to:'
           pay_by_mail_or_moneyorder: 'If you are paying by mail via check or money order:'
           register_to_vote: Register to vote.
-          title: Your 2023 %{state_name} state tax return is accepted
+          title: Your %{filing_year} %{state_name} state tax return is accepted
           track_your_payment_html: Track your payment <a target="_blank" rel="noopener nofollow" href="https://www.tax.ny.gov/online/ind.htm">here.</a>
         edit:
           download_state_return_pdf: Download your state return
@@ -3105,7 +3204,7 @@ en:
           more_than_two_days_closed_html: If it's been more than two days since you submitted your state taxes, contact our team of support specialists by emailing us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>
           receive_email: You'll receive an email update when your state tax return is accepted.
           receive_email_sms: You'll receive an email or text update when your state tax return is accepted.
-          title: You have submitted your 2023 %{state_name} tax return! It is currently waiting to be accepted for processing.
+          title: You have submitted your %{filing_year} %{state_name} tax return! It is currently waiting to be accepted for processing.
         rejected:
           contact_us: Contact our team of Support Specialists by clicking chat with us.
           edit_return: Edit your state return
@@ -3119,7 +3218,7 @@ en:
               title: What can I do next?
           reject_code: 'Reject Code:'
           reject_desc: 'Reject Description:'
-          title: Unfortunately, your 2023 %{state_name} state tax return was rejected
+          title: Unfortunately, your %{filing_year} %{state_name} state tax return was rejected
         thank_you_html: Thank you for filing your return with <strong>FileYourStateTaxes</strong>, built in partnership with the state of %{state_name} to integrate with the IRS Direct File tool.
       review:
         county: County
@@ -3131,6 +3230,7 @@ en:
           dependent_months_in_home: Number of months they lived with you
           dependent_name: Your dependent's name
           household_info: Household information
+          income_details: Income Details
           nth_dependent_name: Your %{ordinal} dependent's name
           spouse_name: Your spouse's name
           taxes_owed_header: Your refund or taxes owed
@@ -3149,8 +3249,8 @@ en:
           email_update: You'll receive an email update when your state tax return is accepted.
           ny_notifications_signup_html: <a target="_blank" rel="noopener nofollow" href="https://tax.ny.gov/">Sign up with the NYS Tax Department</a> to receive email notifications about your personal tax account.
           register_to_vote: Register to vote.
-          title: Your 2023 %{state_name} state tax return is now submitted!
-          title_resubmit: Your 2023 %{state_name} state tax return is now resubmitted!
+          title: Your %{filing_year} %{state_name} state tax return is now submitted!
+          title_resubmit: Your %{filing_year} %{state_name} state tax return is now resubmitted!
       tax_refund:
         bank_details:
           account_number: Account Number
@@ -3221,7 +3321,7 @@ en:
           information_html: "<strong>How do I find this information?</strong>"
           money_boxes_label: Please complete the following boxes based on what’s reported on Form 1099-G.
           need_additional_information: Great! We need some additional information about what’s on Form 1099-G. (If you have more than one 1099-G, you can add it at the end.)
-          other_tax_filing_options_html: <strong>Reminder:</strong> In 2024, this tool does not support filing unemployment income received from another state. To file income received from another state, check out <a target="_blank" rel="noopener nofollow" href="%{link}">other tax filing options.</a>
+          other_tax_filing_options_html: <strong>Reminder:</strong> In %{filing_year + 1}, this tool does not support filing unemployment income received from another state. To file income received from another state, check out <a target="_blank" rel="noopener nofollow" href="%{link}">other tax filing options.</a>
           payer_address: Payer's Street Address
           payer_name: Payer's Name
           payer_question_html: Please enter the <strong>payer's information located in the top left corner</strong> of the form&#58;
@@ -3265,7 +3365,7 @@ en:
           box18_html: "<strong>Box 18,</strong> Local wages, tips, etc."
           box19_html: "<strong>Box 19,</strong> Local income tax"
           box20_locality_name: "<strong>Box 20,</strong> Locality name"
-          employer_state_id_error: EIN must be a number. Do not include a dash.
+          employer_state_id_error: EIN cannot be more than 16 characters.
           instructions_1_html: Please review your state income details for <strong>%{employer}</strong>
           local_income_tax_amt_error: Cannot be greater than local wages and tips.
           local_wages_and_tips_amt_error: Please enter local wages and tips

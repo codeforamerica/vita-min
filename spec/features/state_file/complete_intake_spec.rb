@@ -30,22 +30,22 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.questions.data_review.edit.title")
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t("state_file.questions.nyc_residency.edit.title", year: 2023)
-      choose "I did not live in New York City at all in 2023"
+      expect(page).to have_text I18n.t("state_file.questions.nyc_residency.edit.title", year: filing_year)
+      choose "I did not live in New York City at all in #{filing_year}"
       choose I18n.t("general.affirmative")
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t("state_file.questions.eligibility_offboarding.edit.ineligible_reason.nyc_maintained_home")
       click_on "Go back"
-      expect(page).to have_text I18n.t("state_file.questions.nyc_residency.edit.title", year: 2023)
-      choose "I lived in New York City all year in 2023"
+      expect(page).to have_text I18n.t("state_file.questions.nyc_residency.edit.title", year: filing_year)
+      choose "I lived in New York City all year in #{filing_year}"
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t("state_file.questions.ny_county.edit.title", filing_year: MultiTenantService.statefile.current_tax_year)
+      expect(page).to have_text I18n.t("state_file.questions.ny_county.edit.title", filing_year: filing_year)
       select("Nassau", from: "County")
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t("state_file.questions.ny_school_district.edit.title", filing_year: MultiTenantService.statefile.current_tax_year)
+      expect(page).to have_text I18n.t("state_file.questions.ny_school_district.edit.title", filing_year: filing_year)
       select("Bellmore-Merrick CHS Bellmore", from: "School District Name")
       click_on I18n.t("general.continue")
 
@@ -64,7 +64,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in I18n.t("state_file.questions.ny_permanent_address.edit.zip_label"), with: "11102"
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t('state_file.questions.ny_sales_use_tax.edit.title.one', year: MultiTenantService.statefile.current_tax_year)
+      expect(page).to have_text I18n.t('state_file.questions.ny_sales_use_tax.edit.title.one', year: filing_year)
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
 
@@ -100,9 +100,9 @@ RSpec.feature "Completing a state file intake", active_job: true do
       within "#county" do
         click_on I18n.t("general.edit")
       end
-      expect(page).to have_text I18n.t("state_file.questions.ny_county.edit.title", filing_year: MultiTenantService.statefile.current_tax_year)
+      expect(page).to have_text I18n.t("state_file.questions.ny_county.edit.title", filing_year: filing_year)
       click_on I18n.t("general.continue")
-      expect(page).to have_text I18n.t("state_file.questions.ny_school_district.edit.title", filing_year: MultiTenantService.statefile.current_tax_year)
+      expect(page).to have_text I18n.t("state_file.questions.ny_school_district.edit.title", filing_year: filing_year)
       click_on I18n.t("general.continue")
       expect(page).to have_text I18n.t("state_file.questions.shared.review_header.title")
       click_on I18n.t("general.continue")
@@ -117,7 +117,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       check "state_file_esign_declaration_form_primary_esigned"
       click_on I18n.t('state_file.questions.esign_declaration.edit.submit')
 
-      expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "New York")
+      expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "New York", filing_year: filing_year)
       expect(page).to have_link I18n.t("state_file.questions.submission_confirmation.edit.download_state_return_pdf")
       click_on "Main XML Doc"
       expect(page.body).to include('ReturnState')
@@ -157,7 +157,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       expect(page).to have_text I18n.t("state_file.questions.az_senior_dependents.edit.title")
       expect(page).to have_text I18n.t("state_file.questions.az_senior_dependents.edit.assistance_label", name: "Grampy")
-      expect(page).to have_text I18n.t("state_file.questions.az_senior_dependents.edit.passed_away_label", name: "Grampy")
+      expect(page).to have_text I18n.t("state_file.questions.az_senior_dependents.edit.passed_away_label", name: "Grampy", filing_year: filing_year)
       choose "state_file_az_senior_dependents_form_dependents_attributes_0_needed_assistance_yes"
       choose "state_file_az_senior_dependents_form_dependents_attributes_0_passed_away_no"
       click_on I18n.t("general.continue")
@@ -170,7 +170,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text "Here are the income forms we transferred from your federal tax return."
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title.one', year: MultiTenantService.statefile.current_tax_year)
+      expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title.one', year: filing_year)
       choose I18n.t("general.affirmative")
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_name'), with: "Business Name"
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_address'), with: "123 Main St"
@@ -187,37 +187,37 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text(I18n.t('state_file.questions.unemployment.index.1099_label', name: StateFileAzIntake.last.primary.full_name))
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t("state_file.questions.az_subtractions.edit.title.one", year: MultiTenantService.statefile.current_tax_year)
+      expect(page).to have_text I18n.t("state_file.questions.az_subtractions.edit.title.one", year: filing_year)
       check "state_file_az_subtractions_form_tribal_member"
       fill_in "state_file_az_subtractions_form_tribal_wages_amount", with: "100"
       check "state_file_az_subtractions_form_armed_forces_member"
       fill_in "state_file_az_subtractions_form_armed_forces_wages_amount", with: "100"
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t("state_file.questions.az_charitable_contributions.edit.title.one", tax_year: MultiTenantService.statefile.current_tax_year)
+      expect(page).to have_text I18n.t("state_file.questions.az_charitable_contributions.edit.title.one", tax_year: filing_year)
       choose I18n.t("general.affirmative")
-      fill_in "Enter the total amount of cash contributions made in #{MultiTenantService.statefile.current_tax_year}. (Round to the nearest whole number. Note: you may be asked to provide receipts for donations over $250.)", with: "123"
-      fill_in "Enter the total amount of non-cash contributions made in #{MultiTenantService.statefile.current_tax_year} (example: the fair market value of donated items). This cannot exceed $500 (round to the nearest whole number.)", with: "123"
+      fill_in "Enter the total amount of cash contributions made in #{filing_year}. (Round to the nearest whole number. Note: you may be asked to provide receipts for donations over $250.)", with: "123"
+      fill_in "Enter the total amount of non-cash contributions made in #{filing_year} (example: the fair market value of donated items). This cannot exceed $500 (round to the nearest whole number.)", with: "123"
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t('state_file.questions.az_public_school_contributions.edit.title', year: MultiTenantService.statefile.current_tax_year)
+      expect(page).to have_text I18n.t('state_file.questions.az_public_school_contributions.edit.title', year: filing_year)
       choose I18n.t("general.affirmative")
       fill_in "az322_contribution_school_name", with: "Tax Elementary"
       fill_in "az322_contribution_ctds_code", with: "123456789"
       fill_in "az322_contribution_district_name", with: "Testerson"
       fill_in "az322_contribution_amount", with: "200"
-      select_cfa_date "az322_contribution_date_of_contribution", Date.new(2023, 6, 21)
+      select_cfa_date "az322_contribution_date_of_contribution", Date.new(filing_year,6, 21)
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t('state_file.questions.az_public_school_contributions.index.lets_review')
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t('state_file.questions.az_qualifying_organization_contributions.form.main_heading', filing_year: Rails.configuration.statefile_current_tax_year)
+      expect(page).to have_text I18n.t('state_file.questions.az_qualifying_organization_contributions.form.main_heading', filing_year: filing_year)
       choose I18n.t("general.affirmative")
       fill_in "az321_contribution_charity_name", with: "Center for Ants"
       fill_in "az321_contribution_charity_code", with: "21134"
       fill_in "az321_contribution_amount", with: "90"
-      select_cfa_date "az321_contribution_date_of_contribution", Date.new(Rails.configuration.statefile_current_tax_year, 6, 21)
+      select_cfa_date "az321_contribution_date_of_contribution", Date.new(filing_year, 6, 21)
 
       click_on I18n.t("general.continue")
 
@@ -262,24 +262,24 @@ RSpec.feature "Completing a state file intake", active_job: true do
       check "state_file_esign_declaration_form_primary_esigned"
       click_on I18n.t('state_file.questions.esign_declaration.edit.submit')
 
-      expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Arizona")
+      expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Arizona", filing_year: filing_year)
       expect(page).to have_link I18n.t("state_file.questions.submission_confirmation.edit.download_state_return_pdf")
 
       click_on "Main XML Doc"
 
-      #needs to be upadated with new XML
-      # expect(page.body).to include('efile:ReturnState')
-      # expect(page.body).to include('<FirstName>Testy</FirstName>')
-      # expect(page.body).to include('<QualParentsAncestors>')
-      # expect(page.body).to include('<WageAmIndian>100</WageAmIndian>')
-      # expect(page.body).to include('<CompNtnlGrdArmdFrcs>100</CompNtnlGrdArmdFrcs>')
-      #
-      # assert_flow_explorer_sample_params_includes_everything('az')
-      #
-      # perform_enqueued_jobs
-      # submission = EfileSubmission.last
-      # expect(submission.submission_bundle).to be_present
-      # expect(submission.current_state).to eq("queued")
+
+      expect(page.body).to include('efile:ReturnState')
+      expect(page.body).to include('<FirstName>Testy</FirstName>')
+      expect(page.body).to include('<QualParentsAncestors>')
+      expect(page.body).to include('<WageAmIndian>100</WageAmIndian>')
+      expect(page.body).to include('<CompNtnlGrdArmdFrcs>100</CompNtnlGrdArmdFrcs>')
+
+      assert_flow_explorer_sample_params_includes_everything('az')
+
+      perform_enqueued_jobs
+      submission = EfileSubmission.last
+      expect(submission.submission_bundle).to be_present
+      expect(submission.current_state).to eq("queued")
     end
   end
 
@@ -307,7 +307,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.questions.data_review.edit.title")
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t("state_file.questions.nc_county.edit.title", filing_year: MultiTenantService.statefile.current_tax_year)
+      expect(page).to have_text I18n.t("state_file.questions.nc_county.edit.title", filing_year: filing_year)
       select("Alamance", from: "County")
       click_on I18n.t("general.continue")
 
@@ -316,14 +316,14 @@ RSpec.feature "Completing a state file intake", active_job: true do
       choose "state_file_nc_veteran_status_form_spouse_veteran_no"
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t("state_file.questions.nc_sales_use_tax.edit.title.other", year: MultiTenantService.statefile.current_tax_year, count: 2)
+      expect(page).to have_text I18n.t("state_file.questions.nc_sales_use_tax.edit.title.other", year: filing_year, count: 2)
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
 
       expect(page).to have_text "Here are the income forms we transferred from your federal tax return."
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title.other', year: MultiTenantService.statefile.current_tax_year)
+      expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title.other', year: filing_year)
       choose I18n.t("general.affirmative")
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_name'), with: "Business Name"
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_address'), with: "123 Main St"
@@ -373,7 +373,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       check I18n.t("state_file.questions.esign_declaration.edit.spouse_esign")
       click_on I18n.t("state_file.questions.esign_declaration.edit.submit")
 
-      expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "North Carolina")
+      expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "North Carolina", filing_year: filing_year)
     end
   end
 
@@ -385,8 +385,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.landing_page.edit.id.title")
       click_on I18n.t('general.get_started'), id: "firstCta"
 
-      filing_year = Rails.configuration.statefile_current_tax_year
-      expect(page).to have_text I18n.t("state_file.questions.id_eligibility_residence.edit.emergency_rental_assistance")
+      expect(page).to have_text I18n.t("state_file.questions.id_eligibility_residence.edit.emergency_rental_assistance", filing_year: filing_year)
       expect(page).to have_text I18n.t("state_file.questions.id_eligibility_residence.edit.withdrew_msa_fthb", filing_year: filing_year)
 
       find_by_id('state_file_id_eligibility_residence_form_eligibility_withdrew_msa_fthb_no').click
@@ -428,7 +427,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text "Here are the income forms we transferred from your federal tax return."
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title.one', year: MultiTenantService.statefile.current_tax_year)
+      expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title.one', year: filing_year)
       choose I18n.t("general.affirmative")
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_name'), with: "Business Name"
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_address'), with: "123 Main St"
@@ -462,12 +461,12 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("general.continue")
 
       # Sales/Use Tax
-      expect(page).to have_text I18n.t('state_file.questions.id_sales_use_tax.edit.title', year: MultiTenantService.statefile.current_tax_year)
+      expect(page).to have_text I18n.t('state_file.questions.id_sales_use_tax.edit.title', year: filing_year)
       choose I18n.t("general.affirmative")
       fill_in 'state_file_id_sales_use_tax_form_total_purchase_amount', with: "290"
       click_on I18n.t("general.continue")
 
-      #Permanent Building Fund
+      # Permanent Building Fund
       expect(page).to have_text I18n.t('state_file.questions.id_permanent_building_fund.edit.title')
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
@@ -493,7 +492,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       check I18n.t("state_file.questions.esign_declaration.edit.primary_esign")
       click_on I18n.t("state_file.questions.esign_declaration.edit.submit")
 
-      expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Idaho")
+      expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Idaho", filing_year: filing_year)
     end
   end
 
@@ -510,7 +509,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.landing_page.edit.md.title")
       click_on I18n.t('general.get_started'), id: "firstCta"
 
-      expect(page).to have_text I18n.t("state_file.questions.md_eligibility_filing_status.edit.title", year: MultiTenantService.statefile.current_tax_year)
+      expect(page).to have_text I18n.t("state_file.questions.md_eligibility_filing_status.edit.title", year: filing_year)
       # select optoins that allow us to proceed
       click_on "Continue"
 
@@ -534,19 +533,19 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.questions.data_review.edit.title")
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t("state_file.questions.md_permanent_address.edit.title")
+      expect(page).to have_text I18n.t("state_file.questions.md_permanent_address.edit.title", filing_year: filing_year)
       choose I18n.t("general.affirmative")
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text "Select the county and political subdivision where you lived on December 31, #{MultiTenantService.statefile.current_tax_year}"
+      expect(page).to have_text "Select the county and political subdivision where you lived on December 31, #{filing_year}"
       select("Allegany", from: "County")
-      select("Town Of Barton", from: "Political subdivision")
+      select("Town Of Barton", from: "state_file_md_county_form_subdivision_code")
       click_on I18n.t("general.continue")
 
       expect(page).to have_text "Here are the income forms we transferred from your federal tax return."
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title.other', year: MultiTenantService.statefile.current_tax_year)
+      expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title.other', year: filing_year)
       choose I18n.t("general.affirmative")
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_name'), with: "Business Name"
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_address'), with: "123 Main St"
@@ -562,7 +561,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("general.continue")
 
       # md_two_income_subtractions
-      expect(page).to have_text I18n.t('state_file.questions.md_two_income_subtractions.edit.title', year: MultiTenantService.statefile.current_tax_year)
+      expect(page).to have_text I18n.t('state_file.questions.md_two_income_subtractions.edit.title', year: filing_year)
       fill_in 'state_file_md_two_income_subtractions_form[primary_student_loan_interest_ded_amount]', with: "1300.0"
       click_on I18n.t("general.continue")
 
@@ -580,6 +579,10 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.questions.shared.review_header.title")
       click_on I18n.t("general.continue")
 
+      expect(page).to have_text I18n.t("state_file.questions.md_had_health_insurance.edit.title")
+      choose I18n.t("general.negative")
+      click_on I18n.t("general.continue")
+
       expect(page).to have_text I18n.t("state_file.questions.esign_declaration.edit.title", state_name: "Maryland")
       fill_in 'state_file_esign_declaration_form_primary_signature_pin', with: "12345"
       fill_in 'state_file_esign_declaration_form_spouse_signature_pin', with: "54321"
@@ -589,7 +592,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       check "state_file_esign_declaration_form_spouse_esigned"
       click_on I18n.t("state_file.questions.esign_declaration.edit.submit")
 
-      expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Maryland")
+      expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Maryland", filing_year: filing_year)
     end
   end
 
@@ -616,6 +619,10 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
       click_on I18n.t("general.continue")
 
+      expect(page).to have_text I18n.t("state_file.questions.nj_eligibility_health_insurance.edit.title")
+      choose I18n.t("general.affirmative")
+      click_on I18n.t("general.continue")
+
       select "Atlantic"
       click_on I18n.t("general.continue")
 
@@ -630,14 +637,41 @@ RSpec.feature "Completing a state file intake", active_job: true do
       choose I18n.t('general.negative')
       click_on I18n.t("general.continue")
 
-      fill_in I18n.t('state_file.questions.nj_medical_expenses.edit.label', filing_year: MultiTenantService.statefile.current_tax_year), with: 1000
+      fill_in I18n.t('state_file.questions.nj_medical_expenses.edit.label', filing_year: filing_year), with: 1000
       click_on I18n.t("general.continue")
 
       choose I18n.t('state_file.questions.nj_household_rent_own.edit.neither')
       click_on I18n.t("general.continue")
 
+      click_on I18n.t("general.continue")
+
+      fill_in I18n.t('state_file.questions.nj_estimated_tax_payments.edit.label', filing_year: MultiTenantService.statefile.current_tax_year), with: 1000
+      click_on I18n.t("general.continue")
+
+      choose I18n.t('general.negative')
+      click_on I18n.t("general.continue")
+
+      # Gubernatorial elections fund
+      choose I18n.t('general.affirmative')
       expect(page).to be_axe_clean.within "main"
       click_on I18n.t("general.continue")
+
+      # Review
+      expect(page).to have_text I18n.t("state_file.questions.shared.review_header.title")
+      expect(page).to be_axe_clean.within "main"
+
+      groups = page.all(:css, '.white-group').count
+      has_h2 = page.all(:css, '.white-group:has(h2)').count
+      expect(groups).to eq(has_h2)
+
+      edit_buttons = page.all(:css, '.white-group a')
+      edit_buttons_count = edit_buttons.count
+      edit_buttons_with_sr_only_text = page.all(:css, '.white-group a span.sr-only').count
+      expect(edit_buttons_count).to eq(edit_buttons_with_sr_only_text)
+
+      edit_buttons_text = edit_buttons.map(&:text)
+      edit_buttons_unique_text_count = edit_buttons_text.uniq.count
+      expect(edit_buttons_unique_text_count).to eq(edit_buttons_count)
     end
   end
 end
