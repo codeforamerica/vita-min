@@ -35,9 +35,9 @@
     %>
     <div class="question-with-follow-up">
       <div class="joint-account-holder question-with-follow-up__question">
-        <%= form.cfa_checkbox(:has_joint_account_holder, "Check here if you have a joint account", options: { checked_value: "yes", unchecked_value: "no", "data-follow-up": "#joint-account-holder-questions"  }) %>
+        <%= form.cfa_checkbox(:has_joint_account_holder, t(".check_if_joint_account"), options: { checked_value: "yes", unchecked_value: "no", "data-follow-up": "#joint-account-holder-questions"  }) %>
       </div>
-      <p class="text--bold spacing-below-0"><%= t('.account_holder_name') %></p>
+      <p class="text--bold spacing-below-0"><%= t(".account_holder_name") %></p>
       <%= form.cfa_input_field :account_holder_first_name, t("general.first_name"), classes: ["form-width--long"] %>
       <%= form.cfa_input_field :account_holder_middle_initial, t(".middle_initial"), classes: ["form-width--long"] %>
       <%= form.cfa_input_field :account_holder_last_name, t(".last_name"), classes: ["form-width--long"] %>

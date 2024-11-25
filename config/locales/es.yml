@@ -2725,6 +2725,7 @@ es:
           bank_account_type: Tipo de cuenta bancaria
           bank_authorization_confirmation: Marque aquí para confirmar que autoriza al estado de Maryland a emitir su reembolso mediante depósito directo.
           bank_authorization_confirmation_error: Por favor confirme la autorización o seleccione pagar por correo
+          check_if_joint_account: Marque aquí si tiene una cuenta conjunta
           joint_account_holder_name: Nombre del titular de la cuenta conjunta
           last_name: Apellido
           middle_initial: Inicial del segundo nombre
