@@ -86,23 +86,23 @@ RSpec.describe StateFile::Questions::MdReviewController do
       expect(page_content).to include I18n.t("state_file.general.md_senior_tax_credit")
       expect(page_content).to include "$449"
       # TODO: add this once lines 28, 29, 30, 34 are implemented
-      # expect(page_content).to include I18n.t("state_file.general.md_local_tax")
+      expect(page_content).to include I18n.t("state_file.general.md_local_tax")
       # expect(page_content).to include "$0"
-      # expect(page_content).to include I18n.t("state_file.general.md_nonrefundable_local_earned_income_tax_credit")
+      expect(page_content).to include I18n.t("state_file.general.md_nonrefundable_local_earned_income_tax_credit")
       # expect(page_content).to include "$0"
-      # expect(page_content).to include I18n.t("state_file.general.md_local_poverty_level_credit")
+      expect(page_content).to include I18n.t("state_file.general.md_local_poverty_level_credit")
       # expect(page_content).to include "$0"
-      # expect(page_content).to include I18n.t("state_file.general.md_total_tax_after_nonrefundable_credits")
+      expect(page_content).to include I18n.t("state_file.general.md_total_tax_after_nonrefundable_credits")
       expect(page_content).to include I18n.t("state_file.general.md_tax_withheld")
       expect(page_content).to include "$449"
       # TODO: add this once lines 42, 44, CR part CC line 7 and CR part CC line 8 are implemented
-      # expect(page_content).to include I18n.t("state_file.general.md_refundable_earned_income_tax_credit")
+      expect(page_content).to include I18n.t("state_file.general.md_refundable_earned_income_tax_credit")
       # expect(page_content).to include "$0"
-      # expect(page_content).to include I18n.t("state_file.general.md_refundable_child_dependent_care_credit")
+      expect(page_content).to include I18n.t("state_file.general.md_refundable_child_dependent_care_credit")
       # expect(page_content).to include "$0"
-      # expect(page_content).to include I18n.t("state_file.general.md_child_tax_credit")
+      expect(page_content).to include I18n.t("state_file.general.md_child_tax_credit")
       # expect(page_content).to include "$0"
-      # expect(page_content).to include I18n.t("state_file.general.md_total_payments_refundable_credits")
+      expect(page_content).to include I18n.t("state_file.general.md_total_payments_refundable_credits")
       # # expect(page_content).to include "$0"
     end
   end
