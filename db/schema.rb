@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_25_165842) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_25_170107) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -2099,6 +2099,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_25_165842) do
     t.integer "eligibility_out_of_state_income", default: 0, null: false
     t.citext "email_address"
     t.datetime "email_address_verified_at"
+    t.integer "email_notification_opt_in", default: 0, null: false
     t.decimal "estimated_tax_payments", precision: 12, scale: 2
     t.integer "failed_attempts", default: 0, null: false
     t.integer "fed_taxable_income"
@@ -2150,6 +2151,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_25_165842) do
     t.decimal "sales_use_tax", precision: 12, scale: 2
     t.integer "sales_use_tax_calculation_method", default: 0, null: false
     t.integer "sign_in_count", default: 0, null: false
+    t.integer "sms_notification_opt_in", default: 0, null: false
     t.string "source"
     t.date "spouse_birth_date"
     t.integer "spouse_claimed_as_eitc_qualifying_child", default: 0, null: false
