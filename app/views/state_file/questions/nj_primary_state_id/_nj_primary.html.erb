@@ -1,9 +1,24 @@
-<% title = t("state_file.questions.primary_state_id.edit.title") %>
+<% title = t("state_file.questions.nj_primary_state_id.nj_primary.title") %>
 <% content_for :page_title, title %>
+
+<% content_for :info_box do %>
+  <div class="reveal">
+    <p><button href="#" class="reveal__button"><%= t(".why_ask_this") %></button></p>
+    <div class="reveal__content">
+      <div>
+        <p>
+          <%=  t('.protect_identity') %>
+        </p>
+        <p>
+          <%= t('.not_required') %>
+        </p>
+      </div>
+    </div>
+  </div>
+<% end %>
 
 <% content_for :card do %>
   <h1 class="h2"><%= title %></h1>
-  <%= render 'state_file/questions/primary_state_id/state_id', options: {
-    info_link: "https://nj.gov"
-  } %>
+  <p> <%= t(".subtitle") %></p>
+  <%= render 'state_file/questions/primary_state_id/state_id', options: {} %>
 <% end %>
