@@ -1,6 +1,3 @@
-<% title = t("state_file.questions.nj_primary_state_id.nj_primary.title") %>
-<% content_for :page_title, title %>
-
 <% content_for :info_box do %>
   <div class="reveal">
     <p><button href="#" class="reveal__button"><%= t(".why_ask_this") %></button></p>
@@ -18,7 +15,10 @@
 <% end %>
 
 <% content_for :card do %>
-  <h1 class="h2"><%= title %></h1>
+  <h1 class="h2"><%= t(".title") %></h1>
   <p> <%= t(".subtitle") %></p>
-  <%= render 'state_file/questions/primary_state_id/state_id', options: {} %>
+  <%= render 'state_file/questions/primary_state_id/state_id', options: {
+    dmv_bmv_label: t(".dmv_bmv"),
+    no_id_label: t(".no_id")
+  } %>
 <% end %>
