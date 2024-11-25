@@ -2979,6 +2979,7 @@ en:
         edit:
           amount: Amount
           claimed_as_eitc_qualifying_child: I could be someone else's qualifying child for the Earned Income Tax Credit.
+          college_dependents: Dependents attending college
           county: County
           edit_disability: disability status
           edit_gubernatorial: gubernatorial fund contributions
