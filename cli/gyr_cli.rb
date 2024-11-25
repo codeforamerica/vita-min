@@ -40,9 +40,8 @@ class GyrCli < Thor
   def download_webdriver
     require 'selenium-webdriver'
 
-    Selenium::WebDriver::SeleniumManager.driver_path(
-      Selenium::WebDriver::Chrome::Options.new(browser_name: "chrome")
-    )
+    options = Selenium::WebDriver::Chrome::Options.new
+    Selenium::WebDriver.for :chrome, options: options
   end
 
   no_commands do
