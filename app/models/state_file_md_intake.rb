@@ -103,7 +103,8 @@
 #  index_state_file_md_intakes_on_spouse_state_id_id   (spouse_state_id_id)
 #
 class StateFileMdIntake < StateFileBaseIntake
-  self.ignored_columns = [:df_data_import_failed_at, :account_holder_name, :bank_name]
+  self.ignored_columns += [:account_holder_name]
+
   include MdResidenceCountyConcern
   encrypts :account_number, :routing_number, :raw_direct_file_data, :raw_direct_file_intake_data
 
