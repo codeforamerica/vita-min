@@ -54,11 +54,11 @@ class StateFileDependent < ApplicationRecord
     "stepParent" => "Parent",
     "parentInLaw" => "Parent",
     "noneOfTheAbove" => "Other",
-    "siblingOfParent" => "?",
-    "otherDescendantOfHalfSibling" => "?",
-    "otherDescendantOfStepSibling" => "?",
-    "fosterParent" => "?",
-    "siblingsSpouse" => "?",
+    "siblingOfParent" => "Aunt/Uncle",
+    "otherDescendantOfHalfSibling" => "Niece/Nephew",
+    "otherDescendantOfStepSibling" => "Niece/Nephew",
+    "fosterParent" => "Parent",
+    "siblingsSpouse" => "Sibling-in-Law",
   }.freeze
 
   belongs_to :intake, polymorphic: true
