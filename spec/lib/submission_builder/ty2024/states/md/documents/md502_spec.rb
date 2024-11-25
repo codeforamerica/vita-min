@@ -497,6 +497,16 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
           expect(joint_account_holder_xml.at("NameSuffix")&.text).to eq("II")
         end
       end
+
+      context "with mail" do
+        before do
+          intake.payment_or_deposit_type = "mail"
+        end
+
+        it "should not include account holder information" do
+          expect(xml.css('Form502 NameOnBankAccount').count).to eq(0)
+        end
+      end
     end
   end
 end
