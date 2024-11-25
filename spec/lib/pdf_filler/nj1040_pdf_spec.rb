@@ -1517,8 +1517,6 @@ RSpec.describe PdfFiller::Nj1040Pdf do
 
       it "writes total credits $0" do
 
-        p pdf_fields
-
         # thousands
         expect(pdf_fields["48"]).to eq ""
         expect(pdf_fields["undefined_131"]).to eq ""
