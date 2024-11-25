@@ -82,15 +82,4 @@
     <%= f.hidden_field(:device_id) %>
     <%= f.continue %>
   <% end %>
-
-  <% unless acts_like_production? %>
-    <%=
-      link_to(
-        "I'm on a #{Rails.env} environment, let me edit the response XML",
-        StateFile::Questions::FederalInfoController.to_path_helper,
-        class: 'dev-button',
-        id: 'visit_federal_info_controller'
-      )
-    %>
-  <% end %>
 <% end %>

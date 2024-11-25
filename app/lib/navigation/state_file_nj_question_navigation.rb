@@ -24,7 +24,7 @@ module Navigation
                                           Navigation::NavigationStep.new(StateFile::Questions::WaitingToLoadDataController),
                                         ]),
       Navigation::NavigationSection.new("state_file.navigation.section_5", [
-                                          Navigation::NavigationStep.new(StateFile::Questions::DataReviewController),
+                                          Navigation::NavigationStep.new(StateFile::Questions::DataReviewController, false),
                                           # Federal info does not show to users
                                           Navigation::NavigationStep.new(StateFile::Questions::FederalInfoController),
                                           Navigation::NavigationStep.new(StateFile::Questions::DataTransferOffboardingController, false),

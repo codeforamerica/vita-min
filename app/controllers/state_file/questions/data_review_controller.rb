@@ -17,7 +17,7 @@ module StateFile
           intake: current_intake,
         )
 
-        redirect_to next_path
+        redirect_to next_path if acts_like_production?
       end
 
       private

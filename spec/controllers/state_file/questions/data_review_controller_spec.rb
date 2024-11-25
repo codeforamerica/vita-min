@@ -8,6 +8,28 @@ RSpec.describe StateFile::Questions::DataReviewController do
   end
 
   describe "#edit" do
+
+    context "when environment is production" do
+      before do
+        allow(Rails.env).to receive(:production?).and_return(true)
+      end
+
+      it "redirects to the next path" do
+        get :edit, params: { state_file_data_review_form: { device_id: "ABC123" } }
+
+        expect(response).not_to render_template :edit
+        expect(response).to redirect_to(StateFile::Questions::NameDobController.to_path_helper)
+      end
+    end
+
+    context "when environment is not production" do
+      it "displays the Data Review edit page" do
+        get :edit, params: { state_file_data_review_form: { device_id: "ABC123" } }
+
+        expect(response).to render_template :edit
+      end
+    end
+
     context "with valid federal data" do
       it "renders edit template and creates an initial StateFileEfileDeviceInfo" do
         expect do
@@ -19,8 +41,6 @@ RSpec.describe StateFile::Questions::DataReviewController do
         expect(efile_info.ip_address.to_s).to eq "72.34.67.178"
         expect(efile_info.device_id).to eq nil
         expect(efile_info.intake).to eq intake
-        expect(response).not_to render_template :edit
-        expect(response).to redirect_to(StateFile::Questions::NameDobController.to_path_helper)
       end
     end
 
