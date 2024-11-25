@@ -79,7 +79,7 @@ module Efile
         set_line(:MD502_LINE_26, :calculate_line_26)
         set_line(:MD502_LINE_27, :calculate_line_27)
         set_line(:MD502_LINE_40, :calculate_line_40)
-        set_line(:MD502_AUTHORIZE_DIRECT_DEPOSIT, :calculate_authorize_direct_deposit)
+        set_line(:MD502_AUTHORIZE_DIRECT_DEPOSIT, @intake, :bank_authorization_confirmed_yes?)
 
         @md502cr.calculate
         @lines.transform_values(&:value)
@@ -419,10 +419,6 @@ module Efile
           @intake.state_file_w2s.sum { |item| item.local_income_tax_amount.round } +
           @intake.state_file1099_gs.sum { |item| item.state_income_tax_withheld_amount.round } +
           @intake.state_file1099_rs.sum { |item| item.state_tax_withheld_amount.round }
-      end
-
-      def calculate_authorize_direct_deposit
-        @intake.bank_authorization_confirmed_yes? ? "X" : nil
       end
 
       def filing_status_dependent?

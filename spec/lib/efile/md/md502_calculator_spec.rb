@@ -1112,7 +1112,7 @@ describe Efile::Md::Md502Calculator do
       it "should return X" do
         intake.bank_authorization_confirmed = 'yes'
         instance.calculate
-        expect(instance.lines[:MD502_AUTHORIZE_DIRECT_DEPOSIT].value).to eq('X')
+        expect(instance.lines[:MD502_AUTHORIZE_DIRECT_DEPOSIT].value).to eq(true)
       end
     end
 
@@ -1120,7 +1120,7 @@ describe Efile::Md::Md502Calculator do
       it "should return nil" do
         intake.bank_authorization_confirmed = 'unfilled'
         instance.calculate
-        expect(instance.lines[:MD502_AUTHORIZE_DIRECT_DEPOSIT].value).to eq(nil)
+        expect(instance.lines[:MD502_AUTHORIZE_DIRECT_DEPOSIT].value).to eq(false)
       end
     end
   end
