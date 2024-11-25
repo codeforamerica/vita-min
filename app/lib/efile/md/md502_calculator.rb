@@ -69,12 +69,12 @@ module Efile
         set_line(:MD502_LINE_19, :calculate_line_19)
         set_line(:MD502_LINE_20, :calculate_line_20)
         set_line(:MD502_LINE_21, :calculate_line_21)
+        @md502cr.calculate # md502cr calculations dependent on line 1 and line 21
 
         # EIC
         set_line(:MD502_LINE_22, :calculate_line_22)
         set_line(:MD502_LINE_22B, :calculate_line_22b)
 
-        @md502cr.calculate
         set_line(:MD502_LINE_23, :calculate_line_23)
         set_line(:MD502_LINE_24, :calculate_line_24)
         set_line(:MD502_LINE_26, :calculate_line_26)
