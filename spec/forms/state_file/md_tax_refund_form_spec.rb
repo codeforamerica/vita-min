@@ -15,6 +15,7 @@ RSpec.describe StateFile::MdTaxRefundForm do
       account_holder_middle_initial: "J",
       account_holder_last_name: "Lee",
       account_holder_suffix: "JR",
+      bank_authorization_confirmed: "yes",
     }
   end
 
@@ -76,6 +77,7 @@ RSpec.describe StateFile::MdTaxRefundForm do
           joint_account_holder_last_name: "Knope",
           joint_account_holder_suffix: "",
           has_joint_account_holder: 'yes',
+          bank_authorization_confirmed: "yes",
         )
       end
 
@@ -97,6 +99,7 @@ RSpec.describe StateFile::MdTaxRefundForm do
         expect(intake.account_holder_middle_initial).to be_nil
         expect(intake.account_holder_last_name).to be_nil
         expect(intake.account_holder_suffix).to be_nil
+        expect(intake.bank_authorization_confirmed).to eq "unfilled"
       end
     end
   end
@@ -117,6 +120,7 @@ RSpec.describe StateFile::MdTaxRefundForm do
     let(:joint_account_holder_last_name) { "" }
     let(:joint_account_holder_suffix) { "" }
     let(:has_joint_account_holder) { "no" }
+    let(:bank_authorization_confirmed) { "yes" }
 
     let(:params) do
       {
@@ -135,6 +139,7 @@ RSpec.describe StateFile::MdTaxRefundForm do
         joint_account_holder_middle_initial: joint_account_holder_middle_initial,
         joint_account_holder_last_name: joint_account_holder_last_name,
         joint_account_holder_suffix: joint_account_holder_suffix,
+        bank_authorization_confirmed: bank_authorization_confirmed,
       }
     end
 
@@ -144,6 +149,18 @@ RSpec.describe StateFile::MdTaxRefundForm do
         form = described_class.new(intake, params)
 
         expect(form).to be_valid
+      end
+    end
+
+    context "bank_authorization_confirmed" do
+      context "if 'no' param passed in" do
+        let(:bank_authorization_confirmed) { "no" }
+
+        it "invalid" do
+          form = described_class.new(intake, params)
+          expect(form).not_to be_valid
+          expect(form.errors).to include :bank_authorization_confirmed
+        end
       end
     end
 
