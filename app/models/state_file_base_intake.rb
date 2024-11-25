@@ -1,5 +1,5 @@
 class StateFileBaseIntake < ApplicationRecord
-  self.ignored_columns = [:df_data_import_failed, :bank_name]
+  self.ignored_columns = [:df_data_import_failed_at, :bank_name]
 
   devise :lockable, :timeoutable, :trackable
 

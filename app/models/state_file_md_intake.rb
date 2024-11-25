@@ -19,7 +19,6 @@
 #  current_sign_in_ip                         :inet
 #  current_step                               :string
 #  date_electronic_withdrawal                 :date
-#  df_data_import_failed_at                   :datetime
 #  df_data_import_succeeded_at                :datetime
 #  df_data_imported_at                        :datetime
 #  eligibility_filing_status_mfj              :integer          default("unfilled"), not null
@@ -104,7 +103,7 @@
 #  index_state_file_md_intakes_on_spouse_state_id_id   (spouse_state_id_id)
 #
 class StateFileMdIntake < StateFileBaseIntake
-  self.ignored_columns = [:df_data_import_failed, :account_holder_name, :bank_name]
+  self.ignored_columns = [:df_data_import_failed_at, :account_holder_name, :bank_name]
   include MdResidenceCountyConcern
   encrypts :account_number, :routing_number, :raw_direct_file_data, :raw_direct_file_intake_data
 
