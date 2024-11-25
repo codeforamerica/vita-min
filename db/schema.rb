@@ -1929,7 +1929,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_21_222604) do
     t.string "federal_return_status"
     t.string "federal_submission_id"
     t.integer "had_hh_member_without_health_insurance", default: 0, null: false
-    t.integer "has_joint_account_holder"
+    t.integer "has_joint_account_holder", default: 0
     t.string "hashed_ssn"
     t.string "joint_account_holder_first_name"
     t.string "joint_account_holder_last_name"
