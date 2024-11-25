@@ -25,7 +25,7 @@ RSpec.feature "Web Intake Returning Filer", :flow_explorer_screenshot do
   before do
     allow(PartnerRoutingService).to receive(:new).and_return organization_router
     allow(organization_router).to receive(:determine_partner).and_return nil
-    allow(organization_router).to receive(:routing_method).and_return :from_zip_code
+    allow(organization_router).to receive(:routing_method).and_return :zip_code
   end
 
   scenario "returning client with GYR intake with matching ssn sees duplicate guard page" do
