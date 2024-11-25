@@ -36,7 +36,7 @@ module SubmissionBuilder
                 if @submission.data_source.filing_status_qw? && @submission.data_source.direct_file_data.spouse_date_of_death.present?
                   xml.QWYearSpouseDied Date.parse(@submission.data_source.direct_file_data.spouse_date_of_death).year
                 end
-                xml.FAGI @submission.data_source.direct_file_data.fed_agi
+                xml.FAGI calculated_fields.fetch(:NCD400_LINE_6)
                 # line 7 AdditionsToFAGI is blank
                 xml.FAGIPlusAdditions @submission.data_source.direct_file_data.fed_agi
                 xml.DeductionsFromFAGI calculated_fields.fetch(:NCD400_LINE_9)

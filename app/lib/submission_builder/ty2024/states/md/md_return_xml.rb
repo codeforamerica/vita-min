@@ -5,6 +5,12 @@ module SubmissionBuilder
     module States
       module Md
         class MdReturnXml < SubmissionBuilder::StateReturn
+          def form_has_non_zero_amounts(form_prefix, calculated_fields)
+            lines = calculated_fields.keys.select { |line_name| line_name.starts_with?(form_prefix) }
+            lines.any? do |line_num|
+              calculated_fields.fetch(line_num).present? && calculated_fields.fetch(line_num) != 0
+            end
+          end
 
           private
 
@@ -18,6 +24,12 @@ module SubmissionBuilder
 
           def state_schema_version
             "MDIndividual2023v1.0"
+          end
+
+          def build_state_specific_tags(document)
+            if !@submission.data_source.routing_number.nil? && !@submission.data_source.account_number.nil?
+              document.at("ReturnState").add_child(financial_transaction)
+            end
           end
 
           def documents_wrapper
@@ -35,7 +47,8 @@ module SubmissionBuilder
           def supported_documents
             calculated_fields = @submission.data_source.tax_calculator.calculate
             has_income_from_taxable_pensions_iras_annuities = calculated_fields.fetch(:MD502_LINE_1D)&.to_i.positive?
-            has_md_su_subtractions = calculated_fields.fetch(:MD502_SU_LINE_1).positive?
+            has_md_su_subtractions = calculated_fields.fetch(:MD502_LINE_13).positive? || form_has_non_zero_amounts("MD502_SU_", calculated_fields)
+            has_individual_tax_credits = calculated_fields.fetch(:MD502_LINE_24).positive?
 
             supported_docs = [
               {
@@ -56,7 +69,7 @@ module SubmissionBuilder
               {
                 xml: SubmissionBuilder::Ty2024::States::Md::Documents::Md502Cr,
                 pdf: PdfFiller::Md502CrPdf,
-                include: true,
+                include: has_individual_tax_credits,
               },
               {
                 xml: SubmissionBuilder::Ty2024::States::Md::Documents::Md502R,
@@ -75,6 +88,17 @@ module SubmissionBuilder
             supported_docs += form1099rs
             supported_docs += form1099ints
             supported_docs
+          end
+
+          def financial_transaction
+            calculator = @submission.data_source.tax_calculator
+            calculator.calculate
+
+            FinancialTransaction.build(
+              @submission,
+              validate: false,
+              kwargs: { refund_amount: calculator.refund_or_owed_amount }
+            ).document.at("*")
           end
         end
       end

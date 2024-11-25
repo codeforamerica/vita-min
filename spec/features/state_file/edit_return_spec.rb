@@ -30,14 +30,14 @@ RSpec.feature "Editing a rejected intake with an auto-wait error" do
     "<Acknowledgement>\n
         <SubmissionId>12345678901234567890</SubmissionId>\n
         <EFIN>441466</EFIN>\n
-        <TaxYr>2023</TaxYr>\n
+        <TaxYr>#{filing_year}</TaxYr>\n
         <ExtndGovernmentCd>AZST</ExtndGovernmentCd>\n
         <SubmissionTyp>Form140</SubmissionTyp>\n
         <ExtndSubmissionCategoryCd>IND</ExtndSubmissionCategoryCd>\n
-        <ElectronicPostmarkTs>2024-02-27T19:52:33.861+00:00</ElectronicPostmarkTs>\n
+        <ElectronicPostmarkTs>#{filing_year}-02-27T19:52:33.861+00:00</ElectronicPostmarkTs>\n
         <AcceptanceStatusTxt>Denied by IRS</AcceptanceStatusTxt>\n
         <ContainedAlertsInd>false</ContainedAlertsInd>\n
-        <StatusDt>2024-02-27</StatusDt>\n
+        <StatusDt>#{filing_year}-02-27</StatusDt>\n
         <IRSSubmissionId>12345678901234567890</IRSSubmissionId>\n
         <TIN>400000001</TIN>\n
         <SubmissionValidationCompInd>true</SubmissionValidationCompInd>\n
@@ -84,7 +84,7 @@ RSpec.feature "Editing a rejected intake with an auto-wait error" do
     fill_in "Enter your Social Security number or ITIN. For example, 123-45-6789.", with: ssn
     click_on "Continue"
 
-    expect(page).to have_text "Unfortunately, your 2023 New York state tax return was rejected"
+    expect(page).to have_text "Unfortunately, your #{filing_year} New York state tax return was rejected"
     click_on "Edit your state return"
 
     # goes back to the name-dob page

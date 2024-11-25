@@ -9,6 +9,7 @@
 #  box14_ui_wf_swf             :decimal(12, 2)
 #  employee_name               :string
 #  employee_ssn                :string
+#  employer_ein                :string
 #  employer_name               :string
 #  employer_state_id_num       :string
 #  local_income_tax_amount     :decimal(12, 2)
@@ -18,6 +19,7 @@
 #  state_income_tax_amount     :decimal(12, 2)
 #  state_wages_amount          :decimal(12, 2)
 #  w2_index                    :integer
+#  wages                       :decimal(12, 2)
 #  created_at                  :datetime         not null
 #  updated_at                  :datetime         not null
 #  state_file_intake_id        :bigint
@@ -37,5 +39,7 @@ FactoryBot.define do
     local_wages_and_tips_amount { 100 }
     local_income_tax_amount { 100 }
     locality_nm { "NYC" }
+    wages { 100 }
+    employer_ein { '123456789' }
   end
 end

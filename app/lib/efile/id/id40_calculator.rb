@@ -2,6 +2,7 @@ module Efile
   module Id
     class Id40Calculator < ::Efile::TaxCalculator
       attr_reader :lines
+      set_refund_owed_lines refund: :ID40_LINE_56, owed: :ID40_LINE_54
 
       def initialize(year:, intake:, include_source: false)
         super
@@ -23,6 +24,8 @@ module Efile
         set_line(:ID40_LINE_9, :calculate_line_9)
         set_line(:ID40_LINE_10, :calculate_line_10)
         set_line(:ID40_LINE_11, :calculate_line_11)
+        set_line(:ID40_LINE_19, :calculate_line_19)
+        set_line(:ID40_LINE_20, :calculate_line_20)
         set_line(:ID40_LINE_23, :calculate_line_23)
         set_line(:ID40_LINE_25, :calculate_line_25)
         set_line(:ID40_LINE_26, :calculate_line_26)
@@ -36,6 +39,8 @@ module Efile
         set_line(:ID40_LINE_43_DONATE, :calculate_line_43_donate)
         set_line(:ID40_LINE_43, :calculate_line_43)
         set_line(:ID40_LINE_46, :calculate_line_46)
+        set_line(:ID40_LINE_54, :calculate_line_54) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
+        set_line(:ID40_LINE_56, :calculate_line_56) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
         @id39r.calculate
         @lines.transform_values(&:value)
       end
@@ -84,6 +89,24 @@ module Efile
 
       def calculate_line_11
         [line_or_zero(:ID40_LINE_9) - line_or_zero(:ID40_LINE_10), 0].max
+      end
+
+      # Subtract the larger of L15 or L16 from L11 but L15 is always 0
+      # L16 is pulled from df data
+      def calculate_line_19
+        [line_or_zero(:ID40_LINE_11) - @direct_file_data.total_itemized_or_standard_deduction_amount, 0].max
+      end
+
+      WK_LINE_2_AMTS = {
+        single: 4673,
+        married_filing_separately: 4673,
+        married_filing_jointly: 9346,
+        head_of_household: 9346,
+        qualifying_widow: 9346,
+      }.freeze
+      def calculate_line_20
+        worksheet_line_2_amount = WK_LINE_2_AMTS[@filing_status]
+        [((line_or_zero(:ID40_LINE_19) - worksheet_line_2_amount) * 0.05695).round(2), 0].max
       end
 
       def calculate_line_23
@@ -141,7 +164,7 @@ module Efile
       end
 
       def calculate_grocery_credit
-        return 0 if @intake.direct_file_data.claimed_as_dependent?
+        return 0 if @direct_file_data.claimed_as_dependent?
 
         credit = 0
 
@@ -183,6 +206,9 @@ module Efile
           @intake.state_file1099_gs.sum { |item| item.state_income_tax_withheld_amount.round } +
           @intake.state_file1099_rs.sum { |item| item.state_tax_withheld_amount.round }
       end
+
+      def calculate_line_54; end
+      def calculate_line_56; end
     end
   end
 end

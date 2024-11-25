@@ -80,7 +80,7 @@ RSpec.describe StateFile::ImportFromDirectFileJob, type: :job do
 
         expect(intake.df_data_import_succeeded_at).to be_nil
         expect(intake.df_data_import_errors.count).to eq(1)
-        expect(intake.df_data_import_errors.first.message).to eq("Validation failed: Employer state id num EIN must be a number. Do not include a dash.")
+        expect(intake.df_data_import_errors.first.message).to eq("Validation failed: Employer state id num EIN cannot be more than 16 characters.")
       end
     end
 

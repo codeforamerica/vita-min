@@ -1,0 +1,46 @@
+{
+  "familyAndHousehold": [
+    {
+      "monthsLivedWithTPInUS": null,
+      "lastName": "Mouse",
+      "isClaimedDependent": true,
+      "hohQualifyingPerson": false,
+      "qualifyingChild": false,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "1925-04-15",
+      "suffix": null,
+      "residencyDuration": "allYear",
+      "firstName": "Margie",
+      "middleInitial": null,
+      "tin": "400-00-0002",
+      "scheduleEicLine4aNo": true,
+      "eligibleDependent": true,
+      "relationship": "parent",
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "filers": [
+    {
+      "lastName": "Mouse",
+      "firstName": "Mickey",
+      "middleInitial": "C",
+      "tin": "145-00-4903",
+      "dateOfBirth": "1935-04-15",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "ssnNotValidForEmployment": null
+    },
+    {
+      "lastName": "Mouse",
+      "firstName": "Minnie",
+      "middleInitial": "P",
+      "tin": "145-00-4923",
+      "dateOfBirth": "1945-04-15",
+      "suffix": null,
+      "isPrimaryFiler": false,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "interestReports": []
+}

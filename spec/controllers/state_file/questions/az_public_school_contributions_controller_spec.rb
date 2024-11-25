@@ -141,7 +141,7 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
           amount: 100,
           date_of_contribution_month: '8',
           date_of_contribution_day: "12",
-          date_of_contribution_year: "2023"
+          date_of_contribution_year: Rails.configuration.statefile_current_tax_year.to_s
         }
       }
     end

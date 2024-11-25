@@ -206,6 +206,53 @@ describe StateFileDependent do
     end
   end
 
+  describe "#under_22?" do
+    let(:dob_jan_1_21_years_ago) { Date.new((MultiTenantService.statefile.current_tax_year - 21), 1, 1) }
+    let(:dependent_22_next_year) { create :state_file_dependent, dob: dob_jan_1_21_years_ago, intake: intake }
+
+    let(:dob_jan_1_22_years_ago) { Date.new((MultiTenantService.statefile.current_tax_year - 22), 1, 1) }
+    let(:dependent_22_this_year) { create :state_file_dependent, dob: dob_jan_1_22_years_ago, intake: intake }
+
+    let(:intake) { create :state_file_nj_intake }
+
+    it "Jan 1st b-days are considered older on Jan 1st" do
+      expect(dependent_22_next_year.under_22?).to eq true
+      expect(dependent_22_this_year.under_22?).to eq false
+    end
+  end
+
+  describe "#nj_qualifies_for_college_exemption?" do
+    under_22 = Date.new((MultiTenantService.statefile.current_tax_year - 21), 1, 1)
+    is_22 = Date.new((MultiTenantService.statefile.current_tax_year - 22), 1, 1)
+
+    [
+      { dob: under_22, nj_dependent_attends_accredited_program: "yes", nj_dependent_enrolled_full_time: "yes", nj_dependent_five_months_in_college: "yes", nj_filer_pays_tuition_for_dependent: "yes", expected: true },
+      { dob: is_22, nj_dependent_attends_accredited_program: "yes", nj_dependent_enrolled_full_time: "yes", nj_dependent_five_months_in_college: "yes", nj_filer_pays_tuition_for_dependent: "yes", expected: false },
+      { dob: under_22, nj_dependent_attends_accredited_program: "no", nj_dependent_enrolled_full_time: "yes", nj_dependent_five_months_in_college: "yes", nj_filer_pays_tuition_for_dependent: "yes", expected: false },
+      { dob: under_22, nj_dependent_attends_accredited_program: "yes", nj_dependent_enrolled_full_time: "no", nj_dependent_five_months_in_college: "yes", nj_filer_pays_tuition_for_dependent: "yes", expected: false },
+      { dob: under_22, nj_dependent_attends_accredited_program: "yes", nj_dependent_enrolled_full_time: "yes", nj_dependent_five_months_in_college: "no", nj_filer_pays_tuition_for_dependent: "yes", expected: false },
+      { dob: under_22, nj_dependent_attends_accredited_program: "yes", nj_dependent_enrolled_full_time: "yes", nj_dependent_five_months_in_college: "yes", nj_filer_pays_tuition_for_dependent: "no", expected: false },
+      { dob: under_22, nj_dependent_attends_accredited_program: "no", nj_dependent_enrolled_full_time: "no", nj_dependent_five_months_in_college: "no", nj_filer_pays_tuition_for_dependent: "no", expected: false },
+    ].each do |test_case|
+      context "when #{test_case}" do
+        let(:dependent) {
+          create :state_file_dependent,
+          dob: test_case[:dob],
+          nj_dependent_attends_accredited_program: test_case[:nj_dependent_attends_accredited_program],
+          nj_dependent_enrolled_full_time: test_case[:nj_dependent_enrolled_full_time],
+          nj_dependent_five_months_in_college: test_case[:nj_dependent_five_months_in_college],
+          nj_filer_pays_tuition_for_dependent: test_case[:nj_filer_pays_tuition_for_dependent],
+          intake: intake
+        }
+        let(:intake) { create :state_file_nj_intake }
+
+        it "returns #{test_case[:expected]}" do
+          expect(dependent.nj_qualifies_for_college_exemption?).to eq(test_case[:expected])
+        end
+      end
+    end
+  end
+
   describe "#senior?" do
     let(:dob_jan_1_64_years_ago) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 64), 1, 1) }
     let(:dependent_65_next_year) { create :state_file_dependent, dob: dob_jan_1_64_years_ago, intake: intake }

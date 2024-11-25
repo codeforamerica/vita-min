@@ -70,8 +70,6 @@ class DirectFileJsonData
     data["filers"]&.map { |filer| DfJsonFiler.new(filer) } || []
   end
 
-  private
-
   def dependents
     data["familyAndHousehold"]&.map { |dependent| DfJsonDependent.new(dependent) } || []
   end

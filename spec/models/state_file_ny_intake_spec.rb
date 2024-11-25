@@ -146,7 +146,7 @@ describe StateFileNyIntake do
                routing_number: "123456789",
                account_number: "123",
                withdraw_amount: 123,
-               date_electronic_withdrawal: Date.parse("April 1, 2023")
+               date_electronic_withdrawal: Date.parse("April 1, 2024")
       end
 
       it "clears other account fields" do

@@ -40,11 +40,40 @@ module SubmissionBuilder
                 xml: SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040,
                 pdf: PdfFiller::Nj1040Pdf,
                 include: true
-              },
+              }
             ]
 
+            supported_docs += nj_2450s
             supported_docs += combined_w2s
             supported_docs
+          end
+
+          def nj_2450s
+            docs = []
+
+            if calculator.line_59_primary&.positive? || calculator.line_61_primary&.positive?
+              docs << {
+                xml: SubmissionBuilder::Ty2024::States::Nj::Documents::Nj2450,
+                pdf: PdfFiller::Nj2450Pdf,
+                include: true,
+                kwargs: { primary_or_spouse: :primary }
+              }
+            end
+
+            if calculator.line_59_spouse&.positive? || calculator.line_61_spouse&.positive?
+              docs << {
+                xml: SubmissionBuilder::Ty2024::States::Nj::Documents::Nj2450,
+                pdf: PdfFiller::Nj2450Pdf,
+                include: true,
+                kwargs: { primary_or_spouse: :spouse }
+              }
+            end
+
+            docs
+          end
+
+          def calculator 
+            @submission.data_source.tax_calculator
           end
         end
       end
