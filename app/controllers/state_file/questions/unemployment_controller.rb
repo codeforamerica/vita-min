@@ -70,18 +70,17 @@ module StateFile
       private
 
       def next_path
-        income_review_or_super_path
+        if params[:return_to_review].present?
+          StateFile::Questions::IncomeReviewController.to_path_helper(return_to_review: params[:return_to_review])
+        else
+          super
+        end
       end
 
       def prev_path
-        income_review_or_super_path
-      end
-
-      def income_review_or_super_path
-        case params[:return_to_review].present?
-        when true
+        if params[:return_to_review].present?
           StateFile::Questions::IncomeReviewController.to_path_helper(return_to_review: params[:return_to_review])
-        when false
+        else
           super
         end
       end
