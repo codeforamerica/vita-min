@@ -2682,7 +2682,16 @@ en:
       md_county:
         edit:
           county_html: "<strong>County</strong>"
-          political_subdivision_html: "<strong>Political subdivision</strong>"
+          political_subdivision: Political subdivision
+          political_subdivision_helper_areas:
+          - 'Counties: The 23 counties and Baltimore City.'
+          - 'Municipalities: Towns and cities within the counties.'
+          - 'Special Taxing Districts: Areas with specific tax rules for local services.'
+          - 'All Other Areas: Regions that do not have their own municipal government and are governed at the county level.'
+          political_subdivision_helper_first_p: 'A "political subdivision" is a specific area within Maryland that has its own local government. This includes:'
+          political_subdivision_helper_heading: What is a political division?
+          political_subdivision_helper_last_p: Select the political subdivision where you lived on December 31, %{filing_year} to make sure your tax filing is correct.
+          political_subdivision_label_html: If you did not live within an incorporated city or area, choose “All other areas.” <a href="#">Find a full list here </a>
           title: Select the county and political subdivision where you lived on December 31, %{filing_year}
           title_html: Select the <strong>county</strong> and <strong>political subdivision</strong> where you lived on December 31, %{filing_year}
       md_eligibility_filing_status:
