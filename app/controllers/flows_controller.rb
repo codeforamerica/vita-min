@@ -663,6 +663,9 @@ class FlowsController < ApplicationController
         raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.az_xml_sample(filing_status),
         raw_direct_file_intake_data: StateFile::DirectFileApiResponseSampleService.new.old_json_sample,
         df_data_imported_at: 2.hours.ago,
+        email_notification_opt_in: "yes",
+        phone_number: "+15005550006",
+        sms_notification_opt_in: "yes",
       )
       status_specific_attributes = case filing_status
                                    when :married_filing_jointly, :married_filing_separately

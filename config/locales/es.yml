@@ -3020,9 +3020,14 @@ es:
           title: En NJ, los veteranos son elegibles para una exención de impuestos.
       notification_preferences:
         edit:
+          email_notification_opt_in: Correo electrónico
           message_body_one: No compartiremos su información con terceros. La frecuencia de los mensajes variará. Pueden aplicarse tarifas por mensajes y datos.
           message_body_two: Envíe un mensaje de texto con la palabra HELP al 46207 para recibir ayuda. Envíe un mensaje de texto con la palabra STOP al 46207 para cancelar. Los operadores (por ejemplo, AT&T, Verizon, T-Mobile, Sprint, etc.) no son responsables de los mensajes no entregados o demorados. Consulte nuestros Términos y condiciones de SMS y nuestra Política de privacidad.
           message_title: Detalles de la mensajería
+          phone_number: Tu número de teléfono
+          sms_notification_opt_in: Mensaje de texto
+          subtitle: Necesitaremos comunicarnos con usted con preguntas y actualizaciones.
+          title: ¿Cuál es la mejor manera de comunicarme con usted?
       ny_county:
         edit:
           county: Condado
