@@ -44,6 +44,7 @@ RSpec.describe PdfFiller::Id40Pdf do
       before do
         allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_19).and_return(2000)
         allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_20).and_return(199.80)
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_21).and_return(199.80)
       end
 
       before do
@@ -91,7 +92,7 @@ RSpec.describe PdfFiller::Id40Pdf do
         expect(pdf_fields['TxCompL19']).to eq '2000'
         expect(pdf_fields['TxCompL20']).to eq '200'
         expect(pdf_fields['TxCompL20']).to eq '200'
-        expect(pdf_fields['L21']).to eq '200' # same as L20
+        expect(pdf_fields['L21']).to eq '200'
         expect(pdf_fields['CreditsL23']).to eq '0'
 
         expect(pdf_fields['DirectDepositL57Route']).to eq "123456789"
