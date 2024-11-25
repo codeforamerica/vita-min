@@ -2,7 +2,6 @@ module StateFile
   module Questions
     class UnemploymentController < QuestionsController
       include OtherOptionsLinksConcern
-      include ReturnToReviewConcern
       before_action :load_links, only: [:new, :edit]
 
       def self.show?(intake)
@@ -15,8 +14,6 @@ module StateFile
       end
 
       def index
-        @next_path_with_params = next_path_with_review_param
-
         @state_file1099_gs = current_intake.state_file1099_gs
         unless @state_file1099_gs.present?
           redirect_with_review_param(:new)
@@ -51,7 +48,7 @@ module StateFile
       def create
         @state_file1099_g = current_intake.state_file1099_gs.build(state_file1099_params)
         if @state_file1099_g.had_box_11_no?
-          return redirect_to next_path_with_review_param
+          return redirect_to next_path
         end
 
         if @state_file1099_g.valid?
@@ -70,22 +67,27 @@ module StateFile
         redirect_with_review_param(:index)
       end
 
-      # the review page a user should return to from here is the income review page
-      def review_step
-        StateFile::Questions::IncomeReviewController
+      private
+
+      def next_path
+        income_review_or_super_path
       end
 
-      private
+      def prev_path
+        income_review_or_super_path
+      end
+
+      def income_review_or_super_path
+        case params[:return_to_review].present?
+        when true
+          StateFile::Questions::IncomeReviewController.to_path_helper(return_to_review: params[:return_to_review])
+        when false
+          super
+        end
+      end
 
       def redirect_with_review_param(action)
         redirect_to action: action, return_to_review: params[:return_to_review]
-      end
-
-      # returning to the review page is a 2-step process so we need to pass the return_to_review param through to the income review page if that is the next path
-      def next_path_with_review_param
-        next_path_uri = URI.parse(next_path)
-        next_path_uri.query = "return_to_review=#{params[:return_to_review]}"
-        next_path_uri.to_s
       end
 
       def state_file1099_params
