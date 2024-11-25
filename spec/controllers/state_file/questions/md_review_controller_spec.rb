@@ -31,8 +31,8 @@ RSpec.describe StateFile::Questions::MdReviewController do
       allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_21).and_return(2_488)
       allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_22).and_return(874)
       allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_23).and_return(454)
-      allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_md502_cr_part_b_line_4).and_return(512)
-      allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_md502_cr_part_m_line_1).and_return(449)
+      allow_any_instance_of(Efile::Md::Md502crCalculator).to receive(:calculate_md502_cr_part_b_line_4).and_return(512)
+      allow_any_instance_of(Efile::Md::Md502crCalculator).to receive(:calculate_md502_cr_part_m_line_1).and_return(449)
 
 
       intake.update!(raw_direct_file_data: intake.direct_file_data.to_s)

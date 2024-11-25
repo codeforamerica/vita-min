@@ -18,13 +18,13 @@
       <div class="spacing-below-25 with-top-separator">
         <p class="text--bold spacing-below-5"><%= t("state_file.general.md_return_type") %></p>
         <% if current_intake.calculator.lines[:MD502_DEDUCTION_METHOD].value == "S" %>
-          <p class="text--bold spacing-below-5"><%= t("state_file.general.md_type_of_return_standard") %></p>
+          <p><%= t("state_file.general.md_type_of_return_standard") %></p>
         <% else %>
-          <p class="text--bold spacing-below-5"><%= t("state_file.general.md_type_of_return_nontaxable") %></p>
+          <p><%= t("state_file.general.md_type_of_return_nontaxable") %></p>
         <% end %>
       </div>
 
-      <div class="spacing-below-25 with-top-separator">
+      <div class="spacing-below-25 with-top-">
         <p class="text--bold spacing-below-5"><%= t("state_file.general.fed_agi") %></p>
         <p><%= number_to_currency(current_intake.calculator.line_or_zero(:MD502_LINE_1)) %></p>
       </div>
