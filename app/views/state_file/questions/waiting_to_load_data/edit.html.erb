@@ -10,8 +10,6 @@
   <h1 class="h2" id="main-question"><%= title %></h1>
   <%= form_with model: @form, url: { action: :update }, data: { efile_security_information: true, form_name: "state_file_waiting_to_load_data_form", after_data_transfer_button: true }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <%= f.hidden_field(:device_id) %>
-<!--    <span style="display: none;"><%#= f.continue %></span>-->
-    <%= f.submit "continue", class: "click-me-pls" %>
-
+    <span style="display: none;"><%= f.continue "", class: "click-waiting-to-load-continue-button" %></span>
   <% end %>
 <% end %>
