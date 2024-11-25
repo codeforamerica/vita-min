@@ -3,10 +3,10 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby_version = File.read(File.join(File.dirname(__FILE__), '.ruby-version')).strip
 ruby ruby_version
 
-gem 'rack', '>= 2.0.8'
+gem 'rack', '>= 3.0.0'
 gem 'rails', '~> 7.1'
 gem 'puma', '>= 5.3.2'
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails', '~> 6.0'
 gem 'cfa-styleguide', '0.15.2', git: 'https://github.com/codeforamerica/honeycrisp-gem', branch: 'main', ref: '64379cc8e7cf77ed68a98e226146405864ab49b5'
 gem 'nokogiri', '>= 1.10.8'
 gem 'recaptcha'
@@ -75,6 +75,7 @@ gem 'method_source'
 gem 'ordinalize_full'
 gem 'awesome_print'
 gem 'rack-attack'
+gem 'sinatra', '~> 4.1', '>= 4.1.1'
 
 # Use Flipper for feature flagging
 gem 'flipper'
