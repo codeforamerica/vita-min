@@ -31,7 +31,7 @@ module SubmissionBuilder
           end
 
           def schema_file
-            SchemaFileLoader.load_file("us_states", "unpacked", "ID.MeF2023V1.0", "IncomeTax", "Form40", "IdahoIndividualResidentReturn.xsd")
+            SchemaFileLoader.load_file("us_states", "unpacked", "ID_MeF2024V0.1", "IncomeTax", "Form40", "IdahoIndividualResidentReturn.xsd")
           end
 
           def supported_documents
