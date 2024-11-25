@@ -3027,7 +3027,7 @@ es:
           phone_number: Tu número de teléfono
           sms_notification_opt_in: Mensaje de texto
           subtitle: Necesitaremos comunicarnos con usted con preguntas y actualizaciones.
-          title: ¿Cuál es la mejor manera de comunicarme con usted?
+          title: "¿Cuál es la mejor manera de comunicarme con usted?"
       ny_county:
         edit:
           county: Condado
