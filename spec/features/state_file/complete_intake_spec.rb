@@ -587,7 +587,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       expect(page).to have_text "Select the county and political subdivision where you lived on December 31, #{filing_year}"
       select("Allegany", from: "County")
-      select("Town Of Barton", from: "Political subdivision")
+      select("Town Of Barton", from: "state_file_md_county_form_subdivision_code")
       click_on I18n.t("general.continue")
 
       expect(page).to have_text "Here are the income forms we transferred from your federal tax return."
