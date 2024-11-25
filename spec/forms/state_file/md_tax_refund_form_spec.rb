@@ -14,7 +14,7 @@ RSpec.describe StateFile::MdTaxRefundForm do
       account_holder_first_name: "Geddy",
       account_holder_middle_initial: "J",
       account_holder_last_name: "Lee",
-      account_holder_suffix: "jr",
+      account_holder_suffix: "JR",
     }
   end
 
@@ -55,7 +55,7 @@ RSpec.describe StateFile::MdTaxRefundForm do
         expect(intake.account_holder_first_name).to eq "Geddy"
         expect(intake.account_holder_middle_initial).to eq "J"
         expect(intake.account_holder_last_name).to eq "Lee"
-        expect(intake.account_holder_suffix).to eq "jr"
+        expect(intake.account_holder_suffix).to eq "JR"
       end
     end
 
@@ -148,6 +148,8 @@ RSpec.describe StateFile::MdTaxRefundForm do
     end
 
     context "when the payment_or_deposit_type is direct_deposit" do
+      let(:payment_or_deposit_type) { "direct_deposit" }
+
       context "all other params present" do
         it "is valid" do
           form = described_class.new(intake, params)
@@ -163,6 +165,22 @@ RSpec.describe StateFile::MdTaxRefundForm do
           expect(form).not_to be_valid
           expect(form.errors).to include :account_holder_first_name
           expect(form.errors).to include :account_holder_last_name
+        end
+      end
+
+      context "has invalid account_holder params" do
+        let(:account_holder_first_name) { "A123456789101112131415A1234567891" }
+        let(:account_holder_middle_initial) { 'AB' }
+        let(:account_holder_last_name) { "B'23%9" }
+        let(:account_holder_suffix) { "SH" }
+
+        it "is invalid" do
+          form = described_class.new(intake, params)
+          expect(form).not_to be_valid
+          expect(form.errors[:account_holder_first_name]).to include("Only letters, hyphen, and apostrophe are accepted, and first name must be less than 16 characters.")
+          expect(form.errors[:account_holder_middle_initial]).to include("is too long (maximum is 1 character)")
+          expect(form.errors[:account_holder_last_name]).to include("Only letters, hyphen, and apostrophe are accepted, and last name must be less than 32 characters.")
+          expect(form.errors[:account_holder_suffix]).to include("is not included in the list")
         end
       end
 
@@ -207,6 +225,22 @@ RSpec.describe StateFile::MdTaxRefundForm do
               expect(form.errors[:joint_account_holder_middle_initial]).to include("is too long (maximum is 1 character)")
               expect(form.errors[:joint_account_holder_last_name]).to include("Only letters, hyphen, and apostrophe are accepted, and last name must be less than 32 characters.")
               expect(form.errors[:joint_account_holder_suffix]).to include("is not included in the list")
+            end
+          end
+
+          context "has missing params" do
+            let(:joint_account_holder_first_name) { nil }
+            let(:joint_account_holder_middle_initial) { nil }
+            let(:joint_account_holder_last_name) { nil }
+            let(:joint_account_holder_suffix) { nil }
+
+            it "is invalid" do
+              form = described_class.new(intake, params)
+              expect(form).not_to be_valid
+              expect(form.errors[:joint_account_holder_first_name]).to include("Can't be blank.")
+              expect(form.errors[:joint_account_holder_middle_initial]).to be_empty
+              expect(form.errors[:joint_account_holder_last_name]).to include("Can't be blank.")
+              expect(form.errors[:joint_account_holder_suffix]).to be_empty
             end
           end
         end
