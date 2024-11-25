@@ -73,7 +73,7 @@
   <% unless current_intake.disqualified_from_excise_credit_df? %>
     <div id="incarcerated" class="white-group">
       <div class="spacing-below-5">
-        <p class="text--bold spacing-below-5"><%=t(".was_incarcerated") %></p>
+        <p class="text--bold spacing-below-5"><%=t(".was_incarcerated", filing_year: current_tax_year) %></p>
         <p><%=current_intake.was_incarcerated_yes? ? t("general.affirmative") : t("general.negative") %></p>
 
         <p class="text--bold spacing-below-5"><%=t(".ssn_no_employment") %></p>
@@ -87,10 +87,10 @@
   <% end %>
 
   <div id="details" class="reveal">
-    <p><button class="reveal__button"><%= t('.see_detailed_return') %></button></p>
+    <p><button class="reveal__button"><%= t('state_file.general.see_detailed_return') %></button></p>
     <div class="reveal__content">
       <div class="spacing-below-25 with-top-separator">
-        <p class="text--bold spacing-below-5"><%=t(".fed_agi") %></p>
+        <p class="text--bold spacing-below-5"><%=t("state_file.general.fed_agi") %></p>
         <p><%= number_to_currency(current_intake.calculator.line_or_zero(:AZ140_LINE_12)) %></p>
       </div>
 
@@ -110,7 +110,7 @@
       </div>
 
       <div class="spacing-below-25">
-        <p class="text--bold spacing-below-5"><%=t(".standard_deduction") %></p>
+        <p class="text--bold spacing-below-5"><%=t("state_file.general.standard_deduction") %></p>
         <p><%= number_to_currency(current_intake.calculator.line_or_zero(:AZ140_LINE_43)) %></p>
       </div>
 

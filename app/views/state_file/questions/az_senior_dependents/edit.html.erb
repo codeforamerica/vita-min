@@ -19,7 +19,7 @@
         <div class="white-group">
           <%= ff.cfa_radio_set(
                 :passed_away,
-                label_text: t(".passed_away_label", name: ff&.object&.first_name&.capitalize),
+                label_text: t(".passed_away_label", name: ff&.object&.first_name&.capitalize, filing_year: current_tax_year),
                 collection: [
                   { value: "yes", label: t("general.affirmative") },
                   { value: "no", label: t("general.negative") },
