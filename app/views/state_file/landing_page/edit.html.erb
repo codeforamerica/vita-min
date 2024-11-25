@@ -65,7 +65,7 @@
               <% end %>
             <% else %>
               <div class="white-group spacing-below-60">
-                <% # i18n-tasks-use t('state_file.landing_page.edit.help_text_html') # hint for the i18n linter that, yes, we are using this key (sometime) %>
+                <% # i18n-tasks-use t('state_file.landing_page.edit.help_text_html') # hint for the i18n linter that, yes, we are using this key (sometimes) %>
                 <%= t(".#{@state_code}.help_text_html", default: :'.help_text_html', filing_year: current_tax_year) %>
               </div>
               <%= form_with model: @form, url: { action: :update }, local: true, method: :put, builder: VitaMinFormBuilder do |f| %>
