@@ -19,6 +19,8 @@ class DirectFileJsonData
     json_accessor is_claimed_dependent: { type: :boolean, key: "isClaimedDependent" }
     json_accessor qualifying_child: { type: :boolean, key: "qualifyingChild" }
 
+    # We only get a numeric value for "monthsLivedWithTPInUS" if the dependent's residency duration was 6+ months, otherwise it will be null
+    # See Kiteworks: FTA State Exchange System / IRS Direct File / JSON Export Details / Draft IRS Direct File JSON Export Additions.docx
     WORDS_TO_NUMBERS = {
       "six" => 6,
       "seven" => 7,
