@@ -146,9 +146,10 @@ describe SubmissionBuilder::Ty2024::States::Md::MdReturnXml, required_schema: "m
       end
 
       context "502CR" do
-        context "L24 or L43" do
-          context "Form 502 L24 has an amount" do
+        context "L24 or L43 and deduction method" do
+          context "Form 502 L24 has an amount and deduction method is standard" do
             before do
+              allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "S"
               allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_24).and_return 50
               allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_43).and_return 0
             end
@@ -161,10 +162,11 @@ describe SubmissionBuilder::Ty2024::States::Md::MdReturnXml, required_schema: "m
             end
           end
 
-          context "Form 502 L24 does not have an amount but L43 does have an amount" do
+          context "Form 502 L24 does not have an amount but L43 does have an amount and deduction method is standard" do
             before do
               allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_24).and_return 0
               allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_43).and_return 50
+              allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "S"
             end
 
             it "attaches a 502CR" do
@@ -179,6 +181,21 @@ describe SubmissionBuilder::Ty2024::States::Md::MdReturnXml, required_schema: "m
             before do
               allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_24).and_return 0
               allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_43).and_return 0
+            end
+
+            it "does not attach a 502CR" do
+              expect(xml.at("Form502CR")).not_to be_present
+              expect(instance.pdf_documents).not_to be_any { |included_documents|
+                included_documents.pdf == PdfFiller::Md502CrPdf
+              }
+            end
+          end
+
+          context "Form 502 has both L24 and L43 but deduction method is not standard" do
+            before do
+              allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_24).and_return 0
+              allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_43).and_return 0
+              allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "N"
             end
 
             it "does not attach a 502CR" do
