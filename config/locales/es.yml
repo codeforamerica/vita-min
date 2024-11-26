@@ -3030,8 +3030,9 @@ es:
       notification_preferences:
         edit:
           email_notification_opt_in: Correo electrónico
+          opt_in_label: ¡Seleccione la(s) opción(es) que funcionen mejor para usted!
           message_body_one: No compartiremos su información con terceros. La frecuencia de los mensajes variará. Pueden aplicarse tarifas por mensajes y datos.
-          message_body_two: Envíe un mensaje de texto con la palabra HELP al 46207 para recibir ayuda. Envíe un mensaje de texto con la palabra STOP al 46207 para cancelar. Los operadores (por ejemplo, AT&T, Verizon, T-Mobile, Sprint, etc.) no son responsables de los mensajes no entregados o demorados. Consulte nuestros Términos y condiciones de SMS y nuestra Política de privacidad.
+          message_body_two_html: Envíe un mensaje de texto con la palabra HELP al 46207 para recibir ayuda. Envíe un mensaje de texto con la palabra STOP al 46207 para cancelar. Los operadores (por ejemplo, AT&T, Verizon, T-Mobile, Sprint, etc.) no son responsables de los mensajes no entregados o demorados. Consulte nuestros<a target="_blank" href=%{sms_terms_link}>Términos y condiciones de SMS</a> y nuestra <a target="_blank" href=%{privacy_link}>Política de privacidad</a>..
           message_title: Detalles de la mensajería
           phone_number: Tu número de teléfono
           sms_notification_opt_in: Mensaje de texto

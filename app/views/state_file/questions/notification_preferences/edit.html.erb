@@ -1,15 +1,16 @@
 <% content_for :page_title, t(".title") %>
 
 <% content_for :card do %>
-  <h1 class="h2"><%= t(".title") %></h1>
-  <p><%= t(".subtitle") %></p>
+  <h1 class="h2 spacing-below-5"><%= t(".title") %></h1>
+  <p class="spacing-below-15 spacing-above-0"><%= t(".subtitle") %></p>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="question-with-follow-up">
       <div class="question-with-follow-up__question">
         <div class="white-group">
-          <%= f.cfa_checkbox(:email_notification_opt_in, t(".email_notification_opt_in"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+          <p><%= t('.opt_in_label') %></p>
           <%= f.cfa_checkbox(:sms_notification_opt_in, t(".sms_notification_opt_in"), options: { checked_value: "yes", unchecked_value: "no", "data-follow-up": "#sms-opt-in" }) %>
+          <%= f.cfa_checkbox(:email_notification_opt_in, t(".email_notification_opt_in"), options: { checked_value: "yes", unchecked_value: "no" }) %>
         </div>
       </div>
 
@@ -26,7 +27,9 @@
       </p>
       <div class="reveal__content">
         <p class="text--line-breaks"><%= t(".message_body_one") %></p>
-        <p class="text--line-breaks"><%= t(".message_body_two") %></p>
+        <p class="text--line-breaks">
+          <%= t(".message_body_two_html", privacy_link: state_file_privacy_policy_path, sms_terms_link: sms_terms_path) %>
+        </p>
       </div>
     </div>
 
