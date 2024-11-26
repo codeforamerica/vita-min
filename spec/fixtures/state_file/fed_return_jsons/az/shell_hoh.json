@@ -1,0 +1,55 @@
+{
+  "familyAndHousehold": [
+    {
+      "monthsLivedWithTPInUS": null,
+      "lastName": "Shelley",
+      "hohQualifyingPerson": true,
+      "isClaimedDependent": true,
+      "qualifyingChild": false,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "1935-07-01",
+      "suffix": null,
+      "residencyDuration": "allYear",
+      "firstName": "Mary",
+      "middleInitial": null,
+      "scheduleEicLine4aNo": true,
+      "tin": "300-00-0016",
+      "eligibleDependent": true,
+      "relationship": "otherAncestorOfParent",
+      "ssnNotValidForEmployment": null
+    },
+    {
+      "monthsLivedWithTPInUS": null,
+      "lastName": "Ono",
+      "isClaimedDependent": true,
+      "hohQualifyingPerson": true,
+      "qualifyingChild": false,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "1933-01-02",
+      "suffix": null,
+      "residencyDuration": "allYear",
+      "firstName": "Yolko",
+      "middleInitial": null,
+      "scheduleEicLine4aNo": true,
+      "tin": "300-00-0015",
+      "eligibleDependent": true,
+      "relationship": "otherAncestorOfParent",
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "filers": [
+    {
+      "lastName": "Silverstein",
+      "firstName": "Shell",
+      "middleInitial": null,
+      "tin": "400-00-0010",
+      "dateOfBirth": "1983-04-04",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "interestReports": []
+}
