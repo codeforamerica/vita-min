@@ -23,7 +23,7 @@ module SubmissionBuilder
           end
 
           def state_schema_version
-            "MDIndividual2023v1.0"
+            "MDIndividual2024v1.0"
           end
 
           def build_state_specific_tags(document)
@@ -37,7 +37,7 @@ module SubmissionBuilder
           end
 
           def schema_file
-            SchemaFileLoader.load_file("us_states", "unpacked", "MDIndividual2023v1.0", "MDIndividual", "IndividualReturnMD502.xsd")
+            SchemaFileLoader.load_file("us_states", "unpacked", "MDIndividual2024v1.0", "MDIndividual", "IndividualReturnMD502.xsd")
           end
 
           def form1099g_builder

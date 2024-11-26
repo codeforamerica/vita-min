@@ -108,7 +108,7 @@ module StateFile
         navigation_class: Navigation::StateFileMdQuestionNavigation,
         pay_taxes_link: "",
         return_type: "Form502",
-        schema_file_name: "MDIndividual2023v1.0.zip",
+        schema_file_name: "MDIndividual2024v1.0.zip",
         state_name: "Maryland",
         submission_builder_class: SubmissionBuilder::Ty2024::States::Md::MdReturnXml,
         survey_link: "",
