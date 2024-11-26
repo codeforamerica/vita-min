@@ -448,21 +448,35 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
     end
 
     context "AuthToDirectDepositInd" do
-      before do
-        intake.bank_authorization_confirmed = "yes"
+      context "with bank_authorization_confirmed set to 'yes'" do
+        before do
+          allow(intake).to receive(:bank_authorization_confirmed_yes?).and_return true
+        end
+
+        it 'outputs the total state and local tax withheld' do
+          expect(xml.at("Form502 AuthToDirectDepositInd")&.text).to eq('X')
+        end
       end
 
-      it 'outputs the total state and local tax withheld' do
-        expect(xml.at("Form502 AuthToDirectDepositInd")&.text).to eq('X')
+      context "with bank_authorization_confirmed set to 'no' or 'unfilled'" do
+        before do
+          allow(intake).to receive(:bank_authorization_confirmed_yes?).and_return false
+        end
+
+        it 'outputs the total state and local tax withheld' do
+          expect(xml.at("Form502 AuthToDirectDepositInd")).to be_nil
+        end
       end
     end
 
     context "Line 51d: NameOnBankAccount" do
       before do
-        intake.payment_or_deposit_type = "direct_deposit"
-        intake.account_holder_first_name = "Jack"
-        intake.account_holder_middle_initial = "D"
-        intake.account_holder_last_name = "Hansel"
+        intake.update(
+          payment_or_deposit_type: "direct_deposit",
+          account_holder_first_name: "Jack",
+          account_holder_middle_initial: "D",
+          account_holder_last_name: "Hansel"
+        )
       end
 
       it 'outputs account holder name' do
