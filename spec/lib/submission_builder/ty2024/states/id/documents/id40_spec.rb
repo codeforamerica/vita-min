@@ -161,7 +161,7 @@ describe SubmissionBuilder::Ty2024::States::Id::Documents::Id40, required_schema
     context "sales use tax" do
       context "when has unpaid sales use tax" do
         before do
-          intake.update(has_unpaid_sales_use_tax: true, total_purchase_amount: 225)
+          intake.update(has_unpaid_sales_use_tax: "yes", total_purchase_amount: 225)
         end
 
         it "fills out StateUseTax field with calculated value" do
