@@ -49,6 +49,7 @@ RSpec.feature "editing direct file XML with the FederalInfoController", active_j
     click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
 
     step_through_df_data_transfer("Transfer Alexis hoh w2 and 1099")
+    click_on "Go back"
 
     xml_before = StateFileAzIntake.last.raw_direct_file_data.strip
     find("#visit_federal_info_controller").click
@@ -138,6 +139,7 @@ RSpec.feature "editing direct file XML with the FederalInfoController", active_j
     click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
 
     step_through_df_data_transfer("Transfer Nick")
+    click_on "Go back"
 
     xml_before = StateFileNcIntake.last.direct_file_data
     raw_xml_before = StateFileNcIntake.last.raw_direct_file_data.strip

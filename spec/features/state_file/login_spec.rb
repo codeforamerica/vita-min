@@ -52,8 +52,6 @@ RSpec.feature "Logging in with an existing account" do
     expect(page).to have_text "Code verified! Authentication needed to continue."
     fill_in "Enter your Social Security number or ITIN. For example, 123-45-6789.", with: ssn
     click_on "Continue"
-
-    expect(page).to have_text "Your federal tax return is now transferred."
   end
 
   scenario "signing in with email" do
@@ -77,7 +75,5 @@ RSpec.feature "Logging in with an existing account" do
     expect(page).to have_text "Code verified! Authentication needed to continue."
     fill_in "Enter your Social Security number or ITIN. For example, 123-45-6789.", with: ssn
     click_on "Continue"
-
-    expect(page).to have_text "Your federal tax return is now transferred."
   end
 end
