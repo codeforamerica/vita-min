@@ -66,7 +66,7 @@ RSpec.describe StateFile::Questions::ReturnStatusController do
                   efile_submission.transition_to!(status)
                 end
 
-                it "assigns the last efile error attached to the last transition when #{status}" do
+                it "when #{status}, assigns the last efile error attached to the last rejected transition" do
                   get :edit
 
                   expect(error).to be_a(EfileError)
@@ -76,17 +76,22 @@ RSpec.describe StateFile::Questions::ReturnStatusController do
             end
 
             context "other status" do
-              EfileSubmissionStateMachine.states.excluding("notified_of_rejection", "waiting").each do |status|
-                it "assigns nil when #{status}" do
+              [:new, :preparing, :bundling, :queued, :transmitted, :ready_for_ack, :failed, :rejected, :accepted].each do |status|
+                it "when #{status}, assigns nil" do
+                  create(:efile_submission, status, :for_state, data_source: intake)
+
+                  get :edit
+
+                  expect(assigns(:error)).to be_nil
+                end
+              end
+
+              [:investigating, :fraud_hold, :resubmitted, :cancelled].each do |status|
+                it "when #{status}, assigns nil even if errors exist" do
                   efile_submission = create(:efile_submission, :rejected, :with_errors, :for_state, data_source: intake)
-                  if efile_submission.can_transition_to?(status) # when status is after rejected, transition and make sure there is an error available
-                    efile_submission.transition_to!(status)
-                    error = efile_submission.efile_submission_transitions.where(to_state: 'rejected').last.efile_errors.last
-                    expect(error).to be_a(EfileError)
-                  else # when status is before rejected, delete the submission and start over
-                    efile_submission.destroy!
-                    create(:efile_submission, status, :for_state, data_source: intake)
-                  end
+                  efile_submission.transition_to!(status)
+                  error = efile_submission.efile_submission_transitions.where(to_state: 'rejected').last.efile_errors.last
+                  expect(error).to be_a(EfileError)
 
                   get :edit
 
