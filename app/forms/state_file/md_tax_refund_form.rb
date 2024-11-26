@@ -25,8 +25,8 @@ module StateFile
     with_options unless: -> { payment_or_deposit_type == "mail" } do
       validates :account_holder_first_name, presence: true
       validates :account_holder_last_name, presence: true
-      validates :account_holder_first_name, format: { with: /\A[a-zA-Z]{1}([A-Za-z\-\s']{0,15})\z/.freeze, message: ->(_object, _data) { I18n.t('errors.attributes.first_name.invalid_format') }}
-      validates :account_holder_last_name, format: { with: /\A[a-zA-Z]{1}([A-Za-z\-\s']{0,31})\z/.freeze, message: ->(_object, _data) { I18n.t('errors.attributes.last_name.invalid_format') }}
+      validates :account_holder_first_name, format: { with: /\A[a-zA-Z0-9]([A-Za-z0-9\-\s']{0,15})\z/.freeze, message: ->(_object, _data) { I18n.t('errors.attributes.first_name.invalid_format') }}
+      validates :account_holder_last_name, format: { with: /\A[a-zA-Z0-9]([A-Za-z0-9\-\s']{0,31})\z/.freeze, message: ->(_object, _data) { I18n.t('errors.attributes.last_name.invalid_format') }}
       validates :account_holder_middle_initial, length: { maximum: 1 }, format: { with: /\A[A-Za-z]\z/.freeze, allow_blank: true }
       validates :account_holder_suffix, inclusion: { in: SUFFIX_OPTIONS }, allow_blank: true, if: -> { account_holder_suffix.present? }
       validates :account_type, presence: true
@@ -46,8 +46,8 @@ module StateFile
       with_options if: -> { has_joint_account_holder == 'yes' } do
         validates :joint_account_holder_first_name, presence: true
         validates :joint_account_holder_last_name, presence: true
-        validates :joint_account_holder_first_name, format: { with: /\A[a-zA-Z]{1}([A-Za-z\-\s']{0,15})\z/.freeze, message: ->(_object, _data) { I18n.t('errors.attributes.first_name.invalid_format') }}
-        validates :joint_account_holder_last_name, format: { with: /\A[a-zA-Z]{1}([A-Za-z\-\s']{0,137})\z/.freeze, message: ->(_object, _data) { I18n.t('errors.attributes.last_name.invalid_format') }}
+        validates :joint_account_holder_first_name, format: { with: /\A[a-zA-Z0-9]([A-Za-z0-9\-\s']{0,15})\z/.freeze, message: ->(_object, _data) { I18n.t('errors.attributes.first_name.invalid_format') }}
+        validates :joint_account_holder_last_name, format: { with: /\A[a-zA-Z0-9]([A-Za-z0-9\-\s']{0,31})\z/.freeze, message: ->(_object, _data) { I18n.t('errors.attributes.last_name.invalid_format') }}
         validates :joint_account_holder_middle_initial, length: { maximum: 1 }, format: { with: /\A[A-Za-z]\z/.freeze, allow_blank: true }
         validates :joint_account_holder_suffix, inclusion: { in: SUFFIX_OPTIONS }, allow_blank: true, if: -> { joint_account_holder_suffix.present? }
       end

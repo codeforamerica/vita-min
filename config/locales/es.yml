@@ -172,7 +172,7 @@ es:
         format: Ingrese una fecha de vencimiento en el formato MM-DD-2YYY.
       first_name:
         blank: Por favor, ingrese un nombre.
-        invalid_format: Solo se aceptan letras, guiones y apóstrofos, y el nombre debe tener menos de 16 caracteres.
+        invalid_format: Solo se aceptan letras, números, guiones y apóstrofos, y el nombre debe tener menos de 16 caracteres.
       hoh_qualifying_person_name:
         blank: Por favor, revisa tus respuestas sobre cuántos meses viviste con estos dependientes. Según tu declaración federal, viviste en un hogar con al menos uno de estos dependientes durante al menos la mitad del año.
       intake_site:
@@ -181,7 +181,7 @@ es:
         blank: Por favor, seleccione un número de trabajos.
       last_name:
         blank: Por favor, ingrese un apellido.
-        invalid_format: Solo se aceptan letras, guiones y apóstrofos, y el nombre debe tener menos de 32 caracteres.
+        invalid_format: Solo se aceptan letras, números, guiones y apóstrofos, y el nombre debe tener menos de 32 caracteres.
       password:
         insecure: Agregue algunas palabras más poco comunes para mejorar la seguridad de la contraseña.
         not_matching: Las contraseñas proporcionadas no coinciden.

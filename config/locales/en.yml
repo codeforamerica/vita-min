@@ -171,7 +171,7 @@ en:
         format: Please enter an expiration date in the format MM-DD-2YYY.
       first_name:
         blank: Please enter a first name.
-        invalid_format: Only letters, hyphen, and apostrophe are accepted, and first name must be less than 16 characters.
+        invalid_format: Only letters, numbers, hyphen, and apostrophe are accepted, and first name must be less than 16 characters.
       hoh_qualifying_person_name:
         blank: Please double check your answers regarding how many months you lived with these dependents. Based on your federal return, you lived in a home with one of these dependents for at least half the year.
       intake_site:
@@ -180,7 +180,7 @@ en:
         blank: Please select a number of jobs.
       last_name:
         blank: Please enter a last name.
-        invalid_format: Only letters, hyphen, and apostrophe are accepted, and last name must be less than 32 characters.
+        invalid_format: Only letters, numbers, hyphen, and apostrophe are accepted, and last name must be less than 32 characters.
       password:
         insecure: Add some more uncommon words to improve password strength.
         not_matching: The password provided does not match.
