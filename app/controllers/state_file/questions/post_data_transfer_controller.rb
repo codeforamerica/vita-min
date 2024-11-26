@@ -1,6 +1,6 @@
 module StateFile
   module Questions
-    class DataReviewController < QuestionsController
+    class PostDataTransferController < QuestionsController
       def edit
         super
         # Redirect to offboarding here if not eligible

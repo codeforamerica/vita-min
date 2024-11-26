@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe StateFile::Questions::DataReviewController do
+RSpec.describe StateFile::Questions::PostDataTransferController do
   let(:intake) { create :state_file_az_intake }
   before do
     sign_in intake

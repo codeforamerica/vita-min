@@ -2326,9 +2326,9 @@ es:
           subtitle: Con una cuenta recibirás notificaciones sobre el estado de tu declaración de impuestos estatales.
           text_message_option: Enviar código por mensaje de texto.
           title: Ahora crea tu cuenta con un código
-      data_review:
+      post_data_transfer:
         edit:
-          title: Tu declaración de impuestos federales se ha transferido. Hemos completado algunas partes para ahorrarte tiempo.
+          title: Solo página sin producción
       data_transfer_offboarding:
         edit:
           ineligible_reason:
