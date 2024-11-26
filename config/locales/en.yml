@@ -2354,12 +2354,6 @@ en:
           title: Next, create your account with a quick code
       data_review:
         edit:
-          basic_household_info_title: Basic household information
-          complete_description: Complete
-          filing_status_title: Filing status
-          income_and_deductions_title: Income and deductions
-          partially_complete_description: Partially complete
-          state_tax_withheld_title: "%{name} state tax withheld"
           title: Your federal tax return is now transferred. We completed some sections to save you time.
       data_transfer_offboarding:
         edit:

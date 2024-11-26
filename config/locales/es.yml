@@ -2328,12 +2328,6 @@ es:
           title: Ahora crea tu cuenta con un código
       data_review:
         edit:
-          basic_household_info_title: Información básica del hogar
-          complete_description: Completo
-          filing_status_title: Estado civil para la declaración
-          income_and_deductions_title: Ingresos y deducciones
-          partially_complete_description: Parcialmente completa
-          state_tax_withheld_title: Retención de impuestos estatales de %{name}
           title: Tu declaración de impuestos federales se ha transferido. Hemos completado algunas partes para ahorrarte tiempo.
       data_transfer_offboarding:
         edit:
