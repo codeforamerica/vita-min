@@ -77,6 +77,22 @@ describe StateFileDependent do
             expect(dependent.ask_senior_questions?).to be false
           end
         end
+
+        context "when parentInLaw" do
+          let(:relationship) { "parentInLaw" }
+          context "when mfj" do
+            let(:intake) { create :state_file_az_intake, filing_status: :married_filing_jointly }
+            it "asks more questions" do
+              expect(dependent.ask_senior_questions?).to be true
+            end
+          end
+          context "when mfs" do
+            let(:intake) { create :state_file_az_intake, filing_status: :married_filing_separately }
+            it "asks more questions" do
+              expect(dependent.ask_senior_questions?).to be false
+            end
+          end
+        end
       end
 
       context "when a dependent is younger than 65" do

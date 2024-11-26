@@ -62,7 +62,7 @@ class StateFileDependent < ApplicationRecord
     "siblingOfParent" => "Aunt/Uncle",
     "otherDescendantOfHalfSibling" => "Niece/Nephew",
     "otherDescendantOfStepSibling" => "Niece/Nephew",
-    "fosterParent" => "Parent",
+    "fosterParent" => "Foster Parent",
     "siblingsSpouse" => "Sibling-in-Law",
   }.freeze
 
@@ -116,7 +116,8 @@ class StateFileDependent < ApplicationRecord
 
   def ask_senior_questions?
     return false if dob.nil?
-    senior? && months_in_home == 12 && ['parent', 'grandParent', 'otherAncestorOfParent'].include?(relationship)
+    relationship_qualifies = %w[parent grandParent otherAncestorOfParent].include?(relationship) || ("parentInLaw" == relationship && intake.filing_status_mfj?)
+    senior? && months_in_home == 12 && relationship_qualifies
   end
 
   def is_qualifying_parent_or_grandparent?
