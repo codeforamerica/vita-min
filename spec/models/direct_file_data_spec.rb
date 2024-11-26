@@ -467,7 +467,7 @@ describe DirectFileData do
     end
 
     context "when there are dependents in AZ, the months_in_home is not populated" do
-      let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml('az_johnny_mfj') }
+      let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml('az_johnny_mfj_8_deps') }
 
       it 'sets the months_in_home to nil' do
         expect(described_class.new(xml).dependents).to be_all { |d| d.months_in_home.nil? }
