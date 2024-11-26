@@ -49,6 +49,7 @@ class Personas < Thor
 
   def import(persona_name)
     persona_contents = $stdin.read
+    persona_name = persona_name.downcase
 
     file_string = if persona_contents.first == '<'
                     say_error "Format detected as 'xml'", :cyan if options[:debug]
