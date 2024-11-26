@@ -1123,5 +1123,13 @@ describe Efile::Md::Md502Calculator do
         expect(instance.lines[:MD502_AUTHORIZE_DIRECT_DEPOSIT].value).to eq(false)
       end
     end
+
+    context "bank authorization was 'no'" do
+      it "should return false" do
+        intake.bank_authorization_confirmed = 'no'
+        instance.calculate
+        expect(instance.lines[:MD502_AUTHORIZE_DIRECT_DEPOSIT].value).to eq(false)
+      end
+    end
   end
 end
