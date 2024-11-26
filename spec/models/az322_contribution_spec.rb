@@ -32,9 +32,9 @@ describe 'Az322Contribution' do
       az.valid?
       expect(az.errors[:made_contribution]).to be_empty
 
-      az.made_contribution = 'gobble'
-      az.valid?
-      expect(az.errors[:made_contribution]).not_to be_empty
+      expect {
+        az.made_contribution = 'gobble'
+      }.to raise_error(ArgumentError, "'gobble' is not a valid made_contribution")
     end
   end
 
