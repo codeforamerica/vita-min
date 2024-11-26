@@ -2,7 +2,6 @@ module StateFile
   module Questions
     class AzPublicSchoolContributionsController < QuestionsController
       include ReturnToReviewConcern
-      before_action :load_filing_year, only: [:new, :create, :edit, :update]
 
       def self.navigation_actions
         [:index, :new]
@@ -76,10 +75,6 @@ module StateFile
           :date_of_contribution_month,
           :date_of_contribution_year
         )
-      end
-
-      def load_filing_year
-        @filing_year = Rails.configuration.statefile_current_tax_year
       end
     end
   end

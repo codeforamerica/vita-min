@@ -10,21 +10,17 @@
     </div>
   </div>
 
-  <div id="state-credits" class="white-group">
+  <div id="public-school-contributions" class="white-group">
     <div class="spacing-below-5">
-      <p class="text--bold spacing-below-5"><%=t(".tribal_member") %></p>
-      <p><%=current_intake.tribal_member_yes? ? t("general.affirmative") : t("general.negative") %></p>
-      <% if current_intake.tribal_member_yes? %>
-        <p class="text--bold spacing-below-5"><%=t(".tribal_wages") %></p>
-        <p><%=number_to_currency(current_intake.tribal_wages_amount, precision: 2) %></p>
+      <p class="text--bold spacing-below-5"><%=t(".made_az322_contributions") %></p>
+      <p><%= current_intake.az322_contributions.present? ? t("general.affirmative") : t("general.negative") %></p>
+      <% if current_intake.az322_contributions.present? %>
+        <% current_intake.az322_contributions.each do |contribution| %>
+          <p class="text--bold spacing-below-5"><%=t(".az322_contribution_name", charity_name: contribution.school_name, charity_code: contribution.ctds_code) %></p>
+          <p><%= number_to_currency(contribution.amount, precision: 2) || t("general.none") %></p>
+        <% end %>
       <% end %>
-      <p class="text--bold spacing-below-5"><%=t(".armed_forces_member") %></p>
-      <p><%=current_intake.armed_forces_member_yes? ? t("general.affirmative") : t("general.negative") %></p>
-      <% if current_intake.armed_forces_member_yes? %>
-        <p class="text--bold spacing-below-5"><%=t(".armed_forces_wages") %></p>
-        <p><%=number_to_currency(current_intake.armed_forces_wages_amount, precision: 2) %></p>
-      <% end %>
-      <%= link_to t("general.edit"), StateFile::Questions::AzSubtractionsController.to_path_helper(return_to_review: "y"), class: "button--small" %>
+      <%= link_to t("general.edit"), StateFile::Questions::AzPublicSchoolContributionsController.to_path_helper(action: :index, return_to_review: "y"), class: "button--small" %>
     </div>
   </div>
 
@@ -56,10 +52,28 @@
     </div>
   </div>
 
+  <div id="state-credits" class="white-group">
+    <div class="spacing-below-5">
+      <p class="text--bold spacing-below-5"><%=t(".tribal_member") %></p>
+      <p><%=current_intake.tribal_member_yes? ? t("general.affirmative") : t("general.negative") %></p>
+      <% if current_intake.tribal_member_yes? %>
+        <p class="text--bold spacing-below-5"><%=t(".tribal_wages") %></p>
+        <p><%=number_to_currency(current_intake.tribal_wages_amount, precision: 2) %></p>
+      <% end %>
+      <p class="text--bold spacing-below-5"><%=t(".armed_forces_member") %></p>
+      <p><%=current_intake.armed_forces_member_yes? ? t("general.affirmative") : t("general.negative") %></p>
+      <% if current_intake.armed_forces_member_yes? %>
+        <p class="text--bold spacing-below-5"><%=t(".armed_forces_wages") %></p>
+        <p><%=number_to_currency(current_intake.armed_forces_wages_amount, precision: 2) %></p>
+      <% end %>
+      <%= link_to t("general.edit"), StateFile::Questions::AzSubtractionsController.to_path_helper(return_to_review: "y"), class: "button--small" %>
+    </div>
+  </div>
+
   <% unless current_intake.disqualified_from_excise_credit_df? %>
     <div id="incarcerated" class="white-group">
       <div class="spacing-below-5">
-        <p class="text--bold spacing-below-5"><%=t(".was_incarcerated") %></p>
+        <p class="text--bold spacing-below-5"><%=t(".was_incarcerated", filing_year: current_tax_year) %></p>
         <p><%=current_intake.was_incarcerated_yes? ? t("general.affirmative") : t("general.negative") %></p>
 
         <p class="text--bold spacing-below-5"><%=t(".ssn_no_employment") %></p>
@@ -73,10 +87,10 @@
   <% end %>
 
   <div id="details" class="reveal">
-    <p><button class="reveal__button"><%= t('.see_detailed_return') %></button></p>
+    <p><button class="reveal__button"><%= t('state_file.general.see_detailed_return') %></button></p>
     <div class="reveal__content">
       <div class="spacing-below-25 with-top-separator">
-        <p class="text--bold spacing-below-5"><%=t(".fed_agi") %></p>
+        <p class="text--bold spacing-below-5"><%=t("state_file.general.fed_agi") %></p>
         <p><%= number_to_currency(current_intake.calculator.line_or_zero(:AZ140_LINE_12)) %></p>
       </div>
 
@@ -96,7 +110,7 @@
       </div>
 
       <div class="spacing-below-25">
-        <p class="text--bold spacing-below-5"><%=t(".standard_deduction") %></p>
+        <p class="text--bold spacing-below-5"><%=t("state_file.general.standard_deduction") %></p>
         <p><%= number_to_currency(current_intake.calculator.line_or_zero(:AZ140_LINE_43)) %></p>
       </div>
 

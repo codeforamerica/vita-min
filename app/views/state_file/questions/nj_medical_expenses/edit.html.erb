@@ -1,5 +1,5 @@
 <%
-  title = t(".title", filing_year: @filing_year)
+  title = t(".title", filing_year: current_tax_year)
   content_for :page_title, title
 %>
 
@@ -11,7 +11,7 @@
     <div class="white-group">
       <%= f.vita_min_money_field(
         :medical_expenses,
-        t('.label', filing_year: @filing_year),
+        t('.label', filing_year: current_tax_year),
         help_text: t('.help_text'),
         classes: ["form-width--long"],
         options: { placeholder: "0" }

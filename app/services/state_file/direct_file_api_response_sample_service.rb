@@ -66,13 +66,12 @@ module StateFile
       when :married_filing_separately
         read_xml("az_sherlock_mfs")
       when :head_of_household
-        read_xml("az_alexis_hoh_w2_and_1099")
+        read_xml("az_alexis_hoh")
       end
     end
 
     private
 
-    TAX_YEAR = Rails.configuration.statefile_current_tax_year.to_s.freeze
     def base_path(file_type)
       "spec/fixtures/state_file/fed_return_#{file_type}s/".freeze
     end
@@ -88,7 +87,7 @@ module StateFile
         samples = file_type == 'json' ? @json_samples : @xml_samples
         StateFile::StateInformationService.active_state_codes.each do |us_state|
           samples[us_state] = []
-          file_path_glob = File.join(base_path(file_type), TAX_YEAR, us_state, "*.#{file_type}")
+          file_path_glob = File.join(base_path(file_type), us_state, "*.#{file_type}")
           Dir.glob(file_path_glob).each do |file_path|
             samples[us_state].push(File.basename(file_path, ".#{file_type}"))
           end
@@ -106,7 +105,7 @@ module StateFile
 
       us_state, sample_name = key.split("_", 2)
       if samples.include?(us_state) && samples[us_state].include?(sample_name)
-        File.join(base_path(file_type), TAX_YEAR, us_state, "#{sample_name}.#{file_type}")
+        File.join(base_path(file_type), us_state, "#{sample_name}.#{file_type}")
       end
     end
   end

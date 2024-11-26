@@ -79,8 +79,15 @@ module SubmissionBuilder
                     if intake.spouse_veteran_yes?
                       xml.SpouseCuPartnerVeteran "X"
                     end
-                    xml.NumOfQualiDependChild qualifying_dependents.count(&:qualifying_child?)
-                    xml.NumOfOtherDepend qualifying_dependents.count(&:qualifying_relative?)
+                    if calculated_fields.fetch(:NJ1040_LINE_10_COUNT)&.positive?
+                      xml.NumOfQualiDependChild calculated_fields.fetch(:NJ1040_LINE_10_COUNT)
+                    end
+                    if calculated_fields.fetch(:NJ1040_LINE_11_COUNT)&.positive?
+                      xml.NumOfOtherDepend calculated_fields.fetch(:NJ1040_LINE_11_COUNT)
+                    end
+                    if calculated_fields.fetch(:NJ1040_LINE_12_COUNT)&.positive?
+                      xml.DependAttendCollege calculated_fields.fetch(:NJ1040_LINE_12_COUNT)
+                    end
                     xml.TotalExemptionAmountA calculated_fields.fetch(:NJ1040_LINE_13)
                   end
 
@@ -162,7 +169,13 @@ module SubmissionBuilder
 
                   xml.Tax calculated_fields.fetch(:NJ1040_LINE_43)
 
+                  xml.BalanceOfTaxA calculated_fields.fetch(:NJ1040_LINE_45)
+                  xml.TotalCredits calculated_fields.fetch(:NJ1040_LINE_49)
+                  xml.BalanceOfTaxAfterCredit calculated_fields.fetch(:NJ1040_LINE_50)
+
                   xml.SalesAndUseTax calculated_fields.fetch(:NJ1040_LINE_51)
+
+                  xml.TotalTaxAndPenalty calculated_fields.fetch(:NJ1040_LINE_54)
 
                   if calculated_fields.fetch(:NJ1040_LINE_57)
                     xml.EstimatedPaymentTotal calculated_fields.fetch(:NJ1040_LINE_57)
@@ -188,6 +201,14 @@ module SubmissionBuilder
                   line_65 = calculated_fields.fetch(:NJ1040_LINE_65)
                   xml.NJChildTCNumOfDep calculated_fields.fetch(:NJ1040_LINE_65_DEPENDENTS) if line_65
                   xml.NJChildTaxCredit line_65 if line_65
+
+                  if intake.primary_contribution_gubernatorial_elections_yes?
+                    xml.PrimGubernElectFund "X"
+                  end
+
+                  if intake.spouse_contribution_gubernatorial_elections_yes?
+                    xml.SpouCuPartPrimGubernElectFund "X"
+                  end
                 end
               end
             end

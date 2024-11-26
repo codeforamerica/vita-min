@@ -10,12 +10,29 @@ module Efile
 
       def initialize(year:, intake:, include_source: false)
         super
+        @nj2450_primary = Efile::Nj::Nj2450Calculator.new(
+          value_access_tracker: @value_access_tracker,
+          lines: @lines,
+          intake: @intake,
+          primary_or_spouse: :primary
+        )
+        @nj2450_spouse = Efile::Nj::Nj2450Calculator.new(
+          value_access_tracker: @value_access_tracker,
+          lines: @lines,
+          intake: @intake,
+          primary_or_spouse: :spouse
+        )
       end
 
       def calculate
         set_line(:NJ1040_LINE_6_SPOUSE, :line_6_spouse_checkbox)
         set_line(:NJ1040_LINE_7_SELF, :line_7_self_checkbox)
         set_line(:NJ1040_LINE_7_SPOUSE, :line_7_spouse_checkbox)
+        set_line(:NJ1040_LINE_10_COUNT, :calculate_line_10_count)
+        set_line(:NJ1040_LINE_10_EXEMPTION, :calculate_line_10_exemption)
+        set_line(:NJ1040_LINE_11_COUNT, :calculate_line_11_count)
+        set_line(:NJ1040_LINE_11_EXEMPTION, :calculate_line_11_exemption)
+        set_line(:NJ1040_LINE_12_COUNT, :line_12_count)
         set_line(:NJ1040_LINE_13, :calculate_line_13)
         set_line(:NJ1040_LINE_15, :calculate_line_15)
         set_line(:NJ1040_LINE_16A, :calculate_line_16a)
@@ -29,7 +46,11 @@ module Efile
         set_line(:NJ1040_LINE_41, :calculate_line_41)
         set_line(:NJ1040_LINE_42, :calculate_line_42)
         set_line(:NJ1040_LINE_43, :calculate_line_43)
+        set_line(:NJ1040_LINE_45, :calculate_line_45)
+        set_line(:NJ1040_LINE_49, :calculate_line_49)
+        set_line(:NJ1040_LINE_50, :calculate_line_50)
         set_line(:NJ1040_LINE_51, :calculate_line_51)
+        set_line(:NJ1040_LINE_54, :calculate_line_54)
         set_line(:NJ1040_LINE_56, :calculate_line_56)
         set_line(:NJ1040_LINE_57, :calculate_line_57)
         set_line(:NJ1040_LINE_58, :calculate_line_58)
@@ -39,6 +60,8 @@ module Efile
         set_line(:NJ1040_LINE_64, :calculate_line_64)
         set_line(:NJ1040_LINE_65_DEPENDENTS, :number_of_dependents_age_5_younger)
         set_line(:NJ1040_LINE_65, :calculate_line_65)
+        @nj2450_primary.calculate if line_59_primary || line_61_primary
+        @nj2450_spouse.calculate if line_59_spouse || line_61_spouse
         @lines.transform_values(&:value)
       end
 
@@ -157,6 +180,10 @@ module Efile
         @intake.spouse_senior?
       end
 
+      def line_12_count
+        @intake.dependents.count(&:nj_qualifies_for_college_exemption?)
+      end
+
       def calculate_line_7
         number_of_line_7_exemptions = number_of_true_checkboxes([line_7_self_checkbox,
                                                                  line_7_spouse_checkbox])
@@ -174,6 +201,52 @@ module Efile
         number_of_line_9_exemptions * 6_000
       end
 
+      def calculate_line_10_count
+        @intake.direct_file_json_data.dependents.count do |dependent|
+          dependent.qualifying_child
+        end
+      end
+
+      def calculate_line_10_exemption
+        calculate_line_10_count * 1500
+      end
+
+      def calculate_line_11_count
+        @intake.direct_file_json_data.dependents.count do |dependent|
+          !dependent.qualifying_child
+        end
+      end
+
+      def calculate_line_11_exemption
+        calculate_line_11_count * 1500
+      end
+      
+      def calculate_line_12
+        line_12_count * 1_000
+      end
+
+      def line_59_primary
+        get_personal_excess(@intake.primary.ssn, :box14_ui_wf_swf, EXCESS_UI_WF_SWF_MAX) +
+          get_personal_excess(@intake.primary.ssn, :box14_ui_hc_wd, EXCESS_UI_WF_SWF_MAX)
+      end
+
+      def line_59_spouse
+        if @intake.filing_status_mfj?
+          get_personal_excess(@intake.spouse.ssn, :box14_ui_wf_swf, EXCESS_UI_WF_SWF_MAX) +
+            get_personal_excess(@intake.spouse.ssn, :box14_ui_hc_wd, EXCESS_UI_WF_SWF_MAX)
+        end
+      end
+
+      def line_61_primary
+        get_personal_excess(@intake.primary.ssn, :box14_fli, EXCESS_FLI_MAX)
+      end
+
+      def line_61_spouse
+        if @intake.filing_status_mfj?
+          get_personal_excess(@intake.spouse.ssn, :box14_fli, EXCESS_FLI_MAX)
+        end
+      end
+
       private
 
       def line_6_spouse_checkbox
@@ -181,7 +254,13 @@ module Efile
       end
 
       def calculate_line_13
-        calculate_line_6 + calculate_line_7 + calculate_line_8 + calculate_line_9
+        calculate_line_6 +
+        calculate_line_7 +
+        calculate_line_8 +
+        calculate_line_9 +
+        calculate_line_10_exemption + 
+        calculate_line_11_exemption +
+        calculate_line_12
       end
 
       def calculate_line_15
@@ -257,8 +336,26 @@ module Efile
         should_use_property_tax_deduction ? calculate_tax_liability_with_deduction.round : calculate_tax_liability_without_deduction.round
       end
 
+      def calculate_line_45
+        calculate_line_43
+      end
+
+      def calculate_line_49
+        0
+      end
+
+      def calculate_line_50
+        difference = calculate_line_45 - calculate_line_49
+        [difference, 0].max
+      end
+
       def calculate_line_51
         (@intake.sales_use_tax || 0).round
+      end
+
+      def calculate_line_54
+        sum = calculate_line_50 + calculate_line_51
+        [sum, 0].max
       end
 
       def calculate_line_56
@@ -304,28 +401,12 @@ module Efile
       end
 
       def calculate_line_59
-        total_excess = 0
-
-        total_excess += get_personal_excess(@intake.primary.ssn, :box14_ui_wf_swf, EXCESS_UI_WF_SWF_MAX)
-        total_excess += get_personal_excess(@intake.primary.ssn, :box14_ui_hc_wd, EXCESS_UI_WF_SWF_MAX)
-
-        if @intake.filing_status_mfj?
-          total_excess += get_personal_excess(@intake.spouse.ssn, :box14_ui_wf_swf, EXCESS_UI_WF_SWF_MAX)
-          total_excess += get_personal_excess(@intake.spouse.ssn, :box14_ui_hc_wd, EXCESS_UI_WF_SWF_MAX)
-        end
-
+        total_excess = (line_59_primary || 0) + (line_59_spouse || 0)
         total_excess.round if total_excess.positive?
       end
 
       def calculate_line_61
-        total_excess = 0
-
-        total_excess += get_personal_excess(@intake.primary.ssn, :box14_fli, EXCESS_FLI_MAX)
-        
-        if @intake.filing_status_mfj?
-          total_excess += get_personal_excess(@intake.spouse.ssn, :box14_fli, EXCESS_FLI_MAX)
-        end
-
+        total_excess = (line_61_primary || 0) + (line_61_spouse || 0)
         total_excess.round if total_excess.positive?
       end
 
