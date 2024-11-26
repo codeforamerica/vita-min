@@ -422,6 +422,18 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("state_file.questions.esign_declaration.edit.submit")
 
       expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "North Carolina", filing_year: filing_year)
+
+      click_on "Main XML Doc"
+
+      expect(page.body).to include('efile:ReturnState') # QUESTION: not sure what the significance of this tag is for NC
+      expect(page.body).to include('<FirstName>Titus</FirstName>')
+      expect(page.body).to include('<NCCountyCode>001</NCCountyCode>')
+      expect(page.body).to include('<DrvrLcnsStCd>AK</DrvrLcnsStCd>')
+
+      perform_enqueued_jobs
+      submission = EfileSubmission.last
+      expect(submission.submission_bundle).to be_present
+      expect(submission.current_state).to eq("queued")
     end
   end
 
@@ -541,6 +553,18 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("state_file.questions.esign_declaration.edit.submit")
 
       expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Idaho", filing_year: filing_year)
+
+      click_on "Main XML Doc"
+
+      # expect(page.body).to include('efile:ReturnState') # QUESTION: not sure what the significance of this tag is for ID
+      expect(page.body).to include('<FirstName>Testy</FirstName>')
+      expect(page.body).to include('<HealthInsurancePaid>1235</HealthInsurancePaid>')
+      expect(page.body).to include('<GroceryCredit>240</GroceryCredit>')
+
+      perform_enqueued_jobs
+      submission = EfileSubmission.last
+      expect(submission.submission_bundle).to be_present
+      expect(submission.current_state).to eq("queued")
     end
   end
 
