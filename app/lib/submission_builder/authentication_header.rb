@@ -5,7 +5,7 @@ module SubmissionBuilder
 
     def document
       build_xml_doc("AuthenticationHeader") do |xml|
-        xml.FilingLicenseTypeCd "P"
+        xml.FilingLicenseTypeCd "O"
         xml.FinancialResolution do
           xml.Submission do
             xml.RefundProductCIPCdSubmit "0"
