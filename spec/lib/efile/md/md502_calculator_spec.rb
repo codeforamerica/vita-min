@@ -1107,9 +1107,9 @@ describe Efile::Md::Md502Calculator do
     end
   end
 
-  describe "#calculate_authorize_direct_deposit" do
+  describe "MD502_AUTHORIZE_DIRECT_DEPOSIT" do
     context "bank authorization was given" do
-      it "should return X" do
+      it "should return true" do
         intake.bank_authorization_confirmed = 'yes'
         instance.calculate
         expect(instance.lines[:MD502_AUTHORIZE_DIRECT_DEPOSIT].value).to eq(true)
@@ -1117,7 +1117,7 @@ describe Efile::Md::Md502Calculator do
     end
 
     context "bank authorization was not given" do
-      it "should return nil" do
+      it "should return false" do
         intake.bank_authorization_confirmed = 'unfilled'
         instance.calculate
         expect(instance.lines[:MD502_AUTHORIZE_DIRECT_DEPOSIT].value).to eq(false)
