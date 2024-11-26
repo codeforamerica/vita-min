@@ -25,8 +25,10 @@ RUN curl -fsSLO "$SUPERCRONIC_URL" \
 ADD ./vendor/pdftk /app/vendor/pdftk
 RUN /app/vendor/pdftk/install
 
-RUN apt-get install temurin-21-jdk
-ENV VITA_MIN_JAVA_HOME=/usr/lib/jvm/temurin-21
+RUN wget -qO - https://packages.adoptium.net/artifactory/api/gpg/key/public | gpg --dearmor | tee /etc/apt/trusted.gpg.d/adoptium.gpg > /dev/null \
+ && echo "deb https://packages.adoptium.net/artifactory/deb $(awk -F= '/^VERSION_CODENAME/{print$2}' /etc/os-release) main" | tee /etc/apt/sources.list.d/adoptium.list \
+ && apt install -y temurin-21-jdk
+ENV VITA_MIN_JAVA_HOME=/usr/lib/jvm/temurin-21-jdk-amd64
 
 ADD . /app
 WORKDIR /app
