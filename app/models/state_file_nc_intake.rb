@@ -115,9 +115,11 @@ class StateFileNcIntake < StateFileBaseIntake
   def valid_date_electronic_withdrawal
     if date_electronic_withdrawal <= Date.today
       errors.add("Withdrawal electronic date must be after today")
-    elsif date_electronic_withdrawal.saturday? || date_electronic_withdrawal.sunday?
+    end
+    if date_electronic_withdrawal.saturday? || date_electronic_withdrawal.sunday?
       errors.add("Withdrawal electronic date must be a business day")
-    elsif Holidays.on(date_electronic_withdrawal, :us, :federalreservebanks).any?
+    end
+    if Holidays.on(date_electronic_withdrawal, :us, :federalreservebanks, :observed).any?
       errors.add("Date is a US federal holiday")
     end
   end

@@ -97,31 +97,18 @@ RSpec.describe StateFileNcIntake, type: :model do
     let!(:intake) { build :state_file_nc_intake, date_electronic_withdrawal: electronic_withdrawal_date }
 
     context "when the date is in the past" do
-      let(:time_at_submission){ electronic_withdrawal_date - 1.days }
-      let(:electronic_withdrawal_date) { Date.parse("November 25th, 2024 EST") }
+      let(:fake_time) { Time.new(2024, 11, 25) }
+      let(:electronic_withdrawal_date) { fake_time.to_date - 1.day }
       it "fails to save the intake" do
-        Timecop.return
-        Timecop.freeze(time_at_submission) do
-          puts Date.today
+        Timecop.freeze(Time.new(2024, 11, 25)) do
           expect(intake).not_to be_valid
         end
       end
     end
 
     context "when the date is the current date" do
-      let(:electronic_withdrawal_date) { Date.parse("November 25th, 2024") }
-      it "fails to save the intake" do
-            Timecop.freeze(Date.parse("November 26th, 2024")) do
-          puts Date.today
-          puts "*******"
-          expect(intake).not_to be_valid
-        end
-      end
-    end
-
-    context "when the date is a weekend day" do
-      let(:fake_time){ electronic_withdrawal_date - 2.days }
-      let(:electronic_withdrawal_date) { Date.parse("November 23rd, 2024") }
+      let(:fake_time) { Time.new(2024, 11, 25) }
+      let(:electronic_withdrawal_date) { fake_time.to_date }
       it "fails to save the intake" do
         Timecop.freeze(fake_time) do
           expect(intake).not_to be_valid
@@ -129,8 +116,18 @@ RSpec.describe StateFileNcIntake, type: :model do
       end
     end
 
-    context "when the date is a federal holiday is not on Sunday" do
-      let(:fake_time){ electronic_withdrawal_date - 2.days }
+    context "when the date is a weekend day" do
+      let(:fake_time) { (electronic_withdrawal_date - 2.days).to_time }
+      let(:electronic_withdrawal_date) { Date.new(2024, 11, 23) } # Saturday
+      it "fails to save the intake" do
+        Timecop.freeze(fake_time) do
+          expect(intake).not_to be_valid
+        end
+      end
+    end
+
+    context "when the date is a federal holiday occurring on any day except Sunday" do
+      let(:fake_time) { (electronic_withdrawal_date - 2.days).to_time }
       let(:electronic_withdrawal_date) { Date.parse("January 1st, 2024") }
       it "fails to save the intake" do
         Timecop.freeze(fake_time) do
@@ -140,40 +137,13 @@ RSpec.describe StateFileNcIntake, type: :model do
     end
 
     context "when the date is after a federal holiday occurring on a Sunday" do
-      let(:fake_time){ electronic_withdrawal_date - 2.days }
-      let(:electronic_withdrawal_date) { Date.parse("November 12th, 2024") } # day after Veterans day
+      let(:fake_time){ (electronic_withdrawal_date - 2.days).to_time }
+      let(:electronic_withdrawal_date) { Date.parse("January 2nd, 2023") }
       it "fails to save the intake" do
         Timecop.freeze(fake_time) do
           expect(intake).not_to be_valid
         end
       end
-    end
-
-    context "when the filer submits a return before 5 PM EST" do
-      context "when the return is acknowledged after 5 PM" do
-        let(:fake_time){ electronic_withdrawal_date - 2.days }
-        let(:electronic_withdrawal_date) { Date.parse("November 12th, 2024") } # day after Veterans day
-        it "fails to save the intake" do
-          Timecop.freeze(fake_time) do
-            expect(intake).not_to be_valid
-          end
-        end
-      end
-
-      context "when the return is acknowledged before 5 PM" do
-        let(:fake_time){ electronic_withdrawal_date - 2.days }
-        let(:electronic_withdrawal_date) { Date.parse("November 12th, 2024") } # day after Veterans day
-        it "fails to save the intake" do
-          Timecop.freeze(fake_time) do
-            expect(intake).not_to be_valid # do we want to specify the error here? or is this a good enough test?
-          end
-        end
-      end
-
-      # cover the case where the date is not longer valid after the filer submits this page but before getting sent for acknowledgement
-      # fails during acknowledgment or acknowledgment takes too long so we need to resubmit with new date
-      # questions: do we just find the next good date and don't tell/ask the filer
-      # will acknowledgment fail with the bad date and do we know what that error code will look like?
     end
   end
 end
