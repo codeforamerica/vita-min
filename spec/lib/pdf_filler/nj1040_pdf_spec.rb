@@ -1492,7 +1492,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           )
       }
 
-      it "writes rounded tax amount $7,615.10 (same as line 43)" do
+      it "writes rounded tax amount $7,519.00 (same as line 43)" do
         # millions
         expect(pdf_fields["Enter Code4332243ewR@434"]).to eq ""
         expect(pdf_fields["4036y54ethdf!!!##\$$"]).to eq ""
@@ -1501,9 +1501,9 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         expect(pdf_fields["undefined_125"]).to eq ""
         expect(pdf_fields["undefined_126"]).to eq "7"
         # hundreds
-        expect(pdf_fields["Text99"]).to eq "6"
+        expect(pdf_fields["Text99"]).to eq "5"
         expect(pdf_fields["Text102"]).to eq "1"
-        expect(pdf_fields["Text108"]).to eq "5"
+        expect(pdf_fields["Text108"]).to eq "9"
         # decimals
         expect(pdf_fields["Text109"]).to eq "0"
         expect(pdf_fields["Text110"]).to eq "0"
@@ -1542,7 +1542,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           )
       }
 
-      it "writes rounded tax amount $7,615.10 (same as line 45)" do
+      it "writes rounded tax amount $7,519.10 (same as line 45)" do
         # millions
         expect(pdf_fields["Enter Code4332243ew6576z66z##"]).to eq ""
         expect(pdf_fields["4036y54ethdf(*H"]).to eq ""
@@ -1551,9 +1551,9 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         expect(pdf_fields["undefined_133"]).to eq ""
         expect(pdf_fields["undefined_134"]).to eq "7"
         # hundreds
-        expect(pdf_fields["Text126"]).to eq "6"
+        expect(pdf_fields["Text126"]).to eq "5"
         expect(pdf_fields["Text127"]).to eq "1"
-        expect(pdf_fields["Text128"]).to eq "5"
+        expect(pdf_fields["Text128"]).to eq "9"
         # decimals
         expect(pdf_fields["Text129"]).to eq "0"
         expect(pdf_fields["Text130"]).to eq "0"
@@ -1591,11 +1591,11 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           :married_filing_jointly,
           household_rent_own: 'own',
           property_tax_paid: 15_000,
-          sales_use_tax: 200
+          sales_use_tax: 300
         )
       }
 
-      it "writes $7815 (line 50 $7,615 + line 51 $200)" do
+      it "writes $7819 (line 50 $7,519 + line 51 $300)" do
         # millions
         expect(pdf_fields["Enter Code4332243ew^^%$#"]).to eq ""
         expect(pdf_fields["4036y54ethdf%%^87"]).to eq ""
@@ -1606,7 +1606,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         # hundreds
         expect(pdf_fields["Text148"]).to eq "8"
         expect(pdf_fields["Text149"]).to eq "1"
-        expect(pdf_fields["Text150"]).to eq "5"
+        expect(pdf_fields["Text150"]).to eq "9"
         # decimals
         expect(pdf_fields["Text151"]).to eq "0"
         expect(pdf_fields["Text152"]).to eq "0"
