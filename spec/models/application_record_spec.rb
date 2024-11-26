@@ -26,10 +26,10 @@ describe ApplicationRecord do
     end
 
     context 'when setting an invalid value' do
-      it 'marks the record as invalid' do
-        record = ValidatingEnumRecord.new(paid_self_employment_expenses: 3)
-        expect(record).not_to be_valid
-        expect(record.errors).to include(:paid_self_employment_expenses)
+      it 'raises ArgumentError for invalid values' do
+        expect {
+          ValidatingEnumRecord.new(paid_self_employment_expenses: 3)
+        }.to raise_error(ArgumentError, /'3' is not a valid paid_self_employment_expenses/)
       end
     end
   end
