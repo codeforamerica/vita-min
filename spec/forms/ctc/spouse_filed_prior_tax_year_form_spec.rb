@@ -28,7 +28,7 @@ describe Ctc::SpouseFiledPriorTaxYearForm do
 
       it "is not saved" do
         form = described_class.new(intake, params)
-        expect { form.save }.not_to change { intake.reload.spouse_filed_prior_tax_year }
+        expect { form.save }.to raise_error(ArgumentError, /'on_the_moon' is not a valid spouse_filed_prior_tax_year/)
       end
     end
   end
