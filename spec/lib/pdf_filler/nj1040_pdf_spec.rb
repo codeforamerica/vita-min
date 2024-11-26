@@ -1858,5 +1858,73 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         end
       end
     end
+
+    describe "driver license/ID number" do
+      context "primary ID not given" do
+        it "leaves all boxes blank" do
+          expect(pdf_fields["Drivers License Number Voluntary Instructions page 44"]).to eq ""
+          expect(pdf_fields["Text246"]).to eq ""
+          expect(pdf_fields["Text247"]).to eq ""
+          expect(pdf_fields["Text248"]).to eq ""
+          expect(pdf_fields["Text249"]).to eq ""
+          expect(pdf_fields["Text250"]).to eq ""
+          expect(pdf_fields["Text251"]).to eq ""
+          expect(pdf_fields["Text252"]).to eq ""
+          expect(pdf_fields["Text253"]).to eq ""
+          expect(pdf_fields["Text254"]).to eq ""
+          expect(pdf_fields["Text255"]).to eq ""
+          expect(pdf_fields["Text256"]).to eq ""
+          expect(pdf_fields["Text257"]).to eq ""
+          expect(pdf_fields["Text258"]).to eq ""
+          expect(pdf_fields["Text259"]).to eq ""
+        end
+      end
+
+      context "primary ID is state issued ID" do
+        let(:state_id) { create(:state_id, :state_issued_id)}
+        let(:intake) { create(:state_file_nj_intake, primary_state_id: state_id) }
+
+        it "fills in the ID number" do
+          expect(pdf_fields["Drivers License Number Voluntary Instructions page 44"]).to eq "1"
+          expect(pdf_fields["Text246"]).to eq "2"
+          expect(pdf_fields["Text247"]).to eq "3"
+          expect(pdf_fields["Text248"]).to eq "4"
+          expect(pdf_fields["Text249"]).to eq "5"
+          expect(pdf_fields["Text250"]).to eq "6"
+          expect(pdf_fields["Text251"]).to eq "7"
+          expect(pdf_fields["Text252"]).to eq "8"
+          expect(pdf_fields["Text253"]).to eq "9"
+          expect(pdf_fields["Text254"]).to eq ""
+          expect(pdf_fields["Text255"]).to eq ""
+          expect(pdf_fields["Text256"]).to eq ""
+          expect(pdf_fields["Text257"]).to eq ""
+          expect(pdf_fields["Text258"]).to eq ""
+          expect(pdf_fields["Text259"]).to eq ""
+        end
+      end
+
+      context "primary ID is driver license" do
+        let(:state_id) { create(:state_id)}
+        let(:intake) { create(:state_file_nj_intake, primary_state_id: state_id) }
+
+        it "fills in the ID number" do
+          expect(pdf_fields["Drivers License Number Voluntary Instructions page 44"]).to eq "1"
+          expect(pdf_fields["Text246"]).to eq "2"
+          expect(pdf_fields["Text247"]).to eq "3"
+          expect(pdf_fields["Text248"]).to eq "4"
+          expect(pdf_fields["Text249"]).to eq "5"
+          expect(pdf_fields["Text250"]).to eq "6"
+          expect(pdf_fields["Text251"]).to eq "7"
+          expect(pdf_fields["Text252"]).to eq "8"
+          expect(pdf_fields["Text253"]).to eq "9"
+          expect(pdf_fields["Text254"]).to eq ""
+          expect(pdf_fields["Text255"]).to eq ""
+          expect(pdf_fields["Text256"]).to eq ""
+          expect(pdf_fields["Text257"]).to eq ""
+          expect(pdf_fields["Text258"]).to eq ""
+          expect(pdf_fields["Text259"]).to eq ""
+        end
+      end
+    end
   end
 end

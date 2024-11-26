@@ -507,25 +507,27 @@ module PdfFiller
                                                  ]))
       end
 
-      # Driver License
-      if @xml_document.at("PrimDrvrLcnsOrStateIssdIdGrp").present?
-        license_number = @xml_document.at("PrimDrvrLcnsOrStateIssdIdGrp DrvrLcnsNum")&.text
+      # Driver License/State ID
+      id_number_xml = @xml_document.at("PrimDrvrLcnsOrStateIssdIdGrp DrvrLcnsNum") ||
+        @xml_document.at("PrimDrvrLcnsOrStateIssdIdGrp StateIssdIdNum")
+      if id_number_xml.present?
+        id_number = id_number_xml&.text
         answers.merge!({
-          "Drivers License Number Voluntary Instructions page 44": license_number[0],
-          Text246: license_number[1],
-          Text247: license_number[2],
-          Text248: license_number[3],
-          Text249: license_number[4],
-          Text250: license_number[5],
-          Text251: license_number[6],
-          Text252: license_number[7],
-          Text253: license_number[8],
-          Text254: license_number[9],
-          Text255: license_number[10],
-          Text256: license_number[11],
-          Text257: license_number[12],
-          Text258: license_number[13],
-          Text259: license_number[14] 
+          "Drivers License Number Voluntary Instructions page 44": id_number[0],
+          Text246: id_number[1],
+          Text247: id_number[2],
+          Text248: id_number[3],
+          Text249: id_number[4],
+          Text250: id_number[5],
+          Text251: id_number[6],
+          Text252: id_number[7],
+          Text253: id_number[8],
+          Text254: id_number[9],
+          Text255: id_number[10],
+          Text256: id_number[11],
+          Text257: id_number[12],
+          Text258: id_number[13],
+          Text259: id_number[14]
         })
       end
 
