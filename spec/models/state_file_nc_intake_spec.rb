@@ -83,12 +83,97 @@ require 'rails_helper'
 RSpec.describe StateFileNcIntake, type: :model do
   it_behaves_like :state_file_base_intake, factory: :state_file_nc_intake
 
+
   describe "#calculate_sales_use_tax" do
     let(:intake) { create :state_file_nc_intake }
-
     it "calculates the sales use tax using the nc_taxable_income" do
       allow(intake.calculator.lines).to receive(:[]).with(:NCD400_LINE_14).and_return(double(value: 2500))
       expect(intake.calculate_sales_use_tax).to eq 2
+    end
+  end
+
+  describe "date_electronic_withdrawal validations" do
+    let(:electronic_withdrawal_date) { nil }
+    let!(:intake) { build :state_file_nc_intake, date_electronic_withdrawal: electronic_withdrawal_date }
+
+    context "when the date is in the past" do
+      let(:time_at_submission){ electronic_withdrawal_date - 1.days }
+      let(:electronic_withdrawal_date) { Date.parse("November 25th, 2024 EST") }
+      it "fails to save the intake" do
+        Timecop.return
+        Timecop.freeze(time_at_submission) do
+          puts Date.today
+          expect(intake).not_to be_valid
+        end
+      end
+    end
+
+    context "when the date is the current date" do
+      let(:electronic_withdrawal_date) { Date.parse("November 25th, 2024") }
+      it "fails to save the intake" do
+            Timecop.freeze(Date.parse("November 26th, 2024")) do
+          puts Date.today
+          puts "*******"
+          expect(intake).not_to be_valid
+        end
+      end
+    end
+
+    context "when the date is a weekend day" do
+      let(:fake_time){ electronic_withdrawal_date - 2.days }
+      let(:electronic_withdrawal_date) { Date.parse("November 23rd, 2024") }
+      it "fails to save the intake" do
+        Timecop.freeze(fake_time) do
+          expect(intake).not_to be_valid
+        end
+      end
+    end
+
+    context "when the date is a federal holiday is not on Sunday" do
+      let(:fake_time){ electronic_withdrawal_date - 2.days }
+      let(:electronic_withdrawal_date) { Date.parse("January 1st, 2024") }
+      it "fails to save the intake" do
+        Timecop.freeze(fake_time) do
+          expect(intake).not_to be_valid
+        end
+      end
+    end
+
+    context "when the date is after a federal holiday occurring on a Sunday" do
+      let(:fake_time){ electronic_withdrawal_date - 2.days }
+      let(:electronic_withdrawal_date) { Date.parse("November 12th, 2024") } # day after Veterans day
+      it "fails to save the intake" do
+        Timecop.freeze(fake_time) do
+          expect(intake).not_to be_valid
+        end
+      end
+    end
+
+    context "when the filer submits a return before 5 PM EST" do
+      context "when the return is acknowledged after 5 PM" do
+        let(:fake_time){ electronic_withdrawal_date - 2.days }
+        let(:electronic_withdrawal_date) { Date.parse("November 12th, 2024") } # day after Veterans day
+        it "fails to save the intake" do
+          Timecop.freeze(fake_time) do
+            expect(intake).not_to be_valid
+          end
+        end
+      end
+
+      context "when the return is acknowledged before 5 PM" do
+        let(:fake_time){ electronic_withdrawal_date - 2.days }
+        let(:electronic_withdrawal_date) { Date.parse("November 12th, 2024") } # day after Veterans day
+        it "fails to save the intake" do
+          Timecop.freeze(fake_time) do
+            expect(intake).not_to be_valid # do we want to specify the error here? or is this a good enough test?
+          end
+        end
+      end
+
+      # cover the case where the date is not longer valid after the filer submits this page but before getting sent for acknowledgement
+      # fails during acknowledgment or acknowledgment takes too long so we need to resubmit with new date
+      # questions: do we just find the next good date and don't tell/ask the filer
+      # will acknowledgment fail with the bad date and do we know what that error code will look like?
     end
   end
 end

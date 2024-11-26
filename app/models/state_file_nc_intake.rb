@@ -90,6 +90,7 @@ class StateFileNcIntake < StateFileBaseIntake
   enum eligibility_withdrew_529: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_withdrew_529
   enum eligibility_lived_in_state: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_lived_in_state
   enum eligibility_out_of_state_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_out_of_state_income
+  validate :valid_date_electronic_withdrawal
 
   def calculate_sales_use_tax
     nc_taxable_income = calculator.lines[:NCD400_LINE_14].value
@@ -109,5 +110,15 @@ class StateFileNcIntake < StateFileBaseIntake
       eligibility_out_of_state_income: "yes",
       eligibility_withdrew_529: "yes"
     }
+  end
+
+  def valid_date_electronic_withdrawal
+    if date_electronic_withdrawal <= Date.today
+      errors.add("Withdrawal electronic date must be after today")
+    elsif date_electronic_withdrawal.saturday? || date_electronic_withdrawal.sunday?
+      errors.add("Withdrawal electronic date must be a business day")
+    elsif Holidays.on(date_electronic_withdrawal, :us, :federalreservebanks).any?
+      errors.add("Date is a US federal holiday")
+    end
   end
 end
