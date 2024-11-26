@@ -140,7 +140,7 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
         end
       end
       xml.TaxWithheld calculated_fields.fetch(:MD502_LINE_40)
-      add_element_if_present(xml, "AuthToDirectDepositInd", :MD502_AUTHORIZE_DIRECT_DEPOSIT)
+      xml.AuthToDirectDepositInd "X" if calculated_fields.fetch(:MD502_AUTHORIZE_DIRECT_DEPOSIT)
       if @intake.payment_or_deposit_type.to_sym == :direct_deposit
         xml.NameOnBankAccount do
           xml.FirstName sanitize_for_xml(@intake.account_holder_first_name) if @intake.account_holder_first_name

@@ -466,19 +466,30 @@ RSpec.describe PdfFiller::Md502Pdf do
           account_holder_first_name: "Jack",
           account_holder_middle_initial: "D",
           account_holder_last_name: "Hansel",
-          has_joint_account_holder: "unfilled"
+          has_joint_account_holder: "unfilled",
+          bank_authorization_confirmed: "yes"
         )
         allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:refund_or_owed_amount).and_return 500
-        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_authorize_direct_deposit).and_return 'X'
+      end
+
+
+      context "bank_authorization_confirmed is empty" do
+        before do
+          intake.update(bank_authorization_confirmed: 'unfilled')
+        end
+
+        it "return Off" do
+          expect(pdf_fields["Check Box 39"]).to eq "Off"
+        end
       end
 
       it "checks the refund information with the account holder's full name" do
         expect(pdf_fields["Check Box 39"]).to eq "Yes"
         expect(pdf_fields["Text Box 95"]).to eq "Jack D Hansel"
-        expect(pdf_fields['Check Box 41']).to eq "Yes"
-        expect(pdf_fields['Check Box 42']).to eq "Off"
-        expect(pdf_fields['Text Box 93']).to eq "123456789"
-        expect(pdf_fields['Text Box 94']).to eq "87654321"
+        expect(pdf_fields["Check Box 41"]).to eq "Yes"
+        expect(pdf_fields["Check Box 42"]).to eq "Off"
+        expect(pdf_fields["Text Box 93"]).to eq "123456789"
+        expect(pdf_fields["Text Box 94"]).to eq "87654321"
       end
 
       context "with joint account holder" do
@@ -487,15 +498,16 @@ RSpec.describe PdfFiller::Md502Pdf do
           intake.joint_account_holder_last_name = "Gretl"
           intake.joint_account_holder_suffix = "II"
           intake.has_joint_account_holder = "yes"
+          intake.bank_authorization_confirmed = "yes"
         end
 
         it "returns the same information including joint account holder's full name with an 'and'" do
           expect(pdf_fields["Check Box 39"]).to eq "Yes"
           expect(pdf_fields["Text Box 95"]).to eq "Jack D Hansel and Jill Gretl II"
-          expect(pdf_fields['Check Box 41']).to eq "Yes"
-          expect(pdf_fields['Check Box 42']).to eq "Off"
-          expect(pdf_fields['Text Box 93']).to eq "123456789"
-          expect(pdf_fields['Text Box 94']).to eq "87654321"
+          expect(pdf_fields["Check Box 41"]).to eq "Yes"
+          expect(pdf_fields["Check Box 42"]).to eq "Off"
+          expect(pdf_fields["Text Box 93"]).to eq "123456789"
+          expect(pdf_fields["Text Box 94"]).to eq "87654321"
         end
       end
     end

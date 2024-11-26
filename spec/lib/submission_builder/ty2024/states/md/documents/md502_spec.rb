@@ -449,7 +449,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
 
     context "AuthToDirectDepositInd" do
       before do
-        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_authorize_direct_deposit).and_return 'X'
+        intake.bank_authorization_confirmed = "yes"
       end
 
       it 'outputs the total state and local tax withheld' do
@@ -465,7 +465,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
         intake.account_holder_last_name = "Hansel"
       end
 
-      it 'outputs the total state and local tax withheld' do
+      it 'outputs account holder name' do
         expect(xml.at("Form502 NameOnBankAccount FirstName")&.text).to eq("Jack")
         expect(xml.at("Form502 NameOnBankAccount MiddleInitial")&.text).to eq("D")
         expect(xml.at("Form502 NameOnBankAccount LastName")&.text).to eq("Hansel")
