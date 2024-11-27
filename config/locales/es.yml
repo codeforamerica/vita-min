@@ -2249,6 +2249,7 @@ es:
           armed_forces_member: Miembro de las Fuerzas Armadas de los Estados Unidos
           armed_forces_wages: Salario por servicio activo recibido como miembro de las Fuerzas Armadas de los Estados Unidos
           az321_contribution_name: Contribución a %{charity_name} con el código %{charity_code}
+          az322_contribution_name: Contribución a %{charity_name} con el código %{charity_code}
           az_agi: Ingresos brutos ajustados de Arizona
           az_tax: Impuesto de Arizona
           az_tax_withheld: Retención de impuestos de Arizona
@@ -2263,6 +2264,7 @@ es:
           increased_excise_tax_credit: Crédito por Aumento de Impuestos Especiales
           last_names: Otros apellidos usados en los últimos cuatro años
           made_az321_contributions: Hizo contribuciones a organizaciones benéficas calificadas
+          made_az322_contributions: Hizo contribuciones a las escuelas públicas
           ssn_no_employment: '"Not valid for employment" escrita en tu tarjeta de Seguro Social'
           total_arizona_subtractions: Restas totales de Arizona
           total_exemptions: Exenciones Totales
@@ -2654,7 +2656,16 @@ es:
       md_county:
         edit:
           county_html: "<strong>Condado</strong>"
-          political_subdivision_html: "<strong>Subdivisión política</strong>"
+          political_subdivision: Subdivisión política
+          political_subdivision_helper_areas:
+          - 'Condados: Los 23 condados y la ciudad de Baltimore.'
+          - 'Municipios: Pueblos y ciudades dentro de las comarcas.'
+          - 'Distritos Fiscales Especiales: Áreas con régimen fiscal específico para los servicios locales.'
+          - 'Todas las demás áreas: Regiones que no cuentan con gobierno municipal propio y se rigen a nivel de condado.'
+          political_subdivision_helper_first_p: 'Una "subdivisión política" es un área específica dentro de Maryland que tiene su propio gobierno local. Esto incluye:'
+          political_subdivision_helper_heading: "¿Qué es una división política?"
+          political_subdivision_helper_last_p: Seleccione la subdivisión política donde vivía el 31 de diciembre de %{filing_year} para asegurarse de que su declaración de impuestos sea correcta.
+          political_subdivision_label_html: Si no vivía dentro de una ciudad o área incorporada, elija "Todas las demás áreas". <a href="#">Encuentre una lista completa aquí </a>
           title: Seleccione el condado y la subdivisión política donde vivía el 31 de diciembre de %{filing_year}
           title_html: Seleccione el <strong>condado</strong> y la <strong>subdivisión política</strong> donde vivía el 31 de diciembre de %{filing_year}
       md_eligibility_filing_status:
@@ -2952,6 +2963,7 @@ es:
         edit:
           amount: Cantidad
           claimed_as_eitc_qualifying_child: I could be someone else's qualifying child for the Earned Income Tax Credit.
+          college_dependents: Dependents attending college
           county: Condado
           edit_disability: disability status
           edit_gubernatorial: gubernatorial fund contributions
@@ -3315,7 +3327,7 @@ es:
           information_html: "<strong>¿Cómo encuentro esta información?</strong>"
           money_boxes_label: Completa las siguientes casillas según lo especificado en el Formulario 1099-G.
           need_additional_information: "¡Excelente! Necesitamos información adicional sobre lo que aparece en el Formulario 1099-G. (Si tienes más de un formulario 1099-G, puedes agregarlo al final.)"
-          other_tax_filing_options_html: <strong>Recuerda:</strong> En %{filing_year + 1}, esta herramienta no admite la presentación de ingresos por desempleo recibidos en otro estado. Para presentar ingresos recibidos en otro estado, consulta <a target="_blank" rel="noopener nofollow" href="%{link}">otras opciones de presentación de impuestos.</a>
+          other_tax_filing_options_html: <strong>Recuerda:</strong> En %{filing_year_plus_one}, esta herramienta no admite la presentación de ingresos por desempleo recibidos en otro estado. Para presentar ingresos recibidos en otro estado, consulta <a target="_blank" rel="noopener nofollow" href="%{link}">otras opciones de presentación de impuestos.</a>
           payer_address: Dirección del pagador
           payer_name: Nombre del pagador
           payer_question_html: 'Ingresa la <strong>información del pagador 1ubicada en la esquina superior izquierda</strong> del formulario:'

@@ -225,19 +225,6 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text(I18n.t('state_file.questions.unemployment.index.1099_label', name: StateFileAzIntake.last.primary.full_name))
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t("state_file.questions.az_subtractions.edit.title.one", year: filing_year)
-      check "state_file_az_subtractions_form_tribal_member"
-      fill_in "state_file_az_subtractions_form_tribal_wages_amount", with: "100"
-      check "state_file_az_subtractions_form_armed_forces_member"
-      fill_in "state_file_az_subtractions_form_armed_forces_wages_amount", with: "100"
-      click_on I18n.t("general.continue")
-
-      expect(page).to have_text I18n.t("state_file.questions.az_charitable_contributions.edit.title.one", tax_year: filing_year)
-      choose I18n.t("general.affirmative")
-      fill_in "Enter the total amount of cash contributions made in #{filing_year}. (Round to the nearest whole number. Note: you may be asked to provide receipts for donations over $250.)", with: "123"
-      fill_in "Enter the total amount of non-cash contributions made in #{filing_year} (example: the fair market value of donated items). This cannot exceed $500 (round to the nearest whole number.)", with: "123"
-      click_on I18n.t("general.continue")
-
       expect(page).to have_text I18n.t('state_file.questions.az_public_school_contributions.edit.title', year: filing_year)
       choose I18n.t("general.affirmative")
       fill_in "az322_contribution_school_name", with: "Tax Elementary"
@@ -248,6 +235,12 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t('state_file.questions.az_public_school_contributions.index.lets_review')
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text I18n.t("state_file.questions.az_charitable_contributions.edit.title.one", tax_year: filing_year)
+      choose I18n.t("general.affirmative")
+      fill_in "Enter the total amount of cash contributions made in #{MultiTenantService.statefile.current_tax_year}. (Round to the nearest whole number. Note: you may be asked to provide receipts for donations over $250.)", with: "123"
+      fill_in "Enter the total amount of non-cash contributions made in #{MultiTenantService.statefile.current_tax_year} (example: the fair market value of donated items). This cannot exceed $500 (round to the nearest whole number.)", with: "123"
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t('state_file.questions.az_qualifying_organization_contributions.form.main_heading', filing_year: filing_year)
@@ -261,6 +254,13 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       expect(page).to have_text I18n.t('state_file.questions.az_qualifying_organization_contributions.index.lets_review')
 
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text I18n.t("state_file.questions.az_subtractions.edit.title.one", year: MultiTenantService.statefile.current_tax_year)
+      check "state_file_az_subtractions_form_tribal_member"
+      fill_in "state_file_az_subtractions_form_tribal_wages_amount", with: "100"
+      check "state_file_az_subtractions_form_armed_forces_member"
+      fill_in "state_file_az_subtractions_form_armed_forces_wages_amount", with: "100"
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t('state_file.questions.primary_state_id.edit.title')
@@ -433,34 +433,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.landing_page.edit.id.title")
       click_on I18n.t('general.get_started'), id: "firstCta"
 
-      expect(page).to have_text I18n.t("state_file.questions.id_eligibility_residence.edit.emergency_rental_assistance", filing_year: filing_year)
-      expect(page).to have_text I18n.t("state_file.questions.id_eligibility_residence.edit.withdrew_msa_fthb", filing_year: filing_year)
-
-      find_by_id('state_file_id_eligibility_residence_form_eligibility_withdrew_msa_fthb_no').click
-      find_by_id('state_file_id_eligibility_residence_form_eligibility_emergency_rental_assistance_no').click
-
-      click_on I18n.t("general.continue")
-
-      expect(page).to have_text I18n.t("state_file.questions.eligible.id_supported.child_care_deduction")
-      expect(page).to have_text I18n.t("state_file.questions.eligible.id_supported.interest_from_obligations")
-      expect(page).to have_text I18n.t("state_file.questions.eligible.id_supported.social_security_retirement_deduction")
-      expect(page).to have_text I18n.t("state_file.questions.eligible.id_supported.id_child_tax_credit")
-      expect(page).to have_text I18n.t("state_file.questions.eligible.id_supported.id_grocery_credit")
-
-      click_on I18n.t("state_file.questions.eligible.edit.not_supported")
-
-      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.id_college_savings_program")
-      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.id_youth_rehab_contributions")
-      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.maintaining_elderly_disabled_credit")
-      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.long_term_care_insurance_subtraction")
-      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.earned_on_reservation")
-      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.education_contribution_credit")
-      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.itemized_deductions")
-      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.dependents_not_claimed_fed_return")
-      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.voluntary_donations")
-      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.change_in_filing_status")
-
-      click_on I18n.t("general.continue")
+      step_through_eligibility_screener(us_state: "id")
 
       step_through_initial_authentication(contact_preference: :email)
 
@@ -561,15 +534,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       # select optoins that allow us to proceed
       click_on "Continue"
 
-      # click continue on eligibility & check the messaging is correct here?
-      # select mfj
-      choose I18n.t("general.affirmative")
-      choose I18n.t("general.negative"), id: "state_file_md_eligibility_filing_status_form_eligibility_homebuyer_withdrawal_mfj_no"
-      choose I18n.t("general.negative"), id: "state_file_md_eligibility_filing_status_form_eligibility_home_different_areas_no"
-
-      click_on "Continue"
-
-      click_on "Continue"
+      step_through_eligibility_screener(us_state: "md")
 
       step_through_initial_authentication(contact_preference: :email)
 
@@ -587,7 +552,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       expect(page).to have_text "Select the county and political subdivision where you lived on December 31, #{filing_year}"
       select("Allegany", from: "County")
-      select("Town Of Barton", from: "Political subdivision")
+      select("Town Of Barton", from: "state_file_md_county_form_subdivision_code")
       click_on I18n.t("general.continue")
 
       expect(page).to have_text "Here are the income forms we transferred from your federal tax return."
