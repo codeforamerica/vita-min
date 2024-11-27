@@ -2326,9 +2326,6 @@ es:
           subtitle: Con una cuenta recibirás notificaciones sobre el estado de tu declaración de impuestos estatales.
           text_message_option: Enviar código por mensaje de texto.
           title: Ahora crea tu cuenta con un código
-      post_data_transfer:
-        edit:
-          title: Solo página sin producción
       data_transfer_offboarding:
         edit:
           ineligible_reason:
@@ -3145,6 +3142,9 @@ es:
           action: Enviar el código
           phone_number_label: Tu número de teléfono
           title: Ingresa tu número de teléfono
+      post_data_transfer:
+        edit:
+          title: Solo página sin producción
       primary_state_id:
         edit:
           ny_subtitle: Esta información es necesaria para todos los residentes de Nueva York con una identificación emitida por el estado.

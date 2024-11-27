@@ -2352,9 +2352,6 @@ en:
           subtitle: With an account, you’ll receive status updates on your state tax return.
           text_message_option: Text me a code
           title: Next, create your account with a quick code
-      post_data_transfer:
-        edit:
-          title: Non-prod page only
       data_transfer_offboarding:
         edit:
           ineligible_reason:
@@ -3158,6 +3155,9 @@ en:
           action: Send code
           phone_number_label: Your phone number
           title: Enter your phone number
+      post_data_transfer:
+        edit:
+          title: Non-prod page only
       primary_state_id:
         edit:
           ny_subtitle: This information is required for all NY residents with a state-issued ID.
