@@ -93,6 +93,7 @@ module PdfFiller
         'Text Box 36': @xml_document.at('Form502 StateTaxComputation PovertyLevelCredit')&.text,
         'Text Box 40': @xml_document.at('Form502 StateTaxComputation TotalCredits')&.text,
         'Text Box 42': @xml_document.at('Form502 StateTaxComputation StateTaxAfterCredits')&.text,
+<<<<<<< HEAD
         'Text Box 66': @xml_document.at('Form502 TotalTaxAndContributions')&.text,
         'Text Box 67': @xml_document.at('Form502 TotalTaxAndContributions')&.text.present? ? "00" : nil,
         'Text Box 72': @xml_document.at('Form502 RefundableEIC')&.text,
@@ -108,6 +109,15 @@ module PdfFiller
         'Text Box 91': @xml_document.at('Form502 TotalAmountDue')&.text,
         'Text Box 92': @xml_document.at('Form502 TotalAmountDue')&.text.present? ? "00" : nil
 
+=======
+        'Enter local tax rate': @xml_document.at('Form502 LocalTaxComputation LocalTaxRate')&.text&.split('0.0')&.last,
+        'Text Box 44': @xml_document.at('Form502 LocalTaxComputation LocalIncomeTax')&.text,
+        'Text Box 46': @xml_document.at('Form502 LocalTaxComputation EarnedIncomeCredit')&.text,
+        'Text Box 48': @xml_document.at('Form502 LocalTaxComputation PovertyLevelCredit')&.text,
+        'Text Box 52': @xml_document.at('Form502 LocalTaxComputation TotalCredits')&.text,
+        'Text Box 54': @xml_document.at('Form502 LocalTaxComputation LocalTaxAfterCredits')&.text,
+        'Text Box 56': @xml_document.at('Form502 TotalStateAndLocalTax')&.text,
+>>>>>>> main
       }
     end
 

@@ -12,7 +12,7 @@ module StateFile
 
         if @w2.valid?
           @w2.save
-          redirect_to StateFile::Questions::IncomeReviewController.to_path_helper
+          redirect_to StateFile::Questions::IncomeReviewController.to_path_helper(return_to_review: params[:return_to_review])
         else
           render :edit
         end

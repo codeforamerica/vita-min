@@ -2,7 +2,6 @@ module StateFile
   module Questions
     class UnemploymentController < QuestionsController
       include OtherOptionsLinksConcern
-      include ReturnToReviewConcern
       before_action :load_links, only: [:new, :edit]
 
       def self.show?(intake)
@@ -17,7 +16,7 @@ module StateFile
       def index
         @state_file1099_gs = current_intake.state_file1099_gs
         unless @state_file1099_gs.present?
-          redirect_to action: :new
+          redirect_with_review_param(:new)
         end
       end
 
@@ -35,12 +34,12 @@ module StateFile
 
         if @state_file1099_g.had_box_11_no?
           @state_file1099_g.destroy
-          return redirect_to action: :index, return_to_review: params[:return_to_review]
+          return redirect_with_review_param(:index)
         end
 
         if @state_file1099_g.valid?
           @state_file1099_g.save
-          redirect_to action: :index, return_to_review: params[:return_to_review]
+          redirect_with_review_param(:index)
         else
           render :edit
         end
@@ -54,7 +53,7 @@ module StateFile
 
         if @state_file1099_g.valid?
           @state_file1099_g.save
-          redirect_to action: :index, return_to_review: params[:return_to_review]
+          redirect_with_review_param(:index)
         else
           render :new
         end
@@ -65,10 +64,30 @@ module StateFile
         if @state_file1099_g.destroy
           flash[:notice] = I18n.t("state_file.questions.unemployment.destroy.removed", name: @state_file1099_g.recipient_name)
         end
-        redirect_to action: :index, return_to_review: params[:return_to_review]
+        redirect_with_review_param(:index)
       end
 
       private
+
+      def next_path
+        if params[:return_to_review].present?
+          StateFile::Questions::IncomeReviewController.to_path_helper(return_to_review: params[:return_to_review])
+        else
+          super
+        end
+      end
+
+      def prev_path
+        if params[:return_to_review].present?
+          StateFile::Questions::IncomeReviewController.to_path_helper(return_to_review: params[:return_to_review])
+        else
+          super
+        end
+      end
+
+      def redirect_with_review_param(action)
+        redirect_to action: action, return_to_review: params[:return_to_review]
+      end
 
       def state_file1099_params
         state_file_params = params.require(:state_file1099_g).permit(

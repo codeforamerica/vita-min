@@ -1,46 +1,84 @@
 module StateFileIntakeHelper
+  def filing_year
+    MultiTenantService.statefile.current_tax_year
+  end
+
   def step_through_eligibility_screener(us_state:)
-    expect(page).to have_text I18n.t("state_file.questions.#{us_state}_eligibility_residence.edit.title")
     case us_state
     when "ny"
+      expect(page).to have_text I18n.t("state_file.questions.ny_eligibility_residence.edit.title")
       choose "state_file_ny_eligibility_residence_form_eligibility_lived_in_state_yes"
       choose "state_file_ny_eligibility_residence_form_eligibility_yonkers_no"
-      click_on "Continue"
+      click_on I18n.t("general.continue")
 
       choose "state_file_ny_eligibility_out_of_state_income_form_eligibility_out_of_state_income_no"
       choose "state_file_ny_eligibility_out_of_state_income_form_eligibility_part_year_nyc_resident_no"
-      click_on "Continue"
+      click_on I18n.t("general.continue")
 
-      expect(page).to have_text "In 2023, did you contribute to a 529 college savings account, or did you withdraw funds from a 529 account and use them for non-qualified expenses?"
+      expect(page).to have_text "In #{filing_year}, did you contribute to a 529 college savings account, or did you withdraw funds from a 529 account and use them for non-qualified expenses?"
       choose "state_file_ny_eligibility_college_savings_withdrawal_form_eligibility_withdrew_529_no"
+      click_on I18n.t("general.continue")
     when "az"
+      expect(page).to have_text I18n.t("state_file.questions.az_eligibility_residence.edit.title")
       choose "state_file_az_eligibility_residence_form_eligibility_lived_in_state_yes"
       choose "state_file_az_eligibility_residence_form_eligibility_married_filing_separately_no"
-      click_on "Continue"
+      click_on I18n.t("general.continue")
 
       choose "state_file_az_eligibility_out_of_state_income_form_eligibility_out_of_state_income_no"
       choose "state_file_az_eligibility_out_of_state_income_form_eligibility_529_for_non_qual_expense_no"
+      click_on I18n.t("general.continue")
+    when "id"
+      expect(page).to have_text I18n.t("state_file.questions.id_eligibility_residence.edit.title", filing_year: filing_year)
+      expect(page).to have_text I18n.t("state_file.questions.id_eligibility_residence.edit.emergency_rental_assistance", filing_year: filing_year)
+      expect(page).to have_text I18n.t("state_file.questions.id_eligibility_residence.edit.withdrew_msa_fthb", filing_year: filing_year)
+
+      find_by_id('state_file_id_eligibility_residence_form_eligibility_withdrew_msa_fthb_no').click
+      find_by_id('state_file_id_eligibility_residence_form_eligibility_emergency_rental_assistance_no').click
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text I18n.t("state_file.questions.eligible.id_supported.child_care_deduction")
+      expect(page).to have_text I18n.t("state_file.questions.eligible.id_supported.interest_from_obligations")
+      expect(page).to have_text I18n.t("state_file.questions.eligible.id_supported.social_security_retirement_deduction")
+      expect(page).to have_text I18n.t("state_file.questions.eligible.id_supported.id_child_tax_credit")
+      expect(page).to have_text I18n.t("state_file.questions.eligible.id_supported.id_grocery_credit")
+
+      click_on I18n.t("state_file.questions.eligible.edit.not_supported")
+
+      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.id_college_savings_program")
+      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.id_youth_rehab_contributions")
+      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.maintaining_elderly_disabled_credit")
+      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.long_term_care_insurance_subtraction")
+      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.earned_on_reservation")
+      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.education_contribution_credit")
+      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.itemized_deductions")
+      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.dependents_not_claimed_fed_return")
+      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.voluntary_donations")
+      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.change_in_filing_status")
+    when "md"
+      expect(page).to have_text I18n.t("state_file.questions.md_eligibility_filing_status.edit.title", year: filing_year)
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text I18n.t("state_file.questions.md_eligibility_filing_status.edit.title", year: filing_year)
+      choose I18n.t("general.affirmative"), id: "state_file_md_eligibility_filing_status_form_eligibility_filing_status_mfj_yes"
+      choose I18n.t("general.negative"), id: "state_file_md_eligibility_filing_status_form_eligibility_homebuyer_withdrawal_mfj_no"
+      choose I18n.t("general.negative"), id: "state_file_md_eligibility_filing_status_form_eligibility_home_different_areas_no"
+      click_on I18n.t("general.continue")
     when "nc"
+      expect(page).to have_text I18n.t("state_file.questions.nc_eligibility_residence.edit.title")
       choose "state_file_nc_eligibility_residence_form_eligibility_lived_in_state_yes"
-      click_on "Continue"
+      click_on I18n.t("general.continue")
 
       choose "state_file_nc_eligibility_out_of_state_income_form_eligibility_out_of_state_income_no"
       choose "state_file_nc_eligibility_out_of_state_income_form_eligibility_withdrew_529_no"
+      click_on I18n.t("general.continue")
+    when "nj"
+      click_on I18n.t("general.continue")
     end
-    click_on "Continue"
 
-    long_state_name = case us_state
-    when "az"
-      "Arizona"
-    when "nc"
-      "North Carolina"
-    when "ny"
-      "New York"
-    else
-      "please change in state_file_intake_helper.rb"
+    unless us_state == "nj"
+      expect(page).to have_text I18n.t("state_file.questions.eligible.edit.title1", year: filing_year, state: StateFile::StateInformationService.state_name(us_state))
+      click_on "Continue"
     end
-    expect(page).to have_text I18n.t("state_file.questions.eligible.edit.title1", year: MultiTenantService.statefile.current_tax_year, state: long_state_name)
-    click_on "Continue"
   end
 
   def step_through_initial_authentication(contact_preference: :text_message)
@@ -83,11 +121,11 @@ module StateFileIntakeHelper
     click_on "Continue"
   end
 
-  def step_through_df_data_transfer(sample_name = "Transfer my 2023 federal tax return to FileYourStateTaxes")
+  def step_through_df_data_transfer(sample_name = "Transfer my #{filing_year} federal tax return to FileYourStateTaxes")
     expect(page).to have_text I18n.t('state_file.questions.initiate_data_transfer.edit.title')
     click_on I18n.t('state_file.questions.initiate_data_transfer.data_transfer_buttons.from_fake_df_page')
 
-    expect(page).to have_text "Your 2023 federal tax return is ready to transfer to your state tax return."
+    expect(page).to have_text "Your #{filing_year} federal tax return is ready to transfer to your state tax return."
     click_on sample_name
 
     expect(page).to have_text "Just a moment, we’re transferring your federal tax return to complete parts of your state return."

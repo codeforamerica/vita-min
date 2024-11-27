@@ -13,9 +13,14 @@
 #  id_months_ineligible_for_grocery_credit :integer
 #  intake_type                             :string           not null
 #  last_name                               :string
+#  md_did_not_have_health_insurance        :integer          default("unfilled"), not null
 #  middle_initial                          :string
 #  months_in_home                          :integer
 #  needed_assistance                       :integer          default("unfilled"), not null
+#  nj_dependent_attends_accredited_program :integer          default("unfilled"), not null
+#  nj_dependent_enrolled_full_time         :integer          default("unfilled"), not null
+#  nj_dependent_five_months_in_college     :integer          default("unfilled"), not null
+#  nj_filer_pays_tuition_for_dependent     :integer          default("unfilled"), not null
 #  odc_qualifying                          :boolean
 #  passed_away                             :integer          default("unfilled"), not null
 #  qualifying_child                        :boolean
@@ -55,6 +60,13 @@ class StateFileDependent < ApplicationRecord
   enum eic_disability: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eic_disability
   enum eic_student: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eic_student
   enum id_has_grocery_credit_ineligible_months: { unfilled: 0, yes: 1, no: 2 }, _prefix: :id_has_grocery_credit_ineligible_months
+  enum md_did_not_have_health_insurance: { unfilled: 0, yes: 1, no: 2 }, _prefix: :md_did_not_have_health_insurance
+
+  # checkboxes - "unfilled" means not-yet-seen because it saves as "no" when unchecked
+  enum nj_dependent_attends_accredited_program: { unfilled: 0, yes: 1, no: 2 }, _prefix: :nj_dependent_attends_accredited_program
+  enum nj_dependent_enrolled_full_time: { unfilled: 0, yes: 1, no: 2 }, _prefix: :nj_dependent_enrolled_full_time
+  enum nj_dependent_five_months_in_college: { unfilled: 0, yes: 1, no: 2 }, _prefix: :nj_dependent_five_months_in_college
+  enum nj_filer_pays_tuition_for_dependent: { unfilled: 0, yes: 1, no: 2 }, _prefix: :nj_filer_pays_tuition_for_dependent
 
   # Create dob_* accessor methods for Honeycrisp's cfa_date_select
   delegate :month, :day, :year, to: :dob, prefix: :dob, allow_nil: true
@@ -78,6 +90,10 @@ class StateFileDependent < ApplicationRecord
     parts.compact.join(' ')
   end
 
+  def first_name_title_case
+    first_name.downcase.upcase_first
+  end
+
   def ask_senior_questions?
     return false if dob.nil?
     senior? && months_in_home == 12 && ['PARENT', 'GRANDPARENT'].include?(relationship)
@@ -91,12 +107,20 @@ class StateFileDependent < ApplicationRecord
     relationship == 'PARENT' || (relationship != 'NONE' && (months_in_home || 0) >= 6)
   end
 
+  def nj_qualifies_for_college_exemption?
+    under_22? && nj_dependent_attends_accredited_program_yes? && nj_dependent_enrolled_full_time_yes? && nj_dependent_five_months_in_college_yes? && nj_filer_pays_tuition_for_dependent_yes?
+  end
+
   def under_17?
     calculate_age(inclusive_of_jan_1: false) < 17
   end
 
   def senior?
     calculate_age(inclusive_of_jan_1: true) >= 65
+  end
+
+  def under_22?
+    calculate_age(inclusive_of_jan_1: false) < 22
   end
 
   def calculate_age(inclusive_of_jan_1:)

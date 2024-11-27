@@ -1,15 +1,15 @@
 <%
-  title = t(".title", filing_year: @filing_year)
+  title = t(".title", filing_year: current_tax_year)
   content_for :page_title, title
 %>
 
 <% content_for :card do %>
-  <h1 class="h2"><%= t(".title", filing_year: @filing_year) %></h1>
-  <p><%= t(".helper_description", filing_year: @filing_year) %></p>
+  <h1 class="h2"><%= t(".title", filing_year: current_tax_year) %></h1>
+  <p><%= t(".helper_description", filing_year: current_tax_year) %></p>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="white-group">
-      <%= f.vita_min_money_field(:rent_paid, t('.label',filing_year: @filing_year), options: { placeholder: '0' }, classes: ["form-width--long"]) %>
+      <%= f.vita_min_money_field(:rent_paid, t('.label',filing_year: current_tax_year), options: { placeholder: '0' }, classes: ["form-width--long"]) %>
     </div>
 
     <% if params[:return_to_review].present? %>

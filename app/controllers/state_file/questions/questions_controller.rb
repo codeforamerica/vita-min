@@ -1,7 +1,6 @@
 module StateFile
   module Questions
     class QuestionsController < ::Questions::QuestionsController
-      include StateFile::StateFileControllerConcern
       include StateFile::StateFileIntakeConcern
       before_action :redirect_if_no_intake, :redirect_if_in_progress_intakes_ended
 

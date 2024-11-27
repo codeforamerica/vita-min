@@ -7,7 +7,7 @@
     <div class="white-group">
       <%= f.cfa_radio_set(
             :eligibility_out_of_state_income,
-            label_text: t(".out_of_state_income_html"),
+            label_text: t(".out_of_state_income_html", filing_year: current_tax_year),
             collection: [
               { value: "yes", label: t("general.affirmative") },
               { value: "no", label: t("general.negative") },
@@ -18,7 +18,7 @@
     <div class="white-group">
       <%= f.cfa_radio_set(
             :eligibility_529_for_non_qual_expense,
-            label_text: t(".used_529_for_non_qual_expense_html"),
+            label_text: t(".used_529_for_non_qual_expense_html", filing_year: current_tax_year),
             collection: [
               { value: "yes", label: t("general.affirmative") },
               { value: "no", label: t("general.negative") },
