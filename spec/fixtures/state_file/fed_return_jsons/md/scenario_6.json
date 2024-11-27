@@ -1,0 +1,91 @@
+{
+  "familyAndHousehold": [],
+  "filers": [
+    {
+      "firstName": "Beaches",
+      "middleInitial": "T",
+      "lastName": "Yarn Mat",
+      "dateOfBirth": "1950-01-01",
+      "isPrimaryFiler": true,
+      "tin": "123-45-6789",
+      "educatorExpenses": "100.00"
+    },
+    {
+      "firstName": "Pebble",
+      "middleInitial": "Y",
+      "lastName": "Yarn Mat",
+      "dateOfBirth": "1950-01-01",
+      "isPrimaryFiler": false,
+      "tin": "987-65-4321",
+      "educatorExpenses": "200.00"
+    }
+  ],
+  "interestReports": [
+    {
+      "has1099": true,
+      "taxExemptAndTaxCreditBondCusipNo": null,
+      "interestOnGovernmentBonds": "222.00",
+      "payerTin": "00-4321234",
+      "recipientTin": "123-45-6789",
+      "payer": "Vienna Fund",
+      "no1099Amount": null,
+      "taxWithheld": "100.00",
+      "1099Amount": "888.00"
+    },
+    {
+      "has1099": true,
+      "taxExemptAndTaxCreditBondCusipNo": null,
+      "interestOnGovernmentBonds": null,
+      "payerTin": "00-4321234",
+      "recipientTin": "123-45-6789",
+      "payer": "Vienna Fund",
+      "no1099Amount": null,
+      "taxWithheld": "100.00",
+      "1099Amount": "10.00"
+    },
+    {
+      "has1099": false,
+      "taxExemptAndTaxCreditBondCusipNo": null,
+      "interestOnGovernmentBonds": null,
+      "payerTin": "00-4321234",
+      "recipientTin": "123-45-6789",
+      "payer": "Vienna Fund",
+      "no1099Amount": "10.00",
+      "taxWithheld": "100.00",
+      "1099Amount": null
+    },
+    {
+      "has1099": true,
+      "taxExemptAndTaxCreditBondCusipNo": null,
+      "interestOnGovernmentBonds": "100.00",
+      "payerTin": "00-4321234",
+      "recipientTin": "987-65-4321",
+      "payer": "Vienna Fund",
+      "no1099Amount": null,
+      "taxWithheld": "100.00",
+      "1099Amount": "900.00"
+    },
+    {
+      "has1099": true,
+      "taxExemptAndTaxCreditBondCusipNo": null,
+      "interestOnGovernmentBonds": null,
+      "payerTin": "00-4321234",
+      "recipientTin": "987-65-4321",
+      "payer": "Vienna Fund",
+      "no1099Amount": null,
+      "taxWithheld": "100.00",
+      "1099Amount": "1500.00"
+    },
+    {
+      "has1099": false,
+      "taxExemptAndTaxCreditBondCusipNo": null,
+      "interestOnGovernmentBonds": null,
+      "payerTin": "00-4321234",
+      "recipientTin": "987-65-4321",
+      "payer": "Vienna Fund",
+      "no1099Amount": "50.00",
+      "taxWithheld": "100.00",
+      "1099Amount": null
+    }
+  ]
+}

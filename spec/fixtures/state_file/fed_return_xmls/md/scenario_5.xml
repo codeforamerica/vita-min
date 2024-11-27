@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2023v4.0">
+  <ReturnHeader binaryAttachmentCnt="0">
+    <TaxYr>2023</TaxYr>
+    <TaxPeriodBeginDt>2023-01-01</TaxPeriodBeginDt>
+    <TaxPeriodEndDt>2023-12-31</TaxPeriodEndDt>
+    <SoftwareVersionNum>2022.2.100</SoftwareVersionNum>
+    <ReturnTypeCd>1040</ReturnTypeCd>
+    <Filer>
+      <PrimarySSN>123456789</PrimarySSN>
+      <SpouseSSN>987654321</SpouseSSN>
+      <NameLine1Txt>BEACHES &amp; PEBBLES&lt;YARN MAT</NameLine1Txt>
+      <PrimaryNameControlTxt>YARN</PrimaryNameControlTxt>
+      <SpouseNameControlTxt>YARN</SpouseNameControlTxt>
+      <USAddress>
+        <AddressLine1Txt>15 Cool St</AddressLine1Txt>
+        <AddressLine2Txt>Apt 12B</AddressLine2Txt>
+        <CityNm>Monkton</CityNm>
+        <StateAbbreviationCd>MD</StateAbbreviationCd>
+        <ZIPCd>21111</ZIPCd>
+      </USAddress>
+      <PhoneNum>5551234567</PhoneNum>
+    </Filer>
+    <AdditionalFilerInformation>
+      <AtSubmissionFilingGrp>
+        <EmailAddressTxt>beaches@bigtoddsyarnmats.com</EmailAddressTxt>
+      </AtSubmissionFilingGrp>
+    </AdditionalFilerInformation>
+  </ReturnHeader>
+  <ReturnData documentCnt="1">
+    <IRS1040 documentId="IRS10400001">
+      <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
+      <SpouseNm>Pebbles Yarn Mat</SpouseNm>
+      <PrimaryOccupationTxt>mat</PrimaryOccupationTxt>
+      <SpouseOccupationTxt>towel</SpouseOccupationTxt>
+      <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+    </IRS1040>
+    <IRS1099R documentId="IRS1099R0001">
+      <PayerNameControlTxt>PAYE</PayerNameControlTxt>
+      <PayerName>
+        <BusinessNameLine1Txt>Payer Name</BusinessNameLine1Txt>
+      </PayerName>
+      <PayerUSAddress>
+        <AddressLine1Txt>2030 Pecan Street</AddressLine1Txt>
+        <CityNm>Monroe</CityNm>
+        <StateAbbreviationCd>MD</StateAbbreviationCd>
+        <ZIPCd>05502</ZIPCd>
+      </PayerUSAddress>
+      <PayerEIN>000000008</PayerEIN>
+      <PhoneNum>2025551212</PhoneNum>
+      <RecipientSSN>123456789</RecipientSSN>
+      <RecipientNm>Beaches T Yarn Mat</RecipientNm>
+      <RecipientUSAddress>
+        <AddressLine1Txt>2030 Pecan Street</AddressLine1Txt>
+        <CityNm>Monroe</CityNm>
+        <StateAbbreviationCd>MD</StateAbbreviationCd>
+        <ZIPCd>02301</ZIPCd>
+      </RecipientUSAddress>
+      <GrossDistributionAmt>200</GrossDistributionAmt>
+      <TaxableAmt>200</TaxableAmt>
+      <FederalIncomeTaxWithheldAmt>300</FederalIncomeTaxWithheldAmt>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRS1099R>
+    <IRS1099R documentId="IRS1099R0002">
+      <PayerNameControlTxt>PAYE</PayerNameControlTxt>
+      <PayerName>
+        <BusinessNameLine1Txt>Payer 2 Name</BusinessNameLine1Txt>
+        <BusinessNameLine2Txt>Line 2</BusinessNameLine2Txt>
+      </PayerName>
+      <PayerEIN>000000009</PayerEIN>
+      <RecipientSSN>123456789</RecipientSSN>
+      <RecipientNm>Beaches T Yarn Mat</RecipientNm>
+      <RecipientUSAddress>
+        <AddressLine1Txt>20 Override Street</AddressLine1Txt>
+        <AddressLine2Txt>Line Two</AddressLine2Txt>
+        <CityNm>Monroe</CityNm>
+        <StateAbbreviationCd>MD</StateAbbreviationCd>
+        <ZIPCd>70201</ZIPCd>
+      </RecipientUSAddress>
+      <GrossDistributionAmt>200</GrossDistributionAmt>
+      <TaxableAmt>200</TaxableAmt>
+      <EmployeeContributionsAmt>500</EmployeeContributionsAmt>
+      <F1099RStateLocalTaxGrp>
+        <F1099RStateTaxGrp>
+          <StateAbbreviationCd>MD</StateAbbreviationCd>
+          <StateDistributionAmt>2000</StateDistributionAmt>
+          <F1099RLocalTaxGrp>
+            <LocalTaxWithheldAmt>2000</LocalTaxWithheldAmt>
+            <LocalityNm>How Town</LocalityNm>
+            <LocalDistributionAmt>2000</LocalDistributionAmt>
+          </F1099RLocalTaxGrp>
+        </F1099RStateTaxGrp>
+      </F1099RStateLocalTaxGrp>
+      <StandardOrNonStandardCd>N</StandardOrNonStandardCd>
+    </IRS1099R>
+    <IRS1099R documentId="IRS1099R0003">
+      <PayerNameControlTxt>PAYE</PayerNameControlTxt>
+      <PayerName>
+        <BusinessNameLine1Txt>Payer Name</BusinessNameLine1Txt>
+      </PayerName>
+      <PayerUSAddress>
+        <AddressLine1Txt>2030 Pecan Street</AddressLine1Txt>
+        <CityNm>Monroe</CityNm>
+        <StateAbbreviationCd>MD</StateAbbreviationCd>
+        <ZIPCd>05502</ZIPCd>
+      </PayerUSAddress>
+      <PayerEIN>000000008</PayerEIN>
+      <PhoneNum>2025551212</PhoneNum>
+      <RecipientSSN>987654321</RecipientSSN>
+      <RecipientNm>Pebble Y Yarn Mat</RecipientNm>
+      <RecipientUSAddress>
+        <AddressLine1Txt>2030 Pecan Street</AddressLine1Txt>
+        <CityNm>Monroe</CityNm>
+        <StateAbbreviationCd>MD</StateAbbreviationCd>
+        <ZIPCd>02301</ZIPCd>
+      </RecipientUSAddress>
+      <GrossDistributionAmt>200</GrossDistributionAmt>
+      <TaxableAmt>500</TaxableAmt>
+      <FederalIncomeTaxWithheldAmt>300</FederalIncomeTaxWithheldAmt>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRS1099R>
+    <IRS1099R documentId="IRS1099R0004">
+      <PayerNameControlTxt>PAYE</PayerNameControlTxt>
+      <PayerName>
+        <BusinessNameLine1Txt>Payer 2 Name</BusinessNameLine1Txt>
+        <BusinessNameLine2Txt>Line 2</BusinessNameLine2Txt>
+      </PayerName>
+      <PayerEIN>000000009</PayerEIN>
+      <RecipientSSN>987654321</RecipientSSN>
+      <RecipientNm>Pebble Y Yarn Mat</RecipientNm>
+      <RecipientUSAddress>
+        <AddressLine1Txt>20 Override Street</AddressLine1Txt>
+        <AddressLine2Txt>Line Two</AddressLine2Txt>
+        <CityNm>Monroe</CityNm>
+        <StateAbbreviationCd>MD</StateAbbreviationCd>
+        <ZIPCd>70201</ZIPCd>
+      </RecipientUSAddress>
+      <GrossDistributionAmt>4000</GrossDistributionAmt>
+      <TaxableAmt>12000</TaxableAmt>
+      <EmployeeContributionsAmt>500</EmployeeContributionsAmt>
+      <F1099RStateLocalTaxGrp>
+        <F1099RStateTaxGrp>
+          <StateAbbreviationCd>MD</StateAbbreviationCd>
+          <StateDistributionAmt>2000</StateDistributionAmt>
+          <F1099RLocalTaxGrp>
+            <LocalTaxWithheldAmt>2000</LocalTaxWithheldAmt>
+            <LocalityNm>How Town</LocalityNm>
+            <LocalDistributionAmt>2000</LocalDistributionAmt>
+          </F1099RLocalTaxGrp>
+        </F1099RStateTaxGrp>
+      </F1099RStateLocalTaxGrp>
+      <StandardOrNonStandardCd>N</StandardOrNonStandardCd>
+    </IRS1099R>
+    <IRS1099R documentId="IRS1099R0005">
+      <PayerNameControlTxt>PAYE</PayerNameControlTxt>
+      <PayerName>
+        <BusinessNameLine1Txt>Payer Name</BusinessNameLine1Txt>
+      </PayerName>
+      <PayerUSAddress>
+        <AddressLine1Txt>2030 Pecan Street</AddressLine1Txt>
+        <CityNm>Monroe</CityNm>
+        <StateAbbreviationCd>MD</StateAbbreviationCd>
+        <ZIPCd>05502</ZIPCd>
+      </PayerUSAddress>
+      <PayerEIN>000000008</PayerEIN>
+      <PhoneNum>2025551212</PhoneNum>
+      <RecipientSSN>987654321</RecipientSSN>
+      <RecipientNm>Pebble Y Yarn Mat</RecipientNm>
+      <RecipientUSAddress>
+        <AddressLine1Txt>2030 Pecan Street</AddressLine1Txt>
+        <CityNm>Monroe</CityNm>
+        <StateAbbreviationCd>MD</StateAbbreviationCd>
+        <ZIPCd>02301</ZIPCd>
+      </RecipientUSAddress>
+      <GrossDistributionAmt>200</GrossDistributionAmt>
+      <TaxableAmt>444</TaxableAmt>
+      <FederalIncomeTaxWithheldAmt>300</FederalIncomeTaxWithheldAmt>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRS1099R>
+  </ReturnData>
+</Return>

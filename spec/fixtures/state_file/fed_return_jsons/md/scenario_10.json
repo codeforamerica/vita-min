@@ -1,0 +1,25 @@
+{
+  "familyAndHousehold": [],
+  "filers": [
+    {
+      "firstName": "Beaches",
+      "middleInitial": "T",
+      "lastName": "Yarn Mat",
+      "dateOfBirth": "1950-01-01",
+      "isPrimaryFiler": true,
+      "tin": "123-45-6789",
+      "educatorExpenses": "200.00",
+      "hsaTotalDeductibleAmount": "200.00"
+    },
+    {
+      "firstName": "Pebble",
+      "middleInitial": "Y",
+      "lastName": "Yarn Mat",
+      "dateOfBirth": "1950-01-01",
+      "isPrimaryFiler": false,
+      "tin": "987-65-4321",
+      "educatorExpenses": "100.00"
+    }
+  ],
+  "interestReports": []
+}
