@@ -425,7 +425,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       click_on "Main XML Doc"
 
-      expect(page.body).to include('efile:ReturnState') # QUESTION: not sure what the significance of this tag is for NC
+      expect(page.body).to include('efile:ReturnState')
       expect(page.body).to include('<FirstName>Titus</FirstName>')
       expect(page.body).to include('<NCCountyCode>001</NCCountyCode>')
       expect(page.body).to include('<DrvrLcnsStCd>AK</DrvrLcnsStCd>')
@@ -556,7 +556,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       click_on "Main XML Doc"
 
-      # expect(page.body).to include('efile:ReturnState') # QUESTION: not sure what the significance of this tag is for ID
+      expect(page.body).to include('efile:ReturnState')
       expect(page.body).to include('<FirstName>Testy</FirstName>')
       expect(page.body).to include('<HealthInsurancePaid>1235</HealthInsurancePaid>')
       expect(page.body).to include('<GroceryCredit>240</GroceryCredit>')
@@ -670,7 +670,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       click_on "Main XML Doc"
 
-      # expect(page.body).to include('efile:ReturnState') # QUESTION: not sure what the significance of this tag is for MD
+      expect(page.body).to include('efile:ReturnState')
       expect(page.body).to include('<FirstName>Zeus</FirstName>')
       expect(page.body).to include('<CityTownOrTaxingArea>Town Of Barton</CityTownOrTaxingArea>')
       expect(page.body).to include('<TaxpayerPIN>12345</TaxpayerPIN>')
