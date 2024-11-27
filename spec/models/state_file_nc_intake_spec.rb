@@ -104,10 +104,18 @@ RSpec.describe StateFileNcIntake, type: :model do
       Timecop.return
     end
 
+    context "when there is not withdrawal date" do
+      it "is valid" do
+        expect(intake).to be_valid
+      end
+    end
+
     context "when the withdrawal date is in the future, on a weekday and not on a holiday" do
       let(:electronic_withdrawal_date) { fake_time.to_date + 1.day }
-      it "fails to save the intake" do
+      it "is valid and saves to intake" do
         expect(intake).to be_valid
+        intake.save!
+        expect(intake.reload.date_electronic_withdrawal).to eq electronic_withdrawal_date
       end
     end
 

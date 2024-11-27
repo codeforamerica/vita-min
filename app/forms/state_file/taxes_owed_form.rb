@@ -19,7 +19,7 @@ module StateFile
 
     with_options unless: -> { payment_or_deposit_type == "mail" } do
       validate :date_electronic_withdrawal_is_valid_date
-      validate :withdrawal_date_before_deadline, if: -> { date_electronic_withdrawal.present? && !post_deadline_withdrawal_date.present? }
+      validate :valid_withdrawal_date, if: -> { date_electronic_withdrawal.present? && !post_deadline_withdrawal_date.present? }
       validates :withdraw_amount, presence: true, numericality: { greater_than: 0 }
       validate :withdraw_amount_higher_than_owed?
     end
@@ -74,10 +74,11 @@ module StateFile
       end
     end
 
-    def withdrawal_date_before_deadline
+    def valid_withdrawal_date
       unless date_electronic_withdrawal.between?(Date.parse(app_time), withdrawal_date_deadline)
         self.errors.add(:date_electronic_withdrawal, I18n.t("forms.errors.taxes_owed.withdrawal_date_deadline", year: withdrawal_date_deadline.year))
       end
+      errors.merge!(@intake.errors) unless @intake.valid?
     end
 
     def withdrawal_date_deadline
