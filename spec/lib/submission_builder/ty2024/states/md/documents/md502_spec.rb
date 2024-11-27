@@ -34,7 +34,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
         context "with unincorporated subdivision" do
           before do
             intake.residence_county = "Anne Arundel"
-            intake.political_subdivision = "Anne Arundel - unincorporated"
+            intake.political_subdivision = "All Other Areas"
             intake.subdivision_code = "0200"
           end
 
