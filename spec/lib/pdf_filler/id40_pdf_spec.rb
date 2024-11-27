@@ -91,7 +91,7 @@ RSpec.describe PdfFiller::Id40Pdf do
         expect(pdf_fields['TxCompL19']).to eq '2000'
         expect(pdf_fields['TxCompL20']).to eq '200'
         expect(pdf_fields['TxCompL20']).to eq '200'
-        expect(pdf_fields['L21']).to eq '200' # same as L20
+        expect(pdf_fields['L21']).to eq '200'
         expect(pdf_fields['CreditsL23']).to eq '0'
 
         expect(pdf_fields['DirectDepositL57Route']).to eq "123456789"
@@ -313,6 +313,24 @@ RSpec.describe PdfFiller::Id40Pdf do
         expect(pdf_fields['CreditsL27']).to eq '70'
         expect(pdf_fields['OtherTaxesL33']).to eq '80'
         expect(pdf_fields['DonationsL42']).to eq '80'
+      end
+    end
+
+    describe "refund/taxes owed" do
+      before do
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_50).and_return 25
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_51).and_return 50
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_54).and_return 100
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_55).and_return 150
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_56).and_return 200
+      end
+
+      it "sets the correct values for the fields" do
+        expect(pdf_fields['PymntOtherCreditL50Total']).to eq '25'
+        expect(pdf_fields['TxDueRefundL51']).to eq '50'
+        expect(pdf_fields['TxDueRefundL54']).to eq '100'
+        expect(pdf_fields['TxDueRefundL55']).to eq '150'
+        expect(pdf_fields['RefundedL56']).to eq '200'
       end
     end
   end

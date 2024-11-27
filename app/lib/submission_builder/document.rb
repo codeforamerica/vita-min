@@ -101,6 +101,11 @@ module SubmissionBuilder
       end
     end
 
+    def add_element_if_present(xml, tag, line_id)
+      value = calculated_fields.fetch(line_id)
+      xml.send(tag, value) if value.present?
+    end
+
     def process_mailing_street(xml)
       return unless @submission.data_source.direct_file_data.mailing_street.present?
 
