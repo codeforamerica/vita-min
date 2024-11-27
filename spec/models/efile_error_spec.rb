@@ -56,6 +56,7 @@ describe 'EfileError' do
       "email-address",
       "esign-declaration",
       "federal-info",
+      "id-donations",
       "id-eligibility-residence",
       "id-grocery-credit",
       "id-grocery-credit-review",

@@ -44,8 +44,8 @@
 
   <div id="charitable-donations" class="white-group">
     <div class="spacing-below-5">
-      <p class="text--bold spacing-below-5"><%= t("state_file.questions.id_donations.edit.title") %></p>
-      <p class="text spacing-below-2"><%= t("state_file.questions.id_donations.edit.tax_payers_can_donate") %></p>
+      <p class="text--bold spacing-below-5"><%= t(".voluntary_charitable_donations") %></p>
+      <p class="text spacing-below-2"><%= t(".donations_optional") %></p>
 
       <% donation_lines = {
         "state_file.questions.id_donations.edit.nongame_wildlife_fund_donation" => current_intake.nongame_wildlife_fund_donation,
@@ -58,10 +58,14 @@
         "state_file.questions.id_donations.edit.opportunity_scholarship_program_donation" => current_intake.opportunity_scholarship_program_donation
       } %>
 
-      <% donation_lines.each do |translation_key, amount| %>
-        <% if amount.present? %>
-          <p class="text--bold spacing-below-5"><%=t(translation_key) %></p>
-          <p><%=number_to_currency(amount || 0, precision: 2)%></p>
+      <% if donation_lines.values.all? { |amount| amount.to_f.zero? } %>
+        <p class="text"><%= t(".no_donations_selected").html_safe %></p>
+    <% else %>
+        <% donation_lines.each do |translation_key, amount| %>
+          <% if amount.present? %>
+            <p class="text--bold spacing-below-5"><%= t(translation_key) %></p>
+            <p><%= number_to_currency(amount, precision: 2) %></p>
+          <% end %>
         <% end %>
       <% end %>
 
@@ -146,7 +150,7 @@
       </div>
 
       <div class="spacing-below-25">
-        <p class="text--bold spacing-below-5"><%= t("state_file.general.total_tax_plus_donations") %></p>
+        <p class="text--bold spacing-below-5"><%= t("state_file.general.id_total_tax_plus_donations") %></p>
         <p><%= number_to_currency(current_intake.calculator.line_or_zero(:ID40_LINE_42)) %></p>
       </div>
 

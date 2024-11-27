@@ -422,7 +422,6 @@ en:
     documents: Documents
     drop_off: Drop Off
     edit: Edit
-    review_and_edit: Review and Edit
     edit_info: Edit info
     email: Email
     email_address: Email address
@@ -537,6 +536,7 @@ en:
     return_search: Return to search
     return_to_homepage: Return to homepage
     returns: Returns
+    review_and_edit: Review and Edit
     role: Role
     routing: Routing
     save: Save
@@ -2057,6 +2057,7 @@ en:
       id_tax_withheld: Idaho tax withheld
       id_taxable_income: Idaho taxable income
       id_total_payments: Total payments and refundable credits
+      id_total_tax_plus_donations: Total tax plus donations
       id_use_tax: Use tax
       nc_income_tax: North Carolina income tax
       nc_tax_withheld: North Carolina tax withheld
@@ -2540,6 +2541,22 @@ en:
           spouse_esign: My spouse has read the certification above and agrees
           submit: Submit your state return
           title: Electronically sign your %{state_name} state tax return
+      id_donations:
+        edit:
+          add_the_amount: Add the amount you would like to donate to any organization below
+          american_red_cross_fund_donation: American Red Cross of Idaho Fund
+          childrens_trust_fund_donation: Idaho Children's Trust Fund
+          donate_warning_p1: Your donation will be subtracted from your total state refund.
+          donate_warning_p2: Your choice to donate is final and cannot be changed through an amended return.
+          food_bank_fund_donation: Idaho Food Bank Fund
+          guard_reserve_family_donation: Idaho Guard & Reserve Family
+          nongame_wildlife_fund_donation: Idaho Nongame Wildlife Fund
+          opportunity_scholarship_program_donation: Opportunity Scholarship Program
+          save_and_continue: Save and Continue
+          special_olympics_donation: Special Olympics Idaho
+          tax_payers_can_donate: Idaho taxpayers can make voluntary charitable donations to organizations when they file their state income tax return.
+          title: Donate some or all of your state refund to charitable organizations
+          veterans_support_fund_donation: Veterans Support Fund
       id_eligibility_residence:
         edit:
           emergency_rental_assistance: In %{filing_year}, did you (or your spouse if filing together) receive emergency rental assistance?
@@ -2633,15 +2650,14 @@ en:
           why_ask_this: Why are you asking for this information?
       id_review:
         edit:
+          donations_optional: Idaho taxpayers can make voluntary charitable donations to organizations when they file their state income tax return.
           health_insurance_premium_title: Idaho Health Insurance Premium Subtraction
           idaho_grocery_credit: Idaho Grocery Credit
+          no_donations_selected: "<strong>No donations selected</strong>"
           permanent_building_fund_tax: Permanent Building Fund Tax
           purchases_without_sales_tax: Purchases without paying sales or use tax
           state_details_title: State Details
           voluntary_charitable_donations: Voluntary Charitable Donations
-          no_donations_selected: <strong>No donations selected</strong>
-          donations_optional: Idaho taxpayers can make voluntary charitable donations to organizations when they file their state income tax return.
-          total_tax_plus_donations: Total tax plus donations
       id_sales_use_tax:
         edit:
           sales_tax_content: This is a tax collected at the point of sale when you buy goods within your state.
@@ -2787,20 +2803,6 @@ en:
         edit:
           county: County
           title: Select the county where you lived on December 31st, %{filing_year}
-      id_donations:
-        edit:
-          tax_payers_can_donate: Idaho taxpayers can make voluntary charitable donations to organizations when they file their state income tax return.
-          add_the_amount: Add the amount you would like to donate to any organization below
-          title: Donate some or all of your state refund to charitable organizations
-          nongame_wildlife_fund_donation: Idaho Nongame Wildlife Fund
-          childrens_trust_fund_donation: Idaho Children's Trust Fund
-          special_olympics_donation: Special Olympics Idaho
-          guard_reserve_family_donation: Idaho Guard & Reserve Family
-          american_red_cross_fund_donation: American Red Cross of Idaho Fund
-          veterans_support_fund_donation: Veterans Support Fund
-          food_bank_fund_donation: Idaho Food Bank Fund
-          opportunity_scholarship_program_donation: Opportunity Scholarship Program
-          save_and_continue: Save and Continue
       nc_eligibility_out_of_state_income:
         edit:
           out_of_state_income_html: Did you (or your spouse, if you’re filing together) earn any income in another state in %{filing_year}? (This includes unemployment income <strong>received</strong> from another state.)
