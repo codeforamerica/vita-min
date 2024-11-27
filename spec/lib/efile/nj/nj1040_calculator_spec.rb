@@ -785,16 +785,19 @@ describe Efile::Nj::Nj1040Calculator do
 
       it 'when 40a > 7500, property tax deduction is 7500' do
         allow(instance).to receive(:calculate_line_40a).and_return 7501
+        instance.calculate
         expect(instance.calculate_property_tax_deduction).to eq(7500)
       end
 
       it 'when 40a = 7500, property tax deduction is line 40a' do
         allow(instance).to receive(:calculate_line_40a).and_return 7500
+        instance.calculate
         expect(instance.calculate_property_tax_deduction).to eq(7500)
       end
 
       it 'when 40a < 7500, property tax deduction is line 40a' do
         allow(instance).to receive(:calculate_line_40a).and_return 7499
+        instance.calculate
         expect(instance.calculate_property_tax_deduction).to eq(7499)
       end
     end
@@ -810,6 +813,7 @@ describe Efile::Nj::Nj1040Calculator do
 
       it 'when 40a > 7500, property tax deduction is 7500' do
         allow(instance).to receive(:calculate_line_40a).and_return 7501
+        instance.calculate
         expect(instance.calculate_property_tax_deduction).to eq(7500)
       end
     end
@@ -825,16 +829,19 @@ describe Efile::Nj::Nj1040Calculator do
 
       it 'when 40a > 15000, property tax deduction is 15000' do
         allow(instance).to receive(:calculate_line_40a).and_return 15_001
+        instance.calculate
         expect(instance.calculate_property_tax_deduction).to eq(15_000)
       end
 
       it 'when 40a = 15000, property tax deduction is line 40a' do
         allow(instance).to receive(:calculate_line_40a).and_return 15_000
+        instance.calculate
         expect(instance.calculate_property_tax_deduction).to eq(15_000)
       end
 
       it 'when 40a < 15000, property tax deduction is line 40a' do
         allow(instance).to receive(:calculate_line_40a).and_return 14_999
+        instance.calculate
         expect(instance.calculate_property_tax_deduction).to eq(14_999)
       end
     end
@@ -893,6 +900,7 @@ describe Efile::Nj::Nj1040Calculator do
     it 'subtracts property_tax_deduction from line 39 times tax rate' do
       allow(instance).to receive(:calculate_line_39).and_return 36_000
       allow(instance).to receive(:calculate_property_tax_deduction).and_return 2_000
+      instance.calculate
       expected = 525 # 34,000 * 0.0175 - 70
       expect(instance.calculate_tax_liability_with_deduction).to eq(expected)
     end
@@ -904,6 +912,7 @@ describe Efile::Nj::Nj1040Calculator do
     }
     it 'returns line 39 times tax rate' do
       allow(instance).to receive(:calculate_line_39).and_return 36_000
+      instance.calculate
       expected = 577.50 # 36,000 * 0.035 - 682.50
       expect(instance.calculate_tax_liability_without_deduction).to eq(expected)
     end

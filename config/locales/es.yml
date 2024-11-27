@@ -2249,6 +2249,7 @@ es:
           armed_forces_member: Miembro de las Fuerzas Armadas de los Estados Unidos
           armed_forces_wages: Salario por servicio activo recibido como miembro de las Fuerzas Armadas de los Estados Unidos
           az321_contribution_name: Contribución a %{charity_name} con el código %{charity_code}
+          az322_contribution_name: Contribución a %{charity_name} con el código %{charity_code}
           az_agi: Ingresos brutos ajustados de Arizona
           az_tax: Impuesto de Arizona
           az_tax_withheld: Retención de impuestos de Arizona
@@ -2263,6 +2264,7 @@ es:
           increased_excise_tax_credit: Crédito por Aumento de Impuestos Especiales
           last_names: Otros apellidos usados en los últimos cuatro años
           made_az321_contributions: Hizo contribuciones a organizaciones benéficas calificadas
+          made_az322_contributions: Hizo contribuciones a las escuelas públicas
           ssn_no_employment: '"Not valid for employment" escrita en tu tarjeta de Seguro Social'
           total_arizona_subtractions: Restas totales de Arizona
           total_exemptions: Exenciones Totales
