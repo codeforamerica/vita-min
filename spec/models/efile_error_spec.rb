@@ -48,7 +48,7 @@ describe 'EfileError' do
       "canceled-data-transfer",
       "code-verified",
       "contact-preference",
-      "data-review",
+      "post-data-transfer",
       "data-transfer-offboarding",
       "declined-terms-and-conditions",
       "eligibility-offboarding",

@@ -15,7 +15,7 @@ RSpec.describe StateFile::Questions::PostDataTransferController do
       end
 
       it "redirects to the next path" do
-        get :edit, params: { state_file_data_review_form: { device_id: "ABC123" } }
+        get :edit
 
         expect(response).not_to render_template :edit
         expect(response).to redirect_to(StateFile::Questions::NameDobController.to_path_helper)
@@ -24,7 +24,7 @@ RSpec.describe StateFile::Questions::PostDataTransferController do
 
     context "when environment is not production" do
       it "displays the Data Review edit page" do
-        get :edit, params: { state_file_data_review_form: { device_id: "ABC123" } }
+        get :edit
 
         expect(response).to render_template :edit
       end
@@ -33,7 +33,7 @@ RSpec.describe StateFile::Questions::PostDataTransferController do
     context "with valid federal data" do
       it "renders edit template and creates an initial StateFileEfileDeviceInfo" do
         expect do
-          get :edit, params: { state_file_data_review_form: { device_id: "ABC123" } }
+          get :edit
         end.to change(StateFileEfileDeviceInfo, :count).by(1)
 
         efile_info = StateFileEfileDeviceInfo.last
