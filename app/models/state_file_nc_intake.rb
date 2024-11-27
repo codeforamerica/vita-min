@@ -114,13 +114,13 @@ class StateFileNcIntake < StateFileBaseIntake
 
   def valid_date_electronic_withdrawal
     if date_electronic_withdrawal <= Date.today
-      errors.add(:valid_date_electronic_withdrawal, I18n.t("errors.attributes.nc_withdrawal_date.future"))
+      errors.add(:date_electronic_withdrawal, I18n.t("errors.attributes.nc_withdrawal_date.future"))
     end
     if date_electronic_withdrawal.saturday? || date_electronic_withdrawal.sunday?
-      errors.add(:valid_date_electronic_withdrawal, I18n.t("errors.attributes.nc_withdrawal_date.business_day"))
+      errors.add(:date_electronic_withdrawal, I18n.t("errors.attributes.nc_withdrawal_date.business_day"))
     end
     if Holidays.on(date_electronic_withdrawal, :us, :federalreservebanks, :observed).any?
-      errors.add(:valid_date_electronic_withdrawal, I18n.t("errors.attributes.nc_withdrawal_date.holiday"))
+      errors.add(:date_electronic_withdrawal, I18n.t("errors.attributes.nc_withdrawal_date.holiday"))
     end
   end
 end

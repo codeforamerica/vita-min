@@ -436,6 +436,7 @@ class ApplicationController < ActionController::Base
 
   def post_deadline_withdrawal_date(state_code)
     # after the tax deadline we automatically set the bank withdrawal date to be the current day
+    # TODO: add new states and special case for NC? move to state service
     case state_code
     when 'ny'
       app_time.in_time_zone('America/New_York')
