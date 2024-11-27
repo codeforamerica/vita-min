@@ -274,5 +274,37 @@ describe SubmissionBuilder::Ty2024::States::Id::Documents::Id40, required_schema
         expect(xml.at("OpportunityScholarshipProgram")).to be_nil
       end
     end
+
+    context "refund/taxes owed section" do
+      before do
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_51).and_return 50
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_54).and_return 100
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_55).and_return 150
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_56).and_return 150
+      end
+
+      it "fills out section" do
+        expect(xml.at("TaxDue").text.to_i).to eq 50
+        expect(xml.at("TotalDue").text.to_i).to eq 100
+        expect(xml.at("OverpaymentAfterPenaltyAndInt").text.to_i).to eq 150
+        expect(xml.at("OverpaymentRefunded").text.to_i).to eq 150
+      end
+
+      context "when no values" do
+        before do
+          allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_51).and_return nil
+          allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_54).and_return nil
+          allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_55).and_return nil
+          allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_56).and_return nil
+        end
+
+        it "does not include these elements" do
+          expect(xml.at("TaxDue")).to eq nil
+          expect(xml.at("TotalDue")).to eq nil
+          expect(xml.at("OverpaymentAfterPenaltyAndInt")).to eq nil
+          expect(xml.at("OverpaymentRefunded")).to eq nil
+        end
+      end
+    end
   end
 end

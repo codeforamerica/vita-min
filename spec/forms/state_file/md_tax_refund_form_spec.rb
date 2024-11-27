@@ -11,8 +11,11 @@ RSpec.describe StateFile::MdTaxRefundForm do
       account_number: "12345",
       account_number_confirmation: "12345",
       account_type: "checking",
-      bank_name: "Bank official",
-      account_holder_name: "Geddy Lee"
+      account_holder_first_name: "Geddy",
+      account_holder_middle_initial: "J",
+      account_holder_last_name: "Lee",
+      account_holder_suffix: "JR",
+      bank_authorization_confirmed: "yes",
     }
   end
 
@@ -28,8 +31,10 @@ RSpec.describe StateFile::MdTaxRefundForm do
         expect(intake.account_type).to eq "unfilled"
         expect(intake.account_number).to be_nil
         expect(intake.routing_number).to be_nil
-        expect(intake.bank_name).to be_nil
-        expect(intake.account_holder_name).to be_nil
+        expect(intake.account_holder_first_name).to be_nil
+        expect(intake.account_holder_middle_initial).to be_nil
+        expect(intake.account_holder_last_name).to be_nil
+        expect(intake.account_holder_suffix).to be_nil
       end
     end
 
@@ -48,8 +53,10 @@ RSpec.describe StateFile::MdTaxRefundForm do
         expect(intake.account_type).to eq "checking"
         expect(intake.routing_number).to eq "019456124"
         expect(intake.account_number).to eq "12345"
-        expect(intake.bank_name).to eq "Bank official"
-        expect(intake.account_holder_name).to eq "Geddy Lee"
+        expect(intake.account_holder_first_name).to eq "Geddy"
+        expect(intake.account_holder_middle_initial).to eq "J"
+        expect(intake.account_holder_last_name).to eq "Lee"
+        expect(intake.account_holder_suffix).to eq "JR"
       end
     end
 
@@ -61,8 +68,16 @@ RSpec.describe StateFile::MdTaxRefundForm do
           routing_number: "019456124",
           account_number: "12345",
           account_type: "checking",
-          bank_name: "Bank official",
-          account_holder_name: "Laney Knope"
+          account_holder_first_name: "Laney",
+          account_holder_middle_initial: "",
+          account_holder_last_name: "Knope",
+          account_holder_suffix: "",
+          joint_account_holder_first_name: "Janey",
+          joint_account_holder_middle_initial: "",
+          joint_account_holder_last_name: "Knope",
+          joint_account_holder_suffix: "",
+          has_joint_account_holder: 'yes',
+          bank_authorization_confirmed: "yes",
         )
       end
 
@@ -76,8 +91,15 @@ RSpec.describe StateFile::MdTaxRefundForm do
         expect(intake.account_type).to eq "unfilled"
         expect(intake.account_number).to be_nil
         expect(intake.routing_number).to be_nil
-        expect(intake.bank_name).to be_nil
-        expect(intake.account_holder_name).to be_nil
+        expect(intake.account_holder_first_name).to be_nil
+        expect(intake.account_holder_middle_initial).to be_nil
+        expect(intake.account_holder_last_name).to be_nil
+        expect(intake.account_holder_suffix).to be_nil
+        expect(intake.account_holder_first_name).to be_nil
+        expect(intake.account_holder_middle_initial).to be_nil
+        expect(intake.account_holder_last_name).to be_nil
+        expect(intake.account_holder_suffix).to be_nil
+        expect(intake.bank_authorization_confirmed).to eq "unfilled"
       end
     end
   end
@@ -89,8 +111,16 @@ RSpec.describe StateFile::MdTaxRefundForm do
     let(:account_number) { "12345" }
     let(:account_number_confirmation) { "12345" }
     let(:account_type) { "checking" }
-    let(:bank_name) { "Bank official" }
-    let(:account_holder_name) { "Laney Knope" }
+    let(:account_holder_first_name) { "Laney" }
+    let(:account_holder_middle_initial) { "K" }
+    let(:account_holder_last_name) { "Knope" }
+    let(:account_holder_suffix) { "II" }
+    let(:joint_account_holder_first_name) { "" }
+    let(:joint_account_holder_middle_initial) { "" }
+    let(:joint_account_holder_last_name) { "" }
+    let(:joint_account_holder_suffix) { "" }
+    let(:has_joint_account_holder) { "no" }
+    let(:bank_authorization_confirmed) { "yes" }
 
     let(:params) do
       {
@@ -100,8 +130,16 @@ RSpec.describe StateFile::MdTaxRefundForm do
         account_number: account_number,
         account_number_confirmation: account_number_confirmation,
         account_type: account_type,
-        bank_name: bank_name,
-        account_holder_name: account_holder_name
+        account_holder_first_name: account_holder_first_name,
+        account_holder_middle_initial: account_holder_middle_initial,
+        account_holder_last_name: account_holder_last_name,
+        account_holder_suffix: account_holder_suffix,
+        has_joint_account_holder: has_joint_account_holder,
+        joint_account_holder_first_name: joint_account_holder_first_name,
+        joint_account_holder_middle_initial: joint_account_holder_middle_initial,
+        joint_account_holder_last_name: joint_account_holder_last_name,
+        joint_account_holder_suffix: joint_account_holder_suffix,
+        bank_authorization_confirmed: bank_authorization_confirmed,
       }
     end
 
@@ -114,7 +152,21 @@ RSpec.describe StateFile::MdTaxRefundForm do
       end
     end
 
+    context "bank_authorization_confirmed" do
+      context "if 'no' param passed in" do
+        let(:bank_authorization_confirmed) { "no" }
+
+        it "invalid" do
+          form = described_class.new(intake, params)
+          expect(form).not_to be_valid
+          expect(form.errors).to include :bank_authorization_confirmed
+        end
+      end
+    end
+
     context "when the payment_or_deposit_type is direct_deposit" do
+      let(:payment_or_deposit_type) { "direct_deposit" }
+
       context "all other params present" do
         it "is valid" do
           form = described_class.new(intake, params)
@@ -122,12 +174,105 @@ RSpec.describe StateFile::MdTaxRefundForm do
         end
       end
 
+      context "with numbers in first and last names" do
+        let(:account_holder_first_name) { "A'1" }
+        let(:account_holder_last_name) { "2A G" }
+        let(:joint_account_holder_first_name) { "1-B" }
+        let(:joint_account_holder_last_name) { "B1" }
+        let(:joint_has_joint_account_holder) { "yes" }
+
+        it "is valid" do
+          form = described_class.new(intake, params)
+          expect(form).to be_valid
+        end
+      end
+
       context "missing account holder name" do
-        let(:account_holder_name) { nil }
+        let(:account_holder_first_name) { nil }
+        let(:account_holder_last_name) { nil }
         it "is not valid" do
           form = described_class.new(intake, params)
           expect(form).not_to be_valid
-          expect(form.errors).to include :account_holder_name
+          expect(form.errors).to include :account_holder_first_name
+          expect(form.errors).to include :account_holder_last_name
+        end
+      end
+
+      context "has invalid account_holder params" do
+        let(:account_holder_first_name) { "A12345678_101112131415A1234567891" }
+        let(:account_holder_middle_initial) { 'AB' }
+        let(:account_holder_last_name) { "B'23%9" }
+        let(:account_holder_suffix) { "SH" }
+
+        it "is invalid" do
+          form = described_class.new(intake, params)
+          expect(form).not_to be_valid
+          expect(form.errors[:account_holder_first_name]).to include("Only letters, numbers, hyphen, and apostrophe are accepted, and first name must be less than 16 characters.")
+          expect(form.errors[:account_holder_middle_initial]).to include("is too long (maximum is 1 character)")
+          expect(form.errors[:account_holder_last_name]).to include("Only letters, numbers, hyphen, and apostrophe are accepted, and last name must be less than 32 characters.")
+          expect(form.errors[:account_holder_suffix]).to include("is not included in the list")
+        end
+      end
+
+      context "missing joint account holder name" do
+        let(:joint_account_holder_first_name) { nil }
+        let(:joint_account_holder_last_name) { nil }
+
+        context "when client did not indicate has_joint_account_holder" do
+          it "is valid" do
+            form = described_class.new(intake, params)
+            expect(form).to be_valid
+            expect(form.errors).to be_empty
+          end
+        end
+
+        context "when client did indicate has_joint_account_holder" do
+          let(:has_joint_account_holder) { 'yes' }
+
+          context "has valid params" do
+            let(:joint_account_holder_first_name) { "ABCD EFGH-JKLM" }
+            let(:joint_account_holder_middle_initial) { "Z" }
+            let(:joint_account_holder_last_name) { "B'ONEIL" }
+            let(:joint_account_holder_suffix) { "VII" }
+
+            it "is valid" do
+              form = described_class.new(intake, params)
+              expect(form).to be_valid
+              expect(form.errors).to be_empty
+            end
+          end
+
+          context "has invalid params" do
+            let(:joint_account_holder_first_name) { "A12345678910(112131415A1234567891" }
+            let(:joint_account_holder_middle_initial) { 'AB' }
+            let(:joint_account_holder_last_name) { "B'23%9" }
+            let(:joint_account_holder_suffix) { "SH" }
+
+            it "is invalid" do
+              form = described_class.new(intake, params)
+              expect(form).not_to be_valid
+              expect(form.errors[:joint_account_holder_first_name]).to include("Only letters, numbers, hyphen, and apostrophe are accepted, and first name must be less than 16 characters.")
+              expect(form.errors[:joint_account_holder_middle_initial]).to include("is too long (maximum is 1 character)")
+              expect(form.errors[:joint_account_holder_last_name]).to include("Only letters, numbers, hyphen, and apostrophe are accepted, and last name must be less than 32 characters.")
+              expect(form.errors[:joint_account_holder_suffix]).to include("is not included in the list")
+            end
+          end
+
+          context "has missing params" do
+            let(:joint_account_holder_first_name) { nil }
+            let(:joint_account_holder_middle_initial) { nil }
+            let(:joint_account_holder_last_name) { nil }
+            let(:joint_account_holder_suffix) { nil }
+
+            it "is invalid" do
+              form = described_class.new(intake, params)
+              expect(form).not_to be_valid
+              expect(form.errors[:joint_account_holder_first_name]).to include("Can't be blank.")
+              expect(form.errors[:joint_account_holder_middle_initial]).to be_empty
+              expect(form.errors[:joint_account_holder_last_name]).to include("Can't be blank.")
+              expect(form.errors[:joint_account_holder_suffix]).to be_empty
+            end
+          end
         end
       end
 

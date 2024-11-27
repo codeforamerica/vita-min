@@ -13,7 +13,7 @@ describe StateFile::Questions::TaxesOwedController do
       get :edit
       expect(response).to be_successful
       expect(response_html).to have_text "You owe"
-      expect(response_html).to have_text "Bank name"
+      expect(response_html).to have_text "Routing Number"
     end
   end
 end

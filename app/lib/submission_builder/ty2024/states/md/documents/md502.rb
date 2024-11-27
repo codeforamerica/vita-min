@@ -41,7 +41,7 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
   def document
     build_xml_doc("Form502", documentId: "Form502") do |xml|
       xml.MarylandSubdivisionCode @intake.subdivision_code
-      unless @intake.political_subdivision&.end_with?("- unincorporated")
+      unless @intake.political_subdivision == "All Other Areas"
         xml.CityTownOrTaxingArea @intake.political_subdivision
       end
       xml.MarylandAddress do
@@ -114,9 +114,10 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
         xml.FedAGIAndStateAdditions calculated_fields.fetch(:MD502_LINE_7)
       end
       xml.Subtractions do
-        xml.ChildAndDependentCareExpenses @direct_file_data.total_qualifying_dependent_care_expenses
-        xml.SocialSecurityRailRoadBenefits @direct_file_data.fed_taxable_ssb
-        xml.Other calculated_fields.fetch(:MD502_LINE_13)
+        add_element_if_present(xml, "ChildAndDependentCareExpenses", :MD502_LINE_9)
+        add_element_if_present(xml, "SocialSecurityRailRoadBenefits", :MD502_LINE_11)
+        add_element_if_present(xml, "Other", :MD502_LINE_13)
+        add_element_if_present(xml, "TwoIncome", :MD502_LINE_14)
         add_element_if_present(xml, "Total", :MD502_LINE_15)
         add_element_if_present(xml, "StateAdjustedGrossIncome", :MD502_LINE_16)
       end
@@ -139,7 +140,33 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
           xml.StateTaxAfterCredits calculated_fields.fetch(:MD502_LINE_27) if @deduction_method_is_standard
         end
       end
+      xml.LocalTaxComputation do
+        add_element_if_present(xml, "LocalTaxRate", :MD502_LINE_28_LOCAL_TAX_RATE) unless @intake.residence_county == "Anne Arundel"
+        add_element_if_present(xml, "LocalIncomeTax", :MD502_LINE_28_LOCAL_TAX_AMOUNT)
+        add_element_if_present(xml, "EarnedIncomeCredit", :MD502_LINE_29)
+        add_element_if_present(xml, "PovertyLevelCredit", :MD502_LINE_30)
+        add_element_if_present(xml,"TotalCredits", :MD502_LINE_32)
+        add_element_if_present(xml,"LocalTaxAfterCredits", :MD502_LINE_33)
+      end
+      add_element_if_present(xml, "TotalStateAndLocalTax", :MD502_LINE_34)
       xml.TaxWithheld calculated_fields.fetch(:MD502_LINE_40)
+      xml.AuthToDirectDepositInd "X" if calculated_fields.fetch(:MD502_AUTHORIZE_DIRECT_DEPOSIT)
+      if @intake.payment_or_deposit_type.to_sym == :direct_deposit
+        xml.NameOnBankAccount do
+          xml.FirstName sanitize_for_xml(@intake.account_holder_first_name) if @intake.account_holder_first_name
+          xml.MiddleInitial sanitize_for_xml(@intake.account_holder_middle_initial) if @intake.account_holder_middle_initial
+          xml.LastName sanitize_for_xml(@intake.account_holder_last_name) if @intake.account_holder_last_name
+          xml.NameSuffix @intake.account_holder_suffix if @intake.account_holder_suffix
+        end
+        if @intake.has_joint_account_holder_yes?
+          xml.NameOnBankAccount do
+            xml.FirstName sanitize_for_xml(@intake.joint_account_holder_first_name) if @intake.joint_account_holder_first_name
+            xml.MiddleInitial sanitize_for_xml(@intake.joint_account_holder_middle_initial) if @intake.joint_account_holder_middle_initial
+            xml.LastName sanitize_for_xml(@intake.joint_account_holder_last_name) if @intake.joint_account_holder_last_name
+            xml.NameSuffix @intake.joint_account_holder_suffix if @intake.joint_account_holder_suffix
+          end
+        end
+      end
       xml.DaytimePhoneNumber @direct_file_data.phone_number if @direct_file_data.phone_number.present?
     end
   end
@@ -193,10 +220,5 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
 
   def county_abbreviation
     COUNTY_ABBREVIATIONS[@intake.residence_county]
-  end
-
-  def add_element_if_present(xml, tag, line_id)
-    value = calculated_fields.fetch(line_id)
-    xml.send(tag, value) if value.present?
   end
 end

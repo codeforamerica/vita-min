@@ -10,6 +10,9 @@ class DirectFileJsonData
 
   class DfJsonFiler < DfJsonPerson
     json_accessor is_primary_filer: { type: :boolean, key: "isPrimaryFiler" }
+    json_accessor form_1099_gs_total: { type: :money_amount, key: "form1099GsTotal" }
+    json_accessor educator_expenses: { type: :money_amount, key: "educatorExpenses" }
+    json_accessor hsa_total_deductible_amount: { type: :money_amount, key: "hsaTotalDeductibleAmount" }
   end
 
   class DfJsonDependent < DfJsonPerson
@@ -63,13 +66,11 @@ class DirectFileJsonData
     data["interestReports"]&.map { |interest_report| DfJsonInterestReport.new(interest_report) } || []
   end
 
-  def dependents
-    data["familyAndHousehold"]&.map { |dependent| DfJsonDependent.new(dependent) } || []
-  end
-
-  private
-
   def filers
     data["filers"]&.map { |filer| DfJsonFiler.new(filer) } || []
+  end
+
+  def dependents
+    data["familyAndHousehold"]&.map { |dependent| DfJsonDependent.new(dependent) } || []
   end
 end

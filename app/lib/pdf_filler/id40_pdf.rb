@@ -66,6 +66,11 @@ module PdfFiller
         'PymntsOtherCreditsCheck' => @xml_document.at('DonateGroceryCredit')&.text == 'true' ? 'Yes' : 'Off',
         'PymntOtherCreditL43Amount' => @xml_document.at('GroceryCredit')&.text,
         'PymntOtherCreditL46' => @xml_document.at('TaxWithheld')&.text,
+        'PymntOtherCreditL50Total' => calculated_fields.fetch(:ID40_LINE_50),
+        'TxDueRefundL51' => @xml_document.at('TaxDue')&.text,
+        'TxDueRefundL54' => @xml_document.at('TotalDue')&.text,
+        'TxDueRefundL55' => @xml_document.at('OverpaymentAfterPenaltyAndInt')&.text,
+        'RefundedL56' => @xml_document.at('OverpaymentRefunded')&.text,
       }
       @submission.data_source.dependents.first(4).each_with_index do |dependent, index|
         answers.merge!(

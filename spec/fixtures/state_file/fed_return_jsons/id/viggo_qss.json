@@ -4,7 +4,7 @@
                         "firstName": "Henry",
                         "lastName": "Mortenson",
                         "middleInitial": null,
-                        "tin": "400-00-0007",
+                        "tin": "300-00-0014",
                         "dateOfBirth": "2019-05-15",
                         "relationship": "biologicalChild",
                         "eligibleDependent": true,
@@ -16,7 +16,7 @@
                         "firstName": "Viggo",
                         "lastName": "Mortenson",
                         "middleInitial": null,
-                        "tin": "300-00-0014",
+                        "tin": "400-00-0007",
                         "dateOfBirth": "1958-10-20",
                         "isPrimaryFiler": true
                 }

@@ -10,7 +10,6 @@ RSpec.describe StateFile::TaxRefundForm do
       account_number: "12345",
       account_number_confirmation: "12345",
       account_type: "checking",
-      bank_name: "Bank official",
     }
   end
 
@@ -26,7 +25,6 @@ RSpec.describe StateFile::TaxRefundForm do
         expect(intake.account_type).to eq "unfilled"
         expect(intake.account_number).to be_nil
         expect(intake.routing_number).to be_nil
-        expect(intake.bank_name).to be_nil
       end
     end
 
@@ -45,7 +43,6 @@ RSpec.describe StateFile::TaxRefundForm do
         expect(intake.account_type).to eq "checking"
         expect(intake.routing_number).to eq "019456124"
         expect(intake.account_number).to eq "12345"
-        expect(intake.bank_name).to eq "Bank official"
       end
 
       context "when overwriting an existing intake" do
@@ -56,7 +53,6 @@ RSpec.describe StateFile::TaxRefundForm do
             routing_number: "019456124",
             account_number: "12345",
             account_type: "checking",
-            bank_name: "Bank official"
           )
         end
         it "updates the intake" do
@@ -69,7 +65,6 @@ RSpec.describe StateFile::TaxRefundForm do
           expect(intake.account_type).to eq "unfilled"
           expect(intake.account_number).to be_nil
           expect(intake.routing_number).to be_nil
-          expect(intake.bank_name).to be_nil
         end
       end
     end
@@ -83,7 +78,6 @@ RSpec.describe StateFile::TaxRefundForm do
           account_number: "123",
           account_number_confirmation: "",
           account_type: nil,
-          bank_name: nil,
         }
       end
 
@@ -94,7 +88,6 @@ RSpec.describe StateFile::TaxRefundForm do
         expect(form.errors[:routing_number_confirmation]).to be_present
         expect(form.errors[:account_number_confirmation]).to be_present
         expect(form.errors[:account_type]).to be_present
-        expect(form.errors[:bank_name]).to be_present
       end
     end
   end
@@ -106,7 +99,6 @@ RSpec.describe StateFile::TaxRefundForm do
     let(:account_number) { "12345" }
     let(:account_number_confirmation) { "12345" }
     let(:account_type) { "checking" }
-    let(:bank_name) { "Bank official" }
     let(:params) do
       {
         payment_or_deposit_type: payment_or_deposit_type,
@@ -115,7 +107,6 @@ RSpec.describe StateFile::TaxRefundForm do
         account_number: account_number,
         account_number_confirmation: account_number_confirmation,
         account_type: account_type,
-        bank_name: bank_name
       }
     end
 

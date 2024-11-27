@@ -374,6 +374,55 @@ module PdfFiller
                                                  ]))
       end
 
+      # line 45
+      if @xml_document.at("BalanceOfTaxA").present?
+        tax_balance = @xml_document.at("BalanceOfTaxA").text.to_i
+        answers.merge!(insert_digits_into_fields(tax_balance, [
+          "Text110",
+          "Text109",
+          "Text108",
+          "Text102",
+          "Text99",
+          "undefined_126",
+          "undefined_125",
+          "45",
+          "4036y54ethdf!!!##\$$",
+          "Enter Code4332243ewR@434",
+        ]))
+      end
+
+      # line 49
+      if @xml_document.at("TotalCredits").present?
+        credits = @xml_document.at("TotalCredits").text.to_i
+        answers.merge!(insert_digits_into_fields(credits, [
+          "Text125",
+          "Text124",
+          "Text123",
+          "Text122",
+          "Text121",
+          "undefined_132",
+          "undefined_131",
+          "48",
+        ]))
+      end
+
+      # line 50
+      if @xml_document.at("BalanceOfTaxAfterCredit").present?
+        balance_after_credits = @xml_document.at("BalanceOfTaxAfterCredit").text.to_i
+        answers.merge!(insert_digits_into_fields(balance_after_credits, [
+          "Text130",
+          "Text129",
+          "Text128",
+          "Text127",
+          "Text126",
+          "undefined_134",
+          "undefined_133",
+          "49",
+          '4036y54ethdf\(*H', # this has to be single-quotes not double-quotes or everything will break
+          "Enter Code4332243ew6576z66z##",
+        ]))
+      end
+
       # line 51
       if @xml_document.at("SalesAndUseTax").present?
         tax = @xml_document.at("SalesAndUseTax").text.to_i
@@ -387,6 +436,23 @@ module PdfFiller
                                                    "50_2",
                                                    "50",
                                                  ]))
+      end
+
+      # line 54
+      if @xml_document.at("TotalTaxAndPenalty").present?
+        total_tax_and_penalty = @xml_document.at("TotalTaxAndPenalty").text.to_i
+        answers.merge!(insert_digits_into_fields(total_tax_and_penalty, [
+          "Text152",
+          "Text151",
+          "Text150",
+          "Text149",
+          "Text148",
+          "undefined_142",
+          "undefined_141",
+          "53",
+          "4036y54ethdf%%^87",
+          "Enter Code4332243ew^^%$#",
+        ]))
       end
 
       # line 56
