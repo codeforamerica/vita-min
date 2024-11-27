@@ -2057,6 +2057,35 @@ en:
       id_taxable_income: Idaho taxable income
       id_total_payments: Total payments and refundable credits
       id_use_tax: Use tax
+      md_adjusted_gross_income: Maryland Adjusted Gross Income
+      md_child_tax_credit: Maryland Child Tax Credit
+      md_local_poverty_level_credit: Local Poverty Level Credit
+      md_local_tax: Local tax
+      md_military_retirement_income_exclusion: Military retirement income exclusion
+      md_nonrefundable_credit_child_dependent_care: Maryland nonrefundable Credit for Child and Dependent Care Expenses
+      md_nonrefundable_earned_income_tax_credit: Nonrefundable Maryland Earned Income Tax Credit
+      md_nonrefundable_local_earned_income_tax_credit: Nonrefundable local Earned Income Tax Credit
+      md_pension_income_exclusion: Pension income exclusion
+      md_poverty_level_credit: Maryland Poverty Level Credit
+      md_public_safety_retirement_income_exclusion: Public safety retirement income exclusion
+      md_refundable_child_dependent_care_credit: Refundable Child and Dependent Care Credit
+      md_refundable_earned_income_tax_credit: Refundable Maryland Earned Income Tax Credit
+      md_return_type: Type of return
+      md_senior_tax_credit: Senior Tax Credit
+      md_social_security_income_not_taxed: Social Security income (not taxed in Maryland)
+      md_standard_deduction: Standard deduction
+      md_state_retirement_pickup_addition: State retirement pickup addition
+      md_subtraction_child_dependent_care_expenses: Subtraction for child and dependent care expenses
+      md_subtraction_income_us_gov_bonds: Subtraction for income from U.S. government bonds
+      md_tax: Maryland tax
+      md_tax_withheld: Maryland and local tax withheld
+      md_taxable_net_income: Maryland taxable net income
+      md_total_exemptions_people_household: Total exemptions for people in your household
+      md_total_payments_refundable_credits: Total payments and refundable credits
+      md_total_tax_after_nonrefundable_credits: Total tax after nonrefundable credits
+      md_two_income_subtraction_married_taxpayers: Two-income subtraction for married taxpayers
+      md_type_of_return_nontaxable: Nontaxable (you are not required to file a Maryland return, which increases your refund)
+      md_type_of_return_standard: Standard
       nc_income_tax: North Carolina income tax
       nc_tax_withheld: North Carolina tax withheld
       nc_taxable_income: North Carolina taxable income
