@@ -44,7 +44,6 @@ RSpec.describe PdfFiller::Id40Pdf do
       before do
         allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_19).and_return(2000)
         allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_20).and_return(199.80)
-        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_21).and_return(199.80)
       end
 
       before do

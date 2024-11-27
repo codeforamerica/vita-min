@@ -53,7 +53,7 @@ module PdfFiller
         'TxCompL17' => @xml_document.at('TaxableIncomeState')&.text,
         'TxCompL19' => @xml_document.at('TaxableIncomeState')&.text,
         'TxCompL20' => round_amount_to_nearest_integer(@xml_document.at('StateIncomeTax')&.text),
-        'L21' => round_amount_to_nearest_integer(calculated_fields.fetch(:ID40_LINE_21)),
+        'L21' => round_amount_to_nearest_integer(@xml_document.at('StateIncomeTax')&.text),
         'CreditsL23' => @xml_document.at('Form39R TotalSupplementalCredits')&.text,
         'CreditsL25' => @xml_document.at('Form40 IdahoChildTaxCredit')&.text,
         'CreditsL26' => calculated_fields.fetch(:ID40_LINE_26),
