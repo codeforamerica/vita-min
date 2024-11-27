@@ -633,13 +633,6 @@ MD502_LINE_24:
 MD502_LINE_26:
   label: '26. Total credits (Add lines 22 through 25.)'
 MD502_LINE_27:
-<<<<<<< HEAD
-  label: 'Maryland tax after credits (Add lines 21 and 21a, then subtract line 26.) If less than 0, enter 0.27'
-MD502_LINE_34:
-  label: '34. Total Maryland and local tax amount (line 27 + line 33 if deduction standard)'
-MD502_LINE_39:
-  label: "39. Total Maryland income tax, local income tax and contributions"
-=======
   label: '27. Maryland tax after credits (Add lines 21 and 21a, then subtract line 26.) If less than 0, enter 0.27'
 MD502_LINE_28_LOCAL_TAX_RATE:
   label: '28. Local Tax Rate'
@@ -655,7 +648,8 @@ MD502_LINE_33:
   label: '33. Local tax after credits: local tax amount minus total local tax credits (line 28 - line 32)'
 MD502_LINE_34:
   label: '34. Total Maryland and local tax amount (line 27 + line 33 if deduction standard)'
->>>>>>> main
+MD502_LINE_39:
+  label: "39. Total Maryland income tax, local income tax and contributions"
 MD502_LINE_40:
   label: "40 Total Maryland and local tax withheld"
 MD502_LINE_42:

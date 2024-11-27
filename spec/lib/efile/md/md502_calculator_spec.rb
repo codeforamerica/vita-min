@@ -1101,7 +1101,6 @@ describe Efile::Md::Md502Calculator do
     end
   end
 
-<<<<<<< HEAD
   describe "#calculate_line_39" do
     context "when there is a value for line 34" do
       before do
@@ -1119,7 +1118,10 @@ describe Efile::Md::Md502Calculator do
         allow_any_instance_of(described_class).to receive(:calculate_line_34).and_return nil
         instance.calculate
         expect(instance.lines[:MD502_LINE_39].value).to eq 0
-=======
+      end
+    end
+  end
+
   describe "#calculate_line_28_local_tax_rate" do
     let(:taxable_net_income) { 10_000 }
     before do
@@ -1190,12 +1192,10 @@ describe Efile::Md::Md502Calculator do
             expect(instance.lines[:MD502_LINE_28_LOCAL_TAX_RATE].value).to eq(0.032)
           end
         end
->>>>>>> main
       end
     end
   end
 
-<<<<<<< HEAD
   describe "#calculate_line_42" do
     let(:filing_status) { "head_of_household" }
     let(:df_xml_key) { "md_laney_qss" }
@@ -1268,7 +1268,10 @@ describe Efile::Md::Md502Calculator do
       let(:df_xml_key) { "md_zeus_two_w2s" }
       it 'refundable EIC is nil' do
         expect(instance.lines[:MD502_LINE_42].value).to eq nil
-=======
+      end
+    end
+  end
+
   describe "#calculate_line_28_local_tax_amount" do
     before do
       allow_any_instance_of(described_class).to receive(:calculate_line_20).and_return 300_000
@@ -1325,12 +1328,10 @@ describe Efile::Md::Md502Calculator do
       it "uses the tax rate from line 28 in the formula" do
         # (0.0303 * 10) * 1001
         expect(instance.lines[:MD502_LINE_29].value).to eq(303)
->>>>>>> main
       end
     end
   end
 
-<<<<<<< HEAD
   describe "#calculate_line_44" do
     before do
       allow_any_instance_of(described_class).to receive(:calculate_line_40).and_return 250
@@ -1389,7 +1390,10 @@ describe Efile::Md::Md502Calculator do
       it "returns nil" do
         instance.calculate
         expect(instance.lines[:MD502_LINE_46].value).to eq(nil)
-=======
+      end
+    end
+  end
+
   describe "#calculate_line_30" do
     context "deduction method is standard and they qualify for state poverty level credit" do
       before do
@@ -1509,7 +1513,6 @@ describe Efile::Md::Md502Calculator do
         allow_any_instance_of(described_class).to receive(:calculate_deduction_method).and_return "N"
         instance.calculate
         expect(instance.lines[:MD502_LINE_34].value).to eq nil
->>>>>>> main
       end
     end
   end

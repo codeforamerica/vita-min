@@ -79,10 +79,6 @@ module Efile
         set_line(:MD502_LINE_26, :calculate_line_26)
         set_line(:MD502_LINE_27, :calculate_line_27)
 
-<<<<<<< HEAD
-        set_line(:MD502_LINE_34, :calculate_line_34)
-        set_line(:MD502_LINE_39, :calculate_line_39)
-=======
         # Local tax
         set_line(:MD502_LINE_28_LOCAL_TAX_RATE, :calculate_line_28_local_tax_rate)
         set_line(:MD502_LINE_28_LOCAL_TAX_AMOUNT, :calculate_line_28_local_tax_amount)
@@ -91,8 +87,7 @@ module Efile
         set_line(:MD502_LINE_32, :calculate_line_32)
         set_line(:MD502_LINE_33, :calculate_line_33)
         set_line(:MD502_LINE_34, :calculate_line_34)
-
->>>>>>> main
+        set_line(:MD502_LINE_39, :calculate_line_39)
         set_line(:MD502_LINE_40, :calculate_line_40)
         set_line(:MD502_LINE_42, :calculate_line_42)
         set_line(:MD502_LINE_43, :calculate_line_43)
@@ -552,10 +547,6 @@ module Efile
         if deduction_method_is_standard?
           line_or_zero(:MD502_LINE_27) + line_or_zero(:MD502_LINE_33)
         end
-      end
-
-      def calculate_line_34
-        0 #stub
       end
 
       def calculate_line_39

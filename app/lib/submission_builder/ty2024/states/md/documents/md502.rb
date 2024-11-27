@@ -139,9 +139,6 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
           xml.StateTaxAfterCredits calculated_fields.fetch(:MD502_LINE_27) if @deduction_method_is_standard
         end
       end
-<<<<<<< HEAD
-      add_non_zero_value(xml, :TotalTaxAndContributions,:MD502_LINE_39)
-=======
       xml.LocalTaxComputation do
         add_element_if_present(xml, "LocalTaxRate", :MD502_LINE_28_LOCAL_TAX_RATE) unless @intake.residence_county == "Anne Arundel"
         add_element_if_present(xml, "LocalIncomeTax", :MD502_LINE_28_LOCAL_TAX_AMOUNT)
@@ -151,7 +148,7 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
         add_element_if_present(xml,"LocalTaxAfterCredits", :MD502_LINE_33)
       end
       add_element_if_present(xml, "TotalStateAndLocalTax", :MD502_LINE_34)
->>>>>>> main
+      add_non_zero_value(xml, :TotalTaxAndContributions,:MD502_LINE_39)
       xml.TaxWithheld calculated_fields.fetch(:MD502_LINE_40)
       add_non_zero_value(xml, :RefundableEIC,:MD502_LINE_42)
       add_non_zero_value(xml, :TotalPaymentsAndCredits,:MD502_LINE_44)
