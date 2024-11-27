@@ -11,6 +11,7 @@ RSpec.describe PdfFiller::Md502CrPdf do
     before do
       intake.direct_file_data.fed_agi = 100
       intake.direct_file_data.fed_credit_for_child_and_dependent_care_amount = 10
+      allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "S"
       allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_24).and_return 50
     end
     let(:file_path) { described_class.new(submission).output_file.path }
