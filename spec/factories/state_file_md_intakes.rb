@@ -148,7 +148,8 @@ FactoryBot.define do
     end
 
     trait :with_spouse do
-      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("md_nate_mfj") }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("md_minimal_with_spouse") }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('md_minimal_with_spouse') }
       filing_status { 'married_filing_jointly' }
 
       spouse_first_name { "Marty" }
@@ -158,7 +159,8 @@ FactoryBot.define do
     end
 
     trait :with_senior_spouse do
-      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("md_nate_mfj") }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("md_minimal_with_spouse") }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('md_minimal_with_spouse') }
       filing_status { 'married_filing_jointly' }
 
       spouse_first_name { "Marty" }
@@ -173,6 +175,7 @@ FactoryBot.define do
 
     trait :df_data_many_w2s do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('md_zeus_many_w2s') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('md_zeus_many_w2s') }
     end
 
     trait :head_of_household do

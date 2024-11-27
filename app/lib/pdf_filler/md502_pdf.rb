@@ -74,6 +74,7 @@ module PdfFiller
         'Text Field 11': generate_codes_for_502_su.at(2),
         'Text Field 12': generate_codes_for_502_su.at(3),
         'Enter 13': @xml_document.at('Form502 Subtractions Other')&.text,
+        'Enter 14': @xml_document.at('Form502 Subtractions TwoIncome')&.text,
         'Text Box 68': @xml_document.at('Form502 TaxWithheld')&.text,
         'Text Box 34': @xml_document.at('Form502 StateTaxComputation EarnedIncomeCredit')&.text,
         'Check Box 37': checkbox_value(@xml_document.at('Form502 StateTaxComputation MDEICWithQualChildInd')&.text),

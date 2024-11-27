@@ -171,7 +171,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
 
         it "correctly fills answers" do
           expect(xml.document.at('FilingStatus MarriedFilingSeparately').text).to eq "X"
-          expect(xml.document.at('FilingStatus MarriedFilingSeparately')['spouseSSN']).to eq "600000030"
+          expect(xml.document.at('FilingStatus MarriedFilingSeparately')['spouseSSN']).to eq "987654321"
         end
       end
 
@@ -289,11 +289,13 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
 
       context "subtractions section" do
         let(:other_subtractions) { 100 }
+        let(:two_income_subtraction_amount) { 1200 }
         let(:total_subtractions) { 150 }
         let(:state_adjusted_income) { 300 }
         context "when all relevant values are present in the DF XML" do
           before do
             allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_13).and_return other_subtractions
+            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_14).and_return two_income_subtraction_amount
             allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_15).and_return total_subtractions
             allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_16).and_return state_adjusted_income
             intake.direct_file_data.total_qualifying_dependent_care_expenses = 1200
@@ -310,6 +312,10 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
 
           it "outputs the Subtractions from Form 502SU" do
             expect(xml.at("Form502 Subtractions Other").text.to_i).to eq(other_subtractions)
+          end
+
+          it "outputs the Two income Subtraction amount" do
+            expect(xml.at("Form502 Subtractions TwoIncome").text.to_i).to eq(two_income_subtraction_amount)
           end
 
           it "outputs the sum of the Subtractions" do

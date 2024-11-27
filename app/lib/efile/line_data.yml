@@ -610,10 +610,48 @@ MD502_LINE_D_COUNT_TOTAL:
   label: 'D Total Exemption Count: add lines A, B and C counts'
 MD502_LINE_D_AMOUNT_TOTAL:
   label: 'D Total Exemption Dollar Amount: add lines A, B and C amounts'
+MD502_LINE_9:
+  label: 'Child and dependent care expenses'
 MD502_LINE_10A:
   label: 'TBD'
+MD502_LINE_11:
+  label: 'Taxable Social Security and RR benefits (Tier I, II and supplemental) included in line 1'
 MD502_LINE_13:
   label: 'Subtractions from attached form 502SU'
+MD_TWO_INCOME_WK_LINE_1_A:
+  label: 'ENTER the portion of federal adjusted gross income from line 1 of Form 502
+attributable to each spouse. (a) you'
+MD_TWO_INCOME_WK_LINE_2_A:
+  label: 'ENTER the portion of additions to income from line 6 of Form 502
+attributable to each spouse. (a) you'
+MD_TWO_INCOME_WK_LINE_3_A:
+  label: 'ADD lines 1 and 2. (a) you'
+MD_TWO_INCOME_WK_LINE_4_A:
+  label: 'ENTER the portion of subtractions from income from lines 8 - 13 of Form 502
+attributable to each spouse. (a) you'
+MD_TWO_INCOME_WK_LINE_5_A:
+  label: 'SUBTRACT line 4 from line 3. (a) you'
+MD_TWO_INCOME_WK_LINE_1_B:
+  label: 'ENTER the portion of federal adjusted gross income from line 1 of Form 502
+attributable to each spouse. (b) your spouse'
+MD_TWO_INCOME_WK_LINE_2_B:
+  label: 'ENTER the portion of additions to income from line 6 of Form 502
+attributable to each spouse. (b) your spouse'
+MD_TWO_INCOME_WK_LINE_3_B:
+  label: 'ADD lines 1 and 2. (b) your spouse'
+MD_TWO_INCOME_WK_LINE_4_B:
+  label: 'ENTER the portion of subtractions from income from lines 8 - 13 of Form 502
+attributable to each spouse. (b) your spouse'
+MD_TWO_INCOME_WK_LINE_5_B:
+  label: 'SUBTRACT line 4 from line 3. (b) your spouse'
+MD_TWO_INCOME_WK_LINE_6:
+  label: 'COMPARE the amounts on lines 5 (a) and (b) and enter the smaller amount here
+but not less than zero'
+MD_TWO_INCOME_WK_LINE_7:
+  label: 'ENTER $1,200 or the amount on line 6, whichever is less.
+ENTER this amount on line 14 of Form 502.'
+MD502_LINE_14:
+  label: 'Two-income subtraction from worksheet in Instruction 13.'
 MD502_LINE_15:
   label: 'Total subtractions (Add lines 8 through 14. See instructions.)'
 MD502_LINE_16:
