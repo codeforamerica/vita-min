@@ -24,7 +24,7 @@
         <% end %>
       </div>
 
-      <div class="spacing-below-25 with-top-">
+      <div class="spacing-below-25">
         <p class="text--bold spacing-below-5"><%= t("state_file.general.fed_agi") %></p>
         <p><%= number_to_currency(current_intake.calculator.line_or_zero(:MD502_LINE_1)) %></p>
       </div>
@@ -36,7 +36,7 @@
 
       <div class="spacing-below-25">
         <p class="text--bold spacing-below-5"><%= t("state_file.general.md_subtraction_child_dependent_care_expenses") %></p>
-        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:MD502_LINE_9)) %></p>
+        <p><%= number_to_currency(current_intake.direct_file_data.total_qualifying_dependent_care_expenses) %></p>
       </div>
 
       <div class="spacing-below-25">
@@ -46,7 +46,7 @@
 
       <div class="spacing-below-25">
         <p class="text--bold spacing-below-5"><%= t("state_file.general.md_social_security_income_not_taxed") %></p>
-        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:MD502_LINE_11)) %></p>
+        <p><%= number_to_currency(current_intake.direct_file_data.fed_taxable_ssb) %></p>
       </div>
 
       <div class="spacing-below-25">
@@ -90,7 +90,7 @@
         <p><%= number_to_currency(current_intake.calculator.line_or_zero(:MD502_LINE_20)) %></p>
       </div>
 
-      <div class="spacing-below-25">
+      <div class="spacing-below-25 with-top-separator">
         <p class="text--bold spacing-below-5"><%= t("state_file.general.md_tax") %></p>
         <p><%= number_to_currency(current_intake.calculator.line_or_zero(:MD502_LINE_21)) %></p>
       </div>
@@ -139,7 +139,7 @@
         WIP
       </div>
 
-      <div class="spacing-below-25">
+      <div class="spacing-below-25 with-top-separator">
         <p class="text--bold spacing-below-5"><%= t("state_file.general.md_tax_withheld") %></p>
         <p><%= number_to_currency(current_intake.calculator.line_or_zero(:MD502_LINE_40)) %></p>
       </div>
