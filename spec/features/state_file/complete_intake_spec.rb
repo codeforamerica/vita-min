@@ -225,19 +225,6 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text(I18n.t('state_file.questions.unemployment.index.1099_label', name: StateFileAzIntake.last.primary.full_name))
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t("state_file.questions.az_subtractions.edit.title.one", year: filing_year)
-      check "state_file_az_subtractions_form_tribal_member"
-      fill_in "state_file_az_subtractions_form_tribal_wages_amount", with: "100"
-      check "state_file_az_subtractions_form_armed_forces_member"
-      fill_in "state_file_az_subtractions_form_armed_forces_wages_amount", with: "100"
-      click_on I18n.t("general.continue")
-
-      expect(page).to have_text I18n.t("state_file.questions.az_charitable_contributions.edit.title.one", tax_year: filing_year)
-      choose I18n.t("general.affirmative")
-      fill_in "Enter the total amount of cash contributions made in #{filing_year}. (Round to the nearest whole number. Note: you may be asked to provide receipts for donations over $250.)", with: "123"
-      fill_in "Enter the total amount of non-cash contributions made in #{filing_year} (example: the fair market value of donated items). This cannot exceed $500 (round to the nearest whole number.)", with: "123"
-      click_on I18n.t("general.continue")
-
       expect(page).to have_text I18n.t('state_file.questions.az_public_school_contributions.edit.title', year: filing_year)
       choose I18n.t("general.affirmative")
       fill_in "az322_contribution_school_name", with: "Tax Elementary"
@@ -248,6 +235,12 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t('state_file.questions.az_public_school_contributions.index.lets_review')
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text I18n.t("state_file.questions.az_charitable_contributions.edit.title.one", tax_year: filing_year)
+      choose I18n.t("general.affirmative")
+      fill_in "Enter the total amount of cash contributions made in #{MultiTenantService.statefile.current_tax_year}. (Round to the nearest whole number. Note: you may be asked to provide receipts for donations over $250.)", with: "123"
+      fill_in "Enter the total amount of non-cash contributions made in #{MultiTenantService.statefile.current_tax_year} (example: the fair market value of donated items). This cannot exceed $500 (round to the nearest whole number.)", with: "123"
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t('state_file.questions.az_qualifying_organization_contributions.form.main_heading', filing_year: filing_year)
@@ -261,6 +254,13 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       expect(page).to have_text I18n.t('state_file.questions.az_qualifying_organization_contributions.index.lets_review')
 
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text I18n.t("state_file.questions.az_subtractions.edit.title.one", year: MultiTenantService.statefile.current_tax_year)
+      check "state_file_az_subtractions_form_tribal_member"
+      fill_in "state_file_az_subtractions_form_tribal_wages_amount", with: "100"
+      check "state_file_az_subtractions_form_armed_forces_member"
+      fill_in "state_file_az_subtractions_form_armed_forces_wages_amount", with: "100"
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t('state_file.questions.primary_state_id.edit.title')
@@ -287,7 +287,6 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       choose I18n.t("state_file.questions.tax_refund.edit.direct_deposit")
       expect(page).to have_text I18n.t("state_file.questions.tax_refund.bank_details.bank_title")
-      fill_in "state_file_tax_refund_form_bank_name", with: "bank name"
       choose "Checking"
       fill_in "state_file_tax_refund_form_routing_number", with: "019456124"
       fill_in "state_file_tax_refund_form_routing_number_confirmation", with: "019456124"
@@ -433,34 +432,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.landing_page.edit.id.title")
       click_on I18n.t('general.get_started'), id: "firstCta"
 
-      expect(page).to have_text I18n.t("state_file.questions.id_eligibility_residence.edit.emergency_rental_assistance", filing_year: filing_year)
-      expect(page).to have_text I18n.t("state_file.questions.id_eligibility_residence.edit.withdrew_msa_fthb", filing_year: filing_year)
-
-      find_by_id('state_file_id_eligibility_residence_form_eligibility_withdrew_msa_fthb_no').click
-      find_by_id('state_file_id_eligibility_residence_form_eligibility_emergency_rental_assistance_no').click
-
-      click_on I18n.t("general.continue")
-
-      expect(page).to have_text I18n.t("state_file.questions.eligible.id_supported.child_care_deduction")
-      expect(page).to have_text I18n.t("state_file.questions.eligible.id_supported.interest_from_obligations")
-      expect(page).to have_text I18n.t("state_file.questions.eligible.id_supported.social_security_retirement_deduction")
-      expect(page).to have_text I18n.t("state_file.questions.eligible.id_supported.id_child_tax_credit")
-      expect(page).to have_text I18n.t("state_file.questions.eligible.id_supported.id_grocery_credit")
-
-      click_on I18n.t("state_file.questions.eligible.edit.not_supported")
-
-      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.id_college_savings_program")
-      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.id_youth_rehab_contributions")
-      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.maintaining_elderly_disabled_credit")
-      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.long_term_care_insurance_subtraction")
-      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.earned_on_reservation")
-      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.education_contribution_credit")
-      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.itemized_deductions")
-      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.dependents_not_claimed_fed_return")
-      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.voluntary_donations")
-      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.change_in_filing_status")
-
-      click_on I18n.t("general.continue")
+      step_through_eligibility_screener(us_state: "id")
 
       step_through_initial_authentication(contact_preference: :email)
 
@@ -536,6 +508,12 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text "$1,234.60"
       click_on I18n.t("general.continue")
 
+      # Refund page
+      expect(page).to have_text "Good news, you're getting a Idaho state tax refund of $1452. How would you like to receive your refund?"
+      expect(page).not_to have_text "Your responses are saved. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org."
+      choose I18n.t("state_file.questions.tax_refund.edit.mail")
+      click_on I18n.t("general.continue")
+
       expect(page).to have_text I18n.t("state_file.questions.esign_declaration.edit.title", state_name: "Idaho")
       check I18n.t("state_file.questions.esign_declaration.edit.primary_esign")
       click_on I18n.t("state_file.questions.esign_declaration.edit.submit")
@@ -548,6 +526,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
     before do
       # TODO: replace fixture used here with one that has all the characteristics we want to test
       allow_any_instance_of(DirectFileData).to receive(:fed_unemployment).and_return 100
+      allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:refund_or_owed_amount).and_return 1000
     end
 
     it "has content", required_schema: "md" do
@@ -561,15 +540,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       # select optoins that allow us to proceed
       click_on "Continue"
 
-      # click continue on eligibility & check the messaging is correct here?
-      # select mfj
-      choose I18n.t("general.affirmative")
-      choose I18n.t("general.negative"), id: "state_file_md_eligibility_filing_status_form_eligibility_homebuyer_withdrawal_mfj_no"
-      choose I18n.t("general.negative"), id: "state_file_md_eligibility_filing_status_form_eligibility_home_different_areas_no"
-
-      click_on "Continue"
-
-      click_on "Continue"
+      step_through_eligibility_screener(us_state: "md")
 
       step_through_initial_authentication(contact_preference: :email)
 
@@ -629,6 +600,22 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       expect(page).to have_text I18n.t("state_file.questions.md_had_health_insurance.edit.title")
       choose I18n.t("general.negative")
+      click_on I18n.t("general.continue")
+
+      expect(strip_html_tags(page.body)).to have_text strip_html_tags(I18n.t("state_file.questions.tax_refund.edit.title_html", state_name: "Maryland", refund_amount: 1000))
+      choose I18n.t('state_file.questions.tax_refund.edit.direct_deposit')
+      choose I18n.t("views.questions.bank_details.account_type.checking")
+      check "Check here if you have a joint account"
+      fill_in 'state_file_md_tax_refund_form_account_holder_first_name', with: "Zeus"
+      fill_in 'state_file_md_tax_refund_form_account_holder_middle_initial', with: "A"
+      fill_in 'state_file_md_tax_refund_form_account_holder_last_name', with: "Thunder"
+      fill_in 'state_file_md_tax_refund_form_joint_account_holder_first_name', with: "Hera"
+      fill_in 'state_file_md_tax_refund_form_joint_account_holder_last_name', with: "Thunder"
+      fill_in 'state_file_md_tax_refund_form_routing_number', with: "019456124"
+      fill_in 'state_file_md_tax_refund_form_routing_number_confirmation', with: "019456124"
+      fill_in 'state_file_md_tax_refund_form_account_number', with: "123456789"
+      fill_in 'state_file_md_tax_refund_form_account_number_confirmation', with: "123456789"
+      check I18n.t('state_file.questions.md_tax_refund.md_bank_details.bank_authorization_confirmation')
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t("state_file.questions.esign_declaration.edit.title", state_name: "Maryland")

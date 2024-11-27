@@ -43,7 +43,6 @@ FactoryBot.define do
     end
 
     payment_or_deposit_type { "direct_deposit" }
-    bank_name { "FYST Bank" }
     account_type { "checking" }
     routing_number { "011001742" }
     account_number { "99990000001011" }
