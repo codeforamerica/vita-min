@@ -159,7 +159,7 @@ module Efile
       end
 
       def calculate_part_cc_line_8
-        return unless @direct_file_data.fed_agi < 15_000
+        return if @direct_file_data.fed_agi > 15_000
 
         qualifiying_children = @intake.dependents.count do |dependent|
           @intake.calculate_age(dependent.dob, inclusive_of_jan_1: false) < 6

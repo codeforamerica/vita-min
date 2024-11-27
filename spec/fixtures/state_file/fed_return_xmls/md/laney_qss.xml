@@ -63,7 +63,7 @@
       <TotalAdditionalIncomeAmt>1000</TotalAdditionalIncomeAmt>
       <TotalIncomeAmt>11100</TotalIncomeAmt>
       <TotalAdjustmentsAmt>0</TotalAdjustmentsAmt>
-      <AdjustedGrossIncomeAmt>11100</AdjustedGrossIncomeAmt>
+      <AdjustedGrossIncomeAmt>15000</AdjustedGrossIncomeAmt>
       <TotalItemizedOrStandardDedAmt>29200</TotalItemizedOrStandardDedAmt>
       <TotalDeductionsAmt>29200</TotalDeductionsAmt>
       <TaxableIncomeAmt>0</TaxableIncomeAmt>
@@ -149,6 +149,33 @@
         <MonthsChildLivedWithYouCnt>07</MonthsChildLivedWithYouCnt>
       </QualifyingChildInformation>
     </IRS1040ScheduleEIC>
+    <IRS2441 documentId="IRS24414">
+      <CareProviderGrp>
+        <CareProviderPersonName>
+          <PersonFirstNm>Mrs</PersonFirstNm>
+          <PersonLastNm>Doubtfire</PersonLastNm>
+        </CareProviderPersonName>
+        <CareProviderNameControlTxt>DOUB</CareProviderNameControlTxt>
+        <USAddress>
+          <AddressLine1Txt>543</AddressLine1Txt>
+          <CityNm>Great Falls</CityNm>
+          <StateAbbreviationCd>ME</StateAbbreviationCd>
+          <ZIPCd>40332</ZIPCd>
+        </USAddress>
+        <SSN>111111111</SSN>
+        <HouseholdEmployeeInd>false</HouseholdEmployeeInd>
+        <PaidAmt>2000</PaidAmt>
+      </CareProviderGrp>
+      <QualifyingPersonGrp>
+        <QualifyingPersonName>
+          <PersonFirstNm>April</PersonFirstNm>
+          <PersonLastNm>Ludgate</PersonLastNm>
+        </QualifyingPersonName>
+        <QualifyingPersonNameControlTxt>LUDG</QualifyingPersonNameControlTxt>
+        <QualifyingPersonSSN>300000014</QualifyingPersonSSN>
+      </QualifyingPersonGrp>
+      <CreditForChildAndDepdCareAmt>400</CreditForChildAndDepdCareAmt>
+    </IRS2441>
     <IRSW2 documentId="W20001" documentName="IRSW2">
       <EmployeeSSN>400000007</EmployeeSSN>
       <EmployerEIN>678912345</EmployerEIN>
