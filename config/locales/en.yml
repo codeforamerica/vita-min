@@ -2280,6 +2280,7 @@ en:
           armed_forces_member: Member of the U.S. Armed Forces
           armed_forces_wages: Active duty pay received as a member of the U.S. Armed Forces
           az321_contribution_name: Contribution to %{charity_name} with code %{charity_code}
+          az322_contribution_name: Contribution to %{charity_name} with code %{charity_code}
           az_agi: Arizona adjusted gross income
           az_tax: Arizona tax
           az_tax_withheld: Arizona tax withheld
@@ -2294,6 +2295,7 @@ en:
           increased_excise_tax_credit: Increased Excise Tax Credit
           last_names: Other last names in the last four years
           made_az321_contributions: Made contributions to qualifying charitable organizations
+          made_az322_contributions: Made contributions to public schools
           ssn_no_employment: "‘Not valid for employment’ is written on your Social Security Card"
           total_arizona_subtractions: Total Arizona subtractions
           total_exemptions: Total Exemptions
@@ -2682,7 +2684,16 @@ en:
       md_county:
         edit:
           county_html: "<strong>County</strong>"
-          political_subdivision_html: "<strong>Political subdivision</strong>"
+          political_subdivision: Political subdivision
+          political_subdivision_helper_areas:
+          - 'Counties: The 23 counties and Baltimore City.'
+          - 'Municipalities: Towns and cities within the counties.'
+          - 'Special Taxing Districts: Areas with specific tax rules for local services.'
+          - 'All Other Areas: Regions that do not have their own municipal government and are governed at the county level.'
+          political_subdivision_helper_first_p: 'A "political subdivision" is a specific area within Maryland that has its own local government. This includes:'
+          political_subdivision_helper_heading: What is a political division?
+          political_subdivision_helper_last_p: Select the political subdivision where you lived on December 31, %{filing_year} to make sure your tax filing is correct.
+          political_subdivision_label_html: If you did not live within an incorporated city or area, choose “All other areas.” <a href="#">Find a full list here </a>
           title: Select the county and political subdivision where you lived on December 31, %{filing_year}
           title_html: Select the <strong>county</strong> and <strong>political subdivision</strong> where you lived on December 31, %{filing_year}
       md_eligibility_filing_status:
@@ -2979,6 +2990,7 @@ en:
         edit:
           amount: Amount
           claimed_as_eitc_qualifying_child: I could be someone else's qualifying child for the Earned Income Tax Credit.
+          college_dependents: Dependents attending college
           county: County
           edit_disability: disability status
           edit_gubernatorial: gubernatorial fund contributions

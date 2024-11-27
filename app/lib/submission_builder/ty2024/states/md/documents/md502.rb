@@ -41,7 +41,7 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
   def document
     build_xml_doc("Form502", documentId: "Form502") do |xml|
       xml.MarylandSubdivisionCode @intake.subdivision_code
-      unless @intake.political_subdivision&.end_with?("- unincorporated")
+      unless @intake.political_subdivision == "All Other Areas"
         xml.CityTownOrTaxingArea @intake.political_subdivision
       end
       xml.MarylandAddress do
@@ -139,6 +139,15 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
           xml.StateTaxAfterCredits calculated_fields.fetch(:MD502_LINE_27) if @deduction_method_is_standard
         end
       end
+      xml.LocalTaxComputation do
+        add_element_if_present(xml, "LocalTaxRate", :MD502_LINE_28_LOCAL_TAX_RATE) unless @intake.residence_county == "Anne Arundel"
+        add_element_if_present(xml, "LocalIncomeTax", :MD502_LINE_28_LOCAL_TAX_AMOUNT)
+        add_element_if_present(xml, "EarnedIncomeCredit", :MD502_LINE_29)
+        add_element_if_present(xml, "PovertyLevelCredit", :MD502_LINE_30)
+        add_element_if_present(xml,"TotalCredits", :MD502_LINE_32)
+        add_element_if_present(xml,"LocalTaxAfterCredits", :MD502_LINE_33)
+      end
+      add_element_if_present(xml, "TotalStateAndLocalTax", :MD502_LINE_34)
       xml.TaxWithheld calculated_fields.fetch(:MD502_LINE_40)
       xml.DaytimePhoneNumber @direct_file_data.phone_number if @direct_file_data.phone_number.present?
     end

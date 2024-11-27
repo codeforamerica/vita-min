@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v4.0">
+  <ReturnHeader binaryAttachmentCnt="0">
+    <TaxYr>2024</TaxYr>
+    <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+    <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+    <SoftwareVersionNum>676c5f98</SoftwareVersionNum>
+    <ReturnTypeCd>1040</ReturnTypeCd>
+    <Filer>
+      <PrimarySSN>300000030</PrimarySSN>
+      <NameLine1Txt>CLARA&lt;SCHUMANN</NameLine1Txt>
+      <PrimaryNameControlTxt>SCHU</PrimaryNameControlTxt>
+      <USAddress>
+        <AddressLine1Txt>100 Vienna Street</AddressLine1Txt>
+        <CityNm>Raleigh</CityNm>
+        <StateAbbreviationCd>NC</StateAbbreviationCd>
+        <ZIPCd>27513</ZIPCd>
+      </USAddress>
+      <PhoneNum>7185551234</PhoneNum>
+    </Filer>
+    <AdditionalFilerInformation>
+      <AtSubmissionFilingGrp>
+        <EmailAddressTxt>test-user+30000003-0ec4-4a64-9e91-e6a9176e7e92@directfile.test</EmailAddressTxt>
+      </AtSubmissionFilingGrp>
+    </AdditionalFilerInformation>
+  </ReturnHeader>
+  <ReturnData documentCnt="4">
+    <IRS1040 documentId="IRS10400001">
+      <IndividualReturnFilingStatusCd>4</IndividualReturnFilingStatusCd>
+      <QualifyingHOHNm>Johannes Brahms</QualifyingHOHNm>
+      <QualifyingHOHSSN>600000030</QualifyingHOHSSN>
+      <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+      <PrimaryBlindInd>X</PrimaryBlindInd>
+      <TotalBoxesCheckedCnt>1</TotalBoxesCheckedCnt>
+      <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+      <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+      <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+      <TotalExemptionsCnt>1</TotalExemptionsCnt>
+      <TaxableInterestAmt referenceDocumentId="IRS1040B001" referenceDocumentName="IRS1040ScheduleB">15000</TaxableInterestAmt>
+      <TotalAdditionalIncomeAmt>12000</TotalAdditionalIncomeAmt>
+      <TotalIncomeAmt>27000</TotalIncomeAmt>
+      <AdjustedGrossIncomeAmt>27000</AdjustedGrossIncomeAmt>
+      <TotalItemizedOrStandardDedAmt>23850</TotalItemizedOrStandardDedAmt>
+      <TotalDeductionsAmt>23850</TotalDeductionsAmt>
+      <TaxableIncomeAmt>3150</TaxableIncomeAmt>
+      <TaxAmt>318</TaxAmt>
+      <TotalTaxBeforeCrAndOthTaxesAmt>318</TotalTaxBeforeCrAndOthTaxesAmt>
+      <TaxLessCreditsAmt>318</TaxLessCreditsAmt>
+      <TotalTaxAmt>318</TotalTaxAmt>
+      <Form1099WithheldTaxAmt referenceDocumentId="OTHERWITHHOLDING0001" referenceDocumentName="OtherWithholdingStatement">600</Form1099WithheldTaxAmt>
+      <WithholdingTaxAmt>600</WithholdingTaxAmt>
+      <TotalPaymentsAmt>600</TotalPaymentsAmt>
+      <OverpaidAmt>282</OverpaidAmt>
+      <RefundAmt>282</RefundAmt>
+      <RoutingTransitNum>021000322</RoutingTransitNum>
+      <BankAccountTypeCd>1</BankAccountTypeCd>
+      <DepositorAccountNum>383838383838</DepositorAccountNum>
+      <OwedAmt>0</OwedAmt>
+      <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+      <PrimaryOccupationTxt>Composer</PrimaryOccupationTxt>
+      <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+    </IRS1040>
+    <IRS1040Schedule1 documentId="IRS1040S1001">
+      <UnemploymentCompAmt>12000</UnemploymentCompAmt>
+      <TotalAdditionalIncomeAmt>12000</TotalAdditionalIncomeAmt>
+    </IRS1040Schedule1>
+    <IRS1040ScheduleB documentId="IRS1040B001" documentName="IRS1040ScheduleB">
+      <Form1040SchBPartIGroup2>
+        <InterestPayerName>
+          <BusinessNameLine1Txt>Vienna Fund</BusinessNameLine1Txt>
+        </InterestPayerName>
+        <InterestAmt>15000</InterestAmt>
+      </Form1040SchBPartIGroup2>
+      <InterestSubtotalAmt interestSubtotalLiteralCd="INTEREST SUBTOTAL">15000</InterestSubtotalAmt>
+      <TaxableInterestSubtotalAmt>15000</TaxableInterestSubtotalAmt>
+      <CalculatedTotalTaxableIntAmt>15000</CalculatedTotalTaxableIntAmt>
+      <ForeignAccountsQuestionInd>false</ForeignAccountsQuestionInd>
+      <ForeignTrustQuestionInd>false</ForeignTrustQuestionInd>
+    </IRS1040ScheduleB>
+    <OtherWithholdingStatement documentId="OTHERWITHHOLDING0001" documentName="OtherWithholdingStatement">
+      <OtherWithholdingStmt>
+        <WithholdingCd>FORM 1099</WithholdingCd>
+        <EIN>018765678</EIN>
+        <WithholdingAmt>500</WithholdingAmt>
+      </OtherWithholdingStmt>
+      <OtherWithholdingStmt>
+        <WithholdingCd>FORM 1099</WithholdingCd>
+        <EIN>004321234</EIN>
+        <WithholdingAmt>100</WithholdingAmt>
+      </OtherWithholdingStmt>
+    </OtherWithholdingStatement>
+  </ReturnData>
+</Return>

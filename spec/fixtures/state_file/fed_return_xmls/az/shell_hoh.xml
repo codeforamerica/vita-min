@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v4.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>eb055500</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400000010</PrimarySSN>
+            <NameLine1Txt>SHELL&lt;SILVERSTEIN</NameLine1Txt>
+            <PrimaryNameControlTxt>SILV</PrimaryNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>20 Missing Piece Street</AddressLine1Txt>
+                <CityNm>Tempe</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>85283</ZIPCd>
+            </USAddress>
+            <PhoneNum>4805557676</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000001-0cac-42ed-848b-b9b4ca8a5bcd@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="3">
+        <IRS1040 documentId="IRS10400001">
+            <IndividualReturnFilingStatusCd>4</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <PrimaryBlindInd>X</PrimaryBlindInd>
+            <TotalBoxesCheckedCnt>1</TotalBoxesCheckedCnt>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <DependentDetail>
+                <DependentFirstNm>Yolko</DependentFirstNm>
+                <DependentLastNm>Ono</DependentLastNm>
+                <DependentNameControlTxt>ONO</DependentNameControlTxt>
+                <DependentSSN>300000015</DependentSSN>
+                <DependentRelationshipCd>GRANDPARENT</DependentRelationshipCd>
+                <EligibleForODCInd>X</EligibleForODCInd>
+            </DependentDetail>
+            <DependentDetail>
+                <DependentFirstNm>Mary</DependentFirstNm>
+                <DependentLastNm>Shelley</DependentLastNm>
+                <DependentNameControlTxt>SHEL</DependentNameControlTxt>
+                <DependentSSN>300000016</DependentSSN>
+                <DependentRelationshipCd>GRANDPARENT</DependentRelationshipCd>
+                <EligibleForODCInd>X</EligibleForODCInd>
+            </DependentDetail>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>2</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>3</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">17000</WagesAmt>
+            <WagesSalariesAndTipsAmt>17000</WagesSalariesAndTipsAmt>
+            <TotalIncomeAmt>17000</TotalIncomeAmt>
+            <TotalAdjustmentsAmt>150</TotalAdjustmentsAmt>
+            <AdjustedGrossIncomeAmt>16850</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>23850</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>23850</TotalDeductionsAmt>
+            <TaxableIncomeAmt>0</TaxableIncomeAmt>
+            <TaxAmt>0</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>0</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>0</TaxLessCreditsAmt>
+            <TotalTaxAmt>0</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>3000</FormW2WithheldTaxAmt>
+            <WithholdingTaxAmt>3000</WithholdingTaxAmt>
+            <EstimatedTaxPaymentsAmt>250</EstimatedTaxPaymentsAmt>
+            <EarnedIncomeCreditAmt>120</EarnedIncomeCreditAmt>
+            <RefundableCreditsAmt>120</RefundableCreditsAmt>
+            <TotalPaymentsAmt>3370</TotalPaymentsAmt>
+            <OverpaidAmt>3370</OverpaidAmt>
+            <RefundAmt>3370</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Teacher</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1040Schedule1 documentId="IRS1040S1001">
+            <EducatorExpensesAmt>150</EducatorExpensesAmt>
+            <TotalAdjustmentsAmt>150</TotalAdjustmentsAmt>
+        </IRS1040Schedule1>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>400000010</EmployeeSSN>
+            <EmployerEIN>008765678</EmployerEIN>
+            <EmployerNameControlTxt>SIDE</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Sidewalk Eggs Enterprises</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>1 Main St</AddressLine1Txt>
+                <CityNm>Tucson</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>85641</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Shell Silverstein</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>20 Missing Piece Street</AddressLine1Txt>
+                <CityNm>Tempe</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>85283</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>17000</WagesAmt>
+            <WithholdingAmt>3000</WithholdingAmt>
+            <SocialSecurityWagesAmt>17000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>2000</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>17000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>1000</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                    <EmployerStateIdNum>3456789</EmployerStateIdNum>
+                    <StateWagesAmt>17000</StateWagesAmt>
+                    <StateIncomeTaxAmt>5</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>

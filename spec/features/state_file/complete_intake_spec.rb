@@ -225,19 +225,6 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text(I18n.t('state_file.questions.unemployment.index.1099_label', name: StateFileAzIntake.last.primary.full_name))
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t("state_file.questions.az_subtractions.edit.title.one", year: filing_year)
-      check "state_file_az_subtractions_form_tribal_member"
-      fill_in "state_file_az_subtractions_form_tribal_wages_amount", with: "100"
-      check "state_file_az_subtractions_form_armed_forces_member"
-      fill_in "state_file_az_subtractions_form_armed_forces_wages_amount", with: "100"
-      click_on I18n.t("general.continue")
-
-      expect(page).to have_text I18n.t("state_file.questions.az_charitable_contributions.edit.title.one", tax_year: filing_year)
-      choose I18n.t("general.affirmative")
-      fill_in "Enter the total amount of cash contributions made in #{filing_year}. (Round to the nearest whole number. Note: you may be asked to provide receipts for donations over $250.)", with: "123"
-      fill_in "Enter the total amount of non-cash contributions made in #{filing_year} (example: the fair market value of donated items). This cannot exceed $500 (round to the nearest whole number.)", with: "123"
-      click_on I18n.t("general.continue")
-
       expect(page).to have_text I18n.t('state_file.questions.az_public_school_contributions.edit.title', year: filing_year)
       choose I18n.t("general.affirmative")
       fill_in "az322_contribution_school_name", with: "Tax Elementary"
@@ -248,6 +235,12 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t('state_file.questions.az_public_school_contributions.index.lets_review')
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text I18n.t("state_file.questions.az_charitable_contributions.edit.title.one", tax_year: filing_year)
+      choose I18n.t("general.affirmative")
+      fill_in "Enter the total amount of cash contributions made in #{MultiTenantService.statefile.current_tax_year}. (Round to the nearest whole number. Note: you may be asked to provide receipts for donations over $250.)", with: "123"
+      fill_in "Enter the total amount of non-cash contributions made in #{MultiTenantService.statefile.current_tax_year} (example: the fair market value of donated items). This cannot exceed $500 (round to the nearest whole number.)", with: "123"
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t('state_file.questions.az_qualifying_organization_contributions.form.main_heading', filing_year: filing_year)
@@ -261,6 +254,13 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       expect(page).to have_text I18n.t('state_file.questions.az_qualifying_organization_contributions.index.lets_review')
 
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text I18n.t("state_file.questions.az_subtractions.edit.title.one", year: MultiTenantService.statefile.current_tax_year)
+      check "state_file_az_subtractions_form_tribal_member"
+      fill_in "state_file_az_subtractions_form_tribal_wages_amount", with: "100"
+      check "state_file_az_subtractions_form_armed_forces_member"
+      fill_in "state_file_az_subtractions_form_armed_forces_wages_amount", with: "100"
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t('state_file.questions.primary_state_id.edit.title')
@@ -552,7 +552,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       expect(page).to have_text "Select the county and political subdivision where you lived on December 31, #{filing_year}"
       select("Allegany", from: "County")
-      select("Town Of Barton", from: "Political subdivision")
+      select("Town Of Barton", from: "state_file_md_county_form_subdivision_code")
       click_on I18n.t("general.continue")
 
       expect(page).to have_text "Here are the income forms we transferred from your federal tax return."
