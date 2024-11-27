@@ -172,7 +172,7 @@ es:
         format: Ingrese una fecha de vencimiento en el formato MM-DD-2YYY.
       first_name:
         blank: Por favor, ingrese un nombre.
-        invalid_format: Solo se aceptan letras, guiones y apóstrofos, y el nombre debe tener menos de 16 caracteres.
+        invalid_format: Solo se aceptan letras, números, guiones y apóstrofos, y el nombre debe tener menos de 16 caracteres.
       hoh_qualifying_person_name:
         blank: Por favor, revisa tus respuestas sobre cuántos meses viviste con estos dependientes. Según tu declaración federal, viviste en un hogar con al menos uno de estos dependientes durante al menos la mitad del año.
       intake_site:
@@ -181,7 +181,7 @@ es:
         blank: Por favor, seleccione un número de trabajos.
       last_name:
         blank: Por favor, ingrese un apellido.
-        invalid_format: Solo se aceptan letras, guiones y apóstrofos.
+        invalid_format: Solo se aceptan letras, números, guiones y apóstrofos, y el nombre debe tener menos de 32 caracteres.
       password:
         insecure: Agregue algunas palabras más poco comunes para mejorar la seguridad de la contraseña.
         not_matching: Las contraseñas proporcionadas no coinciden.
@@ -2761,6 +2761,15 @@ es:
       md_tax_refund:
         md_bank_details:
           account_holder_name: Nombre del titular de la cuenta
+          bank_account_details: Detalles de la cuenta bancaria
+          bank_account_type: Tipo de cuenta bancaria
+          bank_authorization_confirmation: Marque aquí para confirmar que autoriza al estado de Maryland a emitir su reembolso mediante depósito directo.
+          bank_authorization_confirmation_error: Por favor confirme la autorización o seleccione pagar por correo
+          check_if_joint_account: Marque aquí si tiene una cuenta conjunta
+          joint_account_holder_name: Nombre del titular de la cuenta conjunta
+          last_name: Apellido
+          middle_initial: Inicial del segundo nombre
+          suffix: Sufijo
       md_two_income_subtractions:
         edit:
           description: Para saber si califica y calcular la deducción, necesitamos más información sobre la deducción de intereses de préstamos estudiantiles que tomó en su declaración de impuestos federales.

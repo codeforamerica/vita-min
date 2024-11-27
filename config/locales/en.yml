@@ -171,7 +171,7 @@ en:
         format: Please enter an expiration date in the format MM-DD-2YYY.
       first_name:
         blank: Please enter a first name.
-        invalid_format: Only letters, hyphen, and apostrophe are accepted, and first name must be less than 16 characters.
+        invalid_format: Only letters, numbers, hyphen, and apostrophe are accepted, and first name must be less than 16 characters.
       hoh_qualifying_person_name:
         blank: Please double check your answers regarding how many months you lived with these dependents. Based on your federal return, you lived in a home with one of these dependents for at least half the year.
       intake_site:
@@ -180,7 +180,7 @@ en:
         blank: Please select a number of jobs.
       last_name:
         blank: Please enter a last name.
-        invalid_format: Only letters, hyphen, and apostrophe are accepted.
+        invalid_format: Only letters, numbers, hyphen, and apostrophe are accepted, and last name must be less than 32 characters.
       password:
         insecure: Add some more uncommon words to improve password strength.
         not_matching: The password provided does not match.
@@ -2789,6 +2789,15 @@ en:
       md_tax_refund:
         md_bank_details:
           account_holder_name: Account Holder Name
+          bank_account_details: Bank Account Details
+          bank_account_type: Bank Account Type
+          bank_authorization_confirmation: Check here to confirm you authorize the State of Maryland to issue your refund by direct deposit.
+          bank_authorization_confirmation_error: Please confirm authorization or select pay by mail
+          check_if_joint_account: Check here if you have a joint account
+          joint_account_holder_name: Joint Account Holder Name
+          last_name: Last Name
+          middle_initial: Middle Initial
+          suffix: Suffix
       md_two_income_subtractions:
         edit:
           description: In order to know if you qualify and calculate the subtraction, we need more information about the student loan interest deduction you took on your federal tax return.

@@ -565,7 +565,6 @@ class FlowsController < ApplicationController
         spouse_esigned: "yes",
         spouse_esigned_at: 1.minute.ago,
         payment_or_deposit_type: "mail",
-        bank_name: 'bank name',
         account_type: 'unfilled',
         routing_number: '111111111',
         account_number: '2222222222',

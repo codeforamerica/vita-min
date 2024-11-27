@@ -1387,4 +1387,30 @@ describe Efile::Md::Md502Calculator do
       expect(instance.refund_or_owed_amount).to eq(0)
     end
   end
+
+  describe "MD502_AUTHORIZE_DIRECT_DEPOSIT" do
+    context "bank authorization was given" do
+      it "should return true" do
+        intake.bank_authorization_confirmed = 'yes'
+        instance.calculate
+        expect(instance.lines[:MD502_AUTHORIZE_DIRECT_DEPOSIT].value).to eq(true)
+      end
+    end
+
+    context "bank authorization was not given" do
+      it "should return false" do
+        intake.bank_authorization_confirmed = 'unfilled'
+        instance.calculate
+        expect(instance.lines[:MD502_AUTHORIZE_DIRECT_DEPOSIT].value).to eq(false)
+      end
+    end
+
+    context "bank authorization was 'no'" do
+      it "should return false" do
+        intake.bank_authorization_confirmed = 'no'
+        instance.calculate
+        expect(instance.lines[:MD502_AUTHORIZE_DIRECT_DEPOSIT].value).to eq(false)
+      end
+    end
+  end
 end

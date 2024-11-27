@@ -696,6 +696,10 @@ MD502_LINE_34:
   label: '34. Total Maryland and local tax amount (line 27 + line 33 if deduction standard)'
 MD502_LINE_40:
   label: "40 Total Maryland and local tax withheld"
+MD502_AUTHORIZE_DIRECT_DEPOSIT:
+  label: "Client authorizes the State of Maryland to issue refund by direct deposit (tax refund controller)."
+MD502_LINE_51D:
+  label: "51D Name(s) of Bank Account Holder(s)"
 MD502B_LINE_1:
   label: '1 Total number of Regular dependents'
 MD502B_LINE_2:

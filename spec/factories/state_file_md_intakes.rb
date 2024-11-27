@@ -3,11 +3,14 @@
 # Table name: state_file_md_intakes
 #
 #  id                                         :bigint           not null, primary key
-#  account_holder_name                        :string
+#  account_holder_first_name                  :string
+#  account_holder_last_name                   :string
+#  account_holder_middle_initial              :string
+#  account_holder_suffix                      :string
 #  account_number                             :string
 #  account_type                               :integer          default("unfilled"), not null
 #  authorize_sharing_of_health_insurance_info :integer          default("unfilled"), not null
-#  bank_name                                  :string
+#  bank_authorization_confirmed               :integer          default("unfilled"), not null
 #  city                                       :string
 #  confirmed_permanent_address                :integer          default("unfilled"), not null
 #  consented_to_terms_and_conditions          :integer          default("unfilled"), not null
@@ -16,7 +19,6 @@
 #  current_sign_in_ip                         :inet
 #  current_step                               :string
 #  date_electronic_withdrawal                 :date
-#  df_data_import_failed_at                   :datetime
 #  df_data_import_succeeded_at                :datetime
 #  df_data_imported_at                        :datetime
 #  eligibility_filing_status_mfj              :integer          default("unfilled"), not null
@@ -30,7 +32,12 @@
 #  failed_attempts                            :integer          default(0), not null
 #  federal_return_status                      :string
 #  had_hh_member_without_health_insurance     :integer          default("unfilled"), not null
+#  has_joint_account_holder                   :integer          default("unfilled"), not null
 #  hashed_ssn                                 :string
+#  joint_account_holder_first_name            :string
+#  joint_account_holder_last_name             :string
+#  joint_account_holder_middle_initial        :string
+#  joint_account_holder_suffix                :string
 #  last_sign_in_at                            :datetime
 #  last_sign_in_ip                            :inet
 #  locale                                     :string           default("en")
