@@ -226,14 +226,14 @@ describe Efile::Nj::NjFlatEitcEligibility do
 
   describe ".is_under_income_total_limit?" do
     context "when mfj" do
-      context "when at or above 24_210" do
+      context "when at or above 25_511" do
         let(:intake) { create(:state_file_nj_intake, :df_data_many_deps) } # TotalIncomeAmt 57_800
         it "returns false" do
           expect(Efile::Nj::NjFlatEitcEligibility.is_under_income_total_limit?(intake)).to eq(false)
         end
       end
 
-      context "when below 24_210" do
+      context "when below 25_511" do
         let(:intake) { create(:state_file_nj_intake, :df_data_exempt_interest) } # TotalIncomeAmt 9_000
         it "returns true" do
           expect(Efile::Nj::NjFlatEitcEligibility.is_under_income_total_limit?(intake)).to eq(true)
@@ -242,14 +242,14 @@ describe Efile::Nj::NjFlatEitcEligibility do
     end
 
     context "when not mfj" do
-      context "when at or above 17_640" do
+      context "when at or above 18_591" do
         let(:intake) { create(:state_file_nj_intake, :df_data_qss) }  # TotalIncomeAmt 30_000
         it "returns false" do
           expect(Efile::Nj::NjFlatEitcEligibility.is_under_income_total_limit?(intake)).to eq(false)
         end
       end
 
-      context "when below 17_640" do
+      context "when below 18_591" do
         let(:intake) { create(:state_file_nj_intake, :df_data_childless_eitc) } # TotalIncomeAmt 0
         it "returns true" do
           expect(Efile::Nj::NjFlatEitcEligibility.is_under_income_total_limit?(intake)).to eq(true)
