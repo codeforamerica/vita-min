@@ -78,6 +78,16 @@ module Efile
         set_line(:MD502_LINE_24, :calculate_line_24)
         set_line(:MD502_LINE_26, :calculate_line_26)
         set_line(:MD502_LINE_27, :calculate_line_27)
+
+        # Local tax
+        set_line(:MD502_LINE_28_LOCAL_TAX_RATE, :calculate_line_28_local_tax_rate)
+        set_line(:MD502_LINE_28_LOCAL_TAX_AMOUNT, :calculate_line_28_local_tax_amount)
+        set_line(:MD502_LINE_29, :calculate_line_29)
+        set_line(:MD502_LINE_30, :calculate_line_30)
+        set_line(:MD502_LINE_32, :calculate_line_32)
+        set_line(:MD502_LINE_33, :calculate_line_33)
+        set_line(:MD502_LINE_34, :calculate_line_34)
+
         set_line(:MD502_LINE_40, :calculate_line_40)
 
         @md502cr.calculate
@@ -350,10 +360,10 @@ module Efile
                        [150_000..175_000, 7_072.5, 0.05],
                        [175_000..225_000, 8_322.5, 0.0525],
                        [225_000..300_000, 10_947.5, 0.055],
-                       [300_000..Float::INFINITY, 15_072.5 , 0.0575]
+                       [300_000..Float::INFINITY, 15_072.5, 0.0575]
                      ]
                    end
-          range_index = ranges.find_index{ |(range, _)| range.include?(taxable_net_income)}
+          range_index = ranges.find_index { |(range, _)| range.include?(taxable_net_income) }
 
           base = ranges[range_index][1]
           percent = ranges[range_index][2]
@@ -410,7 +420,126 @@ module Efile
       end
 
       def calculate_line_27
-        [line_or_zero(:MD502_LINE_21) - line_or_zero(:MD502_LINE_26), 0 ].max
+        [line_or_zero(:MD502_LINE_21) - line_or_zero(:MD502_LINE_26), 0].max
+      end
+
+      def calculate_line_28_local_tax_rate
+        tax_rate = case @intake.residence_county
+                   when "Allegany", "Carroll", "Charles"
+                     0.0303
+                   when "Baltimore City", "Baltimore County", "Caroline", "Dorchester", "Howard", "Kent", "Montgomery", "Prince George's", "Queen Anne's", "Somerset", "Wicomico"
+                     0.0320
+                   when "Calvert", "St. Mary's"
+                     0.0300
+                   when "Cecil"
+                     0.0275
+                   when "Garrett"
+                     0.0265
+                   when "Harford"
+                     0.0306
+                   when "Talbot"
+                     0.0240
+                   when "Washington"
+                     0.0295
+                   when "Worcester"
+                     0.0225
+                   when "Anne Arundel"
+                     0.027
+                   when "Frederick"
+                     taxable_net_income = line_or_zero(:MD502_LINE_20)
+                     if filing_status_dependent? || filing_status_single? || filing_status_mfs?
+                       if taxable_net_income <= 25_000
+                         0.0225
+                       elsif taxable_net_income <= 50_000
+                         0.0275
+                       elsif taxable_net_income <= 150_000
+                         0.0296
+                       else
+                         0.032
+                       end
+                     elsif filing_status_mfj? || filing_status_hoh? || filing_status_qw?
+                       if taxable_net_income <= 25_000
+                         0.0225
+                       elsif taxable_net_income <= 100_000
+                         0.0275
+                       elsif taxable_net_income <= 250_000
+                         0.0296
+                       else
+                         0.032
+                       end
+                     end
+                   end
+
+        tax_rate&.to_d
+      end
+
+      def local_tax_rate
+        @lines[:MD502_LINE_28_LOCAL_TAX_RATE]&.value || 0
+      end
+
+      def calculate_line_28_local_tax_amount
+        taxable_net_income = line_or_zero(:MD502_LINE_20)
+
+        if @intake.residence_county == "Anne Arundel"
+          brackets = if filing_status_dependent? || filing_status_single? || filing_status_mfs?
+                       [
+                         { threshold: 50_000, rate: 0.0270 },
+                         { threshold: 400_000, rate: 0.0281 },
+                         { threshold: Float::INFINITY, rate: 0.0320 }
+                       ]
+                     elsif filing_status_mfj? || filing_status_hoh? || filing_status_qw?
+                       [
+                         { threshold: 75_000, rate: 0.0270 },
+                         { threshold: 480_000, rate: 0.0281 },
+                         { threshold: Float::INFINITY, rate: 0.0320 }
+                       ]
+                     end
+
+          tax = 0
+          previous_threshold = 0
+
+          brackets.each do |bracket|
+            if taxable_net_income > previous_threshold
+              income_in_bracket = [taxable_net_income, bracket[:threshold]].min - previous_threshold
+              tax += income_in_bracket * bracket[:rate].to_d
+              previous_threshold = bracket[:threshold]
+            else
+              break
+            end
+          end
+
+          tax.round
+        else
+          (local_tax_rate * taxable_net_income).round
+        end
+      end
+
+      def calculate_line_29
+        (@direct_file_data.fed_eic * (local_tax_rate * 10)).round
+      end
+
+      def calculate_line_30
+        if deduction_method_is_standard? && line_or_zero(:MD502_LINE_23).positive?
+          (line_or_zero(:MD502_LINE_1B) * local_tax_rate).round
+        end
+      end
+
+      def calculate_line_32
+        if deduction_method_is_standard?
+          line_or_zero(:MD502_LINE_29) + line_or_zero(:MD502_LINE_30)
+        end
+      end
+
+      def calculate_line_33
+        if deduction_method_is_standard?
+          [(line_or_zero(:MD502_LINE_28_LOCAL_TAX_AMOUNT) - line_or_zero(:MD502_LINE_32)), 0].max
+        end
+      end
+
+      def calculate_line_34
+        if deduction_method_is_standard?
+          line_or_zero(:MD502_LINE_27) + line_or_zero(:MD502_LINE_33)
+        end
       end
 
       def calculate_line_40

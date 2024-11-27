@@ -169,7 +169,13 @@ module SubmissionBuilder
 
                   xml.Tax calculated_fields.fetch(:NJ1040_LINE_43)
 
+                  xml.BalanceOfTaxA calculated_fields.fetch(:NJ1040_LINE_45)
+                  xml.TotalCredits calculated_fields.fetch(:NJ1040_LINE_49)
+                  xml.BalanceOfTaxAfterCredit calculated_fields.fetch(:NJ1040_LINE_50)
+
                   xml.SalesAndUseTax calculated_fields.fetch(:NJ1040_LINE_51)
+
+                  xml.TotalTaxAndPenalty calculated_fields.fetch(:NJ1040_LINE_54)
 
                   if calculated_fields.fetch(:NJ1040_LINE_57)
                     xml.EstimatedPaymentTotal calculated_fields.fetch(:NJ1040_LINE_57)
