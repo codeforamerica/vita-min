@@ -70,11 +70,11 @@
         <W2StateTaxGrp>
           <StateAbbreviationCd>MD</StateAbbreviationCd>
           <EmployerStateIdNum>98765</EmployerStateIdNum>
-          <StateWagesAmt>0</StateWagesAmt>
-          <StateIncomeTaxAmt>500</StateIncomeTaxAmt>
+          <StateWagesAmt>1</StateWagesAmt>
+          <StateIncomeTaxAmt>1</StateIncomeTaxAmt>
           <W2LocalTaxGrp>
-            <LocalWagesAndTipsAmt>0</LocalWagesAndTipsAmt>
-            <LocalIncomeTaxAmt>250</LocalIncomeTaxAmt>
+            <LocalWagesAndTipsAmt>1</LocalWagesAndTipsAmt>
+            <LocalIncomeTaxAmt>1</LocalIncomeTaxAmt>
             <LocalityNm>Hammonton</LocalityNm>
           </W2LocalTaxGrp>
         </W2StateTaxGrp>
