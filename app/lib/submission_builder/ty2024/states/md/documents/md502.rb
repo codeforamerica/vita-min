@@ -203,9 +203,4 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
   def county_abbreviation
     COUNTY_ABBREVIATIONS[@intake.residence_county]
   end
-
-  def add_element_if_present(xml, tag, line_id)
-    value = calculated_fields.fetch(line_id)
-    xml.send(tag, value) if value.present?
-  end
 end
