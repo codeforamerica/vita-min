@@ -3029,7 +3029,7 @@ en:
           not_required: You do NOT need to supply this information to file your taxes. The return will not be rejected if you do not have ID or prefer not to share.
           protect_identity: To protect your identity and combat tax fraud, many state agencies are asking people to give their driver's license or state ID number.
           subtitle: Details from your spouse's state-issued ID, if they have one, would also help.
-          title: Confirming Your Identity (Optional)
+          title: Confirming Your Spouse's Identity (Optional)
           why_ask_this: Why are you asking for this information?
       nj_tenant_eligibility:
         edit:
