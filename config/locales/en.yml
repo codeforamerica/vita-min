@@ -181,6 +181,10 @@ en:
       last_name:
         blank: Please enter a last name.
         invalid_format: Only letters, hyphen, and apostrophe are accepted.
+      nc_withdrawal_date:
+        business_day: Withdrawal date must be on a weekday
+        future: Withdrawal date must be in the future
+        holiday: Withdrawal date cannot be on a US federal or bank holiday
       password:
         insecure: Add some more uncommon words to improve password strength.
         not_matching: The password provided does not match.

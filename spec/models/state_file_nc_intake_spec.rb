@@ -96,6 +96,16 @@ RSpec.describe StateFileNcIntake, type: :model do
     let(:electronic_withdrawal_date) { nil }
     let!(:intake) { build :state_file_nc_intake, date_electronic_withdrawal: electronic_withdrawal_date }
 
+    context "when the withdrawal date is in the future, on a weekday and not on a holiday" do
+      let(:fake_time) { Time.new(2024, 11, 25) }
+      let(:electronic_withdrawal_date) { fake_time.to_date + 1.day }
+      it "fails to save the intake" do
+        Timecop.freeze(Time.new(2024, 11, 25)) do
+          expect(intake).to be_valid
+        end
+      end
+    end
+
     context "when the date is in the past" do
       let(:fake_time) { Time.new(2024, 11, 25) }
       let(:electronic_withdrawal_date) { fake_time.to_date - 1.day }
