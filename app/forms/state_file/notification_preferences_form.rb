@@ -12,7 +12,7 @@ module StateFile
     private
 
     def normalize_phone_numbers
-      # self.phone_number = PhoneParser.normalize(phone_number) if phone_number.present?
+      self.phone_number = PhoneParser.normalize(phone_number) if phone_number.present?
     end
   end
 end

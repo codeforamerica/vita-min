@@ -9,8 +9,10 @@
       <div class="question-with-follow-up__question">
         <div class="white-group">
           <p><%= t('.opt_in_label') %></p>
-          <%= f.cfa_checkbox(:sms_notification_opt_in, t(".sms_notification_opt_in"), options: { checked_value: "yes", unchecked_value: "no", "data-follow-up": "#sms-opt-in" }) %>
-          <%= f.cfa_checkbox(:email_notification_opt_in, t(".email_notification_opt_in"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+          <div class="tight-checkboxes spacing-above-0 spacing-below-0">
+            <%= f.cfa_checkbox(:sms_notification_opt_in, t(".sms_notification_opt_in"), options: { checked_value: "yes", unchecked_value: "no", "data-follow-up": "#sms-opt-in" }) %>
+            <%= f.cfa_checkbox(:email_notification_opt_in, t(".email_notification_opt_in"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+          </div>
         </div>
       </div>
 
