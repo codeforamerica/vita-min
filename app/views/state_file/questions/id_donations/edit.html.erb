@@ -1,0 +1,22 @@
+<% title = t('.title') %>
+<% content_for :page_title, title %>
+<% content_for :card do %>
+  <h1 class="h2"><%= title %></h1>
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <p class="spacing-below-15 "><%= t(".tax_payers_can_donate") %></p>
+    <div class="white-group">
+      <p class="spacing-below-0"><%= t(".add_the_amount") %></p>
+      <div class="form-group-tight">
+        <%= f.vita_min_money_field(:nongame_wildlife_fund_donation, t(".nongame_wildlife_fund_donation"), classes: ["form-width--long"]) %>
+        <%= f.vita_min_money_field(:childrens_trust_fund_donation, t(".childrens_trust_fund_donation"), classes: ["form-width--long"]) %>
+        <%= f.vita_min_money_field(:special_olympics_donation, t(".special_olympics_donation"), classes: ["form-width--long"]) %>
+        <%= f.vita_min_money_field(:guard_reserve_family_donation, t(".guard_reserve_family_donation"), classes: ["form-width--long"]) %>
+        <%= f.vita_min_money_field(:american_red_cross_fund_donation, t(".american_red_cross_fund_donation"), classes: ["form-width--long"]) %>
+        <%= f.vita_min_money_field(:veterans_support_fund_donation, t(".veterans_support_fund_donation"), classes: ["form-width--long"]) %>
+        <%= f.vita_min_money_field(:food_bank_fund_donation, t(".food_bank_fund_donation"), classes: ["form-width--long"]) %>
+        <%= f.vita_min_money_field(:opportunity_scholarship_program_donation, t(".opportunity_scholarship_program_donation"), classes: ["form-width--long"]) %>
+      </div>
+    </div>
+    <%= link_to t(".save_and_continue"), StateFile::Questions::IdReviewController.to_path_helper, class: "button button--primary button--wide" %>
+  <% end %>
+<% end %>

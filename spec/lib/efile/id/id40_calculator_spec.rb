@@ -319,17 +319,88 @@ describe Efile::Id::Id40Calculator do
     end
   end
 
-  describe "Line 33 and 42: Total Credits" do
-    it "adds line 29 and 32" do
-      allow(instance).to receive(:line_or_zero).and_call_original
-      allow(instance).to receive(:line_or_zero).with(:ID40_LINE_27).and_return(200)
-      allow(instance).to receive(:line_or_zero).with(:ID40_LINE_29).and_return(300)
-      allow(instance).to receive(:line_or_zero).with(:ID40_LINE_32A).and_return(300)
-      instance.calculate
-      expect(instance.lines[:ID40_LINE_33].value).to eq(800)
-      expect(instance.lines[:ID40_LINE_42].value).to eq(800)
+  describe "Lines 34-41: Donation Lines" do
+    let(:intake) { create(:state_file_id_intake, :single_filer_with_json) }
+
+
+    context "when all donation amounts are provided" do
+      before do
+        allow(intake).to receive(:nongame_wildlife_fund_donation).and_return(50.00)
+        allow(intake).to receive(:childrens_trust_fund_donation).and_return(30.00)
+        allow(intake).to receive(:special_olympics_donation).and_return(20.00)
+        allow(intake).to receive(:guard_reserve_family_donation).and_return(40.00)
+        allow(intake).to receive(:american_red_cross_fund_donation).and_return(25.00)
+        allow(intake).to receive(:veterans_support_fund_donation).and_return(10.00)
+        allow(intake).to receive(:food_bank_fund_donation).and_return(60.00)
+        allow(intake).to receive(:opportunity_scholarship_program_donation).and_return(100.00)
+      end
+
+      it "correctly assigns line 34" do
+        instance.calculate
+        expect(instance.lines[:ID40_LINE_34].value).to eq(50.00)
+      end
+
+      it "correctly assigns line 35" do
+        instance.calculate
+        expect(instance.lines[:ID40_LINE_35].value).to eq(30.00)
+      end
+
+      it "correctly assigns line 36" do
+        instance.calculate
+        expect(instance.lines[:ID40_LINE_36].value).to eq(20.00)
+      end
+
+      it "correctly assigns line 37" do
+        instance.calculate
+        expect(instance.lines[:ID40_LINE_37].value).to eq(40.00)
+      end
+
+      it "correctly assigns line 38" do
+        instance.calculate
+        expect(instance.lines[:ID40_LINE_38].value).to eq(25.00)
+      end
+
+      it "correctly assigns line 39" do
+        instance.calculate
+        expect(instance.lines[:ID40_LINE_39].value).to eq(10.00)
+      end
+
+      it "correctly assigns line 40" do
+        instance.calculate
+        expect(instance.lines[:ID40_LINE_40].value).to eq(60.00)
+      end
+
+      it "correctly assigns line 41" do
+        instance.calculate
+        expect(instance.lines[:ID40_LINE_41].value).to eq(100.00)
+      end
     end
   end
+
+  describe "Line 33 and 42: Total Credits" do
+    it "calculates line 33 as the sum of lines 29 and 32, and line 42 as the sum of relevant lines" do
+      allow(instance).to receive(:line_or_zero).and_call_original
+
+      allow(instance).to receive(:line_or_zero).with(:ID40_LINE_29).and_return(300)
+      allow(instance).to receive(:line_or_zero).with(:ID40_LINE_32A).and_return(300)
+
+      allow(instance).to receive(:line_or_zero).with(:ID40_LINE_33).and_return(600)
+      allow(instance).to receive(:line_or_zero).with(:ID40_LINE_34).and_return(50)
+      allow(instance).to receive(:line_or_zero).with(:ID40_LINE_35).and_return(30)
+      allow(instance).to receive(:line_or_zero).with(:ID40_LINE_36).and_return(20)
+      allow(instance).to receive(:line_or_zero).with(:ID40_LINE_37).and_return(40)
+      allow(instance).to receive(:line_or_zero).with(:ID40_LINE_38).and_return(25)
+      allow(instance).to receive(:line_or_zero).with(:ID40_LINE_39).and_return(10)
+      allow(instance).to receive(:line_or_zero).with(:ID40_LINE_40).and_return(60)
+      allow(instance).to receive(:line_or_zero).with(:ID40_LINE_41).and_return(100)
+
+      instance.calculate
+
+      expect(instance.lines[:ID40_LINE_33].value).to eq(600)
+      expect(instance.lines[:ID40_LINE_42].value).to eq(935)
+    end
+  end
+
 
   describe "Line 43: Grocery Credit" do
     context "primary is claimed as dependent" do

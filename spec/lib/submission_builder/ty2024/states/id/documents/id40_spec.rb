@@ -226,5 +226,53 @@ describe SubmissionBuilder::Ty2024::States::Id::Documents::Id40, required_schema
         expect(xml.at("TaxWithheld").text).to eq "2009"
       end
     end
+
+    context "when there are donations" do
+      before do
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_34).and_return(50)
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_35).and_return(30)
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_36).and_return(20)
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_37).and_return(40)
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_38).and_return(25)
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_39).and_return(10)
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_40).and_return(60)
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_41).and_return(100)
+      end
+
+      it "fills out the donation fields" do
+        expect(xml.at("WildlifeDonation").text).to eq "50"
+        expect(xml.at("ChildrensTrustDonation").text).to eq "30"
+        expect(xml.at("SpecialOlympicDonation").text).to eq "20"
+        expect(xml.at("NationalGuardDonation").text).to eq "40"
+        expect(xml.at("RedCrossDonation").text).to eq "25"
+        expect(xml.at("VeteransSupportDonation").text).to eq "10"
+        expect(xml.at("FoodBankDonation").text).to eq "60"
+        expect(xml.at("OpportunityScholarshipProgram").text).to eq "100"
+      end
+    end
+
+    context "when there are no donations" do
+      before do
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_34).and_return(0)
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_35).and_return(0)
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_36).and_return(0)
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_37).and_return(0)
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_38).and_return(0)
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_39).and_return(0)
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_40).and_return(0)
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_41).and_return(0)
+      end
+
+      it "does not include the donation fields" do
+        expect(xml.at("WildlifeDonation")).to be_nil
+        expect(xml.at("ChildrensTrustDonation")).to be_nil
+        expect(xml.at("SpecialOlympicDonation")).to be_nil
+        expect(xml.at("NationalGuardDonation")).to be_nil
+        expect(xml.at("RedCrossDonation")).to be_nil
+        expect(xml.at("VeteransSupportDonation")).to be_nil
+        expect(xml.at("FoodBankDonation")).to be_nil
+        expect(xml.at("OpportunityScholarshipProgram")).to be_nil
+      end
+    end
   end
 end
