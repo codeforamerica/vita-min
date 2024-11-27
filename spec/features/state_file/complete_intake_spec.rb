@@ -433,34 +433,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.landing_page.edit.id.title")
       click_on I18n.t('general.get_started'), id: "firstCta"
 
-      expect(page).to have_text I18n.t("state_file.questions.id_eligibility_residence.edit.emergency_rental_assistance", filing_year: filing_year)
-      expect(page).to have_text I18n.t("state_file.questions.id_eligibility_residence.edit.withdrew_msa_fthb", filing_year: filing_year)
-
-      find_by_id('state_file_id_eligibility_residence_form_eligibility_withdrew_msa_fthb_no').click
-      find_by_id('state_file_id_eligibility_residence_form_eligibility_emergency_rental_assistance_no').click
-
-      click_on I18n.t("general.continue")
-
-      expect(page).to have_text I18n.t("state_file.questions.eligible.id_supported.child_care_deduction")
-      expect(page).to have_text I18n.t("state_file.questions.eligible.id_supported.interest_from_obligations")
-      expect(page).to have_text I18n.t("state_file.questions.eligible.id_supported.social_security_retirement_deduction")
-      expect(page).to have_text I18n.t("state_file.questions.eligible.id_supported.id_child_tax_credit")
-      expect(page).to have_text I18n.t("state_file.questions.eligible.id_supported.id_grocery_credit")
-
-      click_on I18n.t("state_file.questions.eligible.edit.not_supported")
-
-      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.id_college_savings_program")
-      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.id_youth_rehab_contributions")
-      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.maintaining_elderly_disabled_credit")
-      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.long_term_care_insurance_subtraction")
-      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.earned_on_reservation")
-      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.education_contribution_credit")
-      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.itemized_deductions")
-      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.dependents_not_claimed_fed_return")
-      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.voluntary_donations")
-      expect(page).to have_text I18n.t("state_file.questions.eligible.id_unsupported.change_in_filing_status")
-
-      click_on I18n.t("general.continue")
+      step_through_eligibility_screener(us_state: "id")
 
       step_through_initial_authentication(contact_preference: :email)
 
@@ -561,15 +534,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       # select optoins that allow us to proceed
       click_on "Continue"
 
-      # click continue on eligibility & check the messaging is correct here?
-      # select mfj
-      choose I18n.t("general.affirmative")
-      choose I18n.t("general.negative"), id: "state_file_md_eligibility_filing_status_form_eligibility_homebuyer_withdrawal_mfj_no"
-      choose I18n.t("general.negative"), id: "state_file_md_eligibility_filing_status_form_eligibility_home_different_areas_no"
-
-      click_on "Continue"
-
-      click_on "Continue"
+      step_through_eligibility_screener(us_state: "md")
 
       step_through_initial_authentication(contact_preference: :email)
 
