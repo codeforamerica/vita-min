@@ -1,0 +1,48 @@
+{
+  "familyAndHousehold": [
+    {
+      "monthsLivedWithTPInUS": "six",
+      "lastName": "Brahms",
+      "hohQualifyingPerson": true,
+      "isClaimedDependent": false,
+      "qualifyingChild": true,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "2007-05-07",
+      "suffix": null,
+      "residencyDuration": "allYear",
+      "firstName": "Johannes",
+      "middleInitial": null,
+      "scheduleEicLine4aNo": false,
+      "tin": "600-00-0030",
+      "eligibleDependent": false,
+      "relationship": "adoptedChild",
+      "ssnNotValidForEmployment": false
+    }
+  ],
+  "filers": [
+    {
+      "firstName": "Clara",
+      "lastName": "Schumann",
+      "middleInitial": null,
+      "tin": "300-00-0030",
+      "dateOfBirth": "1980-09-13",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "interestReports": [
+    {
+      "has1099": true,
+      "taxExemptAndTaxCreditBondCusipNo": null,
+      "interestOnGovernmentBonds": "5000.00",
+      "payerTin": "00-4321234",
+      "recipientTin": "300-00-0030",
+      "payer": "Vienna Fund",
+      "no1099Amount": null,
+      "taxWithheld": "100.00",
+      "1099Amount": "10000.00"
+    }
+  ]
+}

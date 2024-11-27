@@ -126,4 +126,25 @@ describe SubmissionBuilder::AuthenticationHeader do
       end
     end
   end
+
+  describe 'email address' do
+    let(:intake) { create(:state_file_md_intake) }
+    let(:submission) { create(:efile_submission, data_source: intake) }
+    context "when intake does not have an email address email address" do
+      it "returns the email address in the df xml" do
+        doc = SubmissionBuilder::AuthenticationHeader.new(submission).document
+        expect(doc.at("EmailAddressTxt").text).to eq "beaches@bigtoddsyarnmats.com"
+      end
+    end
+
+    context "when intake does have an email address email address" do
+      before do
+        intake.email_address = "example@test.com"
+      end
+      it "returns the email address in the intake" do
+        doc = SubmissionBuilder::AuthenticationHeader.new(submission).document
+        expect(doc.at("EmailAddressTxt").text).to eq "example@test.com"
+      end
+    end
+  end
 end

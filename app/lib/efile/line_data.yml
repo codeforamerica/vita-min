@@ -167,67 +167,67 @@ NYC_EIC_RATE_WK_LINE_5:
 NYC_EIC_RATE_WK_LINE_6:
   label: 'Subtract line 4 from line 5 or enter the decimal from the NYC EIC rate table. Also enter on Worksheet C, line 2.'
 ID39R_A_LINE_7:
-  label: 'Total Additions (currently set to 0)'
+  label: '7. Total Additions (currently set to 0)'
 ID39R_B_LINE_3:
-  label: 'Interest from U.S. government obligations'
+  label: '3. Interest from U.S. government obligations'
 ID39R_B_LINE_6:
-  label: 'Child/dependent care. Complete worksheet on page 30, and include federal Form 2441'
+  label: '6. Child/dependent care. Complete worksheet on page 30, and include federal Form 2441'
 ID39R_B_LINE_7:
-  label: 'Social security and railroad benefits, if included on federal income'
+  label: '7. Social security and railroad benefits, if included on federal income'
 ID39R_B_LINE_8f:
-  label: 'Retirement benefits deduction (currently set to 0)'
+  label: '8f. Retirement benefits deduction (currently set to 0)'
 ID39R_B_LINE_18:
-  label: 'Health insurance premium paid amount for household'
+  label: '18. Health insurance premium paid amount for household'
 ID39R_B_LINE_24:
-  label: 'Total subtractions (Add lines 1-4, 5e-7, 8f-23 if available)'
+  label: '28. Total subtractions (Add lines 1-4, 5e-7, 8f-23 if available)'
 ID39R_D_LINE_4:
-  label: 'Total credits Idaho educational entity and Idaho youth and rehabilitation facility contributions, and live organ donation expenses'
+  label: '4. Total credits Idaho educational entity and Idaho youth and rehabilitation facility contributions, and live organ donation expenses'
 ID40_LINE_6A:
-  label: '6a Count primary filer as part of household count when primary filer not claimed as dependent'
+  label: '6a. Count primary filer as part of household count when primary filer not claimed as dependent'
 ID40_LINE_6B:
-  label: '6b Spouse counted part of household count'
+  label: '6b. Spouse counted part of household count'
 ID40_LINE_6C:
-  label: '6c Dependents count for household count'
+  label: '6c. Dependents count for household count'
 ID40_LINE_6D:
-  label: '6d Total household count'
+  label: '6d. Total household count'
 ID40_LINE_7:
-  label: 'Federal adjusted gross income from federal Form 1040 or 1040-SR, line 11'
+  label: '7. Federal adjusted gross income from federal Form 1040 or 1040-SR, line 11'
 ID40_LINE_8:
-  label: 'Additions from Form 39R, Part A, line 7. Include Form 39R'
+  label: '8. Additions from Form 39R, Part A, line 7. Include Form 39R'
 ID40_LINE_9:
-  label: 'Total. Add lines 7 and 8'
+  label: '9. Total. Add lines 7 and 8'
 ID40_LINE_10:
-  label: 'Subtractions from Form 39R, Part B, line 24'
+  label: '10. Subtractions from Form 39R, Part B, line 24'
 ID40_LINE_11:
-  label: 'Total Adjusted Income. Subtract line 10 from line 9'
+  label: '11. Total Adjusted Income. Subtract line 10 from line 9'
 ID40_LINE_19:
-  label: 'Taxable state income'
+  label: '19. Taxable state income'
 ID40_LINE_20:
-  label: 'State income tax'
+  label: '20. State income tax'
 ID40_LINE_23:
-  label: 'Total credits from Form 39R, Part D, line 4. Include Form 39R'
+  label: '23. Total credits from Form 39R, Part D, line 4. Include Form 39R'
 ID40_LINE_25:
-  label: 'Idaho Child Tax Credit'
+  label: '25. Idaho Child Tax Credit'
 ID40_LINE_26:
-  label: 'Total Credits. Add lines 22 through 25'
+  label: '26. Total Credits. Add lines 22 through 25'
 ID40_LINE_27:
-  label: 'Subtract line 26 from line 21. If line 26 is more than line 21, enter zero'
+  label: '27. Subtract line 26 from line 21. If line 26 is more than line 21, enter zero'
 ID40_LINE_29:
   label: '29 Sales/Use Tax (multiply reported untaxed total purchase amount by 0.06)'
 ID40_LINE_32A:
-  label: 'Amount required to pay for the Permanent Building Fund Tax'
+  label: '32A. Amount required to pay for the Permanent Building Fund Tax'
 ID40_LINE_32B:
-  label: 'Checkbox that determines if the Permanent Building Fund needs to be payed'
+  label: '32B. Checkbox that determines if the Permanent Building Fund needs to be payed'
 ID40_LINE_33:
-  label: 'Total Tax. Add lines 27 to 32'
+  label: '33. Total Tax. Add lines 27 to 32'
 ID40_LINE_42:
-  label: 'Total Tax Plus Donations. Add lines 33 through 41.'
+  label: '42. Total Tax Plus Donations. Add lines 33 through 41.'
 ID40_LINE_43_WORKSHEET:
   label: '43. Grocery Credit. Computed amount from worksheet on page 11'
 ID40_LINE_43_DONATE:
-  label: 'To donate your grocery credit to the Cooperative Welfare Fund, check the box and enter zero on line 43'
+  label: '43. To donate your grocery credit to the Cooperative Welfare Fund, check the box and enter zero on line 43'
 ID40_LINE_43:
-  label: 'To receive your grocery credit, enter the computed amount on line 43'
+  label: '43. To receive your grocery credit, enter the computed amount on line 43'
 ID40_LINE_46:
   label: '46 Idaho income tax withheld. Sum of all W2 state_income_tax_amount, 1099R state_tax_withheld_amount, 1099G state_income_tax_withheld_amount'
 ID40_LINE_54:
@@ -627,13 +627,27 @@ MD502_LINE_22:
 MD502_LINE_22B:
   label: '22B Claiming the Maryland Earned Income Credit with a qualifying child.'
 MD502_LINE_23:
-  label: 'Poverty level credit'
+  label: '23. Poverty level credit'
 MD502_LINE_24:
-  label: 'Other income tax credits for individuals from Part AA, line 14 of Form 502CR'
+  label: '24. Other income tax credits for individuals from Part AA, line 14 of Form 502CR'
 MD502_LINE_26:
-  label: 'Total credits (Add lines 22 through 25.)'
+  label: '26. Total credits (Add lines 22 through 25.)'
 MD502_LINE_27:
-  label: 'Maryland tax after credits (Add lines 21 and 21a, then subtract line 26.) If less than 0, enter 0.27'
+  label: '27. Maryland tax after credits (Add lines 21 and 21a, then subtract line 26.) If less than 0, enter 0.27'
+MD502_LINE_28_LOCAL_TAX_RATE:
+  label: '28. Local Tax Rate'
+MD502_LINE_28_LOCAL_TAX_AMOUNT:
+  label: '28. Local Tax Amount'
+MD502_LINE_29:
+  label: '29. Earned Income Credit: federal EIC * (local tax rate * 10)'
+MD502_LINE_30:
+  label: '30. Local Poverty Credit: earned income line 1b * local tax rate'
+MD502_LINE_32:
+  label: '32. Total local tax credits: add lines 29-31 if deduction standard (31 out of scope)'
+MD502_LINE_33:
+  label: '33. Local tax after credits: local tax amount minus total local tax credits (line 28 - line 32)'
+MD502_LINE_34:
+  label: '34. Total Maryland and local tax amount (line 27 + line 33 if deduction standard)'
 MD502_LINE_40:
   label: "40 Total Maryland and local tax withheld"
 MD502_AUTHORIZE_DIRECT_DEPOSIT:
@@ -695,17 +709,13 @@ NCD400_LINE_25:
 NCD400_LINE_26A:
   label: '26A Owe Money: if Line 25 is less than Line 19, subtract Line 25 from Line 19.'
 NCD400_LINE_27:
-  label: 'Total amount due: Sum of Lines 26a, 26d, and 26e (line 26d & 26e out of scope)'
-NCD400_S_LINE_18:
-  label: "Interest Income From obligations of the United States' Possessions (DF IRS1040 TaxableInterestAmt)"
-NCD400_S_LINE_27:
-  label: '27 Exempt Income Earned or Received by a Member of a Federally Recognized Indian Tribe'
+  label: '27 Total amount due: Sum of Lines 26a, 26d, and 26e (line 26d & 26e out of scope)'
 NCD400_LINE_28:
   label: 'Refund/Overpayment: if Line 25 is more than Line 19, subtract Line 19 from Line 25.'
 NCD400_LINE_34:
   label: 'Total refund amount: Line 28 minus Line 33 (Line 33 is not in scope)'
 NCD400_S_LINE_18:
-  label: "Taxable Portion of Social Security and Railroad Retirement Benefits (DF IRS1040 TaxableInterestAmt)"
+  label: "18 Taxable Portion of Social Security and Railroad Retirement Benefits (DF IRS1040 TaxableInterestAmt)"
 NCD400_S_LINE_19:
   label: "Interest Income From obligations of the United States' Possessions (DF IRS1040 TaxableSocSecAmt)"
 NCD400_S_LINE_27:
@@ -754,8 +764,16 @@ NJ1040_LINE_42:
   label: '42 New Jersey Taxable Income (Subtract line 41 from line 39)'
 NJ1040_LINE_43:
   label: '43 Tax on amount on line 42 (Tax Table page 54)'
+NJ1040_LINE_45:
+  label: '45 Balance of Tax (Subtract line 44 from line 43)'
+NJ1040_LINE_49:
+  label: '49 Total Credits (Add lines 46 through 48)'
+NJ1040_LINE_50:
+  label: '50 Balance of Tax After Credits (Subtract line 49 from line 45) If zero or less, make no entry'
 NJ1040_LINE_51:
   label: '51 Use Tax Due on Internet, Mail-Order, or Other Out-of-State Purchases (See instructions) If no Use Tax, enter 0.00'
+NJ1040_LINE_54:
+  label: '54 Total Tax Due (Add lines 50 through 53c)'
 NJ1040_LINE_56:
   label: '56 Property Tax Credit (See instructions page 25)'
 NJ1040_LINE_57:
@@ -765,9 +783,9 @@ NJ1040_LINE_58:
 NJ1040_LINE_58_IRS:
   label: '58 IRS calculated federal earned income credit'
 NJ1040_LINE_59:
-  label: 'Excess New Jersey UI/WF/SWF Withheld (Enclose Form NJ-2450) (See instructions)'
+  label: '59 Excess New Jersey UI/WF/SWF Withheld (Enclose Form NJ-2450) (See instructions)'
 NJ1040_LINE_61:
-  label: 'Excess New Jersey Family Leave Insurance Withheld (Enclose Form NJ-2450) (See instructions)'
+  label: '61 Excess New Jersey Family Leave Insurance Withheld (Enclose Form NJ-2450) (See instructions)'
 NJ1040_LINE_64:
   label: '64 Child and Dependent Care Credit'
 NJ1040_LINE_65_DEPENDENTS:

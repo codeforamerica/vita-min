@@ -25,14 +25,11 @@ RUN curl -fsSLO "$SUPERCRONIC_URL" \
 ADD ./vendor/pdftk /app/vendor/pdftk
 RUN /app/vendor/pdftk/install
 
-# gyr-efiler requires Java 8. Download Java 8 and provide a variable for the Ruby app.
-ENV OPENJDK8_URL=https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u292-b10/OpenJDK8U-jre_x64_linux_hotspot_8u292b10.tar.gz \
-    OPENJDK_SHA1SUM=55848001c21214d30ca1362bace8613ce9733516
-RUN wget -O /tmp/openjdk.tar.gz "$OPENJDK8_URL" \
- && echo "${OPENJDK_SHA1SUM}  /tmp/openjdk.tar.gz" | sha1sum -c - \
- && cd /opt && tar xf /tmp/openjdk.tar.gz \
- && rm -f /tmp/openjdk.tar.gz
-ENV VITA_MIN_JAVA_HOME=/opt/jdk8u292-b10-jre
+# JDK installation instructions from https://adoptium.net/installation/linux/
+RUN wget -qO - https://packages.adoptium.net/artifactory/api/gpg/key/public | gpg --dearmor | tee /etc/apt/trusted.gpg.d/adoptium.gpg > /dev/null \
+ && echo "deb https://packages.adoptium.net/artifactory/deb $(awk -F= '/^VERSION_CODENAME/{print$2}' /etc/os-release) main" | tee /etc/apt/sources.list.d/adoptium.list \
+ && apt install -y temurin-21-jdk
+ENV VITA_MIN_JAVA_HOME=/usr/lib/jvm/temurin-21-jdk-amd64
 
 ADD . /app
 WORKDIR /app
