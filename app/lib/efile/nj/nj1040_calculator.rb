@@ -46,7 +46,11 @@ module Efile
         set_line(:NJ1040_LINE_41, :calculate_line_41)
         set_line(:NJ1040_LINE_42, :calculate_line_42)
         set_line(:NJ1040_LINE_43, :calculate_line_43)
+        set_line(:NJ1040_LINE_45, :calculate_line_45)
+        set_line(:NJ1040_LINE_49, :calculate_line_49)
+        set_line(:NJ1040_LINE_50, :calculate_line_50)
         set_line(:NJ1040_LINE_51, :calculate_line_51)
+        set_line(:NJ1040_LINE_54, :calculate_line_54)
         set_line(:NJ1040_LINE_56, :calculate_line_56)
         set_line(:NJ1040_LINE_57, :calculate_line_57)
         set_line(:NJ1040_LINE_58, :calculate_line_58)
@@ -332,8 +336,26 @@ module Efile
         should_use_property_tax_deduction ? calculate_tax_liability_with_deduction.round : calculate_tax_liability_without_deduction.round
       end
 
+      def calculate_line_45
+        calculate_line_43
+      end
+
+      def calculate_line_49
+        0
+      end
+
+      def calculate_line_50
+        difference = calculate_line_45 - calculate_line_49
+        [difference, 0].max
+      end
+
       def calculate_line_51
         (@intake.sales_use_tax || 0).round
+      end
+
+      def calculate_line_54
+        sum = calculate_line_50 + calculate_line_51
+        [sum, 0].max
       end
 
       def calculate_line_56

@@ -66,7 +66,7 @@ module StateFile
       when :married_filing_separately
         read_xml("az_sherlock_mfs")
       when :head_of_household
-        read_xml("az_alexis_hoh_w2_and_1099")
+        read_xml("az_alexis_hoh")
       end
     end
 

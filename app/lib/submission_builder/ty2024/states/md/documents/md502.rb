@@ -41,7 +41,7 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
   def document
     build_xml_doc("Form502", documentId: "Form502") do |xml|
       xml.MarylandSubdivisionCode @intake.subdivision_code
-      unless @intake.political_subdivision&.end_with?("- unincorporated")
+      unless @intake.political_subdivision == "All Other Areas"
         xml.CityTownOrTaxingArea @intake.political_subdivision
       end
       xml.MarylandAddress do
