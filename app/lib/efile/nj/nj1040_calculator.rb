@@ -116,7 +116,7 @@ module Efile
 
       def calculate_property_tax_deduction
         limit = is_mfs_same_home ? 7_500 : 15_000
-        if calculate_line_40a.nil?
+        if @lines[:NJ1040_LINE_40A]&.value.nil?
           return nil
         end
 
