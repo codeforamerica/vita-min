@@ -705,7 +705,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("general.continue")
 
       # Driver License
-      choose I18n.t('nj_primary_state_id.nj_primary.no_id')
+      choose I18n.t('state_file.questions.nj_primary_state_id.nj_primary.no_id')
       expect(page).to be_axe_clean.within "main"
       click_on I18n.t("general.continue")
 
