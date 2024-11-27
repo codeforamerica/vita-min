@@ -20,7 +20,9 @@ RSpec.describe StateFile::Questions::MdReviewController do
       intake.direct_file_data.fed_taxable_income = 3_000
       intake.calculator.lines[:MD502_DEDUCTION_METHOD].instance_variable_set(:@value, "S")
       allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_3).and_return(3_333)
+      allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_9).and_return(82)
       allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_10a).and_return(123)
+      allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_11).and_return(61)
       allow_any_instance_of(Efile::Md::Md502SuCalculator).to receive(:calculate_line_u).and_return(85)
       allow_any_instance_of(Efile::Md::Md502SuCalculator).to receive(:calculate_line_v).and_return(144)
       allow_any_instance_of(Efile::Md::Md502SuCalculator).to receive(:calculate_line_ab).and_return(42)
@@ -48,14 +50,12 @@ RSpec.describe StateFile::Questions::MdReviewController do
       expect(page_content).to include "$22,112"
       expect(page_content).to include I18n.t("state_file.general.md_state_retirement_pickup_addition")
       expect(page_content).to include "$3,333"
-      # TODO: add this once lines 9 are implemented
-      # expect(page_content).to include I18n.t("state_file.general.md_subtraction_child_dependent_care_expenses")
-      # expect(page_content).to include "$0"
+      expect(page_content).to include I18n.t("state_file.general.md_subtraction_child_dependent_care_expenses")
+      expect(page_content).to include "$82"
       expect(page_content).to include I18n.t("state_file.general.md_pension_income_exclusion")
       expect(page_content).to include "$123"
-      # TODO: add this once lines 11 are implemented
-      # expect(page_content).to include I18n.t("state_file.general.md_social_security_income_not_taxed")
-      # expect(page_content).to include "$0"
+      expect(page_content).to include I18n.t("state_file.general.md_social_security_income_not_taxed")
+      expect(page_content).to include "$61"
       expect(page_content).to include I18n.t("state_file.general.md_military_retirement_income_exclusion")
       expect(page_content).to include "$85"
       expect(page_content).to include I18n.t("state_file.general.md_public_safety_retirement_income_exclusion")
@@ -63,7 +63,7 @@ RSpec.describe StateFile::Questions::MdReviewController do
       expect(page_content).to include I18n.t("state_file.general.md_subtraction_income_us_gov_bonds")
       expect(page_content).to include "$42"
       # TODO: add this once lines 14 are implemented
-      # expect(page_content).to include I18n.t("state_file.general.md_two_income_subtraction_married_taxpayers")
+      expect(page_content).to include I18n.t("state_file.general.md_two_income_subtraction_married_taxpayers")
       # expect(page_content).to include "$0"
       expect(page_content).to include I18n.t("state_file.general.md_adjusted_gross_income")
       expect(page_content).to include "$19,026"
