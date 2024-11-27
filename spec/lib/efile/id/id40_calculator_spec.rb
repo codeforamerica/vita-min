@@ -158,6 +158,17 @@ describe Efile::Id::Id40Calculator do
     end
   end
 
+  describe "Line 21: Tax amount from line 20" do
+    before do
+      allow_any_instance_of(described_class).to receive(:calculate_line_20).and_return(1200)
+      instance.calculate
+    end
+
+    it "equals line 20" do
+      expect(instance.lines[:ID40_LINE_21].value).to eq(1200)
+    end
+  end
+
   describe "Line 25: Child Tax Credit" do
     context "when there are no dependents" do
       it "calculates correct child care credit to zero" do
@@ -522,6 +533,92 @@ describe Efile::Id::Id40Calculator do
       allow(instance).to receive(:calculate_line_54).and_return -30
       instance.calculate
       expect(instance.refund_or_owed_amount).to eq(30)
+    end
+  end
+
+  describe "Line 50: Total payments and other credits" do
+    before do
+      allow_any_instance_of(described_class).to receive(:calculate_line_43).and_return(1200)
+      allow_any_instance_of(described_class).to receive(:calculate_line_46).and_return(1350)
+      instance.calculate
+    end
+
+    it "should return the sum of lines 43 and 46" do
+      expect(instance.lines[:ID40_LINE_50].value).to eq(2550)
+    end
+  end
+
+  describe "Line 51: Tax Due" do
+    context "when line 42 is more than line 50" do
+      before do
+        allow_any_instance_of(described_class).to receive(:calculate_line_42).and_return(2000)
+        allow_any_instance_of(described_class).to receive(:calculate_line_50).and_return(1000)
+        instance.calculate
+      end
+
+      it "should return the line 42 minus line 50" do
+        expect(instance.lines[:ID40_LINE_51].value).to eq(1000)
+      end
+    end
+
+    context "when line 42 is less than line 50" do
+      before do
+        allow_any_instance_of(described_class).to receive(:calculate_line_42).and_return(100)
+        allow_any_instance_of(described_class).to receive(:calculate_line_50).and_return(1000)
+        instance.calculate
+      end
+
+      it "should return nil" do
+        expect(instance.lines[:ID40_LINE_51].value).to eq(nil)
+      end
+    end
+  end
+
+  describe "Line 54: Total due" do
+    before do
+      allow_any_instance_of(described_class).to receive(:calculate_line_51).and_return(1200)
+      instance.calculate
+    end
+
+    it "should return line 51" do
+      expect(instance.lines[:ID40_LINE_54].value).to eq(1200)
+    end
+  end
+
+  describe "Line 55: Overpaid" do
+    context "when line 42 is less than line 50" do
+      before do
+        allow_any_instance_of(described_class).to receive(:calculate_line_42).and_return(1000)
+        allow_any_instance_of(described_class).to receive(:calculate_line_50).and_return(2000)
+        instance.calculate
+      end
+
+      it "should return the line 50 minus line 42" do
+        expect(instance.lines[:ID40_LINE_55].value).to eq(1000)
+      end
+    end
+
+    context "when line 42 is more than line 50" do
+      before do
+        allow_any_instance_of(described_class).to receive(:calculate_line_42).and_return(3000)
+        allow_any_instance_of(described_class).to receive(:calculate_line_50).and_return(1000)
+        instance.calculate
+      end
+
+      it "should return nil" do
+        expect(instance.lines[:ID40_LINE_55].value).to eq(nil)
+      end
+    end
+  end
+
+  describe "Line 56: Refund" do
+    before do
+      allow_any_instance_of(described_class).to receive(:calculate_line_55).and_return(1200)
+      instance.calculate
+    end
+
+    it "should return the line 55" do
+      expect(instance.lines[:ID40_LINE_56].value).to eq(1200)
     end
   end
 end

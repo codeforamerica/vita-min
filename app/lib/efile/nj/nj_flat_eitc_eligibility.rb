@@ -58,9 +58,9 @@ module Efile
 
         def is_under_income_total_limit?(intake)
           if intake.filing_status_mfj?
-            intake.direct_file_data.fed_income_total < 24_210
+            intake.direct_file_data.fed_income_total < 25_511
           else
-            intake.direct_file_data.fed_income_total < 17_640
+            intake.direct_file_data.fed_income_total < 18_591
           end
         end
 

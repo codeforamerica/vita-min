@@ -2280,6 +2280,7 @@ en:
           armed_forces_member: Member of the U.S. Armed Forces
           armed_forces_wages: Active duty pay received as a member of the U.S. Armed Forces
           az321_contribution_name: Contribution to %{charity_name} with code %{charity_code}
+          az322_contribution_name: Contribution to %{charity_name} with code %{charity_code}
           az_agi: Arizona adjusted gross income
           az_tax: Arizona tax
           az_tax_withheld: Arizona tax withheld
@@ -2294,6 +2295,7 @@ en:
           increased_excise_tax_credit: Increased Excise Tax Credit
           last_names: Other last names in the last four years
           made_az321_contributions: Made contributions to qualifying charitable organizations
+          made_az322_contributions: Made contributions to public schools
           ssn_no_employment: "‘Not valid for employment’ is written on your Social Security Card"
           total_arizona_subtractions: Total Arizona subtractions
           total_exemptions: Total Exemptions
@@ -3338,7 +3340,7 @@ en:
           information_html: "<strong>How do I find this information?</strong>"
           money_boxes_label: Please complete the following boxes based on what’s reported on Form 1099-G.
           need_additional_information: Great! We need some additional information about what’s on Form 1099-G. (If you have more than one 1099-G, you can add it at the end.)
-          other_tax_filing_options_html: <strong>Reminder:</strong> In %{current_year}, this tool does not support filing unemployment income received from another state. To file income received from another state, check out <a target="_blank" rel="noopener nofollow" href="%{link}">other tax filing options.</a>
+          other_tax_filing_options_html: <strong>Reminder:</strong> In %{filing_year_plus_one}, this tool does not support filing unemployment income received from another state. To file income received from another state, check out <a target="_blank" rel="noopener nofollow" href="%{link}">other tax filing options.</a>
           payer_address: Payer's Street Address
           payer_name: Payer's Name
           payer_question_html: Please enter the <strong>payer's information located in the top left corner</strong> of the form&#58;
