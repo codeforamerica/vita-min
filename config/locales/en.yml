@@ -3057,10 +3057,10 @@ en:
       notification_preferences:
         edit:
           email_notification_opt_in: Email
-          opt_in_label: Please select the option(s) that work best for you!
           message_body_one: We will not share your information with any outside parties. Message frequency will vary. Message and data rates may apply.
           message_body_two_html: Text HELP to 46207 for help. Text STOP to 46207 to cancel. Carriers (e.g. AT&T, Verizon, T-Mobile, Sprint, etc.) are not responsible or liable for undelivered or delayed messages. See our <a target="_blank" href=%{sms_terms_link}>SMS Terms and Conditions</a> and <a target="_blank" href=%{privacy_link}>Privacy Policy</a>.
           message_title: Messaging Details
+          opt_in_label: Please select the option(s) that work best for you!
           phone_number: Your phone number
           sms_notification_opt_in: Text message
           subtitle: We'll need to reach out with questions and updates.
