@@ -83,7 +83,6 @@ require 'rails_helper'
 RSpec.describe StateFileNcIntake, type: :model do
   it_behaves_like :state_file_base_intake, factory: :state_file_nc_intake
 
-
   describe "#calculate_sales_use_tax" do
     let(:intake) { create :state_file_nc_intake }
     it "calculates the sales use tax using the nc_taxable_income" do
@@ -95,34 +94,34 @@ RSpec.describe StateFileNcIntake, type: :model do
   describe "date_electronic_withdrawal validations" do
     let(:electronic_withdrawal_date) { nil }
     let!(:intake) { build :state_file_nc_intake, date_electronic_withdrawal: electronic_withdrawal_date }
+    let(:fake_time) { Time.new(2024, 11, 25) }
+
+    before do
+      Timecop.freeze(fake_time)
+    end
+
+    after do
+      Timecop.return
+    end
 
     context "when the withdrawal date is in the future, on a weekday and not on a holiday" do
-      let(:fake_time) { Time.new(2024, 11, 25) }
       let(:electronic_withdrawal_date) { fake_time.to_date + 1.day }
       it "fails to save the intake" do
-        Timecop.freeze(Time.new(2024, 11, 25)) do
-          expect(intake).to be_valid
-        end
+        expect(intake).to be_valid
       end
     end
 
     context "when the date is in the past" do
-      let(:fake_time) { Time.new(2024, 11, 25) }
       let(:electronic_withdrawal_date) { fake_time.to_date - 1.day }
       it "fails to save the intake" do
-        Timecop.freeze(Time.new(2024, 11, 25)) do
-          expect(intake).not_to be_valid
-        end
+        expect(intake).not_to be_valid
       end
     end
 
     context "when the date is the current date" do
-      let(:fake_time) { Time.new(2024, 11, 25) }
       let(:electronic_withdrawal_date) { fake_time.to_date }
       it "fails to save the intake" do
-        Timecop.freeze(fake_time) do
-          expect(intake).not_to be_valid
-        end
+        expect(intake).not_to be_valid
       end
     end
 
@@ -130,9 +129,7 @@ RSpec.describe StateFileNcIntake, type: :model do
       let(:fake_time) { (electronic_withdrawal_date - 2.days).to_time }
       let(:electronic_withdrawal_date) { Date.new(2024, 11, 23) } # Saturday
       it "fails to save the intake" do
-        Timecop.freeze(fake_time) do
-          expect(intake).not_to be_valid
-        end
+        expect(intake).not_to be_valid
       end
     end
 
@@ -140,19 +137,15 @@ RSpec.describe StateFileNcIntake, type: :model do
       let(:fake_time) { (electronic_withdrawal_date - 2.days).to_time }
       let(:electronic_withdrawal_date) { Date.parse("January 1st, 2024") }
       it "fails to save the intake" do
-        Timecop.freeze(fake_time) do
-          expect(intake).not_to be_valid
-        end
+        expect(intake).not_to be_valid
       end
     end
 
     context "when the date is after a federal holiday occurring on a Sunday" do
-      let(:fake_time){ (electronic_withdrawal_date - 2.days).to_time }
+      let(:fake_time) { (electronic_withdrawal_date - 2.days).to_time }
       let(:electronic_withdrawal_date) { Date.parse("January 2nd, 2023") }
       it "fails to save the intake" do
-        Timecop.freeze(fake_time) do
-          expect(intake).not_to be_valid
-        end
+        expect(intake).not_to be_valid
       end
     end
   end
