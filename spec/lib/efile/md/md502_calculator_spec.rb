@@ -1519,8 +1519,10 @@ describe Efile::Md::Md502Calculator do
 
   describe "refund_or_owed_amount" do
     it "subtracts owed amount from refund amount" do
-      # TEMP: stub calculator lines and test outcome of method once implemented
-      expect(instance.refund_or_owed_amount).to eq(0)
+      allow(instance).to receive(:calculate_line_48).and_return 0
+      allow(instance).to receive(:calculate_line_50).and_return -30
+      instance.calculate
+      expect(instance.refund_or_owed_amount).to eq(30)
     end
   end
 end

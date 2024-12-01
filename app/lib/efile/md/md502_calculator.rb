@@ -2,6 +2,7 @@ module Efile
   module Md
     class Md502Calculator < ::Efile::TaxCalculator
       attr_reader :lines
+      set_refund_owed_lines refund: :MD502_LINE_48, owed: :MD502_LINE_50
 
       def initialize(year:, intake:, include_source: false)
         super
