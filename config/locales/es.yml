@@ -2371,7 +2371,7 @@ es:
           ineligible_reason:
             exempt_interest_exceeds_10k: you had more than $10,000 in tax-exempt interest income.
             has_irc_125_code: tu formulario W-2 incluye cantidades del plan de beneficios del Código de Rentas Internas (IRC 125).
-            has_out_of_state_w2: recibiste ingresos en otro estado en el 2024
+            has_out_of_state_w2: recibiste ingresos en otro estado en el %{filing_year}
             has_yonkers_income: viviste, recibiste ingresos o mantuviste un hogar en Yonkers en 2024.
             married_filing_separately: estás presentando una declaración de impuestos "casado, presentando por separado".
           offboarding_reason: No puedes usar esta herramienta este año porque %{reason}

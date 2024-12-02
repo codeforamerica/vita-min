@@ -2397,7 +2397,7 @@ en:
           ineligible_reason:
             exempt_interest_exceeds_10k: you had more than $10,000 in tax-exempt interest income.
             has_irc_125_code: W2 lists IRC 125 benefit plan amounts.
-            has_out_of_state_w2: you earned income in another state in 2024.
+            has_out_of_state_w2: you earned income in another state in %{filing_year}.
             has_yonkers_income: lived, earned income, or maintained a home in Yonkers in 2024.
             married_filing_separately: you are filing “married filing separately”.
           offboarding_reason: You cannot use this service this year because %{reason}
