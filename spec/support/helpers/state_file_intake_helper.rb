@@ -18,15 +18,6 @@ module StateFileIntakeHelper
       expect(page).to have_text "In #{filing_year}, did you contribute to a 529 college savings account, or did you withdraw funds from a 529 account and use them for non-qualified expenses?"
       choose "state_file_ny_eligibility_college_savings_withdrawal_form_eligibility_withdrew_529_no"
       click_on I18n.t("general.continue")
-    when "az"
-      expect(page).to have_text I18n.t("state_file.questions.az_eligibility_residence.edit.title")
-      choose "state_file_az_eligibility_residence_form_eligibility_lived_in_state_yes"
-      choose "state_file_az_eligibility_residence_form_eligibility_married_filing_separately_no"
-      click_on I18n.t("general.continue")
-
-      choose "state_file_az_eligibility_out_of_state_income_form_eligibility_out_of_state_income_no"
-      choose "state_file_az_eligibility_out_of_state_income_form_eligibility_529_for_non_qual_expense_no"
-      click_on I18n.t("general.continue")
     when "id"
       expect(page).to have_text I18n.t("state_file.questions.id_eligibility_residence.edit.title", filing_year: filing_year)
       expect(page).to have_text I18n.t("state_file.questions.id_eligibility_residence.edit.emergency_rental_assistance", filing_year: filing_year)
