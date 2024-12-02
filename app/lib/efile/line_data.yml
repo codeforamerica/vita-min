@@ -200,6 +200,8 @@ ID40_LINE_10:
   label: '10. Subtractions from Form 39R, Part B, line 24'
 ID40_LINE_11:
   label: '11. Total Adjusted Income. Subtract line 10 from line 9'
+ID40_LINE_16:
+  label: '16. Standard deduction'
 ID40_LINE_19:
   label: '19. Taxable state income'
 ID40_LINE_20:
