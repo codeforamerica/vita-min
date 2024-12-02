@@ -2845,7 +2845,7 @@ en:
       nc_county:
         edit:
           county: County
-          title: Select the county where you lived on December 31st, %{filing_year}
+          title: Select the county where your permanent address was located on December 31, %{filing_year}
       nc_eligibility_out_of_state_income:
         edit:
           out_of_state_income_html: Did you (or your spouse, if you’re filing together) earn any income in another state in %{filing_year}? (This includes unemployment income <strong>received</strong> from another state.)
@@ -2905,9 +2905,8 @@ en:
           tribal_wages_field_html: "<b>Enter amount earned</b>"
           tribal_wages_question_html: Enter the amount of income received or earned from activities on the federally recognized reservation. <br><br> <b>Note:</b> this should not exceed $%{amount_limit}
       nc_veteran_status:
-        primary_veteran_question: Are you a veteran?
-        spouse_veteran_question: Is your spouse a veteran?
-        title: Veteran status question
+        title: Are you a veteran of the United States Armed Forces?
+        title_spouse: Are you or your spouse a veteran of the United States Armed Forces?
       nj_college_dependents_exemption:
         edit:
           birthdate_label: 'Birthdate:'

@@ -2878,7 +2878,8 @@ es:
       nc_veteran_status:
         primary_veteran_question: "¿Eres un veterano?"
         spouse_veteran_question: "¿Es su cónyuge un veterano?"
-        title: Pregunta sobre el estatus de veterano
+        title: Are you a veteran of the United States Armed Forces?
+        title_spouse: Are you or your spouse a veteran of the United States Armed Forces?
       nj_college_dependents_exemption:
         edit:
           birthdate_label: 'Birthdate:'
