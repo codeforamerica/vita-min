@@ -37,7 +37,6 @@ module SubmissionBuilder
             elsif @submission.data_source.direct_file_data.tax_payer_email.present?
               xml.EmailAddressTxt sanitize_for_xml(@submission.data_source.direct_file_data.tax_payer_email, 75)
             end
-            # do we accept foreign phone numbers, different xml name for foregin numbers
             xml.USCellPhoneNum phone_number if phone_number.present?
           end
           xml.Submission do
@@ -59,9 +58,14 @@ module SubmissionBuilder
     private
 
     def phone_number
-      # what about cell phone number? @direct_file_data.cell_phone_number
-      phone_num = @intake.phone_number.present? ? @intake.phone_number : @direct_file_data.phone_number
-      PhoneParser.normalize(phone_num)
+      phone_number = if @intake.phone_number.present?
+        @intake.phone_number
+      elsif @direct_file_data.phone_number.present?
+        @direct_file_data.phone_number
+      else
+        @direct_file_data.cell_phone_number
+      end
+      PhoneParser.e164_to_raw_phone_number(phone_number)
     end
 
     def xml_type_for_state_id(state_id)

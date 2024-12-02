@@ -153,31 +153,44 @@ describe SubmissionBuilder::AuthenticationHeader do
     let(:submission) { create(:efile_submission, data_source: intake) }
 
     before do
-      intake.direct_file_data.phone_number = "5551231234"
+      intake.direct_file_data.phone_number = "+15551231234"
+      intake.direct_file_data.cell_phone_number = "+15551231239"
     end
 
-    context "when there a phone number on the intake" do
+    context "when there is a phone number on the intake" do
       let(:phone_number) { "+18324658840" }
 
       it "uses the phone number from the intake" do
         doc = SubmissionBuilder::AuthenticationHeader.new(submission).document
-        expect(doc.at("USCellPhoneNum").text).to eq phone_number
+        expect(doc.at("USCellPhoneNum").text).to eq "8324658840"
       end
     end
 
     context "when there is no phone number on the intake but there is one on from the direct file data" do
-      it "uses the phone number from the intake" do
+      it "uses the phone number from the direct file data" do
         doc = SubmissionBuilder::AuthenticationHeader.new(submission).document
-        expect(doc.at("USCellPhoneNum").text).to eq "+15551231234"
+        expect(doc.at("USCellPhoneNum").text).to eq "5551231234"
+      end
+    end
+
+    context "when there is no phone number on the intake or direct file data but there is a cell phone number from DF" do
+      before do
+        intake.direct_file_data.phone_number = ""
+      end
+
+      it "uses the cell phone number from the direct file data" do
+        doc = SubmissionBuilder::AuthenticationHeader.new(submission).document
+        expect(doc.at("USCellPhoneNum").text).to eq "5551231239"
       end
     end
 
     context "when there is no phone number on the intake or direct file data" do
       before do
         intake.direct_file_data.phone_number = ""
+        intake.direct_file_data.cell_phone_number = ""
       end
 
-      it "uses the phone number from the intake" do
+      it "the xml is not present" do
         doc = SubmissionBuilder::AuthenticationHeader.new(submission).document
         expect(doc.at("USCellPhoneNum")).not_to be_present
       end
