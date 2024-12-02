@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_21_162009) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_27_213848) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1819,7 +1819,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_21_162009) do
   create_table "state_file_id_intakes", force: :cascade do |t|
     t.string "account_number"
     t.integer "account_type", default: 0, null: false
+    t.decimal "american_red_cross_fund_donation", precision: 12, scale: 2
     t.string "bank_name"
+    t.decimal "childrens_trust_fund_donation", precision: 12, scale: 2
     t.integer "consented_to_terms_and_conditions", default: 0, null: false
     t.integer "contact_preference", default: 0, null: false
     t.datetime "created_at", null: false
@@ -1838,6 +1840,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_21_162009) do
     t.integer "failed_attempts", default: 0, null: false
     t.string "federal_return_status"
     t.string "federal_submission_id"
+    t.decimal "food_bank_fund_donation", precision: 12, scale: 2
+    t.decimal "guard_reserve_family_donation", precision: 12, scale: 2
     t.integer "has_health_insurance_premium", default: 0, null: false
     t.integer "has_unpaid_sales_use_tax", default: 0, null: false
     t.string "hashed_ssn"
@@ -1848,6 +1852,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_21_162009) do
     t.string "locale", default: "en"
     t.datetime "locked_at"
     t.jsonb "message_tracker", default: {}
+    t.decimal "nongame_wildlife_fund_donation", precision: 12, scale: 2
+    t.decimal "opportunity_scholarship_program_donation", precision: 12, scale: 2
     t.integer "payment_or_deposit_type", default: 0, null: false
     t.string "phone_number"
     t.datetime "phone_number_verified_at"
@@ -1868,6 +1874,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_21_162009) do
     t.string "routing_number"
     t.integer "sign_in_count", default: 0, null: false
     t.string "source"
+    t.decimal "special_olympics_donation", precision: 12, scale: 2
     t.date "spouse_birth_date"
     t.integer "spouse_esigned", default: 0, null: false
     t.datetime "spouse_esigned_at"
@@ -1881,6 +1888,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_21_162009) do
     t.decimal "total_purchase_amount", precision: 12, scale: 2
     t.boolean "unsubscribed_from_email", default: false, null: false
     t.datetime "updated_at", null: false
+    t.decimal "veterans_support_fund_donation", precision: 12, scale: 2
     t.string "visitor_id"
     t.integer "withdraw_amount"
     t.index ["email_address"], name: "index_state_file_id_intakes_on_email_address"
@@ -1895,10 +1903,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_21_162009) do
   end
 
   create_table "state_file_md_intakes", force: :cascade do |t|
-    t.string "account_holder_name"
+    t.string "account_holder_first_name"
+    t.string "account_holder_last_name"
+    t.string "account_holder_middle_initial"
+    t.string "account_holder_suffix"
     t.string "account_number"
     t.integer "account_type", default: 0, null: false
     t.integer "authorize_sharing_of_health_insurance_info", default: 0, null: false
+    t.integer "bank_authorization_confirmed", default: 0, null: false
     t.string "bank_name"
     t.string "city"
     t.integer "confirmed_permanent_address", default: 0, null: false
@@ -1924,7 +1936,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_21_162009) do
     t.string "federal_return_status"
     t.string "federal_submission_id"
     t.integer "had_hh_member_without_health_insurance", default: 0, null: false
+    t.integer "has_joint_account_holder", default: 0, null: false
     t.string "hashed_ssn"
+    t.string "joint_account_holder_first_name"
+    t.string "joint_account_holder_last_name"
+    t.string "joint_account_holder_middle_initial"
+    t.string "joint_account_holder_suffix"
     t.datetime "last_sign_in_at"
     t.inet "last_sign_in_ip"
     t.string "locale", default: "en"

@@ -26,6 +26,7 @@ module Efile
         set_line(:ID40_LINE_11, :calculate_line_11)
         set_line(:ID40_LINE_19, :calculate_line_19)
         set_line(:ID40_LINE_20, :calculate_line_20)
+        set_line(:ID40_LINE_21, :calculate_line_20)
         set_line(:ID40_LINE_23, :calculate_line_23)
         set_line(:ID40_LINE_25, :calculate_line_25)
         set_line(:ID40_LINE_26, :calculate_line_26)
@@ -34,13 +35,24 @@ module Efile
         set_line(:ID40_LINE_32A, :calculate_line_32a)
         set_line(:ID40_LINE_32B, :calculate_line_32b)
         set_line(:ID40_LINE_33, :calculate_line_33)
+        set_line(:ID40_LINE_34, :calculate_line_34)
+        set_line(:ID40_LINE_35, :calculate_line_35)
+        set_line(:ID40_LINE_36, :calculate_line_36)
+        set_line(:ID40_LINE_37, :calculate_line_37)
+        set_line(:ID40_LINE_38, :calculate_line_38)
+        set_line(:ID40_LINE_39, :calculate_line_39)
+        set_line(:ID40_LINE_40, :calculate_line_40)
+        set_line(:ID40_LINE_41, :calculate_line_41)
         set_line(:ID40_LINE_42, :calculate_line_42)
         set_line(:ID40_LINE_43_WORKSHEET, :calculate_grocery_credit)
         set_line(:ID40_LINE_43_DONATE, :calculate_line_43_donate)
         set_line(:ID40_LINE_43, :calculate_line_43)
         set_line(:ID40_LINE_46, :calculate_line_46)
-        set_line(:ID40_LINE_54, :calculate_line_54) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
-        set_line(:ID40_LINE_56, :calculate_line_56) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
+        set_line(:ID40_LINE_50, :calculate_line_50)
+        set_line(:ID40_LINE_51, :calculate_line_51)
+        set_line(:ID40_LINE_54, :calculate_line_54)
+        set_line(:ID40_LINE_55, :calculate_line_55)
+        set_line(:ID40_LINE_56, :calculate_line_56)
         @id39r.calculate
         @lines.transform_values(&:value)
       end
@@ -159,8 +171,41 @@ module Efile
         line_or_zero(:ID40_LINE_27) + line_or_zero(:ID40_LINE_29) + line_or_zero(:ID40_LINE_32A)
       end
 
+      def calculate_line_34
+        @intake.nongame_wildlife_fund_donation
+      end
+
+      def calculate_line_35
+        @intake.childrens_trust_fund_donation
+      end
+
+      def calculate_line_36
+        @intake.special_olympics_donation
+      end
+
+      def calculate_line_37
+        @intake.guard_reserve_family_donation
+      end
+
+      def calculate_line_38
+        @intake.american_red_cross_fund_donation
+      end
+
+      def calculate_line_39
+        @intake.veterans_support_fund_donation
+      end
+
+      def calculate_line_40
+        @intake.food_bank_fund_donation
+      end
+
+      def calculate_line_41
+        @intake.opportunity_scholarship_program_donation
+      end
+
       def calculate_line_42
-        line_or_zero(:ID40_LINE_33)
+        lines = %i[ID40_LINE_33 ID40_LINE_34 ID40_LINE_35 ID40_LINE_36 ID40_LINE_37 ID40_LINE_38 ID40_LINE_39 ID40_LINE_40 ID40_LINE_41]
+        lines.sum { |line| line_or_zero(line) }
       end
 
       def calculate_grocery_credit
@@ -207,8 +252,29 @@ module Efile
           @intake.state_file1099_rs.sum { |item| item.state_tax_withheld_amount.round }
       end
 
-      def calculate_line_54; end
-      def calculate_line_56; end
+      def calculate_line_50
+        line_or_zero(:ID40_LINE_43) + line_or_zero(:ID40_LINE_46)
+      end
+
+      def calculate_line_51
+        if line_or_zero(:ID40_LINE_42) > line_or_zero(:ID40_LINE_50)
+          line_or_zero(:ID40_LINE_42) - line_or_zero(:ID40_LINE_50)
+        end
+      end
+
+      def calculate_line_54
+        line_or_zero(:ID40_LINE_51)
+      end
+
+      def calculate_line_55
+        if line_or_zero(:ID40_LINE_42) < line_or_zero(:ID40_LINE_50)
+          line_or_zero(:ID40_LINE_50) - line_or_zero(:ID40_LINE_42)
+        end
+      end
+
+      def calculate_line_56
+        line_or_zero(:ID40_LINE_55)
+      end
     end
   end
 end
