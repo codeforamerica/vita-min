@@ -3,13 +3,18 @@
 <% content_for :page_title, title %>
 <% content_for :card do %>
   <h1 class="h2"><%= title %></h1>
-  <h1 class="h2"><%= t(".subtitle") %></h1>
+  <p><%= t(".subtitle") %></p>
 
   <div><%= t(".action_html") %></div>
   <%= link_to(StateFile::Questions::TermsAndConditionsController.to_path_helper(action: :edit)) do %>
     <%= t('.go_back_link') %>
   <% end %>
 
-  <p class="spacing-above-35" > <%= t('.drop_down_html') %></p>
-  <%= link_to t(".faq_link"), state_faq_path(us_state: current_state_code) %>
+  <div class="reveal spacing-above-35">
+    <span class="text--small"><button class="reveal__button"> <%= t('.drop_down_title') %></button></span>
+    <div class="reveal__content">
+      <p> <%= t('.drop_down_body') %></p>
+      <%= link_to t(".faq_link"), state_faq_path(us_state: current_state_code) %>
+    </div>
+  </div>
 <% end %>

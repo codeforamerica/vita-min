@@ -2379,9 +2379,8 @@ es:
       declined_terms_and_conditions:
         edit:
           action_html: "<strong>¿Es un error?</strong>"
-          drop_down_html: |
-            <strong>¿Quieres presentar tus impuestos usando un producto o servicio diferente?</strong><br>
-            Antes de escoger una opción, asegúrate de que te permita presentar tu declaración de impuestos sólo a nivel estatal. Es probable que necesites volver a ingresar la información de tu declaración de impuestos federales para preparar tu declaración de impuestos estatales. Se pueden aplicar tarifas.
+          drop_down_title: Want to file using a different product or service?
+          drop_down_body: Before choosing an option, make sure it supports state-only tax filing. You most likely will need to reenter your federal tax return information in order to prepare your state tax return. Fees may apply.
           faq_link: Visita nuestras Preguntas Frecuentes (FAQ)
           go_back_link: Regresa para corregirlo.
           subtitle: Lamentablemente, para continuar presentando tus impuestos estatales con FileYourStateTaxes, debes aceptar los términos y condiciones.
