@@ -2370,8 +2370,8 @@ en:
             <strong>Want to file using a different product or service?</strong>
             <br/>
             Before choosing an option, make sure it supports state-only tax filing. You will need to reenter your federal tax return information to prepare your state tax return. Fees may apply.
-          title: You canceled the transfer of your federal return.
           subtitle: Unfortunately, to continue filing with FileYourStateTaxes, you must transfer your federal return to complete parts of your state return.
+          title: You canceled the transfer of your federal return.
       code_verified:
         edit:
           subtitle_email: You’ll now receive email updates when your state tax return is accepted.
@@ -2405,8 +2405,8 @@ en:
       declined_terms_and_conditions:
         edit:
           action_html: "<strong>Is this a mistake?</strong>"
-          drop_down_title: Want to file using a different product or service?
           drop_down_body: Before choosing an option, make sure it supports state-only tax filing. You most likely will need to reenter your federal tax return information in order to prepare your state tax return. Fees may apply.
+          drop_down_title: Want to file using a different product or service?
           faq_link: Visit our FAQ
           go_back_link: Go back to correct.
           subtitle: Unfortunately, in order to continue filing with FileYourStateTaxes, you must accept the terms and conditions.
@@ -2476,8 +2476,8 @@ en:
           not_supported: What if I have a situation not yet supported by FileYourStateTaxes?
           title1: You can use this service to file your %{year} %{state} taxes
           title2_html: |
-              Let's make sure this is the right service for you.<br><br>
-              Here are the credits and deductions you <strong>may</strong> be able to claim to maximize your refund.
+            Let's make sure this is the right service for you.<br><br>
+            Here are the credits and deductions you <strong>may</strong> be able to claim to maximize your refund.
           want_to_claim_learn_more_html: Learn more about this process and other filing options <a href="%{link}" target="_blank">here</a>.
           want_to_claim_vita: You may be able to file your state return for free with help from IRS-certified VITA volunteers, but it may take 2-3 weeks to complete.
         id_supported:
@@ -2513,18 +2513,18 @@ en:
           sub8: State and local Earned Income Tax credits (if you claimed the federal Earned Income Tax Credit)
           sub9: State Child Tax Credit (for children under 6)
         nc_credits_unsupported:
-          personal_education: Personal Education Student Account Deposits Deduction
           college_savings_account: 529 College Savings Account Contributions
-          extension_payment: Extension payments
-          estimated_income_tax_payments: Estimated income tax payments
-          credits_for_rehabilitating: Credits for Rehabilitating Historic Structures
           credits_carried: Credits carried forward from previous years
+          credits_for_rehabilitating: Credits for Rehabilitating Historic Structures
+          estimated_income_tax_payments: Estimated income tax payments
+          extension_payment: Extension payments
+          personal_education: Personal Education Student Account Deposits Deduction
         nc_supported:
+          deduction_for_income: Deduction for income by members of a Federally recognized Indian tribe
           deduction_for_qualifying_children: Deduction for qualifying children
-          deduction_for_taxable_portion: Deduction for Taxable Portion of Social Security and Railroad Retirement Benefits
           deduction_for_retirement_income_bailey: Deduction for Retirement Income as part of the Bailey Settlement
           deduction_for_retirement_income_uniformed: Deduction for Retirement Income from the Uniformed Services
-          deduction_for_income: Deduction for income by members of a Federally recognized Indian tribe
+          deduction_for_taxable_portion: Deduction for Taxable Portion of Social Security and Railroad Retirement Benefits
         ny_supported:
           empire_state_ctc: Empire State Child Credit
           nyc_school_tax_credit: NYC School Tax Credit
@@ -2550,9 +2550,9 @@ en:
       email_address:
         edit:
           action: Send code
-          email_address_label_html: <strong>Your email address</strong>
-          title: Enter your email address
+          email_address_label_html: "<strong>Your email address</strong>"
           subtitle_html: To create a new account, provide an email address that isn't already in use.<br><br>Use an email account you can access.
+          title: Enter your email address
       esign_declaration:
         edit:
           already_submitted: You have already submitted your return.
@@ -3220,13 +3220,13 @@ en:
           title: 'Select your New York City residency status during %{year}:'
       pending_federal_return:
         edit:
-          title: Your federal tax return must be accepted before you can file your state tax return
           body_html: Sorry to keep you waiting.<br><br>You’ll receive an email from IRS Direct File when your federal tax return is accepted with a link to bring you back here. Check your spam folder.
+          title: Your federal tax return must be accepted before you can file your state tax return
       phone_number:
         edit:
           action: Send code
           helper_text: Enter numbers only
-          phone_number_label_html: <strong>Your phone number</strong>
+          phone_number_label_html: "<strong>Your phone number</strong>"
           subtitle_html: To create a new account, provide a phone number that isn't already in use.<br><br>Use a phone number you can access.
           title: Enter your phone number
       primary_state_id:
@@ -3418,9 +3418,9 @@ en:
       verification_code:
         edit:
           action: Verify code
-          title_html: We’ve sent your code to <strong>%{contact_info}</strong>
           subtitle_html: If you didn’t receive a code, please check your spam folder. If you still need help resubscribing, chat with us.
-          verification_code_label_html: <strong>Enter the 6-digit code</strong>
+          title_html: We’ve sent your code to <strong>%{contact_info}</strong>
+          verification_code_label_html: "<strong>Enter the 6-digit code</strong>"
       w2:
         edit:
           box14_explanation:
@@ -3450,8 +3450,8 @@ en:
           what_is_box14: What could be in Box 14?
       waiting_to_load_data:
         edit:
-          title_html: Just a moment, we’re transferring your federal tax return to complete parts of your state return.
           subtitle_html: This usually takes a few minutes. Don’t close this page.<br><br> We’ll use your federal tax return information to complete sections of your state return.
+          title_html: Just a moment, we’re transferring your federal tax return to complete parts of your state return.
     state_file_pages:
       about_page:
         closed_subheader_html: |

@@ -2344,8 +2344,8 @@ es:
             <strong>¿Quieres presentar tus impuestos usando un producto o servicio diferente?</strong>
             <br/>
             Antes de escoger una opción, asegúrate de que te permita presentar tu declaración de impuestos sólo a nivel estatal. Es probable que necesites volver a ingresar la información de tu declaración de impuestos federales para preparar tu declaración de impuestos estatales. Se pueden aplicar tarifas.
-          title: 'Parece que cancelaste la transferencia de tu declaración federal. '
           subtitle: Lamentablemente, para continuar presentando tus impuestos estatales con FileYourStateTaxes debes transferir tu declaración federal para completar ciertas secciones de tu declaración estatal.
+          title: 'Parece que cancelaste la transferencia de tu declaración federal. '
       code_verified:
         edit:
           subtitle_email: A partir de ahora, recibirás actualizaciones por correo electrónico cuando tu declaración de impuestos estatales sea aceptada.
@@ -2379,8 +2379,8 @@ es:
       declined_terms_and_conditions:
         edit:
           action_html: "<strong>¿Es un error?</strong>"
-          drop_down_title: Want to file using a different product or service?
           drop_down_body: Before choosing an option, make sure it supports state-only tax filing. You most likely will need to reenter your federal tax return information in order to prepare your state tax return. Fees may apply.
+          drop_down_title: Want to file using a different product or service?
           faq_link: Visita nuestras Preguntas Frecuentes (FAQ)
           go_back_link: Regresa para corregirlo.
           subtitle: Lamentablemente, para continuar presentando tus impuestos estatales con FileYourStateTaxes, debes aceptar los términos y condiciones.
@@ -2485,18 +2485,18 @@ es:
           sub8: Créditos fiscales estatales y locales por ingresos del trabajo (si solicitó el Crédito fiscal federal por ingresos del trabajo)
           sub9: Crédito fiscal estatal por hijos (para niños menores de 6 años)
         nc_credits_unsupported:
-          personal_education: Personal Education Student Account Deposits Deduction
           college_savings_account: 529 College Savings Account Contributions
-          extension_payment: Extension payments
-          estimated_income_tax_payments: Estimated income tax payments
-          credits_for_rehabilitating: Credits for Rehabilitating Historic Structures
           credits_carried: Credits carried forward from previous years
+          credits_for_rehabilitating: Credits for Rehabilitating Historic Structures
+          estimated_income_tax_payments: Estimated income tax payments
+          extension_payment: Extension payments
+          personal_education: Personal Education Student Account Deposits Deduction
         nc_supported:
+          deduction_for_income: Deduction for income by members of a Federally recognized Indian tribe
           deduction_for_qualifying_children: Deduction for qualifying children
-          deduction_for_taxable_portion: Deduction for Taxable Portion of Social Security and Railroad Retirement Benefits
           deduction_for_retirement_income_bailey: Deduction for Retirement Income as part of the Bailey Settlement
           deduction_for_retirement_income_uniformed: Deduction for Retirement Income from the Uniformed Services
-          deduction_for_income: Deduction for income by members of a Federally recognized Indian tribe
+          deduction_for_taxable_portion: Deduction for Taxable Portion of Social Security and Railroad Retirement Benefits
         ny_supported:
           empire_state_ctc: Crédito Empire State por hijos
           nyc_school_tax_credit: Crédito tributario escolar de la ciudad de Nueva York
@@ -2522,9 +2522,9 @@ es:
       email_address:
         edit:
           action: Enviar el código
-          email_address_label_html: <strong>Tu dirección de correo electrónico</strong>
-          title: Ingresa tu dirección de correo electrónico
+          email_address_label_html: "<strong>Tu dirección de correo electrónico</strong>"
           subtitle_html: To create a new account, provide an email address that isn't already in use.<br><br>Use an email account you can access.
+          title: Ingresa tu dirección de correo electrónico
       esign_declaration:
         edit:
           already_submitted: Ya has enviado tu declaración.
@@ -3205,13 +3205,13 @@ es:
           title: 'Selecciona tu estado de residencia en la ciudad de Nueva York durante el %{year}:'
       pending_federal_return:
         edit:
-          title: Your federal tax return must be accepted before you can file your state tax return
           body_html: Sorry to keep you waiting.<br><br>You’ll receive an email from IRS Direct File when your federal tax return is accepted with a link to bring you back here. Check your spam folder.
+          title: Your federal tax return must be accepted before you can file your state tax return
       phone_number:
         edit:
           action: Enviar el código
           helper_text: Enter numbers only
-          phone_number_label_html: <strong>Tu número de teléfono</strong>
+          phone_number_label_html: "<strong>Tu número de teléfono</strong>"
           subtitle_html: To create a new account, provide a phone number that isn't already in use.<br><br>Use a phone number you can access.
           title: Ingresa tu número de teléfono
       primary_state_id:
@@ -3404,9 +3404,9 @@ es:
       verification_code:
         edit:
           action: " Verificar el código"
-          title_html: Te enviamos tu código a <strong>%{contact_info}</strong>
           subtitle_html: If you didn’t receive a code, please check your spam folder. If you still need help resubscribing, chat with us.
-          verification_code_label_html: <strong>Ingresa el código de 6 dígitos</strong>
+          title_html: Te enviamos tu código a <strong>%{contact_info}</strong>
+          verification_code_label_html: "<strong>Ingresa el código de 6 dígitos</strong>"
       w2:
         edit:
           box14_explanation:
@@ -3436,8 +3436,8 @@ es:
           what_is_box14: "¿Qué podría haber en la Casilla 14?"
       waiting_to_load_data:
         edit:
-          title_html: Un momento, estamos transfiriendo tu declaración de impuestos federales para completar partes de tu declaración estatales. <br/><br/> Esto suele tomar unos minutos. No cierres la página.
           subtitle_html: This usually takes a few minutes. Don’t close this page.<br><br> We’ll use your federal tax return information to complete sections of your state return.
+          title_html: Un momento, estamos transfiriendo tu declaración de impuestos federales para completar partes de tu declaración estatales. <br/><br/> Esto suele tomar unos minutos. No cierres la página.
     state_file_pages:
       about_page:
         closed_subheader_html: |
