@@ -2090,17 +2090,15 @@ es:
         already_filed_html: "¿Ya presentó tus impuestos estatales con nosotros? <strong>Puede descargar una copia de su declaración estatal hasta el 31 de diciembre de 2024.</strong>"
         already_started_html: ¿Ya comenzaste a presentar tu declaración estatal? <a href="%{sign_in_url}">Inicia sesión</a>.
         az:
-          built_with_html: "<strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el estado de Arizona para integrarse con la herramienta Direct File del IRS y solo toma de 10 a 15 minutos completarlo <strong>una vez que tu declaración federal sea aceptada</strong>. Comienza configurando tu cuenta."
           closed_html: |
             <strong>FileYourStateTaxes</strong> se creó en asociación con el estado de Arizona para integrarse con la herramienta Direct File del IRS.<br /><br />
             Estamos cerrados por la temporada de impuestos. Desafortunadamente no puede presentar su declaración estatal con nosotros este año.
           supported_by: Respaldada por el estado de Arizona
           title: Presenta tus impuestos estatales de Arizona sin costo
+        built_with_html: "<strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el estado de %{state_name} para integrarse con la herramienta Direct File del IRS y solo toma de 10 a 15 minutos completarlo <strong>una vez que tu declaración federal sea aceptada</strong>. Comienza configurando tu cuenta.\n"
         continue: Para continuar presentando su declaración estatal de %{state_name}, inicie sesión a continuación
         download_your_record: Descargue tu registro
         help_text_html: |
-          <strong>Lo que necesitarás para comenzar</strong>
-          <br />
           <ul class="list--bulleted">
             <li>Una declaración federal de %{filing_year} <strong>aceptada</strong> mediante <a href="https://directfile.irs.gov/">IRS Direct File</a>. (No necesitas una copia de esta declaración; transferirás tu declaración aquí).</li>
             <li>Dirección de correo electrónico o número de teléfono.</li>
@@ -2108,35 +2106,30 @@ es:
             <li>Formulario 1099-G (si recibiste beneficios de desempleo en %{filing_year}).</li>
             <li>Números de ruta bancaria y de cuenta (si deseas recibir tu reembolso o hacer un pago de impuestos electrónicamente).</li>
           </ul>
+        help_text_title: "¿Qué necesitaré para completar mi declaración de impuestos estatales?"
         id:
-          built_with_html: "<strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el estado de Idaho para integrarse con la herramienta Direct File del IRS y solo toma de 10 a 15 minutos completarlo <strong>una vez que tu declaración federal sea aceptada</strong>. Comienza configurando tu cuenta."
           closed_html: |
             <strong>FileYourStateTaxes</strong> se creó en asociación con el estado de Idaho para integrarse con la herramienta Direct File del IRS.<br /><br />
             Estamos cerrados por la temporada de impuestos. Desafortunadamente no puede presentar su declaración estatal con nosotros este año.
           supported_by: Respaldada por el estado de Idaho
           title: Presenta tus impuestos estatales de Idaho sin costo
         md:
-          built_with_html: "<strong>FileYourStateTaxes</strong> ha sido creado en colaboración con Maryland para integrarse con la herramienta Direct File del IRS y solo toma de 10 a 15 minutos completarlo <strong>una vez que tu declaración federal sea aceptada</strong>. Comienza configurando tu cuenta."
           closed_html: |
             <strong>FileYourStateTaxes</strong> se creó en asociación con Maryland para integrarse con la herramienta Direct File del IRS.<br /><br />
             Estamos cerrados por la temporada de impuestos. Desafortunadamente no puede presentar su declaración estatal con nosotros este año.
           supported_by: Respaldada por Maryland
           title: Presenta tus impuestos Maryland sin costo
         nc:
-          built_with_html: "<strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el estado de North Carolina para integrarse con la herramienta Direct File del IRS y solo toma de 10 a 15 minutos completarlo <strong>una vez que tu declaración federal sea aceptada</strong>. Comienza configurando tu cuenta."
           closed_html: |
             <strong>FileYourStateTaxes</strong> se creó en asociación con el estado de North Carolina para integrarse con la herramienta Direct File del IRS.<br /><br />
             Estamos cerrados por la temporada de impuestos. Desafortunadamente no puede presentar su declaración estatal con nosotros este año.
           supported_by: Respaldada por el estado de North Carolina
           title: Presenta tus impuestos estatales de North Carolina sin costo
         nj:
-          built_with_html: "<strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el <strong>New Jersey Office of Innovation</strong> para integrarse con la herramienta Direct File del IRS y solo toma de 10 a 15 minutos completarlo <strong>una vez que tu declaración federal sea aceptada</strong>. Comienza configurando tu cuenta."
           closed_html: |
             <strong>FileYourStateTaxes</strong> se creó en asociación con el New Jersey Office of Innovation para integrarse con la herramienta Direct File del IRS.<br /><br />
             Estamos cerrados por la temporada de impuestos. Desafortunadamente no puede presentar su declaración estatal con nosotros este año.
           help_text_html: |
-            <strong>Lo que necesitarás para comenzar</strong>
-            <br />
             <ul class="list--bulleted">
               <li>Una declaración federal de %{filing_year} <strong>aceptada</strong> mediante <a href="https://directfile.irs.gov/">IRS Direct File</a>. (No necesitas una copia de esta declaración; transferirás tu declaración aquí).</li>
               <li>Dirección de correo electrónico o número de teléfono.</li>
@@ -2147,7 +2140,6 @@ es:
           title: Presenta tus impuestos estatales de New Jersey sin costo
         not_you: "¿No es %{user_name}?"
         ny:
-          built_with_html: "<strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el <strong>estado de Nueva York</strong> para integrarse con la herramienta Direct File del IRS y tarda aproximadamente de 10 a 15 minutos completarlo <strong>una vez que tu declaración federal sea aceptada</strong>. Comienza configurando tu cuenta."
           closed_html: |
             <strong>FileYourStateTaxes</strong> se creó en asociación con el estado de Nueva York para integrarse con la herramienta Direct File del IRS.<br /><br />
             Estamos cerrados por la temporada de impuestos. Lamentablemente no puede presentar su declaración estatal con nosotros este año.

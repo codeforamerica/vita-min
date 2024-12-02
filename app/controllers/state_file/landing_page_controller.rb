@@ -16,6 +16,7 @@ module StateFile
       end
       @state_code = params[:us_state]
       @state_name = StateFile::StateInformationService.state_name(@state_code)
+      @built_with_name = @state_code == "nj" ? "New Jersey Office of Innovation" : @state_name
     end
 
     def update
