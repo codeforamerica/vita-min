@@ -2332,15 +2332,6 @@ es:
           subtitle: Con una cuenta recibirás notificaciones sobre el estado de tu declaración de impuestos estatales.
           text_message_option: Enviar código por mensaje de texto.
           title: Ahora crea tu cuenta con un código
-      data_review:
-        edit:
-          basic_household_info_title: Información básica del hogar
-          complete_description: Completo
-          filing_status_title: Estado civil para la declaración
-          income_and_deductions_title: Ingresos y deducciones
-          partially_complete_description: Parcialmente completa
-          state_tax_withheld_title: Retención de impuestos estatales de %{name}
-          title: Tu declaración de impuestos federales se ha transferido. Hemos completado algunas partes para ahorrarte tiempo.
       data_transfer_offboarding:
         edit:
           ineligible_reason:
@@ -3176,6 +3167,9 @@ es:
           action: Enviar el código
           phone_number_label: Tu número de teléfono
           title: Ingresa tu número de teléfono
+      post_data_transfer:
+        edit:
+          title: Solo página sin producción
       primary_state_id:
         edit:
           ny_subtitle: Esta información es necesaria para todos los residentes de Nueva York con una identificación emitida por el estado.
