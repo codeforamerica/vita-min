@@ -2384,10 +2384,12 @@ es:
           vita_link: Solicitar asistencia de un voluntario VITA
       eligible:
         az_supported:
+          charitable_contributions_credit: Credit for Contributions to Qualifying Charitable Organizations
           dependent_credit: Crédito por Dependientes
           family_income_credit: Crédito por ingresos familiares
           increased_deduction: Una deducción aumentada por donaciones caritativas
           increased_excise_credit: Aumento en el crédito por impuesto de consumo
+          public_school_credit: Public School Tax Credit
         az_unsupported:
           other_credits_301_html: Créditos no reembolsables enumerados en el <a href="https://azdor.gov/sites/default/files/2023-03/FORMS_CREDIT_2022_301-SBI_f.pdf" target="_blank" rel="noopener nofollow">Formulario AZ 301</a>
           other_credits_529_html: <a href="https://az529.gov/what-is-a-529-plan/az-tax-incentives/" target="_blank" rel="noopener nofollow">Deducción por contribuciones al plan 529 de Arizona</a>
@@ -2395,8 +2397,6 @@ es:
           other_credits_change_filing_status: Cambio en el estado civil de presentación de la declaración federal a estatal
           other_credits_heading: 'Otros créditos y deducciones no admitidos este año:'
           other_credits_itemized_deductions: Deducciones detalladas
-          other_credits_qcos_html: <a href="https://azdor.gov/tax-credits/credits-contributions-qcos-and-qfcos" target="_blank" rel="noopener nofollow">Crédito por donaciones caritativas a organizaciones calificadas</a>
-          other_credits_qfcos_html: <a href="https://azdor.gov/tax-credits/credits-contributions-qcos-and-qfcos" target="_blank" rel="noopener nofollow">Crédito por donaciones caritativas a organizaciones de cuidado y crianza calificadas</a>
           property_tax_credit_age: Tener 65 años o más, o recibir pagos de Seguridad de Ingreso Suplementario
           property_tax_credit_heading_html: '<a href="https://azdor.gov/individuals/income-tax-filing-assistance/tax-credits" target="_blank" rel="noopener nofollow">Crédito tributario por impuestos a la propiedad</a>. Para calificar para este crédito, debes:'
           property_tax_credit_income: Tener un ingreso total del hogar menor a $3,751 si vives solo; o un ingreso total del hogar menor a $5,501 si vives con otros
@@ -2405,10 +2405,10 @@ es:
           public_school_tax_credit_paid_fees: Haber pagado tarifas relacionadas con la escuela o donado dinero a una escuela pública
           public_school_tax_credit_provide_info_html: Compartir información de la escuela, incluyendo el <a href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_ADESchoolListing.pdf" target="_blank" rel="noopener nofollow">código CTDS</a>
         edit:
+          body_html: Aquí están los créditos y deducciones que <strong>podrías</strong> reclamar con esta herramienta para maximizar tu reembolso.
           not_supported: "¿Cuáles créditos y deducciones no admite esta herramienta este año?"
+          not_supported_reveal_heading: "¿Quieres reclamar estos créditos o deducciones? "
           title1: "¡Buenas noticias! Puedes usar esta herramienta este año %{year} para presentar tus impuestos estatales %{state}."
-          title2_html: Aquí están los créditos y deducciones que <strong>podrías</strong> reclamar con esta herramienta para maximizar tu reembolso.
-          want_to_claim_heading: "¿Quieres reclamar estos créditos o deducciones? "
           want_to_claim_learn_more_html: Obtén más información sobre este proceso y otras opciones de presentación <a href="%{link}" target="_blank">aquí</a>.
           want_to_claim_vita: Es posible que puedas presentar tu declaración de impuestos estatales de forma gratuita con la ayuda de voluntarios VITA certificados por el IRS en %{state_name}. Ten en cuenta que esta opción puede demorar de 2 a 3 semanas en completarse.
         id_supported:
