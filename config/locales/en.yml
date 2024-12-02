@@ -3201,7 +3201,7 @@ en:
           box14_html: "<b>Box 14</b>, State tax withheld"
           box15_html: "<b>Box 15</b>, State/Payer’s State Number"
           box16_html: "<b>Box 16</b>, State distribution"
-          title: Please review your retirement income (1099-R) details for %{payer_name}.
+          title_html: Please review your retirement income (1099-R) details for <strong>%{payer_name}</strong>.
       return_status:
         accepted:
           check_payable: Make your check or money order payable to Arizona Department of Revenue. Write your full SSN, “%{filing_year} Tax” and 140 on your payment.
@@ -3387,7 +3387,7 @@ en:
           box19_html: "<strong>Box 19,</strong> Local income tax"
           box20_locality_name: "<strong>Box 20,</strong> Locality name"
           employer_state_id_error: EIN cannot be more than 16 characters.
-          instructions_1_html: Please review your state income details for <strong>%{employer}</strong>
+          instructions_1_html: Please review your job (W-2) details for <strong>%{employer}</strong>
           local_income_tax_amt_error: Cannot be greater than local wages and tips.
           local_wages_and_tips_amt_error: Please enter local wages and tips
           locality_nm_missing_error: Please select locality name

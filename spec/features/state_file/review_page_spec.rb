@@ -51,7 +51,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
         end
 
         # 1099R edit page
-        expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.retirement_income.edit.title", payer_name: intake.state_file1099_rs.first.payer_name))
+        expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.retirement_income.edit.title_html", payer_name: intake.state_file1099_rs.first.payer_name))
         fill_in strip_html_tags(I18n.t("state_file.questions.retirement_income.edit.box15_html")), with: "123456789"
         click_on I18n.t("general.continue")
 
@@ -72,7 +72,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
         end
 
         # 1099R edit page
-        expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.retirement_income.edit.title", payer_name: intake.state_file1099_rs.first.payer_name))
+        expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.retirement_income.edit.title_html", payer_name: intake.state_file1099_rs.first.payer_name))
         fill_in strip_html_tags(I18n.t("state_file.questions.retirement_income.edit.box15_html")), with: "123456789"
         click_on I18n.t("general.continue")
 

@@ -287,6 +287,22 @@
       padding: 0 1rem;
     }
 
+    .text-input-group:has(.text-input-group__prefix) {
+      border-width: 0.1rem;
+
+      .text-input {
+        border: none;
+      }
+    }
+
+    .text-input-group {
+      .text-input-group__prefix {
+        background: none;
+        box-shadow: none;
+        padding: 0 10px 0 10px;
+      }
+    }
+
     .question-with-follow-up__follow-up {
       :not(.not-centered) {
         margin: 0;
