@@ -60,6 +60,10 @@ module Efile
         end
       end
 
+      def analytics_attrs
+        {}
+      end
+
       private
 
       def calculate_line_9
