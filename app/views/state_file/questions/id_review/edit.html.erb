@@ -58,11 +58,11 @@
         "state_file.questions.id_donations.edit.opportunity_scholarship_program_donation" => current_intake.opportunity_scholarship_program_donation
       } %>
 
-      <% if donation_lines.values.all? { |amount| amount.to_f.zero? } %>
+      <% if donation_lines.values.all? { |amount| amount.nil? || amount.zero? } %>
         <p class="text"><%= t(".no_donations_selected").html_safe %></p>
     <% else %>
         <% donation_lines.each do |translation_key, amount| %>
-          <% if amount.present? %>
+          <% if amount.present? && amount.positive? %>
             <p class="text--bold spacing-below-5"><%= t(translation_key) %></p>
             <p><%= number_to_currency(amount, precision: 2) %></p>
           <% end %>
