@@ -152,8 +152,8 @@ RSpec.describe PdfFiller::Md502Pdf do
         let(:intake) { create(:state_file_md_intake, :with_spouse) }
 
         it "sets correct values for mfj filers" do
-          expect(pdf_fields['Enter social security number']).to eq("400000030")
-          expect(pdf_fields["Enter spouse&apos;s social security number"]).to eq("600000030")
+          expect(pdf_fields['Enter social security number']).to eq("123456789")
+          expect(pdf_fields["Enter spouse&apos;s social security number"]).to eq("987654321")
           expect(pdf_fields["Enter your first name"]).to eq("Mary")
           expect(pdf_fields["Enter your middle initial"]).to eq("A")
           expect(pdf_fields["Enter your last name"]).to eq("Lando")
@@ -174,8 +174,8 @@ RSpec.describe PdfFiller::Md502Pdf do
         let(:intake) { create(:state_file_md_intake, :with_spouse, filing_status: "married_filing_separately") }
 
         it "sets correct values for filer and fills in mfs spouse ssn" do
-          expect(pdf_fields["Enter social security number"]).to eq("400000030")
-          expect(pdf_fields["Enter spouse&apos;s social security number"]).to eq("600000030")
+          expect(pdf_fields["Enter social security number"]).to eq("123456789")
+          expect(pdf_fields["Enter spouse&apos;s social security number"]).to eq("987654321")
           expect(pdf_fields["Enter your first name"]).to eq("Mary")
           expect(pdf_fields["Enter your middle initial"]).to eq("A")
           expect(pdf_fields["Enter your last name"]).to eq("Lando")
@@ -185,7 +185,7 @@ RSpec.describe PdfFiller::Md502Pdf do
           expect(pdf_fields["Check Box - 1"]).to eq "Off"
           expect(pdf_fields["Check Box - 2"]).to eq "Off"
           expect(pdf_fields["Check Box - 3"]).to eq "No"
-          expect(pdf_fields["MARRIED FILING Enter spouse&apos;s social security number"]).to eq("600000030")
+          expect(pdf_fields["MARRIED FILING Enter spouse&apos;s social security number"]).to eq("987654321")
           expect(pdf_fields["Check Box - 4"]).to eq "Off"
           expect(pdf_fields["Check Box - 5"]).to eq "Off"
           expect(pdf_fields["6. Check here"]).to eq "Off"
@@ -314,14 +314,17 @@ RSpec.describe PdfFiller::Md502Pdf do
     end
 
     context "subtractions" do
+      let(:two_income_subtraction_amount) { 1200 }
       before do
         intake.direct_file_data.total_qualifying_dependent_care_expenses = 1200
         intake.direct_file_data.fed_taxable_ssb = 240
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_14).and_return two_income_subtraction_amount
       end
 
       it "fills out subtractions fields correctly" do
         expect(pdf_fields["Enter 9"].to_i).to eq 1200
         expect(pdf_fields["Enter 11"].to_i).to eq 240
+        expect(pdf_fields["Enter 14"].to_i).to eq two_income_subtraction_amount
       end
 
       context "with 502SU Subtractions" do
@@ -473,6 +476,83 @@ RSpec.describe PdfFiller::Md502Pdf do
 
       it 'outputs the total state and local tax withheld' do
         expect(pdf_fields["Text Box 68"]).to eq "500"
+      end
+    end
+
+    context "Direct deposit of refund" do
+      before do
+        intake.update(
+          payment_or_deposit_type: :direct_deposit,
+          routing_number: "123456789",
+          account_number: "87654321",
+          account_type: "checking",
+          account_holder_first_name: "Jack",
+          account_holder_middle_initial: "D",
+          account_holder_last_name: "Hansel",
+          has_joint_account_holder: "unfilled",
+          bank_authorization_confirmed: "yes"
+        )
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:refund_or_owed_amount).and_return 500
+      end
+
+      context "bank_authorization_confirmed is empty" do
+        before do
+          intake.update(bank_authorization_confirmed: 'unfilled')
+        end
+
+        it "return Off" do
+          expect(pdf_fields["Check Box 39"]).to eq "Off"
+        end
+      end
+
+      it "checks the refund information with the account holder's full name" do
+        expect(pdf_fields["Check Box 39"]).to eq "Yes"
+        expect(pdf_fields["Text Box 95"]).to eq "Jack D Hansel"
+        expect(pdf_fields["Check Box 41"]).to eq "Yes"
+        expect(pdf_fields["Check Box 42"]).to eq "Off"
+        expect(pdf_fields["Text Box 93"]).to eq "123456789"
+        expect(pdf_fields["Text Box 94"]).to eq "87654321"
+      end
+
+      context "with joint account holder" do
+        before do
+          intake.joint_account_holder_first_name = "Jill"
+          intake.joint_account_holder_last_name = "Gretl"
+          intake.joint_account_holder_suffix = "II"
+          intake.has_joint_account_holder = "yes"
+          intake.bank_authorization_confirmed = "yes"
+        end
+
+        it "returns the same information including joint account holder's full name with an 'and'" do
+          expect(pdf_fields["Check Box 39"]).to eq "Yes"
+          expect(pdf_fields["Text Box 95"]).to eq "Jack D Hansel and Jill Gretl II"
+          expect(pdf_fields["Check Box 41"]).to eq "Yes"
+          expect(pdf_fields["Check Box 42"]).to eq "Off"
+          expect(pdf_fields["Text Box 93"]).to eq "123456789"
+          expect(pdf_fields["Text Box 94"]).to eq "87654321"
+        end
+      end
+    end
+
+    context "local tax computations" do
+      before do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_28_local_tax_rate).and_return 0.027
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_28_local_tax_amount).and_return 8765
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_29).and_return 1200
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_30).and_return 1250
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_32).and_return 1300
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_33).and_return 1400
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_34).and_return 1500
+      end
+
+      it "fills out local tax computation fields correctly" do
+        expect(pdf_fields["Enter local tax rate"]).to eq "27"
+        expect(pdf_fields["Text Box 44"]).to eq "8765"
+        expect(pdf_fields["Text Box 46"]).to eq "1200"
+        expect(pdf_fields["Text Box 48"]).to eq "1250"
+        expect(pdf_fields["Text Box 52"]).to eq "1300"
+        expect(pdf_fields["Text Box 54"]).to eq "1400"
+        expect(pdf_fields["Text Box 56"]).to eq "1500"
       end
     end
   end

@@ -63,6 +63,10 @@ module SubmissionBuilder
                 xml.GroceryCredit calculated_fields.fetch(:ID40_LINE_43)
                 xml.DonateGroceryCredit calculated_fields.fetch(:ID40_LINE_43_DONATE)
                 xml.TaxWithheld calculated_fields.fetch(:ID40_LINE_46)
+                add_element_if_present(xml, "TaxDue", :ID40_LINE_51)
+                add_element_if_present(xml, "TotalDue", :ID40_LINE_54)
+                add_element_if_present(xml, "OverpaymentAfterPenaltyAndInt", :ID40_LINE_55)
+                add_element_if_present(xml, "OverpaymentRefunded", :ID40_LINE_56)
               end
             end
 

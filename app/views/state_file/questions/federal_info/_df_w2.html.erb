@@ -4,6 +4,7 @@
     <%= render 'node_xml_reveal', xml: f.object.to_pretty_s %>
 
     <table>
+      <%= f.state_file_nested_xml_field :EmployeeSSN %>
       <%= f.state_file_nested_xml_field :WagesAmt %>
       <%= f.state_file_nested_xml_field :WithholdingAmt %>
       <%= f.state_file_nested_xml_field :StateWagesAmt %>

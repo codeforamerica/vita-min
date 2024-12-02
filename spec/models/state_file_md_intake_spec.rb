@@ -3,11 +3,14 @@
 # Table name: state_file_md_intakes
 #
 #  id                                         :bigint           not null, primary key
-#  account_holder_name                        :string
+#  account_holder_first_name                  :string
+#  account_holder_last_name                   :string
+#  account_holder_middle_initial              :string
+#  account_holder_suffix                      :string
 #  account_number                             :string
 #  account_type                               :integer          default("unfilled"), not null
 #  authorize_sharing_of_health_insurance_info :integer          default("unfilled"), not null
-#  bank_name                                  :string
+#  bank_authorization_confirmed               :integer          default("unfilled"), not null
 #  city                                       :string
 #  confirmed_permanent_address                :integer          default("unfilled"), not null
 #  consented_to_terms_and_conditions          :integer          default("unfilled"), not null
@@ -16,7 +19,6 @@
 #  current_sign_in_ip                         :inet
 #  current_step                               :string
 #  date_electronic_withdrawal                 :date
-#  df_data_import_failed_at                   :datetime
 #  df_data_import_succeeded_at                :datetime
 #  df_data_imported_at                        :datetime
 #  eligibility_filing_status_mfj              :integer          default("unfilled"), not null
@@ -30,7 +32,12 @@
 #  failed_attempts                            :integer          default(0), not null
 #  federal_return_status                      :string
 #  had_hh_member_without_health_insurance     :integer          default("unfilled"), not null
+#  has_joint_account_holder                   :integer          default("unfilled"), not null
 #  hashed_ssn                                 :string
+#  joint_account_holder_first_name            :string
+#  joint_account_holder_last_name             :string
+#  joint_account_holder_middle_initial        :string
+#  joint_account_holder_suffix                :string
 #  last_sign_in_at                            :datetime
 #  last_sign_in_ip                            :inet
 #  locale                                     :string           default("en")
@@ -95,7 +102,6 @@
 #  index_state_file_md_intakes_on_primary_state_id_id  (primary_state_id_id)
 #  index_state_file_md_intakes_on_spouse_state_id_id   (spouse_state_id_id)
 #
-
 require 'rails_helper'
 
 RSpec.describe StateFileMdIntake, type: :model do
@@ -129,24 +135,39 @@ RSpec.describe StateFileMdIntake, type: :model do
         create :state_file_md_intake,
                payment_or_deposit_type: "direct_deposit",
                account_type: "checking",
-               bank_name: "Wells Fargo",
                routing_number: "123456789",
                account_number: "123",
                withdraw_amount: 123,
                date_electronic_withdrawal: Date.parse("April 1, #{Rails.configuration.statefile_current_tax_year}"),
-               account_holder_name: "Neil Peart"
+               account_holder_first_name: "Neil",
+               account_holder_middle_initial: "B",
+               account_holder_last_name: "Peart",
+               account_holder_suffix: 'VIII',
+               joint_account_holder_first_name: "Belle",
+               joint_account_holder_middle_initial: "C",
+               joint_account_holder_last_name: "Peart",
+               joint_account_holder_suffix: "JR",
+               has_joint_account_holder: "yes",
+               bank_authorization_confirmed: "yes"
       end
 
       it "clears other account fields" do
         expect {
           intake.update(payment_or_deposit_type: "mail")
         }.to change(intake.reload, :account_type).to("unfilled")
-         .and change(intake.reload, :bank_name).to(nil)
-         .and change(intake.reload, :routing_number).to(nil)
-         .and change(intake.reload, :account_number).to(nil)
-         .and change(intake.reload, :withdraw_amount).to(nil)
-         .and change(intake.reload, :date_electronic_withdrawal).to(nil)
-         .and change(intake.reload, :account_holder_name).to(nil)
+          .and change(intake.reload, :routing_number).to(nil).and change(intake.reload, :account_number).to(nil)
+          .and change(intake.reload, :withdraw_amount).to(nil)
+          .and change(intake.reload, :date_electronic_withdrawal).to(nil)
+          .and change(intake.reload, :account_holder_first_name).to(nil)
+          .and change(intake.reload, :account_holder_middle_initial).to(nil)
+          .and change(intake.reload, :account_holder_last_name).to(nil)
+          .and change(intake.reload, :account_holder_suffix).to(nil)
+          .and change(intake.reload, :joint_account_holder_first_name).to(nil)
+          .and change(intake.reload, :joint_account_holder_middle_initial).to(nil)
+          .and change(intake.reload, :joint_account_holder_last_name).to(nil)
+          .and change(intake.reload, :joint_account_holder_suffix).to(nil)
+          .and change(intake.reload, :has_joint_account_holder).to("unfilled")
+          .and change(intake.reload, :bank_authorization_confirmed).to("unfilled")
       end
     end
   end

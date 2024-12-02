@@ -48,8 +48,13 @@ class Personas < Thor
   method_option :debug, aliases: '-d', desc: 'Debug information', type: :boolean
 
   def import(persona_name)
-    persona_contents = $stdin.read
-    persona_name = persona_name.downcase
+    # Can contain logging noise, so we must sanitize
+    persona_contents = $stdin.readlines
+
+    # Discard lines that don't begin with a bracket
+    start_of_contents = persona_contents.index { |item| item.starts_with?('[', '<', '{') }
+
+    persona_contents = persona_contents[start_of_contents..].join
 
     file_string = if persona_contents.first == '<'
                     say_error "Format detected as 'xml'", :cyan if options[:debug]
