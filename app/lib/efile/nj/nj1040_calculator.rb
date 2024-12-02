@@ -60,6 +60,12 @@ module Efile
         set_line(:NJ1040_LINE_64, :calculate_line_64)
         set_line(:NJ1040_LINE_65_DEPENDENTS, :number_of_dependents_age_5_younger)
         set_line(:NJ1040_LINE_65, :calculate_line_65)
+        set_line(:NJ1040_LINE_66, :calculate_line_66)
+        set_line(:NJ1040_LINE_67, :calculate_line_67)
+        set_line(:NJ1040_LINE_68, :calculate_line_68)
+        set_line(:NJ1040_LINE_78, :calculate_line_78)
+        set_line(:NJ1040_LINE_79, :calculate_line_79)
+        set_line(:NJ1040_LINE_80, :calculate_line_80)
         @nj2450_primary.calculate if line_59_primary || line_61_primary
         @nj2450_spouse.calculate if line_59_spouse || line_61_spouse
         @lines.transform_values(&:value)
@@ -447,6 +453,31 @@ module Efile
           return eligible_dependents_count * 200
         end
         nil
+      end
+
+      # add lines 55 through 65
+      def calculate_line_66
+
+      end
+
+      def calculate_line_67
+
+      end
+
+      def calculate_line_68
+
+      end
+
+      def calculate_line_78
+
+      end
+
+      def calculate_line_79
+
+      end
+
+      def calculate_line_80
+
       end
 
       def number_of_dependents_age_5_younger
