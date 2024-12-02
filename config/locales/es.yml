@@ -2447,12 +2447,12 @@ es:
           public_school_tax_credit_paid_fees: Haber pagado tarifas relacionadas con la escuela o donado dinero a una escuela pública
           public_school_tax_credit_provide_info_html: Compartir información de la escuela, incluyendo el <a href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_ADESchoolListing.pdf" target="_blank" rel="noopener nofollow">código CTDS</a>
         edit:
+          credits_not_supported: What credits and deductions does this service not support this year?
           not_supported: "¿Cuáles créditos y deducciones no admite esta herramienta este año?"
           title1: "¡Buenas noticias! Puedes usar esta herramienta este año %{year} para presentar tus impuestos estatales %{state}."
           title2_html: Aquí están los créditos y deducciones que <strong>podrías</strong> reclamar con esta herramienta para maximizar tu reembolso.
-          want_to_claim_heading: "¿Quieres reclamar estos créditos o deducciones? "
           want_to_claim_learn_more_html: Obtén más información sobre este proceso y otras opciones de presentación <a href="%{link}" target="_blank">aquí</a>.
-          want_to_claim_vita: Es posible que puedas presentar tu declaración de impuestos estatales de forma gratuita con la ayuda de voluntarios VITA certificados por el IRS en %{state_name}. Ten en cuenta que esta opción puede demorar de 2 a 3 semanas en completarse.
+          want_to_claim_vita: Es posible que puedas presentar tu declaración de impuestos estatales de forma gratuita con la ayuda de voluntarios VITA certificados por el IRS. Ten en cuenta que esta opción puede demorar de 2 a 3 semanas en completarse.
         id_supported:
           child_care_deduction: Deducción por Cuidado de Hijos y Dependientes
           id_child_tax_credit: Crédito Fiscal para Hijos de Idaho
@@ -2485,6 +2485,19 @@ es:
           sub7: Reducción de dos ingresos para contribuyentes casados que presentan declaraciones conjuntas
           sub8: Créditos fiscales estatales y locales por ingresos del trabajo (si solicitó el Crédito fiscal federal por ingresos del trabajo)
           sub9: Crédito fiscal estatal por hijos (para niños menores de 6 años)
+        nc_credits_unsupported:
+          personal_education: Personal Education Student Account Deposits Deduction
+          college_savings_account: 529 College Savings Account Contributions
+          extension_payment: Extension payments
+          estimated_income_tax_payments: Estimated income tax payments
+          credits_for_rehabilitating: Credits for Rehabilitating Historic Structures
+          credits_carried: Credits carried forward from previous years
+        nc_supported:
+          deduction_for_qualifying_children: Deduction for qualifying children
+          deduction_for_taxable_portion: Deduction for Taxable Portion of Social Security and Railroad Retirement Benefits
+          deduction_for_retirement_income_bailey: Deduction for Retirement Income as part of the Bailey Settlement
+          deduction_for_retirement_income_uniformed: Deduction for Retirement Income from the Uniformed Services
+          deduction_for_income: Deduction for income by members of a Federally recognized Indian tribe
         ny_supported:
           empire_state_ctc: Crédito Empire State por hijos
           nyc_school_tax_credit: Crédito tributario escolar de la ciudad de Nueva York

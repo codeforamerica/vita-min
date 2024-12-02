@@ -2473,12 +2473,14 @@ en:
           public_school_tax_credit_paid_fees: Have paid school-related fees or donated money to a public school
           public_school_tax_credit_provide_info_html: Provide school information, including the <a href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_ADESchoolListing.pdf" target="_blank" rel="noopener nofollow">CTDS code</a>
         edit:
-          not_supported: What credits and deductions does this tool not support this year?
-          title1: You can use this tool to file your %{year} %{state} state taxes
-          title2_html: Here are the credits and deductions you <strong>may be able to</strong> claim with this tool to maximize your refund.
-          want_to_claim_heading: Want to claim these credits or deductions?
+          credits_not_supported: What credits and deductions does this service not support this year?
+          not_supported: What if I have a situation not yet supported by FileYourStateTaxes?
+          title1: You can use this service to file your %{year} %{state} taxes
+          title2_html: |
+              Let's make sure this is the right service for you.<br><br>
+              Here are the credits and deductions you <strong>may</strong> be able to claim to maximize your refund.
           want_to_claim_learn_more_html: Learn more about this process and other filing options <a href="%{link}" target="_blank">here</a>.
-          want_to_claim_vita: You may be able to file your state return for free with help from IRS-certified VITA volunteers in %{state_name}. Note that this option may take 2-3 weeks to complete.
+          want_to_claim_vita: You may be able to file your state return for free with help from IRS-certified VITA volunteers, but it may take 2-3 weeks to complete.
         id_supported:
           child_care_deduction: Child and Dependent Care Deduction
           id_child_tax_credit: Idaho Child Tax Credit
@@ -2511,6 +2513,19 @@ en:
           sub7: Two-income subtraction for married filing jointly taxpayers
           sub8: State and local Earned Income Tax credits (if you claimed the federal Earned Income Tax Credit)
           sub9: State Child Tax Credit (for children under 6)
+        nc_credits_unsupported:
+          personal_education: Personal Education Student Account Deposits Deduction
+          college_savings_account: 529 College Savings Account Contributions
+          extension_payment: Extension payments
+          estimated_income_tax_payments: Estimated income tax payments
+          credits_for_rehabilitating: Credits for Rehabilitating Historic Structures
+          credits_carried: Credits carried forward from previous years
+        nc_supported:
+          deduction_for_qualifying_children: Deduction for qualifying children
+          deduction_for_taxable_portion: Deduction for Taxable Portion of Social Security and Railroad Retirement Benefits
+          deduction_for_retirement_income_bailey: Deduction for Retirement Income as part of the Bailey Settlement
+          deduction_for_retirement_income_uniformed: Deduction for Retirement Income from the Uniformed Services
+          deduction_for_income: Deduction for income by members of a Federally recognized Indian tribe
         ny_supported:
           empire_state_ctc: Empire State Child Credit
           nyc_school_tax_credit: NYC School Tax Credit
