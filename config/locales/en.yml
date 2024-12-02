@@ -2303,7 +2303,7 @@ en:
         edit:
           assistance_label: Did %{name} need assistance with daily living activities such as dressing, eating, taking medication, shopping, or preparing their food?
           passed_away_label: Did %{name} pass away in %{filing_year}?
-          title: Please provide some more information about the people in your family who are 65 years of age or older.
+          title: We need additional information about %{dependents_name_list}
       az_subtractions:
         edit:
           armed_forces_member_label_html: You or your spouse are a member of the Reserves, the National Guard, or the U.S. Armed Forces <strong>and</strong> received pay for active duty military service.
