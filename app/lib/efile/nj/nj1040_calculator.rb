@@ -2,6 +2,7 @@ module Efile
   module Nj
     class Nj1040Calculator < ::Efile::TaxCalculator
       attr_reader :lines
+      set_refund_owed_lines refund: :NJ1040_LINE_80, owed: :NJ1040_LINE_79
 
       RENT_CONVERSION = 0.18
       MAX_NJ_CTC_DEPENDENTS = 9
@@ -455,29 +456,42 @@ module Efile
         nil
       end
 
-      # add lines 55 through 65
+      # add lines 55-65 (55, 60, 62, 63 not supported yet)
       def calculate_line_66
-
+        line_or_zero(:NJ1040_LINE_56) +
+        line_or_zero(:NJ1040_LINE_57) +
+        line_or_zero(:NJ1040_LINE_58) +
+        line_or_zero(:NJ1040_LINE_59) +
+        line_or_zero(:NJ1040_LINE_61) +
+        line_or_zero(:NJ1040_LINE_64) +
+        line_or_zero(:NJ1040_LINE_65)
       end
 
       def calculate_line_67
-
+        [line_or_zero(:NJ1040_LINE_54) - line_or_zero(:NJ1040_LINE_66), 0].max
       end
 
       def calculate_line_68
-
+        [line_or_zero(:NJ1040_LINE_66) - line_or_zero(:NJ1040_LINE_54), 0].max
       end
 
+      # add lines 69-77 (not supported yet)
       def calculate_line_78
-
+        0
       end
 
       def calculate_line_79
-
+        if line_or_zero(:NJ1040_LINE_67).positive?
+          return line_or_zero(:NJ1040_LINE_67) + line_or_zero(:NJ1040_LINE_78)
+        end
+        0
       end
 
       def calculate_line_80
-
+        if line_or_zero(:NJ1040_LINE_68).positive?
+          return line_or_zero(:NJ1040_LINE_68) - line_or_zero(:NJ1040_LINE_78)
+        end
+        0
       end
 
       def number_of_dependents_age_5_younger
