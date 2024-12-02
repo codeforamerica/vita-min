@@ -2388,7 +2388,7 @@ es:
           title: 'Has rechazado los términos y condiciones. '
       eligibility_offboarding:
         edit:
-          body_html: No puedes usar esta herramienta este año porque tú %{ineligible_reason}. <strong>¿Es un error?</strong><a href=%{prev_link}>Regresa para corregirlo.</a>
+          body_html: No puedes usar esta herramienta este año porque tú %{ineligible_reason}. <br><br><strong>¿Es un error?</strong><a href=%{prev_link}>Regresa para corregirlo.</a>
           ineligible_reason:
             eligibility_529_for_non_qual_expense: retiraste dinero de una cuenta de ahorro universitario 529 y lo utilizaste para un gasto no calificado en el %{filing_year}
             eligibility_emergency_rental_assistance: recibió asistencia de alquiler de emergencia en %{filing_year}
@@ -2414,16 +2414,16 @@ es:
             p1: Si eliges esta opción, te conectarás con un socio de Asistencia Voluntaria para la Declaración de Impuestos (VITA) en %{state_name}. Recibirás una llamada en los próximos días. Tendrás que responder algunas preguntas adicionales sobre tu situación tributaria y enviar de forma segura tus documentos de impuestos en línea.
             p2: Los voluntarios certificados por el IRS VITA utilizarán esta información para preparar tu declaración estatal. Este proceso puede tardar de 2 a 3 semanas en completarse.
             title: Obtén más información sobre este proceso
-          other_option: No te preocupes, aún puedes presentar tus impuestos estatales sin costo con la ayuda de voluntarios VITA certificados por el IRS en %{state_name}. Ten en cuenta que esta opción puede demorar de 2 a 3 semanas en completarse.
           other_options_reveal:
             fees: Se pueden aplicar tarifas.
             list:
               body: 'Varios servicios comerciales de preparación de impuestos ofrecen la presentación de impuestos solo a nivel estatal. Aquí tienes algunos consejos para elegir una opción:'
-              list1_html: Dado que ya has enviado tu declaración de impuestos federales, asegúrate de que el servicio o software que elijas te permita presentar sólo una <strong>declaración de impuestos estatales.</strong> Es posible que necesites comunicarte con su servicio de atención al cliente para confirmar.
+              list1: Dado que ya has enviado tu declaración de impuestos federales, asegúrate de que el servicio o software que elijas te permita presentar sólo una <strong>declaración de impuestos estatales.</strong> Es posible que necesites comunicarte con su servicio de atención al cliente para confirmar.
               list2: Te pedirán que vuelvas a ingresar o proporciones la misma información que informaste en tu declaración federal. Esta información es necesaria para completar partes de tu declaración estatal.
               list3: Al presentar, asegúrate de enviar solo tu declaración de impuestos estatales. Si vuelves a enviar tu declaración federal, es posible que la rechacen.
             title: "¿Cuáles son mis otras opciones para presentar mi declaración estatal?"
           vita_link: Solicitar asistencia de un voluntario VITA
+          vita_option_title: What are my free state filing options?
       eligible:
         az_supported:
           dependent_credit: Crédito por Dependientes
