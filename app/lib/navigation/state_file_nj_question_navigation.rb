@@ -48,6 +48,8 @@ module Navigation
                                           Navigation::NavigationStep.new(StateFile::Questions::NjEstimatedTaxPaymentsController),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjSalesUseTaxController),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjGubernatorialElectionsController),
+                                          Navigation::NavigationStep.new(StateFile::Questions::PrimaryStateIdController),
+                                          Navigation::NavigationStep.new(StateFile::Questions::SpouseStateIdController),
                                           Navigation::NavigationStep.new(StateFile::Questions::TaxesOwedController),
                                           Navigation::NavigationStep.new(StateFile::Questions::TaxRefundController),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjReviewController),
