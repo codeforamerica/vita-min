@@ -61,8 +61,8 @@ class EfileError < ApplicationRecord
     controller.name.split("::")[-1][0..-11].underscore.gsub("_", "-")
   end
 
-  def self.default_controller
-    StateFile::Questions::DataReviewController
+  def self.default_controller(state_code)
+    StateFile::StateInformationService.review_controller_class(state_code)
   end
 
   def self.paths

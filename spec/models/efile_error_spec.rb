@@ -20,17 +20,17 @@ require 'rails_helper'
 
 describe 'EfileError' do
   it 'returns data review as the default controller' do
-    expect(EfileError.default_controller).to eq StateFile::Questions::DataReviewController
+    expect(EfileError.default_controller("az")).to eq StateFile::Questions::AzReviewController
   end
 
   it 'converts controllers to paths' do
-    path = EfileError.controller_to_path(StateFile::Questions::DataReviewController)
-    expect(path).to eq "data-review"
+    path = EfileError.controller_to_path(StateFile::Questions::AzReviewController)
+    expect(path).to eq "az-review"
   end
 
   it 'converts paths to controllers' do
-    controller = EfileError.path_to_controller("data-review")
-    expect(controller).to eq StateFile::Questions::DataReviewController
+    controller = EfileError.path_to_controller("az-review")
+    expect(controller).to eq StateFile::Questions::AzReviewController
   end
 
   it 'returns the expected array of paths' do
