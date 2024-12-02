@@ -7,7 +7,6 @@
 #  account_type                           :integer
 #  armed_forces_member                    :integer          default("unfilled"), not null
 #  armed_forces_wages_amount              :decimal(12, 2)
-#  bank_name                              :string
 #  charitable_cash_amount                 :decimal(12, 2)
 #  charitable_contributions               :integer          default("unfilled"), not null
 #  charitable_noncash_amount              :decimal(12, 2)
@@ -17,7 +16,6 @@
 #  current_sign_in_ip                     :inet
 #  current_step                           :string
 #  date_electronic_withdrawal             :date
-#  df_data_import_failed_at               :datetime
 #  df_data_import_succeeded_at            :datetime
 #  df_data_imported_at                    :datetime
 #  eligibility_529_for_non_qual_expense   :integer          default("unfilled"), not null

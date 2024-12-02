@@ -52,7 +52,6 @@ FactoryBot.define do
     }
 
     payment_or_deposit_type { "direct_deposit" }
-    bank_name { "Canvas Credit union" }
     account_type { "checking" }
     routing_number { "302075830" }
     account_number { "123456" }
@@ -123,7 +122,6 @@ FactoryBot.define do
     charitable_noncash_amount { 100 }
 
     payment_or_deposit_type { "direct_deposit" }
-    bank_name { "canvas credit union" }
     account_type { "savings" }
     routing_number { "302075830" }
     account_number { "123456" }

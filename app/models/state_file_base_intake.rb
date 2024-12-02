@@ -1,5 +1,5 @@
 class StateFileBaseIntake < ApplicationRecord
-  self.ignored_columns = [:df_data_import_failed]
+  self.ignored_columns = [:df_data_import_failed_at, :bank_name]
 
   devise :lockable, :timeoutable, :trackable
 
@@ -349,7 +349,7 @@ class StateFileBaseIntake < ApplicationRecord
     end
   rescue StandardError
     if hashed_ssn.present?
-      StateFile::Questions::DataReviewController
+      StateFile::Questions::PostDataTransferController
     else
       StateFile::Questions::TermsAndConditionsController
     end
@@ -365,7 +365,6 @@ class StateFileBaseIntake < ApplicationRecord
   def sanitize_bank_details
     if (payment_or_deposit_type || "").to_sym != :direct_deposit
       self.account_type = "unfilled"
-      self.bank_name = nil
       self.routing_number = nil
       self.account_number = nil
       self.withdraw_amount = nil

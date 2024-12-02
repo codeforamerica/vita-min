@@ -415,7 +415,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
             post :update, params: params
 
             expect(subject.current_state_file_az_intake).to eq(intake)
-            expect(response).to redirect_to questions_data_review_path
+            expect(response).to redirect_to questions_post_data_transfer_path
             expect(session["warden.user.state_file_az_intake.key"].first.first).to eq intake.id
           end
 
@@ -567,7 +567,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
 
         expect(subject.current_state_file_az_intake).to eq(intake)
         expect(intake.reload.unfinished_intake_ids).to match_array ["3", current_unfinished_intake.id.to_s]
-        expect(response).to redirect_to questions_data_review_path
+        expect(response).to redirect_to questions_post_data_transfer_path
         expect(session["warden.user.state_file_az_intake.key"].first.first).to eq intake.id
       end
     end

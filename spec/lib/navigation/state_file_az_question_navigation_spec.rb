@@ -4,9 +4,6 @@ RSpec.describe Navigation::StateFileAzQuestionNavigation do
   describe "Flow" do
     it "Flow has not changed" do
       expect(Navigation::StateFileAzQuestionNavigation::FLOW).to eq([
-        StateFile::Questions::AzEligibilityResidenceController,
-        StateFile::Questions::AzEligibilityOutOfStateIncomeController,
-        StateFile::Questions::EligibilityOffboardingController,
         StateFile::Questions::EligibleController,
         StateFile::Questions::ContactPreferenceController,
         StateFile::Questions::PhoneNumberController,
@@ -18,7 +15,7 @@ RSpec.describe Navigation::StateFileAzQuestionNavigation do
         StateFile::Questions::InitiateDataTransferController,
         StateFile::Questions::CanceledDataTransferController, # show? false
         StateFile::Questions::WaitingToLoadDataController,
-        StateFile::Questions::DataReviewController,
+        StateFile::Questions::PostDataTransferController,
         StateFile::Questions::FederalInfoController,
         StateFile::Questions::DataTransferOffboardingController,
         StateFile::Questions::AzSeniorDependentsController,

@@ -13,7 +13,7 @@ describe StateFile::Questions::MdTaxRefundController do
       get :edit
       expect(response).to be_successful
       expect(response_html).to have_text "Good news"
-      expect(response_html).to have_text "Bank name"
+      expect(response_html).to have_text "Account Holder Name"
     end
   end
 end

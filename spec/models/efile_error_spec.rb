@@ -36,8 +36,6 @@ describe 'EfileError' do
   it 'returns the expected array of paths' do
     expect(EfileError.paths).to eq [
       "az-charitable-contributions",
-      "az-eligibility-out-of-state-income",
-      "az-eligibility-residence",
       "az-excise-credit",
       "az-prior-last-names",
       "az-public-school-contributions",
@@ -48,7 +46,6 @@ describe 'EfileError' do
       "canceled-data-transfer",
       "code-verified",
       "contact-preference",
-      "data-review",
       "data-transfer-offboarding",
       "declined-terms-and-conditions",
       "eligibility-offboarding",
@@ -111,6 +108,7 @@ describe 'EfileError' do
       "ny-third-party-designee",
       "nyc-residency",
       "phone-number",
+      "post-data-transfer",
       "primary-state-id",
       "return-status",
       "spouse-state-id",

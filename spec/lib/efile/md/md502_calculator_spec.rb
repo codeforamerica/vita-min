@@ -591,16 +591,39 @@ describe Efile::Md::Md502Calculator do
     end
   end
 
+  describe "#calculate_line_14" do
+    before do
+      allow_any_instance_of(Efile::Md::TwoIncomeSubtractionWorksheet).to receive(:calculate_line_7).and_return 1000
+    end
+
+    context 'MFJ filing status' do
+      let(:filing_status) { 'married_filing_jointly' }
+      it 'returns the amount from the worksheet if MFJ filing status' do
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_14].value).to eq 1000
+      end
+    end
+
+    context 'MFS filing status' do
+      let(:filing_status) { 'married_filing_separately' }
+      it 'returns the 0 if not MFJ filing status' do
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_14].value).to eq 0
+      end
+    end
+  end
+
   describe "#calculate_line_15" do
     before do
       intake.direct_file_data.total_qualifying_dependent_care_expenses = 2
       intake.direct_file_data.fed_taxable_ssb = 6
       allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_10a).and_return 4
       allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_13).and_return 8
+      allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_14).and_return 10
     end
     it "sums lines 8 - 14" do
       instance.calculate
-      expect(instance.lines[:MD502_LINE_15].value).to eq 20
+      expect(instance.lines[:MD502_LINE_15].value).to eq 2 + 4 + 6 + 8 + 10
     end
   end
 
@@ -1362,6 +1385,32 @@ describe Efile::Md::Md502Calculator do
     it "subtracts owed amount from refund amount" do
       # TEMP: stub calculator lines and test outcome of method once implemented
       expect(instance.refund_or_owed_amount).to eq(0)
+    end
+  end
+
+  describe "MD502_AUTHORIZE_DIRECT_DEPOSIT" do
+    context "bank authorization was given" do
+      it "should return true" do
+        intake.bank_authorization_confirmed = 'yes'
+        instance.calculate
+        expect(instance.lines[:MD502_AUTHORIZE_DIRECT_DEPOSIT].value).to eq(true)
+      end
+    end
+
+    context "bank authorization was not given" do
+      it "should return false" do
+        intake.bank_authorization_confirmed = 'unfilled'
+        instance.calculate
+        expect(instance.lines[:MD502_AUTHORIZE_DIRECT_DEPOSIT].value).to eq(false)
+      end
+    end
+
+    context "bank authorization was 'no'" do
+      it "should return false" do
+        intake.bank_authorization_confirmed = 'no'
+        instance.calculate
+        expect(instance.lines[:MD502_AUTHORIZE_DIRECT_DEPOSIT].value).to eq(false)
+      end
     end
   end
 end
