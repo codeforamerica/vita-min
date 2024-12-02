@@ -316,6 +316,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
           end
 
           it "fills in the right lines" do
+            expect(xml.document.at("MDHealthCareCoverage")).to be_nil
             expect(xml.document.at("MDHealthCareCoverage PriWithoutHealthCoverageInd")).to be_nil
             expect(xml.document.at("MDHealthCareCoverage SecWithoutHealthCoverageInd")).to be_nil
             expect(xml.document.at("MDHealthCareCoverage AuthorToShareInfoHealthExchInd")).to be_nil
