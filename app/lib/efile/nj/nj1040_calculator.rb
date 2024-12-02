@@ -51,6 +51,7 @@ module Efile
         set_line(:NJ1040_LINE_50, :calculate_line_50)
         set_line(:NJ1040_LINE_51, :calculate_line_51)
         set_line(:NJ1040_LINE_54, :calculate_line_54)
+        set_line(:NJ1040_LINE_55, :calculate_line_55)
         set_line(:NJ1040_LINE_56, :calculate_line_56)
         set_line(:NJ1040_LINE_57, :calculate_line_57)
         set_line(:NJ1040_LINE_58, :calculate_line_58)
@@ -356,6 +357,12 @@ module Efile
       def calculate_line_54
         sum = line_or_zero(:NJ1040_LINE_50) + line_or_zero(:NJ1040_LINE_51)
         [sum, 0].max
+      end
+
+      def calculate_line_55
+        return nil if @intake.state_file_w2s.empty?
+
+        @intake.state_file_w2s.inject(0) { |sum, w2| sum + w2.state_income_tax_amount }.round
       end
 
       def calculate_line_56

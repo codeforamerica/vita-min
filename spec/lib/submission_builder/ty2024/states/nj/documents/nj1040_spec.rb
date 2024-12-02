@@ -759,6 +759,23 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
       end
     end
 
+    describe "total income tax withheld - line 55" do
+      context 'when has w2s' do
+        let(:intake) { create(:state_file_nj_intake, :df_data_many_w2s)}
+        it 'sets TaxWithheld to sum of state_income_tax_amount' do
+          expected = 2000 # 500 + 500 + 500 + 500
+          expect(xml.at("TaxWithheld").text).to eq(expected.to_s)
+        end
+      end
+
+      context 'when no w2s' do
+        let(:intake) { create(:state_file_nj_intake, :df_data_minimal)}
+        it 'sets TaxWithheld to nil' do
+          expect(xml.at("TaxWithheld")).to eq(nil)
+        end
+      end
+    end
+
     describe "estimated tax payments - line 57" do
       context 'when estimated_tax_payments has a value' do
         let(:intake) { create(:state_file_nj_intake, estimated_tax_payments: 596) }
