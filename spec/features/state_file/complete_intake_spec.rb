@@ -160,7 +160,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.landing_page.edit.az.title")
       click_on I18n.t('general.get_started'), id: "firstCta"
 
-      step_through_eligibility_screener(us_state: "az")
+      click_on I18n.t("general.continue")
 
       step_through_initial_authentication(contact_preference: :email)
 
@@ -688,6 +688,11 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       # Gubernatorial elections fund
       choose I18n.t('general.affirmative')
+      expect(page).to be_axe_clean.within "main"
+      click_on I18n.t("general.continue")
+
+      # Driver License
+      choose I18n.t('state_file.questions.nj_primary_state_id.nj_primary.no_id')
       expect(page).to be_axe_clean.within "main"
       click_on I18n.t("general.continue")
 
