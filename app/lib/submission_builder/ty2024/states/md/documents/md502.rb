@@ -151,7 +151,6 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
       add_element_if_present(xml, "TotalStateAndLocalTax", :MD502_LINE_34)
       add_non_zero_value(xml, :TotalTaxAndContributions,:MD502_LINE_39)
       xml.TaxWithheld calculated_fields.fetch(:MD502_LINE_40)
-<<<<<<< HEAD
       add_non_zero_value(xml, :RefundableEIC,:MD502_LINE_42)
       add_non_zero_value(xml, :TotalPaymentsAndCredits,:MD502_LINE_44)
       add_non_zero_value(xml, :BalanceDue,:MD502_LINE_45)
@@ -162,7 +161,6 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
         end
       end
       add_non_zero_value(xml, :TotalAmountDue,:MD502_LINE_50)
-=======
       xml.AuthToDirectDepositInd "X" if calculated_fields.fetch(:MD502_AUTHORIZE_DIRECT_DEPOSIT)
       if @intake.payment_or_deposit_type.to_sym == :direct_deposit
         xml.NameOnBankAccount do
@@ -180,7 +178,6 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
           end
         end
       end
->>>>>>> main
       xml.DaytimePhoneNumber @direct_file_data.phone_number if @direct_file_data.phone_number.present?
     end
   end

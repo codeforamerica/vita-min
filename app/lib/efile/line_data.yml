@@ -698,7 +698,6 @@ MD502_LINE_39:
   label: "39. Total Maryland income tax, local income tax and contributions"
 MD502_LINE_40:
   label: "40 Total Maryland and local tax withheld"
-<<<<<<< HEAD
 MD502_LINE_42:
   label: "42. Refundable earned income credit"
 MD502_LINE_43:
@@ -713,12 +712,10 @@ MD502_LINE_48:
   label: "48. Amount of overpayment TO BE REFUNDED TO YOU"
 MD502_LINE_50:
   label: "50. TOTAL AMOUNT DUE (Add lines 45 and 49.)"
-=======
 MD502_AUTHORIZE_DIRECT_DEPOSIT:
   label: "Client authorizes the State of Maryland to issue refund by direct deposit (tax refund controller)."
 MD502_LINE_51D:
   label: "51D Name(s) of Bank Account Holder(s)"
->>>>>>> main
 MD502B_LINE_1:
   label: '1 Total number of Regular dependents'
 MD502B_LINE_2:

@@ -102,7 +102,6 @@ module Efile
         set_line(:MD502_LINE_34, :calculate_line_34)
         set_line(:MD502_LINE_39, :calculate_line_39)
         set_line(:MD502_LINE_40, :calculate_line_40)
-<<<<<<< HEAD
         set_line(:MD502_LINE_42, :calculate_line_42)
         set_line(:MD502_LINE_43, :calculate_line_43)
         set_line(:MD502_LINE_44, :calculate_line_44)
@@ -110,10 +109,7 @@ module Efile
         set_line(:MD502_LINE_46, :calculate_line_46)
         set_line(:MD502_LINE_48, :calculate_line_48)
         set_line(:MD502_LINE_50, :calculate_line_50)
-=======
         set_line(:MD502_AUTHORIZE_DIRECT_DEPOSIT, @intake, :bank_authorization_confirmed_yes?)
->>>>>>> main
-
         @md502cr.calculate
         @lines.transform_values(&:value)
       end

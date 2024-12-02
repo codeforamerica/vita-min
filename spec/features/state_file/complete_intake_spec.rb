@@ -602,10 +602,6 @@ RSpec.feature "Completing a state file intake", active_job: true do
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
 
-<<<<<<< HEAD
-      expect(strip_html_tags(page.body)).to include strip_html_tags(I18n.t("state_file.questions.tax_refund.edit.title_html", refund_amount: 1184, state_name: "Maryland"))
-      choose I18n.t("state_file.questions.tax_refund.edit.mail")
-=======
       expect(strip_html_tags(page.body)).to have_text strip_html_tags(I18n.t("state_file.questions.tax_refund.edit.title_html", state_name: "Maryland", refund_amount: 1000))
       choose I18n.t('state_file.questions.tax_refund.edit.direct_deposit')
       choose I18n.t("views.questions.bank_details.account_type.checking")
@@ -620,7 +616,6 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in 'state_file_md_tax_refund_form_account_number', with: "123456789"
       fill_in 'state_file_md_tax_refund_form_account_number_confirmation', with: "123456789"
       check I18n.t('state_file.questions.md_tax_refund.md_bank_details.bank_authorization_confirmation')
->>>>>>> main
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t("state_file.questions.esign_declaration.edit.title", state_name: "Maryland")
