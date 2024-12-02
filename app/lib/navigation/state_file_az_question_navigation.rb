@@ -4,9 +4,6 @@ module Navigation
 
     SECTIONS = [
       Navigation::NavigationSection.new("state_file.navigation.section_1", [
-        Navigation::NavigationStep.new(StateFile::Questions::AzEligibilityResidenceController),
-        Navigation::NavigationStep.new(StateFile::Questions::AzEligibilityOutOfStateIncomeController),
-        Navigation::NavigationStep.new(StateFile::Questions::EligibilityOffboardingController, false),
         Navigation::NavigationStep.new(StateFile::Questions::EligibleController),
       ]),
       Navigation::NavigationSection.new("state_file.navigation.section_2", [
@@ -26,7 +23,7 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::WaitingToLoadDataController),
       ]),
       Navigation::NavigationSection.new("state_file.navigation.section_5", [
-        Navigation::NavigationStep.new(StateFile::Questions::DataReviewController),
+        Navigation::NavigationStep.new(StateFile::Questions::PostDataTransferController, false),
         Navigation::NavigationStep.new(StateFile::Questions::FederalInfoController),
         Navigation::NavigationStep.new(StateFile::Questions::DataTransferOffboardingController, false),
         Navigation::NavigationStep.new(StateFile::Questions::NameDobController),
@@ -34,10 +31,10 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::AzPriorLastNamesController),
         Navigation::NavigationStep.new(StateFile::Questions::IncomeReviewController),
         Navigation::NavigationStep.new(StateFile::Questions::UnemploymentController),
-        Navigation::NavigationStep.new(StateFile::Questions::AzSubtractionsController),
-        Navigation::NavigationStep.new(StateFile::Questions::AzCharitableContributionsController),
         Navigation::NavigationStep.new(StateFile::Questions::AzPublicSchoolContributionsController),
+        Navigation::NavigationStep.new(StateFile::Questions::AzCharitableContributionsController),
         Navigation::NavigationStep.new(StateFile::Questions::AzQualifyingOrganizationContributionsController),
+        Navigation::NavigationStep.new(StateFile::Questions::AzSubtractionsController),
         Navigation::NavigationStep.new(StateFile::Questions::AzExciseCreditController),
         Navigation::NavigationStep.new(StateFile::Questions::PrimaryStateIdController),
         Navigation::NavigationStep.new(StateFile::Questions::SpouseStateIdController),

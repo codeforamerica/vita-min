@@ -15,7 +15,7 @@ module PdfFiller
     end
 
     def hash_for_pdf
-      {
+      answers = {
         'Enter 1': @xml_document.at("Form502 Income FederalAdjustedGrossIncome")&.text,
         'Enter 1a': @xml_document.at("Form502 Income WagesSalariesAndTips")&.text,
         'Enter 1b': @xml_document.at("Form502 Income EarnedIncome")&.text,
@@ -74,6 +74,7 @@ module PdfFiller
         'Text Field 11': generate_codes_for_502_su.at(2),
         'Text Field 12': generate_codes_for_502_su.at(3),
         'Enter 13': @xml_document.at('Form502 Subtractions Other')&.text,
+        'Enter 14': @xml_document.at('Form502 Subtractions TwoIncome')&.text,
         'Text Box 68': @xml_document.at('Form502 TaxWithheld')&.text,
         'Text Box 34': @xml_document.at('Form502 StateTaxComputation EarnedIncomeCredit')&.text,
         'Check Box 37': checkbox_value(@xml_document.at('Form502 StateTaxComputation MDEICWithQualChildInd')&.text),
@@ -86,13 +87,31 @@ module PdfFiller
         'Enter 3': @xml_document.at('Form502 Additions StateRetirementPickup')&.text,
         'Enter 6': @xml_document.at('Form502 Additions Total')&.text,
         'Enter 7': @xml_document.at('Form502 Additions FedAGIAndStateAdditions')&.text,
-        "Enter 15": @xml_document.at('Form502 Subtractions Total')&.text,
-        "Enter 16": @xml_document.at('Form502 Subtractions StateAdjustedGrossIncome')&.text,
+        'Enter 15': @xml_document.at('Form502 Subtractions Total')&.text,
+        'Enter 16': @xml_document.at('Form502 Subtractions StateAdjustedGrossIncome')&.text,
         'Text Box 30': @xml_document.at('Form502 StateTaxComputation StateIncomeTax')&.text,
         'Text Box 36': @xml_document.at('Form502 StateTaxComputation PovertyLevelCredit')&.text,
         'Text Box 40': @xml_document.at('Form502 StateTaxComputation TotalCredits')&.text,
         'Text Box 42': @xml_document.at('Form502 StateTaxComputation StateTaxAfterCredits')&.text,
+        'Enter local tax rate': @xml_document.at('Form502 LocalTaxComputation LocalTaxRate')&.text&.split('0.0')&.last,
+        'Text Box 44': @xml_document.at('Form502 LocalTaxComputation LocalIncomeTax')&.text,
+        'Text Box 46': @xml_document.at('Form502 LocalTaxComputation EarnedIncomeCredit')&.text,
+        'Text Box 48': @xml_document.at('Form502 LocalTaxComputation PovertyLevelCredit')&.text,
+        'Text Box 52': @xml_document.at('Form502 LocalTaxComputation TotalCredits')&.text,
+        'Text Box 54': @xml_document.at('Form502 LocalTaxComputation LocalTaxAfterCredits')&.text,
+        'Text Box 56': @xml_document.at('Form502 TotalStateAndLocalTax')&.text,
+        'Check Box 39': @xml_document.at('Form502 AuthToDirectDepositInd')&.text == 'X' ? 'Yes' : 'Off',
+        'Text Box 95': full_names_of_bank_account_holders || ""
       }
+      if @xml_document.at('RefundDirectDeposit').present?
+        answers.merge!({
+                         'Check Box 41': @xml_document.at('Checking')&.text == "X" ? 'Yes' : 'Off',
+                         'Check Box 42': @xml_document.at('Savings')&.text == "X" ? 'Yes' : 'Off',
+                         'Text Box 93': @xml_document.at('RoutingTransitNumber')&.text,
+                         'Text Box 94': @xml_document.at('BankAccountNumber')&.text,
+                       })
+      end
+      answers
     end
 
     def spouse_ssn_if_mfs
@@ -129,6 +148,24 @@ module PdfFiller
         end
       end
       applicable_codes
+    end
+
+    def full_names_of_bank_account_holders
+      intake = @submission.data_source
+      return nil unless intake.payment_or_deposit_type.to_sym == :direct_deposit
+
+      if intake.has_joint_account_holder_yes?
+        account_holder_full_name + " and " + account_holder_full_name(for_joint: true)
+      else
+        account_holder_full_name
+      end
+    end
+
+    def account_holder_full_name(for_joint: false)
+      attributes = %w[FirstName MiddleInitial LastName NameSuffix]
+      account_holder_xmls = @xml_document.css('Form502 NameOnBankAccount')
+      account_holder_xml = for_joint ? account_holder_xmls[1] : account_holder_xmls[0]
+      attributes.map { |attr| account_holder_xml.at(attr)&.text }.filter_map(&:presence).join(" ")
     end
 
     def calculated_fields

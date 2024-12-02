@@ -785,16 +785,19 @@ describe Efile::Nj::Nj1040Calculator do
 
       it 'when 40a > 7500, property tax deduction is 7500' do
         allow(instance).to receive(:calculate_line_40a).and_return 7501
+        instance.calculate
         expect(instance.calculate_property_tax_deduction).to eq(7500)
       end
 
       it 'when 40a = 7500, property tax deduction is line 40a' do
         allow(instance).to receive(:calculate_line_40a).and_return 7500
+        instance.calculate
         expect(instance.calculate_property_tax_deduction).to eq(7500)
       end
 
       it 'when 40a < 7500, property tax deduction is line 40a' do
         allow(instance).to receive(:calculate_line_40a).and_return 7499
+        instance.calculate
         expect(instance.calculate_property_tax_deduction).to eq(7499)
       end
     end
@@ -810,6 +813,7 @@ describe Efile::Nj::Nj1040Calculator do
 
       it 'when 40a > 7500, property tax deduction is 7500' do
         allow(instance).to receive(:calculate_line_40a).and_return 7501
+        instance.calculate
         expect(instance.calculate_property_tax_deduction).to eq(7500)
       end
     end
@@ -825,16 +829,19 @@ describe Efile::Nj::Nj1040Calculator do
 
       it 'when 40a > 15000, property tax deduction is 15000' do
         allow(instance).to receive(:calculate_line_40a).and_return 15_001
+        instance.calculate
         expect(instance.calculate_property_tax_deduction).to eq(15_000)
       end
 
       it 'when 40a = 15000, property tax deduction is line 40a' do
         allow(instance).to receive(:calculate_line_40a).and_return 15_000
+        instance.calculate
         expect(instance.calculate_property_tax_deduction).to eq(15_000)
       end
 
       it 'when 40a < 15000, property tax deduction is line 40a' do
         allow(instance).to receive(:calculate_line_40a).and_return 14_999
+        instance.calculate
         expect(instance.calculate_property_tax_deduction).to eq(14_999)
       end
     end
@@ -893,6 +900,7 @@ describe Efile::Nj::Nj1040Calculator do
     it 'subtracts property_tax_deduction from line 39 times tax rate' do
       allow(instance).to receive(:calculate_line_39).and_return 36_000
       allow(instance).to receive(:calculate_property_tax_deduction).and_return 2_000
+      instance.calculate
       expected = 525 # 34,000 * 0.0175 - 70
       expect(instance.calculate_tax_liability_with_deduction).to eq(expected)
     end
@@ -904,6 +912,7 @@ describe Efile::Nj::Nj1040Calculator do
     }
     it 'returns line 39 times tax rate' do
       allow(instance).to receive(:calculate_line_39).and_return 36_000
+      instance.calculate
       expected = 577.50 # 36,000 * 0.035 - 682.50
       expect(instance.calculate_tax_liability_without_deduction).to eq(expected)
     end
@@ -1078,9 +1087,40 @@ describe Efile::Nj::Nj1040Calculator do
   end
 
   describe 'line 42 - new jersey taxable income' do
-    let(:intake) { create(:state_file_nj_intake, :primary_over_65, :primary_blind) }
+    let(:intake) { create(:state_file_nj_intake) }
     it 'sets line 42 to line 39 (taxable income)' do
       expect(instance.lines[:NJ1040_LINE_42].value).to eq(instance.lines[:NJ1040_LINE_39].value)
+    end
+  end
+
+  describe 'line 45 - balance of tax' do
+    let(:intake) { create(:state_file_nj_intake) }
+    it 'sets line 45 to equal line 43' do
+      expect(instance.lines[:NJ1040_LINE_45].value).to eq(instance.lines[:NJ1040_LINE_43].value)
+    end
+  end
+
+  describe 'line 49 - total credits' do
+    let(:intake) { create(:state_file_nj_intake) }
+    it 'sets line 49 to equal 0 always' do
+      expect(instance.lines[:NJ1040_LINE_49].value).to eq(0)
+    end
+  end
+
+  describe 'line 50 - balance of tax after credits' do
+    let(:intake) { create(:state_file_nj_intake) }
+    it 'sets line 50 to equal line 45 minus line 49' do
+      allow(instance).to receive(:calculate_line_45).and_return 20_000
+      allow(instance).to receive(:calculate_line_49).and_return 8_000
+      instance.calculate
+      expect(instance.lines[:NJ1040_LINE_50].value).to eq(12_000)
+    end
+
+    it 'sets line 50 to 0 if the difference is negative' do
+      allow(instance).to receive(:calculate_line_45).and_return 20_000
+      allow(instance).to receive(:calculate_line_49).and_return 30_000
+      instance.calculate
+      expect(instance.lines[:NJ1040_LINE_50].value).to eq(0)
     end
   end
 
@@ -1098,6 +1138,23 @@ describe Efile::Nj::Nj1040Calculator do
       it 'sets line 51 to 0' do
         expect(instance.lines[:NJ1040_LINE_51].value).to eq 0
       end
+    end
+  end
+
+  describe 'line 54 - total tax due' do
+    let(:intake) { create(:state_file_nj_intake) }
+    it 'sets line 54 to equal line 50 plus line 51' do
+      allow(instance).to receive(:calculate_line_50).and_return 20_000
+      allow(instance).to receive(:calculate_line_51).and_return 8_000
+      instance.calculate
+      expect(instance.lines[:NJ1040_LINE_54].value).to eq(28_000)
+    end
+
+    it 'sets line 54 to 0 if the sum is negative' do
+      allow(instance).to receive(:calculate_line_50).and_return -20_000
+      allow(instance).to receive(:calculate_line_51).and_return 10_000
+      instance.calculate
+      expect(instance.lines[:NJ1040_LINE_54].value).to eq(0)
     end
   end
 

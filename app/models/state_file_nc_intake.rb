@@ -5,7 +5,6 @@
 #  id                                :bigint           not null, primary key
 #  account_number                    :string
 #  account_type                      :integer          default("unfilled"), not null
-#  bank_name                         :string
 #  city                              :string
 #  consented_to_terms_and_conditions :integer          default("unfilled"), not null
 #  contact_preference                :integer          default("unfilled"), not null
@@ -13,7 +12,6 @@
 #  current_sign_in_ip                :inet
 #  current_step                      :string
 #  date_electronic_withdrawal        :date
-#  df_data_import_failed_at          :datetime
 #  df_data_import_succeeded_at       :datetime
 #  df_data_imported_at               :datetime
 #  eligibility_lived_in_state        :integer          default("unfilled"), not null

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe SubmissionBuilder::Ty2024::States::Id::IdReturnXml, required_schema: "id" do
   describe '.build' do
-    let(:intake) { create(:state_file_id_intake, filing_status: "single") }
+    let(:intake) { create(:state_file_id_intake, filing_status: "single", payment_or_deposit_type: "direct_deposit",  routing_number: "011234567", account_number: "123456789", account_type: 1) }
     let(:submission) { create(:efile_submission, data_source: intake.reload) }
     let!(:initial_efile_device_info) { create :state_file_efile_device_info, :initial_creation, :filled, intake: intake }
     let!(:submission_efile_device_info) { create :state_file_efile_device_info, :submission, :filled, intake: intake }

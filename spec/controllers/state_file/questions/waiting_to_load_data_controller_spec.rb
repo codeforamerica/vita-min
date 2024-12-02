@@ -35,7 +35,7 @@ RSpec.describe StateFile::Questions::WaitingToLoadDataController do
 
       it 'redirects to the next page' do
         get :edit, params: { authorizationCode: 'abcde'}
-        expect(response).to redirect_to(StateFile::Questions::DataReviewController.to_path_helper)
+        expect(response).to redirect_to(StateFile::Questions::PostDataTransferController.to_path_helper)
       end
     end
   end

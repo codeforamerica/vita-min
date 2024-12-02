@@ -171,7 +171,7 @@ en:
         format: Please enter an expiration date in the format MM-DD-2YYY.
       first_name:
         blank: Please enter a first name.
-        invalid_format: Only letters, hyphen, and apostrophe are accepted, and first name must be less than 16 characters.
+        invalid_format: Only letters, numbers, hyphen, and apostrophe are accepted, and first name must be less than 16 characters.
       hoh_qualifying_person_name:
         blank: Please double check your answers regarding how many months you lived with these dependents. Based on your federal return, you lived in a home with one of these dependents for at least half the year.
       intake_site:
@@ -180,7 +180,7 @@ en:
         blank: Please select a number of jobs.
       last_name:
         blank: Please enter a last name.
-        invalid_format: Only letters, hyphen, and apostrophe are accepted.
+        invalid_format: Only letters, numbers, hyphen, and apostrophe are accepted, and last name must be less than 32 characters.
       password:
         insecure: Add some more uncommon words to improve password strength.
         not_matching: The password provided does not match.
@@ -2057,6 +2057,35 @@ en:
       id_taxable_income: Idaho taxable income
       id_total_payments: Total payments and refundable credits
       id_use_tax: Use tax
+      md_adjusted_gross_income: Maryland Adjusted Gross Income
+      md_child_tax_credit: Maryland Child Tax Credit
+      md_local_poverty_level_credit: Local Poverty Level Credit
+      md_local_tax: Local tax
+      md_military_retirement_income_exclusion: Military retirement income exclusion
+      md_nonrefundable_credit_child_dependent_care: Maryland nonrefundable Credit for Child and Dependent Care Expenses
+      md_nonrefundable_earned_income_tax_credit: Nonrefundable Maryland Earned Income Tax Credit
+      md_nonrefundable_local_earned_income_tax_credit: Nonrefundable local Earned Income Tax Credit
+      md_pension_income_exclusion: Pension income exclusion
+      md_poverty_level_credit: Maryland Poverty Level Credit
+      md_public_safety_retirement_income_exclusion: Public safety retirement income exclusion
+      md_refundable_child_dependent_care_credit: Refundable Child and Dependent Care Credit
+      md_refundable_earned_income_tax_credit: Refundable Maryland Earned Income Tax Credit
+      md_return_type: Type of return
+      md_senior_tax_credit: Senior Tax Credit
+      md_social_security_income_not_taxed: Social Security income (not taxed in Maryland)
+      md_standard_deduction: Standard deduction
+      md_state_retirement_pickup_addition: State retirement pickup addition
+      md_subtraction_child_dependent_care_expenses: Subtraction for child and dependent care expenses
+      md_subtraction_income_us_gov_bonds: Subtraction for income from U.S. government bonds
+      md_tax: Maryland tax
+      md_tax_withheld: Maryland and local tax withheld
+      md_taxable_net_income: Maryland taxable net income
+      md_total_exemptions_people_household: Total exemptions for people in your household
+      md_total_payments_refundable_credits: Total payments and refundable credits
+      md_total_tax_after_nonrefundable_credits: Total tax after nonrefundable credits
+      md_two_income_subtraction_married_taxpayers: Two-income subtraction for married taxpayers
+      md_type_of_return_nontaxable: Nontaxable (you are not required to file a Maryland return, which increases your refund)
+      md_type_of_return_standard: Standard
       nc_income_tax: North Carolina income tax
       nc_tax_withheld: North Carolina tax withheld
       nc_taxable_income: North Carolina taxable income
@@ -2195,31 +2224,6 @@ en:
           title:
             one: Did you make charitable contributions (cash and/or non-cash) to a qualifying organization in %{tax_year}?
             other: Did you or your spouse make charitable contributions (cash and/or non-cash) to a qualifying organization in %{tax_year}?
-      az_eligibility_out_of_state_income:
-        edit:
-          expenses_helper_heading: What are qualifying and non-qualifying expenses?
-          expenses_helper_no_if: 'Select ''no'' if:'
-          expenses_helper_no_nothing_withdrawn: You didn't withdraw money from a 529 account at all.
-          expenses_helper_no_qualifying: You withdrew money from a 529 account and used it for qualifying expenses, or
-          expenses_helper_nonqualifying_description: Most other uses of funds are non-qualifying expenses, including college application and testing fees, transportation costs, health insurance, and extracurricular costs.
-          expenses_helper_qualifying_description: Qualifying expenses include tuition and fees, books, equipment (including computers and other tech), room and board, apprenticeship programs, and K-12 tuition up to $10,000.
-          out_of_state_income_html: Did you (or your spouse, if you’re filing together) earn any income in another state in %{filing_year}? (This includes unemployment income <strong>received</strong> from another state.)
-          title: First, let's see if you can use this tool to file your taxes
-          used_529_for_non_qual_expense_html: Did you (or your spouse, if you’re filing together) withdraw money from a <a href="https://az529.gov/what-is-a-529-plan/" target="_blank" rel="noopener nofollow">529 college savings account</a> and use it for non-qualifying expenses in %{filing_year}?
-      az_eligibility_residence:
-        edit:
-          filing_status_married_filing_separately: Are you filing as “married filing separately”?
-          lived_in_state_html: Did you (and your spouse, if you’re filing together) live in  %{state} for <strong>all</strong> of %{filing_year}?
-          mfs_helper_description: Married filing separately is a tax filing status that is used by people who are legally married but choose to file separate returns.
-          mfs_helper_heading: What does “married filing separately” mean?
-          mfs_helper_no_if: 'Select no if:'
-          mfs_helper_no_mfj: You are married and filing jointly on both your federal and state returns.
-          mfs_helper_no_unmarried: You are not married.
-          mfs_helper_yes_federal_mfs: You filed “married filing separately” on your federal return.
-          mfs_helper_yes_if: 'Select yes if:'
-          mfs_helper_yes_state_mfs: You want to file your state return as “married filing separately”.
-          subtitle: For the %{current_year} tax season, this tool will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
-          title: First, let's see if you can use this tool to file your taxes
       az_excise_credit:
         edit:
           household_excise_credit_claimed_amt: How much, in total, did all other members of your household claim in Increased Excise Tax Credit? (You can look this up by looking at Line 56 of their Arizona return.)
@@ -2280,6 +2284,7 @@ en:
           armed_forces_member: Member of the U.S. Armed Forces
           armed_forces_wages: Active duty pay received as a member of the U.S. Armed Forces
           az321_contribution_name: Contribution to %{charity_name} with code %{charity_code}
+          az322_contribution_name: Contribution to %{charity_name} with code %{charity_code}
           az_agi: Arizona adjusted gross income
           az_tax: Arizona tax
           az_tax_withheld: Arizona tax withheld
@@ -2294,6 +2299,7 @@ en:
           increased_excise_tax_credit: Increased Excise Tax Credit
           last_names: Other last names in the last four years
           made_az321_contributions: Made contributions to qualifying charitable organizations
+          made_az322_contributions: Made contributions to public schools
           ssn_no_employment: "‘Not valid for employment’ is written on your Social Security Card"
           total_arizona_subtractions: Total Arizona subtractions
           total_exemptions: Total Exemptions
@@ -2352,15 +2358,6 @@ en:
           subtitle: With an account, you’ll receive status updates on your state tax return.
           text_message_option: Text me a code
           title: Next, create your account with a quick code
-      data_review:
-        edit:
-          basic_household_info_title: Basic household information
-          complete_description: Complete
-          filing_status_title: Filing status
-          income_and_deductions_title: Income and deductions
-          partially_complete_description: Partially complete
-          state_tax_withheld_title: "%{name} state tax withheld"
-          title: Your federal tax return is now transferred. We completed some sections to save you time.
       data_transfer_offboarding:
         edit:
           ineligible_reason:
@@ -2758,6 +2755,15 @@ en:
       md_tax_refund:
         md_bank_details:
           account_holder_name: Account Holder Name
+          bank_account_details: Bank Account Details
+          bank_account_type: Bank Account Type
+          bank_authorization_confirmation: Check here to confirm you authorize the State of Maryland to issue your refund by direct deposit.
+          bank_authorization_confirmation_error: Please confirm authorization or select pay by mail
+          check_if_joint_account: Check here if you have a joint account
+          joint_account_holder_name: Joint Account Holder Name
+          last_name: Last Name
+          middle_initial: Middle Initial
+          suffix: Suffix
       md_two_income_subtractions:
         edit:
           description: In order to know if you qualify and calculate the subtraction, we need more information about the student loan interest deduction you took on your federal tax return.
@@ -3174,6 +3180,9 @@ en:
           action: Send code
           phone_number_label: Your phone number
           title: Enter your phone number
+      post_data_transfer:
+        edit:
+          title: Non-prod page only
       primary_state_id:
         edit:
           ny_subtitle: This information is required for all NY residents with a state-issued ID.
@@ -3338,7 +3347,7 @@ en:
           information_html: "<strong>How do I find this information?</strong>"
           money_boxes_label: Please complete the following boxes based on what’s reported on Form 1099-G.
           need_additional_information: Great! We need some additional information about what’s on Form 1099-G. (If you have more than one 1099-G, you can add it at the end.)
-          other_tax_filing_options_html: <strong>Reminder:</strong> In %{filing_year + 1}, this tool does not support filing unemployment income received from another state. To file income received from another state, check out <a target="_blank" rel="noopener nofollow" href="%{link}">other tax filing options.</a>
+          other_tax_filing_options_html: <strong>Reminder:</strong> In %{filing_year_plus_one}, this tool does not support filing unemployment income received from another state. To file income received from another state, check out <a target="_blank" rel="noopener nofollow" href="%{link}">other tax filing options.</a>
           payer_address: Payer's Street Address
           payer_name: Payer's Name
           payer_question_html: Please enter the <strong>payer's information located in the top left corner</strong> of the form&#58;
