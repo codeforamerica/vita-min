@@ -288,7 +288,9 @@
     }
 
     .question-with-follow-up__follow-up {
-      margin: 0;
+      :not(.not-centered) {
+        margin: 0;
+      }
 
       p.form-question {
         font-size: 1.3rem;

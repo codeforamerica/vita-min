@@ -3,11 +3,14 @@
 # Table name: state_file_md_intakes
 #
 #  id                                         :bigint           not null, primary key
-#  account_holder_name                        :string
+#  account_holder_first_name                  :string
+#  account_holder_last_name                   :string
+#  account_holder_middle_initial              :string
+#  account_holder_suffix                      :string
 #  account_number                             :string
 #  account_type                               :integer          default("unfilled"), not null
 #  authorize_sharing_of_health_insurance_info :integer          default("unfilled"), not null
-#  bank_name                                  :string
+#  bank_authorization_confirmed               :integer          default("unfilled"), not null
 #  city                                       :string
 #  confirmed_permanent_address                :integer          default("unfilled"), not null
 #  consented_to_terms_and_conditions          :integer          default("unfilled"), not null
@@ -16,7 +19,6 @@
 #  current_sign_in_ip                         :inet
 #  current_step                               :string
 #  date_electronic_withdrawal                 :date
-#  df_data_import_failed_at                   :datetime
 #  df_data_import_succeeded_at                :datetime
 #  df_data_imported_at                        :datetime
 #  eligibility_filing_status_mfj              :integer          default("unfilled"), not null
@@ -31,7 +33,12 @@
 #  failed_attempts                            :integer          default(0), not null
 #  federal_return_status                      :string
 #  had_hh_member_without_health_insurance     :integer          default("unfilled"), not null
+#  has_joint_account_holder                   :integer          default("unfilled"), not null
 #  hashed_ssn                                 :string
+#  joint_account_holder_first_name            :string
+#  joint_account_holder_last_name             :string
+#  joint_account_holder_middle_initial        :string
+#  joint_account_holder_suffix                :string
 #  last_sign_in_at                            :datetime
 #  last_sign_in_ip                            :inet
 #  locale                                     :string           default("en")
@@ -115,6 +122,8 @@ class StateFileMdIntake < StateFileBaseIntake
   enum spouse_did_not_have_health_insurance: { unfilled: 0, yes: 1, no: 2}, _prefix: :spouse_did_not_have_health_insurance
   enum email_notification_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :email_notification_opt_in
   enum sms_notification_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :sms_notification_opt_in
+  enum bank_authorization_confirmed: { unfilled: 0, yes: 1, no: 2 }, _prefix: :bank_authorization_confirmed
+  enum has_joint_account_holder: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_joint_account_holder
 
   def disqualifying_df_data_reason
     w2_states = direct_file_data.parsed_xml.css('W2StateLocalTaxGrp W2StateTaxGrp StateAbbreviationCd')
@@ -144,12 +153,20 @@ class StateFileMdIntake < StateFileBaseIntake
   def sanitize_bank_details
     if (payment_or_deposit_type || "").to_sym != :direct_deposit
       self.account_type = "unfilled"
-      self.bank_name = nil
       self.routing_number = nil
       self.account_number = nil
       self.withdraw_amount = nil
       self.date_electronic_withdrawal = nil
-      self.account_holder_name = nil
+      self.account_holder_first_name = nil
+      self.account_holder_middle_initial = nil
+      self.account_holder_last_name = nil
+      self.account_holder_suffix = nil
+      self.joint_account_holder_first_name = nil
+      self.joint_account_holder_middle_initial = nil
+      self.joint_account_holder_last_name = nil
+      self.joint_account_holder_suffix = nil
+      self.has_joint_account_holder = "unfilled"
+      self.bank_authorization_confirmed = "unfilled"
     end
   end
 

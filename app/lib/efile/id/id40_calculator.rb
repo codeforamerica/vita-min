@@ -26,6 +26,7 @@ module Efile
         set_line(:ID40_LINE_11, :calculate_line_11)
         set_line(:ID40_LINE_19, :calculate_line_19)
         set_line(:ID40_LINE_20, :calculate_line_20)
+        set_line(:ID40_LINE_21, :calculate_line_20)
         set_line(:ID40_LINE_23, :calculate_line_23)
         set_line(:ID40_LINE_25, :calculate_line_25)
         set_line(:ID40_LINE_26, :calculate_line_26)
@@ -39,8 +40,11 @@ module Efile
         set_line(:ID40_LINE_43_DONATE, :calculate_line_43_donate)
         set_line(:ID40_LINE_43, :calculate_line_43)
         set_line(:ID40_LINE_46, :calculate_line_46)
-        set_line(:ID40_LINE_54, :calculate_line_54) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
-        set_line(:ID40_LINE_56, :calculate_line_56) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
+        set_line(:ID40_LINE_50, :calculate_line_50)
+        set_line(:ID40_LINE_51, :calculate_line_51)
+        set_line(:ID40_LINE_54, :calculate_line_54)
+        set_line(:ID40_LINE_55, :calculate_line_55)
+        set_line(:ID40_LINE_56, :calculate_line_56)
         @id39r.calculate
         @lines.transform_values(&:value)
       end
@@ -207,8 +211,29 @@ module Efile
           @intake.state_file1099_rs.sum { |item| item.state_tax_withheld_amount.round }
       end
 
-      def calculate_line_54; end
-      def calculate_line_56; end
+      def calculate_line_50
+        line_or_zero(:ID40_LINE_43) + line_or_zero(:ID40_LINE_46)
+      end
+
+      def calculate_line_51
+        if line_or_zero(:ID40_LINE_42) > line_or_zero(:ID40_LINE_50)
+          line_or_zero(:ID40_LINE_42) - line_or_zero(:ID40_LINE_50)
+        end
+      end
+
+      def calculate_line_54
+        line_or_zero(:ID40_LINE_51)
+      end
+
+      def calculate_line_55
+        if line_or_zero(:ID40_LINE_42) < line_or_zero(:ID40_LINE_50)
+          line_or_zero(:ID40_LINE_50) - line_or_zero(:ID40_LINE_42)
+        end
+      end
+
+      def calculate_line_56
+        line_or_zero(:ID40_LINE_55)
+      end
     end
   end
 end

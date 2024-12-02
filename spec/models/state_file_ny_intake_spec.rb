@@ -5,7 +5,6 @@
 #  id                                 :bigint           not null, primary key
 #  account_number                     :string
 #  account_type                       :integer          default("unfilled"), not null
-#  bank_name                          :string
 #  confirmed_permanent_address        :integer          default("unfilled"), not null
 #  confirmed_third_party_designee     :integer          default("unfilled"), not null
 #  consented_to_terms_and_conditions  :integer          default("unfilled"), not null
@@ -14,7 +13,6 @@
 #  current_sign_in_ip                 :inet
 #  current_step                       :string
 #  date_electronic_withdrawal         :date
-#  df_data_import_failed_at           :datetime
 #  df_data_import_succeeded_at        :datetime
 #  df_data_imported_at                :datetime
 #  eligibility_lived_in_state         :integer          default("unfilled"), not null
@@ -144,7 +142,6 @@ describe StateFileNyIntake do
         create :state_file_ny_intake,
                payment_or_deposit_type: "direct_deposit",
                account_type: "checking",
-               bank_name: "Wells Fargo",
                routing_number: "123456789",
                account_number: "123",
                withdraw_amount: 123,
@@ -155,7 +152,6 @@ describe StateFileNyIntake do
         expect {
           intake.update(payment_or_deposit_type: "mail")
         }.to change(intake.reload, :account_type).to("unfilled")
-        .and change(intake.reload, :bank_name).to(nil)
         .and change(intake.reload, :routing_number).to(nil)
         .and change(intake.reload, :account_number).to(nil)
         .and change(intake.reload, :withdraw_amount).to(nil)

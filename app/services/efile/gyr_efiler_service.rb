@@ -2,7 +2,7 @@ require 'zip'
 
 module Efile
   class GyrEfilerService
-    CURRENT_VERSION = '7bf94e422032527b78cb169fc8674cfe9fd14554'
+    CURRENT_VERSION = 'ae332c44bac585fb9dbec9bf32ffff0d34a72830'
     POSTGRES_LOCK_PREFIX = 1640661264
     RETRYABLE_LOG_CONTENTS = [
       /Transaction Result: The server sent HTTP status code 302: Moved Temporarily/,
@@ -50,7 +50,7 @@ module Efile
 
         exit_code = $?.exitstatus
         if exit_code != 0
-          log_contents = File.read(File.join(working_directory, 'output/log/audit_log.txt'))
+          log_contents = File.read(File.join(working_directory, 'audit_log.txt'))
           if log_contents.split("\n").include?("Transaction Result: java.net.SocketTimeoutException: Read timed out")
             raise RetryableError, log_contents
           elsif RETRYABLE_LOG_CONTENTS.any? { |contents| log_contents.match(contents) }

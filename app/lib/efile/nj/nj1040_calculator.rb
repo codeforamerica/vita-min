@@ -116,22 +116,22 @@ module Efile
 
       def calculate_property_tax_deduction
         limit = is_mfs_same_home ? 7_500 : 15_000
-        if calculate_line_40a.nil?
+        if @lines[:NJ1040_LINE_40A]&.value.nil?
           return nil
         end
 
-        [calculate_line_40a, limit].min
+        [line_or_zero(:NJ1040_LINE_40A), limit].min
       end
 
       def calculate_tax_liability_with_deduction
         return nil if calculate_property_tax_deduction.nil?
-        income = calculate_line_39 - calculate_property_tax_deduction
+        income = line_or_zero(:NJ1040_LINE_39) - calculate_property_tax_deduction
         (rate, subtraction) = get_tax_rate_and_subtraction_amount(income)
         ((income * rate) - subtraction).round(2)
       end
 
       def calculate_tax_liability_without_deduction
-        income = calculate_line_39
+        income = line_or_zero(:NJ1040_LINE_39)
         (rate, subtraction) = get_tax_rate_and_subtraction_amount(income)
         ((income * rate) - subtraction).round(2)
       end
@@ -208,7 +208,7 @@ module Efile
       end
 
       def calculate_line_10_exemption
-        calculate_line_10_count * 1500
+        line_or_zero(:NJ1040_LINE_10_COUNT) * 1500
       end
 
       def calculate_line_11_count
@@ -218,11 +218,11 @@ module Efile
       end
 
       def calculate_line_11_exemption
-        calculate_line_11_count * 1500
+        line_or_zero(:NJ1040_LINE_11_COUNT) * 1500
       end
-      
+
       def calculate_line_12
-        line_12_count * 1_000
+        line_or_zero(:NJ1040_LINE_12_COUNT) * 1_000
       end
 
       def line_59_primary
@@ -258,8 +258,8 @@ module Efile
         calculate_line_7 +
         calculate_line_8 +
         calculate_line_9 +
-        calculate_line_10_exemption + 
-        calculate_line_11_exemption +
+        line_or_zero(:NJ1040_LINE_10_EXEMPTION) +
+        line_or_zero(:NJ1040_LINE_11_EXEMPTION) +
         calculate_line_12
       end
 
@@ -277,15 +277,15 @@ module Efile
       end
 
       def calculate_line_27
-        calculate_line_15
+        line_or_zero(:NJ1040_LINE_15)
       end
 
       def calculate_line_29
-        calculate_line_27
+        line_or_zero(:NJ1040_LINE_27)
       end
 
       def calculate_line_31
-        two_percent_gross = calculate_line_29 * 0.02
+        two_percent_gross = line_or_zero(:NJ1040_LINE_29) * 0.02
         difference_with_med_expenses = @intake.medical_expenses - two_percent_gross
         rounded_difference = difference_with_med_expenses.round
         return rounded_difference if rounded_difference.positive?
@@ -293,11 +293,11 @@ module Efile
       end
 
       def calculate_line_38
-        calculate_line_13 + line_or_zero(:NJ1040_LINE_31)
+        line_or_zero(:NJ1040_LINE_13) + line_or_zero(:NJ1040_LINE_31)
       end
 
       def calculate_line_39
-        calculate_line_29 - calculate_line_38
+        line_or_zero(:NJ1040_LINE_29) - line_or_zero(:NJ1040_LINE_38)
       end
 
       def is_ineligible_or_unsupported_for_property_tax_credit
@@ -329,7 +329,7 @@ module Efile
       end
 
       def calculate_line_42
-        should_use_property_tax_deduction ? calculate_line_39 - calculate_property_tax_deduction : calculate_line_39
+        should_use_property_tax_deduction ? line_or_zero(:NJ1040_LINE_39) - calculate_property_tax_deduction : line_or_zero(:NJ1040_LINE_39)
       end
 
       def calculate_line_43
@@ -337,7 +337,7 @@ module Efile
       end
 
       def calculate_line_45
-        calculate_line_43
+        line_or_zero(:NJ1040_LINE_43)
       end
 
       def calculate_line_49
@@ -345,7 +345,7 @@ module Efile
       end
 
       def calculate_line_50
-        difference = calculate_line_45 - calculate_line_49
+        difference = line_or_zero(:NJ1040_LINE_45) - line_or_zero(:NJ1040_LINE_49)
         [difference, 0].max
       end
 
@@ -354,7 +354,7 @@ module Efile
       end
 
       def calculate_line_54
-        sum = calculate_line_50 + calculate_line_51
+        sum = line_or_zero(:NJ1040_LINE_50) + line_or_zero(:NJ1040_LINE_51)
         [sum, 0].max
       end
 
@@ -412,7 +412,7 @@ module Efile
 
       def calculate_line_64
         federal_child_and_dependent_care_credit = @direct_file_data.fed_credit_for_child_and_dependent_care_amount
-        nj_taxable_income = calculate_line_42
+        nj_taxable_income = line_or_zero(:NJ1040_LINE_42)
         if nj_taxable_income <= 30_000
           federal_child_and_dependent_care_credit * 0.5
         elsif nj_taxable_income <= 60_000
@@ -428,11 +428,11 @@ module Efile
 
       def calculate_line_65
         return nil if @intake.filing_status == :married_filing_separately
-        
+
         eligible_dependents_count = number_of_dependents_age_5_younger
         return nil if eligible_dependents_count.zero?
 
-        nj_taxable_income = calculate_line_42
+        nj_taxable_income = line_or_zero(:NJ1040_LINE_42)
 
         case
         when nj_taxable_income <= 30_000
