@@ -66,7 +66,6 @@ describe SubmissionBuilder::AuthenticationHeader do
       end
     end
 
-
     context "when a New York state issued id is defined" do
       let(:state_id) { create(:state_id, :state_issued_id)}
       let(:intake) { create(:state_file_ny_intake, primary_state_id: state_id) }
@@ -147,4 +146,42 @@ describe SubmissionBuilder::AuthenticationHeader do
       end
     end
   end
+
+  describe "phone number" do
+    let(:phone_number) { nil }
+    let(:intake) { create(:state_file_az_intake, phone_number: phone_number) }
+    let(:submission) { create(:efile_submission, data_source: intake) }
+
+    before do
+      intake.direct_file_data.phone_number = "5551231234"
+    end
+
+    context "when there a phone number on the intake" do
+      let(:phone_number) { "+18324658840" }
+
+      it "uses the phone number from the intake" do
+        doc = SubmissionBuilder::AuthenticationHeader.new(submission).document
+        expect(doc.at("USCellPhoneNum").text).to eq phone_number
+      end
+    end
+
+    context "when there is no phone number on the intake but there is one on from the direct file data" do
+      it "uses the phone number from the intake" do
+        doc = SubmissionBuilder::AuthenticationHeader.new(submission).document
+        expect(doc.at("USCellPhoneNum").text).to eq "+15551231234"
+      end
+    end
+
+    context "when there is no phone number on the intake or direct file data" do
+      before do
+        intake.direct_file_data.phone_number = ""
+      end
+
+      it "uses the phone number from the intake" do
+        doc = SubmissionBuilder::AuthenticationHeader.new(submission).document
+        expect(doc.at("USCellPhoneNum")).not_to be_present
+      end
+    end
+  end
+
 end
