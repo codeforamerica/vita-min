@@ -1,0 +1,26 @@
+{
+  "familyAndHousehold": [],
+  "filers": [
+    {
+      "firstName": "Jay",
+      "lastName": "Pilot",
+      "middleInitial": null,
+      "tin": "900-00-0012",
+      "dateOfBirth": "1950-07-06",
+      "suffix": null,
+      "isPrimaryFiler": false,
+      "ssnNotValidForEmployment": false
+    },
+    {
+      "lastName": "Pilot",
+      "firstName": "Robin",
+      "middleInitial": null,
+      "tin": "400-00-0014",
+      "dateOfBirth": "1940-06-07",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "interestReports": []
+}

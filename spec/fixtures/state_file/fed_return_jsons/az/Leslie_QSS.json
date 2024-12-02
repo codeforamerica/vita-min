@@ -1,0 +1,55 @@
+{
+  "familyAndHousehold": [
+    {
+      "monthsLivedWithTPInUS": null,
+      "lastName": "Ludgate",
+      "isClaimedDependent": true,
+      "hohQualifyingPerson": true,
+      "qualifyingChild": false,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "1992-08-08",
+      "suffix": null,
+      "residencyDuration": "allYear",
+      "firstName": "April",
+      "middleInitial": null,
+      "scheduleEicLine4aNo": true,
+      "tin": "300-00-0014",
+      "eligibleDependent": true,
+      "relationship": "biologicalChild",
+      "ssnNotValidForEmployment": null
+    },
+    {
+      "monthsLivedWithTPInUS": null,
+      "lastName": "Dwyer",
+      "isClaimedDependent": true,
+      "hohQualifyingPerson": false,
+      "qualifyingChild": false,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "1984-07-08",
+      "suffix": null,
+      "residencyDuration": "lessThanSixMonths",
+      "firstName": "Andy",
+      "middleInitial": null,
+      "scheduleEicLine4aNo": true,
+      "tin": "900-00-0015",
+      "eligibleDependent": true,
+      "relationship": "siblingOfParent",
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "filers": [
+    {
+      "firstName": "Leslie",
+      "lastName": "Knope",
+      "middleInitial": null,
+      "tin": "400-00-0007",
+      "dateOfBirth": "1959-12-31",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "interestReports": []
+}
