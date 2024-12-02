@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe StateFile::NcEligibilityOutOfStateIncomeForm do
+RSpec.describe StateFile::NcEligibilityForm do
   let(:intake) {
     build :state_file_nc_intake,
           eligibility_out_of_state_income: "unfilled",
