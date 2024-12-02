@@ -227,5 +227,27 @@ RSpec.describe StateFile::TaxesOwedForm do
         end
       end
     end
+
+    context "North Carolina intake" do
+      context "when withdrawal date is in the past" do
+        let(:day) { "9" }
+
+        it "is not valid, runs NC validations" do
+          form = described_class.new(intake, params)
+          expect(form).not_to be_valid
+        end
+      end
+    end
+
+    context "when not NC intake" do
+      context "when withdrawal date is in the past" do
+        let(:day) { "9" }
+
+        it "is valid" do
+          form = described_class.new(intake, params)
+          expect(form).not_to be_valid
+        end
+      end
+    end
   end
 end
