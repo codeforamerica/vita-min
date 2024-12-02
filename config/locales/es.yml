@@ -163,16 +163,16 @@ es:
       demographic_veteran:
         blank: Por favor, responda o haga clic en "Saltar pregunta"
       email:
-        invalid: Por favor, ingrese una dirección de correo electrónico válida.
+        invalid: Por favor, ingrese una dirección de correo electrónico válida
       email_address:
-        invalid: Por favor, ingrese una dirección de correo electrónico válida.
+        invalid: Por favor, ingrese una dirección de correo electrónico válida
       email_address_confirmation:
-        confirmation: Por favor, revise que las direcciones de correo electrónico sean iguales.
+        confirmation: Por favor, revise que las direcciones de correo electrónico sean iguales
       expiration_date:
-        format: Ingrese una fecha de vencimiento en el formato MM-DD-2YYY.
+        format: Ingrese una fecha de vencimiento en el formato MM-DD-2YYY
       first_name:
         blank: Por favor, ingrese un nombre.
-        invalid_format: Solo se aceptan letras, números, guiones y apóstrofos, y el nombre debe tener menos de 16 caracteres.
+        invalid_format: Solo se aceptan letras, números, guiones y apóstrofos, y el nombre debe tener menos de 16 caracteres
       hoh_qualifying_person_name:
         blank: Por favor, revisa tus respuestas sobre cuántos meses viviste con estos dependientes. Según tu declaración federal, viviste en un hogar con al menos uno de estos dependientes durante al menos la mitad del año.
       intake_site:
@@ -2523,8 +2523,9 @@ es:
       email_address:
         edit:
           action: Enviar el código
-          email_address_label: Tu dirección de correo electrónico (utiliza un correo electrónico al que puedas acceder)
+          email_address_label_html: <strong>Tu dirección de correo electrónico</strong>
           title: Ingresa tu dirección de correo electrónico
+          subtitle_html: To create a new account, provide an email address that isn't already in use.<br><br>Use an email account you can access.
       esign_declaration:
         edit:
           already_submitted: Ya has enviado tu declaración.
@@ -3212,7 +3213,9 @@ es:
       phone_number:
         edit:
           action: Enviar el código
-          phone_number_label: Tu número de teléfono
+          helper_text: Enter numbers only
+          phone_number_label_html: <strong>Tu número de teléfono</strong>
+          subtitle_html: To create a new account, provide a phone number that isn't already in use.<br><br>Use a phone number you can access.
           title: Ingresa tu número de teléfono
       primary_state_id:
         edit:
@@ -3404,9 +3407,9 @@ es:
       verification_code:
         edit:
           action: " Verificar el código"
-          subtitle_html: Te enviamos tu código a <strong>%{contact_info}</strong>.
-          title: Ingresa el código para continuar
-          verification_code_label: Ingresa el código de 6 dígitos
+          title_html: Te enviamos tu código a <strong>%{contact_info}</strong>
+          subtitle_html: If you didn’t receive a code, please check your spam folder. If you still need help resubscribing, chat with us.
+          verification_code_label_html: <strong>Ingresa el código de 6 dígitos</strong>
       w2:
         edit:
           box14_explanation:
