@@ -538,6 +538,7 @@ es:
     return_search: Volver a la búsqueda
     return_to_homepage: Regresar a la página principal
     returns: Devoluciones
+    review_and_edit: Revisar y Editar
     role: Rol
     routing: Enrutamiento
     save: Guardar
@@ -2020,6 +2021,7 @@ es:
       id_tax_withheld: Impuesto retenido de Idaho
       id_taxable_income: Ingreso imponible de Idaho
       id_total_payments: Pagos totales y créditos reembolsables
+      id_total_tax_plus_donations: Impuestos totales más donaciones
       id_use_tax: Impuesto por uso
       md_adjusted_gross_income: Ingreso bruto ajustado de Maryland
       md_child_tax_credit: Crédito fiscal infantil de Maryland
@@ -2509,6 +2511,22 @@ es:
           spouse_esign: Mi cónyuge ha leído y acepta la certificación anterior
           submit: Envía tu declaración estatal
           title: Firma de manera electrónica tu declaración de impuestos del estado de %{state_name}
+      id_donations:
+        edit:
+          add_the_amount: Agregue la cantidad que le gustaría donar a cualquiera de las organizaciones a continuación
+          american_red_cross_fund_donation: Fondo de la Cruz Roja Americana de Idaho
+          childrens_trust_fund_donation: Fondo Fiduciario para Niños de Idaho
+          donate_warning_p1: Su donación se restará de su reembolso estatal total.
+          donate_warning_p2: Su elección de donar es definitiva y no se puede cambiar mediante una declaración enmendada.
+          food_bank_fund_donation: Fondo del Banco de Alimentos de Idaho
+          guard_reserve_family_donation: Familia de la Guardia y Reserva de Idaho
+          nongame_wildlife_fund_donation: Fondo para la Vida Silvestre No Cinegética de Idaho
+          opportunity_scholarship_program_donation: Programa de Becas de Oportunidad
+          save_and_continue: Guardar y Continuar
+          special_olympics_donation: Olimpiadas Especiales de Idaho
+          tax_payers_can_donate: Los contribuyentes de Idaho pueden hacer donaciones caritativas voluntarias a organizaciones cuando presentan su declaración de impuestos estatales.
+          title: Done parte o la totalidad de su reembolso estatal a organizaciones benéficas
+          veterans_support_fund_donation: Fondo de Apoyo a los Veteranos
       id_eligibility_residence:
         edit:
           emergency_rental_assistance: En %{filing_year}, ¿recibió usted (o su cónyuge si presentan juntos) asistencia de alquiler de emergencia?
@@ -2601,11 +2619,14 @@ es:
           why_ask_this: "¿Por qué pides esta información?"
       id_review:
         edit:
+          donations_optional: Los contribuyentes de Idaho pueden hacer donaciones caritativas voluntarias a organizaciones cuando presentan su declaración de impuestos estatales.
           health_insurance_premium_title: Resta de primas de seguro médico de Idaho
           idaho_grocery_credit: Idaho Grocery Credit
+          no_donations_selected: "<strong>No se seleccionaron donaciones</strong>"
           permanent_building_fund_tax: Impuesto del Fondo de Edificios Permanentes
           purchases_without_sales_tax: Compras sin pagar impuestos sobre ventas o uso
           state_details_title: Detalles del estado
+          voluntary_charitable_donations: Donaciones Caritativas Voluntarias
       id_sales_use_tax:
         edit:
           sales_tax_content: Este es un impuesto que se recauda en el punto de venta cuando se compran productos dentro de su estado.
