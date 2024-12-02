@@ -41,12 +41,12 @@ RSpec.describe StateFile::NotificationPreferencesForm do
 
     context "when sms_notification_opt_in is not present" do
       let(:invalid_params) do
-          {
-            email_notification_opt_in: "yes",
-            phone_number: "415555121"
-          }
-        end
-        subject(:form) { described_class.new(intake, invalid_params) }
+        {
+          email_notification_opt_in: "yes",
+          phone_number: "415555121"
+        }
+      end
+      subject(:form) { described_class.new(intake, invalid_params) }
 
       it "does not validate phone number" do
         form.valid?
@@ -55,6 +55,21 @@ RSpec.describe StateFile::NotificationPreferencesForm do
 
       it "updates the intake with the provided attributes" do
         expect { form.save }.to change(intake, :email_notification_opt_in).from("unfilled").to("yes")
+      end
+    end
+
+    context "when neither are present" do
+      let(:invalid_params) do
+        {
+          phone_number: "415555121",
+          email_notification_opt_in: "no"
+        }
+      end
+      subject(:form) { described_class.new(intake, invalid_params) }
+
+      it 'is invalid' do
+        form.valid?
+        expect(form).not_to be_valid
       end
     end
   end
