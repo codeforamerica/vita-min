@@ -15,13 +15,6 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
       spouse_last_name: spouse_last_name
     )
   end
-  let(:params) do
-    { state_file_income_review_form: {
-      device_id: device_id
-    } }
-  end
-  let!(:efile_device_info) { create :state_file_efile_device_info, :initial_creation, intake: intake, device_id: nil }
-  let(:device_id) { "ABC123" }
   before do
     sign_in intake
   end
@@ -32,14 +25,14 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
     # should skip to the review page when the return_to_review param is present
     # requires form_params to be set with any other required params
     it_behaves_like :return_to_review_concern do
-      let(:form_params) { params }
+      let(:form_params) { {} }
     end
   end
 
   describe "W-2s card" do
     context "when there are no w2s" do
       it "does not show the card" do
-        get :edit, params: params
+        get :edit
 
         expect(response.body).not_to have_text "Jobs (W-2)"
       end
@@ -50,7 +43,7 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
       let!(:state_file_w2_2) { create :state_file_w2, employee_name: "Chicken Person", employer_name: "First Corporation", state_file_intake: intake }
 
       it "shows a summary of each W2" do
-        get :edit, params: params
+        get :edit
 
         expect(response.body).to have_text "Jobs (W-2)"
         expect(response.body).to have_text "Egg Person"
@@ -76,7 +69,7 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
         it "shows a summary of each" do
           primary_1099g = create(:state_file1099_g, intake: intake, payer_name: "Payeur", recipient: :primary)
           spouse_1099g = create(:state_file1099_g, intake: intake, payer_name: "Payure", recipient: :spouse)
-          get :edit, params: params
+          get :edit
 
           expect(response.body).to have_text "Unemployment benefits (1099-G)"
           expect(response.body).to have_text "Payeur"
@@ -90,7 +83,7 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
 
       context "when there are no 1099Gs" do
         it "shows a message" do
-          get :edit, params: params
+          get :edit
 
           expect(response.body).to have_text "Unemployment benefits (1099-G)"
           expect(response.body).to have_text "State info to be collected"
@@ -102,7 +95,7 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
       let(:fed_unemployment) { 0 }
 
       it "does not show the unemployment card" do
-        get :edit, params: params
+        get :edit
 
         expect(response.body).not_to have_text "Unemployment benefits (1099-G)"
       end
@@ -121,7 +114,7 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
       let(:fed_ssb) { 10 }
       let(:fed_taxable_ssb) { 0 }
       it "shows the SSA card" do
-        get :edit, params: params
+        get :edit
         expect(response.body).to have_text "Social Security benefits (SSA-1099)"
       end
     end
@@ -130,7 +123,7 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
       let(:fed_ssb) { 0 }
       let(:fed_taxable_ssb) { 10 }
       it "shows the SSA card" do
-        get :edit, params: params
+        get :edit
         expect(response.body).to have_text "Social Security benefits (SSA-1099)"
       end
     end
@@ -140,7 +133,7 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
       let(:fed_taxable_ssb) { 0 }
 
       it "doesn't show the SSA card" do
-        get :edit, params: params
+        get :edit
         expect(response.body).not_to have_text "Social Security benefits (SSA-1099)"
       end
     end
@@ -153,7 +146,7 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
       it "shows a summary of each" do
         primary_1099r = create(:state_file1099_r, intake: intake, payer_name: "Payeur", recipient_name: 'Prim Rose')
         spouse_1099r = create(:state_file1099_r, intake: intake, payer_name: "Payure", recipient_name: 'Sprout Vine')
-        get :edit, params: params
+        get :edit
 
         expect(response.body).to have_text "Retirement income (1099-R)"
         expect(response.body).to have_text "Payeur"
@@ -167,7 +160,7 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
 
     context "when there are no 1099Rs" do
       it "does not show any information bout 1099Rs" do
-        get :edit, params: params
+        get :edit
 
         expect(response.body).not_to have_text "Retirement income (1099-R)"
       end
@@ -179,7 +172,7 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
 
     context "when filer has no 1099-INT" do
       it "does not show the interest income card" do
-        get :edit, params: params
+        get :edit
         expect(response.body).not_to have_text "Interest income (1099-INT)"
       end
     end
@@ -190,25 +183,9 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
       end
 
       it "shows the interest income card" do
-        get :edit, params: params
+        get :edit
         expect(response.body).to have_text "Interest income (1099-INT)"
       end
-    end
-  end
-
-  context "without device id information due to JS being disabled" do
-    let(:device_id) { nil }
-
-    it "flashes an alert and does re-renders edit" do
-      post :update, params: params
-      expect(flash[:alert]).to eq(I18n.t("general.enable_javascript"))
-    end
-  end
-
-  context "with device id" do
-    it "updates device id" do
-      post :update, params: params
-      expect(efile_device_info.reload.device_id).to eq "ABC123"
     end
   end
 end
