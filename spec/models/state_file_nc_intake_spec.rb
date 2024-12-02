@@ -91,7 +91,7 @@ RSpec.describe StateFileNcIntake, type: :model do
 
   describe "date_electronic_withdrawal validations" do
     let(:electronic_withdrawal_date) { nil }
-    let!(:intake) { build :state_file_nc_intake, date_electronic_withdrawal: electronic_withdrawal_date }
+    let!(:intake) { build :state_file_nc_intake, date_electronic_withdrawal: electronic_withdrawal_date, payment_or_deposit_type: "direct_deposit" }
     let(:fake_time) { Time.new(2024, 11, 25) }
 
     before do
@@ -113,7 +113,7 @@ RSpec.describe StateFileNcIntake, type: :model do
       it "is valid and saves to intake" do
         expect(intake).to be_valid
         intake.save!
-        expect(intake.reload.date_electronic_withdrawal).to eq electronic_withdrawal_date
+        expect(intake.date_electronic_withdrawal).to eq electronic_withdrawal_date
       end
     end
 
