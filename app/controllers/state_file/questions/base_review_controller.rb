@@ -15,7 +15,7 @@ module StateFile
           current_intake.direct_file_json_data.interest_reports.count.positive? ||
           current_intake.direct_file_data.fed_unemployment.positive? ||
           current_intake.direct_file_data.fed_ssb.positive? || 
-          current_intake.direct_file_data.fed_taxable_ssb
+          current_intake.direct_file_data.fed_taxable_ssb.positive?
       end
 
       def form_class
