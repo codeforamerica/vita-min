@@ -596,6 +596,10 @@ RSpec.feature "Completing a state file intake", active_job: true do
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
 
+      expect(strip_html_tags(page.body)).to include strip_html_tags(I18n.t("state_file.questions.tax_refund.edit.title_html", refund_amount: 1184, state_name: "Maryland"))
+      choose I18n.t("state_file.questions.tax_refund.edit.mail")
+      click_on I18n.t("general.continue")
+
       expect(page).to have_text I18n.t("state_file.questions.esign_declaration.edit.title", state_name: "Maryland")
       fill_in 'state_file_esign_declaration_form_primary_signature_pin', with: "12345"
       fill_in 'state_file_esign_declaration_form_spouse_signature_pin', with: "54321"
