@@ -2647,7 +2647,7 @@ en:
           why_ask_this: Why are you asking for this information?
       income_review:
         edit:
-          help_text: We will ask about any missing information.
+          help_text: We will collect any missing information.
           interest_income_body: No additional state info needed
           interest_income_title: Interest income (1099-INT)
           no_info_needed: No additional state info needed

@@ -4,26 +4,6 @@
   <h1 class="h2"><%= title %></h1>
   <p><%= t(".help_text") %></p>
 
-  <% if current_intake.state_file1099_rs.present? %>
-    <div class="white-group retirement-income" id="form1099rs">
-      <p class="text--bold spacing-below-0"><%= t(".retirement_income_title") %></p>
-      <% current_intake.state_file1099_rs.each do |state_1099r| %>
-        <div class="spacing-above-25">
-          <p class="text--bold spacing-below-5"><%= state_1099r.recipient_name %></p>
-          <p class="spacing-below-5"><%= state_1099r.payer_name %></p>
-          <%= link_to t(".review_and_edit_state_info"),
-                      StateFile::Questions::RetirementIncomeController.to_path_helper(
-                        action: :edit,
-                        id: state_1099r.id,
-                        return_to_review: params[:return_to_review]
-                      ),
-                      class: "button--small"
-          %>
-        </div>
-      <% end %>
-    </div>
-  <% end %>
-
   <% if @w2s.present? %>
     <div class="white-group" id="w2s">
       <p class="text--bold spacing-below-0"><%= t(".w2s_title") %></p>
@@ -41,15 +21,6 @@
           %>
         </div>
       <% end %>
-    </div>
-  <% end %>
-
-  <% if current_intake.direct_file_json_data.interest_reports.count > 0 %>
-    <div class="white-group">
-      <p class="text--bold spacing-below-0"><%= t(".interest_income_title") %></p>
-      <p class="text--grey-bold spacing-above-15 spacing-below-0">
-        <%= t(".interest_income_body") %>
-      </p>
     </div>
   <% end %>
 
@@ -77,6 +48,35 @@
           <%= t(".state_info_to_be_collected") %>
         </p>
       <% end %>
+    </div>
+  <% end %>
+
+  <% if current_intake.state_file1099_rs.present? %>
+    <div class="white-group retirement-income" id="form1099rs">
+      <p class="text--bold spacing-below-0"><%= t(".retirement_income_title") %></p>
+      <% current_intake.state_file1099_rs.each do |state_1099r| %>
+        <div class="spacing-above-25">
+          <p class="text--bold spacing-below-5"><%= state_1099r.recipient_name %></p>
+          <p class="spacing-below-5"><%= state_1099r.payer_name %></p>
+          <%= link_to t(".review_and_edit_state_info"),
+                      StateFile::Questions::RetirementIncomeController.to_path_helper(
+                        action: :edit,
+                        id: state_1099r.id,
+                        return_to_review: params[:return_to_review]
+                      ),
+                      class: "button--small"
+          %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <% if current_intake.direct_file_json_data.interest_reports.count > 0 %>
+    <div class="white-group">
+      <p class="text--bold spacing-below-0"><%= t(".interest_income_title") %></p>
+      <p class="text--grey-bold spacing-above-15 spacing-below-0">
+        <%= t(".interest_income_body") %>
+      </p>
     </div>
   <% end %>
 
