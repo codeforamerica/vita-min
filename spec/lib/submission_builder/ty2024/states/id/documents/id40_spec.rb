@@ -149,7 +149,7 @@ describe SubmissionBuilder::Ty2024::States::Id::Documents::Id40, required_schema
       context "when there are qualifying children" do
         before do
           allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_25).and_return 50
-          allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_42).and_return 60
+          allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_33).and_return 60
         end
         it "should fill out the child tax credit and total credit/tax amounts" do
           expect(xml.at("IdahoChildTaxCredit").text).to eq "50"
