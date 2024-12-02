@@ -3068,8 +3068,6 @@ es:
           spouse_veteran_question: "¿Su cónyuge es un veterano?"
           title: En NJ, los veteranos son elegibles para una exención de impuestos.
       notification_preferences:
-        form:
-          at_least_one: Se requiere al menos una preferencia de notificación
         edit:
           email_notification_opt_in: Correo electrónico
           message_body_one: No compartiremos su información con terceros. La frecuencia de los mensajes variará. Pueden aplicarse tarifas por mensajes y datos.
@@ -3080,6 +3078,8 @@ es:
           sms_notification_opt_in: Mensaje de texto
           subtitle: Necesitaremos comunicarnos con usted con preguntas y actualizaciones.
           title: "¿Cuál es la mejor manera de comunicarme con usted?"
+        form:
+          at_least_one: Se requiere al menos una preferencia de notificación
       ny_county:
         edit:
           county: Condado
