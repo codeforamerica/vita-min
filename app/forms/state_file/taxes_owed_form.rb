@@ -6,7 +6,6 @@ module StateFile
                        :routing_number,
                        :account_number,
                        :account_type,
-                       :bank_name,
                        :withdraw_amount
 
     set_attributes_for :confirmation, :routing_number_confirmation, :account_number_confirmation

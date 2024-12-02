@@ -172,7 +172,7 @@ es:
         format: Ingrese una fecha de vencimiento en el formato MM-DD-2YYY.
       first_name:
         blank: Por favor, ingrese un nombre.
-        invalid_format: Solo se aceptan letras, guiones y apóstrofos, y el nombre debe tener menos de 16 caracteres.
+        invalid_format: Solo se aceptan letras, números, guiones y apóstrofos, y el nombre debe tener menos de 16 caracteres.
       hoh_qualifying_person_name:
         blank: Por favor, revisa tus respuestas sobre cuántos meses viviste con estos dependientes. Según tu declaración federal, viviste en un hogar con al menos uno de estos dependientes durante al menos la mitad del año.
       intake_site:
@@ -181,7 +181,7 @@ es:
         blank: Por favor, seleccione un número de trabajos.
       last_name:
         blank: Por favor, ingrese un apellido.
-        invalid_format: Solo se aceptan letras, guiones y apóstrofos.
+        invalid_format: Solo se aceptan letras, números, guiones y apóstrofos, y el nombre debe tener menos de 32 caracteres.
       password:
         insecure: Agregue algunas palabras más poco comunes para mejorar la seguridad de la contraseña.
         not_matching: Las contraseñas proporcionadas no coinciden.
@@ -2004,30 +2004,59 @@ es:
         title: 'Preguntas frecuentes de los contribuyentes de %{state}:'
     general:
       fed_agi: Ingreso bruto ajustado federal
-      id_adjusted_income: Total Idaho Adjusted Income
-      id_building_fund_tax: Permanent Building Fund tax
-      id_child_care_expenses: Subtraction for child and dependent care expenses
-      id_child_tax_credit: Idaho Child Tax Credit
-      id_fed_agi: Federal adjusted gross income
-      id_grocery_credit: Refundable Grocery Credit
-      id_health_insurance: Subtraction for health insurance premiums
-      id_interest_income: Interest income from U.S. bonds (not taxed in Idaho)
-      id_retirement_benefits: Retirement Benefits Deduction
-      id_social_security_income: Social Security income (not taxed in Idaho)
-      id_standard_deduction: Standard deduction
-      id_tax: Idaho tax
-      id_tax_after_credits: Tax after nonrefundable credits
-      id_tax_withheld: Idaho tax withheld
-      id_taxable_income: Idaho taxable income
-      id_total_payments: Total payments and refundable credits
-      id_use_tax: Use tax
+      id_adjusted_income: Ingreso total ajustado de Idaho
+      id_building_fund_tax: Impuesto del Fondo Permanente de Construcción
+      id_child_care_expenses: Deducción por gastos de cuidado infantil y dependientes
+      id_child_tax_credit: Crédito fiscal infantil de Idaho
+      id_fed_agi: Ingreso bruto ajustado federal
+      id_grocery_credit: Crédito reembolsable por comestibles
+      id_health_insurance: Deducción por primas de seguro médico
+      id_interest_income: Ingresos por intereses de bonos de EE. UU. (no gravados en Idaho)
+      id_retirement_benefits: Deducción por beneficios de jubilación
+      id_social_security_income: Ingreso del Seguro Social (no gravado en Idaho)
+      id_standard_deduction: Deducción estándar
+      id_tax: Impuesto de Idaho
+      id_tax_after_credits: Impuesto después de créditos no reembolsables
+      id_tax_withheld: Impuesto retenido de Idaho
+      id_taxable_income: Ingreso imponible de Idaho
+      id_total_payments: Pagos totales y créditos reembolsables
+      id_use_tax: Impuesto por uso
+      md_adjusted_gross_income: Ingreso bruto ajustado de Maryland
+      md_child_tax_credit: Crédito fiscal infantil de Maryland
+      md_local_poverty_level_credit: Crédito de nivel de pobreza local
+      md_local_tax: Impuesto local
+      md_military_retirement_income_exclusion: Exclusión de ingresos por jubilación militar
+      md_nonrefundable_credit_child_dependent_care: Crédito no reembolsable de Maryland para cuidado infantil y de dependientes
+      md_nonrefundable_earned_income_tax_credit: Crédito fiscal por ingreso del trabajo no reembolsable de Maryland
+      md_nonrefundable_local_earned_income_tax_credit: Crédito fiscal local por ingreso del trabajo no reembolsable
+      md_pension_income_exclusion: Exclusión de ingresos por pensión
+      md_poverty_level_credit: Crédito de nivel de pobreza de Maryland
+      md_public_safety_retirement_income_exclusion: Exclusión de ingresos por jubilación de seguridad pública
+      md_refundable_child_dependent_care_credit: Crédito reembolsable para cuidado infantil y de dependientes
+      md_refundable_earned_income_tax_credit: Crédito fiscal por ingreso del trabajo reembolsable de Maryland
+      md_return_type: Tipo de declaración
+      md_senior_tax_credit: Crédito fiscal para personas mayores
+      md_social_security_income_not_taxed: Ingreso del Seguro Social (no gravado en Maryland)
+      md_standard_deduction: Deducción estándar
+      md_state_retirement_pickup_addition: Adición de recolección de jubilación estatal
+      md_subtraction_child_dependent_care_expenses: Deducción por gastos de cuidado infantil y dependientes
+      md_subtraction_income_us_gov_bonds: Deducción por ingresos de bonos del gobierno de EE. UU.
+      md_tax: Impuesto de Maryland
+      md_tax_withheld: Impuesto retenido de Maryland y local
+      md_taxable_net_income: Ingreso neto imponible de Maryland
+      md_total_exemptions_people_household: Exenciones totales para personas en su hogar
+      md_total_payments_refundable_credits: Pagos totales y créditos reembolsables
+      md_total_tax_after_nonrefundable_credits: Impuesto total después de créditos no reembolsables
+      md_two_income_subtraction_married_taxpayers: Deducción por ingresos de dos contribuyentes casados
+      md_type_of_return_nontaxable: No imponible (no se requiere presentar una declaración en Maryland, lo que aumenta su reembolso)
+      md_type_of_return_standard: Estándar
       nc_income_tax: Impuesto sobre la renta de Carolina del Norte
-      nc_tax_withheld: Impuesto retenido en Carolina del Norte
-      nc_taxable_income: Ingresos imponibles de Carolina del Norte
-      nc_use_tax: Impuesto sobre el uso de Carolina del Norte
-      see_detailed_return: Consulta la información detallada de la declaración
+      nc_tax_withheld: Impuesto retenido de Carolina del Norte
+      nc_taxable_income: Ingreso imponible de Carolina del Norte
+      nc_use_tax: Impuesto por uso de Carolina del Norte
+      see_detailed_return: Ver información detallada de la declaración
       standard_deduction: Deducción estándar
-      title: Presentación de impuestos estatales de Arizona y Nueva York sin costo
+      title: Declaración estatal gratuita de impuestos de AZ y NY
       total_tax: Impuesto total
     intake_logins:
       account_locked:
@@ -2732,6 +2761,15 @@ es:
       md_tax_refund:
         md_bank_details:
           account_holder_name: Nombre del titular de la cuenta
+          bank_account_details: Detalles de la cuenta bancaria
+          bank_account_type: Tipo de cuenta bancaria
+          bank_authorization_confirmation: Marque aquí para confirmar que autoriza al estado de Maryland a emitir su reembolso mediante depósito directo.
+          bank_authorization_confirmation_error: Por favor confirme la autorización o seleccione pagar por correo
+          check_if_joint_account: Marque aquí si tiene una cuenta conjunta
+          joint_account_holder_name: Nombre del titular de la cuenta conjunta
+          last_name: Apellido
+          middle_initial: Inicial del segundo nombre
+          suffix: Sufijo
       md_two_income_subtractions:
         edit:
           description: Para saber si califica y calcular la deducción, necesitamos más información sobre la deducción de intereses de préstamos estudiantiles que tomó en su declaración de impuestos federales.

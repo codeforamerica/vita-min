@@ -204,6 +204,8 @@ ID40_LINE_19:
   label: '19. Taxable state income'
 ID40_LINE_20:
   label: '20. State income tax'
+ID40_LINE_21:
+  label: '21. Tax amount from line 20'
 ID40_LINE_23:
   label: '23. Total credits from Form 39R, Part D, line 4. Include Form 39R'
 ID40_LINE_25:
@@ -230,10 +232,16 @@ ID40_LINE_43:
   label: '43. To receive your grocery credit, enter the computed amount on line 43'
 ID40_LINE_46:
   label: '46 Idaho income tax withheld. Sum of all W2 state_income_tax_amount, 1099R state_tax_withheld_amount, 1099G state_income_tax_withheld_amount'
+ID40_LINE_50:
+  label: '50. Total Payments and Other Credits. Add lines 43 and 46.'
+ID40_LINE_51:
+  label: '51. Tax Due. If line 42 is more than line 50, subtract line 50 from line 42.'
 ID40_LINE_54:
-  label: 'TBD'
+  label: '54. Total Due. Add lines 51 and 52, then subtract line 53 (line 52 and 53 out of scope).'
+ID40_LINE_55:
+  label: '55. Overpaid. If line 42 is less than line 50, subtract lines 42 and 52 from line 50.'
 ID40_LINE_56:
-  label: 'TBD'
+  label: '56. Refund'
 IT201_LINE_1:
   label: '1 Wages, salaries, tips, etc.'
 IT201_LINE_2:
@@ -602,10 +610,48 @@ MD502_LINE_D_COUNT_TOTAL:
   label: 'D Total Exemption Count: add lines A, B and C counts'
 MD502_LINE_D_AMOUNT_TOTAL:
   label: 'D Total Exemption Dollar Amount: add lines A, B and C amounts'
+MD502_LINE_9:
+  label: 'Child and dependent care expenses'
 MD502_LINE_10A:
   label: 'TBD'
+MD502_LINE_11:
+  label: 'Taxable Social Security and RR benefits (Tier I, II and supplemental) included in line 1'
 MD502_LINE_13:
   label: 'Subtractions from attached form 502SU'
+MD_TWO_INCOME_WK_LINE_1_A:
+  label: 'ENTER the portion of federal adjusted gross income from line 1 of Form 502
+attributable to each spouse. (a) you'
+MD_TWO_INCOME_WK_LINE_2_A:
+  label: 'ENTER the portion of additions to income from line 6 of Form 502
+attributable to each spouse. (a) you'
+MD_TWO_INCOME_WK_LINE_3_A:
+  label: 'ADD lines 1 and 2. (a) you'
+MD_TWO_INCOME_WK_LINE_4_A:
+  label: 'ENTER the portion of subtractions from income from lines 8 - 13 of Form 502
+attributable to each spouse. (a) you'
+MD_TWO_INCOME_WK_LINE_5_A:
+  label: 'SUBTRACT line 4 from line 3. (a) you'
+MD_TWO_INCOME_WK_LINE_1_B:
+  label: 'ENTER the portion of federal adjusted gross income from line 1 of Form 502
+attributable to each spouse. (b) your spouse'
+MD_TWO_INCOME_WK_LINE_2_B:
+  label: 'ENTER the portion of additions to income from line 6 of Form 502
+attributable to each spouse. (b) your spouse'
+MD_TWO_INCOME_WK_LINE_3_B:
+  label: 'ADD lines 1 and 2. (b) your spouse'
+MD_TWO_INCOME_WK_LINE_4_B:
+  label: 'ENTER the portion of subtractions from income from lines 8 - 13 of Form 502
+attributable to each spouse. (b) your spouse'
+MD_TWO_INCOME_WK_LINE_5_B:
+  label: 'SUBTRACT line 4 from line 3. (b) your spouse'
+MD_TWO_INCOME_WK_LINE_6:
+  label: 'COMPARE the amounts on lines 5 (a) and (b) and enter the smaller amount here
+but not less than zero'
+MD_TWO_INCOME_WK_LINE_7:
+  label: 'ENTER $1,200 or the amount on line 6, whichever is less.
+ENTER this amount on line 14 of Form 502.'
+MD502_LINE_14:
+  label: 'Two-income subtraction from worksheet in Instruction 13.'
 MD502_LINE_15:
   label: 'Total subtractions (Add lines 8 through 14. See instructions.)'
 MD502_LINE_16:
@@ -652,6 +698,7 @@ MD502_LINE_39:
   label: "39. Total Maryland income tax, local income tax and contributions"
 MD502_LINE_40:
   label: "40 Total Maryland and local tax withheld"
+<<<<<<< HEAD
 MD502_LINE_42:
   label: "42. Refundable earned income credit"
 MD502_LINE_43:
@@ -666,6 +713,12 @@ MD502_LINE_48:
   label: "48. Amount of overpayment TO BE REFUNDED TO YOU"
 MD502_LINE_50:
   label: "50. TOTAL AMOUNT DUE (Add lines 45 and 49.)"
+=======
+MD502_AUTHORIZE_DIRECT_DEPOSIT:
+  label: "Client authorizes the State of Maryland to issue refund by direct deposit (tax refund controller)."
+MD502_LINE_51D:
+  label: "51D Name(s) of Bank Account Holder(s)"
+>>>>>>> main
 MD502B_LINE_1:
   label: '1 Total number of Regular dependents'
 MD502B_LINE_2:

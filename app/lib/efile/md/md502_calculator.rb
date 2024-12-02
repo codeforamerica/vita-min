@@ -18,6 +18,12 @@ module Efile
           intake: @intake
         )
 
+        @two_income_subtraction_worksheet = Efile::Md::TwoIncomeSubtractionWorksheet.new(
+          value_access_tracker: @value_access_tracker,
+          lines: @lines,
+          intake: @intake
+        )
+
         @md502cr = Efile::Md::Md502crCalculator.new(
           value_access_tracker: @value_access_tracker,
           lines: @lines,
@@ -56,9 +62,15 @@ module Efile
         set_line(:MD502_LINE_7, :calculate_line_7)
 
         # Subtractions
+        set_line(:MD502_LINE_9, @direct_file_data, :total_qualifying_dependent_care_expenses)
         set_line(:MD502_LINE_10A, :calculate_line_10a) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
+        set_line(:MD502_LINE_11, @direct_file_data, :fed_taxable_ssb)
         @md502_su.calculate
         set_line(:MD502_LINE_13, :calculate_line_13)
+        if filing_status_mfj?
+          @two_income_subtraction_worksheet.calculate
+        end
+        set_line(:MD502_LINE_14, :calculate_line_14)
         # lines 15 and 16 depend on lines 8-14
         set_line(:MD502_LINE_15, :calculate_line_15)
         set_line(:MD502_LINE_16, :calculate_line_16)
@@ -90,6 +102,7 @@ module Efile
         set_line(:MD502_LINE_34, :calculate_line_34)
         set_line(:MD502_LINE_39, :calculate_line_39)
         set_line(:MD502_LINE_40, :calculate_line_40)
+<<<<<<< HEAD
         set_line(:MD502_LINE_42, :calculate_line_42)
         set_line(:MD502_LINE_43, :calculate_line_43)
         set_line(:MD502_LINE_44, :calculate_line_44)
@@ -97,6 +110,9 @@ module Efile
         set_line(:MD502_LINE_46, :calculate_line_46)
         set_line(:MD502_LINE_48, :calculate_line_48)
         set_line(:MD502_LINE_50, :calculate_line_50)
+=======
+        set_line(:MD502_AUTHORIZE_DIRECT_DEPOSIT, @intake, :bank_authorization_confirmed_yes?)
+>>>>>>> main
 
         @md502cr.calculate
         @lines.transform_values(&:value)
@@ -234,12 +250,21 @@ module Efile
 
       def calculate_line_10a; end
 
+      def calculate_line_13
+        @lines[:MD502_SU_LINE_1].value
+      end
+
+      def calculate_line_14
+        line_or_zero(:MD_TWO_INCOME_WK_LINE_7)
+      end
+
       def calculate_line_15
         [
-          @direct_file_data.total_qualifying_dependent_care_expenses, # line 9
-          @direct_file_data.fed_taxable_ssb, # line 11
+          line_or_zero(:MD502_LINE_9),
           line_or_zero(:MD502_LINE_10A),
+          line_or_zero(:MD502_LINE_11),
           line_or_zero(:MD502_LINE_13),
+          line_or_zero(:MD502_LINE_14),
         ].sum
       end
 
@@ -336,10 +361,6 @@ module Efile
         else
           0
         end
-      end
-
-      def calculate_line_13
-        @lines[:MD502_SU_LINE_1].value
       end
 
       def calculate_line_21

@@ -195,25 +195,30 @@ If this doesn't get Postgres out of `error` state, or you otherwise can't figure
 
 #### Java Installation for pdftk on macOS
 
-To run pdftk on macOS, you need to have Java installed correctly. Use the following commands to install Java:
+You should already have java installed after you've used bin/setup, which uses homebrew to install the packages in our Brewfile.
+
+If you want, you can use brew yourself to re-install those dependencies:
+
+```sh
+brew bundle
+```
+
+#### asdf instructions:
 
 ***NOTE:*** We are currently discussing  `asdf` vs `brew`. Feel free to follow whichever set up works better for you for now.
-
-##### asdf instructions:
 
 `asdf` is one big umbrella used to simplify installing and managing versions for our core technologies. The managed techs and desired versions are listed in `.tool-versions` in the vita-min root. To use `asdf`, follow these steps:
 
 1. Install asdf with `brew install asdf`.
-2. For each technology you wanna track with asdf, you'll need to install an appropriate plugin. We're talking about Java in this moment, so install the Java plugin with `asdf plugin-add java https://github.com/halcyon/asdf-java.git`
-3. Now you can let asdf take the wheel and install/setup Java with `asdf install`.
+2. For each technology you wanna track with asdf, you'll need to install an appropriate plugin.
+3. Now you can let asdf take the wheel and install/setup asdf-managed tools with `asdf install`.
 4. Yay.
 
 You've likely noticed there's other things listed in `.tool-versions`, and it's reasonable to use `asdf` for those things too, but the setup script presumes the use of `brew`, so there may be resulting shell/path conflicts. Use at your own risk.
 
-##### brew instructions:
-```sh
-AdoptOpenJDK/openjdk && brew install adoptopenjdk8
-```
+***Note on Java***
+
+We specifically do not use asdf to manage java. This is because `gyr_efiler_service` runs the gyr-efiler java code outside the context of our project directory, so asdf's (very good) project-scoped installs are insufficient. Homebrew's weakness, which is that it installs all dependencies globally, is a strength here since we need our java dependency to be accessible from anywhere on the system.   
 
 ## Run the server
 
