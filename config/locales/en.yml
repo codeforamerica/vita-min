@@ -2370,8 +2370,8 @@ en:
             <strong>Want to file using a different product or service?</strong>
             <br/>
             Before choosing an option, make sure it supports state-only tax filing. You will need to reenter your federal tax return information to prepare your state tax return. Fees may apply.
-          title1: You canceled the transfer of your federal return.
-          title2: Unfortunately, to continue filing with FileYourStateTaxes, you must transfer your federal return to complete parts of your state return.
+          title: You canceled the transfer of your federal return.
+          subtitle: Unfortunately, to continue filing with FileYourStateTaxes, you must transfer your federal return to complete parts of your state return.
       code_verified:
         edit:
           subtitle_email: You’ll now receive email updates when your state tax return is accepted.
@@ -2401,7 +2401,7 @@ en:
             has_yonkers_income: lived, earned income, or maintained a home in Yonkers in 2024.
             married_filing_separately: you are filing “married filing separately”.
           offboarding_reason: You cannot use this service this year because %{reason}
-          title: Unfortunately, after transferring your data, we found that you can’t use this tool this year. Don’t worry, here are other filing options.
+          title: Unfortunately, after transferring your data, we found that you can’t use this service this year. Don’t worry, there are other filing options.
       declined_terms_and_conditions:
         edit:
           action_html: "<strong>Is this a mistake?</strong>"
@@ -3220,10 +3220,8 @@ en:
           title: 'Select your New York City residency status during %{year}:'
       pending_federal_return:
         edit:
-          title_html: |
-            We’re sorry to keep you waiting. Your federal tax return must be accepted before you can file your state tax return.
-            <br/><br/>
-            You’ll receive an email from IRS Direct File when your federal tax return is accepted with a link to bring you back here.
+          title: Your federal tax return must be accepted before you can file your state tax return
+          body_html: Sorry to keep you waiting.<br><br>You’ll receive an email from IRS Direct File when your federal tax return is accepted with a link to bring you back here. Check your spam folder.
       phone_number:
         edit:
           action: Send code
@@ -3452,7 +3450,8 @@ en:
           what_is_box14: What could be in Box 14?
       waiting_to_load_data:
         edit:
-          title_html: Just a moment, we’re transferring your federal tax return to complete parts of your state return. <br/><br/> This usually takes a few minutes. Don’t close this page.
+          title_html: Just a moment, we’re transferring your federal tax return to complete parts of your state return.
+          subtitle_html: This usually takes a few minutes. Don’t close this page.<br><br> We’ll use your federal tax return information to complete sections of your state return.
     state_file_pages:
       about_page:
         closed_subheader_html: |
