@@ -4,10 +4,7 @@
   <p><%= t('.title1') %></p>
   <p><%= t('.title2') %></p>
 
-  <%= form_with model: @form, url: { action: :update }, method: :put,
-                data: { efile_security_information: true, form_name: "state_file_name_dob_form" },
-                local: true, builder: VitaMinFormBuilder, class: 'form-card' do |f| %>
-    <%= f.hidden_field(:device_id) %>
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     </br>
     <div class="white-group">
       <p>
