@@ -2230,7 +2230,7 @@ en:
           prior_last_names_label:
             one: 'Enter all last names used in the last four years. (Ex: Smith, Jones, Brown)'
             other: Enter all last names used by you and your spouse in the last four years.
-          subtitle: This includes tax years 2019-2022.
+          subtitle: This includes tax years %{start_year}-%{end_year}.
           title:
             one: Did you file with a different last name in the last four years?
             other: Did you or your spouse file with a different last name in the last four years?

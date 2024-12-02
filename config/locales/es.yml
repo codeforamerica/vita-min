@@ -2198,7 +2198,7 @@ es:
             many: Ingresa todos los apellidos utilizados por usted y su cónyuge en los últimos cuatro años.
             one: 'Ingresa todos los apellidos que usaste en los últimos cuatro años. (Ejemplo: Smith, Jones, Brown)'
             other: Ingresa todos los apellidos utilizados por usted y su cónyuge en los últimos cuatro años.
-          subtitle: Esto incluye los años tributarios 2019-2022.
+          subtitle: Esto incluye los años tributarios %{start_year}-%{end_year}.
           title:
             many: "¿Usted o su cónyuge presentaron una declaración con un apellido diferente en los últimos cuatro años?"
             one: "¿Presentaste con un apellido diferente en los últimos cuatro años?"
