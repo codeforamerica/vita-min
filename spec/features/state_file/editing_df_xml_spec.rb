@@ -42,7 +42,7 @@ RSpec.feature "editing direct file XML with the FederalInfoController", active_j
     expect(page).to have_text I18n.t("state_file.landing_page.edit.az.title")
     click_on "Get Started", id: "firstCta"
 
-    step_through_eligibility_screener(us_state: "az")
+    click_on "Continue"
 
     step_through_initial_authentication(contact_preference: :text_message)
 

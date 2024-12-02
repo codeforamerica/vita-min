@@ -2191,31 +2191,6 @@ es:
             many: "¿Tú o tu cónyuge hicieron contribuciones caritativas (en efectivo y/o en especie) a una organización calificada en %{tax_year}?"
             one: "¿Realizaste donaciones caritativas a una organización calificada en %{tax_year}? (En efectivo o en especie)"
             other: "¿Tú o tu cónyuge hicieron contribuciones caritativas (en efectivo y/o en especie) a una organización calificada en %{tax_year}?"
-      az_eligibility_out_of_state_income:
-        edit:
-          expenses_helper_heading: "¿Cuáles son los gastos que califican y los que no califican?"
-          expenses_helper_no_if: 'Selecciona ''no'' si:'
-          expenses_helper_no_nothing_withdrawn: No retiraste dinero de una cuenta 529 en absoluto.
-          expenses_helper_no_qualifying: Retiraste dinero de una cuenta 529 y lo utilizaste para gastos que califican, o
-          expenses_helper_nonqualifying_description: La mayoría de los otros usos son gastos que no califican, incluyendo costos de aplicaciones y exámenes universitarios, costos de transporte, seguro médico y costos extracurriculares.
-          expenses_helper_qualifying_description: Los gastos que califican incluyen matrículas, libros, equipo (incluyendo computadoras y otras tecnologías), alojamiento y comida, programas de aprendizaje y matrícula para K-12 hasta $10,000.
-          out_of_state_income_html: "¿Recibiste (o tu cónyuge, si presentan la declaración juntos) algún ingreso en otro estado en el %{filing_year}? (Esto incluye ingresos por desempleo <strong>recibidos</strong> de otro estado.)"
-          title: Primero veamos si puedes usar esta herramienta para presentar tus impuestos
-          used_529_for_non_qual_expense_html: ¿Retiraste (o tu cónyuge, si presentan la declaración juntos) dinero de una <a href="https://az529.gov/what-is-a-529-plan/" target="_blank" rel="noopener nofollow">cuenta de ahorro universitario 529</a> y lo usaste para gastos que no califican en el %{filing_year}?
-      az_eligibility_residence:
-        edit:
-          filing_status_married_filing_separately: "¿Estás presentando tu declaración como “Casado presentando por separado”? "
-          lived_in_state_html: "¿Viviste (y tu cónyuge, si presentan la declaración juntos) en %{state} durante <strong>todo</strong> el %{filing_year}?"
-          mfs_helper_description: El estado civil de "casado presentando separado" es una opción para presentar la declaración de impuestos para personas que están legalmente casadas pero que deciden presentar declaraciones por separado.
-          mfs_helper_heading: ¿Qué quiere decir "Casado presentando por separado”?
-          mfs_helper_no_if: 'Selecciona no si:'
-          mfs_helper_no_mfj: Estás casado y estás presentado conjuntamente tus declaraciones, tanto federal como estatal.
-          mfs_helper_no_unmarried: No estás casado.
-          mfs_helper_yes_federal_mfs: Presentaste tu declaración federal como "casado presentando separado".
-          mfs_helper_yes_if: 'Selecciona ''sí'' si::'
-          mfs_helper_yes_state_mfs: Quieres presentar tu declaración estatal como "casado presentando separado".
-          subtitle: Para la temporada de impuestos de %{current_year}, esta herramienta sólo estará disponible para personas con situaciones fiscales específicas. Para saber si puedes usarla responde las siguientes preguntas.
-          title: Primero veamos si puedes usar esta herramienta para presentar tus impuestos
       az_excise_credit:
         edit:
           household_excise_credit_claimed_amt: "¿Cuánto, en total, reclamaron todos los demás miembros de su hogar en Crédito por Impuesto Especial Incrementado? (Puede consultar esto en la línea 56 de su declaración de impuestos de Arizona)."
