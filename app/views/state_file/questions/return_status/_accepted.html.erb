@@ -26,25 +26,20 @@
       <p>
         <strong><%= t('.pay_by_mail_or_moneyorder') %></strong>
       </p>
+      <ul class="list--bulleted">
+        <li>
+          <%= t('.include_payment') %>
+          (<%= @voucher_form_name %>)
+        </li>
 
-      <p>
-        <%= t('.include_payment') %>
-        (<%= @voucher_form_name %>)
-      </p>
-
-      <div>
-        <%= link_to t('.download_voucher'), ActionController::Base.helpers.asset_path(@voucher_path) %>
-      </div>
-
-      <hr class="spacing-above-25 spacing-below-25">
-
-      <% if current_state_code == 'az' %>
         <p>
-          <%= t('.check_payable', filing_year: current_tax_year) %>
+          <%= link_to t('.download_voucher'), ActionController::Base.helpers.asset_path(@voucher_path) %>
         </p>
 
-        <hr class="spacing-above-25 spacing-below-25">
-      <% end %>
+        <li>
+          <%= t('.check_payable', payable_to: @department_of_taxation, filing_year: current_tax_year, form_number: @tax_form_number) %>
+        </li>
+      </ul>
 
       <p>
         <%= t('.mail_voucher_and_payment') %>
@@ -62,6 +57,8 @@
   <p>
     <%= t("state_file.questions.return_status.thank_you_html", state_name: current_state_name) %>
   </p>
-  <p><a target="_blank" rel="noopener nofollow" href="<%= @survey_link %>"><%= t("state_file.questions.return_status.accepted.feedback") %></a></p>
+  <p>
+    <a target="_blank" rel="noopener nofollow" href="<%= @survey_link %>"><%= t("state_file.questions.return_status.accepted.feedback") %></a>
+  </p>
   <p><a target="_blank" rel="noopener nofollow" href="https://vote.gov/"><%= t('.register_to_vote') %></a></p>
 <% end %>

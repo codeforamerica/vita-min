@@ -3237,7 +3237,7 @@ es:
           title: Revise los detalles de sus ingresos de jubilación (1099-R) para %{payer_name}.
       return_status:
         accepted:
-          check_payable: Haz tu cheque o giro postal a nombre del “Arizona Department of Revenue. Escribe tu SSN completo, "%{filing_year} Tax" y 140 en tu pago.
+          check_payable: Haz tu cheque o giro postal a nombre del %{payable_to}. Escribe tu SSN o ITIN completo, "%{filing_year} Tax", y "Form %{form_number}" en tu pago.
           direct_debit_html: Si no elegiste el débito directo, recuerda <strong>pagar tus impuestos en línea en <a target="_blank" rel="noopener nofollow" href="https://%{tax_payment_url}">%{tax_payment_url}</a></strong> o por correo antes de la fecha límite del 15 de abril.
           download_title: Descargue una copia de tu declaración de impuestos estatales de %{state_name} de %{year} hasta el 31 de diciembre de %{year}
           download_voucher: Descargar formulario de comprobante de pago
@@ -3260,6 +3260,7 @@ es:
           title: Has enviado tu declaración de impuestos estatales de %{state_name} para el año %{filing_year}, y está esperando ser aceptada.
         rejected:
           edit_return: Editar tu declaración estatal
+          email_us_html: Envíanos un correo electrónico a <strong>help@fileyourstatetaxes.org</strong>
           have_questions: "¿Tienes preguntas?"
           next_steps:
             can_edit:
@@ -3271,7 +3272,6 @@ es:
           reject_code: 'Código de Rechazo:'
           reject_desc: 'Descripción del Rechazo:'
           title: Lamentablemente, tu declaración de impuestos del estado de %{state_name} para el año %{filing_year} fue rechazada
-          email_us_html: 'Envíanos un correo electrónico a <strong>help@fileyourstatetaxes.org</strong>'
         thank_you_html: Gracias por presentar su declaración con <strong>FileYourStateTaxes</strong>, creado en asociación con el estado de %{state_name} para integrarse con la herramienta Direct File del IRS.
       review:
         county: Condado

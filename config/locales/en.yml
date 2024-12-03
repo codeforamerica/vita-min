@@ -3250,7 +3250,7 @@ en:
           title: Please review your retirement income (1099-R) details for %{payer_name}.
       return_status:
         accepted:
-          check_payable: Make your check or money order payable to Arizona Department of Revenue. Write your full SSN, “%{filing_year} Tax” and 140 on your payment.
+          check_payable: Make your check or money order payable to %{payable_to}. Write your full SSN or ITIN, “%{filing_year} Tax”, and "Form %{form_number}" on your payment.
           direct_debit_html: If you have a remaining tax balance, remember to <strong>pay your taxes online at <a target="_blank" rel="noopener nofollow" href="https://%{tax_payment_url}">%{tax_payment_url}</a></strong> or by mail before the April 15 filing deadline.
           download_title: Download a copy of your %{year} %{state_name} state tax return until December 31, %{year}
           download_voucher: Download payment voucher form
@@ -3273,6 +3273,7 @@ en:
           title: You have submitted your %{filing_year} %{state_name} tax return! It is currently waiting to be accepted for processing.
         rejected:
           edit_return: Edit your state return
+          email_us_html: Email us at <strong>help@fileyourstatetaxes.org</strong>
           have_questions: Have questions?
           next_steps:
             can_edit:
@@ -3284,7 +3285,6 @@ en:
           reject_code: 'Reject Code:'
           reject_desc: 'Reject Description:'
           title: Unfortunately, your %{filing_year} %{state_name} state tax return was rejected
-          email_us_html: 'Email us at <strong>help@fileyourstatetaxes.org</strong>'
         thank_you_html: Thank you for filing your return with <strong>FileYourStateTaxes</strong>, built in partnership with the state of %{state_name} to integrate with the IRS Direct File tool.
       review:
         county: County
