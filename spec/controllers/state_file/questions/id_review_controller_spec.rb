@@ -24,12 +24,16 @@ RSpec.describe StateFile::Questions::IdReviewController do
       allow_any_instance_of(Efile::Id::Id39RCalculator).to receive(:calculate_sec_b_line_7).and_return(8_000)
       allow_any_instance_of(Efile::Id::Id39RCalculator).to receive(:calculate_sec_b_line_3).and_return(400)
       allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_11).and_return(23_500)
+      allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_16).and_return(500)
+      allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_19).and_return(600)
+      allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_20).and_return(700)
       allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_25).and_return(2_500)
       allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_29).and_return(275)
       allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_32a).and_return(10)
       allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_33).and_return(3_225)
       allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_46).and_return(1_000)
       allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_43).and_return(343)
+      allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_50).and_return(20_000)
 
       intake.update!(raw_direct_file_data: intake.direct_file_data.to_s)
 
@@ -50,13 +54,12 @@ RSpec.describe StateFile::Questions::IdReviewController do
       expect(page_content).to include "$400"
       expect(page_content).to include I18n.t("state_file.general.id_adjusted_income")
       expect(page_content).to include "$23,500"
-      # TODO: add this once lines 16, 19, 20 are implemented
-      # expect(page_content).to include I18n.t("state_file.general.id_standard_deduction")
-      # expect(page_content).to include "$0"
-      # # expect(page_content).to include I18n.t("state_file.general.id_taxable_income")
-      # expect(page_content).to include "$0"
-      # # # expect(page_content).to include I18n.t("state_file.general.id_tax")
-      # expect(page_content).to include "$0"
+      expect(page_content).to include I18n.t("state_file.general.id_standard_deduction")
+      expect(page_content).to include "$500"
+      expect(page_content).to include I18n.t("state_file.general.id_taxable_income")
+      expect(page_content).to include "$600"
+      expect(page_content).to include I18n.t("state_file.general.id_tax")
+      expect(page_content).to include "$700"
       expect(page_content).to include I18n.t("state_file.general.id_child_tax_credit")
       expect(page_content).to include "$2,500"
       expect(page_content).to include I18n.t("state_file.general.id_use_tax")
@@ -69,9 +72,8 @@ RSpec.describe StateFile::Questions::IdReviewController do
       expect(page_content).to include "$1,000"
       expect(page_content).to include I18n.t("state_file.general.id_grocery_credit")
       expect(page_content).to include "$343"
-      # TODO: add this once line 50 is  implemented
-      # expect(page_content).to include I18n.t("state_file.general.id_total_payments")
-      # expect(page_content).to include "$20,000"
+      expect(page_content).to include I18n.t("state_file.general.id_total_payments")
+      expect(page_content).to include "$20,000"
     end
   end
 end
