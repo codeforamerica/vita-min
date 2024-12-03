@@ -109,7 +109,12 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
         # delete a 1099G (there's only one)
         recipient_name = intake.state_file1099_gs.last.recipient_name
-        click_on I18n.t("general.delete")
+
+        # clicks "OK" on the alert that asks "Are you sure you want to delete this 1099-G?"
+        page.accept_confirm do
+          click_on I18n.t("general.delete")
+        end
+
         # redirects to new because there are no 1099Gs left, need to select "no" in order to continue
         expect(page).to have_text I18n.t("state_file.questions.unemployment.destroy.removed", name: recipient_name)
         choose I18n.t("general.negative")
