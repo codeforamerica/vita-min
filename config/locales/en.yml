@@ -2454,18 +2454,19 @@ en:
           public_school_tax_credit_paid_fees: Have paid school-related fees or donated money to a public school
           public_school_tax_credit_provide_info_html: Provide school information, including the <a href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_ADESchoolListing.pdf" target="_blank" rel="noopener nofollow">CTDS code</a>
         edit:
-          not_supported: What credits and deductions does this tool not support this year?
-          title1: You can use this tool to file your %{year} %{state} state taxes
+          not_supported: What subtractions, credits, and household situations does this service not support this year?
+          title1: You can use this service to file your %{year} %{state} state taxes
           title2_html: Here are the credits and deductions you <strong>may be able to</strong> claim with this tool to maximize your refund.
           want_to_claim_heading: Want to claim these credits or deductions?
           want_to_claim_learn_more_html: Learn more about this process and other filing options <a href="%{link}" target="_blank">here</a>.
           want_to_claim_vita: You may be able to file your state return for free with help from IRS-certified VITA volunteers in %{state_name}. Note that this option may take 2-3 weeks to complete.
         id_supported:
-          child_care_deduction: Child and Dependent Care Deduction
+          child_care_deduction: Idaho Child and Dependent Care Subtraction
           id_child_tax_credit: Idaho Child Tax Credit
           id_grocery_credit: Idaho Grocery Credit
-          interest_from_obligations: Interest from U.S government obligations
+          interest_from_obligations: Interest from U.S government obligations subtraction
           social_security_retirement_deduction: Social Security and Retirement Benefits deductions
+          health_insurance_premiums_subtraction: Health Insurance Premiums subtraction
         id_unsupported:
           change_in_filing_status: Change in filing status from federal to state return
           dependents_not_claimed_fed_return: Adding dependents not claimed on the federal return
@@ -2571,13 +2572,12 @@ en:
         edit:
           emergency_rental_assistance: In %{filing_year}, did you (or your spouse if filing together) receive emergency rental assistance?
           emergency_rental_assistance_explanation: The Emergency Rental Assistance (ERA) program is a federal program that gives money to help households pay for rent and utility bills. It was created in response to the Covid-19 pandemic.
-          subtitle_1: For the %{filing_year} tax season, this tool will only be able to serve people with specific tax situations.
-          subtitle_2: Please answer the following questions to find out if you can use it.
-          title: First, let's see if you can use this tool to file your %{filing_year} Idaho taxes
+          subtitle_1: For this tax season, this service will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
+          title: First, let's see if you can use this service to file your %{filing_year} Idaho taxes
           withdrew_msa_fthb: 'In %{filing_year}, did you (or your spouse if you’re filing together) withdraw money from any of the following:'
           withdrew_msa_fthb_list:
-            bullet_1_html: "<strong>Medical Savings Account</strong> and use it for non-qualifying expenses"
-            bullet_2_html: "<strong>First-Time Homebuyer Account</strong> and didn’t use it for eligible home costs"
+            bullet_1_html: Withdrew money from our Idaho Medical Savings Account and used it for a <a href="%{link}" target="_blank" rel="noopener noreferrer">non-qualifying expense</a>.
+            bullet_2_html:  Withdrew money from our First-Time Homebuyer Account and used it for <a href="%{link}" target="_blank" rel="noopener noreferrer">non-eligible home costs</a>.
       id_grocery_credit:
         edit:
           answers_confidential_html: "<strong>Note:</strong> Your answers are confidential and only used to check credit eligibility."
