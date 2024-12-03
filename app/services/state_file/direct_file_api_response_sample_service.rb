@@ -11,7 +11,7 @@ module StateFile
         'ny_ivy_414h' => '1016422024025atw000h',
         'az_leslie_qss_v2' => '1016422024026atw001h',
         'az_donald_v2' => '1016422024027atw0020',
-        'az_robin_v2' => '1016422024028ate001q',
+        # 'az_robin_v2' => '1016422024028ate001q',
         'az_superman_v2' => '1016422024025ate000b'
       }
       @old_xml_sample = "app/controllers/state_file/questions/df_return_sample.xml"
@@ -58,7 +58,7 @@ module StateFile
     def az_xml_sample(filing_status)
       case filing_status.to_sym
       when :single
-        read_xml("az_tycho_loanded")
+        read_xml("az_Tycho_Single_No_1099R")
       when :married_filing_jointly
         read_xml("az_martha_v2")
       when :qualifying_widow

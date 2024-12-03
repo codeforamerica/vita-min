@@ -211,7 +211,7 @@ FactoryBot.define do
   end
 
   factory "rory", class: StateFileAzIntake do
-    raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("az_rory_claimedasdep_v2") }
+    raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("az_rory_claimed_as_dep") }
 
     primary_first_name { "RORY" }
     primary_last_name { "GILMORE" }
