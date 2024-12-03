@@ -208,7 +208,7 @@ en:
       signature_method:
         inclusion: Please select a pickup method.
       sms_phone_number:
-        invalid:Please enter a valid phone number
+        invalid: Please enter a valid phone number
       sms_phone_number_confirmation:
         confirmation: Please double check that the cell phone numbers match.
       spouse_email_address:
@@ -2364,12 +2364,6 @@ en:
           wages_tip: Enter amount earned (round to the nearest whole number.)
       canceled_data_transfer:
         edit:
-          faq: Visit our FAQ
-          mistake_html: Is this a mistake? <a href="%{link}">Go back to correct.</a>
-          other_options_html: |
-            <strong>Want to file using a different product or service?</strong>
-            <br/>
-            Before choosing an option, make sure it supports state-only tax filing. You will need to reenter your federal tax return information to prepare your state tax return. Fees may apply.
           subtitle: Unfortunately, to continue filing with FileYourStateTaxes, you must transfer your federal return to complete parts of your state return.
           title: You canceled the transfer of your federal return.
       code_verified:
@@ -2435,10 +2429,6 @@ en:
         other_options:
           faq_link: Visit our FAQ
           learn_more_here_html: Learn more <a href="%{link}" rel="noopener nofollow" target="_blank">here.</a>
-          learn_more_reveal:
-            p1: If you choose this option, you’ll be connected with a Volunteer Income Tax Assistance (VITA) partner in %{state_name}. You will receive a quick intake call in the next few days. You will have to answer a few more questions about your tax situation and securely upload your tax documents.
-            p2: IRS-certified VITA volunteers will use this information to prepare your state return. This process can take 2-3 weeks to complete.
-            title: Learn more about this process
           other_options_reveal:
             fees: Fees may apply.
             list:
@@ -2550,7 +2540,7 @@ en:
       email_address:
         edit:
           action: Send code
-          email_address_label: "Your email address"
+          email_address_label: Your email address
           subtitle_html: To create a new account, provide an email address that isn't already in use.<br><br>Use an email account you can access.
           title: Enter your email address
       esign_declaration:
@@ -2911,7 +2901,7 @@ en:
           title_html:
             one: Are you an enrolled member of a <a href="https://biamaps.geoplatform.gov/Tribal-Leaders-Directory/" target="_blank">federally recognized Indian Tribe</a> and received income while living on a reservation?
             other: Are you or your spouse an enrolled member of a <a href="https://biamaps.geoplatform.gov/Tribal-Leaders-Directory/" target="_blank">federally recognized Indian Tribe</a> and received income while living on a reservation?
-          tribal_wages_field: "Enter amount earned"
+          tribal_wages_field: Enter amount earned
           tribal_wages_question_html: Enter the amount of income received or earned from activities on the federally recognized reservation. <br><br> This amount should not exceed $%{amount_limit}.
       nc_veteran_status:
         title: Are you a veteran of the United States Armed Forces?
@@ -3234,7 +3224,7 @@ en:
         edit:
           action: Send code
           helper_text: Enter numbers only
-          phone_number_label: "Your phone number"
+          phone_number_label: Your phone number
           subtitle_html: To create a new account, provide a phone number that isn't already in use.<br><br>Use a phone number you can access.
           title: Enter your phone number
       primary_state_id:
@@ -3382,8 +3372,7 @@ en:
           apartment: Apartment/Unit Number
           box_10b_html: "<strong>Box 10b</strong>, State identification no."
           city: City
-          confirm_address_html: |
-            Do we have the correct mailing address as listed on your form 1099-G?<br><br>Note: this may be different than your current address. Please edit the address to match what’s on your form.
+          confirm_address_html: 'Do we have the correct mailing address as listed on your form 1099-G?<br><br>Note: this may be different than your current address. Please edit the address to match what’s on your form.'
           confirm_address_no: No, I need to edit the address
           confirm_address_yes: Yes, that's the correct address
           dont_worry: If you have more than one 1099-G, don’t worry, you can add it on the next page.
@@ -3424,7 +3413,7 @@ en:
           action: Verify code
           subtitle_html: If you didn’t receive a code, please check your spam folder. If you still need help resubscribing, chat with us.
           title_html: We’ve sent your code to <strong>%{contact_info}</strong>
-          verification_code_label: "Enter the 6-digit code"
+          verification_code_label: Enter the 6-digit code
       w2:
         edit:
           box14_explanation:

@@ -2338,12 +2338,6 @@ es:
           wages_tip: Ingresa la cantidad que recibiste (redondea al número entero más cercano)
       canceled_data_transfer:
         edit:
-          faq: Visita nuestras Preguntas Frecuentes (FAQ)
-          mistake_html: ¿Es un error? <a href="%{link}">Regresa para corregirlo.</a>
-          other_options_html: |
-            <strong>¿Quieres presentar tus impuestos usando un producto o servicio diferente?</strong>
-            <br/>
-            Antes de escoger una opción, asegúrate de que te permita presentar tu declaración de impuestos sólo a nivel estatal. Es probable que necesites volver a ingresar la información de tu declaración de impuestos federales para preparar tu declaración de impuestos estatales. Se pueden aplicar tarifas.
           subtitle: Lamentablemente, para continuar presentando tus impuestos estatales con FileYourStateTaxes debes transferir tu declaración federal para completar ciertas secciones de tu declaración estatal.
           title: 'Parece que cancelaste la transferencia de tu declaración federal. '
       code_verified:
@@ -2409,10 +2403,6 @@ es:
         other_options:
           faq_link: Visita nuestras Preguntas Frecuentes
           learn_more_here_html: Obtén más información <a href="%{link}" rel="noopener nofollow" target="_blank">aquí.</a>
-          learn_more_reveal:
-            p1: Si eliges esta opción, te conectarás con un socio de Asistencia Voluntaria para la Declaración de Impuestos (VITA) en %{state_name}. Recibirás una llamada en los próximos días. Tendrás que responder algunas preguntas adicionales sobre tu situación tributaria y enviar de forma segura tus documentos de impuestos en línea.
-            p2: Los voluntarios certificados por el IRS VITA utilizarán esta información para preparar tu declaración estatal. Este proceso puede tardar de 2 a 3 semanas en completarse.
-            title: Obtén más información sobre este proceso
           other_options_reveal:
             fees: Se pueden aplicar tarifas.
             list:
@@ -2522,7 +2512,7 @@ es:
       email_address:
         edit:
           action: Enviar el código
-          email_address_label: "Tu dirección de correo electrónico"
+          email_address_label: Tu dirección de correo electrónico
           subtitle_html: To create a new account, provide an email address that isn't already in use.<br><br>Use an email account you can access.
           title: Ingresa tu dirección de correo electrónico
       esign_declaration:
@@ -2542,6 +2532,10 @@ es:
             body_html: |
               <p>Al utilizar un sistema informático y un software para preparar y/o presentar mi(s) declaración(es) de impuestos electrónicamente, doy mi consentimiento para la transmisión de mi(s) declaración(es) y la divulgación de toda la información sobre mi uso del sistema y el software a la Contraloría. de Maryland.</p>
               <p>Bajo pena de perjurio, declaro que he comparado la información contenida en mi declaración electrónica con la información que proporcioné a mi Originador de Declaración Electrónica (ERO) o que ingresé en línea y que los nombres y montos descritos anteriormente concuerdan con los montos que se muestran en las líneas correspondientes de mi declaración electrónica de impuestos sobre la renta de Maryland de 2024. A mi leal saber y entender, mi declaración es verdadera, correcta y completa. Doy mi consentimiento para que mi originador de declaraciones electrónicas o mi proveedor de software de declaraciones electrónicas envíen mi declaración, incluidos los anexos y estados de cuenta adjuntos, a la División de Administración de Ingresos de Maryland.</p>
+          nc:
+            body_html: |
+              <p>By using a computer system and software to prepare and file my tax return(s) electronically, I consent to the transmission of my return(s) and to the disclosure of all information about my use of the system and software to the North Carolina Department of Revenue.</p>
+              <p>By checking the box below, I declare and certify that I have examined this return and accompanying schedules and statements, and to the best of my knowledge and belief, they are true, correct, and complete.</p>
           ny:
             body_html: |
               <p>Al marcar la(s) casilla(s) que se muestran a continuación y presionar "Enviar", entiendo y acepto que estoy presentando para la presentación mi declaración de impuestos electrónica del impuesto sobre la renta personal del estado de Nueva York (NYS) para el año 2023. Declaro, bajo pena de perjurio, que he examinado la información en mi declaración de impuestos electrónica de NYS, incluida toda la información transferida a mi declaración de NYS desde mi declaración federal, y todas las programaciones, anexos y declaraciones adjuntas proporcionadas con la declaración, y certifico que mi declaración electrónica de NYS es verdadera, correcta y completa. Al ejecutar el Formulario TR-579-IT y proporcionarlo al ERO, he autorizado al ERO (Code for America) a presentar mi declaración de impuestos electrónica de NYS para el año 2023 ante el Departamento de Impuestos de NYS a través del Sistema de Presentación Electrónica Modernizada del IRS (Servicio de Impuestos Internos).</p>
@@ -2878,11 +2872,9 @@ es:
           title_html:
             one: ¿Es usted un miembro inscrito de una <a href="https://biamaps.geoplatform.gov/Tribal-Leaders-Directory/" target="_blank">tribu indígena reconocida federalmente</a> y recibió ingresos mientras vivía en una reserva?
             other: ¿Es usted o su cónyuge un miembro inscrito de una <a href="https://biamaps.geoplatform.gov/Tribal-Leaders-Directory/" target="_blank">tribu indígena reconocida federalmente</a> y recibieron ingresos mientras vivían en una reserva?
-          tribal_wages_field: "Ingrese la cantidad ganada"
+          tribal_wages_field: Ingrese la cantidad ganada
           tribal_wages_question_html: Ingrese la cantidad de ingresos recibidos o ganados por actividades en la reserva reconocida federalmente. <br><br> <b>Nota:</b> esto no debe exceder $%{amount_limit}.
       nc_veteran_status:
-        primary_veteran_question: "¿Eres un veterano?"
-        spouse_veteran_question: "¿Es su cónyuge un veterano?"
         title: Are you a veteran of the United States Armed Forces?
         title_spouse: Are you or your spouse a veteran of the United States Armed Forces?
       nj_college_dependents_exemption:
@@ -3217,7 +3209,7 @@ es:
         edit:
           action: Enviar el código
           helper_text: Enter numbers only
-          phone_number_label: "Tu número de teléfono"
+          phone_number_label: Tu número de teléfono
           subtitle_html: To create a new account, provide a phone number that isn't already in use.<br><br>Use a phone number you can access.
           title: Ingresa tu número de teléfono
       primary_state_id:
@@ -3284,7 +3276,7 @@ es:
           title: Lamentablemente, tu declaración de impuestos del estado de %{state_name} para el año %{filing_year} fue rechazada
         thank_you_html: Gracias por presentar su declaración con <strong>FileYourStateTaxes</strong>, creado en asociación con el estado de %{state_name} para integrarse con la herramienta Direct File del IRS.
       review:
-        county: Condado
+        county: County where your permanent address was located on December 31, %{filing_year}
       shared:
         review_header:
           dependent_dob: Su fecha de nacimiento
@@ -3365,8 +3357,9 @@ es:
           apartment: Número de apartamento/unidad
           box_10b_html: "<strong>Box 10b</strong>, Número de identificación estatal"
           city: Ciudad
-          confirm_address_html: |
-            Do we have the correct mailing address as listed on your form 1099-G?<br><br>Note: this may be different than your current address. Please edit the address to match what’s on your form.
+          confirm_address_html: 'Do we have the correct mailing address as listed on your form 1099-G?<br><br>Note: this may be different than your current address. Please edit the address to match what’s on your form.
+
+            '
           confirm_address_no: No, necesito cambiarla
           confirm_address_yes: Sí, esa es la dirección
           dont_worry: If you have more than one 1099-G, don’t worry, you can add it on the next page.
@@ -3407,7 +3400,7 @@ es:
           action: " Verificar el código"
           subtitle_html: If you didn’t receive a code, please check your spam folder. If you still need help resubscribing, chat with us.
           title_html: Te enviamos tu código a <strong>%{contact_info}</strong>
-          verification_code_label: "Ingresa el código de 6 dígitos"
+          verification_code_label: Ingresa el código de 6 dígitos
       w2:
         edit:
           box14_explanation:
