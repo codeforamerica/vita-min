@@ -31,6 +31,12 @@ module StateFile
         'id_Grey_no_1099r' => '1016422024337kkb3get',
         'id_Klein_QSS' => '1016422024338u5svhsa',
         'id_Estrada_donations' => '10164220243389yh9q72',
+        'md_Hannah_Single' => '1016422024337p0czoxg',
+        'md_Drum_MFS_over_1000' => '1016422024337uhx6vkg',
+        'md_Leonard_QSS' => '1016422024337luaxoi5',
+        'md_Anchovies_MFJ' => '1016422024337d6xqdk3',
+        'md_Grace_Dependent' => '1016422024338z12fznh',
+        'md_Felicity_Single' => '1016422024338g7n9hgr',
       }
       @old_xml_sample = "app/controllers/state_file/questions/df_return_sample.xml"
       @old_json_sample = "app/controllers/state_file/questions/df_return_sample.json"
