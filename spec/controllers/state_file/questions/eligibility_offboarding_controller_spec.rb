@@ -18,12 +18,12 @@ RSpec.describe StateFile::Questions::EligibilityOffboardingController do
   end
 
   describe "#edit" do
-    let(:intake) { create :state_file_nc_intake }
+    let(:intake) { create :state_file_ny_intake }
 
     context "with offboarded_from set in the session" do
       render_views
       let(:offboarded_from_path) do
-        StateFile::Questions::NcEligibilityResidenceController.to_path_helper
+        StateFile::Questions::NyEligibilityResidenceController.to_path_helper
       end
       before do
         sign_in intake
