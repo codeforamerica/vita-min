@@ -18,7 +18,7 @@ RSpec.describe StateFile::Questions::PostDataTransferController do
         get :edit
 
         expect(response).not_to render_template :edit
-        expect(response).to redirect_to(StateFile::Questions::NameDobController.to_path_helper)
+        expect(response).to redirect_to(StateFile::Questions::AzPriorLastNamesController.to_path_helper)
       end
     end
 

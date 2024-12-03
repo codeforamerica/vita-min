@@ -9,7 +9,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
   end
 
   StateFile::StateInformationService.active_state_codes.each do |state_code|
-    context "#{state_code.upcase}" do
+    context "#{state_code.upcase}", js: true do
       it "allows user to navigate to income review page, edit an income form, and then navigate back to final review page", required_schema: state_code do
         set_up_intake_and_associated_records(state_code)
 
