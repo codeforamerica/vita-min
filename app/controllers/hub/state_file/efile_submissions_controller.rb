@@ -81,7 +81,7 @@ module Hub
         authorize! :update, @efile_submission
         metadata = { initiated_by_id: current_user.id }
         if to_state == "rejected"
-          metadata[:error_code] = EfileError.where(service_type: :state_file).last.code
+          metadata[:error_code] = EfileError.where(service_type: "state_file_#{@efile_submission.data_source.state_code}").last.code
         end
         if @efile_submission.transition_to!(to_state, metadata)
           flash[:notice] = "Transitioned to #{to_state}"

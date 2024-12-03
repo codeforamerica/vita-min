@@ -8,6 +8,7 @@ module StateFile
         @submission_to_show = current_intake.latest_submission
         @return_status = return_status
         @error = submission_error
+        @tax_refund_website_name = StateFile::StateInformationService.department_of_taxation(current_state_code)
         @tax_refund_url = StateFile::StateInformationService.tax_refund_url(current_state_code)
         @tax_payment_url = StateFile::StateInformationService.tax_payment_url(current_state_code)
         @voucher_form_name = StateFile::StateInformationService.voucher_form_name(current_state_code)
