@@ -256,10 +256,34 @@ FactoryBot.define do
       sequence(:hashed_ssn) { |n| "abcdefg12346#{n}" }
     end
 
-    factory :state_file_az_johnny_intake do
+    factory :state_file_az_johnny_intake_new do
       # Details of this scenario: https://docs.google.com/document/d/1Aq-1Qdna62gUQqzPyYY2CetC-VZWtCqK73LqBYBLINw/edit
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('az_johnny_mfj') }
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('az_johnny_mfj') }
+
+      after(:create) do |intake|
+        intake.synchronize_df_dependents_to_database
+
+        # Over 17 & Over 65, non-qualifying ancestor
+        intake.dependents.where(first_name: "Bob").first.update(
+          needed_assistance: "no",
+          passed_away: "no"
+        )
+
+        # Qualifying ancestor
+        intake.dependents.where(first_name: "Wendy").first.update(
+          needed_assistance: "yes",
+          passed_away: "no"
+        )
+        intake.dependents.reload
+      end
+    end
+
+
+    factory :state_file_az_johnny_intake do
+      # Details of this scenario: https://docs.google.com/document/d/1Aq-1Qdna62gUQqzPyYY2CetC-VZWtCqK73LqBYBLINw/edit
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('az_johnny_mfj_8_deps') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('az_johnny_mfj_8_deps') }
 
       after(:create) do |intake|
         intake.synchronize_df_dependents_to_database

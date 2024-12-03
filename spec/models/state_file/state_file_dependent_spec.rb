@@ -302,7 +302,7 @@ describe StateFileDependent do
   end
 
   describe "#months_in_home_for_pdf" do
-    let(:intake) { create :state_file_az_johnny_intake }
+    let(:intake) { create :state_file_az_johnny_intake_new }
 
     it "outputs the correct labels when all dependents have between 6-12 months in home" do
       ronnie = intake.dependents.where(first_name: "Ronnie").first

@@ -108,7 +108,7 @@ describe DirectFileJsonData do
   end
 
   describe "DfJsonDependent#months_in_home" do
-    let(:intake) { create :state_file_az_johnny_intake }
+    let(:intake) { create :state_file_az_johnny_intake_new }
     let(:direct_file_json_data) { intake.direct_file_json_data }
     let(:dependents) { intake.dependents }
 
