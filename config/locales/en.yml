@@ -2825,7 +2825,7 @@ en:
           title: Select the county where your permanent address was located on December 31, %{filing_year}
       nc_eligibility:
         edit:
-          eligibility_ed_loan_cancelled: Had a student loan canceled under the American Rescue Plan Act
+          eligibility_ed_loan_cancelled: Had a student loan debt canceled under the American Rescue Plan Act
           eligibility_ed_loan_emp_payment: Received a Qualified Education Loan Payment paid by your employer
           none: None of these apply
           question: Did any of the following less common scenarios apply to you (or your spouse, if married filing jointly) in %{filing_year}?
