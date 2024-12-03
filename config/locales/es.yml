@@ -2863,6 +2863,10 @@ es:
             other: "¿Usted o su cónyuge realizaron alguna compra fuera del estado en %{year} sin pagar impuestos sobre ventas o de uso?"
           use_tax_method_automated: Todas mis compras fueron de menos de $1,000 cada una. <b>Calcula la cantidad de impuesto sobre el uso por mi.</b>
           use_tax_method_manual: Tuve una compra sin impuestos por más de $1,000, o preferiría calcular mí impuesto de uso manualmente.
+          what_are_sales_taxes: What are sales taxes?
+          what_are_sales_taxes_body: This is a tax collected at the point of sale when you buy goods within your state.
+          what_are_use_taxes: What are use taxes?
+          what_are_use_taxes_body: If you buy something from another state (like online shopping or purchases from a store located in another state) and you don’t pay sales tax on it, you are generally required to pay use tax to your home state.
       nc_spouse_state_id:
         nc_spouse:
           encourage_sharing: You’re encouraged to share this information, but it’s not required to file your North Carolina taxes.
@@ -3362,10 +3366,12 @@ es:
           apartment: Número de apartamento/unidad
           box_10b_html: "<strong>Box 10b</strong>, Número de identificación estatal"
           city: Ciudad
-          confirm_address_html: Confirma la <strong>dirección de envío</strong> que aparece en el Formulario 1099-G. Ten en cuenta que puede ser diferente a tu dirección actual. Edita la dirección para que coincida con la información que aparece en el formulario.
+          confirm_address_html: |
+            Do we have the correct mailing address as listed on your form 1099-G?<br><br>Note: this may be different than your current address. Please edit the address to match what’s on your form.
           confirm_address_no: No, necesito cambiarla
           confirm_address_yes: Sí, esa es la dirección
-          federal_income_tax_withheld_html: "<strong>Box 4</strong>, Impuesto federal retenido (Redondea al número entero más cercano)"
+          dont_worry: If you have more than one 1099-G, don’t worry, you can add it on the next page.
+          federal_income_tax_withheld_html: "<strong>Box 4</strong>, Impuesto federal retenido"
           had_box_11: "¿Tenías un monto listado por impuestos estatales (Box 11) en tu compensación por desempleo (Formulario 1099-G)?"
           information_content_html: |
             Encuentra el formulario 1099-G que usaste para ingresar tus ingresos por desempleo en tu declaración de impuestos federales. Si tienes varios formularios 1099-G, puedes agregar múltiples formularios. <br><br>
@@ -3378,8 +3384,6 @@ es:
             </ol>
           information_html: "<strong>¿Cómo encuentro esta información?</strong>"
           money_boxes_label: Completa las siguientes casillas según lo especificado en el Formulario 1099-G.
-          need_additional_information: "¡Excelente! Necesitamos información adicional sobre lo que aparece en el Formulario 1099-G. (Si tienes más de un formulario 1099-G, puedes agregarlo al final.)"
-          other_tax_filing_options_html: <strong>Recuerda:</strong> En %{filing_year_plus_one}, esta herramienta no admite la presentación de ingresos por desempleo recibidos en otro estado. Para presentar ingresos recibidos en otro estado, consulta <a target="_blank" rel="noopener nofollow" href="%{link}">otras opciones de presentación de impuestos.</a>
           payer_address: Dirección del pagador
           payer_name: Nombre del pagador
           payer_question_html: 'Ingresa la <strong>información del pagador 1ubicada en la esquina superior izquierda</strong> del formulario:'
@@ -3388,20 +3392,20 @@ es:
           recipient_myself: Para mí
           recipient_question: "¿Para quién es este formulario?"
           state: Estado
-          state_income_tax_withheld_html: "<strong>Box 11</strong>, Impuesto estatal retenido (Redondea al número entero más cercano)"
+          state_income_tax_withheld_html: "<strong>Box 11</strong>, Impuesto estatal retenido"
           street_address: Dirección
           title:
             many: Parece que usted o su cónyuge recibieron beneficios de desempleo en %{year}
             one: Parece que recibiste compensaciones por desempleo en %{year}
             other: Parece que usted o su cónyuge recibieron beneficios de desempleo en %{year}
-          unemployment_compensation_html: "<strong>Box 1</strong>, Compensación por desempleo (Redondea al número entero más cercano)"
+          unemployment_compensation_html: "<strong>Box 1</strong>, Compensación por desempleo"
           zip_code: Código postal
         index:
           1099_label: 1099-G para %{name}
           add_another: Agrega otro Formulario 1099-G
           delete_confirmation: "¿Estás seguro de que quieres eliminar este formulario 1099-G?"
           lets_review: "¡Excelente! Gracias por compartir esa información. Revisémosla."
-          unemployment_compensation: 'Compensación por desempleo: $%{amount}'
+          unemployment_compensation: 'Compensación por desempleo: %{amount}'
       verification_code:
         edit:
           action: " Verificar el código"

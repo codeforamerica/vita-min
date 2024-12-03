@@ -2886,12 +2886,16 @@ en:
           state_specific:
             nc:
               manual_instructions_html: (<a href="https://www.ncdor.gov/2023-d-401-individual-income-tax-instructions/open" target="_blank" rel="noopener noreferrer">Learn more here</a> and search for 'consumer use worksheet').
-          subtitle_html: This includes online purchases where sales or use tax was <b>not</b> applied.
+          subtitle_html: This includes online purchases where sales tax was <b>not</b> applied.
           title:
-            one: Did you make any out-of-state purchases in %{year} without paying sales or use tax?
-            other: Did you or your spouse make any out-of-state purchases in %{year} without paying sales or use tax?
+            one: Did you make any out-of-state purchases in %{year} without paying sales tax?
+            other: Did you or your spouse make any out-of-state purchases in %{year} without paying sales tax?
           use_tax_method_automated: I did not keep a complete record of all purchases. <b>Calculate the amount of use tax for me.</b>
           use_tax_method_manual: I kept a complete record of all purchases and will calculate my use tax manually.
+          what_are_sales_taxes: What are sales taxes?
+          what_are_sales_taxes_body: This is a tax collected at the point of sale when you buy goods within your state.
+          what_are_use_taxes: What are use taxes?
+          what_are_use_taxes_body: If you buy something from another state (like online shopping or purchases from a store located in another state) and you don’t pay sales tax on it, you are generally required to pay use tax to your home state.
       nc_spouse_state_id:
         nc_spouse:
           encourage_sharing: You’re encouraged to share this information, but it’s not required to file your North Carolina taxes.
@@ -3373,47 +3377,45 @@ en:
           removed: Removed 1099-G for %{name}
         edit:
           apartment: Apartment/Unit Number
-          box_10b_html: "<strong>Box 10b</strong>, State identification number"
+          box_10b_html: "<strong>Box 10b</strong>, State identification no."
           city: City
-          confirm_address_html: Please confirm <strong>your mailing address</strong> listed on Form 1099-G. Note&#58; this may be different than your current address. Please edit to match what’s on your form.
-          confirm_address_no: No, I need to edit
-          confirm_address_yes: Yes, that's the address
-          federal_income_tax_withheld_html: "<strong>Box 4</strong>, Federal income tax withheld (Round to the nearest whole number.)"
+          confirm_address_html: |
+            Do we have the correct mailing address as listed on your form 1099-G?<br><br>Note: this may be different than your current address. Please edit the address to match what’s on your form.
+          confirm_address_no: No, I need to edit the address
+          confirm_address_yes: Yes, that's the correct address
+          dont_worry: If you have more than one 1099-G, don’t worry, you can add it on the next page.
+          federal_income_tax_withheld_html: "<strong>Box 4</strong>, Federal income tax withheld"
           had_box_11: Did you have an amount listed for state income tax (Box 11) on your unemployment compensation (Form 1099-G)?
           information_content_html: |
             Find the 1099-G you used to enter your unemployment income on your federal tax return. If you have multiple 1099-Gs, you can add multiple forms. <br><br>
             Next, find the requested information in the following locations: </br>
             <ol class="list--numbered">
-              <li><strong>Who does this form belong to?</strong> The left side of the form will say if this form belongs to you or your spouse, if applicable. Look for “recipient’s name.”</li>
-              <li><strong>Your mailing address</strong> is listed under "recipient's name" on the left side of the form. Make sure the address <strong>on the form</strong> matches what you enter here.</li>
+              <li><strong>Who the form belongs to</strong> can be found on the left side of the form, if applicable. Look for “recipient’s name.”</li>
+              <li><strong>Your mailing address</strong> is listed under "recipient's name" on the left side of the form. Make sure the address on the form matches what you enter here.</li>
               <li><strong>Payer’s information,</strong> or the government agency that issued the form, is listed in the top left corner of the page. Enter the name, address, and TIN as shown on the form.</li>
               <li><strong>Boxes 1, 4, 10b, and 11</strong> are all labeled with the same numbers on the right side of the form. Enter the information exactly as it appears in those boxes.</li>
             </ol>
           information_html: "<strong>How do I find this information?</strong>"
           money_boxes_label: Please complete the following boxes based on what’s reported on Form 1099-G.
-          need_additional_information: Great! We need some additional information about what’s on Form 1099-G. (If you have more than one 1099-G, you can add it at the end.)
-          other_tax_filing_options_html: <strong>Reminder:</strong> In %{filing_year_plus_one}, this tool does not support filing unemployment income received from another state. To file income received from another state, check out <a target="_blank" rel="noopener nofollow" href="%{link}">other tax filing options.</a>
           payer_address: Payer's Street Address
           payer_name: Payer's Name
-          payer_question_html: Please enter the <strong>payer's information located in the top left corner</strong> of the form&#58;
+          payer_question_html: Please enter the payer's information <strong>located in the top left corner</strong> of the form&#58;
           payer_tin: Payer’s TIN (9-digit number)
           recipient_my_spouse: My spouse
           recipient_myself: Myself
           recipient_question: Who is this form for?
           state: State
-          state_income_tax_withheld_html: "<strong>Box 11</strong>, State income tax withheld (Round to the nearest whole number.)"
+          state_income_tax_withheld_html: "<strong>Box 11</strong>, State income tax withheld"
           street_address: Street Address
-          title:
-            one: It looks like you received unemployment benefits in %{year}
-            other: It looks like you or your spouse received unemployment benefits in %{year}
-          unemployment_compensation_html: "<strong>Box 1</strong>, Unemployment compensation (Round to the nearest whole number.)"
+          title: We need some additional information about your Form 1099-G
+          unemployment_compensation_html: "<strong>Box 1</strong>, Unemployment compensation"
           zip_code: Zip code
         index:
           1099_label: 1099-G for %{name}
           add_another: Add another 1099-G form
           delete_confirmation: Are you sure you want to delete this 1099-G?
           lets_review: Great! Thanks for sharing that information. Let’s review.
-          unemployment_compensation: 'Unemployment compensation: $%{amount}'
+          unemployment_compensation: 'Unemployment compensation: %{amount}'
       verification_code:
         edit:
           action: Verify code
