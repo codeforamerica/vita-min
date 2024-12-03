@@ -704,6 +704,50 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
       end
     end
 
+    describe "lines 53a, 53b, 53c: health insurance indicators" do
+      context "when taxpayer indicated all members of household have health insurance" do
+        let(:intake) { create(:state_file_nj_intake, eligibility_all_members_health_insurance: "yes" ) }
+
+        it "checks 53c Schedule NJ-HCC checkbox and leaves 53a, 53b, and 53c amount blank" do
+          expect(xml.at("NoHealthInsurance")).to eq(nil) # 53a
+          expect(xml.at("NJAssistObtainingHC")).to eq(nil) # 53b
+          expect(xml.at("SharedResPay")).to eq(nil) # 53c amount
+          expect(xml.at("HCCEnclosed").text).to eq("X") # 53c checkbox
+        end
+      end
+
+      context "when taxpayer indicated all members of household do NOT have health insurance" do
+        context "when qualifies for income exemption" do
+          let(:intake) { create(:state_file_nj_intake,
+                                eligibility_all_members_health_insurance: "no",
+          ) }
+
+          it "does not check 53c Schedule NJ-HCC checkbox and leaves 53a, 53b, and 53c amount blank" do
+            single_income_threshold = 10_000
+            allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_54).and_return single_income_threshold
+            expect(xml.at("NoHealthInsurance")).to eq(nil) # 53a
+            expect(xml.at("NJAssistObtainingHC")).to eq(nil) # 53b
+            expect(xml.at("SharedResPay")).to eq(nil) # 53c amount
+            expect(xml.at("HCCEnclosed")).to eq(nil) # 53c checkbox
+          end
+        end
+
+        context "when qualifies for claimed as dependent exemption" do
+          let(:intake) { create(:state_file_nj_intake,
+                                :df_data_mfj_primary_claimed_dep,
+                                eligibility_all_members_health_insurance: "no"
+          ) }
+
+          it "does not check 53c Schedule NJ-HCC checkbox and leaves 53a, 53b, and 53c amount blank" do
+            expect(xml.at("NoHealthInsurance")).to eq(nil) # 53a
+            expect(xml.at("NJAssistObtainingHC")).to eq(nil) # 53b
+            expect(xml.at("SharedResPay")).to eq(nil) # 53c amount
+            expect(xml.at("HCCEnclosed")).to eq(nil) # 53c checkbox
+          end
+        end
+      end
+    end
+
     describe 'line 54 - total tax due' do
       let(:intake) { create(:state_file_nj_intake) }
       it 'sets line 54 to calculated value' do
