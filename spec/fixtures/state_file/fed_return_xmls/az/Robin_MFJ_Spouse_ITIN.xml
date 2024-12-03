@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v4.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>676c5f98</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400000014</PrimarySSN>
+            <SpouseSSN>900500012</SpouseSSN>
+            <NameLine1Txt>ROBIN &amp; JAY&lt;PILOT</NameLine1Txt>
+            <PrimaryNameControlTxt>PILO</PrimaryNameControlTxt>
+            <SpouseNameControlTxt>PILO</SpouseNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>4391 Parkway Drive</AddressLine1Txt>
+                <CityNm>Casa Grande</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>85222</ZIPCd>
+            </USAddress>
+            <PhoneNum>5205555550</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000001-4fec-4e0c-9edb-9c96ac918ba6@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="2">
+        <IRS1040 documentId="IRS10400001">
+            <Form1040SRInd>X</Form1040SRInd>
+            <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <Primary65OrOlderInd>X</Primary65OrOlderInd>
+            <PrimaryBlindInd>X</PrimaryBlindInd>
+            <Spouse65OrOlderInd>X</Spouse65OrOlderInd>
+            <SpouseBlindInd>X</SpouseBlindInd>
+            <TotalBoxesCheckedCnt>4</TotalBoxesCheckedCnt>
+            <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>2</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">24000</WagesAmt>
+            <WagesSalariesAndTipsAmt>24000</WagesSalariesAndTipsAmt>
+            <TotalIncomeAmt>24000</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>24000</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>35400</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>35400</TotalDeductionsAmt>
+            <TaxableIncomeAmt>0</TaxableIncomeAmt>
+            <TaxAmt>0</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>0</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>0</TaxLessCreditsAmt>
+            <TotalTaxAmt>0</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>3000</FormW2WithheldTaxAmt>
+            <WithholdingTaxAmt>3000</WithholdingTaxAmt>
+            <TotalPaymentsAmt>3000</TotalPaymentsAmt>
+            <OverpaidAmt>3000</OverpaidAmt>
+            <RefundAmt>3000</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Flight attendant</PrimaryOccupationTxt>
+            <SpouseOccupationTxt>Bird watcher</SpouseOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>400000014</EmployeeSSN>
+            <EmployerEIN>005556666</EmployerEIN>
+            <EmployerNameControlTxt>BIRD</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Bird Bath Emporium</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>12 Canary Lane</AddressLine1Txt>
+                <CityNm>St Louis</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>63105</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Robin Pilot</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>4391 Parkway Drive</AddressLine1Txt>
+                <CityNm>Casa Grande</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>85222</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>24000</WagesAmt>
+            <WithholdingAmt>3000</WithholdingAmt>
+            <SocialSecurityWagesAmt>24000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>1488</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>24000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>348</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                    <EmployerStateIdNum>12345</EmployerStateIdNum>
+                    <StateWagesAmt>24000</StateWagesAmt>
+                    <StateIncomeTaxAmt>1000</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>

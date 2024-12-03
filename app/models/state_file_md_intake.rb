@@ -29,6 +29,7 @@
 #  eligibility_out_of_state_income            :integer          default("unfilled"), not null
 #  email_address                              :citext
 #  email_address_verified_at                  :datetime
+#  email_notification_opt_in                  :integer          default("unfilled"), not null
 #  failed_attempts                            :integer          default(0), not null
 #  federal_return_status                      :string
 #  had_hh_member_without_health_insurance     :integer          default("unfilled"), not null
@@ -70,6 +71,7 @@
 #  residence_county                           :string
 #  routing_number                             :string
 #  sign_in_count                              :integer          default(0), not null
+#  sms_notification_opt_in                    :integer          default("unfilled"), not null
 #  source                                     :string
 #  spouse_birth_date                          :date
 #  spouse_did_not_have_health_insurance       :integer          default("unfilled"), not null
@@ -118,6 +120,8 @@ class StateFileMdIntake < StateFileBaseIntake
   enum authorize_sharing_of_health_insurance_info: { unfilled: 0, yes: 1, no: 2}, _prefix: :authorize_sharing_of_health_insurance_info
   enum primary_did_not_have_health_insurance: { unfilled: 0, yes: 1, no: 2}, _prefix: :primary_did_not_have_health_insurance
   enum spouse_did_not_have_health_insurance: { unfilled: 0, yes: 1, no: 2}, _prefix: :spouse_did_not_have_health_insurance
+  enum email_notification_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :email_notification_opt_in
+  enum sms_notification_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :sms_notification_opt_in
   enum bank_authorization_confirmed: { unfilled: 0, yes: 1, no: 2 }, _prefix: :bank_authorization_confirmed
   enum has_joint_account_holder: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_joint_account_holder
 

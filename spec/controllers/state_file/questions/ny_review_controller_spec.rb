@@ -32,7 +32,7 @@ RSpec.describe StateFile::Questions::NyReviewController do
     context "when a dependent is present" do
       render_views
       let(:intake) { create :state_file_ny_refund_intake }
-      let!(:dependent) { intake.dependents.create(dob: 7.years.ago, first_name: "Bobby", last_name: "Tables", relationship: "Son") }
+      let!(:dependent) { create :state_file_dependent, intake: intake, dob: 7.years.ago, first_name: "Bobby", middle_initial: nil, last_name: "Tables", relationship: "biologicalChild" }
 
       it "displayed dependent details" do
         get :edit

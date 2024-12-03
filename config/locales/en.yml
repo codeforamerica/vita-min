@@ -536,6 +536,7 @@ en:
     return_search: Return to search
     return_to_homepage: Return to homepage
     returns: Returns
+    review_and_edit: Review and Edit
     role: Role
     routing: Routing
     save: Save
@@ -2056,6 +2057,7 @@ en:
       id_tax_withheld: Idaho tax withheld
       id_taxable_income: Idaho taxable income
       id_total_payments: Total payments and refundable credits
+      id_total_tax_plus_donations: Total tax plus donations
       id_use_tax: Use tax
       md_adjusted_gross_income: Maryland Adjusted Gross Income
       md_child_tax_credit: Maryland Child Tax Credit
@@ -2358,6 +2360,15 @@ en:
           subtitle: With an account, you’ll receive status updates on your state tax return.
           text_message_option: Text me a code
           title: Next, create your account with a quick code
+      data_review:
+        edit:
+          basic_household_info_title: Basic household information
+          complete_description: Complete
+          filing_status_title: Filing status
+          income_and_deductions_title: Income and deductions
+          partially_complete_description: Partially complete
+          state_tax_withheld_title: "%{name} state tax withheld"
+          title: Your federal tax return is now transferred. We completed some sections to save you time.
       data_transfer_offboarding:
         edit:
           ineligible_reason:
@@ -2536,6 +2547,22 @@ en:
           spouse_esign: My spouse has read the certification above and agrees
           submit: Submit your state return
           title: Electronically sign your %{state_name} state tax return
+      id_donations:
+        edit:
+          add_the_amount: Add the amount you would like to donate to any organization below
+          american_red_cross_fund_donation: American Red Cross of Idaho Fund
+          childrens_trust_fund_donation: Idaho Children's Trust Fund
+          donate_warning_p1: Your donation will be subtracted from your total state refund.
+          donate_warning_p2: Your choice to donate is final and cannot be changed through an amended return.
+          food_bank_fund_donation: Idaho Food Bank Fund
+          guard_reserve_family_donation: Idaho Guard & Reserve Family
+          nongame_wildlife_fund_donation: Idaho Nongame Wildlife Fund
+          opportunity_scholarship_program_donation: Opportunity Scholarship Program
+          save_and_continue: Save and Continue
+          special_olympics_donation: Special Olympics Idaho
+          tax_payers_can_donate: Idaho taxpayers can make voluntary charitable donations to organizations when they file their state income tax return.
+          title: Donate some or all of your state refund to charitable organizations
+          veterans_support_fund_donation: Veterans Support Fund
       id_eligibility_residence:
         edit:
           emergency_rental_assistance: In %{filing_year}, did you (or your spouse if filing together) receive emergency rental assistance?
@@ -2629,11 +2656,14 @@ en:
           why_ask_this: Why are you asking for this information?
       id_review:
         edit:
+          donations_optional: Idaho taxpayers can make voluntary charitable donations to organizations when they file their state income tax return.
           health_insurance_premium_title: Idaho Health Insurance Premium Subtraction
           idaho_grocery_credit: Idaho Grocery Credit
+          no_donations_selected: "<strong>No donations selected</strong>"
           permanent_building_fund_tax: Permanent Building Fund Tax
           purchases_without_sales_tax: Purchases without paying sales or use tax
           state_details_title: State Details
+          voluntary_charitable_donations: Voluntary Charitable Donations
       id_sales_use_tax:
         edit:
           sales_tax_content: This is a tax collected at the point of sale when you buy goods within your state.
@@ -2776,23 +2806,6 @@ en:
           title: You might qualify for the Maryland two-income subtraction
           total: The total student loan interest deduction for you and your spouse's federal return is %{total_deduction}.
           your_portion_label: Your portion of the student loan interest deduction
-      name_dob:
-        edit:
-          dependent_months_lived_label: Number of months they lived with you in %{year}
-          dependent_name_dob: Please tell us your dependent’s date of birth
-          last_name: Last name
-          middle_initial: Middle initial
-          months_helper_born_died: Select 12 months if the dependent was born or died during 2023.
-          months_helper_description: Count any months the dependent lived in your home, as well as any months the dependent was temporarily absent due to being away at school, in a hospital or medical facility, or away on business or vacation.
-          months_helper_heading: Which months should I count?
-          primary_name_dob: Your name (as shown on your Social Security card or ITIN letter ending in %{last_four_ssn}) and date of birth
-          spouse_dob: Your spouse's date of birth
-          spouse_name_dob_html: Your <strong>spouse’s</strong> name (as shown on your Social Security card or ITIN letter ending in %{last_four_ssn}) and date of birth
-          spouse_name_html: Your <strong>spouse’s</strong> name (as shown on your Social Security card or ITIN letter ending in %{last_four_ssn})
-          suffix: Suffix
-          title1: Your federal tax return is now transferred. Before you finish, we have some final questions that may help maximize your refund.
-          title2: First, we need some more information about you and the people in your family.
-          your_dob: Your date of birth
       nc_county:
         edit:
           county: County
@@ -3019,6 +3032,15 @@ en:
           helper_heading: The place where I live is not listed
           municipality: Municipality
           title: Select the municipality where you lived on December 31, %{filing_year}
+      nj_primary_state_id:
+        nj_primary:
+          dmv_bmv: Non-driver identification card
+          no_id: No driver's license or state ID / Prefer not to share
+          not_required: You do NOT need to supply this information to file your taxes. The return will not be rejected if you do not have ID or prefer not to share.
+          protect_identity: Many state revenue agencies, including New Jersey, are requesting additional information in an effort to combat stolen-identity tax fraud and to protect you and your tax refund. Providing some details about your state-issued identification will help identify you as the taxpayer.
+          subtitle: Details from your state-issued ID, if you have one, will help New Jersey combat stolen-identity tax fraud and protect you and your tax refund.
+          title: Confirming Your Identity (Optional)
+          why_ask_this: Why are you asking for this information?
       nj_review:
         edit:
           amount: Amount
@@ -3057,6 +3079,15 @@ en:
           use_tax_method_automated: All of my purchases were less than $1000 each. Calculate the amount of use tax for me.
           use_tax_method_manual: I had an untaxed purchase over $1000, or I would prefer to calculate my use tax manually.
           use_tax_radio_label: Did you have any untaxed out-of-state purchases?
+      nj_spouse_state_id:
+        nj_spouse:
+          dmv_bmv: Non-driver identification card
+          no_id: No driver's license or state ID / Prefer not to share
+          not_required: You do NOT need to supply this information to file your taxes. The return will not be rejected if you do not have ID or prefer not to share.
+          protect_identity: To protect your identity and combat tax fraud, many state agencies are asking people to give their driver's license or state ID number.
+          subtitle: Details from your spouse's state-issued ID, if they have one, would also help.
+          title: Confirming Your Spouse's Identity (Optional)
+          why_ask_this: Why are you asking for this information?
       nj_tenant_eligibility:
         edit:
           helper_description: I was a tenant in a tax-exempt property (e.g.,subsidized and campus housing, property owned by nonprofit organizations, residence on which P.I.L.O.T. payments were made)
@@ -3089,6 +3120,19 @@ en:
           primary_veteran_question: Are you a veteran?
           spouse_veteran_question: Is your spouse a veteran?
           title: In NJ, veterans are eligible for a tax exemption.
+      notification_preferences:
+        edit:
+          email_notification_opt_in: Email
+          message_body_one: We will not share your information with any outside parties. Message frequency will vary. Message and data rates may apply.
+          message_body_two_html: Text HELP to 46207 for help. Text STOP to 46207 to cancel. Carriers (e.g. AT&T, Verizon, T-Mobile, Sprint, etc.) are not responsible or liable for undelivered or delayed messages. See our <a target="_blank" href=%{sms_terms_link}>SMS Terms and Conditions</a> and <a target="_blank" href=%{privacy_link}>Privacy Policy</a>.
+          message_title: Messaging Details
+          opt_in_label: Please select the option(s) that work best for you!
+          phone_number: Your phone number
+          sms_notification_opt_in: Text message
+          subtitle: We'll need to reach out with questions and updates.
+          title: What is the best way to reach you?
+        form:
+          at_least_one: At least one notification preference is required
       ny_county:
         edit:
           county: County
@@ -3209,9 +3253,6 @@ en:
           action: Send code
           phone_number_label: Your phone number
           title: Enter your phone number
-      post_data_transfer:
-        edit:
-          title: Non-prod page only
       primary_state_id:
         edit:
           ny_subtitle: This information is required for all NY residents with a state-issued ID.

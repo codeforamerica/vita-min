@@ -15,14 +15,13 @@ RSpec.describe PdfFiller::It201AdditionalDependentsPdf do
     end
 
     it 'includes the name(s) as shown on return' do
-      expect(pdf.hash_for_pdf[:'Names as shown on returnRow1']).to eq("New Yorker")
+      expect(pdf.hash_for_pdf[:'Names as shown on returnRow1']).to eq("Zeus Thunder")
     end
 
     it 'includes the spouse nameas shown on return' do
       intake.direct_file_data.filing_status = 2
-      intake.spouse_first_name = "Old"
-      intake.spouse_last_name = "Yorker"
-      expect(pdf.hash_for_pdf[:'Names as shown on returnRow1']).to eq("New Yorker and Old Yorker")
+      intake.synchronize_filers_to_database
+      expect(pdf.hash_for_pdf[:'Names as shown on returnRow1']).to eq("Zeus Thunder and Hera Thunder")
     end
   end
 end
