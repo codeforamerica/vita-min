@@ -117,6 +117,7 @@ FactoryBot.define do
 
     raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("nj_zeus_one_dep") }
     raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_zeus_one_dep') }
+    df_data_import_succeeded_at { DateTime.now }
     
     after(:build) do |intake, evaluator|
       intake.municipality_code = "0101"

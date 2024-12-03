@@ -411,7 +411,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
             allow(SsnHashingService).to receive(:hash).with(ssn).and_return intake.hashed_ssn
           end
 
-          it "signs in the intake, updates the session, and redirects to data review page" do
+          it "signs in the intake, updates the session, and redirects to post-data-transfer page" do
             post :update, params: params
 
             expect(subject.current_state_file_az_intake).to eq(intake)
@@ -420,11 +420,11 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
           end
 
           it "signs in the intake, updates the session, and redirects to the current step" do
-            intake.update(current_step: "/en/questions/name-dob")
+            intake.update(current_step: "/en/questions/az-prior-last-names")
             post :update, params: params
 
             expect(subject.current_state_file_az_intake).to eq(intake)
-            expect(response).to redirect_to questions_name_dob_path
+            expect(response).to redirect_to questions_az_prior_last_names_path
             expect(session["warden.user.state_file_az_intake.key"].first.first).to eq intake.id
           end
 

@@ -125,10 +125,6 @@ class StateFileAzIntake < StateFileBaseIntake
     self.dependents.select(&:is_qualifying_parent_or_grandparent?).length
   end
 
-  def ask_months_in_home?
-    true
-  end
-
   def disqualifying_df_data_reason
     return :married_filing_separately if direct_file_data.filing_status == 3
 
@@ -230,7 +226,7 @@ class StateFileAzIntake < StateFileBaseIntake
       }
       if hoh_qualifying_dependent.nil?
         hoh_qualifying_dependent = hoh_qualifying_dependents.select { |dependent|
-          dependent[:relationship] == "PARENT"
+          dependent[:relationship] == "parent"
         }.max_by { |dependent| dependent.calculate_age(inclusive_of_jan_1: false) }
       end
       {
