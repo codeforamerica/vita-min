@@ -141,7 +141,7 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
           end
           if @intake.authorize_sharing_of_health_insurance_info_yes?
             xml.AuthorToShareInfoHealthExchInd "X"
-            xml.TaxpayerEmailAddress @intake.email_address
+            xml.TaxpayerEmailAddress email_from_intake_or_df
           end
         end
       end
