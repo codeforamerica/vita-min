@@ -1158,6 +1158,12 @@ describe Efile::Nj::Nj1040Calculator do
     end
   end
 
+  describe 'line 55 - Total NJ Income Tax Withheld' do
+    it 'returns 0 because it is not implemented' do
+      expect(instance.lines[:NJ1040_LINE_55].value).to eq(0)
+    end
+  end
+
   describe 'line 57 - estimated tax payments' do
 
     context 'when estimated_tax_payments exists' do
@@ -1318,6 +1324,12 @@ describe Efile::Nj::Nj1040Calculator do
     end
   end
 
+  describe 'line 60 - Excess New Jersey Disability Insurance Withheld' do
+    it 'returns 0 because it is not implemented' do
+      expect(instance.lines[:NJ1040_LINE_60].value).to eq(0)
+    end
+  end
+
   describe 'line 61 - excess FLI' do
     context 'with excess contribution but only one w2' do
       let(:intake) { create(:state_file_nj_intake, :df_data_box_14) }
@@ -1431,6 +1443,18 @@ describe Efile::Nj::Nj1040Calculator do
           expect(instance.lines[:NJ1040_LINE_61].value).to eq(expected_sum)
         end
       end
+    end
+  end
+
+  describe 'line 62 - Wounded Warrior Caregivers Credit' do
+    it 'returns 0 because it is not implemented' do
+      expect(instance.lines[:NJ1040_LINE_62].value).to eq(0)
+    end
+  end
+
+  describe 'line 63 - Pass-Through Business Alternative Income Tax Credit' do
+    it 'returns 0 because it is not implemented' do
+      expect(instance.lines[:NJ1040_LINE_63].value).to eq(0)
     end
   end
 
@@ -1628,10 +1652,164 @@ describe Efile::Nj::Nj1040Calculator do
     end
   end
 
+  describe 'line 66 - Total Withholdings, Credits, and Payments' do
+    it 'returns total of lines 55-65' do
+      allow(instance).to receive(:calculate_line_55).and_return 10
+      allow(instance).to receive(:calculate_line_56).and_return 10
+      allow(instance).to receive(:calculate_line_57).and_return 10
+      allow(instance).to receive(:calculate_line_58).and_return 10
+      allow(instance).to receive(:calculate_line_59).and_return 10
+      allow(instance).to receive(:calculate_line_60).and_return 10
+      allow(instance).to receive(:calculate_line_61).and_return 10
+      allow(instance).to receive(:calculate_line_62).and_return 10
+      allow(instance).to receive(:calculate_line_63).and_return 10
+      allow(instance).to receive(:calculate_line_64).and_return 10
+      allow(instance).to receive(:calculate_line_65).and_return 10
+      instance.calculate
+      expect(instance.lines[:NJ1040_LINE_66].value).to eq(110)
+    end
+  end
+
+  describe 'line 67 - tax due' do
+    it 'returns 0 when line 66 is more than line 54' do
+      allow(instance).to receive(:calculate_line_54).and_return 10
+      allow(instance).to receive(:calculate_line_66).and_return 20
+      instance.calculate
+      expect(instance.lines[:NJ1040_LINE_67].value).to eq(0)
+    end
+
+    it 'returns line 54 - line 66 when line 66 is less' do
+      allow(instance).to receive(:calculate_line_54).and_return 20
+      allow(instance).to receive(:calculate_line_66).and_return 10
+      instance.calculate
+      expect(instance.lines[:NJ1040_LINE_67].value).to eq(10)
+    end
+  end
+
+  describe 'line 68 - overpayment' do
+    it 'returns 0 when line 54 is more than line 66' do
+      allow(instance).to receive(:calculate_line_54).and_return 20
+      allow(instance).to receive(:calculate_line_66).and_return 10
+      instance.calculate
+      expect(instance.lines[:NJ1040_LINE_68].value).to eq(0)
+    end
+
+    it 'returns line 66 - line 54 when line 54 is less' do
+      allow(instance).to receive(:calculate_line_54).and_return 10
+      allow(instance).to receive(:calculate_line_66).and_return 20
+      instance.calculate
+      expect(instance.lines[:NJ1040_LINE_68].value).to eq(10)
+    end
+  end
+
+  describe 'line 69 - credit taxes next year' do
+    it 'returns 0 because it is not implemented' do
+      expect(instance.lines[:NJ1040_LINE_69].value).to eq(0)
+    end
+  end
+
+  describe 'line 70 Contribution to N.J. Endangered Wildlife Fund' do
+    it 'returns 0 because it is not implemented' do
+      expect(instance.lines[:NJ1040_LINE_70].value).to eq(0)
+    end
+  end
+
+  describe "line 71 Contribution to N.J. Children's Trust Fund To Prevent Child Abuse" do
+    it 'returns 0 because it is not implemented' do
+      expect(instance.lines[:NJ1040_LINE_71].value).to eq(0)
+    end
+  end
+
+  describe "line 72 Contribution to N.J. Vietnam Veterans' Memorial Fund" do
+    it 'returns 0 because it is not implemented' do
+      expect(instance.lines[:NJ1040_LINE_72].value).to eq(0)
+    end
+  end
+
+  describe 'line 73 Contribution to N.J. Breast Cancer Research Fund' do
+    it 'returns 0 because it is not implemented' do
+      expect(instance.lines[:NJ1040_LINE_73].value).to eq(0)
+    end
+  end
+
+  describe 'line 74 Contribution to U.S.S. New Jersey Educational Museum Fund' do
+    it 'returns 0 because it is not implemented' do
+      expect(instance.lines[:NJ1040_LINE_74].value).to eq(0)
+    end
+  end
+
+  describe 'line 75 Other Designated Contribution (See instructions)' do
+    it 'returns 0 because it is not implemented' do
+      expect(instance.lines[:NJ1040_LINE_75].value).to eq(0)
+    end
+  end
+
+  describe 'line 76 Other Designated Contribution (See instructions)' do
+    it 'returns 0 because it is not implemented' do
+      expect(instance.lines[:NJ1040_LINE_76].value).to eq(0)
+    end
+  end
+
+  describe 'line 77 Other Designated Contribution (See instructions)' do
+    it 'returns 0 because it is not implemented' do
+      expect(instance.lines[:NJ1040_LINE_77].value).to eq(0)
+    end
+  end
+
+  describe 'line 78 Total Adjustments to Tax Due/Overpayment amount' do
+    it 'returns the sum of lines 69-77' do
+      allow(instance).to receive(:calculate_line_69).and_return 10
+      allow(instance).to receive(:calculate_line_70).and_return 10
+      allow(instance).to receive(:calculate_line_71).and_return 10
+      allow(instance).to receive(:calculate_line_72).and_return 10
+      allow(instance).to receive(:calculate_line_73).and_return 10
+      allow(instance).to receive(:calculate_line_74).and_return 10
+      allow(instance).to receive(:calculate_line_75).and_return 10
+      allow(instance).to receive(:calculate_line_76).and_return 10
+      allow(instance).to receive(:calculate_line_77).and_return 10
+      instance.calculate
+      expect(instance.lines[:NJ1040_LINE_78].value).to eq(90)
+    end
+  end
+
+  describe 'line 79 Balance due' do
+    it 'returns 0 when line 67 is not above 0' do
+      allow(instance).to receive(:calculate_line_67).and_return 0
+      allow(instance).to receive(:calculate_line_78).and_return 10
+      instance.calculate
+      expect(instance.lines[:NJ1040_LINE_79].value).to eq(0)
+    end
+
+    it 'returns the sum of lines 67 and 78 when line 67 is above 0' do
+      allow(instance).to receive(:calculate_line_67).and_return 10
+      allow(instance).to receive(:calculate_line_78).and_return 10
+      instance.calculate
+      expect(instance.lines[:NJ1040_LINE_79].value).to eq(20)
+    end
+  end
+
+  describe 'line 80 Refund amount' do
+    it 'returns 0 when line 68 is not above 0' do
+      allow(instance).to receive(:calculate_line_68).and_return 0
+      allow(instance).to receive(:calculate_line_78).and_return 10
+      instance.calculate
+      expect(instance.lines[:NJ1040_LINE_80].value).to eq(0)
+    end
+
+    it 'returns line 68 - line 78 when line 68 is above 0' do
+      allow(instance).to receive(:calculate_line_68).and_return 30
+      allow(instance).to receive(:calculate_line_78).and_return 10
+      instance.calculate
+      expect(instance.lines[:NJ1040_LINE_80].value).to eq(20)
+    end
+  end
+
   describe "refund_or_owed_amount" do
     it "subtracts owed amount from refund amount" do
-      # TEMP: stub calculator lines and test outcome of method once implemented
-      expect(instance.refund_or_owed_amount).to eq(0)
+      allow(instance).to receive(:calculate_line_79).and_return 10
+      allow(instance).to receive(:calculate_line_80).and_return 30
+      instance.calculate
+      expect(instance.refund_or_owed_amount).to eq(20)
     end
   end
 end
