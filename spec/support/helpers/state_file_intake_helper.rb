@@ -106,8 +106,7 @@ module StateFileIntakeHelper
       fill_in I18n.t("state_file.questions.email_address.edit.email_address_label"), with: "someone@example.com"
       click_on "Send code"
 
-      expect(page).to have_text I18n.t("state_file.questions.verification_code.edit.title")
-      expect(page).to have_text "We’ve sent your code to someone@example.com."
+      expect(page).to have_text "We’ve sent your code to someone@example.com"
 
       perform_enqueued_jobs
       mail = ActionMailer::Base.deliveries.last

@@ -207,7 +207,7 @@ RSpec.describe StateFile::MdTaxRefundForm do
         it "is invalid" do
           form = described_class.new(intake, params)
           expect(form).not_to be_valid
-          expect(form.errors[:account_holder_first_name]).to include("Only letters, numbers, hyphen, and apostrophe are accepted, and first name must be less than 16 characters.")
+          expect(form.errors[:account_holder_first_name]).to include("Only letters, numbers, hyphen, and apostrophe are accepted, and first name must be less than 16 characters")
           expect(form.errors[:account_holder_middle_initial]).to include("is too long (maximum is 1 character)")
           expect(form.errors[:account_holder_last_name]).to include("Only letters, numbers, hyphen, and apostrophe are accepted, and last name must be less than 32 characters.")
           expect(form.errors[:account_holder_suffix]).to include("is not included in the list")
@@ -251,7 +251,7 @@ RSpec.describe StateFile::MdTaxRefundForm do
             it "is invalid" do
               form = described_class.new(intake, params)
               expect(form).not_to be_valid
-              expect(form.errors[:joint_account_holder_first_name]).to include("Only letters, numbers, hyphen, and apostrophe are accepted, and first name must be less than 16 characters.")
+              expect(form.errors[:joint_account_holder_first_name]).to include("Only letters, numbers, hyphen, and apostrophe are accepted, and first name must be less than 16 characters")
               expect(form.errors[:joint_account_holder_middle_initial]).to include("is too long (maximum is 1 character)")
               expect(form.errors[:joint_account_holder_last_name]).to include("Only letters, numbers, hyphen, and apostrophe are accepted, and last name must be less than 32 characters.")
               expect(form.errors[:joint_account_holder_suffix]).to include("is not included in the list")

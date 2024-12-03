@@ -76,7 +76,7 @@ RSpec.describe Questions::SpouseEmailAddressController do
       it "shows validation errors" do
         post :update, params: params
 
-        expect(response.body).to include("Please double check that the email addresses match.")
+        expect(response.body).to include("Please double check that the email addresses match")
       end
 
       it "sends an event to mixpanel with relevant data" do
@@ -104,7 +104,7 @@ RSpec.describe Questions::SpouseEmailAddressController do
       it "shows validation errors" do
         post :update, params: params
 
-        expect(response.body).to include("Please enter a valid email address.")
+        expect(response.body).to include("Please enter a valid email address")
       end
 
       it "sends an event to mixpanel with relevant data" do

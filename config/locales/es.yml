@@ -3394,10 +3394,7 @@ es:
           state: Estado
           state_income_tax_withheld_html: "<strong>Box 11</strong>, Impuesto estatal retenido"
           street_address: Dirección
-          title:
-            many: Parece que usted o su cónyuge recibieron beneficios de desempleo en %{year}
-            one: Parece que recibiste compensaciones por desempleo en %{year}
-            other: Parece que usted o su cónyuge recibieron beneficios de desempleo en %{year}
+          title: We need some additional information about your Form 1099-G
           unemployment_compensation_html: "<strong>Box 1</strong>, Compensación por desempleo"
           zip_code: Código postal
         index:
