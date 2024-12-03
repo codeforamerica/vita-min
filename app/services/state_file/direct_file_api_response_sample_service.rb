@@ -37,6 +37,9 @@ module StateFile
         'md_Anchovies_MFJ' => '1016422024337d6xqdk3',
         'md_Grace_Dependent' => '1016422024338z12fznh',
         'md_Felicity_Single' => '1016422024338g7n9hgr',
+        'id_Yukon_Child_Dep_Care' => '1016422024338re6kw7t',
+        'id_Spud_Single_Blind' => '1016422024338m91mqj1',
+        'id_Potato_MFJ' => '10164220243381cww1th',
       }
       @old_xml_sample = "app/controllers/state_file/questions/df_return_sample.xml"
       @old_json_sample = "app/controllers/state_file/questions/df_return_sample.json"
