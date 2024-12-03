@@ -2283,12 +2283,10 @@ en:
           school_details_question: Where can I find the school details?
           which_qualify: Which donations and fees qualify?
         index:
-          add_another: Add another contribution
-          amount_contributed: 'Amount contributed: %{amount}'
-          contribution_label: Contribution to %{school_name}
+          add_another: Add another donation
           delete_confirmation: Are you sure you want to delete this contribution?
-          lets_review: Lets review your public school cash contributions and fees
           maximum_records: You have provided the maximum amount of records.
+          title: 'Here are the public school donations/fees you added:'
       az_qualifying_organization_contributions:
         destroy:
           removed: Removed AZ 321 for %{charity_name}
