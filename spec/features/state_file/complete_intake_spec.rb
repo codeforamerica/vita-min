@@ -26,6 +26,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
 
       step_through_df_data_transfer
+      click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t("state_file.questions.nyc_residency.edit.title", year: filing_year)
       choose "I did not live in New York City at all in #{filing_year}"
@@ -148,6 +149,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
 
       step_through_df_data_transfer("Transfer Old sample")
+      click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t("state_file.questions.az_senior_dependents.edit.title")
       expect(page).to have_text I18n.t("state_file.questions.az_senior_dependents.edit.assistance_label", name: "Grampy")
@@ -296,6 +298,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
 
       step_through_df_data_transfer("Transfer Nick")
+      click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t("state_file.questions.nc_county.edit.title", filing_year: filing_year)
       select("Alamance", from: "County")
@@ -383,6 +386,9 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
 
       step_through_df_data_transfer
+
+      expect(page).to have_text I18n.t("state_file.questions.data_review.edit.title")
+      click_on I18n.t("general.continue")
 
       expect(page).to have_text "Here are the income forms we transferred from your federal tax return."
       click_on I18n.t("general.continue")
@@ -489,6 +495,9 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       step_through_df_data_transfer("Transfer Zeus two w2s")
 
+      expect(page).to have_text I18n.t("state_file.questions.data_review.edit.title")
+      click_on I18n.t("general.continue")
+
       expect(page).to have_text I18n.t("state_file.questions.md_permanent_address.edit.title", filing_year: filing_year)
       choose I18n.t("general.affirmative")
       click_on I18n.t("general.continue")
@@ -585,6 +594,9 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       step_through_df_data_transfer("Transfer Minimal")
 
+      expect(page).to have_text I18n.t("state_file.questions.data_review.edit.title")
+      click_on I18n.t("general.continue")
+
       expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
       click_on I18n.t("general.continue")
 
@@ -622,6 +634,11 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       # Gubernatorial elections fund
       choose I18n.t('general.affirmative')
+      expect(page).to be_axe_clean.within "main"
+      click_on I18n.t("general.continue")
+
+      # Driver License
+      choose I18n.t('state_file.questions.nj_primary_state_id.nj_primary.no_id')
       expect(page).to be_axe_clean.within "main"
       click_on I18n.t("general.continue")
 

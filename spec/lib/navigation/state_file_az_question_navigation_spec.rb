@@ -15,7 +15,7 @@ RSpec.describe Navigation::StateFileAzQuestionNavigation do
         StateFile::Questions::InitiateDataTransferController,
         StateFile::Questions::CanceledDataTransferController, # show? false
         StateFile::Questions::WaitingToLoadDataController,
-        StateFile::Questions::PostDataTransferController,
+        StateFile::Questions::DataReviewController,
         StateFile::Questions::FederalInfoController,
         StateFile::Questions::DataTransferOffboardingController,
         StateFile::Questions::AzSeniorDependentsController,

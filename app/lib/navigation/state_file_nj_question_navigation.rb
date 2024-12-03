@@ -24,7 +24,7 @@ module Navigation
                                           Navigation::NavigationStep.new(StateFile::Questions::WaitingToLoadDataController),
                                         ]),
       Navigation::NavigationSection.new("state_file.navigation.section_5", [
-                                          Navigation::NavigationStep.new(StateFile::Questions::PostDataTransferController, false),
+                                          Navigation::NavigationStep.new(StateFile::Questions::DataReviewController),
                                           # Federal info does not show to users
                                           Navigation::NavigationStep.new(StateFile::Questions::FederalInfoController),
                                           Navigation::NavigationStep.new(StateFile::Questions::DataTransferOffboardingController, false),
@@ -48,6 +48,8 @@ module Navigation
                                           Navigation::NavigationStep.new(StateFile::Questions::NjEstimatedTaxPaymentsController),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjSalesUseTaxController),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjGubernatorialElectionsController),
+                                          Navigation::NavigationStep.new(StateFile::Questions::PrimaryStateIdController),
+                                          Navigation::NavigationStep.new(StateFile::Questions::SpouseStateIdController),
                                           Navigation::NavigationStep.new(StateFile::Questions::TaxesOwedController),
                                           Navigation::NavigationStep.new(StateFile::Questions::TaxRefundController),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjReviewController),

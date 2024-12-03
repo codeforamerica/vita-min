@@ -349,7 +349,7 @@ class StateFileBaseIntake < ApplicationRecord
     end
   rescue StandardError
     if hashed_ssn.present?
-      StateFile::Questions::PostDataTransferController
+      StateFile::Questions::DataReviewController
     else
       StateFile::Questions::TermsAndConditionsController
     end
