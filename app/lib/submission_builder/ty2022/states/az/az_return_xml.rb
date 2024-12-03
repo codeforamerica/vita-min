@@ -44,10 +44,10 @@ module SubmissionBuilder
             xml_doc = build_xml_doc("Form140") do |xml|
               xml.LNPriorYrs sanitize_for_xml(@submission.data_source.prior_last_names)
               xml.FilingStatus filing_status
-              if @submission.data_source.hoh_qualifying_person_name.present?
+              if hoh_qualifying_person.present?
                 xml.QualChildDependentName do
-                  xml.FirstName sanitize_for_xml(@submission.data_source.hoh_qualifying_person_name[:first_name], 16)
-                  xml.LastName sanitize_for_xml(@submission.data_source.hoh_qualifying_person_name[:last_name], 32)
+                  xml.FirstName sanitize_for_xml(hoh_qualifying_person[:first_name])
+                  xml.LastName sanitize_for_xml(hoh_qualifying_person[:last_name])
                 end
               end
               xml.Exemptions do
@@ -223,6 +223,32 @@ module SubmissionBuilder
 
           def calculated_fields
             @az140_fields ||= @submission.data_source.tax_calculator.calculate
+          end
+
+          def hoh_qualifying_person
+            @hoh_qualifying_person = xml_hoh_qualifying_person || json_hoh_qualifying_person
+          end
+
+          def xml_hoh_qualifying_person
+            xml_hoh = @submission.data_source.direct_file_data.hoh_qualifying_person_name&.split(/ /, 2)
+
+            if xml_hoh.present?
+              {
+                first_name: xml_hoh[0],
+                last_name: xml_hoh[1]
+              }
+            end
+          end
+
+          def json_hoh_qualifying_person
+            json_hoh = @intake.direct_file_json_data.dependents.find(&:hoh_qualifying_person)
+
+            if json_hoh.present?
+              {
+                first_name: json_hoh.first_name,
+                last_name: json_hoh.last_name
+              }
+            end
           end
         end
       end
