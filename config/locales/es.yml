@@ -2097,7 +2097,10 @@ es:
             Estamos cerrados por la temporada de impuestos. Desafortunadamente no puede presentar su declaración estatal con nosotros este año.
           supported_by: Respaldada por el estado de Arizona
           title: Presenta tus impuestos estatales de Arizona sin costo
-        built_with_html: "<strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el estado de %{state_name} para integrarse con la herramienta Direct File del IRS y solo toma de 10 a 15 minutos completarlo <strong>una vez que tu declaración federal sea aceptada</strong>. Comienza configurando tu cuenta.\n"
+        built_with_html: |
+          <strong>FileYourStateTaxes</strong> solo toma de 10 a 15 minutos completarlo. Comienza configurando una cuenta.
+          <br/><br/>
+          Esta herramienta ha sido creada en colaboración con el estado de %{state_name} para integrarse con la herramienta Direct File del IRS.
         continue: Para continuar presentando su declaración estatal de %{state_name}, inicie sesión a continuación
         download_your_record: Descargue tu registro
         help_text_html: |
@@ -2236,7 +2239,14 @@ es:
           - Pruebas estandarizadas y sus tarifas
           - Evaluación de educación técnica y profesional
           - Entrenamiento de Reanimación Cardiopulmonar (RCP)
-          school_details_answer_html: "Puedes encontrar esta información en el recibo que te entregaron en la escuela. \n<br/><br/>\nO\n<br/><br/>\nVisita el Departamento de Ingresos de Arizona para encontrar la información.\n"
+          school_details_answer_html: |
+            Puedes encontrar esta información en el recibo que te entregaron en la escuela.
+            <br/><br/>
+            O
+            <br/><br/>
+            Visita el Departamento de Ingresos de Arizona para encontrar la información.
+            <br/><br/>
+            Para evitar errores, resalte el texto en el PDF, luego cópielo (Ctrl + C) y péguelo (Ctrl + V) directamente en esta página.
           school_details_question: "¿Dónde puedo encontrar la información de la escuela?"
           which_qualify: "¿Qué donaciones y tarifas califican?"
         index:
@@ -2438,7 +2448,10 @@ es:
           public_school_tax_credit_paid_fees: Haber pagado tarifas relacionadas con la escuela o donado dinero a una escuela pública
           public_school_tax_credit_provide_info_html: Compartir información de la escuela, incluyendo el <a href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_ADESchoolListing.pdf" target="_blank" rel="noopener nofollow">código CTDS</a>
         edit:
-          body_html: Aquí están los créditos y deducciones que <strong>podrías</strong> reclamar con esta herramienta para maximizar tu reembolso.
+          body_html: |
+            Asegurémonos que este servicio es el adecuado para ti.
+            <br/><br/>
+            Estos son los créditos y las deducciones <strong>que puedes reclamar</strong> con este servicio para maximizar tu reembolso.
           not_supported: "¿Cuáles créditos y deducciones no admite esta herramienta este año?"
           not_supported_reveal_heading: "¿Quieres reclamar estos créditos o deducciones? "
           title1: "¡Buenas noticias! Puedes usar esta herramienta este año %{year} para presentar tus impuestos estatales %{state}."
@@ -3248,7 +3261,7 @@ es:
           box14_html: "<b>Box 14</b>, Impuesto estatal retenido"
           box15_html: "<b>Box 15</b>, Estado/Número de estado del pagador"
           box16_html: "<b>Box 16</b>, distribución estatal"
-          title_html: Revise los detalles de sus ingresos de jubilación (1099-R) para %{payer_name}.
+          title_html: Revise los detalles de sus ingresos de jubilación (1099-R) para <strong>%{payer_name}</strong>.
       return_status:
         accepted:
           check_payable: Haz tu cheque o giro postal a nombre del “Arizona Department of Revenue. Escribe tu SSN completo, "%{filing_year} Tax" y 140 en tu pago.

@@ -2133,7 +2133,10 @@ en:
             We're closed for the tax season. Unfortunately you can no longer file your state return with us this year.
           supported_by: Supported by the state of Arizona
           title: File your Arizona state taxes for free
-        built_with_html: "<strong>FileYourStateTaxes</strong> takes about 10 to 15 minutes to complete. Get started by setting up your account. \n<br/><br/>\nThis service is built in partnership with the state of %{state_name} to integrate with IRS Direct File.\n"
+        built_with_html: |
+          <strong>FileYourStateTaxes</strong> takes about 10 to 15 minutes to complete. Get started by setting up your account.
+          <br/><br/>
+          This service is built in partnership with the state of %{state_name} to integrate with IRS Direct File.
         continue: To continue filing your %{state_name} State return, please sign in below
         download_your_record: Download Your Record
         help_text_html: |
