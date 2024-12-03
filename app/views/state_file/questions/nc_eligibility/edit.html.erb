@@ -17,4 +17,29 @@
 
     <%= f.continue %>
   <% end %>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      let noneCheckbox = document.getElementById("state_file_nc_eligibility_form_nc_eligiblity_none");
+      let checkboxes = [
+        document.getElementById("state_file_nc_eligibility_form_eligibility_ed_loan_cancelled"),
+        document.getElementById("state_file_nc_eligibility_form_eligibility_ed_loan_emp_payment")
+      ]
+      noneCheckbox.addEventListener("change", function() {
+        if(this.checked) {
+          checkboxes.forEach(function(checkbox) {
+            checkbox.checked = false;
+          })
+        }
+      })
+
+      checkboxes.forEach(function(checkbox) {
+        checkbox.addEventListener("change", function() {
+          if(this.checked) {
+            noneCheckbox.checked = false;
+          }
+        })
+      })
+    })
+  </script>
 <% end %>
