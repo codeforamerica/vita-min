@@ -98,6 +98,7 @@ describe 'EfileError' do
       "nj-tenant-rent-paid",
       "nj-unsupported-property-tax",
       "nj-veterans-exemption",
+      "notification-preferences",
       "ny-county",
       "ny-eligibility-college-savings-withdrawal",
       "ny-eligibility-out-of-state-income",

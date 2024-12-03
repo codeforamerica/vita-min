@@ -16,6 +16,7 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::EmailAddressController),
         Navigation::NavigationStep.new(StateFile::Questions::VerificationCodeController),
         Navigation::NavigationStep.new(StateFile::Questions::CodeVerifiedController),
+        Navigation::NavigationStep.new(StateFile::Questions::NotificationPreferencesController),
       ]),
       Navigation::NavigationSection.new("state_file.navigation.section_3", [
         Navigation::NavigationStep.new(StateFile::Questions::TermsAndConditionsController),

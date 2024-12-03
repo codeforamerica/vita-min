@@ -22,6 +22,7 @@
 #  eligibility_yonkers                :integer          default("unfilled"), not null
 #  email_address                      :citext
 #  email_address_verified_at          :datetime
+#  email_notification_opt_in          :integer          default("unfilled"), not null
 #  failed_attempts                    :integer          default(0), not null
 #  federal_return_status              :string
 #  hashed_ssn                         :string
@@ -78,6 +79,7 @@
 #  school_district                    :string
 #  school_district_number             :integer
 #  sign_in_count                      :integer          default(0), not null
+#  sms_notification_opt_in            :integer          default("unfilled"), not null
 #  source                             :string
 #  spouse_birth_date                  :date
 #  spouse_esigned                     :integer          default("unfilled"), not null

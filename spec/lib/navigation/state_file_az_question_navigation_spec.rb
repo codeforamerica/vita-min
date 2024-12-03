@@ -10,6 +10,7 @@ RSpec.describe Navigation::StateFileAzQuestionNavigation do
         StateFile::Questions::EmailAddressController,
         StateFile::Questions::VerificationCodeController,
         StateFile::Questions::CodeVerifiedController,
+        StateFile::Questions::NotificationPreferencesController,
         StateFile::Questions::TermsAndConditionsController,
         StateFile::Questions::DeclinedTermsAndConditionsController,
         StateFile::Questions::InitiateDataTransferController,
