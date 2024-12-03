@@ -18,11 +18,6 @@ module Hub::StateFile
 
     def edit
       @correction_path_options_for_select = EfileError.paths
-      unless @efile_error.correction_path.present?
-        @efile_error.correction_path = EfileError.controller_to_path(
-          EfileError.default_controller(current_state_code)
-        )
-      end
     end
 
     def show; end
