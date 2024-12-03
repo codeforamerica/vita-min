@@ -1613,6 +1613,52 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       end
     end
 
+    describe "line 55 - total income tax withheld" do
+      context 'when TaxWithheld has a value' do
+        before do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_55).and_return 12_345_678
+        end
+
+        it "fills line 55 with sum of income tax withheld" do
+          # millions
+          expect(pdf_fields["undefined_1471qerw"]).to eq "1"
+          expect(pdf_fields["undefined_114"]).to eq "2"
+          # thousands
+          expect(pdf_fields["undefined_143"]).to eq "3"
+          expect(pdf_fields["undefined_144"]).to eq "4"
+          expect(pdf_fields["undefined_145"]).to eq "5"
+          # hundreds
+          expect(pdf_fields["Text153"]).to eq "6"
+          expect(pdf_fields["Text154"]).to eq "7"
+          expect(pdf_fields["Text155"]).to eq "8"
+          # decimals
+          expect(pdf_fields["Text156"]).to eq "0"
+          expect(pdf_fields["Text157"]).to eq "0"
+        end
+      end
+
+      context 'when TaxWithheld is nil' do
+        let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
+
+        it "does not fill line 55" do
+          # millions
+          expect(pdf_fields["undefined_1471qerw"]).to eq ""
+          expect(pdf_fields["undefined_114"]).to eq ""
+          # thousands
+          expect(pdf_fields["undefined_143"]).to eq ""
+          expect(pdf_fields["undefined_144"]).to eq ""
+          expect(pdf_fields["undefined_145"]).to eq ""
+          # hundreds
+          expect(pdf_fields["Text153"]).to eq ""
+          expect(pdf_fields["Text154"]).to eq ""
+          expect(pdf_fields["Text155"]).to eq ""
+          # decimals
+          expect(pdf_fields["Text156"]).to eq ""
+          expect(pdf_fields["Text157"]).to eq ""
+        end
+      end
+    end
+
     describe "line 56 - property tax credit" do
       context 'when taxpayer income is above property tax minimum' do
         let(:submission) {
@@ -1713,7 +1759,6 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         end
       end
     end
-
 
     describe "line 58 - earned income tax credit" do
       context 'when there is EarnedIncomeCreditAmt on the federal 1040' do
