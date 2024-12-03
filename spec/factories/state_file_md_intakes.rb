@@ -123,6 +123,7 @@ FactoryBot.define do
 
     raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("md_minimal") }
     raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json("md_minimal") }
+    df_data_import_succeeded_at { DateTime.now }
 
     primary_first_name { "Mary" }
     primary_middle_initial { "A" }

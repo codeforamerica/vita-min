@@ -97,6 +97,8 @@ FactoryBot.define do
 
     raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nc_nick') }
     raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nc_nick') }
+    df_data_import_succeeded_at { DateTime.now }
+
     primary_first_name { "North" }
     primary_middle_initial { "A" }
     primary_last_name { "Carolinian" }

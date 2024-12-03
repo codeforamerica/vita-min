@@ -455,6 +455,23 @@ module PdfFiller
         ]))
       end
 
+      # line 55
+      if @xml_document.at("TaxWithheld").present?
+        tax_withheld = @xml_document.at("TaxWithheld").text.to_i
+        answers.merge!(insert_digits_into_fields(tax_withheld, [
+          "Text157",
+          "Text156",
+          "Text155",
+          "Text154",
+          "Text153",
+          "undefined_145",
+          "undefined_144",
+          "undefined_143",
+          "undefined_114",
+          "undefined_1471qerw",
+        ]))
+      end
+
       # line 56
       if @xml_document.at("PropertyTaxCredit").present?
         tax = @xml_document.at("PropertyTaxCredit").text.to_i

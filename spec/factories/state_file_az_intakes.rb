@@ -96,6 +96,7 @@ FactoryBot.define do
 
     raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.old_xml_sample }
     raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.old_json_sample }
+    df_data_import_succeeded_at { DateTime.now }
 
     primary_first_name { "Ariz" }
     primary_last_name { "Onian" }
@@ -263,62 +264,14 @@ FactoryBot.define do
       after(:create) do |intake|
         intake.synchronize_df_dependents_to_database
 
-        # Under 17
-        intake.dependents.where(first_name: "David").first.update(
-          dob: Date.new(2015, 1, 1),
-          relationship: "DAUGHTER",
-          months_in_home: 12
-        )
-
-        # Under 17
-        intake.dependents.where(first_name: "Twyla").first.update(
-          dob: Date.new(2017, 1, 2),
-          relationship: "NEPHEW",
-          months_in_home: 7
-        )
-
-        # Under 17
-        intake.dependents.where(first_name: "Alexis").first.update(
-          dob: Date.new(2019, 2, 2),
-          relationship: "DAUGHTER",
-          months_in_home: 12
-        )
-
-        # Under 17
-        intake.dependents.where(first_name: "Stevie").first.update(
-          dob: Date.new(2021, 5, 5),
-          relationship: "DAUGHTER",
-          months_in_home: 8
-        )
-
-        # Over 17
-        intake.dependents.where(first_name: "Roland").first.update(
-          dob: Date.new(1960, 6, 6),
-          relationship: "PARENT",
-          months_in_home: 12
-        )
-
-        # Over 17
-        intake.dependents.where(first_name: "Ronnie").first.update(
-          dob: Date.new(1960, 7, 7),
-          relationship: "PARENT",
-          months_in_home: 12
-        )
-
         # Over 17 & Over 65, non-qualifying ancestor
         intake.dependents.where(first_name: "Bob").first.update(
-          dob: Date.new(1940, 3, 3),
-          relationship: "GRANDPARENT",
-          months_in_home: 7,
           needed_assistance: "no",
           passed_away: "no"
         )
 
         # Qualifying ancestor
         intake.dependents.where(first_name: "Wendy").first.update(
-          dob: Date.new(1940, 4, 4),
-          relationship: "GRANDPARENT",
-          months_in_home: 12,
           needed_assistance: "yes",
           passed_away: "no"
         )

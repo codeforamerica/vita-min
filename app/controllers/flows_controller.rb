@@ -678,7 +678,7 @@ class FlowsController < ApplicationController
                                      {dependents_attributes: [{
                                                                 first_name: "Dependent",
                                                                 last_name: last_name,
-                                                                relationship: "DAUGHTER",
+                                                                relationship: "biologicalChild",
                                                                 dob: Date.new(Date.today.year - 10),
                                                                 months_in_home: 12,
                                                               }]}
