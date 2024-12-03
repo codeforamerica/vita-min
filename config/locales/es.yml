@@ -2349,10 +2349,6 @@ es:
             married_filing_separately: estás presentando una declaración de impuestos "casado, presentando por separado".
           offboarding_reason: No puedes usar esta herramienta este año porque %{reason}
           title: Desafortunadamente, después de transferir tus datos, descubrimos que no puedes usar esta herramienta este año. No te preocupes, aquí tienes otras opciones de presentación.
-      use_different_service:
-        body: Before choosing an option, make sure it supports state-only tax filing. You most likely will need to reenter your federal tax return information in order to prepare your state tax return. Fees may apply.
-        title: Want to file using a different product or service?
-        faq_link: Visita nuestras Preguntas Frecuentes (FAQ)
       declined_terms_and_conditions:
         edit:
           action_html: "<strong>¿Es un error?</strong>"
@@ -2393,7 +2389,6 @@ es:
               list2: Te pedirán que vuelvas a ingresar o proporciones la misma información que informaste en tu declaración federal. Esta información es necesaria para completar partes de tu declaración estatal.
               list3: Al presentar, asegúrate de enviar solo tu declaración de impuestos estatales. Si vuelves a enviar tu declaración federal, es posible que la rechacen.
             title: "¿Cuáles son mis otras opciones para presentar mi declaración estatal?"
-          vita_link: Solicitar asistencia de un voluntario VITA
           vita_option_title: What are my free state filing options?
       eligible:
         az_supported:
@@ -3407,6 +3402,10 @@ es:
           delete_confirmation: "¿Estás seguro de que quieres eliminar este formulario 1099-G?"
           lets_review: "¡Excelente! Gracias por compartir esa información. Revisémosla."
           unemployment_compensation: 'Compensación por desempleo: %{amount}'
+      use_different_service:
+        body: Before choosing an option, make sure it supports state-only tax filing. You most likely will need to reenter your federal tax return information in order to prepare your state tax return. Fees may apply.
+        faq_link: Visita nuestras Preguntas Frecuentes (FAQ)
+        title: Want to file using a different product or service?
       verification_code:
         edit:
           action: " Verificar el código"

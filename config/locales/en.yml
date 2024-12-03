@@ -2375,10 +2375,6 @@ en:
             married_filing_separately: you are filing “married filing separately”.
           offboarding_reason: You cannot use this service this year because %{reason}
           title: Unfortunately, after transferring your data, we found that you can’t use this service this year. Don’t worry, there are other filing options.
-      use_different_service:
-        body: Before choosing an option, make sure it supports state-only tax filing. You most likely will need to reenter your federal tax return information in order to prepare your state tax return. Fees may apply.
-        title: Want to file using a different product or service?
-        faq_link: Visit our FAQ
       declined_terms_and_conditions:
         edit:
           action_html: "<strong>Is this a mistake?</strong>"
@@ -3417,6 +3413,10 @@ en:
           delete_confirmation: Are you sure you want to delete this 1099-G?
           lets_review: Great! Thanks for sharing that information. Let’s review.
           unemployment_compensation: 'Unemployment compensation: %{amount}'
+      use_different_service:
+        body: Before choosing an option, make sure it supports state-only tax filing. You most likely will need to reenter your federal tax return information in order to prepare your state tax return. Fees may apply.
+        faq_link: Visit our FAQ
+        title: Want to file using a different product or service?
       verification_code:
         edit:
           action: Verify code
