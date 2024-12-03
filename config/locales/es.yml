@@ -2841,6 +2841,7 @@ es:
       nc_review:
         edit:
           amount: Cantidad
+          amount_earned: Amount earned
           child_deduction: Deducción por hijos
           interest_us_bonds: Ingresos por intereses de bonos estadounidenses (no sujetos a impuestos en Carolina del Norte)
           primary_veteran: Información del Veterano
@@ -2848,7 +2849,7 @@ es:
           spouse_veteran: Información del Cónyuge Veterano
           state_credit: Cantidad ganada como miembro de una tribu indígena reconocida federalmente
           subtraction_indian_tribe: Resta de ingresos de un miembro de una tribu india
-          use_tax_applied: Impuesto de Uso Aplicado
+          use_tax_applied: Out-of-state purchases in %{filing_year} without paying sales or use tax
       nc_sales_use_tax:
         edit:
           calculated_use_tax: Ingresa el impuesto de uso calculado
@@ -3285,8 +3286,6 @@ es:
       review:
         county: Condado
       shared:
-        review_footer:
-          download_pdf: Puedes descargar un PDF de tu declaración de impuestos estatales después de enviarla.
         review_header:
           dependent_dob: Su fecha de nacimiento
           dependent_months_in_home: Número de meses que vivieron contigo
