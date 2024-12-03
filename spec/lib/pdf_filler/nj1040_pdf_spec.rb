@@ -1615,20 +1615,22 @@ RSpec.describe PdfFiller::Nj1040Pdf do
 
     describe "line 55 - total income tax withheld" do
       context 'when TaxWithheld has a value' do
-        let(:intake) { create(:state_file_nj_intake, :df_data_many_w2s) }
+        before do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_55).and_return 12_345_678
+        end
 
         it "fills line 55 with sum of income tax withheld" do
           # millions
-          expect(pdf_fields["undefined_1471qerw"]).to eq ""
-          expect(pdf_fields["undefined_114"]).to eq ""
+          expect(pdf_fields["undefined_1471qerw"]).to eq "1"
+          expect(pdf_fields["undefined_114"]).to eq "2"
           # thousands
-          expect(pdf_fields["undefined_143"]).to eq ""
-          expect(pdf_fields["undefined_144"]).to eq ""
-          expect(pdf_fields["undefined_145"]).to eq "2"
+          expect(pdf_fields["undefined_143"]).to eq "3"
+          expect(pdf_fields["undefined_144"]).to eq "4"
+          expect(pdf_fields["undefined_145"]).to eq "5"
           # hundreds
-          expect(pdf_fields["Text153"]).to eq "0"
-          expect(pdf_fields["Text154"]).to eq "0"
-          expect(pdf_fields["Text155"]).to eq "0"
+          expect(pdf_fields["Text153"]).to eq "6"
+          expect(pdf_fields["Text154"]).to eq "7"
+          expect(pdf_fields["Text155"]).to eq "8"
           # decimals
           expect(pdf_fields["Text156"]).to eq "0"
           expect(pdf_fields["Text157"]).to eq "0"
