@@ -2828,6 +2828,35 @@ es:
             other: ¿Es usted o su cónyuge un miembro inscrito de una <a href="https://biamaps.geoplatform.gov/Tribal-Leaders-Directory/" target="_blank">tribu indígena reconocida federalmente</a> y recibieron ingresos mientras vivían en una reserva?
           tribal_wages_field_html: "<b>Ingrese la cantidad ganada</b>"
           tribal_wages_question_html: Ingrese la cantidad de ingresos recibidos o ganados por actividades en la reserva reconocida federalmente. <br><br> <b>Nota:</b> esto no debe exceder $%{amount_limit}
+      nc_taxes_owed:
+        edit:
+          automatic_draft_payments_info_one: Algunas cuentas de ahorro, de mercado monetario y de gasto controlado no son elegibles para débitos automáticos. Por favor, confirme con su banco o cooperativa de crédito si la cuenta que ha seleccionado puede ser debitada automáticamente.
+          automatic_draft_payments_info_two: Si su pago es rechazado por su banco, estará sujeto a una "Penalización por Transferencia Electrónica de Fondos Fallida". La penalización es del 10% del pago (mínimo $1.00; máximo $1,000.00).
+          benefits_of_ncdor: Los beneficios de pagar en línea (ya sea aquí en FileYourStateTaxes o a través del sitio web de NCDOR) incluyen la capacidad de programar pagos y la seguridad de saber que su pago ha sido recibido.
+          direct_debit_payment_info_four: Si su pago es rechazado por su banco, estará sujeto a una Penalización por Transferencia Electrónica de Fondos Fallida. La penalización es del 10% del pago (mínimo $1.00; máximo $1,000.00).
+          direct_debit_payment_info_one: La fecha de débito debe ser una fecha bancaria válida, lo que no incluye fines de semana ni días festivos bancarios. Al ingresar su fecha de débito, se le proporcionará la fecha más próxima disponible.
+          direct_debit_payment_info_three: Su pago se considerará puntual si envía su pago en la fecha de vencimiento y selecciona la primera fecha de débito disponible. Recibirá un correo electrónico de confirmación de NCDOR después de que se reciba su pago.
+          direct_debit_payment_info_two: La fecha de débito se basa en un límite de las 5:00 pm EST. En otras palabras, si presenta su pago con débito bancario después de las 5:00 pm EST, la fecha de débito más cercana será dentro de dos días hábiles.
+          more_info_about_automatic_draft_payments: Más información sobre los pagos automáticos
+          more_info_about_direct_debit_payment: Más información sobre la fecha de pago con débito directo
+          page_title: Usted debe impuestos estatales. ¿Cómo le gustaría pagar?
+          pay_bank: Pague directamente desde su cuenta corriente o de ahorros (débito directo)
+          pay_mail_online_html: Pague por correo o en línea en <a target="_blank" rel="noopener nofollow" href="%{tax_payment_info_url}">%{tax_payment_info_text}</a>
+          payment_options: Puede pagar directamente desde su cuenta corriente o de ahorros aquí. También puede pagar por correo o en línea a través del sitio web del Departamento de Ingresos de Carolina del Norte.
+          title_html: Usted debe <strong>$%{owed_amount}</strong> en impuestos estatales de %{state_name}.
+          what_are_benefits_of_ncdor: "¿Cuáles son los beneficios de pagar en línea con FileYourStateTaxes o NCDOR?"
+        nc_bank_details:
+          account_number: Número de cuenta
+          account_type:
+            label: Tipo de cuenta bancaria
+          after_deadline_default_withdrawal_info: Debido a que está presentando su declaración en o después del %{withdrawal_deadline_date} de %{with_drawal_deadline_year}, el estado retirará su pago tan pronto como procesen su declaración.
+          bank_title: 'Por favor proporcione los detalles de su banco:'
+          confirm_account_number: Confirmar número de cuenta
+          confirm_routing_number: Confirmar número de ruta
+          date_withdraw_text: "¿Cuándo le gustaría que se retiren los fondos de su cuenta? (Debe ser en o antes del %{withdrawal_deadline_date}, %{with_drawal_deadline_year}):"
+          foreign_accounts: No se permiten pagos internacionales ACH.
+          routing_number: Número de ruta
+          withdraw_amount: "¿Cuánto autoriza que se retire de su cuenta? (El monto total que debe es&#58; $%{owed_amount}.)"
       nc_veteran_status:
         primary_veteran_question: "¿Eres un veterano?"
         spouse_veteran_question: "¿Es su cónyuge un veterano?"
