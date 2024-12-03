@@ -21,6 +21,7 @@
 #  eligibility_withdrew_529          :integer          default("unfilled"), not null
 #  email_address                     :citext
 #  email_address_verified_at         :datetime
+#  email_notification_opt_in         :integer          default("unfilled"), not null
 #  failed_attempts                   :integer          default(0), not null
 #  federal_return_status             :string
 #  hashed_ssn                        :string
@@ -48,6 +49,7 @@
 #  sales_use_tax                     :decimal(12, 2)
 #  sales_use_tax_calculation_method  :integer          default("unfilled"), not null
 #  sign_in_count                     :integer          default(0), not null
+#  sms_notification_opt_in           :integer          default("unfilled"), not null
 #  source                            :string
 #  spouse_birth_date                 :date
 #  spouse_esigned                    :integer          default("unfilled"), not null
@@ -97,6 +99,8 @@ FactoryBot.define do
 
     raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nc_nick') }
     raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nc_nick') }
+    df_data_import_succeeded_at { DateTime.now }
+
     primary_first_name { "North" }
     primary_middle_initial { "A" }
     primary_last_name { "Carolinian" }
