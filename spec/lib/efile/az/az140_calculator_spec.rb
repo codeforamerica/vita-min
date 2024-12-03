@@ -413,6 +413,20 @@ describe Efile::Az::Az140Calculator do
       end
     end
 
+    context "single filer with four dependents with some credit claimed over total amount" do
+      it "sets the credit to 0" do
+        intake.direct_file_data.filing_status = 1 # single
+        intake.direct_file_data.fed_agi = 12_500 # qualifying agi
+        intake.dependents.create(dob: 7.years.ago)
+        intake.dependents.create(dob: 5.years.ago)
+        intake.dependents.create(dob: 3.years.ago)
+        intake.dependents.create(dob: 1.years.ago)
+        intake.update(household_excise_credit_claimed: "yes", household_excise_credit_claimed_amount: 110)
+        instance.calculate
+        expect(instance.lines[:AZ140_LINE_56].value).to eq(0) # (1 filer + 4 dependents) * 25 = 125 but max is 0
+      end
+    end
+
     # TODO: [JH] i don't....understand this test? was copied from commit a674f6f
     context "filing status is qualifying widow" do
       it "sets the family income tax credit and excise credit to 0" do

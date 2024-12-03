@@ -55,12 +55,8 @@ module StateFileIntakeHelper
       choose I18n.t("general.negative"), id: "state_file_md_eligibility_filing_status_form_eligibility_home_different_areas_no"
       click_on I18n.t("general.continue")
     when "nc"
-      expect(page).to have_text I18n.t("state_file.questions.nc_eligibility_residence.edit.title")
-      choose "state_file_nc_eligibility_residence_form_eligibility_lived_in_state_yes"
-      click_on I18n.t("general.continue")
-
-      choose "state_file_nc_eligibility_out_of_state_income_form_eligibility_out_of_state_income_no"
-      choose "state_file_nc_eligibility_out_of_state_income_form_eligibility_withdrew_529_no"
+      expect(page).to have_text I18n.t("state_file.questions.nc_eligibility.edit.title", filing_year: filing_year)
+      check "state_file_nc_eligibility_form_nc_eligiblity_none"
       click_on I18n.t("general.continue")
     when "nj"
       click_on I18n.t("general.continue")

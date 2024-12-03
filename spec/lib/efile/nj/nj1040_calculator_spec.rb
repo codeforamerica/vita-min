@@ -1158,6 +1158,27 @@ describe Efile::Nj::Nj1040Calculator do
     end
   end
 
+  describe "line 55 - total income tax withheld" do
+    context 'when has w2s' do
+      let(:intake) { create(:state_file_nj_intake, :df_data_many_w2s)}
+
+      it 'sets line 55 to sum of state_income_tax_amount rounded' do
+        w2 = intake.state_file_w2s.first
+        w2.update_attribute(:state_income_tax_amount, 500.55)
+        instance.calculate
+        expected = 2001 # 500 + 500 + 500 + 500.55
+        expect(instance.lines[:NJ1040_LINE_55].value).to eq expected
+      end
+    end
+
+    context 'when no w2s' do
+      let(:intake) { create(:state_file_nj_intake, :df_data_minimal)}
+      it 'sets line 55 to nil' do
+        expect(instance.lines[:NJ1040_LINE_55].value).to eq nil
+      end
+    end
+  end
+
   describe 'line 57 - estimated tax payments' do
 
     context 'when estimated_tax_payments exists' do

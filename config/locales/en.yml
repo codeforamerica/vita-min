@@ -252,6 +252,8 @@ en:
         multiple: 'Error: Multiple addresses were found for the information you entered, and no default exists.'
         not_found: 'Error: Address Not Found.'
         state: 'Error: Invalid State Code'
+      nc_eligibility_form:
+        at_most_one_option_selected: You must either select none or the above options
       need_exactly_one_communication_method: Please enter only one form of contact.
       need_one_communication_method: Please choose some way for us to contact you.
       replace_me_text: Replace REPLACE ME with relevant information before proceeding.
@@ -2418,6 +2420,8 @@ en:
           body_html: You cannot use this service this year because you %{ineligible_reason}. <strong>Is this a mistake?</strong> <a href=%{prev_link}>Go back to correct.</a>
           ineligible_reason:
             eligibility_529_for_non_qual_expense: withdrew money from a 529 college savings account and used it for a non-qualifying expense in %{filing_year}
+            eligibility_ed_loan_cancelled: had a student loan debt canceled under the American Rescue Plan Act.
+            eligibility_ed_loan_emp_payment: received a Qualified Education Loan Payment paid by your employer.
             eligibility_emergency_rental_assistance: received emergency rental assistance in %{filing_year}
             eligibility_home_different_areas: or your spouse had your permanent homes in two different counties, cities, towns, or taxing areas on the last day the tax year
             eligibility_homebuyer_withdrawal: withdrew money from a first-time homebuyer account and used it for anything other than purchasing a home
@@ -2837,23 +2841,14 @@ en:
         edit:
           county: County
           title: Select the county where you lived on December 31st, %{filing_year}
-      nc_eligibility_out_of_state_income:
+      nc_eligibility:
         edit:
-          out_of_state_income_html: Did you (or your spouse, if you’re filing together) earn any income in another state in %{filing_year}? (This includes unemployment income <strong>received</strong> from another state.)
-          reveal:
-            list1: You withdrew money from a 529 account and used it for qualifying expenses, or
-            list2: You didn't withdraw money from a 529 account at all.
-            p1: Qualifying expenses include tuition and fees, books, equipment (including computers and other tech), room and board, apprenticeship programs, and K-12 tuition up to $10,000.
-            p2: Most other uses of funds are non-qualifying expenses, including college application and testing fees, transportation costs, health insurance, and extracurricular costs.
-            subtitle: 'Select ''no'' if:'
-            title: What are qualifying and non- qualifying expenses?
-          title: First, let's see if you can use this service to file your taxes
-          withdraw_529_html: Did you (or your spouse, if you’re filing together) withdraw money from a <a href="https://www.cfnc.org/save-for-college/" target="_blank" rel="noopener nofollow">529 college savings account</a> and use it for non-qualifying expenses in %{filing_year}?
-      nc_eligibility_residence:
-        edit:
-          lived_in_state_html: Did you (and your spouse, if you’re filing together) live in  %{state} for <strong>all</strong> of %{filing_year}?
-          subtitle: For the %{filing_year} tax season, this service will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
-          title: First, let's see if you can use this service to file your taxes
+          eligibility_ed_loan_cancelled: Had a student loan canceled under the American Rescue Plan Act
+          eligibility_ed_loan_emp_payment: Received a Qualified Education Loan Payment paid by your employer
+          none: None of these apply
+          question: Did any of the following less common scenarios apply to you (or your spouse, if married filing jointly) in %{filing_year}?
+          subtitle: For this tax season, this service will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
+          title: First, let's see if you can use this service to file your %{filing_year} North Carolina taxes
       nc_primary_state_id:
         nc_primary:
           encourage_sharing: You’re encouraged to share this information, but it’s not required to file your North Carolina taxes.
