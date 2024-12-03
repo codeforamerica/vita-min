@@ -2420,7 +2420,9 @@ es:
           credits_not_supported: What credits and deductions does this service not support this year?
           not_supported: "¿Cuáles créditos y deducciones no admite esta herramienta este año?"
           title1: "¡Buenas noticias! Puedes usar esta herramienta este año %{year} para presentar tus impuestos estatales %{state}."
-          title2_html: Aquí están los créditos y deducciones que <strong>podrías</strong> reclamar con esta herramienta para maximizar tu reembolso.
+          title2_html: |
+            Let's make sure this is the right service for you.<br><br>
+            Here are the credits and deductions you <strong>may</strong> be able to claim to maximize your refund.
           want_to_claim_learn_more_html: Obtén más información sobre este proceso y otras opciones de presentación <a href="%{link}" target="_blank">aquí</a>.
           want_to_claim_vita: Es posible que puedas presentar tu declaración de impuestos estatales de forma gratuita con la ayuda de voluntarios VITA certificados por el IRS. Ten en cuenta que esta opción puede demorar de 2 a 3 semanas en completarse.
         id_supported:
@@ -2847,7 +2849,7 @@ es:
             one: ¿Es usted un miembro inscrito de una <a href="https://biamaps.geoplatform.gov/Tribal-Leaders-Directory/" target="_blank">tribu indígena reconocida federalmente</a> y recibió ingresos mientras vivía en una reserva?
             other: ¿Es usted o su cónyuge un miembro inscrito de una <a href="https://biamaps.geoplatform.gov/Tribal-Leaders-Directory/" target="_blank">tribu indígena reconocida federalmente</a> y recibieron ingresos mientras vivían en una reserva?
           tribal_wages_field: Ingrese la cantidad ganada
-          tribal_wages_question_html: Ingrese la cantidad de ingresos recibidos o ganados por actividades en la reserva reconocida federalmente. <br><br> <b>Nota:</b> esto no debe exceder $%{amount_limit}.
+          tribal_wages_question_html: Enter the amount of income received or earned from activities on the federally recognized reservation. <br><br> This amount should not exceed $%{amount_limit}.
       nc_veteran_status:
         title: Are you a veteran of the United States Armed Forces?
         title_spouse: Are you or your spouse a veteran of the United States Armed Forces?
@@ -3371,13 +3373,13 @@ es:
           federal_income_tax_withheld_html: "<strong>Box 4</strong>, Impuesto federal retenido"
           had_box_11: "¿Tenías un monto listado por impuestos estatales (Box 11) en tu compensación por desempleo (Formulario 1099-G)?"
           information_content_html: |
-            Encuentra el formulario 1099-G que usaste para ingresar tus ingresos por desempleo en tu declaración de impuestos federales. Si tienes varios formularios 1099-G, puedes agregar múltiples formularios. <br><br>
-            Luego busca la información solicitada en las siguientes ubicaciones: </br>
+            Find the 1099-G you used to enter your unemployment income on your federal tax return. If you have multiple 1099-Gs, you can add multiple forms. <br><br>
+            Next, find the requested information in the following locations: </br>
             <ol class="list--numbered">
-            <li><strong>¿De quién es el formulario?</strong> El lado izquierdo del formulario indicará si este formulario te pertenece a ti o a tu cónyuge, si corresponde. Busca "recipient’s name.”</li>
-            <li><strong>Tu dirección de envío</strong> aparece bajo "recipient’s name" en el lado izquierdo del formulario. Asegúrate de que <strong>la dirección coincida</strong> con la que ingreses aquí.</li>
-            <li><strong>La información del pagador</strong> o la agencia gubernamental que emitió el formulario se encuentra en la esquina superior izquierda de la página. Ingresa el nombre, la dirección y el TIN (Número de Identificación del Empleador) tal como aparecen en el formulario.</li>
-            <li><strong>Las casillas 1, 4, 10b y 11</strong> tienen los mismos números en el lado derecho del formulario. Ingresa la información exactamente como aparece en esas casillas.</li>
+              <li><strong>Who the form belongs to</strong> can be found on the left side of the form, if applicable. Look for “recipient’s name.”</li>
+              <li><strong>Your mailing address</strong> is listed under "recipient's name" on the left side of the form. Make sure the address on the form matches what you enter here.</li>
+              <li><strong>Payer’s information,</strong> or the government agency that issued the form, is listed in the top left corner of the page. Enter the name, address, and TIN as shown on the form.</li>
+              <li><strong>Boxes 1, 4, 10b, and 11</strong> are all labeled with the same numbers on the right side of the form. Enter the information exactly as it appears in those boxes.</li>
             </ol>
           information_html: "<strong>¿Cómo encuentro esta información?</strong>"
           money_boxes_label: Completa las siguientes casillas según lo especificado en el Formulario 1099-G.
