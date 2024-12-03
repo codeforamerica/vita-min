@@ -78,12 +78,14 @@ describe Efile::Nc::D400Calculator do
   end
 
   describe "Line 12a: NCAGIAddition" do
-    it "sums lines 10b and 11 (9 is blank)" do
-      allow(instance).to receive(:calculate_line_10b).and_return 10
-      allow(instance).to receive(:calculate_line_11).and_return 10
+    it "sums lines 9, 10b and 11" do
+      allow(instance).to receive(:line_or_zero).and_call_original
+      allow(instance).to receive(:line_or_zero).with(:NCD400_S_LINE_41).and_return(10)
+      allow(instance).to receive(:line_or_zero).with(:NCD400_LINE_10B).and_return(10)
+      allow(instance).to receive(:line_or_zero).with(:NCD400_LINE_11).and_return(10)
 
       instance.calculate
-      expect(instance.lines[:NCD400_LINE_12A].value).to eq 20
+      expect(instance.lines[:NCD400_LINE_12A].value).to eq 30
     end
   end
 
@@ -278,7 +280,7 @@ describe Efile::Nc::D400Calculator do
       it "returns line 19 - line 25" do
         allow(instance).to receive(:calculate_line_19).and_return 200
         allow(instance).to receive(:calculate_line_25).and_return 100
-        
+
         instance.calculate
         expect(instance.lines[:NCD400_LINE_26A].value).to eq 100
       end

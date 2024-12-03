@@ -1,10 +1,7 @@
 FactoryBot.define do
   factory "javier", class: StateFileNyIntake do
     raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("ny_javier") }
-    primary_first_name { "JAVIER" }
-    primary_middle_initial { "D" }
-    primary_last_name { "JIMENEZ" }
-    primary_birth_date { "1968-01-25" }
+    raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json("ny_javier") }
 
     nyc_maintained_home { "no" }
     nyc_residency { "none" }
@@ -21,6 +18,7 @@ FactoryBot.define do
     permanent_zip { "12083" }
 
     after(:create) do |intake|
+      intake.synchronize_filers_to_database
       intake.synchronize_df_w2s_to_database
 
       create(

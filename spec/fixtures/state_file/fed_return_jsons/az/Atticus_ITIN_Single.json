@@ -1,0 +1,27 @@
+{
+  "familyAndHousehold": [],
+  "filers": [
+    {
+      "firstName": "Atticus",
+      "lastName": "Finch",
+      "middleInitial": null,
+      "tin": "900-50-0011",
+      "dateOfBirth": "1989-12-13",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "ssnNotValidForEmployment": false
+    }
+  ],
+  "interestReports": [
+    {
+      "has1099": true,
+      "taxExemptAndTaxCreditBondCusipNo": null,
+      "payerTin": null,
+      "recipientTin": "900-50-0011",
+      "payer": "Mockingbird Bank",
+      "1099Amount": "4000.00",
+      "taxWithheld": "0.00",
+      "no1099Amount": null
+    }
+  ]
+}
