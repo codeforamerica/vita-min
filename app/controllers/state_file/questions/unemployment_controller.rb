@@ -1,6 +1,7 @@
 module StateFile
   module Questions
     class UnemploymentController < QuestionsController
+      include ReturnToReviewConcern
       include OtherOptionsLinksConcern
       before_action :load_links, only: [:new, :edit]
 
@@ -70,7 +71,7 @@ module StateFile
       private
 
       def next_path
-        if params[:return_to_review].present?
+        if params[:return_to_review].present? && !params[:nc].present?
           StateFile::Questions::IncomeReviewController.to_path_helper(return_to_review: params[:return_to_review])
         else
           super
@@ -78,7 +79,7 @@ module StateFile
       end
 
       def prev_path
-        if params[:return_to_review].present?
+        if params[:return_to_review].present? && !params[:nc].present?
           StateFile::Questions::IncomeReviewController.to_path_helper(return_to_review: params[:return_to_review])
         else
           super
