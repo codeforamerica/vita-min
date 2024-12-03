@@ -2894,6 +2894,7 @@ en:
           direct_debit_payment_info_one: The payment draft date must be a valid banking date, which does not include weekends or bank holidays. When entering your draft date, you will be provided with the earliest possible date.
           direct_debit_payment_info_three: Your payment will be considered timely if you submit your payment on the due date and select the first available draft date. You will receive an NCDOR confirmation email after your payment is received.
           direct_debit_payment_info_two: The draft date is based on a 5:00 pm EST cut off. In other words, if you submit your bank draft payment after 5:00 pm EST, the earliest draft date available will be two business days in the future.
+          how_would_you_like_to_pay: How would you like to pay?
           more_info_about_automatic_draft_payments: More information about automatic draft payments
           more_info_about_direct_debit_payment: More information about the direct debit payment date
           page_title: You owe state taxes. How would you like to pay?

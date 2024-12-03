@@ -2867,6 +2867,7 @@ es:
           direct_debit_payment_info_one: La fecha de débito debe ser una fecha bancaria válida, lo que no incluye fines de semana ni días festivos bancarios. Al ingresar su fecha de débito, se le proporcionará la fecha más próxima disponible.
           direct_debit_payment_info_three: Su pago se considerará puntual si envía su pago en la fecha de vencimiento y selecciona la primera fecha de débito disponible. Recibirá un correo electrónico de confirmación de NCDOR después de que se reciba su pago.
           direct_debit_payment_info_two: La fecha de débito se basa en un límite de las 5:00 pm EST. En otras palabras, si presenta su pago con débito bancario después de las 5:00 pm EST, la fecha de débito más cercana será dentro de dos días hábiles.
+          how_would_you_like_to_pay: "¿Cómo te gustaría pagar?"
           more_info_about_automatic_draft_payments: Más información sobre los pagos automáticos
           more_info_about_direct_debit_payment: Más información sobre la fecha de pago con débito directo
           page_title: Usted debe impuestos estatales. ¿Cómo le gustaría pagar?
