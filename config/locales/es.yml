@@ -538,6 +538,7 @@ es:
     return_search: Volver a la búsqueda
     return_to_homepage: Regresar a la página principal
     returns: Devoluciones
+    review_and_edit: Revisar y Editar
     role: Rol
     routing: Enrutamiento
     save: Guardar
@@ -2020,6 +2021,7 @@ es:
       id_tax_withheld: Impuesto retenido de Idaho
       id_taxable_income: Ingreso imponible de Idaho
       id_total_payments: Pagos totales y créditos reembolsables
+      id_total_tax_plus_donations: Impuestos totales más donaciones
       id_use_tax: Impuesto por uso
       md_adjusted_gross_income: Ingreso bruto ajustado de Maryland
       md_child_tax_credit: Crédito fiscal infantil de Maryland
@@ -2332,6 +2334,15 @@ es:
           subtitle: Con una cuenta recibirás notificaciones sobre el estado de tu declaración de impuestos estatales.
           text_message_option: Enviar código por mensaje de texto.
           title: Ahora crea tu cuenta con un código
+      data_review:
+        edit:
+          basic_household_info_title: Información básica del hogar
+          complete_description: Completo
+          filing_status_title: Estado civil para la declaración
+          income_and_deductions_title: Ingresos y deducciones
+          partially_complete_description: Parcialmente completa
+          state_tax_withheld_title: Retención de impuestos estatales de %{name}
+          title: Tu declaración de impuestos federales se ha transferido. Hemos completado algunas partes para ahorrarte tiempo.
       data_transfer_offboarding:
         edit:
           ineligible_reason:
@@ -2509,6 +2520,22 @@ es:
           spouse_esign: Mi cónyuge ha leído y acepta la certificación anterior
           submit: Envía tu declaración estatal
           title: Firma de manera electrónica tu declaración de impuestos del estado de %{state_name}
+      id_donations:
+        edit:
+          add_the_amount: Agregue la cantidad que le gustaría donar a cualquiera de las organizaciones a continuación
+          american_red_cross_fund_donation: Fondo de la Cruz Roja Americana de Idaho
+          childrens_trust_fund_donation: Fondo Fiduciario para Niños de Idaho
+          donate_warning_p1: Su donación se restará de su reembolso estatal total.
+          donate_warning_p2: Su elección de donar es definitiva y no se puede cambiar mediante una declaración enmendada.
+          food_bank_fund_donation: Fondo del Banco de Alimentos de Idaho
+          guard_reserve_family_donation: Familia de la Guardia y Reserva de Idaho
+          nongame_wildlife_fund_donation: Fondo para la Vida Silvestre No Cinegética de Idaho
+          opportunity_scholarship_program_donation: Programa de Becas de Oportunidad
+          save_and_continue: Guardar y Continuar
+          special_olympics_donation: Olimpiadas Especiales de Idaho
+          tax_payers_can_donate: Los contribuyentes de Idaho pueden hacer donaciones caritativas voluntarias a organizaciones cuando presentan su declaración de impuestos estatales.
+          title: Done parte o la totalidad de su reembolso estatal a organizaciones benéficas
+          veterans_support_fund_donation: Fondo de Apoyo a los Veteranos
       id_eligibility_residence:
         edit:
           emergency_rental_assistance: En %{filing_year}, ¿recibió usted (o su cónyuge si presentan juntos) asistencia de alquiler de emergencia?
@@ -2601,11 +2628,14 @@ es:
           why_ask_this: "¿Por qué pides esta información?"
       id_review:
         edit:
+          donations_optional: Los contribuyentes de Idaho pueden hacer donaciones caritativas voluntarias a organizaciones cuando presentan su declaración de impuestos estatales.
           health_insurance_premium_title: Resta de primas de seguro médico de Idaho
           idaho_grocery_credit: Idaho Grocery Credit
+          no_donations_selected: "<strong>No se seleccionaron donaciones</strong>"
           permanent_building_fund_tax: Impuesto del Fondo de Edificios Permanentes
           purchases_without_sales_tax: Compras sin pagar impuestos sobre ventas o uso
           state_details_title: Detalles del estado
+          voluntary_charitable_donations: Donaciones Caritativas Voluntarias
       id_sales_use_tax:
         edit:
           sales_tax_content: Este es un impuesto que se recauda en el punto de venta cuando se compran productos dentro de su estado.
@@ -2748,23 +2778,6 @@ es:
           title: Es posible que califique para la deducción por dos ingresos de Maryland
           total: La deducción total de intereses de préstamos estudiantiles para su declaración federal y la de su cónyuge es %{total_deduction}.
           your_portion_label: Su parte de la deducción de intereses del préstamo estudiantil
-      name_dob:
-        edit:
-          dependent_months_lived_label: Número de meses que vivió contigo en %{year}
-          dependent_name_dob: Indícanos la fecha de nacimiento de tu dependiente
-          last_name: Apellido
-          middle_initial: Inicial del segundo nombre
-          months_helper_born_died: Selecciona 12 meses si tu dependiente nació o falleció durante el 2023.
-          months_helper_description: Deberías contar todos los meses en los que tu dependiente vivió en tu hogar, incluyendo los meses en los que estuvo temporalmente ausente por estar en la escuela, en un hospital o centro médico, o ausente por negocios o vacaciones.
-          months_helper_heading: "¿Cuáles meses debería contar?"
-          primary_name_dob: Tu nombre (como aparece en tu tarjeta de Seguro Social o tu carta del Número de Identificación del Contribuyente (ITIN) que termina en %{last_four_ssn}) y la fecha de nacimiento
-          spouse_dob: Fecha de nacimiento de tu cónyuge
-          spouse_name_dob_html: El nombre de tu <strong>cónyuge</strong> (como aparece en su tarjeta de Seguro Social o en la carta del Número de Identificación del Contribuyente (ITIN) que termina en %{last_four_ssn}) y la fecha de nacimiento.
-          spouse_name_html: El nombre de tu <strong>cónyuge</strong> (como aparece en su tarjeta de Seguro Social o en la carta del Número de Identificación del Contribuyente (ITIN) que termina en %{last_four_ssn})
-          suffix: Sufijo
-          title1: Tu declaración de impuestos federales ha sido transferida. Antes de que termines, tenemos algunas preguntas finales que pueden ayudar a maximizar tu reembolso.
-          title2: Primero, necesitamos más información sobre ti y los miembros de tu familia.
-          your_dob: Tu fecha de nacimiento
       nc_county:
         edit:
           county: Condado
@@ -2963,6 +2976,15 @@ es:
           helper_heading: El lugar donde vivo no está en la lista
           municipality: Municipio
           title: Seleccione el municipio donde residía el 31 de diciembre de %{filing_year}
+      nj_primary_state_id:
+        nj_primary:
+          dmv_bmv: Non-driver identification card
+          no_id: No driver's license or state ID / Prefer not to share
+          not_required: You do NOT need to supply this information to file your taxes. The return will not be rejected if you do not have ID or prefer not to share.
+          protect_identity: Many state revenue agencies, including New Jersey, are requesting additional information in an effort to combat stolen-identity tax fraud and to protect you and your tax refund. Providing some details about your state-issued identification will help identify you as the taxpayer.
+          subtitle: Details from your state-issued ID, if you have one, will help New Jersey combat stolen-identity tax fraud and protect you and your tax refund.
+          title: Confirming Your Identity (Optional)
+          why_ask_this: Why are you asking for this information?
       nj_review:
         edit:
           amount: Cantidad
@@ -3001,6 +3023,15 @@ es:
           use_tax_method_automated: Todas mis compras fueron de menos de $1000 cada una. Calcule el monto del impuesto al consumo para mí.
           use_tax_method_manual: Hice una compra no gravada por más de $1000 o preferiría calcular mi impuesto sobre el uso manualmente.
           use_tax_radio_label: "¿Realizó alguna compra fuera del estado que no pagó impuestos?"
+      nj_spouse_state_id:
+        nj_spouse:
+          dmv_bmv: Non-driver identification card
+          no_id: No driver's license or state ID / Prefer not to share
+          not_required: You do NOT need to supply this information to file your taxes. The return will not be rejected if you do not have ID or prefer not to share.
+          protect_identity: To protect your identity and combat tax fraud, many state agencies are asking people to give their driver's license or state ID number.
+          subtitle: Details from your spouse's state-issued ID, if they have one, would also help.
+          title: Confirming Your Spouse's Identity (Optional)
+          why_ask_this: Why are you asking for this information?
       nj_tenant_eligibility:
         edit:
           helper_description: Fui inquilino de una propiedad exenta de impuestos (por ejemplo, vivienda subsidiada y en el campus, propiedad de organizaciones sin fines de lucro, residencia en la que se realizaron pagos P.I.L.O.T.)
@@ -3033,6 +3064,19 @@ es:
           primary_veteran_question: "¿Eres un veterano?"
           spouse_veteran_question: "¿Su cónyuge es un veterano?"
           title: En NJ, los veteranos son elegibles para una exención de impuestos.
+      notification_preferences:
+        edit:
+          email_notification_opt_in: Correo electrónico
+          message_body_one: No compartiremos su información con terceros. La frecuencia de los mensajes variará. Pueden aplicarse tarifas por mensajes y datos.
+          message_body_two_html: Envíe un mensaje de texto con la palabra HELP al 46207 para recibir ayuda. Envíe un mensaje de texto con la palabra STOP al 46207 para cancelar. Los operadores (por ejemplo, AT&T, Verizon, T-Mobile, Sprint, etc.) no son responsables de los mensajes no entregados o demorados. Consulte nuestros<a target="_blank" href=%{sms_terms_link}>Términos y condiciones de SMS</a> y nuestra <a target="_blank" href=%{privacy_link}>Política de privacidad</a>..
+          message_title: Detalles de la mensajería
+          opt_in_label: "¡Seleccione la(s) opción(es) que funcionen mejor para usted!"
+          phone_number: Tu número de teléfono
+          sms_notification_opt_in: Mensaje de texto
+          subtitle: Necesitaremos comunicarnos con usted con preguntas y actualizaciones.
+          title: "¿Cuál es la mejor manera de comunicarme con usted?"
+        form:
+          at_least_one: Se requiere al menos una preferencia de notificación
       ny_county:
         edit:
           county: Condado
@@ -3167,9 +3211,6 @@ es:
           action: Enviar el código
           phone_number_label: Tu número de teléfono
           title: Ingresa tu número de teléfono
-      post_data_transfer:
-        edit:
-          title: Solo página sin producción
       primary_state_id:
         edit:
           ny_subtitle: Esta información es necesaria para todos los residentes de Nueva York con una identificación emitida por el estado.

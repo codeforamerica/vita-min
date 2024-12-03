@@ -87,15 +87,10 @@ RSpec.feature "Editing a rejected intake with an auto-wait error" do
     expect(page).to have_text "Unfortunately, your #{filing_year} New York state tax return was rejected"
     click_on "Edit your state return"
 
-    # goes back to the name-dob page
-    expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.title1")
-    expect(find_field('state_file_name_dob_form_primary_first_name').value).to eq 'Jerry'
-
-    fill_in "state_file_name_dob_form[primary_first_name]", with: "Titus"
-    fill_in "state_file_name_dob_form[primary_last_name]", with: "Testerson"
-    select_cfa_date "state_file_name_dob_form_primary_birth_date", Date.new(1978, 6, 21)
+    # goes back to the NY review page
+    expect(page).to have_text I18n.t("state_file.questions.ny_review.edit.total_ny_tax")
     click_on I18n.t("general.continue")
 
-    expect(URI.parse(current_url).path).to eq "/en/questions/ny-review"
+    expect(URI.parse(current_url).path).to eq "/en/questions/taxes-owed"
   end
 end

@@ -4,6 +4,8 @@ RSpec.feature "editing direct file XML with the FederalInfoController", active_j
   include MockTwilio
   include StateFileIntakeHelper
 
+  let(:tax_year) { MultiTenantService.statefile.current_tax_year }
+
   before do
     allow_any_instance_of(Routes::StateFileDomain).to receive(:matches?).and_return(true)
     Flipper.enable :sms_notifications
@@ -19,6 +21,10 @@ RSpec.feature "editing direct file XML with the FederalInfoController", active_j
     step_through_eligibility_screener(us_state: "ny")
 
     step_through_initial_authentication(contact_preference: :text_message)
+    check "Email"
+    check "Text message"
+    fill_in "Your phone number", with: "+12025551212"
+    click_on "Continue"
 
     expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
     click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
@@ -27,8 +33,9 @@ RSpec.feature "editing direct file XML with the FederalInfoController", active_j
 
     xml_before = StateFileNyIntake.last.raw_direct_file_data.strip
 
+    expect(page).to have_text I18n.t('state_file.questions.data_review.edit.title')
     click_on I18n.t("general.continue")
-    expect(page).to have_text I18n.t('state_file.questions.name_dob.edit.title1')
+    expect(page).to have_text I18n.t('state_file.questions.nyc_residency.edit.title', year: tax_year)
 
     xml_after = StateFileNyIntake.last.raw_direct_file_data.strip
     expect(xml_before).to eq(xml_after)
@@ -44,12 +51,17 @@ RSpec.feature "editing direct file XML with the FederalInfoController", active_j
     click_on "Continue"
 
     step_through_initial_authentication(contact_preference: :text_message)
+    check "Email"
+    check "Text message"
+    fill_in "Your phone number", with: "+12025551212"
+    click_on "Continue"
 
     expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
     click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
 
     step_through_df_data_transfer("Transfer Alexis hoh w2 and 1099")
-    click_on "Go back"
+
+    expect(page).to have_text I18n.t('state_file.questions.data_review.edit.title')
 
     xml_before = StateFileAzIntake.last.raw_direct_file_data.strip
     find("#visit_federal_info_controller").click
@@ -134,12 +146,17 @@ RSpec.feature "editing direct file XML with the FederalInfoController", active_j
     step_through_eligibility_screener(us_state: "nc")
 
     step_through_initial_authentication(contact_preference: :text_message)
+    check "Email"
+    check "Text message"
+    fill_in "Your phone number", with: "+12025551212"
+    click_on "Continue"
 
     expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
     click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
 
     step_through_df_data_transfer("Transfer Nick")
-    click_on "Go back"
+
+    expect(page).to have_text I18n.t('state_file.questions.data_review.edit.title')
 
     xml_before = StateFileNcIntake.last.direct_file_data
     raw_xml_before = StateFileNcIntake.last.raw_direct_file_data.strip
@@ -149,7 +166,7 @@ RSpec.feature "editing direct file XML with the FederalInfoController", active_j
     expect(page).to have_text "‍💻🛠️ Direct File Data Overrides 🛠️💻"
 
     click_on "Continue"
-    expect(page).to have_text I18n.t('state_file.questions.name_dob.edit.title1')
+    expect(page).to have_text I18n.t('state_file.questions.nc_county.edit.title', filing_year: tax_year)
     xml_after = StateFileNcIntake.last.direct_file_data
     raw_xml_after = StateFileNcIntake.last.raw_direct_file_data.strip
     expect(raw_xml_before).to eq(raw_xml_after)

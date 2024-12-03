@@ -9,7 +9,10 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400ScheduleS, requir
 
     context "calculating DedFedAGI" do
       before do
-        intake.direct_file_data.fed_taxable_income = 323
+        interest_report = instance_double(DirectFileJsonData::DfJsonInterestReport)
+        allow(interest_report).to receive(:interest_on_government_bonds).and_return 323
+        allow(intake.direct_file_json_data).to receive(:interest_reports).and_return [interest_report]
+
         intake.direct_file_data.fed_taxable_ssb = 123
         intake.tribal_member = "yes"
         intake.tribal_wages_amount = 100.00

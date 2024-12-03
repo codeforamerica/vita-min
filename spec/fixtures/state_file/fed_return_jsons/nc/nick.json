@@ -2,20 +2,20 @@
   "familyAndHousehold": [],
   "filers": [
     {
-      "firstName": "Nate",
-      "middleInitial": null,
+      "firstName": "Nick",
       "lastName": "Cave",
-      "dateOfBirth": "1950-01-01",
-      "isPrimaryFiler": true,
-      "tin": "400-00-0030"
+      "middleInitial": null,
+      "tin": "400-00-0030",
+      "dateOfBirth": "1980-01-01",
+      "isPrimaryFiler": true
     },
     {
       "firstName": "Susie",
-      "middleInitial": "K",
       "lastName": "Cave",
-      "dateOfBirth": "1950-01-01",
-      "isPrimaryFiler": false,
-      "tin": "600-00-0030"
+      "middleInitial": "K",
+      "tin": "600-00-0030",
+      "dateOfBirth": "1979-01-01",
+      "isPrimaryFiler": false
     }
   ]
 }

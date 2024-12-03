@@ -52,7 +52,7 @@
       <%= t('.contact_us') %>
     </section>
 
-    <% edit_return_controller = @error.correction_path.present? ? EfileError.path_to_controller(@error.correction_path) : EfileError.default_controller %>
+    <% edit_return_controller = @error.correction_path.present? ? EfileError.path_to_controller(@error.correction_path) : EfileError.default_controller(current_state_code) %>
     <%= link_to t('.edit_return'), edit_return_controller.to_path_helper(
       action: edit_return_controller.navigation_actions.first,
       return_to_review: :y

@@ -19,18 +19,18 @@
 require 'rails_helper'
 
 describe 'EfileError' do
-  it 'returns name dob as the default controller' do
-    expect(EfileError.default_controller).to eq StateFile::Questions::NameDobController
+  it 'returns data review as the default controller' do
+    expect(EfileError.default_controller("az")).to eq StateFile::Questions::AzReviewController
   end
 
   it 'converts controllers to paths' do
-    path = EfileError.controller_to_path(StateFile::Questions::NameDobController)
-    expect(path).to eq "name-dob"
+    path = EfileError.controller_to_path(StateFile::Questions::AzReviewController)
+    expect(path).to eq "az-review"
   end
 
   it 'converts paths to controllers' do
-    controller = EfileError.path_to_controller("name-dob")
-    expect(controller).to eq StateFile::Questions::NameDobController
+    controller = EfileError.path_to_controller("az-review")
+    expect(controller).to eq StateFile::Questions::AzReviewController
   end
 
   it 'returns the expected array of paths' do
@@ -46,6 +46,7 @@ describe 'EfileError' do
       "canceled-data-transfer",
       "code-verified",
       "contact-preference",
+      "data-review",
       "data-transfer-offboarding",
       "declined-terms-and-conditions",
       "eligibility-offboarding",
@@ -53,6 +54,7 @@ describe 'EfileError' do
       "email-address",
       "esign-declaration",
       "federal-info",
+      "id-donations",
       "id-eligibility-residence",
       "id-grocery-credit",
       "id-grocery-credit-review",
@@ -69,7 +71,6 @@ describe 'EfileError' do
       "md-review",
       "md-tax-refund",
       "md-two-income-subtractions",
-      "name-dob",
       "nc-county",
       "nc-eligibility-out-of-state-income",
       "nc-eligibility-residence",
@@ -96,6 +97,7 @@ describe 'EfileError' do
       "nj-tenant-rent-paid",
       "nj-unsupported-property-tax",
       "nj-veterans-exemption",
+      "notification-preferences",
       "ny-county",
       "ny-eligibility-college-savings-withdrawal",
       "ny-eligibility-out-of-state-income",
@@ -109,7 +111,6 @@ describe 'EfileError' do
       "ny-third-party-designee",
       "nyc-residency",
       "phone-number",
-      "post-data-transfer",
       "primary-state-id",
       "return-status",
       "spouse-state-id",
