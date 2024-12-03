@@ -4,13 +4,7 @@
   <h1 class="h2" id="main-question"><%= title %></h1>
   <p><%= t(".subtitle")%></p>
 
-  <div class="reveal spacing-above-35">
-    <span class="text--small"><button class="reveal__button"> <%= t('state_file.questions.declined_terms_and_conditions.edit.drop_down_title') %></button></span>
-    <div class="reveal__content">
-      <p> <%= t('state_file.questions.declined_terms_and_conditions.edit.drop_down_body') %></p>
-      <%= link_to t("state_file.questions.declined_terms_and_conditions.edit.faq_link"), state_faq_path(us_state: current_state_code) %>
-    </div>
-  </div>
+  <%= render partial: "state_file/questions/shared/use_different_service" %>
 
   <%= render "state_file/questions/initiate_data_transfer/data_transfer_buttons" %>
 <% end %>

@@ -2349,12 +2349,13 @@ es:
             married_filing_separately: estás presentando una declaración de impuestos "casado, presentando por separado".
           offboarding_reason: No puedes usar esta herramienta este año porque %{reason}
           title: Desafortunadamente, después de transferir tus datos, descubrimos que no puedes usar esta herramienta este año. No te preocupes, aquí tienes otras opciones de presentación.
+      use_different_service:
+        body: Before choosing an option, make sure it supports state-only tax filing. You most likely will need to reenter your federal tax return information in order to prepare your state tax return. Fees may apply.
+        title: Want to file using a different product or service?
+        faq_link: Visita nuestras Preguntas Frecuentes (FAQ)
       declined_terms_and_conditions:
         edit:
           action_html: "<strong>¿Es un error?</strong>"
-          drop_down_body: Before choosing an option, make sure it supports state-only tax filing. You most likely will need to reenter your federal tax return information in order to prepare your state tax return. Fees may apply.
-          drop_down_title: Want to file using a different product or service?
-          faq_link: Visita nuestras Preguntas Frecuentes (FAQ)
           go_back_link: Regresa para corregirlo.
           subtitle: Lamentablemente, para continuar presentando tus impuestos estatales con FileYourStateTaxes, debes aceptar los términos y condiciones.
           title: 'Has rechazado los términos y condiciones. '
