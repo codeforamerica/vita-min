@@ -212,7 +212,7 @@ en:
       sms_phone_number_confirmation:
         confirmation: Please double check that the cell phone numbers match.
       spouse_email_address:
-        invalid: Please enter a valid email address.
+        invalid: Please enter a valid email address
       spouse_email_address_confirmation:
         confirmation: Please double check that the email addresses match
       spouse_first_name:
@@ -2233,7 +2233,7 @@ en:
           expenses_helper_nonqualifying_description: Most other uses of funds are non-qualifying expenses, including college application and testing fees, transportation costs, health insurance, and extracurricular costs.
           expenses_helper_qualifying_description: Qualifying expenses include tuition and fees, books, equipment (including computers and other tech), room and board, apprenticeship programs, and K-12 tuition up to $10,000.
           out_of_state_income_html: Did you (or your spouse, if you’re filing together) earn any income in another state in %{filing_year}? (This includes unemployment income <strong>received</strong> from another state.)
-          title: First, let's see if you can use this tool to file your taxes
+          title: First, let's see if you can use this service to file your taxes
           used_529_for_non_qual_expense_html: Did you (or your spouse, if you’re filing together) withdraw money from a <a href="https://az529.gov/what-is-a-529-plan/" target="_blank" rel="noopener nofollow">529 college savings account</a> and use it for non-qualifying expenses in %{filing_year}?
       az_eligibility_residence:
         edit:
@@ -2248,7 +2248,7 @@ en:
           mfs_helper_yes_if: 'Select yes if:'
           mfs_helper_yes_state_mfs: You want to file your state return as “married filing separately”.
           subtitle: For the %{current_year} tax season, this tool will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
-          title: First, let's see if you can use this tool to file your taxes
+          title: First, let's see if you can use this service to file your taxes
       az_excise_credit:
         edit:
           household_excise_credit_claimed_amt: How much, in total, did all other members of your household claim in Increased Excise Tax Credit? (You can look this up by looking at Line 56 of their Arizona return.)
@@ -2860,13 +2860,13 @@ en:
             p2: Most other uses of funds are non-qualifying expenses, including college application and testing fees, transportation costs, health insurance, and extracurricular costs.
             subtitle: 'Select ''no'' if:'
             title: What are qualifying and non- qualifying expenses?
-          title: First, let's see if you can use this tool to file your taxes
+          title: First, let's see if you can use this service to file your taxes
           withdraw_529_html: Did you (or your spouse, if you’re filing together) withdraw money from a <a href="https://www.cfnc.org/save-for-college/" target="_blank" rel="noopener nofollow">529 college savings account</a> and use it for non-qualifying expenses in %{filing_year}?
       nc_eligibility_residence:
         edit:
           lived_in_state_html: Did you (and your spouse, if you’re filing together) live in  %{state} for <strong>all</strong> of %{filing_year}?
           subtitle: For the %{filing_year} tax season, this tool will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
-          title: First, let's see if you can use this tool to file your taxes
+          title: First, let's see if you can use this service to file your taxes
       nc_primary_state_id:
         nc_primary:
           encourage_sharing: While providing this information is encouraged, it is optional and not required to file your North Carolina taxes.
@@ -3130,19 +3130,19 @@ en:
           non_qualifying_expenses:
             reveal_info_html: "<p>Qualifying expenses include tuition and fees, books, equipment (including computers and other tech), room and board, apprenticeship programs, and K-12 tuition up to $10,000.</p> \n\n<p>Most other uses of funds are non-qualifying expenses, including college application and testing fees, transportation costs, health insurance, and extracurricular costs.</p>\n\n<p><strong>Select 'no' if:</strong></p>\n<ul>\n  <li>You withdrew money from a 529 account and used it for qualifying expenses, or</li>\n  <li>You didn't withdraw money from a 529 account at all.</li>\n</ul>\n"
             title: What are qualifying and non-qualifying expenses?
-          title: First, let's see if you can use this tool to file your taxes
+          title: First, let's see if you can use this service to file your taxes
           withdraw_529: In %{filing_year}, did you contribute to a <u>529 college savings account</u>, or did you withdraw funds from a 529 account and use them for non-qualified expenses?
       ny_eligibility_out_of_state_income:
         edit:
           out_of_state_income_html: Did you (or your spouse, if you’re filing together) earn any income in another state in 2023? (This includes unemployment income <strong>received</strong> from another state.)
           part_year_nyc_resident_html: Were you (or your spouse, if you’re filing together) a part-year New York City resident in 2023? (Moved in or out of NYC during 2023) <br><br> New York City includes the Bronx, Brooklyn, Manhattan, Queens, and Staten Island.
-          title: First, let's see if you can use this tool to file your taxes
+          title: First, let's see if you can use this service to file your taxes
       ny_eligibility_residence:
         edit:
           lived_in_state_html: Did you (and your spouse, if you’re filing together) live in  %{state} for <strong>all</strong> of 2023?
           lived_or_income_in_yonkers_html: Did you (and your spouse, if you’re filing together) <strong>live, earn income, or maintain a home</strong> in Yonkers at any time in 2023?
           subtitle: For the 2024 tax season, this tool will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
-          title: First, let's see if you can use this tool to file your taxes
+          title: First, let's see if you can use this service to file your taxes
       ny_permanent_address:
         edit:
           address_header: Address
