@@ -202,6 +202,14 @@ module SubmissionBuilder
                   xml.NJChildTCNumOfDep calculated_fields.fetch(:NJ1040_LINE_65_DEPENDENTS) if line_65
                   xml.NJChildTaxCredit line_65 if line_65
 
+                  xml.TotalPaymentsOrCredits calculated_fields.fetch(:NJ1040_LINE_66)
+                  xml.BalanceDueWithReturn calculated_fields.fetch(:NJ1040_LINE_67)
+                  xml.OverpaymentAmount calculated_fields.fetch(:NJ1040_LINE_68)
+
+                  xml.TotalAdjustments calculated_fields.fetch(:NJ1040_LINE_78)
+                  xml.NetBalanceDue calculated_fields.fetch(:NJ1040_LINE_79)
+                  xml.NetRefund calculated_fields.fetch(:NJ1040_LINE_80)
+
                   if intake.primary_contribution_gubernatorial_elections_yes?
                     xml.PrimGubernElectFund "X"
                   end
