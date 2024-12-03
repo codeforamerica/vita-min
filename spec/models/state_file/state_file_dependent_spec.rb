@@ -305,11 +305,14 @@ describe StateFileDependent do
     let(:intake) { create :state_file_az_johnny_intake }
 
     it "outputs the correct labels when all dependents have between 6-12 months in home" do
-      expect(intake.dependents.where(first_name: "Ronnie").first.months_in_home_for_pdf).to eq("12")
-      expect(intake.dependents.where(first_name: "Twyla").first.months_in_home_for_pdf).to eq("7")
+      ronnie = intake.dependents.where(first_name: "Ronnie").first
+      ronnie.months_in_home = 5
+
+      expect(ronnie.months_in_home_for_pdf).to eq("<6")
+      expect(intake.dependents.where(first_name: "Twyla").first.months_in_home_for_pdf).to eq("6-11")
       expect(intake.dependents.where(first_name: "David").first.months_in_home_for_pdf).to eq("12")
       expect(intake.dependents.where(first_name: "Roland").first.months_in_home_for_pdf).to eq("12")
-      expect(intake.dependents.where(first_name: "Stevie").first.months_in_home_for_pdf).to eq("8")
+      expect(intake.dependents.where(first_name: "Stevie").first.months_in_home_for_pdf).to eq("6-11")
       expect(intake.dependents.where(first_name: "Wendy").first.months_in_home_for_pdf).to eq("12")
       expect(intake.dependents.where(first_name: "Alexis").first.months_in_home_for_pdf).to eq("12")
     end
@@ -319,27 +322,6 @@ describe StateFileDependent do
       ronnie.months_in_home = nil
 
       expect(ronnie.months_in_home_for_pdf).to eq("<6")
-    end
-  end
-
-  describe "#months_in_home_for_xml" do
-    let(:intake) { create :state_file_az_johnny_intake }
-
-    it "outputs the correct labels when all dependents have between 6-12 months in home" do
-      expect(intake.dependents.where(first_name: "Ronnie").first.months_in_home_for_xml).to eq(12)
-      expect(intake.dependents.where(first_name: "Twyla").first.months_in_home_for_xml).to eq(7)
-      expect(intake.dependents.where(first_name: "David").first.months_in_home_for_xml).to eq(12)
-      expect(intake.dependents.where(first_name: "Roland").first.months_in_home_for_xml).to eq(12)
-      expect(intake.dependents.where(first_name: "Stevie").first.months_in_home_for_xml).to eq(8)
-      expect(intake.dependents.where(first_name: "Wendy").first.months_in_home_for_xml).to eq(12)
-      expect(intake.dependents.where(first_name: "Alexis").first.months_in_home_for_xml).to eq(12)
-    end
-
-    it "outputs the correct labels when a dependent has nil months in home" do
-      ronnie = intake.dependents.where(first_name: "Ronnie").first
-      ronnie.months_in_home = nil
-
-      expect(ronnie.months_in_home_for_xml).to eq(5)
     end
   end
 
