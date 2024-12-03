@@ -10,7 +10,7 @@
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="white-group">
-      <%= f.cfa_radio_set(:primary_veteran, collection: [
+      <%= f.cfa_radio_set(:primary_veteran, label_text: t("state_file.questions.nc_veteran_status.primary_veteran_question"), collection: [
         { value: "yes", label: t("general.affirmative") },
         { value: "no", label: t("general.negative") },
       ]) %>
@@ -18,7 +18,7 @@
 
     <% if current_intake.filing_status_mfj? %>
       <div class="white-group">
-        <%= f.cfa_radio_set(:spouse_veteran, collection: [
+        <%= f.cfa_radio_set(:spouse_veteran, label_text: t("state_file.questions.nc_veteran_status.spouse_veteran_question"), collection: [
           { value: "yes", label: t("general.affirmative") },
           { value: "no", label: t("general.negative") },
         ]) %>

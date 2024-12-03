@@ -2854,6 +2854,8 @@ es:
           tribal_wages_field: Ingrese la cantidad ganada
           tribal_wages_question_html: Enter the amount of income received or earned from activities on the federally recognized reservation. <br><br> This amount should not exceed $%{amount_limit}.
       nc_veteran_status:
+        primary_veteran_question: "¿Eres un veterano?"
+        spouse_veteran_question: "¿Es su cónyuge un veterano?"
         title: Are you a veteran of the United States Armed Forces?
         title_spouse: Are you or your spouse a veteran of the United States Armed Forces?
       nj_college_dependents_exemption:
