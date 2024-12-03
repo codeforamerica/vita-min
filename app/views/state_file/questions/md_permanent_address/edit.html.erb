@@ -43,7 +43,12 @@
             <%= f.cfa_input_field(:permanent_street, t(".street_address_label")) %>
             <%= f.cfa_input_field(:permanent_apartment, t(".apartment_number_label")) %>
             <%= f.cfa_input_field(:permanent_city, t(".city_label")) %>
-            <%= f.cfa_input_field(:unfillable, t(".state_label"), options: { value: "Maryland", disabled: true }) %>
+          </div>
+          <div class="form-group spacing-below-25">
+            <p class="form-question"><strong><%= t('.state_label') %></strong></p>
+            <p class="form-question"><%= current_state_name %></p>
+          </div>
+          <div class="form-group-tight">
             <%= f.cfa_input_field(:permanent_zip, t(".zip_label")) %>
           </div>
         </div>
