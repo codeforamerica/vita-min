@@ -2839,17 +2839,7 @@ en:
           subtraction_indian_tribe: Subtraction for income of a member of an Indian tribe
           use_tax_applied: Consumer Use Tax Applied
         review_header:
-          dependent_dob: Their date of birth
-          dependent_months_in_home: Number of months they lived with you
-          dependent_name: Your dependent's name
-          household_info: Household information
-          nth_dependent_name: Your %{ordinal} dependent's name
-          spouse_name: Your spouse's name
-          taxes_owed_header: Your refund or taxes owed
-          taxes_owed_html: Your refund is $0. This means that you <strong>will not</strong> receive a state refund and you <strong>do not</strong> owe state taxes. You should finish filing your return, since you may be required to file even though you won’t get or receive any money.
-          title: You're done! Review your state tax return before you submit.
           unemployment_compensation: Unemployment Compensation
-          your_name: Your name
       nc_sales_use_tax:
         edit:
           calculated_use_tax: Enter calculated use tax
@@ -3300,19 +3290,21 @@ en:
         review_footer:
           download_pdf: You can download a PDF of your full state tax return after you submit.
         review_header:
+          income_details: Income Details
+          title: You're done! Review your state tax return before you submit.
+          your_refund: Your refund amount
+          your_tax_owed: Your taxes owed
+        abstract_review_header:
           dependent_dob: Their date of birth
           dependent_months_in_home: Number of months they lived with you
           dependent_name: Your dependent's name
           household_info: Household information
-          income_details: Income Details
           nth_dependent_name: Your %{ordinal} dependent's name
           spouse_name: Your spouse's name
           taxes_owed_header: Your refund or taxes owed
           taxes_owed_html: Your refund is $0. This means that you <strong>will not</strong> receive a state refund and you <strong>do not</strong> owe state taxes. You should finish filing your return, since you may be required to file even though you won’t get or receive any money.
           title: You're done! Review your state tax return before you submit.
           your_name: Your name
-          your_refund: Your refund amount
-          your_tax_owed: Your taxes owed
       spouse_state_id:
         edit:
           title_html: Please provide information for <strong>your spouse’s</strong> state issued ID

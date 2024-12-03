@@ -78,7 +78,6 @@ module Efile
 
       private
 
-
       def calculate_line_9
         line_or_zero(:NCD400_S_LINE_41)
       end
