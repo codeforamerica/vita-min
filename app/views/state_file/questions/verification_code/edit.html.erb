@@ -5,7 +5,7 @@
     <h1 class="h2" id="main-question"><%= title %></h1>
     <p><%= t(".subtitle_html") %></p>
     <div class="white-group">
-        <%= f.cfa_input_field(:verification_code, t(".verification_code_label_html"), classes: ["form-width--long"]) %>
+        <%= f.cfa_input_field(:verification_code, t(".verification_code_label"), classes: ["form-width--long"]) %>
     </div>
     <%= f.submit t(".action"), class: "button button--primary button--wide spacing-below-15"%>
   <% end %>

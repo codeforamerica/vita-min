@@ -2522,7 +2522,7 @@ es:
       email_address:
         edit:
           action: Enviar el código
-          email_address_label_html: "<strong>Tu dirección de correo electrónico</strong>"
+          email_address_label: "Tu dirección de correo electrónico"
           subtitle_html: To create a new account, provide an email address that isn't already in use.<br><br>Use an email account you can access.
           title: Ingresa tu dirección de correo electrónico
       esign_declaration:
@@ -3216,7 +3216,7 @@ es:
         edit:
           action: Enviar el código
           helper_text: Enter numbers only
-          phone_number_label_html: "<strong>Tu número de teléfono</strong>"
+          phone_number_label: "Tu número de teléfono"
           subtitle_html: To create a new account, provide a phone number that isn't already in use.<br><br>Use a phone number you can access.
           title: Ingresa tu número de teléfono
       primary_state_id:
@@ -3411,7 +3411,7 @@ es:
           action: " Verificar el código"
           subtitle_html: If you didn’t receive a code, please check your spam folder. If you still need help resubscribing, chat with us.
           title_html: Te enviamos tu código a <strong>%{contact_info}</strong>
-          verification_code_label_html: "<strong>Ingresa el código de 6 dígitos</strong>"
+          verification_code_label: "Ingresa el código de 6 dígitos"
       w2:
         edit:
           box14_explanation:
