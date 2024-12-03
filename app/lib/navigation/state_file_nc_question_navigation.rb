@@ -4,8 +4,7 @@ module Navigation
 
     SECTIONS = [
       Navigation::NavigationSection.new("state_file.navigation.section_1", [
-        Navigation::NavigationStep.new(StateFile::Questions::NcEligibilityResidenceController),
-        Navigation::NavigationStep.new(StateFile::Questions::NcEligibilityOutOfStateIncomeController),
+        Navigation::NavigationStep.new(StateFile::Questions::NcEligibilityController),
         Navigation::NavigationStep.new(StateFile::Questions::EligibilityOffboardingController, false),
         Navigation::NavigationStep.new(StateFile::Questions::EligibleController),
       ]),
@@ -15,6 +14,7 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::EmailAddressController),
         Navigation::NavigationStep.new(StateFile::Questions::VerificationCodeController),
         Navigation::NavigationStep.new(StateFile::Questions::CodeVerifiedController),
+        Navigation::NavigationStep.new(StateFile::Questions::NotificationPreferencesController),
       ]),
       Navigation::NavigationSection.new("state_file.navigation.section_3", [
         Navigation::NavigationStep.new(StateFile::Questions::TermsAndConditionsController),
@@ -29,7 +29,6 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::DataReviewController),
         Navigation::NavigationStep.new(StateFile::Questions::FederalInfoController),
         Navigation::NavigationStep.new(StateFile::Questions::DataTransferOffboardingController, false),
-        Navigation::NavigationStep.new(StateFile::Questions::NameDobController),
         Navigation::NavigationStep.new(StateFile::Questions::NcCountyController),
         Navigation::NavigationStep.new(StateFile::Questions::NcVeteranStatusController),
         Navigation::NavigationStep.new(StateFile::Questions::NcSalesUseTaxController),

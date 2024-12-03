@@ -29,6 +29,7 @@
 #  eligibility_out_of_state_income            :integer          default("unfilled"), not null
 #  email_address                              :citext
 #  email_address_verified_at                  :datetime
+#  email_notification_opt_in                  :integer          default("unfilled"), not null
 #  failed_attempts                            :integer          default(0), not null
 #  federal_return_status                      :string
 #  had_hh_member_without_health_insurance     :integer          default("unfilled"), not null
@@ -70,6 +71,7 @@
 #  residence_county                           :string
 #  routing_number                             :string
 #  sign_in_count                              :integer          default(0), not null
+#  sms_notification_opt_in                    :integer          default("unfilled"), not null
 #  source                                     :string
 #  spouse_birth_date                          :date
 #  spouse_did_not_have_health_insurance       :integer          default("unfilled"), not null
@@ -121,6 +123,7 @@ FactoryBot.define do
 
     raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("md_minimal") }
     raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json("md_minimal") }
+    df_data_import_succeeded_at { DateTime.now }
 
     primary_first_name { "Mary" }
     primary_middle_initial { "A" }

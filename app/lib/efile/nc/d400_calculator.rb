@@ -60,6 +60,10 @@ module Efile
         end
       end
 
+      def analytics_attrs
+        {}
+      end
+
       private
 
       def calculate_line_9
@@ -96,7 +100,7 @@ module Efile
       def calculate_line_12a
         # Add Lines 9, 10b, and 11
         # line 9 DeductionsFromFAGI is blank
-        line_or_zero(:NCD400_LINE_10B) + line_or_zero(:NCD400_LINE_11)
+        line_or_zero(:NCD400_S_LINE_41) + line_or_zero(:NCD400_LINE_10B) + line_or_zero(:NCD400_LINE_11)
       end
 
       def calculate_line_12b

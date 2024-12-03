@@ -200,6 +200,8 @@ ID40_LINE_10:
   label: '10. Subtractions from Form 39R, Part B, line 24'
 ID40_LINE_11:
   label: '11. Total Adjusted Income. Subtract line 10 from line 9'
+ID40_LINE_16:
+  label: '16. Standard deduction'
 ID40_LINE_19:
   label: '19. Taxable state income'
 ID40_LINE_20:
@@ -222,6 +224,22 @@ ID40_LINE_32B:
   label: '32B. Checkbox that determines if the Permanent Building Fund needs to be payed'
 ID40_LINE_33:
   label: '33. Total Tax. Add lines 27 to 32'
+ID40_LINE_34:
+  label: '34. Idaho Nongame Wildlife Fund Donation'
+ID40_LINE_35:
+  label: '35. Idaho Children’s Trust Fund Donation'
+ID40_LINE_36:
+  label: '36. Special Olympics Idaho Donation'
+ID40_LINE_37:
+  label: '37. Idaho Guard & Reserve Family Donation'
+ID40_LINE_38:
+  label: '38. American Red Cross of Idaho Fund Donation'
+ID40_LINE_39:
+  label: '39. Veterans Support Fund Donation'
+ID40_LINE_40:
+  label: '40. Idaho Food Bank Fund Donation'
+ID40_LINE_41:
+  label: '41. Opportunity Scholarship Program Donation'
 ID40_LINE_42:
   label: '42. Total Tax Plus Donations. Add lines 33 through 41.'
 ID40_LINE_43_WORKSHEET:
@@ -836,6 +854,8 @@ NJ1040_LINE_51:
   label: '51 Use Tax Due on Internet, Mail-Order, or Other Out-of-State Purchases (See instructions) If no Use Tax, enter 0.00'
 NJ1040_LINE_54:
   label: '54 Total Tax Due (Add lines 50 through 53c)'
+NJ1040_LINE_55:
+  label: '55 Total NJ Income Tax Withheld (Enclose Forms W-2 and 1099) (Part-year residents, see instr.)'
 NJ1040_LINE_56:
   label: '56 Property Tax Credit (See instructions page 25)'
 NJ1040_LINE_57:

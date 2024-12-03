@@ -1049,8 +1049,8 @@ describe Efile::Md::Md502Calculator do
         let(:line_7) { 30_500 } # Max of 1b and 7 is below threshold for family of 4 (31,200)
 
         it "returns 5% of line 1B" do
-          intake.dependents.create(dob: 7.years.ago)
-          intake.dependents.create(dob: 7.years.ago)
+          create :state_file_dependent, intake: intake, dob: 7.years.ago
+          create :state_file_dependent, intake: intake, dob: 7.years.ago
           instance.calculate
           expect(instance.lines[:MD502_LINE_23].value).to eq(1_500)
         end
@@ -1060,8 +1060,8 @@ describe Efile::Md::Md502Calculator do
         let(:line_7) { 31_500 }
 
         it "returns 0" do
-          intake.dependents.create(dob: 7.years.ago)
-          intake.dependents.create(dob: 7.years.ago)
+          create :state_file_dependent, intake: intake, dob: 7.years.ago
+          create :state_file_dependent, intake: intake, dob: 7.years.ago
           instance.calculate
           expect(instance.lines[:MD502_LINE_23].value).to eq(0) # line 7 is above threshold for family of 4 (31,200)
         end

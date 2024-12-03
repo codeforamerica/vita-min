@@ -19,10 +19,11 @@ describe Efile::Nc::D400ScheduleSCalculator do
     end
 
     context "if there are interest incomes with interest income from obligations of US possessions" do
+      let(:intake) { create :state_file_nc_intake, :df_data_1099_int }
+
       it "returns fed_taxable_income from federal IRS Taxable Interest Amount" do
-        intake.direct_file_data.fed_taxable_income = 100
         d400_calculator.calculate
-        expect(instance.lines[:NCD400_S_LINE_18]&.value).to eq(100)
+        expect(instance.lines[:NCD400_S_LINE_18]&.value).to eq(2)
       end
     end
   end
@@ -74,7 +75,10 @@ describe Efile::Nc::D400ScheduleSCalculator do
   describe 'Line 41: Sum of lines 17-22, 23f, 24f, 25-40' do
     before do
       # unrepresented lines are not implemented yet or OOS
-      intake.direct_file_data.fed_taxable_income = 400
+      interest_report = instance_double(DirectFileJsonData::DfJsonInterestReport)
+      allow(interest_report).to receive(:interest_on_government_bonds).and_return 400
+      allow(intake.direct_file_json_data).to receive(:interest_reports).and_return [interest_report]
+
       intake.direct_file_data.fed_taxable_ssb = 400
       allow_any_instance_of(Efile::Nc::D400ScheduleSCalculator).to receive(:calculate_line_27).and_return 400
     end
