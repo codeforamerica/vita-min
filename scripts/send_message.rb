@@ -19,7 +19,7 @@ class SendMessage < Thor
         say "Creating disposable intake to test notification", :cyan
 
         intake = StateFileAzIntake.create(
-          primary_first_name: "Test",
+          primary_first_name: "Testa",
           primary_last_name: "Testerson",
           email_address: options.fetch(:email_address, nil),
           email_address_verified_at: 1.minute.ago,
@@ -51,6 +51,8 @@ class SendMessage < Thor
           sms: !!options[:sms_number],
           body_args: body_args
         ).send_message
+
+        raise ActiveRecord::Rollback
       end
     end
   end
