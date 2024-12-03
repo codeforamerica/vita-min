@@ -2238,14 +2238,43 @@ en:
         destroy:
           removed: Removed contribution for %{school_name}
         edit:
-          additional_info: 'Please provide the following information for each public school you paid fees or made contributions to:'
-          amount: Amount of contribution/fees paid in %{year}
+          additional_info: Please add details for each public school you paid fees or made donations to.
+          amount: Amount of donations/fees paid in %{year}
+          amount_help_text:
+            one: Arizona will credit up to $200
+            other: Arizona will credit up to $400
           ctds_code: School Code/CTDS
-          date_of_contribution: Date of payment in %{year} (mm/dd)
+          date_of_contribution: Date of payment in %{year}
           district_name: School District Name
-          made_contribution: Did you pay fees or make cash contributions to a public school in %{year}? Do not include amounts claimed on last year’s tax return.
+          made_contribution:
+            one: Did you pay any fees or make any qualified cash donation to an Arizona public school in %{year}?
+            other: Did you or your spouse pay any fees or make any qualified cash donation to an Arizona public school in %{year}?
           school_name: School Name
-          title: Did you pay fees or make cash contributions to a public school in %{year}?
+          school_name_help_text: Please use the official school name
+          title_html: You might be eligible for the <a href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_guideline-public-school-ECA-tax-credit.pdf" target="_blank">Arizona Public School Credit</a>!
+        form:
+          donations_this_year: What about donations made in %{current_year}?
+          donations_this_year_details_html: |
+            FileYourStateTaxes only allows you to add payment to the corresponding tax period.
+            <br/><br/>
+            You can report any donations made in %{current_year} in next year’s tax return.
+          more_details_html: Visit the <a href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_guideline-public-school-ECA-tax-credit.pdf" target="_blank">Arizona Department of Revenue Guide</a> for more details.
+          qualifying_list:
+          - Extracurricular Activities
+          - Character Education
+          - Standardized Testing and Fees
+          - Career and Technical Education Assessment
+          - CPR Training
+          school_details_answer_html: |
+            You can find this information on the receipt you received from the school.
+            <br/><br/>
+            OR
+            <br/><br/>
+            Visit the Arizona Department of Revenue to find the details.
+            <br/><br/>
+            To avoid any errors, highlight the text in the pdf then copy (Ctrl + C) and paste (Ctrl + V) directly to this page.
+          school_details_question: Where can I find the school details?
+          which_qualify: Which donations and fees qualify?
         index:
           add_another: Add another contribution
           amount_contributed: 'Amount contributed: %{amount}'
@@ -2262,7 +2291,7 @@ en:
           charity_name: Charity Name
           date_of_contribution: Date of payment in %{filing_year} (mm/dd)
           main_heading: Did you make cash contributions to a qualifying charitable organization in %{filing_year}?
-          main_heading_html: Did you make cash contributions to a <a href="https://azdor.gov/sites/default/files/2024-01/CREDITS_2024_qco.pdf" target="_blank" >qualifying charitable organization</a> in %{filing_year}?
+          main_heading_html: Did you make cash contributions to a <a href="https://azdor.gov/sites/default/files/2024-01/CREDITS_2024_qco.pdf" target="_blank">qualifying charitable organization</a> in %{filing_year}?
           question_header: 'Please provide the following information for each cash donation to a qualifying charitable organization:'
         index:
           add_another: Add another contribution

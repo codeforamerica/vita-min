@@ -2208,13 +2208,35 @@ es:
           removed: Contribución eliminada para %{school_name}
         edit:
           additional_info: 'Por favor, proporciona la siguiente información para cada escuela pública a la que pagaste tarifas o hiciste contribuciones:'
-          amount: Cantidad de contribución/tarifas pagadas en %{year}
+          amount: Cantidad de donación/tarifas pagadas en %{year}
+          amount_help_text:
+            one: Arizona permite un máximo crédito tributario de las escuelas públicas de $200
+            other: Arizona permite un máximo crédito tributario de las escuelas públicas de $400
           ctds_code: Código de la escuela/CTDS
-          date_of_contribution: Fecha de pago en %{year} (mm/dd)
+          date_of_contribution: Fecha de pago en %{year}
           district_name: Nombre del distrito escolar
-          made_contribution: "¿Pagaste tarifas o hiciste contribuciones en efectivo a una escuela pública en %{year}? No incluyas cantidades reclamadas en la declaración de impuestos del año pasado."
+          made_contribution:
+            one: "¿Pagaste tarifas o hiciste contribuciones en efectivo a una escuela pública en %{year}? No incluyas cantidades reclamadas en la declaración de impuestos del año pasado."
+            other: "¿Pagaste tarifas o hiciste contribuciones en efectivo a una escuela pública en %{year}? No incluyas cantidades reclamadas en la declaración de impuestos del año pasado."
           school_name: Nombre de la escuela
-          title: "¿Pagaste tarifas o hiciste contribuciones en efectivo a una escuela pública en %{year}?"
+          school_name_help_text: Por favor ingresa el nombre oficial
+          title_html: ¡Podrías ser elegible para recibir <a href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_guideline-public-school-ECA-tax-credit.pdf" target="_blank">el crédito tributario de las escuelas públicas de Arizona</a>!
+        form:
+          donations_this_year: "¿Qué pasa con las donaciones hechas en %{current_year}?"
+          donations_this_year_details_html: |
+            FileYourStateTaxes sólo te permite agregar donaciones del período fiscal correspondiente.
+            <br/><br/>
+            Puedes reportar cualquier donación hecha en %{current_year} en la declaración de impuestos del próximo año.
+          more_details_html: Visita el <a href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_guideline-public-school-ECA-tax-credit.pdf" target="_blank">Departamento de Ingresos de Arizona</a> (disponible en inglés) para más detalles.
+          qualifying_list:
+          - Actividades extracurriculares
+          - Educación en valores
+          - Pruebas estandarizadas y sus tarifas
+          - Evaluación de educación técnica y profesional
+          - Entrenamiento de Reanimación Cardiopulmonar (RCP)
+          school_details_answer_html: "Puedes encontrar esta información en el recibo que te entregaron en la escuela. \n<br/><br/>\nO\n<br/><br/>\nVisita el Departamento de Ingresos de Arizona para encontrar la información.\n"
+          school_details_question: "¿Dónde puedo encontrar la información de la escuela?"
+          which_qualify: "¿Qué donaciones y tarifas califican?"
         index:
           add_another: Añadir otra contribución
           amount_contributed: 'Cantidad contribuida: %{amount}'
@@ -2272,7 +2294,7 @@ es:
         edit:
           assistance_label: "¿%{name} necesitó ayuda con actividades diarias como vestirse, comer, tomar medicamentos, hacer compras o preparar su comida?"
           passed_away_label: "%{name}falleció en el %{filing_year}?"
-          title: Proporciónanos más información sobre las personas en tu familia que tienen 65 años o más.
+          title: Necesitamos información adicional sobre %{dependents_name_list}
       az_subtractions:
         edit:
           armed_forces_member_label_html: Tú o tu cónyuge son miembros de las Reservas, la Guardia Nacional o las Fuerzas Armadas de los Estados Unidos <strong>y</strong> recibieron un salario por el servicio activo.
@@ -3185,7 +3207,7 @@ es:
           box14_html: "<b>Box 14</b>, Impuesto estatal retenido"
           box15_html: "<b>Box 15</b>, Estado/Número de estado del pagador"
           box16_html: "<b>Box 16</b>, distribución estatal"
-          title: Revise los detalles de sus ingresos de jubilación (1099-R) para %{payer_name}.
+          title_html: Revise los detalles de sus ingresos de jubilación (1099-R) para %{payer_name}.
       return_status:
         accepted:
           check_payable: Haz tu cheque o giro postal a nombre del “Arizona Department of Revenue. Escribe tu SSN completo, "%{filing_year} Tax" y 140 en tu pago.
