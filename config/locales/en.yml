@@ -162,16 +162,16 @@ en:
       demographic_veteran:
         blank: Please answer or click "Skip question"
       email:
-        invalid: Please enter a valid email
+        invalid: Please enter a valid email.
       email_address:
-        invalid: Please enter a valid email address
+        invalid: Please enter a valid email address.
       email_address_confirmation:
-        confirmation: Please double check that the email addresses match
+        confirmation: Please double check that the email addresses match.
       expiration_date:
-        format: Please enter an expiration date in the format MM-DD-2YYY
+        format: Please enter an expiration date in the format MM-DD-2YYY.
       first_name:
         blank: Please enter a first name.
-        invalid_format: Only letters, numbers, hyphen, and apostrophe are accepted, and first name must be less than 16 characters
+        invalid_format: Only letters, numbers, hyphen, and apostrophe are accepted, and first name must be less than 16 characters.
       hoh_qualifying_person_name:
         blank: Please double check your answers regarding how many months you lived with these dependents. Based on your federal return, you lived in a home with one of these dependents for at least half the year.
       intake_site:
@@ -192,7 +192,7 @@ en:
         invalid: EIN must be a 9-digit number. Do not include a dash.
       payer_tin_ny_invalid: The number entered is not an accepted TIN by New York State.
       phone_number:
-        invalid: Please enter a valid phone number
+        invalid: Please enter a valid phone number.
       phone_number_confirmation:
         confirmation: Please double check that the phone numbers match.
       preferred_name:
@@ -208,13 +208,13 @@ en:
       signature_method:
         inclusion: Please select a pickup method.
       sms_phone_number:
-        invalid: Please enter a valid phone number
+        invalid: Please enter a valid phone number.
       sms_phone_number_confirmation:
         confirmation: Please double check that the cell phone numbers match.
       spouse_email_address:
-        invalid: Please enter a valid email address
+        invalid: Please enter a valid email address.
       spouse_email_address_confirmation:
-        confirmation: Please double check that the email addresses match
+        confirmation: Please double check that the email addresses match.
       spouse_first_name:
         blank: Please enter your spouse's first name.
       spouse_last_name:

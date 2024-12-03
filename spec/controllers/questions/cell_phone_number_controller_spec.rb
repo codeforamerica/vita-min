@@ -109,7 +109,7 @@ RSpec.describe Questions::CellPhoneNumberController do
       it "shows validation errors" do
         post :update, params: params
 
-        expect(response.body).to include("Please enter a valid phone number")
+        expect(response.body).to include("Please enter a valid phone number.")
       end
 
       it "sends an event to mixpanel with relevant data" do

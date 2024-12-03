@@ -390,9 +390,9 @@ RSpec.describe Hub::UsersController do
         } }
         it "adds errors to the user and renders them on the page" do
           post :update, params: params
-          expect(assigns(:user).errors.messages[:phone_number]).to include "Please enter a valid phone number"
+          expect(assigns(:user).errors.messages[:phone_number]).to include "Please enter a valid phone number."
           expect(response).to render_template :edit
-          expect(response.body).to include "Please enter a valid phone number"
+          expect(response.body).to include "Please enter a valid phone number."
         end
       end
 

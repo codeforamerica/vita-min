@@ -34,7 +34,7 @@ RSpec.describe StateFile::NotificationPreferencesForm do
 
         it "adds an error to the phone_number attribute" do
           form.valid?
-          expect(form.errors[:phone_number]).to include "Please enter a valid phone number"
+          expect(form.errors[:phone_number]).to include "Please enter a valid phone number."
         end
       end
     end

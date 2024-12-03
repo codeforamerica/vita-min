@@ -46,7 +46,7 @@ RSpec.describe Hub::ClientForm do
         end
 
         it "must be a valid phone number" do
-          expect(form.errors[:phone_number]).to eq ["Please enter a valid phone number"]
+          expect(form.errors[:phone_number]).to eq ["Please enter a valid phone number."]
         end
       end
 
@@ -91,7 +91,7 @@ RSpec.describe Hub::ClientForm do
         end
 
         it "is invalid" do
-          expect(form.errors[:sms_phone_number]).to eq ["Please enter a valid phone number"]
+          expect(form.errors[:sms_phone_number]).to eq ["Please enter a valid phone number."]
         end
 
         it "leaves the phone number bare for editing" do
@@ -119,7 +119,7 @@ RSpec.describe Hub::ClientForm do
         end
 
         it "adds an error to the attribute" do
-          expect(form.errors[:email_address]).to eq ["Please enter a valid email address"]
+          expect(form.errors[:email_address]).to eq ["Please enter a valid email address."]
         end
       end
     end
@@ -143,7 +143,7 @@ RSpec.describe Hub::ClientForm do
         end
 
         it "adds an error to the attribute" do
-          expect(form.errors[:spouse_email_address]).to eq ["Please enter a valid email address"]
+          expect(form.errors[:spouse_email_address]).to eq ["Please enter a valid email address."]
         end
       end
     end
