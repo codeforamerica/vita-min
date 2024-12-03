@@ -253,6 +253,8 @@ es:
         multiple: 'Error: Se encontraron varias direcciones para la información que ingresó y no existe ningún predeterminado.'
         not_found: 'Error: Dirección no encontrada'
         state: 'Error: Código de Estado Inválido'
+      nc_eligibility_form:
+        at_most_one_option_selected: Debe seleccionar ninguna o las opciones anteriores.
       need_exactly_one_communication_method: Ingrese solo una forma de contacto.
       need_one_communication_method: Por favor, elija alguna manera para que nos comuniquemos con usted.
       replace_me_text: Reemplazar REPLACE ME con información relevante antes de continuar.

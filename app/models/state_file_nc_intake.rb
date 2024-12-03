@@ -95,6 +95,8 @@ class StateFileNcIntake < StateFileBaseIntake
   enum eligibility_ed_loan_cancelled: { no: 0, yes: 1 }, _prefix: :eligibility_ed_loan_cancelled
   enum eligibility_ed_loan_emp_payment: { no: 0, yes: 1 }, _prefix: :eligibility_ed_loan_emp_payment
 
+  attr_accessor :nc_eligiblity_none
+
   def calculate_sales_use_tax
     nc_taxable_income = calculator.lines[:NCD400_LINE_14].value
     calculator.calculate_use_tax(nc_taxable_income)

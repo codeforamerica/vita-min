@@ -252,6 +252,8 @@ en:
         multiple: 'Error: Multiple addresses were found for the information you entered, and no default exists.'
         not_found: 'Error: Address Not Found.'
         state: 'Error: Invalid State Code'
+      nc_eligibility_form:
+        at_most_one_option_selected: You must either select none or the above options
       need_exactly_one_communication_method: Please enter only one form of contact.
       need_one_communication_method: Please choose some way for us to contact you.
       replace_me_text: Replace REPLACE ME with relevant information before proceeding.
