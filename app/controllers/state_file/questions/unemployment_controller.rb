@@ -71,7 +71,7 @@ module StateFile
       private
 
       def next_path
-        if params[:return_to_review].present? && !params[:nc].present?
+        if params[:return_to_review].present? && !current_intake.is_a?(StateFileNcIntake)
           StateFile::Questions::IncomeReviewController.to_path_helper(return_to_review: params[:return_to_review])
         else
           super
@@ -79,7 +79,7 @@ module StateFile
       end
 
       def prev_path
-        if params[:return_to_review].present? && !params[:nc].present?
+        if params[:return_to_review].present? && !current_intake.is_a?(StateFileNcIntake)
           StateFile::Questions::IncomeReviewController.to_path_helper(return_to_review: params[:return_to_review])
         else
           super

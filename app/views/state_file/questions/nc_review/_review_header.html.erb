@@ -62,7 +62,7 @@
       </div>
       <div class="spacing-below-5">
         <p><%= number_to_currency(current_intake.calculator.calculate_gov_payments) %></p>
-        <%= link_to StateFile::Questions::UnemploymentController.to_path_helper(action: :index, return_to_review: "y", nc: "y"), class: "button--small" do %>
+        <%= link_to StateFile::Questions::UnemploymentController.to_path_helper(action: :index, return_to_review: "y"), class: "button--small" do %>
           <%= t("general.edit") %>
           <span class="sr-only"><%= t(".unemployment_compensation") %></span>
         <% end %>
