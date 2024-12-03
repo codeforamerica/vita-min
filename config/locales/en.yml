@@ -2830,7 +2830,7 @@ en:
           none: None of these apply
           question: Did any of the following less common scenarios apply to you (or your spouse, if married filing jointly) in %{filing_year}?
           subtitle: For this tax season, this service will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
-          title: First, let's see if you can use this tool to file your %{filing_year} North Carolina taxes
+          title: First, let's see if you can use this service to file your %{filing_year} North Carolina taxes
       nc_primary_state_id:
         nc_primary:
           encourage_sharing: While providing this information is encouraged, it is optional and not required to file your North Carolina taxes.
