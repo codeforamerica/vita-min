@@ -212,7 +212,7 @@ en:
       sms_phone_number_confirmation:
         confirmation: Please double check that the cell phone numbers match.
       spouse_email_address:
-        invalid: Please enter a valid email address
+        invalid: Please enter a valid email address.
       spouse_email_address_confirmation:
         confirmation: Please double check that the email addresses match
       spouse_first_name:
