@@ -226,7 +226,7 @@ module SubmissionBuilder
           end
 
           def hoh_qualifying_person
-            @hoh_qualifying_person = xml_hoh_qualifying_person || json_hoh_qualifying_person
+            @hoh_qualifying_person ||= xml_hoh_qualifying_person || json_hoh_qualifying_person
           end
 
           def xml_hoh_qualifying_person
