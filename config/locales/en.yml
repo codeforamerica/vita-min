@@ -2868,6 +2868,23 @@ en:
             other: Are you or your spouse an enrolled member of a <a href="https://biamaps.geoplatform.gov/Tribal-Leaders-Directory/" target="_blank">federally recognized Indian Tribe</a> and received income while living on a reservation?
           tribal_wages_field_html: "<b>Enter amount earned</b>"
           tribal_wages_question_html: Enter the amount of income received or earned from activities on the federally recognized reservation. <br><br> <b>Note:</b> this should not exceed $%{amount_limit}
+      nc_tax_refund:
+        edit:
+          how_to_recieve: How would you like to receive your refund?
+          title_html: Good news, you’re getting a North Carolina state refund of <strong>$%{refund_amount}.</strong>
+        nc_bank_details:
+          account_number: Account number
+          account_type:
+            label: Bank Account Type
+          after_deadline_default_withdrawal_info: Because you are submitting your return on or after %{withdrawal_deadline_date}, %{with_drawal_deadline_year}, the state will withdraw your payment as soon as they process your return.
+          bank_title: 'Please provide your bank account details:'
+          confirm_account_number: Confirm Account Number
+          confirm_routing_number: Confirm Routing Number
+          date_withdraw_text: 'When would you like the funds withdrawn from your account? (Must be on or before %{withdrawal_deadline_date}, %{with_drawal_deadline_year}):'
+          foreign_accounts_owed: International ACH payments are not allowed.
+          foreign_accounts_refund: International ACH direct deposit refunds are not allowed.
+          routing_number: Routing Number
+          withdraw_amount: How much do you authorize to be withdrawn from your account? (Your total amount due is $%{owed_amount}.)
       nc_taxes_owed:
         edit:
           automatic_draft_payments_info_one: Some savings, money market, and controlled spending accounts are not eligible for automatic drafts. Please confirm with your bank or credit union if the account you’ve selected can be automatically drafted.
@@ -2885,18 +2902,6 @@ en:
           payment_options: You can pay directly from your checking or savings account here. You can also pay by mail or online through the North Carolina Department of Revenue’s website.
           title_html: You owe <strong>$%{owed_amount}</strong> in %{state_name} state taxes.
           what_are_benefits_of_ncdor: What are the benefits of paying online with FileYourStateTaxes or NCDOR?
-        nc_bank_details:
-          account_number: Account number
-          account_type:
-            label: Bank Account Type
-          after_deadline_default_withdrawal_info: Because you are submitting your return on or after %{withdrawal_deadline_date}, %{with_drawal_deadline_year}, the state will withdraw your payment as soon as they process your return.
-          bank_title: 'Please provide your bank details:'
-          confirm_account_number: Confirm Account Number
-          confirm_routing_number: Confirm Routing Number
-          date_withdraw_text: 'When would you like the funds withdrawn from your account? (Must be on or before %{withdrawal_deadline_date}, %{with_drawal_deadline_year}):'
-          foreign_accounts: International ACH payments are not allowed.
-          routing_number: Routing Number
-          withdraw_amount: How much do you authorize to be withdrawn from your account? (Your total amount due is&#58; $%{owed_amount}.)
       nc_veteran_status:
         primary_veteran_question: Are you a veteran?
         spouse_veteran_question: Is your spouse a veteran?

@@ -2841,6 +2841,23 @@ es:
             other: ¿Es usted o su cónyuge un miembro inscrito de una <a href="https://biamaps.geoplatform.gov/Tribal-Leaders-Directory/" target="_blank">tribu indígena reconocida federalmente</a> y recibieron ingresos mientras vivían en una reserva?
           tribal_wages_field_html: "<b>Ingrese la cantidad ganada</b>"
           tribal_wages_question_html: Ingrese la cantidad de ingresos recibidos o ganados por actividades en la reserva reconocida federalmente. <br><br> <b>Nota:</b> esto no debe exceder $%{amount_limit}
+      nc_tax_refund:
+        edit:
+          how_to_recieve: "¿Cómo le gustaría recibir su reembolso?"
+          title_html: Buenas noticias, está recibiendo un reembolso del estado de Carolina del Norte de <strong>$%{refund_amount}.</strong>
+        nc_bank_details:
+          account_number: Número de cuenta
+          account_type:
+            label: Tipo de cuenta bancaria
+          after_deadline_default_withdrawal_info: Debido a que está presentando su declaración el o después del %{withdrawal_deadline_date}, %{with_drawal_deadline_year}, el estado retirará su pago tan pronto como procesen su declaración.
+          bank_title: 'Por favor proporcione los detalles de su cuenta bancaria:'
+          confirm_account_number: Confirmar número de cuenta
+          confirm_routing_number: Confirmar número de ruta
+          date_withdraw_text: "¿Cuándo le gustaría que se retiraran los fondos de su cuenta? (Debe ser el o antes del %{withdrawal_deadline_date}, %{with_drawal_deadline_year}):"
+          foreign_accounts_owed: No se permiten pagos internacionales de ACH.
+          foreign_accounts_refund: No se permiten reembolsos internacionales de depósito directo de ACH.
+          routing_number: Número de ruta
+          withdraw_amount: "¿Cuánto autoriza para ser retirado de su cuenta? (Su monto total adeudado es $%{owed_amount}.)"
       nc_taxes_owed:
         edit:
           automatic_draft_payments_info_one: Algunas cuentas de ahorro, de mercado monetario y de gasto controlado no son elegibles para débitos automáticos. Por favor, confirme con su banco o cooperativa de crédito si la cuenta que ha seleccionado puede ser debitada automáticamente.
@@ -2858,18 +2875,6 @@ es:
           payment_options: Puede pagar directamente desde su cuenta corriente o de ahorros aquí. También puede pagar por correo o en línea a través del sitio web del Departamento de Ingresos de Carolina del Norte.
           title_html: Usted debe <strong>$%{owed_amount}</strong> en impuestos estatales de %{state_name}.
           what_are_benefits_of_ncdor: "¿Cuáles son los beneficios de pagar en línea con FileYourStateTaxes o NCDOR?"
-        nc_bank_details:
-          account_number: Número de cuenta
-          account_type:
-            label: Tipo de cuenta bancaria
-          after_deadline_default_withdrawal_info: Debido a que está presentando su declaración en o después del %{withdrawal_deadline_date} de %{with_drawal_deadline_year}, el estado retirará su pago tan pronto como procesen su declaración.
-          bank_title: 'Por favor proporcione los detalles de su banco:'
-          confirm_account_number: Confirmar número de cuenta
-          confirm_routing_number: Confirmar número de ruta
-          date_withdraw_text: "¿Cuándo le gustaría que se retiren los fondos de su cuenta? (Debe ser en o antes del %{withdrawal_deadline_date}, %{with_drawal_deadline_year}):"
-          foreign_accounts: No se permiten pagos internacionales ACH.
-          routing_number: Número de ruta
-          withdraw_amount: "¿Cuánto autoriza que se retire de su cuenta? (El monto total que debe es&#58; $%{owed_amount}.)"
       nc_veteran_status:
         primary_veteran_question: "¿Eres un veterano?"
         spouse_veteran_question: "¿Es su cónyuge un veterano?"

@@ -1,6 +1,10 @@
 <div class="white-group">
   <p class="spacing-below-0"><%= t(".bank_title") %></p>
-  <p class="text--small"><%= t(".foreign_accounts") %></p>
+  <% if owe_taxes %>
+    <p class="text--small"><%= t(".foreign_accounts_owed") %></p>
+  <% else %>
+    <p class="text--small"><%= t(".foreign_accounts_refund") %></p>
+  <% end %>
   <div>
     <% if owe_taxes %>
       <%= form.hidden_field :app_time, value: app_time %>

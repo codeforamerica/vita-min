@@ -78,6 +78,7 @@ describe 'EfileError' do
       "nc-sales-use-tax",
       "nc-subtractions",
       "nc-taxes-owed",
+      "nc-tax-refund",
       "nc-veteran-status",
       "nj-college-dependents-exemption",
       "nj-county",
