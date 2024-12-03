@@ -89,9 +89,5 @@
     </div>
   <% end %>
 
-  <%= form_with model: @form, url: { action: :update }, data: { efile_security_information: true, form_name: "state_file_income_review_form" },
-                local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
-    <%= f.hidden_field(:device_id) %>
-    <%= f.continue %>
-  <% end %>
+  <%= link_to t("general.continue"), next_path, class: "button button--wide button--primary text--centered" %>
 <% end %>

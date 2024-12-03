@@ -42,6 +42,37 @@
     </div>
   <% end %>
 
+  <div id="charitable-donations" class="white-group">
+    <div class="spacing-below-5">
+      <p class="text--bold spacing-below-5"><%= t(".voluntary_charitable_donations") %></p>
+      <p class="text spacing-below-2"><%= t(".donations_optional") %></p>
+
+      <% donation_lines = {
+        "state_file.questions.id_donations.edit.nongame_wildlife_fund_donation" => current_intake.nongame_wildlife_fund_donation,
+        "state_file.questions.id_donations.edit.childrens_trust_fund_donation" => current_intake.childrens_trust_fund_donation,
+        "state_file.questions.id_donations.edit.special_olympics_donation" => current_intake.special_olympics_donation,
+        "state_file.questions.id_donations.edit.guard_reserve_family_donation" => current_intake.guard_reserve_family_donation,
+        "state_file.questions.id_donations.edit.american_red_cross_fund_donation" => current_intake.american_red_cross_fund_donation,
+        "state_file.questions.id_donations.edit.veterans_support_fund_donation" => current_intake.veterans_support_fund_donation,
+        "state_file.questions.id_donations.edit.food_bank_fund_donation" => current_intake.food_bank_fund_donation,
+        "state_file.questions.id_donations.edit.opportunity_scholarship_program_donation" => current_intake.opportunity_scholarship_program_donation
+      } %>
+
+      <% if donation_lines.values.all? { |amount| amount.nil? || amount.zero? } %>
+        <p class="text"><%= t(".no_donations_selected").html_safe %></p>
+    <% else %>
+        <% donation_lines.each do |translation_key, amount| %>
+          <% if amount.present? && amount.positive? %>
+            <p class="text--bold spacing-below-5"><%= t(translation_key) %></p>
+            <p><%= number_to_currency(amount, precision: 2) %></p>
+          <% end %>
+        <% end %>
+      <% end %>
+
+      <%= link_to t("general.review_and_edit"), StateFile::Questions::IdDonationsController.to_path_helper(return_to_review: "y"), class: "button--small" %>
+    </div>
+  </div>
+
   <div id="details" class="reveal">
     <p><button class="reveal__button"><%= t("state_file.general.see_detailed_return") %></button></p>
     <div class="reveal__content">
@@ -116,6 +147,11 @@
       <div class="spacing-below-25">
         <p class="text--bold spacing-below-5"><%= t("state_file.general.id_tax_after_credits") %></p>
         <p><%= number_to_currency(current_intake.calculator.line_or_zero(:ID40_LINE_33)) %></p>
+      </div>
+
+      <div class="spacing-below-25">
+        <p class="text--bold spacing-below-5"><%= t("state_file.general.id_total_tax_plus_donations") %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:ID40_LINE_42)) %></p>
       </div>
 
       <div class="spacing-below-25">

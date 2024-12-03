@@ -19,6 +19,10 @@ RSpec.feature "Transferring data from Direct File", active_job: true do
     step_through_eligibility_screener(us_state: "ny")
 
     step_through_initial_authentication(contact_preference: :email)
+    check "Email"
+    check "Text message"
+    fill_in "Your phone number", with: "+12025551212"
+    click_on "Continue"
 
     expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
     click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")

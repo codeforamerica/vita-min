@@ -220,7 +220,7 @@ module Efile
       def calculate_line_11_exemption
         line_or_zero(:NJ1040_LINE_11_COUNT) * 1500
       end
-      
+
       def calculate_line_12
         line_or_zero(:NJ1040_LINE_12_COUNT) * 1_000
       end
@@ -428,7 +428,7 @@ module Efile
 
       def calculate_line_65
         return nil if @intake.filing_status == :married_filing_separately
-        
+
         eligible_dependents_count = number_of_dependents_age_5_younger
         return nil if eligible_dependents_count.zero?
 

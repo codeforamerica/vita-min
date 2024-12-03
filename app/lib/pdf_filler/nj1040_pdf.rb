@@ -572,6 +572,31 @@ module PdfFiller
                                                    "undefined_162",
                                                  ]))
       end
+
+      # Driver License/State ID
+      id_number_xml = @xml_document.at("PrimDrvrLcnsOrStateIssdIdGrp DrvrLcnsNum") ||
+        @xml_document.at("PrimDrvrLcnsOrStateIssdIdGrp StateIssdIdNum")
+      if id_number_xml.present?
+        id_number = id_number_xml&.text
+        answers.merge!({
+          "Drivers License Number Voluntary Instructions page 44": id_number[0],
+          Text246: id_number[1],
+          Text247: id_number[2],
+          Text248: id_number[3],
+          Text249: id_number[4],
+          Text250: id_number[5],
+          Text251: id_number[6],
+          Text252: id_number[7],
+          Text253: id_number[8],
+          Text254: id_number[9],
+          Text255: id_number[10],
+          Text256: id_number[11],
+          Text257: id_number[12],
+          Text258: id_number[13],
+          Text259: id_number[14]
+        })
+      end
+
       answers
     end
 

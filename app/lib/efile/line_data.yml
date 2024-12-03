@@ -222,6 +222,22 @@ ID40_LINE_32B:
   label: '32B. Checkbox that determines if the Permanent Building Fund needs to be payed'
 ID40_LINE_33:
   label: '33. Total Tax. Add lines 27 to 32'
+ID40_LINE_34:
+  label: '34. Idaho Nongame Wildlife Fund Donation'
+ID40_LINE_35:
+  label: '35. Idaho Children’s Trust Fund Donation'
+ID40_LINE_36:
+  label: '36. Special Olympics Idaho Donation'
+ID40_LINE_37:
+  label: '37. Idaho Guard & Reserve Family Donation'
+ID40_LINE_38:
+  label: '38. American Red Cross of Idaho Fund Donation'
+ID40_LINE_39:
+  label: '39. Veterans Support Fund Donation'
+ID40_LINE_40:
+  label: '40. Idaho Food Bank Fund Donation'
+ID40_LINE_41:
+  label: '41. Opportunity Scholarship Program Donation'
 ID40_LINE_42:
   label: '42. Total Tax Plus Donations. Add lines 33 through 41.'
 ID40_LINE_43_WORKSHEET:

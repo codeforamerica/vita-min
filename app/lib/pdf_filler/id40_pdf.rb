@@ -92,6 +92,30 @@ module PdfFiller
                          'DirectDepositSavings' => @xml_document.at('Savings')&.text == "X" ? 'Yes' : 'Off',
                        })
       end
+      if @xml_document.at('WildlifeDonation').present?
+        answers.merge!({ 'DonationsL34' => @xml_document.at('WildlifeDonation')&.text })
+      end
+      if @xml_document.at('ChildrensTrustDonation').present?
+        answers.merge!({ 'DonationsL35' => @xml_document.at('ChildrensTrustDonation')&.text })
+      end
+      if @xml_document.at('SpecialOlympicDonation').present?
+        answers.merge!({ 'DonationsL36' => @xml_document.at('SpecialOlympicDonation')&.text })
+      end
+      if @xml_document.at('NationalGuardDonation').present?
+        answers.merge!({ 'DonationsL37' => @xml_document.at('NationalGuardDonation')&.text })
+      end
+      if @xml_document.at('RedCrossDonation').present?
+        answers.merge!({ 'DonationsL38' => @xml_document.at('RedCrossDonation')&.text })
+      end
+      if @xml_document.at('VeteransSupportDonation').present?
+        answers.merge!({ 'DonationsL39' => @xml_document.at('VeteransSupportDonation')&.text })
+      end
+      if @xml_document.at('FoodBankDonation').present?
+        answers.merge!({ 'DonationsL40' => @xml_document.at('FoodBankDonation')&.text })
+      end
+      if @xml_document.at('OpportunityScholarshipProgram').present?
+        answers.merge!({ 'DonationsL41' => @xml_document.at('OpportunityScholarshipProgram')&.text })
+      end
       answers
     end
 
