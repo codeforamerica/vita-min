@@ -691,6 +691,12 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to be_axe_clean.within "main"
       click_on I18n.t("general.continue")
 
+      # Tax Refund
+      expect(page).to have_text I18n.t("state_file.questions.tax_refund.edit.title_html")
+      expect(page).to be_axe_clean.within "main"
+      choose I18n.t('state_file.questions.tax_refund.edit.mail')
+      click_on I18n.t("general.continue")
+
       # Review
       expect(page).to have_text I18n.t("state_file.questions.shared.review_header.title")
       expect(page).to be_axe_clean.within "main"
