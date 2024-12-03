@@ -3274,13 +3274,6 @@ es:
       review:
         county: Condado
       shared:
-        review_footer:
-          download_pdf: Puedes descargar un PDF de tu declaración de impuestos estatales después de enviarla.
-        review_header:
-          income_details: Detalles de ingresos
-          title: "¡Terminaste! Revisa tu declaración de impuestos estatales antes de enviarla."
-          your_refund: Tu reembolso
-          your_tax_owed: Tus impuestos adeudados
         abstract_review_header:
           dependent_dob: Su fecha de nacimiento
           dependent_months_in_home: Número de meses que vivieron contigo
@@ -3292,6 +3285,13 @@ es:
           taxes_owed_html: Tu reembolso es de $0. Esto significa <strong>que no</strong> recibirás un reembolso estatal y <strong>no</strong> debes impuestos estatales. Deberías terminar de presentar tu declaración, ya que es posible que estés obligado/a a presentarla aunque no recibirás dinero.
           title: "¡Terminaste! Revisa tu declaración de impuestos estatales antes de enviarla."
           your_name: Tu nombre
+        review_footer:
+          download_pdf: Puedes descargar un PDF de tu declaración de impuestos estatales después de enviarla.
+        review_header:
+          income_details: Detalles de ingresos
+          title: "¡Terminaste! Revisa tu declaración de impuestos estatales antes de enviarla."
+          your_refund: Tu reembolso
+          your_tax_owed: Tus impuestos adeudados
       spouse_state_id:
         edit:
           title_html: Proporciona la información para la identificación emitida por el estado de <strong>tu cónyuge</strong>
