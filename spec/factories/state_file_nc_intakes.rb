@@ -151,6 +151,7 @@ FactoryBot.define do
     end
 
     trait :married_filing_separately do
+      filing_status { 'married_filing_separately' }
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nc_sheldon_mfs') }
     end
 

@@ -40,7 +40,7 @@ FactoryBot.define do
     state_identification_number {'123456789'}
     unemployment_compensation_amount { '1' }
     federal_income_tax_withheld_amount { '0' }
-    state_income_tax_withheld_amount { '0' }
+    state_income_tax_withheld_amount { 0.0 }
     recipient_city {'New York'}
     recipient_street_address {'123 Recipient St'}
     recipient_zip {'11102'}
