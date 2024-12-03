@@ -17,7 +17,7 @@ module StateFile
     private
 
     def below_fed_wages_salaries_tips
-      amount_limit = @intake.direct_file_data.fed_wages_salaries_tips
+      amount_limit = @intake.calculator.subtractions_limit
       if self.tribal_wages_amount.to_d > amount_limit
         errors.add(:tribal_wages_amount, I18n.t("forms.errors.state_credit.exceeds_limit", limit: amount_limit))
       end
