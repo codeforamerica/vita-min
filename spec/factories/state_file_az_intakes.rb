@@ -227,10 +227,6 @@ FactoryBot.define do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('az_superman') }
     end
 
-    trait :df_data_many_w2s do
-      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('az_goldwater') }
-    end
-
     factory :state_file_az_refund_intake do
       after(:build) do |intake, evaluator|
         intake.direct_file_data.fed_agi = 10000

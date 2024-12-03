@@ -131,8 +131,8 @@ FactoryBot.define do
   end
 
   factory "rory", class: StateFileAzIntake do
-    raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("az_rory_claimedasdep_v2") }
-    raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json("az_rory_claimedasdep_v2") }
+    raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("az_rory_claimed_as_dep") }
+    raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json("az_rory_claimedasdep") }
 
     after(:create) do |intake|
       intake.synchronize_df_dependents_to_database
