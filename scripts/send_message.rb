@@ -19,7 +19,7 @@ class SendMessage < Thor
         say "Creating disposable intake to test notification", :cyan
 
         intake = StateFileAzIntake.create(
-          primary_first_name: "Testa",
+          primary_first_name: "Test",
           primary_last_name: "Testerson",
           email_address: options.fetch(:email_address, nil),
           email_address_verified_at: 1.minute.ago,

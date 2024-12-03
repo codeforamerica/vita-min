@@ -87,11 +87,6 @@ module StateFile
       matching_intakes.present?
     end
 
-
-    # def send_sms
-    #   return unless Flipper.enabled?(:sms_notifications)
-    # end
-
     def base_args
       first_name = intake.primary_first_name ? intake.primary_first_name.split(/ |\_/).map(&:capitalize).join(" ") : ""
       {
