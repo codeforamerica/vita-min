@@ -2870,15 +2870,15 @@ es:
       nc_spouse_state_id:
         nc_spouse:
           encourage_sharing: You’re encouraged to share this information, but it’s not required to file your North Carolina taxes.
-          protect_identity: To protect your identity and combat tax fraud, many state agencies are asking people to give their driver’s license or state ID number.
+          protect_identity: To protect your identity and combat tax fraud, many state revenue agencies are asking people to give their driver’s license or state ID number.
           why_ask_this: Why are you asking for this information?
       nc_subtractions:
         edit:
           title_html:
             one: ¿Es usted un miembro inscrito de una <a href="https://biamaps.geoplatform.gov/Tribal-Leaders-Directory/" target="_blank">tribu indígena reconocida federalmente</a> y recibió ingresos mientras vivía en una reserva?
             other: ¿Es usted o su cónyuge un miembro inscrito de una <a href="https://biamaps.geoplatform.gov/Tribal-Leaders-Directory/" target="_blank">tribu indígena reconocida federalmente</a> y recibieron ingresos mientras vivían en una reserva?
-          tribal_wages_field_html: "<b>Ingrese la cantidad ganada</b>"
-          tribal_wages_question_html: Ingrese la cantidad de ingresos recibidos o ganados por actividades en la reserva reconocida federalmente. <br><br> <b>Nota:</b> esto no debe exceder $%{amount_limit}
+          tribal_wages_field: "Ingrese la cantidad ganada"
+          tribal_wages_question_html: Ingrese la cantidad de ingresos recibidos o ganados por actividades en la reserva reconocida federalmente. <br><br> <b>Nota:</b> esto no debe exceder $%{amount_limit}.
       nc_veteran_status:
         primary_veteran_question: "¿Eres un veterano?"
         spouse_veteran_question: "¿Es su cónyuge un veterano?"

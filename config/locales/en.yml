@@ -2865,8 +2865,8 @@ en:
           title: First, let's see if you can use this tool to file your taxes
       nc_primary_state_id:
         nc_primary:
-          encourage_sharing: You’re encouraged to share this information, but it’s not required to file your North Carolina taxes.
-          protect_identity: To protect your identity and combat tax fraud, many state agencies are asking people to give their driver’s license or state ID number.
+          encourage_sharing: While providing this information is encouraged, it is optional and not required to file your North Carolina taxes.
+          protect_identity: To protect your identity and combat tax fraud, many state revenue agencies are requesting that filers provide their driver’s license or state-issued ID number.
           why_ask_this: Why are you asking for this information?
       nc_review:
         edit:
@@ -2898,16 +2898,16 @@ en:
           what_are_use_taxes_body: If you buy something from another state (like online shopping or purchases from a store located in another state) and you don’t pay sales tax on it, you are generally required to pay use tax to your home state.
       nc_spouse_state_id:
         nc_spouse:
-          encourage_sharing: You’re encouraged to share this information, but it’s not required to file your North Carolina taxes.
-          protect_identity: To protect your identity and combat tax fraud, many state agencies are asking people to give their driver’s license or state ID number.
+          encourage_sharing: While providing this information is encouraged, it is optional and not required to file your North Carolina taxes.
+          protect_identity: To protect your identity and combat tax fraud, many state revenue agencies are asking people to give their driver’s license or state ID number.
           why_ask_this: Why are you asking for this information?
       nc_subtractions:
         edit:
           title_html:
             one: Are you an enrolled member of a <a href="https://biamaps.geoplatform.gov/Tribal-Leaders-Directory/" target="_blank">federally recognized Indian Tribe</a> and received income while living on a reservation?
             other: Are you or your spouse an enrolled member of a <a href="https://biamaps.geoplatform.gov/Tribal-Leaders-Directory/" target="_blank">federally recognized Indian Tribe</a> and received income while living on a reservation?
-          tribal_wages_field_html: "<b>Enter amount earned</b>"
-          tribal_wages_question_html: Enter the amount of income received or earned from activities on the federally recognized reservation. <br><br> <b>Note:</b> this should not exceed $%{amount_limit}
+          tribal_wages_field: "Enter amount earned"
+          tribal_wages_question_html: Enter the amount of income received or earned from activities on the federally recognized reservation. <br><br> This amount should not exceed $%{amount_limit}.
       nc_veteran_status:
         title: Are you a veteran of the United States Armed Forces?
         title_spouse: Are you or your spouse a veteran of the United States Armed Forces?
@@ -3235,7 +3235,7 @@ en:
       primary_state_id:
         edit:
           ny_subtitle: This information is required for all NY residents with a state-issued ID.
-          title: Please share some details from your state-issued ID
+          title: We need some details from your state-issued ID, if you have one
         state_id:
           id_details:
             expiration: Expiration Date
@@ -3248,7 +3248,7 @@ en:
             dmv: DMV/BMV State ID
             drivers_license: Driver’s license
             label: ID Type
-            no_id: No driver’s license or state ID
+            no_id: No driver’s license or state ID/Prefer not to share
           info_link: View where to find this information
       retirement_income:
         edit:
@@ -3316,7 +3316,7 @@ en:
           your_tax_owed: Your taxes owed
       spouse_state_id:
         edit:
-          title_html: Please provide information for <strong>your spouse’s</strong> state issued ID
+          title_html: We need some details from <strong>your spouse’s</strong> state-issued ID, if they have one
       submission_confirmation:
         edit:
           download_state_return_pdf: Download your state return
