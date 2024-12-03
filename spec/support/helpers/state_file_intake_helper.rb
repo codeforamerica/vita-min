@@ -56,7 +56,7 @@ module StateFileIntakeHelper
       click_on I18n.t("general.continue")
     when "nc"
       expect(page).to have_text I18n.t("state_file.questions.nc_eligibility.edit.title", filing_year: filing_year)
-      check "state_file_nc_eligibility_form_none"
+      check "state_file_nc_eligibility_form_nc_eligiblity_none"
       click_on I18n.t("general.continue")
     when "nj"
       click_on I18n.t("general.continue")
