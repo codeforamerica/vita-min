@@ -13,6 +13,7 @@ module Navigation
                                           Navigation::NavigationStep.new(StateFile::Questions::EmailAddressController),
                                           Navigation::NavigationStep.new(StateFile::Questions::VerificationCodeController),
                                           Navigation::NavigationStep.new(StateFile::Questions::CodeVerifiedController),
+                                          Navigation::NavigationStep.new(StateFile::Questions::NotificationPreferencesController),
                                         ]),
       Navigation::NavigationSection.new("state_file.navigation.section_3", [
                                           Navigation::NavigationStep.new(StateFile::Questions::TermsAndConditionsController),
@@ -48,6 +49,8 @@ module Navigation
                                           Navigation::NavigationStep.new(StateFile::Questions::NjEstimatedTaxPaymentsController),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjSalesUseTaxController),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjGubernatorialElectionsController),
+                                          Navigation::NavigationStep.new(StateFile::Questions::PrimaryStateIdController),
+                                          Navigation::NavigationStep.new(StateFile::Questions::SpouseStateIdController),
                                           Navigation::NavigationStep.new(StateFile::Questions::TaxesOwedController),
                                           Navigation::NavigationStep.new(StateFile::Questions::TaxRefundController),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjReviewController),
@@ -61,4 +64,3 @@ module Navigation
     FLOW = SECTIONS.map(&:controllers).flatten.freeze
   end
 end
-  

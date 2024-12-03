@@ -62,7 +62,7 @@ module StateFile
       when :married_filing_jointly
         read_xml("az_martha_v2")
       when :qualifying_widow
-        read_xml("az_leslie_qss_v2")
+        read_xml("az_leslie_qss")
       when :married_filing_separately
         read_xml("az_sherlock_mfs")
       when :head_of_household

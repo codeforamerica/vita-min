@@ -1713,6 +1713,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_27_213848) do
     t.integer "eligibility_out_of_state_income", default: 0, null: false
     t.citext "email_address"
     t.datetime "email_address_verified_at"
+    t.integer "email_notification_opt_in", default: 0, null: false
     t.integer "failed_attempts", default: 0, null: false
     t.string "federal_return_status"
     t.string "federal_submission_id"
@@ -1744,6 +1745,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_27_213848) do
     t.string "referrer"
     t.string "routing_number"
     t.integer "sign_in_count", default: 0, null: false
+    t.integer "sms_notification_opt_in", default: 0, null: false
     t.string "source"
     t.date "spouse_birth_date"
     t.integer "spouse_esigned", default: 0, null: false
@@ -1837,6 +1839,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_27_213848) do
     t.integer "eligibility_withdrew_msa_fthb", default: 0, null: false
     t.citext "email_address"
     t.datetime "email_address_verified_at"
+    t.integer "email_notification_opt_in", default: 0, null: false
     t.integer "failed_attempts", default: 0, null: false
     t.string "federal_return_status"
     t.string "federal_submission_id"
@@ -1873,6 +1876,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_27_213848) do
     t.string "referrer"
     t.string "routing_number"
     t.integer "sign_in_count", default: 0, null: false
+    t.integer "sms_notification_opt_in", default: 0, null: false
     t.string "source"
     t.decimal "special_olympics_donation", precision: 12, scale: 2
     t.date "spouse_birth_date"
@@ -1932,6 +1936,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_27_213848) do
     t.integer "eligibility_out_of_state_income", default: 0, null: false
     t.citext "email_address"
     t.datetime "email_address_verified_at"
+    t.integer "email_notification_opt_in", default: 0, null: false
     t.integer "failed_attempts", default: 0, null: false
     t.string "federal_return_status"
     t.string "federal_submission_id"
@@ -1975,6 +1980,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_27_213848) do
     t.string "residence_county"
     t.string "routing_number"
     t.integer "sign_in_count", default: 0, null: false
+    t.integer "sms_notification_opt_in", default: 0, null: false
     t.string "source"
     t.date "spouse_birth_date"
     t.integer "spouse_did_not_have_health_insurance", default: 0, null: false
@@ -2027,6 +2033,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_27_213848) do
     t.integer "eligibility_withdrew_529", default: 0, null: false
     t.citext "email_address"
     t.datetime "email_address_verified_at"
+    t.integer "email_notification_opt_in", default: 0, null: false
     t.integer "failed_attempts", default: 0, null: false
     t.string "federal_return_status"
     t.string "federal_submission_id"
@@ -2056,6 +2063,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_27_213848) do
     t.decimal "sales_use_tax", precision: 12, scale: 2
     t.integer "sales_use_tax_calculation_method", default: 0, null: false
     t.integer "sign_in_count", default: 0, null: false
+    t.integer "sms_notification_opt_in", default: 0, null: false
     t.string "source"
     t.date "spouse_birth_date"
     t.integer "spouse_esigned", default: 0, null: false
@@ -2108,6 +2116,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_27_213848) do
     t.integer "eligibility_out_of_state_income", default: 0, null: false
     t.citext "email_address"
     t.datetime "email_address_verified_at"
+    t.integer "email_notification_opt_in", default: 0, null: false
     t.decimal "estimated_tax_payments", precision: 12, scale: 2
     t.integer "failed_attempts", default: 0, null: false
     t.integer "fed_taxable_income"
@@ -2159,6 +2168,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_27_213848) do
     t.decimal "sales_use_tax", precision: 12, scale: 2
     t.integer "sales_use_tax_calculation_method", default: 0, null: false
     t.integer "sign_in_count", default: 0, null: false
+    t.integer "sms_notification_opt_in", default: 0, null: false
     t.string "source"
     t.date "spouse_birth_date"
     t.integer "spouse_claimed_as_eitc_qualifying_child", default: 0, null: false
@@ -2233,6 +2243,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_27_213848) do
     t.integer "eligibility_yonkers", default: 0, null: false
     t.citext "email_address"
     t.datetime "email_address_verified_at"
+    t.integer "email_notification_opt_in", default: 0, null: false
     t.integer "failed_attempts", default: 0, null: false
     t.string "federal_return_status"
     t.string "federal_submission_id"
@@ -2292,6 +2303,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_27_213848) do
     t.integer "school_district_id"
     t.integer "school_district_number"
     t.integer "sign_in_count", default: 0, null: false
+    t.integer "sms_notification_opt_in", default: 0, null: false
     t.string "source"
     t.date "spouse_birth_date"
     t.integer "spouse_esigned", default: 0, null: false

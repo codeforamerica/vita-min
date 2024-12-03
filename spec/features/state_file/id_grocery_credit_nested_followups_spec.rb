@@ -27,6 +27,10 @@ RSpec.feature "Idaho Grocery Credit nested questions with followup", active_job:
       click_on I18n.t("general.continue")
 
       step_through_initial_authentication(contact_preference: :email)
+      check "Email"
+      check "Text message"
+      fill_in "Your phone number", with: "+12025551212"
+      click_on "Continue"
 
       click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
 
