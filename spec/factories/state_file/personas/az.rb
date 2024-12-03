@@ -1,61 +1,19 @@
 FactoryBot.define do
   factory "johnny", class: StateFileAzIntake do
     raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("az_johnny_mfj_8_deps") }
-    primary_first_name { "Johnny" }
-    primary_middle_initial { "L" }
-    primary_last_name { "Rose" }
-    primary_suffix { "SR" }
-    primary_birth_date { "1975-01-01" }
-
-    spouse_first_name { "Moira" }
-    spouse_last_name { "O'Hara" }
-    spouse_birth_date { "1975-02-02" }
+    raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json("az_johnny_mfj_8_deps") }
 
     after(:create) do |intake|
       intake.synchronize_df_dependents_to_database
+      intake.synchronize_df_1099_rs_to_database
       intake.synchronize_df_w2s_to_database
+      intake.synchronize_filers_to_database
 
-      intake.dependents.where(first_name: "David").first.update(
-        dob: Date.new(2015, 1, 1),
-        relationship: "DAUGHTER",
-        months_in_home: 12
-      )
-      intake.dependents.where(first_name: "Twyla").first.update(
-        dob: Date.new(2017, 1, 2),
-        relationship: "NEPHEW",
-        months_in_home: 7
-      )
-      intake.dependents.where(first_name: "Alexis").first.update(
-        dob: Date.new(2019, 2, 2),
-        relationship: "DAUGHTER",
-        months_in_home: 12
-      )
-      intake.dependents.where(first_name: "Stevie").first.update(
-        dob: Date.new(2021, 5, 5),
-        relationship: "DAUGHTER",
-        months_in_home: 8
-      )
-      intake.dependents.where(first_name: "Roland").first.update(
-        dob: Date.new(1960, 6, 6),
-        relationship: "PARENT",
-        months_in_home: 12
-      )
-      intake.dependents.where(first_name: "Ronnie").first.update(
-        dob: Date.new(1960, 7, 7),
-        relationship: "PARENT",
-        months_in_home: 12
-      )
       intake.dependents.where(first_name: "Bob").first.update(
-        dob: Date.new(1940, 3, 3),
-        relationship: "GRANDPARENT",
-        months_in_home: 7,
         needed_assistance: "no",
         passed_away: "no"
       )
       intake.dependents.where(first_name: "Wendy").first.update(
-        dob: Date.new(1940, 4, 4),
-        relationship: "GRANDPARENT",
-        months_in_home: 12,
         needed_assistance: "yes",
         passed_away: "no"
       )
@@ -101,21 +59,13 @@ FactoryBot.define do
 
   factory "leslie", class: StateFileAzIntake do
     raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("az_leslie_qss_v2") }
-    primary_first_name { "LESLIE" }
-    primary_last_name { "KNOPE" }
-    primary_birth_date { "1955-12-12" }
+    raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json("az_leslie_qss_v2") }
 
     after(:create) do |intake|
       intake.synchronize_df_dependents_to_database
+      intake.synchronize_df_1099_rs_to_database
       intake.synchronize_df_w2s_to_database
-
-      intake.dependents.where(first_name: "April").first.update(
-        dob: Date.new(2019, 8, 8),
-        relationship: "DAUGHTER",
-        months_in_home: 12
-      )
-
-      intake.dependents.reload
+      intake.synchronize_filers_to_database
     end
 
     after(:create) do |intake|
@@ -152,43 +102,13 @@ FactoryBot.define do
 
   factory "martha", class: StateFileAzIntake do
     raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("az_martha_v2") }
-    primary_first_name { "MARTHA" }
-    primary_last_name { "WASHINGTON" }
-    primary_birth_date { "1980-01-01" }
-
-    spouse_first_name { "GEORGE" }
-    spouse_last_name { "WASHINGTON" }
-    spouse_birth_date { "1981-02-02" }
+    raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json("az_martha_v2") }
 
     after(:create) do |intake|
       intake.synchronize_df_dependents_to_database
+      intake.synchronize_df_1099_rs_to_database
       intake.synchronize_df_w2s_to_database
-
-      intake.dependents.where(first_name: "Nelly").first.update(
-        dob: Date.new(2004, 6, 6),
-        relationship: "NEPHEW",
-        months_in_home: 12
-      )
-
-      intake.dependents.where(first_name: "Martha").first.update(
-        dob: Date.new(2008, 4, 4),
-        relationship: "DAUGHTER",
-        months_in_home: 12
-      )
-
-      intake.dependents.where(first_name: "Frances").first.update(
-        dob: Date.new(2002, 5, 5),
-        relationship: "NEPHEW",
-        months_in_home: 12
-      )
-
-      intake.dependents.where(first_name: "John").first.update(
-        dob: Date.new(2022, 3, 3),
-        relationship: "GRANDCHILD",
-        months_in_home: 12
-      )
-
-      intake.dependents.reload
+      intake.synchronize_filers_to_database
     end
 
     has_prior_last_names { "no" }
@@ -212,10 +132,14 @@ FactoryBot.define do
 
   factory "rory", class: StateFileAzIntake do
     raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("az_rory_claimedasdep_v2") }
+    raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json("az_rory_claimedasdep_v2") }
 
-    primary_first_name { "RORY" }
-    primary_last_name { "GILMORE" }
-    primary_birth_date { "2002-02-03" }
+    after(:create) do |intake|
+      intake.synchronize_df_dependents_to_database
+      intake.synchronize_df_1099_rs_to_database
+      intake.synchronize_df_w2s_to_database
+      intake.synchronize_filers_to_database
+    end
 
     has_prior_last_names { "no" }
 
@@ -226,7 +150,5 @@ FactoryBot.define do
     charitable_contributions { "no" }
 
     payment_or_deposit_type { "mail" }
-
-    after(:create, &:synchronize_df_w2s_to_database)
   end
 end

@@ -327,7 +327,7 @@ describe Efile::Az::Az140Calculator do
 
     context "single filer with one dependent" do
       it "sets the credit to the correct amount" do
-        intake.dependents.create(dob: 7.years.ago)
+        create :state_file_dependent, intake: intake, dob: 7.years.ago
         intake.direct_file_data.filing_status = 1 # single
         intake.direct_file_data.fed_agi = 12_500 # qualifying agi
 
@@ -338,7 +338,7 @@ describe Efile::Az::Az140Calculator do
 
     context "mfs filer with one dependent" do
       it "sets the credit to the correct amount" do
-        intake.dependents.create(dob: 7.years.ago)
+        create :state_file_dependent, intake: intake, dob: 7.years.ago
         intake.direct_file_data.filing_status = 3 # mfs
         intake.direct_file_data.fed_agi = 12_500 # qualifying agi
 
@@ -349,7 +349,7 @@ describe Efile::Az::Az140Calculator do
 
     context "mfj filer with one dependent" do
       it "sets the credit to the correct amount" do
-        intake.dependents.create(dob: 7.years.ago)
+        create :state_file_dependent, intake: intake, dob: 7.years.ago
         intake.direct_file_data.filing_status = 2 # mfj
         intake.direct_file_data.fed_agi = 25_000 # qualifying agi
 
@@ -360,7 +360,7 @@ describe Efile::Az::Az140Calculator do
 
     context "hoh filer with one dependent" do
       it "sets the credit to the correct amount" do
-        intake.dependents.create(dob: 7.years.ago)
+        create :state_file_dependent, intake: intake, dob: 7.years.ago
         intake.direct_file_data.filing_status = 4 # hoh
         intake.direct_file_data.fed_agi = 25_000 # # qualifying agi
         instance.calculate
@@ -372,10 +372,10 @@ describe Efile::Az::Az140Calculator do
       it "sets the credit to the maximum amount" do
         intake.direct_file_data.filing_status = 1 # single
         intake.direct_file_data.fed_agi = 12_500 # qualifying agi
-        intake.dependents.create(dob: 7.years.ago)
-        intake.dependents.create(dob: 5.years.ago)
-        intake.dependents.create(dob: 3.years.ago)
-        intake.dependents.create(dob: 1.years.ago)
+        create :state_file_dependent, intake: intake, dob: 7.years.ago
+        create :state_file_dependent, intake: intake, dob: 5.years.ago
+        create :state_file_dependent, intake: intake, dob: 3.years.ago
+        create :state_file_dependent, intake: intake, dob: 1.years.ago
         instance.calculate
         expect(instance.lines[:AZ140_LINE_56].value).to eq(100) # (1 filer + 4 dependents) * 25 = 125 but max is 100
       end
@@ -403,10 +403,10 @@ describe Efile::Az::Az140Calculator do
       it "adjusts the max credit" do
         intake.direct_file_data.filing_status = 1 # single
         intake.direct_file_data.fed_agi = 12_500 # qualifying agi
-        intake.dependents.create(dob: 7.years.ago)
-        intake.dependents.create(dob: 5.years.ago)
-        intake.dependents.create(dob: 3.years.ago)
-        intake.dependents.create(dob: 1.years.ago)
+        create :state_file_dependent, intake: intake, dob: 7.years.ago
+        create :state_file_dependent, intake: intake, dob: 5.years.ago
+        create :state_file_dependent, intake: intake, dob: 3.years.ago
+        create :state_file_dependent, intake: intake, dob: 1.years.ago
         intake.update(household_excise_credit_claimed: "yes", household_excise_credit_claimed_amount: 40)
         instance.calculate
         expect(instance.lines[:AZ140_LINE_56].value).to eq(60) # (1 filer + 4 dependents) * 25 = 125 but max is 60

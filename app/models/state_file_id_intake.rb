@@ -20,6 +20,7 @@
 #  eligibility_withdrew_msa_fthb                  :integer          default("unfilled"), not null
 #  email_address                                  :citext
 #  email_address_verified_at                      :datetime
+#  email_notification_opt_in                      :integer          default("unfilled"), not null
 #  failed_attempts                                :integer          default(0), not null
 #  federal_return_status                          :string
 #  food_bank_fund_donation                        :decimal(12, 2)
@@ -54,6 +55,7 @@
 #  referrer                                       :string
 #  routing_number                                 :string
 #  sign_in_count                                  :integer          default(0), not null
+#  sms_notification_opt_in                        :integer          default("unfilled"), not null
 #  source                                         :string
 #  special_olympics_donation                      :decimal(12, 2)
 #  spouse_birth_date                              :date
@@ -93,6 +95,8 @@ class StateFileIdIntake < StateFileBaseIntake
   enum primary_has_grocery_credit_ineligible_months: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_has_grocery_credit_ineligible_months
   enum spouse_has_grocery_credit_ineligible_months: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_has_grocery_credit_ineligible_months
   enum received_id_public_assistance: { unfilled: 0, yes: 1, no: 2 }, _prefix: :received_id_public_assistance
+  enum email_notification_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :email_notification_opt_in
+  enum sms_notification_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :sms_notification_opt_in
 
   def disqualifying_df_data_reason; end
 
