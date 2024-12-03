@@ -2,13 +2,7 @@
   <p><button class="reveal__button"><%= t('.vita_option_title') %></button></p>
   <div class="reveal__content">
     <div>
-      <p><%=t('state_file.questions.eligible.edit.want_to_claim_vita') %></p>
-      <ul class="list--bulleted">
-        <li>
-          <a href="<%= @vita_link %>" target="_blank" rel="noopener nofollow"><%= t('state_file.questions.eligibility_offboarding.other_options.vita_link') %></a>
-        </li>
-        <li><%=t('state_file.questions.eligible.edit.want_to_claim_learn_more_html', link: @faq_other_options_link) %></li>
-      </ul>
+      <%= render partial: "state_file/questions/eligible/vita_option" %>
     </div>
   </div>
 </div>
@@ -28,5 +22,5 @@
   </div>
 </div>
 
-<p class="spacing-above-35"><%= link_to t(".vita_link"), @vita_link %></p>
+<p class="spacing-above-35"><%= link_to t("state_file.questions.eligible.vita_option.vita_link"), @vita_link %></p>
 <p><%= link_to t(".faq_link"), state_faq_path(us_state: current_state_code) %></p>

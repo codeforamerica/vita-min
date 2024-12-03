@@ -23,13 +23,7 @@
         <%= render partial: "state_file/questions/eligible/#{current_state_code}_unsupported" %>
       <% end %>
       <div>
-        <p><%=t('.want_to_claim_vita') %></p>
-        <ul class="list--bulleted">
-          <li>
-            <a href="<%= @vita_link %>" target="_blank" rel="noopener nofollow"><%= t('state_file.questions.eligibility_offboarding.other_options.vita_link') %></a>
-          </li>
-          <li><%=t('.want_to_claim_learn_more_html', link: @faq_other_options_link) %></li>
-        </ul>
+        <%= render partial: "state_file/questions/eligible/vita_option" %>
       </div>
     </div>
   </div>

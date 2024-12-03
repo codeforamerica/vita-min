@@ -2418,7 +2418,6 @@ en:
               list2: Be ready to reenter info from your federal return, as it’s needed for your state return.
               list3: When filing, only submit your state return. If you submit your federal return again, your federal return may be rejected.
             title: What are my other state filing options?
-          vita_link: Get started with VITA now
           vita_option_title: What are my free state filing options?
       eligible:
         az_supported:
@@ -2449,8 +2448,6 @@ en:
           title2_html: |
             Let's make sure this is the right service for you.<br><br>
             Here are the credits and deductions you <strong>may</strong> be able to claim to maximize your refund.
-          want_to_claim_learn_more_html: Learn more about this process and other filing options <a href="%{link}" target="_blank">here</a>.
-          want_to_claim_vita: You may be able to file your state return for free with help from IRS-certified VITA volunteers, but it may take 2-3 weeks to complete.
         id_supported:
           child_care_deduction: Child and Dependent Care Deduction
           id_child_tax_credit: Idaho Child Tax Credit
@@ -2518,6 +2515,10 @@ en:
           subtractions_225_military: Military combat pay
           subtractions_225_native_american: Native American Income Exclusion
           subtractions_225_student_loan: Student loan forgiveness award
+        vita_option:
+          vita_link: Get started with VITA now
+          want_to_claim_learn_more_html: Learn more about this process and other filing options <a href="%{link}" target="_blank">here</a>.
+          want_to_claim_vita: You may be able to file your state return for free with help from IRS-certified VITA volunteers, but it may take 2-3 weeks to complete.
       email_address:
         edit:
           action: Send code

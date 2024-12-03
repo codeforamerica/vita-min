@@ -2423,8 +2423,6 @@ es:
           title2_html: |
             Let's make sure this is the right service for you.<br><br>
             Here are the credits and deductions you <strong>may</strong> be able to claim to maximize your refund.
-          want_to_claim_learn_more_html: Obtén más información sobre este proceso y otras opciones de presentación <a href="%{link}" target="_blank">aquí</a>.
-          want_to_claim_vita: Es posible que puedas presentar tu declaración de impuestos estatales de forma gratuita con la ayuda de voluntarios VITA certificados por el IRS. Ten en cuenta que esta opción puede demorar de 2 a 3 semanas en completarse.
         id_supported:
           child_care_deduction: Deducción por Cuidado de Hijos y Dependientes
           id_child_tax_credit: Crédito Fiscal para Hijos de Idaho
@@ -2492,6 +2490,10 @@ es:
           subtractions_225_military: Pago por combate militar
           subtractions_225_native_american: Exclusión de ingresos para Nativos Americanos
           subtractions_225_student_loan: Premios por condonación de préstamos estudiantiles
+        vita_option:
+          vita_link: Get started with VITA now
+          want_to_claim_learn_more_html: Learn more about this process and other filing options <a href="%{link}" target="_blank">here</a>.
+          want_to_claim_vita: You may be able to file your state return for free with help from IRS-certified VITA volunteers, but it may take 2-3 weeks to complete.
       email_address:
         edit:
           action: Enviar el código
