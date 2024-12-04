@@ -643,7 +643,7 @@ describe Efile::Md::Md502Calculator do
       [
         [["single", "married_filing_separately", "dependent"], [
           [12_000, 1_800],
-          [17_900, (17_900 * 0.15).round], #
+          [17_900, (17_900 * 0.15).round],
           [18_001, 2_700],
         ]],
         [["married_filing_jointly", "head_of_household", "qualifying_widow"], [
