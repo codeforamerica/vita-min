@@ -53,7 +53,7 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
           xml.ZIPCd @intake.direct_file_data.mailing_zip
         elsif @intake.confirmed_permanent_address_no?
           xml.AddressLine1Txt sanitize_for_xml(@intake.permanent_street, 35)
-          xml.AddressLine2Txt sanitize_for_xml(@intake.permanent_apartment, 35) if @intake.direct_file_data.mailing_apartment.present?
+          xml.AddressLine2Txt sanitize_for_xml(@intake.permanent_apartment, 35) if @intake.permanent_apartment.present?
           xml.CityNm sanitize_for_xml(@intake.permanent_city, 22)
           xml.StateAbbreviationCd @intake.state_code.upcase
           xml.ZIPCd @intake.permanent_zip
@@ -129,6 +129,22 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
         xml.NetIncome calculated_fields.fetch(:MD502_LINE_18)
         xml.ExemptionAmount calculated_fields.fetch(:MD502_LINE_19)
       end
+      if has_healthcare_coverage_section?
+        xml.MDHealthCareCoverage do
+          if @intake.primary_did_not_have_health_insurance_yes?
+            xml.PriWithoutHealthCoverageInd "X"
+            xml.PriDOB date_type(@intake.primary_birth_date)
+          end
+          if @intake.spouse_did_not_have_health_insurance_yes?
+            xml.SecWithoutHealthCoverageInd "X"
+            xml.SecDOB date_type(@intake.spouse_birth_date)
+          end
+          if @intake.authorize_sharing_of_health_insurance_info_yes?
+            xml.AuthorToShareInfoHealthExchInd "X"
+            xml.TaxpayerEmailAddress email_from_intake_or_df
+          end
+        end
+      end
       if has_state_tax_computation?
         xml.StateTaxComputation do
           xml.TaxableNetIncome calculated_fields.fetch(:MD502_LINE_20) if @deduction_method_is_standard
@@ -145,11 +161,22 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
         add_element_if_present(xml, "LocalIncomeTax", :MD502_LINE_28_LOCAL_TAX_AMOUNT)
         add_element_if_present(xml, "EarnedIncomeCredit", :MD502_LINE_29)
         add_element_if_present(xml, "PovertyLevelCredit", :MD502_LINE_30)
-        add_element_if_present(xml,"TotalCredits", :MD502_LINE_32)
-        add_element_if_present(xml,"LocalTaxAfterCredits", :MD502_LINE_33)
+        add_element_if_present(xml, "TotalCredits", :MD502_LINE_32)
+        add_element_if_present(xml, "LocalTaxAfterCredits", :MD502_LINE_33)
       end
       add_element_if_present(xml, "TotalStateAndLocalTax", :MD502_LINE_34)
+      add_non_zero_value(xml, :TotalTaxAndContributions, :MD502_LINE_39)
       xml.TaxWithheld calculated_fields.fetch(:MD502_LINE_40)
+      add_non_zero_value(xml, :RefundableEIC, :MD502_LINE_42)
+      add_non_zero_value(xml, :TotalPaymentsAndCredits, :MD502_LINE_44)
+      add_non_zero_value(xml, :BalanceDue, :MD502_LINE_45)
+      add_non_zero_value(xml, :Overpayment, :MD502_LINE_46)
+      if calculated_fields.fetch(:MD502_LINE_48).positive?
+        xml.AmountOverpayment do
+          xml.ToBeRefunded calculated_fields.fetch(:MD502_LINE_48)
+        end
+      end
+      add_non_zero_value(xml, :TotalAmountDue, :MD502_LINE_50)
       xml.AuthToDirectDepositInd "X" if calculated_fields.fetch(:MD502_AUTHORIZE_DIRECT_DEPOSIT)
       if @intake.payment_or_deposit_type.to_sym == :direct_deposit
         xml.NameOnBankAccount do
@@ -208,6 +235,12 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
       calculated_fields.fetch(line) > 0
     end
     has_dependent_exemption? || has_line_a_or_b_exemptions
+  end
+
+  def has_healthcare_coverage_section?
+    @intake.primary_did_not_have_health_insurance_yes? ||
+      @intake.spouse_did_not_have_health_insurance_yes? ||
+      @intake.authorize_sharing_of_health_insurance_info_yes?
   end
 
   def has_state_tax_computation?

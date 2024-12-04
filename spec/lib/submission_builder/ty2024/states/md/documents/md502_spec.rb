@@ -287,6 +287,44 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
         end
       end
 
+      context "healthcare coverage stuff" do
+        context "truthy answers" do
+          before do
+            intake.update(primary_did_not_have_health_insurance: true)
+            intake.update(primary_birth_date: DateTime.new(1975, 4, 12))
+            intake.update(spouse_did_not_have_health_insurance: true)
+            intake.update(spouse_birth_date: DateTime.new(1972, 11, 5))
+            intake.update(authorize_sharing_of_health_insurance_info: "yes")
+            intake.update(email_address: "healthy@example.com")
+          end
+
+          it "fills in the right lines" do
+            expect(xml.document.at("MDHealthCareCoverage PriWithoutHealthCoverageInd")&.text).to eq "X"
+            expect(xml.document.at("MDHealthCareCoverage PriDOB")&.text).to eq "1975-04-12"
+            expect(xml.document.at("MDHealthCareCoverage SecWithoutHealthCoverageInd")&.text).to eq "X"
+            expect(xml.document.at("MDHealthCareCoverage SecDOB")&.text).to eq "1972-11-05"
+            expect(xml.document.at("MDHealthCareCoverage AuthorToShareInfoHealthExchInd")&.text).to eq "X"
+            expect(xml.document.at("MDHealthCareCoverage TaxpayerEmailAddress")&.text).to eq "healthy@example.com"
+          end
+        end
+
+        context "falsey answers" do
+          before do
+            intake.update(primary_did_not_have_health_insurance: false)
+            intake.update(spouse_did_not_have_health_insurance: false)
+            intake.update(authorize_sharing_of_health_insurance_info: "no")
+          end
+
+          it "fills in the right lines" do
+            expect(xml.document.at("MDHealthCareCoverage")).to be_nil
+            expect(xml.document.at("MDHealthCareCoverage PriWithoutHealthCoverageInd")).to be_nil
+            expect(xml.document.at("MDHealthCareCoverage SecWithoutHealthCoverageInd")).to be_nil
+            expect(xml.document.at("MDHealthCareCoverage AuthorToShareInfoHealthExchInd")).to be_nil
+            expect(xml.document.at("MDHealthCareCoverage TaxpayerEmailAddress")).to be_nil
+          end
+        end
+      end
+
       context "subtractions section" do
         let(:other_subtractions) { 100 }
         let(:two_income_subtraction_amount) { 1200 }
@@ -465,13 +503,41 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
       end
     end
 
-    context "Line 40: Total state and local tax withheld" do
+    context "Contributions Sections" do
       before do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_39).and_return 100
         allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_40).and_return 500
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_42).and_return 200
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_44).and_return 300
       end
 
       it 'outputs the total state and local tax withheld' do
+        expect(xml.at("Form502 TotalTaxAndContributions")&.text).to eq('100')
         expect(xml.at("Form502 TaxWithheld")&.text).to eq('500')
+        expect(xml.at("Form502 RefundableEIC")&.text).to eq('200')
+        expect(xml.at("Form502 TotalPaymentsAndCredits")&.text).to eq('300')
+      end
+    end
+
+    context "when taxes are owed" do
+      before do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_45).and_return 100
+      end
+
+      it 'outputs the amount owed' do
+        expect(xml.at("Form502 BalanceDue")&.text).to eq('100')
+        expect(xml.at("Form502 TotalAmountDue")&.text).to eq('100')
+      end
+    end
+
+    context "when there is a refund" do
+      before do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_46).and_return 300
+      end
+
+      it 'outputs the amount to be refunded' do
+        expect(xml.at("Form502 Overpayment")&.text).to eq('300')
+        expect(xml.at("Form502 AmountOverpayment ToBeRefunded")&.text).to eq('300')
       end
     end
 

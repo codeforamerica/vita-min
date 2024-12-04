@@ -43,6 +43,24 @@ RSpec.describe StateFile::Questions::AzReviewController do
         expect(response.body).to include I18n.t("state_file.questions.az_review.edit.household_excise_credit_claimed")
       end
 
+      context "when primary answers no to was incarcerated question" do
+        it "shows the answer being no" do
+          get :edit
+          expect(response.body).not_to include I18n.t("general.affirmative")
+          expect(response.body).to include I18n.t("general.negative")
+        end
+      end
+
+      context "when primary answers yes to was incarcerated question" do
+        let(:intake) { create :state_file_az_refund_intake, primary_was_incarcerated: 'yes' }
+
+        it "shows the answer being yes" do
+          get :edit
+          expect(response.body).to include I18n.t("general.affirmative")
+        end
+      end
+
+
       it "does not show the incarcerated question" do
         intake.update(raw_direct_file_data: intake.raw_direct_file_data.gsub!("10000", "20000"))
         sign_in intake

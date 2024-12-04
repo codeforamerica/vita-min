@@ -1,6 +1,6 @@
 module StateFile
   module Questions
-    class DataReviewController < QuestionsController
+    class PostDataTransferController < QuestionsController
       def edit
         super
         # Redirect to offboarding here if not eligible
@@ -16,6 +16,8 @@ module StateFile
           ip_address: ip_for_irs,
           intake: current_intake,
         )
+
+        redirect_to next_path if acts_like_production?
       end
 
       private

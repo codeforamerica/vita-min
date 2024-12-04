@@ -28,8 +28,6 @@ describe SubmissionBuilder::ReturnHeader do
         it "generates xml with the right values" do
           expect(doc.at("Jurisdiction").text).to eq "#{state_code.upcase}ST"
           expect(doc.at("ReturnTs").text).to eq submission.created_at.strftime("%FT%T%:z")
-          expect(doc.at("TaxPeriodBeginDt").text).to eq Date.new(tax_return_year, 1, 1).strftime("%F")
-          expect(doc.at("TaxPeriodEndDt").text).to eq Date.new(tax_return_year, 12, 31).strftime("%F")
           expect(doc.at("TaxYr").text).to eq tax_return_year.to_s
           expect(doc.at("OriginatorGrp EFIN").text).to eq efin
           expect(doc.at("OriginatorGrp OriginatorTypeCd").text).to eq "OnlineFiler"
@@ -155,6 +153,34 @@ describe SubmissionBuilder::ReturnHeader do
             expect(doc.at('Filer Secondary TaxpayerName LastName').content).to eq spouse_last_name
           end
         end
+      end
+    end
+  end
+
+  context "tax period information" do
+    let(:tax_return_year) { 2024 }
+    before do
+      intake.direct_file_data.tax_return_year = tax_return_year
+    end
+
+    StateFile::StateInformationService.active_state_codes.without("nc").each do |state_code|
+      context "if state is not NC" do
+        let(:intake) { create "state_file_#{state_code}_intake".to_sym }
+        let(:submission) { create(:efile_submission, data_source: intake) }
+        let(:doc) { SubmissionBuilder::ReturnHeader.new(submission).document }
+        it "shows tax period information" do
+          expect(doc.at("TaxPeriodBeginDt").text).to eq Date.new(tax_return_year, 1, 1).strftime("%F")
+          expect(doc.at("TaxPeriodEndDt").text).to eq Date.new(tax_return_year, 12, 31).strftime("%F")
+        end
+      end
+    end
+    context "if state is NC" do
+      let(:intake) { create :state_file_nc_intake }
+      let(:submission) { create(:efile_submission, data_source: intake) }
+      let(:doc) { SubmissionBuilder::ReturnHeader.new(submission).document }
+      it "does not show tax period information" do
+        expect(doc.at("TaxPeriodBeginDt")).to be_nil
+        expect(doc.at("TaxPeriodEndDt")).to be_nil
       end
     end
   end

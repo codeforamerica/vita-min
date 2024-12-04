@@ -80,8 +80,8 @@ module StateFileIntakeHelper
       click_on "Send code"
 
 
-      expect(page).to have_text I18n.t("state_file.questions.verification_code.edit.title")
-      expect(page).to have_text "We’ve sent your code to (415) 333-4444."
+      expect(strip_html_tags(page.body)).to have_text strip_html_tags(I18n.t("state_file.questions.verification_code.edit.title_html", contact_info: '(415) 333-4444'))
+      expect(page).to have_text "We’ve sent your code to (415) 333-4444"
 
       perform_enqueued_jobs
       sms = FakeTwilioClient.messages.last
@@ -93,8 +93,7 @@ module StateFileIntakeHelper
       fill_in I18n.t("state_file.questions.email_address.edit.email_address_label"), with: "someone@example.com"
       click_on "Send code"
 
-      expect(page).to have_text I18n.t("state_file.questions.verification_code.edit.title")
-      expect(page).to have_text "We’ve sent your code to someone@example.com."
+      expect(page).to have_text "We’ve sent your code to someone@example.com"
 
       perform_enqueued_jobs
       mail = ActionMailer::Base.deliveries.last
@@ -124,6 +123,7 @@ module StateFileIntakeHelper
     unless Capybara.current_driver == Capybara.javascript_driver
       find_link("HIDDEN BUTTON", visible: :any).click
     end
+    click_on I18n.t("general.continue")
   end
 
   def assert_flow_explorer_sample_params_includes_everything(us_state)
