@@ -2397,6 +2397,29 @@ es:
         other_options:
           faq_link: Visita nuestras Preguntas Frecuentes
           learn_more_here_html: Obtén más información <a href="%{link}" rel="noopener nofollow" target="_blank">aquí.</a>
+          md_reveal_content_html: |
+            <p>
+              Tiene otras opciones gratuitas para presentar su declaración estatal:
+              <ul>
+                <li>
+                  Presente su declaración de forma gratuita con voluntarios VITA certificados por el IRS en Maryland.
+                  <ul>
+                    <li>
+                      Si elige esta opción, se le conectará con un socio de VITA en Maryland. Espere una llamada rápida de admisión en unos días para discutir su situación fiscal y cargar sus documentos de manera segura. Este proceso puede tardar de 2 a 3 semanas en completarse.
+                    </li>
+                    <li>
+                      Comience con VITA ahora
+                    </li>
+                    <li>
+                      Obtenga más información sobre este proceso y otras opciones de presentación aquí.
+                    </li>
+                  </ul>
+                  <li>
+                    Comience con el servicio de <a href="https://www.marylandtaxes.gov/individual/tax-assistance/free-tax-prep.php" rel="noopener nofollow" target="_blank">Preparación Gratuita de Impuestos sobre la Renta</a> del Contralor de Maryland.
+                  </li>
+                </li>
+              </ul>
+            </p>
           other_options_reveal:
             fees: Se pueden aplicar tarifas.
             list:
