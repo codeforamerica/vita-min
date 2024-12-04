@@ -643,12 +643,12 @@ describe Efile::Md::Md502Calculator do
       [
         [["single", "married_filing_separately", "dependent"], [
           [12_000, 1_800],
-          [17_999, 17_999 * 0.15],
+          [17_900, (17_900 * 0.15).round], #
           [18_001, 2_700],
         ]],
         [["married_filing_jointly", "head_of_household", "qualifying_widow"], [
           [24_333, 3_650],
-          [36_332, 36_332 * 0.15],
+          [35_550, (35_550 * 0.15).round],
           [36_334, 5_450],
         ]]
       ].each do |filing_statuses, agis_to_deductions|
