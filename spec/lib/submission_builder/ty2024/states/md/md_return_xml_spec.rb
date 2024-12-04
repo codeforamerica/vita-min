@@ -193,14 +193,14 @@ describe SubmissionBuilder::Ty2024::States::Md::MdReturnXml, required_schema: "m
 
           context "Form 502 has both L24 and L43 but deduction method is not standard" do
             before do
-              allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_24).and_return 0
-              allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_43).and_return 0
+              allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_24).and_return 100
+              allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_43).and_return 100
               allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "N"
             end
 
-            it "does not attach a 502CR" do
-              expect(xml.at("Form502CR")).not_to be_present
-              expect(instance.pdf_documents).not_to be_any { |included_documents|
+            it "attaches a 502CR" do
+              expect(xml.at("Form502CR")).to be_present
+              expect(instance.pdf_documents).to be_any { |included_documents|
                 included_documents.pdf == PdfFiller::Md502CrPdf
               }
             end
