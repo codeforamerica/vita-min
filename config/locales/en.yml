@@ -2759,11 +2759,13 @@ en:
       md_eligibility_filing_status:
         edit:
           eligibility_filing_status_label_text: Are you married and filing a joint state return?
-          eligibility_first_time_homebuyer_withdrawal_label_text: Did you or your spouse withdraw money from a first-time homebuyer account and not use it to purchase a home in Maryland in %{year}?
           eligibility_mfj_two_different_areas_label_text: Did you and your spouse have your permanent homes in two different counties, cities, towns, or taxing areas on the last day of %{year}?
           eligibility_mfj_two_different_areas_no: No, my spouse and I lived in the same county, city, town, or taxing area
           eligibility_mfj_two_different_areas_yes: Yes, my spouse and I permanently lived in different counties, cities, towns, or taxing areas
-          eligibility_non_mfj_first_time_homebuyer_withdrawal_label_text: Did you withdraw money from a first-time homebuyer account and not use it to purchase a home in Maryland in %{year}?
+
+          eligibility_first_time_homebuyer_withdrawal_label_text_html: Did you or your spouse withdraw money from a first-time homebuyer account and <strong> not </strong> use it to purchase a home in Maryland in %{year}?
+          eligibility_non_mfj_first_time_homebuyer_withdrawal_label_text_html: Did you withdraw money from a first-time homebuyer account and <strong> not </strong> use it to purchase a home in Maryland in %{year}?
+
           permanent_home_copy: You cannot use this service if you and your spouse live in different counties, cities, towns, or taxing areas, and it is not a temporary situation.
           permanent_home_copy2: If you leave your permanent home to work or care for someone but plan to return, your permanent home hasn’t changed. You and your spouse are considered to live in different counties, cities, towns or taxing areas only if you are staying in these separate homes and it is not temporary.
           permanent_home_heading: What is a permanent home?
