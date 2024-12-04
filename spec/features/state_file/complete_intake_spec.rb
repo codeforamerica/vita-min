@@ -664,15 +664,15 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to be_axe_clean.within "main"
       click_on I18n.t("general.continue")
 
+      # Driver License
+      choose I18n.t('state_file.questions.nj_primary_state_id.nj_primary.no_id')
+      expect(page).to be_axe_clean.within "main"
+      click_on I18n.t("general.continue")
+
       # Tax Refund
       expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.tax_refund.edit.title_html", refund_amount: 1000, state_name: "New Jersey"))
       expect(page).to be_axe_clean.within "main"
       choose I18n.t('state_file.questions.tax_refund.edit.mail')
-      click_on I18n.t("general.continue")
-
-      # Driver License
-      choose I18n.t('state_file.questions.nj_primary_state_id.nj_primary.no_id')
-      expect(page).to be_axe_clean.within "main"
       click_on I18n.t("general.continue")
 
       # Review
