@@ -5,9 +5,7 @@ RSpec.describe StateFile::NcSubtractionsForm do
     let(:intake) { create :state_file_nc_intake }
     let(:form) { described_class.new(intake, params) }
     before do
-      intake.direct_file_data.fed_agi = 1060
-      intake.direct_file_data.fed_taxable_income = 30
-      intake.direct_file_data.fed_taxable_ssb = 30
+      intake.direct_file_data.fed_wages_salaries_tips = 1000
     end
 
     context "with no radio selected" do
