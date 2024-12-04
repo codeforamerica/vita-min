@@ -1922,6 +1922,126 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       end
     end
 
+    describe 'line 66 - Total Withholdings, Credits, and Payments' do
+      it 'inserts xml output' do
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_66).and_return 12_345_678
+        # millions
+        expect(pdf_fields["undefined_167"]).to eq "1"
+        expect(pdf_fields["66page2!!"]).to eq "2"
+        # thousands
+        expect(pdf_fields["62"]).to eq "3"
+        expect(pdf_fields["undefined_160"]).to eq "4"
+        expect(pdf_fields["undefined_161"]).to eq "5"
+        # hundreds
+        expect(pdf_fields["66"]).to eq "6"
+        expect(pdf_fields["undefined_172"]).to eq "7"
+        expect(pdf_fields["Text202"]).to eq "8"
+        # decimals
+        expect(pdf_fields["Text203"]).to eq "0"
+        expect(pdf_fields["Text204"]).to eq "0"
+      end
+    end
+
+    describe 'line 67 - tax due' do
+      it 'inserts xml output' do
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_67).and_return 12_345_678
+        # millions
+        expect(pdf_fields["67AA12vvff434tei7yt#"]).to eq "1"
+        expect(pdf_fields["67AA12vvff434te"]).to eq "2"
+        # thousands
+        expect(pdf_fields["67AA12133vvve367AA12vvff434te"]).to eq "3"
+        expect(pdf_fields["67AA127434ERDFvfr67AA12vvff434te"]).to eq "4"
+        expect(pdf_fields["67AA12697TDFGCXDqaffw67AA12vvff434te"]).to eq "5"
+        # hundreds
+        expect(pdf_fields["672wqreafd67AA12vvff434te"]).to eq "6"
+        expect(pdf_fields["undefined_173t24wsd67AA12vvff434te"]).to eq "7"
+        expect(pdf_fields["Text20523rwefa67AA12vvff434te"]).to eq "8"
+        # decimals
+        expect(pdf_fields["Text2061ddwQz1267AA12vvff434te"]).to eq "0"
+        expect(pdf_fields["Text20711231167AA12vvff434te"]).to eq "0"
+      end
+    end
+
+    describe 'line 68 - overpayment' do
+      it 'inserts xml output' do
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_68).and_return 12_345_678
+        # millions
+        expect(pdf_fields["74112###5z5643"]).to eq "1"
+        expect(pdf_fields["7412###5z564312###5z5643"]).to eq "2"
+        # thousands
+        expect(pdf_fields["undefined_18112###5z564312###5z5643"]).to eq "3"
+        expect(pdf_fields["undefined_18212###5z564312###5z5643"]).to eq "4"
+        expect(pdf_fields["undefined_18312###5z564312###5z5643"]).to eq "5"
+        # hundreds
+        expect(pdf_fields["Text22912###5z564312###5z5643"]).to eq "6"
+        expect(pdf_fields["Text23012###5z564312###5z5643"]).to eq "7"
+        expect(pdf_fields["Text23112###5z564312###5z5643"]).to eq "8"
+        # decimals
+        expect(pdf_fields["Text23212###5z564312###5z5643"]).to eq "0"
+        expect(pdf_fields["Text23312###5z564312###5z5643"]).to eq "0"
+      end
+    end
+
+    describe 'line 78 - Total Adjustments to Tax Due/Overpayment amount' do
+      it 'inserts xml output' do
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_78).and_return 0
+        # millions
+        expect(pdf_fields["74112###"]).to eq ""
+        expect(pdf_fields["74"]).to eq ""
+        # thousands
+        expect(pdf_fields["undefined_181"]).to eq ""
+        expect(pdf_fields["undefined_182"]).to eq ""
+        expect(pdf_fields["undefined_183"]).to eq ""
+        # hundreds
+        expect(pdf_fields["Text229"]).to eq ""
+        expect(pdf_fields["Text230"]).to eq ""
+        expect(pdf_fields["Text231"]).to eq "0"
+        # decimals
+        expect(pdf_fields["Text232"]).to eq "0"
+        expect(pdf_fields["Text233"]).to eq "0"
+      end
+    end
+
+    describe 'line 79 - Balance due' do
+      it 'inserts xml output' do
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_79).and_return 12_345_678
+        # millions
+        expect(pdf_fields["754112###"]).to eq "1"
+        expect(pdf_fields["75"]).to eq "2"
+        # thousands
+        expect(pdf_fields["undefined_184"]).to eq "3"
+        expect(pdf_fields["undefined_185"]).to eq "4"
+        expect(pdf_fields["undefined_186"]).to eq "5"
+        # hundreds
+        expect(pdf_fields["Text234"]).to eq "6"
+        expect(pdf_fields["Text235"]).to eq "7"
+        expect(pdf_fields["Text236"]).to eq "8"
+        # decimals
+        expect(pdf_fields["Text237"]).to eq "0"
+        expect(pdf_fields["Text238"]).to eq "0"
+      end
+    end
+
+    describe 'line 80 - Refund amount' do
+      it 'inserts xml output' do
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_80).and_return 12_345_678
+        # millions
+        expect(pdf_fields["764112###"]).to eq "1"
+        expect(pdf_fields["76"]).to eq "2"
+        # thousands
+        expect(pdf_fields["undefined_187"]).to eq "3"
+        expect(pdf_fields["undefined_188"]).to eq "4"
+        expect(pdf_fields["undefined_189"]).to eq "5"
+        # hundreds
+        expect(pdf_fields["Text240"]).to eq "6"
+        expect(pdf_fields["Text241"]).to eq "7"
+        expect(pdf_fields["Text242"]).to eq "8"
+        # decimals
+        expect(pdf_fields["Text243"]).to eq "0"
+        expect(pdf_fields["Text244"]).to eq "0"
+      end
+    end
+
     describe "gubernatorial elections fund" do
       context "not mfj" do 
         let(:intake) { 
