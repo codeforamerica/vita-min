@@ -25,6 +25,10 @@
     </AdditionalFilerInformation>
   </ReturnHeader>
   <ReturnData documentCnt="5">
+    <IRS2441><TotalQlfdExpensesOrLimitAmt>6000</TotalQlfdExpensesOrLimitAmt></IRS2441>
+    <IRS1040Schedule3 documentId="IRS1040S3001">
+      <CreditForChildAndDepdCareAmt referenceDocumentId="IRS2441001" referenceDocumentName="IRS2441">2100</CreditForChildAndDepdCareAmt>
+    </IRS1040Schedule3>
     <IRS1040 documentId="IRS10400001">
       <IndividualReturnFilingStatusCd>5</IndividualReturnFilingStatusCd>
       <SpouseDeathDt>2023-07-09</SpouseDeathDt>
@@ -78,7 +82,7 @@
       <TaxAmt>0</TaxAmt>
       <AdditionalTaxAmt>0</AdditionalTaxAmt>
       <TotalTaxBeforeCrAndOthTaxesAmt>0</TotalTaxBeforeCrAndOthTaxesAmt>
-      <CreditForChildAndDepdCareAmt>2100</CreditForChildAndDepdCareAmt>
+      <CTCODCAmt>0</CTCODCAmt>
       <TotalNonrefundableCreditsAmt>0</TotalNonrefundableCreditsAmt>
       <TotalCreditsAmt>0</TotalCreditsAmt>
       <TaxLessCreditsAmt>0</TaxLessCreditsAmt>

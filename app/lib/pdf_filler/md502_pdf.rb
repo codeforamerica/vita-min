@@ -102,6 +102,7 @@ module PdfFiller
         'Text Box 40': @xml_document.at('Form502 StateTaxComputation TotalCredits')&.text,
         'Text Box 42': @xml_document.at('Form502 StateTaxComputation StateTaxAfterCredits')&.text,
         'Text Box 74': @xml_document.at('Form502 RefundableTaxCredits')&.text,
+        'Text Box 75': @xml_document.at('Form502 RefundableTaxCredits')&.text.present? ? "00" : nil,
         'Text Box 66': calculated_fields.fetch(:MD502_LINE_39),
         'Text Box 67': "00",
         'Text Box 72': calculated_fields.fetch(:MD502_LINE_42),
