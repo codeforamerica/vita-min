@@ -2174,22 +2174,14 @@ es:
     questions:
       az_charitable_contributions:
         edit:
-          charitable_cash_html: 'Ingresa el <strong>monto total de las donaciones en efectivo realizadas</strong> en %{tax_year}. (Redondea al número entero más cercano. Nota: Es posible que debas adjuntar recibos por donaciones superiores a $250.)'
-          charitable_noncash_html: 'Ingresa el <strong>monto total de las donaciones en especie realizadas</strong> en %{tax_year} (ejemplo: el valor de mercado de artículos donados). Esto no puede superar los $500. (redondea al número entero más cercano)'
-          learn_more_content_html: |
-            Las contribuciones caritativas incluyen donaciones en <strong>efectivo</strong> y en <strong>especie</strong> a organizaciones que califican.<br><br>
-            Las organizaciones que califican incluyen grupos sin ánimo de lucro con propósitos religiosos, caritativos, educativos, científicos o literarios, o que trabajan para prevenir la crueldad hacia niños o animales. Verifica <a href="https://www.irs.gov/TEOS" target="_blank" rel="noopener nofollow">aquí</a> si una organización califica.<br><br>
-            <strong>No</strong> incluyes:<br>
-            <ul><li>regalos hechos directamente a individuos;</li>
-            <li>contribuciones políticas;</li>
-            <li>todas las tarifas pagadas a escuelas públicas, incluyendo las tarifas que califican para el <a href="https://azdor.gov/tax-credits/public-school-tax-credit" target="_blank" rel="noopener nofollow">Crédito Tributario para Escuelas Públicas</a>;</li>
-            <li>dinero gastado en eventos de recaudación de fondos, incluyendo rifas, bingo; o</li>
-            <li>artículos comprados para una recaudación de fondos.</li></ul>
-          learn_more_title: "¿Qué quiere decir esto?"
-          title:
-            many: "¿Tú o tu cónyuge hicieron contribuciones caritativas (en efectivo y/o en especie) a una organización calificada en %{tax_year}?"
-            one: "¿Realizaste donaciones caritativas a una organización calificada en %{tax_year}? (En efectivo o en especie)"
-            other: "¿Tú o tu cónyuge hicieron contribuciones caritativas (en efectivo y/o en especie) a una organización calificada en %{tax_year}?"
+          amount_cannot_exceed: La cantidad no puede ser mayor a $500
+          charitable_cash_html: Cantidad total de las donaciones en efectivo/tarifas
+          charitable_noncash_html: Cantidad total de las donaciones  no monetarias
+          help_text: Por ejemplo, el valor comercial razonable de los artículos donados.
+          question:
+            one: "¿Donaste tú a organizaciones sin fines de lucro exentas de impuestos?"
+            other: "¿Tú y tu cónyuge donaron a organizaciones sin fines de lucro exentas de impuestos?"
+          title: "¡Podrías ser elegible para recibir créditos y deducciones adicionales de Arizona!"
       az_excise_credit:
         edit:
           household_excise_credit_claimed_amt: "¿Cuánto, en total, reclamaron todos los demás miembros de su hogar en Crédito por Impuesto Especial Incrementado? (Puede consultar esto en la línea 56 de su declaración de impuestos de Arizona)."

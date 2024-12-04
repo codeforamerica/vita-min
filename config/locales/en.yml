@@ -2208,21 +2208,14 @@ en:
     questions:
       az_charitable_contributions:
         edit:
-          charitable_cash_html: 'Enter the <strong>total amount of cash contributions</strong> made in %{tax_year}. (Round to the nearest whole number. Note: you may be asked to provide receipts for donations over $250.)'
-          charitable_noncash_html: 'Enter the <strong>total amount of non-cash contributions</strong> made in %{tax_year} (example: the fair market value of donated items). This cannot exceed $500 (round to the nearest whole number.)'
-          learn_more_content_html: |
-            Charitable contributions include <strong>cash</strong> and <strong>non-cash</strong> donations to qualifying organizations.<br><br>
-            Qualifying organizations include nonprofit groups that are religious, charitable, educational, scientific, or literary in purpose, or that work to prevent cruelty to children or animals. Check <a href="https://www.irs.gov/TEOS" target="_blank" rel="noopener nofollow">here</a> to see if an organization qualifies.<br><br>
-            Do <strong>not</strong> include:<br>
-            <ul><li>gifts made directly to individuals;</li>
-            <li>political contributions;</li>
-            <li>all fees paid to public schools, including fees paid that qualify for the <a href="https://azdor.gov/tax-credits/public-school-tax-credit" target="_blank" rel="noopener nofollow">Public School Tax Credit</a>;</li>
-            <li>money spent on fundraisers including raffles, bingo; or</li>
-            <li>items purchased for a fundraiser.</li></ul>
-          learn_more_title: What does this mean?
-          title:
-            one: Did you make charitable contributions (cash and/or non-cash) to a qualifying organization in %{tax_year}?
-            other: Did you or your spouse make charitable contributions (cash and/or non-cash) to a qualifying organization in %{tax_year}?
+          amount_cannot_exceed: This amount may not exceed $500
+          charitable_cash_html: Total amount of cash donations
+          charitable_noncash_html: Total amount of non-cash donations
+          help_text: For example, the fair market value of donated items.
+          question:
+            one: Did you make any donations to tax-exempt nonprofits?
+            other: Did you or your spouse make any donations to tax-exempt nonprofits?
+          title: You may be eligible for additional Arizona credits and deductions!
       az_excise_credit:
         edit:
           household_excise_credit_claimed_amt: How much, in total, did all other members of your household claim in Increased Excise Tax Credit? (You can look this up by looking at Line 56 of their Arizona return.)

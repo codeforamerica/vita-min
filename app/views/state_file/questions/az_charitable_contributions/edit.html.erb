@@ -3,29 +3,34 @@
 <% content_for :card do %>
   <h1 class="h2"><%= title %></h1>
 
-  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", class: "form-card", builder: VitaMinFormBuilder do |f| %>
     <div class="question-with-follow-up">
       <div class="question-with-follow-up__question">
         <div class="white-group">
-          <%= f.cfa_radio_set(:charitable_contributions, label_text: title, collection: [
-            { value: "yes", label: t("general.affirmative"), input_html: { "data-follow-up": "#charitable_contributions" } },
-            { value: "no", label: t("general.negative") },
-          ], legend_class: "sr-only") %>
+          <%= f.cfa_radio_set(
+                :charitable_contributions,
+                label_text: t(".question", count: current_intake.filer_count),
+                collection: [
+                  { value: "yes", label: t("general.affirmative"), input_html: { "data-follow-up": "#charitable_contributions" } },
+                  { value: "no", label: t("general.negative") },
+                ]) %>
         </div>
       </div>
       <div class="question-with-follow-up__follow-up" id="charitable_contributions">
         <div class="white-group">
           <div class="form-group-tight">
             <%= f.vita_min_money_field(:charitable_cash_amount, t(".charitable_cash_html", tax_year: MultiTenantService.statefile.current_tax_year), classes: ["form-width--long"]) %>
-            <%= f.vita_min_money_field(:charitable_noncash_amount, t(".charitable_noncash_html", tax_year: current_tax_year), classes: ["form-width--long"]) %>
+            <%= f.vita_min_money_field(
+                  :charitable_noncash_amount,
+                  t(".charitable_noncash_html", tax_year: current_tax_year),
+                  help_text: t(".help_text"),
+                  classes: ["form-width--long"]
+                ) %>
           </div>
+
+          <div class="text--small spacing-below-0"><%= t(".amount_cannot_exceed") %></div>
         </div>
       </div>
-    </div>
-
-    <div class="reveal">
-      <p><button class="reveal__button"><%= t('.learn_more_title') %></button></p>
-      <div class="reveal__content"><%= t('.learn_more_content_html') %></div>
     </div>
 
     <% if params[:return_to_review].present? %>
