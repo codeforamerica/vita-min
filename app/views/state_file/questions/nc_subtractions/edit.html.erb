@@ -16,7 +16,7 @@
       <div class="question-with-follow-up__follow-up" id="tribal_member">
         <div class="white-group">
           <div class="form-group-tight">
-            <p><%= t(".tribal_wages_question_html", amount_limit: @subtractions_limit) %></p>
+            <p><%= t(".tribal_wages_question_html", amount_limit: current_intake.direct_file_data.fed_wages_salaries_tips) %></p>
             <%= f.vita_min_money_field(:tribal_wages_amount, t(".tribal_wages_field_html"), classes: ["form-width--long"]) %>
           </div>
         </div>
