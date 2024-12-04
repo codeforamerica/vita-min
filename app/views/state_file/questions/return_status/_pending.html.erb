@@ -9,10 +9,12 @@
 </h1>
 
 <p>
-<% if Flipper.enabled?(:sms_notifications) %>
+<% if current_intake.email_notification_opt_in_yes? && current_intake.sms_notification_opt_in_yes? %>
   <%= t('.receive_email_sms') %>
-<% else %>
+<% elsif current_intake.email_notification_opt_in_yes? %>
   <%= t('.receive_email') %>
+<% elsif current_intake.sms_notification_opt_in_yes? %>
+  <%= t('.receive_sms') %>
 <% end %>
 </p>
 
