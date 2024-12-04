@@ -58,7 +58,7 @@ RSpec.describe StateFile::NcSubtractionsForm do
       end
 
       it "tribal wages that exceeds the federal wage total are invalid" do
-        form = described_class.new(intake, params.merge(tribal_wages_amount: "1004"))
+        form = described_class.new(intake, params.merge(tribal_wages_amount: "1000.32"))
         expect(form).not_to be_valid
         expect(form.errors).to include :tribal_wages_amount
       end
