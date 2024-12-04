@@ -2432,14 +2432,7 @@ en:
             title: What are my other state filing options?
           vita_option_title: What are my free state filing options?
       eligible:
-        az_supported:
-          charitable_contributions_credit: Credit for Contributions to Qualifying Charitable Organizations
-          dependent_credit: Dependent Credit
-          family_income_credit: Family Income Credit
-          increased_deduction: An increased deduction for charitable contributions
-          increased_excise_credit: Increased Excise Credit
-          public_school_credit: Public School Tax Credit
-        az_unsupported:
+        az_credits_unsupported:
           other_credits_301_html: Nonrefundable credits listed on <a href="https://azdor.gov/sites/default/files/2023-03/FORMS_CREDIT_2022_301-SBI_f.pdf" target="_blank" rel="noopener nofollow">AZ Form 301</a>
           other_credits_529_html: <a href="https://az529.gov/what-is-a-529-plan/az-tax-incentives/" target="_blank" rel="noopener nofollow">Arizona 529 plan contributions deduction</a>
           other_credits_add_dependents: Adding dependents not claimed on the federal return
@@ -2453,6 +2446,13 @@ en:
           public_school_tax_credit_heading_html: '<a href="https://azdor.gov/tax-credits/public-school-tax-credit" target="_blank" rel="noopener nofollow">Public School Tax Credit</a>. To qualify for this credit, you must:'
           public_school_tax_credit_paid_fees: Have paid school-related fees or donated money to a public school
           public_school_tax_credit_provide_info_html: Provide school information, including the <a href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_ADESchoolListing.pdf" target="_blank" rel="noopener nofollow">CTDS code</a>
+        az_supported:
+          charitable_contributions_credit: Credit for Contributions to Qualifying Charitable Organizations
+          dependent_credit: Dependent Credit
+          family_income_credit: Family Income Credit
+          increased_deduction: An increased deduction for charitable contributions
+          increased_excise_credit: Increased Excise Credit
+          public_school_credit: Public School Tax Credit
         edit:
           credits_not_supported: What credits and deductions does this service not support this year?
           not_supported: What if I have a situation not yet supported by FileYourStateTaxes?
@@ -2460,14 +2460,7 @@ en:
           title2_html: |
             Let's make sure this is the right service for you.<br><br>
             Here are the credits and deductions you <strong>may</strong> be able to claim to maximize your refund.
-        id_supported:
-          child_care_deduction: Idaho Child and Dependent Care Subtraction
-          health_insurance_premiums_subtraction: Health Insurance Premiums subtraction
-          id_child_tax_credit: Idaho Child Tax Credit
-          id_grocery_credit: Idaho Grocery Credit
-          interest_from_obligations: Interest from U.S government obligations subtraction
-          social_security_retirement_deduction: Social Security and Retirement Benefits deductions
-        id_unsupported:
+        id_credits_unsupported:
           change_in_filing_status: Change in filing status from federal to state return
           dependents_not_claimed_fed_return: Adding dependents not claimed on the federal return
           earned_on_reservation: Income earned on a reservation by an American Indian
@@ -2478,6 +2471,13 @@ en:
           long_term_care_insurance_subtraction: Long-term Care Insurance Subtraction
           maintaining_elderly_disabled_credit: Credit for Maintaining a Home for the Elderly or Disabled
           voluntary_donations: All voluntary donations
+        id_supported:
+          child_care_deduction: Idaho Child and Dependent Care Subtraction
+          health_insurance_premiums_subtraction: Health Insurance Premiums subtraction
+          id_child_tax_credit: Idaho Child Tax Credit
+          id_grocery_credit: Idaho Grocery Credit
+          interest_from_obligations: Interest from U.S government obligations subtraction
+          social_security_retirement_deduction: Social Security and Retirement Benefits deductions
         md_supported:
           heading1: 'Subtractions:'
           heading2: 'Credits:'
@@ -2506,12 +2506,7 @@ en:
           deduction_for_retirement_income_bailey: Deduction for Retirement Income as part of the Bailey Settlement
           deduction_for_retirement_income_uniformed: Deduction for Retirement Income from the Uniformed Services
           deduction_for_taxable_portion: Deduction for Taxable Portion of Social Security and Railroad Retirement Benefits
-        ny_supported:
-          empire_state_ctc: Empire State Child Credit
-          nyc_school_tax_credit: NYC School Tax Credit
-          nys_eic: NYS/NYC Earned Income Credit
-          nys_hh_credit: NYS/NYC Household Credit
-        ny_unsupported:
+        ny_credits_unsupported:
           college_tuition_credit: College tuition credit or itemized deduction
           firefighter_ambulance_credit: Volunteer firefighters’ and ambulance workers’ credit
           long_term_care_credit: Long-term care insurance credit
@@ -2528,6 +2523,11 @@ en:
           subtractions_225_military: Military combat pay
           subtractions_225_native_american: Native American Income Exclusion
           subtractions_225_student_loan: Student loan forgiveness award
+        ny_supported:
+          empire_state_ctc: Empire State Child Credit
+          nyc_school_tax_credit: NYC School Tax Credit
+          nys_eic: NYS/NYC Earned Income Credit
+          nys_hh_credit: NYS/NYC Household Credit
         vita_option:
           vita_link: Get started with VITA now
           want_to_claim_learn_more_html: Learn more about this process and other filing options <a href="%{link}" target="_blank">here</a>.
@@ -2608,7 +2608,6 @@ en:
         edit:
           answers_confidential_html: Your answers are private and used only to see if you qualify for the tax credit.
           example_months: For example, if they had 2 situations in April, that counts as 1 month.
-          you_exaple_months: For example, if you had 2 situations in April, that counts as 1 month.
           need_to_know_html: How many months did these situations affect this person in %{filing_year}.
           need_to_know_you_html: How many months did these situations affect you in %{filing_year}.
           see_if_you_qualify:
@@ -2631,6 +2630,7 @@ en:
           why_are_you_asking_p1: 'Certain restrictions apply to this monthly credit. A person will not qualify for the months they:'
           why_are_you_asking_p2: The credit amount is reduced for each month they experience any of these situations.
           why_are_you_asking_p3: The answers are only used to calculate the credit amount and will remain confidential.
+          you_example_months: For example, if you had 2 situations in April, that counts as 1 month.
       id_grocery_credit_review:
         edit:
           donate_impact_content_p1: Your choice to donate is final once you submit your tax return and cannot be changed through an amended return.

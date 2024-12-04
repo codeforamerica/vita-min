@@ -2406,14 +2406,7 @@ es:
             title: "¿Cuáles son mis otras opciones para presentar mi declaración estatal?"
           vita_option_title: What are my free state filing options?
       eligible:
-        az_supported:
-          charitable_contributions_credit: Credit for Contributions to Qualifying Charitable Organizations
-          dependent_credit: Crédito por Dependientes
-          family_income_credit: Crédito por ingresos familiares
-          increased_deduction: Una deducción aumentada por donaciones caritativas
-          increased_excise_credit: Aumento en el crédito por impuesto de consumo
-          public_school_credit: Public School Tax Credit
-        az_unsupported:
+        az_credits_unsupported:
           other_credits_301_html: Créditos no reembolsables enumerados en el <a href="https://azdor.gov/sites/default/files/2023-03/FORMS_CREDIT_2022_301-SBI_f.pdf" target="_blank" rel="noopener nofollow">Formulario AZ 301</a>
           other_credits_529_html: <a href="https://az529.gov/what-is-a-529-plan/az-tax-incentives/" target="_blank" rel="noopener nofollow">Deducción por contribuciones al plan 529 de Arizona</a>
           other_credits_add_dependents: Agregar dependientes no reclamados en la declaración federal
@@ -2427,6 +2420,13 @@ es:
           public_school_tax_credit_heading_html: '<a href="https://azdor.gov/tax-credits/public-school-tax-credit" target="_blank" rel="noopener nofollow">Crédito tributario para escuelas públicas</a>. Para calificar para este crédito debes:'
           public_school_tax_credit_paid_fees: Haber pagado tarifas relacionadas con la escuela o donado dinero a una escuela pública
           public_school_tax_credit_provide_info_html: Compartir información de la escuela, incluyendo el <a href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_ADESchoolListing.pdf" target="_blank" rel="noopener nofollow">código CTDS</a>
+        az_supported:
+          charitable_contributions_credit: Credit for Contributions to Qualifying Charitable Organizations
+          dependent_credit: Crédito por Dependientes
+          family_income_credit: Crédito por ingresos familiares
+          increased_deduction: Una deducción aumentada por donaciones caritativas
+          increased_excise_credit: Aumento en el crédito por impuesto de consumo
+          public_school_credit: Public School Tax Credit
         edit:
           credits_not_supported: What credits and deductions does this service not support this year?
           not_supported: "¿Cuáles créditos y deducciones no admite esta herramienta este año?"
@@ -2434,14 +2434,7 @@ es:
           title2_html: |
             Let's make sure this is the right service for you.<br><br>
             Here are the credits and deductions you <strong>may</strong> be able to claim to maximize your refund.
-        id_supported:
-          child_care_deduction: Deducción por Cuidado de Hijos y Dependientes
-          health_insurance_premiums_subtraction: Resta de primas de seguro médico
-          id_child_tax_credit: Crédito Fiscal para Hijos de Idaho
-          id_grocery_credit: Crédito de Alimentos de Idaho
-          interest_from_obligations: Intereses de Obligaciones del Gobierno de los EE.UU.
-          social_security_retirement_deduction: Deducciones de Seguridad Social y Beneficios de Jubilación
-        id_unsupported:
+        id_credits_unsupported:
           change_in_filing_status: Cambio en el Estado de Declaración de la Declaración Federal a la Estatal
           dependents_not_claimed_fed_return: Añadir Dependientes no Reclamados en la Declaración Federal
           earned_on_reservation: Ingresos Ganados en una Reserva por un Nativo Americano
@@ -2452,6 +2445,13 @@ es:
           long_term_care_insurance_subtraction: Subvención de Seguro de Cuidado a Largo Plazo
           maintaining_elderly_disabled_credit: Crédito por Mantener un Hogar para Ancianos o Discapacitados
           voluntary_donations: Todas las Donaciones Voluntarias
+        id_supported:
+          child_care_deduction: Deducción por Cuidado de Hijos y Dependientes
+          health_insurance_premiums_subtraction: Resta de primas de seguro médico
+          id_child_tax_credit: Crédito Fiscal para Hijos de Idaho
+          id_grocery_credit: Crédito de Alimentos de Idaho
+          interest_from_obligations: Intereses de Obligaciones del Gobierno de los EE.UU.
+          social_security_retirement_deduction: Deducciones de Seguridad Social y Beneficios de Jubilación
         md_supported:
           heading1: 'Sustracciones:'
           heading2: 'Créditos:'
@@ -2480,12 +2480,7 @@ es:
           deduction_for_retirement_income_bailey: Deduction for Retirement Income as part of the Bailey Settlement
           deduction_for_retirement_income_uniformed: Deduction for Retirement Income from the Uniformed Services
           deduction_for_taxable_portion: Deduction for Taxable Portion of Social Security and Railroad Retirement Benefits
-        ny_supported:
-          empire_state_ctc: Crédito Empire State por hijos
-          nyc_school_tax_credit: Crédito tributario escolar de la ciudad de Nueva York
-          nys_eic: Crédito tributario por ingreso del trabajo (Estado de Nueva York)
-          nys_hh_credit: Crédito por Unidad Familiar (Estado de Nueva York)
-        ny_unsupported:
+        ny_credits_unsupported:
           college_tuition_credit: Crédito por matrícula universitaria o deducción detallada
           firefighter_ambulance_credit: Crédito para bomberos voluntarios y trabajadores de ambulancias
           long_term_care_credit: Crédito por seguro de atención a largo plazo
@@ -2502,6 +2497,11 @@ es:
           subtractions_225_military: Pago por combate militar
           subtractions_225_native_american: Exclusión de ingresos para Nativos Americanos
           subtractions_225_student_loan: Premios por condonación de préstamos estudiantiles
+        ny_supported:
+          empire_state_ctc: Crédito Empire State por hijos
+          nyc_school_tax_credit: Crédito tributario escolar de la ciudad de Nueva York
+          nys_eic: Crédito tributario por ingreso del trabajo (Estado de Nueva York)
+          nys_hh_credit: Crédito por Unidad Familiar (Estado de Nueva York)
         vita_option:
           vita_link: Get started with VITA now
           want_to_claim_learn_more_html: Learn more about this process and other filing options <a href="%{link}" target="_blank">here</a>.
@@ -2581,7 +2581,6 @@ es:
         edit:
           answers_confidential_html: Sus respuestas son privadas y se utilizan únicamente para determinar si califica para el crédito fiscal.
           example_months: Por ejemplo, si tuvieron 2 situaciones en abril, eso cuenta como 1 mes.
-          you_example_months: Por ejemplo, si tuviste 2 situaciones en abril, eso cuenta como 1 mes.
           need_to_know_html: "¿Cuántos meses afectaron estas situaciones a esta persona en %{filing_year}?"
           need_to_know_you_html: "¿Cuántos meses afectaron estas situaciones a usted en %{filing_year}?"
           see_if_you_qualify:
@@ -2604,6 +2603,7 @@ es:
           why_are_you_asking_p1: 'Ciertas restricciones se aplican a este crédito mensual. Una persona no calificará para los meses en que:'
           why_are_you_asking_p2: El monto del crédito se reduce por cada mes en que experimenten cualquiera de estas situaciones.
           why_are_you_asking_p3: Las respuestas solo se utilizan para calcular el monto del crédito y permanecerán confidenciales.
+          you_example_months: Por ejemplo, si tuviste 2 situaciones en abril, eso cuenta como 1 mes.
       id_grocery_credit_review:
         edit:
           donate_impact_content_p1: Su decisión de donar es final una vez que envíe su declaración de impuestos y no puede cambiarse mediante una declaración enmendada.
