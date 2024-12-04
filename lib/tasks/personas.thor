@@ -89,7 +89,7 @@ class Personas < Thor
     persona_name = persona_name.downcase
 
     submission_id_path = "#{__dir__}/../../app/services/state_file/submission_id_lookup.yml"
-    say_error "Adding submission id #{options[:submission_id]} to submission_id_lookup.yml for #{persona_name}", :green
+    say_error "Adding submission id #{submission_id} to submission_id_lookup.yml for #{persona_name}", :green
 
     submission_ids = YAML.safe_load_file(submission_id_path)
 
