@@ -237,6 +237,10 @@ class StateFileBaseIntake < ApplicationRecord
     false
   end
 
+  def show_tax_period_in_return_header?
+    true
+  end
+
   def ask_spouse_esign?
     filing_status_mfj? && !spouse_deceased?
   end
