@@ -692,7 +692,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("general.continue")
 
       # Tax Refund
-      expect(page).to have_text I18n.t("state_file.questions.tax_refund.edit.title_html")
+      expect(page).to have_text I18n.t("state_file.questions.tax_refund.edit.title_html", refund_amount: 1000, state_name: "New Jersey")
       expect(page).to be_axe_clean.within "main"
       choose I18n.t('state_file.questions.tax_refund.edit.mail')
       click_on I18n.t("general.continue")
