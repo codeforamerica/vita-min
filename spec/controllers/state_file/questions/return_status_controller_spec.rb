@@ -101,6 +101,38 @@ RSpec.describe StateFile::Questions::ReturnStatusController do
             end
           end
         end
+
+        context "pending" do
+          before do
+            create(:efile_submission, :transmitted, :for_state, data_source: intake)
+          end
+
+          it "shows the right content" do
+            get :edit
+
+            expect(response.body).to include I18n.t("state_file.questions.return_status.pending.title",
+                                                    state_name: StateFile::StateInformationService.state_name(state_code),
+                                                    filing_year: MultiTenantService.statefile.current_tax_year)
+          end
+
+          it "shows email or text" do
+            intake.update(sms_notification_opt_in: "yes", email_notification_opt_in: "yes")
+            get :edit
+            expect(response.body.html_safe).to include CGI.escapeHTML(I18n.t("state_file.questions.return_status.pending.receive_email_sms"))
+          end
+
+          it "shows text" do
+            intake.update(sms_notification_opt_in: "yes", email_notification_opt_in: "no")
+            get :edit
+            expect(response.body).to include CGI.escapeHTML(I18n.t("state_file.questions.return_status.pending.receive_sms"))
+          end
+
+          it "shows email" do
+            intake.update(sms_notification_opt_in: "no", email_notification_opt_in: "yes")
+            get :edit
+            expect(response.body).to include CGI.escapeHTML(I18n.t("state_file.questions.return_status.pending.receive_email"))
+          end
+        end
       end
     end
   end

@@ -563,7 +563,7 @@ en:
     sms_phone_number: Cell phone number
     sorry: We're sorry!
     spouse_last_four_ssn: Spouse's last 4 of SSN/ITIN
-    spread_the_word_html: Help a friend or family member file their taxes for free by letting them know about <a target="_blank" rel="noopener nofollow" href="https://directfile.irs.gov/">IRS Direct File</a>
+    spread_the_word_html: Let your friends and family know about <a target="_blank" rel="noopener nofollow" href="https://directfile.irs.gov/">IRS Direct File</a> so they can file their taxes for free.
     ssn: SSN
     ssn_itin: SSN/ITIN
     start_filing: Start filing
@@ -3313,18 +3313,17 @@ en:
           title_html: Please review your retirement income (1099-R) details for <strong>%{payer_name}</strong>.
       return_status:
         accepted:
-          check_payable: Make your check or money order payable to Arizona Department of Revenue. Write your full SSN, “%{filing_year} Tax” and 140 on your payment.
-          check_your_refund_html: <a target="_blank" rel="noopener nofollow" href="%{tax_refund_url}">Check on the status</a> of your refund.
+          check_payable: Make your check or money order payable to %{payable_to}. Write your full SSN or ITIN, “%{filing_year} Tax”, and "Form %{form_number}" on your payment.
           direct_debit_html: If you have a remaining tax balance, remember to <strong>pay your taxes online at <a target="_blank" rel="noopener nofollow" href="https://%{tax_payment_url}">%{tax_payment_url}</a></strong> or by mail before the April 15 filing deadline.
-          download_title: Download a copy of your %{filing_year} %{state_name} state tax return until December 31, %{filing_year + 1}
+          download_title: Download a copy of your %{year} %{state_name} state tax return until December 31, %{year}
           download_voucher: Download payment voucher form
           feedback: We value your feedback—let us know what you think of this service.
           include_payment: You'll need to include the payment voucher form.
           mail_voucher_and_payment: 'Mail the voucher form and payment to:'
           pay_by_mail_or_moneyorder: 'If you are paying by mail via check or money order:'
+          refund_details_html: 'Typical refund time frames are 7-8 weeks for e-Filed returns and 10-11 weeks for paper returns. There are some exceptions. For more information, please visit %{website_name} website: <a target="_blank" rel="noopener nofollow" href="https://%{tax_refund_url}">Where’s my Refund?</a>'
           register_to_vote: Register to vote.
           title: Your %{filing_year} %{state_name} state tax return is accepted
-          track_your_payment_html: Track your payment <a target="_blank" rel="noopener nofollow" href="https://www.tax.ny.gov/online/ind.htm">here.</a>
         edit:
           download_state_return_pdf: Download your state return
           explain_calcs: Explain Calculations
@@ -3334,10 +3333,11 @@ en:
           more_than_two_days_closed_html: If it's been more than two days since you submitted your state taxes, contact our team of support specialists by emailing us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>
           receive_email: You'll receive an email update when your state tax return is accepted.
           receive_email_sms: You'll receive an email or text update when your state tax return is accepted.
+          receive_sms: You'll receive an sms update when your state tax return is accepted.
           title: You have submitted your %{filing_year} %{state_name} tax return! It is currently waiting to be accepted for processing.
         rejected:
-          contact_us: Contact our team of Support Specialists by clicking chat with us.
           edit_return: Edit your state return
+          email_us_html: Email us at <strong>help@fileyourstatetaxes.org</strong>
           have_questions: Have questions?
           next_steps:
             can_edit:
