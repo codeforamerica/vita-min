@@ -177,6 +177,10 @@ module SubmissionBuilder
 
                   xml.TotalTaxAndPenalty calculated_fields.fetch(:NJ1040_LINE_54)
 
+                  if calculated_fields.fetch(:NJ1040_LINE_55)
+                    xml.TaxWithheld calculated_fields.fetch(:NJ1040_LINE_55)
+                  end
+
                   if calculated_fields.fetch(:NJ1040_LINE_57)
                     xml.EstimatedPaymentTotal calculated_fields.fetch(:NJ1040_LINE_57)
                   end

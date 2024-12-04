@@ -42,6 +42,7 @@ module SubmissionBuilder
               },
             ]
 
+            supported_docs += form1099gs
             supported_docs
           end
 

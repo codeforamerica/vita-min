@@ -18,7 +18,11 @@ RSpec.describe StateFile::Questions::NcReviewController do
     it "shows detailed return information" do
       intake.direct_file_data.fed_agi = 20_000
       intake.direct_file_data.fed_taxable_ssb = 1_000
-      intake.direct_file_data.fed_taxable_income = 3_000
+
+      interest_report = instance_double(DirectFileJsonData::DfJsonInterestReport)
+      allow(interest_report).to receive(:interest_on_government_bonds).and_return 3_000
+      allow_any_instance_of(DirectFileJsonData).to receive(:interest_reports).and_return [interest_report]
+
       allow_any_instance_of(Efile::Nc::D400ScheduleSCalculator).to receive(:calculate_line_27).and_return(150)
       allow_any_instance_of(Efile::Nc::D400Calculator).to receive(:calculate_line_10b).and_return(550)
       allow_any_instance_of(Efile::Nc::D400Calculator).to receive(:calculate_line_11).and_return(1_700)

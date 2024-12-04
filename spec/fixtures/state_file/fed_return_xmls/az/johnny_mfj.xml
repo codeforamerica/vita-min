@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v4.0">
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile"
+    returnVersion="2024v4.0">
     <ReturnHeader binaryAttachmentCnt="0">
         <TaxYr>2024</TaxYr>
         <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
@@ -122,8 +123,10 @@
             <TotalTaxAmt>0</TotalTaxAmt>
             <FormW2WithheldTaxAmt>3000</FormW2WithheldTaxAmt>
             <WithholdingTaxAmt>3000</WithholdingTaxAmt>
-            <EarnedIncomeCreditAmt referenceDocumentId="IRSEIC0001" referenceDocumentName="IRS1040ScheduleEIC">4590</EarnedIncomeCreditAmt>
-            <AdditionalChildTaxCreditAmt referenceDocumentId="IRS8812001" referenceDocumentName="IRS1040Schedule8812">6375</AdditionalChildTaxCreditAmt>
+            <EarnedIncomeCreditAmt referenceDocumentId="IRSEIC0001"
+                referenceDocumentName="IRS1040ScheduleEIC">4590</EarnedIncomeCreditAmt>
+            <AdditionalChildTaxCreditAmt referenceDocumentId="IRS8812001"
+                referenceDocumentName="IRS1040Schedule8812">6375</AdditionalChildTaxCreditAmt>
             <RefundableCreditsAmt>10965</RefundableCreditsAmt>
             <TotalPaymentsAmt>13965</TotalPaymentsAmt>
             <OverpaidAmt>13965</OverpaidAmt>
@@ -234,7 +237,7 @@
                     <EmployerStateIdNum>12345</EmployerStateIdNum>
                     <StateWagesAmt>45000</StateWagesAmt>
                     <StateIncomeTaxAmt>2500</StateIncomeTaxAmt>
-                    <W2LocalTaxGrp/>
+                    <W2LocalTaxGrp />
                 </W2StateTaxGrp>
             </W2StateLocalTaxGrp>
             <StandardOrNonStandardCd>S</StandardOrNonStandardCd>

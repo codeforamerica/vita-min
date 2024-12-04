@@ -8,6 +8,7 @@
                         "relationship": "grandParent",
                         "eligibleDependent": true,
                         "isClaimedDependent": true,
+                        "monthsLivedWithTPInUS": "eleven",
                         "tin": "300-00-0015"
                 },
                 {
@@ -18,6 +19,7 @@
                         "relationship": "grandParent",
                         "eligibleDependent": true,
                         "isClaimedDependent": true,
+                        "monthsLivedWithTPInUS": "six",
                         "tin": "300-00-0016"
                 },
                 {
@@ -28,6 +30,7 @@
                         "relationship": "grandParent",
                         "eligibleDependent": true,
                         "isClaimedDependent": true,
+                        "monthsLivedWithTPInUS": null,
                         "tin": "300-00-0017"
                 }
         ],
