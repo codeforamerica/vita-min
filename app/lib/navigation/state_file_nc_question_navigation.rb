@@ -26,7 +26,7 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::WaitingToLoadDataController),
       ]),
       Navigation::NavigationSection.new("state_file.navigation.section_5", [
-        Navigation::NavigationStep.new(StateFile::Questions::DataReviewController),
+        Navigation::NavigationStep.new(StateFile::Questions::PostDataTransferController, false),
         Navigation::NavigationStep.new(StateFile::Questions::FederalInfoController),
         Navigation::NavigationStep.new(StateFile::Questions::DataTransferOffboardingController, false),
         Navigation::NavigationStep.new(StateFile::Questions::NcCountyController),
@@ -38,7 +38,7 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::SpouseStateIdController),
         Navigation::NavigationStep.new(StateFile::Questions::NcReviewController),
         Navigation::NavigationStep.new(StateFile::Questions::NcTaxesOwedController),
-        Navigation::NavigationStep.new(StateFile::Questions::TaxRefundController),
+        Navigation::NavigationStep.new(StateFile::Questions::NcTaxRefundController),
         Navigation::NavigationStep.new(StateFile::Questions::EsignDeclarationController), # creates EfileSubmission and transitions to preparing
       ]),
       Navigation::NavigationSection.new("state_file.navigation.section_6", [

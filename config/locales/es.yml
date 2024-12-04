@@ -2359,15 +2359,6 @@ es:
           subtitle: Con una cuenta recibirás notificaciones sobre el estado de tu declaración de impuestos estatales.
           text_message_option: Enviar código por mensaje de texto.
           title: Ahora crea tu cuenta con un código
-      data_review:
-        edit:
-          basic_household_info_title: Información básica del hogar
-          complete_description: Completo
-          filing_status_title: Estado civil para la declaración
-          income_and_deductions_title: Ingresos y deducciones
-          partially_complete_description: Parcialmente completa
-          state_tax_withheld_title: Retención de impuestos estatales de %{name}
-          title: Tu declaración de impuestos federales se ha transferido. Hemos completado algunas partes para ahorrarte tiempo.
       data_transfer_offboarding:
         edit:
           ineligible_reason:
@@ -2879,12 +2870,41 @@ es:
             other: ¿Es usted o su cónyuge un miembro inscrito de una <a href="https://biamaps.geoplatform.gov/Tribal-Leaders-Directory/" target="_blank">tribu indígena reconocida federalmente</a> y recibieron ingresos mientras vivían en una reserva?
           tribal_wages_field: Ingrese la cantidad ganada
           tribal_wages_question_html: Enter the amount of income received or earned from activities on the federally recognized reservation. <br><br> This amount should not exceed $%{amount_limit}.
+      nc_tax_refund:
+        edit:
+          how_to_recieve: "¿Cómo le gustaría recibir su reembolso?"
+          title_html: Buenas noticias, está recibiendo un reembolso del estado de Carolina del Norte de <strong>$%{refund_amount}.</strong>
+        nc_bank_details:
+          account_number: Número de cuenta
+          account_type:
+            label: Tipo de cuenta bancaria
+          after_deadline_default_withdrawal_info: Debido a que está presentando su declaración el o después del %{withdrawal_deadline_date}, %{with_drawal_deadline_year}, el estado retirará su pago tan pronto como procesen su declaración.
+          bank_title: 'Por favor proporcione los detalles de su cuenta bancaria:'
+          confirm_account_number: Confirmar número de cuenta
+          confirm_routing_number: Confirmar número de ruta
+          date_withdraw_text: "¿Cuándo le gustaría que se retiraran los fondos de su cuenta? (Debe ser el o antes del %{withdrawal_deadline_date}, %{with_drawal_deadline_year}):"
+          foreign_accounts_owed: No se permiten pagos internacionales de ACH.
+          foreign_accounts_refund: No se permiten reembolsos internacionales de depósito directo de ACH.
+          routing_number: Número de ruta
+          withdraw_amount: "¿Cuánto autoriza para ser retirado de su cuenta? (Su monto total adeudado es $%{owed_amount}.)"
       nc_taxes_owed:
         edit:
-          page_title: Debes impuestos estatales. ¿Cómo te gustaría pagar?
-          pay_bank: Directamente desde tu cuenta corriente o de ahorros (débito directo)
-          pay_mail_online_html: Por correo o en línea en <a target="_blank" rel="noopener nofollow" href="%{tax_payment_info_url}">%{tax_payment_info_text}</a>
-          title_html: Debes <strong>$%{owed_amount}</strong> en impuestos estatales de %{state_name}. ¿Cómo te gustaría pagar?
+          automatic_draft_payments_info_one: Algunas cuentas de ahorro, de mercado monetario y de gasto controlado no son elegibles para débitos automáticos. Por favor, confirme con su banco o cooperativa de crédito si la cuenta que ha seleccionado puede ser debitada automáticamente.
+          automatic_draft_payments_info_two: Si su pago es rechazado por su banco, estará sujeto a una "Penalización por Transferencia Electrónica de Fondos Fallida". La penalización es del 10% del pago (mínimo $1.00; máximo $1,000.00).
+          benefits_of_ncdor: Los beneficios de pagar en línea (ya sea aquí en FileYourStateTaxes o a través del sitio web de NCDOR) incluyen la capacidad de programar pagos y la seguridad de saber que su pago ha sido recibido.
+          direct_debit_payment_info_four: Si su pago es rechazado por su banco, estará sujeto a una Penalización por Transferencia Electrónica de Fondos Fallida. La penalización es del 10% del pago (mínimo $1.00; máximo $1,000.00).
+          direct_debit_payment_info_one: La fecha de débito debe ser una fecha bancaria válida, lo que no incluye fines de semana ni días festivos bancarios. Al ingresar su fecha de débito, se le proporcionará la fecha más próxima disponible.
+          direct_debit_payment_info_three: Su pago se considerará puntual si envía su pago en la fecha de vencimiento y selecciona la primera fecha de débito disponible. Recibirá un correo electrónico de confirmación de NCDOR después de que se reciba su pago.
+          direct_debit_payment_info_two: La fecha de débito se basa en un límite de las 5:00 pm EST. En otras palabras, si presenta su pago con débito bancario después de las 5:00 pm EST, la fecha de débito más cercana será dentro de dos días hábiles.
+          how_would_you_like_to_pay: "¿Cómo te gustaría pagar?"
+          more_info_about_automatic_draft_payments: Más información sobre los pagos automáticos
+          more_info_about_direct_debit_payment: Más información sobre la fecha de pago con débito directo
+          page_title: Usted debe impuestos estatales. ¿Cómo le gustaría pagar?
+          pay_bank: Pague directamente desde su cuenta corriente o de ahorros (débito directo)
+          pay_mail_online_html: Pague por correo o en línea en <a target="_blank" rel="noopener nofollow" href="https://electronic-services.dor.nc.gov/wps/portal/d400v">NCDOR.gov</a>
+          payment_options: Puede pagar directamente desde su cuenta corriente o de ahorros aquí. También puede pagar por correo o en línea a través del sitio web del Departamento de Ingresos de Carolina del Norte.
+          title_html: Usted debe <strong>$%{owed_amount}</strong> en impuestos estatales de Carolina del Norte.
+          what_are_benefits_of_ncdor: "¿Cuáles son los beneficios de pagar en línea con FileYourStateTaxes o NCDOR?"
       nc_veteran_status:
         primary_veteran_question: "¿Eres un veterano?"
         spouse_veteran_question: "¿Es su cónyuge un veterano?"
@@ -3256,6 +3276,9 @@ es:
           phone_number_label: Tu número de teléfono
           subtitle_html: To create a new account, provide a phone number that isn't already in use.<br><br>Use a phone number you can access.
           title: Ingresa tu número de teléfono
+      post_data_transfer:
+        edit:
+          title: Solo página sin producción
       primary_state_id:
         edit:
           ny_subtitle: Esta información es necesaria para todos los residentes de Nueva York con una identificación emitida por el estado.

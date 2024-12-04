@@ -123,6 +123,7 @@ module StateFileIntakeHelper
     unless Capybara.current_driver == Capybara.javascript_driver
       find_link("HIDDEN BUTTON", visible: :any).click
     end
+    click_on I18n.t("general.continue")
   end
 
   def assert_flow_explorer_sample_params_includes_everything(us_state)
