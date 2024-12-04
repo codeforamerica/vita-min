@@ -28,7 +28,9 @@ module StateFile
         'az_Martha_MFJ_Owe' => '1016422024332t6d92qn',
         'az_Rory_claimed_as_dep' => '1016422024334wutmbb9',
         'id_Smith_Claimed_as_Dep' => '1016422024332a3erp1m',
-        'id_Grey_no_1099r' => '1016422024337kkb3get'
+        'id_Grey_no_1099r' => '1016422024337kkb3get',
+        'id_Klein_QSS' => '1016422024338u5svhsa',
+        'id_Estrada_donations' => '10164220243389yh9q72',
       }
       @old_xml_sample = "app/controllers/state_file/questions/df_return_sample.xml"
       @old_json_sample = "app/controllers/state_file/questions/df_return_sample.json"

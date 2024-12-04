@@ -1,60 +1,4 @@
-<h1 class="h2" id="main-question"><%= t(".title") %></h1>
-
-<div class="review-header">
-  <% if @refund_or_owed_amount == 0 %>
-    <div class="white-group">
-      <h2 class="text--body text--bold">
-        <span><%= t(".taxes_owed_header") %></span>
-        <br/>
-        <span class="text--normal">$0</span>
-      </h2>
-      <%= t(".taxes_owed_html") %>
-    </div>
-  <% else %>
-    <div class="white-group">
-      <div class="spacing-below-5">
-        <h2 class="text--body text--bold spacing-below-5"><%=@refund_or_owed_label %></h2>
-        <p class="spacing-below-0"><%=number_to_currency(@refund_or_owed_amount.abs) %></p>
-      </div>
-    </div>
-  <% end %>
-
-  <div id="household-info" class="white-group">
-    <div class="spacing-below-25">
-      <h2 class="text--body text--bold spacing-below-5"><%=t(".household_info") %></h2>
-    </div>
-    <div class="spacing-below-5">
-      <h3 class="text--body text--bold spacing-below-5"><%=t(".your_name") %></h3>
-      <p><%=current_intake.primary.full_name %></p>
-    </div>
-    <% if current_intake.filing_status_mfj? %>
-      <div class="spacing-below-5 with-top-separator">
-        <h3 class="text--body text--bold spacing-below-5"><%=t(".spouse_name") %></h3>
-        <p><%=current_intake.spouse.full_name %></p>
-      </div>
-    <% end %>
-    <% current_intake.dependents.each_with_index do | dependent, index |  %>
-      <div class="spacing-below-5 with-top-separator">
-        <% if index == 0 %>
-          <h3 class="text--body text--bold spacing-below-5"><%=t(".dependent_name") %></h3>
-        <% else %>
-          <h3 class="text--body text--bold spacing-below-5"><%=t(".nth_dependent_name", ordinal: number_in_words(index + 1)) %></h3>
-        <% end %>
-        <p><%=dependent.full_name %></p>
-      </div>
-      <div class="spacing-below-5">
-        <h3 class="text--body text--bold spacing-below-5"><%=t(".dependent_dob") %></h3>
-        <p><%=dependent.dob %></p>
-      </div>
-      <% if dependent.months_in_home.present? && @show_dependent_months_in_home %>
-        <div class="spacing-below-5">
-          <h3 class="text--body text--bold spacing-below-5"><%=t(".dependent_months_in_home") %></h3>
-          <p><%=dependent.months_in_home %></p>
-        </div>
-      <% end %>
-    <% end %>
-  </div>
-
+<% content_for :additional_review_header_sections do %>
   <% if @income_documents_present %>
     <div id="income-info" class="white-group">
       <div class="spacing-below-25">
@@ -68,4 +12,6 @@
       </div>
     </div>
   <% end %>
-</div>
+<% end %>
+
+<%= render "state_file/questions/shared/abstract_review_header" %>

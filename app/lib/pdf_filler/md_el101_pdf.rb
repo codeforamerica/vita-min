@@ -33,12 +33,18 @@ module PdfFiller
         'ERO firm name 2': @submission.data_source.spouse_esigned_yes? ? 'FileYourStateTaxes' : "",
         'Primary Signature Pin': @xml_document.at('Primary TaxpayerPIN')&.text,
         'Spouse Esigned': checkbox_value(@submission.data_source.spouse_esigned_yes?),
-        'Secondary Signature Pin': @xml_document.at('Secondary TaxpayerPIN')&.text
+        'Secondary Signature Pin': @xml_document.at('Secondary TaxpayerPIN')&.text,
+        '2 Amount of overpayment to be refunded to you                                         2': calculated_fields.fetch(:MD502_LINE_48),
+        '3': calculated_fields.fetch(:MD502_LINE_50),
       }
     end
 
     def checkbox_value(condition)
       condition ? 'On' : 'Off'
+    end
+
+    def calculated_fields
+      @calculated_fields ||= @submission.data_source.tax_calculator.calculate
     end
   end
 end

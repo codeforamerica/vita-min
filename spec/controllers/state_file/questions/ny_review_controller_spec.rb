@@ -36,9 +36,9 @@ RSpec.describe StateFile::Questions::NyReviewController do
 
       it "displayed dependent details" do
         get :edit
-        expect(response.body).to include I18n.t("state_file.questions.shared.review_header.dependent_dob")
+        expect(response.body).to include I18n.t("state_file.questions.shared.abstract_review_header.dependent_dob")
         expect(response.body).to include "Bobby Tables"
-        expect(response.body).not_to include I18n.t("state_file.questions.shared.review_header.dependent_months_in_home")
+        expect(response.body).not_to include I18n.t("state_file.questions.shared.abstract_review_header.dependent_months_in_home")
       end
     end
   end
