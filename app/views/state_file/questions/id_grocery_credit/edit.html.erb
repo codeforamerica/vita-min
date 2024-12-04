@@ -7,11 +7,10 @@
   <p><%= t(".answers_confidential_html") %></p>
 
   <%= form_with model: @form, url: { action: :update }, method: :put, local: true, builder: VitaMinFormBuilder, class: 'form-card' do |f| %>
-
     <div class="question-with-follow-up spacing-below-25">
       <div class="question-with-follow-up__question">
         <div class="white-group">
-          <p class="spacing-below-0"><%= t(".situations_question") %></p>
+          <p class="spacing-below-0"> <%= t(".situations_question", count: current_intake.household_count, year: MultiTenantService.statefile.current_tax_year) %> </p>
           <ul class="list--bulleted list--bulleted-indented">
             <li><%= t(".situation_snap") %></li>
             <li><%= t(".situation_incarceration") %></li>
@@ -32,7 +31,7 @@
         <div class="question-with-follow-up">
           <div class="question-with-follow-up__question">
             <div class="white-group">
-              <p class="spacing-below-15"><strong><%= t(".select_household_members") %></strong></p>
+              <p class="spacing-below-15"><strong><%= t(".select_household_members", tax_year: current_tax_year) %></strong></p>
               <div class="tight-checkboxes spacing-above-0 spacing-below-0">
                 <%= f.cfa_checkbox(:primary_has_grocery_credit_ineligible_months, current_intake.primary.full_name, options: { checked_value: "yes", unchecked_value: "no", "data-follow-up": "#primary_months_ineligible_for_grocery_credit" }) %>
                 <% if current_intake.filing_status_mfj? %>

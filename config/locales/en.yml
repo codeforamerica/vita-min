@@ -2523,6 +2523,10 @@ en:
       esign_declaration:
         edit:
           already_submitted: You have already submitted your return.
+          id:
+            body_html: |
+              <p>By using a computer system and software to prepare and/or file my tax return(s) electronically, I consent to the transmission of my return(s) and to the disclosure of all information about my use of the system and software to the Idaho State Tax Commission.</p>
+              <p>Under penalties of perjury, I declare that to the best of my knowledge and belief this return is true, correct, and complete.</p>
           az:
             body_html: |
               <p>Under penalties of perjury, I declare that I have examined a copy of my electronic Arizona individual income tax return and accompanying schedules and statements for the year ending December 31, %{filing_year}, and to the best of my knowledge and belief, it is true, correct, and complete.</p>
@@ -2557,7 +2561,7 @@ en:
           add_the_amount: Add the amount you would like to donate to any organization below
           american_red_cross_fund_donation: American Red Cross of Idaho Fund
           childrens_trust_fund_donation: Idaho Children's Trust Fund
-          donate_warning_p1: Your donation will be subtracted from your total state refund.
+          donate_warning_p1: Your donation will be deducted from your total state refund.
           donate_warning_p2: Your choice to donate is final and cannot be changed through an amended return.
           food_bank_fund_donation: Idaho Food Bank Fund
           guard_reserve_family_donation: Idaho Guard & Reserve Family
@@ -2580,38 +2584,40 @@ en:
             bullet_2_html:  Withdrew money from our First-Time Homebuyer Account and used it for <a href="%{link}" target="_blank" rel="noopener noreferrer">non-eligible home costs</a>.
       id_grocery_credit:
         edit:
-          answers_confidential_html: "<strong>Note:</strong> Your answers are confidential and only used to check credit eligibility."
-          example_months: For example, if you experienced 2 of these situations in the month of April, that would count as 1 total month.
-          need_to_know_html: In order to finalize your credit amount, we need to know the <strong>total</strong> number of months these situations applied to %{name} in %{filing_year}.
-          need_to_know_you_html: In order to finalize your credit amount, we need to know the <strong>total</strong> number of months these situations applied to you in %{filing_year}.
+          answers_confidential_html: Your answers are private and used only to see if you qualify for the tax credit.
+          example_months: For example, if they had 2 situations in April, that counts as 1 month.
+          need_to_know_html: How many months did these situations affect this person in %{filing_year}.
+          need_to_know_you_html: How many months did these situations affect you in %{filing_year}.
           see_if_you_qualify:
             one: To see if you qualify, we need more information about you.
             other: To see if you qualify, we need more information about you and your household.
-          select_household_members: 'Select the members of household these situations apply to:'
+          select_household_members: 'Select the members of household any of these situations apply to in %{tax_year}:'
           situation_incarceration: experienced incarceration
           situation_snap: received food stamps / SNAP-EBT
           situation_undocumented: lived in the US undocumented
-          situations_question: 'Did any of the following situations apply to your household:'
+          situations_question:
+            one: Did any of the following situations apply to you in %{year}?
+            other: Did any of the following situations apply to you or your household in %{year}?
           title: You might be eligible for the Idaho Grocery Credit!
           title_html: You might be eligible for the <a href=https://tax.idaho.gov/taxes/income-tax/individual-income/popular-credits-and-deductions/idaho-grocery-credit/>Idaho Grocery Credit</a>!
           total_number_months: Total number of months
           why_are_you_asking_heading: Why are you asking this?
-          why_are_you_asking_li1: receiving food stamps
-          why_are_you_asking_li2: experiencing incarceration
-          why_are_you_asking_li3: living in the US undocumented
-          why_are_you_asking_p1: 'Certain restrictions apply for this monthly credit. The following situations disqualify you from the monthly credit:'
-          why_are_you_asking_p2: This credit is reduced each month a person experienced a situation above.
-          why_are_you_asking_p3: Your answers are only used to calculate the extra money for your tax return and will not be shared.
+          why_are_you_asking_li1: Received food stamps
+          why_are_you_asking_li2: Were incarcerated
+          why_are_you_asking_li3: Lived in the U.S. undocumented
+          why_are_you_asking_p1: 'Certain restrictions apply to this monthly credit. A person will not qualify for the months they:'
+          why_are_you_asking_p2: The credit amount is reduced for each month they experience any of these situations.
+          why_are_you_asking_p3: The answers are only used to calculate the credit amount and will remain confidential.
       id_grocery_credit_review:
         edit:
-          donate_impact_content_p1: Donating your grocery credit may result in a smaller refund or increase in taxes owed on your ID state return.
-          donate_impact_content_p2: The Cooperative Welfare Fund is a trust fund in the state treasury, and all money in the fund is appropriated for public assistance and welfare purposes.
+          donate_impact_content_p1: Your choice to donate is final once you submit your tax return and cannot be changed through an amended return.
+          donate_impact_content_p2: The Cooperative Welfare Fund is a trust fund in the state treasury, and all money goes toward public assistance and welfare purposes.
           donate_impact_heading: How will donating my credit impact my tax return?
-          donate_warning_p1: Your donation will be subtracted from your total state refund.
+          donate_warning_p1: Your donation will be deducted from your total state refund.
           donate_warning_p2: Your choice to donate is final and cannot be changed through an amended return.
           title: You will receive $%{grocery_credit_amount} from the Idaho Grocery Credit!
           title_html: You will receive <strong>$%{grocery_credit_amount}</strong> from the Idaho Grocery Credit!
-          would_you_like_to_donate: Would you like to donate your credit to the Cooperative Welfare Fund?
+          would_you_like_to_donate: Would you like to donate your entire credit to the Cooperative Welfare Fund?
       id_health_insurance_premium:
         edit:
           amount_paid_helper_text: Total amount paid in %{year}
@@ -2627,8 +2633,8 @@ en:
             one: Did you pay health insurance premiums for yourself in %{year}?
             other: Did you pay health insurance premiums for yourself and your household in %{year}?
           medicaid_content: Yes, if you are on Medicaid, your health insurance premium counts.  Check your monthly letter from the Idaho Department of Health and Welfare for your premium amount. It could be as low as $0, depending on your income and other factors.
-          medicaid_title: Do Medicaid payments count?
-          qualifications_content: You can deduct health insurance premiums paid for yourself, your spouse, and your dependents, including Medicaid, dental, and vision, as long as they haven’t been deducted from your income pre-tax.
+          medicaid_title: Do Medicaid and Medicare payments count?
+          qualifications_content: You can deduct health insurance premiums paid for yourself, your spouse, and your dependents, including medical, dental, and vision, as long as they haven’t been deducted from your income pre-tax.
           qualifications_title: Which health coverage premiums qualify?
           qualifying_amount_help_text: Enter the total amount of qualifying health insurance premiums your household paid in %{year}.
           subtitle:
@@ -2658,6 +2664,7 @@ en:
           subtitle: Provide your driver’s license or identity card number when you e-File to help your refund process faster.
           title: We need some details from your state-issued ID, if you have one
           why_ask_this: Why are you asking for this information?
+          read_more_here_html: Read more <a href="https://tax.idaho.gov/taxes/income-tax/individual-income/refund/" target="_blank" rel="noopener noreferrer">here</a>.
       id_review:
         edit:
           donations_optional: Idaho taxpayers can make voluntary charitable donations to organizations when they file their state income tax return.
@@ -2665,16 +2672,16 @@ en:
           idaho_grocery_credit: Idaho Grocery Credit
           no_donations_selected: "<strong>No donations selected</strong>"
           permanent_building_fund_tax: Permanent Building Fund Tax
-          purchases_without_sales_tax: Purchases without paying sales or use tax
+          purchases_without_sales_tax: Purchases without paying sales tax
           state_details_title: State Details
           voluntary_charitable_donations: Voluntary Charitable Donations
       id_sales_use_tax:
         edit:
-          sales_tax_content: This is a tax collected at the point of sale when you buy goods within your state.
+          sales_tax_content: This is a tax collected at the point of sale when you buy goods within your state. However, if you purchased items through an out-of-state seller, they may not have collected Idaho sales tax at the time.
           sales_tax_title: What are sales taxes?
           sales_use_tax_helper_text: Enter total amount
           subtitle_html: This includes online purchases where sales or use tax was <b>not</b> applied.
-          title: Did you make any purchases in %{year} without paying sales or use tax?
+          title: Did you make any out-of-state purchases in %{year} without paying sales tax?
           unpaid_sales_use_tax_label_html: Please enter the <b>total amount of purchases</b> that didn’t have sales or use tax applied.
           use_tax_content: If you buy something from another state (like online shopping or purchases from a store located in another state) and you don’t pay sales tax on it, you are generally required to pay use tax to your home state.
           use_tax_title: What are use taxes?
