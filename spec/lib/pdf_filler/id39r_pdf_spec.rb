@@ -132,7 +132,7 @@ RSpec.describe PdfFiller::Id39rPdf do
     context "fills out Interest Income from Obligations of the US" do
       let(:intake) { create(:state_file_id_intake, :df_data_1099_int) }
       it "correctly fills answers" do
-        expect(pdf_fields["BL3"]).to eq "2"
+        expect(pdf_fields["BL3"]).to eq "50"
       end
     end
 
