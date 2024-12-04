@@ -1,53 +1,64 @@
-<% title = t('.lets_review') %>
+<% title = t('.title') %>
 <% content_for :page_title, title %>
 
 <% content_for :card do %>
   <h1 class="h2"><%= title %></h1>
 
+  <p><%= t(".credit_limit", credit_limit: @credit_limit) %></p>
+
   <% if @contributions.present? %>
     <% @contributions.each do |contribution| %>
       <div class="white-group">
         <div>
-          <h3>
-            <%= t('.contribution_name', charity_name: contribution.charity_name, charity_code: contribution.charity_code) %>
-          </h3>
-          <p class="spacing-below-25">
-            <%= t('.contribution_amount', amount: number_to_currency(contribution.amount), precision: 2) %>
-          </p>
-          <div>
-            <%=
-              link_to t('general.edit'),
-                StateFile::Questions::AzQualifyingOrganizationContributionsController.to_path_helper(
-                  id: contribution,
-                  return_to_review: params[:return_to_review]
-                ),
-                class: "button--small button--inline-action"
-            %>
+          <p class="text--bold spacing-below-5"><%= t("state_file.questions.az_qualifying_organization_contributions.form.charity_name") %></p>
+          <p class="spacing-below-5"><%= contribution.charity_name %></p>
+        </div>
+        <div class="spacing-above-25">
+          <p class="text--bold spacing-below-5"><%= t("state_file.questions.az_qualifying_organization_contributions.form.charity_code") %></p>
+          <p class="spacing-below-5"><%= contribution.charity_code %></p>
+        </div>
+        <div class="spacing-above-25">
+          <p class="text--bold spacing-below-5"><%= t("state_file.questions.az_qualifying_organization_contributions.form.amount", filing_year: current_tax_year) %></p>
+          <p class="spacing-below-5"><%= number_to_currency(contribution.amount, precision: 2) %></p>
+        </div>
+        <div class="spacing-above-25">
+          <p class="text--bold spacing-below-5"><%= t("state_file.questions.az_qualifying_organization_contributions.form.date_of_contribution", filing_year: current_tax_year) %></p>
+          <p class="spacing-below-25"><%= contribution.date_of_contribution.strftime("%m/%d") %></p>
+        </div>
+        <div>
+          <%=
+            link_to t('general.edit'),
+                    StateFile::Questions::AzQualifyingOrganizationContributionsController.to_path_helper(
+                      id: contribution,
+                      return_to_review: params[:return_to_review]
+                    ),
+                    class: "button--small button--inline-action"
+          %>
 
-            <%=
-              link_to t('general.delete'),
-                StateFile::Questions::AzQualifyingOrganizationContributionsController.to_path_helper(
-                  action: :destroy,
-                  id: contribution,
-                  return_to_review: params[:return_to_review]),
-              method: :delete,
-              data: {
-                confirm: t('.delete_confirmation')
-              },
-              class: "button--small button--inline-action last"
-            %>
-          </div>
+          <%=
+            link_to t('general.delete'),
+                    StateFile::Questions::AzQualifyingOrganizationContributionsController.to_path_helper(
+                      action: :destroy,
+                      id: contribution,
+                      return_to_review: params[:return_to_review]),
+                    method: :delete,
+                    data: {
+                      confirm: t('.delete_confirmation')
+                    },
+                    class: "button--small button--inline-action last"
+          %>
         </div>
       </div>
     <% end %>
   <% end %>
 
-  <%= link_to(next_path, class: "button button--primary button--wide spacing-below-10") do %>
-    <%= t('general.continue') %>
-  <% end %>
-  <%= button_to(StateFile::Questions::AzQualifyingOrganizationContributionsController.to_path_helper(action: :new, return_to_review: params[:return_to_review]), class: "button button--wide", method: :get, disabled: (@contribution_count >= 10)) do %>
+  <%= button_to(StateFile::Questions::AzQualifyingOrganizationContributionsController.to_path_helper(action: :new, return_to_review: params[:return_to_review]), class: "button button--wide spacing-below-10", method: :get, disabled: (@contribution_count >= 10)) do %>
     <%= t('.add_another') %>
   <% end %>
+  <%= link_to(next_path, class: "button button--primary button--wide") do %>
+    <%= t('general.continue') %>
+  <% end %>
+
   <% if @contribution_count >= 10 %>
     <p class="text--error text--centered spacing-above-5"><%= t('.maximum_records') %></p>
   <% end %>

@@ -397,6 +397,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
           allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_21).and_return 70
           allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_22).and_return 100
           allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_23).and_return 200
+          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_24).and_return 400
           allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_26).and_return 300
         end
 
@@ -407,6 +408,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
           expect(xml.at("Form502 StateTaxComputation TaxableNetIncome").text).to eq "60"
           expect(xml.at("Form502 StateTaxComputation StateIncomeTax").text).to eq "70"
           expect(xml.at("Form502 StateTaxComputation PovertyLevelCredit").text).to eq "200"
+          expect(xml.at("Form502 StateTaxComputation IndividualTaxCredits").text).to eq "400"
           expect(xml.at("Form502 StateTaxComputation TotalCredits").text).to eq "300"
           expect(xml.at("Form502 StateTaxComputation StateTaxAfterCredits").text).to eq "0"
         end
@@ -419,6 +421,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
           expect(xml.at("Form502 StateTaxComputation TaxableNetIncome")).to be_nil
           expect(xml.at("Form502 StateTaxComputation StateIncomeTax")).to be_nil
           expect(xml.at("Form502 StateTaxComputation PovertyLevelCredit")).to be_nil
+          expect(xml.at("Form502 StateTaxComputation IndividualTaxCredits")).to be_nil
           expect(xml.at("Form502 StateTaxComputation TotalCredits")).to be_nil
           expect(xml.at("Form502 StateTaxComputation StateTaxAfterCredits")).to be_nil
         end
@@ -614,6 +617,16 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
         it "should not include account holder information" do
           expect(xml.css('Form502 NameOnBankAccount').count).to eq(0)
         end
+      end
+    end
+
+    context "Line 43: Refundable income tax credits from Part CC" do
+      before do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_43).and_return 400
+      end
+
+      it 'outputs the total refundable credit' do
+        expect(xml.at("Form502 RefundableTaxCredits")&.text).to eq('400')
       end
     end
   end

@@ -10,7 +10,6 @@ describe StateFile::DirectFileApiResponseSampleService do
   let(:label) { 'Id lana single' }
   let(:unique_file_contents) { 'Turner' }
   let(:old_sample_unique_file_contents) { 'TESTERSON' }
-  let(:submission_id) { '1016422024025ate000b' }
   let(:default_submission_id) { '12345202201011234570' }
 
   describe '.key' do
@@ -26,7 +25,8 @@ describe StateFile::DirectFileApiResponseSampleService do
   end
 
   describe '#lookup_submission_id' do
-    let(:key) { 'az_superman_v2' }
+    let(:key) { 'az_alexis_hoh' }
+    let(:submission_id) { '10164220243273drvnwu' }
 
     it 'returns stored submission ids for samples that have one' do
       expect(direct_file_api_response_return_sample_service.lookup_submission_id(key)).to eq submission_id

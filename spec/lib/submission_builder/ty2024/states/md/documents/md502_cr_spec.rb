@@ -38,6 +38,30 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502Cr, required_sch
           end
         end
       end
+
+      context "Summary Section" do
+        before do
+          allow_any_instance_of(Efile::Md::Md502crCalculator).to receive(:calculate_part_aa_line_2).and_return 100
+          allow_any_instance_of(Efile::Md::Md502crCalculator).to receive(:calculate_part_aa_line_13).and_return 200
+        end
+        it "outputs all relevant values" do
+          expect(xml.at("Form502CR Summary ChildAndDependentCareCr").text.to_i).to eq(100)
+          expect(xml.at("Form502CR Summary SeniorCr").text.to_i).to eq(200)
+          expect(xml.at("Form502CR Summary TotalCredits").text.to_i).to eq(300)
+        end
+      end
+
+      context "Refundable Section" do
+        before do
+          allow_any_instance_of(Efile::Md::Md502crCalculator).to receive(:calculate_part_cc_line_7).and_return 100
+          allow_any_instance_of(Efile::Md::Md502crCalculator).to receive(:calculate_part_cc_line_8).and_return 200
+        end
+        it "outputs all relevant values" do
+          expect(xml.at("Form502CR Refundable ChildAndDependentCareCr").text.to_i).to eq(100)
+          expect(xml.at("Form502CR Refundable MDChildTaxCr").text.to_i).to eq(200)
+          expect(xml.at("Form502CR Refundable TotalCredits").text.to_i).to eq(300)
+        end
+      end
     end
   end
 end

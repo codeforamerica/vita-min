@@ -2174,31 +2174,24 @@ es:
     questions:
       az_charitable_contributions:
         edit:
-          charitable_cash_html: 'Ingresa el <strong>monto total de las donaciones en efectivo realizadas</strong> en %{tax_year}. (Redondea al número entero más cercano. Nota: Es posible que debas adjuntar recibos por donaciones superiores a $250.)'
-          charitable_noncash_html: 'Ingresa el <strong>monto total de las donaciones en especie realizadas</strong> en %{tax_year} (ejemplo: el valor de mercado de artículos donados). Esto no puede superar los $500. (redondea al número entero más cercano)'
-          learn_more_content_html: |
-            Las contribuciones caritativas incluyen donaciones en <strong>efectivo</strong> y en <strong>especie</strong> a organizaciones que califican.<br><br>
-            Las organizaciones que califican incluyen grupos sin ánimo de lucro con propósitos religiosos, caritativos, educativos, científicos o literarios, o que trabajan para prevenir la crueldad hacia niños o animales. Verifica <a href="https://www.irs.gov/TEOS" target="_blank" rel="noopener nofollow">aquí</a> si una organización califica.<br><br>
-            <strong>No</strong> incluyes:<br>
-            <ul><li>regalos hechos directamente a individuos;</li>
-            <li>contribuciones políticas;</li>
-            <li>todas las tarifas pagadas a escuelas públicas, incluyendo las tarifas que califican para el <a href="https://azdor.gov/tax-credits/public-school-tax-credit" target="_blank" rel="noopener nofollow">Crédito Tributario para Escuelas Públicas</a>;</li>
-            <li>dinero gastado en eventos de recaudación de fondos, incluyendo rifas, bingo; o</li>
-            <li>artículos comprados para una recaudación de fondos.</li></ul>
-          learn_more_title: "¿Qué quiere decir esto?"
-          title:
-            many: "¿Tú o tu cónyuge hicieron contribuciones caritativas (en efectivo y/o en especie) a una organización calificada en %{tax_year}?"
-            one: "¿Realizaste donaciones caritativas a una organización calificada en %{tax_year}? (En efectivo o en especie)"
-            other: "¿Tú o tu cónyuge hicieron contribuciones caritativas (en efectivo y/o en especie) a una organización calificada en %{tax_year}?"
+          amount_cannot_exceed: La cantidad no puede ser mayor a $500
+          charitable_cash_html: Cantidad total de las donaciones en efectivo/tarifas
+          charitable_noncash_html: Cantidad total de las donaciones  no monetarias
+          help_text: Por ejemplo, el valor comercial razonable de los artículos donados.
+          question:
+            one: "¿Donaste tú a organizaciones sin fines de lucro exentas de impuestos?"
+            other: "¿Tú y tu cónyuge donaron a organizaciones sin fines de lucro exentas de impuestos?"
+          title: "¡Podrías ser elegible para recibir créditos y deducciones adicionales de Arizona!"
       az_excise_credit:
         edit:
           household_excise_credit_claimed_amt: "¿Cuánto, en total, reclamaron todos los demás miembros de su hogar en Crédito por Impuesto Especial Incrementado? (Puede consultar esto en la línea 56 de su declaración de impuestos de Arizona)."
+          household_excise_credit_claimed_amt_help_text: Puedes comprobarlo consultando la línea 56 de su declaración de Arizona.
           household_excise_credit_html: "¿Alguien en tu hogar presentó una declaración de impuestos por separado de la tuya y reclamó el Crédito por Aumento de Impuestos Especiales de Arizona?<br><br> (Tu hogar incluye a todas las personas con las que viviste, incluso si no están incluidas en tu declaración.)"
           primary_was_incarcerated: "¿Estuviste encarcelado en una cárcel del condado, estatal o federal durante al menos 60 días en %{tax_year}?"
           spouse_was_incarcerated: "¿Tu cónyuge fue encarcelado en una cárcel del condado, estatal o federal durante al menos 60 días en %{tax_year}?"
           ssn_no_employment_html:
             label: "¿Tienes la frase <b>'not valid for employment'</b> escrita en tu tarjeta de Seguro Social? (Esto es poco común.)"
-          title: "¡Ya casi has terminado de presentar tu declaración! Tenemos algunas preguntas para ver si eres elegible para el Crédito por Aumento de Impuestos Especiales."
+          title: Es posible que seas elegible para el Crédito por Aumento de Impuestos Especiales.
       az_prior_last_names:
         edit:
           prior_last_names_label:
@@ -2252,30 +2245,34 @@ es:
           school_details_question: "¿Dónde puedo encontrar la información de la escuela?"
           which_qualify: "¿Qué donaciones y tarifas califican?"
         index:
-          add_another: Añadir otra contribución
-          amount_contributed: 'Cantidad contribuida: %{amount}'
-          contribution_label: Contribución a %{school_name}
+          add_another: Añadir otra donación
           delete_confirmation: "¿Estás seguro de que quieres eliminar esta contribución?"
-          lets_review: Revisión de tus hiciste contribuciones y tarifas a la escuela pública
           maximum_records: Ha proporcionado la cantidad máxima de registros.
+          title: 'Esta es la información que agregaste:'
       az_qualifying_organization_contributions:
         destroy:
           removed: Se eliminó AZ 321 para %{charity_name}
         form:
-          amount: Monto de la contribución en %{filing_year}
-          charity_code: Código de caridad
-          charity_name: Nombre de la organización benéfica
-          date_of_contribution: Fecha de pago en %{filing_year} (mm/dd)
-          main_heading: "¿Hizo contribuciones en efectivo a una organización benéfica calificada en %{filing_year}?"
-          main_heading_html: ¿Hizo contribuciones en efectivo a una <a href="https://azdor.gov/sites/default/files/2024-01/CREDITS_2024_qco.pdf" target="_blank" >organización benéfica calificada</a> en %{filing_year}?
-          question_header: 'Proporcione la siguiente información para cada donación en efectivo a una organización benéfica calificada:'
+          amount: Cantidad de la donación/tarifas pagadas en %{filing_year}
+          charity_code: Código de beneficencia
+          charity_name: Nombre de la organización calificada
+          date_of_contribution: Fecha de pago en %{filing_year}
+          main_heading: "¿Alguna de tus donaciones fue hecha a una organización benéfica calificada que ofrece necesidades básicas inmediatas a los residentes de Arizona?"
+          main_heading_html: ¿Alguna de tus donaciones fue hecha a <a href="https://azdor.gov/tax-credits/credits-contributions-qcos-and-qfcos" target="_blank">una organización benéfica calificada</a> que ofrece necesidades básicas inmediatas a los residentes de Arizona?
+          org_details_answer_html: |
+            Puedes encontrar esta información en el recibo que te entregó la organización
+            <br/><br/>
+            O
+            <br/><br/>
+            Visita el <a href="https://azdor.gov/sites/default/files/2024-01/CREDITS_2024_qco.pdf" target="_blank">Departamento de Ingresos de Arizona</a> para encontrar los detalles.
+          org_details_question: "¿Dónde encuentro los detalles de la organización?"
+          question_header: Por favor, añade detalles sobre la donación en efectivo a organizaciones benéficas calificadas.
         index:
-          add_another: Añadir otra contribución
-          contribution_amount: 'Cantidad: %{amount}'
-          contribution_name: Contribución a %{charity_name} con el código %{charity_code}
+          add_another: Añadir otra donación
+          credit_limit: El límite del crédito es $%{credit_limit}
           delete_confirmation: "¿Estás seguro de que deseas eliminar esta contribución?"
-          lets_review: "¡Genial! Gracias por compartir esa información. Repasemos."
           maximum_records: Ha proporcionado la cantidad máxima de registros.
+          title: Aquí están las donaciones benéficas calificadas que registramos
       az_review:
         edit:
           armed_forces_member: Miembro de las Fuerzas Armadas de los Estados Unidos
@@ -2311,7 +2308,9 @@ es:
           title: Necesitamos información adicional sobre %{dependents_name_list}
       az_subtractions:
         edit:
-          armed_forces_member_label_html: Tú o tu cónyuge son miembros de las Reservas, la Guardia Nacional o las Fuerzas Armadas de los Estados Unidos <strong>y</strong> recibieron un salario por el servicio activo.
+          armed_forces_member_label:
+            one: Tú eres miembro de las Reservas, la Guardia Nacional o las Fuerzas Armadas de los Estados Unidos y recibió un salario por el servicio activo.
+            other: Tú o tu cónyuge son miembros de las Reservas, la Guardia Nacional o las Fuerzas Armadas de los Estados Unidos y recibieron un salario por el servicio activo.
           armed_forces_wages_label:
             many: "¿Cuánto recibiste tú o tu cónyuge en salario por servicio activo?"
             one: "¿Cuánto recibiste en salario por servicio activo?"
@@ -2321,24 +2320,21 @@ es:
             Si eres miembro de <strong>la Reserva o la Guardia Nacional</strong>, ingresa el salario que recibiste por entrenamientos durante fines de semana o de dos semanas que hayas reportado en tu declaración de impuestos federal.<br><br>
             <strong>No</strong> puedes incluir ningún ingreso que hayas recibido por empleo a tiempo completo en el servicio civil como "técnico militar (doble estatus)".
           learn_more_title: Obtener más información
-          should_not_exceed_wages_html: "<strong>Nota:</strong> Esto no debe superar %{wages}"
-          subtitle:
-            many: Marca todas las casillas que correspondan a usted o su cónyuge. Si no corresponde, déjelas en blanco y continúe.
-            one: Marca cada casilla que te aplique a ti. Si no te aplica, déjala en blanco y continúa.
-            other: Marca todas las casillas que correspondan a usted o su cónyuge. Si no corresponde, déjelas en blanco y continúe.
+          should_not_exceed_wages: Esto no debe superar %{wages}
+          subtitle: Marca todas las casillas que correspondan. Si no corresponde, déjelas en blanco y continúe.
           title:
             many: "¿Alguna de las siguientes situaciones te aplican a ti o su cónyuge en el %{year}?"
             one: "¿Alguna de las siguientes situaciones te aplican a ti en el %{year}?"
             other: "¿Alguna de las siguientes situaciones te aplican a ti o su cónyuge en el %{year}?"
           tribal_member_label:
             many: Tú o tu cónyuge son miembros inscritos de una <u>tribu indígena estadounidense reconocida por el gobierno federal</u> y ganaron salario mientras vivían y trabajaban en la reserva.
-            one: Tú eres un miembro inscrito de una <a href="https://www.bia.gov/service/tribal-leaders-directory/federally-recognized-tribes" target="_blank" rel="noopener nofollow">tribu indígena estadounidense reconocida por el gobierno federal</a> y ganaron salario mientras vivían y trabajaban en la reserva.
+            one: Tú eres un miembro inscrito de una <a href="https://www.bia.gov/service/tribal-leaders-directory/federally-recognized-tribes" target="_blank" rel="noopener nofollow">tribu indígena estadounidense reconocida por el gobierno federal</a> y ganó un salario mientras vivía y trabajaba en la reserva.
             other: Tú o tu cónyuge son miembros inscritos de una <u>tribu indígena estadounidense reconocida por el gobierno federal</u> y ganaron salario mientras vivían y trabajaban en la reserva.
           tribal_wages_label:
             many: "¿Cuánto ganaste tú o tu cónyuge mientras vivían y trabajaban en la reserva de tu tribu o la de tu cónyuge?"
             one: "¿Cuánto recibiste en salario mientras vivías y trabajabas en la reserva de tu tribu?"
             other: "¿Cuánto ganaste tú o tu cónyuge mientras vivían y trabajaban en la reserva de tu tribu o la de tu cónyuge?"
-          wages_tip: Ingresa la cantidad que recibiste (redondea al número entero más cercano)
+          wages_tip: Ingresa la cantidad que recibiste
       canceled_data_transfer:
         edit:
           subtitle: Lamentablemente, para continuar presentando tus impuestos estatales con FileYourStateTaxes debes transferir tu declaración federal para completar ciertas secciones de tu declaración estatal.
@@ -2354,15 +2350,6 @@ es:
           subtitle: Con una cuenta recibirás notificaciones sobre el estado de tu declaración de impuestos estatales.
           text_message_option: Enviar código por mensaje de texto.
           title: Ahora crea tu cuenta con un código
-      data_review:
-        edit:
-          basic_household_info_title: Información básica del hogar
-          complete_description: Completo
-          filing_status_title: Estado civil para la declaración
-          income_and_deductions_title: Ingresos y deducciones
-          partially_complete_description: Parcialmente completa
-          state_tax_withheld_title: Retención de impuestos estatales de %{name}
-          title: Tu declaración de impuestos federales se ha transferido. Hemos completado algunas partes para ahorrarte tiempo.
       data_transfer_offboarding:
         edit:
           ineligible_reason:
@@ -2874,6 +2861,41 @@ es:
             other: ¿Es usted o su cónyuge un miembro inscrito de una <a href="https://biamaps.geoplatform.gov/Tribal-Leaders-Directory/" target="_blank">tribu indígena reconocida federalmente</a> y recibieron ingresos mientras vivían en una reserva?
           tribal_wages_field: Ingrese la cantidad ganada
           tribal_wages_question_html: Enter the amount of income received or earned from activities on the federally recognized reservation. <br><br> This amount should not exceed $%{amount_limit}.
+      nc_tax_refund:
+        edit:
+          how_to_recieve: "¿Cómo le gustaría recibir su reembolso?"
+          title_html: Buenas noticias, está recibiendo un reembolso del estado de Carolina del Norte de <strong>$%{refund_amount}.</strong>
+        nc_bank_details:
+          account_number: Número de cuenta
+          account_type:
+            label: Tipo de cuenta bancaria
+          after_deadline_default_withdrawal_info: Debido a que está presentando su declaración el o después del %{withdrawal_deadline_date}, %{with_drawal_deadline_year}, el estado retirará su pago tan pronto como procesen su declaración.
+          bank_title: 'Por favor proporcione los detalles de su cuenta bancaria:'
+          confirm_account_number: Confirmar número de cuenta
+          confirm_routing_number: Confirmar número de ruta
+          date_withdraw_text: "¿Cuándo le gustaría que se retiraran los fondos de su cuenta? (Debe ser el o antes del %{withdrawal_deadline_date}, %{with_drawal_deadline_year}):"
+          foreign_accounts_owed: No se permiten pagos internacionales de ACH.
+          foreign_accounts_refund: No se permiten reembolsos internacionales de depósito directo de ACH.
+          routing_number: Número de ruta
+          withdraw_amount: "¿Cuánto autoriza para ser retirado de su cuenta? (Su monto total adeudado es $%{owed_amount}.)"
+      nc_taxes_owed:
+        edit:
+          automatic_draft_payments_info_one: Algunas cuentas de ahorro, de mercado monetario y de gasto controlado no son elegibles para débitos automáticos. Por favor, confirme con su banco o cooperativa de crédito si la cuenta que ha seleccionado puede ser debitada automáticamente.
+          automatic_draft_payments_info_two: Si su pago es rechazado por su banco, estará sujeto a una "Penalización por Transferencia Electrónica de Fondos Fallida". La penalización es del 10% del pago (mínimo $1.00; máximo $1,000.00).
+          benefits_of_ncdor: Los beneficios de pagar en línea (ya sea aquí en FileYourStateTaxes o a través del sitio web de NCDOR) incluyen la capacidad de programar pagos y la seguridad de saber que su pago ha sido recibido.
+          direct_debit_payment_info_four: Si su pago es rechazado por su banco, estará sujeto a una Penalización por Transferencia Electrónica de Fondos Fallida. La penalización es del 10% del pago (mínimo $1.00; máximo $1,000.00).
+          direct_debit_payment_info_one: La fecha de débito debe ser una fecha bancaria válida, lo que no incluye fines de semana ni días festivos bancarios. Al ingresar su fecha de débito, se le proporcionará la fecha más próxima disponible.
+          direct_debit_payment_info_three: Su pago se considerará puntual si envía su pago en la fecha de vencimiento y selecciona la primera fecha de débito disponible. Recibirá un correo electrónico de confirmación de NCDOR después de que se reciba su pago.
+          direct_debit_payment_info_two: La fecha de débito se basa en un límite de las 5:00 pm EST. En otras palabras, si presenta su pago con débito bancario después de las 5:00 pm EST, la fecha de débito más cercana será dentro de dos días hábiles.
+          how_would_you_like_to_pay: "¿Cómo te gustaría pagar?"
+          more_info_about_automatic_draft_payments: Más información sobre los pagos automáticos
+          more_info_about_direct_debit_payment: Más información sobre la fecha de pago con débito directo
+          page_title: Usted debe impuestos estatales. ¿Cómo le gustaría pagar?
+          pay_bank: Pague directamente desde su cuenta corriente o de ahorros (débito directo)
+          pay_mail_online_html: Pague por correo o en línea en <a target="_blank" rel="noopener nofollow" href="https://electronic-services.dor.nc.gov/wps/portal/d400v">NCDOR.gov</a>
+          payment_options: Puede pagar directamente desde su cuenta corriente o de ahorros aquí. También puede pagar por correo o en línea a través del sitio web del Departamento de Ingresos de Carolina del Norte.
+          title_html: Usted debe <strong>$%{owed_amount}</strong> en impuestos estatales de Carolina del Norte.
+          what_are_benefits_of_ncdor: "¿Cuáles son los beneficios de pagar en línea con FileYourStateTaxes o NCDOR?"
       nc_veteran_status:
         primary_veteran_question: "¿Eres un veterano?"
         spouse_veteran_question: "¿Es su cónyuge un veterano?"
@@ -3245,6 +3267,9 @@ es:
           phone_number_label: Tu número de teléfono
           subtitle_html: To create a new account, provide a phone number that isn't already in use.<br><br>Use a phone number you can access.
           title: Ingresa tu número de teléfono
+      post_data_transfer:
+        edit:
+          title: Solo página sin producción
       primary_state_id:
         edit:
           ny_subtitle: Esta información es necesaria para todos los residentes de Nueva York con una identificación emitida por el estado.
@@ -3271,18 +3296,17 @@ es:
           title_html: Revise los detalles de sus ingresos de jubilación (1099-R) para <strong>%{payer_name}</strong>.
       return_status:
         accepted:
-          check_payable: Haz tu cheque o giro postal a nombre del “Arizona Department of Revenue. Escribe tu SSN completo, "%{filing_year} Tax" y 140 en tu pago.
-          check_your_refund_html: <a target="_blank" rel="noopener nofollow" href="%{tax_refund_url}">Verifica el estado</a> de tu reembolso.
+          check_payable: Haz tu cheque o giro postal a nombre del %{payable_to}. Escribe tu SSN o ITIN completo, "%{filing_year} Tax", y "Form %{form_number}" en tu pago.
           direct_debit_html: Si no elegiste el débito directo, recuerda <strong>pagar tus impuestos en línea en <a target="_blank" rel="noopener nofollow" href="https://%{tax_payment_url}">%{tax_payment_url}</a></strong> o por correo antes de la fecha límite del 15 de abril.
-          download_title: Descargue una copia de tu declaración de impuestos estatales de %{state_name} de %{filing_year} hasta el 31 de diciembre de %{filing_year + 1}
+          download_title: Descargue una copia de tu declaración de impuestos estatales de %{state_name} de %{year} hasta el 31 de diciembre de %{year}
           download_voucher: Descargar formulario de comprobante de pago
           feedback: Valoramos sus comentarios; háganos saber lo que piensa de esta herramienta.
           include_payment: Debes incluir el formulario de comprobante de pago.
           mail_voucher_and_payment: 'Envía el formulario de comprobante de pago y el pago a:'
           pay_by_mail_or_moneyorder: 'Si estás pagando por correo mediante cheque o giro postal:'
+          refund_details_html: 'Typical refund time frames are 7-8 weeks for e-Filed returns and 10-11 weeks for paper returns. There are some exceptions. For more information, please visit %{website_name} website: <a target="_blank" rel="noopener nofollow" href="https://%{tax_refund_url}>Where’s my Refund?</a>'
           register_to_vote: Regístrate para votar.
           title: Tu declaración de impuestos del estado de %{state_name} para el año %{filing_year} ha sido aceptada
-          track_your_payment_html: Puedes hacerle seguimiento a tu pago <a target="_blank" rel="noopener nofollow" href="https://www.tax.ny.gov/online/ind.htm">aquí.</a>
         edit:
           download_state_return_pdf: Descarga tu declaración estatal
           explain_calcs: Explicación de Cálculos
@@ -3292,10 +3316,11 @@ es:
           more_than_two_days_closed_html: Si han pasado más de dos días desde que presentó sus impuestos estatales, comuníquese con nuestro equipo de especialistas de soporte enviándonos un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>
           receive_email: Recibirás una actualización por correo electrónico cuando tu declaración de impuestos estatales sea aceptada.
           receive_email_sms: Recibirás una actualización por correo electrónico o mensaje de texto cuando tu declaración de impuestos estatales sea aceptada.
+          receive_sms: Recibirás una actualización por mensaje de texto cuando tu declaración de impuestos estatales sea aceptada.
           title: Has enviado tu declaración de impuestos estatales de %{state_name} para el año %{filing_year}, y está esperando ser aceptada.
         rejected:
-          contact_us: Contacte a nuestro equipo de expertos haciendo clic en "Chatea con nosotros".
           edit_return: Editar tu declaración estatal
+          email_us_html: Envíanos un correo electrónico a <strong>help@fileyourstatetaxes.org</strong>
           have_questions: "¿Tienes preguntas?"
           next_steps:
             can_edit:
@@ -3312,19 +3337,19 @@ es:
         county: County where your permanent address was located on December 31, %{filing_year}
       shared:
         abstract_review_header:
+          amount_rounding_notice_html: "<strong>Hemos redondeado automáticamente todos los montos en dólares al número entero más cercano.</strong> La %{state_agency_name} solo aceptará números enteros en la declaración de impuestos final."
           dependent_dob: Su fecha de nacimiento
           dependent_months_in_home: Número de meses que vivieron contigo
           dependent_name: Nombre de tu dependiente
-          household_info: Información del hogar
+          household_info: Detalles del hogar
           nth_dependent_name: Nombre de tu %{ordinal} dependiente
           spouse_name: Nombre de tu cónyuge
           taxes_owed_header: Tu reembolso estimado o tus impuestos estimados a pagar
           taxes_owed_html: Tu reembolso es de $0. Esto significa <strong>que no</strong> recibirás un reembolso estatal y <strong>no</strong> debes impuestos estatales. Deberías terminar de presentar tu declaración, ya que es posible que estés obligado/a a presentarla aunque no recibirás dinero.
-          title: "¡Terminaste! Revisa tu declaración de impuestos estatales antes de enviarla."
+          title: "¡Ya casi terminas! Por favor revisa la información que tenemos."
           your_name: Tu nombre
         review_header:
           income_details: Detalles de ingresos
-          title: "¡Terminaste! Revisa tu declaración de impuestos estatales antes de enviarla."
           your_refund: Tu reembolso
           your_tax_owed: Tus impuestos adeudados
       spouse_state_id:

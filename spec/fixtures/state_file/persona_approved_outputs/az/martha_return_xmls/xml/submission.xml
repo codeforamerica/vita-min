@@ -20,15 +20,16 @@
         <IPAddress>
           <IPv4AddressTxt>1.1.1.1</IPv4AddressTxt>
         </IPAddress>
-        <IPTs>2024-11-16T05:22:31+00:00</IPTs>
+        <IPTs>2024-12-03T20:00:00+00:00</IPTs>
         <DeviceId>7BA1E530D6503F380F1496A47BEB6F33E40403D1</DeviceId>
         <DeviceTypeCd>Browser-based</DeviceTypeCd>
+        <EmailAddressTxt>surf@ocean.com</EmailAddressTxt>
       </InitialCreation>
       <Submission>
         <IPAddress>
           <IPv4AddressTxt>1.1.1.1</IPv4AddressTxt>
         </IPAddress>
-        <IPTs>2024-11-16T05:22:31+00:00</IPTs>
+        <IPTs>2024-12-03T20:00:00+00:00</IPTs>
         <DeviceId>7BA1E530D6503F380F1496A47BEB6F33E40403D1</DeviceId>
         <DeviceTypeCd>Browser-based</DeviceTypeCd>
       </Submission>
@@ -38,7 +39,7 @@
   </AuthenticationHeader>
   <ReturnHeaderState xmlns="http://www.irs.gov/efile">
     <Jurisdiction>AZST</Jurisdiction>
-    <ReturnTs>2024-11-16T05:22:31+00:00</ReturnTs>
+    <ReturnTs>2024-12-03T20:00:00+00:00</ReturnTs>
     <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
     <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
     <TaxYr>2024</TaxYr>

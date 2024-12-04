@@ -7,6 +7,7 @@ module StateFile
       before_action :set_contribution_count
 
       def index
+        @credit_limit = current_intake.filing_status_mfj? ? 938 : 470
         redirect_to action: :new, return_to_review: params[:return_to_review] unless contributions.present?
       end
 

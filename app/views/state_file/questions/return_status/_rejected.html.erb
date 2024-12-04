@@ -49,7 +49,14 @@
   <% if app_time.before?(Rails.configuration.state_file_end_of_in_progress_intakes) %>
     <section>
       <p class="spacing-below-5"><strong><%= t('.have_questions') %></strong></p>
-      <%= t('.contact_us') %>
+      <ul class="list--bulleted">
+        <li class="text--underline open-intercom">
+          <%= t("general.chat_with_us") %>
+        </li>
+        <li>
+          <%= t(".email_us_html") %>
+        </li>
+      </ul>
     </section>
 
     <% edit_return_controller = @error.correction_path.present? ? EfileError.path_to_controller(@error.correction_path) : EfileError.default_controller(current_state_code) %>

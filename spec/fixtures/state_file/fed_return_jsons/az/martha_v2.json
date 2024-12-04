@@ -9,7 +9,8 @@
       "relationship": "childOfSibling",
       "eligibleDependent": true,
       "isClaimedDependent": true,
-      "monthsLivedWithTPInUS": "twelve"
+      "monthsLivedWithTPInUS": "twelve",
+      "residencyDuration": "allYear"
     },
     {
       "firstName": "Martha",
@@ -20,7 +21,8 @@
       "relationship": "biologicalChild",
       "eligibleDependent": true,
       "isClaimedDependent": true,
-      "monthsLivedWithTPInUS": "twelve"
+      "monthsLivedWithTPInUS": "twelve",
+      "residencyDuration": "allYear"
     },
     {
       "firstName": "John",
@@ -31,7 +33,8 @@
       "relationship": "grandChildOrOtherDescendentOfChild",
       "eligibleDependent": true,
       "isClaimedDependent": true,
-      "monthsLivedWithTPInUS": "twelve"
+      "monthsLivedWithTPInUS": "twelve",
+      "residencyDuration": "allYear"
     },
     {
       "firstName": "Frances",
@@ -42,7 +45,8 @@
       "relationship": "childOfSibling",
       "eligibleDependent": true,
       "isClaimedDependent": true,
-      "monthsLivedWithTPInUS": "twelve"
+      "monthsLivedWithTPInUS": "twelve",
+      "residencyDuration": "allYear"
     }
   ],
   "filers": [

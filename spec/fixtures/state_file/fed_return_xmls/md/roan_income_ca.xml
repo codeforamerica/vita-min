@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v4.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>1cfaf0d2</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400007211</PrimarySSN>
+            <SpouseSSN>400007212</SpouseSSN>
+            <NameLine1Txt>ROAN &amp; KAYLEIGH R&lt;TROUT</NameLine1Txt>
+            <PrimaryNameControlTxt>TROU</PrimaryNameControlTxt>
+            <SpouseNameControlTxt>TROU</SpouseNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>1500 MISSOURI LANE</AddressLine1Txt>
+                <CityNm>OCEAN CITY</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21842</ZIPCd>
+            </USAddress>
+            <PhoneNum>2404445555</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000721-1e01-4a98-8943-7308ad002167@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="8">
+        <IRS1040 documentId="IRS10400001">
+            <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>2</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001 W20002" referenceDocumentName="IRSW2">110000</WagesAmt>
+            <WagesSalariesAndTipsAmt>110000</WagesSalariesAndTipsAmt>
+            <TaxableInterestAmt referenceDocumentId="IRS1040B001" referenceDocumentName="IRS1040ScheduleB">4400</TaxableInterestAmt>
+            <SocSecBnftAmt>10000</SocSecBnftAmt>
+            <TaxableSocSecAmt>8500</TaxableSocSecAmt>
+            <TotalAdditionalIncomeAmt>3000</TotalAdditionalIncomeAmt>
+            <TotalIncomeAmt>125900</TotalIncomeAmt>
+            <TotalAdjustmentsAmt>785</TotalAdjustmentsAmt>
+            <AdjustedGrossIncomeAmt>125115</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>29200</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>29200</TotalDeductionsAmt>
+            <TaxableIncomeAmt>95915</TaxableIncomeAmt>
+            <TaxAmt>11210</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>11210</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>11210</TaxLessCreditsAmt>
+            <TotalTaxAmt>11210</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>15000</FormW2WithheldTaxAmt>
+            <Form1099WithheldTaxAmt referenceDocumentId="OTHERWITHHOLDING0001" referenceDocumentName="OtherWithholdingStatement">100</Form1099WithheldTaxAmt>
+            <WithholdingTaxAmt>15100</WithholdingTaxAmt>
+            <TotalPaymentsAmt>15100</TotalPaymentsAmt>
+            <OverpaidAmt>3890</OverpaidAmt>
+            <RefundAmt>3890</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>BOUNCER</PrimaryOccupationTxt>
+            <SpouseOccupationTxt>BARISTA</SpouseOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1040Schedule1 documentId="IRS1040S1001">
+            <UnemploymentCompAmt>3000</UnemploymentCompAmt>
+            <TotalAdditionalIncomeAmt>3000</TotalAdditionalIncomeAmt>
+            <EducatorExpensesAmt>60</EducatorExpensesAmt>
+            <HealthSavingsAccountDedAmt referenceDocumentId="IRS88890001 IRS88890002" referenceDocumentName="IRS8889">125</HealthSavingsAccountDedAmt>
+            <StudentLoanInterestDedAmt>600</StudentLoanInterestDedAmt>
+            <TotalAdjustmentsAmt>785</TotalAdjustmentsAmt>
+        </IRS1040Schedule1>
+        <IRS1040ScheduleB documentId="IRS1040B001" documentName="IRS1040ScheduleB">
+            <Form1040SchBPartIGroup2>
+                <InterestPayerName>
+                    <BusinessNameLine1Txt>MIDWESTERN BANK</BusinessNameLine1Txt>
+                </InterestPayerName>
+                <InterestAmt>3400</InterestAmt>
+            </Form1040SchBPartIGroup2>
+            <Form1040SchBPartIGroup2>
+                <InterestPayerName>
+                    <BusinessNameLine1Txt>CASUAL BANK</BusinessNameLine1Txt>
+                </InterestPayerName>
+                <InterestAmt>1000</InterestAmt>
+            </Form1040SchBPartIGroup2>
+            <InterestSubtotalAmt interestSubtotalLiteralCd="INTEREST SUBTOTAL">4400</InterestSubtotalAmt>
+            <TaxableInterestSubtotalAmt>4400</TaxableInterestSubtotalAmt>
+            <CalculatedTotalTaxableIntAmt>4400</CalculatedTotalTaxableIntAmt>
+            <ForeignAccountsQuestionInd>false</ForeignAccountsQuestionInd>
+            <ForeignTrustQuestionInd>false</ForeignTrustQuestionInd>
+        </IRS1040ScheduleB>
+        <IRS8889 documentId="IRS88890001">
+            <PersonNm>ROAN TROUT</PersonNm>
+            <RecipientSSN>400007211</RecipientSSN>
+            <HDHPSelfOnlyCoverageInd>X</HDHPSelfOnlyCoverageInd>
+            <HSAContributionAmt>50</HSAContributionAmt>
+            <HSALimitedAnnualDeductibleAmt>4150</HSALimitedAnnualDeductibleAmt>
+            <HSALimitedDeductibleAllwdAmt>4150</HSALimitedDeductibleAllwdAmt>
+            <HSAFamilyDeductibleAmt>4150</HSAFamilyDeductibleAmt>
+            <HSALimitedGrossContributionAmt>4150</HSALimitedGrossContributionAmt>
+            <TotalHSAContributionAmt>0</TotalHSAContributionAmt>
+            <HSALimitedContributionAmt>4150</HSALimitedContributionAmt>
+            <TotalHSADeductionAmt>50</TotalHSADeductionAmt>
+        </IRS8889>
+        <IRS8889 documentId="IRS88890002">
+            <PersonNm>KAYLEIGH R TROUT</PersonNm>
+            <RecipientSSN>400007212</RecipientSSN>
+            <HDHPSelfOnlyCoverageInd>X</HDHPSelfOnlyCoverageInd>
+            <HSAContributionAmt>75</HSAContributionAmt>
+            <HSALimitedAnnualDeductibleAmt>4150</HSALimitedAnnualDeductibleAmt>
+            <HSALimitedDeductibleAllwdAmt>4150</HSALimitedDeductibleAllwdAmt>
+            <HSAFamilyDeductibleAmt>4150</HSAFamilyDeductibleAmt>
+            <HSALimitedGrossContributionAmt>4150</HSALimitedGrossContributionAmt>
+            <TotalHSAContributionAmt>0</TotalHSAContributionAmt>
+            <HSALimitedContributionAmt>4150</HSALimitedContributionAmt>
+            <TotalHSADeductionAmt>75</TotalHSADeductionAmt>
+        </IRS8889>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>400007211</EmployeeSSN>
+            <EmployerEIN>271067272</EmployerEIN>
+            <EmployerNameControlTxt>CODE</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>CODE PINK PONY CLUB</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>5678 STOP THE WORLD TO STOP THE FEE</AddressLine1Txt>
+                <AddressLine2Txt>BUILDING 123</AddressLine2Txt>
+                <CityNm>POCOMOKE</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21851</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>ROAN TROUT</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>125 W COLLEGE AVE</AddressLine1Txt>
+                <CityNm>SALISBURY</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21804</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>60000</WagesAmt>
+            <WithholdingAmt>8000</WithholdingAmt>
+            <SocialSecurityWagesAmt>60000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>3300</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>60000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>870</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>MD</StateAbbreviationCd>
+                    <EmployerStateIdNum>123456</EmployerStateIdNum>
+                    <StateWagesAmt>60000</StateWagesAmt>
+                    <StateIncomeTaxAmt>5000</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+        <IRSW2 documentId="W20002" documentName="IRSW2">
+            <EmployeeSSN>400007212</EmployeeSSN>
+            <EmployerEIN>810587194</EmployerEIN>
+            <EmployerNameControlTxt>HOTT</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>HOT TO GO CAFE</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>123 PRINCESS COURT</AddressLine1Txt>
+                <CityNm>EDEN</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21822</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>KAYLEIGH R TROUT</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>1500 MISSOURI LANE</AddressLine1Txt>
+                <CityNm>OCEAN CITY</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21842</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>50000</WagesAmt>
+            <WithholdingAmt>7000</WithholdingAmt>
+            <SocialSecurityWagesAmt>50000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>3100</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>50000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>800</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>MD</StateAbbreviationCd>
+                    <EmployerStateIdNum>50000</EmployerStateIdNum>
+                    <StateWagesAmt>50000</StateWagesAmt>
+                    <StateIncomeTaxAmt>4500</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+        <OtherWithholdingStatement documentId="OTHERWITHHOLDING0001" documentName="OtherWithholdingStatement">
+            <OtherWithholdingStmt>
+                <WithholdingCd>FORM 1099</WithholdingCd>
+                <EIN>270293117</EIN>
+                <WithholdingAmt>100</WithholdingAmt>
+            </OtherWithholdingStmt>
+        </OtherWithholdingStatement>
+    </ReturnData>
+</Return>

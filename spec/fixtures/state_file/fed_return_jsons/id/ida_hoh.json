@@ -1,0 +1,36 @@
+{
+  "filers": [
+    {
+      "tin": "400-00-0001",
+      "suffix": null,
+      "lastName": "Ho",
+      "firstName": "Ida",
+      "dateOfBirth": "1958-12-30",
+      "middleInitial": null,
+      "isPrimaryFiler": true,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "interestReports": [],
+  "familyAndHousehold": [
+    {
+      "tin": "300-00-1111",
+      "suffix": null,
+      "lastName": "Ho",
+      "firstName": "Ivan",
+      "dateOfBirth": "2019-12-25",
+      "relationship": "biologicalChild",
+      "middleInitial": null,
+      "qualifyingChild": true,
+      "eligibleDependent": true,
+      "residencyDuration": "allYear",
+      "isClaimedDependent": true,
+      "hohQualifyingPerson": true,
+      "scheduleEicLine4aNo": false,
+      "scheduleEicLine4aYes": false,
+      "scheduleEicLine4bYes": false,
+      "monthsLivedWithTPInUS": "twelve",
+      "ssnNotValidForEmployment": false
+    }
+  ]
+}
