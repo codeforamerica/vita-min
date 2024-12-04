@@ -2,6 +2,7 @@ module Efile
   module Md
     class Md502Calculator < ::Efile::TaxCalculator
       attr_reader :lines
+      set_refund_owed_lines refund: :MD502_LINE_48, owed: :MD502_LINE_50
 
       def initialize(year:, intake:, include_source: false)
         super
@@ -99,10 +100,16 @@ module Efile
         set_line(:MD502_LINE_32, :calculate_line_32)
         set_line(:MD502_LINE_33, :calculate_line_33)
         set_line(:MD502_LINE_34, :calculate_line_34)
-
+        set_line(:MD502_LINE_39, :calculate_line_39)
         set_line(:MD502_LINE_40, :calculate_line_40)
+        set_line(:MD502_LINE_42, :calculate_line_42)
+        set_line(:MD502_LINE_43, :calculate_line_43)
+        set_line(:MD502_LINE_44, :calculate_line_44)
+        set_line(:MD502_LINE_45, :calculate_line_45)
+        set_line(:MD502_LINE_46, :calculate_line_46)
+        set_line(:MD502_LINE_48, :calculate_line_48)
+        set_line(:MD502_LINE_50, :calculate_line_50)
         set_line(:MD502_AUTHORIZE_DIRECT_DEPOSIT, @intake, :bank_authorization_confirmed_yes?)
-
         @md502cr.calculate
         @lines.transform_values(&:value)
       end
@@ -560,11 +567,52 @@ module Efile
         end
       end
 
+      def calculate_line_39
+        (34..38).sum do |line_num|
+          line_or_zero("MD502_LINE_#{line_num}")
+        end
+      end
+
       def calculate_line_40
         @intake.state_file_w2s.sum { |item| item.state_income_tax_amount.round } +
           @intake.state_file_w2s.sum { |item| item.local_income_tax_amount.round } +
           @intake.state_file1099_gs.sum { |item| item.state_income_tax_withheld_amount.round } +
           @intake.state_file1099_rs.sum { |item| item.state_tax_withheld_amount.round }
+      end
+
+      def calculate_line_42
+        # Earned Income Credit (EIC)
+        if filing_status_mfj? || filing_status_mfs? || @direct_file_data.fed_eic_qc_claimed
+          [(@direct_file_data.fed_eic * 0.45).round - line_or_zero(:MD502_LINE_21), 0].max
+        elsif filing_status_single? || filing_status_hoh? || filing_status_qw?
+          [@direct_file_data.fed_eic - line_or_zero(:MD502_LINE_21), 0].max
+        end
+      end
+
+      def calculate_line_43; end
+
+      def calculate_line_44
+        [40, 42, 43].sum { |number| line_or_zero("MD502_LINE_#{number}") }
+      end
+
+      def calculate_line_45
+        if line_or_zero(:MD502_LINE_39) > line_or_zero(:MD502_LINE_44)
+          line_or_zero(:MD502_LINE_39) - line_or_zero(:MD502_LINE_44)
+        end
+      end
+
+      def calculate_line_46
+        if line_or_zero(:MD502_LINE_39) < line_or_zero(:MD502_LINE_44)
+          line_or_zero(:MD502_LINE_44) - line_or_zero(:MD502_LINE_39)
+        end
+      end
+
+      def calculate_line_48
+        line_or_zero(:MD502_LINE_46) - line_or_zero(:MD502_LINE_47)
+      end
+
+      def calculate_line_50
+        line_or_zero(:MD502_LINE_45) + line_or_zero(:MD502_LINE_49)
       end
 
       def filing_status_dependent?
