@@ -3337,21 +3337,19 @@ es:
         county: County where your permanent address was located on December 31, %{filing_year}
       shared:
         abstract_review_header:
+          amount_rounding_notice_html: "<strong>Hemos redondeado automáticamente todos los montos en dólares al número entero más cercano.</strong> La %{state_agency_name} solo aceptará números enteros en la declaración de impuestos final."
           dependent_dob: Su fecha de nacimiento
           dependent_months_in_home: Número de meses que vivieron contigo
           dependent_name: Nombre de tu dependiente
           household_info: Detalles del hogar
-          income_details: Detalles de ingresos
           nth_dependent_name: Nombre de tu %{ordinal} dependiente
           spouse_name: Nombre de tu cónyuge
           taxes_owed_header: Tu reembolso estimado o tus impuestos estimados a pagar
           taxes_owed_html: Tu reembolso es de $0. Esto significa <strong>que no</strong> recibirás un reembolso estatal y <strong>no</strong> debes impuestos estatales. Deberías terminar de presentar tu declaración, ya que es posible que estés obligado/a a presentarla aunque no recibirás dinero.
-          title: ¡Ya casi terminas! Por favor revisa la información que tenemos.
+          title: "¡Ya casi terminas! Por favor revisa la información que tenemos."
           your_name: Tu nombre
-          amount_rounding_notice_html: "<strong>Hemos redondeado automáticamente todos los montos en dólares al número entero más cercano.</strong> La %{state_agency_name} solo aceptará números enteros en la declaración de impuestos final."
         review_header:
           income_details: Detalles de ingresos
-          title: "¡Terminaste! Revisa tu declaración de impuestos estatales antes de enviarla."
           your_refund: Tu reembolso
           your_tax_owed: Tus impuestos adeudados
       spouse_state_id:
