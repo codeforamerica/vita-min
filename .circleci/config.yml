@@ -204,7 +204,7 @@ workflows:
       - i18n_normalize:
           filters:
             branches:
-              only: translations_config-locales-en-yml--main_es
+              only: '^translations_.*'
       - run_js_tests:
           context: gyr_deploy_alerts
       - run_ruby_tests:
