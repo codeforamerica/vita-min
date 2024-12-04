@@ -152,6 +152,7 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
           add_element_if_present(xml, "EarnedIncomeCredit", :MD502_LINE_22)
           add_element_if_present(xml, "MDEICWithQualChildInd", :MD502_LINE_22B)
           xml.PovertyLevelCredit calculated_fields.fetch(:MD502_LINE_23) if @deduction_method_is_standard
+          xml.IndividualTaxCredits calculated_fields.fetch(:MD502_LINE_24) if @deduction_method_is_standard
           xml.TotalCredits calculated_fields.fetch(:MD502_LINE_26) if @deduction_method_is_standard
           xml.StateTaxAfterCredits calculated_fields.fetch(:MD502_LINE_27) if @deduction_method_is_standard
         end
@@ -168,6 +169,7 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
       add_non_zero_value(xml, :TotalTaxAndContributions, :MD502_LINE_39)
       xml.TaxWithheld calculated_fields.fetch(:MD502_LINE_40)
       add_non_zero_value(xml, :RefundableEIC, :MD502_LINE_42)
+      add_non_zero_value(xml, :RefundableTaxCredits, :MD502_LINE_43)
       add_non_zero_value(xml, :TotalPaymentsAndCredits, :MD502_LINE_44)
       add_non_zero_value(xml, :BalanceDue, :MD502_LINE_45)
       add_non_zero_value(xml, :Overpayment, :MD502_LINE_46)
