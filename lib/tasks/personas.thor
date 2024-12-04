@@ -45,7 +45,7 @@ class Personas < Thor
   method_option :debug, aliases: '-d', desc: 'Debug information', type: :boolean
 
   def import(persona_name)
-    persona_name = persona_name.downcase
+    persona_name = persona_name.underscore
     # Can contain logging noise, so we must sanitize
     persona_contents = $stdin.readlines
 
@@ -86,7 +86,7 @@ class Personas < Thor
     start_of_contents = submission_contents.index { |item| item.starts_with?('Submission ID: ') }
     submission_id = submission_contents[start_of_contents..].join.delete_prefix('Submission ID: ').chomp
 
-    persona_name = persona_name.downcase
+    persona_name = persona_name.underscore
 
     submission_id_path = "#{__dir__}/../../app/services/state_file/submission_id_lookup.yml"
     say_error "Adding submission id #{submission_id} to submission_id_lookup.yml for #{persona_name}", :green
