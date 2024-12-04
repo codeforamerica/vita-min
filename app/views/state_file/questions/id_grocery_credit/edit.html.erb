@@ -47,7 +47,7 @@
           <div class="question-with-follow-up__follow-up" id="primary_months_ineligible_for_grocery_credit">
             <div class="white-group">
               <p><%= t(".need_to_know_you_html", filing_year: current_tax_year) %></p>
-              <p><%= t(".example_months") %></p>
+              <p><%= t(".you_example_months") %></p>
               <%= f.cfa_select(:primary_months_ineligible_for_grocery_credit, t(".total_number_months"), (1..12).to_a, label_class: 'form-label--bold', include_blank: t('general.select_prompt')) %>
             </div>
           </div>

@@ -2581,12 +2581,13 @@ es:
         edit:
           answers_confidential_html: Sus respuestas son privadas y se utilizan únicamente para determinar si califica para el crédito fiscal.
           example_months: Por ejemplo, si tuvieron 2 situaciones en abril, eso cuenta como 1 mes.
+          you_example_months: Por ejemplo, si tuviste 2 situaciones en abril, eso cuenta como 1 mes.
           need_to_know_html: "¿Cuántos meses afectaron estas situaciones a esta persona en %{filing_year}?"
           need_to_know_you_html: "¿Cuántos meses afectaron estas situaciones a usted en %{filing_year}?"
           see_if_you_qualify:
             one: Para ver si usted califica, necesitamos más información sobre usted.
             other: Para ver si califica, necesitamos más información sobre usted y su hogar.
-          select_household_members: 'Seleccione los miembros del hogar a los que se apliquen estas situaciones en %{tax_year}:'
+          select_household_members: 'Seleccione a los miembros del hogar a quienes les aplicaron alguna de estas situaciones en %{tax_year}:'
           situation_incarceration: experimentó encarcelamiento
           situation_snap: recibió cupones de alimentos / SNAP-EBT
           situation_undocumented: Vivió en los Estados Unidos indocumentado
