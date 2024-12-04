@@ -2290,22 +2290,20 @@ en:
           date_of_contribution: Date of payment in %{filing_year}
           main_heading: Were any of your donations made to a Qualifying Charitable Organization that provide immediate basic needs to residents of Arizona?
           main_heading_html: Were any of your donations made to a <a href="https://azdor.gov/tax-credits/credits-contributions-qcos-and-qfcos" target="_blank">Qualifying Charitable Organization</a> that provide immediate basic needs to residents of Arizona?
-          question_header: Please add details for cash donation to Qualifying Charitable Organizations.
-          org_details_question: "Where do I find the organization details?"
           org_details_answer_html: |
             You can find this information on the receipt you received from the organization
             <br/><br/>
             OR
             <br/><br/>
             Visit the <a href="https://azdor.gov/sites/default/files/2024-01/CREDITS_2024_qco.pdf" target="_blank">Arizona Department of Revenue</a> to find the details.
+          org_details_question: Where do I find the organization details?
+          question_header: Please add details for cash donation to Qualifying Charitable Organizations.
         index:
           add_another: Add another donation
-          contribution_amount: 'Amount: %{amount}'
-          contribution_name: Contribution to %{charity_name} with code %{charity_code}
+          credit_limit: Credit limit is $%{credit_limit}
           delete_confirmation: Are you sure you want to delete this contribution?
-          title: Here are the Qualifying Charitable donations we've collected.
           maximum_records: You have provided the maximum amount of records.
-          credit_limit: "Credit limit is $%{credit_limit}"
+          title: Here are the Qualifying Charitable donations we've collected.
       az_review:
         edit:
           armed_forces_member: Member of the U.S. Armed Forces
@@ -2341,7 +2339,9 @@ en:
           title: We need additional information about %{dependents_name_list}
       az_subtractions:
         edit:
-          armed_forces_member_label_html: You or your spouse are a member of the Reserves, the National Guard, or the U.S. Armed Forces <strong>and</strong> received pay for active duty military service.
+          armed_forces_member_label:
+            one: You are a member of the Reserves, the National Guard, or the U.S. Armed Forces and received pay for active duty military service.
+            other: You or your spouse are a member of the Reserves, the National Guard, or the U.S. Armed Forces and received pay for active duty military service.
           armed_forces_wages_label:
             one: How much did you receive in active duty pay?
             other: How much did you or your spouse receive in active duty pay?
@@ -2350,10 +2350,8 @@ en:
             If you are a member of <strong>the Reserves or the National Guard</strong>, enter pay received for weekend or two-week training periods that you reported on your federal tax return.<br><br>
             You may <strong>not</strong> include any income you received for full-time civil service employment as a “military technician (dual status)”.
           learn_more_title: Learn more
-          should_not_exceed_wages_html: "<strong>Note:</strong> this should not exceed %{wages}"
-          subtitle:
-            one: Check every box that applies to you. If it does not apply, leave blank and continue.
-            other: Check every box that applies to you or your spouse. If it does not apply, leave blank and continue.
+          should_not_exceed_wages: This should not exceed %{wages}
+          subtitle: Check every box that applies. If it does not apply, leave blank and continue.
           title:
             one: Did any of the following scenarios apply to you in %{year}?
             other: Did any of the following scenarios apply to you or your spouse in %{year}?
@@ -2363,7 +2361,7 @@ en:
           tribal_wages_label:
             one: How much did you earn while living and working on your tribe’s reservation?
             other: How much did you or your spouse earn while living and working on your or their tribe’s reservation?
-          wages_tip: Enter amount earned (round to the nearest whole number.)
+          wages_tip: Enter amount earned
       canceled_data_transfer:
         edit:
           faq: Visit our FAQ

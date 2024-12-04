@@ -2256,24 +2256,22 @@ es:
           charity_code: Código de beneficencia
           charity_name: Nombre de la organización calificada
           date_of_contribution: Fecha de pago en %{filing_year}
-          main_heading:  ¿Alguna de tus donaciones fue hecha a una organización benéfica calificada que ofrece necesidades básicas inmediatas a los residentes de Arizona?
+          main_heading: "¿Alguna de tus donaciones fue hecha a una organización benéfica calificada que ofrece necesidades básicas inmediatas a los residentes de Arizona?"
           main_heading_html: ¿Alguna de tus donaciones fue hecha a <a href="https://azdor.gov/tax-credits/credits-contributions-qcos-and-qfcos" target="_blank">una organización benéfica calificada</a> que ofrece necesidades básicas inmediatas a los residentes de Arizona?
-          question_header: Por favor, añade detalles sobre la donación en efectivo a organizaciones benéficas calificadas.
-          org_details_question: "¿Dónde encuentro los detalles de la organización?"
           org_details_answer_html: |
             Puedes encontrar esta información en el recibo que te entregó la organización
             <br/><br/>
             O
             <br/><br/>
             Visita el <a href="https://azdor.gov/sites/default/files/2024-01/CREDITS_2024_qco.pdf" target="_blank">Departamento de Ingresos de Arizona</a> para encontrar los detalles.
+          org_details_question: "¿Dónde encuentro los detalles de la organización?"
+          question_header: Por favor, añade detalles sobre la donación en efectivo a organizaciones benéficas calificadas.
         index:
           add_another: Añadir otra donación
-          contribution_amount: 'Cantidad: %{amount}'
-          contribution_name: Contribución a %{charity_name} con el código %{charity_code}
+          credit_limit: El límite del crédito es $%{credit_limit}
           delete_confirmation: "¿Estás seguro de que deseas eliminar esta contribución?"
-          title: Aquí están las donaciones benéficas calificadas que registramos
           maximum_records: Ha proporcionado la cantidad máxima de registros.
-          credit_limit: "El límite del crédito es $%{credit_limit}"
+          title: Aquí están las donaciones benéficas calificadas que registramos
       az_review:
         edit:
           armed_forces_member: Miembro de las Fuerzas Armadas de los Estados Unidos
@@ -2309,7 +2307,9 @@ es:
           title: Necesitamos información adicional sobre %{dependents_name_list}
       az_subtractions:
         edit:
-          armed_forces_member_label_html: Tú o tu cónyuge son miembros de las Reservas, la Guardia Nacional o las Fuerzas Armadas de los Estados Unidos <strong>y</strong> recibieron un salario por el servicio activo.
+          armed_forces_member_label:
+            one: Tú eres miembro de las Reservas, la Guardia Nacional o las Fuerzas Armadas de los Estados Unidos y recibió un salario por el servicio activo.
+            other: Tú o tu cónyuge son miembros de las Reservas, la Guardia Nacional o las Fuerzas Armadas de los Estados Unidos y recibieron un salario por el servicio activo.
           armed_forces_wages_label:
             many: "¿Cuánto recibiste tú o tu cónyuge en salario por servicio activo?"
             one: "¿Cuánto recibiste en salario por servicio activo?"
@@ -2319,24 +2319,21 @@ es:
             Si eres miembro de <strong>la Reserva o la Guardia Nacional</strong>, ingresa el salario que recibiste por entrenamientos durante fines de semana o de dos semanas que hayas reportado en tu declaración de impuestos federal.<br><br>
             <strong>No</strong> puedes incluir ningún ingreso que hayas recibido por empleo a tiempo completo en el servicio civil como "técnico militar (doble estatus)".
           learn_more_title: Obtener más información
-          should_not_exceed_wages_html: "<strong>Nota:</strong> Esto no debe superar %{wages}"
-          subtitle:
-            many: Marca todas las casillas que correspondan a usted o su cónyuge. Si no corresponde, déjelas en blanco y continúe.
-            one: Marca cada casilla que te aplique a ti. Si no te aplica, déjala en blanco y continúa.
-            other: Marca todas las casillas que correspondan a usted o su cónyuge. Si no corresponde, déjelas en blanco y continúe.
+          should_not_exceed_wages: Esto no debe superar %{wages}
+          subtitle: Marca todas las casillas que correspondan. Si no corresponde, déjelas en blanco y continúe.
           title:
             many: "¿Alguna de las siguientes situaciones te aplican a ti o su cónyuge en el %{year}?"
             one: "¿Alguna de las siguientes situaciones te aplican a ti en el %{year}?"
             other: "¿Alguna de las siguientes situaciones te aplican a ti o su cónyuge en el %{year}?"
           tribal_member_label:
             many: Tú o tu cónyuge son miembros inscritos de una <u>tribu indígena estadounidense reconocida por el gobierno federal</u> y ganaron salario mientras vivían y trabajaban en la reserva.
-            one: Tú eres un miembro inscrito de una <a href="https://www.bia.gov/service/tribal-leaders-directory/federally-recognized-tribes" target="_blank" rel="noopener nofollow">tribu indígena estadounidense reconocida por el gobierno federal</a> y ganaron salario mientras vivían y trabajaban en la reserva.
+            one: Tú eres un miembro inscrito de una <a href="https://www.bia.gov/service/tribal-leaders-directory/federally-recognized-tribes" target="_blank" rel="noopener nofollow">tribu indígena estadounidense reconocida por el gobierno federal</a> y ganó un salario mientras vivía y trabajaba en la reserva.
             other: Tú o tu cónyuge son miembros inscritos de una <u>tribu indígena estadounidense reconocida por el gobierno federal</u> y ganaron salario mientras vivían y trabajaban en la reserva.
           tribal_wages_label:
             many: "¿Cuánto ganaste tú o tu cónyuge mientras vivían y trabajaban en la reserva de tu tribu o la de tu cónyuge?"
             one: "¿Cuánto recibiste en salario mientras vivías y trabajabas en la reserva de tu tribu?"
             other: "¿Cuánto ganaste tú o tu cónyuge mientras vivían y trabajaban en la reserva de tu tribu o la de tu cónyuge?"
-          wages_tip: Ingresa la cantidad que recibiste (redondea al número entero más cercano)
+          wages_tip: Ingresa la cantidad que recibiste
       canceled_data_transfer:
         edit:
           faq: Visita nuestras Preguntas Frecuentes (FAQ)
