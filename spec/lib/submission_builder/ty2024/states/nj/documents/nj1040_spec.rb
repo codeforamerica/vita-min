@@ -870,42 +870,42 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
     end
 
     describe 'line 66 - Total Withholdings, Credits, and Payments' do
-      it 'inserts calulator output' do
+      it 'inserts calculator output' do
         allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_66).and_return 10
         expect(xml.at("Body TotalPaymentsOrCredits").text).to eq(10.to_s)
       end
     end
 
     describe 'line 67 - tax due' do
-      it 'inserts calulator output' do
+      it 'inserts calculator output' do
         allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_67).and_return 10
         expect(xml.at("Body BalanceDueWithReturn").text).to eq(10.to_s)
       end
     end
 
     describe 'line 68 - overpayment' do
-      it 'inserts calulator output' do
+      it 'inserts calculator output' do
         allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_68).and_return 10
         expect(xml.at("Body OverpaymentAmount").text).to eq(10.to_s)
       end
     end
 
     describe 'line 78 - Total Adjustments to Tax Due/Overpayment amount' do
-      it 'inserts calulator output' do
+      it 'inserts calculator output' do
         allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_78).and_return 10
         expect(xml.at("Body TotalAdjustments").text).to eq(10.to_s)
       end
     end
 
     describe 'line 79 - Balance due' do
-      it 'inserts calulator output' do
+      it 'inserts calculator output' do
         allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_79).and_return 10
         expect(xml.at("Body NetBalanceDue").text).to eq(10.to_s)
       end
     end
 
     describe 'line 80 - Refund amount' do
-      it 'inserts calulator output' do
+      it 'inserts calculator output' do
         allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_80).and_return 10
         expect(xml.at("Body NetRefund").text).to eq(10.to_s)
       end

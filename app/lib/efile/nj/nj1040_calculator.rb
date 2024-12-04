@@ -564,7 +564,8 @@ module Efile
 
       def calculate_line_80
         if line_or_zero(:NJ1040_LINE_68).positive?
-          # TODO: Line 78 always 0 now. When implemented will have to make sure this doesn't go negative
+          # Line 78 is always 0 now
+          # When implemented we will have to make sure this doesn't become negative
           return line_or_zero(:NJ1040_LINE_68) - line_or_zero(:NJ1040_LINE_78)
         end
         0

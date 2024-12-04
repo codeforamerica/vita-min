@@ -607,7 +607,6 @@ module PdfFiller
         ]))
       end
 
-
       # line 68
       if @xml_document.at("Body OverpaymentAmount").present?
         overpayment = @xml_document.at("Body OverpaymentAmount").text.to_i
