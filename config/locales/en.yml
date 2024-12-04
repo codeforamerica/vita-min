@@ -2562,7 +2562,14 @@ en:
           md:
             body_html: |
               <p>By using a computer system and software to prepare and/or file my tax return(s) electronically, I consent to the transmission of my return(s) and to the disclosure of all information about my use of the system and software to the Comptroller of Maryland.</p>
-              <p>Under penalties of perjury, I declare that I have compared the information contained on my electronic return with the information that I provided to my Electronic Return Originator (ERO) or entered on-line and that the name(s) and amounts described above agree with the amounts shown on the corresponding lines of my 2024 Maryland electronic income tax return. To the best of my knowledge and belief, my return is true, correct and complete. I consent that my return, including accompanying schedules and statements, be sent to the Maryland Revenue Administration Division by my Electronic Return Originator or by my electronic return software provider.</p>
+              <p>
+                Under penalties of perjury, I declare that
+                <ul class="list--bulleted">
+                  <li>I have compared the information contained on my electronic return with the information that I provided to my Electronic Return Originator (ERO) or entered on-line and that the name(s) and amounts described above agree with the amounts shown on the corresponding lines of my %{filing_year} Maryland electronic income tax return; and</li>
+                  <li>To the best of my knowledge and belief, my return is true, correct and complete. </li>
+                </ul>
+              I consent that my return, including accompanying schedules and statements, be sent to the Maryland Revenue Administration Division by my Electronic Return Originator or by my electronic return software provider.
+              </p>
           nc:
             body_html: |
               <p>By using a computer system and software to prepare and file my tax return(s) electronically, I consent to the transmission of my return(s) and to the disclosure of all information about my use of the system and software to the North Carolina Department of Revenue.</p>
@@ -2759,13 +2766,11 @@ en:
       md_eligibility_filing_status:
         edit:
           eligibility_filing_status_label_text: Are you married and filing a joint state return?
+          eligibility_first_time_homebuyer_withdrawal_label_text_html: Did you or your spouse withdraw money from a first-time homebuyer account and <strong> not </strong> use it to purchase a home in Maryland in %{year}?
           eligibility_mfj_two_different_areas_label_text: Did you and your spouse have your permanent homes in two different counties, cities, towns, or taxing areas on the last day of %{year}?
           eligibility_mfj_two_different_areas_no: No, my spouse and I lived in the same county, city, town, or taxing area
           eligibility_mfj_two_different_areas_yes: Yes, my spouse and I permanently lived in different counties, cities, towns, or taxing areas
-
-          eligibility_first_time_homebuyer_withdrawal_label_text_html: Did you or your spouse withdraw money from a first-time homebuyer account and <strong> not </strong> use it to purchase a home in Maryland in %{year}?
           eligibility_non_mfj_first_time_homebuyer_withdrawal_label_text_html: Did you withdraw money from a first-time homebuyer account and <strong> not </strong> use it to purchase a home in Maryland in %{year}?
-
           permanent_home_copy: You cannot use this service if you and your spouse live in different counties, cities, towns, or taxing areas, and it is not a temporary situation.
           permanent_home_copy2: If you leave your permanent home to work or care for someone but plan to return, your permanent home hasn’t changed. You and your spouse are considered to live in different counties, cities, towns or taxing areas only if you are staying in these separate homes and it is not temporary.
           permanent_home_heading: What is a permanent home?
@@ -2799,13 +2804,13 @@ en:
           address_header: Address
           apartment_number_label: Apartment/Unit Number
           city_label: City
+          follow_up_help_text: PO Boxes are not accepted
           mark_no_hint_html: Mark &quot;no&quot; if the address listed is a PO Box <strong>or</strong> if you lived at a different address on December 31, %{filing_year}.
           state_label: State
           street_address_label: Street Address
           title: Did you live at this address on December 31, %{filing_year}?
           where_did_you_live: Where did you live on December 31, %{filing_year}?
           zip_label: Zip Code
-          follow_up_help_text: PO Boxes are not accepted
       md_primary_state_id:
         md_primary:
           encourage_sharing_html: If you and your spouse have a driver’s license or state issued identification card please provide the requested information from it. The return will not be rejected if you do not provide a driver’s license or state-issued identification. <br><br> If you provide this information, it may help to identify you as the taxpayer.
@@ -3401,10 +3406,9 @@ en:
           confirm_account_number: Confirm Account Number
           confirm_routing_number: Confirm Routing Number
           date_withdraw_text: 'When would you like the funds withdrawn from your account? (Must be on or before %{withdrawal_deadline_date}, %{with_drawal_deadline_year}):'
-          disclaimer: Check to make sure your bank information is correct. You won’t be able to correct this after you submit your return.
           foreign_accounts: Foreign accounts are not accepted
           routing_number: Routing Number
-          withdraw_amount: How much do you authorize to be withdrawn from your account? (Your total amount due is&#58; $%{owed_amount}. Round to the nearest whole number.)
+          withdraw_amount: How much do you authorize to be withdrawn from your account? (Your total amount due is&#58; $%{owed_amount}.)
         edit:
           direct_deposit: Direct deposit (fastest)
           mail: Mail my payment (slower)
@@ -5565,7 +5569,7 @@ en:
         account_number: Account number
         account_type:
           checking: Checking
-          label: What type of account is this?
+          label: Bank Account Type
           savings: Savings
         bank_name: Bank name
         help_text: Your name must be listed on your bank account for you to receive your money.
