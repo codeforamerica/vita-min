@@ -4,8 +4,7 @@ module Navigation
 
     SECTIONS = [
       Navigation::NavigationSection.new("state_file.navigation.section_1", [
-        Navigation::NavigationStep.new(StateFile::Questions::NcEligibilityResidenceController),
-        Navigation::NavigationStep.new(StateFile::Questions::NcEligibilityOutOfStateIncomeController),
+        Navigation::NavigationStep.new(StateFile::Questions::NcEligibilityController),
         Navigation::NavigationStep.new(StateFile::Questions::EligibilityOffboardingController, false),
         Navigation::NavigationStep.new(StateFile::Questions::EligibleController),
       ]),
@@ -33,7 +32,6 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::NcCountyController),
         Navigation::NavigationStep.new(StateFile::Questions::NcVeteranStatusController),
         Navigation::NavigationStep.new(StateFile::Questions::NcSalesUseTaxController),
-        Navigation::NavigationStep.new(StateFile::Questions::IncomeReviewController),
         Navigation::NavigationStep.new(StateFile::Questions::UnemploymentController),
         Navigation::NavigationStep.new(StateFile::Questions::NcSubtractionsController),
         Navigation::NavigationStep.new(StateFile::Questions::PrimaryStateIdController),

@@ -287,6 +287,22 @@
       padding: 0 1rem;
     }
 
+    .text-input-group:has(.text-input-group__prefix) {
+      border-width: 0.1rem;
+
+      .text-input {
+        border: none;
+      }
+    }
+
+    .text-input-group {
+      .text-input-group__prefix {
+        background: none;
+        box-shadow: none;
+        padding: 0 10px 0 10px;
+      }
+    }
+
     .question-with-follow-up__follow-up {
       :not(.not-centered) {
         margin: 0;
@@ -407,6 +423,12 @@
       .form-group:last-child {
         margin-bottom: 0;
       }
+    }
+
+    .text--help {
+      font-size: 1.3rem;
+      margin-bottom: 0.8rem;
+      color: $color-state-file-grey-darker;
     }
   }
 

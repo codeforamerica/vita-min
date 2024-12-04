@@ -356,4 +356,38 @@ describe Efile::Nc::D400Calculator do
       expect(instance.refund_or_owed_amount).to eq(-10)
     end
   end
+
+  describe "#calculate_gov_payments" do
+    context "single filer" do
+      let(:intake) { create(:state_file_nc_intake, :single) }
+      let!(:w2) { create(:state_file_w2, state_file_intake: intake, state_income_tax_amount: 100) }
+
+      let!(:state_file_1099g) { create(:state_file1099_g, intake: intake, unemployment_compensation_amount: 50) }
+      let!(:second_state_file_1099g) { create(:state_file1099_g, intake: intake, unemployment_compensation_amount: 25) }
+
+      it "accumulates the state income tax withheld from filer 1099Gs" do
+        expect(instance.calculate_gov_payments).to eq(75) # 50 + 25
+      end
+    end
+
+    context "mfs filer" do
+      let(:intake) { create(:state_file_nc_intake, :married_filing_separately) }
+      let!(:state_file_1099g) { create(:state_file1099_g, intake: intake, unemployment_compensation_amount: 50) }
+      let!(:spouse_state_file_1099g) { create(:state_file1099_g, intake: intake, recipient: 'spouse', unemployment_compensation_amount: 25) }
+
+      it "accumulates the state income tax withheld from filer 1099Gs" do
+        expect(instance.calculate_gov_payments).to eq(50)
+      end
+    end
+
+    context "mfj filer" do
+      let(:intake) { create(:state_file_nc_intake, :with_spouse) }
+      let!(:state_file_1099g) { create(:state_file1099_g, intake: intake, unemployment_compensation_amount: 50) }
+      let!(:spouse_state_file_1099g) { create(:state_file1099_g, intake: intake, recipient: 'spouse', unemployment_compensation_amount: 25) }
+
+      it "accumulates the state income tax withheld from filer and spouse 1099Gs" do
+        expect(instance.calculate_gov_payments).to eq(75) # 50 + 25
+      end
+    end
+  end
 end
