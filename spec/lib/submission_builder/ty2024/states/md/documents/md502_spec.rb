@@ -465,13 +465,41 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
       end
     end
 
-    context "Line 40: Total state and local tax withheld" do
+    context "Contributions Sections" do
       before do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_39).and_return 100
         allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_40).and_return 500
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_42).and_return 200
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_44).and_return 300
       end
 
       it 'outputs the total state and local tax withheld' do
+        expect(xml.at("Form502 TotalTaxAndContributions")&.text).to eq('100')
         expect(xml.at("Form502 TaxWithheld")&.text).to eq('500')
+        expect(xml.at("Form502 RefundableEIC")&.text).to eq('200')
+        expect(xml.at("Form502 TotalPaymentsAndCredits")&.text).to eq('300')
+      end
+    end
+
+    context "when taxes are owed" do
+      before do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_45).and_return 100
+      end
+
+      it 'outputs the amount owed' do
+        expect(xml.at("Form502 BalanceDue")&.text).to eq('100')
+        expect(xml.at("Form502 TotalAmountDue")&.text).to eq('100')
+      end
+    end
+
+    context "when there is a refund" do
+      before do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_46).and_return 300
+      end
+
+      it 'outputs the amount to be refunded' do
+        expect(xml.at("Form502 Overpayment")&.text).to eq('300')
+        expect(xml.at("Form502 AmountOverpayment ToBeRefunded")&.text).to eq('300')
       end
     end
 
