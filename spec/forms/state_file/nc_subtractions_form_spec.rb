@@ -6,7 +6,7 @@ RSpec.describe StateFile::NcSubtractionsForm do
     let(:form) { described_class.new(intake, params) }
     before do
       intake.direct_file_data.fed_agi = 1060
-      intake.direct_file_data.fed_taxable_income = 30
+      allow_any_instance_of(Efile::Nc::D400ScheduleSCalculator).to receive(:calculate_line_18).and_return 30
       intake.direct_file_data.fed_taxable_ssb = 30
     end
 
@@ -58,7 +58,7 @@ RSpec.describe StateFile::NcSubtractionsForm do
       end
 
       it "tribal wages that exceeds the federal wage total are invalid" do
-        form = described_class.new(intake, params.merge(tribal_wages_amount: "1000.32"))
+        form = described_class.new(intake, params.merge(tribal_wages_amount: "1004"))
         expect(form).not_to be_valid
         expect(form.errors).to include :tribal_wages_amount
       end
