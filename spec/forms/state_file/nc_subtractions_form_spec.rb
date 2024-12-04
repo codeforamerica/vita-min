@@ -6,7 +6,7 @@ RSpec.describe StateFile::NcSubtractionsForm do
     let(:form) { described_class.new(intake, params) }
     before do
       intake.direct_file_data.fed_agi = 1060
-      intake.direct_file_data.fed_taxable_income = 30
+      allow_any_instance_of(Efile::Nc::D400ScheduleSCalculator).to receive(:calculate_line_18).and_return 30
       intake.direct_file_data.fed_taxable_ssb = 30
     end
 

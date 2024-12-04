@@ -32,12 +32,7 @@ module SubmissionBuilder
             xml.IPTs datetime_type(device_info&.updated_at)
             xml.DeviceId device_info&.device_id || 'AB' * 20
             xml.DeviceTypeCd 'Browser-based'
-            if @submission.data_source.email_address.present?
-              xml.EmailAddressTxt sanitize_for_xml(@submission.data_source.email_address, 75)
-            elsif @submission.data_source.direct_file_data.tax_payer_email.present?
-              xml.EmailAddressTxt sanitize_for_xml(@submission.data_source.direct_file_data.tax_payer_email, 75)
-            end
-            xml.USCellPhoneNum phone_number if phone_number.present?
+            xml.EmailAddressTxt email_from_intake_or_df
           end
           xml.Submission do
             device_info = @submission.data_source.submission_efile_device_info

@@ -1,0 +1,68 @@
+{
+  "filers": [
+    {
+      "tin": "400-00-5970",
+      "suffix": null,
+      "lastName": "Tomahto",
+      "firstName": "Tomato",
+      "dateOfBirth": "1950-02-14",
+      "middleInitial": null,
+      "isPrimaryFiler": false,
+      "ssnNotValidForEmployment": null
+    },
+    {
+      "tin": "400-00-5969",
+      "suffix": null,
+      "lastName": "Potahto",
+      "firstName": "Potato",
+      "dateOfBirth": "1962-06-20",
+      "middleInitial": null,
+      "isPrimaryFiler": true,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "interestReports": [
+    {
+      "payer": "Tomato 1",
+      "has1099": true,
+      "payerTin": null,
+      "1099Amount": "150.00",
+      "taxWithheld": "0.00",
+      "no1099Amount": null,
+      "recipientTin": "400-00-5969",
+      "interestOnGovernmentBonds": "10.00",
+      "taxExemptAndTaxCreditBondCusipNo": null
+    },
+    {
+      "payer": "Potato",
+      "has1099": true,
+      "payerTin": null,
+      "1099Amount": "23.00",
+      "taxWithheld": "0.00",
+      "no1099Amount": null,
+      "recipientTin": "400-00-5969",
+      "taxExemptAndTaxCreditBondCusipNo": null
+    }
+  ],
+  "familyAndHousehold": [
+    {
+      "tin": "300-00-0001",
+      "suffix": null,
+      "lastName": "Cob",
+      "firstName": "Cornathan",
+      "dateOfBirth": "2020-10-10",
+      "relationship": "grandChildOrOtherDescendantOfChild",
+      "middleInitial": null,
+      "qualifyingChild": true,
+      "eligibleDependent": true,
+      "residencyDuration": "allYear",
+      "isClaimedDependent": true,
+      "hohQualifyingPerson": false,
+      "scheduleEicLine4aNo": false,
+      "scheduleEicLine4aYes": false,
+      "scheduleEicLine4bYes": false,
+      "monthsLivedWithTPInUS": "twelve",
+      "ssnNotValidForEmployment": false
+    }
+  ]
+}

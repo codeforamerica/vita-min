@@ -12,7 +12,7 @@ describe StateFile::Questions::PendingFederalReturnController do
     it 'succeeds' do
       get :edit
       expect(response).to be_successful
-      expect(response_html).to have_text "We’re sorry to keep you waiting"
+      expect(response_html).to have_text "Sorry to keep you waiting"
     end
   end
 end

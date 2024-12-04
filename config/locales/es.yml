@@ -2341,14 +2341,8 @@ es:
           wages_tip: Ingresa la cantidad que recibiste (redondea al número entero más cercano)
       canceled_data_transfer:
         edit:
-          faq: Visita nuestras Preguntas Frecuentes (FAQ)
-          mistake_html: ¿Es un error? <a href="%{link}">Regresa para corregirlo.</a>
-          other_options_html: |
-            <strong>¿Quieres presentar tus impuestos usando un producto o servicio diferente?</strong>
-            <br/>
-            Antes de escoger una opción, asegúrate de que te permita presentar tu declaración de impuestos sólo a nivel estatal. Es probable que necesites volver a ingresar la información de tu declaración de impuestos federales para preparar tu declaración de impuestos estatales. Se pueden aplicar tarifas.
-          title1: 'Parece que cancelaste la transferencia de tu declaración federal. '
-          title2: Lamentablemente, para continuar presentando tus impuestos estatales con FileYourStateTaxes debes transferir tu declaración federal para completar ciertas secciones de tu declaración estatal.
+          subtitle: Lamentablemente, para continuar presentando tus impuestos estatales con FileYourStateTaxes debes transferir tu declaración federal para completar ciertas secciones de tu declaración estatal.
+          title: 'Parece que cancelaste la transferencia de tu declaración federal. '
       code_verified:
         edit:
           subtitle_email: A partir de ahora, recibirás actualizaciones por correo electrónico cuando tu declaración de impuestos estatales sea aceptada.
@@ -2374,7 +2368,7 @@ es:
           ineligible_reason:
             exempt_interest_exceeds_10k: you had more than $10,000 in tax-exempt interest income.
             has_irc_125_code: tu formulario W-2 incluye cantidades del plan de beneficios del Código de Rentas Internas (IRC 125).
-            has_out_of_state_w2: recibiste ingresos en otro estado en el 2024
+            has_out_of_state_w2: recibiste ingresos en otro estado en el %{filing_year}
             has_yonkers_income: viviste, recibiste ingresos o mantuviste un hogar en Yonkers en 2024.
             married_filing_separately: estás presentando una declaración de impuestos "casado, presentando por separado".
           offboarding_reason: No puedes usar esta herramienta este año porque %{reason}
@@ -2382,16 +2376,12 @@ es:
       declined_terms_and_conditions:
         edit:
           action_html: "<strong>¿Es un error?</strong>"
-          drop_down_html: |
-            <strong>¿Quieres presentar tus impuestos usando un producto o servicio diferente?</strong><br>
-            Antes de escoger una opción, asegúrate de que te permita presentar tu declaración de impuestos sólo a nivel estatal. Es probable que necesites volver a ingresar la información de tu declaración de impuestos federales para preparar tu declaración de impuestos estatales. Se pueden aplicar tarifas.
-          faq_link: Visita nuestras Preguntas Frecuentes (FAQ)
           go_back_link: Regresa para corregirlo.
           subtitle: Lamentablemente, para continuar presentando tus impuestos estatales con FileYourStateTaxes, debes aceptar los términos y condiciones.
           title: 'Has rechazado los términos y condiciones. '
       eligibility_offboarding:
         edit:
-          body_html: No puedes usar esta herramienta este año porque tú %{ineligible_reason}. <strong>¿Es un error?</strong><a href=%{prev_link}>Regresa para corregirlo.</a>
+          body_html: No puedes usar esta herramienta este año porque tú %{ineligible_reason}. <br><br><strong>¿Es un error?</strong><a href=%{prev_link}>Regresa para corregirlo.</a>
           ineligible_reason:
             eligibility_529_for_non_qual_expense: retiraste dinero de una cuenta de ahorro universitario 529 y lo utilizaste para un gasto no calificado en el %{filing_year}
             eligibility_ed_loan_cancelled: tenía una deuda de préstamo estudiantil cancelada bajo la Ley del Plan de Rescate Estadounidense.
@@ -2415,20 +2405,15 @@ es:
         other_options:
           faq_link: Visita nuestras Preguntas Frecuentes
           learn_more_here_html: Obtén más información <a href="%{link}" rel="noopener nofollow" target="_blank">aquí.</a>
-          learn_more_reveal:
-            p1: Si eliges esta opción, te conectarás con un socio de Asistencia Voluntaria para la Declaración de Impuestos (VITA) en %{state_name}. Recibirás una llamada en los próximos días. Tendrás que responder algunas preguntas adicionales sobre tu situación tributaria y enviar de forma segura tus documentos de impuestos en línea.
-            p2: Los voluntarios certificados por el IRS VITA utilizarán esta información para preparar tu declaración estatal. Este proceso puede tardar de 2 a 3 semanas en completarse.
-            title: Obtén más información sobre este proceso
-          other_option: No te preocupes, aún puedes presentar tus impuestos estatales sin costo con la ayuda de voluntarios VITA certificados por el IRS en %{state_name}. Ten en cuenta que esta opción puede demorar de 2 a 3 semanas en completarse.
           other_options_reveal:
             fees: Se pueden aplicar tarifas.
             list:
               body: 'Varios servicios comerciales de preparación de impuestos ofrecen la presentación de impuestos solo a nivel estatal. Aquí tienes algunos consejos para elegir una opción:'
-              list1_html: Dado que ya has enviado tu declaración de impuestos federales, asegúrate de que el servicio o software que elijas te permita presentar sólo una <strong>declaración de impuestos estatales.</strong> Es posible que necesites comunicarte con su servicio de atención al cliente para confirmar.
+              list1: Dado que ya has enviado tu declaración de impuestos federales, asegúrate de que el servicio o software que elijas te permita presentar sólo una <strong>declaración de impuestos estatales.</strong> Es posible que necesites comunicarte con su servicio de atención al cliente para confirmar.
               list2: Te pedirán que vuelvas a ingresar o proporciones la misma información que informaste en tu declaración federal. Esta información es necesaria para completar partes de tu declaración estatal.
               list3: Al presentar, asegúrate de enviar solo tu declaración de impuestos estatales. Si vuelves a enviar tu declaración federal, es posible que la rechacen.
             title: "¿Cuáles son mis otras opciones para presentar mi declaración estatal?"
-          vita_link: Solicitar asistencia de un voluntario VITA
+          vita_option_title: What are my free state filing options?
       eligible:
         az_supported:
           charitable_contributions_credit: Credit for Contributions to Qualifying Charitable Organizations
@@ -2452,15 +2437,12 @@ es:
           public_school_tax_credit_paid_fees: Haber pagado tarifas relacionadas con la escuela o donado dinero a una escuela pública
           public_school_tax_credit_provide_info_html: Compartir información de la escuela, incluyendo el <a href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_ADESchoolListing.pdf" target="_blank" rel="noopener nofollow">código CTDS</a>
         edit:
-          body_html: |
-            Asegurémonos que este servicio es el adecuado para ti.
-            <br/><br/>
-            Estos son los créditos y las deducciones <strong>que puedes reclamar</strong> con este servicio para maximizar tu reembolso.
+          credits_not_supported: What credits and deductions does this service not support this year?
           not_supported: "¿Cuáles créditos y deducciones no admite esta herramienta este año?"
-          not_supported_reveal_heading: "¿Quieres reclamar estos créditos o deducciones? "
           title1: "¡Buenas noticias! Puedes usar esta herramienta este año %{year} para presentar tus impuestos estatales %{state}."
-          want_to_claim_learn_more_html: Obtén más información sobre este proceso y otras opciones de presentación <a href="%{link}" target="_blank">aquí</a>.
-          want_to_claim_vita: Es posible que puedas presentar tu declaración de impuestos estatales de forma gratuita con la ayuda de voluntarios VITA certificados por el IRS en %{state_name}. Ten en cuenta que esta opción puede demorar de 2 a 3 semanas en completarse.
+          title2_html: |
+            Let's make sure this is the right service for you.<br><br>
+            Here are the credits and deductions you <strong>may</strong> be able to claim to maximize your refund.
         id_supported:
           child_care_deduction: Deducción por Cuidado de Hijos y Dependientes
           id_child_tax_credit: Crédito Fiscal para Hijos de Idaho
@@ -2493,6 +2475,19 @@ es:
           sub7: Reducción de dos ingresos para contribuyentes casados que presentan declaraciones conjuntas
           sub8: Créditos fiscales estatales y locales por ingresos del trabajo (si solicitó el Crédito fiscal federal por ingresos del trabajo)
           sub9: Crédito fiscal estatal por hijos (para niños menores de 6 años)
+        nc_credits_unsupported:
+          college_savings_account: 529 College Savings Account Contributions
+          credits_carried: Credits carried forward from previous years
+          credits_for_rehabilitating: Credits for Rehabilitating Historic Structures
+          estimated_income_tax_payments: Estimated income tax payments
+          extension_payment: Extension payments
+          personal_education: Personal Education Student Account Deposits Deduction
+        nc_supported:
+          deduction_for_income: Deduction for income by members of a Federally recognized Indian tribe
+          deduction_for_qualifying_children: Deduction for qualifying children
+          deduction_for_retirement_income_bailey: Deduction for Retirement Income as part of the Bailey Settlement
+          deduction_for_retirement_income_uniformed: Deduction for Retirement Income from the Uniformed Services
+          deduction_for_taxable_portion: Deduction for Taxable Portion of Social Security and Railroad Retirement Benefits
         ny_supported:
           empire_state_ctc: Crédito Empire State por hijos
           nyc_school_tax_credit: Crédito tributario escolar de la ciudad de Nueva York
@@ -2515,10 +2510,15 @@ es:
           subtractions_225_military: Pago por combate militar
           subtractions_225_native_american: Exclusión de ingresos para Nativos Americanos
           subtractions_225_student_loan: Premios por condonación de préstamos estudiantiles
+        vita_option:
+          vita_link: Get started with VITA now
+          want_to_claim_learn_more_html: Learn more about this process and other filing options <a href="%{link}" target="_blank">here</a>.
+          want_to_claim_vita: You may be able to file your state return for free with help from IRS-certified VITA volunteers, but it may take 2-3 weeks to complete.
       email_address:
         edit:
           action: Enviar el código
-          email_address_label: Tu dirección de correo electrónico (utiliza un correo electrónico al que puedas acceder)
+          email_address_label: Tu dirección de correo electrónico
+          subtitle_html: To create a new account, provide an email address that isn't already in use.<br><br>Use an email account you can access.
           title: Ingresa tu dirección de correo electrónico
       esign_declaration:
         edit:
@@ -2537,6 +2537,10 @@ es:
             body_html: |
               <p>Al utilizar un sistema informático y un software para preparar y/o presentar mi(s) declaración(es) de impuestos electrónicamente, doy mi consentimiento para la transmisión de mi(s) declaración(es) y la divulgación de toda la información sobre mi uso del sistema y el software a la Contraloría. de Maryland.</p>
               <p>Bajo pena de perjurio, declaro que he comparado la información contenida en mi declaración electrónica con la información que proporcioné a mi Originador de Declaración Electrónica (ERO) o que ingresé en línea y que los nombres y montos descritos anteriormente concuerdan con los montos que se muestran en las líneas correspondientes de mi declaración electrónica de impuestos sobre la renta de Maryland de 2024. A mi leal saber y entender, mi declaración es verdadera, correcta y completa. Doy mi consentimiento para que mi originador de declaraciones electrónicas o mi proveedor de software de declaraciones electrónicas envíen mi declaración, incluidos los anexos y estados de cuenta adjuntos, a la División de Administración de Ingresos de Maryland.</p>
+          nc:
+            body_html: |
+              <p>By using a computer system and software to prepare and file my tax return(s) electronically, I consent to the transmission of my return(s) and to the disclosure of all information about my use of the system and software to the North Carolina Department of Revenue.</p>
+              <p>By checking the box below, I declare and certify that I have examined this return and accompanying schedules and statements, and to the best of my knowledge and belief, they are true, correct, and complete.</p>
           ny:
             body_html: |
               <p>Al marcar la(s) casilla(s) que se muestran a continuación y presionar "Enviar", entiendo y acepto que estoy presentando para la presentación mi declaración de impuestos electrónica del impuesto sobre la renta personal del estado de Nueva York (NYS) para el año 2023. Declaro, bajo pena de perjurio, que he examinado la información en mi declaración de impuestos electrónica de NYS, incluida toda la información transferida a mi declaración de NYS desde mi declaración federal, y todas las programaciones, anexos y declaraciones adjuntas proporcionadas con la declaración, y certifico que mi declaración electrónica de NYS es verdadera, correcta y completa. Al ejecutar el Formulario TR-579-IT y proporcionarlo al ERO, he autorizado al ERO (Code for America) a presentar mi declaración de impuestos electrónica de NYS para el año 2023 ante el Departamento de Impuestos de NYS a través del Sistema de Presentación Electrónica Modernizada del IRS (Servicio de Impuestos Internos).</p>
@@ -2829,6 +2833,7 @@ es:
       nc_review:
         edit:
           amount: Cantidad
+          amount_earned: Amount earned
           child_deduction: Deducción por hijos
           interest_us_bonds: Ingresos por intereses de bonos estadounidenses (no sujetos a impuestos en Carolina del Norte)
           primary_veteran: Información del Veterano
@@ -2836,7 +2841,7 @@ es:
           spouse_veteran: Información del Cónyuge Veterano
           state_credit: Cantidad ganada como miembro de una tribu indígena reconocida federalmente
           subtraction_indian_tribe: Resta de ingresos de un miembro de una tribu india
-          use_tax_applied: Impuesto de Uso Aplicado
+          use_tax_applied: Out-of-state purchases in %{filing_year} without paying sales or use tax
         review_header:
           unemployment_compensation: Compensación por Desempleo
       nc_sales_use_tax:
@@ -2853,22 +2858,27 @@ es:
             other: "¿Usted o su cónyuge realizaron alguna compra fuera del estado en %{year} sin pagar impuestos sobre ventas o de uso?"
           use_tax_method_automated: Todas mis compras fueron de menos de $1,000 cada una. <b>Calcula la cantidad de impuesto sobre el uso por mi.</b>
           use_tax_method_manual: Tuve una compra sin impuestos por más de $1,000, o preferiría calcular mí impuesto de uso manualmente.
+          what_are_sales_taxes: What are sales taxes?
+          what_are_sales_taxes_body: This is a tax collected at the point of sale when you buy goods within your state.
+          what_are_use_taxes: What are use taxes?
+          what_are_use_taxes_body: If you buy something from another state (like online shopping or purchases from a store located in another state) and you don’t pay sales tax on it, you are generally required to pay use tax to your home state.
       nc_spouse_state_id:
         nc_spouse:
           encourage_sharing: You’re encouraged to share this information, but it’s not required to file your North Carolina taxes.
-          protect_identity: To protect your identity and combat tax fraud, many state agencies are asking people to give their driver’s license or state ID number.
+          protect_identity: To protect your identity and combat tax fraud, many state revenue agencies are asking people to give their driver’s license or state ID number.
           why_ask_this: Why are you asking for this information?
       nc_subtractions:
         edit:
           title_html:
             one: ¿Es usted un miembro inscrito de una <a href="https://biamaps.geoplatform.gov/Tribal-Leaders-Directory/" target="_blank">tribu indígena reconocida federalmente</a> y recibió ingresos mientras vivía en una reserva?
             other: ¿Es usted o su cónyuge un miembro inscrito de una <a href="https://biamaps.geoplatform.gov/Tribal-Leaders-Directory/" target="_blank">tribu indígena reconocida federalmente</a> y recibieron ingresos mientras vivían en una reserva?
-          tribal_wages_field_html: "<b>Ingrese la cantidad ganada</b>"
-          tribal_wages_question_html: Ingrese la cantidad de ingresos recibidos o ganados por actividades en la reserva reconocida federalmente. <br><br> <b>Nota:</b> esto no debe exceder $%{amount_limit}
+          tribal_wages_field: Ingrese la cantidad ganada
+          tribal_wages_question_html: Enter the amount of income received or earned from activities on the federally recognized reservation. <br><br> This amount should not exceed $%{amount_limit}.
       nc_veteran_status:
         primary_veteran_question: "¿Eres un veterano?"
         spouse_veteran_question: "¿Es su cónyuge un veterano?"
-        title: Pregunta sobre el estatus de veterano
+        title: Are you a veteran of the United States Armed Forces?
+        title_spouse: Are you or your spouse a veteran of the United States Armed Forces?
       nj_college_dependents_exemption:
         edit:
           birthdate_label: 'Birthdate:'
@@ -3226,14 +3236,14 @@ es:
           title: 'Selecciona tu estado de residencia en la ciudad de Nueva York durante el %{year}:'
       pending_federal_return:
         edit:
-          title_html: |
-            Lamentamos hacerte esperar. Tu declaración federal debe ser aceptada antes de que puedas presentar tu declaración de impuestos estatales.
-            <br/><br/>
-            Recibirás un correo electrónico de IRS Direct File cuando tu declaración de impuestos federales sea aceptada con un enlace para traerte de vuelta aquí.
+          body_html: Sorry to keep you waiting.<br><br>You’ll receive an email from IRS Direct File when your federal tax return is accepted with a link to bring you back here. Check your spam folder.
+          title: Your federal tax return must be accepted before you can file your state tax return
       phone_number:
         edit:
           action: Enviar el código
+          helper_text: Enter numbers only
           phone_number_label: Tu número de teléfono
+          subtitle_html: To create a new account, provide a phone number that isn't already in use.<br><br>Use a phone number you can access.
           title: Ingresa tu número de teléfono
       primary_state_id:
         edit:
@@ -3299,7 +3309,7 @@ es:
           title: Lamentablemente, tu declaración de impuestos del estado de %{state_name} para el año %{filing_year} fue rechazada
         thank_you_html: Gracias por presentar su declaración con <strong>FileYourStateTaxes</strong>, creado en asociación con el estado de %{state_name} para integrarse con la herramienta Direct File del IRS.
       review:
-        county: Condado
+        county: County where your permanent address was located on December 31, %{filing_year}
       shared:
         abstract_review_header:
           dependent_dob: Su fecha de nacimiento
@@ -3312,8 +3322,6 @@ es:
           taxes_owed_html: Tu reembolso es de $0. Esto significa <strong>que no</strong> recibirás un reembolso estatal y <strong>no</strong> debes impuestos estatales. Deberías terminar de presentar tu declaración, ya que es posible que estés obligado/a a presentarla aunque no recibirás dinero.
           title: "¡Terminaste! Revisa tu declaración de impuestos estatales antes de enviarla."
           your_name: Tu nombre
-        review_footer:
-          download_pdf: Puedes descargar un PDF de tu declaración de impuestos estatales después de enviarla.
         review_header:
           income_details: Detalles de ingresos
           title: "¡Terminaste! Revisa tu declaración de impuestos estatales antes de enviarla."
@@ -3384,24 +3392,25 @@ es:
           apartment: Número de apartamento/unidad
           box_10b_html: "<strong>Box 10b</strong>, Número de identificación estatal"
           city: Ciudad
-          confirm_address_html: Confirma la <strong>dirección de envío</strong> que aparece en el Formulario 1099-G. Ten en cuenta que puede ser diferente a tu dirección actual. Edita la dirección para que coincida con la información que aparece en el formulario.
+          confirm_address_html: 'Do we have the correct mailing address as listed on your form 1099-G?<br><br>Note: this may be different than your current address. Please edit the address to match what’s on your form.
+
+            '
           confirm_address_no: No, necesito cambiarla
           confirm_address_yes: Sí, esa es la dirección
-          federal_income_tax_withheld_html: "<strong>Box 4</strong>, Impuesto federal retenido (Redondea al número entero más cercano)"
+          dont_worry: If you have more than one 1099-G, don’t worry, you can add it on the next page.
+          federal_income_tax_withheld_html: "<strong>Box 4</strong>, Impuesto federal retenido"
           had_box_11: "¿Tenías un monto listado por impuestos estatales (Box 11) en tu compensación por desempleo (Formulario 1099-G)?"
           information_content_html: |
-            Encuentra el formulario 1099-G que usaste para ingresar tus ingresos por desempleo en tu declaración de impuestos federales. Si tienes varios formularios 1099-G, puedes agregar múltiples formularios. <br><br>
-            Luego busca la información solicitada en las siguientes ubicaciones: </br>
+            Find the 1099-G you used to enter your unemployment income on your federal tax return. If you have multiple 1099-Gs, you can add multiple forms. <br><br>
+            Next, find the requested information in the following locations: </br>
             <ol class="list--numbered">
-            <li><strong>¿De quién es el formulario?</strong> El lado izquierdo del formulario indicará si este formulario te pertenece a ti o a tu cónyuge, si corresponde. Busca "recipient’s name.”</li>
-            <li><strong>Tu dirección de envío</strong> aparece bajo "recipient’s name" en el lado izquierdo del formulario. Asegúrate de que <strong>la dirección coincida</strong> con la que ingreses aquí.</li>
-            <li><strong>La información del pagador</strong> o la agencia gubernamental que emitió el formulario se encuentra en la esquina superior izquierda de la página. Ingresa el nombre, la dirección y el TIN (Número de Identificación del Empleador) tal como aparecen en el formulario.</li>
-            <li><strong>Las casillas 1, 4, 10b y 11</strong> tienen los mismos números en el lado derecho del formulario. Ingresa la información exactamente como aparece en esas casillas.</li>
+              <li><strong>Who the form belongs to</strong> can be found on the left side of the form, if applicable. Look for “recipient’s name.”</li>
+              <li><strong>Your mailing address</strong> is listed under "recipient's name" on the left side of the form. Make sure the address on the form matches what you enter here.</li>
+              <li><strong>Payer’s information,</strong> or the government agency that issued the form, is listed in the top left corner of the page. Enter the name, address, and TIN as shown on the form.</li>
+              <li><strong>Boxes 1, 4, 10b, and 11</strong> are all labeled with the same numbers on the right side of the form. Enter the information exactly as it appears in those boxes.</li>
             </ol>
           information_html: "<strong>¿Cómo encuentro esta información?</strong>"
           money_boxes_label: Completa las siguientes casillas según lo especificado en el Formulario 1099-G.
-          need_additional_information: "¡Excelente! Necesitamos información adicional sobre lo que aparece en el Formulario 1099-G. (Si tienes más de un formulario 1099-G, puedes agregarlo al final.)"
-          other_tax_filing_options_html: <strong>Recuerda:</strong> En %{filing_year_plus_one}, esta herramienta no admite la presentación de ingresos por desempleo recibidos en otro estado. Para presentar ingresos recibidos en otro estado, consulta <a target="_blank" rel="noopener nofollow" href="%{link}">otras opciones de presentación de impuestos.</a>
           payer_address: Dirección del pagador
           payer_name: Nombre del pagador
           payer_question_html: 'Ingresa la <strong>información del pagador 1ubicada en la esquina superior izquierda</strong> del formulario:'
@@ -3410,25 +3419,26 @@ es:
           recipient_myself: Para mí
           recipient_question: "¿Para quién es este formulario?"
           state: Estado
-          state_income_tax_withheld_html: "<strong>Box 11</strong>, Impuesto estatal retenido (Redondea al número entero más cercano)"
+          state_income_tax_withheld_html: "<strong>Box 11</strong>, Impuesto estatal retenido"
           street_address: Dirección
-          title:
-            many: Parece que usted o su cónyuge recibieron beneficios de desempleo en %{year}
-            one: Parece que recibiste compensaciones por desempleo en %{year}
-            other: Parece que usted o su cónyuge recibieron beneficios de desempleo en %{year}
-          unemployment_compensation_html: "<strong>Box 1</strong>, Compensación por desempleo (Redondea al número entero más cercano)"
+          title: We need some additional information about your Form 1099-G
+          unemployment_compensation_html: "<strong>Box 1</strong>, Compensación por desempleo"
           zip_code: Código postal
         index:
           1099_label: 1099-G para %{name}
           add_another: Agrega otro Formulario 1099-G
           delete_confirmation: "¿Estás seguro de que quieres eliminar este formulario 1099-G?"
           lets_review: "¡Excelente! Gracias por compartir esa información. Revisémosla."
-          unemployment_compensation: 'Compensación por desempleo: $%{amount}'
+          unemployment_compensation: 'Compensación por desempleo: %{amount}'
+      use_different_service:
+        body: Before choosing an option, make sure it supports state-only tax filing. You most likely will need to reenter your federal tax return information in order to prepare your state tax return. Fees may apply.
+        faq_link: Visita nuestras Preguntas Frecuentes (FAQ)
+        title: Want to file using a different product or service?
       verification_code:
         edit:
           action: " Verificar el código"
-          subtitle_html: Te enviamos tu código a <strong>%{contact_info}</strong>.
-          title: Ingresa el código para continuar
+          subtitle_html: If you didn’t receive a code, please check your spam folder. If you still need help resubscribing, chat with us.
+          title_html: Te enviamos tu código a <strong>%{contact_info}</strong>
           verification_code_label: Ingresa el código de 6 dígitos
       w2:
         edit:
@@ -3459,6 +3469,7 @@ es:
           what_is_box14: "¿Qué podría haber en la Casilla 14?"
       waiting_to_load_data:
         edit:
+          subtitle_html: This usually takes a few minutes. Don’t close this page.<br><br> We’ll use your federal tax return information to complete sections of your state return.
           title_html: Un momento, estamos transfiriendo tu declaración de impuestos federales para completar partes de tu declaración estatales. <br/><br/> Esto suele tomar unos minutos. No cierres la página.
     state_file_pages:
       about_page:

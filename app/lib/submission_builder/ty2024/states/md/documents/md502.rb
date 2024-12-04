@@ -53,7 +53,7 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
           xml.ZIPCd @intake.direct_file_data.mailing_zip
         elsif @intake.confirmed_permanent_address_no?
           xml.AddressLine1Txt sanitize_for_xml(@intake.permanent_street, 35)
-          xml.AddressLine2Txt sanitize_for_xml(@intake.permanent_apartment, 35) if @intake.direct_file_data.mailing_apartment.present?
+          xml.AddressLine2Txt sanitize_for_xml(@intake.permanent_apartment, 35) if @intake.permanent_apartment.present?
           xml.CityNm sanitize_for_xml(@intake.permanent_city, 22)
           xml.StateAbbreviationCd @intake.state_code.upcase
           xml.ZIPCd @intake.permanent_zip
@@ -128,6 +128,22 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
       if @deduction_method_is_standard
         xml.NetIncome calculated_fields.fetch(:MD502_LINE_18)
         xml.ExemptionAmount calculated_fields.fetch(:MD502_LINE_19)
+      end
+      if has_healthcare_coverage_section?
+        xml.MDHealthCareCoverage do
+          if @intake.primary_did_not_have_health_insurance_yes?
+            xml.PriWithoutHealthCoverageInd "X"
+            xml.PriDOB date_type(@intake.primary_birth_date)
+          end
+          if @intake.spouse_did_not_have_health_insurance_yes?
+            xml.SecWithoutHealthCoverageInd "X"
+            xml.SecDOB date_type(@intake.spouse_birth_date)
+          end
+          if @intake.authorize_sharing_of_health_insurance_info_yes?
+            xml.AuthorToShareInfoHealthExchInd "X"
+            xml.TaxpayerEmailAddress email_from_intake_or_df
+          end
+        end
       end
       if has_state_tax_computation?
         xml.StateTaxComputation do
@@ -219,6 +235,12 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
       calculated_fields.fetch(line) > 0
     end
     has_dependent_exemption? || has_line_a_or_b_exemptions
+  end
+
+  def has_healthcare_coverage_section?
+    @intake.primary_did_not_have_health_insurance_yes? ||
+      @intake.spouse_did_not_have_health_insurance_yes? ||
+      @intake.authorize_sharing_of_health_insurance_info_yes?
   end
 
   def has_state_tax_computation?
