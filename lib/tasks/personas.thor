@@ -48,6 +48,7 @@ class Personas < Thor
   method_option :debug, aliases: '-d', desc: 'Debug information', type: :boolean
 
   def import(persona_name)
+    persona_name.downcase!
     # Can contain logging noise, so we must sanitize
     persona_contents = $stdin.readlines
 
