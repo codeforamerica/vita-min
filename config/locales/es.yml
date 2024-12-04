@@ -183,8 +183,9 @@ es:
         blank: Por favor, ingrese un apellido.
         invalid_format: Solo se aceptan letras, números, guiones y apóstrofos, y el nombre debe tener menos de 32 caracteres.
       nc_withdrawal_date:
-        business_day: La fecha de retiro debe ser en un día laborable
-        future: La fecha de retiro debe ser en el futuro
+        post_five_pm: La fecha de retiro debe ser al menos dos días hábiles a partir de hoy
+        weekend: La fecha de retiro debe ser en un día laborable
+        past: La fecha de retiro debe ser en el futuro
         holiday: La fecha de retiro no puede ser un día festivo federal o bancario de los Estados Unidos
       password:
         insecure: Agregue algunas palabras más poco comunes para mejorar la seguridad de la contraseña.

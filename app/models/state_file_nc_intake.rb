@@ -92,7 +92,6 @@ class StateFileNcIntake < StateFileBaseIntake
   enum eligibility_out_of_state_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_out_of_state_income
   enum email_notification_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :email_notification_opt_in
   enum sms_notification_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :sms_notification_opt_in
-  validate :valid_date_electronic_withdrawal, if: -> { date_electronic_withdrawal.present? }
 
   def calculate_sales_use_tax
     nc_taxable_income = calculator.lines[:NCD400_LINE_14].value
@@ -112,17 +111,5 @@ class StateFileNcIntake < StateFileBaseIntake
       eligibility_out_of_state_income: "yes",
       eligibility_withdrew_529: "yes"
     }
-  end
-
-  def valid_date_electronic_withdrawal
-    if date_electronic_withdrawal <= Date.today
-      errors.add(:date_electronic_withdrawal, I18n.t("errors.attributes.nc_withdrawal_date.future"))
-    end
-    if date_electronic_withdrawal.saturday? || date_electronic_withdrawal.sunday?
-      errors.add(:date_electronic_withdrawal, I18n.t("errors.attributes.nc_withdrawal_date.business_day"))
-    end
-    if Holidays.on(date_electronic_withdrawal, :us, :federalreservebanks, :observed).any?
-      errors.add(:date_electronic_withdrawal, I18n.t("errors.attributes.nc_withdrawal_date.holiday"))
-    end
   end
 end
