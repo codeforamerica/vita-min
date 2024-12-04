@@ -1,0 +1,46 @@
+{
+  "filers": [
+    {
+      "tin": "400-00-1400",
+      "suffix": null,
+      "lastName": "Gold",
+      "firstName": "Yukon",
+      "dateOfBirth": "1978-05-05",
+      "middleInitial": null,
+      "isPrimaryFiler": true,
+      "ssnNotValidForEmployment": null
+    },
+    {
+      "tin": "400-00-4300",
+      "suffix": null,
+      "lastName": "Gold",
+      "firstName": "Yukoness",
+      "dateOfBirth": "1979-06-06",
+      "middleInitial": null,
+      "isPrimaryFiler": false,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "interestReports": [],
+  "familyAndHousehold": [
+    {
+      "tin": "300-00-0032",
+      "suffix": null,
+      "lastName": "Ho",
+      "firstName": "Ivan",
+      "dateOfBirth": "2017-03-02",
+      "relationship": "biologicalChild",
+      "middleInitial": null,
+      "qualifyingChild": true,
+      "eligibleDependent": true,
+      "residencyDuration": "allYear",
+      "isClaimedDependent": true,
+      "hohQualifyingPerson": null,
+      "scheduleEicLine4aNo": false,
+      "scheduleEicLine4aYes": false,
+      "scheduleEicLine4bYes": false,
+      "monthsLivedWithTPInUS": "twelve",
+      "ssnNotValidForEmployment": false
+    }
+  ]
+}

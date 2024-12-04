@@ -293,6 +293,26 @@ RSpec.describe PdfFiller::Md502Pdf do
       end
     end
 
+    context "healthcare coverage" do
+      before do
+        intake.update(primary_did_not_have_health_insurance: true)
+        intake.update(primary_birth_date: DateTime.new(1975, 4, 12))
+        intake.update(spouse_did_not_have_health_insurance: true)
+        intake.update(spouse_birth_date: DateTime.new(1972, 11, 5))
+        intake.update(authorize_sharing_of_health_insurance_info: "yes")
+        intake.update(email_address: "healthy@example.com")
+      end
+
+      it "fills the correct fields" do
+        expect(pdf_fields["Check Box 27"]).to eq "Yes"
+        expect(pdf_fields["Check Box 28"]).to eq "Yes"
+        expect(pdf_fields["Enter DOB if you have no healthcare"]).to eq "04/12/1975"
+        expect(pdf_fields["Enter DOB if your spouse has no healthcare"]).to eq "11/05/1972"
+        expect(pdf_fields["Check Box 29"]).to eq "Yes"
+        expect(pdf_fields["Enter email addressEnter DOB if your spouse has no healthcare 2"]).to eq "healthy@example.com"
+      end
+    end
+
     context "subtractions" do
       let(:two_income_subtraction_amount) { 1200 }
       before do
@@ -456,6 +476,50 @@ RSpec.describe PdfFiller::Md502Pdf do
 
       it 'outputs the total state and local tax withheld' do
         expect(pdf_fields["Text Box 68"]).to eq "500"
+        expect(pdf_fields["Text Box 69"]).to eq "00"
+      end
+    end
+
+    context "Contributions Sections" do
+      before do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_39).and_return 100
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_42).and_return 200
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_44).and_return 300
+      end
+
+      it 'outputs the total state and local tax withheld' do
+        expect(pdf_fields["Text Box 66"]).to eq "100"
+        expect(pdf_fields["Text Box 67"]).to eq "00"
+        expect(pdf_fields["Text Box 72"]).to eq "200"
+        expect(pdf_fields["Text Box 73"]).to eq "00"
+        expect(pdf_fields["Text Box 76"]).to eq "300"
+        expect(pdf_fields["Text Box 77"]).to eq "00"
+      end
+    end
+
+    context "when taxes are owed" do
+      before do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_45).and_return 100
+      end
+
+      it 'outputs the amount owed' do
+        expect(pdf_fields["Text Box 78"]).to eq "100"
+        expect(pdf_fields["Text Box 79"]).to eq "00"
+        expect(pdf_fields["Text Box 91"]).to eq "100"
+        expect(pdf_fields["Text Box 92"]).to eq "00"
+      end
+    end
+
+    context "when there is a refund" do
+      before do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_46).and_return 300
+      end
+
+      it 'outputs the amount to be refunded' do
+        expect(pdf_fields["Text Box 80"]).to eq "300"
+        expect(pdf_fields["Text Box 81"]).to eq "00"
+        expect(pdf_fields["Text Box 84"]).to eq "300"
+        expect(pdf_fields["Text Box 85"]).to eq "00"
       end
     end
 

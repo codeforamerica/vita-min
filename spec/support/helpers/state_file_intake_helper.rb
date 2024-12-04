@@ -55,12 +55,8 @@ module StateFileIntakeHelper
       choose I18n.t("general.negative"), id: "state_file_md_eligibility_filing_status_form_eligibility_home_different_areas_no"
       click_on I18n.t("general.continue")
     when "nc"
-      expect(page).to have_text I18n.t("state_file.questions.nc_eligibility_residence.edit.title")
-      choose "state_file_nc_eligibility_residence_form_eligibility_lived_in_state_yes"
-      click_on I18n.t("general.continue")
-
-      choose "state_file_nc_eligibility_out_of_state_income_form_eligibility_out_of_state_income_no"
-      choose "state_file_nc_eligibility_out_of_state_income_form_eligibility_withdrew_529_no"
+      expect(page).to have_text I18n.t("state_file.questions.nc_eligibility.edit.title", filing_year: filing_year)
+      check "state_file_nc_eligibility_form_nc_eligiblity_none"
       click_on I18n.t("general.continue")
     when "nj"
       click_on I18n.t("general.continue")
@@ -84,8 +80,8 @@ module StateFileIntakeHelper
       click_on "Send code"
 
 
-      expect(page).to have_text I18n.t("state_file.questions.verification_code.edit.title")
-      expect(page).to have_text "We’ve sent your code to (415) 333-4444."
+      expect(strip_html_tags(page.body)).to have_text strip_html_tags(I18n.t("state_file.questions.verification_code.edit.title_html", contact_info: '(415) 333-4444'))
+      expect(page).to have_text "We’ve sent your code to (415) 333-4444"
 
       perform_enqueued_jobs
       sms = FakeTwilioClient.messages.last
@@ -97,8 +93,7 @@ module StateFileIntakeHelper
       fill_in I18n.t("state_file.questions.email_address.edit.email_address_label"), with: "someone@example.com"
       click_on "Send code"
 
-      expect(page).to have_text I18n.t("state_file.questions.verification_code.edit.title")
-      expect(page).to have_text "We’ve sent your code to someone@example.com."
+      expect(page).to have_text "We’ve sent your code to someone@example.com"
 
       perform_enqueued_jobs
       mail = ActionMailer::Base.deliveries.last
