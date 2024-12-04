@@ -1,7 +1,7 @@
 <div class="white-group">
   <p class="spacing-below-0"><%= t("state_file.questions.tax_refund.bank_details.bank_title") %></p>
   <p class="text--small"><%= t("state_file.questions.tax_refund.bank_details.foreign_accounts") %></p>
-  <div class="form-group-tight">
+  <div>
     <% if owe_taxes %>
       <%= form.hidden_field :app_time, value: app_time %>
       <%= form.vita_min_money_field(:withdraw_amount, t('state_file.questions.tax_refund.bank_details.withdraw_amount', owed_amount: taxes_owed), classes: ["form-width--long"]) %>

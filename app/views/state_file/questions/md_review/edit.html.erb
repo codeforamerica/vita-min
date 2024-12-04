@@ -4,9 +4,9 @@
 
   <div id="county-and-subdivision" class="white-group">
     <div class="spacing-below-5">
-      <p class="spacing-below-5"><%=t(".county_html") %></p>
+      <p class="spacing-below-5"><%=t(".county_html", filing_year: current_tax_year) %></p>
       <p><%=current_intake.residence_county %></p>
-      <p class="spacing-below-5"><%=t(".political_subdivision_html") %></p>
+      <p class="spacing-below-5"><%=t(".political_subdivision_html", filing_year: current_tax_year) %></p>
       <p><%=current_intake.political_subdivision %></p>
       <%= link_to t("general.edit"), StateFile::Questions::MdCountyController.to_path_helper(return_to_review: "y"), class: "button--small" %>
     </div>
@@ -15,7 +15,7 @@
   <div id="details" class="reveal">
     <p><button class="reveal__button"><%= t("state_file.general.see_detailed_return") %></button></p>
     <div class="reveal__content">
-      <div class="spacing-below-25 with-top-separator">
+      <div class="spacing-below-25">
         <p class="text--bold spacing-below-5"><%= t("state_file.general.md_return_type") %></p>
         <% if current_intake.calculator.lines[:MD502_DEDUCTION_METHOD].value == "S" %>
           <p><%= t("state_file.general.md_type_of_return_standard") %></p>
@@ -66,8 +66,7 @@
 
       <div class="spacing-below-25">
         <p class="text--bold spacing-below-5"><%= t("state_file.general.md_two_income_subtraction_married_taxpayers") %></p>
-<!--        <p><%#= number_to_currency(current_intake.calculator.line_or_zero(:MD502_LINE_14)) %></p>-->
-        WIP
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:MD502_LINE_14)) %></p>
       </div>
 
       <div class="spacing-below-25">
@@ -123,8 +122,7 @@
 
       <div class="spacing-below-25">
         <p class="text--bold spacing-below-5"><%= t("state_file.general.md_nonrefundable_local_earned_income_tax_credit") %></p>
-        <!--        <p><%#= number_to_currency(current_intake.calculator.line_or_zero(:MD502_LINE_29)) %></p>-->
-        WIP
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:MD502_LINE_29)) %></p>
       </div>
 
       <div class="spacing-below-25">

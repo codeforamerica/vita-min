@@ -2786,7 +2786,7 @@ en:
           - Your federal adjusted gross income amount from Line 1
           following_will_be_shared: 'If you authorize information sharing, we will share the following information with Maryland Health Connection (MHC):'
           information_use: Information shared with MHC will be used to determine eligibility for insurance affordability programs or to assist with enrollment in health coverage.
-          more_info: If you would like more information about the health insurance affordability programs or healthcare coverage enrollment, visit Maryland Health Connection at <a href="%{link}" target="_blank" rel="noopener noreferrer">marylandhealthconnection.gov/easyenrollment/</a>.
+          more_info: If you would like more information about the health insurance affordability programs or health care coverage enrollment, visit Maryland Health Connection at <a href="%{link}" target="_blank" rel="noopener noreferrer">marylandhealthconnection.gov/easyenrollment/</a>.
           no_insurance_question: Did any member of your household included in this return <strong> not </strong> have health care coverage during the year?
           subtitle: Sharing this information <strong>won't</strong> impact your tax return.
           title: Before you submit, we have a few questions about health insurance coverage
@@ -2808,16 +2808,16 @@ en:
           follow_up_help_text: PO Boxes are not accepted
       md_primary_state_id:
         md_primary:
-          encourage_sharing: If you and your spouse have a driver’s license or state issued identification card please provide the requested information from it. The return will not be rejected if you do not provide a driver’s license or state-issued identification. If you provide this information, it may help to identify you as the taxpayer.
+          encourage_sharing_html: If you and your spouse have a driver’s license or state issued identification card please provide the requested information from it. The return will not be rejected if you do not provide a driver’s license or state-issued identification. <br><br> If you provide this information, it may help to identify you as the taxpayer.
           protect_identity: Many state revenue agencies, including Maryland, are requesting additional information in an effort to combat stolen-identity tax fraud and to protect you and your tax refund.
           why_ask_this: Why are you asking for this information?
       md_review:
         edit:
-          county_html: "<strong>County</strong>"
-          political_subdivision_html: "<strong>Political subdivision</strong>"
+          county_html: "<strong>County lived in on December 31, %{filing_year}</strong>"
+          political_subdivision_html: "<strong>Political subdivision lived in on December 31, %{filing_year}</strong>"
       md_spouse_state_id:
         md_spouse:
-          encourage_sharing: If you and your spouse have a driver’s license or state issued identification card please provide the requested information from it. The return will not be rejected if you do not provide a driver’s license or state-issued identification. If you provide this information, it may help to identify you as the taxpayer.
+          encourage_sharing_html: If you and your spouse have a driver’s license or state issued identification card please provide the requested information from it. The return will not be rejected if you do not provide a driver’s license or state-issued identification. <br><br> If you provide this information, it may help to identify you as the taxpayer.
           protect_identity: Many state revenue agencies, including Maryland, are requesting additional information in an effort to combat stolen-identity tax fraud and to protect you and your tax refund.
           why_ask_this: Why are you asking for this information?
       md_tax_refund:
@@ -2842,7 +2842,7 @@ en:
           subtitle: Enter the portions of the federal student loan interest deduction allocated between you and your spouse.
           sum_form_error: The total of you and/or your spouse's student loan interest deduction must equal %{total_deduction}
           title: You might qualify for the Maryland two-income subtraction
-          total: The total student loan interest deduction for you and your spouse's federal return is %{total_deduction}.
+          total_html: The total student loan interest deduction for you and your spouse's federal return is <strong>%{total_deduction}</strong>.
           your_portion_label: Your portion of the student loan interest deduction
       nc_county:
         edit:
@@ -3402,7 +3402,7 @@ en:
           confirm_routing_number: Confirm Routing Number
           date_withdraw_text: 'When would you like the funds withdrawn from your account? (Must be on or before %{withdrawal_deadline_date}, %{with_drawal_deadline_year}):'
           disclaimer: Check to make sure your bank information is correct. You won’t be able to correct this after you submit your return.
-          foreign_accounts: "(Foreign accounts are not accepted)"
+          foreign_accounts: Foreign accounts are not accepted
           routing_number: Routing Number
           withdraw_amount: How much do you authorize to be withdrawn from your account? (Your total amount due is&#58; $%{owed_amount}. Round to the nearest whole number.)
         edit:
