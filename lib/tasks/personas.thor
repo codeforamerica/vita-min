@@ -46,9 +46,10 @@ class Personas < Thor
 
   method_option :state, aliases: '-s', desc: 'The state in which to place the persona', required: true
   method_option :debug, aliases: '-d', desc: 'Debug information', type: :boolean
+  method_option :submission_id, aliases: '-i', desc: 'The federal submission ID for mapping in the submission_id_lookup.yml file.'
 
   def import(persona_name)
-    persona_name.downcase!
+    persona_name = persona_name.downcase
     # Can contain logging noise, so we must sanitize
     persona_contents = $stdin.readlines
 
@@ -68,5 +69,16 @@ class Personas < Thor
     say_error "Creating file '#{file_string}'", :green
 
     File.write(file_string, persona_contents)
+
+    if options[:submission_id]
+      submission_id_path = "#{__dir__}/../../app/services/state_file/submission_id_lookup.yml"
+      say_error "Adding submission id #{options[:submission_id]} to submission_id_lookup.yml for #{persona_name}", :green
+
+      submission_ids = YAML.safe_load_file(submission_id_path)
+
+      submission_ids["#{options[:state]}_#{persona_name}"] = options[:submission_id]
+
+      File.write(submission_id_path, YAML.dump(submission_ids.sort.to_h))
+    end
   end
 end
