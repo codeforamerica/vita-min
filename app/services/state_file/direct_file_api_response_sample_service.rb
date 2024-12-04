@@ -4,13 +4,16 @@ module StateFile
       @json_samples = {}
       @xml_samples = {}
       @submission_id_lookup = {
+        "az_Atticus_ITIN_Single" => "10164220243324bn2ecb",
         "az_Martha_MFJ_Owe" => "1016422024332t6d92qn",
+        "az_Robin_MFJ_Spouse_ITIN" => "10164220243321wwdbg1",
         "az_Rory_claimed_as_dep" => "1016422024334wutmbb9",
         "az_Tycho_Single_No_1099R" => "1016422024332rjtkoti",
         "az_Tycho_Single_With_1099R" => "1016422024332hyykc8y",
         "az_alexis_hoh" => "10164220243273drvnwu",
         "az_donald_v2" => "1016422024027atw0020",
         "az_johnny_mfj" => "101642202433073zlynk",
+        "az_leslie_qss" => "1016422024337x7aimm0",
         "az_leslie_qss_v2" => "1016422024026atw001h",
         "az_robin_v2" => "1016422024028ate001q",
         "az_shell_hoh" => "1016422024330uizbsmb",
