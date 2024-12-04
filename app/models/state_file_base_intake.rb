@@ -68,7 +68,7 @@ class StateFileBaseIntake < ApplicationRecord
         primary_first_name: direct_file_json_data.primary_filer.first_name,
         primary_middle_initial: direct_file_json_data.primary_filer.middle_initial,
         primary_last_name: direct_file_json_data.primary_filer.last_name,
-        primary_suffix: direct_file_json_data.primary_filer.suffix,
+        primary_suffix: direct_file_json_data.primary_filer.suffix&.upcase,
         primary_birth_date: direct_file_json_data.primary_filer.dob
       )
     end
@@ -78,7 +78,7 @@ class StateFileBaseIntake < ApplicationRecord
         spouse_first_name: direct_file_json_data.spouse_filer.first_name,
         spouse_middle_initial: direct_file_json_data.spouse_filer.middle_initial,
         spouse_last_name: direct_file_json_data.spouse_filer.last_name,
-        spouse_suffix: direct_file_json_data.spouse_filer.suffix,
+        spouse_suffix: direct_file_json_data.spouse_filer.suffix&.upcase,
         spouse_birth_date: direct_file_json_data.spouse_filer.dob
       )
     end
@@ -104,7 +104,7 @@ class StateFileBaseIntake < ApplicationRecord
           first_name: dependent_json.first_name,
           middle_initial: dependent_json.middle_initial,
           last_name: dependent_json.last_name,
-          suffix: dependent_json.suffix,
+          suffix: dependent_json.suffix&.upcase,
           relationship: dependent_json.relationship,
           months_in_home: dependent_json.months_in_home,
           dob: dependent_json.dob,
