@@ -23,11 +23,13 @@
         </span>
       </div>
 
-      <div>
-        <%= f.label "Correction Path", class: "h4"  %>
-        <p class="help-text">directs clients to path when resubmitting</p>
-        <%= f.select :correction_path, @correction_path_options_for_select, selected: @efile_error.correction_path %>
-      </div>
+      <% if @correction_path_options_for_select.present? %>
+        <div>
+          <%= f.label "Correction Path", class: "h4" %>
+          <p class="help-text">directs clients to path when resubmitting</p>
+          <%= f.select :correction_path, @correction_path_options_for_select, selected: @efile_error.correction_path %>
+        </div>
+      <% end %>
 
       <div class="spacing-above-25">
         <%= f.label :description_en, "English Description", class: "h4" %>
