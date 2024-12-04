@@ -7,7 +7,7 @@
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="white-group">
-      <p class="text--bold"><%= t('.question', filing_year: current_tax_year) %></p>
+      <p><%= t('.question', filing_year: current_tax_year) %></p>
       <div class="tight-checkboxes spacing-above-0 spacing-below-0">
         <%= f.cfa_checkbox(:eligibility_ed_loan_emp_payment, t(".eligibility_ed_loan_emp_payment"), options: { checked_value: "yes", unchecked_value: "no" }) %>
         <%= f.cfa_checkbox(:eligibility_ed_loan_cancelled, t(".eligibility_ed_loan_cancelled"), options: { checked_value: "yes", unchecked_value: "no" }) %>

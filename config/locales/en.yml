@@ -2042,12 +2042,12 @@ en:
       index:
         title: Common questions from %{state} taxpayers
     general:
-      fed_agi: Federal adjusted gross income
+      fed_agi: Federal Adjusted Gross Income
       id_adjusted_income: Total Idaho Adjusted Income
       id_building_fund_tax: Permanent Building Fund tax
       id_child_care_expenses: Subtraction for child and dependent care expenses
       id_child_tax_credit: Idaho Child Tax Credit
-      id_fed_agi: Federal adjusted gross income
+      id_fed_agi: Federal Adjusted Gross Income
       id_grocery_credit: Refundable Grocery Credit
       id_health_insurance: Subtraction for health insurance premiums
       id_interest_income: Interest income from U.S. bonds (not taxed in Idaho)
@@ -2367,14 +2367,8 @@ en:
           wages_tip: Enter amount earned (round to the nearest whole number.)
       canceled_data_transfer:
         edit:
-          faq: Visit our FAQ
-          mistake_html: Is this a mistake? <a href="%{link}">Go back to correct.</a>
-          other_options_html: |
-            <strong>Want to file using a different product or service?</strong>
-            <br/>
-            Before choosing an option, make sure it supports state-only tax filing. You will need to reenter your federal tax return information to prepare your state tax return. Fees may apply.
-          title1: You canceled the transfer of your federal return.
-          title2: Unfortunately, to continue filing with FileYourStateTaxes, you must transfer your federal return to complete parts of your state return.
+          subtitle: Unfortunately, to continue filing with FileYourStateTaxes, you must transfer your federal return to complete parts of your state return.
+          title: You canceled the transfer of your federal return.
       code_verified:
         edit:
           subtitle_email: You’ll now receive email updates when your state tax return is accepted.
@@ -2386,21 +2380,12 @@ en:
           subtitle: With an account, you’ll receive status updates on your state tax return.
           text_message_option: Text me a code
           title: Next, create your account with a quick code
-      data_review:
-        edit:
-          basic_household_info_title: Basic household information
-          complete_description: Complete
-          filing_status_title: Filing status
-          income_and_deductions_title: Income and deductions
-          partially_complete_description: Partially complete
-          state_tax_withheld_title: "%{name} state tax withheld"
-          title: Your federal tax return is now transferred. We completed some sections to save you time.
       data_transfer_offboarding:
         edit:
           ineligible_reason:
             exempt_interest_exceeds_10k: you had more than $10,000 in tax-exempt interest income.
             has_irc_125_code: W2 lists IRC 125 benefit plan amounts.
-            has_out_of_state_w2: you earned income in another state in 2024.
+            has_out_of_state_w2: you earned income in another state in %{filing_year}.
             has_yonkers_income: lived, earned income, or maintained a home in Yonkers in 2024.
             married_filing_separately: you are filing “married filing separately”.
           offboarding_reason: You cannot use this service this year because %{reason}
@@ -2408,16 +2393,12 @@ en:
       declined_terms_and_conditions:
         edit:
           action_html: "<strong>Is this a mistake?</strong>"
-          drop_down_html: |
-            <strong>Want to file using a different product or service?</strong><br>
-            Before choosing an option, make sure it supports state-only tax filing. You most likely will need to reenter your federal tax return information in order to prepare your state tax return. Fees may apply.
-          faq_link: Visit our FAQ
           go_back_link: Go back to correct.
           subtitle: Unfortunately, in order to continue filing with FileYourStateTaxes, you must accept the terms and conditions.
           title: You’ve declined the terms and conditions.
       eligibility_offboarding:
         edit:
-          body_html: You cannot use this service this year because you %{ineligible_reason}. <strong>Is this a mistake?</strong> <a href=%{prev_link}>Go back to correct.</a>
+          body_html: You cannot use this service this year because you %{ineligible_reason}. <br><br><strong>Is this a mistake?</strong> <a href=%{prev_link}>Go back to correct.</a>
           ineligible_reason:
             eligibility_529_for_non_qual_expense: withdrew money from a 529 college savings account and used it for a non-qualifying expense in %{filing_year}
             eligibility_ed_loan_cancelled: had a student loan debt canceled under the American Rescue Plan Act.
@@ -2441,20 +2422,15 @@ en:
         other_options:
           faq_link: Visit our FAQ
           learn_more_here_html: Learn more <a href="%{link}" rel="noopener nofollow" target="_blank">here.</a>
-          learn_more_reveal:
-            p1: If you choose this option, you’ll be connected with a Volunteer Income Tax Assistance (VITA) partner in %{state_name}. You will receive a quick intake call in the next few days. You will have to answer a few more questions about your tax situation and securely upload your tax documents.
-            p2: IRS-certified VITA volunteers will use this information to prepare your state return. This process can take 2-3 weeks to complete.
-            title: Learn more about this process
-          other_option: You can still file your state taxes for free with help from IRS-certified VITA volunteers in %{state_name}. Note that this option may take 2-3 weeks to complete.
           other_options_reveal:
             fees: Fees may apply.
             list:
-              body: 'Several other commercial tax preparation services offer state-only tax filing. Here are a few tips and tricks when choosing an option:'
-              list1_html: Since you’ve already submitted your federal tax return, make sure the service or software you use allows you to file a <strong>state-only tax return.</strong> You may need to reach out to their customer support to confirm.
-              list2: You’ll be asked to reenter or provide the same information you reported on your federal return. This information is needed to complete parts of your state return.
-              list3: When you file, make sure you only submit your state tax return. If you submit your federal return again, your federal return may be rejected.
+              body: 'Many commercial tax preparation services offer state-only tax filing. Here are some quick tips:'
+              list1: Confirm that the service lets you file just your state return. You might need to check with customer support.
+              list2: Be ready to reenter info from your federal return, as it’s needed for your state return.
+              list3: When filing, only submit your state return. If you submit your federal return again, your federal return may be rejected.
             title: What are my other state filing options?
-          vita_link: Get started with VITA now
+          vita_option_title: What are my free state filing options?
       eligible:
         az_supported:
           charitable_contributions_credit: Credit for Contributions to Qualifying Charitable Organizations
@@ -2478,15 +2454,12 @@ en:
           public_school_tax_credit_paid_fees: Have paid school-related fees or donated money to a public school
           public_school_tax_credit_provide_info_html: Provide school information, including the <a href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_ADESchoolListing.pdf" target="_blank" rel="noopener nofollow">CTDS code</a>
         edit:
-          body_html: |
-            Let’s make sure this is the right service for you.
-            <br/><br/>
-            Here are the credits and deductions you <strong>may be able to</strong> claim with this service to maximize your refund.
-          not_supported: What credits and deductions does this service not support this year?
-          not_supported_reveal_heading: What if I have a situation not yet supported by FileYourStateTaxes?
-          title1: You can use this service to file your %{year} %{state} state taxes
-          want_to_claim_learn_more_html: Learn more about this process and other filing options <a href="%{link}" target="_blank">here</a>.
-          want_to_claim_vita: You may be able to file your state return for free with help from IRS-certified VITA volunteers in %{state_name}. Note that this option may take 2-3 weeks to complete.
+          credits_not_supported: What credits and deductions does this service not support this year?
+          not_supported: What if I have a situation not yet supported by FileYourStateTaxes?
+          title1: You can use this service to file your %{year} %{state} taxes
+          title2_html: |
+            Let's make sure this is the right service for you.<br><br>
+            Here are the credits and deductions you <strong>may</strong> be able to claim to maximize your refund.
         id_supported:
           child_care_deduction: Idaho Child and Dependent Care Subtraction
           id_child_tax_credit: Idaho Child Tax Credit
@@ -2520,6 +2493,19 @@ en:
           sub7: Two-income subtraction for married filing jointly taxpayers
           sub8: State and local Earned Income Tax credits (if you claimed the federal Earned Income Tax Credit)
           sub9: State Child Tax Credit (for children under 6)
+        nc_credits_unsupported:
+          college_savings_account: 529 College Savings Account Contributions
+          credits_carried: Credits carried forward from previous years
+          credits_for_rehabilitating: Credits for Rehabilitating Historic Structures
+          estimated_income_tax_payments: Estimated income tax payments
+          extension_payment: Extension payments
+          personal_education: Personal Education Student Account Deposits Deduction
+        nc_supported:
+          deduction_for_income: Deduction for income by members of a Federally recognized Indian tribe
+          deduction_for_qualifying_children: Deduction for qualifying children
+          deduction_for_retirement_income_bailey: Deduction for Retirement Income as part of the Bailey Settlement
+          deduction_for_retirement_income_uniformed: Deduction for Retirement Income from the Uniformed Services
+          deduction_for_taxable_portion: Deduction for Taxable Portion of Social Security and Railroad Retirement Benefits
         ny_supported:
           empire_state_ctc: Empire State Child Credit
           nyc_school_tax_credit: NYC School Tax Credit
@@ -2542,10 +2528,15 @@ en:
           subtractions_225_military: Military combat pay
           subtractions_225_native_american: Native American Income Exclusion
           subtractions_225_student_loan: Student loan forgiveness award
+        vita_option:
+          vita_link: Get started with VITA now
+          want_to_claim_learn_more_html: Learn more about this process and other filing options <a href="%{link}" target="_blank">here</a>.
+          want_to_claim_vita: You may be able to file your state return for free with help from IRS-certified VITA volunteers, but it may take 2-3 weeks to complete.
       email_address:
         edit:
           action: Send code
-          email_address_label: Your email address (use an email you can access)
+          email_address_label: Your email address
+          subtitle_html: To create a new account, provide an email address that isn't already in use.<br><br>Use an email account you can access.
           title: Enter your email address
       esign_declaration:
         edit:
@@ -2569,6 +2560,10 @@ en:
             body_html: |
               <p>By using a computer system and software to prepare and/or file my tax return(s) electronically, I consent to the transmission of my return(s) and to the disclosure of all information about my use of the system and software to the Comptroller of Maryland.</p>
               <p>Under penalties of perjury, I declare that I have compared the information contained on my electronic return with the information that I provided to my Electronic Return Originator (ERO) or entered on-line and that the name(s) and amounts described above agree with the amounts shown on the corresponding lines of my 2024 Maryland electronic income tax return. To the best of my knowledge and belief, my return is true, correct and complete. I consent that my return, including accompanying schedules and statements, be sent to the Maryland Revenue Administration Division by my Electronic Return Originator or by my electronic return software provider.</p>
+          nc:
+            body_html: |
+              <p>By using a computer system and software to prepare and file my tax return(s) electronically, I consent to the transmission of my return(s) and to the disclosure of all information about my use of the system and software to the North Carolina Department of Revenue.</p>
+              <p>By checking the box below, I declare and certify that I have examined this return and accompanying schedules and statements, and to the best of my knowledge and belief, they are true, correct, and complete.</p>
           ny:
             body_html: |
               <p>By checking the box(es) shown below, and pressing “Submit,” I understand and agree that I am submitting for filing my 2023 New York State (NYS) electronic personal income tax return. I declare, under penalty of perjury, that I have examined the information on my NYS electronic tax return, including all information transferred to my NYS return from my federal return, and all accompanying schedules, attachments, and statements provided with the return, and certify that my NYS electronic return is true, correct, and complete. By executing Form TR-579-IT and providing it to the ERO, I have authorized the ERO (Code for America) to file my 2023 NYS electronic tax return with the NYS Tax Department through the Internal Revenue Service (IRS) Modernized e-File System.</p>
@@ -2742,7 +2737,7 @@ en:
           description_html: |
             <p>First, <strong>make sure your federal return is accepted.</strong></p>
             <p><strong>How do I know if it’s accepted?</strong></p>
-            <p>You will receive two emails from the IRS: one for a submitted return, one for an accepted return. Please check your email for an accepted return.</p>
+            <p>You will receive two emails from the IRS: one for a submitted return, one for an accepted return. Please check your email and spam folder for an accepted return.</p>
             <p>This secure transfer from IRS Direct File usually takes 3 minutes or less.</p>
           title: Now, let’s complete your state tax return
       md_county:
@@ -2848,10 +2843,10 @@ en:
       nc_county:
         edit:
           county: County
-          title: Select the county where you lived on December 31st, %{filing_year}
+          title: Select the county where your permanent address was located on December 31, %{filing_year}
       nc_eligibility:
         edit:
-          eligibility_ed_loan_cancelled: Had a student loan canceled under the American Rescue Plan Act
+          eligibility_ed_loan_cancelled: Had a student loan debt canceled under the American Rescue Plan Act
           eligibility_ed_loan_emp_payment: Received a Qualified Education Loan Payment paid by your employer
           none: None of these apply
           question: Did any of the following less common scenarios apply to you (or your spouse, if married filing jointly) in %{filing_year}?
@@ -2859,20 +2854,21 @@ en:
           title: First, let's see if you can use this service to file your %{filing_year} North Carolina taxes
       nc_primary_state_id:
         nc_primary:
-          encourage_sharing: You’re encouraged to share this information, but it’s not required to file your North Carolina taxes.
-          protect_identity: To protect your identity and combat tax fraud, many state agencies are asking people to give their driver’s license or state ID number.
+          encourage_sharing: While providing this information is encouraged, it is optional and not required to file your North Carolina taxes.
+          protect_identity: To protect your identity and combat tax fraud, many state revenue agencies are requesting that filers provide their driver’s license or state-issued ID number.
           why_ask_this: Why are you asking for this information?
       nc_review:
         edit:
           amount: Amount
+          amount_earned: Amount earned
           child_deduction: Child deduction
           interest_us_bonds: Interest income from U.S. bonds (not taxable in North Carolina)
-          primary_veteran: Veteran Info
+          primary_veteran: United States Armed Forces veteran status
           social_security_benefits: Social Security benefits (not taxable in North Carolina)
           spouse_veteran: Spouse Veteran Info
-          state_credit: Amount earned as member of a federally recognized Indian tribe
+          state_credit: Enrolled member of a federally recognized Indian Tribe, and received income from a source within a reservation
           subtraction_indian_tribe: Subtraction for income of a member of an Indian tribe
-          use_tax_applied: Consumer Use Tax Applied
+          use_tax_applied: Out-of-state purchases in %{filing_year} without paying sales or use tax
         review_header:
           unemployment_compensation: Unemployment Compensation
       nc_sales_use_tax:
@@ -2882,28 +2878,68 @@ en:
           state_specific:
             nc:
               manual_instructions_html: (<a href="https://www.ncdor.gov/2023-d-401-individual-income-tax-instructions/open" target="_blank" rel="noopener noreferrer">Learn more here</a> and search for 'consumer use worksheet').
-          subtitle_html: This includes online purchases where sales or use tax was <b>not</b> applied.
+          subtitle_html: This includes online purchases where sales tax was <b>not</b> applied.
           title:
-            one: Did you make any out-of-state purchases in %{year} without paying sales or use tax?
-            other: Did you or your spouse make any out-of-state purchases in %{year} without paying sales or use tax?
+            one: Did you make any out-of-state purchases in %{year} without paying sales tax?
+            other: Did you or your spouse make any out-of-state purchases in %{year} without paying sales tax?
           use_tax_method_automated: I did not keep a complete record of all purchases. <b>Calculate the amount of use tax for me.</b>
           use_tax_method_manual: I kept a complete record of all purchases and will calculate my use tax manually.
+          what_are_sales_taxes: What are sales taxes?
+          what_are_sales_taxes_body: This is a tax collected at the point of sale when you buy goods within your state.
+          what_are_use_taxes: What are use taxes?
+          what_are_use_taxes_body: If you buy something from another state (like online shopping or purchases from a store located in another state) and you don’t pay sales tax on it, you are generally required to pay use tax to your home state.
       nc_spouse_state_id:
         nc_spouse:
-          encourage_sharing: You’re encouraged to share this information, but it’s not required to file your North Carolina taxes.
-          protect_identity: To protect your identity and combat tax fraud, many state agencies are asking people to give their driver’s license or state ID number.
+          encourage_sharing: While providing this information is encouraged, it is optional and not required to file your North Carolina taxes.
+          protect_identity: To protect your identity and combat tax fraud, many state revenue agencies are asking people to give their driver’s license or state ID number.
           why_ask_this: Why are you asking for this information?
       nc_subtractions:
         edit:
           title_html:
             one: Are you an enrolled member of a <a href="https://biamaps.geoplatform.gov/Tribal-Leaders-Directory/" target="_blank">federally recognized Indian Tribe</a> and received income while living on a reservation?
             other: Are you or your spouse an enrolled member of a <a href="https://biamaps.geoplatform.gov/Tribal-Leaders-Directory/" target="_blank">federally recognized Indian Tribe</a> and received income while living on a reservation?
-          tribal_wages_field_html: "<b>Enter amount earned</b>"
-          tribal_wages_question_html: Enter the amount of income received or earned from activities on the federally recognized reservation. <br><br> <b>Note:</b> this should not exceed $%{amount_limit}
+          tribal_wages_field: Enter amount earned
+          tribal_wages_question_html: Enter the amount of income received or earned from activities on the federally recognized reservation. <br><br> This amount should not exceed $%{amount_limit}.
+      nc_tax_refund:
+        edit:
+          how_to_recieve: How would you like to receive your refund?
+          title_html: Good news, you’re getting a North Carolina state refund of <strong>$%{refund_amount}.</strong>
+        nc_bank_details:
+          account_number: Account number
+          account_type:
+            label: Bank Account Type
+          after_deadline_default_withdrawal_info: Because you are submitting your return on or after %{withdrawal_deadline_date}, %{with_drawal_deadline_year}, the state will withdraw your payment as soon as they process your return.
+          bank_title: 'Please provide your bank account details:'
+          confirm_account_number: Confirm Account Number
+          confirm_routing_number: Confirm Routing Number
+          date_withdraw_text: 'When would you like the funds withdrawn from your account? (Must be on or before %{withdrawal_deadline_date}, %{with_drawal_deadline_year}):'
+          foreign_accounts_owed: International ACH payments are not allowed.
+          foreign_accounts_refund: International ACH direct deposit refunds are not allowed.
+          routing_number: Routing Number
+          withdraw_amount: How much do you authorize to be withdrawn from your account? (Your total amount due is $%{owed_amount}.)
+      nc_taxes_owed:
+        edit:
+          automatic_draft_payments_info_one: Some savings, money market, and controlled spending accounts are not eligible for automatic drafts. Please confirm with your bank or credit union if the account you’ve selected can be automatically drafted.
+          automatic_draft_payments_info_two: If your payment is returned from your bank unpaid, you will be subject to a "Penalty for Bad Electronic Funds Transfer." The penalty is 10% of the payment (minimum $1.00; maximum $1,000.00).
+          benefits_of_ncdor: Benefits of paying online (either here on FileYourStateTaxes or through NCDOR's website) include the ability to schedule payments and the security of knowing your payment has been received.
+          direct_debit_payment_info_four: If your payment is returned from your bank unpaid, you will be subject to a Penalty for Bad Electronic Funds Transfer. The penalty is 10% of the payment (minimum $1.00; maximum $1,000.00).
+          direct_debit_payment_info_one: The payment draft date must be a valid banking date, which does not include weekends or bank holidays. When entering your draft date, you will be provided with the earliest possible date.
+          direct_debit_payment_info_three: Your payment will be considered timely if you submit your payment on the due date and select the first available draft date. You will receive an NCDOR confirmation email after your payment is received.
+          direct_debit_payment_info_two: The draft date is based on a 5:00 pm EST cut off. In other words, if you submit your bank draft payment after 5:00 pm EST, the earliest draft date available will be two business days in the future.
+          how_would_you_like_to_pay: How would you like to pay?
+          more_info_about_automatic_draft_payments: More information about automatic draft payments
+          more_info_about_direct_debit_payment: More information about the direct debit payment date
+          page_title: You owe state taxes. How would you like to pay?
+          pay_bank: Pay directly from your checking or savings account (direct debit)
+          pay_mail_online_html: Pay by mail or online at <a target="_blank" rel="noopener nofollow" href="https://electronic-services.dor.nc.gov/wps/portal/d400v">NCDOR.gov</a>
+          payment_options: You can pay directly from your checking or savings account here. You can also pay by mail or online through the North Carolina Department of Revenue’s website.
+          title_html: You owe <strong>$%{owed_amount}</strong> in North Carolina state taxes.
+          what_are_benefits_of_ncdor: What are the benefits of paying online with FileYourStateTaxes or NCDOR?
       nc_veteran_status:
         primary_veteran_question: Are you a veteran?
         spouse_veteran_question: Is your spouse a veteran?
-        title: Veteran status question
+        title: Are you a veteran of the United States Armed Forces?
+        title_spouse: Are you or your spouse a veteran of the United States Armed Forces?
       nj_college_dependents_exemption:
         edit:
           birthdate_label: 'Birthdate:'
@@ -3247,19 +3283,22 @@ en:
           title: 'Select your New York City residency status during %{year}:'
       pending_federal_return:
         edit:
-          title_html: |
-            We’re sorry to keep you waiting. Your federal tax return must be accepted before you can file your state tax return.
-            <br/><br/>
-            You’ll receive an email from IRS Direct File when your federal tax return is accepted with a link to bring you back here.
+          body_html: Sorry to keep you waiting.<br><br>You’ll receive an email from IRS Direct File when your federal tax return is accepted with a link to bring you back here. Check your spam folder.
+          title: Your federal tax return must be accepted before you can file your state tax return
       phone_number:
         edit:
           action: Send code
+          helper_text: Enter numbers only
           phone_number_label: Your phone number
+          subtitle_html: To create a new account, provide a phone number that isn't already in use.<br><br>Use a phone number you can access.
           title: Enter your phone number
+      post_data_transfer:
+        edit:
+          title: Non-prod page only
       primary_state_id:
         edit:
           ny_subtitle: This information is required for all NY residents with a state-issued ID.
-          title: Please share some details from your state-issued ID
+          title: We need some details from your state-issued ID, if you have one
         state_id:
           id_details:
             expiration: Expiration Date
@@ -3272,7 +3311,7 @@ en:
             dmv: DMV/BMV State ID
             drivers_license: Driver’s license
             label: ID Type
-            no_id: No driver’s license or state ID
+            no_id: No driver’s license or state ID/Prefer not to share
           info_link: View where to find this information
       retirement_income:
         edit:
@@ -3320,7 +3359,7 @@ en:
           title: Unfortunately, your %{filing_year} %{state_name} state tax return was rejected
         thank_you_html: Thank you for filing your return with <strong>FileYourStateTaxes</strong>, built in partnership with the state of %{state_name} to integrate with IRS Direct File.
       review:
-        county: County
+        county: County where your permanent address was located on December 31, %{filing_year}
       shared:
         abstract_review_header:
           dependent_dob: Their date of birth
@@ -3333,8 +3372,6 @@ en:
           taxes_owed_html: Your refund is $0. This means that you <strong>will not</strong> receive a state refund and you <strong>do not</strong> owe state taxes. You should finish filing your return, since you may be required to file even though you won’t get or receive any money.
           title: You're done! Review your state tax return before you submit.
           your_name: Your name
-        review_footer:
-          download_pdf: You can download a PDF of your full state tax return after you submit.
         review_header:
           income_details: Income Details
           title: You're done! Review your state tax return before you submit.
@@ -3342,7 +3379,7 @@ en:
           your_tax_owed: Your taxes owed
       spouse_state_id:
         edit:
-          title_html: Please provide information for <strong>your spouse’s</strong> state issued ID
+          title_html: We need some details from <strong>your spouse’s</strong> state-issued ID, if they have one
       submission_confirmation:
         edit:
           download_state_return_pdf: Download your state return
@@ -3386,7 +3423,7 @@ en:
             <ul class="list--numbered">
           decline: Decline
           list_items_html: <strong>Easy Tax Filing:</strong> FileYourStateTaxes is a free and easy to use service built by Code for America to help you file your state tax return conveniently after you've completed your federal return.</li> <strong>Data Transfer:</strong> You're letting us use your federal return data as the starting point for your state tax return.</li> <strong>Questions for Accuracy:</strong> Sometimes we might ask you a few more questions to make sure your state tax return is complete and accurate.</li> <strong>Modernized eFile:</strong> We'll submit your state tax return using the Modernized eFile (MeF) system, which links it to your federal return.</li> <strong>Your Responsibility:</strong> You're responsible for making sure the information you provide is accurate and that you follow all federal and state tax laws.</li> <strong>No Guarantees:</strong> We do our best, but we can't guarantee the accuracy or success of your state tax return when you use FileYourStateTaxes.</li> <strong>Privacy and Security:</strong> We're serious about protecting your privacy and data. Check out our <a href="%{privacy_policy_link}" target="_blank" rel="noopener nofollow">Privacy Policy</a> for all the details.</li> <strong>Stay Updated:</strong> We'll send you updates about your state tax return through your preferred communication method - either text message (SMS) or email. This includes status updates, reminders, and important information.</li> <strong>Your Choice:</strong> You can change your preferred communication method or opt out of these updates anytime by following the instructions in the messages or through your account settings.</li> <strong>Data Removal:</strong> You have the right to ask us to remove your personal data and tax-related information from FileYourStateTaxes whenever you want. Just contact us or use the data removal function in the software. But keep in mind, this might affect your access to the service.</li> <strong>Links to Third Party Sites:</strong> Links in the software will let you leave FileYourStateTaxes. The linked sites are not under the control of FileYourStateTaxes and FileYourStateTaxes is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. FileYourStateTaxes is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement by FileYourStateTaxes of the site.</li> <strong>Governing Law:</strong> This Agreement will be governed by and construed in accordance with the laws of the state of California.</li> <strong>Questions and Concerns:</strong> If you have any questions or concerns about these terms, feel free to reach out to us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.</li>
-          list_items_no_sms_html: "<strong>Stay Updated:</strong> We'll send you updates about your state tax return through email. This includes status updates, reminders, and important information.</li>\n"
+          list_items_no_sms_html: "<strong>Stay Updated:</strong> We'll send you updates about your state tax return through your preferred communication method - either SMS or email. This includes status updates, reminders, and important information.</li>\n"
           ny_text_html: |
             <strong>E-file your New York State income tax return at no extra charge.</strong><br><br>
             Before you print and mail your return, please note that there is no additional fee for filing it electronically. Other reasons to e-file:
@@ -3403,52 +3440,53 @@ en:
           removed: Removed 1099-G for %{name}
         edit:
           apartment: Apartment/Unit Number
-          box_10b_html: "<strong>Box 10b</strong>, State identification number"
+          box_10b_html: "<strong>Box 10b</strong>, State identification no."
           city: City
-          confirm_address_html: Please confirm <strong>your mailing address</strong> listed on Form 1099-G. Note&#58; this may be different than your current address. Please edit to match what’s on your form.
-          confirm_address_no: No, I need to edit
-          confirm_address_yes: Yes, that's the address
-          federal_income_tax_withheld_html: "<strong>Box 4</strong>, Federal income tax withheld (Round to the nearest whole number.)"
+          confirm_address_html: 'Do we have the correct mailing address as listed on your form 1099-G?<br><br>Note: this may be different than your current address. Please edit the address to match what’s on your form.'
+          confirm_address_no: No, I need to edit the address
+          confirm_address_yes: Yes, that's the correct address
+          dont_worry: If you have more than one 1099-G, don’t worry, you can add it on the next page.
+          federal_income_tax_withheld_html: "<strong>Box 4</strong>, Federal income tax withheld"
           had_box_11: Did you have an amount listed for state income tax (Box 11) on your unemployment compensation (Form 1099-G)?
           information_content_html: |
             Find the 1099-G you used to enter your unemployment income on your federal tax return. If you have multiple 1099-Gs, you can add multiple forms. <br><br>
             Next, find the requested information in the following locations: </br>
             <ol class="list--numbered">
-              <li><strong>Who does this form belong to?</strong> The left side of the form will say if this form belongs to you or your spouse, if applicable. Look for “recipient’s name.”</li>
-              <li><strong>Your mailing address</strong> is listed under "recipient's name" on the left side of the form. Make sure the address <strong>on the form</strong> matches what you enter here.</li>
+              <li><strong>Who the form belongs to</strong> can be found on the left side of the form, if applicable. Look for “recipient’s name.”</li>
+              <li><strong>Your mailing address</strong> is listed under "recipient's name" on the left side of the form. Make sure the address on the form matches what you enter here.</li>
               <li><strong>Payer’s information,</strong> or the government agency that issued the form, is listed in the top left corner of the page. Enter the name, address, and TIN as shown on the form.</li>
               <li><strong>Boxes 1, 4, 10b, and 11</strong> are all labeled with the same numbers on the right side of the form. Enter the information exactly as it appears in those boxes.</li>
             </ol>
           information_html: "<strong>How do I find this information?</strong>"
           money_boxes_label: Please complete the following boxes based on what’s reported on Form 1099-G.
-          need_additional_information: Great! We need some additional information about what’s on Form 1099-G. (If you have more than one 1099-G, you can add it at the end.)
-          other_tax_filing_options_html: <strong>Reminder:</strong> In %{filing_year_plus_one}, this service does not support filing unemployment income received from another state. To file income received from another state, check out <a target="_blank" rel="noopener nofollow" href="%{link}">other tax filing options.</a>
           payer_address: Payer's Street Address
           payer_name: Payer's Name
-          payer_question_html: Please enter the <strong>payer's information located in the top left corner</strong> of the form&#58;
+          payer_question_html: Please enter the payer's information <strong>located in the top left corner</strong> of the form&#58;
           payer_tin: Payer’s TIN (9-digit number)
           recipient_my_spouse: My spouse
           recipient_myself: Myself
           recipient_question: Who is this form for?
           state: State
-          state_income_tax_withheld_html: "<strong>Box 11</strong>, State income tax withheld (Round to the nearest whole number.)"
+          state_income_tax_withheld_html: "<strong>Box 11</strong>, State income tax withheld"
           street_address: Street Address
-          title:
-            one: It looks like you received unemployment benefits in %{year}
-            other: It looks like you or your spouse received unemployment benefits in %{year}
-          unemployment_compensation_html: "<strong>Box 1</strong>, Unemployment compensation (Round to the nearest whole number.)"
+          title: We need some additional information about your Form 1099-G
+          unemployment_compensation_html: "<strong>Box 1</strong>, Unemployment compensation"
           zip_code: Zip code
         index:
           1099_label: 1099-G for %{name}
           add_another: Add another 1099-G form
           delete_confirmation: Are you sure you want to delete this 1099-G?
           lets_review: Great! Thanks for sharing that information. Let’s review.
-          unemployment_compensation: 'Unemployment compensation: $%{amount}'
+          unemployment_compensation: 'Unemployment compensation: %{amount}'
+      use_different_service:
+        body: Before choosing an option, make sure it supports state-only tax filing. You most likely will need to reenter your federal tax return information in order to prepare your state tax return. Fees may apply.
+        faq_link: Visit our FAQ
+        title: Want to file using a different product or service?
       verification_code:
         edit:
           action: Verify code
-          subtitle_html: We’ve sent your code to <strong>%{contact_info}</strong>.
-          title: Enter the code to continue
+          subtitle_html: If you didn’t receive a code, please check your spam folder. If you still need help resubscribing, chat with us.
+          title_html: We’ve sent your code to <strong>%{contact_info}</strong>
           verification_code_label: Enter the 6-digit code
       w2:
         edit:
@@ -3479,7 +3517,8 @@ en:
           what_is_box14: What could be in Box 14?
       waiting_to_load_data:
         edit:
-          title_html: Just a moment, we’re transferring your federal tax return to complete parts of your state return. <br/><br/> This usually takes a few minutes. Don’t close this page.
+          subtitle_html: This usually takes a few minutes. Don’t close this page.<br><br> We’ll use your federal tax return information to complete sections of your state return.
+          title_html: Just a moment, we’re transferring your federal tax return to complete parts of your state return.
     state_file_pages:
       about_page:
         closed_subheader_html: |
