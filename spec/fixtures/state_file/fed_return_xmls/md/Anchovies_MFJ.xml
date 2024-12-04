@@ -88,10 +88,6 @@
             <SocialSecurityTaxAmt>2600</SocialSecurityTaxAmt>
             <MedicareWagesAndTipsAmt>30000</MedicareWagesAndTipsAmt>
             <MedicareTaxWithheldAmt>2100</MedicareTaxWithheldAmt>
-            <OtherDeductionsBenefitsGrp>
-                <Desc>STPICKUP</Desc>
-                <Amt>4000</Amt>
-            </OtherDeductionsBenefitsGrp>
             <W2StateLocalTaxGrp>
                 <W2StateTaxGrp>
                     <StateAbbreviationCd>MD</StateAbbreviationCd>
@@ -133,6 +129,10 @@
             <SocialSecurityTaxAmt>2600</SocialSecurityTaxAmt>
             <MedicareWagesAndTipsAmt>29000</MedicareWagesAndTipsAmt>
             <MedicareTaxWithheldAmt>1100</MedicareTaxWithheldAmt>
+            <OtherDeductionsBenefitsGrp>
+                <Desc>STPICKUP</Desc>
+                <Amt>4000</Amt>
+            </OtherDeductionsBenefitsGrp>
             <W2StateLocalTaxGrp>
                 <W2StateTaxGrp>
                     <StateAbbreviationCd>MD</StateAbbreviationCd>
