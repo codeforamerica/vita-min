@@ -31,6 +31,9 @@ module StateFile
         'id_Grey_no_1099r' => '1016422024337kkb3get',
         'id_Klein_QSS' => '1016422024338u5svhsa',
         'id_Estrada_donations' => '10164220243389yh9q72',
+        'az_leslie_qss' => '1016422024337x7aimm0',
+        'az_Atticus_ITIN_Single' => '10164220243324bn2ecb',
+        'az_Robin_MFJ_Spouse_ITIN' => '10164220243321wwdbg1',
       }
       @old_xml_sample = "app/controllers/state_file/questions/df_return_sample.xml"
       @old_json_sample = "app/controllers/state_file/questions/df_return_sample.json"
