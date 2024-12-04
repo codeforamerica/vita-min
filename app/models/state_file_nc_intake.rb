@@ -119,4 +119,8 @@ class StateFileNcIntake < StateFileBaseIntake
       eligibility_ed_loan_emp_payment: "yes"
     }
   end
+
+  def show_tax_period_in_return_header?
+    false
+  end
 end

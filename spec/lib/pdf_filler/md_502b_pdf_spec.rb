@@ -14,6 +14,7 @@ RSpec.describe PdfFiller::Md502bPdf do
       spouse_first_name: "Jane",
       spouse_middle_initial: "M",
       spouse_last_name: "Jomp",
+      spouse_birth_date: Date.new(1950, 04, 12)
     )
   end
   let(:submission) { create :efile_submission, :for_state, data_source: intake }
@@ -30,7 +31,8 @@ RSpec.describe PdfFiller::Md502bPdf do
       ssn: "123456789",
       relationship: "Daughter",
       dob: young_dob,
-      )
+      md_did_not_have_health_insurance: "yes"
+    )
   end
   let!(:senior_dependent) do
     create(
@@ -42,7 +44,8 @@ RSpec.describe PdfFiller::Md502bPdf do
       ssn: "234567890",
       relationship: "Grandparent",
       dob: old_dob,
-      )
+      md_did_not_have_health_insurance: "no"
+    )
   end
   before do
     intake.direct_file_data.primary_ssn = primary_ssn
@@ -80,6 +83,7 @@ RSpec.describe PdfFiller::Md502bPdf do
         expect(pdf_fields["REGULAR 1"]).to eq "Yes"
         expect(pdf_fields["65 OR OLDER 1"]).to eq "Off"
         expect(pdf_fields["DOB date 1_af_date"]).to eq young_dob.strftime("%Y-%m-%d")
+        expect(pdf_fields["Check Box 1"]).to eq "Yes"
 
         expect(pdf_fields["First Name 2"]).to eq "Jeanie"
         expect(pdf_fields["MI 2"]).to eq "F"
@@ -89,6 +93,7 @@ RSpec.describe PdfFiller::Md502bPdf do
         expect(pdf_fields["REGULAR 2"]).to eq "Yes"
         expect(pdf_fields["65 OR OLDER 2"]).to eq "2"
         expect(pdf_fields["DOB date 1_af_date 2"]).to eq old_dob.strftime("%Y-%m-%d")
+        expect(pdf_fields["Check Box 2"]).to eq "Off"
       end
     end
   end

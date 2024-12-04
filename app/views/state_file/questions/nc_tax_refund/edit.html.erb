@@ -1,0 +1,37 @@
+<% content_for :page_title, t("state_file.questions.tax_refund.edit.page_title") %>
+
+<% content_for :card do %>
+  <h1 class="h2">
+    <%= t(".title_html", refund_amount: refund_amount, state_name: current_state_name) %>
+  </h1>
+
+  <%= form_with model: @form, url: { action: :update }, method: :put, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long' } do |f| %>
+    <div class="question-with-follow-up">
+      <div class="question-with-follow-up__question">
+        <div class="white-group">
+          <p><%= t(".how_to_recieve") %></p>
+          <%= f.cfa_radio_set(
+                :payment_or_deposit_type,
+                collection: [
+                  { value: :direct_deposit, label: t("state_file.questions.tax_refund.edit.direct_deposit"), input_html: { "data-follow-up": "#deposit-to-bank" } },
+                  { value: :mail, label: t("state_file.questions.tax_refund.edit.mail"), input_html: { "data-follow-up": "#mail-check" } },
+                ]
+              ) %>
+        </div>
+      </div>
+
+      <div class="question-with-follow-up__follow-up" id="deposit-to-bank">
+        <div>
+          <div>
+            <%= render 'state_file/questions/nc_tax_refund/nc_bank_details', form: f, owe_taxes: false %>
+          </div>
+        </div>
+      </div>
+      <%= f.continue %>
+    </div>
+  <% end %>
+<% end %>
+
+<% content_for :script do %>
+  <%= render 'shared/disable_copy_paste' %>
+<% end %>

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v4.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>676c5f98</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400004000</PrimarySSN>
+            <NameLine1Txt>LEONARD&lt;LOBSTER</NameLine1Txt>
+            <PrimaryNameControlTxt>LOBS</PrimaryNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>400 Crustacean Street</AddressLine1Txt>
+                <CityNm>Baltimore</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21201</ZIPCd>
+            </USAddress>
+            <PhoneNum>3015552345</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000400-0eaf-4f74-af33-167a0b98619f@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="5">
+        <IRS1040 documentId="IRS10400001">
+            <IndividualReturnFilingStatusCd>5</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <DependentDetail>
+                <DependentFirstNm>Larry</DependentFirstNm>
+                <DependentLastNm>Lobster</DependentLastNm>
+                <DependentNameControlTxt>LOBS</DependentNameControlTxt>
+                <DependentSSN>600002000</DependentSSN>
+                <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+                <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+            </DependentDetail>
+            <ChldWhoLivedWithYouCnt>1</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>2</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">198000</WagesAmt>
+            <WagesSalariesAndTipsAmt>198000</WagesSalariesAndTipsAmt>
+            <TotalIncomeAmt>198000</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>198000</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>29200</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>29200</TotalDeductionsAmt>
+            <TaxableIncomeAmt>168800</TaxableIncomeAmt>
+            <TaxAmt>27242</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>27242</TotalTaxBeforeCrAndOthTaxesAmt>
+            <CTCODCAmt>2000</CTCODCAmt>
+            <TotalNonrefundableCreditsAmt>600</TotalNonrefundableCreditsAmt>
+            <TotalCreditsAmt>2600</TotalCreditsAmt>
+            <TaxLessCreditsAmt>24642</TaxLessCreditsAmt>
+            <TotalTaxAmt>24642</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>30000</FormW2WithheldTaxAmt>
+            <WithholdingTaxAmt>30000</WithholdingTaxAmt>
+            <TotalPaymentsAmt>30000</TotalPaymentsAmt>
+            <OverpaidAmt>5358</OverpaidAmt>
+            <RefundAmt>5358</RefundAmt>
+            <RoutingTransitNum>021000322</RoutingTransitNum>
+            <BankAccountTypeCd>1</BankAccountTypeCd>
+            <DepositorAccountNum>252525252525</DepositorAccountNum>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Rabbi</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1040Schedule3 documentId="IRS1040S3001">
+            <CreditForChildAndDepdCareAmt referenceDocumentId="IRS2441001" referenceDocumentName="IRS2441">600</CreditForChildAndDepdCareAmt>
+            <TotalNonrefundableCreditsAmt>600</TotalNonrefundableCreditsAmt>
+        </IRS1040Schedule3>
+        <IRS1040Schedule8812 documentId="IRS8812001" documentName="IRS1040Schedule8812">
+            <AdjustedGrossIncomeAmt>198000</AdjustedGrossIncomeAmt>
+            <ModifiedAGIAmt>198000</ModifiedAGIAmt>
+            <QlfyChildUnderAgeSSNCnt>1</QlfyChildUnderAgeSSNCnt>
+            <QlfyChildUnderAgeSSNLimtAmt>2000</QlfyChildUnderAgeSSNLimtAmt>
+            <OtherDependentCnt>0</OtherDependentCnt>
+            <InitialCTCODCAmt>2000</InitialCTCODCAmt>
+            <FilingStatusThresholdCd>200000</FilingStatusThresholdCd>
+            <ExcessAdjGrossIncomeAmt>0</ExcessAdjGrossIncomeAmt>
+            <ModifiedAGIPhaseOutAmt>0</ModifiedAGIPhaseOutAmt>
+            <CTCODCOverAGILimitInd>true</CTCODCOverAGILimitInd>
+            <CTCODCAfterAGILimitAmt>2000</CTCODCAfterAGILimitAmt>
+            <ACTCTaxLiabiltyLimitAmt>27242</ACTCTaxLiabiltyLimitAmt>
+            <CTCODCAmt>2000</CTCODCAmt>
+            <ClaimACTCAllFilersGrp/>
+        </IRS1040Schedule8812>
+        <IRS2441 documentId="IRS2441001" documentName="IRS2441">
+            <CareProviderGrp>
+                <CareProviderPersonName>
+                    <PersonFirstNm>Clark</PersonFirstNm>
+                    <PersonLastNm>Claw</PersonLastNm>
+                </CareProviderPersonName>
+                <CareProviderNameControlTxt>CLAW</CareProviderNameControlTxt>
+                <USAddress>
+                    <AddressLine1Txt>12 Crab Avenue</AddressLine1Txt>
+                    <CityNm>Baltimore</CityNm>
+                    <StateAbbreviationCd>MD</StateAbbreviationCd>
+                    <ZIPCd>21210</ZIPCd>
+                </USAddress>
+                <SSN>222002222</SSN>
+                <HouseholdEmployeeInd>false</HouseholdEmployeeInd>
+                <PaidAmt>3000</PaidAmt>
+            </CareProviderGrp>
+            <QualifyingPersonGrp>
+                <QualifyingPersonName>
+                    <PersonFirstNm>Larry</PersonFirstNm>
+                    <PersonLastNm>Lobster</PersonLastNm>
+                </QualifyingPersonName>
+                <QualifyingPersonNameControlTxt>LOBS</QualifyingPersonNameControlTxt>
+                <QualifyingPersonSSN>600002000</QualifyingPersonSSN>
+                <QualifiedCareExpensesPaidAmt>3000</QualifiedCareExpensesPaidAmt>
+            </QualifyingPersonGrp>
+            <TotalQlfdExpensesOrLimitAmt>3000</TotalQlfdExpensesOrLimitAmt>
+            <PrimaryEarnedIncomeAmt>198000</PrimaryEarnedIncomeAmt>
+            <SpouseEarnedIncomeAmt>198000</SpouseEarnedIncomeAmt>
+            <SmallerOfExpensesOrIncomeAmt>3000</SmallerOfExpensesOrIncomeAmt>
+            <AdjustedGrossIncomeAmt>198000</AdjustedGrossIncomeAmt>
+            <CareExpensesDecimalAmt>0.20</CareExpensesDecimalAmt>
+            <CalculatedTentativeExpenseAmt>600</CalculatedTentativeExpenseAmt>
+            <TotalEligCDCCAmt>600</TotalEligCDCCAmt>
+            <TaxLiabLmtFromCrLmtWrkshtAmt>27242</TaxLiabLmtFromCrLmtWrkshtAmt>
+            <CreditForChildAndDepdCareAmt>600</CreditForChildAndDepdCareAmt>
+        </IRS2441>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>400004000</EmployeeSSN>
+            <EmployerEIN>003456789</EmployerEIN>
+            <EmployerNameControlTxt>SECO</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Second Avenue Deli</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>11 Latke Lane</AddressLine1Txt>
+                <CityNm>Baltimore</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21210</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Leonard Lobster</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>400 Crustacean Street</AddressLine1Txt>
+                <CityNm>Baltimore</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21201</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>198000</WagesAmt>
+            <WithholdingAmt>30000</WithholdingAmt>
+            <SocialSecurityWagesAmt>198000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>20000</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>198000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>10000</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>MD</StateAbbreviationCd>
+                    <EmployerStateIdNum>4445555</EmployerStateIdNum>
+                    <StateWagesAmt>198000</StateWagesAmt>
+                    <StateIncomeTaxAmt>25000</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp>
+                        <LocalWagesAndTipsAmt>198000</LocalWagesAndTipsAmt>
+                        <LocalIncomeTaxAmt>10000</LocalIncomeTaxAmt>
+                        <LocalityNm>Totally Fake County</LocalityNm>
+                    </W2LocalTaxGrp>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>

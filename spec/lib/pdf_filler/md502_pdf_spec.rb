@@ -293,6 +293,26 @@ RSpec.describe PdfFiller::Md502Pdf do
       end
     end
 
+    context "healthcare coverage" do
+      before do
+        intake.update(primary_did_not_have_health_insurance: true)
+        intake.update(primary_birth_date: DateTime.new(1975, 4, 12))
+        intake.update(spouse_did_not_have_health_insurance: true)
+        intake.update(spouse_birth_date: DateTime.new(1972, 11, 5))
+        intake.update(authorize_sharing_of_health_insurance_info: "yes")
+        intake.update(email_address: "healthy@example.com")
+      end
+
+      it "fills the correct fields" do
+        expect(pdf_fields["Check Box 27"]).to eq "Yes"
+        expect(pdf_fields["Check Box 28"]).to eq "Yes"
+        expect(pdf_fields["Enter DOB if you have no healthcare"]).to eq "04/12/1975"
+        expect(pdf_fields["Enter DOB if your spouse has no healthcare"]).to eq "11/05/1972"
+        expect(pdf_fields["Check Box 29"]).to eq "Yes"
+        expect(pdf_fields["Enter email addressEnter DOB if your spouse has no healthcare 2"]).to eq "healthy@example.com"
+      end
+    end
+
     context "subtractions" do
       let(:two_income_subtraction_amount) { 1200 }
       before do
