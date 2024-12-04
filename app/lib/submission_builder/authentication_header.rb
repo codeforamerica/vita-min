@@ -33,6 +33,7 @@ module SubmissionBuilder
             xml.DeviceId device_info&.device_id || 'AB' * 20
             xml.DeviceTypeCd 'Browser-based'
             xml.EmailAddressTxt email_from_intake_or_df
+            xml.USCellPhoneNum phone_number if phone_number.present?
           end
           xml.Submission do
             device_info = @submission.data_source.submission_efile_device_info
