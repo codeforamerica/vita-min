@@ -20,6 +20,7 @@
 #  eligibility_withdrew_msa_fthb                  :integer          default("unfilled"), not null
 #  email_address                                  :citext
 #  email_address_verified_at                      :datetime
+#  email_notification_opt_in                      :integer          default("unfilled"), not null
 #  failed_attempts                                :integer          default(0), not null
 #  federal_return_status                          :string
 #  food_bank_fund_donation                        :decimal(12, 2)
@@ -54,6 +55,7 @@
 #  referrer                                       :string
 #  routing_number                                 :string
 #  sign_in_count                                  :integer          default(0), not null
+#  sms_notification_opt_in                        :integer          default("unfilled"), not null
 #  source                                         :string
 #  special_olympics_donation                      :decimal(12, 2)
 #  spouse_birth_date                              :date
@@ -88,6 +90,7 @@ FactoryBot.define do
   factory :state_file_id_intake do
     raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.old_xml_sample }
     raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.old_json_sample }
+    df_data_import_succeeded_at { DateTime.now }
 
     transient do
       filing_status { "single" }
@@ -181,10 +184,8 @@ FactoryBot.define do
     end
 
     trait :df_data_1099_int do
-      primary_first_name { "Tim" }
-      primary_last_name { "Interest" }
-      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('id_tim_1099_int') }
-      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('id_tim_1099_int') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('id_Estrada_donations') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('id_Estrada_donations') }
     end
 
     trait :primary_blind do

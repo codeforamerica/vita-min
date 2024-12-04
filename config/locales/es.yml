@@ -253,6 +253,8 @@ es:
         multiple: 'Error: Se encontraron varias direcciones para la información que ingresó y no existe ningún predeterminado.'
         not_found: 'Error: Dirección no encontrada'
         state: 'Error: Código de Estado Inválido'
+      nc_eligibility_form:
+        at_most_one_option_selected: Debe seleccionar ninguna o las opciones anteriores.
       need_exactly_one_communication_method: Ingrese solo una forma de contacto.
       need_one_communication_method: Por favor, elija alguna manera para que nos comuniquemos con usted.
       replace_me_text: Reemplazar REPLACE ME con información relevante antes de continuar.
@@ -2092,17 +2094,18 @@ es:
         already_filed_html: "¿Ya presentó tus impuestos estatales con nosotros? <strong>Puede descargar una copia de su declaración estatal hasta el 31 de diciembre de 2024.</strong>"
         already_started_html: ¿Ya comenzaste a presentar tu declaración estatal? <a href="%{sign_in_url}">Inicia sesión</a>.
         az:
-          built_with_html: "<strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el estado de Arizona para integrarse con la herramienta Direct File del IRS y solo toma de 10 a 15 minutos completarlo <strong>una vez que tu declaración federal sea aceptada</strong>. Comienza configurando tu cuenta."
           closed_html: |
             <strong>FileYourStateTaxes</strong> se creó en asociación con el estado de Arizona para integrarse con la herramienta Direct File del IRS.<br /><br />
             Estamos cerrados por la temporada de impuestos. Desafortunadamente no puede presentar su declaración estatal con nosotros este año.
           supported_by: Respaldada por el estado de Arizona
           title: Presenta tus impuestos estatales de Arizona sin costo
+        built_with_html: |
+          <strong>FileYourStateTaxes</strong> solo toma de 10 a 15 minutos completarlo. Comienza configurando una cuenta.
+          <br/><br/>
+          Esta herramienta ha sido creada en colaboración con el estado de %{state_name} para integrarse con la herramienta Direct File del IRS.
         continue: Para continuar presentando su declaración estatal de %{state_name}, inicie sesión a continuación
         download_your_record: Descargue tu registro
         help_text_html: |
-          <strong>Lo que necesitarás para comenzar</strong>
-          <br />
           <ul class="list--bulleted">
             <li>Una declaración federal de %{filing_year} <strong>aceptada</strong> mediante <a href="https://directfile.irs.gov/">IRS Direct File</a>. (No necesitas una copia de esta declaración; transferirás tu declaración aquí).</li>
             <li>Dirección de correo electrónico o número de teléfono.</li>
@@ -2110,35 +2113,30 @@ es:
             <li>Formulario 1099-G (si recibiste beneficios de desempleo en %{filing_year}).</li>
             <li>Números de ruta bancaria y de cuenta (si deseas recibir tu reembolso o hacer un pago de impuestos electrónicamente).</li>
           </ul>
+        help_text_title: "¿Qué necesitaré para completar mi declaración de impuestos estatales?"
         id:
-          built_with_html: "<strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el estado de Idaho para integrarse con la herramienta Direct File del IRS y solo toma de 10 a 15 minutos completarlo <strong>una vez que tu declaración federal sea aceptada</strong>. Comienza configurando tu cuenta."
           closed_html: |
             <strong>FileYourStateTaxes</strong> se creó en asociación con el estado de Idaho para integrarse con la herramienta Direct File del IRS.<br /><br />
             Estamos cerrados por la temporada de impuestos. Desafortunadamente no puede presentar su declaración estatal con nosotros este año.
           supported_by: Respaldada por el estado de Idaho
           title: Presenta tus impuestos estatales de Idaho sin costo
         md:
-          built_with_html: "<strong>FileYourStateTaxes</strong> ha sido creado en colaboración con Maryland para integrarse con la herramienta Direct File del IRS y solo toma de 10 a 15 minutos completarlo <strong>una vez que tu declaración federal sea aceptada</strong>. Comienza configurando tu cuenta."
           closed_html: |
             <strong>FileYourStateTaxes</strong> se creó en asociación con Maryland para integrarse con la herramienta Direct File del IRS.<br /><br />
             Estamos cerrados por la temporada de impuestos. Desafortunadamente no puede presentar su declaración estatal con nosotros este año.
           supported_by: Respaldada por Maryland
           title: Presenta tus impuestos Maryland sin costo
         nc:
-          built_with_html: "<strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el estado de North Carolina para integrarse con la herramienta Direct File del IRS y solo toma de 10 a 15 minutos completarlo <strong>una vez que tu declaración federal sea aceptada</strong>. Comienza configurando tu cuenta."
           closed_html: |
             <strong>FileYourStateTaxes</strong> se creó en asociación con el estado de North Carolina para integrarse con la herramienta Direct File del IRS.<br /><br />
             Estamos cerrados por la temporada de impuestos. Desafortunadamente no puede presentar su declaración estatal con nosotros este año.
           supported_by: Respaldada por el estado de North Carolina
           title: Presenta tus impuestos estatales de North Carolina sin costo
         nj:
-          built_with_html: "<strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el <strong>New Jersey Office of Innovation</strong> para integrarse con la herramienta Direct File del IRS y solo toma de 10 a 15 minutos completarlo <strong>una vez que tu declaración federal sea aceptada</strong>. Comienza configurando tu cuenta."
           closed_html: |
             <strong>FileYourStateTaxes</strong> se creó en asociación con el New Jersey Office of Innovation para integrarse con la herramienta Direct File del IRS.<br /><br />
             Estamos cerrados por la temporada de impuestos. Desafortunadamente no puede presentar su declaración estatal con nosotros este año.
           help_text_html: |
-            <strong>Lo que necesitarás para comenzar</strong>
-            <br />
             <ul class="list--bulleted">
               <li>Una declaración federal de %{filing_year} <strong>aceptada</strong> mediante <a href="https://directfile.irs.gov/">IRS Direct File</a>. (No necesitas una copia de esta declaración; transferirás tu declaración aquí).</li>
               <li>Dirección de correo electrónico o número de teléfono.</li>
@@ -2149,7 +2147,6 @@ es:
           title: Presenta tus impuestos estatales de New Jersey sin costo
         not_you: "¿No es %{user_name}?"
         ny:
-          built_with_html: "<strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el <strong>estado de Nueva York</strong> para integrarse con la herramienta Direct File del IRS y tarda aproximadamente de 10 a 15 minutos completarlo <strong>una vez que tu declaración federal sea aceptada</strong>. Comienza configurando tu cuenta."
           closed_html: |
             <strong>FileYourStateTaxes</strong> se creó en asociación con el estado de Nueva York para integrarse con la herramienta Direct File del IRS.<br /><br />
             Estamos cerrados por la temporada de impuestos. Lamentablemente no puede presentar su declaración estatal con nosotros este año.
@@ -2208,7 +2205,7 @@ es:
             many: Ingresa todos los apellidos utilizados por usted y su cónyuge en los últimos cuatro años.
             one: 'Ingresa todos los apellidos que usaste en los últimos cuatro años. (Ejemplo: Smith, Jones, Brown)'
             other: Ingresa todos los apellidos utilizados por usted y su cónyuge en los últimos cuatro años.
-          subtitle: Esto incluye los años tributarios 2019-2022.
+          subtitle: Esto incluye los años tributarios %{start_year}-%{end_year}.
           title:
             many: "¿Usted o su cónyuge presentaron una declaración con un apellido diferente en los últimos cuatro años?"
             one: "¿Presentaste con un apellido diferente en los últimos cuatro años?"
@@ -2218,13 +2215,42 @@ es:
           removed: Contribución eliminada para %{school_name}
         edit:
           additional_info: 'Por favor, proporciona la siguiente información para cada escuela pública a la que pagaste tarifas o hiciste contribuciones:'
-          amount: Cantidad de contribución/tarifas pagadas en %{year}
+          amount: Cantidad de donación/tarifas pagadas en %{year}
+          amount_help_text:
+            one: Arizona permite un máximo crédito tributario de las escuelas públicas de $200
+            other: Arizona permite un máximo crédito tributario de las escuelas públicas de $400
           ctds_code: Código de la escuela/CTDS
-          date_of_contribution: Fecha de pago en %{year} (mm/dd)
+          date_of_contribution: Fecha de pago en %{year}
           district_name: Nombre del distrito escolar
-          made_contribution: "¿Pagaste tarifas o hiciste contribuciones en efectivo a una escuela pública en %{year}? No incluyas cantidades reclamadas en la declaración de impuestos del año pasado."
+          made_contribution:
+            one: "¿Pagaste tarifas o hiciste contribuciones en efectivo a una escuela pública en %{year}? No incluyas cantidades reclamadas en la declaración de impuestos del año pasado."
+            other: "¿Pagaste tarifas o hiciste contribuciones en efectivo a una escuela pública en %{year}? No incluyas cantidades reclamadas en la declaración de impuestos del año pasado."
           school_name: Nombre de la escuela
-          title: "¿Pagaste tarifas o hiciste contribuciones en efectivo a una escuela pública en %{year}?"
+          school_name_help_text: Por favor ingresa el nombre oficial
+          title_html: ¡Podrías ser elegible para recibir <a href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_guideline-public-school-ECA-tax-credit.pdf" target="_blank">el crédito tributario de las escuelas públicas de Arizona</a>!
+        form:
+          donations_this_year: "¿Qué pasa con las donaciones hechas en %{current_year}?"
+          donations_this_year_details_html: |
+            FileYourStateTaxes sólo te permite agregar donaciones del período fiscal correspondiente.
+            <br/><br/>
+            Puedes reportar cualquier donación hecha en %{current_year} en la declaración de impuestos del próximo año.
+          more_details_html: Visita el <a href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_guideline-public-school-ECA-tax-credit.pdf" target="_blank">Departamento de Ingresos de Arizona</a> (disponible en inglés) para más detalles.
+          qualifying_list:
+          - Actividades extracurriculares
+          - Educación en valores
+          - Pruebas estandarizadas y sus tarifas
+          - Evaluación de educación técnica y profesional
+          - Entrenamiento de Reanimación Cardiopulmonar (RCP)
+          school_details_answer_html: |
+            Puedes encontrar esta información en el recibo que te entregaron en la escuela.
+            <br/><br/>
+            O
+            <br/><br/>
+            Visita el Departamento de Ingresos de Arizona para encontrar la información.
+            <br/><br/>
+            Para evitar errores, resalte el texto en el PDF, luego cópielo (Ctrl + C) y péguelo (Ctrl + V) directamente en esta página.
+          school_details_question: "¿Dónde puedo encontrar la información de la escuela?"
+          which_qualify: "¿Qué donaciones y tarifas califican?"
         index:
           add_another: Añadir otra contribución
           amount_contributed: 'Cantidad contribuida: %{amount}'
@@ -2282,7 +2308,7 @@ es:
         edit:
           assistance_label: "¿%{name} necesitó ayuda con actividades diarias como vestirse, comer, tomar medicamentos, hacer compras o preparar su comida?"
           passed_away_label: "%{name}falleció en el %{filing_year}?"
-          title: Proporciónanos más información sobre las personas en tu familia que tienen 65 años o más.
+          title: Necesitamos información adicional sobre %{dependents_name_list}
       az_subtractions:
         edit:
           armed_forces_member_label_html: Tú o tu cónyuge son miembros de las Reservas, la Guardia Nacional o las Fuerzas Armadas de los Estados Unidos <strong>y</strong> recibieron un salario por el servicio activo.
@@ -2368,6 +2394,8 @@ es:
           body_html: No puedes usar esta herramienta este año porque tú %{ineligible_reason}. <strong>¿Es un error?</strong><a href=%{prev_link}>Regresa para corregirlo.</a>
           ineligible_reason:
             eligibility_529_for_non_qual_expense: retiraste dinero de una cuenta de ahorro universitario 529 y lo utilizaste para un gasto no calificado en el %{filing_year}
+            eligibility_ed_loan_cancelled: tenía una deuda de préstamo estudiantil cancelada bajo la Ley del Plan de Rescate Estadounidense.
+            eligibility_ed_loan_emp_payment: recibió un pago de préstamo educativo calificado pagado por su empleador.
             eligibility_emergency_rental_assistance: recibió asistencia de alquiler de emergencia en %{filing_year}
             eligibility_home_different_areas: o su cónyuge tenían sus residencias permanentes en dos condados, ciudades, pueblos o áreas impositivas diferentes el último día del año fiscal.
             eligibility_homebuyer_withdrawal: retiraron dinero de una cuenta para compradores de vivienda por primera vez y lo usaron para algo que no era comprar una vivienda.
@@ -2403,10 +2431,12 @@ es:
           vita_link: Solicitar asistencia de un voluntario VITA
       eligible:
         az_supported:
+          charitable_contributions_credit: Credit for Contributions to Qualifying Charitable Organizations
           dependent_credit: Crédito por Dependientes
           family_income_credit: Crédito por ingresos familiares
           increased_deduction: Una deducción aumentada por donaciones caritativas
           increased_excise_credit: Aumento en el crédito por impuesto de consumo
+          public_school_credit: Public School Tax Credit
         az_unsupported:
           other_credits_301_html: Créditos no reembolsables enumerados en el <a href="https://azdor.gov/sites/default/files/2023-03/FORMS_CREDIT_2022_301-SBI_f.pdf" target="_blank" rel="noopener nofollow">Formulario AZ 301</a>
           other_credits_529_html: <a href="https://az529.gov/what-is-a-529-plan/az-tax-incentives/" target="_blank" rel="noopener nofollow">Deducción por contribuciones al plan 529 de Arizona</a>
@@ -2414,8 +2444,6 @@ es:
           other_credits_change_filing_status: Cambio en el estado civil de presentación de la declaración federal a estatal
           other_credits_heading: 'Otros créditos y deducciones no admitidos este año:'
           other_credits_itemized_deductions: Deducciones detalladas
-          other_credits_qcos_html: <a href="https://azdor.gov/tax-credits/credits-contributions-qcos-and-qfcos" target="_blank" rel="noopener nofollow">Crédito por donaciones caritativas a organizaciones calificadas</a>
-          other_credits_qfcos_html: <a href="https://azdor.gov/tax-credits/credits-contributions-qcos-and-qfcos" target="_blank" rel="noopener nofollow">Crédito por donaciones caritativas a organizaciones de cuidado y crianza calificadas</a>
           property_tax_credit_age: Tener 65 años o más, o recibir pagos de Seguridad de Ingreso Suplementario
           property_tax_credit_heading_html: '<a href="https://azdor.gov/individuals/income-tax-filing-assistance/tax-credits" target="_blank" rel="noopener nofollow">Crédito tributario por impuestos a la propiedad</a>. Para calificar para este crédito, debes:'
           property_tax_credit_income: Tener un ingreso total del hogar menor a $3,751 si vives solo; o un ingreso total del hogar menor a $5,501 si vives con otros
@@ -2424,10 +2452,13 @@ es:
           public_school_tax_credit_paid_fees: Haber pagado tarifas relacionadas con la escuela o donado dinero a una escuela pública
           public_school_tax_credit_provide_info_html: Compartir información de la escuela, incluyendo el <a href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_ADESchoolListing.pdf" target="_blank" rel="noopener nofollow">código CTDS</a>
         edit:
+          body_html: |
+            Asegurémonos que este servicio es el adecuado para ti.
+            <br/><br/>
+            Estos son los créditos y las deducciones <strong>que puedes reclamar</strong> con este servicio para maximizar tu reembolso.
           not_supported: "¿Cuáles créditos y deducciones no admite esta herramienta este año?"
+          not_supported_reveal_heading: "¿Quieres reclamar estos créditos o deducciones? "
           title1: "¡Buenas noticias! Puedes usar esta herramienta este año %{year} para presentar tus impuestos estatales %{state}."
-          title2_html: Aquí están los créditos y deducciones que <strong>podrías</strong> reclamar con esta herramienta para maximizar tu reembolso.
-          want_to_claim_heading: "¿Quieres reclamar estos créditos o deducciones? "
           want_to_claim_learn_more_html: Obtén más información sobre este proceso y otras opciones de presentación <a href="%{link}" target="_blank">aquí</a>.
           want_to_claim_vita: Es posible que puedas presentar tu declaración de impuestos estatales de forma gratuita con la ayuda de voluntarios VITA certificados por el IRS en %{state_name}. Ten en cuenta que esta opción puede demorar de 2 a 3 semanas en completarse.
         id_supported:
@@ -2778,44 +2809,18 @@ es:
           title: Es posible que califique para la deducción por dos ingresos de Maryland
           total: La deducción total de intereses de préstamos estudiantiles para su declaración federal y la de su cónyuge es %{total_deduction}.
           your_portion_label: Su parte de la deducción de intereses del préstamo estudiantil
-      name_dob:
-        edit:
-          dependent_months_lived_label: Número de meses que vivió contigo en %{year}
-          dependent_name_dob: Indícanos la fecha de nacimiento de tu dependiente
-          last_name: Apellido
-          middle_initial: Inicial del segundo nombre
-          months_helper_born_died: Selecciona 12 meses si tu dependiente nació o falleció durante el 2023.
-          months_helper_description: Deberías contar todos los meses en los que tu dependiente vivió en tu hogar, incluyendo los meses en los que estuvo temporalmente ausente por estar en la escuela, en un hospital o centro médico, o ausente por negocios o vacaciones.
-          months_helper_heading: "¿Cuáles meses debería contar?"
-          primary_name_dob: Tu nombre (como aparece en tu tarjeta de Seguro Social o tu carta del Número de Identificación del Contribuyente (ITIN) que termina en %{last_four_ssn}) y la fecha de nacimiento
-          spouse_dob: Fecha de nacimiento de tu cónyuge
-          spouse_name_dob_html: El nombre de tu <strong>cónyuge</strong> (como aparece en su tarjeta de Seguro Social o en la carta del Número de Identificación del Contribuyente (ITIN) que termina en %{last_four_ssn}) y la fecha de nacimiento.
-          spouse_name_html: El nombre de tu <strong>cónyuge</strong> (como aparece en su tarjeta de Seguro Social o en la carta del Número de Identificación del Contribuyente (ITIN) que termina en %{last_four_ssn})
-          suffix: Sufijo
-          title1: Tu declaración de impuestos federales ha sido transferida. Antes de que termines, tenemos algunas preguntas finales que pueden ayudar a maximizar tu reembolso.
-          title2: Primero, necesitamos más información sobre ti y los miembros de tu familia.
-          your_dob: Tu fecha de nacimiento
       nc_county:
         edit:
           county: Condado
           title: Seleccione el condado donde vivía el 31 de diciembre de %{filing_year}
-      nc_eligibility_out_of_state_income:
+      nc_eligibility:
         edit:
-          out_of_state_income_html: "¿Usted (o su cónyuge, si presentan la declaración juntos) obtuvo algún ingreso en otro estado en %{filing_year}? (Esto incluye los ingresos por desempleo <strong>recibidos</strong> de otro estado)."
-          reveal:
-            list1: Retiró dinero de una cuenta 529 y lo usó para gastos calificados, o
-            list2: No retiraste dinero de una cuenta 529 en absoluto.
-            p1: Los gastos calificados incluyen matrícula y cuotas, libros, equipo (incluidas computadoras y otra tecnología), alojamiento y comida, programas de aprendizaje y matrícula K-12 hasta $10,000.
-            p2: La mayoría de los demás usos de los fondos son gastos no calificados, incluidas las tarifas de solicitud y exámenes universitarios, costos de transporte, seguro médico y costos extracurriculares.
-            subtitle: 'Seleccione ''no'' si:'
-            title: "¿Qué son los gastos calificados y no calificados?"
-          title: Primero, veamos si puedes usar esta herramienta para presentar tus impuestos.
-          withdraw_529_html: ¿Retiró usted (o su cónyuge, si presentan una declaración juntos) dinero de un <a href="https://www.cfnc.org/save-for-college/" target="_blank" rel="noopener nofollow">Cuenta de ahorros para la universidad 529</a> y usarla para gastos no calificados en %{filing_year}?
-      nc_eligibility_residence:
-        edit:
-          lived_in_state_html: "¿Usted (y su cónyuge, si presentan la declaración juntos) vivieron en %{state} durante <strong>todo</strong> el %{filing_year}?"
-          subtitle: Para la temporada de impuestos %{filing_year}, esta herramienta solo podrá atender a personas con situaciones tributarias específicas. Responda las siguientes preguntas para saber si puede utilizarlo.
-          title: Primero, veamos si puedes usar esta herramienta para presentar tus impuestos.
+          eligibility_ed_loan_cancelled: Tuve un préstamo estudiantil cancelado bajo la Ley del Plan de Rescate Estadounidense
+          eligibility_ed_loan_emp_payment: Recibió un pago de préstamo educativo calificado pagado por su empleador
+          none: Ninguna de estas se aplica
+          question: "¿Se aplicó a usted (o a su cónyuge, si está casado y presenta una declaración conjunta) en %{filing_year} alguno de los siguientes escenarios menos comunes?"
+          subtitle: Para esta temporada de impuestos, este servicio solo podrá atender a personas con situaciones tributarias específicas. Por favor, responda las siguientes preguntas para saber si puede utilizarlo.
+          title: Primero, veamos si puedes usar esta herramienta para presentar tus impuestos de Carolina del Norte de %{filing_year}
       nc_primary_state_id:
         nc_primary:
           encourage_sharing: Se le recomienda compartir esta información, pero no es obligatorio para presentar su declaración de impuestos de Carolina del Norte.
@@ -2832,6 +2837,8 @@ es:
           state_credit: Cantidad ganada como miembro de una tribu indígena reconocida federalmente
           subtraction_indian_tribe: Resta de ingresos de un miembro de una tribu india
           use_tax_applied: Impuesto de Uso Aplicado
+        review_header:
+          unemployment_compensation: Compensación por Desempleo
       nc_sales_use_tax:
         edit:
           calculated_use_tax: Ingresa el impuesto de uso calculado
@@ -2993,6 +3000,15 @@ es:
           helper_heading: El lugar donde vivo no está en la lista
           municipality: Municipio
           title: Seleccione el municipio donde residía el 31 de diciembre de %{filing_year}
+      nj_primary_state_id:
+        nj_primary:
+          dmv_bmv: Non-driver identification card
+          no_id: No driver's license or state ID / Prefer not to share
+          not_required: You do NOT need to supply this information to file your taxes. The return will not be rejected if you do not have ID or prefer not to share.
+          protect_identity: Many state revenue agencies, including New Jersey, are requesting additional information in an effort to combat stolen-identity tax fraud and to protect you and your tax refund. Providing some details about your state-issued identification will help identify you as the taxpayer.
+          subtitle: Details from your state-issued ID, if you have one, will help New Jersey combat stolen-identity tax fraud and protect you and your tax refund.
+          title: Confirming Your Identity (Optional)
+          why_ask_this: Why are you asking for this information?
       nj_review:
         edit:
           amount: Cantidad
@@ -3031,6 +3047,15 @@ es:
           use_tax_method_automated: Todas mis compras fueron de menos de $1000 cada una. Calcule el monto del impuesto al consumo para mí.
           use_tax_method_manual: Hice una compra no gravada por más de $1000 o preferiría calcular mi impuesto sobre el uso manualmente.
           use_tax_radio_label: "¿Realizó alguna compra fuera del estado que no pagó impuestos?"
+      nj_spouse_state_id:
+        nj_spouse:
+          dmv_bmv: Non-driver identification card
+          no_id: No driver's license or state ID / Prefer not to share
+          not_required: You do NOT need to supply this information to file your taxes. The return will not be rejected if you do not have ID or prefer not to share.
+          protect_identity: To protect your identity and combat tax fraud, many state agencies are asking people to give their driver's license or state ID number.
+          subtitle: Details from your spouse's state-issued ID, if they have one, would also help.
+          title: Confirming Your Spouse's Identity (Optional)
+          why_ask_this: Why are you asking for this information?
       nj_tenant_eligibility:
         edit:
           helper_description: Fui inquilino de una propiedad exenta de impuestos (por ejemplo, vivienda subsidiada y en el campus, propiedad de organizaciones sin fines de lucro, residencia en la que se realizaron pagos P.I.L.O.T.)
@@ -3063,6 +3088,19 @@ es:
           primary_veteran_question: "¿Eres un veterano?"
           spouse_veteran_question: "¿Su cónyuge es un veterano?"
           title: En NJ, los veteranos son elegibles para una exención de impuestos.
+      notification_preferences:
+        edit:
+          email_notification_opt_in: Correo electrónico
+          message_body_one: No compartiremos su información con terceros. La frecuencia de los mensajes variará. Pueden aplicarse tarifas por mensajes y datos.
+          message_body_two_html: Envíe un mensaje de texto con la palabra HELP al 46207 para recibir ayuda. Envíe un mensaje de texto con la palabra STOP al 46207 para cancelar. Los operadores (por ejemplo, AT&T, Verizon, T-Mobile, Sprint, etc.) no son responsables de los mensajes no entregados o demorados. Consulte nuestros<a target="_blank" href=%{sms_terms_link}>Términos y condiciones de SMS</a> y nuestra <a target="_blank" href=%{privacy_link}>Política de privacidad</a>..
+          message_title: Detalles de la mensajería
+          opt_in_label: "¡Seleccione la(s) opción(es) que funcionen mejor para usted!"
+          phone_number: Tu número de teléfono
+          sms_notification_opt_in: Mensaje de texto
+          subtitle: Necesitaremos comunicarnos con usted con preguntas y actualizaciones.
+          title: "¿Cuál es la mejor manera de comunicarme con usted?"
+        form:
+          at_least_one: Se requiere al menos una preferencia de notificación
       ny_county:
         edit:
           county: Condado
@@ -3220,7 +3258,7 @@ es:
           box14_html: "<b>Box 14</b>, Impuesto estatal retenido"
           box15_html: "<b>Box 15</b>, Estado/Número de estado del pagador"
           box16_html: "<b>Box 16</b>, distribución estatal"
-          title: Revise los detalles de sus ingresos de jubilación (1099-R) para %{payer_name}.
+          title_html: Revise los detalles de sus ingresos de jubilación (1099-R) para <strong>%{payer_name}</strong>.
       return_status:
         accepted:
           check_payable: Haz tu cheque o giro postal a nombre del “Arizona Department of Revenue. Escribe tu SSN completo, "%{filing_year} Tax" y 140 en tu pago.
@@ -3263,20 +3301,22 @@ es:
       review:
         county: Condado
       shared:
-        review_footer:
-          download_pdf: Puedes descargar un PDF de tu declaración de impuestos estatales después de enviarla.
-        review_header:
+        abstract_review_header:
           dependent_dob: Su fecha de nacimiento
           dependent_months_in_home: Número de meses que vivieron contigo
           dependent_name: Nombre de tu dependiente
           household_info: Información del hogar
-          income_details: Detalles de ingresos
           nth_dependent_name: Nombre de tu %{ordinal} dependiente
           spouse_name: Nombre de tu cónyuge
           taxes_owed_header: Tu reembolso estimado o tus impuestos estimados a pagar
           taxes_owed_html: Tu reembolso es de $0. Esto significa <strong>que no</strong> recibirás un reembolso estatal y <strong>no</strong> debes impuestos estatales. Deberías terminar de presentar tu declaración, ya que es posible que estés obligado/a a presentarla aunque no recibirás dinero.
           title: "¡Terminaste! Revisa tu declaración de impuestos estatales antes de enviarla."
           your_name: Tu nombre
+        review_footer:
+          download_pdf: Puedes descargar un PDF de tu declaración de impuestos estatales después de enviarla.
+        review_header:
+          income_details: Detalles de ingresos
+          title: "¡Terminaste! Revisa tu declaración de impuestos estatales antes de enviarla."
           your_refund: Tu reembolso
           your_tax_owed: Tus impuestos adeudados
       spouse_state_id:

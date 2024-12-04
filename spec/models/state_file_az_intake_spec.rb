@@ -24,6 +24,7 @@
 #  eligibility_out_of_state_income        :integer          default("unfilled"), not null
 #  email_address                          :citext
 #  email_address_verified_at              :datetime
+#  email_notification_opt_in              :integer          default("unfilled"), not null
 #  failed_attempts                        :integer          default(0), not null
 #  federal_return_status                  :string
 #  has_prior_last_names                   :integer          default("unfilled"), not null
@@ -53,6 +54,7 @@
 #  referrer                               :string
 #  routing_number                         :string
 #  sign_in_count                          :integer          default(0), not null
+#  sms_notification_opt_in                :integer          default("unfilled"), not null
 #  source                                 :string
 #  spouse_birth_date                      :date
 #  spouse_esigned                         :integer          default("unfilled"), not null
@@ -119,22 +121,6 @@ describe StateFileAzIntake do
         }.to change(intake, :armed_forces_member).to("unfilled")
         .and change(intake, :spouse_esigned_at).to(nil)
         expect(intake.account_type).to eq "unfilled"
-      end
-    end
-  end
-
-  describe "#ask_spouse_name?" do
-    context "when married filing jointly" do
-      it "returns true" do
-        intake = build(:state_file_az_intake, filing_status: "married_filing_jointly")
-        expect(intake.ask_spouse_name?).to eq true
-      end
-    end
-
-    context "when married filing separate" do
-      it "returns false" do
-        intake = build(:state_file_az_intake, filing_status: "married_filing_separately")
-        expect(intake.ask_spouse_name?).to eq false
       end
     end
   end

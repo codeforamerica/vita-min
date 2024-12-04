@@ -78,12 +78,14 @@ describe Efile::Nc::D400Calculator do
   end
 
   describe "Line 12a: NCAGIAddition" do
-    it "sums lines 10b and 11 (9 is blank)" do
-      allow(instance).to receive(:calculate_line_10b).and_return 10
-      allow(instance).to receive(:calculate_line_11).and_return 10
+    it "sums lines 9, 10b and 11" do
+      allow(instance).to receive(:line_or_zero).and_call_original
+      allow(instance).to receive(:line_or_zero).with(:NCD400_S_LINE_41).and_return(10)
+      allow(instance).to receive(:line_or_zero).with(:NCD400_LINE_10B).and_return(10)
+      allow(instance).to receive(:line_or_zero).with(:NCD400_LINE_11).and_return(10)
 
       instance.calculate
-      expect(instance.lines[:NCD400_LINE_12A].value).to eq 20
+      expect(instance.lines[:NCD400_LINE_12A].value).to eq 30
     end
   end
 
@@ -278,7 +280,7 @@ describe Efile::Nc::D400Calculator do
       it "returns line 19 - line 25" do
         allow(instance).to receive(:calculate_line_19).and_return 200
         allow(instance).to receive(:calculate_line_25).and_return 100
-        
+
         instance.calculate
         expect(instance.lines[:NCD400_LINE_26A].value).to eq 100
       end
@@ -352,6 +354,40 @@ describe Efile::Nc::D400Calculator do
       allow(instance).to receive(:calculate_line_19).and_return 10
       instance.calculate
       expect(instance.refund_or_owed_amount).to eq(-10)
+    end
+  end
+
+  describe "#calculate_gov_payments" do
+    context "single filer" do
+      let(:intake) { create(:state_file_nc_intake, :single) }
+      let!(:w2) { create(:state_file_w2, state_file_intake: intake, state_income_tax_amount: 100) }
+
+      let!(:state_file_1099g) { create(:state_file1099_g, intake: intake, unemployment_compensation_amount: 50) }
+      let!(:second_state_file_1099g) { create(:state_file1099_g, intake: intake, unemployment_compensation_amount: 25) }
+
+      it "accumulates the state income tax withheld from filer 1099Gs" do
+        expect(instance.calculate_gov_payments).to eq(75) # 50 + 25
+      end
+    end
+
+    context "mfs filer" do
+      let(:intake) { create(:state_file_nc_intake, :married_filing_separately) }
+      let!(:state_file_1099g) { create(:state_file1099_g, intake: intake, unemployment_compensation_amount: 50) }
+      let!(:spouse_state_file_1099g) { create(:state_file1099_g, intake: intake, recipient: 'spouse', unemployment_compensation_amount: 25) }
+
+      it "accumulates the state income tax withheld from filer 1099Gs" do
+        expect(instance.calculate_gov_payments).to eq(50)
+      end
+    end
+
+    context "mfj filer" do
+      let(:intake) { create(:state_file_nc_intake, :with_spouse) }
+      let!(:state_file_1099g) { create(:state_file1099_g, intake: intake, unemployment_compensation_amount: 50) }
+      let!(:spouse_state_file_1099g) { create(:state_file1099_g, intake: intake, recipient: 'spouse', unemployment_compensation_amount: 25) }
+
+      it "accumulates the state income tax withheld from filer and spouse 1099Gs" do
+        expect(instance.calculate_gov_payments).to eq(75) # 50 + 25
+      end
     end
   end
 end

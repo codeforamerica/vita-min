@@ -17,7 +17,7 @@ describe Efile::Id::Id39RCalculator do
       }
       it "sums the interest from government bonds across all reports" do
         instance.calculate
-        expect(instance.lines[:ID39R_B_LINE_3].value).to eq(2)
+        expect(instance.lines[:ID39R_B_LINE_3].value).to eq(50)
       end
     end
 

@@ -1,0 +1,26 @@
+{
+  "familyAndHousehold": [],
+  "filers": [
+    {
+      "firstName": "Ann",
+      "lastName": "Anchovy",
+      "middleInitial": null,
+      "tin": "400-00-7201",
+      "dateOfBirth": "1965-10-10",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "ssnNotValidForEmployment": null
+    },
+    {
+      "lastName": "Anchovy",
+      "firstName": "Andrew",
+      "middleInitial": null,
+      "tin": "400-00-7202",
+      "dateOfBirth": "1960-01-01",
+      "suffix": null,
+      "isPrimaryFiler": false,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "interestReports": []
+}

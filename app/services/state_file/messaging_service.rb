@@ -27,7 +27,8 @@ module StateFile
       if intake.unsubscribed_from_email?
         DatadogApi.increment("mailgun.state_file_notification_emails.not_sent_because_unsubscribed")
       end
-      # send_sms if @do_sms # TODO: Eventually send SMS when fixed
+
+      send_sms(require_verification:) if @do_sms
 
       message_tracker.record(sent_messages.last.created_at) if sent_messages.any? # will this be recorded correctly with what we have on line 40
 
@@ -52,6 +53,21 @@ module StateFile
         sent_messages << sent_message if sent_message.present?
       end
     end
+
+    def send_sms(require_verification: true)
+      phone_number_verified = intake.phone_number_verified_at.present? || matching_intakes_has_phone_number_verified_at?(intake)
+      return if intake.phone_number.nil?
+      return if require_verification && !phone_number_verified
+
+      if @message_instance.sms_body.present?
+        twilio = TwilioService.new(:statefile)
+
+        twilio.send_text_message(
+          to: intake.phone_number,
+          body: @message_instance.sms_body(locale: @locale, **sms_args)
+        )
+      end
+    end
     
     def matching_intakes_has_email_verified_at?(intake)
       return if intake.email_address.nil? || intake.hashed_ssn.nil?
@@ -62,10 +78,14 @@ module StateFile
       matching_intakes.present?
     end
 
+    def matching_intakes_has_phone_number_verified_at?(intake)
+      return if intake.phone_number.nil? || intake.hashed_ssn.nil?
 
-    # def send_sms
-    #   return unless Flipper.enabled?(:sms_notifications)
-    # end
+      intake_class = StateFile::StateInformationService.intake_class(intake.state_code)
+      matching_intakes = intake_class.where(phone_number: intake.phone_number, hashed_ssn: intake.hashed_ssn)
+                                     .where.not(phone_number_verified_at: nil)
+      matching_intakes.present?
+    end
 
     def base_args
       first_name = intake.primary_first_name ? intake.primary_first_name.split(/ |\_/).map(&:capitalize).join(" ") : ""
