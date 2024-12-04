@@ -5,7 +5,6 @@
 #  id                                                     :bigint           not null, primary key
 #  account_number                                         :string
 #  account_type                                           :integer          default("unfilled"), not null
-#  bank_name                                              :string
 #  claimed_as_dep                                         :integer
 #  claimed_as_eitc_qualifying_child                       :integer          default("unfilled"), not null
 #  consented_to_terms_and_conditions                      :integer          default("unfilled"), not null
@@ -15,7 +14,6 @@
 #  current_sign_in_ip                                     :inet
 #  current_step                                           :string
 #  date_electronic_withdrawal                             :date
-#  df_data_import_failed_at                               :datetime
 #  df_data_import_succeeded_at                            :datetime
 #  df_data_imported_at                                    :datetime
 #  eligibility_all_members_health_insurance               :integer          default("unfilled"), not null
@@ -23,6 +21,7 @@
 #  eligibility_out_of_state_income                        :integer          default("unfilled"), not null
 #  email_address                                          :citext
 #  email_address_verified_at                              :datetime
+#  email_notification_opt_in                              :integer          default("unfilled"), not null
 #  estimated_tax_payments                                 :decimal(12, 2)
 #  failed_attempts                                        :integer          default(0), not null
 #  fed_taxable_income                                     :integer
@@ -72,6 +71,7 @@
 #  sales_use_tax                                          :decimal(12, 2)
 #  sales_use_tax_calculation_method                       :integer          default("unfilled"), not null
 #  sign_in_count                                          :integer          default(0), not null
+#  sms_notification_opt_in                                :integer          default("unfilled"), not null
 #  source                                                 :string
 #  spouse_birth_date                                      :date
 #  spouse_claimed_as_eitc_qualifying_child                :integer          default("unfilled"), not null
@@ -117,6 +117,7 @@ FactoryBot.define do
 
     raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("nj_zeus_one_dep") }
     raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_zeus_one_dep') }
+    df_data_import_succeeded_at { DateTime.now }
     
     after(:build) do |intake, evaluator|
       intake.municipality_code = "0101"

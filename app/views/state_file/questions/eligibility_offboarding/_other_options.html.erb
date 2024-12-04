@@ -1,20 +1,19 @@
-<p><%= t(".other_option", state_name: current_state_name) %></p>
-
 <div class="reveal">
-  <p><button class="reveal__button"><%= t('.learn_more_reveal.title') %></button></p>
+  <p><button class="reveal__button"><%= t('.vita_option_title') %></button></p>
   <div class="reveal__content">
-    <p><%= t('.learn_more_reveal.p1', state_name: current_state_name) %></p>
-    <p><%= t('.learn_more_reveal.p2') %></p>
-    <p><%= t('.learn_more_here_html', link: @faq_other_options_link) %></p>
+    <div>
+      <%= render partial: "state_file/questions/eligible/vita_option" %>
+    </div>
   </div>
 </div>
+
 
 <div class="reveal">
   <p><button class="reveal__button"><%= t('.other_options_reveal.title') %></button></p>
   <div class="reveal__content">
     <p><%= t('.other_options_reveal.list.body') %></p>
     <ul>
-      <li><%= t('.other_options_reveal.list.list1_html') %></li>
+      <li><%= t('.other_options_reveal.list.list1') %></li>
       <li><%= t('.other_options_reveal.list.list2') %></li>
       <li><%= t('.other_options_reveal.list.list3') %></li>
     </ul>
@@ -23,5 +22,5 @@
   </div>
 </div>
 
-<p class="spacing-above-35"><%= link_to t(".vita_link"), @vita_link %></p>
+<p class="spacing-above-35"><%= link_to t("state_file.questions.eligible.vita_option.vita_link"), @vita_link %></p>
 <p><%= link_to t(".faq_link"), state_faq_path(us_state: current_state_code) %></p>

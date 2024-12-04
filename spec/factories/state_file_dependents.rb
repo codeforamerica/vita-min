@@ -41,27 +41,28 @@ FactoryBot.define do
     first_name { "Ali" }
     middle_initial {"U"}
     last_name { "Poppyseed" }
-    relationship { "DAUGHTER" }
+    relationship { "biologicalChild" }
     ssn { "123456789" }
+    dob { Date.today - 20.years }
 
     factory :az_senior_dependent_missing_intake_answers do
       dob { StateFileDependent.senior_cutoff_date }
       months_in_home { 12 }
-      relationship { "PARENT" }
+      relationship { "parent" }
     end
 
     factory :az_senior_dependent do
       dob { StateFileDependent.senior_cutoff_date }
       needed_assistance { "yes" }
       months_in_home { 12 }
-      relationship { "PARENT" }
+      relationship { "parent" }
     end
 
     factory :az_senior_dependent_no_assistance do
       dob { StateFileDependent.senior_cutoff_date }
       needed_assistance { "no" }
       months_in_home { 12 }
-      relationship { "PARENT" }
+      relationship { "parent" }
     end
 
     factory :az_hoh_qualifying_person_nonparent do
@@ -69,7 +70,7 @@ FactoryBot.define do
       first_name { "Nonparent" }
       last_name { "Qualifying" }
       months_in_home { 12 }
-      relationship { "DAUGHTER" }
+      relationship { "biologicalChild" }
     end
 
 
@@ -78,7 +79,7 @@ FactoryBot.define do
       first_name { "Parent" }
       last_name { "Qualifying" }
       months_in_home { 0 }
-      relationship { "PARENT" }
+      relationship { "parent" }
     end
 
     factory :az_hoh_nonqualifying_person_nonparent do
@@ -86,7 +87,7 @@ FactoryBot.define do
       first_name { "Nonparent" }
       last_name { "Nonqualifying" }
       months_in_home { 5 }
-      relationship { "DAUGHTER" }
+      relationship { "biologicalChild" }
     end
 
     factory :az_hoh_nonqualifying_person_none_relationship do
@@ -94,7 +95,7 @@ FactoryBot.define do
       first_name { "NoneRelationship" }
       last_name { "Nonqualifying" }
       months_in_home { 12 }
-      relationship { "NONE" }
+      relationship { "noneOfTheAbove" }
     end
   end
 end

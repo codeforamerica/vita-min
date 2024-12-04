@@ -5,7 +5,6 @@
 #  id                                :bigint           not null, primary key
 #  account_number                    :string
 #  account_type                      :integer          default("unfilled"), not null
-#  bank_name                         :string
 #  city                              :string
 #  consented_to_terms_and_conditions :integer          default("unfilled"), not null
 #  contact_preference                :integer          default("unfilled"), not null
@@ -13,14 +12,16 @@
 #  current_sign_in_ip                :inet
 #  current_step                      :string
 #  date_electronic_withdrawal        :date
-#  df_data_import_failed_at          :datetime
 #  df_data_import_succeeded_at       :datetime
 #  df_data_imported_at               :datetime
+#  eligibility_ed_loan_cancelled     :integer          default("no"), not null
+#  eligibility_ed_loan_emp_payment   :integer          default("no"), not null
 #  eligibility_lived_in_state        :integer          default("unfilled"), not null
 #  eligibility_out_of_state_income   :integer          default("unfilled"), not null
 #  eligibility_withdrew_529          :integer          default("unfilled"), not null
 #  email_address                     :citext
 #  email_address_verified_at         :datetime
+#  email_notification_opt_in         :integer          default("unfilled"), not null
 #  failed_attempts                   :integer          default(0), not null
 #  federal_return_status             :string
 #  hashed_ssn                        :string
@@ -48,6 +49,7 @@
 #  sales_use_tax                     :decimal(12, 2)
 #  sales_use_tax_calculation_method  :integer          default("unfilled"), not null
 #  sign_in_count                     :integer          default(0), not null
+#  sms_notification_opt_in           :integer          default("unfilled"), not null
 #  source                            :string
 #  spouse_birth_date                 :date
 #  spouse_esigned                    :integer          default("unfilled"), not null
@@ -97,6 +99,8 @@ FactoryBot.define do
 
     raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nc_nick') }
     raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nc_nick') }
+    df_data_import_succeeded_at { DateTime.now }
+
     primary_first_name { "North" }
     primary_middle_initial { "A" }
     primary_last_name { "Carolinian" }
@@ -116,6 +120,19 @@ FactoryBot.define do
 
     trait :with_w2s_synced do
       after(:create, &:synchronize_df_w2s_to_database)
+    end
+
+    trait :taxes_owed do
+      after(:build) do |intake, _evaluator|
+        intake.direct_file_data.fed_agi = 120000
+        intake.raw_direct_file_data = intake.direct_file_data.to_s
+        intake.payment_or_deposit_type = "direct_deposit"
+        intake.account_type = "checking"
+        intake.routing_number = 111111111
+        intake.account_number = 222222222
+        intake.date_electronic_withdrawal = Date.new(Rails.configuration.statefile_current_tax_year, 4, 15)
+        intake.withdraw_amount = 5
+      end
     end
 
     trait :with_spouse do
@@ -151,6 +168,7 @@ FactoryBot.define do
     end
 
     trait :married_filing_separately do
+      filing_status { 'married_filing_separately' }
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nc_sheldon_mfs') }
     end
 

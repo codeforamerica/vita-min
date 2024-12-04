@@ -5,7 +5,6 @@
 #  id                                 :bigint           not null, primary key
 #  account_number                     :string
 #  account_type                       :integer          default("unfilled"), not null
-#  bank_name                          :string
 #  confirmed_permanent_address        :integer          default("unfilled"), not null
 #  confirmed_third_party_designee     :integer          default("unfilled"), not null
 #  consented_to_terms_and_conditions  :integer          default("unfilled"), not null
@@ -14,7 +13,6 @@
 #  current_sign_in_ip                 :inet
 #  current_step                       :string
 #  date_electronic_withdrawal         :date
-#  df_data_import_failed_at           :datetime
 #  df_data_import_succeeded_at        :datetime
 #  df_data_imported_at                :datetime
 #  eligibility_lived_in_state         :integer          default("unfilled"), not null
@@ -24,6 +22,7 @@
 #  eligibility_yonkers                :integer          default("unfilled"), not null
 #  email_address                      :citext
 #  email_address_verified_at          :datetime
+#  email_notification_opt_in          :integer          default("unfilled"), not null
 #  failed_attempts                    :integer          default(0), not null
 #  federal_return_status              :string
 #  hashed_ssn                         :string
@@ -80,6 +79,7 @@
 #  school_district                    :string
 #  school_district_number             :integer
 #  sign_in_count                      :integer          default(0), not null
+#  sms_notification_opt_in            :integer          default("unfilled"), not null
 #  source                             :string
 #  spouse_birth_date                  :date
 #  spouse_esigned                     :integer          default("unfilled"), not null
@@ -155,6 +155,8 @@ class StateFileNyIntake < StateFileBaseIntake
   enum confirmed_third_party_designee: { unfilled: 0, yes: 1, no: 2 }, _prefix: :confirmed_third_party_designee
   enum eligibility_lived_in_state: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_lived_in_state
   enum eligibility_out_of_state_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_out_of_state_income
+  enum email_notification_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :email_notification_opt_in
+  enum sms_notification_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :sms_notification_opt_in
 
   before_save do
 

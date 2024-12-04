@@ -51,18 +51,30 @@ module SubmissionBuilder
                   xml.ClaimedAsDependent 1
                 end
 
-                xml.StandardDeduction @direct_file_data.total_itemized_or_standard_deduction_amount
+                xml.StandardDeduction calculated_fields.fetch(:ID40_LINE_16)
                 xml.TaxableIncomeState calculated_fields.fetch(:ID40_LINE_19)
                 xml.StateIncomeTax calculated_fields.fetch(:ID40_LINE_20)
                 xml.IdahoChildTaxCredit calculated_fields.fetch(:ID40_LINE_25)
                 xml.StateUseTax calculated_fields.fetch(:ID40_LINE_29)
                 xml.PermanentBuildingFund calculated_fields.fetch(:ID40_LINE_32A)
                 xml.PublicAssistanceIndicator calculated_fields.fetch(:ID40_LINE_32B)
-                add_non_zero_value(xml, :TotalTax, :ID40_LINE_42)
+                add_non_zero_value(xml, :TotalTax, :ID40_LINE_33)
+                add_non_zero_value(xml, :WildlifeDonation, :ID40_LINE_34)
+                add_non_zero_value(xml, :ChildrensTrustDonation, :ID40_LINE_35)
+                add_non_zero_value(xml, :SpecialOlympicDonation, :ID40_LINE_36)
+                add_non_zero_value(xml, :NationalGuardDonation, :ID40_LINE_37)
+                add_non_zero_value(xml, :RedCrossDonation, :ID40_LINE_38)
+                add_non_zero_value(xml, :VeteransSupportDonation, :ID40_LINE_39)
+                add_non_zero_value(xml, :FoodBankDonation, :ID40_LINE_40)
+                add_non_zero_value(xml, :OpportunityScholarshipProgram, :ID40_LINE_41)
                 xml.WorksheetGroceryCredit calculated_fields.fetch(:ID40_LINE_43_WORKSHEET)
                 xml.GroceryCredit calculated_fields.fetch(:ID40_LINE_43)
                 xml.DonateGroceryCredit calculated_fields.fetch(:ID40_LINE_43_DONATE)
                 xml.TaxWithheld calculated_fields.fetch(:ID40_LINE_46)
+                add_element_if_present(xml, "TaxDue", :ID40_LINE_51)
+                add_element_if_present(xml, "TotalDue", :ID40_LINE_54)
+                add_element_if_present(xml, "OverpaymentAfterPenaltyAndInt", :ID40_LINE_55)
+                add_element_if_present(xml, "OverpaymentRefunded", :ID40_LINE_56)
               end
             end
 

@@ -22,30 +22,15 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       step_through_initial_authentication(contact_preference: :email)
 
+      check "Email"
+      check "Text message"
+      fill_in "Your phone number", with: "+12025551212"
+      click_on "Continue"
+
       expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
       click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
 
       step_through_df_data_transfer
-
-      expect(page).to have_text I18n.t("state_file.questions.data_review.edit.title")
-      click_on I18n.t("general.continue")
-
-      # name dob page
-      expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.title1", year: filing_year, state: "ny")
-      expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.title2")
-      expect(page).to have_text "Your responses are saved. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org."
-      fill_in "state_file_name_dob_form[primary_first_name]", with: "Titus"
-      fill_in "state_file_name_dob_form[primary_last_name]", with: "Testerson"
-      select_cfa_date "state_file_name_dob_form_primary_birth_date", Date.new(1978, 6, 21)
-
-      within "#dependent-0" do
-        expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.dependent_name_dob", number: "first")
-        expect(page).to have_field("state_file_name_dob_form_dependents_attributes_0_first_name", disabled: true)
-        expect(page).to have_field("state_file_name_dob_form_dependents_attributes_0_last_name", disabled: true)
-
-        select_cfa_date "state_file_name_dob_form_dependents_attributes_0_dob", Date.new(2017, 7, 12)
-      end
-      click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t("state_file.questions.nyc_residency.edit.title", year: filing_year)
       choose "I did not live in New York City at all in #{filing_year}"
@@ -94,7 +79,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in "For New York IDs: First three characters of the document number (located on the back of your ID)", with: "ABC"
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title.one', year: MultiTenantService.statefile.current_tax_year)
+      expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title')
       choose I18n.t("general.affirmative")
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_name'), with: "Business Name"
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_address'), with: "123 Main St"
@@ -138,7 +123,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_link I18n.t("state_file.questions.submission_confirmation.edit.download_state_return_pdf")
       click_on "Main XML Doc"
       expect(page.body).to include('ReturnState')
-      expect(page.body).to include('<FirstName>Titus</FirstName>')
+      expect(page.body).to include('<FirstName>Testy</FirstName>')
 
       assert_flow_explorer_sample_params_includes_everything('ny')
 
@@ -160,40 +145,21 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.landing_page.edit.az.title")
       click_on I18n.t('general.get_started'), id: "firstCta"
 
-      step_through_eligibility_screener(us_state: "az")
+      click_on I18n.t("general.continue")
 
       step_through_initial_authentication(contact_preference: :email)
+
+      check "Email"
+      check "Text message"
+      fill_in "Your phone number", with: "+12025551212"
+      click_on "Continue"
 
       expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
       click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
 
       step_through_df_data_transfer("Transfer Old sample")
 
-      expect(page).to have_text I18n.t("state_file.questions.data_review.edit.title")
-      click_on I18n.t("general.continue")
-
-      expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.title1", year: filing_year, state: "az")
-      expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.title2")
-      expect(page).to have_text "Your responses are saved. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org."
-      fill_in "state_file_name_dob_form_primary_first_name", with: "Titus"
-      fill_in "state_file_name_dob_form_primary_last_name", with: "Testerson"
-      select_cfa_date "state_file_name_dob_form_primary_birth_date", Date.new(1978, 6, 21)
-
-      within "#dependent-0" do
-        expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.dependent_name_dob", number: "first")
-        expect(page).to have_field("state_file_name_dob_form_dependents_attributes_0_first_name", disabled: true)
-        expect(page).to have_field("state_file_name_dob_form_dependents_attributes_0_last_name", disabled: true)
-
-        select_cfa_date "state_file_name_dob_form_dependents_attributes_0_dob", Date.new(2017, 7, 12)
-        select "12", from: "state_file_name_dob_form_dependents_attributes_0_months_in_home"
-      end
-      within "#dependent-1" do
-        select_cfa_date "state_file_name_dob_form_dependents_attributes_1_dob", Date.new(1940, 10, 31)
-        select "12", from: "state_file_name_dob_form_dependents_attributes_1_months_in_home"
-      end
-      click_on I18n.t("general.continue")
-
-      expect(page).to have_text I18n.t("state_file.questions.az_senior_dependents.edit.title")
+      expect(page).to have_text I18n.t("state_file.questions.az_senior_dependents.edit.title", dependents_name_list: "Grampy")
       expect(page).to have_text I18n.t("state_file.questions.az_senior_dependents.edit.assistance_label", name: "Grampy")
       expect(page).to have_text I18n.t("state_file.questions.az_senior_dependents.edit.passed_away_label", name: "Grampy", filing_year: filing_year)
       choose "state_file_az_senior_dependents_form_dependents_attributes_0_needed_assistance_yes"
@@ -208,7 +174,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text "Here are the income forms we transferred from your federal tax return."
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title.one', year: filing_year)
+      expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title', year: filing_year)
       choose I18n.t("general.affirmative")
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_name'), with: "Business Name"
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_address'), with: "123 Main St"
@@ -225,7 +191,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text(I18n.t('state_file.questions.unemployment.index.1099_label', name: StateFileAzIntake.last.primary.full_name))
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t('state_file.questions.az_public_school_contributions.edit.title', year: filing_year)
+      expect(strip_html_tags(page.body)).to have_text strip_html_tags(I18n.t('state_file.questions.az_public_school_contributions.edit.title_html'))
       choose I18n.t("general.affirmative")
       fill_in "az322_contribution_school_name", with: "Tax Elementary"
       fill_in "az322_contribution_ctds_code", with: "123456789"
@@ -287,7 +253,6 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       choose I18n.t("state_file.questions.tax_refund.edit.direct_deposit")
       expect(page).to have_text I18n.t("state_file.questions.tax_refund.bank_details.bank_title")
-      fill_in "state_file_tax_refund_form_bank_name", with: "bank name"
       choose "Checking"
       fill_in "state_file_tax_refund_form_routing_number", with: "019456124"
       fill_in "state_file_tax_refund_form_routing_number_confirmation", with: "019456124"
@@ -306,7 +271,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on "Main XML Doc"
 
       expect(page.body).to include('efile:ReturnState')
-      expect(page.body).to include('<FirstName>Titus</FirstName>')
+      expect(page.body).to include('<FirstName>Testy</FirstName>')
       expect(page.body).to include('<QualParentsAncestors>')
       expect(page.body).to include('<WageAmIndian>100</WageAmIndian>')
       expect(page.body).to include('<CompNtnlGrdArmdFrcs>100</CompNtnlGrdArmdFrcs>')
@@ -336,30 +301,21 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       step_through_initial_authentication(contact_preference: :email)
 
+      check "Email"
+      check "Text message"
+      fill_in "Your phone number", with: "+12025551212"
+      click_on "Continue"
+
       expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
       click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
 
       step_through_df_data_transfer("Transfer Nick")
 
-      expect(page).to have_text I18n.t("state_file.questions.data_review.edit.title")
-      click_on I18n.t("general.continue")
-
-      expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.title1", year: filing_year, state: "nc")
-      expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.title2")
-      expect(page).to have_text "Your responses are saved. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org."
-      fill_in "state_file_name_dob_form_primary_first_name", with: "Titus"
-      fill_in "state_file_name_dob_form_primary_last_name", with: "Testerson"
-      select_cfa_date "state_file_name_dob_form_primary_birth_date", Date.new(1978, 6, 21)
-      fill_in "state_file_name_dob_form_spouse_first_name", with: "Titania"
-      fill_in "state_file_name_dob_form_spouse_last_name", with: "Testerson"
-      select_cfa_date "state_file_name_dob_form_spouse_birth_date", Date.new(1978, 6, 21)
-      click_on I18n.t("general.continue")
-
       expect(page).to have_text I18n.t("state_file.questions.nc_county.edit.title", filing_year: filing_year)
       select("Alamance", from: "County")
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t("state_file.questions.nc_veteran_status.title")
+      expect(page).to have_text I18n.t("state_file.questions.nc_veteran_status.title_spouse")
       choose "state_file_nc_veteran_status_form_primary_veteran_no"
       choose "state_file_nc_veteran_status_form_spouse_veteran_no"
       click_on I18n.t("general.continue")
@@ -368,10 +324,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text "Here are the income forms we transferred from your federal tax return."
-      click_on I18n.t("general.continue")
-
-      expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title.other', year: filing_year)
+      expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title', year: filing_year)
       choose I18n.t("general.affirmative")
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_name'), with: "Business Name"
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_address'), with: "123 Main St"
@@ -412,7 +365,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.questions.shared.review_header.title")
       click_on I18n.t("general.continue")
 
-      expect(strip_html_tags(page.body)).to include strip_html_tags(I18n.t("state_file.questions.tax_refund.edit.title_html", refund_amount: 1000, state_name: "North Carolina"))
+      expect(strip_html_tags(page.body)).to include strip_html_tags(I18n.t("state_file.questions.nc_tax_refund.edit.title_html", refund_amount: 1000))
       choose I18n.t("state_file.questions.tax_refund.edit.mail")
       click_on I18n.t("general.continue")
 
@@ -437,18 +390,20 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       step_through_initial_authentication(contact_preference: :email)
 
+      check "Email"
+      check "Text message"
+      fill_in "Your phone number", with: "+12025551212"
+      click_on "Continue"
+
       expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
       click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
 
       step_through_df_data_transfer
 
-      expect(page).to have_text I18n.t("state_file.questions.data_review.edit.title")
-      click_on I18n.t("general.continue")
-
       expect(page).to have_text "Here are the income forms we transferred from your federal tax return."
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title.one', year: filing_year)
+      expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title', year: filing_year)
       choose I18n.t("general.affirmative")
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_name'), with: "Business Name"
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_address'), with: "123 Main St"
@@ -509,6 +464,12 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text "$1,234.60"
       click_on I18n.t("general.continue")
 
+      # Refund page
+      expect(page).to have_text "Good news, you're getting a Idaho state tax refund of $1452. How would you like to receive your refund?"
+      expect(page).not_to have_text "Your responses are saved. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org."
+      choose I18n.t("state_file.questions.tax_refund.edit.mail")
+      click_on I18n.t("general.continue")
+
       expect(page).to have_text I18n.t("state_file.questions.esign_declaration.edit.title", state_name: "Idaho")
       check I18n.t("state_file.questions.esign_declaration.edit.primary_esign")
       click_on I18n.t("state_file.questions.esign_declaration.edit.submit")
@@ -521,6 +482,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
     before do
       # TODO: replace fixture used here with one that has all the characteristics we want to test
       allow_any_instance_of(DirectFileData).to receive(:fed_unemployment).and_return 100
+      allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:refund_or_owed_amount).and_return 1000
     end
 
     it "has content", required_schema: "md" do
@@ -538,13 +500,15 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       step_through_initial_authentication(contact_preference: :email)
 
+      check "Email"
+      check "Text message"
+      fill_in "Your phone number", with: "+12025551212"
+      click_on "Continue"
+
       expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
       click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
 
       step_through_df_data_transfer("Transfer Zeus two w2s")
-
-      expect(page).to have_text I18n.t("state_file.questions.data_review.edit.title")
-      click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t("state_file.questions.md_permanent_address.edit.title", filing_year: filing_year)
       choose I18n.t("general.affirmative")
@@ -558,7 +522,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text "Here are the income forms we transferred from your federal tax return."
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title.other', year: filing_year)
+      expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title', year: filing_year)
       choose I18n.t("general.affirmative")
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_name'), with: "Business Name"
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_address'), with: "123 Main St"
@@ -596,6 +560,22 @@ RSpec.feature "Completing a state file intake", active_job: true do
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
 
+      expect(strip_html_tags(page.body)).to have_text strip_html_tags(I18n.t("state_file.questions.tax_refund.edit.title_html", state_name: "Maryland", refund_amount: 1000))
+      choose I18n.t('state_file.questions.tax_refund.edit.direct_deposit')
+      choose I18n.t("views.questions.bank_details.account_type.checking")
+      check "Check here if you have a joint account"
+      fill_in 'state_file_md_tax_refund_form_account_holder_first_name', with: "Zeus"
+      fill_in 'state_file_md_tax_refund_form_account_holder_middle_initial', with: "A"
+      fill_in 'state_file_md_tax_refund_form_account_holder_last_name', with: "Thunder"
+      fill_in 'state_file_md_tax_refund_form_joint_account_holder_first_name', with: "Hera"
+      fill_in 'state_file_md_tax_refund_form_joint_account_holder_last_name', with: "Thunder"
+      fill_in 'state_file_md_tax_refund_form_routing_number', with: "019456124"
+      fill_in 'state_file_md_tax_refund_form_routing_number_confirmation', with: "019456124"
+      fill_in 'state_file_md_tax_refund_form_account_number', with: "123456789"
+      fill_in 'state_file_md_tax_refund_form_account_number_confirmation', with: "123456789"
+      check I18n.t('state_file.questions.md_tax_refund.md_bank_details.bank_authorization_confirmation')
+      click_on I18n.t("general.continue")
+
       expect(page).to have_text I18n.t("state_file.questions.esign_declaration.edit.title", state_name: "Maryland")
       fill_in 'state_file_esign_declaration_form_primary_signature_pin', with: "12345"
       fill_in 'state_file_esign_declaration_form_spouse_signature_pin', with: "54321"
@@ -621,13 +601,15 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       step_through_initial_authentication(contact_preference: :email)
 
+      check "Email"
+      check "Text message"
+      fill_in "Your phone number", with: "+12025551212"
+      click_on "Continue"
+
       expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
       click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
 
       step_through_df_data_transfer("Transfer Minimal")
-
-      expect(page).to have_text I18n.t("state_file.questions.data_review.edit.title")
-      click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
       click_on I18n.t("general.continue")
@@ -666,6 +648,11 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       # Gubernatorial elections fund
       choose I18n.t('general.affirmative')
+      expect(page).to be_axe_clean.within "main"
+      click_on I18n.t("general.continue")
+
+      # Driver License
+      choose I18n.t('state_file.questions.nj_primary_state_id.nj_primary.no_id')
       expect(page).to be_axe_clean.within "main"
       click_on I18n.t("general.continue")
 

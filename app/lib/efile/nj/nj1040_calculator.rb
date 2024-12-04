@@ -51,6 +51,7 @@ module Efile
         set_line(:NJ1040_LINE_50, :calculate_line_50)
         set_line(:NJ1040_LINE_51, :calculate_line_51)
         set_line(:NJ1040_LINE_54, :calculate_line_54)
+        set_line(:NJ1040_LINE_55, :calculate_line_55)
         set_line(:NJ1040_LINE_56, :calculate_line_56)
         set_line(:NJ1040_LINE_57, :calculate_line_57)
         set_line(:NJ1040_LINE_58, :calculate_line_58)
@@ -220,7 +221,7 @@ module Efile
       def calculate_line_11_exemption
         line_or_zero(:NJ1040_LINE_11_COUNT) * 1500
       end
-      
+
       def calculate_line_12
         line_or_zero(:NJ1040_LINE_12_COUNT) * 1_000
       end
@@ -358,6 +359,12 @@ module Efile
         [sum, 0].max
       end
 
+      def calculate_line_55
+        return nil if @intake.state_file_w2s.empty?
+
+        @intake.state_file_w2s.inject(0) { |sum, w2| sum + w2.state_income_tax_amount }.round
+      end
+
       def calculate_line_56
         if should_use_property_tax_deduction || is_ineligible_or_unsupported_for_property_tax_credit
           nil
@@ -428,7 +435,7 @@ module Efile
 
       def calculate_line_65
         return nil if @intake.filing_status == :married_filing_separately
-        
+
         eligible_dependents_count = number_of_dependents_age_5_younger
         return nil if eligible_dependents_count.zero?
 

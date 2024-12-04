@@ -5,7 +5,6 @@
 #  id                                 :bigint           not null, primary key
 #  account_number                     :string
 #  account_type                       :integer          default("unfilled"), not null
-#  bank_name                          :string
 #  confirmed_permanent_address        :integer          default("unfilled"), not null
 #  confirmed_third_party_designee     :integer          default("unfilled"), not null
 #  consented_to_terms_and_conditions  :integer          default("unfilled"), not null
@@ -14,7 +13,6 @@
 #  current_sign_in_ip                 :inet
 #  current_step                       :string
 #  date_electronic_withdrawal         :date
-#  df_data_import_failed_at           :datetime
 #  df_data_import_succeeded_at        :datetime
 #  df_data_imported_at                :datetime
 #  eligibility_lived_in_state         :integer          default("unfilled"), not null
@@ -24,6 +22,7 @@
 #  eligibility_yonkers                :integer          default("unfilled"), not null
 #  email_address                      :citext
 #  email_address_verified_at          :datetime
+#  email_notification_opt_in          :integer          default("unfilled"), not null
 #  failed_attempts                    :integer          default(0), not null
 #  federal_return_status              :string
 #  hashed_ssn                         :string
@@ -80,6 +79,7 @@
 #  school_district                    :string
 #  school_district_number             :integer
 #  sign_in_count                      :integer          default(0), not null
+#  sms_notification_opt_in            :integer          default("unfilled"), not null
 #  source                             :string
 #  spouse_birth_date                  :date
 #  spouse_esigned                     :integer          default("unfilled"), not null
@@ -142,7 +142,6 @@ describe StateFileNyIntake do
         create :state_file_ny_intake,
                payment_or_deposit_type: "direct_deposit",
                account_type: "checking",
-               bank_name: "Wells Fargo",
                routing_number: "123456789",
                account_number: "123",
                withdraw_amount: 123,
@@ -153,7 +152,6 @@ describe StateFileNyIntake do
         expect {
           intake.update(payment_or_deposit_type: "mail")
         }.to change(intake.reload, :account_type).to("unfilled")
-        .and change(intake.reload, :bank_name).to(nil)
         .and change(intake.reload, :routing_number).to(nil)
         .and change(intake.reload, :account_number).to(nil)
         .and change(intake.reload, :withdraw_amount).to(nil)
@@ -205,29 +203,6 @@ describe StateFileNyIntake do
         it "returns 125" do
           expect(intake.calculate_sales_use_tax).to eq 125
         end
-      end
-    end
-  end
-
-  describe "#ask_spouse_name?" do
-    context "when married filing jointly" do
-      it "returns true" do
-        intake = build(:state_file_ny_intake, filing_status: "married_filing_jointly")
-        expect(intake.ask_spouse_name?).to eq true
-      end
-    end
-
-    context "when married filing separate" do
-      it "returns true" do
-        intake = build(:state_file_ny_intake, filing_status: "married_filing_separately")
-        expect(intake.ask_spouse_name?).to eq false
-      end
-    end
-
-    context "with any non-married filing status" do
-      it "returns false" do
-        intake = build(:state_file_ny_intake, filing_status: "head_of_household")
-        expect(intake.ask_spouse_name?).to eq false
       end
     end
   end

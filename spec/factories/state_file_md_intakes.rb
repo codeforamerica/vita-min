@@ -3,11 +3,14 @@
 # Table name: state_file_md_intakes
 #
 #  id                                         :bigint           not null, primary key
-#  account_holder_name                        :string
+#  account_holder_first_name                  :string
+#  account_holder_last_name                   :string
+#  account_holder_middle_initial              :string
+#  account_holder_suffix                      :string
 #  account_number                             :string
 #  account_type                               :integer          default("unfilled"), not null
 #  authorize_sharing_of_health_insurance_info :integer          default("unfilled"), not null
-#  bank_name                                  :string
+#  bank_authorization_confirmed               :integer          default("unfilled"), not null
 #  city                                       :string
 #  confirmed_permanent_address                :integer          default("unfilled"), not null
 #  consented_to_terms_and_conditions          :integer          default("unfilled"), not null
@@ -16,7 +19,6 @@
 #  current_sign_in_ip                         :inet
 #  current_step                               :string
 #  date_electronic_withdrawal                 :date
-#  df_data_import_failed_at                   :datetime
 #  df_data_import_succeeded_at                :datetime
 #  df_data_imported_at                        :datetime
 #  eligibility_filing_status_mfj              :integer          default("unfilled"), not null
@@ -27,10 +29,16 @@
 #  eligibility_out_of_state_income            :integer          default("unfilled"), not null
 #  email_address                              :citext
 #  email_address_verified_at                  :datetime
+#  email_notification_opt_in                  :integer          default("unfilled"), not null
 #  failed_attempts                            :integer          default(0), not null
 #  federal_return_status                      :string
 #  had_hh_member_without_health_insurance     :integer          default("unfilled"), not null
+#  has_joint_account_holder                   :integer          default("unfilled"), not null
 #  hashed_ssn                                 :string
+#  joint_account_holder_first_name            :string
+#  joint_account_holder_last_name             :string
+#  joint_account_holder_middle_initial        :string
+#  joint_account_holder_suffix                :string
 #  last_sign_in_at                            :datetime
 #  last_sign_in_ip                            :inet
 #  locale                                     :string           default("en")
@@ -63,6 +71,7 @@
 #  residence_county                           :string
 #  routing_number                             :string
 #  sign_in_count                              :integer          default(0), not null
+#  sms_notification_opt_in                    :integer          default("unfilled"), not null
 #  source                                     :string
 #  spouse_birth_date                          :date
 #  spouse_did_not_have_health_insurance       :integer          default("unfilled"), not null
@@ -114,6 +123,7 @@ FactoryBot.define do
 
     raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("md_minimal") }
     raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json("md_minimal") }
+    df_data_import_succeeded_at { DateTime.now }
 
     primary_first_name { "Mary" }
     primary_middle_initial { "A" }
@@ -148,7 +158,8 @@ FactoryBot.define do
     end
 
     trait :with_spouse do
-      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("md_nate_mfj") }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("md_minimal_with_spouse") }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('md_minimal_with_spouse') }
       filing_status { 'married_filing_jointly' }
 
       spouse_first_name { "Marty" }
@@ -158,7 +169,8 @@ FactoryBot.define do
     end
 
     trait :with_senior_spouse do
-      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("md_nate_mfj") }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("md_minimal_with_spouse") }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('md_minimal_with_spouse') }
       filing_status { 'married_filing_jointly' }
 
       spouse_first_name { "Marty" }
@@ -173,6 +185,7 @@ FactoryBot.define do
 
     trait :df_data_many_w2s do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('md_zeus_many_w2s') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('md_zeus_many_w2s') }
     end
 
     trait :head_of_household do

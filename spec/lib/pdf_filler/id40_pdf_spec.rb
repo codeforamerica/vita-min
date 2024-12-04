@@ -91,7 +91,7 @@ RSpec.describe PdfFiller::Id40Pdf do
         expect(pdf_fields['TxCompL19']).to eq '2000'
         expect(pdf_fields['TxCompL20']).to eq '200'
         expect(pdf_fields['TxCompL20']).to eq '200'
-        expect(pdf_fields['L21']).to eq '200' # same as L20
+        expect(pdf_fields['L21']).to eq '200'
         expect(pdf_fields['CreditsL23']).to eq '0'
 
         expect(pdf_fields['DirectDepositL57Route']).to eq "123456789"
@@ -313,6 +313,48 @@ RSpec.describe PdfFiller::Id40Pdf do
         expect(pdf_fields['CreditsL27']).to eq '70'
         expect(pdf_fields['OtherTaxesL33']).to eq '80'
         expect(pdf_fields['DonationsL42']).to eq '80'
+      end
+    end
+
+    describe "donation fields" do
+      before do
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_34).and_return(50)
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_35).and_return(30)
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_36).and_return(20)
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_37).and_return(40)
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_38).and_return(25)
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_39).and_return(10)
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_40).and_return(60)
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_41).and_return(100)
+      end
+
+      it "sets the correct values for donation fields" do
+        expect(pdf_fields['DonationsL34']).to eq '50'
+        expect(pdf_fields['DonationsL35']).to eq '30'
+        expect(pdf_fields['DonationsL36']).to eq '20'
+        expect(pdf_fields['DonationsL37']).to eq '40'
+        expect(pdf_fields['DonationsL38']).to eq '25'
+        expect(pdf_fields['DonationsL39']).to eq '10'
+        expect(pdf_fields['DonationsL40']).to eq '60'
+        expect(pdf_fields['DonationsL41']).to eq '100'
+      end
+    end
+
+    describe "refund/taxes owed" do
+      before do
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_50).and_return 25
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_51).and_return 50
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_54).and_return 100
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_55).and_return 150
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_56).and_return 200
+      end
+
+      it "sets the correct values for the fields" do
+        expect(pdf_fields['PymntOtherCreditL50Total']).to eq '25'
+        expect(pdf_fields['TxDueRefundL51']).to eq '50'
+        expect(pdf_fields['TxDueRefundL54']).to eq '100'
+        expect(pdf_fields['TxDueRefundL55']).to eq '150'
+        expect(pdf_fields['RefundedL56']).to eq '200'
       end
     end
   end

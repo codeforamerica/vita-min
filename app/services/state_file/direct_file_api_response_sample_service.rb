@@ -4,15 +4,45 @@ module StateFile
       @json_samples = {}
       @xml_samples = {}
       @submission_id_lookup = {
-        'ny_rudy_v2' => '1016422024027ate001k',
-        'ny_javier' => '1016422024018atw000x',
-        'ny_matthew_v2' => '1016422024026atw001u',
-        'ny_khaled' => '1016422024009at0000z',
-        'ny_ivy_414h' => '1016422024025atw000h',
-        'az_leslie_qss_v2' => '1016422024026atw001h',
-        'az_donald_v2' => '1016422024027atw0020',
-        'az_robin_v2' => '1016422024028ate001q',
-        'az_superman_v2' => '1016422024025ate000b'
+        "az_Atticus_ITIN_Single" => "10164220243324bn2ecb",
+        "az_Martha_MFJ_Owe" => "1016422024332t6d92qn",
+        "az_Robin_MFJ_Spouse_ITIN" => "10164220243321wwdbg1",
+        "az_Rory_claimed_as_dep" => "1016422024334wutmbb9",
+        "az_Tycho_Single_No_1099R" => "1016422024332rjtkoti",
+        "az_Tycho_Single_With_1099R" => "1016422024332hyykc8y",
+        "az_alexis_hoh" => "10164220243273drvnwu",
+        "az_donald_v2" => "1016422024027atw0020",
+        "az_johnny_mfj" => "101642202433073zlynk",
+        "az_leslie_qss" => "1016422024337x7aimm0",
+        "az_leslie_qss_v2" => "1016422024026atw001h",
+        "az_robin_v2" => "1016422024028ate001q",
+        "az_shell_hoh" => "1016422024330uizbsmb",
+        "az_superman_v2" => "1016422024025ate000b",
+        "id_Estrada_donations" => "10164220243389yh9q72",
+        "id_Grey_no_1099r" => "1016422024337kkb3get",
+        "id_Klein_QSS" => "1016422024338u5svhsa",
+        "id_Potato_MFJ" => "10164220243381cww1th",
+        "id_Smith_Claimed_as_Dep" => "1016422024332a3erp1m",
+        "id_Spud_Single_Blind" => "1016422024338m91mqj1",
+        "id_Yukon_Child_Dep_Care" => "1016422024338re6kw7t",
+        "md_Anchovies_MFJ" => "1016422024337d6xqdk3",
+        "md_Drum_MFS_over_1000" => "1016422024337uhx6vkg",
+        "md_Felicity_Single" => "1016422024338g7n9hgr",
+        "md_Grace_Dependent" => "1016422024338z12fznh",
+        "md_Hannah_Single" => "1016422024337p0czoxg",
+        "md_Leonard_QSS" => "1016422024337luaxoi5",
+        "md_annabelle_single" => "1016422024326lssbe1f",
+        "nc_clara_hoh" => "10164220243303quinwv",
+        "nc_daffy_single" => "1016422024327xmcxxwy",
+        "nc_mickey_mfj" => "1016422024327qqldslz",
+        "nc_nala_hoh" => "1016422024326jt6oz0h",
+        "nc_wylie_mfs" => "10164220243274vip4ag",
+        "nc_zeus_mfjdeps" => "1016422024327ahu7xl7",
+        "ny_ivy_414h" => "1016422024025atw000h",
+        "ny_javier" => "1016422024018atw000x",
+        "ny_khaled" => "1016422024009at0000z",
+        "ny_matthew_v2" => "1016422024026atw001u",
+        "ny_rudy_v2" => "1016422024027ate001k",
       }
       @old_xml_sample = "app/controllers/state_file/questions/df_return_sample.xml"
       @old_json_sample = "app/controllers/state_file/questions/df_return_sample.json"
@@ -62,7 +92,7 @@ module StateFile
       when :married_filing_jointly
         read_xml("az_martha_v2")
       when :qualifying_widow
-        read_xml("az_leslie_qss_v2")
+        read_xml("az_leslie_qss")
       when :married_filing_separately
         read_xml("az_sherlock_mfs")
       when :head_of_household

@@ -1,0 +1,105 @@
+{
+  "filers": [
+    {
+      "tin": "400-00-5957",
+      "suffix": null,
+      "lastName": "Estrada",
+      "firstName": "Miguel",
+      "dateOfBirth": "1980-08-20",
+      "middleInitial": null,
+      "isPrimaryFiler": true,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "interestReports": [
+    {
+      "payer": "Bank of Potatoes",
+      "has1099": true,
+      "payerTin": null,
+      "1099Amount": "550.00",
+      "taxWithheld": "0.00",
+      "no1099Amount": null,
+      "recipientTin": "400-00-5957",
+      "interestOnGovernmentBonds": "50.00",
+      "taxExemptAndTaxCreditBondCusipNo": null
+    }
+  ],
+  "familyAndHousehold": [
+    {
+      "tin": "300-00-0010",
+      "suffix": null,
+      "lastName": "Estrada",
+      "firstName": "September",
+      "dateOfBirth": "2020-07-07",
+      "relationship": "childOfSibling",
+      "middleInitial": null,
+      "qualifyingChild": true,
+      "eligibleDependent": true,
+      "residencyDuration": "allYear",
+      "isClaimedDependent": true,
+      "hohQualifyingPerson": true,
+      "scheduleEicLine4aNo": false,
+      "scheduleEicLine4aYes": false,
+      "scheduleEicLine4bYes": false,
+      "monthsLivedWithTPInUS": "twelve",
+      "ssnNotValidForEmployment": false
+    },
+    {
+      "tin": "300-00-0011",
+      "suffix": null,
+      "lastName": "Estrada",
+      "firstName": "Aaron",
+      "dateOfBirth": "2015-08-08",
+      "relationship": "childOfSibling",
+      "middleInitial": null,
+      "qualifyingChild": true,
+      "eligibleDependent": true,
+      "residencyDuration": "allYear",
+      "isClaimedDependent": true,
+      "hohQualifyingPerson": true,
+      "scheduleEicLine4aNo": false,
+      "scheduleEicLine4aYes": false,
+      "scheduleEicLine4bYes": false,
+      "monthsLivedWithTPInUS": "twelve",
+      "ssnNotValidForEmployment": false
+    },
+    {
+      "tin": "300-00-0012",
+      "suffix": null,
+      "lastName": "Estrada",
+      "firstName": "Andrew",
+      "dateOfBirth": "2013-09-09",
+      "relationship": "adoptedChild",
+      "middleInitial": null,
+      "qualifyingChild": true,
+      "eligibleDependent": true,
+      "residencyDuration": "allYear",
+      "isClaimedDependent": true,
+      "hohQualifyingPerson": true,
+      "scheduleEicLine4aNo": false,
+      "scheduleEicLine4aYes": false,
+      "scheduleEicLine4bYes": false,
+      "monthsLivedWithTPInUS": "twelve",
+      "ssnNotValidForEmployment": false
+    },
+    {
+      "tin": "300-00-0013",
+      "suffix": null,
+      "lastName": "Estrada",
+      "firstName": "Anu",
+      "dateOfBirth": "1950-01-01",
+      "relationship": "parent",
+      "middleInitial": null,
+      "qualifyingChild": false,
+      "eligibleDependent": true,
+      "residencyDuration": "allYear",
+      "isClaimedDependent": true,
+      "hohQualifyingPerson": true,
+      "scheduleEicLine4aNo": true,
+      "scheduleEicLine4aYes": false,
+      "scheduleEicLine4bYes": false,
+      "monthsLivedWithTPInUS": null,
+      "ssnNotValidForEmployment": null
+    }
+  ]
+}

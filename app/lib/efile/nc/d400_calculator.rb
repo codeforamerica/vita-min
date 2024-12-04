@@ -60,6 +60,26 @@ module Efile
         end
       end
 
+      def subtractions_limit
+        @direct_file_data.fed_agi - (line_or_zero(:NCD400_S_LINE_18) + line_or_zero(:NCD400_S_LINE_19) + line_or_zero(:NCD400_S_LINE_20) + line_or_zero(:NCD400_S_LINE_21))
+      end
+
+      def analytics_attrs
+        {}
+      end
+
+      def calculate_gov_payments
+        sum = 0
+
+        @intake.state_file1099_gs.each do |state_file_1099_g|
+          if @intake.filing_status_mfj? || state_file_1099_g.recipient_primary?
+            sum += state_file_1099_g.unemployment_compensation_amount&.round
+          end
+        end
+
+        sum
+      end
+
       private
 
       def calculate_line_9
@@ -96,7 +116,7 @@ module Efile
       def calculate_line_12a
         # Add Lines 9, 10b, and 11
         # line 9 DeductionsFromFAGI is blank
-        line_or_zero(:NCD400_LINE_10B) + line_or_zero(:NCD400_LINE_11)
+        line_or_zero(:NCD400_S_LINE_41) + line_or_zero(:NCD400_LINE_10B) + line_or_zero(:NCD400_LINE_11)
       end
 
       def calculate_line_12b

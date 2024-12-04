@@ -3,6 +3,7 @@ class DirectFileJsonData
     json_accessor first_name: { type: :string, key: "firstName" }
     json_accessor middle_initial: { type: :string, key: "middleInitial" }
     json_accessor last_name: { type: :string, key: "lastName" }
+    json_accessor suffix: { type: :string, key: "suffix" }
     json_accessor dob: { type: :date, key: "dateOfBirth" }
     json_accessor tin: { type: :string, key: "tin" }
     json_accessor ssn_not_valid_for_employment: { type: :boolean, key: "ssnNotValidForEmployment" }
@@ -10,6 +11,9 @@ class DirectFileJsonData
 
   class DfJsonFiler < DfJsonPerson
     json_accessor is_primary_filer: { type: :boolean, key: "isPrimaryFiler" }
+    json_accessor form_1099_gs_total: { type: :money_amount, key: "form1099GsTotal" }
+    json_accessor educator_expenses: { type: :money_amount, key: "educatorExpenses" }
+    json_accessor hsa_total_deductible_amount: { type: :money_amount, key: "hsaTotalDeductibleAmount" }
   end
 
   class DfJsonDependent < DfJsonPerson
@@ -17,6 +21,31 @@ class DirectFileJsonData
     json_accessor eligible_dependent: { type: :boolean, key: "eligibleDependent" }
     json_accessor is_claimed_dependent: { type: :boolean, key: "isClaimedDependent" }
     json_accessor qualifying_child: { type: :boolean, key: "qualifyingChild" }
+
+    # We only get a numeric value for "monthsLivedWithTPInUS" if the dependent's residency duration was 6+ months, otherwise it will be null
+    # See Kiteworks: FTA State Exchange System / IRS Direct File / JSON Export Details / Draft IRS Direct File JSON Export Additions.docx
+    WORDS_TO_NUMBERS = {
+      "six" => 6,
+      "seven" => 7,
+      "eight" => 8,
+      "nine" => 9,
+      "ten" => 10,
+      "eleven" => 11,
+      "twelve" => 12
+    }
+
+    def months_in_home
+      number_word = df_json_value(["monthsLivedWithTPInUS"])
+      WORDS_TO_NUMBERS[number_word] if number_word
+    end
+
+    def months_in_home=(value)
+      numbers_to_words = WORDS_TO_NUMBERS.invert
+      if value.present? && !numbers_to_words.key?(value)
+        raise ArgumentError, "months_in_home must be in #{numbers_to_words.keys}"
+      end
+      df_json_set(["monthsLivedWithTPInUS"], numbers_to_words[value])
+    end
   end
 
   class DfJsonInterestReport < DfJsonWrapper
@@ -63,13 +92,11 @@ class DirectFileJsonData
     data["interestReports"]&.map { |interest_report| DfJsonInterestReport.new(interest_report) } || []
   end
 
-  def dependents
-    data["familyAndHousehold"]&.map { |dependent| DfJsonDependent.new(dependent) } || []
-  end
-
-  private
-
   def filers
     data["filers"]&.map { |filer| DfJsonFiler.new(filer) } || []
+  end
+
+  def dependents
+    data["familyAndHousehold"]&.map { |dependent| DfJsonDependent.new(dependent) } || []
   end
 end

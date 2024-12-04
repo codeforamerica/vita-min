@@ -1,0 +1,45 @@
+<% title = t(".title", filing_year: current_tax_year) %>
+
+<% content_for :page_title, title %>
+<% content_for :card do %>
+  <h1 class="h2 spacing-below-5"><%= t(".title", filing_year: current_tax_year) %></h1>
+  <p class="spacing-below-15 spacing-above-0"><%= t(".subtitle") %></p>
+
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <div class="white-group">
+      <p><%= t('.question', filing_year: current_tax_year) %></p>
+      <div class="tight-checkboxes spacing-above-0 spacing-below-0">
+        <%= f.cfa_checkbox(:eligibility_ed_loan_emp_payment, t(".eligibility_ed_loan_emp_payment"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+        <%= f.cfa_checkbox(:eligibility_ed_loan_cancelled, t(".eligibility_ed_loan_cancelled"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+        <%= f.cfa_checkbox(:nc_eligiblity_none, t(".none"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+      </div>
+    </div>
+
+    <%= f.continue %>
+  <% end %>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      let noneCheckbox = document.getElementById("state_file_nc_eligibility_form_nc_eligiblity_none");
+      let checkboxes = [
+        document.getElementById("state_file_nc_eligibility_form_eligibility_ed_loan_cancelled"),
+        document.getElementById("state_file_nc_eligibility_form_eligibility_ed_loan_emp_payment")
+      ]
+      noneCheckbox.addEventListener("change", function() {
+        if(this.checked) {
+          checkboxes.forEach(function(checkbox) {
+            checkbox.checked = false;
+          })
+        }
+      })
+
+      checkboxes.forEach(function(checkbox) {
+        checkbox.addEventListener("change", function() {
+          if(this.checked) {
+            noneCheckbox.checked = false;
+          }
+        })
+      })
+    })
+  </script>
+<% end %>

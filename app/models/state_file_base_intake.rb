@@ -1,5 +1,5 @@
 class StateFileBaseIntake < ApplicationRecord
-  self.ignored_columns = [:df_data_import_failed]
+  self.ignored_columns = [:df_data_import_failed_at, :bank_name]
 
   devise :lockable, :timeoutable, :trackable
 
@@ -68,6 +68,7 @@ class StateFileBaseIntake < ApplicationRecord
         primary_first_name: direct_file_json_data.primary_filer.first_name,
         primary_middle_initial: direct_file_json_data.primary_filer.middle_initial,
         primary_last_name: direct_file_json_data.primary_filer.last_name,
+        primary_suffix: direct_file_json_data.primary_filer.suffix,
         primary_birth_date: direct_file_json_data.primary_filer.dob
       )
     end
@@ -77,6 +78,7 @@ class StateFileBaseIntake < ApplicationRecord
         spouse_first_name: direct_file_json_data.spouse_filer.first_name,
         spouse_middle_initial: direct_file_json_data.spouse_filer.middle_initial,
         spouse_last_name: direct_file_json_data.spouse_filer.last_name,
+        spouse_suffix: direct_file_json_data.spouse_filer.suffix,
         spouse_birth_date: direct_file_json_data.spouse_filer.dob
       )
     end
@@ -99,10 +101,14 @@ class StateFileBaseIntake < ApplicationRecord
 
       if dependent_json.present?
         json_attributes = {
+          first_name: dependent_json.first_name,
           middle_initial: dependent_json.middle_initial,
+          last_name: dependent_json.last_name,
+          suffix: dependent_json.suffix,
           relationship: dependent_json.relationship,
+          months_in_home: dependent_json.months_in_home,
           dob: dependent_json.dob,
-          qualifying_child: dependent_json.qualifying_child,
+          qualifying_child: dependent_json.qualifying_child
         }
         dependent.assign_attributes(json_attributes)
       end
@@ -227,20 +233,12 @@ class StateFileBaseIntake < ApplicationRecord
     Person.new(self, :spouse)
   end
 
-  def ask_spouse_dob?
-    filing_status_mfj?
-  end
-
-  def ask_spouse_name?
-    filing_status_mfj?
-  end
-
-  def ask_months_in_home?
-    false
-  end
-
   def ask_for_signature_pin?
     false
+  end
+
+  def show_tax_period_in_return_header?
+    true
   end
 
   def ask_spouse_esign?
@@ -276,7 +274,7 @@ class StateFileBaseIntake < ApplicationRecord
         @last_name = intake.spouse_last_name
         @middle_initial = intake.spouse_middle_initial
         @suffix = intake.spouse_suffix
-        @birth_date = intake.spouse_birth_date if intake.ask_spouse_dob?
+        @birth_date = intake.spouse_birth_date
         @ssn = intake.direct_file_data.spouse_ssn
       end
     end
@@ -325,7 +323,7 @@ class StateFileBaseIntake < ApplicationRecord
   end
 
   def save_nil_enums_with_unfilled
-    keys_with_unfilled = self.defined_enums.map { |e| e.first if e.last.include?("unfilled") }
+    keys_with_unfilled = self.defined_enums.map { |e| e.first if e.last.include?("unfilled") }.compact
     keys_with_unfilled.each do |key|
       if self.send(key).nil?
         self.send("#{key}=", "unfilled")
@@ -345,7 +343,6 @@ class StateFileBaseIntake < ApplicationRecord
   end
 
   def controller_for_current_step
-    
     if efile_submissions.present?
       StateFile::Questions::ReturnStatusController
     else
@@ -355,11 +352,11 @@ class StateFileBaseIntake < ApplicationRecord
     end
   rescue StandardError
     if hashed_ssn.present?
-      StateFile::Questions::DataReviewController
+      StateFile::Questions::PostDataTransferController
     else
       StateFile::Questions::TermsAndConditionsController
     end
-    
+
   end
 
   def self.opted_out_state_file_intakes(email)
@@ -371,7 +368,6 @@ class StateFileBaseIntake < ApplicationRecord
   def sanitize_bank_details
     if (payment_or_deposit_type || "").to_sym != :direct_deposit
       self.account_type = "unfilled"
-      self.bank_name = nil
       self.routing_number = nil
       self.account_number = nil
       self.withdraw_amount = nil

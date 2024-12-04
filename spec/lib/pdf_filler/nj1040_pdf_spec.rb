@@ -681,7 +681,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
 
         it 'enters single dependent into PDF' do
           # dependent 1
-          expect(pdf_fields["Last Name First Name Middle Initial 1"]).to eq "ATHENS KRONOS T"
+          expect(pdf_fields["Last Name First Name Middle Initial 1"]).to eq "Athens Kronos T"
           expect(pdf_fields["undefined_18"]).to eq "3"
           expect(pdf_fields["undefined_19"]).to eq "0"
           expect(pdf_fields["undefined_20"]).to eq "0"
@@ -1613,6 +1613,52 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       end
     end
 
+    describe "line 55 - total income tax withheld" do
+      context 'when TaxWithheld has a value' do
+        before do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_55).and_return 12_345_678
+        end
+
+        it "fills line 55 with sum of income tax withheld" do
+          # millions
+          expect(pdf_fields["undefined_1471qerw"]).to eq "1"
+          expect(pdf_fields["undefined_114"]).to eq "2"
+          # thousands
+          expect(pdf_fields["undefined_143"]).to eq "3"
+          expect(pdf_fields["undefined_144"]).to eq "4"
+          expect(pdf_fields["undefined_145"]).to eq "5"
+          # hundreds
+          expect(pdf_fields["Text153"]).to eq "6"
+          expect(pdf_fields["Text154"]).to eq "7"
+          expect(pdf_fields["Text155"]).to eq "8"
+          # decimals
+          expect(pdf_fields["Text156"]).to eq "0"
+          expect(pdf_fields["Text157"]).to eq "0"
+        end
+      end
+
+      context 'when TaxWithheld is nil' do
+        let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
+
+        it "does not fill line 55" do
+          # millions
+          expect(pdf_fields["undefined_1471qerw"]).to eq ""
+          expect(pdf_fields["undefined_114"]).to eq ""
+          # thousands
+          expect(pdf_fields["undefined_143"]).to eq ""
+          expect(pdf_fields["undefined_144"]).to eq ""
+          expect(pdf_fields["undefined_145"]).to eq ""
+          # hundreds
+          expect(pdf_fields["Text153"]).to eq ""
+          expect(pdf_fields["Text154"]).to eq ""
+          expect(pdf_fields["Text155"]).to eq ""
+          # decimals
+          expect(pdf_fields["Text156"]).to eq ""
+          expect(pdf_fields["Text157"]).to eq ""
+        end
+      end
+    end
+
     describe "line 56 - property tax credit" do
       context 'when taxpayer income is above property tax minimum' do
         let(:submission) {
@@ -1713,7 +1759,6 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         end
       end
     end
-
 
     describe "line 58 - earned income tax credit" do
       context 'when there is EarnedIncomeCreditAmt on the federal 1040' do
@@ -1964,6 +2009,74 @@ RSpec.describe PdfFiller::Nj1040Pdf do
             expect(pdf_fields["Group245"]).to eq "Choice1"
             expect(pdf_fields["Group246"]).to eq "Choice2"
           end
+        end
+      end
+    end
+
+    describe "driver license/ID number" do
+      context "primary ID not given" do
+        it "leaves all boxes blank" do
+          expect(pdf_fields["Drivers License Number Voluntary Instructions page 44"]).to eq ""
+          expect(pdf_fields["Text246"]).to eq ""
+          expect(pdf_fields["Text247"]).to eq ""
+          expect(pdf_fields["Text248"]).to eq ""
+          expect(pdf_fields["Text249"]).to eq ""
+          expect(pdf_fields["Text250"]).to eq ""
+          expect(pdf_fields["Text251"]).to eq ""
+          expect(pdf_fields["Text252"]).to eq ""
+          expect(pdf_fields["Text253"]).to eq ""
+          expect(pdf_fields["Text254"]).to eq ""
+          expect(pdf_fields["Text255"]).to eq ""
+          expect(pdf_fields["Text256"]).to eq ""
+          expect(pdf_fields["Text257"]).to eq ""
+          expect(pdf_fields["Text258"]).to eq ""
+          expect(pdf_fields["Text259"]).to eq ""
+        end
+      end
+
+      context "primary ID is state issued ID" do
+        let(:state_id) { create(:state_id, :state_issued_id)}
+        let(:intake) { create(:state_file_nj_intake, primary_state_id: state_id) }
+
+        it "fills in the ID number" do
+          expect(pdf_fields["Drivers License Number Voluntary Instructions page 44"]).to eq "1"
+          expect(pdf_fields["Text246"]).to eq "2"
+          expect(pdf_fields["Text247"]).to eq "3"
+          expect(pdf_fields["Text248"]).to eq "4"
+          expect(pdf_fields["Text249"]).to eq "5"
+          expect(pdf_fields["Text250"]).to eq "6"
+          expect(pdf_fields["Text251"]).to eq "7"
+          expect(pdf_fields["Text252"]).to eq "8"
+          expect(pdf_fields["Text253"]).to eq "9"
+          expect(pdf_fields["Text254"]).to eq ""
+          expect(pdf_fields["Text255"]).to eq ""
+          expect(pdf_fields["Text256"]).to eq ""
+          expect(pdf_fields["Text257"]).to eq ""
+          expect(pdf_fields["Text258"]).to eq ""
+          expect(pdf_fields["Text259"]).to eq ""
+        end
+      end
+
+      context "primary ID is driver license" do
+        let(:state_id) { create(:state_id)}
+        let(:intake) { create(:state_file_nj_intake, primary_state_id: state_id) }
+
+        it "fills in the ID number" do
+          expect(pdf_fields["Drivers License Number Voluntary Instructions page 44"]).to eq "1"
+          expect(pdf_fields["Text246"]).to eq "2"
+          expect(pdf_fields["Text247"]).to eq "3"
+          expect(pdf_fields["Text248"]).to eq "4"
+          expect(pdf_fields["Text249"]).to eq "5"
+          expect(pdf_fields["Text250"]).to eq "6"
+          expect(pdf_fields["Text251"]).to eq "7"
+          expect(pdf_fields["Text252"]).to eq "8"
+          expect(pdf_fields["Text253"]).to eq "9"
+          expect(pdf_fields["Text254"]).to eq ""
+          expect(pdf_fields["Text255"]).to eq ""
+          expect(pdf_fields["Text256"]).to eq ""
+          expect(pdf_fields["Text257"]).to eq ""
+          expect(pdf_fields["Text258"]).to eq ""
+          expect(pdf_fields["Text259"]).to eq ""
         end
       end
     end
