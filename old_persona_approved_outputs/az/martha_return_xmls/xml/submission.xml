@@ -153,7 +153,7 @@
         <AZDeductions>29200</AZDeductions>
         <ClaimCharitableDed>
           <CharitableDeduction>X</CharitableDeduction>
-          <IncStdCharitableDed>62</IncStdCharitableDed>
+          <IncStdCharitableDed>66</IncStdCharitableDed>
           <IncreaseStdDed>
             <GiftByCashOrCheck>100</GiftByCashOrCheck>
             <OtherThanCashOrCheck>100</OtherThanCashOrCheck>
@@ -161,10 +161,10 @@
             <SubTotalContributions>200</SubTotalContributions>
             <TotalContributions>0</TotalContributions>
             <SubTotal>200</SubTotal>
-            <TotalIncStdDeduction>62</TotalIncStdDeduction>
+            <TotalIncStdDeduction>66</TotalIncStdDeduction>
           </IncreaseStdDed>
         </ClaimCharitableDed>
-        <AZTaxableInc>30738</AZTaxableInc>
+        <AZTaxableInc>30734</AZTaxableInc>
         <ComputedTax>768</ComputedTax>
         <SubTotal>768</SubTotal>
         <DepTaxCredit>250</DepTaxCredit>
