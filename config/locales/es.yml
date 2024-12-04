@@ -3301,16 +3301,17 @@ es:
           dependent_dob: Su fecha de nacimiento
           dependent_months_in_home: Número de meses que vivieron contigo
           dependent_name: Nombre de tu dependiente
-          household_info: Información del hogar
+          household_info: Detalles del hogar
           income_details: Detalles de ingresos
           nth_dependent_name: Nombre de tu %{ordinal} dependiente
           spouse_name: Nombre de tu cónyuge
           taxes_owed_header: Tu reembolso estimado o tus impuestos estimados a pagar
           taxes_owed_html: Tu reembolso es de $0. Esto significa <strong>que no</strong> recibirás un reembolso estatal y <strong>no</strong> debes impuestos estatales. Deberías terminar de presentar tu declaración, ya que es posible que estés obligado/a a presentarla aunque no recibirás dinero.
-          title: "¡Terminaste! Revisa tu declaración de impuestos estatales antes de enviarla."
+          title: ¡Ya casi terminas! Por favor revisa la información que tenemos.
           your_name: Tu nombre
           your_refund: Tu reembolso
           your_tax_owed: Tus impuestos adeudados
+          amount_rounding_notice_html: "<strong>Hemos redondeado automáticamente todos los montos en dólares al número entero más cercano.</strong> La %{state_agency_name} solo aceptará números enteros en la declaración de impuestos final."
       spouse_state_id:
         edit:
           title_html: Proporciona la información para la identificación emitida por el estado de <strong>tu cónyuge</strong>

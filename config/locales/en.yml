@@ -3316,16 +3316,17 @@ en:
           dependent_dob: Their date of birth
           dependent_months_in_home: Number of months they lived with you
           dependent_name: Your dependent's name
-          household_info: Household information
+          household_info: Household Details
           income_details: Income Details
           nth_dependent_name: Your %{ordinal} dependent's name
           spouse_name: Your spouse's name
           taxes_owed_header: Your refund or taxes owed
           taxes_owed_html: Your refund is $0. This means that you <strong>will not</strong> receive a state refund and you <strong>do not</strong> owe state taxes. You should finish filing your return, since you may be required to file even though you won’t get or receive any money.
-          title: You're done! Review your state tax return before you submit.
+          title: You're almost done! Please review the information we have.
           your_name: Your name
           your_refund: Your refund amount
           your_tax_owed: Your taxes owed
+          amount_rounding_notice_html: "<strong>We have automatically rounded all dollar amounts to the nearest whole number.</strong> The %{state_agency_name} will only accept whole numbers on the final tax return."
       spouse_state_id:
         edit:
           title_html: Please provide information for <strong>your spouse’s</strong> state issued ID
