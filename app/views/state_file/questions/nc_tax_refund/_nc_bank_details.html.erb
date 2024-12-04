@@ -1,6 +1,10 @@
 <div class="white-group">
   <p class="spacing-below-0"><%= t(".bank_title") %></p>
-  <p class="text--small"><%= t(".foreign_accounts") %></p>
+  <% if owe_taxes %>
+    <p class="text--small"><%= t(".foreign_accounts_owed") %></p>
+  <% else %>
+    <p class="text--small"><%= t(".foreign_accounts_refund") %></p>
+  <% end %>
   <div>
     <% if owe_taxes %>
       <%= form.hidden_field :app_time, value: app_time %>
@@ -26,7 +30,7 @@
 
     <%= form.cfa_radio_set(
           :account_type,
-          label_text: t("views.questions.bank_details.account_type.label"),
+          label_text: t(".account_type.label"),
           collection: [
             { value: :checking, label: t("views.questions.bank_details.account_type.checking") },
             { value: :savings, label: t("views.questions.bank_details.account_type.savings") },
@@ -38,12 +42,11 @@
     <%= form.cfa_input_field(:account_number, t(".account_number"), classes: ["form-width--long", "disablecopy"]) %>
     <%= form.cfa_input_field(:account_number_confirmation, t(".confirm_account_number"), classes: ["form-width--long", "disablepaste", "disablecopy"]) %>
   </div>
-  <p><strong><%= t(".disclaimer") %></strong></p>
   <% if owe_taxes && !before_withdrawal_date_deadline?(current_state_code) %>
     <p>
       <%= t(".after_deadline_default_withdrawal_info",
-             withdrawal_deadline_date: I18n.l(withdrawal_date_deadline(current_state_code).to_date, format: :medium, locale: locale),
-             with_drawal_deadline_year: withdrawal_date_deadline(current_state_code).year) %>
+            withdrawal_deadline_date: I18n.l(withdrawal_date_deadline(current_state_code).to_date, format: :medium, locale: locale),
+            with_drawal_deadline_year: withdrawal_date_deadline(current_state_code).year) %>
     </p>
   <% end %>
 </div>
