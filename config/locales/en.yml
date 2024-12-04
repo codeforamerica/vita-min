@@ -2423,9 +2423,9 @@ en:
             eligibility_ed_loan_cancelled: had a student loan debt canceled under the American Rescue Plan Act.
             eligibility_ed_loan_emp_payment: received a Qualified Education Loan Payment paid by your employer.
             eligibility_emergency_rental_assistance: received emergency rental assistance in %{filing_year}
-            eligibility_home_different_areas: or your spouse had your permanent homes in two different counties, cities, towns, or taxing areas on the last day the tax year
-            eligibility_homebuyer_withdrawal: withdrew money from a first-time homebuyer account and used it for anything other than purchasing a home
-            eligibility_homebuyer_withdrawal_mfj: or your spouse withdrew money from a first-time homebuyer account and used it for anything other than purchasing a home
+            eligibility_home_different_areas: or your spouse had your permanent homes in two different counties, cities, towns, or taxing areas on the last day the tax year %{filing_year}
+            eligibility_homebuyer_withdrawal: withdrew money from a first-time homebuyer account not used to buy a home in Maryland
+            eligibility_homebuyer_withdrawal_mfj: or your spouse withdrew money from a first-time homebuyer account not used to buy a home in Maryland
             eligibility_lived_in_state: did not live in %{state} for all of %{filing_year}
             eligibility_married_filing_separately: are filing “married filing separately”
             eligibility_out_of_state_income: earned income in another state in %{filing_year}
@@ -2511,9 +2511,9 @@ en:
           sub10: Senior Tax Credit
           sub11: State and local Poverty Level Credits
           sub12: Credit for Child and Dependent Care Expenses
-          sub2: Pension exclusion (if you're 65 years or older, or if you're under 65 and previously qualified for the exclusion based on a permanent disability)
-          sub3: Military retirement exclusion
-          sub4: Public safety retirement exclusion
+          sub2: Pension exclusion (if you or your spouse are 65 years or older, or if you or your spouse are under 65 and previously qualified for the exclusion based on a permanent disability)
+          sub3: Military retirement
+          sub4: Public safety retirement
           sub5: Taxable Social Security and Railroad Retirement benefits
           sub6: Interest income from obligations of the US or US possessions
           sub7: Two-income subtraction for married filing jointly taxpayers
@@ -2740,26 +2740,26 @@ en:
       md_county:
         edit:
           county_html: "<strong>County</strong>"
-          political_subdivision: Political subdivision
+          political_subdivision: Political Subdivision
           political_subdivision_helper_areas:
           - 'Counties: The 23 counties and Baltimore City.'
           - 'Municipalities: Towns and cities within the counties.'
-          - 'Special Taxing Districts: Areas with specific tax rules for local services.'
-          - 'All Other Areas: Regions that do not have their own municipal government and are governed at the county level.'
+          - 'Special taxing districts: Areas with specific tax rules for local services.'
+          - 'All other areas: Regions that do not have their own municipal government and are governed at the county level.'
           political_subdivision_helper_first_p: 'A "political subdivision" is a specific area within Maryland that has its own local government. This includes:'
-          political_subdivision_helper_heading: What is a political division?
+          political_subdivision_helper_heading: What is a political subdivision?
           political_subdivision_helper_last_p: Select the political subdivision where you lived on December 31, %{filing_year} to make sure your tax filing is correct.
-          political_subdivision_label_html: If you did not live within an incorporated city or area, choose “All other areas.” <a href="#">Find a full list here </a>
+          political_subdivision_label_html: If you did not live within an incorporated city or area, choose “All other areas.”
           title: Select the county and political subdivision where you lived on December 31, %{filing_year}
           title_html: Select the <strong>county</strong> and <strong>political subdivision</strong> where you lived on December 31, %{filing_year}
       md_eligibility_filing_status:
         edit:
           eligibility_filing_status_label_text: Are you married and filing a joint state return?
-          eligibility_first_time_homebuyer_withdrawal_label_text: Did you or your spouse withdraw money from a first-time homebuyer account and use it for anything other than purchasing a home in Maryland in %{year}?
+          eligibility_first_time_homebuyer_withdrawal_label_text: Did you or your spouse withdraw money from a first-time homebuyer account and not use it to purchase a home in Maryland in %{year}?
           eligibility_mfj_two_different_areas_label_text: Did you and your spouse have your permanent homes in two different counties, cities, towns, or taxing areas on the last day of %{year}?
           eligibility_mfj_two_different_areas_no: No, my spouse and I lived in the same county, city, town, or taxing area
           eligibility_mfj_two_different_areas_yes: Yes, my spouse and I permanently lived in different counties, cities, towns, or taxing areas
-          eligibility_non_mfj_first_time_homebuyer_withdrawal_label_text: Did you withdraw money from a first-time homebuyer account and use it for anything other than purchasing a home in Maryland in %{year}?
+          eligibility_non_mfj_first_time_homebuyer_withdrawal_label_text: Did you withdraw money from a first-time homebuyer account and not use it to purchase a home in Maryland in %{year}?
           permanent_home_copy: You cannot use this service if you and your spouse live in different counties, cities, towns, or taxing areas, and it is not a temporary situation.
           permanent_home_copy2: If you leave your permanent home to work or care for someone but plan to return, your permanent home hasn’t changed. You and your spouse are considered to live in different counties, cities, towns or taxing areas only if you are staying in these separate homes and it is not temporary.
           permanent_home_heading: What is a permanent home?
@@ -2793,12 +2793,13 @@ en:
           address_header: Address
           apartment_number_label: Apartment/Unit Number
           city_label: City
-          mark_no_hint_html: Mark no if the address listed is a PO Box <strong>or</strong> if you lived at a different address on December 31, %{filing_year}
+          mark_no_hint_html: Mark &quot;no&quot; if the address listed is a PO Box <strong>or</strong> if you lived at a different address on December 31, %{filing_year}.
           state_label: State
           street_address_label: Street Address
           title: Did you live at this address on December 31, %{filing_year}?
           where_did_you_live: Where did you live on December 31, %{filing_year}?
           zip_label: Zip Code
+          follow_up_help_text: PO Boxes are not accepted
       md_primary_state_id:
         md_primary:
           encourage_sharing: If you and your spouse have a driver’s license or state issued identification card please provide the requested information from it. The return will not be rejected if you do not provide a driver’s license or state-issued identification. If you provide this information, it may help to identify you as the taxpayer.
@@ -3120,8 +3121,8 @@ en:
           email_notification_opt_in: Email
           message_body_one: We will not share your information with any outside parties. Message frequency will vary. Message and data rates may apply.
           message_body_two_html: Text HELP to 46207 for help. Text STOP to 46207 to cancel. Carriers (e.g. AT&T, Verizon, T-Mobile, Sprint, etc.) are not responsible or liable for undelivered or delayed messages. See our <a target="_blank" href=%{sms_terms_link}>SMS Terms and Conditions</a> and <a target="_blank" href=%{privacy_link}>Privacy Policy</a>.
-          message_title: Messaging Details
-          opt_in_label: Please select the option(s) that work best for you!
+          message_title: Messaging details
+          opt_in_label: Please select the option(s) that work best for you.
           phone_number: Your phone number
           sms_notification_opt_in: Text message
           subtitle: We'll need to reach out with questions and updates.
@@ -3448,11 +3449,11 @@ en:
             md_html: For tax year %{year}, we will only process the <strong>STPICKUP</strong> code, which represents any contributions you made to the state retirement system.
           box14_fli_html: "<strong>FLI</strong>"
           box14_html: "<strong>Box 14,</strong> Other"
-          box14_stpickup_help_text: For tax year %{year}, we will only process the STPICKUP code. If you do not see this code or have other codes in Box 14, please leave it blank.
+          box14_stpickup_help_text: For %{year}, we will only process the STPICKUP code. If you do not see this code or have other codes in Box 14, please leave it blank.
           box14_stpickup_html: "<strong>STPICKUP</strong>"
           box14_ui_hc_wd_html: "<strong>UI/HC/WD</strong>"
           box14_ui_wf_swf_html: "<strong>UI/WF/SWF</strong>"
-          box15_html: "<strong>Box 15,</strong> Employer’s State ID number"
+          box15_html: "<strong>Box 15,</strong> Employer’s state ID number"
           box16_html: "<strong>Box 16,</strong> State wages, tips, etc."
           box17_html: "<strong>Box 17,</strong> State income tax"
           box18_html: "<strong>Box 18,</strong> Local wages, tips, etc."
