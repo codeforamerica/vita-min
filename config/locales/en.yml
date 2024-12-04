@@ -252,6 +252,8 @@ en:
         multiple: 'Error: Multiple addresses were found for the information you entered, and no default exists.'
         not_found: 'Error: Address Not Found.'
         state: 'Error: Invalid State Code'
+      nc_eligibility_form:
+        at_most_one_option_selected: You must either select none or the above options
       need_exactly_one_communication_method: Please enter only one form of contact.
       need_one_communication_method: Please choose some way for us to contact you.
       replace_me_text: Replace REPLACE ME with relevant information before proceeding.
@@ -2128,64 +2130,59 @@ en:
         already_filed_html: Already filed your state taxes with us? <strong>You can download a copy of your state return until December 31, 2024.</strong>
         already_started_html: Already started filing your state return? <a href="%{sign_in_url}">Sign in</a>.
         az:
-          built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with the state of Arizona to integrate with the IRS Direct File tool and takes about 10 to 15 minutes to complete <strong>once your federal return is accepted</strong>. Get started by setting up your account."
           closed_html: |
-            <strong>FileYourStateTaxes</strong> is built in partnership with the state of Arizona to integrate with the IRS Direct File tool.<br /><br />
+            <strong>FileYourStateTaxes</strong> is built in partnership with the state of Arizona to integrate with IRS Direct File.<br /><br />
             We're closed for the tax season. Unfortunately you can no longer file your state return with us this year.
           supported_by: Supported by the state of Arizona
           title: File your Arizona state taxes for free
+        built_with_html: |
+          <strong>FileYourStateTaxes</strong> takes about 10 to 15 minutes to complete. Get started by setting up your account.
+          <br/><br/>
+          This service is built in partnership with the state of %{state_name} to integrate with IRS Direct File.
         continue: To continue filing your %{state_name} State return, please sign in below
         download_your_record: Download Your Record
         help_text_html: |
-          <strong>What you’ll need:</strong>
-          <br />
           <ul class="list--bulleted">
             <li>An <strong>accepted</strong> %{filing_year} federal return using <a href="https://directfile.irs.gov/">IRS Direct File</a>. (You don’t need a copy of this return; you’ll transfer your return here.)
             <li>Email address or phone number</li>
-            <li>Driver’s license or state-issued ID</li>
+            <li>Driver’s license or state-issued ID, if you have one</li>
             <li>Form 1099-G (If you received unemployment benefits in %{filing_year}.)</li>
             <li>Bank routing and account numbers (if you want to receive your refund or make a tax payment electronically)</li>
           </ul>
+        help_text_title: What will I need to complete my state tax return?
         id:
-          built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with the state of Idaho to integrate with the IRS Direct File tool and takes about 10 to 15 minutes to complete <strong>once your federal return is accepted</strong>. Get started by setting up your account."
           closed_html: |
-            <strong>FileYourStateTaxes</strong> is built in partnership with the state of Idaho to integrate with the IRS Direct File tool.<br /><br />
+            <strong>FileYourStateTaxes</strong> is built in partnership with the state of Idaho to integrate with IRS Direct File.<br /><br />
             We're closed for the tax season. Unfortunately you can no longer file your state return with us this year.
           supported_by: Supported by the state of Idaho
           title: File your Idaho state taxes for free
         md:
-          built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with Maryland to integrate with the IRS Direct File tool and takes about 10 to 15 minutes to complete <strong>once your federal return is accepted</strong>. Get started by setting up your account."
           closed_html: |
-            <strong>FileYourStateTaxes</strong> is built in partnership with Maryland to integrate with the IRS Direct File tool.<br /><br />
+            <strong>FileYourStateTaxes</strong> is built in partnership with Maryland to integrate with IRS Direct File.<br /><br />
             We're closed for the tax season. Unfortunately you can no longer file your state return with us this year.
           supported_by: Supported by the state of Maryland
           title: File your state taxes for free
         nc:
-          built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with the state of North Carolina to integrate with the IRS Direct File tool and takes about 10 to 15 minutes to complete <strong>once your federal return is accepted</strong>. Get started by setting up your account."
           closed_html: |
-            <strong>FileYourStateTaxes</strong> is built in partnership with the state of North Carolina to integrate with the IRS Direct File tool.<br /><br />
+            <strong>FileYourStateTaxes</strong> is built in partnership with the state of North Carolina to integrate with IRS Direct File.<br /><br />
             We're closed for the tax season. Unfortunately you can no longer file your state return with us this year.
           supported_by: Supported by the state of North Carolina
           title: File your North Carolina state taxes for free
         nj:
-          built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with the <strong>New Jersey Office of Innovation</strong> to integrate with the IRS Direct File tool. It takes about 10 to 15 minutes to complete <strong>once your federal return is accepted</strong>. Get started by setting up your account."
-          closed_html: "<strong>FileYourStateTaxes</strong> is built in partnership with the New Jersey Office of Innovation to integrate with the IRS Direct File tool.<br /><br />\nWe're closed for the tax season. Unfortunately you can no longer file your state return with us this year.              \n"
+          closed_html: "<strong>FileYourStateTaxes</strong> is built in partnership with the New Jersey Office of Innovation to integrate with IRS Direct File.<br /><br />\nWe're closed for the tax season. Unfortunately you can no longer file your state return with us this year.              \n"
           help_text_html: |
-            <strong>What you’ll need:</strong>
-            <br />
             <ul class="list--bulleted">
               <li>An <strong>accepted</strong> %{filing_year} federal return using <a href="https://directfile.irs.gov/">IRS Direct File</a>. (You don’t need a copy of this return; you’ll transfer your return here.)
               <li>Email address or phone number</li>
-              <li>Driver’s license or state-issued ID</li>
+              <li>Driver’s license or state-issued ID, if you have one</li>
               <li>Bank routing and account numbers (if you want to receive your refund or make a tax payment electronically)</li>
             </ul>
           supported_by: Supported by the New Jersey Office of Innovation
           title: File your New Jersey taxes for free
         not_you: Not %{user_name}?
         ny:
-          built_with_html: "<strong>FileYourStateTaxes</strong> is built in partnership with <strong>New York State</strong> to integrate with the IRS Direct File tool and takes about 10 to 15 minutes to complete <strong>once your federal return is accepted</strong>. Get started by setting up your account."
           closed_html: |
-            <strong>FileYourStateTaxes</strong> is built in partnership with New York State to integrate with the IRS Direct File tool.<br /><br />
+            <strong>FileYourStateTaxes</strong> is built in partnership with New York State to integrate with IRS Direct File.<br /><br />
             We're closed for the tax season. Unfortunately you can no longer file your state return with us this year.
           supported_by: Supported by New York State
           title: File your New York State taxes for free
@@ -2193,7 +2190,7 @@ en:
         title_closed: Our free %{state_name} tax filing service is closed for the season
         welcome_back: Welcome back %{user_name}!
     navigation:
-      section_1: 'Section 1: Can you use this tool'
+      section_1: 'Section 1: Can you use this service'
       section_2: 'Section 2: Create account'
       section_3: 'Section 3: Terms and conditions'
       section_4: 'Section 4: Transfer your data'
@@ -2240,7 +2237,7 @@ en:
           prior_last_names_label:
             one: 'Enter all last names used in the last four years. (Ex: Smith, Jones, Brown)'
             other: Enter all last names used by you and your spouse in the last four years.
-          subtitle: This includes tax years 2019-2022.
+          subtitle: This includes tax years %{start_year}-%{end_year}.
           title:
             one: Did you file with a different last name in the last four years?
             other: Did you or your spouse file with a different last name in the last four years?
@@ -2248,14 +2245,43 @@ en:
         destroy:
           removed: Removed contribution for %{school_name}
         edit:
-          additional_info: 'Please provide the following information for each public school you paid fees or made contributions to:'
-          amount: Amount of contribution/fees paid in %{year}
+          additional_info: Please add details for each public school you paid fees or made donations to.
+          amount: Amount of donations/fees paid in %{year}
+          amount_help_text:
+            one: Arizona will credit up to $200
+            other: Arizona will credit up to $400
           ctds_code: School Code/CTDS
-          date_of_contribution: Date of payment in %{year} (mm/dd)
+          date_of_contribution: Date of payment in %{year}
           district_name: School District Name
-          made_contribution: Did you pay fees or make cash contributions to a public school in %{year}? Do not include amounts claimed on last year’s tax return.
+          made_contribution:
+            one: Did you pay any fees or make any qualified cash donation to an Arizona public school in %{year}?
+            other: Did you or your spouse pay any fees or make any qualified cash donation to an Arizona public school in %{year}?
           school_name: School Name
-          title: Did you pay fees or make cash contributions to a public school in %{year}?
+          school_name_help_text: Please use the official school name
+          title_html: You might be eligible for the <a href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_guideline-public-school-ECA-tax-credit.pdf" target="_blank">Arizona Public School Credit</a>!
+        form:
+          donations_this_year: What about donations made in %{current_year}?
+          donations_this_year_details_html: |
+            FileYourStateTaxes only allows you to add payment to the corresponding tax period.
+            <br/><br/>
+            You can report any donations made in %{current_year} in next year’s tax return.
+          more_details_html: Visit the <a href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_guideline-public-school-ECA-tax-credit.pdf" target="_blank">Arizona Department of Revenue Guide</a> for more details.
+          qualifying_list:
+          - Extracurricular Activities
+          - Character Education
+          - Standardized Testing and Fees
+          - Career and Technical Education Assessment
+          - CPR Training
+          school_details_answer_html: |
+            You can find this information on the receipt you received from the school.
+            <br/><br/>
+            OR
+            <br/><br/>
+            Visit the Arizona Department of Revenue to find the details.
+            <br/><br/>
+            To avoid any errors, highlight the text in the pdf then copy (Ctrl + C) and paste (Ctrl + V) directly to this page.
+          school_details_question: Where can I find the school details?
+          which_qualify: Which donations and fees qualify?
         index:
           add_another: Add another contribution
           amount_contributed: 'Amount contributed: %{amount}'
@@ -2272,7 +2298,7 @@ en:
           charity_name: Charity Name
           date_of_contribution: Date of payment in %{filing_year} (mm/dd)
           main_heading: Did you make cash contributions to a qualifying charitable organization in %{filing_year}?
-          main_heading_html: Did you make cash contributions to a <a href="https://azdor.gov/sites/default/files/2024-01/CREDITS_2024_qco.pdf" target="_blank" >qualifying charitable organization</a> in %{filing_year}?
+          main_heading_html: Did you make cash contributions to a <a href="https://azdor.gov/sites/default/files/2024-01/CREDITS_2024_qco.pdf" target="_blank">qualifying charitable organization</a> in %{filing_year}?
           question_header: 'Please provide the following information for each cash donation to a qualifying charitable organization:'
         index:
           add_another: Add another contribution
@@ -2313,7 +2339,7 @@ en:
         edit:
           assistance_label: Did %{name} need assistance with daily living activities such as dressing, eating, taking medication, shopping, or preparing their food?
           passed_away_label: Did %{name} pass away in %{filing_year}?
-          title: Please provide some more information about the people in your family who are 65 years of age or older.
+          title: We need additional information about %{dependents_name_list}
       az_subtractions:
         edit:
           armed_forces_member_label_html: You or your spouse are a member of the Reserves, the National Guard, or the U.S. Armed Forces <strong>and</strong> received pay for active duty military service.
@@ -2368,8 +2394,8 @@ en:
             has_out_of_state_w2: you earned income in another state in 2024.
             has_yonkers_income: lived, earned income, or maintained a home in Yonkers in 2024.
             married_filing_separately: you are filing “married filing separately”.
-          offboarding_reason: You cannot use this tool this year because %{reason}
-          title: Unfortunately, after transferring your data, we found that you can’t use this tool this year. Don’t worry, here are other filing options.
+          offboarding_reason: You cannot use this service this year because %{reason}
+          title: Unfortunately, after transferring your data, we found that you can’t use this service this year. Don’t worry, here are other filing options.
       declined_terms_and_conditions:
         edit:
           action_html: "<strong>Is this a mistake?</strong>"
@@ -2382,9 +2408,11 @@ en:
           title: You’ve declined the terms and conditions.
       eligibility_offboarding:
         edit:
-          body_html: You cannot use this tool this year because you %{ineligible_reason}. <strong>Is this a mistake?</strong> <a href=%{prev_link}>Go back to correct.</a>
+          body_html: You cannot use this service this year because you %{ineligible_reason}. <strong>Is this a mistake?</strong> <a href=%{prev_link}>Go back to correct.</a>
           ineligible_reason:
             eligibility_529_for_non_qual_expense: withdrew money from a 529 college savings account and used it for a non-qualifying expense in %{filing_year}
+            eligibility_ed_loan_cancelled: had a student loan debt canceled under the American Rescue Plan Act.
+            eligibility_ed_loan_emp_payment: received a Qualified Education Loan Payment paid by your employer.
             eligibility_emergency_rental_assistance: received emergency rental assistance in %{filing_year}
             eligibility_home_different_areas: or your spouse had your permanent homes in two different counties, cities, towns, or taxing areas on the last day the tax year
             eligibility_homebuyer_withdrawal: withdrew money from a first-time homebuyer account and used it for anything other than purchasing a home
@@ -2400,7 +2428,7 @@ en:
             nyc_maintained_home: you lived in or maintained a home in New York City for some of the year.
             nyc_residency: you lived in or maintained a home in New York City for some of the year.
             permanent_address_outside_ny: you did not live in New York for all of %{filing_year}
-          title: Unfortunately, you can't use this tool this year. Don't worry, there are other filing options.
+          title: Unfortunately, you can't use this service this year. Don't worry, there are other filing options.
         other_options:
           faq_link: Visit our FAQ
           learn_more_here_html: Learn more <a href="%{link}" rel="noopener nofollow" target="_blank">here.</a>
@@ -2420,19 +2448,19 @@ en:
           vita_link: Get started with VITA now
       eligible:
         az_supported:
+          charitable_contributions_credit: Credit for Contributions to Qualifying Charitable Organizations
           dependent_credit: Dependent Credit
           family_income_credit: Family Income Credit
           increased_deduction: An increased deduction for charitable contributions
           increased_excise_credit: Increased Excise Credit
+          public_school_credit: Public School Tax Credit
         az_unsupported:
           other_credits_301_html: Nonrefundable credits listed on <a href="https://azdor.gov/sites/default/files/2023-03/FORMS_CREDIT_2022_301-SBI_f.pdf" target="_blank" rel="noopener nofollow">AZ Form 301</a>
           other_credits_529_html: <a href="https://az529.gov/what-is-a-529-plan/az-tax-incentives/" target="_blank" rel="noopener nofollow">Arizona 529 plan contributions deduction</a>
           other_credits_add_dependents: Adding dependents not claimed on the federal return
           other_credits_change_filing_status: Change in filing status from federal to state return
-          other_credits_heading: Other credits and deductions not supported this year:"
+          other_credits_heading: 'Other credits and deductions not supported this year:'
           other_credits_itemized_deductions: Itemized deductions
-          other_credits_qcos_html: <a href="https://azdor.gov/tax-credits/credits-contributions-qcos-and-qfcos" target="_blank" rel="noopener nofollow">Credit for Contributions to Qualifying Charitable Organizations</a>
-          other_credits_qfcos_html: <a href="https://azdor.gov/tax-credits/credits-contributions-qcos-and-qfcos" target="_blank" rel="noopener nofollow">Credit for Contributions to Qualifying Foster Care Charitable Organization</a>
           property_tax_credit_age: Be 65 or older; or receive Supplemental Security Income
           property_tax_credit_heading_html: '<a href="https://azdor.gov/individuals/income-tax-filing-assistance/tax-credits" target="_blank" rel="noopener nofollow">Property Tax Credit</a>. To qualify for this credit you must:'
           property_tax_credit_income: have total household income less than $3,751 if you live alone; or total household income less than $5,501 if you live with others; and
@@ -2441,10 +2469,13 @@ en:
           public_school_tax_credit_paid_fees: Have paid school-related fees or donated money to a public school
           public_school_tax_credit_provide_info_html: Provide school information, including the <a href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_ADESchoolListing.pdf" target="_blank" rel="noopener nofollow">CTDS code</a>
         edit:
-          not_supported: What credits and deductions does this tool not support this year?
-          title1: You can use this tool to file your %{year} %{state} state taxes
-          title2_html: Here are the credits and deductions you <strong>may be able to</strong> claim with this tool to maximize your refund.
-          want_to_claim_heading: Want to claim these credits or deductions?
+          body_html: |
+            Let’s make sure this is the right service for you.
+            <br/><br/>
+            Here are the credits and deductions you <strong>may be able to</strong> claim with this service to maximize your refund.
+          not_supported: What credits and deductions does this service not support this year?
+          not_supported_reveal_heading: What if I have a situation not yet supported by FileYourStateTaxes?
+          title1: You can use this service to file your %{year} %{state} state taxes
           want_to_claim_learn_more_html: Learn more about this process and other filing options <a href="%{link}" target="_blank">here</a>.
           want_to_claim_vita: You may be able to file your state return for free with help from IRS-certified VITA volunteers in %{state_name}. Note that this option may take 2-3 weeks to complete.
         id_supported:
@@ -2558,9 +2589,9 @@ en:
         edit:
           emergency_rental_assistance: In %{filing_year}, did you (or your spouse if filing together) receive emergency rental assistance?
           emergency_rental_assistance_explanation: The Emergency Rental Assistance (ERA) program is a federal program that gives money to help households pay for rent and utility bills. It was created in response to the Covid-19 pandemic.
-          subtitle_1: For the %{filing_year} tax season, this tool will only be able to serve people with specific tax situations.
+          subtitle_1: For the %{filing_year} tax season, this service will only be able to serve people with specific tax situations.
           subtitle_2: Please answer the following questions to find out if you can use it.
-          title: First, let's see if you can use this tool to file your %{filing_year} Idaho taxes
+          title: First, let's see if you can use this service to file your %{filing_year} Idaho taxes
           withdrew_msa_fthb: 'In %{filing_year}, did you (or your spouse if you’re filing together) withdraw money from any of the following:'
           withdrew_msa_fthb_list:
             bullet_1_html: "<strong>Medical Savings Account</strong> and use it for non-qualifying expenses"
@@ -2673,7 +2704,7 @@ en:
           why_ask_this: Why are you asking for this information?
       income_review:
         edit:
-          help_text: We will ask about any missing information.
+          help_text: We will collect any missing information.
           interest_income_body: No additional state info needed
           interest_income_title: Interest income (1099-INT)
           no_info_needed: No additional state info needed
@@ -2723,8 +2754,8 @@ en:
           permanent_home_copy: You cannot use this service if you and your spouse live in different counties, cities, towns, or taxing areas, and it is not a temporary situation.
           permanent_home_copy2: If you leave your permanent home to work or care for someone but plan to return, your permanent home hasn’t changed. You and your spouse are considered to live in different counties, cities, towns or taxing areas only if you are staying in these separate homes and it is not temporary.
           permanent_home_heading: What is a permanent home?
-          subtitle: For the %{year} season, this tool will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
-          title: First, let's see if you can use this tool to file your %{year} Maryland taxes
+          subtitle: For the %{year} season, this service will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
+          title: First, let's see if you can use this service to file your %{year} Maryland taxes
       md_had_health_insurance:
         edit:
           authorize_follow_up: If yes, the Comptroller’s Office will share your information and the email address on file with Maryland Health Connection.
@@ -2801,23 +2832,14 @@ en:
         edit:
           county: County
           title: Select the county where you lived on December 31st, %{filing_year}
-      nc_eligibility_out_of_state_income:
+      nc_eligibility:
         edit:
-          out_of_state_income_html: Did you (or your spouse, if you’re filing together) earn any income in another state in %{filing_year}? (This includes unemployment income <strong>received</strong> from another state.)
-          reveal:
-            list1: You withdrew money from a 529 account and used it for qualifying expenses, or
-            list2: You didn't withdraw money from a 529 account at all.
-            p1: Qualifying expenses include tuition and fees, books, equipment (including computers and other tech), room and board, apprenticeship programs, and K-12 tuition up to $10,000.
-            p2: Most other uses of funds are non-qualifying expenses, including college application and testing fees, transportation costs, health insurance, and extracurricular costs.
-            subtitle: 'Select ''no'' if:'
-            title: What are qualifying and non- qualifying expenses?
-          title: First, let's see if you can use this tool to file your taxes
-          withdraw_529_html: Did you (or your spouse, if you’re filing together) withdraw money from a <a href="https://www.cfnc.org/save-for-college/" target="_blank" rel="noopener nofollow">529 college savings account</a> and use it for non-qualifying expenses in %{filing_year}?
-      nc_eligibility_residence:
-        edit:
-          lived_in_state_html: Did you (and your spouse, if you’re filing together) live in  %{state} for <strong>all</strong> of %{filing_year}?
-          subtitle: For the %{filing_year} tax season, this tool will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
-          title: First, let's see if you can use this tool to file your taxes
+          eligibility_ed_loan_cancelled: Had a student loan canceled under the American Rescue Plan Act
+          eligibility_ed_loan_emp_payment: Received a Qualified Education Loan Payment paid by your employer
+          none: None of these apply
+          question: Did any of the following less common scenarios apply to you (or your spouse, if married filing jointly) in %{filing_year}?
+          subtitle: For this tax season, this service will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
+          title: First, let's see if you can use this service to file your %{filing_year} North Carolina taxes
       nc_primary_state_id:
         nc_primary:
           encourage_sharing: You’re encouraged to share this information, but it’s not required to file your North Carolina taxes.
@@ -2834,6 +2856,8 @@ en:
           state_credit: Amount earned as member of a federally recognized Indian tribe
           subtraction_indian_tribe: Subtraction for income of a member of an Indian tribe
           use_tax_applied: Consumer Use Tax Applied
+        review_header:
+          unemployment_compensation: Unemployment Compensation
       nc_sales_use_tax:
         edit:
           calculated_use_tax: Enter calculated use tax
@@ -3108,19 +3132,19 @@ en:
           non_qualifying_expenses:
             reveal_info_html: "<p>Qualifying expenses include tuition and fees, books, equipment (including computers and other tech), room and board, apprenticeship programs, and K-12 tuition up to $10,000.</p> \n\n<p>Most other uses of funds are non-qualifying expenses, including college application and testing fees, transportation costs, health insurance, and extracurricular costs.</p>\n\n<p><strong>Select 'no' if:</strong></p>\n<ul>\n  <li>You withdrew money from a 529 account and used it for qualifying expenses, or</li>\n  <li>You didn't withdraw money from a 529 account at all.</li>\n</ul>\n"
             title: What are qualifying and non-qualifying expenses?
-          title: First, let's see if you can use this tool to file your taxes
+          title: First, let's see if you can use this service to file your taxes
           withdraw_529: In %{filing_year}, did you contribute to a <u>529 college savings account</u>, or did you withdraw funds from a 529 account and use them for non-qualified expenses?
       ny_eligibility_out_of_state_income:
         edit:
           out_of_state_income_html: Did you (or your spouse, if you’re filing together) earn any income in another state in 2023? (This includes unemployment income <strong>received</strong> from another state.)
           part_year_nyc_resident_html: Were you (or your spouse, if you’re filing together) a part-year New York City resident in 2023? (Moved in or out of NYC during 2023) <br><br> New York City includes the Bronx, Brooklyn, Manhattan, Queens, and Staten Island.
-          title: First, let's see if you can use this tool to file your taxes
+          title: First, let's see if you can use this service to file your taxes
       ny_eligibility_residence:
         edit:
           lived_in_state_html: Did you (and your spouse, if you’re filing together) live in  %{state} for <strong>all</strong> of 2023?
           lived_or_income_in_yonkers_html: Did you (and your spouse, if you’re filing together) <strong>live, earn income, or maintain a home</strong> in Yonkers at any time in 2023?
-          subtitle: For the 2024 tax season, this tool will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
-          title: First, let's see if you can use this tool to file your taxes
+          subtitle: For the 2024 tax season, this service will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
+          title: First, let's see if you can use this service to file your taxes
       ny_permanent_address:
         edit:
           address_header: Address
@@ -3241,7 +3265,7 @@ en:
           box14_html: "<b>Box 14</b>, State tax withheld"
           box15_html: "<b>Box 15</b>, State/Payer’s State Number"
           box16_html: "<b>Box 16</b>, State distribution"
-          title: Please review your retirement income (1099-R) details for %{payer_name}.
+          title_html: Please review your retirement income (1099-R) details for <strong>%{payer_name}</strong>.
       return_status:
         accepted:
           check_payable: Make your check or money order payable to Arizona Department of Revenue. Write your full SSN, “%{filing_year} Tax” and 140 on your payment.
@@ -3249,7 +3273,7 @@ en:
           direct_debit_html: If you have a remaining tax balance, remember to <strong>pay your taxes online at <a target="_blank" rel="noopener nofollow" href="https://%{tax_payment_url}">%{tax_payment_url}</a></strong> or by mail before the April 15 filing deadline.
           download_title: Download a copy of your %{filing_year} %{state_name} state tax return until December 31, %{filing_year + 1}
           download_voucher: Download payment voucher form
-          feedback: We value your feedback—let us know what you think of this tool.
+          feedback: We value your feedback—let us know what you think of this service.
           include_payment: You'll need to include the payment voucher form.
           mail_voucher_and_payment: 'Mail the voucher form and payment to:'
           pay_by_mail_or_moneyorder: 'If you are paying by mail via check or money order:'
@@ -3275,29 +3299,31 @@ en:
               body: You can edit and resubmit your state return by clicking the button below.
               title: What's next?
             no_edit:
-              body_html: Unfortunately, there has been an issue with filing your state return that cannot be resolved on our tool. <u>Chat with us</u> or email us at help@fileyourstatetaxes.org for guidance on next steps.
+              body_html: Unfortunately, there has been an issue with filing your state return that cannot be resolved on our service. <u>Chat with us</u> or email us at help@fileyourstatetaxes.org for guidance on next steps.
               title: What can I do next?
           reject_code: 'Reject Code:'
           reject_desc: 'Reject Description:'
           title: Unfortunately, your %{filing_year} %{state_name} state tax return was rejected
-        thank_you_html: Thank you for filing your return with <strong>FileYourStateTaxes</strong>, built in partnership with the state of %{state_name} to integrate with the IRS Direct File tool.
+        thank_you_html: Thank you for filing your return with <strong>FileYourStateTaxes</strong>, built in partnership with the state of %{state_name} to integrate with IRS Direct File.
       review:
         county: County
       shared:
-        review_footer:
-          download_pdf: You can download a PDF of your full state tax return after you submit.
-        review_header:
+        abstract_review_header:
           dependent_dob: Their date of birth
           dependent_months_in_home: Number of months they lived with you
           dependent_name: Your dependent's name
           household_info: Household information
-          income_details: Income Details
           nth_dependent_name: Your %{ordinal} dependent's name
           spouse_name: Your spouse's name
           taxes_owed_header: Your refund or taxes owed
           taxes_owed_html: Your refund is $0. This means that you <strong>will not</strong> receive a state refund and you <strong>do not</strong> owe state taxes. You should finish filing your return, since you may be required to file even though you won’t get or receive any money.
           title: You're done! Review your state tax return before you submit.
           your_name: Your name
+        review_footer:
+          download_pdf: You can download a PDF of your full state tax return after you submit.
+        review_header:
+          income_details: Income Details
+          title: You're done! Review your state tax return before you submit.
           your_refund: Your refund amount
           your_tax_owed: Your taxes owed
       spouse_state_id:
@@ -3345,7 +3371,7 @@ en:
             <strong>When you use the FileYourStateTaxes service, here's what you're agreeing to:</strong><br>
             <ul class="list--numbered">
           decline: Decline
-          list_items_html: <strong>Easy Tax Filing:</strong> FileYourStateTaxes is a free and easy to use tool built by Code for America to help you file your state tax return conveniently after you've completed your federal return.</li> <strong>Data Transfer:</strong> You're letting us use your federal return data as the starting point for your state tax return.</li> <strong>Questions for Accuracy:</strong> Sometimes we might ask you a few more questions to make sure your state tax return is complete and accurate.</li> <strong>Modernized eFile:</strong> We'll submit your state tax return using the Modernized eFile (MeF) system, which links it to your federal return.</li> <strong>Your Responsibility:</strong> You're responsible for making sure the information you provide is accurate and that you follow all federal and state tax laws.</li> <strong>No Guarantees:</strong> We do our best, but we can't guarantee the accuracy or success of your state tax return when you use FileYourStateTaxes.</li> <strong>Privacy and Security:</strong> We're serious about protecting your privacy and data. Check out our <a href="%{privacy_policy_link}" target="_blank" rel="noopener nofollow">Privacy Policy</a> for all the details.</li> <strong>Stay Updated:</strong> We'll send you updates about your state tax return through your preferred communication method - either text message (SMS) or email. This includes status updates, reminders, and important information.</li> <strong>Your Choice:</strong> You can change your preferred communication method or opt out of these updates anytime by following the instructions in the messages or through your account settings.</li> <strong>Data Removal:</strong> You have the right to ask us to remove your personal data and tax-related information from FileYourStateTaxes whenever you want. Just contact us or use the data removal function in the software. But keep in mind, this might affect your access to the service.</li> <strong>Links to Third Party Sites:</strong> Links in the software will let you leave FileYourStateTaxes. The linked sites are not under the control of FileYourStateTaxes and FileYourStateTaxes is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. FileYourStateTaxes is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement by FileYourStateTaxes of the site.</li> <strong>Governing Law:</strong> This Agreement will be governed by and construed in accordance with the laws of the state of California.</li> <strong>Questions and Concerns:</strong> If you have any questions or concerns about these terms, feel free to reach out to us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.</li>
+          list_items_html: <strong>Easy Tax Filing:</strong> FileYourStateTaxes is a free and easy to use service built by Code for America to help you file your state tax return conveniently after you've completed your federal return.</li> <strong>Data Transfer:</strong> You're letting us use your federal return data as the starting point for your state tax return.</li> <strong>Questions for Accuracy:</strong> Sometimes we might ask you a few more questions to make sure your state tax return is complete and accurate.</li> <strong>Modernized eFile:</strong> We'll submit your state tax return using the Modernized eFile (MeF) system, which links it to your federal return.</li> <strong>Your Responsibility:</strong> You're responsible for making sure the information you provide is accurate and that you follow all federal and state tax laws.</li> <strong>No Guarantees:</strong> We do our best, but we can't guarantee the accuracy or success of your state tax return when you use FileYourStateTaxes.</li> <strong>Privacy and Security:</strong> We're serious about protecting your privacy and data. Check out our <a href="%{privacy_policy_link}" target="_blank" rel="noopener nofollow">Privacy Policy</a> for all the details.</li> <strong>Stay Updated:</strong> We'll send you updates about your state tax return through your preferred communication method - either text message (SMS) or email. This includes status updates, reminders, and important information.</li> <strong>Your Choice:</strong> You can change your preferred communication method or opt out of these updates anytime by following the instructions in the messages or through your account settings.</li> <strong>Data Removal:</strong> You have the right to ask us to remove your personal data and tax-related information from FileYourStateTaxes whenever you want. Just contact us or use the data removal function in the software. But keep in mind, this might affect your access to the service.</li> <strong>Links to Third Party Sites:</strong> Links in the software will let you leave FileYourStateTaxes. The linked sites are not under the control of FileYourStateTaxes and FileYourStateTaxes is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. FileYourStateTaxes is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement by FileYourStateTaxes of the site.</li> <strong>Governing Law:</strong> This Agreement will be governed by and construed in accordance with the laws of the state of California.</li> <strong>Questions and Concerns:</strong> If you have any questions or concerns about these terms, feel free to reach out to us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.</li>
           list_items_no_sms_html: "<strong>Stay Updated:</strong> We'll send you updates about your state tax return through email. This includes status updates, reminders, and important information.</li>\n"
           ny_text_html: |
             <strong>E-file your New York State income tax return at no extra charge.</strong><br><br>
@@ -3382,7 +3408,7 @@ en:
           information_html: "<strong>How do I find this information?</strong>"
           money_boxes_label: Please complete the following boxes based on what’s reported on Form 1099-G.
           need_additional_information: Great! We need some additional information about what’s on Form 1099-G. (If you have more than one 1099-G, you can add it at the end.)
-          other_tax_filing_options_html: <strong>Reminder:</strong> In %{filing_year_plus_one}, this tool does not support filing unemployment income received from another state. To file income received from another state, check out <a target="_blank" rel="noopener nofollow" href="%{link}">other tax filing options.</a>
+          other_tax_filing_options_html: <strong>Reminder:</strong> In %{filing_year_plus_one}, this service does not support filing unemployment income received from another state. To file income received from another state, check out <a target="_blank" rel="noopener nofollow" href="%{link}">other tax filing options.</a>
           payer_address: Payer's Street Address
           payer_name: Payer's Name
           payer_question_html: Please enter the <strong>payer's information located in the top left corner</strong> of the form&#58;
@@ -3427,7 +3453,7 @@ en:
           box19_html: "<strong>Box 19,</strong> Local income tax"
           box20_locality_name: "<strong>Box 20,</strong> Locality name"
           employer_state_id_error: EIN cannot be more than 16 characters.
-          instructions_1_html: Please review your state income details for <strong>%{employer}</strong>
+          instructions_1_html: Please review your job (W-2) details for <strong>%{employer}</strong>
           local_income_tax_amt_error: Cannot be greater than local wages and tips.
           local_wages_and_tips_amt_error: Please enter local wages and tips
           locality_nm_missing_error: Please select locality name
@@ -3446,11 +3472,11 @@ en:
           <strong>FileYourStateTaxes</strong> integrates with <strong>IRS Direct File</strong> to help you complete your state tax return <strong>for free.</strong> <br/><br/>
           <strong>We're closed for the tax season. Unfortunately you can no longer file your state return with us this year.</strong><br /><br />
           Already filed your state taxes with us? <strong>You can download a copy of your state return until December 31, 2024</strong><br /><br />
-        header: A free state filing tool for Arizona and New York taxpayers using IRS Direct File
+        header: A free state filing service for Arizona and New York taxpayers using IRS Direct File
         section1_html: |
           <strong>How does it work?</strong>
           <ol class="list--numbered">
-            <li>File and submit your federal return with <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">IRS Direct File</a> before using this tool.</li>
+            <li>File and submit your federal return with <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">IRS Direct File</a> before using this service.</li>
             <li>Click "continue to file your state taxes"</li>
             <li>Answer a few questions to make sure this is the right service for you. <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/state">Learn more about who is eligible for this tax year</a>.</li>
             <li>Transfer your federal return to fill in most of your state return.</li>
@@ -3472,7 +3498,7 @@ en:
         faq: FAQ
         privacy_policy: Privacy Policy
         sms_terms: SMS Terms
-        state_file_description_html: FileYourStateTaxes is built by <a target="_blank" rel="noopener nofollow" href="https://www.codeforamerica.org">Code for America</a> in partnership with New York State and the state of Arizona to integrate with the IRS Direct File tool.
+        state_file_description_html: FileYourStateTaxes is built by <a target="_blank" rel="noopener nofollow" href="https://www.codeforamerica.org">Code for America</a> in partnership with New York State and the state of Arizona to integrate with IRS Direct File.
       login_options:
         email_signin: Sign in with email
         help_text_html: New to FileYourStateTaxes? <a href=%{link}>Get Started</a>
@@ -3506,7 +3532,7 @@ en:
         effective_date: This version of the policy is effective January 15, 2024.
         effective_date_header: Effective Date
         header: Privacy Policy
-        header_1_html: <a href='%{link}' target='_blank' rel='noopener nofollow'>FileYourStateTaxes.org</a> is a service created by Code for America Labs, Inc. ("Code for America", "we", "us", "our") to help households file their state taxes after using the federal IRS Direct File tool.
+        header_1_html: <a href='%{link}' target='_blank' rel='noopener nofollow'>FileYourStateTaxes.org</a> is a service created by Code for America Labs, Inc. ("Code for America", "we", "us", "our") to help households file their state taxes after using the federal IRS Direct File service.
         header_2_html: This Privacy Policy describes how we collect, use, share, and protect your personal information. By using our Services, you agree to the terms in this Privacy Policy. This Privacy Notice applies regardless of the type of device you use to access our Services.
         header_3_html: If you have any questions or concerns about this Privacy Notice, please contact us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>
         how_we_collect_your_info: 'We collect your information from various sources, such as when you or your household members:'

@@ -1,0 +1,26 @@
+{
+  "filers": [
+    {
+      "tin": "400-00-5952",
+      "suffix": null,
+      "lastName": "GREY",
+      "firstName": "FRANK",
+      "dateOfBirth": "1960-01-01",
+      "middleInitial": null,
+      "isPrimaryFiler": true,
+      "ssnNotValidForEmployment": null
+    },
+    {
+      "tin": "400-00-5970",
+      "suffix": null,
+      "lastName": "GREY",
+      "firstName": "AMBER",
+      "dateOfBirth": "1963-08-08",
+      "middleInitial": null,
+      "isPrimaryFiler": false,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "interestReports": [],
+  "familyAndHousehold": []
+}

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v4.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>676c5f98</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400005953</PrimarySSN>
+            <NameLine1Txt>DAVID&lt;KLIEN</NameLine1Txt>
+            <PrimaryNameControlTxt>KLIE</PrimaryNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>715 E Sherman Ave</AddressLine1Txt>
+                <CityNm>Coeur DAlene</CityNm>
+                <StateAbbreviationCd>ID</StateAbbreviationCd>
+                <ZIPCd>83815</ZIPCd>
+            </USAddress>
+            <PhoneNum>2088300000</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000595-370b-4541-b336-d461cbf026f9@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="4">
+        <IRS1040 documentId="IRS10400001">
+            <IndividualReturnFilingStatusCd>5</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <DependentDetail>
+                <DependentFirstNm>Calvin</DependentFirstNm>
+                <DependentLastNm>Klien</DependentLastNm>
+                <DependentNameControlTxt>KLIE</DependentNameControlTxt>
+                <DependentSSN>300000001</DependentSSN>
+                <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+                <EligibleForODCInd>X</EligibleForODCInd>
+            </DependentDetail>
+            <DependentDetail>
+                <DependentFirstNm>Brandy</DependentFirstNm>
+                <DependentLastNm>Birkenstock</DependentLastNm>
+                <DependentNameControlTxt>BIRK</DependentNameControlTxt>
+                <DependentSSN>300000002</DependentSSN>
+                <DependentRelationshipCd>NEPHEW</DependentRelationshipCd>
+                <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+            </DependentDetail>
+            <DependentDetail>
+                <DependentFirstNm>Georgia</DependentFirstNm>
+                <DependentLastNm>Gucci</DependentLastNm>
+                <DependentNameControlTxt>GUCC</DependentNameControlTxt>
+                <DependentSSN>300000003</DependentSSN>
+                <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+                <EligibleForODCInd>X</EligibleForODCInd>
+            </DependentDetail>
+            <ChldWhoLivedWithYouCnt>2</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>1</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>4</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">30000</WagesAmt>
+            <WagesSalariesAndTipsAmt>30000</WagesSalariesAndTipsAmt>
+            <TotalIncomeAmt>30000</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>30000</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>29200</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>29200</TotalDeductionsAmt>
+            <TaxableIncomeAmt>800</TaxableIncomeAmt>
+            <TaxAmt>81</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>81</TotalTaxBeforeCrAndOthTaxesAmt>
+            <CTCODCAmt>81</CTCODCAmt>
+            <TotalCreditsAmt>81</TotalCreditsAmt>
+            <TaxLessCreditsAmt>0</TaxLessCreditsAmt>
+            <TotalTaxAmt>0</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>2000</FormW2WithheldTaxAmt>
+            <WithholdingTaxAmt>2000</WithholdingTaxAmt>
+            <EarnedIncomeCreditAmt referenceDocumentId="IRSEIC0001" referenceDocumentName="IRS1040ScheduleEIC">6292</EarnedIncomeCreditAmt>
+            <AdditionalChildTaxCreditAmt referenceDocumentId="IRS8812001" referenceDocumentName="IRS1040Schedule8812">1700</AdditionalChildTaxCreditAmt>
+            <RefundableCreditsAmt>7992</RefundableCreditsAmt>
+            <TotalPaymentsAmt>9992</TotalPaymentsAmt>
+            <OverpaidAmt>9992</OverpaidAmt>
+            <RefundAmt>9992</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Designer</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1040Schedule8812 documentId="IRS8812001" documentName="IRS1040Schedule8812">
+            <AdjustedGrossIncomeAmt>30000</AdjustedGrossIncomeAmt>
+            <ModifiedAGIAmt>30000</ModifiedAGIAmt>
+            <QlfyChildUnderAgeSSNCnt>1</QlfyChildUnderAgeSSNCnt>
+            <QlfyChildUnderAgeSSNLimtAmt>2000</QlfyChildUnderAgeSSNLimtAmt>
+            <OtherDependentCnt>2</OtherDependentCnt>
+            <OtherDependentCreditAmt>1000</OtherDependentCreditAmt>
+            <InitialCTCODCAmt>3000</InitialCTCODCAmt>
+            <FilingStatusThresholdCd>200000</FilingStatusThresholdCd>
+            <ExcessAdjGrossIncomeAmt>0</ExcessAdjGrossIncomeAmt>
+            <ModifiedAGIPhaseOutAmt>0</ModifiedAGIPhaseOutAmt>
+            <CTCODCOverAGILimitInd>true</CTCODCOverAGILimitInd>
+            <CTCODCAfterAGILimitAmt>3000</CTCODCAfterAGILimitAmt>
+            <ACTCTaxLiabiltyLimitAmt>81</ACTCTaxLiabiltyLimitAmt>
+            <CTCODCAmt>81</CTCODCAmt>
+            <ClaimACTCAllFilersGrp>
+                <ACTCBeforeLimitAmt>2919</ACTCBeforeLimitAmt>
+                <QlfyChildUnderAgeSSNCnt>1</QlfyChildUnderAgeSSNCnt>
+                <QlfyChildUnderAgeSSNLimtAmt>1700</QlfyChildUnderAgeSSNLimtAmt>
+                <ACTCAfterLimitAmt>1700</ACTCAfterLimitAmt>
+                <TotalEarnedIncomeAmt>30000</TotalEarnedIncomeAmt>
+                <EarnedIncmMoreThanSpecifiedInd>true</EarnedIncmMoreThanSpecifiedInd>
+                <NetTotalEarnedIncomeAmt>27500</NetTotalEarnedIncomeAmt>
+                <NetEarnedIncomeCalculatedAmt>4125</NetEarnedIncomeCalculatedAmt>
+                <ThreeOrMoreQlfyChildrenInd>false</ThreeOrMoreQlfyChildrenInd>
+            </ClaimACTCAllFilersGrp>
+            <AdditionalChildTaxCreditAmt>1700</AdditionalChildTaxCreditAmt>
+        </IRS1040Schedule8812>
+        <IRS1040ScheduleEIC documentId="IRSEIC0001" documentName="IRS1040ScheduleEIC">
+            <QualifyingChildInformation>
+                <QualifyingChildNameControlTxt>KLIE</QualifyingChildNameControlTxt>
+                <ChildFirstAndLastName>
+                    <PersonFirstNm>Calvin</PersonFirstNm>
+                    <PersonLastNm>Klien</PersonLastNm>
+                </ChildFirstAndLastName>
+                <QualifyingChildSSN>300000001</QualifyingChildSSN>
+                <ChildBirthYr>2007</ChildBirthYr>
+                <ChildRelationshipCd>DAUGHTER</ChildRelationshipCd>
+                <MonthsChildLivedWithYouCnt>12</MonthsChildLivedWithYouCnt>
+            </QualifyingChildInformation>
+            <QualifyingChildInformation>
+                <QualifyingChildNameControlTxt>BIRK</QualifyingChildNameControlTxt>
+                <ChildFirstAndLastName>
+                    <PersonFirstNm>Brandy</PersonFirstNm>
+                    <PersonLastNm>Birkenstock</PersonLastNm>
+                </ChildFirstAndLastName>
+                <QualifyingChildSSN>300000002</QualifyingChildSSN>
+                <ChildBirthYr>2008</ChildBirthYr>
+                <ChildRelationshipCd>NEPHEW</ChildRelationshipCd>
+                <MonthsChildLivedWithYouCnt>12</MonthsChildLivedWithYouCnt>
+            </QualifyingChildInformation>
+            <QualifyingChildInformation>
+                <QualifyingChildNameControlTxt>GUCC</QualifyingChildNameControlTxt>
+                <ChildFirstAndLastName>
+                    <PersonFirstNm>Georgia</PersonFirstNm>
+                    <PersonLastNm>Gucci</PersonLastNm>
+                </ChildFirstAndLastName>
+                <QualifyingChildSSN>300000003</QualifyingChildSSN>
+                <ChildBirthYr>2007</ChildBirthYr>
+                <ChildRelationshipCd>DAUGHTER</ChildRelationshipCd>
+                <MonthsChildLivedWithYouCnt>12</MonthsChildLivedWithYouCnt>
+            </QualifyingChildInformation>
+        </IRS1040ScheduleEIC>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>400005953</EmployeeSSN>
+            <EmployerEIN>678912345</EmployerEIN>
+            <EmployerNameControlTxt>RUNW</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Runway 4 all</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>300 Fake street</AddressLine1Txt>
+                <CityNm>Boise</CityNm>
+                <StateAbbreviationCd>ID</StateAbbreviationCd>
+                <ZIPCd>83638</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>David Klien</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>715 E Sherman Ave</AddressLine1Txt>
+                <CityNm>Coeur DAlene</CityNm>
+                <StateAbbreviationCd>ID</StateAbbreviationCd>
+                <ZIPCd>83815</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>30000</WagesAmt>
+            <WithholdingAmt>2000</WithholdingAmt>
+            <SocialSecurityWagesAmt>30000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>1860</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>30000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>435</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>ID</StateAbbreviationCd>
+                    <EmployerStateIdNum>12345</EmployerStateIdNum>
+                    <StateWagesAmt>30000</StateWagesAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>

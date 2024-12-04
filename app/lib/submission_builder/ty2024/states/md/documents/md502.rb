@@ -145,11 +145,22 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
         add_element_if_present(xml, "LocalIncomeTax", :MD502_LINE_28_LOCAL_TAX_AMOUNT)
         add_element_if_present(xml, "EarnedIncomeCredit", :MD502_LINE_29)
         add_element_if_present(xml, "PovertyLevelCredit", :MD502_LINE_30)
-        add_element_if_present(xml,"TotalCredits", :MD502_LINE_32)
-        add_element_if_present(xml,"LocalTaxAfterCredits", :MD502_LINE_33)
+        add_element_if_present(xml, "TotalCredits", :MD502_LINE_32)
+        add_element_if_present(xml, "LocalTaxAfterCredits", :MD502_LINE_33)
       end
       add_element_if_present(xml, "TotalStateAndLocalTax", :MD502_LINE_34)
+      add_non_zero_value(xml, :TotalTaxAndContributions, :MD502_LINE_39)
       xml.TaxWithheld calculated_fields.fetch(:MD502_LINE_40)
+      add_non_zero_value(xml, :RefundableEIC, :MD502_LINE_42)
+      add_non_zero_value(xml, :TotalPaymentsAndCredits, :MD502_LINE_44)
+      add_non_zero_value(xml, :BalanceDue, :MD502_LINE_45)
+      add_non_zero_value(xml, :Overpayment, :MD502_LINE_46)
+      if calculated_fields.fetch(:MD502_LINE_48).positive?
+        xml.AmountOverpayment do
+          xml.ToBeRefunded calculated_fields.fetch(:MD502_LINE_48)
+        end
+      end
+      add_non_zero_value(xml, :TotalAmountDue, :MD502_LINE_50)
       xml.AuthToDirectDepositInd "X" if calculated_fields.fetch(:MD502_AUTHORIZE_DIRECT_DEPOSIT)
       if @intake.payment_or_deposit_type.to_sym == :direct_deposit
         xml.NameOnBankAccount do
