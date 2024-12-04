@@ -12,19 +12,28 @@
     <%= render partial: "state_file/questions/eligible/#{current_state_code}_supported" %>
   </div>
 
-  <div class="reveal">
-    <p><button class="reveal__button"><%= t(".credits_not_supported")%></button></p>
-    <div class="reveal__content">
-        <%= render partial: "state_file/questions/eligible/#{current_state_code}_credits_unsupported" %>
+  <% if current_state_code == "md" %>
+    <%= render partial: "state_file/questions/eligible/md_reveals" %>
+  <% else %>
+    <div class="reveal">
+      <p><button class="reveal__button"><%= t(".credits_not_supported")%></button></p>
+      <div class="reveal__content">
+          <%= render partial: "state_file/questions/eligible/#{current_state_code}_credits_unsupported" %>
+      </div>
     </div>
-  </div>
 
-  <div class="reveal">
-    <p><button class="reveal__button"><%= t('.not_supported') %></button></p>
-    <div class="reveal__content">
-      <%= render partial: "state_file/questions/eligible/vita_option" %>
+    <div class="reveal">
+      <p><button class="reveal__button"><%= t('.not_supported') %></button></p>
+      <div class="reveal__content">
+        <% unless current_intake.disqualifying_eligibility_rules.empty? %>
+          <%= render partial: "state_file/questions/eligible/#{current_state_code}_unsupported" %>
+        <% end %>
+        <div>
+          <%= render partial: "state_file/questions/eligible/vita_option" %>
+        </div>
+      </div>
     </div>
-  </div>
+  <% end %>
 
   <%= link_to next_path, class: "button button--primary button--wide", id: "firstCta" do %>
     <%= t("general.continue") %>

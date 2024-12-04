@@ -2436,7 +2436,14 @@ es:
           title2_html: |
             Let's make sure this is the right service for you.<br><br>
             Here are the credits and deductions you <strong>may</strong> be able to claim to maximize your refund.
-        id_credits_unsupported:
+          warning: Revise las deducciones y créditos que se admiten este año para asegurarse de que este servicio sea adecuado para sus necesidades fiscales.
+        id_supported:
+          child_care_deduction: Deducción por Cuidado de Hijos y Dependientes
+          id_child_tax_credit: Crédito Fiscal para Hijos de Idaho
+          id_grocery_credit: Crédito de Alimentos de Idaho
+          interest_from_obligations: Intereses de Obligaciones del Gobierno de los EE.UU.
+          social_security_retirement_deduction: Deducciones de Seguridad Social y Beneficios de Jubilación
+        id_unsupported:
           change_in_filing_status: Cambio en el Estado de Declaración de la Declaración Federal a la Estatal
           dependents_not_claimed_fed_return: Añadir Dependientes no Reclamados en la Declaración Federal
           earned_on_reservation: Ingresos Ganados en una Reserva por un Nativo Americano
@@ -2447,13 +2454,89 @@ es:
           long_term_care_insurance_subtraction: Subvención de Seguro de Cuidado a Largo Plazo
           maintaining_elderly_disabled_credit: Crédito por Mantener un Hogar para Ancianos o Discapacitados
           voluntary_donations: Todas las Donaciones Voluntarias
-        id_supported:
-          child_care_deduction: Deducción por Cuidado de Hijos y Dependientes
-          health_insurance_premiums_subtraction: Resta de primas de seguro médico
-          id_child_tax_credit: Crédito Fiscal para Hijos de Idaho
-          id_grocery_credit: Crédito de Alimentos de Idaho
-          interest_from_obligations: Intereses de Obligaciones del Gobierno de los EE.UU.
-          social_security_retirement_deduction: Deducciones de Seguridad Social y Beneficios de Jubilación
+        md_reveals:
+          body1_html: |
+            <ul>
+              <li>
+                Deducciones:
+                <ul>
+                  <li>Suministros de aula para maestros de K-12</li>
+                  <li>Cuotas sindicales</li>
+                  <li>Pagos de un sistema de pensiones a bomberos y policías por lesiones o discapacidades relacionadas con el trabajo</li>
+                  <li>Gastos de hasta $5,000 incurridos por una persona ciega para un lector, o hasta $1,000 incurridos por un empleador para un lector para un empleado ciego</li>
+                  <li>Aportaciones a cuentas ABLE</li>
+                  <li>Exclusión de pensión (si tiene menos de 65 años y reclama esto por una discapacidad permanente por primera vez)</li>
+                  <li>Cualquier otra deducción de Maryland no listada aquí (ver Formulario 502SU)</li>
+                </ul>
+              </li>
+
+              <li>
+                Créditos:
+                <ul>
+                  <li>Crédito fiscal por alivio de deuda de préstamos estudiantiles</li>
+                  <li>Crédito de incentivo para maestros de calidad</li>
+                  <li>Crédito de seguro de atención a largo plazo</li>
+                  <li>Crédito fiscal para vida independiente</li>
+                  <li>Crédito fiscal por hijos de Maryland (si se reclama basado en la discapacidad del niño)</li>
+                  <li>Crédito fiscal por ingresos ganados de Maryland (si no reclamó el crédito federal por ingresos ganados)</li>
+                  <li>Cualquier otro crédito de Maryland no listado (ver Formulario 502CR)</li>
+                </ul>
+              </li>
+              <li>
+                Situaciones familiares:
+                <ul>
+                  <li>Presentar sus declaraciones de impuestos federales y estatales usando diferentes estados de declaración (por ejemplo, presentar como Casado Declaración Conjunta en su declaración federal y querer presentar como Casado Declaración Separada en su declaración estatal)</li>
+                  <li>Agregar o eliminar dependientes reclamados en su declaración federal para propósitos de su declaración estatal</li>
+                  <li>Dividir reembolsos entre cuentas</li>
+                  <li>Casado y presentando conjuntamente con un cónyuge fallecido</li>
+                </ul>
+              </li>
+
+              <li>
+                Pagos:
+                <ul>
+                  <li>Pagos de impuestos estimados</li>
+                  <li>Pagos de extensión de impuestos</li>
+                </ul>
+              </li>
+            </ul>
+            <p>
+              Encuentre un desglose más detallado de los créditos y deducciones no admitidos este año aquí.
+            </p>
+          body2_html: |
+            <p>
+              Este año, no puede <strong>reclamar el EITC de Maryland usando este servicio</strong> en los siguientes escenarios:
+            </p>
+            <ul>
+              <li>Si usted u otras personas en su familia tienen un Número de Identificación Personal del Contribuyente (ITIN) en lugar de un Número de Seguro Social y obtuvo ingresos de un trabajo</li>
+              <li>Si tiene menos de 25 años, ganó menos de $18,600 (o $25,600 si presenta una declaración conjunta), y no fue reclamado como dependiente por otra persona</li>
+            </ul>
+            <p>
+              Para el CTC de Maryland, <strong>no puede reclamar un niño con una discapacidad permanente que tenga entre 6 y 17 años usando este servicio</strong> este año.
+            </p>
+          body3_html: |
+            <p>
+              Tiene otras opciones gratuitas para presentar su declaración estatal:
+              <ul>
+                <li>
+                  Presentar su declaración estatal de forma gratuita con voluntarios VITA certificados por el IRS en Maryland, pero puede tomar de 2 a 3 semanas para completarse.
+                  <ul>
+                    <li>
+                      Comience con VITA ahora
+                    </li>
+                    <li>
+                      Obtenga más información sobre este proceso y otras opciones de presentación aquí.
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  Comience con el servicio gratuito de preparación de impuestos sobre la renta del Contralor de Maryland.
+                </li>
+              </ul>
+            </p>
+          title1: "¿Qué restas, créditos y otras situaciones NO admite este servicio este año?"
+          title2: "¿Qué escenarios para reclamar el Crédito Tributario por Ingreso del Trabajo y/o el Crédito Tributario por Hijos de Maryland no son compatibles con este servicio?"
+          title3: What if I have a situation not yet supported by FileYourStateTaxes?
         md_supported:
           heading1: 'Sustracciones:'
           heading2: 'Créditos:'

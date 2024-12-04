@@ -2464,7 +2464,14 @@ en:
           title2_html: |
             Let's make sure this is the right service for you.<br><br>
             Here are the credits and deductions you <strong>may</strong> be able to claim to maximize your refund.
-        id_credits_unsupported:
+          warning: Please review the subtractions and credits that are supported this year to ensure this service is right for your tax needs.
+        id_supported:
+          child_care_deduction: Child and Dependent Care Deduction
+          id_child_tax_credit: Idaho Child Tax Credit
+          id_grocery_credit: Idaho Grocery Credit
+          interest_from_obligations: Interest from U.S government obligations
+          social_security_retirement_deduction: Social Security and Retirement Benefits deductions
+        id_unsupported:
           change_in_filing_status: Change in filing status from federal to state return
           dependents_not_claimed_fed_return: Adding dependents not claimed on the federal return
           earned_on_reservation: Income earned on a reservation by an American Indian
@@ -2475,13 +2482,89 @@ en:
           long_term_care_insurance_subtraction: Long-term Care Insurance Subtraction
           maintaining_elderly_disabled_credit: Credit for Maintaining a Home for the Elderly or Disabled
           voluntary_donations: All voluntary donations
-        id_supported:
-          child_care_deduction: Idaho Child and Dependent Care Subtraction
-          health_insurance_premiums_subtraction: Health Insurance Premiums subtraction
-          id_child_tax_credit: Idaho Child Tax Credit
-          id_grocery_credit: Idaho Grocery Credit
-          interest_from_obligations: Interest from U.S government obligations subtraction
-          social_security_retirement_deduction: Social Security and Retirement Benefits deductions
+        md_reveals:
+          body1_html: |
+            <ul>
+              <li>
+                Subtractions:
+                <ul>
+                  <li>Classroom supplies for K-12 teachers</li>
+                  <li>Union dues</li>
+                  <li>Payments from a pension system to firemen and policemen for job-related injuries or disabilities </li>
+                  <li>Expenses up to $5,000 incurred by a blind person for a reader, or up to $1,000 incurred by an employer for a reader for a blind employee</li>
+                  <li>ABLE account contributions</li>
+                  <li>Pension exclusion (if you are under 65 and are claiming this based on a permanent disability for the first time)</li>
+                  <li>Any other Maryland subtractions not listed here (see Form 502SU)</li>
+                </ul>
+              </li>
+              <li>
+                Credits:
+                <ul>
+                  <li>Student loan debt relief tax credit</li>
+                  <li>Quality Teacher Incentive Credit</li>
+                  <li>Long-term care insurance credit</li>
+                  <li>Independent living tax credit</li>
+                  <li>Maryland Child Tax Credit (if claimed based on disability of the child)</li>
+                  <li>Maryland Earned Income Tax Credit (if you did not claim the federal Earned Income Tax Credit)</li>
+                  <li>Any other Maryland credits not listed (see Form 502CR)</li>
+                </ul>
+              </li>
+
+              <li>
+                Household situations:
+                <ul>
+                  <li>Filing your federal and state tax returns using different filing statuses (for example you file as Married Filing Jointly on your federal tax return and want to file Married Filing Separately on your state tax return)</li>
+                  <li>Adding or removing dependents claimed on your federal return for purposes of your state return</li>
+                  <li>Splitting refunds between accounts</li>
+                  <li>Married and filing jointly with a deceased spouse</li>
+                </ul>
+              </li>
+
+              <li>
+                Payments
+                <ul>
+                  <li>Estimated tax payments</li>
+                  <li>Extension tax payments</li>
+                </ul>
+              </li>
+            </ul>
+            <p>
+              Find a more detailed breakdown of unsupported credits and subtractions this year here.
+            </p>
+          body2_html: |
+            <p>
+              This year, you can't <strong>claim the Maryland EITC using this service</strong> in these scenarios:
+            </p>
+            <ul>
+              <li>If you or other people in your family have an Individual Taxpayer Identification Number (ITIN) instead of a Social Security Number and you earned income from a job</li>
+              <li>If you are less than 25 years old, you earned less than $18,600 (or $25,600 if you're filing a joint return), and you were not claimed as a dependent by somebody else</li>
+            </ul>
+            <p>
+              For the Maryland CTC, you <strong>can't claim a child with a permanent disability that is between the ages of 6 and 17 using this service</strong> this year.
+            </p>
+          body3_html: |
+            <p>
+              You have other free options for filing your state return:
+              <ul>
+                <li>
+                  Filing your state return for free with IRS-certified VITA volunteers in Maryland, but it may take 2-3 weeks to complete.
+                  <ul>
+                    <li>
+                      Get started with VITA now
+                    </li>
+                    <li>
+                      Learn more about this process and other filing options here.
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  Get started with the Comptroller of Maryland's Free Income Tax Preparation service.
+                </li>
+              </ul>
+            </p>
+          title1: What subtractions, credits, and other situations does this service NOT support this year?
+          title2: What scenarios for claiming the Maryland Earned Income Tax Credit and/or Child Tax Credit aren't supported by this service?
+          title3: What if I have a situation not yet supported by FileYourStateTaxes?
         md_supported:
           heading1: 'Subtractions:'
           heading2: 'Credits:'
