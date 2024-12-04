@@ -9,13 +9,13 @@ class ImportDemo < Thor
 
   def persona(state, id, slug)
     say "Importing XML persona", :green
-    `aptible ssh --app vita-min-demo bin/thor personas:export -xs #{state} #{id} | bin/thor personas import -s #{state} #{slug} -i #{submission_id}`
+    `aptible ssh --app vita-min-demo bin/thor personas:export -xs #{state} #{id} | bin/thor personas import -s #{state} #{slug}`
 
     say "Importing JSON persona", :green
     `aptible ssh --app vita-min-demo bin/thor personas:export -js #{state} #{id} | bin/thor personas import -s #{state} #{slug}`
 
     say "Linking submission ID", :green
-    `aptible ssh --app vita-min-demo bin/thor personas:export_federal_submission_id -s #{state} #{id} | bin/thor personas import -s #{state} #{slug}`
+    `aptible ssh --app vita-min-demo bin/thor personas:export_federal_submission_id -s #{state} #{id} | bin/thor personas import_federal_submission_id -s #{state} #{slug}`
   end
 
   desc 'refresh_token', 'Convenience method for opening browser to retrieve token'
