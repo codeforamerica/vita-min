@@ -2407,7 +2407,7 @@ en:
           title: You’ve declined the terms and conditions.
       eligibility_offboarding:
         edit:
-          body_html: You cannot use this service this year because you %{ineligible_reason}. <strong>Is this a mistake?</strong> <a href=%{prev_link}>Go back to correct.</a>
+          body_html: You cannot use this service this year because you %{ineligible_reason}. <br><br><strong>Is this a mistake?</strong> <a href=%{prev_link}>Go back to correct.</a>
           ineligible_reason:
             eligibility_529_for_non_qual_expense: withdrew money from a 529 college savings account and used it for a non-qualifying expense in %{filing_year}
             eligibility_ed_loan_cancelled: had a student loan debt canceled under the American Rescue Plan Act.
