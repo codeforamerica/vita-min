@@ -421,6 +421,8 @@ class ApplicationController < ActionController::Base
     case state_code
     when 'ny'
       Rails.configuration.state_file_withdrawal_date_deadline_ny
+    when 'md'
+      Rails.configuration.state_file_withdrawal_date_deadline_md
     else
       # Arizona's withdrawal date deadline is the same as the end-new-intakes date which is set in PDT,
       # if this was during daylight-savings, it would be different except in the Navajo Nation
