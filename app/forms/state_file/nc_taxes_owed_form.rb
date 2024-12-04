@@ -23,8 +23,7 @@ module StateFile
 
     def date_electronic_withdrawal_nc_validations
       five_pm_et = app_time_eastern.change(hour: 17, min: 0, sec: 0)
-
-      if (app_time_eastern >= five_pm_et) && two_business_days_in_future?
+      if (app_time_eastern >= five_pm_et) && less_than_two_business_days_in_future?
         errors.add(:date_electronic_withdrawal, I18n.t("errors.attributes.nc_withdrawal_date.post_five_pm"))
       end
       if date_electronic_withdrawal <= app_time_eastern.to_date
@@ -38,8 +37,10 @@ module StateFile
       end
     end
 
+    private
+
     def app_time_eastern
-      app_time.in_time_zone('America/New_York')
+      app_time.in_time_zone('Eastern Time (US & Canada)')
     end
 
     def add_business_days(num_days)
@@ -54,9 +55,9 @@ module StateFile
       current_date
     end
 
-    def two_business_days_in_future?
+    def less_than_two_business_days_in_future?
       two_business_days_later = add_business_days(2)
-      date_electronic_withdrawal >= two_business_days_later
+      date_electronic_withdrawal <= two_business_days_later
     end
   end
 end

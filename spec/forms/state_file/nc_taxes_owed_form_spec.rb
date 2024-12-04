@@ -45,7 +45,7 @@ RSpec.describe StateFile::NcTaxesOwedForm do
 
     context "NC withdrawal date validations" do
       context "when the withdrawal date is in the future, on a weekday and not on a holiday" do
-        let(:app_time) { DateTime.parse("March 11th, #{current_year} 4pm ET").to_s }
+        let(:app_time) { DateTime.parse("March 11th, #{current_year} 4pm EDT").to_s }
         let(:day) { 13 }
 
         it "is valid and saves to intake" do
@@ -70,7 +70,6 @@ RSpec.describe StateFile::NcTaxesOwedForm do
           form = described_class.new(intake, params)
           expect(form).not_to be_valid
           expect(form.errors).to include :date_electronic_withdrawal
-          puts form.errors.inspect
           expect(form.errors[:date_electronic_withdrawal]).to include I18n.t("errors.attributes.nc_withdrawal_date.weekend")
         end
       end
@@ -88,14 +87,24 @@ RSpec.describe StateFile::NcTaxesOwedForm do
       end
 
       context "when it's 5pm EST and withdrawal date is less than 2 business days from today" do
-        #are we checking business days?
-        let(:app_time) { DateTime.parse("March 8th, #{current_year} 5pm EST").to_s } # Friday
+        let(:app_time) { DateTime.parse("March 8th, #{current_year} 7pm EST").to_s } # Friday
         let(:day) { "11" } # Monday, March 11th, 2024
         it "is not valid" do
           form = described_class.new(intake, params)
           expect(form).not_to be_valid
           expect(form.errors).to include :date_electronic_withdrawal
           expect(form.errors[:date_electronic_withdrawal]).to include I18n.t("errors.attributes.nc_withdrawal_date.post_five_pm")
+        end
+      end
+
+      context "when it's 5 PM on a Sunday and the withdrawal date is more 2 days from today" do
+        let(:app_time) { DateTime.parse("February 23rd, 2025 8pm EST").to_s } # Sunday
+        let(:year) { "2025" }
+        let(:day) { "25" }
+        let(:month) { "2" }
+        it "is valid" do
+          form = described_class.new(intake, params)
+          expect(form).to be_valid
         end
       end
     end
