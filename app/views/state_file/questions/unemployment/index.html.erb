@@ -12,7 +12,7 @@
             <%= t('.1099_label', name: form1099.recipient_name) %>
           </h3>
           <p class="form1099__info spacing-below-25">
-            <%= t('.unemployment_compensation', amount: form1099.unemployment_compensation_amount, precision: 2) %>
+            <%= t('.unemployment_compensation', amount: number_to_currency(form1099.unemployment_compensation_amount, precision: 2)) %>
           </p>
           <div>
             <%= link_to t("general.edit"), StateFile::Questions::UnemploymentController.to_path_helper(id: form1099, return_to_review: params[:return_to_review]), class: "button--small button--inline-action" %>

@@ -106,6 +106,14 @@ module SubmissionBuilder
       xml.send(tag, value) if value.present?
     end
 
+    def email_from_intake_or_df
+      if @submission.data_source.email_address.present?
+        sanitize_for_xml(@submission.data_source.email_address, 75)
+      elsif @submission.data_source.direct_file_data.tax_payer_email.present?
+        sanitize_for_xml(@submission.data_source.direct_file_data.tax_payer_email, 75)
+      end
+    end
+
     def process_mailing_street(xml)
       return unless @submission.data_source.direct_file_data.mailing_street.present?
 

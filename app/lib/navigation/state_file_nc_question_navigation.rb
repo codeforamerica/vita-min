@@ -4,8 +4,7 @@ module Navigation
 
     SECTIONS = [
       Navigation::NavigationSection.new("state_file.navigation.section_1", [
-        Navigation::NavigationStep.new(StateFile::Questions::NcEligibilityResidenceController),
-        Navigation::NavigationStep.new(StateFile::Questions::NcEligibilityOutOfStateIncomeController),
+        Navigation::NavigationStep.new(StateFile::Questions::NcEligibilityController),
         Navigation::NavigationStep.new(StateFile::Questions::EligibilityOffboardingController, false),
         Navigation::NavigationStep.new(StateFile::Questions::EligibleController),
       ]),
@@ -27,20 +26,19 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::WaitingToLoadDataController),
       ]),
       Navigation::NavigationSection.new("state_file.navigation.section_5", [
-        Navigation::NavigationStep.new(StateFile::Questions::DataReviewController),
+        Navigation::NavigationStep.new(StateFile::Questions::PostDataTransferController, false),
         Navigation::NavigationStep.new(StateFile::Questions::FederalInfoController),
         Navigation::NavigationStep.new(StateFile::Questions::DataTransferOffboardingController, false),
         Navigation::NavigationStep.new(StateFile::Questions::NcCountyController),
         Navigation::NavigationStep.new(StateFile::Questions::NcVeteranStatusController),
         Navigation::NavigationStep.new(StateFile::Questions::NcSalesUseTaxController),
-        Navigation::NavigationStep.new(StateFile::Questions::IncomeReviewController),
         Navigation::NavigationStep.new(StateFile::Questions::UnemploymentController),
         Navigation::NavigationStep.new(StateFile::Questions::NcSubtractionsController),
         Navigation::NavigationStep.new(StateFile::Questions::PrimaryStateIdController),
         Navigation::NavigationStep.new(StateFile::Questions::SpouseStateIdController),
         Navigation::NavigationStep.new(StateFile::Questions::NcReviewController),
-        Navigation::NavigationStep.new(StateFile::Questions::TaxesOwedController),
-        Navigation::NavigationStep.new(StateFile::Questions::TaxRefundController),
+        Navigation::NavigationStep.new(StateFile::Questions::NcTaxesOwedController),
+        Navigation::NavigationStep.new(StateFile::Questions::NcTaxRefundController),
         Navigation::NavigationStep.new(StateFile::Questions::EsignDeclarationController), # creates EfileSubmission and transitions to preparing
       ]),
       Navigation::NavigationSection.new("state_file.navigation.section_6", [

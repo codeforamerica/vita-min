@@ -14,6 +14,8 @@
 #  date_electronic_withdrawal        :date
 #  df_data_import_succeeded_at       :datetime
 #  df_data_imported_at               :datetime
+#  eligibility_ed_loan_cancelled     :integer          default("no"), not null
+#  eligibility_ed_loan_emp_payment   :integer          default("no"), not null
 #  eligibility_lived_in_state        :integer          default("unfilled"), not null
 #  eligibility_out_of_state_income   :integer          default("unfilled"), not null
 #  eligibility_withdrew_529          :integer          default("unfilled"), not null
@@ -120,6 +122,19 @@ FactoryBot.define do
       after(:create, &:synchronize_df_w2s_to_database)
     end
 
+    trait :taxes_owed do
+      after(:build) do |intake, _evaluator|
+        intake.direct_file_data.fed_agi = 120000
+        intake.raw_direct_file_data = intake.direct_file_data.to_s
+        intake.payment_or_deposit_type = "direct_deposit"
+        intake.account_type = "checking"
+        intake.routing_number = 111111111
+        intake.account_number = 222222222
+        intake.date_electronic_withdrawal = Date.new(Rails.configuration.statefile_current_tax_year, 4, 15)
+        intake.withdraw_amount = 5
+      end
+    end
+
     trait :with_spouse do
       filing_status { 'married_filing_jointly' }
       spouse_first_name { "Susie" }
@@ -153,6 +168,7 @@ FactoryBot.define do
     end
 
     trait :married_filing_separately do
+      filing_status { 'married_filing_separately' }
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nc_sheldon_mfs') }
     end
 

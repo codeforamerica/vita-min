@@ -24,6 +24,7 @@ module Efile
         set_line(:ID40_LINE_9, :calculate_line_9)
         set_line(:ID40_LINE_10, :calculate_line_10)
         set_line(:ID40_LINE_11, :calculate_line_11)
+        set_line(:ID40_LINE_16, :calculate_line_16)
         set_line(:ID40_LINE_19, :calculate_line_19)
         set_line(:ID40_LINE_20, :calculate_line_20)
         set_line(:ID40_LINE_21, :calculate_line_20)
@@ -103,10 +104,14 @@ module Efile
         [line_or_zero(:ID40_LINE_9) - line_or_zero(:ID40_LINE_10), 0].max
       end
 
+      def calculate_line_16
+        @direct_file_data.total_itemized_or_standard_deduction_amount
+      end
+
       # Subtract the larger of L15 or L16 from L11 but L15 is always 0
       # L16 is pulled from df data
       def calculate_line_19
-        [line_or_zero(:ID40_LINE_11) - @direct_file_data.total_itemized_or_standard_deduction_amount, 0].max
+        [line_or_zero(:ID40_LINE_11) - line_or_zero(:ID40_LINE_16), 0].max
       end
 
       WK_LINE_2_AMTS = {

@@ -9,7 +9,8 @@ module StateFile
         if key.present?
           I18n.t(
             "state_file.questions.data_transfer_offboarding.edit.ineligible_reason.#{key}",
-            state: current_state_name
+            state: current_state_name,
+            filing_year: current_tax_year
           )
         end
       end

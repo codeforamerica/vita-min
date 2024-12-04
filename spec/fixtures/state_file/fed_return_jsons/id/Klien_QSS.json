@@ -1,0 +1,74 @@
+{
+  "filers": [
+    {
+      "tin": "400-00-5953",
+      "suffix": null,
+      "lastName": "Klien",
+      "firstName": "David",
+      "dateOfBirth": "1980-12-17",
+      "middleInitial": null,
+      "isPrimaryFiler": true,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "interestReports": [],
+  "familyAndHousehold": [
+    {
+      "tin": "300-00-0003",
+      "suffix": null,
+      "lastName": "Gucci",
+      "firstName": "Georgia",
+      "dateOfBirth": "2007-12-30",
+      "relationship": "biologicalChild",
+      "middleInitial": null,
+      "qualifyingChild": true,
+      "eligibleDependent": true,
+      "residencyDuration": "allYear",
+      "isClaimedDependent": true,
+      "hohQualifyingPerson": false,
+      "scheduleEicLine4aNo": false,
+      "scheduleEicLine4aYes": false,
+      "scheduleEicLine4bYes": false,
+      "monthsLivedWithTPInUS": "twelve",
+      "ssnNotValidForEmployment": false
+    },
+    {
+      "tin": "300-00-0001",
+      "suffix": null,
+      "lastName": "Klien",
+      "firstName": "Calvin",
+      "dateOfBirth": "2007-06-01",
+      "relationship": "biologicalChild",
+      "middleInitial": null,
+      "qualifyingChild": true,
+      "eligibleDependent": true,
+      "residencyDuration": "allYear",
+      "isClaimedDependent": true,
+      "hohQualifyingPerson": true,
+      "scheduleEicLine4aNo": false,
+      "scheduleEicLine4aYes": false,
+      "scheduleEicLine4bYes": false,
+      "monthsLivedWithTPInUS": "twelve",
+      "ssnNotValidForEmployment": false
+    },
+    {
+      "tin": "300-00-0002",
+      "suffix": null,
+      "lastName": "Birkenstock",
+      "firstName": "Brandy",
+      "dateOfBirth": "2008-10-19",
+      "relationship": "childOfSibling",
+      "middleInitial": null,
+      "qualifyingChild": true,
+      "eligibleDependent": true,
+      "residencyDuration": "allYear",
+      "isClaimedDependent": true,
+      "hohQualifyingPerson": true,
+      "scheduleEicLine4aNo": false,
+      "scheduleEicLine4aYes": false,
+      "scheduleEicLine4bYes": false,
+      "monthsLivedWithTPInUS": "twelve",
+      "ssnNotValidForEmployment": false
+    }
+  ]
+}

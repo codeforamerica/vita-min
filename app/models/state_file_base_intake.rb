@@ -237,6 +237,10 @@ class StateFileBaseIntake < ApplicationRecord
     false
   end
 
+  def show_tax_period_in_return_header?
+    true
+  end
+
   def ask_spouse_esign?
     filing_status_mfj? && !spouse_deceased?
   end
@@ -319,7 +323,7 @@ class StateFileBaseIntake < ApplicationRecord
   end
 
   def save_nil_enums_with_unfilled
-    keys_with_unfilled = self.defined_enums.map { |e| e.first if e.last.include?("unfilled") }
+    keys_with_unfilled = self.defined_enums.map { |e| e.first if e.last.include?("unfilled") }.compact
     keys_with_unfilled.each do |key|
       if self.send(key).nil?
         self.send("#{key}=", "unfilled")
@@ -339,7 +343,6 @@ class StateFileBaseIntake < ApplicationRecord
   end
 
   def controller_for_current_step
-    
     if efile_submissions.present?
       StateFile::Questions::ReturnStatusController
     else
@@ -349,11 +352,11 @@ class StateFileBaseIntake < ApplicationRecord
     end
   rescue StandardError
     if hashed_ssn.present?
-      StateFile::Questions::DataReviewController
+      StateFile::Questions::PostDataTransferController
     else
       StateFile::Questions::TermsAndConditionsController
     end
-    
+
   end
 
   def self.opted_out_state_file_intakes(email)

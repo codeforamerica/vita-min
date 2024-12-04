@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v4.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>676c5f98</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400007201</PrimarySSN>
+            <SpouseSSN>400007202</SpouseSSN>
+            <NameLine1Txt>ANN &amp; ANDREW&lt;ANCHOVY</NameLine1Txt>
+            <PrimaryNameControlTxt>ANCH</PrimaryNameControlTxt>
+            <SpouseNameControlTxt>ANCH</SpouseNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>20 Fish St</AddressLine1Txt>
+                <CityNm>Riva</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21035</ZIPCd>
+            </USAddress>
+            <PhoneNum>3015559876</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000720-1c26-4a0f-a5a1-716769ace641@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="5">
+        <IRS1040 documentId="IRS10400001">
+            <Form1040SRInd>X</Form1040SRInd>
+            <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <Spouse65OrOlderInd>X</Spouse65OrOlderInd>
+            <TotalBoxesCheckedCnt>1</TotalBoxesCheckedCnt>
+            <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>2</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001 W20002 W20003" referenceDocumentName="IRSW2">80000</WagesAmt>
+            <WagesSalariesAndTipsAmt>80000</WagesSalariesAndTipsAmt>
+            <SocSecBnftAmt>10000</SocSecBnftAmt>
+            <TaxableSocSecAmt>8500</TaxableSocSecAmt>
+            <TotalIncomeAmt>88500</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>88500</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>30750</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>30750</TotalDeductionsAmt>
+            <TaxableIncomeAmt>57750</TaxableIncomeAmt>
+            <TaxAmt>6469</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>6469</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>6469</TaxLessCreditsAmt>
+            <TotalTaxAmt>6469</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>9500</FormW2WithheldTaxAmt>
+            <Form1099WithheldTaxAmt referenceDocumentId="OTHERWITHHOLDING0001" referenceDocumentName="OtherWithholdingStatement">1000</Form1099WithheldTaxAmt>
+            <WithholdingTaxAmt>10500</WithholdingTaxAmt>
+            <TotalPaymentsAmt>10500</TotalPaymentsAmt>
+            <OverpaidAmt>4031</OverpaidAmt>
+            <RefundAmt>4031</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Salad Dressing Designer</PrimaryOccupationTxt>
+            <SpouseOccupationTxt>Pizza Preparer</SpouseOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>400007201</EmployeeSSN>
+            <EmployerEIN>019292929</EmployerEIN>
+            <EmployerNameControlTxt>CAES</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Caesars Palace</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>1 Main St</AddressLine1Txt>
+                <CityNm>Bristold</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>20711</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Ann Anchovy</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>20 Fish St</AddressLine1Txt>
+                <CityNm>Riva</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21035</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>30000</WagesAmt>
+            <WithholdingAmt>3100</WithholdingAmt>
+            <SocialSecurityWagesAmt>30000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>2600</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>30000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>2100</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>MD</StateAbbreviationCd>
+                    <EmployerStateIdNum>2345678</EmployerStateIdNum>
+                    <StateWagesAmt>30000</StateWagesAmt>
+                    <StateIncomeTaxAmt>3200</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp>
+                        <LocalWagesAndTipsAmt>30000</LocalWagesAndTipsAmt>
+                        <LocalIncomeTaxAmt>1700</LocalIncomeTaxAmt>
+                        <LocalityNm>Anne Arundel</LocalityNm>
+                    </W2LocalTaxGrp>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+        <IRSW2 documentId="W20002" documentName="IRSW2">
+            <EmployeeSSN>400007201</EmployeeSSN>
+            <EmployerEIN>019393939</EmployerEIN>
+            <EmployerNameControlTxt>MARY</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Maryland State Police</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>15 State St</AddressLine1Txt>
+                <CityNm>Annapolis</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21401</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Ann Anchovy</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>20 Fish St</AddressLine1Txt>
+                <CityNm>Riva</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21035</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>29000</WagesAmt>
+            <WithholdingAmt>3400</WithholdingAmt>
+            <SocialSecurityWagesAmt>29000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>2600</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>29000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>1100</MedicareTaxWithheldAmt>
+            <OtherDeductionsBenefitsGrp>
+                <Desc>STPICKUP</Desc>
+                <Amt>4000</Amt>
+            </OtherDeductionsBenefitsGrp>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>MD</StateAbbreviationCd>
+                    <EmployerStateIdNum>3456789</EmployerStateIdNum>
+                    <StateWagesAmt>29000</StateWagesAmt>
+                    <StateIncomeTaxAmt>3100</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp>
+                        <LocalWagesAndTipsAmt>29000</LocalWagesAndTipsAmt>
+                        <LocalIncomeTaxAmt>1900</LocalIncomeTaxAmt>
+                        <LocalityNm>Anne Arundel</LocalityNm>
+                    </W2LocalTaxGrp>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+        <IRSW2 documentId="W20003" documentName="IRSW2">
+            <EmployeeSSN>400007202</EmployeeSSN>
+            <EmployerEIN>019494949</EmployerEIN>
+            <EmployerNameControlTxt>FISH</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Fishy Pies</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>5 Main St</AddressLine1Txt>
+                <CityNm>Riva</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21035</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Andrew Anchovy</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>20 Fish St</AddressLine1Txt>
+                <CityNm>Riva</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21035</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>21000</WagesAmt>
+            <WithholdingAmt>3000</WithholdingAmt>
+            <SocialSecurityWagesAmt>21000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>2000</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>21000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>1000</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>MD</StateAbbreviationCd>
+                    <EmployerStateIdNum>4567890</EmployerStateIdNum>
+                    <StateWagesAmt>21000</StateWagesAmt>
+                    <StateIncomeTaxAmt>4000</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp>
+                        <LocalWagesAndTipsAmt>21000</LocalWagesAndTipsAmt>
+                        <LocalIncomeTaxAmt>1500</LocalIncomeTaxAmt>
+                        <LocalityNm>Anne Arundel</LocalityNm>
+                    </W2LocalTaxGrp>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+        <OtherWithholdingStatement documentId="OTHERWITHHOLDING0001" documentName="OtherWithholdingStatement">
+            <OtherWithholdingStmt>
+                <WithholdingCd>FORM 1099</WithholdingCd>
+                <WithholdingAmt>1000</WithholdingAmt>
+            </OtherWithholdingStmt>
+        </OtherWithholdingStatement>
+    </ReturnData>
+</Return>
