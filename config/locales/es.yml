@@ -2185,12 +2185,13 @@ es:
       az_excise_credit:
         edit:
           household_excise_credit_claimed_amt: "¿Cuánto, en total, reclamaron todos los demás miembros de su hogar en Crédito por Impuesto Especial Incrementado? (Puede consultar esto en la línea 56 de su declaración de impuestos de Arizona)."
+          household_excise_credit_claimed_amt_help_text: Puedes comprobarlo consultando la línea 56 de su declaración de Arizona.
           household_excise_credit_html: "¿Alguien en tu hogar presentó una declaración de impuestos por separado de la tuya y reclamó el Crédito por Aumento de Impuestos Especiales de Arizona?<br><br> (Tu hogar incluye a todas las personas con las que viviste, incluso si no están incluidas en tu declaración.)"
           primary_was_incarcerated: "¿Estuviste encarcelado en una cárcel del condado, estatal o federal durante al menos 60 días en %{tax_year}?"
           spouse_was_incarcerated: "¿Tu cónyuge fue encarcelado en una cárcel del condado, estatal o federal durante al menos 60 días en %{tax_year}?"
           ssn_no_employment_html:
             label: "¿Tienes la frase <b>'not valid for employment'</b> escrita en tu tarjeta de Seguro Social? (Esto es poco común.)"
-          title: "¡Ya casi has terminado de presentar tu declaración! Tenemos algunas preguntas para ver si eres elegible para el Crédito por Aumento de Impuestos Especiales."
+          title: Es posible que seas elegible para el Crédito por Aumento de Impuestos Especiales.
       az_prior_last_names:
         edit:
           prior_last_names_label:
