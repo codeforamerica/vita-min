@@ -25,10 +25,6 @@
     </AdditionalFilerInformation>
   </ReturnHeader>
   <ReturnData documentCnt="5">
-    <IRS2441><TotalQlfdExpensesOrLimitAmt>6000</TotalQlfdExpensesOrLimitAmt></IRS2441>
-    <IRS1040Schedule3 documentId="IRS1040S3001">
-      <CreditForChildAndDepdCareAmt referenceDocumentId="IRS2441001" referenceDocumentName="IRS2441">2100</CreditForChildAndDepdCareAmt>
-    </IRS1040Schedule3>
     <IRS1040 documentId="IRS10400001">
       <IndividualReturnFilingStatusCd>5</IndividualReturnFilingStatusCd>
       <SpouseDeathDt>2023-07-09</SpouseDeathDt>
@@ -41,14 +37,6 @@
         <DependentLastNm>Ludgate</DependentLastNm>
         <DependentNameControlTxt>LUDG</DependentNameControlTxt>
         <DependentSSN>300000014</DependentSSN>
-        <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
-        <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
-      </DependentDetail>
-      <DependentDetail>
-        <DependentFirstNm>May</DependentFirstNm>
-        <DependentLastNm>Ludgate</DependentLastNm>
-        <DependentNameControlTxt>LUDG</DependentNameControlTxt>
-        <DependentSSN>300000016</DependentSSN>
         <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
         <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
       </DependentDetail>
@@ -70,12 +58,12 @@
       <OrdinaryDividendsAmt>0</OrdinaryDividendsAmt>
       <TotalTaxablePensionsAmt>0</TotalTaxablePensionsAmt>
       <SocSecBnftAmt socSecBnftCd="D">8000</SocSecBnftAmt>
-      <TaxableSocSecAmt>12800</TaxableSocSecAmt>
+      <TaxableSocSecAmt>0</TaxableSocSecAmt>
       <CapitalGainLossAmt>0</CapitalGainLossAmt>
       <TotalAdditionalIncomeAmt>1000</TotalAdditionalIncomeAmt>
       <TotalIncomeAmt>11100</TotalIncomeAmt>
       <TotalAdjustmentsAmt>0</TotalAdjustmentsAmt>
-      <AdjustedGrossIncomeAmt>43000</AdjustedGrossIncomeAmt>
+      <AdjustedGrossIncomeAmt>11100</AdjustedGrossIncomeAmt>
       <TotalItemizedOrStandardDedAmt>29200</TotalItemizedOrStandardDedAmt>
       <TotalDeductionsAmt>29200</TotalDeductionsAmt>
       <TaxableIncomeAmt>0</TaxableIncomeAmt>
@@ -93,7 +81,7 @@
       <TaxWithheldOtherAmt>0</TaxWithheldOtherAmt>
       <WithholdingTaxAmt>110</WithholdingTaxAmt>
       <EstimatedTaxPaymentsAmt>0</EstimatedTaxPaymentsAmt>
-      <EarnedIncomeCreditAmt referenceDocumentId="IRSEIC0001" referenceDocumentName="IRS1040ScheduleEIC">0</EarnedIncomeCreditAmt>
+      <EarnedIncomeCreditAmt referenceDocumentId="IRSEIC0001" referenceDocumentName="IRS1040ScheduleEIC">3409</EarnedIncomeCreditAmt>
       <RefundableCreditsAmt>4534</RefundableCreditsAmt>
       <TotalPaymentsAmt>4644</TotalPaymentsAmt>
       <OverpaidAmt>4644</OverpaidAmt>
