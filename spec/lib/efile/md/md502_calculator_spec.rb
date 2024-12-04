@@ -1112,7 +1112,6 @@ describe Efile::Md::Md502Calculator do
     end
   end
 
-<<<<<<< HEAD
   describe "#calculate_line_43" do
     before do
       allow_any_instance_of(Efile::Md::Md502crCalculator).to receive(:calculate_part_cc_line_10).and_return 100
@@ -1121,7 +1120,9 @@ describe Efile::Md::Md502Calculator do
 
     it "returns the value from MD502CR Part AA Line 14" do
       expect(instance.lines[:MD502_LINE_43].value).to eq(100)
-=======
+    end
+  end
+
   describe "#calculate_line_28_local_tax_rate" do
     let(:taxable_net_income) { 10_000 }
     before do
@@ -1376,7 +1377,6 @@ describe Efile::Md::Md502Calculator do
         instance.calculate
         expect(instance.lines[:MD502_LINE_34].value).to eq nil
       end
->>>>>>> main
     end
   end
 

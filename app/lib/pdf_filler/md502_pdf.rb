@@ -93,9 +93,7 @@ module PdfFiller
         'Text Box 38': @xml_document.at('Form502 StateTaxComputation IndividualTaxCredits')&.text,
         'Text Box 40': @xml_document.at('Form502 StateTaxComputation TotalCredits')&.text,
         'Text Box 42': @xml_document.at('Form502 StateTaxComputation StateTaxAfterCredits')&.text,
-<<<<<<< HEAD
         'Text Box 74': @xml_document.at('Form502 RefundableTaxCredits')&.text,
-=======
         'Enter local tax rate': @xml_document.at('Form502 LocalTaxComputation LocalTaxRate')&.text&.split('0.0')&.last,
         'Text Box 44': @xml_document.at('Form502 LocalTaxComputation LocalIncomeTax')&.text,
         'Text Box 46': @xml_document.at('Form502 LocalTaxComputation EarnedIncomeCredit')&.text,
@@ -103,7 +101,6 @@ module PdfFiller
         'Text Box 52': @xml_document.at('Form502 LocalTaxComputation TotalCredits')&.text,
         'Text Box 54': @xml_document.at('Form502 LocalTaxComputation LocalTaxAfterCredits')&.text,
         'Text Box 56': @xml_document.at('Form502 TotalStateAndLocalTax')&.text,
->>>>>>> main
       }
     end
 

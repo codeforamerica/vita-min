@@ -458,7 +458,6 @@ RSpec.describe PdfFiller::Md502Pdf do
       end
     end
 
-<<<<<<< HEAD
     context "Line 43: Refundable income tax credits from Part CC" do
       before do
         allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_43).and_return 400
@@ -466,7 +465,9 @@ RSpec.describe PdfFiller::Md502Pdf do
 
       it 'outputs the total refundable credit' do
         expect(pdf_fields["Text Box 74"]).to eq "400"
-=======
+      end
+    end
+
     context "local tax computations" do
       before do
         allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_28_local_tax_rate).and_return 0.027
@@ -486,7 +487,6 @@ RSpec.describe PdfFiller::Md502Pdf do
         expect(pdf_fields["Text Box 52"]).to eq "1300"
         expect(pdf_fields["Text Box 54"]).to eq "1400"
         expect(pdf_fields["Text Box 56"]).to eq "1500"
->>>>>>> main
       end
     end
   end
