@@ -1,4 +1,4 @@
-<% @main_heading = t("state_file.questions.az_public_school_contributions.edit.title", year: current_tax_year) %>
+<% @main_heading = t("state_file.questions.az_public_school_contributions.edit.title_html") %>
 
 <% content_for :page_title, @main_heading %>
 
@@ -10,7 +10,7 @@
         <div class="white-group">
           <%= f.cfa_radio_set(
                 :made_contribution,
-                label_text: t('state_file.questions.az_public_school_contributions.edit.made_contribution', year: current_tax_year),
+                label_text: t('state_file.questions.az_public_school_contributions.edit.made_contribution', count: current_intake.filer_count, year: current_tax_year),
                 collection: [
                   { value: :yes, label: t('general.affirmative'), input_html: { "data-follow-up": "#contribution-details" } },
                   { value: :no, label: t('general.negative') }
@@ -20,14 +20,43 @@
         </div>
       </div>
 
+      <div class="reveal">
+        <button class="reveal__button"><%= t('.which_qualify') %></button>
+        <div class="reveal__content">
+          <ul>
+            <% t(".qualifying_list").each do |list_item| %>
+              <li><%= list_item %></li>
+            <% end %>
+          </ul>
+          <p><%= t(".more_details_html") %></p>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <button class="reveal__button"><%= t(".donations_this_year", current_year: current_tax_year + 1) %></button>
+        <div class="reveal__content">
+          <p><%= t(".donations_this_year_details_html", current_year: current_tax_year + 1) %></p>
+        </div>
+      </div>
+
       <div class="question-with-follow-up__follow-up" id="contribution-details">
         <div class="white-group">
           <p class="form-question spacing-below-25"><%= t('state_file.questions.az_public_school_contributions.edit.additional_info') %></p>
           <div class="form-group-tight">
-            <%= f.cfa_input_field(:school_name, t('state_file.questions.az_public_school_contributions.edit.school_name'), classes: ["form-width--long"]) %>
+            <%= f.cfa_input_field(
+                  :school_name,
+                  t('state_file.questions.az_public_school_contributions.edit.school_name'),
+                  classes: ["form-width--long"],
+                  help_text: t("state_file.questions.az_public_school_contributions.edit.school_name_help_text")
+                ) %>
             <%= f.cfa_input_field(:ctds_code, t('state_file.questions.az_public_school_contributions.edit.ctds_code'), classes: ["form-width--long"]) %>
             <%= f.cfa_input_field(:district_name, t('state_file.questions.az_public_school_contributions.edit.district_name'), classes: ["form-width--long"]) %>
-            <%= f.vita_min_money_field(:amount, t('state_file.questions.az_public_school_contributions.edit.amount', year: current_tax_year), classes: ["form-width--long"]) %>
+            <%= f.vita_min_money_field(
+                  :amount,
+                  t('state_file.questions.az_public_school_contributions.edit.amount', year: current_tax_year),
+                  classes: ["form-width--long"],
+                  help_text: t("state_file.questions.az_public_school_contributions.edit.amount_help_text", count: current_intake.filer_count)
+                ) %>
             <div class="date-select">
               <%= f.cfa_date_select(
                     :date_of_contribution,
@@ -38,6 +67,13 @@
                     }
                   ) %>
             </div>
+          </div>
+        </div>
+
+        <div class="reveal">
+          <button class="reveal__button"><%= t(".school_details_question") %></button>
+          <div class="reveal__content">
+            <p><%= t(".school_details_answer_html") %></p>
           </div>
         </div>
       </div>

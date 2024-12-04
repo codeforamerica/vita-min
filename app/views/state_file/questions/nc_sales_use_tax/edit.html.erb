@@ -40,6 +40,22 @@
           </div>
         </div>
       </div>
+      <div class="reveal">
+        <p>
+          <button class="reveal__button"><%= t(".what_are_sales_taxes") %></button>
+        </p>
+        <div class="reveal__content">
+          <p class="text--line-breaks"><%= t(".what_are_sales_taxes_body") %></p>
+        </div>
+      </div>
+      <div class="reveal">
+        <p>
+          <button class="reveal__button"><%= t(".what_are_use_taxes") %></button>
+        </p>
+        <div class="reveal__content">
+          <p class="text--line-breaks"><%= t(".what_are_use_taxes_body") %></p>
+        </div>
+      </div>
     </div>
 
     <% if params[:return_to_review].present? %>

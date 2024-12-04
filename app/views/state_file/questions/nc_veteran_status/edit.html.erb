@@ -1,4 +1,8 @@
-<% title = t("state_file.questions.nc_veteran_status.title") %>
+<% if current_intake.filing_status_mfj? %>
+  <% title = t("state_file.questions.nc_veteran_status.title_spouse") %>
+<% else %>
+  <% title = t("state_file.questions.nc_veteran_status.title") %>
+<% end %>
 
 <% content_for :page_title, title %>
 <% content_for :card do %>

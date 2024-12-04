@@ -1,4 +1,4 @@
-<% title = t('.title') %>
+<% title = t('.title', dependents_name_list: @form.dependents.pluck(:first_name).to_sentence) %>
 <% content_for :page_title, title %>
 
 <% content_for :card do %>

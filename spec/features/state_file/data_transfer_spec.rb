@@ -28,7 +28,6 @@ RSpec.feature "Transferring data from Direct File", active_job: true do
     click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
 
     step_through_df_data_transfer("Transfer Javier")
-
-    expect(page).to have_text "Your federal tax return is now transferred."
+    expect(page).to have_text "Note: New York City includes the Bronx, Brooklyn, Manhattan, Queens, and Staten Island."
   end
 end

@@ -8,6 +8,7 @@
     <% if params[:return_to_review].present? %>
       <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
     <% end %>
+    <p><%= t('state_file.questions.unemployment.edit.dont_worry') %></p>
     <div class="question-with-follow-up">
       <div class="question-with-follow-up__question">
         <div class="white-group">
@@ -28,7 +29,6 @@
 
       <div class="question-with-follow-up__follow-up" id="unemployment-not-listed">
         <div class="white-group">
-          <p class="form-question spacing-below-25"><%= t('state_file.questions.unemployment.edit.need_additional_information') %></p>
           <p class="form-question spacing-below-25"><%= t('state_file.questions.unemployment.edit.payer_question_html') %></p>
           <div class="form-group-tight">
             <%= f.cfa_input_field(:payer_name, t('state_file.questions.unemployment.edit.payer_name'), classes: ["form-width--long"]) %>
@@ -40,11 +40,6 @@
           <div class="form-group">
             <p class="form-question"><strong><%= t('state_file.questions.unemployment.edit.state') %></strong></p>
             <p class="form-question"><%= current_state_name %></p>
-          </div>
-          <div class="spacing-above-25">
-            <p class="text--small">
-              <%=  t('state_file.questions.unemployment.edit.other_tax_filing_options_html', link: @faq_other_options_link, filing_year_plus_one: current_tax_year+1) %>
-            </p>
           </div>
         </div>
 
@@ -68,12 +63,11 @@
             <div class="white-group">
               <p class="form-question spacing-below-25"><%= t('state_file.questions.unemployment.edit.confirm_address_html') %></p>
               <div class="form-question spacing-below-15">
-                <div class="text--bold"><%= t('general.address') %></div>
-                <div><%= current_intake.direct_file_data.mailing_street %></div>
+                <div class="text--bold"><%= current_intake.direct_file_data.mailing_street %></div>
                 <% if current_intake.direct_file_data.mailing_apartment.present? %>
-                  <div><%= current_intake.direct_file_data.mailing_apartment %></div>
+                  <div class="text--bold"><%= current_intake.direct_file_data.mailing_apartment %></div>
                 <% end %>
-                <div><%= current_intake.direct_file_data.mailing_city %>, <%= current_state_name %>
+                <div class="text--bold"><%= current_intake.direct_file_data.mailing_city %>, <%= current_state_name %>
                   <%= current_intake.direct_file_data.mailing_zip %></div>
               </div>
               <div>
