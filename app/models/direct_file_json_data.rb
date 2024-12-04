@@ -22,21 +22,17 @@ class DirectFileJsonData
     json_accessor is_claimed_dependent: { type: :boolean, key: "isClaimedDependent" }
     json_accessor qualifying_child: { type: :boolean, key: "qualifyingChild" }
 
-    # We only get a numeric value for "monthsLivedWithTPInUS" if the dependent's residency duration was 6+ months, otherwise it will be null
+    # The numeric field "monthsLivedWithTPInUS" is unreliable, so we use the ranges in "residencyDuration" and translate them into approximate values
     # See Kiteworks: FTA State Exchange System / IRS Direct File / JSON Export Details / Draft IRS Direct File JSON Export Additions.docx
     WORDS_TO_NUMBERS = {
-      "six" => 6,
-      "seven" => 7,
-      "eight" => 8,
-      "nine" => 9,
-      "ten" => 10,
-      "eleven" => 11,
-      "twelve" => 12
+      "allYear" => 12,
+      "sixToElevenMonths" => 7,
+      "lessThanSixMonths" => 5
     }
 
     def months_in_home
-      number_word = df_json_value(["monthsLivedWithTPInUS"])
-      WORDS_TO_NUMBERS[number_word] if number_word
+      number_word = df_json_value(["residencyDuration"])
+      return WORDS_TO_NUMBERS[number_word] if number_word
     end
 
     def months_in_home=(value)
@@ -44,7 +40,7 @@ class DirectFileJsonData
       if value.present? && !numbers_to_words.key?(value)
         raise ArgumentError, "months_in_home must be in #{numbers_to_words.keys}"
       end
-      df_json_set(["monthsLivedWithTPInUS"], numbers_to_words[value])
+      df_json_set(["residencyDuration"], numbers_to_words[value])
     end
   end
 
