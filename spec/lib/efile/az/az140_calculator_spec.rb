@@ -21,8 +21,8 @@ describe Efile::Az::Az140Calculator do
   end
 
   context "line 5c" do
-    it "fills in value with line 13 value from Az321 calculator" do
-      allow_any_instance_of(Efile::Az::Az321Calculator).to receive(:calculate_line_13).and_return 210
+    it "fills in value with line 13 value from Az322 calculator" do
+      allow_any_instance_of(Efile::Az::Az322Calculator).to receive(:calculate_line_13).and_return 210
       instance.calculate
       expect(instance.lines[:AZ140_CCWS_LINE_5c].value).to eq(210)
     end
@@ -68,9 +68,9 @@ describe Efile::Az::Az140Calculator do
     # 31% of 100 (50+50)
     it 'sets the credit to the maximum amount' do
       instance.calculate
-      expect(instance.lines[:AZ140_CCWS_LINE_7c].value).to eq(33)
-      expect(instance.lines[:AZ140_LINE_44].value).to eq(33)
-      expect(instance.lines[:AZ140_LINE_45].value).to eq(7_967)
+      expect(instance.lines[:AZ140_CCWS_LINE_7c].value).to eq(31)
+      expect(instance.lines[:AZ140_LINE_44].value).to eq(31)
+      expect(instance.lines[:AZ140_LINE_45].value).to eq(7_969)
     end
   end
 
