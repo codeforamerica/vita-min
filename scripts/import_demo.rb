@@ -7,7 +7,7 @@ require_relative "../config/environment"
 class ImportDemo < Thor
   desc 'persona', 'Imports a persona from aptible. Uses thor tasks under the hood as defined in the lib/tasks/personas.rb file'
 
-  def persona(state, id, slug, submission_id)
+  def persona(state, id, slug)
     say "Importing XML persona", :green
     `aptible ssh --app vita-min-demo bin/thor personas:export -xs #{state} #{id} | bin/thor personas import -s #{state} #{slug} -i #{submission_id}`
 

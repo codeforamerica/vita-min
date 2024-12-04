@@ -1,7 +1,7 @@
 require_relative "../../config/environment"
 
 class Personas < Thor
-  desc "export", "Export the persona as either XML or JSON"
+  desc "export INTAKE_ID", "Export the persona as either XML or JSON"
 
   method_option :state, aliases: '-s', desc: 'The relevant state', required: true
   method_option :xml, aliases: '-x', desc: "Retrieve XML persona", type: :boolean
@@ -21,10 +21,7 @@ class Personas < Thor
       return 1
     end
 
-    intake_class = ::StateFile::StateInformationService.intake_class(options[:state])
-    say_error "Intake class '#{intake_class.name}' selected", :cyan if options[:debug]
-
-    intake = intake_class.find(id)
+    intake = find_intake(id)
 
     if options[:xml]
       say_error "Outputtng xml", :cyan if options[:debug]
@@ -42,11 +39,10 @@ class Personas < Thor
     end
   end
 
-  desc "import", "Imports a given persona with name. Accepts either XML or JSON"
+  desc "import PERSONA_SLUG", "Imports a given persona with name. Accepts either XML or JSON"
 
   method_option :state, aliases: '-s', desc: 'The state in which to place the persona', required: true
   method_option :debug, aliases: '-d', desc: 'Debug information', type: :boolean
-  method_option :submission_id, aliases: '-i', desc: 'The federal submission ID for mapping in the submission_id_lookup.yml file.'
 
   def import(persona_name)
     persona_name = persona_name.downcase
@@ -69,16 +65,45 @@ class Personas < Thor
     say_error "Creating file '#{file_string}'", :green
 
     File.write(file_string, persona_contents)
+  end
 
-    if options[:submission_id]
-      submission_id_path = "#{__dir__}/../../app/services/state_file/submission_id_lookup.yml"
-      say_error "Adding submission id #{options[:submission_id]} to submission_id_lookup.yml for #{persona_name}", :green
+  desc "export_federal_submission_id INTAKE_ID", "Exports a submission id to be imported by import_federal_submission_id"
+  method_option :state, aliases: '-s', desc: 'The relevant state', required: true
 
-      submission_ids = YAML.safe_load_file(submission_id_path)
+  def export_federal_submission_id(id)
+    intake = find_intake(id)
 
-      submission_ids["#{options[:state]}_#{persona_name}"] = options[:submission_id]
+    say "Submission ID: #{intake.federal_submission_id}"
+  end
 
-      File.write(submission_id_path, YAML.dump(submission_ids.sort.to_h))
+  method_option :state, aliases: '-s', desc: 'The relevant state', required: true
+
+  desc 'import_federal_submission_id PERSONA_NAME', 'Imports a submission id as emitted by export_federal_submission_id'
+  def import_federal_submission_id(persona_name)
+    submission_contents = $stdin.readlines
+
+    # Discard lines that don't begin with magic string
+    start_of_contents = submission_contents.index { |item| item.starts_with?('Submission ID: ') }
+    submission_id = submission_contents[start_of_contents..].join.delete_prefix('Submission ID: ').chomp
+
+    persona_name = persona_name.downcase
+
+    submission_id_path = "#{__dir__}/../../app/services/state_file/submission_id_lookup.yml"
+    say_error "Adding submission id #{options[:submission_id]} to submission_id_lookup.yml for #{persona_name}", :green
+
+    submission_ids = YAML.safe_load_file(submission_id_path)
+
+    submission_ids["#{options[:state]}_#{persona_name}"] = submission_id
+
+    File.write(submission_id_path, YAML.dump(submission_ids.sort.to_h))
+  end
+
+  no_tasks do
+    def find_intake(id)
+      intake_class = ::StateFile::StateInformationService.intake_class(options[:state])
+      say_error "Intake class '#{intake_class.name}' selected", :cyan if options[:debug]
+
+      intake_class.find(id)
     end
   end
 end
