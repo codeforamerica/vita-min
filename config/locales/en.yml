@@ -2901,7 +2901,7 @@ en:
           pay_bank: Pay directly from your checking or savings account (direct debit)
           pay_mail_online_html: Pay by mail or online at <a target="_blank" rel="noopener nofollow" href="https://electronic-services.dor.nc.gov/wps/portal/d400v">NCDOR.gov</a>
           payment_options: You can pay directly from your checking or savings account here. You can also pay by mail or online through the North Carolina Department of Revenue’s website.
-          title_html: You owe <strong>$%{owed_amount}</strong> in %{state_name} state taxes.
+          title_html: You owe <strong>$%{owed_amount}</strong> in North Carolina state taxes.
           what_are_benefits_of_ncdor: What are the benefits of paying online with FileYourStateTaxes or NCDOR?
       nc_veteran_status:
         primary_veteran_question: Are you a veteran?
