@@ -4,6 +4,9 @@
 <% content_for :card do %>
   <h1 class="h2"><%= title1 %></h1>
   <p><%= t(".title2_html") %></p>
+  <% if current_state_code == "md" %>
+    <p class="warning spacing-below-15"><%= t('.warning') %></p>
+  <% end %>
 
   <div class="white-group">
     <%= render partial: "state_file/questions/eligible/#{current_state_code}_supported" %>

@@ -2458,6 +2458,7 @@ en:
           public_school_credit: Public School Tax Credit
         edit:
           credits_not_supported: What subtractions, credits, and household situations does this service not support this year?
+          warning: Please review the subtractions and credits that are supported this year to ensure this service is right for your tax needs.
           not_supported: What if I have a situation not yet supported by FileYourStateTaxes?
           title1: You can use this service to file your %{year} %{state} taxes
           title2_html: |
