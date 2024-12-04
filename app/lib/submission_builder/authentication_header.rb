@@ -33,6 +33,7 @@ module SubmissionBuilder
             xml.DeviceId device_info&.device_id || 'AB' * 20
             xml.DeviceTypeCd 'Browser-based'
             xml.EmailAddressTxt email_from_intake_or_df
+            xml.USCellPhoneNum phone_number if phone_number.present?
           end
           xml.Submission do
             device_info = @submission.data_source.submission_efile_device_info
@@ -48,6 +49,19 @@ module SubmissionBuilder
           xml.TotalPreparationSubmissionTs state_file_total_preparation_submission_minutes
         end
       end
+    end
+
+    private
+
+    def phone_number
+      phone_number = if @intake.phone_number.present?
+        @intake.phone_number
+      elsif @direct_file_data.phone_number.present?
+        @direct_file_data.phone_number
+      else
+        @direct_file_data.cell_phone_number
+      end
+      PhoneParser.e164_to_raw_phone_number(phone_number)
     end
 
     def xml_type_for_state_id(state_id)

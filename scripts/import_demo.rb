@@ -13,6 +13,9 @@ class ImportDemo < Thor
 
     say "Importing JSON persona", :green
     `aptible ssh --app vita-min-demo bin/thor personas:export -js #{state} #{id} | bin/thor personas import -s #{state} #{slug}`
+
+    say "Linking submission ID", :green
+    `aptible ssh --app vita-min-demo bin/thor personas:export_federal_submission_id -s #{state} #{id} | bin/thor personas import_federal_submission_id -s #{state} #{slug}`
   end
 
   desc 'refresh_token', 'Convenience method for opening browser to retrieve token'

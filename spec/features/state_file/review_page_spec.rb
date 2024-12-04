@@ -18,7 +18,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
         visit "/questions/#{state_code}-review"
 
         # Final review page
-        expect(page).to have_text I18n.t("state_file.questions.shared.review_header.title")
+        expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
         within "#income-info" do
           click_on I18n.t("general.edit")
         end
@@ -39,7 +39,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
         click_on I18n.t("general.continue")
 
         # Final review page
-        expect(page).to have_text I18n.t("state_file.questions.shared.review_header.title")
+        expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
         within "#income-info" do
           click_on I18n.t("general.edit")
         end
@@ -60,7 +60,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
         click_on I18n.t("general.continue")
 
         # Final review page
-        expect(page).to have_text I18n.t("state_file.questions.shared.review_header.title")
+        expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
         within "#income-info" do
           click_on I18n.t("general.edit")
         end
@@ -81,7 +81,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
         click_on I18n.t("general.continue")
 
         # Final review page
-        expect(page).to have_text I18n.t("state_file.questions.shared.review_header.title")
+        expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
         within "#income-info" do
           click_on I18n.t("general.edit")
         end
@@ -125,7 +125,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
         click_on I18n.t("general.continue")
 
         # Final review page
-        expect(page).to have_text I18n.t("state_file.questions.shared.review_header.title")
+        expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
       end
     end
   end
@@ -140,7 +140,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       visit "/questions/#{state_code}-review"
 
       # Final review page
-      expect(page).to have_text I18n.t("state_file.questions.shared.review_header.title")
+      expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
       within "#income-info" do
         click_on I18n.t("general.edit")
       end
@@ -150,7 +150,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("general.continue")
 
       # Back on final review page
-      expect(page).to have_text I18n.t("state_file.questions.shared.review_header.title")
+      expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
       within "#income-info" do
         click_on I18n.t("general.edit")
       end

@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v4.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>1cfaf0d2</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400005956</PrimarySSN>
+            <SpouseSSN>400005975</SpouseSSN>
+            <NameLine1Txt>DONALD &amp; MARGARET DECD&lt;WHITE</NameLine1Txt>
+            <PrimaryNameControlTxt>WHIT</PrimaryNameControlTxt>
+            <SpouseNameControlTxt>WHIT</SpouseNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>6951 Hastings</AddressLine1Txt>
+                <CityNm>Boise</CityNm>
+                <StateAbbreviationCd>ID</StateAbbreviationCd>
+                <ZIPCd>83714</ZIPCd>
+            </USAddress>
+            <PhoneNum>2085555555</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000595-665b-41f3-9ce7-559bc6a96f41@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="6">
+        <IRS1040 documentId="IRS10400001">
+            <SpouseDeathDt>2024-09-26</SpouseDeathDt>
+            <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
+            <DependentDetail>
+                <DependentFirstNm>Scarlet</DependentFirstNm>
+                <DependentLastNm>White</DependentLastNm>
+                <DependentNameControlTxt>WHIT</DependentNameControlTxt>
+                <DependentSSN>300000004</DependentSSN>
+                <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+                <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+            </DependentDetail>
+            <DependentDetail>
+                <DependentFirstNm>Colonel</DependentFirstNm>
+                <DependentLastNm>Mustard</DependentLastNm>
+                <DependentNameControlTxt>MUST</DependentNameControlTxt>
+                <DependentSSN>300000005</DependentSSN>
+                <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+                <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+            </DependentDetail>
+            <DependentDetail>
+                <DependentFirstNm>Peacock</DependentFirstNm>
+                <DependentLastNm>White</DependentLastNm>
+                <DependentNameControlTxt>WHIT</DependentNameControlTxt>
+                <DependentSSN>300000006</DependentSSN>
+                <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+                <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+            </DependentDetail>
+            <DependentDetail>
+                <DependentFirstNm>Mister</DependentFirstNm>
+                <DependentLastNm>Body</DependentLastNm>
+                <DependentNameControlTxt>BODY</DependentNameControlTxt>
+                <DependentSSN>300000007</DependentSSN>
+                <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+                <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+            </DependentDetail>
+            <DependentDetail>
+                <DependentFirstNm>Prof</DependentFirstNm>
+                <DependentLastNm>Plum</DependentLastNm>
+                <DependentNameControlTxt>PLUM</DependentNameControlTxt>
+                <DependentSSN>300000008</DependentSSN>
+                <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+                <EligibleForODCInd>X</EligibleForODCInd>
+            </DependentDetail>
+            <DependentDetail>
+                <DependentFirstNm>Butler</DependentFirstNm>
+                <DependentLastNm>White</DependentLastNm>
+                <DependentNameControlTxt>WHIT</DependentNameControlTxt>
+                <DependentSSN>300000009</DependentSSN>
+                <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+                <EligibleForODCInd>X</EligibleForODCInd>
+            </DependentDetail>
+            <MoreDependentsInd>X</MoreDependentsInd>
+            <ChldWhoLivedWithYouCnt>6</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>8</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001 W20002" referenceDocumentName="IRSW2">210000</WagesAmt>
+            <WagesSalariesAndTipsAmt>210000</WagesSalariesAndTipsAmt>
+            <TotalAdditionalIncomeAmt>20000</TotalAdditionalIncomeAmt>
+            <TotalIncomeAmt>230000</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>230000</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>29200</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>29200</TotalDeductionsAmt>
+            <TaxableIncomeAmt>200800</TaxableIncomeAmt>
+            <TaxAmt>34282</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>34282</TotalTaxBeforeCrAndOthTaxesAmt>
+            <CTCODCAmt>9000</CTCODCAmt>
+            <TotalCreditsAmt>9000</TotalCreditsAmt>
+            <TaxLessCreditsAmt>25282</TaxLessCreditsAmt>
+            <TotalTaxAmt>25282</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>43000</FormW2WithheldTaxAmt>
+            <Form1099WithheldTaxAmt referenceDocumentId="OTHERWITHHOLDING0001" referenceDocumentName="OtherWithholdingStatement">3000</Form1099WithheldTaxAmt>
+            <WithholdingTaxAmt>46000</WithholdingTaxAmt>
+            <TotalPaymentsAmt>46000</TotalPaymentsAmt>
+            <OverpaidAmt>20718</OverpaidAmt>
+            <RefundAmt>20718</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Detective</PrimaryOccupationTxt>
+            <SpouseOccupationTxt>Boardgame maker</SpouseOccupationTxt>
+            <SurvivingSpouseInd>X</SurvivingSpouseInd>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1040Schedule1 documentId="IRS1040S1001">
+            <UnemploymentCompAmt>20000</UnemploymentCompAmt>
+            <TotalAdditionalIncomeAmt>20000</TotalAdditionalIncomeAmt>
+        </IRS1040Schedule1>
+        <IRS1040Schedule8812 documentId="IRS8812001" documentName="IRS1040Schedule8812">
+            <AdjustedGrossIncomeAmt>230000</AdjustedGrossIncomeAmt>
+            <ModifiedAGIAmt>230000</ModifiedAGIAmt>
+            <QlfyChildUnderAgeSSNCnt>4</QlfyChildUnderAgeSSNCnt>
+            <QlfyChildUnderAgeSSNLimtAmt>8000</QlfyChildUnderAgeSSNLimtAmt>
+            <OtherDependentCnt>2</OtherDependentCnt>
+            <OtherDependentCreditAmt>1000</OtherDependentCreditAmt>
+            <InitialCTCODCAmt>9000</InitialCTCODCAmt>
+            <FilingStatusThresholdCd>400000</FilingStatusThresholdCd>
+            <ExcessAdjGrossIncomeAmt>0</ExcessAdjGrossIncomeAmt>
+            <ModifiedAGIPhaseOutAmt>0</ModifiedAGIPhaseOutAmt>
+            <CTCODCOverAGILimitInd>true</CTCODCOverAGILimitInd>
+            <CTCODCAfterAGILimitAmt>9000</CTCODCAfterAGILimitAmt>
+            <ACTCTaxLiabiltyLimitAmt>34282</ACTCTaxLiabiltyLimitAmt>
+            <CTCODCAmt>9000</CTCODCAmt>
+            <ClaimACTCAllFilersGrp/>
+        </IRS1040Schedule8812>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>400005956</EmployeeSSN>
+            <EmployerEIN>678912345</EmployerEIN>
+            <EmployerNameControlTxt>CLUE</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Clue Industries</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>300 Fake street</AddressLine1Txt>
+                <CityNm>Boise</CityNm>
+                <StateAbbreviationCd>ID</StateAbbreviationCd>
+                <ZIPCd>83638</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Donald White</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>6951 Hastings</AddressLine1Txt>
+                <CityNm>Boise</CityNm>
+                <StateAbbreviationCd>ID</StateAbbreviationCd>
+                <ZIPCd>83714</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>100000</WagesAmt>
+            <WithholdingAmt>18000</WithholdingAmt>
+            <SocialSecurityWagesAmt>100000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>6200</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>100000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>1450</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>ID</StateAbbreviationCd>
+                    <EmployerStateIdNum>12345</EmployerStateIdNum>
+                    <StateWagesAmt>100000</StateWagesAmt>
+                    <StateIncomeTaxAmt>7000</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+        <IRSW2 documentId="W20002" documentName="IRSW2">
+            <EmployeeSSN>400005975</EmployeeSSN>
+            <EmployerEIN>568912345</EmployerEIN>
+            <EmployerNameControlTxt>BOAR</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Board to Death</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>600 Fake street</AddressLine1Txt>
+                <CityNm>Boise</CityNm>
+                <StateAbbreviationCd>ID</StateAbbreviationCd>
+                <ZIPCd>83638</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Margaret White</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>6951 Hastings</AddressLine1Txt>
+                <CityNm>Boise</CityNm>
+                <StateAbbreviationCd>ID</StateAbbreviationCd>
+                <ZIPCd>83714</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>110000</WagesAmt>
+            <WithholdingAmt>25000</WithholdingAmt>
+            <SocialSecurityWagesAmt>110000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>6820</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>110000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>1595</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>ID</StateAbbreviationCd>
+                    <EmployerStateIdNum>12345</EmployerStateIdNum>
+                    <StateWagesAmt>110000</StateWagesAmt>
+                    <StateIncomeTaxAmt>8000</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+        <OtherWithholdingStatement documentId="OTHERWITHHOLDING0001" documentName="OtherWithholdingStatement">
+            <OtherWithholdingStmt>
+                <WithholdingCd>FORM 1099</WithholdingCd>
+                <EIN>345678912</EIN>
+                <WithholdingAmt>3000</WithholdingAmt>
+            </OtherWithholdingStmt>
+        </OtherWithholdingStatement>
+    </ReturnData>
+</Return>

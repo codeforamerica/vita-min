@@ -82,18 +82,18 @@
                 <StateAbbreviationCd>ID</StateAbbreviationCd>
                 <ZIPCd>83251</ZIPCd>
             </EmployeeUSAddress>
-            <WagesAmt>40000</WagesAmt>
+            <WagesAmt>50000</WagesAmt>
             <WithholdingAmt>2000</WithholdingAmt>
-            <SocialSecurityWagesAmt>40000</SocialSecurityWagesAmt>
-            <SocialSecurityTaxAmt>2480</SocialSecurityTaxAmt>
-            <MedicareWagesAndTipsAmt>40000</MedicareWagesAndTipsAmt>
-            <MedicareTaxWithheldAmt>580</MedicareTaxWithheldAmt>
+            <SocialSecurityWagesAmt>50000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>3100</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>50000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>725</MedicareTaxWithheldAmt>
             <W2StateLocalTaxGrp>
                 <W2StateTaxGrp>
                     <StateAbbreviationCd>ID</StateAbbreviationCd>
                     <EmployerStateIdNum>12345</EmployerStateIdNum>
-                    <StateWagesAmt>40000</StateWagesAmt>
-                    <StateIncomeTaxAmt>400</StateIncomeTaxAmt>
+                    <StateWagesAmt>50000</StateWagesAmt>
+                    <StateIncomeTaxAmt>0</StateIncomeTaxAmt>
                     <W2LocalTaxGrp/>
                 </W2StateTaxGrp>
             </W2StateLocalTaxGrp>
