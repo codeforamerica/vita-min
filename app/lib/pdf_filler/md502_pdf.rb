@@ -116,7 +116,6 @@ module PdfFiller
         'Text Box 85': "00",
         'Text Box 91': calculated_fields.fetch(:MD502_LINE_50),
         'Text Box 92': "00",
->>>>>>> main
         'Enter local tax rate': @xml_document.at('Form502 LocalTaxComputation LocalTaxRate')&.text&.split('0.0')&.last,
         'Text Box 44': @xml_document.at('Form502 LocalTaxComputation LocalIncomeTax')&.text,
         'Text Box 46': @xml_document.at('Form502 LocalTaxComputation EarnedIncomeCredit')&.text,
