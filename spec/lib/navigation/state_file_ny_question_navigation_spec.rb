@@ -20,7 +20,7 @@ RSpec.describe Navigation::StateFileNyQuestionNavigation do
         StateFile::Questions::InitiateDataTransferController,
         StateFile::Questions::CanceledDataTransferController, # show? false
         StateFile::Questions::WaitingToLoadDataController,
-        StateFile::Questions::DataReviewController,
+        StateFile::Questions::PostDataTransferController,
         StateFile::Questions::FederalInfoController,
         StateFile::Questions::DataTransferOffboardingController,
         StateFile::Questions::NycResidencyController,
