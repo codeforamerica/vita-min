@@ -79,7 +79,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in "For New York IDs: First three characters of the document number (located on the back of your ID)", with: "ABC"
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title.one', year: MultiTenantService.statefile.current_tax_year)
+      expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title')
       choose I18n.t("general.affirmative")
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_name'), with: "Business Name"
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_address'), with: "123 Main St"
@@ -174,7 +174,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text "Here are the income forms we transferred from your federal tax return."
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title.one', year: filing_year)
+      expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title', year: filing_year)
       choose I18n.t("general.affirmative")
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_name'), with: "Business Name"
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_address'), with: "123 Main St"
@@ -315,7 +315,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       select("Alamance", from: "County")
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t("state_file.questions.nc_veteran_status.title")
+      expect(page).to have_text I18n.t("state_file.questions.nc_veteran_status.title_spouse")
       choose "state_file_nc_veteran_status_form_primary_veteran_no"
       choose "state_file_nc_veteran_status_form_spouse_veteran_no"
       click_on I18n.t("general.continue")
@@ -324,7 +324,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title.other', year: filing_year)
+      expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title', year: filing_year)
       choose I18n.t("general.affirmative")
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_name'), with: "Business Name"
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_address'), with: "123 Main St"
@@ -403,7 +403,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text "Here are the income forms we transferred from your federal tax return."
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title.one', year: filing_year)
+      expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title', year: filing_year)
       choose I18n.t("general.affirmative")
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_name'), with: "Business Name"
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_address'), with: "123 Main St"
@@ -522,7 +522,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text "Here are the income forms we transferred from your federal tax return."
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title.other', year: filing_year)
+      expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title', year: filing_year)
       choose I18n.t("general.affirmative")
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_name'), with: "Business Name"
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_address'), with: "123 Main St"
