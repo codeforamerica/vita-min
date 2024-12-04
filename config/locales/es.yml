@@ -2898,7 +2898,7 @@ es:
           pay_bank: Pague directamente desde su cuenta corriente o de ahorros (débito directo)
           pay_mail_online_html: Pague por correo o en línea en <a target="_blank" rel="noopener nofollow" href="https://electronic-services.dor.nc.gov/wps/portal/d400v">NCDOR.gov</a>
           payment_options: Puede pagar directamente desde su cuenta corriente o de ahorros aquí. También puede pagar por correo o en línea a través del sitio web del Departamento de Ingresos de Carolina del Norte.
-          title_html: Usted debe <strong>$%{owed_amount}</strong> en impuestos estatales de %{state_name}.
+          title_html: Usted debe <strong>$%{owed_amount}</strong> en impuestos estatales de Carolina del Norte.
           what_are_benefits_of_ncdor: "¿Cuáles son los beneficios de pagar en línea con FileYourStateTaxes o NCDOR?"
       nc_veteran_status:
         primary_veteran_question: "¿Eres un veterano?"
