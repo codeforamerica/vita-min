@@ -4,18 +4,20 @@
 <% content_for :page_title, @main_heading %>
 
 <% content_for :card do %>
-  <h1 class="form-question">
-    <%= t('.main_heading_html', filing_year: current_tax_year) -%>
-  </h1>
-
   <%= form_with( model: @contribution, url: { action: @contribution.persisted? ? :update : :create }, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long' }) do |f| %>
-
     <div class="question-with-follow-up">
       <% if show_yes_no %>
         <div class="question-with-follow-up__question">
           <div class="white-group">
             <%= f.fields_for(:state_file_az_intake) do |ff| %>
-              <%= ff.cfa_radio_set( :made_az321_contributions, collection: [ { value: :yes, label: t('general.affirmative'), input_html: { "data-follow-up": "#contribution-details", } }, { value: :no, label: t('general.negative') } ]) %>
+              <%= ff.cfa_radio_set(
+                    :made_az321_contributions,
+                    label_text: t('.main_heading_html'),
+                    collection: [
+                      { value: :yes, label: t('general.affirmative'), input_html: { "data-follow-up": "#contribution-details", } },
+                      { value: :no, label: t('general.negative') }
+                    ]
+                  ) %>
             <% end %>
           </div>
         </div>
@@ -35,6 +37,15 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <p>
+        <button class="reveal__button"><%= t(".org_details_question") %></button>
+      </p>
+      <div class="reveal__content">
+        <p><%= t(".org_details_answer_html") %></p>
       </div>
     </div>
 

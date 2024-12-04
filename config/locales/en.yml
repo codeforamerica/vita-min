@@ -2208,30 +2208,24 @@ en:
     questions:
       az_charitable_contributions:
         edit:
-          charitable_cash_html: 'Enter the <strong>total amount of cash contributions</strong> made in %{tax_year}. (Round to the nearest whole number. Note: you may be asked to provide receipts for donations over $250.)'
-          charitable_noncash_html: 'Enter the <strong>total amount of non-cash contributions</strong> made in %{tax_year} (example: the fair market value of donated items). This cannot exceed $500 (round to the nearest whole number.)'
-          learn_more_content_html: |
-            Charitable contributions include <strong>cash</strong> and <strong>non-cash</strong> donations to qualifying organizations.<br><br>
-            Qualifying organizations include nonprofit groups that are religious, charitable, educational, scientific, or literary in purpose, or that work to prevent cruelty to children or animals. Check <a href="https://www.irs.gov/TEOS" target="_blank" rel="noopener nofollow">here</a> to see if an organization qualifies.<br><br>
-            Do <strong>not</strong> include:<br>
-            <ul><li>gifts made directly to individuals;</li>
-            <li>political contributions;</li>
-            <li>all fees paid to public schools, including fees paid that qualify for the <a href="https://azdor.gov/tax-credits/public-school-tax-credit" target="_blank" rel="noopener nofollow">Public School Tax Credit</a>;</li>
-            <li>money spent on fundraisers including raffles, bingo; or</li>
-            <li>items purchased for a fundraiser.</li></ul>
-          learn_more_title: What does this mean?
-          title:
-            one: Did you make charitable contributions (cash and/or non-cash) to a qualifying organization in %{tax_year}?
-            other: Did you or your spouse make charitable contributions (cash and/or non-cash) to a qualifying organization in %{tax_year}?
+          amount_cannot_exceed: This amount may not exceed $500
+          charitable_cash_html: Total amount of cash donations
+          charitable_noncash_html: Total amount of non-cash donations
+          help_text: For example, the fair market value of donated items.
+          question:
+            one: Did you make any donations to tax-exempt nonprofits?
+            other: Did you or your spouse make any donations to tax-exempt nonprofits?
+          title: You may be eligible for additional Arizona credits and deductions!
       az_excise_credit:
         edit:
-          household_excise_credit_claimed_amt: How much, in total, did all other members of your household claim in Increased Excise Tax Credit? (You can look this up by looking at Line 56 of their Arizona return.)
+          household_excise_credit_claimed_amt: Enter the total amount of Increased Excise Tax Credit claimed by your household members
+          household_excise_credit_claimed_amt_help_text: You can look this up by looking at Line 56 of their Arizona return.
           household_excise_credit_html: Did anyone in your household file a tax return separately from you and claim the Arizona Increased Excise Tax Credit? <br><br> (Your household is everyone that you lived with, even if they aren’t listed on your return.)
           primary_was_incarcerated: Were you incarcerated in a county, state, or federal prison for at least 60 days in %{tax_year}?
           spouse_was_incarcerated: Was your spouse incarcerated in a county, state, or federal prison for at least 60 days in %{tax_year}?
           ssn_no_employment_html:
             label: Do you have <b>'not valid for employment'</b> written on your Social Security card? (This is rare.)
-          title: You’re almost done filing! We have a few questions to see if you’re eligible for the Increased Excise Tax Credit.
+          title: You might be eligible for the Increased Excise Tax Credit.
       az_prior_last_names:
         edit:
           prior_last_names_label:
@@ -2283,30 +2277,34 @@ en:
           school_details_question: Where can I find the school details?
           which_qualify: Which donations and fees qualify?
         index:
-          add_another: Add another contribution
-          amount_contributed: 'Amount contributed: %{amount}'
-          contribution_label: Contribution to %{school_name}
+          add_another: Add another donation
           delete_confirmation: Are you sure you want to delete this contribution?
-          lets_review: Lets review your public school cash contributions and fees
           maximum_records: You have provided the maximum amount of records.
+          title: 'Here are the public school donations/fees you added:'
       az_qualifying_organization_contributions:
         destroy:
           removed: Removed AZ 321 for %{charity_name}
         form:
-          amount: Amount of contribution in %{filing_year}
+          amount: Amount of donation/fees paid in %{filing_year}
           charity_code: Charity Code
-          charity_name: Charity Name
-          date_of_contribution: Date of payment in %{filing_year} (mm/dd)
-          main_heading: Did you make cash contributions to a qualifying charitable organization in %{filing_year}?
-          main_heading_html: Did you make cash contributions to a <a href="https://azdor.gov/sites/default/files/2024-01/CREDITS_2024_qco.pdf" target="_blank">qualifying charitable organization</a> in %{filing_year}?
-          question_header: 'Please provide the following information for each cash donation to a qualifying charitable organization:'
+          charity_name: Name of Qualifying Organization
+          date_of_contribution: Date of payment in %{filing_year}
+          main_heading: Were any of your donations made to a Qualifying Charitable Organization that provide immediate basic needs to residents of Arizona?
+          main_heading_html: Were any of your donations made to a <a href="https://azdor.gov/tax-credits/credits-contributions-qcos-and-qfcos" target="_blank">Qualifying Charitable Organization</a> that provide immediate basic needs to residents of Arizona?
+          org_details_answer_html: |
+            You can find this information on the receipt you received from the organization
+            <br/><br/>
+            OR
+            <br/><br/>
+            Visit the <a href="https://azdor.gov/sites/default/files/2024-01/CREDITS_2024_qco.pdf" target="_blank">Arizona Department of Revenue</a> to find the details.
+          org_details_question: Where do I find the organization details?
+          question_header: Please add details for cash donation to Qualifying Charitable Organizations.
         index:
-          add_another: Add another contribution
-          contribution_amount: 'Amount: %{amount}'
-          contribution_name: Contribution to %{charity_name} with code %{charity_code}
+          add_another: Add another donation
+          credit_limit: Credit limit is $%{credit_limit}
           delete_confirmation: Are you sure you want to delete this contribution?
-          lets_review: Great! Thanks for sharing that information. Let’s review.
           maximum_records: You have provided the maximum amount of records.
+          title: Here are the Qualifying Charitable donations we've collected.
       az_review:
         edit:
           armed_forces_member: Member of the U.S. Armed Forces
@@ -2342,7 +2340,9 @@ en:
           title: We need additional information about %{dependents_name_list}
       az_subtractions:
         edit:
-          armed_forces_member_label_html: You or your spouse are a member of the Reserves, the National Guard, or the U.S. Armed Forces <strong>and</strong> received pay for active duty military service.
+          armed_forces_member_label:
+            one: You are a member of the Reserves, the National Guard, or the U.S. Armed Forces and received pay for active duty military service.
+            other: You or your spouse are a member of the Reserves, the National Guard, or the U.S. Armed Forces and received pay for active duty military service.
           armed_forces_wages_label:
             one: How much did you receive in active duty pay?
             other: How much did you or your spouse receive in active duty pay?
@@ -2351,10 +2351,8 @@ en:
             If you are a member of <strong>the Reserves or the National Guard</strong>, enter pay received for weekend or two-week training periods that you reported on your federal tax return.<br><br>
             You may <strong>not</strong> include any income you received for full-time civil service employment as a “military technician (dual status)”.
           learn_more_title: Learn more
-          should_not_exceed_wages_html: "<strong>Note:</strong> this should not exceed %{wages}"
-          subtitle:
-            one: Check every box that applies to you. If it does not apply, leave blank and continue.
-            other: Check every box that applies to you or your spouse. If it does not apply, leave blank and continue.
+          should_not_exceed_wages: This should not exceed %{wages}
+          subtitle: Check every box that applies. If it does not apply, leave blank and continue.
           title:
             one: Did any of the following scenarios apply to you in %{year}?
             other: Did any of the following scenarios apply to you or your spouse in %{year}?
@@ -2364,7 +2362,7 @@ en:
           tribal_wages_label:
             one: How much did you earn while living and working on your tribe’s reservation?
             other: How much did you or your spouse earn while living and working on your or their tribe’s reservation?
-          wages_tip: Enter amount earned (round to the nearest whole number.)
+          wages_tip: Enter amount earned
       canceled_data_transfer:
         edit:
           subtitle: Unfortunately, to continue filing with FileYourStateTaxes, you must transfer your federal return to complete parts of your state return.
@@ -3354,19 +3352,19 @@ en:
         county: County where your permanent address was located on December 31, %{filing_year}
       shared:
         abstract_review_header:
+          amount_rounding_notice_html: "<strong>We have automatically rounded all dollar amounts to the nearest whole number.</strong> The %{state_agency_name} will only accept whole numbers on the final tax return."
           dependent_dob: Their date of birth
           dependent_months_in_home: Number of months they lived with you
           dependent_name: Your dependent's name
-          household_info: Household information
+          household_info: Household Details
           nth_dependent_name: Your %{ordinal} dependent's name
           spouse_name: Your spouse's name
           taxes_owed_header: Your refund or taxes owed
           taxes_owed_html: Your refund is $0. This means that you <strong>will not</strong> receive a state refund and you <strong>do not</strong> owe state taxes. You should finish filing your return, since you may be required to file even though you won’t get or receive any money.
-          title: You're done! Review your state tax return before you submit.
+          title: You're almost done! Please review the information we have.
           your_name: Your name
         review_header:
           income_details: Income Details
-          title: You're done! Review your state tax return before you submit.
           your_refund: Your refund amount
           your_tax_owed: Your taxes owed
       spouse_state_id:

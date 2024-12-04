@@ -2174,31 +2174,24 @@ es:
     questions:
       az_charitable_contributions:
         edit:
-          charitable_cash_html: 'Ingresa el <strong>monto total de las donaciones en efectivo realizadas</strong> en %{tax_year}. (Redondea al número entero más cercano. Nota: Es posible que debas adjuntar recibos por donaciones superiores a $250.)'
-          charitable_noncash_html: 'Ingresa el <strong>monto total de las donaciones en especie realizadas</strong> en %{tax_year} (ejemplo: el valor de mercado de artículos donados). Esto no puede superar los $500. (redondea al número entero más cercano)'
-          learn_more_content_html: |
-            Las contribuciones caritativas incluyen donaciones en <strong>efectivo</strong> y en <strong>especie</strong> a organizaciones que califican.<br><br>
-            Las organizaciones que califican incluyen grupos sin ánimo de lucro con propósitos religiosos, caritativos, educativos, científicos o literarios, o que trabajan para prevenir la crueldad hacia niños o animales. Verifica <a href="https://www.irs.gov/TEOS" target="_blank" rel="noopener nofollow">aquí</a> si una organización califica.<br><br>
-            <strong>No</strong> incluyes:<br>
-            <ul><li>regalos hechos directamente a individuos;</li>
-            <li>contribuciones políticas;</li>
-            <li>todas las tarifas pagadas a escuelas públicas, incluyendo las tarifas que califican para el <a href="https://azdor.gov/tax-credits/public-school-tax-credit" target="_blank" rel="noopener nofollow">Crédito Tributario para Escuelas Públicas</a>;</li>
-            <li>dinero gastado en eventos de recaudación de fondos, incluyendo rifas, bingo; o</li>
-            <li>artículos comprados para una recaudación de fondos.</li></ul>
-          learn_more_title: "¿Qué quiere decir esto?"
-          title:
-            many: "¿Tú o tu cónyuge hicieron contribuciones caritativas (en efectivo y/o en especie) a una organización calificada en %{tax_year}?"
-            one: "¿Realizaste donaciones caritativas a una organización calificada en %{tax_year}? (En efectivo o en especie)"
-            other: "¿Tú o tu cónyuge hicieron contribuciones caritativas (en efectivo y/o en especie) a una organización calificada en %{tax_year}?"
+          amount_cannot_exceed: La cantidad no puede ser mayor a $500
+          charitable_cash_html: Cantidad total de las donaciones en efectivo/tarifas
+          charitable_noncash_html: Cantidad total de las donaciones  no monetarias
+          help_text: Por ejemplo, el valor comercial razonable de los artículos donados.
+          question:
+            one: "¿Donaste tú a organizaciones sin fines de lucro exentas de impuestos?"
+            other: "¿Tú y tu cónyuge donaron a organizaciones sin fines de lucro exentas de impuestos?"
+          title: "¡Podrías ser elegible para recibir créditos y deducciones adicionales de Arizona!"
       az_excise_credit:
         edit:
           household_excise_credit_claimed_amt: "¿Cuánto, en total, reclamaron todos los demás miembros de su hogar en Crédito por Impuesto Especial Incrementado? (Puede consultar esto en la línea 56 de su declaración de impuestos de Arizona)."
+          household_excise_credit_claimed_amt_help_text: Puedes comprobarlo consultando la línea 56 de su declaración de Arizona.
           household_excise_credit_html: "¿Alguien en tu hogar presentó una declaración de impuestos por separado de la tuya y reclamó el Crédito por Aumento de Impuestos Especiales de Arizona?<br><br> (Tu hogar incluye a todas las personas con las que viviste, incluso si no están incluidas en tu declaración.)"
           primary_was_incarcerated: "¿Estuviste encarcelado en una cárcel del condado, estatal o federal durante al menos 60 días en %{tax_year}?"
           spouse_was_incarcerated: "¿Tu cónyuge fue encarcelado en una cárcel del condado, estatal o federal durante al menos 60 días en %{tax_year}?"
           ssn_no_employment_html:
             label: "¿Tienes la frase <b>'not valid for employment'</b> escrita en tu tarjeta de Seguro Social? (Esto es poco común.)"
-          title: "¡Ya casi has terminado de presentar tu declaración! Tenemos algunas preguntas para ver si eres elegible para el Crédito por Aumento de Impuestos Especiales."
+          title: Es posible que seas elegible para el Crédito por Aumento de Impuestos Especiales.
       az_prior_last_names:
         edit:
           prior_last_names_label:
@@ -2252,30 +2245,34 @@ es:
           school_details_question: "¿Dónde puedo encontrar la información de la escuela?"
           which_qualify: "¿Qué donaciones y tarifas califican?"
         index:
-          add_another: Añadir otra contribución
-          amount_contributed: 'Cantidad contribuida: %{amount}'
-          contribution_label: Contribución a %{school_name}
+          add_another: Añadir otra donación
           delete_confirmation: "¿Estás seguro de que quieres eliminar esta contribución?"
-          lets_review: Revisión de tus hiciste contribuciones y tarifas a la escuela pública
           maximum_records: Ha proporcionado la cantidad máxima de registros.
+          title: 'Esta es la información que agregaste:'
       az_qualifying_organization_contributions:
         destroy:
           removed: Se eliminó AZ 321 para %{charity_name}
         form:
-          amount: Monto de la contribución en %{filing_year}
-          charity_code: Código de caridad
-          charity_name: Nombre de la organización benéfica
-          date_of_contribution: Fecha de pago en %{filing_year} (mm/dd)
-          main_heading: "¿Hizo contribuciones en efectivo a una organización benéfica calificada en %{filing_year}?"
-          main_heading_html: ¿Hizo contribuciones en efectivo a una <a href="https://azdor.gov/sites/default/files/2024-01/CREDITS_2024_qco.pdf" target="_blank" >organización benéfica calificada</a> en %{filing_year}?
-          question_header: 'Proporcione la siguiente información para cada donación en efectivo a una organización benéfica calificada:'
+          amount: Cantidad de la donación/tarifas pagadas en %{filing_year}
+          charity_code: Código de beneficencia
+          charity_name: Nombre de la organización calificada
+          date_of_contribution: Fecha de pago en %{filing_year}
+          main_heading: "¿Alguna de tus donaciones fue hecha a una organización benéfica calificada que ofrece necesidades básicas inmediatas a los residentes de Arizona?"
+          main_heading_html: ¿Alguna de tus donaciones fue hecha a <a href="https://azdor.gov/tax-credits/credits-contributions-qcos-and-qfcos" target="_blank">una organización benéfica calificada</a> que ofrece necesidades básicas inmediatas a los residentes de Arizona?
+          org_details_answer_html: |
+            Puedes encontrar esta información en el recibo que te entregó la organización
+            <br/><br/>
+            O
+            <br/><br/>
+            Visita el <a href="https://azdor.gov/sites/default/files/2024-01/CREDITS_2024_qco.pdf" target="_blank">Departamento de Ingresos de Arizona</a> para encontrar los detalles.
+          org_details_question: "¿Dónde encuentro los detalles de la organización?"
+          question_header: Por favor, añade detalles sobre la donación en efectivo a organizaciones benéficas calificadas.
         index:
-          add_another: Añadir otra contribución
-          contribution_amount: 'Cantidad: %{amount}'
-          contribution_name: Contribución a %{charity_name} con el código %{charity_code}
+          add_another: Añadir otra donación
+          credit_limit: El límite del crédito es $%{credit_limit}
           delete_confirmation: "¿Estás seguro de que deseas eliminar esta contribución?"
-          lets_review: "¡Genial! Gracias por compartir esa información. Repasemos."
           maximum_records: Ha proporcionado la cantidad máxima de registros.
+          title: Aquí están las donaciones benéficas calificadas que registramos
       az_review:
         edit:
           armed_forces_member: Miembro de las Fuerzas Armadas de los Estados Unidos
@@ -2311,7 +2308,9 @@ es:
           title: Necesitamos información adicional sobre %{dependents_name_list}
       az_subtractions:
         edit:
-          armed_forces_member_label_html: Tú o tu cónyuge son miembros de las Reservas, la Guardia Nacional o las Fuerzas Armadas de los Estados Unidos <strong>y</strong> recibieron un salario por el servicio activo.
+          armed_forces_member_label:
+            one: Tú eres miembro de las Reservas, la Guardia Nacional o las Fuerzas Armadas de los Estados Unidos y recibió un salario por el servicio activo.
+            other: Tú o tu cónyuge son miembros de las Reservas, la Guardia Nacional o las Fuerzas Armadas de los Estados Unidos y recibieron un salario por el servicio activo.
           armed_forces_wages_label:
             many: "¿Cuánto recibiste tú o tu cónyuge en salario por servicio activo?"
             one: "¿Cuánto recibiste en salario por servicio activo?"
@@ -2321,24 +2320,21 @@ es:
             Si eres miembro de <strong>la Reserva o la Guardia Nacional</strong>, ingresa el salario que recibiste por entrenamientos durante fines de semana o de dos semanas que hayas reportado en tu declaración de impuestos federal.<br><br>
             <strong>No</strong> puedes incluir ningún ingreso que hayas recibido por empleo a tiempo completo en el servicio civil como "técnico militar (doble estatus)".
           learn_more_title: Obtener más información
-          should_not_exceed_wages_html: "<strong>Nota:</strong> Esto no debe superar %{wages}"
-          subtitle:
-            many: Marca todas las casillas que correspondan a usted o su cónyuge. Si no corresponde, déjelas en blanco y continúe.
-            one: Marca cada casilla que te aplique a ti. Si no te aplica, déjala en blanco y continúa.
-            other: Marca todas las casillas que correspondan a usted o su cónyuge. Si no corresponde, déjelas en blanco y continúe.
+          should_not_exceed_wages: Esto no debe superar %{wages}
+          subtitle: Marca todas las casillas que correspondan. Si no corresponde, déjelas en blanco y continúe.
           title:
             many: "¿Alguna de las siguientes situaciones te aplican a ti o su cónyuge en el %{year}?"
             one: "¿Alguna de las siguientes situaciones te aplican a ti en el %{year}?"
             other: "¿Alguna de las siguientes situaciones te aplican a ti o su cónyuge en el %{year}?"
           tribal_member_label:
             many: Tú o tu cónyuge son miembros inscritos de una <u>tribu indígena estadounidense reconocida por el gobierno federal</u> y ganaron salario mientras vivían y trabajaban en la reserva.
-            one: Tú eres un miembro inscrito de una <a href="https://www.bia.gov/service/tribal-leaders-directory/federally-recognized-tribes" target="_blank" rel="noopener nofollow">tribu indígena estadounidense reconocida por el gobierno federal</a> y ganaron salario mientras vivían y trabajaban en la reserva.
+            one: Tú eres un miembro inscrito de una <a href="https://www.bia.gov/service/tribal-leaders-directory/federally-recognized-tribes" target="_blank" rel="noopener nofollow">tribu indígena estadounidense reconocida por el gobierno federal</a> y ganó un salario mientras vivía y trabajaba en la reserva.
             other: Tú o tu cónyuge son miembros inscritos de una <u>tribu indígena estadounidense reconocida por el gobierno federal</u> y ganaron salario mientras vivían y trabajaban en la reserva.
           tribal_wages_label:
             many: "¿Cuánto ganaste tú o tu cónyuge mientras vivían y trabajaban en la reserva de tu tribu o la de tu cónyuge?"
             one: "¿Cuánto recibiste en salario mientras vivías y trabajabas en la reserva de tu tribu?"
             other: "¿Cuánto ganaste tú o tu cónyuge mientras vivían y trabajaban en la reserva de tu tribu o la de tu cónyuge?"
-          wages_tip: Ingresa la cantidad que recibiste (redondea al número entero más cercano)
+          wages_tip: Ingresa la cantidad que recibiste
       canceled_data_transfer:
         edit:
           subtitle: Lamentablemente, para continuar presentando tus impuestos estatales con FileYourStateTaxes debes transferir tu declaración federal para completar ciertas secciones de tu declaración estatal.
@@ -3341,19 +3337,19 @@ es:
         county: County where your permanent address was located on December 31, %{filing_year}
       shared:
         abstract_review_header:
+          amount_rounding_notice_html: "<strong>Hemos redondeado automáticamente todos los montos en dólares al número entero más cercano.</strong> La %{state_agency_name} solo aceptará números enteros en la declaración de impuestos final."
           dependent_dob: Su fecha de nacimiento
           dependent_months_in_home: Número de meses que vivieron contigo
           dependent_name: Nombre de tu dependiente
-          household_info: Información del hogar
+          household_info: Detalles del hogar
           nth_dependent_name: Nombre de tu %{ordinal} dependiente
           spouse_name: Nombre de tu cónyuge
           taxes_owed_header: Tu reembolso estimado o tus impuestos estimados a pagar
           taxes_owed_html: Tu reembolso es de $0. Esto significa <strong>que no</strong> recibirás un reembolso estatal y <strong>no</strong> debes impuestos estatales. Deberías terminar de presentar tu declaración, ya que es posible que estés obligado/a a presentarla aunque no recibirás dinero.
-          title: "¡Terminaste! Revisa tu declaración de impuestos estatales antes de enviarla."
+          title: "¡Ya casi terminas! Por favor revisa la información que tenemos."
           your_name: Tu nombre
         review_header:
           income_details: Detalles de ingresos
-          title: "¡Terminaste! Revisa tu declaración de impuestos estatales antes de enviarla."
           your_refund: Tu reembolso
           your_tax_owed: Tus impuestos adeudados
       spouse_state_id:

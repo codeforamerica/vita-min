@@ -1,4 +1,4 @@
-<% title = t('.lets_review') %>
+<% title = t('.title') %>
 <% content_for :page_title, title %>
 
 <% content_for :card do %>
@@ -9,26 +9,45 @@
       <div class="white-group contribution">
         <div class="contribution__details">
           <h3 class="contribution__label">
-            <%= t('.contribution_label', school_name: contribution.school_name) %>
+            <%= contribution.school_name %>
           </h3>
-          <p class="contribution__info spacing-below-25">
-            <%= t('.amount_contributed', amount: number_to_currency(contribution.amount, precision: 2)) %>
-          </p>
+          <div class="spacing-above-25">
+            <p class="text--bold spacing-below-5"><%= t("state_file.questions.az_public_school_contributions.edit.ctds_code") %></p>
+            <p class="spacing-below-5"><%= contribution.ctds_code %></p>
+          </div>
+          <div class="spacing-above-25">
+            <p class="text--bold spacing-below-5"><%= t('state_file.questions.az_public_school_contributions.edit.district_name') %></p>
+            <p class="spacing-below-5"><%= contribution.district_name %></p>
+          </div>
+          <div class="spacing-above-25">
+            <p class="text--bold spacing-below-5"><%= t('state_file.questions.az_public_school_contributions.edit.amount', year: current_tax_year) %></p>
+            <p class="spacing-below-5"><%= number_to_currency(contribution.amount, precision: 2) %></p>
+          </div>
+          <div class="spacing-above-25">
+            <p class="text--bold spacing-below-5"><%= t("state_file.questions.az_public_school_contributions.edit.date_of_contribution", year: current_tax_year) %></p>
+            <p class="spacing-below-25"><%= contribution.date_of_contribution.strftime("%m/%d") %></p>
+          </div>
           <div>
             <%= link_to t("general.edit"), StateFile::Questions::AzPublicSchoolContributionsController.to_path_helper(us_state: current_state_code, id: contribution, return_to_review: params[:return_to_review]), class: "button--small button--inline-action" %>
-            <%= link_to t("general.delete"), StateFile::Questions::AzPublicSchoolContributionsController.to_path_helper(action: :destroy, us_state: current_state_code, id: contribution, return_to_review: params[:return_to_review]), method: :delete, data: {confirm: t(".delete_confirmation")}, class: "button--small button--inline-action last" %>
+            <%= link_to t("general.delete"), StateFile::Questions::AzPublicSchoolContributionsController.to_path_helper(action: :destroy, us_state: current_state_code, id: contribution, return_to_review: params[:return_to_review]), method: :delete, data: { confirm: t(".delete_confirmation") }, class: "button--small button--inline-action last" %>
           </div>
         </div>
       </div>
     <% end %>
   <% end %>
 
-  <%= link_to(next_path, class: "button button--primary button--wide spacing-below-10") do %>
-    <%= t('general.continue') %>
-  <% end %>
-  <%= button_to(StateFile::Questions::AzPublicSchoolContributionsController.to_path_helper(action: :new, return_to_review: params[:return_to_review]), class: "button button--wide", method: :get, disabled: (@az322_contributions.count >= 10)) do %>
+  <%= button_to(
+        StateFile::Questions::AzPublicSchoolContributionsController.to_path_helper(action: :new, return_to_review: params[:return_to_review]),
+        class: "button button--wide spacing-below-10",
+        method: :get,
+        disabled: (@az322_contributions.count >= 10)
+      ) do %>
     <%= t('.add_another') %>
   <% end %>
+  <%= link_to(next_path, class: "button button--primary button--wide") do %>
+    <%= t('general.continue') %>
+  <% end %>
+
   <% if @az322_contributions.count >= 10 %>
     <p class="text--error text--centered spacing-above-5"><%= t('.maximum_records') %></p>
   <% end %>
