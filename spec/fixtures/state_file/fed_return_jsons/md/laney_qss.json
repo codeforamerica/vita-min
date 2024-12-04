@@ -4,21 +4,11 @@
       "firstName": "April",
       "middleInitial": null,
       "lastName": "Ludgate",
-      "dateOfBirth": "2020-01-01",
+      "dateOfBirth": "1998-01-01",
       "relationship": "biologicalChild",
       "eligibleDependent": true,
       "isClaimedDependent": true,
       "tin": "300-00-0014"
-    },
-    {
-      "firstName": "May",
-      "middleInitial": null,
-      "lastName": "Ludgate",
-      "dateOfBirth": "2020-01-01",
-      "relationship": "biologicalChild",
-      "eligibleDependent": true,
-      "isClaimedDependent": true,
-      "tin": "300-00-0016"
     }
   ],
   "filers": [
