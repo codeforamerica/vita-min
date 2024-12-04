@@ -2462,11 +2462,11 @@ en:
             Here are the credits and deductions you <strong>may</strong> be able to claim to maximize your refund.
         id_supported:
           child_care_deduction: Idaho Child and Dependent Care Subtraction
+          health_insurance_premiums_subtraction: Health Insurance Premiums subtraction
           id_child_tax_credit: Idaho Child Tax Credit
           id_grocery_credit: Idaho Grocery Credit
           interest_from_obligations: Interest from U.S government obligations subtraction
           social_security_retirement_deduction: Social Security and Retirement Benefits deductions
-          health_insurance_premiums_subtraction: Health Insurance Premiums subtraction
         id_unsupported:
           change_in_filing_status: Change in filing status from federal to state return
           dependents_not_claimed_fed_return: Adding dependents not claimed on the federal return
@@ -2541,10 +2541,6 @@ en:
       esign_declaration:
         edit:
           already_submitted: You have already submitted your return.
-          id:
-            body_html: |
-              <p>By using a computer system and software to prepare and/or file my tax return(s) electronically, I consent to the transmission of my return(s) and to the disclosure of all information about my use of the system and software to the Idaho State Tax Commission.</p>
-              <p>Under penalties of perjury, I declare that to the best of my knowledge and belief this return is true, correct, and complete.</p>
           az:
             body_html: |
               <p>Under penalties of perjury, I declare that I have examined a copy of my electronic Arizona individual income tax return and accompanying schedules and statements for the year ending December 31, %{filing_year}, and to the best of my knowledge and belief, it is true, correct, and complete.</p>
@@ -2556,6 +2552,10 @@ en:
               <p>If I have filed a balance due return, I understand that if the ADOR does not receive full and timely payment of my tax liability by April 15, 2024, I will remain liable for the tax liability and all applicable interest and penalties.</p>
               <p>I consent to my Electronic Return Originator (ERO) or On-Line Service Provider (OLSP) sending my electronic Arizona individual income tax return and accompanying schedules and statements to ADOR, and I consent to my ERO or OLSP sending such information to ADOR through a transmitter. I consent to ADOR sending my ERO, OLSP and/or transmitter an acknowledgement of receipt of transmission and an indication of whether or not the transmission of my return is accepted and, if the return is rejected, the reason(s) for the rejection. If the processing of my return or refund is delayed, I authorize ADOR to disclose to my ERO, OLSP and/ or transmitter the reason(s) for the delay, or when the refund was sent. If ADOR contacts my ERO for a copy of my return, any documents or schedules to my return, and/or this authorization form, I authorize my ERO to release copies of the requested documents to ADOR.</p>
               <p>I declare under penalties of perjury that to the best of my knowledge and belief the return is true, correct and complete.</p>
+          id:
+            body_html: |
+              <p>By using a computer system and software to prepare and/or file my tax return(s) electronically, I consent to the transmission of my return(s) and to the disclosure of all information about my use of the system and software to the Idaho State Tax Commission.</p>
+              <p>Under penalties of perjury, I declare that to the best of my knowledge and belief this return is true, correct, and complete.</p>
           md:
             body_html: |
               <p>By using a computer system and software to prepare and/or file my tax return(s) electronically, I consent to the transmission of my return(s) and to the disclosure of all information about my use of the system and software to the Comptroller of Maryland.</p>
@@ -2599,12 +2599,11 @@ en:
           emergency_rental_assistance: In %{filing_year}, did you (or your spouse if filing together) receive emergency rental assistance?
           emergency_rental_assistance_explanation: The Emergency Rental Assistance (ERA) program is a federal program that gives money to help households pay for rent and utility bills. It was created in response to the Covid-19 pandemic.
           subtitle_1: For this tax season, this service will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
-          subtitle_2: Please answer the following questions to find out if you can use it.
           title: First, let's see if you can use this service to file your %{filing_year} Idaho taxes
           withdrew_msa_fthb: 'In %{filing_year}, did you (or your spouse if you’re filing together) withdraw money from any of the following:'
           withdrew_msa_fthb_list:
             bullet_1_html: Withdrew money from our Idaho Medical Savings Account and used it for a <a href="%{link}" target="_blank" rel="noopener noreferrer">non-qualifying expense</a>.
-            bullet_2_html:  Withdrew money from our First-Time Homebuyer Account and used it for <a href="%{link}" target="_blank" rel="noopener noreferrer">non-eligible home costs</a>.
+            bullet_2_html: Withdrew money from our First-Time Homebuyer Account and used it for <a href="%{link}" target="_blank" rel="noopener noreferrer">non-eligible home costs</a>.
       id_grocery_credit:
         edit:
           answers_confidential_html: Your answers are private and used only to see if you qualify for the tax credit.
@@ -2684,10 +2683,10 @@ en:
         id_primary:
           encourage_sharing_html: If you and your spouse have a driver’s license or state issued identification card please provide the requested information from it. The return will not be rejected if you do not provide a driver’s license or state-issued identification. <br><br> If you provide this information, it may help to identify you as the taxpayer.
           protect_identity: Many state revenue agencies, including Idaho, are requesting additional information in an effort to combat stolen-identity tax fraud and to protect you and your tax refund.
+          read_more_here_html: Read more <a href="https://tax.idaho.gov/taxes/income-tax/individual-income/refund/" target="_blank" rel="noopener noreferrer">here</a>.
           subtitle: Provide your driver’s license or identity card number when you e-File to help your refund process faster.
           title: We need some details from your state-issued ID, if you have one
           why_ask_this: Why are you asking for this information?
-          read_more_here_html: Read more <a href="https://tax.idaho.gov/taxes/income-tax/individual-income/refund/" target="_blank" rel="noopener noreferrer">here</a>.
       id_review:
         edit:
           donations_optional: Idaho taxpayers can make voluntary charitable donations to organizations when they file their state income tax return.
@@ -2703,11 +2702,9 @@ en:
           sales_tax_content: This is a tax collected at the point of sale when you buy goods within your state. However, if you purchased items through an out-of-state seller, they may not have collected Idaho sales tax at the time.
           sales_tax_title: What are sales taxes?
           sales_use_tax_helper_text: Enter total amount
-          subtitle_html: This includes online purchases where sales or use tax was <b>not</b> applied.
+          subtitle_html: This includes online purchases where sales tax was not applied.
           title: Did you make any out-of-state purchases in %{year} without paying sales tax?
           unpaid_sales_use_tax_label_html: Please enter the <b>total amount of purchases</b> that didn’t have sales or use tax applied.
-          use_tax_content: If you buy something from another state (like online shopping or purchases from a store located in another state) and you don’t pay sales tax on it, you are generally required to pay use tax to your home state.
-          use_tax_title: What are use taxes?
       id_spouse_state_id:
         id_spouse:
           encourage_sharing_html: If you and your spouse have a driver’s license or state issued identification card please provide the requested information from it. The return will not be rejected if you do not provide a driver’s license or state-issued identification. <br><br> If you provide this information, it may help to identify you as the taxpayer.
