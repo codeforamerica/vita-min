@@ -1,0 +1,48 @@
+{
+  "familyAndHousehold": [],
+  "filers": [
+    {
+      "lastName": "TROUT",
+      "firstName": "ROAN",
+      "middleInitial": null,
+      "tin": "400-00-7211",
+      "dateOfBirth": "1990-03-17",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "ssnNotValidForEmployment": null
+    },
+    {
+      "lastName": "TROUT",
+      "firstName": "KAYLEIGH",
+      "middleInitial": "R",
+      "tin": "400-00-7212",
+      "dateOfBirth": "1991-03-03",
+      "suffix": null,
+      "isPrimaryFiler": false,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "interestReports": [
+    {
+      "has1099": true,
+      "taxExemptAndTaxCreditBondCusipNo": null,
+      "payerTin": null,
+      "recipientTin": "400-00-7212",
+      "payer": "CASUAL BANK",
+      "taxWithheld": "0.00",
+      "1099Amount": "1000.00",
+      "no1099Amount": null
+    },
+    {
+      "has1099": true,
+      "taxExemptAndTaxCreditBondCusipNo": null,
+      "interestOnGovernmentBonds": "400.00",
+      "payerTin": null,
+      "recipientTin": "400-00-7211",
+      "payer": "MIDWESTERN BANK",
+      "1099Amount": "3000.00",
+      "taxWithheld": "0.00",
+      "no1099Amount": null
+    }
+  ]
+}

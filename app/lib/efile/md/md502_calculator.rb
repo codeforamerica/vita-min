@@ -82,6 +82,7 @@ module Efile
         set_line(:MD502_LINE_19, :calculate_line_19)
         set_line(:MD502_LINE_20, :calculate_line_20)
         set_line(:MD502_LINE_21, :calculate_line_21)
+        @md502cr.calculate # md502cr calculations dependent on line 1 and line 21
 
         # EIC
         set_line(:MD502_LINE_22, :calculate_line_22)
@@ -102,6 +103,7 @@ module Efile
         set_line(:MD502_LINE_34, :calculate_line_34)
         set_line(:MD502_LINE_39, :calculate_line_39)
         set_line(:MD502_LINE_40, :calculate_line_40)
+        set_line(:MD502_LINE_43, :calculate_line_43)
         set_line(:MD502_LINE_42, :calculate_line_42)
         set_line(:MD502_LINE_43, :calculate_line_43)
         set_line(:MD502_LINE_44, :calculate_line_44)
@@ -437,7 +439,7 @@ module Efile
       end
 
       def calculate_line_24
-        0 # TODO: a stub
+        line_or_zero(:MD502CR_PART_AA_LINE_14)
       end
 
       def calculate_line_26
@@ -589,7 +591,9 @@ module Efile
         end
       end
 
-      def calculate_line_43; end
+      def calculate_line_43
+        line_or_zero(:MD502CR_PART_CC_LINE_10)
+      end
 
       def calculate_line_44
         [40, 42, 43].sum { |number| line_or_zero("MD502_LINE_#{number}") }
