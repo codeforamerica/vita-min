@@ -53,7 +53,7 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
           xml.ZIPCd @intake.direct_file_data.mailing_zip
         elsif @intake.confirmed_permanent_address_no?
           xml.AddressLine1Txt sanitize_for_xml(@intake.permanent_street, 35)
-          xml.AddressLine2Txt sanitize_for_xml(@intake.permanent_apartment, 35) if @intake.direct_file_data.mailing_apartment.present?
+          xml.AddressLine2Txt sanitize_for_xml(@intake.permanent_apartment, 35) if @intake.permanent_apartment.present?
           xml.CityNm sanitize_for_xml(@intake.permanent_city, 22)
           xml.StateAbbreviationCd @intake.state_code.upcase
           xml.ZIPCd @intake.permanent_zip
