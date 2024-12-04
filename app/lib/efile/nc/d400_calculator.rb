@@ -60,10 +60,6 @@ module Efile
         end
       end
 
-      def subtractions_limit
-        @direct_file_data.fed_agi - (line_or_zero(:NCD400_S_LINE_18) + line_or_zero(:NCD400_S_LINE_19) + line_or_zero(:NCD400_S_LINE_20) + line_or_zero(:NCD400_S_LINE_21))
-      end
-
       def analytics_attrs
         {}
       end
