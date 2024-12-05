@@ -2807,8 +2807,10 @@ en:
           zip_label: Zip Code
       md_primary_state_id:
         md_primary:
-          encourage_sharing: If you and your spouse have a driver’s license or state issued identification card please provide the requested information from it. The return will not be rejected if you do not provide a driver’s license or state-issued identification. If you provide this information, it may help to identify you as the taxpayer.
+          dmv_bmv_label: MVA State ID
+          encourage_sharing: If you and your spouse have a driver's license or state issued identification card please provide the requested information from it. The return will not be rejected if you do not provide a driver’s license or state-issued identification. If you provide this information, it may help to identify you as the taxpayer.
           protect_identity: Many state revenue agencies, including Maryland, are requesting additional information in an effort to combat stolen-identity tax fraud and to protect you and your tax refund.
+          subtitle: The Comptroller of Maryland requests the information from your Driver's License or state-issued ID card be included with the return, but won't reject the return if it's not included.
           why_ask_this: Why are you asking for this information?
       md_review:
         edit:
@@ -2816,8 +2818,10 @@ en:
           political_subdivision_html: "<strong>Political subdivision</strong>"
       md_spouse_state_id:
         md_spouse:
+          dmv_bmv_label: MVA State ID
           encourage_sharing: If you and your spouse have a driver’s license or state issued identification card please provide the requested information from it. The return will not be rejected if you do not provide a driver’s license or state-issued identification. If you provide this information, it may help to identify you as the taxpayer.
           protect_identity: Many state revenue agencies, including Maryland, are requesting additional information in an effort to combat stolen-identity tax fraud and to protect you and your tax refund.
+          subtitle: The Comptroller of Maryland requests the information from your Driver's License or state-issued ID card be included with the return, but won't reject the return if it's not included.
           why_ask_this: Why are you asking for this information?
       md_tax_refund:
         md_bank_details:
