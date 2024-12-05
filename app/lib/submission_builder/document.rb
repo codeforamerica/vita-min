@@ -114,7 +114,7 @@ module SubmissionBuilder
       end
     end
 
-    def process_md_mailing_street(xml)
+    def process_address(xml)
       return unless @submission.data_source.direct_file_data.mailing_street.present?
 
       mailing_street = sanitize_for_xml(@submission.data_source.direct_file_data.mailing_street)
@@ -142,6 +142,7 @@ module SubmissionBuilder
       end
     end
 
+    # TODO Rest of these processing address methods are for NY and might be deprecated
     def process_mailing_street(xml)
       return unless @submission.data_source.direct_file_data.mailing_street.present?
 
