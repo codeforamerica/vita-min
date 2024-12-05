@@ -104,9 +104,22 @@ class StateFileNcIntake < StateFileBaseIntake
 
   attr_accessor :nc_eligiblity_none
 
+  # TODO: clear moved_after_hurricane_helene and county_during_hurricane_helene values
+
   def calculate_sales_use_tax
     nc_taxable_income = calculator.lines[:NCD400_LINE_14].value
     calculator.calculate_use_tax(nc_taxable_income)
+  end
+
+  def disaster_relief_county
+    disaster_relief_code = "#{residence_county_name}_Helene"
+    designated_county_during_helene = NcResidenceCountyConcern.designated_hurricane_relief_counties.include?(county_during_hurricane_helene)
+
+    if designated_county_during_helene
+      disaster_relief_code += ";#{COUNTIES[county_during_hurricane_helene]}_Helene"
+    end
+
+    disaster_relief_code
   end
 
   def disqualifying_df_data_reason

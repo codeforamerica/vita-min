@@ -94,4 +94,53 @@ RSpec.describe StateFileNcIntake, type: :model do
       expect(intake.calculate_sales_use_tax).to eq 2
     end
   end
+
+  describe "#disaster_relief_county" do
+    let(:intake) { create :state_file_nc_intake, residence_county: residence_county, county_during_hurricane_helene: county_during_hurricane_helene, moved_after_hurricane_helene: moved_after_hurricane_helene }
+    let(:residence_county) { nil }
+    let(:county_during_hurricane_helene) { nil }
+    let(:moved_after_hurricane_helene) { "unfilled" }
+    let(:designated_county) { "011" } # Buncombe county
+    let(:undesignated_county) { "001" } # Alamance county
+
+    context "when residence county is in a designated hurricane relief county" do
+      let(:residence_county) { designated_county }
+
+      it "returns 'county name_Helene'" do
+        expect(intake.disaster_relief_county).to eq "Buncombe_Helene"
+      end
+    end
+
+    context "when residence county is in an undesignated hurricane relief county" do
+      let(:residence_county) { undesignated_county }
+
+      context "when moved_after_hurricane_helene" do
+        let(:moved_after_hurricane_helene) { "yes" }
+
+        context "when county_during_hurricane_helene is a designated county" do
+          let(:county_during_hurricane_helene) { designated_county }
+
+          it "returns 'county residence name_Helene;county during hurricane_Helene'" do
+            expect(intake.disaster_relief_county).to eq "Alamance_Helene;Buncombe_Helene"
+          end
+        end
+
+        context "when county_during_hurricane_helene is an undesignated county" do
+          let(:county_during_hurricane_helene) { undesignated_county }
+
+          it "returns 'county name_Helene'" do
+            expect(intake.disaster_relief_county).to eq "Alamance_Helene"
+          end
+        end
+      end
+
+      context "when didn't moved_after_hurricane_helene" do
+        let(:moved_after_hurricane_helene) { "no" }
+
+        it "returns 'county name_Helene'" do
+          expect(intake.disaster_relief_county).to eq "Alamance_Helene"
+        end
+      end
+    end
+  end
 end
