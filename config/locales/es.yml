@@ -3367,7 +3367,20 @@ es:
           your_tax_owed: Tus impuestos adeudados
       sms_terms:
         edit:
-          title: Revise los términos y condiciones de mensajes de texto de FileYourStateTaxes
+          term: Cuando se registre en el servicio, le enviaremos un mensaje SMS para confirmar su inscripción. También le enviaremos actualizaciones sobre su declaración de impuestos (la frecuencia de los mensajes variará) y/o códigos OTP/2FA (un mensaje por solicitud).
+          term_2_html: Puede cancelar el servicio de SMS en cualquier momento. Solo <strong>envíe "STOP" al 46207</strong>. Después de enviar el mensaje SMS "STOP", le enviaremos un mensaje SMS para confirmar que se ha dado de baja. Después de esto, ya no recibirá mensajes SMS de nuestra parte. Si desea unirse nuevamente, simplemente <strong>responda "START"</strong> y comenzaremos a enviarle mensajes SMS otra vez.
+          term_3_html: Si en algún momento olvida qué palabras clave están disponibles, simplemente <strong>envíe "HELP" al 46207</strong>. Después de enviar el mensaje SMS "HELP", le responderemos con instrucciones sobre cómo usar nuestro servicio, así como cómo darse de baja.
+          term_4_html: "<strong>Podemos enviar mensajes a los siguientes operadores de telefonía móvil</strong>"
+          term_5: 'Operadores principales: AT&T, Verizon Wireless, Sprint, T-Mobile, U.S. Cellular, Alltel, Boost Mobile, Nextel y Virgin Mobile.'
+          term_6: 'Operadores secundarios: Alaska Communications Systems (ACS), Appalachian Wireless (EKN), Bluegrass Cellular, Cellular One of East Central IL (ECIT), Cellular One of Northeast Pennsylvania, Cincinnati Bell Wireless, Cricket, Coral Wireless (Mobi PCS), COX, Cross, Element Mobile (Flat Wireless), Epic Touch (Elkhart Telephone), GCI, Golden State, Hawkeye (Chat Mobility), Hawkeye (NW Missouri), Illinois Valley Cellular, Inland Cellular, iWireless (Iowa Wireless), Keystone Wireless (Immix Wireless/PC Man), Mosaic (Consolidated or CTC Telecom), Nex-Tech Wireless, NTelos, Panhandle Communications, Pioneer, Plateau (Texas RSA 3 Ltd), Revol, RINA, Simmetry (TMP Corporation), Thumb Cellular, Union Wireless, United Wireless, Viaero Wireless y West Central (WCC o 5 Star Wireless).'
+          term_7: Los operadores (por ejemplo, AT&T, Verizon, T-Mobile, Sprint, etc.) no son responsables ni están obligados por mensajes no entregados o retrasados.
+          term_8_html: 'Como siempre, pueden aplicarse tarifas de mensajes y datos para cualquier mensaje enviado a usted desde nosotros y para mensajes que usted nos envíe. Si tiene alguna pregunta sobre su plan de mensajes o datos, es mejor comunicarse con su proveedor de telefonía móvil. <br><br>Para todas las preguntas sobre los servicios proporcionados por este código corto, puede enviar un correo electrónico a <strong>help@fileyourstatetaxes.org</strong>.
+
+            '
+          term_9_html: 'Si tiene preguntas relacionadas con la privacidad, por favor lea nuestra política de privacidad: <a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/privacy-policy">www.fileyourstatetaxes.org/privacy-policy</a>
+
+            '
+          title: Por favor revise los términos y condiciones de mensajería de texto de FileYourStateTaxes
       spouse_state_id:
         edit:
           title_html: Proporciona la información para la identificación emitida por el estado de <strong>tu cónyuge</strong>
