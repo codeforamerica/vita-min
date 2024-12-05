@@ -258,6 +258,11 @@ es:
         multiple: 'Error: Se encontraron varias direcciones para la información que ingresó y no existe ningún predeterminado.'
         not_found: 'Error: Dirección no encontrada'
         state: 'Error: Código de Estado Inválido'
+      md_county:
+        residence_county:
+          presence: Por favor, seleccione un condado de residencia.
+        subdivision_code:
+          presence: Por favor seleccione una subdivisión política
       nc_eligibility_form:
         at_most_one_option_selected: Debe seleccionar ninguna o las opciones anteriores.
       need_exactly_one_communication_method: Ingrese solo una forma de contacto.

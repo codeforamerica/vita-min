@@ -257,6 +257,11 @@ en:
         multiple: 'Error: Multiple addresses were found for the information you entered, and no default exists.'
         not_found: 'Error: Address Not Found.'
         state: 'Error: Invalid State Code'
+      md_county:
+        residence_county:
+          presence: Please select a county
+        subdivision_code:
+          presence: Please select a political subdivision
       nc_eligibility_form:
         at_most_one_option_selected: You must either select none or the above options
       need_exactly_one_communication_method: Please enter only one form of contact.
