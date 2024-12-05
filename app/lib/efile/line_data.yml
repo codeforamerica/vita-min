@@ -880,14 +880,50 @@ NJ1040_LINE_58_IRS:
   label: '58 IRS calculated federal earned income credit'
 NJ1040_LINE_59:
   label: '59 Excess New Jersey UI/WF/SWF Withheld (Enclose Form NJ-2450) (See instructions)'
+NJ1040_LINE_60:
+  label: '60 Excess New Jersey Disability Insurance Withheld (Enclose Form NJ-2450) (See instructions)'
 NJ1040_LINE_61:
   label: '61 Excess New Jersey Family Leave Insurance Withheld (Enclose Form NJ-2450) (See instructions)'
+NJ1040_LINE_62:
+  label: '62 Wounded Warrior Caregivers Credit (See instructions)'
+NJ1040_LINE_63:
+  label: '63 Pass-Through Business Alternative Income Tax Credit (See instructions)'
 NJ1040_LINE_64:
   label: '64 Child and Dependent Care Credit'
 NJ1040_LINE_65_DEPENDENTS:
   label: '65 Number of dependents age 5 or younger on 12/31/tax year'
 NJ1040_LINE_65:
   label: '65 New Jersey Child Tax Credit (See instructions)'
+NJ1040_LINE_66:
+  label: '66 Total Withholdings, Credits, and Payments (Add lines 55 through 65)'
+NJ1040_LINE_67:
+  label: '67 If line 66 is less than line 54, you have tax due. Subtract line 66 from line 54 and enter the amount you owe. If you owe tax, you can still make a donation on lines 70 through 77.'
+NJ1040_LINE_68:
+  label: '68 If the total on line 66 is more than line 54, you have an overpayment. Subtract line 54 from line 66 and enter the overpayment.'
+NJ1040_LINE_69:
+  label: '69 Amount from line 68 you want to credit to your taxes next year'
+NJ1040_LINE_70:
+  label: '70 Contribution to N.J. Endangered Wildlife Fund'
+NJ1040_LINE_71:
+  label: "71 Contribution to N.J. Children's Trust Fund To Prevent Child Abuse"
+NJ1040_LINE_72:
+  label: "72 Contribution to N.J. Vietnam Veterans' Memorial Fund"
+NJ1040_LINE_73:
+  label: '73 Contribution to N.J. Breast Cancer Research Fund'
+NJ1040_LINE_74:
+  label: '74 Contribution to U.S.S. New Jersey Educational Museum Fund'
+NJ1040_LINE_75:
+  label: '75 Other Designated Contribution (See instructions)'
+NJ1040_LINE_76:
+  label: '76 Other Designated Contribution (See instructions)'
+NJ1040_LINE_77:
+  label: '77 Other Designated Contribution (See instructions)'
+NJ1040_LINE_78:
+  label: '78 Total Adjustments to Tax Due/Overpayment amount (Add lines 69 through 77)'
+NJ1040_LINE_79:
+  label: '79 Balance due (If line 67 is more than zero, add line 67 and line 78)'
+NJ1040_LINE_80:
+  label: '80 Refund amount (If line 68 is more than zero, subtract line 78 from line 68)'
 NJ2450_COLUMN_A_TOTAL_PRIMARY:
   label: 'Total Deducted. UI/WF/SWF Deducted'
 NJ2450_COLUMN_C_TOTAL_PRIMARY:

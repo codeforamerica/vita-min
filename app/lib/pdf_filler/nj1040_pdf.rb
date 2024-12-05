@@ -593,6 +593,108 @@ module PdfFiller
                                                  ]))
       end
 
+      # line 66
+      if @xml_document.at("Body TotalPaymentsOrCredits").present?
+        payments_or_credits = @xml_document.at("Body TotalPaymentsOrCredits").text.to_i
+        answers.merge!(insert_digits_into_fields(payments_or_credits, [
+          "Text204",
+          "Text203",
+          "Text202",
+          "undefined_172",
+          "66",
+          "undefined_161",
+          "undefined_160",
+          "62",
+          "66page2!!",
+          "undefined_167",
+        ]))
+      end
+
+      # line 67
+      if @xml_document.at("Body BalanceDueWithReturn").present?
+        balance_due = @xml_document.at("Body BalanceDueWithReturn").text.to_i
+        answers.merge!(insert_digits_into_fields(balance_due, [
+          "Text20711231167AA12vvff434te",
+          "Text2061ddwQz1267AA12vvff434te",
+          "Text20523rwefa67AA12vvff434te",
+          "undefined_173t24wsd67AA12vvff434te",
+          "672wqreafd67AA12vvff434te",
+          "67AA12697TDFGCXDqaffw67AA12vvff434te",
+          "67AA127434ERDFvfr67AA12vvff434te",
+          "67AA12133vvve367AA12vvff434te",
+          "67AA12vvff434te",
+          "67AA12vvff434tei7yt#",
+        ]))
+      end
+
+      # line 68
+      if @xml_document.at("Body OverpaymentAmount").present?
+        overpayment = @xml_document.at("Body OverpaymentAmount").text.to_i
+        answers.merge!(insert_digits_into_fields(overpayment, [
+          "Text23312###5z564312###5z5643",
+          "Text23212###5z564312###5z5643",
+          "Text23112###5z564312###5z5643",
+          "Text23012###5z564312###5z5643",
+          "Text22912###5z564312###5z5643",
+          "undefined_18312###5z564312###5z5643",
+          "undefined_18212###5z564312###5z5643",
+          "undefined_18112###5z564312###5z5643",
+          "7412###5z564312###5z5643",
+          "74112###5z5643",
+        ]))
+      end
+
+      # line 78
+      if @xml_document.at("Body TotalAdjustments").present?
+        adjustments = @xml_document.at("Body TotalAdjustments").text.to_i
+        answers.merge!(insert_digits_into_fields(adjustments, [
+          "Text233",
+          "Text232",
+          "Text231",
+          "Text230",
+          "Text229",
+          "undefined_183",
+          "undefined_182",
+          "undefined_181",
+          "74",
+          "74112###",
+        ]))
+      end
+
+      # line 79
+      if @xml_document.at("Body NetBalanceDue").present?
+        balance_due = @xml_document.at("Body NetBalanceDue").text.to_i
+        answers.merge!(insert_digits_into_fields(balance_due, [
+          "Text238",
+          "Text237",
+          "Text236",
+          "Text235",
+          "Text234",
+          "undefined_186",
+          "undefined_185",
+          "undefined_184",
+          "75",
+          "754112###",
+        ]))
+      end
+
+      # line 80
+      if @xml_document.at("Body NetRefund").present?
+        refund = @xml_document.at("Body NetRefund").text.to_i
+        answers.merge!(insert_digits_into_fields(refund, [
+          "Text244",
+          "Text243",
+          "Text242",
+          "Text241",
+          "Text240",
+          "undefined_189",
+          "undefined_188",
+          "undefined_187",
+          "76",
+          "764112###",
+        ]))
+      end
+      
       # Driver License/State ID
       id_number_xml = @xml_document.at("PrimDrvrLcnsOrStateIssdIdGrp DrvrLcnsNum") ||
         @xml_document.at("PrimDrvrLcnsOrStateIssdIdGrp StateIssdIdNum")
