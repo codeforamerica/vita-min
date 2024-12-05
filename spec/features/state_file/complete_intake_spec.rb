@@ -558,7 +558,8 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t('state_file.questions.primary_state_id.edit.title')
-      choose I18n.t('state_file.questions.primary_state_id.state_id.id_type_question.dmv')
+      choose I18n.t('state_file.questions.md_primary_state_id.md_primary.dmv_bmv_label')
+
       fill_in I18n.t('state_file.questions.primary_state_id.state_id.id_details.number'), with: "012345678"
       select_cfa_date "state_file_primary_state_id_form_issue_date", 4.years.ago.beginning_of_year
       select_cfa_date "state_file_primary_state_id_form_expiration_date", 4.years.from_now.beginning_of_year
@@ -588,7 +589,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in 'state_file_md_tax_refund_form_routing_number_confirmation', with: "019456124"
       fill_in 'state_file_md_tax_refund_form_account_number', with: "123456789"
       fill_in 'state_file_md_tax_refund_form_account_number_confirmation', with: "123456789"
-      check I18n.t('state_file.questions.md_tax_refund.md_bank_details.bank_authorization_confirmation')
+      check I18n.t('state_file.questions.md_tax_refund.edit.bank_authorization_confirmation')
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t("state_file.questions.esign_declaration.edit.title", state_name: "Maryland")
