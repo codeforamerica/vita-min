@@ -2825,11 +2825,13 @@ en:
           subtitle: The Comptroller of Maryland requests the information from your Driver's License or state-issued ID card be included with the return, but won't reject the return if it's not included.
           why_ask_this: Why are you asking for this information?
       md_tax_refund:
+        edit:
+          bank_authorization_confirmation: Check here to confirm you authorize the State of Maryland to issue your refund by direct deposit.
         md_bank_details:
           account_holder_name: Account Holder Name
           bank_account_details: Bank Account Details
           bank_account_type: Bank Account Type
-          bank_authorization_confirmation: Check here to confirm you authorize the State of Maryland to issue your refund by direct deposit.
+
           bank_authorization_confirmation_error: Please confirm authorization or select pay by mail
           check_if_joint_account: Check here if you have a joint account
           joint_account_holder_name: Joint Account Holder Name

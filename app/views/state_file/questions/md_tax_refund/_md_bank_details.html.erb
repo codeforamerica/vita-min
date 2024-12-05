@@ -64,7 +64,6 @@
     <%= form.cfa_input_field(:account_number, t("state_file.questions.tax_refund.bank_details.account_number"), classes: ["form-width--long", "disablecopy"]) %>
     <%= form.cfa_input_field(:account_number_confirmation, t("state_file.questions.tax_refund.bank_details.confirm_account_number"), classes: ["form-width--long", "disablepaste", "disablecopy"]) %>
   </div>
-  <%= form.cfa_checkbox(:bank_authorization_confirmed, t(".bank_authorization_confirmation"), options: { checked_value: "yes", unchecked_value: "no" }) %>
   <% if owe_taxes && !before_withdrawal_date_deadline?(current_state_code) %>
     <p>
       <%= t("state_file.questions.tax_refund.bank_details.after_deadline_default_withdrawal_info",
