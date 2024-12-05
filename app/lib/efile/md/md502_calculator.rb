@@ -307,12 +307,12 @@ module Efile
       DEDUCTION_TABLES = {
         s_mfs_d: {
           12000 => 1_800,
-          17999 => ->(x) { x * 0.15 },
+          17999 => ->(x) { (x * 0.15).round },
           Float::INFINITY => 2_700,
         },
         mfj_hoh_qss: {
           24333 => 3_650,
-          36332 => ->(x) { x * 0.15 },
+          36332 => ->(x) { (x * 0.15).round },
           Float::INFINITY => 5_450,
         }
       }.freeze
