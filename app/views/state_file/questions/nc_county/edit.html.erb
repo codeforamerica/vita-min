@@ -11,30 +11,24 @@
       <%= f.vita_min_state_file_select(:residence_county, t(".county"), @counties, label_class: 'form-label--bold', prompt: t('general.select_prompt')) %>
     </div>
 
-    <div class="question-with-follow-up spacing-below-25">
-      <div class="question-with-follow-up__question">
-        <div class="white-group" id="address-during-hurricane" style="display:none">
-          <p class="spacing-below-15"><%= t(".moved_after_hurricane") %></p>
-          <%=
-            f.cfa_radio_set(
-              :moved_after_hurricane_helene,
-              collection: [
-                { value: :yes, label: t("general.affirmative"), input_html: { "data-follow-up": "#county-during-hurricane" } },
-                { value: :no, label: t("general.negative") },
-              ]
-            )
-          %>
-        </div>
+    <div id="hurricane-relief-eligibility-questions" style="display: none" class="spacing-below-25 question-with-follow-up">
+      <div class="white-group question-with-follow-up__question" id="moved-after-hurricane">
+        <p class="spacing-below-15"><%= t(".moved_after_hurricane") %></p>
+        <%=
+          f.cfa_radio_set(
+            :moved_after_hurricane_helene,
+            collection: [
+              { value: :yes, label: t("general.affirmative"), input_html: { "data-follow-up": "#county-during-hurricane" } },
+              { value: :no, label: t("general.negative") },
+            ]
+          )
+        %>
       </div>
-    </div>
 
-    <div class="question-with-follow-up__follow-up" id="county-during-hurricane">
-      <div class="question-with-follow-up">
-        <div class="question-with-follow-up__question">
-          <div class="white-group">
-            <p class="spacing-below-15"><%= t(".county_during_hurricane") %></p>
-            <%= f.vita_min_state_file_select(:county_during_hurricane_helene, t(".county"), @counties, label_class: 'form-label--bold', prompt: t('general.select_prompt')) %>
-          </div>
+      <div class="question-with-follow-up__follow-up" id="county-during-hurricane">
+        <div class="white-group">
+          <p class="spacing-below-15"><%= t(".county_during_hurricane") %></p>
+          <%= f.vita_min_state_file_select(:county_during_hurricane_helene, t(".county"), @counties, label_class: 'form-label--bold', prompt: t('general.select_prompt')) %>
         </div>
       </div>
     </div>
@@ -50,17 +44,22 @@
   <script>
       document.addEventListener('DOMContentLoaded', function () {
           const countySelect = document.getElementById('state_file_nc_county_form_residence_county');
-          const addressDuringHurricane = document.getElementById('address-during-hurricane');
+          const hurricaneQuestions = document.getElementById('hurricane-relief-eligibility-questions');
           const designated_counties = <%= raw @designated_hurricane_relief_counties.to_json %>;
+
+          if (designated_counties.includes(countySelect.value) || countySelect.value === '') {
+              hurricaneQuestions.style.display = 'none';
+          } else {
+              hurricaneQuestions.style.display = '';
+          }
 
           countySelect.addEventListener('change', function () {
               const selectedCounty = countySelect.value;
-              console.log(`Selected value: "${countySelect.value}"`);
 
-              if (designated_counties.includes(selectedCounty)) {
-                  addressDuringHurricane.style.display = 'none';
+              if (designated_counties.includes(selectedCounty) || selectedCounty === '') {
+                  hurricaneQuestions.style.display = 'none';
               } else {
-                  addressDuringHurricane.style.display = '';
+                  hurricaneQuestions.style.display = '';
               }
           });
       });
