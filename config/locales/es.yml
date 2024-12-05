@@ -2897,7 +2897,6 @@ es:
           why_ask_this: "¿Por qué pides esta información?"
       md_review:
         edit:
-          your_address: Dirección donde vivía el 31 de diciembre de %{filing_year}
           county_html: "<strong>Condado</strong>"
           political_subdivision_html: "<strong>Subdivisión política</strong>"
           your_address: Dirección donde vivía el 31 de diciembre de %{filing_year}

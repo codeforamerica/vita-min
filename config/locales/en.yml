@@ -2934,7 +2934,6 @@ en:
           why_ask_this: Why are you asking for this information?
       md_review:
         edit:
-          your_address: Address lived at on December 31, %{filing_year}
           county_html: "<strong>County</strong>"
           political_subdivision_html: "<strong>Political subdivision</strong>"
           your_address: Address lived at on December 31, %{filing_year}
