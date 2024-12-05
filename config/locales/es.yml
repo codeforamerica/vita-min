@@ -3502,6 +3502,7 @@ es:
           confirm_account_number: Confirma el número de cuenta
           confirm_routing_number: Confirma el número de ruta bancaria (routing number)
           date_withdraw_text: "¿Cuándo te gustaría que se retiren los fondos de tu cuenta? (debe ser antes o en el dia del %{withdrawal_deadline_date} de %{with_drawal_deadline_year}):"
+          disclaimer: Verifica que la información de tu banco sea correcta. No podrás corregirla después de enviar tu declaración.
           foreign_accounts: Las cuentas extranjeras no son aceptadas
           routing_number: Número de ruta bancaria (routing number)
           withdraw_amount: "¿Cuánto autorizas a retirar de tu cuenta? (Tu monto total adeudado es: %{owed_amount}.)"
