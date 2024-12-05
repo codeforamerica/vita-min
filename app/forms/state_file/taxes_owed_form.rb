@@ -19,13 +19,14 @@ module StateFile
     with_options unless: -> { payment_or_deposit_type == "mail" } do
       validate :date_electronic_withdrawal_is_valid_date
       validate :withdrawal_date_before_deadline, if: -> { date_electronic_withdrawal.present? && !post_deadline_withdrawal_date.present? }
+      validate :withdrawal_date_intake_validations, if: -> { date_electronic_withdrawal.present? }
       validates :withdraw_amount, presence: true, numericality: { greater_than: 0 }
       validate :withdraw_amount_higher_than_owed?
     end
 
     def save
       attrs = attributes_for(:intake)
-      @intake.update!(attrs.merge(date_electronic_withdrawal: date_electronic_withdrawal))
+      @intake.update(attrs.merge(date_electronic_withdrawal: date_electronic_withdrawal))
     end
 
     def self.existing_attributes(intake)
@@ -76,6 +77,14 @@ module StateFile
     def withdrawal_date_before_deadline
       unless date_electronic_withdrawal.between?(Date.parse(app_time), withdrawal_date_deadline)
         self.errors.add(:date_electronic_withdrawal, I18n.t("forms.errors.taxes_owed.withdrawal_date_deadline", year: withdrawal_date_deadline.year))
+      end
+    end
+
+    def withdrawal_date_intake_validations
+      @intake.date_electronic_withdrawal = date_electronic_withdrawal
+      @intake.validate(:date_electronic_withdrawal)
+      if @intake.errors[:date_electronic_withdrawal].present?
+        errors.add(:date_electronic_withdrawal, @intake.errors[:date_electronic_withdrawal])
       end
     end
 

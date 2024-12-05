@@ -87,7 +87,6 @@ RSpec.describe StateFileNcIntake, type: :model do
 
   describe "#calculate_sales_use_tax" do
     let(:intake) { create :state_file_nc_intake }
-
     it "calculates the sales use tax using the nc_taxable_income" do
       allow(intake.calculator.lines).to receive(:[]).with(:NCD400_LINE_14).and_return(double(value: 2500))
       expect(intake.calculate_sales_use_tax).to eq 2

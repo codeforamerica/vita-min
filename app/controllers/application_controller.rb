@@ -421,6 +421,8 @@ class ApplicationController < ActionController::Base
     case state_code
     when 'ny'
       Rails.configuration.state_file_withdrawal_date_deadline_ny
+    when 'md'
+      Rails.configuration.state_file_withdrawal_date_deadline_md
     else
       # Arizona's withdrawal date deadline is the same as the end-new-intakes date which is set in PDT,
       # if this was during daylight-savings, it would be different except in the Navajo Nation
@@ -436,6 +438,7 @@ class ApplicationController < ActionController::Base
 
   def post_deadline_withdrawal_date(state_code)
     # after the tax deadline we automatically set the bank withdrawal date to be the current day
+    # TODO: If we decide to allow in-progress intakes to be submitted post April 15th we'll need to add the new states here
     case state_code
     when 'ny'
       app_time.in_time_zone('America/New_York')

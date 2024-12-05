@@ -182,6 +182,11 @@ es:
       last_name:
         blank: Por favor, ingrese un apellido.
         invalid_format: Solo se aceptan letras, números, guiones y apóstrofos, y el nombre debe tener menos de 32 caracteres.
+      nc_withdrawal_date:
+        holiday: La fecha de retiro no puede ser un día festivo federal o bancario de los Estados Unidos
+        past: La fecha de retiro debe ser en el futuro
+        post_five_pm: La fecha de retiro debe ser al menos dos días hábiles a partir de hoy
+        weekend: La fecha de retiro debe ser en un día laborable
       password:
         insecure: Agregue algunas palabras más poco comunes para mejorar la seguridad de la contraseña.
         not_matching: Las contraseñas proporcionadas no coinciden.
@@ -2174,31 +2179,24 @@ es:
     questions:
       az_charitable_contributions:
         edit:
-          charitable_cash_html: 'Ingresa el <strong>monto total de las donaciones en efectivo realizadas</strong> en %{tax_year}. (Redondea al número entero más cercano. Nota: Es posible que debas adjuntar recibos por donaciones superiores a $250.)'
-          charitable_noncash_html: 'Ingresa el <strong>monto total de las donaciones en especie realizadas</strong> en %{tax_year} (ejemplo: el valor de mercado de artículos donados). Esto no puede superar los $500. (redondea al número entero más cercano)'
-          learn_more_content_html: |
-            Las contribuciones caritativas incluyen donaciones en <strong>efectivo</strong> y en <strong>especie</strong> a organizaciones que califican.<br><br>
-            Las organizaciones que califican incluyen grupos sin ánimo de lucro con propósitos religiosos, caritativos, educativos, científicos o literarios, o que trabajan para prevenir la crueldad hacia niños o animales. Verifica <a href="https://www.irs.gov/TEOS" target="_blank" rel="noopener nofollow">aquí</a> si una organización califica.<br><br>
-            <strong>No</strong> incluyes:<br>
-            <ul><li>regalos hechos directamente a individuos;</li>
-            <li>contribuciones políticas;</li>
-            <li>todas las tarifas pagadas a escuelas públicas, incluyendo las tarifas que califican para el <a href="https://azdor.gov/tax-credits/public-school-tax-credit" target="_blank" rel="noopener nofollow">Crédito Tributario para Escuelas Públicas</a>;</li>
-            <li>dinero gastado en eventos de recaudación de fondos, incluyendo rifas, bingo; o</li>
-            <li>artículos comprados para una recaudación de fondos.</li></ul>
-          learn_more_title: "¿Qué quiere decir esto?"
-          title:
-            many: "¿Tú o tu cónyuge hicieron contribuciones caritativas (en efectivo y/o en especie) a una organización calificada en %{tax_year}?"
-            one: "¿Realizaste donaciones caritativas a una organización calificada en %{tax_year}? (En efectivo o en especie)"
-            other: "¿Tú o tu cónyuge hicieron contribuciones caritativas (en efectivo y/o en especie) a una organización calificada en %{tax_year}?"
+          amount_cannot_exceed: La cantidad no puede ser mayor a $500
+          charitable_cash_html: Cantidad total de las donaciones en efectivo/tarifas
+          charitable_noncash_html: Cantidad total de las donaciones  no monetarias
+          help_text: Por ejemplo, el valor comercial razonable de los artículos donados.
+          question:
+            one: "¿Donaste tú a organizaciones sin fines de lucro exentas de impuestos?"
+            other: "¿Tú y tu cónyuge donaron a organizaciones sin fines de lucro exentas de impuestos?"
+          title: "¡Podrías ser elegible para recibir créditos y deducciones adicionales de Arizona!"
       az_excise_credit:
         edit:
           household_excise_credit_claimed_amt: "¿Cuánto, en total, reclamaron todos los demás miembros de su hogar en Crédito por Impuesto Especial Incrementado? (Puede consultar esto en la línea 56 de su declaración de impuestos de Arizona)."
+          household_excise_credit_claimed_amt_help_text: Puedes comprobarlo consultando la línea 56 de su declaración de Arizona.
           household_excise_credit_html: "¿Alguien en tu hogar presentó una declaración de impuestos por separado de la tuya y reclamó el Crédito por Aumento de Impuestos Especiales de Arizona?<br><br> (Tu hogar incluye a todas las personas con las que viviste, incluso si no están incluidas en tu declaración.)"
           primary_was_incarcerated: "¿Estuviste encarcelado en una cárcel del condado, estatal o federal durante al menos 60 días en %{tax_year}?"
           spouse_was_incarcerated: "¿Tu cónyuge fue encarcelado en una cárcel del condado, estatal o federal durante al menos 60 días en %{tax_year}?"
           ssn_no_employment_html:
             label: "¿Tienes la frase <b>'not valid for employment'</b> escrita en tu tarjeta de Seguro Social? (Esto es poco común.)"
-          title: "¡Ya casi has terminado de presentar tu declaración! Tenemos algunas preguntas para ver si eres elegible para el Crédito por Aumento de Impuestos Especiales."
+          title: Es posible que seas elegible para el Crédito por Aumento de Impuestos Especiales.
       az_prior_last_names:
         edit:
           prior_last_names_label:
@@ -2252,30 +2250,34 @@ es:
           school_details_question: "¿Dónde puedo encontrar la información de la escuela?"
           which_qualify: "¿Qué donaciones y tarifas califican?"
         index:
-          add_another: Añadir otra contribución
-          amount_contributed: 'Cantidad contribuida: %{amount}'
-          contribution_label: Contribución a %{school_name}
+          add_another: Añadir otra donación
           delete_confirmation: "¿Estás seguro de que quieres eliminar esta contribución?"
-          lets_review: Revisión de tus hiciste contribuciones y tarifas a la escuela pública
           maximum_records: Ha proporcionado la cantidad máxima de registros.
+          title: 'Esta es la información que agregaste:'
       az_qualifying_organization_contributions:
         destroy:
           removed: Se eliminó AZ 321 para %{charity_name}
         form:
-          amount: Monto de la contribución en %{filing_year}
-          charity_code: Código de caridad
-          charity_name: Nombre de la organización benéfica
-          date_of_contribution: Fecha de pago en %{filing_year} (mm/dd)
-          main_heading: "¿Hizo contribuciones en efectivo a una organización benéfica calificada en %{filing_year}?"
-          main_heading_html: ¿Hizo contribuciones en efectivo a una <a href="https://azdor.gov/sites/default/files/2024-01/CREDITS_2024_qco.pdf" target="_blank" >organización benéfica calificada</a> en %{filing_year}?
-          question_header: 'Proporcione la siguiente información para cada donación en efectivo a una organización benéfica calificada:'
+          amount: Cantidad de la donación/tarifas pagadas en %{filing_year}
+          charity_code: Código de beneficencia
+          charity_name: Nombre de la organización calificada
+          date_of_contribution: Fecha de pago en %{filing_year}
+          main_heading: "¿Alguna de tus donaciones fue hecha a una organización benéfica calificada que ofrece necesidades básicas inmediatas a los residentes de Arizona?"
+          main_heading_html: ¿Alguna de tus donaciones fue hecha a <a href="https://azdor.gov/tax-credits/credits-contributions-qcos-and-qfcos" target="_blank">una organización benéfica calificada</a> que ofrece necesidades básicas inmediatas a los residentes de Arizona?
+          org_details_answer_html: |
+            Puedes encontrar esta información en el recibo que te entregó la organización
+            <br/><br/>
+            O
+            <br/><br/>
+            Visita el <a href="https://azdor.gov/sites/default/files/2024-01/CREDITS_2024_qco.pdf" target="_blank">Departamento de Ingresos de Arizona</a> para encontrar los detalles.
+          org_details_question: "¿Dónde encuentro los detalles de la organización?"
+          question_header: Por favor, añade detalles sobre la donación en efectivo a organizaciones benéficas calificadas.
         index:
-          add_another: Añadir otra contribución
-          contribution_amount: 'Cantidad: %{amount}'
-          contribution_name: Contribución a %{charity_name} con el código %{charity_code}
+          add_another: Añadir otra donación
+          credit_limit: El límite del crédito es $%{credit_limit}
           delete_confirmation: "¿Estás seguro de que deseas eliminar esta contribución?"
-          lets_review: "¡Genial! Gracias por compartir esa información. Repasemos."
           maximum_records: Ha proporcionado la cantidad máxima de registros.
+          title: Aquí están las donaciones benéficas calificadas que registramos
       az_review:
         edit:
           armed_forces_member: Miembro de las Fuerzas Armadas de los Estados Unidos
@@ -2311,7 +2313,9 @@ es:
           title: Necesitamos información adicional sobre %{dependents_name_list}
       az_subtractions:
         edit:
-          armed_forces_member_label_html: Tú o tu cónyuge son miembros de las Reservas, la Guardia Nacional o las Fuerzas Armadas de los Estados Unidos <strong>y</strong> recibieron un salario por el servicio activo.
+          armed_forces_member_label:
+            one: Tú eres miembro de las Reservas, la Guardia Nacional o las Fuerzas Armadas de los Estados Unidos y recibió un salario por el servicio activo.
+            other: Tú o tu cónyuge son miembros de las Reservas, la Guardia Nacional o las Fuerzas Armadas de los Estados Unidos y recibieron un salario por el servicio activo.
           armed_forces_wages_label:
             many: "¿Cuánto recibiste tú o tu cónyuge en salario por servicio activo?"
             one: "¿Cuánto recibiste en salario por servicio activo?"
@@ -2321,24 +2325,21 @@ es:
             Si eres miembro de <strong>la Reserva o la Guardia Nacional</strong>, ingresa el salario que recibiste por entrenamientos durante fines de semana o de dos semanas que hayas reportado en tu declaración de impuestos federal.<br><br>
             <strong>No</strong> puedes incluir ningún ingreso que hayas recibido por empleo a tiempo completo en el servicio civil como "técnico militar (doble estatus)".
           learn_more_title: Obtener más información
-          should_not_exceed_wages_html: "<strong>Nota:</strong> Esto no debe superar %{wages}"
-          subtitle:
-            many: Marca todas las casillas que correspondan a usted o su cónyuge. Si no corresponde, déjelas en blanco y continúe.
-            one: Marca cada casilla que te aplique a ti. Si no te aplica, déjala en blanco y continúa.
-            other: Marca todas las casillas que correspondan a usted o su cónyuge. Si no corresponde, déjelas en blanco y continúe.
+          should_not_exceed_wages: Esto no debe superar %{wages}
+          subtitle: Marca todas las casillas que correspondan. Si no corresponde, déjelas en blanco y continúe.
           title:
             many: "¿Alguna de las siguientes situaciones te aplican a ti o su cónyuge en el %{year}?"
             one: "¿Alguna de las siguientes situaciones te aplican a ti en el %{year}?"
             other: "¿Alguna de las siguientes situaciones te aplican a ti o su cónyuge en el %{year}?"
           tribal_member_label:
             many: Tú o tu cónyuge son miembros inscritos de una <u>tribu indígena estadounidense reconocida por el gobierno federal</u> y ganaron salario mientras vivían y trabajaban en la reserva.
-            one: Tú eres un miembro inscrito de una <a href="https://www.bia.gov/service/tribal-leaders-directory/federally-recognized-tribes" target="_blank" rel="noopener nofollow">tribu indígena estadounidense reconocida por el gobierno federal</a> y ganaron salario mientras vivían y trabajaban en la reserva.
+            one: Tú eres un miembro inscrito de una <a href="https://www.bia.gov/service/tribal-leaders-directory/federally-recognized-tribes" target="_blank" rel="noopener nofollow">tribu indígena estadounidense reconocida por el gobierno federal</a> y ganó un salario mientras vivía y trabajaba en la reserva.
             other: Tú o tu cónyuge son miembros inscritos de una <u>tribu indígena estadounidense reconocida por el gobierno federal</u> y ganaron salario mientras vivían y trabajaban en la reserva.
           tribal_wages_label:
             many: "¿Cuánto ganaste tú o tu cónyuge mientras vivían y trabajaban en la reserva de tu tribu o la de tu cónyuge?"
             one: "¿Cuánto recibiste en salario mientras vivías y trabajabas en la reserva de tu tribu?"
             other: "¿Cuánto ganaste tú o tu cónyuge mientras vivían y trabajaban en la reserva de tu tribu o la de tu cónyuge?"
-          wages_tip: Ingresa la cantidad que recibiste (redondea al número entero más cercano)
+          wages_tip: Ingresa la cantidad que recibiste
       canceled_data_transfer:
         edit:
           subtitle: Lamentablemente, para continuar presentando tus impuestos estatales con FileYourStateTaxes debes transferir tu declaración federal para completar ciertas secciones de tu declaración estatal.
@@ -2406,14 +2407,7 @@ es:
             title: "¿Cuáles son mis otras opciones para presentar mi declaración estatal?"
           vita_option_title: What are my free state filing options?
       eligible:
-        az_supported:
-          charitable_contributions_credit: Credit for Contributions to Qualifying Charitable Organizations
-          dependent_credit: Crédito por Dependientes
-          family_income_credit: Crédito por ingresos familiares
-          increased_deduction: Una deducción aumentada por donaciones caritativas
-          increased_excise_credit: Aumento en el crédito por impuesto de consumo
-          public_school_credit: Public School Tax Credit
-        az_unsupported:
+        az_credits_unsupported:
           other_credits_301_html: Créditos no reembolsables enumerados en el <a href="https://azdor.gov/sites/default/files/2023-03/FORMS_CREDIT_2022_301-SBI_f.pdf" target="_blank" rel="noopener nofollow">Formulario AZ 301</a>
           other_credits_529_html: <a href="https://az529.gov/what-is-a-529-plan/az-tax-incentives/" target="_blank" rel="noopener nofollow">Deducción por contribuciones al plan 529 de Arizona</a>
           other_credits_add_dependents: Agregar dependientes no reclamados en la declaración federal
@@ -2427,20 +2421,21 @@ es:
           public_school_tax_credit_heading_html: '<a href="https://azdor.gov/tax-credits/public-school-tax-credit" target="_blank" rel="noopener nofollow">Crédito tributario para escuelas públicas</a>. Para calificar para este crédito debes:'
           public_school_tax_credit_paid_fees: Haber pagado tarifas relacionadas con la escuela o donado dinero a una escuela pública
           public_school_tax_credit_provide_info_html: Compartir información de la escuela, incluyendo el <a href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_ADESchoolListing.pdf" target="_blank" rel="noopener nofollow">código CTDS</a>
+        az_supported:
+          charitable_contributions_credit: Credit for Contributions to Qualifying Charitable Organizations
+          dependent_credit: Crédito por Dependientes
+          family_income_credit: Crédito por ingresos familiares
+          increased_deduction: Una deducción aumentada por donaciones caritativas
+          increased_excise_credit: Aumento en el crédito por impuesto de consumo
+          public_school_credit: Public School Tax Credit
         edit:
-          credits_not_supported: What credits and deductions does this service not support this year?
+          credits_not_supported: "¿Qué deducciones, créditos y situaciones del hogar no admite este servicio este año?"
           not_supported: "¿Cuáles créditos y deducciones no admite esta herramienta este año?"
           title1: "¡Buenas noticias! Puedes usar esta herramienta este año %{year} para presentar tus impuestos estatales %{state}."
           title2_html: |
             Let's make sure this is the right service for you.<br><br>
             Here are the credits and deductions you <strong>may</strong> be able to claim to maximize your refund.
-        id_supported:
-          child_care_deduction: Deducción por Cuidado de Hijos y Dependientes
-          id_child_tax_credit: Crédito Fiscal para Hijos de Idaho
-          id_grocery_credit: Crédito de Alimentos de Idaho
-          interest_from_obligations: Intereses de Obligaciones del Gobierno de los EE.UU.
-          social_security_retirement_deduction: Deducciones de Seguridad Social y Beneficios de Jubilación
-        id_unsupported:
+        id_credits_unsupported:
           change_in_filing_status: Cambio en el Estado de Declaración de la Declaración Federal a la Estatal
           dependents_not_claimed_fed_return: Añadir Dependientes no Reclamados en la Declaración Federal
           earned_on_reservation: Ingresos Ganados en una Reserva por un Nativo Americano
@@ -2451,6 +2446,13 @@ es:
           long_term_care_insurance_subtraction: Subvención de Seguro de Cuidado a Largo Plazo
           maintaining_elderly_disabled_credit: Crédito por Mantener un Hogar para Ancianos o Discapacitados
           voluntary_donations: Todas las Donaciones Voluntarias
+        id_supported:
+          child_care_deduction: Deducción por Cuidado de Hijos y Dependientes
+          health_insurance_premiums_subtraction: Resta de primas de seguro médico
+          id_child_tax_credit: Crédito Fiscal para Hijos de Idaho
+          id_grocery_credit: Crédito de Alimentos de Idaho
+          interest_from_obligations: Intereses de Obligaciones del Gobierno de los EE.UU.
+          social_security_retirement_deduction: Deducciones de Seguridad Social y Beneficios de Jubilación
         md_supported:
           heading1: 'Sustracciones:'
           heading2: 'Créditos:'
@@ -2479,12 +2481,7 @@ es:
           deduction_for_retirement_income_bailey: Deduction for Retirement Income as part of the Bailey Settlement
           deduction_for_retirement_income_uniformed: Deduction for Retirement Income from the Uniformed Services
           deduction_for_taxable_portion: Deduction for Taxable Portion of Social Security and Railroad Retirement Benefits
-        ny_supported:
-          empire_state_ctc: Crédito Empire State por hijos
-          nyc_school_tax_credit: Crédito tributario escolar de la ciudad de Nueva York
-          nys_eic: Crédito tributario por ingreso del trabajo (Estado de Nueva York)
-          nys_hh_credit: Crédito por Unidad Familiar (Estado de Nueva York)
-        ny_unsupported:
+        ny_credits_unsupported:
           college_tuition_credit: Crédito por matrícula universitaria o deducción detallada
           firefighter_ambulance_credit: Crédito para bomberos voluntarios y trabajadores de ambulancias
           long_term_care_credit: Crédito por seguro de atención a largo plazo
@@ -2501,6 +2498,11 @@ es:
           subtractions_225_military: Pago por combate militar
           subtractions_225_native_american: Exclusión de ingresos para Nativos Americanos
           subtractions_225_student_loan: Premios por condonación de préstamos estudiantiles
+        ny_supported:
+          empire_state_ctc: Crédito Empire State por hijos
+          nyc_school_tax_credit: Crédito tributario escolar de la ciudad de Nueva York
+          nys_eic: Crédito tributario por ingreso del trabajo (Estado de Nueva York)
+          nys_hh_credit: Crédito por Unidad Familiar (Estado de Nueva York)
         vita_option:
           vita_link: Get started with VITA now
           want_to_claim_learn_more_html: Learn more about this process and other filing options <a href="%{link}" target="_blank">here</a>.
@@ -2524,6 +2526,10 @@ es:
               </ul>
               <p>Si he presentado una declaración de saldo adeudado, entiendo que si el ADOR no recibe el pago completo y oportuno de mi responsabilidad tributaria antes del 15 de abril de 2024, seguiré siendo responsable de la responsabilidad tributaria y todos los intereses y penalidades aplicables.</p><p>Consiento que mi Originador de Declaraciones Electrónicas (ERO) o Proveedor de Servicios en Línea (OLSP) envíe mi declaración electrónica de impuestos sobre el ingreso individual de Arizona y los horarios y declaraciones adjuntas a ADOR, y consiento que mi ERO o OLSP envíe dicha información a ADOR a través de un transmisor. Consiento que ADOR envíe a mi ERO, OLSP y/o transmisor un acuse de recibo de la transmisión y una indicación de si se acepta o no la transmisión de mi declaración, y, si se rechaza, la razón o razones del rechazo. Si se retrasa el procesamiento de mi declaración o reembolso, autorizo a ADOR a divulgar a mi ERO, OLSP y/ o transmisor la razón o razones del retraso, o cuando se envió el reembolso. Si ADOR se comunica con mi ERO para obtener una copia de mi declaración, cualquier documento o horario de mi declaración, y/o este formulario de autorización, autorizo a mi ERO a proporcionar copias de los documentos solicitados a ADOR.</p>
               <p>Yo declaro bajo pena de perjurio que, según mi leal saber y entender, la declaración es verdadera, correcta y completa.</p>
+          id:
+            body_html: |
+              <p>Al utilizar un sistema informático y software para preparar y/o presentar electrónicamente mi(s) declaración(es) de impuestos, doy mi consentimiento para la transmisión de mi(s) declaración(es) y la divulgación de toda la información sobre mi uso del sistema y software a la Comisión de Impuestos del Estado de Idaho.</p>
+              <p>Bajo pena de perjurio, declaro que, según mi leal saber y entender, esta declaración es verdadera, correcta y completa.</p>
           md:
             body_html: |
               <p>Al utilizar un sistema informático y un software para preparar y/o presentar mi(s) declaración(es) de impuestos electrónicamente, doy mi consentimiento para la transmisión de mi(s) declaración(es) y la divulgación de toda la información sobre mi uso del sistema y el software a la Contraloría. de Maryland.</p>
@@ -2566,47 +2572,49 @@ es:
         edit:
           emergency_rental_assistance: En %{filing_year}, ¿recibió usted (o su cónyuge si presentan juntos) asistencia de alquiler de emergencia?
           emergency_rental_assistance_explanation: El programa de Asistencia de Alquiler de Emergencia (ERA, por sus siglas en inglés) es un programa federal que otorga dinero para ayudar a los hogares a pagar el alquiler y las facturas de servicios públicos. Fue creado en respuesta a la pandemia de Covid-19.
-          subtitle_1: Para la temporada fiscal de %{filing_year}, esta herramienta solo podrá servir a personas con situaciones fiscales específicas.
-          subtitle_2: Por favor, responda las siguientes preguntas para saber si puede utilizarla.
+          subtitle_1: Para esta temporada de impuestos, este servicio solo podrá atender a personas con situaciones fiscales específicas. Por favor, responda las siguientes preguntas para saber si puede usarlo.
           title: Primero, veamos si puede utilizar esta herramienta para presentar sus impuestos de Idaho de %{filing_year}
           withdrew_msa_fthb: En %{filing_year}, ¿retiró usted (o su cónyuge si presentan juntos) dinero de alguno de los siguientes?
           withdrew_msa_fthb_list:
-            bullet_1_html: "<strong>Cuenta de Ahorros Médicos</strong> y lo utilizó para gastos no calificados"
-            bullet_2_html: "<strong>Cuenta para Compradores de Vivienda por Primera Vez</strong> y no lo usó para costos elegibles de vivienda"
+            bullet_1_html: Retiró dinero de nuestra Cuenta de Ahorros Médicos de Idaho y lo utilizó para un <a href="%{link}" target="_blank" rel="noopener noreferrer">gasto no calificado</a>.
+            bullet_2_html: Retiró dinero de nuestra Cuenta de Compradores de Vivienda por Primera Vez y lo utilizó para <a href="%{link}" target="_blank" rel="noopener noreferrer">costos de vivienda no elegibles</a>.
       id_grocery_credit:
         edit:
-          answers_confidential_html: "<strong>Nota:</strong> Sus respuestas son confidenciales y solo se utilizan para verificar la elegibilidad del crédito."
-          example_months: Por ejemplo, si usted experimentó 2 de estas situaciones en el mes de abril, eso contaría como 1 mes en total.
-          need_to_know_html: Para finalizar el monto de su crédito, necesitamos saber el número <strong>total</strong> de meses en que estas situaciones se aplicaron a %{name} en %{filing_year}.
-          need_to_know_you_html: Para finalizar el monto de su crédito, necesitamos saber el número <strong>total</strong> de meses en que estas situaciones se aplicaron a usted en %{filing_year}.
+          answers_confidential_html: Sus respuestas son privadas y se utilizan únicamente para determinar si califica para el crédito fiscal.
+          example_months: Por ejemplo, si tuvieron 2 situaciones en abril, eso cuenta como 1 mes.
+          need_to_know_html: "¿Cuántos meses afectaron estas situaciones a esta persona en %{filing_year}?"
+          need_to_know_you_html: "¿Cuántos meses afectaron estas situaciones a usted en %{filing_year}?"
           see_if_you_qualify:
             one: Para ver si usted califica, necesitamos más información sobre usted.
             other: Para ver si califica, necesitamos más información sobre usted y su hogar.
-          select_household_members: 'Seleccione los miembros del hogar a los que se aplican estas situaciones:'
+          select_household_members: 'Seleccione a los miembros del hogar a quienes les aplicaron alguna de estas situaciones en %{tax_year}:'
           situation_incarceration: experimentó encarcelamiento
           situation_snap: recibió cupones de alimentos / SNAP-EBT
           situation_undocumented: Vivió en los Estados Unidos indocumentado
-          situations_question: "¿Se aplica alguna de las siguientes situaciones a su hogar?"
+          situations_question:
+            one: "¿Se aplicó alguna de las siguientes situaciones a usted en %{year}?"
+            other: "¿Se aplicó alguna de las siguientes situaciones a usted o a su hogar en %{year}?"
           title: "¡Usted podría ser elegible para el Crédito de comestibles de Idaho!"
           title_html: "¡Usted podría ser elegible para el <a href=https://tax.idaho.gov/taxes/income-tax/individual-income/popular-credits-and-deductions/idaho-grocery-credit/>Crédito de comestibles de Idaho</a>!"
           total_number_months: Número total de meses
           why_are_you_asking_heading: "¿Por qué preguntas esto?"
-          why_are_you_asking_li1: recibiendo cupones de alimentos
-          why_are_you_asking_li2: experimentando el encarcelamiento
-          why_are_you_asking_li3: viviendo en los estados unidos indocumentado
-          why_are_you_asking_p1: 'Se aplican ciertas restricciones para este crédito mensual. Las siguientes situaciones lo descalifican para el crédito mensual:'
-          why_are_you_asking_p2: Este crédito se reduce cada mes que una persona experimente una situación anterior.
-          why_are_you_asking_p3: Sus respuestas solo se utilizan para calcular el dinero extra para su declaración de impuestos y no se compartirán.
+          why_are_you_asking_li1: Recibió cupones de alimentos
+          why_are_you_asking_li2: Estuvo encarcelado
+          why_are_you_asking_li3: Vivió en los EE.UU. sin documentos
+          why_are_you_asking_p1: 'Ciertas restricciones se aplican a este crédito mensual. Una persona no calificará para los meses en que:'
+          why_are_you_asking_p2: El monto del crédito se reduce por cada mes en que experimenten cualquiera de estas situaciones.
+          why_are_you_asking_p3: Las respuestas solo se utilizan para calcular el monto del crédito y permanecerán confidenciales.
+          you_example_months: Por ejemplo, si tuviste 2 situaciones en abril, eso cuenta como 1 mes.
       id_grocery_credit_review:
         edit:
-          donate_impact_content_p1: Donar su crédito de supermercado puede resultar en un reembolso menor o un aumento en los impuestos adeudados en su declaración estatal de identificación.
-          donate_impact_content_p2: El Fondo de Bienestar Cooperativo es un fondo fiduciario en el tesoro estatal, y todo el dinero del fondo se destina a fines de asistencia y bienestar público.
+          donate_impact_content_p1: Su decisión de donar es final una vez que envíe su declaración de impuestos y no puede cambiarse mediante una declaración enmendada.
+          donate_impact_content_p2: El Fondo Cooperativo de Bienestar es un fondo fiduciario en el tesoro estatal, y todo el dinero se destina a fines de asistencia pública y bienestar.
           donate_impact_heading: "¿Cómo afectará la donación de mi crédito a mi declaración de impuestos?"
-          donate_warning_p1: Su donación se descontará del reembolso estatal total.
+          donate_warning_p1: Su donación se deducirá de su reembolso total estatal.
           donate_warning_p2: Su elección de donar es definitiva y no se puede cambiar mediante una declaración enmendada.
           title: "¡Recibirás $%{grocery_credit_amount} del Crédito de comestibles de Idaho!"
           title_html: "¡Recibirás <strong>$%{grocery_credit_amount}</strong> del Crédito de comestibles de Idaho!"
-          would_you_like_to_donate: "¿Quieres donar tu crédito al Fondo de Bienestar Cooperativo?"
+          would_you_like_to_donate: "¿Le gustaría donar todo su crédito al Fondo Cooperativo de Bienestar?"
       id_health_insurance_premium:
         edit:
           amount_paid_helper_text: Importe total pagado en %{year}
@@ -2621,8 +2629,8 @@ es:
             one: "¿Pagó usted primas de seguro médico en %{year}?"
             other: "¿Pagó primas de seguro médico para usted y su hogar en %{year}?"
           medicaid_content: Sí, si tiene Medicaid, la prima de su seguro médico cuenta.  Consulte su carta mensual del Departamento de Salud y Bienestar de Idaho para conocer el monto de su prima. Podría ser tan bajo como $0, dependiendo de sus ingresos y otros factores.
-          medicaid_title: "¿Cuentan los pagos de Medicaid?"
-          qualifications_content: Puede deducir las primas de seguro médico pagadas para usted, su cónyuge y sus dependientes, incluidos Medicaid, dental y de la vista, siempre que no se hayan deducido de sus ingresos antes de impuestos.
+          medicaid_title: "¿Cuentan los pagos de Medicaid y Medicare?"
+          qualifications_content: Puede deducir las primas de seguro médico pagadas por usted, su cónyuge y sus dependientes, incluidas las médicas, dentales y de visión, siempre que no se hayan deducido de sus ingresos antes de impuestos.
           qualifications_title: "¿Qué primas de cobertura médica califican?"
           qualifying_amount_help_text: Ingrese el monto total de las primas de seguro médico calificadas que su hogar pagó en %{year}.
           subtitle:
@@ -2649,6 +2657,7 @@ es:
         id_primary:
           encourage_sharing_html: Si usted y su cónyuge tienen una licencia de conducir o una tarjeta de identificación emitida por el estado, proporcione la información solicitada. La devolución no será rechazada si no proporciona una licencia de conducir o una identificación emitida por el estado. <br><br>Si proporciona esta información, puede ayudar a identificarlo como contribuyente.
           protect_identity: Muchas agencias de ingresos estatales, incluida Idaho, están solicitando información adicional en un esfuerzo por combatir el fraude fiscal por identidad robada y protegerlo a usted y a su reembolso de impuestos.
+          read_more_here_html: Lea más <a href="https://tax.idaho.gov/taxes/income-tax/individual-income/refund/" target="_blank" rel="noopener noreferrer">aquí</a>.
           subtitle: Proporcione su número de licencia de conducir o tarjeta de identidad cuando presente su declaración electrónica para ayudar a procesar su reembolso más rápido.
           title: Necesitamos algunos detalles de su documento de identidad oficial, si tiene uno
           why_ask_this: "¿Por qué pides esta información?"
@@ -2659,19 +2668,17 @@ es:
           idaho_grocery_credit: Idaho Grocery Credit
           no_donations_selected: "<strong>No se seleccionaron donaciones</strong>"
           permanent_building_fund_tax: Impuesto del Fondo de Edificios Permanentes
-          purchases_without_sales_tax: Compras sin pagar impuestos sobre ventas o uso
+          purchases_without_sales_tax: Compras sin pagar impuesto sobre las ventas
           state_details_title: Detalles del estado
           voluntary_charitable_donations: Donaciones Caritativas Voluntarias
       id_sales_use_tax:
         edit:
-          sales_tax_content: Este es un impuesto que se recauda en el punto de venta cuando se compran productos dentro de su estado.
+          sales_tax_content: Este es un impuesto recaudado en el punto de venta cuando compra bienes dentro de su estado. Sin embargo, si compró artículos a un vendedor fuera del estado, es posible que no hayan recaudado el impuesto sobre las ventas de Idaho en ese momento.
           sales_tax_title: "¿Qué son los impuestos sobre las ventas?"
           sales_use_tax_helper_text: Ingrese el monto total
-          subtitle_html: Esto incluye compras en línea donde <b>no</b> se aplicaron impuestos sobre las ventas o el uso
-          title: "¿Hizo alguna compra en %{year} sin pagar impuestos sobre las ventas o el uso?"
+          subtitle_html: Esto incluye compras en línea donde <strong>no</strong> se aplicaron impuestos sobre las ventas o el uso
+          title: "¿Hizo alguna compra fuera del estado en %{year} sin pagar impuesto sobre las ventas?"
           unpaid_sales_use_tax_label_html: Ingrese la <b>cantidad total de compras</b> a las que no se les aplicaron impuestos sobre las ventas o el uso.
-          use_tax_content: Si compra algo en otro estado (como compras en línea o compras en una tienda ubicada en otro estado) y no paga impuestos sobre las ventas, generalmente debe pagar el impuesto sobre el uso en su estado de origen.
-          use_tax_title: "¿Qué son los impuestos sobre el uso?"
       id_spouse_state_id:
         id_spouse:
           encourage_sharing_html: Si usted y su cónyuge tienen una licencia de conducir o una tarjeta de identificación emitida por el estado, proporcione la información solicitada. La devolución no será rechazada si no proporciona una licencia de conducir o una identificación emitida por el estado. <br><br>Si proporciona esta información, puede ayudar a identificarlo como contribuyente.
@@ -3341,19 +3348,19 @@ es:
         county: County where your permanent address was located on December 31, %{filing_year}
       shared:
         abstract_review_header:
+          amount_rounding_notice_html: "<strong>Hemos redondeado automáticamente todos los montos en dólares al número entero más cercano.</strong> La %{state_agency_name} solo aceptará números enteros en la declaración de impuestos final."
           dependent_dob: Su fecha de nacimiento
           dependent_months_in_home: Número de meses que vivieron contigo
           dependent_name: Nombre de tu dependiente
-          household_info: Información del hogar
+          household_info: Detalles del hogar
           nth_dependent_name: Nombre de tu %{ordinal} dependiente
           spouse_name: Nombre de tu cónyuge
           taxes_owed_header: Tu reembolso estimado o tus impuestos estimados a pagar
           taxes_owed_html: Tu reembolso es de $0. Esto significa <strong>que no</strong> recibirás un reembolso estatal y <strong>no</strong> debes impuestos estatales. Deberías terminar de presentar tu declaración, ya que es posible que estés obligado/a a presentarla aunque no recibirás dinero.
-          title: "¡Terminaste! Revisa tu declaración de impuestos estatales antes de enviarla."
+          title: "¡Ya casi terminas! Por favor revisa la información que tenemos."
           your_name: Tu nombre
         review_header:
           income_details: Detalles de ingresos
-          title: "¡Terminaste! Revisa tu declaración de impuestos estatales antes de enviarla."
           your_refund: Tu reembolso
           your_tax_owed: Tus impuestos adeudados
       spouse_state_id:
