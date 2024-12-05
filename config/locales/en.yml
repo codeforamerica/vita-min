@@ -3353,7 +3353,7 @@ en:
               body: You can edit and resubmit your state return by clicking the button below.
               title: What's next?
             no_edit:
-              body_html: Unfortunately, there has been an issue with filing your state return that cannot be resolved on our service. <u>Chat with us</u> or email us at help@fileyourstatetaxes.org for guidance on next steps.
+              body_html: Unfortunately, the issue with filing your state return cannot be resolved on our service. We recommend you download your return to assist you in next steps.
               title: What can I do next?
           reject_code: 'Reject Code:'
           reject_desc: 'Reject Description:'
