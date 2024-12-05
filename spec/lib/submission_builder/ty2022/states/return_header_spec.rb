@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe SubmissionBuilder::ReturnHeader do
   StateFile::StateInformationService.active_state_codes.each do |state_code|
-    describe '.document' do
+    describe ".document for #{state_code}" do
       let(:intake) { create "state_file_#{state_code}_intake".to_sym }
       let(:submission) { create(:efile_submission, data_source: intake) }
       let(:doc) { SubmissionBuilder::ReturnHeader.new(submission).document }
@@ -61,15 +61,20 @@ describe SubmissionBuilder::ReturnHeader do
         let(:primary_first_name) { "Prim" }
         let(:primary_middle_initial) { "W" }
         let(:primary_last_name) { "Filerton" }
+        let(:primary_suffix) { "jr" }
         let(:spouse_birth_date) { nil }
         let(:spouse_ssn) { nil }
         let(:spouse_first_name) { nil }
         let(:spouse_middle_initial) { nil }
         let(:spouse_last_name) { nil }
+        let(:spouse_suffix) { nil }
+
         before do
           intake.direct_file_data.primary_ssn = primary_ssn
+          intake.primary_suffix = primary_suffix
           intake.direct_file_data.spouse_ssn = spouse_ssn
           intake.direct_file_data.phone_number = "5551231234"
+          intake.spouse_suffix = spouse_suffix
         end
 
         context "single filer" do
@@ -106,6 +111,7 @@ describe SubmissionBuilder::ReturnHeader do
                 intake.direct_file_json_data.primary_filer.first_name = nil
                 intake.direct_file_json_data.primary_filer.middle_initial = nil
                 intake.direct_file_json_data.primary_filer.last_name = nil
+                intake.primary_suffix = primary_suffix
               end
 
               if intake.direct_file_json_data&.spouse_filer.present?
@@ -113,6 +119,7 @@ describe SubmissionBuilder::ReturnHeader do
                 intake.direct_file_json_data.spouse_filer.first_name = nil
                 intake.direct_file_json_data.spouse_filer.middle_initial = nil
                 intake.direct_file_json_data.spouse_filer.first_name = nil
+                intake.spouse_suffix = nil
               end
 
               intake.synchronize_filers_to_database
@@ -124,6 +131,7 @@ describe SubmissionBuilder::ReturnHeader do
               expect(doc.at('Filer Primary TaxpayerName FirstName')).not_to be_present
               expect(doc.at('Filer Primary TaxpayerName MiddleInitial')).not_to be_present
               expect(doc.at('Filer Primary TaxpayerName LastName')).not_to be_present
+              expect(doc.at('Filer Primary TaxpayerName NameSuffix')).not_to be_present
               expect(doc.at("Filer Primary USPhone")).not_to be_present
 
               expect(doc.at("Filer Secondary DateOfBirth")).not_to be_present
@@ -151,6 +159,21 @@ describe SubmissionBuilder::ReturnHeader do
             expect(doc.at('Filer Secondary TaxpayerName FirstName').content).to eq spouse_first_name
             expect(doc.at('Filer Secondary TaxpayerName MiddleInitial').content).to eq spouse_middle_initial
             expect(doc.at('Filer Secondary TaxpayerName LastName').content).to eq spouse_last_name
+          end
+        end
+
+        context "people with suffixes" do
+          let(:filing_status) { "married_filing_jointly" }
+          let(:spouse_birth_date) { 42.years.ago }
+          let(:spouse_ssn) { "200000030" }
+          let(:spouse_first_name) { "Sec" }
+          let(:spouse_middle_initial) { "Z" }
+          let(:spouse_last_name) { "Filerton" }
+          let(:spouse_suffix) { "sr" }
+
+          it "should upcase suffixes" do
+            expect(doc.at("Filer Primary TaxpayerName NameSuffix").text).to eq("JR")
+            expect(doc.at("Filer Secondary TaxpayerName NameSuffix").text).to eq("SR")
           end
         end
       end

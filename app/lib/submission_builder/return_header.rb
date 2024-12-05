@@ -24,7 +24,7 @@ module SubmissionBuilder
               xml.FirstName sanitize_for_xml(@submission.data_source.primary.first_name, 16) if @submission.data_source.primary.first_name.present?
               xml.MiddleInitial sanitize_for_xml(@submission.data_source.primary.middle_initial, 1) if @submission.data_source.primary.middle_initial.present?
               xml.LastName sanitize_for_xml(@submission.data_source.primary.last_name, 32) if @submission.data_source.primary.last_name.present?
-              xml.NameSuffix @submission.data_source.primary.suffix if @submission.data_source.primary.suffix.present?
+              xml.NameSuffix @submission.data_source.primary.suffix.upcase if @submission.data_source.primary.suffix.present?
             end
             xml.TaxpayerSSN @submission.data_source.primary.ssn if @submission.data_source.primary.ssn.present?
             xml.DateOfBirth date_type(@submission.data_source.primary.birth_date) if @submission.data_source.primary.birth_date.present?
@@ -38,7 +38,7 @@ module SubmissionBuilder
                 xml.FirstName sanitize_for_xml(@submission.data_source.spouse.first_name, 16) if @submission.data_source.spouse.first_name.present?
                 xml.MiddleInitial sanitize_for_xml(@submission.data_source.spouse.middle_initial, 1) if @submission.data_source.spouse.middle_initial.present?
                 xml.LastName sanitize_for_xml(@submission.data_source.spouse.last_name, 32) if @submission.data_source.spouse.last_name.present?
-                xml.NameSuffix @submission.data_source.spouse.suffix if @submission.data_source.spouse.suffix.present?
+                xml.NameSuffix @submission.data_source.spouse.suffix.upcase if @submission.data_source.spouse.suffix.present?
               end
               xml.TaxpayerSSN @submission.data_source.spouse.ssn if @submission.data_source.spouse.ssn.present?
               xml.DateOfBirth date_type(@submission.data_source.spouse.birth_date) if @submission.data_source.spouse.birth_date.present?
