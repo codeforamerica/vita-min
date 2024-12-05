@@ -99,6 +99,10 @@
             <SocialSecurityTaxAmt>2000</SocialSecurityTaxAmt>
             <MedicareWagesAndTipsAmt>15400</MedicareWagesAndTipsAmt>
             <MedicareTaxWithheldAmt>1000</MedicareTaxWithheldAmt>
+            <OtherDeductionsBenefitsGrp>
+                <Desc>STPICKUP</Desc>
+                <Amt>3200</Amt>
+            </OtherDeductionsBenefitsGrp>
             <W2StateLocalTaxGrp>
                 <W2StateTaxGrp>
                     <StateAbbreviationCd>MD</StateAbbreviationCd>

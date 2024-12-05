@@ -293,6 +293,26 @@ RSpec.describe PdfFiller::Md502Pdf do
       end
     end
 
+    context "healthcare coverage" do
+      before do
+        intake.update(primary_did_not_have_health_insurance: true)
+        intake.update(primary_birth_date: DateTime.new(1975, 4, 12))
+        intake.update(spouse_did_not_have_health_insurance: true)
+        intake.update(spouse_birth_date: DateTime.new(1972, 11, 5))
+        intake.update(authorize_sharing_of_health_insurance_info: "yes")
+        intake.update(email_address: "healthy@example.com")
+      end
+
+      it "fills the correct fields" do
+        expect(pdf_fields["Check Box 27"]).to eq "Yes"
+        expect(pdf_fields["Check Box 28"]).to eq "Yes"
+        expect(pdf_fields["Enter DOB if you have no healthcare"]).to eq "04/12/1975"
+        expect(pdf_fields["Enter DOB if your spouse has no healthcare"]).to eq "11/05/1972"
+        expect(pdf_fields["Check Box 29"]).to eq "Yes"
+        expect(pdf_fields["Enter email addressEnter DOB if your spouse has no healthcare 2"]).to eq "healthy@example.com"
+      end
+    end
+
     context "subtractions" do
       let(:two_income_subtraction_amount) { 1200 }
       before do
@@ -386,6 +406,7 @@ RSpec.describe PdfFiller::Md502Pdf do
         allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_20).and_return 70
         allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_21).and_return 80
         allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_23).and_return 200
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_24).and_return 100
         allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_26).and_return 300
         allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_27).and_return 0
       end
@@ -397,6 +418,7 @@ RSpec.describe PdfFiller::Md502Pdf do
         expect(pdf_fields["Enter 20"]).to eq "70"
         expect(pdf_fields["Text Box 30"]).to eq "80"
         expect(pdf_fields["Text Box 36"]).to eq "200"
+        expect(pdf_fields["Text Box 38"]).to eq "100"
         expect(pdf_fields["Text Box 40"]).to eq "300"
         expect(pdf_fields["Text Box 42"]).to eq "0"
       end
@@ -555,6 +577,16 @@ RSpec.describe PdfFiller::Md502Pdf do
           expect(pdf_fields["Text Box 93"]).to eq "123456789"
           expect(pdf_fields["Text Box 94"]).to eq "87654321"
         end
+      end
+    end
+
+    context "Line 43: Refundable income tax credits from Part CC" do
+      before do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_43).and_return 400
+      end
+
+      it 'outputs the total refundable credit' do
+        expect(pdf_fields["Text Box 74"]).to eq "400"
       end
     end
 

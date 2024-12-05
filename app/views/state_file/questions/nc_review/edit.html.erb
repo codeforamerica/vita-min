@@ -1,10 +1,10 @@
-<% content_for :page_title, t("state_file.questions.shared.review_header.title") %>
+<% content_for :page_title, t("state_file.questions.shared.abstract_review_header.title") %>
 <% content_for :card do %>
   <%= render "review_header" %>
 
   <div id="nc-county" class="white-group">
       <div class="spacing-below-5">
-        <p class="text--bold spacing-below-5"><%= t("state_file.questions.review.county") %></p>
+        <p class="text--bold spacing-below-5"><%= t("state_file.questions.review.county", filing_year: current_tax_year) %></p>
         <p><%=  current_intake.residence_county_name %></p>
         <%= link_to t("general.edit"), StateFile::Questions::NcCountyController.to_path_helper(return_to_review: "y"), class: "button--small" %>
       </div>
@@ -24,10 +24,12 @@
 
   <div id="use-tax" class="white-group">
     <div class="spacing-below-5">
-      <p class="text--bold spacing-below-5"><%=t(".use_tax_applied") %></p>
+      <p class="text--bold spacing-below-5"><%=t(".use_tax_applied", filing_year: current_tax_year) %></p>
       <p><%=current_intake.untaxed_out_of_state_purchases_yes? ? t("general.affirmative") : t("general.negative") %></p>
-      <p class="text--bold spacing-below-5"><%=t(".amount") %></p>
-      <p><%=number_to_currency(current_intake.sales_use_tax, precision: 2)%></p>
+      <% if current_intake.untaxed_out_of_state_purchases_yes? %>
+        <p class="text--bold spacing-below-5"><%=t(".amount") %></p>
+        <p><%=number_to_currency(current_intake.sales_use_tax, precision: 2)%></p>
+      <% end %>
       <%= link_to t("general.edit"), StateFile::Questions::NcSalesUseTaxController.to_path_helper(return_to_review: "y"), class: "button--small" %>
     </div>
   </div>
@@ -35,7 +37,11 @@
   <div id="state-credits" class="white-group">
     <div class="spacing-below-5">
       <p class="text--bold spacing-below-5"><%=t(".state_credit") %></p>
-      <p><%=current_intake.tribal_member_yes? ? number_to_currency(current_intake.tribal_wages_amount, precision: 2): t("general.negative") %></p>
+      <p><%=current_intake.tribal_member_yes? ? t("general.affirmative") : t("general.negative") %></p>
+      <% if current_intake.tribal_member_yes? %>
+        <p class="text--bold spacing-below-5"><%=t(".amount_earned") %></p>
+        <p><%=number_to_currency(current_intake.tribal_wages_amount, precision: 2)%></p>
+      <% end %>
       <%= link_to t("general.edit"), StateFile::Questions::NcSubtractionsController.to_path_helper(return_to_review: "y"), class: "button--small" %>
     </div>
   </div>
@@ -43,7 +49,7 @@
   <div id="details" class="reveal">
     <p><button class="reveal__button"><%= t("state_file.general.see_detailed_return") %></button></p>
     <div class="reveal__content">
-      <div class="spacing-below-25 with-top-separator">
+      <div class="spacing-below-25">
         <p class="text--bold spacing-below-5"><%= t("state_file.general.fed_agi") %></p>
         <p><%= number_to_currency(current_intake.calculator.line_or_zero(:NCD400_LINE_6)) %></p>
       </div>
@@ -78,7 +84,7 @@
         <p><%= number_to_currency(current_intake.calculator.line_or_zero(:NCD400_LINE_14)) %></p>
       </div>
 
-      <div class="spacing-below-25">
+      <div class="spacing-below-25 with-top-separator">
         <p class="text--bold spacing-below-5"><%= t("state_file.general.nc_income_tax") %></p>
         <p><%= number_to_currency(current_intake.calculator.line_or_zero(:NCD400_LINE_15)) %></p>
       </div>
@@ -93,7 +99,7 @@
         <p><%= number_to_currency(current_intake.calculator.line_or_zero(:NCD400_LINE_19)) %></p>
       </div>
 
-      <div class="spacing-below-25">
+      <div class="spacing-below-25 with-top-separator">
         <p class="text--bold spacing-below-5"><%= t("state_file.general.nc_tax_withheld") %></p>
         <p><%= number_to_currency(current_intake.calculator.line_or_zero(:NCD400_LINE_20A) + current_intake.calculator.line_or_zero(:NCD400_LINE_20B)) %></p>
       </div>

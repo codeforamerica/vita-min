@@ -5,7 +5,7 @@ $theme-external-link-sr-label-tab-same: "External.";
 $theme-external-link-sr-label-tab-new: "External, opens in a new tab";
 
 @mixin external-link($contrast-bg: "default") {
-  display: inline-block;
+  display: inline;
 
   &::before {
     @include sr-only;

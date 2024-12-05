@@ -7,8 +7,10 @@ module SubmissionBuilder
       build_xml_doc("ReturnHeaderState") do |xml|
         xml.Jurisdiction "#{@submission.data_source.state_code.upcase}ST"
         xml.ReturnTs datetime_type(@submission.created_at) if @submission.created_at.present?
-        xml.TaxPeriodBeginDt date_type(Date.new(@submission.data_source.tax_return_year, 1, 1))
-        xml.TaxPeriodEndDt date_type(Date.new(@submission.data_source.tax_return_year, 12, 31))
+        if @submission.data_source.show_tax_period_in_return_header?
+          xml.TaxPeriodBeginDt date_type(Date.new(@submission.data_source.tax_return_year, 1, 1))
+          xml.TaxPeriodEndDt date_type(Date.new(@submission.data_source.tax_return_year, 12, 31))
+        end
         xml.TaxYr @submission.data_source.tax_return_year
         xml.OriginatorGrp do
           xml.EFIN EnvironmentCredentials.irs(:efin)

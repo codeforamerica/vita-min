@@ -67,6 +67,12 @@ module PdfFiller
         'Enter C $ ': @xml_document.at('Exemptions Dependents Amount')&.text,
         'Text Field 17': @xml_document.at('Exemptions Total Count')&.text,
         'D. Enter Dollar Amount Total Exemptions (Add A, B and C.) ': @xml_document.at('Exemptions Total Amount')&.text,
+        'Check Box 27': check_box_if_x(@xml_document.at('MDHealthCareCoverage PriWithoutHealthCoverageInd')&.text),
+        'Check Box 28': check_box_if_x(@xml_document.at('MDHealthCareCoverage SecWithoutHealthCoverageInd')&.text),
+        'Enter DOB if you have no healthcare': formatted_date(@xml_document.at('MDHealthCareCoverage PriDOB')&.text, "%m/%d/%Y"),
+        'Enter DOB if your spouse has no healthcare': formatted_date(@xml_document.at('MDHealthCareCoverage SecDOB')&.text, "%m/%d/%Y"),
+        'Check Box 29': check_box_if_x(@xml_document.at('MDHealthCareCoverage AuthorToShareInfoHealthExchInd')&.text),
+        'Enter email addressEnter DOB if your spouse has no healthcare 2': @xml_document.at('MDHealthCareCoverage TaxpayerEmailAddress')&.text,
         'Enter 9': @xml_document.at('Form502 Subtractions ChildAndDependentCareExpenses')&.text,
         'Enter 11': @xml_document.at('Form502 Subtractions SocialSecurityRailRoadBenefits')&.text,
         'Text Field 9': generate_codes_for_502_su.at(0),
@@ -92,8 +98,11 @@ module PdfFiller
         'Enter 16': @xml_document.at('Form502 Subtractions StateAdjustedGrossIncome')&.text,
         'Text Box 30': @xml_document.at('Form502 StateTaxComputation StateIncomeTax')&.text,
         'Text Box 36': @xml_document.at('Form502 StateTaxComputation PovertyLevelCredit')&.text,
+        'Text Box 38': @xml_document.at('Form502 StateTaxComputation IndividualTaxCredits')&.text,
         'Text Box 40': @xml_document.at('Form502 StateTaxComputation TotalCredits')&.text,
         'Text Box 42': @xml_document.at('Form502 StateTaxComputation StateTaxAfterCredits')&.text,
+        'Text Box 74': @xml_document.at('Form502 RefundableTaxCredits')&.text,
+        'Text Box 75': @xml_document.at('Form502 RefundableTaxCredits')&.text.present? ? "00" : nil,
         'Text Box 66': calculated_fields.fetch(:MD502_LINE_39),
         'Text Box 67': "00",
         'Text Box 72': calculated_fields.fetch(:MD502_LINE_42),
@@ -147,6 +156,10 @@ module PdfFiller
 
     def checkbox_value(value)
       value.present? ? 'Yes' : 'Off'
+    end
+
+    def check_box_if_x(value)
+      value == "X" ? 'Yes' : 'Off'
     end
 
     def generate_codes_for_502_su

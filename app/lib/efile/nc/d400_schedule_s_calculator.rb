@@ -20,7 +20,7 @@ module Efile
       private
 
       def calculate_line_18
-        @intake.direct_file_json_data.interest_reports.sum(&:interest_on_government_bonds)
+        @intake.direct_file_json_data.interest_reports.sum(&:interest_on_government_bonds).round
       end
 
       def calculate_line_27

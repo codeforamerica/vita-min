@@ -1,0 +1,21 @@
+{
+  "familyAndHousehold": [],
+  "filers": [
+    {
+      "firstName": "Bert",
+      "middleInitial": null,
+      "lastName": "Muppet",
+      "dateOfBirth": "1970-01-01",
+      "isPrimaryFiler": true,
+      "tin": "400-00-0030"
+    },
+    {
+      "firstName": "Ernie",
+      "middleInitial": null,
+      "lastName": "Muppet",
+      "dateOfBirth": "1980-01-01",
+      "isPrimaryFiler": false,
+      "tin": "600-00-0030"
+    }
+  ]
+}

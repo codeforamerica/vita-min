@@ -1,4 +1,4 @@
-<% content_for :page_title, t("state_file.questions.shared.review_header.title") %>
+<% content_for :page_title, t("state_file.questions.shared.abstract_review_header.title") %>
 <% content_for :card do %>
   <%= render "state_file/questions/shared/review_header" %>
 
@@ -74,7 +74,7 @@
     <div id="incarcerated" class="white-group">
       <div class="spacing-below-5">
         <p class="text--bold spacing-below-5"><%=t(".was_incarcerated", filing_year: current_tax_year) %></p>
-        <p><%=current_intake.was_incarcerated_yes? ? t("general.affirmative") : t("general.negative") %></p>
+        <p><%=current_intake.primary_was_incarcerated_yes? || current_intake.spouse_was_incarcerated_yes? ? t("general.affirmative") : t("general.negative") %></p>
 
         <p class="text--bold spacing-below-5"><%=t(".ssn_no_employment") %></p>
         <p><%=current_intake.ssn_no_employment_yes? ? t("general.affirmative") : t("general.negative") %></p>

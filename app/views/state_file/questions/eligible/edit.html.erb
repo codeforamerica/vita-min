@@ -3,30 +3,23 @@
 <% content_for :page_title, title1 %>
 <% content_for :card do %>
   <h1 class="h2"><%= title1 %></h1>
-  <p><%= t(".body_html") %></p>
+  <p><%= t(".title2_html") %></p>
 
   <div class="white-group">
     <%= render partial: "state_file/questions/eligible/#{current_state_code}_supported" %>
   </div>
 
   <div class="reveal">
-    <p>
-      <button class="reveal__button"><%= t('.not_supported') %></button>
-    </p>
+    <p><button class="reveal__button"><%= t(".credits_not_supported")%></button></p>
     <div class="reveal__content">
-      <% unless current_intake.disqualifying_eligibility_rules.empty? %>
-        <%= render partial: "state_file/questions/eligible/#{current_state_code}_unsupported" %>
-      <% end %>
+        <%= render partial: "state_file/questions/eligible/#{current_state_code}_credits_unsupported" %>
     </div>
   </div>
+
   <div class="reveal">
-    <button class="reveal__button"><%= t('.not_supported_reveal_heading') %></button>
+    <p><button class="reveal__button"><%= t('.not_supported') %></button></p>
     <div class="reveal__content">
-      <p><%= t('.want_to_claim_vita', state_name: current_state_name) %></p>
-      <p>
-        <a href="<%= @vita_link %>" target="_blank" rel="noopener nofollow"><%= t('state_file.questions.eligibility_offboarding.other_options.vita_link') %></a>
-      </p>
-      <p><%= t('.want_to_claim_learn_more_html', link: @faq_other_options_link) %></p>
+      <%= render partial: "state_file/questions/eligible/vita_option" %>
     </div>
   </div>
 
