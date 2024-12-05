@@ -4,15 +4,15 @@
         <TaxYr>2024</TaxYr>
         <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
         <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
-        <SoftwareVersionNum>1cfaf0d2</SoftwareVersionNum>
+        <SoftwareVersionNum>dcf46c78</SoftwareVersionNum>
         <ReturnTypeCd>1040</ReturnTypeCd>
         <Filer>
             <PrimarySSN>400002001</PrimarySSN>
-            <NameLine1Txt>IRENE&lt;ICANTHINIKOFAFISH</NameLine1Txt>
-            <PrimaryNameControlTxt>ICAN</PrimaryNameControlTxt>
+            <NameLine1Txt>IRENE&lt;ICEFISH</NameLine1Txt>
+            <PrimaryNameControlTxt>ICEF</PrimaryNameControlTxt>
             <USAddress>
-                <AddressLine1Txt>2000 ISOTIRED CREEK</AddressLine1Txt>
-                <CityNm>BALTIMORE</CityNm>
+                <AddressLine1Txt>2000 Isotired Creek</AddressLine1Txt>
+                <CityNm>Baltimore</CityNm>
                 <StateAbbreviationCd>MD</StateAbbreviationCd>
                 <ZIPCd>21208</ZIPCd>
             </USAddress>
@@ -20,65 +20,58 @@
         </Filer>
         <AdditionalFilerInformation>
             <AtSubmissionFilingGrp>
-                <EmailAddressTxt>test-user+40000200-1386-4150-972d-ca00032f069c@directfile.test</EmailAddressTxt>
+                <EmailAddressTxt>test-user+40000200-13ba-4e62-88a3-a541ccf6e94b@directfile.test</EmailAddressTxt>
             </AtSubmissionFilingGrp>
         </AdditionalFilerInformation>
     </ReturnHeader>
-    <ReturnData documentCnt="5">
+    <ReturnData documentCnt="3">
         <IRS1040 documentId="IRS10400001">
             <IndividualReturnFilingStatusCd>4</IndividualReturnFilingStatusCd>
             <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
-            <PrimaryBlindInd>X</PrimaryBlindInd>
-            <TotalBoxesCheckedCnt>1</TotalBoxesCheckedCnt>
             <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
             <DependentDetail>
-                <DependentFirstNm>ITRIEDBUT</DependentFirstNm>
-                <DependentLastNm>ICANTHINKOFAFISH</DependentLastNm>
-                <DependentNameControlTxt>ICAN</DependentNameControlTxt>
+                <DependentFirstNm>Icarus</DependentFirstNm>
+                <DependentLastNm>Icefish</DependentLastNm>
+                <DependentNameControlTxt>ICEF</DependentNameControlTxt>
                 <DependentSSN>600005660</DependentSSN>
-                <DependentRelationshipCd>SISTER</DependentRelationshipCd>
+                <DependentRelationshipCd>PARENT</DependentRelationshipCd>
                 <EligibleForODCInd>X</EligibleForODCInd>
             </DependentDetail>
             <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
             <OtherDependentsListedCnt>1</OtherDependentsListedCnt>
             <TotalExemptionsCnt>2</TotalExemptionsCnt>
-            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">80</WagesAmt>
-            <WagesSalariesAndTipsAmt>80</WagesSalariesAndTipsAmt>
-            <TaxableInterestAmt referenceDocumentId="IRS1040B001" referenceDocumentName="IRS1040ScheduleB">8000</TaxableInterestAmt>
-            <TotalAdditionalIncomeAmt>13920</TotalAdditionalIncomeAmt>
-            <TotalIncomeAmt>22000</TotalIncomeAmt>
-            <AdjustedGrossIncomeAmt>22000</AdjustedGrossIncomeAmt>
-            <TotalItemizedOrStandardDedAmt>23850</TotalItemizedOrStandardDedAmt>
-            <TotalDeductionsAmt>23850</TotalDeductionsAmt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">11600</WagesAmt>
+            <WagesSalariesAndTipsAmt>11600</WagesSalariesAndTipsAmt>
+            <TaxableInterestAmt referenceDocumentId="IRS1040B001" referenceDocumentName="IRS1040ScheduleB">6800</TaxableInterestAmt>
+            <TotalIncomeAmt>18400</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>18400</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>21900</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>21900</TotalDeductionsAmt>
             <TaxableIncomeAmt>0</TaxableIncomeAmt>
             <TaxAmt>0</TaxAmt>
             <TotalTaxBeforeCrAndOthTaxesAmt>0</TotalTaxBeforeCrAndOthTaxesAmt>
             <TaxLessCreditsAmt>0</TaxLessCreditsAmt>
             <TotalTaxAmt>0</TotalTaxAmt>
-            <Form1099WithheldTaxAmt referenceDocumentId="OTHERWITHHOLDING0001" referenceDocumentName="OtherWithholdingStatement">250</Form1099WithheldTaxAmt>
-            <WithholdingTaxAmt>250</WithholdingTaxAmt>
-            <TotalPaymentsAmt>250</TotalPaymentsAmt>
-            <OverpaidAmt>250</OverpaidAmt>
-            <RefundAmt>250</RefundAmt>
+            <EarnedIncomeCreditAmt>13</EarnedIncomeCreditAmt>
+            <RefundableCreditsAmt>13</RefundableCreditsAmt>
+            <TotalPaymentsAmt>13</TotalPaymentsAmt>
+            <OverpaidAmt>13</OverpaidAmt>
+            <RefundAmt>13</RefundAmt>
             <OwedAmt>0</OwedAmt>
             <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
-            <PrimaryOccupationTxt>FARMER</PrimaryOccupationTxt>
+            <PrimaryOccupationTxt>Farmer</PrimaryOccupationTxt>
             <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
         </IRS1040>
-        <IRS1040Schedule1 documentId="IRS1040S1001">
-            <UnemploymentCompAmt>13920</UnemploymentCompAmt>
-            <TotalAdditionalIncomeAmt>13920</TotalAdditionalIncomeAmt>
-        </IRS1040Schedule1>
         <IRS1040ScheduleB documentId="IRS1040B001" documentName="IRS1040ScheduleB">
             <Form1040SchBPartIGroup2>
                 <InterestPayerName>
-                    <BusinessNameLine1Txt>FAILURE OF IMAGINATIONS INVESTMENT</BusinessNameLine1Txt>
+                    <BusinessNameLine1Txt>Failure of Imagination Investments</BusinessNameLine1Txt>
                 </InterestPayerName>
-                <InterestAmt>8000</InterestAmt>
+                <InterestAmt>6800</InterestAmt>
             </Form1040SchBPartIGroup2>
-            <InterestSubtotalAmt interestSubtotalLiteralCd="INTEREST SUBTOTAL">8000</InterestSubtotalAmt>
-            <TaxableInterestSubtotalAmt>8000</TaxableInterestSubtotalAmt>
-            <CalculatedTotalTaxableIntAmt>8000</CalculatedTotalTaxableIntAmt>
+            <InterestSubtotalAmt interestSubtotalLiteralCd="INTEREST SUBTOTAL">6800</InterestSubtotalAmt>
+            <TaxableInterestSubtotalAmt>6800</TaxableInterestSubtotalAmt>
+            <CalculatedTotalTaxableIntAmt>6800</CalculatedTotalTaxableIntAmt>
             <ForeignAccountsQuestionInd>false</ForeignAccountsQuestionInd>
             <ForeignTrustQuestionInd>false</ForeignTrustQuestionInd>
         </IRS1040ScheduleB>
@@ -87,40 +80,33 @@
             <EmployerEIN>271067272</EmployerEIN>
             <EmployerNameControlTxt>FISH</EmployerNameControlTxt>
             <EmployerName>
-                <BusinessNameLine1Txt>FISH OUTTA IDEAS LTD</BusinessNameLine1Txt>
+                <BusinessNameLine1Txt>Fish Outta Ideas Ltd</BusinessNameLine1Txt>
             </EmployerName>
             <EmployerUSAddress>
-                <AddressLine1Txt>555 WHDOWEDOTHISTOURSELVES RD</AddressLine1Txt>
-                <CityNm>PIKESVILLE MD</CityNm>
+                <AddressLine1Txt>555 whydowedothistoourselves Rd</AddressLine1Txt>
+                <CityNm>Pikesville</CityNm>
                 <StateAbbreviationCd>MD</StateAbbreviationCd>
                 <ZIPCd>21208</ZIPCd>
             </EmployerUSAddress>
-            <EmployeeNm>IRENE ICANTHINIKOFAFISH</EmployeeNm>
+            <EmployeeNm>Irene Icefish</EmployeeNm>
             <EmployeeUSAddress>
-                <AddressLine1Txt>2000 ISOTIRED CREEK</AddressLine1Txt>
-                <CityNm>BALTIMORE</CityNm>
+                <AddressLine1Txt>2000 Isotired Creek</AddressLine1Txt>
+                <CityNm>Baltimore</CityNm>
                 <StateAbbreviationCd>MD</StateAbbreviationCd>
                 <ZIPCd>21208</ZIPCd>
             </EmployeeUSAddress>
-            <WagesAmt>80</WagesAmt>
-            <SocialSecurityWagesAmt>80</SocialSecurityWagesAmt>
-            <MedicareWagesAndTipsAmt>80</MedicareWagesAndTipsAmt>
+            <WagesAmt>11600</WagesAmt>
+            <SocialSecurityWagesAmt>11600</SocialSecurityWagesAmt>
+            <MedicareWagesAndTipsAmt>11600</MedicareWagesAndTipsAmt>
             <W2StateLocalTaxGrp>
                 <W2StateTaxGrp>
                     <StateAbbreviationCd>MD</StateAbbreviationCd>
                     <EmployerStateIdNum>23456789</EmployerStateIdNum>
-                    <StateWagesAmt>80</StateWagesAmt>
+                    <StateWagesAmt>11600</StateWagesAmt>
                     <W2LocalTaxGrp/>
                 </W2StateTaxGrp>
             </W2StateLocalTaxGrp>
             <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
         </IRSW2>
-        <OtherWithholdingStatement documentId="OTHERWITHHOLDING0001" documentName="OtherWithholdingStatement">
-            <OtherWithholdingStmt>
-                <WithholdingCd>FORM 1099</WithholdingCd>
-                <EIN>271067272</EIN>
-                <WithholdingAmt>250</WithholdingAmt>
-            </OtherWithholdingStmt>
-        </OtherWithholdingStatement>
     </ReturnData>
 </Return>
