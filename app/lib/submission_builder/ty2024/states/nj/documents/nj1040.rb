@@ -35,7 +35,7 @@ module SubmissionBuilder
                           xml.FirstName sanitize_for_xml(intake.spouse.first_name)
                           xml.MiddleInitial sanitize_for_xml(intake.spouse.middle_initial) if intake.spouse.middle_initial.present?
                           xml.LastName sanitize_for_xml(intake.spouse.last_name)
-                          xml.NameSuffix intake.spouse.suffix if intake.spouse.suffix.present?
+                          xml.NameSuffix intake.spouse.suffix.upcase if intake.spouse.suffix.present?
                         end
                       end
                     when :qualifying_widow
@@ -98,7 +98,7 @@ module SubmissionBuilder
                           xml.FirstName sanitize_for_xml(dependent.first_name)
                           xml.MiddleInitial sanitize_for_xml(dependent.middle_initial) if dependent.middle_initial.present?
                           xml.LastName sanitize_for_xml(dependent.last_name)
-                          xml.NameSuffix dependent.suffix if dependent.suffix.present?
+                          xml.NameSuffix dependent.suffix.upcase if dependent.suffix.present?
                         end
                         xml.DependentsSSN dependent.ssn
                         xml.BirthYear dependent.dob.year
