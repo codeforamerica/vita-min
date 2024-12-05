@@ -1,4 +1,13 @@
 <% content_for :page_title, t("state_file.questions.shared.abstract_review_header.title") %>
+
+<% content_for :additional_household_box_content do %>
+  <div class="spacing-below-5">
+    <h3 class="text--body text--bold spacing-below-5"><%=t(".your_address", filing_year: current_tax_year) %></h3>
+    <p><%=current_intake.address %></p>
+    <%= link_to t("general.edit"), StateFile::Questions::MdPermanentAddressController.to_path_helper(return_to_review: "y"), class: "button--small" %>
+  </div>
+<% end %>
+
 <% content_for :card do %>
   <%= render "state_file/questions/shared/review_header" %>
 

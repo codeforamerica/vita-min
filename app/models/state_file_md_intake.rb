@@ -192,4 +192,16 @@ class StateFileMdIntake < StateFileBaseIntake
   def filing_status_dependent?
     filing_status == :dependent
   end
+
+  def address
+    if confirmed_permanent_address_yes?
+      result = "#{self.direct_file_data.mailing_street}"
+      result += " #{self.direct_file_data.mailing_apartment}" if self.direct_file_data.mailing_apartment.present?
+      result += ", #{self.direct_file_data.mailing_city}, #{self.direct_file_data.mailing_state} #{self.direct_file_data.mailing_zip}"
+      result
+    else
+      apt = self.permanent_apartment.present? ? " #{self.permanent_apartment}" : ""
+      "#{self.permanent_street}#{apt}, #{self.permanent_city} MD, #{self.permanent_zip}"
+    end
+  end
 end
