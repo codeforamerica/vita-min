@@ -114,6 +114,48 @@ module SubmissionBuilder
       end
     end
 
+    def process_md_mailing_street(xml)
+      return unless @submission.data_source.direct_file_data.mailing_street.present?
+
+      mailing_street = sanitize_for_xml(@submission.data_source.direct_file_data.mailing_street)
+
+      if mailing_street.length > 35
+        process_long_md_mailing_street(xml, mailing_street)
+      else
+        xml.AddressLine2Txt sanitize_for_xml(@submission.data_source.direct_file_data.mailing_apartment, 35) if @submission.data_source.direct_file_data.mailing_apartment.present?
+        xml.AddressLine1Txt sanitize_for_xml(mailing_street, 35)
+      end
+    end
+
+    def process_long_md_mailing_street(xml, mailing_street)
+      key_position = mailing_street.index(ADDRESS_ABBREV_REGEX)
+
+      if key_position
+        truncated_mailing_street = mailing_street[0, key_position].rstrip
+        excess_characters = mailing_street[key_position..].lstrip
+      else
+        truncated_mailing_street = mailing_street[0, 35].rpartition(' ').first
+        excess_characters = mailing_street[truncated_mailing_street.length + 1..]
+      end
+
+      process_md_mailing_apartment(xml, excess_characters, truncated_mailing_street)
+    end
+
+    def process_md_mailing_apartment(xml, excess_characters, truncated_mailing_street)
+      if @submission.data_source.direct_file_data.mailing_apartment.present?
+        apartment = sanitize_for_xml(@submission.data_source.direct_file_data.mailing_apartment)
+        if apartment.length + excess_characters.length > 35
+          truncated_apartment = apartment[0, 35 - excess_characters.length].rpartition(' ').first
+          xml.AddressLine2Txt excess_characters + " " + truncated_apartment
+        else
+          xml.AddressLine2Txt excess_characters + " " + apartment
+        end
+      else
+        xml.AddressLine2Txt excess_characters
+      end
+      xml.AddressLine1Txt sanitize_for_xml(truncated_mailing_street, 35)
+    end
+
     def process_mailing_street(xml)
       return unless @submission.data_source.direct_file_data.mailing_street.present?
 

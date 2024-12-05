@@ -46,8 +46,7 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
       end
       xml.MarylandAddress do
         if @intake.confirmed_permanent_address_yes?
-          xml.AddressLine1Txt sanitize_for_xml(@intake.direct_file_data.mailing_street, 35)
-          xml.AddressLine2Txt sanitize_for_xml(@intake.direct_file_data.mailing_apartment, 35) if @intake.direct_file_data.mailing_apartment.present?
+          process_md_mailing_street(xml)
           xml.CityNm sanitize_for_xml(@intake.direct_file_data.mailing_city, 22)
           xml.StateAbbreviationCd @intake.state_code.upcase
           xml.ZIPCd @intake.direct_file_data.mailing_zip

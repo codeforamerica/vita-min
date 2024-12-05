@@ -92,6 +92,21 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
         end
       end
 
+      context "when mailing address is longer than 35 characters" do
+
+        before do
+          intake.confirmed_permanent_address_yes!
+          intake.direct_file_data.mailing_street = '211212 SUBDIVISION DR POBOX #157 UNIT 123'
+          intake.direct_file_data.mailing_apartment = ''
+        end
+
+        it 'truncates under 35 characters' do
+          expect(xml.at("MarylandAddress AddressLine1Txt").text.length).to be <= 35
+          expect(xml.at("MarylandAddress AddressLine1Txt").text).to eq('211212 SUBDIVISION DR POBOX #157')
+          expect(xml.at("MarylandAddress AddressLine2Txt").text).to eq('UNIT 123')
+        end
+      end
+
       context "Income section" do
         context "when all relevant values are present in the DF XML" do
           before do
