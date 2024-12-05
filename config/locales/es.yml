@@ -287,6 +287,7 @@ es:
   general:
     NA: N/A
     about: Acerca de nosotros
+    accept: Aceptar
     access_denied: Usted no está autorizado a tomar esta acción.
     activate_all: Activar todo
     active: activos
@@ -346,6 +347,7 @@ es:
       many: "%{count} días"
       one: "%{count} día"
       other: "%{count} días"
+    decline: Rechazar
     delete: Eliminar
     dependent_relationships:
       aunt: Tía
@@ -3483,6 +3485,9 @@ es:
           income_details: Detalles de ingresos
           your_refund: Tu reembolso
           your_tax_owed: Tus impuestos adeudados
+      sms_terms:
+        edit:
+          title: Revise los términos y condiciones de mensajes de texto de FileYourStateTaxes
       spouse_state_id:
         edit:
           title_html: Proporciona la información para la identificación emitida por el estado de <strong>tu cónyuge</strong>
