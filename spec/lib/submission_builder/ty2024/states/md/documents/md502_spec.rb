@@ -116,7 +116,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
         it 'truncates mailing address under 35 characters' do
           expect(xml.at("MarylandAddress AddressLine1Txt").text.length).to be <= 35
           expect(xml.at("MarylandAddress AddressLine1Txt").text).to eq('211212 SUBDIVISION DRIVE POST OFFIC')
-          expect(xml.at("MarylandAddress AddressLine2Txt").text).to eq('')
+          expect(xml.at("MarylandAddress AddressLine2Txt")).not_to be_present
         end
       end
 
