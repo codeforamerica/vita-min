@@ -2646,8 +2646,15 @@ es:
               <p>Bajo pena de perjurio, declaro que, según mi leal saber y entender, esta declaración es verdadera, correcta y completa.</p>
           md:
             body_html: |
-              <p>Al utilizar un sistema informático y un software para preparar y/o presentar mi(s) declaración(es) de impuestos electrónicamente, doy mi consentimiento para la transmisión de mi(s) declaración(es) y la divulgación de toda la información sobre mi uso del sistema y el software a la Contraloría. de Maryland.</p>
-              <p>Bajo pena de perjurio, declaro que he comparado la información contenida en mi declaración electrónica con la información que proporcioné a mi Originador de Declaración Electrónica (ERO) o que ingresé en línea y que los nombres y montos descritos anteriormente concuerdan con los montos que se muestran en las líneas correspondientes de mi declaración electrónica de impuestos sobre la renta de Maryland de %{filing_year}. A mi leal saber y entender, mi declaración es verdadera, correcta y completa. Doy mi consentimiento para que mi originador de declaraciones electrónicas o mi proveedor de software de declaraciones electrónicas envíen mi declaración, incluidos los anexos y estados de cuenta adjuntos, a la División de Administración de Ingresos de Maryland.</p>
+              <p>Al utilizar un sistema informático y software para preparar y/o presentar electrónicamente mi(s) declaración(es) de impuestos, doy mi consentimiento para la transmisión de mi(s) declaración(es) y para la divulgación de toda la información sobre mi uso del sistema y software al Contralor de Maryland.</p>
+              <p>
+                Bajo pena de perjurio, declaro que:
+                <ul class="list--bulleted">
+                  <li>He comparado la información contenida en mi declaración electrónica con la información que proporcioné a mi Originador de Declaraciones Electrónicas (ERO) o ingresé en línea, y que los nombres y montos descritos anteriormente coinciden con los montos mostrados en las líneas correspondientes de mi declaración electrónica de impuestos sobre la renta de Maryland del año %{filing_year}; y</li>
+                  <li>A mi leal saber y entender, mi declaración es verdadera, correcta y completa.</li>
+                </ul>
+                Doy mi consentimiento para que mi declaración, incluidas las planillas y anexos que la acompañan, sea enviada a la División de Administración de Ingresos de Maryland por mi Originador de Declaraciones Electrónicas o por mi proveedor de software de declaraciones electrónicas.
+              </p>
           nc:
             body_html: |
               <p>By using a computer system and software to prepare and file my tax return(s) electronically, I consent to the transmission of my return(s) and to the disclosure of all information about my use of the system and software to the North Carolina Department of Revenue.</p>
@@ -2843,11 +2850,11 @@ es:
       md_eligibility_filing_status:
         edit:
           eligibility_filing_status_label_text: "¿Está casado y presenta una declaración estatal conjunta?"
-          eligibility_first_time_homebuyer_withdrawal_label_text_html: "¿Usted o su cónyuge retiraron dinero de una cuenta para compradores de vivienda por primera vez y lo usaron para algo que no fuera comprar una vivienda en Maryland en %{year}?"
+          eligibility_first_time_homebuyer_withdrawal_label_text_html: "¿Usted o su cónyuge retiraron dinero de una cuenta para compradores de vivienda por primera vez y lo usaron para algo que <strong>no</strong> fuera comprar una vivienda en Maryland en %{year}?"
           eligibility_mfj_two_different_areas_label_text: "¿Retiró dinero de una cuenta de comprador de vivienda por primera vez y lo utilizó para algo que no fuera comprar una casa en Maryland en %{year}?"
           eligibility_mfj_two_different_areas_no: No, mi cónyuge y yo vivíamos en el mismo condado, ciudad, pueblo o área fiscal.
           eligibility_mfj_two_different_areas_yes: Sí, mi cónyuge y yo vivimos permanentemente en diferentes condados, ciudades, pueblos o áreas impositivas.
-          eligibility_non_mfj_first_time_homebuyer_withdrawal_label_text_html: "¿Usted o su cónyuge retiraron dinero de una cuenta para compradores de vivienda por primera vez y lo usaron para algo que no fuera comprar una vivienda en Maryland en %{year}?"
+          eligibility_non_mfj_first_time_homebuyer_withdrawal_label_text_html: "¿Usted o su cónyuge retiraron dinero de una cuenta para compradores de vivienda por primera vez y lo usaron para algo que <strong>no</strong> fuera comprar una vivienda en Maryland en %{year}?"
           permanent_home_copy: No puede utilizar este servicio si usted y su cónyuge viven en condados, ciudades, pueblos o áreas impositivas diferentes y no se trata de una situación temporal.
           permanent_home_copy2: Si abandona su hogar permanente para trabajar o cuidar a alguien, pero planea regresar, su hogar permanente no ha cambiado. Se considera que usted y su cónyuge viven en condados, ciudades, pueblos o áreas impositivas diferentes solo si se quedan en estos hogares separados y no es una situación temporal.
           permanent_home_heading: "¿Qué es una vivienda permanente?"
