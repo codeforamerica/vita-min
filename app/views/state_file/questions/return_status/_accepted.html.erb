@@ -19,7 +19,9 @@
 
   <hr class="spacing-above-25 spacing-below-25"/>
 
-  <p><a target="_blank" rel="noopener nofollow" href="https://vote.gov/"><%= t('state_file.general.register_to_vote') %></a></p>
+  <p>
+    <a target="_blank" rel="noopener nofollow" href="https://vote.gov/"><%= t('state_file.general.register_to_vote') %></a>
+  </p>
 
   <p><%= t('general.spread_the_word_html') %></p>
 
@@ -34,9 +36,9 @@
           (<%= @voucher_form_name %>)
         </li>
 
-        <p>
+        <li>
           <%= link_to t('.download_voucher'), ActionController::Base.helpers.asset_path(@voucher_path) %>
-        </p>
+        </li>
 
         <li>
           <%= t('.check_payable', payable_to: @department_of_taxation, filing_year: current_tax_year, form_number: @tax_form_number) %>
@@ -62,5 +64,7 @@
   <p>
     <a target="_blank" rel="noopener nofollow" href="<%= @survey_link %>"><%= t("state_file.questions.return_status.accepted.feedback") %></a>
   </p>
-  <p><a target="_blank" rel="noopener nofollow" href="https://vote.gov/"><%= t('state_file.general.register_to_vote') %></a></p>
+  <p>
+    <a target="_blank" rel="noopener nofollow" href="https://vote.gov/"><%= t('state_file.general.register_to_vote') %></a>
+  </p>
 <% end %>

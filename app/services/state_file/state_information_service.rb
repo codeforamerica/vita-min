@@ -86,7 +86,9 @@ module StateFile
         intake_class: StateFileIdIntake,
         calculator_class: Efile::Id::Id40Calculator,
         filing_years: [2024],
-        mail_voucher_address: "",
+        mail_voucher_address: "Idaho State Tax Commission<br/>" \
+                              "PO Box 83784<br/>" \
+                              "Boise ID 83707-3784".html_safe,
         navigation_class: Navigation::StateFileIdQuestionNavigation,
         pay_taxes_link: "",
         return_type: "Form40",
@@ -101,7 +103,7 @@ module StateFile
         department_of_taxation: "Idaho State Tax Commission",
         timezone: 'America/Boise',
         vita_link: "",
-        voucher_form_name: "",
+        voucher_form_name: "Form ID-VP",
         voucher_path: "",
         w2_supported_box14_codes: [],
         w2_include_local_income_boxes: false

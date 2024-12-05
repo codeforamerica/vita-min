@@ -3315,6 +3315,8 @@ es:
           feedback: Valoramos sus comentarios; háganos saber lo que piensa de esta herramienta.
           include_payment: Debes incluir el formulario de comprobante de pago.
           mail_voucher_and_payment: 'Envía el formulario de comprobante de pago y el pago a:'
+          md:
+            refund_details_html: ''
           pay_by_mail_or_moneyorder: 'Si estás pagando por correo mediante cheque o giro postal:'
           refund_details_html: 'Typical refund time frames are 7-8 weeks for e-Filed returns and 10-11 weeks for paper returns. There are some exceptions. For more information, please visit %{website_name} website: <a target="_blank" rel="noopener nofollow" href="https://%{tax_refund_url}>Where’s my Refund?</a>'
           title: Tu declaración de impuestos del estado de %{state_name} para el año %{filing_year} ha sido aceptada
