@@ -54,12 +54,14 @@ class Personas < Thor
 
     persona_contents = persona_contents[start_of_contents..].join
 
+    state = options[:state].downcase
+
     file_string = if persona_contents.first == '<'
                     say_error "Format detected as 'xml'", :cyan if options[:debug]
-                    "spec/fixtures/state_file/fed_return_xmls/#{options[:state]}/#{persona_name}.xml"
+                    "spec/fixtures/state_file/fed_return_xmls/#{state}/#{persona_name}.xml"
                   else
                     say_error "Format detected as 'json'", :cyan if options[:debug]
-                    "spec/fixtures/state_file/fed_return_jsons/#{options[:state]}/#{persona_name}.json"
+                    "spec/fixtures/state_file/fed_return_jsons/#{state}/#{persona_name}.json"
                   end
 
     say_error "Creating file '#{file_string}'", :green
@@ -93,7 +95,7 @@ class Personas < Thor
 
     submission_ids = YAML.safe_load_file(submission_id_path)
 
-    submission_ids["#{options[:state]}_#{persona_name}"] = submission_id
+    submission_ids["#{options[:state].downcase}_#{persona_name}"] = submission_id
 
     File.write(submission_id_path, YAML.dump(submission_ids.sort.to_h))
   end
