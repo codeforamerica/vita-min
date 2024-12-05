@@ -61,7 +61,7 @@ describe SubmissionBuilder::ReturnHeader do
         let(:primary_first_name) { "Prim" }
         let(:primary_middle_initial) { "W" }
         let(:primary_last_name) { "Filerton" }
-        let(:primary_suffix) { nil }
+        let(:primary_suffix) { "JR" }
         let(:spouse_birth_date) { nil }
         let(:spouse_ssn) { nil }
         let(:spouse_first_name) { nil }
@@ -86,6 +86,7 @@ describe SubmissionBuilder::ReturnHeader do
             expect(doc.at('Filer Primary TaxpayerName FirstName').content).to eq primary_first_name
             expect(doc.at('Filer Primary TaxpayerName MiddleInitial').content).to eq primary_middle_initial
             expect(doc.at('Filer Primary TaxpayerName LastName').content).to eq primary_last_name
+            expect(doc.at('Filer Primary TaxpayerName NameSuffix').content).to eq primary_suffix
             expect(doc.at("Filer Primary USPhone").text).to eq "5551231234"
 
             expect(doc.at("Filer Secondary DateOfBirth")).not_to be_present
@@ -93,6 +94,7 @@ describe SubmissionBuilder::ReturnHeader do
             expect(doc.at('Filer Secondary TaxpayerName FirstName')).not_to be_present
             expect(doc.at('Filer Secondary TaxpayerName MiddleInitial')).not_to be_present
             expect(doc.at('Filer Secondary TaxpayerName LastName')).not_to be_present
+            expect(doc.at('Filer Secondary TaxpayerName NameSuffix')).not_to be_present
           end
 
           context "excluding absent fields" do
@@ -139,6 +141,7 @@ describe SubmissionBuilder::ReturnHeader do
               expect(doc.at('Filer Secondary TaxpayerName FirstName')).not_to be_present
               expect(doc.at('Filer Secondary TaxpayerName MiddleInitial')).not_to be_present
               expect(doc.at('Filer Secondary TaxpayerName LastName')).not_to be_present
+              expect(doc.at('Filer Secondary TaxpayerName NameSuffix')).not_to be_present
             end
           end
         end
@@ -150,6 +153,7 @@ describe SubmissionBuilder::ReturnHeader do
           let(:spouse_first_name) { "Sec" }
           let(:spouse_middle_initial) { "Z" }
           let(:spouse_last_name) { "Filerton" }
+          let(:spouse_suffix) { "SR" }
 
           it "generates xml with primary and spouse DOBs" do
             expect(doc.at("Filer Primary DateOfBirth").text).to eq primary_birth_date.strftime("%F")
@@ -159,9 +163,10 @@ describe SubmissionBuilder::ReturnHeader do
             expect(doc.at('Filer Secondary TaxpayerName FirstName').content).to eq spouse_first_name
             expect(doc.at('Filer Secondary TaxpayerName MiddleInitial').content).to eq spouse_middle_initial
             expect(doc.at('Filer Secondary TaxpayerName LastName').content).to eq spouse_last_name
+            expect(doc.at('Filer Secondary TaxpayerName NameSuffix').content).to eq spouse_suffix
           end
 
-          context "filers have suffixes" do
+          context "filers have lower cased suffixes" do
             let(:primary_suffix) { "Jr" }
             let(:spouse_suffix) { "sr" }
 
