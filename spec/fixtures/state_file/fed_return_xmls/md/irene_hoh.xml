@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v4.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>1cfaf0d2</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400002001</PrimarySSN>
+            <NameLine1Txt>IRENE&lt;ICANTHINIKOFAFISH</NameLine1Txt>
+            <PrimaryNameControlTxt>ICAN</PrimaryNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>2000 ISOTIRED CREEK</AddressLine1Txt>
+                <CityNm>BALTIMORE</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21208</ZIPCd>
+            </USAddress>
+            <PhoneNum>3015556666</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000200-1386-4150-972d-ca00032f069c@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="5">
+        <IRS1040 documentId="IRS10400001">
+            <IndividualReturnFilingStatusCd>4</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <PrimaryBlindInd>X</PrimaryBlindInd>
+            <TotalBoxesCheckedCnt>1</TotalBoxesCheckedCnt>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <DependentDetail>
+                <DependentFirstNm>ITRIEDBUT</DependentFirstNm>
+                <DependentLastNm>ICANTHINKOFAFISH</DependentLastNm>
+                <DependentNameControlTxt>ICAN</DependentNameControlTxt>
+                <DependentSSN>600005660</DependentSSN>
+                <DependentRelationshipCd>SISTER</DependentRelationshipCd>
+                <EligibleForODCInd>X</EligibleForODCInd>
+            </DependentDetail>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>1</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>2</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">80</WagesAmt>
+            <WagesSalariesAndTipsAmt>80</WagesSalariesAndTipsAmt>
+            <TaxableInterestAmt referenceDocumentId="IRS1040B001" referenceDocumentName="IRS1040ScheduleB">8000</TaxableInterestAmt>
+            <TotalAdditionalIncomeAmt>13920</TotalAdditionalIncomeAmt>
+            <TotalIncomeAmt>22000</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>22000</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>23850</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>23850</TotalDeductionsAmt>
+            <TaxableIncomeAmt>0</TaxableIncomeAmt>
+            <TaxAmt>0</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>0</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>0</TaxLessCreditsAmt>
+            <TotalTaxAmt>0</TotalTaxAmt>
+            <Form1099WithheldTaxAmt referenceDocumentId="OTHERWITHHOLDING0001" referenceDocumentName="OtherWithholdingStatement">250</Form1099WithheldTaxAmt>
+            <WithholdingTaxAmt>250</WithholdingTaxAmt>
+            <TotalPaymentsAmt>250</TotalPaymentsAmt>
+            <OverpaidAmt>250</OverpaidAmt>
+            <RefundAmt>250</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>FARMER</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1040Schedule1 documentId="IRS1040S1001">
+            <UnemploymentCompAmt>13920</UnemploymentCompAmt>
+            <TotalAdditionalIncomeAmt>13920</TotalAdditionalIncomeAmt>
+        </IRS1040Schedule1>
+        <IRS1040ScheduleB documentId="IRS1040B001" documentName="IRS1040ScheduleB">
+            <Form1040SchBPartIGroup2>
+                <InterestPayerName>
+                    <BusinessNameLine1Txt>FAILURE OF IMAGINATIONS INVESTMENT</BusinessNameLine1Txt>
+                </InterestPayerName>
+                <InterestAmt>8000</InterestAmt>
+            </Form1040SchBPartIGroup2>
+            <InterestSubtotalAmt interestSubtotalLiteralCd="INTEREST SUBTOTAL">8000</InterestSubtotalAmt>
+            <TaxableInterestSubtotalAmt>8000</TaxableInterestSubtotalAmt>
+            <CalculatedTotalTaxableIntAmt>8000</CalculatedTotalTaxableIntAmt>
+            <ForeignAccountsQuestionInd>false</ForeignAccountsQuestionInd>
+            <ForeignTrustQuestionInd>false</ForeignTrustQuestionInd>
+        </IRS1040ScheduleB>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>400002001</EmployeeSSN>
+            <EmployerEIN>271067272</EmployerEIN>
+            <EmployerNameControlTxt>FISH</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>FISH OUTTA IDEAS LTD</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>555 WHDOWEDOTHISTOURSELVES RD</AddressLine1Txt>
+                <CityNm>PIKESVILLE MD</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21208</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>IRENE ICANTHINIKOFAFISH</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>2000 ISOTIRED CREEK</AddressLine1Txt>
+                <CityNm>BALTIMORE</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21208</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>80</WagesAmt>
+            <SocialSecurityWagesAmt>80</SocialSecurityWagesAmt>
+            <MedicareWagesAndTipsAmt>80</MedicareWagesAndTipsAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>MD</StateAbbreviationCd>
+                    <EmployerStateIdNum>23456789</EmployerStateIdNum>
+                    <StateWagesAmt>80</StateWagesAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+        <OtherWithholdingStatement documentId="OTHERWITHHOLDING0001" documentName="OtherWithholdingStatement">
+            <OtherWithholdingStmt>
+                <WithholdingCd>FORM 1099</WithholdingCd>
+                <EIN>271067272</EIN>
+                <WithholdingAmt>250</WithholdingAmt>
+            </OtherWithholdingStmt>
+        </OtherWithholdingStatement>
+    </ReturnData>
+</Return>
