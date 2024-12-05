@@ -3514,10 +3514,12 @@ es:
           title_html: Buenas noticias, recibirás un reembolso de impuestos del estado de %{state_name} de <strong>%{refund_amount}.</strong> ¿Cómo te gustaría recibirlo?
       taxes_owed:
         edit:
-          page_title: Debes impuestos estatales. ¿Cómo te gustaría pagar?
+          subtitle_html: Para obtener más información sobre las fechas de vencimiento de impuestos y los métodos de pago, visite <a target="_blank" rel="noopener nofollow" href="https://marylandtaxes.gov/">Marylandtaxes.gov</a>
+          page_title: Debes impuestos estatales.
           pay_bank: Directamente desde tu cuenta corriente o de ahorros (débito directo)
           pay_mail_online_html: Por correo o en línea en <a target="_blank" rel="noopener nofollow" href="%{tax_payment_info_url}">%{tax_payment_info_text}</a>
           title_html: Debes <strong>$%{owed_amount}</strong> en impuestos estatales de %{state_name}. ¿Cómo te gustaría pagar?
+          subtitle: ¿Cómo te gustaría pagar?
       terms_and_conditions:
         edit:
           accept: Aceptar
