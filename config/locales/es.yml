@@ -2889,19 +2889,19 @@ es:
       md_primary_state_id:
         md_primary:
           dmv_bmv_label: MVA State ID
-          encourage_sharing: Si usted y su cónyuge tienen una licencia de conducir o una tarjeta de identificación emitida por el estado, proporcione la información solicitada. La devolución no será rechazada si no proporciona una licencia de conducir o una identificación emitida por el estado. Si proporciona esta información, puede ayudar a identificarlo como contribuyente.
+          encourage_sharing_html: Si usted y su cónyuge tienen una licencia de conducir o una tarjeta de identificación emitida por el estado, proporcione la información solicitada. La devolución no será rechazada si no proporciona una licencia de conducir o una identificación emitida por el estado. <br><br>Si proporciona esta información, puede ayudar a identificarlo como contribuyente.
           protect_identity: Muchas agencias de ingresos estatales, incluida Maryland, están solicitando información adicional en un esfuerzo por combatir el fraude fiscal por identidad robada y protegerlo a usted y a su reembolso de impuestos.
           subtitle: El Contralor de Maryland solicita que la información de su licencia de conducir o tarjeta de identificación emitida por el estado se incluya con la declaración, pero no rechazará la declaración si no está incluida.
           why_ask_this: "¿Por qué pides esta información?"
       md_review:
         edit:
-          your_address: Dirección donde vivía el 31 de diciembre de %{filing_year}
           county_html: "<strong>Condado</strong>"
           political_subdivision_html: "<strong>Subdivisión política</strong>"
+          your_address: Dirección donde vivía el 31 de diciembre de %{filing_year}
       md_spouse_state_id:
         md_spouse:
           dmv_bmv_label: MVA State ID
-          encourage_sharing: Si usted y su cónyuge tienen una licencia de conducir o una tarjeta de identificación emitida por el estado, proporcione la información solicitada. La devolución no será rechazada si no proporciona una licencia de conducir o una identificación emitida por el estado. Si proporciona esta información, puede ayudar a identificarlo como contribuyente.
+          encourage_sharing_html: Si usted y su cónyuge tienen una licencia de conducir o una tarjeta de identificación emitida por el estado, proporcione la información solicitada. La devolución no será rechazada si no proporciona una licencia de conducir o una identificación emitida por el estado. <br><br>Si proporciona esta información, puede ayudar a identificarlo como contribuyente.
           protect_identity: Muchas agencias de ingresos estatales, incluida Maryland, están solicitando información adicional en un esfuerzo por combatir el fraude fiscal por identidad robada y protegerlo a usted y a su reembolso de impuestos.
           subtitle: El Contralor de Maryland solicita que la información de su licencia de conducir o tarjeta de identificación emitida por el estado se incluya con la declaración, pero no rechazará la declaración si no está incluida.
           why_ask_this: "¿Por qué pides esta información?"
@@ -3503,7 +3503,6 @@ es:
           confirm_account_number: Confirma el número de cuenta
           confirm_routing_number: Confirma el número de ruta bancaria (routing number)
           date_withdraw_text: "¿Cuándo te gustaría que se retiren los fondos de tu cuenta? (debe ser antes o en el dia del %{withdrawal_deadline_date} de %{with_drawal_deadline_year}):"
-          disclaimer: Verifica que la información de tu banco sea correcta. No podrás corregirla después de enviar tu declaración.
           foreign_accounts: Las cuentas extranjeras no son aceptadas
           routing_number: Número de ruta bancaria (routing number)
           withdraw_amount: "¿Cuánto autorizas a retirar de tu cuenta? (Tu monto total adeudado es: %{owed_amount}.)"
@@ -3514,12 +3513,12 @@ es:
           title_html: Buenas noticias, recibirás un reembolso de impuestos del estado de %{state_name} de <strong>%{refund_amount}.</strong> ¿Cómo te gustaría recibirlo?
       taxes_owed:
         edit:
-          subtitle_html: Para obtener más información sobre las fechas de vencimiento de impuestos y los métodos de pago, visite <a target="_blank" rel="noopener nofollow" href="https://marylandtaxes.gov/">Marylandtaxes.gov</a>
           page_title: Debes impuestos estatales.
           pay_bank: Directamente desde tu cuenta corriente o de ahorros (débito directo)
           pay_mail_online_html: Por correo o en línea en <a target="_blank" rel="noopener nofollow" href="%{tax_payment_info_url}">%{tax_payment_info_text}</a>
+          subtitle: "¿Cómo te gustaría pagar?"
+          subtitle_html: Para obtener más información sobre las fechas de vencimiento de impuestos y los métodos de pago, visite <a target="_blank" rel="noopener nofollow" href="https://marylandtaxes.gov/">Marylandtaxes.gov</a>
           title_html: Debes <strong>$%{owed_amount}</strong> en impuestos estatales de %{state_name}. ¿Cómo te gustaría pagar?
-          subtitle: ¿Cómo te gustaría pagar?
       terms_and_conditions:
         edit:
           accept: Aceptar
