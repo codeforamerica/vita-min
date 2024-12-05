@@ -44,6 +44,7 @@ module SubmissionBuilder
             ]
 
             supported_docs += nj_2450s
+            supported_docs += schedule_nj_hcc
             supported_docs += combined_w2s
             supported_docs
           end
@@ -66,6 +67,20 @@ module SubmissionBuilder
                 pdf: PdfFiller::Nj2450Pdf,
                 include: true,
                 kwargs: { primary_or_spouse: :spouse }
+              }
+            end
+
+            docs
+          end
+
+          def schedule_nj_hcc
+            docs = []
+
+            if calculator.line_53c_checkbox
+              docs << {
+                xml: SubmissionBuilder::Ty2024::States::Nj::Documents::ScheduleNjHcc,
+                pdf: PdfFiller::ScheduleNjHccPdf,
+                include: true,
               }
             end
 
