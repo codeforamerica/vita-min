@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v4.0">
+  <ReturnHeader binaryAttachmentCnt="0">
+    <TaxYr>2024</TaxYr>
+    <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+    <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+    <SoftwareVersionNum>1cfaf0d2</SoftwareVersionNum>
+    <ReturnTypeCd>1040</ReturnTypeCd>
+    <Filer>
+      <PrimarySSN>400007218</PrimarySSN>
+      <NameLine1Txt>JICAMA J&lt;JELLYFISH&lt;JR</NameLine1Txt>
+      <PrimaryNameControlTxt>JELL</PrimaryNameControlTxt>
+      <USAddress>
+        <AddressLine1Txt>123 GARDEN ROW</AddressLine1Txt>
+        <CityNm>BALTIMORE</CityNm>
+        <StateAbbreviationCd>MD</StateAbbreviationCd>
+        <ZIPCd>21212</ZIPCd>
+      </USAddress>
+      <PhoneNum>2223334444</PhoneNum>
+    </Filer>
+    <AdditionalFilerInformation>
+      <AtSubmissionFilingGrp>
+        <EmailAddressTxt>test-user+40000721-8b77-477c-8aab-f96017c8e672@directfile.test</EmailAddressTxt>
+      </AtSubmissionFilingGrp>
+    </AdditionalFilerInformation>
+  </ReturnHeader>
+  <ReturnData documentCnt="3">
+    <IRS1040 documentId="IRS10400001">
+      <IndividualReturnFilingStatusCd>4</IndividualReturnFilingStatusCd>
+      <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+      <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+      <DependentDetail>
+        <DependentFirstNm>ARTIE</DependentFirstNm>
+        <DependentLastNm>ARTICHOKE</DependentLastNm>
+        <DependentNameControlTxt>ARTI</DependentNameControlTxt>
+        <DependentSSN>600005559</DependentSSN>
+        <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+      </DependentDetail>
+      <DependentDetail>
+        <DependentFirstNm>CASPER</DependentFirstNm>
+        <DependentLastNm>CARROTS II</DependentLastNm>
+        <DependentNameControlTxt>CARR</DependentNameControlTxt>
+        <DependentSSN>600005568</DependentSSN>
+        <DependentRelationshipCd>NEPHEW</DependentRelationshipCd>
+      </DependentDetail>
+      <DependentDetail>
+        <DependentFirstNm>GINGER</DependentFirstNm>
+        <DependentLastNm>JELLYFISH</DependentLastNm>
+        <DependentNameControlTxt>JELL</DependentNameControlTxt>
+        <DependentSSN>600005560</DependentSSN>
+        <DependentRelationshipCd>PARENT</DependentRelationshipCd>
+      </DependentDetail>
+      <DependentDetail>
+        <DependentFirstNm>BRANDI</DependentFirstNm>
+        <DependentLastNm>BRUSSELS</DependentLastNm>
+        <DependentNameControlTxt>BRUS</DependentNameControlTxt>
+        <DependentSSN>600005561</DependentSSN>
+        <DependentRelationshipCd>SISTER</DependentRelationshipCd>
+      </DependentDetail>
+      <DependentDetail>
+        <DependentFirstNm>SUGAR</DependentFirstNm>
+        <DependentLastNm>PEAS</DependentLastNm>
+        <DependentNameControlTxt>PEAS</DependentNameControlTxt>
+        <DependentSSN>600005562</DependentSSN>
+        <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+      </DependentDetail>
+      <DependentDetail>
+        <DependentFirstNm>TOM</DependentFirstNm>
+        <DependentLastNm>ATO</DependentLastNm>
+        <DependentNameControlTxt>ATO</DependentNameControlTxt>
+        <DependentSSN>600005563</DependentSSN>
+        <DependentRelationshipCd>NONE</DependentRelationshipCd>
+      </DependentDetail>
+      <MoreDependentsInd>X</MoreDependentsInd>
+      <ChldWhoLivedWithYouCnt>2</ChldWhoLivedWithYouCnt>
+      <OtherDependentsListedCnt>4</OtherDependentsListedCnt>
+      <TotalExemptionsCnt>7</TotalExemptionsCnt>
+      <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">14800</WagesAmt>
+      <WagesSalariesAndTipsAmt>14800</WagesSalariesAndTipsAmt>
+      <TotalIncomeAmt>14800</TotalIncomeAmt>
+      <AdjustedGrossIncomeAmt>14800</AdjustedGrossIncomeAmt>
+      <TotalItemizedOrStandardDedAmt>21900</TotalItemizedOrStandardDedAmt>
+      <TotalDeductionsAmt>21900</TotalDeductionsAmt>
+      <TaxableIncomeAmt>0</TaxableIncomeAmt>
+      <TaxAmt>0</TaxAmt>
+      <TotalTaxBeforeCrAndOthTaxesAmt>0</TotalTaxBeforeCrAndOthTaxesAmt>
+      <TaxLessCreditsAmt>0</TaxLessCreditsAmt>
+      <TotalTaxAmt>0</TotalTaxAmt>
+      <FormW2WithheldTaxAmt>50</FormW2WithheldTaxAmt>
+      <WithholdingTaxAmt>50</WithholdingTaxAmt>
+      <EarnedIncomeCreditAmt referenceDocumentId="IRSEIC0001" referenceDocumentName="IRS1040ScheduleEIC">6671</EarnedIncomeCreditAmt>
+      <RefundableCreditsAmt>6671</RefundableCreditsAmt>
+      <TotalPaymentsAmt>6721</TotalPaymentsAmt>
+      <OverpaidAmt>6721</OverpaidAmt>
+      <RefundAmt>6721</RefundAmt>
+      <OwedAmt>0</OwedAmt>
+      <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+      <PrimaryOccupationTxt>PRODUCE MANAGER</PrimaryOccupationTxt>
+      <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+    </IRS1040>
+    <IRS1040ScheduleEIC documentId="IRSEIC0001" documentName="IRS1040ScheduleEIC">
+      <QualifyingChildInformation>
+        <QualifyingChildNameControlTxt>ARTI</QualifyingChildNameControlTxt>
+        <ChildFirstAndLastName>
+          <PersonFirstNm>ARTIE</PersonFirstNm>
+          <PersonLastNm>ARTICHOKE</PersonLastNm>
+        </ChildFirstAndLastName>
+        <QualifyingChildSSN>600005559</QualifyingChildSSN>
+        <ChildBirthYr>2019</ChildBirthYr>
+        <ChildRelationshipCd>DAUGHTER</ChildRelationshipCd>
+        <MonthsChildLivedWithYouCnt>12</MonthsChildLivedWithYouCnt>
+      </QualifyingChildInformation>
+      <QualifyingChildInformation>
+        <QualifyingChildNameControlTxt>CARR</QualifyingChildNameControlTxt>
+        <ChildFirstAndLastName>
+          <PersonFirstNm>CASPER</PersonFirstNm>
+          <PersonLastNm>CARROTS II</PersonLastNm>
+        </ChildFirstAndLastName>
+        <QualifyingChildSSN>600005568</QualifyingChildSSN>
+        <ChildBirthYr>2022</ChildBirthYr>
+        <ChildRelationshipCd>NEPHEW</ChildRelationshipCd>
+        <MonthsChildLivedWithYouCnt>12</MonthsChildLivedWithYouCnt>
+      </QualifyingChildInformation>
+      <QualifyingChildInformation>
+        <QualifyingChildNameControlTxt>BRUS</QualifyingChildNameControlTxt>
+        <ChildFirstAndLastName>
+          <PersonFirstNm>BRANDI</PersonFirstNm>
+          <PersonLastNm>BRUSSELS</PersonLastNm>
+        </ChildFirstAndLastName>
+        <QualifyingChildSSN>600005561</QualifyingChildSSN>
+        <ChildBirthYr>1978</ChildBirthYr>
+        <ChildIsAStudentUnder24Ind>false</ChildIsAStudentUnder24Ind>
+        <ChildPermanentlyDisabledInd>true</ChildPermanentlyDisabledInd>
+        <ChildRelationshipCd>SISTER</ChildRelationshipCd>
+        <MonthsChildLivedWithYouCnt>12</MonthsChildLivedWithYouCnt>
+      </QualifyingChildInformation>
+    </IRS1040ScheduleEIC>
+    <IRSW2 documentId="W20001" documentName="IRSW2">
+      <EmployeeSSN>400007218</EmployeeSSN>
+      <EmployerEIN>810587194</EmployerEIN>
+      <EmployerNameControlTxt>UNDE</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>UNDERSEAS GARDEN</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>8787 FRESH LANE</AddressLine1Txt>
+        <CityNm>BALTIMORE</CityNm>
+        <StateAbbreviationCd>MD</StateAbbreviationCd>
+        <ZIPCd>21212</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>JICAMA J JELLYFISH Jr</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>123 GARDEN ROW</AddressLine1Txt>
+        <CityNm>BALTIMORE</CityNm>
+        <StateAbbreviationCd>MD</StateAbbreviationCd>
+        <ZIPCd>21212</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>14800</WagesAmt>
+      <WithholdingAmt>50</WithholdingAmt>
+      <SocialSecurityWagesAmt>14800</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>918</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>14800</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>215</MedicareTaxWithheldAmt>
+      <OtherDeductionsBenefitsGrp>
+        <Desc>STPICKUP</Desc>
+        <Amt>15700</Amt>
+      </OtherDeductionsBenefitsGrp>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>MD</StateAbbreviationCd>
+          <EmployerStateIdNum>md 4321</EmployerStateIdNum>
+          <W2LocalTaxGrp/>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+  </ReturnData>
+</Return>

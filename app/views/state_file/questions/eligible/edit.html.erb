@@ -19,12 +19,7 @@
   <div class="reveal">
     <p><button class="reveal__button"><%= t('.not_supported') %></button></p>
     <div class="reveal__content">
-      <% unless current_intake.disqualifying_eligibility_rules.empty? %>
-        <%= render partial: "state_file/questions/eligible/#{current_state_code}_unsupported" %>
-      <% end %>
-      <div>
-        <%= render partial: "state_file/questions/eligible/vita_option" %>
-      </div>
+      <%= render partial: "state_file/questions/eligible/vita_option" %>
     </div>
   </div>
 
