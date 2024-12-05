@@ -1583,6 +1583,70 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       end
     end
 
+    describe "line 53c checkbox" do
+      context "when taxpayer indicated all members of household have health insurance" do
+        before do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_53c_checkbox).and_return true
+        end
+
+        it "checks 53c Schedule NJ-HCC checkbox and leaves 53a, 53b, and 53c amount blank" do
+          # 53c checkbox
+          expect(pdf_fields["Check Box147"]).to eq "Yes"
+
+          # 53a
+          expect(pdf_fields["Check Box146aabb"]).to eq "Off"
+
+          # 53b
+          expect(pdf_fields["Check Box146aabbffdd"]).to eq "Off"
+
+          # 53c amount
+          # thousands
+          expect(pdf_fields["52"]).to eq ""
+          expect(pdf_fields["undefined_139"]).to eq ""
+          expect(pdf_fields["undefined_140"]).to eq ""
+          # hundreds
+          expect(pdf_fields["Text141"]).to eq ""
+          expect(pdf_fields["Text142"]).to eq ""
+          expect(pdf_fields["Text143"]).to eq ""
+          # decimals
+          expect(pdf_fields["Text144"]).to eq ""
+          expect(pdf_fields["Text145"]).to eq ""
+        end
+      end
+
+      context "when taxpayer indicated all members of household do NOT have health insurance but qualifies for exemption" do
+        before do
+          single_income_threshold = 10_000
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_54).and_return single_income_threshold
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_53c_checkbox).and_return false
+        end
+
+        it "does not check 53c Schedule NJ-HCC checkbox and leaves 53a, 53b, and 53c amount blank" do
+          # 53c checkbox
+          expect(pdf_fields["Check Box147"]).to eq "Off"
+
+          # 53a
+          expect(pdf_fields["Check Box146aabb"]).to eq "Off"
+
+          # 53b
+          expect(pdf_fields["Check Box146aabbffdd"]).to eq "Off"
+
+          # 53c amount
+          # thousands
+          expect(pdf_fields["52"]).to eq ""
+          expect(pdf_fields["undefined_139"]).to eq ""
+          expect(pdf_fields["undefined_140"]).to eq ""
+          # hundreds
+          expect(pdf_fields["Text141"]).to eq ""
+          expect(pdf_fields["Text142"]).to eq ""
+          expect(pdf_fields["Text143"]).to eq ""
+          # decimals
+          expect(pdf_fields["Text144"]).to eq ""
+          expect(pdf_fields["Text145"]).to eq ""
+        end
+      end
+    end
+
     describe "line 54 - total tax and penalty" do
       let(:submission) {
         create :efile_submission, tax_return: nil, data_source: create(
