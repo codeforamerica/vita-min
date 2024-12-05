@@ -26,6 +26,9 @@ RSpec.feature "editing direct file XML with the FederalInfoController", active_j
     fill_in "Your phone number", with: "+12025551212"
     click_on "Continue"
 
+    expect(page).to have_text I18n.t('state_file.questions.sms_terms.edit.title')
+    click_on I18n.t("general.accept")
+
     expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
     click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
 
@@ -54,6 +57,9 @@ RSpec.feature "editing direct file XML with the FederalInfoController", active_j
     check "Text message"
     fill_in "Your phone number", with: "+12025551212"
     click_on "Continue"
+
+    expect(page).to have_text I18n.t('state_file.questions.sms_terms.edit.title')
+    click_on I18n.t("general.accept")
 
     expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
     click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
@@ -148,6 +154,9 @@ RSpec.feature "editing direct file XML with the FederalInfoController", active_j
     check "Text message"
     fill_in "Your phone number", with: "+12025551212"
     click_on "Continue"
+
+    expect(page).to have_text I18n.t('state_file.questions.sms_terms.edit.title')
+    click_on I18n.t("general.accept")
 
     expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
     click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
