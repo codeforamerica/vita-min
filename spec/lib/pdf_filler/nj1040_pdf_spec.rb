@@ -1585,12 +1585,9 @@ RSpec.describe PdfFiller::Nj1040Pdf do
 
     describe "line 53c checkbox" do
       context "when taxpayer indicated all members of household have health insurance" do
-        let(:submission) {
-          create :efile_submission, tax_return: nil, data_source: create(
-            :state_file_nj_intake,
-            eligibility_all_members_health_insurance: "yes",
-            )
-        }
+        before do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_53c_checkbox).and_return true
+        end
 
         it "checks 53c Schedule NJ-HCC checkbox and leaves 53a, 53b, and 53c amount blank" do
           # 53c checkbox
@@ -1618,16 +1615,10 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       end
 
       context "when taxpayer indicated all members of household do NOT have health insurance but qualifies for exemption" do
-        let(:submission) {
-          create :efile_submission, tax_return: nil, data_source: create(
-            :state_file_nj_intake,
-            eligibility_all_members_health_insurance: "no",
-            )
-        }
-
         before do
           single_income_threshold = 10_000
           allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_54).and_return single_income_threshold
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_53c_checkbox).and_return false
         end
 
         it "does not check 53c Schedule NJ-HCC checkbox and leaves 53a, 53b, and 53c amount blank" do
