@@ -2,8 +2,8 @@
   "familyAndHousehold": [],
   "filers": [
     {
-      "lastName": "FLOUNDER",
-      "firstName": "FELICITY",
+      "lastName": "Flounder",
+      "firstName": "Felicity",
       "middleInitial": null,
       "tin": "400-00-1000",
       "dateOfBirth": "1970-12-25",
@@ -16,10 +16,10 @@
     {
       "has1099": true,
       "taxExemptAndTaxCreditBondCusipNo": null,
-      "interestOnGovernmentBonds": "4000.00",
+      "interestOnGovernmentBonds": "9550.00",
       "payerTin": null,
+      "payer": "Fish Funds",
       "recipientTin": "400-00-1000",
-      "payer": "FISH FUNDS",
       "no1099Amount": null,
       "taxWithheld": "0.00"
     }
