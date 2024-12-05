@@ -98,6 +98,10 @@
             <WagesAmt>11600</WagesAmt>
             <SocialSecurityWagesAmt>11600</SocialSecurityWagesAmt>
             <MedicareWagesAndTipsAmt>11600</MedicareWagesAndTipsAmt>
+            <OtherDeductionsBenefitsGrp>
+                <Desc>STPICKUP</Desc>
+                <Amt>6800</Amt>
+            </OtherDeductionsBenefitsGrp>
             <W2StateLocalTaxGrp>
                 <W2StateTaxGrp>
                     <StateAbbreviationCd>MD</StateAbbreviationCd>
