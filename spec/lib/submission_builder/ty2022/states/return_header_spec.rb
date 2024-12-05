@@ -61,7 +61,7 @@ describe SubmissionBuilder::ReturnHeader do
         let(:primary_first_name) { "Prim" }
         let(:primary_middle_initial) { "W" }
         let(:primary_last_name) { "Filerton" }
-        let(:primary_suffix) { "jr" }
+        let(:primary_suffix) { nil }
         let(:spouse_birth_date) { nil }
         let(:spouse_ssn) { nil }
         let(:spouse_first_name) { nil }
@@ -160,20 +160,15 @@ describe SubmissionBuilder::ReturnHeader do
             expect(doc.at('Filer Secondary TaxpayerName MiddleInitial').content).to eq spouse_middle_initial
             expect(doc.at('Filer Secondary TaxpayerName LastName').content).to eq spouse_last_name
           end
-        end
 
-        context "people with suffixes" do
-          let(:filing_status) { "married_filing_jointly" }
-          let(:spouse_birth_date) { 42.years.ago }
-          let(:spouse_ssn) { "200000030" }
-          let(:spouse_first_name) { "Sec" }
-          let(:spouse_middle_initial) { "Z" }
-          let(:spouse_last_name) { "Filerton" }
-          let(:spouse_suffix) { "sr" }
+          context "filers have suffixes" do
+            let(:primary_suffix) { "Jr" }
+            let(:spouse_suffix) { "sr" }
 
-          it "should upcase suffixes" do
-            expect(doc.at("Filer Primary TaxpayerName NameSuffix").text).to eq("JR")
-            expect(doc.at("Filer Secondary TaxpayerName NameSuffix").text).to eq("SR")
+            it "should upcase suffixes" do
+              expect(doc.at("Filer Primary TaxpayerName NameSuffix").text).to eq("JR")
+              expect(doc.at("Filer Secondary TaxpayerName NameSuffix").text).to eq("SR")
+            end
           end
         end
       end
