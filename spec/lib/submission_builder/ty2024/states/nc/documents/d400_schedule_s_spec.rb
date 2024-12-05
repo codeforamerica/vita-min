@@ -8,9 +8,10 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400ScheduleS, requir
     let(:xml) { Nokogiri::XML::Document.parse(build_response.document.to_xml) }
 
     context "calculating DedFedAGI" do
+
       before do
         interest_report = instance_double(DirectFileJsonData::DfJsonInterestReport)
-        allow(interest_report).to receive(:interest_on_government_bonds).and_return 323
+        allow(interest_report).to receive(:interest_on_government_bonds).and_return 323.00
         allow(intake.direct_file_json_data).to receive(:interest_reports).and_return [interest_report]
 
         intake.direct_file_data.fed_taxable_ssb = 123

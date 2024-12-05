@@ -98,7 +98,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       # From the review page, the user can go back to certain screens to edit and then should return directly to the
       # review page. This is well-covered by unit tests, but let's test just one of those screens here
-      expect(page).to have_text I18n.t("state_file.questions.shared.review_header.title")
+      expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
       within "#county" do
         click_on I18n.t("general.edit")
       end
@@ -106,7 +106,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("general.continue")
       expect(page).to have_text I18n.t("state_file.questions.ny_school_district.edit.title", filing_year: filing_year)
       click_on I18n.t("general.continue")
-      expect(page).to have_text I18n.t("state_file.questions.shared.review_header.title")
+      expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
       click_on I18n.t("general.continue")
 
       expect(page).to have_text "Good news, you're getting a New York state tax refund of $1468. How would you like to receive your refund?"
@@ -200,13 +200,13 @@ RSpec.feature "Completing a state file intake", active_job: true do
       select_cfa_date "az322_contribution_date_of_contribution", Date.new(filing_year,6, 21)
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t('state_file.questions.az_public_school_contributions.index.lets_review')
+      expect(page).to have_text I18n.t('state_file.questions.az_public_school_contributions.index.title')
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t("state_file.questions.az_charitable_contributions.edit.title.one", tax_year: filing_year)
+      expect(page).to have_text I18n.t("state_file.questions.az_charitable_contributions.edit.title")
       choose I18n.t("general.affirmative")
-      fill_in "Enter the total amount of cash contributions made in #{MultiTenantService.statefile.current_tax_year}. (Round to the nearest whole number. Note: you may be asked to provide receipts for donations over $250.)", with: "123"
-      fill_in "Enter the total amount of non-cash contributions made in #{MultiTenantService.statefile.current_tax_year} (example: the fair market value of donated items). This cannot exceed $500 (round to the nearest whole number.)", with: "123"
+      fill_in I18n.t("state_file.questions.az_charitable_contributions.edit.charitable_cash_html"), with: "123"
+      fill_in I18n.t("state_file.questions.az_charitable_contributions.edit.charitable_noncash_html"), with: "123"
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t('state_file.questions.az_qualifying_organization_contributions.form.main_heading', filing_year: filing_year)
@@ -218,7 +218,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t('state_file.questions.az_qualifying_organization_contributions.index.lets_review')
+      expect(page).to have_text I18n.t('state_file.questions.az_qualifying_organization_contributions.index.title')
 
       click_on I18n.t("general.continue")
 
@@ -239,13 +239,13 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       # From the review page, the user can go back to certain screens to edit and then should return directly to the
       # review page. This is well-covered by unit tests, but let's test just one of those screens here
-      expect(page).to have_text I18n.t("state_file.questions.shared.review_header.title")
+      expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
       within "#prior-last-names" do
         click_on I18n.t("general.edit")
       end
       expect(page).to have_text I18n.t("state_file.questions.az_prior_last_names.edit.title.one")
       click_on I18n.t("general.continue")
-      expect(page).to have_text I18n.t("state_file.questions.shared.review_header.title")
+      expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
       click_on I18n.t("general.continue")
 
       expect(page).to have_text "Good news, you're getting a Arizona state tax refund of $1239. How would you like to receive your refund?"
@@ -362,7 +362,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       select("Alaska", from: "State")
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t("state_file.questions.shared.review_header.title")
+      expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
       click_on I18n.t("general.continue")
 
       expect(strip_html_tags(page.body)).to include strip_html_tags(I18n.t("state_file.questions.nc_tax_refund.edit.title_html", refund_amount: 1000))
@@ -553,7 +553,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       choose I18n.t("state_file.questions.primary_state_id.state_id.id_type_question.no_id")
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t("state_file.questions.shared.review_header.title")
+      expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t("state_file.questions.md_had_health_insurance.edit.title")
@@ -657,12 +657,12 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("general.continue")
 
       # Review
-      expect(page).to have_text I18n.t("state_file.questions.shared.review_header.title")
+      expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
       expect(page).to be_axe_clean.within "main"
 
       groups = page.all(:css, '.white-group').count
-      has_h2 = page.all(:css, '.white-group:has(h2)').count
-      expect(groups).to eq(has_h2)
+      h2s = page.all(:css, 'h2').count
+      expect(groups).to eq(h2s)
 
       edit_buttons = page.all(:css, '.white-group a')
       edit_buttons_count = edit_buttons.count

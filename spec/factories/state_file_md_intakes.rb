@@ -206,5 +206,12 @@ FactoryBot.define do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('md_todd_1099_int') }
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('md_todd_1099_int') }
     end
+
+    trait :with_dependents do
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('md_frodo_hoh_cdcc') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('md_frodo_hoh_cdcc') }
+
+      after(:create, &:synchronize_df_dependents_to_database)
+    end
   end
 end

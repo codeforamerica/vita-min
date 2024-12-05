@@ -298,6 +298,7 @@ GEM
       multi_json (>= 1.9.2)
       webrick
     highline (2.1.0)
+    holidays (8.8.0)
     http-accept (1.7.0)
     http-cookie (1.0.5)
       domain_name (~> 0.5)
@@ -762,6 +763,7 @@ DEPENDENCIES
   flipper-ui
   git-pair
   guard-rspec
+  holidays
   http_accept_language
   i18n-tasks
   ice_nine

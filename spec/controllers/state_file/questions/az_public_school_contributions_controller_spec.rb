@@ -74,7 +74,7 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
       expect(response).to be_ok
       expect(response.body).to include(I18n.t('state_file.questions.az_public_school_contributions.index.maximum_records'))
       html = Nokogiri::HTML.parse(response.body)
-      add_contribution_button = html.xpath("//button[contains(., 'Add another contribution')]")[0]
+      add_contribution_button = html.xpath("//button[contains(., '#{I18n.t("state_file.questions.az_public_school_contributions.index.add_another")}')]")[0]
       expect(add_contribution_button.attr("disabled")).to eq("disabled")
 
       expect {

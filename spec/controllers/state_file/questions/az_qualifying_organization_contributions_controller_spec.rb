@@ -10,6 +10,24 @@ RSpec.describe StateFile::Questions::AzQualifyingOrganizationContributionsContro
   end
 
   describe "#index" do
+    context "credit limit" do
+      context "mfj filer" do
+        let(:intake) { create :state_file_az_intake, filing_status: :married_filing_jointly }
+
+        it "sets the right credit limit" do
+          get :index
+
+          expect(assigns(:credit_limit)).to eq 938
+        end
+      end
+
+      it "assigns the right limit for other filing statuses" do
+        get :index
+
+        expect(assigns(:credit_limit)).to eq 470
+      end
+    end
+
     it 'should skip when no contributions are added' do
       get :index
 
@@ -40,7 +58,7 @@ RSpec.describe StateFile::Questions::AzQualifyingOrganizationContributionsContro
       get :index
 
       expect(response).to be_ok
-      expect(response.body).to include('Add another contribution')
+      expect(response.body).to include(I18n.t('state_file.questions.az_qualifying_organization_contributions.index.add_another'))
     end
   end
 
