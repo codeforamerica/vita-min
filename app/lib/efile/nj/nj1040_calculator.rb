@@ -2,6 +2,7 @@ module Efile
   module Nj
     class Nj1040Calculator < ::Efile::TaxCalculator
       attr_reader :lines
+      set_refund_owed_lines refund: :NJ1040_LINE_80, owed: :NJ1040_LINE_79
 
       RENT_CONVERSION = 0.18
       MAX_NJ_CTC_DEPENDENTS = 9
@@ -50,6 +51,7 @@ module Efile
         set_line(:NJ1040_LINE_49, :calculate_line_49)
         set_line(:NJ1040_LINE_50, :calculate_line_50)
         set_line(:NJ1040_LINE_51, :calculate_line_51)
+        set_line(:NJ1040_LINE_53C_CHECKBOX, :calculate_line_53c_checkbox)
         set_line(:NJ1040_LINE_54, :calculate_line_54)
         set_line(:NJ1040_LINE_55, :calculate_line_55)
         set_line(:NJ1040_LINE_56, :calculate_line_56)
@@ -57,10 +59,28 @@ module Efile
         set_line(:NJ1040_LINE_58, :calculate_line_58)
         set_line(:NJ1040_LINE_58_IRS, :calculate_line_58_irs)
         set_line(:NJ1040_LINE_59, :calculate_line_59)
+        set_line(:NJ1040_LINE_60, :calculate_line_60)
         set_line(:NJ1040_LINE_61, :calculate_line_61)
+        set_line(:NJ1040_LINE_62, :calculate_line_62)
+        set_line(:NJ1040_LINE_63, :calculate_line_63)
         set_line(:NJ1040_LINE_64, :calculate_line_64)
         set_line(:NJ1040_LINE_65_DEPENDENTS, :number_of_dependents_age_5_younger)
         set_line(:NJ1040_LINE_65, :calculate_line_65)
+        set_line(:NJ1040_LINE_66, :calculate_line_66)
+        set_line(:NJ1040_LINE_67, :calculate_line_67)
+        set_line(:NJ1040_LINE_68, :calculate_line_68)
+        set_line(:NJ1040_LINE_69, :calculate_line_69)
+        set_line(:NJ1040_LINE_70, :calculate_line_70)
+        set_line(:NJ1040_LINE_71, :calculate_line_71)
+        set_line(:NJ1040_LINE_72, :calculate_line_72)
+        set_line(:NJ1040_LINE_73, :calculate_line_73)
+        set_line(:NJ1040_LINE_74, :calculate_line_74)
+        set_line(:NJ1040_LINE_75, :calculate_line_75)
+        set_line(:NJ1040_LINE_76, :calculate_line_76)
+        set_line(:NJ1040_LINE_77, :calculate_line_77)
+        set_line(:NJ1040_LINE_78, :calculate_line_78)
+        set_line(:NJ1040_LINE_79, :calculate_line_79)
+        set_line(:NJ1040_LINE_80, :calculate_line_80)
         @nj2450_primary.calculate if line_59_primary || line_61_primary
         @nj2450_spouse.calculate if line_59_spouse || line_61_spouse
         @lines.transform_values(&:value)
@@ -354,6 +374,10 @@ module Efile
         (@intake.sales_use_tax || 0).round
       end
 
+      def calculate_line_53c_checkbox
+        @intake.eligibility_all_members_health_insurance_yes?
+      end
+
       def calculate_line_54
         sum = line_or_zero(:NJ1040_LINE_50) + line_or_zero(:NJ1040_LINE_51)
         [sum, 0].max
@@ -412,9 +436,21 @@ module Efile
         total_excess.round if total_excess.positive?
       end
 
+      def calculate_line_60
+        0
+      end
+
       def calculate_line_61
         total_excess = (line_61_primary || 0) + (line_61_spouse || 0)
         total_excess.round if total_excess.positive?
+      end
+
+      def calculate_line_62
+        0
+      end
+
+      def calculate_line_63
+        0
       end
 
       def calculate_line_64
@@ -454,6 +490,92 @@ module Efile
           return eligible_dependents_count * 200
         end
         nil
+      end
+
+      def calculate_line_66
+        line_or_zero(:NJ1040_LINE_55) +
+        line_or_zero(:NJ1040_LINE_56) +
+        line_or_zero(:NJ1040_LINE_57) +
+        line_or_zero(:NJ1040_LINE_58) +
+        line_or_zero(:NJ1040_LINE_59) +
+        line_or_zero(:NJ1040_LINE_60) +
+        line_or_zero(:NJ1040_LINE_61) +
+        line_or_zero(:NJ1040_LINE_62) +
+        line_or_zero(:NJ1040_LINE_63) +
+        line_or_zero(:NJ1040_LINE_64) +
+        line_or_zero(:NJ1040_LINE_65)
+      end
+
+      def calculate_line_67
+        [line_or_zero(:NJ1040_LINE_54) - line_or_zero(:NJ1040_LINE_66), 0].max
+      end
+
+      def calculate_line_68
+        [line_or_zero(:NJ1040_LINE_66) - line_or_zero(:NJ1040_LINE_54), 0].max
+      end
+
+      def calculate_line_69
+        0
+      end
+
+      def calculate_line_70
+        0
+      end
+
+      def calculate_line_71
+        0
+      end
+
+      def calculate_line_72
+        0
+      end
+
+      def calculate_line_73
+        0
+      end
+
+      def calculate_line_74
+        0
+      end
+
+      def calculate_line_75
+        0
+      end
+
+      def calculate_line_76
+        0
+      end
+
+      def calculate_line_77
+        0
+      end
+
+      def calculate_line_78
+        line_or_zero(:NJ1040_LINE_69) +
+        line_or_zero(:NJ1040_LINE_70) +
+        line_or_zero(:NJ1040_LINE_71) +
+        line_or_zero(:NJ1040_LINE_72) +
+        line_or_zero(:NJ1040_LINE_73) +
+        line_or_zero(:NJ1040_LINE_74) +
+        line_or_zero(:NJ1040_LINE_75) +
+        line_or_zero(:NJ1040_LINE_76) +
+        line_or_zero(:NJ1040_LINE_77)
+      end
+
+      def calculate_line_79
+        if line_or_zero(:NJ1040_LINE_67).positive?
+          return line_or_zero(:NJ1040_LINE_67) + line_or_zero(:NJ1040_LINE_78)
+        end
+        0
+      end
+
+      def calculate_line_80
+        if line_or_zero(:NJ1040_LINE_68).positive?
+          # Line 78 is always 0 now
+          # When implemented we will have to make sure this doesn't become negative
+          return line_or_zero(:NJ1040_LINE_68) - line_or_zero(:NJ1040_LINE_78)
+        end
+        0
       end
 
       def number_of_dependents_age_5_younger
