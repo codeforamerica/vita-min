@@ -54,6 +54,7 @@ es:
     formats:
       default: "%-m/%-d/%Y"
       long: "%-d de %B de %Y"
+      medium: "%-d de %B"
   devise:
     failure:
       invalid: Correo o contraseña incorrectos. Después de 5 intentos de inicio de sesión, las cuentas se bloquean.
@@ -181,6 +182,11 @@ es:
       last_name:
         blank: Por favor, ingrese un apellido.
         invalid_format: Solo se aceptan letras, números, guiones y apóstrofos, y el nombre debe tener menos de 32 caracteres.
+      nc_withdrawal_date:
+        holiday: La fecha de retiro no puede ser un día festivo federal o bancario de los Estados Unidos
+        past: La fecha de retiro debe ser en el futuro
+        post_five_pm: La fecha de retiro debe ser al menos dos días hábiles a partir de hoy
+        weekend: La fecha de retiro debe ser en un día laborable
       password:
         insecure: Agregue algunas palabras más poco comunes para mejorar la seguridad de la contraseña.
         not_matching: Las contraseñas proporcionadas no coinciden.
@@ -2178,7 +2184,6 @@ es:
           charitable_noncash_html: Cantidad total de las donaciones  no monetarias
           help_text: Por ejemplo, el valor comercial razonable de los artículos donados.
           question:
-            many: "¿Tú y tu cónyuge donaron a organizaciones sin fines de lucro exentas de impuestos?"
             one: "¿Donaste tú a organizaciones sin fines de lucro exentas de impuestos?"
             other: "¿Tú y tu cónyuge donaron a organizaciones sin fines de lucro exentas de impuestos?"
           title: "¡Podrías ser elegible para recibir créditos y deducciones adicionales de Arizona!"
@@ -2210,14 +2215,12 @@ es:
           additional_info: 'Por favor, proporciona la siguiente información para cada escuela pública a la que pagaste tarifas o hiciste contribuciones:'
           amount: Cantidad de donación/tarifas pagadas en %{year}
           amount_help_text:
-            many: Arizona permite un máximo crédito tributario de las escuelas públicas de $400
             one: Arizona permite un máximo crédito tributario de las escuelas públicas de $200
             other: Arizona permite un máximo crédito tributario de las escuelas públicas de $400
           ctds_code: Código de la escuela/CTDS
           date_of_contribution: Fecha de pago en %{year}
           district_name: Nombre del distrito escolar
           made_contribution:
-            many: "¿Pagaste tarifas o hiciste contribuciones en efectivo a una escuela pública en %{year}? No incluyas cantidades reclamadas en la declaración de impuestos del año pasado."
             one: "¿Pagaste tarifas o hiciste contribuciones en efectivo a una escuela pública en %{year}? No incluyas cantidades reclamadas en la declaración de impuestos del año pasado."
             other: "¿Pagaste tarifas o hiciste contribuciones en efectivo a una escuela pública en %{year}? No incluyas cantidades reclamadas en la declaración de impuestos del año pasado."
           school_name: Nombre de la escuela
@@ -2311,7 +2314,6 @@ es:
       az_subtractions:
         edit:
           armed_forces_member_label:
-            many: Tú o tu cónyuge son miembros de las Reservas, la Guardia Nacional o las Fuerzas Armadas de los Estados Unidos y recibieron un salario por el servicio activo.
             one: Tú eres miembro de las Reservas, la Guardia Nacional o las Fuerzas Armadas de los Estados Unidos y recibió un salario por el servicio activo.
             other: Tú o tu cónyuge son miembros de las Reservas, la Guardia Nacional o las Fuerzas Armadas de los Estados Unidos y recibieron un salario por el servicio activo.
           armed_forces_wages_label:
@@ -2579,7 +2581,6 @@ es:
           need_to_know_html: Para finalizar el monto de su crédito, necesitamos saber el número <strong>total</strong> de meses en que estas situaciones se aplicaron a %{name} en %{filing_year}.
           need_to_know_you_html: Para finalizar el monto de su crédito, necesitamos saber el número <strong>total</strong> de meses en que estas situaciones se aplicaron a usted en %{filing_year}.
           see_if_you_qualify:
-            many: Para ver si califica, necesitamos más información sobre usted y su hogar.
             one: Para ver si usted califica, necesitamos más información sobre usted.
             other: Para ver si califica, necesitamos más información sobre usted y su hogar.
           select_household_members: 'Seleccione los miembros del hogar a los que se aplican estas situaciones:'
@@ -2618,7 +2619,6 @@ es:
               <li><b>Seguro Social Medicare A y B:</b> Sin deducción por pagos de Medicare A requeridos por el empleador.</li>
             </ul>
           health_insurance_premium_question:
-            many: "¿Pagó primas de seguro médico para usted y su hogar en %{year}?"
             one: "¿Pagó usted primas de seguro médico en %{year}?"
             other: "¿Pagó primas de seguro médico para usted y su hogar en %{year}?"
           medicaid_content: Sí, si tiene Medicaid, la prima de su seguro médico cuenta.  Consulte su carta mensual del Departamento de Salud y Bienestar de Idaho para conocer el monto de su prima. Podría ser tan bajo como $0, dependiendo de sus ingresos y otros factores.
@@ -2627,7 +2627,6 @@ es:
           qualifications_title: "¿Qué primas de cobertura médica califican?"
           qualifying_amount_help_text: Ingrese el monto total de las primas de seguro médico calificadas que su hogar pagó en %{year}.
           subtitle:
-            many: Para ver si califica, necesitamos más información sobre usted y su hogar.
             one: Para ver si califica, necesitamos más información sobre usted.
             other: Para ver si califica, necesitamos más información sobre usted y su hogar.
           title: "¡Es posible que sea elegible para la deducción de la prima del seguro médico de Idaho!"
@@ -2863,7 +2862,6 @@ es:
       nc_subtractions:
         edit:
           title_html:
-            many: ¿Es usted o su cónyuge un miembro inscrito de una <a href="https://biamaps.geoplatform.gov/Tribal-Leaders-Directory/" target="_blank">tribu indígena reconocida federalmente</a> y recibieron ingresos mientras vivían en una reserva?
             one: ¿Es usted un miembro inscrito de una <a href="https://biamaps.geoplatform.gov/Tribal-Leaders-Directory/" target="_blank">tribu indígena reconocida federalmente</a> y recibió ingresos mientras vivía en una reserva?
             other: ¿Es usted o su cónyuge un miembro inscrito de una <a href="https://biamaps.geoplatform.gov/Tribal-Leaders-Directory/" target="_blank">tribu indígena reconocida federalmente</a> y recibieron ingresos mientras vivían en una reserva?
           tribal_wages_field: Ingrese la cantidad ganada
