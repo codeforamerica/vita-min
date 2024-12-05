@@ -9,7 +9,7 @@
       "scheduleEicLine4bYes": false,
       "scheduleEicLine4aYes": true,
       "dateOfBirth": "2004-04-04",
-      "suffix": "jr",
+      "suffix": null,
       "residencyDuration": "allYear",
       "firstName": "Hermes",
       "middleInitial": null,
@@ -84,7 +84,7 @@
       "middleInitial": null,
       "tin": "400-00-0021",
       "dateOfBirth": "1963-03-03",
-      "suffix": "Jr",
+      "suffix": "II",
       "isPrimaryFiler": false,
       "ssnNotValidForEmployment": null
     },

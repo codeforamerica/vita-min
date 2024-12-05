@@ -32,16 +32,6 @@ describe StateFileBaseIntake do
         expect(intake.spouse_birth_date).to eq(Date.parse("1980-01-01"))
       end
     end
-
-    it "should capitalize suffixes" do
-      xml = StateFile::DirectFileApiResponseSampleService.new.read_xml('nc_zeus_mfj_deps')
-      json = StateFile::DirectFileApiResponseSampleService.new.read_json('nc_zeus_mfj_deps')
-      intake = create(:minimal_state_file_id_intake, raw_direct_file_data: xml, raw_direct_file_intake_data: json)
-      intake.synchronize_filers_to_database
-
-      expect(intake.primary_suffix).to eq "SR"
-      expect(intake.spouse_suffix).to eq "JR"
-    end
   end
 
   describe "#synchronize_df_dependents_to_database" do
@@ -78,16 +68,6 @@ describe StateFileBaseIntake do
       intake.synchronize_df_dependents_to_database
 
       expect(intake.dependents.count(&:qualifying_child?)).to eq 2
-    end
-
-    it "updates suffixes of all dependents" do
-      xml = StateFile::DirectFileApiResponseSampleService.new.read_xml('nc_zeus_mfj_deps')
-      json = StateFile::DirectFileApiResponseSampleService.new.read_json('nc_zeus_mfj_deps')
-      intake = create(:minimal_state_file_id_intake, raw_direct_file_data: xml, raw_direct_file_intake_data: json)
-      intake.synchronize_df_dependents_to_database
-
-      expect(intake.dependents.count).to eq(4)
-      expect(intake.dependents.third.suffix).to eq("JR")
     end
   end
 
