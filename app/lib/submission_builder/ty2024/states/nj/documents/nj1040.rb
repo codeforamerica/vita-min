@@ -175,6 +175,10 @@ module SubmissionBuilder
 
                   xml.SalesAndUseTax calculated_fields.fetch(:NJ1040_LINE_51)
 
+                  if calculated_fields.fetch(:NJ1040_LINE_53C_CHECKBOX)
+                    xml.HCCEnclosed "X"
+                  end
+
                   xml.TotalTaxAndPenalty calculated_fields.fetch(:NJ1040_LINE_54)
 
                   if calculated_fields.fetch(:NJ1040_LINE_55)

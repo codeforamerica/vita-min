@@ -1141,6 +1141,42 @@ describe Efile::Nj::Nj1040Calculator do
     end
   end
 
+  describe "line 53c checkbox" do
+    context "when taxpayer indicated all members of household have health insurance" do
+      let(:intake) { create(:state_file_nj_intake, eligibility_all_members_health_insurance: "yes" ) }
+
+      it "checks 53c Schedule NJ-HCC checkbox" do
+        expect(instance.lines[:NJ1040_LINE_53C_CHECKBOX].value).to eq true
+      end
+    end
+
+    context "when taxpayer indicated all members of household do NOT have health insurance" do
+      context "when qualifies for income exemption" do
+        let(:intake) { create(:state_file_nj_intake,
+                              eligibility_all_members_health_insurance: "no",
+                              ) }
+
+        it "does not check 53c Schedule NJ-HCC checkbox" do
+          single_income_threshold = 10_000
+          allow(instance).to receive(:calculate_line_29).and_return single_income_threshold
+          instance.calculate
+          expect(instance.lines[:NJ1040_LINE_53C_CHECKBOX].value).to eq false
+        end
+      end
+
+      context "when qualifies for claimed as dependent exemption" do
+        let(:intake) { create(:state_file_nj_intake,
+                              :df_data_mfj_primary_claimed_dep,
+                              eligibility_all_members_health_insurance: "no"
+        ) }
+
+        it "does not check 53c Schedule NJ-HCC checkbox" do
+          expect(instance.lines[:NJ1040_LINE_53C_CHECKBOX].value).to eq false
+        end
+      end
+    end
+  end
+
   describe 'line 54 - total tax due' do
     let(:intake) { create(:state_file_nj_intake) }
     it 'sets line 54 to equal line 50 plus line 51' do

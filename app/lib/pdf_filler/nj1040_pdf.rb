@@ -83,6 +83,9 @@ module PdfFiller
         Group1qualwi5ab: spouse_death_year,
         Group182: household_rent_own,
 
+        # line 53c checkbox
+        'Check Box147': pdf_checkbox_value(@xml_document.at("HCCEnclosed")),
+
         # line 65 nj child tax credit
         '64': @xml_document.at("Body NJChildTCNumOfDep")&.text,
 

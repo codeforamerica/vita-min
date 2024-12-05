@@ -864,6 +864,8 @@ NJ1040_LINE_50:
   label: '50 Balance of Tax After Credits (Subtract line 49 from line 45) If zero or less, make no entry'
 NJ1040_LINE_51:
   label: '51 Use Tax Due on Internet, Mail-Order, or Other Out-of-State Purchases (See instructions) If no Use Tax, enter 0.00'
+NJ1040_LINE_53C_CHECKBOX:
+  label: '53C Enclose Schedule NJ-HCC and fill in'
 NJ1040_LINE_54:
   label: '54 Total Tax Due (Add lines 50 through 53c)'
 NJ1040_LINE_55:
