@@ -100,7 +100,8 @@ class Personas < Thor
 
   no_tasks do
     def find_intake(id)
-      intake_class = ::StateFile::StateInformationService.intake_class(options[:state])
+      state = options[:state].downcase
+      intake_class = ::StateFile::StateInformationService.intake_class(state)
       say_error "Intake class '#{intake_class.name}' selected", :cyan if options[:debug]
 
       intake_class.find(id)
