@@ -2099,6 +2099,7 @@ en:
       nc_tax_withheld: North Carolina tax withheld
       nc_taxable_income: North Carolina taxable income
       nc_use_tax: North Carolina use tax
+      register_to_vote: Register to vote.
       see_detailed_return: See detailed return information
       standard_deduction: Standard deduction
       title: Free AZ and NY state tax filing
@@ -3331,19 +3332,20 @@ en:
           mail_voucher_and_payment: 'Mail the voucher form and payment to:'
           pay_by_mail_or_moneyorder: 'If you are paying by mail via check or money order:'
           refund_details_html: 'Typical refund time frames are 7-8 weeks for e-Filed returns and 10-11 weeks for paper returns. There are some exceptions. For more information, please visit %{website_name} website: <a target="_blank" rel="noopener nofollow" href="https://%{tax_refund_url}">Where’s my Refund?</a>'
-          register_to_vote: Register to vote.
           title: Your %{filing_year} %{state_name} state tax return is accepted
         edit:
           download_state_return_pdf: Download your state return
           explain_calcs: Explain Calculations
           show_xml: Show XML
         pending:
+          md:
+            additional_content_html: <a target="_blank" rel="noopener nofollow" href="https://www.donatelifemaryland.org/">Register to make an anatomical gift at DonateLifeMaryland.org.</a>
           more_than_two_days: If it's been more than two days since you submitted your state taxes, contact our team of support specialists by clicking chat with us.
           more_than_two_days_closed_html: If it's been more than two days since you submitted your state taxes, contact our team of support specialists by emailing us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>
           receive_email: You'll receive an email update when your state tax return is accepted.
           receive_email_sms: You'll receive an email or text update when your state tax return is accepted.
           receive_sms: You'll receive an sms update when your state tax return is accepted.
-          title: You have submitted your %{filing_year} %{state_name} tax return! It is currently waiting to be accepted for processing.
+          title: Your %{filing_year} %{state_name} state tax return is now submitted!
         rejected:
           edit_return: Edit your state return
           email_us_html: Email us at <strong>help@fileyourstatetaxes.org</strong>
@@ -3387,7 +3389,6 @@ en:
           email_text_update: You’ll receive an email or text update when your state return is accepted.
           email_update: You'll receive an email update when your state tax return is accepted.
           ny_notifications_signup_html: <a target="_blank" rel="noopener nofollow" href="https://tax.ny.gov/">Sign up with the NYS Tax Department</a> to receive email notifications about your personal tax account.
-          register_to_vote: Register to vote.
           title: Your %{filing_year} %{state_name} state tax return is now submitted!
           title_resubmit: Your %{filing_year} %{state_name} state tax return is now resubmitted!
       tax_refund:

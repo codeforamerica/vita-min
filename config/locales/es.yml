@@ -2063,6 +2063,7 @@ es:
       nc_tax_withheld: Impuesto retenido de Carolina del Norte
       nc_taxable_income: Ingreso imponible de Carolina del Norte
       nc_use_tax: Impuesto por uso de Carolina del Norte
+      register_to_vote: Regístrate para votar.
       see_detailed_return: Ver información detallada de la declaración
       standard_deduction: Deducción estándar
       title: Declaración estatal gratuita de impuestos de AZ y NY
@@ -3316,13 +3317,14 @@ es:
           mail_voucher_and_payment: 'Envía el formulario de comprobante de pago y el pago a:'
           pay_by_mail_or_moneyorder: 'Si estás pagando por correo mediante cheque o giro postal:'
           refund_details_html: 'Typical refund time frames are 7-8 weeks for e-Filed returns and 10-11 weeks for paper returns. There are some exceptions. For more information, please visit %{website_name} website: <a target="_blank" rel="noopener nofollow" href="https://%{tax_refund_url}>Where’s my Refund?</a>'
-          register_to_vote: Regístrate para votar.
           title: Tu declaración de impuestos del estado de %{state_name} para el año %{filing_year} ha sido aceptada
         edit:
           download_state_return_pdf: Descarga tu declaración estatal
           explain_calcs: Explicación de Cálculos
           show_xml: Mostrar XML
         pending:
+          md:
+            additional_content_html: ''
           more_than_two_days: Si han pasado más de 2 días desde que presentaste tus impuestos estatales, ponte en contacto con nuestro equipo haciendo clic en "chatea con nosotros".
           more_than_two_days_closed_html: Si han pasado más de dos días desde que presentó sus impuestos estatales, comuníquese con nuestro equipo de especialistas de soporte enviándonos un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>
           receive_email: Recibirás una actualización por correo electrónico cuando tu declaración de impuestos estatales sea aceptada.
@@ -3372,7 +3374,6 @@ es:
           email_text_update: Recibirás una actualización por correo electrónico o mensaje de texto cuando tu declaración de impuestos estatales sea aceptada.
           email_update: Recibirás una actualización por correo electrónico cuando tu declaración de impuestos estatales sea aceptada.
           ny_notifications_signup_html: <a target="_blank" rel="noopener nofollow" href="https://tax.ny.gov/">Regístrate con el Departamento de Impuestos del Estado de Nueva York</a> para recibir notificaciones por correo electrónico sobre tu cuenta de impuestos personales.
-          register_to_vote: Regístrate para votar.
           title: "¡Tu declaración de impuestos del estado de %{state_name}de %{filing_year} ha sido enviada!"
           title_resubmit: "¡Tu declaración de impuestos estatales de %{state_name} para el año %{filing_year} ha sido enviada de nuevo!"
       tax_refund:

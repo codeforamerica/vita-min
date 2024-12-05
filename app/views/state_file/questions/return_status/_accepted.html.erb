@@ -17,7 +17,9 @@
     <p><%= t('.direct_debit_html', tax_payment_url: @tax_payment_url) %></p>
   <% end %>
 
-  <p><a target="_blank" rel="noopener nofollow" href="https://vote.gov/"><%= t('.register_to_vote') %></a></p>
+  <hr class="spacing-above-25 spacing-below-25"/>
+
+  <p><a target="_blank" rel="noopener nofollow" href="https://vote.gov/"><%= t('state_file.general.register_to_vote') %></a></p>
 
   <p><%= t('general.spread_the_word_html') %></p>
 
@@ -60,5 +62,5 @@
   <p>
     <a target="_blank" rel="noopener nofollow" href="<%= @survey_link %>"><%= t("state_file.questions.return_status.accepted.feedback") %></a>
   </p>
-  <p><a target="_blank" rel="noopener nofollow" href="https://vote.gov/"><%= t('.register_to_vote') %></a></p>
+  <p><a target="_blank" rel="noopener nofollow" href="https://vote.gov/"><%= t('state_file.general.register_to_vote') %></a></p>
 <% end %>
