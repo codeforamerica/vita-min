@@ -103,7 +103,7 @@ jobs:
       - run: git config --global user.name CircleCI && git config --global user.email circleci@example.com
       - add_ssh_keys:
           fingerprints:
-            - "8e:20:52:44:54:b9:f5:a4:4f:f0:b3:20:c2:e5:69:8a"
+            - "SHA256:UqpaQ3/dXAMQtXXC6pwx+Hv/+FpY8u18Pz+PWvED4n8"
       - run: git diff --quiet || (git commit -am "Run i18n-tasks normalize" && git push origin translations_config-locales-en-yml--main_es)
   run_js_tests:
     executor: ruby_executor
