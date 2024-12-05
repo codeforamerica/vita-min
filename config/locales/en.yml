@@ -3156,6 +3156,7 @@ en:
           title: In NJ, veterans are eligible for a tax exemption.
       notification_preferences:
         edit:
+          email_address_label: Your email address
           email_notification_opt_in: Email
           message_body_one: We will not share your information with any outside parties. Message frequency will vary. Message and data rates may apply.
           message_body_two_html: Text HELP to 46207 for help. Text STOP to 46207 to cancel. Carriers (e.g. AT&T, Verizon, T-Mobile, Sprint, etc.) are not responsible or liable for undelivered or delayed messages. See our <a target="_blank" href=%{sms_terms_link}>SMS Terms and Conditions</a> and <a target="_blank" href=%{privacy_link}>Privacy Policy</a>.
