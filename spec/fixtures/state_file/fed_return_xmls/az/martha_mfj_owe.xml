@@ -32,6 +32,15 @@
             <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
             <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
             <DependentDetail>
+                <DependentFirstNm>Nelly</DependentFirstNm>
+                <DependentLastNm>Bassett</DependentLastNm>
+                <DependentNameControlTxt>BASS</DependentNameControlTxt>
+                <IdentityProtectionPIN>654321</IdentityProtectionPIN>
+                <DependentSSN>300000013</DependentSSN>
+                <DependentRelationshipCd>NEPHEW</DependentRelationshipCd>
+                <EligibleForODCInd>X</EligibleForODCInd>
+            </DependentDetail>
+            <DependentDetail>
                 <DependentFirstNm>John</DependentFirstNm>
                 <DependentLastNm>Custis</DependentLastNm>
                 <DependentNameControlTxt>CUST</DependentNameControlTxt>
@@ -44,15 +53,6 @@
                 <DependentLastNm>Bassett</DependentLastNm>
                 <DependentNameControlTxt>BASS</DependentNameControlTxt>
                 <DependentSSN>300000012</DependentSSN>
-                <DependentRelationshipCd>NEPHEW</DependentRelationshipCd>
-                <EligibleForODCInd>X</EligibleForODCInd>
-            </DependentDetail>
-            <DependentDetail>
-                <DependentFirstNm>Nelly</DependentFirstNm>
-                <DependentLastNm>Bassett</DependentLastNm>
-                <DependentNameControlTxt>BASS</DependentNameControlTxt>
-                <IdentityProtectionPIN>654321</IdentityProtectionPIN>
-                <DependentSSN>300000013</DependentSSN>
                 <DependentRelationshipCd>NEPHEW</DependentRelationshipCd>
                 <EligibleForODCInd>X</EligibleForODCInd>
             </DependentDetail>
