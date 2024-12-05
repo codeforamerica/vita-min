@@ -13,6 +13,7 @@
 #  bank_authorization_confirmed               :integer          default("unfilled"), not null
 #  city                                       :string
 #  confirmed_permanent_address                :integer          default("unfilled"), not null
+#  consented_to_sms_terms                     :integer          default("unfilled"), not null
 #  consented_to_terms_and_conditions          :integer          default("unfilled"), not null
 #  contact_preference                         :integer          default("unfilled"), not null
 #  current_sign_in_at                         :datetime
