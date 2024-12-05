@@ -8,6 +8,7 @@
 #  city                              :string
 #  consented_to_terms_and_conditions :integer          default("unfilled"), not null
 #  contact_preference                :integer          default("unfilled"), not null
+#  county_during_hurricane_helene    :string
 #  current_sign_in_at                :datetime
 #  current_sign_in_ip                :inet
 #  current_step                      :string
@@ -30,6 +31,7 @@
 #  locale                            :string           default("en")
 #  locked_at                         :datetime
 #  message_tracker                   :jsonb
+#  moved_after_hurricane_helene      :integer          default(0), not null
 #  payment_or_deposit_type           :integer          default("unfilled"), not null
 #  phone_number                      :string
 #  phone_number_verified_at          :datetime

@@ -8,6 +8,7 @@
 #  city                              :string
 #  consented_to_terms_and_conditions :integer          default("unfilled"), not null
 #  contact_preference                :integer          default("unfilled"), not null
+#  county_during_hurricane_helene    :string
 #  current_sign_in_at                :datetime
 #  current_sign_in_ip                :inet
 #  current_step                      :string
@@ -30,6 +31,7 @@
 #  locale                            :string           default("en")
 #  locked_at                         :datetime
 #  message_tracker                   :jsonb
+#  moved_after_hurricane_helene      :integer          default(0), not null
 #  payment_or_deposit_type           :integer          default("unfilled"), not null
 #  phone_number                      :string
 #  phone_number_verified_at          :datetime
@@ -89,6 +91,7 @@ class StateFileNcIntake < StateFileBaseIntake
   enum sales_use_tax_calculation_method: { unfilled: 0, automated: 1, manual: 2 }, _prefix: :sales_use_tax_calculation_method
   enum untaxed_out_of_state_purchases: { unfilled: 0, yes: 1, no: 2 }, _prefix: :untaxed_out_of_state_purchases
   enum tribal_member: { unfilled: 0, yes: 1, no: 2 }, _prefix: :tribal_member
+  # enum moved_after_hurricane_helene: { unfilled: 0, yes: 1, no: 2 }, _prefix: :moved_after_hurricane_helene
 
   enum eligibility_withdrew_529: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_withdrew_529
   enum eligibility_lived_in_state: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_lived_in_state

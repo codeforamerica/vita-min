@@ -2845,6 +2845,8 @@ en:
         edit:
           county: County
           title: Select the county where your permanent address was located on December 31, %{filing_year}
+          moved_after_hurricane: Was your permanent address in a different county during Hurricane Helene (on or after September 25th, 2024)?
+          county_during_hurricane: Select the county where your permanent address was located during Hurricane Helene (on or after September 25th, 2024)
       nc_eligibility:
         edit:
           eligibility_ed_loan_cancelled: Had a student loan debt canceled under the American Rescue Plan Act
