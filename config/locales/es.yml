@@ -2428,7 +2428,7 @@ es:
           increased_excise_credit: Aumento en el crédito por impuesto de consumo
           public_school_credit: Public School Tax Credit
         edit:
-          credits_not_supported: '¿Qué deducciones, créditos y situaciones del hogar no admite este servicio este año?'
+          credits_not_supported: "¿Qué deducciones, créditos y situaciones del hogar no admite este servicio este año?"
           not_supported: "¿Cuáles créditos y deducciones no admite esta herramienta este año?"
           title1: "¡Buenas noticias! Puedes usar esta herramienta este año %{year} para presentar tus impuestos estatales %{state}."
           title2_html: |
@@ -2675,7 +2675,7 @@ es:
           sales_tax_content: Este es un impuesto recaudado en el punto de venta cuando compra bienes dentro de su estado. Sin embargo, si compró artículos a un vendedor fuera del estado, es posible que no hayan recaudado el impuesto sobre las ventas de Idaho en ese momento.
           sales_tax_title: "¿Qué son los impuestos sobre las ventas?"
           sales_use_tax_helper_text: Ingrese el monto total
-          subtitle_html: Esto incluye compras en línea donde <b>no</b> se aplicaron impuestos sobre las ventas o el uso
+          subtitle_html: Esto incluye compras en línea donde <strong>no</strong> se aplicaron impuestos sobre las ventas o el uso
           title: "¿Hizo alguna compra fuera del estado en %{year} sin pagar impuesto sobre las ventas?"
           unpaid_sales_use_tax_label_html: Ingrese la <b>cantidad total de compras</b> a las que no se les aplicaron impuestos sobre las ventas o el uso.
       id_spouse_state_id:
