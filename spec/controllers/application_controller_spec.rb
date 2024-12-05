@@ -1462,7 +1462,7 @@ RSpec.describe ApplicationController do
     context "for a Maryland return" do
       let(:state_code) { "md" }
 
-      it "returns the NY withdrawal date deadline" do
+      it "returns the MD withdrawal date deadline" do
         expect(subject.withdrawal_date_deadline(state_code)).to eq Rails.configuration.state_file_withdrawal_date_deadline_md
       end
     end
