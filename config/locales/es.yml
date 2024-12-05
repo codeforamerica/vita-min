@@ -2452,7 +2452,6 @@ es:
           increased_excise_credit: Aumento en el crédito por impuesto de consumo
           public_school_credit: Public School Tax Credit
         edit:
-          warning: Revise las deducciones y créditos que se admiten este año para asegurarse de que este servicio sea adecuado para sus necesidades fiscales.
           credits_not_supported: "¿Qué deducciones, créditos y situaciones del hogar no admite este servicio este año?"
           not_supported: "¿Cuáles créditos y deducciones no admite esta herramienta este año?"
           title1: "¡Buenas noticias! Puedes usar esta herramienta este año %{year} para presentar tus impuestos estatales %{state}."
@@ -2460,13 +2459,7 @@ es:
             Let's make sure this is the right service for you.<br><br>
             Here are the credits and deductions you <strong>may</strong> be able to claim to maximize your refund.
           warning: Revise las deducciones y créditos que se admiten este año para asegurarse de que este servicio sea adecuado para sus necesidades fiscales.
-        id_supported:
-          child_care_deduction: Deducción por Cuidado de Hijos y Dependientes
-          id_child_tax_credit: Crédito Fiscal para Hijos de Idaho
-          id_grocery_credit: Crédito de Alimentos de Idaho
-          interest_from_obligations: Intereses de Obligaciones del Gobierno de los EE.UU.
-          social_security_retirement_deduction: Deducciones de Seguridad Social y Beneficios de Jubilación
-        id_unsupported:
+        id_credits_unsupported:
           change_in_filing_status: Cambio en el Estado de Declaración de la Declaración Federal a la Estatal
           dependents_not_claimed_fed_return: Añadir Dependientes no Reclamados en la Declaración Federal
           earned_on_reservation: Ingresos Ganados en una Reserva por un Nativo Americano
@@ -2477,6 +2470,13 @@ es:
           long_term_care_insurance_subtraction: Subvención de Seguro de Cuidado a Largo Plazo
           maintaining_elderly_disabled_credit: Crédito por Mantener un Hogar para Ancianos o Discapacitados
           voluntary_donations: Todas las Donaciones Voluntarias
+        id_supported:
+          child_care_deduction: Deducción por Cuidado de Hijos y Dependientes
+          health_insurance_premiums_subtraction: Resta de primas de seguro médico
+          id_child_tax_credit: Crédito Fiscal para Hijos de Idaho
+          id_grocery_credit: Crédito de Alimentos de Idaho
+          interest_from_obligations: Intereses de Obligaciones del Gobierno de los EE.UU.
+          social_security_retirement_deduction: Deducciones de Seguridad Social y Beneficios de Jubilación
         md_reveals:
           body1_html: |
             <ul>
