@@ -13,7 +13,7 @@ RSpec.describe StateFile::FaqController do
     it "renders the page" do
       get :index, params: { us_state: "us" }
 
-      expect(response).to be_ok
+      expect(response).to be _ok
     end
 
     context "showing the right states" do
