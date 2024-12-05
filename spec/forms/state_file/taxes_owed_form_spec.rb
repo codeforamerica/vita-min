@@ -227,5 +227,14 @@ RSpec.describe StateFile::TaxesOwedForm do
         end
       end
     end
+
+    context "when withdrawal date is in the past" do
+      let(:day) { "9" }
+
+      it "is valid" do
+        form = described_class.new(intake, params)
+        expect(form).not_to be_valid
+      end
+    end
   end
 end
