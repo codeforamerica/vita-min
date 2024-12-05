@@ -2895,8 +2895,9 @@ es:
           why_ask_this: "¿Por qué pides esta información?"
       md_review:
         edit:
-          county_html: "<strong>El condado vivió el 31 de diciembre, %{filing_year}</strong>"
-          political_subdivision_html: Subdivisión política en la que vivía el 31 de diciembre de %{filing_year}
+          your_address: Dirección donde vivía el 31 de diciembre de %{filing_year}
+          county_html: "<strong>Condado</strong>"
+          political_subdivision_html: "<strong>Subdivisión política</strong>"
       md_spouse_state_id:
         md_spouse:
           dmv_bmv_label: MVA State ID
