@@ -2454,7 +2454,7 @@ en:
           increased_excise_credit: Increased Excise Credit
           public_school_credit: Public School Tax Credit
         edit:
-          credits_not_supported: What credits and deductions does this service not support this year?
+          credits_not_supported: What subtractions, credits, and household situations does this service not support this year?
           not_supported: What if I have a situation not yet supported by FileYourStateTaxes?
           title1: You can use this service to file your %{year} %{state} taxes
           title2_html: |
