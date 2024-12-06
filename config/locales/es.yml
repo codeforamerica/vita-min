@@ -3347,7 +3347,8 @@ es:
           title: Lamentablemente, tu declaración de impuestos del estado de %{state_name} para el año %{filing_year} fue rechazada
         thank_you_html: Gracias por presentar su declaración con <strong>FileYourStateTaxes</strong>, creado en asociación con el estado de %{state_name} para integrarse con la herramienta Direct File del IRS.
       review:
-        county: County where your permanent address was located on December 31, %{filing_year}
+        county: Condado donde se encontraba su dirección permanente el 31 de diciembre de %{filing_year}
+        county_during_hurricane: Condado donde estaba ubicada su dirección permanente durante el huracán Helene
       shared:
         abstract_review_header:
           amount_rounding_notice_html: "<strong>Hemos redondeado automáticamente todos los montos en dólares al número entero más cercano.</strong> La %{state_agency_name} solo aceptará números enteros en la declaración de impuestos final."
