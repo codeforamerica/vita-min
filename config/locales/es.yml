@@ -3330,12 +3330,9 @@ es:
           explain_calcs: Explicación de Cálculos
           show_xml: Mostrar XML
         pending:
-          more_than_two_days: Si han pasado más de 2 días desde que presentaste tus impuestos estatales, ponte en contacto con nuestro equipo haciendo clic en "chatea con nosotros".
-          more_than_two_days_closed_html: Si han pasado más de dos días desde que presentó sus impuestos estatales, comuníquese con nuestro equipo de especialistas de soporte enviándonos un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>
-          receive_email: Recibirás una actualización por correo electrónico cuando tu declaración de impuestos estatales sea aceptada.
-          receive_email_sms: Recibirás una actualización por correo electrónico o mensaje de texto cuando tu declaración de impuestos estatales sea aceptada.
-          receive_sms: Recibirás una actualización por mensaje de texto cuando tu declaración de impuestos estatales sea aceptada.
+          check_spam: Si han pasado más de dos días desde que presentó su declaración de impuestos estatales y no ha recibido noticias nuestras, revise su carpeta de correo no deseado.
           title: Has enviado tu declaración de impuestos estatales de %{state_name} para el año %{filing_year}, y está esperando ser aceptada.
+          waiting_for acceptance: Su declaración de impuestos estatales todavía está esperando ser aceptada.
         rejected:
           edit_return: Editar tu declaración estatal
           email_us_html: Envíanos un correo electrónico a <strong>help@fileyourstatetaxes.org</strong>
@@ -3378,7 +3375,7 @@ es:
           download_state_return_pdf: Descarga tu declaración estatal
           email_text_update: Recibirás una actualización por correo electrónico o mensaje de texto cuando tu declaración de impuestos estatales sea aceptada.
           email_update: Recibirás una actualización por correo electrónico cuando tu declaración de impuestos estatales sea aceptada.
-          ny_notifications_signup_html: <a target="_blank" rel="noopener nofollow" href="https://tax.ny.gov/">Regístrate con el Departamento de Impuestos del Estado de Nueva York</a> para recibir notificaciones por correo electrónico sobre tu cuenta de impuestos personales.
+          text_update: Recibirás una actualización por mensaje de texto cuando tu declaración de impuestos estatales sea aceptada.
           title: "¡Tu declaración de impuestos del estado de %{state_name}de %{filing_year} ha sido enviada!"
           title_resubmit: "¡Tu declaración de impuestos estatales de %{state_name} para el año %{filing_year} ha sido enviada de nuevo!"
       tax_refund:

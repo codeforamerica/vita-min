@@ -3359,12 +3359,9 @@ en:
           explain_calcs: Explain Calculations
           show_xml: Show XML
         pending:
-          more_than_two_days: If it's been more than two days since you submitted your state taxes, contact our team of support specialists by clicking chat with us.
-          more_than_two_days_closed_html: If it's been more than two days since you submitted your state taxes, contact our team of support specialists by emailing us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>
-          receive_email: You'll receive an email update when your state tax return is accepted.
-          receive_email_sms: You'll receive an email or text update when your state tax return is accepted.
-          receive_sms: You'll receive an sms update when your state tax return is accepted.
-          title: Your %{filing_year} %{state_name} state tax return is now submitted!
+          check_spam: If it's been more than two days since you submitted your state taxes and you haven’t heard from us, check your spam folder.
+          title: You have submitted your %{filing_year} %{state_name} state tax return
+          waiting_for acceptance: Your state tax return is still waiting to be accepted.
         rejected:
           edit_return: Edit your state return
           email_us_html: Email us at <strong>help@fileyourstatetaxes.org</strong>
@@ -3405,9 +3402,9 @@ en:
       submission_confirmation:
         edit:
           download_state_return_pdf: Download your state return
-          email_text_update: You’ll receive an email or text update when your state return is accepted.
+          email_text_update: You'll receive an email or text update when your state tax return is accepted.
           email_update: You'll receive an email update when your state tax return is accepted.
-          ny_notifications_signup_html: <a target="_blank" rel="noopener nofollow" href="https://tax.ny.gov/">Sign up with the NYS Tax Department</a> to receive email notifications about your personal tax account.
+          text_update: You'll receive an sms update when your state tax return is accepted.
           title: Your %{filing_year} %{state_name} state tax return is now submitted!
           title_resubmit: Your %{filing_year} %{state_name} state tax return is now resubmitted!
       tax_refund:
