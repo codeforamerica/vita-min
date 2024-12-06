@@ -282,9 +282,9 @@ module Efile
 
       def calculate_deduction_method
         gross_income_amount = if @direct_file_data.claimed_as_dependent?
-                                (@direct_file_data.fed_agi + line_or_zero(:MD502_LINE_7)) - line_or_zero(:MD502_LINE_15)
+                                (@direct_file_data.fed_agi + line_or_zero(:MD502_LINE_6)) - line_or_zero(:MD502_LINE_15)
                               else
-                                (@direct_file_data.fed_agi - @direct_file_data.fed_taxable_ssb) + line_or_zero(:MD502_LINE_7)
+                                (@direct_file_data.fed_agi - @direct_file_data.fed_taxable_ssb) + line_or_zero(:MD502_LINE_6)
                               end
 
         filing_minimum = if @intake.primary_senior? && @intake.filing_status_mfj? && @intake.spouse_senior?
@@ -294,6 +294,7 @@ module Efile
                          else
                            FILING_MINIMUMS_NON_SENIOR[@intake.filing_status]
                          end
+
         if gross_income_amount >= filing_minimum
           "S"
         else

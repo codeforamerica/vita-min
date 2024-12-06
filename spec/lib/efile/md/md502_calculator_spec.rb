@@ -454,7 +454,7 @@ describe Efile::Md::Md502Calculator do
     context "when claimed as dependent" do
       before do
         allow_any_instance_of(DirectFileData).to receive(:claimed_as_dependent?).and_return true
-        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_7).and_return 1000
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_6).and_return 1000
         allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_15).and_return 500
         intake.direct_file_data.fed_agi = 16600
         intake.direct_file_data.fed_taxable_ssb = 0
@@ -466,7 +466,7 @@ describe Efile::Md::Md502Calculator do
       end
 
       it "returns N when calculated amount is below minimum" do
-        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_7).and_return 0
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_6).and_return 0
         instance.calculate
         expect(instance.lines[:MD502_DEDUCTION_METHOD].value).to eq "N"
       end
@@ -495,7 +495,7 @@ describe Efile::Md::Md502Calculator do
 
           context "when when gross income is greater than or equal to state filing minimum" do
             before do
-              allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_7).and_return 0
+              allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_6).and_return 0
               intake.direct_file_data.fed_agi = filing_minimum
               intake.direct_file_data.fed_taxable_ssb = 0
             end
@@ -508,7 +508,7 @@ describe Efile::Md::Md502Calculator do
 
           context "when gross income is less than state filing minimum" do
             before do
-              allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_7).and_return 0
+              allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_6).and_return 0
               intake.direct_file_data.fed_agi = filing_minimum
               intake.direct_file_data.fed_taxable_ssb = 10
             end
@@ -546,7 +546,7 @@ describe Efile::Md::Md502Calculator do
 
             context "when when gross income is greater than or equal to state filing minimum" do
               before do
-                allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_7).and_return 0
+                allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_6).and_return 0
                 intake.direct_file_data.fed_agi = filing_minimum
                 intake.direct_file_data.fed_taxable_ssb = 0
               end
@@ -559,7 +559,7 @@ describe Efile::Md::Md502Calculator do
 
             context "when gross income is less than state filing minimum" do
               before do
-                allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_7).and_return 0
+                allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_6).and_return 0
                 intake.direct_file_data.fed_agi = filing_minimum
                 intake.direct_file_data.fed_taxable_ssb = 10
               end
@@ -585,7 +585,7 @@ describe Efile::Md::Md502Calculator do
 
         context "when when gross income is greater than or equal to state filing minimum" do
           before do
-            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_7).and_return 0
+            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_6).and_return 0
             intake.direct_file_data.fed_agi = filing_minimum
             intake.direct_file_data.fed_taxable_ssb = 0
           end
@@ -598,7 +598,7 @@ describe Efile::Md::Md502Calculator do
 
         context "when gross income is less than state filing minimum" do
           before do
-            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_7).and_return 0
+            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_6).and_return 0
             intake.direct_file_data.fed_agi = filing_minimum
             intake.direct_file_data.fed_taxable_ssb = 10
           end
