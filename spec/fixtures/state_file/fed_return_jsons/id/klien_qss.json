@@ -11,21 +11,22 @@
       "ssnNotValidForEmployment": null
     }
   ],
+  "form1099Gs": [],
   "interestReports": [],
   "familyAndHousehold": [
     {
-      "tin": "300-00-0003",
+      "tin": "300-00-0001",
       "suffix": null,
-      "lastName": "Gucci",
-      "firstName": "Georgia",
-      "dateOfBirth": "2007-12-30",
+      "lastName": "Klien",
+      "firstName": "Calvin",
+      "dateOfBirth": "2007-06-01",
       "relationship": "biologicalChild",
       "middleInitial": null,
       "qualifyingChild": true,
       "eligibleDependent": true,
       "residencyDuration": "allYear",
       "isClaimedDependent": true,
-      "hohQualifyingPerson": false,
+      "hohQualifyingPerson": true,
       "scheduleEicLine4aNo": false,
       "scheduleEicLine4aYes": false,
       "scheduleEicLine4bYes": false,
@@ -33,11 +34,11 @@
       "ssnNotValidForEmployment": false
     },
     {
-      "tin": "300-00-0001",
+      "tin": "300-00-0003",
       "suffix": null,
-      "lastName": "Klien",
-      "firstName": "Calvin",
-      "dateOfBirth": "2007-06-01",
+      "lastName": "Gucci",
+      "firstName": "Georgia",
+      "dateOfBirth": "2007-12-30",
       "relationship": "biologicalChild",
       "middleInitial": null,
       "qualifyingChild": true,

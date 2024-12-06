@@ -17,11 +17,15 @@ module Hub::StateFile
     end
 
     def edit
+      state_code = @efile_error.service_type.sub("state_file_", "")
       @correction_path_options_for_select = EfileError.paths
-      unless @efile_error.correction_path.present?
-        @efile_error.correction_path = EfileError.controller_to_path(
-          EfileError.default_controller(current_state_code)
-        )
+      if StateFile::StateInformationService.active_state_codes.include?(state_code)
+        unless @efile_error.correction_path.present?
+
+          @efile_error.correction_path = EfileError.controller_to_path(
+            EfileError.default_controller(state_code)
+          )
+        end
       end
     end
 

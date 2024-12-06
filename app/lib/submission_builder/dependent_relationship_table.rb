@@ -7,7 +7,7 @@ module SubmissionBuilder
       "adoptedChild" => "CHILD",
       "stepChild" => "CHILD",
       "fosterChild" => "FOSTERCHILD",
-      "grandChildOrOtherDescendentOfChild" => "GRANDCHILD",
+      "grandChildOrOtherDescendantOfChild" => "GRANDCHILD",
       "childInLaw" => "CHILD",
       "sibling" => "SIBLING",
       "childOfSibling" => "NIECENEPHEW",
