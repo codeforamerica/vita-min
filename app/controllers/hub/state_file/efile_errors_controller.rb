@@ -56,11 +56,5 @@ module Hub::StateFile
     def permitted_params
       params.require(:efile_error).permit(:expose, :auto_cancel, :auto_wait, :correction_path, :description_en, :description_es, :resolution_en, :resolution_es)
     end
-
-    private
-
-    def current_state_code
-      @current_state_code ||= @efile_error.efile_submission.data_source.state_code
-    end
   end
 end
