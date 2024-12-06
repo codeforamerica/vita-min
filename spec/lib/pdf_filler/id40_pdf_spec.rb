@@ -312,7 +312,7 @@ RSpec.describe PdfFiller::Id40Pdf do
 
     describe "credits" do
       before do
-        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_20).and_return 70.7
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_20).and_return 71
         allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_25).and_return 50
         allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_26).and_return 60
         allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_33).and_return 80
