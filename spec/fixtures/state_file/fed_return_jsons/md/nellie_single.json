@@ -1,0 +1,16 @@
+{
+  "familyAndHousehold": [],
+  "filers": [
+    {
+      "firstName": "Nellie",
+      "lastName": "Narwahl",
+      "middleInitial": null,
+      "tin": "400-00-5050",
+      "dateOfBirth": "1935-03-20",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "interestReports": []
+}

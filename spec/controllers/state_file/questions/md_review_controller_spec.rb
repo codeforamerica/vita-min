@@ -26,6 +26,7 @@ RSpec.describe StateFile::Questions::MdReviewController do
       allow_any_instance_of(Efile::Md::Md502SuCalculator).to receive(:calculate_line_u).and_return(85)
       allow_any_instance_of(Efile::Md::Md502SuCalculator).to receive(:calculate_line_v).and_return(144)
       allow_any_instance_of(Efile::Md::Md502SuCalculator).to receive(:calculate_line_ab).and_return(42)
+      allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_14).and_return(750)
       allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_16).and_return(19_026)
       allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_17).and_return(1_117)
       allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_19).and_return(2_987)
@@ -33,8 +34,17 @@ RSpec.describe StateFile::Questions::MdReviewController do
       allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_21).and_return(2_488)
       allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_22).and_return(874)
       allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_23).and_return(454)
+      allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_28_local_tax_amount).and_return(69)
+      allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_29).and_return(29)
+      allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_30).and_return(30)
+      allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_34).and_return(34)
+      allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_40).and_return(704)
+      allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_42).and_return(808)
       allow_any_instance_of(Efile::Md::Md502crCalculator).to receive(:calculate_md502_cr_part_b_line_4).and_return(512)
       allow_any_instance_of(Efile::Md::Md502crCalculator).to receive(:calculate_md502_cr_part_m_line_1).and_return(449)
+      allow_any_instance_of(Efile::Md::Md502crCalculator).to receive(:calculate_part_cc_line_7).and_return(999)
+      allow_any_instance_of(Efile::Md::Md502crCalculator).to receive(:calculate_part_cc_line_8).and_return(333)
+      allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_44).and_return(111)
 
 
       intake.update!(raw_direct_file_data: intake.direct_file_data.to_s)
@@ -64,7 +74,7 @@ RSpec.describe StateFile::Questions::MdReviewController do
       expect(page_content).to include "$42"
       # TODO: add this once lines 14 are implemented
       expect(page_content).to include I18n.t("state_file.general.md_two_income_subtraction_married_taxpayers")
-      # expect(page_content).to include "$0"
+      expect(page_content).to include "$750"
       expect(page_content).to include I18n.t("state_file.general.md_adjusted_gross_income")
       expect(page_content).to include "$19,026"
       expect(page_content).to include I18n.t("state_file.general.md_standard_deduction")
@@ -87,23 +97,24 @@ RSpec.describe StateFile::Questions::MdReviewController do
       expect(page_content).to include "$449"
       # TODO: add this once lines 28, 29, 30, 34 are implemented
       expect(page_content).to include I18n.t("state_file.general.md_local_tax")
-      # expect(page_content).to include "$0"
+      expect(page_content).to include "$69"
       expect(page_content).to include I18n.t("state_file.general.md_nonrefundable_local_earned_income_tax_credit")
-      # expect(page_content).to include "$0"
+      expect(page_content).to include "$29"
       expect(page_content).to include I18n.t("state_file.general.md_local_poverty_level_credit")
-      # expect(page_content).to include "$0"
+      expect(page_content).to include "$30"
       expect(page_content).to include I18n.t("state_file.general.md_total_tax_after_nonrefundable_credits")
+      expect(page_content).to include "$34"
       expect(page_content).to include I18n.t("state_file.general.md_tax_withheld")
-      expect(page_content).to include "$449"
+      expect(page_content).to include "$704"
       # TODO: add this once lines 42, 44, CR part CC line 7 and CR part CC line 8 are implemented
       expect(page_content).to include I18n.t("state_file.general.md_refundable_earned_income_tax_credit")
-      # expect(page_content).to include "$0"
+      expect(page_content).to include "$808"
       expect(page_content).to include I18n.t("state_file.general.md_refundable_child_dependent_care_credit")
-      # expect(page_content).to include "$0"
+      expect(page_content).to include "$999"
       expect(page_content).to include I18n.t("state_file.general.md_child_tax_credit")
-      # expect(page_content).to include "$0"
+      expect(page_content).to include "$333"
       expect(page_content).to include I18n.t("state_file.general.md_total_payments_refundable_credits")
-      # # expect(page_content).to include "$0"
+      expect(page_content).to include "$111"
     end
   end
 end
