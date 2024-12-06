@@ -2707,7 +2707,9 @@ en:
           sales_tax_title: What are sales taxes?
           sales_use_tax_helper_text: Enter total amount
           subtitle_html: This includes online purchases where sales tax was <strong>not</strong> applied.
-          title: Did you make any out-of-state purchases in %{year} without paying sales tax?
+          title:
+            one: Did you make any out-of-state purchases in %{year} without paying sales tax?
+            other: Did you or your spouse make any out-of-state purchases in %{year} without paying sales tax?
           unpaid_sales_use_tax_label_html: Please enter the <b>total amount of purchases</b> that didn’t have sales or use tax applied.
       id_spouse_state_id:
         id_spouse:
