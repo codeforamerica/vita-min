@@ -101,6 +101,19 @@ describe StateFile::AfterTransitionMessagingService do
     end
   end
 
+  describe "#send_efile_submission_terminal_rejected_message" do
+    let(:message) { StateFile::AutomatedMessage::TerminalRejected }
+
+    it "sends the accepted refund" do
+      expect do
+        messaging_service.send_efile_submission_terminal_rejected_message
+      end.to change(StateFileNotificationEmail, :count).by(1)
+
+      expect(efile_submission.message_tracker).to include "messages.state_file.terminal_rejected"
+      expect(StateFile::MessagingService).to have_received(:new).with(intake: intake, submission: efile_submission, message: message, body_args: body_args)
+    end
+  end
+
   describe "#send_efile_submission_still_processing_message" do
     let(:message) { StateFile::AutomatedMessage::StillProcessing }
 
