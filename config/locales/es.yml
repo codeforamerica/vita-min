@@ -2917,7 +2917,7 @@ es:
       md_tax_refund:
         edit:
           bank_authorization_confirmation: Marque aquí para confirmar que autoriza al estado de Maryland a emitir su reembolso mediante depósito directo.
-          subtitle: ¿Cómo le gustaría recibir su reembolso?
+          subtitle: "¿Cómo le gustaría recibir su reembolso?"
         md_bank_details:
           account_holder_name: Nombre del titular de la cuenta
           bank_account_details: Detalles de la cuenta bancaria
