@@ -91,7 +91,7 @@ module StateFile
       end
 
       def state_file1099_params
-        state_file_params = params.require(:state_file1099_g).permit(
+        state_file_params = params.fetch(:state_file1099_g, {}).permit(
           :had_box_11,
           :address_confirmation,
           :recipient,

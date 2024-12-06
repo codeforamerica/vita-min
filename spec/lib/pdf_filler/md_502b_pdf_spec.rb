@@ -82,7 +82,7 @@ RSpec.describe PdfFiller::Md502bPdf do
         expect(pdf_fields["RELATIONSHIP 1"]).to eq "Daughter"
         expect(pdf_fields["REGULAR 1"]).to eq "Yes"
         expect(pdf_fields["65 OR OLDER 1"]).to eq "Off"
-        expect(pdf_fields["DOB date 1_af_date"]).to eq young_dob.strftime("%Y-%m-%d")
+        expect(pdf_fields["DOB date 1_af_date"]).to eq young_dob.strftime("%m/%d/%Y")
         expect(pdf_fields["Check Box 1"]).to eq "Yes"
 
         expect(pdf_fields["First Name 2"]).to eq "Jeanie"
@@ -92,7 +92,7 @@ RSpec.describe PdfFiller::Md502bPdf do
         expect(pdf_fields["RELATIONSHIP 2"]).to eq "Grandparent"
         expect(pdf_fields["REGULAR 2"]).to eq "Yes"
         expect(pdf_fields["65 OR OLDER 2"]).to eq "2"
-        expect(pdf_fields["DOB date 1_af_date 2"]).to eq old_dob.strftime("%Y-%m-%d")
+        expect(pdf_fields["DOB date 1_af_date 2"]).to eq old_dob.strftime("%m/%d/%Y")
         expect(pdf_fields["Check Box 2"]).to eq "Off"
       end
     end

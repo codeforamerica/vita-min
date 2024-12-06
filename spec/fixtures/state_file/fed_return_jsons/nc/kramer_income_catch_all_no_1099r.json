@@ -1,0 +1,89 @@
+{
+  "familyAndHousehold": [
+    {
+      "monthsLivedWithTPInUS": "twelve",
+      "lastName": "Newman",
+      "hohQualifyingPerson": null,
+      "isClaimedDependent": true,
+      "qualifyingChild": true,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "2022-12-12",
+      "suffix": null,
+      "residencyDuration": "allYear",
+      "firstName": "Baby",
+      "middleInitial": null,
+      "tin": "600-00-6060",
+      "scheduleEicLine4aNo": false,
+      "eligibleDependent": true,
+      "relationship": "biologicalChild",
+      "ssnNotValidForEmployment": false
+    }
+  ],
+  "filers": [
+    {
+      "firstName": "Jerry",
+      "lastName": "Seinfeld",
+      "middleInitial": null,
+      "tin": "400-00-0021",
+      "dateOfBirth": "1960-01-01",
+      "suffix": null,
+      "isPrimaryFiler": false,
+      "ssnNotValidForEmployment": null
+    },
+    {
+      "lastName": "Kramer",
+      "firstName": "Cosmo",
+      "middleInitial": null,
+      "tin": "300-00-0020",
+      "dateOfBirth": "1955-03-09",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "interestReports": [
+    {
+      "has1099": true,
+      "taxExemptAndTaxCreditBondCusipNo": null,
+      "interestOnGovernmentBonds": "10000.00",
+      "payerTin": null,
+      "recipientTin": "300-00-0020",
+      "payer": "Marlboro Victims Fund",
+      "taxWithheld": "0.00",
+      "no1099Amount": null,
+      "1099Amount": "10008.00"
+    },
+    {
+      "has1099": true,
+      "taxExemptAndTaxCreditBondCusipNo": null,
+      "payerTin": null,
+      "recipientTin": "400-00-0021",
+      "payer": "Yankee Stadium",
+      "no1099Amount": null,
+      "taxWithheld": "0.00",
+      "1099Amount": "20010.00"
+    },
+    {
+      "has1099": true,
+      "taxExemptAndTaxCreditBondCusipNo": null,
+      "payerTin": null,
+      "payer": "Soup Nazi Investments",
+      "recipientTin": "300-00-0020",
+      "taxWithheld": "0.00",
+      "no1099Amount": null,
+      "1099Amount": "20007.00"
+    },
+    {
+      "has1099": true,
+      "taxExemptAndTaxCreditBondCusipNo": null,
+      "interestOnGovernmentBonds": "100.00",
+      "payerTin": null,
+      "recipientTin": "300-00-0020",
+      "payer": "Serenity Now Computers",
+      "1099Amount": "19909.00",
+      "taxWithheld": "0.00",
+      "no1099Amount": null
+    }
+  ]
+}

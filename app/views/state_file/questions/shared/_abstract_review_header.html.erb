@@ -1,6 +1,10 @@
 <h1 class="h2" id="main-question"><%= t(".title") %></h1>
 
 <div class="review-header">
+  <div class="notice">
+    <%= t(".amount_rounding_notice_html", state_agency_name: StateFile::StateInformationService.department_of_taxation(current_state_code)) %>
+  </div>
+
   <% if @refund_or_owed_amount == 0 %>
     <div class="white-group">
       <h2 class="text--body text--bold">
@@ -19,10 +23,10 @@
     </div>
   <% end %>
 
+  <div class="spacing-below-25">
+    <h2 class="text--body text--bold spacing-below-5"><%=t(".household_info") %></h2>
+  </div>
   <div id="household-info" class="white-group">
-    <div class="spacing-below-25">
-      <h2 class="text--body text--bold spacing-below-5"><%=t(".household_info") %></h2>
-    </div>
     <div class="spacing-below-5">
       <h3 class="text--body text--bold spacing-below-5"><%=t(".your_name") %></h3>
       <p><%=current_intake.primary.full_name %></p>

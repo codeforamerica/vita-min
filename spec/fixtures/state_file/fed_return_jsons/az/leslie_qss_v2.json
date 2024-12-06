@@ -9,7 +9,8 @@
       "relationship": "biologicalChild",
       "eligibleDependent": true,
       "isClaimedDependent": true,
-      "monthsLivedWithTPInUS": "twelve"
+      "monthsLivedWithTPInUS": "twelve",
+      "residencyDuration": "allYear"
     }
   ],
   "filers": [
