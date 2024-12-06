@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v4.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>dcf46c78</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400003031</PrimarySSN>
+            <SpouseSSN>400003032</SpouseSSN>
+            <NameLine1Txt>ARIEL M&lt;MERMAID&lt;&amp; ERIC H PRINCE</NameLine1Txt>
+            <PrimaryNameControlTxt>MERM</PrimaryNameControlTxt>
+            <SpouseNameControlTxt>PRIN</SpouseNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>515 LOOK AT THIS STUFF LANE</AddressLine1Txt>
+                <CityNm>GRANTSVILLE</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21536</ZIPCd>
+            </USAddress>
+            <PhoneNum>9702225555</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000303-1cf8-485b-b725-b0fff15f55a0@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="3">
+        <IRS1040 documentId="IRS10400001">
+            <Form1040SRInd>X</Form1040SRInd>
+            <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <Primary65OrOlderInd>X</Primary65OrOlderInd>
+            <Spouse65OrOlderInd>X</Spouse65OrOlderInd>
+            <TotalBoxesCheckedCnt>2</TotalBoxesCheckedCnt>
+            <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>2</TotalExemptionsCnt>
+            <TotalAdditionalIncomeAmt>53020</TotalAdditionalIncomeAmt>
+            <TotalIncomeAmt>53020</TotalIncomeAmt>
+            <TotalAdjustmentsAmt>2500</TotalAdjustmentsAmt>
+            <AdjustedGrossIncomeAmt>50520</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>32300</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>32300</TotalDeductionsAmt>
+            <TaxableIncomeAmt>18220</TaxableIncomeAmt>
+            <TaxAmt>1823</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>1823</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>1823</TaxLessCreditsAmt>
+            <TotalTaxAmt>1823</TotalTaxAmt>
+            <Form1099WithheldTaxAmt referenceDocumentId="OTHERWITHHOLDING0001" referenceDocumentName="OtherWithholdingStatement">4000</Form1099WithheldTaxAmt>
+            <WithholdingTaxAmt>4000</WithholdingTaxAmt>
+            <TotalPaymentsAmt>4000</TotalPaymentsAmt>
+            <OverpaidAmt>2177</OverpaidAmt>
+            <RefundAmt>2177</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>HOARDER</PrimaryOccupationTxt>
+            <SpouseOccupationTxt>SAILOR</SpouseOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1040Schedule1 documentId="IRS1040S1001">
+            <UnemploymentCompAmt>53020</UnemploymentCompAmt>
+            <TotalAdditionalIncomeAmt>53020</TotalAdditionalIncomeAmt>
+            <StudentLoanInterestDedAmt>2500</StudentLoanInterestDedAmt>
+            <TotalAdjustmentsAmt>2500</TotalAdjustmentsAmt>
+        </IRS1040Schedule1>
+        <OtherWithholdingStatement documentId="OTHERWITHHOLDING0001" documentName="OtherWithholdingStatement">
+            <OtherWithholdingStmt>
+                <WithholdingCd>FORM 1099</WithholdingCd>
+                <EIN>522006962</EIN>
+                <WithholdingAmt>4000</WithholdingAmt>
+            </OtherWithholdingStmt>
+        </OtherWithholdingStatement>
+    </ReturnData>
+</Return>
