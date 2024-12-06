@@ -49,7 +49,7 @@ module SubmissionBuilder
           end
           xml.USAddress do |xml|
             if @submission.data_source.extract_apartment_from_mailing_street?
-              process_address(xml)
+              extract_apartment_from_mailing_street(xml)
             else
               xml.AddressLine1Txt sanitize_for_xml(@submission.data_source.direct_file_data.mailing_street, 35) if @submission.data_source.direct_file_data.mailing_street.present?
               xml.AddressLine2Txt sanitize_for_xml(@submission.data_source.direct_file_data.mailing_apartment, 35) if @submission.data_source.direct_file_data.mailing_apartment.present?

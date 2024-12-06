@@ -114,14 +114,14 @@ module SubmissionBuilder
       end
     end
 
-    def process_address(xml)
+    def extract_apartment_from_mailing_street(xml)
       return unless @submission.data_source.direct_file_data.mailing_street.present?
 
       mailing_street = sanitize_for_xml(@submission.data_source.direct_file_data.mailing_street)
       key_position = mailing_street.index(ADDRESS_ABBREV_REGEX)
 
       if key_position
-        truncated_mailing_street = mailing_street[0, key_position].rstrip
+        truncated_mailing_street = mailing_street[0...key_position].rstrip
         excess_characters = mailing_street[key_position..].lstrip
 
         xml.AddressLine1Txt sanitize_for_xml(truncated_mailing_street, 35)
