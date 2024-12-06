@@ -451,6 +451,27 @@ describe Efile::Md::Md502Calculator do
   end
 
   describe "#calculate_deduction_method" do
+    context "when claimed as dependent" do
+      before do
+        allow_any_instance_of(DirectFileData).to receive(:claimed_as_dependent?).and_return true
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_7).and_return 1000
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_15).and_return 500
+        intake.direct_file_data.fed_agi = 16600
+        intake.direct_file_data.fed_taxable_ssb = 0
+      end
+
+      it "calculates gross income with line 7 and line 15" do
+        instance.calculate
+        expect(instance.lines[:MD502_DEDUCTION_METHOD].value).to eq "S"
+      end
+
+      it "returns N when calculated amount is below minimum" do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_7).and_return 0
+        instance.calculate
+        expect(instance.lines[:MD502_DEDUCTION_METHOD].value).to eq "N"
+      end
+    end
+
     context "taxpayers under 65" do
       let(:primary_birth_date) { 40.years.ago }
       let(:spouse_birth_date) { 41.years.ago }
