@@ -583,7 +583,7 @@ describe Efile::Md::Md502Calculator do
           end
 
           it "returns N" do
-            instance.calculateinstance.calculate
+            instance.calculate
             expect(instance.lines[:MD502_DEDUCTION_METHOD].value).to eq "N"
           end
         end
