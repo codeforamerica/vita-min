@@ -51,7 +51,7 @@ module Efile
         set_line(:NJ1040_LINE_49, :calculate_line_49)
         set_line(:NJ1040_LINE_50, :calculate_line_50)
         set_line(:NJ1040_LINE_51, :calculate_line_51)
-        set_line(:NJ1040_LINE_53C_CHECKBOX, :calculate_line_53c_checkbox)
+        set_line(:NJ1040_LINE_53C_CHECKBOX, :line_53c_checkbox)
         set_line(:NJ1040_LINE_54, :calculate_line_54)
         set_line(:NJ1040_LINE_55, :calculate_line_55)
         set_line(:NJ1040_LINE_56, :calculate_line_56)
@@ -246,6 +246,10 @@ module Efile
         line_or_zero(:NJ1040_LINE_12_COUNT) * 1_000
       end
 
+      def line_53c_checkbox
+        @intake.eligibility_all_members_health_insurance_yes?
+      end
+
       def line_59_primary
         get_personal_excess(@intake.primary.ssn, :box14_ui_wf_swf, EXCESS_UI_WF_SWF_MAX) +
           get_personal_excess(@intake.primary.ssn, :box14_ui_hc_wd, EXCESS_UI_WF_SWF_MAX)
@@ -372,10 +376,6 @@ module Efile
 
       def calculate_line_51
         (@intake.sales_use_tax || 0).round
-      end
-
-      def calculate_line_53c_checkbox
-        @intake.eligibility_all_members_health_insurance_yes?
       end
 
       def calculate_line_54
