@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v4.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>1cfaf0d2</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400006301</PrimarySSN>
+            <NameLine1Txt>TEST ONE&lt;TOGO</NameLine1Txt>
+            <PrimaryNameControlTxt>TOGO</PrimaryNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>1 Test Scenario St</AddressLine1Txt>
+                <CityNm>Mercerville</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>08619</ZIPCd>
+            </USAddress>
+            <PhoneNum>2015551111</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000630-1c2a-4fbc-a778-ae6965febaa0@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="2">
+        <IRS1040 documentId="IRS10400001">
+            <IndividualReturnFilingStatusCd>1</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>1</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">3200</WagesAmt>
+            <WagesSalariesAndTipsAmt>3200</WagesSalariesAndTipsAmt>
+            <TaxableInterestAmt>520</TaxableInterestAmt>
+            <TotalIncomeAmt>3720</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>3720</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>14600</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>14600</TotalDeductionsAmt>
+            <TaxableIncomeAmt>0</TaxableIncomeAmt>
+            <TaxAmt>0</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>0</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>0</TaxLessCreditsAmt>
+            <TotalTaxAmt>0</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>400</FormW2WithheldTaxAmt>
+            <WithholdingTaxAmt>400</WithholdingTaxAmt>
+            <TotalPaymentsAmt>400</TotalPaymentsAmt>
+            <OverpaidAmt>400</OverpaidAmt>
+            <RefundAmt>400</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Test Taker</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>400006301</EmployeeSSN>
+            <EmployerEIN>001234567</EmployerEIN>
+            <EmployerNameControlTxt>TESS</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Tessellation Industries</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>1 Tessellation Street</AddressLine1Txt>
+                <CityNm>Newark</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07101</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Test One ToGo</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>1 Test Scenario St</AddressLine1Txt>
+                <CityNm>Mercerville</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>08619</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>3200</WagesAmt>
+            <WithholdingAmt>400</WithholdingAmt>
+            <SocialSecurityWagesAmt>3200</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>300</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>3200</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>200</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                    <EmployerStateIdNum>1234567</EmployerStateIdNum>
+                    <StateWagesAmt>3200</StateWagesAmt>
+                    <StateIncomeTaxAmt>250</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>
