@@ -112,7 +112,10 @@ module StateFile
         intake_class: StateFileMdIntake,
         calculator_class: Efile::Md::Md502Calculator,
         filing_years: [2024],
-        mail_voucher_address: "".html_safe,
+        mail_voucher_address: "Comptroller of Maryland<br/>" \
+          "Payment Processing<br/>" \
+          "PO Box 8888<br/>" \
+          "Annapolis, MD 21401-8888".html_safe,
         navigation_class: Navigation::StateFileMdQuestionNavigation,
         pay_taxes_link: "",
         return_type: "Form502",
@@ -127,7 +130,7 @@ module StateFile
         department_of_taxation: "Comptroller of Maryland",
         timezone: 'America/New_York',
         vita_link: "",
-        voucher_form_name: "",
+        voucher_form_name: "Form PV",
         voucher_path: "",
         w2_supported_box14_codes: ["STPICKUP"],
         w2_include_local_income_boxes: true
@@ -148,9 +151,9 @@ module StateFile
         submission_builder_class: SubmissionBuilder::Ty2024::States::Nc::NcReturnXml,
         survey_link: "",
         tax_payment_info_url: "",
-        tax_payment_url: "",
+        tax_payment_url: "NCDOR.gov",
         tax_refund_url: "https://eservices.dor.nc.gov/wheresmyrefund/SelectionServlet",
-        department_of_taxation: "",
+        department_of_taxation: "N.C. Department of Revenue",
         timezone: 'America/New_York',
         vita_link: "",
         voucher_form_name: "Form D-400V",
