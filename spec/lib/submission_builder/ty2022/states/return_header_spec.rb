@@ -229,7 +229,7 @@ describe SubmissionBuilder::ReturnHeader do
 
     context "single filer" do
       let(:filing_status) { "single" }
-      
+
       it "generates xml with primary signature PIN only" do
         expect(doc.at('Filer Primary TaxpayerPIN').content).to eq primary_signature_pin
         expect(doc.at('Filer Secondary TaxpayerPIN')).not_to be_present
@@ -257,6 +257,34 @@ describe SubmissionBuilder::ReturnHeader do
       it "it correctly signs with the date of the correct timezone when the filer esigns after midnight UTC but not after midnight in the State's timezone" do
         expect(doc.at('Filer Primary DateSigned').content).to eq tomorrow_midnight.in_time_zone("America/New_York").strftime("%Y-%m-%d")
         expect(doc.at('Filer Secondary DateSigned').content).to eq tomorrow_midnight.in_time_zone("America/New_York").strftime("%Y-%m-%d")
+      end
+    end
+  end
+
+  context "Disaster relief" do
+    let(:submission) { create(:efile_submission, data_source: intake) }
+    let(:doc) { SubmissionBuilder::ReturnHeader.new(submission).document }
+
+    context "NC intake" do
+      let(:intake) {
+        create(
+          :state_file_nc_intake,
+          residence_county: "001", # Alamance county - non designated
+          moved_after_hurricane_helene: "yes",
+          county_during_hurricane_helene: "011" # Buncombe county - designated
+        )
+      }
+
+      it "generates the return header with the DisasterReliefTxt xml" do
+        expect(doc.at('DisasterReliefTxt')).to be_present
+        expect(doc.at('DisasterReliefTxt').content).to eq "Alamance_Helene;Buncombe_Helene"
+      end
+    end
+
+    context "AZ intake" do
+      let(:intake) { create(:state_file_az_intake,) }
+      it "does not include disaster relief xml" do
+        expect(doc.at('DisasterReliefTxt')).not_to be_present
       end
     end
   end

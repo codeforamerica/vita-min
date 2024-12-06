@@ -3,11 +3,15 @@
   <%= render "review_header" %>
 
   <div id="nc-county" class="white-group">
-      <div class="spacing-below-5">
-        <p class="text--bold spacing-below-5"><%= t("state_file.questions.review.county", filing_year: current_tax_year) %></p>
-        <p><%=  current_intake.residence_county_name %></p>
-        <%= link_to t("general.edit"), StateFile::Questions::NcCountyController.to_path_helper(return_to_review: "y"), class: "button--small" %>
-      </div>
+    <div class="spacing-below-5">
+      <p class="text--bold spacing-below-5"><%= t("state_file.questions.review.county", filing_year: current_tax_year) %></p>
+      <p><%= current_intake.residence_county_name %></p>
+      <% if current_intake.county_during_hurricane_helene.present? && current_intake.moved_after_hurricane_helene_yes? %>
+        <p class="text--bold spacing-below-5"><%= t("state_file.questions.review.county_during_hurricane", filing_year: current_tax_year) %></p>
+        <p><%= StateFileNcIntake::COUNTIES[current_intake.county_during_hurricane_helene] %></p>
+      <% end %>
+      <%= link_to t("general.edit"), StateFile::Questions::NcCountyController.to_path_helper(return_to_review: "y"), class: "button--small" %>
+    </div>
   </div>
 
   <div id="veteran-status" class="white-group">

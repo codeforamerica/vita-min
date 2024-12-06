@@ -5,6 +5,7 @@ module StateFile
 
     def set_ivars
       @counties = current_intake.counties_for_select
+      @designated_hurricane_relief_counties = NcResidenceCountyConcern.designated_hurricane_relief_counties
     end
   end
 end

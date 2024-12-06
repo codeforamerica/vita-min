@@ -10,7 +10,9 @@ RSpec.describe StateFile::Questions::NcCountyController do
       let(:form_params) do
         {
           state_file_nc_county_form: {
-            residence_county: "001"
+            residence_county: "001",
+            moved_after_hurricane_helene: "yes",
+            county_during_hurricane_helene: "011"
           }
         }
       end

@@ -35,6 +35,15 @@ module NcResidenceCountyConcern
     # "101" => "Out-of-State"
   }
 
+  def self.designated_hurricane_relief_counties
+    counties = %w[Alexander Alleghany Ashe Avery Buncombe Burke Cabarrus Caldwell Catawba Cherokee Clay Cleveland Forsyth Gaston Graham Haywood Henderson Iredell Jackson Lee Lincoln Macon Madison McDowell Mecklenburg Mitchell Nash Polk Rowan Rutherford Stanly Surry Swain Transylvania Union Watauga Wilkes Yadkin Yancey]
+    COUNTIES.select { |code, name| counties.include?(name) }.keys
+  end
+
+  def self.designated_hurricane_county?(county_code)
+    self.designated_hurricane_relief_counties.include?(county_code)
+  end
+
   # Convenient hash to see both code and name
   def residence_county_hash
     {
