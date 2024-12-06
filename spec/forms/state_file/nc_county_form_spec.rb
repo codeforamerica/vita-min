@@ -18,4 +18,6 @@ RSpec.describe StateFile::NcCountyForm, type: :model do
       expect { form.save }.to change(intake, :residence_county).to("002")
     end
   end
+
+  # add validations
 end
