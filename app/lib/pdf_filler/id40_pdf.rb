@@ -90,7 +90,7 @@ module PdfFiller
                          'DirectDepositL57Route' => @xml_document.at('RoutingTransitNumber')&.text,
                          'DirectDepositL57Acct' => @xml_document.at('BankAccountNumber')&.text,
                          'DirectDepositChecking' => @xml_document.at('Checking')&.text == "X" ? 'Yes' : 'Off',
-                         'DirectDepositSavings' => 'Yes'
+                         'DirectDepositSavings' => @xml_document.at('Savings')&.text == "X" ? 'Yes' : 'Off',
                        })
       end
       if @xml_document.at('WildlifeDonation').present?
