@@ -9,7 +9,7 @@ module SubmissionBuilder
             include SubmissionBuilder::FormattingMethods
 
             def document
-              build_xml_doc("Form502R") do |xml|
+              build_xml_doc("Form502R", documentId: "Form502R") do |xml|
               end
             end
 

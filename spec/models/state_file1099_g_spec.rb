@@ -77,6 +77,15 @@ RSpec.describe StateFile1099G do
       state_income_tax_withheld_amount: '0',
       ) }
 
+    it "validates recipient" do
+      state_file_1099.recipient = 'unfilled'
+      expect(state_file_1099.save).to eq false
+      state_file_1099.recipient = 'spouse'
+      expect(state_file_1099.save).to eq true
+      state_file_1099.recipient = 'primary'
+      expect(state_file_1099.save).to eq true
+    end
+
     it "validates unemployment_compensation_amount" do
       state_file_1099.unemployment_compensation_amount = nil
       expect(state_file_1099.save).to eq false

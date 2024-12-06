@@ -13,7 +13,7 @@ module SubmissionBuilder
           end
 
           def build_xml_doc_tag
-            "ReturnState"
+            "efile:ReturnState"
           end
 
           def state_schema_version
