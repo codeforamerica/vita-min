@@ -12,7 +12,6 @@ module StateFile
         unless @az322_contributions.present?
           build_contribution
           render :new
-          # redirect_to action: :new, return_to_review: params[:return_to_review]
         end
       end
 
