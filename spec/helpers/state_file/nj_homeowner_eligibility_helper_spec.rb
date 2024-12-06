@@ -20,6 +20,13 @@ describe StateFile::NjHomeownerEligibilityHelper do
           expect(described_class.determine_eligibility(intake)).to eq(described_class::INELIGIBLE)
         end
       end
+
+      context "when neither rents nor owns household" do
+        let(:intake) { create :state_file_nj_intake, household_rent_own: "neither" }
+        it "returns ineligible" do
+          expect(described_class.determine_eligibility(intake)).to eq(described_class::INELIGIBLE)
+        end
+      end
     end
 
     describe "soft no unsupported states" do
@@ -43,6 +50,13 @@ describe StateFile::NjHomeownerEligibilityHelper do
                  homeowner_main_home_multi_unit_max_four_one_commercial: "yes",
                  homeowner_main_home_multi_unit: "yes"
         }
+        it "returns unsupported" do
+          expect(described_class.determine_eligibility(intake)).to eq(described_class::UNSUPPORTED)
+        end
+      end
+
+      context "when both rents and owns household" do
+        let(:intake) { create :state_file_nj_intake, household_rent_own: "both" }
         it "returns unsupported" do
           expect(described_class.determine_eligibility(intake)).to eq(described_class::UNSUPPORTED)
         end
@@ -129,9 +143,3 @@ describe StateFile::NjHomeownerEligibilityHelper do
     end
   end
 end
-
-
-
-
-
-

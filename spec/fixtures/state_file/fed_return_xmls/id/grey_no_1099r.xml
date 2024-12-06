@@ -4,7 +4,7 @@
         <TaxYr>2024</TaxYr>
         <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
         <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
-        <SoftwareVersionNum>676c5f98</SoftwareVersionNum>
+        <SoftwareVersionNum>dcf46c78</SoftwareVersionNum>
         <ReturnTypeCd>1040</ReturnTypeCd>
         <Filer>
             <PrimarySSN>400005952</PrimarySSN>
@@ -13,8 +13,8 @@
             <PrimaryNameControlTxt>GREY</PrimaryNameControlTxt>
             <SpouseNameControlTxt>GREY</SpouseNameControlTxt>
             <USAddress>
-                <AddressLine1Txt>PO BOX 342</AddressLine1Txt>
-                <CityNm>MACKAY</CityNm>
+                <AddressLine1Txt>PO Box 342</AddressLine1Txt>
+                <CityNm>Mackay</CityNm>
                 <StateAbbreviationCd>ID</StateAbbreviationCd>
                 <ZIPCd>83251</ZIPCd>
             </USAddress>
@@ -22,11 +22,11 @@
         </Filer>
         <AdditionalFilerInformation>
             <AtSubmissionFilingGrp>
-                <EmailAddressTxt>test-user+40000595-2163-4c82-b18a-481eccfbf59c@directfile.test</EmailAddressTxt>
+                <EmailAddressTxt>test-user+40000595-2025-4023-a763-3accdd55feb9@directfile.test</EmailAddressTxt>
             </AtSubmissionFilingGrp>
         </AdditionalFilerInformation>
     </ReturnHeader>
-    <ReturnData documentCnt="2">
+    <ReturnData documentCnt="3">
         <IRS1040 documentId="IRS10400001">
             <Form1040SRInd>X</Form1040SRInd>
             <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
@@ -38,28 +38,26 @@
             <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
             <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
             <TotalExemptionsCnt>2</TotalExemptionsCnt>
-            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">40000</WagesAmt>
-            <WagesSalariesAndTipsAmt>40000</WagesSalariesAndTipsAmt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">50000</WagesAmt>
+            <WagesSalariesAndTipsAmt>50000</WagesSalariesAndTipsAmt>
             <SocSecBnftAmt>15000</SocSecBnftAmt>
-            <TaxableSocSecAmt>8975</TaxableSocSecAmt>
-            <TotalIncomeAmt>48975</TotalIncomeAmt>
-            <AdjustedGrossIncomeAmt>48975</AdjustedGrossIncomeAmt>
+            <TaxableSocSecAmt>12750</TaxableSocSecAmt>
+            <TotalIncomeAmt>62750</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>62750</AdjustedGrossIncomeAmt>
             <TotalItemizedOrStandardDedAmt>32300</TotalItemizedOrStandardDedAmt>
             <TotalDeductionsAmt>32300</TotalDeductionsAmt>
-            <TaxableIncomeAmt>16675</TaxableIncomeAmt>
-            <TaxAmt>1668</TaxAmt>
-            <TotalTaxBeforeCrAndOthTaxesAmt>1668</TotalTaxBeforeCrAndOthTaxesAmt>
-            <TaxLessCreditsAmt>1668</TaxLessCreditsAmt>
-            <TotalTaxAmt>1668</TotalTaxAmt>
+            <TaxableIncomeAmt>30450</TaxableIncomeAmt>
+            <TaxAmt>3193</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>3193</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>3193</TaxLessCreditsAmt>
+            <TotalTaxAmt>3193</TotalTaxAmt>
             <FormW2WithheldTaxAmt>2000</FormW2WithheldTaxAmt>
             <WithholdingTaxAmt>2000</WithholdingTaxAmt>
             <TotalPaymentsAmt>2000</TotalPaymentsAmt>
-            <OverpaidAmt>332</OverpaidAmt>
-            <RefundAmt>332</RefundAmt>
-            <OwedAmt>0</OwedAmt>
+            <OwedAmt>1193</OwedAmt>
             <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
-            <PrimaryOccupationTxt>ASL INSTRUCTOR</PrimaryOccupationTxt>
-            <SpouseOccupationTxt>ARTIST</SpouseOccupationTxt>
+            <PrimaryOccupationTxt>ASL Instructor</PrimaryOccupationTxt>
+            <SpouseOccupationTxt>Artist</SpouseOccupationTxt>
             <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
         </IRS1040>
         <IRSW2 documentId="W20001" documentName="IRSW2">
@@ -67,18 +65,18 @@
             <EmployerEIN>678912345</EmployerEIN>
             <EmployerNameControlTxt>NEUT</EmployerNameControlTxt>
             <EmployerName>
-                <BusinessNameLine1Txt>NEUTRAL PALETTE INC</BusinessNameLine1Txt>
+                <BusinessNameLine1Txt>Neutral Palette Inc</BusinessNameLine1Txt>
             </EmployerName>
             <EmployerUSAddress>
-                <AddressLine1Txt>300 FAKE ROAD</AddressLine1Txt>
-                <CityNm>BOISE</CityNm>
+                <AddressLine1Txt>300 Fake Road</AddressLine1Txt>
+                <CityNm>Boise</CityNm>
                 <StateAbbreviationCd>ID</StateAbbreviationCd>
                 <ZIPCd>83638</ZIPCd>
             </EmployerUSAddress>
-            <EmployeeNm>AMBER GREY</EmployeeNm>
+            <EmployeeNm>Amber Grey</EmployeeNm>
             <EmployeeUSAddress>
-                <AddressLine1Txt>PO BOX 342</AddressLine1Txt>
-                <CityNm>MACKAY</CityNm>
+                <AddressLine1Txt>PO Box 342</AddressLine1Txt>
+                <CityNm>Mackay</CityNm>
                 <StateAbbreviationCd>ID</StateAbbreviationCd>
                 <ZIPCd>83251</ZIPCd>
             </EmployeeUSAddress>
@@ -93,11 +91,18 @@
                     <StateAbbreviationCd>ID</StateAbbreviationCd>
                     <EmployerStateIdNum>12345</EmployerStateIdNum>
                     <StateWagesAmt>50000</StateWagesAmt>
-                    <StateIncomeTaxAmt>0</StateIncomeTaxAmt>
                     <W2LocalTaxGrp/>
                 </W2StateTaxGrp>
             </W2StateLocalTaxGrp>
             <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
         </IRSW2>
+        <IRSPayment documentId="IRSPayment001">
+            <RoutingTransitNum>124103799</RoutingTransitNum>
+            <BankAccountNum>013219292</BankAccountNum>
+            <BankAccountTypeCd>1</BankAccountTypeCd>
+            <PaymentAmt>1193</PaymentAmt>
+            <RequestedPaymentDt>2025-04-08</RequestedPaymentDt>
+            <TaxpayerDaytimePhoneNum>2223334444</TaxpayerDaytimePhoneNum>
+        </IRSPayment>
     </ReturnData>
 </Return>

@@ -190,4 +190,8 @@ class StateFileMdIntake < StateFileBaseIntake
   def filing_status_dependent?
     filing_status == :dependent
   end
+
+  def extract_apartment_from_mailing_street?
+    true
+  end
 end
