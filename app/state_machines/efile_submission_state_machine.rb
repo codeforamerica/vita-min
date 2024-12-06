@@ -106,7 +106,7 @@ class EfileSubmissionStateMachine
       &.last
       &.efile_errors
 
-    if errors.any?(&:auto_cancel)
+    if errors&.any?(&:auto_cancel)
       StateFile::AfterTransitionMessagingService.new(submission).send_efile_submission_terminal_rejected_message
     else
       StateFile::AfterTransitionMessagingService.new(submission).send_efile_submission_rejected_message
