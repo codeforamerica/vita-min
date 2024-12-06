@@ -146,6 +146,7 @@ RSpec.describe PdfFiller::Id40Pdf do
           expect(pdf_fields['SpouseFirstNameInitial']).to eq 'Spida'
           expect(pdf_fields['SpouseLastName']).to eq 'Spidahoan'
           expect(pdf_fields['SpouseSSN']).to eq '600000030'
+          expect(pdf_fields['SpouseDeceased 2']).to eq 'Off'
           expect(pdf_fields['FilingStatusMarriedJoint']).to eq 'Yes'
           expect(pdf_fields['FilingStatusSingle']).to eq 'Off'
           expect(pdf_fields['FilingStatusMarriedSeparate']).to eq 'Off'
@@ -168,6 +169,16 @@ RSpec.describe PdfFiller::Id40Pdf do
           expect(pdf_fields['L12aSpouse']).to eq 'Yes'
           expect(pdf_fields['L12bYourself']).to eq 'Off'
           expect(pdf_fields['L12bSpouse']).to eq 'Yes'
+        end
+      end
+
+      context 'when spouse is deceased' do
+        before do
+          allow(intake).to receive(:spouse_deceased?).and_return(true)
+        end
+
+        it "checks the indicator" do
+          expect(pdf_fields['SpouseDeceased 2']).to eq 'Yes'
         end
       end
     end
