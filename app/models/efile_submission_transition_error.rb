@@ -20,6 +20,7 @@
 class EfileSubmissionTransitionError < ApplicationRecord
   belongs_to :efile_error
   belongs_to :efile_submission_transition
+  belongs_to :efile_submission
   belongs_to :dependent, optional: true
 
   delegate_missing_to :efile_error

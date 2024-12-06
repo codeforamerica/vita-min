@@ -22,6 +22,9 @@ class EfileError < ApplicationRecord
   has_rich_text :resolution_en
   has_rich_text :resolution_es
 
+  has_one :efile_submission_transition_error
+  has_one :efile_submission, through: :efile_submission_transition_error
+
   state_enum_options = StateFile::StateInformationService.active_state_codes.to_h do |state_code, _|
     int_value = state_code.bytes.join.to_i
     ["state_file_#{state_code}", int_value]

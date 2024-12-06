@@ -32,6 +32,8 @@ class EfileSubmission < ApplicationRecord
   has_many :efile_submission_transitions, -> { order(id: :asc) }, class_name: "EfileSubmissionTransition", autosave: false, dependent: :destroy
   has_one_attached :submission_bundle
   validates :irs_submission_id, format: { with: /\A[0-9]{6}[0-9]{7}[0-9a-z]{7}\z/ }, presence: true, uniqueness: true, allow_nil: true
+  has_one :efile_submission_transition_error
+  has_one :efile_error, through: :efile_submission_transition_error
 
   include Statesman::Adapters::ActiveRecordQueries[
     transition_class: EfileSubmissionTransition,
