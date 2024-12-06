@@ -1,6 +1,10 @@
 <% content_for :page_title, @title %>
 <% content_for :card do %>
-  <%= render @return_status, filing_year: current_tax_year %>
+  <% if app_time.before?(Rails.configuration.state_file_end_of_in_progress_intakes) %>
+    <%= render @return_status, filing_year: current_tax_year %>
+  <% else %>
+    <%= render "intake_closed" %>
+  <% end %>
 
   <% if !@error&.auto_wait || app_time.after?(Rails.configuration.state_file_end_of_in_progress_intakes) && @submission_to_show.present? %>
     <%= link_to t('.download_state_return_pdf'), StateFile::Questions::SubmissionPdfsController.to_path_helper(action: :show, id: @submission_to_show.id), class: "button button--primary button--wide spacing-above-60" %>
