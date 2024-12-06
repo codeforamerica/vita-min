@@ -24,6 +24,7 @@ RSpec.feature "editing direct file XML with the FederalInfoController", active_j
     check "Email"
     check "Text message"
     fill_in "Your phone number", with: "+12025551212"
+    fill_in "Your email address", with: "test@example.org"
     click_on "Continue"
 
     expect(page).to have_text I18n.t('state_file.questions.sms_terms.edit.title')
@@ -56,6 +57,7 @@ RSpec.feature "editing direct file XML with the FederalInfoController", active_j
     check "Email"
     check "Text message"
     fill_in "Your phone number", with: "+12025551212"
+    fill_in "Your email address", with: "test@example.org"
     click_on "Continue"
 
     expect(page).to have_text I18n.t('state_file.questions.sms_terms.edit.title')
@@ -153,6 +155,7 @@ RSpec.feature "editing direct file XML with the FederalInfoController", active_j
     check "Email"
     check "Text message"
     fill_in "Your phone number", with: "+12025551212"
+    fill_in "Your email address", with: "test@example.org"
     click_on "Continue"
 
     expect(page).to have_text I18n.t('state_file.questions.sms_terms.edit.title')

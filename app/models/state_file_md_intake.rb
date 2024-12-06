@@ -204,4 +204,8 @@ class StateFileMdIntake < StateFileBaseIntake
       "#{self.permanent_street}#{apt}, #{self.permanent_city} MD, #{self.permanent_zip}"
     end
   end
+
+  def extract_apartment_from_mailing_street?
+    true
+  end
 end

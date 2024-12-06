@@ -242,6 +242,10 @@ class StateFileBaseIntake < ApplicationRecord
     true
   end
 
+  def extract_apartment_from_mailing_street?
+    false
+  end
+
   def ask_spouse_esign?
     filing_status_mfj? && !spouse_deceased?
   end

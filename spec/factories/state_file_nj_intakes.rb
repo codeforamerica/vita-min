@@ -116,6 +116,11 @@ FactoryBot.define do
       filing_status { 'single' }
     end
 
+    payment_or_deposit_type { "direct_deposit" }
+    routing_number { "011234567" }
+    account_number { "123456789" }
+    account_type { 1 }
+
     raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("nj_zeus_one_dep") }
     raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_zeus_one_dep') }
     df_data_import_succeeded_at { DateTime.now }
