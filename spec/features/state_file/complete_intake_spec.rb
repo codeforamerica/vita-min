@@ -112,7 +112,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text "Good news, you're getting a New York state tax refund of $1468. How would you like to receive your refund?"
+      expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.tax_refund.edit.title_html", state_name: "New York", refund_amount: 1468))
       expect(page).not_to have_text "Your responses are saved. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org."
       choose I18n.t("state_file.questions.tax_refund.edit.mail")
       click_on I18n.t("general.continue")
@@ -254,7 +254,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text "Good news, you're getting a Arizona state tax refund of $1239. How would you like to receive your refund?"
+      expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.tax_refund.edit.title_html", state_name: "Arizona", refund_amount: 1239))
       expect(page).not_to have_text "Your responses are saved. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org."
 
       choose I18n.t("state_file.questions.tax_refund.edit.direct_deposit")
@@ -477,7 +477,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("general.continue")
 
       # Refund page
-      expect(page).to have_text "Good news, you're getting a Idaho state tax refund of $1452. How would you like to receive your refund?"
+      expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.tax_refund.edit.title_html", state_name: "Idaho", refund_amount: 1452))
       expect(page).not_to have_text "Your responses are saved. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org."
       choose I18n.t("state_file.questions.tax_refund.edit.mail")
       click_on I18n.t("general.continue")
