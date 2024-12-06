@@ -81,10 +81,10 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
           expect(response.body).to have_text "Unemployment benefits (1099-G)"
           expect(response.body).to have_text "Payeur"
           expect(response.body).to have_text "Filer Oftaxes"
-          expect(response.body).to have_link(href: edit_unemployment_path(id: primary_1099g.id))
+          expect(response.body).to have_link(href: unemployment_index_path(id: primary_1099g.id))
           expect(response.body).to have_text "Payure"
           expect(response.body).to have_text "Mary Taxfiler"
-          expect(response.body).to have_link(href: edit_unemployment_path(id: spouse_1099g.id))
+          expect(response.body).to have_link(href: unemployment_index_path(id: spouse_1099g.id))
         end
       end
 
