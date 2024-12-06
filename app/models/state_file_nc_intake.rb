@@ -103,8 +103,17 @@ class StateFileNcIntake < StateFileBaseIntake
   enum eligibility_ed_loan_emp_payment: { no: 0, yes: 1 }, _prefix: :eligibility_ed_loan_emp_payment
 
   attr_accessor :nc_eligiblity_none
+  before_save :sanitize_county_details
 
-  # TODO: clear moved_after_hurricane_helene and county_during_hurricane_helene values
+  def sanitize_county_details
+    if NcResidenceCountyConcern.designated_hurricane_county?(residence_county)
+      self.moved_after_hurricane_helene = "unfilled"
+    end
+
+    unless moved_after_hurricane_helene_yes?
+      self.county_during_hurricane_helene = nil
+    end
+  end
 
   def calculate_sales_use_tax
     nc_taxable_income = calculator.lines[:NCD400_LINE_14].value
@@ -113,9 +122,9 @@ class StateFileNcIntake < StateFileBaseIntake
 
   def disaster_relief_county
     disaster_relief_code = "#{residence_county_name}_Helene"
-    designated_county_during_helene = NcResidenceCountyConcern.designated_hurricane_relief_counties.include?(county_during_hurricane_helene)
+    designated_county_during_helene = NcResidenceCountyConcern.designated_hurricane_county?(county_during_hurricane_helene)
 
-    if designated_county_during_helene
+    if designated_county_during_helene && moved_after_hurricane_helene_yes?
       disaster_relief_code += ";#{COUNTIES[county_during_hurricane_helene]}_Helene"
     end
 

@@ -95,6 +95,38 @@ RSpec.describe StateFileNcIntake, type: :model do
     end
   end
 
+  describe "#sanitize_county_details" do
+    context "when updating residence county to designated hurricane relief county" do
+      let(:intake) { create :state_file_nc_intake, residence_county: "001", moved_after_hurricane_helene: "yes", county_during_hurricane_helene: "020" }
+
+      it "clears moved_after_hurricane_helene and county_during_hurricane_helene fields" do
+        intake.update(residence_county: "011")
+        expect(intake.residence_county).to eq "011"
+        expect(intake.moved_after_hurricane_helene).to eq "unfilled"
+        expect(intake.county_during_hurricane_helene).to eq nil
+      end
+
+      context "when didn't move after the hurricane" do
+        it "clears the county_during_hurricane_helene field" do
+          intake.update(moved_after_hurricane_helene: "no")
+          expect(intake.moved_after_hurricane_helene).to eq "no"
+          expect(intake.county_during_hurricane_helene).to eq nil
+        end
+      end
+    end
+
+    context "when updating residence county to undesignated hurricane relief county" do
+      let(:intake) { create :state_file_nc_intake, residence_county: "001", moved_after_hurricane_helene: "yes", county_during_hurricane_helene: "020" }
+
+      it "doesn't clear moved_after_hurricane_helene and county_during_hurricane_helene fields" do
+        intake.update(residence_county: "040")
+        expect(intake.residence_county).to eq "040"
+        expect(intake.moved_after_hurricane_helene).to eq "yes"
+        expect(intake.county_during_hurricane_helene).to eq "020"
+      end
+    end
+  end
+
   describe "#disaster_relief_county" do
     let(:intake) { create :state_file_nc_intake, residence_county: residence_county, county_during_hurricane_helene: county_during_hurricane_helene, moved_after_hurricane_helene: moved_after_hurricane_helene }
     let(:residence_county) { nil }

@@ -40,6 +40,10 @@ module NcResidenceCountyConcern
     COUNTIES.select { |code, name| counties.include?(name) }.keys
   end
 
+  def self.designated_hurricane_county?(county_code)
+    self.designated_hurricane_relief_counties.include?(county_code)
+  end
+
   # Convenient hash to see both code and name
   def residence_county_hash
     {
