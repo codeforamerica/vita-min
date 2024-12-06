@@ -19,6 +19,16 @@ module SubmissionBuilder
                 xml.Senior do |senior|
                   senior.Credit calculated_fields.fetch(:MD502CR_PART_M_LINE_1)
                 end
+                xml.Summary do
+                  add_non_zero_value(xml, :ChildAndDependentCareCr, :MD502CR_PART_AA_LINE_2)
+                  add_non_zero_value(xml, :SeniorCr, :MD502CR_PART_AA_LINE_13)
+                  add_non_zero_value(xml, :TotalCredits, :MD502CR_PART_AA_LINE_14)
+                end
+                xml.Refundable do
+                  add_non_zero_value(xml, :ChildAndDependentCareCr, :MD502CR_PART_CC_LINE_7)
+                  add_non_zero_value(xml, :MDChildTaxCr, :MD502CR_PART_CC_LINE_8)
+                  add_non_zero_value(xml, :TotalCredits, :MD502CR_PART_CC_LINE_10)
+                end
               end
             end
 

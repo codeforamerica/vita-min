@@ -11,13 +11,17 @@ module Efile
       end
 
       def calculate
-        set_line(:NCD400_S_LINE_18, @direct_file_data, :fed_taxable_income)
+        set_line(:NCD400_S_LINE_18, :calculate_line_18)
         set_line(:NCD400_S_LINE_19, @direct_file_data, :fed_taxable_ssb)
         set_line(:NCD400_S_LINE_27, :calculate_line_27)
         set_line(:NCD400_S_LINE_41, :calculate_line_41)
       end
 
       private
+
+      def calculate_line_18
+        @intake.direct_file_json_data.interest_reports.sum(&:interest_on_government_bonds).round
+      end
 
       def calculate_line_27
         @intake.tribal_wages_amount.to_i

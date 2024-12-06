@@ -37,20 +37,33 @@
 #
 
 class StateFileDependent < ApplicationRecord
-  # TODO: once we have added all the json fixtures for all the states we can remove RELATIONSHIP_LABELS used to map xml relationship to gender-neutral terms in relationship colum.
-  #
+
   RELATIONSHIP_LABELS = {
-    "DAUGHTER" => "Child",
-    "STEPCHILD" => "Child",
-    "FOSTER CHILD" => "Foster Child",
-    "GRANDCHILD" => "Grandchild",
-    "SISTER" => "Sibling",
-    "HALF SISTER" => "Half-Sibling",
-    "NEPHEW" => "Niece/Nephew",
-    "STEPBROTHER" => "Step-Sibling",
-    "PARENT" => "Parent",
-    "GRANDPARENT" => "Grandparent",
-    "NONE" => "Other",
+    "biologicalChild" => "Child",
+    "adoptedChild" => "Child",
+    "stepChild" => "Child",
+    "fosterChild" => "Foster Child",
+    "grandChildOrOtherDescendentOfChild" => "Grandchild",
+    "childInLaw" => "Child",
+    "sibling" => "Sibling",
+    "childOfSibling" => "Niece/Nephew",
+    "halfSibling" => "Half-Sibling",
+    "childOfHalfSibling" => "Niece/Nephew",
+    "stepSibling" => "Step-Sibling",
+    "childOfStepSibling" => "Niece/Nephew",
+    "otherDescendantOfSibling" => "Niece/Nephew",
+    "siblingInLaw" => "Sibling",
+    "parent" => "Parent",
+    "grandParent" => "Grandparent",
+    "otherAncestorOfParent" => "Grandparent",
+    "stepParent" => "Parent",
+    "parentInLaw" => "Parent",
+    "noneOfTheAbove" => "Other",
+    "siblingOfParent" => "Aunt/Uncle",
+    "otherDescendantOfHalfSibling" => "Niece/Nephew",
+    "otherDescendantOfStepSibling" => "Niece/Nephew",
+    "fosterParent" => "Foster Parent",
+    "siblingsSpouse" => "Sibling-in-Law",
   }.freeze
 
   belongs_to :intake, polymorphic: true
@@ -70,8 +83,7 @@ class StateFileDependent < ApplicationRecord
 
   # Create dob_* accessor methods for Honeycrisp's cfa_date_select
   delegate :month, :day, :year, to: :dob, prefix: :dob, allow_nil: true
-  validates_presence_of :first_name, :last_name, :dob, on: :dob_form
-  validates_presence_of :months_in_home, on: :dob_form, if: -> { self.intake_type == 'StateFileAzIntake' }
+  validates_presence_of :first_name, :last_name, :dob
   validates :passed_away, :needed_assistance, inclusion: { in: %w[yes no], message: :blank }, on: :az_senior_form
 
   validates :id_months_ineligible_for_grocery_credit, numericality: {
@@ -94,9 +106,23 @@ class StateFileDependent < ApplicationRecord
     first_name.downcase.upcase_first
   end
 
+  def months_in_home_for_pdf
+    case months_in_home
+    when 12
+      "12"
+    when 6..11
+      "6-11"
+    when nil, 0..6
+      "<6"
+    else
+      ""
+    end
+  end
+
   def ask_senior_questions?
     return false if dob.nil?
-    senior? && months_in_home == 12 && ['PARENT', 'GRANDPARENT'].include?(relationship)
+    relationship_qualifies = %w[parent grandParent otherAncestorOfParent].include?(relationship) || ("parentInLaw" == relationship && intake.filing_status_mfj?)
+    senior? && months_in_home == 12 && relationship_qualifies
   end
 
   def is_qualifying_parent_or_grandparent?
@@ -104,7 +130,7 @@ class StateFileDependent < ApplicationRecord
   end
 
   def is_hoh_qualifying_person?
-    relationship == 'PARENT' || (relationship != 'NONE' && (months_in_home || 0) >= 6)
+    relationship == 'parent' || (relationship != 'noneOfTheAbove' && (months_in_home || 0) >= 6)
   end
 
   def nj_qualifies_for_college_exemption?
@@ -130,11 +156,43 @@ class StateFileDependent < ApplicationRecord
   def eligible_for_child_tax_credit
     return true if ctc_qualifying
 
-    if relationship
-      child_credit_qualifying_relationship = %w[daughter stepchild foster_child grandchild sister nephew half_sister stepbrother son brother niece half_brother stepsister].include?(relationship.downcase)
-    end
-    if under_17? && child_credit_qualifying_relationship
-      return true
+    if under_17?
+      if [
+        # daughter
+        "biologicalChild",
+        "adoptedChild",
+        "childInLaw",
+
+        # stepchild
+        "stepChild",
+
+        # foster_child
+        "fosterChild",
+
+        # grandchild
+        "grandChildOrOtherDescendentOfChild",
+
+        # sister
+        "sibling",
+        "siblingInLaw",
+        "siblingsSpouse",
+
+        # nephew
+        "childOfSibling",
+        "childOfHalfSibling",
+        "childOfStepSibling",
+        "otherDescendantOfSibling",
+        "otherDescendantOfHalfSibling",
+        "otherDescendantOfStepSibling",
+
+        # half_sister
+        "halfSibling",
+
+        # stepbrother
+        "stepSibling"
+      ].include?(relationship)
+        return true
+      end
     end
 
     false

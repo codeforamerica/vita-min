@@ -5,7 +5,7 @@ RSpec.describe Navigation::NavigationSection do
   let!(:steps) do
     [
       Navigation::NavigationStep.new(StateFile::LandingPageController),
-      Navigation::NavigationStep.new(StateFile::Questions::AzEligibilityResidenceController, false),
+      Navigation::NavigationStep.new(StateFile::Questions::EligibleController),
     ]
   end
 
@@ -27,7 +27,7 @@ RSpec.describe Navigation::NavigationSection do
     section = Navigation::NavigationSection.new("a_section", steps)
     expect(section.controllers).to eq [
       StateFile::LandingPageController,
-      StateFile::Questions::AzEligibilityResidenceController,
+      StateFile::Questions::EligibleController,
     ]
   end
 end

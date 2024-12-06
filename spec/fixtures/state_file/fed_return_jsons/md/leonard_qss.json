@@ -1,0 +1,36 @@
+{
+  "familyAndHousehold": [
+    {
+      "monthsLivedWithTPInUS": "twelve",
+      "lastName": "Lobster",
+      "hohQualifyingPerson": true,
+      "isClaimedDependent": true,
+      "qualifyingChild": true,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "2022-10-11",
+      "suffix": null,
+      "residencyDuration": "allYear",
+      "firstName": "Larry",
+      "middleInitial": null,
+      "scheduleEicLine4aNo": false,
+      "tin": "600-00-2000",
+      "eligibleDependent": true,
+      "relationship": "biologicalChild",
+      "ssnNotValidForEmployment": false
+    }
+  ],
+  "filers": [
+    {
+      "lastName": "Lobster",
+      "firstName": "Leonard",
+      "middleInitial": null,
+      "tin": "400-00-4000",
+      "dateOfBirth": "1993-04-19",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "interestReports": []
+}

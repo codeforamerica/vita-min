@@ -24,6 +24,7 @@ module Efile
         set_line(:ID40_LINE_9, :calculate_line_9)
         set_line(:ID40_LINE_10, :calculate_line_10)
         set_line(:ID40_LINE_11, :calculate_line_11)
+        set_line(:ID40_LINE_16, :calculate_line_16)
         set_line(:ID40_LINE_19, :calculate_line_19)
         set_line(:ID40_LINE_20, :calculate_line_20)
         set_line(:ID40_LINE_21, :calculate_line_20)
@@ -35,6 +36,14 @@ module Efile
         set_line(:ID40_LINE_32A, :calculate_line_32a)
         set_line(:ID40_LINE_32B, :calculate_line_32b)
         set_line(:ID40_LINE_33, :calculate_line_33)
+        set_line(:ID40_LINE_34, :calculate_line_34)
+        set_line(:ID40_LINE_35, :calculate_line_35)
+        set_line(:ID40_LINE_36, :calculate_line_36)
+        set_line(:ID40_LINE_37, :calculate_line_37)
+        set_line(:ID40_LINE_38, :calculate_line_38)
+        set_line(:ID40_LINE_39, :calculate_line_39)
+        set_line(:ID40_LINE_40, :calculate_line_40)
+        set_line(:ID40_LINE_41, :calculate_line_41)
         set_line(:ID40_LINE_42, :calculate_line_42)
         set_line(:ID40_LINE_43_WORKSHEET, :calculate_grocery_credit)
         set_line(:ID40_LINE_43_DONATE, :calculate_line_43_donate)
@@ -95,10 +104,14 @@ module Efile
         [line_or_zero(:ID40_LINE_9) - line_or_zero(:ID40_LINE_10), 0].max
       end
 
+      def calculate_line_16
+        @direct_file_data.total_itemized_or_standard_deduction_amount
+      end
+
       # Subtract the larger of L15 or L16 from L11 but L15 is always 0
       # L16 is pulled from df data
       def calculate_line_19
-        [line_or_zero(:ID40_LINE_11) - @direct_file_data.total_itemized_or_standard_deduction_amount, 0].max
+        [line_or_zero(:ID40_LINE_11) - line_or_zero(:ID40_LINE_16), 0].max
       end
 
       WK_LINE_2_AMTS = {
@@ -136,7 +149,7 @@ module Efile
       end
 
       def calculate_line_27
-        [line_or_zero(:ID40_LINE_21) - line_or_zero(:ID40_LINE_26), 0].max
+        [@lines[:ID40_LINE_21]&.value - line_or_zero(:ID40_LINE_26), 0].max
       end
 
       def calculate_line_29
@@ -163,8 +176,41 @@ module Efile
         line_or_zero(:ID40_LINE_27) + line_or_zero(:ID40_LINE_29) + line_or_zero(:ID40_LINE_32A)
       end
 
+      def calculate_line_34
+        @intake.nongame_wildlife_fund_donation
+      end
+
+      def calculate_line_35
+        @intake.childrens_trust_fund_donation
+      end
+
+      def calculate_line_36
+        @intake.special_olympics_donation
+      end
+
+      def calculate_line_37
+        @intake.guard_reserve_family_donation
+      end
+
+      def calculate_line_38
+        @intake.american_red_cross_fund_donation
+      end
+
+      def calculate_line_39
+        @intake.veterans_support_fund_donation
+      end
+
+      def calculate_line_40
+        @intake.food_bank_fund_donation
+      end
+
+      def calculate_line_41
+        @intake.opportunity_scholarship_program_donation
+      end
+
       def calculate_line_42
-        line_or_zero(:ID40_LINE_33)
+        lines = %i[ID40_LINE_33 ID40_LINE_34 ID40_LINE_35 ID40_LINE_36 ID40_LINE_37 ID40_LINE_38 ID40_LINE_39 ID40_LINE_40 ID40_LINE_41]
+        lines.sum { |line| line_or_zero(line) }
       end
 
       def calculate_grocery_credit

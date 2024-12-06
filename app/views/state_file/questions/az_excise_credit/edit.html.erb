@@ -4,7 +4,7 @@
 <% content_for :card do %>
   <h1 class="h2"><%= title %></h1>
 
-  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", class: "form-card", builder: VitaMinFormBuilder do |f| %>
     <div class="white-group">
       <%= f.cfa_radio_set(:primary_was_incarcerated, label_text: t(".primary_was_incarcerated", tax_year: MultiTenantService.statefile.current_tax_year), collection: [
         { value: "yes", label: t("general.affirmative") },
@@ -38,7 +38,12 @@
         </div>
 
         <div class="question-with-follow-up__follow-up" id="credit-amt">
-          <%= f.vita_min_money_field(:household_excise_credit_claimed_amount, t(".household_excise_credit_claimed_amt"), classes: ["form-width--long"]) %>
+          <%= f.vita_min_money_field(
+                :household_excise_credit_claimed_amount,
+                t(".household_excise_credit_claimed_amt"),
+                help_text: t(".household_excise_credit_claimed_amt_help_text"),
+                classes: ["form-width--long"]
+              ) %>
         </div>
       </div>
     </div>

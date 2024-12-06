@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v4.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>1cfaf0d2</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400001000</PrimarySSN>
+            <NameLine1Txt>FELICITY&lt;FLOUNDER&lt;JR</NameLine1Txt>
+            <PrimaryNameControlTxt>FLOU</PrimaryNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>2598 Hickory Heights Drive Apt 21</AddressLine1Txt>
+                <CityNm>Baltimore</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21202</ZIPCd>
+            </USAddress>
+            <PhoneNum>4438881111</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000100-06f1-4f74-a95d-dc7f709b1102@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="3">
+        <IRS1040 documentId="IRS10400001">
+            <IndividualReturnFilingStatusCd>1</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <PrimaryBlindInd>X</PrimaryBlindInd>
+            <TotalBoxesCheckedCnt>1</TotalBoxesCheckedCnt>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>1</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">8800</WagesAmt>
+            <WagesSalariesAndTipsAmt>8800</WagesSalariesAndTipsAmt>
+            <TaxableInterestAmt referenceDocumentId="IRS1040B001" referenceDocumentName="IRS1040ScheduleB">9550</TaxableInterestAmt>
+            <TotalIncomeAmt>18350</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>18350</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>16550</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>16550</TotalDeductionsAmt>
+            <TaxableIncomeAmt>1800</TaxableIncomeAmt>
+            <TaxAmt>181</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>181</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>181</TaxLessCreditsAmt>
+            <TotalTaxAmt>181</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>500</FormW2WithheldTaxAmt>
+            <WithholdingTaxAmt>500</WithholdingTaxAmt>
+            <EarnedIncomeCreditAmt>17</EarnedIncomeCreditAmt>
+            <RefundableCreditsAmt>17</RefundableCreditsAmt>
+            <TotalPaymentsAmt>517</TotalPaymentsAmt>
+            <OverpaidAmt>336</OverpaidAmt>
+            <RefundAmt>336</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Fish Fryer</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1040ScheduleB documentId="IRS1040B001" documentName="IRS1040ScheduleB">
+            <Form1040SchBPartIGroup2>
+                <InterestPayerName>
+                    <BusinessNameLine1Txt>Fish Funds</BusinessNameLine1Txt>
+                </InterestPayerName>
+                <InterestAmt>9550</InterestAmt>
+            </Form1040SchBPartIGroup2>
+            <InterestSubtotalAmt interestSubtotalLiteralCd="INTEREST SUBTOTAL">9550</InterestSubtotalAmt>
+            <TaxableInterestSubtotalAmt>9550</TaxableInterestSubtotalAmt>
+            <CalculatedTotalTaxableIntAmt>9550</CalculatedTotalTaxableIntAmt>
+            <ForeignAccountsQuestionInd>false</ForeignAccountsQuestionInd>
+            <ForeignTrustQuestionInd>false</ForeignTrustQuestionInd>
+        </IRS1040ScheduleB>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>400001000</EmployeeSSN>
+            <EmployerEIN>009998877</EmployerEIN>
+            <EmployerNameControlTxt>CHEA</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Cheap Chesapeake Fish</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>4021 Lake Floyd Circle Apt 2E</AddressLine1Txt>
+                <CityNm>Laurel</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>20707</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Felicity Flounder Jr</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>2598 Hickory Heights Drive Apt 21</AddressLine1Txt>
+                <CityNm>Baltimore</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21202</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>8800</WagesAmt>
+            <WithholdingAmt>500</WithholdingAmt>
+            <SocialSecurityWagesAmt>8800</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>300</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>8800</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>200</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>MD</StateAbbreviationCd>
+                    <EmployerStateIdNum>5678765</EmployerStateIdNum>
+                    <StateWagesAmt>8800</StateWagesAmt>
+                    <StateIncomeTaxAmt>100</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>

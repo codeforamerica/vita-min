@@ -2,13 +2,13 @@ require 'rails_helper'
 
 describe SubmissionBuilder::Ty2024::States::Md::MdReturnXml, required_schema: "md" do
   describe ".build" do
+    let(:intake) { create(:state_file_md_intake) }
     let(:submission) { create(:efile_submission, data_source: intake.reload) }
     let!(:initial_efile_device_info) { create :state_file_efile_device_info, :initial_creation, :filled, intake: intake }
     let!(:submission_efile_device_info) { create :state_file_efile_device_info, :submission, :filled, intake: intake }
-    let(:instance) {described_class.new(submission)}
+    let(:instance) { described_class.new(submission) }
     let(:build_response) { instance.build }
     let(:xml) { Nokogiri::XML::Document.parse(build_response.document.to_xml) }
-    let(:intake) { create(:state_file_md_intake)}
 
     it "generates basic components of return" do
       expect(xml.document.root.namespaces).to include({ "xmlns:efile" => "http://www.irs.gov/efile", "xmlns" => "http://www.irs.gov/efile" })
@@ -29,7 +29,7 @@ describe SubmissionBuilder::Ty2024::States::Md::MdReturnXml, required_schema: "m
         expect(xml.at("RefundDirectDeposit Amount").text).to eq "500"
       end
     end
-    
+
     context "When there are 1099gs present" do
       let(:builder_class) { StateFile::StateInformationService.submission_builder_class(:md) }
       let(:intake) { create(:state_file_md_intake) }
@@ -52,7 +52,7 @@ describe SubmissionBuilder::Ty2024::States::Md::MdReturnXml, required_schema: "m
         },
         {
           prefix: "MD502CR_",
-          lines: ["MD502CR_PART_M_LINE_1", "MD502CR_PART_B_LINE_2", "MD502CR_PART_B_LINE_3", "MD502CR_PART_B_LINE_4"]
+          lines: ["MD502CR_PART_M_LINE_1", "MD502CR_PART_B_LINE_2", "MD502CR_PART_B_LINE_3", "MD502CR_PART_B_LINE_4", "MD502CR_PART_AA_LINE_2", "MD502CR_PART_AA_LINE_13", "MD502CR_PART_AA_LINE_14", "MD502CR_PART_CC_LINE_7", "MD502CR_PART_CC_LINE_8", "MD502CR_PART_CC_LINE_10"]
         }
       ].each do |form|
         context "#{form[:prefix]}" do
@@ -62,7 +62,11 @@ describe SubmissionBuilder::Ty2024::States::Md::MdReturnXml, required_schema: "m
               form[:lines].each do |line|
                 calculated_lines[line] = 0
               end
+              if instance.form_has_non_zero_amounts(form[:prefix], calculated_lines) == true
+                print form[:prefix], calculated_lines
+              end
               expect(instance.form_has_non_zero_amounts(form[:prefix], calculated_lines)).to eq false
+
             end
           end
 
@@ -112,7 +116,7 @@ describe SubmissionBuilder::Ty2024::States::Md::MdReturnXml, required_schema: "m
       end
 
       context "502R" do
-        let(:intake) { create(:state_file_md_intake)}
+        let(:intake) { create(:state_file_md_intake) }
 
         context "when taxable pensions/IRAs/annuities are present" do
           before do
@@ -142,10 +146,12 @@ describe SubmissionBuilder::Ty2024::States::Md::MdReturnXml, required_schema: "m
       end
 
       context "502CR" do
-        context "L24" do
-          context "Form 502 L24 has an amount" do
+        context "L24 or L43 and deduction method" do
+          context "Form 502 L24 has an amount and deduction method is standard" do
             before do
+              allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "S"
               allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_24).and_return 50
+              allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_43).and_return 0
             end
 
             it "attaches a 502CR" do
@@ -156,14 +162,45 @@ describe SubmissionBuilder::Ty2024::States::Md::MdReturnXml, required_schema: "m
             end
           end
 
-          context "Form 502 L24 does not have an amount" do
+          context "Form 502 L24 does not have an amount but L43 does have an amount and deduction method is standard" do
             before do
               allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_24).and_return 0
+              allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_43).and_return 50
+              allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "S"
+            end
+
+            it "attaches a 502CR" do
+              expect(xml.at("Form502CR")).to be_present
+              expect(instance.pdf_documents).to be_any { |included_documents|
+                included_documents.pdf == PdfFiller::Md502CrPdf
+              }
+            end
+          end
+
+          context "Form 502 neither L24 has an amount nor L43" do
+            before do
+              allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_24).and_return 0
+              allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_43).and_return 0
             end
 
             it "does not attach a 502CR" do
               expect(xml.at("Form502CR")).not_to be_present
               expect(instance.pdf_documents).not_to be_any { |included_documents|
+                included_documents.pdf == PdfFiller::Md502CrPdf
+              }
+            end
+          end
+
+          context "Form 502 has both L24 and L43 but deduction method is not standard" do
+            before do
+              allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_24).and_return 100
+              allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_43).and_return 100
+              allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "N"
+            end
+
+            it "attaches a 502CR" do
+              expect(xml.at("Form502CR")).to be_present
+              expect(instance.pdf_documents).to be_any { |included_documents|
                 included_documents.pdf == PdfFiller::Md502CrPdf
               }
             end

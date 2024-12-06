@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v4.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>676c5f98</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400006060</PrimarySSN>
+            <NameLine1Txt>HANNAH&lt;HADDOCK</NameLine1Txt>
+            <PrimaryNameControlTxt>HADD</PrimaryNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>3 Fish St</AddressLine1Txt>
+                <CityNm>Smith Island</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21824</ZIPCd>
+            </USAddress>
+            <PhoneNum>2223334444</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000606-0202-4259-8ebe-a4437170e44c@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="2">
+        <IRS1040 documentId="IRS10400001">
+            <IndividualReturnFilingStatusCd>1</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <PrimaryBlindInd>X</PrimaryBlindInd>
+            <TotalBoxesCheckedCnt>1</TotalBoxesCheckedCnt>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <DependentDetail>
+                <DependentFirstNm>Haddie</DependentFirstNm>
+                <DependentLastNm>Haddock</DependentLastNm>
+                <DependentNameControlTxt>HADD</DependentNameControlTxt>
+                <DependentSSN>600005555</DependentSSN>
+                <DependentRelationshipCd>SISTER</DependentRelationshipCd>
+                <EligibleForODCInd>X</EligibleForODCInd>
+            </DependentDetail>
+            <DependentDetail>
+                <DependentFirstNm>Helena</DependentFirstNm>
+                <DependentLastNm>Haddock</DependentLastNm>
+                <DependentNameControlTxt>HADD</DependentNameControlTxt>
+                <DependentSSN>600005656</DependentSSN>
+                <DependentRelationshipCd>GRANDPARENT</DependentRelationshipCd>
+                <EligibleForODCInd>X</EligibleForODCInd>
+            </DependentDetail>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>2</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>3</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">15400</WagesAmt>
+            <WagesSalariesAndTipsAmt>15400</WagesSalariesAndTipsAmt>
+            <TotalIncomeAmt>15400</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>15400</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>16550</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>16550</TotalDeductionsAmt>
+            <TaxableIncomeAmt>0</TaxableIncomeAmt>
+            <TaxAmt>0</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>0</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>0</TaxLessCreditsAmt>
+            <TotalTaxAmt>0</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>3000</FormW2WithheldTaxAmt>
+            <WithholdingTaxAmt>3000</WithholdingTaxAmt>
+            <EarnedIncomeCreditAmt>242</EarnedIncomeCreditAmt>
+            <RefundableCreditsAmt>242</RefundableCreditsAmt>
+            <TotalPaymentsAmt>3242</TotalPaymentsAmt>
+            <OverpaidAmt>3242</OverpaidAmt>
+            <RefundAmt>3242</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Hackeysack Instructor</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>400006060</EmployeeSSN>
+            <EmployerEIN>003456543</EmployerEIN>
+            <EmployerNameControlTxt>HOUS</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>House of Haddock</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>13 Had Dock St</AddressLine1Txt>
+                <CityNm>Smith Island</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21824</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Hannah Haddock</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>3 Fish St</AddressLine1Txt>
+                <CityNm>Smith Island</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21824</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>15400</WagesAmt>
+            <WithholdingAmt>3000</WithholdingAmt>
+            <SocialSecurityWagesAmt>15400</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>2000</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>15400</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>1000</MedicareTaxWithheldAmt>
+            <OtherDeductionsBenefitsGrp>
+                <Desc>STPICKUP</Desc>
+                <Amt>3200</Amt>
+            </OtherDeductionsBenefitsGrp>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>MD</StateAbbreviationCd>
+                    <EmployerStateIdNum>3456789</EmployerStateIdNum>
+                    <StateWagesAmt>15400</StateWagesAmt>
+                    <StateIncomeTaxAmt>300</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>

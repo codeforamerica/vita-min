@@ -1,7 +1,7 @@
 <div class="white-group">
   <p class="spacing-below-0"><%= t(".bank_title") %></p>
   <p class="text--small"><%= t(".foreign_accounts") %></p>
-  <div class="form-group-tight">
+  <div>
     <% if owe_taxes %>
       <%= form.hidden_field :app_time, value: app_time %>
       <%= form.vita_min_money_field(:withdraw_amount, t('.withdraw_amount', owed_amount: taxes_owed), classes: ["form-width--long"]) %>
@@ -24,7 +24,6 @@
       <% end %>
     <% end %>
 
-    <%= form.cfa_input_field(:bank_name, t("views.questions.bank_details.bank_name"), classes: ["form-width--long"]) %>
     <%= form.cfa_radio_set(
           :account_type,
           label_text: t("views.questions.bank_details.account_type.label"),

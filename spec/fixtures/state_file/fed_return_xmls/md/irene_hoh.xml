@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v4.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>dcf46c78</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400002001</PrimarySSN>
+            <NameLine1Txt>IRENE&lt;ICEFISH</NameLine1Txt>
+            <PrimaryNameControlTxt>ICEF</PrimaryNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>2000 Isotired Creek</AddressLine1Txt>
+                <CityNm>Baltimore</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21208</ZIPCd>
+            </USAddress>
+            <PhoneNum>3015556666</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000200-13ba-4e62-88a3-a541ccf6e94b@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="3">
+        <IRS1040 documentId="IRS10400001">
+            <IndividualReturnFilingStatusCd>4</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <DependentDetail>
+                <DependentFirstNm>Icarus</DependentFirstNm>
+                <DependentLastNm>Icefish</DependentLastNm>
+                <DependentNameControlTxt>ICEF</DependentNameControlTxt>
+                <DependentSSN>600005660</DependentSSN>
+                <DependentRelationshipCd>PARENT</DependentRelationshipCd>
+                <EligibleForODCInd>X</EligibleForODCInd>
+            </DependentDetail>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>1</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>2</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">11600</WagesAmt>
+            <WagesSalariesAndTipsAmt>11600</WagesSalariesAndTipsAmt>
+            <TaxableInterestAmt referenceDocumentId="IRS1040B001" referenceDocumentName="IRS1040ScheduleB">6800</TaxableInterestAmt>
+            <TotalIncomeAmt>18400</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>18400</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>21900</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>21900</TotalDeductionsAmt>
+            <TaxableIncomeAmt>0</TaxableIncomeAmt>
+            <TaxAmt>0</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>0</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>0</TaxLessCreditsAmt>
+            <TotalTaxAmt>0</TotalTaxAmt>
+            <EarnedIncomeCreditAmt>13</EarnedIncomeCreditAmt>
+            <RefundableCreditsAmt>13</RefundableCreditsAmt>
+            <TotalPaymentsAmt>13</TotalPaymentsAmt>
+            <OverpaidAmt>13</OverpaidAmt>
+            <RefundAmt>13</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Farmer</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1040ScheduleB documentId="IRS1040B001" documentName="IRS1040ScheduleB">
+            <Form1040SchBPartIGroup2>
+                <InterestPayerName>
+                    <BusinessNameLine1Txt>Failure of Imagination Investments</BusinessNameLine1Txt>
+                </InterestPayerName>
+                <InterestAmt>6800</InterestAmt>
+            </Form1040SchBPartIGroup2>
+            <InterestSubtotalAmt interestSubtotalLiteralCd="INTEREST SUBTOTAL">6800</InterestSubtotalAmt>
+            <TaxableInterestSubtotalAmt>6800</TaxableInterestSubtotalAmt>
+            <CalculatedTotalTaxableIntAmt>6800</CalculatedTotalTaxableIntAmt>
+            <ForeignAccountsQuestionInd>false</ForeignAccountsQuestionInd>
+            <ForeignTrustQuestionInd>false</ForeignTrustQuestionInd>
+        </IRS1040ScheduleB>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>400002001</EmployeeSSN>
+            <EmployerEIN>271067272</EmployerEIN>
+            <EmployerNameControlTxt>FISH</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Fish Outta Ideas Ltd</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>555 whydowedothistoourselves Rd</AddressLine1Txt>
+                <CityNm>Pikesville</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21208</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Irene Icefish</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>2000 Isotired Creek</AddressLine1Txt>
+                <CityNm>Baltimore</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21208</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>11600</WagesAmt>
+            <SocialSecurityWagesAmt>11600</SocialSecurityWagesAmt>
+            <MedicareWagesAndTipsAmt>11600</MedicareWagesAndTipsAmt>
+            <OtherDeductionsBenefitsGrp>
+                <Desc>STPICKUP</Desc>
+                <Amt>6800</Amt>
+            </OtherDeductionsBenefitsGrp>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>MD</StateAbbreviationCd>
+                    <EmployerStateIdNum>23456789</EmployerStateIdNum>
+                    <StateWagesAmt>11600</StateWagesAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>

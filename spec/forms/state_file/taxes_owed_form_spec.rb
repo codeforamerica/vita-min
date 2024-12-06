@@ -38,7 +38,6 @@ RSpec.describe StateFile::TaxesOwedForm do
           account_number: "12345",
           account_number_confirmation: "12345",
           account_type: "checking",
-          bank_name: "Bank official",
           withdraw_amount: withdraw_amount,
         }
       end
@@ -63,7 +62,6 @@ RSpec.describe StateFile::TaxesOwedForm do
           expect(intake.account_type).to eq "checking"
           expect(intake.routing_number).to eq "019456124"
           expect(intake.account_number).to eq "12345"
-          expect(intake.bank_name).to eq "Bank official"
           expect(intake.date_electronic_withdrawal).to eq Date.parse("April 15th, #{current_year}")
         end
 
@@ -85,7 +83,6 @@ RSpec.describe StateFile::TaxesOwedForm do
             expect(intake.account_type).to eq "checking"
             expect(intake.routing_number).to eq "019456124"
             expect(intake.account_number).to eq "12345"
-            expect(intake.bank_name).to eq "Bank official"
             expect(intake.date_electronic_withdrawal).to eq Date.parse("April 15th, #{current_year}")
           end
         end
@@ -109,7 +106,6 @@ RSpec.describe StateFile::TaxesOwedForm do
           expect(intake.account_type).to eq "checking"
           expect(intake.routing_number).to eq "019456124"
           expect(intake.account_number).to eq "12345"
-          expect(intake.bank_name).to eq "Bank official"
           expect(intake.date_electronic_withdrawal).to eq Date.parse("April 16th, #{current_year}")
         end
       end
@@ -125,7 +121,6 @@ RSpec.describe StateFile::TaxesOwedForm do
           account_number: "123",
           account_number_confirmation: "",
           account_type: nil,
-          bank_name: nil,
           withdraw_amount: nil,
           date_electronic_withdrawal_month: '3',
           date_electronic_withdrawal_year: current_year,
@@ -141,7 +136,6 @@ RSpec.describe StateFile::TaxesOwedForm do
         expect(form.errors[:routing_number_confirmation]).to be_present
         expect(form.errors[:account_number_confirmation]).to be_present
         expect(form.errors[:account_type]).to be_present
-        expect(form.errors[:bank_name]).to be_present
         expect(form.errors[:withdraw_amount]).to be_present
         expect(form.errors[:date_electronic_withdrawal]).to be_present
       end
@@ -161,7 +155,6 @@ RSpec.describe StateFile::TaxesOwedForm do
     let(:account_number) { "12345" }
     let(:account_number_confirmation) { "12345" }
     let(:account_type) { "checking" }
-    let(:bank_name) { "Bank official" }
     let(:month) { "3" }
     let(:day) { "15" }
     let(:year) { current_year }
@@ -173,7 +166,6 @@ RSpec.describe StateFile::TaxesOwedForm do
         account_number: account_number,
         account_number_confirmation: account_number_confirmation,
         account_type: account_type,
-        bank_name: bank_name,
         withdraw_amount: withdraw_amount,
         date_electronic_withdrawal_month: month,
         date_electronic_withdrawal_year: year,
@@ -233,6 +225,15 @@ RSpec.describe StateFile::TaxesOwedForm do
           expect(form).not_to be_valid
           expect(form.errors).to include :withdraw_amount
         end
+      end
+    end
+
+    context "when withdrawal date is in the past" do
+      let(:day) { "9" }
+
+      it "is valid" do
+        form = described_class.new(intake, params)
+        expect(form).not_to be_valid
       end
     end
   end

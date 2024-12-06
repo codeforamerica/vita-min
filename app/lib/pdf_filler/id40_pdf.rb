@@ -57,7 +57,7 @@ module PdfFiller
         'CreditsL23' => @xml_document.at('Form39R TotalSupplementalCredits')&.text,
         'CreditsL25' => @xml_document.at('Form40 IdahoChildTaxCredit')&.text,
         'CreditsL26' => calculated_fields.fetch(:ID40_LINE_26),
-        'CreditsL27' => calculated_fields.fetch(:ID40_LINE_27),
+        'CreditsL27' => round_amount_to_nearest_integer(calculated_fields.fetch(:ID40_LINE_27)),
         'OtherTaxesL29' => @xml_document.at('StateUseTax')&.text,
         'OtherTaxesL33' => @xml_document.at('TotalTax')&.text,
         'OtherTaxesL32Check' => @xml_document.at('PublicAssistanceIndicator')&.text == "true" ? 'Yes' : 'Off',
@@ -91,6 +91,30 @@ module PdfFiller
                          'DirectDepositChecking' => @xml_document.at('Checking')&.text == "X" ? 'Yes' : 'Off',
                          'DirectDepositSavings' => @xml_document.at('Savings')&.text == "X" ? 'Yes' : 'Off',
                        })
+      end
+      if @xml_document.at('WildlifeDonation').present?
+        answers.merge!({ 'DonationsL34' => @xml_document.at('WildlifeDonation')&.text })
+      end
+      if @xml_document.at('ChildrensTrustDonation').present?
+        answers.merge!({ 'DonationsL35' => @xml_document.at('ChildrensTrustDonation')&.text })
+      end
+      if @xml_document.at('SpecialOlympicDonation').present?
+        answers.merge!({ 'DonationsL36' => @xml_document.at('SpecialOlympicDonation')&.text })
+      end
+      if @xml_document.at('NationalGuardDonation').present?
+        answers.merge!({ 'DonationsL37' => @xml_document.at('NationalGuardDonation')&.text })
+      end
+      if @xml_document.at('RedCrossDonation').present?
+        answers.merge!({ 'DonationsL38' => @xml_document.at('RedCrossDonation')&.text })
+      end
+      if @xml_document.at('VeteransSupportDonation').present?
+        answers.merge!({ 'DonationsL39' => @xml_document.at('VeteransSupportDonation')&.text })
+      end
+      if @xml_document.at('FoodBankDonation').present?
+        answers.merge!({ 'DonationsL40' => @xml_document.at('FoodBankDonation')&.text })
+      end
+      if @xml_document.at('OpportunityScholarshipProgram').present?
+        answers.merge!({ 'DonationsL41' => @xml_document.at('OpportunityScholarshipProgram')&.text })
       end
       answers
     end

@@ -28,7 +28,13 @@ module PdfFiller
         'Text Field 115': @xml_document.at('Form502CR ChildAndDependentCare FederalChildCareCredit')&.text,
         'Text Field 29': @xml_document.at('Form502CR ChildAndDependentCare DecimalAmount')&.text,
         'Text Field 30': @xml_document.at('Form502CR ChildAndDependentCare Credit')&.text,
-        'Text Field 1051': @xml_document.at('Form502CR Senior Credit')&.text
+        'Text Field 1051': @xml_document.at('Form502CR Senior Credit')&.text,
+        'Text Field 1049': @xml_document.at('Form502CR Summary ChildAndDependentCareCr')&.text,
+        'Text Field 1039': @xml_document.at('Form502CR Summary SeniorCr')&.text,
+        'Text Field 1038': @xml_document.at('Form502CR Summary TotalCredits')&.text,
+        'Text Field 1031': @xml_document.at('Form502CR Refundable ChildAndDependentCareCr')&.text,
+        'Text Field 1030': @xml_document.at('Form502CR Refundable MDChildTaxCr')&.text,
+        'Text Field 1028': @xml_document.at('Form502CR Refundable TotalCredits')&.text,
       }
     end
   end

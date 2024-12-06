@@ -5,7 +5,6 @@
 #  id                                 :bigint           not null, primary key
 #  account_number                     :string
 #  account_type                       :integer          default("unfilled"), not null
-#  bank_name                          :string
 #  confirmed_permanent_address        :integer          default("unfilled"), not null
 #  confirmed_third_party_designee     :integer          default("unfilled"), not null
 #  consented_to_terms_and_conditions  :integer          default("unfilled"), not null
@@ -14,7 +13,6 @@
 #  current_sign_in_ip                 :inet
 #  current_step                       :string
 #  date_electronic_withdrawal         :date
-#  df_data_import_failed_at           :datetime
 #  df_data_import_succeeded_at        :datetime
 #  df_data_imported_at                :datetime
 #  eligibility_lived_in_state         :integer          default("unfilled"), not null
@@ -24,6 +22,7 @@
 #  eligibility_yonkers                :integer          default("unfilled"), not null
 #  email_address                      :citext
 #  email_address_verified_at          :datetime
+#  email_notification_opt_in          :integer          default("unfilled"), not null
 #  failed_attempts                    :integer          default(0), not null
 #  federal_return_status              :string
 #  hashed_ssn                         :string
@@ -80,6 +79,7 @@
 #  school_district                    :string
 #  school_district_number             :integer
 #  sign_in_count                      :integer          default(0), not null
+#  sms_notification_opt_in            :integer          default("unfilled"), not null
 #  source                             :string
 #  spouse_birth_date                  :date
 #  spouse_esigned                     :integer          default("unfilled"), not null
@@ -116,6 +116,7 @@ FactoryBot.define do
 
     raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.old_xml_sample }
     raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.old_json_sample }
+    df_data_import_succeeded_at { DateTime.now }
 
     eligibility_lived_in_state { "yes" }
     eligibility_out_of_state_income { "no" }
@@ -124,7 +125,7 @@ FactoryBot.define do
     eligibility_yonkers { "no" }
     primary_first_name { "New" }
     primary_last_name { "Yorker" }
-    primary_birth_date{ Date.parse("May 1, 1979") }
+    primary_birth_date { Date.parse("May 1, 1979") }
     permanent_street { direct_file_data.mailing_street }
     permanent_city { direct_file_data.mailing_city }
     permanent_zip { direct_file_data.mailing_zip }
@@ -218,23 +219,8 @@ FactoryBot.define do
       # https://docs.google.com/document/d/1Aq-1Qdna62gUQqzPyYY2CetC-VZWtCqK73LqBYBLINw/edit
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('ny_zeus_8_deps') }
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('ny_zeus_8_deps') }
-
-      after(:create) do |intake|
-        intake.synchronize_df_dependents_to_database
-        {
-          "Ares" => Date.new(2009, 10, 11),
-          "Hades" => Date.new(1980, 7, 8),
-          "Hebe" => Date.new(2008, 3, 4),
-          "Hermes" => Date.new(2022, 4, 5),
-          "Poseidon" => Date.new(2000, 8, 9),
-          "Artemis" => Date.new(2003, 6, 7),
-          "Kronus" => Date.new(1940, 12, 15),
-          "Helen" => Date.new(2012, 5, 6),
-        }.each do |name, date|
-          intake.dependents.where(first_name: name).first.update(dob: date)
-        end
-        intake.dependents.reload
-      end
+      after(:create, &:synchronize_filers_to_database)
+      after(:create, &:synchronize_df_dependents_to_database)
     end
 
     factory :state_file_taylor_intake do
@@ -242,17 +228,8 @@ FactoryBot.define do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('ny_taylor_hoh_3deps') }
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('ny_taylor_hoh_3deps') }
 
-      after(:create) do |intake|
-        intake.synchronize_df_dependents_to_database
-        {
-          "Meredith" => Date.new(2021, 1, 2),
-          "Olivia" => Date.new(2019, 1, 3),
-          "Benjamin" => Date.new(2017, 1, 7),
-        }.each do |name, date|
-          intake.dependents.where(first_name: name).first.update(dob: date)
-        end
-        intake.dependents.reload
-      end
+      after(:create, &:synchronize_filers_to_database)
+      after(:create, &:synchronize_df_dependents_to_database)
     end
 
     trait :df_data_2_w2s do

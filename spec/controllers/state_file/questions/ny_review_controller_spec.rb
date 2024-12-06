@@ -32,13 +32,13 @@ RSpec.describe StateFile::Questions::NyReviewController do
     context "when a dependent is present" do
       render_views
       let(:intake) { create :state_file_ny_refund_intake }
-      let!(:dependent) { intake.dependents.create(dob: 7.years.ago, first_name: "Bobby", last_name: "Tables", relationship: "Son") }
+      let!(:dependent) { create :state_file_dependent, intake: intake, dob: 7.years.ago, first_name: "Bobby", middle_initial: nil, last_name: "Tables", relationship: "biologicalChild" }
 
       it "displayed dependent details" do
         get :edit
-        expect(response.body).to include I18n.t("state_file.questions.shared.review_header.dependent_dob")
+        expect(response.body).to include I18n.t("state_file.questions.shared.abstract_review_header.dependent_dob")
         expect(response.body).to include "Bobby Tables"
-        expect(response.body).not_to include I18n.t("state_file.questions.shared.review_header.dependent_months_in_home")
+        expect(response.body).not_to include I18n.t("state_file.questions.shared.abstract_review_header.dependent_months_in_home")
       end
     end
   end

@@ -283,7 +283,9 @@ module Efile
           max_credit = 100
           max_credit -= @intake.household_excise_credit_claimed_amount&.round if @intake.household_excise_credit_claimed_yes?
 
-          [wrksht_line_4, max_credit].min
+          result = [wrksht_line_4, max_credit].min
+          result = 0 if result < 0
+          result
         end
       end
 

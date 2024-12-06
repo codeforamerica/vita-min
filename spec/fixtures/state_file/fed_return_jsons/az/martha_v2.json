@@ -1,0 +1,72 @@
+{
+  "familyAndHousehold": [
+    {
+      "firstName": "Nelly",
+      "lastName": "Bassett",
+      "middleInitial": null,
+      "tin": "300-00-0013",
+      "dateOfBirth": "2004-06-06",
+      "relationship": "childOfSibling",
+      "eligibleDependent": true,
+      "isClaimedDependent": true,
+      "monthsLivedWithTPInUS": "twelve",
+      "residencyDuration": "allYear"
+    },
+    {
+      "firstName": "Martha",
+      "lastName": "Custis",
+      "middleInitial": null,
+      "tin": "300-00-0011",
+      "dateOfBirth": "2008-04-04",
+      "relationship": "biologicalChild",
+      "eligibleDependent": true,
+      "isClaimedDependent": true,
+      "monthsLivedWithTPInUS": "twelve",
+      "residencyDuration": "allYear"
+    },
+    {
+      "firstName": "John",
+      "lastName": "Custis",
+      "middleInitial": null,
+      "tin": "300-00-0010",
+      "dateOfBirth": "2022-03-03",
+      "relationship": "grandChildOrOtherDescendentOfChild",
+      "eligibleDependent": true,
+      "isClaimedDependent": true,
+      "monthsLivedWithTPInUS": "twelve",
+      "residencyDuration": "allYear"
+    },
+    {
+      "firstName": "Frances",
+      "lastName": "Bassett",
+      "middleInitial": null,
+      "tin": "300-00-0012",
+      "dateOfBirth": "2002-05-05",
+      "relationship": "childOfSibling",
+      "eligibleDependent": true,
+      "isClaimedDependent": true,
+      "monthsLivedWithTPInUS": "twelve",
+      "residencyDuration": "allYear"
+    }
+  ],
+  "filers": [
+    {
+      "firstName": "MARTHA",
+      "lastName": "WASHINGTON",
+      "middleInitial": null,
+      "suffix": null,
+      "tin": "400-00-0005",
+      "dateOfBirth": "1980-01-01",
+      "isPrimaryFiler": true
+    },
+    {
+      "firstName": "GEORGE",
+      "lastName": "WASHINGTON",
+      "middleInitial": null,
+      "suffix": null,
+      "tin": "600-00-0005",
+      "dateOfBirth": "1981-02-02",
+      "isPrimaryFiler": false
+    }
+  ]
+}

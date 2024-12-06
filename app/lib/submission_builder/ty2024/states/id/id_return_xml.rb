@@ -38,12 +38,12 @@ module SubmissionBuilder
             supported_docs = [
               {
                 xml: SubmissionBuilder::Ty2024::States::Id::Documents::Id40,
-                pdf:  PdfFiller::Id40Pdf,
+                pdf: PdfFiller::Id40Pdf,
                 include: true
               },
               {
                 xml: SubmissionBuilder::Ty2024::States::Id::Documents::Id39R,
-                pdf:  PdfFiller::Id39rPdf,
+                pdf: PdfFiller::Id39rPdf,
                 include: true
               },
             ]

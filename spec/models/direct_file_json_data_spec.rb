@@ -37,6 +37,7 @@ describe DirectFileJsonData do
       expect(direct_file_json_data.primary_filer.dob).to eq Date.parse("1980-01-01")
       expect(direct_file_json_data.primary_filer.middle_initial).to eq nil
       expect(direct_file_json_data.primary_filer.last_name).to eq "Turner"
+      expect(direct_file_json_data.primary_filer.suffix).to eq nil
       expect(direct_file_json_data.primary_filer.ssn_not_valid_for_employment).to eq(nil)
     end
   end
@@ -103,6 +104,39 @@ describe DirectFileJsonData do
         intake.dependents.first.update(ssn: nil)
         expect(direct_file_json_data.find_matching_json_dependent(intake.dependents.first)).to eq(nil)
       end
+    end
+  end
+
+  describe "DfJsonDependent#months_in_home" do
+    let(:intake) { create :state_file_az_johnny_intake_new }
+    let(:direct_file_json_data) { intake.direct_file_json_data }
+    let(:dependents) { intake.dependents }
+
+    it "should translate the words in the JSON into ints" do
+      expect(direct_file_json_data.find_matching_json_dependent(dependents.where(first_name: "Roland").first).months_in_home).to eq(12)
+      expect(direct_file_json_data.find_matching_json_dependent(dependents.where(first_name: "David").first).months_in_home).to eq(12)
+      expect(direct_file_json_data.find_matching_json_dependent(dependents.where(first_name: "Patrick").first).months_in_home).to eq(12)
+      expect(direct_file_json_data.find_matching_json_dependent(dependents.where(first_name: "Bob").first).months_in_home).to eq(7)
+      expect(direct_file_json_data.find_matching_json_dependent(dependents.where(first_name: "Ronnie").first).months_in_home).to eq(12)
+      expect(direct_file_json_data.find_matching_json_dependent(dependents.where(first_name: "Twyla").first).months_in_home).to eq(7)
+      expect(direct_file_json_data.find_matching_json_dependent(dependents.where(first_name: "Stevie").first).months_in_home).to eq(7)
+      expect(direct_file_json_data.find_matching_json_dependent(dependents.where(first_name: "Alexis").first).months_in_home).to eq(12)
+      expect(direct_file_json_data.find_matching_json_dependent(dependents.where(first_name: "Wendy").first).months_in_home).to eq(12)
+    end
+
+    it "should should take 5, 7, or 12 as values" do
+      direct_file_json_data.find_matching_json_dependent(dependents[0]).months_in_home = 12
+      expect(direct_file_json_data.find_matching_json_dependent(dependents[0]).months_in_home).to eq(12)
+
+      direct_file_json_data.find_matching_json_dependent(dependents[1]).months_in_home = 7
+      expect(direct_file_json_data.find_matching_json_dependent(dependents[1]).months_in_home).to eq(7)
+
+      direct_file_json_data.find_matching_json_dependent(dependents[2]).months_in_home = 5
+      expect(direct_file_json_data.find_matching_json_dependent(dependents[2]).months_in_home).to eq(5)
+
+      expect {
+        direct_file_json_data.find_matching_json_dependent(dependents[3]).months_in_home = 4
+      }.to raise_error(ArgumentError, "months_in_home must be in [12, 7, 5]")
     end
   end
 

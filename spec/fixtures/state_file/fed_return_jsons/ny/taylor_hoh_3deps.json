@@ -1,0 +1,47 @@
+{
+  "familyAndHousehold": [
+    {
+      "firstName": "Meredith",
+      "lastName": "Alison",
+      "middleInitial": null,
+      "tin": "300-00-0033",
+      "dateOfBirth": "2021-01-02",
+      "relationship": "biologicalChild",
+      "eligibleDependent": true,
+      "isClaimedDependent": true,
+      "monthsLivedWithTPInUS": "twelve"
+    },
+    {
+      "firstName": "Olivia",
+      "lastName": "Alison",
+      "middleInitial": null,
+      "tin": "300-00-0034",
+      "dateOfBirth": "2019-01-03",
+      "relationship": "biologicalChild",
+      "eligibleDependent": true,
+      "isClaimedDependent": true,
+      "monthsLivedWithTPInUS": "seven"
+    },
+    {
+      "firstName": "Benjamin",
+      "lastName": "Alison",
+      "middleInitial": null,
+      "tin": "300-00-0035",
+      "dateOfBirth": "2017-01-07",
+      "relationship": "biologicalChild",
+      "eligibleDependent": true,
+      "isClaimedDependent": true,
+      "monthsLivedWithTPInUS": "seven"
+    }
+  ],
+  "filers": [
+    {
+      "firstName": "Taylor",
+      "lastName": "Alison",
+      "middleInitial": null,
+      "tin": "400-00-0020",
+      "dateOfBirth": "1980-01-01",
+      "isPrimaryFiler": true
+    }
+  ]
+}
