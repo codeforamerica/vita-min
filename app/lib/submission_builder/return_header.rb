@@ -32,7 +32,7 @@ module SubmissionBuilder
             xml.DateSigned date_type_for_timezone(@submission.data_source.primary_esigned_at)&.strftime("%F") if @submission.data_source.ask_for_signature_pin?
             xml.USPhone @submission.data_source.direct_file_data.phone_number if @submission.data_source.direct_file_data.phone_number.present?
           end
-          if @submission.data_source&.spouse.ssn.present? && @submission.data_source&.spouse.first_name.present?
+          if @submission.data_source&.spouse.ssn.present? && @submission.data_source&.spouse.first_name.present? && !@intake.filing_status_mfs?
             xml.Secondary do
               xml.TaxpayerName do
                 xml.FirstName sanitize_for_xml(@submission.data_source.spouse.first_name, 16) if @submission.data_source.spouse.first_name.present?

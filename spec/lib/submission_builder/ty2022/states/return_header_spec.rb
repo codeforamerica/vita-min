@@ -175,6 +175,19 @@ describe SubmissionBuilder::ReturnHeader do
               expect(doc.at("Filer Secondary TaxpayerName NameSuffix").text).to eq("SR")
             end
           end
+
+          context "married filing separately" do
+            let(:filing_status) { "married_filing_separately" }
+
+            it "does not include secondary xml (spouse)" do
+              expect(doc.at("Filer Secondary DateOfBirth")).not_to be_present
+              expect(doc.at('Filer Secondary TaxpayerSSN')).not_to be_present
+              expect(doc.at('Filer Secondary TaxpayerName FirstName')).not_to be_present
+              expect(doc.at('Filer Secondary TaxpayerName MiddleInitial')).not_to be_present
+              expect(doc.at('Filer Secondary TaxpayerName LastName')).not_to be_present
+              expect(doc.at('Filer Secondary TaxpayerName NameSuffix')).not_to be_present
+            end
+          end
         end
       end
     end
