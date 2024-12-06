@@ -2,12 +2,12 @@
   "familyAndHousehold": [],
   "filers": [
     {
-      "lastName": "FLOUNDER",
-      "firstName": "FELICITY",
+      "lastName": "ToGo",
+      "firstName": "Test One",
       "middleInitial": null,
-      "tin": "400-00-1000",
-      "dateOfBirth": "1970-12-25",
-      "suffix": "Jr",
+      "tin": "400-00-6301",
+      "dateOfBirth": "2001-07-23",
+      "suffix": null,
       "isPrimaryFiler": true,
       "ssnNotValidForEmployment": null
     }
@@ -16,10 +16,10 @@
     {
       "has1099": true,
       "taxExemptAndTaxCreditBondCusipNo": null,
-      "interestOnGovernmentBonds": "4000.00",
       "payerTin": null,
-      "recipientTin": "400-00-1000",
-      "payer": "FISH FUNDS",
+      "recipientTin": "400-00-6301",
+      "payer": "Testing Investments",
+      "1099Amount": "520.00",
       "no1099Amount": null,
       "taxWithheld": "0.00"
     }
