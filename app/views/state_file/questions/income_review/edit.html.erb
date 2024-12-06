@@ -35,7 +35,7 @@
             <p class="spacing-below-5"><%= state_1099g.payer_name %></p>
             <%= link_to t(".review_and_edit_state_info"),
                         StateFile::Questions::UnemploymentController.to_path_helper(
-                          action: :index,
+                          action: :edit,
                           id: state_1099g.id,
                           return_to_review: params[:return_to_review]
                         ),
