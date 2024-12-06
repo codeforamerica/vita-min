@@ -2173,7 +2173,7 @@ en:
             <strong>FileYourStateTaxes</strong> is built in partnership with Maryland to integrate with IRS Direct File.<br /><br />
             We're closed for the tax season. Unfortunately you can no longer file your state return with us this year.
           supported_by: Supported by the state of Maryland
-          title: File your state taxes for free
+          title: File your Maryland state taxes for free
         nc:
           closed_html: |
             <strong>FileYourStateTaxes</strong> is built in partnership with the state of North Carolina to integrate with IRS Direct File.<br /><br />
