@@ -437,7 +437,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("general.continue")
 
       # Sales/Use Tax
-      expect(page).to have_text I18n.t('state_file.questions.id_sales_use_tax.edit.title', year: filing_year)
+      expect(page).to have_text I18n.t('state_file.questions.id_sales_use_tax.edit.title.one', year: filing_year)
       choose I18n.t("general.affirmative")
       fill_in 'state_file_id_sales_use_tax_form_total_purchase_amount', with: "290"
       click_on I18n.t("general.continue")
