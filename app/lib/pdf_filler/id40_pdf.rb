@@ -25,6 +25,7 @@ module PdfFiller
         'SpouseFirstNameInitial' => @xml_document.at('Secondary TaxpayerName FirstName')&.text,
         'SpouseLastName' => @xml_document.at('Secondary TaxpayerName LastName')&.text,
         'SpouseSSN' => @xml_document.at('Secondary TaxpayerSSN')&.text,
+        'SpouseDeceased 2' => @submission.data_source.spouse_deceased? ? 'Yes' : 'Off',
         'CurrentMailing' => [@xml_document.at('Filer USAddress AddressLine1Txt')&.text, @xml_document.at('Filer USAddress AddressLine2Txt')&.text].compact.join(', '),
         'City' => @xml_document.at('Filer USAddress CityNm')&.text,
         'StateAbbrv' => @xml_document.at('Filer USAddress StateAbbreviationCd')&.text,
