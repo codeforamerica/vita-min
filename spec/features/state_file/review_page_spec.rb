@@ -188,10 +188,15 @@ RSpec.feature "Completing a state file intake", active_job: true do
     click_on I18n.t('general.get_started'), id: "firstCta"
     step_through_eligibility_screener(us_state: state_code)
     step_through_initial_authentication(contact_preference: :email)
+
     check "Email"
     check "Text message"
     fill_in "Your phone number", with: "+12025551212"
     click_on "Continue"
+
+    expect(page).to have_text I18n.t('state_file.questions.sms_terms.edit.title')
+    click_on I18n.t("general.accept")
+
     expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
 
     intake = StateFile::StateInformationService.intake_class(state_code).last

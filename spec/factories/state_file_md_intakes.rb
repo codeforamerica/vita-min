@@ -13,6 +13,7 @@
 #  bank_authorization_confirmed               :integer          default("unfilled"), not null
 #  city                                       :string
 #  confirmed_permanent_address                :integer          default("unfilled"), not null
+#  consented_to_sms_terms                     :integer          default("unfilled"), not null
 #  consented_to_terms_and_conditions          :integer          default("unfilled"), not null
 #  contact_preference                         :integer          default("unfilled"), not null
 #  current_sign_in_at                         :datetime
@@ -143,6 +144,26 @@ FactoryBot.define do
       intake.raw_direct_file_data = intake.direct_file_data.to_s
     end
 
+    trait :with_permanent_address do
+      after(:build) do |intake|
+        intake.permanent_apartment = "Apt 1"
+        intake.permanent_street = "123 Main St"
+        intake.permanent_city = "Baltimore"
+        intake.permanent_zip = "21201"
+      end
+    end
+
+    trait :with_confirmed_address do
+      after(:build) do |intake|
+        intake.confirmed_permanent_address = "yes"
+        intake.direct_file_data.mailing_street = "321 Main St"
+        intake.direct_file_data.mailing_apartment = "Apt 2"
+        intake.direct_file_data.mailing_city = "Baltimore"
+        intake.direct_file_data.mailing_state = "MD"
+        intake.direct_file_data.mailing_zip = "21202"
+        intake.raw_direct_file_data = intake.direct_file_data.to_s
+      end
+    end
 
     trait :with_1099_rs_synced do
       after(:create, &:synchronize_df_1099_rs_to_database)

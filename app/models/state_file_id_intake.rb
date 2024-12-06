@@ -7,6 +7,7 @@
 #  account_type                                   :integer          default("unfilled"), not null
 #  american_red_cross_fund_donation               :decimal(12, 2)
 #  childrens_trust_fund_donation                  :decimal(12, 2)
+#  consented_to_sms_terms                         :integer          default("unfilled"), not null
 #  consented_to_terms_and_conditions              :integer          default("unfilled"), not null
 #  contact_preference                             :integer          default("unfilled"), not null
 #  current_sign_in_at                             :datetime
@@ -97,6 +98,7 @@ class StateFileIdIntake < StateFileBaseIntake
   enum received_id_public_assistance: { unfilled: 0, yes: 1, no: 2 }, _prefix: :received_id_public_assistance
   enum email_notification_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :email_notification_opt_in
   enum sms_notification_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :sms_notification_opt_in
+  enum consented_to_sms_terms: { unfilled: 0, yes: 1, no: 2 }, _prefix: :consented_to_sms_terms
 
   def disqualifying_df_data_reason; end
 

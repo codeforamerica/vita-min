@@ -1,16 +1,22 @@
 require 'rails_helper'
 
 RSpec.describe StateFile::MdCountyForm, type: :model do
+  let(:intake) { create(:state_file_md_intake) }
+
   describe "validations" do
-    it { should validate_presence_of(:residence_county) }
-    it { should validate_inclusion_of(:residence_county).in_array(MdResidenceCountyConcern::COUNTIES_AND_SUBDIVISIONS.keys) }
-    it { should validate_presence_of(:subdivision_code) }
-    it { should validate_inclusion_of(:subdivision_code).in_array(subject.valid_subdivisions) }
+    it do
+      is_expected.to validate_inclusion_of(:residence_county)
+        .in_array(MdResidenceCountyConcern::COUNTIES_AND_SUBDIVISIONS.keys)
+        .with_message(I18n.t("forms.errors.md_county.residence_county.presence"))
+    end
+    it do
+      is_expected.to validate_inclusion_of(:subdivision_code)
+        .in_array(subject.valid_subdivisions)
+        .with_message(I18n.t("forms.errors.md_county.subdivision_code.presence"))
+    end
   end
 
-
   describe "#save" do
-    let(:intake) {create(:state_file_md_intake)}
     let(:form) { described_class.new(intake, valid_params) }
     let(:valid_params) do
       {

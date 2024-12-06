@@ -23,6 +23,9 @@ RSpec.describe I18n do
     views.ctc_pages.home.obtain.full_return.body1_html
     views.documents.employment.help_text_html
     views.public_pages.sms_terms.terms.rates_html
+    state_file.questions.esign_declaration.edit.md.body_html
+    state_file.questions.md_eligibility_filing_status.edit.eligibility_first_time_homebuyer_withdrawal_label_text_html
+    state_file.questions.md_eligibility_filing_status.edit.eligibility_non_mfj_first_time_homebuyer_withdrawal_label_text_html
   )
 
   it "should have the same HTML tags in each locale" do
