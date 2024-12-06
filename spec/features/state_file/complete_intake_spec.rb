@@ -312,7 +312,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       step_through_df_data_transfer("Transfer Nick")
 
       expect(page).to have_text I18n.t("state_file.questions.nc_county.edit.title", filing_year: filing_year)
-      select("Alamance", from: "County")
+      select("Buncombe", from: "County")
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t("state_file.questions.nc_veteran_status.title_spouse")
@@ -328,8 +328,8 @@ RSpec.feature "Completing a state file intake", active_job: true do
       choose I18n.t("general.affirmative")
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_name'), with: "Business Name"
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_address'), with: "123 Main St"
-      fill_in I18n.t('state_file.questions.unemployment.edit.city'), with: "Raleigh", match: :first
-      fill_in I18n.t('state_file.questions.unemployment.edit.zip_code'), with: "85001", match: :first
+      fill_in I18n.t('state_file.questions.unemployment.edit.city'), with: "Asheville", match: :first
+      fill_in I18n.t('state_file.questions.unemployment.edit.zip_code'), with: "28806", match: :first
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_tin'), with: "123456789"
       choose I18n.t('state_file.questions.unemployment.edit.recipient_myself')
       choose I18n.t('state_file.questions.unemployment.edit.confirm_address_yes')
