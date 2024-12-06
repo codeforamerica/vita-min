@@ -1,0 +1,50 @@
+{
+  "familyAndHousehold": [
+    {
+      "monthsLivedWithTPInUS": null,
+      "lastName": "Icefish",
+      "isClaimedDependent": true,
+      "hohQualifyingPerson": true,
+      "qualifyingChild": false,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "1952-10-10",
+      "suffix": null,
+      "residencyDuration": "allYear",
+      "firstName": "Icarus",
+      "middleInitial": null,
+      "tin": "600-00-5660",
+      "scheduleEicLine4aNo": true,
+      "eligibleDependent": true,
+      "relationship": "parent",
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "filers": [
+    {
+      "lastName": "Icefish",
+      "firstName": "Irene",
+      "middleInitial": null,
+      "tin": "400-00-2001",
+      "dateOfBirth": "1982-11-11",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "form1099Gs": [],
+  "interestReports": [
+    {
+      "has1099": true,
+      "taxExemptAndTaxCreditBondCusipNo": null,
+      "interestOnGovernmentBonds": "6800.00",
+      "payerTin": null,
+      "taxExemptInterest": "0.00",
+      "recipientTin": "400-00-2001",
+      "payer": "Failure of Imagination Investments",
+      "no1099Amount": null,
+      "taxWithheld": "0.00",
+      "1099Amount": "0.00"
+    }
+  ]
+}
