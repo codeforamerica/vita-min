@@ -56,8 +56,23 @@ module StateFile
         form_navigation.prev
       end
 
+      def prev_action
+        current_action = action_name.to_sym
+
+        # look up action corresponding to the submitted form if we hit a validation error on submission and are re-rendering new/edit
+        replacements = {update: :edit, create: :new }
+        current_action = replacements[current_action] if replacements.key? current_action
+
+        action_index = self.class.navigation_actions.index(current_action)
+        self.class.navigation_actions[action_index - 1] if action_index&.positive?
+      end
+
       def prev_path
-        path_for_step(prev_step)
+        if prev_action
+          self.class.to_path_helper({ action: prev_action })
+        else
+          path_for_step(prev_step)
+        end
       end
 
       def path_for_step(step)
