@@ -198,6 +198,16 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
         expect(xml.document.at('FilingStatus MarriedCuPartFilingSeparate SpouseName MiddleInitial').text).to eq(intake.spouse.middle_initial)
         expect(xml.document.at('FilingStatus MarriedCuPartFilingSeparate SpouseName LastName').text).to eq(intake.spouse.last_name)
       end
+
+      context "has lower cased suffix" do
+        before do
+          intake.spouse_suffix = "sr"
+        end
+
+        it "should upcase suffix" do
+          expect(xml.document.at('FilingStatus MarriedCuPartFilingSeparate SpouseName NameSuffix').text).to eq("SR")
+        end
+      end
     end
 
     context "qualifying widow/er filers" do
@@ -272,6 +282,21 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
 
         it 'does not include dependents section' do
           expect(xml.at("Dependents")).to eq(nil)
+        end
+      end
+
+      context "has dependent with lowercase suffix" do
+        let(:intake) { create(:state_file_nj_intake, :df_data_many_deps) }
+
+        before do
+          intake.dependents.first.update(suffix: 'jr')
+        end
+
+        it 'upcases suffix' do
+          expect(xml.css("Dependents").count).to eq(10)
+
+          first_dep = xml.css("Dependents")[0]
+          expect(first_dep.at("NameSuffix").text).to eq("JR")
         end
       end
 

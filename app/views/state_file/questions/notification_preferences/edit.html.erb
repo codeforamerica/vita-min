@@ -11,7 +11,7 @@
           <p><%= t('.opt_in_label') %></p>
           <div class="tight-checkboxes spacing-above-0 spacing-below-0">
             <%= f.cfa_checkbox(:sms_notification_opt_in, t(".sms_notification_opt_in"), options: { checked_value: "yes", unchecked_value: "no", "data-follow-up": "#sms-opt-in" }) %>
-            <%= f.cfa_checkbox(:email_notification_opt_in, t(".email_notification_opt_in"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+            <%= f.cfa_checkbox(:email_notification_opt_in, t(".email_notification_opt_in"), options: { checked_value: "yes", unchecked_value: "no", "data-follow-up": "#email-opt-in" }) %>
           </div>
         </div>
       </div>
@@ -19,6 +19,11 @@
       <div class="question-with-follow-up__follow-up" id="sms-opt-in">
         <div class="white-group">
           <%= f.cfa_input_field(:phone_number, t(".phone_number"), classes: ["form-width--long"]) %>
+        </div>
+      </div>
+      <div class="question-with-follow-up__follow-up" id="email-opt-in">
+        <div class="white-group">
+          <%= f.cfa_input_field(:email_address, t(".email_address_label"), help_text: 'example@email.com', classes: ["form-width--long"]) %>
         </div>
       </div>
     </div>
