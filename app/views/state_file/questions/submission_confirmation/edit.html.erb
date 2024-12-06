@@ -26,10 +26,6 @@
     <a target="_blank" rel="noopener nofollow" href="https://vote.gov/"><%= t('state_file.general.register_to_vote') %></a>
   </p>
 
-  <% if current_state_code == "ny" %>
-    <p><%= t(".ny_notifications_signup_html") %></p>
-  <% end %>
-
   <p><%= t('general.spread_the_word_html') %></p>
 
   <%= link_to t(".download_state_return_pdf"), StateFile::Questions::SubmissionPdfsController.to_path_helper(action: :show, id: EfileSubmission.where(data_source: current_intake).first), class: "button button--primary button--wide" %>
