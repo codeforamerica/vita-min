@@ -209,7 +209,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in I18n.t("state_file.questions.az_charitable_contributions.edit.charitable_noncash_html"), with: "123"
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t('state_file.questions.az_qualifying_organization_contributions.form.main_heading', filing_year: filing_year)
+      expect(strip_html_tags(page.body)).to have_text strip_html_tags(I18n.t('state_file.questions.az_qualifying_organization_contributions.form.main_heading_html', filing_year: filing_year))
       choose I18n.t("general.affirmative")
       fill_in "az321_contribution_charity_name", with: "Center for Ants"
       fill_in "az321_contribution_charity_code", with: "21134"
