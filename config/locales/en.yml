@@ -2294,7 +2294,6 @@ en:
           charity_code: Charity Code
           charity_name: Name of Qualifying Organization
           date_of_contribution: Date of payment in %{filing_year}
-          main_heading: Were any of your donations made to a Qualifying Charitable Organization that provide immediate basic needs to residents of Arizona?
           main_heading_html: Were any of your donations made to a <a href="https://azdor.gov/tax-credits/credits-contributions-qcos-and-qfcos" target="_blank">Qualifying Charitable Organization</a> that provide immediate basic needs to residents of Arizona?
           org_details_answer_html: |
             You can find this information on the receipt you received from the organization
