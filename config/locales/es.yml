@@ -2782,7 +2782,7 @@ es:
           eligibility_filing_status_label_text: "¿Estás casado y presentando una declaración de impuestos estatales conjunta?"
           eligibility_first_time_homebuyer_withdrawal_label_text: "¿Usted o su cónyuge retiraron dinero de una cuenta para compradores de vivienda por primera vez y lo usaron para algo que no fuera comprar una vivienda en Maryland en %{year}?"
           eligibility_mfj_two_different_areas_label_text: "¿Tú y tu cónyuge tenían sus hogares permanentes en dos condados, ciudades, pueblos o áreas fiscales diferentes el último día de %{year}?"
-          eligibility_mfj_two_different_areas_no: "No, mi cónyuge y yo vivíamos en el mismo condado, ciudad, pueblo o área fiscal."
+          eligibility_mfj_two_different_areas_no: "No, mi cónyuge y yo vivimos en el mismo condado, ciudad, pueblo o área fiscal"
           eligibility_mfj_two_different_areas_yes: "Sí, mi cónyuge y yo vivimos permanentemente en condados, ciudades, pueblos o áreas fiscales diferentes"
           eligibility_non_mfj_first_time_homebuyer_withdrawal_label_text: "¿Usted o su cónyuge retiraron dinero de una cuenta para compradores de vivienda por primera vez y lo usaron para algo que no fuera comprar una vivienda en Maryland en %{year}?"
           permanent_home_copy: "No puede utilizar este servicio si usted y su cónyuge viven en condados, ciudades, pueblos o áreas impositivas diferentes y no se trata de una situación temporal."
