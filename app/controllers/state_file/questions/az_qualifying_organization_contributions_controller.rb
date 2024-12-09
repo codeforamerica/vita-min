@@ -33,7 +33,7 @@ module StateFile
       end
 
       def build_contribution
-        @contribution = contributions.build(date_of_contribution_year: @filing_year)
+        @contribution = contributions.build
       end
 
       def create

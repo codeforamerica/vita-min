@@ -109,8 +109,8 @@ class StateFileAzIntake < StateFileBaseIntake
   enum email_notification_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :email_notification_opt_in
   enum sms_notification_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :sms_notification_opt_in
 
-  validates :made_az321_contributions, inclusion: { in: ["yes", "no"]}, on: :az321_form_create
-  validates :az321_contributions, length: { maximum: 10 }
+  # validates :made_az321_contributions, inclusion: { in: ["yes", "no"]}, on: :az321_form_create
+  # validates :az321_contributions, length: { maximum: 10 }
 
   validates :az322_contributions, length: { maximum: 10 }, on: :az322
   def federal_dependent_count_under_17
