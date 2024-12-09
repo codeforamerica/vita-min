@@ -1,0 +1,12 @@
+<h1 class="h2">
+  <%= t("state_file.questions.return_status.accepted.download_title", state_name: current_state_name, year: current_tax_year + 1) %>
+</h1>
+<p>
+  <%= t("state_file.questions.return_status.thank_you_html", state_name: current_state_name) %>
+</p>
+<p>
+  <a target="_blank" rel="noopener nofollow" href="<%= @survey_link %>"><%= t("state_file.questions.return_status.accepted.feedback") %></a>
+</p>
+<p>
+  <a target="_blank" rel="noopener nofollow" href="https://vote.gov/"><%= t('state_file.general.register_to_vote') %></a>
+</p>
