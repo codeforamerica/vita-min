@@ -21,10 +21,10 @@
           <p class="text--bold spacing-below-5"><%= t("state_file.questions.az_qualifying_organization_contributions.form.amount", filing_year: current_tax_year) %></p>
           <p class="spacing-below-5"><%= number_to_currency(contribution.amount, precision: 2) %></p>
         </div>
-        <div class="spacing-above-25">
-          <p class="text--bold spacing-below-5"><%= t("state_file.questions.az_qualifying_organization_contributions.form.date_of_contribution", filing_year: current_tax_year) %></p>
-          <p class="spacing-below-25"><%= contribution.date_of_contribution.strftime("%m/%d") %></p>
-        </div>
+<!--        <div class="spacing-above-25">-->
+<!--          <p class="text--bold spacing-below-5"><%#= t("state_file.questions.az_qualifying_organization_contributions.form.date_of_contribution", filing_year: current_tax_year) %></p>-->
+<!--          <p class="spacing-below-25"><%#= contribution.date_of_contribution.strftime("%m/%d") %></p>-->
+<!--        </div>-->
         <div>
           <%=
             link_to t('general.edit'),
