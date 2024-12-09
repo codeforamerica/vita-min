@@ -37,6 +37,26 @@ RSpec.describe StateFile::NotificationPreferencesForm do
           expect(form.errors[:phone_number]).to include "Please enter a valid phone number."
         end
       end
+
+      context "when phone number is blank" do
+        let(:invalid_params) do
+          {
+            sms_notification_opt_in: "yes",
+            phone_number: ""
+          }
+        end
+        subject(:form) { described_class.new(intake, invalid_params) }
+
+        it "is invalid" do
+          form.valid?
+          expect(form).not_to be_valid
+        end
+
+        it "adds an error to the phone_number attribute" do
+          form.valid?
+          expect(form.errors[:phone_number]).to include "Please enter a valid phone number."
+        end
+      end
     end
 
     context "when email_notification_opt_in is present" do
