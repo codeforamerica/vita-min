@@ -49,7 +49,7 @@ module SubmissionBuilder
               adoptedChild: "CH",
               stepChild: "SD",
               fosterChild: "FC",
-              grandChildOrOtherDescendentOfChild: "GC",
+              grandChildOrOtherDescendantOfChild: "GC",
               childInLaw: "CH",
               sibling: "SR",
               childOfSibling: "NP",

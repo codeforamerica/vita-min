@@ -1,4 +1,4 @@
-<% state_image_path = "partner-logos/#{@state_code}gov-logo.svg" %>
+<% state_image_path = @state_code == 'md' ? "partner-logos/mdgov-logo.png" : "partner-logos/#{@state_code}gov-logo.svg" %>
 <% title = @closed ? t(".title_closed", state_name: @state_name) : t(".#{@state_code}.title") %>
 
 <% content_for :page_title, title %>

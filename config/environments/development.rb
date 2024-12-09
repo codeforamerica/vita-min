@@ -41,6 +41,10 @@ Rails.application.configure do
   if ENV['LETTER_OPENER']
     config.action_mailer.delivery_method = :letter_opener
     config.action_mailer.perform_deliveries = true
+
+    LetterOpener.configure do |config|
+      config.file_uri_scheme = "file://"
+    end
   else
     config.action_mailer.delivery_method = :file
   end

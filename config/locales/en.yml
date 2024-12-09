@@ -1545,7 +1545,7 @@ en:
             Best,
             The FileYourStateTaxes team
           subject: 'FileYourStateTaxes Update: %{state_name} State Return Accepted'
-        sms: "Hi %{primary_first_name} - %{state_name} accepted your state tax return! Make sure to pay your state taxes by April 15 at %{state_pay_taxes_link} if you have not paid via direct deposit or check. \n\nDownload your return at %{return_status_link}\n\nQuestions? Reply to this text.\n"
+        sms: "Hi %{primary_first_name} - %{state_name} accepted your state tax return! Make sure to pay your state taxes by April 15 at %{state_pay_taxes_link} if you have not paid via direct deposit or check. \n\nDownload your return at %{return_status_link}\n\nQuestions? Email us at help@fileyourstatetaxes.org.\n"
       accepted_refund:
         email:
           body: |
@@ -1558,7 +1558,7 @@ en:
             Best,
             The FileYourStateTaxes team
           subject: 'FileYourStateTaxes Update: %{state_name} State Return Accepted'
-        sms: "Hi %{primary_first_name} - %{state_name} accepted your state tax return! You can expect to receive your refund as soon as %{state_name} approves your refund amount. \n\nDownload your return and check your refund status at %{return_status_link}\n\nNeed help? Reply to this text.\n"
+        sms: "Hi %{primary_first_name} - %{state_name} accepted your state tax return! You can expect to receive your refund as soon as %{state_name} approves your refund amount. \n\nDownload your return and check your refund status at %{return_status_link}\n\nNeed help? Email us at help@fileyourstatetaxes.org.\n"
       finish_return:
         email:
           body: |
@@ -1576,7 +1576,7 @@ en:
         sms: |
           Hi %{primary_first_name} - You haven't submitted your state tax return yet. As a reminder, state taxes are due by April 15. Go to fileyourstatetaxes.org to finish them now.
 
-          Need help? Reply to this text.
+          Need help? Email us at help@fileyourstatetaxes.org.
       issue_resolved:
         email:
           body: "Hello - Thank you for using FileYourStateTaxes! \n\nAny issues you may have experienced while using our tool have now been resolved. To continue filing your state taxes, <a href=\"%{login_link}\">log in here.</a>\n\nBest,\nThe FileYourStateTaxes team\n"
@@ -1584,7 +1584,7 @@ en:
         sms: |
           Hello - Thank you for using FileYourStateTaxes! Any issues you may have experienced while using our tool have now been resolved. To continue filing your state taxes, log in here: %{login_link}
 
-          Questions? Reply to this text.
+          Questions? Email us at help@fileyourstatetaxes.org.
       post_deadline_reminder:
         email:
           body: |-
@@ -1601,14 +1601,14 @@ en:
           subject: 'Final Reminder: FileYourStateTaxes closes April 25.'
         sms: |
           Hi %{primary_first_name} - You haven't submitted your state tax return yet. Make sure to submit your state taxes as soon as possible to avoid late filing fees. Go to fileyourstatetaxes.org/en/us/login-options to finish them now. FileYourStateTaxes will be closing its services for the year on April 25.
-          Need help? Reply to this text.
+          Need help? Email us at help@fileyourstatetaxes.org.
       pre_deadline_reminder:
         email:
           body: "Hi %{primary_first_name},\n\nYou haven't submitted your state tax return yet. As a reminder, state taxes are due by April 15. Make sure to submit your state tax return by April 15 in order to avoid late filing fees from %{state_name}. \n\nGo to fileyourstatetaxes.org/en/us/login-options to finish them now.\n\nNeed help? Reply to this email.\n\nBest,\nThe FileYourStateTaxes team\n"
           subject: Don't forget to finish your state tax return by April 15!
         sms: |
           Hi %{primary_first_name} - You haven't submitted your state tax return yet. Make sure to submit your state taxes by April 15 in order to avoid late filing fees. Go to fileyourstatetaxes.org/en/us/login-options to finish them now.
-          Need help? Reply to this text.
+          Need help? Email us at help@fileyourstatetaxes.org.
       reject_resolution_reminder:
         email:
           body: |
@@ -1623,7 +1623,7 @@ en:
             Best,
             The FileYourStateTaxes team
           subject: Take action on your rejected %{state_name} state return.
-        sms: Hi %{primary_first_name} - This is a reminder that %{state_name} rejected your state tax return. We can help you fix and resubmit it at %{return_status_link}. Make sure to take action as soon as possible in order to avoid late filing fees. FileYourStateTaxes will be closing its services for the year on April 25. Questions? Reply to this text.
+        sms: Hi %{primary_first_name} - This is a reminder that %{state_name} rejected your state tax return. We can help you fix and resubmit it at %{return_status_link}. Make sure to take action as soon as possible in order to avoid late filing fees. FileYourStateTaxes will be closing its services for the year on April 25. Questions? Email us at help@fileyourstatetaxes.org.
       rejected:
         email:
           body: |
@@ -1639,7 +1639,7 @@ en:
         sms: |
           Hi %{primary_first_name} - Unfortunately, %{state_name} rejected your state tax return. Don't worry! We can help you fix and resubmit it at %{return_status_link}.
 
-          Questions? Reply to this text.
+          Questions? Email us at help@fileyourstatetaxes.org.
       reminder_apology:
         email:
           body: |
@@ -1666,7 +1666,7 @@ en:
             Best,
             The FileYourStateTaxes team
           subject: 'FileYourStateTaxes Update: Your %{state_name} state tax return is taking longer than expected'
-        sms: Hi %{primary_first_name} - It's taking longer than expected to process your state tax return. Don't worry! We'll let you know as soon as we know your return status. You don't need to do anything right now. Questions? Reply to this text.
+        sms: Hi %{primary_first_name} - It's taking longer than expected to process your state tax return. Don't worry! We'll let you know as soon as we know your return status. You don't need to do anything right now. Questions? Email us at help@fileyourstatetaxes.org.
       successful_submission:
         email:
           body: |
@@ -1681,7 +1681,7 @@ en:
           resubmitted: resubmitted
           subject: 'FileYourStateTaxes Update: %{state_name} State Return Submitted'
           submitted: submitted
-        sms: Hi %{primary_first_name} - You successfully  %{submitted_or_resubmitted} your %{state_name} state tax return! We'll update you in 1-2 days on the status of your return. You can download your return and check the status at %{return_status_link}. Need help? Reply to this text.
+        sms: Hi %{primary_first_name} - You successfully  %{submitted_or_resubmitted} your %{state_name} state tax return! We'll update you in 1-2 days on the status of your return. You can download your return and check the status at %{return_status_link}. Need help? Email us at help@fileyourstatetaxes.org.
       survey_notification:
         email:
           body: |
@@ -1716,7 +1716,7 @@ en:
         sms: |
           Welcome! We successfully created your FileYourStateTaxes account! We'll send you updates on your state tax return status once you submit it. While you are filing, your responses will be saved as you go. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org
 
-          Need help? Reply to this text. Text "STOP" to unsubscribe.
+          Need help? Email us at help@fileyourstatetaxes.org. Text "STOP" to unsubscribe.
     successful_submission_drop_off:
       email:
         body: |
@@ -2294,7 +2294,6 @@ en:
           charity_code: Charity Code
           charity_name: Name of Qualifying Organization
           date_of_contribution: Date of payment in %{filing_year}
-          main_heading: Were any of your donations made to a Qualifying Charitable Organization that provide immediate basic needs to residents of Arizona?
           main_heading_html: Were any of your donations made to a <a href="https://azdor.gov/tax-credits/credits-contributions-qcos-and-qfcos" target="_blank">Qualifying Charitable Organization</a> that provide immediate basic needs to residents of Arizona?
           org_details_answer_html: |
             You can find this information on the receipt you received from the organization
@@ -2567,6 +2566,10 @@ en:
             body_html: |
               <p>By using a computer system and software to prepare and file my tax return(s) electronically, I consent to the transmission of my return(s) and to the disclosure of all information about my use of the system and software to the North Carolina Department of Revenue.</p>
               <p>By checking the box below, I declare and certify that I have examined this return and accompanying schedules and statements, and to the best of my knowledge and belief, they are true, correct, and complete.</p>
+          nj:
+            body_html: |
+              <p>Under penalties of perjury, I declare that I have examined this Income Tax return, including accompanying schedules and statements, and to the best of my knowledge and belief, it is true, correct, and complete. (N.J.S.A. 2C:28-1)</p>
+              <p>By using a computer system and software to prepare and/or file my tax return(s) electronically, I consent to the transmission of my return(s) and to the disclosure of all information about my use of the system and software to the New Jersey Division of Revenue and Enterprise Services.</p>
           ny:
             body_html: |
               <p>By checking the box(es) shown below, and pressing “Submit,” I understand and agree that I am submitting for filing my 2023 New York State (NYS) electronic personal income tax return. I declare, under penalty of perjury, that I have examined the information on my NYS electronic tax return, including all information transferred to my NYS return from my federal return, and all accompanying schedules, attachments, and statements provided with the return, and certify that my NYS electronic return is true, correct, and complete. By executing Form TR-579-IT and providing it to the ERO, I have authorized the ERO (Code for America) to file my 2023 NYS electronic tax return with the NYS Tax Department through the Internal Revenue Service (IRS) Modernized e-File System.</p>
