@@ -46,6 +46,7 @@ module SubmissionBuilder
             supported_docs += nj_2450s
             supported_docs += schedule_nj_hcc
             supported_docs += combined_w2s
+            supported_docs += additional_dependents
             supported_docs
           end
 
@@ -84,6 +85,19 @@ module SubmissionBuilder
               }
             end
 
+            docs
+          end
+
+          def additional_dependents
+            docs = []
+
+            if @submission.data_source.dependents.count > 4
+              docs << {
+                xml: nil,
+                pdf: PdfFiller::NjAdditionalDependentsPdf,
+                include: true,
+              }
+            end
             docs
           end
 
