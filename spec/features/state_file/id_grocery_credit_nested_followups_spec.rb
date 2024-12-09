@@ -32,6 +32,9 @@ RSpec.feature "Idaho Grocery Credit nested questions with followup", active_job:
       fill_in "Your phone number", with: "+12025551212"
       click_on "Continue"
 
+      expect(page).to have_text I18n.t('state_file.questions.sms_terms.edit.title')
+      click_on I18n.t("general.accept")
+
       click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
 
       step_through_df_data_transfer("Transfer John mfj 8 deps")

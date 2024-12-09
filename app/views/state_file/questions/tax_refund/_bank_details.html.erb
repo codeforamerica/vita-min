@@ -38,7 +38,6 @@
     <%= form.cfa_input_field(:account_number, t(".account_number"), classes: ["form-width--long", "disablecopy"]) %>
     <%= form.cfa_input_field(:account_number_confirmation, t(".confirm_account_number"), classes: ["form-width--long", "disablepaste", "disablecopy"]) %>
   </div>
-  <p><strong><%= t(".disclaimer") %></strong></p>
   <% if owe_taxes && !before_withdrawal_date_deadline?(current_state_code) %>
     <p>
       <%= t(".after_deadline_default_withdrawal_info",

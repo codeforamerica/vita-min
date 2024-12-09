@@ -3,25 +3,38 @@
 <% content_for :page_title, title1 %>
 <% content_for :card do %>
   <h1 class="h2"><%= title1 %></h1>
-  <p><%= t(".title2_html") %></p>
+  <% if current_state_code == "md" %>
+    <p><%= t(".md_title2_html") %></p>
+  <% else %>
+    <p><%= t(".title2_html") %></p>
+  <% end %>
+  <% if current_state_code == "md" %>
+    <p class="warning spacing-below-15"><%= t('.warning') %></p>
+  <% end %>
 
   <div class="white-group">
     <%= render partial: "state_file/questions/eligible/#{current_state_code}_supported" %>
   </div>
 
-  <div class="reveal">
-    <p><button class="reveal__button"><%= t(".credits_not_supported")%></button></p>
-    <div class="reveal__content">
-        <%= render partial: "state_file/questions/eligible/#{current_state_code}_credits_unsupported" %>
+  <% if current_state_code == "md" %>
+    <%= render partial: "state_file/questions/eligible/md_reveals" %>
+  <% else %>
+    <div class="reveal">
+      <p><button class="reveal__button"><%= t(".credits_not_supported")%></button></p>
+      <div class="reveal__content">
+          <%= render partial: "state_file/questions/eligible/#{current_state_code}_credits_unsupported" %>
+      </div>
     </div>
-  </div>
 
-  <div class="reveal">
-    <p><button class="reveal__button"><%= t('.not_supported') %></button></p>
-    <div class="reveal__content">
-      <%= render partial: "state_file/questions/eligible/vita_option" %>
+    <div class="reveal">
+      <p><button class="reveal__button"><%= t('.not_supported') %></button></p>
+      <div class="reveal__content">
+        <div>
+          <%= render partial: "state_file/questions/eligible/vita_option" %>
+        </div>
+      </div>
     </div>
-  </div>
+  <% end %>
 
   <%= link_to next_path, class: "button button--primary button--wide", id: "firstCta" do %>
     <%= t("general.continue") %>

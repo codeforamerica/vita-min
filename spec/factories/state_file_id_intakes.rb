@@ -7,6 +7,7 @@
 #  account_type                                   :integer          default("unfilled"), not null
 #  american_red_cross_fund_donation               :decimal(12, 2)
 #  childrens_trust_fund_donation                  :decimal(12, 2)
+#  consented_to_sms_terms                         :integer          default("unfilled"), not null
 #  consented_to_terms_and_conditions              :integer          default("unfilled"), not null
 #  contact_preference                             :integer          default("unfilled"), not null
 #  current_sign_in_at                             :datetime

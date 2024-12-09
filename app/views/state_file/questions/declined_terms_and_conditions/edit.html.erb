@@ -6,7 +6,7 @@
   <p><%= t(".subtitle") %></p>
 
   <div><%= t(".action_html") %></div>
-  <%= link_to(StateFile::Questions::TermsAndConditionsController.to_path_helper(action: :edit)) do %>
+  <%= link_to(prev_path) do %>
     <%= t('.go_back_link') %>
   <% end %>
 

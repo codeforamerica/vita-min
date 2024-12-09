@@ -6,6 +6,7 @@
 #  account_number                    :string
 #  account_type                      :integer          default("unfilled"), not null
 #  city                              :string
+#  consented_to_sms_terms            :integer          default("unfilled"), not null
 #  consented_to_terms_and_conditions :integer          default("unfilled"), not null
 #  contact_preference                :integer          default("unfilled"), not null
 #  current_sign_in_at                :datetime
@@ -98,6 +99,7 @@ class StateFileNcIntake < StateFileBaseIntake
 
   enum eligibility_ed_loan_cancelled: { no: 0, yes: 1 }, _prefix: :eligibility_ed_loan_cancelled
   enum eligibility_ed_loan_emp_payment: { no: 0, yes: 1 }, _prefix: :eligibility_ed_loan_emp_payment
+  enum consented_to_sms_terms: { unfilled: 0, yes: 1, no: 2 }, _prefix: :consented_to_sms_terms
 
   attr_accessor :nc_eligiblity_none
 

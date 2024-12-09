@@ -2,7 +2,11 @@
   <p><button class="reveal__button"><%= t('.vita_option_title') %></button></p>
   <div class="reveal__content">
     <div>
-      <%= render partial: "state_file/questions/eligible/vita_option" %>
+      <% if current_state_code == "md" %>
+        <%= t('.md_reveal_content_html') %>
+      <% else %>
+        <%= render partial: "state_file/questions/eligible/vita_option" %>
+      <% end %>
     </div>
   </div>
 </div>

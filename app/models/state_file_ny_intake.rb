@@ -7,6 +7,7 @@
 #  account_type                       :integer          default("unfilled"), not null
 #  confirmed_permanent_address        :integer          default("unfilled"), not null
 #  confirmed_third_party_designee     :integer          default("unfilled"), not null
+#  consented_to_sms_terms             :integer          default("unfilled"), not null
 #  consented_to_terms_and_conditions  :integer          default("unfilled"), not null
 #  contact_preference                 :integer          default("unfilled"), not null
 #  current_sign_in_at                 :datetime
@@ -157,6 +158,7 @@ class StateFileNyIntake < StateFileBaseIntake
   enum eligibility_out_of_state_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_out_of_state_income
   enum email_notification_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :email_notification_opt_in
   enum sms_notification_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :sms_notification_opt_in
+  enum consented_to_sms_terms: { unfilled: 0, yes: 1, no: 2 }, _prefix: :consented_to_sms_terms
 
   before_save do
 

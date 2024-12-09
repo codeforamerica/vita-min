@@ -1,7 +1,7 @@
 <div class="white-group">
   <p class="spacing-below-0"><%= t("state_file.questions.tax_refund.bank_details.bank_title") %></p>
   <p class="text--small"><%= t("state_file.questions.tax_refund.bank_details.foreign_accounts") %></p>
-  <div class="form-group-tight">
+  <div>
     <% if owe_taxes %>
       <%= form.hidden_field :app_time, value: app_time %>
       <%= form.vita_min_money_field(:withdraw_amount, t('state_file.questions.tax_refund.bank_details.withdraw_amount', owed_amount: taxes_owed), classes: ["form-width--long"]) %>
@@ -46,7 +46,7 @@
             t(".suffix"),
             suffix_options_for_state_select,
             prompt: t('general.select_prompt'), include_blank: true) %>
-      <div class="question-with-follow-up__follow-up not-centered" id="joint-account-holder-questions">
+      <div class="form-group-tight question-with-follow-up__follow-up" id="joint-account-holder-questions">
         <p class="text--bold spacing-below-0"><%= t('.joint_account_holder_name') %></p>
         <%= form.cfa_input_field :joint_account_holder_first_name, t("general.first_name"), classes: ["form-width--long"] %>
         <%= form.cfa_input_field :joint_account_holder_middle_initial, t(".middle_initial"), classes: ["form-width--long"] %>
@@ -64,7 +64,6 @@
     <%= form.cfa_input_field(:account_number, t("state_file.questions.tax_refund.bank_details.account_number"), classes: ["form-width--long", "disablecopy"]) %>
     <%= form.cfa_input_field(:account_number_confirmation, t("state_file.questions.tax_refund.bank_details.confirm_account_number"), classes: ["form-width--long", "disablepaste", "disablecopy"]) %>
   </div>
-  <%= form.cfa_checkbox(:bank_authorization_confirmed, t(".bank_authorization_confirmation"), options: { checked_value: "yes", unchecked_value: "no" }) %>
   <% if owe_taxes && !before_withdrawal_date_deadline?(current_state_code) %>
     <p>
       <%= t("state_file.questions.tax_refund.bank_details.after_deadline_default_withdrawal_info",
