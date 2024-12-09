@@ -47,6 +47,17 @@ module StateFile
       ).send_message(require_verification: false)
     end
 
+    def send_efile_submission_terminal_rejected_message
+      message = StateFile::AutomatedMessage::TerminalRejected
+      body_args = { return_status_link: return_status_link }
+      StateFile::MessagingService.new(
+        intake: @intake,
+        submission: @submission,
+        message: message,
+        body_args: body_args
+      ).send_message(require_verification: false)
+    end
+
     def send_efile_submission_still_processing_message
       message = StateFile::AutomatedMessage::StillProcessing
       StateFile::MessagingService.new(
