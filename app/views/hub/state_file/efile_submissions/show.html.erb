@@ -50,13 +50,13 @@
               <%= link_to("#{state.titleize} autocancel",
                           transition_to_hub_state_file_efile_submission_path(id: @efile_submission.id, to_state: state, auto_cancel: true),
                           method: :patch,
-                          data: { confirm: "Are you sure you want to mark this tax return submission as '#{state.titleize}'?" },
+                          data: { confirm: "Are you sure you want to mark this tax return submission as '#{state.titleize}' with an auto-cancel error?" },
                           class: "button button--#{state.titleize} button--small",
                           style: "margin: 0") %>
               <%= link_to("#{state.titleize} autowait",
                           transition_to_hub_state_file_efile_submission_path(id: @efile_submission.id, to_state: state, auto_wait: true),
                           method: :patch,
-                          data: { confirm: "Are you sure you want to mark this tax return submission as '#{state.titleize}'?" },
+                          data: { confirm: "Are you sure you want to mark this tax return submission as '#{state.titleize}' with an auto-wait error?" },
                           class: "button button--#{state.titleize} button--small",
                           style: "margin: 0") %>
             <% end %>
