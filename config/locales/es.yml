@@ -2811,6 +2811,8 @@ es:
       nc_county:
         edit:
           county: Condado
+          county_during_hurricane: Seleccione el condado donde se encontraba su dirección permanente durante el huracán Helene (a partir del 25 de septiembre de 2024)
+          moved_after_hurricane: "¿Su dirección permanente estaba en un condado diferente durante el huracán Helene (a partir del 25 de septiembre de 2024)?"
           title: Selecciona el condado donde tenías tu dirección permanente en diciembre 31 de %{filing_year}
       nc_eligibility:
         edit:
@@ -3345,6 +3347,7 @@ es:
         thank_you_html: Gracias por presentar su declaración con <strong>FileYourStateTaxes</strong>, creado en asociación con el estado de %{state_name} para integrarse con la herramienta Direct File del IRS.
       review:
         county: Condado donde estaba ubicada su dirección permanente el 31 de diciembre de %{filing_year}
+        county_during_hurricane: Condado donde estaba ubicada su dirección permanente durante el huracán Helene
       shared:
         abstract_review_header:
           amount_rounding_notice_html: "<strong>Hemos redondeado automáticamente todas las cantidades en dólares al número entero más cercano.</strong> La %{state_agency_name} solo aceptará números enteros en la declaración de impuestos final."
