@@ -2294,7 +2294,6 @@ en:
           charity_code: Charity Code
           charity_name: Name of Qualifying Organization
           date_of_contribution: Date of payment in %{filing_year}
-          main_heading: Were any of your donations made to a Qualifying Charitable Organization that provide immediate basic needs to residents of Arizona?
           main_heading_html: Were any of your donations made to a <a href="https://azdor.gov/tax-credits/credits-contributions-qcos-and-qfcos" target="_blank">Qualifying Charitable Organization</a> that provide immediate basic needs to residents of Arizona?
           org_details_answer_html: |
             You can find this information on the receipt you received from the organization
@@ -2567,6 +2566,10 @@ en:
             body_html: |
               <p>By using a computer system and software to prepare and file my tax return(s) electronically, I consent to the transmission of my return(s) and to the disclosure of all information about my use of the system and software to the North Carolina Department of Revenue.</p>
               <p>By checking the box below, I declare and certify that I have examined this return and accompanying schedules and statements, and to the best of my knowledge and belief, they are true, correct, and complete.</p>
+          nj:
+            body_html: |
+              <p>Under penalties of perjury, I declare that I have examined this Income Tax return, including accompanying schedules and statements, and to the best of my knowledge and belief, it is true, correct, and complete. (N.J.S.A. 2C:28-1)</p>
+              <p>By using a computer system and software to prepare and/or file my tax return(s) electronically, I consent to the transmission of my return(s) and to the disclosure of all information about my use of the system and software to the New Jersey Division of Revenue and Enterprise Services.</p>
           ny:
             body_html: |
               <p>By checking the box(es) shown below, and pressing “Submit,” I understand and agree that I am submitting for filing my 2023 New York State (NYS) electronic personal income tax return. I declare, under penalty of perjury, that I have examined the information on my NYS electronic tax return, including all information transferred to my NYS return from my federal return, and all accompanying schedules, attachments, and statements provided with the return, and certify that my NYS electronic return is true, correct, and complete. By executing Form TR-579-IT and providing it to the ERO, I have authorized the ERO (Code for America) to file my 2023 NYS electronic tax return with the NYS Tax Department through the Internal Revenue Service (IRS) Modernized e-File System.</p>
