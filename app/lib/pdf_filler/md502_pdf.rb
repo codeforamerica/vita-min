@@ -21,8 +21,6 @@ module PdfFiller
         'Enter 1b': @xml_document.at("Form502 Income EarnedIncome")&.text,
         'Enter 1dEnter 1d': @xml_document.at("Form502 Income TaxablePensionsIRAsAnnuities")&.text,
         'Enter Y of income more than $11,000': @xml_document.at("Form502 Income InvestmentIncomeIndicator")&.text == "X" ? "Y" : "",
-        'Enter day and month of Fiscal Year beginning': formatted_date(@xml_document.at('ReturnHeaderState TaxPeriodBeginDt')&.text, "%m-%d"),
-        'Enter day and month of Fiscal Year Ending': formatted_date(@xml_document.at('ReturnHeaderState TaxPeriodEndDt')&.text, "%m-%d"),
         'Enter social security number': @xml_document.at('Primary TaxpayerSSN')&.text,
         'Enter spouse\'s social security number': @xml_document.at('Secondary TaxpayerSSN')&.text,
         'Enter your first name': @xml_document.at('Primary TaxpayerName FirstName')&.text,

@@ -127,8 +127,8 @@ RSpec.describe PdfFiller::Md502Pdf do
     describe "filing_status" do
       context "single" do
         it "sets correct value for the single filer and leaves it empty for spouse" do
-          expect(pdf_fields["Enter day and month of Fiscal Year beginning"]).to eq '01-01'
-          expect(pdf_fields["Enter day and month of Fiscal Year Ending"]).to eq "12-31"
+          expect(pdf_fields["Enter day and month of Fiscal Year beginning"]).to be_nil
+          expect(pdf_fields["Enter day and month of Fiscal Year Ending"]).to be_nil
           expect(pdf_fields["Enter social security number"]).to eq("123456789")
           expect(pdf_fields["Enter spouse's social security number"]).to be_nil
           expect(pdf_fields["Enter your first name"]).to eq("Mary")

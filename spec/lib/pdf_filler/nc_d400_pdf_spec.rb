@@ -31,8 +31,8 @@ RSpec.describe PdfFiller::NcD400Pdf do
 
       context "single filer" do
         it 'sets static fields to the correct values' do
-          expect(pdf_fields['y_d400wf_datebeg']).to eq '01-01'
-          expect(pdf_fields['y_d400wf_dateend']).to eq "12-31-#{Rails.configuration.statefile_current_tax_year.to_s[-2..-1]}"
+          expect(pdf_fields['y_d400wf_datebeg']).to be_nil
+          expect(pdf_fields['y_d400wf_dateend']).to be_nil
           expect(pdf_fields['y_d400wf_rs1yes']).to eq 'Yes'
           expect(pdf_fields['y_d400wf_rs2yes']).to eq 'Off'
           expect(pdf_fields['y_d400wf_county']).to eq 'Alama'
@@ -115,8 +115,8 @@ RSpec.describe PdfFiller::NcD400Pdf do
         end
 
         it 'sets static fields to the correct values' do
-          expect(pdf_fields['y_d400wf_datebeg']).to eq '01-01'
-          expect(pdf_fields['y_d400wf_dateend']).to eq "12-31-#{Rails.configuration.statefile_current_tax_year.to_s[-2..-1]}"
+          expect(pdf_fields['y_d400wf_datebeg']).to be_nil
+          expect(pdf_fields['y_d400wf_dateend']).to be_nil
           expect(pdf_fields['y_d400wf_rs2yes']).to eq 'Yes'
         end
 
