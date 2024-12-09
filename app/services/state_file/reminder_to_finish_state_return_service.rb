@@ -1,7 +1,7 @@
 module StateFile
   class ReminderToFinishStateReturnService
     def self.run
-      cutoff_time_ago = 12.hours.ago
+      cutoff_time_ago = 6.hours.ago
       batch_size = 10
       intakes_with_no_submission = StateFile::StateInformationService.state_intake_classes.flat_map do |class_object|
         class_object.where("df_data_imported_at < ?", cutoff_time_ago)
