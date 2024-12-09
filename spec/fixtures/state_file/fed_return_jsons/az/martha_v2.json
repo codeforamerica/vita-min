@@ -30,7 +30,7 @@
       "middleInitial": null,
       "tin": "300-00-0010",
       "dateOfBirth": "2022-03-03",
-      "relationship": "grandChildOrOtherDescendentOfChild",
+      "relationship": "grandChildOrOtherDescendantOfChild",
       "eligibleDependent": true,
       "isClaimedDependent": true,
       "monthsLivedWithTPInUS": "twelve",
