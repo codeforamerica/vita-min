@@ -1743,6 +1743,11 @@
   resolved "https://registry.yarnpkg.com/@types/tough-cookie/-/tough-cookie-4.0.5.tgz#cb6e2a691b70cb177c6e3ae9c1d2e8b2ea8cd304"
   integrity sha512-/Ad8+nIOV7Rl++6f1BdKxFSMgmoqEoYbHRpPcx3JEfv8VRsQe9Z4mCXeJBzxs7mbHY/XOZZuXlRNfhpVPbs6ZA==
 
+"@types/trusted-types@^2.0.7":
+  version "2.0.7"
+  resolved "https://registry.yarnpkg.com/@types/trusted-types/-/trusted-types-2.0.7.tgz#baccb07a970b91707df3a3e8ba6896c57ead2d11"
+  integrity sha512-ScaPdn1dQczgbl0QFTeTOmVHFULt394XJgOQNoyVhZ6r2vLnMLJfBPd53SB52T/3G36VI1/g2MZaX0cwDuXsfw==
+
 "@types/ws@^8.5.10":
   version "8.5.13"
   resolved "https://registry.yarnpkg.com/@types/ws/-/ws-8.5.13.tgz#6414c280875e2691d0d1e080b05addbf5cb91e20"
@@ -2859,6 +2864,13 @@ domhandler@^5.0.2, domhandler@^5.0.3:
   integrity sha512-cgwlv/1iFQiFnU96XXgROh8xTeetsnJiDsTc7TYCLFd9+/WNkIqPTxiM/8pSd8VIrhXGTf1Ny1q1hquVqDJB5w==
   dependencies:
     domelementtype "^2.3.0"
+
+dompurify@^3.2.0:
+  version "3.2.3"
+  resolved "https://registry.yarnpkg.com/dompurify/-/dompurify-3.2.3.tgz#05dd2175225324daabfca6603055a09b2382a4cd"
+  integrity sha512-U1U5Hzc2MO0oW3DF+G9qYN0aT7atAou4AgI0XjWz061nyBPbdxkfdhfy5uMgGn6+oLFCfn44ZGbdDqCzVmlOWA==
+  optionalDependencies:
+    "@types/trusted-types" "^2.0.7"
 
 domutils@^3.0.1:
   version "3.1.0"
@@ -5770,10 +5782,12 @@ tree-dump@^1.0.1:
   resolved "https://registry.yarnpkg.com/tree-dump/-/tree-dump-1.0.2.tgz#c460d5921caeb197bde71d0e9a7b479848c5b8ac"
   integrity sha512-dpev9ABuLWdEubk+cIaI9cHwRNNDjkBBLXTwI4UCUFdQ5xXKqNXoK4FEciw/vxf+NQ7Cb7sGUyeUtORvHIdRXQ==
 
-trix@^2.1.4:
-  version "2.1.4"
-  resolved "https://registry.yarnpkg.com/trix/-/trix-2.1.4.tgz#a2f1e37fec03c9050bc7ba1d56056e606389a46f"
-  integrity sha512-f0AGnqBV8J2qW+fCtVU71JmvzjcxnO5Xbbd6Cl2KrHVRpgXKDqNGTmDmQzNHWU7T2OgtwHwvNiN+OIf3Z3KmHQ==
+trix@^2.1.9:
+  version "2.1.9"
+  resolved "https://registry.yarnpkg.com/trix/-/trix-2.1.9.tgz#01454f6b2ea498fb8a47e50bf8cc3f93689d8437"
+  integrity sha512-Hm02gmsFLjQ+gcFNUW0iwGibYpQpklBCnBUj4z5013W+q6eiZPA9d9HmeJK8jd+BMbqMq7OsVEGclrBrbl4MJw==
+  dependencies:
+    dompurify "^3.2.0"
 
 tslib@^2.0.0:
   version "2.8.1"
