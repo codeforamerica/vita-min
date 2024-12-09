@@ -2848,6 +2848,8 @@ en:
       nc_county:
         edit:
           county: County
+          county_during_hurricane: Select the county where your permanent address was located during Hurricane Helene (on or after September 25th, 2024)
+          moved_after_hurricane: Was your permanent address in a different county during Hurricane Helene (on or after September 25th, 2024)?
           title: Select the county where your permanent address was located on December 31, %{filing_year}
       nc_eligibility:
         edit:
@@ -3383,6 +3385,7 @@ en:
         thank_you_html: Thank you for filing your return with <strong>FileYourStateTaxes</strong>, built in partnership with the state of %{state_name} to integrate with IRS Direct File.
       review:
         county: County where your permanent address was located on December 31, %{filing_year}
+        county_during_hurricane: County where your permanent address was located during Hurricane Helene
       shared:
         abstract_review_header:
           amount_rounding_notice_html: "<strong>We have automatically rounded all dollar amounts to the nearest whole number.</strong> The %{state_agency_name} will only accept whole numbers on the final tax return."
