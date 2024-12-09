@@ -89,7 +89,7 @@ RSpec.feature "Visit home page" do
       scenario "shows the banner with closing date and document submission deadline with correctly formatted spanish dates" do
         visit "/es"
 
-        expect(page).to have_text "Comience con GetYourRefund antes del 1 de octubre si desea presentar su declaración con nosotros en 2024. Si su declaración está en progreso, inicie sesión y envíe sus documentos antes del 8 de octubre."
+        expect(page).to have_text I18n.t('views.public_pages.home.open_intake_post_tax_deadline_banner', end_of_intake: I18n.l(Rails.configuration.end_of_intake.to_date, format: :medium, locale: "es"), end_of_docs: I18n.l(Rails.configuration.end_of_docs.to_date, format: :medium, locale: "es"), locale: "es")
       end
     end
   end

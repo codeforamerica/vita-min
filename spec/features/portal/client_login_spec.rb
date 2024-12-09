@@ -160,23 +160,23 @@ RSpec.feature "Logging in" do
         visit portal_tax_return_authorize_signature_path(locale: "es", tax_return_id: tax_return.id)
 
         expect(page).to have_text I18n.t("portal.client_logins.new.title", locale: "es")
-        fill_in "Dirección de correo electrónico", with: client.intake.email_address
+        fill_in I18n.t("views.questions.email_address.email_address", locale: "es"), with: client.intake.email_address
 
         perform_enqueued_jobs do
-          click_on "Enviar código"
-          expect(page).to have_text "¡Verifiquemos ese código!"
+          click_on I18n.t("portal.client_logins.new.send_code", locale: "es")
+          expect(page).to have_text I18n.t("portal.client_logins.enter_verification_code.title", locale: "es")
         end
 
         mail = ActionMailer::Base.deliveries.last
         expect(mail.html_part.body.to_s).to have_text("de seis dígitos para GetYourRefund es: 000004. Este código expirará después de 30 minutos.")
 
-        fill_in "Ingrese el código de 6 dígitos", with: "000004"
-        click_on "Verificar"
+        fill_in I18n.t('portal.client_logins.enter_verification_code.enter_6_digit_code', locale: "es"), with: "000004"
+        click_on I18n.t('portal.client_logins.enter_verification_code.verify', locale: "es")
 
-        fill_in "ID de cliente o los 4 últimos de SSN/ITIN", with: client.id
-        click_on "Continuar"
+        fill_in I18n.t('portal.client_logins.edit.last_four_or_client_id', locale: "es"), with: client.id
+        click_on I18n.t('general.continue', locale: "es")
 
-        expect(page).to have_text "¡Entregue su firma electrónica/e-file final!"
+        expect(page).to have_text I18n.t("portal.tax_returns.authorize_signature.heading", locale: "es")
       end
     end
   end
