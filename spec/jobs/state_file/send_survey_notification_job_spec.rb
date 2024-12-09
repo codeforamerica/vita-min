@@ -7,7 +7,7 @@ RSpec.describe StateFile::SendSurveyNotificationJob, type: :job do
     let(:message) { StateFile::AutomatedMessage::SurveyNotification }
     let(:body_args) {
       {
-        survey_link: "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_7UTycCvS3UEokey"
+        survey_link: "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_0v0BnYNRoLIqzhY"
       }
     }
     let(:state_file_messaging_service) { instance_double(StateFile::MessagingService) }
