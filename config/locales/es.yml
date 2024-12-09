@@ -2501,7 +2501,7 @@ es:
           interest_from_obligations: Resta de intereses de obligaciones del gobierno de EE. UU.
           social_security_retirement_deduction: Deducciones de Seguridad Social y Beneficios de Jubilación
         md_supported:
-          heading1: 'Credits'
+          heading1: 'Restas:'
           heading2: 'Créditos:'
           sub1: Deducción por gastos de cuidado de niños y Dependientes
           sub10: Crédito fiscal para adultos mayores
