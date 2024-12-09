@@ -2,27 +2,8 @@
   "familyAndHousehold": [
     {
       "monthsLivedWithTPInUS": null,
-      "lastName": "haddock",
-      "hohQualifyingPerson": true,
-      "isClaimedDependent": true,
-      "qualifyingChild": false,
-      "scheduleEicLine4bYes": false,
-      "scheduleEicLine4aYes": false,
-      "dateOfBirth": "1959-12-31",
-      "suffix": null,
-      "residencyDuration": "sixToElevenMonths",
-      "firstName": "helena",
-      "middleInitial": null,
-      "tin": "600-00-5656",
-      "scheduleEicLine4aNo": true,
-      "eligibleDependent": true,
-      "relationship": "grandParent",
-      "ssnNotValidForEmployment": null
-    },
-    {
-      "monthsLivedWithTPInUS": null,
-      "lastName": "haddock",
-      "hohQualifyingPerson": true,
+      "lastName": "Haddock",
+      "hohQualifyingPerson": false,
       "isClaimedDependent": true,
       "qualifyingChild": false,
       "scheduleEicLine4bYes": false,
@@ -30,19 +11,38 @@
       "dateOfBirth": "2000-10-10",
       "suffix": null,
       "residencyDuration": "sixToElevenMonths",
-      "firstName": "haddie",
+      "firstName": "Haddie",
       "middleInitial": null,
       "tin": "600-00-5555",
       "scheduleEicLine4aNo": true,
       "eligibleDependent": true,
       "relationship": "siblingInLaw",
       "ssnNotValidForEmployment": null
+    },
+    {
+      "monthsLivedWithTPInUS": null,
+      "lastName": "Haddock",
+      "hohQualifyingPerson": false,
+      "isClaimedDependent": true,
+      "qualifyingChild": false,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "1959-12-31",
+      "suffix": null,
+      "residencyDuration": "sixToElevenMonths",
+      "firstName": "Helena",
+      "middleInitial": null,
+      "scheduleEicLine4aNo": true,
+      "tin": "600-00-5656",
+      "eligibleDependent": true,
+      "relationship": "grandParent",
+      "ssnNotValidForEmployment": null
     }
   ],
   "filers": [
     {
-      "firstName": "hannah",
-      "lastName": "haddock",
+      "firstName": "Hannah",
+      "lastName": "Haddock",
       "middleInitial": null,
       "tin": "400-00-6060",
       "dateOfBirth": "1995-05-05",
@@ -51,6 +51,5 @@
       "ssnNotValidForEmployment": null
     }
   ],
-  "form1099Gs": [],
   "interestReports": []
 }

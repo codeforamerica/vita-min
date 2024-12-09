@@ -1,53 +1,66 @@
 <% content_for :card do %>
-    <div class="slab slab--not-padded spacing-above-25 submission" id="body">
-      <div style="display: flex;">
-        <h1>
-          <%= link_to("E-file Submissions", hub_state_file_efile_submissions_path) %>
-          > <%= @efile_submission.irs_submission_id %> (<%= @efile_submission.current_state.humanize %>)</h1>
-      </div>
+  <div class="slab slab--not-padded spacing-above-25 submission" id="body">
+    <div style="display: flex;">
+      <h1>
+        <%= link_to("E-file Submissions", hub_state_file_efile_submissions_path) %>
+        > <%= @efile_submission.irs_submission_id %> (<%= @efile_submission.current_state.humanize %>)</h1>
+    </div>
+    <div class="field-display">
+      <span class="form-question">EfileSubmission id:</span>
+      <span class="label-value"><%= @efile_submission.id %></span>
+    </div>
+    <div class="field-display">
+      <span class="form-question"><%= @efile_submission.data_source_type %> id:</span>
+      <span class="label-value"><%= @efile_submission.data_source_id %></span>
+    </div>
+    <div class="field-display">
+      <span class="form-question">federal_submission_id:</span>
+      <span class="label-value"><%= @efile_submission.data_source.federal_submission_id %></span>
+    </div>
+    <% s3_key = @efile_submission&.submission_bundle&.blob&.key %>
+    <% if s3_key %>
       <div class="field-display">
-        <span class="form-question">EfileSubmission id:</span>
-        <span class="label-value"><%= @efile_submission.id  %></span>
+        <span class="form-question">S3 Key:</span>
+        <span class="label-value"><%= s3_key %></span>
       </div>
+    <% end %>
+    <% if @efile_submissions_same_intake.present? %>
       <div class="field-display">
-        <span class="form-question"><%= @efile_submission.data_source_type %> id:</span>
-        <span class="label-value"><%= @efile_submission.data_source_id %></span>
+        <span class="form-question">submissions with matching intake:</span>
+        <span class="label-value"><%= @efile_submissions_same_intake.map { |submission| link_to(submission.id, hub_state_file_efile_submission_path(id: submission.id)) }.join(', ').html_safe %></span>
       </div>
-      <div class="field-display">
-        <span class="form-question">federal_submission_id:</span>
-        <span class="label-value"><%= @efile_submission.data_source.federal_submission_id  %></span>
+    <% end %>
+    <% unless acts_like_production? %>
+      <div class="spacing-below-15" style="display: flex; gap: 10px;">
+        <%= link_to "Show XML", hub_state_file_efile_submission_show_xml_path(efile_submission_id: @efile_submission.id), class: "button button--small", style: "margin:0" %>
+        <%= link_to "Show direct-file XML", hub_state_file_efile_submission_show_df_xml_path(efile_submission_id: @efile_submission.id), class: "button button--small", style: "margin:0" %>
+        <%= link_to "Download PDF", hub_state_file_efile_submission_show_pdf_path(efile_submission_id: @efile_submission.id), class: "button button--small", style: "margin:0" %>
       </div>
-      <% s3_key = @efile_submission&.submission_bundle&.blob&.key %>
-      <% if s3_key %>
-        <div class="field-display">
-          <span class="form-question">S3 Key:</span>
-          <span class="label-value"><%= s3_key %></span>
-        </div>
-      <% end %>
-      <% if @efile_submissions_same_intake.present? %>
-        <div class="field-display">
-          <span class="form-question">submissions with matching intake:</span>
-          <span class="label-value"><%= @efile_submissions_same_intake.map{ |submission| link_to(submission.id, hub_state_file_efile_submission_path(id: submission.id))}.join(', ').html_safe %></span>
-        </div>
-      <% end %>
-      <% unless acts_like_production? %>
+      <div class="transition-to">
+        <h4 class="spacing-below-10">Transition to State</h4>
         <div class="spacing-below-15" style="display: flex; gap: 10px;">
-          <%= link_to "Show XML", hub_state_file_efile_submission_show_xml_path(efile_submission_id: @efile_submission.id), class: "button button--small", style: "margin:0" %>
-          <%= link_to "Show direct-file XML", hub_state_file_efile_submission_show_df_xml_path(efile_submission_id: @efile_submission.id), class: "button button--small", style: "margin:0" %>
-          <%= link_to "Download PDF", hub_state_file_efile_submission_show_pdf_path(efile_submission_id: @efile_submission.id), class: "button button--small", style: "margin:0" %>
-        </div>
-        <div class="transition-to">
-          <h4 class="spacing-below-10">Transition to State</h4>
-          <div class="spacing-below-15" style="display: flex; gap: 10px;">
-            <% @valid_transitions.each do |state| %>
-              <%= link_to(state.titleize,
-                          transition_to_hub_state_file_efile_submission_path(id: @efile_submission.id, to_state: state),
+          <% @valid_transitions.each do |state| %>
+            <%= link_to(state.titleize,
+                        transition_to_hub_state_file_efile_submission_path(id: @efile_submission.id, to_state: state),
+                        method: :patch,
+                        data: { confirm: "Are you sure you want to mark this tax return submission as '#{state.titleize}'?" },
+                        class: "button button--#{state.titleize} button--small",
+                        style: "margin: 0") %>
+            <% if state == "rejected" %>
+              <%= link_to("#{state.titleize} autocancel",
+                          transition_to_hub_state_file_efile_submission_path(id: @efile_submission.id, to_state: state, auto_cancel: true),
                           method: :patch,
-                          data: { confirm: "Are you sure you want to mark this tax return submission as '#{state.titleize}'?" },
+                          data: { confirm: "Are you sure you want to mark this tax return submission as '#{state.titleize}' with an auto-cancel error?" },
+                          class: "button button--#{state.titleize} button--small",
+                          style: "margin: 0") %>
+              <%= link_to("#{state.titleize} autowait",
+                          transition_to_hub_state_file_efile_submission_path(id: @efile_submission.id, to_state: state, auto_wait: true),
+                          method: :patch,
+                          data: { confirm: "Are you sure you want to mark this tax return submission as '#{state.titleize}' with an auto-wait error?" },
                           class: "button button--#{state.titleize} button--small",
                           style: "margin: 0") %>
             <% end %>
-          </div>
+          <% end %>
         </div>
       </div>
     <% else %>
@@ -91,4 +104,5 @@
         <%= render("log", transitions: @efile_submission.efile_submission_transitions) %>
       </ul>
     </div>
+  </div>
 <% end %>

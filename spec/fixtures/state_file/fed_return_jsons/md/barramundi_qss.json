@@ -70,5 +70,18 @@
       "ssnNotValidForEmployment": null
     }
   ],
+  "form1099Gs": [
+    {
+      "stateTaxWithheld": "1000.00",
+      "has1099": true,
+      "amount": "9000.00",
+      "amountPaidBackForBenefitsInTaxYear": "0.00",
+      "federalTaxWithheld": "1000.00",
+      "stateIdNumber": "12345",
+      "payerTin": "27-0293117",
+      "recipientTin": "400-00-7203",
+      "payer": "MARYLAND DEPARTMENT OF LABOR"
+    }
+  ],
   "interestReports": []
 }
