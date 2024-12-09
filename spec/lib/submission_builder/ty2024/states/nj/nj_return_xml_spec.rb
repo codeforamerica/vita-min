@@ -100,7 +100,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
       expect(xml.document.at('ReturnDataState FormNJ1040 Header')).to be_an_instance_of Nokogiri::XML::Element
     end
 
-    context "nj 2450" do
+    describe "nj 2450" do
       context "with nothing on nj 1040 lines 59 or 61" do
         let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
         it "does not include the nj 2450" do
@@ -109,7 +109,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
       end
 
       context "with excess contributions on line 59" do
-        context "mfj with multiple w2s per spouse that individually do not exceed the max and total more than the max for each spouse" do 
+        context "mfj with multiple w2s per spouse that individually do not exceed the max and total more than the max for each spouse" do
           let(:intake) { create(:state_file_nj_intake, :df_data_mfj) }
           let(:primary_ssn_from_fixture) { intake.primary.ssn }
           let(:spouse_ssn_from_fixture) { intake.spouse.ssn }
@@ -139,6 +139,28 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
             expect(xml.document.at('FormNJ2450')).to be_an_instance_of Nokogiri::XML::Element
             expect(xml.css('FormNJ2450').count).to eq(2)
           end
+        end
+      end
+    end
+
+    describe "Schedule NJ HCC" do
+      context "when user answers no to health insurance question" do
+        let(:intake) { create(:state_file_nj_intake, eligibility_all_members_health_insurance: "no") }
+        it "does not include the Schedule NJ HCC" do
+          expect(xml.document.at('SchNJHCC')).to eq(nil)
+        end
+      end
+
+      context "when user answers yes to health insurance question" do
+        let(:intake) { create(:state_file_nj_intake, eligibility_all_members_health_insurance: "yes") }
+
+        it "includes the Schedule NJ HCC" do
+          expect(xml.document.at('SchNJHCC')).to be_an_instance_of Nokogiri::XML::Element
+        end
+
+        it "does not error" do
+          builder_response = described_class.build(submission)
+          expect(builder_response.errors).not_to be_present
         end
       end
     end
