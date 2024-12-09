@@ -2262,7 +2262,6 @@ es:
           charity_code: Código de beneficencia
           charity_name: Nombre de la organización calificada
           date_of_contribution: Fecha de pago en %{filing_year}
-          main_heading: "¿Alguna de tus donaciones fue hecha a una organización benéfica calificada que ofrece necesidades básicas inmediatas a los residentes de Arizona?"
           main_heading_html: ¿Alguna de tus donaciones fue hecha a <a href="https://azdor.gov/tax-credits/credits-contributions-qcos-and-qfcos" target="_blank">una organización benéfica calificada</a> que ofrece necesidades básicas inmediatas a los residentes de Arizona?
           org_details_answer_html: |
             Puedes encontrar esta información en el recibo que te entregó la organización
