@@ -2089,7 +2089,7 @@ es:
       md_refundable_child_dependent_care_credit: Crédito reembolsable para cuidado infantil y de dependientes
       md_refundable_earned_income_tax_credit: Crédito fiscal por ingreso del trabajo reembolsable de Maryland
       md_return_type: Tipo de declaración
-      md_senior_tax_credit: Crédito fiscal para personas mayores
+      md_senior_tax_credit: Crédito Tributario para Personas Mayores
       md_social_security_income_not_taxed: Ingreso del Seguro Social (no gravado en Maryland)
       md_standard_deduction: Deducción estándar
       md_state_retirement_pickup_addition: Adición de recolección de jubilación estatal
@@ -2504,7 +2504,7 @@ es:
           heading1: 'Restas:'
           heading2: 'Créditos:'
           sub1: Deducción por gastos de cuidado de niños y Dependientes
-          sub10: Crédito fiscal para adultos mayores
+          sub10: Crédito Tributario para Personas Mayores
           sub11: Créditos estatales y locales por nivel de pobreza
           sub12: Crédito por gastos de cuidado de niños y dependientes
           sub2: "Exclusión de pensiones (si tiene 65 años o más, o si tiene menos de 65 años y calificó previamente para la exclusión por discapacidad permanente)"
