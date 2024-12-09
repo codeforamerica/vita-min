@@ -3320,15 +3320,29 @@ es:
           include_payment: Debes incluir el formulario de comprobante de pago.
           mail_voucher_and_payment: 'Envía el formulario de comprobante de pago y el pago a:'
           md:
-            refund_details_html: ''
+            refund_details_html: |
+              You can check the status of your refund by visiting <a target="_blank" rel="noopener nofollow" href="www.marylandtaxes.gov">www.marylandtaxes.gov</a> and clicking on "Where's my refund?" You can also call the automated refund inquiry hotline at 1-800-218-8160 (toll-free) or 410-260-7701.
+              <br/><br/>
+              Please wait at least 10 days after your return is accepted before calling the Taxpayer Services Division at 1-800-638-2937 (toll-free) or 410-260-7980.
           nc:
-            check_payable_html: ''
-            refund_details_html: ''
+            check_payable_html: |
+              Write “2024 D-400” and your name, address, and the last 4 digits of your Social Security number on your payment.
+              <ul class="list--bulleted">
+                <li>
+                  If you are filing a joint return, write the last 4 digits of both Social Security numbers on your payment in the order that they appear on the return.
+                </li>
+              </ul>
+            refund_details_html: |
+              For the latest information on refund processing and to check your refund status, visit <a target="_blank" rel="noopener nofollow" href="www.ncdor.gov/file-pay/refund-process">www.ncdor.gov/file-pay/refund-process</a>.
+              <br/><br/>
+              You'll need to enter your Social Security Number and the exact refund amount.
+              <br/><br/>
+              You can also call the North Carolina Department of Revenue's toll-free refund inquiry line at 1-877-252-4052, available 24/7.
           pay_by_mail_or_moneyorder: 'Si estás pagando por correo mediante cheque o giro postal:'
           refund_details_html: 'Typical refund time frames are 7-8 weeks for e-Filed returns and 10-11 weeks for paper returns. There are some exceptions. For more information, please visit %{website_name} website: <a target="_blank" rel="noopener nofollow" href="https://%{tax_refund_url}>Where’s my Refund?</a>'
           title: Tu declaración de impuestos del estado de %{state_name} para el año %{filing_year} ha sido aceptada
         additional_content:
-          md_html: ''
+          md_html: <a target="_blank" rel="noopener nofollow" href="https://www.donatelifemaryland.org/">Register to make an anatomical gift at DonateLifeMaryland.org.</a>
         edit:
           download_state_return_pdf: Descarga tu declaración estatal
           explain_calcs: Explicación de Cálculos
