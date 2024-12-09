@@ -18,17 +18,6 @@ module SubmissionBuilder
                 xml.HealthCovAllYear 'X'
               end
             end
-
-            private
-            
-            def intake
-              @submission.data_source
-            end
-            
-            def calculated_fields
-              @nj2450_fields ||= intake.tax_calculator.calculate
-            end
-            
           end
         end
       end
