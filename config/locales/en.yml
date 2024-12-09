@@ -1545,7 +1545,7 @@ en:
             Best,
             The FileYourStateTaxes team
           subject: 'FileYourStateTaxes Update: %{state_name} State Return Accepted'
-        sms: "Hi %{primary_first_name} - %{state_name} accepted your state tax return! Make sure to pay your state taxes by April 15 at %{state_pay_taxes_link} if you have not paid via direct deposit or check. \n\nDownload your return at %{return_status_link}\n\nQuestions? Reply to this text.\n"
+        sms: "Hi %{primary_first_name} - %{state_name} accepted your state tax return! Make sure to pay your state taxes by April 15 at %{state_pay_taxes_link} if you have not paid via direct deposit or check. \n\nDownload your return at %{return_status_link}\n\nQuestions? Email us at help@fileyourstatetaxes.org.\n"
       accepted_refund:
         email:
           body: |
@@ -1558,7 +1558,7 @@ en:
             Best,
             The FileYourStateTaxes team
           subject: 'FileYourStateTaxes Update: %{state_name} State Return Accepted'
-        sms: "Hi %{primary_first_name} - %{state_name} accepted your state tax return! You can expect to receive your refund as soon as %{state_name} approves your refund amount. \n\nDownload your return and check your refund status at %{return_status_link}\n\nNeed help? Reply to this text.\n"
+        sms: "Hi %{primary_first_name} - %{state_name} accepted your state tax return! You can expect to receive your refund as soon as %{state_name} approves your refund amount. \n\nDownload your return and check your refund status at %{return_status_link}\n\nNeed help? Email us at help@fileyourstatetaxes.org.\n"
       finish_return:
         email:
           body: |
@@ -1576,7 +1576,7 @@ en:
         sms: |
           Hi %{primary_first_name} - You haven't submitted your state tax return yet. As a reminder, state taxes are due by April 15. Go to fileyourstatetaxes.org to finish them now.
 
-          Need help? Reply to this text.
+          Need help? Email us at help@fileyourstatetaxes.org.
       issue_resolved:
         email:
           body: "Hello - Thank you for using FileYourStateTaxes! \n\nAny issues you may have experienced while using our tool have now been resolved. To continue filing your state taxes, <a href=\"%{login_link}\">log in here.</a>\n\nBest,\nThe FileYourStateTaxes team\n"
@@ -1584,7 +1584,7 @@ en:
         sms: |
           Hello - Thank you for using FileYourStateTaxes! Any issues you may have experienced while using our tool have now been resolved. To continue filing your state taxes, log in here: %{login_link}
 
-          Questions? Reply to this text.
+          Questions? Email us at help@fileyourstatetaxes.org.
       post_deadline_reminder:
         email:
           body: |-
@@ -1601,14 +1601,14 @@ en:
           subject: 'Final Reminder: FileYourStateTaxes closes April 25.'
         sms: |
           Hi %{primary_first_name} - You haven't submitted your state tax return yet. Make sure to submit your state taxes as soon as possible to avoid late filing fees. Go to fileyourstatetaxes.org/en/us/login-options to finish them now. FileYourStateTaxes will be closing its services for the year on April 25.
-          Need help? Reply to this text.
+          Need help? Email us at help@fileyourstatetaxes.org.
       pre_deadline_reminder:
         email:
           body: "Hi %{primary_first_name},\n\nYou haven't submitted your state tax return yet. As a reminder, state taxes are due by April 15. Make sure to submit your state tax return by April 15 in order to avoid late filing fees from %{state_name}. \n\nGo to fileyourstatetaxes.org/en/us/login-options to finish them now.\n\nNeed help? Reply to this email.\n\nBest,\nThe FileYourStateTaxes team\n"
           subject: Don't forget to finish your state tax return by April 15!
         sms: |
           Hi %{primary_first_name} - You haven't submitted your state tax return yet. Make sure to submit your state taxes by April 15 in order to avoid late filing fees. Go to fileyourstatetaxes.org/en/us/login-options to finish them now.
-          Need help? Reply to this text.
+          Need help? Email us at help@fileyourstatetaxes.org.
       reject_resolution_reminder:
         email:
           body: |
@@ -1623,7 +1623,7 @@ en:
             Best,
             The FileYourStateTaxes team
           subject: Take action on your rejected %{state_name} state return.
-        sms: Hi %{primary_first_name} - This is a reminder that %{state_name} rejected your state tax return. We can help you fix and resubmit it at %{return_status_link}. Make sure to take action as soon as possible in order to avoid late filing fees. FileYourStateTaxes will be closing its services for the year on April 25. Questions? Reply to this text.
+        sms: Hi %{primary_first_name} - This is a reminder that %{state_name} rejected your state tax return. We can help you fix and resubmit it at %{return_status_link}. Make sure to take action as soon as possible in order to avoid late filing fees. FileYourStateTaxes will be closing its services for the year on April 25. Questions? Email us at help@fileyourstatetaxes.org.
       rejected:
         email:
           body: |
@@ -1639,7 +1639,7 @@ en:
         sms: |
           Hi %{primary_first_name} - Unfortunately, %{state_name} rejected your state tax return. Don't worry! We can help you fix and resubmit it at %{return_status_link}.
 
-          Questions? Reply to this text.
+          Questions? Email us at help@fileyourstatetaxes.org.
       reminder_apology:
         email:
           body: |
@@ -1666,7 +1666,7 @@ en:
             Best,
             The FileYourStateTaxes team
           subject: 'FileYourStateTaxes Update: Your %{state_name} state tax return is taking longer than expected'
-        sms: Hi %{primary_first_name} - It's taking longer than expected to process your state tax return. Don't worry! We'll let you know as soon as we know your return status. You don't need to do anything right now. Questions? Reply to this text.
+        sms: Hi %{primary_first_name} - It's taking longer than expected to process your state tax return. Don't worry! We'll let you know as soon as we know your return status. You don't need to do anything right now. Questions? Email us at help@fileyourstatetaxes.org.
       successful_submission:
         email:
           body: |
@@ -1681,7 +1681,7 @@ en:
           resubmitted: resubmitted
           subject: 'FileYourStateTaxes Update: %{state_name} State Return Submitted'
           submitted: submitted
-        sms: Hi %{primary_first_name} - You successfully  %{submitted_or_resubmitted} your %{state_name} state tax return! We'll update you in 1-2 days on the status of your return. You can download your return and check the status at %{return_status_link}. Need help? Reply to this text.
+        sms: Hi %{primary_first_name} - You successfully  %{submitted_or_resubmitted} your %{state_name} state tax return! We'll update you in 1-2 days on the status of your return. You can download your return and check the status at %{return_status_link}. Need help? Email us at help@fileyourstatetaxes.org.
       survey_notification:
         email:
           body: |
@@ -1716,7 +1716,7 @@ en:
         sms: |
           Welcome! We successfully created your FileYourStateTaxes account! We'll send you updates on your state tax return status once you submit it. While you are filing, your responses will be saved as you go. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org
 
-          Need help? Reply to this text. Text "STOP" to unsubscribe.
+          Need help? Email us at help@fileyourstatetaxes.org. Text "STOP" to unsubscribe.
     successful_submission_drop_off:
       email:
         body: |
@@ -3162,6 +3162,7 @@ en:
           title: In NJ, veterans are eligible for a tax exemption.
       notification_preferences:
         edit:
+          email_address_label: Your email address
           email_notification_opt_in: Email
           message_body_one: We will not share your information with any outside parties. Message frequency will vary. Message and data rates may apply.
           message_body_two_html: Text HELP to 46207 for help. Text STOP to 46207 to cancel. Carriers (e.g. AT&T, Verizon, T-Mobile, Sprint, etc.) are not responsible or liable for undelivered or delayed messages. See our <a target="_blank" href=%{sms_terms_link}>SMS Terms and Conditions</a> and <a target="_blank" href=%{privacy_link}>Privacy Policy</a>.
@@ -3353,7 +3354,7 @@ en:
               body: You can edit and resubmit your state return by clicking the button below.
               title: What's next?
             no_edit:
-              body_html: Unfortunately, there has been an issue with filing your state return that cannot be resolved on our service. <u>Chat with us</u> or email us at help@fileyourstatetaxes.org for guidance on next steps.
+              body_html: Unfortunately, the issue with filing your state return cannot be resolved on our service. We recommend you download your return to assist you in next steps.
               title: What can I do next?
           reject_code: 'Reject Code:'
           reject_desc: 'Reject Description:'

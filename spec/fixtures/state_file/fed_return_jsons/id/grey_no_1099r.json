@@ -3,8 +3,8 @@
     {
       "tin": "400-00-5952",
       "suffix": null,
-      "lastName": "GREY",
-      "firstName": "FRANK",
+      "lastName": "Grey",
+      "firstName": "Frank",
       "dateOfBirth": "1960-01-01",
       "middleInitial": null,
       "isPrimaryFiler": true,
@@ -13,14 +13,15 @@
     {
       "tin": "400-00-5970",
       "suffix": null,
-      "lastName": "GREY",
-      "firstName": "AMBER",
+      "lastName": "Grey",
+      "firstName": "Amber",
       "dateOfBirth": "1963-08-08",
       "middleInitial": null,
       "isPrimaryFiler": false,
       "ssnNotValidForEmployment": null
     }
   ],
+  "form1099Gs": [],
   "interestReports": [],
   "familyAndHousehold": []
 }
