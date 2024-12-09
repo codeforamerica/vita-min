@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v4.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>1cfaf0d2</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400008080</PrimarySSN>
+            <SpouseSSN>500009090</SpouseSSN>
+            <NameLine1Txt>OMAR&lt;OCTOPUS&lt;&amp; ARNOLD ARACHNOPHOBE</NameLine1Txt>
+            <PrimaryNameControlTxt>OCTO</PrimaryNameControlTxt>
+            <SpouseNameControlTxt>ARAC</SpouseNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>888 LEGS AVE</AddressLine1Txt>
+                <CityNm>SYKESVILLE</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21784</ZIPCd>
+            </USAddress>
+            <PhoneNum>3015556666</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000808-063f-4852-81e5-f125c5713720@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="3">
+        <IRS1040 documentId="IRS10400001">
+            <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>2</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001 W20002" referenceDocumentName="IRSW2">240000</WagesAmt>
+            <WagesSalariesAndTipsAmt>240000</WagesSalariesAndTipsAmt>
+            <TotalIncomeAmt>240000</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>240000</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>29200</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>29200</TotalDeductionsAmt>
+            <TaxableIncomeAmt>210800</TaxableIncomeAmt>
+            <TaxAmt>36677</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>36677</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>36677</TaxLessCreditsAmt>
+            <TotalTaxAmt>36677</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>50000</FormW2WithheldTaxAmt>
+            <WithholdingTaxAmt>50000</WithholdingTaxAmt>
+            <TotalPaymentsAmt>50000</TotalPaymentsAmt>
+            <OverpaidAmt>13323</OverpaidAmt>
+            <RefundAmt>13323</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>PHYSICAL TRAINER</PrimaryOccupationTxt>
+            <SpouseOccupationTxt>NONE</SpouseOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>400008080</EmployeeSSN>
+            <EmployerEIN>211067272</EmployerEIN>
+            <EmployerNameControlTxt>NEVE</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>NEVER SKIP LEG DAY GYM</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>4700 80TH AVE</AddressLine1Txt>
+                <CityNm>DENVER</CityNm>
+                <StateAbbreviationCd>CO</StateAbbreviationCd>
+                <ZIPCd>80212</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>OMAR OCTOPUS</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>888 LEGS AVE</AddressLine1Txt>
+                <CityNm>SYKESVILLE</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21784</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>120000</WagesAmt>
+            <WithholdingAmt>25000</WithholdingAmt>
+            <SocialSecurityWagesAmt>120000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>20000</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>120000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>15000</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>MD</StateAbbreviationCd>
+                    <EmployerStateIdNum>5321</EmployerStateIdNum>
+                    <StateWagesAmt>120000</StateWagesAmt>
+                    <StateIncomeTaxAmt>20000</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+        <IRSW2 documentId="W20002" documentName="IRSW2">
+            <EmployeeSSN>500009090</EmployeeSSN>
+            <EmployerEIN>211067272</EmployerEIN>
+            <EmployerNameControlTxt>NEVE</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>NEVER SKIP LEG DAY</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>4700 80TH AVE</AddressLine1Txt>
+                <CityNm>DENVER</CityNm>
+                <StateAbbreviationCd>CO</StateAbbreviationCd>
+                <ZIPCd>80212</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>ARNOLD ARACHNOPHOBE</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>888 LEGS AVE</AddressLine1Txt>
+                <CityNm>SYKESVILLE</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21784</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>120000</WagesAmt>
+            <WithholdingAmt>25000</WithholdingAmt>
+            <SocialSecurityWagesAmt>120000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>20000</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>120000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>12000</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>MD</StateAbbreviationCd>
+                    <EmployerStateIdNum>54654</EmployerStateIdNum>
+                    <StateWagesAmt>120000</StateWagesAmt>
+                    <StateIncomeTaxAmt>20000</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>
