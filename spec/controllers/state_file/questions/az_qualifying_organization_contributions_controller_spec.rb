@@ -211,7 +211,7 @@ RSpec.describe StateFile::Questions::AzQualifyingOrganizationContributionsContro
 
     it 'should not create more than 10 contributions' do
       get :index
-      # expect(response.body).not_to include(I18n.t('state_file.questions.az_qualifying_organization_contributions.index.maximum_records'))
+      expect(response.body).not_to include(I18n.t('state_file.questions.az_qualifying_organization_contributions.index.maximum_records'))
 
       10.times do
         put :create, params: valid_params
