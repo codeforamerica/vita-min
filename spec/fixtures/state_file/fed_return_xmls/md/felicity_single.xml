@@ -4,15 +4,15 @@
         <TaxYr>2024</TaxYr>
         <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
         <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
-        <SoftwareVersionNum>1cfaf0d2</SoftwareVersionNum>
+        <SoftwareVersionNum>676c5f98</SoftwareVersionNum>
         <ReturnTypeCd>1040</ReturnTypeCd>
         <Filer>
             <PrimarySSN>400001000</PrimarySSN>
             <NameLine1Txt>FELICITY&lt;FLOUNDER&lt;JR</NameLine1Txt>
             <PrimaryNameControlTxt>FLOU</PrimaryNameControlTxt>
             <USAddress>
-                <AddressLine1Txt>2598 Hickory Heights Drive Apt 21</AddressLine1Txt>
-                <CityNm>Baltimore</CityNm>
+                <AddressLine1Txt>2598 HICKORY HEIGHTS DRIVE APT 21</AddressLine1Txt>
+                <CityNm>BALTIMORE</CityNm>
                 <StateAbbreviationCd>MD</StateAbbreviationCd>
                 <ZIPCd>21202</ZIPCd>
             </USAddress>
@@ -20,11 +20,11 @@
         </Filer>
         <AdditionalFilerInformation>
             <AtSubmissionFilingGrp>
-                <EmailAddressTxt>test-user+40000100-06f1-4f74-a95d-dc7f709b1102@directfile.test</EmailAddressTxt>
+                <EmailAddressTxt>test-user+40000100-093c-417f-8e28-f035c3b87bcb@directfile.test</EmailAddressTxt>
             </AtSubmissionFilingGrp>
         </AdditionalFilerInformation>
     </ReturnHeader>
-    <ReturnData documentCnt="3">
+    <ReturnData documentCnt="4">
         <IRS1040 documentId="IRS10400001">
             <IndividualReturnFilingStatusCd>1</IndividualReturnFilingStatusCd>
             <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
@@ -34,40 +34,45 @@
             <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
             <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
             <TotalExemptionsCnt>1</TotalExemptionsCnt>
-            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">8800</WagesAmt>
-            <WagesSalariesAndTipsAmt>8800</WagesSalariesAndTipsAmt>
-            <TaxableInterestAmt referenceDocumentId="IRS1040B001" referenceDocumentName="IRS1040ScheduleB">9550</TaxableInterestAmt>
-            <TotalIncomeAmt>18350</TotalIncomeAmt>
-            <AdjustedGrossIncomeAmt>18350</AdjustedGrossIncomeAmt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">200</WagesAmt>
+            <WagesSalariesAndTipsAmt>200</WagesSalariesAndTipsAmt>
+            <TaxableInterestAmt referenceDocumentId="IRS1040B001" referenceDocumentName="IRS1040ScheduleB">4000</TaxableInterestAmt>
+            <TotalAdditionalIncomeAmt>10900</TotalAdditionalIncomeAmt>
+            <TotalIncomeAmt>15100</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>15100</AdjustedGrossIncomeAmt>
             <TotalItemizedOrStandardDedAmt>16550</TotalItemizedOrStandardDedAmt>
             <TotalDeductionsAmt>16550</TotalDeductionsAmt>
-            <TaxableIncomeAmt>1800</TaxableIncomeAmt>
-            <TaxAmt>181</TaxAmt>
-            <TotalTaxBeforeCrAndOthTaxesAmt>181</TotalTaxBeforeCrAndOthTaxesAmt>
-            <TaxLessCreditsAmt>181</TaxLessCreditsAmt>
-            <TotalTaxAmt>181</TotalTaxAmt>
-            <FormW2WithheldTaxAmt>500</FormW2WithheldTaxAmt>
-            <WithholdingTaxAmt>500</WithholdingTaxAmt>
+            <TaxableIncomeAmt>0</TaxableIncomeAmt>
+            <TaxAmt>0</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>0</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>0</TaxLessCreditsAmt>
+            <TotalTaxAmt>0</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>50</FormW2WithheldTaxAmt>
+            <WithholdingTaxAmt>50</WithholdingTaxAmt>
             <EarnedIncomeCreditAmt>17</EarnedIncomeCreditAmt>
             <RefundableCreditsAmt>17</RefundableCreditsAmt>
-            <TotalPaymentsAmt>517</TotalPaymentsAmt>
-            <OverpaidAmt>336</OverpaidAmt>
-            <RefundAmt>336</RefundAmt>
+            <TotalPaymentsAmt>67</TotalPaymentsAmt>
+            <OverpaidAmt>67</OverpaidAmt>
+            <RefundAmt>67</RefundAmt>
             <OwedAmt>0</OwedAmt>
             <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
-            <PrimaryOccupationTxt>Fish Fryer</PrimaryOccupationTxt>
+            <PrimaryOccupationTxt>FISH FRYER</PrimaryOccupationTxt>
             <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
         </IRS1040>
+        <IRS1040Schedule1 documentId="IRS1040S1001">
+            <UnemploymentCompAmt>10900</UnemploymentCompAmt>
+            <TotalAdditionalIncomeAmt>10900</TotalAdditionalIncomeAmt>
+        </IRS1040Schedule1>
         <IRS1040ScheduleB documentId="IRS1040B001" documentName="IRS1040ScheduleB">
             <Form1040SchBPartIGroup2>
                 <InterestPayerName>
-                    <BusinessNameLine1Txt>Fish Funds</BusinessNameLine1Txt>
+                    <BusinessNameLine1Txt>FISH FUNDS</BusinessNameLine1Txt>
                 </InterestPayerName>
-                <InterestAmt>9550</InterestAmt>
+                <InterestAmt>4000</InterestAmt>
             </Form1040SchBPartIGroup2>
-            <InterestSubtotalAmt interestSubtotalLiteralCd="INTEREST SUBTOTAL">9550</InterestSubtotalAmt>
-            <TaxableInterestSubtotalAmt>9550</TaxableInterestSubtotalAmt>
-            <CalculatedTotalTaxableIntAmt>9550</CalculatedTotalTaxableIntAmt>
+            <InterestSubtotalAmt interestSubtotalLiteralCd="INTEREST SUBTOTAL">4000</InterestSubtotalAmt>
+            <TaxableInterestSubtotalAmt>4000</TaxableInterestSubtotalAmt>
+            <CalculatedTotalTaxableIntAmt>4000</CalculatedTotalTaxableIntAmt>
             <ForeignAccountsQuestionInd>false</ForeignAccountsQuestionInd>
             <ForeignTrustQuestionInd>false</ForeignTrustQuestionInd>
         </IRS1040ScheduleB>
@@ -76,33 +81,35 @@
             <EmployerEIN>009998877</EmployerEIN>
             <EmployerNameControlTxt>CHEA</EmployerNameControlTxt>
             <EmployerName>
-                <BusinessNameLine1Txt>Cheap Chesapeake Fish</BusinessNameLine1Txt>
+                <BusinessNameLine1Txt>CHEAP CHESAPEAKE FISH</BusinessNameLine1Txt>
             </EmployerName>
             <EmployerUSAddress>
-                <AddressLine1Txt>4021 Lake Floyd Circle Apt 2E</AddressLine1Txt>
-                <CityNm>Laurel</CityNm>
+                <AddressLine1Txt>4021 LAKE FLOYD CIRCLE</AddressLine1Txt>
+                <AddressLine2Txt>APT 2E</AddressLine2Txt>
+                <CityNm>LAUREL</CityNm>
                 <StateAbbreviationCd>MD</StateAbbreviationCd>
                 <ZIPCd>20707</ZIPCd>
             </EmployerUSAddress>
-            <EmployeeNm>Felicity Flounder Jr</EmployeeNm>
+            <EmployeeNm>FELICITY FLOUNDER Jr</EmployeeNm>
             <EmployeeUSAddress>
-                <AddressLine1Txt>2598 Hickory Heights Drive Apt 21</AddressLine1Txt>
-                <CityNm>Baltimore</CityNm>
+                <AddressLine1Txt>2598 HICKORY HEIGHTS DRIVE</AddressLine1Txt>
+                <AddressLine2Txt>APT 21</AddressLine2Txt>
+                <CityNm>BALTIMORE</CityNm>
                 <StateAbbreviationCd>MD</StateAbbreviationCd>
                 <ZIPCd>21202</ZIPCd>
             </EmployeeUSAddress>
-            <WagesAmt>8800</WagesAmt>
-            <WithholdingAmt>500</WithholdingAmt>
-            <SocialSecurityWagesAmt>8800</SocialSecurityWagesAmt>
-            <SocialSecurityTaxAmt>300</SocialSecurityTaxAmt>
-            <MedicareWagesAndTipsAmt>8800</MedicareWagesAndTipsAmt>
-            <MedicareTaxWithheldAmt>200</MedicareTaxWithheldAmt>
+            <WagesAmt>200</WagesAmt>
+            <WithholdingAmt>50</WithholdingAmt>
+            <SocialSecurityWagesAmt>200</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>50</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>200</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>10</MedicareTaxWithheldAmt>
             <W2StateLocalTaxGrp>
                 <W2StateTaxGrp>
                     <StateAbbreviationCd>MD</StateAbbreviationCd>
                     <EmployerStateIdNum>5678765</EmployerStateIdNum>
-                    <StateWagesAmt>8800</StateWagesAmt>
-                    <StateIncomeTaxAmt>100</StateIncomeTaxAmt>
+                    <StateWagesAmt>200</StateWagesAmt>
+                    <StateIncomeTaxAmt>10</StateIncomeTaxAmt>
                     <W2LocalTaxGrp/>
                 </W2StateTaxGrp>
             </W2StateLocalTaxGrp>
