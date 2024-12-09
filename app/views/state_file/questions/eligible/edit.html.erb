@@ -3,7 +3,11 @@
 <% content_for :page_title, title1 %>
 <% content_for :card do %>
   <h1 class="h2"><%= title1 %></h1>
-  <p><%= t(".title2_html") %></p>
+  <% if current_state_code == "md" %>
+    <p><%= t(".md_title2_html") %></p>
+  <% else %>
+    <p><%= t(".title2_html") %></p>
+  <% end %>
   <% if current_state_code == "md" %>
     <p class="warning spacing-below-15"><%= t('.warning') %></p>
   <% end %>

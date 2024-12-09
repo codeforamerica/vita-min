@@ -2493,6 +2493,9 @@ en:
           title2_html: |
             Let's make sure this is the right service for you.<br><br>
             Here are the credits and deductions you <strong>may</strong> be able to claim to maximize your refund.
+          md_title2_html: |
+            Let's make sure this is the right service for you.<br><br>
+            Here are the credits and subtractions you <strong>may</strong> be able to claim to maximize your refund.
           warning: Please review the subtractions and credits that are supported this year to ensure this service is right for your tax needs.
         id_credits_unsupported:
           change_in_filing_status: Change in filing status from federal to state return
