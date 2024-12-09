@@ -2460,15 +2460,15 @@ es:
           public_school_credit: Public School Tax Credit
         edit:
           credits_not_supported: "¿Qué deducciones, créditos y situaciones del hogar no admite este servicio este año?"
+          md_title2_html: |
+            Asegurémonos de que este sea el servicio adecuado para usted.<br><br>
+            A continuación, se detallan los créditos y las deducciones que <strong>puede</strong> reclamar para maximizar su reembolso.
           not_supported: "¿Cuáles créditos y deducciones no admite esta herramienta este año?"
           title1: "¡Buenas noticias! Puedes usar esta herramienta este año %{year} para presentar tus impuestos estatales %{state}."
           title2_html: |
             Asegurémonos de que este sea el servicio adecuado para usted.<br><br>
             Estos son los créditos y deducciones que usted <strong>podría</strong> reclamar para maximizar su reembolso.
           warning: Revise las deducciones y créditos que se admiten este año para asegurarse de que este servicio sea adecuado para sus necesidades fiscales.
-          md_title2_html: |
-            Asegurémonos de que este sea el servicio adecuado para usted.<br><br>
-            A continuación, se detallan los créditos y las deducciones que <strong>puede</strong> reclamar para maximizar su reembolso.
         id_credits_unsupported:
           change_in_filing_status: Cambio en el Estado de Declaración de la Declaración Federal a la Estatal
           dependents_not_claimed_fed_return: Añadir Dependientes no Reclamados en la Declaración Federal
