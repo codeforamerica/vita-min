@@ -3038,24 +3038,14 @@ en:
           title: Enter the amount of property taxes paid to %{municipality} for your main home in %{filing_year}.
       nj_homeowner_property_tax_worksheet:
         edit:
-          title: Homeowner Property Tax Worksheet
-          helper_1_html: Good news – we think you might qualify for a credit or deduction. </br></br> The next step is to fill in this <a href="https://www.nj.gov/treasury/taxation/pdf/current/1040_instr_pages/1040i_32.pdf" target="_blank" rel="noopener nofollow">worksheet</a>. </br></br> It will ask you about where you lived and for how long. If you moved, for example, it will have space for you to list every place where you lived. </br></br> Once you fill in the worksheet, come back to this page.
-          label_html: <b>Enter Line 4 on Worksheet G</b> </br> (Your share of total property taxes paid)
-          helper_2: If you do not want to claim this credit or deduction, click “Continue”. 
+          anchor_homestead_helper_description: If you received an ANCHOR Benefit, the benefit amount does not affect the amount to report on this line.
           anchor_homestead_helper_heading: ANCHOR or Homestead benefits?
-          anchor_homestead_helper_description: If you received an ANCHOR Benefit, the benefit amount does not affect the amount to report on this line.
-          where_to_find_helper_heading: Where can I find property taxes paid?
-          where_to_find_helper_description: You can review your quarterly tax bills and add up the total paid to your municipality.
-      nj_tenant_property_tax_worksheet:
-        edit:
-          title: Tenant Property Tax Worksheet
           helper_1_html: Good news – we think you might qualify for a credit or deduction. </br></br> The next step is to fill in this <a href="https://www.nj.gov/treasury/taxation/pdf/current/1040_instr_pages/1040i_32.pdf" target="_blank" rel="noopener nofollow">worksheet</a>. </br></br> It will ask you about where you lived and for how long. If you moved, for example, it will have space for you to list every place where you lived. </br></br> Once you fill in the worksheet, come back to this page.
-          label_html: <b>Enter Line 8 on Worksheet G</b>
-          helper_2: If you do not want to claim this credit or deduction, click “Continue”. 
-          anchor_homestead_helper_heading: ANCHOR benefits
-          anchor_homestead_helper_description: If you received an ANCHOR Benefit, the benefit amount does not affect the amount to report on this line.
-          mobile_homeowners_helper_heading: Mobile Homeowners
-          mobile_homeowners_helper_description: A mobile home owned in a mobile home park is considered a rental. You enter your site fees paid for 2024 in Part II, Column 3 of Worksheet G.
+          helper_2: If you do not want to claim this credit or deduction, click “Continue”.
+          label_html: "<b>Enter Line 4 on Worksheet G</b> </br> (Your share of total property taxes paid)"
+          title: Homeowner Property Tax Worksheet
+          where_to_find_helper_description: You can review your quarterly tax bills and add up the total paid to your municipality.
+          where_to_find_helper_heading: Where can I find property taxes paid?
       nj_household_rent_own:
         edit:
           both: Both a tenant and a homeowner
@@ -3165,6 +3155,16 @@ en:
           tenant_same_home_spouse: Did you and your spouse live in the same home?
           tenant_shared_rent_not_spouse: Did you occupy and share rent for your main home (apartment/rental unit) with someone who was not your spouse during the year?
           title: You said you were a tenant in %{filing_year}.
+      nj_tenant_property_tax_worksheet:
+        edit:
+          anchor_homestead_helper_description: If you received an ANCHOR Benefit, the benefit amount does not affect the amount to report on this line.
+          anchor_homestead_helper_heading: ANCHOR benefits
+          helper_1_html: Good news – we think you might qualify for a credit or deduction. </br></br> The next step is to fill in this <a href="https://www.nj.gov/treasury/taxation/pdf/current/1040_instr_pages/1040i_32.pdf" target="_blank" rel="noopener nofollow">worksheet</a>. </br></br> It will ask you about where you lived and for how long. If you moved, for example, it will have space for you to list every place where you lived. </br></br> Once you fill in the worksheet, come back to this page.
+          helper_2: If you do not want to claim this credit or deduction, click “Continue”.
+          label_html: "<b>Enter Line 8 on Worksheet G</b>"
+          mobile_homeowners_helper_description: A mobile home owned in a mobile home park is considered a rental. You enter your site fees paid for 2024 in Part II, Column 3 of Worksheet G.
+          mobile_homeowners_helper_heading: Mobile Homeowners
+          title: Tenant Property Tax Worksheet
       nj_tenant_rent_paid:
         edit:
           helper_description: If you were a mobile homeowner, enter site fees paid in %{filing_year}.
