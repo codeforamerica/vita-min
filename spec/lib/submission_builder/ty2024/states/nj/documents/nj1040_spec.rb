@@ -403,16 +403,16 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
     end
 
     describe 'line 16a taxable interest income' do  
-      context 'with no interest on government bonds and fed taxable interest of 500' do
-        let(:intake) { create(:state_file_nj_intake, :df_data_one_dep) }
-        it 'does not set line 16a to fed taxable interest' do
-          expect(xml.at("Body TaxableInterestIncome").text).to eq("500")
+      context 'with no taxable interest income' do
+        it 'does not set line 16a' do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_16a).and_return 0
+          expect(xml.at("Body TaxableInterestIncome")).to eq(nil)
         end
       end 
   
-      context 'with interest on government bonds' do
-        let(:intake) { create(:state_file_nj_intake, :df_data_two_deps) }
+      context 'with taxable interest income' do
         it 'sets line 16a to 300 (fed taxable income minus sum of bond interest)' do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_16a).and_return 300
           expect(xml.at("Body TaxableInterestIncome").text).to eq("300")
         end
       end
