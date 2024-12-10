@@ -92,6 +92,12 @@ RSpec.feature "Completing a state file intake", active_job: true do
           click_on I18n.t("state_file.questions.income_review.edit.review_and_edit_state_info")
         end
 
+        # 1099G index page
+        expect(page).to have_text I18n.t("state_file.questions.unemployment.index.lets_review")
+        within ".form1099__details" do
+          click_link I18n.t("general.edit")
+        end
+
         # 1099G edit page
         expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.unemployment.edit.title", count: intake.filer_count, year: MultiTenantService.statefile.current_tax_year))
         fill_in strip_html_tags(I18n.t("state_file.questions.unemployment.edit.payer_name")), with: "beepboop"
