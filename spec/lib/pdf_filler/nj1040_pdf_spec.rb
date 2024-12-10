@@ -1700,7 +1700,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         it "fills line 55 with sum of income tax withheld" do
           # millions
           expect(pdf_fields["undefined_1471qerw"]).to eq "1"
-          expect(pdf_fields["undefined_114"]).to eq "2"
+          expect(pdf_fields["Text15"]).to eq "2"
           # thousands
           expect(pdf_fields["undefined_143"]).to eq "3"
           expect(pdf_fields["undefined_144"]).to eq "4"
@@ -1721,7 +1721,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         it "does not fill line 55" do
           # millions
           expect(pdf_fields["undefined_1471qerw"]).to eq nil
-          expect(pdf_fields["undefined_114"]).to eq nil
+          expect(pdf_fields["Text15"]).to eq ""
           # thousands
           expect(pdf_fields["undefined_143"]).to eq nil
           expect(pdf_fields["undefined_144"]).to eq nil
