@@ -127,7 +127,7 @@ module VitaMin
     config.state_file_end_of_new_intakes = pt.parse('2024-04-15 23:59:59')
     config.state_file_withdrawal_date_deadline_ny = et.parse('2024-04-15 23:59:59')
     config.state_file_withdrawal_date_deadline_md = et.parse('2024-04-30 23:59:59')
-    config.state_file_end_of_in_progress_intakes = pt.parse('2024-04-25 23:59:59')
+    config.state_file_end_of_in_progress_intakes = pt.parse('2025-04-25 23:59:59')
     config.state_file_show_faq_date = pt.parse('2024-12-10 00:00:00')
 
     config.allow_magic_verification_code = (Rails.env.demo? || Rails.env.development? || Rails.env.heroku? || Rails.env.staging?)
