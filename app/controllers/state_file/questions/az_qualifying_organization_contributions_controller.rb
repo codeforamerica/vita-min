@@ -8,7 +8,10 @@ module StateFile
 
       def index
         @credit_limit = current_intake.filing_status_mfj? ? 938 : 470
-        redirect_to action: :new, return_to_review: params[:return_to_review] unless contributions.present?
+        unless contributions.present?
+          build_contribution
+          render :new
+        end
       end
 
       def edit
@@ -26,7 +29,11 @@ module StateFile
       end
 
       def new
-        @contribution = contributions.build(date_of_contribution_year: @filing_year)
+        build_contribution
+      end
+
+      def build_contribution
+        @contribution = contributions.build
       end
 
       def create

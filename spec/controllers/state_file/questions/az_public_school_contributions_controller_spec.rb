@@ -19,9 +19,9 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
 
     context "with no existing contributions" do
       render_views
-      it "redirects to the new view" do
+      it "renders the new view" do
         get :index
-        expect(response).to redirect_to action: :new
+        expect(response.body).to include(I18n.t("state_file.questions.az_public_school_contributions.edit.title_html"))
       end
     end
   end

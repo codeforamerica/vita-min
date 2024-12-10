@@ -20,6 +20,7 @@ module StateFile
       def question_navigator
         @navigator ||= "Navigation::StateFile#{current_state_code.titleize}QuestionNavigation".constantize
       end
+
       helper_method :question_navigator
 
       def redirect_if_no_intake
@@ -56,8 +57,30 @@ module StateFile
         form_navigation.prev
       end
 
+      def prev_action
+        return unless self.class.navigation_actions.count > 1
+
+        current_action = action_name.to_sym
+
+        # look up action corresponding to the submitted form if we hit a validation error on submission and are re-rendering new/edit
+        replacements = { update: :edit, create: :new }
+        current_action = replacements[current_action] if replacements.key? current_action
+
+        action_index = self.class.navigation_actions.index(current_action)
+
+        case action_index
+        when 0 then nil
+        when 1.. then self.class.navigation_actions[action_index - 1]
+        else self.class.navigation_actions[0]
+        end
+      end
+
       def prev_path
-        path_for_step(prev_step)
+        if prev_action
+          self.class.to_path_helper({ action: prev_action })
+        else
+          path_for_step(prev_step)
+        end
       end
 
       def path_for_step(step)

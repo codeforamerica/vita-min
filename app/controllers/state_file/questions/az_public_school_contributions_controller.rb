@@ -10,11 +10,16 @@ module StateFile
       def index
         @az322_contributions = current_intake.az322_contributions
         unless @az322_contributions.present?
-          redirect_to action: :new, return_to_review: params[:return_to_review]
+          build_contribution
+          render :new
         end
       end
 
       def new
+        build_contribution
+      end
+
+      def build_contribution
         @az322_contribution = current_intake.az322_contributions.build
       end
 
