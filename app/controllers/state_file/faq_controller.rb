@@ -22,12 +22,12 @@ class StateFile::FaqController < ApplicationController
   private
 
   def filing_years_to_show
-    faq_show_start = Rails.configuration.state_file_show_faq_date
-    intake_end = Rails.configuration.state_file_end_of_in_progress_intakes
+    faq_show_start = Rails.configuration.state_file_show_faq_date_start
+    faq_show_end = Rails.configuration.state_file_show_faq_date_end
     tax_year = Rails.configuration.statefile_current_tax_year
 
     if Rails.env.production?
-      if app_time.between?(faq_show_start, intake_end) # intake is open
+      if app_time.between?(faq_show_start, faq_show_end) # intake is open
         # show currently open states
         [tax_year]
       elsif app_time.year == faq_show_start.year && app_time < faq_show_start # before intake opens this year
@@ -38,7 +38,7 @@ class StateFile::FaqController < ApplicationController
         [tax_year, tax_year + 1]
       end
     else
-      if app_time > intake_end
+      if app_time > faq_show_end
         [tax_year + 1]
       else
         [tax_year]

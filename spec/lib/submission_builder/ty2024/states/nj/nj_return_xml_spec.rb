@@ -86,6 +86,14 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
         end
       end
 
+      context 'with IRS test when w2 has some missing fields' do
+        let(:intake) { create(:state_file_nj_intake, :df_data_irs_test_with_missing_info) }
+        it "does not error" do
+          builder_response = described_class.build(submission)
+          expect(builder_response.errors).not_to be_present
+        end
+      end
+
     end
 
     it "generates basic components of return" do
@@ -164,5 +172,42 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
         end
       end
     end
+
+    describe "additional dependents PDF" do
+      context "when there are more than 4 dependents" do
+        let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
+        let(:nj_return) { described_class.new(submission) }
+
+        before do
+          5.times { create :state_file_dependent, intake: intake }
+        end
+
+        it "creates an additional dependents pdf" do
+          docs = nj_return.send(:supported_documents)
+          additional_dependents = docs.select do |d|
+            d[:pdf] == PdfFiller::NjAdditionalDependentsPdf
+          end
+          expect(additional_dependents.present?).to eq true
+        end
+      end
+
+      context "when there are 4 or fewer dependents" do
+        let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
+        let(:nj_return) { described_class.new(submission) }
+
+        before do
+          4.times { create :state_file_dependent, intake: intake }
+        end
+
+        it "does not include an additional dependents pdf" do
+          docs = nj_return.send(:supported_documents)
+          additional_dependents = docs.select do |d|
+            d[:pdf] == PdfFiller::NjAdditionalDependentsPdf
+          end
+          expect(additional_dependents.present?).to eq false
+        end
+      end
+    end
+
   end
 end
