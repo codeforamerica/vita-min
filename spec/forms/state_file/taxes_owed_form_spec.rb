@@ -1,6 +1,11 @@
 require "rails_helper"
 
 RSpec.describe StateFile::TaxesOwedForm do
+  before do
+    allow_any_instance_of(StateFile::TaxesOwedForm).to receive(:withdrawal_date_deadline)
+                                                   .and_return(Date.parse("April 30th, #{current_year}"))
+  end
+
   let!(:withdraw_amount) { 68 }
   let!(:intake) {
     create :state_file_id_intake,
