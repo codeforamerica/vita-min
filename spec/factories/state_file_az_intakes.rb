@@ -127,6 +127,9 @@ FactoryBot.define do
     end
 
     trait :with_spouse do
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('az_johnny_mfj') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('az_johnny_mfj') }
+
       filing_status { 'married_filing_jointly' }
       spouse_first_name { "Susie" }
       spouse_middle_initial { "B" }
