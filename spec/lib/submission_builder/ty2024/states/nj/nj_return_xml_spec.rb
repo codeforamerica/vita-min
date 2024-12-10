@@ -86,6 +86,14 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
         end
       end
 
+      context 'with IRS test when w2 has some missing fields' do
+        let(:intake) { create(:state_file_nj_intake, :df_data_irs_test_with_missing_info) }
+        it "does not error" do
+          builder_response = described_class.build(submission)
+          expect(builder_response.errors).not_to be_present
+        end
+      end
+
     end
 
     it "generates basic components of return" do

@@ -161,6 +161,11 @@ FactoryBot.define do
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_zeus_two_w2s') }
     end
 
+    trait :df_data_irs_test_with_missing_info do
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_irs_test_w2_with_missing_info') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_irs_test_w2_with_missing_info') }
+    end
+
     trait :df_data_many_w2s do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_zeus_many_w2s') }
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_zeus_many_w2s') }
