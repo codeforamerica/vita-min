@@ -110,7 +110,7 @@ RSpec.describe StateFile::Questions::NjHomeownerEligibilityController do
   end
 
   describe "#next_path" do
-    context "when ineligible hard no" do
+    context "when ineligible" do
       context "when income above property tax minimum" do
         let(:intake) {
           create(
@@ -141,7 +141,7 @@ RSpec.describe StateFile::Questions::NjHomeownerEligibilityController do
       end
     end
 
-    context "when unsupported soft no" do
+    context "when worksheet required" do
       context "when income above property tax minimum" do
         let(:intake) {
           create(
@@ -151,8 +151,8 @@ RSpec.describe StateFile::Questions::NjHomeownerEligibilityController do
             homeowner_more_than_one_main_home_in_nj: "yes"
           )
         }
-        it "next path is unsupported page" do
-          expect(subject.next_path).to eq(StateFile::Questions::NjUnsupportedPropertyTaxController.to_path_helper)
+        it "next path is homeowner worksheet page" do
+          expect(subject.next_path).to eq(StateFile::Questions::NjHomeownerPropertyTaxWorksheetController.to_path_helper)
         end
       end
 
@@ -166,8 +166,11 @@ RSpec.describe StateFile::Questions::NjHomeownerEligibilityController do
             homeowner_more_than_one_main_home_in_nj: "yes"
           )
         }
-        it "next path is unsupported page" do
-          expect(subject.next_path).to eq(StateFile::Questions::NjUnsupportedPropertyTaxController.to_path_helper)
+        it "does not show either the worksheet screen or the property tax screen" do
+          expect(subject.next_path).not_to eq(StateFile::Questions::NjHomeownerPropertyTaxWorksheetController.to_path_helper)
+          expect(subject.next_path).not_to eq(StateFile::Questions::NjHomeownerPropertyTaxController.to_path_helper)
+          allow_any_instance_of(described_class.superclass).to receive(:next_path).and_return("/mocked/super/path")
+          expect(subject.next_path).to eq("/mocked/super/path")
         end
       end
     end

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe StateFile::NjTenantEligibilityHelper do
   describe "#determine_eligibility" do
-    describe "hard no ineligible states" do
+    describe "ineligible states" do
       context "when NO to tenant_home_subject_to_property_taxes" do
         let(:intake) { create :state_file_nj_intake, tenant_home_subject_to_property_taxes: "no" }
         it "returns ineligible" do
@@ -22,18 +22,18 @@ describe StateFile::NjTenantEligibilityHelper do
       end
     end
 
-    describe "soft no unsupported states" do
+    describe "states that require applicant to use the worksheet" do
       context "when YES to tenant_more_than_one_main_home_in_nj" do
         let(:intake) { create :state_file_nj_intake, tenant_more_than_one_main_home_in_nj: "yes" }
-        it "returns unsupported" do
-          expect(described_class.determine_eligibility(intake)).to eq(described_class::UNSUPPORTED)
+        it "returns worksheet required" do
+          expect(described_class.determine_eligibility(intake)).to eq(described_class::WORKSHEET)
         end
       end
 
       context "when YES to tenant_shared_rent_not_spouse" do
         let(:intake) {  create :state_file_nj_intake, tenant_shared_rent_not_spouse: "yes" }
-        it "returns unsupported" do
-          expect(described_class.determine_eligibility(intake)).to eq(described_class::UNSUPPORTED)
+        it "returns worksheet required" do
+          expect(described_class.determine_eligibility(intake)).to eq(described_class::WORKSHEET)
         end
       end
     end
@@ -83,21 +83,21 @@ describe StateFile::NjTenantEligibilityHelper do
     end
 
     describe "multiple checkbox interactions" do
-      context "when a hard no overrides a soft no" do
+      context "when ineligible overrides worksheet required" do
         let(:intake) {
           create :state_file_nj_intake,
-                 tenant_home_subject_to_property_taxes: "no", # hard no
-                 tenant_more_than_one_main_home_in_nj: "yes" # soft no
+                 tenant_home_subject_to_property_taxes: "no", # ineligible
+                 tenant_more_than_one_main_home_in_nj: "yes" # worksheet required
         }
         it "returns ineligible" do
           expect(described_class.determine_eligibility(intake)).to eq(described_class::INELIGIBLE)
         end
       end
 
-      context "when a hard no overrides an advance" do
+      context "when ineligible overrides an advance" do
         let(:intake) {
           create :state_file_nj_intake,
-                 tenant_home_subject_to_property_taxes: "no", # hard no
+                 tenant_home_subject_to_property_taxes: "no", # ineligible
                  tenant_more_than_one_main_home_in_nj: "no" # advance
         }
         it "returns ineligible" do
@@ -105,14 +105,14 @@ describe StateFile::NjTenantEligibilityHelper do
         end
       end
 
-      context "when a soft no overrides an advance" do
+      context "when a worksheet overrides an advance" do
         let(:intake) {
           create :state_file_nj_intake,
-                 tenant_shared_rent_not_spouse: "yes", # soft no
+                 tenant_shared_rent_not_spouse: "yes", # worksheet required
                  tenant_more_than_one_main_home_in_nj: "no" # advance
         }
-        it "returns unsupported" do
-          expect(described_class.determine_eligibility(intake)).to eq(described_class::UNSUPPORTED)
+        it "returns worksheet required" do
+          expect(described_class.determine_eligibility(intake)).to eq(described_class::WORKSHEET)
         end
       end
     end
