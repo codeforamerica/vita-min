@@ -51,8 +51,8 @@ RSpec.describe PdfFiller::Id40Pdf do
       end
 
       it 'sets static fields to the correct values' do
-        expect(pdf_fields['YearBeginning']).to be_nil # leaving unfilled
-        expect(pdf_fields['YearEnding']).to be_nil # leaving unfilled
+        expect(pdf_fields['YearBeginning']).to be_nil
+        expect(pdf_fields['YearEnding']).to be_nil
         expect(pdf_fields['TxCompL15']).to eq "0" # always 0, not in xml
       end
 
