@@ -17,11 +17,16 @@ module StateFile
       def index
         @state_file1099_gs = current_intake.state_file1099_gs
         unless @state_file1099_gs.present?
-          redirect_with_review_param(:new)
+          build_1099g
+          render :new
         end
       end
 
       def new
+        build_1099g
+      end
+
+      def build_1099g
         @state_file1099_g = current_intake.state_file1099_gs.build
       end
 
