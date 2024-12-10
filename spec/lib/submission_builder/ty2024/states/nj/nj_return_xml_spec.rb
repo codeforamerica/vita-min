@@ -171,11 +171,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
         let(:nj_return) { described_class.new(submission) }
 
         before do
-          create :state_file_dependent, intake: intake
-          create :state_file_dependent, intake: intake
-          create :state_file_dependent, intake: intake
-          create :state_file_dependent, intake: intake
-          create :state_file_dependent, intake: intake
+          5.times { create :state_file_dependent, intake: intake }
         end
 
         it "creates an additional dependents pdf" do
@@ -192,10 +188,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
         let(:nj_return) { described_class.new(submission) }
 
         before do
-          create :state_file_dependent, intake: intake
-          create :state_file_dependent, intake: intake
-          create :state_file_dependent, intake: intake
-          create :state_file_dependent, intake: intake
+          4.times { create :state_file_dependent, intake: intake }
         end
 
         it "does not include an additional dependents pdf" do
