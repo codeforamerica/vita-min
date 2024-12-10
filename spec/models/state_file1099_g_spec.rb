@@ -105,6 +105,19 @@ RSpec.describe StateFile1099G do
       expect(state_file_1099.save).to eq false
     end
 
+    it "validates presence of address_confirmation when had_box_11 is yes" do
+      state_file_1099.had_box_11 = 'yes'
+      state_file_1099.address_confirmation = nil
+      expect(state_file_1099.save).to eq false
+      expect(state_file_1099.errors[:address_confirmation]).to include(I18n.t("errors.messages.blank"))
+
+      state_file_1099.address_confirmation = 'yes'
+      expect(state_file_1099.save).to eq true
+
+      state_file_1099.address_confirmation = 'no'
+      expect(state_file_1099.save).to eq true
+    end
+
     it "yields a valid recipient address line 1 and line 2" do
       expect(state_file_1099.recipient_address_line1).to eq "123 Main St"
       expect(state_file_1099.recipient_address_line2).to eq "Apt E"
