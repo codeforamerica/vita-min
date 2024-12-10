@@ -418,16 +418,15 @@ class ApplicationController < ActionController::Base
   helper_method :before_state_file_launch?
 
   def withdrawal_date_deadline(state_code)
-    year = MultiTenantService.new(:statefile).current_tax_year + 1
     case state_code
     when 'ny'
-      Rails.configuration.state_file_withdrawal_date_deadline_ny.change(year: year)
+      Rails.configuration.state_file_withdrawal_date_deadline_ny
     when 'md'
-      Rails.configuration.state_file_withdrawal_date_deadline_md.change(year: year)
+      Rails.configuration.state_file_withdrawal_date_deadline_md
     else
       # Arizona's withdrawal date deadline is the same as the end-new-intakes date which is set in PDT,
       # if this was during daylight-savings, it would be different except in the Navajo Nation
-      Rails.configuration.state_file_end_of_new_intakes.change(year: year)
+      Rails.configuration.state_file_end_of_new_intakes
     end
   end
   helper_method :withdrawal_date_deadline
