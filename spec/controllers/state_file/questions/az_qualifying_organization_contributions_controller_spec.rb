@@ -213,6 +213,9 @@ RSpec.describe StateFile::Questions::AzQualifyingOrganizationContributionsContro
       get :index
       expect(response.body).not_to include(I18n.t('state_file.questions.az_qualifying_organization_contributions.index.maximum_records'))
 
+      # remove the built-but-invalid az321_contribution relation created when #index renders the :new template
+      subject.current_intake.reload
+
       10.times do
         put :create, params: valid_params
       end

@@ -62,7 +62,7 @@ module StateFile
       private
 
       def contributions
-        @contributions ||= current_intake.reload.az321_contributions
+        @contributions ||= current_intake.az321_contributions
       end
 
       def contribution
