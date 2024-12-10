@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_05_194857) do
+ActiveRecord::Schema[7.1].define(version: 2024_12_10_204049) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1791,6 +1791,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_05_194857) do
     t.integer "nj_dependent_attends_accredited_program", default: 0, null: false
     t.integer "nj_dependent_enrolled_full_time", default: 0, null: false
     t.integer "nj_dependent_five_months_in_college", default: 0, null: false
+    t.integer "nj_did_not_have_health_insurance", default: 0, null: false
     t.integer "nj_filer_pays_tuition_for_dependent", default: 0, null: false
     t.boolean "odc_qualifying"
     t.integer "passed_away", default: 0, null: false
