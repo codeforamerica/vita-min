@@ -43,9 +43,9 @@ module SubmissionBuilder
                       xml.QualWidOrWider do
                         xml.QualWidOrWiderSurvCuPartner 'X'
                         case yod
-                        when MultiTenantService.new(:statefile).current_tax_year.to_s
-                          xml.LastYear 'X'
                         when (MultiTenantService.new(:statefile).current_tax_year - 1).to_s
+                          xml.LastYear 'X'
+                        when (MultiTenantService.new(:statefile).current_tax_year - 2).to_s
                           xml.TwoYearPrior 'X'
                         end
                       end
