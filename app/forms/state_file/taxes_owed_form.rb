@@ -88,9 +88,5 @@ module StateFile
         errors.add(:date_electronic_withdrawal, @intake.errors[:date_electronic_withdrawal])
       end
     end
-
-    # def withdrawal_date_deadline
-    #   Date.parse("April 15th, #{MultiTenantService.new(:statefile).current_tax_year + 1}")
-    # end
   end
 end

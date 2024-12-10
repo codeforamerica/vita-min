@@ -86,6 +86,40 @@ RSpec.describe StateFile::TaxesOwedForm do
             expect(intake.date_electronic_withdrawal).to eq Date.parse("April 15th, #{current_year}")
           end
         end
+
+        context "after ID's deadline and before MD's for MD intake" do
+          before do
+            allow(intake).to receive(:calculated_refund_or_owed_amount).and_return(100)
+          end
+
+          let(:valid_params) do
+            {
+              date_electronic_withdrawal_month: '4',
+              date_electronic_withdrawal_year: (MultiTenantService.new(:statefile).current_tax_year + 1).to_s,
+              date_electronic_withdrawal_day: '30',
+              app_time: pre_deadline_withdrawal_time.to_s
+            }.merge(bank_info_params)
+          end
+
+          let!(:intake) {
+            create :state_file_md_intake,
+                   payment_or_deposit_type: "unfilled",
+                   withdraw_amount: withdraw_amount
+          }
+
+          it "updates the intake" do
+            form = described_class.new(intake, valid_params)
+            expect(form).to be_valid
+            form.save
+
+            intake.reload
+            expect(intake.payment_or_deposit_type).to eq "direct_deposit"
+            expect(intake.account_type).to eq "checking"
+            expect(intake.routing_number).to eq "019456124"
+            expect(intake.account_number).to eq "12345"
+            expect(intake.date_electronic_withdrawal).to eq Date.parse("April 30th, #{current_year}")
+          end
+        end
       end
 
       context "after withdrawal date deadline" do
@@ -234,28 +268,6 @@ RSpec.describe StateFile::TaxesOwedForm do
       it "is valid" do
         form = described_class.new(intake, params)
         expect(form).not_to be_valid
-      end
-    end
-
-    context "when the state is Maryland" do
-      let!(:withdraw_amount) { 68 }
-      let!(:intake) {
-        create :state_file_md_intake,
-               payment_or_deposit_type: "unfilled",
-               withdraw_amount: withdraw_amount
-      }
-
-      context "the date is April 30th" do
-        let(:month) { "04" }
-        let(:day) { "30" }
-        let(:year) { current_year }
-
-        it "is valid" do
-          form = described_class.new(intake, params)
-          binding.pry
-          expect(form).to be_valid
-          expect(form.errors).to include :date_electronic_withdrawal
-        end
       end
     end
   end
