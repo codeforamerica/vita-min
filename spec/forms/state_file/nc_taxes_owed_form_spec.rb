@@ -12,9 +12,12 @@ RSpec.describe StateFile::NcTaxesOwedForm do
       payment_or_deposit_type: "mail"
     }
   end
-  let(:current_year) { "2024" }
+  let(:current_year) { (MultiTenantService.new(:statefile).current_tax_year + 1).to_s }
   let(:pre_deadline_withdrawal_time) { DateTime.parse("April 15th, #{current_year} 11pm EST") }
   let(:post_deadline_withdrawal_time) { DateTime.parse("April 16th, #{current_year} 1am EST") }
+  before do
+    allow(intake).to receive(:calculated_refund_or_owed_amount).and_return(68)
+  end
 
   describe "#valid?" do
     let(:payment_or_deposit_type) { "direct_deposit" }
@@ -77,7 +80,7 @@ RSpec.describe StateFile::NcTaxesOwedForm do
       context "when the date is a federal holiday occurring on any day except Sunday" do
         let(:app_time) { DateTime.parse("February 16th, #{current_year} 4pm EST").to_s }
         let(:month) { "2" }
-        let(:day) { "19" } # Monday, Feb 19th, 2024 ~ President's day
+        let(:day) { "17" } # Monday, Feb 17th, 2025 ~ President's day
         it "is not valid" do
           form = described_class.new(intake, params)
           expect(form).not_to be_valid
@@ -87,7 +90,7 @@ RSpec.describe StateFile::NcTaxesOwedForm do
       end
 
       context "when it's 5pm EST and withdrawal date is less than 2 business days from today" do
-        let(:app_time) { DateTime.parse("March 8th, #{current_year} 7pm EST").to_s } # Friday
+        let(:app_time) { DateTime.parse("March 10th, #{current_year} 7pm EST").to_s } # Friday
         let(:day) { "11" } # Monday, March 11th, 2024
         it "is not valid" do
           form = described_class.new(intake, params)
