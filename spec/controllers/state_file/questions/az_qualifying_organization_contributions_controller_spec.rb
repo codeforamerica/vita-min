@@ -216,14 +216,14 @@ RSpec.describe StateFile::Questions::AzQualifyingOrganizationContributionsContro
       10.times do
         put :create, params: valid_params
       end
-      expect(intake.reload.az321_contributions.reload.count).to eq 10
+      expect(intake.az321_contributions.count).to eq 10
 
-      # get :index
-      # expect(response.body).to include(I18n.t('state_file.questions.az_qualifying_organization_contributions.index.maximum_records'))
-      #
-      # expect {
-      #   put :create, params: valid_params
-      # }.not_to change(intake.az321_contributions, :count)
+      get :index
+      expect(response.body).to include(I18n.t('state_file.questions.az_qualifying_organization_contributions.index.maximum_records'))
+
+      expect {
+        put :create, params: valid_params
+      }.not_to change(intake.az321_contributions, :count)
     end
   end
 
