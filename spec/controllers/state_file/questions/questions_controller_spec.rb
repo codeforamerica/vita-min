@@ -6,7 +6,7 @@ class QuestionTwoController < StateFile::Questions::QuestionsController; end
 
 class QuestionThreeController < StateFile::Questions::QuestionsController
   def self.navigation_actions
-    [:index, :new]
+    [:index, :new, :edit]
   end
 end
 
@@ -27,13 +27,27 @@ RSpec.describe StateFile::Questions::QuestionsController do
 
     context "when the controller has only one navigation action" do
       let(:current_controller) { QuestionTwoController.new }
-      before do
-        allow(current_controller).to receive(:action_name).and_return("edit")
+
+      context "when the current action is the single navigation action" do
+        before do
+          allow(current_controller).to receive(:action_name).and_return("edit")
+        end
+
+        it "returns the previous controller's edit action" do
+          expect(QuestionOneController).to receive(:to_path_helper)
+          current_controller.send(:prev_path)
+        end
       end
 
-      it "returns the previous controller's edit action" do
-        expect(QuestionOneController).to receive(:to_path_helper)
-        current_controller.send(:prev_path)
+      context "when the current action is not in the list" do
+        before do
+          allow(current_controller).to receive(:action_name).and_return("create")
+        end
+
+        it "returns the previous controller's edit action" do
+          expect(QuestionOneController).to receive(:to_path_helper)
+          current_controller.send(:prev_path)
+        end
       end
     end
 
@@ -52,9 +66,9 @@ RSpec.describe StateFile::Questions::QuestionsController do
           end
         end
 
-        context "is after the first item" do
+        context "is not the first item" do
           before do
-            allow(current_controller).to receive(:action_name).and_return("new")
+            allow(current_controller).to receive(:action_name).and_return("edit")
           end
 
           it "returns the current controller's previous action" do

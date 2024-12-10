@@ -60,18 +60,8 @@ module StateFile
       def prev_action
         return unless self.class.navigation_actions.count > 1
 
-        current_action = action_name.to_sym
-
-        # look up action corresponding to the submitted form if we hit a validation error on submission and are re-rendering new/edit
-        replacements = { update: :edit, create: :new }
-        current_action = replacements[current_action] if replacements.key? current_action
-
-        action_index = self.class.navigation_actions.index(current_action)
-
-        case action_index
-        when 0 then nil
-        when 1.. then self.class.navigation_actions[action_index - 1]
-        else self.class.navigation_actions[0]
+        if self.class.navigation_actions.first != action_name.to_sym
+          self.class.navigation_actions.first
         end
       end
 
