@@ -3140,6 +3140,7 @@ es:
           message_title: Detalles de la mensajería
           opt_in_label: "¡Seleccione la(s) opción(es) que funcionen mejor para usted!"
           phone_number: Tu número de teléfono
+          provided_email: Le enviaremos actualizaciones sobre su declaración de impuestos a %{email_address}.
           sms_notification_opt_in: Mensaje de texto
           subtitle: Necesitaremos comunicarnos con usted con preguntas y actualizaciones.
           title: "¿Cuál es la mejor manera de comunicarme con usted?"

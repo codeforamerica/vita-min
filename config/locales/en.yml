@@ -3174,6 +3174,7 @@ en:
           message_title: Messaging Details
           opt_in_label: Please select the option(s) that work best for you!
           phone_number: Your phone number
+          provided_email: We’ll send updates about your tax return to %{email_address}.
           sms_notification_opt_in: Text message
           subtitle: We'll need to reach out with questions and updates.
           title: What is the best way to reach you?
