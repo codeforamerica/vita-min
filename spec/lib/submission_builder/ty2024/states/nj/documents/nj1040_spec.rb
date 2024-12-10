@@ -402,18 +402,11 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
       end
     end
 
-    describe 'line 16a taxable interest income' do
-      context 'with no interest reports' do
-        let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
-        it 'does not set line 16a' do
-          expect(xml.at("Body TaxableInterestIncome")).to eq(nil)
-        end
-      end
-  
-      context 'with interest reports, but no interest on government bonds' do
+    describe 'line 16a taxable interest income' do  
+      context 'with no interest on government bonds and fed taxable interest of 500' do
         let(:intake) { create(:state_file_nj_intake, :df_data_one_dep) }
-        it 'does not set line 16a' do
-          expect(xml.at("Body TaxableInterestIncome")).to eq(nil)
+        it 'does not set line 16a to fed taxable interest' do
+          expect(xml.at("Body TaxableInterestIncome").text).to eq("500")
         end
       end 
   
