@@ -6,20 +6,55 @@
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="white-group">
-      <%= f.cfa_radio_set(
-            :eligibility_all_members_health_insurance,
-            label_text: t(".label", filing_year: @filing_year),
-            collection: [
-              { value: "yes", label: t("general.affirmative") },
-              { value: "no", label: t("general.negative") },
-            ]
-          ) %>
+      <div class="form-group question-with-follow-up">
+        <div class="question-with-follow-up__question">
+          <%= f.cfa_radio_set(
+                :eligibility_all_members_health_insurance,
+                label_text: t(".label", filing_year: @filing_year),
+                collection: [
+                  { value: "yes", label: t("general.affirmative") },
+                  {
+                    value: "no",
+                    label: t("general.negative"),
+                    input_html: {
+                      "data-follow-up": "#household-members",
+                      "aria-controls": "household-members" 
+                    } 
+                  },
+                ],
+              ) %>
+        </div>
+
+        <div class="form-group question-with-follow-up__follow-up grey-group" id="household-members">
+          <fieldset class="form-group tight-checkboxes">
+            <legend class="form-question not-centered"><%= t('.label_follow_up') %></legend>
+            <div class="input-group--block">
+            <%# TODO: also checkbox for other/self/partner? %>
+              <%= f.fields_for :dependents do |ff| %>
+                <% dependent = ff.object %>
+                <%= ff.cfa_checkbox(
+                  :nj_did_not_have_health_insurance,
+                  t(".dependent_label", name: dependent.full_name),
+                  options: { checked_value: "yes", unchecked_value: "no" }
+                ) %>
+              <% end %>
+            </div>
+          </fieldset>
+        </div>
+      </div>
     </div>
 
     <div class="reveal">
-      <button class="reveal__button"><%= t('.helper_heading') %></button>
+      <button class="reveal__button"><%= t('.coverage_heading') %></button>
       <div class="reveal__content">
-        <p><%= t('.helper_description_html') %></p>
+        <p><%= t('.coverage_description_html') %></p>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <button class="reveal__button"><%= t('.tax_household_heading') %></button>
+      <div class="reveal__content">
+        <p><%= t('.tax_household_description_html') %></p>
       </div>
     </div>
 
