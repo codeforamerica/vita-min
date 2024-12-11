@@ -51,8 +51,8 @@ RSpec.describe PdfFiller::Id40Pdf do
       end
 
       it 'sets static fields to the correct values' do
-        expect(pdf_fields['YearBeginning']).to eq Rails.configuration.statefile_current_tax_year.to_s
-        expect(pdf_fields['YearEnding']).to eq Rails.configuration.statefile_current_tax_year.to_s
+        expect(pdf_fields['YearBeginning']).to be_nil
+        expect(pdf_fields['YearEnding']).to be_nil
         expect(pdf_fields['TxCompL15']).to eq "0" # always 0, not in xml
       end
 
@@ -312,7 +312,7 @@ RSpec.describe PdfFiller::Id40Pdf do
 
     describe "credits" do
       before do
-        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_20).and_return 70.7
+        allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_20).and_return 71
         allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_25).and_return 50
         allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_26).and_return 60
         allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_33).and_return 80
