@@ -1,10 +1,6 @@
 <% content_for :page_title, t("state_file.questions.shared.abstract_review_header.title") %>
 <% content_for :card do %>
 
-  <div class="beige-group">
-    <%=t(".rounding_html") %>
-  </div>
-
   <%= render "state_file/questions/shared/review_header" %>
 
   <% if current_intake.dependents.count(&:under_22?).positive? %>
