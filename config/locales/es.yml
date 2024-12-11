@@ -347,6 +347,7 @@ es:
       many: "%{count} días"
       one: "%{count} día"
       other: "%{count} días"
+    decline: Rechazar
     delete: Borrar
     dependent_relationships:
       aunt: Tía
@@ -2368,7 +2369,7 @@ es:
             eligibility_ed_loan_cancelled: " tuve un préstamo estudiantil cancelado bajo la Ley del Plan de Rescate Estadounidense."
             eligibility_ed_loan_emp_payment: recibió un Pago de Préstamo Educativo Calificado pagado por tu empleador.
             eligibility_emergency_rental_assistance: recibió asistencia de alquiler de emergencia %{filing_year}
-            eligibility_home_different_areas: o su cónyuge tenían sus residencias permanentes en dos condados, ciudades, pueblos o áreas impositivas diferentes el último día del año fiscal.
+            eligibility_home_different_areas: o su cónyuge tenían sus residencias permanentes en dos condados, ciudades, pueblos o áreas impositivas diferentes el último día del año fiscal %{filing_year}.
             eligibility_homebuyer_withdrawal: retiraron dinero de una cuenta para compradores de vivienda por primera vez y lo usaron para algo que no era comprar una vivienda.
             eligibility_homebuyer_withdrawal_mfj: o su cónyuge retiraron dinero de una cuenta para compradores de vivienda por primera vez y lo usaron para algo que no era comprar una vivienda.
             eligibility_lived_in_state: no viviste en %{state} durante todo el %{filing_year}
@@ -2442,11 +2443,15 @@ es:
           public_school_credit: Crédito fiscal para escuelas públicas de Arizona
         edit:
           credits_not_supported: "¿Qué restas, créditos y situaciones del hogar no soporta este servicio este año?"
+          md_title2_html: |
+            Asegurémonos de que este sea el servicio adecuado para usted.<br><br>
+            A continuación, se detallan los créditos y las deducciones que <strong>puede</strong> reclamar para maximizar su reembolso.
           not_supported: "¿Qué pasa si aún no puedo usar FileYourStateTaxes para mi situación concreta?"
           title1: Puedes usar este servicio para declarar tus impuestos estatales de%{state}de %{year}
           title2_html: |
             Asegurémonos de que este sea el servicio adecuado para ti.<br><br>
             Estos son los créditos y las deducciones que <strong>puedes</strong> reclamar para maximizar tu reembolso.
+          warning: Revise las deducciones y créditos que se admiten este año para asegurarse de que este servicio sea adecuado para sus necesidades fiscales.
         id_credits_unsupported:
           change_in_filing_status: Cambio en el estado civil de presentación de la declaración federal a estatal
           dependents_not_claimed_fed_return: Agregar dependientes no reclamados en la declaración federal
@@ -2843,7 +2848,7 @@ es:
           eligibility_mfj_two_different_areas_label_text: "¿Tú y tu cónyuge tenían sus hogares permanentes en dos condados, ciudades, pueblos o áreas fiscales diferentes el último día de %{year}?"
           eligibility_mfj_two_different_areas_no: No, mi cónyuge y yo vivimos en el mismo condado, ciudad, pueblo o área fiscal
           eligibility_mfj_two_different_areas_yes: Sí, mi cónyuge y yo vivimos permanentemente en condados, ciudades, pueblos o áreas fiscales diferentes
-          eligibility_non_mfj_first_time_homebuyer_withdrawal_label_text: "¿Usted o su cónyuge retiraron dinero de una cuenta para compradores de vivienda por primera vez y lo usaron para algo que no fuera comprar una vivienda en Maryland en %{year}?"
+          eligibility_non_mfj_first_time_homebuyer_withdrawal_label_text_html: "¿Usted o su cónyuge retiraron dinero de una cuenta para compradores de vivienda por primera vez y lo usaron para algo que <strong>no</strong> fuera comprar una vivienda en Maryland en %{year}?"
           permanent_home_copy: No puedes usar este servicio si tú y tu cónyuge viven en diferentes condados, ciudades, pueblos o áreas fiscales, y no es una situación temporal.
           permanent_home_copy2: Si dejas tu hogar permanente para trabajar o cuidar a alguien, pero planeas regresar, tu hogar permanente no ha cambiado. Se considera que tú y tu cónyuge viven en diferentes condados, ciudades, pueblos o áreas fiscales sólo si están quedándose en estos hogares separados y no es temporal.
           permanent_home_heading: "¿Qué es un hogar permanente?"
@@ -2886,11 +2891,13 @@ es:
           zip_label: Código postal
       md_primary_state_id:
         md_primary:
-          encourage_sharing: |-
+          dmv_bmv_label: MVA State ID
+          encourage_sharing_html: |-
             Si tú y tu cónyuge tienen una licencia de conducir o una tarjeta de identificación emitida por el estado, por favor comparte la información que solicitamos de la misma. La declaración no será rechazada si no compartes una licencia de conducir o una identificación emitida por el estado.
 
             Si compartes esta información, puede ayudar a que te identifiquen como el contribuyente.
           protect_identity: Muchas agencias de ingresos estatales, incluida Maryland, están solicitando información adicional en un esfuerzo por combatir el fraude fiscal por identidad robada y protegerlo a usted y a su reembolso de impuestos.
+          subtitle: El Contralor de Maryland solicita que la información de su licencia de conducir o tarjeta de identificación emitida por el estado se incluya con la declaración, pero no rechazará la declaración si no está incluida.
           why_ask_this: "¿Por qué estamos pidiéndote esta información?"
       md_review:
         edit:
@@ -2899,11 +2906,13 @@ es:
           your_address: Dirección donde vivía el 31 de diciembre de %{filing_year}
       md_spouse_state_id:
         md_spouse:
-          encourage_sharing: |-
+          dmv_bmv_label: MVA State ID
+          encourage_sharing_html: |-
             Si tú y tu cónyuge tienen una licencia de conducir o una tarjeta de identificación emitida por el estado, por favor comparte la información que solicitamos de la misma. La declaración no será rechazada si no compartes una licencia de conducir o una identificación emitida por el estado.
 
             Si compartes esta información, puede ayudar a que te identifiquen como el contribuyente.
           protect_identity: Muchas agencias de ingresos estatales, incluida Maryland, están solicitando información adicional en un esfuerzo por combatir el fraude fiscal por identidad robada y protegerlo a usted y a su reembolso de impuestos.
+          subtitle: El Contralor de Maryland solicita que la información de su licencia de conducir o tarjeta de identificación emitida por el estado se incluya con la declaración, pero no rechazará la declaración si no está incluida.
           why_ask_this: "¿Por qué estamos pidiéndote esta información?"
       md_tax_refund:
         edit:
@@ -3488,6 +3497,22 @@ es:
           income_details: Detalles de ingresos
           your_refund: La cantidad de tu reembolso
           your_tax_owed: Los impuestos que debes
+      sms_terms:
+        edit:
+          term: Cuando se registre en el servicio, le enviaremos un mensaje SMS para confirmar su inscripción. También le enviaremos actualizaciones sobre su declaración de impuestos (la frecuencia de los mensajes variará) y/o códigos OTP/2FA (un mensaje por solicitud).
+          term_2_html: Puede cancelar el servicio de SMS en cualquier momento. Solo <strong>envíe "STOP" al 46207</strong>. Después de enviar el mensaje SMS "STOP", le enviaremos un mensaje SMS para confirmar que se ha dado de baja. Después de esto, ya no recibirá mensajes SMS de nuestra parte. Si desea unirse nuevamente, simplemente <strong>responda "START"</strong> y comenzaremos a enviarle mensajes SMS otra vez.
+          term_3_html: Si en algún momento olvida qué palabras clave están disponibles, simplemente <strong>envíe "HELP" al 46207</strong>. Después de enviar el mensaje SMS "HELP", le responderemos con instrucciones sobre cómo usar nuestro servicio, así como cómo darse de baja.
+          term_4_html: "<strong>Podemos enviar mensajes a los siguientes operadores de telefonía móvil</strong>"
+          term_5: 'Operadores principales: AT&T, Verizon Wireless, Sprint, T-Mobile, U.S. Cellular, Alltel, Boost Mobile, Nextel y Virgin Mobile.'
+          term_6: 'Operadores secundarios: Alaska Communications Systems (ACS), Appalachian Wireless (EKN), Bluegrass Cellular, Cellular One of East Central IL (ECIT), Cellular One of Northeast Pennsylvania, Cincinnati Bell Wireless, Cricket, Coral Wireless (Mobi PCS), COX, Cross, Element Mobile (Flat Wireless), Epic Touch (Elkhart Telephone), GCI, Golden State, Hawkeye (Chat Mobility), Hawkeye (NW Missouri), Illinois Valley Cellular, Inland Cellular, iWireless (Iowa Wireless), Keystone Wireless (Immix Wireless/PC Man), Mosaic (Consolidated or CTC Telecom), Nex-Tech Wireless, NTelos, Panhandle Communications, Pioneer, Plateau (Texas RSA 3 Ltd), Revol, RINA, Simmetry (TMP Corporation), Thumb Cellular, Union Wireless, United Wireless, Viaero Wireless y West Central (WCC o 5 Star Wireless).'
+          term_7: Los operadores (por ejemplo, AT&T, Verizon, T-Mobile, Sprint, etc.) no son responsables ni están obligados por mensajes no entregados o retrasados.
+          term_8_html: 'Como siempre, pueden aplicarse tarifas de mensajes y datos para cualquier mensaje enviado a usted desde nosotros y para mensajes que usted nos envíe. Si tiene alguna pregunta sobre su plan de mensajes o datos, es mejor comunicarse con su proveedor de telefonía móvil. <br><br>Para todas las preguntas sobre los servicios proporcionados por este código corto, puede enviar un correo electrónico a <strong>help@fileyourstatetaxes.org</strong>.
+
+            '
+          term_9_html: 'Si tiene preguntas relacionadas con la privacidad, por favor lea nuestra política de privacidad: <a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/privacy-policy">www.fileyourstatetaxes.org/privacy-policy</a>
+
+            '
+          title: Por favor revise los términos y condiciones de mensajería de texto de FileYourStateTaxes
       spouse_state_id:
         edit:
           title_html: Necesitamos algunos detalles del documento de identidad emitida por el estado de <strong>su cónyuge</strong>, si tienen uno
@@ -3508,7 +3533,6 @@ es:
           confirm_account_number: Confirma el número de cuenta
           confirm_routing_number: Confirma el número de ruta bancaria (routing number)
           date_withdraw_text: "¿Cuándo te gustaría que se retiren los fondos de tu cuenta?  (debe ser antes o en %{withdrawal_deadline_date} de %{with_drawal_deadline_year}):"
-          disclaimer: Verifica que la información de tu banco sea correcta. No podrás corregirla después de enviar tu declaración.
           foreign_accounts: "(Las cuentas extranjeras no son aceptadas)"
           routing_number: Número de ruta bancaria
           withdraw_amount: "¿Cuánto autorizas a retirar de tu cuenta? (Tu monto total adeudado es: %{owed_amount}. Redondea al número entero más cercano)"
