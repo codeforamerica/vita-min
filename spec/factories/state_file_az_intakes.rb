@@ -126,15 +126,15 @@ FactoryBot.define do
       after(:create, &:synchronize_df_w2s_to_database)
     end
 
+    trait :with_filers_synced do
+      after(:create, &:synchronize_filers_to_database)
+    end
+
     trait :with_spouse do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('az_johnny_mfj') }
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('az_johnny_mfj') }
 
       filing_status { 'married_filing_jointly' }
-      spouse_first_name { "Susie" }
-      spouse_middle_initial { "B" }
-      spouse_last_name { "Spouse" }
-      spouse_birth_date { MultiTenantService.statefile.end_of_current_tax_year - 40 }
     end
 
     trait :with_senior_spouse do

@@ -15,10 +15,10 @@ describe SubmissionBuilder::StateManifest do
     end
 
     context "married filing jointly" do
-      let(:intake) { create :state_file_az_intake, :with_spouse }
+      let(:intake) { create :state_file_az_intake, :with_spouse, :with_filers_synced }
 
       it "should fill out the spouse fields" do
-        expect(doc.at("SpouseNameControlTxt").text).to eq "SPOU"
+        expect(doc.at("SpouseNameControlTxt").text).to eq "OHAR"
         expect(doc.at("SpouseSSN").text).to eq "600000001"
       end
     end
