@@ -118,19 +118,49 @@ RSpec.describe StateFile::Questions::ReturnStatusController do
           it "shows email or text" do
             intake.update(sms_notification_opt_in: "yes", email_notification_opt_in: "yes")
             get :edit
-            expect(response.body.html_safe).to include CGI.escapeHTML(I18n.t("state_file.questions.return_status.pending.receive_email_sms"))
+            expect(response.body.html_safe).to include CGI.escapeHTML(I18n.t("state_file.questions.submission_confirmation.edit.email_text_update"))
           end
 
           it "shows text" do
             intake.update(sms_notification_opt_in: "yes", email_notification_opt_in: "no")
             get :edit
-            expect(response.body).to include CGI.escapeHTML(I18n.t("state_file.questions.return_status.pending.receive_sms"))
+            expect(response.body).to include CGI.escapeHTML(I18n.t("state_file.questions.submission_confirmation.edit.text_update"))
           end
 
           it "shows email" do
             intake.update(sms_notification_opt_in: "no", email_notification_opt_in: "yes")
             get :edit
-            expect(response.body).to include CGI.escapeHTML(I18n.t("state_file.questions.return_status.pending.receive_email"))
+            expect(response.body).to include CGI.escapeHTML(I18n.t("state_file.questions.submission_confirmation.edit.email_update"))
+          end
+        end
+
+        context "rejected" do
+          context "showing the error" do
+            before do
+              efile_submission = create(:efile_submission, :rejected, :with_errors, :for_state, data_source: intake)
+              efile_submission.transition_to(:notified_of_rejection)
+            end
+
+            context "expose error" do
+              it "shows the reject code, the description, and the resolution" do
+                get :edit
+                error = assigns(:error)
+                expect(response.body).to include error.code
+                expect(response.body).to include CGI.escapeHTML(error.message)
+              end
+            end
+
+            context "do not expose error" do
+              it "does not show info about the error" do
+                get :edit
+                error = assigns(:error)
+                error.update(expose: false)
+
+                get :edit
+                expect(response.body).not_to include error.code
+                expect(response.body).not_to include CGI.escapeHTML(error.message)
+              end
+            end
           end
         end
       end

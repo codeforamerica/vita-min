@@ -50,6 +50,14 @@ class DefaultErrorMessages
         auto_wait: true,
         service_type: service_type_name
       )
+      EfileError.find_or_create_by!(
+        code: "AN UNFIXABLE ERROR",
+        message: "Something about your return disqualifies you from filing",
+        source: :intake,
+        expose: true,
+        auto_cancel: true,
+        service_type: service_type_name
+      )
     end
   end
 end
