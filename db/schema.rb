@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_05_000153) do
+ActiveRecord::Schema[7.1].define(version: 2024_12_05_194857) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -2024,6 +2024,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_05_000153) do
     t.integer "consented_to_sms_terms", default: 0, null: false
     t.integer "consented_to_terms_and_conditions", default: 0, null: false
     t.integer "contact_preference", default: 0, null: false
+    t.string "county_during_hurricane_helene"
     t.datetime "created_at", null: false
     t.datetime "current_sign_in_at"
     t.inet "current_sign_in_ip"
@@ -2049,6 +2050,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_05_000153) do
     t.string "locale", default: "en"
     t.datetime "locked_at"
     t.jsonb "message_tracker", default: {}
+    t.integer "moved_after_hurricane_helene", default: 0, null: false
     t.integer "payment_or_deposit_type", default: 0, null: false
     t.string "phone_number"
     t.datetime "phone_number_verified_at"

@@ -213,9 +213,9 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
     context "qualifying widow/er filers" do
       let(:intake) { create(:state_file_nj_intake, filing_status: "qualifying_widow") }
       
-      context "when spouse passed last year" do
+      context "when spouse passed in previous calendar year" do
         before do
-          date_within_prior_year = "#{MultiTenantService.new(:statefile).current_tax_year}-09-30"
+          date_within_prior_year = "#{MultiTenantService.new(:statefile).current_tax_year - 1}-09-30"
           submission.data_source.direct_file_data.spouse_date_of_death = date_within_prior_year
         end
   
@@ -233,7 +233,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
 
       context "when spouse passed two years prior" do
         before do
-          date_within_prior_year = "#{MultiTenantService.new(:statefile).current_tax_year - 1}-09-30"
+          date_within_prior_year = "#{MultiTenantService.new(:statefile).current_tax_year - 2}-09-30"
           submission.data_source.direct_file_data.spouse_date_of_death = date_within_prior_year
         end
   
@@ -732,7 +732,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
     describe "lines 53a, 53b, 53c: health insurance indicators" do
       context "when taxpayer indicated all members of household have health insurance" do
         before do
-          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_53c_checkbox).and_return true
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:line_53c_checkbox).and_return true
         end
         
         it "checks 53c Schedule NJ-HCC checkbox and leaves 53a, 53b, and 53c amount blank" do
@@ -745,7 +745,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
 
       context "when taxpayer indicated all members of household do NOT have health insurance" do
         before do
-          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_53c_checkbox).and_return false
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:line_53c_checkbox).and_return false
         end
 
         context "when qualifies for income exemption" do

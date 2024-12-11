@@ -215,7 +215,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in I18n.t("state_file.questions.az_charitable_contributions.edit.charitable_noncash_html"), with: "123"
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t('state_file.questions.az_qualifying_organization_contributions.form.main_heading', filing_year: filing_year)
+      expect(strip_html_tags(page.body)).to have_text strip_html_tags(I18n.t('state_file.questions.az_qualifying_organization_contributions.form.main_heading_html', filing_year: filing_year))
       choose I18n.t("general.affirmative")
       fill_in "az321_contribution_charity_name", with: "Center for Ants"
       fill_in "az321_contribution_charity_code", with: "21134"
@@ -321,7 +321,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       step_through_df_data_transfer("Transfer Nick")
 
       expect(page).to have_text I18n.t("state_file.questions.nc_county.edit.title", filing_year: filing_year)
-      select("Alamance", from: "County")
+      select("Buncombe", from: "County")
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t("state_file.questions.nc_veteran_status.title_spouse")
@@ -337,8 +337,8 @@ RSpec.feature "Completing a state file intake", active_job: true do
       choose I18n.t("general.affirmative")
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_name'), with: "Business Name"
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_address'), with: "123 Main St"
-      fill_in I18n.t('state_file.questions.unemployment.edit.city'), with: "Raleigh", match: :first
-      fill_in I18n.t('state_file.questions.unemployment.edit.zip_code'), with: "85001", match: :first
+      fill_in I18n.t('state_file.questions.unemployment.edit.city'), with: "Asheville", match: :first
+      fill_in I18n.t('state_file.questions.unemployment.edit.zip_code'), with: "28806", match: :first
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_tin'), with: "123456789"
       choose I18n.t('state_file.questions.unemployment.edit.recipient_myself')
       choose I18n.t('state_file.questions.unemployment.edit.confirm_address_yes')
@@ -384,6 +384,19 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("state_file.questions.esign_declaration.edit.submit")
 
       expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "North Carolina", filing_year: filing_year)
+
+      click_on "Main XML Doc"
+
+      expect(page.body).to include('efile:ReturnState')
+      expect(page.body).to include('<FirstName>Nick</FirstName>')
+      expect(page.body).to include('<DisasterReliefTxt>Buncombe_Helene</DisasterReliefTxt>')
+      expect(page.body).to include('<NCCountyCode>011</NCCountyCode>')
+      expect(page.body).to include('<DrvrLcnsStCd>AK</DrvrLcnsStCd>')
+
+      perform_enqueued_jobs
+      submission = EfileSubmission.last
+      expect(submission.submission_bundle).to be_present
+      expect(submission.current_state).to eq("queued")
     end
   end
 
@@ -487,6 +500,18 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("state_file.questions.esign_declaration.edit.submit")
 
       expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Idaho", filing_year: filing_year)
+
+      click_on "Main XML Doc"
+
+      expect(page.body).to include('efile:ReturnState')
+      expect(page.body).to include('<FirstName>Testy</FirstName>')
+      expect(page.body).to include('<HealthInsurancePaid>1235</HealthInsurancePaid>')
+      expect(page.body).to include('<GroceryCredit>240</GroceryCredit>')
+
+      perform_enqueued_jobs
+      submission = EfileSubmission.last
+      expect(submission.submission_bundle).to be_present
+      expect(submission.current_state).to eq("queued")
     end
   end
 
@@ -544,6 +569,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in I18n.t('state_file.questions.unemployment.edit.city'), with: "Baltimore", match: :first
       fill_in I18n.t('state_file.questions.unemployment.edit.zip_code'), with: "85001", match: :first
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_tin'), with: "123456789"
+      choose I18n.t('state_file.questions.unemployment.edit.recipient_my_spouse')
       choose I18n.t('state_file.questions.unemployment.edit.confirm_address_yes')
       fill_in 'state_file1099_g_unemployment_compensation_amount', with: "123"
       fill_in 'state_file1099_g_federal_income_tax_withheld_amount', with: "456"
@@ -602,6 +628,20 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("state_file.questions.esign_declaration.edit.submit")
 
       expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Maryland", filing_year: filing_year)
+      expect(page).to have_link I18n.t("state_file.questions.submission_confirmation.edit.download_state_return_pdf")
+
+      click_on "Main XML Doc"
+
+      expect(page.body).to include('efile:ReturnState')
+      expect(page.body).to include('<FirstName>Zeus</FirstName>')
+      expect(page.body).to include('<CityTownOrTaxingArea>Town Of Barton</CityTownOrTaxingArea>')
+      expect(page.body).to include('<TaxpayerPIN>12345</TaxpayerPIN>')
+      expect(page.body).to include('<TaxpayerPIN>54321</TaxpayerPIN>')
+
+      perform_enqueued_jobs
+      submission = EfileSubmission.last
+      expect(submission.submission_bundle).to be_present
+      expect(submission.current_state).to eq("queued")
     end
   end
 

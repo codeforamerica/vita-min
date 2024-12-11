@@ -102,7 +102,7 @@ module StateFile
         timezone: 'America/Boise',
         vita_link: "",
         voucher_form_name: "",
-        voucher_path: "",
+        voucher_path: "/pdfs/idformIDVP-TY2024.pdf",
         w2_supported_box14_codes: [],
         w2_include_local_income_boxes: false
       },
@@ -115,7 +115,7 @@ module StateFile
         pay_taxes_link: "",
         return_type: "Form502",
         review_controller_class: StateFile::Questions::MdReviewController,
-        schema_file_name: "MDIndividual2023v1.0.zip",
+        schema_file_name: "MDIndividual2024v1.0.zip",
         state_name: "Maryland",
         submission_builder_class: SubmissionBuilder::Ty2024::States::Md::MdReturnXml,
         survey_link: "",

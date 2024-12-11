@@ -9,6 +9,7 @@
 #  consented_to_sms_terms            :integer          default("unfilled"), not null
 #  consented_to_terms_and_conditions :integer          default("unfilled"), not null
 #  contact_preference                :integer          default("unfilled"), not null
+#  county_during_hurricane_helene    :string
 #  current_sign_in_at                :datetime
 #  current_sign_in_ip                :inet
 #  current_step                      :string
@@ -31,6 +32,7 @@
 #  locale                            :string           default("en")
 #  locked_at                         :datetime
 #  message_tracker                   :jsonb
+#  moved_after_hurricane_helene      :integer          default("unfilled"), not null
 #  payment_or_deposit_type           :integer          default("unfilled"), not null
 #  phone_number                      :string
 #  phone_number_verified_at          :datetime
@@ -91,6 +93,87 @@ RSpec.describe StateFileNcIntake, type: :model do
     it "calculates the sales use tax using the nc_taxable_income" do
       allow(intake.calculator.lines).to receive(:[]).with(:NCD400_LINE_14).and_return(double(value: 2500))
       expect(intake.calculate_sales_use_tax).to eq 2
+    end
+  end
+
+  describe "#sanitize_county_details" do
+    context "when updating residence county to designated hurricane relief county" do
+      let(:intake) { create :state_file_nc_intake, residence_county: "001", moved_after_hurricane_helene: "yes", county_during_hurricane_helene: "020" }
+
+      it "clears moved_after_hurricane_helene and county_during_hurricane_helene fields" do
+        intake.update(residence_county: "011")
+        expect(intake.residence_county).to eq "011"
+        expect(intake.moved_after_hurricane_helene).to eq "unfilled"
+        expect(intake.county_during_hurricane_helene).to eq nil
+      end
+
+      context "when didn't move after the hurricane" do
+        it "clears the county_during_hurricane_helene field" do
+          intake.update(moved_after_hurricane_helene: "no")
+          expect(intake.moved_after_hurricane_helene).to eq "no"
+          expect(intake.county_during_hurricane_helene).to eq nil
+        end
+      end
+    end
+
+    context "when updating residence county to undesignated hurricane relief county" do
+      let(:intake) { create :state_file_nc_intake, residence_county: "001", moved_after_hurricane_helene: "yes", county_during_hurricane_helene: "020" }
+
+      it "doesn't clear moved_after_hurricane_helene and county_during_hurricane_helene fields" do
+        intake.update(residence_county: "040")
+        expect(intake.residence_county).to eq "040"
+        expect(intake.moved_after_hurricane_helene).to eq "yes"
+        expect(intake.county_during_hurricane_helene).to eq "020"
+      end
+    end
+  end
+
+  describe "#disaster_relief_county" do
+    let(:intake) { create :state_file_nc_intake, residence_county: residence_county, county_during_hurricane_helene: county_during_hurricane_helene, moved_after_hurricane_helene: moved_after_hurricane_helene }
+    let(:residence_county) { nil }
+    let(:county_during_hurricane_helene) { nil }
+    let(:moved_after_hurricane_helene) { "unfilled" }
+    let(:designated_county) { "011" } # Buncombe county
+    let(:undesignated_county) { "001" } # Alamance county
+
+    context "when residence county is in a designated hurricane relief county" do
+      let(:residence_county) { designated_county }
+
+      it "returns 'county name_Helene'" do
+        expect(intake.disaster_relief_county).to eq "Buncombe_Helene"
+      end
+    end
+
+    context "when residence county is in an undesignated hurricane relief county" do
+      let(:residence_county) { undesignated_county }
+
+      context "when moved_after_hurricane_helene" do
+        let(:moved_after_hurricane_helene) { "yes" }
+
+        context "when county_during_hurricane_helene is a designated county" do
+          let(:county_during_hurricane_helene) { designated_county }
+
+          it "returns 'county residence name_Helene;county during hurricane_Helene'" do
+            expect(intake.disaster_relief_county).to eq "Alamance_Helene;Buncombe_Helene"
+          end
+        end
+
+        context "when county_during_hurricane_helene is an undesignated county" do
+          let(:county_during_hurricane_helene) { undesignated_county }
+
+          it "returns 'county name_Helene'" do
+            expect(intake.disaster_relief_county).to eq "Alamance_Helene"
+          end
+        end
+      end
+
+      context "when didn't moved_after_hurricane_helene" do
+        let(:moved_after_hurricane_helene) { "no" }
+
+        it "returns 'county name_Helene'" do
+          expect(intake.disaster_relief_county).to eq "Alamance_Helene"
+        end
+      end
     end
   end
 end

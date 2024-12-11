@@ -4,15 +4,15 @@
         <TaxYr>2024</TaxYr>
         <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
         <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
-        <SoftwareVersionNum>676c5f98</SoftwareVersionNum>
+        <SoftwareVersionNum>dcf46c78</SoftwareVersionNum>
         <ReturnTypeCd>1040</ReturnTypeCd>
         <Filer>
             <PrimarySSN>400006060</PrimarySSN>
             <NameLine1Txt>HANNAH&lt;HADDOCK</NameLine1Txt>
             <PrimaryNameControlTxt>HADD</PrimaryNameControlTxt>
             <USAddress>
-                <AddressLine1Txt>3 Fish St</AddressLine1Txt>
-                <CityNm>Smith Island</CityNm>
+                <AddressLine1Txt>3 fish st</AddressLine1Txt>
+                <CityNm>smith island</CityNm>
                 <StateAbbreviationCd>MD</StateAbbreviationCd>
                 <ZIPCd>21824</ZIPCd>
             </USAddress>
@@ -20,28 +20,26 @@
         </Filer>
         <AdditionalFilerInformation>
             <AtSubmissionFilingGrp>
-                <EmailAddressTxt>test-user+40000606-0202-4259-8ebe-a4437170e44c@directfile.test</EmailAddressTxt>
+                <EmailAddressTxt>test-user+40000606-0ad0-4812-906e-120725628340@directfile.test</EmailAddressTxt>
             </AtSubmissionFilingGrp>
         </AdditionalFilerInformation>
     </ReturnHeader>
-    <ReturnData documentCnt="2">
+    <ReturnData documentCnt="3">
         <IRS1040 documentId="IRS10400001">
             <IndividualReturnFilingStatusCd>1</IndividualReturnFilingStatusCd>
             <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
-            <PrimaryBlindInd>X</PrimaryBlindInd>
-            <TotalBoxesCheckedCnt>1</TotalBoxesCheckedCnt>
             <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
             <DependentDetail>
-                <DependentFirstNm>Haddie</DependentFirstNm>
-                <DependentLastNm>Haddock</DependentLastNm>
+                <DependentFirstNm>haddie</DependentFirstNm>
+                <DependentLastNm>haddock</DependentLastNm>
                 <DependentNameControlTxt>HADD</DependentNameControlTxt>
                 <DependentSSN>600005555</DependentSSN>
                 <DependentRelationshipCd>SISTER</DependentRelationshipCd>
                 <EligibleForODCInd>X</EligibleForODCInd>
             </DependentDetail>
             <DependentDetail>
-                <DependentFirstNm>Helena</DependentFirstNm>
-                <DependentLastNm>Haddock</DependentLastNm>
+                <DependentFirstNm>helena</DependentFirstNm>
+                <DependentLastNm>haddock</DependentLastNm>
                 <DependentNameControlTxt>HADD</DependentNameControlTxt>
                 <DependentSSN>600005656</DependentSSN>
                 <DependentRelationshipCd>GRANDPARENT</DependentRelationshipCd>
@@ -54,11 +52,13 @@
             <WagesSalariesAndTipsAmt>15400</WagesSalariesAndTipsAmt>
             <TotalIncomeAmt>15400</TotalIncomeAmt>
             <AdjustedGrossIncomeAmt>15400</AdjustedGrossIncomeAmt>
-            <TotalItemizedOrStandardDedAmt>16550</TotalItemizedOrStandardDedAmt>
-            <TotalDeductionsAmt>16550</TotalDeductionsAmt>
-            <TaxableIncomeAmt>0</TaxableIncomeAmt>
-            <TaxAmt>0</TaxAmt>
-            <TotalTaxBeforeCrAndOthTaxesAmt>0</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TotalItemizedOrStandardDedAmt>14600</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>14600</TotalDeductionsAmt>
+            <TaxableIncomeAmt>800</TaxableIncomeAmt>
+            <TaxAmt>81</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>81</TotalTaxBeforeCrAndOthTaxesAmt>
+            <CTCODCAmt>81</CTCODCAmt>
+            <TotalCreditsAmt>81</TotalCreditsAmt>
             <TaxLessCreditsAmt>0</TaxLessCreditsAmt>
             <TotalTaxAmt>0</TotalTaxAmt>
             <FormW2WithheldTaxAmt>3000</FormW2WithheldTaxAmt>
@@ -70,26 +70,45 @@
             <RefundAmt>3242</RefundAmt>
             <OwedAmt>0</OwedAmt>
             <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
-            <PrimaryOccupationTxt>Hackeysack Instructor</PrimaryOccupationTxt>
+            <PrimaryOccupationTxt>hackeysack instructor</PrimaryOccupationTxt>
             <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
         </IRS1040>
+        <IRS1040Schedule8812 documentId="IRS8812001" documentName="IRS1040Schedule8812">
+            <AdjustedGrossIncomeAmt>15400</AdjustedGrossIncomeAmt>
+            <ModifiedAGIAmt>15400</ModifiedAGIAmt>
+            <QlfyChildUnderAgeSSNCnt>0</QlfyChildUnderAgeSSNCnt>
+            <OtherDependentCnt>2</OtherDependentCnt>
+            <OtherDependentCreditAmt>1000</OtherDependentCreditAmt>
+            <InitialCTCODCAmt>1000</InitialCTCODCAmt>
+            <FilingStatusThresholdCd>200000</FilingStatusThresholdCd>
+            <ExcessAdjGrossIncomeAmt>0</ExcessAdjGrossIncomeAmt>
+            <ModifiedAGIPhaseOutAmt>0</ModifiedAGIPhaseOutAmt>
+            <CTCODCOverAGILimitInd>true</CTCODCOverAGILimitInd>
+            <CTCODCAfterAGILimitAmt>1000</CTCODCAfterAGILimitAmt>
+            <ACTCTaxLiabiltyLimitAmt>81</ACTCTaxLiabiltyLimitAmt>
+            <CTCODCAmt>81</CTCODCAmt>
+            <ClaimACTCAllFilersGrp>
+                <ACTCBeforeLimitAmt>919</ACTCBeforeLimitAmt>
+                <QlfyChildUnderAgeSSNCnt>0</QlfyChildUnderAgeSSNCnt>
+            </ClaimACTCAllFilersGrp>
+        </IRS1040Schedule8812>
         <IRSW2 documentId="W20001" documentName="IRSW2">
             <EmployeeSSN>400006060</EmployeeSSN>
             <EmployerEIN>003456543</EmployerEIN>
             <EmployerNameControlTxt>HOUS</EmployerNameControlTxt>
             <EmployerName>
-                <BusinessNameLine1Txt>House of Haddock</BusinessNameLine1Txt>
+                <BusinessNameLine1Txt>house of haddock</BusinessNameLine1Txt>
             </EmployerName>
             <EmployerUSAddress>
-                <AddressLine1Txt>13 Had Dock St</AddressLine1Txt>
-                <CityNm>Smith Island</CityNm>
+                <AddressLine1Txt>13 had dock st</AddressLine1Txt>
+                <CityNm>smith island</CityNm>
                 <StateAbbreviationCd>MD</StateAbbreviationCd>
                 <ZIPCd>21824</ZIPCd>
             </EmployerUSAddress>
-            <EmployeeNm>Hannah Haddock</EmployeeNm>
+            <EmployeeNm>hannah haddock</EmployeeNm>
             <EmployeeUSAddress>
-                <AddressLine1Txt>3 Fish St</AddressLine1Txt>
-                <CityNm>Smith Island</CityNm>
+                <AddressLine1Txt>3 fish st</AddressLine1Txt>
+                <CityNm>smith island</CityNm>
                 <StateAbbreviationCd>MD</StateAbbreviationCd>
                 <ZIPCd>21824</ZIPCd>
             </EmployeeUSAddress>
@@ -99,10 +118,6 @@
             <SocialSecurityTaxAmt>2000</SocialSecurityTaxAmt>
             <MedicareWagesAndTipsAmt>15400</MedicareWagesAndTipsAmt>
             <MedicareTaxWithheldAmt>1000</MedicareTaxWithheldAmt>
-            <OtherDeductionsBenefitsGrp>
-                <Desc>STPICKUP</Desc>
-                <Amt>3200</Amt>
-            </OtherDeductionsBenefitsGrp>
             <W2StateLocalTaxGrp>
                 <W2StateTaxGrp>
                     <StateAbbreviationCd>MD</StateAbbreviationCd>

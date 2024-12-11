@@ -3,7 +3,7 @@ module StateFile
     set_attributes_for :intake, :sms_notification_opt_in, :email_notification_opt_in, :phone_number, :email_address
     before_validation :normalize_phone_numbers
 
-    validates :phone_number, allow_blank: true, e164_phone: true, if: -> { attributes_for(:intake)[:sms_notification_opt_in] == "yes" }
+    validates :phone_number, e164_phone: true, if: -> { attributes_for(:intake)[:sms_notification_opt_in] == "yes" }
     validates :email_address, 'valid_email_2/email': true, if: -> { attributes_for(:intake)[:email_notification_opt_in] == "yes" }
     validates :email_address, presence: true, if: -> { attributes_for(:intake)[:email_notification_opt_in] == "yes" }
     validate :at_least_one_selected

@@ -1,9 +1,31 @@
 #!/usr/bin/env ruby
 
+# You probably always want this, right? Opens emails in browser
+ENV['LETTER_OPENER'] = '1'
+
 require_relative "../config/environment"
+
+# Horrible hack to enable emails to send within the transaction
+
+# Reopen app/models/state_file_notification_email.rb
+class StateFileNotificationEmail
+  # This is after_create_commit in the unmodified class which never fires
+  # because nothing ever gets commited in the transaction
+  after_create :deliver
+
+  private
+
+  def deliver
+    # This is #perform_later in the unmodified class. Obviously we don't have a
+    # job queue running for this task
+    StateFile::SendNotificationEmailJob.perform_now(id)
+  end
+end
 
 # Quick and dirty script to run notifications from the command line to smoke test/copy-check them
 class SendMessage < Thor
+  def self.exit_on_failure? = true
+
   all_message_classes = StateFile::AutomatedMessage.constants.select { |c| StateFile::AutomatedMessage.const_get(c).is_a? Class }
 
   all_message_classes.each do |klass|
@@ -13,6 +35,7 @@ class SendMessage < Thor
     method_option :sms_number, aliases: '-s', desc: 'Number to send an sms to. Requires valid twilio credentials', type: :string
     method_option :email_address, aliases: '-e', desc: 'Email address to send an email to. Requires the rails application to be configured to emit emails.', type: :string
     method_option :body_args, aliases: '-b', desc: 'Body arguments. Pass multiple at once', type: :hash, default: {}
+    method_option :locale, aliases: '-l', desc: 'Pass the locale to be used. Defaults to en', type: :string, enum: ['en', 'es']
 
     define_method(method_name) do
       ActiveRecord::Base.transaction do
@@ -47,11 +70,15 @@ class SendMessage < Thor
         StateFile::MessagingService.new(
           message:,
           intake:,
+          locale: options[:locale],
           email: !!options[:email_address],
           sms: !!options[:sms_number],
           body_args: body_args
         ).send_message
-
+      rescue I18n::MissingInterpolationArgument => e
+        say_error "Missing #{e.key}", :red
+        say_error "📝 Correct by using -b #{e.key}:'some_value' some_other_key:'some_other_value'", :red
+      ensure
         raise ActiveRecord::Rollback
       end
     end
