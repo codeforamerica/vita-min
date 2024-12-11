@@ -884,10 +884,9 @@ RSpec.describe PdfFiller::Nj1040Pdf do
     end
 
     describe "line 16a taxable interest income" do
-      context 'with interest reports, but no interest on government bonds' do
-        let(:intake) { create(:state_file_nj_intake, :df_data_one_dep) }
-
+      context 'with no taxable interest income' do
         it 'does not set line 16a' do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_16a).and_return 0
           ["112",
            "111",
            "110",
@@ -901,10 +900,9 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         end
       end 
   
-      context 'with interest on government bonds' do
-        let(:intake) { create(:state_file_nj_intake, :df_data_two_deps) }
-
+      context 'with taxable interest income' do
         it 'sets line 16a to 300 (fed taxable income minus sum of bond interest)' do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_16a).and_return 300
           expect(pdf_fields["undefined_43"]).to eq ""
           expect(pdf_fields["undefined_39"]).to eq ""
           expect(pdf_fields["undefined_40"]).to eq ""
