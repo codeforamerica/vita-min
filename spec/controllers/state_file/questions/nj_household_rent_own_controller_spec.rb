@@ -69,14 +69,6 @@ RSpec.describe StateFile::Questions::NjHouseholdRentOwnController do
         end
       end
 
-      context "when intake is both" do
-        let(:intake) { create :state_file_nj_intake, household_rent_own: "both" }
-
-        it "next path is unsupported page" do
-          expect(subject.next_path).to eq(StateFile::Questions::NjUnsupportedPropertyTaxController.to_path_helper)
-        end
-      end
-
       context "when intake is neither" do
         let(:intake) { create :state_file_nj_intake, household_rent_own: "neither" }
 
@@ -132,17 +124,6 @@ RSpec.describe StateFile::Questions::NjHouseholdRentOwnController do
         it "navigates to the ineligible page with the param" do
           post :update, params: form_params.merge({return_to_review: "y"})
           expect(response).to redirect_to(controller: "nj_ineligible_property_tax", action: :edit, return_to_review: 'y')
-        end
-      end
-
-      context "when intake is both" do
-        let(:form_params) do
-          { state_file_nj_household_rent_own_form: { household_rent_own: "both" } }
-        end
-
-        it "navigates to the unsupported page with the param" do
-          post :update, params: form_params.merge({return_to_review: "y"})
-          expect(response).to redirect_to(controller: "nj_unsupported_property_tax", action: :edit, return_to_review: 'y')
         end
       end
     end

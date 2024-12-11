@@ -17,7 +17,7 @@ module StateFile
         when 'own'
           NjHomeownerEligibilityController.to_path_helper(options)
         when 'both'
-          NjUnsupportedPropertyTaxController.to_path_helper(options)
+          NjIneligiblePropertyTaxController.to_path_helper(options)
         when 'neither'
           NjIneligiblePropertyTaxController.to_path_helper(options)
         else
