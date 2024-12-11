@@ -5,6 +5,10 @@
 <% content_for :card do %>
   <h1 class="form-question"><%= @main_heading %></h1>
   <%= form_with model: @az322_contribution, url: { action: @az322_contribution.persisted? ? :update : :create }, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long' } do |f| %>
+    <% if params[:return_to_review].present? %>
+      <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
+    <% end %>
+
     <div class="question-with-follow-up">
       <div class="question-with-follow-up__question">
         <div class="white-group">
