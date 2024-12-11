@@ -2322,7 +2322,10 @@ en:
           charitable_cash: Charitable contributions (Cash)
           charitable_contributions: Made charitable contributions
           charitable_noncash: Charitable contributions (Non-Cash)
+          credit_to_qualifying_charitable: Credit for Contributions to Qualifying Charitable Organizations
           dependent_tax_credit: Dependent tax credit
+          exclusion_for_govt_pensions: Exclusion for government pensions
+          exclusion_for_military_pensions: Exclusion for military pensions
           family_income_tax_credit: Family income tax credit
           household_excise_credit_claimed: Other members in your household have claimed the Arizona Increased Excise Tax Credit
           incr_deduction_chrit_contributions: Increased deduction for charitable contributions
@@ -2330,10 +2333,14 @@ en:
           last_names: Other last names in the last four years
           made_az321_contributions: Made contributions to qualifying charitable organizations
           made_az322_contributions: Made contributions to public schools
+          public_school_credit: Public School Credit
           ssn_no_employment: "‘Not valid for employment’ is written on your Social Security Card"
-          total_arizona_subtractions: Total Arizona subtractions
+          ssn_not_taxed: Social Security benefits not taxed in Arizona
+          subtraction_for_indian_res: Subtraction for income earned on an American Indian reservation
+          subtraction_for_military_pay: Subtraction for active duty military pay
           total_exemptions: Total Exemptions
           total_payments: Total payments
+          total_tax_nonrefundable_credits: Total tax after nonrefundable credits
           tribal_member: Member of a federally recognized American Indian tribe
           tribal_wages: Amount earned while living and working on the reservation as a member of a federally recognized American Indian tribe
           was_incarcerated: Incarcerated in a county, state, or federal prison for at least 60 days in %{filing_year}

@@ -2273,7 +2273,10 @@ es:
           charitable_cash: 'Donaciones caritativas (en efectivo) '
           charitable_contributions: Realizó contribuciones caritativas
           charitable_noncash: Donaciones caritativas (en especie)
+          credit_to_qualifying_charitable: Crédito por contribuciones a organizaciones benéficas calificadas
           dependent_tax_credit: Crédito tributario por dependientes
+          exclusion_for_govt_pensions: Exclusión de pensiones gubernamentales
+          exclusion_for_military_pensions: Exclusión de pensiones militares
           family_income_tax_credit: Crédito por ingresos familiares
           household_excise_credit_claimed: Otros miembros de tu hogar han reclamado el Crédito por Aumento de Impuestos Especiales de Arizona
           incr_deduction_chrit_contributions: Deducción aumentada por donaciones caritativas
@@ -2282,9 +2285,12 @@ es:
           made_az321_contributions: Hizo contribuciones a organizaciones benéficas calificadas
           made_az322_contributions: Hizo contribuciones a las escuelas públicas
           ssn_no_employment: '"Not valid for employment" escrita en tu tarjeta de Seguro Social'
-          total_arizona_subtractions: Restas totales de Arizona
+          ssn_not_taxed: Los beneficios del Seguro Social no están sujetos a impuestos en Arizona
+          subtraction_for_indian_res: Resta de los ingresos obtenidos en una reserva de indios americanos
+          subtraction_for_military_pay: Resta del pago militar en servicio activo
           total_exemptions: Exenciones Totales
           total_payments: Total de pagos
+          total_tax_nonrefundable_credits: Impuesto total después de créditos no reembolsables
           tribal_member: Miembro de una tribu indígena reconocida por el gobierno federal
           tribal_wages: Salario recibido mientras vivías y trabajabas en la reserva como miembro de una tribu indígena reconocida por el gobierno federal
           was_incarcerated: Encarcelados en una prisión del condado, estatal o federal durante al menos 60 días en %{filing_year}
