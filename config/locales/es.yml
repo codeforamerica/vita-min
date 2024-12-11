@@ -3407,7 +3407,8 @@ es:
           title: Ingresa tu número de teléfono
       post_data_transfer:
         edit:
-          title: Solo página sin producción
+          subtitle: A continuación, revisaremos los detalles de su estado y haremos las preguntas restantes para completar su declaración de impuestos estatal de %{state_name}.
+          title: "¡Hemos transferido con éxito su declaración de impuestos federal!"
       primary_state_id:
         edit:
           ny_subtitle: Esta información es necesaria para todos los residentes de Nueva York con una identificación emitida por el estado.
