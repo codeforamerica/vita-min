@@ -22,8 +22,6 @@ module PdfFiller
       mfs_spouse_name = [mfs_spouse_first_name, mfs_spouse_middle_initial, mfs_spouse_last_name].reject(&:empty?).join(" ")
 
       {
-        y_d400wf_datebeg: '01-01',
-        y_d400wf_dateend: "12-31-#{@submission.data_source.tax_return_year.to_s[-2..]}",
         y_d400wf_ssn1: @xml_document.at('Primary TaxpayerSSN')&.text,
         y_d400wf_ssn2: @xml_document.at('Secondary TaxpayerSSN')&.text,
         y_d400wf_fname1: @xml_document.at('Primary TaxpayerName FirstName')&.text,
