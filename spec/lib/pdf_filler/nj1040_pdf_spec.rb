@@ -1004,7 +1004,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         context "spouse passed in the last year" do
           before do
             submission.data_source.direct_file_data.filing_status = 5
-            date_within_prior_year = "#{MultiTenantService.new(:statefile).current_tax_year}-09-30"
+            date_within_prior_year = "#{MultiTenantService.new(:statefile).current_tax_year - 1}-09-30"
             submission.data_source.direct_file_data.spouse_date_of_death = date_within_prior_year
           end
 
@@ -1020,7 +1020,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         context "spouse passed two years prior" do
           before do
             submission.data_source.direct_file_data.filing_status = 5
-            date_two_years_prior = "#{MultiTenantService.new(:statefile).current_tax_year - 1}-09-30"
+            date_two_years_prior = "#{MultiTenantService.new(:statefile).current_tax_year - 2}-09-30"
             submission.data_source.direct_file_data.spouse_date_of_death = date_two_years_prior
           end
 

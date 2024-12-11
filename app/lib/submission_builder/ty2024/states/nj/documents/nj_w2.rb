@@ -12,10 +12,10 @@ module SubmissionBuilder
 
               xml_node.at("EmployerNameControlTxt").name = "EmployerNameControl"
               xml_node.at("ControlNum").name = "ControlNumber" if xml_node.at("ControlNum").present?
-              xml_node.at("EmployeeNm").name = "EmployeeName"
+              xml_node.at("EmployeeNm").name = "EmployeeName" if xml_node.at("EmployeeNm").present?
               xml_node.at("PriorUSERRAContributionYr").name = "PriorYearUserraContribution" if xml_node.at("PriorUSERRAContributionYr").present?
               xml_node.at("OtherDeductionsBenefitsGrp").name = "OtherDeductsBenefits" if xml_node.at("OtherDeductionsBenefitsGrp").present?
-              xml_node.at("EmployerStateIdNum").name = "EmployersStateIdNumber"
+              xml_node.at("EmployerStateIdNum").name = "EmployersStateIdNumber" if xml_node.at("EmployerStateIdNum").present?
               xml_node.at("LocalityNm").name = "NameOfLocality" if xml_node.at("LocalityNm").present?
 
               xml_node.at("AgentForEmployerInd").remove if xml_node.at("AgentForEmployerInd").present?

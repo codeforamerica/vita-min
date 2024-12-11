@@ -39,7 +39,7 @@ RSpec.describe StateFile::FaqController do
 
       context "when FYST has not opened yet for the year" do
         around do |example|
-          Timecop.freeze(Rails.configuration.state_file_show_faq_date - 1.hour) do
+          Timecop.freeze(Rails.configuration.state_file_show_faq_date_start - 1.hour) do
             example.run
           end
         end
@@ -80,7 +80,7 @@ RSpec.describe StateFile::FaqController do
       context "when FYST is either open or has closed for the year" do
         context "open" do
           around do |example|
-            Timecop.freeze(Rails.configuration.state_file_end_of_in_progress_intakes - 1.day) do
+            Timecop.freeze(Rails.configuration.state_file_show_faq_date_end - 1.day) do
               example.run
             end
           end
