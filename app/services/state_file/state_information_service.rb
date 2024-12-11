@@ -102,7 +102,7 @@ module StateFile
         timezone: 'America/Boise',
         vita_link: "",
         voucher_form_name: "",
-        voucher_path: "",
+        voucher_path: "/pdfs/idformIDVP-TY2024.pdf",
         w2_supported_box14_codes: [],
         w2_include_local_income_boxes: false
       },
