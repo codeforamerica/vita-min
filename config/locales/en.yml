@@ -3170,15 +3170,6 @@ en:
           helper_description: If you were a mobile homeowner, enter site fees paid in %{filing_year}.
           label: Rent paid in %{filing_year}
           title: Enter your rent paid in %{filing_year}.
-      nj_unsupported_property_tax:
-        edit:
-          helper_1_html: "<strong>What is this credit?</strong> If you qualify, you can deduct up to $15,000 in property tax expenses from your taxable income, or receive up to $50 in credit."
-          helper_2: Want to claim these credits or deductions?
-          helper_3: You may be able to file your state return for free with help from IRS-certified VITA volunteers in New Jersey. Note that this option may take 2-3 weeks to complete.
-          helper_4: Get started with VITA now
-          helper_5: Learn more about this process and other filing options here.
-          helper_6: Please continue to see what else you might qualify for.
-          title: Looks like we can’t help you with this Property Tax Credit / Deduction.
       nj_veterans_exemption:
         edit:
           instructions_html: You are considered a veteran if you are an <a href="https://pub.njleg.state.nj.us/Bills/2024/A3500/3485_I1.PDF" target="_blank" rel="noopener nofollow">honorably discharged</a> former member of the United States Armed Forces. <br><br> If you’re a first-time filer for <a href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml" target="_blank" rel="noopener nofollow"">this exemption</a>, you have to provide <a href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml" target="_blank" rel="noopener nofollow"">documentation</a> and <a href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf" target="_blank" rel="noopener nofollow"">a form</a> to the NJ Division of Taxation. It can be done <a href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf" target="_blank" rel="noopener nofollow">online</a>.
