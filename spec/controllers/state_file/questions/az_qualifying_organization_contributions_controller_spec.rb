@@ -28,7 +28,7 @@ RSpec.describe StateFile::Questions::AzQualifyingOrganizationContributionsContro
 
       end
 
-      context "when the intake does not have charitable contributions" do
+      context "when the intake does not have cash contributions" do
 
         before do
           intake.update(charitable_cash_amount: 0)
