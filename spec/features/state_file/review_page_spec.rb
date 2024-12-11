@@ -215,7 +215,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in strip_html_tags(I18n.t("state_file.questions.az_public_school_contributions.edit.school_name")), with: "beepboop"
       click_on I18n.t("general.continue")
 
-      # takes them to the 1099G index page first
+      # takes them to the az public school contributions index page first
       expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.az_public_school_contributions.index.title"))
       expect(page).to have_text ("beepboop")
       click_on "Continue"
