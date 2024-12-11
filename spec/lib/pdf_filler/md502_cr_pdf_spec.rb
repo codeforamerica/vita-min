@@ -11,6 +11,7 @@ RSpec.describe PdfFiller::Md502CrPdf do
     before do
       intake.direct_file_data.fed_agi = 100
       intake.direct_file_data.fed_credit_for_child_and_dependent_care_amount = 10
+      allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "S"
       allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_24).and_return 50
     end
     let(:file_path) { described_class.new(submission).output_file.path }
@@ -48,6 +49,30 @@ RSpec.describe PdfFiller::Md502CrPdf do
         describe "senior credit section" do
           it "fills out the section correctly" do
             expect(pdf_fields["Text Field 1051"]).to eq("1750")
+          end
+        end
+
+        context "Summary Section" do
+          before do
+            allow_any_instance_of(Efile::Md::Md502crCalculator).to receive(:calculate_part_aa_line_2).and_return 100
+            allow_any_instance_of(Efile::Md::Md502crCalculator).to receive(:calculate_part_aa_line_13).and_return 200
+          end
+          it "outputs all relevant values" do
+            expect(pdf_fields["Text Field 1049"]).to eq("100")
+            expect(pdf_fields["Text Field 1039"]).to eq("200")
+            expect(pdf_fields["Text Field 1038"]).to eq("300")
+          end
+        end
+
+        context "Refundable Section" do
+          before do
+            allow_any_instance_of(Efile::Md::Md502crCalculator).to receive(:calculate_part_cc_line_7).and_return 100
+            allow_any_instance_of(Efile::Md::Md502crCalculator).to receive(:calculate_part_cc_line_8).and_return 200
+          end
+          it "outputs all relevant values" do
+            expect(pdf_fields["Text Field 1031"]).to eq("100")
+            expect(pdf_fields["Text Field 1030"]).to eq("200")
+            expect(pdf_fields["Text Field 1028"]).to eq("300")
           end
         end
       end

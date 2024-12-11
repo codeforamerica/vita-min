@@ -8,6 +8,12 @@
     <%= t(".md.body_html") %>
   <% elsif current_state_code == "ny" %>
     <%= t(".ny.body_html") %>
+  <% elsif current_state_code == "nj" %>
+    <%= t(".nj.body_html") %>
+  <% elsif current_state_code == "id" %>
+    <%= t(".id.body_html") %>
+  <% elsif current_state_code == "nc" %>
+    <%= t(".nc.body_html") %>
   <% else %>
     <%= t(".az.body_html", filing_year: current_tax_year) %>
   <% end %>

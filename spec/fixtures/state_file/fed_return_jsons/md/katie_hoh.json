@@ -1,0 +1,55 @@
+{
+  "familyAndHousehold": [
+    {
+      "monthsLivedWithTPInUS": "twelve",
+      "lastName": "ICEFISHER",
+      "isClaimedDependent": true,
+      "hohQualifyingPerson": true,
+      "qualifyingChild": true,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "2022-08-08",
+      "suffix": null,
+      "residencyDuration": "allYear",
+      "firstName": "ISAAC",
+      "middleInitial": null,
+      "scheduleEicLine4aNo": false,
+      "tin": "600-00-5050",
+      "eligibleDependent": true,
+      "relationship": "biologicalChild",
+      "ssnNotValidForEmployment": false
+    },
+    {
+      "monthsLivedWithTPInUS": "twelve",
+      "lastName": "FLYFISHER",
+      "isClaimedDependent": true,
+      "hohQualifyingPerson": true,
+      "qualifyingChild": true,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "2007-07-07",
+      "suffix": null,
+      "residencyDuration": "allYear",
+      "firstName": "FRANKIE",
+      "middleInitial": null,
+      "scheduleEicLine4aNo": false,
+      "tin": "600-00-4040",
+      "eligibleDependent": true,
+      "relationship": "biologicalChild",
+      "ssnNotValidForEmployment": false
+    }
+  ],
+  "filers": [
+    {
+      "firstName": "KATIE",
+      "lastName": "KITE",
+      "middleInitial": null,
+      "tin": "400-00-8080",
+      "dateOfBirth": "1948-10-10",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "interestReports": []
+}

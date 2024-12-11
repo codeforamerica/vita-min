@@ -1,0 +1,46 @@
+{
+  "familyAndHousehold": [
+    {
+      "monthsLivedWithTPInUS": "twelve",
+      "lastName": "SQUIBBLES",
+      "isClaimedDependent": true,
+      "hohQualifyingPerson": null,
+      "qualifyingChild": true,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "2020-08-08",
+      "suffix": null,
+      "residencyDuration": "allYear",
+      "firstName": "SQUIDWARD",
+      "middleInitial": null,
+      "scheduleEicLine4aNo": false,
+      "tin": "600-00-5659",
+      "eligibleDependent": true,
+      "relationship": "fosterChild",
+      "ssnNotValidForEmployment": false
+    }
+  ],
+  "filers": [
+    {
+      "firstName": "SPONGEBOB",
+      "lastName": "SQUAREPANTS",
+      "middleInitial": null,
+      "tin": "400-00-3000",
+      "dateOfBirth": "1960-01-01",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "ssnNotValidForEmployment": null
+    },
+    {
+      "lastName": "STARFISH",
+      "firstName": "PATRICK",
+      "middleInitial": null,
+      "tin": "600-00-0010",
+      "dateOfBirth": "1959-12-31",
+      "suffix": null,
+      "isPrimaryFiler": false,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "interestReports": []
+}

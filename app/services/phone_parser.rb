@@ -14,6 +14,10 @@ class PhoneParser
     valid ? "tel:#{self.e164(phony_normalized)}" : "tel:"
   end
 
+  def self.e164_to_raw_phone_number(e164_formatted_phone_number)
+    e164_formatted_phone_number&.match?(/^\+\d+$/) ? e164_formatted_phone_number[2..] : e164_formatted_phone_number
+  end
+
   private
 
   def self.phony_normalize_or_error(raw_phone_number)

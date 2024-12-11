@@ -712,8 +712,24 @@ MD502_LINE_33:
   label: '33. Local tax after credits: local tax amount minus total local tax credits (line 28 - line 32)'
 MD502_LINE_34:
   label: '34. Total Maryland and local tax amount (line 27 + line 33 if deduction standard)'
+MD502_LINE_39:
+  label: "39. Total Maryland income tax, local income tax and contributions"
 MD502_LINE_40:
   label: "40 Total Maryland and local tax withheld"
+MD502_LINE_42:
+  label: "42. Refundable earned income credit"
+MD502_LINE_43:
+  label: "43. Refundable income tax credits from Part CC, line 10 of Form 502CR"
+MD502_LINE_44:
+  label: "44. Total payments and credits (Add lines 40 through 43.)"
+MD502_LINE_45:
+  label: "45. Balance due (If line 39 is more than line 44, subtract line 44 from line 39"
+MD502_LINE_46:
+  label: "46. Overpayment (If line 39 is less than line 44, subtract line 39 from line 44.)"
+MD502_LINE_48:
+  label: "48. Amount of overpayment TO BE REFUNDED TO YOU"
+MD502_LINE_50:
+  label: "50. TOTAL AMOUNT DUE (Add lines 45 and 49.)"
 MD502_AUTHORIZE_DIRECT_DEPOSIT:
   label: "Client authorizes the State of Maryland to issue refund by direct deposit (tax refund controller)."
 MD502_LINE_51D:
@@ -724,12 +740,24 @@ MD502B_LINE_2:
   label: '2 Total number of dependents 65 or over'
 MD502B_LINE_3:
   label: '3 Total Dependent exemption count'
+MD502CR_PART_AA_LINE_2:
+  label: "2 Enter the amount from Part B, line 4"
+MD502CR_PART_AA_LINE_13:
+  label: "13 Enter the amount from Part M, line 1"
+MD502CR_PART_AA_LINE_14:
+  label: "14 Total (Add lines 1 through 13.) Enter this amount on line 24 of Form 502; line 14 of Form 504; line 34 of Form 505 or line 35 of Form 515"
 MD502CR_PART_B_LINE_2:
   label: "2 Enter your federal Child and Dependent Care Credit from federal Form 2441"
 MD502CR_PART_B_LINE_3:
   label: "3 Enter the decimal amount from the chart in the instructions that applies to the amount on line 1"
 MD502CR_PART_B_LINE_4:
   label: "4 Multiply line 2 by line 3. Enter here and on Part AA, line 2"
+MD502CR_PART_CC_LINE_7:
+  label: "7 Refundable credit for Child and Dependent Care Expenses."
+MD502CR_PART_CC_LINE_8:
+  label: "8 Refundable Maryland Child Tax Credit"
+MD502CR_PART_CC_LINE_10:
+  label: "10 Total. (Add lines 1 through 9.) Enter this amount on line 43 of Form 502, line 46 of Form 505 or line 51 of Form 515"
 MD502CR_PART_M_LINE_1:
   label: "1 Enter the credit claimed here and on Part AA, line 13 (See Instructions)"
 MD502_SU_LINE_AB:
@@ -836,6 +864,8 @@ NJ1040_LINE_50:
   label: '50 Balance of Tax After Credits (Subtract line 49 from line 45) If zero or less, make no entry'
 NJ1040_LINE_51:
   label: '51 Use Tax Due on Internet, Mail-Order, or Other Out-of-State Purchases (See instructions) If no Use Tax, enter 0.00'
+NJ1040_LINE_53C_CHECKBOX:
+  label: '53C Enclose Schedule NJ-HCC and fill in'
 NJ1040_LINE_54:
   label: '54 Total Tax Due (Add lines 50 through 53c)'
 NJ1040_LINE_55:
@@ -850,14 +880,50 @@ NJ1040_LINE_58_IRS:
   label: '58 IRS calculated federal earned income credit'
 NJ1040_LINE_59:
   label: '59 Excess New Jersey UI/WF/SWF Withheld (Enclose Form NJ-2450) (See instructions)'
+NJ1040_LINE_60:
+  label: '60 Excess New Jersey Disability Insurance Withheld (Enclose Form NJ-2450) (See instructions)'
 NJ1040_LINE_61:
   label: '61 Excess New Jersey Family Leave Insurance Withheld (Enclose Form NJ-2450) (See instructions)'
+NJ1040_LINE_62:
+  label: '62 Wounded Warrior Caregivers Credit (See instructions)'
+NJ1040_LINE_63:
+  label: '63 Pass-Through Business Alternative Income Tax Credit (See instructions)'
 NJ1040_LINE_64:
   label: '64 Child and Dependent Care Credit'
 NJ1040_LINE_65_DEPENDENTS:
   label: '65 Number of dependents age 5 or younger on 12/31/tax year'
 NJ1040_LINE_65:
   label: '65 New Jersey Child Tax Credit (See instructions)'
+NJ1040_LINE_66:
+  label: '66 Total Withholdings, Credits, and Payments (Add lines 55 through 65)'
+NJ1040_LINE_67:
+  label: '67 If line 66 is less than line 54, you have tax due. Subtract line 66 from line 54 and enter the amount you owe. If you owe tax, you can still make a donation on lines 70 through 77.'
+NJ1040_LINE_68:
+  label: '68 If the total on line 66 is more than line 54, you have an overpayment. Subtract line 54 from line 66 and enter the overpayment.'
+NJ1040_LINE_69:
+  label: '69 Amount from line 68 you want to credit to your taxes next year'
+NJ1040_LINE_70:
+  label: '70 Contribution to N.J. Endangered Wildlife Fund'
+NJ1040_LINE_71:
+  label: "71 Contribution to N.J. Children's Trust Fund To Prevent Child Abuse"
+NJ1040_LINE_72:
+  label: "72 Contribution to N.J. Vietnam Veterans' Memorial Fund"
+NJ1040_LINE_73:
+  label: '73 Contribution to N.J. Breast Cancer Research Fund'
+NJ1040_LINE_74:
+  label: '74 Contribution to U.S.S. New Jersey Educational Museum Fund'
+NJ1040_LINE_75:
+  label: '75 Other Designated Contribution (See instructions)'
+NJ1040_LINE_76:
+  label: '76 Other Designated Contribution (See instructions)'
+NJ1040_LINE_77:
+  label: '77 Other Designated Contribution (See instructions)'
+NJ1040_LINE_78:
+  label: '78 Total Adjustments to Tax Due/Overpayment amount (Add lines 69 through 77)'
+NJ1040_LINE_79:
+  label: '79 Balance due (If line 67 is more than zero, add line 67 and line 78)'
+NJ1040_LINE_80:
+  label: '80 Refund amount (If line 68 is more than zero, subtract line 78 from line 68)'
 NJ2450_COLUMN_A_TOTAL_PRIMARY:
   label: 'Total Deducted. UI/WF/SWF Deducted'
 NJ2450_COLUMN_C_TOTAL_PRIMARY:

@@ -19,11 +19,11 @@ module SubmissionBuilder
           end
 
           def build_xml_doc_tag
-            "ReturnState"
+            "efile:ReturnState"
           end
 
           def state_schema_version
-            "MDIndividual2023v1.0"
+            "MDIndividual2024v1.0"
           end
 
           def build_state_specific_tags(document)
@@ -37,7 +37,7 @@ module SubmissionBuilder
           end
 
           def schema_file
-            SchemaFileLoader.load_file("us_states", "unpacked", "MDIndividual2023v1.0", "MDIndividual", "IndividualReturnMD502.xsd")
+            SchemaFileLoader.load_file("us_states", "unpacked", "MDIndividual2024v1.0", "MDIndividual", "IndividualReturnMD502.xsd")
           end
 
           def form1099g_builder
@@ -48,7 +48,7 @@ module SubmissionBuilder
             calculated_fields = @submission.data_source.tax_calculator.calculate
             has_income_from_taxable_pensions_iras_annuities = calculated_fields.fetch(:MD502_LINE_1D)&.to_i.positive?
             has_md_su_subtractions = calculated_fields.fetch(:MD502_LINE_13).positive? || form_has_non_zero_amounts("MD502_SU_", calculated_fields)
-            has_individual_tax_credits = calculated_fields.fetch(:MD502_LINE_24).positive?
+            has_individual_tax_credits = (calculated_fields.fetch(:MD502_LINE_24).positive? && @intake.tax_calculator.calculate.fetch(:MD502_DEDUCTION_METHOD) == "S") || calculated_fields.fetch(:MD502_LINE_43).positive?
 
             supported_docs = [
               {

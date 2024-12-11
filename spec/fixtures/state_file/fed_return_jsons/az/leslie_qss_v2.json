@@ -10,7 +10,8 @@
       "hohQualifyingPerson": true,
       "eligibleDependent": true,
       "isClaimedDependent": true,
-      "monthsLivedWithTPInUS": "twelve"
+      "monthsLivedWithTPInUS": "twelve",
+      "residencyDuration": "allYear"
     }
   ],
   "filers": [

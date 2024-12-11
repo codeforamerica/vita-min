@@ -92,6 +92,34 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
         end
       end
 
+      context "when mailing address has the apt" do
+        before do
+          intake.confirmed_permanent_address_yes!
+          intake.direct_file_data.mailing_street = '2598 HICKORY HEIGHTS DRIVE APT 21'
+          intake.direct_file_data.mailing_apartment = ''
+        end
+
+        it 'puts apartment on second address line' do
+          expect(xml.at("MarylandAddress AddressLine1Txt").text.length).to be <= 35
+          expect(xml.at("MarylandAddress AddressLine1Txt").text).to eq('2598 HICKORY HEIGHTS DRIVE')
+          expect(xml.at("MarylandAddress AddressLine2Txt").text).to eq('APT 21')
+        end
+      end
+
+      context "when mailing address is longer than 35 characters" do
+        before do
+          intake.confirmed_permanent_address_yes!
+          intake.direct_file_data.mailing_street = '211212 SUBDIVISION DRIVE POST OFFICE BOX NUMBER 157'
+          intake.direct_file_data.mailing_apartment = ''
+        end
+
+        it 'truncates mailing address under 35 characters' do
+          expect(xml.at("MarylandAddress AddressLine1Txt").text.length).to be <= 35
+          expect(xml.at("MarylandAddress AddressLine1Txt").text).to eq('211212 SUBDIVISION DRIVE POST OFFIC')
+          expect(xml.at("MarylandAddress AddressLine2Txt")).not_to be_present
+        end
+      end
+
       context "Income section" do
         context "when all relevant values are present in the DF XML" do
           before do
@@ -287,6 +315,44 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
         end
       end
 
+      context "healthcare coverage stuff" do
+        context "truthy answers" do
+          before do
+            intake.update(primary_did_not_have_health_insurance: true)
+            intake.update(primary_birth_date: DateTime.new(1975, 4, 12))
+            intake.update(spouse_did_not_have_health_insurance: true)
+            intake.update(spouse_birth_date: DateTime.new(1972, 11, 5))
+            intake.update(authorize_sharing_of_health_insurance_info: "yes")
+            intake.update(email_address: "healthy@example.com")
+          end
+
+          it "fills in the right lines" do
+            expect(xml.document.at("MDHealthCareCoverage PriWithoutHealthCoverageInd")&.text).to eq "X"
+            expect(xml.document.at("MDHealthCareCoverage PriDOB")&.text).to eq "1975-04-12"
+            expect(xml.document.at("MDHealthCareCoverage SecWithoutHealthCoverageInd")&.text).to eq "X"
+            expect(xml.document.at("MDHealthCareCoverage SecDOB")&.text).to eq "1972-11-05"
+            expect(xml.document.at("MDHealthCareCoverage AuthorToShareInfoHealthExchInd")&.text).to eq "X"
+            expect(xml.document.at("MDHealthCareCoverage TaxpayerEmailAddress")&.text).to eq "healthy@example.com"
+          end
+        end
+
+        context "falsey answers" do
+          before do
+            intake.update(primary_did_not_have_health_insurance: false)
+            intake.update(spouse_did_not_have_health_insurance: false)
+            intake.update(authorize_sharing_of_health_insurance_info: "no")
+          end
+
+          it "fills in the right lines" do
+            expect(xml.document.at("MDHealthCareCoverage")).to be_nil
+            expect(xml.document.at("MDHealthCareCoverage PriWithoutHealthCoverageInd")).to be_nil
+            expect(xml.document.at("MDHealthCareCoverage SecWithoutHealthCoverageInd")).to be_nil
+            expect(xml.document.at("MDHealthCareCoverage AuthorToShareInfoHealthExchInd")).to be_nil
+            expect(xml.document.at("MDHealthCareCoverage TaxpayerEmailAddress")).to be_nil
+          end
+        end
+      end
+
       context "subtractions section" do
         let(:other_subtractions) { 100 }
         let(:two_income_subtraction_amount) { 1200 }
@@ -359,6 +425,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
           allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_21).and_return 70
           allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_22).and_return 100
           allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_23).and_return 200
+          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_24).and_return 400
           allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_26).and_return 300
         end
 
@@ -369,6 +436,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
           expect(xml.at("Form502 StateTaxComputation TaxableNetIncome").text).to eq "60"
           expect(xml.at("Form502 StateTaxComputation StateIncomeTax").text).to eq "70"
           expect(xml.at("Form502 StateTaxComputation PovertyLevelCredit").text).to eq "200"
+          expect(xml.at("Form502 StateTaxComputation IndividualTaxCredits").text).to eq "400"
           expect(xml.at("Form502 StateTaxComputation TotalCredits").text).to eq "300"
           expect(xml.at("Form502 StateTaxComputation StateTaxAfterCredits").text).to eq "0"
         end
@@ -381,6 +449,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
           expect(xml.at("Form502 StateTaxComputation TaxableNetIncome")).to be_nil
           expect(xml.at("Form502 StateTaxComputation StateIncomeTax")).to be_nil
           expect(xml.at("Form502 StateTaxComputation PovertyLevelCredit")).to be_nil
+          expect(xml.at("Form502 StateTaxComputation IndividualTaxCredits")).to be_nil
           expect(xml.at("Form502 StateTaxComputation TotalCredits")).to be_nil
           expect(xml.at("Form502 StateTaxComputation StateTaxAfterCredits")).to be_nil
         end
@@ -465,13 +534,41 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
       end
     end
 
-    context "Line 40: Total state and local tax withheld" do
+    context "Contributions Sections" do
       before do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_39).and_return 100
         allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_40).and_return 500
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_42).and_return 200
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_44).and_return 300
       end
 
       it 'outputs the total state and local tax withheld' do
+        expect(xml.at("Form502 TotalTaxAndContributions")&.text).to eq('100')
         expect(xml.at("Form502 TaxWithheld")&.text).to eq('500')
+        expect(xml.at("Form502 RefundableEIC")&.text).to eq('200')
+        expect(xml.at("Form502 TotalPaymentsAndCredits")&.text).to eq('300')
+      end
+    end
+
+    context "when taxes are owed" do
+      before do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_45).and_return 100
+      end
+
+      it 'outputs the amount owed' do
+        expect(xml.at("Form502 BalanceDue")&.text).to eq('100')
+        expect(xml.at("Form502 TotalAmountDue")&.text).to eq('100')
+      end
+    end
+
+    context "when there is a refund" do
+      before do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_46).and_return 300
+      end
+
+      it 'outputs the amount to be refunded' do
+        expect(xml.at("Form502 Overpayment")&.text).to eq('300')
+        expect(xml.at("Form502 AmountOverpayment ToBeRefunded")&.text).to eq('300')
       end
     end
 
@@ -548,6 +645,16 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
         it "should not include account holder information" do
           expect(xml.css('Form502 NameOnBankAccount').count).to eq(0)
         end
+      end
+    end
+
+    context "Line 43: Refundable income tax credits from Part CC" do
+      before do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_43).and_return 400
+      end
+
+      it 'outputs the total refundable credit' do
+        expect(xml.at("Form502 RefundableTaxCredits")&.text).to eq('400')
       end
     end
   end

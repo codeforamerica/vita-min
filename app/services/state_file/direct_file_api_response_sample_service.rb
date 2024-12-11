@@ -1,35 +1,11 @@
 module StateFile
   class DirectFileApiResponseSampleService
+    cattr_accessor :submission_id_lookup
+    self.submission_id_lookup = YAML.safe_load_file("#{__dir__}/submission_id_lookup.yml")
+
     def initialize
       @json_samples = {}
       @xml_samples = {}
-      @submission_id_lookup = {
-        'ny_rudy_v2' => '1016422024027ate001k',
-        'ny_javier' => '1016422024018atw000x',
-        'ny_matthew_v2' => '1016422024026atw001u',
-        'ny_khaled' => '1016422024009at0000z',
-        'ny_ivy_414h' => '1016422024025atw000h',
-        'az_leslie_qss_v2' => '1016422024026atw001h',
-        'az_donald_v2' => '1016422024027atw0020',
-        'az_robin_v2' => '1016422024028ate001q',
-        'az_superman_v2' => '1016422024025ate000b',
-        'nc_nala_hoh' => '1016422024326jt6oz0h',
-        'nc_mickey_mfj' => '1016422024327qqldslz',
-        'nc_wylie_mfs' => '10164220243274vip4ag',
-        'nc_zeus_mfjdeps' => '1016422024327ahu7xl7',
-        'nc_daffy_single' => '1016422024327xmcxxwy',
-        'md_annabelle_single' => '1016422024326lssbe1f',
-        'nc_clara_hoh' => '10164220243303quinwv',
-        'az_johnny_mfj' => '101642202433073zlynk',
-        'az_alexis_hoh' => '10164220243273drvnwu',
-        'az_shell_hoh' => '1016422024330uizbsmb',
-        'az_Tycho_Single_No_1099R' => '1016422024332rjtkoti',
-        'az_Tycho_Single_With_1099R' => '1016422024332hyykc8y',
-        'az_Martha_MFJ_Owe' => '1016422024332t6d92qn',
-        'az_Rory_claimed_as_dep' => '1016422024334wutmbb9',
-        'id_Smith_Claimed_as_Dep' => '1016422024332a3erp1m',
-        'id_Grey_no_1099r' => '1016422024337kkb3get'
-      }
       @old_xml_sample = "app/controllers/state_file/questions/df_return_sample.xml"
       @old_json_sample = "app/controllers/state_file/questions/df_return_sample.json"
     end
@@ -48,7 +24,7 @@ module StateFile
     end
 
     def lookup_submission_id(key)
-      @submission_id_lookup[key] || '12345202201011234570'
+      submission_id_lookup[key] || '12345202201011234570'
     end
 
     def include?(key, file_type)

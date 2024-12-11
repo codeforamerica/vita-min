@@ -184,10 +184,8 @@ FactoryBot.define do
     end
 
     trait :df_data_1099_int do
-      primary_first_name { "Tim" }
-      primary_last_name { "Interest" }
-      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('id_tim_1099_int') }
-      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('id_tim_1099_int') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('id_estrada_donations') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('id_estrada_donations') }
     end
 
     trait :primary_blind do

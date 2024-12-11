@@ -1,0 +1,60 @@
+{
+  "filers": [
+    {
+      "tin": "400-00-0001",
+      "suffix": null,
+      "lastName": "Ho",
+      "firstName": "Ida",
+      "dateOfBirth": "1958-12-30",
+      "middleInitial": null,
+      "isPrimaryFiler": true,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "form1099Gs": [
+    {
+      "payer": "Idaho DOL",
+      "amount": "1000.00",
+      "has1099": true,
+      "payerTin": "34-5678912",
+      "recipientTin": "400-00-0001",
+      "stateIdNumber": "123456",
+      "stateTaxWithheld": "20.00",
+      "federalTaxWithheld": "100.00",
+      "amountPaidBackForBenefitsInTaxYear": "0.00"
+    },
+    {
+      "payer": "Idaho DOL",
+      "amount": "8000.00",
+      "has1099": true,
+      "payerTin": "34-5678912",
+      "recipientTin": "400-00-0001",
+      "stateIdNumber": "123456",
+      "stateTaxWithheld": "10.00",
+      "federalTaxWithheld": "1000.00",
+      "amountPaidBackForBenefitsInTaxYear": "0.00"
+    }
+  ],
+  "interestReports": [],
+  "familyAndHousehold": [
+    {
+      "tin": "301-00-0001",
+      "suffix": null,
+      "lastName": "Ho",
+      "firstName": "Ivan",
+      "dateOfBirth": "2019-12-25",
+      "relationship": "biologicalChild",
+      "middleInitial": null,
+      "qualifyingChild": true,
+      "eligibleDependent": true,
+      "residencyDuration": "allYear",
+      "isClaimedDependent": true,
+      "hohQualifyingPerson": true,
+      "scheduleEicLine4aNo": false,
+      "scheduleEicLine4aYes": false,
+      "scheduleEicLine4bYes": false,
+      "monthsLivedWithTPInUS": "twelve",
+      "ssnNotValidForEmployment": false
+    }
+  ]
+}

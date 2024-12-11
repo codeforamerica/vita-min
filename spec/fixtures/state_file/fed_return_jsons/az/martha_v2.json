@@ -9,7 +9,8 @@
       "relationship": "childOfSibling",
       "eligibleDependent": true,
       "isClaimedDependent": true,
-      "monthsLivedWithTPInUS": "twelve"
+      "monthsLivedWithTPInUS": "twelve",
+      "residencyDuration": "allYear"
     },
     {
       "firstName": "Martha",
@@ -20,7 +21,8 @@
       "relationship": "biologicalChild",
       "eligibleDependent": true,
       "isClaimedDependent": true,
-      "monthsLivedWithTPInUS": "twelve"
+      "monthsLivedWithTPInUS": "twelve",
+      "residencyDuration": "allYear"
     },
     {
       "firstName": "John",
@@ -28,10 +30,11 @@
       "middleInitial": null,
       "tin": "300-00-0010",
       "dateOfBirth": "2022-03-03",
-      "relationship": "grandChildOrOtherDescendentOfChild",
+      "relationship": "grandChildOrOtherDescendantOfChild",
       "eligibleDependent": true,
       "isClaimedDependent": true,
-      "monthsLivedWithTPInUS": "twelve"
+      "monthsLivedWithTPInUS": "twelve",
+      "residencyDuration": "allYear"
     },
     {
       "firstName": "Frances",
@@ -42,7 +45,8 @@
       "relationship": "childOfSibling",
       "eligibleDependent": true,
       "isClaimedDependent": true,
-      "monthsLivedWithTPInUS": "twelve"
+      "monthsLivedWithTPInUS": "twelve",
+      "residencyDuration": "allYear"
     }
   ],
   "filers": [

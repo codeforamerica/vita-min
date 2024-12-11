@@ -8,12 +8,16 @@ module StateFile
         @submission_to_show = current_intake.latest_submission
         @return_status = return_status
         @error = submission_error
+
+        @department_of_taxation = StateFile::StateInformationService.department_of_taxation(current_state_code)
+        @tax_refund_website_name = @department_of_taxation.split(" ").map(&:first).join.upcase
         @tax_refund_url = StateFile::StateInformationService.tax_refund_url(current_state_code)
         @tax_payment_url = StateFile::StateInformationService.tax_payment_url(current_state_code)
         @voucher_form_name = StateFile::StateInformationService.voucher_form_name(current_state_code)
         @mail_voucher_address = StateFile::StateInformationService.mail_voucher_address(current_state_code)
         @voucher_path = StateFile::StateInformationService.voucher_path(current_state_code)
         @survey_link = StateFile::StateInformationService.survey_link(current_state_code)
+        @tax_form_number = StateFile::StateInformationService.return_type(current_state_code).gsub("Form", "")
       end
 
       def prev_path

@@ -4,7 +4,7 @@ module PdfFiller
     include SubmissionBuilder::FormattingMethods
 
     def source_pdf_name
-      "idform40-TY-2023"
+      "idform40-TY-2024"
     end
 
     def initialize(submission)
@@ -17,14 +17,13 @@ module PdfFiller
 
     def hash_for_pdf
       answers = {
-        'YearBeginning' => formatted_date(@xml_document.at('ReturnHeaderState TaxPeriodBeginDt')&.text, "%Y"),
-        'YearEnding' => formatted_date(@xml_document.at('ReturnHeaderState TaxPeriodEndDt')&.text, "%Y"),
         'FirstNameInitial' => @xml_document.at('Primary TaxpayerName FirstName')&.text,
         'LastName' => @xml_document.at('Primary TaxpayerName LastName')&.text,
         'SSN' => @xml_document.at('Primary TaxpayerSSN')&.text,
         'SpouseFirstNameInitial' => @xml_document.at('Secondary TaxpayerName FirstName')&.text,
         'SpouseLastName' => @xml_document.at('Secondary TaxpayerName LastName')&.text,
         'SpouseSSN' => @xml_document.at('Secondary TaxpayerSSN')&.text,
+        'SpouseDeceased 2' => @submission.data_source.spouse_deceased? ? 'Yes' : 'Off',
         'CurrentMailing' => [@xml_document.at('Filer USAddress AddressLine1Txt')&.text, @xml_document.at('Filer USAddress AddressLine2Txt')&.text].compact.join(', '),
         'City' => @xml_document.at('Filer USAddress CityNm')&.text,
         'StateAbbrv' => @xml_document.at('Filer USAddress StateAbbreviationCd')&.text,

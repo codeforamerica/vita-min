@@ -81,7 +81,13 @@ module Hub
         authorize! :update, @efile_submission
         metadata = { initiated_by_id: current_user.id }
         if to_state == "rejected"
-          metadata[:error_code] = EfileError.where(service_type: :state_file).last.code
+          if params[:auto_cancel]
+            metadata[:error_code] = EfileError.where(service_type: "state_file_#{@efile_submission.data_source.state_code}", auto_cancel: true).last.code
+          elsif params[:auto_wait]
+            metadata[:error_code] = EfileError.where(service_type: "state_file_#{@efile_submission.data_source.state_code}", auto_wait: true).last.code
+          else
+            metadata[:error_code] = EfileError.where(service_type: "state_file_#{@efile_submission.data_source.state_code}", auto_cancel: false, auto_wait: false).last.code
+          end
         end
         if @efile_submission.transition_to!(to_state, metadata)
           flash[:notice] = "Transitioned to #{to_state}"

@@ -8,6 +8,7 @@
 #  city                              :string
 #  consented_to_terms_and_conditions :integer          default("unfilled"), not null
 #  contact_preference                :integer          default("unfilled"), not null
+#  county_during_hurricane_helene    :string
 #  current_sign_in_at                :datetime
 #  current_sign_in_ip                :inet
 #  current_step                      :string
@@ -30,6 +31,7 @@
 #  locale                            :string           default("en")
 #  locked_at                         :datetime
 #  message_tracker                   :jsonb
+#  moved_after_hurricane_helene      :integer          default("unfilled"), not null
 #  payment_or_deposit_type           :integer          default("unfilled"), not null
 #  phone_number                      :string
 #  phone_number_verified_at          :datetime
@@ -122,6 +124,19 @@ FactoryBot.define do
       after(:create, &:synchronize_df_w2s_to_database)
     end
 
+    trait :taxes_owed do
+      after(:build) do |intake, _evaluator|
+        intake.direct_file_data.fed_agi = 120000
+        intake.raw_direct_file_data = intake.direct_file_data.to_s
+        intake.payment_or_deposit_type = "direct_deposit"
+        intake.account_type = "checking"
+        intake.routing_number = 111111111
+        intake.account_number = 222222222
+        intake.date_electronic_withdrawal = Date.new(Rails.configuration.statefile_current_tax_year, 4, 15)
+        intake.withdraw_amount = 5
+      end
+    end
+
     trait :with_spouse do
       filing_status { 'married_filing_jointly' }
       spouse_first_name { "Susie" }
@@ -155,6 +170,7 @@ FactoryBot.define do
     end
 
     trait :married_filing_separately do
+      filing_status { 'married_filing_separately' }
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nc_sheldon_mfs') }
     end
 

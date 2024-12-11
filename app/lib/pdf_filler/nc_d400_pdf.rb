@@ -22,8 +22,6 @@ module PdfFiller
       mfs_spouse_name = [mfs_spouse_first_name, mfs_spouse_middle_initial, mfs_spouse_last_name].reject(&:empty?).join(" ")
 
       {
-        y_d400wf_datebeg: formatted_date(@xml_document.at('ReturnHeaderState TaxPeriodBeginDt')&.text, "%m-%d"),
-        y_d400wf_dateend: formatted_date(@xml_document.at('ReturnHeaderState TaxPeriodEndDt')&.text, "%m-%d-%y"),
         y_d400wf_ssn1: @xml_document.at('Primary TaxpayerSSN')&.text,
         y_d400wf_ssn2: @xml_document.at('Secondary TaxpayerSSN')&.text,
         y_d400wf_fname1: @xml_document.at('Primary TaxpayerName FirstName')&.text,

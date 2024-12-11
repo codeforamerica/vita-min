@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe SubmissionBuilder::ReturnHeader do
   StateFile::StateInformationService.active_state_codes.each do |state_code|
-    describe '.document' do
+    describe ".document for #{state_code}" do
       let(:intake) { create "state_file_#{state_code}_intake".to_sym }
       let(:submission) { create(:efile_submission, data_source: intake) }
       let(:doc) { SubmissionBuilder::ReturnHeader.new(submission).document }
@@ -28,8 +28,6 @@ describe SubmissionBuilder::ReturnHeader do
         it "generates xml with the right values" do
           expect(doc.at("Jurisdiction").text).to eq "#{state_code.upcase}ST"
           expect(doc.at("ReturnTs").text).to eq submission.created_at.strftime("%FT%T%:z")
-          expect(doc.at("TaxPeriodBeginDt").text).to eq Date.new(tax_return_year, 1, 1).strftime("%F")
-          expect(doc.at("TaxPeriodEndDt").text).to eq Date.new(tax_return_year, 12, 31).strftime("%F")
           expect(doc.at("TaxYr").text).to eq tax_return_year.to_s
           expect(doc.at("OriginatorGrp EFIN").text).to eq efin
           expect(doc.at("OriginatorGrp OriginatorTypeCd").text).to eq "OnlineFiler"
@@ -63,15 +61,20 @@ describe SubmissionBuilder::ReturnHeader do
         let(:primary_first_name) { "Prim" }
         let(:primary_middle_initial) { "W" }
         let(:primary_last_name) { "Filerton" }
+        let(:primary_suffix) { "JR" }
         let(:spouse_birth_date) { nil }
         let(:spouse_ssn) { nil }
         let(:spouse_first_name) { nil }
         let(:spouse_middle_initial) { nil }
         let(:spouse_last_name) { nil }
+        let(:spouse_suffix) { nil }
+
         before do
           intake.direct_file_data.primary_ssn = primary_ssn
+          intake.primary_suffix = primary_suffix
           intake.direct_file_data.spouse_ssn = spouse_ssn
           intake.direct_file_data.phone_number = "5551231234"
+          intake.spouse_suffix = spouse_suffix
         end
 
         context "single filer" do
@@ -83,6 +86,7 @@ describe SubmissionBuilder::ReturnHeader do
             expect(doc.at('Filer Primary TaxpayerName FirstName').content).to eq primary_first_name
             expect(doc.at('Filer Primary TaxpayerName MiddleInitial').content).to eq primary_middle_initial
             expect(doc.at('Filer Primary TaxpayerName LastName').content).to eq primary_last_name
+            expect(doc.at('Filer Primary TaxpayerName NameSuffix').content).to eq primary_suffix
             expect(doc.at("Filer Primary USPhone").text).to eq "5551231234"
 
             expect(doc.at("Filer Secondary DateOfBirth")).not_to be_present
@@ -90,6 +94,7 @@ describe SubmissionBuilder::ReturnHeader do
             expect(doc.at('Filer Secondary TaxpayerName FirstName')).not_to be_present
             expect(doc.at('Filer Secondary TaxpayerName MiddleInitial')).not_to be_present
             expect(doc.at('Filer Secondary TaxpayerName LastName')).not_to be_present
+            expect(doc.at('Filer Secondary TaxpayerName NameSuffix')).not_to be_present
           end
 
           context "excluding absent fields" do
@@ -108,6 +113,7 @@ describe SubmissionBuilder::ReturnHeader do
                 intake.direct_file_json_data.primary_filer.first_name = nil
                 intake.direct_file_json_data.primary_filer.middle_initial = nil
                 intake.direct_file_json_data.primary_filer.last_name = nil
+                intake.primary_suffix = primary_suffix
               end
 
               if intake.direct_file_json_data&.spouse_filer.present?
@@ -115,6 +121,7 @@ describe SubmissionBuilder::ReturnHeader do
                 intake.direct_file_json_data.spouse_filer.first_name = nil
                 intake.direct_file_json_data.spouse_filer.middle_initial = nil
                 intake.direct_file_json_data.spouse_filer.first_name = nil
+                intake.spouse_suffix = nil
               end
 
               intake.synchronize_filers_to_database
@@ -126,6 +133,7 @@ describe SubmissionBuilder::ReturnHeader do
               expect(doc.at('Filer Primary TaxpayerName FirstName')).not_to be_present
               expect(doc.at('Filer Primary TaxpayerName MiddleInitial')).not_to be_present
               expect(doc.at('Filer Primary TaxpayerName LastName')).not_to be_present
+              expect(doc.at('Filer Primary TaxpayerName NameSuffix')).not_to be_present
               expect(doc.at("Filer Primary USPhone")).not_to be_present
 
               expect(doc.at("Filer Secondary DateOfBirth")).not_to be_present
@@ -133,6 +141,7 @@ describe SubmissionBuilder::ReturnHeader do
               expect(doc.at('Filer Secondary TaxpayerName FirstName')).not_to be_present
               expect(doc.at('Filer Secondary TaxpayerName MiddleInitial')).not_to be_present
               expect(doc.at('Filer Secondary TaxpayerName LastName')).not_to be_present
+              expect(doc.at('Filer Secondary TaxpayerName NameSuffix')).not_to be_present
             end
           end
         end
@@ -144,6 +153,7 @@ describe SubmissionBuilder::ReturnHeader do
           let(:spouse_first_name) { "Sec" }
           let(:spouse_middle_initial) { "Z" }
           let(:spouse_last_name) { "Filerton" }
+          let(:spouse_suffix) { "SR" }
 
           it "generates xml with primary and spouse DOBs" do
             expect(doc.at("Filer Primary DateOfBirth").text).to eq primary_birth_date.strftime("%F")
@@ -153,8 +163,60 @@ describe SubmissionBuilder::ReturnHeader do
             expect(doc.at('Filer Secondary TaxpayerName FirstName').content).to eq spouse_first_name
             expect(doc.at('Filer Secondary TaxpayerName MiddleInitial').content).to eq spouse_middle_initial
             expect(doc.at('Filer Secondary TaxpayerName LastName').content).to eq spouse_last_name
+            expect(doc.at('Filer Secondary TaxpayerName NameSuffix').content).to eq spouse_suffix
+          end
+
+          context "filers have lower cased suffixes" do
+            let(:primary_suffix) { "Jr" }
+            let(:spouse_suffix) { "sr" }
+
+            it "should upcase suffixes" do
+              expect(doc.at("Filer Primary TaxpayerName NameSuffix").text).to eq("JR")
+              expect(doc.at("Filer Secondary TaxpayerName NameSuffix").text).to eq("SR")
+            end
+          end
+
+          context "married filing separately" do
+            let(:filing_status) { "married_filing_separately" }
+
+            it "does not include secondary xml (spouse)" do
+              expect(doc.at("Filer Secondary DateOfBirth")).not_to be_present
+              expect(doc.at('Filer Secondary TaxpayerSSN')).not_to be_present
+              expect(doc.at('Filer Secondary TaxpayerName FirstName')).not_to be_present
+              expect(doc.at('Filer Secondary TaxpayerName MiddleInitial')).not_to be_present
+              expect(doc.at('Filer Secondary TaxpayerName LastName')).not_to be_present
+              expect(doc.at('Filer Secondary TaxpayerName NameSuffix')).not_to be_present
+            end
           end
         end
+      end
+    end
+  end
+
+  context "tax period information" do
+    let(:tax_return_year) { 2024 }
+    before do
+      intake.direct_file_data.tax_return_year = tax_return_year
+    end
+
+    StateFile::StateInformationService.active_state_codes.without("nc").each do |state_code|
+      context "if state is not NC" do
+        let(:intake) { create "state_file_#{state_code}_intake".to_sym }
+        let(:submission) { create(:efile_submission, data_source: intake) }
+        let(:doc) { SubmissionBuilder::ReturnHeader.new(submission).document }
+        it "shows tax period information" do
+          expect(doc.at("TaxPeriodBeginDt").text).to eq Date.new(tax_return_year, 1, 1).strftime("%F")
+          expect(doc.at("TaxPeriodEndDt").text).to eq Date.new(tax_return_year, 12, 31).strftime("%F")
+        end
+      end
+    end
+    context "if state is NC" do
+      let(:intake) { create :state_file_nc_intake }
+      let(:submission) { create(:efile_submission, data_source: intake) }
+      let(:doc) { SubmissionBuilder::ReturnHeader.new(submission).document }
+      it "does not show tax period information" do
+        expect(doc.at("TaxPeriodBeginDt")).to be_nil
+        expect(doc.at("TaxPeriodEndDt")).to be_nil
       end
     end
   end
@@ -180,7 +242,7 @@ describe SubmissionBuilder::ReturnHeader do
 
     context "single filer" do
       let(:filing_status) { "single" }
-      
+
       it "generates xml with primary signature PIN only" do
         expect(doc.at('Filer Primary TaxpayerPIN').content).to eq primary_signature_pin
         expect(doc.at('Filer Secondary TaxpayerPIN')).not_to be_present
@@ -208,6 +270,34 @@ describe SubmissionBuilder::ReturnHeader do
       it "it correctly signs with the date of the correct timezone when the filer esigns after midnight UTC but not after midnight in the State's timezone" do
         expect(doc.at('Filer Primary DateSigned').content).to eq tomorrow_midnight.in_time_zone("America/New_York").strftime("%Y-%m-%d")
         expect(doc.at('Filer Secondary DateSigned').content).to eq tomorrow_midnight.in_time_zone("America/New_York").strftime("%Y-%m-%d")
+      end
+    end
+  end
+
+  context "Disaster relief" do
+    let(:submission) { create(:efile_submission, data_source: intake) }
+    let(:doc) { SubmissionBuilder::ReturnHeader.new(submission).document }
+
+    context "NC intake" do
+      let(:intake) {
+        create(
+          :state_file_nc_intake,
+          residence_county: "001", # Alamance county - non designated
+          moved_after_hurricane_helene: "yes",
+          county_during_hurricane_helene: "011" # Buncombe county - designated
+        )
+      }
+
+      it "generates the return header with the DisasterReliefTxt xml" do
+        expect(doc.at('DisasterReliefTxt')).to be_present
+        expect(doc.at('DisasterReliefTxt').content).to eq "Alamance_Helene;Buncombe_Helene"
+      end
+    end
+
+    context "AZ intake" do
+      let(:intake) { create(:state_file_az_intake,) }
+      it "does not include disaster relief xml" do
+        expect(doc.at('DisasterReliefTxt')).not_to be_present
       end
     end
   end

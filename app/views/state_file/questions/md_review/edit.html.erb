@@ -1,4 +1,4 @@
-<% content_for :page_title, t("state_file.questions.shared.review_header.title") %>
+<% content_for :page_title, t("state_file.questions.shared.abstract_review_header.title") %>
 <% content_for :card do %>
   <%= render "state_file/questions/shared/review_header" %>
 
@@ -11,7 +11,6 @@
       <%= link_to t("general.edit"), StateFile::Questions::MdCountyController.to_path_helper(return_to_review: "y"), class: "button--small" %>
     </div>
   </div>
-
   <div id="details" class="reveal">
     <p><button class="reveal__button"><%= t("state_file.general.see_detailed_return") %></button></p>
     <div class="reveal__content">
@@ -66,8 +65,7 @@
 
       <div class="spacing-below-25">
         <p class="text--bold spacing-below-5"><%= t("state_file.general.md_two_income_subtraction_married_taxpayers") %></p>
-<!--        <p><%#= number_to_currency(current_intake.calculator.line_or_zero(:MD502_LINE_14)) %></p>-->
-        WIP
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:MD502_LINE_14)) %></p>
       </div>
 
       <div class="spacing-below-25">
@@ -117,26 +115,22 @@
 
       <div class="spacing-below-25">
         <p class="text--bold spacing-below-5"><%= t("state_file.general.md_local_tax") %></p>
-<!--        <p><%#= number_to_currency(current_intake.calculator.line_or_zero(:MD502_LINE_28)) %></p>-->
-        WIP
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:MD502_LINE_28_LOCAL_TAX_AMOUNT)) %></p>
       </div>
 
       <div class="spacing-below-25">
         <p class="text--bold spacing-below-5"><%= t("state_file.general.md_nonrefundable_local_earned_income_tax_credit") %></p>
-        <!--        <p><%#= number_to_currency(current_intake.calculator.line_or_zero(:MD502_LINE_29)) %></p>-->
-        WIP
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:MD502_LINE_29)) %></p>
       </div>
 
       <div class="spacing-below-25">
         <p class="text--bold spacing-below-5"><%= t("state_file.general.md_local_poverty_level_credit") %></p>
-        <!--        <p><%#= number_to_currency(current_intake.calculator.line_or_zero(:MD502_LINE_30)) %></p>-->
-        WIP
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:MD502_LINE_30)) %></p>
       </div>
 
       <div class="spacing-below-25">
         <p class="text--bold spacing-below-5"><%= t("state_file.general.md_total_tax_after_nonrefundable_credits") %></p>
-        <!--        <p><%#= number_to_currency(current_intake.calculator.line_or_zero(:MD502_LINE_34)) %></p>-->
-        WIP
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:MD502_LINE_34)) %></p>
       </div>
 
       <div class="spacing-below-25 with-top-separator">
@@ -146,27 +140,22 @@
 
       <div class="spacing-below-25">
         <p class="text--bold spacing-below-5"><%= t("state_file.general.md_refundable_earned_income_tax_credit") %></p>
-<!--        <p><%#= number_to_currency(current_intake.calculator.line_or_zero(:MD502_LINE_42)) %></p>-->
-        WIP
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:MD502_LINE_42)) %></p>
       </div>
 
       <div class="spacing-below-25">
         <p class="text--bold spacing-below-5"><%= t("state_file.general.md_refundable_child_dependent_care_credit") %></p>
-        <!--        <p><%#= number_to_currency(current_intake.calculator.line_or_zero(:MD502CR_PART_CC_LINE_7)) %></p>-->
-        WIP
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:MD502CR_PART_CC_LINE_7)) %></p>
       </div>
 
       <div class="spacing-below-25">
         <p class="text--bold spacing-below-5"><%= t("state_file.general.md_child_tax_credit") %></p>
-        <!--        <p><%#= number_to_currency(current_intake.calculator.line_or_zero(:MD502CR_PART_CC_LINE_8)) %></p>-->
-        WIP
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:MD502CR_PART_CC_LINE_8)) %></p>
       </div>
-
 
       <div class="spacing-below-25">
         <p class="text--bold spacing-below-5"><%= t("state_file.general.md_total_payments_refundable_credits") %></p>
-        <!--        <p><%#= number_to_currency(current_intake.calculator.line_or_zero(:MD502_LINE_44)) %></p>-->
-        WIP
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:MD502_LINE_44)) %></p>
       </div>
     </div>
   </div>

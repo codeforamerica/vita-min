@@ -115,6 +115,11 @@ FactoryBot.define do
       filing_status { 'single' }
     end
 
+    payment_or_deposit_type { "direct_deposit" }
+    routing_number { "011234567" }
+    account_number { "123456789" }
+    account_type { 1 }
+
     raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("nj_zeus_one_dep") }
     raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_zeus_one_dep') }
     df_data_import_succeeded_at { DateTime.now }
@@ -154,6 +159,11 @@ FactoryBot.define do
     trait :df_data_2_w2s do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_zeus_two_w2s') }
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_zeus_two_w2s') }
+    end
+
+    trait :df_data_irs_test_with_missing_info do
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_irs_test_w2_with_missing_info') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_irs_test_w2_with_missing_info') }
     end
 
     trait :df_data_many_w2s do

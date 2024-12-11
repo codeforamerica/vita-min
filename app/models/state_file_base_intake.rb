@@ -237,6 +237,14 @@ class StateFileBaseIntake < ApplicationRecord
     false
   end
 
+  def show_tax_period_in_return_header?
+    true
+  end
+
+  def extract_apartment_from_mailing_street?
+    false
+  end
+
   def ask_spouse_esign?
     filing_status_mfj? && !spouse_deceased?
   end
@@ -348,7 +356,7 @@ class StateFileBaseIntake < ApplicationRecord
     end
   rescue StandardError
     if hashed_ssn.present?
-      StateFile::Questions::DataReviewController
+      StateFile::Questions::PostDataTransferController
     else
       StateFile::Questions::TermsAndConditionsController
     end

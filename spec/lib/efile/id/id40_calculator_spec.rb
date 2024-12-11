@@ -138,7 +138,7 @@ describe Efile::Id::Id40Calculator do
           end
 
           it "calculates the correct amount" do
-            expected_result = ((line_19 - amount) * 0.05695).round(2)
+            expected_result = ((line_19 - amount) * 0.05695).round
             calculator_instance.calculate
             expect(calculator_instance.lines[:ID40_LINE_20].value).to eq expected_result
           end
@@ -223,7 +223,7 @@ describe Efile::Id::Id40Calculator do
     context "when 26 is greater than 21" do
       it "returns 0" do
         allow(instance).to receive(:line_or_zero).and_call_original
-        allow(instance).to receive(:line_or_zero).with(:ID40_LINE_21).and_return(100)
+        allow_any_instance_of(described_class).to receive(:calculate_line_20).and_return(100)
         allow(instance).to receive(:line_or_zero).with(:ID40_LINE_26).and_return(300)
         instance.calculate
         expect(instance.lines[:ID40_LINE_27].value).to eq(0)
@@ -233,7 +233,7 @@ describe Efile::Id::Id40Calculator do
     context "when 26 is less than 21" do
       it "subtracts 26 from 21" do
         allow(instance).to receive(:line_or_zero).and_call_original
-        allow(instance).to receive(:line_or_zero).with(:ID40_LINE_21).and_return(500)
+        allow_any_instance_of(described_class).to receive(:calculate_line_20).and_return(500)
         allow(instance).to receive(:line_or_zero).with(:ID40_LINE_26).and_return(300)
         instance.calculate
         expect(instance.lines[:ID40_LINE_27].value).to eq(200)

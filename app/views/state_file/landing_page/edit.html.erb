@@ -1,4 +1,4 @@
-<% state_image_path = "partner-logos/#{@state_code}gov-logo.svg" %>
+<% state_image_path = @state_code == 'md' ? "partner-logos/mdgov-logo.png" : "partner-logos/#{@state_code}gov-logo.svg" %>
 <% title = @closed ? t(".title_closed", state_name: @state_name) : t(".#{@state_code}.title") %>
 
 <% content_for :page_title, title %>
@@ -38,7 +38,7 @@
           <% else %>
             <% unless @user_name.present? %>
               <h2 class="h2">
-                <%= t(".#{@state_code}.built_with_html") %>
+                <%= t(".built_with_html", state_name: @built_with_name) %>
               </h2>
             <% end %>
 
@@ -64,9 +64,17 @@
                 </h2>
               <% end %>
             <% else %>
-              <div class="white-group spacing-below-60">
-                <% # i18n-tasks-use t('state_file.landing_page.edit.help_text_html') # hint for the i18n linter that, yes, we are using this key (sometimes) %>
-                <%= t(".#{@state_code}.help_text_html", default: :'.help_text_html', filing_year: current_tax_year) %>
+              <div class="reveal">
+                <p>
+                  <button class="reveal__button">
+                    <% # i18n-tasks-use t('state_file.landing_page.edit.help_text_title') # hint for the i18n linter that, yes, we are using this key (sometimes) %>
+                    <strong><%= t(".#{@state_code}.help_text_title", default: :'.help_text_title') %></strong>
+                  </button>
+                </p>
+                <div class="reveal__content">
+                  <% # i18n-tasks-use t('state_file.landing_page.edit.help_text_html') # hint for the i18n linter that, yes, we are using this key (sometimes) %>
+                  <%= t(".#{@state_code}.help_text_html", default: :'.help_text_html', filing_year: current_tax_year) %>
+                </div>
               </div>
               <%= form_with model: @form, url: { action: :update }, local: true, method: :put, builder: VitaMinFormBuilder do |f| %>
                 <%= f.submit t("general.get_started"), class: "button button--primary button--wide", id: "firstCta" %>

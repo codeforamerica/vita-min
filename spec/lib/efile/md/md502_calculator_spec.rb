@@ -450,38 +450,28 @@ describe Efile::Md::Md502Calculator do
     end
   end
 
-  describe "#gross_income_amount" do
-    let(:intake) { create(:state_file_md_intake, :head_of_household) } # needs to have fed_taxable_ssb element in order to set it; shelby_hoh has it
-    before do
-      intake.direct_file_data.fed_agi = 20_000
-      intake.direct_file_data.fed_taxable_ssb = 10_000
-      allow_any_instance_of(described_class).to receive(:calculate_line_7).and_return 5_000
-      allow_any_instance_of(described_class).to receive(:calculate_line_15).and_return 2_500
-      instance.calculate
-    end
-
-    context "not claimed as dependent" do
-      before do
-        allow_any_instance_of(DirectFileData).to receive(:claimed_as_dependent?).and_return false
-      end
-
-      it "returns (FAGI - taxable SSB) + line 7" do
-        expect(instance.gross_income_amount).to eq 15_000
-      end
-    end
-
-    context "dependent taxpayer" do
+  describe "#calculate_deduction_method" do
+    context "when claimed as dependent" do
       before do
         allow_any_instance_of(DirectFileData).to receive(:claimed_as_dependent?).and_return true
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_6).and_return 1000
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_15).and_return 500
+        intake.direct_file_data.fed_agi = 16600
+        intake.direct_file_data.fed_taxable_ssb = 0
       end
 
-      it "returns (FAGI + line 7) - line 15" do
-        expect(instance.gross_income_amount).to eq 22_500
+      it "calculates gross income with line 7 and line 15" do
+        instance.calculate
+        expect(instance.lines[:MD502_DEDUCTION_METHOD].value).to eq "S"
+      end
+
+      it "returns N when calculated amount is below minimum" do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_6).and_return 0
+        instance.calculate
+        expect(instance.lines[:MD502_DEDUCTION_METHOD].value).to eq "N"
       end
     end
-  end
 
-  describe "#calculate_deduction_method" do
     context "taxpayers under 65" do
       let(:primary_birth_date) { 40.years.ago }
       let(:spouse_birth_date) { 41.years.ago }
@@ -503,16 +493,30 @@ describe Efile::Md::Md502Calculator do
             )
           end
 
-          it "returns S when gross income is greater than or equal to state filing minimum" do
-            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:gross_income_amount).and_return filing_minimum
-            instance.calculate
-            expect(instance.lines[:MD502_DEDUCTION_METHOD].value).to eq "S"
+          context "when when gross income is greater than or equal to state filing minimum" do
+            before do
+              allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_6).and_return 0
+              intake.direct_file_data.fed_agi = filing_minimum
+              intake.direct_file_data.fed_taxable_ssb = 0
+            end
+
+            it "returns S" do
+              instance.calculate
+              expect(instance.lines[:MD502_DEDUCTION_METHOD].value).to eq "S"
+            end
           end
 
-          it "returns N when gross income is less than state filing minimum" do
-            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:gross_income_amount).and_return filing_minimum - 10
-            instance.calculate
-            expect(instance.lines[:MD502_DEDUCTION_METHOD].value).to eq "N"
+          context "when gross income is less than state filing minimum" do
+            before do
+              allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_6).and_return 0
+              intake.direct_file_data.fed_agi = filing_minimum
+              intake.direct_file_data.fed_taxable_ssb = 10
+            end
+
+            it "returns N" do
+              instance.calculate
+              expect(instance.lines[:MD502_DEDUCTION_METHOD].value).to eq "N"
+            end
           end
         end
       end
@@ -540,16 +544,30 @@ describe Efile::Md::Md502Calculator do
               )
             end
 
-            it "returns S when gross income is greater than or equal to state filing minimum" do
-              allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:gross_income_amount).and_return filing_minimum
-              instance.calculate
-              expect(instance.lines[:MD502_DEDUCTION_METHOD].value).to eq "S"
+            context "when when gross income is greater than or equal to state filing minimum" do
+              before do
+                allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_6).and_return 0
+                intake.direct_file_data.fed_agi = filing_minimum
+                intake.direct_file_data.fed_taxable_ssb = 0
+              end
+
+              it "returns S" do
+                instance.calculate
+                expect(instance.lines[:MD502_DEDUCTION_METHOD].value).to eq "S"
+              end
             end
 
-            it "returns N when gross income is less than state filing minimum" do
-              allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:gross_income_amount).and_return filing_minimum - 10
-              instance.calculate
-              expect(instance.lines[:MD502_DEDUCTION_METHOD].value).to eq "N"
+            context "when gross income is less than state filing minimum" do
+              before do
+                allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_6).and_return 0
+                intake.direct_file_data.fed_agi = filing_minimum
+                intake.direct_file_data.fed_taxable_ssb = 10
+              end
+
+              it "returns N" do
+                instance.calculate
+                expect(instance.lines[:MD502_DEDUCTION_METHOD].value).to eq "N"
+              end
             end
           end
         end
@@ -565,16 +583,30 @@ describe Efile::Md::Md502Calculator do
         let(:build_response) { described_class.build(submission, validate: false) }
         let(:xml) { Nokogiri::XML::Document.parse(build_response.document.to_xml) }
 
-        it "returns S when gross income is greater than or equal to state filing minimum" do
-          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:gross_income_amount).and_return filing_minimum
-          instance.calculate
-          expect(instance.lines[:MD502_DEDUCTION_METHOD].value).to eq "S"
+        context "when when gross income is greater than or equal to state filing minimum" do
+          before do
+            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_6).and_return 0
+            intake.direct_file_data.fed_agi = filing_minimum
+            intake.direct_file_data.fed_taxable_ssb = 0
+          end
+
+          it "returns S" do
+            instance.calculate
+            expect(instance.lines[:MD502_DEDUCTION_METHOD].value).to eq "S"
+          end
         end
 
-        it "returns N when gross income is less than state filing minimum" do
-          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:gross_income_amount).and_return filing_minimum - 10
-          instance.calculate
-          expect(instance.lines[:MD502_DEDUCTION_METHOD].value).to eq "N"
+        context "when gross income is less than state filing minimum" do
+          before do
+            allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_6).and_return 0
+            intake.direct_file_data.fed_agi = filing_minimum
+            intake.direct_file_data.fed_taxable_ssb = 10
+          end
+
+          it "returns N" do
+            instance.calculate
+            expect(instance.lines[:MD502_DEDUCTION_METHOD].value).to eq "N"
+          end
         end
       end
     end
@@ -643,12 +675,12 @@ describe Efile::Md::Md502Calculator do
       [
         [["single", "married_filing_separately", "dependent"], [
           [12_000, 1_800],
-          [17_999, 17_999 * 0.15],
+          [17_900, (17_900 * 0.15).round],
           [18_001, 2_700],
         ]],
         [["married_filing_jointly", "head_of_household", "qualifying_widow"], [
           [24_333, 3_650],
-          [36_332, 36_332 * 0.15],
+          [35_550, (35_550 * 0.15).round],
           [36_334, 5_450],
         ]]
       ].each do |filing_statuses, agis_to_deductions|
@@ -1069,6 +1101,17 @@ describe Efile::Md::Md502Calculator do
     end
   end
 
+  describe "#calculate_line_24" do
+    before do
+      allow_any_instance_of(Efile::Md::Md502crCalculator).to receive(:calculate_part_aa_line_14).and_return 100
+      instance.calculate
+    end
+
+    it "returns the value from MD502CR Part AA Line 14" do
+      expect(instance.lines[:MD502_LINE_24].value).to eq(100)
+    end
+  end
+
   describe "#calculate_line_26" do
     before do
       allow_any_instance_of(described_class).to receive(:calculate_line_22).and_return(100)
@@ -1121,6 +1164,27 @@ describe Efile::Md::Md502Calculator do
     it 'sums the MD tax withheld from w2s, 1099gs and 1099rs' do
       instance.calculate
       expect(instance.lines[:MD502_LINE_40].value).to eq(1610)
+    end
+  end
+
+  describe "#calculate_line_39" do
+    context "when there is a value for line 34" do
+      before do
+        allow_any_instance_of(described_class).to receive(:calculate_line_34).and_return 500
+      end
+
+      it "returns line 34" do
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_39].value).to eq 500
+      end
+    end
+
+    context "when line 34 is nil" do
+      it "returns 0" do
+        allow_any_instance_of(described_class).to receive(:calculate_line_34).and_return nil
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_39].value).to eq 0
+      end
     end
   end
 
@@ -1381,10 +1445,161 @@ describe Efile::Md::Md502Calculator do
     end
   end
 
+  describe "#calculate_line_42" do
+    let(:filing_status) { "head_of_household" }
+    let(:df_xml_key) { "md_laney_qss" }
+    let!(:intake) {
+      create(
+        :state_file_md_intake,
+        filing_status: filing_status,
+        raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml(df_xml_key)
+      )
+    }
+    let(:federal_eic) { 1200 }
+
+    before do
+      intake.direct_file_data.fed_eic = federal_eic
+      allow_any_instance_of(described_class).to receive(:calculate_line_21).and_return 500
+      instance.calculate
+    end
+
+    context "when there is least one qualifying child" do
+      context "when federal EIC * .45 is equal to or greater than Maryland tax (line 21)" do
+        it 'refundable EIC equals (federal EIC * .45) - Maryland tax (line 21)' do
+          expect(instance.lines[:MD502_LINE_42].value).to eq 40 # .45 of 1200 is 540. 540 - 500
+        end
+      end
+
+      context "when federal EIC * .45 is less than than Maryland tax (line 21)" do
+        before do
+          intake.direct_file_data.fed_eic = federal_eic
+          allow_any_instance_of(described_class).to receive(:calculate_line_21).and_return 600
+          instance.calculate
+        end
+        it 'refundable EIC is 0' do
+          expect(instance.lines[:MD502_LINE_42].value).to eq 0
+        end
+      end
+    end
+
+    context "when mfj and no qualifying children" do
+      let(:filing_status) { "married_filing_jointly" }
+      let(:df_xml_key) { "md_zeus_two_w2s" }
+      it 'refundable EIC equals (federal EIC * .45) - Maryland tax (line 21)' do
+        expect(instance.lines[:MD502_LINE_42].value).to eq 40
+      end
+    end
+
+    context "when single and no qualifying children" do
+      let(:filing_status) { "single" }
+      let(:df_xml_key) { "md_zeus_two_w2s" }
+
+      context "when federal EIC is equal to or greater than Maryland tax (line 21)" do
+        it "refundable EIC equals - Maryland tax (line 21)" do
+          expect(instance.lines[:MD502_LINE_42].value).to eq 700
+        end
+      end
+
+      context "when federal EIC is less than than Maryland tax (line 21)" do
+        before do
+          intake.direct_file_data.fed_eic = federal_eic
+          allow_any_instance_of(described_class).to receive(:calculate_line_21).and_return 1500
+          instance.calculate
+        end
+        it 'refundable EIC is 0' do
+          expect(instance.lines[:MD502_LINE_42].value).to eq 0
+        end
+      end
+    end
+
+    context "when filing as a dependent and no qualifying children" do
+      let(:filing_status) { "dependent" }
+      let(:df_xml_key) { "md_zeus_two_w2s" }
+      it 'refundable EIC is nil' do
+        expect(instance.lines[:MD502_LINE_42].value).to eq nil
+      end
+    end
+  end
+
+  describe "#calculate_line_43" do
+    before do
+      allow_any_instance_of(Efile::Md::Md502crCalculator).to receive(:calculate_part_cc_line_10).and_return 100
+      instance.calculate
+    end
+
+    it "returns the value from MD502CR Part AA Line 14" do
+      expect(instance.lines[:MD502_LINE_43].value).to eq(100)
+    end
+  end
+
+  describe "#calculate_line_44" do
+    before do
+      allow_any_instance_of(described_class).to receive(:calculate_line_40).and_return 250
+      allow_any_instance_of(described_class).to receive(:calculate_line_42).and_return 200
+      allow_any_instance_of(described_class).to receive(:calculate_line_43).and_return 150
+    end
+    it "sums lines 40 to 44" do
+      instance.calculate
+      expect(instance.lines[:MD502_LINE_44].value).to eq(600)
+    end
+  end
+
+  describe "#calculate_line_45" do
+    context "line 39 is less than 44" do
+      before do
+        allow_any_instance_of(described_class).to receive(:calculate_line_39).and_return 50
+        allow_any_instance_of(described_class).to receive(:calculate_line_44).and_return 150
+      end
+      it "returns nil" do
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_45].value).to eq(nil)
+      end
+    end
+
+    context "line 39 is more than 44" do
+      before do
+        allow_any_instance_of(described_class).to receive(:calculate_line_39).and_return 1_000
+        allow_any_instance_of(described_class).to receive(:calculate_line_44).and_return 900
+      end
+      it "subtracts line 39 from line 44" do
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_45].value).to eq(100)
+        expect(instance.lines[:MD502_LINE_50].value).to eq(100)
+      end
+    end
+  end
+
+  describe "#calculate_line_46" do
+    context "line 39 is less than 44" do
+      before do
+        allow_any_instance_of(described_class).to receive(:calculate_line_39).and_return 900
+        allow_any_instance_of(described_class).to receive(:calculate_line_44).and_return 1_000
+      end
+      it "subtracts line 39 from line 44" do
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_46].value).to eq(100)
+        expect(instance.lines[:MD502_LINE_48].value).to eq(100)
+      end
+    end
+
+    context "line 39 is more than 44" do
+      before do
+        allow_any_instance_of(described_class).to receive(:calculate_line_39).and_return 150
+        allow_any_instance_of(described_class).to receive(:calculate_line_44).and_return 50
+      end
+      it "returns nil" do
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_46].value).to eq(nil)
+      end
+    end
+  end
+
   describe "refund_or_owed_amount" do
     it "subtracts owed amount from refund amount" do
-      # TEMP: stub calculator lines and test outcome of method once implemented
-      expect(instance.refund_or_owed_amount).to eq(0)
+      allow(instance).to receive(:calculate_line_48).and_return 0
+      allow(instance).to receive(:calculate_line_50).and_return -30
+      instance.calculate
+      expect(instance.refund_or_owed_amount).to eq(30)
     end
   end
 

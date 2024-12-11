@@ -43,7 +43,7 @@ class StateFileDependent < ApplicationRecord
     "adoptedChild" => "Child",
     "stepChild" => "Child",
     "fosterChild" => "Foster Child",
-    "grandChildOrOtherDescendentOfChild" => "Grandchild",
+    "grandChildOrOtherDescendantOfChild" => "Grandchild",
     "childInLaw" => "Child",
     "sibling" => "Sibling",
     "childOfSibling" => "Niece/Nephew",
@@ -107,11 +107,16 @@ class StateFileDependent < ApplicationRecord
   end
 
   def months_in_home_for_pdf
-    months_in_home&.to_s || "<6"
-  end
-
-  def months_in_home_for_xml
-    months_in_home || 5
+    case months_in_home
+    when 12
+      "12"
+    when 6..11
+      "6-11"
+    when nil, 0..6
+      "<6"
+    else
+      ""
+    end
   end
 
   def ask_senior_questions?
@@ -165,7 +170,7 @@ class StateFileDependent < ApplicationRecord
         "fosterChild",
 
         # grandchild
-        "grandChildOrOtherDescendentOfChild",
+        "grandChildOrOtherDescendantOfChild",
 
         # sister
         "sibling",

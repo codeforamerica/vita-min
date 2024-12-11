@@ -21,8 +21,6 @@ module PdfFiller
         'Enter 1b': @xml_document.at("Form502 Income EarnedIncome")&.text,
         'Enter 1dEnter 1d': @xml_document.at("Form502 Income TaxablePensionsIRAsAnnuities")&.text,
         'Enter Y of income more than $11,000': @xml_document.at("Form502 Income InvestmentIncomeIndicator")&.text == "X" ? "Y" : "",
-        'Enter day and month of Fiscal Year beginning': formatted_date(@xml_document.at('ReturnHeaderState TaxPeriodBeginDt')&.text, "%m-%d"),
-        'Enter day and month of Fiscal Year Ending': formatted_date(@xml_document.at('ReturnHeaderState TaxPeriodEndDt')&.text, "%m-%d"),
         'Enter social security number': @xml_document.at('Primary TaxpayerSSN')&.text,
         'Enter spouse\'s social security number': @xml_document.at('Secondary TaxpayerSSN')&.text,
         'Enter your first name': @xml_document.at('Primary TaxpayerName FirstName')&.text,
@@ -67,6 +65,12 @@ module PdfFiller
         'Enter C $ ': @xml_document.at('Exemptions Dependents Amount')&.text,
         'Text Field 17': @xml_document.at('Exemptions Total Count')&.text,
         'D. Enter Dollar Amount Total Exemptions (Add A, B and C.) ': @xml_document.at('Exemptions Total Amount')&.text,
+        'Check Box 27': check_box_if_x(@xml_document.at('MDHealthCareCoverage PriWithoutHealthCoverageInd')&.text),
+        'Check Box 28': check_box_if_x(@xml_document.at('MDHealthCareCoverage SecWithoutHealthCoverageInd')&.text),
+        'Enter DOB if you have no healthcare': formatted_date(@xml_document.at('MDHealthCareCoverage PriDOB')&.text, "%m/%d/%Y"),
+        'Enter DOB if your spouse has no healthcare': formatted_date(@xml_document.at('MDHealthCareCoverage SecDOB')&.text, "%m/%d/%Y"),
+        'Check Box 29': check_box_if_x(@xml_document.at('MDHealthCareCoverage AuthorToShareInfoHealthExchInd')&.text),
+        'Enter email addressEnter DOB if your spouse has no healthcare 2': @xml_document.at('MDHealthCareCoverage TaxpayerEmailAddress')&.text,
         'Enter 9': @xml_document.at('Form502 Subtractions ChildAndDependentCareExpenses')&.text,
         'Enter 11': @xml_document.at('Form502 Subtractions SocialSecurityRailRoadBenefits')&.text,
         'Text Field 9': generate_codes_for_502_su.at(0),
@@ -76,6 +80,7 @@ module PdfFiller
         'Enter 13': @xml_document.at('Form502 Subtractions Other')&.text,
         'Enter 14': @xml_document.at('Form502 Subtractions TwoIncome')&.text,
         'Text Box 68': @xml_document.at('Form502 TaxWithheld')&.text,
+        'Text Box 69': @xml_document.at('Form502 TaxWithheld')&.text.present? ? "00" : nil,
         'Text Box 34': @xml_document.at('Form502 StateTaxComputation EarnedIncomeCredit')&.text,
         'Check Box 37': checkbox_value(@xml_document.at('Form502 StateTaxComputation MDEICWithQualChildInd')&.text),
         'Text Box 96': @xml_document.at('ReturnHeaderState Filer Primary USPhone')&.text,
@@ -91,8 +96,25 @@ module PdfFiller
         'Enter 16': @xml_document.at('Form502 Subtractions StateAdjustedGrossIncome')&.text,
         'Text Box 30': @xml_document.at('Form502 StateTaxComputation StateIncomeTax')&.text,
         'Text Box 36': @xml_document.at('Form502 StateTaxComputation PovertyLevelCredit')&.text,
+        'Text Box 38': @xml_document.at('Form502 StateTaxComputation IndividualTaxCredits')&.text,
         'Text Box 40': @xml_document.at('Form502 StateTaxComputation TotalCredits')&.text,
         'Text Box 42': @xml_document.at('Form502 StateTaxComputation StateTaxAfterCredits')&.text,
+        'Text Box 74': @xml_document.at('Form502 RefundableTaxCredits')&.text,
+        'Text Box 75': @xml_document.at('Form502 RefundableTaxCredits')&.text.present? ? "00" : nil,
+        'Text Box 66': calculated_fields.fetch(:MD502_LINE_39),
+        'Text Box 67': "00",
+        'Text Box 72': calculated_fields.fetch(:MD502_LINE_42),
+        'Text Box 73': "00",
+        'Text Box 76': calculated_fields.fetch(:MD502_LINE_44),
+        'Text Box 77': "00",
+        'Text Box 78': calculated_fields.fetch(:MD502_LINE_45),
+        'Text Box 79': calculated_fields.fetch(:MD502_LINE_45).present? ? "00" : nil,
+        'Text Box 80': calculated_fields.fetch(:MD502_LINE_46),
+        'Text Box 81': calculated_fields.fetch(:MD502_LINE_46).present? ? "00" : nil,
+        'Text Box 84': calculated_fields.fetch(:MD502_LINE_48),
+        'Text Box 85': "00",
+        'Text Box 91': calculated_fields.fetch(:MD502_LINE_50),
+        'Text Box 92': "00",
         'Enter local tax rate': @xml_document.at('Form502 LocalTaxComputation LocalTaxRate')&.text&.split('0.0')&.last,
         'Text Box 44': @xml_document.at('Form502 LocalTaxComputation LocalIncomeTax')&.text,
         'Text Box 46': @xml_document.at('Form502 LocalTaxComputation EarnedIncomeCredit')&.text,
@@ -132,6 +154,10 @@ module PdfFiller
 
     def checkbox_value(value)
       value.present? ? 'Yes' : 'Off'
+    end
+
+    def check_box_if_x(value)
+      value == "X" ? 'Yes' : 'Off'
     end
 
     def generate_codes_for_502_su
