@@ -1,0 +1,85 @@
+{
+  "familyAndHousehold": [
+    {
+      "monthsLivedWithTPInUS": "nine",
+      "lastName": "Keller",
+      "hohQualifyingPerson": false,
+      "isClaimedDependent": true,
+      "qualifyingChild": true,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "2014-05-05",
+      "suffix": null,
+      "residencyDuration": "sixToElevenMonths",
+      "firstName": "Becky",
+      "middleInitial": null,
+      "tin": "400-55-3015",
+      "scheduleEicLine4aNo": false,
+      "eligibleDependent": true,
+      "relationship": "childOfSibling",
+      "ssnNotValidForEmployment": false
+    },
+    {
+      "monthsLivedWithTPInUS": "twelve",
+      "lastName": "Keller",
+      "isClaimedDependent": true,
+      "hohQualifyingPerson": false,
+      "qualifyingChild": true,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "2016-06-06",
+      "suffix": null,
+      "residencyDuration": "allYear",
+      "firstName": "Johnathon",
+      "middleInitial": null,
+      "scheduleEicLine4aNo": false,
+      "tin": "400-00-4015",
+      "eligibleDependent": true,
+      "relationship": "grandChildOrOtherDescendantOfChild",
+      "ssnNotValidForEmployment": false
+    },
+    {
+      "monthsLivedWithTPInUS": "twelve",
+      "lastName": "Keller",
+      "hohQualifyingPerson": null,
+      "isClaimedDependent": true,
+      "qualifyingChild": true,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "2018-08-08",
+      "suffix": null,
+      "residencyDuration": "allYear",
+      "firstName": "James",
+      "middleInitial": null,
+      "scheduleEicLine4aNo": false,
+      "tin": "400-00-5015",
+      "eligibleDependent": true,
+      "relationship": "biologicalChild",
+      "ssnNotValidForEmployment": false
+    }
+  ],
+  "filers": [
+    {
+      "firstName": "Sandra",
+      "lastName": "Keller",
+      "middleInitial": null,
+      "tin": "400-00-4311",
+      "dateOfBirth": "1993-11-15",
+      "suffix": null,
+      "isPrimaryFiler": false,
+      "ssnNotValidForEmployment": null
+    },
+    {
+      "lastName": "Keller",
+      "firstName": "David",
+      "middleInitial": "T",
+      "tin": "400-00-4310",
+      "dateOfBirth": "1991-10-20",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "form1099Gs": [],
+  "interestReports": []
+}
