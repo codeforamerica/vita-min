@@ -2101,7 +2101,7 @@ en:
       nc_use_tax: North Carolina use tax
       see_detailed_return: See detailed return information
       standard_deduction: Standard deduction
-      title: Free AZ and NY state tax filing
+      title: Free state tax filing | FileYourStateTaxes
       total_tax: Total tax
     intake_logins:
       account_locked:
@@ -3532,7 +3532,7 @@ en:
           <strong>FileYourStateTaxes</strong> integrates with <strong>IRS Direct File</strong> to help you complete your state tax return <strong>for free.</strong> <br/><br/>
           <strong>We're closed for the tax season. Unfortunately you can no longer file your state return with us this year.</strong><br /><br />
           Already filed your state taxes with us? <strong>You can download a copy of your state return until December 31, 2024</strong><br /><br />
-        header: A free state filing service for Arizona and New York taxpayers using IRS Direct File
+        header: A free state filing service for taxpayers using IRS Direct File
         section1_html: |
           <strong>How does it work?</strong>
           <ol class="list--numbered">
