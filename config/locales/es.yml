@@ -2892,10 +2892,7 @@ es:
       md_primary_state_id:
         md_primary:
           dmv_bmv_label: MVA State ID
-          encourage_sharing_html: |-
-            Si tú y tu cónyuge tienen una licencia de conducir o una tarjeta de identificación emitida por el estado, por favor comparte la información que solicitamos de la misma. La declaración no será rechazada si no compartes una licencia de conducir o una identificación emitida por el estado.
-
-            Si compartes esta información, puede ayudar a que te identifiquen como el contribuyente.
+          encourage_sharing_html: Si usted y su cónyuge tienen una licencia de conducir o una tarjeta de identificación emitida por el estado, proporcione la información solicitada. La devolución no será rechazada si no proporciona una licencia de conducir o una identificación emitida por el estado. <br><br>Si proporciona esta información, puede ayudar a identificarlo como contribuyente.
           protect_identity: Muchas agencias de ingresos estatales, incluida Maryland, están solicitando información adicional en un esfuerzo por combatir el fraude fiscal por identidad robada y protegerlo a usted y a su reembolso de impuestos.
           subtitle: El Contralor de Maryland solicita que la información de su licencia de conducir o tarjeta de identificación emitida por el estado se incluya con la declaración, pero no rechazará la declaración si no está incluida.
           why_ask_this: "¿Por qué estamos pidiéndote esta información?"
@@ -2907,10 +2904,7 @@ es:
       md_spouse_state_id:
         md_spouse:
           dmv_bmv_label: MVA State ID
-          encourage_sharing_html: |-
-            Si tú y tu cónyuge tienen una licencia de conducir o una tarjeta de identificación emitida por el estado, por favor comparte la información que solicitamos de la misma. La declaración no será rechazada si no compartes una licencia de conducir o una identificación emitida por el estado.
-
-            Si compartes esta información, puede ayudar a que te identifiquen como el contribuyente.
+          encourage_sharing_html: Si usted y su cónyuge tienen una licencia de conducir o una tarjeta de identificación emitida por el estado, proporcione la información solicitada. La devolución no será rechazada si no proporciona una licencia de conducir o una identificación emitida por el estado. <br><br>Si proporciona esta información, puede ayudar a identificarlo como contribuyente.
           protect_identity: Muchas agencias de ingresos estatales, incluida Maryland, están solicitando información adicional en un esfuerzo por combatir el fraude fiscal por identidad robada y protegerlo a usted y a su reembolso de impuestos.
           subtitle: El Contralor de Maryland solicita que la información de su licencia de conducir o tarjeta de identificación emitida por el estado se incluya con la declaración, pero no rechazará la declaración si no está incluida.
           why_ask_this: "¿Por qué estamos pidiéndote esta información?"
