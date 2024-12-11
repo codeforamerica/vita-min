@@ -4,15 +4,22 @@ module StateFile
     before_validation :normalize_phone_numbers
 
     validates :phone_number, e164_phone: true, if: -> { attributes_for(:intake)[:sms_notification_opt_in] == "yes" }
-    validates :email_address, 'valid_email_2/email': true, if: -> { attributes_for(:intake)[:email_notification_opt_in] == "yes" }
-    validates :email_address, presence: true, if: -> { attributes_for(:intake)[:email_notification_opt_in] == "yes" }
+    validates :email_address, 'valid_email_2/email': true, if: -> { should_validate_email? }
+    validates :email_address, presence: true, if: -> { should_validate_email? }
     validate :at_least_one_selected
 
     def save
-      @intake.update(attributes_for(:intake))
+      email_attributes = should_validate_email? ? {} : {email_address: @intake.email_address}
+
+      @intake.update(attributes_for(:intake).merge(email_attributes))
     end
 
     private
+
+    def should_validate_email?
+      attributes_for(:intake)[:email_notification_opt_in] == "yes" &&
+        !@intake.email_address.present?
+    end
 
     def at_least_one_selected
       unless attributes_for(:intake).values_at(:sms_notification_opt_in, :email_notification_opt_in).any? { |value| value == "yes" }
