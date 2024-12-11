@@ -3708,7 +3708,7 @@ en:
         faq: FAQ
         privacy_policy: Privacy Policy
         sms_terms: SMS Terms
-        state_file_description_html: FileYourStateTaxes is built by <a target="_blank" rel="noopener nofollow" href="https://www.codeforamerica.org">Code for America</a> in partnership with New York State and the state of Arizona to integrate with IRS Direct File.
+        state_file_description_html: FileYourStateTaxes is built by <a target="_blank" rel="noopener nofollow" href="https://www.codeforamerica.org">Code for America</a> in partnership with state tax agencies to integrate with IRS Direct File.
       login_options:
         email_signin: Sign in with email
         help_text_html: New to FileYourStateTaxes? <a href=%{link}>Get Started</a>
