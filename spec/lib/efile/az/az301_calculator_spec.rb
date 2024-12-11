@@ -110,7 +110,7 @@ describe Efile::Az::Az301Calculator do
             allow(instance).to receive(:calculate_line_7c).and_return 30
           end
 
-          it "should return the subtraction amount" do
+          it "returns the subtraction amount" do
             instance.calculate
             expect(instance.lines[:AZ301_LINE_41].value).to eq(20)
           end
@@ -121,7 +121,7 @@ describe Efile::Az::Az301Calculator do
             allow(instance).to receive(:calculate_line_7c).and_return 10
           end
 
-          it "should return the 7c amount" do
+          it "returns the 7c amount" do
             instance.calculate
             expect(instance.lines[:AZ301_LINE_41].value).to eq(10)
           end
