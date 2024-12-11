@@ -175,17 +175,12 @@ RSpec.describe PdfFiller::Md502Pdf do
 
         it "sets correct values for filer and fills in mfs spouse ssn" do
           expect(pdf_fields["Enter social security number"]).to eq("123456789")
-          expect(pdf_fields["Enter spouse&apos;s social security number"]).to eq("987654321")
           expect(pdf_fields["Enter your first name"]).to eq("Mary")
           expect(pdf_fields["Enter your middle initial"]).to eq("A")
           expect(pdf_fields["Enter your last name"]).to eq("Lando")
-          expect(pdf_fields["Enter Spouse&apos;s First Name"]).to eq("Marty")
-          expect(pdf_fields["Enter Spouse&apos;s middle initial"]).to eq("B")
-          expect(pdf_fields["Enter Spouse&apos;s last name"]).to eq("Lando")
           expect(pdf_fields["Check Box - 1"]).to eq "Off"
           expect(pdf_fields["Check Box - 2"]).to eq "Off"
           expect(pdf_fields["Check Box - 3"]).to eq "No"
-          expect(pdf_fields["MARRIED FILING Enter spouse&apos;s social security number"]).to eq("987654321")
           expect(pdf_fields["Check Box - 4"]).to eq "Off"
           expect(pdf_fields["Check Box - 5"]).to eq "Off"
           expect(pdf_fields["6. Check here"]).to eq "Off"

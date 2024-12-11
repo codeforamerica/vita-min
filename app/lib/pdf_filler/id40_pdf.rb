@@ -4,7 +4,7 @@ module PdfFiller
     include SubmissionBuilder::FormattingMethods
 
     def source_pdf_name
-      "idform40-TY-2023"
+      "idform40-TY-2024"
     end
 
     def initialize(submission)
@@ -56,7 +56,7 @@ module PdfFiller
         'CreditsL23' => @xml_document.at('Form39R TotalSupplementalCredits')&.text,
         'CreditsL25' => @xml_document.at('Form40 IdahoChildTaxCredit')&.text,
         'CreditsL26' => calculated_fields.fetch(:ID40_LINE_26),
-        'CreditsL27' => round_amount_to_nearest_integer(calculated_fields.fetch(:ID40_LINE_27)),
+        'CreditsL27' => calculated_fields.fetch(:ID40_LINE_27),
         'OtherTaxesL29' => @xml_document.at('StateUseTax')&.text,
         'OtherTaxesL33' => @xml_document.at('TotalTax')&.text,
         'OtherTaxesL32Check' => @xml_document.at('PublicAssistanceIndicator')&.text == "true" ? 'Yes' : 'Off',

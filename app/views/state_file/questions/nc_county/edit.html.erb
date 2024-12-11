@@ -1,6 +1,6 @@
 <%
-title = t(".title", filing_year: current_tax_year )
-content_for :page_title, title
+  title = t(".title", filing_year: current_tax_year)
+  content_for :page_title, title
 %>
 
 <% content_for :card do %>
@@ -8,7 +8,29 @@ content_for :page_title, title
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="white-group">
-      <%= f.vita_min_state_file_select(:residence_county , t(".county"), @counties, label_class: 'form-label--bold', prompt: t('general.select_prompt') ) %>
+      <%= f.vita_min_state_file_select(:residence_county, t(".county"), @counties, label_class: 'form-label--bold', prompt: t('general.select_prompt')) %>
+    </div>
+
+    <div id="hurricane-relief-eligibility-questions" style="display: none" class="spacing-below-25 question-with-follow-up">
+      <div class="white-group question-with-follow-up__question" id="moved-after-hurricane">
+        <p class="spacing-below-15"><%= t(".moved_after_hurricane") %></p>
+        <%=
+          f.cfa_radio_set(
+            :moved_after_hurricane_helene,
+            collection: [
+              { value: :yes, label: t("general.affirmative"), input_html: { "data-follow-up": "#county-during-hurricane" } },
+              { value: :no, label: t("general.negative") },
+            ]
+          )
+        %>
+      </div>
+
+      <div class="question-with-follow-up__follow-up" id="county-during-hurricane">
+        <div class="white-group">
+          <p class="spacing-below-15"><%= t(".county_during_hurricane") %></p>
+          <%= f.vita_min_state_file_select(:county_during_hurricane_helene, t(".county"), @counties, label_class: 'form-label--bold', prompt: t('general.select_prompt')) %>
+        </div>
+      </div>
     </div>
 
     <% if params[:return_to_review].present? %>
@@ -16,4 +38,30 @@ content_for :page_title, title
     <% end %>
     <%= f.continue %>
   <% end %>
+<% end %>
+
+<% content_for :script do %>
+  <script>
+      document.addEventListener('DOMContentLoaded', function () {
+          const countySelect = document.getElementById('state_file_nc_county_form_residence_county');
+          const hurricaneQuestions = document.getElementById('hurricane-relief-eligibility-questions');
+          const designated_counties = <%= raw @designated_hurricane_relief_counties.to_json %>;
+
+          if (designated_counties.includes(countySelect.value) || countySelect.value === '') {
+              hurricaneQuestions.style.display = 'none';
+          } else {
+              hurricaneQuestions.style.display = '';
+          }
+
+          countySelect.addEventListener('change', function () {
+              const selectedCounty = countySelect.value;
+
+              if (designated_counties.includes(selectedCounty) || selectedCounty === '') {
+                  hurricaneQuestions.style.display = 'none';
+              } else {
+                  hurricaneQuestions.style.display = '';
+              }
+          });
+      });
+  </script>
 <% end %>

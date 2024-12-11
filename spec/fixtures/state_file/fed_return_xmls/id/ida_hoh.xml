@@ -4,7 +4,7 @@
         <TaxYr>2024</TaxYr>
         <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
         <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
-        <SoftwareVersionNum>1cfaf0d2</SoftwareVersionNum>
+        <SoftwareVersionNum>dcf46c78</SoftwareVersionNum>
         <ReturnTypeCd>1040</ReturnTypeCd>
         <Filer>
             <PrimarySSN>400000001</PrimarySSN>
@@ -16,11 +16,11 @@
                 <StateAbbreviationCd>ID</StateAbbreviationCd>
                 <ZIPCd>83704</ZIPCd>
             </USAddress>
-            <PhoneNum>2085555555</PhoneNum>
+            <PhoneNum>2223334444</PhoneNum>
         </Filer>
         <AdditionalFilerInformation>
             <AtSubmissionFilingGrp>
-                <EmailAddressTxt>test-user+40000000-1751-4ac0-a20c-2ef7b0c0d1da@directfile.test</EmailAddressTxt>
+                <EmailAddressTxt>test-user+40000000-154e-423b-a5cc-7f6148dcda25@directfile.test</EmailAddressTxt>
             </AtSubmissionFilingGrp>
         </AdditionalFilerInformation>
     </ReturnHeader>
@@ -36,7 +36,7 @@
                 <DependentFirstNm>Ivan</DependentFirstNm>
                 <DependentLastNm>Ho</DependentLastNm>
                 <DependentNameControlTxt>HO</DependentNameControlTxt>
-                <DependentSSN>300001111</DependentSSN>
+                <DependentSSN>301000001</DependentSSN>
                 <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
                 <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
             </DependentDetail>
@@ -96,18 +96,18 @@
         <IRS2441 documentId="IRS2441001" documentName="IRS2441">
             <CareProviderGrp>
                 <CareProviderBusinessName>
-                    <BusinessNameLine1Txt>BUSY BEE DAYCARE</BusinessNameLine1Txt>
+                    <BusinessNameLine1Txt>Tots</BusinessNameLine1Txt>
                 </CareProviderBusinessName>
-                <CareProviderBusNameControlTxt>BUSY</CareProviderBusNameControlTxt>
+                <CareProviderBusNameControlTxt>TOTS</CareProviderBusNameControlTxt>
                 <USAddress>
-                    <AddressLine1Txt>123 MAIN STREET</AddressLine1Txt>
-                    <CityNm>DENVER</CityNm>
-                    <StateAbbreviationCd>CO</StateAbbreviationCd>
-                    <ZIPCd>80212</ZIPCd>
+                    <AddressLine1Txt>123 Tot Street</AddressLine1Txt>
+                    <CityNm>Boise</CityNm>
+                    <StateAbbreviationCd>ID</StateAbbreviationCd>
+                    <ZIPCd>83638</ZIPCd>
                 </USAddress>
-                <EIN>271067272</EIN>
+                <EIN>371233211</EIN>
                 <HouseholdEmployeeInd>false</HouseholdEmployeeInd>
-                <PaidAmt>13000</PaidAmt>
+                <PaidAmt>15000</PaidAmt>
             </CareProviderGrp>
             <QualifyingPersonGrp>
                 <QualifyingPersonName>
@@ -115,7 +115,7 @@
                     <PersonLastNm>Ho</PersonLastNm>
                 </QualifyingPersonName>
                 <QualifyingPersonNameControlTxt>HO</QualifyingPersonNameControlTxt>
-                <QualifyingPersonSSN>300001111</QualifyingPersonSSN>
+                <QualifyingPersonSSN>301000001</QualifyingPersonSSN>
                 <QualifiedCareExpensesPaidAmt>15000</QualifiedCareExpensesPaidAmt>
             </QualifyingPersonGrp>
             <TotalQlfdExpensesOrLimitAmt>3000</TotalQlfdExpensesOrLimitAmt>
@@ -140,12 +140,11 @@
                 <AddressLine1Txt>34 Crispy Court</AddressLine1Txt>
                 <CityNm>Phoenix</CityNm>
                 <StateAbbreviationCd>AZ</StateAbbreviationCd>
-                <ZIPCd>85005</ZIPCd>
+                <ZIPCd>85001</ZIPCd>
             </EmployerUSAddress>
             <EmployeeNm>Ida Ho</EmployeeNm>
             <EmployeeUSAddress>
-                <AddressLine1Txt>5500 N Armstrong Ave</AddressLine1Txt>
-                <AddressLine2Txt>Unit 1092</AddressLine2Txt>
+                <AddressLine1Txt>5500 N Armstrong Ave Unit 1092</AddressLine1Txt>
                 <CityNm>Boise</CityNm>
                 <StateAbbreviationCd>ID</StateAbbreviationCd>
                 <ZIPCd>83704</ZIPCd>
@@ -161,7 +160,6 @@
                     <StateAbbreviationCd>ID</StateAbbreviationCd>
                     <EmployerStateIdNum>12345</EmployerStateIdNum>
                     <StateWagesAmt>45300</StateWagesAmt>
-                    <StateIncomeTaxAmt>2000</StateIncomeTaxAmt>
                     <W2LocalTaxGrp/>
                 </W2StateTaxGrp>
             </W2StateLocalTaxGrp>
