@@ -9,6 +9,51 @@ RSpec.describe StateFile::Questions::AzQualifyingOrganizationContributionsContro
     sign_in intake
   end
 
+  describe ".show?" do
+
+    context "when the intake has charitable contributions" do
+      before do
+        intake.charitable_contributions_yes!
+      end
+
+      context "when the intake has cash contributions" do
+
+        before do
+          intake.update(charitable_cash_amount: 1)
+        end
+
+        it "shows" do
+          expect(described_class).to be_show(intake)
+        end
+
+      end
+
+      context "when the intake does not have charitable contributions" do
+
+        before do
+          intake.update(charitable_cash_amount: 0)
+        end
+
+        it "does not show" do
+          expect(described_class).not_to be_show(intake)
+        end
+
+      end
+
+    end
+
+    context "when the intake does not have charitable contributions" do
+      before do
+        intake.charitable_contributions_no!
+      end
+
+      it "does not show" do
+        expect(described_class).not_to be_show(intake)
+      end
+    end
+
+  end
+
   describe "#index" do
     context "credit limit" do
       context "mfj filer" do
