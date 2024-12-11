@@ -75,8 +75,9 @@ module StateFile
     end
 
     def withdrawal_date_before_deadline
+      withdrawal_date_deadline = withdrawal_date_deadline(intake.state_code)
       unless date_electronic_withdrawal.between?(Date.parse(app_time), withdrawal_date_deadline)
-        self.errors.add(:date_electronic_withdrawal, I18n.t("forms.errors.taxes_owed.withdrawal_date_deadline", year: withdrawal_date_deadline.year))
+        self.errors.add(:date_electronic_withdrawal, I18n.t("forms.errors.taxes_owed.withdrawal_date_deadline", year: withdrawal_date_deadline.year, day: withdrawal_date_deadline.day))
       end
     end
 
@@ -86,10 +87,6 @@ module StateFile
       if @intake.errors[:date_electronic_withdrawal].present?
         errors.add(:date_electronic_withdrawal, @intake.errors[:date_electronic_withdrawal])
       end
-    end
-
-    def withdrawal_date_deadline
-      Date.parse("April 15th, #{MultiTenantService.new(:statefile).current_tax_year + 1}")
     end
   end
 end
