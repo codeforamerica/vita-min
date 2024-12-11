@@ -1,0 +1,57 @@
+{
+  "familyAndHousehold": [
+    {
+      "monthsLivedWithTPInUS": null,
+      "lastName": "Hill",
+      "hohQualifyingPerson": null,
+      "isClaimedDependent": true,
+      "qualifyingChild": true,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "2020-10-12",
+      "suffix": "Jr",
+      "residencyDuration": "allYear",
+      "firstName": "Lauryn",
+      "middleInitial": null,
+      "scheduleEicLine4aNo": false,
+      "tin": "600-00-0002",
+      "eligibleDependent": true,
+      "relationship": "biologicalChild",
+      "ssnNotValidForEmployment": false
+    }
+  ],
+  "filers": [
+    {
+      "lastName": "Hill",
+      "firstName": "Lauryn",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "300-00-0002",
+      "dateOfBirth": "2001-12-01",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": null
+    },
+    {
+      "firstName": "Rohan",
+      "lastName": "Marley",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "600-00-0010",
+      "dateOfBirth": null,
+      "suffix": null,
+      "isPrimaryFiler": false,
+      "ssnNotValidForEmployment": null,
+      "hsaTotalDeductibleAmount": null
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [
+    {
+      "usedTin": "300-00-0002",
+      "unionDuesAmount": null
+    }
+  ],
+  "interestReports": []
+}
