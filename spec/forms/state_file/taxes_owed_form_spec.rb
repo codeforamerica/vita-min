@@ -92,7 +92,7 @@ RSpec.describe StateFile::TaxesOwedForm do
           end
         end
 
-        context "after other states's  deadline and before MD's for MD intake" do
+        context "after other states' deadline and before MD's for MD intake" do
           before do
             allow(intake).to receive(:calculated_refund_or_owed_amount).and_return(100)
           end
