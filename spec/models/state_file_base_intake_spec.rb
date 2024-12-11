@@ -104,6 +104,7 @@ describe StateFileBaseIntake do
       expect(w2.state_wages_amount).to eq 35000
       expect(w2.wages).to eq 35000
       expect(w2.employer_ein).to eq "234567891"
+      expect(w2.state_code).to eq "AZ"
     end
 
     it "reads in w2s and removes dash/hyphen from employer_state_id_num" do

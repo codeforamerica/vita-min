@@ -147,6 +147,7 @@ class StateFileBaseIntake < ApplicationRecord
         local_income_tax_amount: direct_file_w2.LocalIncomeTaxAmt,
         local_wages_and_tips_amount: direct_file_w2.LocalWagesAndTipsAmt,
         locality_nm: direct_file_w2.LocalityNm,
+        state_code: direct_file_w2.StateAbbreviationCd,
         state_income_tax_amount: direct_file_w2.StateIncomeTaxAmt,
         state_wages_amount: direct_file_w2.StateWagesAmt,
         state_file_intake: self,
