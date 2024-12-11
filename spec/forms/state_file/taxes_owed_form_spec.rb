@@ -89,10 +89,9 @@ RSpec.describe StateFile::TaxesOwedForm do
             expect(intake.routing_number).to eq "019456124"
             expect(intake.account_number).to eq "12345"
             expect(intake.date_electronic_withdrawal).to eq Date.parse("April 15th, #{current_year}")
-          end
         end
 
-        context "after ID's deadline and before MD's for MD intake" do
+        context "after other states' deadline and before MD's for MD intake" do
           before do
             allow(intake).to receive(:calculated_refund_or_owed_amount).and_return(100)
           end
