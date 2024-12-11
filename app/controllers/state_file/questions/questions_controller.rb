@@ -20,6 +20,7 @@ module StateFile
       def question_navigator
         @navigator ||= "Navigation::StateFile#{current_state_code.titleize}QuestionNavigation".constantize
       end
+
       helper_method :question_navigator
 
       def redirect_if_no_intake
@@ -56,8 +57,20 @@ module StateFile
         form_navigation.prev
       end
 
+      def prev_action
+        return unless self.class.navigation_actions.count > 1
+
+        if self.class.navigation_actions.first != action_name.to_sym
+          self.class.navigation_actions.first
+        end
+      end
+
       def prev_path
-        path_for_step(prev_step)
+        if prev_action
+          self.class.to_path_helper({ action: prev_action })
+        else
+          path_for_step(prev_step)
+        end
       end
 
       def path_for_step(step)
