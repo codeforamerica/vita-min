@@ -293,7 +293,6 @@ module Efile
       end
 
       def calculate_line_16a
-        return nil unless interest_on_gov_bonds.positive?
         @intake.direct_file_data.fed_taxable_income - interest_on_gov_bonds
       end
 

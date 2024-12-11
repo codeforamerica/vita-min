@@ -6,7 +6,7 @@
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="white-group">
-      <%= f.vita_min_state_file_select(:residence_county, t(".county_html"), @counties, label_class: 'form-label--bold', prompt: t('general.select_prompt')) %>
+      <%= f.vita_min_state_file_select(:residence_county, t(".county_html", filing_year: current_tax_year), @counties, label_class: 'form-label--bold', prompt: t('general.select_prompt')) %>
     </div>
     <div class="white-group">
       <strong> <%= t('.political_subdivision')%> </strong>
@@ -22,7 +22,7 @@
               <li> <%= subdivision %></li>
             <% end %>
         </ul>
-        <p> <%= t('.political_subdivision_helper_last_p', filing_year: @filing_year) %> </p>
+        <p> <%= t('.political_subdivision_helper_last_p', filing_year: current_tax_year) %> </p>
       </div>
     </div>
     <% if params[:return_to_review].present? %>

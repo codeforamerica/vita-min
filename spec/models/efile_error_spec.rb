@@ -114,6 +114,7 @@ describe 'EfileError' do
       "post-data-transfer",
       "primary-state-id",
       "return-status",
+      "sms-terms",
       "spouse-state-id",
       "submission-confirmation",
       "tax-refund",
