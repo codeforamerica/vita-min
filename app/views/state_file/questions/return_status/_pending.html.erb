@@ -22,9 +22,11 @@
   <% end %>
 </p>
 
-<p>
-  <%= t('.check_spam') %>
-</p>
+<% if current_intake.email_notification_opt_in_yes? %>
+  <p>
+    <%= t('.check_spam') %>
+  </p>
+<% end %>
 
 <section>
   <p class="spacing-below-5"><strong><%= t('state_file.questions.return_status.rejected.have_questions') %></strong></p>

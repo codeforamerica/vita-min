@@ -115,22 +115,24 @@ RSpec.describe StateFile::Questions::ReturnStatusController do
                                                     filing_year: MultiTenantService.statefile.current_tax_year)
           end
 
-          it "shows email or text" do
+          it "shows email and text content when opted into both" do
             intake.update(sms_notification_opt_in: "yes", email_notification_opt_in: "yes")
             get :edit
             expect(response.body.html_safe).to include CGI.escapeHTML(I18n.t("state_file.questions.submission_confirmation.edit.email_text_update"))
           end
 
-          it "shows text" do
+          it "shows language associated with text when only opted in to text" do
             intake.update(sms_notification_opt_in: "yes", email_notification_opt_in: "no")
             get :edit
             expect(response.body).to include CGI.escapeHTML(I18n.t("state_file.questions.submission_confirmation.edit.text_update"))
+            expect(response.body).not_to include CGI.escapeHTML(I18n.t("state_file.questions.return_status.pending.check_spam"))
           end
 
-          it "shows email" do
+          it "shows language associated with email when only opted in to email" do
             intake.update(sms_notification_opt_in: "no", email_notification_opt_in: "yes")
             get :edit
             expect(response.body).to include CGI.escapeHTML(I18n.t("state_file.questions.submission_confirmation.edit.email_update"))
+            expect(response.body).to include CGI.escapeHTML(I18n.t("state_file.questions.return_status.pending.check_spam"))
           end
         end
 
