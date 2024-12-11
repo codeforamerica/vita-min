@@ -107,7 +107,7 @@ RSpec.describe StateFile::Questions::ReturnStatusController do
             create(:efile_submission, :transmitted, :for_state, data_source: intake)
           end
 
-          it "shows the right content" do
+          it "shows the pending view" do
             get :edit
 
             expect(response.body).to include I18n.t("state_file.questions.return_status.pending.title",
@@ -136,13 +136,35 @@ RSpec.describe StateFile::Questions::ReturnStatusController do
           end
         end
 
-        context "rejected" do
-          context "showing the error" do
-            before do
-              efile_submission = create(:efile_submission, :rejected, :with_errors, :for_state, data_source: intake)
-              efile_submission.transition_to(:notified_of_rejection)
-            end
+        context "accepted" do
+          before do
+            create(:efile_submission, :accepted, :for_state, data_source: intake)
+          end
 
+          it "shows the accepted view" do
+            get :edit
+
+            expect(response.body).to include I18n.t("state_file.questions.return_status.accepted.title",
+                                                    state_name: StateFile::StateInformationService.state_name(state_code),
+                                                    filing_year: MultiTenantService.statefile.current_tax_year)
+          end
+        end
+
+        context "rejected" do
+          before do
+            efile_submission = create(:efile_submission, :rejected, :with_errors, :for_state, data_source: intake)
+            efile_submission.transition_to(:notified_of_rejection)
+          end
+
+          it "shows the rejected view" do
+            get :edit
+
+            expect(response.body).to include I18n.t("state_file.questions.return_status.rejected.title",
+                                                    state_name: StateFile::StateInformationService.state_name(state_code),
+                                                    filing_year: MultiTenantService.statefile.current_tax_year)
+          end
+
+          context "showing the error" do
             context "expose error" do
               it "shows the reject code, the description, and the resolution" do
                 get :edit
