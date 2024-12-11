@@ -60,63 +60,92 @@ RSpec.describe StateFile::NotificationPreferencesForm do
     end
 
     context "when email_notification_opt_in is present" do
-      let(:valid_params) do
-        {
-          email_notification_opt_in: "yes",
-          email_address: "test@example.com"
-        }
-      end
-
-      subject(:form) { described_class.new(intake, valid_params) }
-
-      it "is valid" do
-        expect(form).to be_valid
-      end
-
-      context "when email address is invalid" do
-        let(:invalid_params) do
+      context "with no existing email address" do
+        let(:valid_params) do
           {
             email_notification_opt_in: "yes",
-            email_address: "invalid-email"
+            email_address: "test@example.com"
           }
         end
-        subject(:form) { described_class.new(intake, invalid_params) }
 
-        it "is invalid" do
-          form.valid?
-          expect(form).not_to be_valid
+        subject(:form) { described_class.new(intake, valid_params) }
+
+        it "is valid" do
+          expect(form).to be_valid
         end
 
-        it "adds an error to the email_address attribute" do
-          form.valid?
-          expect(form.errors[:email_address]).to be_present
+        it "updates the intake with the provided attributes" do
+          form = described_class.new(intake, valid_params)
+          expect { form.save }.to change(intake, :email_notification_opt_in).from("unfilled").to("yes")
+                                                                            .and change(intake, :email_address).to("test@example.com")
+        end
+
+        context "when email address is invalid" do
+          let(:invalid_params) do
+            {
+              email_notification_opt_in: "yes",
+              email_address: "invalid-email"
+            }
+          end
+          subject(:form) { described_class.new(intake, invalid_params) }
+
+          it "is invalid" do
+            form.valid?
+            expect(form).not_to be_valid
+          end
+
+          it "adds an error to the email_address attribute" do
+            form.valid?
+            expect(form.errors[:email_address]).to be_present
+          end
+        end
+
+        context "when email address is missing" do
+          let(:invalid_params) do
+            {
+              email_notification_opt_in: "yes",
+              email_address: ""
+            }
+          end
+          subject(:form) { described_class.new(intake, invalid_params) }
+
+          it "is invalid" do
+            form.valid?
+            expect(form).not_to be_valid
+          end
+
+          it "adds a presence error to the email_address attribute" do
+            form.valid?
+            expect(form.errors[:email_address]).to include "Can't be blank."
+          end
         end
       end
 
-      context "when email address is missing" do
-        let(:invalid_params) do
+      context "with existing email address" do
+        let!(:intake) { create :state_file_az_intake, email_address: "existing@example.com" }
+
+        let(:params) do
           {
             email_notification_opt_in: "yes",
-            email_address: ""
+            email_address: "" # Empty email address should be valid when there's an existing one
           }
         end
-        subject(:form) { described_class.new(intake, invalid_params) }
 
-        it "is invalid" do
-          form.valid?
-          expect(form).not_to be_valid
+        subject(:form) { described_class.new(intake, params) }
+
+        it "is valid" do
+          expect(form).to be_valid
         end
 
-        it "adds a presence error to the email_address attribute" do
-          form.valid?
-          expect(form.errors[:email_address]).to include "Can't be blank."
+        it "keeps the existing email address" do
+          form.save
+          expect(intake.reload.email_address).to eq "existing@example.com"
         end
-      end
 
-      it "updates the intake with the provided attributes" do
-        form = described_class.new(intake, valid_params)
-        expect { form.save }.to change(intake, :email_notification_opt_in).from("unfilled").to("yes")
-                                                                          .and change(intake, :email_address).to("test@example.com")
+        it "updates only the opt-in status" do
+          expect { form.save }.to change(intake, :email_notification_opt_in).from("unfilled").to("yes")
+                                                                            .and not_change(intake, :email_address)
+        end
       end
     end
 
