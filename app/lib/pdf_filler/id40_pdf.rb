@@ -4,7 +4,7 @@ module PdfFiller
     include SubmissionBuilder::FormattingMethods
 
     def source_pdf_name
-      "idform40-TY-2023"
+      "idform40-TY-2024"
     end
 
     def initialize(submission)
@@ -17,8 +17,6 @@ module PdfFiller
 
     def hash_for_pdf
       answers = {
-        'YearBeginning' => formatted_date(@xml_document.at('ReturnHeaderState TaxPeriodBeginDt')&.text, "%Y"),
-        'YearEnding' => formatted_date(@xml_document.at('ReturnHeaderState TaxPeriodEndDt')&.text, "%Y"),
         'FirstNameInitial' => @xml_document.at('Primary TaxpayerName FirstName')&.text,
         'LastName' => @xml_document.at('Primary TaxpayerName LastName')&.text,
         'SSN' => @xml_document.at('Primary TaxpayerSSN')&.text,
