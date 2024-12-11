@@ -10,6 +10,7 @@
 #  charitable_cash_amount                 :decimal(12, 2)
 #  charitable_contributions               :integer          default("unfilled"), not null
 #  charitable_noncash_amount              :decimal(12, 2)
+#  consented_to_sms_terms                 :integer          default("unfilled"), not null
 #  consented_to_terms_and_conditions      :integer          default("unfilled"), not null
 #  contact_preference                     :integer          default("unfilled"), not null
 #  current_sign_in_at                     :datetime

@@ -6,6 +6,7 @@
 #  account_number                    :string
 #  account_type                      :integer          default("unfilled"), not null
 #  city                              :string
+#  consented_to_sms_terms            :integer          default("unfilled"), not null
 #  consented_to_terms_and_conditions :integer          default("unfilled"), not null
 #  contact_preference                :integer          default("unfilled"), not null
 #  county_during_hurricane_helene    :string

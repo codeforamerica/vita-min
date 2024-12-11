@@ -13,7 +13,7 @@
             :id_type,
             collection: [
               { value: :driver_license, label: t("state_file.questions.primary_state_id.state_id.id_type_question.drivers_license"), input_html: { "data-follow-up": "#id-details-fields" } },
-              { value: :dmv_bmv, label: t("state_file.questions.primary_state_id.state_id.id_type_question.dmv"), input_html: { "data-follow-up": "#id-details-fields" } },
+              { value: :dmv_bmv, label: (options[:dmv_bmv_label] || t("state_file.questions.primary_state_id.state_id.id_type_question.dmv")), input_html: { "data-follow-up": "#id-details-fields" } },
               { value: :no_id, label: t("state_file.questions.primary_state_id.state_id.id_type_question.no_id") },
             ]
           )
