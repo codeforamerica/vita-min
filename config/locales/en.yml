@@ -3300,7 +3300,8 @@ en:
           title: Enter your phone number
       post_data_transfer:
         edit:
-          title: Non-prod page only
+          subtitle: Next, we’ll review your state details and ask any remaining questions to complete your %{state_name} state tax return.
+          title: We have successfully transferred your federal tax return!
       primary_state_id:
         edit:
           ny_subtitle: This information is required for all NY residents with a state-issued ID.
