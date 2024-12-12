@@ -1706,6 +1706,19 @@ en:
 
           Best,
           The FileYourStateTaxes team
+      terminal_rejected:
+        email:
+          body: |
+            Hi %{primary_first_name},
+
+            Unfortunately, %{state_name} rejected your state tax return due to an issue that cannot be resolved on our tool. Don't worry! We can help provide guidance on next steps. You can chat with us at %{return_status_link}.
+
+            Questions? Reply to this email.
+
+            Best,
+            The FileYourStateTaxes team
+          subject: 'FileYourStateTaxes Update: %{state_name} State Return Rejected.'
+        sms: "Hi %{primary_first_name} - Unfortunately, %{state_name} rejected your state tax return for an issue that cannot be resolved on our tool. Don't worry! We can help provide guidance on next steps. Chat with us at %{return_status_link}. \n\nQuestions? Reply to this text.\n"
       welcome:
         email:
           body: |
@@ -2834,7 +2847,9 @@ en:
           sales_tax_title: What are sales taxes?
           sales_use_tax_helper_text: Enter total amount
           subtitle_html: This includes online purchases where sales tax was <strong>not</strong> applied.
-          title: Did you make any out-of-state purchases in %{year} without paying sales tax?
+          title:
+            one: Did you make any out-of-state purchases in %{year} without paying sales tax?
+            other: Did you or your spouse make any out-of-state purchases in %{year} without paying sales tax?
           unpaid_sales_use_tax_label_html: Please enter the <b>total amount of purchases</b> that didn’t have sales or use tax applied.
       id_spouse_state_id:
         id_spouse:
@@ -3306,6 +3321,7 @@ en:
           opt_in_label: Please select the option(s) that work best for you.
           phone_number: Your phone number
           phone_number_help_text: Enter numbers only
+          provided_email: We’ll send updates about your tax return to %{email_address}.
           sms_notification_opt_in: Text message
           subtitle: We'll need to reach out with questions and updates.
           title: What is the best way to reach you?
@@ -3433,7 +3449,8 @@ en:
           title: Enter your phone number
       post_data_transfer:
         edit:
-          title: Non-prod page only
+          subtitle: Next, we’ll review your state details and ask any remaining questions to complete your %{state_name} state tax return.
+          title: We have successfully transferred your federal tax return!
       primary_state_id:
         edit:
           ny_subtitle: This information is required for all NY residents with a state-issued ID.
@@ -3708,7 +3725,7 @@ en:
         faq: FAQ
         privacy_policy: Privacy Policy
         sms_terms: SMS Terms
-        state_file_description_html: FileYourStateTaxes is built by <a target="_blank" rel="noopener nofollow" href="https://www.codeforamerica.org">Code for America</a> in partnership with New York State and the state of Arizona to integrate with IRS Direct File.
+        state_file_description_html: FileYourStateTaxes is built by <a target="_blank" rel="noopener nofollow" href="https://www.codeforamerica.org">Code for America</a> in partnership with state tax agencies to integrate with IRS Direct File.
       login_options:
         email_signin: Sign in with email
         help_text_html: New to FileYourStateTaxes? <a href=%{link}>Get Started</a>

@@ -92,7 +92,6 @@ FactoryBot.define do
   factory :state_file_az_intake do
     transient do
       filing_status { 'single' }
-      hoh_qualifying_person_name { '' }
     end
 
     raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.old_xml_sample }
@@ -103,6 +102,7 @@ FactoryBot.define do
     primary_last_name { "Onian" }
     primary_birth_date { Date.new((MultiTenantService.statefile.current_tax_year - 65), 12, 1) }
     state_file_analytics { StateFileAnalytics.create }
+    # phone_number: "+15551115511" # number taken from specs for Phony
 
     after(:build) do |intake, evaluator|
       numeric_status = {
@@ -113,7 +113,6 @@ FactoryBot.define do
         qualifying_widow: 5,
       }[evaluator.filing_status.to_sym] || evaluator.filing_status
       intake.direct_file_data.filing_status = numeric_status
-      intake.direct_file_data.hoh_qualifying_person_name = evaluator.hoh_qualifying_person_name
       intake.direct_file_data.fed_agi = 120000
       intake.direct_file_data.fed_w2_state = "AZ"
       intake.raw_direct_file_data = intake.direct_file_data.to_s
