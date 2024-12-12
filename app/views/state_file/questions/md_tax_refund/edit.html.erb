@@ -31,8 +31,12 @@
           </div>
         </div>
       </div>
-      <%= f.cfa_checkbox(:bank_authorization_confirmed, t(".bank_authorization_confirmation"), options: { checked_value: "yes", unchecked_value: "no" }) %>
-      <%= f.continue %>
+      <div class="question-with-follow-up__follow-up" id="mail-check">
+        <div class="question-with-follow-up">
+          <%= f.cfa_checkbox(:bank_authorization_confirmed, t(".bank_authorization_confirmation"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+          <%= f.continue %>
+        </div>
+      </div>
     </div>
   <% end %>
 <% end %>
