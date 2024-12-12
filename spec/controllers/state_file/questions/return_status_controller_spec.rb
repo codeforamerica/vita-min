@@ -322,6 +322,10 @@ RSpec.describe StateFile::Questions::ReturnStatusController do
           end
 
           context "auto-cancel error" do
+            before do
+              efile_submission.transition_to(:cancelled)
+            end
+
             it "shows next steps when present" do
               error = efile_submission.efile_submission_transitions.where(to_state: "rejected").last.efile_errors.last
               error.update(auto_cancel: true)
@@ -343,6 +347,10 @@ RSpec.describe StateFile::Questions::ReturnStatusController do
           end
 
           context "auto-wait error" do
+            before do
+              efile_submission.transition_to(:waiting)
+            end
+
             it "shows next steps title and button to edit return" do
               error = efile_submission.efile_submission_transitions.where(to_state: "rejected").last.efile_errors.last
               error.update(auto_wait: true)
