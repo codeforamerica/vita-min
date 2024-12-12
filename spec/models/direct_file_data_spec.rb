@@ -397,7 +397,7 @@ describe DirectFileData do
         expect(@direct_file_data.fed_mortgage_interest_credit_amount).to eq(2000)
         expect(@direct_file_data.fed_adoption_credit_amount).to eq(3000)
         expect(@direct_file_data.fed_dc_homebuyer_credit_amount).to eq(4000)
-        expect(@direct_file_data.total_qualifying_dependent_care_expenses).to eq(1200)
+        expect(@direct_file_data.total_qualifying_dependent_care_expenses_or_limit).to eq(1200)
       end
     end
 
@@ -788,6 +788,42 @@ describe DirectFileData do
       it "returns the value" do
         expect(first_1099r.designated_roth_account_first_year).to eq nil
         expect(second_1099r.designated_roth_account_first_year).to eq nil
+      end
+    end
+  end
+
+  describe "#total_qualifying_dependent_care_expenses_no_limit" do
+    context "when there are two qualifying persons with qualified care expenses" do
+      let(:intake) { create(:state_file_md_intake, raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml("md_barramundi_qss")) }
+
+      it "returns the sum of those expenses without the federal limit" do
+        expect(intake.direct_file_data.total_qualifying_dependent_care_expenses_no_limit).to eq 5500
+      end
+    end
+
+    context "when the qualified care expense exceed the federal limit" do
+      let(:intake) { create(:state_file_md_intake, raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml("id_ida_hoh")) }
+
+      it "returns the sum of those expenses without the federal limit" do
+        expect(intake.direct_file_data.total_qualifying_dependent_care_expenses_no_limit).to eq 15000
+      end
+    end
+  end
+
+  describe "#dependent_cared_for_count" do
+    context "when there are two qualifying dependents" do
+      let(:intake) { create(:state_file_md_intake, raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml("md_barramundi_qss")) }
+
+      it "returns the sum of those expense without the federal limit" do
+        expect(intake.direct_file_data.dependent_cared_for_count).to eq 2
+      end
+    end
+
+    context "when there are no qualifying dependents" do
+      let(:intake) { create(:state_file_md_intake, raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml("md_anchovies_mfj")) }
+
+      it "returns the sum of those expense without the federal limit" do
+        expect(intake.direct_file_data.dependent_cared_for_count).to eq 0
       end
     end
   end

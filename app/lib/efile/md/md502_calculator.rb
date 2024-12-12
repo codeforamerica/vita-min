@@ -62,7 +62,7 @@ module Efile
         set_line(:MD502_LINE_7, :calculate_line_7)
 
         # Subtractions
-        set_line(:MD502_LINE_9, @direct_file_data, :total_qualifying_dependent_care_expenses)
+        set_line(:MD502_LINE_9, @direct_file_data, :total_qualifying_dependent_care_expenses_or_limit)
         set_line(:MD502_LINE_10A, :calculate_line_10a) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
         set_line(:MD502_LINE_11, @direct_file_data, :fed_taxable_ssb)
         @md502_su.calculate

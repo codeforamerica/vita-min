@@ -89,7 +89,7 @@ module Efile
       end
 
       def calculate_line_4(primary_or_spouse)
-        cdc_expenses = (@direct_file_data.total_qualifying_dependent_care_expenses || 0) / 2
+        cdc_expenses = (@direct_file_data.total_qualifying_dependent_care_expenses_or_limit || 0) / 2
 
         # NOTE: Stub alert - this data relies on 1099R followup questions, which have been deprioritized
         pension_exclusion = 0
