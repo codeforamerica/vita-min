@@ -19,8 +19,8 @@ RSpec.describe PdfFiller::Az301Pdf do
       let(:intake) { create(:state_file_az_intake, :with_az321_contributions, :with_az322_contributions) }
 
       it "sets other fields to the correct values" do
-        expect(pdf_fields['FY_Beg']).to eq '0101'
-        expect(pdf_fields['FY_End']).to eq "1231#{Rails.configuration.statefile_current_tax_year}"
+        expect(pdf_fields['FY_Beg']).to be_nil
+        expect(pdf_fields['FY_End']).to be_nil
         expect(pdf_fields['Tp_Name']).to eq 'Ariz  Onian '
         expect(pdf_fields['Tp_SSN']).to eq '555002222'
         expect(pdf_fields['6a']).to eq '470'
