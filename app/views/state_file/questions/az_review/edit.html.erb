@@ -135,7 +135,7 @@
       </div>
 
       <div class="spacing-below-25">
-        <p class="text--bold spacing-below-5"><%=t(".incr_deduction_chrit_contributions") %></p>
+        <p class="text--bold spacing-below-5"><%=t(".incr_deduction_charity_contributions") %></p>
         <p><%= number_to_currency(current_intake.calculator.line_or_zero(:AZ140_LINE_44)) %></p>
       </div>
 
@@ -162,11 +162,6 @@
       <div class="spacing-below-25">
         <p class="text--bold spacing-below-5"><%=t(".credit_to_qualifying_charitable") %></p>
         <p><%= number_to_currency(current_intake.calculator.line_or_zero(:AZ301_LINE_6c)) %></p>
-      </div>
-
-      <div class="spacing-below-25">
-        <p class="text--bold spacing-below-5"><%=t(".total_tax_nonrefundable_credits") %></p>
-        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:AZ301_LINE_7c)) %></p>
       </div>
 
       <div class="spacing-below-25">
