@@ -1,0 +1,160 @@
+{
+  "familyAndHousehold": [
+    {
+      "monthsLivedWithTPInUS": "twelve",
+      "lastName": "Blackburn",
+      "hohQualifyingPerson": null,
+      "isClaimedDependent": true,
+      "qualifyingChild": true,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "2020-01-20",
+      "suffix": null,
+      "residencyDuration": "allYear",
+      "firstName": "Kim",
+      "middleInitial": null,
+      "scheduleEicLine4aNo": false,
+      "tin": "400-55-5005",
+      "eligibleDependent": true,
+      "relationship": "biologicalChild",
+      "ssnNotValidForEmployment": false
+    },
+    {
+      "monthsLivedWithTPInUS": "twelve",
+      "lastName": "Blackburn",
+      "hohQualifyingPerson": null,
+      "isClaimedDependent": true,
+      "qualifyingChild": true,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "2012-01-01",
+      "suffix": null,
+      "residencyDuration": "allYear",
+      "firstName": "Leah",
+      "middleInitial": null,
+      "scheduleEicLine4aNo": false,
+      "tin": "400-55-7005",
+      "eligibleDependent": true,
+      "relationship": "biologicalChild",
+      "ssnNotValidForEmployment": false
+    },
+    {
+      "monthsLivedWithTPInUS": "twelve",
+      "lastName": "Blackburn",
+      "hohQualifyingPerson": null,
+      "isClaimedDependent": true,
+      "qualifyingChild": true,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "2018-01-01",
+      "suffix": null,
+      "residencyDuration": "allYear",
+      "firstName": "Bill",
+      "middleInitial": null,
+      "scheduleEicLine4aNo": false,
+      "tin": "400-55-3005",
+      "eligibleDependent": true,
+      "relationship": "biologicalChild",
+      "ssnNotValidForEmployment": false
+    },
+    {
+      "monthsLivedWithTPInUS": "twelve",
+      "lastName": "Blackburn",
+      "hohQualifyingPerson": null,
+      "isClaimedDependent": true,
+      "qualifyingChild": true,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "2013-04-02",
+      "suffix": null,
+      "residencyDuration": "allYear",
+      "firstName": "Katie",
+      "middleInitial": null,
+      "scheduleEicLine4aNo": false,
+      "tin": "400-55-6005",
+      "eligibleDependent": true,
+      "relationship": "biologicalChild",
+      "ssnNotValidForEmployment": false
+    },
+    {
+      "monthsLivedWithTPInUS": "twelve",
+      "lastName": "Blackburn",
+      "isClaimedDependent": true,
+      "hohQualifyingPerson": null,
+      "qualifyingChild": true,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "2019-01-10",
+      "suffix": null,
+      "residencyDuration": "allYear",
+      "firstName": "Bob",
+      "middleInitial": null,
+      "tin": "400-55-4005",
+      "scheduleEicLine4aNo": false,
+      "eligibleDependent": true,
+      "relationship": "biologicalChild",
+      "ssnNotValidForEmployment": false
+    },
+    {
+      "monthsLivedWithTPInUS": "twelve",
+      "lastName": "Blackburn",
+      "isClaimedDependent": true,
+      "hohQualifyingPerson": null,
+      "qualifyingChild": true,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "2009-10-05",
+      "suffix": null,
+      "residencyDuration": "allYear",
+      "firstName": "Lance",
+      "middleInitial": null,
+      "tin": "400-55-8005",
+      "scheduleEicLine4aNo": false,
+      "eligibleDependent": true,
+      "relationship": "biologicalChild",
+      "ssnNotValidForEmployment": false
+    }
+  ],
+  "filers": [
+    {
+      "lastName": "Blackburn",
+      "firstName": "Mary",
+      "middleInitial": "J",
+      "educatorExpenses": "0.00",
+      "tin": "400-00-6314",
+      "dateOfBirth": "1980-03-30",
+      "suffix": null,
+      "isPrimaryFiler": false,
+      "ssnNotValidForEmployment": null,
+      "hsaTotalDeductibleAmount": null
+    },
+    {
+      "firstName": "Ronald",
+      "lastName": "Blackburn",
+      "middleInitial": "J",
+      "educatorExpenses": "0.00",
+      "tin": "400-00-6304",
+      "dateOfBirth": "1981-02-25",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "ssnNotValidForEmployment": null,
+      "hsaTotalDeductibleAmount": null
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [
+    {
+      "usedTin": "400-00-6314",
+      "unionDuesAmount": null
+    },
+    {
+      "usedTin": "400-00-6304",
+      "unionDuesAmount": null
+    },
+    {
+      "usedTin": "400-00-6314",
+      "unionDuesAmount": null
+    }
+  ],
+  "interestReports": []
+}
