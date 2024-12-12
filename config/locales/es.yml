@@ -2677,9 +2677,7 @@ es:
           sales_tax_title: "¿Qué son los impuestos sobre las ventas?"
           sales_use_tax_helper_text: Ingrese el monto total
           subtitle_html: Esto incluye compras en línea donde <strong>no</strong> se aplicaron impuestos sobre las ventas o el uso
-          title:
-            one: "¿Hizo alguna compra fuera del estado en %{year} sin pagar impuesto sobre las ventas?"
-            other: "¿Usted o su cónyuge realizaron compras fuera del estado en %{year} sin pagar impuestos sobre las ventas?"
+          title: "¿Hizo alguna compra fuera del estado en %{year} sin pagar impuesto sobre las ventas?"
           unpaid_sales_use_tax_label_html: Ingrese la <b>cantidad total de compras</b> a las que no se les aplicaron impuestos sobre las ventas o el uso.
       id_spouse_state_id:
         id_spouse:
