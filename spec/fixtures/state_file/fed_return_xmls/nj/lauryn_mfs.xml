@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v4.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>31cdc8a8</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>300000002</PrimarySSN>
+            <SpouseSSN>600000010</SpouseSSN>
+            <NameLine1Txt>LAURYN&lt;HILL</NameLine1Txt>
+            <PrimaryNameControlTxt>HILL</PrimaryNameControlTxt>
+            <SpouseNameControlTxt>MARL</SpouseNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>1 Miseducation St</AddressLine1Txt>
+                <CityNm>South Orange</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07333</ZIPCd>
+            </USAddress>
+            <PhoneNum>2015556789</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+30000000-2272-4df7-9032-bfcb418beb7a@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="3">
+        <IRS1040 documentId="IRS10400001">
+            <IndividualReturnFilingStatusCd>3</IndividualReturnFilingStatusCd>
+            <SpouseNm>Rohan Marley</SpouseNm>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <PrimaryBlindInd>X</PrimaryBlindInd>
+            <TotalBoxesCheckedCnt>1</TotalBoxesCheckedCnt>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <DependentDetail>
+                <DependentFirstNm>Lauryn</DependentFirstNm>
+                <DependentLastNm>Hill Jr</DependentLastNm>
+                <DependentNameControlTxt>HILL</DependentNameControlTxt>
+                <DependentSSN>600000002</DependentSSN>
+                <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+                <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+            </DependentDetail>
+            <ChldWhoLivedWithYouCnt>1</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>2</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">16000</WagesAmt>
+            <WagesSalariesAndTipsAmt>16000</WagesSalariesAndTipsAmt>
+            <TotalIncomeAmt>16000</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>16000</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>16150</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>16150</TotalDeductionsAmt>
+            <TaxableIncomeAmt>0</TaxableIncomeAmt>
+            <TaxAmt>0</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>0</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>0</TaxLessCreditsAmt>
+            <TotalTaxAmt>0</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>200</FormW2WithheldTaxAmt>
+            <WithholdingTaxAmt>200</WithholdingTaxAmt>
+            <AdditionalChildTaxCreditAmt referenceDocumentId="IRS8812001" referenceDocumentName="IRS1040Schedule8812">1700</AdditionalChildTaxCreditAmt>
+            <RefundableCreditsAmt>1700</RefundableCreditsAmt>
+            <TotalPaymentsAmt>1900</TotalPaymentsAmt>
+            <OverpaidAmt>1900</OverpaidAmt>
+            <RefundAmt>1900</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Singer</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1040Schedule8812 documentId="IRS8812001" documentName="IRS1040Schedule8812">
+            <AdjustedGrossIncomeAmt>16000</AdjustedGrossIncomeAmt>
+            <ModifiedAGIAmt>16000</ModifiedAGIAmt>
+            <QlfyChildUnderAgeSSNCnt>1</QlfyChildUnderAgeSSNCnt>
+            <QlfyChildUnderAgeSSNLimtAmt>2000</QlfyChildUnderAgeSSNLimtAmt>
+            <OtherDependentCnt>0</OtherDependentCnt>
+            <InitialCTCODCAmt>2000</InitialCTCODCAmt>
+            <FilingStatusThresholdCd>200000</FilingStatusThresholdCd>
+            <ExcessAdjGrossIncomeAmt>0</ExcessAdjGrossIncomeAmt>
+            <ModifiedAGIPhaseOutAmt>0</ModifiedAGIPhaseOutAmt>
+            <CTCODCOverAGILimitInd>true</CTCODCOverAGILimitInd>
+            <CTCODCAfterAGILimitAmt>2000</CTCODCAfterAGILimitAmt>
+            <ACTCTaxLiabiltyLimitAmt>0</ACTCTaxLiabiltyLimitAmt>
+            <CTCODCAmt>0</CTCODCAmt>
+            <ClaimACTCAllFilersGrp>
+                <ACTCBeforeLimitAmt>2000</ACTCBeforeLimitAmt>
+                <QlfyChildUnderAgeSSNCnt>1</QlfyChildUnderAgeSSNCnt>
+                <QlfyChildUnderAgeSSNLimtAmt>1700</QlfyChildUnderAgeSSNLimtAmt>
+                <ACTCAfterLimitAmt>1700</ACTCAfterLimitAmt>
+                <TotalEarnedIncomeAmt>16000</TotalEarnedIncomeAmt>
+                <EarnedIncmMoreThanSpecifiedInd>true</EarnedIncmMoreThanSpecifiedInd>
+                <NetTotalEarnedIncomeAmt>13500</NetTotalEarnedIncomeAmt>
+                <NetEarnedIncomeCalculatedAmt>2025</NetEarnedIncomeCalculatedAmt>
+                <ThreeOrMoreQlfyChildrenInd>false</ThreeOrMoreQlfyChildrenInd>
+            </ClaimACTCAllFilersGrp>
+            <AdditionalChildTaxCreditAmt>1700</AdditionalChildTaxCreditAmt>
+        </IRS1040Schedule8812>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>300000002</EmployeeSSN>
+            <EmployerEIN>006543212</EmployerEIN>
+            <EmployerNameControlTxt>MISE</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Miseducation University</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>2 Zion St</AddressLine1Txt>
+                <CityNm>Ho Ho Kus</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07843</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Lauryn Hill</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>1 Miseducation St</AddressLine1Txt>
+                <CityNm>South Orange</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07333</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>16000</WagesAmt>
+            <WithholdingAmt>200</WithholdingAmt>
+            <SocialSecurityWagesAmt>16000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>200</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>16000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>200</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                    <EmployerStateIdNum>252525</EmployerStateIdNum>
+                    <StateWagesAmt>16000</StateWagesAmt>
+                    <StateIncomeTaxAmt>1000</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>

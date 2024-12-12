@@ -213,9 +213,9 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
     context "qualifying widow/er filers" do
       let(:intake) { create(:state_file_nj_intake, filing_status: "qualifying_widow") }
       
-      context "when spouse passed last year" do
+      context "when spouse passed in previous calendar year" do
         before do
-          date_within_prior_year = "#{MultiTenantService.new(:statefile).current_tax_year}-09-30"
+          date_within_prior_year = "#{MultiTenantService.new(:statefile).current_tax_year - 1}-09-30"
           submission.data_source.direct_file_data.spouse_date_of_death = date_within_prior_year
         end
   
@@ -233,7 +233,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
 
       context "when spouse passed two years prior" do
         before do
-          date_within_prior_year = "#{MultiTenantService.new(:statefile).current_tax_year - 1}-09-30"
+          date_within_prior_year = "#{MultiTenantService.new(:statefile).current_tax_year - 2}-09-30"
           submission.data_source.direct_file_data.spouse_date_of_death = date_within_prior_year
         end
   
@@ -402,24 +402,17 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
       end
     end
 
-    describe 'line 16a taxable interest income' do
-      context 'with no interest reports' do
-        let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
+    describe 'line 16a taxable interest income' do  
+      context 'with no taxable interest income' do
         it 'does not set line 16a' do
-          expect(xml.at("Body TaxableInterestIncome")).to eq(nil)
-        end
-      end
-  
-      context 'with interest reports, but no interest on government bonds' do
-        let(:intake) { create(:state_file_nj_intake, :df_data_one_dep) }
-        it 'does not set line 16a' do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_16a).and_return 0
           expect(xml.at("Body TaxableInterestIncome")).to eq(nil)
         end
       end 
   
-      context 'with interest on government bonds' do
-        let(:intake) { create(:state_file_nj_intake, :df_data_two_deps) }
+      context 'with taxable interest income' do
         it 'sets line 16a to 300 (fed taxable income minus sum of bond interest)' do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_16a).and_return 300
           expect(xml.at("Body TaxableInterestIncome").text).to eq("300")
         end
       end
@@ -732,7 +725,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
     describe "lines 53a, 53b, 53c: health insurance indicators" do
       context "when taxpayer indicated all members of household have health insurance" do
         before do
-          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_53c_checkbox).and_return true
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:line_53c_checkbox).and_return true
         end
         
         it "checks 53c Schedule NJ-HCC checkbox and leaves 53a, 53b, and 53c amount blank" do
@@ -745,7 +738,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
 
       context "when taxpayer indicated all members of household do NOT have health insurance" do
         before do
-          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_53c_checkbox).and_return false
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:line_53c_checkbox).and_return false
         end
 
         context "when qualifies for income exemption" do

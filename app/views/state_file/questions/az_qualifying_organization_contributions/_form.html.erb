@@ -1,7 +1,7 @@
-<% @main_heading = t('.main_heading', filing_year: current_tax_year) %>
+<% @main_heading_no_html = strip_tags(t('.main_heading_html')) %>
 <% show_yes_no = @contribution_count == 0  %>
 
-<% content_for :page_title, @main_heading %>
+<% content_for :page_title, @main_heading_no_html %>
 
 <% content_for :card do %>
   <%= form_with( model: @contribution, url: { action: @contribution.persisted? ? :update : :create }, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long' }) do |f| %>

@@ -168,7 +168,7 @@
       <W2StateLocalTaxGrp>
         <W2StateTaxGrp>
           <StateAbbreviationCd>MD</StateAbbreviationCd>
-          <EmployerStateIdNum>md 4321</EmployerStateIdNum>
+          <EmployerStateIdNum>4321</EmployerStateIdNum>
           <W2LocalTaxGrp/>
         </W2StateTaxGrp>
       </W2StateLocalTaxGrp>
