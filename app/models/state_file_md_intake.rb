@@ -13,6 +13,7 @@
 #  bank_authorization_confirmed               :integer          default("unfilled"), not null
 #  city                                       :string
 #  confirmed_permanent_address                :integer          default("unfilled"), not null
+#  consented_to_sms_terms                     :integer          default("unfilled"), not null
 #  consented_to_terms_and_conditions          :integer          default("unfilled"), not null
 #  contact_preference                         :integer          default("unfilled"), not null
 #  current_sign_in_at                         :datetime
@@ -124,6 +125,7 @@ class StateFileMdIntake < StateFileBaseIntake
   enum sms_notification_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :sms_notification_opt_in
   enum bank_authorization_confirmed: { unfilled: 0, yes: 1, no: 2 }, _prefix: :bank_authorization_confirmed
   enum has_joint_account_holder: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_joint_account_holder
+  enum consented_to_sms_terms: { unfilled: 0, yes: 1, no: 2 }, _prefix: :consented_to_sms_terms
 
   def disqualifying_df_data_reason
     w2_states = direct_file_data.parsed_xml.css('W2StateLocalTaxGrp W2StateTaxGrp StateAbbreviationCd')
@@ -189,6 +191,18 @@ class StateFileMdIntake < StateFileBaseIntake
 
   def filing_status_dependent?
     filing_status == :dependent
+  end
+
+  def address
+    if confirmed_permanent_address_yes?
+      result = "#{self.direct_file_data.mailing_street}"
+      result += " #{self.direct_file_data.mailing_apartment}" if self.direct_file_data.mailing_apartment.present?
+      result += ", #{self.direct_file_data.mailing_city}, #{self.direct_file_data.mailing_state} #{self.direct_file_data.mailing_zip}"
+      result
+    else
+      apt = self.permanent_apartment.present? ? " #{self.permanent_apartment}" : ""
+      "#{self.permanent_street}#{apt}, #{self.permanent_city} MD, #{self.permanent_zip}"
+    end
   end
 
   def extract_apartment_from_mailing_street?

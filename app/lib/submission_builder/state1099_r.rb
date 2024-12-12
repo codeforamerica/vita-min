@@ -31,7 +31,7 @@ module SubmissionBuilder
             xml.TotalDistributionInd 'X'
           end
           xml.FederalIncomeTaxWithheldAmt form1099r.federal_income_tax_withheld_amount&.round
-          xml.F1099RDistributionCd form1099r.distribution_code
+          xml.F1099RDistributionCd form1099r.distribution_code if form1099r.distribution_code.present?
           xml.DesignatedROTHAcctFirstYr form1099r.designated_roth_account_first_year if form1099r.designated_roth_account_first_year.present?
           xml.F1099RStateLocalTaxGrp do
             xml.F1099RStateTaxGrp do

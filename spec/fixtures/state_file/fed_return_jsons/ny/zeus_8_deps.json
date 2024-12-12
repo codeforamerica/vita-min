@@ -39,7 +39,7 @@
       "middleInitial": null,
       "tin": "300-00-0024",
       "dateOfBirth": "2022-04-05",
-      "relationship": "grandChildOrOtherDescendentOfChild",
+      "relationship": "grandChildOrOtherDescendantOfChild",
       "eligibleDependent": true,
       "isClaimedDependent": true,
       "monthsLivedWithTPInUS": "twelve"

@@ -27,6 +27,9 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in "Your phone number", with: "+12025551212"
       click_on "Continue"
 
+      expect(page).to have_text I18n.t('state_file.questions.sms_terms.edit.title')
+      click_on I18n.t("general.accept")
+
       expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
       click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
 
@@ -109,7 +112,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text "Good news, you're getting a New York state tax refund of $1468. How would you like to receive your refund?"
+      expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.tax_refund.edit.title_html", state_name: "New York", refund_amount: 1468))
       expect(page).not_to have_text "Your responses are saved. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org."
       choose I18n.t("state_file.questions.tax_refund.edit.mail")
       click_on I18n.t("general.continue")
@@ -153,6 +156,9 @@ RSpec.feature "Completing a state file intake", active_job: true do
       check "Text message"
       fill_in "Your phone number", with: "+12025551212"
       click_on "Continue"
+
+      expect(page).to have_text I18n.t('state_file.questions.sms_terms.edit.title')
+      click_on I18n.t("general.accept")
 
       expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
       click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
@@ -209,7 +215,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in I18n.t("state_file.questions.az_charitable_contributions.edit.charitable_noncash_html"), with: "123"
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t('state_file.questions.az_qualifying_organization_contributions.form.main_heading', filing_year: filing_year)
+      expect(strip_html_tags(page.body)).to have_text strip_html_tags(I18n.t('state_file.questions.az_qualifying_organization_contributions.form.main_heading_html', filing_year: filing_year))
       choose I18n.t("general.affirmative")
       fill_in "az321_contribution_charity_name", with: "Center for Ants"
       fill_in "az321_contribution_charity_code", with: "21134"
@@ -248,7 +254,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text "Good news, you're getting a Arizona state tax refund of $1239. How would you like to receive your refund?"
+      expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.tax_refund.edit.title_html", state_name: "Arizona", refund_amount: 1239))
       expect(page).not_to have_text "Your responses are saved. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org."
 
       choose I18n.t("state_file.questions.tax_refund.edit.direct_deposit")
@@ -306,13 +312,16 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in "Your phone number", with: "+12025551212"
       click_on "Continue"
 
+      expect(page).to have_text I18n.t('state_file.questions.sms_terms.edit.title')
+      click_on I18n.t("general.accept")
+
       expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
       click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
 
       step_through_df_data_transfer("Transfer Nick")
 
       expect(page).to have_text I18n.t("state_file.questions.nc_county.edit.title", filing_year: filing_year)
-      select("Alamance", from: "County")
+      select("Buncombe", from: "County")
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t("state_file.questions.nc_veteran_status.title_spouse")
@@ -328,8 +337,8 @@ RSpec.feature "Completing a state file intake", active_job: true do
       choose I18n.t("general.affirmative")
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_name'), with: "Business Name"
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_address'), with: "123 Main St"
-      fill_in I18n.t('state_file.questions.unemployment.edit.city'), with: "Raleigh", match: :first
-      fill_in I18n.t('state_file.questions.unemployment.edit.zip_code'), with: "85001", match: :first
+      fill_in I18n.t('state_file.questions.unemployment.edit.city'), with: "Asheville", match: :first
+      fill_in I18n.t('state_file.questions.unemployment.edit.zip_code'), with: "28806", match: :first
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_tin'), with: "123456789"
       choose I18n.t('state_file.questions.unemployment.edit.recipient_myself')
       choose I18n.t('state_file.questions.unemployment.edit.confirm_address_yes')
@@ -375,6 +384,19 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("state_file.questions.esign_declaration.edit.submit")
 
       expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "North Carolina", filing_year: filing_year)
+
+      click_on "Main XML Doc"
+
+      expect(page.body).to include('efile:ReturnState')
+      expect(page.body).to include('<FirstName>Nick</FirstName>')
+      expect(page.body).to include('<DisasterReliefTxt>Buncombe_Helene</DisasterReliefTxt>')
+      expect(page.body).to include('<NCCountyCode>011</NCCountyCode>')
+      expect(page.body).to include('<DrvrLcnsStCd>AK</DrvrLcnsStCd>')
+
+      perform_enqueued_jobs
+      submission = EfileSubmission.last
+      expect(submission.submission_bundle).to be_present
+      expect(submission.current_state).to eq("queued")
     end
   end
 
@@ -394,6 +416,9 @@ RSpec.feature "Completing a state file intake", active_job: true do
       check "Text message"
       fill_in "Your phone number", with: "+12025551212"
       click_on "Continue"
+
+      expect(page).to have_text I18n.t('state_file.questions.sms_terms.edit.title')
+      click_on I18n.t("general.accept")
 
       expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
       click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
@@ -465,7 +490,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("general.continue")
 
       # Refund page
-      expect(page).to have_text "Good news, you're getting a Idaho state tax refund of $1452. How would you like to receive your refund?"
+      expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.tax_refund.edit.title_html", state_name: "Idaho", refund_amount: 1452))
       expect(page).not_to have_text "Your responses are saved. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org."
       choose I18n.t("state_file.questions.tax_refund.edit.mail")
       click_on I18n.t("general.continue")
@@ -475,6 +500,18 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("state_file.questions.esign_declaration.edit.submit")
 
       expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Idaho", filing_year: filing_year)
+
+      click_on "Main XML Doc"
+
+      expect(page.body).to include('efile:ReturnState')
+      expect(page.body).to include('<FirstName>Testy</FirstName>')
+      expect(page.body).to include('<HealthInsurancePaid>1235</HealthInsurancePaid>')
+      expect(page.body).to include('<GroceryCredit>240</GroceryCredit>')
+
+      perform_enqueued_jobs
+      submission = EfileSubmission.last
+      expect(submission.submission_bundle).to be_present
+      expect(submission.current_state).to eq("queued")
     end
   end
 
@@ -505,6 +542,9 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in "Your phone number", with: "+12025551212"
       click_on "Continue"
 
+      expect(page).to have_text I18n.t('state_file.questions.sms_terms.edit.title')
+      click_on I18n.t("general.accept")
+
       expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
       click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
 
@@ -529,6 +569,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in I18n.t('state_file.questions.unemployment.edit.city'), with: "Baltimore", match: :first
       fill_in I18n.t('state_file.questions.unemployment.edit.zip_code'), with: "85001", match: :first
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_tin'), with: "123456789"
+      choose I18n.t('state_file.questions.unemployment.edit.recipient_my_spouse')
       choose I18n.t('state_file.questions.unemployment.edit.confirm_address_yes')
       fill_in 'state_file1099_g_unemployment_compensation_amount', with: "123"
       fill_in 'state_file1099_g_federal_income_tax_withheld_amount', with: "456"
@@ -543,7 +584,8 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t('state_file.questions.primary_state_id.edit.title')
-      choose I18n.t('state_file.questions.primary_state_id.state_id.id_type_question.dmv')
+      choose I18n.t('state_file.questions.md_primary_state_id.md_primary.dmv_bmv_label')
+
       fill_in I18n.t('state_file.questions.primary_state_id.state_id.id_details.number'), with: "012345678"
       select_cfa_date "state_file_primary_state_id_form_issue_date", 4.years.ago.beginning_of_year
       select_cfa_date "state_file_primary_state_id_form_expiration_date", 4.years.from_now.beginning_of_year
@@ -573,7 +615,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in 'state_file_md_tax_refund_form_routing_number_confirmation', with: "019456124"
       fill_in 'state_file_md_tax_refund_form_account_number', with: "123456789"
       fill_in 'state_file_md_tax_refund_form_account_number_confirmation', with: "123456789"
-      check I18n.t('state_file.questions.md_tax_refund.md_bank_details.bank_authorization_confirmation')
+      check I18n.t('state_file.questions.md_tax_refund.edit.bank_authorization_confirmation')
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t("state_file.questions.esign_declaration.edit.title", state_name: "Maryland")
@@ -586,6 +628,20 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("state_file.questions.esign_declaration.edit.submit")
 
       expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Maryland", filing_year: filing_year)
+      expect(page).to have_link I18n.t("state_file.questions.submission_confirmation.edit.download_state_return_pdf")
+
+      click_on "Main XML Doc"
+
+      expect(page.body).to include('efile:ReturnState')
+      expect(page.body).to include('<FirstName>Zeus</FirstName>')
+      expect(page.body).to include('<CityTownOrTaxingArea>Town Of Barton</CityTownOrTaxingArea>')
+      expect(page.body).to include('<TaxpayerPIN>12345</TaxpayerPIN>')
+      expect(page.body).to include('<TaxpayerPIN>54321</TaxpayerPIN>')
+
+      perform_enqueued_jobs
+      submission = EfileSubmission.last
+      expect(submission.submission_bundle).to be_present
+      expect(submission.current_state).to eq("queued")
     end
   end
 
@@ -605,6 +661,9 @@ RSpec.feature "Completing a state file intake", active_job: true do
       check "Text message"
       fill_in "Your phone number", with: "+12025551212"
       click_on "Continue"
+
+      expect(page).to have_text I18n.t('state_file.questions.sms_terms.edit.title')
+      click_on I18n.t("general.accept")
 
       expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
       click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
