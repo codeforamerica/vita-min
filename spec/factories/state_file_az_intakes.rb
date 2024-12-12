@@ -102,6 +102,7 @@ FactoryBot.define do
     primary_last_name { "Onian" }
     primary_birth_date { Date.new((MultiTenantService.statefile.current_tax_year - 65), 12, 1) }
     state_file_analytics { StateFileAnalytics.create }
+    # phone_number: "+15551115511" # number taken from specs for Phony
 
     after(:build) do |intake, evaluator|
       numeric_status = {

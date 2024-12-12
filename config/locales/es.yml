@@ -1667,6 +1667,19 @@ es:
 
           Atentamente,
           El equipo de FileYourStateTaxes
+      terminal_rejected:
+        email:
+          body: |
+            Hola, %{primary_first_name}:
+
+            Lamentablemente, %{state_name} rechazó su declaración de impuestos estatales debido a un problema que no se puede resolver en nuestra herramienta. ¡No se preocupe! Podemos ayudarlo a brindarle orientación sobre los próximos pasos. Puede chatear con nosotros en %{return_status_link}.
+
+            ¿Tiene preguntas? Responda a este correo electrónico.
+
+            Atentamente,
+            El equipo de FileYourStateTaxes
+          subject: 'Actualización de FileYourStateTaxes: Declaración estatal rechazada de %{state_name}'
+        sms: "Hola, %{primary_first_name}: Lamentablemente, %{state_name} rechazó tu declaración de impuestos estatales por un problema que no se puede resolver en nuestra herramienta. ¡No te preocupes! Podemos ayudarte a brindar orientación sobre los próximos pasos. Chatea con nosotros en %{return_status_link}. \n\n¿Tienes preguntas? Responde a este texto.\n"
       welcome:
         email:
           body: "Hola,\n\n¡Hemos creado exitosamente tu cuenta en FileYourStateTaxes! Te enviaremos actualizaciones sobre el estado de tu declaración de impuestos estatal una vez que la envíes. Mientras estás presentando tu declaración, tus respuestas se guardarán a medida que avances. Si necesitas hacer una pausa, puedes regresar e iniciar sesión en tu cuenta en fileyourstatetaxes.org/es.\n\nTu ID de cliente es %{intake_id}. Esta es una pieza importante de información de tu cuenta que puedes necesitar al hablar con nuestro equipo de soporte. Por favor, haz un seguimiento de este número y no borres este mensaje.\n\n¿Necesitas ayuda? Responde a este correo electrónico.\n\nSaludos, \nEl equipo de FileYourStateTaxes\n"
