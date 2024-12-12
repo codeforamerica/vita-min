@@ -17,8 +17,7 @@ module StateFile
     private
 
     def should_validate_email?
-      attributes_for(:intake)[:email_notification_opt_in] == "yes" &&
-        !@intake.email_address.present?
+      email_notification_opt_in == "yes" && !@intake.email_address.present?
     end
 
     def at_least_one_selected
