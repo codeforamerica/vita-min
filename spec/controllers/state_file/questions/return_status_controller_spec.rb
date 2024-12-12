@@ -256,6 +256,28 @@ RSpec.describe StateFile::Questions::ReturnStatusController do
                                                     state_name: StateFile::StateInformationService.state_name(state_code),
                                                     filing_year: MultiTenantService.statefile.current_tax_year)
           end
+
+          context "refund vs owe" do
+            it "shows the content for refund when amount is positive" do
+              allow_any_instance_of(StateFile::StateInformationService.calculator_class(state_code)).to receive(:refund_or_owed_amount).and_return 100
+
+              get :edit
+
+              expect(response.body).to include I18n.t("state_file.questions.return_status.accepted.#{state_code}.refund_details_html",
+                                                      default: :"state_file.questions.return_status.accepted.refund_details_html",
+                                                      website_name: assigns(:tax_refund_website_name),
+                                                      tax_refund_url: assigns(:tax_refund_url))
+            end
+
+            it "shows the content for owed when amount is negative" do
+              allow_any_instance_of(StateFile::StateInformationService.calculator_class(state_code)).to receive(:refund_or_owed_amount).and_return -100
+
+              get :edit
+
+              expect(response.body).to include I18n.t("state_file.questions.return_status.accepted.direct_debit_html", tax_payment_url: assigns(:tax_payment_url))
+              expect(response.body).to include I18n.t("state_file.questions.return_status.accepted.pay_by_mail_or_moneyorder")
+            end
+          end
         end
 
         context "rejected" do
