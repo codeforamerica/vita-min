@@ -16,8 +16,6 @@ module PdfFiller
 
     def hash_for_pdf
       {
-        "FY_Beg" => "0101",
-        "FY_End" => "1231#{Rails.configuration.statefile_current_tax_year}",
         "Tp_Name" => [@xml_document.at('Primary TaxpayerName FirstName')&.text, @xml_document.at('Primary TaxpayerName MiddleInitial')&.text, @xml_document.at('Primary TaxpayerName LastName')&.text, @xml_document.at('Primary TaxpayerName NameSuffix')&.text].join(' '),
         "Tp_SSN" => @xml_document.at('Primary TaxpayerSSN')&.text,
         "Spouse_Name" => [@xml_document.at('Secondary TaxpayerName FirstName')&.text, @xml_document.at('Secondary TaxpayerName MiddleInitial')&.text, @xml_document.at('Secondary TaxpayerName LastName')&.text, @xml_document.at('Secondary TaxpayerName NameSuffix')&.text].join(' '),

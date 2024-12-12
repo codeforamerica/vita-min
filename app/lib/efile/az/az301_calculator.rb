@@ -64,11 +64,12 @@ module Efile
       end
 
       def calculate_line_40
-        @lines[:AZ301_LINE_6c]&.value
+        [line_or_zero(:AZ301_LINE_6c), line_or_zero(:AZ301_LINE_34)].min
       end
 
       def calculate_line_41
-        @lines[:AZ301_LINE_7c]&.value
+        subtraction = [line_or_zero(:AZ301_LINE_34) - line_or_zero(:AZ301_LINE_40), 0].max
+        [subtraction, line_or_zero(:AZ301_LINE_7c)].min
       end
 
       def calculate_line_60

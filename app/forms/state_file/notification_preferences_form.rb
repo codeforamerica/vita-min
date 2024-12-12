@@ -22,7 +22,7 @@ module StateFile
 
     def at_least_one_selected
       unless attributes_for(:intake).values_at(:sms_notification_opt_in, :email_notification_opt_in).any? { |value| value == "yes" }
-        errors.add(:sms_notification_opt_in, I18n.t("state_file.questions.notification_preferences.form.at_least_one"))
+        errors.add(:email_notification_opt_in, I18n.t("state_file.questions.notification_preferences.form.at_least_one"))
       end
     end
 

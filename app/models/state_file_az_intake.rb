@@ -10,6 +10,7 @@
 #  charitable_cash_amount                 :decimal(12, 2)
 #  charitable_contributions               :integer          default("unfilled"), not null
 #  charitable_noncash_amount              :decimal(12, 2)
+#  consented_to_sms_terms                 :integer          default("unfilled"), not null
 #  consented_to_terms_and_conditions      :integer          default("unfilled"), not null
 #  contact_preference                     :integer          default("unfilled"), not null
 #  current_sign_in_at                     :datetime
@@ -108,6 +109,7 @@ class StateFileAzIntake < StateFileBaseIntake
   enum eligibility_out_of_state_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_out_of_state_income
   enum email_notification_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :email_notification_opt_in
   enum sms_notification_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :sms_notification_opt_in
+  enum consented_to_sms_terms: { unfilled: 0, yes: 1, no: 2 }, _prefix: :consented_to_sms_terms
 
   validates :made_az321_contributions, inclusion: { in: ["yes", "no"]}, on: :az321_form_create
   validates :az321_contributions, length: { maximum: 10 }
@@ -201,38 +203,5 @@ class StateFileAzIntake < StateFileBaseIntake
 
   def requires_hoh_qualifying_person_name?
     filing_status == :head_of_household
-  end
-
-  def hoh_qualifying_person_name
-    return unless requires_hoh_qualifying_person_name?
-
-    if direct_file_data&.hoh_qualifying_person_name.present?
-      # Federal data is an unstructured string - split on first space and everything in the second group goes to last name
-      names = direct_file_data.hoh_qualifying_person_name.split(/ /, 2)
-      return {
-        :first_name => names[0],
-        :last_name => names[1]
-      }
-    end
-
-    # This is fallback logic in case the data is not given in the federal return
-    hoh_qualifying_dependents = self.dependents.select(&:is_hoh_qualifying_person?)
-    unless hoh_qualifying_dependents.empty?
-      six_plus_months_in_home = hoh_qualifying_dependents.reject { |dependent|
-        dependent[:months_in_home] < 6
-      }
-      hoh_qualifying_dependent = six_plus_months_in_home.max_by { |dependent|
-        [dependent[:months_in_home], -dependent.calculate_age(inclusive_of_jan_1: false)]
-      }
-      if hoh_qualifying_dependent.nil?
-        hoh_qualifying_dependent = hoh_qualifying_dependents.select { |dependent|
-          dependent[:relationship] == "parent"
-        }.max_by { |dependent| dependent.calculate_age(inclusive_of_jan_1: false) }
-      end
-      {
-        :first_name => hoh_qualifying_dependent.first_name,
-        :last_name => hoh_qualifying_dependent.last_name
-      }
-    end
   end
 end
