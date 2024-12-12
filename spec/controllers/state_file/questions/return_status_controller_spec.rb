@@ -281,8 +281,8 @@ RSpec.describe StateFile::Questions::ReturnStatusController do
         end
 
         context "rejected" do
+          let!(:efile_submission) { create(:efile_submission, :rejected, :with_errors, :for_state, data_source: intake) }
           before do
-            efile_submission = create(:efile_submission, :rejected, :with_errors, :for_state, data_source: intake)
             efile_submission.transition_to(:notified_of_rejection)
           end
 
@@ -314,6 +314,55 @@ RSpec.describe StateFile::Questions::ReturnStatusController do
                 expect(response.body).not_to include error.code
                 expect(response.body).not_to include CGI.escapeHTML(error.message)
               end
+            end
+          end
+
+          context "auto-cancel error" do
+            it "shows next steps when present" do
+              error = efile_submission.efile_submission_transitions.where(to_state: "rejected").last.efile_errors.last
+              error.update(auto_cancel: true)
+              error.update(resolution_en: "You can spin around three times", resolution_es: "Puedes girar tres veces")
+
+              get :edit
+              expect(response.body).to include I18n.t("state_file.questions.return_status.rejected.next_steps.no_edit.title")
+              expect(response.body).to include "You can spin around three times"
+            end
+
+            it "shows a generic message when resolution not present" do
+              error = efile_submission.efile_submission_transitions.where(to_state: "rejected").last.efile_errors.last
+              error.update(auto_cancel: true)
+
+              get :edit
+              expect(response.body).to include I18n.t("state_file.questions.return_status.rejected.next_steps.no_edit.title")
+              expect(response.body).to include I18n.t("state_file.questions.return_status.rejected.next_steps.no_edit.body_html")
+            end
+          end
+
+          context "auto-wait error" do
+            it "shows next steps title and button to edit return" do
+              error = efile_submission.efile_submission_transitions.where(to_state: "rejected").last.efile_errors.last
+              error.update(auto_wait: true)
+
+              get :edit
+              expect(response.body).to include CGI.escapeHTML(I18n.t("state_file.questions.return_status.rejected.next_steps.can_edit.title"))
+              expect(response.body).to include CGI.escapeHTML(I18n.t("state_file.questions.return_status.rejected.edit_return"))
+            end
+
+            it "shows next steps when present" do
+              error = efile_submission.efile_submission_transitions.where(to_state: "rejected").last.efile_errors.last
+              error.update(auto_wait: true)
+              error.update(resolution_en: "You can spin around five times", resolution_es: "Puedes girar cinco veces")
+
+              get :edit
+              expect(response.body).to include "You can spin around five times"
+            end
+
+            it "shows a generic message when resolution not present" do
+              error = efile_submission.efile_submission_transitions.where(to_state: "rejected").last.efile_errors.last
+              error.update(auto_wait: true)
+
+              get :edit
+              expect(response.body).to include I18n.t("state_file.questions.return_status.rejected.next_steps.can_edit.body")
             end
           end
         end
