@@ -5,11 +5,14 @@
 
 <% content_for :card do %>
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
-    <h1 class="h2"><%= t(".helper_1_html") %></h1>
+    <p class="h2"><%= t(".helper_1") %></p>
+    <p class="h2"><%= t(".helper_2_html") %></p>
+    <p class="h2"><%= t(".helper_3") %></p>
+    <p class="h2"><%= t(".helper_4") %></p>
     <div class="white-group">
     <%= f.vita_min_money_field(:property_tax_paid, t('.label_html'), options: { placeholder: '0' }, classes: ["form-width--long"]) %>
     </div>
-    <p><%= t(".helper_2") %></p>
+    <p><%= t(".helper_5") %></p>
 
     <div class="reveal">
       <button class="reveal__button"><%= t('.anchor_homestead_helper_heading') %></button>

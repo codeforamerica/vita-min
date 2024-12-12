@@ -164,7 +164,7 @@ RSpec.describe StateFile::Questions::NjTenantEligibilityController do
             tenant_more_than_one_main_home_in_nj: "yes"
           )
         }
-        it "does not show either the worksheet screen or the rent paid screen" do
+        it "does not show neither the worksheet screen nor the rent paid screen" do
           expect(subject.next_path).not_to eq(StateFile::Questions::NjTenantPropertyTaxWorksheetController.to_path_helper)
           expect(subject.next_path).not_to eq(StateFile::Questions::NjTenantRentPaidController.to_path_helper)
           allow_any_instance_of(described_class.superclass).to receive(:next_path).and_return("/mocked/super/path")

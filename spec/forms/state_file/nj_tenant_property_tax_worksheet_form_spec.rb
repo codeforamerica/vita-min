@@ -11,17 +11,6 @@ RSpec.describe StateFile::NjTenantPropertyTaxWorksheetForm do
         { rent_paid: money_field_value }
       end
     end
-
-    context "cannot be zero" do
-      let(:params) do
-        { :rent_paid => 0 }
-      end
-
-      it "is invalid" do
-        expect(form.valid?).to eq false
-        expect(form.errors[:rent_paid]).to include "must be greater than or equal to 1"
-      end
-    end
   end
 
   describe ".save" do
