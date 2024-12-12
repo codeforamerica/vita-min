@@ -49,12 +49,12 @@ RSpec.describe StateFile::NjEligibilityHealthInsuranceForm do
         expect(intake.eligibility_all_members_health_insurance_yes?).to eq true
       end
 
-      it "does not save entered data for specific dependents" do
+      it "saves no for all dependents" do
         form = described_class.new(intake, valid_params)
         form.save
         intake.reload
-        expect(intake.dependents[0].nj_did_not_have_health_insurance).to eq "unfilled"
-        expect(intake.dependents[1].nj_did_not_have_health_insurance).to eq "unfilled"
+        expect(intake.dependents[0].nj_did_not_have_health_insurance).to eq "no"
+        expect(intake.dependents[1].nj_did_not_have_health_insurance).to eq "no"
       end
     end
 
