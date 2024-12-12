@@ -9,9 +9,11 @@ module StateFile
     validate :at_least_one_selected
 
     def save
-      email_attributes = should_validate_email? ? {} : {email_address: @intake.email_address}
-
-      @intake.update(attributes_for(:intake).merge(email_attributes))
+      if @intake.email_address.present?
+        @intake.update(attributes_for(:intake).except(:email_address))
+      else
+        @intake.update(attributes_for(:intake))
+      end
     end
 
     private

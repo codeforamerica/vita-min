@@ -150,6 +150,28 @@ RSpec.describe StateFile::NotificationPreferencesForm do
       end
     end
 
+    context "when email_notification_opt_in is not present" do
+      context "with existing email address" do
+        let!(:intake) { create :state_file_az_intake, email_address: "existing@example.com" }
+
+        let(:params) do
+          {
+            sms_notification_opt_in: "yes",
+            phone_number: "+14155551212",
+            email_address: ""
+          }
+        end
+
+        subject(:form) { described_class.new(intake, params) }
+
+        it "is valid and preserves the existing email" do
+          expect(form).to be_valid
+          form.save
+          expect(intake.reload.email_address).to eq "existing@example.com"
+        end
+      end
+    end
+
     context "when neither are present" do
       let(:invalid_params) do
         {
