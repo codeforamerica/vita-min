@@ -38,7 +38,7 @@ module StateFile
         case @submission_to_show.current_state
         when 'accepted'
           'accepted'
-        when 'notified_of_rejection', 'waiting'
+        when 'notified_of_rejection', 'waiting', 'cancelled'
           'rejected'
         else
           'pending'

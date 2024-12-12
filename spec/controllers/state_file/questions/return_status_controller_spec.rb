@@ -49,7 +49,11 @@ RSpec.describe StateFile::Questions::ReturnStatusController do
               get :edit
               expect(assigns(:return_status)).to eq 'rejected'
 
-              EfileSubmissionStateMachine.states.excluding("accepted", "notified_of_rejection", "waiting").each do |status|
+              create(:efile_submission, :cancelled, :for_state, data_source: intake)
+              get :edit
+              expect(assigns(:return_status)).to eq 'rejected'
+
+              EfileSubmissionStateMachine.states.excluding("accepted", "notified_of_rejection", "waiting", "cancelled").each do |status|
                 create(:efile_submission, status, :for_state, data_source: intake)
                 get :edit
                 expect(assigns(:return_status)).to eq 'pending'
@@ -59,7 +63,7 @@ RSpec.describe StateFile::Questions::ReturnStatusController do
 
           context "efile error" do
             context "should expose error" do
-              [:notified_of_rejection, :waiting].each do |status|
+              [:notified_of_rejection, :waiting, :cancelled].each do |status|
                 let!(:efile_submission) { create(:efile_submission, :rejected, :with_errors, :for_state, data_source: intake) }
                 let(:error) { efile_submission.efile_submission_transitions.where(to_state: 'rejected').last.efile_errors.last }
                 before do
@@ -86,7 +90,7 @@ RSpec.describe StateFile::Questions::ReturnStatusController do
                 end
               end
 
-              [:investigating, :fraud_hold, :resubmitted, :cancelled].each do |status|
+              [:investigating, :fraud_hold, :resubmitted].each do |status|
                 it "when #{status}, assigns nil even if errors exist" do
                   efile_submission = create(:efile_submission, :rejected, :with_errors, :for_state, data_source: intake)
                   efile_submission.transition_to!(status)
