@@ -4,8 +4,8 @@ module Efile
       class << self
         def eligible?(intake)
           possibly_eligible?(intake) &&
-          intake.claimed_as_eitc_qualifying_child_no? &&
-          (!intake.filing_status_mfj? || intake.spouse_claimed_as_eitc_qualifying_child_no?)
+            intake.claimed_as_eitc_qualifying_child_no? &&
+            (!intake.filing_status_mfj? || intake.spouse_claimed_as_eitc_qualifying_child_no?)
         end
 
         def possibly_eligible?(intake)
@@ -41,10 +41,10 @@ module Efile
             spouse_age_inclusive = intake.calculate_age(intake.spouse_birth_date, inclusive_of_jan_1: true)
 
             any_meets_minimum_age?(primary_age_exclusive, spouse_age_exclusive) &&
-            all_outside_fed_eitc_age_range?(primary_age_inclusive, spouse_age_inclusive)
+              all_outside_fed_eitc_age_range?(primary_age_inclusive, spouse_age_inclusive)
           else
             any_meets_minimum_age?(primary_age_exclusive) &&
-            all_outside_fed_eitc_age_range?(primary_age_inclusive)
+              all_outside_fed_eitc_age_range?(primary_age_inclusive)
           end
         end
 
@@ -57,11 +57,11 @@ module Efile
         end
 
         def is_under_income_total_limit?(intake)
-          if intake.filing_status_mfj?
-            intake.direct_file_data.fed_income_total < 25_511
-          else
-            intake.direct_file_data.fed_income_total < 18_591
-          end
+          intake.direct_file_data.fed_agi < if intake.filing_status_mfj?
+                                              25_511
+                                            else
+                                              18_591
+                                            end
         end
 
         def has_ssn_valid_for_employment?(intake)
@@ -78,7 +78,7 @@ module Efile
 
         def claimed_as_dependent?(intake)
           intake.direct_file_data.claimed_as_dependent? ||
-          (intake.filing_status_mfj? && intake.direct_file_data.spouse_is_a_dependent?)
+            (intake.filing_status_mfj? && intake.direct_file_data.spouse_is_a_dependent?)
         end
       end
     end
