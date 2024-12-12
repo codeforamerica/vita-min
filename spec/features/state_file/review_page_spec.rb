@@ -180,6 +180,55 @@ RSpec.feature "Completing a state file intake", active_job: true do
     end
   end
 
+  context "AZ" do
+    it "allows user to navigate to az public school contributions page, edit a contribution form, and then navigate back to final review page", required_schema: "az" do
+      state_code = "az"
+      set_up_intake_and_associated_records(state_code)
+
+      intake = StateFile::StateInformationService.intake_class(state_code).last
+
+      create :az322_contribution, state_file_az_intake: intake
+
+      visit "/questions/#{state_code}-review"
+
+      # Final review page
+      expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
+      within "#public-school-contributions" do
+        click_on I18n.t("general.edit")
+      end
+
+      # public school contribution review page edit navigates to public school contribution index page
+      expect(page).to have_text(I18n.t('state_file.questions.az_public_school_contributions.index.title'))
+      click_on I18n.t("general.continue")
+
+      # Back on final review page
+      expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
+      within "#public-school-contributions" do
+        click_on I18n.t("general.edit")
+      end
+
+      # click Edit on the public school contribution index page (there's only one)
+      click_on I18n.t("general.edit")
+
+      # public school contribution edit page
+      expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.az_public_school_contributions.edit.title_html"))
+      fill_in strip_html_tags(I18n.t("state_file.questions.az_public_school_contributions.edit.school_name")), with: "beepboop"
+      click_on I18n.t("general.continue")
+
+      # takes them to the az public school contributions index page first
+      expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.az_public_school_contributions.index.title"))
+      expect(page).to have_text ("beepboop")
+      click_on "Continue"
+
+      # Back on final review page
+      expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
+      within "#public-school-contributions" do
+        click_on I18n.t("general.edit")
+      end
+    end
+  end
+
+
   def set_up_intake_and_associated_records(state_code)
     visit "/"
     click_on "Start Test #{state_code.upcase}"
@@ -188,10 +237,15 @@ RSpec.feature "Completing a state file intake", active_job: true do
     click_on I18n.t('general.get_started'), id: "firstCta"
     step_through_eligibility_screener(us_state: state_code)
     step_through_initial_authentication(contact_preference: :email)
+
     check "Email"
     check "Text message"
     fill_in "Your phone number", with: "+12025551212"
     click_on "Continue"
+
+    expect(page).to have_text I18n.t('state_file.questions.sms_terms.edit.title')
+    click_on I18n.t("general.accept")
+
     expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
 
     intake = StateFile::StateInformationService.intake_class(state_code).last

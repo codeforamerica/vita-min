@@ -1,0 +1,36 @@
+<% content_for :page_title, t(".title") %>
+
+<% content_for :card do %>
+  <h1 class="h2 spacing-below-5"><%= t(".title") %></h1>
+  <div class="white-group">
+    <p class="spacing-below-10">
+      <ul class='list--numbered'>
+        <li><%= t(".term") %></li>
+        <li><%= t(".term_2_html") %></li>
+        <li><%= t(".term_3_html") %></li>
+        <li>
+          <%= t(".term_4_html") %>
+          <ol class="list--bulleted-indented" style="list-style-type: lower-alpha;">
+            <li><%= t(".term_5") %></li>
+            <li><%= t(".term_6") %></li>
+            <li><%= t(".term_7") %></li>
+          </ol>
+        </li>
+        <li><%= t(".term_8_html") %></li>
+        <li><%= t(".term_9_html") %></li>
+      </ul>
+    </p>
+  </div>
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+  <div class="options-wrapper">
+      <div class="yes-no-buttons">
+        <%= f.button :submit, name: "state_file_sms_terms_form[consented_to_sms_terms]", value: 'yes', class: 'button button--primary' do %>
+          <%= t("general.accept") %>
+        <% end %>
+        <%= f.button :submit, name: "state_file_sms_terms_form[consented_to_sms_terms]", value: 'no', class: 'button' do %>
+          <%= t("general.decline") %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+<% end %>

@@ -3,12 +3,15 @@ module StateFile
     set_attributes_for :intake, :residence_county, :political_subdivision, :subdivision_code
 
     validates :residence_county,
-              inclusion: { in: MdResidenceCountyConcern::COUNTIES_AND_SUBDIVISIONS.keys },
-              presence: true
+              inclusion: {
+                in: MdResidenceCountyConcern::COUNTIES_AND_SUBDIVISIONS.keys,
+                message: I18n.t("forms.errors.md_county.residence_county.presence")
+              }
     validates :subdivision_code,
-              inclusion: { in: :valid_subdivisions },
-              presence: true
-
+              inclusion: {
+                in: :valid_subdivisions,
+                message: I18n.t("forms.errors.md_county.subdivision_code.presence")
+              }
 
     def save
       @intake.update(attributes_for(:intake))
