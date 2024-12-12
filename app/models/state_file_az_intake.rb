@@ -10,6 +10,7 @@
 #  charitable_cash_amount                 :decimal(12, 2)
 #  charitable_contributions               :integer          default("unfilled"), not null
 #  charitable_noncash_amount              :decimal(12, 2)
+#  consented_to_sms_terms                 :integer          default("unfilled"), not null
 #  consented_to_terms_and_conditions      :integer          default("unfilled"), not null
 #  contact_preference                     :integer          default("unfilled"), not null
 #  current_sign_in_at                     :datetime
@@ -108,6 +109,7 @@ class StateFileAzIntake < StateFileBaseIntake
   enum eligibility_out_of_state_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_out_of_state_income
   enum email_notification_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :email_notification_opt_in
   enum sms_notification_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :sms_notification_opt_in
+  enum consented_to_sms_terms: { unfilled: 0, yes: 1, no: 2 }, _prefix: :consented_to_sms_terms
 
   validates :made_az321_contributions, inclusion: { in: ["yes", "no"]}, on: :az321_form_create
   validates :az321_contributions, length: { maximum: 10 }

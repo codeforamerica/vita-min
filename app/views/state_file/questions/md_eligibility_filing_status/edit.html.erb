@@ -24,7 +24,7 @@
         <div class="white-group">
             <%= f.cfa_radio_set(
                   :eligibility_homebuyer_withdrawal_mfj,
-                  label_text: t(".eligibility_first_time_homebuyer_withdrawal_label_text", year: MultiTenantService.statefile.current_tax_year),
+                  label_text: t(".eligibility_first_time_homebuyer_withdrawal_label_text_html", year: MultiTenantService.statefile.current_tax_year),
                   collection: [
                     { value: "yes", label: t("general.affirmative") },
                     { value: "no", label: t("general.negative") },
@@ -56,7 +56,7 @@
         <div class="white-group">
           <%= f.cfa_radio_set(
                 :eligibility_homebuyer_withdrawal,
-                label_text: t(".eligibility_non_mfj_first_time_homebuyer_withdrawal_label_text", year: MultiTenantService.statefile.current_tax_year),
+                label_text: t(".eligibility_non_mfj_first_time_homebuyer_withdrawal_label_text_html", year: MultiTenantService.statefile.current_tax_year),
                 collection: [
                   { value: "yes", label: t("general.affirmative") },
                   { value: "no", label: t("general.negative") },
