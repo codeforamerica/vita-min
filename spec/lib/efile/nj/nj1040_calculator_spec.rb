@@ -1104,7 +1104,11 @@ describe Efile::Nj::Nj1040Calculator do
     context 'when ineligible for property tax deduction due to income but eligible for credit' do
       let(:intake) {
         create(:state_file_nj_intake, :df_data_minimal, :primary_disabled)
-      }
+      }      
+      before do
+        allow(StateFile::NjHomeownerEligibilityHelper).to receive(:determine_eligibility).and_return StateFile::NjHomeownerEligibilityHelper::WORKSHEET
+        instance.calculate
+      end
 
       it 'sets line 41 to nil' do
         expect(instance.lines[:NJ1040_LINE_41].value).to eq(nil)
