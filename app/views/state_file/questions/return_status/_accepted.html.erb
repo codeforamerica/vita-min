@@ -11,7 +11,7 @@
 <% refund_or_owed_amount = current_intake.calculated_refund_or_owed_amount %>
 <% if refund_or_owed_amount.positive? %>
   <% # i18n-tasks-use t('state_file.questions.return_status.accepted.refund_details_html') # hint for the i18n linter that, yes, we are using this key (sometimes) %>
-  <p><%= t(".#{current_state_code}.refund_details_html", default: :'.refund_details_html', website_name: @tax_refund_website_name, tax_refund_url: @tax_refund_url) %></p>
+  <p><%= t(".#{current_state_code}.refund_details_html", default: :'.refund_details_html', website_name: @department_of_taxation_initials, tax_refund_url: @tax_refund_url) %></p>
 <% elsif refund_or_owed_amount.negative? %>
   <p><%= t('.direct_debit_html', tax_payment_url: @tax_payment_url) %></p>
 <% end %>
