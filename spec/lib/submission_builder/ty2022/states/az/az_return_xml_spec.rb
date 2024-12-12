@@ -29,6 +29,45 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
       end
     end
 
+    context "head of household" do
+      let(:intake) do
+        create(
+          :state_file_az_intake,
+          filing_status: :head_of_household,
+          raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml('az_alexis_hoh'),
+          raw_direct_file_intake_data: StateFile::DirectFileApiResponseSampleService.new.read_json('az_alexis_hoh')
+        )
+      end
+
+      describe '#xml_hoh_qualifying_person' do
+        it 'should return nil when there is no matching element' do
+          expect(instance.send(:xml_hoh_qualifying_person)).to be_nil
+        end
+
+        # TODO: Write tests for when xml exists, when they exist
+      end
+
+      describe "#json_xml_qualifying_person" do
+        it 'should return a hash when there is a matching json element' do
+          response = instance.send(:json_hoh_qualifying_person)
+          expect(response).to be_kind_of(Hash)
+          expect(response.keys).to eq [:first_name, :last_name]
+        end
+
+        it 'should return nil when there is no json' do
+          intake.update(raw_direct_file_intake_data: {})
+          response = instance.send(:json_hoh_qualifying_person)
+
+          expect(response).to be_nil
+        end
+      end
+
+      it 'should create the QualChildDependentName' do
+        expect(xml.at('QualChildDependentName')).to be_present
+        expect(xml.at('QualChildDependentName FirstName').text).to eq 'Axel'
+      end
+    end
+
     context "when there are dependents" do
       let(:dob) { 12.years.ago }
 

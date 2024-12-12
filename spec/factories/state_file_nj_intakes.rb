@@ -7,6 +7,7 @@
 #  account_type                                           :integer          default("unfilled"), not null
 #  claimed_as_dep                                         :integer
 #  claimed_as_eitc_qualifying_child                       :integer          default("unfilled"), not null
+#  consented_to_sms_terms                                 :integer          default("unfilled"), not null
 #  consented_to_terms_and_conditions                      :integer          default("unfilled"), not null
 #  contact_preference                                     :integer          default("unfilled"), not null
 #  county                                                 :string

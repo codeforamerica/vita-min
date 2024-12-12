@@ -18,8 +18,8 @@ RSpec.describe PdfFiller::Az321Pdf do
     end
 
     it "sets other fields to the correct values" do
-      expect(pdf_fields['FY_Beg']).to eq '0101'
-      expect(pdf_fields['FY_End']).to eq "1231#{MultiTenantService.new(:statefile).current_tax_year}"
+      expect(pdf_fields['FY_Beg']).to be_nil
+      expect(pdf_fields['FY_End']).to be_nil
       expect(pdf_fields['TP_Name']).to eq 'Ariz  Onian '
       expect(pdf_fields['TP_SSN']).to eq '555002222'
       expect(pdf_fields['Spouse_Name']).to eq ""

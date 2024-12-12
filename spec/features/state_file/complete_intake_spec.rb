@@ -27,6 +27,9 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in "Your phone number", with: "+12025551212"
       click_on "Continue"
 
+      expect(page).to have_text I18n.t('state_file.questions.sms_terms.edit.title')
+      click_on I18n.t("general.accept")
+
       expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
       click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
 
@@ -109,7 +112,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text "Good news, you're getting a New York state tax refund of $1468. How would you like to receive your refund?"
+      expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.tax_refund.edit.title_html", state_name: "New York", refund_amount: 1468))
       expect(page).not_to have_text "Your responses are saved. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org."
       choose I18n.t("state_file.questions.tax_refund.edit.mail")
       click_on I18n.t("general.continue")
@@ -153,6 +156,9 @@ RSpec.feature "Completing a state file intake", active_job: true do
       check "Text message"
       fill_in "Your phone number", with: "+12025551212"
       click_on "Continue"
+
+      expect(page).to have_text I18n.t('state_file.questions.sms_terms.edit.title')
+      click_on I18n.t("general.accept")
 
       expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
       click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
@@ -248,7 +254,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text "Good news, you're getting a Arizona state tax refund of $1239. How would you like to receive your refund?"
+      expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.tax_refund.edit.title_html", state_name: "Arizona", refund_amount: 1239))
       expect(page).not_to have_text "Your responses are saved. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org."
 
       choose I18n.t("state_file.questions.tax_refund.edit.direct_deposit")
@@ -305,6 +311,9 @@ RSpec.feature "Completing a state file intake", active_job: true do
       check "Text message"
       fill_in "Your phone number", with: "+12025551212"
       click_on "Continue"
+
+      expect(page).to have_text I18n.t('state_file.questions.sms_terms.edit.title')
+      click_on I18n.t("general.accept")
 
       expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
       click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
@@ -408,6 +417,9 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in "Your phone number", with: "+12025551212"
       click_on "Continue"
 
+      expect(page).to have_text I18n.t('state_file.questions.sms_terms.edit.title')
+      click_on I18n.t("general.accept")
+
       expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
       click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
 
@@ -478,7 +490,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("general.continue")
 
       # Refund page
-      expect(page).to have_text "Good news, you're getting a Idaho state tax refund of $1452. How would you like to receive your refund?"
+      expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.tax_refund.edit.title_html", state_name: "Idaho", refund_amount: 1452))
       expect(page).not_to have_text "Your responses are saved. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org."
       choose I18n.t("state_file.questions.tax_refund.edit.mail")
       click_on I18n.t("general.continue")
@@ -530,6 +542,9 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in "Your phone number", with: "+12025551212"
       click_on "Continue"
 
+      expect(page).to have_text I18n.t('state_file.questions.sms_terms.edit.title')
+      click_on I18n.t("general.accept")
+
       expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
       click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
 
@@ -569,7 +584,8 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t('state_file.questions.primary_state_id.edit.title')
-      choose I18n.t('state_file.questions.primary_state_id.state_id.id_type_question.dmv')
+      choose I18n.t('state_file.questions.md_primary_state_id.md_primary.dmv_bmv_label')
+
       fill_in I18n.t('state_file.questions.primary_state_id.state_id.id_details.number'), with: "012345678"
       select_cfa_date "state_file_primary_state_id_form_issue_date", 4.years.ago.beginning_of_year
       select_cfa_date "state_file_primary_state_id_form_expiration_date", 4.years.from_now.beginning_of_year
@@ -599,7 +615,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in 'state_file_md_tax_refund_form_routing_number_confirmation', with: "019456124"
       fill_in 'state_file_md_tax_refund_form_account_number', with: "123456789"
       fill_in 'state_file_md_tax_refund_form_account_number_confirmation', with: "123456789"
-      check I18n.t('state_file.questions.md_tax_refund.md_bank_details.bank_authorization_confirmation')
+      check I18n.t('state_file.questions.md_tax_refund.edit.bank_authorization_confirmation')
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t("state_file.questions.esign_declaration.edit.title", state_name: "Maryland")
@@ -645,6 +661,9 @@ RSpec.feature "Completing a state file intake", active_job: true do
       check "Text message"
       fill_in "Your phone number", with: "+12025551212"
       click_on "Continue"
+
+      expect(page).to have_text I18n.t('state_file.questions.sms_terms.edit.title')
+      click_on I18n.t("general.accept")
 
       expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
       click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
