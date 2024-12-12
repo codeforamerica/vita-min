@@ -3330,7 +3330,6 @@ en:
         accepted:
           check_payable_html: Make your check or money order payable to %{payable_to}. Write your full SSN or ITIN, “%{filing_year} Tax”, and "Form %{form_number}" on your payment.
           direct_debit_html: If you have a remaining tax balance, remember to <strong>pay it online at <a target="_blank" rel="noopener nofollow" href="https://%{tax_payment_url}">%{tax_payment_url}</a></strong> or by mail before the April 15 filing deadline.
-          download_title: Download a copy of your %{year} %{state_name} state tax return until December 31, %{year}
           download_voucher: Download payment voucher form
           feedback: We value your feedback—let us know what you think of this service.
           include_payment: You'll need to include the payment voucher form.
@@ -3363,6 +3362,9 @@ en:
           download_state_return_pdf: Download your state return
           explain_calcs: Explain Calculations
           show_xml: Show XML
+        intake_closed:
+          download_title: Download a copy of your %{filing_year} %{state_name} state tax return until December 31, %{year}
+          thank_you_html: Thank you for filing your return with <strong>FileYourStateTaxes</strong>, built in partnership with the state of %{state_name} to integrate with IRS Direct File.
         pending:
           check_spam: If it's been more than two days since you submitted your state taxes and you haven’t heard from us, check your spam folder.
           title: You have submitted your %{filing_year} %{state_name} state tax return
@@ -3381,7 +3383,6 @@ en:
           reject_code: 'Reject Code:'
           reject_desc: 'Reject Description:'
           title: Unfortunately, your %{filing_year} %{state_name} state tax return was rejected
-        thank_you_html: Thank you for filing your return with <strong>FileYourStateTaxes</strong>, built in partnership with the state of %{state_name} to integrate with IRS Direct File.
       review:
         county: County where your permanent address was located on December 31, %{filing_year}
         county_during_hurricane: County where your permanent address was located during Hurricane Helene

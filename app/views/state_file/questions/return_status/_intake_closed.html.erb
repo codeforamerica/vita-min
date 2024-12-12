@@ -1,8 +1,8 @@
 <h1 class="h2">
-  <%= t("state_file.questions.return_status.accepted.download_title", state_name: current_state_name, year: current_tax_year + 1) %>
+  <%= t("state_file.questions.return_status.intake_closed.download_title", state_name: current_state_name, filing_year: current_tax_year, year: current_tax_year + 1) %>
 </h1>
 <p>
-  <%= t("state_file.questions.return_status.thank_you_html", state_name: current_state_name) %>
+  <%= t("state_file.questions.return_status.intake_closed.thank_you_html", state_name: current_state_name) %>
 </p>
 <p>
   <a target="_blank" rel="noopener nofollow" href="<%= @survey_link %>"><%= t("state_file.questions.return_status.accepted.feedback") %></a>
