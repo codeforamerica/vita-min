@@ -265,7 +265,7 @@ RSpec.describe StateFile::Questions::ReturnStatusController do
 
               expect(response.body).to include I18n.t("state_file.questions.return_status.accepted.#{state_code}.refund_details_html",
                                                       default: :"state_file.questions.return_status.accepted.refund_details_html",
-                                                      website_name: assigns(:tax_refund_website_name),
+                                                      website_name: assigns(:department_of_taxation_initials),
                                                       tax_refund_url: assigns(:tax_refund_url))
             end
 
