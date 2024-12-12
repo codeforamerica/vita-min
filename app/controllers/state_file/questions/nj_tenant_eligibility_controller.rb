@@ -4,7 +4,8 @@ module StateFile
       include ReturnToReviewConcern
 
       def self.show?(intake)
-        intake.household_rent_own_rent? && !Efile::Nj::NjPropertyTaxEligibility.ineligible?(intake)
+        (intake.household_rent_own_rent? || intake.household_rent_own_both?) &&
+          !Efile::Nj::NjPropertyTaxEligibility.ineligible?(intake)
       end
 
       def next_path

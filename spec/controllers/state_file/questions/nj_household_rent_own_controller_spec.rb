@@ -69,16 +69,16 @@ RSpec.describe StateFile::Questions::NjHouseholdRentOwnController do
         end
       end
 
-      context "when intake is neither" do
-        let(:intake) { create :state_file_nj_intake, household_rent_own: "neither" }
+      context "when intake is both" do
+        let(:intake) { create :state_file_nj_intake, household_rent_own: "both" }
 
-        it "next path is ineligible page" do
-          expect(subject.next_path).to eq(StateFile::Questions::NjIneligiblePropertyTaxController.to_path_helper)
+        it "next path is homeowner eligibility page" do
+          expect(subject.next_path).to eq(StateFile::Questions::NjHomeownerEligibilityController.to_path_helper)
         end
       end
 
-      context "when intake is both" do
-        let(:intake) { create :state_file_nj_intake, household_rent_own: "both" }
+      context "when intake is neither" do
+        let(:intake) { create :state_file_nj_intake, household_rent_own: "neither" }
 
         it "next path is ineligible page" do
           expect(subject.next_path).to eq(StateFile::Questions::NjIneligiblePropertyTaxController.to_path_helper)
@@ -140,9 +140,9 @@ RSpec.describe StateFile::Questions::NjHouseholdRentOwnController do
           { state_file_nj_household_rent_own_form: { household_rent_own: "both" } }
         end
 
-        it "navigates to the ineligible page with the param" do
+        it "navigates to the homeowner eligibility page with the param" do
           post :update, params: form_params.merge({return_to_review: "y"})
-          expect(response).to redirect_to(controller: "nj_ineligible_property_tax", action: :edit, return_to_review: 'y')
+          expect(response).to redirect_to(controller: "nj_homeowner_eligibility", action: :edit, return_to_review: 'y')
         end
       end
     end

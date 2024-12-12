@@ -79,8 +79,8 @@ RSpec.describe StateFile::Questions::NjHomeownerEligibilityController do
 
     context "when indicated both rent and own" do
       let(:intake) { create :state_file_nj_intake, household_rent_own: "both" }
-      it "does not show" do
-        expect(described_class.show?(intake)).to eq false
+      it "shows" do
+        expect(described_class.show?(intake)).to eq true
       end
     end
 
@@ -203,6 +203,21 @@ RSpec.describe StateFile::Questions::NjHomeownerEligibilityController do
         it "next path is whichever comes next overall" do
           allow_any_instance_of(described_class.superclass).to receive(:next_path).and_return("/mocked/super/path")
           expect(subject.next_path).to eq("/mocked/super/path")
+        end
+      end
+
+      context "when both and not eligible for homeowner property tax deduction but could be for tenant or for credit" do
+        let(:intake) {
+          create(
+            :state_file_nj_intake,
+            :df_data_minimal,
+            :primary_disabled,
+            household_rent_own: "both",
+            homeowner_home_subject_to_property_taxes: "yes"
+          )
+        }
+        it "next path is tenant eligibility" do
+          expect(subject.next_path).to eq(StateFile::Questions::NjTenantEligibilityController.to_path_helper)
         end
       end
     end
