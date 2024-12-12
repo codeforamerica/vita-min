@@ -3,9 +3,10 @@ module StateFile
     class NjHomeownerEligibilityController < QuestionsController
       include ReturnToReviewConcern
 
-      def self.show?(intake)
-        intake.household_rent_own_own? && !Efile::Nj::NjPropertyTaxEligibility.ineligible?(intake)
-      end
+      # def self.show?(intake)
+      #   (intake.household_rent_own_own? || intake.household_rent_own_both?) &&
+      #     !Efile::Nj::NjPropertyTaxEligibility.ineligible?(intake)
+      # end
 
       def next_path
         options = {}

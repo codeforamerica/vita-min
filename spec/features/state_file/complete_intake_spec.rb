@@ -651,7 +651,8 @@ RSpec.feature "Completing a state file intake", active_job: true do
   end
 
   context "NJ", :flow_explorer_screenshot, js: true do
-    it "advances past the loading screen by listening for an actioncable broadcast", required_schema: "nj" do
+
+    def advance_to_start_of_intake(df_persona_name)
       visit "/"
       click_on "Start Test NJ"
 
@@ -673,7 +674,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
       click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
 
-      step_through_df_data_transfer("Transfer Minimal")
+      step_through_df_data_transfer("Transfer #{df_persona_name}")
 
       expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
       click_on I18n.t("general.continue")
@@ -681,23 +682,52 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.questions.nj_eligibility_health_insurance.edit.title")
       choose I18n.t("general.affirmative")
       click_on I18n.t("general.continue")
+    end
 
-      select "Atlantic"
+    def advance_county_and_municipality(county = "Atlantic", municipality = "Atlantic City")
+      select county
       click_on I18n.t("general.continue")
 
-      select "Atlantic City"
+      select municipality
       click_on I18n.t("general.continue")
+    end
 
+    def advance_disabled_exemption(selection = false)
       # disabled exemption
-      choose I18n.t('general.negative')
+      page.all(:css, '.white-group').each do |group|
+        within group do
+          choose selection ? I18n.t('general.affirmative') : I18n.t('general.negative')
+        end
+      end
       click_on I18n.t("general.continue")
+    end
 
+    def advance_veterans_exemption(selection = false)
       # veterans exemption
-      choose I18n.t('general.negative')
+      page.all(:css, '.white-group').each do |group|
+        within group do
+          choose selection ? I18n.t('general.affirmative') : I18n.t('general.negative')
+        end
+      end
       click_on I18n.t("general.continue")
+    end
 
-      fill_in I18n.t('state_file.questions.nj_medical_expenses.edit.label', filing_year: filing_year), with: 1000
+    def advance_medical_expenses(amount = 1000)
+      fill_in I18n.t('state_file.questions.nj_medical_expenses.edit.label', filing_year: filing_year), with: amount
       click_on I18n.t("general.continue")
+    end
+
+    def advance_to_property_tax_page(df_persona_name)
+      advance_to_start_of_intake(df_persona_name)
+      advance_county_and_municipality
+      advance_disabled_exemption
+      advance_veterans_exemption
+      advance_medical_expenses
+    end
+
+    it "advances past the loading screen by listening for an actioncable broadcast", required_schema: "nj" do
+
+      advance_to_property_tax_page("Minimal")
 
       choose I18n.t('state_file.questions.nj_household_rent_own.edit.neither')
       click_on I18n.t("general.continue")
@@ -742,6 +772,268 @@ RSpec.feature "Completing a state file intake", active_job: true do
       edit_buttons_text = edit_buttons.map(&:text)
       edit_buttons_unique_text_count = edit_buttons_text.uniq.count
       expect(edit_buttons_unique_text_count).to eq(edit_buttons_count)
+    end
+
+    it "handles property tax eligible tenant flow", required_schema: "nj" do
+
+      advance_to_property_tax_page("Zeus one dep")
+
+      # household rent/own page
+      choose I18n.t('state_file.questions.nj_household_rent_own.edit.tenant')
+      click_on I18n.t("general.continue")
+
+      # tenant eligibility page
+      expect(page).to have_text I18n.t("state_file.questions.nj_tenant_eligibility.edit.title", filing_year: filing_year)
+      check I18n.t('state_file.questions.nj_tenant_eligibility.edit.tenant_home_subject_to_property_taxes')
+      click_on I18n.t("general.continue")
+
+      # rent paid page
+      expect(page).to have_text I18n.t("state_file.questions.nj_tenant_rent_paid.edit.title", filing_year: filing_year)
+      fill_in I18n.t('state_file.questions.nj_tenant_rent_paid.edit.label', filing_year: filing_year), with: 10000
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text I18n.t("state_file.questions.nj_estimated_tax_payments.edit.title", filing_year: filing_year)
+    end
+
+    it "handles property tax ineligible tenant flow", required_schema: "nj" do
+
+      advance_to_property_tax_page("Zeus one dep")
+
+      # household rent/own page
+      choose I18n.t('state_file.questions.nj_household_rent_own.edit.tenant')
+      click_on I18n.t("general.continue")
+
+      # tenant eligibility page
+      expect(page).to have_text I18n.t("state_file.questions.nj_tenant_eligibility.edit.title", filing_year: filing_year)
+      click_on I18n.t("general.continue")
+
+      # ineligible page
+      expect(page).to have_text I18n.t("state_file.questions.nj_ineligible_property_tax.edit.title", filing_year: filing_year)
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text I18n.t("state_file.questions.nj_estimated_tax_payments.edit.title", filing_year: filing_year)
+    end
+
+    it "handles property tax eligible tenant flow when low income but meets exemption", required_schema: "nj" do
+
+      advance_to_start_of_intake("Minimal") # low income
+      advance_county_and_municipality
+      advance_disabled_exemption(true) # disabled exemption
+      advance_veterans_exemption
+      advance_medical_expenses
+
+      # household rent/own page
+      choose I18n.t('state_file.questions.nj_household_rent_own.edit.tenant')
+      click_on I18n.t("general.continue")
+
+      # tenant eligibility page
+      expect(page).to have_text I18n.t("state_file.questions.nj_tenant_eligibility.edit.title", filing_year: filing_year)
+      check I18n.t('state_file.questions.nj_tenant_eligibility.edit.tenant_home_subject_to_property_taxes')
+      click_on I18n.t("general.continue")
+
+      # skips rent paid page
+
+      expect(page).to have_text I18n.t("state_file.questions.nj_estimated_tax_payments.edit.title", filing_year: filing_year)
+    end
+
+    it "handles property tax eligible homeowner flow", required_schema: "nj" do
+
+      advance_to_property_tax_page("Zeus one dep")
+
+      # household rent/own page
+      choose I18n.t('state_file.questions.nj_household_rent_own.edit.homeowner')
+      click_on I18n.t("general.continue")
+
+      # homeowner eligibility page
+      expect(page).to have_text I18n.t("state_file.questions.nj_homeowner_eligibility.edit.title", filing_year: filing_year)
+      check I18n.t('state_file.questions.nj_homeowner_eligibility.edit.homeowner_home_subject_to_property_taxes')
+      click_on I18n.t("general.continue")
+
+      # property tax paid page
+      expect(page).to have_text I18n.t("state_file.questions.nj_homeowner_property_tax.edit.title", filing_year: filing_year, municipality: "Atlantic City")
+      fill_in I18n.t('state_file.questions.nj_homeowner_property_tax.edit.label', filing_year: filing_year), with: 10000
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text I18n.t("state_file.questions.nj_estimated_tax_payments.edit.title", filing_year: filing_year)
+    end
+
+    it "handles property tax ineligible homeowner flow", required_schema: "nj" do
+
+      advance_to_property_tax_page("Zeus one dep")
+
+      # household rent/own page
+      choose I18n.t('state_file.questions.nj_household_rent_own.edit.homeowner')
+      click_on I18n.t("general.continue")
+
+      # homeowner eligibility page
+      expect(page).to have_text I18n.t("state_file.questions.nj_homeowner_eligibility.edit.title", filing_year: filing_year)
+      click_on I18n.t("general.continue")
+
+      # ineligible page
+      expect(page).to have_text I18n.t("state_file.questions.nj_ineligible_property_tax.edit.title", filing_year: filing_year)
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text I18n.t("state_file.questions.nj_estimated_tax_payments.edit.title", filing_year: filing_year)
+    end
+
+    it "handles property tax eligible homeowner flow when low income but meets exemption", required_schema: "nj" do
+
+      advance_to_start_of_intake("Minimal") # low income
+      advance_county_and_municipality
+      advance_disabled_exemption(true) # disabled exemption
+      advance_veterans_exemption
+      advance_medical_expenses
+
+      # household rent/own page
+      choose I18n.t('state_file.questions.nj_household_rent_own.edit.homeowner')
+      click_on I18n.t("general.continue")
+
+      # homeowner eligibility page
+      expect(page).to have_text I18n.t("state_file.questions.nj_homeowner_eligibility.edit.title", filing_year: filing_year)
+      check I18n.t('state_file.questions.nj_homeowner_eligibility.edit.homeowner_home_subject_to_property_taxes')
+      click_on I18n.t("general.continue")
+
+      # skips property tax paid page
+
+      expect(page).to have_text I18n.t("state_file.questions.nj_estimated_tax_payments.edit.title", filing_year: filing_year)
+    end
+
+    it "handles property tax eligible both homeowner & tenant flow", required_schema: "nj" do
+
+      advance_to_property_tax_page("Zeus one dep")
+
+      # household rent/own page
+      choose I18n.t('state_file.questions.nj_household_rent_own.edit.both')
+      click_on I18n.t("general.continue")
+
+      # homeowner eligibility page
+      expect(page).to have_text I18n.t("state_file.questions.nj_homeowner_eligibility.edit.title", filing_year: filing_year)
+      check I18n.t('state_file.questions.nj_homeowner_eligibility.edit.homeowner_home_subject_to_property_taxes')
+      click_on I18n.t("general.continue")
+
+      # property tax paid page
+      expect(page).to have_text I18n.t("state_file.questions.nj_homeowner_property_tax.edit.title", filing_year: filing_year, municipality: "Atlantic City")
+      fill_in I18n.t('state_file.questions.nj_homeowner_property_tax.edit.label', filing_year: filing_year), with: 10000
+      click_on I18n.t("general.continue")
+
+      # tenant eligibility page
+      expect(page).to have_text I18n.t("state_file.questions.nj_tenant_eligibility.edit.title", filing_year: filing_year)
+      check I18n.t('state_file.questions.nj_tenant_eligibility.edit.tenant_home_subject_to_property_taxes')
+      click_on I18n.t("general.continue")
+
+      # rent paid page
+      expect(page).to have_text I18n.t("state_file.questions.nj_tenant_rent_paid.edit.title", filing_year: filing_year)
+      fill_in I18n.t('state_file.questions.nj_tenant_rent_paid.edit.label', filing_year: filing_year), with: 10000
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text I18n.t("state_file.questions.nj_estimated_tax_payments.edit.title", filing_year: filing_year)
+    end
+
+    it "handles property tax both flow - eligible homeowner & ineligible tenant", required_schema: "nj" do
+
+      advance_to_property_tax_page("Zeus one dep")
+
+      # household rent/own page
+      choose I18n.t('state_file.questions.nj_household_rent_own.edit.both')
+      click_on I18n.t("general.continue")
+
+      # homeowner eligibility page
+      expect(page).to have_text I18n.t("state_file.questions.nj_homeowner_eligibility.edit.title", filing_year: filing_year)
+      check I18n.t('state_file.questions.nj_homeowner_eligibility.edit.homeowner_home_subject_to_property_taxes')
+      click_on I18n.t("general.continue")
+
+      # property tax paid page
+      expect(page).to have_text I18n.t("state_file.questions.nj_homeowner_property_tax.edit.title", filing_year: filing_year, municipality: "Atlantic City")
+      fill_in I18n.t('state_file.questions.nj_homeowner_property_tax.edit.label', filing_year: filing_year), with: 10000
+      click_on I18n.t("general.continue")
+
+      # tenant eligibility page
+      expect(page).to have_text I18n.t("state_file.questions.nj_tenant_eligibility.edit.title", filing_year: filing_year)
+      click_on I18n.t("general.continue")
+
+      # ineligible page
+      expect(page).to have_text I18n.t("state_file.questions.nj_ineligible_property_tax.edit.title", filing_year: filing_year)
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text I18n.t("state_file.questions.nj_estimated_tax_payments.edit.title", filing_year: filing_year)
+    end
+
+    it "handles property tax both flow - ineligible homeowner & eligible tenant", required_schema: "nj" do
+
+      advance_to_property_tax_page("Zeus one dep")
+
+      # household rent/own page
+      choose I18n.t('state_file.questions.nj_household_rent_own.edit.both')
+      click_on I18n.t("general.continue")
+
+      # homeowner eligibility page
+      expect(page).to have_text I18n.t("state_file.questions.nj_homeowner_eligibility.edit.title", filing_year: filing_year)
+      click_on I18n.t("general.continue")
+
+      # ineligible page
+      expect(page).to have_text I18n.t("state_file.questions.nj_ineligible_property_tax.edit.title", filing_year: filing_year)
+      click_on I18n.t("general.continue")
+
+      # tenant eligibility page
+      expect(page).to have_text I18n.t("state_file.questions.nj_tenant_eligibility.edit.title", filing_year: filing_year)
+      check I18n.t('state_file.questions.nj_tenant_eligibility.edit.tenant_home_subject_to_property_taxes')
+      click_on I18n.t("general.continue")
+
+      # rent paid page
+      expect(page).to have_text I18n.t("state_file.questions.nj_tenant_rent_paid.edit.title", filing_year: filing_year)
+      fill_in I18n.t('state_file.questions.nj_tenant_rent_paid.edit.label', filing_year: filing_year), with: 10000
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text I18n.t("state_file.questions.nj_estimated_tax_payments.edit.title", filing_year: filing_year)
+    end
+
+    it "handles property tax both flow - eligible homeowner - when low income but meets exemption", required_schema: "nj" do
+
+      advance_to_start_of_intake("Minimal") # low income
+      advance_county_and_municipality
+      advance_disabled_exemption(true) # disabled exemption
+      advance_veterans_exemption
+      advance_medical_expenses
+
+      # household rent/own page
+      choose I18n.t('state_file.questions.nj_household_rent_own.edit.both')
+      click_on I18n.t("general.continue")
+
+      # homeowner eligibility page
+      expect(page).to have_text I18n.t("state_file.questions.nj_homeowner_eligibility.edit.title", filing_year: filing_year)
+      check I18n.t('state_file.questions.nj_homeowner_eligibility.edit.homeowner_home_subject_to_property_taxes')
+      click_on I18n.t("general.continue")
+
+      # skips property tax paid page
+      # skips tenant eligibility page (because they only need to qualify for one type of eligibility)
+
+      expect(page).to have_text I18n.t("state_file.questions.nj_estimated_tax_payments.edit.title", filing_year: filing_year)
+    end
+
+    it "handles property tax both flow - ineligible homeowner and eligible tenant - when low income but meets exemption", required_schema: "nj" do
+
+      advance_to_start_of_intake("Minimal") # low income
+      advance_county_and_municipality
+      advance_disabled_exemption(true) # disabled exemption
+      advance_veterans_exemption
+      advance_medical_expenses
+
+      # household rent/own page
+      choose I18n.t('state_file.questions.nj_household_rent_own.edit.both')
+      click_on I18n.t("general.continue")
+
+      # homeowner eligibility page
+      expect(page).to have_text I18n.t("state_file.questions.nj_homeowner_eligibility.edit.title", filing_year: filing_year)
+      click_on I18n.t("general.continue")
+
+      # tenant eligibility page
+      expect(page).to have_text I18n.t("state_file.questions.nj_tenant_eligibility.edit.title", filing_year: filing_year)
+      check I18n.t('state_file.questions.nj_tenant_eligibility.edit.tenant_home_subject_to_property_taxes')
+      click_on I18n.t("general.continue")
+
+      # skips rent paid page
+
+      expect(page).to have_text I18n.t("state_file.questions.nj_estimated_tax_payments.edit.title", filing_year: filing_year)
     end
   end
 end

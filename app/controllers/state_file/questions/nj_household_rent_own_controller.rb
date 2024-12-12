@@ -14,10 +14,8 @@ module StateFile
         case current_intake.household_rent_own
         when 'rent'
           NjTenantEligibilityController.to_path_helper(options)
-        when 'own'
+        when 'own', 'both'
           NjHomeownerEligibilityController.to_path_helper(options)
-        when 'both'
-          NjIneligiblePropertyTaxController.to_path_helper(options)
         when 'neither'
           NjIneligiblePropertyTaxController.to_path_helper(options)
         else
