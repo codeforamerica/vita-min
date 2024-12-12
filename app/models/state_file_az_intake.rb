@@ -204,37 +204,4 @@ class StateFileAzIntake < StateFileBaseIntake
   def requires_hoh_qualifying_person_name?
     filing_status == :head_of_household
   end
-
-  def hoh_qualifying_person_name
-    return unless requires_hoh_qualifying_person_name?
-
-    if direct_file_data&.hoh_qualifying_person_name.present?
-      # Federal data is an unstructured string - split on first space and everything in the second group goes to last name
-      names = direct_file_data.hoh_qualifying_person_name.split(/ /, 2)
-      return {
-        :first_name => names[0],
-        :last_name => names[1]
-      }
-    end
-
-    # This is fallback logic in case the data is not given in the federal return
-    hoh_qualifying_dependents = self.dependents.select(&:is_hoh_qualifying_person?)
-    unless hoh_qualifying_dependents.empty?
-      six_plus_months_in_home = hoh_qualifying_dependents.reject { |dependent|
-        dependent[:months_in_home] < 6
-      }
-      hoh_qualifying_dependent = six_plus_months_in_home.max_by { |dependent|
-        [dependent[:months_in_home], -dependent.calculate_age(inclusive_of_jan_1: false)]
-      }
-      if hoh_qualifying_dependent.nil?
-        hoh_qualifying_dependent = hoh_qualifying_dependents.select { |dependent|
-          dependent[:relationship] == "parent"
-        }.max_by { |dependent| dependent.calculate_age(inclusive_of_jan_1: false) }
-      end
-      {
-        :first_name => hoh_qualifying_dependent.first_name,
-        :last_name => hoh_qualifying_dependent.last_name
-      }
-    end
-  end
 end

@@ -2792,7 +2792,9 @@ es:
           sales_tax_title: "¿Qué son los impuestos sobre ventas?"
           sales_use_tax_helper_text: Ingrese el monto total
           subtitle_html: Esto incluye compras en línea donde <strong>no</strong> se aplicó el impuesto sobre ventas.
-          title: "¿Hiciste alguna compra fuera del estado en %{year} sin pagar impuestos sobre ventas?"
+          title:
+            one: "¿Hizo alguna compra fuera del estado en %{year} sin pagar impuesto sobre las ventas?"
+            other: "¿Usted o su cónyuge realizaron compras fuera del estado en %{year} sin pagar impuestos sobre las ventas?"
           unpaid_sales_use_tax_label_html: Ingrese el <b>cantidad total de compras</b> a las que no se les aplicaron impuestos sobre las ventas o el uso.
       id_spouse_state_id:
         id_spouse:
@@ -3407,7 +3409,8 @@ es:
           title: Ingresa tu número de teléfono
       post_data_transfer:
         edit:
-          title: Solo página sin producción
+          subtitle: A continuación, revisaremos los detalles de su estado y haremos las preguntas restantes para completar su declaración de impuestos estatal de %{state_name}.
+          title: "¡Hemos transferido con éxito su declaración de impuestos federal!"
       primary_state_id:
         edit:
           ny_subtitle: Esta información es necesaria para todos los residentes de Nueva York con una identificación emitida por el estado.
