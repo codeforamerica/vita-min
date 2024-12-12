@@ -6,7 +6,7 @@ RSpec.describe StateFile::NjHomeownerPropertyTaxWorksheetForm do
   describe "validations" do
     let(:form) { described_class.new(intake, params) }
 
-    it_behaves_like :nj_money_field_concern, field: :property_tax_paid, can_be_empty: true, must_be_positive: true do
+    it_behaves_like :nj_money_field_concern, field: :property_tax_paid, can_be_empty: true, must_be_positive: false do
       let(:form_params) do
         { property_tax_paid: money_field_value }
       end
