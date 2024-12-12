@@ -15,7 +15,6 @@
 #  local_income_tax_amount     :decimal(12, 2)
 #  local_wages_and_tips_amount :decimal(12, 2)
 #  locality_nm                 :string
-#  state_code                  :string
 #  state_file_intake_type      :string
 #  state_income_tax_amount     :decimal(12, 2)
 #  state_wages_amount          :decimal(12, 2)
@@ -128,18 +127,6 @@ describe StateFileW2 do
 
     it "permits local_wages_and_tips_amt to be greater than w2.wagesAmt" do
       w2.local_wages_and_tips_amount = 1000000
-      expect(w2).to be_valid
-    end
-
-    it "rejects when state_wages_amount greater than w2.WagesAmt" do
-      w2.state_wages_amount = 1000000
-      expect(w2).not_to be_valid
-      expect(w2.errors[:state_wages_amount]).to be_present
-    end
-
-    it "permits state_wages_amount to be greater than w2.WagesAmt for NJ" do
-      w2.state_code = "NJ"
-      w2.state_wages_amount = 1000000
       expect(w2).to be_valid
     end
 

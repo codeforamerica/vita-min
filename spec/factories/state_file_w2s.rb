@@ -15,7 +15,6 @@
 #  local_income_tax_amount     :decimal(12, 2)
 #  local_wages_and_tips_amount :decimal(12, 2)
 #  locality_nm                 :string
-#  state_code                  :string
 #  state_file_intake_type      :string
 #  state_income_tax_amount     :decimal(12, 2)
 #  state_wages_amount          :decimal(12, 2)
