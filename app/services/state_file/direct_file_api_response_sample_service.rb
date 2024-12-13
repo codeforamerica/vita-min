@@ -52,7 +52,7 @@ module StateFile
       when :single
         read_xml("az_tycho_single_no_1099r")
       when :married_filing_jointly
-        read_xml("az_martha_v2")
+        read_xml("az_martha_mfj_owe")
       when :qualifying_widow
         read_xml("az_leslie_qss")
       when :married_filing_separately
