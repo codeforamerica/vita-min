@@ -1039,7 +1039,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           expect(pdf_fields["184"]).to eq "0"
           expect(pdf_fields["185"]).to eq "0"
           # hundreds
-          expect(pdf_fields["undefined_79"]).to eq "0"
+          expect(pdf_fields["undefined_79"]).to eq "5"
           expect(pdf_fields["186"]).to eq "0"
           expect(pdf_fields["187"]).to eq "0"
           # decimals
@@ -1089,7 +1089,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           expect(pdf_fields["205"]).to eq "0"
           expect(pdf_fields["206"]).to eq "0"
           # hundreds
-          expect(pdf_fields["undefined_88"]).to eq "0"
+          expect(pdf_fields["undefined_88"]).to eq "5"
           expect(pdf_fields["207"]).to eq "0"
           expect(pdf_fields["208"]).to eq "0"
           # decimals
@@ -1131,6 +1131,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           )
         }
         it "writes sum $563,890.00 to fill boxes on line 31" do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_16a).and_return 0
+
           # thousands
           expect(pdf_fields["31"]).to eq "5"
           expect(pdf_fields["215"]).to eq "6"
@@ -1199,6 +1201,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         )
       }
       it "writes taxable income $197,500 (200,000-2500) to fill boxes on line 39" do
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_16a).and_return 0
+
         # millions
         expect(pdf_fields["279"]).to eq ""
         expect(pdf_fields["38a Total Property Taxes 18 of Rent Paid See instructions page 23 38a"]).to eq ""
@@ -1477,6 +1481,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       }
 
       it "writes rounded tax amount $7,519.00 based on income $200,000 with 3,500 exemptions 15,000 property tax deduction and 0.0637 tax rate minus 4,042.50 subtraction" do
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_16a).and_return 0
+
         # millions
         expect(pdf_fields["Enter Code4332243ew"]).to eq ""
         expect(pdf_fields["4036y54ethdf"]).to eq ""
@@ -1506,6 +1512,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       }
 
       it "writes rounded tax amount $7,519.00 (same as line 43)" do
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_16a).and_return 0
+
         # millions
         expect(pdf_fields["Enter Code4332243ewR@434"]).to eq ""
         expect(pdf_fields["4036y54ethdf!!!##\$$"]).to eq ""
@@ -1556,6 +1564,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       }
 
       it "writes rounded tax amount $7,519.10 (same as line 45)" do
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_16a).and_return 0
+
         # millions
         expect(pdf_fields["Enter Code4332243ew6576z66z##"]).to eq ""
         expect(pdf_fields["4036y54ethdf(*H"]).to eq ""
@@ -1673,6 +1683,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       }
 
       it "writes $7819 (line 50 $7,519 + line 51 $300)" do
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_16a).and_return 0
+
         # millions
         expect(pdf_fields["Enter Code4332243ew^^%$#"]).to eq ""
         expect(pdf_fields["4036y54ethdf%%^87"]).to eq ""

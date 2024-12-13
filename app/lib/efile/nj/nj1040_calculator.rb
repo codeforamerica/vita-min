@@ -301,7 +301,7 @@ module Efile
       end
 
       def calculate_line_27
-        line_or_zero(:NJ1040_LINE_15)
+        line_or_zero(:NJ1040_LINE_15) + line_or_zero(:NJ1040_LINE_16A)
       end
 
       def calculate_line_29

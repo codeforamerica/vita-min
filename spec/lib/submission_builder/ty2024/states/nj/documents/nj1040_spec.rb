@@ -436,11 +436,14 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
 
     describe "total income - line 27" do
       context "when filer submits w2 wages" do
-        it "fills TotalIncome with the value from Line 15" do
+        it "fills TotalIncome with the values from Line 15 and line 16A" do
           expected_line_15_w2_wages = 200_000
+          expected_line_16a = 500
           allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_15).and_return expected_line_15_w2_wages
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_16a).and_return expected_line_16a
+          expected_total = expected_line_15_w2_wages + expected_line_16a
           expect(xml.at("WagesSalariesTips").text).to eq(expected_line_15_w2_wages.to_s)
-          expect(xml.at("TotalIncome").text).to eq(expected_line_15_w2_wages.to_s)
+          expect(xml.at("TotalIncome").text).to eq(expected_total.to_s)
         end
       end
 
@@ -456,9 +459,12 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
       context "when filer submits w2 wages" do
         it "fills TotalIncome with the value from Line 15" do
           expected_line_15_w2_wages = 200_000
+          expected_line_16a = 500
           allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_15).and_return expected_line_15_w2_wages
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_16a).and_return expected_line_16a
+          expected_total = expected_line_15_w2_wages + expected_line_16a
           expect(xml.at("WagesSalariesTips").text).to eq(expected_line_15_w2_wages.to_s)
-          expect(xml.at("GrossIncome").text).to eq(expected_line_15_w2_wages.to_s)
+          expect(xml.at("GrossIncome").text).to eq(expected_total.to_s)
         end
       end
 
@@ -474,6 +480,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
       context "with an income of 200k" do
         let(:intake) { create(:state_file_nj_intake, :df_data_many_w2s, medical_expenses: 10_000) }
         it "fills MedicalExpenses with medical expenses exceeding two percent gross income" do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_16a).and_return 0
           expected_line_15_w2_wages = 200_000
           two_percent_gross = expected_line_15_w2_wages * 0.02
           expected_value = 10_000 - two_percent_gross
@@ -520,6 +527,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
     describe "taxable income - line 39" do
       it "fills TaxableIncome with gross income minus total exemptions/deductions" do
         expected_line_15_w2_wages = 200_000
+        expected_line_16a = 100
         line_6_single_filer = 1_000
         line_7_not_over_65 = 0
         line_8_not_blind = 0
@@ -534,7 +542,8 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
           line_10_qualified_children +
           line_11_other_dependents
         allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_15).and_return expected_line_15_w2_wages
-        expected_total = expected_line_15_w2_wages - exceptions
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_16a).and_return expected_line_16a
+        expected_total = (expected_line_15_w2_wages + expected_line_16a) - exceptions
         expect(xml.at("TaxableIncome").text).to eq(expected_total.to_s)
       end
     end
@@ -667,6 +676,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
           line_11_other_dependents
         expected_total = expected_line_15_w2_wages - exceptions
         allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_15).and_return expected_line_15_w2_wages
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_16a).and_return 0
         expect(xml.at("NewJerseyTaxableIncome").text).to eq(expected_total.to_s)
       end
     end
