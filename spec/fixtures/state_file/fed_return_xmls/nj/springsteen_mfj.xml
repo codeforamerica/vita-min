@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v4.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>8a029080</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>300000014</PrimarySSN>
+            <SpouseSSN>600000090</SpouseSSN>
+            <NameLine1Txt>BRUCE&lt;SPRINGSTEEN&lt;&amp; PATTI SCIALFA</NameLine1Txt>
+            <PrimaryNameControlTxt>SPRI</PrimaryNameControlTxt>
+            <SpouseNameControlTxt>SCIA</SpouseNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>145 Muhlenbrink Rd</AddressLine1Txt>
+                <CityNm>Colts Neck</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07722</ZIPCd>
+            </USAddress>
+            <PhoneNum>2015556543</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+30000001-491c-4c21-aa5b-a11abc2cd7e6@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="4">
+        <IRS1040 documentId="IRS10400001">
+            <Form1040SRInd>X</Form1040SRInd>
+            <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <Primary65OrOlderInd>X</Primary65OrOlderInd>
+            <TotalBoxesCheckedCnt>1</TotalBoxesCheckedCnt>
+            <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>2</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">18000</WagesAmt>
+            <WagesSalariesAndTipsAmt>18000</WagesSalariesAndTipsAmt>
+            <TaxableInterestAmt referenceDocumentId="IRS1040B001" referenceDocumentName="IRS1040ScheduleB">2000</TaxableInterestAmt>
+            <TotalIncomeAmt>20000</TotalIncomeAmt>
+            <TotalAdjustmentsAmt>2000</TotalAdjustmentsAmt>
+            <AdjustedGrossIncomeAmt>18000</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>30750</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>30750</TotalDeductionsAmt>
+            <TaxableIncomeAmt>0</TaxableIncomeAmt>
+            <TaxAmt>0</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>0</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>0</TaxLessCreditsAmt>
+            <TotalTaxAmt>0</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>300</FormW2WithheldTaxAmt>
+            <WithholdingTaxAmt>300</WithholdingTaxAmt>
+            <TotalPaymentsAmt>300</TotalPaymentsAmt>
+            <OverpaidAmt>300</OverpaidAmt>
+            <RefundAmt>300</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Singer</PrimaryOccupationTxt>
+            <SpouseOccupationTxt>Singer Songwriter</SpouseOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1040Schedule1 documentId="IRS1040S1001">
+            <StudentLoanInterestDedAmt>2000</StudentLoanInterestDedAmt>
+            <TotalAdjustmentsAmt>2000</TotalAdjustmentsAmt>
+        </IRS1040Schedule1>
+        <IRS1040ScheduleB documentId="IRS1040B001" documentName="IRS1040ScheduleB">
+            <Form1040SchBPartIGroup2>
+                <InterestPayerName>
+                    <BusinessNameLine1Txt>Born To Run Investments</BusinessNameLine1Txt>
+                </InterestPayerName>
+                <InterestAmt>2000</InterestAmt>
+            </Form1040SchBPartIGroup2>
+            <InterestSubtotalAmt interestSubtotalLiteralCd="INTEREST SUBTOTAL">2000</InterestSubtotalAmt>
+            <TaxableInterestSubtotalAmt>2000</TaxableInterestSubtotalAmt>
+            <CalculatedTotalTaxableIntAmt>2000</CalculatedTotalTaxableIntAmt>
+            <ForeignAccountsQuestionInd>false</ForeignAccountsQuestionInd>
+            <ForeignTrustQuestionInd>false</ForeignTrustQuestionInd>
+        </IRS1040ScheduleB>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>300000014</EmployeeSSN>
+            <EmployerEIN>005252525</EmployerEIN>
+            <EmployerNameControlTxt>ESTR</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>The E Street Band</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>1 Wendy Avenue</AddressLine1Txt>
+                <CityNm>Atlantic City</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07111</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Bruce Springsteen</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>145 Muhlenbrink Rd</AddressLine1Txt>
+                <CityNm>Colts Neck</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07722</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>18000</WagesAmt>
+            <WithholdingAmt>300</WithholdingAmt>
+            <SocialSecurityWagesAmt>18000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>200</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>18000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>100</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                    <EmployerStateIdNum>82828282</EmployerStateIdNum>
+                    <StateWagesAmt>18000</StateWagesAmt>
+                    <StateIncomeTaxAmt>100</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>

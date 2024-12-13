@@ -2342,18 +2342,25 @@ en:
           charitable_cash: Charitable contributions (Cash)
           charitable_contributions: Made charitable contributions
           charitable_noncash: Charitable contributions (Non-Cash)
+          credit_to_qualifying_charitable: Credit for Contributions to Qualifying Charitable Organizations
           dependent_tax_credit: Dependent tax credit
+          exclusion_for_govt_pensions: Exclusion for government pensions
+          exclusion_for_military_pensions: Exclusion for military pensions
           family_income_tax_credit: Family income tax credit
           household_excise_credit_claimed: Other members in your household have claimed the Arizona Increased Excise Tax Credit
-          incr_deduction_chrit_contributions: Increased deduction for charitable contributions
+          incr_deduction_charity_contributions: Increased deduction for charitable contributions
           increased_excise_tax_credit: Increased Excise Tax Credit
           last_names: Other last names in the last four years
           made_az321_contributions: Made contributions to qualifying charitable organizations
           made_az322_contributions: Made contributions to public schools
+          public_school_credit: Public School Credit
           ssn_no_employment: "‘Not valid for employment’ is written on your Social Security Card"
-          total_arizona_subtractions: Total Arizona subtractions
+          ssn_not_taxed: Social Security benefits not taxed in Arizona
+          subtraction_for_indian_res: Subtraction for income earned on an American Indian reservation
+          subtraction_for_military_pay: Subtraction for active duty military pay
           total_exemptions: Total Exemptions
           total_payments: Total payments
+          total_tax_nonrefundable_credits: Total tax after nonrefundable credits
           tribal_member: Member of a federally recognized American Indian tribe
           tribal_wages: Amount earned while living and working on the reservation as a member of a federally recognized American Indian tribe
           was_incarcerated: Incarcerated in a county, state, or federal prison for at least 60 days in %{filing_year}
@@ -3183,6 +3190,18 @@ en:
           helper_heading: Where do I find how much property taxes I paid?
           label: Property taxes paid in %{filing_year}
           title: Enter the amount of property taxes paid to %{municipality} for your main home in %{filing_year}.
+      nj_homeowner_property_tax_worksheet:
+        edit:
+          anchor_homestead_helper_description: If you received an ANCHOR Benefit, the benefit amount does not affect the amount to report on this line.
+          anchor_homestead_helper_heading: ANCHOR or Homestead benefits?
+          helper_1: Good news – we think you might qualify for a credit or deduction.
+          helper_2_html: The next step is to fill in this <a href="https://www.nj.gov/treasury/taxation/pdf/current/1040_instr_pages/1040i_32.pdf" target="_blank" rel="noopener nofollow">worksheet</a>.
+          helper_3: It will ask you about where you lived and for how long. If you moved, for example, it will have space for you to list every place where you lived.
+          helper_4: Once you fill in the worksheet, come back to this page.
+          label_html: "<b>Enter Line 4 on Worksheet G</b> </br> (Your share of total property taxes paid)"
+          title: Homeowner Property Tax Worksheet
+          where_to_find_helper_description: You can review your quarterly tax bills and add up the total paid to your municipality.
+          where_to_find_helper_heading: Where can I find property taxes paid?
       nj_household_rent_own:
         edit:
           both: Both a tenant and a homeowner
@@ -3291,20 +3310,23 @@ en:
           tenant_same_home_spouse: Did you and your spouse live in the same home?
           tenant_shared_rent_not_spouse: Did you occupy and share rent for your main home (apartment/rental unit) with someone who was not your spouse during the year?
           title: You said you were a tenant in %{filing_year}.
+      nj_tenant_property_tax_worksheet:
+        edit:
+          anchor_homestead_helper_description: If you received an ANCHOR Benefit, the benefit amount does not affect the amount to report on this line.
+          anchor_homestead_helper_heading: ANCHOR benefits
+          helper_1: Good news – we think you might qualify for a credit or deduction.
+          helper_2_html: The next step is to fill in this <a href="https://www.nj.gov/treasury/taxation/pdf/current/1040_instr_pages/1040i_32.pdf" target="_blank" rel="noopener nofollow">worksheet</a>.
+          helper_3: It will ask you about where you lived and for how long. If you moved, for example, it will have space for you to list every place where you lived.
+          helper_4: Once you fill in the worksheet, come back to this page.
+          label_html: "<b>Enter Line 8 on Worksheet G</b>"
+          mobile_homeowners_helper_description: A mobile home owned in a mobile home park is considered a rental. You enter your site fees paid for 2024 in Part II, Column 3 of Worksheet G.
+          mobile_homeowners_helper_heading: Mobile Homeowners
+          title: Tenant Property Tax Worksheet
       nj_tenant_rent_paid:
         edit:
           helper_description: If you were a mobile homeowner, enter site fees paid in %{filing_year}.
           label: Rent paid in %{filing_year}
           title: Enter your rent paid in %{filing_year}.
-      nj_unsupported_property_tax:
-        edit:
-          helper_1_html: "<strong>What is this credit?</strong> If you qualify, you can deduct up to $15,000 in property tax expenses from your taxable income, or receive up to $50 in credit."
-          helper_2: Want to claim these credits or deductions?
-          helper_3: You may be able to file your state return for free with help from IRS-certified VITA volunteers in New Jersey. Note that this option may take 2-3 weeks to complete.
-          helper_4: Get started with VITA now
-          helper_5: Learn more about this process and other filing options here.
-          helper_6: Please continue to see what else you might qualify for.
-          title: Looks like we can’t help you with this Property Tax Credit / Deduction.
       nj_veterans_exemption:
         edit:
           instructions_html: You are considered a veteran if you are an <a href="https://pub.njleg.state.nj.us/Bills/2024/A3500/3485_I1.PDF" target="_blank" rel="noopener nofollow">honorably discharged</a> former member of the United States Armed Forces. <br><br> If you’re a first-time filer for <a href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml" target="_blank" rel="noopener nofollow"">this exemption</a>, you have to provide <a href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml" target="_blank" rel="noopener nofollow"">documentation</a> and <a href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf" target="_blank" rel="noopener nofollow"">a form</a> to the NJ Division of Taxation. It can be done <a href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf" target="_blank" rel="noopener nofollow">online</a>.
@@ -3321,6 +3343,7 @@ en:
           opt_in_label: Please select the option(s) that work best for you.
           phone_number: Your phone number
           phone_number_help_text: Enter numbers only
+          provided_email: We’ll send updates about your tax return to %{email_address}.
           sms_notification_opt_in: Text message
           subtitle: We'll need to reach out with questions and updates.
           title: What is the best way to reach you?
