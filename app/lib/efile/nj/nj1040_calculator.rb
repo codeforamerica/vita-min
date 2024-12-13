@@ -333,14 +333,10 @@ module Efile
       def calculate_line_40a
         case @intake.household_rent_own
         when "own"
-          if @intake.property_tax_paid.nil? || @intake.property_tax_paid.zero?
-            return nil
-          end
+          return nil unless @intake.property_tax_paid&.positive?
           property_tax_paid = @intake.property_tax_paid
         when "rent"
-          if @intake.rent_paid.nil? || @intake.rent_paid.zero?
-            return nil
-          end
+          return nil unless @intake.rent_paid&.positive?
           property_tax_paid = @intake.rent_paid * RENT_CONVERSION
         else
           return nil
