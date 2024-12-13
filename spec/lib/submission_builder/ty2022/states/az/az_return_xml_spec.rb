@@ -237,6 +237,7 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
       let(:intake) { create(:state_file_az_intake, :df_data_1099_int) }
 
       it "fills in the lines correctly" do
+        intake.direct_file_json_data.interest_reports.first&.interest_on_government_bonds = "2.00"
         expect(xml.css("Subtractions IntUSObligations").text).to eq "2"
       end
     end

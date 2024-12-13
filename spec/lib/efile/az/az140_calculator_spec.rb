@@ -117,6 +117,7 @@ describe Efile::Az::Az140Calculator do
       let(:intake) { create(:state_file_az_intake, :df_data_1099_int) }
 
       it "returns sum of the interest on government bonds" do
+        intake.direct_file_json_data.interest_reports.first&.interest_on_government_bonds = "2.00"
         instance.calculate
         expect(instance.lines[:AZ140_LINE_28].value).to eq(2)
       end

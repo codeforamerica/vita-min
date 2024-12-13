@@ -8,16 +8,16 @@ module SubmissionBuilder
       intake = @kwargs[:intake]
 
       build_xml_doc("State1099Int", documentId: "State1099Int-#{index}") do |xml|
-        if form1099int.payer && form1099int.payer != ''
+        if form1099int.payer.present? && form1099int.payer != ''
           xml.PayerName payerNameControl: form1099int.payer.gsub(/\s+|-/, '').upcase[0..3] do
             xml.BusinessNameLine1Txt sanitize_for_xml(form1099int.payer.tr('-', ' '), 75)
           end
         end
         xml.PayerEIN form1099int.payer_tin&.tr('-', '') if form1099int.payer_tin
-        xml.RecipientSSN form1099int.recipient_tin.tr('-', '') if form1099int.recipient_tin
-        recipient = if form1099int.recipient_tin.tr('-', '') == intake.primary.ssn
+        xml.RecipientSSN form1099int.recipient_tin&.tr('-', '') if form1099int.recipient_tin
+        recipient = if form1099int.recipient_tin&.tr('-', '') == intake.primary.ssn
                       intake.primary
-                    elsif form1099int.recipient_tin.tr('-', '') == intake.spouse.ssn
+                    elsif form1099int.recipient_tin&.tr('-', '') == intake.spouse.ssn
                       intake.spouse
                     end
         xml.RecipientName sanitize_for_xml(recipient.full_name)
