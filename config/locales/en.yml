@@ -3478,7 +3478,10 @@ en:
           title_html: Please review your retirement income (1099-R) details for <strong>%{payer_name}</strong>.
       return_status:
         accepted:
-          check_payable_html: Make your check or money order payable to %{payable_to}. Write your full SSN or ITIN, “%{filing_year} Tax”, and "Form %{form_number}" on your payment.
+          check_payable_html: |
+            <li>
+              Make your check or money order payable to %{payable_to}. Write your full SSN or ITIN, “%{filing_year} Tax”, and "Form %{form_number}" on your payment.
+            </li>
           direct_debit_html: If you have a remaining tax balance, remember to <strong>pay it online at <a target="_blank" rel="noopener nofollow" href="%{tax_payment_url}">%{tax_payment_url}</a></strong> or by mail before the April 15 filing deadline.
           download_voucher: Download payment voucher form
           feedback: We value your feedback—let us know what you think of this service.
@@ -3491,12 +3494,15 @@ en:
               Please wait at least 10 days after your return is accepted before calling the Taxpayer Services Division at 1-800-638-2937 (toll-free) or 410-260-7980.
           nc:
             check_payable_html: |
-              Write “2024 D-400” and your name, address, and the last 4 digits of your Social Security number on your payment.
-              <ul class="list--bulleted">
-                <li>
-                  If you are filing a joint return, write the last 4 digits of both Social Security numbers on your payment in the order that they appear on the return.
-                </li>
-              </ul>
+              <li>Make your check or money order payable to %{payable_to}</li>
+              <li>
+                Write “2024 D-400” and your name, address, and the last 4 digits of your Social Security number on your payment.
+                <ul class="list--bulleted">
+                  <li>
+                    If you are filing a joint return, write the last 4 digits of both Social Security numbers on your payment in the order that they appear on the return.
+                  </li>
+                </ul>
+              </li>
             refund_details_html: |
               For the latest information on refund processing and to check your refund status, visit <a target="_blank" rel="noopener nofollow" href="www.ncdor.gov/file-pay/refund-process">www.ncdor.gov/file-pay/refund-process</a>.
               <br/><br/>

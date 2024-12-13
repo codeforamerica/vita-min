@@ -45,10 +45,8 @@
         <%= link_to t('.download_voucher'), ActionController::Base.helpers.asset_path(@voucher_path) %>
       </li>
 
-      <li>
-        <% # i18n-tasks-use t("state_file.questions.return_status.accepted.check_payable_html") # hint for the i18n linter that, yes, we are using this key (sometimes) %>
-        <%= t(".#{current_state_code}.check_payable_html", default: :'.check_payable_html', payable_to: @department_of_taxation, filing_year: current_tax_year, form_number: @tax_form_number) %>
-      </li>
+      <% # i18n-tasks-use t("state_file.questions.return_status.accepted.check_payable_html") # hint for the i18n linter that, yes, we are using this key (sometimes) %>
+      <%= t(".#{current_state_code}.check_payable_html", default: :'.check_payable_html', payable_to: @department_of_taxation, filing_year: current_tax_year, form_number: @tax_form_number) %>
     </ul>
 
     <p>
