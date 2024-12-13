@@ -30,7 +30,7 @@ describe Efile::Id::Id39RCalculator do
   end
 
   describe "#calculate_line_sec_b_6" do
-    context "when TotalQlfdExpensesOrLimitAmt is least" do
+    context "when sum of QualifiedCareExpensesPaidAmts is least" do
       before do
         allow(intake.direct_file_data).to receive(:dependent_cared_for_count).and_return(2)
         allow(intake.direct_file_data).to receive(:total_qualifying_dependent_care_expenses_no_limit).and_return(200)

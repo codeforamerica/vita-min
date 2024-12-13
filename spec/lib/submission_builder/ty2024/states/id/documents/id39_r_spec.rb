@@ -56,9 +56,9 @@ describe SubmissionBuilder::Ty2024::States::Id::Documents::Id39R, required_schem
     end
 
     describe "child care credit amount" do
-      context "when TotalQlfdExpensesOrLimitAmt is least" do
+      context "when sum of QualifiedCareExpensesPaidAmts is least" do
         before do
-          intake.direct_file_data.total_qualifying_dependent_care_expenses_or_limit_amt = 200
+          allow(intake.direct_file_data).to receive(:total_qualifying_dependent_care_expenses_no_limit).and_return(200)
           intake.direct_file_data.excluded_benefits_amount = 500
           intake.direct_file_data.primary_earned_income_amount = 500
           intake.direct_file_data.spouse_earned_income_amount = 500
@@ -71,7 +71,7 @@ describe SubmissionBuilder::Ty2024::States::Id::Documents::Id39R, required_schem
 
       context "when ExcludedBenefitsAmt is least after subtracting from 12,000" do
         before do
-          intake.direct_file_data.total_qualifying_dependent_care_expenses_or_limit_amt = 500
+          allow(intake.direct_file_data).to receive(:total_qualifying_dependent_care_expenses_no_limit).and_return(500)
           intake.direct_file_data.excluded_benefits_amount = 11_800
           intake.direct_file_data.primary_earned_income_amount = 500
           intake.direct_file_data.spouse_earned_income_amount = 500
@@ -84,7 +84,7 @@ describe SubmissionBuilder::Ty2024::States::Id::Documents::Id39R, required_schem
 
       context "when ExcludedBenefitsAmt is greater than 12,000" do
         before do
-          intake.direct_file_data.total_qualifying_dependent_care_expenses_or_limit_amt = 500
+          allow(intake.direct_file_data).to receive(:total_qualifying_dependent_care_expenses_no_limit).and_return(500)
           intake.direct_file_data.excluded_benefits_amount = 12_800
           intake.direct_file_data.primary_earned_income_amount = 500
           intake.direct_file_data.spouse_earned_income_amount = 500
@@ -97,7 +97,7 @@ describe SubmissionBuilder::Ty2024::States::Id::Documents::Id39R, required_schem
 
       context "when PrimaryEarnedIncomeAmt is least" do
         before do
-          intake.direct_file_data.total_qualifying_dependent_care_expenses_or_limit_amt = 500
+          allow(intake.direct_file_data).to receive(:total_qualifying_dependent_care_expenses_no_limit).and_return(500)
           intake.direct_file_data.excluded_benefits_amount = 500
           intake.direct_file_data.primary_earned_income_amount = 200
           intake.direct_file_data.spouse_earned_income_amount = 500
@@ -110,7 +110,7 @@ describe SubmissionBuilder::Ty2024::States::Id::Documents::Id39R, required_schem
 
       context "when SpouseEarnedIncomeAmt is least" do
         before do
-          intake.direct_file_data.total_qualifying_dependent_care_expenses_or_limit_amt = 500
+          allow(intake.direct_file_data).to receive(:total_qualifying_dependent_care_expenses_no_limit).and_return(500)
           intake.direct_file_data.excluded_benefits_amount = 500
           intake.direct_file_data.primary_earned_income_amount = 500
           intake.direct_file_data.spouse_earned_income_amount = 200
