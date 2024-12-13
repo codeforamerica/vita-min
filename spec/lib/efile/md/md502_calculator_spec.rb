@@ -647,7 +647,7 @@ describe Efile::Md::Md502Calculator do
 
   describe "#calculate_line_15" do
     before do
-      intake.direct_file_data.total_qualifying_dependent_care_expenses_or_limit = 2
+      intake.direct_file_data.total_qualifying_dependent_care_expenses_or_limit_amt = 2
       intake.direct_file_data.fed_taxable_ssb = 6
       allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_10a).and_return 4
       allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_13).and_return 8

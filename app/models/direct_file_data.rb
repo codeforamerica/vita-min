@@ -76,7 +76,7 @@ class DirectFileData < DfXmlAccessor
     primary_earned_income_amount: 'IRS2441 PrimaryEarnedIncomeAmt',
     spouse_earned_income_amount: 'IRS2441 SpouseEarnedIncomeAmt',
     spouse_claimed_dependent: 'IRS1040 SpouseClaimAsDependentInd',
-    total_qualifying_dependent_care_expenses_or_limit: 'ReturnData IRS2441 TotalQlfdExpensesOrLimitAmt',
+    total_qualifying_dependent_care_expenses_or_limit_amt: 'ReturnData IRS2441 TotalQlfdExpensesOrLimitAmt',
     total_income_amount: 'IRS1040 TotalIncomeAmt',
     total_itemized_or_standard_deduction_amount: 'IRS1040 TotalItemizedOrStandardDedAmt'
   }.freeze
@@ -678,7 +678,7 @@ class DirectFileData < DfXmlAccessor
     write_df_xml_value(__method__, value)
   end
 
-  def total_qualifying_dependent_care_expenses_or_limit=(value)
+  def total_qualifying_dependent_care_expenses_or_limit_amt=(value)
     # total qualifying dependent care expenses
     # limited to $3,000 if you had one qualifying person
     # or $6,000 if you had two or more persons.
@@ -913,7 +913,7 @@ class DirectFileData < DfXmlAccessor
       fed_adjustments_claimed
       fed_taxable_pensions
       fed_income_total
-      total_qualifying_dependent_care_expenses_or_limit
+      total_qualifying_dependent_care_expenses_or_limit_amt
     ].each_with_object({}) do |field, hsh|
       hsh[field] = send(field)
     end

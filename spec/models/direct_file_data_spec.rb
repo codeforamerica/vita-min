@@ -397,7 +397,7 @@ describe DirectFileData do
         expect(@direct_file_data.fed_mortgage_interest_credit_amount).to eq(2000)
         expect(@direct_file_data.fed_adoption_credit_amount).to eq(3000)
         expect(@direct_file_data.fed_dc_homebuyer_credit_amount).to eq(4000)
-        expect(@direct_file_data.total_qualifying_dependent_care_expenses_or_limit).to eq(1200)
+        expect(@direct_file_data.total_qualifying_dependent_care_expenses_or_limit_amt).to eq(1200)
       end
     end
 
