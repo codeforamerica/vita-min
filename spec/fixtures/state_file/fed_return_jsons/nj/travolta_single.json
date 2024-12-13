@@ -1,0 +1,45 @@
+{
+  "familyAndHousehold": [
+    {
+      "monthsLivedWithTPInUS": null,
+      "lastName": "Travolta",
+      "isClaimedDependent": true,
+      "hohQualifyingPerson": false,
+      "qualifyingChild": false,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "2012-03-10",
+      "suffix": null,
+      "residencyDuration": "allYear",
+      "firstName": "Ellen",
+      "middleInitial": null,
+      "scheduleEicLine4aNo": false,
+      "tin": "600-00-0020",
+      "eligibleDependent": true,
+      "relationship": "siblingOfParent",
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "filers": [
+    {
+      "lastName": "Travolta",
+      "firstName": "John",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "300-00-0011",
+      "dateOfBirth": "1954-02-18",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "ssnNotValidForEmployment": null,
+      "hsaTotalDeductibleAmount": null
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [
+    {
+      "usedTin": "300-00-0011",
+      "unionDuesAmount": null
+    }
+  ],
+  "interestReports": []
+}

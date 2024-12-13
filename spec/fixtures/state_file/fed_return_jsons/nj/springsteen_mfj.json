@@ -1,0 +1,50 @@
+{
+  "familyAndHousehold": [],
+  "filers": [
+    {
+      "lastName": "Springsteen",
+      "firstName": "Bruce",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "300-00-0014",
+      "dateOfBirth": "1959-12-31",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "ssnNotValidForEmployment": null,
+      "hsaTotalDeductibleAmount": null
+    },
+    {
+      "firstName": "Patti",
+      "lastName": "Scialfa",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "600-00-0090",
+      "dateOfBirth": "2007-01-01",
+      "suffix": null,
+      "isPrimaryFiler": false,
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [
+    {
+      "usedTin": "300-00-0014",
+      "unionDuesAmount": null
+    }
+  ],
+  "interestReports": [
+    {
+      "has1099": true,
+      "taxExemptAndTaxCreditBondCusipNo": null,
+      "interestOnGovernmentBonds": "0.00",
+      "payerTin": null,
+      "taxExemptInterest": "0.00",
+      "payer": "Born To Run Investments",
+      "recipientTin": "600-00-0090",
+      "1099Amount": "2000.00",
+      "taxWithheld": "0.00",
+      "no1099Amount": null
+    }
+  ]
+}
