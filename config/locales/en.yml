@@ -3527,7 +3527,7 @@ en:
           waiting_for acceptance: Your state tax return is still waiting to be accepted.
         rejected:
           edit_return: Edit your state return
-          email_us_html: Email us at <strong>help@fileyourstatetaxes.org</strong>
+          email_us_html: Email us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>
           have_questions: Have questions?
           next_steps:
             can_edit:

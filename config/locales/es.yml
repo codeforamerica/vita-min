@@ -3495,7 +3495,7 @@ es:
           waiting_for acceptance: Su declaración de impuestos estatales todavía está esperando ser aceptada.
         rejected:
           edit_return: Editar tu declaración estatal
-          email_us_html: Envíanos un correo electrónico a <strong>help@fileyourstatetaxes.org</strong>
+          email_us_html: Envíanos un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>
           have_questions: "¿Tienes preguntas?"
           next_steps:
             can_edit:
