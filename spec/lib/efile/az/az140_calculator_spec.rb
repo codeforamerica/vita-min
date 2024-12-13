@@ -10,7 +10,7 @@ describe Efile::Az::Az140Calculator do
   end
 
   context "when claiming multiple dependents of different classifications" do
-    let(:intake) { create(:state_file_az_johnny_intake) }
+    let(:intake) { create(:state_file_az_johnny_intake_new) }
 
     it "counts the dependents correctly by their classifications" do
       instance.calculate
