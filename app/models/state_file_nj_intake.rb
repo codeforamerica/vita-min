@@ -200,5 +200,9 @@ class StateFileNjIntake < StateFileBaseIntake
   end
 
   def validate_state_specific_w2_requirements(w2); end
+
+  def ask_for_signature_pin?
+    true
+  end
 end
 
