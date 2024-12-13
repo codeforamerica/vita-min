@@ -657,5 +657,16 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
         expect(xml.at("Form502 RefundableTaxCredits")&.text).to eq('400')
       end
     end
+
+    context "when there are taxes owed" do
+      before do
+        allow(intake).to receive(:refund_or_owe_taxes_type).and_return(:owe)
+        allow(intake).to receive(:payment_or_deposit_type).and_return(:direct_deposit)
+      end
+
+      it 'does not include the NameOnBankAccount attribute' do
+        expect(xml.at("Form502 NameOnBankAccount")).not_to be_present
+      end
+    end
   end
 end
