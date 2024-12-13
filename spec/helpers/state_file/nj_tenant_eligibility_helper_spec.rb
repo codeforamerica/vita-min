@@ -83,35 +83,35 @@ describe StateFile::NjTenantEligibilityHelper do
     end
 
     describe "multiple checkbox interactions" do
-      context "when ineligible overrides worksheet required" do
+      context "taxpayer selects checkboxes that correspond to both ineligible and worksheet required states" do
         let(:intake) {
           create :state_file_nj_intake,
                  tenant_home_subject_to_property_taxes: "no", # ineligible
                  tenant_more_than_one_main_home_in_nj: "yes" # worksheet required
         }
-        it "returns ineligible" do
+        it "determines the taxpayer is ineligible" do
           expect(described_class.determine_eligibility(intake)).to eq(described_class::INELIGIBLE)
         end
       end
 
-      context "when ineligible overrides an advance" do
+      context "taxpayer selects checkboxes that correspond to both ineligible and advance states" do
         let(:intake) {
           create :state_file_nj_intake,
                  tenant_home_subject_to_property_taxes: "no", # ineligible
                  tenant_more_than_one_main_home_in_nj: "no" # advance
         }
-        it "returns ineligible" do
+        it "determines the taxpayer is ineligible" do
           expect(described_class.determine_eligibility(intake)).to eq(described_class::INELIGIBLE)
         end
       end
 
-      context "when a worksheet overrides an advance" do
+      context "taxpayer selects checkboxes that correspond to both worksheet required and advance states" do
         let(:intake) {
           create :state_file_nj_intake,
                  tenant_shared_rent_not_spouse: "yes", # worksheet required
                  tenant_more_than_one_main_home_in_nj: "no" # advance
         }
-        it "returns worksheet required" do
+        it "determines the taxpayer should fill out the worksheet" do
           expect(described_class.determine_eligibility(intake)).to eq(described_class::WORKSHEET)
         end
       end

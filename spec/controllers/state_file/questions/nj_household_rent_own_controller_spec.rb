@@ -124,7 +124,7 @@ RSpec.describe StateFile::Questions::NjHouseholdRentOwnController do
         end
       end
 
-      context "when intake is neither" do
+      context "when taxpayer neither owns nor rents" do
         let(:form_params) do
           { state_file_nj_household_rent_own_form: { household_rent_own: "neither" } }
         end
@@ -135,7 +135,7 @@ RSpec.describe StateFile::Questions::NjHouseholdRentOwnController do
         end
       end
 
-      context "when intake is both" do
+      context "when taxpayer both owns and rents" do
         let(:form_params) do
           { state_file_nj_household_rent_own_form: { household_rent_own: "both" } }
         end

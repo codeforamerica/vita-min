@@ -19,7 +19,7 @@ RSpec.describe StateFile::NjTenantPropertyTaxWorksheetForm do
     }
     let(:form) { described_class.new(intake, valid_params) }
 
-    context "when saving property tax paid" do
+    context "when saving rent paid" do
       let(:valid_params) do
         { rent_paid: 12345 }
       end
