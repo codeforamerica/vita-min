@@ -1,7 +1,6 @@
 require "rails_helper"
 
 describe StateFile::Questions::SubmissionConfirmationController do
-
   let(:intake) { create :state_file_az_refund_intake}
   let!(:submission) { create :efile_submission, :for_state, data_source: intake }
   before do

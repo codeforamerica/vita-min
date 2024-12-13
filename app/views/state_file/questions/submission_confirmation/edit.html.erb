@@ -28,6 +28,12 @@
     <a target="_blank" rel="noopener nofollow" href="https://vote.gov/"><%= t('state_file.general.register_to_vote') %></a>
   </p>
 
+  <% # i18n-tasks-use t("state_file.questions.return_status.additional_content.#{current_state_code}_html") # hint for the i18n linter that, yes, we are using this key (sometimes) %>
+  <% additional_content_key = "state_file.questions.return_status.additional_content.#{current_state_code}_html" %>
+  <% if I18n.exists?(additional_content_key) %>
+    <p><%= t(additional_content_key) %></p>
+  <% end %>
+
   <p><%= t('general.spread_the_word_html') %></p>
 
   <%= link_to t(".download_state_return_pdf"), StateFile::Questions::SubmissionPdfsController.to_path_helper(action: :show, id: EfileSubmission.where(data_source: current_intake).first), class: "button button--primary button--wide" %>
