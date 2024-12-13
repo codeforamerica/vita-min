@@ -154,7 +154,7 @@ module StateFile
         tax_payment_info_url: "https://www.ncdor.gov/file-pay/pay-individual-income-tax",
         tax_payment_url: "https://www.ncdor.gov/file-pay/pay-individual-income-tax",
         tax_refund_url: "https://eservices.dor.nc.gov/wheresmyrefund/SelectionServlet",
-        department_of_taxation: "https://www.ncdor.gov/",
+        department_of_taxation: "North Carolina Department of Revenue",
         timezone: 'America/New_York',
         vita_link: "",
         voucher_form_name: "Form D-400V",
