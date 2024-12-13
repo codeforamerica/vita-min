@@ -39,9 +39,9 @@ RSpec.describe StateFile::Questions::UnemploymentController do
 
     context "with no existing dependents" do
       render_views
-      it "redirects to the new view" do
+      it "renders the new view" do
         get :index
-        expect(response).to redirect_to StateFile::Questions::UnemploymentController.to_path_helper(action: :new)
+        expect(response.body).to include(I18n.t("state_file.questions.unemployment.edit.title"))
       end
     end
   end

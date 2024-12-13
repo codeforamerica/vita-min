@@ -7,6 +7,7 @@
 #  account_type                                           :integer          default("unfilled"), not null
 #  claimed_as_dep                                         :integer
 #  claimed_as_eitc_qualifying_child                       :integer          default("unfilled"), not null
+#  consented_to_sms_terms                                 :integer          default("unfilled"), not null
 #  consented_to_terms_and_conditions                      :integer          default("unfilled"), not null
 #  contact_preference                                     :integer          default("unfilled"), not null
 #  county                                                 :string
@@ -150,6 +151,7 @@ class StateFileNjIntake < StateFileBaseIntake
 
   enum email_notification_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :email_notification_opt_in
   enum sms_notification_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :sms_notification_opt_in
+  enum consented_to_sms_terms: { unfilled: 0, yes: 1, no: 2 }, _prefix: :consented_to_sms_terms
 
   def calculate_sales_use_tax
     nj_gross_income = calculator.lines[:NJ1040_LINE_29].value
@@ -194,5 +196,7 @@ class StateFileNjIntake < StateFileBaseIntake
       health_insurance_eligibility: "ineligible"
     }
   end
+
+  def validate_state_specific_w2_requirements(w2); end
 end
 

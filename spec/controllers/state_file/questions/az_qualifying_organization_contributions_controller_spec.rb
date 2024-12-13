@@ -9,6 +9,51 @@ RSpec.describe StateFile::Questions::AzQualifyingOrganizationContributionsContro
     sign_in intake
   end
 
+  describe ".show?" do
+
+    context "when the intake has charitable contributions" do
+      before do
+        intake.charitable_contributions_yes!
+      end
+
+      context "when the intake has cash contributions" do
+
+        before do
+          intake.update(charitable_cash_amount: 1)
+        end
+
+        it "shows" do
+          expect(described_class).to be_show(intake)
+        end
+
+      end
+
+      context "when the intake does not have cash contributions" do
+
+        before do
+          intake.update(charitable_cash_amount: 0)
+        end
+
+        it "does not show" do
+          expect(described_class).not_to be_show(intake)
+        end
+
+      end
+
+    end
+
+    context "when the intake does not have charitable contributions" do
+      before do
+        intake.charitable_contributions_no!
+      end
+
+      it "does not show" do
+        expect(described_class).not_to be_show(intake)
+      end
+    end
+
+  end
+
   describe "#index" do
     context "credit limit" do
       context "mfj filer" do
@@ -28,10 +73,10 @@ RSpec.describe StateFile::Questions::AzQualifyingOrganizationContributionsContro
       end
     end
 
-    it 'should skip when no contributions are added' do
+    it 'should render the new page no contributions have been added yet' do
       get :index
 
-      expect(response).to redirect_to(:new_az_qualifying_organization_contribution)
+      expect(response.body).to include(I18n.t("state_file.questions.az_qualifying_organization_contributions.form.main_heading_html"))
     end
 
     it 'should list contributions' do
@@ -212,6 +257,9 @@ RSpec.describe StateFile::Questions::AzQualifyingOrganizationContributionsContro
     it 'should not create more than 10 contributions' do
       get :index
       expect(response.body).not_to include(I18n.t('state_file.questions.az_qualifying_organization_contributions.index.maximum_records'))
+
+      # remove the built-but-invalid az321_contribution relation created when #index renders the :new template
+      subject.current_intake.reload
 
       10.times do
         put :create, params: valid_params

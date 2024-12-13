@@ -11,7 +11,7 @@
           <%=  t('.protect_identity') %>
         </p>
         <p>
-          <%= t('.encourage_sharing') %>
+          <%= t('.encourage_sharing_html') %>
         </p>
       </div>
     </div>
@@ -20,5 +20,6 @@
 
 <% content_for :card do %>
   <h1 class="h2"><%= title %></h1>
-  <%= render 'state_file/questions/ny_primary_state_id/state_id', options: {} %>
+  <p class="spacing spacing-above-10 spacing-below-15"><%= t('.subtitle') %></p>
+  <%= render 'state_file/questions/ny_primary_state_id/state_id', options: { dmv_bmv_label: t('.dmv_bmv_label'), info_link: 'https://www.e-verify.gov/sites/default/files/everify/factsheets/factsheetsArchive/MarylandRIDEFactSheet.pdf' } %>
 <% end %>

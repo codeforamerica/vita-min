@@ -32,6 +32,7 @@ class StateFileBaseIntake < ApplicationRecord
   enum account_type: { unfilled: 0, checking: 1, savings: 2 }, _prefix: :account_type
   enum payment_or_deposit_type: { unfilled: 0, direct_deposit: 1, mail: 2 }, _prefix: :payment_or_deposit_type
   enum consented_to_terms_and_conditions: { unfilled: 0, yes: 1, no: 2 }, _prefix: :consented_to_terms_and_conditions
+  enum consented_to_sms_terms: { unfilled: 0, yes: 1, no: 2 }, _prefix: :consented_to_sms_terms
   scope :with_df_data_and_no_federal_submission, lambda {
     where.not(raw_direct_file_data: nil)
          .where(federal_submission_id: nil)
@@ -253,7 +254,12 @@ class StateFileBaseIntake < ApplicationRecord
     direct_file_data.spouse_deceased?
   end
 
-  def validate_state_specific_w2_requirements(w2); end
+  def validate_state_specific_w2_requirements(w2)
+    w2_xml = direct_file_data.w2s[w2.w2_index]
+    if w2_xml.present? && w2.state_wages_amount.present? && w2.state_wages_amount > w2_xml.WagesAmt
+      w2.errors.add(:state_wages_amount, I18n.t("state_file.questions.w2.edit.state_wages_exceed_amt_error", wages_amount: w2_xml.WagesAmt))
+    end
+  end
 
   def validate_state_specific_1099_g_requirements(state_file1099_g)
     unless /\A\d{9}\z/.match?(state_file1099_g.payer_tin)

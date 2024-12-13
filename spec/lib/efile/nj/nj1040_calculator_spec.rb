@@ -480,17 +480,10 @@ describe Efile::Nj::Nj1040Calculator do
   end
 
   describe 'line 16a taxable interest income' do
-    context 'with no interest reports' do
-      let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
-      it 'does not set line 16a' do
-        expect(instance.lines[:NJ1040_LINE_16A].value).to eq(nil)
-      end
-    end
-
-    context 'with interest reports, but no interest on government bonds' do
+    context 'with no interest on government bonds and fed taxable interest of 500' do
       let(:intake) { create(:state_file_nj_intake, :df_data_one_dep) }
-      it 'does not set line 16a' do
-        expect(instance.lines[:NJ1040_LINE_16A].value).to eq(nil)
+      it 'sets line 16a to fed taxable interest' do
+        expect(instance.lines[:NJ1040_LINE_16A].value).to eq(500)
       end
     end
 

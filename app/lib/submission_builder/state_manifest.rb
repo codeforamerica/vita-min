@@ -18,6 +18,10 @@ module SubmissionBuilder
         xml.SubmissionCategoryCd "IND"
         xml.PrimarySSN data_source.primary.ssn
         xml.PrimaryNameControlTxt name_control_type(data_source.primary.last_name)
+        if data_source.filing_status_mfj?
+          xml.SpouseSSN data_source.spouse.ssn
+          xml.SpouseNameControlTxt name_control_type(data_source.spouse.last_name)
+        end
         xml.IRSSubmissionId data_source.federal_submission_id
       end
     end
