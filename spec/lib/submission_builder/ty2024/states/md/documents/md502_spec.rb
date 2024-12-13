@@ -387,7 +387,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
           it "outputs the sum of the Subtractions" do
             expect(xml.at("Form502 Subtractions Total").text.to_i).to eq(total_subtractions)
           end
-          
+
           it 'outputs the state adjusted income' do
             expect(xml.at("Form502 Subtractions StateAdjustedGrossIncome").text.to_i).to eq(state_adjusted_income)
           end
@@ -602,6 +602,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
           account_holder_middle_initial: "D",
           account_holder_last_name: "Hansel"
         )
+        allow(intake).to receive(:refund_or_owe_taxes_type).and_return(:refund)
       end
 
       it 'outputs account holder name' do
@@ -617,6 +618,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
           intake.joint_account_holder_last_name = "Gretl"
           intake.joint_account_holder_suffix = "II"
           intake.has_joint_account_holder = "yes"
+          allow(intake).to receive(:refund_or_owe_taxes_type).and_return(:refund)
         end
 
         it "outputs names for both account holders" do
