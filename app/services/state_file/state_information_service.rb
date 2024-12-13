@@ -113,7 +113,7 @@ module StateFile
         mail_voucher_address: "".html_safe,
         navigation_class: Navigation::StateFileMdQuestionNavigation,
         pay_taxes_link: "",
-        return_type: "502",
+        return_type: "Form502",
         review_controller_class: StateFile::Questions::MdReviewController,
         schema_file_name: "MDIndividual2024v1.0.zip",
         state_name: "Maryland",
