@@ -73,19 +73,19 @@ describe StateFileBaseIntake do
 
   describe "#synchronize_df_1099_rs_to_database" do
     it "reads in 1099Rs and adds all of them to the database" do
-      xml = StateFile::DirectFileApiResponseSampleService.new.read_xml('az_alexis_hoh_w2_and_1099')
+      xml = StateFile::DirectFileApiResponseSampleService.new.read_xml('az_tycho_single_with_1099r')
       intake = create(:minimal_state_file_az_intake, raw_direct_file_data: xml)
       expect(intake.state_file1099_rs).to be_blank
       intake.synchronize_df_1099_rs_to_database
 
-      expect(intake.state_file1099_rs.first.state_tax_withheld_amount).to eq 10
+      expect(intake.state_file1099_rs.first.state_tax_withheld_amount).to eq 50
       expect(intake.state_file1099_rs.count).to eq 1
     end
   end
 
   describe "#synchronize_df_w2s_to_database" do
     it "reads in w2s and adds all of them to the database" do
-      xml = StateFile::DirectFileApiResponseSampleService.new.read_xml('az_alexis_hoh_w2_and_1099')
+      xml = StateFile::DirectFileApiResponseSampleService.new.read_xml('test_alexis_hoh_w2_and_1099')
       intake = create(:minimal_state_file_az_intake, raw_direct_file_data: xml)
       expect(intake.state_file_w2s).to be_blank
       intake.synchronize_df_w2s_to_database

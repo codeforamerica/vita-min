@@ -280,8 +280,8 @@ FactoryBot.define do
 
     factory :state_file_az_johnny_intake do
       # Details of this scenario: https://docs.google.com/document/d/1Aq-1Qdna62gUQqzPyYY2CetC-VZWtCqK73LqBYBLINw/edit
-      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('az_johnny_mfj_8_deps') }
-      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('az_johnny_mfj_8_deps') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('az_johnny_mfj') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('az_johnny_mfj') }
 
       after(:create) do |intake|
         intake.synchronize_df_dependents_to_database
@@ -302,8 +302,8 @@ FactoryBot.define do
     end
 
     trait :df_data_1099_int do
-      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('az_troy_1099_int') }
-      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('az_troy_1099_int') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('az_atticus_itin_single') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('az_atticus_itin_single') }
     end
   end
 end

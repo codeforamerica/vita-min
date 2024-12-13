@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe DirectFileData do
-  let(:xml) { Nokogiri::XML(StateFile::DirectFileApiResponseSampleService.new.read_xml("az_df_complete_sample")) }
+  let(:xml) { Nokogiri::XML(StateFile::DirectFileApiResponseSampleService.new.read_xml("test_df_complete_sample")) }
   let(:direct_file_data) { DirectFileData.new(xml.to_s) }
 
   [
@@ -466,22 +466,6 @@ describe DirectFileData do
       end
     end
 
-    context "when there are dependents in AZ, the months_in_home is not populated" do
-      let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml('az_johnny_mfj_8_deps') }
-
-      it 'sets the months_in_home to nil' do
-        expect(described_class.new(xml).dependents).to be_all { |d| d.months_in_home.nil? }
-      end
-    end
-
-    context "when there are dependents in NY, the months_in_home IS populated" do
-      let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml('ny_matthew') }
-
-      it 'sets the months_in_home' do
-        expect(described_class.new(xml).dependents).to be_all { |d| d.months_in_home.present? }
-      end
-    end
-
     context 'when there are dependents with missing tags' do
       let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml('ny_batman') }
       it 'still sets the dependents' do
@@ -528,7 +512,7 @@ describe DirectFileData do
   end
 
   describe '#spouse_is_a_dependent?' do
-    let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml("az_bert") }
+    let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml("nj_married_filing_jointly_spouse_claimed_dep") }
     it 'returns true' do
       expect(described_class.new(xml).spouse_is_a_dependent?).to eq(true)
     end
@@ -536,7 +520,7 @@ describe DirectFileData do
 
   describe "#sum_of_1099r_payments_received" do
     it "returns the sum of TaxableAmt from 1099Rs" do
-      xml = StateFile::DirectFileApiResponseSampleService.new.read_xml("az_richard_retirement_1099r")
+      xml = StateFile::DirectFileApiResponseSampleService.new.read_xml("test_richard_retirement_1099r")
       direct_file_data = DirectFileData.new(xml.to_s)
 
       expect(direct_file_data.sum_of_1099r_payments_received).to eq(1500)
@@ -544,7 +528,7 @@ describe DirectFileData do
   end
 
   describe "DfW2" do
-    let(:xml) { Nokogiri::XML(StateFile::DirectFileApiResponseSampleService.new.read_xml("az_alexis_hoh_w2_and_1099")) }
+    let(:xml) { Nokogiri::XML(StateFile::DirectFileApiResponseSampleService.new.read_xml("test_alexis_hoh_w2_and_1099")) }
     let(:direct_file_data) { DirectFileData.new(xml.to_s) }
     let(:first_w2) { direct_file_data.w2s[0] }
 

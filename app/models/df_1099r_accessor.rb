@@ -31,7 +31,7 @@ class Df1099rAccessor < DfXmlAccessor
   end
 
   def default_node
-    Nokogiri::XML(StateFile::DirectFileApiResponseSampleService.new.read_xml("az_richard_retirement_1099r")).at('IRS1099R')
+    Nokogiri::XML(StateFile::DirectFileApiResponseSampleService.new.read_xml("test_richard_retirement_1099r")).at('IRS1099R')
   end
 
   define_xml_accessors
