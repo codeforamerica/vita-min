@@ -3,12 +3,12 @@ require 'rails_helper'
 describe StateFile::DirectFileApiResponseSampleService do
   let(:direct_file_api_response_return_sample_service) { StateFile::DirectFileApiResponseSampleService.new }
   let(:state_code) { 'id' }
-  let(:sample_name) { 'lana_single' }
-  let(:key) { 'id_lana_single' }
+  let(:sample_name) { 'spud_single_blind' }
+  let(:key) { 'id_spud_single_blind' }
   let(:missing_key) { 'az_superman_does_not_exist' }
   let(:invalid_key) { 'asdf' }
-  let(:label) { 'Id lana single' }
-  let(:unique_file_contents) { 'Turner' }
+  let(:label) { 'Id spud single blind' }
+  let(:unique_file_contents) { 'Spud' }
   let(:old_sample_unique_file_contents) { 'TESTERSON' }
   let(:default_submission_id) { '12345202201011234570' }
 

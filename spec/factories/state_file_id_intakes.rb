@@ -157,8 +157,6 @@ FactoryBot.define do
       after(:create, &:synchronize_df_w2s_to_database)
     end
 
-    #TODO : Use the personas we have for ID instead of df_return_sample.xml later because we have ID xmls and the df_return_sample is a fake NY one
-
     trait :single_filer_with_json do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('id_lana_single') }
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('id_lana_single') }
@@ -171,15 +169,17 @@ FactoryBot.define do
     end
 
     trait :with_dependents do
-      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('id_ernest_hoh') }
-      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('id_ernest_hoh') }
+      # 4 total dependents
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('id_estrada_donations') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('id_estrada_donations') }
 
       after(:create, &:synchronize_df_dependents_to_database)
     end
     
     trait :with_qualifying_dependents do
-      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('id_john_mfj_8_deps') }
-      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('id_john_mfj_8_deps') }
+      # 3 qualifying dependents, 1 non-qualifying
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('id_estrada_donations') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('id_estrada_donations') }
 
       after(:create, &:synchronize_df_dependents_to_database)
     end
