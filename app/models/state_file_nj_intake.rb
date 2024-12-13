@@ -196,5 +196,7 @@ class StateFileNjIntake < StateFileBaseIntake
       health_insurance_eligibility: "ineligible"
     }
   end
+
+  def validate_state_specific_w2_requirements(w2); end
 end
 

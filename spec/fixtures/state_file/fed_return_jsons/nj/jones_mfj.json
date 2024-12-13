@@ -1,0 +1,37 @@
+{
+  "familyAndHousehold": [],
+  "filers": [
+    {
+      "firstName": "John",
+      "lastName": "Jones",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "400-00-6308",
+      "dateOfBirth": "1971-08-11",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "ssnNotValidForEmployment": null,
+      "hsaTotalDeductibleAmount": null
+    },
+    {
+      "lastName": "Jones",
+      "firstName": "Amber",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "400-00-6318",
+      "dateOfBirth": "1972-09-25",
+      "suffix": null,
+      "isPrimaryFiler": false,
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [
+    {
+      "usedTin": "400-00-6318",
+      "unionDuesAmount": null
+    }
+  ],
+  "interestReports": []
+}

@@ -91,9 +91,6 @@ class StateFileW2 < ApplicationRecord
         errors.add(:local_income_tax_amount, I18n.t("state_file.questions.w2.edit.wages_amt_error", wages_amount: w2.WagesAmt))
         errors.add(:state_income_tax_amount, I18n.t("state_file.questions.w2.edit.wages_amt_error", wages_amount: w2.WagesAmt))
       end
-      if state_wages_amount.present? && state_wages_amount > w2.WagesAmt
-        errors.add(:state_wages_amount, I18n.t("state_file.questions.w2.edit.state_wages_exceed_amt_error", wages_amount: w2.WagesAmt))
-      end
     end
   end
 
