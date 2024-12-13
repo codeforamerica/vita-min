@@ -2,7 +2,6 @@ require 'rails_helper'
 
 describe SubmissionBuilder::Ty2024::States::Md::Documents::Md1099G do
   describe ".document" do
-    let(:state_code) { "md" }
     let(:submission) { create(:efile_submission, data_source: intake) }
     let(:recipient) { "primary" }
     let(:had_box_11) { "yes" }
@@ -46,7 +45,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md1099G do
     let(:primary_last_name) { "Monroe" }
     let(:intake) do
       create(
-        "state_file_#{state_code}_intake".to_sym,
+        "state_file_md_intake".to_sym,
         primary_first_name: primary_first_name,
         primary_middle_initial: primary_middle_initial,
         primary_last_name: primary_last_name,
@@ -61,7 +60,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md1099G do
       expect(doc.at("BusinessNameLine1Txt").text).to eq payer_name
       expect(doc.at("Payer Address AddressLine1Txt").text).to eq payer_street_address
       expect(doc.at("Payer Address CityNm").text).to eq payer_city
-      expect(doc.at("Payer Address StateAbbreviationCd").text).to eq state_code.upcase
+      expect(doc.at("Payer Address StateAbbreviationCd").text).to eq "MD"
       expect(doc.at("Payer Address ZIPCd").text).to eq payer_zip
       expect(doc.at("Payer IDNumber").text).to eq payer_tin
       expect(doc.at("Recipient SSN").text).to eq primary_ssn
@@ -69,7 +68,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md1099G do
       expect(doc.at("Recipient Address USAddress AddressLine1Txt").text).to eq recipient_street_address
       expect(doc.at("Recipient Address USAddress AddressLine2Txt").text).to eq recipient_street_address_apartment
       expect(doc.at("Recipient Address USAddress CityNm").text).to eq recipient_city
-      expect(doc.at("Recipient Address USAddress StateAbbreviationCd").text).to eq state_code.upcase
+      expect(doc.at("Recipient Address USAddress StateAbbreviationCd").text).to eq "MD"
       expect(doc.at("Recipient Address USAddress ZIPCd").text).to eq recipient_zip
       expect(doc.at("UnemploymentCompensationPaid").text).to eq unemployment_compensation_amount
       expect(doc.at("FederalTaxWithheld").text).to eq federal_income_tax_withheld_amount
