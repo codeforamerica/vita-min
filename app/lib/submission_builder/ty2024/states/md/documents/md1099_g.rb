@@ -32,7 +32,7 @@ module SubmissionBuilder
                             end
                 xml.Recipient do
                   xml.SSN recipient.ssn
-                  xml.Name sanitize_for_xml(recipient.full_name)
+                  xml.Name sanitize_for_xml(recipient.full_name, 35)
                   xml.Address do
                     xml.USAddress do
                       xml.AddressLine1Txt sanitize_for_xml(form1099g.recipient_address_line1, 35)
@@ -43,9 +43,9 @@ module SubmissionBuilder
                     end
                   end
                 end
-                xml.UnemploymentCompensationPaid form1099g.unemployment_compensation_amount&.round
-                xml.FederalTaxWithheld form1099g.federal_income_tax_withheld_amount&.round
-                xml.StateTaxWithheld form1099g.state_income_tax_withheld_amount&.round
+                xml.UnemploymentCompensationPaid form1099g.unemployment_compensation_amount&.round if form1099g.unemployment_compensation_amount.present?
+                xml.FederalTaxWithheld form1099g.federal_income_tax_withheld_amount&.round if form1099g.federal_income_tax_withheld_amount.present?
+                xml.StateTaxWithheld form1099g.state_income_tax_withheld_amount&.round if form1099g.state_income_tax_withheld_amount.present?
               end
             end
           end
