@@ -1,6 +1,6 @@
 <div class='return-status'>
   <p>
-    <%= image_tag('icons/check.svg') %>
+    <%= image_tag('icons/clock--green.svg') %>
   </p>
 </div>
 
@@ -9,15 +9,33 @@
 </h1>
 
 <p>
-<% if current_intake.email_notification_opt_in_yes? && current_intake.sms_notification_opt_in_yes? %>
-  <%= t('.receive_email_sms') %>
-<% elsif current_intake.email_notification_opt_in_yes? %>
-  <%= t('.receive_email') %>
-<% elsif current_intake.sms_notification_opt_in_yes? %>
-  <%= t('.receive_sms') %>
-<% end %>
+  <%= t(".waiting_for acceptance") %>
 </p>
 
 <p>
-  <%= app_time.before?(Rails.configuration.state_file_end_of_in_progress_intakes) ? t('.more_than_two_days') : t('.more_than_two_days_closed_html') %>
+  <% if current_intake.email_notification_opt_in_yes? && current_intake.sms_notification_opt_in_yes? %>
+    <%= t('state_file.questions.submission_confirmation.edit.email_text_update') %>
+  <% elsif current_intake.email_notification_opt_in_yes? %>
+    <%= t('state_file.questions.submission_confirmation.edit.email_update') %>
+  <% elsif current_intake.sms_notification_opt_in_yes? %>
+    <%= t('state_file.questions.submission_confirmation.edit.text_update') %>
+  <% end %>
 </p>
+
+<% if current_intake.email_notification_opt_in_yes? %>
+  <p>
+    <%= t('.check_spam') %>
+  </p>
+<% end %>
+
+<section>
+  <p class="spacing-below-5"><strong><%= t('state_file.questions.return_status.rejected.have_questions') %></strong></p>
+  <ul class="list--bulleted">
+    <li class="text--underline open-intercom">
+      <%= t("general.chat_with_us") %>
+    </li>
+    <li>
+      <%= t("state_file.questions.return_status.rejected.email_us_html") %>
+    </li>
+  </ul>
+</section>

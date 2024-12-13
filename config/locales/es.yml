@@ -2071,6 +2071,7 @@ es:
       nc_tax_withheld: Impuesto retenido en Carolina del Norte
       nc_taxable_income: Ingreso tributables en Carolina del Norte
       nc_use_tax: Impuesto sobre el uso de Carolina del Norte
+      register_to_vote: Regístrate para votar.
       see_detailed_return: Ver información detallada de la declaración
       standard_deduction: Deducción estándar
       title: Declaración estatal gratuita de impuestos de AZ y NY
@@ -3473,31 +3474,56 @@ es:
           title_html: Por favor revise los detalles de sus ingresos de jubilación (1099-R) para <strong>%{payer_name}</strong>.
       return_status:
         accepted:
-          check_payable: Haz tu cheque o giro postal a nombre del %{payable_to}. Escribe tu SSN o ITIN completo, "%{filing_year} Tax", y "Form %{form_number}" en tu pago.
-          direct_debit_html: Si tienes un saldo de impuestos pendiente, recuerda <strong>pagarlo en línea en <a target="_blank" rel="noopener nofollow" href="https://%{tax_payment_url}">%{tax_payment_url}</a></strong> o por correo antes de la fecha límite para declarar, que es el 15 de abril.
-          download_title: Descargue una copia de tu declaración de impuestos estatales de %{state_name} de %{year} hasta el 31 de diciembre de %{year}
+          check_payable_html: |
+            <li>
+              Haz tu cheque o giro postal a nombre del %{payable_to}. Escribe tu SSN o ITIN completo, "%{filing_year} Tax", y "Form %{form_number}" en tu pago.
+            </li>
+          direct_debit_html: Si tienes un saldo de impuestos pendiente, recuerda <strong>pagarlo en línea en <a target="_blank" rel="noopener nofollow" href="%{tax_payment_url}">%{tax_payment_url}</a></strong> o por correo antes de la fecha límite para declarar, que es el 15 de abril.
           download_voucher: Descargar formulario de comprobante de pago
           feedback: Valoramos sus comentarios; háganos saber lo que piensa de esta herramienta.
           include_payment: Debes incluir el formulario de comprobante de pago.
           mail_voucher_and_payment: 'Envía el formulario de comprobante de pago y el pago a:'
+          md:
+            refund_details_html: |
+              You can check the status of your refund by visiting <a target="_blank" rel="noopener nofollow" href="https://marylandtaxes.gov">www.marylandtaxes.gov</a> and clicking on "Where's my refund?" You can also call the automated refund inquiry hotline at 1-800-218-8160 (toll-free) or 410-260-7701.
+              <br/><br/>
+              Please wait at least 10 days after your return is accepted before calling the Taxpayer Services Division at 1-800-638-2937 (toll-free) or 410-260-7980.
+          nc:
+            check_payable_html: |
+              <li>Make your check or money order payable to %{payable_to}</li>
+              <li>
+                Write “2024 D-400” and your name, address, and the last 4 digits of your Social Security number on your payment.
+                <ul class="list--bulleted">
+                  <li>
+                    If you are filing a joint return, write the last 4 digits of both Social Security numbers on your payment in the order that they appear on the return.
+                  </li>
+                </ul>
+              </li>
+            refund_details_html: |
+              For the latest information on refund processing and to check your refund status, visit <a target="_blank" rel="noopener nofollow" href="www.ncdor.gov/file-pay/refund-process">www.ncdor.gov/file-pay/refund-process</a>.
+              <br/><br/>
+              You'll need to enter your Social Security Number and the exact refund amount.
+              <br/><br/>
+              You can also call the North Carolina Department of Revenue's toll-free refund inquiry line at 1-877-252-4052, available 24/7.
           pay_by_mail_or_moneyorder: 'Si vas a pagar por correo usando cheque o giro postal:'
-          refund_details_html: 'Typical refund time frames are 7-8 weeks for e-Filed returns and 10-11 weeks for paper returns. There are some exceptions. For more information, please visit %{website_name} website: <a target="_blank" rel="noopener nofollow" href="https://%{tax_refund_url}>Where’s my Refund?</a>'
-          register_to_vote: Regístrate para votar.
+          refund_details_html: 'Typical refund time frames are 7-8 weeks for e-Filed returns and 10-11 weeks for paper returns. There are some exceptions. For more information, please visit %{website_name} website: <a target="_blank" rel="noopener nofollow" href="%{tax_refund_url}>Where’s my Refund?</a>'
           title: Tu declaración de impuestos del estado de %{state_name} para el año %{filing_year} ha sido aceptada
+        additional_content:
+          md_html: <a target="_blank" rel="noopener nofollow" href="https://www.donatelifemaryland.org/">Register to make an anatomical gift at DonateLifeMaryland.org.</a>
         edit:
           download_state_return_pdf: Descarga tu declaración estatal
           explain_calcs: Explicación de Cálculos
           show_xml: Mostrar XML
+        intake_closed:
+          download_title: Descargue una copia de tu declaración de impuestos estatales de %{state_name} de %{filing_year} hasta el 31 de diciembre de %{year}
+          thank_you_html: Gracias por presentar su declaración con <strong>FileYourStateTaxes</strong>, creado en asociación con el estado de %{state_name} para integrarse con la herramienta Direct File del IRS.
         pending:
-          more_than_two_days: Si han pasado más de 2 días desde que presentaste tus impuestos estatales, ponte en contacto con nuestro equipo haciendo clic en "chatea con nosotros".
-          more_than_two_days_closed_html: Si han pasado más de dos días desde que presentó sus impuestos estatales, comuníquese con nuestro equipo de especialistas de soporte enviándonos un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>
-          receive_email: Recibirás una actualización por correo electrónico cuando tu declaración de impuestos estatales sea aceptada.
-          receive_email_sms: Recibirás una actualización por correo electrónico o mensaje de texto cuando tu declaración de impuestos estatales sea aceptada.
-          receive_sms: 'Recibirás una actualización por mensaje de texto una vez tu declaración de impuestos haya sido aceptada. '
+          check_spam: Si han pasado más de dos días desde que presentó su declaración de impuestos estatales y no ha recibido noticias nuestras, revise su carpeta de correo no deseado.
           title: Has enviado tu declaración de impuestos estatales de %{state_name} para el año %{filing_year}, y está esperando ser aceptada.
+          waiting_for acceptance: Su declaración de impuestos estatales todavía está esperando ser aceptada.
         rejected:
           edit_return: Editar tu declaración estatal
-          email_us_html: Envíanos un correo electrónico a <strong>help@fileyourstatetaxes.org</strong>
+          email_us_html: Envíanos un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>
           have_questions: "¿Tienes preguntas?"
           next_steps:
             can_edit:
@@ -3509,7 +3535,6 @@ es:
           reject_code: 'Código de Rechazo:'
           reject_desc: 'Descripción del Rechazo:'
           title: Lamentablemente, tu declaración de impuestos estatal de %{state_name}%{filing_year} fue rechazada
-        thank_you_html: Gracias por presentar su declaración con <strong>FileYourStateTaxes</strong>, creado en asociación con el estado de %{state_name} para integrarse con la herramienta Direct File del IRS.
       review:
         county: Condado donde estaba ubicada su dirección permanente el 31 de diciembre de %{filing_year}
         county_during_hurricane: Condado donde estaba ubicada su dirección permanente durante el huracán Helene
@@ -3554,8 +3579,7 @@ es:
           download_state_return_pdf: Descarga tu declaración estatal
           email_text_update: Recibirás una actualización por correo electrónico o mensaje de texto cuando tu declaración de impuestos estatales sea aceptada.
           email_update: Recibirás una actualización por correo electrónico cuando tu declaración de impuestos estatales sea aceptada.
-          ny_notifications_signup_html: <a target="_blank" rel="noopener nofollow" href="https://tax.ny.gov/">Regístrate con el Departamento de Impuestos del Estado de Nueva York</a> para recibir notificaciones por correo electrónico sobre tu cuenta de impuestos personales.
-          register_to_vote: Regístrate para votar.
+          text_update: Recibirás una actualización por mensaje de texto cuando tu declaración de impuestos estatales sea aceptada.
           title: "¡Tu declaración de impuestos del estado de %{state_name}de %{filing_year} ha sido enviada!"
           title_resubmit: "¡Tu declaración de impuestos estatales de %{state_name} para el año %{filing_year} ha sido enviada de nuevo!"
       tax_refund:
