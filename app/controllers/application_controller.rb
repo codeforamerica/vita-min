@@ -69,6 +69,8 @@ class ApplicationController < ActionController::Base
     state_file? && pages_to_hide_from.any? do |controller, action|
       self.class.name == controller && (action == "" || action_name == action)
     end
+
+    true # todo: remove once key rotated
   end
   helper_method :hide_intercom?
 
