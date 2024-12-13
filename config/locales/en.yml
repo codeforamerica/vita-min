@@ -1706,6 +1706,19 @@ en:
 
           Best,
           The FileYourStateTaxes team
+      terminal_rejected:
+        email:
+          body: |
+            Hi %{primary_first_name},
+
+            Unfortunately, %{state_name} rejected your state tax return due to an issue that cannot be resolved on our tool. Don't worry! We can help provide guidance on next steps. You can chat with us at %{return_status_link}.
+
+            Questions? Reply to this email.
+
+            Best,
+            The FileYourStateTaxes team
+          subject: 'FileYourStateTaxes Update: %{state_name} State Return Rejected.'
+        sms: "Hi %{primary_first_name} - Unfortunately, %{state_name} rejected your state tax return for an issue that cannot be resolved on our tool. Don't worry! We can help provide guidance on next steps. Chat with us at %{return_status_link}. \n\nQuestions? Reply to this text.\n"
       welcome:
         email:
           body: |
@@ -2106,6 +2119,7 @@ en:
       nc_tax_withheld: North Carolina tax withheld
       nc_taxable_income: North Carolina taxable income
       nc_use_tax: North Carolina use tax
+      register_to_vote: Register to vote.
       see_detailed_return: See detailed return information
       standard_deduction: Standard deduction
       title: Free state tax filing | FileYourStateTaxes
@@ -2329,18 +2343,25 @@ en:
           charitable_cash: Charitable contributions (Cash)
           charitable_contributions: Made charitable contributions
           charitable_noncash: Charitable contributions (Non-Cash)
+          credit_to_qualifying_charitable: Credit for Contributions to Qualifying Charitable Organizations
           dependent_tax_credit: Dependent tax credit
+          exclusion_for_govt_pensions: Exclusion for government pensions
+          exclusion_for_military_pensions: Exclusion for military pensions
           family_income_tax_credit: Family income tax credit
           household_excise_credit_claimed: Other members in your household have claimed the Arizona Increased Excise Tax Credit
-          incr_deduction_chrit_contributions: Increased deduction for charitable contributions
+          incr_deduction_charity_contributions: Increased deduction for charitable contributions
           increased_excise_tax_credit: Increased Excise Tax Credit
           last_names: Other last names in the last four years
           made_az321_contributions: Made contributions to qualifying charitable organizations
           made_az322_contributions: Made contributions to public schools
+          public_school_credit: Public School Credit
           ssn_no_employment: "‘Not valid for employment’ is written on your Social Security Card"
-          total_arizona_subtractions: Total Arizona subtractions
+          ssn_not_taxed: Social Security benefits not taxed in Arizona
+          subtraction_for_indian_res: Subtraction for income earned on an American Indian reservation
+          subtraction_for_military_pay: Subtraction for active duty military pay
           total_exemptions: Total Exemptions
           total_payments: Total payments
+          total_tax_nonrefundable_credits: Total tax after nonrefundable credits
           tribal_member: Member of a federally recognized American Indian tribe
           tribal_wages: Amount earned while living and working on the reservation as a member of a federally recognized American Indian tribe
           was_incarcerated: Incarcerated in a county, state, or federal prison for at least 60 days in %{filing_year}
@@ -3170,6 +3191,18 @@ en:
           helper_heading: Where do I find how much property taxes I paid?
           label: Property taxes paid in %{filing_year}
           title: Enter the amount of property taxes paid to %{municipality} for your main home in %{filing_year}.
+      nj_homeowner_property_tax_worksheet:
+        edit:
+          anchor_homestead_helper_description: If you received an ANCHOR Benefit, the benefit amount does not affect the amount to report on this line.
+          anchor_homestead_helper_heading: ANCHOR or Homestead benefits?
+          helper_1: Good news – we think you might qualify for a credit or deduction.
+          helper_2_html: The next step is to fill in this <a href="https://www.nj.gov/treasury/taxation/pdf/current/1040_instr_pages/1040i_32.pdf" target="_blank" rel="noopener nofollow">worksheet</a>.
+          helper_3: It will ask you about where you lived and for how long. If you moved, for example, it will have space for you to list every place where you lived.
+          helper_4: Once you fill in the worksheet, come back to this page.
+          label_html: "<b>Enter Line 4 on Worksheet G</b> </br> (Your share of total property taxes paid)"
+          title: Homeowner Property Tax Worksheet
+          where_to_find_helper_description: You can review your quarterly tax bills and add up the total paid to your municipality.
+          where_to_find_helper_heading: Where can I find property taxes paid?
       nj_household_rent_own:
         edit:
           both: Both a tenant and a homeowner
@@ -3278,20 +3311,23 @@ en:
           tenant_same_home_spouse: Did you and your spouse live in the same home?
           tenant_shared_rent_not_spouse: Did you occupy and share rent for your main home (apartment/rental unit) with someone who was not your spouse during the year?
           title: You said you were a tenant in %{filing_year}.
+      nj_tenant_property_tax_worksheet:
+        edit:
+          anchor_homestead_helper_description: If you received an ANCHOR Benefit, the benefit amount does not affect the amount to report on this line.
+          anchor_homestead_helper_heading: ANCHOR benefits
+          helper_1: Good news – we think you might qualify for a credit or deduction.
+          helper_2_html: The next step is to fill in this <a href="https://www.nj.gov/treasury/taxation/pdf/current/1040_instr_pages/1040i_32.pdf" target="_blank" rel="noopener nofollow">worksheet</a>.
+          helper_3: It will ask you about where you lived and for how long. If you moved, for example, it will have space for you to list every place where you lived.
+          helper_4: Once you fill in the worksheet, come back to this page.
+          label_html: "<b>Enter Line 8 on Worksheet G</b>"
+          mobile_homeowners_helper_description: A mobile home owned in a mobile home park is considered a rental. You enter your site fees paid for 2024 in Part II, Column 3 of Worksheet G.
+          mobile_homeowners_helper_heading: Mobile Homeowners
+          title: Tenant Property Tax Worksheet
       nj_tenant_rent_paid:
         edit:
           helper_description: If you were a mobile homeowner, enter site fees paid in %{filing_year}.
           label: Rent paid in %{filing_year}
           title: Enter your rent paid in %{filing_year}.
-      nj_unsupported_property_tax:
-        edit:
-          helper_1_html: "<strong>What is this credit?</strong> If you qualify, you can deduct up to $15,000 in property tax expenses from your taxable income, or receive up to $50 in credit."
-          helper_2: Want to claim these credits or deductions?
-          helper_3: You may be able to file your state return for free with help from IRS-certified VITA volunteers in New Jersey. Note that this option may take 2-3 weeks to complete.
-          helper_4: Get started with VITA now
-          helper_5: Learn more about this process and other filing options here.
-          helper_6: Please continue to see what else you might qualify for.
-          title: Looks like we can’t help you with this Property Tax Credit / Deduction.
       nj_veterans_exemption:
         edit:
           instructions_html: You are considered a veteran if you are an <a href="https://pub.njleg.state.nj.us/Bills/2024/A3500/3485_I1.PDF" target="_blank" rel="noopener nofollow">honorably discharged</a> former member of the United States Armed Forces. <br><br> If you’re a first-time filer for <a href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml" target="_blank" rel="noopener nofollow"">this exemption</a>, you have to provide <a href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml" target="_blank" rel="noopener nofollow"">documentation</a> and <a href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf" target="_blank" rel="noopener nofollow"">a form</a> to the NJ Division of Taxation. It can be done <a href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf" target="_blank" rel="noopener nofollow">online</a>.
@@ -3308,6 +3344,7 @@ en:
           opt_in_label: Please select the option(s) that work best for you.
           phone_number: Your phone number
           phone_number_help_text: Enter numbers only
+          provided_email: We’ll send updates about your tax return to %{email_address}.
           sms_notification_opt_in: Text message
           subtitle: We'll need to reach out with questions and updates.
           title: What is the best way to reach you?
@@ -3463,31 +3500,56 @@ en:
           title_html: Please review your retirement income (1099-R) details for <strong>%{payer_name}</strong>.
       return_status:
         accepted:
-          check_payable: Make your check or money order payable to %{payable_to}. Write your full SSN or ITIN, “%{filing_year} Tax”, and "Form %{form_number}" on your payment.
-          direct_debit_html: If you have a remaining tax balance, remember to <strong>pay your taxes online at <a target="_blank" rel="noopener nofollow" href="https://%{tax_payment_url}">%{tax_payment_url}</a></strong> or by mail before the April 15 filing deadline.
-          download_title: Download a copy of your %{year} %{state_name} state tax return until December 31, %{year}
+          check_payable_html: |
+            <li>
+              Make your check or money order payable to %{payable_to}. Write your full SSN or ITIN, “%{filing_year} Tax”, and "Form %{form_number}" on your payment.
+            </li>
+          direct_debit_html: If you have a remaining tax balance, remember to <strong>pay it online at <a target="_blank" rel="noopener nofollow" href="%{tax_payment_url}">%{tax_payment_url}</a></strong> or by mail before the April 15 filing deadline.
           download_voucher: Download payment voucher form
           feedback: We value your feedback—let us know what you think of this service.
           include_payment: You'll need to include the payment voucher form.
           mail_voucher_and_payment: 'Mail the voucher form and payment to:'
+          md:
+            refund_details_html: |
+              You can check the status of your refund by visiting <a target="_blank" rel="noopener nofollow" href="https://marylandtaxes.gov">www.marylandtaxes.gov</a> and clicking on "Where's my refund?" You can also call the automated refund inquiry hotline at 1-800-218-8160 (toll-free) or 410-260-7701.
+              <br/><br/>
+              Please wait at least 10 days after your return is accepted before calling the Taxpayer Services Division at 1-800-638-2937 (toll-free) or 410-260-7980.
+          nc:
+            check_payable_html: |
+              <li>Make your check or money order payable to %{payable_to}</li>
+              <li>
+                Write “2024 D-400” and your name, address, and the last 4 digits of your Social Security number on your payment.
+                <ul class="list--bulleted">
+                  <li>
+                    If you are filing a joint return, write the last 4 digits of both Social Security numbers on your payment in the order that they appear on the return.
+                  </li>
+                </ul>
+              </li>
+            refund_details_html: |
+              For the latest information on refund processing and to check your refund status, visit <a target="_blank" rel="noopener nofollow" href="www.ncdor.gov/file-pay/refund-process">www.ncdor.gov/file-pay/refund-process</a>.
+              <br/><br/>
+              You'll need to enter your Social Security Number and the exact refund amount.
+              <br/><br/>
+              You can also call the North Carolina Department of Revenue's toll-free refund inquiry line at 1-877-252-4052, available 24/7.
           pay_by_mail_or_moneyorder: 'If you are paying by mail via check or money order:'
-          refund_details_html: 'Typical refund time frames are 7-8 weeks for e-Filed returns and 10-11 weeks for paper returns. There are some exceptions. For more information, please visit %{website_name} website: <a target="_blank" rel="noopener nofollow" href="https://%{tax_refund_url}">Where’s my Refund?</a>'
-          register_to_vote: Register to vote.
+          refund_details_html: 'Typical refund time frames are 7-8 weeks for e-Filed returns and 10-11 weeks for paper returns. There are some exceptions. For more information, please visit %{website_name} website: <a target="_blank" rel="noopener nofollow" href="%{tax_refund_url}">Where’s my Refund?</a>'
           title: Your %{filing_year} %{state_name} state tax return is accepted
+        additional_content:
+          md_html: <a target="_blank" rel="noopener nofollow" href="https://www.donatelifemaryland.org/">Register to make an anatomical gift at DonateLifeMaryland.org.</a>
         edit:
           download_state_return_pdf: Download your state return
           explain_calcs: Explain Calculations
           show_xml: Show XML
+        intake_closed:
+          download_title: Download a copy of your %{filing_year} %{state_name} state tax return until December 31, %{year}
+          thank_you_html: Thank you for filing your return with <strong>FileYourStateTaxes</strong>, built in partnership with the state of %{state_name} to integrate with IRS Direct File.
         pending:
-          more_than_two_days: If it's been more than two days since you submitted your state taxes, contact our team of support specialists by clicking chat with us.
-          more_than_two_days_closed_html: If it's been more than two days since you submitted your state taxes, contact our team of support specialists by emailing us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>
-          receive_email: You'll receive an email update when your state tax return is accepted.
-          receive_email_sms: You'll receive an email or text update when your state tax return is accepted.
-          receive_sms: You'll receive an sms update when your state tax return is accepted.
-          title: You have submitted your %{filing_year} %{state_name} tax return! It is currently waiting to be accepted for processing.
+          check_spam: If it's been more than two days since you submitted your state taxes and you haven’t heard from us, check your spam folder.
+          title: You have submitted your %{filing_year} %{state_name} state tax return
+          waiting_for acceptance: Your state tax return is still waiting to be accepted.
         rejected:
           edit_return: Edit your state return
-          email_us_html: Email us at <strong>help@fileyourstatetaxes.org</strong>
+          email_us_html: Email us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>
           have_questions: Have questions?
           next_steps:
             can_edit:
@@ -3499,7 +3561,6 @@ en:
           reject_code: 'Reject Code:'
           reject_desc: 'Reject Description:'
           title: Unfortunately, your %{filing_year} %{state_name} state tax return was rejected
-        thank_you_html: Thank you for filing your return with <strong>FileYourStateTaxes</strong>, built in partnership with the state of %{state_name} to integrate with IRS Direct File.
       review:
         county: County where your permanent address was located on December 31, %{filing_year}
         county_during_hurricane: County where your permanent address was located during Hurricane Helene
@@ -3542,10 +3603,9 @@ en:
       submission_confirmation:
         edit:
           download_state_return_pdf: Download your state return
-          email_text_update: You’ll receive an email or text update when your state return is accepted.
+          email_text_update: You'll receive an email or text update when your state tax return is accepted.
           email_update: You'll receive an email update when your state tax return is accepted.
-          ny_notifications_signup_html: <a target="_blank" rel="noopener nofollow" href="https://tax.ny.gov/">Sign up with the NYS Tax Department</a> to receive email notifications about your personal tax account.
-          register_to_vote: Register to vote.
+          text_update: You'll receive an sms update when your state tax return is accepted.
           title: Your %{filing_year} %{state_name} state tax return is now submitted!
           title_resubmit: Your %{filing_year} %{state_name} state tax return is now resubmitted!
       tax_refund:

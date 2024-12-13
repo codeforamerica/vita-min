@@ -8,6 +8,10 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502Cr, required_sch
     let(:build_response) { described_class.build(submission, validate: false) }
     let(:xml) { Nokogiri::XML::Document.parse(build_response.document.to_xml) }
 
+    before do
+      allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return("S")
+    end
+
     it "generates a valid xml" do
       expect(build_response.errors).to be_empty
     end
@@ -60,6 +64,19 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502Cr, required_sch
           expect(xml.at("Form502CR Refundable ChildAndDependentCareCr").text.to_i).to eq(100)
           expect(xml.at("Form502CR Refundable MDChildTaxCr").text.to_i).to eq(200)
           expect(xml.at("Form502CR Refundable TotalCredits").text.to_i).to eq(300)
+        end
+      end
+
+      context "when deduction method is N" do
+        before do
+          allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return("N")
+        end
+
+        it "does not output parts B, M or AA but still outputs part CC" do
+          expect(xml.at("Form502CR ChildAndDependentCare")).to be_nil
+          expect(xml.at("Form502CR Senior")).to be_nil
+          expect(xml.at("Form502CR Summary")).to be_nil
+          expect(xml.at("Form502CR Refundable")).not_to be_nil
         end
       end
     end

@@ -46,8 +46,8 @@ module SubmissionBuilder
               xml.FilingStatus filing_status
               if hoh_qualifying_person.present?
                 xml.QualChildDependentName do
-                  xml.FirstName sanitize_for_xml(hoh_qualifying_person[:first_name])
-                  xml.LastName sanitize_for_xml(hoh_qualifying_person[:last_name])
+                  xml.FirstName sanitize_for_xml(hoh_qualifying_person[:first_name], 16)
+                  xml.LastName sanitize_for_xml(hoh_qualifying_person[:last_name], 32)
                 end
               end
               xml.Exemptions do

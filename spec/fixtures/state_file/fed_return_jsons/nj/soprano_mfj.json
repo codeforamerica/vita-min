@@ -1,0 +1,37 @@
+{
+  "familyAndHousehold": [],
+  "filers": [
+    {
+      "firstName": "Carmela",
+      "lastName": "Soprano",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "600-00-0010",
+      "dateOfBirth": "1959-11-29",
+      "suffix": null,
+      "isPrimaryFiler": false,
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": true
+    },
+    {
+      "firstName": "Tony",
+      "lastName": "Soprano",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "300-00-0006",
+      "dateOfBirth": "1959-08-22",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "ssnNotValidForEmployment": null,
+      "hsaTotalDeductibleAmount": null
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [
+    {
+      "usedTin": "300-00-0006",
+      "unionDuesAmount": null
+    }
+  ],
+  "interestReports": []
+}

@@ -6,6 +6,10 @@ module StateFile
       before_action :maybe_opt_out_and_continue, only: [:update, :create]
       before_action :set_contribution_count
 
+      def self.show?(intake)
+        intake.charitable_contributions_yes? && intake.charitable_cash_amount.positive?
+      end
+
       def index
         @credit_limit = current_intake.filing_status_mfj? ? 938 : 470
         unless contributions.present?

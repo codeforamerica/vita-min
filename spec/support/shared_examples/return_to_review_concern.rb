@@ -15,6 +15,9 @@ shared_examples :return_to_review_concern do
       it "navigates to the next page in the flow" do
         post :update, params: form_params
 
+        # ensure that any changes made to the intake by `update` are accounted for when we call `show?`
+        intake.reload
+
         controllers = StateFile::StateInformationService.navigation_class(intake.state_code)::FLOW
         next_controller_to_show = nil
         increment = 1

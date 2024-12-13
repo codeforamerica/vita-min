@@ -254,7 +254,12 @@ class StateFileBaseIntake < ApplicationRecord
     direct_file_data.spouse_deceased?
   end
 
-  def validate_state_specific_w2_requirements(w2); end
+  def validate_state_specific_w2_requirements(w2)
+    w2_xml = direct_file_data.w2s[w2.w2_index]
+    if w2_xml.present? && w2.state_wages_amount.present? && w2.state_wages_amount > w2_xml.WagesAmt
+      w2.errors.add(:state_wages_amount, I18n.t("state_file.questions.w2.edit.state_wages_exceed_amt_error", wages_amount: w2_xml.WagesAmt))
+    end
+  end
 
   def validate_state_specific_1099_g_requirements(state_file1099_g)
     unless /\A\d{9}\z/.match?(state_file1099_g.payer_tin)
