@@ -3044,7 +3044,6 @@ en:
           helper_2_html: The next step is to fill in this <a href="https://www.nj.gov/treasury/taxation/pdf/current/1040_instr_pages/1040i_32.pdf" target="_blank" rel="noopener nofollow">worksheet</a>.
           helper_3: It will ask you about where you lived and for how long. If you moved, for example, it will have space for you to list every place where you lived.
           helper_4: Once you fill in the worksheet, come back to this page.
-          helper_5: If you do not want to claim this credit or deduction, click “Continue”.
           label_html: "<b>Enter Line 4 on Worksheet G</b> </br> (Your share of total property taxes paid)"
           title: Homeowner Property Tax Worksheet
           where_to_find_helper_description: You can review your quarterly tax bills and add up the total paid to your municipality.
@@ -3166,7 +3165,6 @@ en:
           helper_2_html: The next step is to fill in this <a href="https://www.nj.gov/treasury/taxation/pdf/current/1040_instr_pages/1040i_32.pdf" target="_blank" rel="noopener nofollow">worksheet</a>.
           helper_3: It will ask you about where you lived and for how long. If you moved, for example, it will have space for you to list every place where you lived.
           helper_4: Once you fill in the worksheet, come back to this page.
-          helper_5: If you do not want to claim this credit or deduction, click “Continue”.
           label_html: "<b>Enter Line 8 on Worksheet G</b>"
           mobile_homeowners_helper_description: A mobile home owned in a mobile home park is considered a rental. You enter your site fees paid for 2024 in Part II, Column 3 of Worksheet G.
           mobile_homeowners_helper_heading: Mobile Homeowners
