@@ -612,7 +612,7 @@ describe DirectFileData do
   end
 
   describe "Df1099R" do
-    let(:direct_file_data) { DirectFileData.new(Nokogiri::XML(StateFile::DirectFileApiResponseSampleService.new.read_xml("nc_miranda_1099r")).to_s) }
+    let(:direct_file_data) { DirectFileData.new(Nokogiri::XML(StateFile::DirectFileApiResponseSampleService.new.read_xml("id_miranda_1099r")).to_s) }
     let(:first_1099r) { direct_file_data.form1099rs[0] }
     let(:second_1099r) { direct_file_data.form1099rs[1] }
 
@@ -646,7 +646,7 @@ describe DirectFileData do
 
     describe "#payer_state_code" do
       it "returns the value" do
-        expect(first_1099r.payer_state_code).to eq "NC"
+        expect(first_1099r.payer_state_code).to eq "ID"
         expect(second_1099r.payer_state_code).to eq nil
       end
     end
@@ -716,7 +716,7 @@ describe DirectFileData do
     describe "#state_code" do
       it "returns the value" do
         expect(first_1099r.state_code).to eq nil
-        expect(second_1099r.state_code).to eq "NC"
+        expect(second_1099r.state_code).to eq "ID"
       end
     end
     describe "#payer_state_identification_number" do
