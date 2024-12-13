@@ -3150,6 +3150,18 @@ es:
           helper_heading: "¿Dónde puedo encontrar cuánto impuesto a la propiedad pagué?"
           label: Impuestos sobre la propiedad pagados en %{filing_year}
           title: Ingrese el monto de los impuestos sobre la propiedad pagados a %{municipality} por su vivienda principal en %{filing_year}.
+      nj_homeowner_property_tax_worksheet:
+        edit:
+          anchor_homestead_helper_description: If you received an ANCHOR Benefit, the benefit amount does not affect the amount to report on this line.
+          anchor_homestead_helper_heading: ANCHOR or Homestead benefits?
+          helper_1: Good news – we think you might qualify for a credit or deduction.
+          helper_2_html: The next step is to fill in this <a href="https://www.nj.gov/treasury/taxation/pdf/current/1040_instr_pages/1040i_32.pdf" target="_blank" rel="noopener nofollow">worksheet</a>.
+          helper_3: It will ask you about where you lived and for how long. If you moved, for example, it will have space for you to list every place where you lived.
+          helper_4: Once you fill in the worksheet, come back to this page.
+          label_html: "<b>Enter Line 4 on Worksheet G</b> </br> (Your share of total property taxes paid)"
+          title: Homeowner Property Tax Worksheet
+          where_to_find_helper_description: You can review your quarterly tax bills and add up the total paid to your municipality.
+          where_to_find_helper_heading: Where can I find property taxes paid?
       nj_household_rent_own:
         edit:
           both: Tanto inquilino como propietario
@@ -3258,20 +3270,23 @@ es:
           tenant_same_home_spouse: "¿Usted y su cónyuge vivían en la misma casa?"
           tenant_shared_rent_not_spouse: "¿Ocupó y compartió el alquiler de su vivienda principal (apartamento/unidad de alquiler) con alguien que no era su cónyuge durante el año?"
           title: Dijiste que eras inquilino en %{filing_year}.
+      nj_tenant_property_tax_worksheet:
+        edit:
+          anchor_homestead_helper_description: If you received an ANCHOR Benefit, the benefit amount does not affect the amount to report on this line.
+          anchor_homestead_helper_heading: ANCHOR benefits
+          helper_1: Good news – we think you might qualify for a credit or deduction.
+          helper_2_html: The next step is to fill in this <a href="https://www.nj.gov/treasury/taxation/pdf/current/1040_instr_pages/1040i_32.pdf" target="_blank" rel="noopener nofollow">worksheet</a>.
+          helper_3: It will ask you about where you lived and for how long. If you moved, for example, it will have space for you to list every place where you lived.
+          helper_4: Once you fill in the worksheet, come back to this page.
+          label_html: "<b>Enter Line 8 on Worksheet G</b>"
+          mobile_homeowners_helper_description: A mobile home owned in a mobile home park is considered a rental. You enter your site fees paid for 2024 in Part II, Column 3 of Worksheet G.
+          mobile_homeowners_helper_heading: Mobile Homeowners
+          title: Tenant Property Tax Worksheet
       nj_tenant_rent_paid:
         edit:
           helper_description: Si usted era propietario de una casa móvil, ingrese las tarifas del sitio pagadas en %{filing_year}.
           label: Alquiler pagado en %{filing_year}
           title: Ingrese el alquiler pagado en %{filing_year}.
-      nj_unsupported_property_tax:
-        edit:
-          helper_1_html: "<strong>¿Qué es este crédito?</strong> Si califica, puede deducir hasta $15,000 en gastos de impuestos a la propiedad de su ingreso tributable, o recibir hasta $50 en crédito."
-          helper_2: "¿Quieres reclamar estos créditos o deducciones?"
-          helper_3: Es posible que pueda presentar su declaración estatal de forma gratuita con la ayuda de voluntarios de VITA certificados por el IRS en Nueva Jersey. Tenga en cuenta que esta opción puede demorar entre 2 y 3 semanas en completarse.
-          helper_4: Solicitar asistencia de un voluntario VITA
-          helper_5: Obtén más información sobre este proceso y otras opciones para presentar tu declaración aquí
-          helper_6: Continúe viendo para qué más podría calificar.
-          title: Parece que no podemos ayudarte con este crédito/deducción de impuestos sobre la propiedad.
       nj_veterans_exemption:
         edit:
           instructions_html: Se le considera un veterano si es un ex miembro de las Fuerzas Armadas de los Estados Unidos dado de <a href="https://pub.njleg.state.nj.us/Bills/2024/A3500/3485_I1.PDF" target="_blank" rel="noopener nofollow">baja honorablemente</a>. <br><br> Si es la primera vez que solicita <a href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml" target="_blank" rel="noopener nofollow"">esta exención</a>, debe proporcionar <a href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml" target="_blank" rel="noopener nofollow"">documentación</a> y <a href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf" target="_blank" rel="noopener nofollow"">un formulario</a> a la División de Impuestos de Nueva Jersey. Puede hacerlo <a href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf" target="_blank" rel="noopener nofollow">en línea</a>.
