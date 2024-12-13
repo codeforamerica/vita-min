@@ -9,13 +9,6 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
     let(:build_response) { described_class.build(submission, validate: true) }
     let(:xml) { Nokogiri::XML::Document.parse(build_response.document.to_xml) }
 
-    before do
-      intake.primary_signature_pin = '12345'
-      if intake.filing_status_mfj?
-        intake.spouse_signature_pin = '12345'
-      end
-    end
-
     after do
       expect(build_response.errors).not_to be_present
     end
