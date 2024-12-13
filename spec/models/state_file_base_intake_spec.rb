@@ -194,4 +194,28 @@ describe StateFileBaseIntake do
       end
     end
   end
+
+  describe "#validate_state_specific_w2_requirements" do
+    let(:intake) { create :state_file_ny_intake }
+    let(:w2) {
+      create(:state_file_w2,
+             employer_state_id_num: "001245788",
+             employer_ein: '123445678',
+             local_income_tax_amount: 200,
+             local_wages_and_tips_amount: 8000,
+             locality_nm: "NYC",
+             state_file_intake: intake,
+             state_income_tax_amount: 600,
+             state_wages_amount: 8000,
+             w2_index: 0
+      )
+    }
+
+    it "rejects when state_wages_amount greater than w2.WagesAmt" do
+      w2.state_wages_amount = 1000000
+      intake.validate_state_specific_w2_requirements(w2)
+      expect(w2).not_to be_valid
+      expect(w2.errors[:state_wages_amount]).to be_present
+    end
+  end
 end
