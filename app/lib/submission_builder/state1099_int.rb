@@ -8,7 +8,7 @@ module SubmissionBuilder
       intake = @kwargs[:intake]
 
       build_xml_doc("State1099Int", documentId: "State1099Int-#{index}") do |xml|
-        if form1099int.payer.present? && form1099int.payer != ''
+        if form1099int.payer && form1099int.payer != ''
           xml.PayerName payerNameControl: form1099int.payer.gsub(/\s+|-/, '').upcase[0..3] do
             xml.BusinessNameLine1Txt sanitize_for_xml(form1099int.payer.tr('-', ' '), 75)
           end
