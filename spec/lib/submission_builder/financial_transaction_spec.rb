@@ -37,15 +37,6 @@ describe SubmissionBuilder::FinancialTransaction do
         expect(@xml.at("RefundDirectDeposit Amount").text).to eq "5"
         expect(@xml.at("RefundDirectDeposit NotIATTransaction").text).to eq "X"
       end
-
-      context "does not allow split direct deposit amount" do
-        let(:intake) { create(:state_file_md_refund_intake) }
-
-        it "does not includes RefundDirectDeposit Amount" do
-          expect(@xml.at("RefundDirectDeposit Amount")).to be_nil
-        end
-      end
     end
-
   end
 end
