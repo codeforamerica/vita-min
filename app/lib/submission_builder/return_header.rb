@@ -17,7 +17,7 @@ module SubmissionBuilder
           xml.EFIN EnvironmentCredentials.irs(:efin)
           xml.OriginatorTypeCd "OnlineFiler"
         end
-        xml.SoftwareId EnvironmentCredentials.irs(StateFile::StateInformationService.software_id(@submission.data_source.state_code).to_sym)
+        xml.SoftwareId EnvironmentCredentials.irs(StateFile::StateInformationService.software_id_key(@submission.data_source.state_code).to_sym)
         xml.ReturnType StateFile::StateInformationService.return_type(@submission.data_source.state_code)
         xml.Filer do
           xml.Primary do

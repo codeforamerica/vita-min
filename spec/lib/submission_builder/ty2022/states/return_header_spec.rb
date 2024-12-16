@@ -22,7 +22,7 @@ describe SubmissionBuilder::ReturnHeader do
           intake.direct_file_data.mailing_zip = mailing_zip
           intake.direct_file_data.tax_return_year = tax_return_year
           allow(EnvironmentCredentials).to receive(:irs).with(:efin).and_return efin
-          software_id = StateFile::StateInformationService.software_id(state_code).to_sym
+          software_id = StateFile::StateInformationService.software_id_key(state_code).to_sym
           allow(EnvironmentCredentials).to receive(:irs).with(software_id).and_return sin
         end
 
