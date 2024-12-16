@@ -14,8 +14,7 @@ module StateFile
         attributes_array = intake.dependents.map do |dependent|
            { id: dependent.id, nj_did_not_have_health_insurance: 'no' }
         end
-        attributes_hash = Hash[(0...attributes_array.size).zip attributes_array]
-        @intake.update!(dependents_attributes: attributes_hash)
+        @intake.update!(dependents_attributes: attributes_array)
       end
     end
   end
