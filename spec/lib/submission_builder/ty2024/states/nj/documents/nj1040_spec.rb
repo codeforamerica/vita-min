@@ -311,35 +311,40 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
               last_name: "Lastname#{i}",
               middle_initial: 'ABCDEFGHIJK'[i],
               suffix: 'JR',
-              ssn: "0000000#{"%02d" % i}"
+              ssn: "0000000#{"%02d" % i}",
+              nj_did_not_have_health_insurance: 'yes'
             )
           end
         end
 
-        it 'includes each dependent names, SSN, and year of birth to a maximum of 10' do
+        it 'includes each dependent names, SSN, year of birth, and health insurance status to a maximum of 10' do
           expect(xml.css("Dependents").count).to eq(10)
 
           first_dep = xml.css("Dependents")[0]
           first_dep_name = first_dep.at("DependentsName")
           first_dep_ssn = first_dep.at("DependentsSSN")
           first_dep_birth_year = first_dep.at("BirthYear")
+          first_dep_no_health_insurance = first_dep.at("NoHealthInsurance")
           expect(first_dep_name.at("FirstName").text).to eq("Firstname0")
           expect(first_dep_name.at("LastName").text).to eq("Lastname0")
           expect(first_dep_name.at("MiddleInitial").text).to eq("A")
           expect(first_dep_name.at("NameSuffix").text).to eq("JR")
           expect(first_dep_ssn.text).to eq("000000000")
           expect(first_dep_birth_year.text).to eq("2020")
+          expect(first_dep_no_health_insurance.text).to eq("X")
 
           last_dep = xml.css("Dependents")[9]
           last_dep_name = last_dep.at("DependentsName")
           last_dep_ssn = last_dep.at("DependentsSSN")
           last_dep_birth_year = last_dep.at("BirthYear")
+          last_dep_no_health_insurance = first_dep.at("NoHealthInsurance")
           expect(last_dep_name.at("FirstName").text).to eq("Firstname9")
           expect(last_dep_name.at("LastName").text).to eq("Lastname9")
           expect(last_dep_name.at("MiddleInitial").text).to eq("J")
           expect(last_dep_name.at("NameSuffix").text).to eq("JR")
           expect(last_dep_ssn.text).to eq("000000009")
           expect(last_dep_birth_year.text).to eq("2011")
+          expect(last_dep_no_health_insurance.text).to eq("X")
         end
       end
     end
