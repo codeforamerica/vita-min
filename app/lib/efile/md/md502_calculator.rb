@@ -344,11 +344,7 @@ module Efile
       end
 
       def calculate_line_19
-        if deduction_method_is_standard?
-          line_or_zero(:MD502_LINE_D_AMOUNT_TOTAL)
-        else
-          0
-        end
+        line_or_zero(:MD502_LINE_D_AMOUNT_TOTAL)
       end
 
       def calculate_line_20
@@ -550,9 +546,7 @@ module Efile
       end
 
       def calculate_line_32
-        if deduction_method_is_standard?
-          line_or_zero(:MD502_LINE_29) + line_or_zero(:MD502_LINE_30)
-        end
+        line_or_zero(:MD502_LINE_29) + line_or_zero(:MD502_LINE_30)
       end
 
       def calculate_line_33
