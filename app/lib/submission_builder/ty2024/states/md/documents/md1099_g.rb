@@ -43,9 +43,9 @@ module SubmissionBuilder
                     end
                   end
                 end
-                xml.UnemploymentCompensationPaid form1099g.unemployment_compensation_amount&.round if form1099g.unemployment_compensation_amount.present?
-                xml.FederalTaxWithheld form1099g.federal_income_tax_withheld_amount&.round if form1099g.federal_income_tax_withheld_amount.present?
-                xml.StateTaxWithheld form1099g.state_income_tax_withheld_amount&.round if form1099g.state_income_tax_withheld_amount.present?
+                xml.UnemploymentCompensationPaid form1099g.unemployment_compensation_amount&.round
+                xml.FederalTaxWithheld form1099g.federal_income_tax_withheld_amount&.round
+                xml.StateTaxWithheld form1099g.state_income_tax_withheld_amount&.round
               end
             end
           end
