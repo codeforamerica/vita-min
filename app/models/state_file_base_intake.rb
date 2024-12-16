@@ -267,7 +267,7 @@ class StateFileBaseIntake < ApplicationRecord
     end
   end
 
-  def allows_split_direct_deposit_amount?
+  def allows_refund_amount_in_xml?
     true
   end
 
