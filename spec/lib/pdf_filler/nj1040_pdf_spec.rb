@@ -884,10 +884,9 @@ RSpec.describe PdfFiller::Nj1040Pdf do
     end
 
     describe "line 16a taxable interest income" do
-      context 'with interest reports, but no interest on government bonds' do
-        let(:intake) { create(:state_file_nj_intake, :df_data_one_dep) }
-
+      context 'with no taxable interest income' do
         it 'does not set line 16a' do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_16a).and_return 0
           ["112",
            "111",
            "110",
@@ -901,10 +900,9 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         end
       end 
   
-      context 'with interest on government bonds' do
-        let(:intake) { create(:state_file_nj_intake, :df_data_two_deps) }
-
+      context 'with taxable interest income' do
         it 'sets line 16a to 300 (fed taxable income minus sum of bond interest)' do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_16a).and_return 300
           expect(pdf_fields["undefined_43"]).to eq ""
           expect(pdf_fields["undefined_39"]).to eq ""
           expect(pdf_fields["undefined_40"]).to eq ""
@@ -992,7 +990,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         context "spouse passed in the last year" do
           before do
             submission.data_source.direct_file_data.filing_status = 5
-            date_within_prior_year = "#{MultiTenantService.new(:statefile).current_tax_year}-09-30"
+            date_within_prior_year = "#{MultiTenantService.new(:statefile).current_tax_year - 1}-09-30"
             submission.data_source.direct_file_data.spouse_date_of_death = date_within_prior_year
           end
 
@@ -1008,7 +1006,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         context "spouse passed two years prior" do
           before do
             submission.data_source.direct_file_data.filing_status = 5
-            date_two_years_prior = "#{MultiTenantService.new(:statefile).current_tax_year - 1}-09-30"
+            date_two_years_prior = "#{MultiTenantService.new(:statefile).current_tax_year - 2}-09-30"
             submission.data_source.direct_file_data.spouse_date_of_death = date_two_years_prior
           end
 
@@ -1041,7 +1039,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           expect(pdf_fields["184"]).to eq "0"
           expect(pdf_fields["185"]).to eq "0"
           # hundreds
-          expect(pdf_fields["undefined_79"]).to eq "0"
+          expect(pdf_fields["undefined_79"]).to eq "5"
           expect(pdf_fields["186"]).to eq "0"
           expect(pdf_fields["187"]).to eq "0"
           # decimals
@@ -1091,7 +1089,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           expect(pdf_fields["205"]).to eq "0"
           expect(pdf_fields["206"]).to eq "0"
           # hundreds
-          expect(pdf_fields["undefined_88"]).to eq "0"
+          expect(pdf_fields["undefined_88"]).to eq "5"
           expect(pdf_fields["207"]).to eq "0"
           expect(pdf_fields["208"]).to eq "0"
           # decimals
@@ -1133,6 +1131,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           )
         }
         it "writes sum $563,890.00 to fill boxes on line 31" do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_16a).and_return 0
+
           # thousands
           expect(pdf_fields["31"]).to eq "5"
           expect(pdf_fields["215"]).to eq "6"
@@ -1201,6 +1201,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         )
       }
       it "writes taxable income $197,500 (200,000-2500) to fill boxes on line 39" do
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_16a).and_return 0
+
         # millions
         expect(pdf_fields["279"]).to eq ""
         expect(pdf_fields["38a Total Property Taxes 18 of Rent Paid See instructions page 23 38a"]).to eq ""
@@ -1428,12 +1430,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
     end
 
     describe "line 42 new jersey taxable income" do
-      let(:submission) {
-        create :efile_submission, tax_return: nil, data_source: create(
-          :state_file_nj_intake, :df_data_many_w2s
-        )
-      }
-      it "writes new jersey taxable income $197,500 (200,000-2500) to fill boxes on line 39" do
+      it "writes new jersey taxable income $197,500" do
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_42).and_return 197_500
         # millions
         expect(pdf_fields["Enter Code4332"]).to eq ""
         expect(pdf_fields["40"]).to eq ""
@@ -1450,6 +1448,25 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         expect(pdf_fields["Text40"]).to eq "0"
         expect(pdf_fields["Text41"]).to eq "0"
       end
+
+      it "leaves blank when no NewJerseyTaxableIncome" do
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_42).and_return 0
+        # millions
+        expect(pdf_fields["Enter Code4332"]).to eq ""
+        expect(pdf_fields["40"]).to eq ""
+        expect(pdf_fields["undefined_114"]).to eq ""
+        # thousands
+        expect(pdf_fields["Text19"]).to eq ""
+        expect(pdf_fields["Text20"]).to eq ""
+        expect(pdf_fields["Text30"]).to eq ""
+        # hundreds
+        expect(pdf_fields["Text37"]).to eq ""
+        expect(pdf_fields["Text38"]).to eq ""
+        expect(pdf_fields["Text39"]).to eq ""
+        # decimals
+        expect(pdf_fields["Text40"]).to eq ""
+        expect(pdf_fields["Text41"]).to eq ""
+      end
     end
 
     describe "line 43 - tax amount" do
@@ -1464,6 +1481,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       }
 
       it "writes rounded tax amount $7,519.00 based on income $200,000 with 3,500 exemptions 15,000 property tax deduction and 0.0637 tax rate minus 4,042.50 subtraction" do
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_16a).and_return 0
+
         # millions
         expect(pdf_fields["Enter Code4332243ew"]).to eq ""
         expect(pdf_fields["4036y54ethdf"]).to eq ""
@@ -1493,6 +1512,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       }
 
       it "writes rounded tax amount $7,519.00 (same as line 43)" do
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_16a).and_return 0
+
         # millions
         expect(pdf_fields["Enter Code4332243ewR@434"]).to eq ""
         expect(pdf_fields["4036y54ethdf!!!##\$$"]).to eq ""
@@ -1543,6 +1564,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       }
 
       it "writes rounded tax amount $7,519.10 (same as line 45)" do
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_16a).and_return 0
+
         # millions
         expect(pdf_fields["Enter Code4332243ew6576z66z##"]).to eq ""
         expect(pdf_fields["4036y54ethdf(*H"]).to eq ""
@@ -1586,7 +1609,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
     describe "line 53c checkbox" do
       context "when taxpayer indicated all members of household have health insurance" do
         before do
-          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_53c_checkbox).and_return true
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:line_53c_checkbox).and_return true
         end
 
         it "checks 53c Schedule NJ-HCC checkbox and leaves 53a, 53b, and 53c amount blank" do
@@ -1618,7 +1641,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         before do
           single_income_threshold = 10_000
           allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_54).and_return single_income_threshold
-          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_53c_checkbox).and_return false
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:line_53c_checkbox).and_return false
         end
 
         it "does not check 53c Schedule NJ-HCC checkbox and leaves 53a, 53b, and 53c amount blank" do
@@ -1660,6 +1683,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       }
 
       it "writes $7819 (line 50 $7,519 + line 51 $300)" do
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_16a).and_return 0
+
         # millions
         expect(pdf_fields["Enter Code4332243ew^^%$#"]).to eq ""
         expect(pdf_fields["4036y54ethdf%%^87"]).to eq ""
@@ -1686,7 +1711,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         it "fills line 55 with sum of income tax withheld" do
           # millions
           expect(pdf_fields["undefined_1471qerw"]).to eq "1"
-          expect(pdf_fields["undefined_114"]).to eq "2"
+          expect(pdf_fields["Text15"]).to eq "2"
           # thousands
           expect(pdf_fields["undefined_143"]).to eq "3"
           expect(pdf_fields["undefined_144"]).to eq "4"
@@ -1702,12 +1727,14 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       end
 
       context 'when TaxWithheld is nil' do
-        let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
+        before do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_55).and_return nil
+        end
 
         it "does not fill line 55" do
           # millions
           expect(pdf_fields["undefined_1471qerw"]).to eq ""
-          expect(pdf_fields["undefined_114"]).to eq ""
+          expect(pdf_fields["Text15"]).to eq ""
           # thousands
           expect(pdf_fields["undefined_143"]).to eq ""
           expect(pdf_fields["undefined_144"]).to eq ""

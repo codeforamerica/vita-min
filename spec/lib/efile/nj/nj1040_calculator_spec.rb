@@ -418,13 +418,15 @@ describe Efile::Nj::Nj1040Calculator do
   end
 
   describe 'line 13 - total exemptions' do
-    let(:intake) { create(
+    let(:intake) { 
+      create(
       :state_file_nj_intake,
       :primary_over_65,
       :primary_blind,
       :primary_veteran,
       :two_dependents_in_college
-    )}
+    )
+    }
     it 'sets line 13 to the sum of lines 6-12' do
       self_exemption = 1_000
       expect(instance.calculate_line_6).to eq(self_exemption)
@@ -480,17 +482,10 @@ describe Efile::Nj::Nj1040Calculator do
   end
 
   describe 'line 16a taxable interest income' do
-    context 'with no interest reports' do
-      let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
-      it 'does not set line 16a' do
-        expect(instance.lines[:NJ1040_LINE_16A].value).to eq(nil)
-      end
-    end
-
-    context 'with interest reports, but no interest on government bonds' do
+    context 'with no interest on government bonds and fed taxable interest of 500' do
       let(:intake) { create(:state_file_nj_intake, :df_data_one_dep) }
-      it 'does not set line 16a' do
-        expect(instance.lines[:NJ1040_LINE_16A].value).to eq(nil)
+      it 'sets line 16a to fed taxable interest' do
+        expect(instance.lines[:NJ1040_LINE_16A].value).to eq(500)
       end
     end
 
@@ -529,9 +524,10 @@ describe Efile::Nj::Nj1040Calculator do
     let(:intake) { create(:state_file_nj_intake) }
 
     it 'sets line 27 to the sum of all state wage amounts' do
-      allow(instance).to receive(:calculate_line_15).and_return 50000
+      allow(instance).to receive(:calculate_line_15).and_return 50_000
+      allow(instance).to receive(:calculate_line_16a).and_return 1_000
       instance.calculate
-      expect(instance.lines[:NJ1040_LINE_27].value).to eq(50000)
+      expect(instance.lines[:NJ1040_LINE_27].value).to eq(51_000)
     end
   end
 
@@ -540,8 +536,9 @@ describe Efile::Nj::Nj1040Calculator do
 
     it 'sets line 29 to the sum of all state wage amounts' do
       allow(instance).to receive(:calculate_line_15).and_return 50000
+      allow(instance).to receive(:calculate_line_16a).and_return 1_000
       instance.calculate
-      expect(instance.lines[:NJ1040_LINE_29].value).to eq(50000)
+      expect(instance.lines[:NJ1040_LINE_29].value).to eq(51_000)
     end
   end
 
@@ -676,6 +673,20 @@ describe Efile::Nj::Nj1040Calculator do
           expect(instance.lines[:NJ1040_LINE_40A].value).to eq(nil)
         end
       end
+
+      context 'when property tax paid is 0' do
+        let(:intake) {
+          create(
+            :state_file_nj_intake,
+            household_rent_own: 'own',
+            property_tax_paid: 0
+          )
+        }
+
+        it 'sets line 40a to nil' do
+          expect(instance.lines[:NJ1040_LINE_40A].value).to eq(nil)
+        end
+      end
     end
 
     context 'when renter' do
@@ -722,6 +733,20 @@ describe Efile::Nj::Nj1040Calculator do
 
         it 'sets line 40a to 0.18 * rent_paid, rounded' do
           expect(instance.lines[:NJ1040_LINE_40A].value).to eq(9778)
+        end
+      end
+
+      context 'when rent paid is 0' do
+        let(:intake) {
+          create(
+            :state_file_nj_intake,
+            household_rent_own: 'rent',
+            rent_paid: 0
+          )
+        }
+
+        it 'sets line 40a to nil' do
+          expect(instance.lines[:NJ1040_LINE_40A].value).to eq(nil)
         end
       end
     end
@@ -1074,7 +1099,11 @@ describe Efile::Nj::Nj1040Calculator do
     context 'when ineligible for property tax deduction due to income but eligible for credit' do
       let(:intake) {
         create(:state_file_nj_intake, :df_data_minimal, :primary_disabled)
-      }
+      }      
+      before do
+        allow(StateFile::NjHomeownerEligibilityHelper).to receive(:determine_eligibility).and_return StateFile::NjHomeownerEligibilityHelper::WORKSHEET
+        instance.calculate
+      end
 
       it 'sets line 41 to nil' do
         expect(instance.lines[:NJ1040_LINE_41].value).to eq(nil)
@@ -1143,7 +1172,7 @@ describe Efile::Nj::Nj1040Calculator do
 
   describe "line 53c checkbox" do
     context "when taxpayer indicated all members of household have health insurance" do
-      let(:intake) { create(:state_file_nj_intake, eligibility_all_members_health_insurance: "yes" ) }
+      let(:intake) { create(:state_file_nj_intake, eligibility_all_members_health_insurance: "yes") }
 
       it "checks 53c Schedule NJ-HCC checkbox" do
         expect(instance.lines[:NJ1040_LINE_53C_CHECKBOX].value).to eq true
@@ -1152,9 +1181,11 @@ describe Efile::Nj::Nj1040Calculator do
 
     context "when taxpayer indicated all members of household do NOT have health insurance" do
       context "when qualifies for income exemption" do
-        let(:intake) { create(:state_file_nj_intake,
+        let(:intake) { 
+          create(:state_file_nj_intake,
                               eligibility_all_members_health_insurance: "no",
-                              ) }
+                              )
+        }
 
         it "does not check 53c Schedule NJ-HCC checkbox" do
           single_income_threshold = 10_000
@@ -1165,10 +1196,12 @@ describe Efile::Nj::Nj1040Calculator do
       end
 
       context "when qualifies for claimed as dependent exemption" do
-        let(:intake) { create(:state_file_nj_intake,
+        let(:intake) { 
+          create(:state_file_nj_intake,
                               :df_data_mfj_primary_claimed_dep,
                               eligibility_all_members_health_insurance: "no"
-        ) }
+        )
+        }
 
         it "does not check 53c Schedule NJ-HCC checkbox" do
           expect(instance.lines[:NJ1040_LINE_53C_CHECKBOX].value).to eq false
@@ -1187,7 +1220,7 @@ describe Efile::Nj::Nj1040Calculator do
     end
 
     it 'sets line 54 to 0 if the sum is negative' do
-      allow(instance).to receive(:calculate_line_50).and_return -20_000
+      allow(instance).to receive(:calculate_line_50).and_return(-20_000)
       allow(instance).to receive(:calculate_line_51).and_return 10_000
       instance.calculate
       expect(instance.lines[:NJ1040_LINE_54].value).to eq(0)

@@ -14,10 +14,14 @@ module SubmissionBuilder
         xml.EFIN EnvironmentCredentials.irs(:efin)
         xml.TaxYr data_source.tax_return_year
         xml.GovernmentCd "#{@submission.data_source.state_code.upcase}ST"
-        xml.StateSubmissionTyp StateFile::StateInformationService.return_type(@submission.data_source.state_code)
+        xml.StateSubmissionTyp StateFile::StateInformationService.submission_type(@submission.data_source.state_code)
         xml.SubmissionCategoryCd "IND"
         xml.PrimarySSN data_source.primary.ssn
         xml.PrimaryNameControlTxt name_control_type(data_source.primary.last_name)
+        if data_source.filing_status_mfj?
+          xml.SpouseSSN data_source.spouse.ssn
+          xml.SpouseNameControlTxt name_control_type(data_source.spouse.last_name)
+        end
         xml.IRSSubmissionId data_source.federal_submission_id
       end
     end

@@ -43,7 +43,7 @@ class StateFileDependent < ApplicationRecord
     "adoptedChild" => "Child",
     "stepChild" => "Child",
     "fosterChild" => "Foster Child",
-    "grandChildOrOtherDescendentOfChild" => "Grandchild",
+    "grandChildOrOtherDescendantOfChild" => "Grandchild",
     "childInLaw" => "Child",
     "sibling" => "Sibling",
     "childOfSibling" => "Niece/Nephew",
@@ -170,7 +170,7 @@ class StateFileDependent < ApplicationRecord
         "fosterChild",
 
         # grandchild
-        "grandChildOrOtherDescendentOfChild",
+        "grandChildOrOtherDescendantOfChild",
 
         # sister
         "sibling",

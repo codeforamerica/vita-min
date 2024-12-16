@@ -7,6 +7,7 @@
 #  account_type                                           :integer          default("unfilled"), not null
 #  claimed_as_dep                                         :integer
 #  claimed_as_eitc_qualifying_child                       :integer          default("unfilled"), not null
+#  consented_to_sms_terms                                 :integer          default("unfilled"), not null
 #  consented_to_terms_and_conditions                      :integer          default("unfilled"), not null
 #  contact_preference                                     :integer          default("unfilled"), not null
 #  county                                                 :string
@@ -59,6 +60,7 @@
 #  primary_last_name                                      :string
 #  primary_middle_initial                                 :string
 #  primary_signature                                      :string
+#  primary_signature_pin                                  :text
 #  primary_ssn                                            :string
 #  primary_suffix                                         :string
 #  primary_veteran                                        :integer          default("unfilled"), not null
@@ -82,6 +84,7 @@
 #  spouse_first_name                                      :string
 #  spouse_last_name                                       :string
 #  spouse_middle_initial                                  :string
+#  spouse_signature_pin                                   :text
 #  spouse_ssn                                             :string
 #  spouse_suffix                                          :string
 #  spouse_veteran                                         :integer          default("unfilled"), not null
@@ -119,6 +122,10 @@ FactoryBot.define do
     routing_number { "011234567" }
     account_number { "123456789" }
     account_type { 1 }
+    primary_signature_pin { '12345' }
+    spouse_signature_pin { '54321' }
+    primary_esigned_at { DateTime.now }
+    spouse_esigned_at { DateTime.now }
 
     raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("nj_zeus_one_dep") }
     raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_zeus_one_dep') }
@@ -159,6 +166,11 @@ FactoryBot.define do
     trait :df_data_2_w2s do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_zeus_two_w2s') }
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_zeus_two_w2s') }
+    end
+
+    trait :df_data_irs_test_with_missing_info do
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_irs_test_w2_with_missing_info') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_irs_test_w2_with_missing_info') }
     end
 
     trait :df_data_many_w2s do

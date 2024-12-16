@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v4.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>31cdc8a8</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400006304</PrimarySSN>
+            <SpouseSSN>400006314</SpouseSSN>
+            <NameLine1Txt>RONALD J &amp; MARY J&lt;BLACKBURN</NameLine1Txt>
+            <PrimaryNameControlTxt>BLAC</PrimaryNameControlTxt>
+            <SpouseNameControlTxt>BLAC</SpouseNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>74 Builder Drive</AddressLine1Txt>
+                <CityNm>Merceville</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>08619</ZIPCd>
+            </USAddress>
+            <PhoneNum>2019992222</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000630-42fd-4459-a0c2-b4577a5758a7@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="6">
+        <IRS1040 documentId="IRS10400001">
+            <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
+            <DependentDetail>
+                <DependentFirstNm>Bill</DependentFirstNm>
+                <DependentLastNm>Blackburn</DependentLastNm>
+                <DependentNameControlTxt>BLAC</DependentNameControlTxt>
+                <DependentSSN>400553005</DependentSSN>
+                <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+            </DependentDetail>
+            <DependentDetail>
+                <DependentFirstNm>Bob</DependentFirstNm>
+                <DependentLastNm>Blackburn</DependentLastNm>
+                <DependentNameControlTxt>BLAC</DependentNameControlTxt>
+                <DependentSSN>400554005</DependentSSN>
+                <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+            </DependentDetail>
+            <DependentDetail>
+                <DependentFirstNm>Kim</DependentFirstNm>
+                <DependentLastNm>Blackburn</DependentLastNm>
+                <DependentNameControlTxt>BLAC</DependentNameControlTxt>
+                <DependentSSN>400555005</DependentSSN>
+                <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+            </DependentDetail>
+            <DependentDetail>
+                <DependentFirstNm>Katie</DependentFirstNm>
+                <DependentLastNm>Blackburn</DependentLastNm>
+                <DependentNameControlTxt>BLAC</DependentNameControlTxt>
+                <DependentSSN>400556005</DependentSSN>
+                <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+            </DependentDetail>
+            <DependentDetail>
+                <DependentFirstNm>Leah</DependentFirstNm>
+                <DependentLastNm>Blackburn</DependentLastNm>
+                <DependentNameControlTxt>BLAC</DependentNameControlTxt>
+                <DependentSSN>400557005</DependentSSN>
+                <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+            </DependentDetail>
+            <DependentDetail>
+                <DependentFirstNm>Lance</DependentFirstNm>
+                <DependentLastNm>Blackburn</DependentLastNm>
+                <DependentNameControlTxt>BLAC</DependentNameControlTxt>
+                <DependentSSN>400558005</DependentSSN>
+                <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+            </DependentDetail>
+            <MoreDependentsInd>X</MoreDependentsInd>
+            <ChldWhoLivedWithYouCnt>6</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>8</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001 W20002 W20003" referenceDocumentName="IRSW2">48609</WagesAmt>
+            <WagesSalariesAndTipsAmt>48609</WagesSalariesAndTipsAmt>
+            <TotalIncomeAmt>48609</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>48609</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>29200</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>29200</TotalDeductionsAmt>
+            <TaxableIncomeAmt>19409</TaxableIncomeAmt>
+            <TaxAmt>1943</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>1943</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TotalNonrefundableCreditsAmt>40</TotalNonrefundableCreditsAmt>
+            <TotalCreditsAmt>40</TotalCreditsAmt>
+            <TaxLessCreditsAmt>1903</TaxLessCreditsAmt>
+            <TotalTaxAmt>1903</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>5600</FormW2WithheldTaxAmt>
+            <WithholdingTaxAmt>5600</WithholdingTaxAmt>
+            <TotalPaymentsAmt>5600</TotalPaymentsAmt>
+            <OverpaidAmt>3697</OverpaidAmt>
+            <RefundAmt>3697</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Puppeteer</PrimaryOccupationTxt>
+            <SpouseOccupationTxt>Pilot</SpouseOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1040Schedule3 documentId="IRS1040S3001">
+            <CreditForChildAndDepdCareAmt referenceDocumentId="IRS2441001" referenceDocumentName="IRS2441">40</CreditForChildAndDepdCareAmt>
+            <TotalNonrefundableCreditsAmt>40</TotalNonrefundableCreditsAmt>
+        </IRS1040Schedule3>
+        <IRS2441 documentId="IRS2441001" documentName="IRS2441">
+            <CareProviderGrp>
+                <CareProviderBusinessName>
+                    <BusinessNameLine1Txt>Child Care Place</BusinessNameLine1Txt>
+                </CareProviderBusinessName>
+                <CareProviderBusNameControlTxt>CHIL</CareProviderBusNameControlTxt>
+                <USAddress>
+                    <AddressLine1Txt>1 Main St</AddressLine1Txt>
+                    <CityNm>South Orange</CityNm>
+                    <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                    <ZIPCd>07102</ZIPCd>
+                </USAddress>
+                <EIN>009876578</EIN>
+                <HouseholdEmployeeInd>false</HouseholdEmployeeInd>
+                <PaidAmt>200</PaidAmt>
+            </CareProviderGrp>
+            <MoreThanThreeQlfyPersonsInd>X</MoreThanThreeQlfyPersonsInd>
+            <QualifyingPersonGrp>
+                <QualifyingPersonName>
+                    <PersonFirstNm>Bill</PersonFirstNm>
+                    <PersonLastNm>Blackburn</PersonLastNm>
+                </QualifyingPersonName>
+                <QualifyingPersonNameControlTxt>BLAC</QualifyingPersonNameControlTxt>
+                <QualifyingPersonSSN>400553005</QualifyingPersonSSN>
+                <QualifiedCareExpensesPaidAmt>100</QualifiedCareExpensesPaidAmt>
+            </QualifyingPersonGrp>
+            <QualifyingPersonGrp>
+                <QualifyingPersonName>
+                    <PersonFirstNm>Bob</PersonFirstNm>
+                    <PersonLastNm>Blackburn</PersonLastNm>
+                </QualifyingPersonName>
+                <QualifyingPersonNameControlTxt>BLAC</QualifyingPersonNameControlTxt>
+                <QualifyingPersonSSN>400554005</QualifyingPersonSSN>
+                <QualifiedCareExpensesPaidAmt>100</QualifiedCareExpensesPaidAmt>
+            </QualifyingPersonGrp>
+            <QualifyingPersonGrp>
+                <QualifyingPersonName>
+                    <PersonFirstNm>Kim</PersonFirstNm>
+                    <PersonLastNm>Blackburn</PersonLastNm>
+                </QualifyingPersonName>
+                <QualifyingPersonNameControlTxt>BLAC</QualifyingPersonNameControlTxt>
+                <QualifyingPersonSSN>400555005</QualifyingPersonSSN>
+            </QualifyingPersonGrp>
+            <QualifyingPersonGrp>
+                <QualifyingPersonName>
+                    <PersonFirstNm>Katie</PersonFirstNm>
+                    <PersonLastNm>Blackburn</PersonLastNm>
+                </QualifyingPersonName>
+                <QualifyingPersonNameControlTxt>BLAC</QualifyingPersonNameControlTxt>
+                <QualifyingPersonSSN>400556005</QualifyingPersonSSN>
+            </QualifyingPersonGrp>
+            <QualifyingPersonGrp>
+                <QualifyingPersonName>
+                    <PersonFirstNm>Leah</PersonFirstNm>
+                    <PersonLastNm>Blackburn</PersonLastNm>
+                </QualifyingPersonName>
+                <QualifyingPersonNameControlTxt>BLAC</QualifyingPersonNameControlTxt>
+                <QualifyingPersonSSN>400557005</QualifyingPersonSSN>
+            </QualifyingPersonGrp>
+            <TotalQlfdExpensesOrLimitAmt>200</TotalQlfdExpensesOrLimitAmt>
+            <PrimaryEarnedIncomeAmt>14200</PrimaryEarnedIncomeAmt>
+            <SpouseEarnedIncomeAmt>34409</SpouseEarnedIncomeAmt>
+            <SmallerOfExpensesOrIncomeAmt>200</SmallerOfExpensesOrIncomeAmt>
+            <AdjustedGrossIncomeAmt>48609</AdjustedGrossIncomeAmt>
+            <CareExpensesDecimalAmt>0.20</CareExpensesDecimalAmt>
+            <CalculatedTentativeExpenseAmt>40</CalculatedTentativeExpenseAmt>
+            <TotalEligCDCCAmt>40</TotalEligCDCCAmt>
+            <TaxLiabLmtFromCrLmtWrkshtAmt>1943</TaxLiabLmtFromCrLmtWrkshtAmt>
+            <CreditForChildAndDepdCareAmt>40</CreditForChildAndDepdCareAmt>
+        </IRS2441>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>400006304</EmployeeSSN>
+            <EmployerEIN>012345432</EmployerEIN>
+            <EmployerNameControlTxt>RONA</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Ronald McDonald Foundation</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>10 Main St</AddressLine1Txt>
+                <CityNm>Boston</CityNm>
+                <StateAbbreviationCd>MA</StateAbbreviationCd>
+                <ZIPCd>02108</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Ronald J Blackburn</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>74 Builder Drive</AddressLine1Txt>
+                <CityNm>Merceville</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>08619</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>14200</WagesAmt>
+            <WithholdingAmt>1500</WithholdingAmt>
+            <SocialSecurityWagesAmt>14200</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>1100</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>14200</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>800</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                    <EmployerStateIdNum>87654321</EmployerStateIdNum>
+                    <StateWagesAmt>14200</StateWagesAmt>
+                    <StateIncomeTaxAmt>1051</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+        <IRSW2 documentId="W20002" documentName="IRSW2">
+            <EmployeeSSN>400006314</EmployeeSSN>
+            <EmployerEIN>014567654</EmployerEIN>
+            <EmployerNameControlTxt>MARY</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Marys Diner</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>100 Front Street</AddressLine1Txt>
+                <CityNm>Trenton</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>08604</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Mary J Blackburn</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>74 Builder Drive</AddressLine1Txt>
+                <CityNm>Merceville</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>08619</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>14200</WagesAmt>
+            <WithholdingAmt>1100</WithholdingAmt>
+            <SocialSecurityWagesAmt>14200</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>700</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>14200</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>300</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                    <EmployerStateIdNum>9876543</EmployerStateIdNum>
+                    <StateWagesAmt>14200</StateWagesAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+        <IRSW2 documentId="W20003" documentName="IRSW2">
+            <EmployeeSSN>400006314</EmployeeSSN>
+            <EmployerEIN>019292929</EmployerEIN>
+            <EmployerNameControlTxt>PRIN</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Princeton Fire Department</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>400 Burn Avenue</AddressLine1Txt>
+                <CityNm>Princeton</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>08542</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Mary J Blackburn</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>74 Builder Drive</AddressLine1Txt>
+                <CityNm>Merceville</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>08619</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>20209</WagesAmt>
+            <WithholdingAmt>3000</WithholdingAmt>
+            <SocialSecurityWagesAmt>20209</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>2000</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>20209</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>1000</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                    <EmployerStateIdNum>87658765</EmployerStateIdNum>
+                    <StateWagesAmt>20209</StateWagesAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>

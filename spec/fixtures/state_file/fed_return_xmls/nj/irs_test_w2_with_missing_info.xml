@@ -1,0 +1,145 @@
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v4.0">
+  <ReturnHeader binaryAttachmentCnt="0">
+    <TaxYr>2024</TaxYr>
+    <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+    <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+    <SoftwareVersionNum>dcf46c78</SoftwareVersionNum>
+    <ReturnTypeCd>1040</ReturnTypeCd>
+    <Filer>
+      <PrimarySSN>101001033</PrimarySSN>
+      <NameLine1Txt>MARJORIE<SIMPSON</NameLine1Txt>
+      <PrimaryNameControlTxt>SIMP</PrimaryNameControlTxt>
+      <USAddress>
+        <AddressLine1Txt>742 Evergreen Terrace</AddressLine1Txt>
+        <CityNm>Newark</CityNm>
+        <StateAbbreviationCd>NJ</StateAbbreviationCd>
+        <ZIPCd>07079</ZIPCd>
+      </USAddress>
+      <PhoneNum>2223334444</PhoneNum>
+    </Filer>
+    <AdditionalFilerInformation>
+      <AtSubmissionFilingGrp>
+        <EmailAddressTxt>test-user+10100103-35c0-415e-aa71-bce33be1e144@directfile.test</EmailAddressTxt>
+      </AtSubmissionFilingGrp>
+    </AdditionalFilerInformation>
+  </ReturnHeader>
+  <ReturnData documentCnt="4">
+    <IRS1040 documentId="IRS10400001">
+      <Form1040SRInd>X</Form1040SRInd>
+      <IndividualReturnFilingStatusCd>4</IndividualReturnFilingStatusCd>
+      <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+      <Primary65OrOlderInd>X</Primary65OrOlderInd>
+      <PrimaryBlindInd>X</PrimaryBlindInd>
+      <TotalBoxesCheckedCnt>2</TotalBoxesCheckedCnt>
+      <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+      <DependentDetail>
+        <DependentFirstNm>Daughter</DependentFirstNm>
+        <DependentLastNm>Smith</DependentLastNm>
+        <DependentNameControlTxt>SMIT</DependentNameControlTxt>
+        <DependentSSN>100000222</DependentSSN>
+        <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+        <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+      </DependentDetail>
+      <ChldWhoLivedWithYouCnt>1</ChldWhoLivedWithYouCnt>
+      <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+      <TotalExemptionsCnt>2</TotalExemptionsCnt>
+      <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">3000</WagesAmt>
+      <WagesSalariesAndTipsAmt>3000</WagesSalariesAndTipsAmt>
+      <TotalIncomeAmt>3000</TotalIncomeAmt>
+      <AdjustedGrossIncomeAmt>3000</AdjustedGrossIncomeAmt>
+      <TotalItemizedOrStandardDedAmt>25800</TotalItemizedOrStandardDedAmt>
+      <TotalDeductionsAmt>25800</TotalDeductionsAmt>
+      <TaxableIncomeAmt>0</TaxableIncomeAmt>
+      <TaxAmt>0</TaxAmt>
+      <TotalTaxBeforeCrAndOthTaxesAmt>0</TotalTaxBeforeCrAndOthTaxesAmt>
+      <TaxLessCreditsAmt>0</TaxLessCreditsAmt>
+      <TotalTaxAmt>0</TotalTaxAmt>
+      <EarnedIncomeCreditAmt referenceDocumentId="IRSEIC0001" referenceDocumentName="IRS1040ScheduleEIC">1029</EarnedIncomeCreditAmt>
+      <AdditionalChildTaxCreditAmt referenceDocumentId="IRS8812001" referenceDocumentName="IRS1040Schedule8812">75</AdditionalChildTaxCreditAmt>
+      <RefundableCreditsAmt>1104</RefundableCreditsAmt>
+      <TotalPaymentsAmt>1104</TotalPaymentsAmt>
+      <OverpaidAmt>1104</OverpaidAmt>
+      <RefundAmt>1104</RefundAmt>
+      <OwedAmt>0</OwedAmt>
+      <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+      <PrimaryOccupationTxt>Programmer</PrimaryOccupationTxt>
+      <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+    </IRS1040>
+    <IRS1040Schedule8812 documentId="IRS8812001" documentName="IRS1040Schedule8812">
+      <AdjustedGrossIncomeAmt>3000</AdjustedGrossIncomeAmt>
+      <ModifiedAGIAmt>3000</ModifiedAGIAmt>
+      <QlfyChildUnderAgeSSNCnt>1</QlfyChildUnderAgeSSNCnt>
+      <QlfyChildUnderAgeSSNLimtAmt>2000</QlfyChildUnderAgeSSNLimtAmt>
+      <OtherDependentCnt>0</OtherDependentCnt>
+      <InitialCTCODCAmt>2000</InitialCTCODCAmt>
+      <FilingStatusThresholdCd>200000</FilingStatusThresholdCd>
+      <ExcessAdjGrossIncomeAmt>0</ExcessAdjGrossIncomeAmt>
+      <ModifiedAGIPhaseOutAmt>0</ModifiedAGIPhaseOutAmt>
+      <CTCODCOverAGILimitInd>true</CTCODCOverAGILimitInd>
+      <CTCODCAfterAGILimitAmt>2000</CTCODCAfterAGILimitAmt>
+      <ACTCTaxLiabiltyLimitAmt>0</ACTCTaxLiabiltyLimitAmt>
+      <CTCODCAmt>0</CTCODCAmt>
+      <ClaimACTCAllFilersGrp>
+        <ACTCBeforeLimitAmt>2000</ACTCBeforeLimitAmt>
+        <QlfyChildUnderAgeSSNCnt>1</QlfyChildUnderAgeSSNCnt>
+        <QlfyChildUnderAgeSSNLimtAmt>1700</QlfyChildUnderAgeSSNLimtAmt>
+        <ACTCAfterLimitAmt>1700</ACTCAfterLimitAmt>
+        <TotalEarnedIncomeAmt>3000</TotalEarnedIncomeAmt>
+        <EarnedIncmMoreThanSpecifiedInd>true</EarnedIncmMoreThanSpecifiedInd>
+        <NetTotalEarnedIncomeAmt>500</NetTotalEarnedIncomeAmt>
+        <NetEarnedIncomeCalculatedAmt>75</NetEarnedIncomeCalculatedAmt>
+        <ThreeOrMoreQlfyChildrenInd>false</ThreeOrMoreQlfyChildrenInd>
+      </ClaimACTCAllFilersGrp>
+      <AdditionalChildTaxCreditAmt>75</AdditionalChildTaxCreditAmt>
+    </IRS1040Schedule8812>
+    <IRS1040ScheduleEIC documentId="IRSEIC0001" documentName="IRS1040ScheduleEIC">
+      <QualifyingChildInformation>
+        <QualifyingChildNameControlTxt>SMIT</QualifyingChildNameControlTxt>
+        <ChildFirstAndLastName>
+          <PersonFirstNm>Daughter</PersonFirstNm>
+          <PersonLastNm>Smith</PersonLastNm>
+        </ChildFirstAndLastName>
+        <QualifyingChildSSN>100000222</QualifyingChildSSN>
+        <ChildBirthYr>2020</ChildBirthYr>
+        <ChildRelationshipCd>DAUGHTER</ChildRelationshipCd>
+        <MonthsChildLivedWithYouCnt>12</MonthsChildLivedWithYouCnt>
+      </QualifyingChildInformation>
+    </IRS1040ScheduleEIC>
+    <IRSW2 documentId="W20001" documentName="IRSW2">
+      <EmployeeSSN>101001033</EmployeeSSN>
+      <EmployerEIN>221234567</EmployerEIN>
+      <EmployerNameControlTxt>SPRI</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>SPRINGFIELD ATOMIC POWER AND LIGHT</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>100 ATOMIC DR</AddressLine1Txt>
+        <CityNm>SPRINGFIELD</CityNm>
+        <StateAbbreviationCd>OH</StateAbbreviationCd>
+        <ZIPCd>62796</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>Marjorie Simpson</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>742 EVERGREEN TER</AddressLine1Txt>
+        <CityNm>SPRINGFIELD</CityNm>
+        <StateAbbreviationCd>OH</StateAbbreviationCd>
+        <ZIPCd>62701</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>3000</WagesAmt>
+      <EmployersUseGrp>
+        <EmployersUseCd>D</EmployersUseCd>
+        <EmployersUseAmt>4556</EmployersUseAmt>
+      </EmployersUseGrp>
+      <EmployersUseGrp>
+        <EmployersUseCd>DD</EmployersUseCd>
+        <EmployersUseAmt>7899</EmployersUseAmt>
+      </EmployersUseGrp>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <W2LocalTaxGrp/>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+  </ReturnData>
+</Return>

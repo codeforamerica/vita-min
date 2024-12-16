@@ -51,7 +51,7 @@ module Efile
         set_line(:NJ1040_LINE_49, :calculate_line_49)
         set_line(:NJ1040_LINE_50, :calculate_line_50)
         set_line(:NJ1040_LINE_51, :calculate_line_51)
-        set_line(:NJ1040_LINE_53C_CHECKBOX, :calculate_line_53c_checkbox)
+        set_line(:NJ1040_LINE_53C_CHECKBOX, :line_53c_checkbox)
         set_line(:NJ1040_LINE_54, :calculate_line_54)
         set_line(:NJ1040_LINE_55, :calculate_line_55)
         set_line(:NJ1040_LINE_56, :calculate_line_56)
@@ -246,6 +246,10 @@ module Efile
         line_or_zero(:NJ1040_LINE_12_COUNT) * 1_000
       end
 
+      def line_53c_checkbox
+        @intake.eligibility_all_members_health_insurance_yes?
+      end
+
       def line_59_primary
         get_personal_excess(@intake.primary.ssn, :box14_ui_wf_swf, EXCESS_UI_WF_SWF_MAX) +
           get_personal_excess(@intake.primary.ssn, :box14_ui_hc_wd, EXCESS_UI_WF_SWF_MAX)
@@ -276,12 +280,12 @@ module Efile
 
       def calculate_line_13
         calculate_line_6 +
-        calculate_line_7 +
-        calculate_line_8 +
-        calculate_line_9 +
-        line_or_zero(:NJ1040_LINE_10_EXEMPTION) +
-        line_or_zero(:NJ1040_LINE_11_EXEMPTION) +
-        calculate_line_12
+          calculate_line_7 +
+          calculate_line_8 +
+          calculate_line_9 +
+          line_or_zero(:NJ1040_LINE_10_EXEMPTION) +
+          line_or_zero(:NJ1040_LINE_11_EXEMPTION) +
+          calculate_line_12
       end
 
       def calculate_line_15
@@ -289,7 +293,6 @@ module Efile
       end
 
       def calculate_line_16a
-        return nil unless interest_on_gov_bonds.positive?
         @intake.direct_file_data.fed_taxable_income - interest_on_gov_bonds
       end
 
@@ -298,7 +301,7 @@ module Efile
       end
 
       def calculate_line_27
-        line_or_zero(:NJ1040_LINE_15)
+        line_or_zero(:NJ1040_LINE_15) + line_or_zero(:NJ1040_LINE_16A)
       end
 
       def calculate_line_29
@@ -322,21 +325,17 @@ module Efile
       end
 
       def is_ineligible_or_unsupported_for_property_tax_credit
-        StateFile::NjHomeownerEligibilityHelper.determine_eligibility(@intake) != StateFile::NjHomeownerEligibilityHelper::ADVANCE ||
+        StateFile::NjHomeownerEligibilityHelper.determine_eligibility(@intake) == StateFile::NjHomeownerEligibilityHelper::INELIGIBLE ||
           Efile::Nj::NjPropertyTaxEligibility.ineligible?(@intake)
       end
 
       def calculate_line_40a
         case @intake.household_rent_own
         when "own"
-          if @intake.property_tax_paid.nil?
-            return nil
-          end
+          return nil unless @intake.property_tax_paid&.positive?
           property_tax_paid = @intake.property_tax_paid
         when "rent"
-          if @intake.rent_paid.nil?
-            return nil
-          end
+          return nil unless @intake.rent_paid&.positive?
           property_tax_paid = @intake.rent_paid * RENT_CONVERSION
         else
           return nil
@@ -372,10 +371,6 @@ module Efile
 
       def calculate_line_51
         (@intake.sales_use_tax || 0).round
-      end
-
-      def calculate_line_53c_checkbox
-        @intake.eligibility_all_members_health_insurance_yes?
       end
 
       def calculate_line_54
@@ -494,16 +489,16 @@ module Efile
 
       def calculate_line_66
         line_or_zero(:NJ1040_LINE_55) +
-        line_or_zero(:NJ1040_LINE_56) +
-        line_or_zero(:NJ1040_LINE_57) +
-        line_or_zero(:NJ1040_LINE_58) +
-        line_or_zero(:NJ1040_LINE_59) +
-        line_or_zero(:NJ1040_LINE_60) +
-        line_or_zero(:NJ1040_LINE_61) +
-        line_or_zero(:NJ1040_LINE_62) +
-        line_or_zero(:NJ1040_LINE_63) +
-        line_or_zero(:NJ1040_LINE_64) +
-        line_or_zero(:NJ1040_LINE_65)
+          line_or_zero(:NJ1040_LINE_56) +
+          line_or_zero(:NJ1040_LINE_57) +
+          line_or_zero(:NJ1040_LINE_58) +
+          line_or_zero(:NJ1040_LINE_59) +
+          line_or_zero(:NJ1040_LINE_60) +
+          line_or_zero(:NJ1040_LINE_61) +
+          line_or_zero(:NJ1040_LINE_62) +
+          line_or_zero(:NJ1040_LINE_63) +
+          line_or_zero(:NJ1040_LINE_64) +
+          line_or_zero(:NJ1040_LINE_65)
       end
 
       def calculate_line_67
@@ -552,14 +547,14 @@ module Efile
 
       def calculate_line_78
         line_or_zero(:NJ1040_LINE_69) +
-        line_or_zero(:NJ1040_LINE_70) +
-        line_or_zero(:NJ1040_LINE_71) +
-        line_or_zero(:NJ1040_LINE_72) +
-        line_or_zero(:NJ1040_LINE_73) +
-        line_or_zero(:NJ1040_LINE_74) +
-        line_or_zero(:NJ1040_LINE_75) +
-        line_or_zero(:NJ1040_LINE_76) +
-        line_or_zero(:NJ1040_LINE_77)
+          line_or_zero(:NJ1040_LINE_70) +
+          line_or_zero(:NJ1040_LINE_71) +
+          line_or_zero(:NJ1040_LINE_72) +
+          line_or_zero(:NJ1040_LINE_73) +
+          line_or_zero(:NJ1040_LINE_74) +
+          line_or_zero(:NJ1040_LINE_75) +
+          line_or_zero(:NJ1040_LINE_76) +
+          line_or_zero(:NJ1040_LINE_77)
       end
 
       def calculate_line_79
