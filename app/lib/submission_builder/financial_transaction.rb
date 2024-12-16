@@ -6,7 +6,7 @@ module SubmissionBuilder
           xml.RefundDirectDeposit do
             xml.RoutingTransitNumber sanitize_for_xml(@submission.data_source.routing_number) if @submission.data_source.routing_number.present?
             xml.BankAccountNumber sanitize_for_xml(@submission.data_source.account_number) if @submission.data_source.account_number.present?
-            xml.Amount @kwargs[:refund_amount]
+            xml.Amount @kwargs[:refund_amount] if @submission.data_source.allows_split_direct_deposit_amount?
             case @submission.data_source.account_type
             when 'checking'
               xml.Checking 'X'

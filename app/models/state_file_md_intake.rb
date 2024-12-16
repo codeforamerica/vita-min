@@ -208,4 +208,8 @@ class StateFileMdIntake < StateFileBaseIntake
   def extract_apartment_from_mailing_street?
     true
   end
+
+  def allows_split_direct_deposit_amount?
+    false
+  end
 end

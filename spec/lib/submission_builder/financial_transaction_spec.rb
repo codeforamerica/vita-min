@@ -23,16 +23,27 @@ describe SubmissionBuilder::FinancialTransaction do
     context "when filer gets a refund" do
       let(:intake) { create(:state_file_az_refund_intake) }
       let(:submission) { create(:efile_submission, data_source: intake) }
-      it "populates the RefundDirectDeposit" do
-        xml = Nokogiri::XML::Document.parse(
+      before do
+        @xml = Nokogiri::XML::Document.parse(
           described_class.build(
             submission, validate: false, kwargs: { refund_amount: 5 }
           ).document.to_xml)
-        expect(xml.at("RefundDirectDeposit Savings").text).to eq "X"
-        expect(xml.at("RefundDirectDeposit RoutingTransitNumber").text).to eq "111111111"
-        expect(xml.at("RefundDirectDeposit BankAccountNumber").text).to eq "222222222"
-        expect(xml.at("RefundDirectDeposit Amount").text).to eq "5"
-        expect(xml.at("RefundDirectDeposit NotIATTransaction").text).to eq "X"
+      end
+
+      it "populates the RefundDirectDeposit" do
+        expect(@xml.at("RefundDirectDeposit Savings").text).to eq "X"
+        expect(@xml.at("RefundDirectDeposit RoutingTransitNumber").text).to eq "111111111"
+        expect(@xml.at("RefundDirectDeposit BankAccountNumber").text).to eq "222222222"
+        expect(@xml.at("RefundDirectDeposit Amount").text).to eq "5"
+        expect(@xml.at("RefundDirectDeposit NotIATTransaction").text).to eq "X"
+      end
+
+      context "does not allow split direct deposit amount" do
+        let(:intake) { create(:state_file_md_refund_intake) }
+
+        it "does not includes RefundDirectDeposit Amount" do
+          expect(@xml.at("RefundDirectDeposit Amount")).to be_nil
+        end
       end
     end
 

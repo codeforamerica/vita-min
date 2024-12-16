@@ -267,6 +267,10 @@ class StateFileBaseIntake < ApplicationRecord
     end
   end
 
+  def allows_split_direct_deposit_amount?
+    true
+  end
+
   class Person
     attr_reader :first_name, :middle_initial, :last_name, :suffix, :birth_date, :ssn, :primary_or_spouse
 
