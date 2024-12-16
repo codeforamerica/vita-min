@@ -714,7 +714,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           expect(pdf_fields["Text71"]).to eq ""
           expect(pdf_fields["Text72"]).to eq ""
           expect(pdf_fields["Text73"]).to eq ""
-          expect(pdf_fields["Check Box74"]).to eq "Off" # Did not have health insurance
+          expect(pdf_fields["Check Box74"]).to eq "Off" # Did have health insurance
         end
       end
 

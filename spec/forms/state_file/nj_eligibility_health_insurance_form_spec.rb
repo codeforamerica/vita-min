@@ -20,8 +20,6 @@ RSpec.describe StateFile::NjEligibilityHealthInsuranceForm do
 
       expect(form.errors[:eligibility_all_members_health_insurance]).to include "Can't be blank."
     end
-
-    # TODO: add validations that *someone* is checked if we add a box for other/self/spouse
   end
 
   describe "#save" do

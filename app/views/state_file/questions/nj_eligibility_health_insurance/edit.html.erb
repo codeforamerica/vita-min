@@ -25,22 +25,23 @@
               ) %>
         </div>
 
-        <div class="form-group question-with-follow-up__follow-up grey-group" id="household-members">
-          <fieldset class="form-group tight-checkboxes">
-            <legend class="form-question not-centered"><%= t('.label_follow_up') %></legend>
-            <div class="input-group--block">
-            <%# TODO: also checkbox for other/self/partner? %>
-              <%= f.fields_for :dependents do |ff| %>
-                <% dependent = ff.object %>
-                <%= ff.cfa_checkbox(
-                  :nj_did_not_have_health_insurance,
-                  t(".dependent_label", name: dependent.full_name),
-                  options: { checked_value: "yes", unchecked_value: "no" }
-                ) %>
-              <% end %>
-            </div>
-          </fieldset>
-        </div>
+        <% if current_intake.dependents.any? %>
+          <div class="form-group question-with-follow-up__follow-up grey-group" id="household-members">
+            <fieldset class="form-group tight-checkboxes">
+              <legend class="form-question not-centered"><%= t('.label_follow_up') %></legend>
+              <div class="input-group--block">
+                <%= f.fields_for :dependents do |ff| %>
+                  <% dependent = ff.object %>
+                  <%= ff.cfa_checkbox(
+                    :nj_did_not_have_health_insurance,
+                    t(".dependent_label", name: dependent.full_name),
+                    options: { checked_value: "yes", unchecked_value: "no" }
+                  ) %>
+                <% end %>
+              </div>
+            </fieldset>
+          </div>
+        <% end %>
       </div>
     </div>
 
