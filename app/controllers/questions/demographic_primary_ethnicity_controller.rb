@@ -4,9 +4,7 @@ module Questions
 
     layout "intake"
 
-    def self.show?(intake)
-      intake.demographic_questions_opt_in_yes?
-    end
+    def self.show?(intake) = false
 
     def illustration_path; end
 
