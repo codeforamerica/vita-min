@@ -7,7 +7,7 @@ module StateFile
 
       def form_params
         params
-          .require(:state_file_nj_eligibility_health_insurance_form)
+          .fetch(:state_file_nj_eligibility_health_insurance_form, {})
           .permit([
                     :eligibility_all_members_health_insurance,
                     {
