@@ -199,8 +199,6 @@ FactoryBot.define do
 
     trait :with_senior_spouse do
       with_spouse
-      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("md_minimal_with_spouse") }
-      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('md_minimal_with_spouse') }
       spouse_birth_date { MultiTenantService.statefile.end_of_current_tax_year - 70 }
     end
 
