@@ -18,7 +18,7 @@
                 :payment_or_deposit_type,
                 collection: [
                   { value: :direct_deposit, label: t("state_file.questions.tax_refund.edit.direct_deposit"), input_html: { "data-follow-up": "#deposit-to-bank" } },
-                  { value: :mail, label: t("state_file.questions.tax_refund.edit.mail"), input_html: { "data-follow-up": "#mail-check" } },
+                  { value: :mail, label: t("state_file.questions.tax_refund.edit.mail") },
                 ]
               ) %>
         </div>
@@ -29,10 +29,10 @@
           <div class="question-with-follow-up__question">
             <%= render 'state_file/questions/md_tax_refund/md_bank_details', form: f, owe_taxes: false %>
           </div>
+          <%= f.cfa_checkbox(:bank_authorization_confirmed, t(".bank_authorization_confirmation"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+          <%= f.continue %>
         </div>
       </div>
-      <%= f.cfa_checkbox(:bank_authorization_confirmed, t(".bank_authorization_confirmation"), options: { checked_value: "yes", unchecked_value: "no" }) %>
-      <%= f.continue %>
     </div>
   <% end %>
 <% end %>
