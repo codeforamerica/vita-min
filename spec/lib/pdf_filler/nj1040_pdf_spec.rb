@@ -676,7 +676,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         }
 
         before do
-          intake.dependents[0].update(dob: Date.new(2023, 1, 1))
+          intake.dependents[0].update(dob: Date.new(2023, 1, 1), nj_did_not_have_health_insurance: 'yes')
         end
 
         it 'enters single dependent into PDF' do
@@ -697,6 +697,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           expect(pdf_fields["Text61"]).to eq "2"
           expect(pdf_fields["Text62"]).to eq "3"
 
+          expect(pdf_fields["Check Box63"]).to eq "Yes" # Did not have health insurance
+
           # dependent 2
           expect(pdf_fields["Last Name First Name Middle Initial 2"]).to eq ""
           expect(pdf_fields["undefined_21"]).to eq ""
@@ -712,6 +714,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           expect(pdf_fields["Text71"]).to eq ""
           expect(pdf_fields["Text72"]).to eq ""
           expect(pdf_fields["Text73"]).to eq ""
+          expect(pdf_fields["Check Box74"]).to eq "Off" # Did have health insurance
         end
       end
 
@@ -731,7 +734,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
               last_name: "Lastname#{i}",
               middle_initial: 'ABCDEFGHIJK'[i],
               suffix: 'JR',
-              ssn: "1234567#{"%02d" % i}"
+              ssn: "1234567#{"%02d" % i}",
+              nj_did_not_have_health_insurance: 'yes'
             )
           end
         end
@@ -755,6 +759,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           expect(pdf_fields["Text61"]).to eq "2"
           expect(pdf_fields["Text62"]).to eq "0"
 
+          expect(pdf_fields["Check Box63"]).to eq "Yes" # Did not have health insurance
+
           # dependent 2
           expect(pdf_fields["Last Name First Name Middle Initial 2"]).to eq "Lastname1 Firstname1 B JR"
 
@@ -772,6 +778,9 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           expect(pdf_fields["Text71"]).to eq "0"
           expect(pdf_fields["Text72"]).to eq "1"
           expect(pdf_fields["Text73"]).to eq "9"
+
+          expect(pdf_fields["Check Box74"]).to eq "Yes" # Did not have health insurance
+
 
           # dependent 3
           expect(pdf_fields["Last Name First Name Middle Initial 3"]).to eq "Lastname2 Firstname2 C JR"
@@ -791,6 +800,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           expect(pdf_fields["Text82"]).to eq "1"
           expect(pdf_fields["Text83"]).to eq "8"
 
+          expect(pdf_fields["Check Box84"]).to eq "Yes" # Did not have health insurance
+
           # dependent 4
           expect(pdf_fields["Last Name First Name Middle Initial 4"]).to eq "Lastname3 Firstname3 D JR"
 
@@ -808,6 +819,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           expect(pdf_fields["Text91"]).to eq "0"
           expect(pdf_fields["Text92"]).to eq "1"
           expect(pdf_fields["Text93"]).to eq "7"
+
+          expect(pdf_fields["Check Box94"]).to eq "Yes" # Did not have health insurance
         end
       end
     end

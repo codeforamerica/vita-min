@@ -14,10 +14,24 @@ RSpec.feature "Visit home page" do
       end
     end
 
+    expect(page).to have_text("Chat with us")
+
     within ".slab--hero" do
       click_on I18n.t('general.get_started')
     end
     expect(page).to have_text I18n.t('views.questions.personal_info.title')
+  end
+
+  context "hide_intercom flipper flag is enabled" do
+    before do
+      Flipper.enable :hide_intercom
+    end
+
+    scenario "doesn't render intercom widget", js: true do
+      visit "/"
+
+      expect(page).not_to have_text("Chat with us")
+    end
   end
 
   describe "faq questions" do

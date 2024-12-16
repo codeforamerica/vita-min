@@ -15,8 +15,7 @@ describe SubmissionBuilder::Ty2024::States::Md::MdReturnXml, required_schema: "m
       expect(xml.document.at('AuthenticationHeader').to_s).to include('xmlns="http://www.irs.gov/efile"')
       expect(xml.document.at('ReturnHeaderState').to_s).to include('xmlns="http://www.irs.gov/efile"')
 
-      # TODO: Uncomment this when we produce valid MD XML
-      # expect(build_response.errors).not_to be_present
+      expect(build_response.errors).not_to be_present
     end
 
     context "when there is a refund with banking info" do

@@ -179,7 +179,7 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
       end
       add_non_zero_value(xml, :TotalAmountDue, :MD502_LINE_50)
       xml.AuthToDirectDepositInd "X" if calculated_fields.fetch(:MD502_AUTHORIZE_DIRECT_DEPOSIT)
-      if @intake.payment_or_deposit_type.to_sym == :direct_deposit
+      if @intake.payment_or_deposit_type.to_sym == :direct_deposit && @intake.refund_or_owe_taxes_type == :refund
         xml.NameOnBankAccount do
           xml.FirstName sanitize_for_xml(@intake.account_holder_first_name) if @intake.account_holder_first_name
           xml.MiddleInitial sanitize_for_xml(@intake.account_holder_middle_initial) if @intake.account_holder_middle_initial

@@ -387,7 +387,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
           it "outputs the sum of the Subtractions" do
             expect(xml.at("Form502 Subtractions Total").text.to_i).to eq(total_subtractions)
           end
-          
+
           it 'outputs the state adjusted income' do
             expect(xml.at("Form502 Subtractions StateAdjustedGrossIncome").text.to_i).to eq(state_adjusted_income)
           end
@@ -595,45 +595,67 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
     end
 
     context "Line 51d: NameOnBankAccount" do
-      before do
-        intake.update(
-          payment_or_deposit_type: "direct_deposit",
-          account_holder_first_name: "Jack",
-          account_holder_middle_initial: "D",
-          account_holder_last_name: "Hansel"
-        )
-      end
-
-      it 'outputs account holder name' do
-        expect(xml.at("Form502 NameOnBankAccount FirstName")&.text).to eq("Jack")
-        expect(xml.at("Form502 NameOnBankAccount MiddleInitial")&.text).to eq("D")
-        expect(xml.at("Form502 NameOnBankAccount LastName")&.text).to eq("Hansel")
-        expect(xml.at("Form502 NameOnBankAccount Suffix")).to be_nil
-      end
-
-      context "with joint account holder" do
+      context "with a refund" do
         before do
+          intake.update(
+            payment_or_deposit_type: "direct_deposit",
+            account_holder_first_name: "Jack",
+            account_holder_middle_initial: "D",
+            account_holder_last_name: "Hansel"
+          )
+          allow(intake).to receive(:refund_or_owe_taxes_type).and_return(:refund)
+        end
+
+        it 'outputs account holder name' do
+          expect(xml.at("Form502 NameOnBankAccount FirstName")&.text).to eq("Jack")
+          expect(xml.at("Form502 NameOnBankAccount MiddleInitial")&.text).to eq("D")
+          expect(xml.at("Form502 NameOnBankAccount LastName")&.text).to eq("Hansel")
+          expect(xml.at("Form502 NameOnBankAccount Suffix")).to be_nil
+        end
+
+        context "with joint account holder" do
+          before do
+            intake.joint_account_holder_first_name = "Jill"
+            intake.joint_account_holder_last_name = "Gretl"
+            intake.joint_account_holder_suffix = "II"
+            intake.has_joint_account_holder = "yes"
+            allow(intake).to receive(:refund_or_owe_taxes_type).and_return(:refund)
+          end
+
+          it "outputs names for both account holders" do
+            account_holder_xmls = xml.css('Form502 NameOnBankAccount')
+            expect(account_holder_xmls.count).to eq(2)
+
+            account_holder_xml = account_holder_xmls[0]
+            expect(account_holder_xml.at("FirstName")&.text).to eq("Jack")
+            expect(account_holder_xml.at("MiddleInitial")&.text).to eq("D")
+            expect(account_holder_xml.at("LastName")&.text).to eq("Hansel")
+            expect(account_holder_xml.at("NameSuffix")).to be_nil
+
+            joint_account_holder_xml = account_holder_xmls[1]
+            expect(joint_account_holder_xml.at("FirstName")&.text).to eq("Jill")
+            expect(joint_account_holder_xml.at("MiddleInitial")).to be_nil
+            expect(joint_account_holder_xml.at("LastName")&.text).to eq("Gretl")
+            expect(joint_account_holder_xml.at("NameSuffix")&.text).to eq("II")
+          end
+        end
+      end
+
+      context "with taxes owed" do
+        before do
+          intake.account_holder_first_name = "Jack"
+          intake.account_holder_middle_initial = "D"
+          intake.account_holder_last_name = "Hansel"
           intake.joint_account_holder_first_name = "Jill"
           intake.joint_account_holder_last_name = "Gretl"
           intake.joint_account_holder_suffix = "II"
           intake.has_joint_account_holder = "yes"
+          allow(intake).to receive(:refund_or_owe_taxes_type).and_return(:owe)
+          allow(intake).to receive(:payment_or_deposit_type).and_return(:direct_deposit)
         end
 
-        it "outputs names for both account holders" do
-          account_holder_xmls = xml.css('Form502 NameOnBankAccount')
-          expect(account_holder_xmls.count).to eq(2)
-
-          account_holder_xml = account_holder_xmls[0]
-          expect(account_holder_xml.at("FirstName")&.text).to eq("Jack")
-          expect(account_holder_xml.at("MiddleInitial")&.text).to eq("D")
-          expect(account_holder_xml.at("LastName")&.text).to eq("Hansel")
-          expect(account_holder_xml.at("NameSuffix")).to be_nil
-
-          joint_account_holder_xml = account_holder_xmls[1]
-          expect(joint_account_holder_xml.at("FirstName")&.text).to eq("Jill")
-          expect(joint_account_holder_xml.at("MiddleInitial")).to be_nil
-          expect(joint_account_holder_xml.at("LastName")&.text).to eq("Gretl")
-          expect(joint_account_holder_xml.at("NameSuffix")&.text).to eq("II")
+        it 'does not include the NameOnBankAccount attribute' do
+          expect(xml.at("Form502 NameOnBankAccount")).not_to be_present
         end
       end
 
