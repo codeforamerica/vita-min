@@ -22,7 +22,8 @@ describe SubmissionBuilder::ReturnHeader do
           intake.direct_file_data.mailing_zip = mailing_zip
           intake.direct_file_data.tax_return_year = tax_return_year
           allow(EnvironmentCredentials).to receive(:irs).with(:efin).and_return efin
-          allow(EnvironmentCredentials).to receive(:irs).with(:sin).and_return sin
+          software_id = StateFile::StateInformationService.software_id(state_code).to_sym
+          allow(EnvironmentCredentials).to receive(:irs).with(software_id).and_return sin
         end
 
         it "generates xml with the right values" do
