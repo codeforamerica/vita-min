@@ -37,10 +37,6 @@ module SubmissionBuilder
         end
       end
         
-      locality_nm = xml_node.at(:LocalityNm)
-      if locality_nm.present?
-        locality_nm.inner_html = locality_nm.inner_html.upcase
-      end
       xml_node
     end
   end
