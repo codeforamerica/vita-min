@@ -732,11 +732,11 @@ RSpec.feature "Completing a state file intake", active_job: true do
       choose I18n.t('state_file.questions.nj_household_rent_own.edit.neither')
       click_on I18n.t("general.continue")
 
-      click_on I18n.t("general.continue")
-
+      # estimated tax payments
       fill_in I18n.t('state_file.questions.nj_estimated_tax_payments.edit.label', filing_year: MultiTenantService.statefile.current_tax_year), with: 1000
       click_on I18n.t("general.continue")
 
+      # sales use tax
       choose I18n.t('general.negative')
       click_on I18n.t("general.continue")
 
@@ -1024,6 +1024,9 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       # homeowner eligibility page
       expect(page).to have_text I18n.t("state_file.questions.nj_homeowner_eligibility.edit.title", filing_year: filing_year)
+      click_on I18n.t("general.continue")
+
+      # homeowner ineligible page
       click_on I18n.t("general.continue")
 
       # tenant eligibility page

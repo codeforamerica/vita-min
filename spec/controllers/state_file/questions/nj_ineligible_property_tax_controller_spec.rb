@@ -6,37 +6,6 @@ RSpec.describe StateFile::Questions::NjIneligiblePropertyTaxController do
     sign_in intake
   end
 
-  describe "#show?" do
-
-    context "when indicated neither rent nor own" do
-      let(:intake) { create :state_file_nj_intake, household_rent_own: "neither" }
-      it "shows" do
-        expect(described_class.show?(intake)).to eq true
-      end
-    end
-
-    context "when indicated both rent and own" do
-      let(:intake) { create :state_file_nj_intake, household_rent_own: "both" }
-      it "does not show" do
-        expect(described_class.show?(intake)).to eq false
-      end
-    end
-
-    context "when indicated that they rent" do
-      let(:intake) { create :state_file_nj_intake, household_rent_own: "rent" }
-      it "does not show" do
-        expect(described_class.show?(intake)).to eq false
-      end
-    end
-
-    context "when indicated that they own" do
-      let(:intake) { create :state_file_nj_intake, household_rent_own: "own" }
-      it "does not show" do
-        expect(described_class.show?(intake)).to eq false
-      end
-    end
-  end
-
   describe "#next_path" do
     context "when indicated both rent and own and has not yet answered tenant eligibility" do
       let(:intake) { create :state_file_nj_intake, household_rent_own: "both" }
@@ -47,17 +16,15 @@ RSpec.describe StateFile::Questions::NjIneligiblePropertyTaxController do
 
     context "when indicated both rent and own and has already answered tenant eligibility" do
       let(:intake) { create :state_file_nj_intake, household_rent_own: "both", tenant_home_subject_to_property_taxes: "no"  }
-      it "next path is whichever comes next overall" do
-        allow_any_instance_of(described_class.superclass).to receive(:next_path).and_return("/mocked/super/path")
-        expect(subject.next_path).to eq("/mocked/super/path")
+      it "next path is next_controller for property tax flow" do
+        expect(subject.next_path).to eq(StateFile::NjPropertyTaxFlowHelper.next_controller({}))
       end
     end
 
     context "when not both rent and own" do
       let(:intake) { create :state_file_nj_intake, household_rent_own: "own" }
-      it "next path is whichever comes next overall" do
-        allow_any_instance_of(described_class.superclass).to receive(:next_path).and_return("/mocked/super/path")
-        expect(subject.next_path).to eq("/mocked/super/path")
+      it "next path is next_controller for property tax flow" do
+        expect(subject.next_path).to eq(StateFile::NjPropertyTaxFlowHelper.next_controller({}))
       end
     end
   end

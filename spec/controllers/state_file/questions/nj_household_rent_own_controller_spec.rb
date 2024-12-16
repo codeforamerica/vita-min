@@ -87,9 +87,8 @@ RSpec.describe StateFile::Questions::NjHouseholdRentOwnController do
 
       context "when not eligible for property tax deduction due to income" do
         let(:intake) {create :state_file_nj_intake, :df_data_minimal, household_rent_own: "own" }
-        it "next path is whichever is next overall" do
-          allow_any_instance_of(described_class.superclass).to receive(:next_path).and_return("/mocked/super/path")
-          expect(subject.next_path).to eq("/mocked/super/path")
+        it "next path is next_controller for property tax flow" do
+          expect(subject.next_path).to eq(StateFile::NjPropertyTaxFlowHelper.next_controller({}))
         end
       end
 
