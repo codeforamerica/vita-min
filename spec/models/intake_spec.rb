@@ -39,6 +39,7 @@
 #  demographic_primary_asian                            :boolean
 #  demographic_primary_black_african_american           :boolean
 #  demographic_primary_ethnicity                        :integer          default(0), not null
+#  demographic_primary_mena                             :boolean
 #  demographic_primary_native_hawaiian_pacific_islander :boolean
 #  demographic_primary_prefer_not_to_answer_race        :boolean
 #  demographic_primary_white                            :boolean
