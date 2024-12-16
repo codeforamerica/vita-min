@@ -57,11 +57,12 @@ module Efile
         end
 
         def is_under_income_total_limit?(intake)
-          intake.direct_file_data.fed_agi < if intake.filing_status_mfj?
-                                              25_511
-                                            else
-                                              18_591
-                                            end
+          income_threshold = if intake.filing_status_mfj?
+                               25_511
+                             else
+                               18_591
+                             end
+          intake.direct_file_data.fed_agi < income_threshold
         end
 
         def has_ssn_valid_for_employment?(intake)
