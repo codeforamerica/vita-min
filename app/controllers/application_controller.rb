@@ -66,9 +66,11 @@ class ApplicationController < ActionController::Base
       ["StateFile::StateFilePagesController", "privacy_policy"],
       ["StateFile::FaqController", ""]
     ]
-    state_file? && pages_to_hide_from.any? do |controller, action|
-      self.class.name == controller && (action == "" || action_name == action)
-    end
+    is_hidden_page = state_file? && pages_to_hide_from.any? do |controller, action|
+                      self.class.name == controller && (action == "" || action_name == action)
+                    end
+
+    is_hidden_page || Flipper.enabled?(:hide_intercom)
   end
   helper_method :hide_intercom?
 

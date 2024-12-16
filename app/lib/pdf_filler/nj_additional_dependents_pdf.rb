@@ -16,8 +16,8 @@ module PdfFiller
 
     def hash_for_pdf
       answers = {
-        "Names(s) as shown on NJ 1040": get_name(@xml_document),
-        "Social Security Number": get_taxpayer_ssn
+        'Names(s) as shown on NJ 1040': get_name(@xml_document),
+        'Social Security Number': get_taxpayer_ssn
       }
 
       answers.merge!(fill_dependents)
@@ -35,6 +35,7 @@ module PdfFiller
           suffix: dependent.at("DependentsName NameSuffix")&.text,
           ssn: dependent.at("DependentsSSN")&.text,
           birth_year: dependent.at("BirthYear")&.text,
+          nj_did_not_have_health_insurance: dependent.at("NoHealthInsurance")&.text == 'X' ? 'Yes' : 'Off'
         }
       end
     end
@@ -43,13 +44,13 @@ module PdfFiller
       @xml_document.at("ReturnHeaderState Filer Primary TaxpayerSSN")&.text
     end
 
-
     def fill_dependents
       answers = {}
       get_dependents[4..].each.with_index do |dependent, index|
         answers["Name_Row#{index + 1}"] = format_name(dependent[:first_name], dependent[:last_name], dependent[:middle_initial], dependent[:suffix])
         answers["SSN_Row#{index + 1}"] = dependent[:ssn]
         answers["BirthYear_Row#{index + 1}"] = dependent[:birth_year]
+        answers["HealthInsurance_Row#{index + 1}"] = dependent[:nj_did_not_have_health_insurance]
       end
       answers
     end
