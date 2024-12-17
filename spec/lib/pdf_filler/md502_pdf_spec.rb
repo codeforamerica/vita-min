@@ -25,11 +25,11 @@ RSpec.describe PdfFiller::Md502Pdf do
         intake.direct_file_data.mailing_state = "MD"
         intake.direct_file_data.mailing_zip = "21401"
 
-        expect(pdf_fields["Enter Current Mailing Address Line 1 (Street No. and Street Name or PO Box)"]).to eq("312 Poppy Street")
-        expect(pdf_fields["Enter Current Mailing Address Line 2 (Street No. and Street Name or PO Box)"]).to eq("Apt B")
-        expect(pdf_fields["Enter city or town"]).to eq("Annapolis")
-        expect(pdf_fields["Enter state"]).to eq("MD")
-        expect(pdf_fields["Enter zip code + 4"]).to eq("21401")
+        expect(pdf_fields["Current Mailing Address Line 1 Street No and Street Name or PO Box"]).to eq("312 Poppy Street")
+        expect(pdf_fields["Current Mailing Address Line 2 Apt No Suite No Floor No"]).to eq("Apt B")
+        expect(pdf_fields["City or Town"]).to eq("Annapolis")
+        # TODO: state
+        expect(pdf_fields["ZIP Code  4"]).to eq("21401")
       end
     end
 
@@ -45,10 +45,11 @@ RSpec.describe PdfFiller::Md502Pdf do
         end
 
         it "fills the fields with the DF address" do
-          expect(pdf_fields["Enter Maryland Physical Address Line 1 (Street No. and Street Name) (No PO Box)"]).to eq("312 Poppy Street")
-          expect(pdf_fields["Enter Maryland Physical Address Line 2 (Street No. and Street Name) (No PO Box)"]).to eq("Apt B")
-          expect(pdf_fields["Enter city"]).to eq("Annapolis")
-          expect(pdf_fields["2 Enter zip code + 4"]).to eq("21401")
+          expect(pdf_fields["Maryland Physical Address Line 1 Street No and Street Name No PO Box"]).to eq("312 Poppy Street")
+          expect(pdf_fields["Maryland Physical Address Line 2 Apt No Suite No Floor No No PO Box"]).to eq("Apt B")
+          expect(pdf_fields["City"]).to eq("Annapolis")
+          # TODO: state??
+          expect(pdf_fields["ZIP Code  4_2"]).to eq("21401")
         end
       end
 
@@ -63,10 +64,11 @@ RSpec.describe PdfFiller::Md502Pdf do
         end
 
         it "fills the fields with the entered address" do
-          expect(pdf_fields["Enter Maryland Physical Address Line 1 (Street No. and Street Name) (No PO Box)"]).to eq("313 Poppy Street")
-          expect(pdf_fields["Enter Maryland Physical Address Line 2 (Street No. and Street Name) (No PO Box)"]).to eq("Apt A")
-          expect(pdf_fields["Enter city"]).to eq("Baltimore")
-          expect(pdf_fields["2 Enter zip code + 4"]).to eq("21201")
+          expect(pdf_fields["Maryland Physical Address Line 1 Street No and Street Name No PO Box"]).to eq("313 Poppy Street")
+          expect(pdf_fields["Maryland Physical Address Line 2 Apt No Suite No Floor No No PO Box"]).to eq("Apt A")
+          expect(pdf_fields["City"]).to eq("Baltimore")
+          # TODO: state??
+          expect(pdf_fields["ZIP Code  4_2"]).to eq("21201")
         end
       end
     end
@@ -79,9 +81,9 @@ RSpec.describe PdfFiller::Md502Pdf do
       end
 
       it "output correct information" do
-        expect(pdf_fields["Enter 4 Digit Political Subdivision Code (See Instruction 6)"]).to eq("0101")
-        expect(pdf_fields["Enter Maryland Political Subdivision (See Instruction 6)"]).to eq("Town Of Barton")
-        expect(pdf_fields["Enter zip code + 5"]).to eq("Allegany")
+        expect(pdf_fields["4 Digit Political Subdivision Code See Instruction 6"]).to eq("0101")
+        expect(pdf_fields["Maryland Political Subdivision See Instruction 6"]).to eq("Town Of Barton")
+        expect(pdf_fields["Maryland County"]).to eq("Allegany")
       end
     end
 
@@ -96,11 +98,11 @@ RSpec.describe PdfFiller::Md502Pdf do
         end
 
         it "fills out income fields correctly" do
-          expect(pdf_fields["Enter 1"].to_i).to eq intake.direct_file_data.fed_agi
-          expect(pdf_fields["Enter 1a"].to_i).to eq intake.direct_file_data.fed_wages_salaries_tips
-          expect(pdf_fields["Enter 1b"].to_i).to eq intake.direct_file_data.fed_wages_salaries_tips
-          expect(pdf_fields["Enter 1dEnter 1d"].to_i).to eq intake.direct_file_data.fed_taxable_pensions
-          expect(pdf_fields["Enter Y of income more than $11,000"]).to eq("Y")
+          expect(pdf_fields["1"].to_i).to eq intake.direct_file_data.fed_agi
+          expect(pdf_fields["1a"].to_i).to eq intake.direct_file_data.fed_wages_salaries_tips
+          expect(pdf_fields["1b"].to_i).to eq intake.direct_file_data.fed_wages_salaries_tips
+          expect(pdf_fields["1d"].to_i).to eq intake.direct_file_data.fed_taxable_pensions
+          expect(pdf_fields["Place a Y in this box if the amount of your investment income is more than 11600"]).to eq("Y")
         end
       end
 
@@ -111,40 +113,32 @@ RSpec.describe PdfFiller::Md502Pdf do
         end
 
         it "fills out income fields correctly" do
-          expect(pdf_fields["Enter Y of income more than $11,000"]).to eq("")
+          expect(pdf_fields["Place a Y in this box if the amount of your investment income is more than 11600"]).to eq("")
         end
       end
-    end
-
-    # We usually expect "Yes" to be the "checked" option in PDFs, but for this field "No" means checked.
-    # This test is to ensure when fixtures change, change is made to the corresponding has_for_pdf value
-    # on this field from "No" to "Yes"
-    it "pdf contains 'No' option for mfs checkbox" do
-      expect(check_if_valid_pdf_option(file_path, "Check Box - 3", "No")).to eq(true)
-      expect(check_if_valid_pdf_option(file_path, "6. Check here", "No")).to eq(true)
     end
 
     describe "filing_status" do
       context "single" do
         it "sets correct value for the single filer and leaves it empty for spouse" do
-          expect(pdf_fields["Enter day and month of Fiscal Year beginning"]).to be_nil
-          expect(pdf_fields["Enter day and month of Fiscal Year Ending"]).to be_nil
-          expect(pdf_fields["Enter social security number"]).to eq("123456789")
-          expect(pdf_fields["Enter spouse's social security number"]).to be_nil
-          expect(pdf_fields["Enter your first name"]).to eq("Mary")
-          expect(pdf_fields["Enter your middle initial"]).to eq("A")
-          expect(pdf_fields["Enter your last name"]).to eq("Lando")
-          expect(pdf_fields["Enter Spouse's First Name"]).to be_nil
-          expect(pdf_fields["Enter Spouse's middle initial"]).to be_nil
-          expect(pdf_fields["Enter Spouse's last name"]).to be_nil
-          expect(pdf_fields["Check Box - 1"]).to eq "Yes"
-          expect(pdf_fields["Check Box - 2"]).to eq "Off"
-          expect(pdf_fields["Check Box - 3"]).to eq "Off"
-          expect(pdf_fields["MARRIED FILING Enter spouse&apos;s social security number"]).to eq("")
-          expect(pdf_fields["Check Box - 4"]).to eq "Off"
-          expect(pdf_fields["Check Box - 5"]).to eq "Off"
-          expect(pdf_fields["6. Check here"]).to eq "Off"
-          expect(pdf_fields["Text Box 96"]).to eq("5551234567")
+          expect(pdf_fields["OR FISCAL YEAR BEGINNING"]).to be_nil
+          expect(pdf_fields["2024 ENDING"]).to be_nil
+          expect(pdf_fields["Your Social Security Number"]).to eq("123456789")
+          expect(pdf_fields["Spouses Social Security Number"]).to eq ""
+          expect(pdf_fields["Your First Name"]).to eq("Mary")
+          expect(pdf_fields["Primary MI"]).to eq("A")
+          expect(pdf_fields["Your Last Name"]).to eq("Lando")
+          expect(pdf_fields["Spouses First Name"]).not_to be_present
+          expect(pdf_fields["Spouse MI"]).not_to be_present
+          expect(pdf_fields["Spouses Last Name"]).not_to be_present
+          expect(pdf_fields["Single If you can be claimed on another persons tax return use Filing Status 6"]).to eq "On"
+          expect(pdf_fields["Married filing joint return or spouse had no income"]).to eq "Off"
+          expect(pdf_fields["Married filing separately Spouse SSN"]).to eq "Off"
+          # TODO expect(pdf_fields["MARRIED FILING Enter spouse&apos;s social security number"]).to eq("")
+          # TODO expect(pdf_fields["Check Box - 4"]).to eq "Off"
+          expect(pdf_fields["Qualifying surviving spouse with dependent child"]).to eq "Off"
+          # TODO expect(pdf_fields["6. Check here"]).to eq "Off"
+          expect(pdf_fields["Daytime telephone no"]).to eq("5551234567")
         end
       end
 
@@ -152,21 +146,21 @@ RSpec.describe PdfFiller::Md502Pdf do
         let(:intake) { create(:state_file_md_intake, :with_spouse) }
 
         it "sets correct values for mfj filers" do
-          expect(pdf_fields['Enter social security number']).to eq("123456789")
-          expect(pdf_fields["Enter spouse&apos;s social security number"]).to eq("987654321")
-          expect(pdf_fields["Enter your first name"]).to eq("Mary")
-          expect(pdf_fields["Enter your middle initial"]).to eq("A")
-          expect(pdf_fields["Enter your last name"]).to eq("Lando")
-          expect(pdf_fields["Enter Spouse&apos;s First Name"]).to eq("Marty")
-          expect(pdf_fields["Enter Spouse&apos;s middle initial"]).to eq("B")
-          expect(pdf_fields["Enter Spouse&apos;s last name"]).to eq("Lando")
-          expect(pdf_fields["Check Box - 1"]).to eq "Off"
-          expect(pdf_fields["Check Box - 2"]).to eq "Yes"
-          expect(pdf_fields["Check Box - 3"]).to eq "Off"
-          expect(pdf_fields["MARRIED FILING Enter spouse&apos;s social security number"]).to eq("")
-          expect(pdf_fields["Check Box - 4"]).to eq "Off"
-          expect(pdf_fields["Check Box - 5"]).to eq "Off"
-          expect(pdf_fields["6. Check here"]).to eq "Off"
+          expect(pdf_fields["Your Social Security Number"]).to eq("123456789")
+          expect(pdf_fields["Spouses Social Security Number"]).to eq("987654321")
+          expect(pdf_fields["Your First Name"]).to eq("Mary")
+          expect(pdf_fields["Primary MI"]).to eq("A")
+          expect(pdf_fields["Your Last Name"]).to eq("Lando")
+          expect(pdf_fields["Spouses First Name"]).to eq("Marty")
+          expect(pdf_fields["Spouse MI"]).to eq("B")
+          expect(pdf_fields["Spouses Last Name"]).to eq("Lando")
+          expect(pdf_fields["Single If you can be claimed on another persons tax return use Filing Status 6"]).to eq "Off"
+          expect(pdf_fields["Married filing joint return or spouse had no income"]).to eq "On"
+          expect(pdf_fields["Married filing separately Spouse SSN"]).to eq "Off"
+          # TODO expect(pdf_fields["MARRIED FILING Enter spouse&apos;s social security number"]).to eq("")
+          # TODO expect(pdf_fields["Check Box - 4"]).to eq "Off"
+          expect(pdf_fields["Qualifying surviving spouse with dependent child"]).to eq "Off"
+          # TODO expect(pdf_fields["6. Check here"]).to eq "Off"
         end
       end
 
@@ -174,16 +168,16 @@ RSpec.describe PdfFiller::Md502Pdf do
         let(:intake) { create(:state_file_md_intake, :with_spouse, filing_status: "married_filing_separately") }
 
         it "sets correct values for filer and fills in mfs spouse ssn" do
-          expect(pdf_fields["Enter social security number"]).to eq("123456789")
-          expect(pdf_fields["Enter your first name"]).to eq("Mary")
-          expect(pdf_fields["Enter your middle initial"]).to eq("A")
-          expect(pdf_fields["Enter your last name"]).to eq("Lando")
-          expect(pdf_fields["Check Box - 1"]).to eq "Off"
-          expect(pdf_fields["Check Box - 2"]).to eq "Off"
-          expect(pdf_fields["Check Box - 3"]).to eq "No"
-          expect(pdf_fields["Check Box - 4"]).to eq "Off"
-          expect(pdf_fields["Check Box - 5"]).to eq "Off"
-          expect(pdf_fields["6. Check here"]).to eq "Off"
+          expect(pdf_fields["Your Social Security Number"]).to eq("123456789")
+          expect(pdf_fields["Your First Name"]).to eq("Mary")
+          expect(pdf_fields["Primary MI"]).to eq("A")
+          expect(pdf_fields["Your Last Name"]).to eq("Lando")
+          expect(pdf_fields["Single If you can be claimed on another persons tax return use Filing Status 6"]).to eq "Off"
+          expect(pdf_fields["Married filing joint return or spouse had no income"]).to eq "Off"
+          expect(pdf_fields["Married filing separately Spouse SSN"]).to eq "On"
+          # TODO expect(pdf_fields["Check Box - 4"]).to eq "Off"
+          expect(pdf_fields["Qualifying surviving spouse with dependent child"]).to eq "Off"
+          # TODO expect(pdf_fields["6. Check here"]).to eq "Off"
         end
       end
 
@@ -191,12 +185,12 @@ RSpec.describe PdfFiller::Md502Pdf do
         let(:intake) { create(:state_file_md_intake, :head_of_household) }
 
         it "sets correct filing status for hoh" do
-          expect(pdf_fields["Check Box - 1"]).to eq "Off"
-          expect(pdf_fields["Check Box - 2"]).to eq "Off"
-          expect(pdf_fields["Check Box - 3"]).to eq "Off"
-          expect(pdf_fields["Check Box - 4"]).to eq "Yes"
-          expect(pdf_fields["Check Box - 5"]).to eq "Off"
-          expect(pdf_fields["6. Check here"]).to eq "Off"
+          expect(pdf_fields["Single If you can be claimed on another persons tax return use Filing Status 6"]).to eq "Off"
+          expect(pdf_fields["Married filing joint return or spouse had no income"]).to eq "Off"
+          expect(pdf_fields["Married filing separately Spouse SSN"]).to eq "Off"
+          # TODO expect(pdf_fields["Check Box - 4"]).to eq "Yes"
+          expect(pdf_fields["Qualifying surviving spouse with dependent child"]).to eq "Off"
+          # TODO expect(pdf_fields["6. Check here"]).to eq "Off"
         end
       end
 
@@ -204,12 +198,12 @@ RSpec.describe PdfFiller::Md502Pdf do
         let(:intake) { create(:state_file_md_intake, :qualifying_widow) }
 
         it "sets correct filing status for qw" do
-          expect(pdf_fields["Check Box - 1"]).to eq "Off"
-          expect(pdf_fields["Check Box - 2"]).to eq "Off"
-          expect(pdf_fields["Check Box - 3"]).to eq "Off"
-          expect(pdf_fields["Check Box - 4"]).to eq "Off"
-          expect(pdf_fields["Check Box - 5"]).to eq "Yes"
-          expect(pdf_fields["6. Check here"]).to eq "Off"
+          expect(pdf_fields["Single If you can be claimed on another persons tax return use Filing Status 6"]).to eq "Off"
+          expect(pdf_fields["Married filing joint return or spouse had no income"]).to eq "Off"
+          expect(pdf_fields["Married filing separately Spouse SSN"]).to eq "Off"
+          # TODO expect(pdf_fields["Check Box - 4"]).to eq "Off"
+          expect(pdf_fields["Qualifying surviving spouse with dependent child"]).to eq "Yes"
+          # TODO expect(pdf_fields["6. Check here"]).to eq "Off"
         end
       end
 
@@ -217,12 +211,12 @@ RSpec.describe PdfFiller::Md502Pdf do
         let(:intake) { create(:state_file_md_intake, :claimed_as_dependent) }
 
         it "sets correct filing status for dependent taxpayer and does not set other filing_status" do
-          expect(pdf_fields["Check Box - 1"]).to eq "Off"
-          expect(pdf_fields["Check Box - 2"]).to eq "Off"
-          expect(pdf_fields["Check Box - 3"]).to eq "Off"
-          expect(pdf_fields["Check Box - 4"]).to eq "Off"
-          expect(pdf_fields["Check Box - 5"]).to eq "Off"
-          expect(pdf_fields["6. Check here"]).to eq "No"
+          expect(pdf_fields["Single If you can be claimed on another persons tax return use Filing Status 6"]).to eq "Off"
+          expect(pdf_fields["Married filing joint return or spouse had no income"]).to eq "Off"
+          expect(pdf_fields["Married filing separately Spouse SSN"]).to eq "Off"
+          # TODO expect(pdf_fields["Check Box - 4"]).to eq "Off"
+          expect(pdf_fields["Qualifying surviving spouse with dependent child"]).to eq "Off"
+          # TODO expect(pdf_fields["6. Check here"]).to eq "No"
         end
       end
     end

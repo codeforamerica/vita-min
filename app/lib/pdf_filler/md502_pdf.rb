@@ -3,7 +3,7 @@ module PdfFiller
     include PdfHelper
 
     def source_pdf_name
-      "md502-TY2023-with-paren-edit"
+      "md502-TY2024"
     end
 
     def initialize(submission)
@@ -16,40 +16,41 @@ module PdfFiller
 
     def hash_for_pdf
       answers = {
-        'Enter 1': @xml_document.at("Form502 Income FederalAdjustedGrossIncome")&.text,
-        'Enter 1a': @xml_document.at("Form502 Income WagesSalariesAndTips")&.text,
-        'Enter 1b': @xml_document.at("Form502 Income EarnedIncome")&.text,
-        'Enter 1dEnter 1d': @xml_document.at("Form502 Income TaxablePensionsIRAsAnnuities")&.text,
-        'Enter Y of income more than $11,000': @xml_document.at("Form502 Income InvestmentIncomeIndicator")&.text == "X" ? "Y" : "",
-        'Enter social security number': @xml_document.at('Primary TaxpayerSSN')&.text,
-        'Enter spouse\'s social security number': @xml_document.at('Secondary TaxpayerSSN')&.text,
-        'Enter your first name': @xml_document.at('Primary TaxpayerName FirstName')&.text,
-        'Enter your middle initial': @xml_document.at('Primary TaxpayerName MiddleInitial')&.text,
-        'Enter your last name': @xml_document.at('Primary TaxpayerName LastName')&.text,
-        'Enter Spouse\'s First Name': @xml_document.at('Secondary TaxpayerName FirstName')&.text,
-        'Enter Spouse\'s middle initial': @xml_document.at('Secondary TaxpayerName MiddleInitial')&.text,
-        'Enter Spouse\'s last name': @xml_document.at('Secondary TaxpayerName LastName')&.text,
+        '1': @xml_document.at("Form502 Income FederalAdjustedGrossIncome")&.text,
+        '1a': @xml_document.at("Form502 Income WagesSalariesAndTips")&.text,
+        '1b': @xml_document.at("Form502 Income EarnedIncome")&.text,
+        '1d': @xml_document.at("Form502 Income TaxablePensionsIRAsAnnuities")&.text,
+        'Place a Y in this box if the amount of your investment income is more than 11600': @xml_document.at("Form502 Income InvestmentIncomeIndicator")&.text == "X" ? "Y" : "",
+        'Your Social Security Number': @xml_document.at('Primary TaxpayerSSN')&.text,
+        'Spouses Social Security Number': @xml_document.at('Secondary TaxpayerSSN')&.text,
+        'Your First Name': @xml_document.at('Primary TaxpayerName FirstName')&.text,
+        'Primary MI': @xml_document.at('Primary TaxpayerName MiddleInitial')&.text,
+        'Your Last Name': @xml_document.at('Primary TaxpayerName LastName')&.text,
+        'Spouses First Name': @xml_document.at('Secondary TaxpayerName FirstName')&.text,
+        'Spouse MI': @xml_document.at('Secondary TaxpayerName MiddleInitial')&.text,
+        'Spouses Last Name': @xml_document.at('Secondary TaxpayerName LastName')&.text,
 
-        'Enter Current Mailing Address Line 1 (Street No. and Street Name or PO Box)': @xml_document.at('USAddress AddressLine1Txt')&.text,
-        'Enter Current Mailing Address Line 2 (Street No. and Street Name or PO Box)': @xml_document.at('USAddress AddressLine2Txt')&.text,
-        'Enter city or town': @xml_document.at('USAddress CityNm')&.text,
-        'Enter state': @xml_document.at('USAddress StateAbbreviationCd')&.text,
-        'Enter zip code + 4': @xml_document.at('USAddress ZIPCd')&.text,
+        'Current Mailing Address Line 1 Street No and Street Name or PO Box': @xml_document.at('USAddress AddressLine1Txt')&.text,
+        'Current Mailing Address Line 2 Apt No Suite No Floor No': @xml_document.at('USAddress AddressLine2Txt')&.text,
+        'City or Town': @xml_document.at('USAddress CityNm')&.text,
+        # TODO: 'Enter state': @xml_document.at('USAddress StateAbbreviationCd')&.text,
+        'ZIP Code  4': @xml_document.at('USAddress ZIPCd')&.text,
 
-        'Enter Maryland Physical Address Line 1 (Street No. and Street Name) (No PO Box)': @xml_document.at('MarylandAddress AddressLine1Txt')&.text,
-        'Enter Maryland Physical Address Line 2 (Street No. and Street Name) (No PO Box)': @xml_document.at('MarylandAddress AddressLine2Txt')&.text,
-        'Enter city': @xml_document.at('MarylandAddress CityNm')&.text,
-        '2 Enter zip code + 4': @xml_document.at('MarylandAddress ZIPCd')&.text,
+        'Maryland Physical Address Line 1 Street No and Street Name No PO Box': @xml_document.at('MarylandAddress AddressLine1Txt')&.text,
+        'Maryland Physical Address Line 2 Apt No Suite No Floor No No PO Box': @xml_document.at('MarylandAddress AddressLine2Txt')&.text,
+        'City': @xml_document.at('MarylandAddress CityNm')&.text,
+        'ZIP Code  4_2': @xml_document.at('MarylandAddress ZIPCd')&.text,
 
-        'Enter 4 Digit Political Subdivision Code (See Instruction 6)': @xml_document.at('MarylandSubdivisionCode')&.text,
-        'Enter Maryland Political Subdivision (See Instruction 6)': @submission.data_source.political_subdivision,
-        'Enter zip code + 5': @submission.data_source.residence_county,
-        'Check Box - 1': filing_status(:filing_status_single?) ? 'Yes' : 'Off',
-        'Check Box - 2': filing_status(:filing_status_mfj?) ? 'Yes' : 'Off',
-        'Check Box - 3': filing_status(:filing_status_mfs?) ? 'No' : 'Off', # "No" is the checked option
+        '4 Digit Political Subdivision Code See Instruction 6': @xml_document.at('MarylandSubdivisionCode')&.text,
+        'Maryland Political Subdivision See Instruction 6': @submission.data_source.political_subdivision,
+        'Maryland County': @submission.data_source.residence_county,
+
+        'Single If you can be claimed on another persons tax return use Filing Status 6': filing_status(:filing_status_single?) ? 'On' : 'Off',
+        'Married filing joint return or spouse had no income': filing_status(:filing_status_mfj?) ? 'On' : 'Off',
+        'Married filing separately Spouse SSN': filing_status(:filing_status_mfs?) ? 'On' : 'Off',
         "MARRIED FILING Enter spouse's social security number": spouse_ssn_if_mfs,
         'Check Box - 4': filing_status(:filing_status_hoh?) ? 'Yes' : 'Off',
-        'Check Box - 5': filing_status(:filing_status_qw?) ? 'Yes' : 'Off',
+        'Qualifying surviving spouse with dependent child': filing_status(:filing_status_qw?) ? 'Yes' : 'Off',
         '6. Check here': claimed_as_dependent? ? 'No' : 'Off', # "No" is the checked option
         'Check Box 15': checkbox_value(@xml_document.at('Exemptions Primary Standard')&.text),
         'Check Box 18': checkbox_value(@xml_document.at('Exemptions Spouse Standard')&.text),
@@ -83,7 +84,7 @@ module PdfFiller
         'Text Box 69': @xml_document.at('Form502 TaxWithheld')&.text.present? ? "00" : nil,
         'Text Box 34': @xml_document.at('Form502 StateTaxComputation EarnedIncomeCredit')&.text,
         'Check Box 37': checkbox_value(@xml_document.at('Form502 StateTaxComputation MDEICWithQualChildInd')&.text),
-        'Text Box 96': @xml_document.at('ReturnHeaderState Filer Primary USPhone')&.text,
+        'Daytime telephone no': @xml_document.at('ReturnHeaderState Filer Primary USPhone')&.text,
         'Check Box 34': deduction_method_is_standard? ? "Yes" : "Off",
         'Enter 17': deduction_method_is_standard? ? @xml_document.at('Form502 Deduction Amount')&.text : nil,
         'Enter 18': deduction_method_is_standard? ? @xml_document.at('Form502 NetIncome')&.text : nil,
