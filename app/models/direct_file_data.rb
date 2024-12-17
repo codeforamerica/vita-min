@@ -818,7 +818,7 @@ class DirectFileData < DfXmlAccessor
       @first_name = first_name
       @last_name = last_name
       @ssn = ssn
-      # TODO: once we have added all the json fixtures for all the states, remove relationship
+      # TODO: once we have added all the json fixtures for all the states, remove relationship & months_in_home
       @relationship = relationship
       @eic_student = eic_student
       @eic_disability = eic_disability
