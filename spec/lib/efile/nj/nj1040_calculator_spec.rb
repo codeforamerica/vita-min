@@ -763,6 +763,110 @@ describe Efile::Nj::Nj1040Calculator do
         expect(instance.lines[:NJ1040_LINE_40A].value).to eq(nil)
       end
     end
+
+    context 'when both homeowner and renter' do
+      context 'when married filing separately living in the same home' do
+        let(:intake) {
+          create(
+            :state_file_nj_intake,
+            :married_filing_separately,
+            household_rent_own: 'both',
+            tenant_same_home_spouse: 'yes',
+            rent_paid: 12345,
+            homeowner_same_home_spouse: 'yes',
+            property_tax_paid: 67890
+          )
+        }
+
+        it 'sets line 40a to (0.18 * rent_paid)/2 plus property_tax/2 then rounded' do
+          # rental = 1111.05 = 12345 * 0.18 / 2
+          # owned =  33945 = 67890 / 2
+          sum = 35056 # rounded
+          expect(instance.lines[:NJ1040_LINE_40A].value).to eq(sum)
+        end
+      end
+
+      context 'when married filing separately living in the same home for rental but not owned' do
+        let(:intake) {
+          create(
+            :state_file_nj_intake,
+            :married_filing_separately,
+            household_rent_own: 'both',
+            tenant_same_home_spouse: 'yes',
+            rent_paid: 12345,
+            homeowner_same_home_spouse: 'no',
+            property_tax_paid: 67890
+          )
+        }
+
+        it 'sets line 40a to (0.18 * rent_paid)/2 plus property_tax then rounded' do
+          # rental = 1111.05 = 12345 * 0.18 / 2
+          # owned = 67890
+          sum = 69001 # rounded
+          expect(instance.lines[:NJ1040_LINE_40A].value).to eq(sum)
+        end
+      end
+
+      context 'when married filing separately living in the same home for owned but not rental' do
+        let(:intake) {
+          create(
+            :state_file_nj_intake,
+            :married_filing_separately,
+            household_rent_own: 'both',
+            tenant_same_home_spouse: 'no',
+            rent_paid: 12345,
+            homeowner_same_home_spouse: 'yes',
+            property_tax_paid: 67890
+          )
+        }
+
+        it 'sets line 40a to (0.18 * rent_paid) plus property_tax/2 then rounded' do
+          # rental = 2222.10 = 12345 * 0.18
+          # owned =  33945 = 67890 / 2
+          sum = 36167 # rounded
+          expect(instance.lines[:NJ1040_LINE_40A].value).to eq(sum)
+        end
+      end
+
+      context 'when married filing separately NOT living in the same home for either' do
+        let(:intake) {
+          create(
+            :state_file_nj_intake,
+            :married_filing_separately,
+            household_rent_own: 'both',
+            tenant_same_home_spouse: 'no',
+            rent_paid: 12345,
+            homeowner_same_home_spouse: 'no',
+            property_tax_paid: 67890
+          )
+        }
+
+        it 'sets line 40a to (0.18 * rent_paid) plus property_tax then rounded' do
+          # rental = 2222.10 = 12345 * 0.18
+          # owned = 67890
+          sum = 70112 # rounded
+          expect(instance.lines[:NJ1040_LINE_40A].value).to eq(sum)
+        end
+      end
+
+      context 'when filing status is not MFS' do
+        let(:intake) {
+          create(
+            :state_file_nj_intake,
+            household_rent_own: 'both',
+            rent_paid: 12345,
+            property_tax_paid: 67890
+          )
+        }
+
+        it 'sets line 40a to (0.18 * rent_paid) plus property_tax then rounded' do
+          # rental = 2222.10 = 12345 * 0.18
+          # owned = 67890
+          sum = 70112 # rounded
+          expect(instance.lines[:NJ1040_LINE_40A].value).to eq(sum)
+        end
+      end
+    end
   end
 
   describe 'should_use_property_tax_deduction' do
@@ -799,7 +903,7 @@ describe Efile::Nj::Nj1040Calculator do
   end
 
   describe 'calculate_property_tax_deduction' do
-    context 'when married filing separately, same home' do
+    context 'when married filing separately, same home - tenant' do
       let(:intake) {
         create(
           :state_file_nj_intake,
@@ -843,12 +947,47 @@ describe Efile::Nj::Nj1040Calculator do
       end
     end
 
+    context 'when married filing separately, same home tenant, NOT same home homeowner' do
+      let(:intake) {
+        create(
+          :state_file_nj_intake,
+          :married_filing_separately,
+          tenant_same_home_spouse: 'yes',
+          homeowner_same_home_spouse: 'no',
+          )
+      }
+
+      it 'when 40a > 7500, property tax deduction is 7500' do
+        allow(instance).to receive(:calculate_line_40a).and_return 7501
+        instance.calculate
+        expect(instance.calculate_property_tax_deduction).to eq(7500)
+      end
+    end
+
+    context 'when married filing separately, NOT same home tenant, same home homeowner' do
+      let(:intake) {
+        create(
+          :state_file_nj_intake,
+          :married_filing_separately,
+          tenant_same_home_spouse: 'no',
+          homeowner_same_home_spouse: 'yes',
+          )
+      }
+
+      it 'when 40a > 7500, property tax deduction is 7500' do
+        allow(instance).to receive(:calculate_line_40a).and_return 7501
+        instance.calculate
+        expect(instance.calculate_property_tax_deduction).to eq(7500)
+      end
+    end
+
     context 'when married filing separately, not same home' do
       let(:intake) {
         create(
           :state_file_nj_intake,
           :married_filing_separately,
           tenant_same_home_spouse: 'no',
+          homeowner_same_home_spouse: 'no',
           )
       }
 
@@ -1054,9 +1193,69 @@ describe Efile::Nj::Nj1040Calculator do
       end
     end
 
+    describe "ineligibility scenarios" do
+      context 'when homeowner and ineligible' do
+        let(:intake) {
+          create(:state_file_nj_intake, household_rent_own: "own")
+        }
+        it 'sets line 56 to nil' do
+          allow(StateFile::NjHomeownerEligibilityHelper).to receive(:determine_eligibility).and_return StateFile::NjHomeownerEligibilityHelper::INELIGIBLE
+          instance.calculate
+          expect(instance.lines[:NJ1040_LINE_56].value).to eq(nil)
+        end
+      end
+
+      context 'when tenant and ineligible' do
+        let(:intake) {
+          create(:state_file_nj_intake, household_rent_own: "rent")
+        }
+        it 'sets line 56 to nil' do
+          allow(StateFile::NjTenantEligibilityHelper).to receive(:determine_eligibility).and_return StateFile::NjTenantEligibilityHelper::INELIGIBLE
+          instance.calculate
+          expect(instance.lines[:NJ1040_LINE_56].value).to eq(nil)
+        end
+      end
+
+      context 'when eligible homeowner and ineligible tenant' do
+        let(:intake) {
+          create(:state_file_nj_intake, household_rent_own: "both")
+        }
+        it 'sets line 56 to $50' do
+          allow(StateFile::NjHomeownerEligibilityHelper).to receive(:determine_eligibility).and_return StateFile::NjHomeownerEligibilityHelper::ADVANCE
+          allow(StateFile::NjTenantEligibilityHelper).to receive(:determine_eligibility).and_return StateFile::NjTenantEligibilityHelper::INELIGIBLE
+          instance.calculate
+          expect(instance.lines[:NJ1040_LINE_56].value).to eq(50)
+        end
+      end
+
+      context 'when ineligible homeowner and eligible tenant' do
+        let(:intake) {
+          create(:state_file_nj_intake, household_rent_own: "both")
+        }
+        it 'sets line 56 to $50' do
+          allow(StateFile::NjHomeownerEligibilityHelper).to receive(:determine_eligibility).and_return StateFile::NjHomeownerEligibilityHelper::INELIGIBLE
+          allow(StateFile::NjTenantEligibilityHelper).to receive(:determine_eligibility).and_return StateFile::NjTenantEligibilityHelper::ADVANCE
+          instance.calculate
+          expect(instance.lines[:NJ1040_LINE_56].value).to eq(50)
+        end
+      end
+
+      context 'when ineligible homeowner and ineligible tenant' do
+        let(:intake) {
+          create(:state_file_nj_intake, household_rent_own: "both")
+        }
+        it 'sets line 56 to nil' do
+          allow(StateFile::NjHomeownerEligibilityHelper).to receive(:determine_eligibility).and_return StateFile::NjHomeownerEligibilityHelper::INELIGIBLE
+          allow(StateFile::NjTenantEligibilityHelper).to receive(:determine_eligibility).and_return StateFile::NjTenantEligibilityHelper::INELIGIBLE
+          instance.calculate
+          expect(instance.lines[:NJ1040_LINE_56].value).to eq(nil)
+        end
+      end
+    end
+
     context 'when ineligible for property tax deduction or credit due to housing details' do
       let(:intake) {
-        create(:state_file_nj_intake)
+        create(:state_file_nj_intake, household_rent_own: "own")
       }
       before do
         allow(StateFile::NjHomeownerEligibilityHelper).to receive(:determine_eligibility).and_return StateFile::NjHomeownerEligibilityHelper::INELIGIBLE
@@ -1098,7 +1297,7 @@ describe Efile::Nj::Nj1040Calculator do
 
     context 'when ineligible for property tax deduction due to income but eligible for credit' do
       let(:intake) {
-        create(:state_file_nj_intake, :df_data_minimal, :primary_disabled)
+        create(:state_file_nj_intake, :df_data_minimal, :primary_disabled, household_rent_own: "own")
       }      
       before do
         allow(StateFile::NjHomeownerEligibilityHelper).to receive(:determine_eligibility).and_return StateFile::NjHomeownerEligibilityHelper::WORKSHEET
