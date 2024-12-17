@@ -80,8 +80,11 @@
     </div>
   <% end %>
 
-  # here
-  <% if current_intake.direct_file_data.fed_ssb > 0 || current_intake.direct_file_data.fed_taxable_ssb > 0 %>
+  <% if (
+        current_intake.direct_file_data.fed_ssb > 0 || 
+        current_intake.direct_file_data.fed_taxable_ssb > 0
+      ) && 
+      current_intake.direct_file_data.mailing_state != "NJ" %>
     <div class="white-group">
       <p class="text--bold spacing-below-0"><%= t(".ssa_title") %></p>
       <p class="text--grey-bold spacing-above-15 spacing-below-0">
