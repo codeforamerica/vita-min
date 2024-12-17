@@ -814,7 +814,7 @@ describe DirectFileData do
     context "when there are two qualifying dependents" do
       let(:intake) { create(:state_file_md_intake, raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml("md_barramundi_qss")) }
 
-      it "returns the sum of those expense without the federal limit" do
+      it "returns 2" do
         expect(intake.direct_file_data.dependent_cared_for_count).to eq 2
       end
     end
@@ -822,7 +822,7 @@ describe DirectFileData do
     context "when there are no qualifying dependents" do
       let(:intake) { create(:state_file_md_intake, raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml("md_anchovies_mfj")) }
 
-      it "returns the sum of those expense without the federal limit" do
+      it "returns 0" do
         expect(intake.direct_file_data.dependent_cared_for_count).to eq 0
       end
     end
