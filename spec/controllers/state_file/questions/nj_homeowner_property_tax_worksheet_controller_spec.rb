@@ -6,6 +6,12 @@ RSpec.describe StateFile::Questions::NjHomeownerPropertyTaxWorksheetController d
     sign_in intake
   end
 
+  describe "#prev_path" do
+    it "routes to household_rent_own" do
+      expect(subject.prev_path).to eq(StateFile::Questions::NjHouseholdRentOwnController.to_path_helper)
+    end
+  end
+
   describe "#next_path" do
     context "when both rent and own" do
       let(:intake) {

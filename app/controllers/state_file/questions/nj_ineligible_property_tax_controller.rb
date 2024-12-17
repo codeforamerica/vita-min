@@ -58,6 +58,12 @@ module StateFile
           StateFile::NjPropertyTaxFlowHelper.next_controller(options)
         end
       end
+
+      def prev_path
+        options = {}
+        options[:return_to_review] = params[:return_to_review] if params[:return_to_review].present?
+        NjHouseholdRentOwnController.to_path_helper(options)
+      end
     end
   end
 end

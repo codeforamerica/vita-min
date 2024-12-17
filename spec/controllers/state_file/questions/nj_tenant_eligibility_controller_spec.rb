@@ -53,6 +53,12 @@ RSpec.describe StateFile::Questions::NjTenantEligibilityController do
     end
   end
 
+  describe "#prev_path" do
+    it "routes to household_rent_own" do
+      expect(subject.prev_path).to eq(StateFile::Questions::NjHouseholdRentOwnController.to_path_helper)
+    end
+  end
+
   describe "#next_path" do
     context "when ineligible" do
       context "when income above property tax minimum" do
