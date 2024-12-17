@@ -47,25 +47,31 @@
         <p><%= number_to_currency(current_intake.direct_file_data.total_qualifying_dependent_care_expenses_or_limit_amt) %></p>
       </div>
 
-      <div class="spacing-below-25">
-        <p class="text--bold spacing-below-5"><%= t("state_file.general.md_pension_income_exclusion") %></p>
-        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:MD502_LINE_10A)) %></p>
-      </div>
+      <% if Flipper.enabled?(:show_retirement_ui) %>
+        <div class="spacing-below-25">
+          <p class="text--bold spacing-below-5"><%= t("state_file.general.md_pension_income_exclusion") %></p>
+          <p><%= number_to_currency(current_intake.calculator.line_or_zero(:MD502_LINE_10A)) %></p>
+        </div>
+      <% end %>
 
       <div class="spacing-below-25">
         <p class="text--bold spacing-below-5"><%= t("state_file.general.md_social_security_income_not_taxed") %></p>
         <p><%= number_to_currency(current_intake.direct_file_data.fed_taxable_ssb) %></p>
       </div>
 
-      <div class="spacing-below-25">
-        <p class="text--bold spacing-below-5"><%= t("state_file.general.md_military_retirement_income_exclusion") %></p>
-        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:MD502_SU_LINE_U)) %></p>
-      </div>
+      <% if Flipper.enabled?(:show_retirement_ui) %>
+        <div class="spacing-below-25">
+          <p class="text--bold spacing-below-5"><%= t("state_file.general.md_military_retirement_income_exclusion") %></p>
+          <p><%= number_to_currency(current_intake.calculator.line_or_zero(:MD502_SU_LINE_U)) %></p>
+        </div>
+      <% end %>
 
-      <div class="spacing-below-25">
-        <p class="text--bold spacing-below-5"><%= t("state_file.general.md_public_safety_retirement_income_exclusion") %></p>
-        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:MD502_SU_LINE_V)) %></p>
-      </div>
+      <% if Flipper.enabled?(:show_retirement_ui) %>
+        <div class="spacing-below-25">
+          <p class="text--bold spacing-below-5"><%= t("state_file.general.md_public_safety_retirement_income_exclusion") %></p>
+          <p><%= number_to_currency(current_intake.calculator.line_or_zero(:MD502_SU_LINE_V)) %></p>
+        </div>
+      <% end %>
 
       <div class="spacing-below-25">
         <p class="text--bold spacing-below-5"><%= t("state_file.general.md_subtraction_income_us_gov_bonds") %></p>
