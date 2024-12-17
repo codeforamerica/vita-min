@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>aaa4cc34</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>300008888</PrimarySSN>
+            <SpouseSSN>600000100</SpouseSSN>
+            <NameLine1Txt>ALEX&lt;ONEAL-WALKER&lt;IV &amp; TANYA WALKER</NameLine1Txt>
+            <PrimaryNameControlTxt>ONEA</PrimaryNameControlTxt>
+            <SpouseNameControlTxt>WALK</SpouseNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>456 Maple Avenue</AddressLine1Txt>
+                <CityNm>Newark</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07102</ZIPCd>
+            </USAddress>
+            <PhoneNum>2015552233</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+30000888-88fe-4745-a04a-dc6c27fd61bd@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="6">
+        <IRS1040 documentId="IRS10400001">
+            <Form1040SRInd>X</Form1040SRInd>
+            <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <Spouse65OrOlderInd>X</Spouse65OrOlderInd>
+            <SpouseBlindInd>X</SpouseBlindInd>
+            <TotalBoxesCheckedCnt>2</TotalBoxesCheckedCnt>
+            <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
+            <DependentDetail>
+                <DependentFirstNm>Riley</DependentFirstNm>
+                <DependentLastNm>ONeal</DependentLastNm>
+                <DependentNameControlTxt>ONEA</DependentNameControlTxt>
+                <DependentSSN>600002001</DependentSSN>
+                <DependentRelationshipCd>SISTER</DependentRelationshipCd>
+                <EligibleForODCInd>X</EligibleForODCInd>
+            </DependentDetail>
+            <DependentDetail>
+                <DependentFirstNm>Jordan</DependentFirstNm>
+                <DependentLastNm>ONeal-Walker Jr</DependentLastNm>
+                <DependentNameControlTxt>ONEA</DependentNameControlTxt>
+                <DependentSSN>600002002</DependentSSN>
+                <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+                <EligibleForODCInd>X</EligibleForODCInd>
+            </DependentDetail>
+            <DependentDetail>
+                <DependentFirstNm>Morgan</DependentFirstNm>
+                <DependentLastNm>ONeal</DependentLastNm>
+                <DependentNameControlTxt>ONEA</DependentNameControlTxt>
+                <DependentSSN>600002003</DependentSSN>
+                <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+                <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+            </DependentDetail>
+            <DependentDetail>
+                <DependentFirstNm>Avery</DependentFirstNm>
+                <DependentLastNm>ONeal</DependentLastNm>
+                <DependentNameControlTxt>ONEA</DependentNameControlTxt>
+                <DependentSSN>600002004</DependentSSN>
+                <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+                <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+            </DependentDetail>
+            <DependentDetail>
+                <DependentFirstNm>Logan</DependentFirstNm>
+                <DependentLastNm>ONeal II</DependentLastNm>
+                <DependentNameControlTxt>ONEA</DependentNameControlTxt>
+                <DependentSSN>900522005</DependentSSN>
+                <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+                <EligibleForODCInd>X</EligibleForODCInd>
+            </DependentDetail>
+            <DependentDetail>
+                <DependentFirstNm>Alex</DependentFirstNm>
+                <DependentLastNm>ONeal Sr</DependentLastNm>
+                <DependentNameControlTxt>ONEA</DependentNameControlTxt>
+                <DependentSSN>200002006</DependentSSN>
+                <DependentRelationshipCd>PARENT</DependentRelationshipCd>
+                <EligibleForODCInd>X</EligibleForODCInd>
+            </DependentDetail>
+            <MoreDependentsInd>X</MoreDependentsInd>
+            <ChldWhoLivedWithYouCnt>4</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>2</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>8</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">17000</WagesAmt>
+            <WagesSalariesAndTipsAmt>17000</WagesSalariesAndTipsAmt>
+            <TaxableInterestAmt referenceDocumentId="IRS1040B001" referenceDocumentName="IRS1040ScheduleB">3000</TaxableInterestAmt>
+            <SocSecBnftAmt>1000</SocSecBnftAmt>
+            <TotalAdditionalIncomeAmt>1000</TotalAdditionalIncomeAmt>
+            <TotalIncomeAmt>21000</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>21000</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>32300</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>32300</TotalDeductionsAmt>
+            <TaxableIncomeAmt>0</TaxableIncomeAmt>
+            <TaxAmt>0</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>0</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>0</TaxLessCreditsAmt>
+            <TotalTaxAmt>0</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>2000</FormW2WithheldTaxAmt>
+            <Form1099WithheldTaxAmt referenceDocumentId="OTHERWITHHOLDING0001" referenceDocumentName="OtherWithholdingStatement">100</Form1099WithheldTaxAmt>
+            <WithholdingTaxAmt>2100</WithholdingTaxAmt>
+            <AdditionalChildTaxCreditAmt referenceDocumentId="IRS8812001" referenceDocumentName="IRS1040Schedule8812">2175</AdditionalChildTaxCreditAmt>
+            <RefundableCreditsAmt>2175</RefundableCreditsAmt>
+            <TotalPaymentsAmt>4275</TotalPaymentsAmt>
+            <OverpaidAmt>4275</OverpaidAmt>
+            <RefundAmt>4275</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Waiter</PrimaryOccupationTxt>
+            <SpouseOccupationTxt>Cook</SpouseOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1040Schedule1 documentId="IRS1040S1001">
+            <UnemploymentCompAmt>1000</UnemploymentCompAmt>
+            <TotalAdditionalIncomeAmt>1000</TotalAdditionalIncomeAmt>
+        </IRS1040Schedule1>
+        <IRS1040Schedule8812 documentId="IRS8812001" documentName="IRS1040Schedule8812">
+            <AdjustedGrossIncomeAmt>21000</AdjustedGrossIncomeAmt>
+            <ModifiedAGIAmt>21000</ModifiedAGIAmt>
+            <QlfyChildUnderAgeSSNCnt>2</QlfyChildUnderAgeSSNCnt>
+            <QlfyChildUnderAgeSSNLimtAmt>4000</QlfyChildUnderAgeSSNLimtAmt>
+            <OtherDependentCnt>4</OtherDependentCnt>
+            <OtherDependentCreditAmt>2000</OtherDependentCreditAmt>
+            <InitialCTCODCAmt>6000</InitialCTCODCAmt>
+            <FilingStatusThresholdCd>400000</FilingStatusThresholdCd>
+            <ExcessAdjGrossIncomeAmt>0</ExcessAdjGrossIncomeAmt>
+            <ModifiedAGIPhaseOutAmt>0</ModifiedAGIPhaseOutAmt>
+            <CTCODCOverAGILimitInd>true</CTCODCOverAGILimitInd>
+            <CTCODCAfterAGILimitAmt>6000</CTCODCAfterAGILimitAmt>
+            <ACTCTaxLiabiltyLimitAmt>0</ACTCTaxLiabiltyLimitAmt>
+            <CTCODCAmt>0</CTCODCAmt>
+            <ClaimACTCAllFilersGrp>
+                <ACTCBeforeLimitAmt>6000</ACTCBeforeLimitAmt>
+                <QlfyChildUnderAgeSSNCnt>2</QlfyChildUnderAgeSSNCnt>
+                <QlfyChildUnderAgeSSNLimtAmt>3400</QlfyChildUnderAgeSSNLimtAmt>
+                <ACTCAfterLimitAmt>3400</ACTCAfterLimitAmt>
+                <TotalEarnedIncomeAmt>17000</TotalEarnedIncomeAmt>
+                <EarnedIncmMoreThanSpecifiedInd>true</EarnedIncmMoreThanSpecifiedInd>
+                <NetTotalEarnedIncomeAmt>14500</NetTotalEarnedIncomeAmt>
+                <NetEarnedIncomeCalculatedAmt>2175</NetEarnedIncomeCalculatedAmt>
+                <ThreeOrMoreQlfyChildrenInd>false</ThreeOrMoreQlfyChildrenInd>
+            </ClaimACTCAllFilersGrp>
+            <AdditionalChildTaxCreditAmt>2175</AdditionalChildTaxCreditAmt>
+        </IRS1040Schedule8812>
+        <IRS1040ScheduleB documentId="IRS1040B001" documentName="IRS1040ScheduleB">
+            <Form1040SchBPartIGroup2>
+                <InterestPayerName>
+                    <BusinessNameLine1Txt>ONeal Investments</BusinessNameLine1Txt>
+                </InterestPayerName>
+                <InterestAmt>1000</InterestAmt>
+            </Form1040SchBPartIGroup2>
+            <Form1040SchBPartIGroup2>
+                <InterestPayerName>
+                    <BusinessNameLine1Txt>Walker Investments</BusinessNameLine1Txt>
+                </InterestPayerName>
+                <InterestAmt>1000</InterestAmt>
+            </Form1040SchBPartIGroup2>
+            <Form1040SchBPartIGroup2>
+                <InterestPayerName>
+                    <BusinessNameLine1Txt>Walk or Kneel Investments</BusinessNameLine1Txt>
+                </InterestPayerName>
+                <InterestAmt>1000</InterestAmt>
+            </Form1040SchBPartIGroup2>
+            <InterestSubtotalAmt interestSubtotalLiteralCd="INTEREST SUBTOTAL">3000</InterestSubtotalAmt>
+            <TaxableInterestSubtotalAmt>3000</TaxableInterestSubtotalAmt>
+            <CalculatedTotalTaxableIntAmt>3000</CalculatedTotalTaxableIntAmt>
+            <ForeignAccountsQuestionInd>false</ForeignAccountsQuestionInd>
+            <ForeignTrustQuestionInd>false</ForeignTrustQuestionInd>
+        </IRS1040ScheduleB>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>600000100</EmployeeSSN>
+            <EmployerEIN>002727272</EmployerEIN>
+            <EmployerNameControlTxt>HARP</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>HarperCollins</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>1 Reading Street</AddressLine1Txt>
+                <CityNm>St Louis</CityNm>
+                <StateAbbreviationCd>MO</StateAbbreviationCd>
+                <ZIPCd>77222</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Tanya Q Walker III</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>456 Maple Avenue</AddressLine1Txt>
+                <CityNm>Newark</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07102</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>17000</WagesAmt>
+            <WithholdingAmt>2000</WithholdingAmt>
+            <SocialSecurityWagesAmt>17000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>1000</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>17000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>200</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                    <EmployerStateIdNum>92929</EmployerStateIdNum>
+                    <StateWagesAmt>37500</StateWagesAmt>
+                    <StateIncomeTaxAmt>2000</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+        <OtherWithholdingStatement documentId="OTHERWITHHOLDING0001" documentName="OtherWithholdingStatement">
+            <OtherWithholdingStmt>
+                <WithholdingCd>FORM 1099</WithholdingCd>
+                <EIN>008282828</EIN>
+                <WithholdingAmt>100</WithholdingAmt>
+            </OtherWithholdingStmt>
+        </OtherWithholdingStatement>
+    </ReturnData>
+</Return>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v4.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>8a029080</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>300000012</PrimarySSN>
+            <NameLine1Txt>MERYL&lt;STREEP</NameLine1Txt>
+            <PrimaryNameControlTxt>STRE</PrimaryNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>100 This Is A Mad Long Address Road</AddressLine1Txt>
+                <CityNm>Veryylonglonglongville</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07631</ZIPCd>
+            </USAddress>
+            <PhoneNum>2015554567</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+30000001-2f96-4277-89c6-e8ded211018a@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="5">
+        <IRS1040 documentId="IRS10400001">
+            <Form1040SRInd>X</Form1040SRInd>
+            <IndividualReturnFilingStatusCd>1</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <Primary65OrOlderInd>X</Primary65OrOlderInd>
+            <TotalBoxesCheckedCnt>1</TotalBoxesCheckedCnt>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>1</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">1000</WagesAmt>
+            <WagesSalariesAndTipsAmt>1000</WagesSalariesAndTipsAmt>
+            <TaxableInterestAmt referenceDocumentId="IRS1040B001" referenceDocumentName="IRS1040ScheduleB">13000</TaxableInterestAmt>
+            <TotalIncomeAmt>14000</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>14000</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>16550</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>16550</TotalDeductionsAmt>
+            <TaxableIncomeAmt>0</TaxableIncomeAmt>
+            <TaxAmt>0</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>0</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>0</TaxLessCreditsAmt>
+            <TotalTaxAmt>0</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>100</FormW2WithheldTaxAmt>
+            <WithholdingTaxAmt>100</WithholdingTaxAmt>
+            <TotalPaymentsAmt>100</TotalPaymentsAmt>
+            <OverpaidAmt>100</OverpaidAmt>
+            <RefundAmt>100</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>true</ThirdPartyDesigneeInd>
+            <ThirdPartyDesigneeNm>John Smith</ThirdPartyDesigneeNm>
+            <ThirdPartyDesigneePhoneNum>2125555554</ThirdPartyDesigneePhoneNum>
+            <ThirdPartyDesigneePIN>24242</ThirdPartyDesigneePIN>
+            <PrimaryOccupationTxt>Actor</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1040ScheduleB documentId="IRS1040B001" documentName="IRS1040ScheduleB">
+            <Form1040SchBPartIGroup2>
+                <InterestPayerName>
+                    <BusinessNameLine1Txt>Hollywood Bank</BusinessNameLine1Txt>
+                </InterestPayerName>
+                <InterestAmt>13000</InterestAmt>
+            </Form1040SchBPartIGroup2>
+            <InterestSubtotalAmt interestSubtotalLiteralCd="INTEREST SUBTOTAL">13000</InterestSubtotalAmt>
+            <TaxableInterestSubtotalAmt>13000</TaxableInterestSubtotalAmt>
+            <CalculatedTotalTaxableIntAmt>13000</CalculatedTotalTaxableIntAmt>
+            <ForeignAccountsQuestionInd>false</ForeignAccountsQuestionInd>
+            <ForeignTrustQuestionInd>false</ForeignTrustQuestionInd>
+        </IRS1040ScheduleB>
+        <IRS1040ScheduleLEP documentId="LEP005">
+            <PersonNm>Meryl Streep</PersonNm>
+            <SSN>300000012</SSN>
+            <LanguagePreferenceCd>012</LanguagePreferenceCd>
+        </IRS1040ScheduleLEP>
+        <IRS9000 documentId="IRS90004">
+            <PersonNm>Meryl Streep</PersonNm>
+            <SSN>300000012</SSN>
+            <AlternativeMediaCd>03</AlternativeMediaCd>
+        </IRS9000>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>300000012</EmployeeSSN>
+            <EmployerEIN>009696969</EmployerEIN>
+            <EmployerNameControlTxt>UNIV</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Universal Pictures</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>1 Movie Avenue</AddressLine1Txt>
+                <CityNm>Los Angeles</CityNm>
+                <StateAbbreviationCd>CA</StateAbbreviationCd>
+                <ZIPCd>94112</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Meryl Streep</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>100 This Is A Mad Long Address Road</AddressLine1Txt>
+                <CityNm>Veryylonglonglongville</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07631</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>1000</WagesAmt>
+            <WithholdingAmt>100</WithholdingAmt>
+            <SocialSecurityWagesAmt>1000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>20</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>1000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>9</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                    <EmployerStateIdNum>282828</EmployerStateIdNum>
+                    <StateWagesAmt>1000</StateWagesAmt>
+                    <StateIncomeTaxAmt>100</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>

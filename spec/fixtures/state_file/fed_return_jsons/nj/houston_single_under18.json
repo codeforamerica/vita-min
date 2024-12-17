@@ -1,0 +1,25 @@
+{
+  "familyAndHousehold": [],
+  "filers": [
+    {
+      "lastName": "Houston",
+      "firstName": "Whitney",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "300-00-0013",
+      "dateOfBirth": "2007-01-01",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "ssnNotValidForEmployment": null,
+      "hsaTotalDeductibleAmount": null
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [
+    {
+      "usedTin": "300-00-0013",
+      "unionDuesAmount": null
+    }
+  ],
+  "interestReports": []
+}

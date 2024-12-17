@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v4.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>dcf46c78</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400006306</PrimarySSN>
+            <NameLine1Txt>TESS L&lt;LUCKY</NameLine1Txt>
+            <PrimaryNameControlTxt>LUCK</PrimaryNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>456 Walnut Grove Dr</AddressLine1Txt>
+                <CityNm>Mercerville</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>08619</ZIPCd>
+            </USAddress>
+            <PhoneNum>2015559876</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000630-6e20-4822-b2a3-5bccb310ca7f@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="5">
+        <IRS1040 documentId="IRS10400001">
+            <PECFPrimaryInd>X</PECFPrimaryInd>
+            <IndividualReturnFilingStatusCd>1</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>1</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001 W20002" referenceDocumentName="IRSW2">50565</WagesAmt>
+            <WagesSalariesAndTipsAmt>50565</WagesSalariesAndTipsAmt>
+            <TaxableInterestAmt>100</TaxableInterestAmt>
+            <TotalIncomeAmt>50665</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>50665</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>14600</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>14600</TotalDeductionsAmt>
+            <TaxableIncomeAmt>36065</TaxableIncomeAmt>
+            <TaxAmt>4097</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>4097</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>4097</TaxLessCreditsAmt>
+            <TotalTaxAmt>4097</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>2500</FormW2WithheldTaxAmt>
+            <WithholdingTaxAmt>2500</WithholdingTaxAmt>
+            <TotalPaymentsAmt>2500</TotalPaymentsAmt>
+            <OwedAmt>1597</OwedAmt>
+            <ThirdPartyDesigneeInd>true</ThirdPartyDesigneeInd>
+            <ThirdPartyDesigneeNm>Designee Dude</ThirdPartyDesigneeNm>
+            <ThirdPartyDesigneePhoneNum>2015554332</ThirdPartyDesigneePhoneNum>
+            <ThirdPartyDesigneePIN>25252</ThirdPartyDesigneePIN>
+            <PrimaryOccupationTxt>Gambler</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1040ScheduleLEP documentId="LEP005">
+            <PersonNm>Tess L Lucky</PersonNm>
+            <SSN>400006306</SSN>
+            <LanguagePreferenceCd>015</LanguagePreferenceCd>
+        </IRS1040ScheduleLEP>
+        <IRS9000 documentId="IRS90004">
+            <PersonNm>Tess L Lucky</PersonNm>
+            <SSN>400006306</SSN>
+            <AlternativeMediaCd>01</AlternativeMediaCd>
+        </IRS9000>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>400006306</EmployeeSSN>
+            <EmployerEIN>221236333</EmployerEIN>
+            <EmployerNameControlTxt>WEAR</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Wearable Garments</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>1 Clothing St</AddressLine1Txt>
+                <CityNm>Fairfield</CityNm>
+                <StateAbbreviationCd>CT</StateAbbreviationCd>
+                <ZIPCd>06510</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Tess L Lucky</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>456 Walnut Grove Dr</AddressLine1Txt>
+                <CityNm>Mercerville</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>08619</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>40565</WagesAmt>
+            <WithholdingAmt>2000</WithholdingAmt>
+            <SocialSecurityWagesAmt>40565</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>1000</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>40565</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>500</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                    <EmployerStateIdNum>654321</EmployerStateIdNum>
+                    <StateWagesAmt>40000</StateWagesAmt>
+                    <StateIncomeTaxAmt>400</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+        <IRSW2 documentId="W20002" documentName="IRSW2">
+            <EmployeeSSN>400006306</EmployeeSSN>
+            <EmployerEIN>221234567</EmployerEIN>
+            <EmployerNameControlTxt>UNBE</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Unbearable Garments</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>1 Bear Lane</AddressLine1Txt>
+                <CityNm>Trenton</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07771</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Tess L Lucky</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>456 Walnut Grove Dr</AddressLine1Txt>
+                <CityNm>Mercerville</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>08619</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>10000</WagesAmt>
+            <WithholdingAmt>500</WithholdingAmt>
+            <SocialSecurityWagesAmt>10000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>200</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>10000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>100</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                    <EmployerStateIdNum>NJ-87878</EmployerStateIdNum>
+                    <StateWagesAmt>10565</StateWagesAmt>
+                    <StateIncomeTaxAmt>40</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>
