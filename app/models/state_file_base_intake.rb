@@ -267,6 +267,10 @@ class StateFileBaseIntake < ApplicationRecord
     end
   end
 
+  def allows_refund_amount_in_xml?
+    true
+  end
+
   class Person
     attr_reader :first_name, :middle_initial, :last_name, :suffix, :birth_date, :ssn, :primary_or_spouse
 
