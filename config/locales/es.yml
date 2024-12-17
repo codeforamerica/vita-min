@@ -540,6 +540,7 @@ es:
       american_indian_alaska_native: Indio Americano o Nativo de Alaska
       asian: Asiático
       black_african_american: Negro o afroamericano
+      mena: Oriente Medio o norteafricano
       native_hawaiian_pacific_islander: Nativo de Hawái u otra isla del Pacífico
       white: Blanco
     register: Regístrate
@@ -5898,13 +5899,13 @@ es:
       demographic_primary_ethnicity:
         title: Cuál es tu etnicidad?
       demographic_primary_race:
-        title: "¿Cuál es su raza?"
+        title: "¿Cuál es su raza y/o grupo étnico?"
       demographic_questions:
         title: "¿Está dispuesto a responder algunas preguntas adicionales para ayudarnos a servirle mejor?"
       demographic_spouse_ethnicity:
         title: "¿Cuál es el origen étnico de su cónyuge?"
       demographic_spouse_race:
-        title: "¿Cuál es la raza de tu cónyuge?"
+        title: "¿Cuál es la raza y/o grupo étnico de tu cónyuge?"
       demographic_veteran:
         title: "¿Es usted o su cónyuge veterano de las Fuerzas Armadas de los EE. UU.?"
       dependent_care:
