@@ -136,7 +136,7 @@ module Efile
       end
 
       def calculate_md502_cr_part_b_line_4
-        calculated_value = (line_or_zero(:MD502CR_PART_B_LINE_2) * @lines[:MD502CR_PART_B_LINE_3]&.value).round(0)
+        calculated_value = (line_or_zero(:MD502CR_PART_B_LINE_2) * @lines[:MD502CR_PART_B_LINE_3]&.value).round
         [calculated_value, 1_344].min
       end
 
