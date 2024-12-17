@@ -15,7 +15,7 @@
       <%= f.cfa_checkbox(:demographic_primary_white, t("general.race.white"), options: { checked_value: true, unchecked_value: false }) %>
     </div>
 
-    <%= f.continue %>
+    <%= f.continue Questions::DemographicSpouseRaceController.show?(current_intake) ? t("general.continue") : t("general.submit") %>
     <%= f.button :submit, name: "#{f.object_name}[demographic_primary_prefer_not_to_answer_race]", value: true, class: "button button--wide", "aria-describedby": "demographic_primary_race_question" do %>
       <%=t("general.skip_question") %>
     <% end %>
