@@ -810,7 +810,11 @@ describe Efile::Ny::It201 do
   describe "calculate IT-215" do
     describe '#calculate_line_12' do
       context "when federal EIC is not present" do
-        let(:intake) { create :state_file_ny_intake, raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml('az_unemployment') }
+        let(:intake) { create :state_file_ny_intake }
+
+        before do
+          intake.direct_file_data.fed_eic = 0
+        end
 
         it "treats EIC as zero" do
           expect(instance.calculate[:IT215_LINE_12]).to eq(0)

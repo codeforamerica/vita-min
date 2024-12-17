@@ -79,7 +79,7 @@ RSpec.describe PdfFiller::NcD400Pdf do
         end
 
         context "CTC & cascading fields" do
-          let(:intake) { create(:state_file_nc_intake, filing_status: "single", raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml("nc_shiloh_hoh")) }
+          let(:intake) { create(:state_file_nc_intake, :head_of_household) }
           let(:child_deduction) { 2000 }
           let(:nc_agi_addition) { 8000 }
           let(:nc_agi_subtraction) { 7000 }

@@ -66,7 +66,7 @@ RSpec.feature "editing direct file XML with the FederalInfoController", active_j
     expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
     click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
 
-    step_through_df_data_transfer("Transfer Alexis hoh w2 and 1099")
+    step_through_df_data_transfer("Transfer Tycho single with 1099r")
     click_on "Go back"
 
     xml_before = StateFileAzIntake.last.raw_direct_file_data.strip
