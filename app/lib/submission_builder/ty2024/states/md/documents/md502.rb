@@ -138,7 +138,7 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
             xml.SecWithoutHealthCoverageInd "X"
             xml.SecDOB date_type(@intake.spouse_birth_date)
           end
-          if @intake.authorize_sharing_of_health_insu4rance_info_yes?
+          if @intake.authorize_sharing_of_health_insurance_info_yes?
             xml.AuthorToShareInfoHealthExchInd "X"
             xml.TaxpayerEmailAddress email_from_intake_or_df
           end
