@@ -1,0 +1,143 @@
+{
+    "familyAndHousehold": [
+      {
+        "firstName": "Kronos",
+        "middleInitial": "T",
+        "lastName": "Athens",
+        "dateOfBirth": "1920-01-01",
+        "relationship": "parent",
+        "eligibleDependent": true,
+        "isClaimedDependent": true,
+        "tin": "300-00-0029",
+        "qualifyingChild": false
+      },
+      {
+        "firstName": "Aphrodite",
+        "middleInitial": "",
+        "lastName": "Love",
+        "dateOfBirth": "2022-02-14",
+        "relationship": "grandchild",
+        "eligibleDependent": true,
+        "isClaimedDependent": true,
+        "tin": "900-00-0067",
+        "qualifyingChild": true
+      },
+      {
+        "firstName": "Poseidon",
+        "middleInitial": "",
+        "lastName": "Storm",
+        "dateOfBirth": "2022-02-14",
+        "relationship": "nephew",
+        "eligibleDependent": true,
+        "isClaimedDependent": true,
+        "tin": "900-00-0028",
+        "qualifyingChild": true
+      },
+      {
+        "firstName": "Artemis",
+        "middleInitial": "",
+        "lastName": "Thunder",
+        "dateOfBirth": "2022-02-14",
+        "relationship": "biologicalChild",
+        "eligibleDependent": true,
+        "isClaimedDependent": true,
+        "tin": "300-00-0026",
+        "qualifyingChild": true
+      },
+      {
+        "firstName": "Hades",
+        "middleInitial": "",
+        "lastName": "Underworld",
+        "dateOfBirth": "2022-02-14",
+        "relationship": "sister",
+        "eligibleDependent": true,
+        "isClaimedDependent": true,
+        "tin": "300-00-0027",
+        "qualifyingChild": true
+      },
+      {
+        "firstName": "Ares",
+        "middleInitial": "",
+        "lastName": "Thunder",
+        "dateOfBirth": "2022-02-14",
+        "relationship": "biologicalChild",
+        "eligibleDependent": true,
+        "isClaimedDependent": true,
+        "tin": "300-00-0022",
+        "qualifyingChild": true
+      },
+      {
+        "firstName": "Hercules",
+        "middleInitial": "",
+        "lastName": "Thunder",
+        "dateOfBirth": "2022-02-14",
+        "relationship": "nephew",
+        "eligibleDependent": true,
+        "isClaimedDependent": true,
+        "tin": "300-00-0065",
+        "qualifyingChild": true
+      },
+      {
+        "firstName": "Hermes",
+        "middleInitial": "",
+        "lastName": "Archer",
+        "dateOfBirth": "2022-02-14",
+        "relationship": "grandchild",
+        "eligibleDependent": true,
+        "isClaimedDependent": true,
+        "tin": "300-00-0024",
+        "qualifyingChild": true
+      },
+      {
+        "firstName": "Hebe",
+        "middleInitial": "",
+        "lastName": "Thunder",
+        "dateOfBirth": "2022-02-14",
+        "relationship": "biologicalChild",
+        "eligibleDependent": true,
+        "isClaimedDependent": true,
+        "tin": "300-00-0023",
+        "qualifyingChild": true
+      },
+      {
+        "firstName": "Dionysus",
+        "middleInitial": "",
+        "lastName": "Wine",
+        "dateOfBirth": "2022-02-14",
+        "relationship": "sister",
+        "eligibleDependent": true,
+        "isClaimedDependent": true,
+        "tin": "300-00-0068",
+        "qualifyingChild": true
+      },
+      {
+        "firstName": "Helen",
+        "middleInitial": "",
+        "lastName": "Troy",
+        "dateOfBirth": "2022-02-14",
+        "relationship": "nephew",
+        "eligibleDependent": true,
+        "isClaimedDependent": true,
+        "tin": "900-00-0025",
+        "qualifyingChild": true
+      }
+    ],
+    "filers": [
+      {
+        "firstName": "Zeus",
+        "middleInitial": "L",
+        "lastName": "Thunder",
+        "dateOfBirth": "1980-01-01",
+        "isPrimaryFiler": true,
+        "tin": "400-00-0015"
+      },
+      {
+        "firstName": "Hera",
+        "middleInitial": null,
+        "lastName": "Thunder",
+        "dateOfBirth": "1980-01-01",
+        "isPrimaryFiler": false,
+        "tin": "600-00-0013"
+      }
+    ]
+  }

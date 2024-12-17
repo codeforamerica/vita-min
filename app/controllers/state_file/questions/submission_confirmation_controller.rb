@@ -15,7 +15,6 @@ module StateFile
       end
 
       def card_postscript; end
-
     end
   end
 end

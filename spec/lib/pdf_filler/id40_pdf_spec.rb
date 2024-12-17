@@ -44,9 +44,6 @@ RSpec.describe PdfFiller::Id40Pdf do
       before do
         allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_19).and_return(2000)
         allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_20).and_return(199.80)
-      end
-
-      before do
         allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:refund_or_owed_amount).and_return 500
       end
 
@@ -98,6 +95,19 @@ RSpec.describe PdfFiller::Id40Pdf do
         expect(pdf_fields['DirectDepositL57Acct']).to eq "87654321"
         expect(pdf_fields['DirectDepositChecking']).to eq "Yes"
         expect(pdf_fields['DirectDepositSavings ']).to eq "Off"
+      end
+
+      context "when client chooses savings" do
+        before do
+          intake.update(account_type: "savings")
+        end
+
+        it "sets savings checkbox, not the checking, and still has bank info" do
+          expect(pdf_fields['DirectDepositL57Route']).to eq "123456789"
+          expect(pdf_fields['DirectDepositL57Acct']).to eq "87654321"
+          expect(pdf_fields['DirectDepositChecking']).to eq "Off"
+          expect(pdf_fields['DirectDepositSavings ']).to eq "Yes"
+        end
       end
 
       context "when claimed as dependent" do

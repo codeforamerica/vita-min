@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_05_194857) do
+ActiveRecord::Schema[7.1].define(version: 2024_12_13_204321) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1697,6 +1697,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_05_194857) do
     t.decimal "charitable_cash_amount", precision: 12, scale: 2
     t.integer "charitable_contributions", default: 0, null: false
     t.decimal "charitable_noncash_amount", precision: 12, scale: 2
+    t.integer "consented_to_sms_terms", default: 0, null: false
     t.integer "consented_to_terms_and_conditions", default: 0, null: false
     t.integer "contact_preference", default: 0, null: false
     t.datetime "created_at", null: false
@@ -1791,6 +1792,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_05_194857) do
     t.integer "nj_dependent_attends_accredited_program", default: 0, null: false
     t.integer "nj_dependent_enrolled_full_time", default: 0, null: false
     t.integer "nj_dependent_five_months_in_college", default: 0, null: false
+    t.integer "nj_did_not_have_health_insurance", default: 0, null: false
     t.integer "nj_filer_pays_tuition_for_dependent", default: 0, null: false
     t.boolean "odc_qualifying"
     t.integer "passed_away", default: 0, null: false
@@ -1824,6 +1826,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_05_194857) do
     t.decimal "american_red_cross_fund_donation", precision: 12, scale: 2
     t.string "bank_name"
     t.decimal "childrens_trust_fund_donation", precision: 12, scale: 2
+    t.integer "consented_to_sms_terms", default: 0, null: false
     t.integer "consented_to_terms_and_conditions", default: 0, null: false
     t.integer "contact_preference", default: 0, null: false
     t.datetime "created_at", null: false
@@ -1918,6 +1921,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_05_194857) do
     t.string "bank_name"
     t.string "city"
     t.integer "confirmed_permanent_address", default: 0, null: false
+    t.integer "consented_to_sms_terms", default: 0, null: false
     t.integer "consented_to_terms_and_conditions", default: 0, null: false
     t.integer "contact_preference", default: 0, null: false
     t.datetime "created_at", null: false
@@ -2018,6 +2022,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_05_194857) do
     t.integer "account_type", default: 0, null: false
     t.string "bank_name"
     t.string "city"
+    t.integer "consented_to_sms_terms", default: 0, null: false
     t.integer "consented_to_terms_and_conditions", default: 0, null: false
     t.integer "contact_preference", default: 0, null: false
     t.string "county_during_hurricane_helene"
@@ -2104,6 +2109,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_05_194857) do
     t.string "bank_name"
     t.integer "claimed_as_dep"
     t.integer "claimed_as_eitc_qualifying_child", default: 0, null: false
+    t.integer "consented_to_sms_terms", default: 0, null: false
     t.integer "consented_to_terms_and_conditions", default: 0, null: false
     t.integer "contact_preference", default: 0, null: false
     t.string "county"
@@ -2159,6 +2165,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_05_194857) do
     t.string "primary_last_name"
     t.string "primary_middle_initial"
     t.string "primary_signature"
+    t.text "primary_signature_pin"
     t.string "primary_ssn"
     t.bigint "primary_state_id_id"
     t.string "primary_suffix"
@@ -2183,6 +2190,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_05_194857) do
     t.string "spouse_first_name"
     t.string "spouse_last_name"
     t.string "spouse_middle_initial"
+    t.text "spouse_signature_pin"
     t.string "spouse_ssn"
     t.bigint "spouse_state_id_id"
     t.string "spouse_suffix"
@@ -2230,6 +2238,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_05_194857) do
     t.string "bank_name"
     t.integer "confirmed_permanent_address", default: 0, null: false
     t.integer "confirmed_third_party_designee", default: 0, null: false
+    t.integer "consented_to_sms_terms", default: 0, null: false
     t.integer "consented_to_terms_and_conditions", default: 0, null: false
     t.integer "contact_preference", default: 0, null: false
     t.datetime "created_at", null: false

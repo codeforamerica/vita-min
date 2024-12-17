@@ -7,6 +7,7 @@
 #  account_type                                           :integer          default("unfilled"), not null
 #  claimed_as_dep                                         :integer
 #  claimed_as_eitc_qualifying_child                       :integer          default("unfilled"), not null
+#  consented_to_sms_terms                                 :integer          default("unfilled"), not null
 #  consented_to_terms_and_conditions                      :integer          default("unfilled"), not null
 #  contact_preference                                     :integer          default("unfilled"), not null
 #  county                                                 :string
@@ -59,6 +60,7 @@
 #  primary_last_name                                      :string
 #  primary_middle_initial                                 :string
 #  primary_signature                                      :string
+#  primary_signature_pin                                  :text
 #  primary_ssn                                            :string
 #  primary_suffix                                         :string
 #  primary_veteran                                        :integer          default("unfilled"), not null
@@ -82,6 +84,7 @@
 #  spouse_first_name                                      :string
 #  spouse_last_name                                       :string
 #  spouse_middle_initial                                  :string
+#  spouse_signature_pin                                   :text
 #  spouse_ssn                                             :string
 #  spouse_suffix                                          :string
 #  spouse_veteran                                         :integer          default("unfilled"), not null
@@ -277,6 +280,30 @@ RSpec.describe StateFileNjIntake, type: :model do
           expect(intake.eligibility_claimed_as_dependent?).to eq false
         end
       end
+    end
+  end
+
+  describe "#validate_state_specific_w2_requirements" do
+    let(:intake) { create :state_file_nj_intake }
+    let(:w2) {
+      create(:state_file_w2,
+             employer_state_id_num: "001245788",
+             employer_ein: '123445678',
+             local_income_tax_amount: 200,
+             local_wages_and_tips_amount: 8000,
+             locality_nm: "NJ",
+             state_file_intake: intake,
+             state_income_tax_amount: 600,
+             state_wages_amount: 8000,
+             w2_index: 0
+      )
+    }
+
+    it "permits state_wages_amount to be greater than w2.WagesAmt" do
+      w2.state_wages_amount = 1000000
+      intake.validate_state_specific_w2_requirements(w2)
+      expect(w2).to be_valid
+      expect(w2.errors[:state_wages_amount]).not_to be_present
     end
   end
 end

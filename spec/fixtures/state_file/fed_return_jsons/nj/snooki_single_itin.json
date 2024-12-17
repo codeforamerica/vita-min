@@ -1,0 +1,25 @@
+{
+  "familyAndHousehold": [],
+  "filers": [
+    {
+      "lastName": "Polizzi",
+      "firstName": "Snooki",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "900-51-0001",
+      "dateOfBirth": "2005-11-23",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": false
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [
+    {
+      "usedTin": "200-00-0001",
+      "unionDuesAmount": null
+    }
+  ],
+  "interestReports": []
+}

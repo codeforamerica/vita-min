@@ -100,7 +100,17 @@ class EfileSubmissionStateMachine
   end
 
   before_transition(to: :notified_of_rejection) do |submission|
-    StateFile::AfterTransitionMessagingService.new(submission).send_efile_submission_rejected_message
+    errors = submission
+      &.efile_submission_transitions
+      &.where(to_state: 'rejected')
+      &.last
+      &.efile_errors
+
+    if errors&.any?(&:auto_cancel)
+      StateFile::AfterTransitionMessagingService.new(submission).send_efile_submission_terminal_rejected_message
+    else
+      StateFile::AfterTransitionMessagingService.new(submission).send_efile_submission_rejected_message
+    end
   end
 
   after_transition(to: :accepted) do |submission|

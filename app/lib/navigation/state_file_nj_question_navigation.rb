@@ -14,6 +14,7 @@ module Navigation
                                           Navigation::NavigationStep.new(StateFile::Questions::VerificationCodeController),
                                           Navigation::NavigationStep.new(StateFile::Questions::CodeVerifiedController),
                                           Navigation::NavigationStep.new(StateFile::Questions::NotificationPreferencesController),
+                                          Navigation::NavigationStep.new(StateFile::Questions::SmsTermsController),
                                         ]),
       Navigation::NavigationSection.new("state_file.navigation.section_3", [
                                           Navigation::NavigationStep.new(StateFile::Questions::TermsAndConditionsController),
@@ -42,8 +43,9 @@ module Navigation
                                           Navigation::NavigationStep.new(StateFile::Questions::NjHomeownerEligibilityController),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjTenantEligibilityController),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjIneligiblePropertyTaxController),
-                                          Navigation::NavigationStep.new(StateFile::Questions::NjUnsupportedPropertyTaxController),
+                                          Navigation::NavigationStep.new(StateFile::Questions::NjHomeownerPropertyTaxWorksheetController),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjHomeownerPropertyTaxController),
+                                          Navigation::NavigationStep.new(StateFile::Questions::NjTenantPropertyTaxWorksheetController),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjTenantRentPaidController),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjEitcQualifyingChildController),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjEstimatedTaxPaymentsController),

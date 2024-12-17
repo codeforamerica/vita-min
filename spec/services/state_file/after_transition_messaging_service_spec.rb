@@ -1,7 +1,17 @@
 require "rails_helper"
 
 describe StateFile::AfterTransitionMessagingService do
-  let(:intake) { create :state_file_az_intake, primary_first_name: "Mona", email_address: "mona@example.com", email_address_verified_at: 1.minute.ago, message_tracker: {} }
+  include MockTwilio
+
+  let(:intake) do
+    create :state_file_az_intake,
+           primary_first_name: "Mona",
+           email_address: "mona@example.com",
+           email_address_verified_at: 1.minute.ago,
+           phone_number: "+15551115511",
+           phone_number_verified_at: 1.minute.ago,
+           message_tracker: {}
+  end
   let(:efile_submission) { create :efile_submission, :for_state, data_source: intake }
   let!(:messaging_service) { described_class.new(efile_submission) }
   let(:body_args) { { return_status_link: "http://statefile.test.localhost/en/questions/return-status" } }
@@ -97,6 +107,28 @@ describe StateFile::AfterTransitionMessagingService do
       end.to change(StateFileNotificationEmail, :count).by(1)
 
       expect(efile_submission.message_tracker).to include "messages.state_file.rejected"
+      expect(StateFile::MessagingService).to have_received(:new).with(intake: intake, submission: efile_submission, message: message, body_args: body_args)
+    end
+  end
+
+  describe "#send_efile_submission_terminal_rejected_message" do
+    let(:message) { StateFile::AutomatedMessage::TerminalRejected }
+
+    it "sends the terminal rejected refund email" do
+      expect do
+        messaging_service.send_efile_submission_terminal_rejected_message
+      end.to change(StateFileNotificationEmail, :count).by(1)
+
+      expect(efile_submission.message_tracker).to include "messages.state_file.terminal_rejected"
+      expect(StateFile::MessagingService).to have_received(:new).with(intake: intake, submission: efile_submission, message: message, body_args: body_args)
+    end
+
+    it "sends the terminal rejected refund sms" do
+      expect do
+        messaging_service.send_efile_submission_terminal_rejected_message
+      end.to change(FakeTwilioClient.messages, :count).by(1)
+
+      expect(efile_submission.message_tracker).to include "messages.state_file.terminal_rejected"
       expect(StateFile::MessagingService).to have_received(:new).with(intake: intake, submission: efile_submission, message: message, body_args: body_args)
     end
   end

@@ -47,16 +47,17 @@
         <p><%=dependent.full_name %></p>
       </div>
       <div class="spacing-below-5">
-        <h3 class="text--body text--bold spacing-below-5"><%=t(".dependent_dob") %></h3>
+        <h4 class="text--body text--bold spacing-below-5"><%=t(".dependent_dob") %></h4>
         <p><%=dependent.dob %></p>
       </div>
       <% if dependent.months_in_home.present? && @show_dependent_months_in_home %>
         <div class="spacing-below-5">
-          <h3 class="text--body text--bold spacing-below-5"><%=t(".dependent_months_in_home") %></h3>
+          <h4 class="text--body text--bold spacing-below-5"><%=t(".dependent_months_in_home") %></h4>
           <p><%=dependent.months_in_home %></p>
         </div>
       <% end %>
     <% end %>
+    <%= yield(:additional_household_box_content) %>
   </div>
 
   <%= yield(:additional_review_header_sections) %>

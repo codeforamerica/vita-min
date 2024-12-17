@@ -33,10 +33,8 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
       context "with one dep" do
         let(:intake) { create(:state_file_nj_intake, :df_data_one_dep) }
         it "does not error" do
-          builder_response = described_class.build(submission)
-          expect(builder_response.errors).not_to be_present
-          expect(builder_response.document.at("WagesSalariesTips").text).not_to eq(nil)
-          expect(builder_response.document.at("NewJerseyTaxableIncome").text).not_to eq(nil)
+          expect(build_response.document.at("WagesSalariesTips").text).not_to eq(nil)
+          expect(build_response.document.at("NewJerseyTaxableIncome").text).not_to eq(nil)
         end
 
         it "fills details from json" do
@@ -50,8 +48,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
       context "with two deps" do
         let(:intake) { create(:state_file_nj_intake, :df_data_two_deps) }
         it "does not error" do
-          builder_response = described_class.build(submission)
-          expect(builder_response.errors).not_to be_present
+          expect(build_response.document.at("Dependents").text).not_to eq(nil)
         end
       end
 
@@ -65,32 +62,28 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
         end
 
         it "does not error" do
-          builder_response = described_class.build(submission)
-          expect(builder_response.errors).not_to be_present
+          expect(build_response.document.at("Dependents").text).not_to eq(nil)
         end
       end
 
       context "with many w2s" do
         let(:intake) { create(:state_file_nj_intake, :df_data_many_w2s) }
         it "does not error" do
-          builder_response = described_class.build(submission)
-          expect(builder_response.errors).not_to be_present
+          expect(build_response.document.at("NJW2").text).not_to eq(nil)
         end
       end
 
       context "with two w2s" do
         let(:intake) { create(:state_file_nj_intake, :df_data_2_w2s) }
         it "does not error" do
-          builder_response = described_class.build(submission)
-          expect(builder_response.errors).not_to be_present
+          expect(build_response.document.at("NJW2").text).not_to eq(nil)
         end
       end
 
       context 'with IRS test when w2 has some missing fields' do
         let(:intake) { create(:state_file_nj_intake, :df_data_irs_test_with_missing_info) }
         it "does not error" do
-          builder_response = described_class.build(submission)
-          expect(builder_response.errors).not_to be_present
+          expect(build_response.document.at("NJW2").text).not_to eq(nil)
         end
       end
 
@@ -100,8 +93,6 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
       expect(xml.document.root.namespaces).to include({ "xmlns:efile" => "http://www.irs.gov/efile", "xmlns" => "http://www.irs.gov/efile" })
       expect(xml.document.at('AuthenticationHeader').to_s).to include('xmlns="http://www.irs.gov/efile"')
       expect(xml.document.at('ReturnHeaderState').to_s).to include('xmlns="http://www.irs.gov/efile"')
-
-      expect(build_response.errors).not_to be_present
     end
 
     it "includes attached documents" do
@@ -164,11 +155,6 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
 
         it "includes the Schedule NJ HCC" do
           expect(xml.document.at('SchNJHCC')).to be_an_instance_of Nokogiri::XML::Element
-        end
-
-        it "does not error" do
-          builder_response = described_class.build(submission)
-          expect(builder_response.errors).not_to be_present
         end
       end
     end

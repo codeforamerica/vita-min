@@ -1,9 +1,14 @@
 require "rails_helper"
 
 RSpec.describe StateFile::TaxesOwedForm do
+  before do
+    allow_any_instance_of(StateFile::TaxesOwedForm).to receive(:withdrawal_date_deadline)
+                                                   .and_return(Date.parse("April 30th, #{current_year}"))
+  end
+
   let!(:withdraw_amount) { 68 }
   let!(:intake) {
-    create :state_file_ny_intake,
+    create :state_file_id_intake,
            payment_or_deposit_type: "unfilled",
            withdraw_amount: withdraw_amount
   }
@@ -84,6 +89,40 @@ RSpec.describe StateFile::TaxesOwedForm do
             expect(intake.routing_number).to eq "019456124"
             expect(intake.account_number).to eq "12345"
             expect(intake.date_electronic_withdrawal).to eq Date.parse("April 15th, #{current_year}")
+          end
+        end
+
+        context "after other states' deadline and before MD's for MD intake" do
+          before do
+            allow(intake).to receive(:calculated_refund_or_owed_amount).and_return(100)
+          end
+
+          let(:valid_params) do
+            {
+              date_electronic_withdrawal_month: '4',
+              date_electronic_withdrawal_year: (MultiTenantService.new(:statefile).current_tax_year + 1).to_s,
+              date_electronic_withdrawal_day: '30',
+              app_time: pre_deadline_withdrawal_time.to_s
+            }.merge(bank_info_params)
+          end
+
+          let!(:intake) {
+            create :state_file_md_intake,
+                   payment_or_deposit_type: "unfilled",
+                   withdraw_amount: withdraw_amount
+          }
+
+          it "updates the intake" do
+            form = described_class.new(intake, valid_params)
+            expect(form).to be_valid
+            form.save
+
+            intake.reload
+            expect(intake.payment_or_deposit_type).to eq "direct_deposit"
+            expect(intake.account_type).to eq "checking"
+            expect(intake.routing_number).to eq "019456124"
+            expect(intake.account_number).to eq "12345"
+            expect(intake.date_electronic_withdrawal).to eq Date.parse("April 30th, #{current_year}")
           end
         end
       end

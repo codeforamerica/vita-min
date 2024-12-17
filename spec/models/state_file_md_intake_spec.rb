@@ -13,6 +13,7 @@
 #  bank_authorization_confirmed               :integer          default("unfilled"), not null
 #  city                                       :string
 #  confirmed_permanent_address                :integer          default("unfilled"), not null
+#  consented_to_sms_terms                     :integer          default("unfilled"), not null
 #  consented_to_terms_and_conditions          :integer          default("unfilled"), not null
 #  contact_preference                         :integer          default("unfilled"), not null
 #  current_sign_in_at                         :datetime
@@ -212,6 +213,24 @@ RSpec.describe StateFileMdIntake, type: :model do
         it "returns true" do
           expect(intake.has_dependent_without_health_insurance?).to eq(true)
         end
+      end
+    end
+  end
+
+  describe "#address" do
+  context "a confirmed address" do
+    subject(:intake) { create :state_file_md_intake, :with_confirmed_address }
+
+      it "returns the permanent address" do
+        expect(intake.address).to eq("321 Main St Apt 2, Baltimore, MD 21202")
+      end
+    end
+
+    context "an unconfirmed address" do
+      subject(:intake) { create :state_file_md_intake, :with_permanent_address, confirmed_permanent_address: "no" }
+
+      it "returns the submitted permanent address" do
+        expect(intake.address).to eq("123 Main St Apt 1, Baltimore MD, 21201")
       end
     end
   end

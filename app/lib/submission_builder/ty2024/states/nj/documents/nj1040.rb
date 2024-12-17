@@ -102,6 +102,7 @@ module SubmissionBuilder
                         end
                         xml.DependentsSSN dependent.ssn
                         xml.BirthYear dependent.dob.year
+                        xml.NoHealthInsurance 'X' if dependent.nj_did_not_have_health_insurance_yes?
                       end
                     end
                   end

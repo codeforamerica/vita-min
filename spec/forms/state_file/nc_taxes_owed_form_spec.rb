@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe StateFile::NcTaxesOwedForm do
   let!(:withdraw_amount) { 68 }
   let!(:intake) {
-    create :state_file_ny_intake,
+    create :state_file_nc_intake,
            payment_or_deposit_type: "unfilled",
            withdraw_amount: withdraw_amount
   }
@@ -41,6 +41,10 @@ RSpec.describe StateFile::NcTaxesOwedForm do
         date_electronic_withdrawal_day: day,
         app_time: app_time
       }
+    end
+
+    before do
+      allow(intake).to receive(:calculated_refund_or_owed_amount).and_return(100)
     end
 
     context "NC withdrawal date validations" do
@@ -98,9 +102,9 @@ RSpec.describe StateFile::NcTaxesOwedForm do
       end
 
       context "when it's 5 PM on a Sunday and the withdrawal date is more 2 days from today" do
-        let(:app_time) { DateTime.parse("February 23rd, 2025 8pm EST").to_s } # Sunday
-        let(:year) { "2025" }
-        let(:day) { "25" }
+        let(:app_time) { DateTime.parse("February 25rd, 2024 8pm EST").to_s } # Sunday
+        let(:year) { "2024" }
+        let(:day) { "27" }
         let(:month) { "2" }
         it "is valid" do
           form = described_class.new(intake, params)

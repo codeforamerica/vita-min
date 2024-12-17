@@ -89,15 +89,15 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         end
 
         it 'leaves married filing separately spouse SSN fields blank' do
-          expect(pdf_fields["undefined_7"]).to eq nil
-          expect(pdf_fields["undefined_8"]).to eq nil
-          expect(pdf_fields["Enter spousesCU partners SSN"]).to eq nil
-          expect(pdf_fields["Text31"]).to eq nil
-          expect(pdf_fields["Text32"]).to eq nil
-          expect(pdf_fields["Text33"]).to eq nil
-          expect(pdf_fields["Text34"]).to eq nil
-          expect(pdf_fields["Text35"]).to eq nil
-          expect(pdf_fields["Text36"]).to eq nil
+          expect(pdf_fields["undefined_7"]).to eq ""
+          expect(pdf_fields["undefined_8"]).to eq ""
+          expect(pdf_fields["Enter spousesCU partners SSN"]).to eq ""
+          expect(pdf_fields["Text31"]).to eq ""
+          expect(pdf_fields["Text32"]).to eq ""
+          expect(pdf_fields["Text33"]).to eq ""
+          expect(pdf_fields["Text34"]).to eq ""
+          expect(pdf_fields["Text35"]).to eq ""
+          expect(pdf_fields["Text36"]).to eq ""
         end
       end
 
@@ -131,15 +131,15 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         end
 
         it 'leaves header spouse SSN fields blank' do
-          expect(pdf_fields["undefined_3"]).to eq nil
-          expect(pdf_fields["undefined_4"]).to eq nil
-          expect(pdf_fields["undefined_5"]).to eq nil
-          expect(pdf_fields["Text9"]).to eq nil
-          expect(pdf_fields["Text10"]).to eq nil
-          expect(pdf_fields["Text11"]).to eq nil
-          expect(pdf_fields["Text12"]).to eq nil
-          expect(pdf_fields["Text13"]).to eq nil
-          expect(pdf_fields["Text14"]).to eq nil
+          expect(pdf_fields["undefined_3"]).to eq ""
+          expect(pdf_fields["undefined_4"]).to eq ""
+          expect(pdf_fields["undefined_5"]).to eq ""
+          expect(pdf_fields["Text9"]).to eq ""
+          expect(pdf_fields["Text10"]).to eq ""
+          expect(pdf_fields["Text11"]).to eq ""
+          expect(pdf_fields["Text12"]).to eq ""
+          expect(pdf_fields["Text13"]).to eq ""
+          expect(pdf_fields["Text14"]).to eq ""
         end
       end
     end
@@ -524,9 +524,9 @@ RSpec.describe PdfFiller::Nj1040Pdf do
             )
           }
           it "does not fill in" do
-            expect(pdf_fields["Text47"]).to eq nil
-            expect(pdf_fields["undefined_12"]).to eq nil
-            expect(pdf_fields["x  1500"]).to eq nil
+            expect(pdf_fields["Text47"]).to eq ""
+            expect(pdf_fields["undefined_12"]).to eq ""
+            expect(pdf_fields["x  1500"]).to eq ""
           end
         end
 
@@ -568,9 +568,9 @@ RSpec.describe PdfFiller::Nj1040Pdf do
             )
           }
           it "does not fill in" do
-            expect(pdf_fields["Text48"]).to eq nil
-            expect(pdf_fields["undefined_13"]).to eq nil
-            expect(pdf_fields["x  1500_2"]).to eq nil
+            expect(pdf_fields["Text48"]).to eq ""
+            expect(pdf_fields["undefined_13"]).to eq ""
+            expect(pdf_fields["x  1500_2"]).to eq ""
           end
         end
 
@@ -623,9 +623,9 @@ RSpec.describe PdfFiller::Nj1040Pdf do
             )
           }
           it 'does not fill count nor exemption total' do
-            expect(pdf_fields["Text49"]).to eq nil
-            expect(pdf_fields["undefined_14"]).to eq nil
-            expect(pdf_fields["x  1000_4"]).to eq nil
+            expect(pdf_fields["Text49"]).to eq ""
+            expect(pdf_fields["undefined_14"]).to eq ""
+            expect(pdf_fields["x  1000_4"]).to eq ""
           end
         end
       end
@@ -676,7 +676,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         }
 
         before do
-          intake.dependents[0].update(dob: Date.new(2023, 1, 1))
+          intake.dependents[0].update(dob: Date.new(2023, 1, 1), nj_did_not_have_health_insurance: 'yes')
         end
 
         it 'enters single dependent into PDF' do
@@ -697,21 +697,24 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           expect(pdf_fields["Text61"]).to eq "2"
           expect(pdf_fields["Text62"]).to eq "3"
 
+          expect(pdf_fields["Check Box63"]).to eq "Yes" # Did not have health insurance
+
           # dependent 2
-          expect(pdf_fields["Last Name First Name Middle Initial 2"]).to eq nil
-          expect(pdf_fields["undefined_21"]).to eq nil
-          expect(pdf_fields["undefined_22"]).to eq nil
-          expect(pdf_fields["undefined_23"]).to eq nil
-          expect(pdf_fields["undefined_24"]).to eq nil
-          expect(pdf_fields["Text65"]).to eq nil
-          expect(pdf_fields["Text66"]).to eq nil
-          expect(pdf_fields["Text67"]).to eq nil
-          expect(pdf_fields["Text68"]).to eq nil
-          expect(pdf_fields["Text69"]).to eq nil
-          expect(pdf_fields["Text70"]).to eq nil
-          expect(pdf_fields["Text71"]).to eq nil
-          expect(pdf_fields["Text72"]).to eq nil
-          expect(pdf_fields["Text73"]).to eq nil
+          expect(pdf_fields["Last Name First Name Middle Initial 2"]).to eq ""
+          expect(pdf_fields["undefined_21"]).to eq ""
+          expect(pdf_fields["undefined_22"]).to eq ""
+          expect(pdf_fields["undefined_23"]).to eq ""
+          expect(pdf_fields["undefined_24"]).to eq ""
+          expect(pdf_fields["Text65"]).to eq ""
+          expect(pdf_fields["Text66"]).to eq ""
+          expect(pdf_fields["Text67"]).to eq ""
+          expect(pdf_fields["Text68"]).to eq ""
+          expect(pdf_fields["Text69"]).to eq ""
+          expect(pdf_fields["Text70"]).to eq ""
+          expect(pdf_fields["Text71"]).to eq ""
+          expect(pdf_fields["Text72"]).to eq ""
+          expect(pdf_fields["Text73"]).to eq ""
+          expect(pdf_fields["Check Box74"]).to eq "Off" # Did have health insurance
         end
       end
 
@@ -731,7 +734,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
               last_name: "Lastname#{i}",
               middle_initial: 'ABCDEFGHIJK'[i],
               suffix: 'JR',
-              ssn: "1234567#{"%02d" % i}"
+              ssn: "1234567#{"%02d" % i}",
+              nj_did_not_have_health_insurance: 'yes'
             )
           end
         end
@@ -755,6 +759,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           expect(pdf_fields["Text61"]).to eq "2"
           expect(pdf_fields["Text62"]).to eq "0"
 
+          expect(pdf_fields["Check Box63"]).to eq "Yes" # Did not have health insurance
+
           # dependent 2
           expect(pdf_fields["Last Name First Name Middle Initial 2"]).to eq "Lastname1 Firstname1 B JR"
 
@@ -772,6 +778,9 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           expect(pdf_fields["Text71"]).to eq "0"
           expect(pdf_fields["Text72"]).to eq "1"
           expect(pdf_fields["Text73"]).to eq "9"
+
+          expect(pdf_fields["Check Box74"]).to eq "Yes" # Did not have health insurance
+
 
           # dependent 3
           expect(pdf_fields["Last Name First Name Middle Initial 3"]).to eq "Lastname2 Firstname2 C JR"
@@ -791,6 +800,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           expect(pdf_fields["Text82"]).to eq "1"
           expect(pdf_fields["Text83"]).to eq "8"
 
+          expect(pdf_fields["Check Box84"]).to eq "Yes" # Did not have health insurance
+
           # dependent 4
           expect(pdf_fields["Last Name First Name Middle Initial 4"]).to eq "Lastname3 Firstname3 D JR"
 
@@ -808,6 +819,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           expect(pdf_fields["Text91"]).to eq "0"
           expect(pdf_fields["Text92"]).to eq "1"
           expect(pdf_fields["Text93"]).to eq "7"
+
+          expect(pdf_fields["Check Box94"]).to eq "Yes" # Did not have health insurance
         end
       end
     end
@@ -817,16 +830,16 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
 
         it "does not fill in any box on line 15" do
-          expect(pdf_fields["15"]).to eq nil
-          expect(pdf_fields["undefined_36"]).to eq nil
-          expect(pdf_fields["undefined_37"]).to eq nil
-          expect(pdf_fields["undefined_38"]).to eq nil
-          expect(pdf_fields["Text100"]).to eq nil
-          expect(pdf_fields["Text101"]).to eq nil
-          expect(pdf_fields["Text103"]).to eq nil
-          expect(pdf_fields["Text104"]).to eq nil
-          expect(pdf_fields["Text105"]).to eq nil
-          expect(pdf_fields["Text106"]).to eq nil
+          expect(pdf_fields["15"]).to eq ""
+          expect(pdf_fields["undefined_36"]).to eq ""
+          expect(pdf_fields["undefined_37"]).to eq ""
+          expect(pdf_fields["undefined_38"]).to eq ""
+          expect(pdf_fields["Text100"]).to eq ""
+          expect(pdf_fields["Text101"]).to eq ""
+          expect(pdf_fields["Text103"]).to eq ""
+          expect(pdf_fields["Text104"]).to eq ""
+          expect(pdf_fields["Text105"]).to eq ""
+          expect(pdf_fields["Text106"]).to eq ""
         end
       end
 
@@ -884,10 +897,9 @@ RSpec.describe PdfFiller::Nj1040Pdf do
     end
 
     describe "line 16a taxable interest income" do
-      context 'with interest reports, but no interest on government bonds' do
-        let(:intake) { create(:state_file_nj_intake, :df_data_one_dep) }
-
+      context 'with no taxable interest income' do
         it 'does not set line 16a' do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_16a).and_return 0
           ["112",
            "111",
            "110",
@@ -897,14 +909,13 @@ RSpec.describe PdfFiller::Nj1040Pdf do
            "undefined_41",
            "undefined_40",
            "undefined_39",
-           "undefined_43"].each { |pdf_field| expect(pdf_fields[pdf_field]).to eq nil }
+           "undefined_43"].each { |pdf_field| expect(pdf_fields[pdf_field]).to eq "" }
         end
       end 
   
-      context 'with interest on government bonds' do
-        let(:intake) { create(:state_file_nj_intake, :df_data_two_deps) }
-
+      context 'with taxable interest income' do
         it 'sets line 16a to 300 (fed taxable income minus sum of bond interest)' do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_16a).and_return 300
           expect(pdf_fields["undefined_43"]).to eq ""
           expect(pdf_fields["undefined_39"]).to eq ""
           expect(pdf_fields["undefined_40"]).to eq ""
@@ -931,7 +942,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
            "undefined_44",
            "16a",
            "undefined_42",
-           "16b"].each { |pdf_field| expect(pdf_fields[pdf_field]).to eq nil }
+           "16b"].each { |pdf_field| expect(pdf_fields[pdf_field]).to eq "" }
         end
       end
 
@@ -989,20 +1000,6 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       end
 
       context "qualifying widow" do
-        # even though behavior is correct, values map this way
-        def map_spouse_death_year(input)
-          case input
-          when "0"
-            "Choice1"
-          when "1"
-            "Off"
-          when nil
-            ""
-          else
-            input
-          end
-        end
-
         context "spouse passed in the last year" do
           before do
             submission.data_source.direct_file_data.filing_status = 5
@@ -1015,7 +1012,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           end
 
           it "checks the one year prior spouse date of death" do
-            expect(pdf_fields["Group1qualwi5ab"]).to eq map_spouse_death_year("1")
+            expect(pdf_fields["Group1qualwi5ab"]).to eq "1"
           end
         end
 
@@ -1031,7 +1028,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           end
 
           it "checks the two years prior spouse date of death" do
-            expect(pdf_fields["Group1qualwi5ab"]).to eq map_spouse_death_year("0")
+            expect(pdf_fields["Group1qualwi5ab"]).to eq "0"
           end
         end
       end
@@ -1055,7 +1052,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           expect(pdf_fields["184"]).to eq "0"
           expect(pdf_fields["185"]).to eq "0"
           # hundreds
-          expect(pdf_fields["undefined_79"]).to eq "0"
+          expect(pdf_fields["undefined_79"]).to eq "5"
           expect(pdf_fields["186"]).to eq "0"
           expect(pdf_fields["187"]).to eq "0"
           # decimals
@@ -1069,20 +1066,20 @@ RSpec.describe PdfFiller::Nj1040Pdf do
 
         it "does not fill in any of the boxes on line 27" do
           # millions
-          expect(pdf_fields["263"]).to eq nil
-          expect(pdf_fields["27"]).to eq nil
-          expect(pdf_fields["183"]).to eq nil
+          expect(pdf_fields["263"]).to eq ""
+          expect(pdf_fields["27"]).to eq ""
+          expect(pdf_fields["183"]).to eq ""
           # thousands
-          expect(pdf_fields["undefined_78"]).to eq nil
-          expect(pdf_fields["184"]).to eq nil
-          expect(pdf_fields["185"]).to eq nil
+          expect(pdf_fields["undefined_78"]).to eq ""
+          expect(pdf_fields["184"]).to eq ""
+          expect(pdf_fields["185"]).to eq ""
           # hundreds
-          expect(pdf_fields["undefined_79"]).to eq nil
-          expect(pdf_fields["186"]).to eq nil
-          expect(pdf_fields["187"]).to eq nil
+          expect(pdf_fields["undefined_79"]).to eq ""
+          expect(pdf_fields["186"]).to eq ""
+          expect(pdf_fields["187"]).to eq ""
           # decimals
-          expect(pdf_fields["undefined_80"]).to eq nil
-          expect(pdf_fields["188"]).to eq nil
+          expect(pdf_fields["undefined_80"]).to eq ""
+          expect(pdf_fields["188"]).to eq ""
         end
       end
     end
@@ -1105,7 +1102,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           expect(pdf_fields["205"]).to eq "0"
           expect(pdf_fields["206"]).to eq "0"
           # hundreds
-          expect(pdf_fields["undefined_88"]).to eq "0"
+          expect(pdf_fields["undefined_88"]).to eq "5"
           expect(pdf_fields["207"]).to eq "0"
           expect(pdf_fields["208"]).to eq "0"
           # decimals
@@ -1119,20 +1116,20 @@ RSpec.describe PdfFiller::Nj1040Pdf do
 
         it "does not fill in any of the boxes on line 29" do
           # millions
-          expect(pdf_fields["270"]).to eq nil
-          expect(pdf_fields["29"]).to eq nil
-          expect(pdf_fields["204"]).to eq nil
+          expect(pdf_fields["270"]).to eq ""
+          expect(pdf_fields["29"]).to eq ""
+          expect(pdf_fields["204"]).to eq ""
           # thousands
-          expect(pdf_fields["undefined_87"]).to eq nil
-          expect(pdf_fields["205"]).to eq nil
-          expect(pdf_fields["206"]).to eq nil
+          expect(pdf_fields["undefined_87"]).to eq ""
+          expect(pdf_fields["205"]).to eq ""
+          expect(pdf_fields["206"]).to eq ""
           # hundreds
-          expect(pdf_fields["undefined_88"]).to eq nil
-          expect(pdf_fields["207"]).to eq nil
-          expect(pdf_fields["208"]).to eq nil
+          expect(pdf_fields["undefined_88"]).to eq ""
+          expect(pdf_fields["207"]).to eq ""
+          expect(pdf_fields["208"]).to eq ""
           # decimals
-          expect(pdf_fields["undefined_89"]).to eq nil
-          expect(pdf_fields["209"]).to eq nil
+          expect(pdf_fields["undefined_89"]).to eq ""
+          expect(pdf_fields["209"]).to eq ""
         end
       end
     end
@@ -1147,6 +1144,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           )
         }
         it "writes sum $563,890.00 to fill boxes on line 31" do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_16a).and_return 0
+
           # thousands
           expect(pdf_fields["31"]).to eq "5"
           expect(pdf_fields["215"]).to eq "6"
@@ -1171,16 +1170,16 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         }
         it "does not fill line 31" do
           # thousands
-          expect(pdf_fields["31"]).to eq nil
-          expect(pdf_fields["215"]).to eq nil
-          expect(pdf_fields["216"]).to eq nil
+          expect(pdf_fields["31"]).to eq ""
+          expect(pdf_fields["215"]).to eq ""
+          expect(pdf_fields["216"]).to eq ""
           # hundreds
-          expect(pdf_fields["undefined_92"]).to eq nil
-          expect(pdf_fields["217"]).to eq nil
-          expect(pdf_fields["218"]).to eq nil
+          expect(pdf_fields["undefined_92"]).to eq ""
+          expect(pdf_fields["217"]).to eq ""
+          expect(pdf_fields["218"]).to eq ""
           # decimals
-          expect(pdf_fields["undefined_93"]).to eq nil
-          expect(pdf_fields["219"]).to eq nil
+          expect(pdf_fields["undefined_93"]).to eq ""
+          expect(pdf_fields["219"]).to eq ""
         end
       end
     end
@@ -1215,6 +1214,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         )
       }
       it "writes taxable income $197,500 (200,000-2500) to fill boxes on line 39" do
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_16a).and_return 0
+
         # millions
         expect(pdf_fields["279"]).to eq ""
         expect(pdf_fields["38a Total Property Taxes 18 of Rent Paid See instructions page 23 38a"]).to eq ""
@@ -1308,16 +1309,16 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         end
 
         it "does not insert property tax calculation on line 40a" do
-          expect(pdf_fields["39"]).to eq nil
-          expect(pdf_fields["280"]).to eq nil
-          expect(pdf_fields["undefined_112"]).to eq nil
-          expect(pdf_fields["281"]).to eq nil
-          expect(pdf_fields["282"]).to eq nil
-          expect(pdf_fields["undefined_113"]).to eq nil
-          expect(pdf_fields["283"]).to eq nil
-          expect(pdf_fields["37"]).to eq nil
-          expect(pdf_fields["245"]).to eq nil
-          expect(pdf_fields["24539a#2"]).to eq nil
+          expect(pdf_fields["39"]).to eq ""
+          expect(pdf_fields["280"]).to eq ""
+          expect(pdf_fields["undefined_112"]).to eq ""
+          expect(pdf_fields["281"]).to eq ""
+          expect(pdf_fields["282"]).to eq ""
+          expect(pdf_fields["undefined_113"]).to eq ""
+          expect(pdf_fields["283"]).to eq ""
+          expect(pdf_fields["37"]).to eq ""
+          expect(pdf_fields["245"]).to eq ""
+          expect(pdf_fields["24539a#2"]).to eq ""
         end
       end
 
@@ -1332,16 +1333,16 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         end
 
         it "does not insert property tax calculation on line 40a" do
-          expect(pdf_fields["39"]).to eq nil
-          expect(pdf_fields["280"]).to eq nil
-          expect(pdf_fields["undefined_112"]).to eq nil
-          expect(pdf_fields["281"]).to eq nil
-          expect(pdf_fields["282"]).to eq nil
-          expect(pdf_fields["undefined_113"]).to eq nil
-          expect(pdf_fields["283"]).to eq nil
-          expect(pdf_fields["37"]).to eq nil
-          expect(pdf_fields["245"]).to eq nil
-          expect(pdf_fields["24539a#2"]).to eq nil
+          expect(pdf_fields["39"]).to eq ""
+          expect(pdf_fields["280"]).to eq ""
+          expect(pdf_fields["undefined_112"]).to eq ""
+          expect(pdf_fields["281"]).to eq ""
+          expect(pdf_fields["282"]).to eq ""
+          expect(pdf_fields["undefined_113"]).to eq ""
+          expect(pdf_fields["283"]).to eq ""
+          expect(pdf_fields["37"]).to eq ""
+          expect(pdf_fields["245"]).to eq ""
+          expect(pdf_fields["24539a#2"]).to eq ""
         end
       end
     end
@@ -1383,15 +1384,15 @@ RSpec.describe PdfFiller::Nj1040Pdf do
 
         it "does not fill fields" do
           # thousands
-          expect(pdf_fields["undefined_116"]).to eq nil
-          expect(pdf_fields["41"]).to eq nil
+          expect(pdf_fields["undefined_116"]).to eq ""
+          expect(pdf_fields["41"]).to eq ""
           # hundreds
-          expect(pdf_fields["undefined_117"]).to eq nil
-          expect(pdf_fields["undefined_118"]).to eq nil
-          expect(pdf_fields["Text1"]).to eq nil
+          expect(pdf_fields["undefined_117"]).to eq ""
+          expect(pdf_fields["undefined_118"]).to eq ""
+          expect(pdf_fields["Text1"]).to eq ""
           # decimals
-          expect(pdf_fields["Text2"]).to eq nil
-          expect(pdf_fields["Text18"]).to eq nil
+          expect(pdf_fields["Text2"]).to eq ""
+          expect(pdf_fields["Text18"]).to eq ""
         end
       end
 
@@ -1405,15 +1406,15 @@ RSpec.describe PdfFiller::Nj1040Pdf do
 
         it "does not fill fields" do
           # thousands
-          expect(pdf_fields["undefined_116"]).to eq nil
-          expect(pdf_fields["41"]).to eq nil
+          expect(pdf_fields["undefined_116"]).to eq ""
+          expect(pdf_fields["41"]).to eq ""
           # hundreds
-          expect(pdf_fields["undefined_117"]).to eq nil
-          expect(pdf_fields["undefined_118"]).to eq nil
-          expect(pdf_fields["Text1"]).to eq nil
+          expect(pdf_fields["undefined_117"]).to eq ""
+          expect(pdf_fields["undefined_118"]).to eq ""
+          expect(pdf_fields["Text1"]).to eq ""
           # decimals
-          expect(pdf_fields["Text2"]).to eq nil
-          expect(pdf_fields["Text18"]).to eq nil
+          expect(pdf_fields["Text2"]).to eq ""
+          expect(pdf_fields["Text18"]).to eq ""
         end
       end
 
@@ -1428,26 +1429,22 @@ RSpec.describe PdfFiller::Nj1040Pdf do
 
         it "does not fill fields" do
           # thousands
-          expect(pdf_fields["undefined_116"]).to eq nil
-          expect(pdf_fields["41"]).to eq nil
+          expect(pdf_fields["undefined_116"]).to eq ""
+          expect(pdf_fields["41"]).to eq ""
           # hundreds
-          expect(pdf_fields["undefined_117"]).to eq nil
-          expect(pdf_fields["undefined_118"]).to eq nil
-          expect(pdf_fields["Text1"]).to eq nil
+          expect(pdf_fields["undefined_117"]).to eq ""
+          expect(pdf_fields["undefined_118"]).to eq ""
+          expect(pdf_fields["Text1"]).to eq ""
           # decimals
-          expect(pdf_fields["Text2"]).to eq nil
-          expect(pdf_fields["Text18"]).to eq nil
+          expect(pdf_fields["Text2"]).to eq ""
+          expect(pdf_fields["Text18"]).to eq ""
         end
       end
     end
 
     describe "line 42 new jersey taxable income" do
-      let(:submission) {
-        create :efile_submission, tax_return: nil, data_source: create(
-          :state_file_nj_intake, :df_data_many_w2s
-        )
-      }
-      it "writes new jersey taxable income $197,500 (200,000-2500) to fill boxes on line 39" do
+      it "writes new jersey taxable income $197,500" do
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_42).and_return 197_500
         # millions
         expect(pdf_fields["Enter Code4332"]).to eq ""
         expect(pdf_fields["40"]).to eq ""
@@ -1464,6 +1461,25 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         expect(pdf_fields["Text40"]).to eq "0"
         expect(pdf_fields["Text41"]).to eq "0"
       end
+
+      it "leaves blank when no NewJerseyTaxableIncome" do
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_42).and_return 0
+        # millions
+        expect(pdf_fields["Enter Code4332"]).to eq ""
+        expect(pdf_fields["40"]).to eq ""
+        expect(pdf_fields["undefined_114"]).to eq ""
+        # thousands
+        expect(pdf_fields["Text19"]).to eq ""
+        expect(pdf_fields["Text20"]).to eq ""
+        expect(pdf_fields["Text30"]).to eq ""
+        # hundreds
+        expect(pdf_fields["Text37"]).to eq ""
+        expect(pdf_fields["Text38"]).to eq ""
+        expect(pdf_fields["Text39"]).to eq ""
+        # decimals
+        expect(pdf_fields["Text40"]).to eq ""
+        expect(pdf_fields["Text41"]).to eq ""
+      end
     end
 
     describe "line 43 - tax amount" do
@@ -1478,6 +1494,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       }
 
       it "writes rounded tax amount $7,519.00 based on income $200,000 with 3,500 exemptions 15,000 property tax deduction and 0.0637 tax rate minus 4,042.50 subtraction" do
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_16a).and_return 0
+
         # millions
         expect(pdf_fields["Enter Code4332243ew"]).to eq ""
         expect(pdf_fields["4036y54ethdf"]).to eq ""
@@ -1507,6 +1525,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       }
 
       it "writes rounded tax amount $7,519.00 (same as line 43)" do
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_16a).and_return 0
+
         # millions
         expect(pdf_fields["Enter Code4332243ewR@434"]).to eq ""
         expect(pdf_fields["4036y54ethdf!!!##\$$"]).to eq ""
@@ -1557,6 +1577,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       }
 
       it "writes rounded tax amount $7,519.10 (same as line 45)" do
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_16a).and_return 0
+
         # millions
         expect(pdf_fields["Enter Code4332243ew6576z66z##"]).to eq ""
         expect(pdf_fields["4036y54ethdf(*H"]).to eq ""
@@ -1608,23 +1630,23 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           expect(pdf_fields["Check Box147"]).to eq "Yes"
 
           # 53a
-          expect(pdf_fields["Check Box146aabb"]).to eq nil
+          expect(pdf_fields["Check Box146aabb"]).to eq "Off"
 
           # 53b
-          expect(pdf_fields["Check Box146aabbffdd"]).to eq nil
+          expect(pdf_fields["Check Box146aabbffdd"]).to eq "Off"
 
           # 53c amount
           # thousands
-          expect(pdf_fields["52"]).to eq nil
-          expect(pdf_fields["undefined_139"]).to eq nil
-          expect(pdf_fields["undefined_140"]).to eq nil
+          expect(pdf_fields["52"]).to eq ""
+          expect(pdf_fields["undefined_139"]).to eq ""
+          expect(pdf_fields["undefined_140"]).to eq ""
           # hundreds
-          expect(pdf_fields["Text141"]).to eq nil
-          expect(pdf_fields["Text142"]).to eq nil
-          expect(pdf_fields["Text143"]).to eq nil
+          expect(pdf_fields["Text141"]).to eq ""
+          expect(pdf_fields["Text142"]).to eq ""
+          expect(pdf_fields["Text143"]).to eq ""
           # decimals
-          expect(pdf_fields["Text144"]).to eq nil
-          expect(pdf_fields["Text145"]).to eq nil
+          expect(pdf_fields["Text144"]).to eq ""
+          expect(pdf_fields["Text145"]).to eq ""
         end
       end
 
@@ -1640,23 +1662,23 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           expect(pdf_fields["Check Box147"]).to eq "Off"
 
           # 53a
-          expect(pdf_fields["Check Box146aabb"]).to eq nil
+          expect(pdf_fields["Check Box146aabb"]).to eq "Off"
 
           # 53b
-          expect(pdf_fields["Check Box146aabbffdd"]).to eq nil
+          expect(pdf_fields["Check Box146aabbffdd"]).to eq "Off"
 
           # 53c amount
           # thousands
-          expect(pdf_fields["52"]).to eq nil
-          expect(pdf_fields["undefined_139"]).to eq nil
-          expect(pdf_fields["undefined_140"]).to eq nil
+          expect(pdf_fields["52"]).to eq ""
+          expect(pdf_fields["undefined_139"]).to eq ""
+          expect(pdf_fields["undefined_140"]).to eq ""
           # hundreds
-          expect(pdf_fields["Text141"]).to eq nil
-          expect(pdf_fields["Text142"]).to eq nil
-          expect(pdf_fields["Text143"]).to eq nil
+          expect(pdf_fields["Text141"]).to eq ""
+          expect(pdf_fields["Text142"]).to eq ""
+          expect(pdf_fields["Text143"]).to eq ""
           # decimals
-          expect(pdf_fields["Text144"]).to eq nil
-          expect(pdf_fields["Text145"]).to eq nil
+          expect(pdf_fields["Text144"]).to eq ""
+          expect(pdf_fields["Text145"]).to eq ""
         end
       end
     end
@@ -1674,6 +1696,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       }
 
       it "writes $7819 (line 50 $7,519 + line 51 $300)" do
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_16a).and_return 0
+
         # millions
         expect(pdf_fields["Enter Code4332243ew^^%$#"]).to eq ""
         expect(pdf_fields["4036y54ethdf%%^87"]).to eq ""
@@ -1700,7 +1724,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         it "fills line 55 with sum of income tax withheld" do
           # millions
           expect(pdf_fields["undefined_1471qerw"]).to eq "1"
-          expect(pdf_fields["undefined_114"]).to eq "2"
+          expect(pdf_fields["Text15"]).to eq "2"
           # thousands
           expect(pdf_fields["undefined_143"]).to eq "3"
           expect(pdf_fields["undefined_144"]).to eq "4"
@@ -1716,23 +1740,25 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       end
 
       context 'when TaxWithheld is nil' do
-        let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
+        before do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_55).and_return nil
+        end
 
         it "does not fill line 55" do
           # millions
-          expect(pdf_fields["undefined_1471qerw"]).to eq nil
-          expect(pdf_fields["undefined_114"]).to eq nil
+          expect(pdf_fields["undefined_1471qerw"]).to eq ""
+          expect(pdf_fields["Text15"]).to eq ""
           # thousands
-          expect(pdf_fields["undefined_143"]).to eq nil
-          expect(pdf_fields["undefined_144"]).to eq nil
-          expect(pdf_fields["undefined_145"]).to eq nil
+          expect(pdf_fields["undefined_143"]).to eq ""
+          expect(pdf_fields["undefined_144"]).to eq ""
+          expect(pdf_fields["undefined_145"]).to eq ""
           # hundreds
-          expect(pdf_fields["Text153"]).to eq nil
-          expect(pdf_fields["Text154"]).to eq nil
-          expect(pdf_fields["Text155"]).to eq nil
+          expect(pdf_fields["Text153"]).to eq ""
+          expect(pdf_fields["Text154"]).to eq ""
+          expect(pdf_fields["Text155"]).to eq ""
           # decimals
-          expect(pdf_fields["Text156"]).to eq nil
-          expect(pdf_fields["Text157"]).to eq nil
+          expect(pdf_fields["Text156"]).to eq ""
+          expect(pdf_fields["Text157"]).to eq ""
         end
       end
     end
@@ -1767,11 +1793,11 @@ RSpec.describe PdfFiller::Nj1040Pdf do
 
         it "does not fill property tax credit" do
           # hundreds
-          expect(pdf_fields["Text161"]).to eq nil
-          expect(pdf_fields["Text162"]).to eq nil
+          expect(pdf_fields["Text161"]).to eq ""
+          expect(pdf_fields["Text162"]).to eq ""
           # decimals
-          expect(pdf_fields["Text163"]).to eq nil
-          expect(pdf_fields["Text164"]).to eq nil
+          expect(pdf_fields["Text163"]).to eq ""
+          expect(pdf_fields["Text164"]).to eq ""
         end
       end
 
@@ -1821,19 +1847,19 @@ RSpec.describe PdfFiller::Nj1040Pdf do
 
         it "does not fill EstimatedPaymentTotal" do
           # millions
-          expect(pdf_fields["56!\#$$"]).to eq nil
-          expect(pdf_fields["56"]).to eq nil
+          expect(pdf_fields["56!\#$$"]).to eq ""
+          expect(pdf_fields["56"]).to eq ""
           # thousands
-          expect(pdf_fields["undefined_147"]).to eq nil
-          expect(pdf_fields["undefined_148"]).to eq nil
-          expect(pdf_fields["undefined_149"]).to eq nil
+          expect(pdf_fields["undefined_147"]).to eq ""
+          expect(pdf_fields["undefined_148"]).to eq ""
+          expect(pdf_fields["undefined_149"]).to eq ""
           # hundreds
-          expect(pdf_fields["Text160"]).to eq nil
-          expect(pdf_fields["55"]).to eq nil
-          expect(pdf_fields["undefined_146"]).to eq nil
+          expect(pdf_fields["Text160"]).to eq ""
+          expect(pdf_fields["55"]).to eq ""
+          expect(pdf_fields["undefined_146"]).to eq ""
           # decimals
-          expect(pdf_fields["Text158"]).to eq nil
-          expect(pdf_fields["Text159"]).to eq nil
+          expect(pdf_fields["Text158"]).to eq ""
+          expect(pdf_fields["Text159"]).to eq ""
         end
       end
     end
@@ -1861,7 +1887,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           expect(pdf_fields["Check Box168"]).to eq "Yes"
 
           # NJ CU checkbox
-          expect(pdf_fields["Check Box169"]).to eq nil
+          expect(pdf_fields["Check Box169"]).to eq "Off"
         end
       end
 
@@ -1889,7 +1915,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           expect(pdf_fields["Check Box168"]).to eq "Off"
 
           # NJ CU checkbox
-          expect(pdf_fields["Check Box169"]).to eq nil
+          expect(pdf_fields["Check Box169"]).to eq "Off"
         end
       end
 
@@ -1902,20 +1928,20 @@ RSpec.describe PdfFiller::Nj1040Pdf do
 
         it "does not fill line 58 and does not check any checkboxes" do
           # thousands
-          expect(pdf_fields["58"]).to eq nil
+          expect(pdf_fields["58"]).to eq ""
           # hundreds
-          expect(pdf_fields["undefined_152"]).to eq nil
-          expect(pdf_fields["undefined_153"]).to eq nil
-          expect(pdf_fields["Text170"]).to eq nil
+          expect(pdf_fields["undefined_152"]).to eq ""
+          expect(pdf_fields["undefined_153"]).to eq ""
+          expect(pdf_fields["Text170"]).to eq ""
           # decimals
-          expect(pdf_fields["Text171"]).to eq nil
-          expect(pdf_fields["Text172"]).to eq nil
+          expect(pdf_fields["Text171"]).to eq ""
+          expect(pdf_fields["Text172"]).to eq ""
 
           # federal checkbox
-          expect(pdf_fields["Check Box168"]).to eq nil
+          expect(pdf_fields["Check Box168"]).to eq "Off"
 
           # NJ CU checkbox
-          expect(pdf_fields["Check Box169"]).to eq nil
+          expect(pdf_fields["Check Box169"]).to eq "Off"
         end
       end
     end
@@ -1932,7 +1958,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
             "undefined_155",
             "undefined_154",
             "59"
-          ].each { |pdf_field| expect(pdf_fields[pdf_field]).to eq nil }
+          ].each { |pdf_field| expect(pdf_fields[pdf_field]).to eq "" }
         end
       end
 
@@ -1967,7 +1993,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
             "undefined_157",
             "undefined_156",
             "60"
-          ].each { |pdf_field| expect(pdf_fields[pdf_field]).to eq nil }
+          ].each { |pdf_field| expect(pdf_fields[pdf_field]).to eq "" }
         end
       end
 
@@ -2214,21 +2240,21 @@ RSpec.describe PdfFiller::Nj1040Pdf do
     describe "driver license/ID number" do
       context "primary ID not given" do
         it "leaves all boxes blank" do
-          expect(pdf_fields["Drivers License Number Voluntary Instructions page 44"]).to eq nil
-          expect(pdf_fields["Text246"]).to eq nil
-          expect(pdf_fields["Text247"]).to eq nil
-          expect(pdf_fields["Text248"]).to eq nil
-          expect(pdf_fields["Text249"]).to eq nil
-          expect(pdf_fields["Text250"]).to eq nil
-          expect(pdf_fields["Text251"]).to eq nil
-          expect(pdf_fields["Text252"]).to eq nil
-          expect(pdf_fields["Text253"]).to eq nil
-          expect(pdf_fields["Text254"]).to eq nil
-          expect(pdf_fields["Text255"]).to eq nil
-          expect(pdf_fields["Text256"]).to eq nil
-          expect(pdf_fields["Text257"]).to eq nil
-          expect(pdf_fields["Text258"]).to eq nil
-          expect(pdf_fields["Text259"]).to eq nil
+          expect(pdf_fields["Drivers License Number Voluntary Instructions page 44"]).to eq ""
+          expect(pdf_fields["Text246"]).to eq ""
+          expect(pdf_fields["Text247"]).to eq ""
+          expect(pdf_fields["Text248"]).to eq ""
+          expect(pdf_fields["Text249"]).to eq ""
+          expect(pdf_fields["Text250"]).to eq ""
+          expect(pdf_fields["Text251"]).to eq ""
+          expect(pdf_fields["Text252"]).to eq ""
+          expect(pdf_fields["Text253"]).to eq ""
+          expect(pdf_fields["Text254"]).to eq ""
+          expect(pdf_fields["Text255"]).to eq ""
+          expect(pdf_fields["Text256"]).to eq ""
+          expect(pdf_fields["Text257"]).to eq ""
+          expect(pdf_fields["Text258"]).to eq ""
+          expect(pdf_fields["Text259"]).to eq ""
         end
       end
 
