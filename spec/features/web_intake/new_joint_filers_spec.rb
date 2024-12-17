@@ -587,16 +587,6 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
       check "White"
     end
     click_on "Continue"
-    screenshot_after do
-      expect(page).to have_text("What is your ethnicity?")
-      choose "Not Hispanic or Latino"
-    end
-    click_on "Continue"
-    screenshot_after do
-      expect(page).to have_text("What is your spouse's ethnicity?")
-      choose "Not Hispanic or Latino"
-    end
-    click_on "Continue"
   end
 
   context "client is included in the expanded id experiment", js: true do
