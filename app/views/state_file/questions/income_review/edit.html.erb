@@ -27,7 +27,7 @@
   <% if current_intake.direct_file_data.fed_unemployment > 0 %>
     <div class="white-group unemployment" id="form1099gs">
       <p class="text--bold spacing-below-0"><%= t(".unemployment_title") %></p>
-      <% if current_intake.state_file1099_gs.count > 0 %>
+      <% if current_intake.state_file1099_gs.count > 0 || state == "NJ" %>
         <% current_intake.state_file1099_gs.each do |state_1099g| %>
           <% recipient = current_intake.send(state_1099g.recipient) %>
           <div class="spacing-above-25">
@@ -80,6 +80,7 @@
     </div>
   <% end %>
 
+  # here
   <% if current_intake.direct_file_data.fed_ssb > 0 || current_intake.direct_file_data.fed_taxable_ssb > 0 %>
     <div class="white-group">
       <p class="text--bold spacing-below-0"><%= t(".ssa_title") %></p>
