@@ -442,7 +442,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
       choose "Yes"
       click_on "Continue"
       expect(intake.reload.current_step).to end_with("/questions/demographic-primary-race")
-      expect(page).to have_selector("h1", text: "What is your race?")
+      expect(page).to have_selector("h1", text: "What is your race and/or ethnicity?")
       check "Asian"
       check "White"
       click_on "Submit"
