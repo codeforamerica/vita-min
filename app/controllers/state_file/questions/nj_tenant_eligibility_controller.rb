@@ -8,6 +8,7 @@ module StateFile
         options[:return_to_review] = params[:return_to_review] if params[:return_to_review].present?
         
         if StateFile::NjTenantEligibilityHelper.determine_eligibility(current_intake) == StateFile::NjTenantEligibilityHelper::INELIGIBLE
+          options[:on_home_or_rental] = :rental
           NjIneligiblePropertyTaxController.to_path_helper(options)
         elsif Efile::Nj::NjPropertyTaxEligibility.possibly_eligible_for_credit?(current_intake)
           StateFile::NjPropertyTaxFlowHelper.next_controller(options)
