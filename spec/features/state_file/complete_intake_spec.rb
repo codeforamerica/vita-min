@@ -774,6 +774,23 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(edit_buttons_unique_text_count).to eq(edit_buttons_count)
     end
 
+    it "handles property tax neither flow", required_schema: "nj" do
+
+      advance_to_property_tax_page("Zeus one dep")
+
+      # household rent/own page
+      choose I18n.t('state_file.questions.nj_household_rent_own.edit.neither')
+      click_on I18n.t("general.continue")
+
+      # ineligible page
+      reason = I18n.t("state_file.questions.nj_ineligible_property_tax.edit.reason_neither", filing_year: MultiTenantService.statefile.current_tax_year)
+      expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.nj_ineligible_property_tax.edit.title_html", property: nil)).strip
+      expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.nj_ineligible_property_tax.edit.reason_html", reason: reason))
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text I18n.t("state_file.questions.nj_estimated_tax_payments.edit.title", filing_year: filing_year)
+    end
+
     it "handles property tax eligible tenant flow", required_schema: "nj" do
 
       advance_to_property_tax_page("Zeus one dep")
@@ -808,7 +825,10 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("general.continue")
 
       # ineligible page
-      expect(page).to have_text I18n.t("state_file.questions.nj_ineligible_property_tax.edit.title", filing_year: filing_year)
+      property = I18n.t("state_file.questions.nj_ineligible_property_tax.edit.on_rental")
+      reason = I18n.t("state_file.questions.nj_ineligible_property_tax.edit.reason_property_taxes")
+      expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.nj_ineligible_property_tax.edit.title_html", property: property))
+      expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.nj_ineligible_property_tax.edit.reason_html", reason: reason))
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t("state_file.questions.nj_estimated_tax_payments.edit.title", filing_year: filing_year)
@@ -870,7 +890,10 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("general.continue")
 
       # ineligible page
-      expect(page).to have_text I18n.t("state_file.questions.nj_ineligible_property_tax.edit.title", filing_year: filing_year)
+      property = I18n.t("state_file.questions.nj_ineligible_property_tax.edit.on_home")
+      reason = I18n.t("state_file.questions.nj_ineligible_property_tax.edit.reason_property_taxes")
+      expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.nj_ineligible_property_tax.edit.title_html", property: property))
+      expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.nj_ineligible_property_tax.edit.reason_html", reason: reason))
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t("state_file.questions.nj_estimated_tax_payments.edit.title", filing_year: filing_year)
@@ -952,7 +975,10 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("general.continue")
 
       # ineligible page
-      expect(page).to have_text I18n.t("state_file.questions.nj_ineligible_property_tax.edit.title", filing_year: filing_year)
+      property = I18n.t("state_file.questions.nj_ineligible_property_tax.edit.on_rental")
+      reason = I18n.t("state_file.questions.nj_ineligible_property_tax.edit.reason_property_taxes")
+      expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.nj_ineligible_property_tax.edit.title_html", property: property))
+      expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.nj_ineligible_property_tax.edit.reason_html", reason: reason))
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t("state_file.questions.nj_estimated_tax_payments.edit.title", filing_year: filing_year)
@@ -971,7 +997,10 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("general.continue")
 
       # ineligible page
-      expect(page).to have_text I18n.t("state_file.questions.nj_ineligible_property_tax.edit.title", filing_year: filing_year)
+      property = I18n.t("state_file.questions.nj_ineligible_property_tax.edit.on_home")
+      reason = I18n.t("state_file.questions.nj_ineligible_property_tax.edit.reason_property_taxes")
+      expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.nj_ineligible_property_tax.edit.title_html", property: property))
+      expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.nj_ineligible_property_tax.edit.reason_html", reason: reason))
       click_on I18n.t("general.continue")
 
       # tenant eligibility page
@@ -1027,6 +1056,10 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("general.continue")
 
       # homeowner ineligible page
+      property = I18n.t("state_file.questions.nj_ineligible_property_tax.edit.on_home")
+      reason = I18n.t("state_file.questions.nj_ineligible_property_tax.edit.reason_property_taxes")
+      expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.nj_ineligible_property_tax.edit.title_html", property: property))
+      expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.nj_ineligible_property_tax.edit.reason_html", reason: reason))
       click_on I18n.t("general.continue")
 
       # tenant eligibility page

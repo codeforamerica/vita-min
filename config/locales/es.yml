@@ -3182,8 +3182,16 @@ es:
           title: "¡Usted podría ser elegible para el crédito o deducción del impuesto a la propiedad de New Jersey!"
       nj_ineligible_property_tax:
         edit:
-          helper_description: Continúe viendo para qué más podemos ayudarlo a calificar.
-          title: Parece que no eres elegible para este crédito.
+          title_html: Looks like you're not eligible for the property tax credit or deduction <b>%{property}</b>
+          on_home: on the home you owned.
+          on_rental: on the home you rented.
+          reason_html: You are not eligible for this because <b>%{reason}</b>
+          reason_property_taxes: you did not pay property taxes (directly, or through rent) on this main home.
+          reason_multi_unit_conditions: this main home in a multi-unit building did not meet the requirements to claim this credit or deduction.
+          reason_neither: you must own rent or own a main home in %{filing_year} to receive this credit or deduction.
+          mistake_text: Is this a mistake?
+          go_back_link: Go back to correct.
+          continue_text: Click continue to see what else we can guide you to qualify for.
       nj_medical_expenses:
         edit:
           description_html: |-
