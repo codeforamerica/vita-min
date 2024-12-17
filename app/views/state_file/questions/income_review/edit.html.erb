@@ -24,7 +24,7 @@
     </div>
   <% end %>
 
-  <% if current_intake.direct_file_data.fed_unemployment > 0 && current_intake.direct_file_data.fed_w2_state != "NJ" %>
+  <% if current_intake.direct_file_data.fed_unemployment > 0 && current_intake.direct_file_data.mailing_state != "NJ" %>
     <div class="white-group unemployment" id="form1099gs">
       <p class="text--bold spacing-below-0"><%= t(".unemployment_title") %></p>
       <% if current_intake.state_file1099_gs.count > 0 %>
