@@ -101,6 +101,13 @@ module SubmissionBuilder
       end
     end
 
+    def add_positive_decimal_value(xml, elem_name, line)
+      value = calculated_fields.fetch(line)
+      if value.present? && value.positive?
+        xml.send(elem_name, value)
+      end
+    end
+
     def add_element_if_present(xml, tag, line_id)
       value = calculated_fields.fetch(line_id)
       xml.send(tag, value) if value.present?
