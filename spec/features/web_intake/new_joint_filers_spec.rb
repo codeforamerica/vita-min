@@ -578,12 +578,12 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     end
     click_on "Continue"
     screenshot_after do
-      expect(page).to have_selector("h1", text: "What is your race?")
+      expect(page).to have_selector("h1", text: "What is your race and/or ethnicity?")
       check "White"
     end
     click_on "Continue"
     screenshot_after do
-      expect(page).to have_selector("h1", text: "What is your spouse's race?")
+      expect(page).to have_selector("h1", text: "What is your spouse's race and/or ethnicity?")
       check "White"
     end
     click_on "Continue"
