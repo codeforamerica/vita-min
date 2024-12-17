@@ -1316,7 +1316,7 @@ describe Efile::Md::Md502Calculator do
       let(:county) { "Anne Arundel" }
 
       context "when income is 300,000" do
-        # (0.027 * 50,000) + (0.0281 * 250,000) = 8375
+        # (0.027 * 50,000) + (0.0281 * 250,000) = 8,375
         it "calculates the local tax progressively" do
           expect(instance.lines[:MD502_LINE_28_LOCAL_TAX_AMOUNT].value).to eq(8375)
         end
@@ -1325,15 +1325,15 @@ describe Efile::Md::Md502Calculator do
       context "when income is 450,000" do
         let(:income) { 450_000 }
         it "calculates the local tax progressively" do
-          # (0.027 * 50,000) + (0.0281 * 350,000) + (.032 * 50,000) = 12785
-          expect(instance.lines[:MD502_LINE_28_LOCAL_TAX_AMOUNT].value).to eq(127_85)
+          # (0.027 * 50,000) + (0.0281 * 350,000) + (.032 * 50,000) = 12,785
+          expect(instance.lines[:MD502_LINE_28_LOCAL_TAX_AMOUNT].value).to eq(12_785)
         end
       end
 
       context "when income is 45,000" do
         let(:income) { 45_000 }
         it "calculates the local tax with the 0.027 tax rate" do
-          # (0.027 * 45,000) = 1215
+          # (0.027 * 45,000) = 1,215
           expect(instance.lines[:MD502_LINE_28_LOCAL_TAX_AMOUNT].value).to eq(1215)
         end
       end
