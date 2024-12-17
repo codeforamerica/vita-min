@@ -500,7 +500,11 @@ module Efile
       end
 
       def local_tax_rate
-        @lines[:MD502_LINE_28_LOCAL_TAX_RATE]&.value || 0
+        if @intake.residence_county == "Anne Arundel"
+          0.027
+        else
+          @lines[:MD502_LINE_28_LOCAL_TAX_RATE]&.value || 0
+        end
       end
 
       def anne_arundel_local_tax_brackets

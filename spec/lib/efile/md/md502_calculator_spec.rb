@@ -1364,9 +1364,9 @@ describe Efile::Md::Md502Calculator do
 
     context "when county is Anne Arundel" do
       let(:county) { "Anne Arundel" }
-      it "uses 0.0281 as the local tax rate in the formula" do
-        # (0.0281 * 10) * 1001
-        expect(instance.lines[:MD502_LINE_29].value).to eq(281)
+      it "uses 0.027 as the local tax rate in the formula" do
+        # (0.027 * 10) * 1001
+        expect(instance.lines[:MD502_LINE_29].value).to eq(270)
       end
     end
 
