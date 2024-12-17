@@ -3182,16 +3182,16 @@ es:
           title: "¡Usted podría ser elegible para el crédito o deducción del impuesto a la propiedad de New Jersey!"
       nj_ineligible_property_tax:
         edit:
-          title_html: Looks like you're not eligible for the property tax credit or deduction <b>%{property}</b>
+          continue_text: Click continue to see what else we can guide you to qualify for.
+          go_back_link: Go back to correct.
+          mistake_text: Is this a mistake?
           on_home: on the home you owned.
           on_rental: on the home you rented.
           reason_html: You are not eligible for this because <b>%{reason}</b>
-          reason_property_taxes: you did not pay property taxes (directly, or through rent) on this main home.
           reason_multi_unit_conditions: this main home in a multi-unit building did not meet the requirements to claim this credit or deduction.
           reason_neither: you must own rent or own a main home in %{filing_year} to receive this credit or deduction.
-          mistake_text: Is this a mistake?
-          go_back_link: Go back to correct.
-          continue_text: Click continue to see what else we can guide you to qualify for.
+          reason_property_taxes: you did not pay property taxes (directly, or through rent) on this main home.
+          title_html: Looks like you're not eligible for the property tax credit or deduction <b>%{property}</b>
       nj_medical_expenses:
         edit:
           description_html: |-
@@ -3246,8 +3246,8 @@ es:
           primary_disabled: Primary disabled
           primary_gubernatorial: I want $1 of my taxes to go to the gubernatorial elections fund
           primary_veteran: Soy un veterano
-          property_tax_paid: Impuestos sobre la propiedad pagados
           property_tax_credit_deduction: Property Tax Credit/Deduction
+          property_tax_paid: Impuestos sobre la propiedad pagados
           rent_paid: Alquiler pagado
           spouse_claimed_as_eitc_qualifying_child: My spouse could be someone else's qualifying child for the Earned Income Tax Credit.
           spouse_disabled: Spouse disabled
