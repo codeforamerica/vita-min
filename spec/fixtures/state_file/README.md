@@ -46,8 +46,9 @@ Many of our features are implemented before we have complete & vetted sample fil
 fixtures based on previous samples to cover more scenarios. When migrating to use the imported personas, it became a 
 challenge to untangle test coverage from the fake fixtures. Some of those fixtures are now kept in the `test/` 
 directory where they can still be used in automation, but they should not be expected to represent valid filers for the 
-entire flow. They cover some non-State-specific features (e.g. data import, income flow, error scenarios) and should be
-used with caution.
+entire flow. They cover some non-State-specific features (e.g. data import, income flow, error scenarios) and are best
+for using in unit tests in combination with customizing relevant input values in the test setup (including adding 
+State-specific fields or indicators).
 
 ### E-Filer Certification testing (demo environment only)
 

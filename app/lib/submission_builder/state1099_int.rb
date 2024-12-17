@@ -1,5 +1,4 @@
 module SubmissionBuilder
-  # @deprecated
   class State1099Int < SubmissionBuilder::Document
     include SubmissionBuilder::FormattingMethods
 
