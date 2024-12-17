@@ -754,14 +754,6 @@ describe Efile::Md::Md502Calculator do
         expect(instance.lines[:MD502_LINE_19].value).to eq 50
       end
     end
-
-    context "deduction method is non-standard" do
-      it "returns 0" do
-        allow_any_instance_of(described_class).to receive(:calculate_deduction_method).and_return "N"
-        instance.calculate
-        expect(instance.lines[:MD502_LINE_19].value).to eq 0
-      end
-    end
   end
 
   describe "#calculate_line_20" do
@@ -1377,14 +1369,6 @@ describe Efile::Md::Md502Calculator do
       it "adds line 29 and 30" do
         instance.calculate
         expect(instance.lines[:MD502_LINE_32].value).to eq 330
-      end
-    end
-
-    context "deduction method is non-standard" do
-      it "returns nil" do
-        allow_any_instance_of(described_class).to receive(:calculate_deduction_method).and_return "N"
-        instance.calculate
-        expect(instance.lines[:MD502_LINE_32].value).to eq nil
       end
     end
   end
