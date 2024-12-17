@@ -1229,19 +1229,20 @@ describe Efile::Md::Md502Calculator do
         let(:filing_status) { "married_filing_jointly" }
 
         context "when taxable net income is 65,000" do
+          let(:taxable_net_income) { 65_000 }
           it "returns 0.027" do
             expect(instance.lines[:MD502_LINE_28_LOCAL_TAX_RATE].value).to eq(0.027)
           end
         end
 
-        context "when taxable net income is 100,000" do
+        context "when taxable net income is 410,000" do
           let(:taxable_net_income) { 410_000 }
           it "returns 0.0281" do
             expect(instance.lines[:MD502_LINE_28_LOCAL_TAX_RATE].value).to eq(0.0281)
           end
         end
 
-        context "when taxable net income is 410,000" do
+        context "when taxable net income is 500,000" do
           let(:taxable_net_income) { 500_000 }
           it "returns 0.032" do
             expect(instance.lines[:MD502_LINE_28_LOCAL_TAX_RATE].value).to eq(0.032)
