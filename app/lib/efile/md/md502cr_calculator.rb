@@ -148,13 +148,9 @@ module Efile
       end
 
       def calculate_part_cc_line_7
-        qualified_for_credit = if filing_status_mfj?
-                                 @direct_file_data.fed_agi <= 89_100
-                               else
-                                 @direct_file_data.fed_agi <= 59_400
-                               end
+        qualifying_fed_agi_limit = filing_status_mfj? ? 89_100 : 59_400
 
-        return unless qualified_for_credit
+        return unless @direct_file_data.fed_agi <= qualifying_fed_agi_limit
         [line_or_zero(:MD502CR_PART_B_LINE_4) - line_or_zero(:MD502_LINE_21), 0].max
       end
 
