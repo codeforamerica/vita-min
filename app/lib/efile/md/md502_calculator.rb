@@ -537,9 +537,7 @@ module Efile
       end
 
       def calculate_line_29
-        if deduction_method_is_standard?
-          (@direct_file_data.fed_eic * (local_tax_rate * 10)).round
-        end
+        (@direct_file_data.fed_eic * (local_tax_rate * 10)).round
       end
 
       def calculate_line_30

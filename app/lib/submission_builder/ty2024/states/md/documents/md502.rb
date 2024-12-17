@@ -155,8 +155,6 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
           xml.TotalCredits calculated_fields.fetch(:MD502_LINE_26)
           xml.StateTaxAfterCredits calculated_fields.fetch(:MD502_LINE_27) if @deduction_method_is_standard
         end
-      else
-
       end
       xml.LocalTaxComputation do
         add_element_if_present(xml, "LocalTaxRate", :MD502_LINE_28_LOCAL_TAX_RATE) unless @intake.residence_county == "Anne Arundel"
