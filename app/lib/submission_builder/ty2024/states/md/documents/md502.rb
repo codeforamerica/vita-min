@@ -152,7 +152,7 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
           add_element_if_present(xml, "MDEICWithQualChildInd", :MD502_LINE_22B)
           xml.PovertyLevelCredit calculated_fields.fetch(:MD502_LINE_23) if @deduction_method_is_standard
           xml.IndividualTaxCredits calculated_fields.fetch(:MD502_LINE_24) if @deduction_method_is_standard
-          xml.TotalCredits calculated_fields.fetch(:MD502_LINE_26) if @deduction_method_is_standard
+          xml.TotalCredits calculated_fields.fetch(:MD502_LINE_26)
           xml.StateTaxAfterCredits calculated_fields.fetch(:MD502_LINE_27) if @deduction_method_is_standard
         end
       end
