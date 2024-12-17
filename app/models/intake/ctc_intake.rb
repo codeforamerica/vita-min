@@ -49,6 +49,7 @@
 #  demographic_spouse_asian                             :boolean
 #  demographic_spouse_black_african_american            :boolean
 #  demographic_spouse_ethnicity                         :integer          default(0), not null
+#  demographic_spouse_mena                              :boolean
 #  demographic_spouse_native_hawaiian_pacific_islander  :boolean
 #  demographic_spouse_prefer_not_to_answer_race         :boolean
 #  demographic_spouse_white                             :boolean

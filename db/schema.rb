@@ -1188,6 +1188,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_20_195915) do
     t.boolean "demographic_spouse_asian"
     t.boolean "demographic_spouse_black_african_american"
     t.integer "demographic_spouse_ethnicity", default: 0, null: false
+    t.boolean "demographic_spouse_mena"
     t.boolean "demographic_spouse_native_hawaiian_pacific_islander"
     t.boolean "demographic_spouse_prefer_not_to_answer_race"
     t.boolean "demographic_spouse_white"
