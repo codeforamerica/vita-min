@@ -325,11 +325,39 @@ module Efile
       end
 
       def is_ineligible_or_unsupported_for_property_tax_credit
-        StateFile::NjHomeownerEligibilityHelper.determine_eligibility(@intake) == StateFile::NjHomeownerEligibilityHelper::INELIGIBLE ||
-          Efile::Nj::NjPropertyTaxEligibility.ineligible?(@intake)
+        return true if Efile::Nj::NjPropertyTaxEligibility.ineligible?(@intake)
+
+        case @intake.household_rent_own
+        when "own"
+          StateFile::NjHomeownerEligibilityHelper.determine_eligibility(@intake) == StateFile::NjHomeownerEligibilityHelper::INELIGIBLE
+        when "rent"
+          StateFile::NjTenantEligibilityHelper.determine_eligibility(@intake) == StateFile::NjTenantEligibilityHelper::INELIGIBLE
+        when "both"
+          StateFile::NjTenantEligibilityHelper.determine_eligibility(@intake) == StateFile::NjTenantEligibilityHelper::INELIGIBLE &&
+            StateFile::NjHomeownerEligibilityHelper.determine_eligibility(@intake) == StateFile::NjHomeownerEligibilityHelper::INELIGIBLE
+        else
+          nil
+        end
       end
 
       def calculate_line_40a
+        if @intake.household_rent_own_both?
+          return nil unless @intake.rent_paid&.positive?
+          return nil unless @intake.property_tax_paid&.positive?
+          property_tax_paid = @intake.property_tax_paid
+          rent_paid = @intake.rent_paid * RENT_CONVERSION
+          is_mfs = @intake.filing_status_mfs?
+          
+          if is_mfs && @intake.tenant_same_home_spouse_yes?
+            rent_paid /= 2
+          end
+          if is_mfs && @intake.homeowner_same_home_spouse_yes?
+            property_tax_paid /= 2
+          end
+
+          return (rent_paid + property_tax_paid).round
+        end
+        
         case @intake.household_rent_own
         when "own"
           return nil unless @intake.property_tax_paid&.positive?
