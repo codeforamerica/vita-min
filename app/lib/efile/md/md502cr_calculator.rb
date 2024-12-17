@@ -148,10 +148,10 @@ module Efile
       end
 
       def calculate_part_cc_line_7
-        qualified_for_credit = if filing_status_single? || filing_status_hoh? || filing_status_qw?
-                                 @direct_file_data.fed_agi <= 59_401
-                               elsif filing_status_mfj?
-                                 @direct_file_data.fed_agi <= 89_101
+        qualified_for_credit = if filing_status_mfj?
+                                 @direct_file_data.fed_agi <= 89_100
+                               else
+                                 @direct_file_data.fed_agi <= 59_400
                                end
 
         return unless qualified_for_credit

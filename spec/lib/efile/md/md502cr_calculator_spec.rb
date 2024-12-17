@@ -330,31 +330,36 @@ describe Efile::Md::Md502crCalculator do
       main_calculator.calculate
     end
 
-    context "when single filer" do
-      let(:filing_status) { "single" }
+    context "when filing_status is not mfj" do
+      %w[single married_filing_separately head_of_household qualifying_widow dependent].each do |filing_status|
+        context "when #{filing_status} filer" do
+          let(:filing_status) { filing_status }
 
-      context "when AGI is within limit" do
-        let(:agi) { 59_401 }
-        it "returns difference between part B line 4 and line 21" do
-          instance.calculate
-          expect(instance.lines[:MD502CR_PART_CC_LINE_7].value).to eq(75)
-        end
-      end
+          context "when AGI is within limit" do
+            let(:agi) { 59_400 }
+            it "returns difference between part B line 4 and line 21" do
+              instance.calculate
+              expect(instance.lines[:MD502CR_PART_CC_LINE_7].value).to eq(75)
+            end
+          end
 
-      context "when AGI exceeds limit" do
-        let(:agi) { 59_402 }
-        it "returns nil" do
-          instance.calculate
-          expect(instance.lines[:MD502CR_PART_CC_LINE_7].value).to be_nil
+          context "when AGI exceeds limit" do
+            let(:agi) { 59_401 }
+            it "returns nil" do
+              instance.calculate
+              expect(instance.lines[:MD502CR_PART_CC_LINE_7].value).to be_nil
+            end
+          end
         end
       end
     end
+
 
     context "when married filing jointly" do
       let(:filing_status) { "married_filing_jointly" }
 
       context "when AGI is within limit" do
-        let(:agi) { 89_101 }
+        let(:agi) { 89_100 }
         it "returns difference between part B line 4 and line 21" do
           instance.calculate
           expect(instance.lines[:MD502CR_PART_CC_LINE_7].value).to eq(75)
@@ -362,7 +367,7 @@ describe Efile::Md::Md502crCalculator do
       end
 
       context "when AGI exceeds limit" do
-        let(:agi) { 89_102 }
+        let(:agi) { 89_101 }
         it "returns nil" do
           expect(instance.lines[:MD502CR_PART_CC_LINE_7].value).to be_nil
         end
