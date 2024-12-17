@@ -297,16 +297,30 @@ describe Efile::Md::Md502crCalculator do
 
   describe '#calculate_md502_cr_part_b_line_4' do
     let(:filing_status) { "single" }
+    let(:fed_agi) { 10 }
+    let(:fed_credit_for_child_and_dependent_care_amount) { 10 }
 
     before do
-      intake.direct_file_data.fed_agi = 10
-      intake.direct_file_data.fed_credit_for_child_and_dependent_care_amount = 10
-      instance.calculate
+      intake.direct_file_data.fed_agi = fed_agi
+      intake.direct_file_data.fed_credit_for_child_and_dependent_care_amount = fed_credit_for_child_and_dependent_care_amount
+      main_calculator.calculate
     end
 
-    it 'returns the correct decimal value' do
-      expect(instance.lines[:MD502CR_PART_B_LINE_4].value).to eq(3)
-      expect(instance.lines[:MD502CR_PART_AA_LINE_2].value).to eq(3)
+    context "calculations do not exceed $1344" do
+      it 'returns the correct decimal value' do
+        expect(instance.lines[:MD502CR_PART_B_LINE_4].value).to eq(3)
+        expect(instance.lines[:MD502CR_PART_AA_LINE_2].value).to eq(3)
+      end
+    end
+
+    context "exceeds $1344 limit" do
+      let(:fed_agi) { 98_001 }
+      let(:fed_credit_for_child_and_dependent_care_amount) { 10_000 }
+
+      it "should return the limit" do
+        expect(instance.lines[:MD502CR_PART_B_LINE_4].value).to eq(1_344)
+        expect(instance.lines[:MD502CR_PART_AA_LINE_2].value).to eq(1_344)
+      end
     end
   end
 
