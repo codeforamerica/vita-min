@@ -326,7 +326,7 @@ describe Efile::Md::TwoIncomeSubtractionWorksheet do
 
     context "return has qualifying dependent care expenses subtraction" do
       before do
-        intake.direct_file_data.total_qualifying_dependent_care_expenses = 200
+        intake.direct_file_data.total_qualifying_dependent_care_expenses_or_limit_amt = 200
       end
 
       it "calculates the state subtraction amount for primary and spouse" do

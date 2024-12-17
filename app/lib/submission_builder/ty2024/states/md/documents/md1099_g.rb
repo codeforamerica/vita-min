@@ -32,7 +32,7 @@ module SubmissionBuilder
                             end
                 xml.Recipient do
                   xml.SSN recipient.ssn
-                  xml.Name sanitize_for_xml(recipient.full_name)
+                  xml.Name sanitize_for_xml(recipient.full_name, 35)
                   xml.Address do
                     xml.USAddress do
                       xml.AddressLine1Txt sanitize_for_xml(form1099g.recipient_address_line1, 35)
