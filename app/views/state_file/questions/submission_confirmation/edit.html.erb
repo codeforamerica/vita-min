@@ -15,19 +15,23 @@
   <h1 class="h2"><%= title %></h1>
 
   <p>
-    <% if Flipper.enabled?(:sms_notifications) %>
-      <%= t(".email_text_update") %>
-    <% else %>
-      <%= t(".email_update") %>
+    <% if current_intake.email_notification_opt_in_yes? && current_intake.sms_notification_opt_in_yes? %>
+      <%= t('.email_text_update') %>
+    <% elsif current_intake.email_notification_opt_in_yes? %>
+      <%= t('.email_update') %>
+    <% elsif current_intake.sms_notification_opt_in_yes? %>
+      <%= t('.text_update') %>
     <% end %>
   </p>
 
   <p>
-    <a target="_blank" rel="noopener nofollow" href="https://vote.gov/"><%= t('.register_to_vote') %></a>
+    <a target="_blank" rel="noopener nofollow" href="https://vote.gov/"><%= t('state_file.general.register_to_vote') %></a>
   </p>
 
-  <% if current_state_code == "ny" %>
-    <p><%= t(".ny_notifications_signup_html") %></p>
+  <% # i18n-tasks-use t("state_file.questions.return_status.additional_content.#{current_state_code}_html") # hint for the i18n linter that, yes, we are using this key (sometimes) %>
+  <% additional_content_key = "state_file.questions.return_status.additional_content.#{current_state_code}_html" %>
+  <% if I18n.exists?(additional_content_key) %>
+    <p><%= t(additional_content_key) %></p>
   <% end %>
 
   <p><%= t('general.spread_the_word_html') %></p>

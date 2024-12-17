@@ -35,14 +35,14 @@ RSpec.describe StateFile::Questions::NjHomeownerPropertyTaxController do
       end
     end
 
-    context "when ineligible hard no" do
+    context "when ineligible" do
       let(:intake) { create :state_file_nj_intake, household_rent_own: "own", homeowner_home_subject_to_property_taxes: "no" }
       it "does not show" do
         expect(described_class.show?(intake)).to eq false
       end
     end
 
-    context "when unsupported soft no" do
+    context "when worksheet required" do
       let(:intake) { create :state_file_nj_intake, household_rent_own: "own", homeowner_more_than_one_main_home_in_nj: "yes" }
       it "does not show" do
         expect(described_class.show?(intake)).to eq false

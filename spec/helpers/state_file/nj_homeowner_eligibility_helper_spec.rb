@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe StateFile::NjHomeownerEligibilityHelper do
   describe "#determine_eligibility" do
-    describe "hard no ineligible states" do
+    describe "ineligible states" do
       context "when NO to homeowner_home_subject_to_property_taxes" do
         let(:intake) { create :state_file_nj_intake, homeowner_home_subject_to_property_taxes: "no" }
         it "returns ineligible" do
@@ -29,18 +29,18 @@ describe StateFile::NjHomeownerEligibilityHelper do
       end
     end
 
-    describe "soft no unsupported states" do
+    describe "worksheet required states" do
       context "when YES to homeowner_more_than_one_main_home_in_nj" do
         let(:intake) { create :state_file_nj_intake, homeowner_more_than_one_main_home_in_nj: "yes" }
-        it "returns unsupported" do
-          expect(described_class.determine_eligibility(intake)).to eq(described_class::UNSUPPORTED)
+        it "returns worksheet required" do
+          expect(described_class.determine_eligibility(intake)).to eq(described_class::WORKSHEET)
         end
       end
 
       context "when YES to homeowner_shared_ownership_not_spouse" do
         let(:intake) {  create :state_file_nj_intake, homeowner_shared_ownership_not_spouse: "yes" }
-        it "returns unsupported" do
-          expect(described_class.determine_eligibility(intake)).to eq(described_class::UNSUPPORTED)
+        it "returns worksheet required" do
+          expect(described_class.determine_eligibility(intake)).to eq(described_class::WORKSHEET)
         end
       end
 
@@ -50,15 +50,8 @@ describe StateFile::NjHomeownerEligibilityHelper do
                  homeowner_main_home_multi_unit_max_four_one_commercial: "yes",
                  homeowner_main_home_multi_unit: "yes"
         }
-        it "returns unsupported" do
-          expect(described_class.determine_eligibility(intake)).to eq(described_class::UNSUPPORTED)
-        end
-      end
-
-      context "when both rents and owns household" do
-        let(:intake) { create :state_file_nj_intake, household_rent_own: "both" }
-        it "returns unsupported" do
-          expect(described_class.determine_eligibility(intake)).to eq(described_class::UNSUPPORTED)
+        it "returns worksheet required" do
+          expect(described_class.determine_eligibility(intake)).to eq(described_class::WORKSHEET)
         end
       end
     end
@@ -108,36 +101,36 @@ describe StateFile::NjHomeownerEligibilityHelper do
     end
 
     describe "multiple checkbox interactions" do
-      context "when a hard no overrides a soft no" do
+      context "taxpayer selects checkboxes that correspond to both ineligible and worksheet required states" do
         let(:intake) {
           create :state_file_nj_intake,
-                 homeowner_home_subject_to_property_taxes: "no", # hard no
-                 homeowner_more_than_one_main_home_in_nj: "yes" # soft no
+                 homeowner_home_subject_to_property_taxes: "no", # ineligible
+                 homeowner_more_than_one_main_home_in_nj: "yes" # worksheet required
         }
-        it "returns ineligible" do
+        it "determines the taxpayer is ineligible" do
           expect(described_class.determine_eligibility(intake)).to eq(described_class::INELIGIBLE)
         end
       end
 
-      context "when a hard no overrides an advance" do
+      context "taxpayer selects checkboxes that correspond to both ineligible and advance states" do
         let(:intake) {
           create :state_file_nj_intake,
-                 homeowner_home_subject_to_property_taxes: "no", # hard no
+                 homeowner_home_subject_to_property_taxes: "no", # ineligible
                  homeowner_more_than_one_main_home_in_nj: "no" # advance
         }
-        it "returns ineligible" do
+        it "determines the taxpayer is ineligible" do
           expect(described_class.determine_eligibility(intake)).to eq(described_class::INELIGIBLE)
         end
       end
 
-      context "when a soft no overrides an advance" do
+      context "taxpayer selects checkboxes that correspond to both worksheet required and advance states" do
         let(:intake) {
           create :state_file_nj_intake,
-                 homeowner_shared_ownership_not_spouse: "yes", # soft no
+                 homeowner_shared_ownership_not_spouse: "yes", # worksheet required
                  homeowner_more_than_one_main_home_in_nj: "no" # advance
         }
-        it "returns unsupported" do
-          expect(described_class.determine_eligibility(intake)).to eq(described_class::UNSUPPORTED)
+        it "determines the taxpayer should fill out the worksheet" do
+          expect(described_class.determine_eligibility(intake)).to eq(described_class::WORKSHEET)
         end
       end
     end

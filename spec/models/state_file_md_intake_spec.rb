@@ -227,7 +227,7 @@ RSpec.describe StateFileMdIntake, type: :model do
     end
 
     context "an unconfirmed address" do
-      subject(:intake) { create :state_file_md_intake, :with_permanent_address }
+      subject(:intake) { create :state_file_md_intake, :with_permanent_address, confirmed_permanent_address: "no" }
 
       it "returns the submitted permanent address" do
         expect(intake.address).to eq("123 Main St Apt 1, Baltimore MD, 21201")

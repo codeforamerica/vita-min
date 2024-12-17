@@ -23,6 +23,7 @@ describe SubmissionBuilder::FinancialTransaction do
     context "when filer gets a refund" do
       let(:intake) { create(:state_file_az_refund_intake) }
       let(:submission) { create(:efile_submission, data_source: intake) }
+
       it "populates the RefundDirectDeposit" do
         xml = Nokogiri::XML::Document.parse(
           described_class.build(
@@ -35,6 +36,5 @@ describe SubmissionBuilder::FinancialTransaction do
         expect(xml.at("RefundDirectDeposit NotIATTransaction").text).to eq "X"
       end
     end
-
   end
 end

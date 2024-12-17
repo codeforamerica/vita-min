@@ -25,7 +25,7 @@ module SubmissionBuilder
                       form1099g.intake.spouse
                     end
         xml.RecipientSSN recipient.ssn
-        xml.RecipientName sanitize_for_xml(recipient.full_name)
+        xml.RecipientName sanitize_for_xml(recipient.full_name, 35)
         xml.RecipientUSAddress do
           xml.AddressLine1Txt sanitize_for_xml(form1099g.recipient_address_line1, 35)
           xml.AddressLine2Txt sanitize_for_xml(form1099g.recipient_address_line2, 35) if form1099g.recipient_address_line2.present?
@@ -38,7 +38,7 @@ module SubmissionBuilder
         xml.State1099GStateLocalTaxGrp do
           xml.StateTaxWithheldAmt form1099g.state_income_tax_withheld_amount&.round
           xml.StateAbbreviationCd state_abbreviation
-          if form1099g.state_identification_number && form1099g.state_identification_number != ''
+          if form1099g.state_identification_number.present?
             xml.PayerStateIdNumber form1099g.state_identification_number
           end
         end

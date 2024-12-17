@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 describe SubmissionBuilder::State1099G do
-  StateFile::StateInformationService.active_state_codes.each do |state_code|
+  states_using_generic_1099_g = StateFile::StateInformationService.active_state_codes.without("md")
+  states_using_generic_1099_g.each do |state_code|
     describe ".document" do
       let(:submission) { create(:efile_submission, data_source: intake) }
       let(:recipient) { "primary" }
