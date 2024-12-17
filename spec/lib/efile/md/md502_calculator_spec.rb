@@ -1203,8 +1203,50 @@ describe Efile::Md::Md502Calculator do
 
     context "when the county is Anne Arundel" do
       let(:county) { "Anne Arundel" }
-      it "returns 0.027" do
-        expect(instance.lines[:MD502_LINE_28_LOCAL_TAX_RATE].value).to eq(0.027)
+      context "filing status is single" do
+        context "when taxable net income is 10,000" do
+          it "returns 0.027" do
+            expect(instance.lines[:MD502_LINE_28_LOCAL_TAX_RATE].value).to eq(0.027)
+          end
+        end
+
+        context "when taxable net income is 100,000" do
+          let(:taxable_net_income) { 100_000 }
+          it "returns 0.0281" do
+            expect(instance.lines[:MD502_LINE_28_LOCAL_TAX_RATE].value).to eq(0.0281)
+          end
+        end
+
+        context "when taxable net income is 410,000" do
+          let(:taxable_net_income) { 410_000 }
+          it "returns 0.032" do
+            expect(instance.lines[:MD502_LINE_28_LOCAL_TAX_RATE].value).to eq(0.032)
+          end
+        end
+      end
+
+      context "filing status is married filing jointly" do
+        let(:filing_status) { "married_filing_jointly" }
+
+        context "when taxable net income is 65,000" do
+          it "returns 0.027" do
+            expect(instance.lines[:MD502_LINE_28_LOCAL_TAX_RATE].value).to eq(0.027)
+          end
+        end
+
+        context "when taxable net income is 100,000" do
+          let(:taxable_net_income) { 410_000 }
+          it "returns 0.0281" do
+            expect(instance.lines[:MD502_LINE_28_LOCAL_TAX_RATE].value).to eq(0.0281)
+          end
+        end
+
+        context "when taxable net income is 410,000" do
+          let(:taxable_net_income) { 500_000 }
+          it "returns 0.032" do
+            expect(instance.lines[:MD502_LINE_28_LOCAL_TAX_RATE].value).to eq(0.032)
+          end
+        end
       end
     end
 
@@ -1263,15 +1305,36 @@ describe Efile::Md::Md502Calculator do
   end
 
   describe "#calculate_line_28_local_tax_amount" do
+    let(:income) { 300_000 }
     before do
-      allow_any_instance_of(described_class).to receive(:calculate_line_20).and_return 300_000
+      allow_any_instance_of(described_class).to receive(:calculate_line_20).and_return income
       instance.calculate
     end
 
     context "when county is Anne Arundel" do
       let(:county) { "Anne Arundel" }
-      it "calculates the local tax" do
-        expect(instance.lines[:MD502_LINE_28_LOCAL_TAX_AMOUNT].value).to eq(8375)
+
+      context "when income is 300,000" do
+        # (0.027 * 50,000) + (0.0281 * 250,000) = 8375
+        it "calculates the local tax progressively" do
+          expect(instance.lines[:MD502_LINE_28_LOCAL_TAX_AMOUNT].value).to eq(8375)
+        end
+      end
+
+      context "when income is 450,000" do
+        let(:income) { 450_000 }
+        it "calculates the local tax progressively" do
+          # (0.027 * 50,000) + (0.0281 * 350,000) + (.032 * 50,000) = 12785
+          expect(instance.lines[:MD502_LINE_28_LOCAL_TAX_AMOUNT].value).to eq(127_85)
+        end
+      end
+
+      context "when income is 45,000" do
+        let(:income) { 45_000 }
+        it "calculates the local tax with the 0.027 tax rate" do
+          # (0.027 * 45,000) = 1215
+          expect(instance.lines[:MD502_LINE_28_LOCAL_TAX_AMOUNT].value).to eq(1215)
+        end
       end
     end
 
@@ -1300,9 +1363,9 @@ describe Efile::Md::Md502Calculator do
 
     context "when county is Anne Arundel" do
       let(:county) { "Anne Arundel" }
-      it "uses 0.0270 as the local tax rate in the formula" do
-        # (0.027 * 10) * 1001
-        expect(instance.lines[:MD502_LINE_29].value).to eq(270)
+      it "uses 0.0281 as the local tax rate in the formula" do
+        # (0.0281 * 10) * 1001
+        expect(instance.lines[:MD502_LINE_29].value).to eq(281)
       end
     end
 

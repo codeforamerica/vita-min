@@ -449,6 +449,8 @@ module Efile
       end
 
       def calculate_line_28_local_tax_rate
+        taxable_net_income = line_or_zero(:MD502_LINE_20)
+
         tax_rate = case @intake.residence_county
                    when "Allegany", "Carroll", "Charles"
                      0.0303
@@ -469,9 +471,8 @@ module Efile
                    when "Worcester"
                      0.0225
                    when "Anne Arundel"
-                     0.027
+                     anne_arundel_local_tax_brackets.find { |bracket| taxable_net_income <= bracket[:threshold] }[:rate]
                    when "Frederick"
-                     taxable_net_income = line_or_zero(:MD502_LINE_20)
                      if filing_status_dependent? || filing_status_single? || filing_status_mfs?
                        if taxable_net_income <= 25_000
                          0.0225
@@ -502,28 +503,30 @@ module Efile
         @lines[:MD502_LINE_28_LOCAL_TAX_RATE]&.value || 0
       end
 
+      def anne_arundel_local_tax_brackets
+        if filing_status_dependent? || filing_status_single? || filing_status_mfs?
+          [
+            { threshold: 50_000, rate: 0.0270 },
+            { threshold: 400_000, rate: 0.0281 },
+            { threshold: Float::INFINITY, rate: 0.0320 }
+          ]
+        elsif filing_status_mfj? || filing_status_hoh? || filing_status_qw?
+          [
+            { threshold: 75_000, rate: 0.0270 },
+            { threshold: 480_000, rate: 0.0281 },
+            { threshold: Float::INFINITY, rate: 0.0320 }
+          ]
+        end
+      end
+
       def calculate_line_28_local_tax_amount
         taxable_net_income = line_or_zero(:MD502_LINE_20)
 
         if @intake.residence_county == "Anne Arundel"
-          brackets = if filing_status_dependent? || filing_status_single? || filing_status_mfs?
-                       [
-                         { threshold: 50_000, rate: 0.0270 },
-                         { threshold: 400_000, rate: 0.0281 },
-                         { threshold: Float::INFINITY, rate: 0.0320 }
-                       ]
-                     elsif filing_status_mfj? || filing_status_hoh? || filing_status_qw?
-                       [
-                         { threshold: 75_000, rate: 0.0270 },
-                         { threshold: 480_000, rate: 0.0281 },
-                         { threshold: Float::INFINITY, rate: 0.0320 }
-                       ]
-                     end
-
           tax = 0
           previous_threshold = 0
 
-          brackets.each do |bracket|
+          anne_arundel_local_tax_brackets.each do |bracket|
             if taxable_net_income > previous_threshold
               income_in_bracket = [taxable_net_income, bracket[:threshold]].min - previous_threshold
               tax += income_in_bracket * bracket[:rate].to_d
