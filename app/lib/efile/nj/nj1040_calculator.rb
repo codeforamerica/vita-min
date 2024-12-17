@@ -342,10 +342,9 @@ module Efile
 
       def calculate_line_40a
         if @intake.household_rent_own_both?
-          return nil unless @intake.rent_paid&.positive?
-          return nil unless @intake.property_tax_paid&.positive?
-          property_tax_paid = @intake.property_tax_paid
-          rent_paid = @intake.rent_paid * RENT_CONVERSION
+          return nil unless @intake.rent_paid&.positive? || @intake.property_tax_paid&.positive?
+          property_tax_paid = @intake.property_tax_paid&.positive? ? @intake.property_tax_paid : 0
+          rent_paid = @intake.rent_paid&.positive? ? @intake.rent_paid * RENT_CONVERSION : 0
           is_mfs = @intake.filing_status_mfs?
           
           if is_mfs && @intake.tenant_same_home_spouse_yes?

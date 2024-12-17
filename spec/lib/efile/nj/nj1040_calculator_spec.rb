@@ -866,6 +866,47 @@ describe Efile::Nj::Nj1040Calculator do
           expect(instance.lines[:NJ1040_LINE_40A].value).to eq(sum)
         end
       end
+
+      context 'when filing status is not MFS - eligible homeowner, ineligible renter' do
+        let(:intake) {
+          create(
+            :state_file_nj_intake,
+            household_rent_own: 'both',
+            property_tax_paid: 67890.51
+          )
+        }
+
+        it 'sets line 40a to property_tax then rounded' do
+          expect(instance.lines[:NJ1040_LINE_40A].value).to eq(67891)
+        end
+      end
+
+      context 'when filing status is not MFS - ineligible homeowner, eligible renter' do
+        let(:intake) {
+          create(
+            :state_file_nj_intake,
+            household_rent_own: 'both',
+            rent_paid: 12345
+          )
+        }
+
+        it 'sets line 40a to (0.18 * rent_paid) then rounded' do
+          expect(instance.lines[:NJ1040_LINE_40A].value).to eq(2222)
+        end
+      end
+
+      context 'when filing status is not MFS - ineligible homeowner, ineligible renter' do
+        let(:intake) {
+          create(
+            :state_file_nj_intake,
+            household_rent_own: 'both',
+          )
+        }
+
+        it 'sets line 40a to nil' do
+          expect(instance.lines[:NJ1040_LINE_40A].value).to eq(nil)
+        end
+      end
     end
   end
 
