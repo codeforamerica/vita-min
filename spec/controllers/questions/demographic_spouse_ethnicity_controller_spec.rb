@@ -1,7 +1,8 @@
 require "rails_helper"
 
 RSpec.describe Questions::DemographicSpouseEthnicityController do
-  describe "#update" do
+  # Disable for TY2024
+  xdescribe "#update" do
     context "with valid params" do
       let(:params) do
         {
