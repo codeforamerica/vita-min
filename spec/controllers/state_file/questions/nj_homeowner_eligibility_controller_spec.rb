@@ -73,7 +73,7 @@ RSpec.describe StateFile::Questions::NjHomeownerEligibilityController do
           )
         }
         it "next path is ineligible page" do
-          expect(subject.next_path).to eq(StateFile::Questions::NjIneligiblePropertyTaxController.to_path_helper)
+          expect(subject.next_path).to eq(StateFile::Questions::NjIneligiblePropertyTaxController.to_path_helper + "?on_home_or_rental=home")
         end
       end
       
