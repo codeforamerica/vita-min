@@ -64,18 +64,20 @@ RSpec.describe StateFile1099G do
   end
 
   describe "validation" do
-    let!(:state_file_1099) { create(
-      :state_file1099_g,
-      intake: create(:state_file_ny_intake),
-      address_confirmation: 'no',
-      recipient_city: 'New York',
-      recipient_street_address: '123 Main St',
-      recipient_street_address_apartment: 'Apt E',
-      recipient_zip: '11102',
-      unemployment_compensation_amount: '1',
-      federal_income_tax_withheld_amount: '0',
-      state_income_tax_withheld_amount: '0',
-      ) }
+    let!(:state_file_1099) {
+      create(
+        :state_file1099_g,
+        intake: create(:state_file_ny_intake),
+        address_confirmation: 'no',
+        recipient_city: 'New York',
+        recipient_street_address: '123 Main St',
+        recipient_street_address_apartment: 'Apt E',
+        recipient_zip: '11102',
+        unemployment_compensation_amount: '1',
+        federal_income_tax_withheld_amount: '0',
+        state_income_tax_withheld_amount: '0',
+      )
+    }
 
     it "validates recipient" do
       state_file_1099.recipient = 'unfilled'
@@ -92,12 +94,14 @@ RSpec.describe StateFile1099G do
       state_file_1099.unemployment_compensation_amount = '0'
       expect(state_file_1099.save).to eq false
     end
+
     it "validates federal_income_tax_withheld_amount" do
       state_file_1099.federal_income_tax_withheld_amount = nil
       expect(state_file_1099.save).to eq false
       state_file_1099.federal_income_tax_withheld_amount = '-1'
       expect(state_file_1099.save).to eq false
     end
+
     it "validates state_income_tax_withheld_amount" do
       state_file_1099.state_income_tax_withheld_amount = nil
       expect(state_file_1099.save).to eq false
@@ -138,11 +142,41 @@ RSpec.describe StateFile1099G do
         unemployment_compensation_amount: '0',
         federal_income_tax_withheld_amount: '0',
         state_income_tax_withheld_amount: '0',
-        ) }
+      ) }
 
       it "validates unemployment_compensation" do
         state_file_1099.valid?
         expect(state_file_1099.errors[:unemployment_compensation_amount]).to include "must be greater than or equal to 1"
+      end
+    end
+  end
+
+  describe "save" do
+    context "stripping string attributes" do
+      it "strips address attributes before saving" do
+        state1099g = create(:state_file1099_g, intake: create(:state_file_az_intake))
+        attrs = {
+          payer_name: " Payer ",
+          payer_street_address: " 123 Main St   ",
+          payer_city: "A City  ",
+          payer_zip: " 83704",
+          recipient_street_address: " 321 Side Street",
+          recipient_street_address_apartment: "B ",
+          recipient_city: " B City",
+          recipient_zip: "83704 ",
+        }
+
+        state1099g.assign_attributes(attrs)
+        expect(state1099g.valid?).to eq true
+        state1099g.save
+        expect(state1099g.payer_name).to eq "Payer"
+        expect(state1099g.payer_street_address).to eq "123 Main St"
+        expect(state1099g.payer_city).to eq "A City"
+        expect(state1099g.payer_zip).to eq "83704"
+        expect(state1099g.recipient_street_address).to eq "321 Side Street"
+        expect(state1099g.recipient_street_address_apartment).to eq "B"
+        expect(state1099g.recipient_city).to eq "B City"
+        expect(state1099g.recipient_zip).to eq "83704"
       end
     end
   end
