@@ -28,7 +28,7 @@ RSpec.describe PdfFiller::Md502Pdf do
         expect(pdf_fields["Current Mailing Address Line 1 Street No and Street Name or PO Box"]).to eq("312 Poppy Street")
         expect(pdf_fields["Current Mailing Address Line 2 Apt No Suite No Floor No"]).to eq("Apt B")
         expect(pdf_fields["City or Town"]).to eq("Annapolis")
-        # TODO: state
+        expect(pdf_fields["Mailing Address State"]).to eq("MD")
         expect(pdf_fields["ZIP Code  4"]).to eq("21401")
       end
     end
@@ -48,7 +48,6 @@ RSpec.describe PdfFiller::Md502Pdf do
           expect(pdf_fields["Maryland Physical Address Line 1 Street No and Street Name No PO Box"]).to eq("312 Poppy Street")
           expect(pdf_fields["Maryland Physical Address Line 2 Apt No Suite No Floor No No PO Box"]).to eq("Apt B")
           expect(pdf_fields["City"]).to eq("Annapolis")
-          # TODO: state??
           expect(pdf_fields["ZIP Code  4_2"]).to eq("21401")
         end
       end
@@ -67,7 +66,6 @@ RSpec.describe PdfFiller::Md502Pdf do
           expect(pdf_fields["Maryland Physical Address Line 1 Street No and Street Name No PO Box"]).to eq("313 Poppy Street")
           expect(pdf_fields["Maryland Physical Address Line 2 Apt No Suite No Floor No No PO Box"]).to eq("Apt A")
           expect(pdf_fields["City"]).to eq("Baltimore")
-          # TODO: state??
           expect(pdf_fields["ZIP Code  4_2"]).to eq("21201")
         end
       end
@@ -229,10 +227,10 @@ RSpec.describe PdfFiller::Md502Pdf do
       end
 
       it "sets the correct fields for line A" do
-        expect(pdf_fields["Check Box 15"]).to eq "Yes" # primary
-        expect(pdf_fields["Check Box 18"]).to eq "Off" # spouse
-        expect(pdf_fields["Text Field 15"]).to eq "1" # exemption count
-        expect(pdf_fields["Enter A $"]).to eq "3200" # exemption amount
+        expect(pdf_fields["A"]).to eq "Yes" # primary
+        expect(pdf_fields["Yourself"]).to eq "Off" # spouse
+        expect(pdf_fields["Spouse      Enter number checked"]).to eq "1" # exemption count
+        expect(pdf_fields["A_2"]).to eq "3200" # exemption amount
       end
     end
 
@@ -247,12 +245,12 @@ RSpec.describe PdfFiller::Md502Pdf do
       end
 
       it "sets the correct fields for line B" do
-        expect(pdf_fields["Check Box 20"]).to eq "Yes" # primary 65+
-        expect(pdf_fields["Check Box 21"]).to eq "Off" # spouse 65+
-        expect(pdf_fields["B. Check this box if you are blind"]).to eq "Off" # primary blind
-        expect(pdf_fields["B. Check this box if your spouse is blind"]).to eq "Yes" # spouse blind
-        expect(pdf_fields["B. Enter number exemptions checked B"]).to eq "2" # exemption count
-        expect(pdf_fields["Enter B $ "]).to eq "2000" # exemption amount
+        # expect(pdf_fields["Check Box 20"]).to eq "Yes" # primary 65+
+        expect(pdf_fields["65 or over"]).to eq "Off" # spouse 65+
+        expect(pdf_fields["B"]).to eq "Off" # primary blind
+        # expect(pdf_fields["B. Check this box if your spouse is blind"]).to eq "Yes" # spouse blind
+        expect(pdf_fields["Blind        Enter number checked"]).to eq "2" # exemption count
+        expect(pdf_fields["X  1000         B"]).to eq "2000" # exemption amount
       end
     end
 
@@ -265,8 +263,8 @@ RSpec.describe PdfFiller::Md502Pdf do
       end
 
       it "sets correct filing status for dependent taxpayer and does not set other filing_status" do
-        expect(pdf_fields["Text Field 16"]).to eq dependent_count.to_s
-        expect(pdf_fields["Enter C $ "]).to eq dependent_exemption_amount.to_s
+        expect(pdf_fields["C Enter number from line 3 of Dependent Form 502B"]).to eq dependent_count.to_s
+        expect(pdf_fields["C"]).to eq dependent_exemption_amount.to_s
       end
     end
 
@@ -277,8 +275,8 @@ RSpec.describe PdfFiller::Md502Pdf do
       end
 
       it "sets the correct fields for line B" do
-        expect(pdf_fields["Text Field 17"]).to eq "3" # exemption count total
-        expect(pdf_fields["D. Enter Dollar Amount Total Exemptions (Add A, B and C.) "]).to eq "3200" # exemption amount total
+        expect(pdf_fields["D Enter Total Exemptions Add A B and C"]).to eq "3" # exemption count total
+        expect(pdf_fields["Total Amount D"]).to eq "3200" # exemption amount total
       end
     end
 
@@ -293,12 +291,12 @@ RSpec.describe PdfFiller::Md502Pdf do
       end
 
       it "fills the correct fields" do
-        expect(pdf_fields["Check Box 27"]).to eq "Yes"
-        expect(pdf_fields["Check Box 28"]).to eq "Yes"
-        expect(pdf_fields["Enter DOB if you have no healthcare"]).to eq "04/12/1975"
-        expect(pdf_fields["Enter DOB if your spouse has no healthcare"]).to eq "11/05/1972"
-        expect(pdf_fields["Check Box 29"]).to eq "Yes"
-        expect(pdf_fields["Enter email addressEnter DOB if your spouse has no healthcare 2"]).to eq "healthy@example.com"
+        expect(pdf_fields["Check here"]).to eq "Yes"
+        expect(pdf_fields["Check here_2"]).to eq "Yes"
+        expect(pdf_fields["DOB  mmddyyyy"]).to eq "04/12/1975"
+        expect(pdf_fields["DOB  mmddyyyy_2"]).to eq "11/05/1972"
+        expect(pdf_fields["Check here_3"]).to eq "Yes"
+        expect(pdf_fields["Email address"]).to eq "healthy@example.com"
       end
     end
 
