@@ -8,10 +8,6 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
     let!(:submission_efile_device_info) { create :state_file_efile_device_info, :submission, :filled, intake: intake }
     let(:build_response) { described_class.build(submission, validate: true) }
     let(:xml) { Nokogiri::XML::Document.parse(build_response.document.to_xml) }
-    
-    after do
-      expect(build_response.errors).not_to be_present
-    end
 
     it "does not include the xmlns attribute on any element in the demo env" do
       allow(Rails.env).to receive(:demo?).and_return true
@@ -21,6 +17,20 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
     end
 
     describe "XML schema" do
+      after do
+        expect(build_response.errors).not_to be_present
+      end
+
+      it "generates basic components of return" do
+        expect(xml.document.root.namespaces).to include({ "xmlns:efile" => "http://www.irs.gov/efile", "xmlns" => "http://www.irs.gov/efile" })
+        expect(xml.document.at('AuthenticationHeader').to_s).to include('xmlns="http://www.irs.gov/efile"')
+        expect(xml.document.at('ReturnHeaderState').to_s).to include('xmlns="http://www.irs.gov/efile"')
+      end
+  
+      it "includes attached documents" do
+        expect(xml.document.at('ReturnDataState FormNJ1040 Header')).to be_an_instance_of Nokogiri::XML::Element
+      end
+
       context "with JSON data" do
         let(:intake) { create(:state_file_nj_intake, :df_data_mfj) }
 
@@ -96,17 +106,11 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
 
     end
 
-    it "generates basic components of return" do
-      expect(xml.document.root.namespaces).to include({ "xmlns:efile" => "http://www.irs.gov/efile", "xmlns" => "http://www.irs.gov/efile" })
-      expect(xml.document.at('AuthenticationHeader').to_s).to include('xmlns="http://www.irs.gov/efile"')
-      expect(xml.document.at('ReturnHeaderState').to_s).to include('xmlns="http://www.irs.gov/efile"')
-    end
-
-    it "includes attached documents" do
-      expect(xml.document.at('ReturnDataState FormNJ1040 Header')).to be_an_instance_of Nokogiri::XML::Element
-    end
-
     describe "nj 2450" do
+      after do
+        expect(build_response.errors).not_to be_present
+      end
+
       context "with nothing on nj 1040 lines 59 or 61" do
         let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
         it "does not include the nj 2450" do
@@ -150,6 +154,10 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
     end
 
     describe "Schedule NJ HCC" do
+      after do
+        expect(build_response.errors).not_to be_present
+      end
+
       context "when user answers no to health insurance question" do
         let(:intake) { create(:state_file_nj_intake, eligibility_all_members_health_insurance: "no") }
         it "does not include the Schedule NJ HCC" do
@@ -167,6 +175,10 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
     end
 
     describe "additional dependents PDF" do
+      after do
+        expect(build_response.errors).not_to be_present
+      end
+      
       context "when there are more than 4 dependents" do
         let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
         let(:nj_return) { described_class.new(submission) }
