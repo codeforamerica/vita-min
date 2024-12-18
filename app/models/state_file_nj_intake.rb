@@ -60,7 +60,6 @@
 #  primary_last_name                                      :string
 #  primary_middle_initial                                 :string
 #  primary_signature                                      :string
-#  primary_signature_pin                                  :text
 #  primary_ssn                                            :string
 #  primary_suffix                                         :string
 #  primary_veteran                                        :integer          default("unfilled"), not null
@@ -84,7 +83,6 @@
 #  spouse_first_name                                      :string
 #  spouse_last_name                                       :string
 #  spouse_middle_initial                                  :string
-#  spouse_signature_pin                                   :text
 #  spouse_ssn                                             :string
 #  spouse_suffix                                          :string
 #  spouse_veteran                                         :integer          default("unfilled"), not null
@@ -113,6 +111,7 @@
 #  index_state_file_nj_intakes_on_spouse_state_id_id   (spouse_state_id_id)
 #
 class StateFileNjIntake < StateFileBaseIntake
+  self.ignored_columns += ["primary_signature_pin", "spouse_signature_pin"]
   encrypts :account_number, :routing_number, :raw_direct_file_data, :raw_direct_file_intake_data
 
   enum household_rent_own: { unfilled: 0, rent: 1, own: 2, neither: 3, both: 4 }, _prefix: :household_rent_own
@@ -202,7 +201,8 @@ class StateFileNjIntake < StateFileBaseIntake
   def validate_state_specific_w2_requirements(w2); end
 
   def ask_for_signature_pin?
-    true
+    false
   end
+
 end
 
