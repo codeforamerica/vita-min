@@ -18,7 +18,7 @@ describe SubmissionBuilder::FinancialTransaction do
         # Removing after April 15th
         # expect(xml.at("StatePayment RequestedPaymentDate").text).to eq "2024-04-15"
         expect(xml.at("StatePayment AccountHolderType")).to be_nil
-        expect(xml.at("AddendaRecord TaxTypeCode FTACode").text).to be_nil
+        expect(xml.at("AddendaRecord TaxTypeCode FTACode")).to be_nil
         expect(xml.at("AddendaRecord TaxTypeCode StateTaxTypeCode")).to be_nil
         expect(xml.at("AddendaRecord TaxPeriodEndDate")).to be_nil
         expect(xml.at("AddendaRecord TXPAmount SubAmountType")).to be_nil
