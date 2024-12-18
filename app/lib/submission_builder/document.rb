@@ -73,7 +73,7 @@ module SubmissionBuilder
         # This method is requirement from NY to remove the namespace attribute from
         # any tag unrelated to the root XML tag. StateSubmissionManifest seems to
         # need it also in order for the XML to be valid.
-        false
+        return false
       elsif intake_class == 'StateFileNjIntake' && (Rails.env.production? || Rails.env.demo?)
         return { 'xmlns' => '' }
       end
