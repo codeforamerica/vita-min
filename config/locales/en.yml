@@ -3018,6 +3018,11 @@ en:
           encourage_sharing: While providing this information is encouraged, it is optional and not required to file your North Carolina taxes.
           protect_identity: To protect your identity and combat tax fraud, many state revenue agencies are requesting that filers provide their driver’s license or state-issued ID number.
           why_ask_this: Why are you asking for this information?
+      nc_qss_info:
+        edit:
+          title: It looks like your filing status is Qualifying Surviving Spouse
+          subtitle: In order to continue, we need to confirm additional information about your deceased spouse.
+          question: What was the year of your spouse’s passing?
       nc_review:
         edit:
           amount: Amount
