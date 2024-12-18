@@ -41,7 +41,7 @@ describe SubmissionBuilder::FinancialTransaction do
           # expect(xml.at("StatePayment RequestedPaymentDate").text).to eq "2024-04-15"
           expect(xml.at("StatePayment AccountHolderType").text).to eq "2"
           expect(xml.at("AddendaRecord TaxTypeCode").text).to eq "01000"
-          expect(xml.at("AddendaRecord TaxPeriodEndDate").text).to eq "2024-12-31"
+          expect(xml.at("AddendaRecord TaxPeriodEndDate").text).to eq(Date.new(intake.tax_return_year, 12, 31).strftime("%F"))
           expect(xml.at("AddendaRecord TXPAmount SubAmountType").text).to eq "0"
           expect(xml.at("AddendaRecord TXPAmount Subamount").text).to eq "5"
         end
