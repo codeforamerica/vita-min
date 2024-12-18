@@ -3311,7 +3311,7 @@ es:
           provided_email: Le enviaremos actualizaciones sobre su declaración de impuestos a %{email_address}.
           sms_notification_opt_in: Mensaje de texto
           subtitle: Necesitaremos comunicarnos contigo en caso de que tengamos preguntas o información actualizada.
-          title: ¿Cuál es la mejor manera de contactarte?
+          title: "¿Cuál es la mejor manera de contactarte?"
         form:
           at_least_one: Se requiere al menos una preferencia de notificación
       ny_county:
@@ -3451,7 +3451,7 @@ es:
       post_data_transfer:
         edit:
           subtitle: A continuación, revisaremos los detalles estatales y te pediremos información para completar tu declaración estatal de %{state_name}.
-          title: ¡Hemos transferido tu declaración de impuestos federales exitosamente!
+          title: "¡Hemos transferido tu declaración de impuestos federales exitosamente!"
       primary_state_id:
         edit:
           ny_subtitle: Esta información es necesaria para todos los residentes de Nueva York con una identificación emitida por el estado.
