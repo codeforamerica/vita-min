@@ -30,6 +30,7 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::PostDataTransferController, false),
         Navigation::NavigationStep.new(StateFile::Questions::FederalInfoController),
         Navigation::NavigationStep.new(StateFile::Questions::DataTransferOffboardingController, false),
+        Navigation::NavigationStep.new(StateFile::Questions::NcQssInfoController),
         Navigation::NavigationStep.new(StateFile::Questions::NcCountyController),
         Navigation::NavigationStep.new(StateFile::Questions::NcVeteranStatusController),
         Navigation::NavigationStep.new(StateFile::Questions::NcSalesUseTaxController),
