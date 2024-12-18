@@ -15,8 +15,8 @@ module SubmissionBuilder
             }.freeze
 
             def document
-              # Temporary fix for NC ATS: default to intake phone number if direct file data does not have phone_number
-              phone_number = @submission.data_source.direct_file_data.phone_number || @submission.data_source.phone_number
+              # Use the more recent phone number collected at intake, if present
+              phone_number = @submission.data_source.phone_number || @submission.data_source.direct_file_data.phone_number
 
               build_xml_doc("FormNCD400") do |xml|
                 xml.NCCountyCode @submission.data_source.residence_county
@@ -77,7 +77,7 @@ module SubmissionBuilder
                       xml.LastName sanitize_for_xml(@submission.data_source.primary.last_name, 32) if @submission.data_source.primary.last_name.present?
                       xml.NameSuffix @submission.data_source.primary.suffix.upcase if @submission.data_source.primary.suffix.present?
                     end
-                    xml.USPhoneNumber phone_number
+                    xml.USPhoneNumber phone_number if phone_number
                   end
                 end
               end

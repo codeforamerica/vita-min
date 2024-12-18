@@ -74,6 +74,9 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400, required_schema
 
       context "when owed" do
         let(:intake) { create(:state_file_nc_intake, :taxes_owed) }
+        before do
+          intake.phone_number = nil
+        end
 
         it "should fill out taxes-owed related fields" do
           expect(xml.document.at('PaymentContact PersonName FirstName')&.text).to eq "North"
@@ -83,12 +86,11 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400, required_schema
           expect(xml.document.at('PaymentContact USPhoneNumber')&.text).to eq "9845559876"
         end
 
-        context "if filer does not have phone number in direct_file_data" do
+        context "if filer does have phone number collected at intake" do
           before do
-            intake.direct_file_data.phone_number = nil
             intake.phone_number = "9887779999"
           end
-          it "fills the USPhoneNumber with phone number collected at intake" do
+          it "fills the USPhoneNumber with more recent phone number collected at intake" do
             expect(xml.document.at('PaymentContact USPhoneNumber')&.text).to eq "9887779999"
           end
         end
