@@ -50,13 +50,13 @@ module StateFile
     def az_xml_sample(filing_status)
       case filing_status.to_sym
       when :single
-        read_xml("az_tycho_loanded")
+        read_xml("az_tycho_single_no_1099r")
       when :married_filing_jointly
-        read_xml("az_martha_v2")
+        read_xml("az_martha_mfj_owe")
       when :qualifying_widow
         read_xml("az_leslie_qss")
       when :married_filing_separately
-        read_xml("az_sherlock_mfs")
+        read_xml("nc_wylie_mfs")
       when :head_of_household
         read_xml("az_alexis_hoh")
       end
@@ -77,7 +77,7 @@ module StateFile
 
       %w[json xml].each do |file_type|
         samples = file_type == 'json' ? @json_samples : @xml_samples
-        StateFile::StateInformationService.active_state_codes.each do |us_state|
+        (StateFile::StateInformationService.active_state_codes + ["test"]).each do |us_state|
           samples[us_state] = []
           file_path_glob = File.join(base_path(file_type), us_state, "*.#{file_type}")
           Dir.glob(file_path_glob).each do |file_path|

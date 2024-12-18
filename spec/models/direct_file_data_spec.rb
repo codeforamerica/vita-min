@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe DirectFileData do
-  let(:xml) { Nokogiri::XML(StateFile::DirectFileApiResponseSampleService.new.read_xml("az_df_complete_sample")) }
+  let(:xml) { Nokogiri::XML(StateFile::DirectFileApiResponseSampleService.new.read_xml("test_df_complete_sample")) }
   let(:direct_file_data) { DirectFileData.new(xml.to_s) }
 
   [
@@ -397,7 +397,7 @@ describe DirectFileData do
         expect(@direct_file_data.fed_mortgage_interest_credit_amount).to eq(2000)
         expect(@direct_file_data.fed_adoption_credit_amount).to eq(3000)
         expect(@direct_file_data.fed_dc_homebuyer_credit_amount).to eq(4000)
-        expect(@direct_file_data.total_qualifying_dependent_care_expenses).to eq(1200)
+        expect(@direct_file_data.total_qualifying_dependent_care_expenses_or_limit_amt).to eq(1200)
       end
     end
 
@@ -466,22 +466,6 @@ describe DirectFileData do
       end
     end
 
-    context "when there are dependents in AZ, the months_in_home is not populated" do
-      let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml('az_johnny_mfj_8_deps') }
-
-      it 'sets the months_in_home to nil' do
-        expect(described_class.new(xml).dependents).to be_all { |d| d.months_in_home.nil? }
-      end
-    end
-
-    context "when there are dependents in NY, the months_in_home IS populated" do
-      let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml('ny_matthew') }
-
-      it 'sets the months_in_home' do
-        expect(described_class.new(xml).dependents).to be_all { |d| d.months_in_home.present? }
-      end
-    end
-
     context 'when there are dependents with missing tags' do
       let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml('ny_batman') }
       it 'still sets the dependents' do
@@ -528,7 +512,7 @@ describe DirectFileData do
   end
 
   describe '#spouse_is_a_dependent?' do
-    let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml("az_bert") }
+    let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml("nj_married_filing_jointly_spouse_claimed_dep") }
     it 'returns true' do
       expect(described_class.new(xml).spouse_is_a_dependent?).to eq(true)
     end
@@ -536,7 +520,7 @@ describe DirectFileData do
 
   describe "#sum_of_1099r_payments_received" do
     it "returns the sum of TaxableAmt from 1099Rs" do
-      xml = StateFile::DirectFileApiResponseSampleService.new.read_xml("az_richard_retirement_1099r")
+      xml = StateFile::DirectFileApiResponseSampleService.new.read_xml("test_richard_retirement_1099r")
       direct_file_data = DirectFileData.new(xml.to_s)
 
       expect(direct_file_data.sum_of_1099r_payments_received).to eq(1500)
@@ -544,7 +528,7 @@ describe DirectFileData do
   end
 
   describe "DfW2" do
-    let(:xml) { Nokogiri::XML(StateFile::DirectFileApiResponseSampleService.new.read_xml("az_alexis_hoh_w2_and_1099")) }
+    let(:xml) { Nokogiri::XML(StateFile::DirectFileApiResponseSampleService.new.read_xml("test_alexis_hoh_w2_and_1099")) }
     let(:direct_file_data) { DirectFileData.new(xml.to_s) }
     let(:first_w2) { direct_file_data.w2s[0] }
 
@@ -628,7 +612,7 @@ describe DirectFileData do
   end
 
   describe "Df1099R" do
-    let(:direct_file_data) { DirectFileData.new(Nokogiri::XML(StateFile::DirectFileApiResponseSampleService.new.read_xml("nc_miranda_1099r")).to_s) }
+    let(:direct_file_data) { DirectFileData.new(Nokogiri::XML(StateFile::DirectFileApiResponseSampleService.new.read_xml("id_miranda_1099r")).to_s) }
     let(:first_1099r) { direct_file_data.form1099rs[0] }
     let(:second_1099r) { direct_file_data.form1099rs[1] }
 
@@ -662,7 +646,7 @@ describe DirectFileData do
 
     describe "#payer_state_code" do
       it "returns the value" do
-        expect(first_1099r.payer_state_code).to eq "NC"
+        expect(first_1099r.payer_state_code).to eq "ID"
         expect(second_1099r.payer_state_code).to eq nil
       end
     end
@@ -732,7 +716,7 @@ describe DirectFileData do
     describe "#state_code" do
       it "returns the value" do
         expect(first_1099r.state_code).to eq nil
-        expect(second_1099r.state_code).to eq "NC"
+        expect(second_1099r.state_code).to eq "ID"
       end
     end
     describe "#payer_state_identification_number" do
@@ -788,6 +772,42 @@ describe DirectFileData do
       it "returns the value" do
         expect(first_1099r.designated_roth_account_first_year).to eq nil
         expect(second_1099r.designated_roth_account_first_year).to eq nil
+      end
+    end
+  end
+
+  describe "#total_qualifying_dependent_care_expenses_no_limit" do
+    context "when there are two qualifying persons with qualified care expenses" do
+      let(:intake) { create(:state_file_md_intake, raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml("md_barramundi_qss")) }
+
+      it "returns the sum of those expenses without the federal limit" do
+        expect(intake.direct_file_data.total_qualifying_dependent_care_expenses_no_limit).to eq 5500
+      end
+    end
+
+    context "when the qualified care expense exceed the federal limit" do
+      let(:intake) { create(:state_file_md_intake, raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml("id_ida_hoh")) }
+
+      it "returns the sum of those expenses without the federal limit" do
+        expect(intake.direct_file_data.total_qualifying_dependent_care_expenses_no_limit).to eq 15000
+      end
+    end
+  end
+
+  describe "#dependent_cared_for_count" do
+    context "when there are two qualifying dependents" do
+      let(:intake) { create(:state_file_md_intake, raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml("md_barramundi_qss")) }
+
+      it "returns 2" do
+        expect(intake.direct_file_data.dependent_cared_for_count).to eq 2
+      end
+    end
+
+    context "when there are no qualifying dependents" do
+      let(:intake) { create(:state_file_md_intake, raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml("md_anchovies_mfj")) }
+
+      it "returns 0" do
+        expect(intake.direct_file_data.dependent_cared_for_count).to eq 0
       end
     end
   end

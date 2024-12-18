@@ -364,7 +364,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
             allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_14).and_return two_income_subtraction_amount
             allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_15).and_return total_subtractions
             allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_16).and_return state_adjusted_income
-            intake.direct_file_data.total_qualifying_dependent_care_expenses = 1200
+            intake.direct_file_data.total_qualifying_dependent_care_expenses_or_limit_amt = 1200
             intake.direct_file_data.fed_taxable_ssb = 240
           end
 

@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe StateFile::ImportFromDirectFileJob, type: :job do
   describe '#perform' do
     let(:intake) { create :minimal_state_file_id_intake, raw_direct_file_data: nil }
-    let(:xml_result) { StateFile::DirectFileApiResponseSampleService.new.read_xml('id_ernest_hoh') }
-    let(:direct_file_intake_json) { StateFile::DirectFileApiResponseSampleService.new.read_json('id_ernest_hoh') }
+    let(:xml_result) { StateFile::DirectFileApiResponseSampleService.new.read_xml('test_ernest_hoh') }
+    let(:direct_file_intake_json) { StateFile::DirectFileApiResponseSampleService.new.read_json('test_ernest_hoh') }
     let(:json_result) do
       {
         "xml" => xml_result,
@@ -71,8 +71,8 @@ RSpec.describe StateFile::ImportFromDirectFileJob, type: :job do
     end
 
     context "when the associated models are invalid after synching" do
-      let(:xml_result) { StateFile::DirectFileApiResponseSampleService.new.read_xml('id_miranda_1099r_with_df_w2_error') }
-      let(:direct_file_intake_json) { StateFile::DirectFileApiResponseSampleService.new.read_json('id_miranda_1099r_with_df_w2_error') }
+      let(:xml_result) { StateFile::DirectFileApiResponseSampleService.new.read_xml('test_miranda_1099r_with_df_w2_error') }
+      let(:direct_file_intake_json) { StateFile::DirectFileApiResponseSampleService.new.read_json('test_miranda_1099r_with_df_w2_error') }
 
       it "catches the error and persists it to the intake record" do
         auth_code = "miranda_1099r_with_df_w2_error"

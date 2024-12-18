@@ -67,9 +67,10 @@ describe DirectFileJsonData do
     let(:dependents) { intake.dependents }
 
     it "should be able to find matching dependent from xml in json" do
-      expect(direct_file_json_data.find_matching_json_dependent(dependents[0]).first_name).to eq("Gloria")
-      expect(direct_file_json_data.find_matching_json_dependent(dependents[1]).first_name).to eq("Patrick")
-      expect(direct_file_json_data.find_matching_json_dependent(dependents[2]).first_name).to eq("Jack")
+      expect(direct_file_json_data.find_matching_json_dependent(dependents[0]).first_name).to eq("September")
+      expect(direct_file_json_data.find_matching_json_dependent(dependents[1]).first_name).to eq("Aaron")
+      expect(direct_file_json_data.find_matching_json_dependent(dependents[2]).first_name).to eq("Andrew")
+      expect(direct_file_json_data.find_matching_json_dependent(dependents[3]).first_name).to eq("Anu")
     end
 
     it "should return nil if xml dependent has no ssn" do
@@ -108,7 +109,7 @@ describe DirectFileJsonData do
   end
 
   describe "DfJsonDependent#months_in_home" do
-    let(:intake) { create :state_file_az_johnny_intake_new }
+    let(:intake) { create :state_file_az_johnny_intake }
     let(:direct_file_json_data) { intake.direct_file_json_data }
     let(:dependents) { intake.dependents }
 
