@@ -256,7 +256,7 @@ module Efile
       end
 
       def calculate_line_51
-        line_or_zero(:AZ301_LINE_62)
+        line_or_zero(:AZ301_LINE_60)
       end
 
       def calculate_line_52

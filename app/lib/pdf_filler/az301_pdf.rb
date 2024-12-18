@@ -3,7 +3,7 @@ module PdfFiller
     include PdfHelper
 
     def source_pdf_name
-      "az301-TY2023"
+      "az301-TY2024"
     end
 
     def initialize(submission)
@@ -24,7 +24,7 @@ module PdfFiller
         "6c" => @xml_document.at('ColumnC CtrbChrtyPrvdAstWrkgPor')&.text,
         "7a" => @xml_document.at('ColumnA CtrbMdFePdPblcSchl')&.text,
         "7c" => @xml_document.at('ColumnC CtrbMdFePdPblcSchl')&.text,
-        "26" => @xml_document.at('ColumnC TotalAvailTaxCr')&.text,
+        "25" => @xml_document.at('ColumnC TotalAvailTaxCr')&.text,
         "27" => @xml_document.at('ComputedTax')&.text,
         "32" => @xml_document.at('AppTaxCr Subtotal')&.text,
         "33" => @xml_document.at('FamilyIncomeTax')&.text,
