@@ -2976,6 +2976,11 @@ es:
           encourage_sharing: Aunque se recomienda compartir esta información, no es un requisito para presentar tus impuestos en Carolina del Norte.
           protect_identity: 'Para proteger tu identidad y prevenir el fraude fiscal, muchas agencias estatales piden tu número de licencia de conducir o de identificación estatal. '
           why_ask_this: "¿Por qué estamos pidiéndote esta información?"
+      nc_qss_info:
+        edit:
+          title: Parece que su estado civil para efectos de la declaración es Cónyuge sobreviviente calificado
+          subtitle: Para continuar, necesitamos confirmar información adicional sobre su cónyuge fallecido.
+          question: ¿En qué año falleció su cónyuge?
       nc_review:
         edit:
           amount: Cantidad
