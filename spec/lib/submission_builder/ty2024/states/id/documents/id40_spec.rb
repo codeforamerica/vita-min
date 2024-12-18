@@ -41,7 +41,7 @@ describe SubmissionBuilder::Ty2024::States::Id::Documents::Id40, required_schema
 
 
         it "fills out filer and dependent information" do
-          expect(xml.css('OtherExemption').text).to eq "3"
+          expect(xml.css('OtherExemption').text).to eq "2"
           expect(xml.css('DependentGrid').count).to eq 3
 
           # filer info
