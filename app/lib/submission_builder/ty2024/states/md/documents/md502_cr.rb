@@ -13,8 +13,8 @@ module SubmissionBuilder
                 if calculated_fields.fetch(:MD502_DEDUCTION_METHOD) == "S"
                   xml.ChildAndDependentCare do |child_dependent_care|
                     add_non_zero_value(child_dependent_care, :FederalAdjustedGrossIncome, :MD502_LINE_1)
-                    add_non_zero_float_value(child_dependent_care, :FederalChildCareCredit, :MD502CR_PART_B_LINE_2)
-                    add_non_zero_value(child_dependent_care, :DecimalAmount, :MD502CR_PART_B_LINE_3)
+                    add_non_zero_value(child_dependent_care, :FederalChildCareCredit, :MD502CR_PART_B_LINE_2)
+                    add_non_zero_float_value(child_dependent_care, :DecimalAmount, :MD502CR_PART_B_LINE_3)
                     add_non_zero_value(child_dependent_care, :Credit, :MD502CR_PART_B_LINE_4)
                   end
                   xml.Senior do |senior|
