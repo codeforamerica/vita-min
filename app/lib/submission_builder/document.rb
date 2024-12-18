@@ -96,6 +96,13 @@ module SubmissionBuilder
 
     def add_non_zero_value(xml, elem_name, line)
       value = calculated_fields.fetch(line)
+      if value.present? && value.to_i != 0
+        xml.send(elem_name, value)
+      end
+    end
+
+    def add_non_zero_float_value(xml, elem_name, line)
+      value = calculated_fields.fetch(line)
       if value.present? && value.to_f.nonzero?
         xml.send(elem_name, value)
       end
