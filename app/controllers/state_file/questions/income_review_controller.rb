@@ -10,15 +10,12 @@ module StateFile
       end
 
       def set_conditions
-        @show_w2s = @w2s.present?
-        @show_unemployment = current_intake.direct_file_data.fed_unemployment > 0 &&
-                             current_intake.direct_file_data.mailing_state != "NJ"
-        @show_retirement_income = current_intake.state_file1099_rs.present?
-        @show_interest_income = current_intake.direct_file_json_data.interest_reports.count > 0 &&
-                                current_intake.direct_file_data.mailing_state != "NJ"
-        @show_ssa = (current_intake.direct_file_data.fed_ssb > 0 || 
-                     current_intake.direct_file_data.fed_taxable_ssb > 0) &&
-                     current_intake.direct_file_data.mailing_state != "NJ"
+        conditions = self.class.determine_conditions(current_intake)
+        @show_w2s = conditions[:show_w2s]
+        @show_unemployment = conditions[:show_unemployment]
+        @show_retirement_income = conditions[:show_retirement_income]
+        @show_interest_income = conditions[:show_interest_income]
+        @show_ssa = conditions[:show_ssa]
       end
 
       def update
@@ -26,7 +23,24 @@ module StateFile
       end
 
       def self.show?(intake)
-        @show_w2s || @show_unemployment || @show_retirement_income || @show_interest_income || @show_ssa
+        conditions = determine_conditions(intake)
+        conditions.values.any?
+      end
+
+      private
+
+      def self.determine_conditions(intake)
+        {
+          show_w2s: intake.state_file_w2s.present?,
+          show_unemployment: intake.direct_file_data.fed_unemployment > 0 &&
+                             intake.direct_file_data.mailing_state != "NJ",
+          show_retirement_income: intake.state_file1099_rs.present?,
+          show_interest_income: intake.direct_file_json_data.interest_reports.count > 0 &&
+                                intake.direct_file_data.mailing_state != "NJ",
+          show_ssa: (intake.direct_file_data.fed_ssb > 0 ||
+                     intake.direct_file_data.fed_taxable_ssb > 0) &&
+                     intake.direct_file_data.mailing_state != "NJ"
+        }
       end
     end
   end
