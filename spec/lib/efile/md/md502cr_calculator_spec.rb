@@ -12,9 +12,74 @@ describe Efile::Md::Md502crCalculator do
   let(:instance) { main_calculator.instance_variable_get(:@md502cr) }
 
   describe '#calculate_md502_cr_part_m_line_1' do
-    context "when filing status is mfj, qss or hoh" do
-      let(:filing_status) { "married_filing_jointly" }
+    %w[qualifying_widow head_of_household].each do |filing_status|
+      context "when filing status is #{filing_status}" do
+        let(:filing_status) { filing_status }
 
+        context "when filer is 65 or older" do
+          before do
+            intake.primary_birth_date = Date.new(MultiTenantService.statefile.current_tax_year - 65, 1, 1)
+          end
+
+          context "when agi <= $150,000" do
+            before do
+              intake.direct_file_data.fed_agi = 150_000
+              main_calculator.calculate
+            end
+
+            it "awards a credit of $1750" do
+              expect(instance.lines[:MD502CR_PART_M_LINE_1].value).to eq(1_750)
+              expect(instance.lines[:MD502CR_PART_AA_LINE_13].value).to eq(1_750)
+            end
+          end
+
+          context "when agi > $150,000" do
+            before do
+              intake.direct_file_data.fed_agi = 150_001
+              main_calculator.calculate
+            end
+
+            it "awards no credit" do
+              expect(instance.lines[:MD502CR_PART_M_LINE_1].value).to eq(0)
+              expect(instance.lines[:MD502CR_PART_AA_LINE_13].value).to eq(0)
+            end
+          end
+        end
+      end
+
+      context "when filer is under 65" do
+        before do
+          intake.primary_birth_date = Date.new(MultiTenantService.statefile.current_tax_year - 64, 1, 1)
+        end
+
+        context "when agi <= $150,000" do
+          before do
+            intake.direct_file_data.fed_agi = 150_000
+            main_calculator.calculate
+          end
+
+          it "awards no credit" do
+            expect(instance.lines[:MD502CR_PART_M_LINE_1].value).to eq(0)
+            expect(instance.lines[:MD502CR_PART_AA_LINE_13].value).to eq(0)
+          end
+        end
+
+        context "when agi > $150,000" do
+          before do
+            intake.direct_file_data.fed_agi = 150_001
+            main_calculator.calculate
+          end
+
+          it "awards no credit" do
+            expect(instance.lines[:MD502CR_PART_M_LINE_1].value).to eq(0)
+            expect(instance.lines[:MD502CR_PART_AA_LINE_13].value).to eq(0)
+          end
+        end
+      end
+    end
+
+    context "when filing status is mfj" do
+      let(:filing_status) { "married_filing_jointly" }
       context "when filer is 65 or older" do
         before do
           intake.primary_birth_date = Date.new(MultiTenantService.statefile.current_tax_year - 65, 1, 1)
@@ -148,69 +213,72 @@ describe Efile::Md::Md502crCalculator do
       end
     end
 
-    context "when filing status is single or mfs" do
-      let(:filing_status) { "single" }
+    %w[single married_filing_separately dependent].each do |filing_status|
+      context "when filing status is #{filing_status}" do
+        let(:filing_status) { filing_status }
 
-      context "when filer is 65 or older" do
-        before do
-          intake.primary_birth_date = Date.new(MultiTenantService.statefile.current_tax_year - 65, 1, 1)
-        end
-
-        context "when agi <= $100,000" do
+        context "when filer is 65 or older" do
           before do
-            intake.direct_file_data.fed_agi = 100_000
-            main_calculator.calculate
+            intake.primary_birth_date = Date.new(MultiTenantService.statefile.current_tax_year - 65, 1, 1)
           end
 
-          it "awards a credit of $1750" do
-            expect(instance.lines[:MD502CR_PART_M_LINE_1].value).to eq(1_000)
-            expect(instance.lines[:MD502CR_PART_AA_LINE_13].value).to eq(1_000)
+          context "when agi <= $100,000" do
+            before do
+              intake.direct_file_data.fed_agi = 100_000
+              main_calculator.calculate
+            end
+
+            it "awards a credit of $1000" do
+              expect(instance.lines[:MD502CR_PART_M_LINE_1].value).to eq(1_000)
+              expect(instance.lines[:MD502CR_PART_AA_LINE_13].value).to eq(1_000)
+            end
+          end
+
+          context "when agi > $100,000" do
+            before do
+              intake.direct_file_data.fed_agi = 100_001
+              main_calculator.calculate
+            end
+
+            it "awards no credit" do
+              expect(instance.lines[:MD502CR_PART_M_LINE_1].value).to eq(0)
+              expect(instance.lines[:MD502CR_PART_AA_LINE_13].value).to eq(0)
+            end
           end
         end
 
-        context "when agi > $100,000" do
+        context "when filer is under 65" do
           before do
-            intake.direct_file_data.fed_agi = 100_001
-            main_calculator.calculate
+            intake.primary_birth_date = Date.new(MultiTenantService.statefile.current_tax_year - 64, 1, 1)
           end
 
-          it "awards no credit" do
-            expect(instance.lines[:MD502CR_PART_M_LINE_1].value).to eq(0)
-            expect(instance.lines[:MD502CR_PART_AA_LINE_13].value).to eq(0)
-          end
-        end
-      end
+          context "when agi <= $100,000" do
+            before do
+              intake.direct_file_data.fed_agi = 100_000
+              main_calculator.calculate
+            end
 
-      context "when filer is under 65" do
-        before do
-          intake.primary_birth_date = Date.new(MultiTenantService.statefile.current_tax_year - 64, 1, 1)
-        end
-
-        context "when agi <= $100,000" do
-          before do
-            intake.direct_file_data.fed_agi = 100_000
-            main_calculator.calculate
+            it "awards no credit" do
+              expect(instance.lines[:MD502CR_PART_M_LINE_1].value).to eq(0)
+              expect(instance.lines[:MD502CR_PART_AA_LINE_13].value).to eq(0)
+            end
           end
 
-          it "awards no credit" do
-            expect(instance.lines[:MD502CR_PART_M_LINE_1].value).to eq(0)
-            expect(instance.lines[:MD502CR_PART_AA_LINE_13].value).to eq(0)
-          end
-        end
+          context "when agi > $100,000" do
+            before do
+              intake.direct_file_data.fed_agi = 100_001
+              main_calculator.calculate
+            end
 
-        context "when agi > $100,000" do
-          before do
-            intake.direct_file_data.fed_agi = 100_001
-            main_calculator.calculate
-          end
-
-          it "awards no credit" do
-            expect(instance.lines[:MD502CR_PART_M_LINE_1].value).to eq(0)
-            expect(instance.lines[:MD502CR_PART_AA_LINE_13].value).to eq(0)
+            it "awards no credit" do
+              expect(instance.lines[:MD502CR_PART_M_LINE_1].value).to eq(0)
+              expect(instance.lines[:MD502CR_PART_AA_LINE_13].value).to eq(0)
+            end
           end
         end
       end
     end
+
   end
 
   describe "line 2" do
@@ -297,16 +365,30 @@ describe Efile::Md::Md502crCalculator do
 
   describe '#calculate_md502_cr_part_b_line_4' do
     let(:filing_status) { "single" }
+    let(:fed_agi) { 10 }
+    let(:fed_credit_for_child_and_dependent_care_amount) { 10 }
 
     before do
-      intake.direct_file_data.fed_agi = 10
-      intake.direct_file_data.fed_credit_for_child_and_dependent_care_amount = 10
-      instance.calculate
+      intake.direct_file_data.fed_agi = fed_agi
+      intake.direct_file_data.fed_credit_for_child_and_dependent_care_amount = fed_credit_for_child_and_dependent_care_amount
+      main_calculator.calculate
     end
 
-    it 'returns the correct decimal value' do
-      expect(instance.lines[:MD502CR_PART_B_LINE_4].value).to eq(3)
-      expect(instance.lines[:MD502CR_PART_AA_LINE_2].value).to eq(3)
+    context "calculations do not exceed $1344" do
+      it 'returns the correct decimal value' do
+        expect(instance.lines[:MD502CR_PART_B_LINE_4].value).to eq(3)
+        expect(instance.lines[:MD502CR_PART_AA_LINE_2].value).to eq(3)
+      end
+    end
+
+    context "exceeds $1344 limit" do
+      let(:fed_agi) { 98_001 }
+      let(:fed_credit_for_child_and_dependent_care_amount) { 10_000 }
+
+      it "should return the limit" do
+        expect(instance.lines[:MD502CR_PART_B_LINE_4].value).to eq(1_344)
+        expect(instance.lines[:MD502CR_PART_AA_LINE_2].value).to eq(1_344)
+      end
     end
   end
 
@@ -330,31 +412,36 @@ describe Efile::Md::Md502crCalculator do
       main_calculator.calculate
     end
 
-    context "when single filer" do
-      let(:filing_status) { "single" }
+    context "when filing_status is not mfj" do
+      %w[single married_filing_separately head_of_household qualifying_widow dependent].each do |filing_status|
+        context "when #{filing_status} filer" do
+          let(:filing_status) { filing_status }
 
-      context "when AGI is within limit" do
-        let(:agi) { 59_401 }
-        it "returns difference between part B line 4 and line 21" do
-          instance.calculate
-          expect(instance.lines[:MD502CR_PART_CC_LINE_7].value).to eq(75)
-        end
-      end
+          context "when AGI is within limit" do
+            let(:agi) { 59_400 }
+            it "returns difference between part B line 4 and line 21" do
+              instance.calculate
+              expect(instance.lines[:MD502CR_PART_CC_LINE_7].value).to eq(75)
+            end
+          end
 
-      context "when AGI exceeds limit" do
-        let(:agi) { 59_402 }
-        it "returns nil" do
-          instance.calculate
-          expect(instance.lines[:MD502CR_PART_CC_LINE_7].value).to be_nil
+          context "when AGI exceeds limit" do
+            let(:agi) { 59_401 }
+            it "returns nil" do
+              instance.calculate
+              expect(instance.lines[:MD502CR_PART_CC_LINE_7].value).to be_nil
+            end
+          end
         end
       end
     end
+
 
     context "when married filing jointly" do
       let(:filing_status) { "married_filing_jointly" }
 
       context "when AGI is within limit" do
-        let(:agi) { 89_101 }
+        let(:agi) { 89_100 }
         it "returns difference between part B line 4 and line 21" do
           instance.calculate
           expect(instance.lines[:MD502CR_PART_CC_LINE_7].value).to eq(75)
@@ -362,7 +449,7 @@ describe Efile::Md::Md502crCalculator do
       end
 
       context "when AGI exceeds limit" do
-        let(:agi) { 89_102 }
+        let(:agi) { 89_101 }
         it "returns nil" do
           expect(instance.lines[:MD502CR_PART_CC_LINE_7].value).to be_nil
         end
