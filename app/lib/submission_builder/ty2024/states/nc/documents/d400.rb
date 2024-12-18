@@ -15,7 +15,6 @@ module SubmissionBuilder
             }.freeze
 
             def document
-              # Use the more recent phone number collected at intake, if present
               phone_number = @submission.data_source.phone_number || @submission.data_source.direct_file_data.phone_number
 
               build_xml_doc("FormNCD400") do |xml|
