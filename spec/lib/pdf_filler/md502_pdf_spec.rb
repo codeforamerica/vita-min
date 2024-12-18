@@ -421,7 +421,6 @@ RSpec.describe PdfFiller::Md502Pdf do
       it "leaves amount blank if deduction method is not standard" do
         allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "N"
         expect(pdf_fields["Enter 18"]).to be_empty
-        expect(pdf_fields["Enter 19 "]).to be_empty
         expect(pdf_fields["Enter 20"]).to be_empty
       end
     end

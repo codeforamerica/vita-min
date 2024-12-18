@@ -1021,7 +1021,21 @@ describe Efile::Md::Md502Calculator do
     before do
       intake.direct_file_data.fed_wages_salaries_tips = line_1b
       allow_any_instance_of(described_class).to receive(:calculate_line_7).and_return(line_7)
+      allow_any_instance_of(described_class).to receive(:deduction_method_is_standard?).and_return(true)
       instance.calculate
+    end
+
+    context "deduction method is nonstandard" do
+      let(:line_1b) { 20_000 }
+      let(:line_7) { 15_000 }
+
+      before do
+        allow_any_instance_of(described_class).to receive(:deduction_method_is_standard?).and_return(false)
+      end
+
+      it "returns 0" do
+        expect(instance.lines[:MD502_LINE_23].value).to eq 0
+      end
     end
 
     context "when filing as dependent" do
@@ -1065,7 +1079,7 @@ describe Efile::Md::Md502Calculator do
       end
     end
 
-    context "married filing jointly with two dependent" do
+    context "married filing jointly with two dependents" do
       let(:line_1b) { 30_000 }
       let(:filing_status) { "married_filing_jointly" }
 
@@ -1087,7 +1101,7 @@ describe Efile::Md::Md502Calculator do
           create :state_file_dependent, intake: intake, dob: 7.years.ago
           create :state_file_dependent, intake: intake, dob: 7.years.ago
           instance.calculate
-          expect(instance.lines[:MD502_LINE_23].value).to eq(0) # line 7 is above threshold for family of 4 (31,200)
+          expect(instance.lines[:MD502_LINE_23].value).to eq(0) # Line 7 is above threshold for family of 4 (31,200)
         end
       end
     end
@@ -1095,12 +1109,29 @@ describe Efile::Md::Md502Calculator do
 
   describe "#calculate_line_24" do
     before do
-      allow_any_instance_of(Efile::Md::Md502crCalculator).to receive(:calculate_part_aa_line_14).and_return 100
-      instance.calculate
+      allow_any_instance_of(Efile::Md::Md502crCalculator).to receive(:calculate_part_aa_line_14).and_return(100)
     end
 
-    it "returns the value from MD502CR Part AA Line 14" do
-      expect(instance.lines[:MD502_LINE_24].value).to eq(100)
+    context "when deduction method is standard" do
+      before do
+        allow_any_instance_of(described_class).to receive(:deduction_method_is_standard?).and_return(true)
+        instance.calculate
+      end
+
+      it "returns the value from MD502CR Part AA Line 14" do
+        expect(instance.lines[:MD502_LINE_24].value).to eq(100)
+      end
+    end
+
+    context "when deduction method is non-standard" do
+      before do
+        allow_any_instance_of(described_class).to receive(:deduction_method_is_standard?).and_return(false)
+        instance.calculate
+      end
+
+      it "returns 0" do
+        expect(instance.lines[:MD502_LINE_24].value).to eq(0)
+      end
     end
   end
 
