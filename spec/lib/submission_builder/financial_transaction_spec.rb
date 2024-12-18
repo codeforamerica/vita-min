@@ -17,6 +17,34 @@ describe SubmissionBuilder::FinancialTransaction do
         expect(xml.at("StatePayment NotIATTransaction").text).to eq "X"
         # Removing after April 15th
         # expect(xml.at("StatePayment RequestedPaymentDate").text).to eq "2024-04-15"
+        expect(xml.at("StatePayment AccountHolderType")).to be_nil
+        expect(xml.at("AddendaRecord TaxTypeCode")).to be_nil
+        expect(xml.at("AddendaRecord TaxPeriodEndDate")).to be_nil
+        expect(xml.at("AddendaRecord TXPAmount SubAmountType")).to be_nil
+        expect(xml.at("AddendaRecord TXPAmount Subamount")).to be_nil
+      end
+
+      context "in a state that requests additional debit information" do
+        let(:intake) { create(:state_file_nc_intake, :taxes_owed) }
+
+        it "populates the StatePayment with additional information" do
+          xml = Nokogiri::XML::Document.parse(
+            described_class.build(
+              submission, validate: false
+            ).document.to_xml)
+          expect(xml.at("StatePayment Checking").text).to eq "X"
+          expect(xml.at("StatePayment RoutingTransitNumber").text).to eq "111111111"
+          expect(xml.at("StatePayment BankAccountNumber").text).to eq "222222222"
+          expect(xml.at("StatePayment PaymentAmount").text).to eq "5"
+          expect(xml.at("StatePayment NotIATTransaction").text).to eq "X"
+          # Removing after April 15th
+          # expect(xml.at("StatePayment RequestedPaymentDate").text).to eq "2024-04-15"
+          expect(xml.at("StatePayment AccountHolderType").text).to eq "2"
+          expect(xml.at("AddendaRecord TaxTypeCode").text).to eq "01000"
+          expect(xml.at("AddendaRecord TaxPeriodEndDate").text).to eq "2024-12-31"
+          expect(xml.at("AddendaRecord TXPAmount SubAmountType").text).to eq "0"
+          expect(xml.at("AddendaRecord TXPAmount Subamount").text).to eq "5"
+        end
       end
     end
 

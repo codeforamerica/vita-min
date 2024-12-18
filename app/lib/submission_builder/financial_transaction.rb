@@ -26,8 +26,19 @@ module SubmissionBuilder
             xml.RoutingTransitNumber sanitize_for_xml(@submission.data_source.routing_number) if @submission.data_source.routing_number.present?
             xml.BankAccountNumber sanitize_for_xml(@submission.data_source.account_number) if @submission.data_source.account_number.present?
             xml.PaymentAmount @submission.data_source.withdraw_amount if @submission.data_source.withdraw_amount.present?
+            xml.AccountHolderType "2" if @submission.data_source.requires_additional_debit_information?
             xml.RequestedPaymentDate date_type(@submission.data_source.date_electronic_withdrawal) if @submission.data_source.date_electronic_withdrawal.present?
             xml.NotIATTransaction 'X'
+            if @submission.data_source.requires_additional_debit_information?
+              xml.AddendaRecord do
+                xml.TaxTypeCode "01000"
+                xml.TaxPeriodEndDate "2024-12-31"
+                xml.TXPAmount do
+                  xml.SubAmountType "0"
+                  xml.Subamount @submission.data_source.withdraw_amount if @submission.data_source.withdraw_amount.present?
+                end
+              end
+            end
           end
         end
       end
