@@ -270,10 +270,6 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
       expect(page).to have_selector("h1", text: "In #{current_tax_year}, did you or your spouse pay any child or dependent care expenses?")
     end
     click_on "Yes"
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "In #{current_tax_year}, did you or your spouse adopt a child?")
-    end
-    click_on "Yes"
 
     # Student questions
     screenshot_after do
