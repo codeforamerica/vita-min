@@ -221,6 +221,36 @@ describe SubmissionBuilder::ReturnHeader do
     end
   end
 
+  context "city field character limit" do
+    let(:mailing_city) { "This is a Very Long City Name" }
+
+    before do
+      intake.direct_file_data.mailing_city = mailing_city
+    end
+
+    StateFile::StateInformationService.active_state_codes.without("md").each do |state_code|
+      context "if state is not MD" do
+        let(:intake) { create "state_file_#{state_code}_intake".to_sym }
+        let(:submission) { create(:efile_submission, data_source: intake) }
+        let(:doc) { SubmissionBuilder::ReturnHeader.new(submission).document }
+
+        it "truncates city name to 22 characters" do
+          expect(doc.at("USAddress CityNm").text.length).to be <= 22
+        end
+      end
+    end
+
+    context "if state is MD" do
+      let(:intake) { create :state_file_md_intake }
+      let(:submission) { create(:efile_submission, data_source: intake) }
+      let(:doc) { SubmissionBuilder::ReturnHeader.new(submission).document }
+
+      it "truncates city name to 20 characters" do
+        expect(doc.at("USAddress CityNm").text.length).to be <= 20
+      end
+    end
+  end
+
   context "MD filer personal info includes signature PINs" do
     let(:intake) {
       create(

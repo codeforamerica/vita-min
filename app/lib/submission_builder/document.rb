@@ -124,11 +124,11 @@ module SubmissionBuilder
         truncated_mailing_street = mailing_street[0...key_position].rstrip
         excess_characters = mailing_street[key_position..].lstrip
 
-        xml.AddressLine1Txt sanitize_for_xml(truncated_mailing_street, 35)
+        xml.AddressLine1Txt sanitize_for_xml(truncated_mailing_street, 30)
         if @submission.data_source.direct_file_data.mailing_apartment.present?
           apartment = sanitize_for_xml(@submission.data_source.direct_file_data.mailing_apartment)
-          if apartment.length + excess_characters.length > 35
-            truncated_apartment = apartment[0, 35 - excess_characters.length].rpartition(' ').first
+          if apartment.length + excess_characters.length > 30
+            truncated_apartment = apartment[0, 30 - excess_characters.length].rpartition(' ').first
             xml.AddressLine2Txt "#{excess_characters} #{truncated_apartment}"
           else
             xml.AddressLine2Txt "#{excess_characters} #{apartment}"
@@ -137,8 +137,8 @@ module SubmissionBuilder
           xml.AddressLine2Txt excess_characters
         end
       else
-        xml.AddressLine1Txt sanitize_for_xml(mailing_street, 35)
-        xml.AddressLine2Txt sanitize_for_xml(@submission.data_source.direct_file_data.mailing_apartment, 35) if @submission.data_source.direct_file_data.mailing_apartment.present?
+        xml.AddressLine1Txt sanitize_for_xml(mailing_street, 30)
+        xml.AddressLine2Txt sanitize_for_xml(@submission.data_source.direct_file_data.mailing_apartment, 30) if @submission.data_source.direct_file_data.mailing_apartment.present?
       end
     end
 
