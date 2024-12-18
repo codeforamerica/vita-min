@@ -647,7 +647,7 @@ describe Efile::Md::Md502Calculator do
 
   describe "#calculate_line_15" do
     before do
-      intake.direct_file_data.total_qualifying_dependent_care_expenses = 2
+      intake.direct_file_data.total_qualifying_dependent_care_expenses_or_limit_amt = 2
       intake.direct_file_data.fed_taxable_ssb = 6
       allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_10a).and_return 4
       allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_13).and_return 8
@@ -752,14 +752,6 @@ describe Efile::Md::Md502Calculator do
         allow_any_instance_of(described_class).to receive(:calculate_deduction_method).and_return "S"
         instance.calculate
         expect(instance.lines[:MD502_LINE_19].value).to eq 50
-      end
-    end
-
-    context "deduction method is non-standard" do
-      it "returns 0" do
-        allow_any_instance_of(described_class).to receive(:calculate_deduction_method).and_return "N"
-        instance.calculate
-        expect(instance.lines[:MD502_LINE_19].value).to eq 0
       end
     end
   end
@@ -1029,7 +1021,21 @@ describe Efile::Md::Md502Calculator do
     before do
       intake.direct_file_data.fed_wages_salaries_tips = line_1b
       allow_any_instance_of(described_class).to receive(:calculate_line_7).and_return(line_7)
+      allow_any_instance_of(described_class).to receive(:deduction_method_is_standard?).and_return(true)
       instance.calculate
+    end
+
+    context "deduction method is nonstandard" do
+      let(:line_1b) { 20_000 }
+      let(:line_7) { 15_000 }
+
+      before do
+        allow_any_instance_of(described_class).to receive(:deduction_method_is_standard?).and_return(false)
+      end
+
+      it "returns 0" do
+        expect(instance.lines[:MD502_LINE_23].value).to eq 0
+      end
     end
 
     context "when filing as dependent" do
@@ -1073,7 +1079,7 @@ describe Efile::Md::Md502Calculator do
       end
     end
 
-    context "married filing jointly with two dependent" do
+    context "married filing jointly with two dependents" do
       let(:line_1b) { 30_000 }
       let(:filing_status) { "married_filing_jointly" }
 
@@ -1095,7 +1101,7 @@ describe Efile::Md::Md502Calculator do
           create :state_file_dependent, intake: intake, dob: 7.years.ago
           create :state_file_dependent, intake: intake, dob: 7.years.ago
           instance.calculate
-          expect(instance.lines[:MD502_LINE_23].value).to eq(0) # line 7 is above threshold for family of 4 (31,200)
+          expect(instance.lines[:MD502_LINE_23].value).to eq(0) # Line 7 is above threshold for family of 4 (31,200)
         end
       end
     end
@@ -1103,12 +1109,29 @@ describe Efile::Md::Md502Calculator do
 
   describe "#calculate_line_24" do
     before do
-      allow_any_instance_of(Efile::Md::Md502crCalculator).to receive(:calculate_part_aa_line_14).and_return 100
-      instance.calculate
+      allow_any_instance_of(Efile::Md::Md502crCalculator).to receive(:calculate_part_aa_line_14).and_return(100)
     end
 
-    it "returns the value from MD502CR Part AA Line 14" do
-      expect(instance.lines[:MD502_LINE_24].value).to eq(100)
+    context "when deduction method is standard" do
+      before do
+        allow_any_instance_of(described_class).to receive(:deduction_method_is_standard?).and_return(true)
+        instance.calculate
+      end
+
+      it "returns the value from MD502CR Part AA Line 14" do
+        expect(instance.lines[:MD502_LINE_24].value).to eq(100)
+      end
+    end
+
+    context "when deduction method is non-standard" do
+      before do
+        allow_any_instance_of(described_class).to receive(:deduction_method_is_standard?).and_return(false)
+        instance.calculate
+      end
+
+      it "returns 0" do
+        expect(instance.lines[:MD502_LINE_24].value).to eq(0)
+      end
     end
   end
 
@@ -1203,8 +1226,51 @@ describe Efile::Md::Md502Calculator do
 
     context "when the county is Anne Arundel" do
       let(:county) { "Anne Arundel" }
-      it "returns 0.027" do
-        expect(instance.lines[:MD502_LINE_28_LOCAL_TAX_RATE].value).to eq(0.027)
+      context "filing status is single" do
+        context "when taxable net income is 10,000" do
+          it "returns 0.027" do
+            expect(instance.lines[:MD502_LINE_28_LOCAL_TAX_RATE].value).to eq(0.027)
+          end
+        end
+
+        context "when taxable net income is 100,000" do
+          let(:taxable_net_income) { 100_000 }
+          it "returns 0.0281" do
+            expect(instance.lines[:MD502_LINE_28_LOCAL_TAX_RATE].value).to eq(0.0281)
+          end
+        end
+
+        context "when taxable net income is 410,000" do
+          let(:taxable_net_income) { 410_000 }
+          it "returns 0.032" do
+            expect(instance.lines[:MD502_LINE_28_LOCAL_TAX_RATE].value).to eq(0.032)
+          end
+        end
+      end
+
+      context "filing status is married filing jointly" do
+        let(:filing_status) { "married_filing_jointly" }
+
+        context "when taxable net income is 65,000" do
+          let(:taxable_net_income) { 65_000 }
+          it "returns 0.027" do
+            expect(instance.lines[:MD502_LINE_28_LOCAL_TAX_RATE].value).to eq(0.027)
+          end
+        end
+
+        context "when taxable net income is 410,000" do
+          let(:taxable_net_income) { 410_000 }
+          it "returns 0.0281" do
+            expect(instance.lines[:MD502_LINE_28_LOCAL_TAX_RATE].value).to eq(0.0281)
+          end
+        end
+
+        context "when taxable net income is 500,000" do
+          let(:taxable_net_income) { 500_000 }
+          it "returns 0.032" do
+            expect(instance.lines[:MD502_LINE_28_LOCAL_TAX_RATE].value).to eq(0.032)
+          end
+        end
       end
     end
 
@@ -1263,15 +1329,36 @@ describe Efile::Md::Md502Calculator do
   end
 
   describe "#calculate_line_28_local_tax_amount" do
+    let(:income) { 300_000 }
     before do
-      allow_any_instance_of(described_class).to receive(:calculate_line_20).and_return 300_000
+      allow_any_instance_of(described_class).to receive(:calculate_line_20).and_return income
       instance.calculate
     end
 
     context "when county is Anne Arundel" do
       let(:county) { "Anne Arundel" }
-      it "calculates the local tax" do
-        expect(instance.lines[:MD502_LINE_28_LOCAL_TAX_AMOUNT].value).to eq(8375)
+
+      context "when income is 300,000" do
+        # (0.027 * 50,000) + (0.0281 * 250,000) = 8,375
+        it "calculates the local tax progressively" do
+          expect(instance.lines[:MD502_LINE_28_LOCAL_TAX_AMOUNT].value).to eq(8375)
+        end
+      end
+
+      context "when income is 450,000" do
+        let(:income) { 450_000 }
+        it "calculates the local tax progressively" do
+          # (0.027 * 50,000) + (0.0281 * 350,000) + (.032 * 50,000) = 12,785
+          expect(instance.lines[:MD502_LINE_28_LOCAL_TAX_AMOUNT].value).to eq(12_785)
+        end
+      end
+
+      context "when income is 45,000" do
+        let(:income) { 45_000 }
+        it "calculates the local tax with the 0.027 tax rate" do
+          # (0.027 * 45,000) = 1,215
+          expect(instance.lines[:MD502_LINE_28_LOCAL_TAX_AMOUNT].value).to eq(1215)
+        end
       end
     end
 
@@ -1300,7 +1387,7 @@ describe Efile::Md::Md502Calculator do
 
     context "when county is Anne Arundel" do
       let(:county) { "Anne Arundel" }
-      it "uses 0.0270 as the local tax rate in the formula" do
+      it "uses 0.027 as the local tax rate in the formula" do
         # (0.027 * 10) * 1001
         expect(instance.lines[:MD502_LINE_29].value).to eq(270)
       end
@@ -1377,14 +1464,6 @@ describe Efile::Md::Md502Calculator do
       it "adds line 29 and 30" do
         instance.calculate
         expect(instance.lines[:MD502_LINE_32].value).to eq 330
-      end
-    end
-
-    context "deduction method is non-standard" do
-      it "returns nil" do
-        allow_any_instance_of(described_class).to receive(:calculate_deduction_method).and_return "N"
-        instance.calculate
-        expect(instance.lines[:MD502_LINE_32].value).to eq nil
       end
     end
   end

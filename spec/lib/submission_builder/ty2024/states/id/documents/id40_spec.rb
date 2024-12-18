@@ -19,12 +19,47 @@ describe SubmissionBuilder::Ty2024::States::Id::Documents::Id40, required_schema
         expect(xml.at("PrimeExemption").text).to eq "1"
         expect(xml.at("TotalExemption").text).to eq "1"
         expect(xml.at("FederalAGI").text).to eq "10000"
-        # fed agi(32351) - [fed_taxable_ssb(5627) + total_qualifying_dependent_care_expenses(2000)] = 24724
+        # fed agi(32351) - [fed_taxable_ssb(5627) + total_qualifying_dependent_care_expenses_or_limit_amt(2000)] = 24724
         expect(xml.at("StateTotalAdjustedIncome").text).to eq "10000"
         expect(xml.at("StandardDeduction").text).to eq "13850"
         expect(xml.at("TaxableIncomeState").text).to eq "2000"
         expect(xml.at("StateIncomeTax").text).to eq "200"
       end
+
+      context "with no dependents" do
+
+        it "does not include primary in DependentGrid" do
+          expect(xml.css('DependentGrid')).to be_empty
+        end
+      end
+
+      context "when there are dependents" do
+        before do
+          create(:state_file_dependent, intake: intake, first_name: "Patrick", last_name: "Hemingway", dob: Date.new(1919, 1, 1))
+          create(:state_file_dependent, intake: intake, first_name: "Jack", last_name: "Hemingway", dob: Date.new(1919, 1, 1))
+        end
+
+
+        it "fills out filer and dependent information" do
+          expect(xml.css('OtherExemption').text).to eq "2"
+          expect(xml.css('DependentGrid').count).to eq 3
+
+          # filer info
+          expect(xml.css('DependentGrid')[0].at("DependentFirstName").text).to eq "Lana"
+          expect(xml.css('DependentGrid')[0].at("DependentLastName").text).to eq "Turner"
+          expect(xml.css('DependentGrid')[0].at("DependentDOB").text).to eq "1980-01-01"
+
+          # dependent info
+          expect(xml.css('DependentGrid')[1].at("DependentFirstName").text).to eq "Patrick"
+          expect(xml.css('DependentGrid')[1].at("DependentLastName").text).to eq "Hemingway"
+          expect(xml.css('DependentGrid')[1].at("DependentDOB").text).to eq "1919-01-01"
+
+          expect(xml.css('DependentGrid')[2].at("DependentFirstName").text).to eq "Jack"
+          expect(xml.css('DependentGrid')[2].at("DependentLastName").text).to eq "Hemingway"
+          expect(xml.css('DependentGrid')[2].at("DependentDOB").text).to eq "1919-01-01"
+        end
+      end
+
 
       context "primary over 65, blind, claimed as dependent" do
         context "when true" do
@@ -69,6 +104,16 @@ describe SubmissionBuilder::Ty2024::States::Id::Documents::Id40, required_schema
         expect(xml.at("PrimeExemption").text).to eq "1"
         expect(xml.at("SpouseExemption").text).to eq "1"
         expect(xml.at("TotalExemption").text).to eq "2"
+      end
+
+      it "includes both primary and spouse in DependentGrid" do
+        expect(xml.css('DependentGrid')[0].at("DependentFirstName").text).to eq "Paul"
+        expect(xml.css('DependentGrid')[0].at("DependentLastName").text).to eq "Revere"
+        expect(xml.css('DependentGrid')[0].at("DependentDOB").text).to eq "1980-01-01"
+
+        expect(xml.css('DependentGrid')[1].at("DependentFirstName").text).to eq "Sydney"
+        expect(xml.css('DependentGrid')[1].at("DependentLastName").text).to eq "Revere"
+        expect(xml.css('DependentGrid')[1].at("DependentDOB").text).to eq "1980-01-01"
       end
 
       context "spouse over 65" do
@@ -127,23 +172,6 @@ describe SubmissionBuilder::Ty2024::States::Id::Documents::Id40, required_schema
         create(:state_file_dependent, intake: intake, first_name: "Gloria", last_name: "Hemingway", dob: Date.new(1920, 1, 1))
         create(:state_file_dependent, intake: intake, first_name: "Patrick", last_name: "Hemingway", dob: Date.new(1919, 1, 1))
         create(:state_file_dependent, intake: intake, first_name: "Jack", last_name: "Hemingway", dob: Date.new(1919, 1, 1))
-      end
-
-      it "fills out dependent information" do
-        expect(xml.css('OtherExemption').text).to eq "3"
-        expect(xml.css('DependentGrid').count).to eq 3
-
-        expect(xml.css('DependentGrid')[0].at("DependentFirstName").text).to eq "Gloria"
-        expect(xml.css('DependentGrid')[0].at("DependentLastName").text).to eq "Hemingway"
-        expect(xml.css('DependentGrid')[0].at("DependentDOB").text).to eq "1920-01-01"
-
-        expect(xml.css('DependentGrid')[1].at("DependentFirstName").text).to eq "Patrick"
-        expect(xml.css('DependentGrid')[1].at("DependentLastName").text).to eq "Hemingway"
-        expect(xml.css('DependentGrid')[1].at("DependentDOB").text).to eq "1919-01-01"
-
-        expect(xml.css('DependentGrid')[2].at("DependentFirstName").text).to eq "Jack"
-        expect(xml.css('DependentGrid')[2].at("DependentLastName").text).to eq "Hemingway"
-        expect(xml.css('DependentGrid')[2].at("DependentDOB").text).to eq "1919-01-01"
       end
 
       context "when there are qualifying children" do

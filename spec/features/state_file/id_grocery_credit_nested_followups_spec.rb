@@ -37,13 +37,17 @@ RSpec.feature "Idaho Grocery Credit nested questions with followup", active_job:
 
       click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
 
-      step_through_df_data_transfer("Transfer John mfj 8 deps")
+      step_through_df_data_transfer("Transfer Estrada donations")
 
+      expect(page).to have_text "Here are the income forms we transferred from your federal tax return."
       click_on I18n.t("general.continue")
 
+      expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title', year: filing_year)
+      choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
 
       # Health Insurance Premium
+      expect(page).to have_text I18n.t('state_file.questions.id_health_insurance_premium.edit.title')
       choose I18n.t("general.affirmative")
       fill_in 'state_file_id_health_insurance_premium_form_health_insurance_paid_amount', with: "1234.60"
       click_on I18n.t("general.continue")
@@ -55,7 +59,7 @@ RSpec.feature "Idaho Grocery Credit nested questions with followup", active_job:
       click_on I18n.t("general.continue")
 
       # Grocery Credit Review
-      expect(page).to have_text "$1200"
+      expect(page).to have_text "$600"
       expect(page).to have_text I18n.t("state_file.questions.id_grocery_credit_review.edit.would_you_like_to_donate")
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")

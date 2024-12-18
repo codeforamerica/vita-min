@@ -1,0 +1,201 @@
+{
+  "familyAndHousehold": [
+    {
+      "monthsLivedWithTPInUS": null,
+      "lastName": "ONeal",
+      "isClaimedDependent": true,
+      "hohQualifyingPerson": false,
+      "qualifyingChild": false,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "2002-12-31",
+      "suffix": "II",
+      "residencyDuration": "allYear",
+      "firstName": "Logan",
+      "middleInitial": "F",
+      "scheduleEicLine4aNo": true,
+      "tin": "900-52-2005",
+      "eligibleDependent": true,
+      "relationship": "biologicalChild",
+      "ssnNotValidForEmployment": null
+    },
+    {
+      "monthsLivedWithTPInUS": "twelve",
+      "lastName": "ONeal",
+      "isClaimedDependent": true,
+      "hohQualifyingPerson": null,
+      "qualifyingChild": true,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "2018-04-05",
+      "suffix": null,
+      "residencyDuration": "allYear",
+      "firstName": "Morgan",
+      "middleInitial": "R",
+      "tin": "600-00-2003",
+      "scheduleEicLine4aNo": false,
+      "eligibleDependent": true,
+      "relationship": "biologicalChild",
+      "ssnNotValidForEmployment": false
+    },
+    {
+      "monthsLivedWithTPInUS": null,
+      "lastName": "ONeal",
+      "isClaimedDependent": true,
+      "hohQualifyingPerson": false,
+      "qualifyingChild": false,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "1957-06-07",
+      "suffix": "Sr",
+      "residencyDuration": "allYear",
+      "firstName": "Alex",
+      "middleInitial": "H",
+      "scheduleEicLine4aNo": true,
+      "tin": "200-00-2006",
+      "eligibleDependent": true,
+      "relationship": "parent",
+      "ssnNotValidForEmployment": null
+    },
+    {
+      "monthsLivedWithTPInUS": "twelve",
+      "lastName": "ONeal",
+      "hohQualifyingPerson": null,
+      "isClaimedDependent": true,
+      "qualifyingChild": true,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "2008-05-06",
+      "suffix": null,
+      "residencyDuration": "allYear",
+      "firstName": "Avery",
+      "middleInitial": "B",
+      "tin": "600-00-2004",
+      "scheduleEicLine4aNo": false,
+      "eligibleDependent": true,
+      "relationship": "biologicalChild",
+      "ssnNotValidForEmployment": false
+    },
+    {
+      "monthsLivedWithTPInUS": null,
+      "lastName": "ONeal",
+      "hohQualifyingPerson": false,
+      "isClaimedDependent": true,
+      "qualifyingChild": false,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "2021-03-04",
+      "suffix": null,
+      "residencyDuration": "allYear",
+      "firstName": "Riley",
+      "middleInitial": "Q",
+      "tin": "600-00-2001",
+      "scheduleEicLine4aNo": false,
+      "eligibleDependent": true,
+      "relationship": "siblingInLaw",
+      "ssnNotValidForEmployment": null
+    },
+    {
+      "monthsLivedWithTPInUS": "twelve",
+      "lastName": "ONeal-Walker",
+      "hohQualifyingPerson": null,
+      "isClaimedDependent": true,
+      "qualifyingChild": true,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "2019-01-01",
+      "suffix": "Jr",
+      "residencyDuration": "allYear",
+      "firstName": "Jordan",
+      "middleInitial": "E",
+      "scheduleEicLine4aNo": false,
+      "tin": "600-00-2002",
+      "eligibleDependent": true,
+      "relationship": "biologicalChild",
+      "ssnNotValidForEmployment": true
+    }
+  ],
+  "filers": [
+    {
+      "firstName": "Alex",
+      "lastName": "ONeal-Walker",
+      "middleInitial": "J",
+      "educatorExpenses": "0.00",
+      "tin": "300-00-8888",
+      "dateOfBirth": "1960-03-05",
+      "suffix": "IV",
+      "isPrimaryFiler": true,
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": null
+    },
+    {
+      "firstName": "Tanya",
+      "lastName": "Walker",
+      "middleInitial": "Q",
+      "educatorExpenses": "0.00",
+      "tin": "600-00-0100",
+      "dateOfBirth": "1953-01-01",
+      "suffix": "III",
+      "isPrimaryFiler": false,
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "form1099Gs": [
+    {
+      "stateTaxWithheld": "0.00",
+      "has1099": true,
+      "amount": "1000.00",
+      "amountPaidBackForBenefitsInTaxYear": "0.00",
+      "federalTaxWithheld": "100.00",
+      "stateIdNumber": null,
+      "payerTin": "00-8282828",
+      "payer": "NJ Department of Labor",
+      "recipientTin": "300-00-8888"
+    }
+  ],
+  "formW2s": [
+    {
+      "usedTin": "600-00-0100",
+      "unionDuesAmount": null
+    }
+  ],
+  "interestReports": [
+    {
+      "has1099": true,
+      "taxExemptAndTaxCreditBondCusipNo": null,
+      "interestOnGovernmentBonds": "0.00",
+      "taxExemptInterest": "0.00",
+      "payerTin": null,
+      "recipientTin": "300-00-8888",
+      "payer": "ONeal Investments",
+      "1099Amount": "1000.00",
+      "no1099Amount": null,
+      "taxWithheld": "0.00"
+    },
+    {
+      "has1099": true,
+      "taxExemptAndTaxCreditBondCusipNo": null,
+      "interestOnGovernmentBonds": "1000.00",
+      "taxExemptInterest": "0.00",
+      "payerTin": null,
+      "payer": "Walk or Kneel Investments",
+      "recipientTin": "600-00-0100",
+      "taxWithheld": "0.00",
+      "no1099Amount": null,
+      "1099Amount": "0.00"
+    },
+    {
+      "has1099": true,
+      "taxExemptAndTaxCreditBondCusipNo": null,
+      "interestOnGovernmentBonds": "500.00",
+      "payerTin": null,
+      "taxExemptInterest": "0.00",
+      "recipientTin": "600-00-0100",
+      "payer": "Walker Investments",
+      "no1099Amount": null,
+      "taxWithheld": "0.00",
+      "1099Amount": "500.00"
+    }
+  ]
+}
