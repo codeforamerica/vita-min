@@ -28,17 +28,20 @@ module SubmissionBuilder
             xml.PaymentAmount @submission.data_source.withdraw_amount if @submission.data_source.withdraw_amount.present?
             xml.AccountHolderType "2" if @submission.data_source.requires_additional_withdrawal_information?
             xml.RequestedPaymentDate date_type(@submission.data_source.date_electronic_withdrawal) if @submission.data_source.date_electronic_withdrawal.present?
-            xml.NotIATTransaction 'X'
             if @submission.data_source.requires_additional_withdrawal_information?
               xml.AddendaRecord do
-                xml.TaxTypeCode "01000"
+                xml.TaxTypeCode do
+                  xml.FTACode "010"
+                  xml.StateTaxTypeCode "00"
+                end
                 xml.TaxPeriodEndDate date_type(Date.new(@submission.data_source.tax_return_year, 12, 31))
                 xml.TXPAmount do
                   xml.SubAmountType "0"
-                  xml.Subamount @submission.data_source.withdraw_amount
+                  xml.SubAmount @submission.data_source.withdraw_amount
                 end
               end
             end
+            xml.NotIATTransaction 'X'
           end
         end
       end
