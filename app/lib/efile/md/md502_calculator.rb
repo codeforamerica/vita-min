@@ -344,11 +344,7 @@ module Efile
       end
 
       def calculate_line_19
-        if deduction_method_is_standard?
-          line_or_zero(:MD502_LINE_D_AMOUNT_TOTAL)
-        else
-          0
-        end
+        line_or_zero(:MD502_LINE_D_AMOUNT_TOTAL)
       end
 
       def calculate_line_20
@@ -411,7 +407,7 @@ module Efile
       end
 
       def calculate_line_23
-        return 0 if filing_status_dependent? || @lines[:MD502_LINE_1B].value <= 0
+        return 0 if filing_status_dependent? || @lines[:MD502_LINE_1B].value <= 0 || !deduction_method_is_standard?
 
         comparison_amount = [@lines[:MD502_LINE_7].value, @lines[:MD502_LINE_1B].value].max
 
@@ -437,6 +433,7 @@ module Efile
       end
 
       def calculate_line_24
+        return 0 unless deduction_method_is_standard?
         line_or_zero(:MD502CR_PART_AA_LINE_14)
       end
 
@@ -557,9 +554,7 @@ module Efile
       end
 
       def calculate_line_32
-        if deduction_method_is_standard?
-          line_or_zero(:MD502_LINE_29) + line_or_zero(:MD502_LINE_30)
-        end
+        line_or_zero(:MD502_LINE_29) + line_or_zero(:MD502_LINE_30)
       end
 
       def calculate_line_33
