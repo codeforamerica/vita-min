@@ -8,6 +8,7 @@ end
 # This structure is borrowed from https://github.com/department-of-veterans-affairs/vets-api/blob/247c84c0226d4cc90477b96a46107c6bace62bd5/config/initializers/flipper.rb
 # Make sure that each feature we reference in code is present in the UI, as long as we have a Database already
 begin
+  Flipper.disable :show_retirement_ui unless Flipper.exist?(:show_retirement_ui)
   Flipper.disable :sms_notifications unless Flipper.exist?(:sms_notifications)
   Flipper.disable :hub_dashboard unless Flipper.exist?(:hub_dashboard)
   if Rails.env.heroku? || Rails.env.demo?

@@ -94,15 +94,19 @@
         <p><%= number_to_currency(current_intake.calculator.line_or_zero(:AZ140_LINE_12)) %></p>
       </div>
 
-      <div class="spacing-below-25">
-        <p class="text--bold spacing-below-5"><%=t(".exclusion_for_govt_pensions") %></p>
-        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:AZ140_LINE_29A)) %></p>
-      </div>
+      <% if Flipper.enabled?(:show_retirement_ui) %>
+        <div class="spacing-below-25">
+          <p class="text--bold spacing-below-5"><%=t(".exclusion_for_govt_pensions") %></p>
+          <p><%= number_to_currency(current_intake.calculator.line_or_zero(:AZ140_LINE_29A)) %></p>
+        </div>
+      <% end %>
 
-      <div class="spacing-below-25">
-        <p class="text--bold spacing-below-5"><%=t(".exclusion_for_military_pensions") %></p>
-        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:AZ140_LINE_29B)) %></p>
-      </div>
+      <% if Flipper.enabled?(:show_retirement_ui) %>
+        <div class="spacing-below-25">
+          <p class="text--bold spacing-below-5"><%=t(".exclusion_for_military_pensions") %></p>
+          <p><%= number_to_currency(current_intake.calculator.line_or_zero(:AZ140_LINE_29B)) %></p>
+        </div>
+      <% end %>
 
       <div class="spacing-below-25">
         <p class="text--bold spacing-below-5"><%=t(".ssn_not_taxed") %></p>
