@@ -75,6 +75,7 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400, required_schema
       context "when owed" do
         let(:intake) { create(:state_file_nc_intake, :taxes_owed) }
         before do
+          intake.direct_file_data.phone_number = "3123334444"
           intake.phone_number = nil
         end
 
@@ -83,7 +84,7 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400, required_schema
           expect(xml.document.at('PaymentContact PersonName MiddleInitial')&.text).to eq "A"
           expect(xml.document.at('PaymentContact PersonName LastName')&.text).to eq "Carolinian"
           expect(xml.document.at('PaymentContact PersonName NameSuffix')).to be_nil
-          expect(xml.document.at('PaymentContact USPhoneNumber')&.text).to eq "9845559876"
+          expect(xml.document.at('PaymentContact USPhoneNumber')&.text).to eq "3123334444"
         end
 
         context "if filer does have phone number collected at intake" do
