@@ -21,6 +21,22 @@ module SubmissionBuilder
                 add_non_zero_value(xml, :SpouseExemption, :ID40_LINE_6B)
                 add_non_zero_value(xml, :OtherExemption, :ID40_LINE_6C)
                 add_non_zero_value(xml, :TotalExemption, :ID40_LINE_6D)
+                unless @intake.filing_status_single? && @intake.dependents.count.zero?
+                  xml.DependentGrid do
+                    xml.DependentFirstName sanitize_for_xml(@intake.primary.first_name, 20)
+                    xml.DependentLastName sanitize_for_xml(@intake.primary.last_name, 20)
+                    xml.DependentSSN @intake.primary.ssn.delete('-') if @intake.primary.ssn
+                    xml.DependentDOB date_type(@intake.primary.birth_date)
+                  end
+                end
+                if @intake.filing_status_mfj?
+                  xml.DependentGrid do
+                    xml.DependentFirstName sanitize_for_xml(@intake.spouse.first_name, 20)
+                    xml.DependentLastName sanitize_for_xml(@intake.spouse.last_name, 20)
+                    xml.DependentSSN @intake.spouse.ssn.delete('-') if @intake.spouse.ssn
+                    xml.DependentDOB date_type(@intake.spouse.birth_date)
+                  end
+                end
                 @submission.data_source.dependents.each do |dependent|
                   xml.DependentGrid do
                     xml.DependentFirstName sanitize_for_xml(dependent.first_name, 20)

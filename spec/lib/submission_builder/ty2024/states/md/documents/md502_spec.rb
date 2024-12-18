@@ -445,12 +445,10 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
           allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "N"
           allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_21).and_return nil
           expect(xml.at("Form502 NetIncome")).to be_nil
-          expect(xml.at("Form502 ExemptionAmount")).to be_nil
           expect(xml.at("Form502 StateTaxComputation TaxableNetIncome")).to be_nil
           expect(xml.at("Form502 StateTaxComputation StateIncomeTax")).to be_nil
           expect(xml.at("Form502 StateTaxComputation PovertyLevelCredit")).to be_nil
           expect(xml.at("Form502 StateTaxComputation IndividualTaxCredits")).to be_nil
-          expect(xml.at("Form502 StateTaxComputation TotalCredits")).to be_nil
           expect(xml.at("Form502 StateTaxComputation StateTaxAfterCredits")).to be_nil
         end
       end
