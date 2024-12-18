@@ -35,7 +35,7 @@ module SubmissionBuilder
                 xml.TaxPeriodEndDate date_type(Date.new(@submission.data_source.tax_return_year, 12, 31))
                 xml.TXPAmount do
                   xml.SubAmountType "0"
-                  xml.Subamount @submission.data_source.withdraw_amount if @submission.data_source.withdraw_amount.present?
+                  xml.Subamount @submission.data_source.withdraw_amount
                 end
               end
             end
