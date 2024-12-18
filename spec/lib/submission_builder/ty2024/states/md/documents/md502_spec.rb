@@ -441,7 +441,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
           expect(xml.at("Form502 StateTaxComputation StateTaxAfterCredits").text).to eq "0"
         end
 
-        it "leaves amounts blank or 0 if method is not standard" do
+        it "leaves amounts blank if method is not standard" do
           allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "N"
           allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_21).and_return nil
           expect(xml.at("Form502 NetIncome")).to be_nil
