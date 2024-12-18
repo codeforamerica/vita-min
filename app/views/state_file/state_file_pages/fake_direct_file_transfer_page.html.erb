@@ -1,5 +1,5 @@
-<div style="width: 400px; margin: 50px;">
-  <h1>Your 2023 federal tax return is ready to transfer to your state tax return.</h1>
+<div style="width: 450px; margin: 50px;">
+  <h1><%= "Your #{current_tax_year} federal tax return is ready to transfer to your state tax return." %></h1>
 
   <style>
       .transfer-button {
@@ -27,28 +27,31 @@
   </style>
   <%=
     link_to(
-      "Transfer my 2023 federal tax return to FileYourStateTaxes",
+      "Transfer my #{current_tax_year} federal tax return to FileYourStateTaxes",
       @main_transfer_url,
       class: 'transfer-button'
     )
   %>
+  <br/>
 
   <%=
     link_to(
       "Cancel",
-      StateFile::Questions::CanceledDataTransferController.to_path_helper(us_state: current_intake.state_code),
+      StateFile::Questions::CanceledDataTransferController.to_path_helper,
       class: 'cancel-button'
     )
   %>
+  <br/>
 
   <%=
     link_to(
       "See page for pending federal return",
-      StateFile::Questions::PendingFederalReturnController.to_path_helper(us_state: current_intake.state_code),
+      StateFile::Questions::PendingFederalReturnController.to_path_helper,
     )
   %>
+  <br/>
 
   <% @xml_samples.each do |label, url| %>
-    <%= link_to("Transfer " + label, url, class: 'transfer-button') %>
+    <%= link_to("Transfer " + label, url, class: 'transfer-button') %><br/>
   <% end %>
 </div>

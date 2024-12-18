@@ -69,10 +69,17 @@ describe TaxReturnAssignmentService do
     end
 
     context "when assigned_user is a org lead" do
-      let(:assigned_user) { create :organization_lead_user }
+      let(:assigned_user) { create :organization_lead_user, organization: create(:organization, child_sites: [site]) }
 
       it "updates the user" do
         expect { subject.assign! }.to change(tax_return.reload, :assigned_user_id).to(assigned_user.id)
+      end
+
+      context "their original vita partner is a site" do
+        it "keeps them at the site" do
+          expect { subject.assign! }.not_to change(tax_return.client.reload, :vita_partner)
+          expect(tax_return.client.vita_partner).to eq site
+        end
       end
     end
   end

@@ -14,10 +14,24 @@ RSpec.feature "Visit home page" do
       end
     end
 
+    expect(page).to have_text("Chat with us")
+
     within ".slab--hero" do
       click_on I18n.t('general.get_started')
     end
     expect(page).to have_text I18n.t('views.questions.personal_info.title')
+  end
+
+  context "hide_intercom flipper flag is enabled" do
+    before do
+      Flipper.enable :hide_intercom
+    end
+
+    scenario "doesn't render intercom widget", js: true do
+      visit "/"
+
+      expect(page).not_to have_text("Chat with us")
+    end
   end
 
   describe "faq questions" do
@@ -40,9 +54,9 @@ RSpec.feature "Visit home page" do
     let(:current_time) { nil }
 
     around do |example|
-      Timecop.freeze(current_time)
-      example.run
-      Timecop.return
+      Timecop.freeze(current_time) do
+        example.run
+      end
     end
 
     before do
@@ -50,7 +64,7 @@ RSpec.feature "Visit home page" do
       allow(Rails.configuration).to receive(:tax_deadline).and_return(DateTime.new(2024, 4, 15))
       allow(Rails.configuration).to receive(:end_of_intake).and_return(DateTime.new(2024, 10, 1))
       allow(Rails.configuration).to receive(:end_of_docs).and_return(DateTime.new(2024, 10, 8))
-      allow(Rails.configuration).to receive(:end_of_in_progress_intake).and_return(DateTime.new(2024, 10, 16))
+      allow(Rails.configuration).to receive(:end_of_in_progress_intake).and_return(DateTime.new(2024, 10, 15))
       allow(Rails.configuration).to receive(:end_of_login).and_return(DateTime.new(2024, 10, 23))
     end
 
@@ -71,7 +85,7 @@ RSpec.feature "Visit home page" do
       scenario "shows the document deadline banner" do
         visit "/"
 
-        expect(page).to have_text "Reminder: You must submit your documents by April 1 in order to meet the federal income tax filing deadline of April 15. You can submit your taxes after the deadline without penalty if you don't owe. If you aren't sure whether or not you will owe, you can complete and mail this IRS form requesting an extension."
+        expect(page).to have_text "Reminder: You must submit your documents by April 1st in order to meet the federal income tax filing deadline of April 15th. You can submit your taxes after the deadline without penalty if you don't owe. If you aren't sure whether or not you will owe, you can complete and mail this IRS form requesting an extension."
         expect(page.all(:css, '.slab--banner').length).to eq 1
       end
     end
@@ -89,7 +103,7 @@ RSpec.feature "Visit home page" do
       scenario "shows the banner with closing date and document submission deadline with correctly formatted spanish dates" do
         visit "/es"
 
-        expect(page).to have_text "Comience con GetYourRefund antes del 1 de octubre si desea presentar su declaración con nosotros en 2024. Si su declaración está en progreso, inicie sesión y envíe sus documentos antes del 8 de octubre."
+        expect(page).to have_text I18n.t('views.public_pages.home.open_intake_post_tax_deadline_banner', end_of_intake: I18n.l(Rails.configuration.end_of_intake.to_date, format: :medium, locale: "es"), end_of_docs: I18n.l(Rails.configuration.end_of_docs.to_date, format: :medium, locale: "es"), locale: "es")
       end
     end
   end

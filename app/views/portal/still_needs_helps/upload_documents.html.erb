@@ -10,7 +10,7 @@
           </div>
           <h1 class="h2 spacing-above-0"><%= t(".title") %></h1>
 
-          <p class="help-text"><%= t(".help_text") %></p>
+          <p class="help-text"><%= t(".help_text", docs_deadline: I18n.l(Rails.configuration.end_of_docs.to_date, format: :medium, locale: locale)) %></p>
 
 
           <%= link_to portal_edit_upload_documents_path, class: "button button--wide text--centered" do %>

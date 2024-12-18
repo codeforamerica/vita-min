@@ -2,6 +2,7 @@ module Hub
   module Clients
     class BankAccountsController < Hub::BaseController
       load_and_authorize_resource :client, parent: false
+      before_action :prevent_greeter_access
 
       def show
         @client = Hub::ClientsController::HubClientPresenter.new(@client)

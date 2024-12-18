@@ -1,15 +1,11 @@
 module Navigation
-  class StateFileNyQuestionNavigation
+  class StateFileNyQuestionNavigation < Navigation::StateFileBaseQuestionNavigation
     include ControllerNavigation
-    include Navigation::StateFileBaseQuestionNavigationMixin
 
     SECTIONS = [
-      Navigation::NavigationSection.new(nil, [
-        Navigation::NavigationStep.new(StateFile::Questions::LandingPageController, false)
-      ], false),
       Navigation::NavigationSection.new("state_file.navigation.section_1", [
-        Navigation::NavigationStep.new(StateFile::Questions::EligibilityResidenceController),
-        Navigation::NavigationStep.new(StateFile::Questions::EligibilityOutOfStateIncomeController),
+        Navigation::NavigationStep.new(StateFile::Questions::NyEligibilityResidenceController),
+        Navigation::NavigationStep.new(StateFile::Questions::NyEligibilityOutOfStateIncomeController),
         Navigation::NavigationStep.new(StateFile::Questions::NyEligibilityCollegeSavingsWithdrawalController),
         Navigation::NavigationStep.new(StateFile::Questions::EligibilityOffboardingController, false),
         Navigation::NavigationStep.new(StateFile::Questions::EligibleController),
@@ -20,6 +16,8 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::EmailAddressController),
         Navigation::NavigationStep.new(StateFile::Questions::VerificationCodeController),
         Navigation::NavigationStep.new(StateFile::Questions::CodeVerifiedController),
+        Navigation::NavigationStep.new(StateFile::Questions::NotificationPreferencesController),
+        Navigation::NavigationStep.new(StateFile::Questions::SmsTermsController),
       ]),
       Navigation::NavigationSection.new("state_file.navigation.section_3", [
         Navigation::NavigationStep.new(StateFile::Questions::TermsAndConditionsController),
@@ -31,15 +29,13 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::WaitingToLoadDataController),
       ]),
       Navigation::NavigationSection.new("state_file.navigation.section_5", [
-        Navigation::NavigationStep.new(StateFile::Questions::DataReviewController),
+        Navigation::NavigationStep.new(StateFile::Questions::PostDataTransferController, false),
         Navigation::NavigationStep.new(StateFile::Questions::FederalInfoController),
         Navigation::NavigationStep.new(StateFile::Questions::DataTransferOffboardingController, false),
-        Navigation::NavigationStep.new(StateFile::Questions::NameDobController),
         Navigation::NavigationStep.new(StateFile::Questions::NycResidencyController),
         Navigation::NavigationStep.new(StateFile::Questions::NyCountyController),
         Navigation::NavigationStep.new(StateFile::Questions::NySchoolDistrictController),
         Navigation::NavigationStep.new(StateFile::Questions::NyPermanentAddressController),
-        Navigation::NavigationStep.new(StateFile::Questions::W2Controller),
         Navigation::NavigationStep.new(StateFile::Questions::NySalesUseTaxController),
         Navigation::NavigationStep.new(StateFile::Questions::NyPrimaryStateIdController),
         Navigation::NavigationStep.new(StateFile::Questions::NySpouseStateIdController),
@@ -56,9 +52,5 @@ module Navigation
       ]),
     ].freeze
     FLOW = SECTIONS.map(&:controllers).flatten.freeze
-
-    def self.intake_class
-      StateFileNyIntake
-    end
   end
 end

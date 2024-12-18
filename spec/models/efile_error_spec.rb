@@ -19,48 +19,90 @@
 require 'rails_helper'
 
 describe 'EfileError' do
-  it 'returns name dob as the default controller' do
-    expect(EfileError.default_controller).to eq StateFile::Questions::NameDobController
+  it 'returns data review as the default controller' do
+    expect(EfileError.default_controller("az")).to eq StateFile::Questions::AzReviewController
   end
 
   it 'converts controllers to paths' do
-    path = EfileError.controller_to_path(StateFile::Questions::NameDobController)
-    expect(path).to eq "name-dob"
+    path = EfileError.controller_to_path(StateFile::Questions::AzReviewController)
+    expect(path).to eq "az-review"
   end
 
   it 'converts paths to controllers' do
-    controller = EfileError.path_to_controller("w2")
-    expect(controller).to eq StateFile::Questions::W2Controller
+    controller = EfileError.path_to_controller("az-review")
+    expect(controller).to eq StateFile::Questions::AzReviewController
   end
 
   it 'returns the expected array of paths' do
     expect(EfileError.paths).to eq [
       "az-charitable-contributions",
       "az-excise-credit",
-      "az-primary-state-id",
       "az-prior-last-names",
+      "az-public-school-contributions",
+      'az-qualifying-organization-contributions',
       "az-review",
       "az-senior-dependents",
-      "az-spouse-state-id",
-      "az-state-credits",
+      "az-subtractions",
       "canceled-data-transfer",
       "code-verified",
       "contact-preference",
-      "data-review",
       "data-transfer-offboarding",
       "declined-terms-and-conditions",
       "eligibility-offboarding",
-      "eligibility-out-of-state-income",
-      "eligibility-residence",
       "eligible",
       "email-address",
       "esign-declaration",
       "federal-info",
+      "id-donations",
+      "id-eligibility-residence",
+      "id-grocery-credit",
+      "id-grocery-credit-review",
+      "id-health-insurance-premium",
+      "id-permanent-building-fund",
+      "id-review",
+      "id-sales-use-tax",
+      "income-review",
       "initiate-data-transfer",
-      "landing-page",
-      "name-dob",
+      "md-county",
+      "md-eligibility-filing-status",
+      "md-had-health-insurance",
+      "md-permanent-address",
+      "md-review",
+      "md-tax-refund",
+      "md-two-income-subtractions",
+      "nc-county",
+      "nc-eligibility",
+      "nc-review",
+      "nc-sales-use-tax",
+      "nc-subtractions",
+      "nc-tax-refund",
+      "nc-taxes-owed",
+      "nc-veteran-status",
+      "nj-college-dependents-exemption",
+      "nj-county",
+      "nj-disabled-exemption",
+      "nj-eitc-qualifying-child",
+      "nj-eligibility-health-insurance",
+      "nj-estimated-tax-payments",
+      "nj-gubernatorial-elections",
+      "nj-homeowner-eligibility",
+      "nj-homeowner-property-tax",
+      "nj-homeowner-property-tax-worksheet",
+      "nj-household-rent-own",
+      "nj-ineligible-property-tax",
+      "nj-medical-expenses",
+      "nj-municipality",
+      "nj-review",
+      "nj-sales-use-tax",
+      "nj-tenant-eligibility",
+      "nj-tenant-property-tax-worksheet",
+      "nj-tenant-rent-paid",
+      "nj-veterans-exemption",
+      "notification-preferences",
       "ny-county",
       "ny-eligibility-college-savings-withdrawal",
+      "ny-eligibility-out-of-state-income",
+      "ny-eligibility-residence",
       "ny-permanent-address",
       "ny-primary-state-id",
       "ny-review",
@@ -70,14 +112,17 @@ describe 'EfileError' do
       "ny-third-party-designee",
       "nyc-residency",
       "phone-number",
+      "post-data-transfer",
+      "primary-state-id",
       "return-status",
+      "sms-terms",
+      "spouse-state-id",
       "submission-confirmation",
       "tax-refund",
       "taxes-owed",
       "terms-and-conditions",
       "unemployment",
       "verification-code",
-      "w2",
       "waiting-to-load-data"
     ]
   end

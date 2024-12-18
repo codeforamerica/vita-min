@@ -28,6 +28,6 @@ class BacktaxesForm < QuestionsForm
       needs_help_previous_year_2 == "yes" ||
       needs_help_previous_year_1 == "yes" ||
       needs_help_current_year == "yes"
-    errors.add(:needs_help_previous_year_3, I18n.t("forms.errors.at_least_one_year")) unless chose_one
+    errors.add(:needs_help_current_year, I18n.t("forms.errors.at_least_one_year")) unless chose_one
   end
 end

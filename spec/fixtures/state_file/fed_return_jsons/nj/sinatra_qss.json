@@ -1,0 +1,45 @@
+{
+  "familyAndHousehold": [
+    {
+      "monthsLivedWithTPInUS": "twelve",
+      "lastName": "Sinatra",
+      "isClaimedDependent": true,
+      "hohQualifyingPerson": true,
+      "qualifyingChild": true,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "2020-10-10",
+      "suffix": "Jr",
+      "residencyDuration": "allYear",
+      "firstName": "Frank",
+      "middleInitial": null,
+      "tin": "600-00-0001",
+      "scheduleEicLine4aNo": false,
+      "eligibleDependent": true,
+      "relationship": "biologicalChild",
+      "ssnNotValidForEmployment": false
+    }
+  ],
+  "filers": [
+    {
+      "firstName": "Frank",
+      "lastName": "Sinatra",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "300-00-0001",
+      "dateOfBirth": "1950-12-11",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [
+    {
+      "usedTin": "300-00-0001",
+      "unionDuesAmount": null
+    }
+  ],
+  "interestReports": []
+}

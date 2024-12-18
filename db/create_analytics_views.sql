@@ -183,7 +183,7 @@ CREATE VIEW analytics.intakes AS
            demographic_spouse_asian, demographic_spouse_black_african_american, demographic_spouse_ethnicity,
            demographic_spouse_native_hawaiian_pacific_islander, demographic_spouse_prefer_not_to_answer_race,
            demographic_spouse_white, demographic_veteran, divorced, divorced_year, eip_only,
-           email_notification_opt_in, ever_married, feeling_about_taxes, filing_for_stimulus, filing_joint,
+           email_notification_opt_in, ever_married, feedback, feeling_about_taxes, filing_for_stimulus, filing_joint,
            had_asset_sale_income, had_debt_forgiven, had_dependents, had_disability, had_disability_income,
            had_disaster_loss, had_farm_income, had_gambling_income, had_hsa, had_interest_income,
            had_local_tax_refund, had_other_income, had_rental_income, had_retirement_income,
@@ -299,5 +299,5 @@ CREATE view analytics.state_file_ny_intakes AS
     FROM public.state_file_ny_intakes;
 
 CREATE view analytics.state_file_w2s AS
-SELECT id, employer_state_id_num, local_income_tax_amt, local_wages_and_tips_amt, locality_nm, state_file_intake_type, state_income_tax_amt, state_wages_amt, w2_index, created_at, updated_at, state_file_intake_id
+SELECT id, employer_state_id_num, local_income_tax_amount, local_wages_and_tips_amount, locality_nm, state_file_intake_type, state_income_tax_amount, state_wages_amount, w2_index, created_at, updated_at, state_file_intake_id
 FROM public.state_file_w2s;

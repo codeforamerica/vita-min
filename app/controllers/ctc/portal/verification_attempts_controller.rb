@@ -35,11 +35,20 @@ class Ctc::Portal::VerificationAttemptsController < Ctc::Portal::BaseAuthenticat
   # allows for deletion of photos from an existing attempt
   def destroy
     @verification_attempt = current_client.verification_attempts.find_by(id: params[:id])
-    if @verification_attempt.blank? || !params[:photo_type].in?(["selfie", "photo_identification"])
+    if @verification_attempt.blank?
       flash["alert"] = I18n.t("general.access_denied")
       redirect_to action: :edit and return
     end
-    @verification_attempt.send(params[:photo_type]).purge_later
+
+    case params[:photo_type]
+    when "selfie"
+      @verification_attempt.selfie.purge_later
+    when "photo_identification"
+      @verification_attempt.photo_identification.purge_later
+    else
+      flash["alert"] = I18n.t("general.access_denied")
+    end
+
     redirect_to action: :edit
   end
 

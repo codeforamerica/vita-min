@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v4.0">
+  <ReturnHeader binaryAttachmentCnt="0">
+    <TaxYr>2024</TaxYr>
+    <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+    <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+    <SoftwareVersionNum>eb055500</SoftwareVersionNum>
+    <ReturnTypeCd>1040</ReturnTypeCd>
+    <Filer>
+      <PrimarySSN>145004907</PrimarySSN>
+      <NameLine1Txt>NALA P&lt;KING</NameLine1Txt>
+      <PrimaryNameControlTxt>KING</PrimaryNameControlTxt>
+      <USAddress>
+        <AddressLine1Txt>100 Smokey Mountain Drive</AddressLine1Txt>
+        <CityNm>Garner</CityNm>
+        <StateAbbreviationCd>NC</StateAbbreviationCd>
+        <ZIPCd>27529</ZIPCd>
+      </USAddress>
+      <PhoneNum>4345494907</PhoneNum>
+    </Filer>
+    <AdditionalFilerInformation>
+      <AtSubmissionFilingGrp>
+        <EmailAddressTxt>test-user+14500490-7660-483d-8ba7-9eb59390257c@directfile.test</EmailAddressTxt>
+      </AtSubmissionFilingGrp>
+    </AdditionalFilerInformation>
+  </ReturnHeader>
+  <ReturnData documentCnt="5">
+    <IRS1040 documentId="IRS10400001">
+      <IndividualReturnFilingStatusCd>4</IndividualReturnFilingStatusCd>
+      <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+      <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+      <DependentDetail>
+        <DependentFirstNm>Kopa</DependentFirstNm>
+        <DependentLastNm>King</DependentLastNm>
+        <DependentNameControlTxt>KING</DependentNameControlTxt>
+        <DependentSSN>300000001</DependentSSN>
+        <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+        <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+      </DependentDetail>
+      <ChldWhoLivedWithYouCnt>1</ChldWhoLivedWithYouCnt>
+      <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+      <TotalExemptionsCnt>2</TotalExemptionsCnt>
+      <WagesAmt referenceDocumentId="W20001 W20002" referenceDocumentName="IRSW2">36684</WagesAmt>
+      <WagesSalariesAndTipsAmt>36684</WagesSalariesAndTipsAmt>
+      <TotalIncomeAmt>36684</TotalIncomeAmt>
+      <AdjustedGrossIncomeAmt>36684</AdjustedGrossIncomeAmt>
+      <TotalItemizedOrStandardDedAmt>21900</TotalItemizedOrStandardDedAmt>
+      <TotalDeductionsAmt>21900</TotalDeductionsAmt>
+      <TaxableIncomeAmt>14784</TaxableIncomeAmt>
+      <TaxAmt>1478</TaxAmt>
+      <TotalTaxBeforeCrAndOthTaxesAmt>1478</TotalTaxBeforeCrAndOthTaxesAmt>
+      <CTCODCAmt>1478</CTCODCAmt>
+      <TotalCreditsAmt>1478</TotalCreditsAmt>
+      <TaxLessCreditsAmt>0</TaxLessCreditsAmt>
+      <TotalTaxAmt>0</TotalTaxAmt>
+      <FormW2WithheldTaxAmt>1800</FormW2WithheldTaxAmt>
+      <WithholdingTaxAmt>1800</WithholdingTaxAmt>
+      <EarnedIncomeCreditAmt referenceDocumentId="IRSEIC0001" referenceDocumentName="IRS1040ScheduleEIC">1983</EarnedIncomeCreditAmt>
+      <AdditionalChildTaxCreditAmt referenceDocumentId="IRS8812001" referenceDocumentName="IRS1040Schedule8812">522</AdditionalChildTaxCreditAmt>
+      <RefundableCreditsAmt>2505</RefundableCreditsAmt>
+      <TotalPaymentsAmt>4305</TotalPaymentsAmt>
+      <OverpaidAmt>4305</OverpaidAmt>
+      <RefundAmt>4305</RefundAmt>
+      <OwedAmt>0</OwedAmt>
+      <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+      <PrimaryOccupationTxt>Performer</PrimaryOccupationTxt>
+      <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+    </IRS1040>
+    <IRS1040Schedule8812 documentId="IRS8812001" documentName="IRS1040Schedule8812">
+      <AdjustedGrossIncomeAmt>36684</AdjustedGrossIncomeAmt>
+      <ModifiedAGIAmt>36684</ModifiedAGIAmt>
+      <QlfyChildUnderAgeSSNCnt>1</QlfyChildUnderAgeSSNCnt>
+      <QlfyChildUnderAgeSSNLimtAmt>2000</QlfyChildUnderAgeSSNLimtAmt>
+      <OtherDependentCnt>0</OtherDependentCnt>
+      <InitialCTCODCAmt>2000</InitialCTCODCAmt>
+      <FilingStatusThresholdCd>200000</FilingStatusThresholdCd>
+      <ExcessAdjGrossIncomeAmt>0</ExcessAdjGrossIncomeAmt>
+      <ModifiedAGIPhaseOutAmt>0</ModifiedAGIPhaseOutAmt>
+      <CTCODCOverAGILimitInd>true</CTCODCOverAGILimitInd>
+      <CTCODCAfterAGILimitAmt>2000</CTCODCAfterAGILimitAmt>
+      <ACTCTaxLiabiltyLimitAmt>1478</ACTCTaxLiabiltyLimitAmt>
+      <CTCODCAmt>1478</CTCODCAmt>
+      <ClaimACTCAllFilersGrp>
+        <ACTCBeforeLimitAmt>522</ACTCBeforeLimitAmt>
+        <QlfyChildUnderAgeSSNCnt>1</QlfyChildUnderAgeSSNCnt>
+        <QlfyChildUnderAgeSSNLimtAmt>1700</QlfyChildUnderAgeSSNLimtAmt>
+        <ACTCAfterLimitAmt>522</ACTCAfterLimitAmt>
+        <TotalEarnedIncomeAmt>36684</TotalEarnedIncomeAmt>
+        <EarnedIncmMoreThanSpecifiedInd>true</EarnedIncmMoreThanSpecifiedInd>
+        <NetTotalEarnedIncomeAmt>34184</NetTotalEarnedIncomeAmt>
+        <NetEarnedIncomeCalculatedAmt>5128</NetEarnedIncomeCalculatedAmt>
+        <ThreeOrMoreQlfyChildrenInd>false</ThreeOrMoreQlfyChildrenInd>
+      </ClaimACTCAllFilersGrp>
+      <AdditionalChildTaxCreditAmt>522</AdditionalChildTaxCreditAmt>
+    </IRS1040Schedule8812>
+    <IRS1040ScheduleEIC documentId="IRSEIC0001" documentName="IRS1040ScheduleEIC">
+      <QualifyingChildInformation>
+        <QualifyingChildNameControlTxt>KING</QualifyingChildNameControlTxt>
+        <ChildFirstAndLastName>
+          <PersonFirstNm>Kopa</PersonFirstNm>
+          <PersonLastNm>King</PersonLastNm>
+        </ChildFirstAndLastName>
+        <QualifyingChildSSN>300000001</QualifyingChildSSN>
+        <ChildBirthYr>2020</ChildBirthYr>
+        <ChildRelationshipCd>DAUGHTER</ChildRelationshipCd>
+        <MonthsChildLivedWithYouCnt>12</MonthsChildLivedWithYouCnt>
+      </QualifyingChildInformation>
+    </IRS1040ScheduleEIC>
+    <IRSW2 documentId="W20001" documentName="IRSW2">
+      <EmployeeSSN>145004907</EmployeeSSN>
+      <EmployerEIN>003008912</EmployerEIN>
+      <EmployerNameControlTxt>MAGI</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>Magical Day Spa</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>780 Sparkle Drive</AddressLine1Txt>
+        <CityNm>Yanceyville</CityNm>
+        <StateAbbreviationCd>NC</StateAbbreviationCd>
+        <ZIPCd>27379</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>Nala P King</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>100 Smokey Mountain Drive</AddressLine1Txt>
+        <CityNm>Garner</CityNm>
+        <StateAbbreviationCd>NC</StateAbbreviationCd>
+        <ZIPCd>27529</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>4600</WagesAmt>
+      <WithholdingAmt>450</WithholdingAmt>
+      <SocialSecurityWagesAmt>4600</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>186</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>4600</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>44</MedicareTaxWithheldAmt>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>NC</StateAbbreviationCd>
+          <EmployerStateIdNum>NC 000143267</EmployerStateIdNum>
+          <StateWagesAmt>2600</StateWagesAmt>
+          <W2LocalTaxGrp/>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+    <IRSW2 documentId="W20002" documentName="IRSW2">
+      <EmployeeSSN>145004907</EmployeeSSN>
+      <EmployerEIN>003007891</EmployerEIN>
+      <EmployerNameControlTxt>NASH</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>Nashville Theater</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>207 Broadway Lane</AddressLine1Txt>
+        <CityNm>Danville</CityNm>
+        <StateAbbreviationCd>VA</StateAbbreviationCd>
+        <ZIPCd>24541</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>Nala P King</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>100 Smokey Mountain Drive</AddressLine1Txt>
+        <CityNm>Garner</CityNm>
+        <StateAbbreviationCd>NC</StateAbbreviationCd>
+        <ZIPCd>27529</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>32084</WagesAmt>
+      <WithholdingAmt>1350</WithholdingAmt>
+      <SocialSecurityWagesAmt>32084</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>558</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>32084</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>131</MedicareTaxWithheldAmt>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>NC</StateAbbreviationCd>
+          <EmployerStateIdNum>NC 000100500</EmployerStateIdNum>
+          <StateWagesAmt>32084</StateWagesAmt>
+          <W2LocalTaxGrp/>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+  </ReturnData>
+</Return>

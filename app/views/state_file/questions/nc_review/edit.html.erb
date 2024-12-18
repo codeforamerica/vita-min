@@ -1,0 +1,114 @@
+<% content_for :page_title, t("state_file.questions.shared.abstract_review_header.title") %>
+<% content_for :card do %>
+  <%= render "review_header" %>
+
+  <div id="nc-county" class="white-group">
+    <div class="spacing-below-5">
+      <p class="text--bold spacing-below-5"><%= t("state_file.questions.review.county", filing_year: current_tax_year) %></p>
+      <p><%= current_intake.residence_county_name %></p>
+      <% if current_intake.county_during_hurricane_helene.present? && current_intake.moved_after_hurricane_helene_yes? %>
+        <p class="text--bold spacing-below-5"><%= t("state_file.questions.review.county_during_hurricane", filing_year: current_tax_year) %></p>
+        <p><%= StateFileNcIntake::COUNTIES[current_intake.county_during_hurricane_helene] %></p>
+      <% end %>
+      <%= link_to t("general.edit"), StateFile::Questions::NcCountyController.to_path_helper(return_to_review: "y"), class: "button--small" %>
+    </div>
+  </div>
+
+  <div id="veteran-status" class="white-group">
+    <div class="spacing-below-5">
+      <p class="text--bold spacing-below-5"><%=t(".primary_veteran") %></p>
+      <p><%=current_intake.primary_veteran_yes? ? t("general.affirmative") : t("general.negative") %></p>
+      <% if current_intake.filing_status_mfj? %>
+        <p class="text--bold spacing-below-5"><%=t(".spouse_veteran") %></p>
+        <p><%=current_intake.spouse_veteran_yes? ? t("general.affirmative") : t("general.negative") %></p>
+      <% end %>
+      <%= link_to t("general.edit"), StateFile::Questions::NcVeteranStatusController.to_path_helper(return_to_review: "y"), class: "button--small" %>
+    </div>
+  </div>
+
+  <div id="use-tax" class="white-group">
+    <div class="spacing-below-5">
+      <p class="text--bold spacing-below-5"><%=t(".use_tax_applied", filing_year: current_tax_year) %></p>
+      <p><%=current_intake.untaxed_out_of_state_purchases_yes? ? t("general.affirmative") : t("general.negative") %></p>
+      <% if current_intake.untaxed_out_of_state_purchases_yes? %>
+        <p class="text--bold spacing-below-5"><%=t(".amount") %></p>
+        <p><%=number_to_currency(current_intake.sales_use_tax, precision: 2)%></p>
+      <% end %>
+      <%= link_to t("general.edit"), StateFile::Questions::NcSalesUseTaxController.to_path_helper(return_to_review: "y"), class: "button--small" %>
+    </div>
+  </div>
+
+  <div id="state-credits" class="white-group">
+    <div class="spacing-below-5">
+      <p class="text--bold spacing-below-5"><%=t(".state_credit") %></p>
+      <p><%=current_intake.tribal_member_yes? ? t("general.affirmative") : t("general.negative") %></p>
+      <% if current_intake.tribal_member_yes? %>
+        <p class="text--bold spacing-below-5"><%=t(".amount_earned") %></p>
+        <p><%=number_to_currency(current_intake.tribal_wages_amount, precision: 2)%></p>
+      <% end %>
+      <%= link_to t("general.edit"), StateFile::Questions::NcSubtractionsController.to_path_helper(return_to_review: "y"), class: "button--small" %>
+    </div>
+  </div>
+
+  <div id="details" class="reveal">
+    <p><button class="reveal__button"><%= t("state_file.general.see_detailed_return") %></button></p>
+    <div class="reveal__content">
+      <div class="spacing-below-25">
+        <p class="text--bold spacing-below-5"><%= t("state_file.general.fed_agi") %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:NCD400_LINE_6)) %></p>
+      </div>
+
+      <div class="spacing-below-25">
+        <p class="text--bold spacing-below-5"><%= t(".social_security_benefits") %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:NCD400_S_LINE_19)) %></p>
+      </div>
+
+      <div class="spacing-below-25">
+        <p class="text--bold spacing-below-5"><%= t(".interest_us_bonds") %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:NCD400_S_LINE_18)) %></p>
+      </div>
+
+      <div class="spacing-below-25">
+        <p class="text--bold spacing-below-5"><%= t(".subtraction_indian_tribe") %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:NCD400_S_LINE_27)) %></p>
+      </div>
+
+      <div class="spacing-below-25">
+        <p class="text--bold spacing-below-5"><%= t(".child_deduction") %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:NCD400_LINE_10B)) %></p>
+      </div>
+
+      <div class="spacing-below-25">
+        <p class="text--bold spacing-below-5"><%= t("state_file.general.standard_deduction") %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:NCD400_LINE_11)) %></p>
+      </div>
+
+      <div class="spacing-below-25">
+        <p class="text--bold spacing-below-5"><%= t("state_file.general.nc_taxable_income") %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:NCD400_LINE_14)) %></p>
+      </div>
+
+      <div class="spacing-below-25 with-top-separator">
+        <p class="text--bold spacing-below-5"><%= t("state_file.general.nc_income_tax") %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:NCD400_LINE_15)) %></p>
+      </div>
+
+      <div class="spacing-below-25">
+        <p class="text--bold spacing-below-5"><%= t("state_file.general.nc_use_tax") %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:NCD400_LINE_18)) %></p>
+      </div>
+
+      <div class="spacing-below-25">
+        <p class="text--bold spacing-below-5"><%= t("state_file.general.total_tax") %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:NCD400_LINE_19)) %></p>
+      </div>
+
+      <div class="spacing-below-25 with-top-separator">
+        <p class="text--bold spacing-below-5"><%= t("state_file.general.nc_tax_withheld") %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:NCD400_LINE_20A) + current_intake.calculator.line_or_zero(:NCD400_LINE_20B)) %></p>
+      </div>
+    </div>
+  </div>
+
+  <%= render "state_file/questions/shared/review_footer" %>
+<% end %>

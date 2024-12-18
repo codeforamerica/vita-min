@@ -1,6 +1,10 @@
 require "rails_helper"
 
 RSpec.describe Diy::ContinueToFsaController do
+  before do
+    allow_any_instance_of(Diy::BaseController).to receive(:open_for_diy?).and_return(true)
+  end
+
   describe "#edit" do
     let(:diy_intake) { create(:diy_intake, :filled_out) }
     let(:experiments_enabled) { true }

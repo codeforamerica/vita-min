@@ -2,6 +2,7 @@ require "rails_helper"
 
 RSpec.feature "Logging in" do
   context "With a client who consented", active_job: true do
+    let(:twilio_service) { instance_double TwilioService }
     let!(:client) { create :client, intake: intake }
     let(:intake) { build :intake, :primary_consented, preferred_name: "Carrie", primary_first_name: "Carrie", primary_last_name: "Carrot", primary_last_four_ssn: "9876", email_address: "example@example.com", sms_phone_number: "+15005550006", sms_notification_opt_in: "yes" }
     let!(:tax_return) { create(:gyr_tax_return, :ready_to_sign, client: client) }
@@ -18,7 +19,8 @@ RSpec.feature "Logging in" do
           allow(VerificationCodeService).to receive(:hash_verification_code_with_contact_info).with(client.intake.sms_phone_number, "000004").and_return(hashed_verification_code)
           # mock case for wrong code
           allow(VerificationCodeService).to receive(:hash_verification_code_with_contact_info).with(client.intake.sms_phone_number, "999999").and_return("hashed_wrong_verification_code")
-          allow(TwilioService).to receive(:send_text_message)
+          allow(TwilioService).to receive(:new).and_return twilio_service
+          allow(twilio_service).to receive(:send_text_message)
         end
 
         scenario "requesting a verification code with an email address and signing in with a client id" do
@@ -66,7 +68,7 @@ RSpec.feature "Logging in" do
             expect(page).to have_text("A message with your code has been sent to: (500) 555-0006")
           end
 
-          expect(TwilioService).to have_received(:send_text_message).with(
+          expect(twilio_service).to have_received(:send_text_message).with(
             to: "+15005550006",
             body: "Your 6-digit GetYourRefund verification code is: 000004. This code will expire after 30 minutes.",
             status_callback: twilio_update_status_url(OutgoingMessageStatus.last.id, locale: nil, host: 'test.host')
@@ -158,23 +160,23 @@ RSpec.feature "Logging in" do
         visit portal_tax_return_authorize_signature_path(locale: "es", tax_return_id: tax_return.id)
 
         expect(page).to have_text I18n.t("portal.client_logins.new.title", locale: "es")
-        fill_in "Dirección de correo electrónico", with: client.intake.email_address
+        fill_in I18n.t("views.questions.email_address.email_address", locale: "es"), with: client.intake.email_address
 
         perform_enqueued_jobs do
-          click_on "Enviar código"
-          expect(page).to have_text "¡Verifiquemos ese código!"
+          click_on I18n.t("portal.client_logins.new.send_code", locale: "es")
+          expect(page).to have_text I18n.t("portal.client_logins.enter_verification_code.title", locale: "es")
         end
 
         mail = ActionMailer::Base.deliveries.last
         expect(mail.html_part.body.to_s).to have_text("de seis dígitos para GetYourRefund es: 000004. Este código expirará después de 30 minutos.")
 
-        fill_in "Ingrese el código de 6 dígitos", with: "000004"
-        click_on "Verificar"
+        fill_in I18n.t('portal.client_logins.enter_verification_code.enter_6_digit_code', locale: "es"), with: "000004"
+        click_on I18n.t('portal.client_logins.enter_verification_code.verify', locale: "es")
 
-        fill_in "ID de cliente o los 4 últimos de SSN/ITIN", with: client.id
-        click_on "Continuar"
+        fill_in I18n.t('portal.client_logins.edit.last_four_or_client_id', locale: "es"), with: client.id
+        click_on I18n.t('general.continue', locale: "es")
 
-        expect(page).to have_text "¡Entregue su firma electrónica/e-file final!"
+        expect(page).to have_text I18n.t("portal.tax_returns.authorize_signature.heading", locale: "es")
       end
     end
   end

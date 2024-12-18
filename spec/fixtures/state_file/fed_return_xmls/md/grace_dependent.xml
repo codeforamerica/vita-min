@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v4.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>676c5f98</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400008200</PrimarySSN>
+            <NameLine1Txt>GRACE&lt;GROUPER</NameLine1Txt>
+            <PrimaryNameControlTxt>GROU</PrimaryNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>1849 Hewes Avenue</AddressLine1Txt>
+                <CityNm>Germantown</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>20767</ZIPCd>
+            </USAddress>
+            <PhoneNum>3018888800</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000820-0ee3-49ac-9dc9-d6bc9be63595@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="2">
+        <IRS1040 documentId="IRS10400001">
+            <IndividualReturnFilingStatusCd>1</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <PrimaryClaimAsDependentInd>X</PrimaryClaimAsDependentInd>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>1</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">14500</WagesAmt>
+            <WagesSalariesAndTipsAmt>14500</WagesSalariesAndTipsAmt>
+            <TaxableInterestAmt>1000</TaxableInterestAmt>
+            <TotalIncomeAmt>15500</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>15500</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>14600</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>14600</TotalDeductionsAmt>
+            <TaxableIncomeAmt>900</TaxableIncomeAmt>
+            <TaxAmt>91</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>91</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>91</TaxLessCreditsAmt>
+            <TotalTaxAmt>91</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>2000</FormW2WithheldTaxAmt>
+            <WithholdingTaxAmt>2000</WithholdingTaxAmt>
+            <TotalPaymentsAmt>2000</TotalPaymentsAmt>
+            <OverpaidAmt>1909</OverpaidAmt>
+            <RefundAmt>1909</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Little Fish</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>400008200</EmployeeSSN>
+            <EmployerEIN>009998876</EmployerEIN>
+            <EmployerNameControlTxt>FISH</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Fish Stix Company</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>4214 Hillview Drive</AddressLine1Txt>
+                <CityNm>Atlanta</CityNm>
+                <StateAbbreviationCd>GA</StateAbbreviationCd>
+                <ZIPCd>30308</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Grace Grouper</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>1849 Hewes Avenue</AddressLine1Txt>
+                <CityNm>Germantown</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>20767</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>14500</WagesAmt>
+            <WithholdingAmt>2000</WithholdingAmt>
+            <SocialSecurityWagesAmt>14500</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>1000</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>14500</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>500</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>MD</StateAbbreviationCd>
+                    <EmployerStateIdNum>7777777</EmployerStateIdNum>
+                    <StateWagesAmt>14500</StateWagesAmt>
+                    <StateIncomeTaxAmt>500</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp>
+                        <LocalWagesAndTipsAmt>14500</LocalWagesAndTipsAmt>
+                        <LocalIncomeTaxAmt>200</LocalIncomeTaxAmt>
+                        <LocalityNm>Balt City</LocalityNm>
+                    </W2LocalTaxGrp>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>

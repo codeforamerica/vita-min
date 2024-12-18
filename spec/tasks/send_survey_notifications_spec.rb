@@ -5,7 +5,7 @@ describe 'send_survey_notifications rake task' do
   let!(:efile_submission) { create :efile_submission, :for_state, :accepted, data_source: intake }
   let!(:ctc_efile_submission) { create :efile_submission, :accepted}
   before(:all) do
-    Rails.application.load_tasks
+    Rake.application.rake_require "tasks/send_survey_notifications"
   end
   it 'runs without error for all state-filing submissions' do
     Rake::Task['survey_notifications:send'].execute

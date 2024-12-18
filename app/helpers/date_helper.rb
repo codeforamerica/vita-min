@@ -22,6 +22,10 @@ module DateHelper
     true
   end
 
+  def withdrawal_date_deadline(state_code)
+    ApplicationController.new.withdrawal_date_deadline(state_code)
+  end
+
   def valid_text_birth_date(birth_date_year, birth_date_month, birth_date_day, key = :birth_date)
     parsed_birth_date = parse_date_params(birth_date_year, birth_date_month, birth_date_day)
     unless parsed_birth_date.present?

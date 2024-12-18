@@ -45,6 +45,7 @@ class Seeder
 
     vp1 = first_org = VitaPartner.find_or_create_by!(
       name: "Oregano Org",
+      allows_greeters: true,
       coalition: koalas,
       type: Organization::TYPE
     )
@@ -185,6 +186,28 @@ class Seeder
       Note.create!(client: client, user: user, body: "This is an outgoing note :)", created_at: 2.days.ago)
     end
 
+    find_or_create_intake_and_client(
+      Intake::GyrIntake,
+      primary_first_name: "Peter",
+      primary_last_name: "Pan",
+      sms_phone_number: "+14155551999",
+      email_address: "peter@example.com",
+      primary_consented_to_service: "yes",
+      sms_notification_opt_in: :yes,
+      email_notification_opt_in: :yes,
+      bank_name: "Banky bank",
+      bank_routing_number: "011234569",
+      bank_account_number: "87654323",
+      bank_account_type: "checking",
+      client_attributes: {
+        vita_partner: first_org
+      },
+      tax_return_attributes: [
+        { year: 2022, assigned_user: user, current_state: "intake_ready" },
+        { year: 2023, current_state: "intake_ready" }
+      ]
+    )
+
     # Use this client for portal login; log in by email address & run rails jobs:work for the verification code; see SSN last 4 below
     _married_intake = find_or_create_intake_and_client(
       Intake::GyrIntake,
@@ -263,6 +286,7 @@ class Seeder
       primary_first_name: "VerifierOne",
       primary_last_name: "Smith",
       primary_consented_to_service: "yes",
+      product_year: 2022,
       tax_return_attributes: [{ year: 2021, current_state: "intake_ready", filing_status: "single" }],
     )
 
@@ -281,6 +305,7 @@ class Seeder
       primary_first_name: "VerifierTwo",
       primary_last_name: "Smith",
       primary_consented_to_service: "yes",
+      product_year: 2022,
       tax_return_attributes: [{ year: 2021, current_state: "intake_ready", filing_status: "single" }],
     )
     va2_client = intake_for_verification_attempt_2.client
@@ -299,6 +324,7 @@ class Seeder
         primary_first_name: "RestrictedVerifier",
         primary_last_name: "Smith",
         primary_consented_to_service: "yes",
+        product_year: 2022,
         tax_return_attributes: [{ year: 2021, current_state: "intake_ready", filing_status: "single" }],
     )
 
@@ -321,6 +347,7 @@ class Seeder
       primary_tin_type: 'ssn',
       email_address: "yfong+EitcUnderTwentyFourQC@codeforamerica.org",
       email_address_verified_at: Time.current,
+      product_year: 2022,
       tax_return_attributes: [{ year: 2021, current_state: "file_hold", filing_status: "single" }],
       dependent_attributes: [
         {
@@ -358,12 +385,15 @@ class Seeder
       ],
     )
 
+    create_efile_security_info(eitc_under_twenty_four_qc.client) if eitc_under_twenty_four_qc.client.efile_security_informations.none?
+
     if eitc_under_twenty_four_qc.client.efile_submissions.none?
       eitc_under_twenty_four_qc_efile_submission = eitc_under_twenty_four_qc.client.tax_returns.last.efile_submissions.create
-      eitc_under_twenty_four_qc_efile_submission.transition_to!(:preparing)
-      eitc_under_twenty_four_qc_efile_submission.transition_to!(:queued)
-      eitc_under_twenty_four_qc_efile_submission.transition_to!(:transmitted)
-      eitc_under_twenty_four_qc_efile_submission.transition_to!(:rejected)
+      # Faking these out because we removed CTC code from the state machine - hopefully it's sufficiently realistic
+      EfileSubmissionTransition.create(efile_submission: eitc_under_twenty_four_qc_efile_submission, to_state: :preparing, sort_key: 1, most_recent: false)
+      EfileSubmissionTransition.create(efile_submission: eitc_under_twenty_four_qc_efile_submission, to_state: :queued, sort_key: 2, most_recent: false)
+      EfileSubmissionTransition.create(efile_submission: eitc_under_twenty_four_qc_efile_submission, to_state: :transmitted, sort_key: 3, most_recent: false)
+      EfileSubmissionTransition.create(efile_submission: eitc_under_twenty_four_qc_efile_submission, to_state: :rejected, sort_key: 4, most_recent: true)
       efile_error = EfileError.create!(expose: true)
       eitc_under_twenty_four_qc_efile_submission.last_client_accessible_transition.efile_submission_transition_errors.create(efile_error: efile_error)
     end
@@ -382,6 +412,7 @@ class Seeder
       primary_tin_type: 'ssn',
       email_address: "yfong+EitcMFJQC@codeforamerica.org",
       email_address_verified_at: Time.current,
+      product_year: 2022,
       tax_return_attributes: [{ year: 2021, current_state: "file_hold", filing_status: "married_filing_jointly" }],
       dependent_attributes: [
         {
@@ -421,10 +452,11 @@ class Seeder
 
     if eitc_mfj_qc.client.efile_submissions.none?
       eitc_mfj_qc_efile_submission = eitc_mfj_qc.client.tax_returns.last.efile_submissions.create
-      eitc_mfj_qc_efile_submission.transition_to!(:preparing)
-      eitc_mfj_qc_efile_submission.transition_to!(:queued)
-      eitc_mfj_qc_efile_submission.transition_to!(:transmitted)
-      eitc_mfj_qc_efile_submission.transition_to!(:rejected)
+      # Faking these out because we removed CTC code from the state machine - hopefully it's sufficiently realistic
+      EfileSubmissionTransition.create(efile_submission: eitc_mfj_qc_efile_submission, to_state: :preparing, sort_key: 1, most_recent: false)
+      EfileSubmissionTransition.create(efile_submission: eitc_mfj_qc_efile_submission, to_state: :queued, sort_key: 2, most_recent: false)
+      EfileSubmissionTransition.create(efile_submission: eitc_mfj_qc_efile_submission, to_state: :transmitted, sort_key: 3, most_recent: false)
+      EfileSubmissionTransition.create(efile_submission: eitc_mfj_qc_efile_submission, to_state: :rejected, sort_key: 4, most_recent: true)
       efile_error = EfileError.create!(expose: true, auto_cancel: false, code: 'not-auto-cancel', message: 'this is an error that is not auto cancel')
       auto_cancel_efile_error = EfileError.create!(expose: true, auto_cancel: true, code: 'auto-cancel', message: 'this is an error that is auto cancel')
       eitc_mfj_qc_efile_submission.last_client_accessible_transition.efile_submission_transition_errors.create(efile_error: efile_error)
@@ -433,6 +465,7 @@ class Seeder
 
     find_or_create_intake_and_client(
       Intake::CtcIntake,
+      product_year: 2022,
       primary_first_name: "EitcNoQC",
       primary_last_name: "Smith",
       primary_consented_to_service: "yes",
@@ -566,5 +599,22 @@ class Seeder
       filename: 'test.jpg',
       content_type: 'image/jpeg'
     ) unless verification_attempt.photo_identification.present?
+  end
+
+  def create_efile_security_info(client)
+    return unless client.efile_security_informations.count < 2
+
+    efile_security_info_params = {
+      device_id: "AA" * 20,
+      user_agent: "Mozilla/5.0 (iPhone)",
+      browser_language: "en-US",
+      platform: "iPhone",
+      timezone_offset: "+300",
+      ip_address: "72.34.67.178",
+      recaptcha_score: 0.9e0,
+      timezone: "America/New_York",
+      client_system_time: DateTime.now
+    }
+    client.efile_security_informations.create(efile_security_info_params)
   end
 end

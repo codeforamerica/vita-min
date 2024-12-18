@@ -27,7 +27,6 @@ class ClientSorter
 
   def filtered_and_sorted_clients(default_order: nil)
     @default_order = default_order
-    setup_sortable_client unless @filters.present?
     filtered_clients.delegated_order(@sort_column, @sort_order)
   end
 
@@ -96,7 +95,11 @@ class ClientSorter
     end
 
     if @filters[:vita_partners].present?
-      ids = JSON.parse(@filters[:vita_partners]).map { |vita_partner| vita_partner["id"] }
+      # For backwards compatibility for users in the middle of a search while this is deployed,
+      # we support both hash and number (In future only number will be needed)
+      ids = JSON.parse(@filters[:vita_partners]).map do |vita_partner|
+        vita_partner.instance_of?(Hash) ? vita_partner["id"] : vita_partner
+      end
       clients = clients.where(vita_partner_id: ids)
     end
     clients = clients.where(intake: Intake.search(@filters[:search])) if @filters[:search].present?
@@ -109,8 +112,8 @@ class ClientSorter
     overlapping_keys.any?
   end
 
-  def filtering_only_by?(filter_values)
-    @filters.select { |_k, v| v.present? } == filter_values.transform_values { |v| v.to_s }
+  def filtering_only_by?(filter_values, ignore: [])
+    @filters.except(*ignore).select { |_k, v| v.present? } == filter_values.transform_values { |v| v.to_s }
   end
 
   private
@@ -162,7 +165,10 @@ class ClientSorter
   end
 
   def clients_sort_column
-    sortable_columns = [:id, :updated_at, :filterable_percentage_of_required_documents_uploaded, :first_unanswered_incoming_interaction_at, :last_outgoing_communication_at] + Client.sortable_intake_attributes
+    sortable_columns = [
+      :id, :updated_at, :filterable_percentage_of_required_documents_uploaded,
+      :first_unanswered_incoming_interaction_at, :last_outgoing_communication_at
+    ] + Client.sortable_intake_attributes
     sortable_columns.include?(@params[:column]&.to_sym) ? @params[:column] : @default_order.keys.first
   end
 

@@ -1,0 +1,13 @@
+{
+  "familyAndHousehold": [],
+  "filers": [
+    {
+      "firstName": "Susan",
+      "middleInitial": "",
+      "lastName": "Miranda",
+      "dateOfBirth": "1980-01-01",
+      "isPrimaryFiler": true,
+      "tin": "400-00-1032"
+    }
+  ]
+}

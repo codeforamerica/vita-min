@@ -1,0 +1,71 @@
+<% content_for :page_title, t(".title", filing_year: current_tax_year)  %>
+
+
+<% content_for :card do %>
+  <h1 class="h2"><%= t(".title_html", filing_year: current_tax_year) %></h1>
+
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <div class="white-group">
+      <%= f.vita_min_state_file_select(:residence_county, t(".county_html", filing_year: current_tax_year), @counties, label_class: 'form-label--bold', prompt: t('general.select_prompt')) %>
+    </div>
+    <div class="white-group">
+      <strong> <%= t('.political_subdivision')%> </strong>
+      <p class="text--help spacing-below-10"> <%= t('.political_subdivision_label_html')%>  </p>
+      <%= f.vita_min_state_file_select(:subdivision_code, "", include_blank: true, prompt: t('general.select_prompt')) %>
+    </div>
+    <div class="reveal">
+      <p><button class="reveal__button"><%= t('.political_subdivision_helper_heading') %></button></p>
+      <div class="reveal__content">
+        <p> <%= t('.political_subdivision_helper_first_p') %> </p>
+        <ul>
+            <% t('.political_subdivision_helper_areas').each do |subdivision| %>
+              <li> <%= subdivision %></li>
+            <% end %>
+        </ul>
+        <p> <%= t('.political_subdivision_helper_last_p', filing_year: current_tax_year) %> </p>
+      </div>
+    </div>
+    <% if params[:return_to_review].present? %>
+      <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
+    <% end %>
+    <%= f.continue %>
+  <% end %>
+<% end %>
+
+<% content_for :script do %>
+  <script>
+      document.addEventListener('DOMContentLoaded', function() {
+          const countySelect = document.getElementById('state_file_md_county_form_residence_county');
+          const subdivisionSelect = document.getElementById('state_file_md_county_form_subdivision_code');
+          const allSubdivisions = <%= raw @subdivisions_by_county.to_json %>;
+          const selectedSubdivision = '<%= @form.subdivision_code %>';
+
+          function populateSubdivisions(county) {
+              subdivisionSelect.innerHTML = '<option value="">' + '<%= t('general.select_prompt') %>' + '</option>';
+              if (county) {
+                  const subdivisions = allSubdivisions.find(item => item[0] === county)[1];
+                  Object.entries(subdivisions).forEach(([name, value]) => {
+                      const option = new Option(name, value);
+                      option.selected = (value === selectedSubdivision);
+                      subdivisionSelect.add(option);
+                  });
+              } else {
+                  allSubdivisions.forEach(countyData => {
+                      const [countyName, subdivisions] = countyData;
+                      Object.entries(subdivisions).forEach(([name, value]) => {
+                          const option = new Option(`${countyName} - ${name}`, value);
+                          option.selected = (value === selectedSubdivision);
+                          subdivisionSelect.add(option);
+                      });
+                  });
+              }
+          }
+
+          countySelect.addEventListener('change', function() {
+              populateSubdivisions(this.value);
+          });
+
+          populateSubdivisions(countySelect.value);
+      });
+  </script>
+<% end %>

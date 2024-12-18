@@ -1,9 +1,9 @@
 module StateFile
   module Questions
-    class UnemploymentController < AuthenticatedQuestionsController
+    class UnemploymentController < QuestionsController
       include ReturnToReviewConcern
       include OtherOptionsLinksConcern
-      before_action :load_faq_link, only: [:new, :edit]
+      before_action :load_links, only: [:new, :edit]
 
       def self.show?(intake)
         fed_unemployment = intake.direct_file_data.fed_unemployment
@@ -17,11 +17,16 @@ module StateFile
       def index
         @state_file1099_gs = current_intake.state_file1099_gs
         unless @state_file1099_gs.present?
-          redirect_to action: :new
+          build_1099g
+          render :new
         end
       end
 
       def new
+        build_1099g
+      end
+
+      def build_1099g
         @state_file1099_g = current_intake.state_file1099_gs.build
       end
 
@@ -35,12 +40,12 @@ module StateFile
 
         if @state_file1099_g.had_box_11_no?
           @state_file1099_g.destroy
-          return redirect_to action: :index, return_to_review: params[:return_to_review]
+          return redirect_with_review_param(:index)
         end
 
         if @state_file1099_g.valid?
           @state_file1099_g.save
-          redirect_to action: :index, return_to_review: params[:return_to_review]
+          redirect_with_review_param(:index)
         else
           render :edit
         end
@@ -54,7 +59,7 @@ module StateFile
 
         if @state_file1099_g.valid?
           @state_file1099_g.save
-          redirect_to action: :index, return_to_review: params[:return_to_review]
+          redirect_with_review_param(:index)
         else
           render :new
         end
@@ -65,17 +70,33 @@ module StateFile
         if @state_file1099_g.destroy
           flash[:notice] = I18n.t("state_file.questions.unemployment.destroy.removed", name: @state_file1099_g.recipient_name)
         end
-        redirect_to action: :index, return_to_review: params[:return_to_review]
+        redirect_with_review_param(:index)
       end
 
       private
 
-      def load_faq_link
-        @faq_other_options_link = faq_state_filing_options_link
+      def next_path
+        if params[:return_to_review].present? && !current_intake.is_a?(StateFileNcIntake)
+          StateFile::Questions::IncomeReviewController.to_path_helper(return_to_review: params[:return_to_review])
+        else
+          super
+        end
+      end
+
+      def prev_path
+        if params[:return_to_review].present? && !current_intake.is_a?(StateFileNcIntake)
+          StateFile::Questions::IncomeReviewController.to_path_helper(return_to_review: params[:return_to_review])
+        else
+          super
+        end
+      end
+
+      def redirect_with_review_param(action)
+        redirect_to action: action, return_to_review: params[:return_to_review]
       end
 
       def state_file1099_params
-        state_file_params = params.require(:state_file1099_g).permit(
+        state_file_params = params.fetch(:state_file1099_g, {}).permit(
           :had_box_11,
           :address_confirmation,
           :recipient,
@@ -84,9 +105,9 @@ module StateFile
           :payer_street_address,
           :payer_tin,
           :payer_zip,
-          :federal_income_tax_withheld,
-          :state_income_tax_withheld,
-          :unemployment_compensation,
+          :federal_income_tax_withheld_amount,
+          :state_income_tax_withheld_amount,
+          :unemployment_compensation_amount,
           :recipient_city,
           :recipient_street_address,
           :recipient_street_address_apartment,

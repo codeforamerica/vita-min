@@ -1,0 +1,37 @@
+<div class="with-padding-med df-1099r-form federal-info-controller-subform">
+  <div class="federal-info-controller-subform-title">1099R <%= f.object.id %></div>
+  <div class="federal-info-controller-subform-content">
+    <%= render 'node_xml_reveal', xml: f.object.to_pretty_s %>
+
+    <p class="text--error">For payer_name_control, only use A-Z, 0-9, hyphen and ampersand. Only up to 4 characters are allowed. Spaces and symbols are not allowed.</p>
+    <table>
+      <%= f.state_file_nested_xml_field :payer_name_control %>
+      <%= f.state_file_nested_xml_field :payer_name %>
+      <%= f.state_file_nested_xml_field :payer_address_line1 %>
+      <%= f.state_file_nested_xml_field :payer_address_line2 %>
+      <%= f.state_file_nested_xml_field :payer_city_name %>
+      <%= f.state_file_nested_xml_field :payer_state_code %>
+      <%= f.state_file_nested_xml_field :payer_zip %>
+      <%= f.state_file_nested_xml_field :payer_identification_number %>
+      <%= f.state_file_nested_xml_field :phone_number %>
+      <%= f.state_file_nested_xml_field :gross_distribution_amount %>
+      <%= f.state_file_nested_xml_field :taxable_amount %>
+      <%= f.state_file_nested_xml_field :federal_income_tax_withheld_amount %>
+      <%= f.state_file_nested_xml_field :distribution_code %>
+      <%= f.state_file_nested_xml_field :standard %>
+      <%= f.state_file_nested_xml_field :state_tax_withheld_amount %>
+      <%= f.state_file_nested_xml_field :state_code %>
+      <%= f.state_file_nested_xml_field :payer_state_identification_number %>
+      <%= f.state_file_nested_xml_field :state_distribution_amount %>
+      <%= f.state_file_nested_xml_field :recipient_ssn %>
+      <%= f.state_file_nested_xml_field :recipient_name %>
+      <%= f.state_file_nested_xml_field :taxable_amount_not_determined %>
+      <%= f.state_file_nested_xml_field :total_distribution %>
+      <%= f.state_file_nested_xml_field :capital_gain_amount %>
+      <%= f.state_file_nested_xml_field :designated_roth_account_first_year %>
+    </table>
+
+    <%= f.hidden_field :_destroy %>
+    <%= link_to_remove_fields t("views.shared.dependents_fields.remove"), '.df-1099r-form', { class: "button button--small"} %>
+  </div>
+</div>

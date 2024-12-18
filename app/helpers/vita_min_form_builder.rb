@@ -23,7 +23,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
 
     formatted_label = label(
         method,
-        label_contents(label_text, help_text, optional) + field_html,
+        label_contents(label_text, help_text, optional: optional) + field_html,
         (for_options || options),
         )
     formatted_label += notice_html(notice).html_safe if notice
@@ -64,21 +64,21 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
       label_contents(
         label_text,
         options[:help_text],
-        options[:optional],
+        optional: options[:optional],
         ),
       class: label_class,
       )
     html_options_with_errors = html_options.merge(error_attributes(method: method))
 
     html_output = <<~HTML
-          <div class="form-group#{error_state(object, method)}">
-            #{formatted_label}
-            <div class="select">
-              #{select(method, collection, options, html_options_with_errors, &block)}
-            </div>
-            #{errors_for(object, method)}
-          </div>
-        HTML
+      <div class="form-group#{error_state(object, method)}">
+        #{formatted_label}
+        <div class="select">
+          #{select(method, collection, options, html_options_with_errors, &block)}
+        </div>
+        #{errors_for(object, method)}
+      </div>
+    HTML
 
     html_output.html_safe
   end
@@ -278,6 +278,42 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     html_output.html_safe
   end
 
+  def vita_min_money_field(
+      method,
+      label_text,
+      options: {},
+      classes: [],
+      help_text: nil
+    )
+    text_field_options = standard_options.merge(
+      class: (classes + ["text-input money-input"]).join(" "),
+      ).merge(error_attributes(method: method)).merge(placeholder: '0.00').merge(options)
+
+    text_field_options[:id] ||= sanitized_id(method)
+    options[:input_id] ||= sanitized_id(method)
+
+    text_field_html = text_field(method, text_field_options)
+
+    wrapper_classes = classes + ['money-input-group']
+    label_and_field_html = label_and_field(
+      method,
+      label_text,
+      text_field_html,
+      prefix: '$',
+      options: options,
+      wrapper_classes: wrapper_classes,
+      help_text: help_text
+      )
+
+    html_output = <<~HTML
+      <div class="form-group#{error_state(object, method)} money-input-form-group">
+      #{label_and_field_html}
+        #{errors_for(object, method)}
+      </div>
+    HTML
+    html_output.html_safe
+  end
+
   def vita_min_text_field(
     method,
     label_text,
@@ -378,9 +414,9 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
   def warning_for_select(element_id, permitted_values, msg)
     @template.content_tag(:div, msg,
       class: "warning warning-for-select",
-      "data-warning-for-select": element_id,
+      'data-warning-for-select': element_id,
       style: "display:none",
-      "data-permitted": permitted_values.to_json
+      'data-permitted': permitted_values.to_json
     )
   end
 end

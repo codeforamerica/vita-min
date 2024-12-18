@@ -10,7 +10,8 @@ module PdfFiller
       @submission = submission
 
       # Most PDF fields are grabbed right off the XML
-      @xml_document = SubmissionBuilder::Ty2022::States::Az::IndividualReturn.new(submission).document
+      builder = StateFile::StateInformationService.submission_builder_class(:az)
+      @xml_document = builder.new(submission).document
     end
 
     def hash_for_pdf
@@ -33,7 +34,7 @@ module PdfFiller
         "9" => @xml_document.at("VisionExemp")&.text,
         "10a" => @xml_document.at("DependentsUnder17")&.text,
         "10b" => @xml_document.at("Dependents17AndOlder")&.text,
-        "11a" => @xml_document.at("QualifyingParentsAncestors")&.text,
+        "11a" => @xml_document.at("QualifyingParentsAncestors")&.text
       }
 
       non_qualifying_ancestor_dependents = @submission.data_source.dependents.reject(&:is_qualifying_parent_or_grandparent?)
@@ -52,7 +53,7 @@ module PdfFiller
           "#{prefix} Last" => dependent.last_name,
           "#{prefix} SSN" => dependent.ssn.delete('-'),
           "#{prefix} Relationship" => dependent.relationship_label,
-          "#{prefix} Mo in Home" => dependent.months_in_home,
+          "#{prefix} Mo in Home" => dependent.months_in_home_for_pdf,
           "#{prefix}_10a check box" => dependent.under_17? ? "Yes" : nil,
           "#{prefix}_10b check box" => dependent.under_17? ? nil : "Yes",
         )
@@ -74,16 +75,19 @@ module PdfFiller
           "#{prefix} Last" => dependent.last_name,
           "#{prefix} SSN" => dependent.ssn.delete('-'),
           "#{prefix} Relationship" => dependent.relationship_label,
-          "#{prefix} Mo in Home" => dependent.months_in_home,
+          "#{prefix} Mo in Home" => dependent.months_in_home_for_pdf,
           "#{prefix} over 65" => "Yes", # all of these dependents are 65 or older
           "#{prefix} died" => dependent.passed_away_yes? ? "Yes" : nil,
         )
       end
 
       answers.merge!({
-        "19" => @xml_document.at('AzAdjSubtotal')&.text,
         "12" => @xml_document.at('FedAdjGrossIncome')&.text,
         "14" => @xml_document.at('ModFedAdjGrossInc')&.text,
+        "19" => @xml_document.at('AzAdjSubtotal')&.text,
+        "28" => @xml_document.at("Subtractions IntUSObligations")&.text,
+        "29a" => @xml_document.at('ExecFedStateLocGovPen')&.text,
+        "29b" => @xml_document.at('SubExclBenAnnPen')&.text,
         "30" => @xml_document.at('USSSRailRoadBnft')&.text,
         "31" => @xml_document.at('WageAmIndian')&.text,
         "32" => @xml_document.at('CompNtnlGrdArmdFrcs')&.text,
@@ -94,15 +98,8 @@ module PdfFiller
         "41" => @xml_document.at('AzSubtrAmts/ExemAmtParentsAncestors')&.text,
         "42" => @xml_document.at('AZAdjGrossIncome')&.text,
         "Itemized/Standard" => 'Choice2',
-        "43" => @xml_document.at('AZDeductions')&.text,
-        "44" => @xml_document.at('TotalIncStdDeduction')&.text,
         "44C" => charitable_contributions,
-        "45" => @xml_document.at('AZTaxableInc')&.text,
-        "46" => @xml_document.at('ComputedTax')&.text,
         "48" => @xml_document.at('Form140/DeductionAmt/SubTotal')&.text,
-        "49" => @xml_document.at('DepTaxCredit')&.text,
-        "50" => @xml_document.at('FamilyIncomeTaxCredit')&.text,
-        "52" => @xml_document.at('BalanceOfTaxDue')&.text,
         "53" => @xml_document.at('AzIncTaxWithheld')&.text,
         "56" => @xml_document.at('IncrExciseTaxCr')&.text,
         "59" => @xml_document.at('TotalPayments')&.text,
@@ -121,6 +118,18 @@ module PdfFiller
         })
       end
 
+      @deductions = @xml_document.at('Form140 DeductionAmt')
+
+      answers.merge!({
+        "43" => @deductions.at('AZDeductions')&.text,
+        "45" => @deductions.at('AZTaxableInc')&.text,
+        "46" => @deductions.at('ComputedTax')&.text,
+        "49" => @deductions.at('DepTaxCredit')&.text,
+        "50" => @deductions.at('FamilyIncomeTaxCredit')&.text,
+        "51" => @deductions.at('CreditsFromAZ301')&.text,
+        "52" => @deductions.at('BalanceOfTaxDue')&.text,
+     })
+
       @charitable_deductions = @xml_document.at('ClaimCharitableDed')
       answers.merge!({
         "3_1c" => @charitable_deductions&.at('GiftByCashOrCheck')&.text,
@@ -129,7 +138,8 @@ module PdfFiller
         "3_4c" => @charitable_deductions&.at('SubTotalContributions')&.text,
         "3_5c" => @charitable_deductions&.at('TotalContributions')&.text,
         "3_6c" => @charitable_deductions&.at('SubTotal')&.text,
-        "3_7c" => @charitable_deductions&.at('TotalIncStdDeduction')&.text,
+        "3_7c" => @charitable_deductions&.at('IncreaseStdDed TotalIncStdDeduction')&.text,
+        "44" => @charitable_deductions&.at('IncreaseStdDed TotalIncStdDeduction')&.text,
       })
 
       direct_file_data = @submission.data_source.direct_file_data
@@ -148,7 +158,7 @@ module PdfFiller
     def calculated_fields
       @calculated_fields ||= @submission.data_source.tax_calculator.calculate
     end
-    
+
     FILING_STATUS_OPTIONS = {
       "MarriedJoint" => 'Choice1',
       "HeadHousehold" => 'Choice2', # Qualifying Widow based state_file_az_intake#filing_status

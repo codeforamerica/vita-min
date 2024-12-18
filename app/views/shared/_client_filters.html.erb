@@ -31,7 +31,7 @@
     <div class="form-group">
       <label for="year" class="form-question"><%= t("hub.clients.index.filing_year").humanize %></label>
       <div class="select">
-        <%= select_tag :year, options_for_select(MultiTenantService.new(:gyr).filing_years, filters[:year]), include_blank: true, class: "select__element" %>
+        <%= select_tag :year, options_for_select(gyr_filing_years, filters[:year]), include_blank: true, class: "select__element" %>
       </div>
     </div>
 
@@ -41,7 +41,8 @@
         <div class="form-group">
           <label for="org-site-filter" class="form-question"><%= t("hub.clients.index.organization") %></label>
           <div>
-            <%= text_field_tag("vita_partners", filters[:vita_partners], id: "org-site-filter", class: "multi-select-vita-partner") %>
+            <%= text_field_tag(nil, vita_partners_for_tagify, id: "org-site-filter", class: "multi-select-vita-partner") %>
+            <%= hidden_field_tag("vita_partners", filters[:vita_partners]) %>
           </div>
         </div>
       <% end %>

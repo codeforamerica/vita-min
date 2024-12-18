@@ -6,8 +6,12 @@ module SubmissionBuilder
       string.squish.first(length)&.strip
     end
 
-    def truncate(string, length)
-      string&.gsub(/\s+/, ' ')&.slice(0, length)&.strip
+    def sanitize_for_xml(string, length = nil)
+      sanitized_string = string&.gsub(/\s+/, ' ')
+      if length
+        sanitized_string = sanitized_string&.first(length)
+      end
+      sanitized_string&.strip
     end
 
     def datetime_type(datetime)
@@ -20,6 +24,12 @@ module SubmissionBuilder
       return nil unless date.present?
 
       date.strftime("%F")
+    end
+
+    def date_type_for_timezone(date)
+      return nil unless date.present?
+      timezone = StateFile::StateInformationService.timezone(@submission.data_source.state_code)
+      date.in_time_zone(timezone)
     end
 
     def person_name_type(name, length: 20)

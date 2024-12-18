@@ -2,6 +2,10 @@ local_default: &local_default
   adapter: postgis
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 }.to_i + 1 %>
   timeout: 5000
+  host: <%= ENV.fetch("RAILS_DB_HOST", "localhost") %>
+  port: <%= ENV.fetch("RAILS_DB_PORT", "5432") %>
+  username: <%= ENV["RAILS_DB_USERNAME"] %>
+  password: <%= ENV["RAILS_DB_PASSWORD"] %>
 
 deploy_default: &deploy_default
   adapter: postgis

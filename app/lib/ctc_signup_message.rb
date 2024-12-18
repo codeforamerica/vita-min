@@ -29,7 +29,7 @@ class CtcSignupMessage
       BODY
 
       if ctc_signup.phone_number.present?
-        TwilioService.send_text_message(
+        TwilioService.new(:ctc).send_text_message(
           to: ctc_signup.phone_number,
           body: (body % { name: ctc_signup.name }),
         )
@@ -55,11 +55,12 @@ class CtcSignupMessage
     es_sms = '¡Gracias por registrarse para recibir las actualizaciones de GetCTC! ¡GetCTC está oficialemente disponible y a su disposición para presenter su declaración de impuestos de forma simplificada para reclamara su Crédito Tributario por Hijos y los pagos de estímulo! Ingrese a GetCTC.org y haga clic en “Declare de forma simplificada ahora” para iniciar.'
 
     if ctc_signup.phone_number.present?
-      TwilioService.send_text_message(
+      ts = TwilioService.new(:ctc)
+      ts.send_text_message(
         to: ctc_signup.phone_number,
         body: en_sms,
       )
-      TwilioService.send_text_message(
+      ts.send_text_message(
         to: ctc_signup.phone_number,
         body: es_sms,
       )

@@ -111,36 +111,6 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
     expect(page).to have_selector("h1", text: I18n.t("views.ctc.portal.home.title"))
   end
 
-  scenario "a client who is in the middle of the W2 but has to come back to finish later" do
-    fill_in_can_use_ctc(filing_status: "single", claim_eitc: true)
-    fill_in_eligibility
-    fill_in_basic_info
-
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.investment_income.title', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
-    click_on I18n.t('general.negative')
-
-    fill_in_no_dependents
-
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.w2s.title'))
-    click_on I18n.t('views.ctc.questions.w2s.add')
-
-    fill_in I18n.t('views.ctc.questions.w2s.employee_info.employee_street_address'), with: '123 Cool St'
-    fill_in I18n.t('views.ctc.questions.w2s.employee_info.employee_city'), with: 'City Town'
-    select "California", from: I18n.t('views.ctc.questions.w2s.employee_info.employee_state')
-    fill_in I18n.t('views.ctc.questions.w2s.employee_info.employee_zip_code'), with: '94110'
-    click_on I18n.t('general.continue')
-    expect(page).to have_text(I18n.t('views.ctc.questions.w2s.wages_info.title', name: "Gary Mango III"))
-
-    Timecop.freeze(2.days.from_now) do
-      visit new_portal_client_login_path
-
-      authenticate_client(Client.last)
-
-      click_on I18n.t('views.ctc.portal.home.complete_form')
-      expect(page).to have_text(I18n.t('views.ctc.questions.w2s.title'))
-    end
-  end
-
   scenario "a client who has W-2 income within EITC but doesn't qualify due to additional income" do
     fill_in_can_use_ctc(filing_status: "married_filing_jointly", claim_eitc: true)
     fill_in_eligibility

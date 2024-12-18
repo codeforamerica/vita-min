@@ -3,6 +3,7 @@
 # Table name: source_parameters
 #
 #  id              :bigint           not null, primary key
+#  active          :boolean          default(TRUE), not null
 #  code            :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null

@@ -59,22 +59,22 @@ describe Efile::PollForAcknowledgmentsService do
         end
       end
 
-      context "with a federal EfileSubmission that is in the transmitted state and a state EfileSubmission that is in the ready_for_ack state" do
-        let!(:efile_submission) { create(:efile_submission, :transmitted, submission_bundle: { filename: "sensible-filename.zip", io: StringIO.new("i am a zip file") }) }
-        let!(:state_efile_submission) { create(:efile_submission, :for_state, :ready_for_ack, submission_bundle: { filename: "sensible-filename.zip", io: StringIO.new("i am a zip file") }) }
+      context "with a state EfileSubmission that is in the transmitted state and a state EfileSubmission that is in the ready_for_ack state" do
+        let!(:transmitted_state_efile_submission) { create(:efile_submission, :transmitted, :for_state, submission_bundle: { filename: "sensible-filename.zip", io: StringIO.new("i am a zip file") }) }
+        let!(:ready_for_ack_state_efile_submission) { create(:efile_submission, :for_state, :ready_for_ack, submission_bundle: { filename: "sensible-filename.zip", io: StringIO.new("i am a zip file") }) }
 
         before do
-          efile_submission.update!(irs_submission_id: "9999992021197yrv4rvl")
-          state_efile_submission.update!(irs_submission_id: "9999992021197yrv4rab")
-          allow(Efile::GyrEfilerService).to receive(:run_efiler_command)
-                                              .with("test", "acks", state_efile_submission.irs_submission_id)
-                                              .and_return("")
+          transmitted_state_efile_submission.update!(irs_submission_id: "9999992021197yrv4rvl")
+          ready_for_ack_state_efile_submission.update!(irs_submission_id: "9999992021197yrv4rab")
         end
 
         context "when the IRS has no acknowledgement ready for this submission" do
+          before do
+            allow(Efile::GyrEfilerService).to receive(:run_efiler_command).and_return("")
+          end
           it "does not change the state" do
             Efile::PollForAcknowledgmentsService.run
-            expect(efile_submission.reload.current_state).to eq("transmitted")
+            expect(transmitted_state_efile_submission.reload.current_state).to eq("transmitted")
           end
         end
 
@@ -85,10 +85,10 @@ describe Efile::PollForAcknowledgmentsService do
           let(:expected_irs_return_value) { file_fixture("irs_acknowledgement_acceptance.xml").read }
 
           before do
-            efile_submission.transition_to!(:accepted)
-            allow(described_class).to receive(:ready_for_ack_submission_ids).and_return [efile_submission.irs_submission_id]
+            transmitted_state_efile_submission.transition_to!(:accepted)
+            allow(described_class).to receive(:ready_for_ack_submission_ids).and_return [transmitted_state_efile_submission.irs_submission_id]
             allow(Efile::GyrEfilerService).to receive(:run_efiler_command)
-                                                .with("test", "acks", efile_submission.irs_submission_id)
+                                                .with("test", "acks", transmitted_state_efile_submission.irs_submission_id)
                                                 .and_return expected_irs_return_value
             allow(Sentry).to receive(:capture_message)
           end
@@ -97,7 +97,7 @@ describe Efile::PollForAcknowledgmentsService do
             expect {
               Efile::PollForAcknowledgmentsService.run
             }.not_to raise_error
-            expect(efile_submission.current_state).to eq "accepted"
+            expect(transmitted_state_efile_submission.current_state).to eq "accepted"
             expect(Sentry).to have_received :capture_message
           end
         end
@@ -105,8 +105,11 @@ describe Efile::PollForAcknowledgmentsService do
         context "when the IRS has an acknowledgement ready for this submission" do
           before do
             allow(Efile::GyrEfilerService).to receive(:run_efiler_command)
-                                                .with("test", "acks", state_efile_submission.irs_submission_id)
+                                                .with("test", "acks", ready_for_ack_state_efile_submission.irs_submission_id)
                                                 .and_return expected_irs_return_value
+            allow(Efile::GyrEfilerService).to receive(:run_efiler_command)
+                                                .with("test", "submissions-status", transmitted_state_efile_submission.irs_submission_id)
+                                                .and_return ""
           end
 
           let(:first_ack) do
@@ -124,14 +127,14 @@ describe Efile::PollForAcknowledgmentsService do
 
             it "changes the state from ready_for_ack to rejected" do
               Efile::PollForAcknowledgmentsService.run
-              expect(efile_submission.current_state).to eq("rejected")
-              expect(efile_submission.efile_submission_transitions.last.metadata['raw_response']).to eq(first_ack)
+              expect(transmitted_state_efile_submission.current_state).to eq("rejected")
+              expect(transmitted_state_efile_submission.efile_submission_transitions.last.metadata['raw_response']).to eq(first_ack)
             end
 
             it "sends metrics to Datadog" do
               Efile::PollForAcknowledgmentsService.run
 
-              expect(DatadogApi).to have_received(:gauge).with("efile.poll_for_submissions_status.requested", 0)
+              expect(DatadogApi).to have_received(:gauge).with("efile.poll_for_submissions_status.requested", 1)
               expect(DatadogApi).to have_received(:gauge).with("efile.poll_for_submissions_status.received", 0)
               expect(DatadogApi).to have_received(:increment).with("efile.poll_for_submissions_status")
               expect(DatadogApi).to have_received(:gauge).with("efile.poll_for_acks.requested", 1)
@@ -141,9 +144,9 @@ describe Efile::PollForAcknowledgmentsService do
 
             it "updates the last_checked_for_ack_at" do
               freeze_time do
-                expect(state_efile_submission.last_checked_for_ack_at).to eq(nil)
+                expect(ready_for_ack_state_efile_submission.last_checked_for_ack_at).to eq(nil)
                 Efile::PollForAcknowledgmentsService.run
-                expect(state_efile_submission.reload.last_checked_for_ack_at).to eq(Time.now)
+                expect(ready_for_ack_state_efile_submission.reload.last_checked_for_ack_at).to eq(Time.now)
               end
             end
           end
@@ -152,12 +155,12 @@ describe Efile::PollForAcknowledgmentsService do
             let(:expected_irs_return_value) { file_fixture("irs_acknowledgement_acceptance.xml").read }
 
             it "changes the federal submission's state from transmitted to accepted and the state submission's state from ready_for_ack to accepted" do
-              efile_submission.last_transition
+              transmitted_state_efile_submission.last_transition
               Efile::PollForAcknowledgmentsService.run
-              expect(efile_submission.current_state(force_reload: true)).to eq("accepted")
-              expect(state_efile_submission.reload.current_state).to eq("accepted")
-              expect(efile_submission.efile_submission_transitions.last.metadata['raw_response']).to eq(first_ack)
-              expect(state_efile_submission.efile_submission_transitions.last.metadata['raw_response']).to eq(second_ack)
+              expect(transmitted_state_efile_submission.current_state(force_reload: true)).to eq("accepted")
+              expect(ready_for_ack_state_efile_submission.reload.current_state).to eq("accepted")
+              expect(transmitted_state_efile_submission.efile_submission_transitions.last.metadata['raw_response']).to eq(first_ack)
+              expect(ready_for_ack_state_efile_submission.efile_submission_transitions.last.metadata['raw_response']).to eq(second_ack)
             end
           end
 
@@ -166,9 +169,9 @@ describe Efile::PollForAcknowledgmentsService do
 
             it "changes the state from transmitted to accepted, with imperfect return acceptance in metadata" do
               Efile::PollForAcknowledgmentsService.run
-              expect(efile_submission.current_state).to eq("accepted")
-              expect(efile_submission.efile_submission_transitions.last.metadata['raw_response']).to eq(first_ack)
-              expect(efile_submission.efile_submission_transitions.last.metadata['imperfect_return_acceptance']).to eq true
+              expect(transmitted_state_efile_submission.current_state).to eq("accepted")
+              expect(transmitted_state_efile_submission.efile_submission_transitions.last.metadata['raw_response']).to eq(first_ack)
+              expect(transmitted_state_efile_submission.efile_submission_transitions.last.metadata['imperfect_return_acceptance']).to eq true
             end
           end
         end

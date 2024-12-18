@@ -10,9 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_03_214006) do
-  create_schema "analytics"
-
+ActiveRecord::Schema[7.1].define(version: 2024_12_13_204321) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -441,6 +439,30 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_03_214006) do
     t.index ["spouse_email_address"], name: "index_arcint_2021_on_spouse_email_address"
     t.index ["type"], name: "index_arcint_2021_on_type"
     t.index ["vita_partner_id"], name: "index_arcint_2021_on_vita_partner_id"
+  end
+
+  create_table "az321_contributions", force: :cascade do |t|
+    t.decimal "amount", precision: 12, scale: 2
+    t.string "charity_code"
+    t.string "charity_name"
+    t.datetime "created_at", null: false
+    t.date "date_of_contribution"
+    t.bigint "state_file_az_intake_id"
+    t.datetime "updated_at", null: false
+    t.index ["state_file_az_intake_id"], name: "index_az321_contributions_on_state_file_az_intake_id"
+  end
+
+  create_table "az322_contributions", force: :cascade do |t|
+    t.decimal "amount", precision: 12, scale: 2
+    t.datetime "created_at", null: false
+    t.string "ctds_code"
+    t.date "date_of_contribution"
+    t.string "district_name"
+    t.integer "made_contribution", default: 0, null: false
+    t.string "school_name"
+    t.bigint "state_file_az_intake_id"
+    t.datetime "updated_at", null: false
+    t.index ["state_file_az_intake_id"], name: "index_az322_contributions_on_state_file_az_intake_id"
   end
 
   create_table "bank_accounts", force: :cascade do |t|
@@ -949,9 +971,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_03_214006) do
     t.integer "position"
     t.text "question_en"
     t.text "question_es"
+    t.tsvector "searchable_data_en"
+    t.tsvector "searchable_data_es"
     t.string "slug"
     t.datetime "updated_at", null: false
     t.index ["faq_category_id"], name: "index_faq_items_on_faq_category_id"
+    t.index ["searchable_data_en"], name: "index_faq_items_on_searchable_data_en", using: :gin
+    t.index ["searchable_data_es"], name: "index_faq_items_on_searchable_data_es", using: :gin
   end
 
   create_table "faq_question_group_items", force: :cascade do |t|
@@ -1562,6 +1588,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_03_214006) do
   end
 
   create_table "source_parameters", force: :cascade do |t|
+    t.boolean "active", default: true, null: false
     t.string "code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -1573,7 +1600,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_03_214006) do
   create_table "state_file1099_gs", force: :cascade do |t|
     t.integer "address_confirmation", default: 0, null: false
     t.datetime "created_at", null: false
-    t.integer "federal_income_tax_withheld"
+    t.decimal "federal_income_tax_withheld_amount", precision: 12, scale: 2
     t.integer "had_box_11", default: 0, null: false
     t.bigint "intake_id", null: false
     t.string "intake_type", null: false
@@ -1588,10 +1615,45 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_03_214006) do
     t.string "recipient_street_address_apartment"
     t.string "recipient_zip"
     t.string "state_identification_number"
-    t.integer "state_income_tax_withheld"
-    t.integer "unemployment_compensation"
+    t.decimal "state_income_tax_withheld_amount", precision: 12, scale: 2
+    t.decimal "unemployment_compensation_amount", precision: 12, scale: 2
     t.datetime "updated_at", null: false
     t.index ["intake_type", "intake_id"], name: "index_state_file1099_gs_on_intake"
+  end
+
+  create_table "state_file1099_rs", force: :cascade do |t|
+    t.decimal "capital_gain_amount", precision: 12, scale: 2
+    t.datetime "created_at", null: false
+    t.integer "designated_roth_account_first_year"
+    t.string "distribution_code"
+    t.decimal "federal_income_tax_withheld_amount", precision: 12, scale: 2
+    t.decimal "gross_distribution_amount", precision: 12, scale: 2
+    t.bigint "intake_id", null: false
+    t.string "intake_type", null: false
+    t.string "payer_address_line1"
+    t.string "payer_address_line2"
+    t.string "payer_city_name"
+    t.string "payer_identification_number"
+    t.string "payer_name"
+    t.string "payer_name_control"
+    t.string "payer_state_code"
+    t.string "payer_state_identification_number"
+    t.string "payer_zip"
+    t.string "phone_number"
+    t.string "recipient_name"
+    t.string "recipient_ssn"
+    t.boolean "standard"
+    t.string "state_code"
+    t.decimal "state_distribution_amount", precision: 12, scale: 2
+    t.bigint "state_specific_followup_id"
+    t.string "state_specific_followup_type"
+    t.decimal "state_tax_withheld_amount", precision: 12, scale: 2
+    t.decimal "taxable_amount", precision: 12, scale: 2
+    t.boolean "taxable_amount_not_determined"
+    t.boolean "total_distribution"
+    t.datetime "updated_at", null: false
+    t.index ["intake_type", "intake_id"], name: "index_state_file1099_rs_on_intake"
+    t.index ["state_specific_followup_type", "state_specific_followup_id"], name: "index_state_file1099_rs_on_state_specific_followup"
   end
 
   create_table "state_file_analytics", force: :cascade do |t|
@@ -1602,6 +1664,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_03_214006) do
     t.integer "excise_credit"
     t.integer "family_income_tax_credit"
     t.integer "fed_eitc_amount"
+    t.integer "fed_refund_amt"
     t.integer "filing_status"
     t.integer "household_fed_agi"
     t.datetime "initiate_data_transfer_first_visit_at"
@@ -1616,18 +1679,25 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_03_214006) do
     t.string "record_type", null: false
     t.integer "refund_or_owed_amount"
     t.datetime "updated_at", null: false
+    t.string "zip_code"
     t.index ["record_type", "record_id"], name: "index_state_file_analytics_on_record"
+  end
+
+  create_table "state_file_az1099_r_followups", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "state_file_az_intakes", force: :cascade do |t|
     t.string "account_number"
     t.integer "account_type"
     t.integer "armed_forces_member", default: 0, null: false
-    t.integer "armed_forces_wages"
+    t.decimal "armed_forces_wages_amount", precision: 12, scale: 2
     t.string "bank_name"
-    t.integer "charitable_cash", default: 0
+    t.decimal "charitable_cash_amount", precision: 12, scale: 2
     t.integer "charitable_contributions", default: 0, null: false
-    t.integer "charitable_noncash", default: 0
+    t.decimal "charitable_noncash_amount", precision: 12, scale: 2
+    t.integer "consented_to_sms_terms", default: 0, null: false
     t.integer "consented_to_terms_and_conditions", default: 0, null: false
     t.integer "contact_preference", default: 0, null: false
     t.datetime "created_at", null: false
@@ -1636,6 +1706,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_03_214006) do
     t.string "current_step"
     t.date "date_electronic_withdrawal"
     t.datetime "df_data_import_failed_at"
+    t.datetime "df_data_import_succeeded_at"
     t.datetime "df_data_imported_at"
     t.integer "eligibility_529_for_non_qual_expense", default: 0, null: false
     t.integer "eligibility_lived_in_state", default: 0, null: false
@@ -1643,17 +1714,19 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_03_214006) do
     t.integer "eligibility_out_of_state_income", default: 0, null: false
     t.citext "email_address"
     t.datetime "email_address_verified_at"
+    t.integer "email_notification_opt_in", default: 0, null: false
     t.integer "failed_attempts", default: 0, null: false
     t.string "federal_return_status"
     t.string "federal_submission_id"
     t.integer "has_prior_last_names", default: 0, null: false
     t.string "hashed_ssn"
     t.integer "household_excise_credit_claimed", default: 0, null: false
-    t.integer "household_excise_credit_claimed_amt"
+    t.decimal "household_excise_credit_claimed_amount", precision: 12, scale: 2
     t.datetime "last_sign_in_at"
     t.inet "last_sign_in_ip"
     t.string "locale", default: "en"
     t.datetime "locked_at"
+    t.integer "made_az321_contributions", default: 0, null: false
     t.jsonb "message_tracker", default: {}
     t.integer "payment_or_deposit_type", default: 0, null: false
     t.string "phone_number"
@@ -1669,9 +1742,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_03_214006) do
     t.integer "primary_was_incarcerated", default: 0, null: false
     t.string "prior_last_names"
     t.text "raw_direct_file_data"
+    t.jsonb "raw_direct_file_intake_data"
     t.string "referrer"
     t.string "routing_number"
     t.integer "sign_in_count", default: 0, null: false
+    t.integer "sms_notification_opt_in", default: 0, null: false
     t.string "source"
     t.date "spouse_birth_date"
     t.integer "spouse_esigned", default: 0, null: false
@@ -1684,13 +1759,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_03_214006) do
     t.integer "spouse_was_incarcerated", default: 0, null: false
     t.integer "ssn_no_employment", default: 0, null: false
     t.integer "tribal_member", default: 0, null: false
-    t.integer "tribal_wages"
+    t.decimal "tribal_wages_amount", precision: 12, scale: 2
     t.text "unfinished_intake_ids", default: [], array: true
     t.boolean "unsubscribed_from_email", default: false, null: false
     t.datetime "updated_at", null: false
     t.string "visitor_id"
     t.integer "was_incarcerated", default: 0, null: false
     t.integer "withdraw_amount"
+    t.index ["email_address"], name: "index_state_file_az_intakes_on_email_address"
     t.index ["hashed_ssn"], name: "index_state_file_az_intakes_on_hashed_ssn"
     t.index ["primary_state_id_id"], name: "index_state_file_az_intakes_on_primary_state_id_id"
     t.index ["spouse_state_id_id"], name: "index_state_file_az_intakes_on_spouse_state_id_id"
@@ -1704,14 +1780,23 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_03_214006) do
     t.boolean "eic_qualifying"
     t.integer "eic_student", default: 0
     t.string "first_name"
+    t.integer "id_has_grocery_credit_ineligible_months", default: 0, null: false
+    t.integer "id_months_ineligible_for_grocery_credit"
     t.bigint "intake_id", null: false
     t.string "intake_type", null: false
     t.string "last_name"
+    t.integer "md_did_not_have_health_insurance", default: 0, null: false
     t.string "middle_initial"
     t.integer "months_in_home"
     t.integer "needed_assistance", default: 0, null: false
+    t.integer "nj_dependent_attends_accredited_program", default: 0, null: false
+    t.integer "nj_dependent_enrolled_full_time", default: 0, null: false
+    t.integer "nj_dependent_five_months_in_college", default: 0, null: false
+    t.integer "nj_did_not_have_health_insurance", default: 0, null: false
+    t.integer "nj_filer_pays_tuition_for_dependent", default: 0, null: false
     t.boolean "odc_qualifying"
     t.integer "passed_away", default: 0, null: false
+    t.boolean "qualifying_child"
     t.string "relationship"
     t.string "ssn"
     t.string "suffix"
@@ -1728,6 +1813,409 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_03_214006) do
     t.inet "ip_address"
     t.datetime "updated_at", null: false
     t.index ["intake_type", "intake_id"], name: "index_state_file_efile_device_infos_on_intake"
+  end
+
+  create_table "state_file_id1099_r_followups", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "state_file_id_intakes", force: :cascade do |t|
+    t.string "account_number"
+    t.integer "account_type", default: 0, null: false
+    t.decimal "american_red_cross_fund_donation", precision: 12, scale: 2
+    t.string "bank_name"
+    t.decimal "childrens_trust_fund_donation", precision: 12, scale: 2
+    t.integer "consented_to_sms_terms", default: 0, null: false
+    t.integer "consented_to_terms_and_conditions", default: 0, null: false
+    t.integer "contact_preference", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "current_sign_in_at"
+    t.inet "current_sign_in_ip"
+    t.string "current_step"
+    t.date "date_electronic_withdrawal"
+    t.datetime "df_data_import_failed_at"
+    t.datetime "df_data_import_succeeded_at"
+    t.datetime "df_data_imported_at"
+    t.integer "donate_grocery_credit", default: 0, null: false
+    t.integer "eligibility_emergency_rental_assistance", default: 0, null: false
+    t.integer "eligibility_withdrew_msa_fthb", default: 0, null: false
+    t.citext "email_address"
+    t.datetime "email_address_verified_at"
+    t.integer "email_notification_opt_in", default: 0, null: false
+    t.integer "failed_attempts", default: 0, null: false
+    t.string "federal_return_status"
+    t.string "federal_submission_id"
+    t.decimal "food_bank_fund_donation", precision: 12, scale: 2
+    t.decimal "guard_reserve_family_donation", precision: 12, scale: 2
+    t.integer "has_health_insurance_premium", default: 0, null: false
+    t.integer "has_unpaid_sales_use_tax", default: 0, null: false
+    t.string "hashed_ssn"
+    t.decimal "health_insurance_paid_amount", precision: 12, scale: 2
+    t.integer "household_has_grocery_credit_ineligible_months", default: 0, null: false
+    t.datetime "last_sign_in_at"
+    t.inet "last_sign_in_ip"
+    t.string "locale", default: "en"
+    t.datetime "locked_at"
+    t.jsonb "message_tracker", default: {}
+    t.decimal "nongame_wildlife_fund_donation", precision: 12, scale: 2
+    t.decimal "opportunity_scholarship_program_donation", precision: 12, scale: 2
+    t.integer "payment_or_deposit_type", default: 0, null: false
+    t.string "phone_number"
+    t.datetime "phone_number_verified_at"
+    t.date "primary_birth_date"
+    t.integer "primary_esigned", default: 0, null: false
+    t.datetime "primary_esigned_at"
+    t.string "primary_first_name"
+    t.integer "primary_has_grocery_credit_ineligible_months", default: 0, null: false
+    t.string "primary_last_name"
+    t.string "primary_middle_initial"
+    t.integer "primary_months_ineligible_for_grocery_credit"
+    t.bigint "primary_state_id_id"
+    t.string "primary_suffix"
+    t.text "raw_direct_file_data"
+    t.jsonb "raw_direct_file_intake_data"
+    t.integer "received_id_public_assistance", default: 0, null: false
+    t.string "referrer"
+    t.string "routing_number"
+    t.integer "sign_in_count", default: 0, null: false
+    t.integer "sms_notification_opt_in", default: 0, null: false
+    t.string "source"
+    t.decimal "special_olympics_donation", precision: 12, scale: 2
+    t.date "spouse_birth_date"
+    t.integer "spouse_esigned", default: 0, null: false
+    t.datetime "spouse_esigned_at"
+    t.string "spouse_first_name"
+    t.integer "spouse_has_grocery_credit_ineligible_months", default: 0, null: false
+    t.string "spouse_last_name"
+    t.string "spouse_middle_initial"
+    t.integer "spouse_months_ineligible_for_grocery_credit"
+    t.bigint "spouse_state_id_id"
+    t.string "spouse_suffix"
+    t.decimal "total_purchase_amount", precision: 12, scale: 2
+    t.boolean "unsubscribed_from_email", default: false, null: false
+    t.datetime "updated_at", null: false
+    t.decimal "veterans_support_fund_donation", precision: 12, scale: 2
+    t.string "visitor_id"
+    t.integer "withdraw_amount"
+    t.index ["email_address"], name: "index_state_file_id_intakes_on_email_address"
+    t.index ["hashed_ssn"], name: "index_state_file_id_intakes_on_hashed_ssn"
+    t.index ["primary_state_id_id"], name: "index_state_file_id_intakes_on_primary_state_id_id"
+    t.index ["spouse_state_id_id"], name: "index_state_file_id_intakes_on_spouse_state_id_id"
+  end
+
+  create_table "state_file_md1099_r_followups", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "state_file_md_intakes", force: :cascade do |t|
+    t.string "account_holder_first_name"
+    t.string "account_holder_last_name"
+    t.string "account_holder_middle_initial"
+    t.string "account_holder_suffix"
+    t.string "account_number"
+    t.integer "account_type", default: 0, null: false
+    t.integer "authorize_sharing_of_health_insurance_info", default: 0, null: false
+    t.integer "bank_authorization_confirmed", default: 0, null: false
+    t.string "bank_name"
+    t.string "city"
+    t.integer "confirmed_permanent_address", default: 0, null: false
+    t.integer "consented_to_sms_terms", default: 0, null: false
+    t.integer "consented_to_terms_and_conditions", default: 0, null: false
+    t.integer "contact_preference", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "current_sign_in_at"
+    t.inet "current_sign_in_ip"
+    t.string "current_step"
+    t.date "date_electronic_withdrawal"
+    t.datetime "df_data_import_failed_at"
+    t.datetime "df_data_import_succeeded_at"
+    t.datetime "df_data_imported_at"
+    t.integer "eligibility_filing_status_mfj", default: 0, null: false
+    t.integer "eligibility_home_different_areas", default: 0, null: false
+    t.integer "eligibility_homebuyer_withdrawal", default: 0, null: false
+    t.integer "eligibility_homebuyer_withdrawal_mfj", default: 0, null: false
+    t.integer "eligibility_lived_in_state", default: 0, null: false
+    t.integer "eligibility_out_of_state_income", default: 0, null: false
+    t.citext "email_address"
+    t.datetime "email_address_verified_at"
+    t.integer "email_notification_opt_in", default: 0, null: false
+    t.integer "failed_attempts", default: 0, null: false
+    t.string "federal_return_status"
+    t.string "federal_submission_id"
+    t.integer "had_hh_member_without_health_insurance", default: 0, null: false
+    t.integer "has_joint_account_holder", default: 0, null: false
+    t.string "hashed_ssn"
+    t.string "joint_account_holder_first_name"
+    t.string "joint_account_holder_last_name"
+    t.string "joint_account_holder_middle_initial"
+    t.string "joint_account_holder_suffix"
+    t.datetime "last_sign_in_at"
+    t.inet "last_sign_in_ip"
+    t.string "locale", default: "en"
+    t.datetime "locked_at"
+    t.jsonb "message_tracker", default: {}
+    t.integer "payment_or_deposit_type", default: 0, null: false
+    t.integer "permanent_address_outside_md", default: 0, null: false
+    t.string "permanent_apartment"
+    t.string "permanent_city"
+    t.string "permanent_street"
+    t.string "permanent_zip"
+    t.string "phone_number"
+    t.datetime "phone_number_verified_at"
+    t.string "political_subdivision"
+    t.date "primary_birth_date"
+    t.integer "primary_did_not_have_health_insurance", default: 0, null: false
+    t.integer "primary_esigned", default: 0, null: false
+    t.datetime "primary_esigned_at"
+    t.string "primary_first_name"
+    t.string "primary_last_name"
+    t.string "primary_middle_initial"
+    t.string "primary_signature"
+    t.text "primary_signature_pin"
+    t.string "primary_ssn"
+    t.bigint "primary_state_id_id"
+    t.decimal "primary_student_loan_interest_ded_amount", precision: 12, scale: 2, default: "0.0", null: false
+    t.string "primary_suffix"
+    t.text "raw_direct_file_data"
+    t.jsonb "raw_direct_file_intake_data"
+    t.string "referrer"
+    t.string "residence_county"
+    t.string "routing_number"
+    t.integer "sign_in_count", default: 0, null: false
+    t.integer "sms_notification_opt_in", default: 0, null: false
+    t.string "source"
+    t.date "spouse_birth_date"
+    t.integer "spouse_did_not_have_health_insurance", default: 0, null: false
+    t.integer "spouse_esigned", default: 0, null: false
+    t.datetime "spouse_esigned_at"
+    t.string "spouse_first_name"
+    t.string "spouse_last_name"
+    t.string "spouse_middle_initial"
+    t.text "spouse_signature_pin"
+    t.string "spouse_ssn"
+    t.bigint "spouse_state_id_id"
+    t.decimal "spouse_student_loan_interest_ded_amount", precision: 12, scale: 2, default: "0.0", null: false
+    t.string "spouse_suffix"
+    t.string "street_address"
+    t.string "subdivision_code"
+    t.text "unfinished_intake_ids", default: [], array: true
+    t.boolean "unsubscribed_from_email", default: false, null: false
+    t.datetime "updated_at", null: false
+    t.string "visitor_id"
+    t.decimal "withdraw_amount", precision: 12, scale: 2
+    t.string "zip_code"
+    t.index ["email_address"], name: "index_state_file_md_intakes_on_email_address"
+    t.index ["hashed_ssn"], name: "index_state_file_md_intakes_on_hashed_ssn"
+    t.index ["primary_state_id_id"], name: "index_state_file_md_intakes_on_primary_state_id_id"
+    t.index ["spouse_state_id_id"], name: "index_state_file_md_intakes_on_spouse_state_id_id"
+  end
+
+  create_table "state_file_nc1099_r_followups", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "state_file_nc_intakes", force: :cascade do |t|
+    t.string "account_number"
+    t.integer "account_type", default: 0, null: false
+    t.string "bank_name"
+    t.string "city"
+    t.integer "consented_to_sms_terms", default: 0, null: false
+    t.integer "consented_to_terms_and_conditions", default: 0, null: false
+    t.integer "contact_preference", default: 0, null: false
+    t.string "county_during_hurricane_helene"
+    t.datetime "created_at", null: false
+    t.datetime "current_sign_in_at"
+    t.inet "current_sign_in_ip"
+    t.string "current_step"
+    t.date "date_electronic_withdrawal"
+    t.datetime "df_data_import_failed_at"
+    t.datetime "df_data_import_succeeded_at"
+    t.datetime "df_data_imported_at"
+    t.integer "eligibility_ed_loan_cancelled", default: 0, null: false
+    t.integer "eligibility_ed_loan_emp_payment", default: 0, null: false
+    t.integer "eligibility_lived_in_state", default: 0, null: false
+    t.integer "eligibility_out_of_state_income", default: 0, null: false
+    t.integer "eligibility_withdrew_529", default: 0, null: false
+    t.citext "email_address"
+    t.datetime "email_address_verified_at"
+    t.integer "email_notification_opt_in", default: 0, null: false
+    t.integer "failed_attempts", default: 0, null: false
+    t.string "federal_return_status"
+    t.string "federal_submission_id"
+    t.string "hashed_ssn"
+    t.datetime "last_sign_in_at"
+    t.inet "last_sign_in_ip"
+    t.string "locale", default: "en"
+    t.datetime "locked_at"
+    t.jsonb "message_tracker", default: {}
+    t.integer "moved_after_hurricane_helene", default: 0, null: false
+    t.integer "payment_or_deposit_type", default: 0, null: false
+    t.string "phone_number"
+    t.datetime "phone_number_verified_at"
+    t.date "primary_birth_date"
+    t.integer "primary_esigned", default: 0, null: false
+    t.datetime "primary_esigned_at", precision: nil
+    t.string "primary_first_name"
+    t.string "primary_last_name"
+    t.string "primary_middle_initial"
+    t.bigint "primary_state_id_id"
+    t.string "primary_suffix"
+    t.integer "primary_veteran", default: 0, null: false
+    t.text "raw_direct_file_data"
+    t.jsonb "raw_direct_file_intake_data"
+    t.string "referrer"
+    t.string "residence_county"
+    t.string "routing_number"
+    t.decimal "sales_use_tax", precision: 12, scale: 2
+    t.integer "sales_use_tax_calculation_method", default: 0, null: false
+    t.integer "sign_in_count", default: 0, null: false
+    t.integer "sms_notification_opt_in", default: 0, null: false
+    t.string "source"
+    t.date "spouse_birth_date"
+    t.integer "spouse_esigned", default: 0, null: false
+    t.datetime "spouse_esigned_at", precision: nil
+    t.string "spouse_first_name"
+    t.string "spouse_last_name"
+    t.string "spouse_middle_initial"
+    t.bigint "spouse_state_id_id"
+    t.string "spouse_suffix"
+    t.integer "spouse_veteran", default: 0, null: false
+    t.string "ssn"
+    t.string "street_address"
+    t.integer "tribal_member", default: 0, null: false
+    t.decimal "tribal_wages_amount", precision: 12, scale: 2
+    t.boolean "unsubscribed_from_email", default: false, null: false
+    t.integer "untaxed_out_of_state_purchases", default: 0, null: false
+    t.datetime "updated_at", null: false
+    t.string "visitor_id"
+    t.integer "withdraw_amount"
+    t.string "zip_code"
+    t.index ["hashed_ssn"], name: "index_state_file_nc_intakes_on_hashed_ssn"
+    t.index ["primary_state_id_id"], name: "index_state_file_nc_intakes_on_primary_state_id_id"
+    t.index ["spouse_state_id_id"], name: "index_state_file_nc_intakes_on_spouse_state_id_id"
+  end
+
+  create_table "state_file_nj1099_r_followups", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "state_file_nj_intakes", force: :cascade do |t|
+    t.string "account_number"
+    t.integer "account_type", default: 0, null: false
+    t.string "bank_name"
+    t.integer "claimed_as_dep"
+    t.integer "claimed_as_eitc_qualifying_child", default: 0, null: false
+    t.integer "consented_to_sms_terms", default: 0, null: false
+    t.integer "consented_to_terms_and_conditions", default: 0, null: false
+    t.integer "contact_preference", default: 0, null: false
+    t.string "county"
+    t.datetime "created_at", null: false
+    t.datetime "current_sign_in_at"
+    t.inet "current_sign_in_ip"
+    t.string "current_step"
+    t.date "date_electronic_withdrawal"
+    t.datetime "df_data_import_failed_at"
+    t.datetime "df_data_import_succeeded_at"
+    t.datetime "df_data_imported_at"
+    t.integer "eligibility_all_members_health_insurance", default: 0, null: false
+    t.integer "eligibility_lived_in_state", default: 0, null: false
+    t.integer "eligibility_out_of_state_income", default: 0, null: false
+    t.citext "email_address"
+    t.datetime "email_address_verified_at"
+    t.integer "email_notification_opt_in", default: 0, null: false
+    t.decimal "estimated_tax_payments", precision: 12, scale: 2
+    t.integer "failed_attempts", default: 0, null: false
+    t.integer "fed_taxable_income"
+    t.integer "fed_wages"
+    t.string "federal_return_status"
+    t.string "federal_submission_id"
+    t.string "hashed_ssn"
+    t.integer "homeowner_home_subject_to_property_taxes", default: 0, null: false
+    t.integer "homeowner_main_home_multi_unit", default: 0, null: false
+    t.integer "homeowner_main_home_multi_unit_max_four_one_commercial", default: 0, null: false
+    t.integer "homeowner_more_than_one_main_home_in_nj", default: 0, null: false
+    t.integer "homeowner_same_home_spouse", default: 0, null: false
+    t.integer "homeowner_shared_ownership_not_spouse", default: 0, null: false
+    t.integer "household_rent_own", default: 0, null: false
+    t.datetime "last_sign_in_at"
+    t.inet "last_sign_in_ip"
+    t.string "locale", default: "en"
+    t.datetime "locked_at"
+    t.decimal "medical_expenses", precision: 12, scale: 2, default: "0.0", null: false
+    t.jsonb "message_tracker", default: {}
+    t.string "municipality_code"
+    t.string "municipality_name"
+    t.integer "payment_or_deposit_type", default: 0, null: false
+    t.string "permanent_apartment"
+    t.string "permanent_city"
+    t.string "permanent_street"
+    t.string "permanent_zip"
+    t.string "phone_number"
+    t.datetime "phone_number_verified_at"
+    t.date "primary_birth_date"
+    t.integer "primary_contribution_gubernatorial_elections", default: 0, null: false
+    t.integer "primary_disabled", default: 0, null: false
+    t.integer "primary_esigned", default: 0, null: false
+    t.datetime "primary_esigned_at"
+    t.string "primary_first_name"
+    t.string "primary_last_name"
+    t.string "primary_middle_initial"
+    t.string "primary_signature"
+    t.text "primary_signature_pin"
+    t.string "primary_ssn"
+    t.bigint "primary_state_id_id"
+    t.string "primary_suffix"
+    t.integer "primary_veteran", default: 0, null: false
+    t.decimal "property_tax_paid", precision: 12, scale: 2
+    t.text "raw_direct_file_data"
+    t.jsonb "raw_direct_file_intake_data"
+    t.string "referrer"
+    t.decimal "rent_paid", precision: 12, scale: 2
+    t.string "routing_number"
+    t.decimal "sales_use_tax", precision: 12, scale: 2
+    t.integer "sales_use_tax_calculation_method", default: 0, null: false
+    t.integer "sign_in_count", default: 0, null: false
+    t.integer "sms_notification_opt_in", default: 0, null: false
+    t.string "source"
+    t.date "spouse_birth_date"
+    t.integer "spouse_claimed_as_eitc_qualifying_child", default: 0, null: false
+    t.integer "spouse_contribution_gubernatorial_elections", default: 0, null: false
+    t.integer "spouse_disabled", default: 0, null: false
+    t.integer "spouse_esigned", default: 0, null: false
+    t.datetime "spouse_esigned_at"
+    t.string "spouse_first_name"
+    t.string "spouse_last_name"
+    t.string "spouse_middle_initial"
+    t.text "spouse_signature_pin"
+    t.string "spouse_ssn"
+    t.bigint "spouse_state_id_id"
+    t.string "spouse_suffix"
+    t.integer "spouse_veteran", default: 0, null: false
+    t.integer "tenant_access_kitchen_bath", default: 0, null: false
+    t.integer "tenant_building_multi_unit", default: 0, null: false
+    t.integer "tenant_home_subject_to_property_taxes", default: 0, null: false
+    t.integer "tenant_more_than_one_main_home_in_nj", default: 0, null: false
+    t.integer "tenant_same_home_spouse", default: 0, null: false
+    t.integer "tenant_shared_rent_not_spouse", default: 0, null: false
+    t.text "unfinished_intake_ids", default: [], array: true
+    t.boolean "unsubscribed_from_email", default: false, null: false
+    t.integer "untaxed_out_of_state_purchases", default: 0, null: false
+    t.datetime "updated_at", null: false
+    t.string "visitor_id"
+    t.integer "withdraw_amount"
+    t.index ["email_address"], name: "index_state_file_nj_intakes_on_email_address"
+    t.index ["hashed_ssn"], name: "index_state_file_nj_intakes_on_hashed_ssn"
+    t.index ["primary_state_id_id"], name: "index_state_file_nj_intakes_on_primary_state_id_id"
+    t.index ["spouse_state_id_id"], name: "index_state_file_nj_intakes_on_spouse_state_id_id"
+  end
+
+  create_table "state_file_nj_staff_roles", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "state_file_notification_emails", force: :cascade do |t|
@@ -1750,6 +2238,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_03_214006) do
     t.string "bank_name"
     t.integer "confirmed_permanent_address", default: 0, null: false
     t.integer "confirmed_third_party_designee", default: 0, null: false
+    t.integer "consented_to_sms_terms", default: 0, null: false
     t.integer "consented_to_terms_and_conditions", default: 0, null: false
     t.integer "contact_preference", default: 0, null: false
     t.datetime "created_at", null: false
@@ -1758,6 +2247,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_03_214006) do
     t.string "current_step"
     t.date "date_electronic_withdrawal"
     t.datetime "df_data_import_failed_at"
+    t.datetime "df_data_import_succeeded_at"
     t.datetime "df_data_imported_at"
     t.integer "eligibility_lived_in_state", default: 0, null: false
     t.integer "eligibility_out_of_state_income", default: 0, null: false
@@ -1766,6 +2256,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_03_214006) do
     t.integer "eligibility_yonkers", default: 0, null: false
     t.citext "email_address"
     t.datetime "email_address_verified_at"
+    t.integer "email_notification_opt_in", default: 0, null: false
     t.integer "failed_attempts", default: 0, null: false
     t.string "federal_return_status"
     t.string "federal_submission_id"
@@ -1815,6 +2306,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_03_214006) do
     t.integer "property_over_limit", default: 0, null: false
     t.integer "public_housing", default: 0, null: false
     t.text "raw_direct_file_data"
+    t.jsonb "raw_direct_file_intake_data"
     t.string "referrer"
     t.string "residence_county"
     t.string "routing_number"
@@ -1824,6 +2316,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_03_214006) do
     t.integer "school_district_id"
     t.integer "school_district_number"
     t.integer "sign_in_count", default: 0, null: false
+    t.integer "sms_notification_opt_in", default: 0, null: false
     t.string "source"
     t.date "spouse_birth_date"
     t.integer "spouse_esigned", default: 0, null: false
@@ -1840,23 +2333,33 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_03_214006) do
     t.datetime "updated_at", null: false
     t.string "visitor_id"
     t.integer "withdraw_amount"
+    t.index ["email_address"], name: "index_state_file_ny_intakes_on_email_address"
     t.index ["hashed_ssn"], name: "index_state_file_ny_intakes_on_hashed_ssn"
     t.index ["primary_state_id_id"], name: "index_state_file_ny_intakes_on_primary_state_id_id"
     t.index ["spouse_state_id_id"], name: "index_state_file_ny_intakes_on_spouse_state_id_id"
   end
 
   create_table "state_file_w2s", force: :cascade do |t|
+    t.decimal "box14_fli", precision: 12, scale: 2
+    t.decimal "box14_stpickup", precision: 12, scale: 2
+    t.decimal "box14_ui_hc_wd", precision: 12, scale: 2
+    t.decimal "box14_ui_wf_swf", precision: 12, scale: 2
     t.datetime "created_at", null: false
+    t.string "employee_name"
+    t.string "employee_ssn"
+    t.string "employer_ein"
+    t.string "employer_name"
     t.string "employer_state_id_num"
-    t.integer "local_income_tax_amt"
-    t.integer "local_wages_and_tips_amt"
+    t.decimal "local_income_tax_amount", precision: 12, scale: 2
+    t.decimal "local_wages_and_tips_amount", precision: 12, scale: 2
     t.string "locality_nm"
     t.bigint "state_file_intake_id"
     t.string "state_file_intake_type"
-    t.integer "state_income_tax_amt"
-    t.integer "state_wages_amt"
+    t.decimal "state_income_tax_amount", precision: 12, scale: 2
+    t.decimal "state_wages_amount", precision: 12, scale: 2
     t.datetime "updated_at", null: false
     t.integer "w2_index"
+    t.decimal "wages", precision: 12, scale: 2
     t.index ["state_file_intake_type", "state_file_intake_id"], name: "index_state_file_w2s_on_state_file_intake"
   end
 
@@ -2270,8 +2773,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_03_214006) do
   add_foreign_key "incoming_text_messages", "clients"
   add_foreign_key "intake_archives", "intakes", column: "id"
   add_foreign_key "intakes", "clients"
-  add_foreign_key "intakes", "drivers_licenses", column: "primary_drivers_license_id"
-  add_foreign_key "intakes", "drivers_licenses", column: "spouse_drivers_license_id"
   add_foreign_key "intakes", "intakes", column: "matching_previous_year_intake_id"
   add_foreign_key "intakes", "vita_partners"
   add_foreign_key "notes", "clients"

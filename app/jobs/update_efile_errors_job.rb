@@ -8,7 +8,6 @@ class UpdateEfileErrorsJob < ApplicationJob
     state_file_errors.update_all(service_type: :state_file)
     # state_file_errors.update_all(expose: false)
     DefaultErrorMessages.generate!(service_type: :state_file)
-
   end
 
   def priority

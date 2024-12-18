@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe SubmissionBuilder::Ty2021::Documents::IrsW2 do
+describe SubmissionBuilder::Ty2021::Documents::IrsW2, required_schema: "federal" do
   let(:filing_status) { "married_filing_jointly" }
   let(:intake) { build :ctc_intake, :filled_out_ctc }
   let(:submission) { create :efile_submission, :ctc, filing_status: filing_status, tax_year: 2021, client: intake.client }

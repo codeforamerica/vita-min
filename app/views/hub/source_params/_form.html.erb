@@ -8,7 +8,15 @@
   <% record.source_parameters.each do |sp| %>
     <% next unless sp.id.present? %>
     <li id="<%= "source-param-#{sp.id}" %>">
-      <%= sp.code %>
+      <label class="link"><%= sp.code %></label>
+      <%= form_for sp, authenticity_token: true, url: url_for(controller: "source_params", id: sp.id, action: "update"), method: :patch, remote: true do |f|%>
+        <label class="toggle-switch">
+          <span class="sr-only"><%= sp.active ? "Active" : "Inactive" %></span>
+          <%= f.check_box(:active, onchange: "document.querySelector('#remote-submit-#{sp.id}').click()") %>
+          <span class="slider slider-green round"></span>
+          <%= f.submit "", id: "remote-submit-#{sp.id}", style: "display:none;" %>
+        </label>
+      <% end %>
       <%= link_to t("general.delete"), hub_source_param_path(id: sp.id), method: :delete, remote: true, "data-confirm": I18n.t("hub.source_params.confirm", code: sp.code, name: record.name), class: "button button--small spacing-below-0" %>
     </li>
   <% end %>

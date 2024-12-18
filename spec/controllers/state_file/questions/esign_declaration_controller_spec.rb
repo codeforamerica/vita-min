@@ -5,7 +5,6 @@ RSpec.describe StateFile::Questions::EsignDeclarationController do
   let(:device_id) { "ABC123" }
   let(:params) do
     {
-      us_state: "ny",
       primary_esigned: "yes",
       spouse_esigned: "yes",
       state_file_esign_declaration_form: {
@@ -43,14 +42,14 @@ RSpec.describe StateFile::Questions::EsignDeclarationController do
           create :efile_submission, data_source: intake
         end
         it "redirects them to the return status page" do
-          get :edit, params: { us_state: :ny }
-          expect(response).to redirect_to(ny_questions_return_status_path(us_state: "ny"))
+          get :edit
+          expect(response).to redirect_to(questions_return_status_path)
         end
       end
 
       context "when there no submission" do
         it "redirects them to the return about page" do
-          get :edit, params: { us_state: :ny }
+          get :edit
           expect(response).to redirect_to(root_path)
         end
       end

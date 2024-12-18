@@ -1,16 +1,9 @@
 module Navigation
-  class StateFileAzQuestionNavigation
+  class StateFileAzQuestionNavigation < Navigation::StateFileBaseQuestionNavigation
     include ControllerNavigation
-    include Navigation::StateFileBaseQuestionNavigationMixin
 
     SECTIONS = [
-      Navigation::NavigationSection.new("", [
-        Navigation::NavigationStep.new(StateFile::Questions::LandingPageController, false)
-      ], false),
       Navigation::NavigationSection.new("state_file.navigation.section_1", [
-        Navigation::NavigationStep.new(StateFile::Questions::EligibilityResidenceController),
-        Navigation::NavigationStep.new(StateFile::Questions::EligibilityOutOfStateIncomeController),
-        Navigation::NavigationStep.new(StateFile::Questions::EligibilityOffboardingController, false),
         Navigation::NavigationStep.new(StateFile::Questions::EligibleController),
       ]),
       Navigation::NavigationSection.new("state_file.navigation.section_2", [
@@ -19,6 +12,8 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::EmailAddressController),
         Navigation::NavigationStep.new(StateFile::Questions::VerificationCodeController),
         Navigation::NavigationStep.new(StateFile::Questions::CodeVerifiedController),
+        Navigation::NavigationStep.new(StateFile::Questions::NotificationPreferencesController),
+        Navigation::NavigationStep.new(StateFile::Questions::SmsTermsController),
       ]),
       Navigation::NavigationSection.new("state_file.navigation.section_3", [
         Navigation::NavigationStep.new(StateFile::Questions::TermsAndConditionsController),
@@ -30,19 +25,20 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::WaitingToLoadDataController),
       ]),
       Navigation::NavigationSection.new("state_file.navigation.section_5", [
-        Navigation::NavigationStep.new(StateFile::Questions::DataReviewController),
+        Navigation::NavigationStep.new(StateFile::Questions::PostDataTransferController, false),
         Navigation::NavigationStep.new(StateFile::Questions::FederalInfoController),
         Navigation::NavigationStep.new(StateFile::Questions::DataTransferOffboardingController, false),
-        Navigation::NavigationStep.new(StateFile::Questions::NameDobController),
         Navigation::NavigationStep.new(StateFile::Questions::AzSeniorDependentsController),
         Navigation::NavigationStep.new(StateFile::Questions::AzPriorLastNamesController),
-        Navigation::NavigationStep.new(StateFile::Questions::W2Controller),
+        Navigation::NavigationStep.new(StateFile::Questions::IncomeReviewController),
         Navigation::NavigationStep.new(StateFile::Questions::UnemploymentController),
-        Navigation::NavigationStep.new(StateFile::Questions::AzStateCreditsController),
+        Navigation::NavigationStep.new(StateFile::Questions::AzPublicSchoolContributionsController),
         Navigation::NavigationStep.new(StateFile::Questions::AzCharitableContributionsController),
+        Navigation::NavigationStep.new(StateFile::Questions::AzQualifyingOrganizationContributionsController),
+        Navigation::NavigationStep.new(StateFile::Questions::AzSubtractionsController),
         Navigation::NavigationStep.new(StateFile::Questions::AzExciseCreditController),
-        Navigation::NavigationStep.new(StateFile::Questions::AzPrimaryStateIdController),
-        Navigation::NavigationStep.new(StateFile::Questions::AzSpouseStateIdController),
+        Navigation::NavigationStep.new(StateFile::Questions::PrimaryStateIdController),
+        Navigation::NavigationStep.new(StateFile::Questions::SpouseStateIdController),
         Navigation::NavigationStep.new(StateFile::Questions::AzReviewController),
         Navigation::NavigationStep.new(StateFile::Questions::TaxesOwedController),
         Navigation::NavigationStep.new(StateFile::Questions::TaxRefundController),
@@ -54,9 +50,5 @@ module Navigation
       ]),
     ].freeze
     FLOW = SECTIONS.map(&:controllers).flatten.freeze
-
-    def self.intake_class
-      StateFileAzIntake
-    end
   end
 end

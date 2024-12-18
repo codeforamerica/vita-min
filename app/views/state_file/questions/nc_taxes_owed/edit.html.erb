@@ -1,0 +1,65 @@
+<% content_for :page_title, t(".page_title") %>
+<% content_for :card do %>
+  <h1 class="h2">
+    <%= t(".title_html", owed_amount: taxes_owed) %>
+  </h1>
+  <p><%= t(".payment_options") %></p>
+
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <div class="question-with-follow-up">
+      <div class="question-with-follow-up__question white-group">
+        <div class = "spacing-below-10">
+          <p> <%= t(".how_would_you_like_to_pay") %></p>
+        </div>
+        <%= f.cfa_radio_set(
+              :payment_or_deposit_type,
+              collection: [
+                {
+                  value: :direct_deposit,
+                  label: t(".pay_bank"),
+                  input_html: { "data-follow-up": "#pay-from-bank" }
+                },
+                {
+                  value: :mail,
+                  label: t(".pay_mail_online_html")
+                }
+              ]
+            ) %>
+      </div>
+      <div class="question-with-follow-up__follow-up" id="pay-from-bank">
+        <div class="question-with-follow-up">
+          <div class="question-with-follow-up__question">
+            <%= render 'state_file/questions/nc_tax_refund/nc_bank_details', form: f, owe_taxes: true %>
+            <div id="details" class="reveal">
+              <p><button class="reveal__button"><%= t(".more_info_about_automatic_draft_payments") %></button></p>
+              <div class="reveal__content">
+                <p><%= t(".automatic_draft_payments_info_one") %></p>
+                <p><strong><%= t(".automatic_draft_payments_info_two") %></strong></p>
+              </div>
+            </div>
+            <div id="details" class="reveal">
+              <p><button class="reveal__button"><%= t(".more_info_about_direct_debit_payment") %></button></p>
+              <div class="reveal__content">
+                <p><%= t(".direct_debit_payment_info_one") %></p>
+                <p><%= t(".direct_debit_payment_info_two") %></p>
+                <p><%= t(".direct_debit_payment_info_three") %></p>
+                <p><strong><%= t(".direct_debit_payment_info_four") %></strong></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="details" class="reveal">
+      <p><button class="reveal__button"><%= t(".what_are_benefits_of_ncdor") %></button></p>
+      <div class="reveal__content">
+        <p><%= t(".benefits_of_ncdor") %></p>
+      </div>
+    </div>
+    <%= f.continue %>
+  <% end %>
+<% end %>
+
+<% content_for :script do %>
+  <%= render 'shared/disable_copy_paste' %>
+<% end %>

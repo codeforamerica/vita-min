@@ -5,14 +5,12 @@ module StateFile
                        :payment_or_deposit_type,
                        :routing_number,
                        :account_number,
-                       :account_type,
-                       :bank_name
+                       :account_type
     set_attributes_for :confirmation, :routing_number_confirmation, :account_number_confirmation
 
     validates :payment_or_deposit_type, presence: true
 
     with_options unless: -> { payment_or_deposit_type == "mail" } do
-      validates :bank_name, presence: true
       validates :account_type, presence: true
 
       validates :account_number, presence: true, confirmation: true, length: { in: 5..17 }, numericality: true
@@ -32,7 +30,7 @@ module StateFile
 
     def self.existing_attributes(intake)
       attributes = super
-      attributes.except(:routing_number, :account_number, :routing_number_confirmation, :account_number_confirmation, :bank_name)
+      attributes.except(:routing_number, :account_number, :routing_number_confirmation, :account_number_confirmation)
     end
 
     private

@@ -10,6 +10,7 @@ class EnvironmentCredentials
         etin: 'GYR_EFILER_ETIN',
         app_sys_id: 'GYR_EFILER_APP_SYS_ID',
         efin: 'VITA_MIN_EFIN',
+        md_sin: 'MD_SIN',
         sin: 'VITA_MIN_SIN',
       }
       ENV[env_var_names[key]].presence || dig(:irs, key)

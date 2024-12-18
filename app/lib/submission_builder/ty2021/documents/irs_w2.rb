@@ -5,7 +5,7 @@ module SubmissionBuilder
         include SubmissionBuilder::FormattingMethods
 
         def schema_file
-          File.join(Rails.root, "vendor", "irs", "unpacked", @schema_version, "IndividualIncomeTax", "Common", "IRSW2", "IRSW2.xsd")
+          SchemaFileLoader.load_file("irs", "unpacked", @schema_version, "IndividualIncomeTax", "Common", "IRSW2", "IRSW2.xsd")
         end
 
         def document

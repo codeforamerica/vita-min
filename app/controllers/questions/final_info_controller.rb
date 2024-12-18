@@ -24,8 +24,17 @@ module Questions
 
     def send_confirmation_message
       @client = current_intake.client
-      doc_date = app_time.before?(Rails.configuration.tax_deadline) ? DateTime.parse('2024-04-01') : Rails.configuration.end_of_docs.to_date
+      tax_deadline = Rails.configuration.tax_deadline
+      end_of_in_progress_intake = Rails.configuration.end_of_in_progress_intake
+      doc_submission_deadline = Rails.configuration.doc_submission_deadline
+      end_of_docs_date = Rails.configuration.end_of_docs.to_date
 
+      doc_date = if app_time.before?(tax_deadline) || app_time.after?(end_of_in_progress_intake)
+                   doc_submission_deadline
+                 else
+                   end_of_docs_date
+                 end
+      
       ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
         client: current_intake.client,
         message: AutomatedMessage::SuccessfulSubmissionOnlineIntake,

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v4.0">
+  <ReturnHeader binaryAttachmentCnt="0">
+    <TaxYr>2024</TaxYr>
+    <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+    <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+    <SoftwareVersionNum>eb055500</SoftwareVersionNum>
+    <ReturnTypeCd>1040</ReturnTypeCd>
+    <Filer>
+      <PrimarySSN>400000020</PrimarySSN>
+      <SpouseSSN>400000021</SpouseSSN>
+      <NameLine1Txt>ZEUS&lt;LIGHTNING&lt;SR &amp; HERA THUNDER</NameLine1Txt>
+      <PrimaryNameControlTxt>LIGH</PrimaryNameControlTxt>
+      <SpouseNameControlTxt>THUN</SpouseNameControlTxt>
+      <USAddress>
+        <AddressLine1Txt>100 Lookout Drive</AddressLine1Txt>
+        <CityNm>Asheville</CityNm>
+        <StateAbbreviationCd>NC</StateAbbreviationCd>
+        <ZIPCd>28715</ZIPCd>
+      </USAddress>
+      <PhoneNum>8285558765</PhoneNum>
+    </Filer>
+    <AdditionalFilerInformation>
+      <AtSubmissionFilingGrp>
+        <EmailAddressTxt>test-user+40000002-0615-4e1e-b1f8-612fa392d657@directfile.test</EmailAddressTxt>
+      </AtSubmissionFilingGrp>
+    </AdditionalFilerInformation>
+  </ReturnHeader>
+  <ReturnData documentCnt="3">
+    <IRS1040 documentId="IRS10400001">
+      <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
+      <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+      <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
+      <DependentDetail>
+        <DependentFirstNm>Aphrodite</DependentFirstNm>
+        <DependentLastNm>Thunder</DependentLastNm>
+        <DependentNameControlTxt>THUN</DependentNameControlTxt>
+        <DependentSSN>300000010</DependentSSN>
+        <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+        <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+      </DependentDetail>
+      <DependentDetail>
+        <DependentFirstNm>Artemis</DependentFirstNm>
+        <DependentLastNm>Thunder IX</DependentLastNm>
+        <DependentNameControlTxt>THUN</DependentNameControlTxt>
+        <DependentSSN>300000011</DependentSSN>
+        <DependentRelationshipCd>STEPBROTHER</DependentRelationshipCd>
+        <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+      </DependentDetail>
+      <DependentDetail>
+        <DependentFirstNm>Hermes</DependentFirstNm>
+        <DependentLastNm>Thunder</DependentLastNm>
+        <DependentNameControlTxt>THUN</DependentNameControlTxt>
+        <IdentityProtectionPIN>989898</IdentityProtectionPIN>
+        <DependentSSN>300000012</DependentSSN>
+        <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+        <EligibleForODCInd>X</EligibleForODCInd>
+      </DependentDetail>
+      <DependentDetail>
+        <DependentFirstNm>Ares</DependentFirstNm>
+        <DependentLastNm>Thunder</DependentLastNm>
+        <DependentNameControlTxt>THUN</DependentNameControlTxt>
+        <DependentSSN>900000010</DependentSSN>
+        <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+        <EligibleForODCInd>X</EligibleForODCInd>
+      </DependentDetail>
+      <ChldWhoLivedWithYouCnt>3</ChldWhoLivedWithYouCnt>
+      <OtherDependentsListedCnt>1</OtherDependentsListedCnt>
+      <TotalExemptionsCnt>6</TotalExemptionsCnt>
+      <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">80000</WagesAmt>
+      <WagesSalariesAndTipsAmt>80000</WagesSalariesAndTipsAmt>
+      <TotalIncomeAmt>80000</TotalIncomeAmt>
+      <AdjustedGrossIncomeAmt>80000</AdjustedGrossIncomeAmt>
+      <TotalItemizedOrStandardDedAmt>29200</TotalItemizedOrStandardDedAmt>
+      <TotalDeductionsAmt>29200</TotalDeductionsAmt>
+      <TaxableIncomeAmt>50800</TaxableIncomeAmt>
+      <TaxAmt>5635</TaxAmt>
+      <TotalTaxBeforeCrAndOthTaxesAmt>5635</TotalTaxBeforeCrAndOthTaxesAmt>
+      <CTCODCAmt>5000</CTCODCAmt>
+      <TotalCreditsAmt>5000</TotalCreditsAmt>
+      <TaxLessCreditsAmt>635</TaxLessCreditsAmt>
+      <TotalTaxAmt>635</TotalTaxAmt>
+      <FormW2WithheldTaxAmt>1000</FormW2WithheldTaxAmt>
+      <WithholdingTaxAmt>1000</WithholdingTaxAmt>
+      <TotalPaymentsAmt>1000</TotalPaymentsAmt>
+      <OverpaidAmt>365</OverpaidAmt>
+      <RefundAmt>365</RefundAmt>
+      <RoutingTransitNum>021000322</RoutingTransitNum>
+      <BankAccountTypeCd>2</BankAccountTypeCd>
+      <DepositorAccountNum>919191919191</DepositorAccountNum>
+      <OwedAmt>0</OwedAmt>
+      <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+      <PrimaryOccupationTxt>Homemaker</PrimaryOccupationTxt>
+      <SpouseOccupationTxt>Therapist</SpouseOccupationTxt>
+      <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+    </IRS1040>
+    <IRS1040Schedule8812 documentId="IRS8812001" documentName="IRS1040Schedule8812">
+      <AdjustedGrossIncomeAmt>80000</AdjustedGrossIncomeAmt>
+      <ModifiedAGIAmt>80000</ModifiedAGIAmt>
+      <QlfyChildUnderAgeSSNCnt>2</QlfyChildUnderAgeSSNCnt>
+      <QlfyChildUnderAgeSSNLimtAmt>4000</QlfyChildUnderAgeSSNLimtAmt>
+      <OtherDependentCnt>2</OtherDependentCnt>
+      <OtherDependentCreditAmt>1000</OtherDependentCreditAmt>
+      <InitialCTCODCAmt>5000</InitialCTCODCAmt>
+      <FilingStatusThresholdCd>400000</FilingStatusThresholdCd>
+      <ExcessAdjGrossIncomeAmt>0</ExcessAdjGrossIncomeAmt>
+      <ModifiedAGIPhaseOutAmt>0</ModifiedAGIPhaseOutAmt>
+      <CTCODCOverAGILimitInd>true</CTCODCOverAGILimitInd>
+      <CTCODCAfterAGILimitAmt>5000</CTCODCAfterAGILimitAmt>
+      <ACTCTaxLiabiltyLimitAmt>5635</ACTCTaxLiabiltyLimitAmt>
+      <CTCODCAmt>5000</CTCODCAmt>
+      <ClaimACTCAllFilersGrp/>
+    </IRS1040Schedule8812>
+    <IRSW2 documentId="W20001" documentName="IRSW2">
+      <EmployeeSSN>400000021</EmployeeSSN>
+      <EmployerEIN>009876543</EmployerEIN>
+      <EmployerNameControlTxt>OLYM</EmployerNameControlTxt>
+      <EmployerName>
+        <BusinessNameLine1Txt>Olympus Counseling</BusinessNameLine1Txt>
+      </EmployerName>
+      <EmployerUSAddress>
+        <AddressLine1Txt>1 Parnassus Lane</AddressLine1Txt>
+        <CityNm>Athens</CityNm>
+        <StateAbbreviationCd>GA</StateAbbreviationCd>
+        <ZIPCd>30601</ZIPCd>
+      </EmployerUSAddress>
+      <EmployeeNm>Hera Thunder II</EmployeeNm>
+      <EmployeeUSAddress>
+        <AddressLine1Txt>100 Lookout Drive</AddressLine1Txt>
+        <CityNm>Asheville</CityNm>
+        <StateAbbreviationCd>NC</StateAbbreviationCd>
+        <ZIPCd>28715</ZIPCd>
+      </EmployeeUSAddress>
+      <WagesAmt>80000</WagesAmt>
+      <WithholdingAmt>1000</WithholdingAmt>
+      <SocialSecurityWagesAmt>80000</SocialSecurityWagesAmt>
+      <SocialSecurityTaxAmt>8000</SocialSecurityTaxAmt>
+      <MedicareWagesAndTipsAmt>80000</MedicareWagesAndTipsAmt>
+      <MedicareTaxWithheldAmt>4000</MedicareTaxWithheldAmt>
+      <W2StateLocalTaxGrp>
+        <W2StateTaxGrp>
+          <StateAbbreviationCd>NC</StateAbbreviationCd>
+          <EmployerStateIdNum>NC 12-34567</EmployerStateIdNum>
+          <StateWagesAmt>80000</StateWagesAmt>
+          <StateIncomeTaxAmt>7500</StateIncomeTaxAmt>
+          <W2LocalTaxGrp/>
+        </W2StateTaxGrp>
+      </W2StateLocalTaxGrp>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+    </IRSW2>
+  </ReturnData>
+</Return>

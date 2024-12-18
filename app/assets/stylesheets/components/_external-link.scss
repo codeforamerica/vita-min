@@ -1,0 +1,39 @@
+// Taken from USWDS
+// https://github.com/uswds/uswds/blob/ae7129cafeeff2089e9ccfd4b286c50e8d7d0b5f/packages/uswds-core/src/styles/mixins/general/external-link.scss#L6
+
+$theme-external-link-sr-label-tab-same: "External.";
+$theme-external-link-sr-label-tab-new: "External, opens in a new tab";
+
+@mixin external-link($contrast-bg: "default") {
+  display: inline;
+
+  &::before {
+    @include sr-only;
+    content: $theme-external-link-sr-label-tab-same;
+  }
+
+  &[target="_blank"]::before {
+    @include sr-only;
+    content: $theme-external-link-sr-label-tab-new;
+  }
+
+  &::after {
+    background-image: url("icons/uswds-launch.svg");
+    color: currentColor;
+    content: "";
+    display: inline;
+    margin-top: 0.7ex;
+    margin-left: 2px;
+    padding-left: 1.75ex;
+    vertical-align: middle;
+
+    @supports (mask: url("")) {
+      background: none;
+      background-color: currentColor;
+      mask-image: url("icons/uswds-launch.svg"),
+        linear-gradient(transparent, transparent);
+      mask-repeat: no-repeat;
+    }
+  }
+
+}

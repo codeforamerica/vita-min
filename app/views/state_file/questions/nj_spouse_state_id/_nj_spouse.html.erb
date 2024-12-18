@@ -1,0 +1,24 @@
+<% content_for :info_box do %>
+  <div class="reveal">
+    <p><button href="#" class="reveal__button"><%= t(".why_ask_this") %></button></p>
+    <div class="reveal__content">
+      <div>
+        <p>
+          <%=  t('.protect_identity') %>
+        </p>
+        <p>
+          <%= t('.not_required') %>
+        </p>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<% content_for :card do %>
+  <h1 class="h2"><%= t(".title") %></h1>
+  <p><%= t(".subtitle") %></p>
+  <%= render 'state_file/questions/primary_state_id/state_id', options: {
+    dmv_bmv_label: t(".dmv_bmv"),
+    no_id_label: t(".no_id")
+  } %>
+<% end %>

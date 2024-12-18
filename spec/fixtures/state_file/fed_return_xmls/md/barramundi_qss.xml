@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v4.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>1cfaf0d2</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400007203</PrimarySSN>
+            <NameLine1Txt>BRYAN&lt;BARRAMUNDI</NameLine1Txt>
+            <PrimaryNameControlTxt>BARR</PrimaryNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>1 FISH ST</AddressLine1Txt>
+                <CityNm>BETHESDA</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>20814</ZIPCd>
+            </USAddress>
+            <PhoneNum>3015557654</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000720-3c14-435a-8094-464ea315eb31@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="8">
+        <IRS1040 documentId="IRS10400001">
+            <Form1040SRInd>X</Form1040SRInd>
+            <IndividualReturnFilingStatusCd>5</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <Primary65OrOlderInd>X</Primary65OrOlderInd>
+            <TotalBoxesCheckedCnt>1</TotalBoxesCheckedCnt>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <DependentDetail>
+                <DependentFirstNm>BARACK</DependentFirstNm>
+                <DependentLastNm>BARRAMUNDI</DependentLastNm>
+                <DependentNameControlTxt>BARR</DependentNameControlTxt>
+                <DependentSSN>600005556</DependentSSN>
+                <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+                <EligibleForODCInd>X</EligibleForODCInd>
+            </DependentDetail>
+            <DependentDetail>
+                <DependentFirstNm>TAMARIND</DependentFirstNm>
+                <DependentLastNm>BARRAMUNDI</DependentLastNm>
+                <DependentNameControlTxt>BARR</DependentNameControlTxt>
+                <DependentSSN>600005557</DependentSSN>
+                <DependentRelationshipCd>GRANDCHILD</DependentRelationshipCd>
+                <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+            </DependentDetail>
+            <DependentDetail>
+                <DependentFirstNm>BARRACUDA</DependentFirstNm>
+                <DependentLastNm>BARRAMUNDI</DependentLastNm>
+                <DependentNameControlTxt>BARR</DependentNameControlTxt>
+                <DependentSSN>600005558</DependentSSN>
+                <DependentRelationshipCd>GRANDCHILD</DependentRelationshipCd>
+                <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+            </DependentDetail>
+            <ChldWhoLivedWithYouCnt>3</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>4</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">30500</WagesAmt>
+            <WagesSalariesAndTipsAmt>30500</WagesSalariesAndTipsAmt>
+            <TotalAdditionalIncomeAmt>9000</TotalAdditionalIncomeAmt>
+            <TotalIncomeAmt>39500</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>39500</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>30750</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>30750</TotalDeductionsAmt>
+            <TaxableIncomeAmt>8750</TaxableIncomeAmt>
+            <TaxAmt>878</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>878</TotalTaxBeforeCrAndOthTaxesAmt>
+            <CTCODCAmt>878</CTCODCAmt>
+            <TotalNonrefundableCreditsAmt>878</TotalNonrefundableCreditsAmt>
+            <TotalCreditsAmt>1756</TotalCreditsAmt>
+            <TaxLessCreditsAmt>0</TaxLessCreditsAmt>
+            <TotalTaxAmt>0</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>3100</FormW2WithheldTaxAmt>
+            <Form1099WithheldTaxAmt referenceDocumentId="OTHERWITHHOLDING0001" referenceDocumentName="OtherWithholdingStatement">1000</Form1099WithheldTaxAmt>
+            <WithholdingTaxAmt>4100</WithholdingTaxAmt>
+            <EarnedIncomeCreditAmt referenceDocumentId="IRSEIC0001" referenceDocumentName="IRS1040ScheduleEIC">4291</EarnedIncomeCreditAmt>
+            <AdditionalChildTaxCreditAmt referenceDocumentId="IRS8812001" referenceDocumentName="IRS1040Schedule8812">3400</AdditionalChildTaxCreditAmt>
+            <RefundableCreditsAmt>7691</RefundableCreditsAmt>
+            <TotalPaymentsAmt>11791</TotalPaymentsAmt>
+            <OverpaidAmt>11791</OverpaidAmt>
+            <RefundAmt>11791</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>SUSHI CHEF</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1040Schedule1 documentId="IRS1040S1001">
+            <UnemploymentCompAmt>9000</UnemploymentCompAmt>
+            <TotalAdditionalIncomeAmt>9000</TotalAdditionalIncomeAmt>
+        </IRS1040Schedule1>
+        <IRS1040Schedule3 documentId="IRS1040S3001">
+            <CreditForChildAndDepdCareAmt referenceDocumentId="IRS2441001" referenceDocumentName="IRS2441">878</CreditForChildAndDepdCareAmt>
+            <TotalNonrefundableCreditsAmt>878</TotalNonrefundableCreditsAmt>
+        </IRS1040Schedule3>
+        <IRS1040Schedule8812 documentId="IRS8812001" documentName="IRS1040Schedule8812">
+            <AdjustedGrossIncomeAmt>39500</AdjustedGrossIncomeAmt>
+            <ModifiedAGIAmt>39500</ModifiedAGIAmt>
+            <QlfyChildUnderAgeSSNCnt>2</QlfyChildUnderAgeSSNCnt>
+            <QlfyChildUnderAgeSSNLimtAmt>4000</QlfyChildUnderAgeSSNLimtAmt>
+            <OtherDependentCnt>1</OtherDependentCnt>
+            <OtherDependentCreditAmt>500</OtherDependentCreditAmt>
+            <InitialCTCODCAmt>4500</InitialCTCODCAmt>
+            <FilingStatusThresholdCd>200000</FilingStatusThresholdCd>
+            <ExcessAdjGrossIncomeAmt>0</ExcessAdjGrossIncomeAmt>
+            <ModifiedAGIPhaseOutAmt>0</ModifiedAGIPhaseOutAmt>
+            <CTCODCOverAGILimitInd>true</CTCODCOverAGILimitInd>
+            <CTCODCAfterAGILimitAmt>4500</CTCODCAfterAGILimitAmt>
+            <ACTCTaxLiabiltyLimitAmt>878</ACTCTaxLiabiltyLimitAmt>
+            <CTCODCAmt>878</CTCODCAmt>
+            <ClaimACTCAllFilersGrp>
+                <ACTCBeforeLimitAmt>3622</ACTCBeforeLimitAmt>
+                <QlfyChildUnderAgeSSNCnt>2</QlfyChildUnderAgeSSNCnt>
+                <QlfyChildUnderAgeSSNLimtAmt>3400</QlfyChildUnderAgeSSNLimtAmt>
+                <ACTCAfterLimitAmt>3400</ACTCAfterLimitAmt>
+                <TotalEarnedIncomeAmt>30500</TotalEarnedIncomeAmt>
+                <EarnedIncmMoreThanSpecifiedInd>true</EarnedIncmMoreThanSpecifiedInd>
+                <NetTotalEarnedIncomeAmt>28000</NetTotalEarnedIncomeAmt>
+                <NetEarnedIncomeCalculatedAmt>4200</NetEarnedIncomeCalculatedAmt>
+                <ThreeOrMoreQlfyChildrenInd>false</ThreeOrMoreQlfyChildrenInd>
+            </ClaimACTCAllFilersGrp>
+            <AdditionalChildTaxCreditAmt>3400</AdditionalChildTaxCreditAmt>
+        </IRS1040Schedule8812>
+        <IRS1040ScheduleEIC documentId="IRSEIC0001" documentName="IRS1040ScheduleEIC">
+            <QualifyingChildInformation>
+                <QualifyingChildNameControlTxt>BARR</QualifyingChildNameControlTxt>
+                <ChildFirstAndLastName>
+                    <PersonFirstNm>BARACK</PersonFirstNm>
+                    <PersonLastNm>BARRAMUNDI</PersonLastNm>
+                </ChildFirstAndLastName>
+                <QualifyingChildSSN>600005556</QualifyingChildSSN>
+                <ChildBirthYr>2005</ChildBirthYr>
+                <ChildIsAStudentUnder24Ind>true</ChildIsAStudentUnder24Ind>
+                <ChildRelationshipCd>DAUGHTER</ChildRelationshipCd>
+                <MonthsChildLivedWithYouCnt>12</MonthsChildLivedWithYouCnt>
+            </QualifyingChildInformation>
+            <QualifyingChildInformation>
+                <QualifyingChildNameControlTxt>BARR</QualifyingChildNameControlTxt>
+                <ChildFirstAndLastName>
+                    <PersonFirstNm>TAMARIND</PersonFirstNm>
+                    <PersonLastNm>BARRAMUNDI</PersonLastNm>
+                </ChildFirstAndLastName>
+                <QualifyingChildSSN>600005557</QualifyingChildSSN>
+                <ChildBirthYr>2012</ChildBirthYr>
+                <ChildRelationshipCd>GRANDCHILD</ChildRelationshipCd>
+                <MonthsChildLivedWithYouCnt>12</MonthsChildLivedWithYouCnt>
+            </QualifyingChildInformation>
+            <QualifyingChildInformation>
+                <QualifyingChildNameControlTxt>BARR</QualifyingChildNameControlTxt>
+                <ChildFirstAndLastName>
+                    <PersonFirstNm>BARRACUDA</PersonFirstNm>
+                    <PersonLastNm>BARRAMUNDI</PersonLastNm>
+                </ChildFirstAndLastName>
+                <QualifyingChildSSN>600005558</QualifyingChildSSN>
+                <ChildBirthYr>2019</ChildBirthYr>
+                <ChildRelationshipCd>GRANDCHILD</ChildRelationshipCd>
+                <MonthsChildLivedWithYouCnt>12</MonthsChildLivedWithYouCnt>
+            </QualifyingChildInformation>
+        </IRS1040ScheduleEIC>
+        <IRS2441 documentId="IRS2441001" documentName="IRS2441">
+            <CareProviderGrp>
+                <CareProviderBusinessName>
+                    <BusinessNameLine1Txt>busy bee</BusinessNameLine1Txt>
+                </CareProviderBusinessName>
+                <CareProviderBusNameControlTxt>BUSY</CareProviderBusNameControlTxt>
+                <USAddress>
+                    <AddressLine1Txt>123 Main street</AddressLine1Txt>
+                    <CityNm>Denver</CityNm>
+                    <StateAbbreviationCd>CO</StateAbbreviationCd>
+                    <ZIPCd>80212</ZIPCd>
+                </USAddress>
+                <EIN>146013200</EIN>
+                <HouseholdEmployeeInd>false</HouseholdEmployeeInd>
+                <PaidAmt>5500</PaidAmt>
+            </CareProviderGrp>
+            <QualifyingPersonGrp>
+                <QualifyingPersonName>
+                    <PersonFirstNm>TAMARIND</PersonFirstNm>
+                    <PersonLastNm>BARRAMUNDI</PersonLastNm>
+                </QualifyingPersonName>
+                <QualifyingPersonNameControlTxt>BARR</QualifyingPersonNameControlTxt>
+                <QualifyingPersonSSN>600005557</QualifyingPersonSSN>
+                <QualifiedCareExpensesPaidAmt>3000</QualifiedCareExpensesPaidAmt>
+            </QualifyingPersonGrp>
+            <QualifyingPersonGrp>
+                <QualifyingPersonName>
+                    <PersonFirstNm>BARRACUDA</PersonFirstNm>
+                    <PersonLastNm>BARRAMUNDI</PersonLastNm>
+                </QualifyingPersonName>
+                <QualifyingPersonNameControlTxt>BARR</QualifyingPersonNameControlTxt>
+                <QualifyingPersonSSN>600005558</QualifyingPersonSSN>
+                <QualifiedCareExpensesPaidAmt>2500</QualifiedCareExpensesPaidAmt>
+            </QualifyingPersonGrp>
+            <TotalQlfdExpensesOrLimitAmt>5500</TotalQlfdExpensesOrLimitAmt>
+            <PrimaryEarnedIncomeAmt>30500</PrimaryEarnedIncomeAmt>
+            <SpouseEarnedIncomeAmt>30500</SpouseEarnedIncomeAmt>
+            <SmallerOfExpensesOrIncomeAmt>5500</SmallerOfExpensesOrIncomeAmt>
+            <AdjustedGrossIncomeAmt>39500</AdjustedGrossIncomeAmt>
+            <CareExpensesDecimalAmt>0.22</CareExpensesDecimalAmt>
+            <CalculatedTentativeExpenseAmt>1210</CalculatedTentativeExpenseAmt>
+            <TotalEligCDCCAmt>1210</TotalEligCDCCAmt>
+            <TaxLiabLmtFromCrLmtWrkshtAmt>878</TaxLiabLmtFromCrLmtWrkshtAmt>
+            <CreditForChildAndDepdCareAmt>878</CreditForChildAndDepdCareAmt>
+        </IRS2441>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>400007203</EmployeeSSN>
+            <EmployerEIN>012345678</EmployerEIN>
+            <EmployerNameControlTxt>RUMM</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>RUM MUNDI BAR</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>2 BEER STREET</AddressLine1Txt>
+                <CityNm>BETHESDA</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>20814</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>BRYAN BARRAMUNDI</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>1 FISH ST</AddressLine1Txt>
+                <CityNm>BETHESDA</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>20814</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>30500</WagesAmt>
+            <WithholdingAmt>3100</WithholdingAmt>
+            <SocialSecurityWagesAmt>30500</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>2000</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>30500</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>1000</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>MD</StateAbbreviationCd>
+                    <EmployerStateIdNum>7654321</EmployerStateIdNum>
+                    <StateWagesAmt>20500</StateWagesAmt>
+                    <StateIncomeTaxAmt>3000</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp>
+                        <LocalWagesAndTipsAmt>20500</LocalWagesAndTipsAmt>
+                        <LocalityNm>FREDERICK</LocalityNm>
+                    </W2LocalTaxGrp>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+        <OtherWithholdingStatement documentId="OTHERWITHHOLDING0001" documentName="OtherWithholdingStatement">
+            <OtherWithholdingStmt>
+                <WithholdingCd>FORM 1099</WithholdingCd>
+                <EIN>270293117</EIN>
+                <WithholdingAmt>1000</WithholdingAmt>
+            </OtherWithholdingStmt>
+        </OtherWithholdingStatement>
+    </ReturnData>
+</Return>

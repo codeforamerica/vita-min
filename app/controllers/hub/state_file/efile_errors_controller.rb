@@ -4,15 +4,28 @@ module Hub::StateFile
     layout "hub"
 
     def index
-      @efile_errors = @efile_errors.where.not(service_type: "ctc").order(:source, :code)
+      order = [:source, :code]
+      if params[:sort_by].present?
+        order.prepend(params[:sort_by])
+      end
+
+      @efile_errors = @efile_errors.where.not(service_type: "ctc").order(*order)
+
+      if params[:filter_by_service_type].present?
+        @efile_errors = @efile_errors.where(service_type: params[:filter_by_service_type])
+      end
     end
 
     def edit
+      state_code = @efile_error.service_type.sub("state_file_", "")
       @correction_path_options_for_select = EfileError.paths
-      unless @efile_error.correction_path.present?
-        @efile_error.correction_path = EfileError.controller_to_path(
-          EfileError.default_controller
-        )
+      if StateFile::StateInformationService.active_state_codes.include?(state_code)
+        unless @efile_error.correction_path.present?
+
+          @efile_error.correction_path = EfileError.controller_to_path(
+            EfileError.default_controller(state_code)
+          )
+        end
       end
     end
 
@@ -30,8 +43,8 @@ module Hub::StateFile
     def reprocess
       if @efile_error.present? && (@efile_error.auto_wait || @efile_error.auto_cancel)
         auto_transition_to_state = @efile_error.auto_wait ? :waiting : :cancelled
-        submission_ids = EfileSubmissionTransitionError.includes(:efile_error, :efile_submission_transition).where(efile_error: @efile_error, efile_submission_transitions: { most_recent: true, to_state: ["rejected", "failed"] }).pluck(:efile_submission_id)
-        EfileSubmission.where(id: submission_ids).find_each { |submission| submission.transition_to(auto_transition_to_state) }
+        submission_ids = EfileSubmissionTransitionError.accessible_by(current_ability).includes(:efile_error, :efile_submission_transition).where(efile_error: @efile_error, efile_submission_transitions: { most_recent: true, to_state: ["rejected", "failed"] }).pluck(:efile_submission_id)
+        EfileSubmission.accessible_by(current_ability).where(id: submission_ids).find_each { |submission| submission.transition_to(auto_transition_to_state) }
 
         flash[:notice] = "Successfully reprocessed #{submission_ids.count} submission(s) with #{@efile_error.code} error!"
       else

@@ -12,6 +12,7 @@ module StateFile
 
         intake.update(
           raw_direct_file_data: direct_file_json['xml'],
+          raw_direct_file_intake_data: direct_file_json['directFileData'],
           federal_submission_id: direct_file_json['submissionId'],
           federal_return_status: direct_file_json['status'],
           df_data_imported_at: Time.now
@@ -20,6 +21,8 @@ module StateFile
           hashed_ssn: SsnHashingService.hash(intake.direct_file_data.primary_ssn)
         )
 
+        # TODO: Add raw_direct_file_intake_data into the required_fields array
+
         required_fields = [:raw_direct_file_data, :federal_submission_id, :federal_return_status, :hashed_ssn]
         missing_fields = required_fields.select { |field| intake.send(field).blank? }
         if missing_fields.any?
@@ -27,12 +30,13 @@ module StateFile
         end
 
         intake.synchronize_df_dependents_to_database
+        intake.synchronize_df_1099_rs_to_database
+        intake.synchronize_df_w2s_to_database
+        intake.synchronize_filers_to_database
 
-        # Clear this timestamp if it failed before but succeeded this time
-        intake.update(df_data_import_failed_at: nil)
+        intake.update(df_data_import_succeeded_at: DateTime.now)
       rescue => err
         Rails.logger.error(err)
-        intake.update(df_data_import_failed_at: DateTime.now)
         intake.df_data_import_errors << DfDataImportError.new(message: err.to_s)
       end
 

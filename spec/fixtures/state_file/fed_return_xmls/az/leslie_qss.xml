@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v4.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>676c5f98</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400000007</PrimarySSN>
+            <NameLine1Txt>LESLIE&lt;KNOPE</NameLine1Txt>
+            <PrimaryNameControlTxt>KNOP</PrimaryNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>3756 supercalifragilistic roadway</AddressLine1Txt>
+                <CityNm>Tucson</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>85705</ZIPCd>
+            </USAddress>
+            <PhoneNum>4085555559</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000000-7b6b-4834-8927-de586443a1ab@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="3">
+        <IRS1040 documentId="IRS10400001">
+            <Form1040SRInd>X</Form1040SRInd>
+            <IndividualReturnFilingStatusCd>5</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <Primary65OrOlderInd>X</Primary65OrOlderInd>
+            <PrimaryBlindInd>X</PrimaryBlindInd>
+            <TotalBoxesCheckedCnt>2</TotalBoxesCheckedCnt>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <DependentDetail>
+                <DependentFirstNm>April</DependentFirstNm>
+                <DependentLastNm>Ludgate</DependentLastNm>
+                <DependentNameControlTxt>LUDG</DependentNameControlTxt>
+                <DependentSSN>300000014</DependentSSN>
+                <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+                <EligibleForODCInd>X</EligibleForODCInd>
+            </DependentDetail>
+            <DependentDetail>
+                <DependentFirstNm>Andy</DependentFirstNm>
+                <DependentLastNm>Dwyer</DependentLastNm>
+                <DependentNameControlTxt>DWYE</DependentNameControlTxt>
+                <DependentSSN>900500015</DependentSSN>
+                <DependentRelationshipCd>UNCLE</DependentRelationshipCd>
+                <EligibleForODCInd>X</EligibleForODCInd>
+            </DependentDetail>
+            <ChldWhoLivedWithYouCnt>1</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>1</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>3</TotalExemptionsCnt>
+            <TotalAdditionalIncomeAmt>20600</TotalAdditionalIncomeAmt>
+            <TotalIncomeAmt>20600</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>20600</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>32300</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>32300</TotalDeductionsAmt>
+            <TaxableIncomeAmt>0</TaxableIncomeAmt>
+            <TaxAmt>0</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>0</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>0</TaxLessCreditsAmt>
+            <TotalTaxAmt>0</TotalTaxAmt>
+            <Form1099WithheldTaxAmt referenceDocumentId="OTHERWITHHOLDING0001" referenceDocumentName="OtherWithholdingStatement">100</Form1099WithheldTaxAmt>
+            <WithholdingTaxAmt>100</WithholdingTaxAmt>
+            <TotalPaymentsAmt>100</TotalPaymentsAmt>
+            <OverpaidAmt>100</OverpaidAmt>
+            <RefundAmt>100</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Deputy Director</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1040Schedule1 documentId="IRS1040S1001">
+            <UnemploymentCompAmt>20600</UnemploymentCompAmt>
+            <TotalAdditionalIncomeAmt>20600</TotalAdditionalIncomeAmt>
+        </IRS1040Schedule1>
+        <OtherWithholdingStatement documentId="OTHERWITHHOLDING0001" documentName="OtherWithholdingStatement">
+            <OtherWithholdingStmt>
+                <WithholdingCd>FORM 1099</WithholdingCd>
+                <EIN>270293117</EIN>
+                <WithholdingAmt>100</WithholdingAmt>
+            </OtherWithholdingStmt>
+        </OtherWithholdingStatement>
+    </ReturnData>
+</Return>

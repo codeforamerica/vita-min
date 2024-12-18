@@ -1,0 +1,3 @@
+$(".returns-by-status").fadeOut('fast', function(){
+    $(this).html("<%= escape_javascript render "hub/dashboard/returns_by_status_content" %>").fadeIn('fast')
+})

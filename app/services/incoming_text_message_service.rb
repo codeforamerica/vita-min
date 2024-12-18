@@ -23,7 +23,7 @@ class IncomingTextMessageService
     DatadogApi.increment("twilio.incoming_text_messages.#{event_name}")
 
     # process attachments once
-    attachments = TwilioService.parse_attachments(params)
+    attachments = TwilioService.new.parse_attachments(params)
 
     clients.map do |client|
       documents = attachments.map do |attachment|

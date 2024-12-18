@@ -6,6 +6,8 @@ RSpec.describe StateFile::Questions::CanceledDataTransferController do
     sign_in intake
   end
 
+  render_views
+
   describe "#edit" do
     context "when the client visits this page" do
       it "increments the counter" do
@@ -13,7 +15,7 @@ RSpec.describe StateFile::Questions::CanceledDataTransferController do
         state_file_analytics.update(canceled_data_transfer_count: 1)
 
         expect {
-          get :edit, params: { us_state: 'az' }
+          get :edit
           state_file_analytics.reload
         }.to change(state_file_analytics, :canceled_data_transfer_count)
 

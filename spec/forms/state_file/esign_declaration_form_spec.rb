@@ -9,6 +9,7 @@ RSpec.describe StateFile::EsignDeclarationForm do
       device_id: device_id,
     }
   end
+  before { Flipper.enable(:prevent_duplicate_accepted_statefile_submissions) }
 
   describe "#save" do
     context "when has agreed to esign in arizona" do
@@ -59,6 +60,43 @@ RSpec.describe StateFile::EsignDeclarationForm do
         expect(intake.primary_esigned_at).to be_present
         expect(intake.spouse_esigned).to eq "yes"
         expect(intake.spouse_esigned_at).to be_present
+        expect(intake.submission_efile_device_info.device_id).to eq device_id
+      end
+    end
+
+    context "when the primary and spouse have esigned and added pins in maryland" do
+      let!(:intake) {
+        create :state_file_md_intake,
+               primary_esigned: "unfilled",
+               primary_esigned_at: nil,
+               spouse_esigned: "unfilled",
+               spouse_esigned_at: nil,
+               filing_status: :married_filing_jointly,
+               primary_signature_pin: "unfilled",
+               spouse_signature_pin: "unfilled"
+      }
+      let(:params) do
+        {
+          primary_esigned: "yes",
+          spouse_esigned: "yes",
+          primary_signature_pin: "12345",
+          spouse_signature_pin: "12344",
+          device_id: device_id
+        }
+      end
+
+      it "esigns the return and adds signature pins" do
+        form = described_class.new(intake, params)
+        expect(form).to be_valid
+        form.save
+
+        intake.reload
+        expect(intake.primary_esigned).to eq "yes"
+        expect(intake.primary_esigned_at).to be_present
+        expect(intake.spouse_esigned).to eq "yes"
+        expect(intake.spouse_esigned_at).to be_present
+        expect(intake.primary_signature_pin).to eq "12345"
+        expect(intake.spouse_signature_pin).to eq "12344"
         expect(intake.submission_efile_device_info.device_id).to eq device_id
       end
     end
@@ -115,11 +153,77 @@ RSpec.describe StateFile::EsignDeclarationForm do
 
       it "does not create a new efile submission" do
         form = described_class.new(intake, params)
-        expect(form).to be_valid
+        expect(form).not_to be_valid
         expect {
           form.save
         }.to change(intake.efile_submissions, :count).by(0)
         expect(intake.reload.efile_submissions.last.current_state).to eq("accepted")
+      end
+    end
+
+    context "when there is already an accepted submission in a different account with the same SSN" do
+      let!(:other_intake) { create :state_file_az_intake }
+      let!(:submission) { EfileSubmission.create(data_source: other_intake) }
+      before do
+        EfileSubmissionTransition.create(to_state: :accepted, efile_submission: submission, most_recent: true, sort_key: 1)
+      end
+      it "does not create a new efile submission" do
+        form = described_class.new(intake, params)
+        expect(form).not_to be_valid
+        expect {
+          form.save
+        }.to change(intake.efile_submissions, :count).by(0)
+        expect(submission.reload.current_state).to eq("accepted")
+      end
+    end
+
+    context "when there is already an queued submission in a different account with the same SSN" do
+      let!(:efile_submission) { create :efile_submission, :queued, :for_state, data_source: intake }
+      before do
+        other_intake = create :state_file_az_intake
+        submission = EfileSubmission.create(data_source: other_intake)
+        EfileSubmissionTransition.create(to_state: :queued, efile_submission: submission, most_recent: true, sort_key: 1)
+      end
+      it "does not create a new efile submission" do
+        form = described_class.new(intake, params)
+        expect(form).not_to be_valid
+        expect {
+          form.save
+        }.to change(intake.efile_submissions, :count).by(0)
+        expect(intake.reload.efile_submissions.last.current_state).to eq("queued")
+      end
+    end
+
+    context "when there is already an queued and failed submission in a different account with the same SSN" do
+      before do
+        other_intake = create :state_file_az_intake
+        submission = EfileSubmission.create(data_source: other_intake)
+        EfileSubmissionTransition.create(to_state: :queued, efile_submission: submission, most_recent: false, sort_key: 1)
+        EfileSubmissionTransition.create(to_state: :failed, efile_submission: submission, most_recent: true, sort_key: 2)
+      end
+      it "creates a new efile submission" do
+        form = described_class.new(intake, params)
+        expect(form).to be_valid
+        expect {
+          form.save
+        }.to change(intake.efile_submissions, :count).by(1)
+        expect(intake.reload.efile_submissions.last.current_state).to eq("bundling")
+      end
+    end
+
+    context "when there is already a non-accepted submission in a different account with the same SSN" do
+      before do
+        other_intake = create :state_file_az_intake
+        submission = EfileSubmission.create(data_source: other_intake)
+        EfileSubmissionTransition.create(to_state: :rejected, efile_submission: submission, most_recent: true, sort_key: 1)
+      end
+      it "creates a new efile submission" do
+        form = described_class.new(intake, params)
+        expect(form).to be_valid
+        expect {
+          form.save
+        }.to change(intake.efile_submissions, :count).by(1)
+        expect(intake.reload.efile_submissions.last.current_state).to eq("bundling")
       end
     end
   end
@@ -159,6 +263,79 @@ RSpec.describe StateFile::EsignDeclarationForm do
           {
             primary_esigned: "yes",
             spouse_esigned: "unfilled",
+            device_id: device_id,
+          }
+        )
+
+        expect(form).not_to be_valid
+      end
+    end
+  end
+
+  describe "#validations with signature pin" do
+    let!(:intake) { create :state_file_md_intake, primary_esigned: "unfilled", primary_esigned_at: nil, spouse_esigned: "unfilled", filing_status: "married_filing_jointly", primary_signature_pin: "unfilled", spouse_signature_pin: "unfilled" }
+
+    context "when married-filing-jointly and spouse is deceased" do
+      before do
+        allow(intake).to receive(:filing_status_mfj?).and_return(true)
+        allow(intake).to receive(:spouse_deceased?).and_return(true)
+        allow(intake).to receive(:ask_for_signature_pin?).and_return(true)
+      end
+
+      it "does not require spouse signature and pin" do
+        form = StateFile::EsignDeclarationForm.new(
+          intake,
+          {
+            primary_esigned: "yes",
+            spouse_esigned: nil,
+            primary_signature_pin: "12344",
+            spouse_signature_pin: nil,
+            device_id: device_id,
+          }
+        )
+
+        expect(form).to be_valid
+      end
+    end
+
+    context "when married-filing-jointly and spouse is not deceased" do
+      before do
+        allow(intake).to receive(:filing_status_mfj?).and_return(true)
+        allow(intake).to receive(:spouse_deceased?).and_return(false)
+        allow(intake).to receive(:ask_for_signature_pin?).and_return(true)
+      end
+
+      it "does require spouse signature and pin" do
+        form = StateFile::EsignDeclarationForm.new(
+          intake,
+          {
+            primary_esigned: "yes",
+            spouse_esigned: "unfilled",
+            primary_signature_pin: "12344",
+            spouse_signature_pin: "unfilled",
+            device_id: device_id,
+          }
+        )
+
+        expect(form).not_to be_valid
+      end
+    end
+
+    context "when married-filing-jointly and spouse enters pin" do
+      before do
+        allow(intake).to receive(:filing_status_mfj?).and_return(true)
+        allow(intake).to receive(:spouse_deceased?).and_return(false)
+        allow(intake).to receive(:ask_for_signature_pin?).and_return(true)
+      end
+
+      it "does require pin to be unique" do
+        form = StateFile::EsignDeclarationForm.new(
+          intake,
+          {
+            primary_esigned: "yes",
+            spouse_esigned: "yes",
+            primary_signature_pin: "12344",
+            spouse_signature_pin: "12344",
             device_id: device_id,
           }
         )

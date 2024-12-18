@@ -1,6 +1,5 @@
 module Hub
   class FaqCategoriesController < Hub::BaseController
-    before_action :require_admin
     before_action :set_paper_trail_whodunnit
     before_action :load_faq_return_path
     load_and_authorize_resource
@@ -22,13 +21,12 @@ module Hub
 
     def create
       @form = form_class.new(@faq_category, faq_category_params)
-
       if @form.save
         flash_message = "Successfully created '#{@faq_category.name_en}' category"
         redirect_to send(@faq_return_path), notice: flash_message
       else
-        flash_message = "Unable to create '#{@faq_category.name_en}' category"
-        render :new, error: flash_message
+        flash.now[:alert] = "Unable to create '#{@faq_category.name_en}' category"
+        render :new
       end
     end
 
@@ -40,8 +38,8 @@ module Hub
         flash_message = "Successfully updated '#{@faq_category.name_en}' category"
         redirect_to send(@faq_return_path), notice: flash_message
       else
-        flash_message = "Unable to update '#{@faq_category.name_en}' category"
-        render :edit, error: flash_message
+        flash.now[:alert] = "Unable to update '#{@faq_category.name_en}' category"
+        render :edit
       end
     end
 

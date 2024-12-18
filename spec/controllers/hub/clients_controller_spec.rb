@@ -259,6 +259,8 @@ RSpec.describe Hub::ClientsController do
         expect(profile).to have_text("Pacific Time (US & Canada)")
         expect(profile).to have_text("I'm available every morning except Fridays.")
         expect(profile).to have_text("2")
+
+        expect(profile).to have_text "Refund Payment Info"
       end
 
       context "when a client needs a response" do
@@ -295,6 +297,16 @@ RSpec.describe Hub::ClientsController do
 
           expect(response.body).to have_text "Unlock account"
         end
+      end
+    end
+
+    context "as an authenticated greeter" do
+      before { sign_in create(:greeter_user) }
+      render_views
+
+      it "does not show bank details" do
+        get :show, params: params
+        expect(response.body).not_to have_text "Refund Payment Info"
       end
     end
   end
@@ -742,9 +754,19 @@ RSpec.describe Hub::ClientsController do
           let!(:recently_contacted_client) { create :client_with_intake_and_return, preferred_name: "Recenty", vita_partner: organization, last_outgoing_communication_at: 2.hours.ago }
 
           around do |example|
-            Timecop.freeze(DateTime.new(2022, 1, 1, 5, 0, 0))
-            example.run
-            Timecop.return
+            Timecop.freeze(DateTime.new(2022, 1, 1, 5, 0, 0)) do
+              example.run
+            end
+          end
+
+          context "with page contents" do
+            render_views
+
+            it "filters the All Clients page" do
+              get :index
+              html = Nokogiri::HTML.parse(response.body)
+              expect(html.at_css("a.button--quick-filter").attr("href")).to include hub_clients_path
+            end
           end
 
           it "can filter to only clients who are approaching SLA" do
@@ -778,9 +800,9 @@ RSpec.describe Hub::ClientsController do
       context "SLA columns" do
         render_views
         around do |example|
-          Timecop.freeze(DateTime.new(2021, 12, 21, 8))
-          example.run
-          Timecop.return
+          Timecop.freeze(DateTime.new(2021, 12, 21, 8)) do
+            example.run
+          end
         end
 
         context "last contact" do
@@ -974,6 +996,7 @@ RSpec.describe Hub::ClientsController do
                        used_itin_certifying_acceptance_agent: "false",
                        was_blind: "no",
                        spouse_was_blind: "no",
+                       signature_method: "online",
                      }
                    }
     }
@@ -1443,6 +1466,16 @@ RSpec.describe Hub::ClientsController do
           expect(response).to redirect_to hub_client_path(id: client.id)
         end
       end
+
+      context "when the resource is an invalid resource" do
+        let(:client) { create :client}
+
+        it "should be an internal error" do
+          expect {
+            get :resource_to_client_redirect, params: {id: client.id, resource: "foobar"}
+          }.to raise_error(ActiveRecord::RecordNotFound)
+        end
+      end
     end
   end
 
@@ -1639,6 +1672,7 @@ RSpec.describe Hub::ClientsController do
       let(:params) {
         {
           id: client.id,
+          commit: I18n.t('general.save'),
           hub_update13614c_form_page1: {
             primary_first_name: "Updated",
             primary_last_name: "Name",
@@ -1689,7 +1723,7 @@ RSpec.describe Hub::ClientsController do
           sign_in user
         end
 
-        it "updates the clients intake with the 13614c page 1 data, creates a system note, and regenerates the pdf" do
+        it "updates the clients intake with the 13614c page 1 data, creates a system note, and regenerates the pdf when client clicks Save" do
           expect do
             put :update_13614c_form_page1, params: params
           end.to have_enqueued_job(GenerateF13614cPdfJob)
@@ -1713,6 +1747,18 @@ RSpec.describe Hub::ClientsController do
                                                        })
 
           expect(client.last_13614c_update_at).to be_within(1.second).of(DateTime.now)
+        end
+
+        it "updates the clients intake with the 13614c page 1 data, and direct to hub client page when client clicks Save and Exit" do
+          expect do
+            put :update_13614c_form_page1, params: params.update(commit: I18n.t('general.save_and_exit'))
+          end.to have_enqueued_job(GenerateF13614cPdfJob)
+
+          expect(flash[:notice]).to eq "Changes saved"
+          expect(response).to redirect_to hub_client_path(id: client.id)
+
+          client.reload
+          expect(client.intake.primary.first_name).to eq "Updated"
         end
 
         context "with invalid params" do
@@ -1795,6 +1841,7 @@ RSpec.describe Hub::ClientsController do
       let(:params) {
         {
           id: client.id,
+          commit: I18n.t('general.save'),
           hub_update13614c_form_page2: {
             job_count: "3",
             had_wages: "yes",
@@ -1854,7 +1901,7 @@ RSpec.describe Hub::ClientsController do
           sign_in user
         end
 
-        it "updates the clients intake with the 13614c data, creates a system note, and regenerates the pdf" do
+        it "updates the clients intake with the 13614c data, creates a system note, and regenerates the pdf when a client presses Save" do
           expect do
             put :update_13614c_form_page2, params: params
           end.to have_enqueued_job(GenerateF13614cPdfJob)
@@ -1915,6 +1962,18 @@ RSpec.describe Hub::ClientsController do
                                                        })
           expect(client.last_13614c_update_at).to be_within(1.second).of(DateTime.now)
         end
+
+        it "updates the clients intake with the 13614c page 2 data, and direct to hub client page when client clicks Save and Exit" do
+          expect do
+            put :update_13614c_form_page2, params: params.update(commit: I18n.t('general.save_and_exit'))
+          end.to have_enqueued_job(GenerateF13614cPdfJob)
+
+          expect(flash[:notice]).to eq "Changes saved"
+          expect(response).to redirect_to hub_client_path(id: client.id)
+
+          client.reload
+          expect(client.intake.job_count).to eq 3
+        end
       end
     end
 
@@ -1922,6 +1981,7 @@ RSpec.describe Hub::ClientsController do
       let(:params) {
         {
           id: client.id,
+          commit: I18n.t('general.save'),
           hub_update13614c_form_page3: {
             preferred_written_language: "Greek",
             receive_written_communication: intake.receive_written_communication,
@@ -1965,7 +2025,7 @@ RSpec.describe Hub::ClientsController do
           sign_in user
         end
 
-        it "updates the clients intake with the 13614c data, creates a system note, and regenerates the pdf" do
+        it "updates the clients intake with the 13614c data, creates a system note, and regenerates the pdf when clients press Save" do
           expect do
             put :update_13614c_form_page3, params: params
           end.to have_enqueued_job(GenerateF13614cPdfJob)
@@ -1981,7 +2041,362 @@ RSpec.describe Hub::ClientsController do
           expect(system_note.data['changes']).to match({ "preferred_written_language" => [intake.preferred_written_language, "Greek"] })
           expect(client.last_13614c_update_at).to be_within(1.second).of(DateTime.now)
         end
+
+        it "updates the clients intake with the 13614c page 3 data, and direct to hub client page when client clicks Save and Exit" do
+          expect do
+            put :update_13614c_form_page3, params: params.update(commit: I18n.t('general.save_and_exit'))
+          end.to have_enqueued_job(GenerateF13614cPdfJob)
+
+          expect(flash[:notice]).to eq "Changes saved"
+          expect(response).to redirect_to hub_client_path(id: client.id)
+
+          client.reload
+          expect(client.intake.preferred_written_language).to eq "Greek"
+        end
       end
     end
+  end
+
+  context "as a greeter" do
+    shared_examples "it doesn't require being assigned to a user" do |return_status|
+      context "when the organization allows greeters" do
+        before { sign_in(user) }
+
+        let!(:organization) { create :organization, allows_greeters: true }
+        let(:user) { create(:user, role: create(:greeter_role), timezone: "America/Los_Angeles") }
+
+        let(:good_client_params) do
+          {
+            vita_partner: organization,
+            intake: build(:intake, :filled_out),
+            tax_returns: [
+              build(
+                :tax_return,
+                return_status,
+                year: 2024,
+              )
+            ]
+          }
+        end
+
+        let(:bad_client_params) do
+          {
+            vita_partner: organization,
+            intake: build(:intake, :filled_out),
+            tax_returns: [
+              build(
+                :tax_return,
+                :file_hold,
+                year: 2024,
+              )
+            ]
+          }
+        end
+
+        describe "#index" do
+          it "should have clients assigned when there is a #{return_status} return" do
+            create(:client, **good_client_params)
+
+            get :index
+            # puts Client.where(filterable_product_year: 2024).first
+            expect(assigns(:clients)).not_to be_empty
+          end
+
+          it "should not have clients assigned when there are no #{return_status} returns" do
+            get :index
+            expect(assigns(:clients)).to be_empty
+          end
+        end
+
+        describe '#edit' do
+          it "should forbid clients without a #{return_status} return" do
+            client = create(:client, **bad_client_params)
+
+            get :edit, params: { id: client.id }
+            expect(response).to be_forbidden
+          end
+
+          it "should be ok for clients with an #{return_status} return" do
+            client = create(:client, **good_client_params)
+
+            get :edit, params: { id: client.id }
+            expect(response).to be_ok
+          end
+        end
+      end
+
+      context "when the organization does not allow greeters" do
+        before { sign_in(user) }
+
+        let!(:organization) { create :organization }
+        let(:user) { create(:user, role: create(:greeter_role), timezone: "America/Los_Angeles") }
+
+        let(:good_client_params) do
+          {
+            vita_partner: organization,
+            intake: build(:intake, :filled_out),
+            tax_returns: [
+              build(
+                :tax_return,
+                return_status,
+                year: 2024,
+              )
+            ]
+          }
+        end
+
+        let(:bad_client_params) do
+          {
+            vita_partner: organization,
+            intake: build(:intake, :filled_out),
+            tax_returns: [
+              build(
+                :tax_return,
+                :file_hold,
+                year: 2024,
+              )
+            ]
+          }
+        end
+
+        describe "#index" do
+          it "should have not clients assigned when there is a #{return_status} return" do
+            create(:client, **good_client_params)
+
+            get :index
+            # puts Client.where(filterable_product_year: 2024).first
+            expect(assigns(:clients)).to be_empty
+          end
+
+          it "should not have clients assigned when there are no #{return_status} returns" do
+            get :index
+            expect(assigns(:clients)).to be_empty
+          end
+        end
+
+        describe '#edit' do
+          it "should forbid clients without a #{return_status} return" do
+            client = create(:client, **bad_client_params)
+
+            get :edit, params: { id: client.id }
+            expect(response).to be_forbidden
+          end
+
+          it "should be forbidden for clients with a #{return_status} return" do
+            client = create(:client, **good_client_params)
+
+            get :edit, params: { id: client.id }
+            expect(response).to be_forbidden
+          end
+        end
+      end
+    end
+
+    shared_examples "it requires being assigned to a user" do |return_status|
+      context "when the organization allows greeters but has no assigned_user for #{return_status} returns" do
+        before { sign_in(user) }
+
+        let!(:organization) { create :organization, allows_greeters: true }
+        let(:user) { create(:user, role: create(:greeter_role), timezone: "America/Los_Angeles") }
+
+        let(:good_client_params) do
+          {
+            vita_partner: organization,
+            intake: build(:intake, :filled_out),
+            tax_returns: [
+              build(
+                :tax_return,
+                return_status,
+                year: 2024,
+              )
+            ]
+          }
+        end
+
+        let(:bad_client_params) do
+          {
+            vita_partner: organization,
+            intake: build(:intake, :filled_out),
+            tax_returns: [
+              build(
+                :tax_return,
+                :file_hold,
+                year: 2024,
+              )
+            ]
+          }
+        end
+
+        describe "#index" do
+          it "should have not clients assigned when there is a #{return_status} return" do
+            create(:client, **good_client_params)
+
+            get :index
+            # puts Client.where(filterable_product_year: 2024).first
+            expect(assigns(:clients)).to be_empty
+          end
+
+          it "should not have clients assigned when there are no #{return_status} returns" do
+            get :index
+            expect(assigns(:clients)).to be_empty
+          end
+        end
+
+        describe '#edit' do
+          it "should forbid clients without a #{return_status} return" do
+            client = create(:client, **bad_client_params)
+
+            get :edit, params: { id: client.id }
+            expect(response).to be_forbidden
+          end
+
+          it 'should be forbidden for clients with an intake_ready return' do
+            client = create(:client, **good_client_params)
+
+            get :edit, params: { id: client.id }
+            expect(response).to be_forbidden
+          end
+        end
+      end
+
+      context "when the organization does not allow greeters and has no assigned_user for #{return_status} returns" do
+        before { sign_in(user) }
+
+        let!(:organization) { create :organization }
+        let(:user) { create(:user, role: create(:greeter_role), timezone: "America/Los_Angeles") }
+
+        let(:good_client_params) do
+          {
+            vita_partner: organization,
+            intake: build(:intake, :filled_out),
+            tax_returns: [
+              build(
+                :tax_return,
+                return_status,
+                year: 2024,
+              )
+            ]
+          }
+        end
+
+        let(:bad_client_params) do
+          {
+            vita_partner: organization,
+            intake: build(:intake, :filled_out),
+            tax_returns: [
+              build(
+                :tax_return,
+                :file_hold,
+                year: 2024,
+              )
+            ]
+          }
+        end
+
+        describe "#index" do
+          it "should have not clients assigned when there is a #{return_status} return" do
+            create(:client, **good_client_params)
+
+            get :index
+            # puts Client.where(filterable_product_year: 2024).first
+            expect(assigns(:clients)).to be_empty
+          end
+
+          it "should not have clients assigned when there are no #{return_status} returns" do
+            get :index
+            expect(assigns(:clients)).to be_empty
+          end
+        end
+
+        describe '#edit' do
+          it "should forbid clients without a #{return_status} return" do
+            client = create(:client, **bad_client_params)
+
+            get :edit, params: { id: client.id }
+            expect(response).to be_forbidden
+          end
+
+          it 'should be forbidden for clients with an intake_ready return' do
+            client = create(:client, **good_client_params)
+
+            get :edit, params: { id: client.id }
+            expect(response).to be_forbidden
+          end
+        end
+      end
+
+      context "when the organization allows greeters and has an assigned_user for #{return_status} returns" do
+        before { sign_in(user) }
+
+        let!(:organization) { create :organization, allows_greeters: true }
+        let(:user) { create(:user, role: create(:greeter_role), timezone: "America/Los_Angeles") }
+
+        let(:good_client_params) do
+          {
+            vita_partner: organization,
+            intake: build(:intake, :filled_out),
+            tax_returns: [
+              build(
+                :tax_return,
+                return_status,
+                year: 2024,
+                assigned_user: user,
+              )
+            ]
+          }
+        end
+
+        let(:bad_client_params) do
+          {
+            vita_partner: organization,
+            intake: build(:intake, :filled_out),
+            tax_returns: [
+              build(
+                :tax_return,
+                :file_hold,
+                year: 2024,
+              )
+            ]
+          }
+        end
+        describe "#index" do
+          it "should have clients assigned when there is a #{return_status} return" do
+            create(:client, **good_client_params)
+
+            get :index
+            # puts Client.where(filterable_product_year: 2024).first
+            expect(assigns(:clients)).not_to be_empty
+          end
+
+          it "should not have clients assigned when there are no #{return_status} returns" do
+            get :index
+            expect(assigns(:clients)).to be_empty
+          end
+        end
+
+        describe '#edit' do
+          it "should forbid clients without a #{return_status} return" do
+            client = create(:client, **bad_client_params)
+
+            get :edit, params: { id: client.id }
+            expect(response).to be_forbidden
+          end
+
+          it "should be ok for clients with an #{return_status} return" do
+            client = create(:client, **good_client_params)
+
+            get :edit, params: { id: client.id }
+            expect(response).to be_ok
+          end
+        end
+      end
+    end
+
+    it_behaves_like "it doesn't require being assigned to a user", :intake_ready
+    it_behaves_like "it doesn't require being assigned to a user", :intake_greeter_info_requested
+    it_behaves_like "it doesn't require being assigned to a user", :intake_needs_doc_help
+
+    it_behaves_like "it requires being assigned to a user", :file_not_filing
+    it_behaves_like "it requires being assigned to a user", :file_hold
   end
 end

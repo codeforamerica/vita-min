@@ -89,4 +89,27 @@ describe Hub::SourceParamsController do
       end
     end
   end
+
+  describe "#update" do
+    let(:source_parameter) { create :source_parameter, vita_partner: create(:organization), code: "code" }
+    before do
+      sign_in admin_user
+    end
+
+    it "deactivates successfully" do
+      post :update, format: :js, :params => { :locale => :en, :id => source_parameter.id, :source_parameter => { :active => "0" } }
+      expect(response.status).to eq 204
+      source_parameter.reload
+      expect(source_parameter.active).to be false
+    end
+
+    it "activates successfully" do
+      source_parameter.update(active: false)
+      post :update, format: :js, :params => { :locale => :en, :id => source_parameter.id, :source_parameter => { :active => "1" } }
+      expect(response.status).to eq 204
+      source_parameter.reload
+      expect(source_parameter.active).to be true
+    end
+
+  end
 end

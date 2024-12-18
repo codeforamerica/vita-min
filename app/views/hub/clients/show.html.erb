@@ -96,7 +96,7 @@
             </div>
             <div class="field-display">
               <span class="form-question"><%= t(".filing_status") %>:</span>
-              <div class="label-indented"><%= filing_status(@client) %></div>
+              <span class="label-value"><%= filing_status(@client) %></span>
             </div>
             <% if @client.intake&.product_year == 2022 %>
               <div class="field-display">
@@ -117,27 +117,25 @@
           <div class="client-profile__field-group client-bank-account-info">
             <h2 class="text--bold">
               Refund Payment Info
-              <% if @client.intake.bank_account.present? %>
+              <% if @client.intake.bank_account.present? && !current_user.greeter? %>
                 <span id="js-toggle-bank-account-info">
                   <%= link_to("View", show_bank_account_hub_client_path, remote: true) %>
                 </span>
               <% end %>
             </h2>
-            <div class="field-display">
+            <div class="field-display spacing-below-15">
               <span class="form-question">Refund delivery method:</span>
               <span class="label-value"><%= @client.intake.refund_payment_method&.humanize %> </span>
-
-                <% if @client.intake.bank_account.present? %>
-                  <div id="js-bank-account-info">
-                    <%= render "hub/clients/hidden_bank_account_info", bank_account: @client.intake.bank_account %>
-                  </div>
-                <% else %>
-                  <div>
-                    <span class="label-value"><em>No bank account info provided.</em></span>
-                  </div>
-                <% end %>
-
             </div>
+            <% if @client.intake.bank_account.present? %>
+              <div id="js-bank-account-info">
+                <%= render "hub/clients/hidden_bank_account_info", bank_account: @client.intake.bank_account %>
+              </div>
+            <% else %>
+              <div>
+                <span class="label-value"><em>No bank account info provided.</em></span>
+              </div>
+            <% end %>
 
             <% if @client.intake.is_ctc? %>
               <div class="client-profile__field-group client-recovery-rebate-credit-amount">

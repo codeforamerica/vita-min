@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v4.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>676c5f98</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400005957</PrimarySSN>
+            <NameLine1Txt>MIGUEL&lt;ESTRADA</NameLine1Txt>
+            <PrimaryNameControlTxt>ESTR</PrimaryNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>1832 South Pole Ln</AddressLine1Txt>
+                <CityNm>Meridian</CityNm>
+                <StateAbbreviationCd>ID</StateAbbreviationCd>
+                <ZIPCd>83616</ZIPCd>
+            </USAddress>
+            <PhoneNum>2085555555</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000595-7f00-4c6f-b356-934f165db05f@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="4">
+        <IRS1040 documentId="IRS10400001">
+            <IndividualReturnFilingStatusCd>4</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <DependentDetail>
+                <DependentFirstNm>September</DependentFirstNm>
+                <DependentLastNm>Estrada</DependentLastNm>
+                <DependentNameControlTxt>ESTR</DependentNameControlTxt>
+                <DependentSSN>300000010</DependentSSN>
+                <DependentRelationshipCd>NEPHEW</DependentRelationshipCd>
+                <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+            </DependentDetail>
+            <DependentDetail>
+                <DependentFirstNm>Aaron</DependentFirstNm>
+                <DependentLastNm>Estrada</DependentLastNm>
+                <DependentNameControlTxt>ESTR</DependentNameControlTxt>
+                <DependentSSN>300000011</DependentSSN>
+                <DependentRelationshipCd>NEPHEW</DependentRelationshipCd>
+                <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+            </DependentDetail>
+            <DependentDetail>
+                <DependentFirstNm>Andrew</DependentFirstNm>
+                <DependentLastNm>Estrada</DependentLastNm>
+                <DependentNameControlTxt>ESTR</DependentNameControlTxt>
+                <DependentSSN>300000012</DependentSSN>
+                <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+                <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+            </DependentDetail>
+            <DependentDetail>
+                <DependentFirstNm>Anu</DependentFirstNm>
+                <DependentLastNm>Estrada</DependentLastNm>
+                <DependentNameControlTxt>ESTR</DependentNameControlTxt>
+                <DependentSSN>300000013</DependentSSN>
+                <DependentRelationshipCd>PARENT</DependentRelationshipCd>
+                <EligibleForODCInd>X</EligibleForODCInd>
+            </DependentDetail>
+            <ChldWhoLivedWithYouCnt>1</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>3</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>5</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">55000</WagesAmt>
+            <WagesSalariesAndTipsAmt>55000</WagesSalariesAndTipsAmt>
+            <TaxableInterestAmt>600</TaxableInterestAmt>
+            <TotalAdditionalIncomeAmt>5000</TotalAdditionalIncomeAmt>
+            <TotalIncomeAmt>60600</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>60600</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>21900</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>21900</TotalDeductionsAmt>
+            <TaxableIncomeAmt>38700</TaxableIncomeAmt>
+            <TaxAmt>4316</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>4316</TotalTaxBeforeCrAndOthTaxesAmt>
+            <CTCODCAmt>4316</CTCODCAmt>
+            <TotalCreditsAmt>4316</TotalCreditsAmt>
+            <TaxLessCreditsAmt>0</TaxLessCreditsAmt>
+            <TotalTaxAmt>0</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>4300</FormW2WithheldTaxAmt>
+            <WithholdingTaxAmt>4300</WithholdingTaxAmt>
+            <AdditionalChildTaxCreditAmt referenceDocumentId="IRS8812001" referenceDocumentName="IRS1040Schedule8812">2184</AdditionalChildTaxCreditAmt>
+            <RefundableCreditsAmt>2184</RefundableCreditsAmt>
+            <TotalPaymentsAmt>6484</TotalPaymentsAmt>
+            <OverpaidAmt>6484</OverpaidAmt>
+            <RefundAmt>6484</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Program Manager</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1040Schedule1 documentId="IRS1040S1001">
+            <UnemploymentCompAmt>5000</UnemploymentCompAmt>
+            <TotalAdditionalIncomeAmt>5000</TotalAdditionalIncomeAmt>
+        </IRS1040Schedule1>
+        <IRS1040Schedule8812 documentId="IRS8812001" documentName="IRS1040Schedule8812">
+            <AdjustedGrossIncomeAmt>60600</AdjustedGrossIncomeAmt>
+            <ModifiedAGIAmt>60600</ModifiedAGIAmt>
+            <QlfyChildUnderAgeSSNCnt>3</QlfyChildUnderAgeSSNCnt>
+            <QlfyChildUnderAgeSSNLimtAmt>6000</QlfyChildUnderAgeSSNLimtAmt>
+            <OtherDependentCnt>1</OtherDependentCnt>
+            <OtherDependentCreditAmt>500</OtherDependentCreditAmt>
+            <InitialCTCODCAmt>6500</InitialCTCODCAmt>
+            <FilingStatusThresholdCd>200000</FilingStatusThresholdCd>
+            <ExcessAdjGrossIncomeAmt>0</ExcessAdjGrossIncomeAmt>
+            <ModifiedAGIPhaseOutAmt>0</ModifiedAGIPhaseOutAmt>
+            <CTCODCOverAGILimitInd>true</CTCODCOverAGILimitInd>
+            <CTCODCAfterAGILimitAmt>6500</CTCODCAfterAGILimitAmt>
+            <ACTCTaxLiabiltyLimitAmt>4316</ACTCTaxLiabiltyLimitAmt>
+            <CTCODCAmt>4316</CTCODCAmt>
+            <ClaimACTCAllFilersGrp>
+                <ACTCBeforeLimitAmt>2184</ACTCBeforeLimitAmt>
+                <QlfyChildUnderAgeSSNCnt>3</QlfyChildUnderAgeSSNCnt>
+                <QlfyChildUnderAgeSSNLimtAmt>5100</QlfyChildUnderAgeSSNLimtAmt>
+                <ACTCAfterLimitAmt>2184</ACTCAfterLimitAmt>
+                <TotalEarnedIncomeAmt>55000</TotalEarnedIncomeAmt>
+                <EarnedIncmMoreThanSpecifiedInd>true</EarnedIncmMoreThanSpecifiedInd>
+                <NetTotalEarnedIncomeAmt>52500</NetTotalEarnedIncomeAmt>
+                <NetEarnedIncomeCalculatedAmt>7875</NetEarnedIncomeCalculatedAmt>
+                <ThreeOrMoreQlfyChildrenInd>true</ThreeOrMoreQlfyChildrenInd>
+                <FromW2Amt>4208</FromW2Amt>
+                <CalcFromW2AndReturnAmt>4208</CalcFromW2AndReturnAmt>
+                <CalculatedDifferenceAmt>4208</CalculatedDifferenceAmt>
+                <LargerCalcIncomeOrDiffAmt>7875</LargerCalcIncomeOrDiffAmt>
+            </ClaimACTCAllFilersGrp>
+            <AdditionalChildTaxCreditAmt>2184</AdditionalChildTaxCreditAmt>
+        </IRS1040Schedule8812>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>400005957</EmployeeSSN>
+            <EmployerEIN>568912345</EmployerEIN>
+            <EmployerNameControlTxt>AMER</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>America for Code</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>300 Fake Drive</AddressLine1Txt>
+                <CityNm>Boise</CityNm>
+                <StateAbbreviationCd>ID</StateAbbreviationCd>
+                <ZIPCd>83638</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Miguel Estrada</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>1832 South Pole Ln</AddressLine1Txt>
+                <CityNm>Meridian</CityNm>
+                <StateAbbreviationCd>ID</StateAbbreviationCd>
+                <ZIPCd>83616</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>55000</WagesAmt>
+            <WithholdingAmt>4300</WithholdingAmt>
+            <SocialSecurityWagesAmt>55000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>3410</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>55000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>798</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>ID</StateAbbreviationCd>
+                    <EmployerStateIdNum>12345</EmployerStateIdNum>
+                    <StateWagesAmt>55000</StateWagesAmt>
+                    <StateIncomeTaxAmt>3850</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>

@@ -9,7 +9,7 @@ class FlowsController < ApplicationController
   SAMPLE_GENERATOR_TYPES = {
     ctc: [:single, :married_filing_jointly],
     gyr: [:single, :married_filing_jointly],
-    state_file_az: [:head_of_household],
+    state_file_az: [:single, :married_filing_jointly, :qualifying_widow, :married_filing_separately, :head_of_household],
     state_file_ny: [:head_of_household],
   }.freeze
 
@@ -39,6 +39,7 @@ class FlowsController < ApplicationController
       if intake.respond_to?(:client)
         sign_in(intake.client)
       elsif [:state_file_az, :state_file_ny].include?(type)
+        intake.create_state_file_analytics!
         sign_in intake
       end
     else
@@ -111,20 +112,17 @@ class FlowsController < ApplicationController
           controller_list: Navigation::DiyNavigation::FLOW,
           form: nil
         )
-      when :state_file_az
-        FlowParams.new(
-          controller: controller,
-          reference_object: controller.current_intake&.is_a?(StateFileAzIntake) ? controller.current_intake : nil,
-          controller_list: Navigation::StateFileAzQuestionNavigation::FLOW,
-          form: SampleStateFileIntakeGenerator.new('az').form
-        )
-      when :state_file_ny
-        FlowParams.new(
-          controller: controller,
-          reference_object: controller.current_intake&.is_a?(StateFileNyIntake) ? controller.current_intake : nil,
-          controller_list: Navigation::StateFileNyQuestionNavigation::FLOW,
-          form: SampleStateFileIntakeGenerator.new('ny').form
-        )
+      else
+        if type.to_s.starts_with?('state_file_')
+          state_code = type.to_s.split('_').last
+          intake_class = StateFile::StateInformationService.intake_class(state_code)
+          FlowParams.new(
+            controller: controller,
+            reference_object: controller.current_intake&.is_a?(intake_class) ? controller.current_intake : nil,
+            controller_list: StateFile::StateInformationService.navigation_class(state_code)::FLOW,
+            form: SampleStateFileIntakeGenerator.new(state_code).form
+          )
+        end
       end
     end
 
@@ -214,11 +212,6 @@ class FlowsController < ApplicationController
           end
           if respond_to?(:resource_name) && resource_name.present?
             url_params[:id] = "fake-#{resource_name}-id"
-          end
-          if @current_controller.params[:id] == 'state_file_az'
-            url_params[:us_state] = 'az'
-          elsif @current_controller.params[:id] == 'state_file_ny'
-            url_params[:us_state] = 'ny'
           end
           @current_controller.url_for(url_params)
         end
@@ -571,9 +564,7 @@ class FlowsController < ApplicationController
         primary_esigned_at: 1.minute.ago,
         spouse_esigned: "yes",
         spouse_esigned_at: 1.minute.ago,
-        raw_direct_file_data: File.read(Rails.root.join('app', 'controllers', 'state_file', 'questions', 'df_return_sample.xml')),
         payment_or_deposit_type: "mail",
-        bank_name: 'bank name',
         account_type: 'unfilled',
         routing_number: '111111111',
         account_number: '2222222222',
@@ -589,11 +580,13 @@ class FlowsController < ApplicationController
         last_sign_in_at: nil,
         last_sign_in_ip: nil,
         sign_in_count: 0,
-        hashed_ssn: SsnHashingService.hash("555002222") # hash PrimarySSN from raw_direct_file_data
+        df_data_import_succeeded_at: 30.seconds.ago,
+        hashed_ssn: SsnHashingService.hash("555002222"), # hash PrimarySSN from raw_direct_file_data
+        consented_to_sms_terms: "yes",
       }
     end
 
-    def self.ny_attributes(first_name: 'Testuser', last_name: 'Testuser')
+    def self.ny_attributes(first_name: 'Testuser', last_name: 'Testuser', filing_status: :single)
       common_attributes.merge(
         confirmed_permanent_address: "no",
         confirmed_third_party_designee: "unfilled",
@@ -617,6 +610,8 @@ class FlowsController < ApplicationController
         primary_last_name: last_name,
         property_over_limit: "unfilled",
         public_housing: "unfilled",
+        raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.old_xml_sample,
+        raw_direct_file_intake_data: StateFile::DirectFileApiResponseSampleService.new.old_json_sample,
         residence_county: "Nassau",
         sales_use_tax_calculation_method: "unfilled",
         school_district_id: 441,
@@ -632,16 +627,19 @@ class FlowsController < ApplicationController
         locale: 'en',
         unfinished_intake_ids: [],
         df_data_imported_at: 2.hours.ago,
+        email_notification_opt_in: "yes",
+        phone_number: "+15005550006",
+        sms_notification_opt_in: "yes",
       )
     end
 
-    def self.az_attributes(first_name: 'Testuser', last_name: 'Testuser')
-      common_attributes.merge(
+    def self.az_attributes(first_name: 'Testuser', last_name: 'Testuser', filing_status: :single)
+      base_attributes = common_attributes.merge(
         armed_forces_member: "yes",
-        armed_forces_wages: 100,
-        charitable_cash: 123,
+        armed_forces_wages_amount: 100,
+        charitable_cash_amount: 123,
         charitable_contributions: "yes",
-        charitable_noncash: 123,
+        charitable_noncash_amount: 123,
         contact_preference: "email",
         eligibility_529_for_non_qual_expense: "no",
         eligibility_married_filing_separately: "no",
@@ -653,7 +651,7 @@ class FlowsController < ApplicationController
         primary_last_name: last_name,
         prior_last_names: "Jordan, Pippen, Rodman",
         tribal_member: "yes",
-        tribal_wages: 100,
+        tribal_wages_amount: 100,
         primary_was_incarcerated: "no",
         spouse_was_incarcerated: "no",
         was_incarcerated: "no", # TODO: remove when column is ignored
@@ -662,8 +660,34 @@ class FlowsController < ApplicationController
         message_tracker: {},
         locale: 'en',
         unfinished_intake_ids: [],
+        raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.az_xml_sample(filing_status),
+        raw_direct_file_intake_data: StateFile::DirectFileApiResponseSampleService.new.old_json_sample,
         df_data_imported_at: 2.hours.ago,
+        email_notification_opt_in: "yes",
+        phone_number: "+15005550006",
+        sms_notification_opt_in: "yes",
       )
+      status_specific_attributes = case filing_status
+                                   when :married_filing_jointly, :married_filing_separately
+                                     {
+                                       spouse_first_name: "Spouse",
+                                       spouse_last_name: last_name,
+                                       spouse_birth_date: Date.parse('1979-06-22'),
+                                       spouse_was_incarcerated: "no",
+                                     }
+                                   when :head_of_household
+                                     {dependents_attributes: [{
+                                                                first_name: "Dependent",
+                                                                last_name: last_name,
+                                                                relationship: "biologicalChild",
+                                                                dob: Date.new(Date.today.year - 10),
+                                                                months_in_home: 12,
+                                                              }]}
+                                   else
+                                     {}
+                                   end
+
+      base_attributes.merge(status_specific_attributes)
     end
 
     def generate_efile_device_info(intake)
@@ -683,20 +707,14 @@ class FlowsController < ApplicationController
 
     def generate_state_file_intake(params)
       _type = params.keys.find { |k| k.start_with?('submit_') }&.sub('submit_', '')&.to_sym
-      first_name = params[:flows_controller_sample_intake_form][:first_name]
-      last_name = params[:flows_controller_sample_intake_form][:last_name]
+      attributes = self.class.send("#{@us_state}_attributes",
+        first_name: params[:flows_controller_sample_intake_form][:first_name],
+        last_name: params[:flows_controller_sample_intake_form][:last_name],
+                                   filing_status: _type
+      )
+      intake_class = StateFile::StateInformationService.intake_class(@us_state)
+      intake = intake_class.create(attributes)
 
-      if @us_state == 'ny'
-        intake = StateFileNyIntake.create(self.class.ny_attributes(
-          first_name: first_name,
-          last_name: last_name
-        ))
-      elsif @us_state == 'az'
-        intake = StateFileAzIntake.create(self.class.az_attributes(
-          first_name: first_name,
-          last_name: last_name
-        ))
-      end
       generate_efile_device_info(intake)
 
       intake

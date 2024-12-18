@@ -5,6 +5,9 @@ describe Hub::StateFile::FaqCategoriesController do
   let(:faq_category) { create :faq_category, position: 1, product_type: :state_file_az }
   let(:faq_category_2) { create :faq_category, name_en: "what what?", slug: "what_what", position: 2, product_type: :state_file_az }
   let(:faq_category_ny) { create :faq_category, name_en: "new york category", slug: "new_york_category", position: 2, product_type: :state_file_ny }
+  let(:faq_category_nc) { create :faq_category, name_en: "nc category", slug: "north_carolina_category", position: 1, product_type: :state_file_nc }
+  let(:faq_category_md) { create :faq_category, name_en: "md category", slug: "maryland_category", position: 1, product_type: :state_file_md }
+  let(:faq_category_id) { create :faq_category, name_en: "id category", slug: "idaho_category", position: 1, product_type: :state_file_id }
   let!(:faq_item) { create :faq_item, faq_category: faq_category }
   let!(:faq_item_2) { create :faq_item, faq_category: faq_category_2, slug: "there_there" }
 
@@ -18,8 +21,13 @@ describe Hub::StateFile::FaqCategoriesController do
     it "renders index" do
       get :index
       expect(response).to render_template :index
-      expect(assigns(:az_faq_categories)).to match_array [faq_category, faq_category_2]
-      expect(assigns(:ny_faq_categories)).to match_array [faq_category_ny]
+      state_faq_categories = assigns(:state_faq_categories)
+      expect(state_faq_categories.keys.to_set).to eq(StateFile::StateInformationService.active_state_codes.to_set)
+      expect(state_faq_categories["az"]).to match_array [faq_category, faq_category_2]
+      expect(state_faq_categories["ny"]).to match_array [faq_category_ny]
+      expect(state_faq_categories["nc"]).to match_array [faq_category_nc]
+      expect(state_faq_categories["md"]).to match_array [faq_category_md]
+      expect(state_faq_categories["id"]).to match_array [faq_category_id]
     end
   end
 
@@ -117,13 +125,14 @@ describe Hub::StateFile::FaqCategoriesController do
   end
 
   describe "#create" do
+    let(:product_type) { :gyr }
     let(:params) do
       {
         hub_faq_category_form: {
           name_en: "Third added category",
           name_es: "",
           position: 2,
-          product_type: "gyr",
+          product_type: product_type
         }
       }
     end
@@ -134,19 +143,26 @@ describe Hub::StateFile::FaqCategoriesController do
         sign_in user
       end
 
-      it "creates a new object based on the params" do
-        expect do
-          post :create, params: params
-        end.to change(FaqCategory, :count).by 1
+      StateFile::StateInformationService.active_state_codes.without("nj").each do |state_code|
+        context state_code.to_s do
+          let(:product_type) { "state_file_#{state_code}".to_sym }
 
-        created_category = FaqCategory.reorder('').last
+          it "creates a new #{state_code} faq category based on the params" do
+            expect do
+              post :create, params: params
+            end.to change(FaqCategory, :count).by 1
 
-        expect(created_category.name_en).to eq "Third added category"
-        expect(created_category.name_es).to eq ""
-        expect(created_category.position).to eq 2
-        expect(created_category.slug).to eq "third_added_category"
-        expect(faq_category.position).to eq 1
-        expect(faq_category_2.reload.position).to eq 2
+            created_category = FaqCategory.reorder('').last
+
+            expect(created_category.name_en).to eq "Third added category"
+            expect(created_category.name_es).to eq ""
+            expect(created_category.position).to eq 2
+            expect(created_category.slug).to eq "third_added_category"
+            expect(faq_category.position).to eq 1
+            category_count = state_code == 'az' ? 3 : 2
+            expect(faq_category_2.reload.position).to eq category_count
+          end
+        end
       end
 
       it "records a paper trail" do

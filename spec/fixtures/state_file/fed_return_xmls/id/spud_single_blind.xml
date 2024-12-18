@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v4.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>676c5f98</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400000002</PrimarySSN>
+            <NameLine1Txt>SPUD&lt;NICK</NameLine1Txt>
+            <PrimaryNameControlTxt>NICK</PrimaryNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>13800 Norwood Road</AddressLine1Txt>
+                <CityNm>McCall</CityNm>
+                <StateAbbreviationCd>ID</StateAbbreviationCd>
+                <ZIPCd>83638</ZIPCd>
+            </USAddress>
+            <PhoneNum>2085050000</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000000-22a9-4c7e-abeb-a62df6a2a3d6@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="2">
+        <IRS1040 documentId="IRS10400001">
+            <Form1040SRInd>X</Form1040SRInd>
+            <IndividualReturnFilingStatusCd>1</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <Primary65OrOlderInd>X</Primary65OrOlderInd>
+            <PrimaryBlindInd>X</PrimaryBlindInd>
+            <TotalBoxesCheckedCnt>2</TotalBoxesCheckedCnt>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>1</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">29100</WagesAmt>
+            <WagesSalariesAndTipsAmt>29100</WagesSalariesAndTipsAmt>
+            <TaxableInterestAmt>1300</TaxableInterestAmt>
+            <TotalIncomeAmt>30400</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>30400</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>18500</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>18500</TotalDeductionsAmt>
+            <TaxableIncomeAmt>11900</TaxableIncomeAmt>
+            <TaxAmt>1199</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>1199</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>1199</TaxLessCreditsAmt>
+            <TotalTaxAmt>1199</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>2000</FormW2WithheldTaxAmt>
+            <WithholdingTaxAmt>2000</WithholdingTaxAmt>
+            <TotalPaymentsAmt>2000</TotalPaymentsAmt>
+            <OverpaidAmt>801</OverpaidAmt>
+            <RefundAmt>801</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Kitchen Manager</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>400000002</EmployeeSSN>
+            <EmployerEIN>568443111</EmployerEIN>
+            <EmployerNameControlTxt>POTA</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Potatoes for Hope</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>88 Latke Lane</AddressLine1Txt>
+                <CityNm>Boise</CityNm>
+                <StateAbbreviationCd>ID</StateAbbreviationCd>
+                <ZIPCd>83735</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Spud Nick</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>13800 Norwood Road</AddressLine1Txt>
+                <CityNm>McCall</CityNm>
+                <StateAbbreviationCd>ID</StateAbbreviationCd>
+                <ZIPCd>83638</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>29100</WagesAmt>
+            <WithholdingAmt>2000</WithholdingAmt>
+            <SocialSecurityWagesAmt>29100</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>1804</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>29100</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>422</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>ID</StateAbbreviationCd>
+                    <EmployerStateIdNum>12345</EmployerStateIdNum>
+                    <StateWagesAmt>29100</StateWagesAmt>
+                    <StateIncomeTaxAmt>1000</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>

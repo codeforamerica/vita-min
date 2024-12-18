@@ -1,0 +1,26 @@
+<%
+    title = t(".title", municipality: @municipality, filing_year: @filing_year)
+    content_for :page_title, title
+%>
+
+<% content_for :card do %>
+  <h1 class="h2"><%= t(".title", municipality: @municipality, filing_year: current_tax_year) %></h1>
+
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <div class="white-group">
+      <%= f.vita_min_money_field(:property_tax_paid, t('.label',filing_year: @filing_year), options: { placeholder: '0' }, classes: ["form-width--long"]) %>
+    </div>
+
+    <div class="reveal">
+      <button class="reveal__button"><%= t('.helper_heading') %></button>
+      <div class="reveal__content">
+        <p><%= t('.helper_description') %></p>
+      </div>
+    </div>
+
+    <% if params[:return_to_review].present? %>
+      <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
+    <% end %>
+    <%= f.continue %>
+  <% end %>
+<% end %>

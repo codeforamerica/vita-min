@@ -1,0 +1,69 @@
+{
+  "familyAndHousehold": [
+    {
+      "firstName": "Kronos",
+      "middleInitial": "T",
+      "lastName": "Athens",
+      "dateOfBirth": "1920-01-01",
+      "relationship": "parent",
+      "eligibleDependent": true,
+      "isClaimedDependent": true,
+      "tin": "300-00-0029",
+      "qualifyingChild": false
+    },
+    {
+      "firstName": "Aphrodite",
+      "middleInitial": "",
+      "lastName": "Love",
+      "dateOfBirth": "2022-02-14",
+      "relationship": "grandchild",
+      "eligibleDependent": true,
+      "isClaimedDependent": true,
+      "tin": "900-00-0067",
+      "qualifyingChild": true
+    }
+  ],
+  "filers": [
+    {
+      "firstName": "Zeus",
+      "middleInitial": "L",
+      "lastName": "Thunder",
+      "dateOfBirth": "1980-01-01",
+      "isPrimaryFiler": true,
+      "tin": "400-00-0015"
+    },
+    {
+      "firstName": "Hera",
+      "middleInitial": null,
+      "lastName": "Thunder",
+      "dateOfBirth": "1980-01-01",
+      "isPrimaryFiler": false,
+      "tin": "600-00-0013"
+    }
+  ],
+  "interestReports": [
+    {
+      "1099Amount": "0.00",
+      "has1099": false,
+      "interestOnGovernmentBonds": "100.00",
+      "no1099Amount": "800.00",
+      "recipientTin": "100-23-4567",
+      "taxExemptInterest": "0.00",
+      "payer": "The payer name",
+      "payerTin": "101-23-4567",
+      "taxWithheld": "0.00",
+      "taxExemptAndTaxCreditBondCusipNo": "123456789"
+    },
+    {
+      "1099Amount": "0.00",
+      "has1099": false,
+      "interestOnGovernmentBonds": "100.00",
+      "no1099Amount": "800.00",
+      "recipientTin": "100-23-4567",
+      "taxExemptInterest": "0.00",
+      "payer": "The payer name",
+      "payerTin": "101-23-4567",
+      "taxWithheld": "0.00",
+      "taxExemptAndTaxCreditBondCusipNo": "123456789"
+    }]
+}

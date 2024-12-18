@@ -2,6 +2,7 @@ require "rails_helper"
 
 describe Ctc::Portal::SubmissionPdfsController do
   include PdfSpecHelper
+  include CtcSubmissionHelper
 
   describe "#show" do
     let(:params) {{ id: 1 }}
@@ -22,7 +23,7 @@ describe Ctc::Portal::SubmissionPdfsController do
       end
 
       context "when the efile_submission id provided does not belong to the current client" do
-        let(:efile_submission) { create :efile_submission }
+        let(:efile_submission) { create :efile_submission, :ctc }
 
         it "redirects and sets a flash message" do
           get :show, params: { id: efile_submission.id }
@@ -37,7 +38,7 @@ describe Ctc::Portal::SubmissionPdfsController do
           client.tax_returns.last.efile_submissions.create
         end
         before do
-          efile_submission.create_qualifying_dependents
+          create_qualifying_dependents(efile_submission)
         end
 
         context "when it can be generated" do

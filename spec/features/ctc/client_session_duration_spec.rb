@@ -12,6 +12,7 @@ RSpec.feature "Session duration", requires_default_vita_partners: true do
       let(:fake_time) { Time.utc(2022, 2, 6, 0, 0, 0) }
       before do
         allow(Flipper).to receive(:enabled?).with(:eitc).and_return(true)
+        allow(Flipper).to receive(:enabled?).with(:hide_intercom).and_return(false)
       end
 
       scenario "accumulating session duration" do

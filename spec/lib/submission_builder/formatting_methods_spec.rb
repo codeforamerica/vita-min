@@ -145,4 +145,19 @@ describe SubmissionBuilder::FormattingMethods do
       end
     end
   end
+
+  describe "#truncate" do
+    include SubmissionBuilder::FormattingMethods
+    it "doesn't affect valid strings" do
+      expect(sanitize_for_xml("foo")).to eq "foo"
+    end
+
+    it "sanitizes internal and external whitespace" do
+      expect(sanitize_for_xml(" \tf  \fo \vo  \t   bar\r\n ")).to eq "f o o bar"
+    end
+
+    it "strips whitespace resulting from truncation" do
+      expect(sanitize_for_xml("Four Word Phrase", "Four Word ".length)).to eq "Four Word"
+    end
+  end
 end

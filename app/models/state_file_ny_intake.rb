@@ -5,16 +5,16 @@
 #  id                                 :bigint           not null, primary key
 #  account_number                     :string
 #  account_type                       :integer          default("unfilled"), not null
-#  bank_name                          :string
 #  confirmed_permanent_address        :integer          default("unfilled"), not null
 #  confirmed_third_party_designee     :integer          default("unfilled"), not null
+#  consented_to_sms_terms             :integer          default("unfilled"), not null
 #  consented_to_terms_and_conditions  :integer          default("unfilled"), not null
 #  contact_preference                 :integer          default("unfilled"), not null
 #  current_sign_in_at                 :datetime
 #  current_sign_in_ip                 :inet
 #  current_step                       :string
 #  date_electronic_withdrawal         :date
-#  df_data_import_failed_at           :datetime
+#  df_data_import_succeeded_at        :datetime
 #  df_data_imported_at                :datetime
 #  eligibility_lived_in_state         :integer          default("unfilled"), not null
 #  eligibility_out_of_state_income    :integer          default("unfilled"), not null
@@ -23,6 +23,7 @@
 #  eligibility_yonkers                :integer          default("unfilled"), not null
 #  email_address                      :citext
 #  email_address_verified_at          :datetime
+#  email_notification_opt_in          :integer          default("unfilled"), not null
 #  failed_attempts                    :integer          default(0), not null
 #  federal_return_status              :string
 #  hashed_ssn                         :string
@@ -70,6 +71,7 @@
 #  property_over_limit                :integer          default("unfilled"), not null
 #  public_housing                     :integer          default("unfilled"), not null
 #  raw_direct_file_data               :text
+#  raw_direct_file_intake_data        :jsonb
 #  referrer                           :string
 #  residence_county                   :string
 #  routing_number                     :string
@@ -78,6 +80,7 @@
 #  school_district                    :string
 #  school_district_number             :integer
 #  sign_in_count                      :integer          default(0), not null
+#  sms_notification_opt_in            :integer          default("unfilled"), not null
 #  source                             :string
 #  spouse_birth_date                  :date
 #  spouse_esigned                     :integer          default("unfilled"), not null
@@ -101,16 +104,14 @@
 #
 # Indexes
 #
+#  index_state_file_ny_intakes_on_email_address        (email_address)
 #  index_state_file_ny_intakes_on_hashed_ssn           (hashed_ssn)
 #  index_state_file_ny_intakes_on_primary_state_id_id  (primary_state_id_id)
 #  index_state_file_ny_intakes_on_spouse_state_id_id   (spouse_state_id_id)
 #
 class StateFileNyIntake < StateFileBaseIntake
-  STATE_CODE = 'ny'.freeze
-  STATE_NAME = 'New York'.freeze
-  STATE_CODE_AND_NAME = {
-    STATE_CODE => STATE_NAME
-  }.freeze
+  encrypts :account_number, :routing_number, :raw_direct_file_data, :raw_direct_file_intake_data
+
   LOCALITIES = [
     "NY",
     "N Y",
@@ -132,13 +133,12 @@ class StateFileNyIntake < StateFileBaseIntake
     "MANHATTAN",
     "NEW YORK CIT",
   ].freeze
+
   VALID_TINS = [
     "270293117",
     "146013200"
   ].freeze
 
-  encrypts :account_number, :routing_number, :raw_direct_file_data
-  
   enum nyc_residency: { unfilled: 0, full_year: 1, part_year: 2, none: 3 }, _prefix: :nyc_residency
   enum nyc_maintained_home: { unfilled: 0, yes: 1, no: 2 }, _prefix: :nyc_maintained_home
   enum occupied_residence: { unfilled: 0, yes: 1, no: 2 }, _prefix: :occupied_residence
@@ -154,9 +154,13 @@ class StateFileNyIntake < StateFileBaseIntake
   enum eligibility_withdrew_529: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_withdrew_529
   enum permanent_address_outside_ny: { unfilled: 0, yes: 1, no: 2 }, _prefix: :permanent_address_outside_ny
   enum confirmed_third_party_designee: { unfilled: 0, yes: 1, no: 2 }, _prefix: :confirmed_third_party_designee
+  enum eligibility_lived_in_state: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_lived_in_state
+  enum eligibility_out_of_state_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_out_of_state_income
+  enum email_notification_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :email_notification_opt_in
+  enum sms_notification_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :sms_notification_opt_in
+  enum consented_to_sms_terms: { unfilled: 0, yes: 1, no: 2 }, _prefix: :consented_to_sms_terms
 
   before_save do
-    save_nil_enums_with_unfilled
 
     if untaxed_out_of_state_purchases_changed?(to: "no") || untaxed_out_of_state_purchases_changed?(to: "unfilled")
       self.sales_use_tax_calculation_method = "unfilled"
@@ -167,22 +171,6 @@ class StateFileNyIntake < StateFileBaseIntake
       self.sales_use_tax = calculate_sales_use_tax
     end
 
-    if payment_or_deposit_type_changed?(to: "mail") || payment_or_deposit_type_changed?(to: "unfilled")
-      self.account_type = "unfilled"
-      self.bank_name = nil
-      self.routing_number = nil
-      self.account_number = nil
-      self.withdraw_amount = nil
-      self.date_electronic_withdrawal = nil
-    end
-  end
-
-  def state_code
-    STATE_CODE
-  end
-
-  def state_name
-    STATE_NAME
   end
 
   def county_name
@@ -191,14 +179,6 @@ class StateFileNyIntake < StateFileBaseIntake
 
   def county_code
     district&.county_code
-  end
-
-  def tax_calculator(include_source: false)
-    Efile::Ny::It201.new(
-      year: MultiTenantService.statefile.current_tax_year,
-      intake: self,
-      include_source: include_source
-    )
   end
 
   def calculate_sales_use_tax
@@ -222,10 +202,6 @@ class StateFileNyIntake < StateFileBaseIntake
       sut = (0.000165 * fed_agi).round
       [sut, 125].min
     end
-  end
-
-  def ask_months_in_home?
-    false
   end
 
   def ach_debit_transaction?
@@ -273,6 +249,7 @@ class StateFileNyIntake < StateFileBaseIntake
   end
 
   def validate_state_specific_w2_requirements(w2)
+    super
     unless w2.errors[:locality_nm].present?
       if w2.locality_nm.present? && !self.class.locality_nm_valid?(w2.locality_nm)
         w2.errors.add(:locality_nm, I18n.t("state_file.questions.ny_w2.edit.locality_nm_error"))
@@ -287,14 +264,6 @@ class StateFileNyIntake < StateFileBaseIntake
         state_file1099_g.errors.add(:payer_tin, I18n.t("errors.attributes.payer_tin_ny_invalid"))
       end
     end
-  end
-
-  def invalid_df_w2?(df_w2)
-    if nyc_residency_full_year?
-      return true if df_w2.LocalWagesAndTipsAmt == 0 || df_w2.LocalityNm.blank?
-    end
-    return true if df_w2.LocalityNm.present? && !self.class.locality_nm_valid?(df_w2.LocalityNm)
-    super
   end
 
   private

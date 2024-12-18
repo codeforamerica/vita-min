@@ -26,6 +26,7 @@
 
     <%= f.state_file_qa_input_field :primary_ssn, "primary ssn" %>
     <%= f.state_file_qa_input_field :primary_occupation, "primary occupation" %>
+    <%= f.state_file_qa_input_field :phone_number, "Return header phone number (primary)" %>
 
     <%= f.state_file_qa_input_field :spouse_ssn, "spouse ssn" %>
     <%= f.state_file_qa_input_field :spouse_occupation, "spouse occupation" %>
@@ -38,9 +39,11 @@
     <%= f.state_file_qa_input_field :fed_agi, "Adjusted Gross Income" %>
     <%= f.state_file_qa_input_field :fed_wages, "Wages, salaries, tips" %>
     <%= f.state_file_qa_input_field :fed_taxable_income, "Taxable interest" %>
+    <%= f.state_file_qa_input_field :fed_student_loan_interest, "Subtractable student loan interest" %>
     <%= f.state_file_qa_input_field :fed_unemployment, "Unemployment compensation" %>
     <%= f.state_file_qa_input_field :fed_taxable_ssb, "Taxable SS Income" %>
     <%= f.state_file_qa_input_field :total_exempt_primary_spouse, "Total exempt primary and spouse count" %>
+    <%= f.state_file_qa_input_field :total_qualifying_dependent_care_expenses_or_limit_amt, "Dependent Care Expenses" %>
 
     <div class="federal-info-controller-subform-section with-padding-med">
       <div class="federal-info-controller-subform-section-title">Dependent Detail Zone</div>
@@ -75,12 +78,22 @@
       </div>
     </div>
 
-    <div style="background: #eaacea; padding: 15px; margin-bottom: 15px;">
-      <h3>TODO ZONE: where do these things go?</h3>
-      <%= f.state_file_qa_input_field :total_state_tax_withheld, "Total state tax withheld" %>
+    <div class="federal-info-controller-subform-section with-padding-med">
+      <div class="federal-info-controller-subform-section-title">1099R Zone</div>
+      <div class="federal-info-controller-subform-section-content">
+        <%= f.state_file_qa_input_field :fed_taxable_pensions, "should equal sum of 1099Rs TaxableAmt" %>
+      </div>
+
+      <div class="federal-info-controller-subform-section-content">
+        <%= f.fields_for :form1099rs do |ff| %>
+          <%= render "df_1099r", f: ff %>
+        <% end %>
+        <% if @form.form1099rs.present? %>
+          <%= link_to_add_fields "New 1099R", f, :form1099rs, { class: "button button--small", model: StateFile::FederalInfoForm::DfIrs1099RForm }, partial: "df_1099r" %>
+        <% end %>
+      </div>
     </div>
 
     <%= f.continue %>
-    <%= f.submit("Continue skipping schema validation", class: "button button--danger button--wide", name: "state_file_federal_info_form[skip_schema_validation]") %>
   <% end %>
 <% end %>

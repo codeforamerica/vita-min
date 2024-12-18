@@ -8,13 +8,13 @@
 <% if Flipper.enabled?(:sms_notifications) %>
 <p>
   <%= link_to t(".phone_number_signin"),
-              StateFile::IntakeLoginsController.to_path_helper(action: :new, contact_method: "sms_phone_number", us_state: params[:us_state]),
+              StateFile::IntakeLoginsController.to_path_helper(action: :new, contact_method: "sms_phone_number"),
               class: "button button--wide" %>
 </p>
 <% end %>
 
 <p>
   <%= link_to t(".email_signin"),
-              StateFile::IntakeLoginsController.to_path_helper(action: :new, contact_method: "email_address", us_state: params[:us_state]),
+              StateFile::IntakeLoginsController.to_path_helper(action: :new, contact_method: "email_address"),
               class: "button button--wide" %>
 </p>

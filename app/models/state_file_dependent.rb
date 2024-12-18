@@ -2,44 +2,69 @@
 #
 # Table name: state_file_dependents
 #
-#  id                :bigint           not null, primary key
-#  ctc_qualifying    :boolean
-#  dob               :date
-#  eic_disability    :integer          default("unfilled")
-#  eic_qualifying    :boolean
-#  eic_student       :integer          default("unfilled")
-#  first_name        :string
-#  intake_type       :string           not null
-#  last_name         :string
-#  middle_initial    :string
-#  months_in_home    :integer
-#  needed_assistance :integer          default("unfilled"), not null
-#  odc_qualifying    :boolean
-#  passed_away       :integer          default("unfilled"), not null
-#  relationship      :string
-#  ssn               :string
-#  suffix            :string
-#  created_at        :datetime         not null
-#  updated_at        :datetime         not null
-#  intake_id         :bigint           not null
+#  id                                      :bigint           not null, primary key
+#  ctc_qualifying                          :boolean
+#  dob                                     :date
+#  eic_disability                          :integer          default("unfilled")
+#  eic_qualifying                          :boolean
+#  eic_student                             :integer          default("unfilled")
+#  first_name                              :string
+#  id_has_grocery_credit_ineligible_months :integer          default("unfilled"), not null
+#  id_months_ineligible_for_grocery_credit :integer
+#  intake_type                             :string           not null
+#  last_name                               :string
+#  md_did_not_have_health_insurance        :integer          default("unfilled"), not null
+#  middle_initial                          :string
+#  months_in_home                          :integer
+#  needed_assistance                       :integer          default("unfilled"), not null
+#  nj_dependent_attends_accredited_program :integer          default("unfilled"), not null
+#  nj_dependent_enrolled_full_time         :integer          default("unfilled"), not null
+#  nj_dependent_five_months_in_college     :integer          default("unfilled"), not null
+#  nj_did_not_have_health_insurance        :integer          default("unfilled"), not null
+#  nj_filer_pays_tuition_for_dependent     :integer          default("unfilled"), not null
+#  odc_qualifying                          :boolean
+#  passed_away                             :integer          default("unfilled"), not null
+#  qualifying_child                        :boolean
+#  relationship                            :string
+#  ssn                                     :string
+#  suffix                                  :string
+#  created_at                              :datetime         not null
+#  updated_at                              :datetime         not null
+#  intake_id                               :bigint           not null
 #
 # Indexes
 #
 #  index_state_file_dependents_on_intake  (intake_type,intake_id)
 #
+
 class StateFileDependent < ApplicationRecord
+
   RELATIONSHIP_LABELS = {
-    "DAUGHTER" => "Child",
-    "STEPCHILD" => "Child",
-    "FOSTER CHILD" => "Foster Child",
-    "GRANDCHILD" => "Grandchild",
-    "SISTER" => "Sibling",
-    "HALF SISTER" => "Half-Sibling",
-    "NEPHEW" => "Niece/Nephew",
-    "STEPBROTHER" => "Step-Sibling",
-    "PARENT" => "Parent",
-    "GRANDPARENT" => "Grandparent",
-    "NONE" => "Other",
+    "biologicalChild" => "Child",
+    "adoptedChild" => "Child",
+    "stepChild" => "Child",
+    "fosterChild" => "Foster Child",
+    "grandChildOrOtherDescendantOfChild" => "Grandchild",
+    "childInLaw" => "Child",
+    "sibling" => "Sibling",
+    "childOfSibling" => "Niece/Nephew",
+    "halfSibling" => "Half-Sibling",
+    "childOfHalfSibling" => "Niece/Nephew",
+    "stepSibling" => "Step-Sibling",
+    "childOfStepSibling" => "Niece/Nephew",
+    "otherDescendantOfSibling" => "Niece/Nephew",
+    "siblingInLaw" => "Sibling",
+    "parent" => "Parent",
+    "grandParent" => "Grandparent",
+    "otherAncestorOfParent" => "Grandparent",
+    "stepParent" => "Parent",
+    "parentInLaw" => "Parent",
+    "noneOfTheAbove" => "Other",
+    "siblingOfParent" => "Aunt/Uncle",
+    "otherDescendantOfHalfSibling" => "Niece/Nephew",
+    "otherDescendantOfStepSibling" => "Niece/Nephew",
+    "fosterParent" => "Foster Parent",
+    "siblingsSpouse" => "Sibling-in-Law",
   }.freeze
 
   belongs_to :intake, polymorphic: true
@@ -48,12 +73,25 @@ class StateFileDependent < ApplicationRecord
   enum passed_away: { unfilled: 0, yes: 1, no: 2 }, _prefix: :passed_away
   enum eic_disability: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eic_disability
   enum eic_student: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eic_student
+  enum id_has_grocery_credit_ineligible_months: { unfilled: 0, yes: 1, no: 2 }, _prefix: :id_has_grocery_credit_ineligible_months
+  enum md_did_not_have_health_insurance: { unfilled: 0, yes: 1, no: 2 }, _prefix: :md_did_not_have_health_insurance
 
-  # Create birth_date_* accessor methods for Honeycrisp's cfa_date_select
+  # checkboxes - "unfilled" means not-yet-seen because it saves as "no" when unchecked
+  enum nj_dependent_attends_accredited_program: { unfilled: 0, yes: 1, no: 2 }, _prefix: :nj_dependent_attends_accredited_program
+  enum nj_dependent_enrolled_full_time: { unfilled: 0, yes: 1, no: 2 }, _prefix: :nj_dependent_enrolled_full_time
+  enum nj_dependent_five_months_in_college: { unfilled: 0, yes: 1, no: 2 }, _prefix: :nj_dependent_five_months_in_college
+  enum nj_did_not_have_health_insurance: { unfilled: 0, yes: 1, no: 2 }, _prefix: :nj_did_not_have_health_insurance
+  enum nj_filer_pays_tuition_for_dependent: { unfilled: 0, yes: 1, no: 2 }, _prefix: :nj_filer_pays_tuition_for_dependent
+
+  # Create dob_* accessor methods for Honeycrisp's cfa_date_select
   delegate :month, :day, :year, to: :dob, prefix: :dob, allow_nil: true
-  validates_presence_of :first_name, :last_name, :dob, on: :dob_form
-  validates_presence_of :months_in_home, on: :dob_form, if: -> { self.intake_type == 'StateFileAzIntake' }
+  validates_presence_of :first_name, :last_name, :dob
   validates :passed_away, :needed_assistance, inclusion: { in: %w[yes no], message: :blank }, on: :az_senior_form
+
+  validates :id_months_ineligible_for_grocery_credit, numericality: {
+    greater_than_or_equal_to: 0,
+    message: :blank
+  }, if: -> { id_has_grocery_credit_ineligible_months == "yes" }, on: :id_grocery_credit_form
 
   def self.senior_cutoff_date
     # Deprecated: please use `#senior?` (this method used only in tests)
@@ -66,9 +104,27 @@ class StateFileDependent < ApplicationRecord
     parts.compact.join(' ')
   end
 
+  def first_name_title_case
+    first_name.downcase.upcase_first
+  end
+
+  def months_in_home_for_pdf
+    case months_in_home
+    when 12
+      "12"
+    when 6..11
+      "6-11"
+    when nil, 0..6
+      "<6"
+    else
+      ""
+    end
+  end
+
   def ask_senior_questions?
     return false if dob.nil?
-    senior? && months_in_home == 12 && ['PARENT', 'GRANDPARENT'].include?(relationship)
+    relationship_qualifies = %w[parent grandParent otherAncestorOfParent].include?(relationship) || ("parentInLaw" == relationship && intake.filing_status_mfj?)
+    senior? && months_in_home == 12 && relationship_qualifies
   end
 
   def is_qualifying_parent_or_grandparent?
@@ -76,29 +132,69 @@ class StateFileDependent < ApplicationRecord
   end
 
   def is_hoh_qualifying_person?
-    relationship == 'PARENT' || (relationship != 'NONE' && (months_in_home || 0) >= 6)
+    relationship == 'parent' || (relationship != 'noneOfTheAbove' && (months_in_home || 0) >= 6)
+  end
+
+  def nj_qualifies_for_college_exemption?
+    under_22? && nj_dependent_attends_accredited_program_yes? && nj_dependent_enrolled_full_time_yes? && nj_dependent_five_months_in_college_yes? && nj_filer_pays_tuition_for_dependent_yes?
   end
 
   def under_17?
-    age < 17
+    calculate_age(inclusive_of_jan_1: false) < 17
   end
 
   def senior?
-    age >= 65
+    calculate_age(inclusive_of_jan_1: true) >= 65
   end
 
-  def age
-    MultiTenantService.statefile.current_tax_year - dob.year
+  def under_22?
+    calculate_age(inclusive_of_jan_1: false) < 22
+  end
+
+  def calculate_age(inclusive_of_jan_1:)
+    intake.calculate_age(dob, inclusive_of_jan_1: inclusive_of_jan_1)
   end
 
   def eligible_for_child_tax_credit
     return true if ctc_qualifying
 
-    if relationship
-      child_credit_qualifying_relationship = %w[daughter stepchild foster_child grandchild sister nephew half_sister stepbrother son brother niece half_brother stepsister].include?(relationship.downcase)
-    end
-    if under_17? && child_credit_qualifying_relationship
-      return true
+    if under_17?
+      if [
+        # daughter
+        "biologicalChild",
+        "adoptedChild",
+        "childInLaw",
+
+        # stepchild
+        "stepChild",
+
+        # foster_child
+        "fosterChild",
+
+        # grandchild
+        "grandChildOrOtherDescendantOfChild",
+
+        # sister
+        "sibling",
+        "siblingInLaw",
+        "siblingsSpouse",
+
+        # nephew
+        "childOfSibling",
+        "childOfHalfSibling",
+        "childOfStepSibling",
+        "otherDescendantOfSibling",
+        "otherDescendantOfHalfSibling",
+        "otherDescendantOfStepSibling",
+
+        # half_sister
+        "halfSibling",
+
+        # stepbrother
+        "stepSibling"
+      ].include?(relationship)
+        return true
+      end
     end
 
     false

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v4.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>676c5f98</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>900500011</PrimarySSN>
+            <NameLine1Txt>ATTICUS&lt;FINCH</NameLine1Txt>
+            <PrimaryNameControlTxt>FINC</PrimaryNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>3723 Parkway Drive</AddressLine1Txt>
+                <CityNm>Patagonia</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>85624</ZIPCd>
+            </USAddress>
+            <PhoneNum>4802003576</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+90000001-18bd-41ec-9e88-72a58aad18c8@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="4">
+        <IRS1040 documentId="IRS10400001">
+            <IndividualReturnFilingStatusCd>1</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>1</TotalExemptionsCnt>
+            <TaxableInterestAmt referenceDocumentId="IRS1040B001" referenceDocumentName="IRS1040ScheduleB">4000</TaxableInterestAmt>
+            <TotalAdditionalIncomeAmt>6000</TotalAdditionalIncomeAmt>
+            <TotalIncomeAmt>10000</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>10000</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>14600</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>14600</TotalDeductionsAmt>
+            <TaxableIncomeAmt>0</TaxableIncomeAmt>
+            <TaxAmt>0</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>0</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>0</TaxLessCreditsAmt>
+            <TotalTaxAmt>0</TotalTaxAmt>
+            <Form1099WithheldTaxAmt referenceDocumentId="OTHERWITHHOLDING0001" referenceDocumentName="OtherWithholdingStatement">1000</Form1099WithheldTaxAmt>
+            <WithholdingTaxAmt>1000</WithholdingTaxAmt>
+            <TotalPaymentsAmt>1000</TotalPaymentsAmt>
+            <OverpaidAmt>1000</OverpaidAmt>
+            <RefundAmt>1000</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Lawyer</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1040Schedule1 documentId="IRS1040S1001">
+            <UnemploymentCompAmt>6000</UnemploymentCompAmt>
+            <TotalAdditionalIncomeAmt>6000</TotalAdditionalIncomeAmt>
+        </IRS1040Schedule1>
+        <IRS1040ScheduleB documentId="IRS1040B001" documentName="IRS1040ScheduleB">
+            <Form1040SchBPartIGroup2>
+                <InterestPayerName>
+                    <BusinessNameLine1Txt>Mockingbird Bank</BusinessNameLine1Txt>
+                </InterestPayerName>
+                <InterestAmt>4000</InterestAmt>
+            </Form1040SchBPartIGroup2>
+            <InterestSubtotalAmt interestSubtotalLiteralCd="INTEREST SUBTOTAL">4000</InterestSubtotalAmt>
+            <TaxableInterestSubtotalAmt>4000</TaxableInterestSubtotalAmt>
+            <CalculatedTotalTaxableIntAmt>4000</CalculatedTotalTaxableIntAmt>
+            <ForeignAccountsQuestionInd>false</ForeignAccountsQuestionInd>
+            <ForeignTrustQuestionInd>false</ForeignTrustQuestionInd>
+        </IRS1040ScheduleB>
+        <OtherWithholdingStatement documentId="OTHERWITHHOLDING0001" documentName="OtherWithholdingStatement">
+            <OtherWithholdingStmt>
+                <WithholdingCd>FORM 1099</WithholdingCd>
+                <EIN>001245767</EIN>
+                <WithholdingAmt>1000</WithholdingAmt>
+            </OtherWithholdingStmt>
+        </OtherWithholdingStatement>
+    </ReturnData>
+</Return>

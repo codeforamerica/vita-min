@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v4.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>31cdc8a8</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>300000005</PrimarySSN>
+            <NameLine1Txt>QUEEN&lt;LATIFAH</NameLine1Txt>
+            <PrimaryNameControlTxt>LATI</PrimaryNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>155 Morgan St</AddressLine1Txt>
+                <CityNm>Jersey City</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07302</ZIPCd>
+            </USAddress>
+            <PhoneNum>2015557676</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+30000000-5bfd-4957-902d-addd06eb5547@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="2">
+        <IRS1040 documentId="IRS10400001">
+            <IndividualReturnFilingStatusCd>4</IndividualReturnFilingStatusCd>
+            <QualifyingHOHNm>Princess Latifah</QualifyingHOHNm>
+            <QualifyingHOHSSN>600000004</QualifyingHOHSSN>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>1</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">19000</WagesAmt>
+            <WagesSalariesAndTipsAmt>19000</WagesSalariesAndTipsAmt>
+            <TotalIncomeAmt>19000</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>19000</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>21900</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>21900</TotalDeductionsAmt>
+            <TaxableIncomeAmt>0</TaxableIncomeAmt>
+            <TaxAmt>0</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>0</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>0</TaxLessCreditsAmt>
+            <TotalTaxAmt>0</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>2000</FormW2WithheldTaxAmt>
+            <WithholdingTaxAmt>2000</WithholdingTaxAmt>
+            <TotalPaymentsAmt>2000</TotalPaymentsAmt>
+            <OverpaidAmt>2000</OverpaidAmt>
+            <RefundAmt>2000</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Performer</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>300000005</EmployeeSSN>
+            <EmployerEIN>009876789</EmployerEIN>
+            <EmployerNameControlTxt>FLAV</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Flavor Unit</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>155 Morgan St</AddressLine1Txt>
+                <CityNm>Jersey City</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07302</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Queen Latifah</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>155 Morgan St</AddressLine1Txt>
+                <CityNm>Jersey City</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07302</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>19000</WagesAmt>
+            <WithholdingAmt>2000</WithholdingAmt>
+            <SocialSecurityWagesAmt>19000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>1000</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>19000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>400</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                    <EmployerStateIdNum>9876789</EmployerStateIdNum>
+                    <StateWagesAmt>15000</StateWagesAmt>
+                    <StateIncomeTaxAmt>10</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp>
+                        <LocalWagesAndTipsAmt>15000</LocalWagesAndTipsAmt>
+                        <LocalityNm>Confused Locality Na</LocalityNm>
+                    </W2LocalTaxGrp>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>

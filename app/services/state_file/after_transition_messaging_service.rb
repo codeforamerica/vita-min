@@ -5,7 +5,7 @@ module StateFile
     def initialize(efile_submission)
       @intake = efile_submission.data_source
       @submission = efile_submission
-      raise(ArgumentError, "Unsupported intake type: #{@intake.class.name}") unless %w[StateFileAzIntake StateFileNyIntake].include?(@intake.class.name)
+      raise(ArgumentError, "Unsupported intake type: #{@intake.class.name}") unless StateFile::StateInformationService.state_intake_classes.include?(@intake.class)
     end
 
     def send_efile_submission_accepted_message
@@ -15,14 +15,17 @@ module StateFile
         body_args = { return_status_link: return_status_link }
       when :owe
         message = StateFile::AutomatedMessage::AcceptedOwe
-        body_args = { state_pay_taxes_link: state_pay_taxes_link, return_status_link: return_status_link }
+        body_args = {
+          state_pay_taxes_link: StateFile::StateInformationService.pay_taxes_link(@intake.state_code),
+          return_status_link: return_status_link
+        }
       end
 
       StateFile::MessagingService.new(
         intake: @intake,
         submission: @submission,
         message: message,
-        body_args: body_args).send_message
+        body_args: body_args).send_message(require_verification: false)
 
       schedule_survey_notification_job
     end
@@ -41,7 +44,18 @@ module StateFile
         submission: @submission,
         message: message,
         body_args: body_args
-      ).send_message
+      ).send_message(require_verification: false)
+    end
+
+    def send_efile_submission_terminal_rejected_message
+      message = StateFile::AutomatedMessage::TerminalRejected
+      body_args = { return_status_link: return_status_link }
+      StateFile::MessagingService.new(
+        intake: @intake,
+        submission: @submission,
+        message: message,
+        body_args: body_args
+      ).send_message(require_verification: false)
     end
 
     def send_efile_submission_still_processing_message
@@ -70,18 +84,11 @@ module StateFile
     private
 
     def return_status_link
-      url_for(host: MultiTenantService.new(:statefile).host, controller: "state_file/questions/return_status", action: "edit", us_state: @intake.state_code)
-    end
-
-    def state_pay_taxes_link
-      case @intake.state_code
-      when "ny"
-        "https://www.tax.ny.gov/pay/"
-      when 'az'
-        "https://www.aztaxes.gov/"
-      else
-        ""
-      end
+      url_for(
+        host: MultiTenantService.new(:statefile).host,
+        controller: "state_file/questions/return_status",
+        action: "edit"
+      )
     end
   end
 end

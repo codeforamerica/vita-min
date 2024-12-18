@@ -4,7 +4,7 @@
 #
 #  id                                 :bigint           not null, primary key
 #  address_confirmation               :integer          default("unfilled"), not null
-#  federal_income_tax_withheld        :integer
+#  federal_income_tax_withheld_amount :decimal(12, 2)
 #  had_box_11                         :integer          default("unfilled"), not null
 #  intake_type                        :string           not null
 #  payer_city                         :string
@@ -18,8 +18,8 @@
 #  recipient_street_address_apartment :string
 #  recipient_zip                      :string
 #  state_identification_number        :string
-#  state_income_tax_withheld          :integer
-#  unemployment_compensation          :integer
+#  state_income_tax_withheld_amount   :decimal(12, 2)
+#  unemployment_compensation_amount   :decimal(12, 2)
 #  created_at                         :datetime         not null
 #  updated_at                         :datetime         not null
 #  intake_id                          :bigint           not null
@@ -49,9 +49,9 @@ RSpec.describe StateFile1099G do
           recipient_street_address: '123 Main St',
           recipient_street_address_apartment: 'Apt E',
           recipient_zip: '11102',
-          unemployment_compensation: '1',
-          federal_income_tax_withheld: '0',
-          state_income_tax_withheld: '0',
+          unemployment_compensation_amount: '1',
+          federal_income_tax_withheld_amount: '0',
+          state_income_tax_withheld_amount: '0',
         )
         state_file_1099.address_confirmation = 'yes'
         state_file_1099.save
@@ -72,28 +72,50 @@ RSpec.describe StateFile1099G do
       recipient_street_address: '123 Main St',
       recipient_street_address_apartment: 'Apt E',
       recipient_zip: '11102',
-      unemployment_compensation: '1',
-      federal_income_tax_withheld: '0',
-      state_income_tax_withheld: '0',
+      unemployment_compensation_amount: '1',
+      federal_income_tax_withheld_amount: '0',
+      state_income_tax_withheld_amount: '0',
       ) }
 
-    it "validates unemployment_compensation" do
-      state_file_1099.unemployment_compensation = nil
+    it "validates recipient" do
+      state_file_1099.recipient = 'unfilled'
       expect(state_file_1099.save).to eq false
-      state_file_1099.unemployment_compensation = '0'
+      state_file_1099.recipient = 'spouse'
+      expect(state_file_1099.save).to eq true
+      state_file_1099.recipient = 'primary'
+      expect(state_file_1099.save).to eq true
+    end
+
+    it "validates unemployment_compensation_amount" do
+      state_file_1099.unemployment_compensation_amount = nil
+      expect(state_file_1099.save).to eq false
+      state_file_1099.unemployment_compensation_amount = '0'
       expect(state_file_1099.save).to eq false
     end
-    it "validates federal_income_tax_withheld" do
-      state_file_1099.federal_income_tax_withheld = nil
+    it "validates federal_income_tax_withheld_amount" do
+      state_file_1099.federal_income_tax_withheld_amount = nil
       expect(state_file_1099.save).to eq false
-      state_file_1099.federal_income_tax_withheld = '-1'
+      state_file_1099.federal_income_tax_withheld_amount = '-1'
       expect(state_file_1099.save).to eq false
     end
-    it "validates state_income_tax_withheld" do
-      state_file_1099.state_income_tax_withheld = nil
+    it "validates state_income_tax_withheld_amount" do
+      state_file_1099.state_income_tax_withheld_amount = nil
       expect(state_file_1099.save).to eq false
-      state_file_1099.state_income_tax_withheld = '-1'
+      state_file_1099.state_income_tax_withheld_amount = '-1'
       expect(state_file_1099.save).to eq false
+    end
+
+    it "validates presence of address_confirmation when had_box_11 is yes" do
+      state_file_1099.had_box_11 = 'yes'
+      state_file_1099.address_confirmation = nil
+      expect(state_file_1099.save).to eq false
+      expect(state_file_1099.errors[:address_confirmation]).to include(I18n.t("errors.messages.blank"))
+
+      state_file_1099.address_confirmation = 'yes'
+      expect(state_file_1099.save).to eq true
+
+      state_file_1099.address_confirmation = 'no'
+      expect(state_file_1099.save).to eq true
     end
 
     it "yields a valid recipient address line 1 and line 2" do
@@ -102,26 +124,6 @@ RSpec.describe StateFile1099G do
       state_file_1099.recipient_street_address_apartment = nil
       expect(state_file_1099.recipient_address_line1).to eq "123 Main St"
       expect(state_file_1099.recipient_address_line2).to eq nil
-    end
-
-    context "non-integer number" do
-      let(:state_file_1099) { build(
-        :state_file1099_g,
-        intake: create(:state_file_ny_intake),
-        address_confirmation: 'no',
-        recipient_city: 'New York',
-        recipient_street_address: '123 Main St',
-        recipient_street_address_apartment: 'Apt E',
-        recipient_zip: '11102',
-        unemployment_compensation: '2.5',
-        federal_income_tax_withheld: '0',
-        state_income_tax_withheld: '0',
-        ) }
-
-      it "validates unemployment_compensation for a whole number" do
-        state_file_1099.valid?
-        expect(state_file_1099.errors[:unemployment_compensation]).to include "must be a whole number"
-      end
     end
 
     context "for wrong range" do
@@ -133,14 +135,14 @@ RSpec.describe StateFile1099G do
         recipient_street_address: '123 Main St',
         recipient_street_address_apartment: 'Apt E',
         recipient_zip: '11102',
-        unemployment_compensation: '0',
-        federal_income_tax_withheld: '0',
-        state_income_tax_withheld: '0',
+        unemployment_compensation_amount: '0',
+        federal_income_tax_withheld_amount: '0',
+        state_income_tax_withheld_amount: '0',
         ) }
 
       it "validates unemployment_compensation" do
         state_file_1099.valid?
-        expect(state_file_1099.errors[:unemployment_compensation]).to include "must be greater than or equal to 1"
+        expect(state_file_1099.errors[:unemployment_compensation_amount]).to include "must be greater than or equal to 1"
       end
     end
   end

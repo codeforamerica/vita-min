@@ -24,7 +24,7 @@ class ScrapeVitaProvidersService
   private
 
   def request_page(url)
-    html = URI.open(url).read
+    html = Net::HTTP.get(URI.parse(url))
     @current_document = Nokogiri::HTML(html) do |config|
       config.noblanks
     end

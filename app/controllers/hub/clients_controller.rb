@@ -23,12 +23,12 @@ module Hub
 
     def new
       @current_year = MultiTenantService.new(:gyr).current_tax_year
-      @form = CreateClientForm.new
+      @form = CreateClientForm.new(gyr_filing_years)
     end
 
     def create
       @current_year = MultiTenantService.new(:gyr).current_tax_year
-      @form = CreateClientForm.new(create_client_form_params)
+      @form = CreateClientForm.new(gyr_filing_years, create_client_form_params)
       assigned_vita_partner = @vita_partners.find_by(id: create_client_form_params["vita_partner_id"])
 
       if can?(:read, assigned_vita_partner) && @form.save(current_user)
@@ -124,14 +124,22 @@ module Hub
       @form = Update13614cFormPage3.from_client(@client)
     end
 
+    def save_and_maybe_exit(save_button_clicked, path_to_13614c_page)
+      if save_button_clicked == I18n.t("general.save")
+        redirect_to path_to_13614c_page
+      else # should always be: params[:commit] == I18n.t("general.save_and_exit")
+        redirect_to hub_client_path(id: @client.id)
+      end
+    end
+
     def update_13614c_form_page1
       @form = Update13614cFormPage1.new(@client, update_13614c_form_page1_params)
 
       if @form.valid? && @form.save
         SystemNote::ClientChange.generate!(initiated_by: current_user, intake: @client.intake)
         GenerateF13614cPdfJob.perform_later(@client.intake.id, "Hub Edited 13614-C.pdf")
-        flash[:notice] = "Changes saved"
-        redirect_to edit_13614c_form_page1_hub_client_path(@client)
+        flash[:notice] = I18n.t("general.changes_saved")
+        save_and_maybe_exit(params[:commit], edit_13614c_form_page1_hub_client_path(id: @client.id))
       else
         flash[:alert] = I18n.t("forms.errors.general")
         render :edit_13614c_form_page1
@@ -145,7 +153,7 @@ module Hub
         SystemNote::ClientChange.generate!(initiated_by: current_user, intake: @client.intake)
         GenerateF13614cPdfJob.perform_later(@client.intake.id, "Hub Edited 13614-C.pdf")
         flash[:notice] = I18n.t("general.changes_saved")
-        redirect_to edit_13614c_form_page2_hub_client_path(@client)
+        save_and_maybe_exit(params[:commit], edit_13614c_form_page2_hub_client_path(id: @client.id))
       end
     end
 
@@ -157,7 +165,7 @@ module Hub
         @client.intake.update(demographic_questions_hub_edit: true)
         GenerateF13614cPdfJob.perform_later(@client.intake.id, "Hub Edited 13614-C.pdf")
         flash[:notice] = I18n.t("general.changes_saved")
-        redirect_to edit_13614c_form_page3_hub_client_path(@client)
+        save_and_maybe_exit(params[:commit], edit_13614c_form_page3_hub_client_path(id: @client.id))
       end
     end
 
@@ -171,7 +179,11 @@ module Hub
       resource_id = params[:id]
       resource_name = params[:resource]
       redirect_to hub_clients_path and return unless resource_name
-      resource = resource_name.camelize.constantize.find(resource_id)
+      resource = Fraud::Indicator.reference_to_resource(resource_name)&.find(resource_id)
+
+      # When the resource is not valid, resource is nil. We ought to do a regular 404 in that case
+      raise ActiveRecord::RecordNotFound unless resource
+
       client = resource.is_a?(Client) ? resource : resource.client
       redirect_to hub_client_path(id: client)
     end

@@ -22,7 +22,11 @@ class EfileError < ApplicationRecord
   has_rich_text :resolution_en
   has_rich_text :resolution_es
 
-  enum service_type: { unfilled: 0, ctc: 1, state_file: 2 }, _prefix: :service_type
+  state_enum_options = StateFile::StateInformationService.active_state_codes.to_h do |state_code, _|
+    int_value = state_code.bytes.join.to_i
+    ["state_file_#{state_code}", int_value]
+  end
+  enum service_type: { unfilled: 0, ctc: 1, state_file: 2 }.merge(state_enum_options), _prefix: :service_type
 
   def self.error_codes_to_retry_once
     # These error codes indicate that the IRS had trouble parsing our data. When we see this, it
@@ -57,14 +61,14 @@ class EfileError < ApplicationRecord
     controller.name.split("::")[-1][0..-11].underscore.gsub("_", "-")
   end
 
-  def self.default_controller
-    StateFile::Questions::NameDobController
+  def self.default_controller(state_code)
+    StateFile::StateInformationService.review_controller_class(state_code)
   end
 
   def self.paths
     paths = Set.new
-    StateFileBaseIntake::STATE_CODES.each do |state_code|
-      navigation = "Navigation::StateFile#{state_code.titleize}QuestionNavigation".constantize
+    StateFile::StateInformationService.active_state_codes.each do |_state_code|
+      navigation = "Navigation::StateFile#{_state_code.titleize}QuestionNavigation".constantize
       navigation.controllers.each do |controller|
         paths << EfileError.controller_to_path(controller)
       end

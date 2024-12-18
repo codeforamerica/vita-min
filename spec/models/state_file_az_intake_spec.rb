@@ -2,81 +2,86 @@
 #
 # Table name: state_file_az_intakes
 #
-#  id                                    :bigint           not null, primary key
-#  account_number                        :string
-#  account_type                          :integer
-#  armed_forces_member                   :integer          default("unfilled"), not null
-#  armed_forces_wages                    :integer
-#  bank_name                             :string
-#  charitable_cash                       :integer          default(0)
-#  charitable_contributions              :integer          default("unfilled"), not null
-#  charitable_noncash                    :integer          default(0)
-#  consented_to_terms_and_conditions     :integer          default("unfilled"), not null
-#  contact_preference                    :integer          default("unfilled"), not null
-#  current_sign_in_at                    :datetime
-#  current_sign_in_ip                    :inet
-#  current_step                          :string
-#  date_electronic_withdrawal            :date
-#  df_data_import_failed_at              :datetime
-#  df_data_imported_at                   :datetime
-#  eligibility_529_for_non_qual_expense  :integer          default("unfilled"), not null
-#  eligibility_lived_in_state            :integer          default("unfilled"), not null
-#  eligibility_married_filing_separately :integer          default("unfilled"), not null
-#  eligibility_out_of_state_income       :integer          default("unfilled"), not null
-#  email_address                         :citext
-#  email_address_verified_at             :datetime
-#  failed_attempts                       :integer          default(0), not null
-#  federal_return_status                 :string
-#  has_prior_last_names                  :integer          default("unfilled"), not null
-#  hashed_ssn                            :string
-#  household_excise_credit_claimed       :integer          default("unfilled"), not null
-#  household_excise_credit_claimed_amt   :integer
-#  last_sign_in_at                       :datetime
-#  last_sign_in_ip                       :inet
-#  locale                                :string           default("en")
-#  locked_at                             :datetime
-#  message_tracker                       :jsonb
-#  payment_or_deposit_type               :integer          default("unfilled"), not null
-#  phone_number                          :string
-#  phone_number_verified_at              :datetime
-#  primary_birth_date                    :date
-#  primary_esigned                       :integer          default("unfilled"), not null
-#  primary_esigned_at                    :datetime
-#  primary_first_name                    :string
-#  primary_last_name                     :string
-#  primary_middle_initial                :string
-#  primary_suffix                        :string
-#  primary_was_incarcerated              :integer          default("unfilled"), not null
-#  prior_last_names                      :string
-#  raw_direct_file_data                  :text
-#  referrer                              :string
-#  routing_number                        :string
-#  sign_in_count                         :integer          default(0), not null
-#  source                                :string
-#  spouse_birth_date                     :date
-#  spouse_esigned                        :integer          default("unfilled"), not null
-#  spouse_esigned_at                     :datetime
-#  spouse_first_name                     :string
-#  spouse_last_name                      :string
-#  spouse_middle_initial                 :string
-#  spouse_suffix                         :string
-#  spouse_was_incarcerated               :integer          default("unfilled"), not null
-#  ssn_no_employment                     :integer          default("unfilled"), not null
-#  tribal_member                         :integer          default("unfilled"), not null
-#  tribal_wages                          :integer
-#  unfinished_intake_ids                 :text             default([]), is an Array
-#  unsubscribed_from_email               :boolean          default(FALSE), not null
-#  was_incarcerated                      :integer          default("unfilled"), not null
-#  withdraw_amount                       :integer
-#  created_at                            :datetime         not null
-#  updated_at                            :datetime         not null
-#  federal_submission_id                 :string
-#  primary_state_id_id                   :bigint
-#  spouse_state_id_id                    :bigint
-#  visitor_id                            :string
+#  id                                     :bigint           not null, primary key
+#  account_number                         :string
+#  account_type                           :integer
+#  armed_forces_member                    :integer          default("unfilled"), not null
+#  armed_forces_wages_amount              :decimal(12, 2)
+#  charitable_cash_amount                 :decimal(12, 2)
+#  charitable_contributions               :integer          default("unfilled"), not null
+#  charitable_noncash_amount              :decimal(12, 2)
+#  consented_to_sms_terms                 :integer          default("unfilled"), not null
+#  consented_to_terms_and_conditions      :integer          default("unfilled"), not null
+#  contact_preference                     :integer          default("unfilled"), not null
+#  current_sign_in_at                     :datetime
+#  current_sign_in_ip                     :inet
+#  current_step                           :string
+#  date_electronic_withdrawal             :date
+#  df_data_import_succeeded_at            :datetime
+#  df_data_imported_at                    :datetime
+#  eligibility_529_for_non_qual_expense   :integer          default("unfilled"), not null
+#  eligibility_lived_in_state             :integer          default("unfilled"), not null
+#  eligibility_married_filing_separately  :integer          default("unfilled"), not null
+#  eligibility_out_of_state_income        :integer          default("unfilled"), not null
+#  email_address                          :citext
+#  email_address_verified_at              :datetime
+#  email_notification_opt_in              :integer          default("unfilled"), not null
+#  failed_attempts                        :integer          default(0), not null
+#  federal_return_status                  :string
+#  has_prior_last_names                   :integer          default("unfilled"), not null
+#  hashed_ssn                             :string
+#  household_excise_credit_claimed        :integer          default("unfilled"), not null
+#  household_excise_credit_claimed_amount :decimal(12, 2)
+#  last_sign_in_at                        :datetime
+#  last_sign_in_ip                        :inet
+#  locale                                 :string           default("en")
+#  locked_at                              :datetime
+#  made_az321_contributions               :integer          default("unfilled"), not null
+#  message_tracker                        :jsonb
+#  payment_or_deposit_type                :integer          default("unfilled"), not null
+#  phone_number                           :string
+#  phone_number_verified_at               :datetime
+#  primary_birth_date                     :date
+#  primary_esigned                        :integer          default("unfilled"), not null
+#  primary_esigned_at                     :datetime
+#  primary_first_name                     :string
+#  primary_last_name                      :string
+#  primary_middle_initial                 :string
+#  primary_suffix                         :string
+#  primary_was_incarcerated               :integer          default("unfilled"), not null
+#  prior_last_names                       :string
+#  raw_direct_file_data                   :text
+#  raw_direct_file_intake_data            :jsonb
+#  referrer                               :string
+#  routing_number                         :string
+#  sign_in_count                          :integer          default(0), not null
+#  sms_notification_opt_in                :integer          default("unfilled"), not null
+#  source                                 :string
+#  spouse_birth_date                      :date
+#  spouse_esigned                         :integer          default("unfilled"), not null
+#  spouse_esigned_at                      :datetime
+#  spouse_first_name                      :string
+#  spouse_last_name                       :string
+#  spouse_middle_initial                  :string
+#  spouse_suffix                          :string
+#  spouse_was_incarcerated                :integer          default("unfilled"), not null
+#  ssn_no_employment                      :integer          default("unfilled"), not null
+#  tribal_member                          :integer          default("unfilled"), not null
+#  tribal_wages_amount                    :decimal(12, 2)
+#  unfinished_intake_ids                  :text             default([]), is an Array
+#  unsubscribed_from_email                :boolean          default(FALSE), not null
+#  was_incarcerated                       :integer          default("unfilled"), not null
+#  withdraw_amount                        :integer
+#  created_at                             :datetime         not null
+#  updated_at                             :datetime         not null
+#  federal_submission_id                  :string
+#  primary_state_id_id                    :bigint
+#  spouse_state_id_id                     :bigint
+#  visitor_id                             :string
 #
 # Indexes
 #
+#  index_state_file_az_intakes_on_email_address        (email_address)
 #  index_state_file_az_intakes_on_hashed_ssn           (hashed_ssn)
 #  index_state_file_az_intakes_on_primary_state_id_id  (primary_state_id_id)
 #  index_state_file_az_intakes_on_spouse_state_id_id   (spouse_state_id_id)
@@ -92,18 +97,16 @@ describe StateFileAzIntake do
         create :state_file_ny_intake,
                payment_or_deposit_type: "direct_deposit",
                account_type: "checking",
-               bank_name: "Wells Fargo",
                routing_number: "123456789",
                account_number: "123",
                withdraw_amount: 123,
-               date_electronic_withdrawal: Date.parse("April 1, 2023")
+               date_electronic_withdrawal: Date.parse("April 1, #{Rails.configuration.statefile_current_tax_year}")
       end
 
       it "clears other account fields" do
         expect {
           intake.update(payment_or_deposit_type: "mail")
         }.to change(intake.reload, :account_type).to("unfilled")
-         .and change(intake.reload, :bank_name).to(nil)
          .and change(intake.reload, :routing_number).to(nil)
          .and change(intake.reload, :account_number).to(nil)
          .and change(intake.reload, :withdraw_amount).to(nil)
@@ -117,24 +120,8 @@ describe StateFileAzIntake do
         expect {
           intake.update(armed_forces_member: nil, account_type: nil, spouse_esigned_at: nil)
         }.to change(intake, :armed_forces_member).to("unfilled")
-        .and change(intake, :account_type).to("unfilled")
         .and change(intake, :spouse_esigned_at).to(nil)
-      end
-    end
-  end
-
-  describe "#ask_spouse_name?" do
-    context "when married filing jointly" do
-      it "returns true" do
-        intake = build(:state_file_az_intake, filing_status: "married_filing_jointly")
-        expect(intake.ask_spouse_name?).to eq true
-      end
-    end
-
-    context "when married filing separate" do
-      it "returns false" do
-        intake = build(:state_file_az_intake, filing_status: "married_filing_separately")
-        expect(intake.ask_spouse_name?).to eq false
+        expect(intake.account_type).to eq "unfilled"
       end
     end
   end
@@ -234,7 +221,7 @@ describe StateFileAzIntake do
 
     context "has new columns" do
       before do
-        intake.update(primary_was_incarcerated: "no", spouse_was_incarcerated: "no", household_excise_credit_claimed: "yes", household_excise_credit_claimed_amt: 50)
+        intake.update(primary_was_incarcerated: "no", spouse_was_incarcerated: "no", household_excise_credit_claimed: "yes", household_excise_credit_claimed_amount: 50)
       end
 
       it "returns false if neither filer was incarcerated" do
@@ -299,63 +286,6 @@ describe StateFileAzIntake do
       expect(intake.qualifying_parents_and_grandparents).to eq(1)
     end
   end
-  
-  describe 'when the filer is head of household or QSS/QW' do
-    context 'when the federal return has an hoh qualifying person' do
-      it 'returns the federal return data' do
-        intake = build(:state_file_az_intake, filing_status: "head_of_household", hoh_qualifying_person_name: "Name With Spaces")
-        expect(intake.hoh_qualifying_person_name[:first_name]).to eq "Name"
-        expect(intake.hoh_qualifying_person_name[:last_name]).to eq "With Spaces"
-      end
-    end
-
-    context 'when the federal return does not have an hoh qualifying person' do
-      it 'returns a dependent with a non-NONE relationship and the greatest months in home' do
-        intake = build(:state_file_az_intake, filing_status: "head_of_household")
-        create :az_hoh_qualifying_person_parent,
-               last_name: "TwelveMonths", months_in_home: 12, intake: intake
-        create :az_hoh_qualifying_person_nonparent,
-               last_name: "ElevenMonths", months_in_home: 11, intake: intake
-        expect(intake.hoh_qualifying_person_name[:first_name]).to eq "Parent"
-        expect(intake.hoh_qualifying_person_name[:last_name]).to eq "TwelveMonths"
-      end
-
-      it 'returns the youngest non-None dependent when the months in home are the same' do
-        intake = build(:state_file_az_intake, filing_status: "head_of_household")
-        create :az_hoh_qualifying_person_nonparent,
-               last_name: "Younger", intake: intake
-        create :az_hoh_qualifying_person_nonparent,
-               last_name: "Older", dob: StateFileDependent.senior_cutoff_date + 5.years, intake: intake
-        expect(intake.hoh_qualifying_person_name[:first_name]).to eq "Nonparent"
-        expect(intake.hoh_qualifying_person_name[:last_name]).to eq "Younger"
-      end
-
-      it 'returns the oldest parent if there are no non-Parents in home more than 6 months' do
-        intake = build(:state_file_az_intake, filing_status: "head_of_household")
-        create :az_hoh_qualifying_person_parent,
-               first_name: "OlderParent", dob: StateFileDependent.senior_cutoff_date + 1.years, intake: intake
-        create :az_hoh_qualifying_person_parent,
-               first_name: "YoungerParent", dob: StateFileDependent.senior_cutoff_date + 2.years, intake: intake
-        expect(intake.hoh_qualifying_person_name[:first_name]).to eq "OlderParent"
-        expect(intake.hoh_qualifying_person_name[:last_name]).to eq "Qualifying"
-      end
-
-      it 'returns nil if there are no dependents that meet the qualifying criteria' do
-        intake = build(:state_file_az_intake, filing_status: "head_of_household")
-        create :az_hoh_nonqualifying_person_nonparent, intake: intake
-        create :az_hoh_nonqualifying_person_none_relationship, intake: intake
-        expect(intake.hoh_qualifying_person_name).to eq nil
-      end
-    end
-  end
-
-  context 'when a filer is not head of household or QSS/QW and the federal return has an hoh qualifying person' do
-    it 'returns nil' do
-      intake = build(:state_file_az_intake, filing_status: "single", hoh_qualifying_person_name: "Any Name")
-      expect(intake.hoh_qualifying_person_name).to eq nil
-    end
-
-  end
 
   describe "disqualified_from_excise_credit_df?" do
     let(:intake) { create :state_file_az_intake }
@@ -409,19 +339,18 @@ describe StateFileAzIntake do
     end
   end
 
-  describe "invalid_df_w2?" do
-    let(:intake) { create :state_file_az_intake }
-
-    it 'accepts any combination of alpphnumeric characters and spaces' do
-      df_w2 = intake.direct_file_data.w2s[0]
-      df_w2.LocalityNm = "ALPHANUMERIC CHARACTERS"
-      expect(intake.invalid_df_w2?(df_w2)).to eq false
+  describe "state_code" do
+    context ".state_code" do
+      it "finds the right state code from the state information service" do
+        expect(described_class.state_code).to eq "az"
+      end
     end
 
-    it 'validates that W2s do not show more tax paid than money earned' do
-      df_w2 = intake.direct_file_data.w2s[0]
-      df_w2.StateIncomeTaxAmt = df_w2.StateWagesAmt + 100
-      expect(intake.invalid_df_w2?(df_w2)).to eq true
+    context "#state_code" do
+      it "delegates to the instance method from the class method" do
+        intake = create(:state_file_az_intake)
+        expect(intake.state_code).to eq "az"
+      end
     end
   end
 end

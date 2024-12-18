@@ -1,0 +1,119 @@
+{
+  "familyAndHousehold": [
+    {
+      "firstName": "Ronnie",
+      "lastName": "Lee",
+      "middleInitial": null,
+      "tin": "300-00-0006",
+      "dateOfBirth": "1960-07-07",
+      "relationship": "parent",
+      "eligibleDependent": true,
+      "isClaimedDependent": true,
+      "monthsLivedWithTPInUS": "twelve",
+      "residencyDuration": "allYear"
+    },
+    {
+      "firstName": "Bob",
+      "lastName": "Currie",
+      "middleInitial": null,
+      "tin": "300-00-0007",
+      "dateOfBirth": "1940-03-03",
+      "relationship": "grandParent",
+      "eligibleDependent": true,
+      "isClaimedDependent": true,
+      "monthsLivedWithTPInUS": "seven",
+      "residencyDuration": "sixToElevenMonths"
+    },
+    {
+      "firstName": "Twyla",
+      "lastName": "Sands",
+      "middleInitial": null,
+      "tin": "300-00-0002",
+      "dateOfBirth": "2017-01-02",
+      "relationship": "childOfSibling",
+      "eligibleDependent": true,
+      "isClaimedDependent": true,
+      "monthsLivedWithTPInUS": "seven",
+      "residencyDuration": "sixToElevenMonths"
+    },
+    {
+      "firstName": "David",
+      "lastName": "Rose",
+      "middleInitial": null,
+      "tin": "300-00-0001",
+      "dateOfBirth": "2015-01-01",
+      "relationship": "biologicalChild",
+      "eligibleDependent": true,
+      "isClaimedDependent": true,
+      "monthsLivedWithTPInUS": "twelve",
+      "residencyDuration": "allYear"
+    },
+    {
+      "firstName": "Roland",
+      "lastName": "Schitt",
+      "middleInitial": null,
+      "tin": "300-00-0005",
+      "dateOfBirth": "1960-06-06",
+      "relationship": "parent",
+      "eligibleDependent": true,
+      "isClaimedDependent": true,
+      "monthsLivedWithTPInUS": "twelve",
+      "residencyDuration": "allYear"
+    },
+    {
+      "firstName": "Stevie",
+      "lastName": "Budd",
+      "middleInitial": null,
+      "tin": "300-00-0004",
+      "dateOfBirth": "2021-05-05",
+      "relationship": "biologicalChild",
+      "eligibleDependent": true,
+      "isClaimedDependent": true,
+      "monthsLivedWithTPInUS": "eight",
+      "residencyDuration": "sixToElevenMonths"
+    },
+    {
+      "firstName": "Wendy",
+      "lastName": "Kurtz",
+      "middleInitial": null,
+      "tin": "300-00-0008",
+      "dateOfBirth": "1940-04-04",
+      "relationship": "grandParent",
+      "eligibleDependent": true,
+      "isClaimedDependent": true,
+      "monthsLivedWithTPInUS": "twelve",
+      "residencyDuration": "allYear"
+    },
+    {
+      "firstName": "Alexis",
+      "lastName": "Rose",
+      "middleInitial": null,
+      "tin": "300-00-0003",
+      "dateOfBirth": "2019-02-02",
+      "relationship": "biologicalChild",
+      "eligibleDependent": true,
+      "isClaimedDependent": true,
+      "monthsLivedWithTPInUS": "twelve",
+      "residencyDuration": "allYear"
+    }
+  ],
+  "filers": [
+    {
+      "firstName": "Johnny",
+      "lastName": "Rose",
+      "middleInitial": "L",
+      "suffix": "SR",
+      "tin": "400-00-0001",
+      "dateOfBirth": "1975-01-01",
+      "isPrimaryFiler": true
+    },
+    {
+      "firstName": "Moira",
+      "lastName": "O'Hara",
+      "middleInitial": null,
+      "tin": "600-00-0001",
+      "dateOfBirth": "1975-02-02",
+      "isPrimaryFiler": false
+    }
+  ]
+}

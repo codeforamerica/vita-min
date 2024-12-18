@@ -1,5 +1,7 @@
-<button type="button" class="open-intercom button--intercom-blue button--intercom ">
-  <%= image_tag("intercom-chat.svg", "aria-hidden": "true", class: "") %>
+<button type="button" class="open-intercom button--intercom-blue button--intercom">
+  <div class="icon-wrapper--intercom">
+    <%= render "shared/svg/intercom-chat" %>
+  </div>
   <%= I18n.t("general.intercom_cta") %>
 </button>
 
@@ -17,7 +19,7 @@
         intercomSettings.user_id = "<%= "#{current_intake&.state_code}#{current_intake&.id}" %>";
         intercomSettings.email = "<%= current_intake&.email_address %>"
         intercomSettings.name = "<%= "#{current_intake&.primary_first_name} #{current_intake&.primary_last_name}" %>";
-        intercomSettings.state = "<%= params[:us_state]%>"
+        intercomSettings.state = "<%= current_intake&.state_code %>"
         intercomSettings.user_hash = "<%= IntercomService.generate_statefile_user_hash("#{current_intake&.state_code}#{current_intake&.id}") %>"
     }
     window.intercomSettings = intercomSettings;

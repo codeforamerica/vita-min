@@ -1,0 +1,26 @@
+{
+  "familyAndHousehold": [],
+  "filers": [
+    {
+      "firstName": "OMAR",
+      "lastName": "OCTOPUS",
+      "middleInitial": null,
+      "tin": "400-00-8080",
+      "dateOfBirth": "1980-08-08",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "ssnNotValidForEmployment": null
+    },
+    {
+      "lastName": "ARACHNOPHOBE",
+      "firstName": "ARNOLD",
+      "middleInitial": null,
+      "tin": "500-00-9090",
+      "dateOfBirth": "1970-07-07",
+      "suffix": null,
+      "isPrimaryFiler": false,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "interestReports": []
+}

@@ -1,7 +1,10 @@
 module StateFile
   class StateFilePagesController < ApplicationController
+    include StateFile::StateFileControllerConcern
+    include StateFile::StateFileIntakeConcern
     layout "state_file"
     before_action :redirect_state_file_in_off_season, except: [:coming_soon]
+    before_action :require_state_file_intake_login, only: [:fake_direct_file_transfer_page, :data_import_failed]
 
     def redirect_locale_home
       redirect_to root_path
@@ -11,9 +14,10 @@ module StateFile
       return render "public_pages/page_not_found", status: 404 if Rails.env.production?
 
       @main_transfer_url = transfer_url("abcdefg", params[:redirect])
-      @xml_samples = XmlReturnSampleService.new.samples.map do |sample|
-        [sample.label, transfer_url(sample.key, params[:redirect])]
-      end.sort
+      @xml_samples = DirectFileApiResponseSampleService.new.xml_samples[current_state_code].map do |sample_name|
+        [DirectFileApiResponseSampleService.label(sample_name),
+         transfer_url(DirectFileApiResponseSampleService.key(current_state_code, sample_name), params[:redirect])]
+      end
       render layout: nil
     end
 
@@ -22,6 +26,8 @@ module StateFile
     def about_page; end
 
     def privacy_policy; end
+
+    def sms_terms; end
 
     def coming_soon
       redirect_to root_path unless before_state_file_launch?
@@ -42,15 +48,6 @@ module StateFile
       uri = URI(redirect_url)
       uri.query = { authorizationCode: key }.to_query
       uri.to_s
-    end
-
-    def current_intake
-      @current_intake ||= (
-        StateFileBaseIntake::STATE_CODES
-          .lazy
-          .map{|c| send("current_state_file_#{c}_intake".to_sym) }
-          .find(&:itself)
-      )
     end
   end
 end

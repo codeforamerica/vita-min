@@ -3,7 +3,7 @@
 <% content_for :card do %>
   <div>
     <h1 class="h2" id="main-question"><%= title %></h1>
-    <% if params[:us_state] == "ny" %>
+    <% if current_state_code == "ny" %>
       <p><%=t(".ny_text_html") %></p>
     <% end %>
     <p>

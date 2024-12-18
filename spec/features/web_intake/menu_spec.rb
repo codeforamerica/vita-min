@@ -5,6 +5,7 @@ RSpec.feature "Menu spec", js: true do
     resize_window_to_mobile
     visit "/"
     within ".toolbar" do
+      # TODO: address why this fails locally; the resize_window_to_mobile will not size width < 500px
       expect(page).not_to have_selector("a", text: "Login")
     end
     within ".toolbar" do

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v4.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>676c5f98</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400000012</PrimarySSN>
+            <NameLine1Txt>TYCHO&lt;BRAHE</NameLine1Txt>
+            <PrimaryNameControlTxt>BRAH</PrimaryNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>200 Neptune Street</AddressLine1Txt>
+                <CityNm>Flagstaff</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>86001</ZIPCd>
+            </USAddress>
+            <PhoneNum>4805559876</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000001-2ea6-41f8-9944-56c95a032c5c@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="4">
+        <IRS1040 documentId="IRS10400001">
+            <Form1040SRInd>X</Form1040SRInd>
+            <IndividualReturnFilingStatusCd>1</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <Primary65OrOlderInd>X</Primary65OrOlderInd>
+            <TotalBoxesCheckedCnt>1</TotalBoxesCheckedCnt>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>1</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">11000</WagesAmt>
+            <WagesSalariesAndTipsAmt>11000</WagesSalariesAndTipsAmt>
+            <PensionsAnnuitiesAmt>9000</PensionsAnnuitiesAmt>
+            <TotalTaxablePensionsAmt>1700</TotalTaxablePensionsAmt>
+            <TotalIncomeAmt>12700</TotalIncomeAmt>
+            <TotalAdjustmentsAmt>300</TotalAdjustmentsAmt>
+            <AdjustedGrossIncomeAmt>12400</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>16550</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>16550</TotalDeductionsAmt>
+            <TaxableIncomeAmt>0</TaxableIncomeAmt>
+            <TaxAmt>0</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>0</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>0</TaxLessCreditsAmt>
+            <TotalTaxAmt>0</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>100</FormW2WithheldTaxAmt>
+            <WithholdingTaxAmt>200</WithholdingTaxAmt>
+            <TotalPaymentsAmt>200</TotalPaymentsAmt>
+            <OverpaidAmt>200</OverpaidAmt>
+            <RefundAmt>200</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Astronomer</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1040Schedule1 documentId="IRS1040S1001">
+            <EducatorExpensesAmt>300</EducatorExpensesAmt>
+            <TotalAdjustmentsAmt>300</TotalAdjustmentsAmt>
+        </IRS1040Schedule1>
+        <IRS1099R documentId="IRS1099R0001">
+            <PayerNameControlTxt>ASTR</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Astronomical Retirement</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>1 Jupiter St</AddressLine1Txt>
+                <CityNm>Omaha</CityNm>
+                <StateAbbreviationCd>NE</StateAbbreviationCd>
+                <ZIPCd>68007</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>013333444</PayerEIN>
+            <RecipientSSN>400000012</RecipientSSN>
+            <RecipientNm>Tycho Brahe</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>200 Neptune Street</AddressLine1Txt>
+                <CityNm>Flagstaff</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>86001</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>9000</GrossDistributionAmt>
+            <TaxableAmt>1700</TaxableAmt>
+            <FederalIncomeTaxWithheldAmt>100</FederalIncomeTaxWithheldAmt>
+            <F1099RDistributionCd>7</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <StateTaxWithheldAmt>50</StateTaxWithheldAmt>
+                    <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                    <PayerStateIdNum>123456</PayerStateIdNum>
+                    <StateDistributionAmt>9000</StateDistributionAmt>
+                    <F1099RLocalTaxGrp/>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>400000012</EmployeeSSN>
+            <EmployerEIN>008765432</EmployerEIN>
+            <EmployerNameControlTxt>ARIZ</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Arizona Planetarium</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>300 Pluto Street</AddressLine1Txt>
+                <CityNm>Flagstaff</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>86001</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Tycho Brahe</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>200 Neptune Street</AddressLine1Txt>
+                <CityNm>Flagstaff</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>86001</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>11000</WagesAmt>
+            <WithholdingAmt>100</WithholdingAmt>
+            <SocialSecurityWagesAmt>11000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>682</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>11000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>160</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                    <EmployerStateIdNum>54321</EmployerStateIdNum>
+                    <StateWagesAmt>11000</StateWagesAmt>
+                    <StateIncomeTaxAmt>900</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>

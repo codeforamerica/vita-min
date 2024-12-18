@@ -1,0 +1,16 @@
+{
+  "filers": [
+    {
+      "tin": "400-00-5951",
+      "suffix": null,
+      "lastName": "Smith",
+      "firstName": "Timothy",
+      "dateOfBirth": "2006-03-18",
+      "middleInitial": null,
+      "isPrimaryFiler": true,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "interestReports": [],
+  "familyAndHousehold": []
+}

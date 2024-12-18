@@ -4,8 +4,9 @@ namespace :ops_240208 do
     # EFile accidentally pointed at our production servers before launch, so there is some trash test
     # data in here. Burn it!
     date_threshold = "2024-02-07"
-    EfileSubmission.where(data_source_type: ["StateFileAzIntake", "StateFileNyIntake"]).where("created_at < ?", date_threshold).destroy_all
-    StateFileNyIntake.where("created_at < ?", date_threshold).destroy_all
-    StateFileAzIntake.where("created_at < ?", date_threshold).destroy_all
+    StateFile::StateInformationService.state_intake_classes.flat_map do |class_object|
+      EfileSubmission.where(data_source_type: class_object).where("created_at < ?", date_threshold).destroy_all
+      class_object.where("created_at < ?", date_threshold).destroy_all
+    end
   end
 end

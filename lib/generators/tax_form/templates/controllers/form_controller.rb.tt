@@ -1,0 +1,7 @@
+module StateFile
+  module Questions
+    class <%= class_name %>Controller < QuestionsController
+      include ReturnToReviewConcern
+    end
+  end
+end

@@ -24,20 +24,20 @@ RSpec.feature "Editing a rejected intake with an auto-wait error" do
            code: "STATE-901",
            severity: "Reject",
            source: "irs",
-           service_type: :state_file
+           service_type: :state_file_ny
   }
   let(:raw_response) do
     "<Acknowledgement>\n
         <SubmissionId>12345678901234567890</SubmissionId>\n
         <EFIN>441466</EFIN>\n
-        <TaxYr>2023</TaxYr>\n
+        <TaxYr>#{filing_year}</TaxYr>\n
         <ExtndGovernmentCd>AZST</ExtndGovernmentCd>\n
         <SubmissionTyp>Form140</SubmissionTyp>\n
         <ExtndSubmissionCategoryCd>IND</ExtndSubmissionCategoryCd>\n
-        <ElectronicPostmarkTs>2024-02-27T19:52:33.861+00:00</ElectronicPostmarkTs>\n
+        <ElectronicPostmarkTs>#{filing_year}-02-27T19:52:33.861+00:00</ElectronicPostmarkTs>\n
         <AcceptanceStatusTxt>Denied by IRS</AcceptanceStatusTxt>\n
         <ContainedAlertsInd>false</ContainedAlertsInd>\n
-        <StatusDt>2024-02-27</StatusDt>\n
+        <StatusDt>#{filing_year}-02-27</StatusDt>\n
         <IRSSubmissionId>12345678901234567890</IRSSubmissionId>\n
         <TIN>400000001</TIN>\n
         <SubmissionValidationCompInd>true</SubmissionValidationCompInd>\n
@@ -55,7 +55,7 @@ RSpec.feature "Editing a rejected intake with an auto-wait error" do
 
   before do
     efile_submission.transition_to!(:rejected, raw_response: raw_response)
-    AfterTransitionTasksForRejectedReturnJob.perform_now(efile_submission, efile_submission.last_transition)
+    StateFile::AfterTransitionTasksForRejectedReturnJob.perform_now(efile_submission, efile_submission.last_transition)
     allow_any_instance_of(Routes::StateFileDomain).to receive(:matches?).and_return(true)
     allow(SsnHashingService).to receive(:hash).with(ssn).and_return hashed_ssn
     allow(VerificationCodeService).to receive(:generate).with(anything).and_return [verification_code, hashed_verification_code]
@@ -63,7 +63,7 @@ RSpec.feature "Editing a rejected intake with an auto-wait error" do
   end
 
   scenario "edit your state return from the return status page with an auto-wait error" do
-    visit "/ny/login-options"
+    visit "/login-options"
     expect(page).to have_text "Sign in to FileYourStateTaxes"
     click_on "Sign in with email"
 
@@ -84,18 +84,13 @@ RSpec.feature "Editing a rejected intake with an auto-wait error" do
     fill_in "Enter your Social Security number or ITIN. For example, 123-45-6789.", with: ssn
     click_on "Continue"
 
-    expect(page).to have_text "Unfortunately, your 2023 New York state tax return was rejected"
+    expect(page).to have_text "Unfortunately, your #{filing_year} New York state tax return was rejected"
     click_on "Edit your state return"
 
-    # goes back to the name-dob page
-    expect(page).to have_text I18n.t("state_file.questions.name_dob.edit.title1")
-    expect(find_field('state_file_name_dob_form_primary_first_name').value).to eq 'Jerry'
-
-    fill_in "state_file_name_dob_form[primary_first_name]", with: "Titus"
-    fill_in "state_file_name_dob_form[primary_last_name]", with: "Testerson"
-    select_cfa_date "state_file_name_dob_form_primary_birth_date", Date.new(1978, 6, 21)
+    # goes back to the NY review page
+    expect(page).to have_text I18n.t("state_file.questions.ny_review.edit.total_ny_tax")
     click_on I18n.t("general.continue")
 
-    expect(URI.parse(current_url).path).to eq "/en/ny/questions/ny-review"
+    expect(URI.parse(current_url).path).to eq "/en/questions/taxes-owed"
   end
 end

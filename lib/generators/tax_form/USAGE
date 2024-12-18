@@ -1,0 +1,13 @@
+Description:
+    This will generate the basic, simple skeleton for a controller utilizing a
+    questions form. Currently, this is scoped at just the FYST needs.
+
+Example:
+    bin/rails generate tax_form az_dependent_care
+
+    This will create:
+        app/controllers/state_file/questions/az_dependent_care_controller.rb
+        app/views/state_file/questions/az_dependent_care/edit.html.erb
+        app/forms/state_file/questions/az_dependent_care_form.rb
+        specs/controllers/state_file/questions/az_dependent_care_controller_spec.rb
+        specs/forms/state_file/az_dependent_care_form_spec.rb

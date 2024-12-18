@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'creating database views' do
   before(:all) do
-    Rails.application.load_tasks
+    Rake.application.rake_require "tasks/analytics"
   end
 
   it 'runs without error' do

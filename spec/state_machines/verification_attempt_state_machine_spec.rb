@@ -46,9 +46,9 @@ describe VerificationAttemptStateMachine do
       let(:job_double) { double }
 
       around do |example|
-        Timecop.freeze(Date.new(2021, 1, 1))
-        example.run
-        Timecop.return
+        Timecop.freeze(Date.new(2021, 1, 1)) do
+          example.run
+        end
       end
 
       before do
@@ -99,11 +99,6 @@ describe VerificationAttemptStateMachine do
           locale: verification_attempt.client.intake.locale,
           message: AutomatedMessage::VerificationAttemptDenied
         )
-      end
-
-      it "transitions the clients efile submission to cancelled" do
-        verification_attempt.transition_to(:denied)
-        expect(verification_attempt.client.efile_submissions.last.current_state).to eq "cancelled"
       end
     end
 

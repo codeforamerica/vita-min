@@ -7,8 +7,8 @@ require "singleton"
 # the singleton can be referenced using `MixpanelService.instance`
 #
 class MixpanelService
-  MAX_ATTEMPTS = 3
-  RETRY_DELAY = 30
+  MAX_BUFFER_SIZE = 50
+  FLUSH_DELAY = 5
 
   include Singleton
 
@@ -16,10 +16,28 @@ class MixpanelService
     mixpanel_key = Rails.application.credentials.dig(:mixpanel_token)
     return if mixpanel_key.nil?
 
-    @consumer = Mixpanel::Consumer.new
-    @tracker = Mixpanel::Tracker.new(mixpanel_key) do |type, message|
-      send_event_to_mixpanel(type, message)
-    end
+    @buffer = []
+    @mutex = Mutex.new
+
+    @tracker =
+      if Rails.env.production?
+        Mixpanel::Tracker.new(mixpanel_key) do |type, message|
+          buffer_event_for_send(type, message)
+        end
+      elsif Rails.env.development?
+        Struct.new("DummyTracker") do
+          def track(distinct_id, event_name, data)
+            # for debugging purposes
+            Rails.logger.info("Sending Mixpanel event: id #{distinct_id}, event_name #{event_name}, data #{data}")
+          end
+        end.new
+      else # demo, staging, heroku
+        Struct.new("DummyTracker") do
+          def track(_distinct_id, _event_name, _data)
+            # do nothing
+          end
+        end.new
+      end
 
     # silence local SSL errors
     if Rails.env.development?
@@ -51,17 +69,42 @@ class MixpanelService
 
   private
 
-  def send_event_to_mixpanel(type, message, num_attempts = 1, delay = 0)
-    task = Concurrent::ScheduledTask.new(delay) do
-      @consumer.send!(type, message)
-    rescue StandardError => err
-      if num_attempts >= MAX_ATTEMPTS
-        Rails.logger.error "Failed to consume tracking event '#{type}' async #{err}"
+  def buffer_event_for_send(type, message)
+    buffer = nil
+    @mutex.synchronize do
+      buffer = @buffer
+      buffer << [type, message]
+      @flusher.cancel if @flusher
+      if buffer.length < MAX_BUFFER_SIZE
+        init_flusher
+        return
       else
-        send_event_to_mixpanel(type, message, num_attempts + 1, RETRY_DELAY)
+        @buffer = []
       end
     end
-    task.execute
+    if buffer.length >= MAX_BUFFER_SIZE
+      send_buffered_events_to_mixpanel(buffer)
+    end
+  end
+
+  def init_flusher
+    @flusher = Concurrent::ScheduledTask.new(FLUSH_DELAY) do
+      buffer = nil
+      @mutex.synchronize do
+        buffer = @buffer
+        @buffer = []
+      end
+      send_buffered_events_to_mixpanel(buffer)
+    end
+    @flusher.execute
+  end
+
+  def send_buffered_events_to_mixpanel(buffer)
+    consumer = Mixpanel::BufferedConsumer.new(nil, nil, nil, MAX_BUFFER_SIZE + 1)
+    buffer.each do |type, message|
+      consumer.send!(type, message)
+    end
+    consumer.flush
   end
 
   class << self

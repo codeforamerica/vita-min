@@ -16,7 +16,11 @@
       <div class="grid">
         <div class="grid__item">
           <strong>Active Session Toggles:</strong>
-          <div><%= session[:session_toggles] %></div>
+          <div><%= session[:session_toggles] %> UTC</div>
+          <% if state_file? %>
+            <div><%= app_time.in_time_zone('America/New_York').strftime("%A %m-%d-%Y %l:%M%P") %> EST</div>
+            <div><%= app_time.in_time_zone('America/Phoenix').strftime("%A %m-%d-%Y %l:%M%P") %> MST</div>
+          <% end %>
         </div>
       </div>
     </div>

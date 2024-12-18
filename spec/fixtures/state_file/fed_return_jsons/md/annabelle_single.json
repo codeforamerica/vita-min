@@ -1,0 +1,16 @@
+{
+  "familyAndHousehold": [],
+  "filers": [
+    {
+      "firstName": "Annabelle",
+      "lastName": "Abalone",
+      "middleInitial": null,
+      "tin": "400-00-7200",
+      "dateOfBirth": "1980-02-10",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "interestReports": []
+}

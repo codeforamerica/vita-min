@@ -1,5 +1,4 @@
 <% @main_heading = t("state_file.questions.unemployment.edit.title", count: current_intake.filer_count, year: MultiTenantService.statefile.current_tax_year) %>
-<% state_full_name = params[:us_state] == "ny" ? "New York" : "Arizona" %>
 
 <% content_for :page_title, @main_heading %>
 
@@ -9,9 +8,10 @@
     <% if params[:return_to_review].present? %>
       <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
     <% end %>
+    <p><%= t('state_file.questions.unemployment.edit.dont_worry') %></p>
     <div class="question-with-follow-up">
       <div class="question-with-follow-up__question">
-        <div class="blue-group">
+        <div class="white-group">
           <%=
             f.cfa_radio_set(
               :had_box_11,
@@ -26,8 +26,7 @@
       </div>
 
       <div class="question-with-follow-up__follow-up" id="unemployment-not-listed">
-        <div class="blue-group">
-          <p class="form-question spacing-below-25"><%= t('state_file.questions.unemployment.edit.need_additional_information') %></p>
+        <div class="white-group">
           <p class="form-question spacing-below-25"><%= t('state_file.questions.unemployment.edit.payer_question_html') %></p>
           <div class="form-group-tight">
             <%= f.cfa_input_field(:payer_name, t('state_file.questions.unemployment.edit.payer_name'), classes: ["form-width--long"]) %>
@@ -38,17 +37,12 @@
           </div>
           <div class="form-group">
             <p class="form-question"><strong><%= t('state_file.questions.unemployment.edit.state') %></strong></p>
-            <p class="form-question"><%= state_full_name %></p>
-          </div>
-          <div class="spacing-above-25">
-            <p class="text--small">
-              <%=  t('state_file.questions.unemployment.edit.other_tax_filing_options_html', link: @faq_other_options_link) %>
-            </p>
+            <p class="form-question"><%= current_state_name %></p>
           </div>
         </div>
 
         <% if current_intake.filing_status_mfj? %>
-          <div class="blue-group">
+          <div class="white-group">
             <%=
               f.cfa_radio_set(
                 :recipient,
@@ -64,15 +58,14 @@
 
         <div class="question-with-follow-up">
           <div class="question-with-follow-up__question">
-            <div class="blue-group">
+            <div class="white-group">
               <p class="form-question spacing-below-25"><%= t('state_file.questions.unemployment.edit.confirm_address_html') %></p>
               <div class="form-question spacing-below-15">
-                <div class="text--bold"><%= t('general.address') %></div>
-                <div><%= current_intake.direct_file_data.mailing_street %></div>
+                <div class="text--bold"><%= current_intake.direct_file_data.mailing_street %></div>
                 <% if current_intake.direct_file_data.mailing_apartment.present? %>
-                  <div><%= current_intake.direct_file_data.mailing_apartment %></div>
+                  <div class="text--bold"><%= current_intake.direct_file_data.mailing_apartment %></div>
                 <% end %>
-                <div><%= current_intake.direct_file_data.mailing_city %>, <%= state_full_name %>
+                <div class="text--bold"><%= current_intake.direct_file_data.mailing_city %>, <%= current_state_name %>
                   <%= current_intake.direct_file_data.mailing_zip %></div>
               </div>
               <div>
@@ -90,30 +83,30 @@
           </div>
 
           <div class="question-with-follow-up__follow-up" id="recipient-address-fields">
-            <div class="blue-group">
+            <div class="white-group">
               <div class="form-group-tight">
                 <%= f.cfa_input_field(:recipient_street_address, t('state_file.questions.unemployment.edit.street_address'), classes: ["form-width--long"]) %>
                 <%= f.cfa_input_field(:recipient_street_address_apartment, t('state_file.questions.unemployment.edit.apartment'), classes: ["form-width--long"]) %>
                 <%= f.cfa_input_field(:recipient_city, t('state_file.questions.unemployment.edit.city'), classes: ["form-width--long"]) %>
-                <%= f.cfa_input_field(:unfillable, t('state_file.questions.unemployment.edit.state'), classes: ["form-width--long"], options: { value: state_full_name, disabled: true }) %>
+                <%= f.cfa_input_field(:unfillable, t('state_file.questions.unemployment.edit.state'), classes: ["form-width--long"], options: { value: current_state_name, disabled: true }) %>
                 <%= f.cfa_input_field(:recipient_zip, t('state_file.questions.unemployment.edit.zip_code'), classes: ["form-width--long"]) %>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="blue-group">
+        <div class="white-group">
           <p class="form-question spacing-below-25"><%= t('state_file.questions.unemployment.edit.money_boxes_label') %></p>
           <div class="form-group-tight">
-            <%= f.cfa_input_field(:unemployment_compensation, t('state_file.questions.unemployment.edit.unemployment_compensation_html'), classes: ["form-width--long"]) %>
-            <%= f.cfa_input_field(:federal_income_tax_withheld, t('state_file.questions.unemployment.edit.federal_income_tax_withheld_html'), classes: ["form-width--long"]) %>
+            <%= f.vita_min_money_field(:unemployment_compensation_amount, t('state_file.questions.unemployment.edit.unemployment_compensation_html'), classes: ["form-width--long"]) %>
+            <%= f.vita_min_money_field(:federal_income_tax_withheld_amount, t('state_file.questions.unemployment.edit.federal_income_tax_withheld_html'), classes: ["form-width--long"]) %>
             <%= f.cfa_input_field(:state_identification_number, t('state_file.questions.unemployment.edit.box_10b_html'), classes: ["form-width--long"]) %>
-            <%= f.cfa_input_field(:state_income_tax_withheld, t('state_file.questions.unemployment.edit.state_income_tax_withheld_html'), classes: ["form-width--long"]) %>
+            <%= f.vita_min_money_field(:state_income_tax_withheld_amount, t('state_file.questions.unemployment.edit.state_income_tax_withheld_html'), classes: ["form-width--long"]) %>
           </div>
         </div>
 
         <div class="reveal">
-          <p><a href="#" class="reveal__link"><%= t('state_file.questions.unemployment.edit.information_html') %></a></p>
+          <p><button class="reveal__button"><%= t('state_file.questions.unemployment.edit.information_html') %></button></p>
           <div class="reveal__content"><%= t('state_file.questions.unemployment.edit.information_content_html') %></div>
         </div>
       </div>

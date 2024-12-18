@@ -9,7 +9,6 @@ RSpec.describe StateFile::Questions::NyEligibilityCollegeSavingsWithdrawalContro
     it_behaves_like :eligibility_offboarding_concern, intake_factory: :state_file_ny_intake do
       let(:eligible_params) do
         {
-          us_state: "ny",
           state_file_ny_eligibility_college_savings_withdrawal_form: {
             eligibility_withdrew_529: "no"
           }
@@ -18,7 +17,6 @@ RSpec.describe StateFile::Questions::NyEligibilityCollegeSavingsWithdrawalContro
 
       let(:ineligible_params) do
         {
-          us_state: "ny",
           state_file_ny_eligibility_college_savings_withdrawal_form: {
             eligibility_withdrew_529: "yes"
           }

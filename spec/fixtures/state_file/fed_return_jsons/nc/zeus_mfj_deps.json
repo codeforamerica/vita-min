@@ -1,0 +1,103 @@
+{
+  "familyAndHousehold": [
+    {
+      "monthsLivedWithTPInUS": "twelve",
+      "lastName": "Thunder",
+      "isClaimedDependent": true,
+      "hohQualifyingPerson": null,
+      "qualifyingChild": true,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": true,
+      "dateOfBirth": "2004-04-04",
+      "suffix": null,
+      "residencyDuration": "allYear",
+      "firstName": "Hermes",
+      "middleInitial": null,
+      "scheduleEicLine4aNo": false,
+      "tin": "300-00-0012",
+      "eligibleDependent": true,
+      "relationship": "biologicalChild",
+      "ssnNotValidForEmployment": false
+    },
+    {
+      "monthsLivedWithTPInUS": "twelve",
+      "lastName": "Thunder",
+      "hohQualifyingPerson": null,
+      "isClaimedDependent": true,
+      "qualifyingChild": true,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "2010-10-10",
+      "suffix": null,
+      "residencyDuration": "allYear",
+      "firstName": "Ares",
+      "middleInitial": null,
+      "tin": "900-00-0010",
+      "scheduleEicLine4aNo": false,
+      "eligibleDependent": true,
+      "relationship": "biologicalChild",
+      "ssnNotValidForEmployment": null
+    },
+    {
+      "monthsLivedWithTPInUS": "nine",
+      "lastName": "Thunder",
+      "isClaimedDependent": true,
+      "hohQualifyingPerson": null,
+      "qualifyingChild": true,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "2012-12-12",
+      "suffix": null,
+      "residencyDuration": "sixToElevenMonths",
+      "firstName": "Aphrodite",
+      "middleInitial": null,
+      "tin": "300-00-0010",
+      "scheduleEicLine4aNo": false,
+      "eligibleDependent": true,
+      "relationship": "adoptedChild",
+      "ssnNotValidForEmployment": false
+    },
+    {
+      "monthsLivedWithTPInUS": "twelve",
+      "lastName": "Thunder",
+      "hohQualifyingPerson": false,
+      "isClaimedDependent": true,
+      "qualifyingChild": true,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "2011-11-11",
+      "suffix": "IX",
+      "residencyDuration": "allYear",
+      "firstName": "Artemis",
+      "middleInitial": "Q",
+      "scheduleEicLine4aNo": false,
+      "tin": "300-00-0011",
+      "eligibleDependent": true,
+      "relationship": "stepSibling",
+      "ssnNotValidForEmployment": false
+    }
+  ],
+  "filers": [
+    {
+      "lastName": "Thunder",
+      "firstName": "Hera",
+      "middleInitial": null,
+      "tin": "400-00-0021",
+      "dateOfBirth": "1963-03-03",
+      "suffix": "II",
+      "isPrimaryFiler": false,
+      "ssnNotValidForEmployment": null
+    },
+    {
+      "firstName": "Zeus",
+      "lastName": "Lightning",
+      "middleInitial": null,
+      "tin": "400-00-0020",
+      "dateOfBirth": "1962-02-02",
+      "suffix": "Sr",
+      "isPrimaryFiler": true,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "interestReports": []
+}

@@ -135,9 +135,8 @@
 
       <div style="display: flex; justify-content: space-between;">
         <div>
-          <button class="button button--cta" type="submit">
-            <%= t("general.save") %>
-          </button>
+          <%= f.submit t("general.save"), class: "button button--cta"%>
+          <%= f.submit t("general.save_and_exit"), class: "button button--cta"%>
           <%= link_to t("general.cancel"), cancel_13614c_hub_client_path, class: "button button--danger",
                       data: { confirm: t("general.confirm_exit_without_saving") } %>
         </div>

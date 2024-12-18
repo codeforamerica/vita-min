@@ -47,9 +47,9 @@ describe Ctc::Portal::DependentsController do
 
   context "#update" do
     around do |example|
-      Timecop.freeze(DateTime.new(2021, 3, 4, 5, 10))
-      example.run
-      Timecop.return
+      Timecop.freeze(DateTime.new(2021, 3, 4, 5, 10)) do
+        example.run
+      end
     end
 
     it "does not make a system note if nothing significant changed" do

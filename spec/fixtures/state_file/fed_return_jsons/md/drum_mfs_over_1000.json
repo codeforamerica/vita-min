@@ -1,0 +1,37 @@
+{
+  "familyAndHousehold": [],
+  "filers": [
+    {
+      "lastName": "Maracas",
+      "firstName": "Mary",
+      "middleInitial": null,
+      "tin": "400-00-7208",
+      "dateOfBirth": null,
+      "suffix": null,
+      "isPrimaryFiler": false,
+      "ssnNotValidForEmployment": null
+    },
+    {
+      "lastName": "Drum",
+      "firstName": "Dory",
+      "middleInitial": null,
+      "tin": "400-00-7207",
+      "dateOfBirth": "1980-08-10",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "interestReports": [
+    {
+      "has1099": true,
+      "taxExemptAndTaxCreditBondCusipNo": null,
+      "payerTin": null,
+      "payer": "Drum Corp Investing",
+      "recipientTin": "400-00-7207",
+      "taxWithheld": "0.00",
+      "1099Amount": "10000.00",
+      "no1099Amount": null
+    }
+  ]
+}

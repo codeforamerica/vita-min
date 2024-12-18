@@ -306,8 +306,6 @@
 #
 #  fk_rails_...  (client_id => clients.id)
 #  fk_rails_...  (matching_previous_year_intake_id => intakes.id)
-#  fk_rails_...  (primary_drivers_license_id => drivers_licenses.id)
-#  fk_rails_...  (spouse_drivers_license_id => drivers_licenses.id)
 #  fk_rails_...  (vita_partner_id => vita_partners.id)
 #
 

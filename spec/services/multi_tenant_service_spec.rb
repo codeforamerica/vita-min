@@ -22,8 +22,6 @@ describe MultiTenantService do
       expect(described_class.new(:ctc).url(locale: "en")).to eq "https://getctc.org/en"
       expect(described_class.new(:gyr).url(locale: "es")).to eq "https://getyourrefund.org/es"
       expect(described_class.new(:statefile).url(locale: "en")).to eq "https://fileyourstatetaxes.org/en"
-      expect(described_class.new(:statefile_az).url(locale: "es")).to eq "https://fileyourstatetaxes.org/es/az/questions/landing-page"
-      expect(described_class.new(:statefile_ny).url(locale: "en")).to eq "https://fileyourstatetaxes.org/en/ny/questions/landing-page"
     end
   end
 
@@ -65,13 +63,22 @@ describe MultiTenantService do
 
   describe "#filing_years" do
     before do
-      allow(Rails.application.config).to receive(:ctc_current_tax_year).and_return(2017)
-      allow(Rails.application.config).to receive(:gyr_current_tax_year).and_return(2018)
+      allow(Rails.application.config).to receive(:ctc_current_tax_year).and_return(2023)
     end
 
-    it "returns just the current year for ctc and 4 years for gyr" do
-      expect(described_class.new(:ctc).filing_years).to eq [2017]
-      expect(described_class.new(:gyr).filing_years).to eq [2018, 2017, 2016, 2015]
+    it "returns just the current year for ctc and valid filing years for gyr when using DateTime.now" do
+      fake_time = Rails.configuration.tax_year_filing_seasons[2020][1] + 3.years - 1.day
+      Timecop.freeze(fake_time) do
+        expect(described_class.new(:ctc).filing_years).to eq [2023]
+        expect(described_class.new(:gyr).filing_years).to eq [2023, 2022, 2021, 2020]
+      end
+    end
+
+    it "returns just the current year for ctc and valid filing years for gyr when passed a time parameter that is past the deadline for a previous year" do
+      fake_time = Rails.configuration.tax_year_filing_seasons[2020][1] + 3.years + 1.day
+
+      expect(described_class.new(:ctc).filing_years(fake_time)).to eq [2023]
+      expect(described_class.new(:gyr).filing_years(fake_time)).to eq [2023, 2022, 2021]
     end
   end
 
@@ -79,6 +86,12 @@ describe MultiTenantService do
     before do
       allow(Rails.application.config).to receive(:ctc_current_tax_year).and_return(2017)
       allow(Rails.application.config).to receive(:gyr_current_tax_year).and_return(2018)
+    end
+
+    around do |example|
+      Timecop.freeze(DateTime.parse("2019-04-14 12:00:00")) do
+        example.run
+      end
     end
 
     it "returns just the current year for ctc and 4 years for gyr" do
@@ -94,8 +107,6 @@ describe MultiTenantService do
       expect {
         described_class.new(:statefile).intake_model
       }.to raise_error StandardError
-      expect(described_class.new(:statefile_az).intake_model).to eq StateFileAzIntake
-      expect(described_class.new(:statefile_ny).intake_model).to eq StateFileNyIntake
     end
   end
 end

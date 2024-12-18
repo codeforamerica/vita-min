@@ -62,4 +62,24 @@ describe PhoneParser do
       expect(described_class.phone_number_link("14158161286")).to eq "tel:+14158161286"
     end
   end
+
+  describe ".e164_to_raw_phone_number" do
+    context "when the raw number includes a +1" do
+      it "removes the +1 from the number" do
+        expect(described_class.e164_to_raw_phone_number("+14158161286")).to eq("4158161286")
+      end
+    end
+
+    context "when the raw number does not include a +1" do
+      it "removes the +1 from the number" do
+        expect(described_class.e164_to_raw_phone_number("4158161286")).to eq("4158161286")
+      end
+    end
+
+    context "when the raw number is nil" do
+      it "removes the +1 from the number" do
+        expect(described_class.e164_to_raw_phone_number(nil)).to eq(nil)
+      end
+    end
+  end
 end

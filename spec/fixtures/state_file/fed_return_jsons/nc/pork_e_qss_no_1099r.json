@@ -1,0 +1,48 @@
+{
+  "familyAndHousehold": [
+    {
+      "monthsLivedWithTPInUS": "twelve",
+      "lastName": "Pig",
+      "hohQualifyingPerson": true,
+      "isClaimedDependent": true,
+      "qualifyingChild": true,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "2020-02-10",
+      "suffix": null,
+      "residencyDuration": "allYear",
+      "firstName": "Cutlet",
+      "middleInitial": "Q",
+      "tin": "146-00-4903",
+      "scheduleEicLine4aNo": false,
+      "eligibleDependent": true,
+      "relationship": "biologicalChild",
+      "ssnNotValidForEmployment": false
+    }
+  ],
+  "filers": [
+    {
+      "firstName": "Pork",
+      "lastName": "Pig",
+      "middleInitial": "E",
+      "tin": "145-00-4902",
+      "dateOfBirth": "1939-08-31",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "interestReports": [
+    {
+      "has1099": true,
+      "taxExemptAndTaxCreditBondCusipNo": null,
+      "interestOnGovernmentBonds": "1000.00",
+      "payerTin": null,
+      "recipientTin": "145-00-4902",
+      "payer": "Pork Belly Bank",
+      "no1099Amount": null,
+      "1099Amount": "1835.00",
+      "taxWithheld": "0.00"
+    }
+  ]
+}

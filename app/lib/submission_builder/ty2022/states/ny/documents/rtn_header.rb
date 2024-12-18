@@ -22,10 +22,10 @@ module SubmissionBuilder
                 # xml.COND_CODE_2_NMBR
                 if @submission.data_source.confirmed_third_party_designee_yes?
                   xml.THRD_PRTY_DSGN_IND claimed: 1
-                  xml.THRD_PRTY_PIN_NMBR claimed: @submission.data_source.direct_file_data.third_party_designee_pin.strip.gsub(/\s+/, ' ') if @submission.data_source.direct_file_data.third_party_designee_pin.present?
+                  xml.THRD_PRTY_PIN_NMBR claimed: sanitize_for_xml(@submission.data_source.direct_file_data.third_party_designee_pin) if @submission.data_source.direct_file_data.third_party_designee_pin.present?
                 end
                 xml.EXT_TP_ID claimed: @submission.data_source.primary.ssn if @submission.data_source.primary.ssn.present?
-                xml.ABA_NMBR claimed: @submission.data_source.routing_number.strip.gsub(/\s+/, ' ') if @submission.data_source.routing_number.present?
+                xml.ABA_NMBR claimed: sanitize_for_xml(@submission.data_source.routing_number) if @submission.data_source.routing_number.present?
                 xml.BANK_ACCT_NMBR claimed: @submission.data_source.account_number.delete('-') if @submission.data_source.account_number.present?
                 if @submission.data_source.account_type.present? && ACCOUNT_TYPES[@submission.data_source.account_type.to_sym] != 0
                   xml.ACCT_TYPE_CD claimed: ACCOUNT_TYPES[@submission.data_source.account_type.to_sym]
@@ -74,13 +74,15 @@ module SubmissionBuilder
                 # xml.FREE_FIL_IND
                 # xml.PR_SSN_VALID_IND
                 # xml.SP_SSN_VALID_IND
-                xml.BNK_ACCT_ACH_IND claimed: 2 #only personal banking accounts supported not business
+                if @submission.data_source.payment_or_deposit_type == "direct_deposit"
+                  xml.BNK_ACCT_ACH_IND claimed: 2 # only personal banking accounts supported not business
+                end
                 if @submission.data_source.calculated_refund_or_owed_amount.positive?
                   xml.PAPER_CHK_RFND_IND claimed: @submission.data_source.payment_or_deposit_type == "direct_deposit" ? 2 : 1
                   xml.DIR_DEP_IND claimed: @submission.data_source.payment_or_deposit_type == "direct_deposit" ? 1 : 2
-                else
-                  xml.PAPER_CHK_RFND_IND claimed: 2
-                  xml.DIR_DEP_IND claimed: 2
+                else # no refund
+                  xml.PAPER_CHK_RFND_IND claimed: 2 # no refund check
+                  xml.DIR_DEP_IND claimed: 2 # no direct deposit refund
                 end
                 # xml.ITIN_MSMTCH_IND
                 # xml.IMPRFCT_RTN_IND

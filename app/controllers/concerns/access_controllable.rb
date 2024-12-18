@@ -36,4 +36,10 @@ module AccessControllable
       head :forbidden
     end
   end
+
+  def prevent_greeter_access
+    if current_user.present? && current_user.greeter?
+      head :forbidden
+    end
+  end
 end

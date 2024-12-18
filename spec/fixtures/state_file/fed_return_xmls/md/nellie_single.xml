@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v4.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>1cfaf0d2</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400005050</PrimarySSN>
+            <NameLine1Txt>NELLIE&lt;NARWAHL</NameLine1Txt>
+            <PrimaryNameControlTxt>NARW</PrimaryNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>321 wannabeunicorn court</AddressLine1Txt>
+                <CityNm>Baltimore</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21212</ZIPCd>
+            </USAddress>
+            <PhoneNum>3015556666</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000505-05a2-4d43-b335-80fa8f3067a1@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="2">
+        <IRS1040 documentId="IRS10400001">
+            <Form1040SRInd>X</Form1040SRInd>
+            <IndividualReturnFilingStatusCd>1</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <Primary65OrOlderInd>X</Primary65OrOlderInd>
+            <TotalBoxesCheckedCnt>1</TotalBoxesCheckedCnt>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>1</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">145000</WagesAmt>
+            <WagesSalariesAndTipsAmt>145000</WagesSalariesAndTipsAmt>
+            <TotalIncomeAmt>145000</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>145000</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>16550</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>16550</TotalDeductionsAmt>
+            <TaxableIncomeAmt>128450</TaxableIncomeAmt>
+            <TaxAmt>23871</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>23871</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>23871</TaxLessCreditsAmt>
+            <TotalTaxAmt>23871</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>26000</FormW2WithheldTaxAmt>
+            <WithholdingTaxAmt>26000</WithholdingTaxAmt>
+            <TotalPaymentsAmt>26000</TotalPaymentsAmt>
+            <OverpaidAmt>2129</OverpaidAmt>
+            <RefundAmt>2129</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>angel investor</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>400005050</EmployeeSSN>
+            <EmployerEIN>271067272</EmployerEIN>
+            <EmployerNameControlTxt>WHOA</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>whoa nellie</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>1326 horns drive</AddressLine1Txt>
+                <CityNm>sykesville</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21784</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Nellie Narwahl</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>321 wannabeunicorn court</AddressLine1Txt>
+                <CityNm>Baltimore</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21212</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>145000</WagesAmt>
+            <WithholdingAmt>26000</WithholdingAmt>
+            <SocialSecurityWagesAmt>145000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>19000</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>145000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>12000</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>MD</StateAbbreviationCd>
+                    <EmployerStateIdNum>888777</EmployerStateIdNum>
+                    <StateWagesAmt>145000</StateWagesAmt>
+                    <StateIncomeTaxAmt>100</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp>
+                        <LocalWagesAndTipsAmt>145000</LocalWagesAndTipsAmt>
+                        <LocalIncomeTaxAmt>50</LocalIncomeTaxAmt>
+                        <LocalityNm>anne arundel</LocalityNm>
+                    </W2LocalTaxGrp>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>

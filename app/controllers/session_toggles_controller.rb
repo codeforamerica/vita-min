@@ -23,8 +23,9 @@ class SessionTogglesController < ApplicationController
         service_url: url_for(host: MultiTenantService.new(:statefile).host, controller: :session_toggles),
         times: [
           SessionToggleTime.new(name: 'Start of open intake', property: :state_file_start_of_open_intake),
-          SessionToggleTime.new(name: 'End of New intake', property: :state_file_end_of_new_intakes),
-          SessionToggleTime.new(name: 'End of In Progress Intakes', property: :state_file_end_of_in_progress_intakes),
+          SessionToggleTime.new(name: 'Withdrawal date deadline for New York', property: :state_file_withdrawal_date_deadline_ny),
+          SessionToggleTime.new(name: 'End of new intakes', property: :state_file_end_of_new_intakes),
+          SessionToggleTime.new(name: 'End of in-progress intakes', property: :state_file_end_of_in_progress_intakes),
         ]
       },
       {

@@ -44,7 +44,7 @@ class EfileSubmission < ApplicationRecord
   }
 
   scope :for_state_filing, lambda {
-    where(data_source_type: STATE_INTAKE_CLASS_NAMES)
+    where(data_source_type: StateFile::StateInformationService.state_intake_class_names)
   }
 
   default_scope { order(id: :asc) }
@@ -88,20 +88,11 @@ class EfileSubmission < ApplicationRecord
       )
       WHERE most_recent_efile_submission_transition.to_state IS NOT NULL
       AND (
-        efile_submissions.data_source_type = 'StateFileAzIntake'
-        OR efile_submissions.data_source_type = 'StateFileNyIntake'
+        efile_submissions.data_source_type IN ('#{StateFile::StateInformationService.state_intake_class_names.join("','")}')
       )
       GROUP BY to_state
     SQL
     result.except(*except)
-  end
-
-  def is_for_federal_filing?
-    tax_return.present?
-  end
-
-  def is_for_state_filing?
-    data_source_type.in?(STATE_INTAKE_CLASS_NAMES)
   end
 
   # If a federal tax return is rejected for a dependent SSN/Name Control mismatch,
@@ -159,10 +150,6 @@ class EfileSubmission < ApplicationRecord
     previous_submission if previous_submission.last_transition_to("transmitted").present?
   end
 
-  def source_record
-    is_for_state_filing? ? data_source : tax_return
-  end
-
   def generate_verified_address(i = 0)
     # TODO(state-file)
     return OpenStruct.new(valid?: true) unless intake
@@ -215,7 +202,7 @@ class EfileSubmission < ApplicationRecord
   end
 
   def manifest_class
-    if STATE_INTAKE_CLASS_NAMES.include?(data_source_type)
+    if is_for_state_filing?
       return SubmissionBuilder::StateManifest
     end
 
@@ -223,10 +210,8 @@ class EfileSubmission < ApplicationRecord
   end
 
   def bundle_class
-    if data_source&.class == StateFileNyIntake
-      return SubmissionBuilder::Ty2022::States::Ny::IndividualReturn
-    elsif data_source&.class == StateFileAzIntake
-      return SubmissionBuilder::Ty2022::States::Az::IndividualReturn
+    if is_for_state_filing?
+      return StateFile::StateInformationService.submission_builder_class(data_source.state_code)
     end
 
     case tax_year
@@ -271,18 +256,7 @@ class EfileSubmission < ApplicationRecord
         age ** 1.25
       end
     retry_wait = backoff + SecureRandom.rand(30)
-    GyrEfiler::SendSubmissionJob.set(wait_until: now + retry_wait).perform_later(self)
-  end
-
-  def create_qualifying_dependents
-    # TODO(state-file)
-    return unless intake
-
-    qualifying_dependents.delete_all
-
-    intake.dependents.each do |dependent|
-      EfileSubmissionDependent.create_qualifying_dependent(self, dependent)
-    end
+    StateFile::SendSubmissionJob.set(wait_until: now + retry_wait).perform_later(self)
   end
 
   def generate_irs_submission_id!(i = 0)
@@ -298,5 +272,13 @@ class EfileSubmission < ApplicationRecord
     else
       self.update!(irs_submission_id: irs_submission_id)
     end
+  end
+
+  def is_for_federal_filing?
+    tax_return.present?
+  end
+
+  def is_for_state_filing?
+    data_source_type.in?(StateFile::StateInformationService.state_intake_class_names)
   end
 end

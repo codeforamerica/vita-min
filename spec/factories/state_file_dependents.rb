@@ -2,26 +2,35 @@
 #
 # Table name: state_file_dependents
 #
-#  id                :bigint           not null, primary key
-#  ctc_qualifying    :boolean
-#  dob               :date
-#  eic_disability    :integer          default("unfilled")
-#  eic_qualifying    :boolean
-#  eic_student       :integer          default("unfilled")
-#  first_name        :string
-#  intake_type       :string           not null
-#  last_name         :string
-#  middle_initial    :string
-#  months_in_home    :integer
-#  needed_assistance :integer          default("unfilled"), not null
-#  odc_qualifying    :boolean
-#  passed_away       :integer          default("unfilled"), not null
-#  relationship      :string
-#  ssn               :string
-#  suffix            :string
-#  created_at        :datetime         not null
-#  updated_at        :datetime         not null
-#  intake_id         :bigint           not null
+#  id                                      :bigint           not null, primary key
+#  ctc_qualifying                          :boolean
+#  dob                                     :date
+#  eic_disability                          :integer          default("unfilled")
+#  eic_qualifying                          :boolean
+#  eic_student                             :integer          default("unfilled")
+#  first_name                              :string
+#  id_has_grocery_credit_ineligible_months :integer          default("unfilled"), not null
+#  id_months_ineligible_for_grocery_credit :integer
+#  intake_type                             :string           not null
+#  last_name                               :string
+#  md_did_not_have_health_insurance        :integer          default("unfilled"), not null
+#  middle_initial                          :string
+#  months_in_home                          :integer
+#  needed_assistance                       :integer          default("unfilled"), not null
+#  nj_dependent_attends_accredited_program :integer          default("unfilled"), not null
+#  nj_dependent_enrolled_full_time         :integer          default("unfilled"), not null
+#  nj_dependent_five_months_in_college     :integer          default("unfilled"), not null
+#  nj_did_not_have_health_insurance        :integer          default("unfilled"), not null
+#  nj_filer_pays_tuition_for_dependent     :integer          default("unfilled"), not null
+#  odc_qualifying                          :boolean
+#  passed_away                             :integer          default("unfilled"), not null
+#  qualifying_child                        :boolean
+#  relationship                            :string
+#  ssn                                     :string
+#  suffix                                  :string
+#  created_at                              :datetime         not null
+#  updated_at                              :datetime         not null
+#  intake_id                               :bigint           not null
 #
 # Indexes
 #
@@ -29,31 +38,32 @@
 #
 FactoryBot.define do
   factory :state_file_dependent do
-    intake
+    intake { create :state_file_az_intake }
     first_name { "Ali" }
     middle_initial {"U"}
     last_name { "Poppyseed" }
-    relationship { "DAUGHTER" }
+    relationship { "biologicalChild" }
     ssn { "123456789" }
+    dob { Date.today - 20.years }
 
     factory :az_senior_dependent_missing_intake_answers do
       dob { StateFileDependent.senior_cutoff_date }
       months_in_home { 12 }
-      relationship { "PARENT" }
+      relationship { "parent" }
     end
 
     factory :az_senior_dependent do
       dob { StateFileDependent.senior_cutoff_date }
       needed_assistance { "yes" }
       months_in_home { 12 }
-      relationship { "PARENT" }
+      relationship { "parent" }
     end
 
     factory :az_senior_dependent_no_assistance do
       dob { StateFileDependent.senior_cutoff_date }
       needed_assistance { "no" }
       months_in_home { 12 }
-      relationship { "PARENT" }
+      relationship { "parent" }
     end
 
     factory :az_hoh_qualifying_person_nonparent do
@@ -61,7 +71,7 @@ FactoryBot.define do
       first_name { "Nonparent" }
       last_name { "Qualifying" }
       months_in_home { 12 }
-      relationship { "DAUGHTER" }
+      relationship { "biologicalChild" }
     end
 
 
@@ -70,7 +80,7 @@ FactoryBot.define do
       first_name { "Parent" }
       last_name { "Qualifying" }
       months_in_home { 0 }
-      relationship { "PARENT" }
+      relationship { "parent" }
     end
 
     factory :az_hoh_nonqualifying_person_nonparent do
@@ -78,7 +88,7 @@ FactoryBot.define do
       first_name { "Nonparent" }
       last_name { "Nonqualifying" }
       months_in_home { 5 }
-      relationship { "DAUGHTER" }
+      relationship { "biologicalChild" }
     end
 
     factory :az_hoh_nonqualifying_person_none_relationship do
@@ -86,7 +96,7 @@ FactoryBot.define do
       first_name { "NoneRelationship" }
       last_name { "Nonqualifying" }
       months_in_home { 12 }
-      relationship { "NONE" }
+      relationship { "noneOfTheAbove" }
     end
   end
 end

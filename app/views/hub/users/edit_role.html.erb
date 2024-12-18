@@ -25,6 +25,10 @@
         <p><%= t("general.admin") %></p>
       <% end %>
 
+      <% if @role.is_a?(StateFileNjStaffRole) %>
+        <p><%= t("general.nj_staff") %></p>
+      <% end %>
+
       <% if @role.is_a?(ClientSuccessRole) %>
         <p><%= t("general.client_success") %></p>
       <% end %>

@@ -26,16 +26,6 @@ module Questions
 
       send_welcome_message
 
-      # client has not yet been routed, or was previously determined to have been at capacity
-      if current_intake.client.routing_method.blank? || current_intake.client.routing_method_at_capacity?
-        routing_service = PartnerRoutingService.new(
-          intake: current_intake,
-          source_param: current_intake.source,
-          zip_code: current_intake.zip_code,
-        )
-        current_intake.client.update(vita_partner: routing_service.determine_partner, routing_method: routing_service.routing_method)
-      end
-
       # the vita partner the client was routed to has capacity
       unless current_intake.client.routing_method_at_capacity?
         InitialTaxReturnsService.new(intake: current_intake).create!

@@ -1,0 +1,27 @@
+{
+  "familyAndHousehold": [],
+  "filers": [
+    {
+      "firstName": "Grace",
+      "lastName": "Grouper",
+      "middleInitial": null,
+      "tin": "400-00-8200",
+      "dateOfBirth": "1987-04-10",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "interestReports": [
+    {
+      "has1099": true,
+      "taxExemptAndTaxCreditBondCusipNo": null,
+      "interestOnGovernmentBonds": "1000.00",
+      "payerTin": null,
+      "payer": "Maritime Money",
+      "recipientTin": "400-00-8200",
+      "taxWithheld": "0.00",
+      "no1099Amount": null
+    }
+  ]
+}

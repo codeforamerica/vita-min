@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v4.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>1cfaf0d2</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>300000020</PrimarySSN>
+            <SpouseSSN>400000021</SpouseSSN>
+            <NameLine1Txt>COSMO&lt;KRAMER&lt;&amp; JERRY SEINFELD DECD</NameLine1Txt>
+            <PrimaryNameControlTxt>KRAM</PrimaryNameControlTxt>
+            <SpouseNameControlTxt>SEIN</SpouseNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>129 W 81 St</AddressLine1Txt>
+                <CityNm>Raleigh</CityNm>
+                <StateAbbreviationCd>NC</StateAbbreviationCd>
+                <ZIPCd>27602</ZIPCd>
+            </USAddress>
+            <PhoneNum>9195551234</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+30000002-0522-40ba-804f-6c1537984645@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="9">
+        <IRS1040 documentId="IRS10400001">
+            <Form1040SRInd>X</Form1040SRInd>
+            <SpouseDeathDt>2024-04-01</SpouseDeathDt>
+            <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <Primary65OrOlderInd>X</Primary65OrOlderInd>
+            <TotalBoxesCheckedCnt>1</TotalBoxesCheckedCnt>
+            <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
+            <DependentDetail>
+                <DependentFirstNm>Baby</DependentFirstNm>
+                <DependentLastNm>Newman</DependentLastNm>
+                <DependentNameControlTxt>NEWM</DependentNameControlTxt>
+                <DependentSSN>600006060</DependentSSN>
+                <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+                <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+            </DependentDetail>
+            <ChldWhoLivedWithYouCnt>1</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>3</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001 W20002 W20003 W20004" referenceDocumentName="IRSW2">80010</WagesAmt>
+            <WagesSalariesAndTipsAmt>80010</WagesSalariesAndTipsAmt>
+            <TaxableInterestAmt referenceDocumentId="IRS1040B001" referenceDocumentName="IRS1040ScheduleB">80034</TaxableInterestAmt>
+            <SocSecBnftAmt>40023</SocSecBnftAmt>
+            <TaxableSocSecAmt>34020</TaxableSocSecAmt>
+            <TotalAdditionalIncomeAmt>40011</TotalAdditionalIncomeAmt>
+            <TotalIncomeAmt>234075</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>234075</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>30750</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>30750</TotalDeductionsAmt>
+            <TaxableIncomeAmt>203325</TaxableIncomeAmt>
+            <TaxAmt>34883</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>34883</TotalTaxBeforeCrAndOthTaxesAmt>
+            <CTCODCAmt>2000</CTCODCAmt>
+            <TotalCreditsAmt>2000</TotalCreditsAmt>
+            <TaxLessCreditsAmt>32883</TaxLessCreditsAmt>
+            <TotalTaxAmt>32883</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>8230</FormW2WithheldTaxAmt>
+            <Form1099WithheldTaxAmt referenceDocumentId="OTHERWITHHOLDING0001" referenceDocumentName="OtherWithholdingStatement">400</Form1099WithheldTaxAmt>
+            <WithholdingTaxAmt>8630</WithholdingTaxAmt>
+            <TotalPaymentsAmt>8630</TotalPaymentsAmt>
+            <OwedAmt>24253</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Fusili Enthusiast</PrimaryOccupationTxt>
+            <SpouseOccupationTxt>Soup Distributor</SpouseOccupationTxt>
+            <SurvivingSpouseInd>X</SurvivingSpouseInd>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1040Schedule1 documentId="IRS1040S1001">
+            <UnemploymentCompAmt>40011</UnemploymentCompAmt>
+            <TotalAdditionalIncomeAmt>40011</TotalAdditionalIncomeAmt>
+        </IRS1040Schedule1>
+        <IRS1040Schedule8812 documentId="IRS8812001" documentName="IRS1040Schedule8812">
+            <AdjustedGrossIncomeAmt>234075</AdjustedGrossIncomeAmt>
+            <ModifiedAGIAmt>234075</ModifiedAGIAmt>
+            <QlfyChildUnderAgeSSNCnt>1</QlfyChildUnderAgeSSNCnt>
+            <QlfyChildUnderAgeSSNLimtAmt>2000</QlfyChildUnderAgeSSNLimtAmt>
+            <OtherDependentCnt>0</OtherDependentCnt>
+            <InitialCTCODCAmt>2000</InitialCTCODCAmt>
+            <FilingStatusThresholdCd>400000</FilingStatusThresholdCd>
+            <ExcessAdjGrossIncomeAmt>0</ExcessAdjGrossIncomeAmt>
+            <ModifiedAGIPhaseOutAmt>0</ModifiedAGIPhaseOutAmt>
+            <CTCODCOverAGILimitInd>true</CTCODCOverAGILimitInd>
+            <CTCODCAfterAGILimitAmt>2000</CTCODCAfterAGILimitAmt>
+            <ACTCTaxLiabiltyLimitAmt>34883</ACTCTaxLiabiltyLimitAmt>
+            <CTCODCAmt>2000</CTCODCAmt>
+            <ClaimACTCAllFilersGrp/>
+        </IRS1040Schedule8812>
+        <IRS1040ScheduleB documentId="IRS1040B001" documentName="IRS1040ScheduleB">
+            <Form1040SchBPartIGroup2>
+                <InterestPayerName>
+                    <BusinessNameLine1Txt>Soup Nazi Investments</BusinessNameLine1Txt>
+                </InterestPayerName>
+                <InterestAmt>20007</InterestAmt>
+            </Form1040SchBPartIGroup2>
+            <Form1040SchBPartIGroup2>
+                <InterestPayerName>
+                    <BusinessNameLine1Txt>Marlboro Victims Fund</BusinessNameLine1Txt>
+                </InterestPayerName>
+                <InterestAmt>20008</InterestAmt>
+            </Form1040SchBPartIGroup2>
+            <Form1040SchBPartIGroup2>
+                <InterestPayerName>
+                    <BusinessNameLine1Txt>Serenity Now Computers</BusinessNameLine1Txt>
+                </InterestPayerName>
+                <InterestAmt>20009</InterestAmt>
+            </Form1040SchBPartIGroup2>
+            <Form1040SchBPartIGroup2>
+                <InterestPayerName>
+                    <BusinessNameLine1Txt>Yankee Stadium</BusinessNameLine1Txt>
+                </InterestPayerName>
+                <InterestAmt>20010</InterestAmt>
+            </Form1040SchBPartIGroup2>
+            <InterestSubtotalAmt interestSubtotalLiteralCd="INTEREST SUBTOTAL">80034</InterestSubtotalAmt>
+            <TaxableInterestSubtotalAmt>80034</TaxableInterestSubtotalAmt>
+            <CalculatedTotalTaxableIntAmt>80034</CalculatedTotalTaxableIntAmt>
+            <ForeignAccountsQuestionInd>false</ForeignAccountsQuestionInd>
+            <ForeignTrustQuestionInd>false</ForeignTrustQuestionInd>
+        </IRS1040ScheduleB>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>400000021</EmployeeSSN>
+            <EmployerEIN>002345671</EmployerEIN>
+            <EmployerNameControlTxt>VAND</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Vandelay Industries</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>1 Vandelay Drive</AddressLine1Txt>
+                <CityNm>Raleigh</CityNm>
+                <StateAbbreviationCd>NC</StateAbbreviationCd>
+                <ZIPCd>27602</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Jerry Seinfeld</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>129 W 81 St</AddressLine1Txt>
+                <CityNm>Raleigh</CityNm>
+                <StateAbbreviationCd>NC</StateAbbreviationCd>
+                <ZIPCd>27602</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>20001</WagesAmt>
+            <WithholdingAmt>3000</WithholdingAmt>
+            <SocialSecurityWagesAmt>20001</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>2000</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>20001</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>1000</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>NC</StateAbbreviationCd>
+                    <EmployerStateIdNum>2345671</EmployerStateIdNum>
+                    <StateWagesAmt>20001</StateWagesAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+        <IRSW2 documentId="W20002" documentName="IRSW2">
+            <EmployeeSSN>400000021</EmployeeSSN>
+            <EmployerEIN>002345672</EmployerEIN>
+            <EmployerNameControlTxt>MONK</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Monks Diner</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>1 103rd St</AddressLine1Txt>
+                <CityNm>Raleigh</CityNm>
+                <StateAbbreviationCd>NC</StateAbbreviationCd>
+                <ZIPCd>27602</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Jerry Seinfeld</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>129 W 81 St</AddressLine1Txt>
+                <CityNm>Raleigh</CityNm>
+                <StateAbbreviationCd>NC</StateAbbreviationCd>
+                <ZIPCd>27602</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>20002</WagesAmt>
+            <WithholdingAmt>1800</WithholdingAmt>
+            <SocialSecurityWagesAmt>20002</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>1600</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>20002</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>1200</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+        <IRSW2 documentId="W20003" documentName="IRSW2">
+            <EmployeeSSN>300000020</EmployeeSSN>
+            <EmployerEIN>002345673</EmployerEIN>
+            <EmployerNameControlTxt>MANS</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Mansier Undergarments</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>1 Frank Costanza Road</AddressLine1Txt>
+                <CityNm>Raleigh</CityNm>
+                <StateAbbreviationCd>NC</StateAbbreviationCd>
+                <ZIPCd>27602</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Cosmo Kramer</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>129 W 81 St</AddressLine1Txt>
+                <CityNm>Raleigh</CityNm>
+                <StateAbbreviationCd>NC</StateAbbreviationCd>
+                <ZIPCd>27602</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>20003</WagesAmt>
+            <WithholdingAmt>1700</WithholdingAmt>
+            <SocialSecurityWagesAmt>20003</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>1500</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>20003</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>1100</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>NC</StateAbbreviationCd>
+                    <EmployerStateIdNum>2345673</EmployerStateIdNum>
+                    <StateWagesAmt>20003</StateWagesAmt>
+                    <StateIncomeTaxAmt>10000</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+        <IRSW2 documentId="W20004" documentName="IRSW2">
+            <EmployeeSSN>300000020</EmployeeSSN>
+            <EmployerEIN>002345674</EmployerEIN>
+            <EmployerNameControlTxt>MOVI</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Moviefone</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>1 Tell Me The Movie Street</AddressLine1Txt>
+                <CityNm>Raleigh</CityNm>
+                <StateAbbreviationCd>NC</StateAbbreviationCd>
+                <ZIPCd>27603</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Cosmo Kramer</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>129 W 81 St</AddressLine1Txt>
+                <CityNm>Raleigh</CityNm>
+                <StateAbbreviationCd>NC</StateAbbreviationCd>
+                <ZIPCd>27602</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>20004</WagesAmt>
+            <WithholdingAmt>1730</WithholdingAmt>
+            <SocialSecurityWagesAmt>20004</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>1530</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>20004</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>1230</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>NC</StateAbbreviationCd>
+                    <EmployerStateIdNum>NC 224466</EmployerStateIdNum>
+                    <StateWagesAmt>20004</StateWagesAmt>
+                    <StateIncomeTaxAmt>10</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp>
+                        <LocalWagesAndTipsAmt>20004</LocalWagesAndTipsAmt>
+                        <LocalIncomeTaxAmt>30</LocalIncomeTaxAmt>
+                        <LocalityNm>Confused Locality</LocalityNm>
+                    </W2LocalTaxGrp>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+        <OtherWithholdingStatement documentId="OTHERWITHHOLDING0001" documentName="OtherWithholdingStatement">
+            <OtherWithholdingStmt>
+                <WithholdingCd>FORM 1099</WithholdingCd>
+                <EIN>014445555</EIN>
+                <WithholdingAmt>100</WithholdingAmt>
+            </OtherWithholdingStmt>
+            <OtherWithholdingStmt>
+                <WithholdingCd>FORM 1099</WithholdingCd>
+                <EIN>014445555</EIN>
+                <WithholdingAmt>200</WithholdingAmt>
+            </OtherWithholdingStmt>
+            <OtherWithholdingStmt>
+                <WithholdingCd>FORM 1099</WithholdingCd>
+                <WithholdingAmt>100</WithholdingAmt>
+            </OtherWithholdingStmt>
+        </OtherWithholdingStatement>
+    </ReturnData>
+</Return>

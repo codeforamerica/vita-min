@@ -1,6 +1,6 @@
 module StateFile
   module Questions
-    class TaxRefundController < AuthenticatedQuestionsController
+    class TaxRefundController < QuestionsController
       def self.show?(intake)
         intake.calculated_refund_or_owed_amount.positive?
       end
@@ -14,7 +14,6 @@ module StateFile
       private
 
       def card_postscript; end
-
     end
   end
 end

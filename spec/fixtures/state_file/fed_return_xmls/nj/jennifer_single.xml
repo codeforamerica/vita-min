@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v4.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>dcf46c78</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400006305</PrimarySSN>
+            <NameLine1Txt>JENNIFER&lt;BROWN</NameLine1Txt>
+            <PrimaryNameControlTxt>BROW</PrimaryNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>13540 Lord Baltimore Place</AddressLine1Txt>
+                <CityNm>Newark</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07010</ZIPCd>
+            </USAddress>
+            <PhoneNum>2015551234</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000630-5a58-4395-9f05-7fc86739334f@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="6">
+        <IRS1040 documentId="IRS10400001">
+            <IndividualReturnFilingStatusCd>1</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <DependentDetail>
+                <DependentFirstNm>John</DependentFirstNm>
+                <DependentLastNm>Brown Jr</DependentLastNm>
+                <DependentNameControlTxt>BROW</DependentNameControlTxt>
+                <DependentSSN>400002006</DependentSSN>
+                <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+                <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+            </DependentDetail>
+            <ChldWhoLivedWithYouCnt>1</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>2</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001 W20002 W20003" referenceDocumentName="IRSW2">38150</WagesAmt>
+            <WagesSalariesAndTipsAmt>38150</WagesSalariesAndTipsAmt>
+            <TotalIncomeAmt>38150</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>38150</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>14600</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>14600</TotalDeductionsAmt>
+            <TaxableIncomeAmt>23550</TaxableIncomeAmt>
+            <TaxAmt>2597</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>2597</TotalTaxBeforeCrAndOthTaxesAmt>
+            <CTCODCAmt>2000</CTCODCAmt>
+            <TotalCreditsAmt>2000</TotalCreditsAmt>
+            <TaxLessCreditsAmt>597</TaxLessCreditsAmt>
+            <TotalTaxAmt>597</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>3610</FormW2WithheldTaxAmt>
+            <WithholdingTaxAmt>3610</WithholdingTaxAmt>
+            <EarnedIncomeCreditAmt referenceDocumentId="IRSEIC0001" referenceDocumentName="IRS1040ScheduleEIC">1743</EarnedIncomeCreditAmt>
+            <RefundableCreditsAmt>1743</RefundableCreditsAmt>
+            <TotalPaymentsAmt>5353</TotalPaymentsAmt>
+            <OverpaidAmt>4756</OverpaidAmt>
+            <RefundAmt>4756</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Sailor</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1040Schedule8812 documentId="IRS8812001" documentName="IRS1040Schedule8812">
+            <AdjustedGrossIncomeAmt>38150</AdjustedGrossIncomeAmt>
+            <ModifiedAGIAmt>38150</ModifiedAGIAmt>
+            <QlfyChildUnderAgeSSNCnt>1</QlfyChildUnderAgeSSNCnt>
+            <QlfyChildUnderAgeSSNLimtAmt>2000</QlfyChildUnderAgeSSNLimtAmt>
+            <OtherDependentCnt>0</OtherDependentCnt>
+            <InitialCTCODCAmt>2000</InitialCTCODCAmt>
+            <FilingStatusThresholdCd>200000</FilingStatusThresholdCd>
+            <ExcessAdjGrossIncomeAmt>0</ExcessAdjGrossIncomeAmt>
+            <ModifiedAGIPhaseOutAmt>0</ModifiedAGIPhaseOutAmt>
+            <CTCODCOverAGILimitInd>true</CTCODCOverAGILimitInd>
+            <CTCODCAfterAGILimitAmt>2000</CTCODCAfterAGILimitAmt>
+            <ACTCTaxLiabiltyLimitAmt>2597</ACTCTaxLiabiltyLimitAmt>
+            <CTCODCAmt>2000</CTCODCAmt>
+            <ClaimACTCAllFilersGrp/>
+        </IRS1040Schedule8812>
+        <IRS1040ScheduleEIC documentId="IRSEIC0001" documentName="IRS1040ScheduleEIC">
+            <QualifyingChildInformation>
+                <QualifyingChildNameControlTxt>BROW</QualifyingChildNameControlTxt>
+                <ChildFirstAndLastName>
+                    <PersonFirstNm>John</PersonFirstNm>
+                    <PersonLastNm>Brown Jr</PersonLastNm>
+                </ChildFirstAndLastName>
+                <QualifyingChildSSN>400002006</QualifyingChildSSN>
+                <ChildBirthYr>2010</ChildBirthYr>
+                <ChildRelationshipCd>DAUGHTER</ChildRelationshipCd>
+                <MonthsChildLivedWithYouCnt>11</MonthsChildLivedWithYouCnt>
+            </QualifyingChildInformation>
+        </IRS1040ScheduleEIC>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>400006305</EmployeeSSN>
+            <EmployerEIN>001234567</EmployerEIN>
+            <EmployerNameControlTxt>DUNK</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Dunkin Donuts</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>1 Donut Street</AddressLine1Txt>
+                <CityNm>Boston</CityNm>
+                <StateAbbreviationCd>MA</StateAbbreviationCd>
+                <ZIPCd>07101</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Jennifer Brown</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>13540 Lord Baltimore Place</AddressLine1Txt>
+                <CityNm>Newark</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07010</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>20000</WagesAmt>
+            <WithholdingAmt>2000</WithholdingAmt>
+            <SocialSecurityWagesAmt>20000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>1400</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>20000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>800</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                    <EmployerStateIdNum>NJ 87654321</EmployerStateIdNum>
+                    <StateWagesAmt>10000</StateWagesAmt>
+                    <StateIncomeTaxAmt>175</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+        <IRSW2 documentId="W20002" documentName="IRSW2">
+            <EmployeeSSN>400006305</EmployeeSSN>
+            <EmployerEIN>015556666</EmployerEIN>
+            <EmployerNameControlTxt>DUNC</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Duncan Donuts</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>1 Coffee St</AddressLine1Txt>
+                <CityNm>Charleston</CityNm>
+                <StateAbbreviationCd>SC</StateAbbreviationCd>
+                <ZIPCd>29402</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Jennifer Brown</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>13540 Lord Baltimore Place</AddressLine1Txt>
+                <CityNm>Newark</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07010</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>12300</WagesAmt>
+            <WithholdingAmt>1400</WithholdingAmt>
+            <SocialSecurityWagesAmt>12300</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>1100</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>12300</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>900</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                    <EmployerStateIdNum>NJ01-0123456</EmployerStateIdNum>
+                    <StateWagesAmt>12000</StateWagesAmt>
+                    <StateIncomeTaxAmt>150</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+        <IRSW2 documentId="W20003" documentName="IRSW2">
+            <EmployeeSSN>400006305</EmployeeSSN>
+            <EmployerEIN>008181818</EmployerEIN>
+            <EmployerNameControlTxt>DUNK</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Dunk And Donuts</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>1 Saucer Lane</AddressLine1Txt>
+                <CityNm>Newark</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07111</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Jennifer Brown</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>13540 Lord Baltimore Place</AddressLine1Txt>
+                <CityNm>Newark</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07010</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>5850</WagesAmt>
+            <WithholdingAmt>210</WithholdingAmt>
+            <SocialSecurityWagesAmt>5850</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>100</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>5850</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>50</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                    <EmployerStateIdNum>8765678</EmployerStateIdNum>
+                    <StateWagesAmt>5850</StateWagesAmt>
+                    <StateIncomeTaxAmt>25</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>

@@ -5,16 +5,16 @@
 #  id                                 :bigint           not null, primary key
 #  account_number                     :string
 #  account_type                       :integer          default("unfilled"), not null
-#  bank_name                          :string
 #  confirmed_permanent_address        :integer          default("unfilled"), not null
 #  confirmed_third_party_designee     :integer          default("unfilled"), not null
+#  consented_to_sms_terms             :integer          default("unfilled"), not null
 #  consented_to_terms_and_conditions  :integer          default("unfilled"), not null
 #  contact_preference                 :integer          default("unfilled"), not null
 #  current_sign_in_at                 :datetime
 #  current_sign_in_ip                 :inet
 #  current_step                       :string
 #  date_electronic_withdrawal         :date
-#  df_data_import_failed_at           :datetime
+#  df_data_import_succeeded_at        :datetime
 #  df_data_imported_at                :datetime
 #  eligibility_lived_in_state         :integer          default("unfilled"), not null
 #  eligibility_out_of_state_income    :integer          default("unfilled"), not null
@@ -23,6 +23,7 @@
 #  eligibility_yonkers                :integer          default("unfilled"), not null
 #  email_address                      :citext
 #  email_address_verified_at          :datetime
+#  email_notification_opt_in          :integer          default("unfilled"), not null
 #  failed_attempts                    :integer          default(0), not null
 #  federal_return_status              :string
 #  hashed_ssn                         :string
@@ -70,6 +71,7 @@
 #  property_over_limit                :integer          default("unfilled"), not null
 #  public_housing                     :integer          default("unfilled"), not null
 #  raw_direct_file_data               :text
+#  raw_direct_file_intake_data        :jsonb
 #  referrer                           :string
 #  residence_county                   :string
 #  routing_number                     :string
@@ -78,6 +80,7 @@
 #  school_district                    :string
 #  school_district_number             :integer
 #  sign_in_count                      :integer          default(0), not null
+#  sms_notification_opt_in            :integer          default("unfilled"), not null
 #  source                             :string
 #  spouse_birth_date                  :date
 #  spouse_esigned                     :integer          default("unfilled"), not null
@@ -101,6 +104,7 @@
 #
 # Indexes
 #
+#  index_state_file_ny_intakes_on_email_address        (email_address)
 #  index_state_file_ny_intakes_on_hashed_ssn           (hashed_ssn)
 #  index_state_file_ny_intakes_on_primary_state_id_id  (primary_state_id_id)
 #  index_state_file_ny_intakes_on_spouse_state_id_id   (spouse_state_id_id)
@@ -139,18 +143,16 @@ describe StateFileNyIntake do
         create :state_file_ny_intake,
                payment_or_deposit_type: "direct_deposit",
                account_type: "checking",
-               bank_name: "Wells Fargo",
                routing_number: "123456789",
                account_number: "123",
                withdraw_amount: 123,
-               date_electronic_withdrawal: Date.parse("April 1, 2023")
+               date_electronic_withdrawal: Date.parse("April 1, 2024")
       end
 
       it "clears other account fields" do
         expect {
           intake.update(payment_or_deposit_type: "mail")
         }.to change(intake.reload, :account_type).to("unfilled")
-        .and change(intake.reload, :bank_name).to(nil)
         .and change(intake.reload, :routing_number).to(nil)
         .and change(intake.reload, :account_number).to(nil)
         .and change(intake.reload, :withdraw_amount).to(nil)
@@ -164,7 +166,7 @@ describe StateFileNyIntake do
         expect {
           intake.update(eligibility_yonkers: nil, account_type: nil)
         }.to change(intake.reload, :eligibility_yonkers).to("unfilled")
-        .and change(intake.reload, :account_type).to("unfilled")
+        expect(intake.account_type).to eq "unfilled"
       end
     end
   end
@@ -202,29 +204,6 @@ describe StateFileNyIntake do
         it "returns 125" do
           expect(intake.calculate_sales_use_tax).to eq 125
         end
-      end
-    end
-  end
-
-  describe "#ask_spouse_name?" do
-    context "when married filing jointly" do
-      it "returns true" do
-        intake = build(:state_file_ny_intake, filing_status: "married_filing_jointly")
-        expect(intake.ask_spouse_name?).to eq true
-      end
-    end
-
-    context "when married filing separate" do
-      it "returns true" do
-        intake = build(:state_file_ny_intake, filing_status: "married_filing_separately")
-        expect(intake.ask_spouse_name?).to eq false
-      end
-    end
-
-    context "with any non-married filing status" do
-      it "returns false" do
-        intake = build(:state_file_ny_intake, filing_status: "head_of_household")
-        expect(intake.ask_spouse_name?).to eq false
       end
     end
   end
@@ -380,209 +359,7 @@ describe StateFileNyIntake do
       expect(intake.disqualifying_df_data_reason).to eq :has_out_of_state_w2
     end
   end
-
-  describe ".invalid_df_w2?" do
-    let(:intake) { build :state_file_ny_intake }
-
-    let(:df_w2) do
-      DirectFileData::DfW2.new(
-        Nokogiri::XML(
-          File.read(Rails.root.join("spec/fixtures/files/fed_return_batman_ny.xml"))
-        ).at("IRSW2")
-      )
-    end
-
-    context "they have no issues with their fed xml w2s" do
-      it "returns false" do
-        expect(intake.invalid_df_w2?(df_w2)).to eq false
-      end
-    end
-
-    context "with a broken w2" do
-      context "StateWagesAmt is blank or missing" do
-        let(:df_w2) do
-          df_w2 = super()
-          df_w2.StateWagesAmt = ""
-          df_w2
-        end
-
-        it "returns true" do
-          expect(intake.invalid_df_w2?(df_w2)).to eq true
-        end
-      end
-
-      context "LocalWagesAndTipsAmt is missing" do
-        let(:df_w2) do
-          df_w2 = super()
-          df_w2.LocalWagesAndTipsAmt = ""
-          df_w2.LocalIncomeTaxAmt = ""
-          df_w2
-        end
-
-        context "client indicated they were a full year NYC resident" do
-          it "returns true" do
-            intake.update(nyc_residency: :full_year)
-            expect(intake.invalid_df_w2?(df_w2)).to eq true
-          end
-        end
-
-        context "client was not an NYC resident" do
-          it "returns false" do
-            intake.update(nyc_residency: :none)
-            expect(intake.invalid_df_w2?(df_w2)).to eq false
-          end
-        end
-      end
-
-      context "client indicated they were an NYC resident on nyc-residency and LocalityNm is missing" do
-        let(:df_w2) do
-          df_w2 = super()
-          df_w2.LocalityNm = ""
-          df_w2
-        end
-
-        it "returns true" do
-          expect(intake.invalid_df_w2?(df_w2)).to eq true
-        end
-      end
-
-      context "LocalityNm is blank" do
-        let(:df_w2) do
-          df_w2 = super()
-          df_w2.LocalityNm = ""
-          df_w2
-        end
-        before do
-          intake.update(nyc_residency: :none)
-        end
-
-        context "LocalWagesAndTipsAmt is present" do
-          let(:df_w2) do
-            df_w2 = super()
-            df_w2.LocalIncomeTaxAmt = ""
-            df_w2
-          end
-
-          it "returns true" do
-            expect(intake.invalid_df_w2?(df_w2)).to eq true
-          end
-        end
-
-        context "LocalIncomeTaxAmt is present" do
-          let(:df_w2) do
-            df_w2 = super()
-            df_w2.LocalWagesAndTipsAmt = ""
-            df_w2
-          end
-
-          it "returns true" do
-            expect(intake.invalid_df_w2?(df_w2)).to eq true
-          end
-        end
-
-        context "neither LocalWagesAndTipsAmt nor LocalIncomeTaxAmt is present" do
-          let(:df_w2) do
-            df_w2 = super()
-            df_w2.LocalWagesAndTipsAmt = ""
-            df_w2.LocalIncomeTaxAmt = ""
-            df_w2
-          end
-
-          it "returns false" do
-            expect(intake.invalid_df_w2?(df_w2)).to eq false
-          end
-        end
-      end
-
-      context "LocalIncomeTaxAmt is present but LocalWagesAndTipsAmt is not" do
-        let(:df_w2) do
-          df_w2 = super()
-          df_w2.LocalWagesAndTipsAmt = ""
-          df_w2
-        end
-
-        it "returns true" do
-          intake.update(nyc_residency: :none)
-          expect(intake.invalid_df_w2?(df_w2)).to eq true
-        end
-      end
-
-      context "StateIncomeTaxAmt is present but StateWagesAmt is not" do
-        let(:df_w2) do
-          df_w2 = super()
-          df_w2.StateWagesAmt = ""
-          df_w2
-        end
-
-        it "returns true" do
-          intake.update(nyc_residency: :none)
-          expect(intake.invalid_df_w2?(df_w2)).to eq true
-        end
-      end
-
-      context "StateWagesAmt is present but EmployerStateIdNum is not" do
-        let(:df_w2) do
-          df_w2 = super()
-          df_w2.EmployerStateIdNum = ""
-          df_w2
-        end
-
-        it "returns true" do
-          expect(intake.invalid_df_w2?(df_w2)).to eq true
-        end
-      end
-
-      context "LocalityNm does not match one of the NY Pub 93 list of allowed values" do
-        let(:df_w2) do
-          df_w2 = super()
-          df_w2.LocalityNm = "Not New York"
-          df_w2
-        end
-
-        it "returns true" do
-          intake.update(nyc_residency: :none)
-          expect(intake.invalid_df_w2?(df_w2)).to eq true
-        end
-      end
-
-      context "StateAbberviationCd is blank or missing" do
-        let(:df_w2) do
-          df_w2 = super()
-          df_w2.StateAbbreviationCd = ""
-          df_w2
-        end
-
-        it "returns true" do
-          expect(intake.invalid_df_w2?(df_w2)).to eq true
-        end
-      end
-
-      context "StateIncomeTaxAmt is greater than StateWagesAmt" do
-        let(:df_w2) do
-          df_w2 = super()
-          df_w2.StateIncomeTaxAmt = "9000"
-          df_w2
-        end
-
-        it "returns true" do
-          expect(intake.invalid_df_w2?(df_w2)).to eq true
-        end
-      end
-
-      context "LocalIncomeTaxAmt is greater than LocalWagesAndTipsAmt" do
-        let(:df_w2) do
-          df_w2 = super()
-          df_w2.LocalIncomeTaxAmt = "9000"
-          df_w2
-        end
-
-        it "returns true" do
-          expect(intake.invalid_df_w2?(df_w2)).to eq true
-        end
-      end
-    end
-  end
-
+  
   describe ".validate_state_specific_1099_g_requirements" do
     let(:intake) { create :state_file_ny_intake, untaxed_out_of_state_purchases: "yes", sales_use_tax_calculation_method: "manual", sales_use_tax: "350" }
     let(:state_file_1099) do
@@ -596,6 +373,21 @@ describe StateFileNyIntake do
       state_file_1099.payer_tin = "123456789"
       intake.validate_state_specific_1099_g_requirements(state_file_1099)
       expect(state_file_1099.errors[:payer_tin]).to be_present
+    end
+  end
+
+  describe "state_code" do
+    context ".state_code" do
+      it "finds the right state code from the state information service" do
+        expect(described_class.state_code).to eq "ny"
+      end
+    end
+
+    context "#state_code" do
+      it "delegates to the instance method from the class method" do
+        intake = create(:state_file_ny_intake)
+        expect(intake.state_code).to eq "ny"
+      end
     end
   end
 end

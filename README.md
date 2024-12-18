@@ -45,7 +45,7 @@ We use [devise to secure access to resources](config/initializers/devise.rb)
 
 ## Setup 🧰
 
-### Assumptions before first time setup
+#### Assumptions before first time setup
 
 > ℹ️ These steps assume you are working with a macOS operating system, if that is not the case, some steps may be different. Ask a fellow teammate and we can update these setup steps to include the operating system you are using.
 
@@ -71,6 +71,14 @@ brew install git
 
 If you don't have an SSH key on your computer to connect to GitHub, their documentation on [how to add an SSH key](https://docs.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account) is a good starting point. You will need to have an SSH key to download this repository locally.
 
+#### Clone the repo
+
+You'll want to use SSH to clone
+
+```sh
+git clone git@github.com:codeforamerica/vita-min.git
+```
+
 #### Git duet
 
 To make pairing commit history easier, we use [git duet](https://github.com/git-duet/git-duet/), which can be installed with:
@@ -79,19 +87,40 @@ To make pairing commit history easier, we use [git duet](https://github.com/git-
 brew install git-duet/tap/git-duet
 ```
 
-### Add efile resources locally
+After installation, add the following line to your `~/.zshrc` or `~/.bash_profile` file:
+
+```sh
+export GIT_DUET_CO_AUTHORED_BY=1
+```
+
+This will ensure that git-duet adds co-author information to your commit messages.
+
+#### Adding Credential Files
+
+You need to add the following credential files under the `config/credentials` folder:
+
+- `circleci.key`
+- `development.key`
+- `demo.key`
+- `heroku.key`
+- `staging.key`
+- `production.key`
+
+You can obtain these keys from internal team members or access them through LastPass if you have the necessary permissions.
+
+#### Add efile resources locally
 
 In development, we need to download the IRS e-file schemas zip manually from S3.
 
 > ℹ️ We avoid storing them in the repo because the IRS asked us nicely to try to limit distribution.
 
-Run this rake task to get a list of missing schemas, where to download them from, and where to put them.
+Run this rake task to get a list of missing schemas, where to download them from, and where to put them. You might need to ask CfA staff for access if you do not have access to the Google drives.
 
 ```
 rake setup:unzip_efile_schemas
 ```
 
-### Setup script
+#### Setup script
 
 There is a setup script that handles virtually everything with a single command:
 
@@ -99,8 +128,30 @@ There is a setup script that handles virtually everything with a single command:
 # In the root of vita-min
 bin/setup
 ```
+> ℹ️ **Note:** If `bundler` is not installing, ensure that you have `rbenv` installed and are not using the system Ruby version. Check the `.ruby-version` file in the repository to match the version specified. If necessary, update to the correct Ruby version and modify your `.zprofile` or `.zshrc` to point to the correct path.
 
-#### Troubleshooting during setup
+> ℹ️ **Note:** If you encounter Ruby version problems or issues with `foreman` during setup, you may need to initialize `rbenv`. Run the following command in your terminal:
+>
+> ```sh
+> rbenv init
+> ```
+>
+> This will set up rbenv in your shell. You may need to restart your terminal to apply the changes.
+
+> ℹ️ **Note:** You may consider at this point copying or symlinking `.rspec-local.example` to `.rspec-local` to exclude specs that are not core to CfA yet. Copying enables you to set other custom flags for your local environment, symlinking enables the flags to automatically go away when they are removed from the example file. Just be careful not to commit any local changes!
+
+#### Github Auth for Deploys
+Our release script utilizes Github cli. Check if you already have Github cli installed (ex: `gh` in your terminal should return a set of commands, if you have it installed). `brew install gh` if you get an `command not found` error.
+Run `gh auth login` and follow directions to login (choose Github.com, SSH, login with web browser). If you do not set this up, you will have to manually write up the release notes in Github.
+
+#### Download the GYR Efiler
+
+Download the GYR Efiler to run tests locally by executing:
+```sh
+rails setup:download_gyr_efiler
+```
+
+### Troubleshooting during setup
 
 **Is the server running locally and accepting connections on Unix domain socket "/tmp/.s.PGSQL.5432"?**
 
@@ -116,7 +167,7 @@ If this doesn't fix your problem, you should check if the service is in an `erro
 brew services
 ```
 
-If it is, you probably need to reead the last 10 lines of the Postgres log file at `/usr/local/var/log/postgres.log`. If it says something about needing an upgrade, try running this:
+If it is, you probably need to read the last 10 lines of the Postgres log file at `/usr/local/var/log/postgres.log`. If it says something about needing an upgrade, try running this:
 
 ```sh
 brew postgresql-upgrade-database
@@ -142,7 +193,34 @@ See also [this upgrade guide](https://quaran.to/Upgrade-PostgreSQL-from-12-to-13
 
 If this doesn't get Postgres out of `error` state, or you otherwise can't figure out what's going wrong, ask for help in #tax-eng and say that you tried the instructions in the README.
 
-### Run the server
+#### Java Installation for pdftk on macOS
+
+You should already have java installed after you've used bin/setup, which uses homebrew to install the packages in our Brewfile.
+
+If you want, you can use brew yourself to re-install those dependencies:
+
+```sh
+brew bundle
+```
+
+#### asdf instructions:
+
+***NOTE:*** We are currently discussing  `asdf` vs `brew`. Feel free to follow whichever set up works better for you for now.
+
+`asdf` is one big umbrella used to simplify installing and managing versions for our core technologies. The managed techs and desired versions are listed in `.tool-versions` in the vita-min root. To use `asdf`, follow these steps:
+
+1. Install asdf with `brew install asdf`.
+2. For each technology you wanna track with asdf, you'll need to install an appropriate plugin.
+3. Now you can let asdf take the wheel and install/setup asdf-managed tools with `asdf install`.
+4. Yay.
+
+You've likely noticed there's other things listed in `.tool-versions`, and it's reasonable to use `asdf` for those things too, but the setup script presumes the use of `brew`, so there may be resulting shell/path conflicts. Use at your own risk.
+
+***Note on Java***
+
+We specifically do not use asdf to manage java. This is because `gyr_efiler_service` runs the gyr-efiler java code outside the context of our project directory, so asdf's (very good) project-scoped installs are insufficient. Homebrew's weakness, which is that it installs all dependencies globally, is a strength here since we need our java dependency to be accessible from anywhere on the system.   
+
+## Run the server
 
 To get the server running run:
 
@@ -270,6 +348,27 @@ They'll be dumped into `public/assets/flow_explorer_screenshots` locally.
 
 You can upload them to the correct S3 bucket with the task `rake flow_explorer:upload_screenshots`
 
+## Alternate setup + development with docker compose
+
+1. Make sure you have `development.key` in `config/credentials`. Ask a teammate if you need access.
+1. Unpack the state schema files into `vendor/us_states/unpacked`
+1. Run `docker compose up`. This will start the database, jobs, shakapacker, and rails app containers. (If you had the app running locally, you may need to stop your local postgres first.)
+
+### Run tests in a docker container
+- Developent environment is set by default, and test environment is set by default when you run tests
+- Run any of the test commands in an interactive shell in the container named `web`. For example, `docker exec -it web rspec` or `docker exec -it web yarn jest`
+- Turbo tests don't work with the current docker setup, so running `docker exec -it web bin/test` won't work as expected
+
+### Useful docker commands
+| Command | Meaning |
+| ----- | ----- |
+| `docker compose up -d --build` | Build, run, and detach from docker compose containers in the default profile |
+| `docker compose --profile pgadmin up` | Start the pgadmin service |
+| `docker exec -e ALLOWED_SCHEMAS=nj -it web rspec` | Run only the rspec tests that require the allowed schemas |
+| `docker exec -it web yarn jest` | Run jest tests |
+| `docker logs -f web` | Follow the logs of the rails container |
+| `docker volume prune --filter label=vita-min_database` | Get rid of the database entirely |
+
 ## Deploying the Application 🚀☁️
 
 Notes on deployment can be found in [docs/deployment](docs/deployment.md).
@@ -277,3 +376,4 @@ Notes on deployment can be found in [docs/deployment](docs/deployment.md).
 ## Documentation 📚
 
 More documentation can be found in the [docs folder](docs/README.md).
+ 

@@ -8,17 +8,17 @@ RSpec.describe StateFile::Questions::UnemploymentController do
 
   describe ".show?" do
     it "is true for a return with unemployment income" do
-      intake = create :state_file_ny_intake, raw_direct_file_data: StateFile::XmlReturnSampleService.new.read("unemployment_az")
+      intake = create :state_file_az_intake, raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml("az_alexis_hoh")
       expect(described_class.show?(intake)).to be_truthy
     end
 
     it "is false for a return that did not have unemployment income" do
-      intake = create :state_file_ny_intake, raw_direct_file_data: StateFile::XmlReturnSampleService.new.read("single_w2_ny")
+      intake = create :state_file_ny_intake, raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml("ny_single_w2")
       expect(described_class.show?(intake)).to be_falsey
     end
 
     it "is false for a return that has a zero unemployment income" do
-      intake = create :state_file_ny_intake, raw_direct_file_data: StateFile::XmlReturnSampleService.new.read("educator_deduction_ny")
+      intake = create :state_file_ny_intake, raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml("ny_educator_deduction")
       expect(described_class.show?(intake)).to be_falsey
     end
   end
@@ -30,7 +30,7 @@ RSpec.describe StateFile::Questions::UnemploymentController do
       let!(:form1099b) { create :state_file1099_g, intake: intake, recipient: :spouse }
 
       it "renders information about each dependent" do
-        get :index, params: { us_state: :ny }
+        get :index
 
         expect(response.body).to include intake.primary.full_name
         expect(response.body).to include intake.spouse.full_name
@@ -39,9 +39,9 @@ RSpec.describe StateFile::Questions::UnemploymentController do
 
     context "with no existing dependents" do
       render_views
-      it "redirects to the new view" do
-        get :index, params: { us_state: :ny }
-        expect(response).to redirect_to StateFile::Questions::UnemploymentController.to_path_helper(action: :new, us_state: :ny)
+      it "renders the new view" do
+        get :index
+        expect(response.body).to include(I18n.t("state_file.questions.unemployment.edit.title"))
       end
     end
   end
@@ -49,7 +49,6 @@ RSpec.describe StateFile::Questions::UnemploymentController do
   describe "#create" do
     let(:params) do
       {
-        us_state: :ny,
         state_file1099_g: {
           had_box_11: 'yes',
           recipient: 'primary',
@@ -59,9 +58,9 @@ RSpec.describe StateFile::Questions::UnemploymentController do
           payer_city: 'New York',
           payer_zip: '11102',
           payer_tin: '270293117',
-          federal_income_tax_withheld: 123,
-          state_income_tax_withheld: 456,
-          unemployment_compensation: 789,
+          federal_income_tax_withheld_amount: 123,
+          state_income_tax_withheld_amount: 456,
+          unemployment_compensation_amount: 789,
           state_identification_number: '123456789',
         }
       }
@@ -72,16 +71,16 @@ RSpec.describe StateFile::Questions::UnemploymentController do
         post :create, params: params
       end.to change(StateFile1099G, :count).by 1
 
-      expect(response).to redirect_to(StateFile::Questions::UnemploymentController.to_path_helper(action: :index, us_state: :ny))
+      expect(response).to redirect_to(StateFile::Questions::UnemploymentController.to_path_helper(action: :index))
 
       state_file1099_g = StateFile1099G.last
       expect(state_file1099_g.intake).to eq intake
       expect(state_file1099_g.had_box_11).to eq 'yes'
       expect(state_file1099_g.recipient).to eq 'primary'
       expect(state_file1099_g.address_confirmation).to eq "yes"
-      expect(state_file1099_g.federal_income_tax_withheld).to eq 123
-      expect(state_file1099_g.state_income_tax_withheld).to eq 456
-      expect(state_file1099_g.unemployment_compensation).to eq 789
+      expect(state_file1099_g.federal_income_tax_withheld_amount).to eq 123
+      expect(state_file1099_g.state_income_tax_withheld_amount).to eq 456
+      expect(state_file1099_g.unemployment_compensation_amount).to eq 789
     end
 
     context "when 'no' was selected for had_box_11" do
@@ -116,7 +115,6 @@ RSpec.describe StateFile::Questions::UnemploymentController do
 
       let(:params) do
         {
-          us_state: :ny,
           state_file1099_g: {
             recipient: :globgor,
           }
@@ -136,17 +134,12 @@ RSpec.describe StateFile::Questions::UnemploymentController do
 
     context "with a 9 digit zipcode from direct file data" do
       render_views
-      #let(:intake) do
-      #  intake_ = super()
-      #  intake_.update(raw_direct_file_data: intake.raw_direct_file_data.gsub("<ZIPCd>10128</ZIPCd>", "<ZIPCd>123456789</ZIPCd>"))
-      #  intake_
-      #end
 
       it "creates a 1099g" do
         expect do
           post :create, params: params
         end.to change(StateFile1099G, :count)
-        expect(response).to redirect_to(StateFile::Questions::UnemploymentController.to_path_helper(action: :index, us_state: 'ny'))
+        expect(response).to redirect_to(StateFile::Questions::UnemploymentController.to_path_helper(action: :index))
       end
     end
   end
@@ -157,9 +150,9 @@ RSpec.describe StateFile::Questions::UnemploymentController do
       create :state_file1099_g,
              intake: intake,
              recipient: 'primary',
-             unemployment_compensation: 456
+             unemployment_compensation_amount: 456
     end
-    let(:params) { { us_state: :ny, id: form1099.id } }
+    let(:params) { { id: form1099.id } }
 
     render_views
 
@@ -177,21 +170,20 @@ RSpec.describe StateFile::Questions::UnemploymentController do
              had_box_11: 'yes',
              recipient: 'primary',
              address_confirmation: 'yes',
-             federal_income_tax_withheld: 123,
-             state_income_tax_withheld: 456,
-             unemployment_compensation: 789
+             federal_income_tax_withheld_amount: 123,
+             state_income_tax_withheld_amount: 456,
+             unemployment_compensation_amount: 789
     end
     let(:params) do
       {
-        us_state: :ny,
         id: form1099.id,
         state_file1099_g: {
           had_box_11: 'yes',
           recipient: 'spouse',
           address_confirmation: 'yes',
-          federal_income_tax_withheld: 123,
-          state_income_tax_withheld: 456,
-          unemployment_compensation: 789,
+          federal_income_tax_withheld_amount: 123,
+          state_income_tax_withheld_amount: 456,
+          unemployment_compensation_amount: 789,
         }
       }
     end
@@ -199,7 +191,7 @@ RSpec.describe StateFile::Questions::UnemploymentController do
     it "updates the dependent and redirects to the index" do
       post :update, params: params
 
-      expect(response).to redirect_to(StateFile::Questions::UnemploymentController.to_path_helper(us_state: :ny, action: :index))
+      expect(response).to redirect_to(StateFile::Questions::UnemploymentController.to_path_helper(action: :index))
 
       form1099.reload
       expect(form1099.recipient).to eq "spouse"
@@ -224,7 +216,6 @@ RSpec.describe StateFile::Questions::UnemploymentController do
 
       let(:params) do
         {
-          us_state: :ny,
           id: form1099.id,
           state_file1099_g: {
             recipient: :globgor,
@@ -250,14 +241,14 @@ RSpec.describe StateFile::Questions::UnemploymentController do
              intake: intake,
              recipient: 'primary'
     end
-    let(:params) { { us_state: :ny, id: form1099.id } }
+    let(:params) { { id: form1099.id } }
 
     it "deletes the 1099 and adds a flash message and redirects to index path" do
       expect do
         delete :destroy, params: params
       end.to change(StateFile1099G, :count).by(-1)
 
-      expect(response).to redirect_to StateFile::Questions::UnemploymentController.to_path_helper(us_state: :ny, action: :index)
+      expect(response).to redirect_to StateFile::Questions::UnemploymentController.to_path_helper(action: :index)
       expect(flash[:notice]).to eq I18n.t('state_file.questions.unemployment.destroy.removed', name: intake.primary.full_name)
     end
   end

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe SubmissionBuilder::Ty2022::States::AuthenticationHeader do
+describe SubmissionBuilder::AuthenticationHeader do
   describe '.build' do
 
     context "when no state_id is defined" do
@@ -8,7 +8,7 @@ describe SubmissionBuilder::Ty2022::States::AuthenticationHeader do
       let(:submission) { create(:efile_submission, data_source: intake) }
 
       it "builds generates xml indicating there is no id" do
-        doc = SubmissionBuilder::Ty2022::States::AuthenticationHeader.new(submission).document
+        doc = SubmissionBuilder::AuthenticationHeader.new(submission).document
         expect(doc.at("PrimDrvrLcnsOrStateIssdIdGrp DoNotHaveDrvrLcnsOrStIssdId").text).to eq "X"
         expect(doc.at("PrimDrvrLcnsOrStateIssdIdGrp StateIssdIdNum")).to eq nil
         expect(doc.at("PrimDrvrLcnsOrStateIssdIdGrp StateIssdIdStCd")).to eq nil
@@ -27,7 +27,7 @@ describe SubmissionBuilder::Ty2022::States::AuthenticationHeader do
       let(:submission) { create(:efile_submission, data_source: intake) }
 
       it "builds an xml with a drivers license" do
-        doc = SubmissionBuilder::Ty2022::States::AuthenticationHeader.new(submission).document
+        doc = SubmissionBuilder::AuthenticationHeader.new(submission).document
         expect(doc.at("PrimDrvrLcnsOrStateIssdIdGrp DoNotHaveDrvrLcnsOrStIssdId")).to eq nil
         expect(doc.at("PrimDrvrLcnsOrStateIssdIdGrp StateIssdIdNum")).to eq nil
         expect(doc.at("PrimDrvrLcnsOrStateIssdIdGrp StateIssdIdAddInfo")).to eq nil
@@ -48,7 +48,7 @@ describe SubmissionBuilder::Ty2022::States::AuthenticationHeader do
       let(:submission) { create(:efile_submission, data_source: intake) }
 
       it "builds an xml with a no expiration date info license" do
-        doc = SubmissionBuilder::Ty2022::States::AuthenticationHeader.new(submission).document
+        doc = SubmissionBuilder::AuthenticationHeader.new(submission).document
         expect(doc.at("PrimDrvrLcnsOrStateIssdIdGrp DrvrLcnsExprDt ExprDt")).to eq nil
         expect(doc.at("PrimDrvrLcnsOrStateIssdIdGrp DrvrLcnsExprDt NonExpr")).to be_truthy
       end
@@ -60,12 +60,11 @@ describe SubmissionBuilder::Ty2022::States::AuthenticationHeader do
       let(:submission) { create(:efile_submission, data_source: intake) }
 
       it "builds an xml with a no additonal info" do
-        doc = SubmissionBuilder::Ty2022::States::AuthenticationHeader.new(submission).document
+        doc = SubmissionBuilder::AuthenticationHeader.new(submission).document
         expect(doc.at("PrimDrvrLcnsOrStateIssdIdGrp StateIssdIdNum")).to eq nil
         expect(doc.at("PrimDrvrLcnsOrStateIssdIdGrp DrvrLcnsAddInfo")).to eq nil
       end
     end
-
 
     context "when a New York state issued id is defined" do
       let(:state_id) { create(:state_id, :state_issued_id)}
@@ -73,7 +72,7 @@ describe SubmissionBuilder::Ty2022::States::AuthenticationHeader do
       let(:submission) { create(:efile_submission, data_source: intake) }
 
       it "builds an xml with a no additonal info" do
-        doc = SubmissionBuilder::Ty2022::States::AuthenticationHeader.new(submission).document
+        doc = SubmissionBuilder::AuthenticationHeader.new(submission).document
         expect(doc.at("PrimDrvrLcnsOrStateIssdIdGrp DoNotHaveDrvrLcnsOrStIssdId")).to eq nil
         expect(doc.at("PrimDrvrLcnsOrStateIssdIdGrp DrvrLcnsNum")).to eq nil
         expect(doc.at("PrimDrvrLcnsOrStateIssdIdGrp DrvrLcnsAddInfo")).to eq nil
@@ -97,7 +96,7 @@ describe SubmissionBuilder::Ty2022::States::AuthenticationHeader do
 
     context 'when a submission is not receiving a refund' do
       it 'build the XML with the correct refund disbursement tag' do
-        doc = SubmissionBuilder::Ty2022::States::AuthenticationHeader.new(submission).document
+        doc = SubmissionBuilder::AuthenticationHeader.new(submission).document
         expect(doc.at('NoUBADisbursementCdSubmit').text).to eq '0'
       end
     end
@@ -109,7 +108,7 @@ describe SubmissionBuilder::Ty2022::States::AuthenticationHeader do
 
       end
       it 'builds the XML with the correct refund disbursement tag' do
-        doc = SubmissionBuilder::Ty2022::States::AuthenticationHeader.new(submission).document
+        doc = SubmissionBuilder::AuthenticationHeader.new(submission).document
         expect(doc.at('NoUBADisbursementCdSubmit').text).to eq '3'
       end
     end
@@ -121,9 +120,81 @@ describe SubmissionBuilder::Ty2022::States::AuthenticationHeader do
 
       end
       it 'builds the XML with the correct refund disbursement tag' do
-        doc = SubmissionBuilder::Ty2022::States::AuthenticationHeader.new(submission).document
+        doc = SubmissionBuilder::AuthenticationHeader.new(submission).document
         expect(doc.at('RefundDisbursementUBASubmit').text).to eq '2'
       end
     end
   end
+
+  describe 'email address' do
+    let(:intake) { create(:state_file_md_intake) }
+    let(:submission) { create(:efile_submission, data_source: intake) }
+    context "when intake does not have an email address email address" do
+      it "returns the email address in the df xml" do
+        doc = SubmissionBuilder::AuthenticationHeader.new(submission).document
+        expect(doc.at("EmailAddressTxt").text).to eq "beaches@bigtoddsyarnmats.com"
+      end
+    end
+
+    context "when intake does have an email address email address" do
+      before do
+        intake.email_address = "example@test.com"
+      end
+      it "returns the email address in the intake" do
+        doc = SubmissionBuilder::AuthenticationHeader.new(submission).document
+        expect(doc.at("EmailAddressTxt").text).to eq "example@test.com"
+      end
+    end
+  end
+
+  describe "phone number" do
+    let(:phone_number) { nil }
+    let(:intake) { create(:state_file_az_intake, phone_number: phone_number) }
+    let(:submission) { create(:efile_submission, data_source: intake) }
+
+    before do
+      intake.direct_file_data.phone_number = "+15551231234"
+      intake.direct_file_data.cell_phone_number = "+15551231239"
+    end
+
+    context "when there is a phone number on the intake" do
+      let(:phone_number) { "+18324658840" }
+
+      it "uses the phone number from the intake" do
+        doc = SubmissionBuilder::AuthenticationHeader.new(submission).document
+        expect(doc.at("USCellPhoneNum").text).to eq "8324658840"
+      end
+    end
+
+    context "when there is no phone number on the intake but there is one on from the direct file data" do
+      it "uses the phone number from the direct file data" do
+        doc = SubmissionBuilder::AuthenticationHeader.new(submission).document
+        expect(doc.at("USCellPhoneNum").text).to eq "5551231234"
+      end
+    end
+
+    context "when there is no phone number on the intake or direct file data but there is a cell phone number from DF" do
+      before do
+        intake.direct_file_data.phone_number = ""
+      end
+
+      it "uses the cell phone number from the direct file data" do
+        doc = SubmissionBuilder::AuthenticationHeader.new(submission).document
+        expect(doc.at("USCellPhoneNum").text).to eq "5551231239"
+      end
+    end
+
+    context "when there is no phone number on the intake or direct file data" do
+      before do
+        intake.direct_file_data.phone_number = ""
+        intake.direct_file_data.cell_phone_number = ""
+      end
+
+      it "the xml is not present" do
+        doc = SubmissionBuilder::AuthenticationHeader.new(submission).document
+        expect(doc.at("USCellPhoneNum")).not_to be_present
+      end
+    end
+  end
+
 end

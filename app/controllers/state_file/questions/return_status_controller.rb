@@ -1,20 +1,23 @@
 module StateFile
   module Questions
-    class ReturnStatusController < AuthenticatedQuestionsController
-      include StateFile::SurveyLinksConcern
-      before_action :redirect_if_from_efile
+    class ReturnStatusController < QuestionsController
       before_action :redirect_if_no_submission
       skip_before_action :redirect_if_in_progress_intakes_ended
 
       def edit
-        @error = submission_error
+        @submission_to_show = current_intake.latest_submission
         @return_status = return_status
-        @refund_url = refund_url
-        @tax_payment_url = tax_payment_url
-        @download_form_name = download_form_name
-        @mail_voucher_address = mail_voucher_address
-        @voucher_path = voucher_path
-        @survey_link = survey_link(current_intake)
+        @error = submission_error
+
+        @department_of_taxation = StateFile::StateInformationService.department_of_taxation(current_state_code)
+        @department_of_taxation_initials = @department_of_taxation.split(" ").map(&:first).join.upcase
+        @tax_refund_url = StateFile::StateInformationService.tax_refund_url(current_state_code)
+        @tax_payment_url = StateFile::StateInformationService.tax_payment_url(current_state_code)
+        @voucher_form_name = StateFile::StateInformationService.voucher_form_name(current_state_code)
+        @mail_voucher_address = StateFile::StateInformationService.mail_voucher_address(current_state_code)
+        @voucher_path = StateFile::StateInformationService.voucher_path(current_state_code)
+        @survey_link = StateFile::StateInformationService.survey_link(current_state_code)
+        @tax_form_number = StateFile::StateInformationService.return_type(current_state_code).gsub("Form", "")
       end
 
       def prev_path
@@ -27,78 +30,18 @@ module StateFile
         return nil unless return_status == 'rejected'
         # in the case that its in the notified_of_rejection or waiting state
         # we can't just grab the efile errors from the last transition
-        current_intake.latest_submission&.efile_submission_transitions&.where(to_state: 'rejected')&.last&.efile_errors&.last
+        @submission_to_show&.efile_submission_transitions&.where(to_state: 'rejected')&.last&.efile_errors&.last
       end
 
       def return_status
         # return status for display
-        case current_intake.latest_submission.current_state
+        case @submission_to_show.current_state
         when 'accepted'
           'accepted'
-        when 'notified_of_rejection', 'waiting'
+        when 'notified_of_rejection', 'waiting', 'cancelled'
           'rejected'
         else
           'pending'
-        end
-      end
-
-      def refund_url
-        case params[:us_state]
-        when 'ny'
-          'https://www.tax.ny.gov/pit/file/refund.htm'
-        when 'az'
-          'https://aztaxes.gov/home/checkrefund'
-        else
-          ''
-        end
-      end
-
-      def tax_payment_url
-        case params[:us_state]
-        when 'ny'
-          'Tax.NY.gov'
-        when 'az'
-          'AZTaxes.gov'
-        else
-          ''
-        end
-      end
-
-      def download_form_name
-        case params[:us_state]
-        when 'ny'
-          'Form IT-201-V'
-        when 'az'
-          'Form AZ-140V'
-        else
-          ''
-        end
-      end
-
-      def mail_voucher_address
-        case params[:us_state]
-        when 'ny'
-          "NYS Personal Income Tax<br/>"\
-          "Processing Center<br/>"\
-          "Box 4124<br/>"\
-          "Binghamton, NY 13902-4124".html_safe
-        when 'az'
-          "Arizona Department of Revenue<br/>"\
-          "PO Box 29085<br/>"\
-          "Phoenix, AZ 85038-9085".html_safe
-        else
-          ''
-        end
-      end
-
-      def voucher_path
-        case params[:us_state]
-        when 'ny'
-          '/pdfs/it201v_1223.pdf'
-        when 'az'
-          '/pdfs/AZ-140V.pdf'
-        else
-          ''
         end
       end
 
@@ -106,19 +49,9 @@ module StateFile
 
       def redirect_if_no_submission
         if current_intake.efile_submissions.empty?
-          redirect_to StateFile::Questions::InitiateDataTransferController.to_path_helper(us_state: state_code)
+          redirect_to StateFile::Questions::InitiateDataTransferController.to_path_helper
         end
       end
-
-      def redirect_if_from_efile
-        # We had a situation where we gave the wrong URL to direct file, and they were redirecting
-        # here when the federal return was not yet approved.
-        # We have alerted them, and once they have updated their URL we can probably remove this
-        if params[:ref_location] == "df_authorize_state"
-          redirect_to StateFile::Questions::PendingFederalReturnController.to_path_helper(us_state: current_intake.state_code)
-        end
-      end
-
     end
   end
 end

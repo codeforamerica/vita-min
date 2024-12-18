@@ -3,29 +3,30 @@ require 'net/https'
 require 'uri'
 require 'jwt'
 require 'nokogiri'
-require_relative 'state_file/xml_return_sample_service'
+require 'openssl/oaep'
+
+require_relative 'state_file/direct_file_api_response_sample_service'
 
 class IrsApiService
   def self.df_return_sample
-    StateFile::XmlReturnSampleService.new.old_sample
+    StateFile::DirectFileApiResponseSampleService.new.old_xml_sample
   end
 
-  def self.import_federal_data(authorization_code, state_code)
+  def self.import_federal_data(authorization_code, _state_code)
     unless Rails.env.production?
-      xml_return_sample_service = StateFile::XmlReturnSampleService.new
-      matching_fake_xml_sample = xml_return_sample_service.lookup(authorization_code)
-      fake_submission_id = xml_return_sample_service.lookup_submission_id(authorization_code)
-      if matching_fake_xml_sample
+      direct_file_api_response_sample_service = StateFile::DirectFileApiResponseSampleService.new
+      if direct_file_api_response_sample_service.include?(authorization_code, 'xml')
         return {
-          'xml' => matching_fake_xml_sample.read,
-          'submissionId' => fake_submission_id,
-          'status' => "accepted"
+          'xml' => direct_file_api_response_sample_service.read_xml(authorization_code),
+          'submissionId' => direct_file_api_response_sample_service.lookup_submission_id(authorization_code),
+          'status' => "accepted",
+          'directFileData' => direct_file_api_response_sample_service.read_json(authorization_code)
         }
       end
     end
 
-    account_id = EnvironmentCredentials.dig('statefile', state_code, "account_id")
-    cert_finder = CertificateFinder.new(server_url, state_code)
+    account_id = EnvironmentCredentials.dig('statefile', _state_code, "account_id")
+    cert_finder = CertificateFinder.new(server_url, _state_code)
 
     claim = {
       "iss": account_id.to_s, # State identifier provided by the IRS
@@ -43,14 +44,10 @@ class IrsApiService
     http = Net::HTTP.new(server_url.host, server_url.port)
     http.use_ssl = true
 
-    if server_url.host.include?('irs.gov')
+    if server_url.host.ends_with?('irs.gov')
       # Just cert and key are required
       http.cert = cert_finder.client_cert
       http.key = cert_finder.client_key
-
-      # CA chain for the IRS server certificate, so that we can verify it in mTLS
-      http.ca_file = "config/entrust_l1k_full_chain.cer"
-
     elsif server_url.host.include?('localhost')
       # nginx config for fake API server currently expects a cert + key + CA
       http.cert = cert_finder.client_cert
@@ -73,6 +70,15 @@ class IrsApiService
       save_response(response, filename)
     end
 
+    if response.body.nil?
+      raise StandardError, "DF export-return API response Error: response.body is nil. header=#{response.header}"
+    end
+
+    undecrypted_body_json = JSON.parse(response.body)
+    if undecrypted_body_json.include?("status") && undecrypted_body_json["status"] == "error"
+      raise StandardError, "DF export-return API Response Error: #{undecrypted_body_json["error"]}"
+    end
+
     unless response.header['SESSION-KEY']
       Rails.logger.error("Could not find SESSION-KEY in response header, bailing out. header=#{response.header}; body=#{response.body}")
       return
@@ -80,7 +86,14 @@ class IrsApiService
 
     decipher = OpenSSL::Cipher.new('aes-256-gcm')
     decipher.decrypt
-    decipher.key = cert_finder.client_key.private_decrypt(Base64.decode64(response.header['SESSION-KEY']))
+    client_key = cert_finder.client_key
+    encrypted_session_key = Base64.decode64(response.header['SESSION-KEY'])
+
+    label = ''
+    md_oaep = OpenSSL::Digest::SHA256
+    md_mgf1 = OpenSSL::Digest::SHA1
+
+    decipher.key = client_key.private_decrypt_oaep(encrypted_session_key, label, md_oaep, md_mgf1)
     decipher.iv = Base64.decode64(response.header['INITIALIZATION-VECTOR'])
     encrypted_tax_return_bytes = Base64.decode64(JSON.parse(response.body)['taxReturn'])
 
@@ -107,9 +120,9 @@ class IrsApiService
     attr_reader :server_url
     attr_reader :state_code
 
-    def initialize(server_url, state_code)
+    def initialize(server_url, _state_code)
       @server_url = server_url
-      @state_code = state_code
+      @state_code = _state_code
     end
 
     def self.certs_dir
@@ -125,7 +138,7 @@ class IrsApiService
     end
 
     def client_cert_bytes
-      if server_url.host.include?('irs.gov')
+      if server_url.host.ends_with?('irs.gov')
         Base64.decode64(EnvironmentCredentials.dig('statefile', state_code, "cert_base64"))
       elsif server_url.host.include?('localhost')
         File.read(File.join(certs_dir, 'client.crt'))
@@ -137,7 +150,7 @@ class IrsApiService
     end
 
     def client_key_bytes
-      if server_url.host.include?('irs.gov')
+      if server_url.host.ends_with?('irs.gov')
         Base64.decode64(EnvironmentCredentials.dig('statefile', state_code, "private_key_base64"))
       elsif server_url.host.include?('localhost')
         File.read(File.join(certs_dir, 'client.key'))

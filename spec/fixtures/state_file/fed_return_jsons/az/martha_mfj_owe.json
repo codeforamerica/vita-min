@@ -1,0 +1,84 @@
+{
+  "familyAndHousehold": [
+    {
+      "monthsLivedWithTPInUS": "ten",
+      "lastName": "Custis",
+      "isClaimedDependent": true,
+      "hohQualifyingPerson": false,
+      "qualifyingChild": true,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "2022-03-03",
+      "suffix": null,
+      "residencyDuration": "sixToElevenMonths",
+      "firstName": "John",
+      "middleInitial": null,
+      "tin": "300-00-0010",
+      "scheduleEicLine4aNo": false,
+      "eligibleDependent": true,
+      "relationship": "grandChildOrOtherDescendantOfChild",
+      "ssnNotValidForEmployment": false
+    },
+    {
+      "monthsLivedWithTPInUS": "eight",
+      "lastName": "Bassett",
+      "isClaimedDependent": true,
+      "hohQualifyingPerson": false,
+      "qualifyingChild": true,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": true,
+      "dateOfBirth": "2001-05-05",
+      "suffix": null,
+      "residencyDuration": "sixToElevenMonths",
+      "firstName": "Frances",
+      "middleInitial": null,
+      "tin": "300-00-0012",
+      "scheduleEicLine4aNo": false,
+      "eligibleDependent": true,
+      "relationship": "otherDescendantOfHalfSibling",
+      "ssnNotValidForEmployment": false
+    },
+    {
+      "monthsLivedWithTPInUS": null,
+      "lastName": "Bassett",
+      "isClaimedDependent": true,
+      "hohQualifyingPerson": false,
+      "qualifyingChild": false,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "1993-06-06",
+      "suffix": null,
+      "residencyDuration": "allYear",
+      "firstName": "Nelly",
+      "middleInitial": null,
+      "tin": "300-00-0013",
+      "scheduleEicLine4aNo": true,
+      "eligibleDependent": true,
+      "relationship": "otherDescendantOfStepSibling",
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "filers": [
+    {
+      "lastName": "Washington",
+      "firstName": "George",
+      "middleInitial": null,
+      "tin": "600-00-0005",
+      "dateOfBirth": "1970-02-02",
+      "suffix": null,
+      "isPrimaryFiler": false,
+      "ssnNotValidForEmployment": null
+    },
+    {
+      "firstName": "Martha",
+      "lastName": "Washington",
+      "middleInitial": null,
+      "tin": "400-00-0005",
+      "dateOfBirth": "1970-01-01",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "interestReports": []
+}

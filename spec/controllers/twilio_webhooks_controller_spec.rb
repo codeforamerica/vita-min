@@ -1,6 +1,12 @@
 require "rails_helper"
 
 RSpec.describe TwilioWebhooksController do
+  let(:twilio_service) { instance_double(TwilioService) }
+
+  before do
+    allow(TwilioService).to receive(:new).and_return(twilio_service)
+  end
+
   describe "#create_incoming_text_message" do
     let(:body) { "Hello, it me" }
     let(:incoming_message_params) do
@@ -30,7 +36,7 @@ RSpec.describe TwilioWebhooksController do
     describe "#create_incoming_text_message" do
       context "with an invalid request" do
         before do
-          allow(TwilioService).to receive(:valid_request?).and_return false
+          allow(twilio_service).to receive(:valid_request?).and_return false
         end
 
         it "returns a 403 status code" do
@@ -42,7 +48,7 @@ RSpec.describe TwilioWebhooksController do
 
       context "with a valid request" do
         before do
-          allow(TwilioService).to receive(:valid_request?).and_return true
+          allow(twilio_service).to receive(:valid_request?).and_return true
           allow(IncomingTextMessageService).to receive(:process)
         end
 
@@ -60,7 +66,7 @@ RSpec.describe TwilioWebhooksController do
 
     context "with an invalid request" do
       before do
-        allow(TwilioService).to receive(:valid_request?).and_return false
+        allow(twilio_service).to receive(:valid_request?).and_return false
       end
 
       it "returns a 403 status code" do
@@ -85,7 +91,7 @@ RSpec.describe TwilioWebhooksController do
         }
       end
       before do
-        allow(TwilioService).to receive(:valid_request?).and_return true
+        allow(twilio_service).to receive(:valid_request?).and_return true
         allow(DatadogApi).to receive(:increment)
       end
 
@@ -117,7 +123,7 @@ RSpec.describe TwilioWebhooksController do
 
     context "with an invalid request" do
       before do
-        allow(TwilioService).to receive(:valid_request?).and_return false
+        allow(twilio_service).to receive(:valid_request?).and_return false
       end
 
       it "returns a 403 status code" do
@@ -143,7 +149,7 @@ RSpec.describe TwilioWebhooksController do
       end
 
       before do
-        allow(TwilioService).to receive(:valid_request?).and_return true
+        allow(twilio_service).to receive(:valid_request?).and_return true
         allow(DatadogApi).to receive(:increment)
       end
 
@@ -210,7 +216,7 @@ RSpec.describe TwilioWebhooksController do
 
     context "a signed request" do
       before do
-        allow(TwilioService).to receive(:valid_request?).and_return true
+        allow(twilio_service).to receive(:valid_request?).and_return true
         allow(DatadogApi).to receive(:increment)
         allow(DatadogApi).to receive(:gauge)
       end
@@ -232,7 +238,7 @@ RSpec.describe TwilioWebhooksController do
 
     context "an unsigned request" do
       before do
-        allow(TwilioService).to receive(:valid_request?).and_return false
+        allow(twilio_service).to receive(:valid_request?).and_return false
       end
 
       it "returns a 403 status code" do
@@ -249,7 +255,7 @@ RSpec.describe TwilioWebhooksController do
 
     context "a signed request" do
       before do
-        allow(TwilioService).to receive(:valid_request?).and_return true
+        allow(twilio_service).to receive(:valid_request?).and_return true
         allow(DatadogApi).to receive(:increment)
       end
 
@@ -272,7 +278,7 @@ RSpec.describe TwilioWebhooksController do
 
     context "an unsigned request" do
       before do
-        allow(TwilioService).to receive(:valid_request?).and_return false
+        allow(twilio_service).to receive(:valid_request?).and_return false
       end
 
       it "returns a 403 status code" do

@@ -11,7 +11,7 @@ shared_examples :eligibility_offboarding_concern do |intake_factory:|
       it "does not redirect to the eligibility offboarding page" do
         post :update, params: eligible_params
 
-        expect(response).not_to redirect_to(controller: "state_file/questions/eligibility_offboarding", action: :edit, us_state: ineligible_params[:us_state])
+        expect(response).not_to redirect_to(controller: "state_file/questions/eligibility_offboarding", action: :edit)
       end
     end
 
@@ -19,12 +19,10 @@ shared_examples :eligibility_offboarding_concern do |intake_factory:|
       it "redirects to the eligibility offboarding page" do
         post :update, params: ineligible_params
 
-        state = ineligible_params[:us_state]
-        expected_prev_path = described_class.to_path_helper(action: :edit, us_state: state)
+        expected_prev_path = described_class.to_path_helper
         expected_redirect_path = url_for(
           controller: "state_file/questions/eligibility_offboarding",
-          action: :edit,
-          us_state: state,
+          action: :edit
         )
 
         expect(response).to redirect_to(expected_redirect_path)

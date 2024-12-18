@@ -6,22 +6,22 @@ RSpec.describe PdfFiller::Ny213AttPdf do
   let(:submission) {
     create :efile_submission,
            tax_return: nil,
-           data_source: create(:state_file_zeus_intake, primary_first_name: "Yew", primary_last_name: "Norker")
+           data_source: create(:state_file_zeus_intake)
   }
   let(:pdf) { described_class.new(submission) }
 
   before do
     submission.data_source.dependents.each_with_index do |dependent, i|
-      dependent.update(dob: i.years.ago, middle_initial: "G", relationship: "daughter", ctc_qualifying: true)
+      dependent.update(dob: i.years.ago, middle_initial: "G", relationship: "biologicalChild", ctc_qualifying: true)
     end
-    submission.data_source.dependents.create!(first_name: "Perseus", last_name: "Thunder", dob: 30.years.ago, relationship: "daughter", ctc_qualifying: false)
+    submission.data_source.dependents.create!(first_name: "Perseus", last_name: "Thunder", dob: 30.years.ago, relationship: "biologicalChild", ctc_qualifying: false)
   end
 
   describe '#hash_for_pdf' do
     let(:pdf_fields) { filled_in_values(submission.generate_filing_pdf.path) }
 
     it 'fills in the overflow dependents only' do
-      expect(pdf_fields["Name Shown on Return"]).to eq "Yew Norker"
+      expect(pdf_fields["Name Shown on Return"]).to eq "Zeus Thunder"
       expect(pdf_fields["Your SSN"]).to eq "400000015"
 
       dependent_1 = submission.data_source.dependents[6]

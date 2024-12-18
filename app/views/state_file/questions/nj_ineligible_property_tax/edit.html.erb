@@ -1,0 +1,13 @@
+<%
+    title = t(".title")
+    content_for :page_title, title
+%>
+
+<% content_for :card do %>
+  <h1 class="h2"><%= t(".title") %></h1>
+  <p><%= t(".helper_description") %></p>
+
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <%= f.continue %>
+  <% end %>
+<% end %>

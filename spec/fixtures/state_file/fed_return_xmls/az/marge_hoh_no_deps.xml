@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v4.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>90a96764</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400006060</PrimarySSN>
+            <NameLine1Txt>MARJORIE&lt;SIMPSON</NameLine1Txt>
+            <PrimaryNameControlTxt>SIMP</PrimaryNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>742 Evergreen Terrace</AddressLine1Txt>
+                <CityNm>Phoenix</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>85001</ZIPCd>
+            </USAddress>
+            <PhoneNum>2223334444</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000606-0619-4291-b858-172dee765625@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="3">
+        <IRS1040 documentId="IRS10400001">
+            <IndividualReturnFilingStatusCd>4</IndividualReturnFilingStatusCd>
+            <QualifyingHOHNm>Lisa Simpson</QualifyingHOHNm>
+            <QualifyingHOHSSN>600005656</QualifyingHOHSSN>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>1</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">3000</WagesAmt>
+            <WagesSalariesAndTipsAmt>3000</WagesSalariesAndTipsAmt>
+            <TotalIncomeAmt>3000</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>3000</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>21900</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>21900</TotalDeductionsAmt>
+            <TaxableIncomeAmt>0</TaxableIncomeAmt>
+            <TaxAmt>0</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>0</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>0</TaxLessCreditsAmt>
+            <TotalTaxAmt>0</TotalTaxAmt>
+            <EarnedIncomeCreditAmt referenceDocumentId="IRSEIC0001" referenceDocumentName="IRS1040ScheduleEIC">1029</EarnedIncomeCreditAmt>
+            <RefundableCreditsAmt>1029</RefundableCreditsAmt>
+            <TotalPaymentsAmt>1029</TotalPaymentsAmt>
+            <OverpaidAmt>1029</OverpaidAmt>
+            <RefundAmt>1029</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Chef</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1040ScheduleEIC documentId="IRSEIC0001" documentName="IRS1040ScheduleEIC">
+            <QualifyingChildInformation>
+                <QualifyingChildNameControlTxt>SIMP</QualifyingChildNameControlTxt>
+                <ChildFirstAndLastName>
+                    <PersonFirstNm>Lisa</PersonFirstNm>
+                    <PersonLastNm>Simpson</PersonLastNm>
+                </ChildFirstAndLastName>
+                <QualifyingChildSSN>600005656</QualifyingChildSSN>
+                <ChildBirthYr>2010</ChildBirthYr>
+                <ChildRelationshipCd>DAUGHTER</ChildRelationshipCd>
+                <MonthsChildLivedWithYouCnt>12</MonthsChildLivedWithYouCnt>
+            </QualifyingChildInformation>
+        </IRS1040ScheduleEIC>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>400006060</EmployeeSSN>
+            <EmployerEIN>003456543</EmployerEIN>
+            <EmployerNameControlTxt>SPRI</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>SPRINGFIELD ATOMIC POWER AND LIGHT</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>100 ATOMIC DR</AddressLine1Txt>
+                <CityNm>SPRINGFIELD</CityNm>
+                <StateAbbreviationCd>OH</StateAbbreviationCd>
+                <ZIPCd>62796</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Marjorie Simpson</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>742 EVERGREEN TER</AddressLine1Txt>
+                <CityNm>SPRINGFIELD</CityNm>
+                <StateAbbreviationCd>OH</StateAbbreviationCd>
+                <ZIPCd>62701</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>3000</WagesAmt>
+            <EmployersUseGrp>
+                <EmployersUseCd>D</EmployersUseCd>
+                <EmployersUseAmt>4556</EmployersUseAmt>
+            </EmployersUseGrp>
+            <EmployersUseGrp>
+                <EmployersUseCd>DD</EmployersUseCd>
+                <EmployersUseAmt>7899</EmployersUseAmt>
+            </EmployersUseGrp>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>

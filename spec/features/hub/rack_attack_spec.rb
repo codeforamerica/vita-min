@@ -4,6 +4,7 @@ describe Rack::Attack, type: :request do
   let(:limit) { 5 }
   let(:ip) { "1.2.3.4" }
   before do
+    Rack::Attack.enabled = true
     Rack::Attack.cache.store = ActiveSupport::Cache::MemoryStore.new
   end
 
@@ -41,14 +42,15 @@ describe Rack::Attack, type: :request do
 
   context "on a get to a non-login page" do
     it "does nothing" do
-      Timecop.freeze
+      Timecop.freeze do
 
-      limit.times do
+        limit.times do
+          get "/", headers: { REMOTE_ADDR: ip }
+        end
+
         get "/", headers: { REMOTE_ADDR: ip }
+        expect(response).to have_http_status(302)
       end
-
-      get "/", headers: { REMOTE_ADDR: ip }
-      expect(response).to have_http_status(302)
     end
   end
 end

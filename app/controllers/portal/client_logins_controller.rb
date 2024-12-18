@@ -48,7 +48,7 @@ module Portal
         return if redirect_locked_clients # check if any records are already locked
         if @records.present? # we have at least one match and none are locked
           DatadogApi.increment("#{self.controller_name}.verification_codes.right_code")
-          redirect_to self.class.to_path_helper(action: :edit, id: hashed_verification_code, **extra_path_params)
+          redirect_to self.class.to_path_helper(action: :edit, id: hashed_verification_code)
           return
         else # we have no matches for the verification code
           @verification_code_form.errors.add(:verification_code, I18n.t("portal.client_logins.form.errors.bad_verification_code"))
@@ -97,10 +97,6 @@ module Portal
       RequestClientLoginForm
     end
 
-    def extra_path_params
-      {}
-    end
-
     def request_client_login_params
       params.require(:portal_request_client_login_form).permit(:email_address, :sms_phone_number)
     end
@@ -115,7 +111,7 @@ module Portal
 
     def validate_token
       @records = client_login_service.login_records_for_token(params[:id])
-      redirect_to self.class.to_path_helper(action: :create, **extra_path_params) unless @records.present?
+      redirect_to self.class.to_path_helper(action: :create) unless @records.present?
     end
 
     def client_login_service

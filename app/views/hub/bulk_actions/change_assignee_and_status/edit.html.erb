@@ -22,9 +22,9 @@
 
           <p class="text--help text--bold spacing-below-25"><%= t(".by_clicking_submit") %></p>
 
-          <button type="submit" class="button button--cta">
+          <%= f.button :submit, class: "button button--cta", data: {disable_with: t("general.submit") } do %>
             <%= t("general.submit") %>
-          </button><%= link_to t("general.cancel"), :back, class: "button" %>
+          <% end %><%= link_to t("general.cancel"), :back, class: "button" %>
 
         <% end %>
       </div>

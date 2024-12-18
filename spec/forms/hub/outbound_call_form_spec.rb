@@ -32,14 +32,16 @@ describe Hub::OutboundCallForm do
 
   describe "#dial" do
     subject { described_class.new(client: client, user: user) }
-    let(:twilio_double) { double(Twilio::REST::Client) }
+    let(:twilio_client_double) { double(Twilio::REST::Client) }
+    let(:twilio_service) { instance_double TwilioService }
     let(:twilio_calls_double) { double }
     let(:twilio_response_double) { double(Twilio::REST::Api::V2010::AccountContext::CallInstance, sid: "123456", status: "initiated", queue_time: "1000") }
     let(:twilio_phone_number) { "+14156393361" }
 
     before do
-      allow(Twilio::REST::Client).to receive(:new).and_return(twilio_double)
-      allow(twilio_double).to receive(:calls).and_return(twilio_calls_double)
+      allow(TwilioService).to receive(:new).and_return(twilio_service)
+      allow(twilio_service).to receive(:client).and_return(twilio_client_double)
+      allow(twilio_client_double).to receive(:calls).and_return(twilio_calls_double)
       allow(twilio_calls_double).to receive(:create).and_return(twilio_response_double)
       @test_environment_credentials.merge!(twilio: {
         voice_phone_number: twilio_phone_number,
@@ -52,7 +54,7 @@ describe Hub::OutboundCallForm do
 
     it "initializes a twilio instance" do
       subject.dial
-      expect(Twilio::REST::Client).to have_received(:new).with("abc", "123")
+      expect(TwilioService).to have_received(:new).with(:gyr)
     end
 
     it "creates a twilio call with appropriate params" do

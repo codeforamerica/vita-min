@@ -1,0 +1,25 @@
+{
+  "familyAndHousehold": [],
+  "filers": [
+    {
+      "firstName": "Danny",
+      "lastName": "Devito",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "300-00-0003",
+      "dateOfBirth": "1944-11-17",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [
+    {
+      "usedTin": "300-00-0003",
+      "unionDuesAmount": null
+    }
+  ],
+  "interestReports": []
+}

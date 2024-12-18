@@ -1,0 +1,15 @@
+#!/bin/sh
+
+dockerize -wait tcp://db:5432 -timeout 20s -wait-retry-interval 10s bash -c "bin/rails db:create"
+bin/rails db:prepare
+bin/rails parallel:create
+bin/rails parallel:prepare
+bin/rails db:seed
+
+bundle exec rake assets:precompile
+
+if [ -f /app/tmp/pids/server.pid ]; then
+  rm /app/tmp/pids/server.pid
+fi 
+
+bundle exec rails s -b 0.0.0.0 -p 3000

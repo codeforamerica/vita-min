@@ -19,8 +19,8 @@ RSpec.describe StateFile::Questions::ConfirmationController do
         sign_in ny_intake
       end
 
-      it "returns some xml" do
-        get :show_xml, params: { us_state: "ny", id: efile_submission.id }
+      it "returns some xml", required_schema: "ny" do
+        get :show_xml, params: { id: efile_submission.id }
         expect(Nokogiri::XML(response.body).at('Primary FirstName').text).to eq("Jerry")
       end
     end
@@ -39,7 +39,7 @@ RSpec.describe StateFile::Questions::ConfirmationController do
       let(:intake) { create :state_file_ny_intake, :with_efile_device_infos, primary_first_name: "Jerry" }
 
       it "shows a little bit about how each line was calculated" do
-        get :explain_calculations, params: { us_state: "ny", id: efile_submission.id }
+        get :explain_calculations, params: { id: efile_submission.id }
         expect(response.body).to include('IT201_LINE_1')
         expect(response.body).to include('IT213_LINE_14')
       end
@@ -49,7 +49,7 @@ RSpec.describe StateFile::Questions::ConfirmationController do
       let(:intake) { create :state_file_az_intake, :with_efile_device_infos, primary_first_name: "Jerry" }
 
       it "shows a little bit about how each line was calculated" do
-        get :explain_calculations, params: { us_state: "az", id: efile_submission.id }
+        get :explain_calculations, params: { id: efile_submission.id }
         expect(response.body).to include('AZ140_LINE_12')
       end
     end

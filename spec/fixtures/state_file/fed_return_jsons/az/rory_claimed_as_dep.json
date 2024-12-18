@@ -1,0 +1,16 @@
+{
+  "familyAndHousehold": [],
+  "filers": [
+    {
+      "firstName": "Rory",
+      "lastName": "Gilmore",
+      "middleInitial": null,
+      "tin": "400-00-0009",
+      "dateOfBirth": "2003-02-03",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "interestReports": []
+}

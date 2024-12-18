@@ -1,0 +1,48 @@
+#!/bin/bash
+
+vita_min_protocol="http"
+vita_min_faq_host="localhost"
+vita_min_host="statefile.localhost"
+vita_min_port=3000
+gui=false
+test_plan=""
+
+cd "$(dirname "$0")"
+
+while getopts e:ght: flag
+do
+  if [[ "$flag" == "e" ]]; then
+    if [[ ${OPTARG} == "staging" ]]; then
+      vita_min_protocol="https"
+      vita_min_faq_host="staging.getyourrefund.org"
+      vita_min_host="staging.fileyourstatetaxes.org"
+      vita_min_port="443"
+    elif [[ ${OPTARG} != "dev" ]]; then
+      echo "Unknown environment: ${OPTARG}"
+      exit 1
+    fi
+  elif [[ "$flag" == "g" ]]; then
+    gui=true
+  elif [[ "$flag" == "h" ]]; then
+    echo "USAGE: jmeter_test -t <TEST_PLAN> <-e <ENVIRONMENT>> <-g>"
+  elif [[ "$flag" == "t" ]]; then
+    test_plan=${OPTARG}
+  fi
+done
+
+cmd="jmeter"
+if [[ $gui == false ]]; then
+  cmd="${cmd} -n"
+  if [[ -z "${test_plan}" ]]; then
+    echo "Please specify a test plan!"
+    exit 1
+  fi
+fi
+
+if [[ ! -z "${test_plan}" ]]; then
+  cmd="${cmd} -t ${test_plan}.jmx -l results/${test_plan}.jtl"
+fi
+
+cmd="${cmd} -Jvita_min_protocol=${vita_min_protocol} -Jvita_min_port=${vita_min_port} -Jvita_min_faq_host=${vita_min_faq_host} -Jvita_min_host=${vita_min_host}"
+
+eval "${cmd}"

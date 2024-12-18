@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v4.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>31cdc8a8</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>300000001</PrimarySSN>
+            <NameLine1Txt>FRANK&lt;SINATRA</NameLine1Txt>
+            <PrimaryNameControlTxt>SINA</PrimaryNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>415 Monroe St</AddressLine1Txt>
+                <CityNm>Hoboken</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07030</ZIPCd>
+            </USAddress>
+            <PhoneNum>2015554321</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+30000000-135d-45e2-9329-6b1081e0ceed@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="3">
+        <IRS1040 documentId="IRS10400001">
+            <Form1040SRInd>X</Form1040SRInd>
+            <IndividualReturnFilingStatusCd>5</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <Primary65OrOlderInd>X</Primary65OrOlderInd>
+            <TotalBoxesCheckedCnt>1</TotalBoxesCheckedCnt>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <DependentDetail>
+                <DependentFirstNm>Frank</DependentFirstNm>
+                <DependentLastNm>Sinatra Jr</DependentLastNm>
+                <DependentNameControlTxt>SINA</DependentNameControlTxt>
+                <DependentSSN>600000001</DependentSSN>
+                <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+                <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+            </DependentDetail>
+            <ChldWhoLivedWithYouCnt>1</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>2</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">85500</WagesAmt>
+            <WagesSalariesAndTipsAmt>85500</WagesSalariesAndTipsAmt>
+            <TotalIncomeAmt>85500</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>85500</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>30750</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>30750</TotalDeductionsAmt>
+            <TaxableIncomeAmt>54750</TaxableIncomeAmt>
+            <TaxAmt>6109</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>6109</TotalTaxBeforeCrAndOthTaxesAmt>
+            <CTCODCAmt>2000</CTCODCAmt>
+            <TotalCreditsAmt>2000</TotalCreditsAmt>
+            <TaxLessCreditsAmt>4109</TaxLessCreditsAmt>
+            <TotalTaxAmt>4109</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>3000</FormW2WithheldTaxAmt>
+            <WithholdingTaxAmt>3000</WithholdingTaxAmt>
+            <TotalPaymentsAmt>3000</TotalPaymentsAmt>
+            <OwedAmt>1109</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Singer</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1040Schedule8812 documentId="IRS8812001" documentName="IRS1040Schedule8812">
+            <AdjustedGrossIncomeAmt>85500</AdjustedGrossIncomeAmt>
+            <ModifiedAGIAmt>85500</ModifiedAGIAmt>
+            <QlfyChildUnderAgeSSNCnt>1</QlfyChildUnderAgeSSNCnt>
+            <QlfyChildUnderAgeSSNLimtAmt>2000</QlfyChildUnderAgeSSNLimtAmt>
+            <OtherDependentCnt>0</OtherDependentCnt>
+            <InitialCTCODCAmt>2000</InitialCTCODCAmt>
+            <FilingStatusThresholdCd>200000</FilingStatusThresholdCd>
+            <ExcessAdjGrossIncomeAmt>0</ExcessAdjGrossIncomeAmt>
+            <ModifiedAGIPhaseOutAmt>0</ModifiedAGIPhaseOutAmt>
+            <CTCODCOverAGILimitInd>true</CTCODCOverAGILimitInd>
+            <CTCODCAfterAGILimitAmt>2000</CTCODCAfterAGILimitAmt>
+            <ACTCTaxLiabiltyLimitAmt>6109</ACTCTaxLiabiltyLimitAmt>
+            <CTCODCAmt>2000</CTCODCAmt>
+            <ClaimACTCAllFilersGrp/>
+        </IRS1040Schedule8812>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>300000001</EmployeeSSN>
+            <EmployerEIN>009876543</EmployerEIN>
+            <EmployerNameControlTxt>ATLA</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Atlantic Records</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>10 W 40th St</AddressLine1Txt>
+                <CityNm>New York</CityNm>
+                <StateAbbreviationCd>NY</StateAbbreviationCd>
+                <ZIPCd>10003</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Frank Sinatra</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>415 Monroe St</AddressLine1Txt>
+                <CityNm>Hoboken</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07030</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>85500</WagesAmt>
+            <WithholdingAmt>3000</WithholdingAmt>
+            <SocialSecurityWagesAmt>85500</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>2000</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>85500</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>1000</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                    <EmployerStateIdNum>123456</EmployerStateIdNum>
+                    <StateWagesAmt>85500</StateWagesAmt>
+                    <StateIncomeTaxAmt>5000</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>

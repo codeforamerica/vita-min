@@ -37,7 +37,8 @@ module Ctc
           claimed_eitc: benefits_eligibility.eitc_amount&.positive?
         )
         begin
-          efile_submission.transition_to(:preparing)
+          # Transitioning will no longer work because we've removed CTC code from the efile submission state machine
+          # efile_submission.transition_to(:preparing)
         rescue Statesman::GuardFailedError
           Rails.logger.error "Failed to transition EfileSubmission##{efile_submission.id} to :preparing"
         end

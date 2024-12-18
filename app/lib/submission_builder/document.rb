@@ -5,6 +5,8 @@ module SubmissionBuilder
 
     def initialize(submission, validate: true, kwargs: {})
       @submission = submission
+      @intake = submission&.data_source
+      @direct_file_data = submission&.data_source&.direct_file_data
       @validate = validate
       @schema_version = determine_default_schema_version_by_tax_year
       @kwargs = kwargs
@@ -16,6 +18,8 @@ module SubmissionBuilder
 
     def determine_default_schema_version_by_tax_year
       case @submission.tax_return&.year || @submission.data_source&.tax_return_year
+      when 2024 # TODO: update with 2024 schema when available
+        "2023v5.0"
       when 2023
         "2023v5.0"
       when 2022
@@ -82,6 +86,7 @@ module SubmissionBuilder
       calculated_fields[:IT213_LINE_14].present? && calculated_fields[:IT213_LINE_14] > 0 && !@submission.data_source.direct_file_data.claimed_as_dependent?
     end
 
+    # This is specific to NY
     def add_non_zero_claimed_value(xml, elem_name, claimed)
       claimed_value = calculated_fields.fetch(claimed)
       if claimed_value.present? && claimed_value.to_i != 0
@@ -89,16 +94,65 @@ module SubmissionBuilder
       end
     end
 
+    def add_non_zero_value(xml, elem_name, line)
+      value = calculated_fields.fetch(line)
+      if value.present? && value.to_i != 0
+        xml.send(elem_name, value)
+      end
+    end
+
+    def add_element_if_present(xml, tag, line_id)
+      value = calculated_fields.fetch(line_id)
+      xml.send(tag, value) if value.present?
+    end
+
+    def email_from_intake_or_df
+      if @submission.data_source.email_address.present?
+        sanitize_for_xml(@submission.data_source.email_address, 75)
+      elsif @submission.data_source.direct_file_data.tax_payer_email.present?
+        sanitize_for_xml(@submission.data_source.direct_file_data.tax_payer_email, 75)
+      end
+    end
+
+    def extract_apartment_from_mailing_street(xml)
+      return unless @submission.data_source.direct_file_data.mailing_street.present?
+
+      mailing_street = sanitize_for_xml(@submission.data_source.direct_file_data.mailing_street)
+      key_position = mailing_street.index(ADDRESS_ABBREV_REGEX)
+
+      if key_position
+        truncated_mailing_street = mailing_street[0...key_position].rstrip
+        excess_characters = mailing_street[key_position..].lstrip
+
+        xml.AddressLine1Txt sanitize_for_xml(truncated_mailing_street, 35)
+        if @submission.data_source.direct_file_data.mailing_apartment.present?
+          apartment = sanitize_for_xml(@submission.data_source.direct_file_data.mailing_apartment)
+          if apartment.length + excess_characters.length > 35
+            truncated_apartment = apartment[0, 35 - excess_characters.length].rpartition(' ').first
+            xml.AddressLine2Txt "#{excess_characters} #{truncated_apartment}"
+          else
+            xml.AddressLine2Txt "#{excess_characters} #{apartment}"
+          end
+        else
+          xml.AddressLine2Txt excess_characters
+        end
+      else
+        xml.AddressLine1Txt sanitize_for_xml(mailing_street, 35)
+        xml.AddressLine2Txt sanitize_for_xml(@submission.data_source.direct_file_data.mailing_apartment, 35) if @submission.data_source.direct_file_data.mailing_apartment.present?
+      end
+    end
+
+    # TODO Rest of these processing address methods are for NY and might be deprecated
     def process_mailing_street(xml)
       return unless @submission.data_source.direct_file_data.mailing_street.present?
 
-      mailing_street = @submission.data_source.direct_file_data.mailing_street.strip.gsub(/\s+/, ' ')
+      mailing_street = sanitize_for_xml(@submission.data_source.direct_file_data.mailing_street)
 
       if mailing_street.length > 30
         process_long_mailing_street(xml, mailing_street)
       else
-        xml.MAIL_LN_1_ADR @submission.data_source.direct_file_data.mailing_apartment.strip.gsub(/\s+/, ' ') if @submission.data_source.direct_file_data.mailing_apartment.present?
-        xml.MAIL_LN_2_ADR mailing_street
+        xml.MAIL_LN_1_ADR sanitize_for_xml(@submission.data_source.direct_file_data.mailing_apartment, 30) if @submission.data_source.direct_file_data.mailing_apartment.present?
+        xml.MAIL_LN_2_ADR sanitize_for_xml(mailing_street, 30)
       end
     end
 
@@ -118,7 +172,7 @@ module SubmissionBuilder
 
     def process_mailing_apartment(xml, excess_characters, truncated_mailing_street)
       if @submission.data_source.direct_file_data.mailing_apartment.present?
-        apartment = @submission.data_source.direct_file_data.mailing_apartment.strip.gsub(/\s+/, ' ')
+        apartment = sanitize_for_xml(@submission.data_source.direct_file_data.mailing_apartment)
         if apartment.length + excess_characters.length > 30
           truncated_apartment = apartment[0, 30 - excess_characters.length].rpartition(' ').first
           xml.MAIL_LN_1_ADR excess_characters + " " + truncated_apartment
@@ -134,13 +188,13 @@ module SubmissionBuilder
     def process_permanent_street(xml)
       return unless @submission.data_source.permanent_street.present?
 
-      permanent_street = @submission.data_source.permanent_street.strip.gsub(/\s+/, ' ')
+      permanent_street = sanitize_for_xml(@submission.data_source.permanent_street)
 
       if permanent_street.length > 30
         process_long_permanent_street(xml, permanent_street)
       else
-        xml.PERM_LN_1_ADR @submission.data_source.permanent_apartment.strip.gsub(/\s+/, ' ') if @submission.data_source.permanent_apartment.present?
-        xml.PERM_LN_2_ADR permanent_street
+        xml.PERM_LN_1_ADR sanitize_for_xml(@submission.data_source.permanent_apartment, 30) if @submission.data_source.permanent_apartment.present?
+        xml.PERM_LN_2_ADR sanitize_for_xml(permanent_street, 30)
       end
     end
 
@@ -160,7 +214,7 @@ module SubmissionBuilder
 
     def process_permanent_apartment(xml, excess_characters, truncated_permanent_street)
       if @submission.data_source.permanent_apartment.present?
-        apartment = @submission.data_source.permanent_apartment.strip.gsub(/\s+/, ' ')
+        apartment = sanitize_for_xml(@submission.data_source.permanent_apartment)
         if apartment.length + excess_characters.length > 30
           truncated_apartment = apartment[0, 30 - excess_characters.length].rpartition(' ').first
           xml.PERM_LN_1_ADR excess_characters + " " + truncated_apartment

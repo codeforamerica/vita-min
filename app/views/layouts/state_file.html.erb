@@ -1,7 +1,7 @@
 <%= extends :application do %>
   <% content_for :app_name do %>FileYourStateTaxes<% end %>
-  <% content_for :body_class, "state-file us-state--#{params[:us_state]}" %>
-  <% content_for :html_class, "state-file-html-bg--#{params[:us_state]}" %>
+  <% content_for :body_class, "state-file us-state--#{ state_code_for_page_style }" %>
+  <% content_for :html_class, "state-file-html-bg--#{ state_code_for_page_style }" %>
   <% content_for :head_links do %>
     <link href='https://fonts.googleapis.com/css?family=Public Sans' rel='stylesheet' />
   <% end %>

@@ -2,9 +2,6 @@ require "rails_helper"
 
 describe Hub::AutomatedMessagesController do
   describe "#index" do
-    before do
-      DefaultErrorMessages.generate!
-    end
     it_behaves_like :a_get_action_for_admins_only, action: :index
 
     context "as an authenticated user" do
@@ -25,8 +22,8 @@ describe Hub::AutomatedMessagesController do
       it "includes every AutomatedMessage class" do
         get :index
 
-        shown_message_classes = assigns(:messages).map{ |m| m[0] }
-        message_class_names = (AutomatedMessage::AutomatedMessage.descendants + ["UserMailer.assignment_email", "VerificationCodeMailer.with_code", "VerificationCodeMailer.no_match_found", "DiyIntakeEmailMailer.high_support_message", SurveyMessages::GyrCompletionSurvey, SurveyMessages::CtcExperienceSurvey])
+        shown_message_classes = assigns(:messages).keys
+        message_class_names = (AutomatedMessage::AutomatedMessage.descendants + ["UserMailer.assignment_email", "VerificationCodeMailer.with_code", "VerificationCodeMailer.no_match_found", "DiyIntakeEmailMailer.high_support_message", "CtcSignupMailer.launch_announcement", SurveyMessages::GyrCompletionSurvey, SurveyMessages::CtcExperienceSurvey])
 
         expect(shown_message_classes).to match_array(message_class_names)
       end

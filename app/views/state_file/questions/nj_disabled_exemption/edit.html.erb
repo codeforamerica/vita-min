@@ -1,0 +1,37 @@
+<%
+    title = t(".title")
+    content_for :page_title, title
+%>
+
+<% content_for :card do %>
+  <h1 class="h2"><%= t(".title") %></h1>
+  <p class="p"><%= t(".instructions_html") %></p>
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <% if !current_intake.direct_file_data.is_primary_blind?%>
+    <div class="white-group">
+      <%= f.cfa_radio_set(:primary_disabled, 
+        label_text: t('.primary_disabled_question'),
+        collection: [
+              { value: :yes, label: t("general.affirmative") },
+              { value: :no, label: t("general.negative") },
+        ]
+        ) %>
+    </div>
+    <% end %>
+    <% if current_intake.filing_status_mfj? && !current_intake.direct_file_data.is_spouse_blind?%>
+    <div class="white-group">
+      <%= f.cfa_radio_set(:spouse_disabled, 
+        label_text: t('.spouse_disabled_question'),
+        collection: [
+              { value: :yes, label: t("general.affirmative") },
+              { value: :no, label: t("general.negative") },
+        ]
+        ) %>    
+    </div>
+    <% end %>
+    <% if params[:return_to_review].present? %>
+      <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
+    <% end %>
+    <%= f.continue %>
+  <% end %>
+<% end %>

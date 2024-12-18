@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v4.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>8a029080</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>900510001</PrimarySSN>
+            <NameLine1Txt>SNOOKI&lt;POLIZZI</NameLine1Txt>
+            <PrimaryNameControlTxt>POLI</PrimaryNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>1 Snooki Street</AddressLine1Txt>
+                <CityNm>Florham Park</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07932</ZIPCd>
+            </USAddress>
+            <PhoneNum>2015554345</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+90000000-1c57-426c-a586-141fc7f71399@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="2">
+        <IRS1040 documentId="IRS10400001">
+            <IndividualReturnFilingStatusCd>1</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <PrimaryBlindInd>X</PrimaryBlindInd>
+            <TotalBoxesCheckedCnt>1</TotalBoxesCheckedCnt>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>1</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">10500</WagesAmt>
+            <WagesSalariesAndTipsAmt>10500</WagesSalariesAndTipsAmt>
+            <TotalIncomeAmt>10500</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>10500</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>16550</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>16550</TotalDeductionsAmt>
+            <TaxableIncomeAmt>0</TaxableIncomeAmt>
+            <TaxAmt>0</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>0</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>0</TaxLessCreditsAmt>
+            <TotalTaxAmt>0</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>10</FormW2WithheldTaxAmt>
+            <WithholdingTaxAmt>10</WithholdingTaxAmt>
+            <TotalPaymentsAmt>10</TotalPaymentsAmt>
+            <OverpaidAmt>10</OverpaidAmt>
+            <RefundAmt>10</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Star</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>200000001</EmployeeSSN>
+            <EmployerEIN>005757575</EmployerEIN>
+            <EmployerNameControlTxt>JERS</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Jersey Shore</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>1 Jersey Shore St</AddressLine1Txt>
+                <CityNm>Atlantic City</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07222</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Snooki Polizzi</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>1 Snooki Street</AddressLine1Txt>
+                <CityNm>Florham Park</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07932</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>10500</WagesAmt>
+            <WithholdingAmt>10</WithholdingAmt>
+            <SocialSecurityWagesAmt>10500</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>5</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>10500</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>2</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                    <EmployerStateIdNum>8585858858</EmployerStateIdNum>
+                    <StateWagesAmt>10500</StateWagesAmt>
+                    <StateIncomeTaxAmt>375</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>

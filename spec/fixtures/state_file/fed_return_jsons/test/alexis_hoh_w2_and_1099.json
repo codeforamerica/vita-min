@@ -1,0 +1,24 @@
+{
+  "familyAndHousehold": [
+    {
+      "firstName": "Axel",
+      "lastName": "Rose",
+      "middleInitial": null,
+      "tin": "300-00-0009",
+      "dateOfBirth": "1981-01-01",
+      "relationship": "sibling",
+      "eligibleDependent": true,
+      "isClaimedDependent": true,
+      "monthsLivedWithTPInUS": "twelve"
+    }
+  ],
+  "filers": [
+    {
+      "firstName": "Alexis",
+      "middleInitial": null,
+      "lastName": "Rose",
+      "dateOfBirth": "1980-01-01",
+      "isPrimaryFiler": true
+    }
+  ]
+}

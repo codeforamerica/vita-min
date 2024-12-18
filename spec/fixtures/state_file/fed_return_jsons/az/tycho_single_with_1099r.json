@@ -1,0 +1,16 @@
+{
+  "familyAndHousehold": [],
+  "filers": [
+    {
+      "lastName": "Brahe",
+      "firstName": "Tycho",
+      "middleInitial": null,
+      "tin": "400-00-0012",
+      "dateOfBirth": "1959-12-31",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "interestReports": []
+}

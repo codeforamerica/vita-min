@@ -1,0 +1,8 @@
+<div class="reveal spacing-above-35">
+  <span class="text--small"><button class="reveal__button"> <%= t('state_file.questions.use_different_service.title') %></button></span>
+  <div class="reveal__content">
+    <p> <%= t('state_file.questions.use_different_service.body') %></p>
+    <%= link_to t("state_file.questions.use_different_service.faq_link"), state_faq_path(us_state: current_state_code) %>
+  </div>
+</div>
+

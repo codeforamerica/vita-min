@@ -83,9 +83,10 @@ module Efile
 
     def error_service_type(submission)
       if submission.is_for_state_filing?
-        :state_file
-      elsif submission.is_for_federal_filing?
-        :ctc
+        state_code = submission.data_source.state_code
+        "state_file_#{state_code}"
+      else
+        "ctc"
       end
     end
   end

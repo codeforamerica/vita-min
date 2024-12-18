@@ -9,6 +9,7 @@ class RoutingNumberValidator < ActiveModel::EachValidator
 
   def self.passes_checksum(value)
     digits = value.split("").map(&:to_i)
+    # 01300000 would be valid against this formula
     (3 * (digits[0] + digits[3] + digits[6]) + 7 * (digits[1] + digits[4] + digits[7]) + digits[2] + digits[5] + digits[8]) % 10 == 0
   end
 end

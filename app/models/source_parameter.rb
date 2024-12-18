@@ -3,6 +3,7 @@
 # Table name: source_parameters
 #
 #  id              :bigint           not null, primary key
+#  active          :boolean          default(TRUE), not null
 #  code            :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
@@ -27,7 +28,7 @@ class SourceParameter < ApplicationRecord
   before_validation :downcase_code
 
   def self.find_vita_partner_by_code(code)
-    SourceParameter.includes(:vita_partner).find_by(code: code&.downcase)&.vita_partner
+    SourceParameter.includes(:vita_partner).where(active: true).find_by(code: code&.downcase)&.vita_partner
   end
 
   def self.source_skips_triage(source)

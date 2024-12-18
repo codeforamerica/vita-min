@@ -1,0 +1,24 @@
+{
+  "familyAndHousehold": [
+    {
+      "firstName": "Daughter",
+      "middleInitial": "",
+      "lastName": "Smith",
+      "dateOfBirth": "2000-01-01",
+      "relationship": "DAUGHTER",
+      "eligibleDependent": true,
+      "isClaimedDependent": true,
+      "tin": "100-00-0222"
+    }
+  ],
+  "filers": [
+    {
+      "firstName": "SIMP",
+      "middleInitial": "",
+      "lastName": "Smith",
+      "dateOfBirth": "1980-01-01",
+      "isPrimaryFiler": true,
+      "tin": "101-00-1033"
+    }
+  ]
+}

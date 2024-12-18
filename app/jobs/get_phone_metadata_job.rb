@@ -2,7 +2,7 @@ class GetPhoneMetadataJob < ApplicationJob
   def perform(intake)
     return if intake.phone_number.blank?
 
-    metadata = TwilioService.get_metadata(phone_number: intake.phone_number)
+    metadata = TwilioService.new(:ctc).get_metadata(phone_number: intake.phone_number)
 
     return if metadata.blank?
 

@@ -4,20 +4,9 @@ module Efile
       attr_reader :lines
 
       def initialize(year:, intake:, include_source: false)
-        @year = year
-        @intake = intake
-        @filing_status = intake.filing_status.to_sym # single, married_filing_jointly, that's all we support for now
-        @direct_file_data = intake.direct_file_data
-        intake.state_file_w2s.each do |w2|
-          dest_w2 = @direct_file_data.w2s[w2.w2_index]
-          dest_w2.node.at("W2StateLocalTaxGrp").inner_html = w2.state_tax_group_xml_node
-        end
+        super
+
         @eligibility_lived_in_state = intake.eligibility_lived_in_state
-        @dependent_count = intake.dependents.length
-
-        @value_access_tracker = Efile::ValueAccessTracker.new(include_source: include_source)
-        @lines = HashWithIndifferentAccess.new
-
         @it213 = Efile::Ny::It213.new(
           value_access_tracker: @value_access_tracker,
           lines: @lines,
@@ -336,17 +325,14 @@ module Efile
         (result || 0).round
       end
 
+      # NY income tax withheld: sum of tax withheld from all income documents
       def calculate_line_72
-        total_state_taxes_withheld = @direct_file_data.total_state_tax_withheld
-        state_file_1099gs = @intake.state_file1099_gs
-        state_file_1099gs.each do |state_file_1099g|
-          total_state_taxes_withheld += state_file_1099g.state_income_tax_withheld
-        end
-        total_state_taxes_withheld
+        @intake.state_file_w2s.sum { |item| item.state_income_tax_amount.round } +
+          @intake.state_file1099_gs.sum { |item| item.state_income_tax_withheld_amount.round }
       end
 
       def calculate_line_73
-        @direct_file_data.total_local_tax_withheld
+        @intake.state_file_w2s.sum { |item| item.local_income_tax_amount.round }
       end
 
       def calculate_line_76

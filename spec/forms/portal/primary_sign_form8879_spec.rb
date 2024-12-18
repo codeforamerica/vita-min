@@ -87,5 +87,14 @@ describe Portal::PrimarySignForm8879 do
         expect(subject.errors[:transaction_failed]).to be_present
       end
     end
+
+    context "when the signing process raises CombinePDF::ParsingError" do
+      it "returns false and adds errors" do
+        expect(tax_return).to receive(:sign_primary!).and_raise(CombinePDF::ParsingError)
+
+        expect(subject.sign).to eq false
+        expect(subject.errors[:transaction_failed]).to be_present
+      end
+    end
   end
 end

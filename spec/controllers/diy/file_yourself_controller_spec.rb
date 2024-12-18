@@ -2,21 +2,42 @@ require "rails_helper"
 
 RSpec.describe Diy::FileYourselfController do
   describe "#edit" do
-    it "is 200 OK 👍" do
-      get :edit
+    before do
+      allow(controller).to receive(:open_for_diy?).and_return(open_for_diy)
+    end
 
-      expect(response).to be_ok
+    context "when app if open for DIY" do
+      let(:open_for_diy) { true }
+
+      it "is 200 OK 👍" do
+        get :edit
+
+        expect(response).to be_ok
+      end
+    end
+
+    context "when app is closed for DIY" do
+      let(:open_for_diy) { false }
+
+      it "redirects to the root path" do
+        get :edit
+
+        expect(response).to redirect_to(root_path)
+      end
     end
   end
 
   describe "#update" do
+    before do
+      allow(controller).to receive(:open_for_diy?).and_return(true)
+    end
+
     context "with valid params" do
       let(:params) do
         {
           file_yourself_form: {
             email_address: "example@example.com",
             preferred_first_name: "Robot",
-            received_1099: "yes",
             filing_frequency: "some_years",
           }
         }
@@ -57,7 +78,6 @@ RSpec.describe Diy::FileYourselfController do
           existing_diy_intake.reload
           expect(existing_diy_intake.email_address).to eq "example@example.com"
           expect(existing_diy_intake.preferred_first_name).to eq "Robot"
-          expect(existing_diy_intake.received_1099).to eq "yes"
           expect(existing_diy_intake.filing_frequency).to eq "some_years"
 
           expect(existing_diy_intake.source).to eq "existing_source"
@@ -80,7 +100,6 @@ RSpec.describe Diy::FileYourselfController do
           file_yourself_form: {
             email_address: nil,
             preferred_first_name: "Robot",
-            received_1099: "yes",
             filing_frequency: "some_years",
           }
         }

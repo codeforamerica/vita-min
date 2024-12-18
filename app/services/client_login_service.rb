@@ -5,7 +5,7 @@ class ClientLoginService
     @service_type = service_type
     @intake_classes = (
       if service_type == :statefile
-        [StateFileAzIntake, StateFileNyIntake]
+        StateFile::StateInformationService.state_intake_classes
       else
         [MultiTenantService.new(service_type).intake_model]
       end

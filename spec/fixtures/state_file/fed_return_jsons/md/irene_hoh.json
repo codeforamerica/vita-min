@@ -1,0 +1,48 @@
+{
+  "familyAndHousehold": [
+    {
+      "monthsLivedWithTPInUS": null,
+      "lastName": "ICANTHINKOFAFISH",
+      "hohQualifyingPerson": true,
+      "isClaimedDependent": true,
+      "qualifyingChild": false,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "1985-12-12",
+      "suffix": null,
+      "residencyDuration": "allYear",
+      "firstName": "ITRIEDBUT",
+      "middleInitial": null,
+      "tin": "600-00-5660",
+      "scheduleEicLine4aNo": true,
+      "eligibleDependent": true,
+      "relationship": "siblingInLaw",
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "filers": [
+    {
+      "firstName": "IRENE",
+      "lastName": "ICANTHINIKOFAFISH",
+      "middleInitial": null,
+      "tin": "400-00-2001",
+      "dateOfBirth": "1982-11-11",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "interestReports": [
+    {
+      "has1099": true,
+      "taxExemptAndTaxCreditBondCusipNo": null,
+      "interestOnGovernmentBonds": "6800.00",
+      "payerTin": null,
+      "payer": "FAILURE OF IMAGINATIONS INVESTMENT",
+      "recipientTin": "400-00-2001",
+      "no1099Amount": null,
+      "1099Amount": "1200.00",
+      "taxWithheld": "0.00"
+    }
+  ]
+}

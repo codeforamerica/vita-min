@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v4.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>dcf46c78</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400005952</PrimarySSN>
+            <SpouseSSN>400005970</SpouseSSN>
+            <NameLine1Txt>FRANK &amp; AMBER&lt;GREY</NameLine1Txt>
+            <PrimaryNameControlTxt>GREY</PrimaryNameControlTxt>
+            <SpouseNameControlTxt>GREY</SpouseNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>PO Box 342</AddressLine1Txt>
+                <CityNm>Mackay</CityNm>
+                <StateAbbreviationCd>ID</StateAbbreviationCd>
+                <ZIPCd>83251</ZIPCd>
+            </USAddress>
+            <PhoneNum>2223334444</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000595-2025-4023-a763-3accdd55feb9@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="3">
+        <IRS1040 documentId="IRS10400001">
+            <Form1040SRInd>X</Form1040SRInd>
+            <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <Primary65OrOlderInd>X</Primary65OrOlderInd>
+            <SpouseBlindInd>X</SpouseBlindInd>
+            <TotalBoxesCheckedCnt>2</TotalBoxesCheckedCnt>
+            <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>2</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">50000</WagesAmt>
+            <WagesSalariesAndTipsAmt>50000</WagesSalariesAndTipsAmt>
+            <SocSecBnftAmt>15000</SocSecBnftAmt>
+            <TaxableSocSecAmt>12750</TaxableSocSecAmt>
+            <TotalIncomeAmt>62750</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>62750</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>32300</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>32300</TotalDeductionsAmt>
+            <TaxableIncomeAmt>30450</TaxableIncomeAmt>
+            <TaxAmt>3193</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>3193</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>3193</TaxLessCreditsAmt>
+            <TotalTaxAmt>3193</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>2000</FormW2WithheldTaxAmt>
+            <WithholdingTaxAmt>2000</WithholdingTaxAmt>
+            <TotalPaymentsAmt>2000</TotalPaymentsAmt>
+            <OwedAmt>1193</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>ASL Instructor</PrimaryOccupationTxt>
+            <SpouseOccupationTxt>Artist</SpouseOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>400005970</EmployeeSSN>
+            <EmployerEIN>678912345</EmployerEIN>
+            <EmployerNameControlTxt>NEUT</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Neutral Palette Inc</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>300 Fake Road</AddressLine1Txt>
+                <CityNm>Boise</CityNm>
+                <StateAbbreviationCd>ID</StateAbbreviationCd>
+                <ZIPCd>83638</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Amber Grey</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>PO Box 342</AddressLine1Txt>
+                <CityNm>Mackay</CityNm>
+                <StateAbbreviationCd>ID</StateAbbreviationCd>
+                <ZIPCd>83251</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>50000</WagesAmt>
+            <WithholdingAmt>2000</WithholdingAmt>
+            <SocialSecurityWagesAmt>50000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>3100</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>50000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>725</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>ID</StateAbbreviationCd>
+                    <EmployerStateIdNum>12345</EmployerStateIdNum>
+                    <StateWagesAmt>50000</StateWagesAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+        <IRSPayment documentId="IRSPayment001">
+            <RoutingTransitNum>124103799</RoutingTransitNum>
+            <BankAccountNum>013219292</BankAccountNum>
+            <BankAccountTypeCd>1</BankAccountTypeCd>
+            <PaymentAmt>1193</PaymentAmt>
+            <RequestedPaymentDt>2025-04-08</RequestedPaymentDt>
+            <TaxpayerDaytimePhoneNum>2223334444</TaxpayerDaytimePhoneNum>
+        </IRSPayment>
+    </ReturnData>
+</Return>

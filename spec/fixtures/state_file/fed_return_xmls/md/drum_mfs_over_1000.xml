@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v4.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>676c5f98</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400007207</PrimarySSN>
+            <SpouseSSN>400007208</SpouseSSN>
+            <NameLine1Txt>DORY&lt;DRUM</NameLine1Txt>
+            <PrimaryNameControlTxt>DRUM</PrimaryNameControlTxt>
+            <SpouseNameControlTxt>MARA</SpouseNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>10 Tambourine Place</AddressLine1Txt>
+                <CityNm>Brunswick</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21716</ZIPCd>
+            </USAddress>
+            <PhoneNum>3015556666</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000720-712b-48f0-940c-f4b6b435e196@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="3">
+        <IRS1040 documentId="IRS10400001">
+            <IndividualReturnFilingStatusCd>3</IndividualReturnFilingStatusCd>
+            <SpouseNm>Mary Maracas</SpouseNm>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>1</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">110000</WagesAmt>
+            <WagesSalariesAndTipsAmt>110000</WagesSalariesAndTipsAmt>
+            <TaxableInterestAmt referenceDocumentId="IRS1040B001" referenceDocumentName="IRS1040ScheduleB">10000</TaxableInterestAmt>
+            <TotalIncomeAmt>120000</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>120000</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>14600</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>14600</TotalDeductionsAmt>
+            <TaxableIncomeAmt>105400</TaxableIncomeAmt>
+            <TaxAmt>18339</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>18339</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>18339</TaxLessCreditsAmt>
+            <TotalTaxAmt>18339</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>10000</FormW2WithheldTaxAmt>
+            <WithholdingTaxAmt>10000</WithholdingTaxAmt>
+            <TotalPaymentsAmt>10000</TotalPaymentsAmt>
+            <OwedAmt>8339</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Percussionist</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1040ScheduleB documentId="IRS1040B001" documentName="IRS1040ScheduleB">
+            <Form1040SchBPartIGroup2>
+                <InterestPayerName>
+                    <BusinessNameLine1Txt>Drum Corp Investing</BusinessNameLine1Txt>
+                </InterestPayerName>
+                <InterestAmt>10000</InterestAmt>
+            </Form1040SchBPartIGroup2>
+            <InterestSubtotalAmt interestSubtotalLiteralCd="INTEREST SUBTOTAL">10000</InterestSubtotalAmt>
+            <TaxableInterestSubtotalAmt>10000</TaxableInterestSubtotalAmt>
+            <CalculatedTotalTaxableIntAmt>10000</CalculatedTotalTaxableIntAmt>
+            <ForeignAccountsQuestionInd>false</ForeignAccountsQuestionInd>
+            <ForeignTrustQuestionInd>false</ForeignTrustQuestionInd>
+        </IRS1040ScheduleB>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>400007207</EmployeeSSN>
+            <EmployerEIN>018887766</EmployerEIN>
+            <EmployerNameControlTxt>SNAR</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Snare Store</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>1 Timpani Street</AddressLine1Txt>
+                <CityNm>Brunswick</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21716</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Dory Drum</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>10 Tambourine Place</AddressLine1Txt>
+                <CityNm>Brunswick</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21716</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>110000</WagesAmt>
+            <WithholdingAmt>10000</WithholdingAmt>
+            <SocialSecurityWagesAmt>110000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>8000</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>110000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>6000</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>MD</StateAbbreviationCd>
+                    <EmployerStateIdNum>2224444</EmployerStateIdNum>
+                    <StateWagesAmt>110000</StateWagesAmt>
+                    <StateIncomeTaxAmt>10</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>

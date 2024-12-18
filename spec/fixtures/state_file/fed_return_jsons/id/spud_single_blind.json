@@ -1,0 +1,28 @@
+{
+  "filers": [
+    {
+      "tin": "400-00-0002",
+      "suffix": null,
+      "lastName": "Nick",
+      "firstName": "Spud",
+      "dateOfBirth": "1951-07-04",
+      "middleInitial": null,
+      "isPrimaryFiler": true,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "interestReports": [
+    {
+      "payer": "Potatoes of America",
+      "has1099": true,
+      "payerTin": null,
+      "1099Amount": "1000.00",
+      "taxWithheld": "0.00",
+      "no1099Amount": null,
+      "recipientTin": "400-00-0002",
+      "interestOnGovernmentBonds": "300.00",
+      "taxExemptAndTaxCreditBondCusipNo": null
+    }
+  ],
+  "familyAndHousehold": []
+}

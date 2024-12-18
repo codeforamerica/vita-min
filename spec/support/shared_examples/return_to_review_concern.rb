@@ -7,26 +7,18 @@ shared_examples :return_to_review_concern do
       it "navigates to the state review screen" do
         post :update, params: form_params.merge({return_to_review: "y"})
 
-        case form_params[:us_state]
-        when "az"
-          expect(response).to redirect_to(controller: "az_review", action: :edit, us_state: "az")
-        when "ny"
-          expect(response).to redirect_to(controller: "ny_review", action: :edit, us_state: "ny")
-        end
+        expect(response).to redirect_to(controller: "#{intake.state_code}_review", action: :edit)
       end
     end
 
     context "without return_to_review_param set" do
       it "navigates to the next page in the flow" do
         post :update, params: form_params
-        controllers = []
-        case form_params[:us_state]
-        when "az"
-          controllers = Navigation::StateFileAzQuestionNavigation::FLOW.to_a
-        when "ny"
-          controllers = Navigation::StateFileNyQuestionNavigation::FLOW.to_a
-        end
 
+        # ensure that any changes made to the intake by `update` are accounted for when we call `show?`
+        intake.reload
+
+        controllers = StateFile::StateInformationService.navigation_class(intake.state_code)::FLOW
         next_controller_to_show = nil
         increment = 1
         while next_controller_to_show.nil?
@@ -34,7 +26,7 @@ shared_examples :return_to_review_concern do
           next_controller_to_show = next_controller.show?(intake) ? next_controller : nil
           increment += 1
         end
-        expect(response).to redirect_to(controller: next_controller.controller_name, action: next_controller.navigation_actions.first, us_state: form_params[:us_state])
+        expect(response).to redirect_to(controller: next_controller.controller_name, action: next_controller.navigation_actions.first)
       end
     end
   end

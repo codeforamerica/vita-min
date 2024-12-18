@@ -27,6 +27,6 @@ class StateRoutingFraction < ApplicationRecord
   belongs_to :state_routing_target, foreign_key: :state_routing_target_id
 
   def routing_percentage
-    (routing_fraction * 100).to_i
+    (routing_fraction * 100).round
   end
 end

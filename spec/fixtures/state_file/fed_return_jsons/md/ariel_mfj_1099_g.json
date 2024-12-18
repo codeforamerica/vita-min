@@ -1,0 +1,72 @@
+{
+  "familyAndHousehold": [],
+  "filers": [
+    {
+      "lastName": "PRINCE",
+      "firstName": "ERIC",
+      "middleInitial": "H",
+      "tin": "400-00-3032",
+      "dateOfBirth": "1950-04-04",
+      "suffix": null,
+      "isPrimaryFiler": false,
+      "ssnNotValidForEmployment": null
+    },
+    {
+      "firstName": "ARIEL",
+      "lastName": "MERMAID",
+      "middleInitial": "M",
+      "tin": "400-00-3031",
+      "dateOfBirth": "1950-02-02",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "form1099Gs": [
+    {
+      "stateTaxWithheld": "1000.00",
+      "has1099": true,
+      "amount": "50000.00",
+      "federalTaxWithheld": "4000.00",
+      "amountPaidBackForBenefitsInTaxYear": "0.00",
+      "stateIdNumber": "12345",
+      "payerTin": "52-2006962",
+      "recipientTin": "400-00-3031",
+      "payer": "MARYLAND DEPARTMENT OF LABOR"
+    },
+    {
+      "stateTaxWithheld": "0.00",
+      "has1099": false,
+      "amount": "15.00",
+      "amountPaidBackForBenefitsInTaxYear": "0.00",
+      "federalTaxWithheld": "0.00",
+      "stateIdNumber": null,
+      "payerTin": null,
+      "recipientTin": "400-00-3031",
+      "payer": "MARYLAND DEPARTMENT OF REV"
+    },
+    {
+      "has1099": true,
+      "stateTaxWithheld": "0.00",
+      "amount": "3000.00",
+      "amountPaidBackForBenefitsInTaxYear": "0.00",
+      "federalTaxWithheld": "0.00",
+      "stateIdNumber": null,
+      "payerTin": null,
+      "recipientTin": "400-00-3032",
+      "payer": "MARYLAND DEPARTMENT OF LABOR"
+    },
+    {
+      "has1099": false,
+      "stateTaxWithheld": "0.00",
+      "amount": "5.00",
+      "federalTaxWithheld": "0.00",
+      "amountPaidBackForBenefitsInTaxYear": "0.00",
+      "stateIdNumber": null,
+      "payerTin": null,
+      "payer": "MARYLAND DEPT OF LAB",
+      "recipientTin": "400-00-3032"
+    }
+  ],
+  "interestReports": []
+}

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "sign out during CTC Intake", active_job: true, efile_security_params: true, requires_default_vita_partners: true do
+RSpec.feature "sign out during CTC Intake", active_job: true, requires_default_vita_partners: true do
   before do
     allow_any_instance_of(Routes::CtcDomain).to receive(:matches?).and_return(true)
   end
@@ -49,7 +49,7 @@ RSpec.feature "sign out during CTC Intake", active_job: true, efile_security_par
     click_on I18n.t('general.continue')
     perform_enqueued_jobs
     mail = ActionMailer::Base.deliveries.last
-    code = mail.html_part.body.to_s.match(/\s(\d{6})[.]/)[1]
+    code = mail.html_part.body.to_s.match(%r{<strong> (\d{6})\.</strong>})[1]
     fill_in I18n.t('views.ctc.questions.verification.verification_code_label'), with: "000001"
     fill_in I18n.t('views.ctc.questions.verification.verification_code_label'), with: code
     click_on I18n.t("views.ctc.questions.verification.verify")

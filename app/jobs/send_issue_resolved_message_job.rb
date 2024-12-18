@@ -1,5 +1,4 @@
 class SendIssueResolvedMessageJob < ApplicationJob
-  include Rails.application.routes.url_helpers
 
   def perform(intakes)
     intakes.each do |intake|
@@ -8,7 +7,7 @@ class SendIssueResolvedMessageJob < ApplicationJob
   end
 
   def send_message(intake)
-    return unless %w[StateFileAzIntake StateFileNyIntake].include?(intake.class.name)
+    return unless StateFile::StateInformationService.state_intake_classes.include?(intake.class)
 
     message = StateFile::MessagingService.new(
       intake: intake,
@@ -23,9 +22,13 @@ class SendIssueResolvedMessageJob < ApplicationJob
     PRIORITY_LOW
   end
 
+  def self.login_link
+    Rails.application.routes.url_for(host: MultiTenantService.new(:statefile).host, controller: "state_file/state_file_pages", action: "login_options")
+  end
+
   private
 
   def login_link
-    url_for(host: MultiTenantService.new(:statefile).host, controller: "state_file/state_file_pages", action: "login_options", us_state: "us")
+    self.class.login_link
   end
 end

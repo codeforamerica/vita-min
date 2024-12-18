@@ -1,6 +1,7 @@
 require "rails_helper"
 
 describe TextMessageVerificationCodeService do
+  let(:twilio_service) { instance_double TwilioService }
   let(:phone_number) { "+18324651680" }
   let(:locale) { "en" }
   let(:visitor_id) { "visitor_id_1" }
@@ -29,8 +30,9 @@ describe TextMessageVerificationCodeService do
     let(:twilio_double) { double TwilioService }
     let(:access_token) { create :text_message_access_token }
     before do
+      allow(TwilioService).to receive(:new).and_return twilio_service
       allow(TextMessageAccessToken).to receive(:generate!).and_return ["123456", access_token]
-      allow(TwilioService).to receive(:send_text_message).and_return twilio_double
+      allow(twilio_service).to receive(:send_text_message).and_return twilio_double
       allow(VerificationTextMessage).to receive(:create!).and_call_original
       allow(twilio_double).to receive(:sid).and_return "twilio_sid"
       allow_any_instance_of(Mail::Message).to receive(:message_id).and_return("mocked_mailer_id")
@@ -39,7 +41,7 @@ describe TextMessageVerificationCodeService do
     it "creates a VerificationTextMessage, sends an email, and creates an TextMessageAccessToken object" do
       described_class.request_code(**params)
 
-      expect(TwilioService).to have_received(:send_text_message)
+      expect(twilio_service).to have_received(:send_text_message)
       expect(TextMessageAccessToken).to have_received(:generate!).with(a_hash_including(
                                                                    sms_phone_number: phone_number,
                                                                    client_id: nil
@@ -59,7 +61,7 @@ describe TextMessageVerificationCodeService do
           described_class.request_code(**params)
           text_body = "Your 6-digit GetCTC verification code is: 123456. This code will expire after 30 minutes."
 
-          expect(TwilioService).to have_received(:send_text_message).with(
+          expect(twilio_service).to have_received(:send_text_message).with(
             a_hash_including(
                 to: phone_number,
                 body: text_body
@@ -74,7 +76,7 @@ describe TextMessageVerificationCodeService do
           described_class.request_code(**params)
           text_body = "Your 6-digit GetYourRefund verification code is: 123456. This code will expire after 30 minutes."
 
-          expect(TwilioService).to have_received(:send_text_message).with(a_hash_including(
+          expect(twilio_service).to have_received(:send_text_message).with(a_hash_including(
               to: phone_number,
               body: text_body
           ))
@@ -88,7 +90,7 @@ describe TextMessageVerificationCodeService do
           described_class.request_code(**params)
           text_body = "Your 6-digit FileYourStateTaxes verification code is: 123456. This code will expire after 30 minutes."
 
-          expect(TwilioService).to have_received(:send_text_message).with(
+          expect(twilio_service).to have_received(:send_text_message).with(
             a_hash_including(
               to: phone_number,
               body: text_body

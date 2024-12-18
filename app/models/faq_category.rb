@@ -22,7 +22,7 @@ class FaqCategory < ApplicationRecord
   has_rich_text :description_en
   has_rich_text :description_es
 
-  enum product_type: { gyr: 0, state_file_ny: 1, state_file_az: 2 }, _prefix: :product_type
+  enum product_type: { gyr: 0, state_file_ny: 1, state_file_az: 2, state_file_nc: 3, state_file_md: 4, state_file_nj: 5, state_file_id: 6 }, _prefix: :product_type
 
   def name(locale)
     case locale
@@ -43,11 +43,6 @@ class FaqCategory < ApplicationRecord
   end
 
   def self.state_to_product_type(state)
-    case state
-    when 'az'
-      'state_file_az'
-    when 'ny'
-      'state_file_ny'
-    end
+    "state_file_#{state}" if StateFile::StateInformationService::STATES_INFO.key?(state)
   end
 end

@@ -2,6 +2,15 @@ class PartnerRoutingService
   attr_accessor :routing_method
   TESTING_AT_CAPACITY_ZIP_CODE = "83011"
 
+  def self.update_intake_partner(intake)
+    routing_service = PartnerRoutingService.new(
+      intake: intake,
+      source_param: intake.source,
+      zip_code: intake.zip_code,
+      )
+    intake.client.update(vita_partner: routing_service.determine_partner, routing_method: routing_service.routing_method)
+  end
+
   def initialize(intake: nil, source_param: nil, zip_code: nil)
     @source_param = source_param
     @zip_code = zip_code
@@ -56,8 +65,7 @@ class PartnerRoutingService
   def vita_partner_from_source_param
     return unless @source_param.present?
 
-    source_param_downcase = @source_param.downcase
-    vita_partner = SourceParameter.includes(:vita_partner).find_by(code: source_param_downcase)&.vita_partner
+    vita_partner = SourceParameter.find_vita_partner_by_code(@source_param.downcase)
 
     if vita_partner.present?
       @routing_method = :source_param

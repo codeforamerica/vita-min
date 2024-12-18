@@ -1,0 +1,46 @@
+{
+  "familyAndHousehold": [
+    {
+      "monthsLivedWithTPInUS": "twelve",
+      "lastName": "Monkfish",
+      "isClaimedDependent": true,
+      "hohQualifyingPerson": null,
+      "qualifyingChild": true,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "2022-11-12",
+      "suffix": null,
+      "residencyDuration": "allYear",
+      "firstName": "Zen",
+      "middleInitial": null,
+      "scheduleEicLine4aNo": false,
+      "tin": "600-00-2010",
+      "eligibleDependent": true,
+      "relationship": "biologicalChild",
+      "ssnNotValidForEmployment": false
+    }
+  ],
+  "filers": [
+    {
+      "lastName": "Monkfish",
+      "firstName": "Meredith",
+      "middleInitial": null,
+      "tin": "400-00-5000",
+      "dateOfBirth": "1950-10-10",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "ssnNotValidForEmployment": null
+    },
+    {
+      "lastName": "Monkfish",
+      "firstName": "Thelonious",
+      "middleInitial": null,
+      "tin": "500-00-1000",
+      "dateOfBirth": "1963-05-05",
+      "suffix": null,
+      "isPrimaryFiler": false,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "interestReports": []
+}

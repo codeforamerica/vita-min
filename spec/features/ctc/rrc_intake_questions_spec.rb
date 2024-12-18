@@ -21,7 +21,6 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
 
     # =========== PORTAL ===========
     expect(page).to have_selector("h1", text: I18n.t("views.ctc.portal.home.title"))
-    expect(page).to have_text(I18n.t("views.ctc.portal.home.status.preparing.label"))
   end
 
   scenario "new head of household client doing ctc intake" do
@@ -37,7 +36,6 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
 
     # =========== PORTAL ===========
     expect(page).to have_selector("h1", text: I18n.t("views.ctc.portal.home.title"))
-    expect(page).to have_text(I18n.t("views.ctc.portal.home.status.preparing.label"))
     expect(Intake::CtcIntake.last.default_tax_return.filing_status).to eq 'single'
   end
 
@@ -110,7 +108,7 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
 
     perform_enqueued_jobs
     mail = ActionMailer::Base.deliveries.last
-    code = mail.html_part.body.to_s.match(/\s(\d{6})[.]/)[1]
+    code = mail.html_part.body.to_s.match(%r{<strong> (\d{6})\.</strong>})[1]
 
     fill_in I18n.t('views.ctc.questions.verification.verification_code_label'), with: "000001"
     click_on I18n.t("views.ctc.questions.verification.verify")

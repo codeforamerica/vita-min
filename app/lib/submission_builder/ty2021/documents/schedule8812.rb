@@ -3,7 +3,7 @@ module SubmissionBuilder
     module Documents
       class Schedule8812 < SubmissionBuilder::Document
         def schema_file
-          File.join(Rails.root, "vendor", "irs", "unpacked", @schema_version, "IndividualIncomeTax", "Common", "IRS1040Schedule8812", "IRS1040Schedule8812.xsd")
+          SchemaFileLoader.load_file("irs", "unpacked", @schema_version, "IndividualIncomeTax", "Common", "IRS1040Schedule8812", "IRS1040Schedule8812.xsd")
         end
 
         def document

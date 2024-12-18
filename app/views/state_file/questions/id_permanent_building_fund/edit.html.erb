@@ -1,0 +1,25 @@
+<% title = t('.title') %>
+<% content_for :page_title, title %>
+
+<% content_for :card do %>
+  <h1 class="h2"><%= title %></h1>
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <div class="white-group">
+      <p class="spacing-below-10">
+        <%= current_intake.filing_status_single? ? t(".receive_public_assistance_single") : t(".receive_public_assistance_spouse") %>
+      </p>
+      <p class="text--small"><%= t(".receive_public_assistance_explanation") %></p>
+      <%= f.cfa_radio_set(
+            :received_id_public_assistance,
+            collection: [
+              { value: "yes", label: t("general.affirmative") },
+              { value: "no", label: t("general.negative") },
+            ]
+          ) %>
+    </div>
+    <% if params[:return_to_review].present? %>
+      <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
+    <% end %>
+    <%= f.continue %>
+  <% end %>
+<% end %>
