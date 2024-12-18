@@ -260,15 +260,19 @@ describe SubmissionBuilder::ReturnHeader do
         :state_file_md_intake,
         filing_status: filing_status,
         primary_signature_pin: primary_signature_pin,
+        primary_esigned: primary_esigned,
         primary_esigned_at: primary_esigned_at,
         spouse_signature_pin: spouse_signature_pin,
+        spouse_esigned: spouse_esigned,
         spouse_esigned_at: spouse_esigned_at
       )
     }
     let(:tomorrow_midnight) { DateTime.tomorrow.beginning_of_day }
     let(:primary_signature_pin) { "12345" }
+    let(:primary_esigned) { "yes" }
     let(:primary_esigned_at) { tomorrow_midnight }
     let(:spouse_signature_pin) { "23456" }
+    let(:spouse_esigned) { "yes" }
     let(:spouse_esigned_at) { tomorrow_midnight }
     let(:submission) { create(:efile_submission, data_source: intake) }
     let(:doc) { SubmissionBuilder::ReturnHeader.new(submission).document }

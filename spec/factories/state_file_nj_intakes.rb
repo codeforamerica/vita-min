@@ -122,10 +122,6 @@ FactoryBot.define do
     routing_number { "011234567" }
     account_number { "123456789" }
     account_type { 1 }
-    primary_signature_pin { '12345' }
-    spouse_signature_pin { '54321' }
-    primary_esigned_at { DateTime.now }
-    spouse_esigned_at { DateTime.now }
 
     raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("nj_zeus_one_dep") }
     raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_zeus_one_dep') }
