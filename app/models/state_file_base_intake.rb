@@ -271,7 +271,7 @@ class StateFileBaseIntake < ApplicationRecord
     true
   end
 
-  def requires_additional_debit_information?
+  def requires_additional_withdrawal_information?
     false
   end
 

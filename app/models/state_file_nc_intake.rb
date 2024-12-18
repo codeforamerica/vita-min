@@ -151,7 +151,7 @@ class StateFileNcIntake < StateFileBaseIntake
     false
   end
 
-  def requires_additional_debit_information?
+  def requires_additional_withdrawal_information?
     true
   end
 end
