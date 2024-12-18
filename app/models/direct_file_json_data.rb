@@ -102,7 +102,7 @@ class DirectFileJsonData
   end
 
   def form_1099gs
-    data["form1099Gs"]&.map { |form_1099g| DfJsonInterestReport.new(form_1099g) } || []
+    data["form1099Gs"]&.map { |form_1099g| DfJsonForm1099Gs.new(form_1099g) } || []
   end
 
   def filers
