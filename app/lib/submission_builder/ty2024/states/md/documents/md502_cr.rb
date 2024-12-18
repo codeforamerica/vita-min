@@ -14,7 +14,7 @@ module SubmissionBuilder
                   xml.ChildAndDependentCare do |child_dependent_care|
                     add_non_zero_value(child_dependent_care, :FederalAdjustedGrossIncome, :MD502_LINE_1)
                     add_non_zero_value(child_dependent_care, :FederalChildCareCredit, :MD502CR_PART_B_LINE_2)
-                    add_positive_decimal_value(child_dependent_care, :DecimalAmount, :MD502CR_PART_B_LINE_3)
+                    add_non_zero_value(child_dependent_care, :DecimalAmount, :MD502CR_PART_B_LINE_3)
                     add_non_zero_value(child_dependent_care, :Credit, :MD502CR_PART_B_LINE_4)
                   end
                   xml.Senior do |senior|
