@@ -676,7 +676,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         }
 
         before do
-          intake.dependents[0].update(dob: Date.new(2023, 1, 1))
+          intake.dependents[0].update(dob: Date.new(2023, 1, 1), nj_did_not_have_health_insurance: 'yes')
         end
 
         it 'enters single dependent into PDF' do
@@ -697,6 +697,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           expect(pdf_fields["Text61"]).to eq "2"
           expect(pdf_fields["Text62"]).to eq "3"
 
+          expect(pdf_fields["Check Box63"]).to eq "Yes" # Did not have health insurance
+
           # dependent 2
           expect(pdf_fields["Last Name First Name Middle Initial 2"]).to eq ""
           expect(pdf_fields["undefined_21"]).to eq ""
@@ -712,6 +714,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           expect(pdf_fields["Text71"]).to eq ""
           expect(pdf_fields["Text72"]).to eq ""
           expect(pdf_fields["Text73"]).to eq ""
+          expect(pdf_fields["Check Box74"]).to eq "Off" # Did have health insurance
         end
       end
 
@@ -731,7 +734,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
               last_name: "Lastname#{i}",
               middle_initial: 'ABCDEFGHIJK'[i],
               suffix: 'JR',
-              ssn: "1234567#{"%02d" % i}"
+              ssn: "1234567#{"%02d" % i}",
+              nj_did_not_have_health_insurance: 'yes'
             )
           end
         end
@@ -755,6 +759,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           expect(pdf_fields["Text61"]).to eq "2"
           expect(pdf_fields["Text62"]).to eq "0"
 
+          expect(pdf_fields["Check Box63"]).to eq "Yes" # Did not have health insurance
+
           # dependent 2
           expect(pdf_fields["Last Name First Name Middle Initial 2"]).to eq "Lastname1 Firstname1 B JR"
 
@@ -772,6 +778,9 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           expect(pdf_fields["Text71"]).to eq "0"
           expect(pdf_fields["Text72"]).to eq "1"
           expect(pdf_fields["Text73"]).to eq "9"
+
+          expect(pdf_fields["Check Box74"]).to eq "Yes" # Did not have health insurance
+
 
           # dependent 3
           expect(pdf_fields["Last Name First Name Middle Initial 3"]).to eq "Lastname2 Firstname2 C JR"
@@ -791,6 +800,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           expect(pdf_fields["Text82"]).to eq "1"
           expect(pdf_fields["Text83"]).to eq "8"
 
+          expect(pdf_fields["Check Box84"]).to eq "Yes" # Did not have health insurance
+
           # dependent 4
           expect(pdf_fields["Last Name First Name Middle Initial 4"]).to eq "Lastname3 Firstname3 D JR"
 
@@ -808,6 +819,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           expect(pdf_fields["Text91"]).to eq "0"
           expect(pdf_fields["Text92"]).to eq "1"
           expect(pdf_fields["Text93"]).to eq "7"
+
+          expect(pdf_fields["Check Box94"]).to eq "Yes" # Did not have health insurance
         end
       end
     end
@@ -1039,7 +1052,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           expect(pdf_fields["184"]).to eq "0"
           expect(pdf_fields["185"]).to eq "0"
           # hundreds
-          expect(pdf_fields["undefined_79"]).to eq "0"
+          expect(pdf_fields["undefined_79"]).to eq "5"
           expect(pdf_fields["186"]).to eq "0"
           expect(pdf_fields["187"]).to eq "0"
           # decimals
@@ -1089,7 +1102,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           expect(pdf_fields["205"]).to eq "0"
           expect(pdf_fields["206"]).to eq "0"
           # hundreds
-          expect(pdf_fields["undefined_88"]).to eq "0"
+          expect(pdf_fields["undefined_88"]).to eq "5"
           expect(pdf_fields["207"]).to eq "0"
           expect(pdf_fields["208"]).to eq "0"
           # decimals
@@ -1131,6 +1144,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           )
         }
         it "writes sum $563,890.00 to fill boxes on line 31" do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_16a).and_return 0
+
           # thousands
           expect(pdf_fields["31"]).to eq "5"
           expect(pdf_fields["215"]).to eq "6"
@@ -1199,6 +1214,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         )
       }
       it "writes taxable income $197,500 (200,000-2500) to fill boxes on line 39" do
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_16a).and_return 0
+
         # millions
         expect(pdf_fields["279"]).to eq ""
         expect(pdf_fields["38a Total Property Taxes 18 of Rent Paid See instructions page 23 38a"]).to eq ""
@@ -1477,6 +1494,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       }
 
       it "writes rounded tax amount $7,519.00 based on income $200,000 with 3,500 exemptions 15,000 property tax deduction and 0.0637 tax rate minus 4,042.50 subtraction" do
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_16a).and_return 0
+
         # millions
         expect(pdf_fields["Enter Code4332243ew"]).to eq ""
         expect(pdf_fields["4036y54ethdf"]).to eq ""
@@ -1506,6 +1525,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       }
 
       it "writes rounded tax amount $7,519.00 (same as line 43)" do
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_16a).and_return 0
+
         # millions
         expect(pdf_fields["Enter Code4332243ewR@434"]).to eq ""
         expect(pdf_fields["4036y54ethdf!!!##\$$"]).to eq ""
@@ -1556,6 +1577,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       }
 
       it "writes rounded tax amount $7,519.10 (same as line 45)" do
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_16a).and_return 0
+
         # millions
         expect(pdf_fields["Enter Code4332243ew6576z66z##"]).to eq ""
         expect(pdf_fields["4036y54ethdf(*H"]).to eq ""
@@ -1673,6 +1696,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       }
 
       it "writes $7819 (line 50 $7,519 + line 51 $300)" do
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_16a).and_return 0
+
         # millions
         expect(pdf_fields["Enter Code4332243ew^^%$#"]).to eq ""
         expect(pdf_fields["4036y54ethdf%%^87"]).to eq ""

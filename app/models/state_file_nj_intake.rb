@@ -60,6 +60,7 @@
 #  primary_last_name                                      :string
 #  primary_middle_initial                                 :string
 #  primary_signature                                      :string
+#  primary_signature_pin                                  :text
 #  primary_ssn                                            :string
 #  primary_suffix                                         :string
 #  primary_veteran                                        :integer          default("unfilled"), not null
@@ -83,6 +84,7 @@
 #  spouse_first_name                                      :string
 #  spouse_last_name                                       :string
 #  spouse_middle_initial                                  :string
+#  spouse_signature_pin                                   :text
 #  spouse_ssn                                             :string
 #  spouse_suffix                                          :string
 #  spouse_veteran                                         :integer          default("unfilled"), not null
@@ -198,5 +200,9 @@ class StateFileNjIntake < StateFileBaseIntake
   end
 
   def validate_state_specific_w2_requirements(w2); end
+
+  def ask_for_signature_pin?
+    true
+  end
 end
 

@@ -20,6 +20,7 @@
 #  nj_dependent_attends_accredited_program :integer          default("unfilled"), not null
 #  nj_dependent_enrolled_full_time         :integer          default("unfilled"), not null
 #  nj_dependent_five_months_in_college     :integer          default("unfilled"), not null
+#  nj_did_not_have_health_insurance        :integer          default("unfilled"), not null
 #  nj_filer_pays_tuition_for_dependent     :integer          default("unfilled"), not null
 #  odc_qualifying                          :boolean
 #  passed_away                             :integer          default("unfilled"), not null

@@ -126,8 +126,8 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
       end
       if @deduction_method_is_standard
         xml.NetIncome calculated_fields.fetch(:MD502_LINE_18)
-        xml.ExemptionAmount calculated_fields.fetch(:MD502_LINE_19)
       end
+      xml.ExemptionAmount calculated_fields.fetch(:MD502_LINE_19)
       if has_healthcare_coverage_section?
         xml.MDHealthCareCoverage do
           if @intake.primary_did_not_have_health_insurance_yes?
@@ -152,12 +152,12 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
           add_element_if_present(xml, "MDEICWithQualChildInd", :MD502_LINE_22B)
           xml.PovertyLevelCredit calculated_fields.fetch(:MD502_LINE_23) if @deduction_method_is_standard
           xml.IndividualTaxCredits calculated_fields.fetch(:MD502_LINE_24) if @deduction_method_is_standard
-          xml.TotalCredits calculated_fields.fetch(:MD502_LINE_26) if @deduction_method_is_standard
+          xml.TotalCredits calculated_fields.fetch(:MD502_LINE_26)
           xml.StateTaxAfterCredits calculated_fields.fetch(:MD502_LINE_27) if @deduction_method_is_standard
         end
       end
       xml.LocalTaxComputation do
-        add_element_if_present(xml, "LocalTaxRate", :MD502_LINE_28_LOCAL_TAX_RATE) unless @intake.residence_county == "Anne Arundel"
+        add_element_if_present(xml, "LocalTaxRate", :MD502_LINE_28_LOCAL_TAX_RATE)
         add_element_if_present(xml, "LocalIncomeTax", :MD502_LINE_28_LOCAL_TAX_AMOUNT)
         add_element_if_present(xml, "EarnedIncomeCredit", :MD502_LINE_29)
         add_element_if_present(xml, "PovertyLevelCredit", :MD502_LINE_30)
@@ -179,7 +179,7 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
       end
       add_non_zero_value(xml, :TotalAmountDue, :MD502_LINE_50)
       xml.AuthToDirectDepositInd "X" if calculated_fields.fetch(:MD502_AUTHORIZE_DIRECT_DEPOSIT)
-      if @intake.payment_or_deposit_type.to_sym == :direct_deposit
+      if @intake.payment_or_deposit_type.to_sym == :direct_deposit && @intake.refund_or_owe_taxes_type == :refund
         xml.NameOnBankAccount do
           xml.FirstName sanitize_for_xml(@intake.account_holder_first_name) if @intake.account_holder_first_name
           xml.MiddleInitial sanitize_for_xml(@intake.account_holder_middle_initial) if @intake.account_holder_middle_initial

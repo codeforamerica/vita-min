@@ -15,7 +15,7 @@ describe Efile::Az::Az140Calculator do
     it "counts the dependents correctly by their classifications" do
       instance.calculate
       expect(instance.lines[:AZ140_LINE_10A].value).to eq(4)
-      expect(instance.lines[:AZ140_LINE_10B].value).to eq(3)
+      expect(instance.lines[:AZ140_LINE_10B].value).to eq(4)
       expect(instance.lines[:AZ140_LINE_11A].value).to eq(1)
     end
   end
@@ -117,6 +117,7 @@ describe Efile::Az::Az140Calculator do
       let(:intake) { create(:state_file_az_intake, :df_data_1099_int) }
 
       it "returns sum of the interest on government bonds" do
+        intake.direct_file_json_data.interest_reports.first&.interest_on_government_bonds = "2.00"
         instance.calculate
         expect(instance.lines[:AZ140_LINE_28].value).to eq(2)
       end
@@ -260,17 +261,18 @@ describe Efile::Az::Az140Calculator do
 
   describe 'Line 53: AZ Income Tax Withheld' do
     let(:intake) {
-      # alexis has $500 state tax withheld on a w2 & $10 state tax withheld on a 1099r
+      # tycho has $900 StateIncomeTaxAmt on a w2 & $50 StateTaxWithheldAmt on a 1099r
       create(:state_file_az_intake,
              :with_1099_rs_synced,
              :with_w2s_synced,
-             raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml('az_alexis_hoh_w2_and_1099'))
+             raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml('az_tycho_single_with_1099r'),
+             raw_direct_file_intake_data: StateFile::DirectFileApiResponseSampleService.new.read_json('az_tycho_single_with_1099r'))
     }
     let!(:state_file1099_g) { create(:state_file1099_g, intake: intake, state_income_tax_withheld_amount: 100) }
 
     it 'sums the AZ tax withheld from w2s, 1099gs and 1099rs' do
       instance.calculate
-      expect(instance.lines[:AZ140_LINE_53].value).to eq(610)
+      expect(instance.lines[:AZ140_LINE_53].value).to eq(900 + 50 + 100)
     end
   end
 

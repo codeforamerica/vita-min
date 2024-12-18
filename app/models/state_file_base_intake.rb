@@ -30,7 +30,7 @@ class StateFileBaseIntake < ApplicationRecord
   enum primary_esigned: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_esigned
   enum spouse_esigned: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_esigned
   enum account_type: { unfilled: 0, checking: 1, savings: 2 }, _prefix: :account_type
-  enum payment_or_deposit_type: { unfilled: 0, direct_deposit: 1, mail: 2 }, _prefix: :payment_or_deposit_type
+  enum payment_or_deposit_type: { unfilled: 0, direct_deposit: 1, mail: 2 }, _prefix: :payment_or_deposit_type # direct deposit includes both direct_deposit and direct_debit
   enum consented_to_terms_and_conditions: { unfilled: 0, yes: 1, no: 2 }, _prefix: :consented_to_terms_and_conditions
   enum consented_to_sms_terms: { unfilled: 0, yes: 1, no: 2 }, _prefix: :consented_to_sms_terms
   scope :with_df_data_and_no_federal_submission, lambda {
@@ -265,6 +265,10 @@ class StateFileBaseIntake < ApplicationRecord
     unless /\A\d{9}\z/.match?(state_file1099_g.payer_tin)
       state_file1099_g.errors.add(:payer_tin, I18n.t("errors.attributes.payer_tin.invalid"))
     end
+  end
+
+  def allows_refund_amount_in_xml?
+    true
   end
 
   class Person
