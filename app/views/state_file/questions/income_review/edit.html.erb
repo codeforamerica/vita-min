@@ -4,7 +4,7 @@
   <h1 class="h2"><%= title %></h1>
   <p><%= t(".help_text") %></p>
 
-  <% if @w2s.present? %>
+  <% if @show_w2s %>
     <div class="white-group" id="w2s">
       <p class="text--bold spacing-below-0"><%= t(".w2s_title") %></p>
       <% @w2s.each do |w2| %>
@@ -24,7 +24,7 @@
     </div>
   <% end %>
 
-  <% if current_intake.direct_file_data.fed_unemployment > 0 && current_intake.direct_file_data.mailing_state != "NJ" %>
+  <% if @show_unemployment %>
     <div class="white-group unemployment" id="form1099gs">
       <p class="text--bold spacing-below-0"><%= t(".unemployment_title") %></p>
       <% if current_intake.state_file1099_gs.count > 0 %>
@@ -51,7 +51,7 @@
     </div>
   <% end %>
 
-  <% if current_intake.state_file1099_rs.present? %>
+  <% if @show_retirement_income %>
     <div class="white-group retirement-income" id="form1099rs">
       <p class="text--bold spacing-below-0"><%= t(".retirement_income_title") %></p>
       <% current_intake.state_file1099_rs.each do |state_1099r| %>
@@ -71,7 +71,7 @@
     </div>
   <% end %>
 
-  <% if current_intake.direct_file_json_data.interest_reports.count > 0 %>
+  <% if @show_interest_income %>
     <div class="white-group">
       <p class="text--bold spacing-below-0"><%= t(".interest_income_title") %></p>
       <p class="text--grey-bold spacing-above-15 spacing-below-0">
@@ -80,11 +80,7 @@
     </div>
   <% end %>
 
-  <% if (
-        current_intake.direct_file_data.fed_ssb > 0 || 
-        current_intake.direct_file_data.fed_taxable_ssb > 0
-      ) && 
-      current_intake.direct_file_data.mailing_state != "NJ" %>
+  <% if if @show_ssa %>
     <div class="white-group">
       <p class="text--bold spacing-below-0"><%= t(".ssa_title") %></p>
       <p class="text--grey-bold spacing-above-15 spacing-below-0">
