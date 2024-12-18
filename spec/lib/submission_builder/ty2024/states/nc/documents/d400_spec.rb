@@ -72,14 +72,14 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400, required_schema
         expect(xml.document.at('PaymentContact USPhoneNumber')&.text).to be_nil
       end
 
-      context "when owed" do
+      context "when withdrawal amount exists" do
         let(:intake) { create(:state_file_nc_intake, :taxes_owed) }
         before do
           intake.direct_file_data.phone_number = "3123334444"
           intake.phone_number = nil
         end
 
-        it "should fill out taxes-owed related fields" do
+        it "should fill out withdrawal-related fields" do
           expect(xml.document.at('PaymentContact PersonName FirstName')&.text).to eq "North"
           expect(xml.document.at('PaymentContact PersonName MiddleInitial')&.text).to eq "A"
           expect(xml.document.at('PaymentContact PersonName LastName')&.text).to eq "Carolinian"
