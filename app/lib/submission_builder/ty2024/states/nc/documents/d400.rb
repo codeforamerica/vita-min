@@ -33,8 +33,8 @@ module SubmissionBuilder
                   end
                   xml.MFSSpouseSSN @submission.data_source.direct_file_data.spouse_ssn
                 end
-                if @submission.data_source.filing_status_qw? && @submission.data_source.direct_file_data.spouse_date_of_death.present?
-                  xml.QWYearSpouseDied Date.parse(@submission.data_source.direct_file_data.spouse_date_of_death).year
+                if @submission.data_source.filing_status_qw? && @submission.data_source.spouse_death_year.present?
+                  xml.QWYearSpouseDied @submission.data_source.spouse_death_year
                 end
                 xml.FAGI calculated_fields.fetch(:NCD400_LINE_6)
                 # line 7 AdditionsToFAGI is blank
