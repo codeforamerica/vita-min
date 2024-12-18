@@ -2978,9 +2978,9 @@ es:
           why_ask_this: "¿Por qué estamos pidiéndote esta información?"
       nc_qss_info:
         edit:
-          title: Parece que su estado civil para efectos de la declaración es Cónyuge sobreviviente calificado
+          question: "¿En qué año falleció su cónyuge?"
           subtitle: Para continuar, necesitamos confirmar información adicional sobre su cónyuge fallecido.
-          question: ¿En qué año falleció su cónyuge?
+          title: Parece que su estado civil para efectos de la declaración es Cónyuge sobreviviente calificado
       nc_review:
         edit:
           amount: Cantidad

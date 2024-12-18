@@ -3020,9 +3020,9 @@ en:
           why_ask_this: Why are you asking for this information?
       nc_qss_info:
         edit:
-          title: It looks like your filing status is Qualifying Surviving Spouse
-          subtitle: In order to continue, we need to confirm additional information about your deceased spouse.
           question: What was the year of your spouse’s passing?
+          subtitle: In order to continue, we need to confirm additional information about your deceased spouse.
+          title: It looks like your filing status is Qualifying Surviving Spouse
       nc_review:
         edit:
           amount: Amount
