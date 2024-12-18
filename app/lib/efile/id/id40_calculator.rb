@@ -54,7 +54,6 @@ module Efile
         set_line(:ID40_LINE_54, :calculate_line_54)
         set_line(:ID40_LINE_55, :calculate_line_55)
         set_line(:ID40_LINE_56, :calculate_line_56)
-        @id39r.calculate
         @lines.transform_values(&:value)
       end
 

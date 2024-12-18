@@ -101,6 +101,7 @@ module PdfFiller
         name_field = dependent_pdf_keys[i][:name]
         ssn_fields = dependent_pdf_keys[i][:ssn]
         birth_year_fields = dependent_pdf_keys[i][:birth_year]
+        health_insurance_field = dependent_pdf_keys[i][:nj_did_not_have_health_insurance]
         dependent_hash = {}
 
         dependent_hash[name_field] = format_name(dependent[:first_name], dependent[:last_name], dependent[:middle_initial], dependent[:suffix])
@@ -110,6 +111,7 @@ module PdfFiller
         birth_year_fields.each.with_index do |field_name, i|
           dependent_hash[field_name] = dependent[:birth_year][i]
         end
+        dependent_hash[health_insurance_field] = dependent[:nj_did_not_have_health_insurance]
         answers.merge!(dependent_hash)
       end
 
@@ -119,7 +121,7 @@ module PdfFiller
         answers.merge!(
           insert_digits_into_fields(
             qualifying_children_count,
-            [ "undefined_12", "Text47" ],
+            ["undefined_12", "Text47"],
             as_decimal: false
           )
         )
@@ -132,7 +134,7 @@ module PdfFiller
         answers.merge!(
           insert_digits_into_fields(
             other_dependent_count,
-            [ "undefined_13", "Text48" ],
+            ["undefined_13", "Text48"],
             as_decimal: false
           )
         )
@@ -145,7 +147,7 @@ module PdfFiller
         answers.merge!(
           insert_digits_into_fields(
             count,
-            [ "undefined_14", "Text49" ],
+            ["undefined_14", "Text49"],
             as_decimal: false
           )
         )
@@ -381,49 +383,49 @@ module PdfFiller
       if @xml_document.at("BalanceOfTaxA").present?
         tax_balance = @xml_document.at("BalanceOfTaxA").text.to_i
         answers.merge!(insert_digits_into_fields(tax_balance, [
-          "Text110",
-          "Text109",
-          "Text108",
-          "Text102",
-          "Text99",
-          "undefined_126",
-          "undefined_125",
-          "45",
-          "4036y54ethdf!!!##\$$",
-          "Enter Code4332243ewR@434",
-        ]))
+                                                   "Text110",
+                                                   "Text109",
+                                                   "Text108",
+                                                   "Text102",
+                                                   "Text99",
+                                                   "undefined_126",
+                                                   "undefined_125",
+                                                   "45",
+                                                   "4036y54ethdf!!!##\$$",
+                                                   "Enter Code4332243ewR@434",
+                                                 ]))
       end
 
       # line 49
       if @xml_document.at("TotalCredits").present?
         credits = @xml_document.at("TotalCredits").text.to_i
         answers.merge!(insert_digits_into_fields(credits, [
-          "Text125",
-          "Text124",
-          "Text123",
-          "Text122",
-          "Text121",
-          "undefined_132",
-          "undefined_131",
-          "48",
-        ]))
+                                                   "Text125",
+                                                   "Text124",
+                                                   "Text123",
+                                                   "Text122",
+                                                   "Text121",
+                                                   "undefined_132",
+                                                   "undefined_131",
+                                                   "48",
+                                                 ]))
       end
 
       # line 50
       if @xml_document.at("BalanceOfTaxAfterCredit").present?
         balance_after_credits = @xml_document.at("BalanceOfTaxAfterCredit").text.to_i
         answers.merge!(insert_digits_into_fields(balance_after_credits, [
-          "Text130",
-          "Text129",
-          "Text128",
-          "Text127",
-          "Text126",
-          "undefined_134",
-          "undefined_133",
-          "49",
-          '4036y54ethdf\(*H', # this has to be single-quotes not double-quotes or everything will break
-          "Enter Code4332243ew6576z66z##",
-        ]))
+                                                   "Text130",
+                                                   "Text129",
+                                                   "Text128",
+                                                   "Text127",
+                                                   "Text126",
+                                                   "undefined_134",
+                                                   "undefined_133",
+                                                   "49",
+                                                   '4036y54ethdf\(*H', # this has to be single-quotes not double-quotes or everything will break
+                                                   "Enter Code4332243ew6576z66z##",
+                                                 ]))
       end
 
       # line 51
@@ -445,34 +447,34 @@ module PdfFiller
       if @xml_document.at("TotalTaxAndPenalty").present?
         total_tax_and_penalty = @xml_document.at("TotalTaxAndPenalty").text.to_i
         answers.merge!(insert_digits_into_fields(total_tax_and_penalty, [
-          "Text152",
-          "Text151",
-          "Text150",
-          "Text149",
-          "Text148",
-          "undefined_142",
-          "undefined_141",
-          "53",
-          "4036y54ethdf%%^87",
-          "Enter Code4332243ew^^%$#",
-        ]))
+                                                   "Text152",
+                                                   "Text151",
+                                                   "Text150",
+                                                   "Text149",
+                                                   "Text148",
+                                                   "undefined_142",
+                                                   "undefined_141",
+                                                   "53",
+                                                   "4036y54ethdf%%^87",
+                                                   "Enter Code4332243ew^^%$#",
+                                                 ]))
       end
 
       # line 55
       if @xml_document.at("TaxWithheld").present?
         tax_withheld = @xml_document.at("TaxWithheld").text.to_i
         answers.merge!(insert_digits_into_fields(tax_withheld, [
-          "Text157",
-          "Text156",
-          "Text155",
-          "Text154",
-          "Text153",
-          "undefined_145",
-          "undefined_144",
-          "undefined_143",
-          "Text15", # manually edited field name
-          "undefined_1471qerw",
-        ]))
+                                                   "Text157",
+                                                   "Text156",
+                                                   "Text155",
+                                                   "Text154",
+                                                   "Text153",
+                                                   "undefined_145",
+                                                   "undefined_144",
+                                                   "undefined_143",
+                                                   "Text15", # manually edited field name
+                                                   "undefined_1471qerw",
+                                                 ]))
       end
 
       # line 56
@@ -597,111 +599,111 @@ module PdfFiller
       if @xml_document.at("Body TotalPaymentsOrCredits").present?
         payments_or_credits = @xml_document.at("Body TotalPaymentsOrCredits").text.to_i
         answers.merge!(insert_digits_into_fields(payments_or_credits, [
-          "Text204",
-          "Text203",
-          "Text202",
-          "undefined_172",
-          "66",
-          "undefined_161",
-          "undefined_160",
-          "62",
-          "66page2!!",
-          "undefined_167",
-        ]))
+                                                   "Text204",
+                                                   "Text203",
+                                                   "Text202",
+                                                   "undefined_172",
+                                                   "66",
+                                                   "undefined_161",
+                                                   "undefined_160",
+                                                   "62",
+                                                   "66page2!!",
+                                                   "undefined_167",
+                                                 ]))
       end
 
       # line 67
       if @xml_document.at("Body BalanceDueWithReturn").present?
         balance_due = @xml_document.at("Body BalanceDueWithReturn").text.to_i
         answers.merge!(insert_digits_into_fields(balance_due, [
-          "Text20711231167AA12vvff434te",
-          "Text2061ddwQz1267AA12vvff434te",
-          "Text20523rwefa67AA12vvff434te",
-          "undefined_173t24wsd67AA12vvff434te",
-          "672wqreafd67AA12vvff434te",
-          "67AA12697TDFGCXDqaffw67AA12vvff434te",
-          "67AA127434ERDFvfr67AA12vvff434te",
-          "67AA12133vvve367AA12vvff434te",
-          "67AA12vvff434te",
-          "67AA12vvff434tei7yt#",
-        ]))
+                                                   "Text20711231167AA12vvff434te",
+                                                   "Text2061ddwQz1267AA12vvff434te",
+                                                   "Text20523rwefa67AA12vvff434te",
+                                                   "undefined_173t24wsd67AA12vvff434te",
+                                                   "672wqreafd67AA12vvff434te",
+                                                   "67AA12697TDFGCXDqaffw67AA12vvff434te",
+                                                   "67AA127434ERDFvfr67AA12vvff434te",
+                                                   "67AA12133vvve367AA12vvff434te",
+                                                   "67AA12vvff434te",
+                                                   "67AA12vvff434tei7yt#",
+                                                 ]))
       end
 
       # line 68
       if @xml_document.at("Body OverpaymentAmount").present?
         overpayment = @xml_document.at("Body OverpaymentAmount").text.to_i
         answers.merge!(insert_digits_into_fields(overpayment, [
-          "Text23312###5z564312###5z5643",
-          "Text23212###5z564312###5z5643",
-          "Text23112###5z564312###5z5643",
-          "Text23012###5z564312###5z5643",
-          "Text22912###5z564312###5z5643",
-          "undefined_18312###5z564312###5z5643",
-          "undefined_18212###5z564312###5z5643",
-          "undefined_18112###5z564312###5z5643",
-          "7412###5z564312###5z5643",
-          "74112###5z5643",
-        ]))
+                                                   "Text23312###5z564312###5z5643",
+                                                   "Text23212###5z564312###5z5643",
+                                                   "Text23112###5z564312###5z5643",
+                                                   "Text23012###5z564312###5z5643",
+                                                   "Text22912###5z564312###5z5643",
+                                                   "undefined_18312###5z564312###5z5643",
+                                                   "undefined_18212###5z564312###5z5643",
+                                                   "undefined_18112###5z564312###5z5643",
+                                                   "7412###5z564312###5z5643",
+                                                   "74112###5z5643",
+                                                 ]))
       end
 
       # line 78
       if @xml_document.at("Body TotalAdjustments").present?
         adjustments = @xml_document.at("Body TotalAdjustments").text.to_i
         answers.merge!(insert_digits_into_fields(adjustments, [
-          "Text233",
-          "Text232",
-          "Text231",
-          "Text230",
-          "Text229",
-          "undefined_183",
-          "undefined_182",
-          "undefined_181",
-          "74",
-          "74112###",
-        ]))
+                                                   "Text233",
+                                                   "Text232",
+                                                   "Text231",
+                                                   "Text230",
+                                                   "Text229",
+                                                   "undefined_183",
+                                                   "undefined_182",
+                                                   "undefined_181",
+                                                   "74",
+                                                   "74112###",
+                                                 ]))
       end
 
       # line 79
       if @xml_document.at("Body NetBalanceDue").present?
         balance_due = @xml_document.at("Body NetBalanceDue").text.to_i
         answers.merge!(insert_digits_into_fields(balance_due, [
-          "Text238",
-          "Text237",
-          "Text236",
-          "Text235",
-          "Text234",
-          "undefined_186",
-          "undefined_185",
-          "undefined_184",
-          "75",
-          "754112###",
-        ]))
+                                                   "Text238",
+                                                   "Text237",
+                                                   "Text236",
+                                                   "Text235",
+                                                   "Text234",
+                                                   "undefined_186",
+                                                   "undefined_185",
+                                                   "undefined_184",
+                                                   "75",
+                                                   "754112###",
+                                                 ]))
       end
 
       # line 80
       if @xml_document.at("Body NetRefund").present?
         refund = @xml_document.at("Body NetRefund").text.to_i
         answers.merge!(insert_digits_into_fields(refund, [
-          "Text244",
-          "Text243",
-          "Text242",
-          "Text241",
-          "Text240",
-          "undefined_189",
-          "undefined_188",
-          "undefined_187",
-          "76",
-          "764112###",
-        ]))
+                                                   "Text244",
+                                                   "Text243",
+                                                   "Text242",
+                                                   "Text241",
+                                                   "Text240",
+                                                   "undefined_189",
+                                                   "undefined_188",
+                                                   "undefined_187",
+                                                   "76",
+                                                   "764112###",
+                                                 ]))
       end
       
       # Driver License/State ID
       id_number_xml = @xml_document.at("PrimDrvrLcnsOrStateIssdIdGrp DrvrLcnsNum") ||
-        @xml_document.at("PrimDrvrLcnsOrStateIssdIdGrp StateIssdIdNum")
+                      @xml_document.at("PrimDrvrLcnsOrStateIssdIdGrp StateIssdIdNum")
       if id_number_xml.present?
         id_number = id_number_xml&.text
         answers.merge!({
-          "Drivers License Number Voluntary Instructions page 44": id_number[0],
+          'Drivers License Number Voluntary Instructions page 44': id_number[0],
           Text246: id_number[1],
           Text247: id_number[2],
           Text248: id_number[3],
@@ -765,6 +767,7 @@ module PdfFiller
           suffix: dependent.at("DependentsName NameSuffix")&.text,
           ssn: dependent.at("DependentsSSN")&.text,
           birth_year: dependent.at("BirthYear")&.text,
+          nj_did_not_have_health_insurance: pdf_checkbox_value(dependent.at("NoHealthInsurance")),
         }
       end
     end
@@ -807,7 +810,8 @@ module PdfFiller
             "Text60",
             "Text61",
             "Text62"
-          ]
+          ],
+          nj_did_not_have_health_insurance: "Check Box63"
         },
         {
           name: "Last Name First Name Middle Initial 2",
@@ -827,7 +831,8 @@ module PdfFiller
             "Text71",
             "Text72",
             "Text73"
-          ]
+          ],
+          nj_did_not_have_health_insurance: "Check Box74"
         },
         {
           name: "Last Name First Name Middle Initial 3",
@@ -847,7 +852,8 @@ module PdfFiller
             "Text81",
             "Text82",
             "Text83"
-          ]
+          ],
+          nj_did_not_have_health_insurance: "Check Box84"
         },
         {
           name: "Last Name First Name Middle Initial 4",
@@ -867,7 +873,8 @@ module PdfFiller
             "Text91",
             "Text92",
             "Text93"
-          ]
+          ],
+          nj_did_not_have_health_insurance: "Check Box94"
         }
       ]
     end

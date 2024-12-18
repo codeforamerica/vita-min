@@ -11,7 +11,7 @@ module StateFile
     def save
       @intake.update(attributes_for(:intake))
 
-      if StateFile::NjHomeownerEligibilityHelper.determine_eligibility(@intake) != StateFile::NjHomeownerEligibilityHelper::ADVANCE
+      if StateFile::NjHomeownerEligibilityHelper.determine_eligibility(@intake) == StateFile::NjHomeownerEligibilityHelper::INELIGIBLE
         @intake.update({
           property_tax_paid: nil
         })

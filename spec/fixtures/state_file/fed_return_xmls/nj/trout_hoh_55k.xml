@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>aaa4cc34</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>300000015</PrimarySSN>
+            <NameLine1Txt>BROOK&lt;TROUT</NameLine1Txt>
+            <PrimaryNameControlTxt>TROU</PrimaryNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>1 Symbol St</AddressLine1Txt>
+                <CityNm>New Brunswick</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07444</ZIPCd>
+            </USAddress>
+            <PhoneNum>2223334444</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+30000001-5c63-49c1-bce1-bc89b0056f0f@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="4">
+        <IRS1040 documentId="IRS10400001">
+            <IndividualReturnFilingStatusCd>4</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <DependentDetail>
+                <DependentFirstNm>Knobbed</DependentFirstNm>
+                <DependentLastNm>Whelk</DependentLastNm>
+                <DependentNameControlTxt>WHEL</DependentNameControlTxt>
+                <DependentSSN>600008001</DependentSSN>
+                <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+            </DependentDetail>
+            <ChldWhoLivedWithYouCnt>1</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>2</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">55000</WagesAmt>
+            <WagesSalariesAndTipsAmt>55000</WagesSalariesAndTipsAmt>
+            <TotalIncomeAmt>55000</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>55000</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>21900</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>21900</TotalDeductionsAmt>
+            <TaxableIncomeAmt>33100</TaxableIncomeAmt>
+            <TaxAmt>3644</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>3644</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TotalNonrefundableCreditsAmt>600</TotalNonrefundableCreditsAmt>
+            <TotalCreditsAmt>600</TotalCreditsAmt>
+            <TaxLessCreditsAmt>3044</TaxLessCreditsAmt>
+            <TotalTaxAmt>3044</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>5000</FormW2WithheldTaxAmt>
+            <WithholdingTaxAmt>5000</WithholdingTaxAmt>
+            <TotalPaymentsAmt>5000</TotalPaymentsAmt>
+            <OverpaidAmt>1956</OverpaidAmt>
+            <RefundAmt>1956</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Fish</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1040Schedule3 documentId="IRS1040S3001">
+            <CreditForChildAndDepdCareAmt referenceDocumentId="IRS2441001" referenceDocumentName="IRS2441">600</CreditForChildAndDepdCareAmt>
+            <TotalNonrefundableCreditsAmt>600</TotalNonrefundableCreditsAmt>
+        </IRS1040Schedule3>
+        <IRS2441 documentId="IRS2441001" documentName="IRS2441">
+            <CareProviderGrp>
+                <CareProviderPersonName>
+                    <PersonFirstNm>Bog</PersonFirstNm>
+                    <PersonLastNm>Turtle</PersonLastNm>
+                </CareProviderPersonName>
+                <CareProviderNameControlTxt>TURT</CareProviderNameControlTxt>
+                <USAddress>
+                    <AddressLine1Txt>1 Tortoise St</AddressLine1Txt>
+                    <CityNm>New Brunswick</CityNm>
+                    <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                    <ZIPCd>07444</ZIPCd>
+                </USAddress>
+                <SSN>800000005</SSN>
+                <HouseholdEmployeeInd>false</HouseholdEmployeeInd>
+                <PaidAmt>3000</PaidAmt>
+            </CareProviderGrp>
+            <QualifyingPersonGrp>
+                <QualifyingPersonName>
+                    <PersonFirstNm>Knobbed</PersonFirstNm>
+                    <PersonLastNm>Whelk</PersonLastNm>
+                </QualifyingPersonName>
+                <QualifyingPersonNameControlTxt>WHEL</QualifyingPersonNameControlTxt>
+                <QualifyingPersonSSN>600008001</QualifyingPersonSSN>
+                <QualifiedCareExpensesPaidAmt>3000</QualifiedCareExpensesPaidAmt>
+            </QualifyingPersonGrp>
+            <TotalQlfdExpensesOrLimitAmt>3000</TotalQlfdExpensesOrLimitAmt>
+            <PrimaryEarnedIncomeAmt>55000</PrimaryEarnedIncomeAmt>
+            <SpouseEarnedIncomeAmt>55000</SpouseEarnedIncomeAmt>
+            <SmallerOfExpensesOrIncomeAmt>3000</SmallerOfExpensesOrIncomeAmt>
+            <AdjustedGrossIncomeAmt>55000</AdjustedGrossIncomeAmt>
+            <CareExpensesDecimalAmt>0.20</CareExpensesDecimalAmt>
+            <CalculatedTentativeExpenseAmt>600</CalculatedTentativeExpenseAmt>
+            <TotalEligCDCCAmt>600</TotalEligCDCCAmt>
+            <TaxLiabLmtFromCrLmtWrkshtAmt>3644</TaxLiabLmtFromCrLmtWrkshtAmt>
+            <CreditForChildAndDepdCareAmt>600</CreditForChildAndDepdCareAmt>
+        </IRS2441>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>300000015</EmployeeSSN>
+            <EmployerEIN>002233444</EmployerEIN>
+            <EmployerNameControlTxt>GOFI</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Go Fish Ltd</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>1 Fish St</AddressLine1Txt>
+                <CityNm>Fishville</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07999</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Brook Trout</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>1 Symbol St</AddressLine1Txt>
+                <CityNm>New Brunswick</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07444</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>55000</WagesAmt>
+            <WithholdingAmt>5000</WithholdingAmt>
+            <SocialSecurityWagesAmt>55000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>3000</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>55000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>1000</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                    <EmployerStateIdNum>4141414</EmployerStateIdNum>
+                    <StateWagesAmt>55000</StateWagesAmt>
+                    <StateIncomeTaxAmt>100</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>

@@ -51,7 +51,7 @@ describe Efile::Id::Id40Calculator do
 
     it "returns the number of dependents" do
       instance.calculate
-      expect(instance.lines[:ID40_LINE_6C].value).to eq(3)
+      expect(instance.lines[:ID40_LINE_6C].value).to eq(4)
     end
   end
 
@@ -188,9 +188,9 @@ describe Efile::Id::Id40Calculator do
           allow(instance).to receive(:line_or_zero).with(:ID40_LINE_22).and_return(50)
           allow(instance).to receive(:line_or_zero).with(:ID40_LINE_23).and_return(50)
           allow(instance).to receive(:line_or_zero).with(:ID40_LINE_24).and_return(50)
-          # line 7 is 1000 (line 20 - sum(22-24)) and line 2 is 410 (two dependents * 205)
+          # line 7 is 1000 (line 20 - sum(22-24)) and line 2 is 615 (three dependents * 205)
           instance.calculate
-          expect(instance.lines[:ID40_LINE_25].value).to eq(410)
+          expect(instance.lines[:ID40_LINE_25].value).to eq(3 * 205)
         end
       end
 
@@ -435,11 +435,12 @@ describe Efile::Id::Id40Calculator do
         intake.dependents[0].id_has_grocery_credit_ineligible_months_no!
         intake.dependents[1].id_has_grocery_credit_ineligible_months_no!
         intake.dependents[2].id_has_grocery_credit_ineligible_months_no!
+        intake.dependents[3].id_has_grocery_credit_ineligible_months_no!
       end
 
       it "claims the correct credit" do
         instance.calculate
-        expect(instance.lines[:ID40_LINE_43].value).to eq((12 * 4 * 10).round)
+        expect(instance.lines[:ID40_LINE_43].value).to eq((12 * 5 * 10).round)
       end
     end
 
@@ -530,6 +531,9 @@ describe Efile::Id::Id40Calculator do
 
         intake.dependents[2].id_has_grocery_credit_ineligible_months_no!
         intake.dependents[2].id_months_ineligible_for_grocery_credit = nil
+
+        intake.dependents[3].id_has_grocery_credit_ineligible_months_yes!
+        intake.dependents[3].id_months_ineligible_for_grocery_credit = 12
       end
 
       it "claims the correct credit" do

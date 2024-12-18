@@ -20,14 +20,15 @@ RSpec.describe StateFile::NjTenantEligibilityForm do
       end
     end
 
-    context "when unsupported" do
+    context "when worksheet" do
       let(:valid_params) do
         { tenant_more_than_one_main_home_in_nj: "yes" }
       end
 
-      it "resets rent_paid" do
+      it "does not reset rent_paid" do
         form.save
-        expect(intake.rent_paid).to eq nil
+        expect(intake.property_tax_paid).to eq nil
+        expect(intake.rent_paid).to eq 123
       end
     end
 

@@ -8,57 +8,53 @@
   <%= t("state_file.questions.return_status.accepted.title", state_name: current_state_name, filing_year: current_tax_year) %>
 </h1>
 
-<% if app_time.before?(Rails.configuration.state_file_end_of_in_progress_intakes) %>
-  <% refund_or_owed_amount = current_intake.calculated_refund_or_owed_amount %>
-  <% if refund_or_owed_amount.positive? %>
-    <% # i18n-tasks-use t('state_file.questions.return_status.accepted.refund_details_html') # hint for the i18n linter that, yes, we are using this key (sometimes) %>
-    <p><%= t(".#{@state_code}.refund_details_html", default: :'.refund_details_html', website_name: @tax_refund_website_name, tax_refund_url: @tax_refund_url) %></p>
-  <% elsif refund_or_owed_amount.negative? %>
-    <p><%= t('.direct_debit_html', tax_payment_url: @tax_payment_url) %></p>
-  <% end %>
+<% refund_or_owed_amount = current_intake.calculated_refund_or_owed_amount %>
+<% if refund_or_owed_amount.positive? %>
+  <% # i18n-tasks-use t('state_file.questions.return_status.accepted.refund_details_html') # hint for the i18n linter that, yes, we are using this key (sometimes) %>
+  <p><%= t(".#{current_state_code}.refund_details_html", default: :'.refund_details_html', website_name: @department_of_taxation_initials, tax_refund_url: @tax_refund_url) %></p>
+<% elsif refund_or_owed_amount.negative? %>
+  <p><%= t('.direct_debit_html', tax_payment_url: @tax_payment_url) %></p>
+<% end %>
 
-  <p><a target="_blank" rel="noopener nofollow" href="https://vote.gov/"><%= t('.register_to_vote') %></a></p>
+<hr class="spacing-above-25 spacing-below-25"/>
 
-  <p><%= t('general.spread_the_word_html') %></p>
+<p>
+  <a target="_blank" rel="noopener nofollow" href="https://vote.gov/"><%= t('state_file.general.register_to_vote') %></a>
+</p>
 
-  <% if refund_or_owed_amount.negative? %>
-    <div class="white-group">
-      <p>
-        <strong><%= t('.pay_by_mail_or_moneyorder') %></strong>
-      </p>
-      <ul class="list--bulleted">
-        <li>
-          <%= t('.include_payment') %>
-          (<%= @voucher_form_name %>)
-        </li>
+<% # i18n-tasks-use t("state_file.questions.return_status.additional_content.#{current_state_code}_html") # hint for the i18n linter that, yes, we are using this key (sometimes) %>
+<% additional_content_key = "state_file.questions.return_status.additional_content.#{current_state_code}_html" %>
+<% if I18n.exists?(additional_content_key) %>
+  <p><%= t(additional_content_key) %></p>
+<% end %>
 
-        <p>
-          <%= link_to t('.download_voucher'), ActionController::Base.helpers.asset_path(@voucher_path) %>
-        </p>
+<p><%= t('general.spread_the_word_html') %></p>
 
-        <li>
-          <%= t('.check_payable', payable_to: @department_of_taxation, filing_year: current_tax_year, form_number: @tax_form_number) %>
-        </li>
-      </ul>
+<% if refund_or_owed_amount.negative? %>
+  <div class="white-group">
+    <p>
+      <strong><%= t('.pay_by_mail_or_moneyorder') %></strong>
+    </p>
+    <ul class="list--bulleted">
+      <li>
+        <%= t('.include_payment') %>
+        (<%= @voucher_form_name %>)
+      </li>
 
-      <p>
-        <%= t('.mail_voucher_and_payment') %>
-      </p>
+      <li>
+        <%= link_to t('.download_voucher'), ActionController::Base.helpers.asset_path(@voucher_path) %>
+      </li>
 
-      <strong>
-        <%= @mail_voucher_address %>
-      </strong>
-    </div>
-  <% end %>
-<% else %>
-  <h1 class="h2">
-    <%= t("state_file.questions.return_status.accepted.download_title", state_name: current_state_name, year: current_tax_year + 1) %>
-  </h1>
-  <p>
-    <%= t("state_file.questions.return_status.thank_you_html", state_name: current_state_name) %>
-  </p>
-  <p>
-    <a target="_blank" rel="noopener nofollow" href="<%= @survey_link %>"><%= t("state_file.questions.return_status.accepted.feedback") %></a>
-  </p>
-  <p><a target="_blank" rel="noopener nofollow" href="https://vote.gov/"><%= t('.register_to_vote') %></a></p>
+      <% # i18n-tasks-use t("state_file.questions.return_status.accepted.check_payable_html") # hint for the i18n linter that, yes, we are using this key (sometimes) %>
+      <%= t(".#{current_state_code}.check_payable_html", default: :'.check_payable_html', payable_to: @department_of_taxation, filing_year: current_tax_year, form_number: @tax_form_number) %>
+    </ul>
+
+    <p>
+      <%= t('.mail_voucher_and_payment') %>
+    </p>
+
+    <strong>
+      <%= @mail_voucher_address %>
+    </strong>
+  </div>
 <% end %>

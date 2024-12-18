@@ -23,7 +23,7 @@ describe Efile::Nc::D400ScheduleSCalculator do
 
       it "returns fed_taxable_income from federal IRS Taxable Interest Amount" do
         d400_calculator.calculate
-        expect(instance.lines[:NCD400_S_LINE_18]&.value).to eq(2)
+        expect(instance.lines[:NCD400_S_LINE_18]&.value).to eq(5000)
       end
     end
   end

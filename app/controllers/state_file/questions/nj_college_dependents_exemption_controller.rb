@@ -9,7 +9,7 @@ module StateFile
 
       def form_params
         params
-          .require(:state_file_nj_college_dependents_exemption_form)
+          .fetch(:state_file_nj_college_dependents_exemption_form, {})
           .permit(
               [{ dependents_attributes: [
                 :id, 

@@ -95,8 +95,28 @@
       </div>
 
       <div class="spacing-below-25">
-        <p class="text--bold spacing-below-5"><%=t(".total_arizona_subtractions") %></p>
-        <p><%= number_to_currency(current_intake.total_subtractions) %></p>
+        <p class="text--bold spacing-below-5"><%=t(".exclusion_for_govt_pensions") %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:AZ140_LINE_29A)) %></p>
+      </div>
+
+      <div class="spacing-below-25">
+        <p class="text--bold spacing-below-5"><%=t(".exclusion_for_military_pensions") %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:AZ140_LINE_29B)) %></p>
+      </div>
+
+      <div class="spacing-below-25">
+        <p class="text--bold spacing-below-5"><%=t(".ssn_not_taxed") %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:AZ140_LINE_30)) %></p>
+      </div>
+
+      <div class="spacing-below-25">
+        <p class="text--bold spacing-below-5"><%=t(".subtraction_for_indian_res") %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:AZ140_LINE_31)) %></p>
+      </div>
+
+      <div class="spacing-below-25">
+        <p class="text--bold spacing-below-5"><%=t(".subtraction_for_military_pay") %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:AZ140_LINE_32)) %></p>
       </div>
 
       <div class="spacing-below-25">
@@ -115,7 +135,7 @@
       </div>
 
       <div class="spacing-below-25">
-        <p class="text--bold spacing-below-5"><%=t(".incr_deduction_chrit_contributions") %></p>
+        <p class="text--bold spacing-below-5"><%=t(".incr_deduction_charity_contributions") %></p>
         <p><%= number_to_currency(current_intake.calculator.line_or_zero(:AZ140_LINE_44)) %></p>
       </div>
 
@@ -137,6 +157,21 @@
       <div class="spacing-below-25">
         <p class="text--bold spacing-below-5"><%=t(".family_income_tax_credit") %></p>
         <p><%= number_to_currency(current_intake.calculator.line_or_zero(:AZ140_LINE_50)) %></p>
+      </div>
+
+      <div class="spacing-below-25">
+        <p class="text--bold spacing-below-5"><%=t(".credit_to_qualifying_charitable") %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:AZ301_LINE_6c)) %></p>
+      </div>
+
+      <div class="spacing-below-25">
+        <p class="text--bold spacing-below-5"><%=t(".public_school_credit") %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:AZ301_LINE_7c)) %></p>
+      </div>
+
+      <div class="spacing-below-25">
+        <p class="text--bold spacing-below-5"><%=t(".total_tax_nonrefundable_credits") %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:AZ140_LINE_52)) %></p>
       </div>
 
       <div class="spacing-below-25 with-top-separator">

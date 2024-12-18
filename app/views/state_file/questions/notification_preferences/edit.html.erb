@@ -18,13 +18,19 @@
 
       <div class="question-with-follow-up__follow-up" id="sms-opt-in">
         <div class="white-group">
-          <%= f.cfa_input_field(:phone_number, t(".phone_number"), help_text: t('.phone_number_help_text'), classes: ["form-width--long"]) %>
+          <%= f.cfa_input_field(:phone_number, t(".phone_number"), help_text: t('.phone_number_help_text'), classes: ["form-width--long"], type: "tel", options: { autocomplete: "tel" }) %>
         </div>
       </div>
       <div class="question-with-follow-up__follow-up" id="email-opt-in">
-        <div class="white-group">
-          <%= f.cfa_input_field(:email_address, t(".email_address_label"), help_text: 'example@email.com', classes: ["form-width--long"]) %>
-        </div>
+        <% if current_intake.email_address.present? %>
+          <div class="white-group">
+            <p class="spacing-below-0"><%= t('.provided_email', email_address: current_intake.email_address) %></p>
+          </div>
+        <% else %>
+          <div class="white-group">
+            <%= f.cfa_input_field(:email_address, t(".email_address_label"), help_text: 'example@email.com', classes: ["form-width--long"], type: "email", options: { autocomplete: "email" }) %>
+          </div>
+        <% end %>
       </div>
     </div>
 

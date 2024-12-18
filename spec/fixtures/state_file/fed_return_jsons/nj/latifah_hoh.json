@@ -1,0 +1,45 @@
+{
+  "familyAndHousehold": [
+    {
+      "monthsLivedWithTPInUS": "twelve",
+      "lastName": "Latifah",
+      "isClaimedDependent": false,
+      "hohQualifyingPerson": true,
+      "qualifyingChild": true,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "2022-03-27",
+      "suffix": null,
+      "residencyDuration": "allYear",
+      "firstName": "Princess",
+      "middleInitial": null,
+      "tin": "600-00-0004",
+      "scheduleEicLine4aNo": false,
+      "eligibleDependent": false,
+      "relationship": "adoptedChild",
+      "ssnNotValidForEmployment": false
+    }
+  ],
+  "filers": [
+    {
+      "lastName": "Latifah",
+      "firstName": "Queen",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "300-00-0005",
+      "dateOfBirth": "2000-03-17",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "ssnNotValidForEmployment": null,
+      "hsaTotalDeductibleAmount": null
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [
+    {
+      "usedTin": "300-00-0005",
+      "unionDuesAmount": null
+    }
+  ],
+  "interestReports": []
+}
