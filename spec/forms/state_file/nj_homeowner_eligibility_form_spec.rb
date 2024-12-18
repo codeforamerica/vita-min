@@ -20,14 +20,15 @@ RSpec.describe StateFile::NjHomeownerEligibilityForm do
       end
     end
 
-    context "when unsupported" do
+    context "when worksheet" do
       let(:valid_params) do
         { homeowner_more_than_one_main_home_in_nj: "yes" }
       end
 
-      it "resets property_tax_paid" do
+      it "does not reset property_tax_paid" do
         form.save
-        expect(intake.property_tax_paid).to eq nil
+        expect(intake.rent_paid).to eq nil
+        expect(intake.property_tax_paid).to eq 123
       end
     end
 
