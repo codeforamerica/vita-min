@@ -66,6 +66,15 @@ module SubmissionBuilder
                   xml.Overpayment calculated_fields.fetch(:NCD400_LINE_28)
                 end
                 xml.RefundAmt calculated_fields.fetch(:NCD400_LINE_34)
+                xml.PaymentContact do
+                  xml.PersonName do
+                    xml.FirstName sanitize_for_xml(@submission.data_source.primary.first_name, 16) if @submission.data_source.primary.first_name.present?
+                    xml.MiddleInitial sanitize_for_xml(@submission.data_source.primary.middle_initial, 1) if @submission.data_source.primary.middle_initial.present?
+                    xml.LastName sanitize_for_xml(@submission.data_source.primary.last_name, 32) if @submission.data_source.primary.last_name.present?
+                    xml.NameSuffix @submission.data_source.primary.suffix.upcase if @submission.data_source.primary.suffix.present?
+                  end
+                  xml.USPhoneNumber @submission.data_source.direct_file_data.phone_number if @submission.data_source.direct_file_data.phone_number.present?
+                end
               end
             end
 
