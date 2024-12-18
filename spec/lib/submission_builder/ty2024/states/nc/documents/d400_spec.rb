@@ -65,11 +65,33 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400, required_schema
         expect(xml.document.at('TotalAmountDue')&.text).to eq "0" # 27
         expect(xml.document.at('Overpayment')&.text).to eq "2500" # 28
         expect(xml.document.at('RefundAmt')&.text).to eq "2500" # 34
-        expect(xml.document.at('PaymentContact PersonName FirstName')&.text).to eq "North"
-        expect(xml.document.at('PaymentContact PersonName MiddleInitial')&.text).to eq "A"
-        expect(xml.document.at('PaymentContact PersonName LastName')&.text).to eq "Carolinian"
+        expect(xml.document.at('PaymentContact PersonName FirstName')&.text).to be_nil
+        expect(xml.document.at('PaymentContact PersonName MiddleInitial')&.text).to be_nil
+        expect(xml.document.at('PaymentContact PersonName LastName')&.text).to be_nil
         expect(xml.document.at('PaymentContact PersonName NameSuffix')).to be_nil
-        expect(xml.document.at('PaymentContact USPhoneNumber')&.text).to eq "9845559876"
+        expect(xml.document.at('PaymentContact USPhoneNumber')&.text).to be_nil
+      end
+
+      context "when owed" do
+        let(:intake) { create(:state_file_nc_intake, :taxes_owed) }
+
+        it "should fill out taxes-owed related fields" do
+          expect(xml.document.at('PaymentContact PersonName FirstName')&.text).to eq "North"
+          expect(xml.document.at('PaymentContact PersonName MiddleInitial')&.text).to eq "A"
+          expect(xml.document.at('PaymentContact PersonName LastName')&.text).to eq "Carolinian"
+          expect(xml.document.at('PaymentContact PersonName NameSuffix')).to be_nil
+          expect(xml.document.at('PaymentContact USPhoneNumber')&.text).to eq "9845559876"
+        end
+
+        context "if filer does not have phone number in direct_file_data" do
+          before do
+            intake.direct_file_data.phone_number = nil
+            intake.phone_number = "9887779999"
+          end
+          it "fills the USPhoneNumber with phone number collected at intake" do
+            expect(xml.document.at('PaymentContact USPhoneNumber')&.text).to eq "9887779999"
+          end
+        end
       end
 
       it "correctly fills veteran info for primary" do
