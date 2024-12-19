@@ -6306,8 +6306,8 @@ en:
         options:
           had_disability: They had a permanent disability
           was_blind: They were legally blind
+          was_citizen: They were a US citizen
           was_full_time_student: They were a full-time student in a college or a trade school
-          was_not_citizen: They were not a US citizen
         title: Select any situations that were true for your spouse in %{year}
       ssn_itin:
         title: Please provide your taxpayer identification information.

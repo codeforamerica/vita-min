@@ -6338,8 +6338,8 @@ es:
         options:
           had_disability: Mi cónyuge tenía una discapacidad permanente
           was_blind: Mi cónyuge era legalmente ciego
+          was_citizen: Eran ciudadanos estadounidenses
           was_full_time_student: Mi cónyuge era un estudiante a tiempo completo en una universidad o una escuela de oficios
-          was_not_citizen: No eran ciudadanos estadounidenses
         title: Seleccione cualquier situación que haya sido cierta para su cónyuge en %{year}
       ssn_itin:
         title: Favor de proporcionar su información de identificación del contribuyente, "taxpayer identification information" en inglés.
