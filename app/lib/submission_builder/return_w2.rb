@@ -35,17 +35,17 @@ module SubmissionBuilder
       if existing_xml_node
         existing_xml_node.at('Amt').content = @intake_w2[field_name].round.to_s
       else
-        this_code_node = Nokogiri::XML::Node.new('OtherDeductionsBenefitsGrp', @xml_node)
+        new_xml_node = Nokogiri::XML::Node.new('OtherDeductionsBenefitsGrp', @xml_node)
 
         desc_node = Nokogiri::XML::Node.new('Desc', @xml_node)
         desc_node.content = field_as_desc
         amt_node = Nokogiri::XML::Node.new('Amt', @xml_node)
         amt_node.content = @intake_w2[field_name].round.to_s
 
-        this_code_node.add_child(desc_node)
-        this_code_node.add_child(amt_node)
+        new_xml_node.add_child(desc_node)
+        new_xml_node.add_child(amt_node)
 
-        node_after_box_14_codes.add_previous_sibling(this_code_node)
+        node_after_box_14_codes.add_previous_sibling(new_xml_node)
       end
     end
   end
