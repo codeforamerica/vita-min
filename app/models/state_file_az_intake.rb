@@ -65,7 +65,6 @@
 #  spouse_middle_initial                  :string
 #  spouse_suffix                          :string
 #  spouse_was_incarcerated                :integer          default("unfilled"), not null
-#  ssn_no_employment                      :integer          default("unfilled"), not null
 #  tribal_member                          :integer          default("unfilled"), not null
 #  tribal_wages_amount                    :decimal(12, 2)
 #  unfinished_intake_ids                  :text             default([]), is an Array
@@ -97,7 +96,6 @@ class StateFileAzIntake < StateFileBaseIntake
   enum was_incarcerated: { unfilled: 0, yes: 1, no: 2 }, _prefix: :was_incarcerated
   enum primary_was_incarcerated: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_was_incarcerated
   enum spouse_was_incarcerated: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_was_incarcerated
-  enum ssn_no_employment: { unfilled: 0, yes: 1, no: 2 }, _prefix: :ssn_no_employment
   enum household_excise_credit_claimed: { unfilled: 0, yes: 1, no: 2 }, _prefix: :household_excise_credit_claimed
   enum tribal_member: { unfilled: 0, yes: 1, no: 2 }, _prefix: :tribal_member
   enum armed_forces_member: { unfilled: 0, yes: 1, no: 2 }, _prefix: :armed_forces_member
@@ -177,7 +175,7 @@ class StateFileAzIntake < StateFileBaseIntake
   def disqualified_from_excise_credit_fyst?
     all_filers_incarcerated = was_incarcerated_yes? || (primary_was_incarcerated_yes? && spouse_was_incarcerated_yes?)
     whole_credit_already_claimed = use_old_incarcerated_column? && household_excise_credit_claimed_yes?
-    all_filers_incarcerated || whole_credit_already_claimed || ssn_no_employment_yes? || direct_file_data.claimed_as_dependent?
+    all_filers_incarcerated || whole_credit_already_claimed || direct_file_data.claimed_as_dependent? # || ssn_no_employment_yes?
   end
 
   def filing_status

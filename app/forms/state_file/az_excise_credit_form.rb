@@ -3,7 +3,6 @@ module StateFile
     set_attributes_for :intake,
                        :primary_was_incarcerated,
                        :spouse_was_incarcerated,
-                       :ssn_no_employment,
                        :household_excise_credit_claimed,
                        :household_excise_credit_claimed_amount
 
