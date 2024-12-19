@@ -228,7 +228,7 @@ describe Efile::Az::Az140Calculator do
 
   describe "Line 51" do
     it 'populates from AZ-301 line 62' do
-      allow_any_instance_of(Efile::Az::Az301Calculator).to receive(:calculate_line_62).and_return 100
+      allow_any_instance_of(Efile::Az::Az301Calculator).to receive(:calculate_line_60).and_return 100
       instance.calculate
       expect(instance.lines[:AZ140_LINE_51].value).to eq(100)
     end
