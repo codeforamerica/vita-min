@@ -5503,7 +5503,6 @@ es:
         title: Háblenos de su dependiente. Por favor, proporcione algunos detalles más.
         was_married: Casado/a desde 12/31/%{year}
         was_not_citizen: No es ciudadano estadounidense
-        was_citizen: Es ciudadano estadounidense
         was_student: Estudiante de educación superior de tiempo completo
       index:
         add_person: Agregue a una persona
@@ -6166,8 +6165,8 @@ es:
         options:
           had_disability: Yo tenía una discapacidad permanente
           was_blind: Yo estaba legalmente ciego
+          was_citizen: Era ciudadano estadounidense
           was_full_time_student: Yo era un estudiante a tiempo completo en una universidad o una escuela de oficios
-          was_not_citizen: No era ciudadano estadounidense
         title: Seleccione las situaciones que fueron verdaderas para usted en el %{year}
       lived_with_spouse:
         title: "¿Vivió con su cónyuge durante alguna parte de los últimos seis meses de %{year}?"

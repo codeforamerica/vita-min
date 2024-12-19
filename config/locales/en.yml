@@ -5520,7 +5520,6 @@ en:
         title: Tell us about your dependent. Please provide a few more details.
         was_married: Married as of 12/31/%{year}
         was_not_citizen: Not a US citizen
-        was_citizen: A US citizen
         was_student: Full time higher education student
       index:
         add_person: Add a person
@@ -6149,8 +6148,8 @@ en:
         options:
           had_disability: I had a permanent disability
           was_blind: I was legally blind
+          was_citizen: I was a US citizen
           was_full_time_student: I was a full-time student in a college or a trade school
-          was_not_citizen: I was not a US citizen
         title: Select any situations that were true for you in %{year}
       lived_with_spouse:
         title: Did you live with your spouse during any part of the last six months of %{year}?
