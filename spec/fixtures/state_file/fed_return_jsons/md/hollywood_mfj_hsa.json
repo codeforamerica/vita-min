@@ -1,0 +1,49 @@
+{
+  "familyAndHousehold": [],
+  "filers": [
+    {
+      "lastName": "LEITH",
+      "firstName": "PRUE",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "400-00-3034",
+      "dateOfBirth": "1949-04-04",
+      "suffix": null,
+      "isPrimaryFiler": false,
+      "hsaTotalDeductibleAmount": "2000.00",
+      "ssnNotValidForEmployment": null
+    },
+    {
+      "lastName": "HOLLYWOOD",
+      "firstName": "PAUL",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "400-00-3033",
+      "dateOfBirth": "1955-03-17",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "ssnNotValidForEmployment": null,
+      "hsaTotalDeductibleAmount": "1000.00"
+    }
+  ],
+  "form1099Gs": [
+    {
+      "has1099": true,
+      "stateTaxWithheld": "0.00",
+      "amount": "2000.00",
+      "federalTaxWithheld": "0.00",
+      "amountPaidBackForBenefitsInTaxYear": "1500.00",
+      "stateIdNumber": null,
+      "payerTin": null,
+      "payer": "Maryland Department of Labor",
+      "recipientTin": "400-00-3034"
+    }
+  ],
+  "formW2s": [
+    {
+      "usedTin": "400-00-3033",
+      "unionDuesAmount": "50.00"
+    }
+  ],
+  "interestReports": []
+}

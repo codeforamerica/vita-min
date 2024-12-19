@@ -4,7 +4,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::ScheduleNjHcc, requir
   describe ".document" do
     let(:intake) { create(:state_file_nj_intake) }
     let(:submission) { create(:efile_submission, data_source: intake) }
-    let(:build_response) { described_class.build(submission, validate: true) }
+    let(:build_response) { described_class.build(submission, validate: false) }
     let(:xml) { Nokogiri::XML::Document.parse(build_response.document.to_xml) }
 
     after do

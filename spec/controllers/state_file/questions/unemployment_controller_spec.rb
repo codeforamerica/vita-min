@@ -188,7 +188,7 @@ RSpec.describe StateFile::Questions::UnemploymentController do
       }
     end
 
-    it "updates the dependent and redirects to the index" do
+    it "updates the form and redirects to the index" do
       post :update, params: params
 
       expect(response).to redirect_to(StateFile::Questions::UnemploymentController.to_path_helper(action: :index))
