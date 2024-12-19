@@ -6165,8 +6165,9 @@ es:
         options:
           had_disability: Yo tenía una discapacidad permanente
           was_blind: Yo estaba legalmente ciego
-          was_citizen: Era ciudadano estadounidense
+          was_citizen: Yo era ciudadano estadounidense
           was_full_time_student: Yo era un estudiante a tiempo completo en una universidad o una escuela de oficios
+          was_on_visa: Yo estaba en los Estados Unidos con visado
         title: Seleccione las situaciones que fueron verdaderas para usted en el %{year}
       lived_with_spouse:
         title: "¿Vivió con su cónyuge durante alguna parte de los últimos seis meses de %{year}?"
@@ -6340,6 +6341,7 @@ es:
           was_blind: Mi cónyuge era legalmente ciego
           was_citizen: Eran ciudadanos estadounidenses
           was_full_time_student: Mi cónyuge era un estudiante a tiempo completo en una universidad o una escuela de oficios
+          was_on_visa: Mi cónyuge estaba en los Estados Unidos con visado
         title: Seleccione cualquier situación que haya sido cierta para su cónyuge en %{year}
       ssn_itin:
         title: Favor de proporcionar su información de identificación del contribuyente, "taxpayer identification information" en inglés.

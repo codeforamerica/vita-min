@@ -6150,6 +6150,7 @@ en:
           was_blind: I was legally blind
           was_citizen: I was a US citizen
           was_full_time_student: I was a full-time student in a college or a trade school
+          was_on_visa: I was in the US on a visa
         title: Select any situations that were true for you in %{year}
       lived_with_spouse:
         title: Did you live with your spouse during any part of the last six months of %{year}?
@@ -6308,6 +6309,7 @@ en:
           was_blind: They were legally blind
           was_citizen: They were a US citizen
           was_full_time_student: They were a full-time student in a college or a trade school
+          was_on_visa: They were in the US on a visa
         title: Select any situations that were true for your spouse in %{year}
       ssn_itin:
         title: Please provide your taxpayer identification information.
