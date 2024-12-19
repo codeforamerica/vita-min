@@ -24,7 +24,15 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::NjW2, required_schema
 
       it "adds box 14 nodes" do
         box_14_nodes = xml.css("OtherDeductsBenefits")
-        expect(box_14_nodes.length).to eq(3)
+
+        expect(box_14_nodes[0].at('Desc').text).to eq('414HSUB')
+        expect(box_14_nodes[0].at('Amt').text).to eq('250')
+
+        expect(box_14_nodes[1].at('Desc').text).to eq('UI/HC/WD')
+        expect(box_14_nodes[1].at('Amt').text).to eq('99')
+
+        expect(box_14_nodes[2].at('Desc').text).to eq('FLI')
+        expect(box_14_nodes[2].at('Amt').text).to eq('100')
       end
     end
   end
