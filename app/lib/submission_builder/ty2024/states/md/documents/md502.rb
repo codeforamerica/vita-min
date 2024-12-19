@@ -106,6 +106,22 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
           end
         end
       end
+      if has_healthcare_coverage_section?
+        xml.MDHealthCareCoverage do
+          if @intake.primary_did_not_have_health_insurance_yes?
+            xml.PriWithoutHealthCoverageInd "X"
+            xml.PriDOB date_type(@intake.primary_birth_date)
+          end
+          if @intake.spouse_did_not_have_health_insurance_yes?
+            xml.SecWithoutHealthCoverageInd "X"
+            xml.SecDOB date_type(@intake.spouse_birth_date)
+          end
+          if @intake.authorize_sharing_of_health_insurance_info_yes?
+            xml.AuthorToShareInfoHealthExchInd "X"
+            xml.TaxpayerEmailAddress email_from_intake_or_df
+          end
+        end
+      end
       income_section(xml)
       xml.Additions do
         xml.StateRetirementPickup calculated_fields.fetch(:MD502_LINE_3)
@@ -128,22 +144,6 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
         xml.NetIncome calculated_fields.fetch(:MD502_LINE_18)
       end
       xml.ExemptionAmount calculated_fields.fetch(:MD502_LINE_19)
-      if has_healthcare_coverage_section?
-        xml.MDHealthCareCoverage do
-          if @intake.primary_did_not_have_health_insurance_yes?
-            xml.PriWithoutHealthCoverageInd "X"
-            xml.PriDOB date_type(@intake.primary_birth_date)
-          end
-          if @intake.spouse_did_not_have_health_insurance_yes?
-            xml.SecWithoutHealthCoverageInd "X"
-            xml.SecDOB date_type(@intake.spouse_birth_date)
-          end
-          if @intake.authorize_sharing_of_health_insurance_info_yes?
-            xml.AuthorToShareInfoHealthExchInd "X"
-            xml.TaxpayerEmailAddress email_from_intake_or_df
-          end
-        end
-      end
       if has_state_tax_computation?
         xml.StateTaxComputation do
           xml.TaxableNetIncome calculated_fields.fetch(:MD502_LINE_20) if @deduction_method_is_standard
