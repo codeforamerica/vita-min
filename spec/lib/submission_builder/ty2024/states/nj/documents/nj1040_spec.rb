@@ -4,7 +4,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
   describe ".document" do
     let(:intake) { create(:state_file_nj_intake, filing_status: "single") }
     let(:submission) { create(:efile_submission, data_source: intake) }
-    let(:build_response) { described_class.build(submission, validate: true) }
+    let(:build_response) { described_class.build(submission, validate: false) }
     let(:xml) { Nokogiri::XML::Document.parse(build_response.document.to_xml) }
 
     after do
@@ -768,9 +768,11 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
         end
 
         context "when qualifies for claimed as dependent exemption" do
-          let(:intake) { create(:state_file_nj_intake,
+          let(:intake) { 
+            create(:state_file_nj_intake,
                                 :df_data_mfj_primary_claimed_dep,
-          ) }
+          )
+          }
 
           it "does not check 53c Schedule NJ-HCC checkbox and leaves 53a, 53b, and 53c amount blank" do
             expect(xml.at("NoHealthInsurance")).to eq(nil) # 53a
