@@ -1,6 +1,4 @@
 require "rails_helper"
-require 'axe-capybara'
-require 'axe-rspec'
 
 RSpec.feature "Income Review", active_job: true do
   include StateFileIntakeHelper
@@ -10,7 +8,6 @@ RSpec.feature "Income Review", active_job: true do
   end
 
   context "NJ", :flow_explorer_screenshot, js: true do
-
     def advance_to_data_transfer
       visit "/"
       click_on "Start Test NJ"
