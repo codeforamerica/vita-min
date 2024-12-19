@@ -100,22 +100,22 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
         end
 
         it 'puts apartment on second address line' do
-          expect(xml.at("MarylandAddress AddressLine1Txt").text.length).to be <= 35
+          expect(xml.at("MarylandAddress AddressLine1Txt").text.length).to be 26
           expect(xml.at("MarylandAddress AddressLine1Txt").text).to eq('2598 HICKORY HEIGHTS DRIVE')
           expect(xml.at("MarylandAddress AddressLine2Txt").text).to eq('APT 21')
         end
       end
 
-      context "when mailing address is longer than 35 characters" do
+      context "when mailing address is longer than 30 characters" do
         before do
           intake.confirmed_permanent_address_yes!
           intake.direct_file_data.mailing_street = '211212 SUBDIVISION DRIVE POST OFFICE BOX NUMBER 157'
           intake.direct_file_data.mailing_apartment = ''
         end
 
-        it 'truncates mailing address under 35 characters' do
-          expect(xml.at("MarylandAddress AddressLine1Txt").text.length).to be <= 35
-          expect(xml.at("MarylandAddress AddressLine1Txt").text).to eq('211212 SUBDIVISION DRIVE POST OFFIC')
+        it 'truncates mailing address to 30 characters' do
+          expect(xml.at("MarylandAddress AddressLine1Txt").text.length).to be 29
+          expect(xml.at("MarylandAddress AddressLine1Txt").text).to eq('211212 SUBDIVISION DRIVE POST')
           expect(xml.at("MarylandAddress AddressLine2Txt")).not_to be_present
         end
       end
