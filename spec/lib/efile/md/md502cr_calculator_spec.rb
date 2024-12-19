@@ -35,6 +35,17 @@ describe Efile::Md::Md502crCalculator do
               expect(instance.lines[:MD502CR_PART_M_LINE_1].value).to eq(1_750)
               expect(instance.lines[:MD502CR_PART_AA_LINE_13].value).to eq(1_750)
             end
+
+            context "deduction method is nonstandard" do
+              before do
+                allow(instance).to receive(:deduction_method_is_standard?).and_return(false)
+                main_calculator.calculate
+              end
+
+              it "awards no credit" do
+                expect(instance.lines[:MD502CR_PART_M_LINE_1].value).to eq(0)
+              end
+            end
           end
 
           context "when agi > $150,000" do
