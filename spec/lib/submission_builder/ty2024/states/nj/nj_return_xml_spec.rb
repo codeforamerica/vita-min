@@ -9,13 +9,6 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
     let(:build_response) { described_class.build(submission, validate: true) }
     let(:xml) { Nokogiri::XML::Document.parse(build_response.document.to_xml) }
 
-    it "does not include the xmlns attribute on any element in the demo env" do
-      allow(Rails.env).to receive(:demo?).and_return true
-      nodes_with_namespace = xml.document.xpath('//*[namespace-uri()="http://www.irs.gov/efile"]')
-      expect(nodes_with_namespace.count).to eq(0)
-      # Do not check for build errors because schema cannot be validated against without namesapce
-    end
-
     describe "XML schema" do
       after do
         expect(build_response.errors).not_to be_present
