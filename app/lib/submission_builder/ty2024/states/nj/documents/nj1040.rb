@@ -91,6 +91,9 @@ module SubmissionBuilder
                     xml.TotalExemptionAmountA calculated_fields.fetch(:NJ1040_LINE_13)
                   end
 
+                  xml.NjResidentStatusFromDate "#{MultiTenantService.new(:statefile).current_tax_year}-01-01"
+                  xml.NjResidentStatusToDate "#{MultiTenantService.new(:statefile).current_tax_year}-12-31"
+
                   unless intake.dependents.empty?
                     intake.dependents[0..9].each do |dependent|
                       xml.Dependents do

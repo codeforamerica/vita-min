@@ -69,13 +69,11 @@ module SubmissionBuilder
     def get_return_state_attributes(tag_name)
       return_state_attributes = { 'xmlns' => 'http://www.irs.gov/efile' }
       intake_class = self.submission.data_source_type
-      if intake_class == 'StateFileNyIntake' && !%w[ReturnState efile:ReturnState StateSubmissionManifest].include?(tag_name)
+      if ['StateFileNyIntake', 'StateFileNjIntake'].include?(intake_class) && !%w[ReturnState efile:ReturnState StateSubmissionManifest].include?(tag_name)
         # This method is requirement from NY to remove the namespace attribute from
         # any tag unrelated to the root XML tag. StateSubmissionManifest seems to
         # need it also in order for the XML to be valid.
         return false
-      elsif intake_class == 'StateFileNjIntake' && (Rails.env.production? || Rails.env.demo?)
-        return { 'xmlns' => '' }
       end
       return_state_attributes
     end
