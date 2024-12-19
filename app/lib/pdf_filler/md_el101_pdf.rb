@@ -3,7 +3,7 @@ module PdfFiller
     include PdfHelper
 
     def source_pdf_name
-      "mdEL101-TY2023"
+      "mdEL101-TY2024"
     end
 
     def initialize(submission)
@@ -15,27 +15,30 @@ module PdfFiller
     end
 
     def hash_for_pdf
+
+      signature = [@xml_document.at('Primary TaxpayerName FirstName')&.text, @xml_document.at('Primary TaxpayerName LastName')&.text].join(' ')
+      spouse_signature = @submission.data_source.spouse_esigned_yes? ? [@xml_document.at('Secondary TaxpayerName FirstName')&.text, @xml_document.at('Secondary TaxpayerName LastName')&.text].join(' ') : ""
       {
         'First Name': @xml_document.at('Primary TaxpayerName FirstName')&.text,
-        'Middle Initial': @xml_document.at('Primary TaxpayerName MiddleInitial')&.text,
+        'Primary MI': @xml_document.at('Primary TaxpayerName MiddleInitial')&.text,
         'Last Name': @xml_document.at('Primary TaxpayerName LastName')&.text,
         'SSNTaxpayer Identification Number': @xml_document.at('Primary TaxpayerSSN')&.text,
         'Spouses First Name': @xml_document.at('Secondary TaxpayerName FirstName')&.text,
-        'Spouse Middle Initial': @xml_document.at('Secondary TaxpayerName MiddleInitial')&.text,
+        'Spouse MI': @xml_document.at('Secondary TaxpayerName MiddleInitial')&.text,
         'Spouses Last Name': @xml_document.at('Secondary TaxpayerName LastName')&.text,
         'SSNTaxpayer Identification Number_2': @xml_document.at('Secondary TaxpayerSSN')&.text,
-        'Primary signature': [@xml_document.at('Primary TaxpayerName FirstName')&.text, @xml_document.at('Primary TaxpayerName LastName')&.text].join(' '),
-        'Primary Date Signed': @xml_document.at('Primary DateSigned')&.text,
-        'Spouses signature': [@xml_document.at('Secondary TaxpayerName FirstName')&.text, @xml_document.at('Secondary TaxpayerName LastName')&.text].join(' '),
-        'Spouse Date Signed': @xml_document.at('Secondary DateSigned')&.text,
-        'Primary Esigned': checkbox_value(@submission.data_source.primary_esigned_yes?),
-        'ERO firm name': 'FileYourStateTaxes',
-        'ERO firm name 2': @submission.data_source.spouse_esigned_yes? ? 'FileYourStateTaxes' : "",
-        'Primary Signature Pin': @xml_document.at('Primary TaxpayerPIN')&.text,
-        'Spouse Esigned': checkbox_value(@submission.data_source.spouse_esigned_yes?),
-        'Secondary Signature Pin': @xml_document.at('Secondary TaxpayerPIN')&.text,
         '2 Amount of overpayment to be refunded to you                                         2': calculated_fields.fetch(:MD502_LINE_48),
         '3': calculated_fields.fetch(:MD502_LINE_50),
+        'I authorize': checkbox_value(@submission.data_source.primary_esigned_yes?),
+        'ERO firm name': 'FileYourStateTaxes',
+        'to enter or generate my PIN': @xml_document.at('Primary TaxpayerPIN')&.text,
+        'I authorize_2': checkbox_value(@submission.data_source.spouse_esigned_yes?),
+        'ERO firm name_2': @submission.data_source.spouse_esigned_yes? ? 'FileYourStateTaxes' : "",
+        'to enter or generate my PIN_2': @xml_document.at('Secondary TaxpayerPIN')&.text,
+        'Your signature': signature,
+        Date: @xml_document.at('Primary DateSigned')&.text,
+        'Spouses signature 1': spouse_signature,
+        Date_2: @xml_document.at('Secondary DateSigned')&.text,
       }
     end
 
