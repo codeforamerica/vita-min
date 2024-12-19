@@ -12,16 +12,25 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502Su, required_sch
 
     describe ".document" do
       context "Subtractions" do
-        context "when there is no interest report" do
-          it "outputs the total subtraction amount" do
-            expect(xml.at("Form502SU Subtractions Total").text.to_i).to eq(0)
+        context "when the ab subtraction is present" do
+          before do
+            allow_any_instance_of(Efile::Md::Md502SuCalculator).to receive(:calculate_line_ab).and_return(100)
+          end
+          it "outputs the XML for code ab" do
+            expect(xml.at("Form502SU Subtractions OtherDetail Code").text).to eq("ab")
+            expect(xml.at("Form502SU Subtractions OtherDetail Amount").text.to_i).to eq(100)
+            expect(xml.at("Form502SU Subtractions Total").text.to_i).to eq(100)
           end
         end
 
-        context "when there is an interest report" do
-          let(:intake) { create(:state_file_md_intake, :df_data_1099_int) }
-          it "outputs the total subtraction amount" do
-            expect(xml.at("Form502SU Subtractions Total").text.to_i).to eq(2)
+        context "when the ab subtraction is not present" do
+          before do
+            allow_any_instance_of(Efile::Md::Md502SuCalculator).to receive(:calculate_line_ab).and_return(0)
+          end
+          it "does not output the XML for code ab" do
+            expect(xml.at("Form502SU Subtractions OtherDetail Code")).not_to be_present
+            expect(xml.at("Form502SU Subtractions OtherDetail Amount")).not_to be_present
+            expect(xml.at("Form502SU Subtractions Total").text.to_i).to eq(0)
           end
         end
       end

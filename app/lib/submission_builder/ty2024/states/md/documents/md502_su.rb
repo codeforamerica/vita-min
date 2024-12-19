@@ -11,7 +11,13 @@ module SubmissionBuilder
             def document
               build_xml_doc("Form502SU", documentId: "Form502SU") do |xml|
                 xml.Subtractions do |subtractions|
-                  subtractions.Total calculated_fields.fetch(:MD502_SU_LINE_1)
+                  if calculated_fields.fetch(:MD502_SU_LINE_AB).positive?
+                    subtractions.OtherDetail do |other_detail|
+                      other_detail.Code "ab"
+                      other_detail.Amount calculated_fields.fetch(:MD502_SU_LINE_AB)
+                    end
+                  end
+                  subtractions.Total calculated_fields.fetch(:MD502_SU_LINE_1) # check if this should be here
                 end
               end
             end
