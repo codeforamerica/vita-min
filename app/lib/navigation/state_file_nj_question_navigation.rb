@@ -30,7 +30,7 @@ module Navigation
                                           # Federal info does not show to users
                                           Navigation::NavigationStep.new(StateFile::Questions::FederalInfoController),
                                           Navigation::NavigationStep.new(StateFile::Questions::DataTransferOffboardingController, false),
-                                          Navigation::NavigationStep.new(StateFile::Questions::IncomeReviewController), # only show if there is income
+                                          Navigation::NavigationStep.new(StateFile::Questions::IncomeReviewController),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjEligibilityHealthInsuranceController),
                                           Navigation::NavigationStep.new(StateFile::Questions::EligibilityOffboardingController, false),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjCountyController),
