@@ -41,7 +41,7 @@ RSpec.describe PdfFiller::MdEl101Pdf do
         expect(pdf_fields["SSNTaxpayer Identification Number_2"]).to eq("555123456")
         expect(pdf_fields["ERO firm name_2"]).to eq "FileYourStateTaxes"
         expect(pdf_fields["to enter or generate my PIN_2"]).to eq "11111"
-        # expect(pdf_fields["Spouses signature 1"]).to eq "Marty B Lando"
+        expect(pdf_fields["Spouses signature"]).to eq "Marty Lando"
         expect(pdf_fields["Date_2"]).to eq Date.today.strftime("%F")
       end
     end
@@ -60,7 +60,7 @@ RSpec.describe PdfFiller::MdEl101Pdf do
         expect(pdf_fields["3"]).to eq "100"
         expect(pdf_fields["ERO firm name"]).to eq "FileYourStateTaxes"
         expect(pdf_fields["to enter or generate my PIN"]).to eq "23456"
-        # expect(pdf_fields["Your signature"]).to eq "On"
+        expect(pdf_fields["Primary signature"]).to eq "Mary Lando"
         expect(pdf_fields["Date"]).to eq Date.today.strftime("%F")
       end
     end
@@ -79,7 +79,7 @@ RSpec.describe PdfFiller::MdEl101Pdf do
         expect(pdf_fields["3"]).to eq("0")
         expect(pdf_fields["ERO firm name"]).to eq "FileYourStateTaxes"
         expect(pdf_fields["to enter or generate my PIN"]).to eq "23456"
-        # expect(pdf_fields["Your signature"]).to eq "On"
+        expect(pdf_fields["Primary signature"]).to eq "Mary Lando"
         expect(pdf_fields["Date"]).to eq Date.today.strftime("%F")
       end
     end

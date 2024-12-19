@@ -35,9 +35,9 @@ module PdfFiller
         'I authorize_2': checkbox_value(@submission.data_source.spouse_esigned_yes?),
         'ERO firm name_2': @submission.data_source.spouse_esigned_yes? ? 'FileYourStateTaxes' : "",
         'to enter or generate my PIN_2': @xml_document.at('Secondary TaxpayerPIN')&.text,
-        'Your signature': signature,
+        'Primary signature': signature,
         Date: @xml_document.at('Primary DateSigned')&.text,
-        'Spouses signature 1': spouse_signature,
+        'Spouses signature': spouse_signature,
         Date_2: @xml_document.at('Secondary DateSigned')&.text,
       }
     end
