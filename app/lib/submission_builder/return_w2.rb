@@ -14,10 +14,7 @@ module SubmissionBuilder
           state_local_tax_grp_node.remove
         end
 
-        node_after_box_14_codes = state_local_tax_grp_node
-        unless state_local_tax_grp_node.present?
-          node_after_box_14_codes = @xml_node.at(:StandardOrNonStandardCd)
-        end
+        node_after_box_14_codes = state_local_tax_grp_node || @xml_node.at(:StandardOrNonStandardCd)
         state_code = @intake_w2.state_file_intake.state_code
         box14_codes = StateFile::StateInformationService.w2_supported_box14_codes(state_code)
         box14_codes.each do |code|

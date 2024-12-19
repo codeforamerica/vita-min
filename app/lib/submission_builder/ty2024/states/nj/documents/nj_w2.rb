@@ -10,7 +10,6 @@ module SubmissionBuilder
 
             def document
               xml_node = super
-              
               xml_node.at("IRSW2")["documentName"] = "NJW2"
               xml_node.at("IRSW2").name = "NJW2"
 
