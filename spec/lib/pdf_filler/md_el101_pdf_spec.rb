@@ -24,6 +24,49 @@ RSpec.describe PdfFiller::MdEl101Pdf do
       expect(missing_fields).to eq([])
     end
 
+    context "single filer" do
+      it "fills out the required fields" do
+        expect(pdf_fields["First Name"]).to eq("Mary")
+        expect(pdf_fields["Primary MI"]).to eq("A")
+        expect(pdf_fields["Last Name"]).to eq("Lando")
+        expect(pdf_fields["SSNTaxpayer Identification Number"]).to eq("555123666")
+        expect(pdf_fields["ERO firm name"]).to eq "FileYourStateTaxes"
+        expect(pdf_fields["to enter or generate my PIN"]).to eq "23456"
+        expect(pdf_fields["Primary signature"]).to eq "Mary Lando"
+        expect(pdf_fields["Date"]).to eq Date.today.strftime("%F")
+        expect(pdf_fields["Spouses First Name"]).to eq("")
+        expect(pdf_fields["Spouse MI"]).to eq("")
+        expect(pdf_fields["Spouses Last Name"]).to eq("")
+        expect(pdf_fields["SSNTaxpayer Identification Number_2"]).to eq("")
+        expect(pdf_fields["ERO firm name_2"]).to eq ""
+        expect(pdf_fields["to enter or generate my PIN_2"]).to eq ""
+        expect(pdf_fields["Spouses signature"]).to eq ""
+        expect(pdf_fields["Date_2"]).to eq ""
+      end
+    end
+
+    context "when taxes are owed" do
+      before do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_45).and_return 100
+      end
+
+      it "fills out the required fields" do
+        expect(pdf_fields["2 Amount of overpayment to be refunded to you                                         2"]).to eq("0")
+        expect(pdf_fields["3"]).to eq "100"
+      end
+    end
+
+    context "when there is a refund" do
+      before do
+        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_46).and_return 300
+      end
+
+      it "fills out the required fields" do
+        expect(pdf_fields["2 Amount of overpayment to be refunded to you                                         2"]).to eq "300"
+        expect(pdf_fields["3"]).to eq("0")
+      end
+    end
+
     context "when mfj" do
       let(:intake) { create(:state_file_md_intake, :with_spouse) }
 
@@ -43,60 +86,6 @@ RSpec.describe PdfFiller::MdEl101Pdf do
         expect(pdf_fields["to enter or generate my PIN_2"]).to eq "11111"
         expect(pdf_fields["Spouses signature"]).to eq "Marty Lando"
         expect(pdf_fields["Date_2"]).to eq Date.today.strftime("%F")
-      end
-    end
-
-    context "when taxes are owed" do
-      before do
-        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_45).and_return 100
-      end
-
-      it "fills out the required fields" do
-        expect(pdf_fields["First Name"]).to eq("Mary")
-        expect(pdf_fields["Primary MI"]).to eq("A")
-        expect(pdf_fields["Last Name"]).to eq("Lando")
-        expect(pdf_fields["SSNTaxpayer Identification Number"]).to eq("555123666")
-        expect(pdf_fields["2 Amount of overpayment to be refunded to you                                         2"]).to eq("0")
-        expect(pdf_fields["3"]).to eq "100"
-        expect(pdf_fields["ERO firm name"]).to eq "FileYourStateTaxes"
-        expect(pdf_fields["to enter or generate my PIN"]).to eq "23456"
-        expect(pdf_fields["Primary signature"]).to eq "Mary Lando"
-        expect(pdf_fields["Date"]).to eq Date.today.strftime("%F")
-        expect(pdf_fields["Spouses First Name"]).to eq("")
-        expect(pdf_fields["Spouse MI"]).to eq("")
-        expect(pdf_fields["Spouses Last Name"]).to eq("")
-        expect(pdf_fields["SSNTaxpayer Identification Number_2"]).to eq("")
-        expect(pdf_fields["ERO firm name_2"]).to eq ""
-        expect(pdf_fields["to enter or generate my PIN_2"]).to eq ""
-        expect(pdf_fields["Spouses signature"]).to eq ""
-        expect(pdf_fields["Date_2"]).to eq ""
-      end
-    end
-
-    context "when there is a refund" do
-      before do
-        allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_46).and_return 300
-      end
-
-      it "fills out the required fields" do
-        expect(pdf_fields["First Name"]).to eq("Mary")
-        expect(pdf_fields["Primary MI"]).to eq("A")
-        expect(pdf_fields["Last Name"]).to eq("Lando")
-        expect(pdf_fields["SSNTaxpayer Identification Number"]).to eq("555123666")
-        expect(pdf_fields["2 Amount of overpayment to be refunded to you                                         2"]).to eq "300"
-        expect(pdf_fields["3"]).to eq("0")
-        expect(pdf_fields["ERO firm name"]).to eq "FileYourStateTaxes"
-        expect(pdf_fields["to enter or generate my PIN"]).to eq "23456"
-        expect(pdf_fields["Primary signature"]).to eq "Mary Lando"
-        expect(pdf_fields["Date"]).to eq Date.today.strftime("%F")
-        expect(pdf_fields["Spouses First Name"]).to eq("")
-        expect(pdf_fields["Spouse MI"]).to eq("")
-        expect(pdf_fields["Spouses Last Name"]).to eq("")
-        expect(pdf_fields["SSNTaxpayer Identification Number_2"]).to eq("")
-        expect(pdf_fields["ERO firm name_2"]).to eq ""
-        expect(pdf_fields["to enter or generate my PIN_2"]).to eq ""
-        expect(pdf_fields["Spouses signature"]).to eq ""
-        expect(pdf_fields["Date_2"]).to eq ""
       end
     end
   end
