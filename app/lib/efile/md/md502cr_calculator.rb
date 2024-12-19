@@ -54,8 +54,8 @@ module Efile
               credit = 1000
             end
           end
-          credit
         end
+        credit
       end
 
       def calculate_md502_cr_part_b_line_3
