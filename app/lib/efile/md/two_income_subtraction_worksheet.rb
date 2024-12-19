@@ -45,7 +45,9 @@ module Efile
           .select { |form1099r| form1099r.recipient_ssn == filer_ssn }
           .sum { |form1099r| form1099r.taxable_amount&.round }
 
-        unemployment_income = find_filer_json_for(primary_or_spouse)&.form_1099_gs_total&.round || 0
+        unemployment_income = @direct_file_json_data.form_1099gs
+          .select { |form_1099g| form_1099g.recipient_tin.delete("-") == filer_ssn }
+          .sum { |form_1099g| form_1099g.amount&.round }
 
         wage_income +
           interest_income +

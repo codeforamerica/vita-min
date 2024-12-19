@@ -72,11 +72,26 @@ describe Efile::Md::TwoIncomeSubtractionWorksheet do
     end
 
     context "primary and spouse have only unemployment income" do
+      before do
+        primary_ssn = intake.primary.ssn
+        spouse_ssn = intake.spouse.ssn
+        intake.raw_direct_file_intake_data["form1099Gs"] = [{}, {}]
+        intake.direct_file_json_data.form_1099gs[0].recipient_tin = primary_ssn
+        intake.direct_file_json_data.form_1099gs[1].recipient_tin = spouse_ssn
+      end
+
       it "calculates the fed income amount for primary and spouse" do
-        intake.direct_file_json_data.primary_filer&.form_1099_gs_total = "100.00"
-        intake.direct_file_json_data.spouse_filer&.form_1099_gs_total = "200.00"
+        intake.direct_file_json_data.form_1099gs[0].amount = "100.00"
+        intake.direct_file_json_data.form_1099gs[1].amount = "200.00"
         expect(instance.calculate_fed_income(:primary)).to eq(100)
         expect(instance.calculate_fed_income(:spouse)).to eq(200)
+      end
+
+      it "handles nil values for 1099g income" do
+        intake.direct_file_json_data.form_1099gs[0].amount = nil
+        intake.direct_file_json_data.form_1099gs[1].amount = nil
+        expect(instance.calculate_fed_income(:primary)).to eq(0)
+        expect(instance.calculate_fed_income(:spouse)).to eq(0)
       end
     end
 
@@ -94,8 +109,11 @@ describe Efile::Md::TwoIncomeSubtractionWorksheet do
         intake.direct_file_json_data.interest_reports[1].recipient_tin = spouse_ssn
         intake.direct_file_json_data.interest_reports[0].amount_1099 = "1.00"
         intake.direct_file_json_data.interest_reports[1].amount_no_1099 = "2.00"
-        intake.direct_file_json_data.primary_filer&.form_1099_gs_total = "100.00"
-        intake.direct_file_json_data.spouse_filer&.form_1099_gs_total = "200.00"
+        intake.raw_direct_file_intake_data["form1099Gs"] = [{}, {}]
+        intake.direct_file_json_data.form_1099gs[0].recipient_tin = primary_ssn
+        intake.direct_file_json_data.form_1099gs[1].recipient_tin = spouse_ssn
+        intake.direct_file_json_data.form_1099gs[0].amount = "100.00"
+        intake.direct_file_json_data.form_1099gs[1].amount = "200.00"
       end
 
       it "calculates the fed income amount for primary and spouse" do
