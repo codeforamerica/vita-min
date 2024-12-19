@@ -55,7 +55,9 @@ module SubmissionBuilder
               xml.AddressLine1Txt sanitize_for_xml(@submission.data_source.direct_file_data.mailing_street, 35) if @submission.data_source.direct_file_data.mailing_street.present?
               xml.AddressLine2Txt sanitize_for_xml(@submission.data_source.direct_file_data.mailing_apartment, 35) if @submission.data_source.direct_file_data.mailing_apartment.present?
             end
-            xml.CityNm sanitize_for_xml(@submission.data_source.direct_file_data.mailing_city, 22) if @submission.data_source.direct_file_data.mailing_city.present?
+            if @submission.data_source.direct_file_data.mailing_city.present?
+              xml.CityNm sanitize_for_xml(@submission.data_source.direct_file_data.mailing_city, @submission.data_source.city_name_length_20? ? 20 : 22)
+            end
             xml.StateAbbreviationCd @submission.data_source.state_code.upcase
             xml.ZIPCd @submission.data_source.direct_file_data.mailing_zip if @submission.data_source.direct_file_data.mailing_zip.present?
           end

@@ -209,6 +209,10 @@ class StateFileMdIntake < StateFileBaseIntake
     true
   end
 
+  def city_name_length_20?
+    true
+  end
+
   def allows_refund_amount_in_xml?
     false
   end
