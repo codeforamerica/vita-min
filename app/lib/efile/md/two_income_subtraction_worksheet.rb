@@ -47,7 +47,7 @@ module Efile
 
         unemployment_income = @direct_file_json_data.form_1099gs
           .select { |form_1099g| form_1099g.recipient_tin.delete("-") == filer_ssn }
-          .sum { |form_1099g| form_1099g.amount&.round }
+          .sum { |form_1099g| (form_1099g.amount - form_1099g.amount_paid_back_for_benefits_in_tax_year).round }
 
         wage_income +
           interest_income +

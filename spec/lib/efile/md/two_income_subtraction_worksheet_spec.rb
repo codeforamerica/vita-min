@@ -82,9 +82,20 @@ describe Efile::Md::TwoIncomeSubtractionWorksheet do
 
       it "calculates the fed income amount for primary and spouse" do
         intake.direct_file_json_data.form_1099gs[0].amount = "100.00"
+        intake.direct_file_json_data.form_1099gs[0].amount_paid_back_for_benefits_in_tax_year = "0.00"
         intake.direct_file_json_data.form_1099gs[1].amount = "200.00"
+        intake.direct_file_json_data.form_1099gs[1].amount_paid_back_for_benefits_in_tax_year = "0.00"
         expect(instance.calculate_fed_income(:primary)).to eq(100)
         expect(instance.calculate_fed_income(:spouse)).to eq(200)
+      end
+
+      it "reduces unemployment income by the amount paid back" do
+        intake.direct_file_json_data.form_1099gs[0].amount = "100.00"
+        intake.direct_file_json_data.form_1099gs[0].amount_paid_back_for_benefits_in_tax_year = "50.00"
+        intake.direct_file_json_data.form_1099gs[1].amount = "200.00"
+        intake.direct_file_json_data.form_1099gs[1].amount_paid_back_for_benefits_in_tax_year = "50.00"
+        expect(instance.calculate_fed_income(:primary)).to eq(50)
+        expect(instance.calculate_fed_income(:spouse)).to eq(150)
       end
 
       it "handles nil values for 1099g income" do
