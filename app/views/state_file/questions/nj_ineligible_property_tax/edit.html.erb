@@ -1,13 +1,24 @@
 <%
-    title = t(".title")
+    title = t(".title_html", property: on_home_or_rental)
     content_for :page_title, title
 %>
 
 <% content_for :card do %>
-  <h1 class="h2"><%= t(".title") %></h1>
-  <p><%= t(".helper_description") %></p>
+  <h1 class="h2"><%= title %></h1>
+  <p><%= t(".reason_html", reason: ineligible_reason) %></p>
+  <p>
+    <span><%= t(".mistake_text") %></span>
+    <%= link_to StateFile::Questions::NjHouseholdRentOwnController.to_path_helper do %>
+      <%= t(".go_back_link") %>
+    <% end %>
+  </p>
+  <p><%= t(".continue_text") %></p>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <% if params[:on_home_or_rental].present? %>
+      <%= hidden_field_tag "on_home_or_rental", params[:on_home_or_rental] %>
+    <% end %>
+
     <%= f.continue %>
   <% end %>
 <% end %>
