@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_13_204321) do
+ActiveRecord::Schema[7.1].define(version: 2024_12_17_192048) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1178,6 +1178,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_13_204321) do
     t.boolean "demographic_primary_asian"
     t.boolean "demographic_primary_black_african_american"
     t.integer "demographic_primary_ethnicity", default: 0, null: false
+    t.boolean "demographic_primary_mena"
     t.boolean "demographic_primary_native_hawaiian_pacific_islander"
     t.boolean "demographic_primary_prefer_not_to_answer_race"
     t.boolean "demographic_primary_white"
@@ -1187,6 +1188,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_13_204321) do
     t.boolean "demographic_spouse_asian"
     t.boolean "demographic_spouse_black_african_american"
     t.integer "demographic_spouse_ethnicity", default: 0, null: false
+    t.boolean "demographic_spouse_mena"
     t.boolean "demographic_spouse_native_hawaiian_pacific_islander"
     t.boolean "demographic_spouse_prefer_not_to_answer_race"
     t.boolean "demographic_spouse_white"

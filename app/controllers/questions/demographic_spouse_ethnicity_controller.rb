@@ -4,12 +4,7 @@ module Questions
 
     layout "intake"
 
-    def self.show?(intake)
-      if intake == nil
-        return false
-      end
-      intake.demographic_questions_opt_in_yes? && intake.filing_joint_yes?
-    end
+    def self.show?(intake) = false
 
     def illustration_path; end
 
