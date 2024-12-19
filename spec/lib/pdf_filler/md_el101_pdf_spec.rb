@@ -62,6 +62,14 @@ RSpec.describe PdfFiller::MdEl101Pdf do
         expect(pdf_fields["to enter or generate my PIN"]).to eq "23456"
         expect(pdf_fields["Primary signature"]).to eq "Mary Lando"
         expect(pdf_fields["Date"]).to eq Date.today.strftime("%F")
+        expect(pdf_fields["Spouses First Name"]).to eq("")
+        expect(pdf_fields["Spouse MI"]).to eq("")
+        expect(pdf_fields["Spouses Last Name"]).to eq("")
+        expect(pdf_fields["SSNTaxpayer Identification Number_2"]).to eq("")
+        expect(pdf_fields["ERO firm name_2"]).to eq ""
+        expect(pdf_fields["to enter or generate my PIN_2"]).to eq ""
+        expect(pdf_fields["Spouses signature"]).to eq ""
+        expect(pdf_fields["Date_2"]).to eq ""
       end
     end
 
@@ -81,6 +89,14 @@ RSpec.describe PdfFiller::MdEl101Pdf do
         expect(pdf_fields["to enter or generate my PIN"]).to eq "23456"
         expect(pdf_fields["Primary signature"]).to eq "Mary Lando"
         expect(pdf_fields["Date"]).to eq Date.today.strftime("%F")
+        expect(pdf_fields["Spouses First Name"]).to eq("")
+        expect(pdf_fields["Spouse MI"]).to eq("")
+        expect(pdf_fields["Spouses Last Name"]).to eq("")
+        expect(pdf_fields["SSNTaxpayer Identification Number_2"]).to eq("")
+        expect(pdf_fields["ERO firm name_2"]).to eq ""
+        expect(pdf_fields["to enter or generate my PIN_2"]).to eq ""
+        expect(pdf_fields["Spouses signature"]).to eq ""
+        expect(pdf_fields["Date_2"]).to eq ""
       end
     end
   end
