@@ -15,7 +15,7 @@ module SubmissionBuilder
             }.freeze
 
             def document
-              phone_number = @submission.data_source.phone_number || @submission.data_source.direct_file_data.phone_number
+              phone_number = PhoneParser.e164_to_raw_phone_number(@submission.data_source.phone_number) || @submission.data_source.direct_file_data.phone_number
 
               build_xml_doc("FormNCD400") do |xml|
                 xml.NCCountyCode @submission.data_source.residence_county

@@ -89,7 +89,7 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400, required_schema
 
         context "if filer does have phone number collected at intake" do
           before do
-            intake.phone_number = "9887779999"
+            intake.phone_number = "+19887779999"
           end
           it "fills the USPhoneNumber with more recent phone number collected at intake" do
             expect(xml.document.at('PaymentContact USPhoneNumber')&.text).to eq "9887779999"
