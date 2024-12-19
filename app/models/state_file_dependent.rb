@@ -82,9 +82,7 @@ class StateFileDependent < ApplicationRecord
   enum nj_dependent_five_months_in_college: { unfilled: 0, yes: 1, no: 2 }, _prefix: :nj_dependent_five_months_in_college
   enum nj_did_not_have_health_insurance: { unfilled: 0, yes: 1, no: 2 }, _prefix: :nj_did_not_have_health_insurance
   enum nj_filer_pays_tuition_for_dependent: { unfilled: 0, yes: 1, no: 2 }, _prefix: :nj_filer_pays_tuition_for_dependent
-
-  # Create dob_* accessor methods for Honeycrisp's cfa_date_select
-  delegate :month, :day, :year, to: :dob, prefix: :dob, allow_nil: true
+  
   validates_presence_of :first_name, :last_name, :dob
   validates :passed_away, :needed_assistance, inclusion: { in: %w[yes no], message: :blank }, on: :az_senior_form
 
