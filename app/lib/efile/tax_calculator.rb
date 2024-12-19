@@ -77,5 +77,9 @@ module Efile
     def filing_status_qw?
       @filing_status == :qualifying_widow
     end
+
+    def filing_status_dependent?
+      @filing_status == :dependent
+    end
   end
 end
