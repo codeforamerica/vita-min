@@ -55,6 +55,7 @@
 #  sms_notification_opt_in           :integer          default("unfilled"), not null
 #  source                            :string
 #  spouse_birth_date                 :date
+#  spouse_death_year                 :integer
 #  spouse_esigned                    :integer          default("unfilled"), not null
 #  spouse_esigned_at                 :datetime
 #  spouse_first_name                 :string
@@ -149,5 +150,9 @@ class StateFileNcIntake < StateFileBaseIntake
 
   def show_tax_period_in_return_header?
     false
+  end
+
+  def requires_additional_withdrawal_information?
+    true
   end
 end
