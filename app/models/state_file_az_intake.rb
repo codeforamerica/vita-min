@@ -154,7 +154,7 @@ class StateFileAzIntake < StateFileBaseIntake
     all_filers_ssn_not_valid_for_employment =
       if filing_status_mfj?
         direct_file_json_data.primary_filer.ssn_not_valid_for_employment &&
-          direct_file_json_data.spouse_filer&.ssn_not_valid_for_employment
+          direct_file_json_data.spouse_filer.ssn_not_valid_for_employment
       else
         direct_file_json_data.primary_filer.ssn_not_valid_for_employment
       end
