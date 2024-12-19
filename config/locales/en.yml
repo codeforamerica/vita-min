@@ -2871,6 +2871,7 @@ en:
           interest_income_body: No additional state info needed
           interest_income_title: Interest income (1099-INT)
           no_info_needed: No additional state info needed
+          nj_not_taxed: This income is not taxed in New Jersey.
           retirement_income_title: Retirement income (1099-R)
           review_and_edit_state_info: Review and edit state info
           ssa_title: Social Security benefits (SSA-1099)
