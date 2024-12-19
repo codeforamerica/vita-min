@@ -150,4 +150,8 @@ class StateFileNcIntake < StateFileBaseIntake
   def show_tax_period_in_return_header?
     false
   end
+
+  def requires_additional_withdrawal_information?
+    true
+  end
 end
