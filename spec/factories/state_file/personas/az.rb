@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory "johnny", class: StateFileAzIntake do
-    raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("az_johnny_mfj_8_deps") }
-    raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json("az_johnny_mfj_8_deps") }
+    raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("az_johnny_mfj") }
+    raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json("az_johnny_mfj") }
 
     after(:create) do |intake|
       intake.synchronize_df_dependents_to_database
@@ -58,8 +58,8 @@ FactoryBot.define do
   end
 
   factory "leslie", class: StateFileAzIntake do
-    raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("az_leslie_qss_v2") }
-    raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json("az_leslie_qss_v2") }
+    raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("az_leslie_qss") }
+    raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json("az_leslie_qss") }
 
     after(:create) do |intake|
       intake.synchronize_df_dependents_to_database
@@ -101,8 +101,8 @@ FactoryBot.define do
   end
 
   factory "martha", class: StateFileAzIntake do
-    raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("az_martha_v2") }
-    raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json("az_martha_v2") }
+    raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("az_martha_mfj_owe") }
+    raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json("az_martha_mfj_owe") }
 
     after(:create) do |intake|
       intake.synchronize_df_dependents_to_database
@@ -131,8 +131,8 @@ FactoryBot.define do
   end
 
   factory "rory", class: StateFileAzIntake do
-    raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("az_rory_claimedasdep_v2") }
-    raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json("az_rory_claimedasdep_v2") }
+    raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("az_rory_claimed_as_dep") }
+    raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json("az_rory_claimed_as_dep") }
 
     after(:create) do |intake|
       intake.synchronize_df_dependents_to_database

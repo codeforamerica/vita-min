@@ -76,6 +76,11 @@ RSpec.describe StateFile::Questions::AzReviewController do
       render_views
       let(:intake) { create :state_file_az_intake }
 
+      before do
+        allow(Flipper).to receive(:enabled?).and_call_original
+        allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
+      end
+
       it "shows all relevant details" do
         intake.direct_file_data.fed_agi = 23_112
         intake.direct_file_data.fed_taxable_ssb = 1_000

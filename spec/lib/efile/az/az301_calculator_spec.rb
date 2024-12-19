@@ -31,69 +31,69 @@ describe Efile::Az::Az301Calculator do
     end
 
     it "calculates total available nonrefundable tax credits" do
-      expect(instance.lines[:AZ301_LINE_26].value).to eq(1338)
+      expect(instance.lines[:AZ301_LINE_25].value).to eq(1338)
     end
 
     it "calculates AZ301 part 2 values" do
-      expect(instance.lines[:AZ301_LINE_27].value).to eq(2077) # Line 46 from AZ140
-      expect(instance.lines[:AZ301_LINE_32].value).to eq(2077)
-      expect(instance.lines[:AZ301_LINE_33].value).to eq(0) # Line 50 from AZ140
-      expect(instance.lines[:AZ301_LINE_34].value).to eq(2077) # Difference from line 27 and 33
+      expect(instance.lines[:AZ301_LINE_26].value).to eq(2077) # Line 46 from AZ140
+      expect(instance.lines[:AZ301_LINE_31].value).to eq(2077)
+      expect(instance.lines[:AZ301_LINE_32].value).to eq(0) # Line 50 from AZ140
+      expect(instance.lines[:AZ301_LINE_33].value).to eq(2077) # Difference from line 27 and 33
     end
 
     it "calculates Nonrefundable Tax Credits Used This Taxable Year correctly" do
-      expect(instance.lines[:AZ301_LINE_40].value).to eq(938)
-      expect(instance.lines[:AZ301_LINE_41].value).to eq(400)
+      expect(instance.lines[:AZ301_LINE_39].value).to eq(938)
+      expect(instance.lines[:AZ301_LINE_40].value).to eq(400)
+      expect(instance.lines[:AZ301_LINE_58].value).to eq(1338)
       expect(instance.lines[:AZ301_LINE_60].value).to eq(1338)
-      expect(instance.lines[:AZ301_LINE_62].value).to eq(1338)
     end
 
     context "line 40" do
       context "with 6c greater than line 34 value" do
         before do
           allow(instance).to receive(:calculate_line_6c).and_return 1_000
-          allow(instance).to receive(:calculate_line_34).and_return 500
+          allow(instance).to receive(:calculate_line_33).and_return 500
         end
 
         it "line 40 value is equal to line 34 value" do
           instance.calculate
-          expect(instance.lines[:AZ301_LINE_40].value).to eq(500)
+          expect(instance.lines[:AZ301_LINE_39].value).to eq(500)
         end
       end
 
       context "with line 6c less than line 34" do
         before do
           allow(instance).to receive(:calculate_line_6c).and_return 500
-          allow(instance).to receive(:calculate_line_34).and_return 1000
+          allow(instance).to receive(:calculate_line_33).and_return 1000
         end
 
         it "line 40 value is equal to line 6c value" do
           instance.calculate
-          expect(instance.lines[:AZ301_LINE_40].value).to eq(500)
+          expect(instance.lines[:AZ301_LINE_39].value).to eq(500)
         end
       end
 
       context "with line 6c blank" do
         before do
           allow(instance).to receive(:calculate_line_6c).and_return nil
-          allow(instance).to receive(:calculate_line_34).and_return 1000
+          allow(instance).to receive(:calculate_line_33).and_return 1000
         end
 
         it "line 40 value is equal to zero" do
           instance.calculate
-          expect(instance.lines[:AZ301_LINE_40].value).to eq(0)
+          expect(instance.lines[:AZ301_LINE_39].value).to eq(0)
         end
       end
 
       context "with line 34 blank" do
         before do
           allow(instance).to receive(:calculate_line_6c).and_return 10
-          allow(instance).to receive(:calculate_line_34).and_return nil
+          allow(instance).to receive(:calculate_line_33).and_return nil
         end
 
         it "line 40 value is equal to zero" do
           instance.calculate
-          expect(instance.lines[:AZ301_LINE_40].value).to eq(0)
+          expect(instance.lines[:AZ301_LINE_39].value).to eq(0)
         end
       end
     end
@@ -101,8 +101,8 @@ describe Efile::Az::Az301Calculator do
     context "line 41" do
       context "line 34 greater than line 40" do
         before do
-          allow(instance).to receive(:calculate_line_34).and_return 120
-          allow(instance).to receive(:calculate_line_40).and_return 100
+          allow(instance).to receive(:calculate_line_33).and_return 120
+          allow(instance).to receive(:calculate_line_39).and_return 100
         end
 
         context "line 7c greater than subtraction" do
@@ -112,7 +112,7 @@ describe Efile::Az::Az301Calculator do
 
           it "returns the subtraction amount" do
             instance.calculate
-            expect(instance.lines[:AZ301_LINE_41].value).to eq(20)
+            expect(instance.lines[:AZ301_LINE_40].value).to eq(20)
           end
         end
 
@@ -123,15 +123,15 @@ describe Efile::Az::Az301Calculator do
 
           it "returns the 7c amount" do
             instance.calculate
-            expect(instance.lines[:AZ301_LINE_41].value).to eq(10)
+            expect(instance.lines[:AZ301_LINE_40].value).to eq(10)
           end
         end
       end
 
       context "line 34 less than line 40" do
         before do
-          allow(instance).to receive(:calculate_line_34).and_return 90
-          allow(instance).to receive(:calculate_line_40).and_return 100
+          allow(instance).to receive(:calculate_line_33).and_return 90
+          allow(instance).to receive(:calculate_line_39).and_return 100
         end
 
         context "line 7c greater than subtraction" do
@@ -141,7 +141,7 @@ describe Efile::Az::Az301Calculator do
 
           it "returns 0" do
             instance.calculate
-            expect(instance.lines[:AZ301_LINE_41].value).to eq(0)
+            expect(instance.lines[:AZ301_LINE_40].value).to eq(0)
           end
         end
 
@@ -152,15 +152,15 @@ describe Efile::Az::Az301Calculator do
 
           it "returns 0" do
             instance.calculate
-            expect(instance.lines[:AZ301_LINE_41].value).to eq(0)
+            expect(instance.lines[:AZ301_LINE_40].value).to eq(0)
           end
         end
       end
 
       context "line 34 equal to line 40" do
         before do
-          allow(instance).to receive(:calculate_line_34).and_return 90
-          allow(instance).to receive(:calculate_line_40).and_return 90
+          allow(instance).to receive(:calculate_line_33).and_return 90
+          allow(instance).to receive(:calculate_line_39).and_return 90
         end
 
         context "line 7c greater than subtraction" do
@@ -170,7 +170,7 @@ describe Efile::Az::Az301Calculator do
 
           it "returns 0" do
             instance.calculate
-            expect(instance.lines[:AZ301_LINE_41].value).to eq(0)
+            expect(instance.lines[:AZ301_LINE_40].value).to eq(0)
           end
         end
 
@@ -181,7 +181,7 @@ describe Efile::Az::Az301Calculator do
 
           it "returns 0" do
             instance.calculate
-            expect(instance.lines[:AZ301_LINE_41].value).to eq(0)
+            expect(instance.lines[:AZ301_LINE_40].value).to eq(0)
           end
         end
       end

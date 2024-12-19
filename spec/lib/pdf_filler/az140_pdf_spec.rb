@@ -35,7 +35,7 @@ RSpec.describe PdfFiller::Az140Pdf do
 
     context 'Nonrefundable Credits from Arizona Form 301, Part 2, line 62' do
       before do
-        allow_any_instance_of(Efile::Az::Az301Calculator).to receive(:calculate_line_62).and_return 100
+        allow_any_instance_of(Efile::Az::Az301Calculator).to receive(:calculate_line_60).and_return 100
       end
 
       it "fills the fields correctly" do
