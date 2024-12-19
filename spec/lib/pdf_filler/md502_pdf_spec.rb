@@ -132,10 +132,10 @@ RSpec.describe PdfFiller::Md502Pdf do
           expect(pdf_fields["Single If you can be claimed on another persons tax return use Filing Status 6"]).to eq "On"
           expect(pdf_fields["Married filing joint return or spouse had no income"]).to eq "Off"
           expect(pdf_fields["Married filing separately Spouse SSN"]).to eq "Off"
-          # TODO expect(pdf_fields["MARRIED FILING Enter spouse&apos;s social security number"]).to eq("")
-          # TODO expect(pdf_fields["Check Box - 4"]).to eq "Off"
+          expect(pdf_fields["mfs spouse ssn"]).to eq("")
+          expect(pdf_fields["Head of household"]).to eq "Off"
           expect(pdf_fields["Qualifying surviving spouse with dependent child"]).to eq "Off"
-          # TODO expect(pdf_fields["6. Check here"]).to eq "Off"
+          expect(pdf_fields["Dependent taxpayer"]).to eq "Off"
           expect(pdf_fields["Daytime telephone no"]).to eq("5551234567")
         end
       end
@@ -155,10 +155,10 @@ RSpec.describe PdfFiller::Md502Pdf do
           expect(pdf_fields["Single If you can be claimed on another persons tax return use Filing Status 6"]).to eq "Off"
           expect(pdf_fields["Married filing joint return or spouse had no income"]).to eq "On"
           expect(pdf_fields["Married filing separately Spouse SSN"]).to eq "Off"
-          # TODO expect(pdf_fields["MARRIED FILING Enter spouse&apos;s social security number"]).to eq("")
-          # TODO expect(pdf_fields["Check Box - 4"]).to eq "Off"
+          expect(pdf_fields["mfs spouse ssn"]).to eq("")
+          expect(pdf_fields["Head of household"]).to eq "Off"
           expect(pdf_fields["Qualifying surviving spouse with dependent child"]).to eq "Off"
-          # TODO expect(pdf_fields["6. Check here"]).to eq "Off"
+          expect(pdf_fields["Dependent taxpayer"]).to eq "Off"
         end
       end
 
@@ -173,9 +173,9 @@ RSpec.describe PdfFiller::Md502Pdf do
           expect(pdf_fields["Single If you can be claimed on another persons tax return use Filing Status 6"]).to eq "Off"
           expect(pdf_fields["Married filing joint return or spouse had no income"]).to eq "Off"
           expect(pdf_fields["Married filing separately Spouse SSN"]).to eq "On"
-          # TODO expect(pdf_fields["Check Box - 4"]).to eq "Off"
+          expect(pdf_fields["Head of household"]).to eq "Off"
           expect(pdf_fields["Qualifying surviving spouse with dependent child"]).to eq "Off"
-          # TODO expect(pdf_fields["6. Check here"]).to eq "Off"
+          expect(pdf_fields["Dependent taxpayer"]).to eq "Off"
         end
       end
 
@@ -186,9 +186,9 @@ RSpec.describe PdfFiller::Md502Pdf do
           expect(pdf_fields["Single If you can be claimed on another persons tax return use Filing Status 6"]).to eq "Off"
           expect(pdf_fields["Married filing joint return or spouse had no income"]).to eq "Off"
           expect(pdf_fields["Married filing separately Spouse SSN"]).to eq "Off"
-          # TODO expect(pdf_fields["Check Box - 4"]).to eq "Yes"
+          expect(pdf_fields["Head of household"]).to eq "On"
           expect(pdf_fields["Qualifying surviving spouse with dependent child"]).to eq "Off"
-          # TODO expect(pdf_fields["6. Check here"]).to eq "Off"
+          expect(pdf_fields["Dependent taxpayer"]).to eq "Off"
         end
       end
 
@@ -199,9 +199,9 @@ RSpec.describe PdfFiller::Md502Pdf do
           expect(pdf_fields["Single If you can be claimed on another persons tax return use Filing Status 6"]).to eq "Off"
           expect(pdf_fields["Married filing joint return or spouse had no income"]).to eq "Off"
           expect(pdf_fields["Married filing separately Spouse SSN"]).to eq "Off"
-          # TODO expect(pdf_fields["Check Box - 4"]).to eq "Off"
-          expect(pdf_fields["Qualifying surviving spouse with dependent child"]).to eq "Yes"
-          # TODO expect(pdf_fields["6. Check here"]).to eq "Off"
+          expect(pdf_fields["Head of household"]).to eq "Off"
+          expect(pdf_fields["Qualifying surviving spouse with dependent child"]).to eq "On"
+          expect(pdf_fields["Dependent taxpayer"]).to eq "Off"
         end
       end
 
@@ -212,9 +212,9 @@ RSpec.describe PdfFiller::Md502Pdf do
           expect(pdf_fields["Single If you can be claimed on another persons tax return use Filing Status 6"]).to eq "Off"
           expect(pdf_fields["Married filing joint return or spouse had no income"]).to eq "Off"
           expect(pdf_fields["Married filing separately Spouse SSN"]).to eq "Off"
-          # TODO expect(pdf_fields["Check Box - 4"]).to eq "Off"
+          expect(pdf_fields["Head of household"]).to eq "Off"
           expect(pdf_fields["Qualifying surviving spouse with dependent child"]).to eq "Off"
-          # TODO expect(pdf_fields["6. Check here"]).to eq "No"
+          expect(pdf_fields["Dependent taxpayer"]).to eq "On"
         end
       end
     end
@@ -227,7 +227,7 @@ RSpec.describe PdfFiller::Md502Pdf do
       end
 
       it "sets the correct fields for line A" do
-        expect(pdf_fields["A"]).to eq "Yes" # primary
+        expect(pdf_fields["A"]).to eq "On" # primary
         expect(pdf_fields["Yourself"]).to eq "Off" # spouse
         expect(pdf_fields["Spouse      Enter number checked"]).to eq "1" # exemption count
         expect(pdf_fields["A_2"]).to eq "3200" # exemption amount
@@ -245,10 +245,10 @@ RSpec.describe PdfFiller::Md502Pdf do
       end
 
       it "sets the correct fields for line B" do
-        # expect(pdf_fields["Check Box 20"]).to eq "Yes" # primary 65+
+        expect(pdf_fields["B"]).to eq "On" # primary 65+
         expect(pdf_fields["65 or over"]).to eq "Off" # spouse 65+
-        expect(pdf_fields["B"]).to eq "Off" # primary blind
-        # expect(pdf_fields["B. Check this box if your spouse is blind"]).to eq "Yes" # spouse blind
+        expect(pdf_fields["Primary Blind"]).to eq "Off" # primary blind
+        expect(pdf_fields["Spouse Blind"]).to eq "On" # spouse blind
         expect(pdf_fields["Blind        Enter number checked"]).to eq "2" # exemption count
         expect(pdf_fields["X  1000         B"]).to eq "2000" # exemption amount
       end
@@ -291,11 +291,11 @@ RSpec.describe PdfFiller::Md502Pdf do
       end
 
       it "fills the correct fields" do
-        expect(pdf_fields["Check here"]).to eq "Yes"
-        expect(pdf_fields["Check here_2"]).to eq "Yes"
+        expect(pdf_fields["Check here"]).to eq "On"
+        expect(pdf_fields["Check here_2"]).to eq "On"
         expect(pdf_fields["DOB  mmddyyyy"]).to eq "04/12/1975"
         expect(pdf_fields["DOB  mmddyyyy_2"]).to eq "11/05/1972"
-        expect(pdf_fields["Check here_3"]).to eq "Yes"
+        expect(pdf_fields["Check here_3"]).to eq "On"
         expect(pdf_fields["Email address"]).to eq "healthy@example.com"
       end
     end
@@ -360,7 +360,7 @@ RSpec.describe PdfFiller::Md502Pdf do
       context "method" do
         it "checks box if standard deduction" do
           allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "S"
-          expect(pdf_fields["STANDARD DEDUCTION METHOD"]).to eq "Yes"
+          expect(pdf_fields["STANDARD DEDUCTION METHOD"]).to eq "On"
         end
 
         it "does not check box if non-standard deduction" do
@@ -426,9 +426,9 @@ RSpec.describe PdfFiller::Md502Pdf do
       end
 
       it "fills out amount if deduction method is standard" do
-        expect(pdf_fields["Enter 3"]).to eq "40"
-        expect(pdf_fields["Enter 6"]).to eq "50"
-        expect(pdf_fields["Enter 7"]).to eq "60"
+        expect(pdf_fields["3"]).to eq "40"
+        expect(pdf_fields["6_2"]).to eq "50"
+        expect(pdf_fields["7"]).to eq "60"
       end
     end
 
@@ -440,8 +440,8 @@ RSpec.describe PdfFiller::Md502Pdf do
         end
 
         it "fills out EIC fields correctly" do
-          expect(pdf_fields["Text Box 34"]).to eq "100"
-          expect(pdf_fields["Check Box 37"]).to eq "Yes"
+          expect(pdf_fields["22"]).to eq "100"
+          expect(pdf_fields["Poverty level credit See Instruction 18"]).to eq "On"
         end
       end
 
@@ -452,8 +452,8 @@ RSpec.describe PdfFiller::Md502Pdf do
         end
 
         it "doesn't fill out the EIC fields" do
-          expect(pdf_fields["Text Box 34"]).to eq ""
-          expect(pdf_fields["Check Box 37"]).to eq "Off"
+          expect(pdf_fields["22"]).to eq ""
+          expect(pdf_fields["Poverty level credit See Instruction 18"]).to eq "Off"
         end
       end
     end
@@ -464,8 +464,8 @@ RSpec.describe PdfFiller::Md502Pdf do
       end
 
       it 'outputs the total state and local tax withheld' do
-        expect(pdf_fields["Text Box 68"]).to eq "500"
-        expect(pdf_fields["Text Box 69"]).to eq "00"
+        expect(pdf_fields["40"]).to eq "500"
+        expect(pdf_fields["40 decimal"]).to eq "00"
       end
     end
 
@@ -477,12 +477,11 @@ RSpec.describe PdfFiller::Md502Pdf do
       end
 
       it 'outputs the total state and local tax withheld' do
-        expect(pdf_fields["Text Box 66"]).to eq "100"
-        expect(pdf_fields["Text Box 67"]).to eq "00"
-        expect(pdf_fields["Text Box 72"]).to eq "200"
-        expect(pdf_fields["Text Box 73"]).to eq "00"
-        expect(pdf_fields["Text Box 76"]).to eq "300"
-        expect(pdf_fields["Text Box 77"]).to eq "00"
+        expect(pdf_fields["39"]).to eq "100"
+        expect(pdf_fields["42"]).to eq "200"
+        expect(pdf_fields["42 decimal"]).to eq "00"
+        expect(pdf_fields["44"]).to eq "300"
+        expect(pdf_fields["44 decimal"]).to eq "00"
       end
     end
 
@@ -492,10 +491,10 @@ RSpec.describe PdfFiller::Md502Pdf do
       end
 
       it 'outputs the amount owed' do
-        expect(pdf_fields["Text Box 78"]).to eq "100"
-        expect(pdf_fields["Text Box 79"]).to eq "00"
-        expect(pdf_fields["Text Box 91"]).to eq "100"
-        expect(pdf_fields["Text Box 92"]).to eq "00"
+        expect(pdf_fields["45"]).to eq "100"
+        expect(pdf_fields["45 decimal"]).to eq "00"
+        expect(pdf_fields["50"]).to eq "100"
+        expect(pdf_fields["50 decimal"]).to eq "00"
       end
     end
 
@@ -505,10 +504,10 @@ RSpec.describe PdfFiller::Md502Pdf do
       end
 
       it 'outputs the amount to be refunded' do
-        expect(pdf_fields["Text Box 80"]).to eq "300"
-        expect(pdf_fields["Text Box 81"]).to eq "00"
-        expect(pdf_fields["Text Box 84"]).to eq "300"
-        expect(pdf_fields["Text Box 85"]).to eq "00"
+        expect(pdf_fields["46"]).to eq "300"
+        expect(pdf_fields["46 decimal"]).to eq "00"
+        expect(pdf_fields["48"]).to eq "300"
+        expect(pdf_fields["48 decimal"]).to eq "00"
       end
     end
 
@@ -534,17 +533,17 @@ RSpec.describe PdfFiller::Md502Pdf do
         end
 
         it "return Off" do
-          expect(pdf_fields["Check Box 39"]).to eq "Off"
+          expect(pdf_fields["Check here if you authorize the State of Maryland to issue your refund by direct deposit"]).to eq "Off"
         end
       end
 
       it "checks the refund information with the account holder's full name" do
-        expect(pdf_fields["Check Box 39"]).to eq "Yes"
-        expect(pdf_fields["Text Box 95"]).to eq "Jack D Hansel"
-        expect(pdf_fields["Check Box 41"]).to eq "Yes"
-        expect(pdf_fields["Check Box 42"]).to eq "Off"
-        expect(pdf_fields["Text Box 93"]).to eq "123456789"
-        expect(pdf_fields["Text Box 94"]).to eq "87654321"
+        expect(pdf_fields["Check here if you authorize the State of Maryland to issue your refund by direct deposit"]).to eq "On"
+        expect(pdf_fields["51d Names as it appears on the bank account"]).to eq "Jack D Hansel"
+        expect(pdf_fields["Checking"]).to eq "On"
+        expect(pdf_fields["Savings"]).to eq "Off"
+        expect(pdf_fields["51b Routing Number 9digits"]).to eq "123456789"
+        expect(pdf_fields["51c  Account Number"]).to eq "87654321"
       end
 
       context "with joint account holder" do
@@ -557,12 +556,12 @@ RSpec.describe PdfFiller::Md502Pdf do
         end
 
         it "returns the same information including joint account holder's full name with an 'and'" do
-          expect(pdf_fields["Check Box 39"]).to eq "Yes"
-          expect(pdf_fields["Text Box 95"]).to eq "Jack D Hansel and Jill Gretl II"
-          expect(pdf_fields["Check Box 41"]).to eq "Yes"
-          expect(pdf_fields["Check Box 42"]).to eq "Off"
-          expect(pdf_fields["Text Box 93"]).to eq "123456789"
-          expect(pdf_fields["Text Box 94"]).to eq "87654321"
+          expect(pdf_fields["Check here if you authorize the State of Maryland to issue your refund by direct deposit"]).to eq "On"
+          expect(pdf_fields["51d Names as it appears on the bank account"]).to eq "Jack D Hansel and Jill Gretl II"
+          expect(pdf_fields["Checking"]).to eq "On"
+          expect(pdf_fields["Savings"]).to eq "Off"
+          expect(pdf_fields["51b Routing Number 9digits"]).to eq "123456789"
+          expect(pdf_fields["51c  Account Number"]).to eq "87654321"
         end
       end
     end
@@ -573,7 +572,8 @@ RSpec.describe PdfFiller::Md502Pdf do
       end
 
       it 'outputs the total refundable credit' do
-        expect(pdf_fields["Text Box 74"]).to eq "400"
+        expect(pdf_fields["43"]).to eq "400"
+        expect(pdf_fields["43 decimal"]).to eq "00"
       end
     end
 
@@ -589,13 +589,13 @@ RSpec.describe PdfFiller::Md502Pdf do
       end
 
       it "fills out local tax computation fields correctly" do
-        expect(pdf_fields["Enter local tax rate"]).to eq "27"
-        expect(pdf_fields["Text Box 44"]).to eq "8765"
-        expect(pdf_fields["Text Box 46"]).to eq "1200"
-        expect(pdf_fields["Text Box 48"]).to eq "1250"
-        expect(pdf_fields["Text Box 52"]).to eq "1300"
-        expect(pdf_fields["Text Box 54"]).to eq "1400"
-        expect(pdf_fields["Text Box 56"]).to eq "1500"
+        expect(pdf_fields["your local tax rate 0"]).to eq "27"
+        expect(pdf_fields["28"]).to eq "8765"
+        expect(pdf_fields["29"]).to eq "1200"
+        expect(pdf_fields["30"]).to eq "1250"
+        expect(pdf_fields["32"]).to eq "1300"
+        expect(pdf_fields["33"]).to eq "1400"
+        expect(pdf_fields["34"]).to eq "1500"
       end
     end
   end
