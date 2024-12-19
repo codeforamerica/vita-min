@@ -1,0 +1,42 @@
+{
+  "familyAndHousehold": [],
+  "filers": [
+    {
+      "lastName": "Lucky",
+      "firstName": "Tess",
+      "middleInitial": "L",
+      "educatorExpenses": "0.00",
+      "tin": "400-00-6306",
+      "dateOfBirth": "1998-06-23",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [
+    {
+      "usedTin": "400-00-6306",
+      "unionDuesAmount": null
+    },
+    {
+      "usedTin": "400-00-6306",
+      "unionDuesAmount": null
+    }
+  ],
+  "interestReports": [
+    {
+      "has1099": true,
+      "taxExemptAndTaxCreditBondCusipNo": null,
+      "interestOnGovernmentBonds": "0.00",
+      "taxExemptInterest": "0.00",
+      "payerTin": null,
+      "recipientTin": "400-00-6306",
+      "payer": "Clothing Investments",
+      "taxWithheld": "0.00",
+      "1099Amount": "100.00",
+      "no1099Amount": null
+    }
+  ]
+}

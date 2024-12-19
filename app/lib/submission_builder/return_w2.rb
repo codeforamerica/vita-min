@@ -13,9 +13,8 @@ module SubmissionBuilder
           state_local_tax_grp_node.remove
         end
 
-        existing_stpickup = xml_node.at_xpath("//OtherDeductionsBenefitsGrp[Desc='STPICKUP']")
-
         if intake_w2.box14_stpickup.present? && intake_w2.box14_stpickup.positive?
+          existing_stpickup = xml_node.at_xpath("//OtherDeductionsBenefitsGrp[Desc='STPICKUP']")
           if existing_stpickup
             existing_stpickup.at('Amt').content = intake_w2.box14_stpickup.round.to_s
           else
@@ -38,10 +37,6 @@ module SubmissionBuilder
         end
       end
         
-      locality_nm = xml_node.at(:LocalityNm)
-      if locality_nm.present?
-        locality_nm.inner_html = locality_nm.inner_html.upcase
-      end
       xml_node
     end
   end

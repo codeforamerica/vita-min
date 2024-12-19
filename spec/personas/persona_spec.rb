@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe "personas" do
+describe "personas", skip: "Skipping until new personas are validated by program" do
   let(:tax_year) { Rails.configuration.statefile_current_tax_year }
 
   context "az", required_schema: "az" do

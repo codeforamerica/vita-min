@@ -260,7 +260,7 @@ es:
         state: 'Error: Código de Estado Inválido'
       md_county:
         residence_county:
-          presence: Por favor, seleccione un condado de residencia.
+          presence: Por favor seleccione un condado
         subdivision_code:
           presence: Por favor seleccione una subdivisión política
       nc_eligibility_form:
@@ -400,7 +400,7 @@ es:
         tribal_id: Tarjeta de identificación tribal
         visa: visado
       prior_year_tax_return: Declaración de impuestos del año anterior
-      property_tax_statement: 'Declaración de impuestos sobre la propiedad '
+      property_tax_statement: Declaración de impuestos sobre la propiedad
       requested_later: Solicitado después
       secondary_identification:
         1099_for_id: Año Actual 1099
@@ -547,7 +547,7 @@ es:
     resend_invitation: Reenviar email de invitación
     resolve: Resolver
     responded_to_client: Respondido al cliente
-    response: 'Respuesta '
+    response: Respuesta
     return_home: Volver al inicio
     return_search: Volver a la búsqueda
     return_to_homepage: Regresar a la página principal
@@ -910,7 +910,7 @@ es:
           online: En línea
         spouse_contact_info: Información de contacto de su cónyuge
         state_of_residence: Estado de residencia
-        suffix: Suffix
+        suffix: Sufijo
         taxpayer_id:
           error: Please select at least one taxpayer ID type
           itin: carta del Número de Identificación Personal (ITIN)
@@ -2022,59 +2022,59 @@ es:
       fed_agi: Ingreso bruto federal ajustado
       id_adjusted_income: Ingreso total ajustado de Idaho
       id_building_fund_tax: Impuesto sobre el Fondo de Edificios Permanentes
-      id_child_care_expenses: Deducción por gastos de cuidado infantil y dependientes
+      id_child_care_expenses: Deducción por gastos de cuidado de niños y dependientes
       id_child_tax_credit: Crédito fiscal infantil de Idaho
       id_fed_agi: Ingreso bruto federal ajustado
       id_grocery_credit: Crédito reembolsable por comestibles
       id_health_insurance: Deducción por primas de seguro médico
       id_interest_income: Ingresos por intereses de bonos de EE. UU. (no gravados en Idaho)
       id_retirement_benefits: Deducción por beneficios de jubilación
-      id_social_security_income: Ingreso del Seguro Social (no gravado en Idaho)
+      id_social_security_income: Ingresos del Seguro Social (no gravados en Idaho)
       id_standard_deduction: Deducción estándar
       id_tax: Impuesto de Idaho
       id_tax_after_credits: Impuesto después de créditos no reembolsables
       id_tax_withheld: Impuesto retenido de Idaho
       id_taxable_income: Ingreso imponible de Idaho
-      id_total_payments: Pagos totales y créditos reembolsables
+      id_total_payments: Total de pagos y créditos reembolsables
       id_total_tax_plus_donations: Impuestos totales más donaciones
       id_use_tax: Impuesto por uso
       md_adjusted_gross_income: Ingreso bruto ajustado de Maryland
-      md_child_tax_credit: Crédito fiscal infantil de Maryland
-      md_local_poverty_level_credit: Crédito de nivel de pobreza local
+      md_child_tax_credit: Crédito fiscal por hijos del estado de Maryland
+      md_local_poverty_level_credit: Crédito del nivel de pobreza local
       md_local_tax: Impuesto local
-      md_military_retirement_income_exclusion: Exclusión de ingresos por jubilación militar
-      md_nonrefundable_credit_child_dependent_care: Crédito no reembolsable de Maryland para cuidado infantil y de dependientes
-      md_nonrefundable_earned_income_tax_credit: Crédito fiscal por ingreso del trabajo no reembolsable de Maryland
-      md_nonrefundable_local_earned_income_tax_credit: Crédito fiscal local por ingreso del trabajo no reembolsable
-      md_pension_income_exclusion: Exclusión de ingresos por pensión
-      md_poverty_level_credit: Crédito de nivel de pobreza de Maryland
-      md_public_safety_retirement_income_exclusion: Exclusión de ingresos por jubilación de seguridad pública
-      md_refundable_child_dependent_care_credit: Crédito reembolsable para cuidado infantil y de dependientes
-      md_refundable_earned_income_tax_credit: Crédito fiscal por ingreso del trabajo reembolsable de Maryland
+      md_military_retirement_income_exclusion: Exclusión de ingresos de retiro militar
+      md_nonrefundable_credit_child_dependent_care: Crédito no reembolsable de Maryland por gastos de cuidado de niños y dependientes
+      md_nonrefundable_earned_income_tax_credit: Crédito fiscal no reembolsable de Maryland ganado
+      md_nonrefundable_local_earned_income_tax_credit: Crédito fiscal no reembolsable local ganado
+      md_pension_income_exclusion: Exclusión de ingresos de pensión
+      md_poverty_level_credit: Crédito del nivel de pobreza de Maryland
+      md_public_safety_retirement_income_exclusion: Exclusión de ingresos de retiro de seguridad pública
+      md_refundable_child_dependent_care_credit: Crédito reembolsable por cuidado de niños y dependientes
+      md_refundable_earned_income_tax_credit: Crédito fiscal reembolsable de Maryland ganado
       md_return_type: Tipo de declaración
       md_senior_tax_credit: Crédito Tributario para Personas Mayores
-      md_social_security_income_not_taxed: Ingreso del Seguro Social (no gravado en Maryland)
+      md_social_security_income_not_taxed: Ingresos del Seguro Social (no gravados en Maryland)
       md_standard_deduction: Deducción estándar
-      md_state_retirement_pickup_addition: Adición de recolección de jubilación estatal
-      md_subtraction_child_dependent_care_expenses: Deducción por gastos de cuidado infantil y dependientes
-      md_subtraction_income_us_gov_bonds: Deducción por ingresos de bonos del gobierno de EE. UU.
+      md_state_retirement_pickup_addition: Adición estatal por retiro
+      md_subtraction_child_dependent_care_expenses: Deducción por gastos de cuidado de niños y dependientes
+      md_subtraction_income_us_gov_bonds: Deducción por ingresos de bonos del gobierno de los Estados Unidos
       md_tax: Impuesto de Maryland
-      md_tax_withheld: Impuesto retenido de Maryland y local
-      md_taxable_net_income: Ingreso neto imponible de Maryland
-      md_total_exemptions_people_household: Exenciones totales para personas en su hogar
-      md_total_payments_refundable_credits: Pagos totales y créditos reembolsables
-      md_total_tax_after_nonrefundable_credits: Impuesto total después de créditos no reembolsables
-      md_two_income_subtraction_married_taxpayers: Deducción por ingresos de dos contribuyentes casados
+      md_tax_withheld: Retenciones de impuestos de Maryland y locales
+      md_taxable_net_income: Ingreso neto gravable de Maryland
+      md_total_exemptions_people_household: Exenciones totales para las personas en su hogar
+      md_total_payments_refundable_credits: Total de pagos y créditos reembolsables
+      md_total_tax_after_nonrefundable_credits: Total de impuestos después de créditos no reembolsables
+      md_two_income_subtraction_married_taxpayers: Deducción por dos ingresos para contribuyentes casados
       md_type_of_return_nontaxable: No imponible (no se requiere presentar una declaración en Maryland, lo que aumenta su reembolso)
       md_type_of_return_standard: Estándar
       nc_income_tax: Impuesto estatales de Carolina del Norte
       nc_tax_withheld: Impuesto retenido en Carolina del Norte
       nc_taxable_income: Ingreso tributables en Carolina del Norte
       nc_use_tax: Impuesto sobre el uso de Carolina del Norte
-      register_to_vote: Regístrate para votar.
+      register_to_vote: Regístrate para votar
       see_detailed_return: Ver información detallada de la declaración
       standard_deduction: Deducción estándar
-      title: Declaración estatal gratuita de impuestos de AZ y NY
+      title: Declaración estatal gratuita de impuestos | FileYourStateTaxes
       total_tax: Impuesto total
     intake_logins:
       account_locked:
@@ -2136,7 +2136,7 @@ es:
             <strong>FileYourStateTaxes</strong> se creó en asociación con Maryland para integrarse con la herramienta Direct File del IRS.<br /><br />
             Estamos cerrados por la temporada de impuestos. Desafortunadamente no puede presentar su declaración estatal con nosotros este año.
           supported_by: Respaldada por el estado de Maryland
-          title: Declara tus impuestos Maryland sin costo
+          title: Declara tus impuestos estatales de Maryland sin costo
         nc:
           closed_html: |
             <strong>FileYourStateTaxes</strong> se creó en asociación con el estado de North Carolina para integrarse con la herramienta Direct File del IRS.<br /><br />
@@ -2241,7 +2241,7 @@ es:
             FileYourStateTaxes sólo te permite agregar donaciones del período fiscal correspondiente.
             <br/><br/>
             Puedes reportar cualquier donación hecha en %{current_year} en la declaración de impuestos del próximo año.
-          more_details_html: 'Visita el <a href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_guideline-public-school-ECA-tax-credit.pdf" target="_blank">Departamento de Ingresos de Arizona</a> (disponible en inglés) para más detalles. '
+          more_details_html: Visita el <a href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_guideline-public-school-ECA-tax-credit.pdf" target="_blank">Departamento de Ingresos de Arizona</a> (disponible en inglés) para más detalles.
           qualifying_list:
           - Actividades extracurriculares
           - Educación en valores
@@ -2257,7 +2257,7 @@ es:
             <br/><br/>
             Para evitar errores, resalte el texto en el PDF, luego cópielo (Ctrl + C) y péguelo (Ctrl + V) directamente en esta página.
           school_details_question: "¿Dónde puedo encontrar la información de la escuela? "
-          which_qualify: "¿Qué donaciones y tarifas califican? "
+          which_qualify: "¿Qué donaciones y tarifas califican?"
         index:
           add_another: Agregar otra donación
           delete_confirmation: "¿Estás seguro de que quieres eliminar esta contribución?"
@@ -2312,7 +2312,7 @@ es:
           subtraction_for_military_pay: Resta del pago militar en servicio activo
           total_exemptions: Exenciones Totales
           total_payments: Total de pagos
-          total_tax_nonrefundable_credits: Impuesto total después de créditos no reembolsables
+          total_tax_nonrefundable_credits: Total de impuestos después de créditos no reembolsables
           tribal_member: Miembro de una tribu indígena reconocida por el gobierno federal
           tribal_wages: Salario recibido mientras vivías y trabajabas en la reserva como miembro de una tribu indígena reconocida por el gobierno federal
           was_incarcerated: Encarcelados en una prisión del condado, estatal o federal durante al menos 60 días en %{filing_year}
@@ -2390,9 +2390,9 @@ es:
             eligibility_ed_loan_cancelled: " tuve un préstamo estudiantil cancelado bajo la Ley del Plan de Rescate Estadounidense."
             eligibility_ed_loan_emp_payment: recibió un Pago de Préstamo Educativo Calificado pagado por tu empleador.
             eligibility_emergency_rental_assistance: recibió asistencia de alquiler de emergencia %{filing_year}
-            eligibility_home_different_areas: o su cónyuge tenían sus residencias permanentes en dos condados, ciudades, pueblos o áreas impositivas diferentes el último día del año fiscal %{filing_year}.
-            eligibility_homebuyer_withdrawal: retiraron dinero de una cuenta para compradores de vivienda por primera vez y lo usaron para algo que no era comprar una vivienda.
-            eligibility_homebuyer_withdrawal_mfj: o su cónyuge retiraron dinero de una cuenta para compradores de vivienda por primera vez y lo usaron para algo que no era comprar una vivienda.
+            eligibility_home_different_areas: o tu cónyuge tienen hogares permanentes en dos condados, ciudades o áreas impositivas diferentes el último día de %{filing_year}
+            eligibility_homebuyer_withdrawal: retiró dinero de una cuenta de comprador de vivienda por primera vez que no se utilizó para comprar una casa en Maryland
+            eligibility_homebuyer_withdrawal_mfj: o tu cónyuge retiraron dinero de una cuenta de comprador de vivienda por primera vez que no se utilizó para comprar una casa en Maryland
             eligibility_lived_in_state: no viviste en %{state} durante todo el %{filing_year}
             eligibility_married_filing_separately: estás presentando una declaración de impuestos "casado, presentando por separado"
             eligibility_out_of_state_income: recibiste ingresos en otro estado en el %{filing_year}
@@ -2410,29 +2410,29 @@ es:
           learn_more_here_html: Obtén más información <a href="%{link}" rel="noopener nofollow" target="_blank">aquí.</a>
           md_reveal_content_html: |
             <p>
-              Tiene otras opciones gratuitas para presentar su declaración estatal:
+            Tienes otras opciones gratuitas para presentar tu declaración estatal:
               <ul>
                 <li>
-                  Presente su declaración de forma gratuita con voluntarios VITA certificados por el IRS en Maryland.
+                  Declara gratis con voluntarios VITA certificados por el IRS en Maryland.
                   <ul>
                     <li>
-                      Si elige esta opción, se le conectará con un socio de VITA en Maryland. Espere una llamada rápida de admisión en unos días para discutir su situación fiscal y cargar sus documentos de manera segura. Este proceso puede tardar de 2 a 3 semanas en completarse.
+                      Si eliges esta opción, serás conectado con un socio VITA en Maryland. Espera una llamada rápida de ingreso en unos días para discutir tu situación fiscal y subir tus documentos de forma segura. Este proceso puede tardar de 2 a 3 semanas en completarse.
                     </li>
                     <li>
-                      Comience con VITA ahora
+                      Comienza con VITA ahora
                     </li>
                     <li>
-                      Obtenga más información sobre este proceso y otras opciones de presentación aquí.
+                      Aprende más sobre este proceso y otras opciones de declaración aquí.
                     </li>
                   </ul>
                   <li>
-                    Comience con el servicio de <a href="https://www.marylandtaxes.gov/individual/tax-assistance/free-tax-prep.php" rel="noopener nofollow" target="_blank">Preparación Gratuita de Impuestos sobre la Renta</a> del Contralor de Maryland.
+                    Empieza con el servicio <a href="https://www.marylandtaxes.gov/individual/tax-assistance/free-tax-prep.php" rel="noopener nofollow" target="_blank">gratuito de preparación de impuestos</a>del Contralor de Maryland.
                   </li>
                 </li>
               </ul>
             </p>
           other_options_reveal:
-            fees: Es posible que apliquen tarifas. 
+            fees: Pueden aplicar tarifas.
             list:
               body: 'Muchos servicios comerciales de preparación de impuestos ofrecen la presentación solo de estado. Aquí tienes algunos consejos rápidos:'
               list1: Confirma que el servicio te permita presentar solo tu declaración estatal. Es posible que necesites consultar con el soporte al cliente.
@@ -2465,14 +2465,14 @@ es:
         edit:
           credits_not_supported: "¿Qué restas, créditos y situaciones del hogar no soporta este servicio este año?"
           md_title2_html: |
-            Asegurémonos de que este sea el servicio adecuado para usted.<br><br>
-            A continuación, se detallan los créditos y las deducciones que <strong>puede</strong> reclamar para maximizar su reembolso.
-          not_supported: "¿Qué pasa si aún no puedo usar FileYourStateTaxes para mi situación concreta?"
+            Confirmemos que este servicio es el indicado para ti. <br><br>
+            Estas son las restas y créditos <strong>que puede</strong> reclamar para maximizar su reembolso.
+          not_supported: "¿Qué sucede si tengo si mi situación que aún no puede ser tenida en cuenta por FileYourStateTaxes?"
           title1: Puedes usar este servicio para declarar tus impuestos estatales de%{state}de %{year}
           title2_html: |
             Asegurémonos de que este sea el servicio adecuado para ti.<br><br>
             Estos son los créditos y las deducciones que <strong>puedes</strong> reclamar para maximizar tu reembolso.
-          warning: Revise las deducciones y créditos que se admiten este año para asegurarse de que este servicio sea adecuado para sus necesidades fiscales.
+          warning: Por favor, revisa las deducciones y créditos que puedes incluir este año y asegúrate de que este servicio sea adecuado para tus necesidades fiscales.
         id_credits_unsupported:
           change_in_filing_status: Cambio en el estado civil de presentación de la declaración federal a estatal
           dependents_not_claimed_fed_return: Agregar dependientes no reclamados en la declaración federal
@@ -2495,85 +2495,85 @@ es:
           body1_html: |
             <ul>
               <li>
-                Deducciones:
+                Sustracciones:
                 <ul>
-                  <li>Suministros de aula para maestros de K-12</li>
+                  <li>Suministros para el aula para maestros de grados K a 12</li>
                   <li>Cuotas sindicales</li>
                   <li>Pagos de un sistema de pensiones a bomberos y policías por lesiones o discapacidades relacionadas con el trabajo</li>
-                  <li>Gastos de hasta $5,000 incurridos por una persona ciega para un lector, o hasta $1,000 incurridos por un empleador para un lector para un empleado ciego</li>
-                  <li>Aportaciones a cuentas ABLE</li>
-                  <li>Exclusión de pensión (si tiene menos de 65 años y reclama esto por una discapacidad permanente por primera vez)</li>
-                  <li>Cualquier otra deducción de Maryland no listada aquí (ver Formulario 502SU)</li>
+                  <li>Gastos de hasta $5,000 de una persona ciega para un lector, o hasta $1,000 de un empleador para comprar un lector para un empleado ciego</li>
+                  <li>Contribuciones a cuentas ABLE</li>
+                  <li>Exclusión de pensiones (si tienes menos de 65 años y quieres incluirlo por primera vez debido a una discapacidad permanente)</li>
+                  <li>Cualquier otra deducción de Maryland no mencionada aquí (consulta el formulario 502SU)</li>
                 </ul>
               </li>
-
               <li>
                 Créditos:
                 <ul>
                   <li>Crédito fiscal por alivio de deuda de préstamos estudiantiles</li>
-                  <li>Crédito de incentivo para maestros de calidad</li>
-                  <li>Crédito de seguro de atención a largo plazo</li>
-                  <li>Crédito fiscal para vida independiente</li>
-                  <li>Crédito fiscal por hijos de Maryland (si se reclama basado en la discapacidad del niño)</li>
-                  <li>Crédito fiscal por ingresos ganados de Maryland (si no reclamó el crédito federal por ingresos ganados)</li>
-                  <li>Cualquier otro crédito de Maryland no listado (ver Formulario 502CR)</li>
-                </ul>
-              </li>
-              <li>
-                Situaciones familiares:
-                <ul>
-                  <li>Presentar sus declaraciones de impuestos federales y estatales usando diferentes estados de declaración (por ejemplo, presentar como Casado Declaración Conjunta en su declaración federal y querer presentar como Casado Declaración Separada en su declaración estatal)</li>
-                  <li>Agregar o eliminar dependientes reclamados en su declaración federal para propósitos de su declaración estatal</li>
-                  <li>Dividir reembolsos entre cuentas</li>
-                  <li>Casado y presentando conjuntamente con un cónyuge fallecido</li>
+                  <li>Crédito de Incentivo para Maestros de Calidad</li>
+                  <li>Crédito por seguro de cuidado a largo plazo</li>
+                  <li>Crédito fiscal por vida independiente</li>
+                  <li>Crédito Fiscal por Hijos de Maryland (si lo incluyes con base en la discapacidad del niño)</li>
+                  <li>Crédito Fiscal por Ingreso del Trabajo de Maryland (si no reclamaste el Crédito Fiscal por Ingreso del Trabajo federal)</li>
+                  <li>Cualquier otro crédito de Maryland no mencionado (consulta el formulario 502CR)</li>
                 </ul>
               </li>
 
               <li>
-                Pagos:
+                Situaciones del hogar
+                <ul>
+                  <li>Presentar declaraciones de impuestos federales y estatales utilizando diferentes estados civiles (por ejemplo, presentar sus impuestos como casado declarando juntos en su declaración federal y querer presentar su declaración estatal como casado declarando por separado)</li>
+                  <li>Agregar o quitar dependientes incluídos en tu declaración federal en el caso de tu declaración estatal</li>
+                  <li>Dividir los reembolsos entre varias cuentas</li>
+                  <li>Estar casado y presentando conjuntamente con un cónyuge fallecido </li>
+                </ul>
+              </li>
+
+              <li>
+                Pagos
                 <ul>
                   <li>Pagos de impuestos estimados</li>
-                  <li>Pagos de extensión de impuestos</li>
+                  <li>Pagos de impuestos por extensión</li>
                 </ul>
               </li>
             </ul>
             <p>
-              Encuentre un desglose más detallado de los créditos y deducciones no admitidos este año aquí.
+             Encuentre un desglose más detallado de los créditos y restas no respaldados este año aquí.
             </p>
           body2_html: |
             <p>
-              Este año, no puede <strong>reclamar el EITC de Maryland usando este servicio</strong> en los siguientes escenarios:
+              Este año, <strong>no puede reclamar el Crédito Fiscal por Ingreso del Trabajo de Maryland utilizando este servicio</strong> en los siguientes escenarios:
             </p>
             <ul>
-              <li>Si usted u otras personas en su familia tienen un Número de Identificación Personal del Contribuyente (ITIN) en lugar de un Número de Seguro Social y obtuvo ingresos de un trabajo</li>
-              <li>Si tiene menos de 25 años, ganó menos de $18,600 (o $25,600 si presenta una declaración conjunta), y no fue reclamado como dependiente por otra persona</li>
+              <li>Si tú u otras personas en tu familia tienen un Número de Identificación del Contribuyente Individual (ITIN) en lugar de un Número de Seguro Social y han recibido ingresos de un trabajo</li>
+              <li>Si tienes menos de 25 años, has ganado menos de $18,600 (o $25,600 si presentas una declaración conjunta), y no has sido incluído como dependiente por otra persona, y no agregaste a ninguna persona como dependiente en tu declaración</li>
             </ul>
             <p>
-              Para el CTC de Maryland, <strong>no puede reclamar un niño con una discapacidad permanente que tenga entre 6 y 17 años usando este servicio</strong> este año.
+            En el caso del Crédito Fiscal por Hijos de Maryland, <strong>no puedes reclamar a un niño con una discapacidad permanente que tenga entre 6 y 17 años utilizando este servicio</strong> este año
             </p>
           body3_html: |
             <p>
-              Tiene otras opciones gratuitas para presentar su declaración estatal:
+              Tienes otras opciones gratuitas para presentar tu declaración estatal:
               <ul>
                 <li>
-                  Presentar su declaración estatal de forma gratuita con voluntarios VITA certificados por el IRS en Maryland, pero puede tomar de 2 a 3 semanas para completarse.
+                  Puedes presentar tu declaración estatal de forma gratuita con voluntarios VITA certificados por el IRS en Maryland, pero puede tardar de 2 a 3 semanas en completarse.
                   <ul>
                     <li>
-                      Comience con VITA ahora
+                      Comienza con VITA ahora
                     </li>
                     <li>
-                      Obtenga más información sobre este proceso y otras opciones de presentación aquí.
+                     Obtén más información sobre este proceso y otras opciones para presentar tu declaración aquí.
                     </li>
                   </ul>
                 </li>
                 <li>
-                  Comience con el servicio gratuito de preparación de impuestos sobre la renta del Contralor de Maryland.
+                  Comienza con el servicio gratuito de preparación de impuestos sobre la renta del Contralor de Maryland.
                 </li>
               </ul>
             </p>
           title1: "¿Qué restas, créditos y otras situaciones NO admite este servicio este año?"
-          title2: "¿Qué escenarios para reclamar el Crédito Tributario por Ingreso del Trabajo y/o el Crédito Tributario por Hijos de Maryland no son compatibles con este servicio?"
-          title3: What if I have a situation not yet supported by FileYourStateTaxes?
+          title2: "¿Qué escenarios para reclamar el Crédito Fiscal por Ingreso del Trabajo de Maryland y/o el Crédito Fiscal por Hijos no admite este servicio?"
+          title3: "¿Qué sucede si tengo si mi situación que aún no puede ser tenida en cuenta por FileYourStateTaxes?"
         md_supported:
           heading1: 'Restas:'
           heading2: 'Créditos:'
@@ -2582,8 +2582,8 @@ es:
           sub11: Créditos por Nivel de Pobreza estatales y locales
           sub12: Crédito por gastos de cuidado de niños y dependientes
           sub2: Exclusión de pensiones (si tiene 65 años o más, o si tiene menos de 65 años y calificó previamente para la exclusión por discapacidad permanente)
-          sub3: Exclusión de jubilación militar
-          sub4: Exclusión de jubilación de seguridad pública
+          sub3: Jubilación militar
+          sub4: Jubilación de seguridad pública
           sub5: Beneficios sujetos a impuestos de Seguridad Social y Jubilación de Ferrocarriles
           sub6: Ingresos por intereses de obligaciones de EE. UU. o posesiones de EE. UU.
           sub7: Deducción por ingresos de dos trabajadores para contribuyentes casados que declaran juntos
@@ -2653,14 +2653,14 @@ es:
               <p>Bajo pena de perjurio, declaro que, según mi mejor conocimiento y creencia, esta declaración es verdadera, correcta y completa.</p>
           md:
             body_html: |
-              <p>Al utilizar un sistema informático y software para preparar y/o presentar electrónicamente mi(s) declaración(es) de impuestos, doy mi consentimiento para la transmisión de mi(s) declaración(es) y para la divulgación de toda la información sobre mi uso del sistema y software al Contralor de Maryland.</p>
+              <p>Al utilizar un sistema informático y software para preparar y/o presentar mis declaraciones de impuestos electrónicamente, consiento la transmisión de mis declaraciones y la divulgación de toda la información sobre mi uso del sistema y software al Contralor de Maryland.</p>
               <p>
-                Bajo pena de perjurio, declaro que:
+                Bajo pena de perjurio, declaro que he
                 <ul class="list--bulleted">
-                  <li>He comparado la información contenida en mi declaración electrónica con la información que proporcioné a mi Originador de Declaraciones Electrónicas (ERO) o ingresé en línea, y que los nombres y montos descritos anteriormente coinciden con los montos mostrados en las líneas correspondientes de mi declaración electrónica de impuestos sobre la renta de Maryland del año %{filing_year}; y</li>
-                  <li>A mi leal saber y entender, mi declaración es verdadera, correcta y completa.</li>
+                  <li>comparado la información contenida en mi declaración electrónica con la información que proporcioné a mi Originador de Declaraciones Electrónicas (ERO) o que ingresé en línea y que los nombres y montos descritos arriba concuerdan con los montos mostrados en las líneas correspondientes de mi declaración de impuestos sobre la renta electrónica de Maryland de %{filing_year}, y </li>
+                  <li>A mi leal saber y entender, mi declaración es verdadera, correcta y completa. </li>
                 </ul>
-                Doy mi consentimiento para que mi declaración, incluidas las planillas y anexos que la acompañan, sea enviada a la División de Administración de Ingresos de Maryland por mi Originador de Declaraciones Electrónicas o por mi proveedor de software de declaraciones electrónicas.
+              Consiento que mi declaración, incluidos los anexos y estados acompañantes, sea enviada a la División de Administración de Ingresos de Maryland por mi Originador de Declaraciones Electrónicas o por mi proveedor de software de declaración electrónica.
               </p>
           nc:
             body_html: |
@@ -2678,7 +2678,7 @@ es:
           pin:
             primary_signature_pin: "<strong>PIN de 5 dígitos de %{primary_name}</strong>"
             spouse_signature_pin: "<strong>PIN de 5 dígitos de %{spouse_name}</strong>"
-            title: Elija un PIN de firma de 5 dígitos. Este número será su firma electrónica personal.
+            title: Elige un PIN de firma de 5 dígitos. Este número será tu firma electrónica personal.
           primary_esign: He leído y acepto la certificación anterior
           resubmit: Volver a enviar tu declaración estatal
           spouse_esign: Mi cónyuge ha leído y acepta la certificación anterior
@@ -2708,8 +2708,8 @@ es:
           title: Primero, veamos si puedes usar este servicio para declarar tus impuestos del Idaho de %{filing_year}
           withdrew_msa_fthb: En %{filing_year}, ¿retiró usted (o su cónyuge si presentan juntos) dinero de alguno de los siguientes?
           withdrew_msa_fthb_list:
-            bullet_1_html: Withdrew money from our Idaho Medical Savings Account and used it for a <a href="%{link}" target="_blank" rel="noopener noreferrer">non-qualifying expense</a>.
-            bullet_2_html: Withdrew money from our First-Time Homebuyer Account and used it for <a href="%{link}" target="_blank" rel="noopener noreferrer">non-eligible home costs</a>.
+            bullet_1_html: Retiraste dinero de nuestra Cuenta de Ahorros Médicos de Idaho y lo usaste para <a href="%{link}" target="_blank" rel="noopener noreferrer">un gasto no calificado</a>.
+            bullet_2_html: Retiraste dinero de nuestra Cuenta de Comprador de Vivienda por Primera Vez y lo usaste para <a href="%{link}" target="_blank" rel="noopener noreferrer">costos de vivienda no elegibles</a>.
       id_grocery_credit:
         edit:
           answers_confidential_html: Tus respuestas son privadas y se utilizan sólo para determinar si calificas para el crédito fiscal.
@@ -2791,12 +2791,12 @@ es:
           title: "¡Podrías ser elegible para una excepción al Impuesto del Fondo de Edificios Permanentes!"
       id_primary_state_id:
         id_primary:
-          encourage_sharing_html: Si tú y tu cónyuge tienen una licencia de conducir o una tarjeta de identificación emitida por el estado, por favor comparte la información que solicitamos de la misma. La declaración no será rechazada si no compartes una licencia de conducir o una identificación emitida por el estado.<br><br>Si compartes esta información, puede ayudar a que te identifiquen como el contribuyente.
+          encourage_sharing_html: Si tú y tu cónyuge tienen una licencia de conducir o una tarjeta de identificación emitida por el estado, por favor ingresa la información solicitada de ella. La declaración no será rechazada si no se ingresa un número de licencia de conducir o identificación emitida por el estado.<br><br>Compartir esta información, puede ayudar a identificarte como la persona contribuyente.
           protect_identity: Muchas agencias de ingresos estatales, incluido Idaho, están solicitando información adicional en un esfuerzo por combatir el fraude fiscal por robo de identidad y protegerte a ti y a tu reembolso de impuestos.
           read_more_here_html: Puedes leer más <a href="https://tax.idaho.gov/taxes/income-tax/individual-income/refund/" target="_blank" rel="noopener noreferrer">aquí</a>.
           subtitle: Proporcione su número de licencia de conducir o tarjeta de identidad cuando presente su declaración electrónica para ayudar a procesar su reembolso más rápido.
           title: Necesitamos algunos detalles de tu identificación emitida por el estado, si tienes una
-          why_ask_this: "¿Por qué estamos pidiéndote esta información?"
+          why_ask_this: "¿Por qué están pidiendo esta información?"
       id_review:
         edit:
           donations_optional: Los contribuyentes de Idaho pueden hacer donaciones caritativas voluntarias a organizaciones cuando presentan su declaración de impuestos estatales.
@@ -2822,7 +2822,7 @@ es:
           encourage_sharing_html: Si tú y tu cónyuge tienen una licencia de conducir o una tarjeta de identificación emitida por el estado, por favor comparte la información que solicitamos de la misma. La declaración no será rechazada si no compartes una licencia de conducir o una identificación emitida por el estado.<br><br>Si compartes esta información, puede ayudar a que te identifiquen como el contribuyente.
           protect_identity: Muchas agencias de ingresos estatales, incluido Idaho, están solicitando información adicional en un esfuerzo por combatir el fraude fiscal por robo de identidad y protegerte a ti y a tu reembolso de impuestos.
           title_html: Necesitamos algunos detalles del documento de identidad emitida por el estado de <strong>su cónyuge</strong>, si tienen uno
-          why_ask_this: "¿Por qué estamos pidiéndote esta información?"
+          why_ask_this: "¿Por qué están pidiendo esta información?"
       income_review:
         edit:
           help_text: Te pediremos que nos compartas la información que pueda faltar.
@@ -2852,26 +2852,26 @@ es:
       md_county:
         edit:
           county_html: "<strong>Condado</strong>"
-          political_subdivision: Subdivisión política
+          political_subdivision: Subdivisión Política
           political_subdivision_helper_areas:
-          - 'Condados: Los 23 condados y la ciudad de Baltimore.'
-          - 'Municipios: Pueblos y ciudades dentro de las comarcas.'
-          - 'Distritos Fiscales Especiales: Áreas con régimen fiscal específico para los servicios locales.'
-          - 'Todas las demás áreas: Regiones que no cuentan con gobierno municipal propio y se rigen a nivel de condado.'
+          - 'Condados: Los 23 condados y la Ciudad de Baltimore.'
+          - 'Municipios: Pueblos y ciudades dentro de los condados.'
+          - 'Distritos de impuestos especiales: Áreas con reglas fiscales específicas para servicios locales.'
+          - 'Todas las demás áreas: Regiones que no tienen su propio gobierno municipal y son gobernadas a nivel de condado.'
           political_subdivision_helper_first_p: 'Una "subdivisión política" es un área específica dentro de Maryland que tiene su propio gobierno local. Esto incluye:'
-          political_subdivision_helper_heading: "¿Qué es una división política?"
-          political_subdivision_helper_last_p: Seleccione la subdivisión política donde vivía el 31 de diciembre de %{filing_year} para asegurarse de que su declaración de impuestos sea correcta.
-          political_subdivision_label_html: Si no vivía dentro de una ciudad o área incorporada, elija "Todas las demás áreas". <a href="#">Encuentre una lista completa aquí </a>
-          title: Seleccione el condado y la subdivisión política donde vivía el 31 de diciembre de %{filing_year}
-          title_html: Seleccione el <strong>condado</strong> y la <strong>subdivisión política</strong> donde vivía el 31 de diciembre de %{filing_year}
+          political_subdivision_helper_heading: "¿Qué es una subdivisión política?"
+          political_subdivision_helper_last_p: Selecciona la subdivisión política donde vives el 31 de diciembre de %{filing_year} para asegurarse de que su declaración de impuestos sea correcta.
+          political_subdivision_label_html: Si no viviste dentro de una ciudad o área incorporada, elige “Todas las demás áreas.”
+          title: Selecciona el condado y la subdivisión política donde vivías el 31 de diciembre de %{filing_year}
+          title_html: Selecciona el <strong>condado</strong> y la <strong>subdivisión política</strong> donde vivías el 31 de diciembre de %{filing_year}
       md_eligibility_filing_status:
         edit:
           eligibility_filing_status_label_text: "¿Estás casado y presentando una declaración de impuestos estatales conjunta?"
-          eligibility_first_time_homebuyer_withdrawal_label_text_html: "¿Usted o su cónyuge retiraron dinero de una cuenta para compradores de vivienda por primera vez y lo usaron para algo que no fuera comprar una vivienda en Maryland en %{year}?"
+          eligibility_first_time_homebuyer_withdrawal_label_text_html: "¿Tú o tu cónyuge retiraron dinero de una cuenta de comprador de vivienda por primera vez y <strong> no </strong> lo utilizaron para comprar una casa en Maryland en %{year}?"
           eligibility_mfj_two_different_areas_label_text: "¿Tú y tu cónyuge tenían sus hogares permanentes en dos condados, ciudades, pueblos o áreas fiscales diferentes el último día de %{year}?"
           eligibility_mfj_two_different_areas_no: No, mi cónyuge y yo vivimos en el mismo condado, ciudad, pueblo o área fiscal
           eligibility_mfj_two_different_areas_yes: Sí, mi cónyuge y yo vivimos permanentemente en condados, ciudades, pueblos o áreas fiscales diferentes
-          eligibility_non_mfj_first_time_homebuyer_withdrawal_label_text_html: "¿Usted o su cónyuge retiraron dinero de una cuenta para compradores de vivienda por primera vez y lo usaron para algo que <strong>no</strong> fuera comprar una vivienda en Maryland en %{year}?"
+          eligibility_non_mfj_first_time_homebuyer_withdrawal_label_text_html: "¿Retiraste dinero de una cuenta de comprador de vivienda por primera vez y<strong> not </strong> lo usaste para comprar una casa en Maryland en %{year}?"
           permanent_home_copy: No puedes usar este servicio si tú y tu cónyuge viven en diferentes condados, ciudades, pueblos o áreas fiscales, y no es una situación temporal.
           permanent_home_copy2: Si dejas tu hogar permanente para trabajar o cuidar a alguien, pero planeas regresar, tu hogar permanente no ha cambiado. Se considera que tú y tu cónyuge viven en diferentes condados, ciudades, pueblos o áreas fiscales sólo si están quedándose en estos hogares separados y no es temporal.
           permanent_home_heading: "¿Qué es un hogar permanente?"
@@ -2879,89 +2879,89 @@ es:
           title: Primero, veamos si puedes usar este servicio para declarar tus impuestos del Maryland de %{year}
       md_had_health_insurance:
         edit:
-          authorize_follow_up: Si responde sí, la Oficina del Contralor compartirá su información y la dirección de correo electrónico registrada con Maryland Health Connection.
-          authorize_share_health_information: "¿Autoriza al Contralor de Maryland a compartir información de esta declaración de impuestos con Maryland Health Connection para determinar la pre-elegibilidad para cobertura de salud sin costo o de bajo costo?"
+          authorize_follow_up: Si respondes que sí, compartiremos la dirección de correo electrónico registrada con Maryland Health Connection.
+          authorize_share_health_information: "¿Quieres autorizar al Contralor de Maryland a compartir información de esta declaración de impuestos con Maryland Health Connection para determinar la pre-elegibilidad para cobertura de salud sin costo o de bajo costo?"
           authorize_to_share_info:
           - Nombre, SSN/ITIN y fecha de nacimiento de cada persona identificada en su declaración
-          - Su dirección postal actual, dirección de correo electrónico y número de teléfono
-          - Estado civil declarado en su declaración
+          - Tu dirección de correspondencia, correo electrónico y número de teléfono
+          - Tu estado de declaración
           - Número total de personas en su hogar incluidas en su declaración
           - Estado asegurado/no asegurado de cada persona incluida en su declaración
-          - Condición de ceguera
+          - Si eres una persona ciega
           - Relación (titular, cónyuge o dependiente) con el contribuyente principal de cada persona incluida en su declaración
-          - Monto de su ingreso bruto ajustado federal de la Línea 1
-          following_will_be_shared: 'Si autoriza compartir información, compartiremos la siguiente información con Maryland Health Connection (MHC):'
-          information_use: La información compartida con MHC se usará para determinar la elegibilidad para programas de asequibilidad de seguros o para ayudar con la inscripción en cobertura de salud.
-          more_info: Si desea más información sobre los programas de asequibilidad de seguros o la inscripción en cobertura de salud, visite Maryland Health Connection en <a href="%{link}" target="_blank" rel="noopener noreferrer">marylandhealthconnection.gov/easyenrollment/</a>.
+          - El ingreso bruto ajustado de tu declaración federal (Line 1)
+          following_will_be_shared: 'Si lo permites, el Contralor de Maryland compartirá estos detalles con Maryland Health Connection (MHC):'
+          information_use: Esta información ayuda a MHC a verificar si calificas para un seguro asequible o para ayudarte a inscribirte en la cobertura de salud.
+          more_info: 'Para más detalles sobre programas de seguros o inscripción, visita el sitio web de Maryland Health Connection: <a href="%{link}" target="_blank" rel="noopener noreferrer">marylandhealthconnection.gov/easyenrollment/</a>.'
           no_insurance_question: "¿Algún miembro de su hogar incluido en esta declaración <strong> no </strong> tuvo cobertura de salud durante el año?"
-          subtitle: Compartir esta información <strong>no</strong> afectará su declaración de impuestos.
-          title: Antes de enviar, tenemos algunas preguntas sobre la cobertura de seguro médico.
+          subtitle: Compartir esta información <strong>no</strong> afectará tu declaración de impuestos.
+          title: Antes de que envíes, tenemos algunas preguntas sobre la cobertura de seguro de salud
           what_will_be_shared: "¿Qué información se compartirá con Maryland Health Connection?"
-          which_members_not_have_insurance: Seleccione qué miembro(s) de su hogar <strong> no </strong> tuvieron cobertura de salud al final de %{tax_year}.
-          why_ask_explanation: Esta información ayudará a Maryland Health Connection a determinar la elegibilidad para los miembros no asegurados de su hogar para cobertura de salud sin costo o de bajo costo. <strong>No afectará</strong> su declaración de impuestos y no hay penalidades por proporcionar esta información.
+          which_members_not_have_insurance: Selecciona al(los) miembro(s) de tu hogar que <strong> no tenían </strong>  cobertura de salud al finalizar %{tax_year}.
+          why_ask_explanation: Esta información ayudará a Maryland Health Connection a determinar la elegibilidad para miembros de tu hogar que no tienen seguro médico para que reciban cobertura de salud sin costo o de bajo costo. Compartir esta información<strong>no afectará</strong> tu declaración de impuestos o generará penalizaciones.
           why_ask_this: "¿Por qué te preguntamos esto?"
       md_permanent_address:
         edit:
           address_header: Dirección
           apartment_number_label: Número de apartamento/unidad
           city_label: Cuidad
-          follow_up_help_text: No se aceptan apartados de correos
-          mark_no_hint_html: Marque "No" si la dirección indicada es un apartado postal <strong>o</strong> si vivió en una dirección diferente el 31 de diciembre de %{filing_year}
+          follow_up_help_text: No se aceptan PO Boxes
+          mark_no_hint_html: Marca “no” si la dirección que aparece es un PO Box <strong>or</strong> si vivías en una dirección distinta el 31 de diciembre de %{filing_year}.
           state_label: Estado
           street_address_label: Dirección
-          title: "¿Viviste en esta dirección el 31 de diciembre de %{filing_year}?"
-          where_did_you_live: "¿Dónde viviste el 31 de diciembre de %{filing_year}?"
+          title: "¿Vivías en esta dirección el 31 de diciembre de %{filing_year}?"
+          where_did_you_live: "¿Dónde vivías el 31 de diciembre de %{filing_year}?"
           zip_label: Código postal
       md_primary_state_id:
         md_primary:
-          dmv_bmv_label: MVA State ID
-          encourage_sharing_html: Si usted y su cónyuge tienen una licencia de conducir o una tarjeta de identificación emitida por el estado, proporcione la información solicitada. La devolución no será rechazada si no proporciona una licencia de conducir o una identificación emitida por el estado. <br><br>Si proporciona esta información, puede ayudar a identificarlo como contribuyente.
-          protect_identity: Muchas agencias de ingresos estatales, incluida Maryland, están solicitando información adicional en un esfuerzo por combatir el fraude fiscal por identidad robada y protegerlo a usted y a su reembolso de impuestos.
-          subtitle: El Contralor de Maryland solicita que la información de su licencia de conducir o tarjeta de identificación emitida por el estado se incluya con la declaración, pero no rechazará la declaración si no está incluida.
-          why_ask_this: "¿Por qué estamos pidiéndote esta información?"
+          dmv_bmv_label: Identificación estatal del MVA
+          encourage_sharing_html: Si tú y tu cónyuge tienen una licencia de conducir o una tarjeta de identificación emitida por el estado, por favor ingresa la información solicitada de ella. La declaración no será rechazada si no se ingresa un número de licencia de conducir o identificación emitida por el estado. <br><br> Compartir esta información, puede ayudar a identificarte como la persona contribuyente.
+          protect_identity: Muchas agencias de ingresos estatales, incluido Maryland, están solicitando información adicional como un esfuerzo para combatir el fraude fiscal por robo de identidad y para protegerte a ti y a tu reembolso de impuestos.
+          subtitle: El Contralor de Maryland solicita que la información de tu licencia de conducir o tarjeta de identificación emitida por el estado se incluya con la declaración, pero no rechazará la declaración si no está incluida.
+          why_ask_this: "¿Por qué están pidiendo esta información?"
       md_review:
         edit:
           county_html: "<strong>Condado</strong>"
           political_subdivision_html: "<strong>Subdivisión política</strong>"
-          your_address: Dirección donde vivía el 31 de diciembre de %{filing_year}
+          your_address: Dirección donde vivías el 31 de diciembre del%{filing_year}
       md_spouse_state_id:
         md_spouse:
-          dmv_bmv_label: MVA State ID
-          encourage_sharing_html: Si usted y su cónyuge tienen una licencia de conducir o una tarjeta de identificación emitida por el estado, proporcione la información solicitada. La devolución no será rechazada si no proporciona una licencia de conducir o una identificación emitida por el estado. <br><br>Si proporciona esta información, puede ayudar a identificarlo como contribuyente.
+          dmv_bmv_label: Identificación estatal del MVA
+          encourage_sharing_html: Si tú y tu cónyuge tienen una licencia de conducir o una tarjeta de identificación emitida por el estado, por favor ingresa la información solicitada de ella. La declaración no será rechazada si no se ingresa un número de licencia de conducir o identificación emitida por el estado. <br><br> Compartir esta información, puede ayudar a identificarte como la persona contribuyente.
           protect_identity: Muchas agencias de ingresos estatales, incluida Maryland, están solicitando información adicional en un esfuerzo por combatir el fraude fiscal por identidad robada y protegerlo a usted y a su reembolso de impuestos.
-          subtitle: El Contralor de Maryland solicita que la información de su licencia de conducir o tarjeta de identificación emitida por el estado se incluya con la declaración, pero no rechazará la declaración si no está incluida.
-          why_ask_this: "¿Por qué estamos pidiéndote esta información?"
+          subtitle: El Contralor de Maryland solicita que la información de tu licencia de conducir o tarjeta de identificación emitida por el estado se incluya con la declaración, pero no rechazará la declaración si no está incluida.
+          why_ask_this: "¿Por qué están pidiendo esta información?"
       md_tax_refund:
         edit:
-          bank_authorization_confirmation: Marque aquí para confirmar que autoriza al estado de Maryland a emitir su reembolso mediante depósito directo.
-          subtitle: "¿Cómo le gustaría recibir su reembolso?"
+          bank_authorization_confirmation: Selecciona aquí para confirmar que autorizas al Estado de Maryland a emitir tu reembolso mediante depósito directo.
+          subtitle: "¿Cómo te gustaría recibirlo?"
         md_bank_details:
           account_holder_name: Nombre del titular de la cuenta
-          bank_account_details: Detalles de la cuenta
+          bank_account_details: Detalles de la cuenta bancaria
           bank_account_type: Tipo de cuenta bancaria
           bank_authorization_confirmation_error: Por favor confirme la autorización o seleccione pagar por correo
-          check_if_joint_account: Marque aquí si tiene una cuenta conjunta
+          check_if_joint_account: Selecciona aquí si tienes una cuenta conjunta
           joint_account_holder_name: Nombre del titular de la cuenta conjunta
           last_name: Apellido
           middle_initial: Inicial del segundo nombre
           suffix: Sufijo
       md_two_income_subtractions:
         edit:
-          description: Para saber si califica y calcular la deducción, necesitamos más información sobre la deducción de intereses de préstamos estudiantiles que tomó en su declaración de impuestos federales.
-          spouse_portion_label: La parte de la deducción de intereses del préstamo estudiantil que le corresponde a su cónyuge
-          student_loan_deduction_copy: Esta cantidad se basa en los intereses pagados por préstamos estudiantiles y está limitada a $2,500 por declaración de impuestos.
-          student_loan_deduction_copy2: Consulte el formulario 1098-E para obtener más información.
+          description: Para saber si calificas y calcular la deducción, necesitamos más información sobre la deducción de intereses de préstamos estudiantiles que se aplicó a tu declaración de impuestos federal.
+          spouse_portion_label: Tu porción de tu cónyuge de la deducción en intereses de préstamos estudiantiles
+          student_loan_deduction_copy: Este monto se basa en los intereses pagados por préstamos estudiantiles y está limitado a $2,500 por declaración de impuestos.
+          student_loan_deduction_copy2: Para más información, puedes revisar lo(s) formulario(s) 1098-E.
           student_loan_deduction_heading: "¿Qué es la deducción de intereses de préstamos federales para estudiantes?"
-          subtitle: Ingrese las porciones de la deducción de intereses de préstamos estudiantiles federales asignadas entre usted y su cónyuge.
+          subtitle: ngresa las porciones de la deducción de intereses de préstamos estudiantiles federales aplicadas a ti y tu cónyuge.
           sum_form_error: El total de la deducción de intereses de préstamos estudiantiles de usted y/o su cónyuge debe ser igual al %{total_deduction}
-          title: Es posible que califique para la deducción por dos ingresos de Maryland
-          total_html: La deducción total de intereses de préstamos estudiantiles para su declaración federal y la de su cónyuge es <strong>%{total_deduction}</strong>.
-          your_portion_label: Su parte de la deducción de intereses del préstamo estudiantil
+          title: Podrías calificar para la deducción por dos ingresos de Maryland
+          total_html: La deducción total de intereses de préstamos estudiantiles aplicados para ti y tu cónyuge en su declaración federal es de <strong>%{total_deduction}</strong>.
+          your_portion_label: Tu porción de la deducción de intereses de préstamos estudiantiles
       nc_county:
         edit:
           county: Condado
-          county_during_hurricane: Seleccione el condado donde se encontraba su dirección permanente durante el huracán Helene (a partir del 25 de septiembre de 2024)
-          moved_after_hurricane: "¿Su dirección permanente estaba en un condado diferente durante el huracán Helene (a partir del 25 de septiembre de 2024)?"
+          county_during_hurricane: Selecciona el condado donde tenías tu dirección permanente durante el Huracán Helene (el 25 de septiembre de 2024 o después)
+          moved_after_hurricane: "¿Estuvo tu dirección permanente en un condado diferente durante el Huracán Helene (el 25 de septiembre de 2024 o después)?"
           title: Selecciona el condado donde tenías tu dirección permanente en diciembre 31 de %{filing_year}
       nc_eligibility:
         edit:
@@ -2975,7 +2975,7 @@ es:
         nc_primary:
           encourage_sharing: Aunque se recomienda compartir esta información, no es un requisito para presentar tus impuestos en Carolina del Norte.
           protect_identity: 'Para proteger tu identidad y prevenir el fraude fiscal, muchas agencias estatales piden tu número de licencia de conducir o de identificación estatal. '
-          why_ask_this: "¿Por qué estamos pidiéndote esta información?"
+          why_ask_this: "¿Por qué están pidiendo esta información?"
       nc_review:
         edit:
           amount: Cantidad
@@ -3012,7 +3012,7 @@ es:
         nc_spouse:
           encourage_sharing: Aunque se recomienda compartir esta información, no es un requisito para presentar tus impuestos en Carolina del Norte.
           protect_identity: To protect your identity and combat tax fraud, many state revenue agencies are asking people to give their driver’s license or state ID number.
-          why_ask_this: "¿Por qué estamos pidiéndote esta información?"
+          why_ask_this: "¿Por qué están pidiendo esta información?"
       nc_subtractions:
         edit:
           title_html:
@@ -3216,7 +3216,7 @@ es:
           protect_identity: Many state revenue agencies, including New Jersey, are requesting additional information in an effort to combat stolen-identity tax fraud and to protect you and your tax refund. Providing some details about your state-issued identification will help identify you as the taxpayer.
           subtitle: Details from your state-issued ID, if you have one, will help New Jersey combat stolen-identity tax fraud and protect you and your tax refund.
           title: Confirming Your Identity (Optional)
-          why_ask_this: "¿Por qué estamos pidiéndote esta información?"
+          why_ask_this: "¿Por qué están pidiendo esta información?"
       nj_review:
         edit:
           amount: Cantidad
@@ -3262,7 +3262,7 @@ es:
           protect_identity: To protect your identity and combat tax fraud, many state agencies are asking people to give their driver's license or state ID number.
           subtitle: Details from your spouse's state-issued ID, if they have one, would also help.
           title: Confirming Your Spouse's Identity (Optional)
-          why_ask_this: "¿Por qué estamos pidiéndote esta información?"
+          why_ask_this: "¿Por qué están pidiendo esta información?"
       nj_tenant_eligibility:
         edit:
           helper_description: Fui inquilino de una propiedad exenta de impuestos (por ejemplo, vivienda subsidiada y en el campus, propiedad de organizaciones sin fines de lucro, residencia en la que se realizaron pagos P.I.L.O.T.)
@@ -3302,16 +3302,16 @@ es:
         edit:
           email_address_label: Tu correo electrónico
           email_notification_opt_in: Correo electrónico
-          message_body_one: No compartiremos su información con terceros. La frecuencia de los mensajes variará. Pueden aplicarse tarifas por mensajes y datos.
-          message_body_two_html: Envíe un mensaje de texto con la palabra HELP al 46207 para recibir ayuda. Envíe un mensaje de texto con la palabra STOP al 46207 para cancelar. Los operadores (por ejemplo, AT&T, Verizon, T-Mobile, Sprint, etc.) no son responsables de los mensajes no entregados o demorados. Consulte nuestros<a target="_blank" href=%{sms_terms_link}>Términos y condiciones de SMS</a> y nuestra <a target="_blank" href=%{privacy_link}>Política de privacidad</a>..
-          message_title: Detalles de la mensajería
-          opt_in_label: "¡Seleccione la(s) opción(es) que funcionen mejor para usted!"
+          message_body_one: No compartiremos tu información con terceros. La frecuencia de los mensajes puede variar. Puede que apliquen tarifas por mensajes y datos.
+          message_body_two_html: Envía un mensaje de texto con la palabra HELP al 46207 para obtener ayuda. Envía un mensaje de texto con la palabra STOP al 46207 para cancelar. Los proveedores de telefonía móvil (por ejemplo, AT&T, Verizon, T-Mobile, Sprint, etc.) no son responsables de mensajes no entregados o retrasados. Consulta nuestros<a target="_blank" href=%{sms_terms_link}>Términos y condiciones de SMS</a> y <a target="_blank" href=%{privacy_link}>Política de privacidad</a>.
+          message_title: Detalles de mensajería
+          opt_in_label: Por favor, selecciona la(s) opción(es) que mejor te funcione(n).
           phone_number: Tu número de teléfono
-          phone_number_help_text: Introduzca sólo números
+          phone_number_help_text: Ingresa números únicamente
           provided_email: Le enviaremos actualizaciones sobre su declaración de impuestos a %{email_address}.
           sms_notification_opt_in: Mensaje de texto
-          subtitle: Necesitaremos comunicarnos con usted con preguntas y actualizaciones.
-          title: "¿Cuál es la mejor manera de comunicarme con usted?"
+          subtitle: Necesitaremos comunicarnos contigo en caso de que tengamos preguntas o información actualizada.
+          title: "¿Cuál es la mejor manera de contactarte?"
         form:
           at_least_one: Se requiere al menos una preferencia de notificación
       ny_county:
@@ -3336,19 +3336,19 @@ es:
               <li>No retiraste dinero de una cuenta 529 en absoluto.</li>
               </ul>
             title: "¿Cuáles son los gastos que califican y los que no califican?"
-          title: 'Primero veamos si puedes usar este servicio para declarar tus impuestos '
+          title: Primero veamos si puedes usar este servicio para declarar tus impuestos
           withdraw_529: En el %{filing_year}, ¿contribuiste a una <u>cuenta de ahorros universitarios 529</u>, o retiraste dinero de una cuenta 529 y los usaste para gastos no calificados?
       ny_eligibility_out_of_state_income:
         edit:
           out_of_state_income_html: "¿Recibiste (o tu cónyuge, si presentan la declaración juntos) algún ingreso en otro estado en el 2023? (Esto incluye ingresos por desempleo <strong>recibidos</strong> de otro estado.)"
           part_year_nyc_resident_html: "¿Fuiste (o tu cónyuge, si presentan la declaración juntos) residente de la ciudad de Nueva York durante algún momento del 2023? (¿Te mudaste dentro o fuera de la ciudad durante el 2023?) <br><br> La ciudad de Nueva York incluye el Bronx, Brooklyn, Manhattan, Queens y Staten Island."
-          title: 'Primero veamos si puedes usar este servicio para declarar tus impuestos '
+          title: Primero veamos si puedes usar este servicio para declarar tus impuestos
       ny_eligibility_residence:
         edit:
           lived_in_state_html: "¿Viviste (y tu cónyuge, si presentan la declaración juntos) en %{state} durante <strong>todo</strong> el 2023?"
           lived_or_income_in_yonkers_html: "¿<strong>Viviste, recibiste ingresos o mantuviste un hogar</strong> (y tu cónyuge, si presentan la declaración juntos) en Yonkers en algún momento del 2023?"
           subtitle: Para la temporada de 2024, este servicio solo podrá servir a personas con situaciones tributarias específicas. Para saber si puedes usar el servicio responde las siguientes preguntas.
-          title: 'Primero veamos si puedes usar este servicio para declarar tus impuestos '
+          title: Primero veamos si puedes usar este servicio para declarar tus impuestos
       ny_permanent_address:
         edit:
           address_header: Dirección
@@ -3450,8 +3450,8 @@ es:
           title: Ingresa tu número de teléfono
       post_data_transfer:
         edit:
-          subtitle: A continuación, revisaremos los detalles de su estado y haremos las preguntas restantes para completar su declaración de impuestos estatal de %{state_name}.
-          title: "¡Hemos transferido con éxito su declaración de impuestos federal!"
+          subtitle: A continuación, revisaremos los detalles estatales y te pediremos información para completar tu declaración estatal de %{state_name}.
+          title: "¡Hemos transferido tu declaración de impuestos federales exitosamente!"
       primary_state_id:
         edit:
           ny_subtitle: Esta información es necesaria para todos los residentes de Nueva York con una identificación emitida por el estado.
@@ -3482,16 +3482,16 @@ es:
             <li>
               Haz tu cheque o giro postal a nombre del %{payable_to}. Escribe tu SSN o ITIN completo, "%{filing_year} Tax", y "Form %{form_number}" en tu pago.
             </li>
-          direct_debit_html: Si tienes un saldo de impuestos pendiente, recuerda <strong>pagarlo en línea en <a target="_blank" rel="noopener nofollow" href="%{tax_payment_url}">%{tax_payment_url}</a></strong> o por correo antes de la fecha límite para declarar, que es el 15 de abril.
-          download_voucher: Descargar formulario de comprobante de pago
+          direct_debit_html: Si tienes un saldo de impuestos pendiente, recuerda <strong>pagarlo en línea en <a target="_blank" rel="noopener nofollow" href="%{tax_payment_url}">%{tax_payment_url}</a></strong> o por correo antes de la fecha límite de declaración que es el 15 de abril.
+          download_voucher: Descargar el formulario de comprobante de pago
           feedback: Valoramos sus comentarios; háganos saber lo que piensa de esta herramienta.
           include_payment: Debes incluir el formulario de comprobante de pago.
-          mail_voucher_and_payment: 'Envía el formulario de comprobante de pago y el pago a:'
+          mail_voucher_and_payment: Envíar el formulario del comprobante y el pago a
           md:
             refund_details_html: |
-              You can check the status of your refund by visiting <a target="_blank" rel="noopener nofollow" href="https://marylandtaxes.gov">www.marylandtaxes.gov</a> and clicking on "Where's my refund?" You can also call the automated refund inquiry hotline at 1-800-218-8160 (toll-free) or 410-260-7701.
+              Puedes verificar el estado de tu reembolso visitando <a target="_blank" rel="noopener nofollow" href="https://marylandtaxes.gov">www.marylandtaxes.gov</a> y haciendo clic en “Where is my refund?” También puedes llamar a la línea de consulta automatizada de reembolsos al 1-800-218-8160 (sin cargo) o al 410-260-7701.
               <br/><br/>
-              Please wait at least 10 days after your return is accepted before calling the Taxpayer Services Division at 1-800-638-2937 (toll-free) or 410-260-7980.
+              Por favor, espera al menos 10 días después de que tu declaración sea aceptada antes de llamar a la División de Servicios al Contribuyente al 1-800-638-2937 (sin cargo) o al 410-260-7980.
           nc:
             check_payable_html: |
               <li>Make your check or money order payable to %{payable_to}</li>
@@ -3504,16 +3504,16 @@ es:
                 </ul>
               </li>
             refund_details_html: |
-              For the latest information on refund processing and to check your refund status, visit <a target="_blank" rel="noopener nofollow" href="www.ncdor.gov/file-pay/refund-process">www.ncdor.gov/file-pay/refund-process</a>.
+              Para obtener la información más reciente sobre el procesamiento de reembolsos y verificar el estado de tu reembolso, visita <a target="_blank" rel="noopener nofollow" href="www.ncdor.gov/file-pay/refund-process">www.ncdor.gov/file-pay/refund-process</a>.
               <br/><br/>
-              You'll need to enter your Social Security Number and the exact refund amount.
+              Necesitarás ingresar tu número de seguro social y el monto exacto del reembolso.
               <br/><br/>
-              You can also call the North Carolina Department of Revenue's toll-free refund inquiry line at 1-877-252-4052, available 24/7.
+              También puedes llamar a la línea de consulta de reembolsos sin cargo del Departamento de Ingresos de Carolina del Norte al 1-877-252-4052, disponible las 24 horas del día, los 7 días de la semana.
           pay_by_mail_or_moneyorder: 'Si vas a pagar por correo usando cheque o giro postal:'
           refund_details_html: 'Typical refund time frames are 7-8 weeks for e-Filed returns and 10-11 weeks for paper returns. There are some exceptions. For more information, please visit %{website_name} website: <a target="_blank" rel="noopener nofollow" href="%{tax_refund_url}>Where’s my Refund?</a>'
-          title: Tu declaración de impuestos del estado de %{state_name} para el año %{filing_year} ha sido aceptada
+          title: Tu declaración de impuestos de %{state_name} de %{filing_year} ha sido aceptada
         additional_content:
-          md_html: <a target="_blank" rel="noopener nofollow" href="https://www.donatelifemaryland.org/">Register to make an anatomical gift at DonateLifeMaryland.org.</a>
+          md_html: <a target="_blank" rel="noopener nofollow" href="https://www.donatelifemaryland.org/">Regístrate para hacer un regalo anatómico en DonateLifeMaryland.org.</a>
         edit:
           download_state_return_pdf: Descarga tu declaración estatal
           explain_calcs: Explicación de Cálculos
@@ -3522,9 +3522,9 @@ es:
           download_title: Descargue una copia de tu declaración de impuestos estatales de %{state_name} de %{filing_year} hasta el 31 de diciembre de %{year}
           thank_you_html: Gracias por presentar su declaración con <strong>FileYourStateTaxes</strong>, creado en asociación con el estado de %{state_name} para integrarse con la herramienta Direct File del IRS.
         pending:
-          check_spam: Si han pasado más de dos días desde que presentó su declaración de impuestos estatales y no ha recibido noticias nuestras, revise su carpeta de correo no deseado.
-          title: Has enviado tu declaración de impuestos estatales de %{state_name} para el año %{filing_year}, y está esperando ser aceptada.
-          waiting_for acceptance: Su declaración de impuestos estatales todavía está esperando ser aceptada.
+          check_spam: Si han pasado más de dos días desde que enviaste tus impuestos estatales, revisa tu carpeta de spam.
+          title: Has enviado tu declaración de impuestos de %{state_name} de %{filing_year}
+          waiting_for acceptance: 'Tu declaración de impuestos estatal aún está esperando ser aceptada. '
         rejected:
           edit_return: Editar tu declaración estatal
           email_us_html: Envíanos un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>
@@ -3561,31 +3561,31 @@ es:
           your_tax_owed: Los impuestos que debes
       sms_terms:
         edit:
-          term: Cuando se registre en el servicio, le enviaremos un mensaje SMS para confirmar su inscripción. También le enviaremos actualizaciones sobre su declaración de impuestos (la frecuencia de los mensajes variará) y/o códigos OTP/2FA (un mensaje por solicitud).
-          term_2_html: Puede cancelar el servicio de SMS en cualquier momento. Solo <strong>envíe "STOP" al 46207</strong>. Después de enviar el mensaje SMS "STOP", le enviaremos un mensaje SMS para confirmar que se ha dado de baja. Después de esto, ya no recibirá mensajes SMS de nuestra parte. Si desea unirse nuevamente, simplemente <strong>responda "START"</strong> y comenzaremos a enviarle mensajes SMS otra vez.
-          term_3_html: Si en algún momento olvida qué palabras clave están disponibles, simplemente <strong>envíe "HELP" al 46207</strong>. Después de enviar el mensaje SMS "HELP", le responderemos con instrucciones sobre cómo usar nuestro servicio, así como cómo darse de baja.
-          term_4_html: "<strong>Podemos enviar mensajes a los siguientes operadores de telefonía móvil</strong>"
-          term_5: 'Operadores principales: AT&T, Verizon Wireless, Sprint, T-Mobile, U.S. Cellular, Alltel, Boost Mobile, Nextel y Virgin Mobile.'
-          term_6: 'Operadores secundarios: Alaska Communications Systems (ACS), Appalachian Wireless (EKN), Bluegrass Cellular, Cellular One of East Central IL (ECIT), Cellular One of Northeast Pennsylvania, Cincinnati Bell Wireless, Cricket, Coral Wireless (Mobi PCS), COX, Cross, Element Mobile (Flat Wireless), Epic Touch (Elkhart Telephone), GCI, Golden State, Hawkeye (Chat Mobility), Hawkeye (NW Missouri), Illinois Valley Cellular, Inland Cellular, iWireless (Iowa Wireless), Keystone Wireless (Immix Wireless/PC Man), Mosaic (Consolidated or CTC Telecom), Nex-Tech Wireless, NTelos, Panhandle Communications, Pioneer, Plateau (Texas RSA 3 Ltd), Revol, RINA, Simmetry (TMP Corporation), Thumb Cellular, Union Wireless, United Wireless, Viaero Wireless y West Central (WCC o 5 Star Wireless).'
-          term_7: Los operadores (por ejemplo, AT&T, Verizon, T-Mobile, Sprint, etc.) no son responsables ni están obligados por mensajes no entregados o retrasados.
-          term_8_html: 'Como siempre, pueden aplicarse tarifas de mensajes y datos para cualquier mensaje enviado a usted desde nosotros y para mensajes que usted nos envíe. Si tiene alguna pregunta sobre su plan de mensajes o datos, es mejor comunicarse con su proveedor de telefonía móvil. <br><br>Para todas las preguntas sobre los servicios proporcionados por este código corto, puede enviar un correo electrónico a <strong>help@fileyourstatetaxes.org</strong>.
+          term: Cuando te inscribas en el servicio, te enviaremos un mensaje de texto (SMS) para confirmar tu registro. También te enviaremos actualizaciones sobre tu declaración de impuestos (la frecuencia de los mensajes puede variar) y/o códigos OTP/2FA (un mensaje por solicitud).
+          term_2_html: Puedes cancelar el servicio de SMS en cualquier momento. Simplemente <strong>envía la palabra "STOP" </strong>al 46207. Después de que envíes el mensaje SMS con la palabra "STOP", te enviaremos un SMS para confirmar que te has dado de baja. Después de esto, ya no recibirás más SMS de nuestra parte. Si deseas unirte nuevamente, simplemente <strong>responde con la palabra "START"</strong> y comenzaremos a enviarte mensajes de texto otra vez.
+          term_3_html: Si en algún momento olvidas qué palabras clave son compatibles, solo <strong>envía un mensaje de texto con la palabra"HELP"</strong>. al 46207. Después de que envíes el SMS con la palabra "HELP", responderemos con instrucciones sobre cómo usar nuestro servicio, así como sobre cómo darte de baja.
+          term_4_html: "<strong>Podemos entregar mensajes a los siguientes proveedores de telefonía móvil</strong>"
+          term_5: 'Proveedores principales: AT&T, Verizon Wireless, Sprint, T-Mobile, U.S. Cellular, Alltel, Boost Mobile, Nextel y Virgin Mobile.'
+          term_6: 'Proveedores menores: Alaska Communications Systems (ACS), Appalachian Wireless (EKN), Bluegrass Cellular, Cellular One of East Central IL (ECIT), Cellular One of Northeast Pennsylvania, Cincinnati Bell Wireless, Cricket, Coral Wireless (Mobi PCS), COX, Cross, Element Mobile (Flat Wireless), Epic Touch (Elkhart Telephone), GCI, Golden State, Hawkeye (Chat Mobility), Hawkeye (NW Missouri), Illinois Valley Cellular, Inland Cellular, iWireless (Iowa Wireless), Keystone Wireless (Immix Wireless/PC Man), Mosaic (Consolidated o CTC Telecom), Nex-Tech Wireless, NTelos, Panhandle Communications, Pioneer, Plateau (Texas RSA 3 Ltd), Revol, RINA, Simmetry (TMP Corporation), Thumb Cellular, Union Wireless, United Wireless, Viaero Wireless, y West Central (WCC o 5 Star Wireless).'
+          term_7: Los proveedores de telefonía móvil (por ejemplo, AT&T, Verizon, T-Mobile, Sprint, etc.) no son responsables de mensajes no entregados o retrasados.
+          term_8_html: 'Como siempre, pueden aplicar tarifas por mensajes y datos para cualquier mensaje que te enviemos y que nos envíes. Si tienes alguna pregunta sobre tu plan de mensajes o plan de datos, es mejor contactar a tu proveedor de telefonía móvil. <br> <br>Si tienes preguntas sobre los servicios proporcionados por este código corto, puedes enviar un correo electrónico a <strong>help@fileyourstatetaxes.org</strong>.
 
             '
-          term_9_html: 'Si tiene preguntas relacionadas con la privacidad, por favor lea nuestra política de privacidad: <a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/privacy-policy">www.fileyourstatetaxes.org/privacy-policy</a>
+          term_9_html: 'Si tienes alguna pregunta sobre privacidad, por favor lee nuestra política de privacidad:<a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/privacy-policy">www.fileyourstatetaxes.org/privacy-policy</a>
 
             '
-          title: Por favor revise los términos y condiciones de mensajería de texto de FileYourStateTaxes
+          title: Por favor, revisa los términos y condiciones de mensajería de FileYourStateTaxes.
       spouse_state_id:
         edit:
           title_html: Necesitamos algunos detalles del documento de identidad emitida por el estado de <strong>su cónyuge</strong>, si tienen uno
       submission_confirmation:
         edit:
           download_state_return_pdf: Descarga tu declaración estatal
-          email_text_update: Recibirás una actualización por correo electrónico o mensaje de texto cuando tu declaración de impuestos estatales sea aceptada.
+          email_text_update: Recibirás una actualización por correo electrónico o mensaje de texto una vez tu declaración de impuestos haya sido aceptada.
           email_update: Recibirás una actualización por correo electrónico cuando tu declaración de impuestos estatales sea aceptada.
-          text_update: Recibirás una actualización por mensaje de texto cuando tu declaración de impuestos estatales sea aceptada.
-          title: "¡Tu declaración de impuestos del estado de %{state_name}de %{filing_year} ha sido enviada!"
-          title_resubmit: "¡Tu declaración de impuestos estatales de %{state_name} para el año %{filing_year} ha sido enviada de nuevo!"
+          text_update: Recibirás una actualización por SMS cuando una vez tu declaración de impuestos haya sido aceptada.
+          title: "¡Tu declaración de impuestos de %{state_name}de %{filing_year} ha sido enviada! "
+          title_resubmit: "¡Tu declaración de impuestos de %{state_name} de %{filing_year} ha sido enviada de nuevo!"
       tax_refund:
         bank_details:
           account_number: Número de cuenta
@@ -3594,21 +3594,21 @@ es:
           confirm_account_number: Confirma el número de cuenta
           confirm_routing_number: Confirma el número de ruta bancaria (routing number)
           date_withdraw_text: "¿Cuándo te gustaría que se retiren los fondos de tu cuenta?  (debe ser antes o en %{withdrawal_deadline_date} de %{with_drawal_deadline_year}):"
-          foreign_accounts: "(Las cuentas extranjeras no son aceptadas)"
+          foreign_accounts: No se aceptan cuentas extranjeras
           routing_number: Número de ruta bancaria
           withdraw_amount: "¿Cuánto autorizas a retirar de tu cuenta? (Tu monto total adeudado es: %{owed_amount}. Redondea al número entero más cercano)"
         edit:
           direct_deposit: Depósito directo (más rápido)
           mail: Enviar mi pago por correo (más lento)
           page_title: Buenas noticias, recibirás un reembolso de impuestos. ¿Cómo te gustaría recibirlo?
-          title_html: Buenas noticias, recibirás un reembolso de impuestos del estado de %{state_name} de <strong>%{refund_amount}.</strong> ¿Cómo te gustaría recibirlo?
+          title_html: Buenas noticias, recibirás un reembolso de impuestos del estado de %{state_name} de <strong>$%{refund_amount}.</strong>
       taxes_owed:
         edit:
-          page_title: Debes impuestos estatales.
+          page_title: Debes impuestos estatales. ¿Cómo te gustaría pagar?
           pay_bank: Directamente desde tu cuenta corriente o de ahorros (débito directo)
           pay_mail_online_html: Por correo o en línea en <a target="_blank" rel="noopener nofollow" href="%{tax_payment_info_url}">%{tax_payment_info_text}</a>
           subtitle: "¿Cómo te gustaría pagar?"
-          subtitle_html: Para obtener más información sobre las fechas de vencimiento de impuestos y los métodos de pago, visite <a target="_blank" rel="noopener nofollow" href="https://marylandtaxes.gov/">Marylandtaxes.gov</a>
+          subtitle_html: Para obtener más información sobre las fechas de vencimiento de impuestos y los métodos de pago, visita <a target="_blank" rel="noopener nofollow" href="https://marylandtaxes.gov/">Marylandtaxes.gov</a>
           title_html: Debes <strong>$%{owed_amount}</strong> en impuestos estatales de %{state_name}. ¿Cómo te gustaría pagar?
       terms_and_conditions:
         edit:
@@ -3683,25 +3683,25 @@ es:
       verification_code:
         edit:
           action: " Verificar el código"
-          subtitle_html: If you didn’t receive a code, please check your spam folder. If you still need help resubscribing, chat with us.
+          subtitle_html: Si no recibiste un código por favor revisa tu carpeta de spam. Si aún necesitas ayuda, chatea con nosotros.
           title_html: Te enviamos tu código a <strong>%{contact_info}</strong>
           verification_code_label: Ingresa el código de 6 dígitos
       w2:
         edit:
           box14_explanation:
-            md_html: Para el año fiscal %{year}, solo procesaremos el código <strong>STPICKUP</strong>, que representa cualquier contribución que hayas hecho al sistema de jubilación estatal.
+            md_html: Para el año fiscal %{year}, solo procesaremos el código <strong>STPICKUP</strong>, que representa las contribuciones que hiciste al sistema de jubilación estatal.
           box14_fli_html: "<strong>FLI</strong>"
           box14_html: "<strong>Box 14,</strong> Other"
-          box14_stpickup_help_text: Para el año fiscal %{year}, solo procesaremos el código STPICKUP. Si no ves este código o tienes otros códigos en la Casilla 14, déjala en blanco.
+          box14_stpickup_help_text: Para %{year}, solo procesaremos el código STPICKUP. Si no ves este código o tienes otros códigos en Box 14, por favor déjalo en blanco.
           box14_stpickup_html: "<strong>STPICKUP</strong>"
           box14_ui_hc_wd_html: "<strong>UI/HC/WD</strong>"
           box14_ui_wf_swf_html: "<strong>UI/WF/SWF</strong>"
-          box15_html: "<strong>Box 15</strong>, Employer’s State ID number"
+          box15_html: "<strong>Box 15,</strong> Employer’s state ID number"
           box16_html: "<strong>Box 16</strong>, State wages, tips, etc."
           box17_html: "<strong>Box 17</strong>, State income tax"
-          box18_html: "<strong>Box 18</strong>: Salarios locales, propinas, etc."
-          box19_html: "<strong>Box 19</strong>: Impuesto sobre la renta local"
-          box20_locality_name: "<strong>Box 20</strong>: Nombre de la localidad"
+          box18_html: "<strong>Box 18,</strong> Local wages, tips, etc."
+          box19_html: "<strong>Box 19,</strong> Local income tax"
+          box20_locality_name: "<strong>Box 20,</strong> Locality name"
           employer_state_id_error: El EIN no puede tener más de 16 caracteres.
           instructions_1_html: Por favor revise los detalles de su trabajo (W-2) para <strong>%{employer}</strong>
           local_income_tax_amt_error: No puede ser mayor que los salarios y propinas locales.
@@ -3712,7 +3712,7 @@ es:
           state_wages_amt_error: Ingresa los salarios y propinas estatales
           state_wages_exceed_amt_error: El total de salarios e ingresos estatales no puede ser mayor que $%{wages_amount}
           wages_amt_error: El impuesto sobre la renta total no puede ser mas de $%{wages_amount}
-          what_is_box14: "¿Qué podría haber en la Casilla 14?"
+          what_is_box14: "¿Qué podría haber en Box 14?"
       waiting_to_load_data:
         edit:
           subtitle_html: Esto suele tardar unos minutos. No cierres esta página<br><br> Usaremos la información de tu declaración de impuestos federal para completar secciones de tu declaración estatal.
@@ -3723,7 +3723,7 @@ es:
           <strong>FileYourStateTaxes</strong> se integra con <strong>IRS Direct File</strong> para ayudarte a completar tu declaración de impuestos estatales <strong>sin costo.</strong><br/><br/>
           <strong>Estamos cerrados por la temporada de impuestos. Desafortunadamente, no puede presentar tu declaración estatal con nosotros este año.</strong><br /><br />
           ¿Ya presentó tus impuestos estatales con nosotros? <strong>Puedes descargar una copia de tu declaración estatal hasta el 31 de diciembre de 2024</strong><br /><br />
-        header: Una herramienta sin costo para presentar impuestos estatales para los contribuyentes de Arizona y Nueva York utilizando IRS Direct File
+        header: Una herramienta sin costo para presentar impuestos estatales para los contribuyentes utilizando IRS Direct File
         section1_html: |
           <strong>¿Cómo funciona?</strong>
           <ol class="list--numbered">
@@ -3749,7 +3749,7 @@ es:
         faq: Preguntas Frecuentes
         privacy_policy: Política de Privacidad
         sms_terms: Términos de SMS
-        state_file_description_html: FileYourStateTaxes ha sido creado por <a target="_blank" rel="noopener nofollow" href="https://www.codeforamerica.org">Code for America</a> en colaboración con el estado de Nueva York y el estado de Arizona para integrarse con la herramienta Direct File del IRS.
+        state_file_description_html: FileYourStateTaxes ha sido creado por<a target="_blank" rel="noopener nofollow" href="https://www.codeforamerica.org">Code for America</a> en colaboración con con agencias tributarias estatales para integrarse con la herramienta Direct File del IRS.
       login_options:
         email_signin: Iniciar sesión con correo electrónico
         help_text_html: "¿Eres nuevo en FileYourStateTaxes? <a href=%{link}>Comienza aquí</a>"
@@ -3848,14 +3848,14 @@ es:
         body_1: Cuando optes por el servicio, te enviaremos un mensaje SMS para confirmar tu registro. También le enviaremos mensajes de texto con actualizaciones sobre su declaración de impuestos (la frecuencia de los mensajes variará) y/o códigos OTP/2FA (un mensaje por solicitud).
         body_2_html: Puedes cancelar el servicio de SMS en cualquier momento. Simplemente <strong>envíe "STOP" al 46207</strong>. Después de enviarnos el mensaje SMS "STOP", le enviaremos un mensaje SMS para confirmar que se ha cancelado su suscripción. Después de esto, ya no recibirás más mensajes SMS de nuestra parte. Si desea unirse nuevamente, simplemente <strong>responda "START"</strong> y comenzaremos a enviarle mensajes SMS nuevamente.
         body_3_html: Si en algún momento olvida qué palabras clave son compatibles, simplemente <strong>envíe "HELP" al 46207</strong>. Después de enviarnos el mensaje SMS "HELP", le responderemos con instrucciones sobre cómo utilizar nuestro servicio y cómo cancelar la suscripción.
-        body_4: 'Podemos enviar mensajes a los siguientes operadores de telefonía móvil:'
+        body_4: 'Podemos entregar mensajes a los siguientes proveedores de telefonía móvil:'
         body_5a: Como siempre, se pueden aplicar tarifas de mensajes y datos para cualquier mensaje que le enviemos a usted y a nosotros. Si tiene alguna pregunta sobre su plan de mensajes de texto o de datos, lo mejor es comunicarse con su proveedor de servicios inalámbricos.
         body_5b_html: Para todas las preguntas sobre los servicios proporcionados por este código corto, puede enviar un correo electrónico a <strong><a href="mailto:help@fileyourstatetaxes.org" target="_blank" rel="noopener nofollow">help@fileyourstatetaxes.org</a></strong>.
         body_6_html: 'Si tiene alguna pregunta sobre la privacidad, lea nuestra política de privacidad: <a href="%{link}" target="_blank" rel="noopener nofollow">https://FileYourStateTaxes.org/privacy-policy</a>'
         carrier_disclaimer: Los proveedores (por ejemplo, AT&T, Verizon, T-Mobile, Sprint, etc.) no son responsables de los mensajes no entregados o retrasados.
         header: FileYourStateTaxes términos y condiciones de mensajería de texto
-        major_carriers: 'Principales operadores: AT&T, Verizon Wireless, Sprint, T-Mobile, U.S. Cellular, Alltel, Boost Mobile, Nextel, y Virgin Mobile.'
-        minor_carriers: 'Operadores secundarios: Alaska Communications Systems (ACS), Appalachian Wireless (EKN), Bluegrass Cellular, Cellular One of East Central IL (ECIT), Cellular One of Northeast Pennsylvania, Cincinnati Bell Wireless, Cricket, Coral Wireless (Mobi PCS), COX, Cross, Element Mobile (Flat Wireless), Epic Touch (Elkhart Telephone), GCI, Golden State, Hawkeye (Chat Mobility), Hawkeye (NW Missouri), Illinois Valley Cellular, Inland Cellular, iWireless (Iowa Wireless), Keystone Wireless (Immix Wireless/PC Man), Mosaic (Consolidated or CTC Telecom), Nex-Tech Wireless, NTelos, Panhandle Communications, Pioneer, Plateau (Texas RSA 3 Ltd), Revol, RINA, Simmetry (TMP Corporation), Thumb Cellular, Union Wireless, United Wireless, Viaero Wireless, y West Central (WCC or 5 Star Wireless).'
+        major_carriers: 'Proveedores principales: AT&T, Verizon Wireless, Sprint, T-Mobile, U.S. Cellular, Alltel, Boost Mobile, Nextel y Virgin Mobile.'
+        minor_carriers: 'Proveedores menores: Alaska Communications Systems (ACS), Appalachian Wireless (EKN), Bluegrass Cellular, Cellular One of East Central IL (ECIT), Cellular One of Northeast Pennsylvania, Cincinnati Bell Wireless, Cricket, Coral Wireless (Mobi PCS), COX, Cross, Element Mobile (Flat Wireless), Epic Touch (Elkhart Telephone), GCI, Golden State, Hawkeye (Chat Mobility), Hawkeye (NW Missouri), Illinois Valley Cellular, Inland Cellular, iWireless (Iowa Wireless), Keystone Wireless (Immix Wireless/PC Man), Mosaic (Consolidated o CTC Telecom), Nex-Tech Wireless, NTelos, Panhandle Communications, Pioneer, Plateau (Texas RSA 3 Ltd), Revol, RINA, Simmetry (TMP Corporation), Thumb Cellular, Union Wireless, United Wireless, Viaero Wireless, y West Central (WCC o 5 Star Wireless).'
   validators:
     account_number: Este número de cuenta no es válido para transacciones de depósito directo. Revise su número de cuenta o cambie a pagos con cheque.
     alpha: Sólo se aceptan las letras A-Z y a-z.
@@ -4234,7 +4234,7 @@ es:
           email: Envíenme correos electrónicos
           sms_policy: 'Aviso: Se aplican las tarifas estándar de los mensajes SMS. No compartiremos su información con terceros.'
           text: Envíenme un mensaje de texto
-          title: "¿Cuál es la mejor manera de comunicarnos con usted?"
+          title: "¿Cuál es la mejor manera de contactarte?"
         dependents:
           child_can_be_claimed_by_other:
             help_text: Si otra persona también cuida a %{name}, solo uno de ustedes puede reclamarlo para obtener beneficios fiscales. Lo guiaremos a través de los pasos para determinar si puede reclamarlo o no.
@@ -5598,10 +5598,10 @@ es:
         header: Términos y condiciones de código abreviado para GetYourRefund
         terms:
           carrier_disclaimer: Los operadores (por ejemplo, AT&amp;T, Verizon, T-Mobile, Sprint, etc.) no son responsables por los mensajes retrasados o no entregados.
-          carriers_heading_html: "<strong>Nuestros mensajes pueden ser enviados por medio de los teléfonos de las siguientes compañías:</strong>"
+          carriers_heading_html: "<strong>Podemos entregar mensajes a los siguientes proveedores de telefonía móvil:</strong>"
           keywords_html: Si en cualquier momento se le olvidan las palabras claves que se utilizan, simplemente envíe el texto "<strong>HELP</strong>" al <strong>58750</strong>. Después de que mande el mensaje SMS de "<strong>HELP</strong>", le reponderemos dándole las instrucciones de cómo utilizar el servicio y cómo darse.
-          major_carriers_html: "<strong>Compañías principales:</strong> AT&T, Verizon Wireless, Sprint, T-Mobile, U.S. Cellular, Alltel, Boost Mobile, Nextel, y Virgin Mobile."
-          minor_carriers_html: "<strong>Compañías reducidas:</strong> Alaska Communications Systems (ACS), Appalachian Wireless (EKN), Bluegrass Cellular, Cellular One of East Central IL (ECIT), Cellular One of Northeast Pennsylvania, Cincinnati Bell Wireless, Cricket, Coral Wireless (Mobi PCS), COX, Cross, Element Mobile (Flat Wireless), Epic Touch (Elkhart Telephone), GCI, Golden State, Hawkeye (Chat Mobility), Hawkeye (NW Missouri), Illinois Valley Cellular, Inland Cellular, iWireless (Iowa Wireless), Keystone Wireless (Immix Wireless/PC Man), Mosaic (Consolidated o CTC Telecom), Nex-Tech Wireless, NTelos, Panhandle Communications, Pioneer, Plateau (Texas RSA 3 Ltd), Revol, RINA, Simmetry (TMP Corporation), Thumb Cellular, Union Wireless, United Wireless, Viaero Wireless, y West Central (WCC o 5 Star Wireless)."
+          major_carriers_html: "<strong>Proveedores principales:</strong>AT&T, Verizon Wireless, Sprint, T-Mobile, U.S. Cellular, Alltel, Boost Mobile, Nextel y Virgin Mobile."
+          minor_carriers_html: "<strong>Proveedores menores:</strong>Alaska Communications Systems (ACS), Appalachian Wireless (EKN), Bluegrass Cellular, Cellular One of East Central IL (ECIT), Cellular One of Northeast Pennsylvania, Cincinnati Bell Wireless, Cricket, Coral Wireless (Mobi PCS), COX, Cross, Element Mobile (Flat Wireless), Epic Touch (Elkhart Telephone), GCI, Golden State, Hawkeye (Chat Mobility), Hawkeye (NW Missouri), Illinois Valley Cellular, Inland Cellular, iWireless (Iowa Wireless), Keystone Wireless (Immix Wireless/PC Man), Mosaic (Consolidated o CTC Telecom), Nex-Tech Wireless, NTelos, Panhandle Communications, Pioneer, Plateau (Texas RSA 3 Ltd), Revol, RINA, Simmetry (TMP Corporation), Thumb Cellular, Union Wireless, United Wireless, Viaero Wireless, y West Central (WCC o 5 Star Wireless)."
           privacy_html: 'Si tiene cualquier pregunta con respecto a privacidad, favor de leer nuestra política de privacidad: <a href="https://www.getyourrefund.org/privacy">www.getyourrefund.org/privacy</a>'
           rates_html: Como siempre, pueden aplicar tarifas de mensajes y datos enviados por usted a nosotros o de nosotros a usted. Recibirá <strong>10 mensajes al mes</strong>. Si tiene cualquier pregunta sobre su plan de textos o plan de datos, conviene comunicarse con su proveedor de servicio móvil. Para toda pregunta referente a los servicios proporcionados por este código abreviado, favor de enviar un correo a <strong>support@getyourrefund.org</strong>.
           sms_cancellation_html: Puede cancelar el servicio SMS en cualquier momento. Simplemente envíe el texto "<strong>STOP</strong>" al <strong>58750</strong>. Después de enviarnos el mensaje SMS de "<strong>STOP</strong>", le enviaremos un mensaje SMS confirmando que ha sido dado de baja. Habiendo recibido esto, no recibirá más mensajes de nosotros. Si desea volver a suscribirse, simplemente responda "<strong>START</strong>" y volveremos a mandarle mensajes SMS.
@@ -5781,7 +5781,7 @@ es:
         account_number: Número de cuenta
         account_type:
           checking: Corriente
-          label: "¿Qué tipo de cuenta es esta?"
+          label: Tipo de cuenta bancaria
           savings: Ahorros
         bank_name: Nombre del banco
         help_text: Su nombre debe aparecer en su cuenta bancaria para que pueda recibir su dinero.
@@ -6024,9 +6024,9 @@ es:
         note_html: La frecuencia del mensaje variará. Pueden aplicar tarifas de mensajes y datos enviados por usted a nosotros o de nosotros a usted. Envíe el texto "HELP" al 58750 para ayuda. Envía STOP al 58750 para cancelar. Los operadores (por ejemplo, AT&T, Verizon, T-Mobile, Sprint, etc.) no son responsables de los mensajes retrasados o no entregados. Consulte nuestros <a href="%{terms_url}">Términos y Condiciones</a> y <a href="%{privacy_url}">Política de Privacidad</a>.
         options:
           email_notification_opt_in: Envíeme un correo electrónico
-          header: Tendremos que comunicarnos con usted con preguntas y actualizaciones. ¡Por favor, seleccione la(s) opción(es) que más le convengan!
+          header: 'Necesitaremos comunicarnos contigo en caso de que tengamos preguntas o información actualizada. Por favor, selecciona la(s) opción(es) que mejor te funcione. '
           sms_notification_opt_in: Mensaje de Texto
-        title: "¿Cuál es la mejor manera de comunicarnos con usted?"
+        title: "¿Cuál es la mejor manera de contactarte?"
       optional_consent:
         consent_to_disclose_html: <a href="%{consent_to_disclose_url}" target="_blank" rel="noopener">Consentimiento para divulgar:</a> Usted nos permite enviar su información fiscal a la empresa de software de impuestos y a la institución financiera que especificó (si corresponde).
         consent_to_use_html: <a href="%{consent_to_use_url}" target="_blank" rel="noopener">Consentimiento para usar:</a> Usted nos permite incluir su declaración de impuestos en informes.

@@ -8,7 +8,7 @@ RSpec.describe StateFile::Questions::UnemploymentController do
 
   describe ".show?" do
     it "is true for a return with unemployment income" do
-      intake = create :state_file_ny_intake, raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml("az_unemployment")
+      intake = create :state_file_az_intake, raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml("az_alexis_hoh")
       expect(described_class.show?(intake)).to be_truthy
     end
 

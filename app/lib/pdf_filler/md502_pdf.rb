@@ -88,7 +88,7 @@ module PdfFiller
         'STANDARD DEDUCTION METHOD': checkbox_value(deduction_method_is_standard?),
         '17': deduction_method_is_standard? ? @xml_document.at('Form502 Deduction Amount')&.text : nil,
         '18': deduction_method_is_standard? ? @xml_document.at('Form502 NetIncome')&.text : nil,
-        '19': deduction_method_is_standard? ? @xml_document.at('Form502 ExemptionAmount')&.text : nil,
+        '19': @xml_document.at('Form502 ExemptionAmount')&.text,
         '20': deduction_method_is_standard? ? @xml_document.at('Form502 StateTaxComputation TaxableNetIncome')&.text : nil,
         '3': @xml_document.at('Form502 Additions StateRetirementPickup')&.text,
         '6_2': @xml_document.at('Form502 Additions Total')&.text,

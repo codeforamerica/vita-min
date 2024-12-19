@@ -227,10 +227,6 @@ FactoryBot.define do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('az_superman') }
     end
 
-    trait :df_data_many_w2s do
-      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('az_goldwater') }
-    end
-
     factory :state_file_az_refund_intake do
       after(:build) do |intake, evaluator|
         intake.direct_file_data.fed_agi = 10000
@@ -259,7 +255,7 @@ FactoryBot.define do
       sequence(:hashed_ssn) { |n| "abcdefg12346#{n}" }
     end
 
-    factory :state_file_az_johnny_intake_new do
+    factory :state_file_az_johnny_intake do
       # Details of this scenario: https://docs.google.com/document/d/1Aq-1Qdna62gUQqzPyYY2CetC-VZWtCqK73LqBYBLINw/edit
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('az_johnny_mfj') }
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('az_johnny_mfj') }
@@ -282,33 +278,9 @@ FactoryBot.define do
       end
     end
 
-
-    factory :state_file_az_johnny_intake do
-      # Details of this scenario: https://docs.google.com/document/d/1Aq-1Qdna62gUQqzPyYY2CetC-VZWtCqK73LqBYBLINw/edit
-      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('az_johnny_mfj_8_deps') }
-      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('az_johnny_mfj_8_deps') }
-
-      after(:create) do |intake|
-        intake.synchronize_df_dependents_to_database
-
-        # Over 17 & Over 65, non-qualifying ancestor
-        intake.dependents.where(first_name: "Bob").first.update(
-          needed_assistance: "no",
-          passed_away: "no"
-        )
-
-        # Qualifying ancestor
-        intake.dependents.where(first_name: "Wendy").first.update(
-          needed_assistance: "yes",
-          passed_away: "no"
-        )
-        intake.dependents.reload
-      end
-    end
-
     trait :df_data_1099_int do
-      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('az_troy_1099_int') }
-      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('az_troy_1099_int') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('az_atticus_itin_single') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('az_atticus_itin_single') }
     end
   end
 end

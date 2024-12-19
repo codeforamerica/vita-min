@@ -86,7 +86,6 @@ module SubmissionBuilder
             supported_docs += form1099gs # must be sequenced here
             supported_docs += combined_w2s
             supported_docs += form1099rs
-            supported_docs += form1099ints
             supported_docs
           end
 
