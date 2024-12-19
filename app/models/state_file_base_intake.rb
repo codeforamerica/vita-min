@@ -247,7 +247,7 @@ class StateFileBaseIntake < ApplicationRecord
   end
 
   def city_name_length_20?
-    true
+    false
   end
 
   def ask_spouse_esign?

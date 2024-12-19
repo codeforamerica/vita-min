@@ -100,7 +100,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
         end
 
         it 'puts apartment on second address line' do
-          expect(xml.at("MarylandAddress AddressLine1Txt").text.length).to be <= 30
+          expect(xml.at("MarylandAddress AddressLine1Txt").text.length).to be 30
           expect(xml.at("MarylandAddress AddressLine1Txt").text).to eq('2598 HICKORY HEIGHTS DRIVE')
           expect(xml.at("MarylandAddress AddressLine2Txt").text).to eq('APT 21')
         end
@@ -114,7 +114,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
         end
 
         it 'truncates mailing address under 35 characters' do
-          expect(xml.at("MarylandAddress AddressLine1Txt").text.length).to be <= 30
+          expect(xml.at("MarylandAddress AddressLine1Txt").text.length).to be 30
           expect(xml.at("MarylandAddress AddressLine1Txt").text).to eq('211212 SUBDIVISION DRIVE POST')
           expect(xml.at("MarylandAddress AddressLine2Txt")).not_to be_present
         end

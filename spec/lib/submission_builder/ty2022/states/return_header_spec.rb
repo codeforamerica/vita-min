@@ -236,7 +236,8 @@ describe SubmissionBuilder::ReturnHeader do
         let(:doc) { SubmissionBuilder::ReturnHeader.new(submission).document }
 
         it "truncates city name to 22 characters" do
-          expect(doc.at("USAddress CityNm").text.length).to be <= 22
+          expect(doc.at("USAddress CityNm").text.length).to be 22
+          expect(doc.at("USAddress CityNm").text).to eq('This is a Very Long Ci')
         end
       end
     end
@@ -247,7 +248,8 @@ describe SubmissionBuilder::ReturnHeader do
       let(:doc) { SubmissionBuilder::ReturnHeader.new(submission).document }
 
       it "truncates city name to 20 characters" do
-        expect(doc.at("USAddress CityNm").text.length).to be <= 20
+        expect(doc.at("USAddress CityNm").text.length).to be 19
+        expect(doc.at("USAddress CityNm").text).to eq('This is a Very Long')
       end
     end
   end
