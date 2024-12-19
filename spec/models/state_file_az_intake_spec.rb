@@ -320,6 +320,26 @@ describe StateFileAzIntake do
         expect(intake.disqualified_from_excise_credit_df?).to eq false
       end
     end
+
+    context "when non-mfj filer's SSN is not valid for employment" do
+      before do
+        intake.direct_file_json_data.primary_filer.ssn_not_valid_for_employment = true
+      end
+
+      it "they are disqualified" do
+        expect(intake.disqualified_from_excise_credit_df?).to eq true
+      end
+    end
+
+    context "when non-mfj filer's SSN is not valid for employment" do
+      before do
+        intake.direct_file_json_data.primary_filer.ssn_not_valid_for_employment = true
+      end
+
+      it "they are disqualified" do
+        expect(intake.disqualified_from_excise_credit_df?).to eq true
+      end
+    end
   end
 
   describe "incarcerated_filer_count" do
