@@ -207,8 +207,6 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     click_on "No"
     expect(page).to have_selector("h1", text: "In #{current_tax_year}, did you pay any mortgage interest?")
     click_on "No"
-    expect(page).to have_selector("h1", text: "Did you receive the First Time Homebuyer Credit in 2008?")
-    click_on "Yes"
 
     # Miscellaneous
     expect(intake.reload.current_step).to end_with("/questions/disaster-loss")
