@@ -9,7 +9,9 @@
       <p class="spacing-below-25"><%= @w2.employer_name %></p>
 
       <% if @box14_codes.present? %>
-        <p><%= t(".nj.box14_intro_html") %></p>
+        <% if @state_code == "nj" %>
+          <p><%= t(".nj.box14_intro_html") %></p>
+        <% end %>
         <fieldset>
           <legend class="spacing-below-5"><%= t(".box14_html") %></legend>
           <% @box14_codes.each do |code| %>
@@ -47,22 +49,17 @@
       <% end %>
     </div>
 
-    <% if @state_code == "nj" %>
+    <% explanation_key = @state_code == "nj" ? ".nj.box14_explanation_html" : ".box14_explanation.#{@state_code}_html" %>
+    <% button_text = @state_code == "nj" ? ".nj.what_is_box14" : ".what_is_box14" %>
+    <% explanation_text = t(explanation_key, year: MultiTenantService.statefile.current_tax_year, default: nil) %>
+
+    <% if explanation_text %>
       <div class="reveal spacing-above-35">
-        <p><button href="#" class="reveal__button"><%= t(".nj.what_is_box14") %></button></p>
+        <p><button href="#" class="reveal__button"><%= t(button_text) %></button></p>
         <div class="reveal__content">
-            <p class="spacing-below-15">
-              <%= t(".nj.box14_explanation_html", year: MultiTenantService.statefile.current_tax_year) %>
-            </p>
-        </div>
-      </div>
-    <% elsif t(".box14_explanation.#{@state_code}_html", default: nil) %>
-      <div class="reveal spacing-above-35">
-        <p><button href="#" class="reveal__button"><%= t(".what_is_box14") %></button></p>
-        <div class="reveal__content">
-            <p class="spacing-below-15">
-              <%= t(".box14_explanation.#{@state_code}_html", year: MultiTenantService.statefile.current_tax_year) %>
-            </p>
+          <p class="spacing-below-15">
+            <%= explanation_text %>
+          </p>
         </div>
       </div>
     <% end %>
