@@ -39,8 +39,25 @@ describe SubmissionBuilder::ReturnHeader do
           expect(doc.at("USAddress CityNm").text).to eq mailing_city
           expect(doc.at("USAddress StateAbbreviationCd").text).to eq state_code.upcase
           expect(doc.at("USAddress ZIPCd").text).to eq mailing_zip
-          expect(doc.at("PaidPreparerInformationGrp PTIN").text).to eq "P99999999"
-          expect(doc.at("PaidPreparerInformationGrp PreparerPersonNm").text).to eq "Self Prepared"
+        end
+      end
+
+      context "paid preparer information group" do
+        if state_code == "nj"
+          context "for NJ returns" do
+            it "adds XML elements for PaidPreparerInformationGrp" do
+              expect(doc.at("PaidPreparerInformationGrp PTIN").text).to eq "P99999999"
+              expect(doc.at("PaidPreparerInformationGrp PreparerPersonNm").text).to eq "Self Prepared"
+            end
+          end
+        else
+          context "for non NJ returns" do
+            it "does not add XML elements for PaidPreparerInformationGrp" do
+              expect(doc.at("PaidPreparerInformationGrp")).not_to be_present 
+              expect(doc.at("PaidPreparerInformationGrp PTIN")).not_to be_present 
+              expect(doc.at("PaidPreparerInformationGrp PreparerPersonNm")).not_to be_present 
+            end
+          end
         end
       end
 

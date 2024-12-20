@@ -12,9 +12,11 @@ module SubmissionBuilder
           xml.TaxPeriodEndDt date_type(Date.new(@submission.data_source.tax_return_year, 12, 31))
         end
         xml.TaxYr @submission.data_source.tax_return_year
-        xml.PaidPreparerInformationGrp do
-          xml.PTIN "P99999999"
-          xml.PreparerPersonNm "Self Prepared"
+        if @submission.data_source.state_code.upcase == "NJ"
+          xml.PaidPreparerInformationGrp do 
+            xml.PTIN "P99999999"
+            xml.PreparerPersonNm "Self Prepared"
+          end
         end
         xml.DisasterReliefTxt @intake.disaster_relief_county if @intake.respond_to?(:disaster_relief_county)
         xml.OriginatorGrp do
