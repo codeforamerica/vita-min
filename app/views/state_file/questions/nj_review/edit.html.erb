@@ -185,7 +185,7 @@
   <div class="reveal">
     <h2 class="text--body text--bold spacing-below-5"><button href="#" class="reveal__button"><%= t(".reveal.header") %></button></h2>
     <div class="reveal__content">
-      <% @detailed_return_info.each do |section| %>
+      <% @detailed_return_info.each.with_index do |section, i| %>
         <div>
           <% section.each do |line| %>
             <div class="spacing-below-15">
@@ -194,7 +194,9 @@
             </div>
           <% end %>
         </div>
-        <hr role="presentation" />
+        <% if (i + 1) < @detailed_return_info.length  %>
+          <hr role="presentation"/>
+        <% end %>
       <% end %>
     </div>
   </div>
