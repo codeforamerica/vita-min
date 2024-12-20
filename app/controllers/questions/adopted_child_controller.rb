@@ -2,9 +2,7 @@ module Questions
   class AdoptedChildController < QuestionsController
     include AuthenticatedClientConcern
 
-    def self.show?(intake)
-      intake.had_dependents_yes?
-    end
+    def self.show?(intake) = false
 
     layout "yes_no_question"
   end
