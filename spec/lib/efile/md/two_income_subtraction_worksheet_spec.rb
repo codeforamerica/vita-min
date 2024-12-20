@@ -106,7 +106,7 @@ describe Efile::Md::TwoIncomeSubtractionWorksheet do
       end
     end
 
-    context "primary and spouse have all four kinds of income" do
+    context "primary and spouse each have all the income forms used to calculate the federal income amount" do
       let(:intake) { create(:state_file_md_intake, :df_data_many_w2s) }
       let(:primary_ssn) { intake.primary.ssn }
       let(:spouse_ssn) { intake.spouse.ssn }
@@ -114,12 +114,13 @@ describe Efile::Md::TwoIncomeSubtractionWorksheet do
       let!(:spouse_state_file1099_r) { create(:state_file1099_r, intake: intake, recipient_ssn: spouse_ssn, taxable_amount: 20) }
 
       before do
-        # only populating minimum data required for this test
+        # only populating the minimum interestReport data required for this test
         intake.raw_direct_file_intake_data["interestReports"] = [{}, {}]
         intake.direct_file_json_data.interest_reports[0].recipient_tin = primary_ssn
         intake.direct_file_json_data.interest_reports[1].recipient_tin = spouse_ssn
         intake.direct_file_json_data.interest_reports[0].amount_1099 = "1.00"
         intake.direct_file_json_data.interest_reports[1].amount_no_1099 = "2.00"
+        # only populating the minimum form1099G data required for this test
         intake.raw_direct_file_intake_data["form1099Gs"] = [{}, {}]
         intake.direct_file_json_data.form_1099gs[0].recipient_tin = primary_ssn
         intake.direct_file_json_data.form_1099gs[1].recipient_tin = spouse_ssn
