@@ -9,6 +9,11 @@ RSpec.describe StateFile::Questions::MdReviewController do
   describe "#edit" do
     render_views
 
+    before do
+      allow(Flipper).to receive(:enabled?).and_call_original
+      allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
+    end
+
     it "renders" do
       get :edit
       expect(response).to be_successful
@@ -20,7 +25,7 @@ RSpec.describe StateFile::Questions::MdReviewController do
       intake.direct_file_data.fed_taxable_income = 3_000
       intake.calculator.lines[:MD502_DEDUCTION_METHOD].instance_variable_set(:@value, "S")
       allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_3).and_return(3_333)
-      intake.direct_file_data.total_qualifying_dependent_care_expenses = 82
+      intake.direct_file_data.total_qualifying_dependent_care_expenses_or_limit_amt = 82
       allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_10a).and_return(123)
       intake.direct_file_data.fed_taxable_ssb = 61
       allow_any_instance_of(Efile::Md::Md502SuCalculator).to receive(:calculate_line_u).and_return(85)

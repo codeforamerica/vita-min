@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>aaa4cc34</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>300000013</PrimarySSN>
+            <NameLine1Txt>WHITNEY&lt;HOUSTON</NameLine1Txt>
+            <PrimaryNameControlTxt>HOUS</PrimaryNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>1 Sing Street</AddressLine1Txt>
+                <CityNm>Hackensack</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07123</ZIPCd>
+            </USAddress>
+            <PhoneNum>2015550987</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+30000001-313f-45d9-9635-55452f8dd074@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="2">
+        <IRS1040 documentId="IRS10400001">
+            <IndividualReturnFilingStatusCd>1</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>1</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">9000</WagesAmt>
+            <WagesSalariesAndTipsAmt>9000</WagesSalariesAndTipsAmt>
+            <TotalIncomeAmt>9000</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>9000</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>14600</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>14600</TotalDeductionsAmt>
+            <TaxableIncomeAmt>0</TaxableIncomeAmt>
+            <TaxAmt>0</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>0</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>0</TaxLessCreditsAmt>
+            <TotalTaxAmt>0</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>200</FormW2WithheldTaxAmt>
+            <WithholdingTaxAmt>200</WithholdingTaxAmt>
+            <TotalPaymentsAmt>200</TotalPaymentsAmt>
+            <OverpaidAmt>200</OverpaidAmt>
+            <RefundAmt>200</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Singer</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>300000013</EmployeeSSN>
+            <EmployerEIN>001414141</EmployerEIN>
+            <EmployerNameControlTxt>MUSI</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Music Inc</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>1 Music Avenue</AddressLine1Txt>
+                <CityNm>Philadelphia</CityNm>
+                <StateAbbreviationCd>PA</StateAbbreviationCd>
+                <ZIPCd>14141</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Whitney Houston</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>1 Sing Street</AddressLine1Txt>
+                <CityNm>Hackensack</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07123</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>9000</WagesAmt>
+            <WithholdingAmt>200</WithholdingAmt>
+            <SocialSecurityWagesAmt>9000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>100</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>9000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>50</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                    <EmployerStateIdNum>1414141NJ</EmployerStateIdNum>
+                    <StateWagesAmt>9000</StateWagesAmt>
+                    <StateIncomeTaxAmt>200</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>

@@ -41,7 +41,7 @@ describe Efile::Nc::D400Calculator do
     ].each do |filing_statuses, agis_to_deductions|
       filing_statuses.each do |filing_status|
         context "#{filing_status}" do
-          let(:intake) { create(:state_file_nc_intake, filing_status: filing_status, raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml("nc_shiloh_hoh")) }
+          let(:intake) { create(:state_file_nc_intake, filing_status: filing_status, raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml("nc_nala_hoh")) }
           let(:calculator_instance) { described_class.new(year: MultiTenantService.statefile.current_tax_year, intake: intake) }
 
           agis_to_deductions.each do |fagi, deduction_amt_for_two_children|
@@ -359,14 +359,14 @@ describe Efile::Nc::D400Calculator do
 
   describe "#calculate_gov_payments" do
     context "single filer" do
-      let(:intake) { create(:state_file_nc_intake, :single) }
+      let(:intake) { create(:state_file_nc_intake, filing_status: "single") }
       let!(:w2) { create(:state_file_w2, state_file_intake: intake, state_income_tax_amount: 100) }
 
       let!(:state_file_1099g) { create(:state_file1099_g, intake: intake, unemployment_compensation_amount: 50) }
       let!(:second_state_file_1099g) { create(:state_file1099_g, intake: intake, unemployment_compensation_amount: 25) }
 
       it "accumulates the state income tax withheld from filer 1099Gs" do
-        expect(instance.calculate_gov_payments).to eq(75) # 50 + 25
+        expect(instance.calculate_gov_payments).to eq(50 + 25)
       end
     end
 

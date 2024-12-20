@@ -599,7 +599,12 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t("state_file.questions.md_had_health_insurance.edit.title")
-      choose I18n.t("general.negative")
+      choose I18n.t("general.affirmative")
+      check "Zeus L Thunder"
+      within "#answer-no-health-insurance" do
+        choose I18n.t("general.affirmative")
+      end
+
       click_on I18n.t("general.continue")
 
       expect(strip_html_tags(page.body)).to have_text strip_html_tags(I18n.t("state_file.questions.tax_refund.edit.title_html", state_name: "Maryland", refund_amount: 1000))

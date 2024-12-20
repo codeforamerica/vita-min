@@ -79,7 +79,7 @@ RSpec.describe PdfFiller::NcD400Pdf do
         end
 
         context "CTC & cascading fields" do
-          let(:intake) { create(:state_file_nc_intake, filing_status: "single", raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml("nc_shiloh_hoh")) }
+          let(:intake) { create(:state_file_nc_intake, :head_of_household) }
           let(:child_deduction) { 2000 }
           let(:nc_agi_addition) { 8000 }
           let(:nc_agi_subtraction) { 7000 }
@@ -174,7 +174,7 @@ RSpec.describe PdfFiller::NcD400Pdf do
       context "qw filer" do
         let(:intake) { create(:state_file_nc_intake, :with_spouse, filing_status: "qualifying_widow") }
         before do
-          submission.data_source.direct_file_data.spouse_date_of_death = "2024-06-07"
+          submission.data_source.spouse_death_year = 2024
         end
 
         it "sets fields specific to filing status" do

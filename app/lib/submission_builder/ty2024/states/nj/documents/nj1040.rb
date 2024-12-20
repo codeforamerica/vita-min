@@ -91,6 +91,9 @@ module SubmissionBuilder
                     xml.TotalExemptionAmountA calculated_fields.fetch(:NJ1040_LINE_13)
                   end
 
+                  xml.NjResidentStatusFromDate "#{MultiTenantService.new(:statefile).current_tax_year}-01-01"
+                  xml.NjResidentStatusToDate "#{MultiTenantService.new(:statefile).current_tax_year}-12-31"
+
                   unless intake.dependents.empty?
                     intake.dependents[0..9].each do |dependent|
                       xml.Dependents do
@@ -102,6 +105,7 @@ module SubmissionBuilder
                         end
                         xml.DependentsSSN dependent.ssn
                         xml.BirthYear dependent.dob.year
+                        xml.NoHealthInsurance 'X' if dependent.nj_did_not_have_health_insurance_yes?
                       end
                     end
                   end

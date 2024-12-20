@@ -2119,6 +2119,7 @@ en:
       nc_tax_withheld: North Carolina tax withheld
       nc_taxable_income: North Carolina taxable income
       nc_use_tax: North Carolina use tax
+      register_to_vote: Register to vote.
       see_detailed_return: See detailed return information
       standard_deduction: Standard deduction
       title: Free state tax filing | FileYourStateTaxes
@@ -3017,6 +3018,11 @@ en:
           encourage_sharing: While providing this information is encouraged, it is optional and not required to file your North Carolina taxes.
           protect_identity: To protect your identity and combat tax fraud, many state revenue agencies are requesting that filers provide their driver’s license or state-issued ID number.
           why_ask_this: Why are you asking for this information?
+      nc_qss_info:
+        edit:
+          question: What was the year of your spouse’s passing?
+          subtitle: In order to continue, we need to confirm additional information about your deceased spouse.
+          title: It looks like your filing status is Qualifying Surviving Spouse
       nc_review:
         edit:
           amount: Amount
@@ -3154,9 +3160,13 @@ en:
           title: You may be eligible for the Earned Income Tax Credit
       nj_eligibility_health_insurance:
         edit:
-          helper_description_html: "<p>Most people who have health insurance have minimum essential coverage. “Minimal essential coverage” just refers to how much your plan covers. If you have any of the following, you most likely have it:</p>\n<ul>\n  <li>A plan through your employer</li>\n  <li>A plan bought through <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://nj.gov/getcoverednj/\">GetCoveredNJ</a></li>\n  <li>Medicare</li> \n  <li>Medicaid (NJ FamilyCare)</li>\n</ul>\n<p><a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml\">Here is the full list of insurance options that have minimum essential coverage.</a><p> \n<p>If you only had standalone vision and dental plans, workers' compensation coverage, and/or coverage limited to a specified disease or illness, you didn't have minimum essential coverage. In New Jersey, as of 2018, you need minimum essential coverage, or you will likely pay additional taxes.</p>\n"
-          helper_heading: What is health insurance with minimum essential coverage?
+          coverage_description_html: "<p>Most people who have health insurance have minimum essential coverage. “Minimal essential coverage” just refers to how much your plan covers. If you have any of the following, you most likely have it:</p>\n<ul>\n  <li>A plan through your employer</li>\n  <li>A plan bought through <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://nj.gov/getcoverednj/\">GetCoveredNJ</a></li>\n  <li>Medicare</li> \n  <li>Medicaid (NJ FamilyCare)</li>\n</ul>\n<p><a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml\">Here is the full list of insurance options that have minimum essential coverage.</a><p> \n<p>If you only had standalone vision and dental plans, workers' compensation coverage, and/or coverage limited to a specified disease or illness, you didn't have minimum essential coverage. In New Jersey, as of 2018, you need minimum essential coverage, or you will likely pay additional taxes.</p>\n"
+          coverage_heading: What is health insurance with minimum essential coverage?
+          dependent_label: "%{name}"
           label: Did you and all members of your tax household have health insurance (with minimum essential coverage) for every month in %{filing_year}?
+          label_follow_up: Which dependents were missing health insurance?
+          tax_household_description_html: A tax household includes you, your spouse (if filing a joint return), domestic partner claimed on your return, and any individuals you claim as dependents on your NJ-1040. It also includes any individuals you can, but do not, claim as dependents on your return.
+          tax_household_heading: What is considered a tax household?
           title: Let’s get started.
       nj_estimated_tax_payments:
         edit:
@@ -3499,31 +3509,56 @@ en:
           title_html: Please review your retirement income (1099-R) details for <strong>%{payer_name}</strong>.
       return_status:
         accepted:
-          check_payable: Make your check or money order payable to %{payable_to}. Write your full SSN or ITIN, “%{filing_year} Tax”, and "Form %{form_number}" on your payment.
-          direct_debit_html: If you have a remaining tax balance, remember to <strong>pay your taxes online at <a target="_blank" rel="noopener nofollow" href="https://%{tax_payment_url}">%{tax_payment_url}</a></strong> or by mail before the April 15 filing deadline.
-          download_title: Download a copy of your %{year} %{state_name} state tax return until December 31, %{year}
+          check_payable_html: |
+            <li>
+              Make your check or money order payable to %{payable_to}. Write your full SSN or ITIN, “%{filing_year} Tax”, and "Form %{form_number}" on your payment.
+            </li>
+          direct_debit_html: If you have a remaining tax balance, remember to <strong>pay it online at <a target="_blank" rel="noopener nofollow" href="%{tax_payment_url}">%{tax_payment_url}</a></strong> or by mail before the April 15 filing deadline.
           download_voucher: Download payment voucher form
           feedback: We value your feedback—let us know what you think of this service.
           include_payment: You'll need to include the payment voucher form.
           mail_voucher_and_payment: 'Mail the voucher form and payment to:'
+          md:
+            refund_details_html: |
+              You can check the status of your refund by visiting <a target="_blank" rel="noopener nofollow" href="https://marylandtaxes.gov">www.marylandtaxes.gov</a> and clicking on "Where's my refund?" You can also call the automated refund inquiry hotline at 1-800-218-8160 (toll-free) or 410-260-7701.
+              <br/><br/>
+              Please wait at least 10 days after your return is accepted before calling the Taxpayer Services Division at 1-800-638-2937 (toll-free) or 410-260-7980.
+          nc:
+            check_payable_html: |
+              <li>Make your check or money order payable to %{payable_to}</li>
+              <li>
+                Write “2024 D-400” and your name, address, and the last 4 digits of your Social Security number on your payment.
+                <ul class="list--bulleted">
+                  <li>
+                    If you are filing a joint return, write the last 4 digits of both Social Security numbers on your payment in the order that they appear on the return.
+                  </li>
+                </ul>
+              </li>
+            refund_details_html: |
+              For the latest information on refund processing and to check your refund status, visit <a target="_blank" rel="noopener nofollow" href="www.ncdor.gov/file-pay/refund-process">www.ncdor.gov/file-pay/refund-process</a>.
+              <br/><br/>
+              You'll need to enter your Social Security Number and the exact refund amount.
+              <br/><br/>
+              You can also call the North Carolina Department of Revenue's toll-free refund inquiry line at 1-877-252-4052, available 24/7.
           pay_by_mail_or_moneyorder: 'If you are paying by mail via check or money order:'
-          refund_details_html: 'Typical refund time frames are 7-8 weeks for e-Filed returns and 10-11 weeks for paper returns. There are some exceptions. For more information, please visit %{website_name} website: <a target="_blank" rel="noopener nofollow" href="https://%{tax_refund_url}">Where’s my Refund?</a>'
-          register_to_vote: Register to vote.
+          refund_details_html: 'Typical refund time frames are 7-8 weeks for e-Filed returns and 10-11 weeks for paper returns. There are some exceptions. For more information, please visit %{website_name} website: <a target="_blank" rel="noopener nofollow" href="%{tax_refund_url}">Where’s my Refund?</a>'
           title: Your %{filing_year} %{state_name} state tax return is accepted
+        additional_content:
+          md_html: <a target="_blank" rel="noopener nofollow" href="https://www.donatelifemaryland.org/">Register to make an anatomical gift at DonateLifeMaryland.org.</a>
         edit:
           download_state_return_pdf: Download your state return
           explain_calcs: Explain Calculations
           show_xml: Show XML
+        intake_closed:
+          download_title: Download a copy of your %{filing_year} %{state_name} state tax return until December 31, %{year}
+          thank_you_html: Thank you for filing your return with <strong>FileYourStateTaxes</strong>, built in partnership with the state of %{state_name} to integrate with IRS Direct File.
         pending:
-          more_than_two_days: If it's been more than two days since you submitted your state taxes, contact our team of support specialists by clicking chat with us.
-          more_than_two_days_closed_html: If it's been more than two days since you submitted your state taxes, contact our team of support specialists by emailing us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>
-          receive_email: You'll receive an email update when your state tax return is accepted.
-          receive_email_sms: You'll receive an email or text update when your state tax return is accepted.
-          receive_sms: You'll receive an sms update when your state tax return is accepted.
-          title: You have submitted your %{filing_year} %{state_name} tax return! It is currently waiting to be accepted for processing.
+          check_spam: If it's been more than two days since you submitted your state taxes and you haven’t heard from us, check your spam folder.
+          title: You have submitted your %{filing_year} %{state_name} state tax return
+          waiting_for acceptance: Your state tax return is still waiting to be accepted.
         rejected:
           edit_return: Edit your state return
-          email_us_html: Email us at <strong>help@fileyourstatetaxes.org</strong>
+          email_us_html: Email us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>
           have_questions: Have questions?
           next_steps:
             can_edit:
@@ -3535,7 +3570,6 @@ en:
           reject_code: 'Reject Code:'
           reject_desc: 'Reject Description:'
           title: Unfortunately, your %{filing_year} %{state_name} state tax return was rejected
-        thank_you_html: Thank you for filing your return with <strong>FileYourStateTaxes</strong>, built in partnership with the state of %{state_name} to integrate with IRS Direct File.
       review:
         county: County where your permanent address was located on December 31, %{filing_year}
         county_during_hurricane: County where your permanent address was located during Hurricane Helene
@@ -3578,10 +3612,9 @@ en:
       submission_confirmation:
         edit:
           download_state_return_pdf: Download your state return
-          email_text_update: You’ll receive an email or text update when your state return is accepted.
+          email_text_update: You'll receive an email or text update when your state tax return is accepted.
           email_update: You'll receive an email update when your state tax return is accepted.
-          ny_notifications_signup_html: <a target="_blank" rel="noopener nofollow" href="https://tax.ny.gov/">Sign up with the NYS Tax Department</a> to receive email notifications about your personal tax account.
-          register_to_vote: Register to vote.
+          text_update: You'll receive an sms update when your state tax return is accepted.
           title: Your %{filing_year} %{state_name} state tax return is now submitted!
           title_resubmit: Your %{filing_year} %{state_name} state tax return is now resubmitted!
       tax_refund:

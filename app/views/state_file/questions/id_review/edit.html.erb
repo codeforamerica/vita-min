@@ -96,10 +96,12 @@
         <p><%= number_to_currency(current_intake.calculator.line_or_zero(:ID39R_B_LINE_7)) %></p>
       </div>
 
-      <div class="spacing-below-25">
-        <p class="text--bold spacing-below-5"><%= t("state_file.general.id_retirement_benefits") %></p>
-        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:ID39R_B_LINE_8f)) %></p>
-      </div>
+      <% if Flipper.enabled?(:show_retirement_ui) %>
+        <div class="spacing-below-25">
+          <p class="text--bold spacing-below-5"><%= t("state_file.general.id_retirement_benefits") %></p>
+          <p><%= number_to_currency(current_intake.calculator.line_or_zero(:ID39R_B_LINE_8f)) %></p>
+        </div>
+      <% end %>
 
       <div class="spacing-below-25">
         <p class="text--bold spacing-below-5"><%= t("state_file.general.id_interest_income") %></p>

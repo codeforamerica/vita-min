@@ -22,7 +22,8 @@ describe SubmissionBuilder::ReturnHeader do
           intake.direct_file_data.mailing_zip = mailing_zip
           intake.direct_file_data.tax_return_year = tax_return_year
           allow(EnvironmentCredentials).to receive(:irs).with(:efin).and_return efin
-          allow(EnvironmentCredentials).to receive(:irs).with(:sin).and_return sin
+          software_id = StateFile::StateInformationService.software_id_key(state_code).to_sym
+          allow(EnvironmentCredentials).to receive(:irs).with(software_id).and_return sin
         end
 
         it "generates xml with the right values" do
@@ -217,6 +218,38 @@ describe SubmissionBuilder::ReturnHeader do
       it "does not show tax period information" do
         expect(doc.at("TaxPeriodBeginDt")).to be_nil
         expect(doc.at("TaxPeriodEndDt")).to be_nil
+      end
+    end
+  end
+
+  context "city field character limit" do
+    let(:mailing_city) { "This is a Very Long City Name" }
+
+    before do
+      intake.direct_file_data.mailing_city = mailing_city
+    end
+
+    StateFile::StateInformationService.active_state_codes.without("md").each do |state_code|
+      context "if state is not MD" do
+        let(:intake) { create "state_file_#{state_code}_intake".to_sym }
+        let(:submission) { create(:efile_submission, data_source: intake) }
+        let(:doc) { SubmissionBuilder::ReturnHeader.new(submission).document }
+
+        it "truncates city name to 22 characters" do
+          expect(doc.at("USAddress CityNm").text.length).to be 22
+          expect(doc.at("USAddress CityNm").text).to eq('This is a Very Long Ci')
+        end
+      end
+    end
+
+    context "if state is MD" do
+      let(:intake) { create :state_file_md_intake }
+      let(:submission) { create(:efile_submission, data_source: intake) }
+      let(:doc) { SubmissionBuilder::ReturnHeader.new(submission).document }
+
+      it "truncates city name to 20 characters" do
+        expect(doc.at("USAddress CityNm").text.length).to be 19
+        expect(doc.at("USAddress CityNm").text).to eq('This is a Very Long')
       end
     end
   end

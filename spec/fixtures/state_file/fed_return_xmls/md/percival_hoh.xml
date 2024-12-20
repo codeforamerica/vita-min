@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>c77867c9</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400003030</PrimarySSN>
+            <NameLine1Txt>PERCIVAL&lt;PIKE</NameLine1Txt>
+            <PrimaryNameControlTxt>PIKE</PrimaryNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>1388 PROGRESS WAY</AddressLine1Txt>
+                <CityNm>ELDERSBURG</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21784</ZIPCd>
+            </USAddress>
+            <PhoneNum>2223331111</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000303-0624-45b1-8822-ed85fc91e3c6@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="5">
+        <IRS1040 documentId="IRS10400001">
+            <IndividualReturnFilingStatusCd>4</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <DependentDetail>
+                <DependentFirstNm>PIPER</DependentFirstNm>
+                <DependentLastNm>PIKE</DependentLastNm>
+                <DependentNameControlTxt>PIKE</DependentNameControlTxt>
+                <DependentSSN>600002011</DependentSSN>
+                <DependentRelationshipCd>PARENT</DependentRelationshipCd>
+            </DependentDetail>
+            <DependentDetail>
+                <DependentFirstNm>PETE</DependentFirstNm>
+                <DependentLastNm>PIKE</DependentLastNm>
+                <DependentNameControlTxt>PIKE</DependentNameControlTxt>
+                <DependentSSN>600002012</DependentSSN>
+                <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+            </DependentDetail>
+            <DependentDetail>
+                <DependentFirstNm>PICKLE</DependentFirstNm>
+                <DependentLastNm>PIKE</DependentLastNm>
+                <DependentNameControlTxt>PIKE</DependentNameControlTxt>
+                <DependentSSN>600002013</DependentSSN>
+                <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+            </DependentDetail>
+            <ChldWhoLivedWithYouCnt>2</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>1</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>4</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">22000</WagesAmt>
+            <WagesSalariesAndTipsAmt>22000</WagesSalariesAndTipsAmt>
+            <SocSecBnftAmt>110000</SocSecBnftAmt>
+            <TaxableSocSecAmt>41050</TaxableSocSecAmt>
+            <TotalIncomeAmt>63050</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>63050</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>21900</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>21900</TotalDeductionsAmt>
+            <TaxableIncomeAmt>41150</TaxableIncomeAmt>
+            <TaxAmt>4610</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>4610</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TotalNonrefundableCreditsAmt>1200</TotalNonrefundableCreditsAmt>
+            <TotalCreditsAmt>1200</TotalCreditsAmt>
+            <TaxLessCreditsAmt>3410</TaxLessCreditsAmt>
+            <TotalTaxAmt>3410</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>200</FormW2WithheldTaxAmt>
+            <Form1099WithheldTaxAmt referenceDocumentId="OTHERWITHHOLDING0001" referenceDocumentName="OtherWithholdingStatement">1000</Form1099WithheldTaxAmt>
+            <WithholdingTaxAmt>1200</WithholdingTaxAmt>
+            <TotalPaymentsAmt>1200</TotalPaymentsAmt>
+            <OwedAmt>2210</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>TEACHER</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1040Schedule3 documentId="IRS1040S3001">
+            <CreditForChildAndDepdCareAmt referenceDocumentId="IRS2441001" referenceDocumentName="IRS2441">1200</CreditForChildAndDepdCareAmt>
+            <TotalNonrefundableCreditsAmt>1200</TotalNonrefundableCreditsAmt>
+        </IRS1040Schedule3>
+        <IRS2441 documentId="IRS2441001" documentName="IRS2441">
+            <CareProviderGrp>
+                <CareProviderBusinessName>
+                    <BusinessNameLine1Txt>GUPPIES GUARDIANS</BusinessNameLine1Txt>
+                </CareProviderBusinessName>
+                <CareProviderBusNameControlTxt>GUPP</CareProviderBusNameControlTxt>
+                <USAddress>
+                    <AddressLine1Txt>8585 BIG POND</AddressLine1Txt>
+                    <CityNm>ELDERSBURG</CityNm>
+                    <StateAbbreviationCd>MD</StateAbbreviationCd>
+                    <ZIPCd>21784</ZIPCd>
+                </USAddress>
+                <EIN>271067272</EIN>
+                <HouseholdEmployeeInd>false</HouseholdEmployeeInd>
+                <PaidAmt>6000</PaidAmt>
+            </CareProviderGrp>
+            <QualifyingPersonGrp>
+                <QualifyingPersonName>
+                    <PersonFirstNm>PETE</PersonFirstNm>
+                    <PersonLastNm>PIKE</PersonLastNm>
+                </QualifyingPersonName>
+                <QualifyingPersonNameControlTxt>PIKE</QualifyingPersonNameControlTxt>
+                <QualifyingPersonSSN>600002012</QualifyingPersonSSN>
+                <QualifiedCareExpensesPaidAmt>3000</QualifiedCareExpensesPaidAmt>
+            </QualifyingPersonGrp>
+            <QualifyingPersonGrp>
+                <QualifyingPersonName>
+                    <PersonFirstNm>PICKLE</PersonFirstNm>
+                    <PersonLastNm>PIKE</PersonLastNm>
+                </QualifyingPersonName>
+                <QualifyingPersonNameControlTxt>PIKE</QualifyingPersonNameControlTxt>
+                <QualifyingPersonSSN>600002013</QualifyingPersonSSN>
+                <QualifiedCareExpensesPaidAmt>3000</QualifiedCareExpensesPaidAmt>
+            </QualifyingPersonGrp>
+            <TotalQlfdExpensesOrLimitAmt>6000</TotalQlfdExpensesOrLimitAmt>
+            <PrimaryEarnedIncomeAmt>22000</PrimaryEarnedIncomeAmt>
+            <SpouseEarnedIncomeAmt>22000</SpouseEarnedIncomeAmt>
+            <SmallerOfExpensesOrIncomeAmt>6000</SmallerOfExpensesOrIncomeAmt>
+            <AdjustedGrossIncomeAmt>63050</AdjustedGrossIncomeAmt>
+            <CareExpensesDecimalAmt>0.20</CareExpensesDecimalAmt>
+            <CalculatedTentativeExpenseAmt>1200</CalculatedTentativeExpenseAmt>
+            <TotalEligCDCCAmt>1200</TotalEligCDCCAmt>
+            <TaxLiabLmtFromCrLmtWrkshtAmt>4610</TaxLiabLmtFromCrLmtWrkshtAmt>
+            <CreditForChildAndDepdCareAmt>1200</CreditForChildAndDepdCareAmt>
+        </IRS2441>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>400003030</EmployeeSSN>
+            <EmployerEIN>271067272</EmployerEIN>
+            <EmployerNameControlTxt>SCHO</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>SCHOOL FOR SCHOOLS</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>8585 LITTLE POND</AddressLine1Txt>
+                <CityNm>ELDERSBURG</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21784</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>PERCIVAL PIKE</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>1388 PROGRESS WAY</AddressLine1Txt>
+                <CityNm>ELDERSBURG</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21784</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>22000</WagesAmt>
+            <WithholdingAmt>200</WithholdingAmt>
+            <SocialSecurityWagesAmt>22000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>1364</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>22000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>330</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>MD</StateAbbreviationCd>
+                    <EmployerStateIdNum>123456</EmployerStateIdNum>
+                    <StateWagesAmt>22000</StateWagesAmt>
+                    <StateIncomeTaxAmt>100</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+        <OtherWithholdingStatement documentId="OTHERWITHHOLDING0001" documentName="OtherWithholdingStatement">
+            <OtherWithholdingStmt>
+                <WithholdingCd>FORM 1099</WithholdingCd>
+                <WithholdingAmt>1000</WithholdingAmt>
+            </OtherWithholdingStmt>
+        </OtherWithholdingStatement>
+    </ReturnData>
+</Return>

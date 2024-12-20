@@ -1,0 +1,25 @@
+{
+  "familyAndHousehold": [],
+  "filers": [
+    {
+      "firstName": "Ray",
+      "lastName": "Stingray",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "400-00-3036",
+      "dateOfBirth": "1950-07-01",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [
+    {
+      "usedTin": "400-00-3036",
+      "unionDuesAmount": null
+    }
+  ],
+  "interestReports": []
+}
