@@ -156,6 +156,8 @@ module SubmissionBuilder
                       xml.Tenant "X"
                     elsif intake.household_rent_own_own?
                       xml.Homeowner "X"
+                    elsif intake.household_rent_own_both?
+                      xml.Both "X"
                     end
 
                     if calculated_fields.fetch(:NJ1040_LINE_41)
