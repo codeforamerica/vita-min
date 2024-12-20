@@ -69,13 +69,11 @@ module SubmissionBuilder
     def get_return_state_attributes(tag_name)
       return_state_attributes = { 'xmlns' => 'http://www.irs.gov/efile' }
       intake_class = self.submission.data_source_type
-      if intake_class == 'StateFileNyIntake' && !%w[ReturnState efile:ReturnState StateSubmissionManifest].include?(tag_name)
+      if ['StateFileNyIntake', 'StateFileNjIntake'].include?(intake_class) && !%w[ReturnState efile:ReturnState StateSubmissionManifest].include?(tag_name)
         # This method is requirement from NY to remove the namespace attribute from
         # any tag unrelated to the root XML tag. StateSubmissionManifest seems to
         # need it also in order for the XML to be valid.
         return false
-      elsif intake_class == 'StateFileNjIntake' && (Rails.env.production? || Rails.env.demo?)
-        return { 'xmlns' => '' }
       end
       return_state_attributes
     end
@@ -124,11 +122,11 @@ module SubmissionBuilder
         truncated_mailing_street = mailing_street[0...key_position].rstrip
         excess_characters = mailing_street[key_position..].lstrip
 
-        xml.AddressLine1Txt sanitize_for_xml(truncated_mailing_street, 35)
+        xml.AddressLine1Txt sanitize_for_xml(truncated_mailing_street, 30)
         if @submission.data_source.direct_file_data.mailing_apartment.present?
           apartment = sanitize_for_xml(@submission.data_source.direct_file_data.mailing_apartment)
-          if apartment.length + excess_characters.length > 35
-            truncated_apartment = apartment[0, 35 - excess_characters.length].rpartition(' ').first
+          if apartment.length + excess_characters.length > 30
+            truncated_apartment = apartment[0, 30 - excess_characters.length].rpartition(' ').first
             xml.AddressLine2Txt "#{excess_characters} #{truncated_apartment}"
           else
             xml.AddressLine2Txt "#{excess_characters} #{apartment}"
@@ -137,8 +135,8 @@ module SubmissionBuilder
           xml.AddressLine2Txt excess_characters
         end
       else
-        xml.AddressLine1Txt sanitize_for_xml(mailing_street, 35)
-        xml.AddressLine2Txt sanitize_for_xml(@submission.data_source.direct_file_data.mailing_apartment, 35) if @submission.data_source.direct_file_data.mailing_apartment.present?
+        xml.AddressLine1Txt sanitize_for_xml(mailing_street, 30)
+        xml.AddressLine2Txt sanitize_for_xml(@submission.data_source.direct_file_data.mailing_apartment, 30) if @submission.data_source.direct_file_data.mailing_apartment.present?
       end
     end
 

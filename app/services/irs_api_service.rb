@@ -71,7 +71,7 @@ class IrsApiService
     end
 
     if response.body.nil?
-      raise StandardError, "DF export-return API response Error: response.body is nil. header=#{response.header}"
+      raise StandardError, "DF export-return API response Error: response.body is nil. status=#{response.code}; header=#{response.header}"
     end
 
     undecrypted_body_json = JSON.parse(response.body)
@@ -80,7 +80,7 @@ class IrsApiService
     end
 
     unless response.header['SESSION-KEY']
-      Rails.logger.error("Could not find SESSION-KEY in response header, bailing out. header=#{response.header}; body=#{response.body}")
+      Rails.logger.error("Could not find SESSION-KEY in response header, bailing out. status=#{response.code}; header=#{response.header}; body=#{response.body}")
       return
     end
 

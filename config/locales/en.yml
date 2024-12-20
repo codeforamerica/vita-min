@@ -2582,7 +2582,7 @@ en:
               </li>
             </ul>
             <p>
-              Find a more detailed breakdown of unsupported credits and subtractions this year here.
+              Find a more detailed breakdown of unsupported credits and subtractions this year <a href="https://www.fileyourstatetaxes.org/en/md/faq/md_not_supported_credits_and_subtractions" rel="noopener nofollow" target="_blank">here</a>.
             </p>
           body2_html: |
             <p>
@@ -2603,15 +2603,15 @@ en:
                   Filing your state return for free with IRS-certified VITA volunteers in Maryland, but it may take 2-3 weeks to complete.
                   <ul>
                     <li>
-                      Get started with VITA now
+                      <a href="https://airtable.com/appAgBw351Iig0YI4/pagVvtGPWrpURJrrd/form" rel="noopener nofollow" target="_blank">Get started with VITA now</a>
                     </li>
                     <li>
-                      Learn more about this process and other filing options here.
+                      Learn more about this process and other filing options <a href="https://www.fileyourstatetaxes.org/en/md/faq/what_are_my_other_state_filing_options_this_year_46" rel="noopener nofollow" target="_blank">here</a>.
                     </li>
                   </ul>
                 </li>
                 <li>
-                  Get started with the Comptroller of Maryland's Free Income Tax Preparation service.
+                  Get started with the Comptroller of Maryland's <a href="https://www.marylandtaxes.gov/individual/tax-assistance/free-tax-prep.php" rel="noopener nofollow" target="_blank">Free Income Tax Preparation</a>service.
                 </li>
               </ul>
             </p>
@@ -3019,6 +3019,11 @@ en:
           encourage_sharing: While providing this information is encouraged, it is optional and not required to file your North Carolina taxes.
           protect_identity: To protect your identity and combat tax fraud, many state revenue agencies are requesting that filers provide their driver’s license or state-issued ID number.
           why_ask_this: Why are you asking for this information?
+      nc_qss_info:
+        edit:
+          question: What was the year of your spouse’s passing?
+          subtitle: In order to continue, we need to confirm additional information about your deceased spouse.
+          title: It looks like your filing status is Qualifying Surviving Spouse
       nc_review:
         edit:
           amount: Amount
