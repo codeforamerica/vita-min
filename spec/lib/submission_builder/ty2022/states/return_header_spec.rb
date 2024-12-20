@@ -39,6 +39,8 @@ describe SubmissionBuilder::ReturnHeader do
           expect(doc.at("USAddress CityNm").text).to eq mailing_city
           expect(doc.at("USAddress StateAbbreviationCd").text).to eq state_code.upcase
           expect(doc.at("USAddress ZIPCd").text).to eq mailing_zip
+          expect(doc.at("PaidPreparerInformationGrp PTIN").text).to eq "P99999999"
+          expect(doc.at("PaidPreparerInformationGrp PreparerPersonNm").text).to eq "Self Prepared"
         end
       end
 
