@@ -62,18 +62,18 @@ RSpec.describe PdfFiller::Md502bPdf do
 
     context "pulling fields from xml" do
       it "sets fields to the correct values" do
-        expect(pdf_fields["Your first name"]).to eq "Janet"
-        expect(pdf_fields["Initial"]).to eq "G"
-        expect(pdf_fields["yOUR Last name"]).to eq "Jormp"
-        expect(pdf_fields["social security 1"]).to eq "345678901"
-        expect(pdf_fields["Spouses first name"]).to eq "Jane"
-        expect(pdf_fields["Initial_2"]).to eq "M"
-        expect(pdf_fields["SPOUSE Last name_2"]).to eq "Jomp"
-        expect(pdf_fields["Spouse social security 1"]).to eq "987654321"
+        expect(pdf_fields["Your First Name"]).to eq "Janet"
+        expect(pdf_fields["Primary MI"]).to eq "G"
+        expect(pdf_fields["Your Last Name"]).to eq "Jormp"
+        expect(pdf_fields["Your Social Security Number"]).to eq "345678901"
+        expect(pdf_fields["Spouses First Name"]).to eq "Jane"
+        expect(pdf_fields["Spouse MI"]).to eq "M"
+        expect(pdf_fields["Spouses Last Name"]).to eq "Jomp"
+        expect(pdf_fields["Spouses Social Security Number"]).to eq "987654321"
 
-        expect(pdf_fields["No. regular dependents"]).to eq "2"
-        expect(pdf_fields["No. 65orOver dependents"]).to eq "1"
-        expect(pdf_fields["No. total dependents"]).to eq "3"
+        expect(pdf_fields["1"]).to eq "2" # regular dependents
+        expect(pdf_fields["2"]).to eq "1" # dependents over 65
+        expect(pdf_fields["3"]).to eq "3" # total dependents
 
         expect(pdf_fields["First Name 1"]).to eq "Janiss"
         expect(pdf_fields["MI 1"]).to eq "J"
