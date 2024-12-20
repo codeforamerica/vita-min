@@ -351,7 +351,7 @@ RSpec.describe PdfFiller::Md502Pdf do
         let(:state_adjusted_gross_income) { 150 }
         it "outputs the total subtractions" do
           allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_16).and_return state_adjusted_gross_income
-          expect(pdf_fields["Maryland adjusted gross income Subtract line 15 from line 7                       16"].to_i).to eq state_adjusted_gross_income
+          expect(pdf_fields["16"].to_i).to eq state_adjusted_gross_income
         end
       end
     end

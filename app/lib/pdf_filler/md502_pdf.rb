@@ -94,7 +94,7 @@ module PdfFiller
         '6_2': @xml_document.at('Form502 Additions Total')&.text,
         '7': @xml_document.at('Form502 Additions FedAGIAndStateAdditions')&.text,
         '15': @xml_document.at('Form502 Subtractions Total')&.text,
-        'Maryland adjusted gross income Subtract line 15 from line 7                       16': @xml_document.at('Form502 Subtractions StateAdjustedGrossIncome')&.text,
+        '16': @xml_document.at('Form502 Subtractions StateAdjustedGrossIncome')&.text,
         '21': @xml_document.at('Form502 StateTaxComputation StateIncomeTax')&.text,
         '23': @xml_document.at('Form502 StateTaxComputation PovertyLevelCredit')&.text,
         '24': @xml_document.at('Form502 StateTaxComputation IndividualTaxCredits')&.text,
