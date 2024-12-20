@@ -48,7 +48,7 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
         if @intake.confirmed_permanent_address_yes?
           extract_apartment_from_mailing_street(xml)
           xml.CityNm sanitize_for_xml(@intake.direct_file_data.mailing_city, 20)
-          xml.StateAbbreviationCd @intake.direct_file_data.mailing_state&.upcase
+          xml.StateAbbreviationCd @intake.direct_file_data.mailing_state.upcase
           xml.ZIPCd @intake.direct_file_data.mailing_zip
         elsif @intake.confirmed_permanent_address_no?
           xml.AddressLine1Txt sanitize_for_xml(@intake.permanent_street, 30)
