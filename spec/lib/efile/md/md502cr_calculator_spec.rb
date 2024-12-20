@@ -28,6 +28,7 @@ describe Efile::Md::Md502crCalculator do
           context "when agi <= $150,000" do
             before do
               intake.direct_file_data.fed_agi = 150_000
+              allow(instance).to receive(:deduction_method_is_standard?).and_return(true)
               main_calculator.calculate
             end
 
