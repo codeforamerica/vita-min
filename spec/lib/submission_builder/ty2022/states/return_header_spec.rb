@@ -20,6 +20,7 @@ describe SubmissionBuilder::ReturnHeader do
           intake.direct_file_data.mailing_apartment = mailing_apartment
           intake.direct_file_data.mailing_city = mailing_city
           intake.direct_file_data.mailing_zip = mailing_zip
+          intake.direct_file_data.mailing_state = state_code
           intake.direct_file_data.tax_return_year = tax_return_year
           allow(EnvironmentCredentials).to receive(:irs).with(:efin).and_return efin
           software_id = StateFile::StateInformationService.software_id_key(state_code).to_sym
@@ -39,6 +40,16 @@ describe SubmissionBuilder::ReturnHeader do
           expect(doc.at("USAddress CityNm").text).to eq mailing_city
           expect(doc.at("USAddress StateAbbreviationCd").text).to eq state_code.upcase
           expect(doc.at("USAddress ZIPCd").text).to eq mailing_zip
+        end
+
+        context "with out-of-state mailing state" do
+          before do
+            intake.direct_file_data.mailing_state = "co"
+          end
+
+          it "should use the mailing state from DF" do
+            expect(doc.at("USAddress StateAbbreviationCd").text).to eq "CO"
+          end
         end
       end
 

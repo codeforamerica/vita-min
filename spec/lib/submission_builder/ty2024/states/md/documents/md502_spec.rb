@@ -71,6 +71,22 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
             expect(xml.at("MarylandAddress StateAbbreviationCd").text).to eq "MD"
             expect(xml.at("MarylandAddress ZIPCd").text).to eq "21401"
           end
+
+          context "when user had an out-of-state permanent address from DF" do
+            before do
+              intake.direct_file_data.mailing_city = "Denver"
+              intake.direct_file_data.mailing_state = "CO"
+              intake.direct_file_data.mailing_zip = "80212"
+            end
+
+            it "outputs their DF address as their physical address" do
+              expect(xml.at("MarylandAddress AddressLine1Txt").text).to eq "312 Poppy Street"
+              expect(xml.at("MarylandAddress AddressLine2Txt").text).to eq "Apt B"
+              expect(xml.at("MarylandAddress CityNm").text).to eq "Denver"
+              expect(xml.at("MarylandAddress StateAbbreviationCd").text).to eq "CO"
+              expect(xml.at("MarylandAddress ZIPCd").text).to eq "80212"
+            end
+          end
         end
 
         context "when the user has entered a different permanent address" do

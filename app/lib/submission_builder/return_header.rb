@@ -64,7 +64,7 @@ module SubmissionBuilder
             if @submission.data_source.direct_file_data.mailing_city.present?
               xml.CityNm sanitize_for_xml(@submission.data_source.direct_file_data.mailing_city, @submission.data_source.city_name_length_20? ? 20 : 22)
             end
-            xml.StateAbbreviationCd @submission.data_source.state_code.upcase
+            xml.StateAbbreviationCd @submission.data_source.direct_file_data.mailing_state.upcase
             xml.ZIPCd @submission.data_source.direct_file_data.mailing_zip if @submission.data_source.direct_file_data.mailing_zip.present?
           end
         end
