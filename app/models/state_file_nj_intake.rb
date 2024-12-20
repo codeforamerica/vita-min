@@ -5,6 +5,7 @@
 #  id                                                     :bigint           not null, primary key
 #  account_number                                         :string
 #  account_type                                           :integer          default("unfilled"), not null
+#  bank_name                                              :string
 #  claimed_as_dep                                         :integer
 #  claimed_as_eitc_qualifying_child                       :integer          default("unfilled"), not null
 #  consented_to_sms_terms                                 :integer          default("unfilled"), not null
@@ -15,6 +16,7 @@
 #  current_sign_in_ip                                     :inet
 #  current_step                                           :string
 #  date_electronic_withdrawal                             :date
+#  df_data_import_failed_at                               :datetime
 #  df_data_import_succeeded_at                            :datetime
 #  df_data_imported_at                                    :datetime
 #  eligibility_all_members_health_insurance               :integer          default("unfilled"), not null
@@ -60,7 +62,6 @@
 #  primary_last_name                                      :string
 #  primary_middle_initial                                 :string
 #  primary_signature                                      :string
-#  primary_signature_pin                                  :text
 #  primary_ssn                                            :string
 #  primary_suffix                                         :string
 #  primary_veteran                                        :integer          default("unfilled"), not null
@@ -84,7 +85,6 @@
 #  spouse_first_name                                      :string
 #  spouse_last_name                                       :string
 #  spouse_middle_initial                                  :string
-#  spouse_signature_pin                                   :text
 #  spouse_ssn                                             :string
 #  spouse_suffix                                          :string
 #  spouse_veteran                                         :integer          default("unfilled"), not null
@@ -113,6 +113,7 @@
 #  index_state_file_nj_intakes_on_spouse_state_id_id   (spouse_state_id_id)
 #
 class StateFileNjIntake < StateFileBaseIntake
+  self.ignored_columns = ["primary_signature_pin", "spouse_signature_pin"]
   encrypts :account_number, :routing_number, :raw_direct_file_data, :raw_direct_file_intake_data
 
   enum household_rent_own: { unfilled: 0, rent: 1, own: 2, neither: 3, both: 4 }, _prefix: :household_rent_own
@@ -202,7 +203,8 @@ class StateFileNjIntake < StateFileBaseIntake
   def validate_state_specific_w2_requirements(w2); end
 
   def ask_for_signature_pin?
-    true
+    false
   end
+
 end
 

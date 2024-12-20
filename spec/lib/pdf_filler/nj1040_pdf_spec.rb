@@ -279,6 +279,41 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       end
     end
 
+    describe "esign date" do
+      context 'filer is single' do
+        let(:submission) {
+          create :efile_submission, tax_return: nil, data_source: create(
+            :state_file_nj_intake,
+            primary_ssn: "123456789",
+            primary_esigned: "yes",
+            primary_esigned_at: DateTime.new(2024, 12, 19, 12)
+          )
+        }
+        it 'enters the date into the PDF signature field' do
+          expect(pdf_fields["Date1_es_:signer:date"]).to eq "2024-12-19"
+          expect(pdf_fields["Date2_es_:signer:date"]).to eq ""
+        end
+      end
+
+      context 'filer is mfj' do
+        let(:submission) {
+          create :efile_submission, tax_return: nil, data_source: create(
+            :state_file_nj_intake,
+            :married_filing_jointly,
+            primary_ssn: "123456789",
+            primary_esigned: "yes",
+            primary_esigned_at: DateTime.new(2024, 12, 19, 12),
+            spouse_esigned: "yes",
+            spouse_esigned_at: DateTime.new(2024, 12, 18, 12)
+          )
+        }
+        it 'enters the date into the PDF signature field' do
+          expect(pdf_fields["Date1_es_:signer:date"]).to eq "2024-12-19"
+          expect(pdf_fields["Date2_es_:signer:date"]).to eq "2024-12-18"
+        end
+      end
+    end
+
     describe "exemptions" do
       describe "Line 6 exemptions" do
         context "single filer" do
