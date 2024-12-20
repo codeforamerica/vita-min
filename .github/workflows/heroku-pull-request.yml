@@ -70,7 +70,7 @@ jobs:
             RACK_ENV=production \
             LOG_LEVEL=info \
             RAILS_SERVE_STATIC_FILES=enabled \
-            RAILS_MASTER_KEY_NEW=${{ secrets.RAILS_MASTER_KEY_NEW }} \
+            RAILS_MASTER_KEY=${{ secrets.HEROKU_RAILS_MASTER_KEY }} \
             BUNDLE_GITHUB__COM=${{ secrets.BUNDLE_GITHUB__COM }} \
             FRAUD_INDICATORS_KEY=${{ secrets.FRAUD_INDICATORS_KEY }} \
             HEROKU_DNS_AWS_ACCESS_KEY_ID=${{ secrets.HEROKU_DNS_AWS_ACCESS_KEY_ID }} \
