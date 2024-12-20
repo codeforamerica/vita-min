@@ -251,6 +251,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
     intake = StateFile::StateInformationService.intake_class(state_code).last
     intake.update(
       raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml("test_df_complete_sample"),
+      raw_direct_file_intake_data: StateFile::DirectFileApiResponseSampleService.new.read_json("test_df_complete_sample"),
       primary_first_name: "Deedee",
       primary_last_name: "Doodoo",
       primary_birth_date: Date.new((MultiTenantService.statefile.current_tax_year - 65), 12, 1),
