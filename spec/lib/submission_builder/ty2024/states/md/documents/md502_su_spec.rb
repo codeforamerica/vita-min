@@ -17,7 +17,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502Su, required_sch
             allow_any_instance_of(Efile::Md::Md502SuCalculator).to receive(:calculate_line_ab).and_return(100)
           end
           it "outputs the XML for code ab" do
-            expect(xml.at("Form502SU Subtractions OtherDetail Code").text).to eq("ab")
+            expect(xml.at("Form502SU Subtractions OtherDetail Code").text).to eq("AB")
             expect(xml.at("Form502SU Subtractions OtherDetail Amount").text.to_i).to eq(100)
             expect(xml.at("Form502SU Subtractions Total").text.to_i).to eq(100)
           end
