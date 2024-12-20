@@ -13,7 +13,7 @@ module SubmissionBuilder
                 xml.Subtractions do |subtractions|
                   if calculated_fields.fetch(:MD502_SU_LINE_AB).positive?
                     subtractions.OtherDetail do |other_detail|
-                      other_detail.Code "ab"
+                      other_detail.Code "AB"
                       other_detail.Amount calculated_fields.fetch(:MD502_SU_LINE_AB)
                     end
                   end
