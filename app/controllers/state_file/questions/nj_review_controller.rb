@@ -12,7 +12,7 @@ module StateFile
             { text_key: '27_total_income', value: line_or_zero(:NJ1040_LINE_27) },
             # { text_key: '28c_retirement_excluded_from_taxation', value: line_or_zero(:NJ1040_LINE_28C) },
             { text_key: '29_nj_gross_income', value: line_or_zero(:NJ1040_LINE_29) },
-            # { text_key: '30_exemptions', value: line_or_zero(:NJ1040_LINE_30) },
+            { text_key: '30_exemptions', value: line_or_zero(:NJ1040_LINE_13) }, # same value for 13 and 30
             { text_key: '31_medical', value: line_or_zero(:NJ1040_LINE_31) },
             { text_key: '41_property', value: line_or_zero(:NJ1040_LINE_41) },
             { text_key: '42_nj_taxable', value: line_or_zero(:NJ1040_LINE_42) },
