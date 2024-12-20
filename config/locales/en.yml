@@ -5395,6 +5395,7 @@ en:
         delete_cta: Remove this person
         disabled: Permanently disabled
         first_name: First name
+        has_ip_pin: Has been issued an IP PIN
         last_name: Last name
         life_circumstances: Select any cases that describe their life this past year
         life_circumstances_help: We need these answers to determine which tax credits you may qualify for.

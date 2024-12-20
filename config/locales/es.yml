@@ -5378,6 +5378,7 @@ es:
         delete_cta: Eliminar a esta persona
         disabled: Con discapacidad permanente
         first_name: Nombre
+        has_ip_pin: Se le emitió un IP PIN
         last_name: Apellido
         life_circumstances: Selecciona cualesquiera casos que describan sus vidas en el último año
         life_circumstances_help: Necesitamos estas respuestas para determinar para cuáles créditos tributarios te puedes calificar.
