@@ -37,11 +37,7 @@ module StateFile
 
       def line_or_zero(line)
         @calculated_fields ||= current_intake.tax_calculator.calculate
-        (@calculated_fields.fetch(line) || 0).to_d
-      end
-
-      def get_field_from_xml
-        100
+        @calculated_fields.fetch(line) || 0
       end
     end
   end
