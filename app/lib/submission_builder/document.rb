@@ -56,9 +56,9 @@ module SubmissionBuilder
 
     def build_xml_doc(tag_name, **root_node_attributes)
       default_attributes = { 'xmlns:efile' => 'http://www.irs.gov/efile' }
-      return_state_attributes = { 'xmlns' => 'http://www.irs.gov/efile' }
+      return_state_attributes = get_return_state_attributes(tag_name)
       xml_builder = Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |xml|
-        default_attributes.merge!(return_state_attributes) if merge_state_attrs_for_tag?(tag_name)
+        default_attributes.merge!(return_state_attributes) if return_state_attributes
         xml.send(tag_name, default_attributes.merge(root_node_attributes)) do |contents_builder|
           yield contents_builder if block_given?
         end
@@ -66,18 +66,16 @@ module SubmissionBuilder
       xml_builder.doc
     end
 
-    # This method is requirement from NY to remove the namespace attribute from
-    # any tag unrelated to the root XML tag. StateSubmissionManifest seems to
-    # need it also in order for the XML to be valid.
-    def merge_state_attrs_for_tag?(tag_name)
-      if self.submission.data_source_type == 'StateFileNyIntake'
-        if %w[ReturnState efile:ReturnState StateSubmissionManifest].include?(tag_name)
-          return true
-        else
-          return false
-        end
+    def get_return_state_attributes(tag_name)
+      return_state_attributes = { 'xmlns' => 'http://www.irs.gov/efile' }
+      intake_class = self.submission.data_source_type
+      if ['StateFileNyIntake', 'StateFileNjIntake'].include?(intake_class) && !%w[ReturnState efile:ReturnState StateSubmissionManifest].include?(tag_name)
+        # This method is requirement from NY to remove the namespace attribute from
+        # any tag unrelated to the root XML tag. StateSubmissionManifest seems to
+        # need it also in order for the XML to be valid.
+        return false
       end
-      true # Arizona and other future states we add will include the namespace tag
+      return_state_attributes
     end
 
     def receiving_213_credit?
@@ -131,11 +129,11 @@ module SubmissionBuilder
         truncated_mailing_street = mailing_street[0...key_position].rstrip
         excess_characters = mailing_street[key_position..].lstrip
 
-        xml.AddressLine1Txt sanitize_for_xml(truncated_mailing_street, 35)
+        xml.AddressLine1Txt sanitize_for_xml(truncated_mailing_street, 30)
         if @submission.data_source.direct_file_data.mailing_apartment.present?
           apartment = sanitize_for_xml(@submission.data_source.direct_file_data.mailing_apartment)
-          if apartment.length + excess_characters.length > 35
-            truncated_apartment = apartment[0, 35 - excess_characters.length].rpartition(' ').first
+          if apartment.length + excess_characters.length > 30
+            truncated_apartment = apartment[0, 30 - excess_characters.length].rpartition(' ').first
             xml.AddressLine2Txt "#{excess_characters} #{truncated_apartment}"
           else
             xml.AddressLine2Txt "#{excess_characters} #{apartment}"
@@ -144,12 +142,12 @@ module SubmissionBuilder
           xml.AddressLine2Txt excess_characters
         end
       else
-        xml.AddressLine1Txt sanitize_for_xml(mailing_street, 35)
-        xml.AddressLine2Txt sanitize_for_xml(@submission.data_source.direct_file_data.mailing_apartment, 35) if @submission.data_source.direct_file_data.mailing_apartment.present?
+        xml.AddressLine1Txt sanitize_for_xml(mailing_street, 30)
+        xml.AddressLine2Txt sanitize_for_xml(@submission.data_source.direct_file_data.mailing_apartment, 30) if @submission.data_source.direct_file_data.mailing_apartment.present?
       end
     end
 
-    # TODO Rest of these processing address methods are for NY and might be deprecated
+    # TODO: Rest of these processing address methods are for NY and might be deprecated
     def process_mailing_street(xml)
       return unless @submission.data_source.direct_file_data.mailing_street.present?
 

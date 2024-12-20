@@ -24,7 +24,8 @@ RSpec.feature "Visit home page" do
 
   context "hide_intercom flipper flag is enabled" do
     before do
-      Flipper.enable :hide_intercom
+      allow(Flipper).to receive(:enabled?).and_call_original
+      allow(Flipper).to receive(:enabled?).with(:hide_intercom).and_return(true)
     end
 
     scenario "doesn't render intercom widget", js: true do

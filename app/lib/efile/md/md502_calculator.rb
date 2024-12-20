@@ -344,11 +344,7 @@ module Efile
       end
 
       def calculate_line_19
-        if deduction_method_is_standard?
-          line_or_zero(:MD502_LINE_D_AMOUNT_TOTAL)
-        else
-          0
-        end
+        line_or_zero(:MD502_LINE_D_AMOUNT_TOTAL)
       end
 
       def calculate_line_20
@@ -411,7 +407,7 @@ module Efile
       end
 
       def calculate_line_23
-        return 0 if filing_status_dependent? || @lines[:MD502_LINE_1B].value <= 0
+        return 0 if filing_status_dependent? || @lines[:MD502_LINE_1B].value <= 0 || !deduction_method_is_standard?
 
         comparison_amount = [@lines[:MD502_LINE_7].value, @lines[:MD502_LINE_1B].value].max
 
@@ -437,6 +433,7 @@ module Efile
       end
 
       def calculate_line_24
+        return 0 unless deduction_method_is_standard?
         line_or_zero(:MD502CR_PART_AA_LINE_14)
       end
 
@@ -449,6 +446,8 @@ module Efile
       end
 
       def calculate_line_28_local_tax_rate
+        taxable_net_income = line_or_zero(:MD502_LINE_20)
+
         tax_rate = case @intake.residence_county
                    when "Allegany", "Carroll", "Charles"
                      0.0303
@@ -469,9 +468,8 @@ module Efile
                    when "Worcester"
                      0.0225
                    when "Anne Arundel"
-                     0.027
+                     anne_arundel_local_tax_brackets.find { |bracket| taxable_net_income <= bracket[:threshold] }[:rate]
                    when "Frederick"
-                     taxable_net_income = line_or_zero(:MD502_LINE_20)
                      if filing_status_dependent? || filing_status_single? || filing_status_mfs?
                        if taxable_net_income <= 25_000
                          0.0225
@@ -499,31 +497,37 @@ module Efile
       end
 
       def local_tax_rate
-        @lines[:MD502_LINE_28_LOCAL_TAX_RATE]&.value || 0
+        if @intake.residence_county == "Anne Arundel"
+          0.027
+        else
+          @lines[:MD502_LINE_28_LOCAL_TAX_RATE]&.value || 0
+        end
+      end
+
+      def anne_arundel_local_tax_brackets
+        if filing_status_dependent? || filing_status_single? || filing_status_mfs?
+          [
+            { threshold: 50_000, rate: 0.0270 },
+            { threshold: 400_000, rate: 0.0281 },
+            { threshold: Float::INFINITY, rate: 0.0320 }
+          ]
+        elsif filing_status_mfj? || filing_status_hoh? || filing_status_qw?
+          [
+            { threshold: 75_000, rate: 0.0270 },
+            { threshold: 480_000, rate: 0.0281 },
+            { threshold: Float::INFINITY, rate: 0.0320 }
+          ]
+        end
       end
 
       def calculate_line_28_local_tax_amount
         taxable_net_income = line_or_zero(:MD502_LINE_20)
 
         if @intake.residence_county == "Anne Arundel"
-          brackets = if filing_status_dependent? || filing_status_single? || filing_status_mfs?
-                       [
-                         { threshold: 50_000, rate: 0.0270 },
-                         { threshold: 400_000, rate: 0.0281 },
-                         { threshold: Float::INFINITY, rate: 0.0320 }
-                       ]
-                     elsif filing_status_mfj? || filing_status_hoh? || filing_status_qw?
-                       [
-                         { threshold: 75_000, rate: 0.0270 },
-                         { threshold: 480_000, rate: 0.0281 },
-                         { threshold: Float::INFINITY, rate: 0.0320 }
-                       ]
-                     end
-
           tax = 0
           previous_threshold = 0
 
-          brackets.each do |bracket|
+          anne_arundel_local_tax_brackets.each do |bracket|
             if taxable_net_income > previous_threshold
               income_in_bracket = [taxable_net_income, bracket[:threshold]].min - previous_threshold
               tax += income_in_bracket * bracket[:rate].to_d
@@ -550,9 +554,7 @@ module Efile
       end
 
       def calculate_line_32
-        if deduction_method_is_standard?
-          line_or_zero(:MD502_LINE_29) + line_or_zero(:MD502_LINE_30)
-        end
+        line_or_zero(:MD502_LINE_29) + line_or_zero(:MD502_LINE_30)
       end
 
       def calculate_line_33

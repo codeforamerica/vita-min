@@ -55,6 +55,7 @@
 #  sms_notification_opt_in           :integer          default("unfilled"), not null
 #  source                            :string
 #  spouse_birth_date                 :date
+#  spouse_death_year                 :integer
 #  spouse_esigned                    :integer          default("unfilled"), not null
 #  spouse_esigned_at                 :datetime
 #  spouse_first_name                 :string
@@ -154,34 +155,20 @@ FactoryBot.define do
       spouse_birth_date { MultiTenantService.statefile.end_of_current_tax_year - 70 }
     end
 
-    trait :df_data_2_w2s do
-      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nc_spiderman') }
-    end
-
-    trait :df_data_many_w2s do
-      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nc_cookiemonster') }
-    end
-
-    trait :single do
-      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nc_tucker_single') }
-    end
-
     trait :head_of_household do
-      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nc_shiloh_hoh') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nc_nala_hoh') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nc_nala_hoh') }
     end
 
     trait :married_filing_separately do
       filing_status { 'married_filing_separately' }
-      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nc_sheldon_mfs') }
-    end
-
-    trait :qualified_widow do
-      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nc_laney_qss') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nc_wylie_mfs') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nc_wylie_mfs') }
     end
 
     trait :df_data_1099_int do
-      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nc_tom_1099_int') }
-      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nc_tom_1099_int') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nc_clara_hoh') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nc_clara_hoh') }
     end
 
     trait :with_filers_synced do

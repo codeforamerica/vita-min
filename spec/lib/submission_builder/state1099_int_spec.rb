@@ -31,14 +31,16 @@ describe SubmissionBuilder::State1099Int do
     let(:intake) { create(:state_file_az_intake, :df_data_1099_int) }
 
     it "generates xml with the right values" do
-      expect(doc.at("PayerName")['payerNameControl']).to eq "THEP"
-      expect(doc.at("PayerName/BusinessNameLine1Txt").text).to eq "The payer name"
-      expect(doc.at("RecipientSSN").text).to eq "123456789"
+      intake.direct_file_json_data.interest_reports.first&.tax_exempt_and_tax_credit_bond_cusip_number = "123456789"
+
+      expect(doc.at("PayerName")['payerNameControl']).to eq "MOCK"
+      expect(doc.at("PayerName/BusinessNameLine1Txt").text).to eq "Mockingbird Bank"
+      expect(doc.at("RecipientSSN").text).to eq "900500011"
       expect(doc.at("RecipientName").text).to eq "Ariz Onian"
-      expect(doc.at("InterestIncome").text).to eq "1.0"
-      expect(doc.at("InterestOnBondsAndTreasury").text).to eq "2.0"
-      expect(doc.at("FederalTaxWithheld").text).to eq "5.0"
-      expect(doc.at("TaxExemptInterest").text).to eq "4.0"
+      expect(doc.at("InterestIncome").text).to eq "4000.0"
+      expect(doc.at("InterestOnBondsAndTreasury").text).to eq "0"
+      expect(doc.at("FederalTaxWithheld").text).to eq "0.0"
+      expect(doc.at("TaxExemptInterest").text).to eq "0"
       expect(doc.at("TaxExemptCUSIP").text).to eq "123456789"
     end
   end

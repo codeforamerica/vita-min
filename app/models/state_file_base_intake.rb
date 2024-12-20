@@ -246,6 +246,10 @@ class StateFileBaseIntake < ApplicationRecord
     false
   end
 
+  def city_name_length_20?
+    false
+  end
+
   def ask_spouse_esign?
     filing_status_mfj? && !spouse_deceased?
   end
@@ -269,6 +273,10 @@ class StateFileBaseIntake < ApplicationRecord
 
   def allows_refund_amount_in_xml?
     true
+  end
+
+  def requires_additional_withdrawal_information?
+    false
   end
 
   class Person

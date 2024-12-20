@@ -278,7 +278,7 @@ RSpec.describe StateFile::IdGroceryCreditForm do
         expect(form).to be_valid
         form.save
 
-        expect(intake.dependents.count).to eq(3)
+        expect(intake.dependents.count).to eq(4)
 
         expect(intake.household_has_grocery_credit_ineligible_months).to eq("no")
         expect(intake.primary_has_grocery_credit_ineligible_months).to eq("no")
