@@ -17,7 +17,7 @@ module SubmissionBuilder
                       other_detail.Amount calculated_fields.fetch(:MD502_SU_LINE_AB)
                     end
                   end
-                  subtractions.Total calculated_fields.fetch(:MD502_SU_LINE_1) # check if this should be here
+                  subtractions.Total calculated_fields.fetch(:MD502_SU_LINE_1)
                 end
               end
             end
