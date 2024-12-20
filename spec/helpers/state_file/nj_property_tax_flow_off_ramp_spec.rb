@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe StateFile::NjPropertyTaxFlowHelper do
+describe StateFile::NjPropertyTaxFlowOffRamp do
   describe "#next_controller" do
     context "when return to review" do
       it "returns Nj Review path" do

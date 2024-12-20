@@ -7,7 +7,7 @@ module StateFile
         options = {}
         options[:return_to_review] = params[:return_to_review] if params[:return_to_review].present?
 
-        StateFile::NjPropertyTaxFlowHelper.next_controller(options)
+        StateFile::NjPropertyTaxFlowOffRamp.next_controller(options)
       end
 
       def prev_path

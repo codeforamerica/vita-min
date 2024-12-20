@@ -18,7 +18,7 @@ module StateFile
         if current_intake.household_rent_own_both?
           NjTenantEligibilityController.to_path_helper(options)
         else
-          StateFile::NjPropertyTaxFlowHelper.next_controller(options)
+          StateFile::NjPropertyTaxFlowOffRamp.next_controller(options)
         end
       end
     end

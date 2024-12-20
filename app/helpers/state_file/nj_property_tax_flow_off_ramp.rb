@@ -1,5 +1,5 @@
 module StateFile
-  module NjPropertyTaxFlowHelper
+  module NjPropertyTaxFlowOffRamp
     class << self
       def next_controller(options)
         if options[:return_to_review].present?

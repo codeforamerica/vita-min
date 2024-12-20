@@ -11,7 +11,7 @@ module StateFile
           options[:on_home_or_rental] = :home
           NjIneligiblePropertyTaxController.to_path_helper(options)
         elsif Efile::Nj::NjPropertyTaxEligibility.possibly_eligible_for_credit?(current_intake)
-          StateFile::NjPropertyTaxFlowHelper.next_controller(options)
+          StateFile::NjPropertyTaxFlowOffRamp.next_controller(options)
         elsif StateFile::NjHomeownerEligibilityHelper.determine_eligibility(current_intake) == StateFile::NjHomeownerEligibilityHelper::WORKSHEET
           NjHomeownerPropertyTaxWorksheetController.to_path_helper(options)
         else

@@ -94,14 +94,14 @@ RSpec.describe StateFile::Questions::NjIneligiblePropertyTaxController do
       let(:intake) { create :state_file_nj_intake, household_rent_own: "both" }
       it "next path is next_controller for property tax flow" do
         get :edit, params: {on_home_or_rental: "rental"}
-        expect(subject.next_path).to eq(StateFile::NjPropertyTaxFlowHelper.next_controller({}))
+        expect(subject.next_path).to eq(StateFile::NjPropertyTaxFlowOffRamp.next_controller({}))
       end
     end
 
     context "when not both rent and own" do
       let(:intake) { create :state_file_nj_intake, household_rent_own: "own" }
       it "next path is next_controller for property tax flow" do
-        expect(subject.next_path).to eq(StateFile::NjPropertyTaxFlowHelper.next_controller({}))
+        expect(subject.next_path).to eq(StateFile::NjPropertyTaxFlowOffRamp.next_controller({}))
       end
     end
   end

@@ -35,7 +35,7 @@ RSpec.describe StateFile::Questions::NjHomeownerPropertyTaxController do
           )
       }
       it "next path is next_controller for property tax flow" do
-        expect(subject.next_path).to eq(StateFile::NjPropertyTaxFlowHelper.next_controller({}))
+        expect(subject.next_path).to eq(StateFile::NjPropertyTaxFlowOffRamp.next_controller({}))
       end
     end
   end
