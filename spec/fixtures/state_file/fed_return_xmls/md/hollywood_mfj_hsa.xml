@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>c77867c9</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400003033</PrimarySSN>
+            <SpouseSSN>400003034</SpouseSSN>
+            <NameLine1Txt>PAUL&lt;HOLLYWOOD&lt;&amp; PRUE LEITH</NameLine1Txt>
+            <PrimaryNameControlTxt>HOLL</PrimaryNameControlTxt>
+            <SpouseNameControlTxt>LEIT</SpouseNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>555 Handshake Lane Apt 34</AddressLine1Txt>
+                <CityNm>Scotland</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>20687</ZIPCd>
+            </USAddress>
+            <PhoneNum>2224445555</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000303-3b89-4cad-ba96-3d1622c9f609@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="5">
+        <IRS1040 documentId="IRS10400001">
+            <Form1040SRInd>X</Form1040SRInd>
+            <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <Primary65OrOlderInd>X</Primary65OrOlderInd>
+            <Spouse65OrOlderInd>X</Spouse65OrOlderInd>
+            <TotalBoxesCheckedCnt>2</TotalBoxesCheckedCnt>
+            <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>2</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">60000</WagesAmt>
+            <WagesSalariesAndTipsAmt>60000</WagesSalariesAndTipsAmt>
+            <SocSecBnftAmt>10000</SocSecBnftAmt>
+            <TaxableSocSecAmt>8500</TaxableSocSecAmt>
+            <TotalAdditionalIncomeAmt>500</TotalAdditionalIncomeAmt>
+            <TotalIncomeAmt>69000</TotalIncomeAmt>
+            <TotalAdjustmentsAmt>3000</TotalAdjustmentsAmt>
+            <AdjustedGrossIncomeAmt>66000</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>32300</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>32300</TotalDeductionsAmt>
+            <TaxableIncomeAmt>33700</TaxableIncomeAmt>
+            <TaxAmt>3583</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>3583</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>3583</TaxLessCreditsAmt>
+            <TotalTaxAmt>3583</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>6000</FormW2WithheldTaxAmt>
+            <WithholdingTaxAmt>6000</WithholdingTaxAmt>
+            <TotalPaymentsAmt>6000</TotalPaymentsAmt>
+            <OverpaidAmt>2417</OverpaidAmt>
+            <RefundAmt>2417</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>BAKER</PrimaryOccupationTxt>
+            <SpouseOccupationTxt>RETIRED</SpouseOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1040Schedule1 documentId="IRS1040S1001">
+            <UnemploymentCompAmt repaymentAmt="1500" repaymentCd="REPAID">500</UnemploymentCompAmt>
+            <TotalAdditionalIncomeAmt>500</TotalAdditionalIncomeAmt>
+            <HealthSavingsAccountDedAmt referenceDocumentId="IRS88890001 IRS88890002" referenceDocumentName="IRS8889">3000</HealthSavingsAccountDedAmt>
+            <TotalAdjustmentsAmt>3000</TotalAdjustmentsAmt>
+        </IRS1040Schedule1>
+        <IRS8889 documentId="IRS88890001">
+            <PersonNm>PAUL HOLLYWOOD</PersonNm>
+            <RecipientSSN>400003033</RecipientSSN>
+            <HDHPSelfOnlyCoverageInd>X</HDHPSelfOnlyCoverageInd>
+            <HSAContributionAmt>1000</HSAContributionAmt>
+            <HSALimitedAnnualDeductibleAmt>5150</HSALimitedAnnualDeductibleAmt>
+            <HSALimitedDeductibleAllwdAmt>5150</HSALimitedDeductibleAllwdAmt>
+            <HSAFamilyDeductibleAmt>5150</HSAFamilyDeductibleAmt>
+            <HSALimitedGrossContributionAmt>5150</HSALimitedGrossContributionAmt>
+            <TotalHSAContributionAmt>0</TotalHSAContributionAmt>
+            <HSALimitedContributionAmt>5150</HSALimitedContributionAmt>
+            <TotalHSADeductionAmt>1000</TotalHSADeductionAmt>
+        </IRS8889>
+        <IRS8889 documentId="IRS88890002">
+            <PersonNm>PRUE LEITH</PersonNm>
+            <RecipientSSN>400003034</RecipientSSN>
+            <HDHPSelfOnlyCoverageInd>X</HDHPSelfOnlyCoverageInd>
+            <HSAContributionAmt>2000</HSAContributionAmt>
+            <HSALimitedAnnualDeductibleAmt>5150</HSALimitedAnnualDeductibleAmt>
+            <HSALimitedDeductibleAllwdAmt>5150</HSALimitedDeductibleAllwdAmt>
+            <HSAFamilyDeductibleAmt>5150</HSAFamilyDeductibleAmt>
+            <HSALimitedGrossContributionAmt>5150</HSALimitedGrossContributionAmt>
+            <TotalHSAContributionAmt>0</TotalHSAContributionAmt>
+            <HSALimitedContributionAmt>5150</HSALimitedContributionAmt>
+            <TotalHSADeductionAmt>2000</TotalHSADeductionAmt>
+        </IRS8889>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>400003033</EmployeeSSN>
+            <EmployerEIN>112617163</EmployerEIN>
+            <EmployerNameControlTxt>MISS</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>MISSING BERRY BAKERY</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>400 SOGGY BOTTOM BLVD</AddressLine1Txt>
+                <CityNm>ASPEN</CityNm>
+                <StateAbbreviationCd>CO</StateAbbreviationCd>
+                <ZIPCd>81611</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>PAUL HOLLYWOOD</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>555 Handshake Lane Apt 34</AddressLine1Txt>
+                <CityNm>Scotland</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>20687</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>60000</WagesAmt>
+            <WithholdingAmt>6000</WithholdingAmt>
+            <SocialSecurityWagesAmt>60000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>3720</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>60000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>870</MedicareTaxWithheldAmt>
+            <OtherDeductionsBenefitsGrp>
+                <Desc>STPICKUP</Desc>
+                <Amt>1000</Amt>
+            </OtherDeductionsBenefitsGrp>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>MD</StateAbbreviationCd>
+                    <EmployerStateIdNum>9876543219876543</EmployerStateIdNum>
+                    <StateWagesAmt>60000</StateWagesAmt>
+                    <StateIncomeTaxAmt>3500</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>

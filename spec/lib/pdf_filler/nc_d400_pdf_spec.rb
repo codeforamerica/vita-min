@@ -174,7 +174,7 @@ RSpec.describe PdfFiller::NcD400Pdf do
       context "qw filer" do
         let(:intake) { create(:state_file_nc_intake, :with_spouse, filing_status: "qualifying_widow") }
         before do
-          submission.data_source.direct_file_data.spouse_date_of_death = "2024-06-07"
+          submission.data_source.spouse_death_year = 2024
         end
 
         it "sets fields specific to filing status" do

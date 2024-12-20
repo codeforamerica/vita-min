@@ -17,20 +17,20 @@ module SubmissionBuilder
                   xml.ColumnC do
                     xml.CtrbChrtyPrvdAstWrkgPor @calculated_fields.fetch(:AZ301_LINE_6c)
                     xml.CtrbMdFePdPblcSchl @calculated_fields.fetch(:AZ301_LINE_7c)
-                    xml.TotalAvailTaxCr @calculated_fields.fetch(:AZ301_LINE_26)
+                    xml.TotalAvailTaxCr @calculated_fields.fetch(:AZ301_LINE_25)
                   end
                 end
                 xml.AppTaxCr do
-                  xml.ComputedTax @calculated_fields.fetch(:AZ301_LINE_27)
-                  xml.Subtotal @calculated_fields.fetch(:AZ301_LINE_32)
-                  xml.FamilyIncomeTax @calculated_fields.fetch(:AZ301_LINE_33)
-                  xml.DiffFamilyIncTaxSubTotal @calculated_fields.fetch(:AZ301_LINE_34)
+                  xml.ComputedTax @calculated_fields.fetch(:AZ301_LINE_26)
+                  xml.Subtotal @calculated_fields.fetch(:AZ301_LINE_31)
+                  xml.FamilyIncomeTax @calculated_fields.fetch(:AZ301_LINE_32)
+                  xml.DiffFamilyIncTaxSubTotal @calculated_fields.fetch(:AZ301_LINE_33)
                   xml.NonrefunCreditsUsed do
-                    xml.CtrbChrtyPrvdAstWrkgPor @calculated_fields.fetch(:AZ301_LINE_40)
-                    xml.CtrbMdFePdPblcSchl @calculated_fields.fetch(:AZ301_LINE_41)
+                    xml.CtrbChrtyPrvdAstWrkgPor @calculated_fields.fetch(:AZ301_LINE_39)
+                    xml.CtrbMdFePdPblcSchl @calculated_fields.fetch(:AZ301_LINE_40)
                   end
-                  xml.TxCrUsedForm301 @calculated_fields.fetch(:AZ301_LINE_62)
-                  xml.TotalAvailTaxCrClm @calculated_fields.fetch(:AZ301_LINE_62)
+                  xml.TxCrUsedForm301 @calculated_fields.fetch(:AZ301_LINE_60)
+                  xml.TotalAvailTaxCrClm @calculated_fields.fetch(:AZ301_LINE_60)
                 end
               end
             end
