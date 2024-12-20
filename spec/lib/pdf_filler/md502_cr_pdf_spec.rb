@@ -29,10 +29,10 @@ RSpec.describe PdfFiller::Md502CrPdf do
             expect(pdf_fields["Your Social Security Number"]).to eq(intake.primary.ssn)
             expect(pdf_fields["Spouses Social Security Number"]).to eq(intake.spouse.ssn)
             expect(pdf_fields["Your First Name"]).to eq(intake.primary.first_name)
-            expect(pdf_fields["Text Field 4"]).to eq(intake.primary.middle_initial)
+            expect(pdf_fields["Primary MI"]).to eq(intake.primary.middle_initial)
             expect(pdf_fields["Your Last Name"]).to eq(intake.primary.last_name)
             expect(pdf_fields["Spouses First Name"]).to eq(intake.spouse.first_name)
-            expect(pdf_fields["Text Field 7"]).to eq(intake.spouse.middle_initial)
+            expect(pdf_fields["Spouse MI"]).to eq(intake.spouse.middle_initial)
             expect(pdf_fields["Spouses Last Name"]).to eq(intake.spouse.last_name)
           end
         end
