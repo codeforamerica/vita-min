@@ -26,14 +26,14 @@ RSpec.describe PdfFiller::Md502CrPdf do
       context 'single' do
         describe 'ssn and names' do
           it "sets correct value for the single filer and leaves it empty for spouse" do
-            expect(pdf_fields["Text Field 1"]).to eq(intake.primary.ssn)
-            expect(pdf_fields["Text Field 2"]).to eq(intake.spouse.ssn)
-            expect(pdf_fields["Text Field 3"]).to eq(intake.primary.first_name)
+            expect(pdf_fields["Your Social Security Number"]).to eq(intake.primary.ssn)
+            expect(pdf_fields["Spouses Social Security Number"]).to eq(intake.spouse.ssn)
+            expect(pdf_fields["Your First Name"]).to eq(intake.primary.first_name)
             expect(pdf_fields["Text Field 4"]).to eq(intake.primary.middle_initial)
-            expect(pdf_fields["Text Field 5"]).to eq(intake.primary.last_name)
-            expect(pdf_fields["Text Field 6"]).to eq(intake.spouse.first_name)
+            expect(pdf_fields["Your Last Name"]).to eq(intake.primary.last_name)
+            expect(pdf_fields["Spouses First Name"]).to eq(intake.spouse.first_name)
             expect(pdf_fields["Text Field 7"]).to eq(intake.spouse.middle_initial)
-            expect(pdf_fields["Text Field 8"]).to eq(intake.spouse.last_name)
+            expect(pdf_fields["Spouses Last Name"]).to eq(intake.spouse.last_name)
           end
         end
 
@@ -48,7 +48,7 @@ RSpec.describe PdfFiller::Md502CrPdf do
 
         describe "senior credit section" do
           it "fills out the section correctly" do
-            expect(pdf_fields["Text Field 1051"]).to eq("1750")
+            expect(pdf_fields["1_9"]).to eq("1750")
           end
         end
 
@@ -70,9 +70,9 @@ RSpec.describe PdfFiller::Md502CrPdf do
             allow_any_instance_of(Efile::Md::Md502crCalculator).to receive(:calculate_part_cc_line_8).and_return 200
           end
           it "outputs all relevant values" do
-            expect(pdf_fields["Text Field 1031"]).to eq("100")
-            expect(pdf_fields["Text Field 1030"]).to eq("200")
-            expect(pdf_fields["Text Field 1028"]).to eq("300")
+            expect(pdf_fields["7_2"]).to eq("100")
+            expect(pdf_fields["8_2"]).to eq("200")
+            expect(pdf_fields["10"]).to eq("300")
           end
         end
       end
