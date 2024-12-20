@@ -66,5 +66,58 @@ describe SubmissionBundle do
         end
       end
     end
+
+    context "XML processing" do
+      let(:submission) do
+        create(
+          :efile_submission,
+          data_source: create(
+            :state_file_md_intake,     # Changed to MD intake
+            :with_efile_device_infos,
+            federal_submission_id: fed_return_submission_id
+          ),
+          irs_submission_id: state_return_submission_id
+        )
+      end
+
+      it "processes manifest XML correctly", required_schema: "md" do
+        described_class.new(submission).build
+        archive = submission.submission_bundle
+        expect(archive).not_to be_nil
+
+        path = ActiveStorage::Blob.service.path_for(archive.key)
+
+        Zip::File.open(path) do |zf|
+          manifest_xml = Nokogiri::XML(zf.read('manifest/manifest.xml'))
+
+          expect(manifest_xml.at("SubmissionId")).to be_present
+          expect(manifest_xml.at("EFIN")).to be_present
+        end
+      end
+
+      context "with empty nodes" do
+        before do
+          submission.data_source.update(
+            political_subdivision: nil,
+            subdivision_code: nil,
+          )
+        end
+
+        it "removes the empty nodes from the final XML", required_schema: "md" do
+          described_class.new(submission).build
+          archive = submission.submission_bundle
+          expect(archive).not_to be_nil
+
+          path = ActiveStorage::Blob.service.path_for(archive.key)
+
+          Zip::File.open(path) do |zf|
+            submission_xml = Nokogiri::XML(zf.read('xml/submission.xml'))
+
+            expect(submission_xml.at("MarylandSubdivisionCode")).to be_nil
+            expect(submission_xml.at("CityTownOrTaxingArea")).to be_nil
+          end
+        end
+      end
+    end
   end
 end
