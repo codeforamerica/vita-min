@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe StateFile::Questions::NjTenantRentPaidController do
+RSpec.describe StateFile::Questions::NjTenantPropertyTaxWorksheetController do
   let(:intake) { create :state_file_nj_intake }
   before do
     sign_in intake
