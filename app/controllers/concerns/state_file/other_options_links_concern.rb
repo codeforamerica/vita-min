@@ -14,7 +14,7 @@ module StateFile
     end
 
     def vita_link
-      StateFile::StateInformationService.vita_link(current_state_code)
+      I18n.locale == :en ? StateFile::StateInformationService.vita_link_en(current_state_code) : StateFile::StateInformationService.vita_link_es(current_state_code)
     end
 
     def faq_state_filing_options_link
