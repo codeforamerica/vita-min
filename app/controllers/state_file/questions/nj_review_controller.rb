@@ -18,26 +18,26 @@ module StateFile
             { text_key: '42_nj_taxable', value: line_or_zero(:NJ1040_LINE_42) },
           ],
           [
-            { text_key: 'interest_income', value: line_or_zero(:NJ1040_LINE_43) },
-            { text_key: 'interest_income', value: line_or_zero(:NJ1040_LINE_51) },
-            { text_key: 'interest_income', value: line_or_zero(:NJ1040_LINE_54) },
+            { text_key: '43_income_tax', value: line_or_zero(:NJ1040_LINE_43) },
+            { text_key: '51_use_tax', value: line_or_zero(:NJ1040_LINE_51) },
+            { text_key: '54_total_tax', value: line_or_zero(:NJ1040_LINE_54) },
           ],
           [
-            { text_key: 'interest_income', value: line_or_zero(:NJ1040_LINE_55) },
-            { text_key: 'interest_income', value: line_or_zero(:NJ1040_LINE_56) },
-            { text_key: 'interest_income', value: line_or_zero(:NJ1040_LINE_58) },
-            { text_key: 'interest_income', value: line_or_zero(:NJ1040_LINE_59) },
-            { text_key: 'interest_income', value: line_or_zero(:NJ1040_LINE_61) },
-            { text_key: 'interest_income', value: line_or_zero(:NJ1040_LINE_64) },
-            { text_key: 'interest_income', value: line_or_zero(:NJ1040_LINE_65) },
-            { text_key: 'interest_income', value: line_or_zero(:NJ1040_LINE_66) },
+            { text_key: '55_tax_withheld', value: line_or_zero(:NJ1040_LINE_55) },
+            { text_key: '56_property_tax_credit', value: line_or_zero(:NJ1040_LINE_56) },
+            { text_key: '58_nj_eitc', value: line_or_zero(:NJ1040_LINE_58) },
+            { text_key: '59_excess_uiwfswf', value: line_or_zero(:NJ1040_LINE_59) },
+            { text_key: '61_excess_fli', value: line_or_zero(:NJ1040_LINE_61) },
+            { text_key: '64_child_dep_care', value: line_or_zero(:NJ1040_LINE_64) },
+            { text_key: '65_nj_ctc', value: line_or_zero(:NJ1040_LINE_65) },
+            { text_key: '66_total_payments_refundable_credits', value: line_or_zero(:NJ1040_LINE_66) },
           ]
         ]
       end
 
       def line_or_zero(line)
         @calculated_fields ||= current_intake.tax_calculator.calculate
-        @calculated_fields.fetch(line) || 0
+        (@calculated_fields.fetch(line) || 0).to_d
       end
 
       def get_field_from_xml
