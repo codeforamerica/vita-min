@@ -193,7 +193,7 @@ describe StateFileAzIntake do
   end
 
   describe "#disqualified_from_excise_credit_fyst?" do
-    let(:intake) { build(:state_file_az_intake, ssn_no_employment: "no") }
+    let(:intake) { build(:state_file_az_intake) }
     let(:fake_df_data) { instance_double(DirectFileData) }
     before do
       allow(intake).to receive(:direct_file_data).and_return fake_df_data
@@ -239,11 +239,6 @@ describe StateFileAzIntake do
 
       it "returns true if claimed as dependent" do
         allow(fake_df_data).to receive(:claimed_as_dependent?).and_return true
-        expect(intake.disqualified_from_excise_credit_fyst?).to eq true
-      end
-
-      it "returns true if ssn_no_employment is yes" do
-        intake.update(ssn_no_employment: "yes")
         expect(intake.disqualified_from_excise_credit_fyst?).to eq true
       end
     end
@@ -296,28 +291,28 @@ describe StateFileAzIntake do
     context "when fed agi is under limit for excise credit" do
       it "they are not disqualified" do
         intake.direct_file_data.fed_agi = 10000
-        expect(intake.disqualified_from_excise_credit_df?).to eq false
+        expect(intake).not_to be_disqualified_from_excise_credit_df
       end
     end
 
     context "when fed agi is over limit for excise credit" do
       it "they are disqualified" do
         intake.direct_file_data.fed_agi = 20000
-        expect(intake.disqualified_from_excise_credit_df?).to eq true
+        expect(intake).to be_disqualified_from_excise_credit_df
       end
     end
 
     context "when client does not have a valid SSN" do
       it "they are disqualified" do
         intake.direct_file_data.primary_ssn = '912555678'
-        expect(intake.disqualified_from_excise_credit_df?).to eq true
+        expect(intake).to be_disqualified_from_excise_credit_df
       end
     end
 
     context "when client has a valid SSN" do
       it "they are not disqualified" do
         intake.direct_file_data.primary_ssn = '123456789'
-        expect(intake.disqualified_from_excise_credit_df?).to eq false
+        expect(intake).not_to be_disqualified_from_excise_credit_df
       end
     end
 
