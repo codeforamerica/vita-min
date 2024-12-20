@@ -12,6 +12,12 @@ module SubmissionBuilder
           xml.TaxPeriodEndDt date_type(Date.new(@submission.data_source.tax_return_year, 12, 31))
         end
         xml.TaxYr @submission.data_source.tax_return_year
+        if @submission.data_source.state_code.upcase == "NJ"
+          xml.PaidPreparerInformationGrp do 
+            xml.PTIN "P99999999"
+            xml.PreparerPersonNm "Self Prepared"
+          end
+        end
         xml.DisasterReliefTxt @intake.disaster_relief_county if @intake.respond_to?(:disaster_relief_county)
         xml.OriginatorGrp do
           xml.EFIN EnvironmentCredentials.irs(:efin)
@@ -33,7 +39,7 @@ module SubmissionBuilder
             xml.DateSigned date_type_for_timezone(@submission.data_source.primary_esigned_at)&.strftime("%F") if @submission.data_source.ask_for_signature_pin?
             xml.USPhone @submission.data_source.direct_file_data.phone_number if @submission.data_source.direct_file_data.phone_number.present?
           end
-          if @submission.data_source&.spouse.ssn.present? && @submission.data_source&.spouse.first_name.present? && !@intake.filing_status_mfs?
+          if @submission.data_source&.spouse&.ssn.present? && @submission.data_source&.spouse&.first_name.present? && !@intake.filing_status_mfs?
             xml.Secondary do
               xml.TaxpayerName do
                 xml.FirstName sanitize_for_xml(@submission.data_source.spouse.first_name, 16) if @submission.data_source.spouse.first_name.present?
@@ -44,7 +50,7 @@ module SubmissionBuilder
               xml.TaxpayerSSN @submission.data_source.spouse.ssn if @submission.data_source.spouse.ssn.present?
               xml.DateOfBirth date_type(@submission.data_source.spouse.birth_date) if @submission.data_source.spouse.birth_date.present?
               xml.TaxpayerPIN @submission.data_source.spouse_signature_pin if @submission.data_source.ask_for_signature_pin? && @submission.data_source.ask_spouse_esign?
-              xml.DateSigned date_type_for_timezone(@submission.data_source.spouse_esigned_at)&.strftime("%F")  if @submission.data_source.ask_for_signature_pin? && @submission.data_source.ask_spouse_esign?
+              xml.DateSigned date_type_for_timezone(@submission.data_source.spouse_esigned_at)&.strftime("%F") if @submission.data_source.ask_for_signature_pin? && @submission.data_source.ask_spouse_esign?
               xml.DateOfDeath @submission.data_source.direct_file_data.spouse_date_of_death if @submission.data_source.direct_file_data.spouse_date_of_death.present?
             end
           end
