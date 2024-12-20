@@ -3289,6 +3289,19 @@ en:
           property_tax_credit_deduction: Property Tax Credit/Deduction
           property_tax_paid: Property taxes paid
           rent_paid: Rent paid
+          reveal:
+            header: See detailed return information
+            15_wages_salaries_tips: Wages, salaries, tips
+            16a_interest_income: Interest income
+            # 20a_retirement_income: Retirement income
+            27_total_income: Total income
+            # 28c_retirement_excluded_from_taxation:
+            29_nj_gross_income: New Jersey gross income
+            30_exemptions: Exemptions (based on the size of your family, disability status, veteran status)
+            31_medical: Medical expenses deducted
+            41_property: Property tax deduction
+            42_nj_taxable: New Jersey taxable income
+            income_tax: Income tax
           spouse_claimed_as_eitc_qualifying_child: My spouse could be someone else's qualifying child for the Earned Income Tax Credit.
           spouse_disabled: My spouse has a disability
           spouse_gubernatorial: My spouse wants $1 of their taxes to go to the gubernatorial elections fund
