@@ -260,8 +260,8 @@ FactoryBot.define do
     end
 
     trait :df_data_qss do
-      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_qualified_widow') }
-      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_qualified_widow') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_sinatra_qss') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_sinatra_qss') }
     end
     
     trait :df_data_box_14 do

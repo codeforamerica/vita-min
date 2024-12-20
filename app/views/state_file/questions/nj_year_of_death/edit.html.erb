@@ -1,0 +1,20 @@
+<%
+  title = t(".title", filing_year: current_tax_year)
+  content_for :page_title, title
+%>
+
+<% content_for :card do %>
+  <h1 class="h2"><%= title %></h1>
+  <p><%= t(".subtitle") %></p>
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <div class="white-group">
+      <%= f.cfa_radio_set(:spouse_death_year, label_text: t(".question"), collection:
+        @form.valid_spouse_death_years.map { |year| { value: year, label: year } }) %>
+    </div>
+
+    <% if params[:return_to_review].present? %>
+      <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
+    <% end %>
+    <%= f.continue %>
+  <% end %>
+<% end %>

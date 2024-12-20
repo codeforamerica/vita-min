@@ -215,8 +215,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
       
       context "when spouse passed in previous calendar year" do
         before do
-          date_within_prior_year = "#{MultiTenantService.new(:statefile).current_tax_year - 1}-09-30"
-          submission.data_source.direct_file_data.spouse_date_of_death = date_within_prior_year
+          intake.spouse_death_year = MultiTenantService.statefile.current_tax_year - 1
         end
   
         it "only adds the qualifying widow/er filing status child xml element" do
@@ -233,8 +232,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
 
       context "when spouse passed two years prior" do
         before do
-          date_within_prior_year = "#{MultiTenantService.new(:statefile).current_tax_year - 2}-09-30"
-          submission.data_source.direct_file_data.spouse_date_of_death = date_within_prior_year
+          intake.spouse_death_year = MultiTenantService.statefile.current_tax_year - 2
         end
   
         it "only adds the qualifying widow/er filing status child xml element" do
