@@ -3297,10 +3297,21 @@ en:
             27_total_income: Total income
             # 28c_retirement_excluded_from_taxation:
             29_nj_gross_income: New Jersey gross income
-            30_exemptions: Exemptions (based on the size of your family, disability status, veteran status)
+            # 30_exemptions: Exemptions (based on the size of your family, disability status, veteran status)
             31_medical: Medical expenses deducted
             41_property: Property tax deduction
             42_nj_taxable: New Jersey taxable income
+            43_income_tax: Income tax
+            51_use_tax: Use tax
+            54_total_tax: Total tax
+            55_tax_withheld: New Jersey tax withheld
+            56_property_tax_credit: Property tax Credit 
+            58_nj_eitc: New Jersey earned income tax credit
+            59_excess_uiwfswf: Excess UI/WF/SWF withheld
+            61_excess_fli: Excess FLI withheld
+            64_child_dep_care: Child and dependent care credit
+            65_nj_ctc: New Jersey child tax credit
+            66_total_payments_refundable_credits: Total payments and refundable credits
             income_tax: Income tax
           spouse_claimed_as_eitc_qualifying_child: My spouse could be someone else's qualifying child for the Earned Income Tax Credit.
           spouse_disabled: My spouse has a disability

@@ -187,14 +187,14 @@
     <div class="reveal__content">
       <% @detailed_return_info.each do |section| %>
         <div>
-          <% section.each do |text_key, value| %>
+          <% section.each do |line| %>
             <div class="spacing-below-15">
-              <p class="text--body text--bold spacing-below-5"><%= t(".reveal.#{text_key}") %></p>
-              <p><%= value %></p>
+              <p class="text--body text--bold spacing-below-5"><%= t(".reveal.#{line[:text_key]}") %></p>
+              <p><%= line[:value] %></p>
             </div>
           <% end %>
         </div>
-        <hr/>
+        <hr role="presentation" />
       <% end %>
     </div>
   </div>
