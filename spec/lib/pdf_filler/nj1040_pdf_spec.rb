@@ -291,6 +291,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         }
         it 'enters the date into the PDF signature field' do
           expect(pdf_fields["Date1_es_:signer:date"]).to eq "2024-12-19"
+          expect(pdf_fields["Date2_es_:signer:date"]).to eq ""
         end
       end
 
