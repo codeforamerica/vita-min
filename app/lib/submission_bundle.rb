@@ -59,6 +59,7 @@ class SubmissionBundle
     response = @submission.bundle_class.build(@submission)
     if response.valid?
       delete_blank_nodes(response.document)
+      response.document
     else
       @errors = response.errors
       raise SubmissionBundleError

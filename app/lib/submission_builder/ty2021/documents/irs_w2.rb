@@ -78,7 +78,6 @@ module SubmissionBuilder
                 xml.Amt box14.other_amount.round
               end
             end
-
             [w2.w2_state_fields_group].compact.each do |group|
               xml.W2StateLocalTaxGrp do |xml|
                 xml.W2StateTaxGrp do |xml|
