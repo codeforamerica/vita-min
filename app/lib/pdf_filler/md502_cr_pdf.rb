@@ -3,7 +3,7 @@ module PdfFiller
     include PdfHelper
 
     def source_pdf_name
-      "md502CR-TY2023"
+      "md502CR-TY2024"
     end
 
     def initialize(submission)
@@ -16,25 +16,25 @@ module PdfFiller
 
     def hash_for_pdf
       {
-        'Text Field 1': @submission.data_source.primary.ssn,
-        'Text Field 2': @submission.data_source.spouse.ssn,
-        'Text Field 3': @submission.data_source.primary.first_name,
-        'Text Field 4': @submission.data_source.primary.middle_initial,
-        'Text Field 5': @submission.data_source.primary.last_name,
-        'Text Field 6': @submission.data_source.spouse.first_name,
-        'Text Field 7': @submission.data_source.spouse.middle_initial,
-        'Text Field 8': @submission.data_source.spouse.last_name,
+        'Your Social Security Number': @submission.data_source.primary.ssn,
+        'Spouses Social Security Number': @submission.data_source.spouse.ssn,
+        'Your First Name': @submission.data_source.primary.first_name,
+        'Primary MI': @submission.data_source.primary.middle_initial,
+        'Your Last Name': @submission.data_source.primary.last_name,
+        'Spouses First Name': @submission.data_source.spouse.first_name,
+        'Spouse MI': @submission.data_source.spouse.middle_initial,
+        'Spouses Last Name': @submission.data_source.spouse.last_name,
         'Text Field 27': @xml_document.at('Form502CR ChildAndDependentCare FederalAdjustedGrossIncome')&.text,
         'Text Field 115': @xml_document.at('Form502CR ChildAndDependentCare FederalChildCareCredit')&.text,
         'Text Field 29': @xml_document.at('Form502CR ChildAndDependentCare DecimalAmount')&.text,
         'Text Field 30': @xml_document.at('Form502CR ChildAndDependentCare Credit')&.text,
-        'Text Field 1051': @xml_document.at('Form502CR Senior Credit')&.text,
+        '1_9': @xml_document.at('Form502CR Senior Credit')&.text,
         'Text Field 1049': @xml_document.at('Form502CR Summary ChildAndDependentCareCr')&.text,
         'Text Field 1039': @xml_document.at('Form502CR Summary SeniorCr')&.text,
         'Text Field 1038': @xml_document.at('Form502CR Summary TotalCredits')&.text,
-        'Text Field 1031': @xml_document.at('Form502CR Refundable ChildAndDependentCareCr')&.text,
-        'Text Field 1030': @xml_document.at('Form502CR Refundable MDChildTaxCr')&.text,
-        'Text Field 1028': @xml_document.at('Form502CR Refundable TotalCredits')&.text,
+        '7_2': @xml_document.at('Form502CR Refundable ChildAndDependentCareCr')&.text,
+        '8_2': @xml_document.at('Form502CR Refundable MDChildTaxCr')&.text,
+        '10': @xml_document.at('Form502CR Refundable TotalCredits')&.text,
       }
     end
   end
