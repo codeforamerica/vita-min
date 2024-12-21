@@ -2538,7 +2538,7 @@ es:
               </li>
             </ul>
             <p>
-             Encuentre un desglose más detallado de los créditos y restas no respaldados este año aquí.
+              Encuentre un desglose más detallado de los créditos y deducciones no admitidos este año <a href="https://www.fileyourstatetaxes.org/es/md/faq/md_not_supported_credits_and_subtractions" rel="noopener nofollow" target="_blank">aquí</a>.
             </p>
           body2_html: |
             <p>
@@ -2559,15 +2559,15 @@ es:
                   Puedes presentar tu declaración estatal de forma gratuita con voluntarios VITA certificados por el IRS en Maryland, pero puede tardar de 2 a 3 semanas en completarse.
                   <ul>
                     <li>
-                      Comienza con VITA ahora
+                      <a href="https://airtable.com/appAgBw351Iig0YI4/pagVvtGPWrpURJrrd/form" rel="noopener nofollow" target="_blank">Comience con VITA ahora</a>
                     </li>
                     <li>
-                     Obtén más información sobre este proceso y otras opciones para presentar tu declaración aquí.
+                      Obtenga más información sobre este proceso y otras opciones de presentación <a href="https://www.fileyourstatetaxes.org/es/md/faq/what_are_my_other_state_filing_options_this_year_46" rel="noopener nofollow" target="_blank">aquí</a>.
                     </li>
                   </ul>
                 </li>
                 <li>
-                  Comienza con el servicio gratuito de preparación de impuestos sobre la renta del Contralor de Maryland.
+                  Comience con el servicio <a href="https://www.marylandtaxes.gov/individual/tax-assistance/free-tax-prep.php" rel="noopener nofollow" target="_blank">gratuito de preparación de impuestos</a> sobre la renta del Contralor de Maryland.
                 </li>
               </ul>
             </p>
@@ -3182,8 +3182,16 @@ es:
           title: "¡Usted podría ser elegible para el crédito o deducción del impuesto a la propiedad de New Jersey!"
       nj_ineligible_property_tax:
         edit:
-          helper_description: Continúe viendo para qué más podemos ayudarlo a calificar.
-          title: Parece que no eres elegible para este crédito.
+          continue_text: Click continue to see what else we can guide you to qualify for.
+          go_back_link: Go back to correct.
+          mistake_text: Is this a mistake?
+          on_home: on the home you owned.
+          on_rental: on the home you rented.
+          reason_html: You are not eligible for this because <b>%{reason}</b>
+          reason_multi_unit_conditions: this main home in a multi-unit building did not meet the requirements to claim this credit or deduction.
+          reason_neither: you must own rent or own a main home in %{filing_year} to receive this credit or deduction.
+          reason_property_taxes: you did not pay property taxes (directly, or through rent) on this main home.
+          title_html: Looks like you're not eligible for the property tax credit or deduction <b>%{property}</b>
       nj_medical_expenses:
         edit:
           description_html: |-
@@ -3238,6 +3246,7 @@ es:
           primary_disabled: Primary disabled
           primary_gubernatorial: I want $1 of my taxes to go to the gubernatorial elections fund
           primary_veteran: Soy un veterano
+          property_tax_credit_deduction: Property Tax Credit/Deduction
           property_tax_paid: Impuestos sobre la propiedad pagados
           rent_paid: Alquiler pagado
           spouse_claimed_as_eitc_qualifying_child: My spouse could be someone else's qualifying child for the Earned Income Tax Credit.

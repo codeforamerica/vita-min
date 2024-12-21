@@ -3,10 +3,17 @@ module StateFile
     class NjTenantPropertyTaxWorksheetController < QuestionsController
       include ReturnToReviewConcern
 
-      def self.show?(intake)
-        intake.household_rent_own_rent? &&
-          StateFile::NjTenantEligibilityHelper.determine_eligibility(intake) == StateFile::NjTenantEligibilityHelper::WORKSHEET &&
-          Efile::Nj::NjPropertyTaxEligibility.possibly_eligible_for_deduction_or_credit?(intake)
+      def next_path
+        options = {}
+        options[:return_to_review] = params[:return_to_review] if params[:return_to_review].present?
+
+        StateFile::NjPropertyTaxFlowOffRamp.next_controller(options)
+      end
+
+      def prev_path
+        options = {}
+        options[:return_to_review] = params[:return_to_review] if params[:return_to_review].present?
+        NjHouseholdRentOwnController.to_path_helper(options)
       end
     end
   end
