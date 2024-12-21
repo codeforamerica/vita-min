@@ -80,7 +80,7 @@ describe SubmissionBundle do
         )
       end
 
-      it "processes manifest XML correctly", required_schema: "md" do
+      it "utilizes the delete blank node method", required_schema: "md" do
         expect_any_instance_of(XmlMethods).to receive(:delete_blank_nodes)
         described_class.new(submission).build
       end
