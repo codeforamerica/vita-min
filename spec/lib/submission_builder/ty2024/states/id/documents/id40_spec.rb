@@ -4,8 +4,8 @@ describe SubmissionBuilder::Ty2024::States::Id::Documents::Id40, required_schema
   describe ".document" do
     let(:intake) { create(:state_file_id_intake, :single_filer_with_json) }
     let(:submission) { create(:efile_submission, data_source: intake) }
-    let(:build_response) { SubmissionBundle.build(submission) }
-    let(:xml) { Nokogiri::XML::Document.parse(build_response) }
+    let(:build_response) { described_class.build(submission, validate: false) }
+    let(:xml) { Nokogiri::XML::Document.parse(build_response.document.to_xml) }
 
     context "single filer" do
       let(:intake) { create(:state_file_id_intake, :single_filer_with_json) }
