@@ -12,13 +12,13 @@ module SubmissionBuilder
               build_xml_doc("Form502CR", documentId: "Form502CR") do |xml|
                 if calculated_fields.fetch(:MD502_DEDUCTION_METHOD) == "S"
                   xml.ChildAndDependentCare do |child_dependent_care|
-                    child_dependent_care.FederalAdjustedGrossIncome calculated_fields.fetch(:MD502_LINE_1)
-                    child_dependent_care.FederalChildCareCredit calculated_fields.fetch(:MD502CR_PART_B_LINE_2)
-                    child_dependent_care.DecimalAmount calculated_fields.fetch(:MD502CR_PART_B_LINE_3)
-                    child_dependent_care.Credit calculated_fields.fetch(:MD502CR_PART_B_LINE_4)
+                    add_non_zero_value(child_dependent_care, :FederalAdjustedGrossIncome, :MD502_LINE_1)
+                    add_non_zero_value(child_dependent_care, :FederalChildCareCredit, :MD502CR_PART_B_LINE_2)
+                    add_non_zero_float_value(child_dependent_care, :DecimalAmount, :MD502CR_PART_B_LINE_3)
+                    add_non_zero_value(child_dependent_care, :Credit, :MD502CR_PART_B_LINE_4)
                   end
                   xml.Senior do |senior|
-                    senior.Credit calculated_fields.fetch(:MD502CR_PART_M_LINE_1)
+                    add_non_zero_value(senior, :Credit, :MD502CR_PART_M_LINE_1)
                   end
                   xml.Summary do
                     add_non_zero_value(xml, :ChildAndDependentCareCr, :MD502CR_PART_AA_LINE_2)

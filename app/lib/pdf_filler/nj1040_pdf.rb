@@ -912,6 +912,7 @@ module PdfFiller
     def household_rent_own
       return "Choice1" if @xml_document.at("PropertyTaxDeductOrCredit Homeowner")&.text == 'X'
       return "Choice2" if @xml_document.at("PropertyTaxDeductOrCredit Tenant")&.text == 'X'
+      return "Choice3" if @xml_document.at("PropertyTaxDeductOrCredit Both")&.text == 'X'
       "Off"
     end
 
