@@ -7,7 +7,8 @@ RSpec.describe LifeSituationsForm do
     {
       had_disability: "no",
       was_blind: "no",
-      primary_not_us_citizen: "no",
+      primary_us_citizen: "no",
+      primary_visa: "no",
       was_full_time_student: "no",
       no_life_situations_apply: "yes"
     }
@@ -17,7 +18,8 @@ RSpec.describe LifeSituationsForm do
     {
         had_disability: "yes",
         was_blind: "yes",
-        primary_not_us_citizen: "yes",
+        primary_us_citizen: "yes",
+        primary_visa: "yes",
         was_full_time_student: "yes",
         no_life_situations_apply: "no",
     }
@@ -30,7 +32,8 @@ RSpec.describe LifeSituationsForm do
       intake.reload
 
       expect(intake.had_disability).to eq "no"
-      expect(intake.primary_us_citizen).to eq "yes"
+      expect(intake.primary_us_citizen).to eq "no"
+      expect(intake.primary_visa).to eq "no"
       expect(intake.was_blind).to eq "no"
       expect(intake.was_full_time_student).to eq "no"
     end
@@ -41,7 +44,8 @@ RSpec.describe LifeSituationsForm do
       intake.reload
 
       expect(intake.had_disability).to eq "yes"
-      expect(intake.primary_us_citizen).to eq "no"
+      expect(intake.primary_us_citizen).to eq "yes"
+      expect(intake.primary_visa).to eq "yes"
       expect(intake.was_blind).to eq "yes"
       expect(intake.was_full_time_student).to eq "yes"
     end
