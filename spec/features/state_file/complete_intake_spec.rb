@@ -598,15 +598,6 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t("state_file.questions.md_had_health_insurance.edit.title")
-      choose I18n.t("general.affirmative")
-      check "Zeus L Thunder"
-      within "#answer-no-health-insurance" do
-        choose I18n.t("general.affirmative")
-      end
-
-      click_on I18n.t("general.continue")
-
       expect(strip_html_tags(page.body)).to have_text strip_html_tags(I18n.t("state_file.questions.tax_refund.edit.title_html", state_name: "Maryland", refund_amount: 1000))
       choose I18n.t('state_file.questions.tax_refund.edit.direct_deposit')
       choose I18n.t("views.questions.bank_details.account_type.checking")
@@ -621,6 +612,14 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in 'state_file_md_tax_refund_form_account_number', with: "123456789"
       fill_in 'state_file_md_tax_refund_form_account_number_confirmation', with: "123456789"
       check I18n.t('state_file.questions.md_tax_refund.edit.bank_authorization_confirmation')
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text I18n.t("state_file.questions.md_had_health_insurance.edit.title")
+      choose I18n.t("general.affirmative")
+      check "Zeus L Thunder"
+      within "#answer-no-health-insurance" do
+        choose I18n.t("general.affirmative")
+      end
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t("state_file.questions.esign_declaration.edit.title", state_name: "Maryland")
