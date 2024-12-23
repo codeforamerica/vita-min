@@ -87,7 +87,7 @@
 FactoryBot.define do
   factory :state_file_nc_intake do
     transient do
-      filing_status { 'married_filing_jointly' }
+      filing_status { 'single' }
     end
 
     factory :state_file_nc_refund_intake do
@@ -101,8 +101,8 @@ FactoryBot.define do
       end
     end
 
-    raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nc_nick') }
-    raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nc_nick') }
+    raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nc_daffy_single') }
+    raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nc_daffy_single') }
     df_data_import_succeeded_at { DateTime.now }
 
     primary_first_name { "North" }
