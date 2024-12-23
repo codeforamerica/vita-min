@@ -15,6 +15,7 @@ describe SubmissionBuilder::ReturnHeader do
         let(:tax_return_year) { 2024 }
         let(:efin) { "123455" }
         let(:sin) { "223455" }
+
         before do
           intake.direct_file_data.mailing_street = mailing_street
           intake.direct_file_data.mailing_apartment = mailing_apartment
@@ -43,6 +44,24 @@ describe SubmissionBuilder::ReturnHeader do
       end
 
       context "filer personal info" do
+        let(:primary_birth_date) { 40.years.ago }
+        let(:primary_ssn) { "100000030" }
+        let(:primary_first_name) { "Prim" }
+        let(:primary_middle_initial) { "W" }
+        let(:primary_last_name) { "Filerton" }
+        let(:primary_suffix) { "JR" }
+        let(:primary_esigned_at) { DateTime.new(2024, 12, 19, 12) }
+        let(:primary_esigned) { 'yes' }
+
+        let(:spouse_birth_date) { nil }
+        let(:spouse_ssn) { nil }
+        let(:spouse_first_name) { nil }
+        let(:spouse_middle_initial) { nil }
+        let(:spouse_last_name) { nil }
+        let(:spouse_suffix) { nil }
+        let(:spouse_esigned_at) { nil }
+        let(:spouse_esigned) { 'unfilled' }
+
         let(:intake) {
           create(
             "state_file_#{state_code}_intake".to_sym,
@@ -57,25 +76,17 @@ describe SubmissionBuilder::ReturnHeader do
             spouse_last_name: spouse_last_name,
           )
         }
-        let(:primary_birth_date) { 40.years.ago }
-        let(:primary_ssn) { "100000030" }
-        let(:primary_first_name) { "Prim" }
-        let(:primary_middle_initial) { "W" }
-        let(:primary_last_name) { "Filerton" }
-        let(:primary_suffix) { "JR" }
-        let(:spouse_birth_date) { nil }
-        let(:spouse_ssn) { nil }
-        let(:spouse_first_name) { nil }
-        let(:spouse_middle_initial) { nil }
-        let(:spouse_last_name) { nil }
-        let(:spouse_suffix) { nil }
 
         before do
           intake.direct_file_data.primary_ssn = primary_ssn
           intake.primary_suffix = primary_suffix
+          intake.primary_esigned = primary_esigned
+          intake.primary_esigned_at = primary_esigned_at
           intake.direct_file_data.spouse_ssn = spouse_ssn
           intake.direct_file_data.phone_number = "5551231234"
           intake.spouse_suffix = spouse_suffix
+          intake.spouse_esigned = spouse_esigned
+          intake.spouse_esigned_at = spouse_esigned_at
         end
 
         context "single filer" do
@@ -89,6 +100,7 @@ describe SubmissionBuilder::ReturnHeader do
             expect(doc.at('Filer Primary TaxpayerName LastName').content).to eq primary_last_name
             expect(doc.at('Filer Primary TaxpayerName NameSuffix').content).to eq primary_suffix
             expect(doc.at("Filer Primary USPhone").text).to eq "5551231234"
+            expect(doc.at('Filer Primary DateSigned').text).to eq '2024-12-19'
 
             expect(doc.at("Filer Secondary DateOfBirth")).not_to be_present
             expect(doc.at('Filer Secondary TaxpayerSSN')).not_to be_present
@@ -96,6 +108,7 @@ describe SubmissionBuilder::ReturnHeader do
             expect(doc.at('Filer Secondary TaxpayerName MiddleInitial')).not_to be_present
             expect(doc.at('Filer Secondary TaxpayerName LastName')).not_to be_present
             expect(doc.at('Filer Secondary TaxpayerName NameSuffix')).not_to be_present
+            expect(doc.at('Filer Secondary DateSigned')).not_to be_present
           end
 
           context "excluding absent fields" do
@@ -104,6 +117,9 @@ describe SubmissionBuilder::ReturnHeader do
             let(:primary_first_name) { nil }
             let(:primary_middle_initial) { nil }
             let(:primary_last_name) { nil }
+            let(:primary_esigned) { 'unfilled' }
+            let(:primary_esigned_at) { nil }
+
             before do
               intake.direct_file_data.primary_ssn = nil
               intake.direct_file_data.spouse_ssn = nil
@@ -136,6 +152,7 @@ describe SubmissionBuilder::ReturnHeader do
               expect(doc.at('Filer Primary TaxpayerName LastName')).not_to be_present
               expect(doc.at('Filer Primary TaxpayerName NameSuffix')).not_to be_present
               expect(doc.at("Filer Primary USPhone")).not_to be_present
+              expect(doc.at("Filer Primary DateSigned")).not_to be_present
 
               expect(doc.at("Filer Secondary DateOfBirth")).not_to be_present
               expect(doc.at('Filer Secondary TaxpayerSSN')).not_to be_present
@@ -143,6 +160,7 @@ describe SubmissionBuilder::ReturnHeader do
               expect(doc.at('Filer Secondary TaxpayerName MiddleInitial')).not_to be_present
               expect(doc.at('Filer Secondary TaxpayerName LastName')).not_to be_present
               expect(doc.at('Filer Secondary TaxpayerName NameSuffix')).not_to be_present
+              expect(doc.at("Filer Secondary DateSigned")).not_to be_present
             end
           end
         end
@@ -155,9 +173,12 @@ describe SubmissionBuilder::ReturnHeader do
           let(:spouse_middle_initial) { "Z" }
           let(:spouse_last_name) { "Filerton" }
           let(:spouse_suffix) { "SR" }
+          let(:spouse_esigned_at) { DateTime.new(2024, 12, 18, 12) }
+          let(:spouse_esigned) { 'yes' }
 
           it "generates xml with primary and spouse DOBs" do
             expect(doc.at("Filer Primary DateOfBirth").text).to eq primary_birth_date.strftime("%F")
+            expect(doc.at('Filer Primary DateSigned').text).to eq '2024-12-19'
 
             expect(doc.at("Filer Secondary DateOfBirth").text).to eq spouse_birth_date.strftime("%F")
             expect(doc.at('Filer Secondary TaxpayerSSN').content).to eq spouse_ssn
@@ -165,6 +186,7 @@ describe SubmissionBuilder::ReturnHeader do
             expect(doc.at('Filer Secondary TaxpayerName MiddleInitial').content).to eq spouse_middle_initial
             expect(doc.at('Filer Secondary TaxpayerName LastName').content).to eq spouse_last_name
             expect(doc.at('Filer Secondary TaxpayerName NameSuffix').content).to eq spouse_suffix
+            expect(doc.at('Filer Secondary DateSigned').text).to eq '2024-12-18'
           end
 
           context "filers have lower cased suffixes" do
@@ -187,6 +209,7 @@ describe SubmissionBuilder::ReturnHeader do
               expect(doc.at('Filer Secondary TaxpayerName MiddleInitial')).not_to be_present
               expect(doc.at('Filer Secondary TaxpayerName LastName')).not_to be_present
               expect(doc.at('Filer Secondary TaxpayerName NameSuffix')).not_to be_present
+              expect(doc.at('Filer Secondary DateSigned')).not_to be_present
             end
           end
         end
