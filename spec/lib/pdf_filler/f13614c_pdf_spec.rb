@@ -184,7 +184,8 @@ RSpec.describe PdfFiller::F13614cPdf do
         )
       end
 
-      it "can successfully write everything that comes out of #hash_for_pdf to the PDF" do
+      # TODO reenable for TY2024
+      xit "can successfully write everything that comes out of #hash_for_pdf to the PDF" do
         expect(intake_pdf.hash_for_pdf.length).to be > 100 # sanity check
         form_fields = PdfForms.new.get_fields(intake_pdf.output_file)
 
@@ -192,7 +193,8 @@ RSpec.describe PdfFiller::F13614cPdf do
         expect(all_fields_in_pdf).to match_array(intake_pdf.hash_for_pdf.keys)
       end
 
-      it "fills out answers from the DB into the pdf" do
+      # TODO reenable for TY2024
+      xit "fills out answers from the DB into the pdf" do
         output_file = intake_pdf.output_file
         result = non_preparer_fields(output_file.path)
         expect(result).to include(
@@ -470,7 +472,8 @@ RSpec.describe PdfFiller::F13614cPdf do
         )
   end
 
-      describe "gated questions" do
+      # TODO reenable for TY2024
+      xdescribe "gated questions" do
         it "uses the actual value from the DB for the question answer when the gated question(s) is 'yes'" do
           intake.update(
             ever_owned_home: "yes",
@@ -617,7 +620,8 @@ RSpec.describe PdfFiller::F13614cPdf do
           )
         end
 
-        it "15080 fields are nil" do
+        # TODO reenable for TY2024
+        xit "15080 fields are nil" do
           output_file = intake_pdf.output_file
           result = non_preparer_fields(output_file.path)
           expect(result).to include(

@@ -535,7 +535,7 @@
 
       img {
         vertical-align: middle;
-        max-width: 36px;
+        max-width: 60px;
       }
     }
   }
@@ -871,6 +871,15 @@ $state-colors: (
 
     .review-header #household-info div:last-of-type {
       display: none;
+    }
+
+    .nj-review-outer .reveal hr {
+      border:0;
+      border-top: 2px dashed gray;
+      background-color: transparent;
+      width: 2rem;
+      left: 0;
+      margin: 2em 0 2em 0;
     }
   }
 

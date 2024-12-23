@@ -11,7 +11,6 @@ class DirectFileJsonData
 
   class DfJsonFiler < DfJsonPerson
     json_accessor is_primary_filer: { type: :boolean, key: "isPrimaryFiler" }
-    json_accessor form_1099_gs_total: { type: :money_amount, key: "form1099GsTotal" }
     json_accessor educator_expenses: { type: :money_amount, key: "educatorExpenses" }
     json_accessor hsa_total_deductible_amount: { type: :money_amount, key: "hsaTotalDeductibleAmount" }
   end
@@ -58,6 +57,18 @@ class DirectFileJsonData
     json_accessor tax_exempt_and_tax_credit_bond_cusip_number: { type: :string, key: "taxExemptAndTaxCreditBondCusipNo" }
   end
 
+  class DfJsonForm1099Gs < DfJsonWrapper
+    json_accessor amount: { type: :money_amount, key: "amount" }
+    json_accessor amount_paid_back_for_benefits_in_tax_year: { type: :money_amount, key: "amountPaidBackForBenefitsInTaxYear" }
+    json_accessor federal_tax_withheld: { type: :money_amount, key: "federalTaxWithheld" }
+    json_accessor has_1099: { type: :boolean, key: "has1099" }
+    json_accessor state_id_number: { type: :string, key: "stateIdNumber" }
+    json_accessor state_tax_withheld: { type: :money_amount, key: "stateTaxWithheld" }
+    json_accessor payer: { type: :string, key: "payer" }
+    json_accessor payer_tin: { type: :string, key: "payerTin" }
+    json_accessor recipient_tin: { type: :string, key: "recipientTin" }
+  end
+
   attr_reader :data
   delegate :to_json, to: :data
 
@@ -87,6 +98,10 @@ class DirectFileJsonData
 
   def interest_reports
     data["interestReports"]&.map { |interest_report| DfJsonInterestReport.new(interest_report) } || []
+  end
+
+  def form_1099gs
+    data["form1099Gs"]&.map { |form_1099g| DfJsonForm1099Gs.new(form_1099g) } || []
   end
 
   def filers

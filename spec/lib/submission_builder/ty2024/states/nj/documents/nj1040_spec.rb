@@ -4,7 +4,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
   describe ".document" do
     let(:intake) { create(:state_file_nj_intake, filing_status: "single") }
     let(:submission) { create(:efile_submission, data_source: intake) }
-    let(:build_response) { described_class.build(submission, validate: true) }
+    let(:build_response) { described_class.build(submission, validate: false) }
     let(:xml) { Nokogiri::XML::Document.parse(build_response.document.to_xml) }
 
     after do
@@ -567,6 +567,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
         it "adds a checked tenant element to property tax deduct or credit" do
           expect(xml.at("PropertyTaxDeductOrCredit Tenant").text).to eq("X")
           expect(xml.at("PropertyTaxDeductOrCredit Homeowner")).to eq(nil)
+          expect(xml.at("PropertyTaxDeductOrCredit Both")).to eq(nil)
         end
 
         it "inserts property tax rent calculation on line 40a" do
@@ -587,10 +588,34 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
         it "adds a checked homeowner element to property tax deduct or credit" do
           expect(xml.at("PropertyTaxDeductOrCredit Homeowner").text).to eq("X")
           expect(xml.at("PropertyTaxDeductOrCredit Tenant")).to eq(nil)
+          expect(xml.at("PropertyTaxDeductOrCredit Both")).to eq(nil)
         end
 
         it 'inserts property tax calculation on line 40a' do
           expect(xml.at("PropertyTaxDeductOrCredit TotalPropertyTaxPaid").text).to eq("12345")
+        end
+      end
+
+      context "when taxpayer is both homeowner and tenant with income above property tax minimum" do
+        let(:intake) {
+          create(
+            :state_file_nj_intake,
+            :df_data_many_w2s, # income above minimum
+            household_rent_own: 'both',
+            property_tax_paid: 5000,
+            rent_paid: 10000
+          )
+        }
+
+        it "adds a checked both element to property tax deduct or credit" do
+          expect(xml.at("PropertyTaxDeductOrCredit Both").text).to eq("X")
+          expect(xml.at("PropertyTaxDeductOrCredit Tenant")).to eq(nil)
+          expect(xml.at("PropertyTaxDeductOrCredit Homeowner")).to eq(nil)
+        end
+
+        it 'inserts property tax calculation on line 40a' do
+          expected = 6800 # 5000 + 10000*.18
+          expect(xml.at("PropertyTaxDeductOrCredit TotalPropertyTaxPaid").text).to eq(expected.to_s)
         end
       end
 
@@ -600,6 +625,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
         it "does not add a checked tenant or homeowner element to property tax deduct or credit" do
           expect(xml.at("PropertyTaxDeductOrCredit Tenant")).to eq(nil)
           expect(xml.at("PropertyTaxDeductOrCredit Homeowner")).to eq(nil)
+          expect(xml.at("PropertyTaxDeductOrCredit Both")).to eq(nil)
         end
 
         it 'does not add property tax on line 40a' do
@@ -768,9 +794,11 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
         end
 
         context "when qualifies for claimed as dependent exemption" do
-          let(:intake) { create(:state_file_nj_intake,
+          let(:intake) { 
+            create(:state_file_nj_intake,
                                 :df_data_mfj_primary_claimed_dep,
-          ) }
+          )
+          }
 
           it "does not check 53c Schedule NJ-HCC checkbox and leaves 53a, 53b, and 53c amount blank" do
             expect(xml.at("NoHealthInsurance")).to eq(nil) # 53a

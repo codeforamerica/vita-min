@@ -1,0 +1,83 @@
+{
+  "familyAndHousehold": [
+    {
+      "monthsLivedWithTPInUS": null,
+      "lastName": "PIKE",
+      "isClaimedDependent": true,
+      "hohQualifyingPerson": true,
+      "qualifyingChild": false,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "1955-04-05",
+      "suffix": null,
+      "residencyDuration": "allYear",
+      "firstName": "PIPER",
+      "middleInitial": null,
+      "scheduleEicLine4aNo": true,
+      "tin": "600-00-2011",
+      "eligibleDependent": true,
+      "relationship": "parent",
+      "ssnNotValidForEmployment": null
+    },
+    {
+      "monthsLivedWithTPInUS": "twelve",
+      "lastName": "PIKE",
+      "isClaimedDependent": true,
+      "hohQualifyingPerson": true,
+      "qualifyingChild": true,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "2018-06-07",
+      "suffix": null,
+      "residencyDuration": "allYear",
+      "firstName": "PETE",
+      "middleInitial": null,
+      "scheduleEicLine4aNo": false,
+      "tin": "600-00-2012",
+      "eligibleDependent": true,
+      "relationship": "biologicalChild",
+      "ssnNotValidForEmployment": false
+    },
+    {
+      "monthsLivedWithTPInUS": "twelve",
+      "lastName": "PIKE",
+      "isClaimedDependent": true,
+      "hohQualifyingPerson": true,
+      "qualifyingChild": true,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "2019-07-08",
+      "suffix": null,
+      "residencyDuration": "allYear",
+      "firstName": "PICKLE",
+      "middleInitial": null,
+      "scheduleEicLine4aNo": false,
+      "tin": "600-00-2013",
+      "eligibleDependent": true,
+      "relationship": "biologicalChild",
+      "ssnNotValidForEmployment": false
+    }
+  ],
+  "filers": [
+    {
+      "firstName": "PERCIVAL",
+      "lastName": "PIKE",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "400-00-3030",
+      "dateOfBirth": "1982-02-20",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [
+    {
+      "usedTin": "400-00-3030",
+      "unionDuesAmount": null
+    }
+  ],
+  "interestReports": []
+}

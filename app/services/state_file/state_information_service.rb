@@ -143,7 +143,7 @@ module StateFile
         vita_link_en: "https://airtable.com/appAgBw351Iig0YI4/pagVvtGPWrpURJrrd/form",
         vita_link_es: "https://airtable.com/appAgBw351Iig0YI4/pagpUP2HSWNXzPlIz/form",
         voucher_form_name: "Form PV",
-        voucher_path: "",
+        voucher_path: "/pdfs/md-pv-TY2024.pdf",
         w2_supported_box14_codes: ["STPICKUP"],
         w2_include_local_income_boxes: true
       },
