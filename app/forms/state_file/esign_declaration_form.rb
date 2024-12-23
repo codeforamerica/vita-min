@@ -38,6 +38,7 @@ module StateFile
       old_efile_submission = @intake.efile_submissions&.last
       if old_efile_submission.present?
         # the after_transitions :resubmission creates a new efile submission and transitions it to :preparing
+        @intake.submission_pdf.detach
         old_efile_submission.transition_to!(:resubmitted) if ["rejected", "notified_of_rejection", "waiting"].include?(old_efile_submission.current_state)
       else
         # Submits new return
