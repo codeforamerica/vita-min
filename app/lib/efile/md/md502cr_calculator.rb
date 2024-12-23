@@ -42,13 +42,17 @@ module Efile
       def calculate_md502_cr_part_m_line_1
         agi = line_or_zero(:MD502_LINE_1)
         credit = 0
-        if (filing_status_mfj? || filing_status_qw? || filing_status_hoh?) && agi <= 150_000
+        if filing_status_mfj? && agi <= 150_000 && deduction_method_is_standard?
           if @intake.primary_senior? && @intake.spouse_senior?
             credit = 1750
           elsif @intake.primary_senior? ^ @intake.spouse_senior?
             credit = 1000
           end
-        elsif (filing_status_single? || filing_status_mfs?) && agi <= 100_000
+        elsif (filing_status_qw? || filing_status_hoh?) && agi <= 150_000
+          if @intake.primary_senior?
+            credit = 1750
+          end
+        elsif (filing_status_single? || filing_status_mfs? || filing_status_dependent?) && agi <= 100_000
           if @intake.primary_senior?
             credit = 1000
           end
@@ -132,7 +136,8 @@ module Efile
       end
 
       def calculate_md502_cr_part_b_line_4
-        (line_or_zero(:MD502CR_PART_B_LINE_2) * @lines[:MD502CR_PART_B_LINE_3]&.value).round(0)
+        calculated_value = (line_or_zero(:MD502CR_PART_B_LINE_2) * @lines[:MD502CR_PART_B_LINE_3]&.value).round
+        [calculated_value, 1_344].min
       end
 
       def calculate_part_aa_line_2
@@ -148,13 +153,9 @@ module Efile
       end
 
       def calculate_part_cc_line_7
-        qualified_for_credit = if filing_status_single? || filing_status_hoh? || filing_status_qw?
-                                 @direct_file_data.fed_agi <= 59_401
-                               elsif filing_status_mfj?
-                                 @direct_file_data.fed_agi <= 89_101
-                               end
+        qualifying_fed_agi_limit = filing_status_mfj? ? 89_100 : 59_400
 
-        return unless qualified_for_credit
+        return unless @direct_file_data.fed_agi <= qualifying_fed_agi_limit
         [line_or_zero(:MD502CR_PART_B_LINE_4) - line_or_zero(:MD502_LINE_21), 0].max
       end
 
@@ -170,6 +171,10 @@ module Efile
 
       def calculate_part_cc_line_10
         (1..9).sum { |line_num| line_or_zero("MD502CR_PART_CC_LINE_#{line_num}") }
+      end
+
+      def deduction_method_is_standard?
+        @lines[:MD502_DEDUCTION_METHOD]&.value == "S"
       end
     end
   end

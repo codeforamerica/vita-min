@@ -1297,6 +1297,41 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         end
       end
 
+      context "when taxpayer is both homeowner and tenant" do
+        let(:submission) {
+          create :efile_submission, tax_return: nil, data_source: create(
+            :state_file_nj_intake,
+            :df_data_many_w2s,
+            household_rent_own: 'both',
+          )
+        }
+
+        before do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_40a).and_return 12_345_678
+        end
+
+        it "checks the Choice3 box" do
+          expect(pdf_fields["Group182"]).to eq "Choice3"
+        end
+
+        it "inserts $12,345,678 on line 40a" do
+          # millions
+          expect(pdf_fields["39"]).to eq "1"
+          expect(pdf_fields["280"]).to eq "2"
+          # thousands
+          expect(pdf_fields["undefined_112"]).to eq "3"
+          expect(pdf_fields["281"]).to eq "4"
+          expect(pdf_fields["282"]).to eq "5"
+          # hundreds
+          expect(pdf_fields["undefined_113"]).to eq "6"
+          expect(pdf_fields["283"]).to eq "7"
+          expect(pdf_fields["37"]).to eq "8"
+          # decimals
+          expect(pdf_fields["245"]).to eq "0"
+          expect(pdf_fields["24539a#2"]).to eq "0"
+        end
+      end
+
       context "when taxpayer is a neither a homeowner nor a renter" do
         let(:submission) {
           create :efile_submission, tax_return: nil, data_source: create(
