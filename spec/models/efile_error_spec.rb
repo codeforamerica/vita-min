@@ -72,6 +72,7 @@ describe 'EfileError' do
       "md-two-income-subtractions",
       "nc-county",
       "nc-eligibility",
+      "nc-qss-info",
       "nc-review",
       "nc-sales-use-tax",
       "nc-subtractions",

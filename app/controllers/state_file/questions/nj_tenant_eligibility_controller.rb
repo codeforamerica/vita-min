@@ -3,8 +3,10 @@ module StateFile
     class NjTenantEligibilityController < QuestionsController
       include ReturnToReviewConcern
 
-      def self.show?(intake)
-        intake.household_rent_own_rent? && !Efile::Nj::NjPropertyTaxEligibility.ineligible?(intake)
+      def prev_path
+        options = {}
+        options[:return_to_review] = params[:return_to_review] if params[:return_to_review].present?
+        NjHouseholdRentOwnController.to_path_helper(options)
       end
 
       def next_path
@@ -12,9 +14,10 @@ module StateFile
         options[:return_to_review] = params[:return_to_review] if params[:return_to_review].present?
         
         if StateFile::NjTenantEligibilityHelper.determine_eligibility(current_intake) == StateFile::NjTenantEligibilityHelper::INELIGIBLE
+          options[:on_home_or_rental] = :rental
           NjIneligiblePropertyTaxController.to_path_helper(options)
         elsif Efile::Nj::NjPropertyTaxEligibility.possibly_eligible_for_credit?(current_intake)
-          super # skip "rent paid" question and go to whichever is next by default
+          StateFile::NjPropertyTaxFlowOffRamp.next_controller(options)
         elsif StateFile::NjTenantEligibilityHelper.determine_eligibility(current_intake) == StateFile::NjTenantEligibilityHelper::WORKSHEET
           NjTenantPropertyTaxWorksheetController.to_path_helper(options)
         else

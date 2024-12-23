@@ -5,10 +5,21 @@ module StateFile
 
       before_action -> { @municipality = current_intake.municipality_name }
 
-      def self.show?(intake)
-        intake.household_rent_own_own? &&
-        StateFile::NjHomeownerEligibilityHelper.determine_eligibility(intake) == StateFile::NjHomeownerEligibilityHelper::ADVANCE &&
-        Efile::Nj::NjPropertyTaxEligibility.possibly_eligible_for_deduction_or_credit?(intake)
+      def prev_path
+        options = {}
+        options[:return_to_review] = params[:return_to_review] if params[:return_to_review].present?
+        NjHouseholdRentOwnController.to_path_helper(options)
+      end
+
+      def next_path
+        options = {}
+        options[:return_to_review] = params[:return_to_review] if params[:return_to_review].present?
+
+        if current_intake.household_rent_own_both?
+          NjTenantEligibilityController.to_path_helper(options)
+        else
+          StateFile::NjPropertyTaxFlowOffRamp.next_controller(options)
+        end
       end
     end
   end
