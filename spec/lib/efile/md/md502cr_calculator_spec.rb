@@ -93,12 +93,24 @@ describe Efile::Md::Md502crCalculator do
           context "when agi <= $150,000" do
             before do
               intake.direct_file_data.fed_agi = 150_000
+              allow(instance).to receive(:deduction_method_is_standard?).and_return(true)
               main_calculator.calculate
             end
 
             it "awards a credit of $1750" do
               expect(instance.lines[:MD502CR_PART_M_LINE_1].value).to eq(1_750)
               expect(instance.lines[:MD502CR_PART_AA_LINE_13].value).to eq(1_750)
+            end
+
+            context "deduction method is nonstandard" do
+              before do
+                allow(instance).to receive(:deduction_method_is_standard?).and_return(false)
+                main_calculator.calculate
+              end
+
+              it "awards no credit" do
+                expect(instance.lines[:MD502CR_PART_M_LINE_1].value).to eq(0)
+              end
             end
           end
 

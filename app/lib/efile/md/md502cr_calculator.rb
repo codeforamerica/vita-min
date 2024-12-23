@@ -42,7 +42,7 @@ module Efile
       def calculate_md502_cr_part_m_line_1
         agi = line_or_zero(:MD502_LINE_1)
         credit = 0
-        if filing_status_mfj? && agi <= 150_000
+        if filing_status_mfj? && agi <= 150_000 && deduction_method_is_standard?
           if @intake.primary_senior? && @intake.spouse_senior?
             credit = 1750
           elsif @intake.primary_senior? ^ @intake.spouse_senior?
@@ -171,6 +171,10 @@ module Efile
 
       def calculate_part_cc_line_10
         (1..9).sum { |line_num| line_or_zero("MD502CR_PART_CC_LINE_#{line_num}") }
+      end
+
+      def deduction_method_is_standard?
+        @lines[:MD502_DEDUCTION_METHOD]&.value == "S"
       end
     end
   end
