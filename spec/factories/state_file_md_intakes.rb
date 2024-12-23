@@ -130,8 +130,6 @@ FactoryBot.define do
     primary_middle_initial { "A" }
     primary_last_name { "Lando" }
     primary_birth_date { Date.new(1950, 01, 01) } # matches the bday in md_minimal.json
-    primary_signature_pin { '12345' }
-    primary_esigned_at { DateTime.now }
     subdivision_code { "0111" }
     political_subdivision { "Mt Savage" }
     confirmed_permanent_address { "yes" }
@@ -193,8 +191,6 @@ FactoryBot.define do
       spouse_middle_initial { "B" }
       spouse_last_name { "Lando" }
       spouse_birth_date { MultiTenantService.statefile.end_of_current_tax_year - 40 }
-      spouse_signature_pin { '54321' }
-      spouse_esigned_at { DateTime.now }
     end
 
     trait :with_senior_spouse do
