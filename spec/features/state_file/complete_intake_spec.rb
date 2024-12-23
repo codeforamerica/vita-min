@@ -829,6 +829,10 @@ RSpec.feature "Completing a state file intake", active_job: true do
       edit_buttons_text = edit_buttons.map(&:text)
       edit_buttons_unique_text_count = edit_buttons_text.uniq.count
       expect(edit_buttons_unique_text_count).to eq(edit_buttons_count)
+
+      click_on I18n.t("state_file.questions.nj_review.edit.reveal.header")
+      amounts_in_calculation_details = page.all(:xpath, '//main/section[last()]//p[contains(text(),"$")]')
+      expect(amounts_in_calculation_details.count).to eq(19)
     end
 
     it "handles property tax neither flow", required_schema: "nj" do

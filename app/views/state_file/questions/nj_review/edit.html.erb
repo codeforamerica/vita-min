@@ -182,7 +182,7 @@
     </div>
   </div>
 
-  <div class="reveal">
+  <section class="reveal" id="calculation-details">
     <h2 class="text--body text--bold spacing-below-5"><button href="#" class="reveal__button"><%= t(".reveal.header") %></button></h2>
     <div class="reveal__content">
       <% @detailed_return_info.each.with_index do |section, i| %>
@@ -199,7 +199,7 @@
         <% end %>
       <% end %>
     </div>
-  </div>
+  </section>
 
   <%= render "state_file/questions/shared/review_footer" %>
 <% end %>
