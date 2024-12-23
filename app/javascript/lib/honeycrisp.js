@@ -103,13 +103,17 @@ var followUpQuestion = (function () {
 
                 // set initial state of follow-ups based on the page
                 $(this).find('input').each(function (index, input) {
-                    if ($(this).attr('data-follow-up') != null) {
-                        if ($(this).is(':checked')) {
-                            $($(this).attr('data-follow-up')).find('input, select').attr('disabled', false);
-                            $($(this).attr('data-follow-up')).show();
+                    var $input = $(this);
+                    var followUpSelector = $input.attr('data-follow-up');
+                    if (followUpSelector) {
+                        if ($input.is(':checked')) {
+                            $(followUpSelector).find('input, select').attr('disabled', false);
+                            $(followUpSelector).show();
                         } else {
-                            $($(this).attr('data-follow-up')).find('input, select').attr('disabled', true);
-                            $($(this).attr('data-follow-up')).hide();
+                            if ($('[data-follow-up="' + followUpSelector + '"]:checked').length === 0) {
+                                $(followUpSelector).find('input, select').attr('disabled', true);
+                                $(followUpSelector).hide();
+                            }
                         }
                     }
                 });
