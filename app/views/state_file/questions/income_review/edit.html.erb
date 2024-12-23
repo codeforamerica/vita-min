@@ -88,7 +88,12 @@
     <div class="white-group" id="formssa1099s">
       <p class="text--bold spacing-below-0"><%= t(".ssa_title") %></p>
       <p class="text--grey-bold spacing-above-15 spacing-below-0">
-        <%= t(current_state_code == "nj" ? ".nj_not_taxed" : ".no_info_needed") %>
+        <%= case current_state_code
+        when "nj"
+          t(".nj_not_taxed")
+        else
+          t(".no_info_needed")
+        end %>
       </p>
     </div>
   <% end %>
