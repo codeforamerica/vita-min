@@ -25,7 +25,7 @@ describe SubmissionBuilder::Ty2022::States::Ny::NyReturnXml, required_schema: "n
         expect(xml.at("composition forms IT201 OVR_PAID_AMT")).to be_nil
         expect(xml.at("composition forms IT201 RFND_B4_EDU_AMT")).to be_nil
         expect(xml.at("composition forms IT201 RFND_AMT")).to be_nil
-        expect(xml.document.root.namespaces).to include({"xmlns:efile" => "http://www.irs.gov/efile", "xmlns" => "http://www.irs.gov/efile"})
+        expect(xml.document.root.namespaces).to include({"xmlns:efile"=>"http://www.irs.gov/efile", "xmlns"=>"http://www.irs.gov/efile"})
         expect(xml.document.at('AuthenticationHeader').to_s).not_to include('xmlns="http://www.irs.gov/efile"')
         expect(xml.document.at('ReturnHeaderState').to_s).not_to include('xmlns="http://www.irs.gov/efile"')
         expect(xml.document.at('processBO').to_s).not_to include('xmlns="http://www.irs.gov/efile"')
@@ -33,7 +33,7 @@ describe SubmissionBuilder::Ty2022::States::Ny::NyReturnXml, required_schema: "n
     end
 
     context "when married" do
-      let(:intake) { create(:state_file_ny_intake, :with_spouse) }
+      let(:intake) { create(:state_file_ny_intake, :mfj_with_complete_spouse) }
 
       it 'generates XML from the database models' do
         xml = described_class.build(submission).document
@@ -58,7 +58,7 @@ describe SubmissionBuilder::Ty2022::States::Ny::NyReturnXml, required_schema: "n
     end
 
     context "with long employment description" do
-      let(:intake) { create(:state_file_ny_intake, :with_spouse) }
+      let(:intake) { create(:state_file_ny_intake, :mfj_with_complete_spouse) }
 
       it 'generates XML from the database models' do
         intake.direct_file_data.primary_occupation = "Professional Juggler and unicyclist"
@@ -150,7 +150,7 @@ describe SubmissionBuilder::Ty2022::States::Ny::NyReturnXml, required_schema: "n
     end
 
     context "when getting a refund to a personal checking account" do
-      let(:intake) { create(:state_file_ny_intake, filing_status: filing_status, payment_or_deposit_type: "direct_deposit", routing_number: "011234567", account_number: "123456789", account_type: 1) }
+      let(:intake) { create(:state_file_ny_intake, filing_status: filing_status, payment_or_deposit_type: "direct_deposit",  routing_number: "011234567", account_number: "123456789", account_type: 1) }
       let(:filing_status) { 'single' }
 
       it 'generates XML from the database models' do

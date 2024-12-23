@@ -89,7 +89,6 @@ describe SubmissionBuilder::ReturnHeader do
             expect(doc.at('Filer Primary TaxpayerName LastName').content).to eq primary_last_name
             expect(doc.at('Filer Primary TaxpayerName NameSuffix').content).to eq primary_suffix
             expect(doc.at("Filer Primary USPhone").text).to eq "5551231234"
-            expect(doc.at("Filer Primary DateSigned").text).to eq "2024-12-19"
 
             expect(doc.at("Filer Secondary DateOfBirth")).not_to be_present
             expect(doc.at('Filer Secondary TaxpayerSSN')).not_to be_present
@@ -109,7 +108,6 @@ describe SubmissionBuilder::ReturnHeader do
               intake.direct_file_data.primary_ssn = nil
               intake.direct_file_data.spouse_ssn = nil
               intake.direct_file_data.phone_number = nil
-              intake.spouse_esigned = nil
 
               if intake.direct_file_json_data&.primary_filer.present?
                 intake.direct_file_json_data.primary_filer.dob = nil
@@ -145,13 +143,11 @@ describe SubmissionBuilder::ReturnHeader do
               expect(doc.at('Filer Secondary TaxpayerName MiddleInitial')).not_to be_present
               expect(doc.at('Filer Secondary TaxpayerName LastName')).not_to be_present
               expect(doc.at('Filer Secondary TaxpayerName NameSuffix')).not_to be_present
-              expect(doc.at("Filer Secondary DateSigned")).not_to be_present
             end
           end
         end
 
         context "filer with spouse" do
-          let(:intake) { create "state_file_#{state_code}_intake".to_sym, :with_spouse }
           let(:filing_status) { "married_filing_jointly" }
           let(:spouse_birth_date) { 42.years.ago }
           let(:spouse_ssn) { "200000030" }
@@ -159,11 +155,6 @@ describe SubmissionBuilder::ReturnHeader do
           let(:spouse_middle_initial) { "Z" }
           let(:spouse_last_name) { "Filerton" }
           let(:spouse_suffix) { "SR" }
-
-          it "populates xml with DateSigned for primary and spouse" do
-            expect(doc.at("Filer Primary DateSigned").text).to eq "2024-12-19"
-            expect(doc.at("Filer Secondary DateSigned").text).to eq "2024-12-18"
-          end
 
           it "generates xml with primary and spouse DOBs" do
             expect(doc.at("Filer Primary DateOfBirth").text).to eq primary_birth_date.strftime("%F")
@@ -185,26 +176,18 @@ describe SubmissionBuilder::ReturnHeader do
               expect(doc.at("Filer Secondary TaxpayerName NameSuffix").text).to eq("SR")
             end
           end
-        end
 
-        context "married filing separately" do
-          let(:intake) { create "state_file_#{state_code}_intake".to_sym }
-          let(:spouse_birth_date) { 42.years.ago }
-          let(:spouse_ssn) { "200000030" }
-          let(:spouse_first_name) { "Sec" }
-          let(:spouse_middle_initial) { "Z" }
-          let(:spouse_last_name) { "Filerton" }
-          let(:spouse_suffix) { "SR" }
-          let(:filing_status) { "married_filing_separately" }
+          context "married filing separately" do
+            let(:filing_status) { "married_filing_separately" }
 
-          it "does not include secondary xml (spouse)" do
-            expect(doc.at("Filer Secondary DateOfBirth")).not_to be_present
-            expect(doc.at('Filer Secondary TaxpayerSSN')).not_to be_present
-            expect(doc.at('Filer Secondary TaxpayerName FirstName')).not_to be_present
-            expect(doc.at('Filer Secondary TaxpayerName MiddleInitial')).not_to be_present
-            expect(doc.at('Filer Secondary TaxpayerName LastName')).not_to be_present
-            expect(doc.at('Filer Secondary TaxpayerName NameSuffix')).not_to be_present
-            expect(doc.at("Filer Secondary DateSigned")).not_to be_present
+            it "does not include secondary xml (spouse)" do
+              expect(doc.at("Filer Secondary DateOfBirth")).not_to be_present
+              expect(doc.at('Filer Secondary TaxpayerSSN')).not_to be_present
+              expect(doc.at('Filer Secondary TaxpayerName FirstName')).not_to be_present
+              expect(doc.at('Filer Secondary TaxpayerName MiddleInitial')).not_to be_present
+              expect(doc.at('Filer Secondary TaxpayerName LastName')).not_to be_present
+              expect(doc.at('Filer Secondary TaxpayerName NameSuffix')).not_to be_present
+            end
           end
         end
       end

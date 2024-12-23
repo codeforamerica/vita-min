@@ -102,8 +102,6 @@ FactoryBot.define do
     primary_last_name { "Onian" }
     primary_birth_date { Date.new((MultiTenantService.statefile.current_tax_year - 65), 12, 1) }
     state_file_analytics { StateFileAnalytics.create }
-    primary_esigned_at { DateTime.new(2024, 12, 19, 12)}
-    primary_esigned { 'yes' }
     # phone_number: "+15551115511" # number taken from specs for Phony
 
     after(:build) do |intake, evaluator|
@@ -137,8 +135,6 @@ FactoryBot.define do
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('az_johnny_mfj') }
 
       filing_status { 'married_filing_jointly' }
-      spouse_esigned_at { DateTime.new(2024, 12, 19, 12)}
-      spouse_esigned { 'yes' }
     end
 
     trait :with_senior_spouse do
@@ -232,7 +228,7 @@ FactoryBot.define do
     end
 
     factory :state_file_az_refund_intake do
-      after(:build) do |intake, _evaluator|
+      after(:build) do |intake, evaluator|
         intake.direct_file_data.fed_agi = 10000
         intake.raw_direct_file_data = intake.direct_file_data.to_s
         intake.payment_or_deposit_type = "direct_deposit"
@@ -243,7 +239,7 @@ FactoryBot.define do
     end
 
     factory :state_file_az_owed_intake do
-      after(:build) do |intake, _evaluator|
+      after(:build) do |intake, evaluator|
         intake.direct_file_data.fed_agi = 120000
         intake.raw_direct_file_data = intake.direct_file_data.to_s
         intake.payment_or_deposit_type = "direct_deposit"

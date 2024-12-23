@@ -108,7 +108,7 @@ FactoryBot.define do
     end
 
     factory :state_file_id_refund_intake do
-      after(:build) do |intake, _evaluator|
+      after(:build) do |intake, evaluator|
         intake.direct_file_data.fed_agi = 10000
         intake.raw_direct_file_data = intake.direct_file_data.to_s
         intake.payment_or_deposit_type = "direct_deposit"
@@ -128,8 +128,6 @@ FactoryBot.define do
       }[evaluator.filing_status.to_sym] || evaluator.filing_status
       intake.direct_file_data.filing_status = numeric_status
       intake.raw_direct_file_data = intake.direct_file_data.to_s
-      intake.primary_esigned_at = DateTime.new(2024, 12, 19, 12)
-      intake.primary_esigned = 'yes'
 
       intake.direct_file_json_data.primary_filer.dob = evaluator.primary_birth_date if evaluator.primary_birth_date
       intake.direct_file_json_data.primary_filer.first_name = evaluator.primary_first_name if evaluator.primary_first_name

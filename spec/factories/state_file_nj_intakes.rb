@@ -120,8 +120,6 @@ FactoryBot.define do
     routing_number { "011234567" }
     account_number { "123456789" }
     account_type { 1 }
-    primary_esigned_at { DateTime.new(2024, 12, 19, 12)}
-    primary_esigned { 'yes' }
 
     raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("nj_zeus_one_dep") }
     raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_zeus_one_dep') }
@@ -210,10 +208,6 @@ FactoryBot.define do
       filing_status { "married_filing_jointly" }
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_married_filing_jointly_primary_claimed_dep') }
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_married_filing_jointly_primary_claimed_dep') }
-    end
-
-    trait :with_spouse do
-      df_data_mfj
     end
 
     trait :df_data_mfj do
