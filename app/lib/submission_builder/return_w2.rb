@@ -27,7 +27,7 @@ module SubmissionBuilder
 
     def add_box_14_node(code, node_after_box_14_codes)
       field_name = "box14_#{code.downcase}".to_sym
-      field_as_desc = code.tr '_', '/' 
+      field_as_desc = code.delete '_'
 
       return if !@intake_w2[field_name].present? || !@intake_w2[field_name].positive?
 
