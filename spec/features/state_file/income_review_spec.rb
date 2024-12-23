@@ -21,10 +21,13 @@ RSpec.feature "Income Review", active_job: true do
       click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
     end
 
-    it "displays with unemployment and social security income", required_schema: "nj" do
+    it(
+      "displays review and edit pages with w2s, unemployment, and social security income",
+      required_schema: "nj"
+    ) do
       advance_to_data_transfer
 
-      step_through_df_data_transfer("Transfer Zeus many w2s")
+      step_through_df_data_transfer("Transfer Zeus box 14")
 
       expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
       expect(page).to have_text I18n.t("state_file.questions.income_review.edit.w2s_title")
@@ -38,6 +41,20 @@ RSpec.feature "Income Review", active_job: true do
         expect(page).to have_text I18n.t("state_file.questions.income_review.edit.ssa_title")
         expect(page).to have_text I18n.t("state_file.questions.income_review.edit.nj_not_taxed")
       end
+
+      click_on I18n.t("state_file.questions.income_review.edit.review_and_edit_state_info")
+
+      # STPICKUP 250
+      # UIWFSWF 350
+      # UIHCWD 450
+      # FLI 550
+
+      expect(page).to have_field('state_file_w2_box14_ui_wf_swf', with: '350.0')
+      expect(page).to have_field('state_file_w2_box14_fli', with: '550.0')
+      expect(page).to have_field('state_file_w2_employer_state_id_num', with: '12345')
+      expect(page).to have_field('state_file_w2_state_wages_amount', with: '12345.0')
+      expect(page).to have_field('state_file_w2_state_income_tax_amount', with: '500.0')
+      expect(page).to have_button("What should I put in Box 14?")
     end
 
     it "displays with investment income", required_schema: "nj" do
