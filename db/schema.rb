@@ -2074,6 +2074,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_19_003611) do
     t.integer "sms_notification_opt_in", default: 0, null: false
     t.string "source"
     t.date "spouse_birth_date"
+    t.integer "spouse_death_year"
     t.integer "spouse_esigned", default: 0, null: false
     t.datetime "spouse_esigned_at", precision: nil
     t.string "spouse_first_name"

@@ -9,6 +9,11 @@ RSpec.describe StateFile::Questions::MdReviewController do
   describe "#edit" do
     render_views
 
+    before do
+      allow(Flipper).to receive(:enabled?).and_call_original
+      allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
+    end
+
     it "renders" do
       get :edit
       expect(response).to be_successful
