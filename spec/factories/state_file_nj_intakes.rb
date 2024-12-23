@@ -268,6 +268,17 @@ FactoryBot.define do
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_zeus_box_14') }
     end
 
+    factory :state_file_nj_refund_intake do
+      after(:build) do |intake, _evaluator|
+        intake.direct_file_data.fed_agi = 10000
+        intake.raw_direct_file_data = intake.direct_file_data.to_s
+        intake.payment_or_deposit_type = "direct_deposit"
+        intake.account_type = "savings"
+        intake.routing_number = 111111111
+        intake.account_number = 222222222
+      end
+    end
+
     trait :married_filing_jointly do
       filing_status { "married_filing_jointly" }
       spouse_birth_date { Date.new(1990, 1, 1) }

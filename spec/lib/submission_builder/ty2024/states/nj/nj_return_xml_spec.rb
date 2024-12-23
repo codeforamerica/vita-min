@@ -24,6 +24,16 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
         expect(xml.document.at('ReturnDataState FormNJ1040 Header')).to be_an_instance_of Nokogiri::XML::Element
       end
 
+      context "when there is a refund with banking info" do
+        let(:intake) { create(:state_file_nj_refund_intake) }
+  
+        it "generates FinancialTransaction xml without RefundAmt" do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:refund_or_owed_amount).and_return 500
+          xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
+          expect(xml.at("FinancialTransaction")).to be_present
+        end
+      end
+
       context "with JSON data" do
         let(:intake) { create(:state_file_nj_intake, :df_data_mfj) }
 
