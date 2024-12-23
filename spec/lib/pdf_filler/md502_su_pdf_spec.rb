@@ -45,7 +45,7 @@ RSpec.describe PdfFiller::Md502SuPdf do
         expect(pdf_fields["Spouses Last Name"]).to eq "Jomp"
         expect(pdf_fields["Spouses Social Security Number"]).to eq spouse_ssn
         expect(pdf_fields["ab Income from US Government obligations See Instruction 13                         ab"]).to eq("0")
-        expect(pdf_fields["appropriate code letters                                            TOTAL  1"]).to eq("0")
+        expect(pdf_fields["appropriate code letters                                                  TOTAL 1"]).to eq("0")
       end
     end
 
@@ -61,7 +61,7 @@ RSpec.describe PdfFiller::Md502SuPdf do
         expect(pdf_fields["Spouses Last Name"]).to eq ""
         expect(pdf_fields["Spouses Social Security Number"]).to eq ""
         expect(pdf_fields["ab Income from US Government obligations See Instruction 13                         ab"]).to eq("2")
-        expect(pdf_fields["appropriate code letters                                            TOTAL  1"]).to eq("2")
+        expect(pdf_fields["appropriate code letters                                                  TOTAL 1"]).to eq("2")
       end
     end
   end
