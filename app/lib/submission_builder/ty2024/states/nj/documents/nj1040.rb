@@ -37,7 +37,7 @@ module SubmissionBuilder
                         end
                       end
                     when :qualifying_widow
-                      yod = @submission.data_source.spouse_death_year
+                      yod = intake.spouse_death_year
                       xml.QualWidOrWider do
                         xml.QualWidOrWiderSurvCuPartner 'X'
                         case yod

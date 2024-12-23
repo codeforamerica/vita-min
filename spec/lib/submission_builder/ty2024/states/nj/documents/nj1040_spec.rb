@@ -211,13 +211,13 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
     end
 
     context "qualifying widow/er filers" do
-      let(:intake) { create(:state_file_nj_intake, filing_status: "qualifying_widow") }
+      let(:intake) { create(:state_file_nj_intake, :df_data_qss) }
       
       context "when spouse passed in previous calendar year" do
         before do
-          intake.spouse_death_year = MultiTenantService.statefile.current_tax_year - 1
+          intake.update_attribute :spouse_death_year, MultiTenantService.statefile.current_tax_year - 1
         end
-  
+
         it "only adds the qualifying widow/er filing status child xml element" do
           expect(xml.document.at('FilingStatus').elements.length).to eq 1
           expect(xml.document.at('FilingStatus').elements[0].name).to eq "QualWidOrWider"
@@ -232,7 +232,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
 
       context "when spouse passed two years prior" do
         before do
-          intake.spouse_death_year = MultiTenantService.statefile.current_tax_year - 2
+          intake.update_attribute :spouse_death_year, MultiTenantService.statefile.current_tax_year - 2
         end
   
         it "only adds the qualifying widow/er filing status child xml element" do

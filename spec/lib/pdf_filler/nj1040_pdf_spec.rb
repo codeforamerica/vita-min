@@ -1000,11 +1000,11 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       end
 
       context "qualifying widow" do
-        context "spouse passed in the last year" do
+        let(:intake) { create(:state_file_nj_intake, :df_data_qss) }
+
+        context "spouse passed in previous calendar year" do
           before do
-            submission.data_source.direct_file_data.filing_status = 5
-            date_within_prior_year = "#{MultiTenantService.new(:statefile).current_tax_year - 1}-09-30"
-            submission.data_source.direct_file_data.spouse_date_of_death = date_within_prior_year
+            intake.spouse_death_year = MultiTenantService.statefile.current_tax_year - 1
           end
 
           it "checks the Choice5 box" do
@@ -1018,9 +1018,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
 
         context "spouse passed two years prior" do
           before do
-            submission.data_source.direct_file_data.filing_status = 5
-            date_two_years_prior = "#{MultiTenantService.new(:statefile).current_tax_year - 2}-09-30"
-            submission.data_source.direct_file_data.spouse_date_of_death = date_two_years_prior
+            intake.spouse_death_year = MultiTenantService.statefile.current_tax_year - 2
           end
 
           it "checks the Choice5 box" do
