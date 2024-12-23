@@ -203,7 +203,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       fill_in "az322_contribution_ctds_code", with: "123456789"
       fill_in "az322_contribution_district_name", with: "Testerson"
       fill_in "az322_contribution_amount", with: "200"
-      select_cfa_date "az322_contribution_date_of_contribution", Date.new(filing_year,6, 21)
+      select_cfa_date "az322_contribution_date_of_contribution", Date.new(filing_year, 6, 21)
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t('state_file.questions.az_public_school_contributions.index.title')
@@ -819,7 +819,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       groups = page.all(:css, '.white-group').count
       h2s = page.all(:css, 'h2').count
-      expect(groups).to eq(h2s)
+      expect(groups).to eq(h2s - 1) # account for the h2 reveal button
 
       edit_buttons = page.all(:css, '.white-group a')
       edit_buttons_count = edit_buttons.count
@@ -829,6 +829,10 @@ RSpec.feature "Completing a state file intake", active_job: true do
       edit_buttons_text = edit_buttons.map(&:text)
       edit_buttons_unique_text_count = edit_buttons_text.uniq.count
       expect(edit_buttons_unique_text_count).to eq(edit_buttons_count)
+
+      click_on I18n.t("state_file.questions.nj_review.edit.reveal.header")
+      amounts_in_calculation_details = page.all(:xpath, '//main/section[last()]//p[contains(text(),"$")]')
+      expect(amounts_in_calculation_details.count).to eq(19)
     end
 
     it "handles property tax neither flow", required_schema: "nj" do
