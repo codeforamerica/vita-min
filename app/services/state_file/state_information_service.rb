@@ -142,7 +142,7 @@ module StateFile
         timezone: 'America/New_York',
         vita_link: "",
         voucher_form_name: "Form PV",
-        voucher_path: "",
+        voucher_path: "/pdfs/md-pv-TY2024.pdf",
         w2_supported_box14_codes: ["STPICKUP"],
         w2_include_local_income_boxes: true
       },
