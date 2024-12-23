@@ -127,6 +127,8 @@ FactoryBot.define do
     primary_first_name { "New" }
     primary_last_name { "Yorker" }
     primary_birth_date { Date.parse("May 1, 1979") }
+    primary_esigned_at { DateTime.new(2024, 12, 19, 12)}
+    primary_esigned { 'yes' }
     permanent_street { direct_file_data.mailing_street }
     permanent_city { direct_file_data.mailing_city }
     permanent_zip { direct_file_data.mailing_zip }
@@ -149,7 +151,7 @@ FactoryBot.define do
       after(:create, &:synchronize_df_w2s_to_database)
     end
 
-    trait :mfj_with_complete_spouse do
+    trait :with_spouse do
       transient do
         filing_status { 'married_filing_jointly' }
         spouse_ssn { "123456789" }
@@ -189,14 +191,14 @@ FactoryBot.define do
 
     factory :state_file_ny_owed_intake do
       nyc_residency { 'none' }
-      after(:build) do |intake, evaluator|
+      after(:build) do |intake, _evaluator|
         intake.direct_file_data.fed_unemployment = 45000
         intake.raw_direct_file_data = intake.direct_file_data.to_s
       end
     end
 
     factory :state_file_ny_refund_intake do
-      after(:build) do |intake, evaluator|
+      after(:build) do |intake, _evaluator|
         intake.direct_file_data.fed_wages = 2_000
         intake.direct_file_data.fed_taxable_income = 2_000
         intake.direct_file_data.fed_taxable_ssb = 0

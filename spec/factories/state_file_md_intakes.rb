@@ -112,7 +112,7 @@ FactoryBot.define do
     end
 
     factory :state_file_md_refund_intake do
-      after(:build) do |intake, evaluator|
+      after(:build) do |intake, _evaluator|
         intake.direct_file_data.fed_agi = 10000
         intake.raw_direct_file_data = intake.direct_file_data.to_s
         intake.payment_or_deposit_type = "direct_deposit"
@@ -129,9 +129,10 @@ FactoryBot.define do
     primary_first_name { "Mary" }
     primary_middle_initial { "A" }
     primary_last_name { "Lando" }
-    primary_birth_date { Date.new(1950, 01, 01) } # matches the bday in md_minimal.json
+    primary_birth_date { Date.new(1950, 0o1, 0o1) } # matches the bday in md_minimal.json
     primary_signature_pin { '12345' }
-    primary_esigned_at { DateTime.now }
+    primary_esigned_at { DateTime.new(2024, 12, 19, 12)}
+    primary_esigned { 'yes' }
     subdivision_code { "0111" }
     political_subdivision { "Mt Savage" }
     confirmed_permanent_address { "yes" }
