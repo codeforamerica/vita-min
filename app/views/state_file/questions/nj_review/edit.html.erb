@@ -96,42 +96,29 @@
     </div>
   </div>
 
-  <div id="household_rent_own" class="white-group">
+  <div id="property-tax" class="white-group">
     <div class="spacing-below-5">
-      <h2 class="text--body text--bold spacing-below-5"><%=t(".household_rent_own") %></h2>
-      <p><%=current_intake.household_rent_own %></p>
+      <h2 class="text--body text--bold spacing-below-5"><%=t(".property_tax_credit_deduction") %></h2>
+
+      <h3 class="text--body spacing-below-5"><%=t(".household_rent_own") %></h3>
+      <p><%= current_intake.household_rent_own %></p>
+
+      <% unless current_intake.property_tax_paid.nil? %>
+        <h3 class="text--body text--bold spacing-below-5"><%= t(".property_tax_paid")  %></h3>
+        <p><%= number_to_currency(current_intake.property_tax_paid, precision: 0) %></p>
+      <%  end %>
+
+      <% unless current_intake.rent_paid.nil? %>
+        <h3 class="text--body text--bold spacing-below-5"><%=t(".rent_paid") %></h3>
+        <p><%= number_to_currency(current_intake.rent_paid, precision: 0) %></p>
+      <%  end %>
+
       <%= link_to StateFile::Questions::NjHouseholdRentOwnController.to_path_helper(return_to_review: "y"), class: "button--small" do %>
         <%= t("general.edit") %>
-        <span class="sr-only"><%= t(".household_rent_own") %></span>
+        <span class="sr-only"><%= t(".property_tax_credit_deduction") %></span>
       <% end %>
     </div>
   </div>
-
-  <% if current_intake.household_rent_own_own? && !current_intake.property_tax_paid.nil?%>
-    <div id="property_tax_paid" class="white-group">
-      <div class="spacing-below-5">
-        <h2 class="text--body text--bold spacing-below-5"><%=t(".property_tax_paid") %></h2>
-        <p><%= number_to_currency(current_intake.property_tax_paid, precision: 0) %></p>
-        <%= link_to StateFile::Questions::NjHomeownerPropertyTaxController.to_path_helper(return_to_review: "y"), class: "button--small" do %>
-          <%= t("general.edit") %>
-          <span class="sr-only"><%= t(".property_tax_paid") %></span>
-        <% end %>
-      </div>
-    </div>
-  <% end %>
-
-  <% if current_intake.household_rent_own_rent? %>
-    <div id="rent_paid" class="white-group">
-      <div class="spacing-below-5">
-        <h2 class="text--body text--bold spacing-below-5"><%=t(".rent_paid") %></h2>
-        <p><%= number_to_currency(current_intake.rent_paid, precision: 0) %></p>
-        <%= link_to StateFile::Questions::NjTenantRentPaidController.to_path_helper(return_to_review: "y"), class: "button--small" do %>
-          <%= t("general.edit") %>
-          <span class="sr-only"><%= t(".rent_paid") %></span>
-        <% end %>
-      </div>
-    </div>
-  <% end %>
 
   <% unless current_intake.claimed_as_eitc_qualifying_child_unfilled? && current_intake.spouse_claimed_as_eitc_qualifying_child_unfilled? %>
     <div id="eitc_qualifying_child" class="white-group">
@@ -194,6 +181,25 @@
       <% end %>
     </div>
   </div>
+
+  <section class="reveal" id="calculation-details">
+    <h2 class="text--body text--bold spacing-below-5"><button href="#" class="reveal__button"><%= t(".reveal.header") %></button></h2>
+    <div class="reveal__content">
+      <% @detailed_return_info.each.with_index do |section, i| %>
+        <div>
+          <% section.each do |line| %>
+            <div class="spacing-below-15">
+              <p class="text--body text--bold spacing-below-5"><%= t(".reveal.#{line[:text_key]}") %></p>
+              <p><%= number_to_currency(line[:value]) %></p>
+            </div>
+          <% end %>
+        </div>
+        <% if (i + 1) < @detailed_return_info.length  %>
+          <hr role="presentation"/>
+        <% end %>
+      <% end %>
+    </div>
+  </section>
 
   <%= render "state_file/questions/shared/review_footer" %>
 <% end %>
