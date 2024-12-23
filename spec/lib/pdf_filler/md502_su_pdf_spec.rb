@@ -39,7 +39,11 @@ RSpec.describe PdfFiller::Md502SuPdf do
         expect(pdf_fields["Your First Name"]).to eq "Janet"
         expect(pdf_fields["Text1"]).to eq "G"
         expect(pdf_fields["Your Last Name"]).to eq "Jormp"
+        expect(pdf_fields["NAME_2"]).to eq "Jormp"
+        expect(pdf_fields["NAME"]).to eq "Jormp"
         expect(pdf_fields["Your Social Security Number"]).to eq primary_ssn
+        expect(pdf_fields["SSN"]).to eq primary_ssn
+        expect(pdf_fields["SSN_2"]).to eq primary_ssn
         expect(pdf_fields["Spouses First Name"]).to eq "Jane"
         expect(pdf_fields["Text2"]).to eq "M"
         expect(pdf_fields["Spouses Last Name"]).to eq "Jomp"
