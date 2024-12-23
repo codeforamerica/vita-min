@@ -95,16 +95,6 @@ FactoryBot.define do
 
     transient do
       filing_status { "single" }
-
-      primary_birth_date { nil }
-      primary_first_name { nil }
-      primary_middle_initial { nil }
-      primary_last_name { nil }
-
-      spouse_birth_date { nil }
-      spouse_first_name { nil }
-      spouse_middle_initial { nil }
-      spouse_last_name { nil }
     end
 
     factory :state_file_id_refund_intake do
