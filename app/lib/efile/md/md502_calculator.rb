@@ -576,10 +576,12 @@ module Efile
       end
 
       def calculate_line_40
-        @intake.state_file_w2s.sum { |item| item.state_income_tax_amount&.round } +
-          @intake.state_file_w2s.sum { |item| item.local_income_tax_amount&.round } +
-          @intake.state_file1099_gs.sum { |item| item.state_income_tax_withheld_amount&.round } +
-          @intake.state_file1099_rs.sum { |item| item.state_tax_withheld_amount&.round }
+        [
+          @intake.state_file_w2s.sum { |item| (item.state_income_tax_amount || 0).round },
+          @intake.state_file_w2s.sum { |item| (item.local_income_tax_amount || 0).round },
+          @intake.state_file1099_gs.sum { |item| (item.state_income_tax_withheld_amount || 0).round },
+          @intake.state_file1099_rs.sum { |item| (item.state_tax_withheld_amount || 0).round }
+        ].sum
       end
 
       def calculate_line_42
