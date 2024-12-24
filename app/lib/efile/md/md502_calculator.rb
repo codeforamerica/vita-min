@@ -390,6 +390,8 @@ module Efile
           percent = ranges[range_index][2]
           in_excess_of = ranges[range_index][0].begin
           (base + ((taxable_net_income - in_excess_of) * percent)).round
+        else
+          0
         end
       end
 

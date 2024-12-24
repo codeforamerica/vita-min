@@ -920,8 +920,8 @@ describe Efile::Md::Md502Calculator do
 
     context "deduction method is 'N'" do
       let(:deduction_method) { "N" }
-      it "returns nil" do
-        expect(instance.lines[:MD502_LINE_21].value).to eq nil
+      it "returns 0" do
+        expect(instance.lines[:MD502_LINE_21].value).to eq 0
       end
     end
   end
