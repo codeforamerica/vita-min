@@ -20,7 +20,7 @@ RSpec.describe PdfFiller::NcD400Pdf do
 
     context "pulling fields from xml" do
       let(:tomorrow_midnight) { DateTime.tomorrow.beginning_of_day }
-      let(:mailing_apartment) { 'Apt 2B'}
+      let(:mailing_apartment) { 'Apt 2'}
       let(:intake) {
         create(:state_file_nc_intake,
                filing_status: "single",
@@ -50,7 +50,7 @@ RSpec.describe PdfFiller::NcD400Pdf do
           expect(pdf_fields['y_d400wf_lname1']).to eq 'Carolinianian'
           expect(pdf_fields['y_d400wf_ssn1']).to eq '145004904'
           expect(pdf_fields['y_d400wf_add']).to eq '7 Heavens Lane'
-          expect(pdf_fields['y_d400wf_apartment number']).to eq 'Apt 2'
+          expect(pdf_fields['y_d400wf_apartment number']).to eq mailing_apartment
           expect(pdf_fields['y_d400wf_city']).to eq 'Cary'
           expect(pdf_fields['y_d400wf_state']).to eq 'NC'
           expect(pdf_fields['y_d400wf_zip']).to eq '27511'
