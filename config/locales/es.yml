@@ -3333,6 +3333,11 @@ es:
           primary_veteran_question: "¿Eres un veterano?"
           spouse_veteran_question: "¿Su cónyuge es un veterano?"
           title: En NJ, los veteranos son elegibles para una exención de impuestos.
+      nj_year_of_death:
+        edit:
+          question: "¿En qué año falleció su cónyuge?"
+          subtitle: Para continuar, necesitamos confirmar información adicional sobre su cónyuge fallecido.
+          title: Parece que su estado civil para efectos de la declaración es Cónyuge sobreviviente calificado
       notification_preferences:
         edit:
           email_address_label: Tu correo electrónico

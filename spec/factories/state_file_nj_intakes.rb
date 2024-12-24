@@ -77,6 +77,7 @@
 #  spouse_birth_date                                      :date
 #  spouse_claimed_as_eitc_qualifying_child                :integer          default("unfilled"), not null
 #  spouse_contribution_gubernatorial_elections            :integer          default("unfilled"), not null
+#  spouse_death_year                                      :integer
 #  spouse_disabled                                        :integer          default("unfilled"), not null
 #  spouse_esigned                                         :integer          default("unfilled"), not null
 #  spouse_esigned_at                                      :datetime
@@ -253,13 +254,25 @@ FactoryBot.define do
     end
 
     trait :df_data_qss do
-      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_qualified_widow') }
-      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_qualified_widow') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_sinatra_qss') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_sinatra_qss') }
+      filing_status { "qualifying_widow" }
     end
     
     trait :df_data_box_14 do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_zeus_box_14') }
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_zeus_box_14') }
+    end
+
+    factory :state_file_nj_payment_info_intake do
+      after(:build) do |intake, _evaluator|
+        intake.direct_file_data.fed_agi = 10000
+        intake.raw_direct_file_data = intake.direct_file_data.to_s
+        intake.payment_or_deposit_type = "direct_deposit"
+        intake.account_type = "savings"
+        intake.routing_number = 111111111
+        intake.account_number = 222222222
+      end
     end
 
     trait :married_filing_jointly do

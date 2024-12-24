@@ -77,6 +77,7 @@
 #  spouse_birth_date                                      :date
 #  spouse_claimed_as_eitc_qualifying_child                :integer          default("unfilled"), not null
 #  spouse_contribution_gubernatorial_elections            :integer          default("unfilled"), not null
+#  spouse_death_year                                      :integer
 #  spouse_disabled                                        :integer          default("unfilled"), not null
 #  spouse_esigned                                         :integer          default("unfilled"), not null
 #  spouse_esigned_at                                      :datetime

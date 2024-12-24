@@ -20,9 +20,7 @@ module SubmissionBuilder
               SchemaFileLoader.load_file("us_states", "unpacked", "NJIndividual2024V0.1", "NJIndividual", "NJForms", "FormNJ1040.xsd")
             end
 
-            def document
-              qualifying_dependents = @submission.qualifying_dependents
-              
+            def document              
               build_xml_doc("FormNJ1040") do |xml|
                 xml.Header do
                   xml.FilingStatus do
@@ -39,13 +37,13 @@ module SubmissionBuilder
                         end
                       end
                     when :qualifying_widow
-                      yod = Date.parse(intake.direct_file_data.spouse_date_of_death)&.strftime("%Y")
+                      yod = intake.spouse_death_year
                       xml.QualWidOrWider do
                         xml.QualWidOrWiderSurvCuPartner 'X'
                         case yod
-                        when (MultiTenantService.new(:statefile).current_tax_year - 1).to_s
+                        when (MultiTenantService.new(:statefile).current_tax_year - 1)
                           xml.LastYear 'X'
-                        when (MultiTenantService.new(:statefile).current_tax_year - 2).to_s
+                        when (MultiTenantService.new(:statefile).current_tax_year - 2)
                           xml.TwoYearPrior 'X'
                         end
                       end
