@@ -99,6 +99,7 @@ describe 'EfileError' do
       "nj-tenant-property-tax-worksheet",
       "nj-tenant-rent-paid",
       "nj-veterans-exemption",
+      "nj-year-of-death",
       "notification-preferences",
       "ny-county",
       "ny-eligibility-college-savings-withdrawal",

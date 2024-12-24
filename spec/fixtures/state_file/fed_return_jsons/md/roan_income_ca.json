@@ -5,28 +5,68 @@
       "lastName": "TROUT",
       "firstName": "ROAN",
       "middleInitial": null,
+      "educatorExpenses": "50.00",
       "tin": "400-00-7211",
       "dateOfBirth": "1990-03-17",
       "suffix": null,
       "isPrimaryFiler": true,
+      "hsaTotalDeductibleAmount": "50.00",
       "ssnNotValidForEmployment": null
     },
     {
-      "lastName": "TROUT",
       "firstName": "KAYLEIGH",
+      "lastName": "TROUT",
       "middleInitial": "R",
+      "educatorExpenses": "10.00",
       "tin": "400-00-7212",
       "dateOfBirth": "1991-03-03",
       "suffix": null,
       "isPrimaryFiler": false,
+      "hsaTotalDeductibleAmount": "75.00",
       "ssnNotValidForEmployment": null
+    }
+  ],
+  "form1099Gs": [
+    {
+      "stateTaxWithheld": "50.00",
+      "has1099": true,
+      "amount": "1500.00",
+      "amountPaidBackForBenefitsInTaxYear": "0.00",
+      "federalTaxWithheld": "100.00",
+      "stateIdNumber": "123456",
+      "payerTin": "27-0293117",
+      "payer": "MARYLAND DEPARTMENT OF LABOR",
+      "recipientTin": "400-00-7211"
+    },
+    {
+      "has1099": true,
+      "stateTaxWithheld": "0.00",
+      "amount": "1500.00",
+      "federalTaxWithheld": "0.00",
+      "amountPaidBackForBenefitsInTaxYear": "0.00",
+      "stateIdNumber": null,
+      "payerTin": null,
+      "payer": "MARYLAND DEPARTMENT OF LABOR",
+      "recipientTin": "400-00-7212"
+    }
+  ],
+  "formW2s": [
+    {
+      "usedTin": "400-00-7211",
+      "unionDuesAmount": null
+    },
+    {
+      "usedTin": "400-00-7212",
+      "unionDuesAmount": null
     }
   ],
   "interestReports": [
     {
       "has1099": true,
       "taxExemptAndTaxCreditBondCusipNo": null,
+      "interestOnGovernmentBonds": "0.00",
       "payerTin": null,
+      "taxExemptInterest": "0.00",
       "recipientTin": "400-00-7212",
       "payer": "CASUAL BANK",
       "taxWithheld": "0.00",
@@ -38,11 +78,12 @@
       "taxExemptAndTaxCreditBondCusipNo": null,
       "interestOnGovernmentBonds": "400.00",
       "payerTin": null,
+      "taxExemptInterest": "0.00",
       "recipientTin": "400-00-7211",
       "payer": "MIDWESTERN BANK",
+      "no1099Amount": null,
       "1099Amount": "3000.00",
-      "taxWithheld": "0.00",
-      "no1099Amount": null
+      "taxWithheld": "0.00"
     }
   ]
 }

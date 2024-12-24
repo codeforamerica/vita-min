@@ -12,6 +12,12 @@ module SubmissionBuilder
           xml.TaxPeriodEndDt date_type(Date.new(@submission.data_source.tax_return_year, 12, 31))
         end
         xml.TaxYr @submission.data_source.tax_return_year
+        if @submission.data_source.state_code.upcase == "NJ"
+          xml.PaidPreparerInformationGrp do 
+            xml.PTIN "P99999999"
+            xml.PreparerPersonNm "Self Prepared"
+          end
+        end
         xml.DisasterReliefTxt @intake.disaster_relief_county if @intake.respond_to?(:disaster_relief_county)
         xml.OriginatorGrp do
           xml.EFIN EnvironmentCredentials.irs(:efin)
@@ -30,10 +36,10 @@ module SubmissionBuilder
             xml.TaxpayerSSN @submission.data_source.primary.ssn if @submission.data_source.primary.ssn.present?
             xml.DateOfBirth date_type(@submission.data_source.primary.birth_date) if @submission.data_source.primary.birth_date.present?
             xml.TaxpayerPIN @submission.data_source.primary_signature_pin if @submission.data_source.ask_for_signature_pin?
-            xml.DateSigned date_type_for_timezone(@submission.data_source.primary_esigned_at)&.strftime("%F") if @submission.data_source.ask_for_signature_pin?
+            xml.DateSigned date_type_for_timezone(@submission.data_source.primary_esigned_at)&.strftime("%F") if @submission.data_source.primary_esigned_yes?
             xml.USPhone @submission.data_source.direct_file_data.phone_number if @submission.data_source.direct_file_data.phone_number.present?
           end
-          if @submission.data_source&.spouse.ssn.present? && @submission.data_source&.spouse.first_name.present? && !@intake.filing_status_mfs?
+          if @submission.data_source&.spouse&.ssn.present? && @submission.data_source&.spouse&.first_name.present? && !@intake.filing_status_mfs?
             xml.Secondary do
               xml.TaxpayerName do
                 xml.FirstName sanitize_for_xml(@submission.data_source.spouse.first_name, 16) if @submission.data_source.spouse.first_name.present?
@@ -44,7 +50,7 @@ module SubmissionBuilder
               xml.TaxpayerSSN @submission.data_source.spouse.ssn if @submission.data_source.spouse.ssn.present?
               xml.DateOfBirth date_type(@submission.data_source.spouse.birth_date) if @submission.data_source.spouse.birth_date.present?
               xml.TaxpayerPIN @submission.data_source.spouse_signature_pin if @submission.data_source.ask_for_signature_pin? && @submission.data_source.ask_spouse_esign?
-              xml.DateSigned date_type_for_timezone(@submission.data_source.spouse_esigned_at)&.strftime("%F")  if @submission.data_source.ask_for_signature_pin? && @submission.data_source.ask_spouse_esign?
+              xml.DateSigned date_type_for_timezone(@submission.data_source.spouse_esigned_at)&.strftime("%F") if @submission.data_source.spouse_esigned_yes? && @submission.data_source.ask_spouse_esign?
               xml.DateOfDeath @submission.data_source.direct_file_data.spouse_date_of_death if @submission.data_source.direct_file_data.spouse_date_of_death.present?
             end
           end
@@ -55,8 +61,10 @@ module SubmissionBuilder
               xml.AddressLine1Txt sanitize_for_xml(@submission.data_source.direct_file_data.mailing_street, 35) if @submission.data_source.direct_file_data.mailing_street.present?
               xml.AddressLine2Txt sanitize_for_xml(@submission.data_source.direct_file_data.mailing_apartment, 35) if @submission.data_source.direct_file_data.mailing_apartment.present?
             end
-            xml.CityNm sanitize_for_xml(@submission.data_source.direct_file_data.mailing_city, 22) if @submission.data_source.direct_file_data.mailing_city.present?
-            xml.StateAbbreviationCd @submission.data_source.state_code.upcase
+            if @submission.data_source.direct_file_data.mailing_city.present?
+              xml.CityNm sanitize_for_xml(@submission.data_source.direct_file_data.mailing_city, @submission.data_source.city_name_length_20? ? 20 : 22)
+            end
+            xml.StateAbbreviationCd @submission.data_source.direct_file_data.mailing_state.upcase
             xml.ZIPCd @submission.data_source.direct_file_data.mailing_zip if @submission.data_source.direct_file_data.mailing_zip.present?
           end
         end

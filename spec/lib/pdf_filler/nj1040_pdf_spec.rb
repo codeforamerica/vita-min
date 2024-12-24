@@ -279,6 +279,41 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       end
     end
 
+    describe "esign date" do
+      context 'filer is single' do
+        let(:submission) {
+          create :efile_submission, tax_return: nil, data_source: create(
+            :state_file_nj_intake,
+            primary_ssn: "123456789",
+            primary_esigned: "yes",
+            primary_esigned_at: DateTime.new(2024, 12, 19, 12)
+          )
+        }
+        it 'enters the date into the PDF signature field' do
+          expect(pdf_fields["Date1_es_:signer:date"]).to eq "2024-12-19"
+          expect(pdf_fields["Date2_es_:signer:date"]).to eq ""
+        end
+      end
+
+      context 'filer is mfj' do
+        let(:submission) {
+          create :efile_submission, tax_return: nil, data_source: create(
+            :state_file_nj_intake,
+            :married_filing_jointly,
+            primary_ssn: "123456789",
+            primary_esigned: "yes",
+            primary_esigned_at: DateTime.new(2024, 12, 19, 12),
+            spouse_esigned: "yes",
+            spouse_esigned_at: DateTime.new(2024, 12, 18, 12)
+          )
+        }
+        it 'enters the date into the PDF signature field' do
+          expect(pdf_fields["Date1_es_:signer:date"]).to eq "2024-12-19"
+          expect(pdf_fields["Date2_es_:signer:date"]).to eq "2024-12-18"
+        end
+      end
+    end
+
     describe "exemptions" do
       describe "Line 6 exemptions" do
         context "single filer" do
@@ -1000,11 +1035,11 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       end
 
       context "qualifying widow" do
-        context "spouse passed in the last year" do
+        let(:intake) { create(:state_file_nj_intake, :df_data_qss) }
+
+        context "spouse passed in previous calendar year" do
           before do
-            submission.data_source.direct_file_data.filing_status = 5
-            date_within_prior_year = "#{MultiTenantService.new(:statefile).current_tax_year - 1}-09-30"
-            submission.data_source.direct_file_data.spouse_date_of_death = date_within_prior_year
+            intake.spouse_death_year = MultiTenantService.statefile.current_tax_year - 1
           end
 
           it "checks the Choice5 box" do
@@ -1018,9 +1053,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
 
         context "spouse passed two years prior" do
           before do
-            submission.data_source.direct_file_data.filing_status = 5
-            date_two_years_prior = "#{MultiTenantService.new(:statefile).current_tax_year - 2}-09-30"
-            submission.data_source.direct_file_data.spouse_date_of_death = date_two_years_prior
+            intake.spouse_death_year = MultiTenantService.statefile.current_tax_year - 2
           end
 
           it "checks the Choice5 box" do
@@ -1280,6 +1313,41 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         end
 
         it "inserts property tax $12,345,678 on line 40a" do
+          # millions
+          expect(pdf_fields["39"]).to eq "1"
+          expect(pdf_fields["280"]).to eq "2"
+          # thousands
+          expect(pdf_fields["undefined_112"]).to eq "3"
+          expect(pdf_fields["281"]).to eq "4"
+          expect(pdf_fields["282"]).to eq "5"
+          # hundreds
+          expect(pdf_fields["undefined_113"]).to eq "6"
+          expect(pdf_fields["283"]).to eq "7"
+          expect(pdf_fields["37"]).to eq "8"
+          # decimals
+          expect(pdf_fields["245"]).to eq "0"
+          expect(pdf_fields["24539a#2"]).to eq "0"
+        end
+      end
+
+      context "when taxpayer is both homeowner and tenant" do
+        let(:submission) {
+          create :efile_submission, tax_return: nil, data_source: create(
+            :state_file_nj_intake,
+            :df_data_many_w2s,
+            household_rent_own: 'both',
+          )
+        }
+
+        before do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_40a).and_return 12_345_678
+        end
+
+        it "checks the Choice3 box" do
+          expect(pdf_fields["Group182"]).to eq "Choice3"
+        end
+
+        it "inserts $12,345,678 on line 40a" do
           # millions
           expect(pdf_fields["39"]).to eq "1"
           expect(pdf_fields["280"]).to eq "2"

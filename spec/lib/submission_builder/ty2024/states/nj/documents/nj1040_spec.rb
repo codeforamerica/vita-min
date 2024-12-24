@@ -215,10 +215,9 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
       
       context "when spouse passed in previous calendar year" do
         before do
-          date_within_prior_year = "#{MultiTenantService.new(:statefile).current_tax_year - 1}-09-30"
-          submission.data_source.direct_file_data.spouse_date_of_death = date_within_prior_year
+          intake.update_attribute :spouse_death_year, MultiTenantService.statefile.current_tax_year - 1
         end
-  
+
         it "only adds the qualifying widow/er filing status child xml element" do
           expect(xml.document.at('FilingStatus').elements.length).to eq 1
           expect(xml.document.at('FilingStatus').elements[0].name).to eq "QualWidOrWider"
@@ -233,8 +232,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
 
       context "when spouse passed two years prior" do
         before do
-          date_within_prior_year = "#{MultiTenantService.new(:statefile).current_tax_year - 2}-09-30"
-          submission.data_source.direct_file_data.spouse_date_of_death = date_within_prior_year
+          intake.update_attribute :spouse_death_year, MultiTenantService.statefile.current_tax_year - 2
         end
   
         it "only adds the qualifying widow/er filing status child xml element" do
@@ -567,6 +565,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
         it "adds a checked tenant element to property tax deduct or credit" do
           expect(xml.at("PropertyTaxDeductOrCredit Tenant").text).to eq("X")
           expect(xml.at("PropertyTaxDeductOrCredit Homeowner")).to eq(nil)
+          expect(xml.at("PropertyTaxDeductOrCredit Both")).to eq(nil)
         end
 
         it "inserts property tax rent calculation on line 40a" do
@@ -587,10 +586,34 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
         it "adds a checked homeowner element to property tax deduct or credit" do
           expect(xml.at("PropertyTaxDeductOrCredit Homeowner").text).to eq("X")
           expect(xml.at("PropertyTaxDeductOrCredit Tenant")).to eq(nil)
+          expect(xml.at("PropertyTaxDeductOrCredit Both")).to eq(nil)
         end
 
         it 'inserts property tax calculation on line 40a' do
           expect(xml.at("PropertyTaxDeductOrCredit TotalPropertyTaxPaid").text).to eq("12345")
+        end
+      end
+
+      context "when taxpayer is both homeowner and tenant with income above property tax minimum" do
+        let(:intake) {
+          create(
+            :state_file_nj_intake,
+            :df_data_many_w2s, # income above minimum
+            household_rent_own: 'both',
+            property_tax_paid: 5000,
+            rent_paid: 10000
+          )
+        }
+
+        it "adds a checked both element to property tax deduct or credit" do
+          expect(xml.at("PropertyTaxDeductOrCredit Both").text).to eq("X")
+          expect(xml.at("PropertyTaxDeductOrCredit Tenant")).to eq(nil)
+          expect(xml.at("PropertyTaxDeductOrCredit Homeowner")).to eq(nil)
+        end
+
+        it 'inserts property tax calculation on line 40a' do
+          expected = 6800 # 5000 + 10000*.18
+          expect(xml.at("PropertyTaxDeductOrCredit TotalPropertyTaxPaid").text).to eq(expected.to_s)
         end
       end
 
@@ -600,6 +623,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
         it "does not add a checked tenant or homeowner element to property tax deduct or credit" do
           expect(xml.at("PropertyTaxDeductOrCredit Tenant")).to eq(nil)
           expect(xml.at("PropertyTaxDeductOrCredit Homeowner")).to eq(nil)
+          expect(xml.at("PropertyTaxDeductOrCredit Both")).to eq(nil)
         end
 
         it 'does not add property tax on line 40a' do

@@ -94,6 +94,10 @@ module PdfFiller
         Group246: if get_mfj_spouse_ssn
                     @xml_document.at("Body SpouCuPartPrimGubernElectFund").present? ? 'Choice1' : 'Choice2'
                   end,
+        
+        # signature fields
+        'Date1_es_:signer:date': @xml_document.at("ReturnHeaderState Filer Primary DateSigned")&.text,
+        'Date2_es_:signer:date': @xml_document.at("ReturnHeaderState Filer Secondary DateSigned")&.text
       }
 
       dependents = get_dependents
@@ -912,6 +916,7 @@ module PdfFiller
     def household_rent_own
       return "Choice1" if @xml_document.at("PropertyTaxDeductOrCredit Homeowner")&.text == 'X'
       return "Choice2" if @xml_document.at("PropertyTaxDeductOrCredit Tenant")&.text == 'X'
+      return "Choice3" if @xml_document.at("PropertyTaxDeductOrCredit Both")&.text == 'X'
       "Off"
     end
 
