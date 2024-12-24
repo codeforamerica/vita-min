@@ -365,7 +365,7 @@ describe Efile::Nj::Nj1040Calculator do
     end
   end
 
-  describe 'line 10 and 11 dependents' do
+  describe 'line 10 and 11 dependents' do #
     context 'when 1 qualified child and 1 other dependent' do
       let(:intake) { create(:state_file_nj_intake, :df_data_two_deps) }
       it "sets lines 10 and 11 to 1" do

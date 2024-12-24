@@ -224,7 +224,7 @@ module Efile
 
       def calculate_line_10_count
         @intake.direct_file_json_data.dependents.count do |dependent|
-          dependent.qualifying_child
+          dependent.qualifying_child #
         end
       end
 
