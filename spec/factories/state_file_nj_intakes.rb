@@ -77,6 +77,7 @@
 #  spouse_birth_date                                      :date
 #  spouse_claimed_as_eitc_qualifying_child                :integer          default("unfilled"), not null
 #  spouse_contribution_gubernatorial_elections            :integer          default("unfilled"), not null
+#  spouse_death_year                                      :integer
 #  spouse_disabled                                        :integer          default("unfilled"), not null
 #  spouse_esigned                                         :integer          default("unfilled"), not null
 #  spouse_esigned_at                                      :datetime
@@ -253,8 +254,9 @@ FactoryBot.define do
     end
 
     trait :df_data_qss do
-      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_qualified_widow') }
-      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_qualified_widow') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_sinatra_qss') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_sinatra_qss') }
+      filing_status { "qualifying_widow" }
     end
     
     trait :df_data_box_14 do
