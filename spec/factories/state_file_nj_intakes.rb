@@ -268,7 +268,7 @@ FactoryBot.define do
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_zeus_box_14') }
     end
 
-    factory :state_file_nj_refund_intake do
+    factory :state_file_nj_payment_info_intake do
       after(:build) do |intake, _evaluator|
         intake.direct_file_data.fed_agi = 10000
         intake.raw_direct_file_data = intake.direct_file_data.to_s

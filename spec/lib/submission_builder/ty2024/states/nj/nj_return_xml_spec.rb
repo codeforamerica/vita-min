@@ -25,12 +25,24 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
       end
 
       context "when there is a refund with banking info" do
-        let(:intake) { create(:state_file_nj_refund_intake) }
+        let(:intake) { create(:state_file_nj_payment_info_intake) }
   
-        it "generates FinancialTransaction xml without RefundAmt" do
-          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:refund_or_owed_amount).and_return 500
+        it "generates FinancialTransaction RefundDirectDeposit xml" do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_80).and_return 500
           xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
-          expect(xml.at("FinancialTransaction")).to be_present
+          expect(xml.at("FinancialTransaction RefundDirectDeposit")).to be_present
+        end
+      end
+
+      context "when money is owed with banking info" do
+        let(:intake) { 
+          create(:state_file_nj_payment_info_intake, withdraw_amount: 100, date_electronic_withdrawal: Date.new(Rails.configuration.statefile_current_tax_year, 4, 15))
+        }
+  
+        it "generates FinancialTransaction StatePayment xml" do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_80).and_return(0)
+          xml = Nokogiri::XML::Document.parse(described_class.build(submission).document.to_xml)
+          expect(xml.at("FinancialTransaction StatePayment")).to be_present
         end
       end
 
