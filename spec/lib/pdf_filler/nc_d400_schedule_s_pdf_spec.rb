@@ -17,7 +17,7 @@ RSpec.describe PdfFiller::NcD400ScheduleSPdf do
 
     context "pulling fields from xml" do
       it 'sets fields to the correct values' do
-        expect(pdf_fields['y_d400schswf_ssn']).to eq '400000030'
+        expect(pdf_fields['y_d400schswf_ssn']).to eq '145004904'
         expect(pdf_fields['y_d400wf_lname2_PG2']).to eq 'Carolinian'
         expect(pdf_fields['y_d400schswf_li18_good']).to eq '0'
         expect(pdf_fields['y_d400schswf_li19_good']).to eq '0'

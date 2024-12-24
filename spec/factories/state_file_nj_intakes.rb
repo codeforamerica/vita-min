@@ -60,7 +60,6 @@
 #  primary_last_name                                      :string
 #  primary_middle_initial                                 :string
 #  primary_signature                                      :string
-#  primary_signature_pin                                  :text
 #  primary_ssn                                            :string
 #  primary_suffix                                         :string
 #  primary_veteran                                        :integer          default("unfilled"), not null
@@ -84,7 +83,6 @@
 #  spouse_first_name                                      :string
 #  spouse_last_name                                       :string
 #  spouse_middle_initial                                  :string
-#  spouse_signature_pin                                   :text
 #  spouse_ssn                                             :string
 #  spouse_suffix                                          :string
 #  spouse_veteran                                         :integer          default("unfilled"), not null
@@ -122,10 +120,6 @@ FactoryBot.define do
     routing_number { "011234567" }
     account_number { "123456789" }
     account_type { 1 }
-    primary_signature_pin { '12345' }
-    spouse_signature_pin { '54321' }
-    primary_esigned_at { DateTime.now }
-    spouse_esigned_at { DateTime.now }
 
     raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("nj_zeus_one_dep") }
     raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_zeus_one_dep') }
@@ -266,6 +260,17 @@ FactoryBot.define do
     trait :df_data_box_14 do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_zeus_box_14') }
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_zeus_box_14') }
+    end
+
+    factory :state_file_nj_payment_info_intake do
+      after(:build) do |intake, _evaluator|
+        intake.direct_file_data.fed_agi = 10000
+        intake.raw_direct_file_data = intake.direct_file_data.to_s
+        intake.payment_or_deposit_type = "direct_deposit"
+        intake.account_type = "savings"
+        intake.routing_number = 111111111
+        intake.account_number = 222222222
+      end
     end
 
     trait :married_filing_jointly do
