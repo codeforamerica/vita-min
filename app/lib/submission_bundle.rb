@@ -1,5 +1,4 @@
 class SubmissionBundle
-  include XmlMethods
   def initialize(submission)
     @submission = submission
   end
@@ -58,7 +57,6 @@ class SubmissionBundle
   def submission_content
     response = @submission.bundle_class.build(@submission)
     if response.valid?
-      delete_blank_nodes(response.document)
       response.document
     else
       @errors = response.errors
