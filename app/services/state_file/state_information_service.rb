@@ -164,7 +164,7 @@ module StateFile
         submission_type: "FormNCD400",
         submission_builder_class: SubmissionBuilder::Ty2024::States::Nc::NcReturnXml,
         survey_link: "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_1MM0vBfZ5N2OMLA",
-        tax_payment_info_text: "https://www.ncdor.gov/file-pay/pay-individual-income-tax",
+        tax_payment_info_text: "NCDOR.gov",
         tax_payment_info_url: "https://www.ncdor.gov/file-pay/pay-individual-income-tax",
         tax_refund_url: "https://eservices.dor.nc.gov/wheresmyrefund/SelectionServlet",
         department_of_taxation: "N.C. Department of Revenue",
