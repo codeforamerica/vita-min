@@ -141,6 +141,7 @@ FactoryBot.define do
     political_subdivision { "Mt Savage" }
     confirmed_permanent_address { "yes" }
     residence_county { "Allegany" }
+    primary_signature_pin { '23456' }
 
     after(:build) do |intake, evaluator|
       numeric_status = {
