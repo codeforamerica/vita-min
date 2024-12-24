@@ -36,7 +36,7 @@ module SubmissionBuilder
             xml.TaxpayerSSN @submission.data_source.primary.ssn if @submission.data_source.primary.ssn.present?
             xml.DateOfBirth date_type(@submission.data_source.primary.birth_date) if @submission.data_source.primary.birth_date.present?
             xml.TaxpayerPIN @submission.data_source.primary_signature_pin if @submission.data_source.ask_for_signature_pin?
-            xml.DateSigned date_type_for_timezone(@submission.data_source.primary_esigned_at)&.strftime("%F") if @submission.data_source.ask_for_signature_pin?
+            xml.DateSigned date_type_for_timezone(@submission.data_source.primary_esigned_at)&.strftime("%F") if @submission.data_source.primary_esigned_yes?
             xml.USPhone @submission.data_source.direct_file_data.phone_number if @submission.data_source.direct_file_data.phone_number.present?
           end
           if @submission.data_source&.spouse&.ssn.present? && @submission.data_source&.spouse&.first_name.present? && !@intake.filing_status_mfs?
@@ -50,7 +50,7 @@ module SubmissionBuilder
               xml.TaxpayerSSN @submission.data_source.spouse.ssn if @submission.data_source.spouse.ssn.present?
               xml.DateOfBirth date_type(@submission.data_source.spouse.birth_date) if @submission.data_source.spouse.birth_date.present?
               xml.TaxpayerPIN @submission.data_source.spouse_signature_pin if @submission.data_source.ask_for_signature_pin? && @submission.data_source.ask_spouse_esign?
-              xml.DateSigned date_type_for_timezone(@submission.data_source.spouse_esigned_at)&.strftime("%F") if @submission.data_source.ask_for_signature_pin? && @submission.data_source.ask_spouse_esign?
+              xml.DateSigned date_type_for_timezone(@submission.data_source.spouse_esigned_at)&.strftime("%F") if @submission.data_source.spouse_esigned_yes? && @submission.data_source.ask_spouse_esign?
               xml.DateOfDeath @submission.data_source.direct_file_data.spouse_date_of_death if @submission.data_source.direct_file_data.spouse_date_of_death.present?
             end
           end
@@ -64,7 +64,7 @@ module SubmissionBuilder
             if @submission.data_source.direct_file_data.mailing_city.present?
               xml.CityNm sanitize_for_xml(@submission.data_source.direct_file_data.mailing_city, @submission.data_source.city_name_length_20? ? 20 : 22)
             end
-            xml.StateAbbreviationCd @submission.data_source.state_code.upcase
+            xml.StateAbbreviationCd @submission.data_source.direct_file_data.mailing_state.upcase
             xml.ZIPCd @submission.data_source.direct_file_data.mailing_zip if @submission.data_source.direct_file_data.mailing_zip.present?
           end
         end

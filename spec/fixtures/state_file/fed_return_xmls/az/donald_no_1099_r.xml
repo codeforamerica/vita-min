@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>d2a1b730</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400000013</PrimarySSN>
+            <SpouseSSN>600000010</SpouseSSN>
+            <NameLine1Txt>DONALD &amp; DONNA&lt;DILL</NameLine1Txt>
+            <PrimaryNameControlTxt>DILL</PrimaryNameControlTxt>
+            <SpouseNameControlTxt>DILL</SpouseNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>300 Elm Court</AddressLine1Txt>
+                <CityNm>Flagstaff</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>86001</ZIPCd>
+            </USAddress>
+            <PhoneNum>2223334444</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000001-3608-495c-94e4-3b8390f321e4@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="9">
+        <IRS1040 documentId="IRS10400001">
+            <Form1040SRInd>X</Form1040SRInd>
+            <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <Primary65OrOlderInd>X</Primary65OrOlderInd>
+            <SpouseBlindInd>X</SpouseBlindInd>
+            <TotalBoxesCheckedCnt>2</TotalBoxesCheckedCnt>
+            <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
+            <DependentDetail>
+                <DependentFirstNm>DILL</DependentFirstNm>
+                <DependentLastNm>PICKLE Jr</DependentLastNm>
+                <DependentNameControlTxt>PICK</DependentNameControlTxt>
+                <DependentSSN>300000018</DependentSSN>
+                <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+                <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+            </DependentDetail>
+            <ChldWhoLivedWithYouCnt>1</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>3</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001 W20002 W20003" referenceDocumentName="IRSW2">107000</WagesAmt>
+            <WagesSalariesAndTipsAmt>107000</WagesSalariesAndTipsAmt>
+            <TaxableInterestAmt>1058</TaxableInterestAmt>
+            <SocSecBnftAmt>20000</SocSecBnftAmt>
+            <TaxableSocSecAmt>17000</TaxableSocSecAmt>
+            <TotalAdditionalIncomeAmt>23000</TotalAdditionalIncomeAmt>
+            <TotalIncomeAmt>148058</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>148058</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>32300</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>32300</TotalDeductionsAmt>
+            <TaxableIncomeAmt>115758</TaxableIncomeAmt>
+            <TaxAmt>15573</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>15573</TotalTaxBeforeCrAndOthTaxesAmt>
+            <CTCODCAmt>2000</CTCODCAmt>
+            <TotalNonrefundableCreditsAmt>600</TotalNonrefundableCreditsAmt>
+            <TotalCreditsAmt>2600</TotalCreditsAmt>
+            <TaxLessCreditsAmt>12973</TaxLessCreditsAmt>
+            <TotalTaxAmt>12973</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>10000</FormW2WithheldTaxAmt>
+            <Form1099WithheldTaxAmt referenceDocumentId="OTHERWITHHOLDING0001" referenceDocumentName="OtherWithholdingStatement">2355</Form1099WithheldTaxAmt>
+            <WithholdingTaxAmt>12355</WithholdingTaxAmt>
+            <TotalPaymentsAmt>12355</TotalPaymentsAmt>
+            <OwedAmt>618</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>SPEC tax analyst</PrimaryOccupationTxt>
+            <SpouseOccupationTxt>pastor</SpouseOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1040Schedule1 documentId="IRS1040S1001">
+            <UnemploymentCompAmt>23000</UnemploymentCompAmt>
+            <TotalAdditionalIncomeAmt>23000</TotalAdditionalIncomeAmt>
+        </IRS1040Schedule1>
+        <IRS1040Schedule3 documentId="IRS1040S3001">
+            <CreditForChildAndDepdCareAmt referenceDocumentId="IRS2441001" referenceDocumentName="IRS2441">600</CreditForChildAndDepdCareAmt>
+            <TotalNonrefundableCreditsAmt>600</TotalNonrefundableCreditsAmt>
+        </IRS1040Schedule3>
+        <IRS1040Schedule8812 documentId="IRS8812001" documentName="IRS1040Schedule8812">
+            <AdjustedGrossIncomeAmt>148058</AdjustedGrossIncomeAmt>
+            <ModifiedAGIAmt>148058</ModifiedAGIAmt>
+            <QlfyChildUnderAgeSSNCnt>1</QlfyChildUnderAgeSSNCnt>
+            <QlfyChildUnderAgeSSNLimtAmt>2000</QlfyChildUnderAgeSSNLimtAmt>
+            <OtherDependentCnt>0</OtherDependentCnt>
+            <InitialCTCODCAmt>2000</InitialCTCODCAmt>
+            <FilingStatusThresholdCd>400000</FilingStatusThresholdCd>
+            <ExcessAdjGrossIncomeAmt>0</ExcessAdjGrossIncomeAmt>
+            <ModifiedAGIPhaseOutAmt>0</ModifiedAGIPhaseOutAmt>
+            <CTCODCOverAGILimitInd>true</CTCODCOverAGILimitInd>
+            <CTCODCAfterAGILimitAmt>2000</CTCODCAfterAGILimitAmt>
+            <ACTCTaxLiabiltyLimitAmt>14973</ACTCTaxLiabiltyLimitAmt>
+            <CTCODCAmt>2000</CTCODCAmt>
+            <ClaimACTCAllFilersGrp/>
+        </IRS1040Schedule8812>
+        <IRS2441 documentId="IRS2441001" documentName="IRS2441">
+            <CareProviderGrp>
+                <CareProviderBusinessName>
+                    <BusinessNameLine1Txt>Little sprouts</BusinessNameLine1Txt>
+                </CareProviderBusinessName>
+                <CareProviderBusNameControlTxt>LITT</CareProviderBusNameControlTxt>
+                <USAddress>
+                    <AddressLine1Txt>123 Main street</AddressLine1Txt>
+                    <CityNm>Denver</CityNm>
+                    <StateAbbreviationCd>CO</StateAbbreviationCd>
+                    <ZIPCd>80212</ZIPCd>
+                </USAddress>
+                <EIN>846023137</EIN>
+                <HouseholdEmployeeInd>false</HouseholdEmployeeInd>
+                <PaidAmt>3000</PaidAmt>
+            </CareProviderGrp>
+            <QualifyingPersonGrp>
+                <QualifyingPersonName>
+                    <PersonFirstNm>DILL</PersonFirstNm>
+                    <PersonLastNm>PICKLE</PersonLastNm>
+                </QualifyingPersonName>
+                <QualifyingPersonNameControlTxt>PICK</QualifyingPersonNameControlTxt>
+                <QualifyingPersonSSN>300000018</QualifyingPersonSSN>
+                <QualifiedCareExpensesPaidAmt>3000</QualifiedCareExpensesPaidAmt>
+            </QualifyingPersonGrp>
+            <TotalQlfdExpensesOrLimitAmt>3000</TotalQlfdExpensesOrLimitAmt>
+            <PrimaryEarnedIncomeAmt>67000</PrimaryEarnedIncomeAmt>
+            <SpouseEarnedIncomeAmt>40000</SpouseEarnedIncomeAmt>
+            <SmallerOfExpensesOrIncomeAmt>3000</SmallerOfExpensesOrIncomeAmt>
+            <AdjustedGrossIncomeAmt>148058</AdjustedGrossIncomeAmt>
+            <CareExpensesDecimalAmt>0.20</CareExpensesDecimalAmt>
+            <CalculatedTentativeExpenseAmt>600</CalculatedTentativeExpenseAmt>
+            <TotalEligCDCCAmt>600</TotalEligCDCCAmt>
+            <TaxLiabLmtFromCrLmtWrkshtAmt>15573</TaxLiabLmtFromCrLmtWrkshtAmt>
+            <CreditForChildAndDepdCareAmt>600</CreditForChildAndDepdCareAmt>
+        </IRS2441>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>400000013</EmployeeSSN>
+            <EmployerEIN>910656890</EmployerEIN>
+            <EmployerNameControlTxt>USMI</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>US Mint</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>1 Main Street</AddressLine1Txt>
+                <CityNm>Tucson</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>85641</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Donald Dill</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>300 Elm Court</AddressLine1Txt>
+                <CityNm>Flagstaff</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>86001</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>30000</WagesAmt>
+            <WithholdingAmt>3000</WithholdingAmt>
+            <SocialSecurityWagesAmt>30000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>1860</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>30000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>435</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+        <IRSW2 documentId="W20002" documentName="IRSW2">
+            <EmployeeSSN>400000013</EmployeeSSN>
+            <EmployerEIN>840575852</EmployerEIN>
+            <EmployerNameControlTxt>THYM</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>thyme for withholding</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>2 VITA Way</AddressLine1Txt>
+                <CityNm>Tucson</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>85641</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Donald Dill</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>300 Elm Court</AddressLine1Txt>
+                <CityNm>Flagstaff</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>86001</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>37000</WagesAmt>
+            <WithholdingAmt>3000</WithholdingAmt>
+            <SocialSecurityWagesAmt>37000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>2220</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>37000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>537</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                    <EmployerStateIdNum>1234567890987654</EmployerStateIdNum>
+                    <StateWagesAmt>37000</StateWagesAmt>
+                    <StateIncomeTaxAmt>1000</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+        <IRSW2 documentId="W20003" documentName="IRSW2">
+            <EmployeeSSN>600000010</EmployeeSSN>
+            <EmployerEIN>840404235</EmployerEIN>
+            <EmployerNameControlTxt>SAGE</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Sage Advice</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>2 Main Street</AddressLine1Txt>
+                <CityNm>Tucson</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>85641</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Donna Dill</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>250 Rosemary Road</AddressLine1Txt>
+                <CityNm>Crown King</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>86343</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>40000</WagesAmt>
+            <WithholdingAmt>4000</WithholdingAmt>
+            <SocialSecurityWagesAmt>40000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>2480</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>40000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>620</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                    <EmployerStateIdNum>123</EmployerStateIdNum>
+                    <StateWagesAmt>40000</StateWagesAmt>
+                    <StateIncomeTaxAmt>1000</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+        <OtherWithholdingStatement documentId="OTHERWITHHOLDING0001" documentName="OtherWithholdingStatement">
+            <OtherWithholdingStmt>
+                <WithholdingCd>FORM 1099</WithholdingCd>
+                <EIN>131635294</EIN>
+                <WithholdingAmt>1000</WithholdingAmt>
+            </OtherWithholdingStmt>
+            <OtherWithholdingStmt>
+                <WithholdingCd>FORM 1099</WithholdingCd>
+                <EIN>001245767</EIN>
+                <WithholdingAmt>1300</WithholdingAmt>
+            </OtherWithholdingStmt>
+            <OtherWithholdingStmt>
+                <WithholdingCd>FORM 1099</WithholdingCd>
+                <WithholdingAmt>50</WithholdingAmt>
+            </OtherWithholdingStmt>
+            <OtherWithholdingStmt>
+                <WithholdingCd>FORM 1099</WithholdingCd>
+                <EIN>846023137</EIN>
+                <WithholdingAmt>5</WithholdingAmt>
+            </OtherWithholdingStmt>
+        </OtherWithholdingStatement>
+    </ReturnData>
+</Return>

@@ -3,7 +3,7 @@ module PdfFiller
     include PdfHelper
 
     def source_pdf_name
-      "md502SU-TY2023"
+      "md502SU-TY2024"
     end
 
     def initialize(submission)
@@ -22,7 +22,11 @@ module PdfFiller
         'Spouses Last Name' => @submission.data_source.spouse.last_name,
         'Spouses Social Security Number' => @submission.data_source.spouse.ssn,
         'ab Income from US Government obligations See Instruction 13                         ab' => calculated_fields.fetch(:MD502_SU_LINE_AB),
-        'appropriate code letters                                            TOTAL  1' => calculated_fields.fetch(:MD502_SU_LINE_1),
+        'appropriate code letters                                                  TOTAL 1' => calculated_fields.fetch(:MD502_SU_LINE_1),
+        'NAME' => @submission.data_source.primary.last_name,
+        'SSN' => @submission.data_source.primary.ssn,
+        'NAME_2' => @submission.data_source.primary.last_name,
+        'SSN_2' => @submission.data_source.primary.ssn,
       }
     end
 
