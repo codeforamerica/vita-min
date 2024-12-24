@@ -2634,10 +2634,10 @@ en:
           sub8: State and local Earned Income Tax credits (if you claimed the federal Earned Income Tax Credit)
           sub9: State Child Tax Credit (for children under 6)
         nc_credits_unsupported:
-          credits_not_supported: What credits and deductions does this service not support this year?
           college_savings_account: 529 College Savings Account Contributions
           credits_carried: Credits carried forward from previous years
           credits_for_rehabilitating: Credits for Rehabilitating Historic Structures
+          credits_not_supported: What credits and deductions does this service not support this year?
           estimated_income_tax_payments: Estimated income tax payments
           extension_payment: Extension payments
           personal_education: Personal Education Student Account Deposits Deduction
