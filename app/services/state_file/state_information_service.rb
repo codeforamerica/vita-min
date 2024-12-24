@@ -167,7 +167,7 @@ module StateFile
         tax_payment_info_text: "https://www.ncdor.gov/file-pay/pay-individual-income-tax",
         tax_payment_info_url: "https://www.ncdor.gov/file-pay/pay-individual-income-tax",
         tax_refund_url: "https://eservices.dor.nc.gov/wheresmyrefund/SelectionServlet",
-        department_of_taxation: "North Carolina Department of Revenue",
+        department_of_taxation: "N.C. Department of Revenue",
         timezone: 'America/New_York',
         vita_link_en: "https://airtable.com/appqG5OGbTLBiQ408/pagJPN5iPinERGb3Q/form",
         vita_link_es: "https://airtable.com/appqG5OGbTLBiQ408/pagS982AjKEml809R/form",
