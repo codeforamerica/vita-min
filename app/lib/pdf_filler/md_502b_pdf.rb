@@ -3,7 +3,7 @@ module PdfFiller
     include PdfHelper
 
     def source_pdf_name
-      "md502B-TY2024"
+      "md502B-TY2023"
     end
 
     def initialize(submission)
@@ -17,17 +17,17 @@ module PdfFiller
 
     def hash_for_pdf
       answers = {
-        "Your First Name": @xml_document.at("Primary TaxpayerName FirstName")&.text,
-        "Primary MI": @xml_document.at("Primary TaxpayerName MiddleInitial")&.text,
-        "Your Last Name": @xml_document.at("Primary TaxpayerName LastName")&.text,
-        "Your Social Security Number": @xml_document.at("Primary TaxpayerSSN")&.text,
-        "Spouses First Name": @xml_document.at("Secondary TaxpayerName FirstName")&.text,
-        "Spouse MI": @xml_document.at("Secondary TaxpayerName MiddleInitial")&.text,
-        "Spouses Last Name": @xml_document.at("Secondary TaxpayerName LastName")&.text,
-        "Spouses Social Security Number": @xml_document.at("Secondary TaxpayerSSN")&.text,
-        "1": @xml_document.at("Form502B Dependents CountRegular")&.text,
-        "2": @xml_document.at("Form502B Dependents CountOver65")&.text,
-        "3": @xml_document.at("Form502B Dependents Count")&.text,
+        "Your first name": @xml_document.at("Primary TaxpayerName FirstName")&.text,
+        "Initial": @xml_document.at("Primary TaxpayerName MiddleInitial")&.text,
+        "yOUR Last name": @xml_document.at("Primary TaxpayerName LastName")&.text,
+        "social security 1": @xml_document.at("Primary TaxpayerSSN")&.text,
+        "Spouses first name": @xml_document.at("Secondary TaxpayerName FirstName")&.text,
+        "Initial_2": @xml_document.at("Secondary TaxpayerName MiddleInitial")&.text,
+        "SPOUSE Last name_2": @xml_document.at("Secondary TaxpayerName LastName")&.text,
+        "Spouse social security 1": @xml_document.at("Secondary TaxpayerSSN")&.text,
+        "No. regular dependents": @xml_document.at("Form502B Dependents CountRegular")&.text,
+        "No. 65orOver dependents": @xml_document.at("Form502B Dependents CountOver65")&.text,
+        "No. total dependents": @xml_document.at("Form502B Dependents Count")&.text,
       }
 
       @intake.dependents.first(12).each_with_index do |dependent, i|
