@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe SubmissionBuilder::Ty2024::States::Md::MdReturnXml, required_schema: "md" do
   describe ".build" do
-    let(:intake) { create(:state_file_md_intake) }
+    let(:intake) { create(:state_file_md_intake, primary_esigned: "yes", primary_esigned_at: Time.now, primary_signature_pin: "11111" ) }
     let(:submission) { create(:efile_submission, data_source: intake.reload) }
     let!(:initial_efile_device_info) { create :state_file_efile_device_info, :initial_creation, :filled, intake: intake }
     let!(:submission_efile_device_info) { create :state_file_efile_device_info, :submission, :filled, intake: intake }

@@ -6,7 +6,8 @@ RSpec.describe PdfFiller::MdEl101Pdf do
   let(:intake) { create(:state_file_md_intake) }
   let(:submission) { create :efile_submission, tax_return: nil, data_source: intake }
   let(:pdf) { described_class.new(submission) }
-  let(:expected_signature_date) { DateTime.now.in_time_zone(StateFile::StateInformationService.timezone('md')).strftime("%F") }
+  let(:signature_date) { DateTime.now }
+  let(:expected_signature_date_pdf_value) { signature_date.in_time_zone(StateFile::StateInformationService.timezone('md')).strftime("%F") }
 
   describe "#hash_for_pdf" do
     let(:file_path) { described_class.new(submission).output_file.path }
@@ -16,7 +17,7 @@ RSpec.describe PdfFiller::MdEl101Pdf do
     before do
       submission.data_source.direct_file_data.primary_ssn = '555123666'
       submission.data_source.primary_esigned_yes!
-      submission.data_source.primary_esigned_at = 1.hour.ago
+      submission.data_source.primary_esigned_at = signature_date
       submission.data_source.primary_signature_pin = '23456'
     end
 
@@ -34,7 +35,7 @@ RSpec.describe PdfFiller::MdEl101Pdf do
         expect(pdf_fields["ERO firm name"]).to eq "FileYourStateTaxes"
         expect(pdf_fields["to enter or generate my PIN"]).to eq "23456"
         expect(pdf_fields["Primary signature"]).to eq "Mary Lando"
-        expect(pdf_fields["Date"]).to eq expected_signature_date
+        expect(pdf_fields["Date"]).to eq expected_signature_date_pdf_value
         expect(pdf_fields["Spouses First Name"]).to eq("")
         expect(pdf_fields["Spouse MI"]).to eq("")
         expect(pdf_fields["Spouses Last Name"]).to eq("")
@@ -74,7 +75,7 @@ RSpec.describe PdfFiller::MdEl101Pdf do
       before do
         submission.data_source.direct_file_data.spouse_ssn = '555123456'
         submission.data_source.spouse_esigned_yes!
-        submission.data_source.spouse_esigned_at = 1.hour.ago
+        submission.data_source.spouse_esigned_at = signature_date
         submission.data_source.spouse_signature_pin = '11111'
       end
 
@@ -86,7 +87,7 @@ RSpec.describe PdfFiller::MdEl101Pdf do
         expect(pdf_fields["ERO firm name_2"]).to eq "FileYourStateTaxes"
         expect(pdf_fields["to enter or generate my PIN_2"]).to eq "11111"
         expect(pdf_fields["Spouses signature"]).to eq "Marty Lando"
-        expect(pdf_fields["Date_2"]).to eq expected_signature_date
+        expect(pdf_fields["Date_2"]).to eq expected_signature_date_pdf_value
       end
     end
   end

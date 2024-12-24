@@ -119,7 +119,7 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400, required_schema
     end
 
     context "mfj filers" do
-      let(:intake) { create(:state_file_nc_intake, filing_status: "married_filing_jointly") }
+      let(:intake) { create(:state_file_nc_intake, :with_spouse) }
 
       it "correctly fills spouse-specific answers" do
         expect(xml.document.at('ResidencyStatusSpouse')&.text).to eq "true"
@@ -134,14 +134,18 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400, required_schema
     end
 
     context "mfs filers" do
-      let(:intake) { create(:state_file_nc_intake, :with_filers_synced, filing_status: "married_filing_separately") }
+      let(:intake) { create(:state_file_nc_intake, :with_filers_synced, :with_spouse, filing_status: "married_filing_separately") }
+
+      before do
+        intake.direct_file_data.spouse_ssn = "111100030"
+      end
 
       it "correctly fills spouse-specific answers" do
         expect(xml.document.at('FilingStatus')&.text).to eq "MFS"
         expect(xml.document.at('MFSSpouseName FirstName')&.text).to eq "Susie"
-        expect(xml.document.at('MFSSpouseName MiddleInitial')&.text).to eq "K"
-        expect(xml.document.at('MFSSpouseName LastName')&.text).to eq "Cave"
-        expect(xml.document.at('MFSSpouseSSN')&.text).to eq "600000030"
+        expect(xml.document.at('MFSSpouseName MiddleInitial')&.text).to eq "B"
+        expect(xml.document.at('MFSSpouseName LastName')&.text).to eq "Spouse"
+        expect(xml.document.at('MFSSpouseSSN')&.text).to eq "111100030"
       end
     end
 

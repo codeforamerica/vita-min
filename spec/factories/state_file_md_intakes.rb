@@ -112,13 +112,20 @@ FactoryBot.define do
     end
 
     factory :state_file_md_refund_intake do
-      after(:build) do |intake, evaluator|
+      after(:build) do |intake|
         intake.direct_file_data.fed_agi = 10000
         intake.raw_direct_file_data = intake.direct_file_data.to_s
         intake.payment_or_deposit_type = "direct_deposit"
         intake.account_type = "savings"
         intake.routing_number = 111111111
         intake.account_number = 222222222
+      end
+    end
+
+    trait :with_efile_device_infos do
+      after(:build) do |intake|
+        create :state_file_efile_device_info, :filled, :initial_creation, intake: intake
+        create :state_file_efile_device_info, :filled, :submission, intake: intake
       end
     end
 
@@ -130,12 +137,11 @@ FactoryBot.define do
     primary_middle_initial { "A" }
     primary_last_name { "Lando" }
     primary_birth_date { Date.new(1950, 01, 01) } # matches the bday in md_minimal.json
-    primary_signature_pin { '12345' }
-    primary_esigned_at { DateTime.now }
     subdivision_code { "0111" }
     political_subdivision { "Mt Savage" }
     confirmed_permanent_address { "yes" }
     residence_county { "Allegany" }
+    primary_signature_pin { '23456' }
 
     after(:build) do |intake, evaluator|
       numeric_status = {
@@ -193,8 +199,6 @@ FactoryBot.define do
       spouse_middle_initial { "B" }
       spouse_last_name { "Lando" }
       spouse_birth_date { MultiTenantService.statefile.end_of_current_tax_year - 40 }
-      spouse_signature_pin { '54321' }
-      spouse_esigned_at { DateTime.now }
     end
 
     trait :with_senior_spouse do
