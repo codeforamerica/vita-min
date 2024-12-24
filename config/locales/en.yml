@@ -3374,6 +3374,11 @@ en:
           primary_veteran_question: Are you a veteran?
           spouse_veteran_question: Is your spouse a veteran?
           title: In NJ, veterans are eligible for a tax exemption.
+      nj_year_of_death:
+        edit:
+          question: What was the year of your spouse’s passing?
+          subtitle: In order to continue, we need to confirm additional information about your deceased spouse.
+          title: It looks like your filing status is Qualifying Surviving Spouse
       notification_preferences:
         edit:
           email_address_label: Your email address

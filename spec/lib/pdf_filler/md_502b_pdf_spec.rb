@@ -71,9 +71,9 @@ RSpec.describe PdfFiller::Md502bPdf do
         expect(pdf_fields["Spouses Last Name"]).to eq "Jomp"
         expect(pdf_fields["Spouses Social Security Number"]).to eq "987654321"
 
-        expect(pdf_fields["1"]).to eq "2" # regular dependents
-        expect(pdf_fields["2"]).to eq "1" # dependents over 65
-        expect(pdf_fields["3"]).to eq "3" # total dependents
+        expect(pdf_fields["CountRegular"]).to eq "2" # regular dependents
+        expect(pdf_fields["CountOver65"]).to eq "1" # dependents over 65
+        expect(pdf_fields["Count"]).to eq "3" # total dependents
 
         expect(pdf_fields["First Name 1"]).to eq "Janiss"
         expect(pdf_fields["MI 1"]).to eq "J"

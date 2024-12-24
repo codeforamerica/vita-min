@@ -26,6 +26,12 @@ module SubmissionBuilder
             "NJIndividual2024V0.1"
           end
 
+          def build_state_specific_tags(document)
+            if !@submission.data_source.routing_number.nil? && !@submission.data_source.account_number.nil?
+              document.at("ReturnState").add_child(financial_transaction)
+            end
+          end
+
           def documents_wrapper
             nil
           end
@@ -53,6 +59,7 @@ module SubmissionBuilder
           def nj_2450s
             docs = []
 
+            # Must call calculator directly because these aren't lines on the NJ 1040
             if calculator.line_59_primary&.positive? || calculator.line_61_primary&.positive?
               docs << {
                 xml: SubmissionBuilder::Ty2024::States::Nj::Documents::Nj2450,
@@ -77,7 +84,7 @@ module SubmissionBuilder
           def schedule_nj_hcc
             docs = []
 
-            if calculator.line_53c_checkbox
+            if calculated_fields.fetch(:NJ1040_LINE_53C_CHECKBOX)
               docs << {
                 xml: SubmissionBuilder::Ty2024::States::Nj::Documents::ScheduleNjHcc,
                 pdf: PdfFiller::ScheduleNjHccPdf,
@@ -103,6 +110,18 @@ module SubmissionBuilder
 
           def calculator 
             @submission.data_source.tax_calculator
+          end
+
+          def calculated_fields
+            @calculated_fields ||= calculator.calculate 
+          end
+
+          def financial_transaction
+            FinancialTransaction.build(
+              @submission,
+              validate: false,
+              kwargs: { refund_amount: calculated_fields.fetch(:NJ1040_LINE_80) }
+            ).document.at("*")
           end
         end
       end
