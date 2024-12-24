@@ -98,7 +98,7 @@ FactoryBot.define do
     end
 
     factory :state_file_id_refund_intake do
-      after(:build) do |intake, evaluator|
+      after(:build) do |intake|
         intake.direct_file_data.fed_agi = 10000
         intake.raw_direct_file_data = intake.direct_file_data.to_s
         intake.payment_or_deposit_type = "direct_deposit"
