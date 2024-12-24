@@ -105,7 +105,7 @@ var followUpQuestion = (function () {
                 $(this).find('input').each(function (index, input) {
                     var $input = $(this);
                     var followUpSelector = $input.attr('data-follow-up');
-                    if (followUpSelector) {
+                    if (followUpSelector && /^[a-zA-Z0-9_\-#\.]+$/.test(followUpSelector)) {
                         if ($input.is(':checked')) {
                             $(followUpSelector).find('input, select').attr('disabled', false);
                             $(followUpSelector).show();
