@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>d2a1b730</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400000091</PrimarySSN>
+            <SpouseSSN>600000091</SpouseSSN>
+            <NameLine1Txt>SANTA &amp; MARY M DECD&lt;CLAUS</NameLine1Txt>
+            <PrimaryNameControlTxt>CLAU</PrimaryNameControlTxt>
+            <SpouseNameControlTxt>CLAU</SpouseNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>1225 Merry all the way</AddressLine1Txt>
+                <CityNm>North Pole</CityNm>
+                <StateAbbreviationCd>AK</StateAbbreviationCd>
+                <ZIPCd>99705</ZIPCd>
+            </USAddress>
+            <PhoneNum>2223334444</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000009-12d9-4bb4-ae65-5b0699a6d213@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="3">
+        <IRS1040 documentId="IRS10400001">
+            <SpouseDeathDt>2024-10-01</SpouseDeathDt>
+            <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>2</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001 W20002" referenceDocumentName="IRSW2">16000</WagesAmt>
+            <WagesSalariesAndTipsAmt>16000</WagesSalariesAndTipsAmt>
+            <TotalIncomeAmt>16000</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>16000</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>29200</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>29200</TotalDeductionsAmt>
+            <TaxableIncomeAmt>0</TaxableIncomeAmt>
+            <TaxAmt>0</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>0</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>0</TaxLessCreditsAmt>
+            <TotalTaxAmt>0</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>200</FormW2WithheldTaxAmt>
+            <WithholdingTaxAmt>200</WithholdingTaxAmt>
+            <EarnedIncomeCreditAmt>632</EarnedIncomeCreditAmt>
+            <RefundableCreditsAmt>632</RefundableCreditsAmt>
+            <TotalPaymentsAmt>832</TotalPaymentsAmt>
+            <OverpaidAmt>832</OverpaidAmt>
+            <RefundAmt>832</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>sleigh driver</PrimaryOccupationTxt>
+            <SpouseOccupationTxt>TOYMAKER</SpouseOccupationTxt>
+            <SurvivingSpouseInd>X</SurvivingSpouseInd>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <CorrectedW2Ind>X</CorrectedW2Ind>
+            <EmployeeSSN>400000091</EmployeeSSN>
+            <EmployerEIN>621721435</EmployerEIN>
+            <EmployerNameControlTxt>SANT</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Santazon</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>500 Reindeer Way</AddressLine1Txt>
+                <CityNm>Flagstaff</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>86001</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Santa Claus</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>1225 Merry all the way</AddressLine1Txt>
+                <CityNm>North Pole</CityNm>
+                <StateAbbreviationCd>AK</StateAbbreviationCd>
+                <ZIPCd>99705</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>11000</WagesAmt>
+            <WithholdingAmt>100</WithholdingAmt>
+            <SocialSecurityWagesAmt>11000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>682</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>11000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>160</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                    <EmployerStateIdNum>12345</EmployerStateIdNum>
+                    <StateWagesAmt>11000</StateWagesAmt>
+                    <StateIncomeTaxAmt>200</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+        <IRSW2 documentId="W20002" documentName="IRSW2">
+            <EmployeeSSN>600000091</EmployeeSSN>
+            <EmployerEIN>710427007</EmployerEIN>
+            <EmployerNameControlTxt>FROS</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Frosty's Toys</BusinessNameLine1Txt>
+                <BusinessNameLine2Txt>Elf Workshop</BusinessNameLine2Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>300 North Pole Street</AddressLine1Txt>
+                <AddressLine2Txt>Building 3</AddressLine2Txt>
+                <CityNm>Flagstaff</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>86001</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>MARY M CLAUS</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>1225 Merry all the way</AddressLine1Txt>
+                <CityNm>North Pole</CityNm>
+                <StateAbbreviationCd>AK</StateAbbreviationCd>
+                <ZIPCd>99705</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>5000</WagesAmt>
+            <WithholdingAmt>100</WithholdingAmt>
+            <SocialSecurityWagesAmt>5000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>340</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>5000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>80</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                    <EmployerStateIdNum>54231</EmployerStateIdNum>
+                    <StateWagesAmt>5000</StateWagesAmt>
+                    <StateIncomeTaxAmt>100</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>
