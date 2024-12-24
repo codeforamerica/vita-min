@@ -211,7 +211,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
     end
 
     context "qualifying widow/er filers" do
-      let(:intake) { create(:state_file_nj_intake, :df_data_qss) }
+      let(:intake) { create(:state_file_nj_intake, filing_status: "qualifying_widow") }
       
       context "when spouse passed in previous calendar year" do
         before do

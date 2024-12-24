@@ -31,7 +31,7 @@ RSpec.describe StateFile::Questions::NjYearOfDeathController do
     let(:form_params) do
       {
         state_file_nj_year_of_death_form: {
-          spouse_death_year: 2023
+          spouse_death_year: MultiTenantService.statefile.current_tax_year - 1
         }
       }
     end
