@@ -6,7 +6,7 @@ RSpec.describe PdfFiller::MdEl101Pdf do
   let(:intake) { create(:state_file_md_intake) }
   let(:submission) { create :efile_submission, tax_return: nil, data_source: intake }
   let(:pdf) { described_class.new(submission) }
-  let(:expected_signature_date) { DateTime.now.in_time_zone(StateFile::StateInformationService.timezone('md')).strftime("%F") }
+  let(:expected_signature_date) { DateTime.new(2024, 12, 19, 12).strftime("%F") }
 
   describe "#hash_for_pdf" do
     let(:file_path) { described_class.new(submission).output_file.path }
@@ -16,7 +16,7 @@ RSpec.describe PdfFiller::MdEl101Pdf do
     before do
       submission.data_source.direct_file_data.primary_ssn = '555123666'
       submission.data_source.primary_esigned_yes!
-      submission.data_source.primary_esigned_at = 1.hour.ago
+      submission.data_source.primary_esigned_at = DateTime.new(2024, 12, 19, 12)
       submission.data_source.primary_signature_pin = '23456'
     end
 
@@ -74,7 +74,7 @@ RSpec.describe PdfFiller::MdEl101Pdf do
       before do
         submission.data_source.direct_file_data.spouse_ssn = '555123456'
         submission.data_source.spouse_esigned_yes!
-        submission.data_source.spouse_esigned_at = 1.hour.ago
+        submission.data_source.spouse_esigned_at = DateTime.new(2024, 12, 19, 12)
         submission.data_source.spouse_signature_pin = '11111'
       end
 
