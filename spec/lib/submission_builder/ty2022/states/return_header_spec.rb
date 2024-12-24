@@ -320,13 +320,14 @@ describe SubmissionBuilder::ReturnHeader do
         spouse_esigned_at: spouse_esigned_at
       )
     }
-    let(:tomorrow_midnight) { DateTime.tomorrow.beginning_of_day }
+    let(:signature_date) { DateTime.now }
+    let(:expected_signature_date_pdf_value) { signature_date.in_time_zone(StateFile::StateInformationService.timezone("md")).strftime("%F") }
     let(:primary_signature_pin) { "12345" }
     let(:primary_esigned) { "yes" }
-    let(:primary_esigned_at) { tomorrow_midnight }
+    let(:primary_esigned_at) { signature_date }
     let(:spouse_signature_pin) { "23456" }
     let(:spouse_esigned) { "yes" }
-    let(:spouse_esigned_at) { tomorrow_midnight }
+    let(:spouse_esigned_at) { signature_date }
     let(:submission) { create(:efile_submission, data_source: intake) }
     let(:doc) { SubmissionBuilder::ReturnHeader.new(submission).document }
 
@@ -339,7 +340,7 @@ describe SubmissionBuilder::ReturnHeader do
       end
 
       it "handles timezone correctly for signature date when the filer esigns after midnight UTC but not after midnight in the State's timezone" do
-        expect(doc.at('Filer Primary DateSigned').content).to eq tomorrow_midnight.in_time_zone("America/New_York").strftime("%Y-%m-%d")
+        expect(doc.at('Filer Primary DateSigned').content).to eq expected_signature_date_pdf_value
         expect(doc.at('Filer Secondary DateSigned')).not_to be_present
       end
     end
@@ -358,8 +359,8 @@ describe SubmissionBuilder::ReturnHeader do
       end
 
       it "it correctly signs with the date of the correct timezone when the filer esigns after midnight UTC but not after midnight in the State's timezone" do
-        expect(doc.at('Filer Primary DateSigned').content).to eq tomorrow_midnight.in_time_zone("America/New_York").strftime("%Y-%m-%d")
-        expect(doc.at('Filer Secondary DateSigned').content).to eq tomorrow_midnight.in_time_zone("America/New_York").strftime("%Y-%m-%d")
+        expect(doc.at('Filer Primary DateSigned').content).to eq expected_signature_date_pdf_value
+        expect(doc.at('Filer Secondary DateSigned').content).to eq expected_signature_date_pdf_value
       end
     end
   end

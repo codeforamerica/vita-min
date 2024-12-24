@@ -3,12 +3,13 @@ require 'rails_helper'
 RSpec.describe PdfFiller::Id40Pdf do
   include PdfSpecHelper
 
-  let(:tomorrow_midnight) { DateTime.tomorrow.beginning_of_day }
+  let(:signature_date) { DateTime.now }
+  let(:expected_signature_date_pdf_value) { signature_date.in_time_zone(StateFile::StateInformationService.timezone('id')).strftime("%m-%d-%Y") }
   let(:intake) {
     create(:state_file_id_intake,
            :single_filer_with_json, # includes phone number data
            primary_esigned: "yes",
-           primary_esigned_at: tomorrow_midnight)
+           primary_esigned_at: signature_date)
   }
   let(:submission) { create :efile_submission, tax_return: nil, data_source: intake }
   let(:pdf) { described_class.new(submission) }
@@ -23,8 +24,7 @@ RSpec.describe PdfFiller::Id40Pdf do
 
     context "when filer signed submission agreement" do
       it 'sets signature date field to the correct value' do
-        timezone = StateFile::StateInformationService.timezone('id')
-        expect(pdf_fields["DateSign 2"]).to eq tomorrow_midnight.in_time_zone(timezone).strftime("%m-%d-%Y")
+        expect(pdf_fields["DateSign 2"]).to eq expected_signature_date_pdf_value
         expect(pdf_fields["TaxpayerPhoneNo"]).to eq "2085551234"
       end
     end
