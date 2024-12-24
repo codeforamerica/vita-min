@@ -105,13 +105,14 @@ var followUpQuestion = (function () {
                 $(this).find('input').each(function (index, input) {
                     var $input = $(this);
                     var followUpSelector = $input.attr('data-follow-up');
-                    if (followUpSelector && /^[a-zA-Z0-9_\-#\.]+$/.test(followUpSelector)) {
+                    if (followUpSelector && /^[a-zA-Z0-9_\-#\.]+$/.test(followUpSelector)) { // protects against XSS through DOM
                         if ($input.is(':checked')) {
                             $(followUpSelector).find('input, select').attr('disabled', false);
                             $(followUpSelector).show();
                         } else {
                             if ($('[data-follow-up="' + followUpSelector + '"]:checked').length === 0) {
                                 $(followUpSelector).find('input, select').attr('disabled', true);
+                                // two question inputs can refer to the same followup
                                 $(followUpSelector).hide();
                             }
                         }

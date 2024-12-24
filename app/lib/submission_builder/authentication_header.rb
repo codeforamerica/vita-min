@@ -30,7 +30,7 @@ module SubmissionBuilder
               xml.IPv6AddressTxt device_info&.ip_address if device_info&.ip_address&.ipv6?
             end
             xml.IPTs datetime_type(device_info&.updated_at)
-            xml.DeviceId device_info&.device_id || 'AB' * 20
+            xml.DeviceId /^[A-F0-9]{40}$/.match?(device_info&.device_id) ? device_info&.device_id : 'AB' * 20
             xml.DeviceTypeCd 'Browser-based'
             xml.EmailAddressTxt email_from_intake_or_df
             xml.USCellPhoneNum phone_number if phone_number.present?
