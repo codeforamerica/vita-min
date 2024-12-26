@@ -167,4 +167,30 @@ describe StateFileW2 do
       expect(xml.at("StateAbbreviationCd")).to be_nil
     end
   end
+
+  describe "box14_ui_wf_swf getter override" do
+    context "box14_ui_wf_swf is nil but box14_ui_hc_wd is not" do
+      it "returns value of box14_ui_hc_wd" do
+        w2.box14_ui_wf_swf = nil
+        w2.box14_ui_hc_wd = 100.00
+        expect(w2.box14_ui_wf_swf).to eq 100.00
+      end
+    end
+
+    context "neither box14_ui_wf_swf nor box14_ui_hc_wd is nil" do
+      it "returns value of box14_ui_wf_swf" do
+        w2.box14_ui_wf_swf = 150.00
+        w2.box14_ui_hc_wd = 100.00
+        expect(w2.box14_ui_wf_swf).to eq 150.00
+      end
+    end
+
+    context "both box14_ui_wf_swf and box14_ui_hc_wd are nil" do
+      it "returns nil" do
+        w2.box14_ui_wf_swf = nil
+        w2.box14_ui_hc_wd = nil
+        expect(w2.box14_ui_wf_swf).to be_nil
+      end
+    end
+  end
 end

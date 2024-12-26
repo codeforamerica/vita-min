@@ -251,14 +251,12 @@ module Efile
       end
 
       def line_59_primary
-        get_personal_excess(@intake.primary.ssn, :box14_ui_wf_swf, EXCESS_UI_WF_SWF_MAX) +
-          get_personal_excess(@intake.primary.ssn, :box14_ui_hc_wd, EXCESS_UI_WF_SWF_MAX)
+        get_personal_excess(@intake.primary.ssn, :box14_ui_wf_swf, EXCESS_UI_WF_SWF_MAX)
       end
 
       def line_59_spouse
         if @intake.filing_status_mfj?
-          get_personal_excess(@intake.spouse.ssn, :box14_ui_wf_swf, EXCESS_UI_WF_SWF_MAX) +
-            get_personal_excess(@intake.spouse.ssn, :box14_ui_hc_wd, EXCESS_UI_WF_SWF_MAX)
+          get_personal_excess(@intake.spouse.ssn, :box14_ui_wf_swf, EXCESS_UI_WF_SWF_MAX)
         end
       end
 
@@ -437,16 +435,24 @@ module Efile
         @direct_file_data.fed_eic.positive?
       end
 
+      def get_excess_value(w2, excess_type)
+        if excess_type == :box14_ui_wf_swf
+          w2.box14_ui_wf_swf
+        else
+          w2[excess_type]
+        end
+      end
+
       def get_personal_excess(ssn, excess_type, threshold)
         persons_w2s = @intake.state_file_w2s.all&.select { |w2| w2.employee_ssn == ssn }
         return 0 unless persons_w2s.count > 1
-        return 0 if persons_w2s.any? { |w2| w2[excess_type] && w2[excess_type] > threshold }
+        return 0 if persons_w2s.any? do |w2|
+          excess_value = get_excess_value(w2, excess_type)
+          excess_value && excess_value > threshold
+        end
 
-        total_contribution = 0
-
-        persons_w2s.each do |w2|
-          contribution = w2[excess_type] || 0
-          total_contribution += contribution
+        total_contribution = persons_w2s.sum do |w2|
+          get_excess_value(w2, excess_type) || 0
         end
 
         excess_contribution = total_contribution - threshold

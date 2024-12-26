@@ -198,32 +198,4 @@ RSpec.describe StateFile::Questions::W2Controller do
       end
     end
   end
-
-  describe "#load_w2" do
-    context "when box14_ui_wf_swf is nil and box14_ui_hc_wd is not" do
-      let(:intake) { create :state_file_nj_intake }
-      let!(:state_file_w2) do
-        create :state_file_w2, state_file_intake: intake, w2_index: 1,
-               box14_ui_wf_swf: nil, box14_ui_hc_wd: 340
-      end
-  
-      it "sets box14_ui_wf_swf to box14_ui_hc_wd" do
-        get :edit, params: { id: state_file_w2.id }
-        expect(assigns(:w2).box14_ui_wf_swf).to eq 340
-      end
-    end
-
-    context "when both box14_ui_wf_swf and box14_ui_hc_wd are not nil" do
-      let(:intake) { create :state_file_nj_intake }
-      let!(:state_file_w2) do
-        create :state_file_w2, state_file_intake: intake, w2_index: 1,
-               box14_ui_wf_swf: 450, box14_ui_hc_wd: 340
-      end
-  
-      it "sets box14_ui_wf_swf to box14_ui_wf_swf" do
-        get :edit, params: { id: state_file_w2.id }
-        expect(assigns(:w2).box14_ui_wf_swf).to eq 450
-      end
-    end
-  end
 end
