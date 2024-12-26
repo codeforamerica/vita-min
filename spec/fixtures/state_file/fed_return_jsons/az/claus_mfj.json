@@ -1,0 +1,45 @@
+{
+  "familyAndHousehold": [],
+  "filers": [
+    {
+      "firstName": "MARY",
+      "lastName": "CLAUS",
+      "middleInitial": "M",
+      "educatorExpenses": "0.00",
+      "tin": "600-00-0091",
+      "interestReportsTotal": "0.00",
+      "dateOfBirth": "1984-06-05",
+      "form1099GsTotal": "0.00",
+      "suffix": null,
+      "isPrimaryFiler": false,
+      "ssnNotValidForEmployment": null,
+      "hsaTotalDeductibleAmount": null
+    },
+    {
+      "firstName": "Santa",
+      "lastName": "Claus",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "400-00-0091",
+      "dateOfBirth": "1983-05-04",
+      "interestReportsTotal": "0.00",
+      "suffix": null,
+      "form1099GsTotal": "0.00",
+      "isPrimaryFiler": true,
+      "ssnNotValidForEmployment": null,
+      "hsaTotalDeductibleAmount": null
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [
+    {
+      "usedTin": "400-00-0091",
+      "unionDuesAmount": null
+    },
+    {
+      "usedTin": "600-00-0091",
+      "unionDuesAmount": null
+    }
+  ],
+  "interestReports": []
+}

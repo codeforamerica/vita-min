@@ -3627,6 +3627,10 @@ es:
           text_update: Recibirás una actualización por SMS cuando una vez tu declaración de impuestos haya sido aceptada.
           title: "¡Tu declaración de impuestos de %{state_name}de %{filing_year} ha sido enviada! "
           title_resubmit: "¡Tu declaración de impuestos de %{state_name} de %{filing_year} ha sido enviada de nuevo!"
+        nj_additional_content:
+          body_html: You said you%{or_spouse} are filing for the veteran exemption. If it's your first time filing for <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml">this exemption</a>, you have to provide <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml">documentation</a> and a <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf">form</a> to the New Jersey Division of Taxation. It can be done <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf">online</a>.
+          header: 'Attention: if you are claiming the veteran exemption for the first time'
+          or_spouse: " or your spouse"
       tax_refund:
         bank_details:
           account_number: Número de cuenta
