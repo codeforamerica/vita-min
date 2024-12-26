@@ -173,7 +173,7 @@ describe StateFileW2 do
       it "returns value of box14_ui_hc_wd" do
         w2.box14_ui_wf_swf = nil
         w2.box14_ui_hc_wd = 100.00
-        expect(w2.box14_ui_wf_swf).to eq 100.00
+        expect(w2.get_box14_ui_overwrite).to eq 100.00
       end
     end
 
@@ -181,7 +181,7 @@ describe StateFileW2 do
       it "returns value of box14_ui_wf_swf" do
         w2.box14_ui_wf_swf = 150.00
         w2.box14_ui_hc_wd = 100.00
-        expect(w2.box14_ui_wf_swf).to eq 150.00
+        expect(w2.get_box14_ui_overwrite).to eq 150.00
       end
     end
 
@@ -189,7 +189,7 @@ describe StateFileW2 do
       it "returns nil" do
         w2.box14_ui_wf_swf = nil
         w2.box14_ui_hc_wd = nil
-        expect(w2.box14_ui_wf_swf).to be_nil
+        expect(w2.get_box14_ui_overwrite).to be_nil
       end
     end
   end
