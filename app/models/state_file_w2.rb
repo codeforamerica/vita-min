@@ -114,8 +114,7 @@ class StateFileW2 < ApplicationRecord
     result.nil? ? "" : result.to_xml
   end
 
-  # Override the getter for box14_ui_wf_swf for overwrite behavior
-  def box14_ui_wf_swf
+  def get_box14_ui_overwrite
     read_attribute(:box14_ui_wf_swf) || box14_ui_hc_wd
   end
 end

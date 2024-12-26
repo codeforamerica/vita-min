@@ -38,7 +38,7 @@ module Efile
       end
 
       def column_a_excess
-        difference = (column_a_total - Nj1040Calculator::EXCESS_UI_WF_SWF_MAX).round
+        difference = (column_a_total - Nj1040Calculator::EXCESS_UI_MAX).round
         difference.positive? ? difference : 0
       end
 

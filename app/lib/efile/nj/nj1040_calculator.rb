@@ -6,7 +6,7 @@ module Efile
 
       RENT_CONVERSION = 0.18
       MAX_NJ_CTC_DEPENDENTS = 9
-      EXCESS_UI_WF_SWF_MAX = 179.78 # also applies to ui hc wd
+      EXCESS_UI_MAX = 179.78
       EXCESS_FLI_MAX = 145.26
 
       def initialize(year:, intake:, include_source: false)
@@ -251,12 +251,12 @@ module Efile
       end
 
       def line_59_primary
-        get_personal_excess(@intake.primary.ssn, :box14_ui_wf_swf, EXCESS_UI_WF_SWF_MAX)
+        get_personal_excess(@intake.primary.ssn, :box14_ui, EXCESS_UI_MAX)
       end
 
       def line_59_spouse
         if @intake.filing_status_mfj?
-          get_personal_excess(@intake.spouse.ssn, :box14_ui_wf_swf, EXCESS_UI_WF_SWF_MAX)
+          get_personal_excess(@intake.spouse.ssn, :box14_ui, EXCESS_UI_MAX)
         end
       end
 
@@ -436,8 +436,8 @@ module Efile
       end
 
       def get_excess_value(w2, excess_type)
-        if excess_type == :box14_ui_wf_swf
-          w2.box14_ui_wf_swf
+        if excess_type == :box14_ui
+          w2.get_box14_ui_overwrite
         else
           w2[excess_type]
         end
