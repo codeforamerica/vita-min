@@ -17,30 +17,31 @@ describe StateFile::Questions::SubmissionConfirmationController do
   end
 
   describe "nj veteran content" do
+    render_views
+    let(:body_substring) { I18n.t('state_file.questions.submission_confirmation.nj_additional_content.body_html')[0..30] }
+    # Searching for html as text in the document throws an error
+
     context "when nj and primary veteran" do
       let(:intake) { create :state_file_nj_intake, :married_filing_jointly, primary_veteran: "yes", spouse_veteran: "no" }
-      render_views
       it "shows veteran documentation requirements" do
         get :edit
-        expect(response_html).to have_text "You said you or your spouse are filing for the veteran exemption"
+        expect(response_html).to have_text body_substring
       end
     end
 
     context "when nj and spouse veteran" do
       let(:intake) { create :state_file_nj_intake, :married_filing_jointly, primary_veteran: "no", spouse_veteran: "yes" }
-      render_views
       it "shows veteran documentation requirements" do
         get :edit
-        expect(response_html).to have_text "You said you or your spouse are filing for the veteran exemption"
+        expect(response_html).to have_text body_substring
       end
     end
 
     context "when nj and neither primary nor spouse are veteran" do
       let(:intake) { create :state_file_nj_intake, :married_filing_jointly, primary_veteran: "no", spouse_veteran: "no" }
-      render_views
       it "does not show veteran documentation requirements" do
         get :edit
-        expect(response_html).not_to have_text "You said you or your spouse are filing for the veteran exemption"
+        expect(response_html).not_to have_text body_substring
       end
     end
   end
