@@ -18,7 +18,7 @@ describe Efile::Nj::Nj2450Calculator do
 
   context "primary" do
     context "column a" do
-      context "multiple w2s that individually do not exceed #{Efile::Nj::Nj1040Calculator::EXCESS_UI_MAX} and total more than #{Efile::Nj::Nj1040Calculator::EXCESS_UI_MAX}" do 
+      context "multiple w2s that individually do not exceed #{Efile::Nj::Nj1040Calculator::EXCESS_UI_WF_SWF_MAX} and total more than #{Efile::Nj::Nj1040Calculator::EXCESS_UI_WF_SWF_MAX}" do 
         let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_ui_hc_wd: 100) }
         let!(:w2_2) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_ui_hc_wd: 134) }
 
@@ -64,7 +64,7 @@ describe Efile::Nj::Nj2450Calculator do
   context "mfj spouse" do
     let(:instance) { nj1040_calculator.instance_variable_get(:@nj2450_spouse) }
     context "columnn a" do
-      context "multiple w2s that individually do not exceed #{Efile::Nj::Nj1040Calculator::EXCESS_UI_MAX} and total more than #{Efile::Nj::Nj1040Calculator::EXCESS_UI_MAX}" do 
+      context "multiple w2s that individually do not exceed #{Efile::Nj::Nj1040Calculator::EXCESS_UI_WF_SWF_MAX} and total more than #{Efile::Nj::Nj1040Calculator::EXCESS_UI_WF_SWF_MAX}" do 
         let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, employee_ssn: spouse_ssn_from_fixture, box14_ui_hc_wd: 100) }
         let!(:w2_2) { create(:state_file_w2, state_file_intake: intake, employee_ssn: spouse_ssn_from_fixture, box14_ui_hc_wd: 134) }
 

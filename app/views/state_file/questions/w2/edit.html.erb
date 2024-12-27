@@ -17,7 +17,7 @@
           <% @box14_codes.each do |code| %>
             <div class="form-question spacing-below-25">
               <% field_name = "box14_#{code.downcase}" %>
-              <% value = if code == "UI"
+              <% value = if code == "UIWFSWF"
                 @w2.get_box14_ui_overwrite
               else
                 @w2.send(field_name)
