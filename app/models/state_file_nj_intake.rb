@@ -184,10 +184,13 @@ class StateFileNjIntake < StateFileBaseIntake
     nj_gross_income <= threshold
   end
 
+  def has_health_insurance_requirement_exception?
+    self.eligibility_made_less_than_threshold? || self.eligibility_claimed_as_dependent?
+  end
+
   def health_insurance_eligibility
     if self.eligibility_all_members_health_insurance_no?
-      has_exception = self.eligibility_made_less_than_threshold? || self.eligibility_claimed_as_dependent?
-      has_exception ? "eligible" : "ineligible"
+      self.has_health_insurance_requirement_exception? ? "eligible" : "ineligible"
     else
       "eligible"
     end
