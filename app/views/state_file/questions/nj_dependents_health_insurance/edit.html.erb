@@ -1,0 +1,36 @@
+<% title = t(".title") %>
+
+<% content_for :page_title, title %>
+<% content_for :card do %>
+  <h1 class="h2"><%= title %></h1>
+
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <div class="white-group">
+      <div class="form-group">
+        <fieldset class="form-group tight-checkboxes">
+          <legend class="form-question"><%= t('.label_follow_up') %></legend>
+          <div class="input-group--block">
+            <%= f.fields_for :dependents do |ff| %>
+              <% dependent = ff.object %>
+              <%= ff.cfa_checkbox(
+                :nj_did_not_have_health_insurance,
+                t(".dependent_label", name: dependent.full_name),
+                options: { checked_value: "yes", unchecked_value: "no" }
+              ) %>
+            <% end %>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+
+    <%# TODO REMOVE FROM YML FILES %>
+    <div class="reveal">
+      <button class="reveal__button"><%= t('.tax_household_heading') %></button>
+      <div class="reveal__content">
+        <p><%= t('.tax_household_description_html') %></p>
+      </div>
+    </div>
+
+    <%= f.continue %>
+  <% end %>
+<% end %>
