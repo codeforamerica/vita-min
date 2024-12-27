@@ -3740,7 +3740,7 @@ es:
           box14_intro_nj_html: Box 14 will have various letters in it. Those letters all represent program names.<br/><br/>For this year, we will only need the amounts for <strong>UI/WF/SWF</strong> (may also appear as <strong>"UI/HC/WD"</strong> on your W2) <strong>and FLI</strong>.<br/><br/><strong>If you do not see these, please leave these fields blank.</strong><br/><br/>There may be information for other programs in box 14 - those don't need to be reported with this tool.
           box14_stpickup_help_text: Para %{year}, solo procesaremos el código STPICKUP. Si no ves este código o tienes otros códigos en Box 14, por favor déjalo en blanco.
           box14_stpickup_html: "<strong>STPICKUP</strong>"
-          box14_ui_wf_swf_html: "<strong>UI/WF/SWF</strong> (This may also appear on your W2 as <strong>UI/HC/WD.</strong>)"
+          box14_uiwfswf_html: "<strong>UI/WF/SWF</strong> (This may also appear on your W2 as <strong>UI/HC/WD.</strong>)"
           box15_html: "<strong>Box 15,</strong> Employer’s state ID number"
           box16_html: "<strong>Box 16</strong>, State wages, tips, etc."
           box17_html: "<strong>Box 17</strong>, State income tax"

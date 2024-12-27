@@ -49,7 +49,7 @@ RSpec.feature "Income Review", active_job: true do
       # UIHCWD 450
       # FLI 550
 
-      expect(page).to have_field('state_file_w2_box14_ui', with: '350.0')
+      expect(page).to have_field('state_file_w2_box14_uiwfswf', with: '350.0')
       expect(page).to have_field('state_file_w2_box14_fli', with: '550.0')
       expect(page).to have_field('state_file_w2_employer_state_id_num', with: '12345')
       expect(page).to have_field('state_file_w2_state_wages_amount', with: '12345.0')

@@ -27,18 +27,17 @@ module SubmissionBuilder
 
     def add_box_14_node(code, node_after_box_14_codes)
       field_name = "box14_#{code.downcase}".to_sym
-      field_as_desc = code.delete '_'
 
       return if !@intake_w2[field_name].present? || !@intake_w2[field_name].positive?
 
-      existing_xml_node = @xml_node.at_xpath("//OtherDeductionsBenefitsGrp[Desc='#{field_as_desc}']")
+      existing_xml_node = @xml_node.at_xpath("//OtherDeductionsBenefitsGrp[Desc='#{field_name}']")
       if existing_xml_node
         existing_xml_node.at('Amt').content = @intake_w2[field_name].round.to_s
       else
         new_xml_node = Nokogiri::XML::Node.new('OtherDeductionsBenefitsGrp', @xml_node)
 
         desc_node = Nokogiri::XML::Node.new('Desc', @xml_node)
-        desc_node.content = field_as_desc
+        desc_node.content = field_name
         amt_node = Nokogiri::XML::Node.new('Amt', @xml_node)
         amt_node.content = @intake_w2[field_name].round.to_s
 
