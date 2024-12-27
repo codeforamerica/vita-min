@@ -54,25 +54,6 @@ describe SubmissionBuilder::ReturnHeader do
         end
       end
 
-      context "paid preparer information group" do
-        if state_code == "nj"
-          context "for NJ returns" do
-            it "adds XML elements for PaidPreparerInformationGrp" do
-              expect(doc.at("PaidPreparerInformationGrp PTIN").text).to eq "P99999999"
-              expect(doc.at("PaidPreparerInformationGrp PreparerPersonNm").text).to eq "Self Prepared"
-            end
-          end
-        else
-          context "for non NJ returns" do
-            it "does not add XML elements for PaidPreparerInformationGrp" do
-              expect(doc.at("PaidPreparerInformationGrp")).not_to be_present 
-              expect(doc.at("PaidPreparerInformationGrp PTIN")).not_to be_present 
-              expect(doc.at("PaidPreparerInformationGrp PreparerPersonNm")).not_to be_present 
-            end
-          end
-        end
-      end
-
       context "filer personal info" do
         let(:primary_birth_date) { 40.years.ago }
         let(:primary_ssn) { "100000030" }
@@ -361,6 +342,31 @@ describe SubmissionBuilder::ReturnHeader do
       it "it correctly signs with the date of the correct timezone when the filer esigns after midnight UTC but not after midnight in the State's timezone" do
         expect(doc.at('Filer Primary DateSigned').content).to eq expected_signature_date_pdf_value
         expect(doc.at('Filer Secondary DateSigned').content).to eq expected_signature_date_pdf_value
+      end
+    end
+  end
+
+  context "paid preparer information group" do
+    context "for NJ returns", required_schema: "nj" do
+      let(:intake) { create(:state_file_nj_intake) }
+      let(:submission) { create(:efile_submission, data_source: intake) }
+      let(:doc) { SubmissionBuilder::ReturnHeader.new(submission).document }
+      it "adds XML elements for PaidPreparerInformationGrp" do
+        expect(doc.at("PaidPreparerInformationGrp PTIN").text).to eq "P99999999"
+        expect(doc.at("PaidPreparerInformationGrp PreparerPersonNm").text).to eq "Self Prepared"
+      end
+    end
+
+    StateFile::StateInformationService.active_state_codes.excluding("nj").each do |state_code|
+      let(:intake) { create "state_file_#{state_code}_intake".to_sym }
+      let(:submission) { create(:efile_submission, data_source: intake) }
+      let(:doc) { SubmissionBuilder::ReturnHeader.new(submission).document }
+      context "for #{state_code} returns" do
+        it "does not add XML elements for PaidPreparerInformationGrp" do
+          expect(doc.at("PaidPreparerInformationGrp")).not_to be_present 
+          expect(doc.at("PaidPreparerInformationGrp PTIN")).not_to be_present 
+          expect(doc.at("PaidPreparerInformationGrp PreparerPersonNm")).not_to be_present 
+        end
       end
     end
   end

@@ -16,7 +16,7 @@ module SubmissionBuilder
           xml.TaxPeriodEndDt date_type(Date.new(@submission.data_source.tax_return_year, 12, 31))
         end
         xml.TaxYr @submission.data_source.tax_return_year
-        if !state_submission_builder.ptin.nil? && !state_submission_builder.preparer_person_name.nil?
+        if state_submission_builder.ptin.present? && state_submission_builder.preparer_person_name.present?
           xml.PaidPreparerInformationGrp do 
             xml.PTIN state_submission_builder.ptin
             xml.PreparerPersonNm state_submission_builder.preparer_person_name
