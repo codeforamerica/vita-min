@@ -3768,6 +3768,7 @@ es:
           <strong>Estamos cerrados por la temporada de impuestos. Desafortunadamente, no puede presentar tu declaración estatal con nosotros este año.</strong><br /><br />
           ¿Ya presentó tus impuestos estatales con nosotros? <strong>Puedes descargar una copia de tu declaración estatal hasta el 31 de diciembre de 2024</strong><br /><br />
         header: Una herramienta sin costo para presentar impuestos estatales para los contribuyentes utilizando IRS Direct File
+        looking_for_return_html: <strong>¿Está buscando su declaración de impuestos del estado de Arizona o Nueva York de 2023?</strong>
         section1_html: |
           <strong>¿Cómo funciona?</strong>
           <ol class="list--numbered">

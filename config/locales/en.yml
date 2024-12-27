@@ -3794,6 +3794,8 @@ en:
           <strong>We're closed for the tax season. Unfortunately you can no longer file your state return with us this year.</strong><br /><br />
           Already filed your state taxes with us? <strong>You can download a copy of your state return until December 31, 2024</strong><br /><br />
         header: A free state filing service for taxpayers using IRS Direct File
+        looking_for_return_html: <strong>Looking for your 2023 Arizona or New York State Tax Return?</strong>
+        tax_return_link: Click here to access your tax return
         section1_html: |
           <strong>How does it work?</strong>
           <ol class="list--numbered">

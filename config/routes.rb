@@ -592,6 +592,8 @@ Rails.application.routes.draw do
         navigation_class = StateFile::StateInformationService.navigation_class(code)
         scoped_navigation_routes(:questions, navigation_class)
       end
+      scoped_navigation_routes(:questions, Navigation::CompletedTaxReturnNavigation)
+
 
       match("/code-verified", action: :edit, controller: "state_file/questions/code_verified", via: :get)
       match("/code-verified", action: :update, controller: "state_file/questions/code_verified", via: :put)
