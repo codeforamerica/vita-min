@@ -3794,8 +3794,7 @@ en:
           <strong>We're closed for the tax season. Unfortunately you can no longer file your state return with us this year.</strong><br /><br />
           Already filed your state taxes with us? <strong>You can download a copy of your state return until December 31, 2024</strong><br /><br />
         header: A free state filing service for taxpayers using IRS Direct File
-        looking_for_return_html: <strong>Looking for your 2023 Arizona or New York State Tax Return?</strong>
-        tax_return_link: Click here to access your tax return
+        looking_for_return_html: "<strong>Looking for your 2023 Arizona or New York State Tax Return?</strong>"
         section1_html: |
           <strong>How does it work?</strong>
           <ol class="list--numbered">
@@ -3810,6 +3809,7 @@ en:
         subheader_1_html: "<strong>FileYourStateTaxes</strong> integrates with <strong>IRS Direct File</strong> to help you complete your state tax return <strong>for free.</strong>"
         subheader_2_html: IRS Direct File is now broadly available to all eligible taxpayers through April 15, 2024. For more information on timeline and eligibility, or to start filing your federal return, go to <strong><a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">directfile.irs.gov</a></strong>
         subheader_3_html: Already filed your federal return with IRS Direct File and need to complete your state return? <a href=%{login_path}>Sign in here</a>.
+        tax_return_link: Click here to access your tax return
       card_postscript:
         responses_saved_html: Your responses are saved. If you need a break, you can come back and log in to your account at <a href="https://fileyourstatetaxes.org">fileyourstatetaxes.org</a>.
       coming_soon:
