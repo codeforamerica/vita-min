@@ -3282,7 +3282,8 @@ en:
           why_ask_this: Why are you asking for this information?
       nj_review:
         edit:
-          amount: Amount
+          amount_calculated: Calculated Amount
+          amount_entered: Amount Entered
           claimed_as_eitc_qualifying_child: I could be someone else's qualifying child for the Earned Income Tax Credit.
           college_dependents: Dependents attending college
           county: County
@@ -3291,6 +3292,10 @@ en:
           edit_veteran: veteran status
           estimated_tax_payments: Payments already made to New Jersey taxes
           household_rent_own: Rent or own home
+          household_rent_own_rent: Rent
+          household_rent_own_own: Own
+          household_rent_own_both: Both rent and own
+          household_rent_own_neither: Other
           medical_expenses: Medical expenses
           municipality: Municipality
           primary_disabled: I have a disability
