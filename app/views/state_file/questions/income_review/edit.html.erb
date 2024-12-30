@@ -27,10 +27,12 @@
   <% if current_intake.direct_file_data.fed_unemployment > 0 %>
     <div class="white-group unemployment" id="form1099gs">
       <p class="text--bold spacing-below-0"><%= t(".unemployment_title") %></p>
-      <% if current_state_code == "nj" %>
+      <% not_taxed_key = ".no_info_needed_#{current_state_code}" %>
+      <% if I18n.exists?(not_taxed_key) %>
         <p class="text--grey-bold spacing-above-15 spacing-below-0">
-          <%= t(".no_info_needed_nj") %>
+          <%= t(not_taxed_key) %>
         </p>
+      <% end %>
       <% elsif current_intake.state_file1099_gs.count > 0 %>
         <% current_intake.state_file1099_gs.each do |state_1099g| %>
           <% recipient = current_intake.send(state_1099g.recipient) %>
