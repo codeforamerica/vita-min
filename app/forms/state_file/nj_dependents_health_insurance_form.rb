@@ -1,5 +1,5 @@
 module StateFile
-  class NjEligibilityHealthInsuranceForm < QuestionsForm
+  class NjDependentsHealthInsuranceForm < QuestionsForm
     attr_accessor :dependents_attributes
     delegate :dependents, to: :intake
 
