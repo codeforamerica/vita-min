@@ -9,7 +9,7 @@
       <p class="spacing-below-25"><%= @w2.employer_name %></p>
 
       <% if @box14_codes.present? %>
-        <% box14_intro_key = ".box14_intro_#{current_state_code}_html" %>
+        <% box14_intro_key = "state_file.questions.w2.edit.box14_intro_#{current_state_code}_html" %>
         <% if I18n.exists?(box14_intro_key) %>
           <p><%= t(box14_intro_key) %></p>
         <% end %>
