@@ -39,6 +39,20 @@
     </section>
   <% end %>
 
+  <% if current_intake.filing_status_qw? %>
+    <section id="year-of-death" class="white-group">
+      <div class="spacing-below-5">
+        <h2 class="text--body text--bold spacing-below-5"><%=t(".year_of_death") %></h2>
+        <p><%=current_intake.spouse_death_year %></p>
+
+        <%= link_to StateFile::Questions::NjYearOfDeathController.to_path_helper(return_to_review: "y"), class: "button--small" do %>
+          <%= t(".review_and_edit") %>
+          <span class="sr-only"><%= t(".county") %></span>
+        <% end %>
+      </div>
+    </section>
+  <% end %>
+
   <section id="county-municipality" class="white-group">
     <div class="spacing-below-5">
       <h2 class="text--body text--bold spacing-below-5"><%=t(".county") %></h2>
