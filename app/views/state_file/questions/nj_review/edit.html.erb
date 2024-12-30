@@ -123,16 +123,16 @@
     <div class="spacing-below-5">
       <h2 class="text--body text--bold spacing-below-5"><%=t(".property_tax_credit_deduction") %></h2>
 
-      <h3 class="text--body spacing-below-5"><%=t(".household_rent_own") %></h3>
+      <h3 class="text--body spacing-below-5"><%=t(".household_rent_own", filing_year: current_tax_year) %></h3>
       <p><%=t(".household_rent_own_#{current_intake.household_rent_own}") %></p>
 
       <% unless current_intake.property_tax_paid.nil? %>
-        <h3 class="text--body text--bold spacing-below-5"><%= t(".property_tax_paid")  %></h3>
+        <h3 class="text--body text--bold spacing-below-5"><%= t(".property_tax_paid", filing_year: current_tax_year)  %></h3>
         <p><%= number_to_currency(current_intake.property_tax_paid, precision: 0) %></p>
       <%  end %>
 
       <% unless current_intake.rent_paid.nil? %>
-        <h3 class="text--body text--bold spacing-below-5"><%=t(".rent_paid") %></h3>
+        <h3 class="text--body text--bold spacing-below-5"><%=t(".rent_paid", filing_year: current_tax_year) %></h3>
         <p><%= number_to_currency(current_intake.rent_paid, precision: 0) %></p>
       <%  end %>
 
@@ -146,17 +146,19 @@
   <% unless current_intake.claimed_as_eitc_qualifying_child_unfilled? && current_intake.spouse_claimed_as_eitc_qualifying_child_unfilled? %>
     <section id="eitc_qualifying_child" class="white-group">
       <div class="spacing-below-5">
+        <h2 class="text--body text--bold spacing-below-5"><%=t(".eitc") %></h2>
+
         <% unless current_intake.claimed_as_eitc_qualifying_child_unfilled? %>
-          <h2 class="text--body text--bold spacing-below-5"><%=t(".claimed_as_eitc_qualifying_child") %></h2>
+          <h3 class="text--body text--bold spacing-below-5"><%=t(".primary_claimed_as_eitc_qualifying_child") %></h3>
           <p><%=current_intake.claimed_as_eitc_qualifying_child_yes? ? t("general.affirmative") : t("general.negative") %></p>
         <% end %>
         <% unless current_intake.spouse_claimed_as_eitc_qualifying_child_unfilled? %>
-        <h2 class="text--body text--bold spacing-below-5"><%=t(".spouse_claimed_as_eitc_qualifying_child") %></h2>
+        <h3 class="text--body text--bold spacing-below-5"><%=t(".spouse_claimed_as_eitc_qualifying_child") %></h3>
           <p><%=current_intake.spouse_claimed_as_eitc_qualifying_child_yes? ? t("general.affirmative") : t("general.negative") %></p>
         <% end %>
         <%= link_to StateFile::Questions::NjEitcQualifyingChildController.to_path_helper(return_to_review: "y"), class: "button--small" do %>
           <%= t(".review_and_edit") %>
-          <span class="sr-only"><%= t(".claimed_as_eitc_qualifying_child") %></span>
+          <span class="sr-only"><%= t(".eitc") %></span>
         <% end %>
       </div>
     </section>
@@ -225,6 +227,8 @@
       <% end %>
     </div>
   </section>
+
+  <p><%= t(".continue_helper") %></p>
 
   <%= render "state_file/questions/shared/review_footer" %>
 <% end %>

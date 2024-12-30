@@ -3284,27 +3284,29 @@ en:
         edit:
           amount_calculated: Calculated Amount
           amount_entered: Amount Entered
-          claimed_as_eitc_qualifying_child: I could be someone else's qualifying child for the Earned Income Tax Credit.
-          college_dependents: Dependents attending college
+          college_dependents: Dependent(s) attending college exemption
+          continue_helper: Click "Continue" if all this looks right to you.
           county: County
           edit_disability: disability status
           edit_gubernatorial: gubernatorial fund contributions
           edit_veteran: veteran status
-          estimated_tax_payments: Payments already made to New Jersey taxes
-          household_rent_own: Rent or own home
-          household_rent_own_rent: Rent
-          household_rent_own_own: Own
-          household_rent_own_both: Both rent and own
+          eitc: New Jersey Earned Income Tax Credit (NJEITC)
+          estimated_tax_payments: Payments already made towards New Jersey taxes
+          household_rent_own: Living situation in %{filing_year}
+          household_rent_own_rent: Rented
+          household_rent_own_own: Owned
+          household_rent_own_both: Owned and rented
           household_rent_own_neither: Other
-          medical_expenses: Medical expenses
+          medical_expenses: Total medical expenses
           missing_health_insurance: Missing Health Insurance
           municipality: Municipality
-          primary_disabled: I have a disability
+          primary_claimed_as_eitc_qualifying_child: You could be someone's qualifying child
+          primary_disabled: Disability exemption (you)
           primary_gubernatorial: I want $1 of my taxes to go to the gubernatorial elections fund
-          primary_veteran: I am a veteran
-          property_tax_credit_deduction: Property Tax Credit/Deduction
-          property_tax_paid: Property taxes paid
-          rent_paid: Rent paid
+          primary_veteran: Veteran exemption (you)
+          property_tax_credit_deduction: New Jersey Property Tax deduction or credit
+          property_tax_paid: Property taxes paid in %{filing_year}
+          rent_paid: Rent paid in %{filing_year}
           reveal:
             15_wages_salaries_tips: Wages, salaries, tips
             16a_interest_income: Interest income
@@ -3327,10 +3329,10 @@ en:
             66_total_payments_refundable_credits: Total payments and refundable credits
             header: See detailed return information
           review_and_edit: Review and Edit
-          spouse_claimed_as_eitc_qualifying_child: My spouse could be someone else's qualifying child for the Earned Income Tax Credit.
-          spouse_disabled: My spouse has a disability
+          spouse_claimed_as_eitc_qualifying_child: Your spouse could be someone's qualifying child
+          spouse_disabled: Disability exemption (spouse)
           spouse_gubernatorial: My spouse wants $1 of their taxes to go to the gubernatorial elections fund
-          spouse_veteran: My spouse is a veteran
+          spouse_veteran: Veteran exemption (spouse)
           use_tax_applied: Consumer Use Tax Applied
           year_of_death: Year of spouse's passing
       nj_sales_use_tax:
