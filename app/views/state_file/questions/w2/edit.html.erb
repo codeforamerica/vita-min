@@ -9,8 +9,9 @@
       <p class="spacing-below-25"><%= @w2.employer_name %></p>
 
       <% if @box14_codes.present? %>
-        <% if @state_code == "nj" %>
-          <p><%= t(".box14_intro_nj_html") %></p>
+        <% box14_intro_key = ".box14_intro_#{current_state_code}_html" %>
+        <% if I18n.exists?(box14_intro_key) %>
+          <p><%= t(box14_intro_key) %></p>
         <% end %>
         <fieldset>
           <legend class="spacing-below-5"><%= t(".box14_html") %></legend>
