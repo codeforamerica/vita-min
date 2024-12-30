@@ -2828,8 +2828,8 @@ es:
           help_text: Te pediremos que nos compartas la información que pueda faltar.
           interest_income_body: No se necesita información estatal adicional
           interest_income_title: Ingresos por intereses (1099-INT)
-          nj_not_taxed: This income is not taxed in New Jersey.
           no_info_needed: No se necesita información estatal adicional
+          no_info_needed_nj: This income is not taxed in New Jersey.
           retirement_income_title: Jubilación (1099-R)
           review_and_edit_state_info: Revisar y editar la información estatal
           ssa_title: Beneficios del Seguro Social (SSA-1099)
@@ -3757,7 +3757,7 @@ es:
           state_wages_amt_error: Ingresa los salarios y propinas estatales
           state_wages_exceed_amt_error: El total de salarios e ingresos estatales no puede ser mayor que $%{wages_amount}
           wages_amt_error: El impuesto sobre la renta total no puede ser mas de $%{wages_amount}
-          what_is_box14: "¿Qué podría haber en Box 14?"
+          what_is_box14_md: "¿Qué podría haber en Box 14?"
           what_is_box14_nj: What should I put in Box 14?
       waiting_to_load_data:
         edit:

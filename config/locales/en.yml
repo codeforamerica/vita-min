@@ -2870,8 +2870,8 @@ en:
           help_text: We will collect any missing information.
           interest_income_body: No additional state info needed
           interest_income_title: Interest income (1099-INT)
-          nj_not_taxed: This income is not taxed in New Jersey.
           no_info_needed: No additional state info needed
+          no_info_needed_nj: This income is not taxed in New Jersey.
           retirement_income_title: Retirement income (1099-R)
           review_and_edit_state_info: Review and edit state info
           ssa_title: Social Security benefits (SSA-1099)
@@ -3783,7 +3783,7 @@ en:
           state_wages_amt_error: Please enter State wages and tips
           state_wages_exceed_amt_error: Total state wages and tips cannot be greater than $%{wages_amount}
           wages_amt_error: Total income tax cannot be greater than $%{wages_amount}
-          what_is_box14: What could be in Box 14?
+          what_is_box14_md: What could be in Box 14?
           what_is_box14_nj: What should I put in Box 14?
       waiting_to_load_data:
         edit:

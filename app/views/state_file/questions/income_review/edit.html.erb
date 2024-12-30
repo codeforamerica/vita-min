@@ -29,7 +29,7 @@
       <p class="text--bold spacing-below-0"><%= t(".unemployment_title") %></p>
       <% if current_state_code == "nj" %>
         <p class="text--grey-bold spacing-above-15 spacing-below-0">
-          <%= t(".nj_not_taxed") %>
+          <%= t(".no_info_needed_nj") %>
         </p>
       <% elsif current_intake.state_file1099_gs.count > 0 %>
         <% current_intake.state_file1099_gs.each do |state_1099g| %>
@@ -88,12 +88,8 @@
     <div class="white-group" id="formssa1099s">
       <p class="text--bold spacing-below-0"><%= t(".ssa_title") %></p>
       <p class="text--grey-bold spacing-above-15 spacing-below-0">
-        <%= case current_state_code
-        when "nj"
-          t(".nj_not_taxed")
-        else
-          t(".no_info_needed")
-        end %>
+        <% # i18n-tasks-use t("state_file.questions.return_status.accepted.check_payable_html") # hint for the i18n linter that, yes, we are using this key (sometimes) %>
+        <%= t(".no_info_needed_#{current_state_code}", default: :'.no_info_needed') %>
       </p>
     </div>
   <% end %>

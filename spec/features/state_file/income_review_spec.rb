@@ -34,12 +34,12 @@ RSpec.feature "Income Review", active_job: true do
 
       within '#form1099gs' do
         expect(page).to have_text I18n.t("state_file.questions.income_review.edit.unemployment_title")
-        expect(page).to have_text I18n.t("state_file.questions.income_review.edit.nj_not_taxed")
+        expect(page).to have_text I18n.t("state_file.questions.income_review.edit.no_info_needed_nj")
       end
       
       within '#formssa1099s' do
         expect(page).to have_text I18n.t("state_file.questions.income_review.edit.ssa_title")
-        expect(page).to have_text I18n.t("state_file.questions.income_review.edit.nj_not_taxed")
+        expect(page).to have_text I18n.t("state_file.questions.income_review.edit.no_info_needed_nj")
       end
 
       click_on I18n.t("state_file.questions.income_review.edit.review_and_edit_state_info")
