@@ -121,7 +121,7 @@
       <h2 class="text--body text--bold spacing-below-5"><%=t(".property_tax_credit_deduction") %></h2>
 
       <h3 class="text--body spacing-below-5"><%=t(".household_rent_own", filing_year: current_tax_year) %></h3>
-      <p><%=t(".household_rent_own_#{current_intake.household_rent_own}") %></p>
+      <p><%=t(".household_rent_own_#{current_intake.household_rent_own}") unless current_intake.household_rent_own_unfilled? %></p>
 
       <% unless current_intake.property_tax_paid.nil? %>
         <h3 class="text--body text--bold spacing-below-5"><%= t(".property_tax_paid", filing_year: current_tax_year)  %></h3>
