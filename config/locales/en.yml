@@ -3236,7 +3236,7 @@ en:
           helper_4_header: How much is this deduction or credit worth?
           homeowner_html: I was a <b>homeowner</b> for at least part of the year
           label_html: How would you describe your living situation in %{filing_year} <b>as it pertains to your main home(s)</b>?
-          neither: Other
+          neither_html: Other
           tenant_html: I was a <b>renter</b> for at least part of the year
           title: You may qualify for a property tax deduction or credit on your main home, whether you owned or rented it.
       nj_ineligible_property_tax:
