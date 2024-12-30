@@ -56,12 +56,12 @@
       <% end %>
     </div>
 
-    <% explanation_key = ".box14_explanation_#{@state_code}_html" %>
+    <% explanation_key = ".box14_explanation_#{current_state_code}_html" %>
     <% explanation_text = t(explanation_key, year: MultiTenantService.statefile.current_tax_year, default: nil) %>
 
     <% if explanation_text %>
       <div class="reveal spacing-above-35">
-        <button href="#" class="reveal__button"><%= t(".what_is_box14_#{state_code}") %></button>
+        <button href="#" class="reveal__button"><%= t(".what_is_box14_#{current_state_code}") %></button>
         <div class="reveal__content">
           <p class="spacing-below-15">
             <%= explanation_text %>
