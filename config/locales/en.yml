@@ -3297,6 +3297,7 @@ en:
           household_rent_own_both: Both rent and own
           household_rent_own_neither: Other
           medical_expenses: Medical expenses
+          missing_health_insurance: Missing Health Insurance
           municipality: Municipality
           primary_disabled: I have a disability
           primary_gubernatorial: I want $1 of my taxes to go to the gubernatorial elections fund
