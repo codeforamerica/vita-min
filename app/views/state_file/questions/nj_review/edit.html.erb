@@ -16,7 +16,7 @@
           <p><%= t("general.none") %></p>
         <% end %>
         <%= link_to StateFile::Questions::NjCollegeDependentsExemptionController.to_path_helper(return_to_review: "y"), class: "button--small" do %>
-          <%= t("general.edit") %>
+          <%= t(".review_and_edit") %>
           <span class="sr-only"><%= t(".college_dependents") %></span>
         <% end %>
       </div>
@@ -32,7 +32,7 @@
       <p><%=current_intake.municipality_name %></p>
 
       <%= link_to StateFile::Questions::NjCountyController.to_path_helper(return_to_review: "y"), class: "button--small" do %>
-        <%= t("general.edit") %>
+        <%= t(".review_and_edit") %>
         <span class="sr-only"><%= t(".county") %></span>
       <% end %>
     </div>
@@ -50,7 +50,7 @@
           <p><%= current_intake.spouse_disabled_yes? ? t("general.affirmative") : t("general.negative") %></p>
         <%  end %>
         <%= link_to StateFile::Questions::NjDisabledExemptionController.to_path_helper(return_to_review: "y"), class: "button--small" do %>
-          <%= t("general.edit") %>
+          <%= t(".review_and_edit") %>
           <span class="sr-only"><%= t(".edit_disability")%></span>
         <% end %>
       </div>
@@ -69,7 +69,7 @@
           <p><%= current_intake.spouse_veteran_yes? ? t("general.affirmative") : t("general.negative") %></p>
         <%  end %>
         <%= link_to StateFile::Questions::NjVeteransExemptionController.to_path_helper(return_to_review: "y"), class: "button--small" do %>
-          <%= t("general.edit") %>
+          <%= t(".review_and_edit") %>
           <span class="sr-only"><%= t(".edit_veteran") %></span>
         <% end %>
       </div>
@@ -83,7 +83,7 @@
       <h2 class="text--body text--bold spacing-below-5"><%=t(".medical_expenses") %></h2>
       <p><%= number_to_currency(current_intake.medical_expenses, precision: 0) %></p>
       <%= link_to StateFile::Questions::NjMedicalExpensesController.to_path_helper(return_to_review: "y"), class: "button--small" do %>
-        <%= t("general.edit") %>
+        <%= t(".review_and_edit") %>
         <span class="sr-only"><%= t(".medical_expenses") %></span>
       <% end %>
     </div>
@@ -107,7 +107,7 @@
       <%  end %>
 
       <%= link_to StateFile::Questions::NjHouseholdRentOwnController.to_path_helper(return_to_review: "y"), class: "button--small" do %>
-        <%= t("general.edit") %>
+        <%= t(".review_and_edit") %>
         <span class="sr-only"><%= t(".property_tax_credit_deduction") %></span>
       <% end %>
     </div>
@@ -125,7 +125,7 @@
           <p><%=current_intake.spouse_claimed_as_eitc_qualifying_child_yes? ? t("general.affirmative") : t("general.negative") %></p>
         <% end %>
         <%= link_to StateFile::Questions::NjEitcQualifyingChildController.to_path_helper(return_to_review: "y"), class: "button--small" do %>
-          <%= t("general.edit") %>
+          <%= t(".review_and_edit") %>
           <span class="sr-only"><%= t(".claimed_as_eitc_qualifying_child") %></span>
         <% end %>
       </div>
@@ -137,9 +137,9 @@
       <h2 class="text--body text--bold spacing-below-5"><%=t(".estimated_tax_payments") %></h2>
       <p><%= number_to_currency(current_intake.estimated_tax_payments || 0, precision: 0) %></p>
       <%= link_to StateFile::Questions::NjEstimatedTaxPaymentsController.to_path_helper(return_to_review: "y"), class: "button--small" do %>
-          <%= t("general.edit") %>
-          <span class="sr-only"><%= t(".estimated_tax_payments") %></span>
-        <% end %>
+        <%= t(".review_and_edit") %>
+        <span class="sr-only"><%= t(".estimated_tax_payments") %></span>
+      <% end %>
     </div>
   </section>
 
@@ -154,9 +154,9 @@
         <p><%=number_to_currency(current_intake.sales_use_tax, precision: 0)%></p>
       <% end %>
       <%= link_to StateFile::Questions::NjSalesUseTaxController.to_path_helper(return_to_review: "y"), class: "button--small" do %>
-          <%= t("general.edit") %>
-          <span class="sr-only"><%= t(".use_tax_applied") %></span>
-        <% end %>
+        <%= t(".review_and_edit") %>
+        <span class="sr-only"><%= t(".use_tax_applied") %></span>
+      <% end %>
     </div>
   </section>
 
@@ -171,7 +171,7 @@
       <% end %>
 
       <%= link_to StateFile::Questions::NjGubernatorialElectionsController.to_path_helper(return_to_review: "y"), class: "button--small"  do%>
-        <%= t("general.edit") %>
+        <%= t(".review_and_edit") %>
         <span class="sr-only"><%= t(".edit_gubernatorial") %></span>
       <% end %>
     </div>
