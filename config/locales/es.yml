@@ -3246,7 +3246,7 @@ es:
           amount_entered: Amount Entered
           college_dependents: Dependent(s) attending college exemption
           continue_helper: Click "Continue" if all this looks right to you.
-          county: County
+          county_municipality: Where you lived as of Dec 31, %{filing_year}
           edit_disability: disability status
           edit_gubernatorial: gubernatorial fund contributions
           edit_veteran: veteran status
@@ -3259,7 +3259,6 @@ es:
           household_rent_own_rent: Rented
           medical_expenses: Total medical expenses
           missing_health_insurance: Missing Health Insurance
-          municipality: Municipality
           primary_claimed_as_eitc_qualifying_child: You could be someone's qualifying child
           primary_disabled: Disability exemption (you)
           primary_gubernatorial: I want $1 of my taxes to go to the gubernatorial elections fund
