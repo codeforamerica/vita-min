@@ -15,7 +15,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::NjW2, required_schema
         :state_file_w2,
         state_file_intake: intake,
         employee_ssn: primary_ssn_from_fixture,
-        box14_ui_wf_swf: 99,
+        box14_ui_hc_wd: 99,
         box14_fli: 100, 
         employer_ein: '123456789', 
         wages: '999'
