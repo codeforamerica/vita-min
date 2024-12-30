@@ -3253,10 +3253,10 @@ es:
           eitc: New Jersey Earned Income Tax Credit (NJEITC)
           estimated_tax_payments: Payments already made towards New Jersey taxes
           household_rent_own: Living situation in %{filing_year}
-          household_rent_own_rent: Rented
-          household_rent_own_own: Owned
           household_rent_own_both: Owned and rented
           household_rent_own_neither: Other
+          household_rent_own_own: Owned
+          household_rent_own_rent: Rented
           medical_expenses: Total medical expenses
           missing_health_insurance: Missing Health Insurance
           municipality: Municipality
