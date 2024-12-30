@@ -3332,6 +3332,7 @@ en:
           spouse_gubernatorial: My spouse wants $1 of their taxes to go to the gubernatorial elections fund
           spouse_veteran: My spouse is a veteran
           use_tax_applied: Consumer Use Tax Applied
+          year_of_death: Year of spouse's passing
       nj_sales_use_tax:
         edit:
           followup_radio_label: Select one of the following
