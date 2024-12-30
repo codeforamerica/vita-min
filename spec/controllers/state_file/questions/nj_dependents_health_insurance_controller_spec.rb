@@ -46,7 +46,7 @@ RSpec.describe StateFile::Questions::NjDependentsHealthInsuranceController do
 
       let(:form_params) do
         {
-          state_file_nj_eligibility_health_insurance_form: {
+          state_file_nj_dependent_health_insurance_form: {
             dependents_attributes: {
               '0': {
                 id: first_dependent.id,
@@ -93,7 +93,7 @@ RSpec.describe StateFile::Questions::NjDependentsHealthInsuranceController do
 
       let(:form_params) do
         {
-          state_file_nj_eligibility_health_insurance_form: {
+          state_file_nj_dependent_health_insurance_form: {
             eligibility_all_members_health_insurance: "yes",
             dependents_attributes: {
               '0': {
