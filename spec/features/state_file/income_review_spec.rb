@@ -58,6 +58,43 @@ RSpec.feature "Income Review", active_job: true do
       expect(page).to have_button("What should I put in Box 14?")
     end
 
+    it "allows ui_wf_swf to be saved up to the limit" do
+      advance_to_income_edit
+
+      fill_in 'state_file_w2_box14_ui_wf_swf', with: '179.78'
+      click_on 'Continue'
+
+      expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
+    end
+
+    it "does not allow ui_wf_swf to be saved above limit" do
+      advance_to_income_edit
+
+      fill_in 'state_file_w2_box14_ui_wf_swf', with: '179.79'
+      click_on 'Continue'
+
+      expect(page).to have_text("This amount can't exceed $179.78.")
+    end
+
+
+    it "allows fli to be saved up to the limit" do
+      advance_to_income_edit
+
+      fill_in 'state_file_w2_box14_fli', with: '145.26'
+      click_on 'Continue'
+
+      expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
+    end
+
+    it "does not allow fli to be saved above limit" do
+      advance_to_income_edit
+
+      fill_in 'state_file_w2_box14_fli', with: '145.27'
+      click_on 'Continue'
+
+      expect(page).to have_text("This amount can't exceed $145.26.")
+    end
+
     it "displays with investment income" do
       advance_to_data_transfer
 
