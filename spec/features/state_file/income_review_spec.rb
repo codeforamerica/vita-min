@@ -45,11 +45,6 @@ RSpec.feature "Income Review", active_job: true do
     it "displays review and edit pages with w2s, unemployment, and social security income" do
       advance_to_income_edit
 
-      # STPICKUP 25
-      # UIWFSWF 35
-      # UIHCWD 45
-      # FLI 55
-
       expect(page).to have_field('state_file_w2_box14_ui_wf_swf', with: '35.0')
       expect(page).to have_field('state_file_w2_box14_fli', with: '55.0')
       expect(page).to have_field('state_file_w2_employer_state_id_num', with: '12345')
