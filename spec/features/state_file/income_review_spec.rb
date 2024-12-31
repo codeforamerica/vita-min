@@ -7,7 +7,7 @@ RSpec.feature "Income Review", active_job: true do
     allow_any_instance_of(Routes::StateFileDomain).to receive(:matches?).and_return(true)
   end
 
-  context "NJ", :flow_explorer_screenshot, js: true do
+  context "NJ", :flow_explorer_screenshot, required_schema: "nj", js: true do
     def advance_to_data_transfer
       visit "/"
       click_on "Start Test NJ"
@@ -21,10 +21,7 @@ RSpec.feature "Income Review", active_job: true do
       click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
     end
 
-    it(
-      "displays review and edit pages with w2s, unemployment, and social security income",
-      required_schema: "nj"
-    ) do
+    def advance_to_income_edit
       advance_to_data_transfer
 
       step_through_df_data_transfer("Transfer Zeus box 14")
@@ -43,21 +40,25 @@ RSpec.feature "Income Review", active_job: true do
       end
 
       click_on I18n.t("state_file.questions.income_review.edit.review_and_edit_state_info")
+    end
 
-      # STPICKUP 250
-      # UIWFSWF 350
-      # UIHCWD 450
-      # FLI 550
+    it "displays review and edit pages with w2s, unemployment, and social security income" do
+      advance_to_income_edit
 
-      expect(page).to have_field('state_file_w2_box14_ui_wf_swf', with: '350.0')
-      expect(page).to have_field('state_file_w2_box14_fli', with: '550.0')
+      # STPICKUP 25
+      # UIWFSWF 35
+      # UIHCWD 45
+      # FLI 55
+
+      expect(page).to have_field('state_file_w2_box14_ui_wf_swf', with: '35.0')
+      expect(page).to have_field('state_file_w2_box14_fli', with: '55.0')
       expect(page).to have_field('state_file_w2_employer_state_id_num', with: '12345')
       expect(page).to have_field('state_file_w2_state_wages_amount', with: '12345.0')
       expect(page).to have_field('state_file_w2_state_income_tax_amount', with: '500.0')
       expect(page).to have_button("What should I put in Box 14?")
     end
 
-    it "displays with investment income", required_schema: "nj" do
+    it "displays with investment income" do
       advance_to_data_transfer
 
       step_through_df_data_transfer("Transfer Streep single inv limit")
