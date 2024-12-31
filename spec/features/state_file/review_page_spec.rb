@@ -8,7 +8,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
     allow_any_instance_of(Routes::StateFileDomain).to receive(:matches?).and_return(true)
   end
 
-  StateFile::StateInformationService.active_state_codes.without("nc", "nj").each do |state_code|
+  StateFile::StateInformationService.active_state_codes.without("nc").each do |state_code|
     context "#{state_code.upcase}", js: true do
       it "allows user to navigate to income review page, edit an income form, and then navigate back to final review page", required_schema: state_code do
         set_up_intake_and_associated_records(state_code)
@@ -86,39 +86,12 @@ RSpec.feature "Completing a state file intake", active_job: true do
           click_on I18n.t("general.edit")
         end
 
-        # Income review page
-        expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
-        within "#form1099gs" do
-          click_on I18n.t("state_file.questions.income_review.edit.review_and_edit_state_info")
+        not_taxed_key = "state_file.questions.income_review.edit.no_info_needed_#{state_code}"
+        if I18n.exists?(not_taxed_key)
+          expect(page).to have_text I18n.t(not_taxed_key)
+        else
+          edit_unemployment(intake)
         end
-
-        # 1099G edit page
-        expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.unemployment.edit.title", count: intake.filer_count, year: MultiTenantService.statefile.current_tax_year))
-        fill_in strip_html_tags(I18n.t("state_file.questions.unemployment.edit.payer_name")), with: "beepboop"
-        click_on I18n.t("general.continue")
-
-        # takes them to the 1099G index page first
-        expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.unemployment.index.lets_review"))
-
-        # edit a 1099G (there's only one)
-        click_on I18n.t("general.edit")
-        click_on I18n.t("general.continue")
-
-        # back on index page
-        expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.unemployment.index.lets_review"))
-
-        # delete a 1099G (there's only one)
-        recipient_name = intake.state_file1099_gs.last.recipient_name
-
-        # clicks "OK" on the alert that asks "Are you sure you want to delete this 1099-G?"
-        page.accept_confirm do
-          click_on I18n.t("general.delete")
-        end
-
-        # redirects to new because there are no 1099Gs left, need to select "no" in order to continue
-        expect(page).to have_text I18n.t("state_file.questions.unemployment.destroy.removed", name: recipient_name)
-        choose I18n.t("general.negative")
-        click_on I18n.t("general.continue")
 
         # Back on income review page
         expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
@@ -228,7 +201,6 @@ RSpec.feature "Completing a state file intake", active_job: true do
     end
   end
 
-
   def set_up_intake_and_associated_records(state_code)
     visit "/"
     click_on "Start Test #{state_code.upcase}"
@@ -260,5 +232,41 @@ RSpec.feature "Completing a state file intake", active_job: true do
     create(:state_file_w2, state_file_intake: intake)
     create(:state_file1099_r, intake: intake)
     create(:state_file1099_g, intake: intake)
+  end
+
+  def edit_unemployment(intake)
+    # Income review page
+    expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
+    within "#form1099gs" do
+      click_on I18n.t("state_file.questions.income_review.edit.review_and_edit_state_info")
+    end
+
+    # 1099G edit page
+    expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.unemployment.edit.title", count: intake.filer_count, year: MultiTenantService.statefile.current_tax_year))
+    fill_in strip_html_tags(I18n.t("state_file.questions.unemployment.edit.payer_name")), with: "beepboop"
+    click_on I18n.t("general.continue")
+
+    # takes them to the 1099G index page first
+    expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.unemployment.index.lets_review"))
+
+    # edit a 1099G (there's only one)
+    click_on I18n.t("general.edit")
+    click_on I18n.t("general.continue")
+
+    # back on index page
+    expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.unemployment.index.lets_review"))
+
+    # delete a 1099G (there's only one)
+    recipient_name = intake.state_file1099_gs.last.recipient_name
+
+    # clicks "OK" on the alert that asks "Are you sure you want to delete this 1099-G?"
+    page.accept_confirm do
+      click_on I18n.t("general.delete")
+    end
+
+    # redirects to new because there are no 1099Gs left, need to select "no" in order to continue
+    expect(page).to have_text I18n.t("state_file.questions.unemployment.destroy.removed", name: recipient_name)
+    choose I18n.t("general.negative")
+    click_on I18n.t("general.continue")
   end
 end
