@@ -1,18 +1,18 @@
 module StateFile
   class Ty23ArchiverService
-    TY23_CUTOFF = '2024-06-01' # let's call any return accepted before this as specifically for ty23
     INTAKE_MAP = {
       'az' => StateFileAzIntake,
       'ny' => StateFileNyIntake,
     }.freeze
 
-    attr_reader :state_code, :batch_size, :data_source, :tax_year, :current_batch
+    attr_reader :state_code, :batch_size, :data_source, :tax_year, :current_batch, :cutoff
 
-    def initialize(state_code, batch_size = 100)
+    def initialize(state_code:, batch_size: 100, cutoff: '2024-06-01')
       @state_code = state_code
       @batch_size = batch_size
       @data_source = INTAKE_MAP[state_code]
       @tax_year = 2023
+      @cutoff = cutoff
       @current_batch = nil
       raise ArgumentError, "#{state_code} isn't an archivable state. Expected one of #{INTAKE_MAP.keys.join(', ')}" unless data_source
     end
@@ -57,7 +57,7 @@ module StateFile
           WHERE
             est.most_recent = TRUE
             AND est.to_state = 'accepted'
-            AND est.created_at < '#{TY23_CUTOFF}'
+            AND est.created_at < '#{cutoff}'
             AND efs.data_source_type = '#{data_source}'
           ORDER BY
             EFS.data_source_id ASC
