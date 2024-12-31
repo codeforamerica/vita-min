@@ -2,6 +2,7 @@ namespace :state_file do
   namespace :ty23 do
     desc 'find archivable az intakes and create their archival record'
     task archive_az_intakes: :environment do
+      Rails.logger = Logger.new($stdout)
       batch_size = 100 # we batch these since archiving involves copying the submission pdf to a new location in s3
       archiver = StateFile::Ty23ArchiverService.new('az', batch_size)
       archiver.find_archiveables # sets `current_batch` on the archiver instance
@@ -13,6 +14,7 @@ namespace :state_file do
 
     desc 'find archivable ny intakes and create their archival record'
     task archive_ny_intakes: :environment do
+      Rails.logger = Logger.new($stdout)
       batch_size = 100 # we batch these since archiving involves copying the submission pdf to a new location in s3
       archiver = StateFile::Ty23ArchiverService.new('ny', batch_size)
       archiver.find_archiveables # sets `current_batch` on the archiver instance
