@@ -12,6 +12,8 @@ RSpec.describe PdfFiller::NcD400Pdf do
 
   describe '#hash_for_pdf' do
     let(:pdf_fields) { filled_in_values(submission.generate_filing_pdf.path) }
+    let(:signature_date) { DateTime.now }
+    let(:expected_signature_date_pdf_value) { signature_date.in_time_zone(StateFile::StateInformationService.timezone('nc')).strftime("%F") }
 
     it 'uses field names that exist in the pdf' do
       missing_fields = pdf.hash_for_pdf.keys.map(&:to_s) - pdf_fields.keys
@@ -19,7 +21,7 @@ RSpec.describe PdfFiller::NcD400Pdf do
     end
 
     context "pulling fields from xml" do
-      let(:tomorrow_midnight) { DateTime.tomorrow.beginning_of_day }
+
       let(:mailing_apartment) { 'Apt 2'}
       let(:intake) {
         create(:state_file_nc_intake,
@@ -27,7 +29,7 @@ RSpec.describe PdfFiller::NcD400Pdf do
                primary_last_name: "Carolinianian",
                untaxed_out_of_state_purchases: "no",
                primary_esigned: "yes",
-               primary_esigned_at: tomorrow_midnight)
+               primary_esigned_at: signature_date)
       }
 
       before do
@@ -78,8 +80,7 @@ RSpec.describe PdfFiller::NcD400Pdf do
           expect(pdf_fields['y_d400wf_li27_pg2_good']).to eq '0'
           expect(pdf_fields['y_d400wf_li28_pg2_good']).to eq '1507'
           expect(pdf_fields['y_d400wf_li34_pg2_good']).to eq '1507'
-          timezone = StateFile::StateInformationService.timezone('nc')
-          expect(pdf_fields['y_d400wf_sigdate']).to eq tomorrow_midnight.in_time_zone(timezone).strftime("%Y-%m-%d")
+          expect(pdf_fields['y_d400wf_sigdate']).to eq expected_signature_date_pdf_value
           expect(pdf_fields['y_d400wf_sigdate2']).to eq ""
         end
 
@@ -110,8 +111,7 @@ RSpec.describe PdfFiller::NcD400Pdf do
       end
 
       context "mfj filers" do
-        let(:tomorrow_midnight) { DateTime.tomorrow.beginning_of_day }
-        let(:intake) { create(:state_file_nc_intake, :with_spouse, filing_status: "married_filing_jointly", primary_esigned: "yes", primary_esigned_at: tomorrow_midnight, spouse_esigned: "yes", spouse_esigned_at: tomorrow_midnight) }
+        let(:intake) { create(:state_file_nc_intake, :with_spouse, filing_status: "married_filing_jointly", primary_esigned: "yes", primary_esigned_at: signature_date, spouse_esigned: "yes", spouse_esigned_at: signature_date) }
 
         before do
           submission.data_source.direct_file_data.spouse_ssn = "111100030"
@@ -142,8 +142,8 @@ RSpec.describe PdfFiller::NcD400Pdf do
           expect(pdf_fields['y_d400wf_li20b_pg2_good']).to eq '4394'
 
           timezone = StateFile::StateInformationService.timezone('nc')
-          expect(pdf_fields['y_d400wf_sigdate']).to eq tomorrow_midnight.in_time_zone(timezone).strftime("%Y-%m-%d")
-          expect(pdf_fields['y_d400wf_sigdate2']).to eq tomorrow_midnight.in_time_zone(timezone).strftime("%Y-%m-%d")
+          expect(pdf_fields['y_d400wf_sigdate']).to eq expected_signature_date_pdf_value
+          expect(pdf_fields['y_d400wf_sigdate2']).to eq expected_signature_date_pdf_value
         end
       end
 

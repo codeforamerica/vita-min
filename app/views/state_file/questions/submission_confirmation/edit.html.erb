@@ -36,7 +36,9 @@
 
   <p><%= t('general.spread_the_word_html') %></p>
 
-  <%= link_to t(".download_state_return_pdf"), StateFile::Questions::SubmissionPdfsController.to_path_helper(action: :show, id: EfileSubmission.where(data_source: current_intake).first), class: "button button--primary button--wide" %>
+  <%= render partial: "state_file/questions/submission_confirmation/#{current_state_code}_additional_content" rescue nil %>
+
+  <%= link_to t(".download_state_return_pdf"), StateFile::Questions::SubmissionPdfsController.to_path_helper(action: :show, id: current_intake.latest_submission), class: "button button--primary button--wide" %>
 
   <% if show_xml? %>
     <p>
