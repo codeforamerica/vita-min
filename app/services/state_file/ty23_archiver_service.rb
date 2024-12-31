@@ -61,13 +61,13 @@ module StateFile
             AND efs.data_source_type = '#{data_source}'
           ORDER BY
             EFS.data_source_id ASC
-          LIMIT #{batch_size}
         )
         AND hashed_ssn NOT IN (
           SELECT hashed_ssn
           FROM state_file_archived_intakes
           WHERE state_code = '#{state_code}' and tax_year = #{tax_year}
         )
+        LIMIT #{batch_size}
       SQL
     end
   end
