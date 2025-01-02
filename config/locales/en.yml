@@ -3750,6 +3750,8 @@ en:
         body: Before choosing an option, make sure it supports state-only tax filing. You most likely will need to reenter your federal tax return information in order to prepare your state tax return. Fees may apply.
         faq_link: Visit our FAQ
         title: Want to file using a different product or service?
+      validate_identification_number:
+        title: We found your account! Please confirm your identity
       verification_code:
         edit:
           action: Verify code
