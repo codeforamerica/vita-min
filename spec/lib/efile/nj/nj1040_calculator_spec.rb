@@ -446,7 +446,7 @@ describe Efile::Nj::Nj1040Calculator do
       expect(instance.calculate_line_9).to eq(self_veteran)
       qualified_children_exemption = 1_500
       expect(instance.calculate_line_10_exemption).to eq(qualified_children_exemption)
-      other_claimed_dependents_exemption = 0
+      other_claimed_dependents_exemption = 1_500 # use other profile so this can stay the same
       expect(instance.calculate_line_11_exemption).to eq(other_claimed_dependents_exemption)
       dependents_in_college = 2_000
       expect(instance.calculate_line_12).to eq(dependents_in_college)

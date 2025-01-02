@@ -253,7 +253,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
         let(:intake) { create(:state_file_nj_intake, :df_data_two_deps) }
         it "sets NumOfQualiDependChild and NumOfOtherDepend to 1" do
           expect(xml.document.at('NumOfQualiDependChild').text).to eq "1"
-          expect(xml.document.at('NumOfOtherDepend').text).to eq "1"
+          expect(xml.document.at('NumOfOtherDepend').text).to eq "1" #fails
         end
       end
   
@@ -390,7 +390,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
         line_8_blind = 1_000
         line_9_veteran = 6_000
         line_10_qualified_children = 1_500
-        line_11_other_dependents = 1_500
+        line_11_other_dependents = 1_500 # becomes 0, mock instead
         line_12_dependents_attending_college = 2_000
         expected_sum =
           line_6_single_filer +
@@ -400,7 +400,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
           line_10_qualified_children +
           line_11_other_dependents +
           line_12_dependents_attending_college
-        expect(xml.at("Exemptions TotalExemptionAmountA").text).to eq(expected_sum.to_s)
+        expect(xml.at("Exemptions TotalExemptionAmountA").text).to eq(expected_sum.to_s) # fails
         expect(xml.at("Body TotalExemptionAmountB").text).to eq(expected_sum.to_s)
       end
     end

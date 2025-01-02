@@ -618,7 +618,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           }
           it "fills in 1 for count and $1500 for exception" do
             expect(pdf_fields["Text48"]).to eq ""
-            expect(pdf_fields["undefined_13"]).to eq "1"
+            expect(pdf_fields["undefined_13"]).to eq "1" #fails
             expect(pdf_fields["x  1500_2"]).to eq "1500"
           end
         end
