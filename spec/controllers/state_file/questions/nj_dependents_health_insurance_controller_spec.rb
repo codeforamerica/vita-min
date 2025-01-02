@@ -2,9 +2,11 @@ require 'rails_helper'
 
 RSpec.describe StateFile::Questions::NjDependentsHealthInsuranceController do
   describe ".show?" do
-    context "when intake has no dependents" do
-      let(:intake) { create :state_file_nj_intake}
+    context "when intake has no dependents but would otherwise meet the criteria to show the controller" do
+      let(:intake) { create :state_file_nj_intake, :df_data_minimal}
       it "does not show" do
+        allow_any_instance_of(StateFileNjIntake).to receive(:has_health_insurance_requirement_exception?).and_return(true)
+        allow_any_instance_of(StateFileNjIntake).to receive(:eligibility_all_members_health_insurance_no?).and_return(true)
         expect(described_class.show?(intake)).to eq false
       end
     end
