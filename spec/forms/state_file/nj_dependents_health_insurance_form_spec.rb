@@ -9,7 +9,7 @@ RSpec.describe StateFile::NjDependentsHealthInsuranceForm do
   let(:second_dependent) { intake.dependents[1] }
 
   describe "#save" do
-    context "when not all tax household members had health insurance" do
+    context "when not all dependents had health insurance" do
       let(:valid_params) do
         {
           dependents_attributes: {
