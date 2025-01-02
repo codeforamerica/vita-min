@@ -312,19 +312,6 @@
         font-size: 1.3rem;
         line-height: 1.9rem;
       }
-
-      &.grey-group {
-        margin: 0 auto;
-        padding: 2rem;
-        margin-bottom: 2rem;
-        background: $color-grey-light;
-        border: 2px solid $color-grey-medium-light;
-        border-radius: 6px;
-
-        .checkbox.is-selected {
-          background: inherit;
-        }
-      }
     }
 
     .form1099__label {
