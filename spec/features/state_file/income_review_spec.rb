@@ -23,8 +23,14 @@ RSpec.feature "Income Review", active_job: true do
 
     def advance_to_income_edit
       advance_to_data_transfer
+      step_through_df_data_transfer("Transfer Lucky single")
+      all('a', text: I18n.t("state_file.questions.income_review.edit.review_and_edit_state_info"))[1].click
+    end
 
-      step_through_df_data_transfer("Transfer Zeus box 14")
+    it "displays review and edit pages with w2s, unemployment, and social security income" do
+      advance_to_data_transfer
+
+      step_through_df_data_transfer("Transfer O neal walker catchall mfj")
 
       expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
       expect(page).to have_text I18n.t("state_file.questions.income_review.edit.w2s_title")
@@ -39,24 +45,28 @@ RSpec.feature "Income Review", active_job: true do
         expect(page).to have_text I18n.t("state_file.questions.income_review.edit.no_info_needed_nj")
       end
 
-      click_on I18n.t("state_file.questions.income_review.edit.review_and_edit_state_info")
+      within '#form1099ints' do
+        expect(page).to have_text I18n.t("state_file.questions.income_review.edit.interest_income_title")
+        expect(page).to have_text I18n.t("state_file.questions.income_review.edit.no_info_needed")
+      end
     end
 
-    it "displays review and edit pages with w2s, unemployment, and social security income" do
+    it "displays w2 info on edit screen" do
       advance_to_income_edit
 
-      expect(page).to have_field('state_file_w2_box14_ui_wf_swf', with: '35.0')
-      expect(page).to have_field('state_file_w2_box14_fli', with: '55.0')
-      expect(page).to have_field('state_file_w2_employer_state_id_num', with: '12345')
-      expect(page).to have_field('state_file_w2_state_wages_amount', with: '12345.0')
-      expect(page).to have_field('state_file_w2_state_income_tax_amount', with: '500.0')
+      expect(page).to have_field('state_file_w2_box14_ui_wf_swf', with: '180.0')
+      expect(page).to have_field('state_file_w2_box14_fli', with: '145.0')
+      expect(page).to have_field('state_file_w2_employer_state_id_num', with: '221236333')
+      expect(page).to have_field('state_file_w2_state_wages_amount', with: '40000.0')
+      expect(page).to have_field('state_file_w2_state_income_tax_amount', with: '400.0')
       expect(page).to have_button("What should I put in Box 14?")
     end
 
-    it "allows ui_wf_swf to be saved up to the limit" do
+    it "allows ui_wf_swf and fli to be saved up to the limit" do
       advance_to_income_edit
 
       fill_in 'state_file_w2_box14_ui_wf_swf', with: '179.78'
+      fill_in 'state_file_w2_box14_fli', with: '145.26'
       click_on 'Continue'
 
       expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
@@ -66,42 +76,20 @@ RSpec.feature "Income Review", active_job: true do
       advance_to_income_edit
 
       fill_in 'state_file_w2_box14_ui_wf_swf', with: '179.79'
+      fill_in 'state_file_w2_box14_fli', with: '145.26'
       click_on 'Continue'
 
       expect(page).to have_text("This amount can't exceed $179.78.")
     end
-
-
-    it "allows fli to be saved up to the limit" do
-      advance_to_income_edit
-
-      fill_in 'state_file_w2_box14_fli', with: '145.26'
-      click_on 'Continue'
-
-      expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
-    end
-
+    
     it "does not allow fli to be saved above limit" do
       advance_to_income_edit
 
+      fill_in 'state_file_w2_box14_ui_wf_swf', with: '179.78'
       fill_in 'state_file_w2_box14_fli', with: '145.27'
       click_on 'Continue'
 
       expect(page).to have_text("This amount can't exceed $145.26.")
-    end
-
-    it "displays with investment income" do
-      advance_to_data_transfer
-
-      step_through_df_data_transfer("Transfer Streep single inv limit")
-
-      expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
-      expect(page).to have_text I18n.t("state_file.questions.income_review.edit.w2s_title")
-
-      within '#form1099ints' do
-        expect(page).to have_text I18n.t("state_file.questions.income_review.edit.interest_income_title")
-        expect(page).to have_text I18n.t("state_file.questions.income_review.edit.no_info_needed")
-      end
     end
   end
 end
