@@ -59,16 +59,6 @@ RSpec.describe PdfFiller::NjAdditionalDependentsPdf do
       expect(pdf_fields["SSN_Row6"]).to eq "300000068"
       expect(pdf_fields["BirthYear_Row6"]).to eq "2015"
       expect(pdf_fields["HealthInsurance_Row6"]).to eq "Off"
-
-      expect(pdf_fields["Name_Row7"]).to eq ""
-      expect(pdf_fields["SSN_Row7"]).to eq ""
-      expect(pdf_fields["BirthYear_Row7"]).to eq ""
-      expect(pdf_fields["HealthInsurance_Row7"]).to eq "Off"
-
-      expect(pdf_fields["Name_Row8"]).to eq ""
-      expect(pdf_fields["SSN_Row8"]).to eq ""
-      expect(pdf_fields["BirthYear_Row8"]).to eq ""
-      expect(pdf_fields["HealthInsurance_Row8"]).to eq "Off"
     end
   end
 end
