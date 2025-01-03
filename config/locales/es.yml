@@ -2828,6 +2828,7 @@ es:
           help_text: Te pediremos que nos compartas la información que pueda faltar.
           interest_income_body: No se necesita información estatal adicional
           interest_income_title: Ingresos por intereses (1099-INT)
+          invalid_w2: There is an issue with one or more W-2 forms. Please review and correct before proceeding.
           no_info_needed: No se necesita información estatal adicional
           no_info_needed_nj: This income is not taxed in New Jersey.
           retirement_income_title: Jubilación (1099-R)

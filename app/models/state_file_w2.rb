@@ -130,7 +130,7 @@ class StateFileW2 < ApplicationRecord
   def validate_limit(field, limit)
     value = send(field)
     if value.present? && value > limit
-      errors.add(field,  I18n.t("validators.dollar_limit", limit: '%.2f' % limit))
+      errors.add(field, I18n.t("validators.dollar_limit", limit: '%.2f' % limit))
     end
   end
 end

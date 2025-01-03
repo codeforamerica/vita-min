@@ -2870,6 +2870,7 @@ en:
           help_text: We will collect any missing information.
           interest_income_body: No additional state info needed
           interest_income_title: Interest income (1099-INT)
+          invalid_w2: There is an issue with one or more W-2 forms. Please review and correct before proceeding.
           no_info_needed: No additional state info needed
           no_info_needed_nj: This income is not taxed in New Jersey.
           retirement_income_title: Retirement income (1099-R)
