@@ -81,6 +81,7 @@ describe 'EfileError' do
       "nc-veteran-status",
       "nj-college-dependents-exemption",
       "nj-county",
+      "nj-dependents-health-insurance",
       "nj-disabled-exemption",
       "nj-eitc-qualifying-child",
       "nj-eligibility-health-insurance",

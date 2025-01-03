@@ -154,7 +154,7 @@ FactoryBot.define do
       intake.synchronize_df_w2s_to_database
       intake.synchronize_df_dependents_to_database
       intake.dependents.each_with_index do |dependent, i|
-        dependent.update(dob: i.years.ago)
+        dependent.update(dob: Date.new(MultiTenantService.new(:statefile).current_tax_year - i, 1, 1))
       end
     end
 
