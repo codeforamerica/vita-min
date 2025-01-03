@@ -366,8 +366,8 @@ describe Efile::Nj::Nj1040Calculator do
   end
 
   describe 'line 10 and 11 dependents' do
-    context 'when 1 qualified child and 1 other who is not claimed dependent' do
-      let(:intake) { create(:state_file_nj_intake, :df_data_two_deps) }
+    context 'when 1 qualified child claimed as dependent, 0 others claimed as dependent' do
+      let(:intake) { create(:state_file_nj_intake, :df_data_qss) }
       it "sets lines 10 and 11 to 0" do
         expect(instance.lines[:NJ1040_LINE_10_COUNT].value).to eq(1)
         expect(instance.lines[:NJ1040_LINE_11_COUNT].value).to eq(0)

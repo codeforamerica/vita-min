@@ -7,7 +7,7 @@
       "dateOfBirth": "1920-01-01",
       "relationship": "parent",
       "eligibleDependent": true,
-      "isClaimedDependent": false,
+      "isClaimedDependent": true,
       "tin": "300-00-0029",
       "qualifyingChild": false
     },
