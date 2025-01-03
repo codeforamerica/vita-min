@@ -3,22 +3,20 @@
     <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
   <% end %>
   <div class="question-with-follow-up spacing-below-25">
-    <div class="question-with-follow-up__question spacing-below-15">
-      <div class="white-group">
-        <div class="form-question spacing-below-15">
-          <strong><%= t("state_file.questions.primary_state_id.state_id.id_type_question.label") %></strong>
-        </div>
-        <%=
-          f.cfa_radio_set(
-            :id_type,
-            collection: [
-              { value: :driver_license, label: t("state_file.questions.primary_state_id.state_id.id_type_question.drivers_license"), input_html: { "data-follow-up": "#id-details-fields" } },
-              { value: :dmv_bmv, label: (options[:dmv_bmv_label] || t("state_file.questions.primary_state_id.state_id.id_type_question.dmv")), input_html: { "data-follow-up": "#id-details-fields" } },
-              { value: :no_id, label: (options[:no_id_label] || t("state_file.questions.primary_state_id.state_id.id_type_question.no_id")) },
-            ]
-          )
-        %>
+    <div class="question-with-follow-up__question spacing-below-15 white-group">
+      <div class="form-question spacing-below-15">
+        <strong><%= t("state_file.questions.primary_state_id.state_id.id_type_question.label") %></strong>
       </div>
+      <%=
+        f.cfa_radio_set(
+          :id_type,
+          collection: [
+            { value: :driver_license, label: t("state_file.questions.primary_state_id.state_id.id_type_question.drivers_license"), input_html: { "data-follow-up": "#id-details-fields" } },
+            { value: :dmv_bmv, label: (options[:dmv_bmv_label] || t("state_file.questions.primary_state_id.state_id.id_type_question.dmv")), input_html: { "data-follow-up": "#id-details-fields" } },
+            { value: :no_id, label: (options[:no_id_label] || t("state_file.questions.primary_state_id.state_id.id_type_question.no_id")) },
+          ]
+        )
+      %>
     </div>
 
     <div class="question-with-follow-up__follow-up" id="id-details-fields">
@@ -45,7 +43,7 @@
         <div onchange="$('#first_3_doc_num_container')[event.target.value == 'NY' ? 'show' : 'hide']()">
           <%= f.cfa_select(:state, t("state_file.questions.primary_state_id.state_id.id_details.issue_state"), States.name_value_pairs, include_blank: true) %>
         </div>
-        <div id="first_3_doc_num_container"  style="display: <%=options[:include_first_three_doc_num] ? 'block' : 'none'%>">
+        <div id="first_3_doc_num_container" style="display: <%= options[:include_first_three_doc_num] ? 'block' : 'none' %>">
           <%= f.cfa_input_field(:first_three_doc_num, t("state_file.questions.primary_state_id.state_id.id_details.first_three_doc_num_html"), classes: ["form-width--short"]) %>
         </div>
         <% if options[:info_link] %>
@@ -65,7 +63,7 @@
       document.addEventListener("DOMContentLoaded", function () {
           // Function to clear selections in fields_to_clear
           function clearFieldsToClear() {
-              $('#fields_to_clear select').each(function() {
+              $('#fields_to_clear select').each(function () {
                   $(this).val('');
               });
           }
@@ -76,14 +74,14 @@
           }
 
           // Attach a change event listener to the selects within fields_to_clear
-          $('#fields_to_clear select').change(function() {
+          $('#fields_to_clear select').change(function () {
               if ($('#checkbox input').is(':checked')) {
                   clearFieldsToClear();
               }
           });
 
           // Attach a change event listener to the checkbox as well
-          $('#checkbox input').change(function() {
+          $('#checkbox input').change(function () {
               if (this.checked) {
                   clearFieldsToClear();
               }
