@@ -22,13 +22,6 @@
     <% end %>
 
     <div class="white-group">
-      <%= f.cfa_radio_set(:ssn_no_employment, label_text: t(".ssn_no_employment_html.label"), collection: [
-        { value: "yes", label: t("general.affirmative") },
-        { value: "no", label: t("general.negative") },
-      ]) %>
-    </div>
-
-    <div class="white-group">
       <div class="question-with-follow-up">
         <div class="question-with-follow-up__question">
           <%= f.cfa_radio_set(:household_excise_credit_claimed, label_text: t(".household_excise_credit_html"), collection: [

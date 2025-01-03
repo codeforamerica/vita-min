@@ -2249,8 +2249,6 @@ en:
           household_excise_credit_html: Did anyone in your household file a tax return separately from you and claim the Arizona Increased Excise Tax Credit? <br><br> (Your household is everyone that you lived with, even if they aren’t listed on your return.)
           primary_was_incarcerated: Were you incarcerated in a county, state, or federal prison for at least 60 days in %{tax_year}?
           spouse_was_incarcerated: Was your spouse incarcerated in a county, state, or federal prison for at least 60 days in %{tax_year}?
-          ssn_no_employment_html:
-            label: Do you have <b>'not valid for employment'</b> written on your Social Security card? (This is rare.)
           title: You might be eligible for the Increased Excise Tax Credit.
       az_prior_last_names:
         edit:
@@ -2355,7 +2353,6 @@ en:
           made_az321_contributions: Made contributions to qualifying charitable organizations
           made_az322_contributions: Made contributions to public schools
           public_school_credit: Public School Credit
-          ssn_no_employment: "‘Not valid for employment’ is written on your Social Security Card"
           ssn_not_taxed: Social Security benefits not taxed in Arizona
           subtraction_for_indian_res: Subtraction for income earned on an American Indian reservation
           subtraction_for_military_pay: Subtraction for active duty military pay

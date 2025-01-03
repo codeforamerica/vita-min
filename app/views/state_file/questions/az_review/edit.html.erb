@@ -76,9 +76,6 @@
         <p class="text--bold spacing-below-5"><%=t(".was_incarcerated", filing_year: current_tax_year) %></p>
         <p><%=current_intake.primary_was_incarcerated_yes? || current_intake.spouse_was_incarcerated_yes? ? t("general.affirmative") : t("general.negative") %></p>
 
-        <p class="text--bold spacing-below-5"><%=t(".ssn_no_employment") %></p>
-        <p><%=current_intake.ssn_no_employment_yes? ? t("general.affirmative") : t("general.negative") %></p>
-
         <p class="text--bold spacing-below-5"><%=t(".household_excise_credit_claimed") %></p>
         <p><%=current_intake.household_excise_credit_claimed_yes? ? t("general.affirmative") : t("general.negative") %></p>
         <%= link_to t("general.edit"), StateFile::Questions::AzExciseCreditController.to_path_helper(return_to_review: "y"), class: "button--small" %>

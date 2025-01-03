@@ -12,7 +12,7 @@
       "form1099GsTotal": "0.00",
       "suffix": null,
       "isPrimaryFiler": false,
-      "ssnNotValidForEmployment": null,
+      "ssnNotValidForEmployment": true,
       "hsaTotalDeductibleAmount": null
     },
     {
@@ -26,7 +26,7 @@
       "suffix": null,
       "form1099GsTotal": "0.00",
       "isPrimaryFiler": true,
-      "ssnNotValidForEmployment": null,
+      "ssnNotValidForEmployment": true,
       "hsaTotalDeductibleAmount": null
     }
   ],

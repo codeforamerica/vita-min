@@ -158,7 +158,7 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
     end
 
     context "when there is a refund with banking info" do
-      let(:intake) { create(:state_file_az_refund_intake, was_incarcerated: "no", ssn_no_employment: "no", household_excise_credit_claimed: "no") }
+      let(:intake) { create(:state_file_az_refund_intake, was_incarcerated: "no", household_excise_credit_claimed: "no") }
 
       before do
         allow_any_instance_of(Efile::Az::Az140Calculator).to receive(:calculate_line_79).and_return 500

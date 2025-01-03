@@ -67,7 +67,6 @@ RSpec.describe StateFile::Questions::AzReviewController do
 
         get :edit
         expect(response.body).not_to include I18n.t("state_file.questions.az_review.edit.was_incarcerated", filing_year: Rails.configuration.statefile_current_tax_year)
-        expect(response.body).not_to include I18n.t("state_file.questions.az_review.edit.ssn_no_employment")
         expect(response.body).not_to include I18n.t("state_file.questions.az_review.edit.household_excise_credit_claimed")
       end
     end

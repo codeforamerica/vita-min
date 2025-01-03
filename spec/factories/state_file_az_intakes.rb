@@ -65,7 +65,6 @@
 #  spouse_middle_initial                  :string
 #  spouse_suffix                          :string
 #  spouse_was_incarcerated                :integer          default("unfilled"), not null
-#  ssn_no_employment                      :integer          default("unfilled"), not null
 #  tribal_member                          :integer          default("unfilled"), not null
 #  tribal_wages_amount                    :decimal(12, 2)
 #  unfinished_intake_ids                  :text             default([]), is an Array
