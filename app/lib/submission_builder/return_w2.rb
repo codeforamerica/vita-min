@@ -17,7 +17,7 @@ module SubmissionBuilder
         node_after_box_14_codes = state_local_tax_grp_node || @xml_node.at(:StandardOrNonStandardCd)
         state_code = @intake_w2.state_file_intake.state_code
         box14_codes = StateFile::StateInformationService.w2_supported_box14_codes(state_code)
-        @xml_node.xpath("//OtherDeductionsBenefitsGrp").remove
+        @xml_node.xpath("//OtherDeductionsBenefitsGrp[Desc='UIHCWD']").remove
         box14_codes.each do |code|
           add_box_14_node(code, node_after_box_14_codes)
         end
@@ -38,17 +38,22 @@ module SubmissionBuilder
 
       return if !value.present? || !value.positive?
 
-      new_xml_node = Nokogiri::XML::Node.new('OtherDeductionsBenefitsGrp', @xml_node)
+      existing_xml_node = @xml_node.at_xpath("//OtherDeductionsBenefitsGrp[Desc='#{field_as_desc}']")
+      if existing_xml_node
+        existing_xml_node.at('Amt').content = value.round.to_s
+      else
+        new_xml_node = Nokogiri::XML::Node.new('OtherDeductionsBenefitsGrp', @xml_node)
 
-      desc_node = Nokogiri::XML::Node.new('Desc', @xml_node)
-      desc_node.content = field_as_desc
-      amt_node = Nokogiri::XML::Node.new('Amt', @xml_node)
-      amt_node.content = value.round.to_s
+        desc_node = Nokogiri::XML::Node.new('Desc', @xml_node)
+        desc_node.content = field_as_desc
+        amt_node = Nokogiri::XML::Node.new('Amt', @xml_node)
+        amt_node.content = value.round.to_s
 
-      new_xml_node.add_child(desc_node)
-      new_xml_node.add_child(amt_node)
+        new_xml_node.add_child(desc_node)
+        new_xml_node.add_child(amt_node)
 
-      node_after_box_14_codes.add_previous_sibling(new_xml_node)
+        node_after_box_14_codes.add_previous_sibling(new_xml_node)
+      end
     end
   end
 end
