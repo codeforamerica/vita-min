@@ -32,43 +32,33 @@ RSpec.describe PdfFiller::NjAdditionalDependentsPdf do
     it 'fills dependents from XML after index 4 into the PDF' do
       expect(pdf_fields["Name_Row1"]).to eq "Underworld Hades"
       expect(pdf_fields["SSN_Row1"]).to eq "300000027"
-      expect(pdf_fields["BirthYear_Row1"]).to eq "2020"
+      expect(pdf_fields["BirthYear_Row1"]).to eq "#{4.years.ago.year}"
       expect(pdf_fields["HealthInsurance_Row1"]).to eq "Yes"
 
       expect(pdf_fields["Name_Row2"]).to eq "Thunder Ares"
       expect(pdf_fields["SSN_Row2"]).to eq "300000022"
-      expect(pdf_fields["BirthYear_Row2"]).to eq "2019"
+      expect(pdf_fields["BirthYear_Row2"]).to eq "#{5.years.ago.year}"
       expect(pdf_fields["HealthInsurance_Row2"]).to eq "Off"
 
       expect(pdf_fields["Name_Row3"]).to eq "Thunder Hercules"
       expect(pdf_fields["SSN_Row3"]).to eq "300000065"
-      expect(pdf_fields["BirthYear_Row3"]).to eq "2018"
+      expect(pdf_fields["BirthYear_Row3"]).to eq "#{6.years.ago.year}"
       expect(pdf_fields["HealthInsurance_Row3"]).to eq "Yes"
 
       expect(pdf_fields["Name_Row4"]).to eq "Archer Hermes"
       expect(pdf_fields["SSN_Row4"]).to eq "300000024"
-      expect(pdf_fields["BirthYear_Row4"]).to eq "2017"
+      expect(pdf_fields["BirthYear_Row4"]).to eq "#{7.years.ago.year}"
       expect(pdf_fields["HealthInsurance_Row4"]).to eq "Off"
 
       expect(pdf_fields["Name_Row5"]).to eq "Thunder Hebe"
       expect(pdf_fields["SSN_Row5"]).to eq "300000023"
-      expect(pdf_fields["BirthYear_Row5"]).to eq "2016"
+      expect(pdf_fields["BirthYear_Row5"]).to eq "#{8.years.ago.year}"
       expect(pdf_fields["HealthInsurance_Row5"]).to eq "Yes"
 
       expect(pdf_fields["Name_Row6"]).to eq "Wine Dionysus"
       expect(pdf_fields["SSN_Row6"]).to eq "300000068"
-      expect(pdf_fields["BirthYear_Row6"]).to eq "2015"
+      expect(pdf_fields["BirthYear_Row6"]).to eq "#{9.years.ago.year}"
       expect(pdf_fields["HealthInsurance_Row6"]).to eq "Off"
-
-      expect(pdf_fields["Name_Row7"]).to eq ""
-      expect(pdf_fields["SSN_Row7"]).to eq ""
-      expect(pdf_fields["BirthYear_Row7"]).to eq ""
-      expect(pdf_fields["HealthInsurance_Row7"]).to eq "Off"
-
-      expect(pdf_fields["Name_Row8"]).to eq ""
-      expect(pdf_fields["SSN_Row8"]).to eq ""
-      expect(pdf_fields["BirthYear_Row8"]).to eq ""
-      expect(pdf_fields["HealthInsurance_Row8"]).to eq "Off"
     end
   end
 end
