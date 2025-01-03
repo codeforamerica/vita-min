@@ -144,6 +144,29 @@ describe StateFileW2 do
       expect(w2.errors[:employer_ein]).not_to be_present
     end
 
+    context "box 14 limit validation" do
+      before do
+        w2.check_box14_limits = true
+      end
+  
+      it "is invalid when box14_ui_wf_swf exceeds the limit" do
+        w2.box14_ui_wf_swf = 179.79
+        expect(w2).not_to be_valid
+        expect(w2.errors[:box14_ui_wf_swf]).to include(I18n.t("validators.dollar_limit", limit: '179.78'))
+      end
+  
+      it "is invalid when box14_fli exceeds the limit" do
+        w2.box14_fli = 145.27
+        expect(w2).not_to be_valid
+        expect(w2.errors[:box14_fli]).to include(I18n.t("validators.dollar_limit", limit: '145.26'))
+      end
+  
+      it "is valid when both box14_ui_wf_swf and box14_fli are within limits" do
+        w2.box14_ui_wf_swf = 179.78
+        w2.box14_fli = 145.26
+        expect(w2).to be_valid
+      end
+    end
   end
 
   describe "generating xml" do
