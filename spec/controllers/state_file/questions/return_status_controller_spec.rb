@@ -17,7 +17,8 @@ RSpec.describe StateFile::Questions::ReturnStatusController do
             get :edit
 
             expect(assigns(:tax_refund_url)).to eq StateFile::StateInformationService.tax_refund_url(state_code)
-            expect(assigns(:tax_payment_url)).to eq StateFile::StateInformationService.tax_payment_url(state_code)
+            expect(assigns(:tax_payment_info_url)).to eq StateFile::StateInformationService.tax_payment_info_url(state_code)
+            expect(assigns(:tax_payment_info_text)).to eq StateFile::StateInformationService.tax_payment_info_text(state_code)
             expect(assigns(:voucher_form_name)).to eq StateFile::StateInformationService.voucher_form_name(state_code)
             expect(assigns(:mail_voucher_address)).to eq StateFile::StateInformationService.mail_voucher_address(state_code)
             expect(assigns(:voucher_path)).to eq StateFile::StateInformationService.voucher_path(state_code)
@@ -278,7 +279,7 @@ RSpec.describe StateFile::Questions::ReturnStatusController do
 
               get :edit
 
-              expect(response.body).to include I18n.t("state_file.questions.return_status.accepted.direct_debit_html", tax_payment_url: assigns(:tax_payment_url))
+              expect(response.body).to include I18n.t("state_file.questions.return_status.accepted.direct_debit_html", tax_payment_info_url: assigns(:tax_payment_info_url), tax_payment_info_text: assigns(:tax_payment_info_text))
               expect(response.body).to include I18n.t("state_file.questions.return_status.accepted.pay_by_mail_or_moneyorder")
             end
           end
