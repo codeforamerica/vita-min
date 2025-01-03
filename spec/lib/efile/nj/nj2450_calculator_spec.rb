@@ -19,14 +19,14 @@ describe Efile::Nj::Nj2450Calculator do
   context "primary" do
     context "column a" do
       context "multiple w2s that individually do not exceed #{Efile::Nj::Nj1040Calculator::EXCESS_UI_WF_SWF_MAX} and total more than #{Efile::Nj::Nj1040Calculator::EXCESS_UI_WF_SWF_MAX}" do 
-        let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_ui_hc_wd: 100) }
+        let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_ui_wf_swf: 100, box14_ui_hc_wd: 10) }
         let!(:w2_2) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_ui_hc_wd: 134) }
 
         before do
           instance.calculate
         end
 
-        it "sums ui/wf/swf and ui/hc/wd" do
+        it "sums ui/wf/swf" do
           expected_sum = 234
           expect(instance.lines[:NJ2450_COLUMN_A_TOTAL_PRIMARY].value).to eq(expected_sum)
         end
@@ -72,8 +72,8 @@ describe Efile::Nj::Nj2450Calculator do
           instance.calculate
         end
 
-        it "sums ui/wf/swf and ui/hc/wd" do
-          expected_sum = 234 # w2_1 box14_ui_hc_wd 100 + w1_2 box14_ui_hc_wd 134
+        it "sums ui/wf/swf overwrites" do
+          expected_sum = 234 # w2_1 box14_ui_wf_swf 100 + w2_2 box14_ui_wf_swf 134
           expect(instance.lines[:NJ2450_COLUMN_A_TOTAL_SPOUSE].value).to eq(expected_sum)
         end
 

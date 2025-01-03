@@ -9,14 +9,24 @@
       <p class="spacing-below-25"><%= @w2.employer_name %></p>
 
       <% if @box14_codes.present? %>
+        <% box14_intro_key = "state_file.questions.w2.edit.box14_intro_#{current_state_code}_html" %>
+        <% if I18n.exists?(box14_intro_key) %>
+          <p><%= t(box14_intro_key) %></p>
+        <% end %>
         <fieldset>
           <legend class="spacing-below-5"><%= t(".box14_html") %></legend>
           <% @box14_codes.each do |code| %>
             <div class="form-question spacing-below-25">
               <% field_name = "box14_#{code.downcase}" %>
+              <% value = if code == "UIWFSWF"
+                @w2.get_box14_ui_overwrite
+              else
+                @w2.send(field_name)
+              end %>
               <%= f.vita_min_money_field(
                     field_name.to_sym,
                     t(".box14_#{code.downcase}_html"),
+                    options: { value: value },
                     classes: ["form-width--long"]
                   ) %>
                   <%= t(".box14_#{code.downcase}_help_text", year: MultiTenantService.statefile.current_tax_year, default: nil) %>
@@ -46,13 +56,16 @@
       <% end %>
     </div>
 
-    <% if t(".box14_explanation.#{@state_code}_html", default: nil) %>
+    <% explanation_key = ".box14_explanation_#{current_state_code}_html" %>
+    <% explanation_text = t(explanation_key, year: MultiTenantService.statefile.current_tax_year, default: nil) %>
+
+    <% if explanation_text %>
       <div class="reveal spacing-above-35">
-        <p><button href="#" class="reveal__button"><%= t(".what_is_box14") %></button></p>
+        <button href="#" class="reveal__button"><%= t(".what_is_box14_#{current_state_code}") %></button>
         <div class="reveal__content">
-            <p class="spacing-below-15">
-              <%= t(".box14_explanation.#{@state_code}_html", year: MultiTenantService.statefile.current_tax_year) %>
-            </p>
+          <p class="spacing-below-15">
+            <%= explanation_text %>
+          </p>
         </div>
       </div>
     <% end %>

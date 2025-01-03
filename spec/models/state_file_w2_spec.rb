@@ -144,6 +144,29 @@ describe StateFileW2 do
       expect(w2.errors[:employer_ein]).not_to be_present
     end
 
+    context "box 14 limit validation" do
+      before do
+        w2.check_box14_limits = true
+      end
+  
+      it "is invalid when box14_ui_wf_swf exceeds the limit" do
+        w2.box14_ui_wf_swf = 179.79
+        expect(w2).not_to be_valid
+        expect(w2.errors[:box14_ui_wf_swf]).to include(I18n.t("validators.dollar_limit", limit: '179.78'))
+      end
+  
+      it "is invalid when box14_fli exceeds the limit" do
+        w2.box14_fli = 145.27
+        expect(w2).not_to be_valid
+        expect(w2.errors[:box14_fli]).to include(I18n.t("validators.dollar_limit", limit: '145.26'))
+      end
+  
+      it "is valid when both box14_ui_wf_swf and box14_fli are within limits" do
+        w2.box14_ui_wf_swf = 179.78
+        w2.box14_fli = 145.26
+        expect(w2).to be_valid
+      end
+    end
   end
 
   describe "generating xml" do
@@ -165,6 +188,32 @@ describe StateFileW2 do
       w2.employer_state_id_num = ""
       xml = Nokogiri::XML(w2.state_tax_group_xml_node)
       expect(xml.at("StateAbbreviationCd")).to be_nil
+    end
+  end
+
+  describe "box14_ui_wf_swf getter override" do
+    context "box14_ui_wf_swf is nil but box14_ui_hc_wd is not" do
+      it "returns value of box14_ui_hc_wd" do
+        w2.box14_ui_wf_swf = nil
+        w2.box14_ui_hc_wd = 100.00
+        expect(w2.get_box14_ui_overwrite).to eq 100.00
+      end
+    end
+
+    context "neither box14_ui_wf_swf nor box14_ui_hc_wd is nil" do
+      it "returns value of box14_ui_wf_swf" do
+        w2.box14_ui_wf_swf = 150.00
+        w2.box14_ui_hc_wd = 100.00
+        expect(w2.get_box14_ui_overwrite).to eq 150.00
+      end
+    end
+
+    context "both box14_ui_wf_swf and box14_ui_hc_wd are nil" do
+      it "returns nil" do
+        w2.box14_ui_wf_swf = nil
+        w2.box14_ui_hc_wd = nil
+        expect(w2.get_box14_ui_overwrite).to be_nil
+      end
     end
   end
 end

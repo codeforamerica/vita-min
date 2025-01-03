@@ -26,15 +26,11 @@ module Efile
       end
 
       def column_a_total
-        total = w2s.reduce(0) do |sum, w2|
-          sum + (w2.box14_ui_hc_wd || 0) + (w2.box14_ui_wf_swf || 0)
-        end
-        total.round
+        w2s.sum { |w2| w2.get_box14_ui_overwrite || 0 }.round
       end
 
       def column_c_total
-        total = w2s.reduce(0) { |sum, w2| sum + (w2.box14_fli || 0) }
-        total.round
+        w2s.sum { |w2| w2.box14_fli || 0 }.round
       end
 
       def column_a_excess

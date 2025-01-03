@@ -127,9 +127,9 @@ RSpec.describe StateFile::Questions::W2Controller do
               employer_state_id_num: "12345",
               state_wages_amount: 10000,
               state_income_tax_amount: 500,
-              box14_ui_wf_swf: 230,
-              box14_ui_hc_wd: 340,
-              box14_fli: 450,
+              box14_ui_wf_swf: 23,
+              box14_ui_hc_wd: 34,
+              box14_fli: 45,
             }
           }
         end
@@ -137,9 +137,9 @@ RSpec.describe StateFile::Questions::W2Controller do
         it "updates NJ Box 14 fields" do
           post :update, params: params
           state_file_w2.reload
-          expect(state_file_w2.box14_ui_wf_swf).to eq 230
-          expect(state_file_w2.box14_ui_hc_wd).to eq 340
-          expect(state_file_w2.box14_fli).to eq 450
+          expect(state_file_w2.box14_ui_wf_swf).to eq 23
+          expect(state_file_w2.box14_ui_hc_wd).to eq 34
+          expect(state_file_w2.box14_fli).to eq 45
         end
       end
 
@@ -195,6 +195,32 @@ RSpec.describe StateFile::Questions::W2Controller do
 
         expect(response).to render_template(:edit)
         expect(response.body).to include "Cannot be greater than State wages and tips."
+      end
+    end
+
+    context "with invalid Box 14 values" do
+      render_views
+
+      let(:intake) { create :state_file_nj_intake }
+      let(:params) do
+        {
+          id: state_file_w2.id,
+          state_file_w2: {
+            employer_state_id_num: "12345",
+            state_wages_amount: 10000,
+            state_income_tax_amount: 500,
+            box14_ui_wf_swf: 99999,
+            box14_ui_hc_wd: 34,
+            box14_fli: 45,
+          }
+        }
+      end
+    
+      it "renders edit with validation errors for Box 14" do
+        post :update, params: params
+    
+        expect(response).to render_template(:edit)
+        expect(response.body).to include "This amount can't exceed $179.78."
       end
     end
   end
