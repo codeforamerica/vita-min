@@ -121,13 +121,12 @@ describe StateFileBaseIntake do
     it "adds box 14 fields" do
       intake = create(:state_file_nj_intake, :df_data_box_14)
       intake.synchronize_df_w2s_to_database
-      expect(intake.state_file_w2s.count).to eq 1
+      expect(intake.state_file_w2s.count).to eq 2
       w2 = intake.state_file_w2s.first
 
-      expect(w2.box14_fli).to eq 55.00
-      expect(w2.box14_stpickup).to eq 25.00
-      expect(w2.box14_ui_hc_wd).to eq 45.00
-      expect(w2.box14_ui_wf_swf).to eq 35.00
+      expect(w2.box14_fli).to eq 145.00
+      expect(w2.box14_ui_hc_wd).to eq 140.00
+      expect(w2.box14_ui_wf_swf).to eq 180.00
     end
   end
 

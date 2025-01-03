@@ -1557,6 +1557,7 @@ describe Efile::Nj::Nj1040Calculator do
         first_w2 = intake.state_file_w2s.first 
         first_w2.update_attribute(:box14_ui_wf_swf, 0)
         first_w2.update_attribute(:box14_ui_hc_wd, described_class::EXCESS_UI_WF_SWF_MAX + 1)
+        instance.calculate
         expect(instance.lines[:NJ1040_LINE_59].value).to eq(nil)
       end
     end

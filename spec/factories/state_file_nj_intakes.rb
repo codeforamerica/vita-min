@@ -260,8 +260,8 @@ FactoryBot.define do
     end
     
     trait :df_data_box_14 do
-      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_zeus_box_14') }
-      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_zeus_box_14') }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_lucky_single') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_lucky_single') }
     end
 
     factory :state_file_nj_payment_info_intake do
