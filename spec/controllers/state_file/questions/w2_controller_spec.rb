@@ -197,5 +197,31 @@ RSpec.describe StateFile::Questions::W2Controller do
         expect(response.body).to include "Cannot be greater than State wages and tips."
       end
     end
+
+    context "with invalid Box 14 values" do
+      render_views
+
+      let(:intake) { create :state_file_nj_intake }
+      let(:params) do
+        {
+          id: state_file_w2.id,
+          state_file_w2: {
+            employer_state_id_num: "12345",
+            state_wages_amount: 10000,
+            state_income_tax_amount: 500,
+            box14_ui_wf_swf: 99999,
+            box14_ui_hc_wd: 34,
+            box14_fli: 45,
+          }
+        }
+      end
+    
+      it "renders edit with validation errors for Box 14" do
+        post :update, params: params
+    
+        expect(response).to render_template(:edit)
+        expect(response.body).to include "This amount can't exceed $179.78."
+      end
+    end
   end
 end
