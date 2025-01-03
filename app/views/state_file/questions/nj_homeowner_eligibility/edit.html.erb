@@ -43,12 +43,48 @@
           </div>
         </div>
       <% end %>
+      <div class="white-group">
+        <div class="tight-checkboxes">
+          <%= f.cfa_checkbox(:homeowner_none_of_the_above, t("general.none_of_these"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+        </div>
+      </div>
     </div>
 
     <% if params[:return_to_review].present? %>
       <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
     <% end %>
-
     <%= f.continue %>
   <% end %>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      let noneCheckbox = document.getElementById("state_file_nj_homeowner_eligibility_form_homeowner_none_of_the_above");
+      let checkboxes = [
+        document.getElementById("state_file_nj_homeowner_eligibility_form_homeowner_home_subject_to_property_taxes"),
+        document.getElementById("state_file_nj_homeowner_eligibility_form_homeowner_more_than_one_main_home_in_nj"),
+        document.getElementById("state_file_nj_homeowner_eligibility_form_homeowner_shared_ownership_not_spouse"),
+        document.getElementById("state_file_nj_homeowner_eligibility_form_homeowner_main_home_multi_unit"),
+        document.getElementById("state_file_nj_homeowner_eligibility_form_homeowner_main_home_multi_unit_max_four_one_commercial")
+      ]
+      let conditionalCheckbox = document.getElementById("state_file_nj_homeowner_eligibility_form_homeowner_same_home_spouse")
+      if (conditionalCheckbox != null) {
+        checkboxes.push(conditionalCheckbox)
+      }
+      noneCheckbox.addEventListener("change", function() {
+        if(this.checked) {
+          checkboxes.forEach(function(checkbox) {
+            checkbox.checked = false;
+          })
+          document.getElementById("homeowner_multi_unit_followup").style.setProperty('display', 'none');
+        }
+      })
+
+      checkboxes.forEach(function(checkbox) {
+        checkbox.addEventListener("change", function() {
+          if(this.checked) {
+            noneCheckbox.checked = false;
+          }
+        })
+      })
+    })
+  </script>
 <% end %>
