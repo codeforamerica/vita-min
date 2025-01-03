@@ -20,7 +20,7 @@ module SubmissionBuilder
               SchemaFileLoader.load_file("us_states", "unpacked", "NJIndividual2024V0.1", "NJIndividual", "NJForms", "FormNJ1040.xsd")
             end
 
-            def document              
+            def document
               build_xml_doc("FormNJ1040") do |xml|
                 xml.Header do
                   xml.FilingStatus do

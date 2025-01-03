@@ -3,6 +3,10 @@ module SubmissionBuilder
     include SubmissionBuilder::FormattingMethods
     include SubmissionBuilder::BusinessLogicMethods
 
+    def state_submission_builder
+      StateFile::StateInformationService.submission_builder_class(@submission.data_source.state_code)
+    end
+
     def document
       build_xml_doc("ReturnHeaderState") do |xml|
         xml.Jurisdiction "#{@submission.data_source.state_code.upcase}ST"
@@ -12,10 +16,10 @@ module SubmissionBuilder
           xml.TaxPeriodEndDt date_type(Date.new(@submission.data_source.tax_return_year, 12, 31))
         end
         xml.TaxYr @submission.data_source.tax_return_year
-        if @submission.data_source.state_code.upcase == "NJ"
+        if state_submission_builder.ptin.present? && state_submission_builder.preparer_person_name.present?
           xml.PaidPreparerInformationGrp do 
-            xml.PTIN "P99999999"
-            xml.PreparerPersonNm "Self Prepared"
+            xml.PTIN state_submission_builder.ptin
+            xml.PreparerPersonNm state_submission_builder.preparer_person_name
           end
         end
         xml.DisasterReliefTxt @intake.disaster_relief_county if @intake.respond_to?(:disaster_relief_county)
