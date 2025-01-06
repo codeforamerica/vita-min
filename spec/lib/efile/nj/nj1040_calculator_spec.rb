@@ -1304,6 +1304,16 @@ describe Efile::Nj::Nj1040Calculator do
           expect(instance.lines[:NJ1040_LINE_56].value).to eq(nil)
         end
       end
+
+      context 'when neither homeowner nor tenant' do
+        let(:intake) {
+          create(:state_file_nj_intake, household_rent_own: "neither")
+        }
+        it 'sets line 56 to nil' do
+          instance.calculate
+          expect(instance.lines[:NJ1040_LINE_56].value).to eq(nil)
+        end
+      end
     end
 
     context 'when ineligible for property tax deduction or credit due to housing details' do

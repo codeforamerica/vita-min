@@ -336,7 +336,7 @@ module Efile
           StateFile::NjTenantEligibilityHelper.determine_eligibility(@intake) == StateFile::NjTenantEligibilityHelper::INELIGIBLE &&
             StateFile::NjHomeownerEligibilityHelper.determine_eligibility(@intake) == StateFile::NjHomeownerEligibilityHelper::INELIGIBLE
         else
-          nil
+          true
         end
       end
 
