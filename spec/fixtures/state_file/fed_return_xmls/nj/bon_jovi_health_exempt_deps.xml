@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>9daf3e3c</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>300000021</PrimarySSN>
+            <NameLine1Txt>JON&lt;BON JOVI</NameLine1Txt>
+            <PrimaryNameControlTxt>BONJ</PrimaryNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>722 Navesink River Road</AddressLine1Txt>
+                <CityNm>Middletown</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07701</ZIPCd>
+            </USAddress>
+            <PhoneNum>2015557474</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+30000002-1fa3-4792-84eb-b8dafd83ec9a@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="2">
+        <IRS1040 documentId="IRS10400001">
+            <IndividualReturnFilingStatusCd>4</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <DependentDetail>
+                <DependentFirstNm>Carol</DependentFirstNm>
+                <DependentLastNm>Sharkey</DependentLastNm>
+                <DependentNameControlTxt>SHAR</DependentNameControlTxt>
+                <DependentSSN>600008101</DependentSSN>
+                <DependentRelationshipCd>PARENT</DependentRelationshipCd>
+                <EligibleForODCInd>X</EligibleForODCInd>
+            </DependentDetail>
+            <DependentDetail>
+                <DependentFirstNm>John</DependentFirstNm>
+                <DependentLastNm>Bongiovi</DependentLastNm>
+                <DependentNameControlTxt>BONG</DependentNameControlTxt>
+                <DependentSSN>600008102</DependentSSN>
+                <DependentRelationshipCd>PARENT</DependentRelationshipCd>
+                <EligibleForODCInd>X</EligibleForODCInd>
+            </DependentDetail>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>2</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>3</TotalExemptionsCnt>
+            <TaxableInterestAmt referenceDocumentId="IRS1040B001" referenceDocumentName="IRS1040ScheduleB">10200</TaxableInterestAmt>
+            <TotalIncomeAmt>10200</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>10200</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>21900</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>21900</TotalDeductionsAmt>
+            <TaxableIncomeAmt>0</TaxableIncomeAmt>
+            <TaxAmt>0</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>0</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>0</TaxLessCreditsAmt>
+            <TotalTaxAmt>0</TotalTaxAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Musician</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1040ScheduleB documentId="IRS1040B001" documentName="IRS1040ScheduleB">
+            <Form1040SchBPartIGroup2>
+                <InterestPayerName>
+                    <BusinessNameLine1Txt>Bon Jovi Investments</BusinessNameLine1Txt>
+                </InterestPayerName>
+                <InterestAmt>10200</InterestAmt>
+            </Form1040SchBPartIGroup2>
+            <InterestSubtotalAmt interestSubtotalLiteralCd="INTEREST SUBTOTAL">10200</InterestSubtotalAmt>
+            <TaxableInterestSubtotalAmt>10200</TaxableInterestSubtotalAmt>
+            <CalculatedTotalTaxableIntAmt>10200</CalculatedTotalTaxableIntAmt>
+            <ForeignAccountsQuestionInd>false</ForeignAccountsQuestionInd>
+            <ForeignTrustQuestionInd>false</ForeignTrustQuestionInd>
+        </IRS1040ScheduleB>
+    </ReturnData>
+</Return>
