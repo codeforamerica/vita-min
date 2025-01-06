@@ -38,10 +38,6 @@ module StateFile
     end
 
     def query_archiveable
-      # two subqueries in this :/ there's probably a better way
-      # i could eliminate the 2nd subquery if records in state_file_archived_intakes contained a reference to
-      # their intake source data. however that reference would eventually/quickly become orphaned once the
-      # source table is cleaned out in preparation for the next tax year
       <<~SQL
         SELECT
           #{tax_year} AS tax_year, '#{state_code}' AS state_code,
