@@ -12,6 +12,14 @@ module SubmissionBuilder
 
           private
 
+          def self.ptin 
+            "P99999999"  
+          end
+
+          def self.preparer_person_name
+            "Self Prepared"
+          end
+
           def attached_documents_parent_tag
             # Line 29 in ReturnDataNj1040.xsd
             'ReturnDataState'

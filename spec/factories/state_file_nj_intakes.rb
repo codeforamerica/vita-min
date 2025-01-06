@@ -264,6 +264,12 @@ FactoryBot.define do
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_lucky_single') }
     end
 
+    trait :df_data_hoh do
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_latifah_hoh') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_latifah_hoh') }
+      filing_status { "head_of_household" }
+    end
+
     factory :state_file_nj_payment_info_intake do
       after(:build) do |intake, _evaluator|
         intake.direct_file_data.fed_agi = 10000

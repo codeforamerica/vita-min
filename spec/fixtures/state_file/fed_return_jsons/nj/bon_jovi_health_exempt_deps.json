@@ -1,0 +1,76 @@
+{
+  "familyAndHousehold": [
+    {
+      "monthsLivedWithTPInUS": null,
+      "lastName": "Sharkey",
+      "hohQualifyingPerson": true,
+      "isClaimedDependent": true,
+      "qualifyingChild": false,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "1970-03-05",
+      "suffix": null,
+      "residencyDuration": "allYear",
+      "firstName": "Carol",
+      "middleInitial": null,
+      "scheduleEicLine4aNo": true,
+      "tin": "600-00-8101",
+      "eligibleDependent": true,
+      "relationship": "parent",
+      "ssnNotValidForEmployment": null
+    },
+    {
+      "monthsLivedWithTPInUS": null,
+      "lastName": "Bongiovi",
+      "isClaimedDependent": true,
+      "hohQualifyingPerson": true,
+      "qualifyingChild": false,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "1950-03-05",
+      "suffix": null,
+      "residencyDuration": "allYear",
+      "firstName": "John",
+      "middleInitial": null,
+      "tin": "600-00-8102",
+      "scheduleEicLine4aNo": true,
+      "eligibleDependent": true,
+      "relationship": "parent",
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "filers": [
+    {
+      "lastName": "Bon Jovi",
+      "dateOfBirth": "2004-03-02",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "firstName": "Jon",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "300-00-0021",
+      "interestReportsTotal": "10200.00",
+      "isDisabled": false,
+      "form1099GsTotal": "0.00",
+      "isStudent": false,
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [],
+  "interestReports": [
+    {
+      "has1099": true,
+      "taxExemptAndTaxCreditBondCusipNo": null,
+      "interestOnGovernmentBonds": "0.00",
+      "taxExemptInterest": "0.00",
+      "payerTin": null,
+      "recipientTin": "300-00-0021",
+      "payer": "Bon Jovi Investments",
+      "no1099Amount": null,
+      "taxWithheld": "0.00",
+      "1099Amount": "10200.00"
+    }
+  ]
+}
