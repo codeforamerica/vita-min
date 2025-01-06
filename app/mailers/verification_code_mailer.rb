@@ -25,4 +25,17 @@ class VerificationCodeMailer < ApplicationMailer
     attachments.inline['logo.png'] = service.email_logo
     mail(to: to, subject: @subject, from: service.noreply_email, delivery_method_options: service.delivery_method_options)
   end
+
+  def previous_year_verification_code(to:, locale:, verification_code:)
+    @locale = locale
+    service = MultiTenantService.new(:statefile)
+    @service_name = service.service_name
+    @service_name_lower = @service_name.downcase
+    @service_type = service.service_type
+    @url = service.url(locale: locale)
+    @verification_code = verification_code
+    attachments.inline['logo.png'] = service.email_logo
+    @subject = I18n.t("verification_code_mailer.previous_year_verification_code.subject", service_name: @service_name, url: @url, locale: @locale)
+    mail(to: to, subject: @subject, from: service.noreply_email, delivery_method_options: service.delivery_method_options)
+  end
 end

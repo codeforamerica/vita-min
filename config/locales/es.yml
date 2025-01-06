@@ -3964,6 +3964,21 @@ es:
 
         Su equipo de impuestos de %{service_name}
       subject: Intento de inicio de sesión de %{service_name}
+    previous_year_verification_code:
+      body_html: |
+        <p>Hello!</p>
+        <p>Your six-digit verification code for %{service_name} is: <strong> %{verification_code}.</strong> This code will expire after 30 minutes.</p>
+        <p>Did you receive this code without signing up? Email us at <a href="mailto:help@%{service_name_lower}.org">help@%{service_name_lower}.org</a></p>
+        <p>Your tax team at %{service_name}.org</p>
+      body_text: |
+        Hello!
+
+        Your six-digit verification code for %{service_name} is: %{verification_code}. This code will expire after 30 minutes.
+
+        Did you receive this code without signing up? Email us at help@%{service_name_lower}.org
+
+        Your tax team at %{service_name}.org
+      subject: Six-Digit Code from FileYourStateTaxes
     with_code:
       body_html: |
         <p>¡Hola!</p>
