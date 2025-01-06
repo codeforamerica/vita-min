@@ -1783,7 +1783,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_27_174414) do
     t.bigint "spouse_state_id_id"
     t.string "spouse_suffix"
     t.integer "spouse_was_incarcerated", default: 0, null: false
-    t.integer "ssn_no_employment", default: 0, null: false
     t.integer "tribal_member", default: 0, null: false
     t.decimal "tribal_wages_amount", precision: 12, scale: 2
     t.text "unfinished_intake_ids", default: [], array: true

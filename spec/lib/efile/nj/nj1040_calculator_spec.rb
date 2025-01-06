@@ -366,15 +366,15 @@ describe Efile::Nj::Nj1040Calculator do
   end
 
   describe 'line 10 and 11 dependents' do
-    context 'when 1 qualified child and 1 other dependent' do
-      let(:intake) { create(:state_file_nj_intake, :df_data_two_deps) }
-      it "sets lines 10 and 11 to 1" do
+    context 'when 1 qualified child claimed as dependent, 0 others claimed as dependent' do
+      let(:intake) { create(:state_file_nj_intake, :df_data_qss) }
+      it "sets lines 10 and 11 to 0" do
         expect(instance.lines[:NJ1040_LINE_10_COUNT].value).to eq(1)
-        expect(instance.lines[:NJ1040_LINE_11_COUNT].value).to eq(1)
+        expect(instance.lines[:NJ1040_LINE_11_COUNT].value).to eq(0)
       end
     end
 
-    context 'when 10 qualified children and 1 other dependent' do
+    context 'when 10 qualified children and 1 other claimed dependent' do
       let(:intake) { create(:state_file_nj_intake, :df_data_many_deps) }
       it "sets line 10 to 10 and line 11 to 1" do
         expect(instance.lines[:NJ1040_LINE_10_COUNT].value).to eq(10)
@@ -382,7 +382,15 @@ describe Efile::Nj::Nj1040Calculator do
       end
     end
 
-    context 'when 0 qualified child and 0 other dependent' do
+    context 'when 1 qualified child but is not claimed dependent' do
+      let(:intake) { create(:state_file_nj_intake, :df_data_hoh) }
+      it "sets lines 10 and 11 to 0" do
+        expect(instance.lines[:NJ1040_LINE_10_COUNT].value).to eq(0)
+        expect(instance.lines[:NJ1040_LINE_11_COUNT].value).to eq(0)
+      end
+    end
+
+    context 'when 0 qualified child and 0 other claimed dependent' do
       let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
       it "sets lines 10 and 11 to 0" do
         expect(instance.lines[:NJ1040_LINE_10_COUNT].value).to eq(0)
@@ -438,8 +446,8 @@ describe Efile::Nj::Nj1040Calculator do
       expect(instance.calculate_line_9).to eq(self_veteran)
       qualified_children_exemption = 1_500
       expect(instance.calculate_line_10_exemption).to eq(qualified_children_exemption)
-      other_dependents_exemption = 1_500
-      expect(instance.calculate_line_11_exemption).to eq(other_dependents_exemption)
+      other_claimed_dependents_exemption = 1_500
+      expect(instance.calculate_line_11_exemption).to eq(other_claimed_dependents_exemption)
       dependents_in_college = 2_000
       expect(instance.calculate_line_12).to eq(dependents_in_college)
       expect(instance.lines[:NJ1040_LINE_13].value).to eq(
@@ -448,7 +456,7 @@ describe Efile::Nj::Nj1040Calculator do
         self_blind +
         self_veteran +
         qualified_children_exemption +
-        other_dependents_exemption +
+        other_claimed_dependents_exemption +
         dependents_in_college
       )
     end
@@ -1182,6 +1190,7 @@ describe Efile::Nj::Nj1040Calculator do
           create(
             :state_file_nj_intake,
             :married_filing_separately,
+            household_rent_own: "rent",
             tenant_same_home_spouse: 'yes',
             )
         }
@@ -1196,6 +1205,7 @@ describe Efile::Nj::Nj1040Calculator do
           create(
             :state_file_nj_intake,
             :married_filing_separately,
+            household_rent_own: "own",
             homeowner_same_home_spouse: 'yes',
             )
         }
@@ -1210,6 +1220,7 @@ describe Efile::Nj::Nj1040Calculator do
           create(
             :state_file_nj_intake,
             :married_filing_separately,
+            household_rent_own: "rent",
             tenant_same_home_spouse: 'no',
             )
         }
@@ -1224,6 +1235,7 @@ describe Efile::Nj::Nj1040Calculator do
           create(
             :state_file_nj_intake,
             :married_filing_separately,
+            household_rent_own: "own",
             homeowner_same_home_spouse: 'no',
             )
         }
@@ -1288,6 +1300,16 @@ describe Efile::Nj::Nj1040Calculator do
         it 'sets line 56 to nil' do
           allow(StateFile::NjHomeownerEligibilityHelper).to receive(:determine_eligibility).and_return StateFile::NjHomeownerEligibilityHelper::INELIGIBLE
           allow(StateFile::NjTenantEligibilityHelper).to receive(:determine_eligibility).and_return StateFile::NjTenantEligibilityHelper::INELIGIBLE
+          instance.calculate
+          expect(instance.lines[:NJ1040_LINE_56].value).to eq(nil)
+        end
+      end
+
+      context 'when neither homeowner nor tenant' do
+        let(:intake) {
+          create(:state_file_nj_intake, household_rent_own: "neither")
+        }
+        it 'sets line 56 to nil' do
           instance.calculate
           expect(instance.lines[:NJ1040_LINE_56].value).to eq(nil)
         end

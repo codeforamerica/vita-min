@@ -223,7 +223,7 @@ module Efile
       end
 
       def calculate_line_10_count
-        @intake.direct_file_json_data.dependents.count do |dependent|
+        @intake.dependents.count do |dependent|
           dependent.qualifying_child
         end
       end
@@ -233,7 +233,7 @@ module Efile
       end
 
       def calculate_line_11_count
-        @intake.direct_file_json_data.dependents.count do |dependent|
+        @intake.dependents.count do |dependent|
           !dependent.qualifying_child
         end
       end
@@ -336,7 +336,7 @@ module Efile
           StateFile::NjTenantEligibilityHelper.determine_eligibility(@intake) == StateFile::NjTenantEligibilityHelper::INELIGIBLE &&
             StateFile::NjHomeownerEligibilityHelper.determine_eligibility(@intake) == StateFile::NjHomeownerEligibilityHelper::INELIGIBLE
         else
-          nil
+          true
         end
       end
 
