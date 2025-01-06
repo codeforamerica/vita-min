@@ -1,10 +1,10 @@
 <% content_for :page_title, t("views.public_pages.other_options.title") %>
 
-<main role="main">
+<div class="main-content-inner">
   <section class="slab slab--white">
     <div class="grid">
       <div class="grid__item width-three-fourths">
-        <main role="main">
+        <div class="main-content-inner">
           <div class="offboarding--illustration">
             <%= image_tag("other-options.svg", alt: "") %>
           </div>
@@ -27,8 +27,8 @@
             <%= link_to t("general.find_vita_site"), vita_providers_path, class: "button button--primary button--wide text--centered" %>
             <%= link_to t("general.visit_free_file"), "https://irs.treasury.gov/freetaxprep/", class: "button button--wide text--centered", rel: "noopener", target: "_blank", "data-track-click": "freefile" %>
           </div>
-        </main>
+        </div>
       </div>
     </div>
   </section>
-</main>
+</div>

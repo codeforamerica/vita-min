@@ -28,6 +28,10 @@
   &:focus {
     box-shadow: none;
   }
+
+  &:focus-visible {
+    box-shadow: 0 0 0 3px #FFFFFF, 0px 0px 0px 8px #C2850C;
+  }
 }
 
 .reveal__content {

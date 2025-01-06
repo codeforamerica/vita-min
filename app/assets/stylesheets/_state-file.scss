@@ -418,12 +418,12 @@
     margin: 1em 0;
     display: inline-block;
     box-sizing: border-box;
-    border: 2px solid #dc6565;
+    border: 2px solid #A22525;
     box-shadow: 0 2px 0px rgba(0, 0, 0, 0.5);
     background-color: #ffffff;
     padding: 1.75rem 2.5rem;
     border-radius: 1rem;
-    color: #dc6565;
+    color: #A22525;
     text-decoration: none;
   }
 
@@ -760,7 +760,7 @@
     .question-layout.landing-page-outer .question-wrapper {
       max-width: none;
 
-      main {
+      .main-content-inner {
         display: flex;
         justify-content: space-between;
 
