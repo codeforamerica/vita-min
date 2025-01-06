@@ -19,7 +19,7 @@
 #  fk_rails_...  (state_file_archived_intakes_id => state_file_archived_intakes.id)
 #
 class StateFileArchivedIntakeAccessLog < ApplicationRecord
-  belongs_to :state_file_archived_intake
+  belongs_to :state_file_archived_intake, optional: true
   enum event_type: {
     issued_email_challenge: 0, 
     correct_email_code: 1,

@@ -2231,6 +2231,10 @@ en:
         link_text: Opt in again.
         mistake: Is this a mistake?
         title: You've opted out of email notifications from FileYourStateTaxes.
+    archived_intakes:
+      email_address:
+        edit:
+          enter_email: Enter the email address linked to your account
     questions:
       az_charitable_contributions:
         edit:
@@ -2678,9 +2682,6 @@ en:
           email_address_label: Your email address
           subtitle_html: To create a new account, provide an email address that isn't already in use.<br><br>Use an email account you can access.
           title: Enter your email address
-      email_address_validation:
-        edit:
-          enter_email: Enter the email address linked to your account
       esign_declaration:
         edit:
           already_submitted: You have already submitted your return.

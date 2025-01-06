@@ -555,6 +555,10 @@ Rails.application.routes.draw do
   constraints(Routes::StateFileDomain.new) do
     scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
       namespace :state_file do
+        namespace :archived_intakes do
+          get 'email_address/edit', to: 'email_address#edit', as: 'edit_email_address'
+          patch 'email_address', to: 'email_address#update'
+        end
         namespace :questions do
           get "show_xml", to: "confirmation#show_xml"
           get "explain_calculations", to: "confirmation#explain_calculations"
