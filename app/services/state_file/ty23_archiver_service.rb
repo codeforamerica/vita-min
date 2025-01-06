@@ -46,8 +46,8 @@ module StateFile
         SELECT
           #{tax_year} AS tax_year, '#{state_code}' AS state_code,
           email_address, hashed_ssn, id AS source_intake_id
-        FROM
-          state_file_az_intakes
+          FROM
+          #{data_source.table_name}
         WHERE id IN (
           SELECT
             efs.data_source_id
