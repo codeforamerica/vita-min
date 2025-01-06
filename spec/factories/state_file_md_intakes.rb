@@ -122,6 +122,13 @@ FactoryBot.define do
       end
     end
 
+    trait :with_efile_device_infos do
+      after(:build) do |intake|
+        create :state_file_efile_device_info, :filled, :initial_creation, intake: intake
+        create :state_file_efile_device_info, :filled, :submission, intake: intake
+      end
+    end
+
     raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("md_minimal") }
     raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json("md_minimal") }
     df_data_import_succeeded_at { DateTime.now }
@@ -134,6 +141,7 @@ FactoryBot.define do
     political_subdivision { "Mt Savage" }
     confirmed_permanent_address { "yes" }
     residence_county { "Allegany" }
+    primary_signature_pin { '23456' }
 
     after(:build) do |intake, evaluator|
       numeric_status = {

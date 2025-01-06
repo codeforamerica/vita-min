@@ -1,18 +1,20 @@
 module SubmissionBuilder
   class StateReturn < SubmissionBuilder::Document
     def document
-      @document = state_schema_version.present? ?
-                    build_xml_doc(build_xml_doc_tag, stateSchemaVersion: state_schema_version) :
+      @document = if state_schema_version.present?
+                    build_xml_doc(build_xml_doc_tag, stateSchemaVersion: state_schema_version)
+                  else
                     build_xml_doc(build_xml_doc_tag)
+                  end
       build_headers
       build_main_document
       build_documents
       build_state_specific_tags(@document)
       @document
     end
-
+    
     def pdf_documents
-      included_documents.map { |item| item if item.pdf }.compact
+      included_documents.select { |item| item.pdf }
     end
 
     def build_headers
@@ -50,7 +52,7 @@ module SubmissionBuilder
     end
 
     def xml_documents
-      included_documents.map { |item| item if item.xml }.compact
+      included_documents.select { |item| item.xml }
     end
 
     def included_documents
@@ -128,5 +130,9 @@ module SubmissionBuilder
     def build_state_specific_tags(_); end
 
     def documents_wrapper; end
+      
+    def self.preparer_person_name; end
+      
+    def self.ptin; end
   end
 end
