@@ -1,10 +1,10 @@
 module StateFile
   module ArchivedIntakes
-    class EmailAddressForm < Form
-      attr_accessor :email_address
+    class VerificationCodeForm < Form
+      attr_accessor :verification_code
 
-      validates :email_address, 'valid_email_2/email': true
-      validates :email_address, presence: true
+      validates :verification_code, presence: true
+      validates :verification_code, format: { with: /\A[0-9]{6}\z/ }
 
       def initialize(attributes = {})
         super

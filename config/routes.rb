@@ -558,6 +558,8 @@ Rails.application.routes.draw do
         namespace :archived_intakes do
           get 'email_address/edit', to: 'email_address#edit', as: 'edit_email_address'
           patch 'email_address', to: 'email_address#update'
+          get 'verification_code/edit', to: 'verification_code#edit', as: 'edit_verification_code'
+          patch 'verification_code', to: 'verification_code#update'
         end
         namespace :questions do
           get "show_xml", to: "confirmation#show_xml"
@@ -596,8 +598,6 @@ Rails.application.routes.draw do
         navigation_class = StateFile::StateInformationService.navigation_class(code)
         scoped_navigation_routes(:questions, navigation_class)
       end
-      scoped_navigation_routes(:questions, Navigation::ArchivedIntakeNavigation)
-
 
       match("/code-verified", action: :edit, controller: "state_file/questions/code_verified", via: :get)
       match("/code-verified", action: :update, controller: "state_file/questions/code_verified", via: :put)
