@@ -2071,6 +2071,16 @@ es:
       nc_tax_withheld: Impuesto retenido en Carolina del Norte
       nc_taxable_income: Ingreso tributables en Carolina del Norte
       nc_use_tax: Impuesto sobre el uso de Carolina del Norte
+      nj_minimal_essential_health_coverage_html: |-
+        <p>Most people who have health insurance have minimum essential coverage. “Minimal essential coverage” just refers to how much your plan covers. If you have any of the following, you most likely have it:</p>
+        <ul>
+          <li>A plan through your employer</li>
+          <li>A plan bought through <a target="_blank" rel="noopener noreferrer" href="https://nj.gov/getcoverednj/">GetCoveredNJ</a></li>
+          <li>Medicare</li>
+          <li>Medicaid (NJ FamilyCare)</li>
+        </ul>
+        <p><a target="_blank" rel="noopener noreferrer" href="https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml">Here is the full list of insurance options that have minimum essential coverage.</a><p>
+        <p>If you only had standalone vision and dental plans, workers' compensation coverage, and/or coverage limited to a specified disease or illness, you didn't have minimum essential coverage. In New Jersey, as of 2018, you need minimum essential coverage, or you will likely pay additional taxes.</p>
       register_to_vote: Regístrate para votar
       see_detailed_return: Ver información detallada de la declaración
       standard_deduction: Deducción estándar
@@ -2201,8 +2211,6 @@ es:
           household_excise_credit_html: "¿Alguien en tu hogar presentó una declaración de impuestos por separado de la tuya y reclamó el Crédito por Aumento de Impuestos Especiales de Arizona?<br><br> (Tu hogar incluye a todas las personas con las que viviste, incluso si no están incluidas en tu declaración.)"
           primary_was_incarcerated: "¿Estuviste encarcelado en una cárcel del condado, estatal o federal durante al menos 60 días en%{tax_year}?"
           spouse_was_incarcerated: "¿Tu cónyuge estuvieron encarcelados en una cárcel del condado, estatal o federal durante al menos 60 días en %{tax_year}?"
-          ssn_no_employment_html:
-            label: "¿Tienes la frase <b>'not valid for employment'</b> escrita en tu tarjeta de Seguro Social? (Esto es poco común.)"
           title: Es posible que seas elegible para el Crédito tributario por Aumento de Impuestos Especiales.
       az_prior_last_names:
         edit:
@@ -2306,7 +2314,6 @@ es:
           made_az321_contributions: Hizo contribuciones a organizaciones benéficas calificadas
           made_az322_contributions: Hizo contribuciones a las escuelas públicas
           public_school_credit: Crédito de escuela pública
-          ssn_no_employment: '"Not valid for employment" escrita en tu tarjeta de Seguro Social'
           ssn_not_taxed: Los beneficios del Seguro Social no están sujetos a impuestos en Arizona
           subtraction_for_indian_res: Resta de los ingresos obtenidos en una reserva de indios americanos
           subtraction_for_military_pay: Resta del pago militar en servicio activo
@@ -3087,6 +3094,12 @@ es:
         edit:
           county: Condado
           title: Selecciona el condado donde viviste el 31 de diciembre de %{filing_year}
+      nj_dependents_health_insurance:
+        edit:
+          continue: Click "continue" if all these people had health insurance.
+          coverage_heading: What is health insurance with minimum essential coverage?
+          label: 'Check all the people that did NOT have health insurance:'
+          title_html: Please tell us which dependents were missing health insurance (<a target=" _blank" rel="noopener noreferrer" href="https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml">with minimum essential health coverage</a>) in 2024.
       nj_disabled_exemption:
         edit:
           instructions_html: Las personas con discapacidad tienen derecho a exenciones de impuestos. <br><br> En Nueva Jersey, se le considera discapacitado si tiene una "incapacidad <b>total y permanente</b> para participar en cualquier actividad sustancial y lucrativa debido a cualquier impedimento físico o mental, incluida la ceguera". <br><br> (Esto es diferente de la definición de impuestos federales. Nueva Jersey no tiene en cuenta su edad ni su percepción de ingresos por discapacidad sujetos a impuestos.)
@@ -3120,11 +3133,8 @@ es:
           title: You may be eligible for the Earned Income Tax Credit
       nj_eligibility_health_insurance:
         edit:
-          coverage_description_html: "<p>Most people who have health insurance have minimum essential coverage. “Minimal essential coverage” just refers to how much your plan covers. If you have any of the following, you most likely have it:</p>\n<ul>\n  <li>A plan through your employer</li>\n  <li>A plan bought through <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://nj.gov/getcoverednj/\">GetCoveredNJ</a></li>\n  <li>Medicare</li> \n  <li>Medicaid (NJ FamilyCare)</li>\n</ul>\n<p><a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml\">Here is the full list of insurance options that have minimum essential coverage.</a><p> \n<p>If you only had standalone vision and dental plans, workers' compensation coverage, and/or coverage limited to a specified disease or illness, you didn't have minimum essential coverage. In New Jersey, as of 2018, you need minimum essential coverage, or you will likely pay additional taxes.</p>\n"
           coverage_heading: What is health insurance with minimum essential coverage?
-          dependent_label: "%{name}"
           label: Did you and all members of your tax household have health insurance (with minimum essential coverage) for every month in %{filing_year}?
-          label_follow_up: Which dependents were missing health insurance?
           tax_household_description_html: A tax household includes you, your spouse (if filing a joint return), domestic partner claimed on your return, and any individuals you claim as dependents on your NJ-1040. It also includes any individuals you can, but do not, claim as dependents on your return.
           tax_household_heading: What is considered a tax household?
           title: Let’s get started.
@@ -3626,6 +3636,10 @@ es:
           text_update: Recibirás una actualización por SMS cuando una vez tu declaración de impuestos haya sido aceptada.
           title: "¡Tu declaración de impuestos de %{state_name}de %{filing_year} ha sido enviada! "
           title_resubmit: "¡Tu declaración de impuestos de %{state_name} de %{filing_year} ha sido enviada de nuevo!"
+        nj_additional_content:
+          body_html: You said you%{or_spouse} are filing for the veteran exemption. If it's your first time filing for <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml">this exemption</a>, you have to provide <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml">documentation</a> and a <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf">form</a> to the New Jersey Division of Taxation. It can be done <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf">online</a>.
+          header: 'Attention: if you are claiming the veteran exemption for the first time'
+          or_spouse: " or your spouse"
       tax_refund:
         bank_details:
           account_number: Número de cuenta

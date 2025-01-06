@@ -1,0 +1,36 @@
+{
+  "familyAndHousehold": [
+    {
+      "monthsLivedWithTPInUS": "twelve",
+      "lastName": "Rose",
+      "isClaimedDependent": true,
+      "hohQualifyingPerson": true,
+      "qualifyingChild": true,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "2010-02-02",
+      "suffix": null,
+      "residencyDuration": "allYear",
+      "firstName": "Axel",
+      "middleInitial": null,
+      "scheduleEicLine4aNo": false,
+      "tin": "300-00-0009",
+      "eligibleDependent": true,
+      "relationship": "sibling",
+      "ssnNotValidForEmployment": false
+    }
+  ],
+  "filers": [
+    {
+      "lastName": "Rose",
+      "firstName": "Alexis",
+      "middleInitial": null,
+      "tin": "400-00-0003",
+      "dateOfBirth": "1990-01-01",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "interestReports": []
+}

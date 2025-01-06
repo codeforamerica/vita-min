@@ -350,13 +350,36 @@ describe Efile::Az::Az140Calculator do
     end
 
     context "mfj filer with one dependent" do
+      let (:intake) { create :state_file_az_intake, :with_spouse }
+
       it "sets the credit to the correct amount" do
         create :state_file_dependent, intake: intake, dob: 7.years.ago
-        intake.direct_file_data.filing_status = 2 # mfj
         intake.direct_file_data.fed_agi = 25_000 # qualifying agi
 
         instance.calculate
         expect(instance.lines[:AZ140_LINE_56].value).to eq(75) # (2 filers + 1 dependent) * 25
+      end
+    end
+
+    context "mfj when one filer has an SSN which is not valid for employment" do
+      let (:intake) { create :state_file_az_intake, :with_spouse }
+
+      it "sets the credit to the correct amount when primary has ssn_not_valid_for_employment" do
+        create :state_file_dependent, intake: intake, dob: 7.years.ago
+        intake.direct_file_data.fed_agi = 25_000 # qualifying agi
+        intake.direct_file_json_data.primary_filer.ssn_not_valid_for_employment = true
+
+        instance.calculate
+        expect(instance.lines[:AZ140_LINE_56].value).to eq(50) # (1 filers + 1 dependent) * 25
+      end
+
+      it "sets the credit to the correct amount when spouse has ssn_not_valid_for_employment" do
+        create :state_file_dependent, intake: intake, dob: 7.years.ago
+        intake.direct_file_data.fed_agi = 25_000 # qualifying agi
+        intake.direct_file_json_data.spouse_filer.ssn_not_valid_for_employment = true
+
+        instance.calculate
+        expect(instance.lines[:AZ140_LINE_56].value).to eq(50) # (1 filers + 1 dependent) * 25
       end
     end
 
@@ -384,8 +407,9 @@ describe Efile::Az::Az140Calculator do
     end
 
     context "mfj filer, one incarcerated, no dependents" do
+      let (:intake) { create :state_file_az_intake, :with_spouse }
+
       it "calculates the credit without incarcerated filer" do
-        intake.direct_file_data.filing_status = 2 # mfj
         intake.direct_file_data.fed_agi = 12_500 # qualifying agi
         intake.update(primary_was_incarcerated: "no", spouse_was_incarcerated: "yes")
         instance.calculate
@@ -393,7 +417,6 @@ describe Efile::Az::Az140Calculator do
       end
 
       it "handles the old column for now" do
-        intake.direct_file_data.filing_status = 2 # mfj
         intake.direct_file_data.fed_agi = 12_500 # qualifying agi
         intake.update(was_incarcerated: "no")
         instance.calculate

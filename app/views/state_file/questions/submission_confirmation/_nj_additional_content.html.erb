@@ -1,0 +1,6 @@
+<% if current_intake.primary_veteran_yes? || current_intake.spouse_veteran_yes? %>
+  <div class="white-group">
+    <h2 class="h3"><%=t('.header') %></h2>
+    <p><%=t('.body_html', or_spouse: current_intake.filing_status_mfj? ? t('.or_spouse') : '') %></p>
+  </div>
+<% end %>

@@ -39,6 +39,7 @@ module Navigation
                                           Navigation::NavigationStep.new(StateFile::Questions::NjDisabledExemptionController),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjVeteransExemptionController),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjCollegeDependentsExemptionController),
+                                          Navigation::NavigationStep.new(StateFile::Questions::NjDependentsHealthInsuranceController),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjMedicalExpensesController),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjHouseholdRentOwnController),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjHomeownerEligibilityController),
