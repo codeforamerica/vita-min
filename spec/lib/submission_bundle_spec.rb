@@ -66,5 +66,38 @@ describe SubmissionBundle do
         end
       end
     end
+
+    context "XML processing" do
+      let(:submission) do
+        create(
+          :efile_submission,
+          data_source: create(
+            :state_file_md_intake,
+            :with_efile_device_infos,
+            federal_submission_id: fed_return_submission_id
+          ),
+          irs_submission_id: state_return_submission_id
+        )
+      end
+
+      it "utilizes the delete blank node method", required_schema: "md" do
+        expect_any_instance_of(XmlMethods).to receive(:delete_blank_nodes)
+        described_class.new(submission).build
+      end
+
+      context "when there are errors in the submission bundle" do
+        before do
+          submission.data_source.update(
+            political_subdivision: nil,
+            subdivision_code: nil,
+          )
+        end
+
+        it "does not utilize the delete blank node method", required_schema: "md" do
+          expect_any_instance_of(XmlMethods).not_to receive(:delete_blank_nodes)
+          described_class.new(submission).build
+        end
+      end
+    end
   end
 end

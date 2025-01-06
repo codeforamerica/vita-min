@@ -69,7 +69,7 @@ module Efile
       doc.css('AcknowledgementList Acknowledgement').each do |ack|
         ack_count += 1
         irs_submission_id = ack.css("SubmissionId").text.strip
-        status = ack.css("AcceptanceStatusTxt").text.strip
+        status = ack.css("AcceptanceStatusTxt").text.strip.downcase
         raw_response = ack.to_xml
         submission = EfileSubmission.find_by(irs_submission_id: irs_submission_id)
 
@@ -78,16 +78,16 @@ module Efile
           next
         end
 
-        if submission.current_state == status.downcase
+        if submission.current_state == status
           Sentry.capture_message("Submission #{submission.id} / #{irs_submission_id} was already in terminal state #{status.downcase}. Duplicate acknowledgement?")
           next
         end
 
-        if ["Rejected", "R", "Denied by IRS"].include?(status)
+        if ["rejected", "r", "denied by irs"].include?(status)
           submission.transition_to(:rejected, raw_response: raw_response)
-        elsif ["Accepted", "A"].include?(status)
+        elsif ["accepted", "a"].include?(status)
           submission.transition_to(:accepted, raw_response: raw_response)
-        elsif status == "Exception"
+        elsif status == "exception"
           submission.transition_to(:accepted, raw_response: raw_response, imperfect_return_acceptance: true)
         else
           submission.transition_to(:failed, raw_response: raw_response)
