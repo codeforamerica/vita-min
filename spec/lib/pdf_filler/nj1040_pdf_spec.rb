@@ -1828,7 +1828,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_56).and_return 25
         end
 
-        it "writes $50.00 property tax credit" do
+        it "writes $25.00 property tax credit" do
           # hundreds
           expect(pdf_fields["Text161"]).to eq "2"
           expect(pdf_fields["Text162"]).to eq "5"
