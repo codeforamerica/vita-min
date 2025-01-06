@@ -11,7 +11,7 @@ RSpec.describe StateFile::Questions::NjDependentsHealthInsuranceController do
       end
     end
 
-    context "when intake has depedents" do
+    context "when intake has dependents" do
       let(:intake) { create :state_file_nj_intake, :df_data_two_deps }
       
       context "and did not have a health insurance requirement exception and all members had health insurance" do
