@@ -1190,6 +1190,7 @@ describe Efile::Nj::Nj1040Calculator do
           create(
             :state_file_nj_intake,
             :married_filing_separately,
+            household_rent_own: "rent",
             tenant_same_home_spouse: 'yes',
             )
         }
@@ -1204,6 +1205,7 @@ describe Efile::Nj::Nj1040Calculator do
           create(
             :state_file_nj_intake,
             :married_filing_separately,
+            household_rent_own: "own",
             homeowner_same_home_spouse: 'yes',
             )
         }
@@ -1218,6 +1220,7 @@ describe Efile::Nj::Nj1040Calculator do
           create(
             :state_file_nj_intake,
             :married_filing_separately,
+            household_rent_own: "rent",
             tenant_same_home_spouse: 'no',
             )
         }
@@ -1232,6 +1235,7 @@ describe Efile::Nj::Nj1040Calculator do
           create(
             :state_file_nj_intake,
             :married_filing_separately,
+            household_rent_own: "own",
             homeowner_same_home_spouse: 'no',
             )
         }
