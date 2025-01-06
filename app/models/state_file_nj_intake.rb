@@ -189,12 +189,10 @@ class StateFileNjIntake < StateFileBaseIntake
   end
 
   def health_insurance_eligibility
-    if self.eligibility_all_members_health_insurance_yes? || 
-       self.has_health_insurance_requirement_exception?
-      "eligible"
-    else
-      "ineligible"
+    if self.eligibility_all_members_health_insurance_no? && !self.has_health_insurance_requirement_exception?
+      return "ineligible"
     end
+    "eligible"
   end
 
   def disqualifying_eligibility_rules
