@@ -73,7 +73,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
           expect(xml.document.at('Dependents DependentsName FirstName').text).to eq("Kronos")
           expect(xml.document.at('Dependents DependentsName LastName').text).to eq("Athens")
           expect(xml.document.at('Dependents DependentsSSN').text).to eq("300000029")
-          expect(xml.document.at('Dependents BirthYear').text).to eq(Time.now.year.to_s)
+          expect(xml.document.at('Dependents BirthYear').text).to eq(MultiTenantService.new(:statefile).current_tax_year.to_s)
         end
       end
 
