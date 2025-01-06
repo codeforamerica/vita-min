@@ -3102,8 +3102,7 @@ es:
           continue: Click "continue" if all these people had health insurance.
           coverage_heading: What is health insurance with minimum essential coverage?
           label: 'Check all the people that did NOT have health insurance:'
-          title_html: "Please tell us which dependents were missing health insurance (<a target=\"
-          _blank\" rel=\"noopener noreferrer\" href=\"https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml\">with minimum essential health coverage</a>) in 2024."
+          title_html: Please tell us which dependents were missing health insurance (<a target=" _blank" rel="noopener noreferrer" href="https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml">with minimum essential health coverage</a>) in 2024.
       nj_disabled_exemption:
         edit:
           instructions_html: Las personas con discapacidad tienen derecho a exenciones de impuestos. <br><br> En Nueva Jersey, se le considera discapacitado si tiene una "incapacidad <b>total y permanente</b> para participar en cualquier actividad sustancial y lucrativa debido a cualquier impedimento físico o mental, incluida la ceguera". <br><br> (Esto es diferente de la definición de impuestos federales. Nueva Jersey no tiene en cuenta su edad ni su percepción de ingresos por discapacidad sujetos a impuestos.)

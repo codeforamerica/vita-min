@@ -3142,8 +3142,7 @@ en:
           continue: Click "continue" if all these people had health insurance.
           coverage_heading: What is health insurance with minimum essential coverage?
           label: 'Check all the people that did NOT have health insurance:'
-          title_html: "Please tell us which dependents were missing health insurance (<a target=\"
-          _blank\" rel=\"noopener noreferrer\" href=\"https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml\">with minimum essential health coverage</a>) in 2024."
+          title_html: Please tell us which dependents were missing health insurance (<a target=" _blank" rel="noopener noreferrer" href="https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml">with minimum essential health coverage</a>) in 2024.
       nj_disabled_exemption:
         edit:
           instructions_html: People with disabilities are eligible for tax exemptions. <br><br> In NJ, you are considered disabled if you have a "<b>total and permanent</b> inability to engage in any substantial gainful activity because of any physical or mental impairment, including blindness." <br><br> (This is different from the federal tax definition. NJ doesn’t consider your age or your receipt of taxable disability income.)
