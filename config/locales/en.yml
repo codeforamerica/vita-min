@@ -2644,6 +2644,7 @@ en:
           college_savings_account: 529 College Savings Account Contributions
           credits_carried: Credits carried forward from previous years
           credits_for_rehabilitating: Credits for Rehabilitating Historic Structures
+          credits_not_supported: What credits and deductions does this service not support this year?
           estimated_income_tax_payments: Estimated income tax payments
           extension_payment: Extension payments
           personal_education: Personal Education Student Account Deposits Deduction
@@ -3293,23 +3294,29 @@ en:
           why_ask_this: Why are you asking for this information?
       nj_review:
         edit:
-          amount: Amount
-          claimed_as_eitc_qualifying_child: I could be someone else's qualifying child for the Earned Income Tax Credit.
-          college_dependents: Dependents attending college
-          county: County
+          amount_calculated: Calculated Amount
+          amount_entered: Amount Entered
+          college_dependents: Dependent(s) attending college exemption
+          college_dependents_none: Not applicable
+          continue_helper: Click "Continue" if all this looks right to you.
+          county_municipality: Where you lived as of Dec 31, %{filing_year}
           edit_disability: disability status
-          edit_gubernatorial: gubernatorial fund contributions
           edit_veteran: veteran status
-          estimated_tax_payments: Payments already made to New Jersey taxes
-          household_rent_own: Rent or own home
-          medical_expenses: Medical expenses
-          municipality: Municipality
-          primary_disabled: I have a disability
-          primary_gubernatorial: I want $1 of my taxes to go to the gubernatorial elections fund
-          primary_veteran: I am a veteran
-          property_tax_credit_deduction: Property Tax Credit/Deduction
-          property_tax_paid: Property taxes paid
-          rent_paid: Rent paid
+          eitc: New Jersey Earned Income Tax Credit (NJEITC)
+          estimated_tax_payments: Payments already made towards New Jersey taxes
+          household_rent_own: Living situation in %{filing_year}
+          household_rent_own_both: Owned and rented
+          household_rent_own_neither: Neither owned or rented
+          household_rent_own_own: Owned
+          household_rent_own_rent: Rented
+          medical_expenses: Total medical expenses
+          missing_health_insurance: Missing Health Insurance
+          primary_claimed_as_eitc_qualifying_child: You could be someone's qualifying child
+          primary_disabled: Disability exemption (you)
+          primary_veteran: Veteran exemption (you)
+          property_tax_credit_deduction: New Jersey Property Tax deduction or credit
+          property_tax_paid: Property taxes paid in %{filing_year}
+          rent_paid: Rent paid in %{filing_year}
           reveal:
             15_wages_salaries_tips: Wages, salaries, tips
             16a_interest_income: Interest income
@@ -3331,11 +3338,12 @@ en:
             65_nj_ctc: New Jersey child tax credit
             66_total_payments_refundable_credits: Total payments and refundable credits
             header: See detailed return information
-          spouse_claimed_as_eitc_qualifying_child: My spouse could be someone else's qualifying child for the Earned Income Tax Credit.
-          spouse_disabled: My spouse has a disability
-          spouse_gubernatorial: My spouse wants $1 of their taxes to go to the gubernatorial elections fund
-          spouse_veteran: My spouse is a veteran
-          use_tax_applied: Consumer Use Tax Applied
+          review_and_edit: Review and Edit
+          spouse_claimed_as_eitc_qualifying_child: Your spouse could be someone's qualifying child
+          spouse_disabled: Disability exemption (spouse)
+          spouse_veteran: Veteran exemption (spouse)
+          use_tax_applied: Out-of-State Purchases Use Tax Applied
+          year_of_death: Year of spouse's passing
       nj_sales_use_tax:
         edit:
           followup_radio_label: Select one of the following
@@ -3569,7 +3577,7 @@ en:
             <li>
               Make your check or money order payable to %{payable_to}. Write your full SSN or ITIN, “%{filing_year} Tax”, and "Form %{form_number}" on your payment.
             </li>
-          direct_debit_html: If you have a remaining tax balance, remember to <strong>pay it online at <a target="_blank" rel="noopener nofollow" href="%{tax_payment_url}">%{tax_payment_url}</a></strong> or by mail before the April 15 filing deadline.
+          direct_debit_html: If you have a remaining tax balance, remember to <strong>pay it online at <a target="_blank" rel="noopener nofollow" href="%{tax_payment_info_url}">%{tax_payment_info_text}</a></strong> or by mail before the April 15 filing deadline.
           download_voucher: Download payment voucher form
           feedback: We value your feedback—let us know what you think of this service.
           include_payment: You'll need to include the payment voucher form.
@@ -3689,8 +3697,8 @@ en:
           routing_number: Routing Number
           withdraw_amount: How much do you authorize to be withdrawn from your account? (Your total amount due is&#58; $%{owed_amount}.)
         edit:
-          direct_deposit: Direct deposit (fastest)
-          mail: Mail my payment (slower)
+          direct_deposit: By direct deposit (fastest)
+          mail: By mail (slower)
           page_title: Good news, you're getting a tax refund. How would you like to receive your refund?
           title_html: Good news, you're getting a %{state_name} state tax refund of <strong>$%{refund_amount}.</strong>
       taxes_owed:

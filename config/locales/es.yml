@@ -2600,6 +2600,7 @@ es:
           college_savings_account: Contribuciones a cuentas de ahorro 529 para la universidad
           credits_carried: Créditos acumulados de años anteriores
           credits_for_rehabilitating: Créditos por la rehabilitación de estructuras históricas
+          credits_not_supported: What credits and deductions does this service not support this year?
           estimated_income_tax_payments: Pagos de impuestos sobre la renta estimados
           extension_payment: Pagos por extensión
           personal_education: Deducción por depósitos en cuentas de estudiante de educación personal
@@ -3253,23 +3254,29 @@ es:
           why_ask_this: "¿Por qué están pidiendo esta información?"
       nj_review:
         edit:
-          amount: Cantidad
-          claimed_as_eitc_qualifying_child: I could be someone else's qualifying child for the Earned Income Tax Credit.
-          college_dependents: Dependents attending college
-          county: Condado
+          amount_calculated: Calculated Amount
+          amount_entered: Amount Entered
+          college_dependents: Dependent(s) attending college exemption
+          college_dependents_none: Not applicable
+          continue_helper: Click "Continue" if all this looks right to you.
+          county_municipality: Where you lived as of Dec 31, %{filing_year}
           edit_disability: disability status
-          edit_gubernatorial: gubernatorial fund contributions
           edit_veteran: veteran status
-          estimated_tax_payments: Payments already made to New Jersey taxes
-          household_rent_own: Vivienda en alquiler o en propiedad propia
-          medical_expenses: Gastos médicos
-          municipality: Municipio
-          primary_disabled: Primary disabled
-          primary_gubernatorial: I want $1 of my taxes to go to the gubernatorial elections fund
-          primary_veteran: Soy un veterano
-          property_tax_credit_deduction: Property Tax Credit/Deduction
-          property_tax_paid: Impuestos sobre la propiedad pagados
-          rent_paid: Alquiler pagado
+          eitc: New Jersey Earned Income Tax Credit (NJEITC)
+          estimated_tax_payments: Payments already made towards New Jersey taxes
+          household_rent_own: Living situation in %{filing_year}
+          household_rent_own_both: Owned and rented
+          household_rent_own_neither: Neither owned or rented
+          household_rent_own_own: Owned
+          household_rent_own_rent: Rented
+          medical_expenses: Total medical expenses
+          missing_health_insurance: Missing Health Insurance
+          primary_claimed_as_eitc_qualifying_child: You could be someone's qualifying child
+          primary_disabled: Disability exemption (you)
+          primary_veteran: Veteran exemption (you)
+          property_tax_credit_deduction: New Jersey Property Tax deduction or credit
+          property_tax_paid: Property taxes paid in %{filing_year}
+          rent_paid: Rent paid in %{filing_year}
           reveal:
             15_wages_salaries_tips: Wages, salaries, tips
             16a_interest_income: Interest income
@@ -3291,11 +3298,12 @@ es:
             65_nj_ctc: New Jersey child tax credit
             66_total_payments_refundable_credits: Total payments and refundable credits
             header: See detailed return information
-          spouse_claimed_as_eitc_qualifying_child: My spouse could be someone else's qualifying child for the Earned Income Tax Credit.
-          spouse_disabled: Spouse disabled
-          spouse_gubernatorial: My spouse wants $1 of their taxes to go to the gubernatorial elections fund
-          spouse_veteran: Mi cónyuge es un veterano
-          use_tax_applied: Impuesto sobre el uso del consumidor aplicado
+          review_and_edit: Review and Edit
+          spouse_claimed_as_eitc_qualifying_child: Your spouse could be someone's qualifying child
+          spouse_disabled: Disability exemption (spouse)
+          spouse_veteran: Veteran exemption (spouse)
+          use_tax_applied: Out-of-State Purchases Use Tax Applied
+          year_of_death: Year of spouse's passing
       nj_sales_use_tax:
         edit:
           followup_radio_label: Selecciona una de las siguientes opciones
@@ -3543,7 +3551,7 @@ es:
             <li>
               Haz tu cheque o giro postal a nombre del %{payable_to}. Escribe tu SSN o ITIN completo, "%{filing_year} Tax", y "Form %{form_number}" en tu pago.
             </li>
-          direct_debit_html: Si tienes un saldo de impuestos pendiente, recuerda <strong>pagarlo en línea en <a target="_blank" rel="noopener nofollow" href="%{tax_payment_url}">%{tax_payment_url}</a></strong> o por correo antes de la fecha límite de declaración que es el 15 de abril.
+          direct_debit_html: Si tienes un saldo de impuestos pendiente, recuerda <strong>pagarlo en línea en <a target="_blank" rel="noopener nofollow" href="%{tax_payment_info_url}">%{tax_payment_info_text}</a></strong> o por correo antes de la fecha límite de declaración que es el 15 de abril.
           download_voucher: Descargar el formulario de comprobante de pago
           feedback: Valoramos sus comentarios; háganos saber lo que piensa de esta herramienta.
           include_payment: Debes incluir el formulario de comprobante de pago.

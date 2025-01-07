@@ -29,6 +29,9 @@
       </div>
     </div>
 
+    <% if params[:return_to_review].present? %>
+      <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
+    <% end %>
     <%= f.continue %>
   <% end %>
 <% end %>
