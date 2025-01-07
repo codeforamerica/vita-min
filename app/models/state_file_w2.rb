@@ -117,7 +117,7 @@ class StateFileW2 < ApplicationRecord
   end
 
   def get_box14_ui_overwrite
-    read_attribute(:box14_ui_wf_swf) || box14_ui_hc_wd
+    box14_ui_wf_swf || box14_ui_hc_wd
   end
 
   private
