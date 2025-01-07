@@ -2015,6 +2015,14 @@ es:
         04_detail_links_html: Favor de consultar nuestras <a href="%{terms_link}" target="_blank" rel="noopener noreferrer">Condiciones generales</a> y <a href="%{privacy_link}" target="_blank" rel="noopener noreferrer">Política de privacidad.</a>
       subheader: Regístrese aquí para recibir una notificación cuando abramos en enero.
   state_file:
+    archived_intakes:
+      email_address:
+        edit:
+          enter_email: Ingresa la dirección de correo electrónico vinculada a tu cuenta
+      verification_code:
+        edit:
+          subtitle_html: Si no recibiste un código, revisa tu carpeta de spam. Si aún necesitas ayuda para volver a suscribirte, chatea con nosotros.
+          title_html: Hemos enviado tu código a <strong>%{email_address}</strong>
     faq:
       index:
         title: 'Preguntas frecuentes de los contribuyentes de %{state}:'
