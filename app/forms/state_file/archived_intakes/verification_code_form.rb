@@ -4,7 +4,6 @@ module StateFile
       attr_accessor :verification_code
 
       validates :verification_code, presence: true
-      validates :verification_code, format: { with: /\A[0-9]{6}\z/ }
 
       def initialize(attributes = {})
         super

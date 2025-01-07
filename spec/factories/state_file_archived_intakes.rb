@@ -17,6 +17,15 @@
 #
 FactoryBot.define do
   factory :state_file_archived_intake do
+    email_address { "geddy_lee@example.com" }
+    hashed_ssn { "hashed_ssn_value" }
+    mailing_apartment { "Apt 1" }
+    mailing_city { "Test City" }
+    mailing_state { "CA" }
+    mailing_street { "123 Test Street" }
+    mailing_zip { "12345" }
+    state_code { "CA" }
+    tax_year { 2023 }
     submission_pdf { nil }
   end
 end

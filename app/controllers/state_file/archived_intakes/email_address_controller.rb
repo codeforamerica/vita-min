@@ -9,13 +9,16 @@ module StateFile
         @form = EmailAddressForm.new(email_address_form_params)
 
         if @form.save
-          # Assuming you need to log or handle successful form submissions
+
+          archived_intake = StateFileArchivedIntake.find_by(email_address: @form.email_address)
+
           StateFileArchivedIntakeAccessLog.create!(
             ip_address: ip_for_irs,
             details: { email_address: @form.email_address },
-            event_type: 0
+            event_type: 0,
+            state_file_archived_intake: archived_intake
           )
-          redirect_to state_file_archived_intakes_edit_verification_code_path
+          redirect_to state_file_archived_intakes_edit_verification_code_path(email_address: @form.email_address)
         else
           render :edit
         end
