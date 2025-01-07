@@ -2447,6 +2447,7 @@ en:
             health_insurance_eligibility: and all members of your tax household did not have health insurance (with minimum essential coverage) for every month in %{filing_year}
             nyc_maintained_home: you lived in or maintained a home in New York City for some of the year.
             nyc_residency: you lived in or maintained a home in New York City for some of the year.
+            permanent_address_outside_md: did not reside in Maryland on Dec 31st
             permanent_address_outside_ny: you did not live in New York for all of %{filing_year}
           title: Unfortunately, you can't use this service this year. Don't worry, there are other filing options.
         other_options:

@@ -2403,6 +2403,7 @@ es:
             health_insurance_eligibility: and all members of your tax household did not have health insurance (with minimum essential coverage) for every month in %{filing_year}
             nyc_maintained_home: no viviste en Nueva York durante todo el
             nyc_residency: viviste o mantuviste una casa en la Ciudad de Nueva York durante parte del año.
+            permanent_address_outside_md: no residía en Maryland el 31 de diciembre.
             permanent_address_outside_ny: no viviste en Nueva York durante todo el %{filing_year}
           title: Lamentablemente no puedes usar esta herramienta este año. ¡No te preocupes, aquí tienes otras opciones para presentar tu declaración!
         other_options:
