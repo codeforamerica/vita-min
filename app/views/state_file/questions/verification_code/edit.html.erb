@@ -1,4 +1,5 @@
 <% title = t(".title_html", contact_info: @contact_info) %>
+<%binding.pry %>
 <% content_for :page_title, title %>
 <% content_for :card do %>
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>

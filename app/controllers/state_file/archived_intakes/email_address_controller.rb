@@ -18,6 +18,8 @@ module StateFile
             event_type: 0,
             state_file_archived_intake: archived_intake
           )
+
+
           redirect_to state_file_archived_intakes_edit_verification_code_path(email_address: @form.email_address)
         else
           render :edit

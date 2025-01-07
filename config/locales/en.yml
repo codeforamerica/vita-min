@@ -2239,7 +2239,7 @@ en:
         edit:
           action: Verify code
           subtitle_html: If you didn’t receive a code, please check your spam folder. If you still need help resubscribing, chat with us.
-          title_html: We’ve sent your code to <strong>%{email_address}</strong>
+          title_html: We’ve sent your code to <strong>%{contact_info}</strong>
           verification_code_label: Enter the 6-digit code
     questions:
       az_charitable_contributions:
