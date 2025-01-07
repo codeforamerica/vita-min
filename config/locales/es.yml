@@ -3964,7 +3964,7 @@ es:
 
         Su equipo de impuestos de %{service_name}
       subject: Intento de inicio de sesión de %{service_name}
-    previous_year_verification_code:
+    archived_intake_verification_code:
       body_html: |
         <p>Hello!</p>
         <p>Your six-digit verification code for %{service_name} is: <strong> %{verification_code}.</strong> This code will expire after 30 minutes.</p>

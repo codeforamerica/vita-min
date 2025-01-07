@@ -23,7 +23,7 @@ describe Hub::AutomatedMessagesController do
         get :index
 
         shown_message_classes = assigns(:messages).keys
-        message_class_names = (AutomatedMessage::AutomatedMessage.descendants + ["UserMailer.assignment_email", "VerificationCodeMailer.with_code", "VerificationCodeMailer.no_match_found", "VerificationCodeMailer.previous_year_verification_code", "DiyIntakeEmailMailer.high_support_message", "CtcSignupMailer.launch_announcement", SurveyMessages::GyrCompletionSurvey, SurveyMessages::CtcExperienceSurvey])
+        message_class_names = (AutomatedMessage::AutomatedMessage.descendants + ["UserMailer.assignment_email", "VerificationCodeMailer.with_code", "VerificationCodeMailer.no_match_found", "VerificationCodeMailer.archived_intake_verification_code", "DiyIntakeEmailMailer.high_support_message", "CtcSignupMailer.launch_announcement", SurveyMessages::GyrCompletionSurvey, SurveyMessages::CtcExperienceSurvey])
 
         expect(shown_message_classes).to match_array(message_class_names)
       end

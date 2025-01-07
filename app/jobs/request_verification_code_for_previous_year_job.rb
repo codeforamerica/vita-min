@@ -6,6 +6,6 @@ class RequestVerificationCodeForPreviousYearJob < ApplicationJob
   end
 
   def perform(email_address: nil, locale:)
-    VerificationCodeMailer.previous_year_verification_code(to: email_address, locale: locale, verification_code: 'todo-generate-code').deliver_now
+    VerificationCodeMailer.archived_intake_verification_code(to: email_address, locale: locale, verification_code: 'todo-generate-code').deliver_now
   end
 end
