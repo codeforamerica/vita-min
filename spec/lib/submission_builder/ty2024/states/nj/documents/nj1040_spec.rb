@@ -1033,5 +1033,11 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
         end
       end
     end
+
+    describe 'NactpCode' do
+      it 'contains static CodeForAmerica NACTP code' do
+        expect(xml.at("Header NactpCode").text).to eq(1963.to_s)
+      end
+    end
   end
 end
