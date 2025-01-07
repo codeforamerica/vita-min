@@ -5,20 +5,47 @@
 
 <% content_for :card do %>
   <h1 class="h2"><%= title %></h1>
-  <p><%= t(".label", filing_year: current_tax_year) %></p>
+  <p><%= t(".description_html") %></p>
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="white-group">
       <%= f.cfa_radio_set(
             :household_rent_own,
-            label_text: t(".label"),
+            label_text: t(".label_html", filing_year: current_tax_year),
             collection: [
-              { value: :own, label: t(".homeowner") },
-              { value: :rent, label: t(".tenant") },
-              { value: :both, label: t(".both") },
-              { value: :neither, label: t(".neither") },
-            ],
-            legend_class: "sr-only"
+              { value: :own, label: t(".homeowner_html") },
+              { value: :rent, label: t(".tenant_html") },
+              { value: :both, label: t(".both_html") },
+              { value: :neither, label: t(".neither_html") },
+            ]
           ) %>
+    </div>
+
+    <div class="reveal">
+      <button class="reveal__button"><%= t('.helper_1_header') %></button>
+      <div class="reveal__content">
+        <p><%= t('.helper_1_description') %></p>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <button class="reveal__button"><%= t('.helper_2_header') %></button>
+      <div class="reveal__content">
+        <p><%= t('.helper_2_description') %></p>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <button class="reveal__button"><%= t('.helper_3_header') %></button>
+      <div class="reveal__content">
+        <p><%= t('.helper_3_description') %></p>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <button class="reveal__button"><%= t('.helper_4_header') %></button>
+      <div class="reveal__content">
+        <p><%= t('.helper_4_description_html') %></p>
+      </div>
     </div>
 
     <% if params[:return_to_review].present? %>

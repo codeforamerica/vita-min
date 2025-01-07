@@ -2071,6 +2071,16 @@ es:
       nc_tax_withheld: Impuesto retenido en Carolina del Norte
       nc_taxable_income: Ingreso tributables en Carolina del Norte
       nc_use_tax: Impuesto sobre el uso de Carolina del Norte
+      nj_minimal_essential_health_coverage_html: |-
+        <p>Most people who have health insurance have minimum essential coverage. “Minimal essential coverage” just refers to how much your plan covers. If you have any of the following, you most likely have it:</p>
+        <ul>
+          <li>A plan through your employer</li>
+          <li>A plan bought through <a target="_blank" rel="noopener noreferrer" href="https://nj.gov/getcoverednj/">GetCoveredNJ</a></li>
+          <li>Medicare</li>
+          <li>Medicaid (NJ FamilyCare)</li>
+        </ul>
+        <p><a target="_blank" rel="noopener noreferrer" href="https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml">Here is the full list of insurance options that have minimum essential coverage.</a><p>
+        <p>If you only had standalone vision and dental plans, workers' compensation coverage, and/or coverage limited to a specified disease or illness, you didn't have minimum essential coverage. In New Jersey, as of 2018, you need minimum essential coverage, or you will likely pay additional taxes.</p>
       register_to_vote: Regístrate para votar
       see_detailed_return: Ver información detallada de la declaración
       standard_deduction: Deducción estándar
@@ -2201,8 +2211,6 @@ es:
           household_excise_credit_html: "¿Alguien en tu hogar presentó una declaración de impuestos por separado de la tuya y reclamó el Crédito por Aumento de Impuestos Especiales de Arizona?<br><br> (Tu hogar incluye a todas las personas con las que viviste, incluso si no están incluidas en tu declaración.)"
           primary_was_incarcerated: "¿Estuviste encarcelado en una cárcel del condado, estatal o federal durante al menos 60 días en%{tax_year}?"
           spouse_was_incarcerated: "¿Tu cónyuge estuvieron encarcelados en una cárcel del condado, estatal o federal durante al menos 60 días en %{tax_year}?"
-          ssn_no_employment_html:
-            label: "¿Tienes la frase <b>'not valid for employment'</b> escrita en tu tarjeta de Seguro Social? (Esto es poco común.)"
           title: Es posible que seas elegible para el Crédito tributario por Aumento de Impuestos Especiales.
       az_prior_last_names:
         edit:
@@ -2306,7 +2314,6 @@ es:
           made_az321_contributions: Hizo contribuciones a organizaciones benéficas calificadas
           made_az322_contributions: Hizo contribuciones a las escuelas públicas
           public_school_credit: Crédito de escuela pública
-          ssn_no_employment: '"Not valid for employment" escrita en tu tarjeta de Seguro Social'
           ssn_not_taxed: Los beneficios del Seguro Social no están sujetos a impuestos en Arizona
           subtraction_for_indian_res: Resta de los ingresos obtenidos en una reserva de indios americanos
           subtraction_for_military_pay: Resta del pago militar en servicio activo
@@ -3087,6 +3094,12 @@ es:
         edit:
           county: Condado
           title: Selecciona el condado donde viviste el 31 de diciembre de %{filing_year}
+      nj_dependents_health_insurance:
+        edit:
+          continue: Click "continue" if all these people had health insurance.
+          coverage_heading: What is health insurance with minimum essential coverage?
+          label: 'Check all the people that did NOT have health insurance:'
+          title_html: Please tell us which dependents were missing health insurance (<a target=" _blank" rel="noopener noreferrer" href="https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml">with minimum essential health coverage</a>) in 2024.
       nj_disabled_exemption:
         edit:
           instructions_html: Las personas con discapacidad tienen derecho a exenciones de impuestos. <br><br> En Nueva Jersey, se le considera discapacitado si tiene una "incapacidad <b>total y permanente</b> para participar en cualquier actividad sustancial y lucrativa debido a cualquier impedimento físico o mental, incluida la ceguera". <br><br> (Esto es diferente de la definición de impuestos federales. Nueva Jersey no tiene en cuenta su edad ni su percepción de ingresos por discapacidad sujetos a impuestos.)
@@ -3120,11 +3133,8 @@ es:
           title: You may be eligible for the Earned Income Tax Credit
       nj_eligibility_health_insurance:
         edit:
-          coverage_description_html: "<p>Most people who have health insurance have minimum essential coverage. “Minimal essential coverage” just refers to how much your plan covers. If you have any of the following, you most likely have it:</p>\n<ul>\n  <li>A plan through your employer</li>\n  <li>A plan bought through <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://nj.gov/getcoverednj/\">GetCoveredNJ</a></li>\n  <li>Medicare</li> \n  <li>Medicaid (NJ FamilyCare)</li>\n</ul>\n<p><a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml\">Here is the full list of insurance options that have minimum essential coverage.</a><p> \n<p>If you only had standalone vision and dental plans, workers' compensation coverage, and/or coverage limited to a specified disease or illness, you didn't have minimum essential coverage. In New Jersey, as of 2018, you need minimum essential coverage, or you will likely pay additional taxes.</p>\n"
           coverage_heading: What is health insurance with minimum essential coverage?
-          dependent_label: "%{name}"
           label: Did you and all members of your tax household have health insurance (with minimum essential coverage) for every month in %{filing_year}?
-          label_follow_up: Which dependents were missing health insurance?
           tax_household_description_html: A tax household includes you, your spouse (if filing a joint return), domestic partner claimed on your return, and any individuals you claim as dependents on your NJ-1040. It also includes any individuals you can, but do not, claim as dependents on your return.
           tax_household_heading: What is considered a tax household?
           title: Let’s get started.
@@ -3174,12 +3184,21 @@ es:
           where_to_find_helper_heading: Where can I find property taxes paid?
       nj_household_rent_own:
         edit:
-          both: Tanto inquilino como propietario
-          homeowner: Dueño de casa
-          label: En %{filing_year}, ¿quién era usted?
-          neither: Tampoco
-          tenant: Inquilino (si usted es propietario de una casa móvil ubicada en un parque de casas móviles, se le considera inquilino).
-          title: "¡Usted podría ser elegible para el crédito o deducción del impuesto a la propiedad de New Jersey!"
+          both_html: "<b>Both</b>: I was a homeowner for part of the year, and I was a renter for part of the year."
+          description_html: Your "main home" is where you primarily lived at any given time (e.g., a house, a condo, or an apartment). <b>You can’t have multiple main homes at the same time, but you may have different main homes throughout the year if you moved.</b>
+          helper_1_description: Yes. This tax break is designed to support people in New Jersey whose money contributes to property taxes. (Renters do this by paying rent, contributing to the cost of property taxes paid by the property owners.)
+          helper_1_header: Are you sure this applies to rent paid?
+          helper_2_description: No. Please answer the questions in this section for your main home only. You can’t claim this tax break for a vacation home, a "second home," or a property you own and rent to someone else.
+          helper_2_header: Can I claim for a vacation home or a property I rent out to someone?
+          helper_3_description: If you owned a mobile home in a mobile home park, you are considered a renter. Your site fees are what you paid in rent.
+          helper_3_header: What if I lived in a mobile home?
+          helper_4_description_html: The property tax <b>deduction</b> reduces your taxable income. We will deduct your share of property taxes paid or $15,000, whichever is less. For renters, we’ll consider 18% of rent paid as your share.
+          helper_4_header: How much is this deduction or credit worth?
+          homeowner_html: I was a <b>homeowner</b> for at least part of the year
+          label_html: How would you describe your living situation in %{filing_year} <b>as it pertains to your main home(s)</b>?
+          neither_html: Other
+          tenant_html: I was a <b>renter</b> for at least part of the year
+          title: You may qualify for a property tax deduction or credit on your main home, whether you owned or rented it.
       nj_ineligible_property_tax:
         edit:
           continue_text: Click continue to see what else we can guide you to qualify for.
@@ -3232,23 +3251,29 @@ es:
           why_ask_this: "¿Por qué están pidiendo esta información?"
       nj_review:
         edit:
-          amount: Cantidad
-          claimed_as_eitc_qualifying_child: I could be someone else's qualifying child for the Earned Income Tax Credit.
-          college_dependents: Dependents attending college
-          county: Condado
+          amount_calculated: Calculated Amount
+          amount_entered: Amount Entered
+          college_dependents: Dependent(s) attending college exemption
+          college_dependents_none: Not applicable
+          continue_helper: Click "Continue" if all this looks right to you.
+          county_municipality: Where you lived as of Dec 31, %{filing_year}
           edit_disability: disability status
-          edit_gubernatorial: gubernatorial fund contributions
           edit_veteran: veteran status
-          estimated_tax_payments: Payments already made to New Jersey taxes
-          household_rent_own: Vivienda en alquiler o en propiedad propia
-          medical_expenses: Gastos médicos
-          municipality: Municipio
-          primary_disabled: Primary disabled
-          primary_gubernatorial: I want $1 of my taxes to go to the gubernatorial elections fund
-          primary_veteran: Soy un veterano
-          property_tax_credit_deduction: Property Tax Credit/Deduction
-          property_tax_paid: Impuestos sobre la propiedad pagados
-          rent_paid: Alquiler pagado
+          eitc: New Jersey Earned Income Tax Credit (NJEITC)
+          estimated_tax_payments: Payments already made towards New Jersey taxes
+          household_rent_own: Living situation in %{filing_year}
+          household_rent_own_both: Owned and rented
+          household_rent_own_neither: Neither owned or rented
+          household_rent_own_own: Owned
+          household_rent_own_rent: Rented
+          medical_expenses: Total medical expenses
+          missing_health_insurance: Missing Health Insurance
+          primary_claimed_as_eitc_qualifying_child: You could be someone's qualifying child
+          primary_disabled: Disability exemption (you)
+          primary_veteran: Veteran exemption (you)
+          property_tax_credit_deduction: New Jersey Property Tax deduction or credit
+          property_tax_paid: Property taxes paid in %{filing_year}
+          rent_paid: Rent paid in %{filing_year}
           reveal:
             15_wages_salaries_tips: Wages, salaries, tips
             16a_interest_income: Interest income
@@ -3270,11 +3295,12 @@ es:
             65_nj_ctc: New Jersey child tax credit
             66_total_payments_refundable_credits: Total payments and refundable credits
             header: See detailed return information
-          spouse_claimed_as_eitc_qualifying_child: My spouse could be someone else's qualifying child for the Earned Income Tax Credit.
-          spouse_disabled: Spouse disabled
-          spouse_gubernatorial: My spouse wants $1 of their taxes to go to the gubernatorial elections fund
-          spouse_veteran: Mi cónyuge es un veterano
-          use_tax_applied: Impuesto sobre el uso del consumidor aplicado
+          review_and_edit: Review and Edit
+          spouse_claimed_as_eitc_qualifying_child: Your spouse could be someone's qualifying child
+          spouse_disabled: Disability exemption (spouse)
+          spouse_veteran: Veteran exemption (spouse)
+          use_tax_applied: Out-of-State Purchases Use Tax Applied
+          year_of_death: Year of spouse's passing
       nj_sales_use_tax:
         edit:
           followup_radio_label: Selecciona una de las siguientes opciones

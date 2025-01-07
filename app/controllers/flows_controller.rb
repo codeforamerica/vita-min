@@ -656,7 +656,6 @@ class FlowsController < ApplicationController
         spouse_was_incarcerated: "no",
         was_incarcerated: "no", # TODO: remove when column is ignored
         household_excise_credit_claimed: "no",
-        ssn_no_employment: "no",
         message_tracker: {},
         locale: 'en',
         unfinished_intake_ids: [],
