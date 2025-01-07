@@ -23,7 +23,7 @@
     </section>
   <% end %>
 
-  <% if current_intake.eligibility_all_members_health_insurance_no? %>
+  <% if current_intake.has_health_insurance_requirement_exception? || current_intake.eligibility_all_members_health_insurance_no? %>
     <section id="missing-health-insurance" class="white-group">
       <div class="spacing-below-5">
         <h2 class="text--body text--bold spacing-below-5"><%=t(".missing_health_insurance") %></h2>
@@ -33,7 +33,11 @@
           <% end %>
         <% end %>
         <% if current_intake.dependents.all? { |dependent| dependent.nj_did_not_have_health_insurance_no? } %>
-          <p><%= t("general.none") %></p>
+          <p><%= t(".college_dependents_none") %></p>
+        <% end %>
+        <%= link_to StateFile::Questions::NjDependentsHealthInsuranceController.to_path_helper(return_to_review: "y"), class: "button--small" do %>
+          <%= t(".review_and_edit") %>
+          <span class="sr-only"><%= t(".missing_health_insurance") %></span>
         <% end %>
       </div>
     </section>
@@ -71,11 +75,11 @@
         <% unless current_intake.primary_disabled_unfilled? %>
           <h2 class="text--body text--bold spacing-below-5"><%= t(".primary_disabled")  %></h2>
           <p><%= current_intake.primary_disabled_yes? ? t("general.affirmative") : t("general.negative") %></p>
-        <%  end %>
+        <% end %>
         <% unless current_intake.spouse_disabled_unfilled? %>
           <h2 class="text--body text--bold spacing-below-5"><%= t(".spouse_disabled")  %></h2>
           <p><%= current_intake.spouse_disabled_yes? ? t("general.affirmative") : t("general.negative") %></p>
-        <%  end %>
+        <% end %>
         <%= link_to StateFile::Questions::NjDisabledExemptionController.to_path_helper(return_to_review: "y"), class: "button--small" do %>
           <%= t(".review_and_edit") %>
           <span class="sr-only"><%= t(".edit_disability")%></span>
@@ -90,11 +94,11 @@
         <% unless current_intake.primary_veteran_unfilled? %>
           <h2 class="text--body text--bold spacing-below-5"><%= t(".primary_veteran")  %></h2>
           <p><%= current_intake.primary_veteran_yes? ? t("general.affirmative") : t("general.negative") %></p>
-        <%  end %>
+        <% end %>
         <% unless current_intake.spouse_veteran_unfilled? %>
           <h2 class="text--body text--bold spacing-below-5"><%= t(".spouse_veteran")  %></h2>
           <p><%= current_intake.spouse_veteran_yes? ? t("general.affirmative") : t("general.negative") %></p>
-        <%  end %>
+        <% end %>
         <%= link_to StateFile::Questions::NjVeteransExemptionController.to_path_helper(return_to_review: "y"), class: "button--small" do %>
           <%= t(".review_and_edit") %>
           <span class="sr-only"><%= t(".edit_veteran") %></span>
@@ -126,12 +130,12 @@
       <% unless current_intake.property_tax_paid.nil? %>
         <h3 class="text--body text--bold spacing-below-5"><%= t(".property_tax_paid", filing_year: current_tax_year)  %></h3>
         <p><%= number_to_currency(current_intake.property_tax_paid, precision: 0) %></p>
-      <%  end %>
+      <% end %>
 
       <% unless current_intake.rent_paid.nil? %>
         <h3 class="text--body text--bold spacing-below-5"><%=t(".rent_paid", filing_year: current_tax_year) %></h3>
         <p><%= number_to_currency(current_intake.rent_paid, precision: 0) %></p>
-      <%  end %>
+      <% end %>
 
       <%= link_to StateFile::Questions::NjHouseholdRentOwnController.to_path_helper(return_to_review: "y"), class: "button--small" do %>
         <%= t(".review_and_edit") %>
@@ -185,23 +189,6 @@
       <%= link_to StateFile::Questions::NjSalesUseTaxController.to_path_helper(return_to_review: "y"), class: "button--small" do %>
         <%= t(".review_and_edit") %>
         <span class="sr-only"><%= t(".use_tax_applied") %></span>
-      <% end %>
-    </div>
-  </section>
-
-  <section id="gubernatorial" class="white-group">
-    <div class="spacing-below-5">
-      <h2 class="text--body text--bold spacing-below-5"><%=t(".primary_gubernatorial") %></h2>
-      <p><%=current_intake.primary_contribution_gubernatorial_elections_yes? ? t("general.affirmative") : t("general.negative") %></p>
-
-      <% if current_intake.filing_status_mfj? %>
-        <h2 class="text--body text--bold spacing-below-5"><%=t(".spouse_gubernatorial") %></h2>
-        <p><%=current_intake.spouse_contribution_gubernatorial_elections_yes? ? t("general.affirmative") : t("general.negative") %></p>
-      <% end %>
-
-      <%= link_to StateFile::Questions::NjGubernatorialElectionsController.to_path_helper(return_to_review: "y"), class: "button--small"  do%>
-        <%= t(".review_and_edit") %>
-        <span class="sr-only"><%= t(".edit_gubernatorial") %></span>
       <% end %>
     </div>
   </section>

@@ -3285,23 +3285,22 @@ en:
           amount_calculated: Calculated Amount
           amount_entered: Amount Entered
           college_dependents: Dependent(s) attending college exemption
+          college_dependents_none: Not applicable
           continue_helper: Click "Continue" if all this looks right to you.
           county_municipality: Where you lived as of Dec 31, %{filing_year}
           edit_disability: disability status
-          edit_gubernatorial: gubernatorial fund contributions
           edit_veteran: veteran status
           eitc: New Jersey Earned Income Tax Credit (NJEITC)
           estimated_tax_payments: Payments already made towards New Jersey taxes
           household_rent_own: Living situation in %{filing_year}
           household_rent_own_both: Owned and rented
-          household_rent_own_neither: Other
+          household_rent_own_neither: Neither owned or rented
           household_rent_own_own: Owned
           household_rent_own_rent: Rented
           medical_expenses: Total medical expenses
           missing_health_insurance: Missing Health Insurance
           primary_claimed_as_eitc_qualifying_child: You could be someone's qualifying child
           primary_disabled: Disability exemption (you)
-          primary_gubernatorial: I want $1 of my taxes to go to the gubernatorial elections fund
           primary_veteran: Veteran exemption (you)
           property_tax_credit_deduction: New Jersey Property Tax deduction or credit
           property_tax_paid: Property taxes paid in %{filing_year}
@@ -3330,9 +3329,8 @@ en:
           review_and_edit: Review and Edit
           spouse_claimed_as_eitc_qualifying_child: Your spouse could be someone's qualifying child
           spouse_disabled: Disability exemption (spouse)
-          spouse_gubernatorial: My spouse wants $1 of their taxes to go to the gubernatorial elections fund
           spouse_veteran: Veteran exemption (spouse)
-          use_tax_applied: Consumer Use Tax Applied
+          use_tax_applied: Out-of-State Purchases Use Tax Applied
           year_of_death: Year of spouse's passing
       nj_sales_use_tax:
         edit:
