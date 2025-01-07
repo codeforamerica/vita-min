@@ -1,8 +1,6 @@
 require "rails_helper"
 
 describe StateFile::MessagingService do
-  include MockTwilio
-
   let(:intake) do
     create(
       :state_file_az_intake,
@@ -62,8 +60,7 @@ describe StateFile::MessagingService do
     it "should send a message if the number is verified" do
       expect {
         messaging_service.send_message
-      }.to change { FakeTwilioClient.messages.count }
-             .and change(StateFileNotificationTextMessage, :count).by(1)
+      }.to change(StateFileNotificationTextMessage, :count).by(1)
     end
 
     it "should not send a message if the number is unverified" do
@@ -72,7 +69,6 @@ describe StateFile::MessagingService do
       expect {
         messaging_service.send_message
       }.to not_change(StateFileNotificationTextMessage, :count)
-             .and not_change { FakeTwilioClient.messages.count }
     end
   end
 

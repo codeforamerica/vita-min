@@ -22,4 +22,12 @@ class StateFileNotificationTextMessage < ApplicationRecord
   belongs_to :data_source, polymorphic: true, optional: true
   validates_presence_of :to_phone_number
   validates_presence_of :body
+
+  after_create_commit :deliver
+
+  private
+
+  def deliver
+    StateFile::SendNotificationTextMessageJob.perform_later(id)
+  end
 end

@@ -66,13 +66,6 @@ module StateFile
           body: @message_instance.sms_body(locale: locale, **sms_args),
         )
         sent_messages << sent_message if sent_message.present?
-
-        twilio = TwilioService.new(:statefile)
-
-        twilio.send_text_message(
-          to: intake.phone_number,
-          body: @message_instance.sms_body(locale: @locale, **sms_args)
-        )
       end
     end
     
