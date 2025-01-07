@@ -11,8 +11,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.1].define(version: 2024_12_27_174414) do
-  create_schema "analytics"
-
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -645,33 +643,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_27_174414) do
     t.citext "name", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_coalitions_on_name", unique: true
-  end
-
-  create_table "completed_2023_tax_return_logs", force: :cascade do |t|
-    t.bigint "completed_2023_tax_return_id"
-    t.datetime "created_at", null: false
-    t.integer "event_type", null: false
-    t.inet "ip_address"
-    t.datetime "updated_at", null: false
-    t.index ["completed_2023_tax_return_id"], name: "idx_on_completed_2023_tax_return_id_81ce7025c0"
-  end
-
-  create_table "completed_2023_tax_return_pdfs", force: :cascade do |t|
-    t.bigint "completed_2023_tax_return_id", null: false
-    t.index ["completed_2023_tax_return_id"], name: "idx_on_completed_2023_tax_return_id_b19af583f0"
-  end
-
-  create_table "completed_2023_tax_returns", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.citext "email_address"
-    t.string "hashed_ssn"
-    t.string "mailing_apartment"
-    t.string "mailing_city"
-    t.string "mailing_state"
-    t.string "mailing_street"
-    t.string "mailing_zip"
-    t.string "state_code"
-    t.datetime "updated_at", null: false
   end
 
   create_table "consents", force: :cascade do |t|
@@ -2808,8 +2779,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_27_174414) do
   add_foreign_key "bulk_tax_return_updates", "users", column: "assigned_user_id"
   add_foreign_key "clients", "vita_partners"
   add_foreign_key "coalition_lead_roles", "coalitions"
-  add_foreign_key "completed_2023_tax_return_logs", "completed_2023_tax_returns"
-  add_foreign_key "completed_2023_tax_return_pdfs", "completed_2023_tax_returns"
   add_foreign_key "dependents", "intakes"
   add_foreign_key "documents", "clients"
   add_foreign_key "documents", "documents_requests"
@@ -2830,8 +2799,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_27_174414) do
   add_foreign_key "incoming_text_messages", "clients"
   add_foreign_key "intake_archives", "intakes", column: "id"
   add_foreign_key "intakes", "clients"
-  add_foreign_key "intakes", "drivers_licenses", column: "primary_drivers_license_id"
-  add_foreign_key "intakes", "drivers_licenses", column: "spouse_drivers_license_id"
   add_foreign_key "intakes", "intakes", column: "matching_previous_year_intake_id"
   add_foreign_key "intakes", "vita_partners"
   add_foreign_key "notes", "clients"
