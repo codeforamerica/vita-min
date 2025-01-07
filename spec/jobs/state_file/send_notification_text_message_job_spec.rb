@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe StateFile::SendNotificationTextMessageJob, type: :job do
-  include MockTwilio
-
   describe "#perform" do
     let(:text_message) { create :state_file_notification_text_message }
     let(:twilio_double) { instance_double(TwilioService) }
