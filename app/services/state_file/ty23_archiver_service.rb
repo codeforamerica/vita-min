@@ -25,8 +25,10 @@ module StateFile
     def archive_batch
       archived_ids = []
       current_batch.each do |record|
+        intake = data_source.find(record['source_intake_id'])
         archive = StateFileArchivedIntake.new(record.without('source_intake_id'))
-        archive.submission_pdf.attach(data_source.find(record['source_intake_id']).submission_pdf.blob)
+        # TODO: pull mailing address destails off the intake; populate relevant fields on the archived intake record
+        archive.submission_pdf.attach(intake.blob)
         archive.save!
         archived_ids << record['source_intake_id']
       rescue StandardError => e
@@ -42,21 +44,21 @@ module StateFile
         SELECT
           #{tax_year} AS tax_year, '#{state_code}' AS state_code,
           email_address, hashed_ssn, id AS source_intake_id
-          FROM
+        FROM
           #{data_source.table_name}
         WHERE id IN (
           SELECT
             efs.data_source_id
           FROM
             efile_submission_transitions est
-            LEFT JOIN EFILE_SUBMISSIONS efs ON efs.ID = est.efile_submission_id
+            LEFT JOIN efile_submissions efs ON efs.ID = est.efile_submission_id
           WHERE
             est.most_recent = TRUE
             AND est.to_state = 'accepted'
             AND est.created_at < '#{cutoff}'
             AND efs.data_source_type = '#{data_source}'
           ORDER BY
-            EFS.data_source_id ASC
+            efs.data_source_id ASC
         )
         AND hashed_ssn NOT IN (
           SELECT hashed_ssn
