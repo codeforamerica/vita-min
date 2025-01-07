@@ -553,12 +553,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
 
       describe "Line 10 exemptions" do
         context "0 qualified dependent children" do
-          let(:submission) {
-            create :efile_submission, tax_return: nil, data_source: create(
-              :state_file_nj_intake
-            )
-          }
           it "does not fill in" do
+            allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_10_count).and_return 0
             expect(pdf_fields["Text47"]).to eq ""
             expect(pdf_fields["undefined_12"]).to eq ""
             expect(pdf_fields["x  1500"]).to eq ""
@@ -566,13 +562,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         end
 
         context "1 qualified dependent child" do
-          let(:submission) {
-            create :efile_submission, tax_return: nil, data_source: create(
-              :state_file_nj_intake,
-              :df_data_two_deps,
-            )
-          }
           it "fills in 1 for count and $1500 for exception" do
+            allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_10_count).and_return 1
             expect(pdf_fields["Text47"]).to eq ""
             expect(pdf_fields["undefined_12"]).to eq "1"
             expect(pdf_fields["x  1500"]).to eq "1500"
@@ -580,13 +571,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         end
 
         context "10 qualified dependent children" do
-          let(:submission) {
-            create :efile_submission, tax_return: nil, data_source: create(
-              :state_file_nj_intake,
-              :df_data_many_deps,
-            )
-          }
           it "fills in 10 for count and $15000 for exception" do
+            allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_10_count).and_return 10
             expect(pdf_fields["Text47"]).to eq "1"
             expect(pdf_fields["undefined_12"]).to eq "0"
             expect(pdf_fields["x  1500"]).to eq "15000"
@@ -596,13 +582,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
 
       describe "Line 11 exemptions" do
         context "0 dependents not qualifying children" do
-          let(:submission) {
-            create :efile_submission, tax_return: nil, data_source: create(
-              :state_file_nj_intake,
-              :df_data_minimal,
-            )
-          }
           it "does not fill in" do
+            allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_11_count).and_return 0
             expect(pdf_fields["Text48"]).to eq ""
             expect(pdf_fields["undefined_13"]).to eq ""
             expect(pdf_fields["x  1500_2"]).to eq ""
@@ -610,13 +591,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         end
 
         context "1 dependent not qualifying child" do
-          let(:submission) {
-            create :efile_submission, tax_return: nil, data_source: create(
-              :state_file_nj_intake,
-              :df_data_two_deps,
-            )
-          }
           it "fills in 1 for count and $1500 for exception" do
+            allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_11_count).and_return 1
             expect(pdf_fields["Text48"]).to eq ""
             expect(pdf_fields["undefined_13"]).to eq "1"
             expect(pdf_fields["x  1500_2"]).to eq "1500"
@@ -1832,15 +1808,10 @@ RSpec.describe PdfFiller::Nj1040Pdf do
     end
 
     describe "line 56 - property tax credit" do
-      context 'when taxpayer income is above property tax minimum' do
-        let(:submission) {
-          create :efile_submission, tax_return: nil, data_source: create(
-            :state_file_nj_intake,
-            :df_data_many_w2s,
-            household_rent_own: 'own',
-            property_tax_paid: 0,
-            )
-        }
+      context 'when taxpayer claiming full property tax credit' do
+        before do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_56).and_return 50
+        end
 
         it "writes $50.00 property tax credit" do
           # hundreds
@@ -1852,12 +1823,25 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         end
       end
 
-      context 'when taxpayer income is below property tax minimum' do
-        let(:submission) {
-          create :efile_submission, tax_return: nil, data_source: create(
-            :state_file_nj_intake,
-            :df_data_minimal)
-        }
+      context 'when taxpayer claiming half property tax credit' do
+        before do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_56).and_return 25
+        end
+
+        it "writes $25.00 property tax credit" do
+          # hundreds
+          expect(pdf_fields["Text161"]).to eq "2"
+          expect(pdf_fields["Text162"]).to eq "5"
+          # decimals
+          expect(pdf_fields["Text163"]).to eq "0"
+          expect(pdf_fields["Text164"]).to eq "0"
+        end
+      end
+
+      context 'when taxpayer not claiming property tax credit' do
+        before do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_56).and_return nil
+        end
 
         it "does not fill property tax credit" do
           # hundreds
@@ -1866,24 +1850,6 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           # decimals
           expect(pdf_fields["Text163"]).to eq ""
           expect(pdf_fields["Text164"]).to eq ""
-        end
-      end
-
-      context 'when taxpayer income is below property tax minimum but eligible for credit' do
-        let(:submission) {
-          create :efile_submission, tax_return: nil, data_source: create(
-            :state_file_nj_intake,
-            :df_data_minimal,
-            :primary_blind)
-        }
-
-        it "writes $50.00 property tax credit" do
-          # hundreds
-          expect(pdf_fields["Text161"]).to eq "5"
-          expect(pdf_fields["Text162"]).to eq "0"
-          # decimals
-          expect(pdf_fields["Text163"]).to eq "0"
-          expect(pdf_fields["Text164"]).to eq "0"
         end
       end
     end

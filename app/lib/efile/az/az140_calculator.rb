@@ -276,8 +276,14 @@ module Efile
           0
         else
           # TODO question: if they are filing with us does that automatically mean no AZ-140PTC?
-          number_of_filers = filing_status_mfj? ? 2 : 1
-          wrksht_line_2 = number_of_filers - @intake.incarcerated_filer_count
+          number_of_eligible_filers =
+            if filing_status_mfj?
+              [@intake.direct_file_json_data.primary_filer.ssn_not_valid_for_employment,
+               @intake.direct_file_json_data.spouse_filer.ssn_not_valid_for_employment].count(&:blank?)
+            else
+              1
+            end
+          wrksht_line_2 = number_of_eligible_filers - @intake.incarcerated_filer_count
           wrksht_line_4 = (@dependent_count + wrksht_line_2) * 25
 
           max_credit = 100
