@@ -14,7 +14,7 @@ describe StateFile::MessagingService do
 
   let(:efile_submission) { create :efile_submission, :for_state, data_source: intake }
   let(:message) { StateFile::AutomatedMessage::Welcome }
-  let(:body_args) { {intake_id: intake.id} }
+  let(:body_args) { { intake_id: intake.id } }
   let!(:messaging_service) { described_class.new(message: message, intake: intake, body_args: body_args) }
 
   context "when has an email_address" do
@@ -63,6 +63,7 @@ describe StateFile::MessagingService do
       expect {
         messaging_service.send_message
       }.to change { FakeTwilioClient.messages.count }
+             .and change(StateFileNotificationTextMessage, :count).by(1)
     end
 
     it "should not send a message if the number is unverified" do
@@ -70,18 +71,20 @@ describe StateFile::MessagingService do
 
       expect {
         messaging_service.send_message
-      }.not_to change { FakeTwilioClient.messages.count }
+      }.to not_change(StateFileNotificationTextMessage, :count)
+             .and not_change { FakeTwilioClient.messages.count }
     end
   end
 
   context "when message is an after_transition_notification" do
     let(:message) { StateFile::AutomatedMessage::Rejected }
-    let!(:messaging_service) { described_class.new(message: message, intake: intake, submission: efile_submission, body_args: {return_status_link: "link.com"}) }
+    let!(:messaging_service) { described_class.new(message: message, intake: intake, submission: efile_submission, body_args: { return_status_link: "link.com" }) }
 
     it "records the messages in the efile submission message tracker" do
       expect do
         messaging_service.send_message
       end.to change(StateFileNotificationEmail, :count).by(1)
+                                                       .and change(StateFileNotificationTextMessage, :count).by(1)
 
       expect(efile_submission.message_tracker).to include "messages.state_file.rejected"
       expect(intake.message_tracker).to eq({})
@@ -96,6 +99,7 @@ describe StateFile::MessagingService do
       expect do
         messaging_service.send_message
       end.to change(StateFileNotificationEmail, :count).by(1)
+                                                       .and change(StateFileNotificationTextMessage, :count).by(1)
 
       expect(intake.message_tracker).to include "messages.state_file.finish_return"
     end
