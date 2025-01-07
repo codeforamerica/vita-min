@@ -30,34 +30,36 @@ RSpec.describe PdfFiller::NjAdditionalDependentsPdf do
     end
 
     it 'fills dependents from XML after index 4 into the PDF' do
+      tax_year = MultiTenantService.new(:statefile).current_tax_year
+
       expect(pdf_fields["Name_Row1"]).to eq "Underworld Hades"
       expect(pdf_fields["SSN_Row1"]).to eq "300000027"
-      expect(pdf_fields["BirthYear_Row1"]).to eq "#{4.years.ago.year}"
+      expect(pdf_fields["BirthYear_Row1"]).to eq (tax_year - 4).to_s
       expect(pdf_fields["HealthInsurance_Row1"]).to eq "Yes"
 
       expect(pdf_fields["Name_Row2"]).to eq "Thunder Ares"
       expect(pdf_fields["SSN_Row2"]).to eq "300000022"
-      expect(pdf_fields["BirthYear_Row2"]).to eq "#{5.years.ago.year}"
+      expect(pdf_fields["BirthYear_Row2"]).to eq (tax_year - 5).to_s
       expect(pdf_fields["HealthInsurance_Row2"]).to eq "Off"
 
       expect(pdf_fields["Name_Row3"]).to eq "Thunder Hercules"
       expect(pdf_fields["SSN_Row3"]).to eq "300000065"
-      expect(pdf_fields["BirthYear_Row3"]).to eq "#{6.years.ago.year}"
+      expect(pdf_fields["BirthYear_Row3"]).to eq (tax_year - 6).to_s
       expect(pdf_fields["HealthInsurance_Row3"]).to eq "Yes"
 
       expect(pdf_fields["Name_Row4"]).to eq "Archer Hermes"
       expect(pdf_fields["SSN_Row4"]).to eq "300000024"
-      expect(pdf_fields["BirthYear_Row4"]).to eq "#{7.years.ago.year}"
+      expect(pdf_fields["BirthYear_Row4"]).to eq (tax_year - 7).to_s
       expect(pdf_fields["HealthInsurance_Row4"]).to eq "Off"
 
       expect(pdf_fields["Name_Row5"]).to eq "Thunder Hebe"
       expect(pdf_fields["SSN_Row5"]).to eq "300000023"
-      expect(pdf_fields["BirthYear_Row5"]).to eq "#{8.years.ago.year}"
+      expect(pdf_fields["BirthYear_Row5"]).to eq (tax_year - 8).to_s
       expect(pdf_fields["HealthInsurance_Row5"]).to eq "Yes"
 
       expect(pdf_fields["Name_Row6"]).to eq "Wine Dionysus"
       expect(pdf_fields["SSN_Row6"]).to eq "300000068"
-      expect(pdf_fields["BirthYear_Row6"]).to eq "#{9.years.ago.year}"
+      expect(pdf_fields["BirthYear_Row6"]).to eq (tax_year - 9).to_s
       expect(pdf_fields["HealthInsurance_Row6"]).to eq "Off"
     end
   end

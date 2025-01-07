@@ -2119,6 +2119,16 @@ en:
       nc_tax_withheld: North Carolina tax withheld
       nc_taxable_income: North Carolina taxable income
       nc_use_tax: North Carolina use tax
+      nj_minimal_essential_health_coverage_html: |-
+        <p>Most people who have health insurance have minimum essential coverage. “Minimal essential coverage” just refers to how much your plan covers. If you have any of the following, you most likely have it:</p>
+        <ul>
+          <li>A plan through your employer</li>
+          <li>A plan bought through <a target="_blank" rel="noopener noreferrer" href="https://nj.gov/getcoverednj/">GetCoveredNJ</a></li>
+          <li>Medicare</li>
+          <li>Medicaid (NJ FamilyCare)</li>
+        </ul>
+        <p><a target="_blank" rel="noopener noreferrer" href="https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml">Here is the full list of insurance options that have minimum essential coverage.</a><p>
+        <p>If you only had standalone vision and dental plans, workers' compensation coverage, and/or coverage limited to a specified disease or illness, you didn't have minimum essential coverage. In New Jersey, as of 2018, you need minimum essential coverage, or you will likely pay additional taxes.</p>
       register_to_vote: Register to vote.
       see_detailed_return: See detailed return information
       standard_deduction: Standard deduction
@@ -2249,8 +2259,6 @@ en:
           household_excise_credit_html: Did anyone in your household file a tax return separately from you and claim the Arizona Increased Excise Tax Credit? <br><br> (Your household is everyone that you lived with, even if they aren’t listed on your return.)
           primary_was_incarcerated: Were you incarcerated in a county, state, or federal prison for at least 60 days in %{tax_year}?
           spouse_was_incarcerated: Was your spouse incarcerated in a county, state, or federal prison for at least 60 days in %{tax_year}?
-          ssn_no_employment_html:
-            label: Do you have <b>'not valid for employment'</b> written on your Social Security card? (This is rare.)
           title: You might be eligible for the Increased Excise Tax Credit.
       az_prior_last_names:
         edit:
@@ -2355,7 +2363,6 @@ en:
           made_az321_contributions: Made contributions to qualifying charitable organizations
           made_az322_contributions: Made contributions to public schools
           public_school_credit: Public School Credit
-          ssn_no_employment: "‘Not valid for employment’ is written on your Social Security Card"
           ssn_not_taxed: Social Security benefits not taxed in Arizona
           subtraction_for_indian_res: Subtraction for income earned on an American Indian reservation
           subtraction_for_military_pay: Subtraction for active duty military pay
@@ -3129,6 +3136,12 @@ en:
         edit:
           county: County
           title: Select the county where you lived on December 31, %{filing_year}
+      nj_dependents_health_insurance:
+        edit:
+          continue: Click "continue" if all these people had health insurance.
+          coverage_heading: What is health insurance with minimum essential coverage?
+          label: 'Check all the people that did NOT have health insurance:'
+          title_html: Please tell us which dependents were missing health insurance (<a target=" _blank" rel="noopener noreferrer" href="https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml">with minimum essential health coverage</a>) in 2024.
       nj_disabled_exemption:
         edit:
           instructions_html: People with disabilities are eligible for tax exemptions. <br><br> In NJ, you are considered disabled if you have a "<b>total and permanent</b> inability to engage in any substantial gainful activity because of any physical or mental impairment, including blindness." <br><br> (This is different from the federal tax definition. NJ doesn’t consider your age or your receipt of taxable disability income.)
@@ -3162,11 +3175,8 @@ en:
           title: You may be eligible for the Earned Income Tax Credit
       nj_eligibility_health_insurance:
         edit:
-          coverage_description_html: "<p>Most people who have health insurance have minimum essential coverage. “Minimal essential coverage” just refers to how much your plan covers. If you have any of the following, you most likely have it:</p>\n<ul>\n  <li>A plan through your employer</li>\n  <li>A plan bought through <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://nj.gov/getcoverednj/\">GetCoveredNJ</a></li>\n  <li>Medicare</li> \n  <li>Medicaid (NJ FamilyCare)</li>\n</ul>\n<p><a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml\">Here is the full list of insurance options that have minimum essential coverage.</a><p> \n<p>If you only had standalone vision and dental plans, workers' compensation coverage, and/or coverage limited to a specified disease or illness, you didn't have minimum essential coverage. In New Jersey, as of 2018, you need minimum essential coverage, or you will likely pay additional taxes.</p>\n"
           coverage_heading: What is health insurance with minimum essential coverage?
-          dependent_label: "%{name}"
           label: Did you and all members of your tax household have health insurance (with minimum essential coverage) for every month in %{filing_year}?
-          label_follow_up: Which dependents were missing health insurance?
           tax_household_description_html: A tax household includes you, your spouse (if filing a joint return), domestic partner claimed on your return, and any individuals you claim as dependents on your NJ-1040. It also includes any individuals you can, but do not, claim as dependents on your return.
           tax_household_heading: What is considered a tax household?
           title: Let’s get started.
@@ -3216,12 +3226,21 @@ en:
           where_to_find_helper_heading: Where can I find property taxes paid?
       nj_household_rent_own:
         edit:
-          both: Both a tenant and a homeowner
-          homeowner: Homeowner
-          label: In %{filing_year}, which were you?
-          neither: Neither
-          tenant: Tenant (If you own a mobile home that is located in a mobile home park, you are considered a tenant.)
-          title: You might be eligible for the New Jersey Property Tax credit or deduction!
+          both_html: "<b>Both</b>: I was a homeowner for part of the year, and I was a renter for part of the year."
+          description_html: Your "main home" is where you primarily lived at any given time (e.g., a house, a condo, or an apartment). <b>You can’t have multiple main homes at the same time, but you may have different main homes throughout the year if you moved.</b>
+          helper_1_description: Yes. This tax break is designed to support people in New Jersey whose money contributes to property taxes. (Renters do this by paying rent, contributing to the cost of property taxes paid by the property owners.)
+          helper_1_header: Are you sure this applies to rent paid?
+          helper_2_description: No. Please answer the questions in this section for your main home only. You can’t claim this tax break for a vacation home, a "second home," or a property you own and rent to someone else.
+          helper_2_header: Can I claim for a vacation home or a property I rent out to someone?
+          helper_3_description: If you owned a mobile home in a mobile home park, you are considered a renter. Your site fees are what you paid in rent.
+          helper_3_header: What if I lived in a mobile home?
+          helper_4_description_html: The property tax <b>deduction</b> reduces your taxable income. We will deduct your share of property taxes paid or $15,000, whichever is less. For renters, we’ll consider 18% of rent paid as your share.
+          helper_4_header: How much is this deduction or credit worth?
+          homeowner_html: I was a <b>homeowner</b> for at least part of the year
+          label_html: How would you describe your living situation in %{filing_year} <b>as it pertains to your main home(s)</b>?
+          neither_html: Other
+          tenant_html: I was a <b>renter</b> for at least part of the year
+          title: You may qualify for a property tax deduction or credit on your main home, whether you owned or rented it.
       nj_ineligible_property_tax:
         edit:
           continue_text: Click continue to see what else we can guide you to qualify for.
