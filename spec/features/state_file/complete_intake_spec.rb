@@ -677,7 +677,9 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
       continue
+    end
 
+    def advance_health_insurance_eligibility
       expect(page).to have_text I18n.t("state_file.questions.nj_eligibility_health_insurance.edit.title")
       choose I18n.t("general.affirmative")
       continue
@@ -723,7 +725,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
     def choose_household_rent_own(household_rent_own)
       case household_rent_own
       when "homeowner", "tenant", "both", "neither"
-        choose I18n.t("state_file.questions.nj_household_rent_own.edit.#{household_rent_own}")
+        choose strip_html_tags(I18n.t("state_file.questions.nj_household_rent_own.edit.#{household_rent_own}_html"))
       else
         throw "not a valid choice"
       end
@@ -775,8 +777,9 @@ RSpec.feature "Completing a state file intake", active_job: true do
       continue
     end
 
-    def advance_to_property_tax_page(df_persona_name)
+    def advance_to_property_tax_page(df_persona_name, skip_health_insurance_eligibility: false)
       advance_to_start_of_intake(df_persona_name)
+      advance_health_insurance_eligibility unless skip_health_insurance_eligibility
       advance_county_and_municipality
       advance_disabled_exemption
       advance_veterans_exemption
@@ -785,7 +788,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
     it "advances past the loading screen by listening for an actioncable broadcast", required_schema: "nj" do
 
-      advance_to_property_tax_page("Minimal")
+      advance_to_property_tax_page("Minimal", skip_health_insurance_eligibility: true)
       choose_household_rent_own("neither")
 
       # estimated tax payments

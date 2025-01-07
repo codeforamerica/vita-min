@@ -187,21 +187,22 @@ module StateFile
         state_name: "New Jersey",
         return_type: "Resident",
         schema_file_name: "NJIndividual2024V0.1.zip",
-        mail_voucher_address: "New Jersey Personal Income Tax<br/>" \
-                              "Processing Center<br/>" \
-                              "Trenton, NJ".html_safe,
-        pay_taxes_link: "https://www.nj.gov/treasury/taxation/payments-notices.shtml",
+        mail_voucher_address: "State of New Jersey<br/>" \
+                              "Division of Taxation<br/>" \
+                              "Revenue Processing Center - Payments<br/>" \
+                              "PO Box 643 Trenton, NJ 08646-0643".html_safe,
+        pay_taxes_link: "https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp",
         survey_link: "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_82CJgtfW0HFEPIi",
         submission_type: "Resident",
-        tax_payment_info_text: "https://www.nj.gov/treasury/taxation/payments-notices.shtml",
-        tax_payment_info_url: "https://www.nj.gov/treasury/taxation/payments-notices.shtml",
-        tax_refund_url: "https://www.tax.ny.gov/pit/file/refund.htm",
+        tax_payment_info_text: "https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp",
+        tax_payment_info_url: "https://www.state.nj.us/treasury/taxation/payments-notices.shtml",
+        tax_refund_url: "https://www20.state.nj.us/TYTR_TGI_INQ/jsp/prompt.jsp",
         department_of_taxation: "New Jersey Division of Taxation",
         timezone: 'America/New_York',
-        vita_link_en: "",
-        vita_link_es: "",
-        voucher_form_name: "NJ Voucher Form",
-        voucher_path: "",
+        vita_link_en: "https://airtable.com/appqG5OGbTLBiQ408/pag9EUHzAZzfRIwUn/form",
+        vita_link_es: "https://airtable.com/appqG5OGbTLBiQ408/pagVcLm52Stg9p4hY/form",
+        voucher_form_name: "NJ-1040-V (NJ Gross Income Tax Resident Payment Voucher)",
+        voucher_path: "/pdfs/nj1040v-TY2024.pdf",
         w2_supported_box14_codes: ["UI_WF_SWF", "UI_HC_WD", "FLI"],
         w2_include_local_income_boxes: false
       },

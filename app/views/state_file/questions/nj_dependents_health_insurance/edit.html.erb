@@ -1,0 +1,37 @@
+<% title = t(".title_html") %>
+
+<% content_for :page_title, title %>
+<% content_for :card do %>
+  <h1 class="h2"><%= title %></h1>
+
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <div class="white-group">
+      <fieldset class="tight-checkboxes">
+        <legend class="form-question" style="margin-bottom: 3rem;"><%= t('.label') %></legend>
+        <div class="input-group--block">
+          <%= f.fields_for :dependents do |ff| %>
+            <% dependent = ff.object %>
+            <%= ff.cfa_checkbox(
+              :nj_did_not_have_health_insurance,
+              dependent.full_name,
+              options: { checked_value: "yes", unchecked_value: "no" }
+            ) %>
+          <% end %>
+        </div>
+      </fieldset>
+    </div>
+
+    <p class="text--italic"><%= t('.continue') %></p>
+    <div class="reveal">
+      <button class="reveal__button"><%= t('.coverage_heading') %></button>
+      <div class="reveal__content">
+        <%= t('state_file.general.nj_minimal_essential_health_coverage_html') %>
+      </div>
+    </div>
+
+    <% if params[:return_to_review].present? %>
+      <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
+    <% end %>
+    <%= f.continue %>
+  <% end %>
+<% end %>

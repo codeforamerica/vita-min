@@ -1190,6 +1190,7 @@ describe Efile::Nj::Nj1040Calculator do
           create(
             :state_file_nj_intake,
             :married_filing_separately,
+            household_rent_own: "rent",
             tenant_same_home_spouse: 'yes',
             )
         }
@@ -1204,6 +1205,7 @@ describe Efile::Nj::Nj1040Calculator do
           create(
             :state_file_nj_intake,
             :married_filing_separately,
+            household_rent_own: "own",
             homeowner_same_home_spouse: 'yes',
             )
         }
@@ -1218,6 +1220,7 @@ describe Efile::Nj::Nj1040Calculator do
           create(
             :state_file_nj_intake,
             :married_filing_separately,
+            household_rent_own: "rent",
             tenant_same_home_spouse: 'no',
             )
         }
@@ -1232,6 +1235,7 @@ describe Efile::Nj::Nj1040Calculator do
           create(
             :state_file_nj_intake,
             :married_filing_separately,
+            household_rent_own: "own",
             homeowner_same_home_spouse: 'no',
             )
         }
@@ -1296,6 +1300,16 @@ describe Efile::Nj::Nj1040Calculator do
         it 'sets line 56 to nil' do
           allow(StateFile::NjHomeownerEligibilityHelper).to receive(:determine_eligibility).and_return StateFile::NjHomeownerEligibilityHelper::INELIGIBLE
           allow(StateFile::NjTenantEligibilityHelper).to receive(:determine_eligibility).and_return StateFile::NjTenantEligibilityHelper::INELIGIBLE
+          instance.calculate
+          expect(instance.lines[:NJ1040_LINE_56].value).to eq(nil)
+        end
+      end
+
+      context 'when neither homeowner nor tenant' do
+        let(:intake) {
+          create(:state_file_nj_intake, household_rent_own: "neither")
+        }
+        it 'sets line 56 to nil' do
           instance.calculate
           expect(instance.lines[:NJ1040_LINE_56].value).to eq(nil)
         end
