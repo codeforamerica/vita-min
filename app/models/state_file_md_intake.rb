@@ -140,6 +140,7 @@ class StateFileMdIntake < StateFileBaseIntake
       eligibility_homebuyer_withdrawal_mfj: "yes",
       eligibility_homebuyer_withdrawal: "yes",
       eligibility_home_different_areas: "yes",
+      permanent_address_outside_md: "yes",
     }
   end
 

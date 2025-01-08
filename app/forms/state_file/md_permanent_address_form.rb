@@ -32,7 +32,7 @@ module StateFile
                                         permanent_zip: @intake.direct_file_data.mailing_zip,
                                       } : {}
       attributes_from_direct_file[:permanent_address_outside_md] = @intake.direct_file_data.mailing_state != 'MD' && confirmed_permanent_address == "yes" ? "yes" : "no"
-      attributes_from_form = attributes_for(:intake).except(:permanent_zip).merge({permanent_zip: permanent_zip&.delete('-')})
+      attributes_from_form = attributes_for(:intake).except(:permanent_zip).merge({ permanent_zip: permanent_zip&.delete('-') })
       @intake.update(attributes_from_form.merge(attributes_from_direct_file))
     end
   end
