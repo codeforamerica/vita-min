@@ -17,5 +17,5 @@
 #
 class StateFileArchivedIntake < ApplicationRecord
   has_one_attached :submission_pdf
-  has_many :access_logs, class_name: 'StateFileArchivedIntakeAccessLog'
+  has_many :intake_requests, class_name: 'StateFileArchivedIntakeRequest'
 end
