@@ -17,7 +17,7 @@ module StateFile
         if @form.valid?
           create_state_file_access_log(1)
           current_request.reset_failed_attempts!
-          redirect_to root_path
+          redirect_to state_file_archived_intakes_edit_identification_number_path
         else
           create_state_file_access_log(2)
           current_request.increment_failed_attempts
