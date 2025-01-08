@@ -842,7 +842,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_15).and_return(0)
         end
 
-        it "fills in zero on line 15" do
+        it "leaves line 15 blank" do
           # millions
           expect(pdf_fields["15"]).to eq ""
           expect(pdf_fields["undefined_36"]).to eq ""
@@ -853,10 +853,10 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           # hundreds
           expect(pdf_fields["Text101"]).to eq ""
           expect(pdf_fields["Text103"]).to eq ""
-          expect(pdf_fields["Text104"]).to eq "0"
+          expect(pdf_fields["Text104"]).to eq ""
           # decimals
-          expect(pdf_fields["Text105"]).to eq "0"
-          expect(pdf_fields["Text106"]).to eq "0"
+          expect(pdf_fields["Text105"]).to eq ""
+          expect(pdf_fields["Text106"]).to eq ""
         end
       end
 

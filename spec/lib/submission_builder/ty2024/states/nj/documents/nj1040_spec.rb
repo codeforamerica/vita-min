@@ -340,12 +340,10 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
     end
 
     describe "wages" do
-      let(:intake) { create(:state_file_nj_intake) }
-
       context "when no w2 wages (line 15 is 0)" do
-        it "sets WagesSalariesTips to 0" do
+        it "does not include WagesSalariesTips item" do
           allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_15).and_return(0)
-          expect(xml.at("WagesSalariesTips").text).to eq(0.to_s)
+          expect(xml.at("WagesSalariesTips")).to eq(nil)
         end
       end
 
