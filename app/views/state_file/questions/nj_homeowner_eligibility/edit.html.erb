@@ -6,49 +6,8 @@
 <% content_for :card do %>
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
     <h1 class="h2"><%= title %></h1>
-    <p><%= t(".label") %></p>
 
-    <div class="spacing-above-0 question-with-follow-up">
-      <div class="white-group">
-        <div class="tight-checkboxes">
-          <%= f.cfa_checkbox(:homeowner_home_subject_to_property_taxes, t(".homeowner_home_subject_to_property_taxes"), options: { checked_value: "yes", unchecked_value: "no" }) %>
-        </div>
-      </div>
-      <div class="white-group">
-        <div class="tight-checkboxes">
-          <%= f.cfa_checkbox(:homeowner_more_than_one_main_home_in_nj, t(".homeowner_more_than_one_main_home_in_nj"), options: { checked_value: "yes", unchecked_value: "no" }) %>
-        </div>
-      </div>
-      <div class="white-group">
-        <div class="tight-checkboxes">
-          <%= f.cfa_checkbox(:homeowner_shared_ownership_not_spouse, t(".homeowner_shared_ownership_not_spouse"), options: { checked_value: "yes", unchecked_value: "no" }) %>
-        </div>
-      </div>
-      <div class="white-group question-with-follow-up__question">
-        <div class="tight-checkboxes">
-        <%= f.cfa_checkbox(:homeowner_main_home_multi_unit, t(".homeowner_main_home_multi_unit"), options: { checked_value: "yes", unchecked_value: "no", "data-follow-up": "#homeowner_multi_unit_followup", "aria-controls": "homeowner_multi_unit_followup"}) %>
-        </div>
-      </div>
-      <div class="question-with-follow-up__follow-up" id="homeowner_multi_unit_followup">
-        <div class="white-group">
-          <div class="tight-checkboxes">
-            <%= f.cfa_checkbox(:homeowner_main_home_multi_unit_max_four_one_commercial, t(".homeowner_main_home_multi_unit_max_four_one_commercial"), options: { checked_value: "yes", unchecked_value: "no" }) %>
-          </div>
-        </div>
-      </div>
-      <% if current_intake.filing_status_mfs? %>
-        <div class="white-group">
-          <div class="tight-checkboxes">
-            <%= f.cfa_checkbox(:homeowner_same_home_spouse, t(".homeowner_same_home_spouse"), options: { checked_value: "yes", unchecked_value: "no" }) %>
-          </div>
-        </div>
-      <% end %>
-      <div class="white-group">
-        <div class="tight-checkboxes">
-          <%= f.cfa_checkbox(:homeowner_none_of_the_above, t("general.none_of_these"), options: { checked_value: "yes", unchecked_value: "no" }) %>
-        </div>
-      </div>
-    </div>
+    <%= f.vita_min_checkbox_set(:homeowner_eligibility, @checkbox_collection, enum: true, label_text: t(".label")) %>
 
     <% if params[:return_to_review].present? %>
       <%= hidden_field_tag "return_to_review", params[:return_to_review] %>

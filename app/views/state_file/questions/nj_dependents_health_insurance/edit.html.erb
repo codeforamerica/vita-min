@@ -1,24 +1,22 @@
-<% title = t(".title_html") %>
+<%
+  content_for :page_title, t(".title") 
+%>
 
-<% content_for :page_title, title %>
 <% content_for :card do %>
-  <h1 class="h2"><%= title %></h1>
+  <h1 class="h2"><%= t(".title_html") %></h1>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="white-group">
-      <fieldset class="tight-checkboxes">
-        <legend class="form-question" style="margin-bottom: 3rem;"><%= t('.label') %></legend>
-        <div class="input-group--block">
-          <%= f.fields_for :dependents do |ff| %>
-            <% dependent = ff.object %>
-            <%= ff.cfa_checkbox(
-              :nj_did_not_have_health_insurance,
-              dependent.full_name,
-              options: { checked_value: "yes", unchecked_value: "no" }
-            ) %>
-          <% end %>
-        </div>
-      </fieldset>
+      <% checkboxes = f.fields_for :dependents do |ff|
+        ff.vita_min_checkbox_in_set({ method: :nj_did_not_have_health_insurance, label: ff.object.full_name }, enum: true)
+      end %>
+
+      <%= f.vita_min_checkbox_set(
+        :college_dependents,
+        checkboxes: checkboxes,
+        enum: true,
+        label_text: t('.label'),
+      )%>
     </div>
 
     <p class="text--italic"><%= t('.continue') %></p>
