@@ -463,29 +463,16 @@ describe Efile::Nj::Nj1040Calculator do
   end
 
   describe 'line 15 - state wages' do
-    let(:intake) { create(:state_file_nj_intake) }
-
-    context 'when no state file w2s' do
-      let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
-      it 'sets line 15 to -1 to indicate the sum does not exist' do
-        expect(instance.lines[:NJ1040_LINE_15].value).to eq(-1)
-      end
+    it 'sets line 15 to 0 when no state wages' do
+      allow(Efile::Nj::NjStateWages).to receive(:calculate_state_wages).and_return(0)
+      instance.calculate
+      expect(instance.lines[:NJ1040_LINE_15].value).to eq(0)
     end
 
-    context 'when 2 state file w2s' do
-      let(:intake) { create(:state_file_nj_intake, :df_data_2_w2s) }
-      it 'sets line 15 to the sum of all state wage amounts' do
-        expected_sum = 12345 + 50000
-        expect(instance.lines[:NJ1040_LINE_15].value).to eq(expected_sum)
-      end
-    end
-
-    context 'when many state file w2s' do
-      let(:intake) { create(:state_file_nj_intake, :df_data_many_w2s) }
-      it 'sets line 15 to the sum of all state wage amounts' do
-        expected_sum = 50000 + 50000 + 50000 + 50000
-        expect(instance.lines[:NJ1040_LINE_15].value).to eq(expected_sum)
-      end
+    it 'sets line 15 to state wages' do
+      allow(Efile::Nj::NjStateWages).to receive(:calculate_state_wages).and_return(15_000)
+      instance.calculate
+      expect(instance.lines[:NJ1040_LINE_15].value).to eq(15_000)
     end
   end
 
