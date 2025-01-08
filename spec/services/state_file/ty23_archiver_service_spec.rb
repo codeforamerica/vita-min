@@ -68,6 +68,7 @@ RSpec.describe StateFile::Ty23ArchiverService do
         let(:archiver) { described_class.new(state_code: state_code) }
         let(:intake) {
           create(archiver.data_source.table_name.singularize,
+            :with_mailing_address,
             created_at: Date.parse("1/5/23"),
             hashed_ssn: "fake hashed ssn",
             email_address: "fake@email.com",
@@ -87,7 +88,7 @@ RSpec.describe StateFile::Ty23ArchiverService do
           archiver.instance_variable_set(:@current_batch, mock_batch)
         end
 
-        it 'creates an archived intake for each intake in the batch and maps the initial data' do
+        it 'creates an archived intake for each intake in the batch and sets the basic data' do
           archived_ids = archiver.archive_batch
           expect(archived_ids.count).to eq 1
           archived_ids.each do |id|
@@ -96,6 +97,19 @@ RSpec.describe StateFile::Ty23ArchiverService do
             expect(archived_intake.email_address).to eq(intake.email_address)
             expect(archived_intake.tax_year).to eq(2023)
             expect(archived_intake.state_code).to eq(state_code)
+          end
+        end
+
+        it 'populates the archived address information from the XML direct file mailing address data' do
+          archived_ids = archiver.archive_batch
+          expect(archived_ids.count).to eq 1
+          archived_ids.each do |id|
+            archived_intake = StateFileArchivedIntake.find(id)
+            expect(archived_intake.mailing_street).to eq(intake.direct_file_data.mailing_street)
+            expect(archived_intake.mailing_apartment).to eq(intake.direct_file_data.mailing_apartment)
+            expect(archived_intake.mailing_city).to eq(intake.direct_file_data.mailing_city)
+            expect(archived_intake.mailing_state).to eq(intake.direct_file_data.mailing_state)
+            expect(archived_intake.mailing_zip).to eq(intake.direct_file_data.mailing_zip)
           end
         end
 
@@ -116,5 +130,4 @@ RSpec.describe StateFile::Ty23ArchiverService do
       end
     end
   end
-
 end

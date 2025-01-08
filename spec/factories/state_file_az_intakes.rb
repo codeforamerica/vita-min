@@ -282,5 +282,16 @@ FactoryBot.define do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('az_atticus_itin_single') }
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('az_atticus_itin_single') }
     end
+
+    trait :with_mailing_address do
+      after(:build) do |intake|
+        intake.direct_file_data.mailing_street = "321 Main St"
+        intake.direct_file_data.mailing_apartment = "Apt 2"
+        intake.direct_file_data.mailing_city = "Springfield"
+        intake.direct_file_data.mailing_state = "AZ"
+        intake.direct_file_data.mailing_zip = "12345"
+        intake.update!(raw_direct_file_data: intake.direct_file_data.to_s)
+      end
+    end
   end
 end

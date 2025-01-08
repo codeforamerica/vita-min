@@ -18,7 +18,7 @@ module StateFile
     end
 
     def find_archiveables
-      @current_batch = ActiveRecord::Base.connection.exec_query(query_archiveable)
+      @current_batch = ActiveRecord::Base.connection.exec_query(query_archiveable_intakes)
       Rails.logger.info("Found #{current_batch.count} #{data_source.name.pluralize} to archive.")
     end
 
@@ -28,12 +28,11 @@ module StateFile
         intake = data_source.find(record.id)
         archive_attributes = StateFileArchivedIntake.column_names
         archived_intake = StateFileArchivedIntake.new(intake.attributes.slice(*archive_attributes))
-        # TODO: pull mailing address details off the intake; populate relevant fields on the archived intake record
-        # mailing_apartment
-        # mailing_city
-        # mailing_state
-        # mailing_street
-        # mailing_zip
+        archived_intake.mailing_street = intake.direct_file_data.mailing_street
+        archived_intake.mailing_apartment = intake.direct_file_data.mailing_apartment
+        archived_intake.mailing_city = intake.direct_file_data.mailing_city
+        archived_intake.mailing_state = intake.direct_file_data.mailing_state
+        archived_intake.mailing_zip = intake.direct_file_data.mailing_zip
         if intake.submission_pdf.attached?
           pdf = intake.submission_pdf
           archived_intake.submission_pdf.attach(
@@ -57,7 +56,7 @@ module StateFile
       archived_ids
     end
 
-    def query_archiveable
+    def query_archiveable_intakes
       <<~SQL
         SELECT
           #{tax_year} AS tax_year, '#{state_code}' AS state_code,
