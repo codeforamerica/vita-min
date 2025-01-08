@@ -14,7 +14,7 @@ module StateFile
         @form = VerificationCodeForm.new(verification_code_form_params)
 
         if @form.save
-          redirect_to root_path
+          redirect_to state_file_archived_intakes_edit_identification_number_path
         else
           render :edit
         end
