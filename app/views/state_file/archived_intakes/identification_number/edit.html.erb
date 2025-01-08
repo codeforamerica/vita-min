@@ -1,0 +1,10 @@
+<% title ="title" %>
+<h1 class="h2" id="main-question"><%= title %></h1>
+<p><%= "help_text" %></p>
+
+<%= form_with model: @form, url: state_file_archived_intakes_identification_number_path, local: true, method: :patch, builder: VitaMinFormBuilder do |f| %>
+  <div class="white-group">
+    <%= f.cfa_input_field(:ssn, "ssn_label", classes: ["form-width--long"]) %>
+  </div>
+  <%= f.submit t("general.continue"), class: "button button--primary button--wide spacing-below-15" %>
+<% end %>
