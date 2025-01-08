@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :state_file_archived_intake_requests
   active_state_codes = StateFile::StateInformationService.active_state_codes
 
   active_state_codes.each do |code|

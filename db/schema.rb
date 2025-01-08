@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_27_174414) do
+ActiveRecord::Schema[7.1].define(version: 2025_01_08_231212) do
   create_schema "analytics"
 
   # These are extensions that must be enabled in order to support this database
@@ -1690,9 +1690,20 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_27_174414) do
     t.jsonb "details", default: "{}"
     t.integer "event_type"
     t.string "ip_address"
+    t.bigint "state_file_archived_intake_request_id"
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "state_file_archived_intake_requests", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.jsonb "details", default: "{}"
+    t.string "email_address"
+    t.integer "failed_attempts", default: 0, null: false
+    t.string "ip_address"
+    t.datetime "locked_at"
     t.bigint "state_file_archived_intakes_id"
     t.datetime "updated_at", null: false
-    t.index ["state_file_archived_intakes_id"], name: "idx_on_state_file_archived_intakes_id_e878049c06"
+    t.index ["state_file_archived_intakes_id"], name: "idx_on_state_file_archived_intakes_id_31501c23f8"
   end
 
   create_table "state_file_archived_intakes", force: :cascade do |t|
@@ -2800,6 +2811,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_27_174414) do
   add_foreign_key "incoming_text_messages", "clients"
   add_foreign_key "intake_archives", "intakes", column: "id"
   add_foreign_key "intakes", "clients"
+  add_foreign_key "intakes", "drivers_licenses", column: "primary_drivers_license_id"
+  add_foreign_key "intakes", "drivers_licenses", column: "spouse_drivers_license_id"
   add_foreign_key "intakes", "intakes", column: "matching_previous_year_intake_id"
   add_foreign_key "intakes", "vita_partners"
   add_foreign_key "notes", "clients"
@@ -2814,7 +2827,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_27_174414) do
   add_foreign_key "site_coordinator_roles_vita_partners", "site_coordinator_roles"
   add_foreign_key "site_coordinator_roles_vita_partners", "vita_partners"
   add_foreign_key "source_parameters", "vita_partners"
-  add_foreign_key "state_file_archived_intake_access_logs", "state_file_archived_intakes", column: "state_file_archived_intakes_id"
+  add_foreign_key "state_file_archived_intake_access_logs", "state_file_archived_intake_requests"
+  add_foreign_key "state_file_archived_intake_requests", "state_file_archived_intakes", column: "state_file_archived_intakes_id"
   add_foreign_key "state_routing_fractions", "state_routing_targets"
   add_foreign_key "state_routing_fractions", "vita_partners"
   add_foreign_key "system_notes", "clients"
