@@ -25,10 +25,15 @@ module StateFile
     def archive_batch
       archived_ids = []
       @current_batch.each do |record|
-        intake = data_source.find(record['data_source_id'])
+        intake = data_source.find(record.id)
         archive_attributes = StateFileArchivedIntake.column_names
         archived_intake = StateFileArchivedIntake.new(intake.attributes.slice(*archive_attributes))
         # TODO: pull mailing address details off the intake; populate relevant fields on the archived intake record
+        # mailing_apartment
+        # mailing_city
+        # mailing_state
+        # mailing_street
+        # mailing_zip
         if intake.submission_pdf.attached?
           pdf = intake.submission_pdf
           archived_intake.submission_pdf.attach(
