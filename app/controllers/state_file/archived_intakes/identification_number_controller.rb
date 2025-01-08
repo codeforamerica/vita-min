@@ -1,7 +1,9 @@
 # 1. use front end validations for SSN
 # 2. give them 1 attempt at an inccorect SSN
 # 3. update the access logs to have the correct event
-# 4. tests, translations
+# 4. tests
+# 5. translations
+# 6. remove the session and use the path to pass the email address
 module StateFile
   module ArchivedIntakes
     class IdentificationNumberController < ApplicationController
@@ -12,22 +14,56 @@ module StateFile
 
       def update
         @form = IdentificationNumberForm.new(identification_number_form_params)
+
+        # validates if we have an associated SSN with the intake
+        # if yes, great! keep on keeping on
+        # if no, we record that attempt, we check how many attempts they have made
+        # first attempt: we throw the validation error
+        # second attempt: we offboard, we can't find their account
+
+        if @form.valid?
+          # move them on
+        else
+          if @form.errors.include?(:no_remaining_attempts)
+            # redirect to offboarding
+          else
+            render :edit
+          end
+        end
+
+
+
+        archived_intake = StateFileArchivedIntake.find_by(email_address: session[:email_address])
         hashed_ssn = SsnHashingService.hash(identification_number_form_params[:ssn])
-          archived_intake = StateFileArchivedIntake.find_by(email_address: session[:archived_intake_email_address])
 
         if hashed_ssn == archived_intake.hashed_ssn
           StateFileArchivedIntakeAccessLog.create!(
             ip_address: ip_for_irs,
             details: { hashed_ssn: @form.email_address },
-            event_type: 0,
+            event_type: 4,
             state_file_archived_intake: archived_intake
           )
+          redirect_to root_path
         else
+          # create a failed attempt
           StateFileArchivedIntakeAccessLog.create!(
             ip_address: ip_for_irs,
             details: { hashed_ssn: @form.email_address },
-            event_type: 0,
+            event_type: 5,
           )
+
+          # check if there are other failed attempts
+          attempts = StateFileArchivedIntakeAccessLog.where(
+            ip_address: ip_for_irs,
+            event_type: 5,
+            created_at: Time.now - 5 # less than 1 hour
+          ).count
+          if attempts >= 2
+            # lock them out
+          else
+            render :edit
+            # show the page again with a validation error showing remaining attempts
+          end
         end
       end
 

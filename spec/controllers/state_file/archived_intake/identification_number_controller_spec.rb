@@ -10,8 +10,8 @@ RSpec.describe StateFile::ArchivedIntakes::IdentificationNumberController, type:
     end
   end
 
-  describe "POST #update" do
-    let(:email_address) { "test@example.com" }
+  describe "PATCH #update" do
+    let(:ssn) { "test@example.com" }
     let(:ip_address) { "127.0.0.1" }
 
     before do
@@ -20,9 +20,12 @@ RSpec.describe StateFile::ArchivedIntakes::IdentificationNumberController, type:
 
     context "when the form is valid" do
 
-      it "creates an access log and redirects to the verification code page" do
+      # form is valid -> we create the new access log with correct ssn
+      # form is invalid -> we create the new access log without the correct ssn & check how many attempts they have left
+
+      it "creates an access log and redirects to the root path" do
         post :update, params: {
-          state_file_archived_intakes_email_address_form: { email_address: valid_email_address }
+          state_file_archived_intakes_number_form: { ssn: valid_email_address }
         }
         expect(assigns(:form)).to be_valid
 
