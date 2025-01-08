@@ -30,14 +30,17 @@ module StateFile
         archived_intake = StateFileArchivedIntake.new(intake.attributes.slice(*archive_attributes))
         # TODO: pull mailing address details off the intake; populate relevant fields on the archived intake record
         if intake.submission_pdf.attached?
+          pdf = intake.submission_pdf
           archived_intake.submission_pdf.attach(
-            io: StringIO.new(intake.submission_pdf.download),
-            filename: intake.submission_pdf.filename.to_s,
-            content_type: intake.submission_pdf.content_type,
+            io: StringIO.new(pdf.download),
+            filename: pdf.filename.to_s,
+            content_type: pdf.content_type,
           )
         else
           Rails.logger.error("No submission pdf attached for record #{record}. Continuing with batch.")
         end
+        archived_intake.state_code = @state_code
+        archived_intake.tax_year = @tax_year
         archived_intake.save!
         archived_ids << intake.id
       rescue StandardError => e

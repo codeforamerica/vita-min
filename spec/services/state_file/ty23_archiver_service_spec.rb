@@ -50,7 +50,15 @@ RSpec.describe StateFile::Ty23ArchiverService do
     %w[az ny].each do |state_code|
       context 'when there is a current batch to archive' do
         let(:archiver) { described_class.new(state_code: state_code) }
-        let!(:intake) { create("state_file_#{state_code}_intake".to_sym, created_at: Date.parse("1/5/23"), hashed_ssn: "fake hashed ssn") }
+        let(:email_address) { "fake@email.com"}
+        let!(:intake) {
+          create(
+            "state_file_#{state_code}_intake".to_sym,
+            created_at: Date.parse("1/5/23"),
+            hashed_ssn: "fake hashed ssn",
+            email_address: email_address,
+          )
+        }
         let!(:submission) { create(:efile_submission, :for_state, :accepted, data_source: intake, created_at: Date.parse("1/5/23")) }
         let!(:mock_batch) { [submission] }
         let(:test_pdf) { Rails.root.join("spec", "fixtures", "files", "document_bundle.pdf") }
@@ -68,7 +76,12 @@ RSpec.describe StateFile::Ty23ArchiverService do
           archived_ids = archiver.archive_batch
           expect(archived_ids.count).to eq 1
           archived_ids.each do |id|
-            expect(StateFileArchivedIntake.find(id).submission_pdf.attached?).to be true
+            archived_intake = StateFileArchivedIntake.find(id)
+            expect(archived_intake.hashed_ssn).to eq(intake.hashed_ssn)
+            expect(archived_intake.email_address).to eq(intake.email_address)
+            expect(archived_intake.tax_year).to eq(2023)
+            expect(archived_intake.state_code).to eq(state_code)
+            expect(archived_intake.submission_pdf.attached?).to be true
           end
         end
       end
