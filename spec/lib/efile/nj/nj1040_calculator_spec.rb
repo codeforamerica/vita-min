@@ -1566,6 +1566,7 @@ describe Efile::Nj::Nj1040Calculator do
         first_w2 = intake.state_file_w2s.first 
         first_w2.update_attribute(:box14_ui_wf_swf, 0)
         first_w2.update_attribute(:box14_ui_hc_wd, described_class::EXCESS_UI_WF_SWF_MAX + 1)
+        instance.calculate
         expect(instance.lines[:NJ1040_LINE_59].value).to eq(nil)
       end
     end
@@ -1605,6 +1606,7 @@ describe Efile::Nj::Nj1040Calculator do
 
         first_w2.update_attribute(:box14_ui_wf_swf, contribution_1)
         second_w2.update_attribute(:box14_ui_wf_swf, contribution_2)
+        second_w2.update_attribute(:box14_ui_hc_wd, 1)
         instance.calculate
 
         expected_sum = (contribution_1 + contribution_2 - described_class::EXCESS_UI_WF_SWF_MAX).round
@@ -1632,7 +1634,7 @@ describe Efile::Nj::Nj1040Calculator do
           contribution_1 = described_class::EXCESS_UI_WF_SWF_MAX - 1
           contribution_2 = described_class::EXCESS_UI_WF_SWF_MAX - 2
           w2_3.update_attribute(:box14_ui_wf_swf, contribution_1)
-          w2_4.update_attribute(:box14_ui_wf_swf, contribution_2)
+          w2_4.update_attribute(:box14_ui_hc_wd, contribution_2)
           instance.calculate
           expected_sum = (contribution_1 + contribution_2 - described_class::EXCESS_UI_WF_SWF_MAX).round
           expect(instance.lines[:NJ1040_LINE_59].value).to eq(expected_sum)
@@ -1648,7 +1650,7 @@ describe Efile::Nj::Nj1040Calculator do
           w2_1.update_attribute(:box14_ui_wf_swf, contribution_1)
           w2_2.update_attribute(:box14_ui_wf_swf, contribution_2)
           w2_3.update_attribute(:box14_ui_wf_swf, contribution_3)
-          w2_4.update_attribute(:box14_ui_wf_swf, contribution_4)
+          w2_4.update_attribute(:box14_ui_hc_wd, contribution_4)
           instance.calculate
           expected_sum = 350
           expect(instance.lines[:NJ1040_LINE_59].value).to eq(expected_sum)
