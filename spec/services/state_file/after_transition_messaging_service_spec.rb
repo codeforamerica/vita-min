@@ -2,6 +2,7 @@ require "rails_helper"
 
 describe StateFile::AfterTransitionMessagingService do
   include MockTwilio
+  include ActiveJob::TestHelper
 
   let(:intake) do
     create :state_file_az_intake,
@@ -126,6 +127,7 @@ describe StateFile::AfterTransitionMessagingService do
     it "sends the terminal rejected refund sms" do
       expect do
         messaging_service.send_efile_submission_terminal_rejected_message
+        perform_enqueued_jobs
       end.to change(FakeTwilioClient.messages, :count).by(1)
 
       expect(efile_submission.message_tracker).to include "messages.state_file.terminal_rejected"

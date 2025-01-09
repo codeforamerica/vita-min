@@ -33,4 +33,13 @@ describe StateFileNotificationEmail do
       expect(email).to have_received(:deliver)
     end
   end
+
+  describe "#deliver" do
+    it "queues a SendNotificationEmailJob" do
+      email = build :state_file_notification_email
+      expect {
+        email.save!
+      }.to have_enqueued_job(StateFile::SendNotificationEmailJob).with(email.id)
+    end
+  end
 end

@@ -199,6 +199,20 @@ RSpec.describe StateFile::MdPermanentAddressForm do
         expect(intake.permanent_zip).to eq "12345"
       end
 
+      context "permanent_address_outside_md" do
+        it "saves permanent_address_outside_md as yes when DF mailing address state is not MD" do
+          allow_any_instance_of(DirectFileData).to receive(:mailing_state).and_return "NC"
+          form.save
+          expect(intake.permanent_address_outside_md).to eq "yes"
+        end
+
+        it "saves permanent_address_outside_md as no when DF mailing address state is MD" do
+          allow_any_instance_of(DirectFileData).to receive(:mailing_state).and_return "MD"
+          form.save
+          expect(intake.permanent_address_outside_md).to eq "no"
+        end
+      end
+
       context "intake already has permanent address fields saved" do
         let(:intake) { create :state_file_md_intake,
                               permanent_street: "123 Throwa Way",
@@ -244,6 +258,12 @@ RSpec.describe StateFile::MdPermanentAddressForm do
         expect(intake.permanent_apartment).to eq permanent_apartment
         expect(intake.permanent_city).to eq permanent_city
         expect(intake.permanent_zip).to eq permanent_zip
+      end
+
+      it "saves permanent_address_outside_md as no because state is required to be MD when filling out a new address" do
+        allow_any_instance_of(DirectFileData).to receive(:mailing_state).and_return "NC"
+        form.save
+        expect(intake.permanent_address_outside_md).to eq "no"
       end
     end
   end

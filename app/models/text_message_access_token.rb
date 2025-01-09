@@ -25,7 +25,7 @@ class TextMessageAccessToken < ApplicationRecord
   after_create :increment_datadog
 
   scope :lookup, ->(raw_token) do
-    where(token: Devise.token_generator.digest(TextMessageAccessToken, :token, raw_token)).where("created_at > ?", Time.current - 30.minutes)
+    where(token: Devise.token_generator.digest(TextMessageAccessToken, :token, raw_token)).where("created_at > ?", Time.current - 10.minutes)
   end
 
   def self.generate!(sms_phone_number:, client_id: nil)
