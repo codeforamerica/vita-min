@@ -556,11 +556,13 @@ Rails.application.routes.draw do
   constraints(Routes::StateFileDomain.new) do
     scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
       namespace :state_file do
-        namespace :archived_intakes do
-          get 'email_address/edit', to: 'email_address#edit', as: 'edit_email_address'
-          patch 'email_address', to: 'email_address#update'
-          get 'verification_code/edit', to: 'verification_code#edit', as: 'edit_verification_code'
-          patch 'verification_code', to: 'verification_code#update'
+        if Flipper.enabled?(:get_your_pdf)
+          namespace :archived_intakes do
+            get 'email_address/edit', to: 'email_address#edit', as: 'edit_email_address'
+            patch 'email_address', to: 'email_address#update'
+            get 'verification_code/edit', to: 'verification_code#edit', as: 'edit_verification_code'
+            patch 'verification_code', to: 'verification_code#update'
+          end
         end
         namespace :questions do
           get "show_xml", to: "confirmation#show_xml"

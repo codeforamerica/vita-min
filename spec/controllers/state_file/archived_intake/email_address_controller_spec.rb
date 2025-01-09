@@ -20,24 +20,53 @@ RSpec.describe StateFile::ArchivedIntakes::EmailAddressController, type: :contro
     end
 
     context "when the form is valid" do
+      context "and a archived intake exists with the email address" do
+        let!(:archived_intake) { create :state_file_archived_intake, email_address: valid_email_address }
+        it "creates an access log create a request and redirects to the verification code page" do
+          post :update, params: {
+            state_file_archived_intakes_email_address_form: { email_address: valid_email_address }
+          }
+          expect(assigns(:form)).to be_valid
 
-      it "creates an access log and redirects to the verification code page" do
-        post :update, params: {
-          state_file_archived_intakes_email_address_form: { email_address: valid_email_address }
-        }
-        expect(assigns(:form)).to be_valid
+          request = StateFileArchivedIntakeRequest.last
+          expect(request.ip_address).to eq(ip_address)
+          expect(request.email_address).to eq(valid_email_address)
+          expect(request.state_file_archived_intakes_id).to eq(archived_intake.id)
 
-        access_log = StateFileArchivedIntakeAccessLog.last
-        expect(access_log.ip_address).to eq(ip_address)
-        expect(access_log.details["email_address"]).to eq(valid_email_address)
-        expect(access_log.event_type).to eq("issued_email_challenge")
+          log = StateFileArchivedIntakeAccessLog.last
+          expect(log.ip_address).to eq(ip_address)
+          expect(log.state_file_archived_intake_request_id).to eq(request.id)
+          expect(log.event_type).to eq("issued_email_challenge")
 
-        expect(response).to redirect_to(
-                              state_file_archived_intakes_edit_verification_code_path(email_address: valid_email_address)
-                            )
+          expect(response).to redirect_to(
+                                state_file_archived_intakes_edit_verification_code_path
+                              )
+        end
+      end
+
+      context "and a archived does not exist with the email address" do
+        it "creates an access log create a request and redirects to the verification code page" do
+          post :update, params: {
+            state_file_archived_intakes_email_address_form: { email_address: valid_email_address }
+          }
+          expect(assigns(:form)).to be_valid
+
+          request = StateFileArchivedIntakeRequest.last
+          expect(request.ip_address).to eq(ip_address)
+          expect(request.email_address).to eq(valid_email_address)
+          expect(request.state_file_archived_intakes_id).to eq(nil)
+
+          log = StateFileArchivedIntakeAccessLog.last
+          expect(log.ip_address).to eq(ip_address)
+          expect(log.state_file_archived_intake_request_id).to eq(request.id)
+          expect(log.event_type).to eq("issued_email_challenge")
+
+          expect(response).to redirect_to(
+                                state_file_archived_intakes_edit_verification_code_path
+                              )
+        end
       end
     end
-
     context "when the form is invalid" do
       it "renders the edit template" do
         post :update, params: {

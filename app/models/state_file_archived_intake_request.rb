@@ -26,4 +26,12 @@ class StateFileArchivedIntakeRequest < ApplicationRecord
   devise :lockable, :timeoutable, :trackable
 
   has_many :access_logs, class_name: 'StateFileArchivedIntakeAccessLog'
+
+  def lock_strategy
+    :failed_attempts
+  end
+
+  def unlock_strategy
+    :time
+  end
 end
