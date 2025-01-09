@@ -206,19 +206,19 @@
       <MedicareTaxWithheldAmt>725</MedicareTaxWithheldAmt>
       <OtherDeductionsBenefitsGrp>
         <Desc>STPICKUP</Desc>
-        <Amt>250</Amt>
+        <Amt>25</Amt>
       </OtherDeductionsBenefitsGrp>
       <OtherDeductionsBenefitsGrp>
-        <Desc>UI/WF/SWF</Desc>
-        <Amt>350</Amt>
+        <Desc>UIWFSWF</Desc>
+        <Amt>35</Amt>
       </OtherDeductionsBenefitsGrp>
       <OtherDeductionsBenefitsGrp>
-        <Desc>UI/HC/WD</Desc>
-        <Amt>450</Amt>
+        <Desc>UIHCWD</Desc>
+        <Amt>45</Amt>
       </OtherDeductionsBenefitsGrp>
       <OtherDeductionsBenefitsGrp>
         <Desc>FLI</Desc>
-        <Amt>550</Amt>
+        <Amt>55</Amt>
       </OtherDeductionsBenefitsGrp>
       <W2StateLocalTaxGrp>
         <W2StateTaxGrp>
