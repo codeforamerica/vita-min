@@ -2391,7 +2391,7 @@ es:
           title: 'Has rechazado los términos y condiciones. '
       eligibility_offboarding:
         edit:
-          body_html: No puedes usar este servicio este año porque %{ineligible_reason}. <br><br><strong>¿Fue un error?</strong><a href=%{prev_link}>Regresa para corregirlo.</a>
+          body_html: No puedes usar este servicio este año porque %{ineligible_reason}. <br><br><strong>¿Fue un error?</strong> <a href=%{prev_link}>Regresa para corregirlo.</a>
           ineligible_reason:
             eligibility_529_for_non_qual_expense: retiraste dinero de una cuenta de ahorro universitario 529 y lo utilizaste para un gasto no calificado en el %{filing_year}
             eligibility_ed_loan_cancelled: " tuve un préstamo estudiantil cancelado bajo la Ley del Plan de Rescate Estadounidense."
@@ -2410,6 +2410,7 @@ es:
             health_insurance_eligibility: and all members of your tax household did not have health insurance (with minimum essential coverage) for every month in %{filing_year}
             nyc_maintained_home: no viviste en Nueva York durante todo el
             nyc_residency: viviste o mantuviste una casa en la Ciudad de Nueva York durante parte del año.
+            permanent_address_outside_md: no residía en Maryland el 31 de diciembre
             permanent_address_outside_ny: no viviste en Nueva York durante todo el %{filing_year}
           title: Lamentablemente no puedes usar esta herramienta este año. ¡No te preocupes, aquí tienes otras opciones para presentar tu declaración!
         other_options:
@@ -3656,9 +3657,9 @@ es:
           title: "¡Tu declaración de impuestos de %{state_name}de %{filing_year} ha sido enviada! "
           title_resubmit: "¡Tu declaración de impuestos de %{state_name} de %{filing_year} ha sido enviada de nuevo!"
         nj_additional_content:
-          body_html: You said you%{or_spouse} are filing for the veteran exemption. If it's your first time filing for <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml">this exemption</a>, you have to provide <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml">documentation</a> and a <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf">form</a> to the New Jersey Division of Taxation. It can be done <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf">online</a>.
+          body_html: You said you are filing for the veteran exemption. If it's your first time filing for <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml">this exemption</a>, you have to provide <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml">documentation</a> and a <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf">form</a> to the New Jersey Division of Taxation. It can be done <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf">online</a>.
+          body_mfj_html: You said you or your spouse are filing for the veteran exemption. If it's your first time filing for <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml">this exemption</a>, you have to provide <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml">documentation</a> and a <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf">form</a> to the New Jersey Division of Taxation. It can be done <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf">online</a>.
           header: 'Attention: if you are claiming the veteran exemption for the first time'
-          or_spouse: " or your spouse"
       tax_refund:
         bank_details:
           account_number: Número de cuenta
