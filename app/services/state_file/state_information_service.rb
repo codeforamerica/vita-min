@@ -203,7 +203,7 @@ module StateFile
         vita_link_es: "https://airtable.com/appqG5OGbTLBiQ408/pagVcLm52Stg9p4hY/form",
         voucher_form_name: "NJ-1040-V (NJ Gross Income Tax Resident Payment Voucher)",
         voucher_path: "/pdfs/nj1040v-TY2024.pdf",
-        w2_supported_box14_codes: ["UI_WF_SWF", "UI_HC_WD", "FLI"],
+        w2_supported_box14_codes: ["UI_WF_SWF", "FLI"],
         w2_include_local_income_boxes: false
       },
       ny: {

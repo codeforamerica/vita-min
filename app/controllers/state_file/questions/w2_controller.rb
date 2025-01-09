@@ -9,6 +9,7 @@ module StateFile
 
       def update
         @w2.assign_attributes(form_params)
+        @w2.check_box14_limits = true
 
         if @w2.valid?
           @w2.save

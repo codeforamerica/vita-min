@@ -9,7 +9,15 @@ module StateFile
       end
 
       def update
-        update_for_device_id_collection(current_intake&.initial_efile_device_info)
+        if @w2s.any? do |w2|
+            w2.check_box14_limits = true
+            !w2.valid?
+          end
+          flash[:alert] = I18n.t("state_file.questions.income_review.edit.invalid_w2")
+          render :edit
+        else
+          update_for_device_id_collection(current_intake&.initial_efile_device_info)
+        end
       end
     end
   end

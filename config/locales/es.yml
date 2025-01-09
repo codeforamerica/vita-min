@@ -2837,7 +2837,9 @@ es:
           help_text: Te pediremos que nos compartas la información que pueda faltar.
           interest_income_body: No se necesita información estatal adicional
           interest_income_title: Ingresos por intereses (1099-INT)
+          invalid_w2: There is an issue with one or more W-2 forms. Please review and correct before proceeding.
           no_info_needed: No se necesita información estatal adicional
+          no_info_needed_nj: This income is not taxed in New Jersey.
           retirement_income_title: Jubilación (1099-R)
           review_and_edit_state_info: Revisar y editar la información estatal
           ssa_title: Beneficios del Seguro Social (SSA-1099)
@@ -3655,9 +3657,9 @@ es:
           title: "¡Tu declaración de impuestos de %{state_name}de %{filing_year} ha sido enviada! "
           title_resubmit: "¡Tu declaración de impuestos de %{state_name} de %{filing_year} ha sido enviada de nuevo!"
         nj_additional_content:
-          body_html: You said you%{or_spouse} are filing for the veteran exemption. If it's your first time filing for <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml">this exemption</a>, you have to provide <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml">documentation</a> and a <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf">form</a> to the New Jersey Division of Taxation. It can be done <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf">online</a>.
+          body_html: You said you are filing for the veteran exemption. If it's your first time filing for <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml">this exemption</a>, you have to provide <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml">documentation</a> and a <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf">form</a> to the New Jersey Division of Taxation. It can be done <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf">online</a>.
+          body_mfj_html: You said you or your spouse are filing for the veteran exemption. If it's your first time filing for <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml">this exemption</a>, you have to provide <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml">documentation</a> and a <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf">form</a> to the New Jersey Division of Taxation. It can be done <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf">online</a>.
           header: 'Attention: if you are claiming the veteran exemption for the first time'
-          or_spouse: " or your spouse"
       tax_refund:
         bank_details:
           account_number: Número de cuenta
@@ -3760,14 +3762,14 @@ es:
           verification_code_label: Ingresa el código de 6 dígitos
       w2:
         edit:
-          box14_explanation:
-            md_html: Para el año fiscal %{year}, solo procesaremos el código <strong>STPICKUP</strong>, que representa las contribuciones que hiciste al sistema de jubilación estatal.
+          box14_explanation_md_html: Para el año fiscal %{year}, solo procesaremos el código <strong>STPICKUP</strong>, que representa las contribuciones que hiciste al sistema de jubilación estatal.
+          box14_explanation_nj_html: 'For this year, we will only need the amounts for <strong>UI/WF/SWF</strong> (may also appear as <strong>"UI/HC/WD"</strong> on your W2) and FLI.<br/><br/><strong>If you do not see these, please leave these fields blank.</strong><br/><br/><strong>Definitions:</strong><br/><br/><strong>UI/WF/SWF</strong> (may also appear as <strong>"UI/HC/WD"</strong> on your W2) represents:<ul><li><strong>UI</strong> refers to unemployment insurance contributions</li><li><strong>WF</strong> and <strong>WD</strong> refer to  workforce development partnership fund contributions</li><li><strong>SWF</strong> refers to supplemental workforce fund contributions</li><li><strong>HC</strong> refers to healthcare contributions</li><li><strong>WD</strong> refers to workforce development contributions</li></ul><strong>FLI</strong>: Represents contributions withheld for Family Leave Insurance. Family Leave Insurance (FLI) provides paid leave benefits to bond with a new child, care for a loved one, or cope with domestic/sexual violence. If you have a number for this on your paycheck, it means you have paid into this program and may be eligible to receive cash benefits.<br/><br/>We use the amounts to determine if you  might be eligible for a credit.<br/><br/>There may be other information in box 14 - those don''t need to be reported with this tool.'
           box14_fli_html: "<strong>FLI</strong>"
           box14_html: "<strong>Box 14,</strong> Other"
+          box14_intro_nj_html: Box 14 will have various letters in it. Those letters all represent program names.<br/><br/>For this year, we will only need the amounts for <strong>UI/WF/SWF</strong> (may also appear as <strong>"UI/HC/WD"</strong> on your W2) <strong>and FLI</strong>.<br/><br/><strong>If you do not see these, please leave these fields blank.</strong><br/><br/>There may be information for other programs in box 14 - those don't need to be reported with this tool.
           box14_stpickup_help_text: Para %{year}, solo procesaremos el código STPICKUP. Si no ves este código o tienes otros códigos en Box 14, por favor déjalo en blanco.
           box14_stpickup_html: "<strong>STPICKUP</strong>"
-          box14_ui_hc_wd_html: "<strong>UI/HC/WD</strong>"
-          box14_ui_wf_swf_html: "<strong>UI/WF/SWF</strong>"
+          box14_ui_wf_swf_html: "<strong>UI/WF/SWF</strong> (This may also appear on your W2 as <strong>UI/HC/WD.</strong>)"
           box15_html: "<strong>Box 15,</strong> Employer’s state ID number"
           box16_html: "<strong>Box 16</strong>, State wages, tips, etc."
           box17_html: "<strong>Box 17</strong>, State income tax"
@@ -3784,7 +3786,8 @@ es:
           state_wages_amt_error: Ingresa los salarios y propinas estatales
           state_wages_exceed_amt_error: El total de salarios e ingresos estatales no puede ser mayor que $%{wages_amount}
           wages_amt_error: El impuesto sobre la renta total no puede ser mas de $%{wages_amount}
-          what_is_box14: "¿Qué podría haber en Box 14?"
+          what_is_box14_md: "¿Qué podría haber en Box 14?"
+          what_is_box14_nj: What should I put in Box 14?
       waiting_to_load_data:
         edit:
           subtitle_html: Esto suele tardar unos minutos. No cierres esta página<br><br> Usaremos la información de tu declaración de impuestos federal para completar secciones de tu declaración estatal.
@@ -3934,6 +3937,7 @@ es:
     alphanumeric: Solo se aceptan los números del 0 al 9 y las letras A-Z y a-z.
     atin: Por favor, ingrese un número de identificación fiscal válido de adopción.
     ctds_code: El código escolar/CTDS debe ser un número de 9 dígitos.
+    dollar_limit: This amount can't exceed $%{limit}. If it does, please write to chat support for more information.
     ein: 'El EIN, o en español: Número de Identificación del Empleador, debe ser un número de 9 dígitos. '
     file_type: Por favor sube un tipo de documento válido. Los tipos aceptados incluyen %{valid_types}
     file_zero_length: Sube un archivo válido. El archivo que cargó parece estar vacío.

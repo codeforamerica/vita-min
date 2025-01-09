@@ -66,7 +66,7 @@
             <SSN>400006306</SSN>
             <AlternativeMediaCd>01</AlternativeMediaCd>
         </IRS9000>
-        <IRSW2 documentId="W20001" documentName="IRSW2">
+        <IRSW2 documentName="IRSW2" documentId="W20001">
             <EmployeeSSN>400006306</EmployeeSSN>
             <EmployerEIN>221236333</EmployerEIN>
             <EmployerNameControlTxt>WEAR</EmployerNameControlTxt>
@@ -75,9 +75,9 @@
             </EmployerName>
             <EmployerUSAddress>
                 <AddressLine1Txt>1 Clothing St</AddressLine1Txt>
-                <CityNm>Fairfield</CityNm>
-                <StateAbbreviationCd>CT</StateAbbreviationCd>
-                <ZIPCd>06510</ZIPCd>
+                <CityNm>New Brunwick</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>08904</ZIPCd>
             </EmployerUSAddress>
             <EmployeeNm>Tess L Lucky</EmployeeNm>
             <EmployeeUSAddress>
@@ -87,15 +87,27 @@
                 <ZIPCd>08619</ZIPCd>
             </EmployeeUSAddress>
             <WagesAmt>40565</WagesAmt>
-            <WithholdingAmt>2000</WithholdingAmt>
+            <WithholdingAmt>8000</WithholdingAmt>
             <SocialSecurityWagesAmt>40565</SocialSecurityWagesAmt>
-            <SocialSecurityTaxAmt>1000</SocialSecurityTaxAmt>
+            <SocialSecurityTaxAmt>6000</SocialSecurityTaxAmt>
             <MedicareWagesAndTipsAmt>40565</MedicareWagesAndTipsAmt>
-            <MedicareTaxWithheldAmt>500</MedicareTaxWithheldAmt>
+            <MedicareTaxWithheldAmt>4000</MedicareTaxWithheldAmt>
+            <OtherDeductionsBenefitsGrp>
+                <Desc>FLI</Desc>
+                <Amt>145</Amt>
+            </OtherDeductionsBenefitsGrp>
+            <OtherDeductionsBenefitsGrp>
+                <Desc>UIHCWD</Desc>
+                <Amt>140</Amt>
+            </OtherDeductionsBenefitsGrp>
+            <OtherDeductionsBenefitsGrp>
+                <Desc>UIWFSWF</Desc>
+                <Amt>180</Amt>
+            </OtherDeductionsBenefitsGrp>
             <W2StateLocalTaxGrp>
                 <W2StateTaxGrp>
                     <StateAbbreviationCd>NJ</StateAbbreviationCd>
-                    <EmployerStateIdNum>654321</EmployerStateIdNum>
+                    <EmployerStateIdNum>221236333</EmployerStateIdNum>
                     <StateWagesAmt>40000</StateWagesAmt>
                     <StateIncomeTaxAmt>400</StateIncomeTaxAmt>
                     <W2LocalTaxGrp/>
