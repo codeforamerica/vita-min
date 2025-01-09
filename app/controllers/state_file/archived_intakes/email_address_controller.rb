@@ -1,6 +1,6 @@
 module StateFile
   module ArchivedIntakes
-    class EmailAddressController < ApplicationController
+    class EmailAddressController < ArchivedIntakeController
       def edit
         @form = EmailAddressForm.new
       end
@@ -12,16 +12,16 @@ module StateFile
 
           archived_intake = StateFileArchivedIntake.find_by(email_address: @form.email_address)
 
-          StateFileArchivedIntakeAccessLog.create!(
-            ip_address: ip_for_irs,
-            details: { email_address: @form.email_address },
-            event_type: 0,
-            state_file_archived_intake: archived_intake
-          )
+          StateFileArchivedIntakeRequest.find_or_create_by(email_address: @form.email_address, ip_address: ip_for_irs )
+          # StateFileArchivedIntakeAccessLog.create!(
+          #   ip_address: ip_for_irs,
+          #   details: { email_address: @form.email_address },
+          #   event_type: 0,
+          #   state_file_archived_intake: archived_intake
+          # )
 
-          session[:email_address] = @form.email_address
 
-          redirect_to state_file_archived_intakes_edit_verification_code_path(email_address: @form.email_address)
+          redirect_to state_file_archived_intakes_edit_verification_code_path
         else
           render :edit
         end

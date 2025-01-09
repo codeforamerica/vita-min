@@ -1,10 +1,10 @@
 module StateFile
   module ArchivedIntakes
-    class VerificationCodeController < ApplicationController
+    class VerificationCodeController < ArchivedIntakeController
       def edit
-        binding.pry
-        @form = VerificationCodeForm.new
-        @email_address = params[:email_address]
+
+        @form = VerificationCodeForm.new(email_address: current_request.email_address)
+        @email_address = current_request.email_address
         ArchivedIntakeEmailVerificationCodeJob.perform_later(
           email_address: @email_address,
           locale: I18n.locale
@@ -12,7 +12,7 @@ module StateFile
       end
 
       def update
-        @form = VerificationCodeForm.new(verification_code_form_params)
+        @form = VerificationCodeForm.new(verification_code_form_params, email_address: current_request.email_address)
 
         if @form.valid?
           redirect_to root_path
