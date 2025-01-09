@@ -5663,8 +5663,8 @@ es:
           address_html: |
             GetYourRefund</br>
             c/o Code for America</br>
-            972 Mission Street</br>
-            San Francisco, CA 94103
+            2323 Broadway</br>
+            Oakland, CA 94612-2414
           description_html: 'Si tiene preguntas, comentarios, inquietudes o quejas sobre este Sitio, comuníquese con nosotros por correo electrónico a support@getyourrefund.org o por correo postal a: %{email_link}'
           header: Preguntas
           resolve: Haremos todo lo posible para resolver el problema.
