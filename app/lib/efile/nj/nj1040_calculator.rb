@@ -374,7 +374,11 @@ module Efile
       end
 
       def calculate_line_42
-        should_use_property_tax_deduction ? line_or_zero(:NJ1040_LINE_39) - calculate_property_tax_deduction : line_or_zero(:NJ1040_LINE_39)
+        if should_use_property_tax_deduction
+          [line_or_zero(:NJ1040_LINE_39) - calculate_property_tax_deduction, 0].max
+        else
+          line_or_zero(:NJ1040_LINE_39)
+        end
       end
 
       def calculate_line_43
