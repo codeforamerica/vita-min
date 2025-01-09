@@ -1,12 +1,9 @@
-<% title = t('.title') %>
+<% title = t('.title', filing_year: current_tax_year) %>
 <% content_for :page_title, title %>
 
 <% content_for :card do %>
   <h1 class="h2"><%= title %></h1>
   <p><%= t(".subtitle") %></p>
-  <ul class="list--bulleted">
-    <%= t(".subtitle_list_html") %>
-  </ul>
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="question-with-follow-up spacing-below-25">
       <div class="question-with-follow-up__question">
@@ -17,8 +14,9 @@
               label_text: t('.use_tax_radio_label'),
               collection: [
                 { value: :yes, label: t("general.affirmative"), input_html: { "data-follow-up": "#sut-method-field" } },
-                { value: :no, label: t("general.negative") },
-              ]
+                { value: :no, label: t(".no_text") },
+              ],
+              legend_class: "sr-only"
             )
           %>
         </div>
@@ -39,10 +37,17 @@
               %>
             </div>
             <div class="question-with-follow-up__follow-up" id="sut-field">
-              <%= f.vita_min_money_field(:sales_use_tax, t(".manual_use_tax_label"), options: { placeholder: '0' }, classes: ["form-width--long"]) %>
+              <%= f.vita_min_money_field(:sales_use_tax, t(".manual_use_tax_label_html"), options: { placeholder: '0' }, classes: ["form-width--long"]) %>
             </div>
           </div>
         </div>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <button class="reveal__button"><%= t('.helper_heading') %></button>
+      <div class="reveal__content">
+        <p><%= t('.helper_description_html') %></p>
       </div>
     </div>
 
