@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "rails_helper"
+require 'json'
 
 RSpec.describe StateFile::Ty23ArchiverService do
 
@@ -9,17 +10,23 @@ RSpec.describe StateFile::Ty23ArchiverService do
 
       context 'when there are accepted intakes to archive' do
         let(:archiver) { described_class.new(state_code: state_code) }
-        let(:intake) { create(archiver.data_source.table_name.singularize, created_at: Date.parse("1/5/23"), hashed_ssn: "fake hashed ssn") }
-        let(:submission) { create(:efile_submission, :for_state, :accepted, data_source: intake, created_at: Date.parse("1/5/23")) }
+        let(:intake1) { create(archiver.data_source.table_name.singularize, created_at: Date.parse("1/5/23"), hashed_ssn: "fake hashed ssn1") }
+        let(:intake2) { create(archiver.data_source.table_name.singularize, created_at: Date.parse("1/5/23"), hashed_ssn: "fake hashed ssn2") }
+        let(:submission1) { create(:efile_submission, :for_state, :accepted, data_source: intake1, created_at: Date.parse("1/5/23")) }
+        let(:submission2) { create(:efile_submission, :for_state, :accepted, data_source: intake2, created_at: Date.parse("1/5/23")) }
 
         before do
-          submission.efile_submission_transitions.last.update(created_at: Date.parse("1/5/23"))
+          submission1.efile_submission_transitions.last.update(created_at: Date.parse("1/5/23"))
+          submission2.efile_submission_transitions.last.update(created_at: Date.parse("1/5/23"))
         end
 
         it 'finds them and sets them as the current batch' do
           archiver.find_archiveables
-          expect(archiver.current_batch_ids.count).to eq(1)
-          expect(archiver.current_batch_ids.last).to eq intake.id
+          expect(archiver.current_batch.count).to eq(2)
+          expect(archiver.current_batch.first['intake_id']).to eq intake1.id
+          expect(archiver.current_batch.first['hashed_ssn']).to eq intake1.hashed_ssn
+          expect(archiver.current_batch.second['intake_id']).to eq intake2.id
+          expect(archiver.current_batch.second['hashed_ssn']).to eq intake2.hashed_ssn
         end
       end
 
@@ -40,7 +47,7 @@ RSpec.describe StateFile::Ty23ArchiverService do
 
         it 'makes an empty current batch' do
           archiver.find_archiveables
-          expect(archiver.current_batch_ids.count).to eq(0)
+          expect(archiver.current_batch.count).to eq(0)
         end
       end
 
@@ -56,7 +63,7 @@ RSpec.describe StateFile::Ty23ArchiverService do
 
         it 'does not add it to the archiveable batch' do
           archiver.find_archiveables
-          expect(archiver.current_batch_ids.count).to eq(0)
+          expect(archiver.current_batch.count).to eq(0)
         end
       end
     end
@@ -64,68 +71,67 @@ RSpec.describe StateFile::Ty23ArchiverService do
 
   describe '#archive_batch' do
     %w[az ny].each do |state_code|
-      context 'when there is a current batch to archive' do
-        let(:archiver) { described_class.new(state_code: state_code) }
-        let(:intake) {
-          create(archiver.data_source.table_name.singularize,
-            :with_mailing_address,
-            created_at: Date.parse("1/5/23"),
-            hashed_ssn: "fake hashed ssn",
-            email_address: "fake@email.com",
-          )
+      describe 'when there is a current batch to archive' do
+        let(:archiver) { described_class.new(state_code: state_code, batch_size: 5) }
+        let!(:intake1) {
+          create(archiver.data_source.table_name.singularize, :with_mailing_address, :with_submission_pdf,
+                 hashed_ssn: "fake hashed ssn1", email_address: "fake1@email.com")
         }
-        let(:submission) { create(:efile_submission, :for_state, :accepted, data_source: intake, created_at: Date.parse("1/5/23")) }
-        let(:mock_batch) { [intake.id] }
-        let(:test_pdf) { Rails.root.join("spec", "fixtures", "files", "document_bundle.pdf") }
+        let!(:intake2) {
+          create(archiver.data_source.table_name.singularize, :with_mailing_address, :with_submission_pdf,
+                 hashed_ssn: "fake hashed ssn2", email_address: "fake2@email.com")
+        }
+        let(:mock_batch) {
+          [
+            { :intake_id => intake1.id, :hashed_ssn => intake1.hashed_ssn },
+            { :intake_id => intake2.id, :hashed_ssn => intake2.hashed_ssn },
+          ].as_json
+        }
 
         before do
-          submission.efile_submission_transitions.last.update(created_at: Date.parse("1/5/23"))
-          intake.submission_pdf.attach(
-            io: File.open(test_pdf),
-            filename: "test.pdf",
-            content_type: 'application/pdf'
-          )
-          archiver.instance_variable_set(:@current_batch_ids, mock_batch)
+          archiver.instance_variable_set(:@current_batch, mock_batch)
         end
 
-        it 'creates an archived intake for each intake in the batch and sets the basic data' do
+        it 'creates an archived intake for each intake in the batch' do
           archived_ids = archiver.archive_batch
-          expect(archived_ids.count).to eq 1
-          archived_ids.each do |id|
-            archived_intake = StateFileArchivedIntake.find(id)
-            expect(archived_intake.hashed_ssn).to eq(intake.hashed_ssn)
-            expect(archived_intake.email_address).to eq(intake.email_address)
-            expect(archived_intake.tax_year).to eq(2023)
-            expect(archived_intake.state_code).to eq(state_code)
+          expect(archived_ids.count).to eq(mock_batch.count)
+
+          archived_ids.each do |archived_id|
+            source_intake = archiver.data_source.find(archived_id)
+            matching_archived_intakes = StateFileArchivedIntake.where(
+              hashed_ssn: source_intake.hashed_ssn, state_code: archiver.state_code, tax_year: archiver.tax_year
+            )
+
+            # Verify there is exactly one archived intake for each source intake
+            expect(matching_archived_intakes.count).to eq(1)
+            archived_intake = matching_archived_intakes.first
+
+            # Verify the email and mailing address information is populated correctly on the archived intake
+            expect(archived_intake&.email_address).to eq(source_intake.email_address)
+            expect(archived_intake&.mailing_street).to eq(source_intake.direct_file_data.mailing_street)
+            expect(archived_intake&.mailing_apartment).to eq(source_intake.direct_file_data.mailing_apartment)
+            expect(archived_intake&.mailing_city).to eq(source_intake.direct_file_data.mailing_city)
+            expect(archived_intake&.mailing_state).to eq(source_intake.direct_file_data.mailing_state)
+            expect(archived_intake&.mailing_zip).to eq(source_intake.direct_file_data.mailing_zip)
+
+            # Verify that the PDF is attached to the archived intake and matches the source pdf
+            expect(archived_intake&.submission_pdf&.download).to eq(source_intake.submission_pdf.download)
+            expect(archived_intake&.submission_pdf&.filename).to eq(source_intake.submission_pdf.filename)
+            expect(archived_intake&.submission_pdf&.content_type).to eq(source_intake.submission_pdf.content_type)
+
+            # Ensure the PDF remains attached to the source intake
+            expect(source_intake.submission_pdf.attached?).to be true
           end
         end
+      end
 
-        it 'populates the archived address information from the XML direct file mailing address data' do
-          archived_ids = archiver.archive_batch
-          expect(archived_ids.count).to eq 1
-          archived_ids.each do |id|
-            archived_intake = StateFileArchivedIntake.find(id)
-            expect(archived_intake.mailing_street).to eq(intake.direct_file_data.mailing_street)
-            expect(archived_intake.mailing_apartment).to eq(intake.direct_file_data.mailing_apartment)
-            expect(archived_intake.mailing_city).to eq(intake.direct_file_data.mailing_city)
-            expect(archived_intake.mailing_state).to eq(intake.direct_file_data.mailing_state)
-            expect(archived_intake.mailing_zip).to eq(intake.direct_file_data.mailing_zip)
-          end
-        end
+      describe 'when there is no batch' do
+        let(:archiver) { described_class.new(state_code: state_code, batch_size: 5) }
 
-        it 'attaches a copy of the pdf to the archived intake without removing the pdf from the original intake' do
-          current_batch_ids = archiver.current_batch_ids
-          archived_ids = archiver.archive_batch
-          expect(archived_ids.count).to eq(current_batch_ids.count)
-
-          # re-query for an intake from the batch to get the latest version in case it had changed
-          last_batch_intake = archiver.data_source.find(current_batch_ids.last)
-          last_archived_intake = StateFileArchivedIntake.find(archived_ids.last)
-          expect(last_batch_intake.submission_pdf.attached?).to be true
-          expect(last_archived_intake.submission_pdf.attached?).to be true
-          expect(last_archived_intake.submission_pdf.download).to eq(last_batch_intake.submission_pdf.download)
-          expect(last_archived_intake.submission_pdf.filename).to eq(last_batch_intake.submission_pdf.filename)
-          expect(last_archived_intake.submission_pdf.content_type).to eq(last_batch_intake.submission_pdf.content_type)
+        it 'quietly archives nothing' do
+          expect {
+            archiver.archive_batch
+          }.not_to change(StateFileArchivedIntake, :count)
         end
       end
     end

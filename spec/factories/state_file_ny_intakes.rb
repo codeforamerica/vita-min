@@ -253,5 +253,16 @@ FactoryBot.define do
         intake.update!(raw_direct_file_data: intake.direct_file_data.to_s)
       end
     end
+
+    trait :with_submission_pdf do
+      test_pdf = Rails.root.join("spec", "fixtures", "files", "document_bundle.pdf")
+      after(:build) do |intake|
+        intake.submission_pdf.attach(
+          io: File.open(test_pdf),
+          filename: "test.pdf",
+          content_type: 'application/pdf'
+        )
+      end
+    end
   end
 end

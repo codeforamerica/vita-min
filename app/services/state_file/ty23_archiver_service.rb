@@ -5,7 +5,7 @@ module StateFile
       :ny => StateFileNyIntake,
     }.freeze
 
-    attr_reader :state_code, :batch_size, :data_source, :tax_year, :current_batch_ids, :cutoff
+    attr_reader :state_code, :batch_size, :data_source, :tax_year, :current_batch, :cutoff
 
     def initialize(state_code:, batch_size: 100, cutoff: '2025-01-01')
       @state_code = state_code
@@ -13,27 +13,31 @@ module StateFile
       @data_source = INTAKE_MAP[state_code.to_sym]
       @tax_year = 2023
       @cutoff = cutoff
-      @current_batch_ids = nil
+      @current_batch = nil
       raise ArgumentError, "#{state_code} isn't an archiveable state. Expected one of #{INTAKE_MAP.keys.join(', ')}" unless data_source
     end
 
     def find_archiveables
-      query_result = ActiveRecord::Base.connection.exec_query(query_archiveable_intake_ids)
-      @current_batch_ids = query_result.map { |record| record['id'] } if query_result
-      Rails.logger.info("Found #{current_batch_ids.count} #{data_source.name.pluralize} to archive.")
+      query_result = ActiveRecord::Base.connection.exec_query(query_archiveable_intakes)
+      @current_batch = query_result.as_json
+      Rails.logger.info("Found #{current_batch.count} #{data_source.name.pluralize} to archive.")
     end
 
     def archive_batch
       archived_ids = []
-      @current_batch_ids&.each do |intake_id|
-        source_intake = data_source.find(intake_id)
-        archive_attributes = StateFileArchivedIntake.column_names
-        archived_intake = StateFileArchivedIntake.new(source_intake.attributes.slice(*archive_attributes))
+      @current_batch&.each do |batch_data|
+        archived_intake = StateFileArchivedIntake.new(hashed_ssn: batch_data['hashed_ssn'])
+        archived_intake.state_code = @state_code
+        archived_intake.tax_year = @tax_year
+
+        source_intake = data_source.find(batch_data['intake_id'])
+        archived_intake.email_address = source_intake.email_address
         archived_intake.mailing_street = source_intake.direct_file_data.mailing_street
         archived_intake.mailing_apartment = source_intake.direct_file_data.mailing_apartment
         archived_intake.mailing_city = source_intake.direct_file_data.mailing_city
         archived_intake.mailing_state = source_intake.direct_file_data.mailing_state
         archived_intake.mailing_zip = source_intake.direct_file_data.mailing_zip
+
         if source_intake.submission_pdf.attached?
           pdf = source_intake.submission_pdf
           archived_intake.submission_pdf.attach(
@@ -42,25 +46,24 @@ module StateFile
             content_type: pdf.content_type,
           )
         else
-          Rails.logger.error("No submission pdf attached for record #{record}. Continuing with batch.")
+          Rails.logger.warn("No submission pdf attached to intake #{batch_data['intake_id']}. Continuing with batch.")
         end
-        archived_intake.state_code = @state_code
-        archived_intake.tax_year = @tax_year
+
         archived_intake.save!
-        archived_ids << intake_id
+        archived_ids << batch_data['intake_id']
       rescue StandardError => e
-        Rails.logger.warn("Caught exception #{e} for record #{record}. Continuing with batch.")
+        Rails.logger.warn("Caught exception #{e} for #{batch_data}. Continuing with batch.")
         next
       end
       Rails.logger.info("Archived #{archived_ids.count} #{data_source.name.pluralize}: [#{archived_ids.join(', ')}]")
-      @current_batch_ids = nil # reset the batch
+      @current_batch = nil # reset the batch
       archived_ids
     end
 
-    def query_archiveable_intake_ids
+    def query_archiveable_intakes
       <<~SQL
         SELECT
-          id
+          id AS intake_id, hashed_ssn
         FROM
           #{data_source.table_name}
         WHERE id IN (
