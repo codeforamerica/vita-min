@@ -39,7 +39,6 @@
 #  demographic_primary_asian                            :boolean
 #  demographic_primary_black_african_american           :boolean
 #  demographic_primary_ethnicity                        :integer          default("unfilled"), not null
-#  demographic_primary_mena                             :boolean
 #  demographic_primary_native_hawaiian_pacific_islander :boolean
 #  demographic_primary_prefer_not_to_answer_race        :boolean
 #  demographic_primary_white                            :boolean
@@ -49,7 +48,6 @@
 #  demographic_spouse_asian                             :boolean
 #  demographic_spouse_black_african_american            :boolean
 #  demographic_spouse_ethnicity                         :integer          default("unfilled"), not null
-#  demographic_spouse_mena                              :boolean
 #  demographic_spouse_native_hawaiian_pacific_islander  :boolean
 #  demographic_spouse_prefer_not_to_answer_race         :boolean
 #  demographic_spouse_white                             :boolean
