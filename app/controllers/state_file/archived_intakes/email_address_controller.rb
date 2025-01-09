@@ -1,6 +1,7 @@
 module StateFile
   module ArchivedIntakes
     class EmailAddressController < ArchivedIntakeController
+      before_action :check_feature_flag
       def edit
         @form = EmailAddressForm.new
       end
@@ -29,6 +30,13 @@ module StateFile
       def email_address_form_params
         params.require(:state_file_archived_intakes_email_address_form).permit(:email_address)
       end
+
+      def check_feature_flag
+        unless Flipper.enabled?(:get_your_pdf)
+          redirect_to root_path
+        end
+      end
+
     end
   end
 end

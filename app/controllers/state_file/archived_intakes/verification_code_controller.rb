@@ -1,6 +1,7 @@
 module StateFile
   module ArchivedIntakes
     class VerificationCodeController < ArchivedIntakeController
+      before_action :check_feature_flag
       def edit
 
         @form = VerificationCodeForm.new(email_address: current_request.email_address)
@@ -48,6 +49,12 @@ module StateFile
 
       def verification_code_form_params
         params.require(:state_file_archived_intakes_verification_code_form).permit(:verification_code)
+      end
+
+      def check_feature_flag
+        unless Flipper.enabled?(:get_your_pdf)
+          redirect_to root_path
+        end
       end
     end
   end
