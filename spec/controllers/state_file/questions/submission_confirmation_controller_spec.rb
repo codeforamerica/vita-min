@@ -18,17 +18,16 @@ describe StateFile::Questions::SubmissionConfirmationController do
   end
 
   describe "nj veteran content" do
-    let(:or_spouse) { I18n.t('state_file.questions.submission_confirmation.nj_additional_content.or_spouse') }
-    let(:body_substring) { I18n.t('state_file.questions.submission_confirmation.nj_additional_content.body_html', or_spouse: or_spouse)[0..30] }
+    let(:mfj_body_html) { I18n.t('state_file.questions.submission_confirmation.nj_additional_content.body_mfj_html')[0..30] }
+    let(:body_html) { I18n.t('state_file.questions.submission_confirmation.nj_additional_content.body_html')[0..30] }
     render_views
 
     context "single veteran" do
       let(:intake) { create :state_file_nj_intake, primary_veteran: "yes", filing_status: :single }
-      let(:or_spouse) { '' }
       
       it "shows veteran documentation requirements" do
         get :edit
-        expect(response_html).to have_text body_substring
+        expect(response_html).to have_text body_html
       end
     end
 
@@ -36,7 +35,7 @@ describe StateFile::Questions::SubmissionConfirmationController do
       let(:intake) { create :state_file_nj_intake, :married_filing_jointly, primary_veteran: "yes", spouse_veteran: "no" }
       it "shows veteran documentation requirements" do
         get :edit
-        expect(response_html).to have_text body_substring
+        expect(response_html).to have_text mfj_body_html
       end
     end
 
@@ -44,7 +43,7 @@ describe StateFile::Questions::SubmissionConfirmationController do
       let(:intake) { create :state_file_nj_intake, :married_filing_jointly, primary_veteran: "no", spouse_veteran: "yes" }
       it "shows veteran documentation requirements" do
         get :edit
-        expect(response_html).to have_text body_substring
+        expect(response_html).to have_text mfj_body_html
       end
     end
 
@@ -52,7 +51,8 @@ describe StateFile::Questions::SubmissionConfirmationController do
       let(:intake) { create :state_file_nj_intake, :married_filing_jointly, primary_veteran: "no", spouse_veteran: "no" }
       it "does not show veteran documentation requirements" do
         get :edit
-        expect(response_html).not_to have_text body_substring
+        expect(response_html).not_to have_text body_html
+        expect(response_html).not_to have_text mfj_body_html
       end
     end
   end
