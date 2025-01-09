@@ -37,6 +37,11 @@ module StateFile
 
       old_efile_submission = @intake.efile_submissions&.last
       if old_efile_submission.present?
+        # we need to detach the existing submission PDF from the intake to avoid it being briefly accessible
+        # from the /submission-confirmation page while the new PDF is being generated & attached.
+        # See https://github.com/codeforamerica/vita-min/pull/5282 for more details
+        @intake.submission_pdf.detach
+
         # the after_transitions :resubmission creates a new efile submission and transitions it to :preparing
         old_efile_submission.transition_to!(:resubmitted) if ["rejected", "notified_of_rejection", "waiting"].include?(old_efile_submission.current_state)
       else

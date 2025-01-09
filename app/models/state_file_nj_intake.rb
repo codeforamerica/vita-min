@@ -77,6 +77,7 @@
 #  spouse_birth_date                                      :date
 #  spouse_claimed_as_eitc_qualifying_child                :integer          default("unfilled"), not null
 #  spouse_contribution_gubernatorial_elections            :integer          default("unfilled"), not null
+#  spouse_death_year                                      :integer
 #  spouse_disabled                                        :integer          default("unfilled"), not null
 #  spouse_esigned                                         :integer          default("unfilled"), not null
 #  spouse_esigned_at                                      :datetime
@@ -183,13 +184,15 @@ class StateFileNjIntake < StateFileBaseIntake
     nj_gross_income <= threshold
   end
 
+  def has_health_insurance_requirement_exception?
+    self.eligibility_made_less_than_threshold? || self.eligibility_claimed_as_dependent?
+  end
+
   def health_insurance_eligibility
-    if self.eligibility_all_members_health_insurance_no?
-      has_exception = self.eligibility_made_less_than_threshold? || self.eligibility_claimed_as_dependent?
-      has_exception ? "eligible" : "ineligible"
-    else
-      "eligible"
+    if self.eligibility_all_members_health_insurance_no? && !self.has_health_insurance_requirement_exception?
+      return "ineligible"
     end
+    "eligible"
   end
 
   def disqualifying_eligibility_rules

@@ -2071,6 +2071,16 @@ es:
       nc_tax_withheld: Impuesto retenido en Carolina del Norte
       nc_taxable_income: Ingreso tributables en Carolina del Norte
       nc_use_tax: Impuesto sobre el uso de Carolina del Norte
+      nj_minimal_essential_health_coverage_html: |-
+        <p>Most people who have health insurance have minimum essential coverage. “Minimal essential coverage” just refers to how much your plan covers. If you have any of the following, you most likely have it:</p>
+        <ul>
+          <li>A plan through your employer</li>
+          <li>A plan bought through <a target="_blank" rel="noopener noreferrer" href="https://nj.gov/getcoverednj/">GetCoveredNJ</a></li>
+          <li>Medicare</li>
+          <li>Medicaid (NJ FamilyCare)</li>
+        </ul>
+        <p><a target="_blank" rel="noopener noreferrer" href="https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml">Here is the full list of insurance options that have minimum essential coverage.</a><p>
+        <p>If you only had standalone vision and dental plans, workers' compensation coverage, and/or coverage limited to a specified disease or illness, you didn't have minimum essential coverage. In New Jersey, as of 2018, you need minimum essential coverage, or you will likely pay additional taxes.</p>
       register_to_vote: Regístrate para votar
       see_detailed_return: Ver información detallada de la declaración
       standard_deduction: Deducción estándar
@@ -2201,8 +2211,6 @@ es:
           household_excise_credit_html: "¿Alguien en tu hogar presentó una declaración de impuestos por separado de la tuya y reclamó el Crédito por Aumento de Impuestos Especiales de Arizona?<br><br> (Tu hogar incluye a todas las personas con las que viviste, incluso si no están incluidas en tu declaración.)"
           primary_was_incarcerated: "¿Estuviste encarcelado en una cárcel del condado, estatal o federal durante al menos 60 días en%{tax_year}?"
           spouse_was_incarcerated: "¿Tu cónyuge estuvieron encarcelados en una cárcel del condado, estatal o federal durante al menos 60 días en %{tax_year}?"
-          ssn_no_employment_html:
-            label: "¿Tienes la frase <b>'not valid for employment'</b> escrita en tu tarjeta de Seguro Social? (Esto es poco común.)"
           title: Es posible que seas elegible para el Crédito tributario por Aumento de Impuestos Especiales.
       az_prior_last_names:
         edit:
@@ -2306,7 +2314,6 @@ es:
           made_az321_contributions: Hizo contribuciones a organizaciones benéficas calificadas
           made_az322_contributions: Hizo contribuciones a las escuelas públicas
           public_school_credit: Crédito de escuela pública
-          ssn_no_employment: '"Not valid for employment" escrita en tu tarjeta de Seguro Social'
           ssn_not_taxed: Los beneficios del Seguro Social no están sujetos a impuestos en Arizona
           subtraction_for_indian_res: Resta de los ingresos obtenidos en una reserva de indios americanos
           subtraction_for_military_pay: Resta del pago militar en servicio activo
@@ -2384,7 +2391,7 @@ es:
           title: 'Has rechazado los términos y condiciones. '
       eligibility_offboarding:
         edit:
-          body_html: No puedes usar este servicio este año porque %{ineligible_reason}. <br><br><strong>¿Fue un error?</strong><a href=%{prev_link}>Regresa para corregirlo.</a>
+          body_html: No puedes usar este servicio este año porque %{ineligible_reason}. <br><br><strong>¿Fue un error?</strong> <a href=%{prev_link}>Regresa para corregirlo.</a>
           ineligible_reason:
             eligibility_529_for_non_qual_expense: retiraste dinero de una cuenta de ahorro universitario 529 y lo utilizaste para un gasto no calificado en el %{filing_year}
             eligibility_ed_loan_cancelled: " tuve un préstamo estudiantil cancelado bajo la Ley del Plan de Rescate Estadounidense."
@@ -2403,6 +2410,7 @@ es:
             health_insurance_eligibility: and all members of your tax household did not have health insurance (with minimum essential coverage) for every month in %{filing_year}
             nyc_maintained_home: no viviste en Nueva York durante todo el
             nyc_residency: viviste o mantuviste una casa en la Ciudad de Nueva York durante parte del año.
+            permanent_address_outside_md: no residía en Maryland el 31 de diciembre
             permanent_address_outside_ny: no viviste en Nueva York durante todo el %{filing_year}
           title: Lamentablemente no puedes usar esta herramienta este año. ¡No te preocupes, aquí tienes otras opciones para presentar tu declaración!
         other_options:
@@ -2593,6 +2601,7 @@ es:
           college_savings_account: Contribuciones a cuentas de ahorro 529 para la universidad
           credits_carried: Créditos acumulados de años anteriores
           credits_for_rehabilitating: Créditos por la rehabilitación de estructuras históricas
+          credits_not_supported: What credits and deductions does this service not support this year?
           estimated_income_tax_payments: Pagos de impuestos sobre la renta estimados
           extension_payment: Pagos por extensión
           personal_education: Deducción por depósitos en cuentas de estudiante de educación personal
@@ -2828,7 +2837,9 @@ es:
           help_text: Te pediremos que nos compartas la información que pueda faltar.
           interest_income_body: No se necesita información estatal adicional
           interest_income_title: Ingresos por intereses (1099-INT)
+          invalid_w2: There is an issue with one or more W-2 forms. Please review and correct before proceeding.
           no_info_needed: No se necesita información estatal adicional
+          no_info_needed_nj: This income is not taxed in New Jersey.
           retirement_income_title: Jubilación (1099-R)
           review_and_edit_state_info: Revisar y editar la información estatal
           ssa_title: Beneficios del Seguro Social (SSA-1099)
@@ -3087,6 +3098,12 @@ es:
         edit:
           county: Condado
           title: Selecciona el condado donde viviste el 31 de diciembre de %{filing_year}
+      nj_dependents_health_insurance:
+        edit:
+          continue: Click "continue" if all these people had health insurance.
+          coverage_heading: What is health insurance with minimum essential coverage?
+          label: 'Check all the people that did NOT have health insurance:'
+          title_html: Please tell us which dependents were missing health insurance (<a target=" _blank" rel="noopener noreferrer" href="https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml">with minimum essential health coverage</a>) in 2024.
       nj_disabled_exemption:
         edit:
           instructions_html: Las personas con discapacidad tienen derecho a exenciones de impuestos. <br><br> En Nueva Jersey, se le considera discapacitado si tiene una "incapacidad <b>total y permanente</b> para participar en cualquier actividad sustancial y lucrativa debido a cualquier impedimento físico o mental, incluida la ceguera". <br><br> (Esto es diferente de la definición de impuestos federales. Nueva Jersey no tiene en cuenta su edad ni su percepción de ingresos por discapacidad sujetos a impuestos.)
@@ -3120,11 +3137,8 @@ es:
           title: You may be eligible for the Earned Income Tax Credit
       nj_eligibility_health_insurance:
         edit:
-          coverage_description_html: "<p>Most people who have health insurance have minimum essential coverage. “Minimal essential coverage” just refers to how much your plan covers. If you have any of the following, you most likely have it:</p>\n<ul>\n  <li>A plan through your employer</li>\n  <li>A plan bought through <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://nj.gov/getcoverednj/\">GetCoveredNJ</a></li>\n  <li>Medicare</li> \n  <li>Medicaid (NJ FamilyCare)</li>\n</ul>\n<p><a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml\">Here is the full list of insurance options that have minimum essential coverage.</a><p> \n<p>If you only had standalone vision and dental plans, workers' compensation coverage, and/or coverage limited to a specified disease or illness, you didn't have minimum essential coverage. In New Jersey, as of 2018, you need minimum essential coverage, or you will likely pay additional taxes.</p>\n"
           coverage_heading: What is health insurance with minimum essential coverage?
-          dependent_label: "%{name}"
           label: Did you and all members of your tax household have health insurance (with minimum essential coverage) for every month in %{filing_year}?
-          label_follow_up: Which dependents were missing health insurance?
           tax_household_description_html: A tax household includes you, your spouse (if filing a joint return), domestic partner claimed on your return, and any individuals you claim as dependents on your NJ-1040. It also includes any individuals you can, but do not, claim as dependents on your return.
           tax_household_heading: What is considered a tax household?
           title: Let’s get started.
@@ -3174,12 +3188,21 @@ es:
           where_to_find_helper_heading: Where can I find property taxes paid?
       nj_household_rent_own:
         edit:
-          both: Tanto inquilino como propietario
-          homeowner: Dueño de casa
-          label: En %{filing_year}, ¿quién era usted?
-          neither: Tampoco
-          tenant: Inquilino (si usted es propietario de una casa móvil ubicada en un parque de casas móviles, se le considera inquilino).
-          title: "¡Usted podría ser elegible para el crédito o deducción del impuesto a la propiedad de New Jersey!"
+          both_html: "<b>Both</b>: I was a homeowner for part of the year, and I was a renter for part of the year."
+          description_html: Your "main home" is where you primarily lived at any given time (e.g., a house, a condo, or an apartment). <b>You can’t have multiple main homes at the same time, but you may have different main homes throughout the year if you moved.</b>
+          helper_1_description: Yes. This tax break is designed to support people in New Jersey whose money contributes to property taxes. (Renters do this by paying rent, contributing to the cost of property taxes paid by the property owners.)
+          helper_1_header: Are you sure this applies to rent paid?
+          helper_2_description: No. Please answer the questions in this section for your main home only. You can’t claim this tax break for a vacation home, a "second home," or a property you own and rent to someone else.
+          helper_2_header: Can I claim for a vacation home or a property I rent out to someone?
+          helper_3_description: If you owned a mobile home in a mobile home park, you are considered a renter. Your site fees are what you paid in rent.
+          helper_3_header: What if I lived in a mobile home?
+          helper_4_description_html: The property tax <b>deduction</b> reduces your taxable income. We will deduct your share of property taxes paid or $15,000, whichever is less. For renters, we’ll consider 18% of rent paid as your share.
+          helper_4_header: How much is this deduction or credit worth?
+          homeowner_html: I was a <b>homeowner</b> for at least part of the year
+          label_html: How would you describe your living situation in %{filing_year} <b>as it pertains to your main home(s)</b>?
+          neither_html: Other
+          tenant_html: I was a <b>renter</b> for at least part of the year
+          title: You may qualify for a property tax deduction or credit on your main home, whether you owned or rented it.
       nj_ineligible_property_tax:
         edit:
           continue_text: Click continue to see what else we can guide you to qualify for.
@@ -3232,23 +3255,29 @@ es:
           why_ask_this: "¿Por qué están pidiendo esta información?"
       nj_review:
         edit:
-          amount: Cantidad
-          claimed_as_eitc_qualifying_child: I could be someone else's qualifying child for the Earned Income Tax Credit.
-          college_dependents: Dependents attending college
-          county: Condado
+          amount_calculated: Calculated Amount
+          amount_entered: Amount Entered
+          college_dependents: Dependent(s) attending college exemption
+          college_dependents_none: Not applicable
+          continue_helper: Click "Continue" if all this looks right to you.
+          county_municipality: Where you lived as of Dec 31, %{filing_year}
           edit_disability: disability status
-          edit_gubernatorial: gubernatorial fund contributions
           edit_veteran: veteran status
-          estimated_tax_payments: Payments already made to New Jersey taxes
-          household_rent_own: Vivienda en alquiler o en propiedad propia
-          medical_expenses: Gastos médicos
-          municipality: Municipio
-          primary_disabled: Primary disabled
-          primary_gubernatorial: I want $1 of my taxes to go to the gubernatorial elections fund
-          primary_veteran: Soy un veterano
-          property_tax_credit_deduction: Property Tax Credit/Deduction
-          property_tax_paid: Impuestos sobre la propiedad pagados
-          rent_paid: Alquiler pagado
+          eitc: New Jersey Earned Income Tax Credit (NJEITC)
+          estimated_tax_payments: Payments already made towards New Jersey taxes
+          household_rent_own: Living situation in %{filing_year}
+          household_rent_own_both: Owned and rented
+          household_rent_own_neither: Neither owned or rented
+          household_rent_own_own: Owned
+          household_rent_own_rent: Rented
+          medical_expenses: Total medical expenses
+          missing_health_insurance: Missing Health Insurance
+          primary_claimed_as_eitc_qualifying_child: You could be someone's qualifying child
+          primary_disabled: Disability exemption (you)
+          primary_veteran: Veteran exemption (you)
+          property_tax_credit_deduction: New Jersey Property Tax deduction or credit
+          property_tax_paid: Property taxes paid in %{filing_year}
+          rent_paid: Rent paid in %{filing_year}
           reveal:
             15_wages_salaries_tips: Wages, salaries, tips
             16a_interest_income: Interest income
@@ -3270,11 +3299,12 @@ es:
             65_nj_ctc: New Jersey child tax credit
             66_total_payments_refundable_credits: Total payments and refundable credits
             header: See detailed return information
-          spouse_claimed_as_eitc_qualifying_child: My spouse could be someone else's qualifying child for the Earned Income Tax Credit.
-          spouse_disabled: Spouse disabled
-          spouse_gubernatorial: My spouse wants $1 of their taxes to go to the gubernatorial elections fund
-          spouse_veteran: Mi cónyuge es un veterano
-          use_tax_applied: Impuesto sobre el uso del consumidor aplicado
+          review_and_edit: Review and Edit
+          spouse_claimed_as_eitc_qualifying_child: Your spouse could be someone's qualifying child
+          spouse_disabled: Disability exemption (spouse)
+          spouse_veteran: Veteran exemption (spouse)
+          use_tax_applied: Out-of-State Purchases Use Tax Applied
+          year_of_death: Year of spouse's passing
       nj_sales_use_tax:
         edit:
           followup_radio_label: Selecciona una de las siguientes opciones
@@ -3333,6 +3363,11 @@ es:
           primary_veteran_question: "¿Eres un veterano?"
           spouse_veteran_question: "¿Su cónyuge es un veterano?"
           title: En NJ, los veteranos son elegibles para una exención de impuestos.
+      nj_year_of_death:
+        edit:
+          question: "¿En qué año falleció su cónyuge?"
+          subtitle: Para continuar, necesitamos confirmar información adicional sobre su cónyuge fallecido.
+          title: Parece que su estado civil para efectos de la declaración es Cónyuge sobreviviente calificado
       notification_preferences:
         edit:
           email_address_label: Tu correo electrónico
@@ -3517,7 +3552,7 @@ es:
             <li>
               Haz tu cheque o giro postal a nombre del %{payable_to}. Escribe tu SSN o ITIN completo, "%{filing_year} Tax", y "Form %{form_number}" en tu pago.
             </li>
-          direct_debit_html: Si tienes un saldo de impuestos pendiente, recuerda <strong>pagarlo en línea en <a target="_blank" rel="noopener nofollow" href="%{tax_payment_url}">%{tax_payment_url}</a></strong> o por correo antes de la fecha límite de declaración que es el 15 de abril.
+          direct_debit_html: Si tienes un saldo de impuestos pendiente, recuerda <strong>pagarlo en línea en <a target="_blank" rel="noopener nofollow" href="%{tax_payment_info_url}">%{tax_payment_info_text}</a></strong> o por correo antes de la fecha límite de declaración que es el 15 de abril.
           download_voucher: Descargar el formulario de comprobante de pago
           feedback: Valoramos sus comentarios; háganos saber lo que piensa de esta herramienta.
           include_payment: Debes incluir el formulario de comprobante de pago.
@@ -3621,6 +3656,10 @@ es:
           text_update: Recibirás una actualización por SMS cuando una vez tu declaración de impuestos haya sido aceptada.
           title: "¡Tu declaración de impuestos de %{state_name}de %{filing_year} ha sido enviada! "
           title_resubmit: "¡Tu declaración de impuestos de %{state_name} de %{filing_year} ha sido enviada de nuevo!"
+        nj_additional_content:
+          body_html: You said you are filing for the veteran exemption. If it's your first time filing for <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml">this exemption</a>, you have to provide <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml">documentation</a> and a <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf">form</a> to the New Jersey Division of Taxation. It can be done <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf">online</a>.
+          body_mfj_html: You said you or your spouse are filing for the veteran exemption. If it's your first time filing for <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml">this exemption</a>, you have to provide <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml">documentation</a> and a <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf">form</a> to the New Jersey Division of Taxation. It can be done <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf">online</a>.
+          header: 'Attention: if you are claiming the veteran exemption for the first time'
       tax_refund:
         bank_details:
           account_number: Número de cuenta
@@ -3723,14 +3762,14 @@ es:
           verification_code_label: Ingresa el código de 6 dígitos
       w2:
         edit:
-          box14_explanation:
-            md_html: Para el año fiscal %{year}, solo procesaremos el código <strong>STPICKUP</strong>, que representa las contribuciones que hiciste al sistema de jubilación estatal.
+          box14_explanation_md_html: Para el año fiscal %{year}, solo procesaremos el código <strong>STPICKUP</strong>, que representa las contribuciones que hiciste al sistema de jubilación estatal.
+          box14_explanation_nj_html: 'For this year, we will only need the amounts for <strong>UI/WF/SWF</strong> (may also appear as <strong>"UI/HC/WD"</strong> on your W2) and FLI.<br/><br/><strong>If you do not see these, please leave these fields blank.</strong><br/><br/><strong>Definitions:</strong><br/><br/><strong>UI/WF/SWF</strong> (may also appear as <strong>"UI/HC/WD"</strong> on your W2) represents:<ul><li><strong>UI</strong> refers to unemployment insurance contributions</li><li><strong>WF</strong> and <strong>WD</strong> refer to  workforce development partnership fund contributions</li><li><strong>SWF</strong> refers to supplemental workforce fund contributions</li><li><strong>HC</strong> refers to healthcare contributions</li><li><strong>WD</strong> refers to workforce development contributions</li></ul><strong>FLI</strong>: Represents contributions withheld for Family Leave Insurance. Family Leave Insurance (FLI) provides paid leave benefits to bond with a new child, care for a loved one, or cope with domestic/sexual violence. If you have a number for this on your paycheck, it means you have paid into this program and may be eligible to receive cash benefits.<br/><br/>We use the amounts to determine if you  might be eligible for a credit.<br/><br/>There may be other information in box 14 - those don''t need to be reported with this tool.'
           box14_fli_html: "<strong>FLI</strong>"
           box14_html: "<strong>Box 14,</strong> Other"
+          box14_intro_nj_html: Box 14 will have various letters in it. Those letters all represent program names.<br/><br/>For this year, we will only need the amounts for <strong>UI/WF/SWF</strong> (may also appear as <strong>"UI/HC/WD"</strong> on your W2) <strong>and FLI</strong>.<br/><br/><strong>If you do not see these, please leave these fields blank.</strong><br/><br/>There may be information for other programs in box 14 - those don't need to be reported with this tool.
           box14_stpickup_help_text: Para %{year}, solo procesaremos el código STPICKUP. Si no ves este código o tienes otros códigos en Box 14, por favor déjalo en blanco.
           box14_stpickup_html: "<strong>STPICKUP</strong>"
-          box14_ui_hc_wd_html: "<strong>UI/HC/WD</strong>"
-          box14_ui_wf_swf_html: "<strong>UI/WF/SWF</strong>"
+          box14_ui_wf_swf_html: "<strong>UI/WF/SWF</strong> (This may also appear on your W2 as <strong>UI/HC/WD.</strong>)"
           box15_html: "<strong>Box 15,</strong> Employer’s state ID number"
           box16_html: "<strong>Box 16</strong>, State wages, tips, etc."
           box17_html: "<strong>Box 17</strong>, State income tax"
@@ -3747,7 +3786,8 @@ es:
           state_wages_amt_error: Ingresa los salarios y propinas estatales
           state_wages_exceed_amt_error: El total de salarios e ingresos estatales no puede ser mayor que $%{wages_amount}
           wages_amt_error: El impuesto sobre la renta total no puede ser mas de $%{wages_amount}
-          what_is_box14: "¿Qué podría haber en Box 14?"
+          what_is_box14_md: "¿Qué podría haber en Box 14?"
+          what_is_box14_nj: What should I put in Box 14?
       waiting_to_load_data:
         edit:
           subtitle_html: Esto suele tardar unos minutos. No cierres esta página<br><br> Usaremos la información de tu declaración de impuestos federal para completar secciones de tu declaración estatal.
@@ -3897,6 +3937,7 @@ es:
     alphanumeric: Solo se aceptan los números del 0 al 9 y las letras A-Z y a-z.
     atin: Por favor, ingrese un número de identificación fiscal válido de adopción.
     ctds_code: El código escolar/CTDS debe ser un número de 9 dígitos.
+    dollar_limit: This amount can't exceed $%{limit}. If it does, please write to chat support for more information.
     ein: 'El EIN, o en español: Número de Identificación del Empleador, debe ser un número de 9 dígitos. '
     file_type: Por favor sube un tipo de documento válido. Los tipos aceptados incluyen %{valid_types}
     file_zero_length: Sube un archivo válido. El archivo que cargó parece estar vacío.

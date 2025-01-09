@@ -77,6 +77,7 @@
 #  spouse_birth_date                                      :date
 #  spouse_claimed_as_eitc_qualifying_child                :integer          default("unfilled"), not null
 #  spouse_contribution_gubernatorial_elections            :integer          default("unfilled"), not null
+#  spouse_death_year                                      :integer
 #  spouse_disabled                                        :integer          default("unfilled"), not null
 #  spouse_esigned                                         :integer          default("unfilled"), not null
 #  spouse_esigned_at                                      :datetime
@@ -192,7 +193,7 @@ RSpec.describe StateFileNjIntake, type: :model do
 
     shared_examples :eligibility_with_threshold do |threshold|
       it "returns true if NJ gross income below #{threshold}" do
-        allow(intake.calculator.lines).to receive(:[]).with(:NJ1040_LINE_29).and_return(double(value: threshold-1))
+        allow(intake.calculator.lines).to receive(:[]).with(:NJ1040_LINE_29).and_return(double(value: threshold - 1))
         expect(intake.eligibility_made_less_than_threshold?).to eq true
       end
 
@@ -202,7 +203,7 @@ RSpec.describe StateFileNjIntake, type: :model do
       end
 
       it "returns false if NJ gross income over #{threshold}" do
-        allow(intake.calculator.lines).to receive(:[]).with(:NJ1040_LINE_29).and_return(double(value: threshold+1))
+        allow(intake.calculator.lines).to receive(:[]).with(:NJ1040_LINE_29).and_return(double(value: threshold + 1))
         expect(intake.eligibility_made_less_than_threshold?).to eq false
       end
     end

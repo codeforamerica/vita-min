@@ -21,8 +21,6 @@ module SubmissionBuilder
             end
 
             def document
-              qualifying_dependents = @submission.qualifying_dependents
-              
               build_xml_doc("FormNJ1040") do |xml|
                 xml.Header do
                   xml.FilingStatus do
@@ -39,13 +37,13 @@ module SubmissionBuilder
                         end
                       end
                     when :qualifying_widow
-                      yod = Date.parse(intake.direct_file_data.spouse_date_of_death)&.strftime("%Y")
+                      yod = intake.spouse_death_year
                       xml.QualWidOrWider do
                         xml.QualWidOrWiderSurvCuPartner 'X'
                         case yod
-                        when (MultiTenantService.new(:statefile).current_tax_year - 1).to_s
+                        when (MultiTenantService.new(:statefile).current_tax_year - 1)
                           xml.LastYear 'X'
-                        when (MultiTenantService.new(:statefile).current_tax_year - 2).to_s
+                        when (MultiTenantService.new(:statefile).current_tax_year - 2)
                           xml.TwoYearPrior 'X'
                         end
                       end
@@ -111,11 +109,11 @@ module SubmissionBuilder
                   end
 
                   xml.CountyCode "0#{intake.municipality_code}"
-                  xml.NactpCode "1234567890" # TODO: - placeholder value
+                  xml.NactpCode "1963"
                 end
 
                 xml.Body do
-                  if calculated_fields.fetch(:NJ1040_LINE_15) >= 0
+                  if calculated_fields.fetch(:NJ1040_LINE_15) > 0
                     xml.WagesSalariesTips calculated_fields.fetch(:NJ1040_LINE_15)
                   end
 
