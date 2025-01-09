@@ -25,10 +25,10 @@ module StateFile
 
     def archive_batch
       archived_ids = []
-      @current_batch&.each do |batch_data|
+      current_batch&.each do |batch_data|
         archived_intake = StateFileArchivedIntake.new(hashed_ssn: batch_data['hashed_ssn'])
-        archived_intake.state_code = @state_code
-        archived_intake.tax_year = @tax_year
+        archived_intake.state_code = state_code
+        archived_intake.tax_year = tax_year
 
         source_intake = data_source.find(batch_data['intake_id'])
         archived_intake.email_address = source_intake.email_address
@@ -39,12 +39,7 @@ module StateFile
         archived_intake.mailing_zip = source_intake.direct_file_data.mailing_zip
 
         if source_intake.submission_pdf.attached?
-          pdf = source_intake.submission_pdf
-          archived_intake.submission_pdf.attach(
-            io: StringIO.new(pdf.download),
-            filename: pdf.filename.to_s,
-            content_type: pdf.content_type,
-          )
+          archived_intake.submission_pdf.attach(source_intake.submission_pdf.blob)
         else
           Rails.logger.warn("No submission pdf attached to intake #{batch_data['intake_id']}. Continuing with batch.")
         end

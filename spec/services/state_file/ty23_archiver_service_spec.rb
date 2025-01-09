@@ -23,10 +23,10 @@ RSpec.describe StateFile::Ty23ArchiverService do
         it 'finds them and sets them as the current batch' do
           archiver.find_archiveables
           expect(archiver.current_batch.count).to eq(2)
-          expect(archiver.current_batch.first['intake_id']).to eq intake1.id
-          expect(archiver.current_batch.first['hashed_ssn']).to eq intake1.hashed_ssn
-          expect(archiver.current_batch.second['intake_id']).to eq intake2.id
-          expect(archiver.current_batch.second['hashed_ssn']).to eq intake2.hashed_ssn
+          expect(archiver.current_batch[0]['intake_id']).to eq intake1.id
+          expect(archiver.current_batch[0]['hashed_ssn']).to eq intake1.hashed_ssn
+          expect(archiver.current_batch[1]['intake_id']).to eq intake2.id
+          expect(archiver.current_batch[1]['hashed_ssn']).to eq intake2.hashed_ssn
         end
       end
 
