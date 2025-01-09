@@ -37,7 +37,7 @@
   <% end %>
 
   <%= button_to(
-        StateFile::Questions::AzPublicSchoolContributionsController.to_path_helper(action: :new, return_to_review: params[:return_to_review]),
+        StateFile::Questions::AzPublicSchoolContributionsController.to_path_helper(action: :new),
         params: { return_to_review: params[:return_to_review] },
         class: "button button--wide spacing-below-10",
         method: :get,
