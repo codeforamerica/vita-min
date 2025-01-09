@@ -249,28 +249,20 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
     end
 
     describe "qualified dependent children and other dependents" do
-      context 'when 1 qualified child and 1 other dependent' do
-        let(:intake) { create(:state_file_nj_intake, :df_data_two_deps) }
-        it "sets NumOfQualiDependChild and NumOfOtherDepend to 1" do
-          expect(xml.document.at('NumOfQualiDependChild').text).to eq "1"
-          expect(xml.document.at('NumOfOtherDepend').text).to eq "1"
-        end
+      it "sets NumOfQualiDependChild to line 10 and NumOfOtherDepend to line 11" do
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_10_count).and_return 1
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_11_count).and_return 2
+
+        expect(xml.document.at('NumOfQualiDependChild').text).to eq "1"
+        expect(xml.document.at('NumOfOtherDepend').text).to eq "2"
       end
-  
-      context 'when 10 qualified children and 1 other dependent' do
-        let(:intake) { create(:state_file_nj_intake, :df_data_many_deps) }
-        it "sets NumOfQualiDependChild to 10 and NumOfOtherDepend to 1" do
-          expect(xml.document.at('NumOfQualiDependChild').text).to eq "10"
-          expect(xml.document.at('NumOfOtherDepend').text).to eq "1"
-        end
-      end
-  
-      context 'when 0 qualified child and 0 other dependent' do
-        let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
-        it "leaves NumOfQualiDependChild and NumOfOtherDepend blank" do
-          expect(xml.document.at('NumOfQualiDependChild')).to eq nil
-          expect(xml.document.at('NumOfOtherDepend')).to eq nil
-        end
+
+      it "leaves NumOfQualiDependChild and NumOfOtherDepend blank when lines 10 and 11 are empty" do
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_10_count).and_return 0
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_11_count).and_return 0
+
+        expect(xml.document.at('NumOfQualiDependChild')).to eq nil
+        expect(xml.document.at('NumOfOtherDepend')).to eq nil
       end
     end
 
@@ -348,11 +340,9 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
     end
 
     describe "wages" do
-      let(:intake) { create(:state_file_nj_intake) }
-
-      context "when no w2 wages (line 15 is -1)" do
+      context "when no w2 wages (line 15 is 0)" do
         it "does not include WagesSalariesTips item" do
-          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_15).and_return(-1)
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_15).and_return(0)
           expect(xml.at("WagesSalariesTips")).to eq(nil)
         end
       end
@@ -383,25 +373,10 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
     end
 
     describe "total exemption - lines 13 and 30" do
-      let(:intake) { create(:state_file_nj_intake, :primary_over_65, :primary_blind, :primary_veteran, :two_dependents_in_college) }
-      it "totals lines 6-12 and stores the result in both TotalExemptionAmountA and TotalExemptionAmountB" do
-        line_6_single_filer = 1_000
-        line_7_over_65 = 1_000
-        line_8_blind = 1_000
-        line_9_veteran = 6_000
-        line_10_qualified_children = 1_500
-        line_11_other_dependents = 1_500
-        line_12_dependents_attending_college = 2_000
-        expected_sum =
-          line_6_single_filer +
-          line_7_over_65 +
-          line_8_blind +
-          line_9_veteran +
-          line_10_qualified_children +
-          line_11_other_dependents +
-          line_12_dependents_attending_college
-        expect(xml.at("Exemptions TotalExemptionAmountA").text).to eq(expected_sum.to_s)
-        expect(xml.at("Body TotalExemptionAmountB").text).to eq(expected_sum.to_s)
+      it "stores line 13 and 30 (equivalent) in both TotalExemptionAmountA and TotalExemptionAmountB" do
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_13).and_return 10_000
+        expect(xml.at("Exemptions TotalExemptionAmountA").text).to eq(10_000.to_s)
+        expect(xml.at("Body TotalExemptionAmountB").text).to eq(10_000.to_s)
       end
     end
 
@@ -1054,6 +1029,12 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
             expect(xml.at("Body SpouCuPartPrimGubernElectFund")&.text).to eq(test_case[:expected_spouse])
           end
         end
+      end
+    end
+
+    describe 'NactpCode' do
+      it 'contains static CodeForAmerica NACTP code' do
+        expect(xml.at("Header NactpCode").text).to eq(1963.to_s)
       end
     end
   end

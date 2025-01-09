@@ -8,7 +8,6 @@ RSpec.describe StateFile::AzExciseCreditForm do
       let(:single_filer_params) {
         {
           primary_was_incarcerated: "yes",
-          ssn_no_employment: "yes",
           household_excise_credit_claimed: "no"
         }
       }
@@ -16,7 +15,6 @@ RSpec.describe StateFile::AzExciseCreditForm do
         {
           primary_was_incarcerated: "no",
           spouse_was_incarcerated: "yes",
-          ssn_no_employment: "yes",
           household_excise_credit_claimed: "no"
         }
       }
@@ -25,7 +23,6 @@ RSpec.describe StateFile::AzExciseCreditForm do
         it "only needs field for primary" do
           form = described_class.new(intake, {
             primary_was_incarcerated: nil,
-            ssn_no_employment: "yes",
             household_excise_credit_claimed: "no"
           })
           expect(form).not_to be_valid
@@ -60,7 +57,6 @@ RSpec.describe StateFile::AzExciseCreditForm do
       it "requires credit amount when credit claimed" do
         invalid_params = {
           primary_was_incarcerated: "no",
-          ssn_no_employment: "yes",
           household_excise_credit_claimed: "yes"
         }
         form = described_class.new(intake, invalid_params)
@@ -69,7 +65,6 @@ RSpec.describe StateFile::AzExciseCreditForm do
 
         valid_params = {
           primary_was_incarcerated: "no",
-          ssn_no_employment: "yes",
           household_excise_credit_claimed: "yes",
           household_excise_credit_claimed_amount: 1000
         }
@@ -81,7 +76,6 @@ RSpec.describe StateFile::AzExciseCreditForm do
       it "requires credit amount to be a positive number" do
         invalid_params_zero = {
           primary_was_incarcerated: "no",
-          ssn_no_employment: "yes",
           household_excise_credit_claimed: "yes",
           household_excise_credit_claimed_amount: 0
         }
@@ -97,7 +91,6 @@ RSpec.describe StateFile::AzExciseCreditForm do
       it "saves values" do
         form = described_class.new(intake, {
           primary_was_incarcerated: "yes",
-          ssn_no_employment: "yes",
           household_excise_credit_claimed: "yes",
           household_excise_credit_claimed_amount: 1000
         })
@@ -106,7 +99,6 @@ RSpec.describe StateFile::AzExciseCreditForm do
 
         intake.reload
         expect(intake.primary_was_incarcerated_yes?).to eq true
-        expect(intake.ssn_no_employment_yes?).to eq true
         expect(intake.household_excise_credit_claimed_yes?).to eq true
         expect(intake.household_excise_credit_claimed_amount).to eq 1000
       end
@@ -116,7 +108,6 @@ RSpec.describe StateFile::AzExciseCreditForm do
 
         form = described_class.new(intake, {
           primary_was_incarcerated: "yes",
-          ssn_no_employment: "yes",
           household_excise_credit_claimed: "no",
           household_excise_credit_claimed_amount: 1000
         })
@@ -125,7 +116,6 @@ RSpec.describe StateFile::AzExciseCreditForm do
 
         intake.reload
         expect(intake.primary_was_incarcerated_yes?).to eq true
-        expect(intake.ssn_no_employment_yes?).to eq true
         expect(intake.household_excise_credit_claimed_no?).to eq true
         expect(intake.household_excise_credit_claimed_amount).to be_nil
       end

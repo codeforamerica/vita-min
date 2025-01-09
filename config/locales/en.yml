@@ -2119,6 +2119,16 @@ en:
       nc_tax_withheld: North Carolina tax withheld
       nc_taxable_income: North Carolina taxable income
       nc_use_tax: North Carolina use tax
+      nj_minimal_essential_health_coverage_html: |-
+        <p>Most people who have health insurance have minimum essential coverage. “Minimal essential coverage” just refers to how much your plan covers. If you have any of the following, you most likely have it:</p>
+        <ul>
+          <li>A plan through your employer</li>
+          <li>A plan bought through <a target="_blank" rel="noopener noreferrer" href="https://nj.gov/getcoverednj/">GetCoveredNJ</a></li>
+          <li>Medicare</li>
+          <li>Medicaid (NJ FamilyCare)</li>
+        </ul>
+        <p><a target="_blank" rel="noopener noreferrer" href="https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml">Here is the full list of insurance options that have minimum essential coverage.</a><p>
+        <p>If you only had standalone vision and dental plans, workers' compensation coverage, and/or coverage limited to a specified disease or illness, you didn't have minimum essential coverage. In New Jersey, as of 2018, you need minimum essential coverage, or you will likely pay additional taxes.</p>
       register_to_vote: Register to vote.
       see_detailed_return: See detailed return information
       standard_deduction: Standard deduction
@@ -2249,8 +2259,6 @@ en:
           household_excise_credit_html: Did anyone in your household file a tax return separately from you and claim the Arizona Increased Excise Tax Credit? <br><br> (Your household is everyone that you lived with, even if they aren’t listed on your return.)
           primary_was_incarcerated: Were you incarcerated in a county, state, or federal prison for at least 60 days in %{tax_year}?
           spouse_was_incarcerated: Was your spouse incarcerated in a county, state, or federal prison for at least 60 days in %{tax_year}?
-          ssn_no_employment_html:
-            label: Do you have <b>'not valid for employment'</b> written on your Social Security card? (This is rare.)
           title: You might be eligible for the Increased Excise Tax Credit.
       az_prior_last_names:
         edit:
@@ -2355,7 +2363,6 @@ en:
           made_az321_contributions: Made contributions to qualifying charitable organizations
           made_az322_contributions: Made contributions to public schools
           public_school_credit: Public School Credit
-          ssn_no_employment: "‘Not valid for employment’ is written on your Social Security Card"
           ssn_not_taxed: Social Security benefits not taxed in Arizona
           subtraction_for_indian_res: Subtraction for income earned on an American Indian reservation
           subtraction_for_military_pay: Subtraction for active duty military pay
@@ -2447,6 +2454,7 @@ en:
             health_insurance_eligibility: and all members of your tax household did not have health insurance (with minimum essential coverage) for every month in %{filing_year}
             nyc_maintained_home: you lived in or maintained a home in New York City for some of the year.
             nyc_residency: you lived in or maintained a home in New York City for some of the year.
+            permanent_address_outside_md: did not reside in Maryland on Dec 31st
             permanent_address_outside_ny: you did not live in New York for all of %{filing_year}
           title: Unfortunately, you can't use this service this year. Don't worry, there are other filing options.
         other_options:
@@ -2637,6 +2645,7 @@ en:
           college_savings_account: 529 College Savings Account Contributions
           credits_carried: Credits carried forward from previous years
           credits_for_rehabilitating: Credits for Rehabilitating Historic Structures
+          credits_not_supported: What credits and deductions does this service not support this year?
           estimated_income_tax_payments: Estimated income tax payments
           extension_payment: Extension payments
           personal_education: Personal Education Student Account Deposits Deduction
@@ -2870,7 +2879,9 @@ en:
           help_text: We will collect any missing information.
           interest_income_body: No additional state info needed
           interest_income_title: Interest income (1099-INT)
+          invalid_w2: There is an issue with one or more W-2 forms. Please review and correct before proceeding.
           no_info_needed: No additional state info needed
+          no_info_needed_nj: This income is not taxed in New Jersey.
           retirement_income_title: Retirement income (1099-R)
           review_and_edit_state_info: Review and edit state info
           ssa_title: Social Security benefits (SSA-1099)
@@ -3127,6 +3138,12 @@ en:
         edit:
           county: County
           title: Select the county where you lived on December 31, %{filing_year}
+      nj_dependents_health_insurance:
+        edit:
+          continue: Click "continue" if all these people had health insurance.
+          coverage_heading: What is health insurance with minimum essential coverage?
+          label: 'Check all the people that did NOT have health insurance:'
+          title_html: Please tell us which dependents were missing health insurance (<a target=" _blank" rel="noopener noreferrer" href="https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml">with minimum essential health coverage</a>) in 2024.
       nj_disabled_exemption:
         edit:
           instructions_html: People with disabilities are eligible for tax exemptions. <br><br> In NJ, you are considered disabled if you have a "<b>total and permanent</b> inability to engage in any substantial gainful activity because of any physical or mental impairment, including blindness." <br><br> (This is different from the federal tax definition. NJ doesn’t consider your age or your receipt of taxable disability income.)
@@ -3160,11 +3177,8 @@ en:
           title: You may be eligible for the Earned Income Tax Credit
       nj_eligibility_health_insurance:
         edit:
-          coverage_description_html: "<p>Most people who have health insurance have minimum essential coverage. “Minimal essential coverage” just refers to how much your plan covers. If you have any of the following, you most likely have it:</p>\n<ul>\n  <li>A plan through your employer</li>\n  <li>A plan bought through <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://nj.gov/getcoverednj/\">GetCoveredNJ</a></li>\n  <li>Medicare</li> \n  <li>Medicaid (NJ FamilyCare)</li>\n</ul>\n<p><a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml\">Here is the full list of insurance options that have minimum essential coverage.</a><p> \n<p>If you only had standalone vision and dental plans, workers' compensation coverage, and/or coverage limited to a specified disease or illness, you didn't have minimum essential coverage. In New Jersey, as of 2018, you need minimum essential coverage, or you will likely pay additional taxes.</p>\n"
           coverage_heading: What is health insurance with minimum essential coverage?
-          dependent_label: "%{name}"
           label: Did you and all members of your tax household have health insurance (with minimum essential coverage) for every month in %{filing_year}?
-          label_follow_up: Which dependents were missing health insurance?
           tax_household_description_html: A tax household includes you, your spouse (if filing a joint return), domestic partner claimed on your return, and any individuals you claim as dependents on your NJ-1040. It also includes any individuals you can, but do not, claim as dependents on your return.
           tax_household_heading: What is considered a tax household?
           title: Let’s get started.
@@ -3214,12 +3228,21 @@ en:
           where_to_find_helper_heading: Where can I find property taxes paid?
       nj_household_rent_own:
         edit:
-          both: Both a tenant and a homeowner
-          homeowner: Homeowner
-          label: In %{filing_year}, which were you?
-          neither: Neither
-          tenant: Tenant (If you own a mobile home that is located in a mobile home park, you are considered a tenant.)
-          title: You might be eligible for the New Jersey Property Tax credit or deduction!
+          both_html: "<b>Both</b>: I was a homeowner for part of the year, and I was a renter for part of the year."
+          description_html: Your "main home" is where you primarily lived at any given time (e.g., a house, a condo, or an apartment). <b>You can’t have multiple main homes at the same time, but you may have different main homes throughout the year if you moved.</b>
+          helper_1_description: Yes. This tax break is designed to support people in New Jersey whose money contributes to property taxes. (Renters do this by paying rent, contributing to the cost of property taxes paid by the property owners.)
+          helper_1_header: Are you sure this applies to rent paid?
+          helper_2_description: No. Please answer the questions in this section for your main home only. You can’t claim this tax break for a vacation home, a "second home," or a property you own and rent to someone else.
+          helper_2_header: Can I claim for a vacation home or a property I rent out to someone?
+          helper_3_description: If you owned a mobile home in a mobile home park, you are considered a renter. Your site fees are what you paid in rent.
+          helper_3_header: What if I lived in a mobile home?
+          helper_4_description_html: The property tax <b>deduction</b> reduces your taxable income. We will deduct your share of property taxes paid or $15,000, whichever is less. For renters, we’ll consider 18% of rent paid as your share.
+          helper_4_header: How much is this deduction or credit worth?
+          homeowner_html: I was a <b>homeowner</b> for at least part of the year
+          label_html: How would you describe your living situation in %{filing_year} <b>as it pertains to your main home(s)</b>?
+          neither_html: Other
+          tenant_html: I was a <b>renter</b> for at least part of the year
+          title: You may qualify for a property tax deduction or credit on your main home, whether you owned or rented it.
       nj_ineligible_property_tax:
         edit:
           continue_text: Click continue to see what else we can guide you to qualify for.
@@ -3272,23 +3295,29 @@ en:
           why_ask_this: Why are you asking for this information?
       nj_review:
         edit:
-          amount: Amount
-          claimed_as_eitc_qualifying_child: I could be someone else's qualifying child for the Earned Income Tax Credit.
-          college_dependents: Dependents attending college
-          county: County
+          amount_calculated: Calculated Amount
+          amount_entered: Amount Entered
+          college_dependents: Dependent(s) attending college exemption
+          college_dependents_none: Not applicable
+          continue_helper: Click "Continue" if all this looks right to you.
+          county_municipality: Where you lived as of Dec 31, %{filing_year}
           edit_disability: disability status
-          edit_gubernatorial: gubernatorial fund contributions
           edit_veteran: veteran status
-          estimated_tax_payments: Payments already made to New Jersey taxes
-          household_rent_own: Rent or own home
-          medical_expenses: Medical expenses
-          municipality: Municipality
-          primary_disabled: I have a disability
-          primary_gubernatorial: I want $1 of my taxes to go to the gubernatorial elections fund
-          primary_veteran: I am a veteran
-          property_tax_credit_deduction: Property Tax Credit/Deduction
-          property_tax_paid: Property taxes paid
-          rent_paid: Rent paid
+          eitc: New Jersey Earned Income Tax Credit (NJEITC)
+          estimated_tax_payments: Payments already made towards New Jersey taxes
+          household_rent_own: Living situation in %{filing_year}
+          household_rent_own_both: Owned and rented
+          household_rent_own_neither: Neither owned or rented
+          household_rent_own_own: Owned
+          household_rent_own_rent: Rented
+          medical_expenses: Total medical expenses
+          missing_health_insurance: Missing Health Insurance
+          primary_claimed_as_eitc_qualifying_child: You could be someone's qualifying child
+          primary_disabled: Disability exemption (you)
+          primary_veteran: Veteran exemption (you)
+          property_tax_credit_deduction: New Jersey Property Tax deduction or credit
+          property_tax_paid: Property taxes paid in %{filing_year}
+          rent_paid: Rent paid in %{filing_year}
           reveal:
             15_wages_salaries_tips: Wages, salaries, tips
             16a_interest_income: Interest income
@@ -3310,11 +3339,12 @@ en:
             65_nj_ctc: New Jersey child tax credit
             66_total_payments_refundable_credits: Total payments and refundable credits
             header: See detailed return information
-          spouse_claimed_as_eitc_qualifying_child: My spouse could be someone else's qualifying child for the Earned Income Tax Credit.
-          spouse_disabled: My spouse has a disability
-          spouse_gubernatorial: My spouse wants $1 of their taxes to go to the gubernatorial elections fund
-          spouse_veteran: My spouse is a veteran
-          use_tax_applied: Consumer Use Tax Applied
+          review_and_edit: Review and Edit
+          spouse_claimed_as_eitc_qualifying_child: Your spouse could be someone's qualifying child
+          spouse_disabled: Disability exemption (spouse)
+          spouse_veteran: Veteran exemption (spouse)
+          use_tax_applied: Out-of-State Purchases Use Tax Applied
+          year_of_death: Year of spouse's passing
       nj_sales_use_tax:
         edit:
           followup_radio_label: Select one of the following
@@ -3548,7 +3578,7 @@ en:
             <li>
               Make your check or money order payable to %{payable_to}. Write your full SSN or ITIN, “%{filing_year} Tax”, and "Form %{form_number}" on your payment.
             </li>
-          direct_debit_html: If you have a remaining tax balance, remember to <strong>pay it online at <a target="_blank" rel="noopener nofollow" href="%{tax_payment_url}">%{tax_payment_url}</a></strong> or by mail before the April 15 filing deadline.
+          direct_debit_html: If you have a remaining tax balance, remember to <strong>pay it online at <a target="_blank" rel="noopener nofollow" href="%{tax_payment_info_url}">%{tax_payment_info_text}</a></strong> or by mail before the April 15 filing deadline.
           download_voucher: Download payment voucher form
           feedback: We value your feedback—let us know what you think of this service.
           include_payment: You'll need to include the payment voucher form.
@@ -3653,9 +3683,9 @@ en:
           title: Your %{filing_year} %{state_name} state tax return is now submitted!
           title_resubmit: Your %{filing_year} %{state_name} state tax return is now resubmitted!
         nj_additional_content:
-          body_html: You said you%{or_spouse} are filing for the veteran exemption. If it's your first time filing for <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml">this exemption</a>, you have to provide <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml">documentation</a> and a <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf">form</a> to the New Jersey Division of Taxation. It can be done <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf">online</a>.
+          body_html: You said you are filing for the veteran exemption. If it's your first time filing for <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml">this exemption</a>, you have to provide <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml">documentation</a> and a <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf">form</a> to the New Jersey Division of Taxation. It can be done <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf">online</a>.
+          body_mfj_html: You said you or your spouse are filing for the veteran exemption. If it's your first time filing for <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml">this exemption</a>, you have to provide <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml">documentation</a> and a <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf">form</a> to the New Jersey Division of Taxation. It can be done <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf">online</a>.
           header: 'Attention: if you are claiming the veteran exemption for the first time'
-          or_spouse: " or your spouse"
       tax_refund:
         bank_details:
           account_number: Account Number
@@ -3668,8 +3698,8 @@ en:
           routing_number: Routing Number
           withdraw_amount: How much do you authorize to be withdrawn from your account? (Your total amount due is&#58; $%{owed_amount}.)
         edit:
-          direct_deposit: Direct deposit (fastest)
-          mail: Mail my payment (slower)
+          direct_deposit: By direct deposit (fastest)
+          mail: By mail (slower)
           page_title: Good news, you're getting a tax refund. How would you like to receive your refund?
           title_html: Good news, you're getting a %{state_name} state tax refund of <strong>$%{refund_amount}.</strong>
       taxes_owed:
@@ -3758,14 +3788,14 @@ en:
           verification_code_label: Enter the 6-digit code
       w2:
         edit:
-          box14_explanation:
-            md_html: For tax year %{year}, we will only process the <strong>STPICKUP</strong> code, which represents any contributions you made to the state retirement system.
+          box14_explanation_md_html: For tax year %{year}, we will only process the <strong>STPICKUP</strong> code, which represents any contributions you made to the state retirement system.
+          box14_explanation_nj_html: 'For this year, we will only need the amounts for <strong>UI/WF/SWF</strong> (may also appear as <strong>"UI/HC/WD"</strong> on your W2) and FLI.<br/><br/><strong>If you do not see these, please leave these fields blank.</strong><br/><br/><strong>Definitions:</strong><br/><br/><strong>UI/WF/SWF</strong> (may also appear as <strong>"UI/HC/WD"</strong> on your W2) represents:<ul><li><strong>UI</strong> refers to unemployment insurance contributions</li><li><strong>WF</strong> and <strong>WD</strong> refer to  workforce development partnership fund contributions</li><li><strong>SWF</strong> refers to supplemental workforce fund contributions</li><li><strong>HC</strong> refers to healthcare contributions</li><li><strong>WD</strong> refers to workforce development contributions</li></ul><strong>FLI</strong>: Represents contributions withheld for Family Leave Insurance. Family Leave Insurance (FLI) provides paid leave benefits to bond with a new child, care for a loved one, or cope with domestic/sexual violence. If you have a number for this on your paycheck, it means you have paid into this program and may be eligible to receive cash benefits.<br/><br/>We use the amounts to determine if you  might be eligible for a credit.<br/><br/>There may be other information in box 14 - those don''t need to be reported with this tool.'
           box14_fli_html: "<strong>FLI</strong>"
           box14_html: "<strong>Box 14,</strong> Other"
+          box14_intro_nj_html: Box 14 will have various letters in it. Those letters all represent program names.<br/><br/>For this year, we will only need the amounts for <strong>UI/WF/SWF</strong> (may also appear as <strong>"UI/HC/WD"</strong> on your W2) <strong>and FLI</strong>.<br/><br/><strong>If you do not see these, please leave these fields blank.</strong><br/><br/>There may be information for other programs in box 14 - those don't need to be reported with this tool.
           box14_stpickup_help_text: For %{year}, we will only process the STPICKUP code. If you do not see this code or have other codes in Box 14, please leave it blank.
           box14_stpickup_html: "<strong>STPICKUP</strong>"
-          box14_ui_hc_wd_html: "<strong>UI/HC/WD</strong>"
-          box14_ui_wf_swf_html: "<strong>UI/WF/SWF</strong>"
+          box14_ui_wf_swf_html: "<strong>UI/WF/SWF</strong> (This may also appear on your W2 as <strong>UI/HC/WD.</strong>)"
           box15_html: "<strong>Box 15,</strong> Employer’s state ID number"
           box16_html: "<strong>Box 16,</strong> State wages, tips, etc."
           box17_html: "<strong>Box 17,</strong> State income tax"
@@ -3782,7 +3812,8 @@ en:
           state_wages_amt_error: Please enter State wages and tips
           state_wages_exceed_amt_error: Total state wages and tips cannot be greater than $%{wages_amount}
           wages_amt_error: Total income tax cannot be greater than $%{wages_amount}
-          what_is_box14: What could be in Box 14?
+          what_is_box14_md: What could be in Box 14?
+          what_is_box14_nj: What should I put in Box 14?
       waiting_to_load_data:
         edit:
           subtitle_html: This usually takes a few minutes. Don’t close this page.<br><br> We’ll use your federal tax return information to complete sections of your state return.
@@ -3934,6 +3965,7 @@ en:
     alphanumeric: Only numbers 0-9 and letters A-Z and a-z are accepted.
     atin: Please enter a valid adoption taxpayer identification number.
     ctds_code: School Code/CTDS must be a 9 digit number.
+    dollar_limit: This amount can't exceed $%{limit}. If it does, please write to chat support for more information.
     ein: EIN must be a 9 digit number.
     file_type: Please upload a valid document type. Accepted types include %{valid_types}.
     file_zero_length: Please upload a valid file. The file you uploaded appears to be empty.
@@ -3985,13 +4017,13 @@ en:
     with_code:
       body_html: |
         <p>Hello!</p>
-        <p>Your six-digit verification code for %{service_name} is: <strong> %{verification_code}.</strong> This code will expire after 30 minutes.</p>
+        <p>Your six-digit verification code for %{service_name} is: <strong> %{verification_code}.</strong> This code will expire after 10 minutes.</p>
         <p>Did you receive this code without signing up? Email us at <a href="mailto:help@%{service_name_lower}.org">help@%{service_name_lower}.org</a></p>
         <p>Your tax team at %{service_name}.org</p>
       body_text: |
         Hello!
 
-        Your six-digit verification code for %{service_name} is: %{verification_code}. This code will expire after 30 minutes.
+        Your six-digit verification code for %{service_name} is: %{verification_code}. This code will expire after 10 minutes.
 
         Did you receive this code without signing up? Email us at help@%{service_name_lower}.org
 
@@ -4003,7 +4035,7 @@ en:
     no_match_gyr: |
       Someone tried to sign in to GetYourRefund with this phone number, but we couldn't find a match. Did you sign up with a different phone number?
       You can also visit %{url} to get started.
-    with_code: 'Your 6-digit %{service_name} verification code is: %{verification_code}. This code will expire after 30 minutes.'
+    with_code: 'Your 6-digit %{service_name} verification code is: %{verification_code}. This code will expire after 10 minutes.'
   views:
     consent_pages:
       consent_to_disclose:
@@ -5648,8 +5680,8 @@ en:
           address_html: |
             GetYourRefund</br>
             c/o Code for America</br>
-            972 Mission Street</br>
-            San Francisco, CA 94103
+            2323 Broadway</br>
+            Oakland, CA 94612-2414
           description_html: 'If you have any questions, comments, concerns, or complaints with the Site, please contact us by email at %{email_link} or by mail at:'
           header: Questions
           resolve: We will do our best to resolve the issue

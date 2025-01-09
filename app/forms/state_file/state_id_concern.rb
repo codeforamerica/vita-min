@@ -28,8 +28,7 @@ module StateFile
       validates :id_type, presence: true
       validates :id_number,
                 presence: true,
-                # Seems to just be for New York
-                # alphanumeric: true, length: {is: 9},
+                length: { in: 1..40 },
                 if: -> { id_type != "no_id" }
     end
   end

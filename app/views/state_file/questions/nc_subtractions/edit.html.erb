@@ -1,5 +1,5 @@
 <% title = t(".title_html", count: current_intake.filer_count) %>
-<% content_for :page_title, title %>
+<% content_for :page_title, ActionView::Base.full_sanitizer.sanitize(title) %>
 <% content_for :card do %>
   <h1 class="h2"><%= title %></h1>
 

@@ -123,8 +123,8 @@ describe EmailAccessToken do
   end
 
   describe "lookup scope" do
-    let!(:expired_token) { create :email_access_token, created_at: 1.hour.ago, token: Devise.token_generator.digest(EmailAccessToken, :token, "raw_token") }
-    let!(:fresh_token) { create :email_access_token, created_at: 15.minutes.ago, token: Devise.token_generator.digest(EmailAccessToken, :token, "raw_token") }
+    let!(:expired_token) { create :email_access_token, created_at: 15.minutes.ago, token: Devise.token_generator.digest(EmailAccessToken, :token, "raw_token") }
+    let!(:fresh_token) { create :email_access_token, created_at: 5.minutes.ago, token: Devise.token_generator.digest(EmailAccessToken, :token, "raw_token") }
 
     it "returns codes that have not expired" do
       expect(described_class.lookup("raw_token")).to match_array([fresh_token])

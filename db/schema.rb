@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_27_174414) do
+ActiveRecord::Schema[7.1].define(version: 2025_01_06_225119) do
   create_schema "analytics"
 
   # These are extensions that must be enabled in order to support this database
@@ -1783,7 +1783,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_27_174414) do
     t.bigint "spouse_state_id_id"
     t.string "spouse_suffix"
     t.integer "spouse_was_incarcerated", default: 0, null: false
-    t.integer "ssn_no_employment", default: 0, null: false
     t.integer "tribal_member", default: 0, null: false
     t.decimal "tribal_wages_amount", precision: 12, scale: 2
     t.text "unfinished_intake_ids", default: [], array: true
@@ -2258,6 +2257,20 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_27_174414) do
     t.string "to", null: false
     t.datetime "updated_at", null: false
     t.index ["data_source_type", "data_source_id"], name: "index_state_file_notification_emails_on_data_source"
+  end
+
+  create_table "state_file_notification_text_messages", force: :cascade do |t|
+    t.string "body", null: false
+    t.datetime "created_at", null: false
+    t.bigint "data_source_id"
+    t.string "data_source_type"
+    t.string "error_code"
+    t.datetime "sent_at"
+    t.string "to_phone_number", null: false
+    t.string "twilio_sid"
+    t.string "twilio_status"
+    t.datetime "updated_at", null: false
+    t.index ["data_source_type", "data_source_id"], name: "index_state_file_notification_text_messages_on_data_source"
   end
 
   create_table "state_file_ny_intakes", force: :cascade do |t|
