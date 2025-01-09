@@ -54,7 +54,7 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
           xml.AddressLine1Txt sanitize_for_xml(@intake.permanent_street, 30)
           xml.AddressLine2Txt sanitize_for_xml(@intake.permanent_apartment, 30) if @intake.permanent_apartment.present?
           xml.CityNm sanitize_for_xml(@intake.permanent_city, 20)
-          xml.StateAbbreviationCd @intake.state_code.upcase
+          xml.StateAbbreviationCd @intake.direct_file_data.mailing_state.upcase
           xml.ZIPCd @intake.permanent_zip
         end
       end
