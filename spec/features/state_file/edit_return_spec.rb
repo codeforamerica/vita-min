@@ -74,7 +74,7 @@ RSpec.feature "Editing a rejected intake with an auto-wait error" do
     end
 
     mail = ActionMailer::Base.deliveries.last
-    expect(mail.html_part.body.to_s).to include("Your six-digit verification code for FileYourStateTaxes is: <strong> #{verification_code}.</strong> This code will expire after 30 minutes.")
+    expect(mail.html_part.body.to_s).to include("Your six-digit verification code for FileYourStateTaxes is: <strong> #{verification_code}.</strong> This code will expire after 10 minutes.")
 
     expect(page).to have_text "Enter the code to continue"
     fill_in "Enter the 6-digit code", with: verification_code

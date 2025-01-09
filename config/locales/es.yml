@@ -3989,12 +3989,12 @@ es:
     with_code:
       body_html: |
         <p>¡Hola!</p>
-        <p>Tu código de verificación de seis dígitos para %{service_name} es: <strong>%{verification_code}.</strong> Este código expirará después de 30 minutos.</p>
+        <p>Tu código de verificación de seis dígitos para %{service_name} es: <strong>%{verification_code}.</strong> Este código expirará después de 10 minutos.</p>
         <p>¿Recibiste este código sin registrarte? Envíanos un correo electrónico a <a href="mailto:help@%{service_name_lower}.org">help@%{service_name_lower}.org</a></p>
         <p>Tu equipo de impuestos en %{service_name}.org</p>
       body_text: |
         ¡Hola!
-        Tu código de verificación de seis dígitos para %{service_name} es: %{verification_code}. Este código expirará después de 30 minutos.
+        Tu código de verificación de seis dígitos para %{service_name} es: %{verification_code}. Este código expirará después de 10 minutos.
 
         ¿Recibiste este código sin registrarte? Envíanos un correo electrónico a help@%{service_name_lower}.org
 
@@ -4004,7 +4004,7 @@ es:
       Alguien intentó iniciar una sesión en GetCTC con este número de teléfono. Si ya tiene una cuenta con GetCTC, puede intentar iniciar una sesión con su correo electrónico %{url}/portal/iniciar sesión.
       O visite %{url}y haga clic en "Presentar su declaración simplificada ahora" para empezar.
     no_match_gyr: "Alguien intentó iniciar una sesión en GetYourRefund con este número de teléfono, pero no pudimos verificar sus credenciales. Se registró con un número de teléfono diferente? \nTambién puede visitar %{url}para empezar.\n"
-    with_code: 'Tu código de %{service_name} verificación de 6 dígitos es: %{verification_code}. Este código expirará después de 30 minutos.'
+    with_code: 'Tu código de %{service_name} verificación de 6 dígitos es: %{verification_code}. Este código expirará después de 10 minutos.'
   views:
     consent_pages:
       consent_to_disclose:
