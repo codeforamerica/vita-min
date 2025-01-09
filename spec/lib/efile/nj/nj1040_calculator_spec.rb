@@ -1365,36 +1365,28 @@ describe Efile::Nj::Nj1040Calculator do
   end
 
   describe 'line 42 - new jersey taxable income' do
-    context 'when should_use_property_tax_deduction and result is positive' do
-      it 'sets line 42 to line 39 (taxable income) minus prop tax deduction' do
-        allow(instance).to receive(:should_use_property_tax_deduction).and_return true
-        allow(instance).to receive(:calculate_line_39).and_return 20_000
-        allow(instance).to receive(:calculate_property_tax_deduction).and_return 15_000
-        instance.calculate
-        expect(instance.lines[:NJ1040_LINE_42].value).to eq(5_000)
-      end
+    it 'sets line 42 to line 39 (taxable income) minus prop tax deduction when should_use_property_tax_deduction and result is positive' do
+      allow(instance).to receive(:should_use_property_tax_deduction).and_return true
+      allow(instance).to receive(:calculate_line_39).and_return 20_000
+      allow(instance).to receive(:calculate_property_tax_deduction).and_return 15_000
+      instance.calculate
+      expect(instance.lines[:NJ1040_LINE_42].value).to eq(5_000)
     end
 
-    context 'when not using prop tax deduction and result is positive' do
-      let(:intake) { create(:state_file_nj_intake) }
-      it 'sets line 42 to line 39 (taxable income)' do
-        allow(instance).to receive(:should_use_property_tax_deduction).and_return false
-        allow(instance).to receive(:calculate_line_39).and_return 20_000
-        allow(instance).to receive(:calculate_property_tax_deduction).and_return 25_000
-        instance.calculate
-        expect(instance.lines[:NJ1040_LINE_42].value).to eq(20_000)
-      end
+    it 'sets line 42 to line 39 (taxable income) when not using prop tax deduction and result is positive' do
+      allow(instance).to receive(:should_use_property_tax_deduction).and_return false
+      allow(instance).to receive(:calculate_line_39).and_return 20_000
+      allow(instance).to receive(:calculate_property_tax_deduction).and_return 25_000
+      instance.calculate
+      expect(instance.lines[:NJ1040_LINE_42].value).to eq(20_000)
     end
 
-    context 'when using prop tax deduction and result is negative' do
-      let(:intake) { create(:state_file_nj_intake) }
-      it 'sets line 42 to 0' do
-        allow(instance).to receive(:should_use_property_tax_deduction).and_return true
-        allow(instance).to receive(:calculate_line_39).and_return 20_000
-        allow(instance).to receive(:calculate_property_tax_deduction).and_return 25_000
-        instance.calculate
-        expect(instance.lines[:NJ1040_LINE_42].value).to eq(0) # fails
-      end
+    it 'sets line 42 to 0 when using prop tax deduction and result is negative' do
+      allow(instance).to receive(:should_use_property_tax_deduction).and_return true
+      allow(instance).to receive(:calculate_line_39).and_return 20_000
+      allow(instance).to receive(:calculate_property_tax_deduction).and_return 25_000
+      instance.calculate
+      expect(instance.lines[:NJ1040_LINE_42].value).to eq(0)
     end
   end
 
