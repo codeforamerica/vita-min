@@ -18,8 +18,8 @@ RSpec.describe StateFile::Ty23ArchiverService do
 
         it 'finds them and sets them as the current batch' do
           archiver.find_archiveables
-          expect(archiver.current_batch.count).to eq(1)
-          expect(archiver.current_batch.last["hashed_ssn"]).to eq intake.hashed_ssn
+          expect(archiver.current_batch_ids.count).to eq(1)
+          expect(archiver.current_batch_ids.last).to eq intake.id
         end
       end
 
@@ -40,7 +40,7 @@ RSpec.describe StateFile::Ty23ArchiverService do
 
         it 'makes an empty current batch' do
           archiver.find_archiveables
-          expect(archiver.current_batch.count).to eq(0)
+          expect(archiver.current_batch_ids.count).to eq(0)
         end
       end
 
@@ -56,7 +56,7 @@ RSpec.describe StateFile::Ty23ArchiverService do
 
         it 'does not add it to the archiveable batch' do
           archiver.find_archiveables
-          expect(archiver.current_batch.count).to eq(0)
+          expect(archiver.current_batch_ids.count).to eq(0)
         end
       end
     end
@@ -75,7 +75,7 @@ RSpec.describe StateFile::Ty23ArchiverService do
           )
         }
         let(:submission) { create(:efile_submission, :for_state, :accepted, data_source: intake, created_at: Date.parse("1/5/23")) }
-        let(:mock_batch) { [intake] }
+        let(:mock_batch) { [intake.id] }
         let(:test_pdf) { Rails.root.join("spec", "fixtures", "files", "document_bundle.pdf") }
 
         before do
@@ -85,7 +85,7 @@ RSpec.describe StateFile::Ty23ArchiverService do
             filename: "test.pdf",
             content_type: 'application/pdf'
           )
-          archiver.instance_variable_set(:@current_batch, mock_batch)
+          archiver.instance_variable_set(:@current_batch_ids, mock_batch)
         end
 
         it 'creates an archived intake for each intake in the batch and sets the basic data' do
@@ -114,7 +114,7 @@ RSpec.describe StateFile::Ty23ArchiverService do
         end
 
         it 'attaches a copy of the pdf to the archived intake without removing the pdf from the original intake' do
-          current_batch_ids = archiver.current_batch.map(&:id)
+          current_batch_ids = archiver.current_batch_ids
           archived_ids = archiver.archive_batch
           expect(archived_ids.count).to eq(current_batch_ids.count)
 
