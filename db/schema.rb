@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_20_195915) do
+ActiveRecord::Schema[7.1].define(version: 2025_01_08_233940) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1611,6 +1611,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_20_195915) do
     t.string "payer_zip"
     t.integer "recipient", default: 0, null: false
     t.string "recipient_city"
+    t.string "recipient_state"
     t.string "recipient_street_address"
     t.string "recipient_street_address_apartment"
     t.string "recipient_zip"

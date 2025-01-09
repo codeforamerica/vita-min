@@ -14,6 +14,7 @@
 #  payer_zip                          :string
 #  recipient                          :integer          default("unfilled"), not null
 #  recipient_city                     :string
+#  recipient_state                    :string
 #  recipient_street_address           :string
 #  recipient_street_address_apartment :string
 #  recipient_zip                      :string
@@ -49,6 +50,7 @@ class StateFile1099G < ApplicationRecord
   validates :recipient_street_address, presence: true, format: { :with => /\A[a-zA-Z0-9\/\s-]+\z/.freeze, message: ->(_object, _data) { I18n.t("errors.attributes.address.street_address.invalid") }}
   validates :recipient_street_address_apartment, format: { :with => /\A[a-zA-Z0-9\/\s-]+\z/.freeze, message: ->(_object, _data) { I18n.t("errors.attributes.address.street_address.invalid") }}, allow_blank: true
   validates :recipient_city, presence: true, format: { with: /\A[a-zA-Z\s]+\z/.freeze, message: ->(_object, _data) { I18n.t("errors.attributes.address.city.invalid") }}
+  validates :recipient_state, inclusion: { in: States.keys }
   validates :recipient_zip, zip_code: { zip_code_lengths: [5, 9, 12].freeze }
   validates :unemployment_compensation_amount, numericality: { greater_than_or_equal_to: 1 }
   validates :federal_income_tax_withheld_amount, numericality: { greater_than_or_equal_to: 0}
