@@ -1,9 +1,29 @@
 <% title = t("state_file.questions.primary_state_id.edit.title") %>
 <% content_for :page_title, title %>
 
+<% content_for :reveal_box do %>
+  <div class="spacing-above-15 spacing-below-15">
+    <div class="reveal">
+      <p>
+        <button class="reveal__button" ><%= t(".reveal_title") %></button>
+      </p>
+      <div class="reveal__content">
+        <p class="text--line-breaks"><%= t(".reveal_content_html") %></p>
+      </div>
+    </div>
+  </div>
+
+<% end %>
+
+
 <% content_for :card do %>
   <h1 class="h2"><%= title %></h1>
+  <p><%= t(".subtitle") %></p>
+
   <%= render 'state_file/questions/primary_state_id/state_id', options: {
-    info_link: "https://azdot.gov/mvd/services/driver-services/driver-license-information/license-features"
+    info_link: "https://azdot.gov/mvd/services/driver-services/driver-license-information/license-features",
+    reveal: true
   } %>
 <% end %>
+
+
