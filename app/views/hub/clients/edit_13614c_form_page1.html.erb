@@ -71,7 +71,7 @@
       </div>
 
       <div class="hub-form__row">
-        <%= f.cfa_select(:claimed_by_another, t(".fields.claimed_by_another"), yes_no_unsure_options_for_select) %>
+        <span style="background-color: #e5e5e5"><%= f.cfa_select(:claimed_by_another, t(".fields.claimed_by_another"), yes_no_options_for_select) %></span>
       </div>
       <div class="hub-form__row">
         <%= f.cfa_select(:issued_identity_pin, t(".fields.issued_identity_pin"), yes_no_options_for_select) %>
