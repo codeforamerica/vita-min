@@ -1361,6 +1361,16 @@ describe Efile::Md::Md502Calculator do
           expect(instance.lines[:MD502_LINE_28_LOCAL_TAX_AMOUNT].value).to eq(1215)
         end
       end
+
+      context "deduction method is non standard" do
+        before do
+          allow_any_instance_of(described_class).to receive(:calculate_deduction_method).and_return "N"
+          instance.calculate
+        end
+        it 'returns 0' do
+          expect(instance.lines[:MD502_LINE_28_LOCAL_TAX_AMOUNT].value).to eq(0)
+        end
+      end
     end
 
     context "when the county is Frederick" do
