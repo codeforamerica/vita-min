@@ -2817,7 +2817,10 @@ en:
             other: Did you pay health insurance premiums for yourself and your household in %{year}?
           medicaid_content: Yes, if you are on Medicaid, your health insurance premium counts.  Check your monthly letter from the Idaho Department of Health and Welfare for your premium amount. It could be as low as $0, depending on your income and other factors.
           medicaid_title: Do Medicaid and Medicare payments count?
-          qualifications_content: You can deduct health insurance premiums paid for yourself, your spouse, and your dependents, including medical, dental, and vision, as long as they haven’t been deducted from your income pre-tax.
+          qualifications_content_html: |
+            You can deduct health insurance premiums paid for yourself, your spouse, and your dependents, including medical, dental, and vision, as long as they haven’t been deducted from your income pre-tax.
+            <br/><br/>
+            If you have Medicare you can deduct Medicare A (if you are voluntarily enrolled and not covered under Social Security), as well as Medicare B and D if you are voluntarily enrolled. Medicare Advantage also qualifies.
           qualifications_title: Which health coverage premiums qualify?
           qualifying_amount_help_text: Enter the total amount of qualifying health insurance premiums your household paid in %{year}.
           subtitle:
