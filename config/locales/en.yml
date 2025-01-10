@@ -3444,7 +3444,7 @@ en:
           description_html: "<p>The next step is to fill in this <a href=\"https://www.nj.gov/treasury/taxation/pdf/wrkshtg.pdf\" target=\"_blank\" rel=\"noopener nofollow\">worksheet</a>.</p> \n<p>Once you fill in the worksheet, come back to this page.</p>\n<p>The worksheet will ask you about where you lived and for how long. If you moved, for example, it will have space for you to list every place you lived.</p>\n"
           helper_anchor_description_html: If you received an ANCHOR benefit, the benefit amount does not affect the amount to report on line 8. (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR offers property tax relief to New Jersey residents who own or rent property in New Jersey as their main home and meet certain income limits.</a>)
           helper_anchor_heading: What if I received ANCHOR benefits?
-          helper_description: Enter your site fees paid for 2024 in the rental section of Worksheet G.
+          helper_description: Enter your site fees paid for %{filing_year} in the rental section of Worksheet G.
           helper_heading: Mobile homeowners
           label_html: "<strong>Enter Line 8 of Worksheet</strong>"
           title: Good news – you qualify for a deduction or credit.
@@ -3452,7 +3452,7 @@ en:
         edit:
           helper_anchor_description_html: If you received an ANCHOR benefit, the benefit amount does not affect the amount to report on line 8. (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR offers property tax relief to New Jersey residents who own or rent property in New Jersey as their main home and meet certain income limits.</a>)
           helper_anchor_heading: What if I received ANCHOR benefits?
-          helper_description: Enter your site fees paid for 2024 in the rental section of Worksheet G.
+          helper_description: Enter your site fees paid for %{filing_year} in the rental section of Worksheet G.
           helper_heading: Mobile homeowners
           label_html: "<strong>Enter your share of total rent paid in %{filing_year}</strong>"
           title: Enter the amount of rent you paid on this main home in %{filing_year}.
@@ -3850,10 +3850,29 @@ en:
       w2:
         edit:
           box14_explanation_md_html: For tax year %{year}, we will only process the <strong>STPICKUP</strong> code, which represents any contributions you made to the state retirement system.
-          box14_explanation_nj_html: 'For this year, we will only need the amounts for <strong>UI/WF/SWF</strong> (may also appear as <strong>"UI/HC/WD"</strong> on your W2) and FLI.<br/><br/><strong>If you do not see these, please leave these fields blank.</strong><br/><br/><strong>Definitions:</strong><br/><br/><strong>UI/WF/SWF</strong> (may also appear as <strong>"UI/HC/WD"</strong> on your W2) represents:<ul><li><strong>UI</strong> refers to unemployment insurance contributions</li><li><strong>WF</strong> and <strong>WD</strong> refer to  workforce development partnership fund contributions</li><li><strong>SWF</strong> refers to supplemental workforce fund contributions</li><li><strong>HC</strong> refers to healthcare contributions</li><li><strong>WD</strong> refers to workforce development contributions</li></ul><strong>FLI</strong>: Represents contributions withheld for Family Leave Insurance. Family Leave Insurance (FLI) provides paid leave benefits to bond with a new child, care for a loved one, or cope with domestic/sexual violence. If you have a number for this on your paycheck, it means you have paid into this program and may be eligible to receive cash benefits.<br/><br/>We use the amounts to determine if you  might be eligible for a credit.<br/><br/>There may be other information in box 14 - those don''t need to be reported with this tool.'
+          box14_explanation_nj_html: |
+            <p>For this year, we will only need the amounts for <strong>UI/WF/SWF</strong> (may also appear as <strong>"UI/HC/WD"</strong> on your W2) <strong>and FLI</strong>.
+            <p><strong>If you do not see these, please leave these fields blank.</strong></p>
+            <p><strong>Definitions:</strong></p>
+            <ul class="list--bulleted">
+              <li><strong>UI/WF/SWF</strong> (may also appear as <strong>"UI/HC/WD"</strong> on your W2) represents:</li>
+              <ul class="list--bulleted">
+                <li><strong>UI</strong> refers to unemployment insurance contributions</li>
+                <li><strong>WF</strong> or <strong>WD</strong> refer to workforce development partnership fund contributions</li>
+                <li><strong>SWF</strong> refers to supplemental workforce fund contributions</li>
+                <li><strong>HC</strong> refers to healthcare contributions</li>
+              </ul>
+              <li><strong>FLI</strong>: Represents contributions withheld for Family Leave Insurance. Family Leave Insurance (FLI) provides paid leave benefits to bond with a new child, care for a loved one, or cope with domestic/sexual violence. If you have a number for this on your paycheck, it means you have paid into this program and may be eligible to receive cash benefits.</li>
+            </ul>
+            <p>We use the amounts to determine if you <a href="https://www.nj.gov/treasury/taxation/njit16.shtml" target="_blank" rel="noopener nofollow">might be eligible for a credit</a>.</p>
+            <p>There may be other information in Box 14. That's ok. That information doesn't need to be reported with this tool. </p>
           box14_fli_html: "<strong>FLI</strong>"
           box14_html: "<strong>Box 14,</strong> Other"
-          box14_intro_nj_html: Box 14 will have various letters in it. Those letters all represent program names.<br/><br/>For this year, we will only need the amounts for <strong>UI/WF/SWF</strong> (may also appear as <strong>"UI/HC/WD"</strong> on your W2) <strong>and FLI</strong>.<br/><br/><strong>If you do not see these, please leave these fields blank.</strong><br/><br/>There may be information for other programs in box 14 - those don't need to be reported with this tool.
+          box14_intro_nj_html: |
+            <p>Employers may use Box 14 to report anything that doesn't fit somewhere else on a Form W-2.</p>
+            <p>For this year, we will only need any amounts listed for <strong>UI/WF/SWF</strong> (may also appear as <strong>"UI/HC/WD"</strong> on your W2) <strong>and FLI</strong>.</p> 
+            <p><strong>If you do not see these, please leave these fields blank.</strong></p> 
+            <p>There may be other information in Box 14. That information doesn't need to be reported with this tool.</p>
           box14_stpickup_help_text: For %{year}, we will only process the STPICKUP code. If you do not see this code or have other codes in Box 14, please leave it blank.
           box14_stpickup_html: "<strong>STPICKUP</strong>"
           box14_ui_wf_swf_html: "<strong>UI/WF/SWF</strong> (This may also appear on your W2 as <strong>UI/HC/WD.</strong>)"
@@ -3874,7 +3893,7 @@ en:
           state_wages_exceed_amt_error: Total state wages and tips cannot be greater than $%{wages_amount}
           wages_amt_error: Total income tax cannot be greater than $%{wages_amount}
           what_is_box14_md: What could be in Box 14?
-          what_is_box14_nj: What should I put in Box 14?
+          what_is_box14_nj: What should I put in these Box 14 fields?
       waiting_to_load_data:
         edit:
           subtitle_html: This usually takes a few minutes. Don’t close this page.<br><br> We’ll use your federal tax return information to complete sections of your state return.
