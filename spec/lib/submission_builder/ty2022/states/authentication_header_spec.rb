@@ -22,7 +22,7 @@ describe SubmissionBuilder::AuthenticationHeader do
     end
 
     context "when a New York drivers license is defined" do
-      let(:state_id) { create(:state_id)}
+      let(:state_id) { create(:state_id) }
       let(:intake) { create(:state_file_ny_intake, primary_state_id: state_id) }
       let(:submission) { create(:efile_submission, data_source: intake) }
 
@@ -43,7 +43,7 @@ describe SubmissionBuilder::AuthenticationHeader do
     end
 
     context "when a drivers license which does not expire is defined" do
-      let(:state_id) { create(:state_id, :non_expiring)}
+      let(:state_id) { create(:state_id, :non_expiring) }
       let(:intake) { create(:state_file_ny_intake, primary_state_id: state_id) }
       let(:submission) { create(:efile_submission, data_source: intake) }
 
@@ -55,7 +55,7 @@ describe SubmissionBuilder::AuthenticationHeader do
     end
 
     context "when a non New York drivers license is defined" do
-      let(:state_id) { create(:state_id, :non_ny)}
+      let(:state_id) { create(:state_id, :non_ny) }
       let(:intake) { create(:state_file_ny_intake, primary_state_id: state_id) }
       let(:submission) { create(:efile_submission, data_source: intake) }
 
@@ -67,7 +67,7 @@ describe SubmissionBuilder::AuthenticationHeader do
     end
 
     context "when a New York state issued id is defined" do
-      let(:state_id) { create(:state_id, :state_issued_id)}
+      let(:state_id) { create(:state_id, :state_issued_id) }
       let(:intake) { create(:state_file_ny_intake, primary_state_id: state_id) }
       let(:submission) { create(:efile_submission, data_source: intake) }
 
@@ -90,7 +90,7 @@ describe SubmissionBuilder::AuthenticationHeader do
   end
 
   describe '#refund_disbursement' do
-    let(:state_id) { create(:state_id, :state_issued_id)}
+    let(:state_id) { create(:state_id, :state_issued_id) }
     let(:intake) { create(:state_file_ny_intake, primary_state_id: state_id) }
     let(:submission) { create(:efile_submission, data_source: intake) }
 
@@ -197,4 +197,43 @@ describe SubmissionBuilder::AuthenticationHeader do
     end
   end
 
+  describe "device id" do
+    let(:intake) { create(:state_file_az_intake) }
+    let(:submission) { create(:efile_submission, data_source: intake.reload) }
+    let!(:initial_efile_device_info) { create :state_file_efile_device_info, :initial_creation, :filled, intake: intake, device_id: device_id }
+    let!(:submission_efile_device_info) { create :state_file_efile_device_info, :submission, :filled, intake: intake, device_id: device_id }
+    let(:device_id) { "AA" * 20 }
+
+    context "when the device id is alphanumeric 40 character count" do
+      let(:device_id) { "7BA1E530D6503F380F1496A47BEB6F33E40403D1" }
+      it "sends submitted device id" do
+        doc = SubmissionBuilder::AuthenticationHeader.new(submission).document
+        expect(doc.at("DeviceId").text).to eq "7BA1E530D6503F380F1496A47BEB6F33E40403D1"
+      end
+    end
+
+    context "when the device id doesn't have a character count of 40" do
+      let(:device_id) { "abba" }
+      it "sends the default device id" do
+        doc = SubmissionBuilder::AuthenticationHeader.new(submission).document
+        expect(doc.at("DeviceId").text).to eq 'AB' * 20
+      end
+    end
+
+    context "when the device id is not capitalized alphanumeric characters" do
+      let(:device_id) { "aa" * 20 }
+      it "sends the default device id" do
+        doc = SubmissionBuilder::AuthenticationHeader.new(submission).document
+        expect(doc.at("DeviceId").text).to eq 'AB' * 20
+      end
+    end
+
+    context "when the device id is not alphanumeric characters" do
+      let(:device_id) { "A*" * 20 }
+      it "sends the default device id" do
+        doc = SubmissionBuilder::AuthenticationHeader.new(submission).document
+        expect(doc.at("DeviceId").text).to eq 'AB' * 20
+      end
+    end
+  end
 end

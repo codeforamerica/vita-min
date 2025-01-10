@@ -52,6 +52,27 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
     it_behaves_like :return_to_review_concern do
       let(:form_params) { params }
     end
+
+    context "with W-2s having invalid Box 14 values" do
+      let(:intake) { create(:state_file_nj_intake) }
+      let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_ui_wf_swf: 200) }
+
+      it "does not proceed and renders edit with an alert" do
+        post :update, params: params
+        expect(response).to render_template(:edit)
+        expect(flash[:alert]).to eq I18n.t("state_file.questions.income_review.edit.invalid_w2")
+      end
+    end
+
+    context "with W-2s having valid Box 14 values" do
+      let(:intake) { create(:state_file_nj_intake) }
+      let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_ui_wf_swf: 100) }
+
+      it "does not show an alert" do
+        post :update, params: params
+        expect(flash[:alert]).to be_nil
+      end
+    end
   end
 
   describe "W-2s card" do

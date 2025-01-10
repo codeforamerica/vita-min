@@ -838,7 +838,9 @@ RSpec.describe PdfFiller::Nj1040Pdf do
 
     describe "line 15 wages" do
       context "when no w2 wages" do
-        let(:intake) { create(:state_file_nj_intake, :df_data_minimal) }
+        before do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_15).and_return(0)
+        end
 
         it "does not fill in any box on line 15" do
           expect(pdf_fields["15"]).to eq ""
@@ -855,12 +857,9 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       end
 
       context "when w2 wages exist" do
-        let(:submission) {
-          create :efile_submission, tax_return: nil, data_source: create(
-            :state_file_nj_intake,
-            :df_data_many_w2s
-          )
-        }
+        before do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_15).and_return(200_000)
+        end
 
         it "includes the sum 200,000 split into each box on line 15" do
           # millions
@@ -881,12 +880,9 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       end
 
       context "when w2 wages exist (including decimal places)" do
-        let(:submission) {
-          create :efile_submission, tax_return: nil, data_source: create(
-            :state_file_nj_intake,
-            :df_data_2_w2s
-          )
-        }
+        before do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_15).and_return(62_345.42)
+        end
 
         it "includes the sum 62,345 split into each box on line 15" do
           # millions
