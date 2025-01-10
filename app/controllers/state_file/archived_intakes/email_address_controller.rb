@@ -11,6 +11,7 @@ module StateFile
 
         if @form.save
           archived_intake = StateFileArchivedIntake.find_by(email_address: @form.email_address)
+          session[:email_address] = @form.email_address
           StateFileArchivedIntakeRequest.find_or_create_by(email_address: @form.email_address, ip_address: ip_for_irs, state_file_archived_intakes_id: archived_intake&.id )
           create_state_file_access_log(0)
 

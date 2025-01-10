@@ -21,7 +21,8 @@ module StateFile
         else
           create_state_file_access_log(2)
           current_request.increment_failed_attempts
-
+          current_request.lock_access!
+          binding.pry
           if current_request.failed_attempts > 1
             create_state_file_access_log(6)
             current_request.lock_access!

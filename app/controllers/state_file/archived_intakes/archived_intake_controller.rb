@@ -2,7 +2,7 @@ module StateFile
   module ArchivedIntakes
     class ArchivedIntakeController < ApplicationController
       def current_request
-        StateFileArchivedIntakeRequest.where(ip_address: ip_for_irs).order(created_at: :desc).first
+        StateFileArchivedIntakeRequest.find_by(ip_address: ip_for_irs, email_address: session[:email_address])
       end
 
       def create_state_file_access_log(event_type)
