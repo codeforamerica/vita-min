@@ -1332,6 +1332,7 @@ describe Efile::Md::Md502Calculator do
     let(:income) { 300_000 }
     before do
       allow_any_instance_of(described_class).to receive(:calculate_line_20).and_return income
+      allow_any_instance_of(described_class).to receive(:calculate_deduction_method).and_return "S"
       instance.calculate
     end
 
