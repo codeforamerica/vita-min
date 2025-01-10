@@ -23,7 +23,9 @@
 class StateFileArchivedIntakeRequest < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :lockable, :timeoutable, :trackable
+  devise :lockable, :timeoutable, :trackable,
+  lock_strategy: :failed_attempts,
+  unlock_strategy: :time
 
   has_many :access_logs, class_name: 'StateFileArchivedIntakeAccessLog'
 
@@ -33,5 +35,13 @@ class StateFileArchivedIntakeRequest < ApplicationRecord
 
   def unlock_strategy
     :time
+  end
+
+  def self.maximum_attempts
+    2
+  end
+
+  def self.unlock_in
+    30.minutes
   end
 end

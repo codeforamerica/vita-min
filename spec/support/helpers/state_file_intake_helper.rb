@@ -92,7 +92,7 @@ module StateFileIntakeHelper
       expect(page).to have_text "Enter your email address"
       fill_in I18n.t("state_file.questions.email_address.edit.email_address_label"), with: "someone@example.com"
       click_on "Send code"
-      save_and_open_page
+
       expect(page).to have_text "We’ve sent your code to someone@example.com"
 
       perform_enqueued_jobs

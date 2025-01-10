@@ -3,7 +3,6 @@ module StateFile
     class VerificationCodeController < ArchivedIntakeController
       before_action :check_feature_flag
       def edit
-
         @form = VerificationCodeForm.new(email_address: current_request.email_address)
         @email_address = current_request.email_address
         ArchivedIntakeEmailVerificationCodeJob.perform_later(
@@ -17,11 +16,11 @@ module StateFile
 
         if @form.valid?
           create_state_file_access_log(1)
-
+          current_request.reset_failed_attempts!
           redirect_to root_path
         else
           create_state_file_access_log(2)
-          current_request.increment!(:failed_attempts)
+          current_request.increment_failed_attempts
 
           if current_request.failed_attempts > 1
             create_state_file_access_log(6)

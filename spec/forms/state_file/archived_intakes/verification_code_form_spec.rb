@@ -45,6 +45,7 @@ RSpec.describe StateFile::ArchivedIntakes::VerificationCodeForm do
         )
 
         expect(form.valid?).to be false
+        expect(form.errors[:verification_code]).to include("can't be blank")
       end
     end
   end
