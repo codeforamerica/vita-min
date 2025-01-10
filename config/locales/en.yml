@@ -2278,6 +2278,13 @@ en:
           primary_was_incarcerated: Were you incarcerated in a county, state, or federal prison for at least 60 days in %{tax_year}?
           spouse_was_incarcerated: Was your spouse incarcerated in a county, state, or federal prison for at least 60 days in %{tax_year}?
           title: You might be eligible for the Increased Excise Tax Credit.
+      az_primary_state_id:
+        az_primary:
+          reveal_content_html: |
+            In an ongoing effort to protect taxpayers from identity theft, the IRS, state tax agencies, and the tax industry are asking you to provide your driver’s license or state-issued identification number.<br/>
+            To learn more, visit: <a href="https://azdor.gov/individual-income-tax-filing-assistance/verifying-identity-and-avoiding-identity-theft" target="_blank" rel="noopener noreferrer">azdor.gov/individual-income-tax-filing-assistance/verifying-identity-and-avoiding-identity-theft</a>
+          reveal_title: Why are you asking for this information?
+          subtitle: The Arizona Department of Revenue requests the Driver’s License/Identification card to be included with the return but won’t reject the return if it’s not included.
       az_prior_last_names:
         edit:
           prior_last_names_label:
