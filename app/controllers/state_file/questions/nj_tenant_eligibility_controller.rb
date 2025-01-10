@@ -14,12 +14,12 @@ module StateFile
           { 
             method: :tenant_building_multi_unit,
             label: I18n.t("state_file.questions.nj_tenant_eligibility.edit.tenant_building_multi_unit"),
-            has_follow_up_id: "tenant_access_kitchen_bath_followup-2", 
+            opens_follow_up_with_id: "tenant_access_kitchen_bath_followup", 
           },
           { 
             method: :tenant_access_kitchen_bath,
             label: I18n.t("state_file.questions.nj_tenant_eligibility.edit.tenant_access_kitchen_bath"),
-            is_follow_up_id: "tenant_access_kitchen_bath_followup-2"
+            follow_up_id: "tenant_access_kitchen_bath_followup"
           },
           {
             method: :tenant_more_than_one_main_home_in_nj,

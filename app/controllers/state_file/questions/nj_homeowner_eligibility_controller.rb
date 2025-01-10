@@ -22,12 +22,12 @@ module StateFile
           {
             method: :homeowner_main_home_multi_unit,
             label: I18n.t("state_file.questions.nj_homeowner_eligibility.edit.homeowner_main_home_multi_unit"),
-            has_follow_up_id: 'homeowner_multi_unit_followup'
+            opens_follow_up_with_id: 'homeowner_multi_unit_followup'
           },
           {
             method: :homeowner_main_home_multi_unit_max_four_one_commercial,
             label: I18n.t("state_file.questions.nj_homeowner_eligibility.edit.homeowner_main_home_multi_unit_max_four_one_commercial"),
-            is_follow_up_id: 'homeowner_multi_unit_followup'
+            follow_up_id: 'homeowner_multi_unit_followup'
           },
         ]
         if current_intake.filing_status_mfs?
