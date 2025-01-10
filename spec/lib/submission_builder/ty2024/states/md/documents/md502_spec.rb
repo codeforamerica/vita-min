@@ -187,10 +187,10 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
 
           it "populates the Income section correctly" do
             expect(xml.at("Form502 Income FederalAdjustedGrossIncome").text.to_i).to eq(0)
-            expect(xml.at("Form502 Income WagesSalariesAndTips")).to be_nil
-            expect(xml.at("Form502 Income EarnedIncome")).to be_nil
-            expect(xml.at("Form502 Income TaxablePensionsIRAsAnnuities")).to be_nil
-            expect(xml.at("Form502 Income InvestmentIncomeIndicator")).to be_nil
+            expect(xml.at("Form502 Income WagesSalariesAndTips").text.to_i).to eq(0)
+            expect(xml.at("Form502 Income EarnedIncome").text.to_i).to eq(0)
+            expect(xml.at("Form502 Income TaxablePensionsIRAsAnnuities").text.to_i).to eq(0)
+            expect(xml.at("Form502 Income InvestmentIncomeIndicator")).not_to be_present
           end
         end
       end
@@ -454,7 +454,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
           expect(xml.at("Form502 StateTaxComputation PovertyLevelCredit").text).to eq "200"
           expect(xml.at("Form502 StateTaxComputation IndividualTaxCredits").text).to eq "400"
           expect(xml.at("Form502 StateTaxComputation TotalCredits").text).to eq "300"
-          expect(xml.at("Form502 StateTaxComputation StateTaxAfterCredits")).to be_nil
+          expect(xml.at("Form502 StateTaxComputation StateTaxAfterCredits").text).to eq "0"
         end
 
         it "leaves amounts blank if method is not standard" do
@@ -462,7 +462,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
           allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_21).and_return 0
           expect(xml.at("Form502 NetIncome")).to be_nil
           expect(xml.at("Form502 StateTaxComputation TaxableNetIncome")).to be_nil
-          expect(xml.at("Form502 StateTaxComputation StateIncomeTax")).to be_nil
+          expect(xml.at("Form502 StateTaxComputation StateIncomeTax").text).to eq "0"
           expect(xml.at("Form502 StateTaxComputation PovertyLevelCredit")).to be_nil
           expect(xml.at("Form502 StateTaxComputation IndividualTaxCredits")).to be_nil
           expect(xml.at("Form502 StateTaxComputation StateTaxAfterCredits")).to be_nil
