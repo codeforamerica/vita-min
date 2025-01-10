@@ -136,13 +136,13 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
     def fill_property_tax_paid(amount, municipality = "Atlantic City")
       expect(page).to have_text I18n.t("state_file.questions.nj_homeowner_property_tax.edit.title", filing_year: filing_year, municipality: municipality)
-      fill_in I18n.t('state_file.questions.nj_homeowner_property_tax.edit.label', filing_year: filing_year), with: amount
+      fill_in strip_html_tags(I18n.t('state_file.questions.nj_homeowner_property_tax.edit.label_html', filing_year: filing_year)), with: amount
       continue
     end
 
     def fill_rent_paid(amount)
       expect(page).to have_text I18n.t("state_file.questions.nj_tenant_rent_paid.edit.title", filing_year: filing_year)
-      fill_in I18n.t('state_file.questions.nj_tenant_rent_paid.edit.label', filing_year: filing_year), with: amount
+      fill_in strip_html_tags(I18n.t('state_file.questions.nj_tenant_rent_paid.edit.label_html', filing_year: filing_year)), with: amount
       continue
     end
 
