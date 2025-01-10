@@ -2774,7 +2774,10 @@ es:
             other: "¿Pagaste primas de seguro médico tuyas, de tu cónyuge, y/o tus dependientes en%{year}?"
           medicaid_content: Sí, si estás inscrito en Medicaid, tu prima de seguro médico cuenta. Revisa tu carta mensual del Departamento de Salud y Bienestar de Idaho para conocer el monto de tu prima. Podría ser tan bajo como $0, dependiendo de tus ingresos y otros factores.
           medicaid_title: "¿Los pagos de Medicaid y Medicare cuentan?"
-          qualifications_content_html: Puedes deducir las primas de seguro médico pagadas por ti, tu cónyuge y tus dependientes, incluyendo atención médica, dental y de visión, siempre que no hayan sido deducidas de tu ingreso antes de impuestos.
+          qualifications_content_html: |
+            Puedes deducir las primas de seguro médico pagadas por ti, tu cónyuge y tus dependientes, incluyendo atención médica, dental y de visión, siempre que no hayan sido deducidas de tu ingreso antes de impuestos.
+            <br/><br/>
+            Si tiene Medicare, puede deducir Medicare A (si se inscribió voluntariamente y no está cubierto por el Seguro Social), así como Medicare B y D si se inscribió voluntariamente. Medicare Advantage también califica.
           qualifications_title: "¿Qué primas de cobertura de salud califican?"
           qualifying_amount_help_text: Ingresa la cantidad total de las primas de seguro de salud que califican que tu hogar pagó en %{year}
           subtitle:
