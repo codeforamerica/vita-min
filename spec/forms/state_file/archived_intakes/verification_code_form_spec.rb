@@ -38,14 +38,14 @@ RSpec.describe StateFile::ArchivedIntakes::VerificationCodeForm do
     end
 
     context "when the verification code is blank" do
-      it "adds a presence error and returns false" do
+      it "adds an error and returns false" do
         form = StateFile::ArchivedIntakes::VerificationCodeForm.new(
           { verification_code: "" },
           email_address: "test@example.com"
         )
 
         expect(form.valid?).to be false
-        expect(form.errors[:verification_code]).to include("can't be blank")
+        expect(form.errors[:verification_code]).to include("Incorrect verification code. After 2 failed attempts, accounts are locked.")
       end
     end
   end
