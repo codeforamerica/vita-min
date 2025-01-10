@@ -7,19 +7,25 @@
   <% if @w2s.present? %>
     <div class="white-group" id="w2s">
       <p class="text--bold spacing-below-0"><%= t(".w2s_title") %></p>
-      <% @w2s.each do |w2| %>
-        <div class="spacing-above-25">
-          <p class="text--bold spacing-below-5"><%= w2.employee_name %></p>
-          <p class="spacing-below-5"><%= w2.employer_name %></p>
-          <%= link_to t(".review_and_edit_state_info"),
-                      StateFile::Questions::W2Controller.to_path_helper(
-                        action: :edit,
-                        id: w2.id,
-                        return_to_review: params[:return_to_review]
-                      ),
-                      class: "button--small"
-          %>
-        </div>
+      <% if current_intake.allows_w2_editing? %>
+        <% @w2s.each do |w2| %>
+          <div class="spacing-above-25">
+            <p class="text--bold spacing-below-5"><%= w2.employee_name %></p>
+            <p class="spacing-below-5"><%= w2.employer_name %></p>
+            <%= link_to t(".review_and_edit_state_info"),
+                        StateFile::Questions::W2Controller.to_path_helper(
+                          action: :edit,
+                          id: w2.id,
+                          return_to_review: params[:return_to_review]
+                        ),
+                        class: "button--small"
+            %>
+          </div>
+        <% end %>
+      <% else %>
+        <p class="text--grey-bold spacing-above-15 spacing-below-0">
+          <%= t(".no_info_needed") %>
+        </p>
       <% end %>
     </div>
   <% end %>

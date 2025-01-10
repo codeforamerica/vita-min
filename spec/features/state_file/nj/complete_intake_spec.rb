@@ -12,7 +12,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
   context "NJ", :flow_explorer_screenshot, js: true do
 
-    def advance_to_start_of_intake(df_persona_name)
+    def advance_to_start_of_intake(df_persona_name, expect_income_review: true)
       visit "/"
       click_on "Start Test NJ"
 
@@ -36,8 +36,10 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       step_through_df_data_transfer("Transfer #{df_persona_name}")
 
-      expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
-      continue
+      if expect_income_review
+        expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
+        continue
+      end
     end
 
     def advance_health_insurance_eligibility
@@ -161,8 +163,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       continue
     end
 
-    def advance_to_property_tax_page(df_persona_name, skip_health_insurance_eligibility: false)
-      advance_to_start_of_intake(df_persona_name)
+    def advance_to_property_tax_page(skip_health_insurance_eligibility: false)
       advance_health_insurance_eligibility unless skip_health_insurance_eligibility
       advance_county_and_municipality
       if has_text? I18n.t("state_file.questions.nj_disabled_exemption.edit.title")
@@ -176,8 +177,8 @@ RSpec.feature "Completing a state file intake", active_job: true do
     end
 
     it "advances past the loading screen by listening for an actioncable broadcast", required_schema: "nj" do
-
-      advance_to_property_tax_page("Minimal", skip_health_insurance_eligibility: true)
+      advance_to_start_of_intake("Minimal", expect_income_review: false)
+      advance_to_property_tax_page(skip_health_insurance_eligibility: true)
       choose_household_rent_own("neither")
 
       # estimated tax payments
@@ -227,7 +228,8 @@ RSpec.feature "Completing a state file intake", active_job: true do
     end
 
     it "handles property tax neither flow", required_schema: "nj" do
-      advance_to_property_tax_page("Zeus one dep")
+      advance_to_start_of_intake("Zeus one dep")
+      advance_to_property_tax_page
       choose_household_rent_own("neither")
       expect_ineligible_page(nil, "neither")
       expect_estimated_tax_page
@@ -235,7 +237,8 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
     context "when tenant" do
       it "handles property tax eligible tenant flow", required_schema: "nj" do
-        advance_to_property_tax_page("Zeus one dep")
+        advance_to_start_of_intake("Zeus one dep")
+        advance_to_property_tax_page
         choose_household_rent_own("tenant")
         select_tenant_eligibility(["tenant_home_subject_to_property_taxes"])
         fill_rent_paid(10000)
@@ -243,15 +246,17 @@ RSpec.feature "Completing a state file intake", active_job: true do
       end
 
       it "handles property tax ineligible tenant flow", required_schema: "nj" do
-        advance_to_property_tax_page("Zeus one dep")
+        advance_to_start_of_intake("Zeus one dep")
+        advance_to_property_tax_page
         choose_household_rent_own("tenant")
         select_tenant_eligibility([])
         expect_ineligible_page("on_rental", "property_taxes")
         expect_estimated_tax_page
       end
 
-      it "handles tenant none of the above checkbox", required_schema: "nj" do 
-        advance_to_property_tax_page("Lauryn mfs")
+      it "handles tenant none of the above checkbox", required_schema: "nj" do
+        advance_to_start_of_intake("Lauryn mfs")
+        advance_to_property_tax_page
         choose_household_rent_own("tenant")
         all_checkboxes = ["tenant_home_subject_to_property_taxes", "tenant_building_multi_unit", "tenant_more_than_one_main_home_in_nj", "tenant_shared_rent_not_spouse", "tenant_same_home_spouse", "tenant_access_kitchen_bath"]
         conditional_checkbox = "state_file.questions.nj_tenant_eligibility.edit.tenant_access_kitchen_bath"
@@ -272,7 +277,8 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
     context "when homeowner" do
       it "handles property tax eligible homeowner flow", required_schema: "nj" do
-        advance_to_property_tax_page("Zeus one dep")
+        advance_to_start_of_intake("Zeus one dep")
+        advance_to_property_tax_page
         choose_household_rent_own("homeowner")
         select_homeowner_eligibility(["homeowner_home_subject_to_property_taxes"])
         fill_property_tax_paid(10000)
@@ -280,15 +286,17 @@ RSpec.feature "Completing a state file intake", active_job: true do
       end
 
       it "handles property tax ineligible homeowner flow", required_schema: "nj" do
-        advance_to_property_tax_page("Zeus one dep")
+        advance_to_start_of_intake("Zeus one dep")
+        advance_to_property_tax_page
         choose_household_rent_own("homeowner")
         select_homeowner_eligibility([])
         expect_ineligible_page("on_home", "property_taxes")
         expect_estimated_tax_page
       end
 
-      it "handles homeowner none of the above checkbox", required_schema: "nj" do 
-        advance_to_property_tax_page("Lauryn mfs")
+      it "handles homeowner none of the above checkbox", required_schema: "nj" do
+        advance_to_start_of_intake("Lauryn mfs")
+        advance_to_property_tax_page
         choose_household_rent_own("homeowner")
         all_checkboxes = ["homeowner_home_subject_to_property_taxes", "homeowner_more_than_one_main_home_in_nj", "homeowner_shared_ownership_not_spouse", "homeowner_same_home_spouse", "homeowner_main_home_multi_unit", "homeowner_main_home_multi_unit_max_four_one_commercial"]
         conditional_checkbox = "state_file.questions.nj_homeowner_eligibility.edit.homeowner_main_home_multi_unit_max_four_one_commercial"
@@ -309,7 +317,8 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
     context "when both homeowner and tenant" do
       it "handles property tax eligible both homeowner & tenant flow", required_schema: "nj" do
-        advance_to_property_tax_page("Zeus one dep")
+        advance_to_start_of_intake("Zeus one dep")
+        advance_to_property_tax_page
         choose_household_rent_own("both")
         select_homeowner_eligibility(["homeowner_home_subject_to_property_taxes"])
         fill_property_tax_paid(10000)
@@ -319,7 +328,8 @@ RSpec.feature "Completing a state file intake", active_job: true do
       end
 
       it "handles property tax both flow - eligible homeowner & ineligible tenant", required_schema: "nj" do
-        advance_to_property_tax_page("Zeus one dep")
+        advance_to_start_of_intake("Zeus one dep")
+        advance_to_property_tax_page
         choose_household_rent_own("both")
         select_homeowner_eligibility(["homeowner_home_subject_to_property_taxes"])
         fill_property_tax_paid(10000)
@@ -329,7 +339,8 @@ RSpec.feature "Completing a state file intake", active_job: true do
       end
 
       it "handles property tax both flow - ineligible homeowner & eligible tenant", required_schema: "nj" do
-        advance_to_property_tax_page("Zeus one dep")
+        advance_to_start_of_intake("Zeus one dep")
+        advance_to_property_tax_page
         choose_household_rent_own("both")
         select_homeowner_eligibility([])
         expect_ineligible_page("on_home", "property_taxes")
@@ -341,7 +352,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
     context "when low income but meets exception" do
       it "handles property tax flow - eligible homeowner", required_schema: "nj" do
-        advance_to_start_of_intake("Minimal") # low income
+        advance_to_start_of_intake("Minimal", expect_income_review: false) # low income
         advance_county_and_municipality
         advance_disabled_exemption(true) # disabled exemption
         advance_veterans_exemption
@@ -353,7 +364,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       end
 
       it "handles property tax flow - eligible tenant", required_schema: "nj" do
-        advance_to_start_of_intake("Minimal") # low income
+        advance_to_start_of_intake("Minimal", expect_income_review: false) # low income
         advance_county_and_municipality
         advance_disabled_exemption(true) # disabled exemption
         advance_veterans_exemption
@@ -365,7 +376,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       end
 
       it "handles property tax flow - when both and eligible homeowner", required_schema: "nj" do
-        advance_to_start_of_intake("Minimal") # low income
+        advance_to_start_of_intake("Minimal", expect_income_review: false) # low income
         advance_county_and_municipality
         advance_disabled_exemption(true) # disabled exemption
         advance_veterans_exemption
@@ -378,7 +389,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       end
 
       it "handles property tax both flow - ineligible homeowner and eligible tenant", required_schema: "nj" do
-        advance_to_start_of_intake("Minimal") # low income
+        advance_to_start_of_intake("Minimal", expect_income_review: false) # low income
         advance_county_and_municipality
         advance_disabled_exemption(true) # disabled exemption
         advance_veterans_exemption
