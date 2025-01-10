@@ -22,7 +22,7 @@
 #
 class StateFileArchivedIntakeRequest < ApplicationRecord
   # Include default devise modules. Others available are:
-  devise :lockable, unlock_in: 1.minutes, unlock_strategy: :time
+  devise :lockable, unlock_in: 60.minutes, unlock_strategy: :time
   has_many :access_logs, class_name: 'StateFileArchivedIntakeAccessLog'
 
   def self.maximum_attempts

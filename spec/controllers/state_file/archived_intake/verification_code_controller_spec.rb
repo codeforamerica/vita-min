@@ -34,7 +34,7 @@ RSpec.describe StateFile::ArchivedIntakes::VerificationCodeController, type: :co
         allow_any_instance_of(StateFile::ArchivedIntakes::VerificationCodeForm).to receive(:valid?).and_return(true)
       end
 
-      it "creates a success access log, redirects to root path, and does not increment failed_attempts" do
+      it "creates a success access log and does not increment failed_attempts" do
         expect {
           post :update, params: { state_file_archived_intakes_verification_code_form: { verification_code: valid_verification_code } }
         }.to change(StateFileArchivedIntakeAccessLog, :count).by(1)
@@ -69,7 +69,7 @@ RSpec.describe StateFile::ArchivedIntakes::VerificationCodeController, type: :co
 
         expect {
           post :update, params: { state_file_archived_intakes_verification_code_form: { verification_code: invalid_verification_code } }
-        }.to change(StateFileArchivedIntakeAccessLog, :count).by(2) # One for failure, one for lock
+        }.to change(StateFileArchivedIntakeAccessLog, :count).by(2)
 
         log = StateFileArchivedIntakeAccessLog.last
         expect(log.event_type).to eq("client_lockout_begin")
