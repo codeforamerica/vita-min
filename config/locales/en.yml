@@ -843,7 +843,7 @@ en:
           q5_federal_disaster_area: Declared living in a federal disaster area?
           q5_federal_disaster_area_where: If yes, where?
           q6_letter_from_irs: Received a letter from the IRS?
-          q7_register_to_vote: Register to vote?
+          q7_register_to_vote: Would you like information on how to vote and/or how to register to vote
           q8_speak_and_understand_english: Can carry on a conversation in English, both understanding & speaking?
           q9_read_english: Can read a newspaper or book in English?
         title: 13614-C page 3
