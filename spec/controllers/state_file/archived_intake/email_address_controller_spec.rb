@@ -1,6 +1,9 @@
 require "rails_helper"
 
 RSpec.describe StateFile::ArchivedIntakes::EmailAddressController, type: :controller do
+  before do
+    Flipper.enable(:get_your_pdf)
+  end
   describe "GET #edit" do
     it "renders the edit template with a new EmailAddressForm" do
       get :edit
