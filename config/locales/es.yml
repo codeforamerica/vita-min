@@ -3842,11 +3842,7 @@ es:
             <p>We use the amounts to determine if you <a href="https://www.nj.gov/treasury/taxation/njit16.shtml" target="_blank" rel="noopener nofollow">might be eligible for a credit</a>.</p>
             <p>There may be other information in Box 14. That's ok. That information doesn't need to be reported with this tool. </p>          box14_fli_html: "<strong>FLI</strong>"
           box14_html: "<strong>Box 14,</strong> Other"
-          box14_intro_nj_html: |
-            <p>Employers may use Box 14 to report anything that doesn't fit somewhere else on a Form W-2.</p>
-            <p>For this year, we will only need any amounts listed for <strong>UI/WF/SWF</strong> (may also appear as <strong>"UI/HC/WD"</strong> on your W2) <strong>and FLI</strong>.</p> 
-            <p><strong>If you do not see these, please leave these fields blank.</strong></p> 
-            <p>There may be other information in Box 14. That information doesn't need to be reported with this tool.</p>
+          box14_intro_nj_html: "<p>Employers may use Box 14 to report anything that doesn't fit somewhere else on a Form W-2.</p>\n<p>For this year, we will only need any amounts listed for <strong>UI/WF/SWF</strong> (may also appear as <strong>\"UI/HC/WD\"</strong> on your W2) <strong>and FLI</strong>.</p> \n<p><strong>If you do not see these, please leave these fields blank.</strong></p> \n<p>There may be other information in Box 14. That information doesn't need to be reported with this tool.</p>\n"
           box14_stpickup_help_text: Para %{year}, solo procesaremos el código STPICKUP. Si no ves este código o tienes otros códigos en Box 14, por favor déjalo en blanco.
           box14_stpickup_html: "<strong>STPICKUP</strong>"
           box14_ui_wf_swf_html: "<strong>UI/WF/SWF</strong> (This may also appear on your W2 as <strong>UI/HC/WD.</strong>)"

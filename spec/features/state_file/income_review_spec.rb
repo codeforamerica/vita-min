@@ -59,7 +59,7 @@ RSpec.feature "Income Review", active_job: true do
       expect(page).to have_field('state_file_w2_employer_state_id_num', with: '221236333')
       expect(page).to have_field('state_file_w2_state_wages_amount', with: '40000.0')
       expect(page).to have_field('state_file_w2_state_income_tax_amount', with: '400.0')
-      expect(page).to have_button("What should I put in Box 14?")
+      expect(page).to have_button(I18n.t("state_file.questions.w2.edit.what_is_box14_nj"))
     end
 
     it "allows ui_wf_swf and fli to be saved up to the limit" do

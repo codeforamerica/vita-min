@@ -39,7 +39,7 @@ RSpec.describe StateFile::Questions::NjTenantEligibilityController do
 
       it "shows the tenant_same_home_spouse checkbox" do
         get :edit
-        expect(response.body).to include("Did you and your spouse live in the same home?")
+        expect(response.body).to include(I18n.t("state_file.questions.nj_tenant_eligibility.edit.tenant_same_home_spouse"))
       end
     end
 
@@ -48,7 +48,7 @@ RSpec.describe StateFile::Questions::NjTenantEligibilityController do
 
       it "does not show the tenant_same_home_spouse checkbox" do
         get :edit
-        expect(response.body).not_to include("Did you and your spouse live in the same home?")
+        expect(response.body).not_to include(I18n.t("state_file.questions.nj_tenant_eligibility.edit.tenant_same_home_spouse"))
       end
     end
   end
