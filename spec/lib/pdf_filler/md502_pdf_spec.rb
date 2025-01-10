@@ -407,7 +407,7 @@ RSpec.describe PdfFiller::Md502Pdf do
         expect(pdf_fields["23"]).to eq "200"
         expect(pdf_fields["24"]).to eq "100"
         expect(pdf_fields["26"]).to eq "300"
-        expect(pdf_fields["27"]).to eq "0"
+        expect(pdf_fields["27"]).to eq ""
       end
 
       it "leaves lines blank if deduction method is not standard" do

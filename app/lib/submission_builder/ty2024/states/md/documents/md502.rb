@@ -91,13 +91,13 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
             xml.Amount calculated_fields.fetch(:MD502_LINE_A_AMOUNT)
           end
           xml.Additional do
-            add_positive_amount_nn_value(xml, :AdditionalCount, :MD502_LINE_B_COUNT, 15)
-            add_positive_amount_nn_value(xml, :AdditionalAmount, :MD502_LINE_B_AMOUNT, 15)
+            xml.Count calculated_fields.fetch(:MD502_LINE_B_COUNT)
+            xml.Amount calculated_fields.fetch(:MD502_LINE_B_AMOUNT)
           end
           if has_dependent_exemption?
             xml.Dependents do
-              add_positive_amount_nn_value(xml, :DependentsCount, :MD502_LINE_C_COUNT, 15)
-              add_positive_amount_nn_value(xml, :DependentsAmount, :MD502_LINE_C_AMOUNT, 15)
+              xml.Count calculated_fields.fetch(:MD502_LINE_C_COUNT)
+              xml.Amount calculated_fields.fetch(:MD502_LINE_C_AMOUNT)
             end
           end
           xml.Total do
