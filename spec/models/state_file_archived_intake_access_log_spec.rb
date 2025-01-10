@@ -5,7 +5,6 @@
 #  id                                    :bigint           not null, primary key
 #  details                               :jsonb
 #  event_type                            :integer
-#  ip_address                            :string
 #  created_at                            :datetime         not null
 #  updated_at                            :datetime         not null
 #  state_file_archived_intake_request_id :bigint

@@ -1687,7 +1687,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_08_231212) do
     t.datetime "created_at", null: false
     t.jsonb "details", default: "{}"
     t.integer "event_type"
-    t.string "ip_address"
     t.bigint "state_file_archived_intake_request_id"
     t.datetime "updated_at", null: false
   end
