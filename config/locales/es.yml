@@ -3378,7 +3378,7 @@ es:
           opt_in_label: Por favor, selecciona la(s) opción(es) que mejor te funcione(n).
           phone_number: Tu número de teléfono
           phone_number_help_text: Ingresa números únicamente
-          provided_email: Le enviaremos actualizaciones sobre su declaración de impuestos a %{email_address}.
+          provided_contact: Le enviaremos actualizaciones sobre su declaración de impuestos a %{contact_info}.
           sms_notification_opt_in: Mensaje de texto
           subtitle: Necesitaremos comunicarnos contigo en caso de que tengamos preguntas o información actualizada.
           title: "¿Cuál es la mejor manera de contactarte?"
