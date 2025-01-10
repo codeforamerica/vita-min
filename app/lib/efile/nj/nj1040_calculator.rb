@@ -251,24 +251,22 @@ module Efile
       end
 
       def line_59_primary
-        get_personal_excess(@intake.primary.ssn, :box14_ui_wf_swf, EXCESS_UI_WF_SWF_MAX) +
-          get_personal_excess(@intake.primary.ssn, :box14_ui_hc_wd, EXCESS_UI_WF_SWF_MAX)
+        get_personal_excess(@intake.primary.ssn, ->(w2) { w2.get_box14_ui_overwrite }, EXCESS_UI_WF_SWF_MAX)
       end
 
       def line_59_spouse
         if @intake.filing_status_mfj?
-          get_personal_excess(@intake.spouse.ssn, :box14_ui_wf_swf, EXCESS_UI_WF_SWF_MAX) +
-            get_personal_excess(@intake.spouse.ssn, :box14_ui_hc_wd, EXCESS_UI_WF_SWF_MAX)
+          get_personal_excess(@intake.spouse.ssn, ->(w2) { w2.get_box14_ui_overwrite }, EXCESS_UI_WF_SWF_MAX)
         end
       end
 
       def line_61_primary
-        get_personal_excess(@intake.primary.ssn, :box14_fli, EXCESS_FLI_MAX)
+        get_personal_excess(@intake.primary.ssn, ->(w2) { w2[:box14_fli] }, EXCESS_FLI_MAX)
       end
 
       def line_61_spouse
         if @intake.filing_status_mfj?
-          get_personal_excess(@intake.spouse.ssn, :box14_fli, EXCESS_FLI_MAX)
+          get_personal_excess(@intake.spouse.ssn, ->(w2) { w2[:box14_fli] }, EXCESS_FLI_MAX)
         end
       end
 
@@ -376,7 +374,11 @@ module Efile
       end
 
       def calculate_line_42
-        should_use_property_tax_deduction ? line_or_zero(:NJ1040_LINE_39) - calculate_property_tax_deduction : line_or_zero(:NJ1040_LINE_39)
+        if should_use_property_tax_deduction
+          [line_or_zero(:NJ1040_LINE_39) - calculate_property_tax_deduction, 0].max
+        else
+          line_or_zero(:NJ1040_LINE_39)
+        end
       end
 
       def calculate_line_43
@@ -437,16 +439,16 @@ module Efile
         @direct_file_data.fed_eic.positive?
       end
 
-      def get_personal_excess(ssn, excess_type, threshold)
+      def get_personal_excess(ssn, get_value_function, threshold)
         persons_w2s = @intake.state_file_w2s.all&.select { |w2| w2.employee_ssn == ssn }
         return 0 unless persons_w2s.count > 1
-        return 0 if persons_w2s.any? { |w2| w2[excess_type] && w2[excess_type] > threshold }
+        return 0 if persons_w2s.any? do |w2|
+          excess_value = get_value_function.call(w2)
+          excess_value && excess_value > threshold
+        end
 
-        total_contribution = 0
-
-        persons_w2s.each do |w2|
-          contribution = w2[excess_type] || 0
-          total_contribution += contribution
+        total_contribution = persons_w2s.sum do |w2|
+          get_value_function.call(w2) || 0
         end
 
         excess_contribution = total_contribution - threshold

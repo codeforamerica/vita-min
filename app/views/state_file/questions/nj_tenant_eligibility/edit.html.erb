@@ -50,6 +50,11 @@
           </div>
         <% end %>
       </div>
+      <div class="white-group">
+        <div class="tight-checkboxes">
+          <%= f.cfa_checkbox(:tenant_none_of_the_above, t("general.none_of_these"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+        </div>
+      </div>
     </fieldset>
 
     <div class="reveal">
@@ -65,4 +70,36 @@
 
     <%= f.continue %>
   <% end %>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      let noneCheckbox = document.getElementById("state_file_nj_tenant_eligibility_form_tenant_none_of_the_above");
+      let checkboxes = [
+        document.getElementById("state_file_nj_tenant_eligibility_form_tenant_home_subject_to_property_taxes"),
+        document.getElementById("state_file_nj_tenant_eligibility_form_tenant_building_multi_unit"),
+        document.getElementById("state_file_nj_tenant_eligibility_form_tenant_access_kitchen_bath"),
+        document.getElementById("state_file_nj_tenant_eligibility_form_tenant_more_than_one_main_home_in_nj"),
+        document.getElementById("state_file_nj_tenant_eligibility_form_tenant_shared_rent_not_spouse")
+      ]
+      let conditionalCheckbox = document.getElementById("state_file_nj_tenant_eligibility_form_tenant_same_home_spouse")
+      if (conditionalCheckbox != null) {
+        checkboxes.push(conditionalCheckbox)
+      }
+      noneCheckbox.addEventListener("change", function() {
+        if(this.checked) {
+          checkboxes.forEach(function(checkbox) {
+            checkbox.checked = false;
+          })
+          document.getElementById("tenant_access_kitchen_bath_followup").style.setProperty('display', 'none');
+        }
+      })
+
+      checkboxes.forEach(function(checkbox) {
+        checkbox.addEventListener("change", function() {
+          if(this.checked) {
+            noneCheckbox.checked = false;
+          }
+        })
+      })
+    })
+  </script>
 <% end %>

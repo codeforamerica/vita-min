@@ -1,7 +1,6 @@
 <% @main_heading = t("state_file.questions.az_public_school_contributions.edit.title_html") %>
 
-<% content_for :page_title, @main_heading %>
-
+<% content_for :page_title, ActionView::Base.full_sanitizer.sanitize(@main_heading) %>
 <% content_for :card do %>
   <h1 class="form-question"><%= @main_heading %></h1>
   <%= form_with model: @az322_contribution, url: { action: @az322_contribution.persisted? ? :update : :create }, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long' } do |f| %>
