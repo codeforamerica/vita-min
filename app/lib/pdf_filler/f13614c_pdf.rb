@@ -96,15 +96,8 @@ module PdfFiller
         yes_no_checkboxes("form1[0].page1[0].q1AsOfDecember[0].q1aGetMarried[0]", @intake.got_married_during_tax_year),
         yes_no_checkboxes("form1[0].page1[0].q1AsOfDecember[0].q1bLiveWith[0]", fetch_gated_value(@intake, :lived_with_spouse)),
       )
-      answers.merge!(
-        "form1[0].page1[0].q1AsOfDecember[0].divorced[0]" => yes_no_unfilled_to_checkbox(fetch_gated_value(@intake, :divorced)),
-        "form1[0].page1[0].q1AsOfDecember[0].DateOfFinal[0]" => @intake.divorced_year,
-        "form1[0].page1[0].q1AsOfDecember[0].legallySeparated[0]" => yes_no_unfilled_to_checkbox(fetch_gated_value(@intake, :separated)),
-        "form1[0].page1[0].q1AsOfDecember[0].DateOfSeparate[0]" => @intake.separated_year,
-        "form1[0].page1[0].q1AsOfDecember[0].widowed[0]" => yes_no_unfilled_to_checkbox(fetch_gated_value(@intake, :widowed)),
-        "form1[0].page1[0].q1AsOfDecember[0].YearOfDeath[0]" => @intake.widowed_year,
-        "form1[0].page1[0].additionalSpace[0].additionalSpace[0]" => @dependents.length > 3 ? "1" : nil,
-      )
+      answers["form1[0].page1[0].additionalSpace[0].additionalSpace[0]"] = @dependents.length > 3 ? "1" : nil
+
       answers.merge!(
         yes_no_checkboxes("form1[0].page2[0].Part3[0].q1WagesOrSalary[0]", @intake.had_wages, include_unsure: true)
       )
