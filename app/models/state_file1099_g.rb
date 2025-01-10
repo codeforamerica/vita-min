@@ -60,6 +60,7 @@ class StateFile1099G < ApplicationRecord
       self.recipient_city = intake.direct_file_data.mailing_city
       self.recipient_street_address = intake.direct_file_data.mailing_street
       self.recipient_street_address_apartment = intake.direct_file_data.mailing_apartment
+      self.recipient_state = intake.direct_file_data.mailing_state
       self.recipient_zip = intake.direct_file_data.mailing_zip
     end
   end

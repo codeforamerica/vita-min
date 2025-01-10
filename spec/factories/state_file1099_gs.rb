@@ -44,6 +44,7 @@ FactoryBot.define do
     state_income_tax_withheld_amount { 0.0 }
     recipient_city {'New York'}
     recipient_street_address {'123 Recipient St'}
+    recipient_state { 'NY' }
     recipient_zip {'11102'}
   end
 end

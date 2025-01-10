@@ -34,7 +34,7 @@ RSpec.feature "Logging in" do
           end
 
           mail = ActionMailer::Base.deliveries.last
-          expect(mail.html_part.body.to_s).to include("Your six-digit verification code for GetYourRefund is: <strong> 000004.</strong> This code will expire after 30 minutes.")
+          expect(mail.html_part.body.to_s).to include("Your six-digit verification code for GetYourRefund is: <strong> 000004.</strong> This code will expire after 10 minutes.")
 
           fill_in "Enter 6 digit code", with: "000004"
           click_on "Verify"
@@ -70,7 +70,7 @@ RSpec.feature "Logging in" do
 
           expect(twilio_service).to have_received(:send_text_message).with(
             to: "+15005550006",
-            body: "Your 6-digit GetYourRefund verification code is: 000004. This code will expire after 30 minutes.",
+            body: "Your 6-digit GetYourRefund verification code is: 000004. This code will expire after 10 minutes.",
             status_callback: twilio_update_status_url(OutgoingMessageStatus.last.id, locale: nil, host: 'test.host')
           )
 
@@ -168,7 +168,7 @@ RSpec.feature "Logging in" do
         end
 
         mail = ActionMailer::Base.deliveries.last
-        expect(mail.html_part.body.to_s).to have_text("de seis dígitos para GetYourRefund es: 000004. Este código expirará después de 30 minutos.")
+        expect(mail.html_part.body.to_s).to have_text("de seis dígitos para GetYourRefund es: 000004. Este código expirará después de 10 minutos.")
 
         fill_in I18n.t('portal.client_logins.enter_verification_code.enter_6_digit_code', locale: "es"), with: "000004"
         click_on I18n.t('portal.client_logins.enter_verification_code.verify', locale: "es")

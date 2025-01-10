@@ -340,11 +340,9 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
     end
 
     describe "wages" do
-      let(:intake) { create(:state_file_nj_intake) }
-
-      context "when no w2 wages (line 15 is -1)" do
+      context "when no w2 wages (line 15 is 0)" do
         it "does not include WagesSalariesTips item" do
-          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_15).and_return(-1)
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_15).and_return(0)
           expect(xml.at("WagesSalariesTips")).to eq(nil)
         end
       end
@@ -1031,6 +1029,12 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
             expect(xml.at("Body SpouCuPartPrimGubernElectFund")&.text).to eq(test_case[:expected_spouse])
           end
         end
+      end
+    end
+
+    describe 'NactpCode' do
+      it 'contains static CodeForAmerica NACTP code' do
+        expect(xml.at("Header NactpCode").text).to eq(1963.to_s)
       end
     end
   end
