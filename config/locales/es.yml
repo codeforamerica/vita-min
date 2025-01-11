@@ -3006,12 +3006,14 @@ es:
           spouse_veteran: Información del Cónyuge Veterano
           state_credit: Miembro inscrito de una tribu india reconocida federalmente y recibiste ingresos de una fuente dentro de una reserva
           subtraction_indian_tribe: Resta por ingresos de un miembro de una tribu india
+          use_tax_amount: Monto del impuesto sobre el uso
           use_tax_applied: Compras fuera del estado en %{filing_year} sin pagar impuesto sobre ventas
         review_header:
           unemployment_compensation: Compensación por Desempleo
       nc_sales_use_tax:
         edit:
           calculated_use_tax: Ingresa el impuesto sobre uso calculado
+          explanation_html: Si realizó alguna compra sin pagar el impuesto sobre las ventas, es posible que deba pagar el impuesto sobre el uso por esas compras. Le ayudaremos a determinar el monto correcto.
           select_one: 'Selecciona una de las siguientes opciones:'
           state_specific:
             nc:
