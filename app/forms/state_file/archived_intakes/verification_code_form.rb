@@ -15,7 +15,7 @@ module StateFile
 
         valid_code = EmailAccessToken.lookup(hashed_verification_code).exists?
 
-        errors.add(:verification_code, "Incorrect verification code. After 2 failed attempts, accounts are locked.") unless valid_code
+        errors.add(:verification_code, I18n.t("state_file.archived_intakes.verification_code.edit.error_message")) unless valid_code
 
         valid_code.present?
       end

@@ -18,7 +18,7 @@ class StateFileBaseIntake < ApplicationRecord
   accepts_nested_attributes_for :primary_state_id, :spouse_state_id
 
   scope :accessible_intakes, -> { all }
-    devise :timeoutable, :timeout_in => 15.minutes, :unlock_strategy => :time
+  devise :timeoutable, :timeout_in => 15.minutes, :unlock_strategy => :time
 
   validates :email_address, 'valid_email_2/email': true
   validates :phone_number, allow_blank: true, e164_phone: true
@@ -135,8 +135,8 @@ class StateFileBaseIntake < ApplicationRecord
         box_14_values[deduction[:other_description]] = deduction[:other_amount]
       end
       state_file_w2.assign_attributes(
-        box14_ui_wf_swf: box_14_values['UIWFSWF'],
-        box14_ui_hc_wd: box_14_values['UIHCWD'],
+        box14_ui_wf_swf: box_14_values['UI/WF/SWF'],
+        box14_ui_hc_wd: box_14_values['UI/HC/WD'],
         box14_fli: box_14_values['FLI'],
         box14_stpickup: box_14_values['STPICKUP'],
         employer_ein: direct_file_w2.EmployerEIN,
