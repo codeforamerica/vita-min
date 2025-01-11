@@ -19,18 +19,28 @@ module StateFile
 
     def find_archiveables
       query_result = ActiveRecord::Base.connection.exec_query(query_archiveable_intakes)
-      @current_batch = query_result.as_json
-      Rails.logger.info("Found #{current_batch.count} #{data_source.name.pluralize} to archive.")
+      @current_batch = query_result.pluck('id')
+      Rails.logger.info("Found #{current_batch.count} #{data_source.name.pluralize} to archive: #{current_batch}")
     end
 
     def archive_batch
       archived_ids = []
-      current_batch&.each do |batch_data|
-        archived_intake = StateFileArchivedIntake.new(hashed_ssn: batch_data['hashed_ssn'])
+      current_batch&.each do |intake_id|
+        combined_intake_id = "#{state_code}#{intake_id}"
+        matching_archived_intakes = StateFileArchivedIntake.where(original_intake_id: combined_intake_id)
+        if matching_archived_intakes.present?
+          Rails.logger.warn("Archive already found for intake #{combined_intake_id}. Continuing with batch.")
+          next
+        end
+        archived_intake = StateFileArchivedIntake.new
         archived_intake.state_code = state_code
         archived_intake.tax_year = tax_year
+        archived_intake.original_intake_id = combined_intake_id
+        # create a record so that if an error happens after this, the archiver will not loop forever
+        archived_intake.save
 
-        source_intake = data_source.find(batch_data['intake_id'])
+        source_intake = data_source.find(intake_id)
+        archived_intake.hashed_ssn = source_intake.hashed_ssn
         archived_intake.email_address = source_intake.email_address
         archived_intake.mailing_street = source_intake.direct_file_data.mailing_street
         archived_intake.mailing_apartment = source_intake.direct_file_data.mailing_apartment
@@ -41,13 +51,13 @@ module StateFile
         if source_intake.submission_pdf.attached?
           archived_intake.submission_pdf.attach(source_intake.submission_pdf.blob)
         else
-          Rails.logger.warn("No submission pdf attached to intake #{batch_data['intake_id']}. Continuing with batch.")
+          Rails.logger.warn("No submission pdf attached to intake #{combined_intake_id}. Continuing with batch.")
         end
 
         archived_intake.save!
-        archived_ids << batch_data['intake_id']
+        archived_ids << intake_id
       rescue StandardError => e
-        Rails.logger.warn("Caught exception #{e} for #{batch_data}. Continuing with batch.")
+        Rails.logger.warn("Caught exception #{e} for #{intake_id}. Continuing with batch.")
         next
       end
       Rails.logger.info("Archived #{archived_ids.count} #{data_source.name.pluralize}: [#{archived_ids.join(', ')}]")
@@ -58,7 +68,7 @@ module StateFile
     def query_archiveable_intakes
       <<~SQL
         SELECT
-          id AS intake_id, hashed_ssn
+          id
         FROM
           #{data_source.table_name}
         WHERE id IN (
@@ -75,8 +85,8 @@ module StateFile
           ORDER BY
             efs.data_source_id ASC
         )
-        AND hashed_ssn NOT IN (
-          SELECT hashed_ssn
+        AND CONCAT('#{state_code}', id) NOT IN (
+          SELECT original_intake_id
           FROM state_file_archived_intakes
           WHERE state_code = '#{state_code}' and tax_year = #{tax_year}
         )
