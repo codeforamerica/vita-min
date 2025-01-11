@@ -279,6 +279,10 @@ class StateFileBaseIntake < ApplicationRecord
     false
   end
 
+  def allows_w2_editing?
+    true
+  end
+
   class Person
     attr_reader :first_name, :middle_initial, :last_name, :suffix, :birth_date, :ssn, :primary_or_spouse
 
