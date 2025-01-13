@@ -23,7 +23,6 @@ RSpec.feature "editing direct file XML with the FederalInfoController", active_j
     step_through_initial_authentication(contact_preference: :text_message)
     check "Email"
     check "Text message"
-    fill_in "Your phone number", with: "+12025551212"
     fill_in "Your email address", with: "test@example.org"
     click_on "Continue"
 
@@ -56,7 +55,6 @@ RSpec.feature "editing direct file XML with the FederalInfoController", active_j
     step_through_initial_authentication(contact_preference: :text_message)
     check "Email"
     check "Text message"
-    fill_in "Your phone number", with: "+12025551212"
     fill_in "Your email address", with: "test@example.org"
     click_on "Continue"
 
@@ -154,7 +152,6 @@ RSpec.feature "editing direct file XML with the FederalInfoController", active_j
     step_through_initial_authentication(contact_preference: :text_message)
     check "Email"
     check "Text message"
-    fill_in "Your phone number", with: "+12025551212"
     fill_in "Your email address", with: "test@example.org"
     click_on "Continue"
 
