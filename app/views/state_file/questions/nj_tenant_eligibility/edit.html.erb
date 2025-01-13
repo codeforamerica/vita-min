@@ -7,12 +7,12 @@
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
     <h1 class="h2"><%= title %></h1>
 
-    <%= f.vita_min_checkbox_set(:tenant_eligibility, @checkbox_collection, enum: true, label_text: t(".label")) %>
+    <%= f.vita_min_checkbox_set(:tenant_eligibility, @checkbox_collection, enum: true, label_text: t(".label_html")) %>
 
     <div class="reveal">
       <button class="reveal__button"><%= t('.helper_heading') %></button>
       <div class="reveal__content">
-        <p><%= t('.helper_description') %></p>
+        <p><%= t('.helper_description_html') %></p>
       </div>
     </div>
 

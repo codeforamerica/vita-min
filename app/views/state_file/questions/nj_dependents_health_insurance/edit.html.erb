@@ -1,9 +1,8 @@
-<%
-  content_for :page_title, t(".title") 
-%>
+<% title = t(".title_html", filing_year: current_tax_year) %>
 
+<% content_for :page_title, ActionView::Base.full_sanitizer.sanitize(title) %>
 <% content_for :card do %>
-  <h1 class="h2"><%= t(".title_html") %></h1>
+  <h1 class="h2"><%= title %></h1>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="white-group">
