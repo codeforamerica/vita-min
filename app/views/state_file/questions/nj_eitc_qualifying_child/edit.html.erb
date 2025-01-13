@@ -8,7 +8,7 @@
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="white-group">
       <%= f.cfa_radio_set(:claimed_as_eitc_qualifying_child, 
-        label_text: t('.primary_eitc_qualifying_child_question', filing_year: @filing_year),
+        label_text: t('.primary_eitc_qualifying_child_question', filing_year: current_tax_year),
         collection: [
               { value: :yes, label: t("general.affirmative") },
               { value: :no, label: t("general.negative") },
@@ -18,7 +18,7 @@
     <% if current_intake.filing_status_mfj?%>
       <div class="white-group">
         <%= f.cfa_radio_set(:spouse_claimed_as_eitc_qualifying_child, 
-          label_text: t('.spouse_eitc_qualifying_child_question', filing_year: @filing_year),
+          label_text: t('.spouse_eitc_qualifying_child_question', filing_year: current_tax_year),
           collection: [
                 { value: :yes, label: t("general.affirmative") },
                 { value: :no, label: t("general.negative") },

@@ -2120,7 +2120,7 @@ en:
       nc_taxable_income: North Carolina taxable income
       nc_use_tax: North Carolina use tax
       nj_minimal_essential_health_coverage_html: |-
-        <p>Most people who have health insurance have minimum essential coverage. "Minimal essential coverage" just refers to how much your plan covers. If you have any of the following, you most likely have it:<p>
+        <p>Most people who have health insurance have minimum essential coverage. "Minimal essential coverage" just refers to how much your plan covers. If you have any of the following, you most likely have it:</p>
         <ul>
           <li>A plan through your employer</li>
           <li>A plan bought through <a href="https://nj.gov/getcoverednj/" target="_blank" rel="noopener nofollow">GetCoveredNJ</a></li>
@@ -3287,7 +3287,7 @@ en:
           on_rental: on the home you lived in and rented.
           reason_html: You are not eligible for this because <b>%{reason}</b>
           reason_multi_unit_conditions: this main home in a multi-unit building did not meet the requirements to claim this credit or deduction.
-          reason_neither: you must own rent or own a main home in %{filing_year} to receive this credit or deduction.
+          reason_neither: you must have rented or owned a main home in %{filing_year} to receive this credit or deduction.
           reason_property_taxes: did not pay property taxes (directly, or through rent) on this main home.
           title_html: It looks like you're not eligible for the Property Tax Deduction or Credit <strong>%{property}</strong>
       nj_medical_expenses:
