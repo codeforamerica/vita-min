@@ -5,25 +5,24 @@
 
 <% content_for :card do %>
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
-    <p class="h2"><%= t(".helper_1") %></p>
-    <p><%= t(".helper_2_html") %></p>
-    <p><%= t(".helper_3") %></p>
-    <p><%= t(".helper_4") %></p>
+    <h1 class="h2"><%= title %></h1>
+    <p><%= t(".description_html") %></p>
+
     <div class="white-group">
     <%= f.vita_min_money_field(:property_tax_paid, t('.label_html'), options: { placeholder: '0' }, classes: ["form-width--long"]) %>
     </div>
 
     <div class="reveal">
-      <button class="reveal__button"><%= t('.anchor_homestead_helper_heading') %></button>
+      <button class="reveal__button"><%= t('.helper_anchor_heading') %></button>
       <div class="reveal__content">
-        <p><%= t('.anchor_homestead_helper_description') %></p>
+        <p><%= t('.helper_anchor_description_html') %></p>
       </div>
     </div>
 
     <div class="reveal">
-      <button class="reveal__button"><%= t('.where_to_find_helper_heading') %></button>
+      <button class="reveal__button"><%= t('.helper_heading') %></button>
       <div class="reveal__content">
-        <p><%= t('.where_to_find_helper_description') %></p>
+        <p><%= t('.helper_description') %></p>
       </div>
     </div>
 

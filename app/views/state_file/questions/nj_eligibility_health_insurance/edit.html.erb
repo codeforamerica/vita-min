@@ -9,7 +9,7 @@
       <div class="form-group">
         <%= f.cfa_radio_set(
               :eligibility_all_members_health_insurance,
-              label_text: t(".label", filing_year: @filing_year),
+              label_text: t(".label_html", filing_year: current_tax_year),
               collection: [
                 { value: "yes", label: t("general.affirmative") },
                 {
