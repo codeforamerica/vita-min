@@ -758,7 +758,7 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
         context "when qualifies for income exemption" do
           it "does not check 53c Schedule NJ-HCC checkbox and leaves 53a, 53b, and 53c amount blank" do
             single_income_threshold = 10_000
-            allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_54).and_return single_income_threshold
+            allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_29).and_return single_income_threshold
             expect(xml.at("NoHealthInsurance")).to eq(nil) # 53a
             expect(xml.at("NJAssistObtainingHC")).to eq(nil) # 53b
             expect(xml.at("SharedResPay")).to eq(nil) # 53c amount
