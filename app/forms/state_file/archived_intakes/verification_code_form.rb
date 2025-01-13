@@ -19,12 +19,6 @@ module StateFile
 
         valid_code.present?
       end
-
-      def save
-        run_callbacks :save do
-          valid?
-        end
-      end
     end
   end
 end

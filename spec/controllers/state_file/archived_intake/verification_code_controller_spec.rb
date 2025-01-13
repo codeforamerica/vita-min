@@ -14,17 +14,35 @@ RSpec.describe StateFile::ArchivedIntakes::VerificationCodeController, type: :co
   end
 
   describe "GET #edit" do
-    it "renders the edit template with a new VerificationCodeForm and queues a job" do
-      expect(ArchivedIntakeEmailVerificationCodeJob).to receive(:perform_later).with(
-        email_address: email_address,
-        locale: :en
-      )
+    context "when the request is locked" do
+      before do
+        allow(current_request).to receive(:access_locked?).and_return(true)
+      end
 
-      get :edit
+      it "redirects to the root path" do
+        get :edit
 
-      expect(assigns(:form)).to be_a(StateFile::ArchivedIntakes::VerificationCodeForm)
-      expect(assigns(:email_address)).to eq(email_address)
-      expect(response).to render_template(:edit)
+        expect(response).to redirect_to(root_path)
+      end
+    end
+
+    context "when the request is not locked" do
+      before do
+        allow(current_request).to receive(:access_locked?).and_return(false)
+      end
+
+      it "renders the edit template with a new VerificationCodeForm and queues a job" do
+        expect(ArchivedIntakeEmailVerificationCodeJob).to receive(:perform_later).with(
+          email_address: email_address,
+          locale: :en
+        )
+
+        get :edit
+
+        expect(assigns(:form)).to be_a(StateFile::ArchivedIntakes::VerificationCodeForm)
+        expect(assigns(:email_address)).to eq(email_address)
+        expect(response).to render_template(:edit)
+      end
     end
   end
 

@@ -54,5 +54,29 @@ describe StateFile::ArchivedIntakes::ArchivedIntakeController, type: :controller
         controller.create_state_file_access_log(event_type)
       }.to raise_error(ActiveRecord::RecordInvalid)
     end
+
+    describe '#check_feature_flag' do
+      context 'when the feature flag is enabled' do
+        before do
+          allow(Flipper).to receive(:enabled?).with(:get_your_pdf).and_return(true)
+        end
+
+        it 'does not redirect' do
+          expect(controller).not_to receive(:redirect_to)
+          controller.check_feature_flag
+        end
+      end
+
+      context 'when the feature flag is disabled' do
+        before do
+          allow(Flipper).to receive(:enabled?).with(:get_your_pdf).and_return(false)
+        end
+
+        it 'redirects to the root path' do
+          expect(controller).to receive(:redirect_to).with(root_path)
+          controller.check_feature_flag
+        end
+      end
+    end
   end
 end

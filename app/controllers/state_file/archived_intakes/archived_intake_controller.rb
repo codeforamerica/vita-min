@@ -11,6 +11,13 @@ module StateFile
           state_file_archived_intake_request: current_request
         )
       end
+
+      def check_feature_flag
+        unless Flipper.enabled?(:get_your_pdf)
+          # this redirect to be changed when we have an offboarding page
+          redirect_to root_path
+        end
+      end
     end
   end
 end

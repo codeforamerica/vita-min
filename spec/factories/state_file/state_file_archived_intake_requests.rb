@@ -5,7 +5,7 @@ FactoryBot.define do
     locked_at { nil }
 
     trait :locked do
-      locked_at { Time.current }
+      locked_at { 5.minutes.ago }
     end
   end
 end

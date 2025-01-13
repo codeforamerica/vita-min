@@ -10,12 +10,6 @@ module StateFile
         super
         assign_attributes(attributes)
       end
-
-      def save
-        run_callbacks :save do
-          valid?
-        end
-      end
     end
   end
 end
