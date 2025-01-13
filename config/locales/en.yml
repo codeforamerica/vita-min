@@ -3231,7 +3231,7 @@ en:
               <li>You made P.I.L.O.T. (Payments-In-Lieu-of-Tax) payments</li>
               <li><a href="https://www.nj.gov/treasury/taxation/questions/propertyd2.shtml" target="_blank" rel="noopener nofollow">Another reason applies</a></li>
             </ul>
-          helper_header: 'Leave above box unchecked if:'
+          helper_header: 'Leave first box unchecked if:'
           homeowner_home_subject_to_property_taxes: I paid property taxes
           homeowner_main_home_multi_unit: My main home was a unit in a multi-unit property I owned
           homeowner_main_home_multi_unit_max_four_one_commercial: The property had two to four units and no more than one of those was a commercial unit
