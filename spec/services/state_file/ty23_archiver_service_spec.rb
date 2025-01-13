@@ -11,8 +11,8 @@ RSpec.describe StateFile::Ty23ArchiverService do
       let(:archiver) { described_class.new(state_code: state_code, batch_size: batch_size) }
 
       context 'when there are accepted intakes to archive' do
-        let(:intake1) { create(archiver.data_source.table_name.singularize, created_at: Date.parse("2023-04-01"), hashed_ssn: "fake hashed ssn1") }
-        let(:intake2) { create(archiver.data_source.table_name.singularize, created_at: Date.parse("2023-04-01"), hashed_ssn: "fake hashed ssn2") }
+        let(:intake1) { create(archiver.data_source.table_name.singularize, created_at: Date.parse("2023-04-01"), email_address: "test1@email.com", hashed_ssn: "fake hashed ssn1") }
+        let(:intake2) { create(archiver.data_source.table_name.singularize, created_at: Date.parse("2023-04-01"), email_address: "test2@email.com", hashed_ssn: "fake hashed ssn2") }
         let(:submission1) { create(:efile_submission, :for_state, :accepted, data_source: intake1, created_at: Date.parse("2023-04-01")) }
         let(:submission2) { create(:efile_submission, :for_state, :accepted, data_source: intake2, created_at: Date.parse("2023-04-01")) }
 
@@ -30,7 +30,7 @@ RSpec.describe StateFile::Ty23ArchiverService do
       end
 
       context 'when there is an archiveable intake with the same email and hashed_ssn as an archived intake' do
-        let(:intake1) { create(archiver.data_source.table_name.singularize, created_at: Date.parse("2023-04-01"), hashed_ssn: "fake hashed ssn") }
+        let(:intake1) { create(archiver.data_source.table_name.singularize, created_at: Date.parse("2023-04-01"), email_address: "test@email.com", hashed_ssn: "fake hashed ssn") }
         let(:intake2) {
           create(archiver.data_source.table_name.singularize, created_at: Date.parse("2023-04-01"),
                  email_address: intake1.email_address, hashed_ssn: intake1.hashed_ssn)
@@ -72,6 +72,30 @@ RSpec.describe StateFile::Ty23ArchiverService do
           expect(archiver.current_batch).to include(intake2)
         end
       end
+
+
+      context 'when there are two archiveable intakes with the different emails and the same ssn' do
+        let(:intake1) { create(archiver.data_source.table_name.singularize, email_address: "a@b.c", created_at: Date.parse("2023-04-01"), hashed_ssn: "fake hashed ssn") }
+        let(:intake2) {
+          create(archiver.data_source.table_name.singularize, created_at: Date.parse("2023-04-02"),
+                 email_address: "b@b.c", hashed_ssn: intake1.hashed_ssn)
+        }
+        let(:submission1) { create(:efile_submission, :for_state, :accepted, data_source: intake1, created_at: Date.parse("2023-04-01")) }
+        let(:submission2) { create(:efile_submission, :for_state, :accepted, data_source: intake2, created_at: Date.parse("2023-04-02")) }
+
+        before do
+          submission1.efile_submission_transitions.last.update(created_at: Date.parse("2023-04-01"))
+          submission2.efile_submission_transitions.last.update(created_at: Date.parse("2023-04-02"))
+        end
+
+        it 'treat the new email as archiveable' do
+          archiver.find_archiveables
+          expect(archiver.current_batch.count).to eq(2)
+          expect(archiver.current_batch).to include(intake1)
+          expect(archiver.current_batch).to include(intake2)
+        end
+      end
+
 
       context 'when there are only non-accepted submissions' do
         let(:archiver) { described_class.new(state_code: state_code) }

@@ -69,12 +69,13 @@ module StateFile
                                     )
                            )
 
-      archived_hashed_ssns = StateFileArchivedIntake.where(state_code: state_code, tax_year: tax_year).pluck(:hashed_ssn)
-      unarchived_archiveable_intakes = archiveable_intakes.where.not(hashed_ssn: archived_hashed_ssns)
+      # do not archive multiple intakes with the same email address
+      archived_emails = StateFileArchivedIntake.where(state_code: state_code, tax_year: tax_year).pluck(:email_address)
+      unarchived_archiveable_intakes = archiveable_intakes.where.not(email_address: archived_emails)
 
       # There are some 2023 NY accepted intakes with duplicate hashed SSNs, and for these we will only archive the last one
-      unarchived_archiveable_intakes.group_by(&:hashed_ssn).map do |_, intakes_with_same_ssn|
-        intakes_with_same_ssn.max_by(&:created_at)
+      unarchived_archiveable_intakes.group_by(&:email_address).map do |_, accepted_intakes_with_same_email_address|
+        accepted_intakes_with_same_email_address.max_by(&:created_at)
       end.first(batch_size)
     end
   end
