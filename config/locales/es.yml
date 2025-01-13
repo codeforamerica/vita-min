@@ -3003,9 +3003,9 @@ es:
       nc_county:
         edit:
           county: Condado
-          county_during_hurricane: Selecciona el condado donde tenías tu dirección permanente durante el Huracán Helene (el 25 de septiembre de 2024 o después)
-          moved_after_hurricane: "¿Estuvo tu dirección permanente en un condado diferente durante el Huracán Helene (el 25 de septiembre de 2024 o después)?"
-          title: Selecciona el condado donde tenías tu dirección permanente en diciembre 31 de %{filing_year}
+          county_during_hurricane: Seleccione el otro condado donde residió (o reside actualmente) entre el 25 de septiembre de 2024 y hoy
+          moved_after_hurricane_html: "¿Residió (o reside actualmente) en un condado <strong>diferente</strong> en cualquier momento entre el 25 de septiembre de 2024 y hoy?"
+          title: Seleccione el condado donde residía el 31 de diciembre de %{filing_year}
       nc_eligibility:
         edit:
           eligibility_ed_loan_cancelled: Se le canceló la deuda de préstamos estudiantiles en virtud de la Ley del Plan de Rescate Estadounidense.
