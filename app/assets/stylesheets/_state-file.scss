@@ -247,6 +247,14 @@
       }
     }
 
+    .tight-ish-checkboxes {
+      @extend .tight-checkboxes;
+
+      .checkbox {
+        margin: 1rem 0
+      }
+    }
+
     .radio-button {
       border: none;
       background-color: transparent;
