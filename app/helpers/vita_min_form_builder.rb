@@ -421,7 +421,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     checkbox_args += ["yes", "no"] if enum
 
     <<~HTML.html_safe
-      <div id="#{h container_id}" class="#{container_class}">
+      <div id="#{container_id}" class="#{container_class}">
         <label class="#{joined_classes}">
         #{check_box(*checkbox_args)} <span class="text--normal">#{item[:label]}</span>
         </label>
