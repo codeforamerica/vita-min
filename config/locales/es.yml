@@ -3655,7 +3655,7 @@ es:
       submission_confirmation:
         edit:
           download_state_return_pdf: Descarga tu declaración estatal
-          email_text_update: Recibirás una actualización por correo electrónico o mensaje de texto una vez tu declaración de impuestos haya sido aceptada.
+          email_text_update: Recibirás una actualización por correo electrónico y mensaje de texto una vez tu declaración de impuestos haya sido aceptada.
           email_update: Recibirás una actualización por correo electrónico cuando tu declaración de impuestos estatales sea aceptada.
           text_update: Recibirás una actualización por SMS cuando una vez tu declaración de impuestos haya sido aceptada.
           title: "¡Tu declaración de impuestos de %{state_name}de %{filing_year} ha sido enviada! "
