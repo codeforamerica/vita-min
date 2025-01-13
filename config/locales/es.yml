@@ -2021,7 +2021,9 @@ es:
           enter_email: Ingresa la dirección de correo electrónico vinculada a tu cuenta
       verification_code:
         edit:
+          error_message: Después de 2 intentos fallidos, las cuentas serán bloqueadas.
           subtitle_html: Si no recibiste un código, revisa tu carpeta de spam. Si aún necesitas ayuda para volver a suscribirte, chatea con nosotros.
+          subtitle_html_2: Si aún necesitas ayuda para resuscribirte, chatea con nosotros.
           title_html: Hemos enviado tu código a <strong>%{email_address}</strong>
     faq:
       index:
