@@ -3,7 +3,6 @@
 # Table name: state_file_archived_intake_requests
 #
 #  id                             :bigint           not null, primary key
-#  details                        :jsonb
 #  email_address                  :string
 #  failed_attempts                :integer          default(0), not null
 #  ip_address                     :string
