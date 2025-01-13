@@ -9,7 +9,7 @@
 
 <% content_for :card do %>
   <h1 class="h2"><%= t(".title") %></h1>
-  <p><%= t(".subtitle_html") %></p>
+  <p><%= t(".subtitle") %></p>
   <%= render 'state_file/questions/primary_state_id/state_id', options: {
     dmv_bmv_label: t(".dmv_bmv"), # mismatch is known; holding off on refactoring enum name at CFA's request
     no_id_label: t(".no_id")

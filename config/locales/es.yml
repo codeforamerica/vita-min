@@ -2072,15 +2072,15 @@ es:
       nc_taxable_income: Ingreso tributables en Carolina del Norte
       nc_use_tax: Impuesto sobre el uso de Carolina del Norte
       nj_minimal_essential_health_coverage_html: |-
-        <p>Most people who have health insurance have minimum essential coverage. “Minimal essential coverage” just refers to how much your plan covers. If you have any of the following, you most likely have it:</p>
+        <p>Most people who have health insurance have minimum essential coverage. "Minimal essential coverage" just refers to how much your plan covers. If you have any of the following, you most likely have it:</p>
         <ul>
           <li>A plan through your employer</li>
-          <li>A plan bought through <a target="_blank" rel="noopener noreferrer" href="https://nj.gov/getcoverednj/">GetCoveredNJ</a></li>
+          <li>A plan bought through <a href="https://nj.gov/getcoverednj/" target="_blank" rel="noopener nofollow">GetCoveredNJ</a></li>
           <li>Medicare</li>
           <li>Medicaid (NJ FamilyCare)</li>
         </ul>
-        <p><a target="_blank" rel="noopener noreferrer" href="https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml">Here is the full list of insurance options that have minimum essential coverage.</a><p>
-        <p>If you only had standalone vision and dental plans, workers' compensation coverage, and/or coverage limited to a specified disease or illness, you didn't have minimum essential coverage. In New Jersey, as of 2018, you need minimum essential coverage, or you will likely pay additional taxes.</p>
+        <p><a href="https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml" target="_blank" rel="noopener nofollow">Here is the full list of insurance options that have minimum essential coverage.</a></p>
+        <p>If you only had standalone vision and dental plans, workers' compensation coverage, and/or coverage limited to a specified disease or illness, you didn’t have minimum essential coverage. In New Jersey, as of 2018, you need minimum essential coverage, or you may have to pay additional taxes.</p>
       register_to_vote: Regístrate para votar
       see_detailed_return: Ver información detallada de la declaración
       standard_deduction: Deducción estándar
@@ -2159,11 +2159,12 @@ es:
             Estamos cerrados por la temporada de impuestos. Desafortunadamente no puede presentar su declaración estatal con nosotros este año.
           help_text_html: |
             <ul class="list--bulleted">
-              <li>Una declaración federal de impuestos %{filing_year} <strong>aceptada</strong> mediante <a href="https://directfile.irs.gov/">IRS Direct File</a>. (No necesitas una copia de esta declaración; transferirás tu declaración aquí).
-              <li>Dirección de correo electrónico o número de teléfono.</li>
-              <li>Licencia de conducir o identificación emitida por el estado, si tienes.</li>
-              <li>Números de ruta y cuenta bancaria (si deseas recibir tu reembolso o hacer un pago de impuestos electrónicamente).</li>
+              <li>To have filed your 2024 federal return using IRS Direct File</li>
+              <li>An email address or a phone number to receive a one-time verification code</li>
+              <li>Bank routing and account numbers (if you want to receive your refund or make a tax payment electronically)</li>
+              <li>(optional) Driver's license or state issued ID</li>
             </ul>
+          help_text_title: 'What you’ll need:'
           supported_by: Respaldada por el New Jersey Office of Innovation
           title: Presenta tus impuestos estatales de New Jersey sin costo
         not_you: "¿No es %{user_name}?"
@@ -3208,7 +3209,7 @@ es:
           helper_description: You can review your quarterly tax bills and add up the total paid to your municipality.
           helper_heading: Where can I find property taxes paid?
           label_html: "<strong>Enter property taxes paid for %{filing_year}</strong>"
-          title: Enter the amount of property taxes you paid on your main home where you lived in %{filing_year}.
+          title: Good news – you qualify for a deduction or credit.
       nj_homeowner_property_tax_worksheet:
         edit:
           description_html: "<p>The next step is to fill in this <a href=\"https://www.nj.gov/treasury/taxation/pdf/wrkshtg.pdf\" target=\"_blank\" rel=\"noopener nofollow\">worksheet</a>.</p> \n<p>Once you fill in the worksheet, come back to this page.</p>\n<p>The worksheet will ask you about where you lived and for how long. If you moved, for example, it will have space for you to list every place you lived.</p>\n"
@@ -3253,12 +3254,6 @@ es:
       nj_medical_expenses:
         edit:
           description_html: |-
-            <p><strong>If you had at least $XX in medical expenses, enter the full amount. (We will deduct the difference.)</strong></p>
-            <ul class="list--bulleted">
-              <li>If your medical expenses were less than the number listed, you may want to skip this page.</li>
-              <li>If your medical expenses add up to more than the number listed, make sure to put in the full amount of medical expenses.</li>
-            </ul>
-
             <p>These expenses include:</p>
             <ul class="list--bulleted">
               <li>Expenses for yourself, your spouse and your dependents.</li>
@@ -3302,7 +3297,7 @@ es:
             <p>You do NOT need to supply this information to file your taxes. The return will not be rejected if you do not have an ID or prefer not to share.</p>
           helper_heading: Why are you asking for this information?
           no_id: No driver's license or state ID / Prefer not to share
-          subtitle_html: "<p>Details from your state-issued ID, if you have one, will help New Jersey combat stolen-identity tax fraud and protect you and your tax refund.</p> \n<p>If you don't have an ID or don’t want to provide your information, click \"Continue.\"</p>\n"
+          subtitle: Details from your state-issued ID, if you have one, will help New Jersey combat stolen-identity tax fraud and protect you and your tax refund.
           title: Confirm Your Identity (Optional)
       nj_review:
         edit:
@@ -3363,7 +3358,9 @@ es:
           helper_heading: What kind of items or services does this apply to?
           manual_use_tax_label_html: "<strong>Enter total use tax</strong>"
           no_text: No (this is the common option)
-          subtitle: 'Note: Your tax household includes you, your spouse and your dependents.'
+          subtitle_html: |-
+            <p>If you made any purchases without paying sales tax, you may owe use tax on those purchases. We'll help you figure out the right amount.</p>
+            <p>Note: Your tax household includes you, your spouse and your dependents.</p>
           title: Did your tax household make any out-of-state purchases in %{filing_year} without paying full New Jersey Sales Tax?
           use_tax_method_automated: All of my purchases were less than $1000 each. Calculate the amount of use tax for me.
           use_tax_method_manual: I had at least one purchase over $1000, or I would prefer to calculate my use tax manually.
@@ -3376,9 +3373,7 @@ es:
             <p>You do NOT need to supply this information to file your taxes. The return will not be rejected if you do not have an ID or prefer not to share.</p>
           helper_heading: Why are you asking for this information?
           no_id: No driver's license or state ID / Prefer not to share
-          subtitle_html: |
-            <p>Details from your spouse's state-issued ID, if they have one, would also help.</p>
-            <p>If your spouse doesn't have an ID or don’t want to provide their information, click "Continue."</p>
+          subtitle: Details from your spouse's state-issued ID, if they have one, would also help.
           title: Confirming Your Spouse's Identity (Optional)
       nj_tenant_eligibility:
         edit:
@@ -3415,7 +3410,7 @@ es:
           helper_description: Enter your site fees paid for %{filing_year} in the rental section of Worksheet G.
           helper_heading: Mobile homeowners
           label_html: "<strong>Enter your share of total rent paid in %{filing_year}</strong>"
-          title: Enter the amount of rent you paid on this main home in %{filing_year}.
+          title: Good news – you qualify for a deduction or credit.
       nj_veterans_exemption:
         edit:
           instructions_html: |
