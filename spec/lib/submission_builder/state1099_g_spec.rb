@@ -20,6 +20,7 @@ describe SubmissionBuilder::State1099G do
       let(:recipient_street_address_apartment) { "Unit B" }
       let(:recipient_city) { "City" }
       let(:recipient_zip) { "11102" }
+      let(:recipient_state) { "CA" }
       let!(:form1099g) do
         create(
           :state_file1099_g,
@@ -35,6 +36,7 @@ describe SubmissionBuilder::State1099G do
           recipient_street_address: recipient_street_address,
           recipient_street_address_apartment: recipient_street_address_apartment,
           recipient_zip: recipient_zip,
+          recipient_state: recipient_state,
           unemployment_compensation_amount: unemployment_compensation_amount,
           federal_income_tax_withheld_amount: federal_income_tax_withheld_amount,
           state_income_tax_withheld_amount: state_income_tax_withheld_amount,
@@ -64,7 +66,7 @@ describe SubmissionBuilder::State1099G do
         expect(doc.at("BusinessNameLine1Txt").text).to eq payer_name
         expect(doc.at("PayerUSAddress AddressLine1Txt").text).to eq payer_street_address
         expect(doc.at("PayerUSAddress CityNm").text).to eq payer_city
-        expect(doc.at("PayerUSAddress StateAbbreviationCd").text).to eq df_state
+        expect(doc.at("PayerUSAddress StateAbbreviationCd").text).to eq recipient_state
         expect(doc.at("PayerUSAddress ZIPCd").text).to eq payer_zip
         expect(doc.at("PayerEIN").text).to eq payer_tin
         expect(doc.at("RecipientSSN").text).to eq primary_ssn
@@ -72,12 +74,12 @@ describe SubmissionBuilder::State1099G do
         expect(doc.at("RecipientUSAddress AddressLine1Txt").text).to eq recipient_street_address
         expect(doc.at("RecipientUSAddress AddressLine2Txt").text).to eq recipient_street_address_apartment
         expect(doc.at("RecipientUSAddress CityNm").text).to eq recipient_city
-        expect(doc.at("RecipientUSAddress StateAbbreviationCd").text).to eq df_state
+        expect(doc.at("RecipientUSAddress StateAbbreviationCd").text).to eq recipient_state
         expect(doc.at("RecipientUSAddress ZIPCd").text).to eq recipient_zip
         expect(doc.at("UnemploymentCompensation").text).to eq unemployment_compensation_amount
         expect(doc.at("FederalTaxWithheld").text).to eq federal_income_tax_withheld_amount
         expect(doc.at("State1099GStateLocalTaxGrp StateTaxWithheldAmt").text).to eq state_income_tax_withheld_amount
-        expect(doc.at("State1099GStateLocalTaxGrp StateAbbreviationCd").text).to eq df_state
+        expect(doc.at("State1099GStateLocalTaxGrp StateAbbreviationCd").text).to eq recipient_state
 
         expect(doc.at("State1099GStateLocalTaxGrp PayerStateIdNumber").text).to eq state_identification_number
       end
