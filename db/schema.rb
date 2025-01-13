@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_01_08_233940) do
+ActiveRecord::Schema[7.1].define(version: 2025_01_11_012018) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1703,6 +1703,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_08_233940) do
     t.string "mailing_state"
     t.string "mailing_street"
     t.string "mailing_zip"
+    t.string "original_intake_id"
     t.string "state_code"
     t.integer "tax_year"
     t.datetime "updated_at", null: false
