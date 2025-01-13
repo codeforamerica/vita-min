@@ -287,7 +287,9 @@ module Efile
       end
 
       def calculate_line_15
-        Efile::Nj::NjStateWages.calculate_state_wages(@intake)
+        @intake.state_file_w2s.sum do |w2|
+          w2.state_wages_amount.to_i
+        end
       end
 
       def calculate_line_16a

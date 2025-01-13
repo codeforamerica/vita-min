@@ -3116,6 +3116,7 @@ es:
           continue: Click "continue" if all these people had health insurance.
           coverage_heading: What is health insurance with minimum essential coverage?
           label: 'Check all the people that did NOT have health insurance:'
+          title: Please tell us which dependents were missing health insurance (with minimum essential health coverage) in 2024.
           title_html: Please tell us which dependents were missing health insurance (<a target=" _blank" rel="noopener noreferrer" href="https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml">with minimum essential health coverage</a>) in 2024.
       nj_disabled_exemption:
         edit:
