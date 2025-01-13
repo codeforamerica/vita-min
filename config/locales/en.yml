@@ -2516,7 +2516,7 @@ en:
           increased_excise_credit: Increased Excise Credit
           public_school_credit: Public School Tax Credit
         edit:
-          credits_not_supported: What subtractions, credits, and household situations does this service not support this year?
+          credits_not_supported: What credits and deductions does this service not support this year?
           md_title2_html: |
             Let's make sure this is the right service for you.<br><br>
             Here are the credits and subtractions you <strong>may</strong> be able to claim to maximize your refund.
@@ -2624,7 +2624,7 @@ en:
                 </li>
               </ul>
             </p>
-          title1: What subtractions, credits, and other situations does this service NOT support this year?
+          title1: What subtractions, credits, and household situations does this service not support this year?
           title2: What scenarios for claiming the Maryland Earned Income Tax Credit and/or Child Tax Credit aren't supported by this service?
           title3: What if I have a situation not yet supported by FileYourStateTaxes?
         md_supported:
@@ -2646,7 +2646,6 @@ en:
           college_savings_account: 529 College Savings Account Contributions
           credits_carried: Credits carried forward from previous years
           credits_for_rehabilitating: Credits for Rehabilitating Historic Structures
-          credits_not_supported: What credits and deductions does this service not support this year?
           estimated_income_tax_payments: Estimated income tax payments
           extension_payment: Extension payments
           personal_education: Personal Education Student Account Deposits Deduction
