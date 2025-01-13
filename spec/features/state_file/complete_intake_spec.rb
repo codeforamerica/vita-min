@@ -333,6 +333,15 @@ RSpec.feature "Completing a state file intake", active_job: true do
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
 
+      expect(page).to have_text I18n.t('state_file.questions.income_review.edit.title')
+      within('#w2s') do
+        expect(page).to have_text(I18n.t('state_file.questions.income_review.edit.no_info_needed'))
+      end
+      within('#form1099gs') do
+        expect(page).to have_text(I18n.t('state_file.questions.income_review.edit.state_info_to_be_collected'))
+      end
+      click_on I18n.t("general.continue")
+
       expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title', year: filing_year)
       choose I18n.t("general.affirmative")
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_name'), with: "Business Name"

@@ -5,21 +5,6 @@
   <h1 class="h2"><%= title %></h1>
   <p><%= t(".subtitle", count: current_intake.household_count) %></p>
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
-    <div class="reveal">
-      <p><button href="#" class="reveal__button"><%= t('.what_is_title') %></button></p>
-      <div class="reveal__content"><%= t('.what_is_content_html') %></div>
-    </div>
-
-    <div class="reveal">
-      <p><button href="#" class="reveal__button"><%= t('.qualifications_title') %></button></p>
-      <div class="reveal__content"><%= t('.qualifications_content') %></div>
-    </div>
-
-    <div class="reveal">
-      <p><button href="#" class="reveal__button"><%= t('.medicaid_title') %></button></p>
-      <div class="reveal__content"><%= t('.medicaid_content') %></div>
-    </div>
-
     <div class="question-with-follow-up spacing-below-25">
       <div class="question-with-follow-up__question">
         <div class="white-group">
@@ -46,7 +31,21 @@
           <%= f.vita_min_money_field(:health_insurance_paid_amount, "", classes: ["form-width--long"]) %>
         </div>
       </div>
+    </div>
 
+    <div class="reveal">
+      <p><button href="#" class="reveal__button"><%= t('.what_is_title') %></button></p>
+      <div class="reveal__content"><%= t('.what_is_content_html') %></div>
+    </div>
+
+    <div class="reveal">
+      <p><button href="#" class="reveal__button"><%= t('.qualifications_title') %></button></p>
+      <div class="reveal__content"><%= t('.qualifications_content_html') %></div>
+    </div>
+
+    <div class="reveal">
+      <p><button href="#" class="reveal__button"><%= t('.medicaid_title') %></button></p>
+      <div class="reveal__content"><%= t('.medicaid_content') %></div>
     </div>
 
     <% if params[:return_to_review].present? %>

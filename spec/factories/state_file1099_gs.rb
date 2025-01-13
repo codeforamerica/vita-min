@@ -14,6 +14,7 @@
 #  payer_zip                          :string
 #  recipient                          :integer          default("unfilled"), not null
 #  recipient_city                     :string
+#  recipient_state                    :string
 #  recipient_street_address           :string
 #  recipient_street_address_apartment :string
 #  recipient_zip                      :string
@@ -44,6 +45,7 @@ FactoryBot.define do
     state_income_tax_withheld_amount { 0.0 }
     recipient_city {'New York'}
     recipient_street_address {'123 Recipient St'}
+    recipient_state { 'NY' }
     recipient_zip {'11102'}
   end
 end

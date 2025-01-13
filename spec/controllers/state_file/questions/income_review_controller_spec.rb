@@ -27,6 +27,24 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
   end
   render_views
 
+  describe ".show?" do
+    context "when there is no income" do
+
+      before do
+        intake.direct_file_data.fed_unemployment = 0
+        intake.direct_file_data.fed_ssb = 0
+        intake.direct_file_data.fed_taxable_ssb = 0
+
+        intake.update!(raw_direct_file_data: intake.direct_file_data.to_s)
+      end
+
+
+      it "does not show the page" do
+        expect(described_class).not_to be_show(intake)
+      end
+    end
+  end
+
   describe "#update" do
     # use the return_to_review_concern shared example if the page
     # should skip to the review page when the return_to_review param is present

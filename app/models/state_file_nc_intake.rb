@@ -150,4 +150,8 @@ class StateFileNcIntake < StateFileBaseIntake
   def requires_additional_withdrawal_information?
     true
   end
+
+  def allows_w2_editing?
+    false
+  end
 end
