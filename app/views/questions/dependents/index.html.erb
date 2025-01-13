@@ -9,7 +9,7 @@
       <div class="grid__item width-three-fourths">
         <%= yield :notices %>
         <%= render "shared/progress_bar" %>
-        <main role="main">
+        <div class="main-content-inner">
           <% if @dependents.present? %>
           <ul class="review-box">
             <% @dependents.each do |dependent| %>
@@ -38,7 +38,7 @@
             <%= image_tag("checkmark--white.svg", alt: "") %>
             <%=t("views.dependents.index.done") %>
           <% end %>
-        </main>
+        </div>
       </div>
     </div>
   </section>

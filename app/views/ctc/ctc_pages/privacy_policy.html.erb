@@ -2,11 +2,11 @@
 
 <%= render("shared/breadcrumb")%>
 
-<main role="main">
+<div class="main-content-inner">
   <section class="slab slab--white slab--half-padded">
     <div class="grid">
       <div class="grid__item width-three-fourths">
-        <main role="main">
+        <div class="main-content-inner">
           <h1 class="h2"><%= content_for(:page_title) %></h1>
 
           <% t("views.ctc_pages.privacy_policy.01_intro").each do |line| %>
@@ -159,8 +159,8 @@
           </p>
 
           <p><%= t("views.ctc_pages.privacy_policy.51_do_our_best") %></p>
-        </main>
+        </div>
       </div>
     </div>
   </section>
-</main>
+</div>

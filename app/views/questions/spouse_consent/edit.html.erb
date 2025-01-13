@@ -9,7 +9,7 @@
       <div class="grid__item width-three-fourths">
         <%= yield :notices %>
         <%= render "shared/progress_bar" %>
-        <main role="main">
+        <div class="main-content-inner">
           <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: {class: "form-card form-card--long"} do |f| %>
             <%= render "shared/consent_agreement" %>
 
@@ -30,7 +30,7 @@
             <%= f.cfa_input_field(:spouse_ssn_confirmation, t("attributes.confirm_spouse_ssn"), classes: ["form-width--long"], options: { maxlength: 11, 'data-mask': '000-00-0000' }) %>
             <%= f.continue t("views.questions.spouse_consent.cta") %>
           <% end %>
-        </main>
+        </div>
       </div>
     </div>
   </section>
