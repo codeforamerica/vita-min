@@ -406,7 +406,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     enum: false
   )
     container_id = nil
-    container_class = ""
+    container_class = nil
     item_options = item[:options] || {}
     if item[:opens_follow_up_with_id] 
       container_class = "question-with-follow-up__question"
@@ -421,7 +421,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     checkbox_args += ["yes", "no"] if enum
 
     <<~HTML.html_safe
-      <div id="#{container_id}" class="#{container_class}">
+      <div id="#{h container_id}" class="#{container_class}">
         <label class="#{joined_classes}">
         #{check_box(*checkbox_args)} <span class="text--normal">#{item[:label]}</span>
         </label>
