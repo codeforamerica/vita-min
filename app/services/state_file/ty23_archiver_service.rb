@@ -95,23 +95,27 @@ module StateFile
     end
 
     def active_record_query
-      non_archived_archiveables = data_source
-        .where(id:
-                 EfileSubmissionTransition
-                   .joins(:efile_submission)
-                   .where(
-                     to_state: :accepted,
-                     most_recent: true,
-                     created_at: ..Date.parse(cutoff),
-                     :efile_submission => { :data_source_type => data_source.name }
-                   ).pluck(
-                   :"efile_submission.data_source_id"
-                 )
-        ).where.not(hashed_ssn:
-                      StateFileArchivedIntake.where(state_code: state_code, tax_year: tax_year).pluck(:hashed_ssn)
-      )
+      archiveable_intakes = data_source
+                           .where(id:
+                                    EfileSubmissionTransition
+                                      .joins(:efile_submission)
+                                      .where(
+                                        to_state: :accepted,
+                                        most_recent: true,
+                                        created_at: ..Date.parse(cutoff),
+                                        :efile_submission => { :data_source_type => data_source.name }
+                                      ).pluck(
+                                      :"efile_submission.data_source_id"
+                                    )
+                           )
 
-      non_archived_archiveables.order(:created_at).select('distinct hashed_ssn, created_at').limit(batch_size)
+      archived_hashed_ssns = StateFileArchivedIntake.where(state_code: state_code, tax_year: tax_year).pluck(:hashed_ssn)
+      unarchived_archiveable_intakes = archiveable_intakes.where.not(hashed_ssn: archived_hashed_ssns)
+
+      # There are some 2023 NY accepted intakes with duplicate hashed SSNs, and for these we will only archive the first created
+      unarchived_archiveable_intakes.group_by(&:hashed_ssn).map do |_, intakes_with_same_ssn|
+        intakes_with_same_ssn.min_by(&:created_at)
+      end.first(batch_size)
     end
   end
 end
