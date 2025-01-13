@@ -4,7 +4,7 @@ module PdfFiller
     include StateFile::NjPdfHelper
 
     def source_pdf_name
-      "nj1040-TY2024"
+      "nj1040-TY2024-a11y-remediated"
     end
 
     def initialize(submission)
