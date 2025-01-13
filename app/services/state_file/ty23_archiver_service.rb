@@ -18,15 +18,16 @@ module StateFile
     end
 
     def find_archiveables
-      query_result = ActiveRecord::Base.connection.exec_query(query_archiveable_intakes)
-      @current_batch = query_result.pluck('id')
+      # query_result = ActiveRecord::Base.connection.exec_query(query_archiveable_intakes)
+      # @current_batch = query_result.pluck('id')
+      @current_batch = active_record_query
       Rails.logger.info("Found #{current_batch.count} #{data_source.name.pluralize} to archive: #{current_batch}")
     end
 
     def archive_batch
       archived_ids = []
-      current_batch&.each do |intake_id|
-        combined_intake_id = "#{state_code}#{intake_id}"
+      current_batch&.each do |source_intake|
+        combined_intake_id = "#{state_code}#{source_intake.id}"
         matching_archived_intakes = StateFileArchivedIntake.where(original_intake_id: combined_intake_id)
         if matching_archived_intakes.present?
           Rails.logger.warn("Archive already found for intake #{combined_intake_id}. Continuing with batch.")
@@ -39,7 +40,6 @@ module StateFile
         # create a record so that if an error happens after this, the archiver will not loop forever
         archived_intake.save
 
-        source_intake = data_source.find(intake_id)
         archived_intake.hashed_ssn = source_intake.hashed_ssn
         archived_intake.email_address = source_intake.email_address
         archived_intake.mailing_street = source_intake.direct_file_data.mailing_street
@@ -55,9 +55,9 @@ module StateFile
         end
 
         archived_intake.save!
-        archived_ids << intake_id
+        archived_ids << source_intake.id
       rescue StandardError => e
-        Rails.logger.warn("Caught exception #{e} for #{intake_id}. Continuing with batch.")
+        Rails.logger.warn("Caught exception #{e} for #{source_intake.id}. Continuing with batch.")
         next
       end
       Rails.logger.info("Archived #{archived_ids.count} #{data_source.name.pluralize}: [#{archived_ids.join(', ')}]")
@@ -68,7 +68,7 @@ module StateFile
     def query_archiveable_intakes
       <<~SQL
         SELECT
-          id
+          id, hashed_ssn
         FROM
           #{data_source.table_name}
         WHERE id IN (
@@ -85,13 +85,33 @@ module StateFile
           ORDER BY
             efs.data_source_id ASC
         )
-        AND CONCAT('#{state_code}', id) NOT IN (
-          SELECT original_intake_id
+        AND hashed_ssn NOT IN (
+          SELECT hashed_ssn
           FROM state_file_archived_intakes
           WHERE state_code = '#{state_code}' and tax_year = #{tax_year}
         )
         LIMIT #{batch_size}
       SQL
+    end
+
+    def active_record_query
+      non_archived_archiveables = data_source
+        .where(id:
+                 EfileSubmissionTransition
+                   .joins(:efile_submission)
+                   .where(
+                     to_state: :accepted,
+                     most_recent: true,
+                     created_at: ..Date.parse(cutoff),
+                     :efile_submission => { :data_source_type => data_source.name }
+                   ).pluck(
+                   :"efile_submission.data_source_id"
+                 )
+        ).where.not(hashed_ssn:
+                      StateFileArchivedIntake.where(state_code: state_code, tax_year: tax_year).pluck(:hashed_ssn)
+      )
+
+      non_archived_archiveables.order(:created_at).select('distinct hashed_ssn, created_at').limit(batch_size)
     end
   end
 end
