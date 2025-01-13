@@ -27,18 +27,9 @@ module StateFile
     def archive_batch
       archived_ids = []
       current_batch&.each do |source_intake|
-        combined_intake_id = "#{state_code}#{source_intake.id}"
-        matching_archived_intakes = StateFileArchivedIntake.where(original_intake_id: combined_intake_id)
-        if matching_archived_intakes.present?
-          Rails.logger.warn("Archive already found for intake #{combined_intake_id}. Continuing with batch.")
-          next
-        end
         archived_intake = StateFileArchivedIntake.new
         archived_intake.state_code = state_code
         archived_intake.tax_year = tax_year
-        archived_intake.original_intake_id = combined_intake_id
-        # create a record so that if an error happens after this, the archiver will not loop forever
-        archived_intake.save
 
         archived_intake.hashed_ssn = source_intake.hashed_ssn
         archived_intake.email_address = source_intake.email_address
@@ -51,7 +42,7 @@ module StateFile
         if source_intake.submission_pdf.attached?
           archived_intake.submission_pdf.attach(source_intake.submission_pdf.blob)
         else
-          Rails.logger.warn("No submission pdf attached to intake #{combined_intake_id}. Continuing with batch.")
+          Rails.logger.warn("No submission pdf attached to intake #{source_intake.id}. Continuing with batch.")
         end
 
         archived_intake.save!

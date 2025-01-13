@@ -116,8 +116,8 @@ RSpec.describe StateFile::Ty23ArchiverService do
 
       describe 'when there is a current batch to archive' do
         let(:archiver) { described_class.new(state_code: state_code, batch_size: 5) }
-        let!(:intake1) { create(archiver.data_source.table_name.singularize, :with_mailing_address, :with_submission_pdf) }
-        let!(:intake2) { create(archiver.data_source.table_name.singularize, :with_mailing_address, :with_submission_pdf) }
+        let!(:intake1) { create(archiver.data_source.table_name.singularize, :with_mailing_address, :with_submission_pdf, hashed_ssn: "fake hashed ssn1") }
+        let!(:intake2) { create(archiver.data_source.table_name.singularize, :with_mailing_address, :with_submission_pdf, hashed_ssn: "fake hashed ssn2") }
         let(:mock_batch) { [intake1, intake2] }
 
         before do
@@ -130,7 +130,7 @@ RSpec.describe StateFile::Ty23ArchiverService do
 
           archived_ids.each do |archived_id|
             source_intake = archiver.data_source.find(archived_id)
-            matching_archived_intakes = StateFileArchivedIntake.where(original_intake_id: "#{state_code}#{archived_id}")
+            matching_archived_intakes = StateFileArchivedIntake.where(hashed_ssn: source_intake.hashed_ssn)
 
             # Verify there is exactly one archived intake for each source intake
             expect(matching_archived_intakes.count).to eq(1)
@@ -166,26 +166,6 @@ RSpec.describe StateFile::Ty23ArchiverService do
           expect {
             archiver.archive_batch
           }.not_to change(StateFileArchivedIntake, :count)
-        end
-      end
-
-      describe 'where there are duplicate ids' do
-        let(:archiver) { described_class.new(state_code: state_code, batch_size: 5) }
-        let!(:intake1) { create(archiver.data_source.table_name.singularize, :with_mailing_address, :with_submission_pdf) }
-        let(:mock_batch) { [intake1, intake1] }
-
-        before do
-          archiver.instance_variable_set(:@current_batch, mock_batch)
-        end
-
-        it 'only archives once' do
-          archived_ids = archiver.archive_batch
-          expect(archived_ids.count).to eq(1)
-          expect {
-            archiver.archive_batch
-          }.not_to change(StateFileArchivedIntake, :count)
-          archived_ids = archiver.archive_batch
-          expect(archived_ids.count).to eq(0)
         end
       end
     end
