@@ -3071,7 +3071,7 @@ en:
       nc_spouse_state_id:
         nc_spouse:
           encourage_sharing: While providing this information is encouraged, it is optional and not required to file your North Carolina taxes.
-          protect_identity: To protect your identity and combat tax fraud, many state revenue agencies are asking people to give their driver’s license or state ID number.
+          protect_identity: To protect your identity and combat tax fraud, many state revenue agencies are requesting that filers provide their driver’s license or state-issued ID number.
           why_ask_this: Why are you asking for this information?
       nc_subtractions:
         edit:
