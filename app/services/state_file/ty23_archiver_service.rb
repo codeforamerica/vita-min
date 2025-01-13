@@ -7,7 +7,7 @@ module StateFile
 
     attr_reader :state_code, :batch_size, :data_source, :tax_year, :current_batch, :cutoff
 
-    def initialize(state_code:, batch_size: 100, cutoff: '2025-01-01')
+    def initialize(state_code:, batch_size: 100, cutoff: '2024-06-01')
       @state_code = state_code
       @batch_size = batch_size
       @data_source = INTAKE_MAP[state_code.to_sym]
@@ -18,8 +18,6 @@ module StateFile
     end
 
     def find_archiveables
-      # query_result = ActiveRecord::Base.connection.exec_query(query_archiveable_intakes)
-      # @current_batch = query_result.pluck('id')
       @current_batch = active_record_query
       Rails.logger.info("Found #{current_batch.count} #{data_source.name.pluralize} to archive: #{current_batch}")
     end
@@ -56,35 +54,6 @@ module StateFile
       archived_ids
     end
 
-    def query_archiveable_intakes
-      <<~SQL
-        SELECT
-          id, hashed_ssn
-        FROM
-          #{data_source.table_name}
-        WHERE id IN (
-          SELECT
-            efs.data_source_id
-          FROM
-            efile_submission_transitions est
-            LEFT JOIN efile_submissions efs ON efs.ID = est.efile_submission_id
-          WHERE
-            est.most_recent = TRUE
-            AND est.to_state = 'accepted'
-            AND est.created_at < '#{cutoff}'
-            AND efs.data_source_type = '#{data_source}'
-          ORDER BY
-            efs.data_source_id ASC
-        )
-        AND hashed_ssn NOT IN (
-          SELECT hashed_ssn
-          FROM state_file_archived_intakes
-          WHERE state_code = '#{state_code}' and tax_year = #{tax_year}
-        )
-        LIMIT #{batch_size}
-      SQL
-    end
-
     def active_record_query
       archiveable_intakes = data_source
                            .where(id:
@@ -103,9 +72,9 @@ module StateFile
       archived_hashed_ssns = StateFileArchivedIntake.where(state_code: state_code, tax_year: tax_year).pluck(:hashed_ssn)
       unarchived_archiveable_intakes = archiveable_intakes.where.not(hashed_ssn: archived_hashed_ssns)
 
-      # There are some 2023 NY accepted intakes with duplicate hashed SSNs, and for these we will only archive the first created
+      # There are some 2023 NY accepted intakes with duplicate hashed SSNs, and for these we will only archive the last one
       unarchived_archiveable_intakes.group_by(&:hashed_ssn).map do |_, intakes_with_same_ssn|
-        intakes_with_same_ssn.min_by(&:created_at)
+        intakes_with_same_ssn.max_by(&:created_at)
       end.first(batch_size)
     end
   end

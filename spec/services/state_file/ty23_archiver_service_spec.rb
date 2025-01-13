@@ -68,7 +68,8 @@ RSpec.describe StateFile::Ty23ArchiverService do
         it 'does not treat the match as archiveable' do
           archiver.find_archiveables
           expect(archiver.current_batch.count).to eq(1)
-          expect(archiver.current_batch).not_to include(intake2)
+          expect(archiver.current_batch).not_to include(intake1)
+          expect(archiver.current_batch).to include(intake2)
         end
       end
 
