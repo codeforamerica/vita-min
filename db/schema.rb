@@ -1317,7 +1317,9 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_16_220546) do
     t.string "primary_job_title"
     t.text "primary_last_four_ssn"
     t.string "primary_last_name"
+    t.integer "primary_lived_or_worked_in_two_or_more_states", default: 0, null: false
     t.string "primary_middle_initial"
+    t.integer "primary_owned_or_held_any_digital_currencies", default: 0, null: false
     t.integer "primary_prior_year_agi_amount"
     t.string "primary_prior_year_signature_pin"
     t.text "primary_signature_pin"
@@ -1374,6 +1376,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_16_220546) do
     t.text "spouse_last_four_ssn"
     t.string "spouse_last_name"
     t.string "spouse_middle_initial"
+    t.integer "spouse_owned_or_held_any_digital_currencies", default: 0, null: false
     t.string "spouse_phone_number"
     t.integer "spouse_prior_year_agi_amount"
     t.string "spouse_prior_year_signature_pin"
