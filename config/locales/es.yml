@@ -2025,6 +2025,7 @@ es:
           subtitle_html: Si no recibiste un código, revisa tu carpeta de spam. Si aún necesitas ayuda para volver a suscribirte, chatea con nosotros.
           subtitle_html_2: Si aún necesitas ayuda para resuscribirte, chatea con nosotros.
           title_html: Hemos enviado tu código a <strong>%{email_address}</strong>
+          verify: Verificar el código
     faq:
       index:
         title: 'Preguntas frecuentes de los contribuyentes de %{state}:'

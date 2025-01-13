@@ -2073,6 +2073,7 @@ en:
           subtitle_html: If you didn’t receive a code, please check your spam folder.
           subtitle_html_2: If you still need help resubscribing, chat with us.
           title_html: We’ve sent your code to <strong>%{email_address}</strong>
+          verify: Verify code
     faq:
       index:
         title: Common questions from %{state} taxpayers
