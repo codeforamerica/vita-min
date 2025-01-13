@@ -4,7 +4,7 @@ module SubmissionBuilder
 
     def document
       form1099g = @kwargs[:form1099g]
-      state_abbreviation = form1099g.intake.state_code.upcase
+      state_abbreviation = form1099g.recipient_state
 
       build_xml_doc("State1099G", documentId: "State1099G-#{form1099g.id}") do |xml|
         if form1099g.payer_name.present?
