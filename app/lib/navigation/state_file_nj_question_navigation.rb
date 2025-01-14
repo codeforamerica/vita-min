@@ -8,11 +8,8 @@ module Navigation
     end
 
     SECTIONS = [
-      Navigation::NavigationSection.new("state_file.navigation.section_1", [
+      Navigation::NavigationSection.new("", [
                                           Navigation::NavigationStep.new(StateFile::Questions::EligibleController),
-                                        ],
-                                        false),
-      Navigation::NavigationSection.new("state_file.navigation.section_2", [
                                           Navigation::NavigationStep.new(StateFile::Questions::ContactPreferenceController),
                                           # Phone number only shows if the contact pref is text, which only shows if the text pref feature is toggled on by Flipper
                                           Navigation::NavigationStep.new(StateFile::Questions::PhoneNumberController),
@@ -21,17 +18,11 @@ module Navigation
                                           Navigation::NavigationStep.new(StateFile::Questions::CodeVerifiedController),
                                           Navigation::NavigationStep.new(StateFile::Questions::NotificationPreferencesController),
                                           Navigation::NavigationStep.new(StateFile::Questions::SmsTermsController),
-                                        ], false),
-      Navigation::NavigationSection.new("state_file.navigation.section_3", [
                                           Navigation::NavigationStep.new(StateFile::Questions::TermsAndConditionsController),
                                           Navigation::NavigationStep.new(StateFile::Questions::DeclinedTermsAndConditionsController, false),
-                                        ], false),
-      Navigation::NavigationSection.new("state_file.navigation.section_4", [
                                           Navigation::NavigationStep.new(StateFile::Questions::InitiateDataTransferController),
                                           Navigation::NavigationStep.new(StateFile::Questions::CanceledDataTransferController, false), # show? false
                                           Navigation::NavigationStep.new(StateFile::Questions::WaitingToLoadDataController),
-                                        ], false),
-      Navigation::NavigationSection.new("state_file.navigation.section_5", [
                                           Navigation::NavigationStep.new(StateFile::Questions::PostDataTransferController, false),
                                           # Federal info does not show to users
                                           Navigation::NavigationStep.new(StateFile::Questions::FederalInfoController),
