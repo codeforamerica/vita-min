@@ -774,8 +774,16 @@ es:
           never_married: Nunca se ha casado
           north_american_resident: 'Residente en EE.UU., Canadá o México el año pasado:'
           owner_or_holder_of_any_digital_assets: "."
+          pay_due_balance_directly: "."
+          preferred_written_language: "."
+          presidential_campaign_fund: "."
           primary_us_citizen: "¿Ciudadano estadounidense?"
           provided_over_half_own_support: "¿Aportó esta persona más del 50% de su propia manutención?"
+          receive_written_communication: "."
+          refund_payment_method: "."
+          refund_payment_method_direct_deposit: "."
+          refund_payment_method_savings_bond: "."
+          refund_payment_method_split: "."
           spouse_dob: Fecha de nacimiento de su cónyuge
           spouse_first_name: Nombre legal de su cónyuge
           spouse_job_title: Puesto de trabajo del cónyuge
@@ -843,14 +851,6 @@ es:
           q13_spouse_race: "¿Raza del cónyuge?"
           q14_primary_ethnicity: "¿Etnicidad?"
           q15_spouse_ethnicity: "¿Origen étnico del cónyuge?"
-          q1_preferred_written_language: Si la respuesta es afirmativa, ¿en qué lengua?
-          q1_receive_written_communication: "¿Recibe comunicaciones escritas del IRS en un idioma distinto del inglés?"
-          q2_presidential_campaign_fund: Fondo de la Campaña Electoral Presidencial $3 para este fondo
-          q3_refund_payment_method: 'Si se le debe un reembolso, ¿le gustaría:'
-          q3_refund_payment_method_direct_deposit: a. Depósito directo
-          q3_refund_payment_method_savings_bond: b. Compra de bonos de ahorro de EE.UU.
-          q3_refund_payment_method_split: c. Dividir el reembolso entre diferentes cuentas
-          q4_pay_due_balance_directly: Si tiene un saldo pendiente, ¿le gustaría pagar directamente desde su cuenta bancaria?
           q5_federal_disaster_area: "¿Ha sido declarado residente en una zona catastrófica federal?"
           q5_federal_disaster_area_where: Si es así, ¿en qué lugar?
           q6_letter_from_irs: "¿Recibió una carta del IRS?"

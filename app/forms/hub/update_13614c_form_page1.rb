@@ -46,7 +46,14 @@ module Hub
                        :spouse_was_full_time_student,
                        :spouse_us_citizen,
                        :never_married,
-                       :got_married_during_tax_year
+                       :got_married_during_tax_year,
+                       :receive_written_communication,
+                       :preferred_written_language,
+                       :presidential_campaign_fund_donation,
+                       :refund_payment_method,
+                       :savings_purchase_bond,
+                       :savings_split_refund,
+                       :balance_pay_from_bank
 
     attr_accessor :client
 
