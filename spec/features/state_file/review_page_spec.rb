@@ -23,6 +23,8 @@ RSpec.feature "Completing a state file intake", active_job: true do
           expect(page).to have_text "W2"
           expect(page).to have_text "1099R"
           expect(page).to have_text "1099G"
+          expect(page).not_to have_text "1099INT"
+          expect(page).not_to have_text "SSA1099"
           click_on I18n.t("general.edit")
         end
 
