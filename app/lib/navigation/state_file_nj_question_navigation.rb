@@ -50,6 +50,7 @@ module Navigation
                                           Navigation::NavigationStep.new(StateFile::Questions::NjHomeownerPropertyTaxController), # Line 40a
                                           Navigation::NavigationStep.new(StateFile::Questions::NjTenantPropertyTaxWorksheetController), # Line 40a
                                           Navigation::NavigationStep.new(StateFile::Questions::NjTenantRentPaidController), # Line 40a
+                                          # question after property taxes set in NjPropertyTaxFlowOffRamp
                                           Navigation::NavigationStep.new(StateFile::Questions::NjSalesUseTaxController), # Line 51
                                           Navigation::NavigationStep.new(StateFile::Questions::NjEstimatedTaxPaymentsController), # Line 57
                                           Navigation::NavigationStep.new(StateFile::Questions::PrimaryStateIdController), # Footer

@@ -162,8 +162,8 @@ RSpec.feature "Completing a state file intake", active_job: true do
       continue
     end
 
-    def expect_estimated_tax_page
-      expect(page).to have_text I18n.t("state_file.questions.nj_estimated_tax_payments.edit.title", filing_year: filing_year)
+    def expect_page_after_property_tax
+      expect(page).to have_text I18n.t("state_file.questions.nj_sales_use_tax.edit.title", filing_year: filing_year)
     end
 
     def expect_ineligible_page(property, reason)
@@ -218,24 +218,14 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to be_axe_clean
       continue
 
-      # estimated tax payments
-      expect(page).to be_axe_clean
-      fill_in I18n.t('state_file.questions.nj_estimated_tax_payments.edit.label', filing_year: MultiTenantService.statefile.current_tax_year), with: 1000
-      continue
-
       # sales use tax
       expect(page).to be_axe_clean
       choose I18n.t('general.negative')
       continue
 
-      # Gubernatorial elections fund
+      # estimated tax payments
       expect(page).to be_axe_clean
-      within_fieldset(I18n.t('state_file.questions.nj_gubernatorial_elections.edit.primary_contribute')) do 
-        choose I18n.t('general.affirmative')
-      end
-      within_fieldset(I18n.t('state_file.questions.nj_gubernatorial_elections.edit.spouse_contribute')) do 
-        choose I18n.t('general.affirmative')
-      end
+      fill_in I18n.t('state_file.questions.nj_estimated_tax_payments.edit.label', filing_year: MultiTenantService.statefile.current_tax_year), with: 1000
       continue
 
       # Driver License
@@ -243,12 +233,6 @@ RSpec.feature "Completing a state file intake", active_job: true do
       choose I18n.t('state_file.questions.nj_primary_state_id.nj_primary.no_id')
       continue
       choose I18n.t('state_file.questions.nj_spouse_state_id.nj_spouse.no_id')
-      continue
-
-      # Tax Refund
-      expect(page).to be_axe_clean
-      expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.tax_refund.edit.title_html", refund_amount: 4619, state_name: "New Jersey"))
-      choose I18n.t('state_file.questions.tax_refund.edit.mail')
       continue
 
       # Review
@@ -276,13 +260,29 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to be_axe_clean
       continue
 
+      # Tax Refund
+      expect(page).to be_axe_clean
+      expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.tax_refund.edit.title_html", refund_amount: 4619, state_name: "New Jersey"))
+      choose I18n.t('state_file.questions.tax_refund.edit.mail')
+      continue
+
+      # Gubernatorial elections fund
+      expect(page).to be_axe_clean
+      within_fieldset(I18n.t('state_file.questions.nj_gubernatorial_elections.edit.primary_contribute')) do 
+        choose I18n.t('general.affirmative')
+      end
+      within_fieldset(I18n.t('state_file.questions.nj_gubernatorial_elections.edit.spouse_contribute')) do 
+        choose I18n.t('general.affirmative')
+      end
+      continue
+
       expect(page).to be_axe_clean
       check I18n.t('state_file.questions.esign_declaration.edit.primary_esign')
       check I18n.t('state_file.questions.esign_declaration.edit.spouse_esign')
       click_on I18n.t('state_file.questions.esign_declaration.edit.submit')
       
       expect(page).to be_axe_clean
-      expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", filing_year: 2024, state_name: "New Jersey")
+      expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", filing_year: 2024, state_name: "New Jersey")      
     end
 
     it "handles property tax neither flow", required_schema: "nj" do
@@ -290,7 +290,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       advance_to_property_tax_page
       choose_household_rent_own("neither")
       expect_ineligible_page(nil, "neither")
-      expect_estimated_tax_page
+      expect_page_after_property_tax
     end
 
     context "when tenant" do
@@ -300,7 +300,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
         choose_household_rent_own("tenant")
         select_tenant_eligibility(["tenant_home_subject_to_property_taxes"])
         fill_rent_paid(10000)
-        expect_estimated_tax_page
+        expect_page_after_property_tax
       end
 
       it "handles property tax ineligible tenant flow", required_schema: "nj" do
@@ -309,7 +309,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
         choose_household_rent_own("tenant")
         select_tenant_eligibility([])
         expect_ineligible_page("on_rental", "property_taxes")
-        expect_estimated_tax_page
+        expect_page_after_property_tax
       end
 
       it "handles tenant none of the above checkbox", required_schema: "nj" do
@@ -329,7 +329,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
         expect(page).to have_field(I18n.t(none_checkbox), checked: false)
         continue
         expect_ineligible_page("on_rental", "property_taxes")
-        expect_estimated_tax_page
+        expect_page_after_property_tax
       end
     end
 
@@ -340,7 +340,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
         choose_household_rent_own("homeowner")
         select_homeowner_eligibility(["homeowner_home_subject_to_property_taxes"])
         fill_property_tax_paid(10000)
-        expect_estimated_tax_page
+        expect_page_after_property_tax
       end
 
       it "handles property tax ineligible homeowner flow", required_schema: "nj" do
@@ -349,7 +349,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
         choose_household_rent_own("homeowner")
         select_homeowner_eligibility([])
         expect_ineligible_page("on_home", "property_taxes")
-        expect_estimated_tax_page
+        expect_page_after_property_tax
       end
 
       it "handles homeowner none of the above checkbox", required_schema: "nj" do
@@ -369,7 +369,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
         expect(page).to have_field(I18n.t(none_checkbox), checked: false)
         continue
         expect_ineligible_page("on_home", "property_taxes")
-        expect_estimated_tax_page
+        expect_page_after_property_tax
       end
     end
 
@@ -382,7 +382,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
         fill_property_tax_paid(10000)
         select_tenant_eligibility(["tenant_home_subject_to_property_taxes"])
         fill_rent_paid(10000)
-        expect_estimated_tax_page
+        expect_page_after_property_tax
       end
 
       it "handles property tax both flow - eligible homeowner & ineligible tenant", required_schema: "nj" do
@@ -393,7 +393,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
         fill_property_tax_paid(10000)
         select_tenant_eligibility([])
         expect_ineligible_page("on_rental", "property_taxes")
-        expect_estimated_tax_page
+        expect_page_after_property_tax
       end
 
       it "handles property tax both flow - ineligible homeowner & eligible tenant", required_schema: "nj" do
@@ -404,7 +404,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
         expect_ineligible_page("on_home", "property_taxes")
         select_tenant_eligibility(["tenant_home_subject_to_property_taxes"])
         fill_rent_paid(10000)
-        expect_estimated_tax_page
+        expect_page_after_property_tax
       end
     end
 
@@ -418,7 +418,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
         choose_household_rent_own("homeowner")
         select_homeowner_eligibility(["homeowner_home_subject_to_property_taxes"])
         # skips property tax paid page
-        expect_estimated_tax_page
+        expect_page_after_property_tax
       end
 
       it "handles property tax flow - eligible tenant", required_schema: "nj" do
@@ -430,7 +430,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
         choose_household_rent_own("tenant")
         select_tenant_eligibility(["tenant_home_subject_to_property_taxes"])
         # skips rent paid page
-        expect_estimated_tax_page
+        expect_page_after_property_tax
       end
 
       it "handles property tax flow - when both and eligible homeowner", required_schema: "nj" do
@@ -443,7 +443,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
         select_homeowner_eligibility(["homeowner_home_subject_to_property_taxes"])
         # skips property tax paid page
         # skips tenant eligibility page (because they only need to qualify for one type of eligibility)
-        expect_estimated_tax_page
+        expect_page_after_property_tax
       end
 
       it "handles property tax both flow - ineligible homeowner and eligible tenant", required_schema: "nj" do
@@ -457,7 +457,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
         expect_ineligible_page("on_home", "property_taxes")
         select_tenant_eligibility(["tenant_home_subject_to_property_taxes"])
         # skips rent paid page
-        expect_estimated_tax_page
+        expect_page_after_property_tax
       end
     end
   end
