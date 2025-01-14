@@ -3874,20 +3874,26 @@ es:
           <strong>Estamos cerrados por la temporada de impuestos. Desafortunadamente, no puede presentar tu declaración estatal con nosotros este año.</strong><br /><br />
           ¿Ya presentó tus impuestos estatales con nosotros? <strong>Puedes descargar una copia de tu declaración estatal hasta el 31 de diciembre de 2024</strong><br /><br />
         header: Una herramienta sin costo para presentar impuestos estatales para los contribuyentes utilizando IRS Direct File
+        helper_heading_html: "<strong>¿Cómo funciona este servicio?</strong>"
         section1_html: |
-          <strong>¿Cómo funciona?</strong>
-          <ol class="list--numbered">
-          <li>Presenta y envía tu declaración federal con <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">IRS Direct File</a> antes de usar esta herramienta.</li>
-          <li>Haz clic en "continuar para presentar tus impuestos estatales"</li>
-          <li>Responde algunas preguntas para asegurarte de que este sea el servicio adecuado para ti. <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/state">Obtén más información sobre quién es elegible para este año tributario</a>.</li>
-          <li>Transfiere tu declaración federal para completar la mayor parte de tu declaración estatal.</li>
-          <li>Responde algunas preguntas adicionales para maximizar tu reembolso de impuestos estatales.</li>
-          <li>¡Presenta tu declaración electrónicamente sin costo!</li>
+          <ol class="list--numbered" style="padding-left: 2rem">
+            <li>Presenta y envía tu declaración federal con <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">IRS Direct File</a> antes de usar esta herramienta.</li>
+            <li>Sigue el enlace desde Direct File a FileYourStateTaxes.</li>
+            <li>Responde algunas preguntas para asegurarte de que este sea el servicio adecuado para ti. <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/state">Obtén más información</a> sobre quién es elegible para este año tributario.</li>
+            <li>Transfiere tu declaración federal para completar la mayor parte de tu declaración estatal.</li>
+            <li>Responde algunas preguntas adicionales para maximizar tu reembolso de impuestos estatales.</li>
+            <li>¡Presenta tu declaración electrónicamente sin costo!</li>
           </ol>
+          <br /><br />
           <strong>Para aprender más, consulta las <a href=%{faq_link}>preguntas frecuentes</a>.</strong>
-        subheader_1_html: "<strong>FileYourStateTaxes</strong> se integra con <strong>IRS Direct File</strong> para ayudarte a completar tu declaración de impuestos estatales <strong>sin costo.</strong>"
-        subheader_2_html: El IRS Direct File ahora está ampliamente disponible para todos los contribuyentes elegibles hasta el 15 de abril de 2024. Para obtener más información sobre el cronograma y la elegibilidad, o para comenzar a presentar tu declaración federal, ve a <strong><a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">directfile.irs.gov.</a></strong>
-        subheader_3_html: "¿Ya presentaste tu declaración federal con IRS Direct File y necesitas completar tu declaración estatal? <a href=%{login_path}>Inicia sesión aquí</a>."
+        subheader_1_html: |
+          FileYourStateTaxes se conecta con IRS Direct File para ayudarte a completar tu declaración de impuestos estatales sin costo.
+          <br /><br />
+          Este sitio abrirá al inicio de la temporada de impuestos 2025 y permanecerá abierto hasta el 15 de octubre de 2025 para que presentes tus declaraciones de impuestos estatales.
+          <br /><br />
+          <strong>En 2025, este servicio admitirá la presentación de declaraciones de impuestos estatales en Arizona, Idaho, Carolina del Norte, Nueva Jersey y Maryland.</strong>
+        subheader_2_html: Para comenzar a presentar tu declaración federal, visita <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">directfile.irs.gov.</a>
+        subheader_3_html: "<strong>¿Ya presentaste tu declaración federal con IRS Direct File y necesitas completar tu declaración estatal?</strong> <a href=%{login_path}>Inicia sesión aquí</a>."
       card_postscript:
         responses_saved_html: Tus respuestas han sido guardadas. Si necesitas hacer una pausa, puedes regresar e iniciar sesión en tu cuenta en <a href="https://fileyourstatetaxes.org">fileyourstatetaxes.org</a>.
       coming_soon:
