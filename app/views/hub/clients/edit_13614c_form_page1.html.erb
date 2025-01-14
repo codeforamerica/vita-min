@@ -53,6 +53,9 @@
         <%= f.cfa_select(:was_full_time_student, t(".fields.was_full_time_student"), yes_no_options_for_select) %>
         <%= f.cfa_select(:had_disability, t(".fields.had_disability"), yes_no_options_for_select) %>
         <%= f.cfa_select(:was_blind, t(".fields.blind"), yes_no_options_for_select) %>
+        <%= f.cfa_select(:primary_owned_or_held_any_digital_currencies,
+          t(".fields.owner_or_holder_of_any_digital_assets"),
+          yes_no_options_for_select) %>
       </div>
 
       <div id="spouse-additional-info" class="hub-form__row">
@@ -68,6 +71,9 @@
         <%= f.cfa_select(:spouse_was_full_time_student, t(".fields.was_full_time_student"), yes_no_options_for_select) %>
         <%= f.cfa_select(:spouse_had_disability, t(".fields.had_disability"), yes_no_options_for_select) %>
         <%= f.cfa_select(:spouse_was_blind, t(".fields.blind"), yes_no_options_for_select) %>
+        <%= f.cfa_select(:spouse_owned_or_held_any_digital_currencies,
+          t(".fields.owner_or_holder_of_any_digital_assets"),
+          yes_no_options_for_select) %>
       </div>
 
       <div class="hub-form__row">
