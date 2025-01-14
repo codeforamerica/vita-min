@@ -173,9 +173,9 @@
 #  primary_job_title                                    :string
 #  primary_last_four_ssn                                :text
 #  primary_last_name                                    :string
-#  primary_lived_or_worked_in_two_or_more_states        :integer          default(0), not null
+#  primary_lived_or_worked_in_two_or_more_states        :integer          default("unfilled"), not null
 #  primary_middle_initial                               :string
-#  primary_owned_or_held_any_digital_currencies         :integer          default(0), not null
+#  primary_owned_or_held_any_digital_currencies         :integer          default("unfilled"), not null
 #  primary_prior_year_agi_amount                        :integer
 #  primary_prior_year_signature_pin                     :string
 #  primary_signature_pin                                :text
@@ -231,7 +231,7 @@
 #  spouse_last_four_ssn                                 :text
 #  spouse_last_name                                     :string
 #  spouse_middle_initial                                :string
-#  spouse_owned_or_held_any_digital_currencies          :integer          default(0), not null
+#  spouse_owned_or_held_any_digital_currencies          :integer          default("unfilled"), not null
 #  spouse_phone_number                                  :string
 #  spouse_prior_year_agi_amount                         :integer
 #  spouse_prior_year_signature_pin                      :string
