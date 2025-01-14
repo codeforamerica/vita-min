@@ -3834,7 +3834,7 @@ en:
           <ol class="list--numbered"  style="padding-left: 2rem">
             <li>File and submit your federal return with <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">IRS Direct File</a> before using this service.</li>
             <li>Follow the link from Direct File to FileYourStateTaxes.</li>
-            <li>Answer a few questions to make sure this is the right service for you. <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/state">Learn more about who is eligible for this tax year</a>.</li>
+            <li>Answer a few questions to make sure this is the right service for you. <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/state">Learn more</a> about who is eligible for this tax year.</li>
             <li>Transfer your federal return to fill in most of your state return.</li>
             <li>Answer a few additional questions to help maximize your state tax refund.</li>
             <li>E-file your return for free!</li>
@@ -3847,7 +3847,7 @@ en:
           This site will open at the start of the 2025 tax filing season and remain open until October 15, 2025 for you to file your state tax returns.
           <br /><br />
           <strong>In 2025, this service will support filing state tax returns in Arizona, Idaho, North Carolina, New Jersey, and Maryland.</strong>
-        subheader_2_html: To start filing your federal return, go to <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">directfile.irs.gov</a>
+        subheader_2_html: To start filing your federal return, go to <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">directfile.irs.gov</a>.
         subheader_3_html: "<strong>Already filed your federal return with IRS Direct File and need to complete your state return?</strong> <a href=%{login_path}>Sign in here</a>."
       card_postscript:
         responses_saved_html: Your responses are saved. If you need a break, you can come back and log in to your account at <a href="https://fileyourstatetaxes.org">fileyourstatetaxes.org</a>.
