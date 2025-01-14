@@ -103,6 +103,7 @@ module Questions
         :north_american_resident,
         :disabled,
         :was_married,
+        :has_ip_pin,
       ]
       permitted_params = params.require(:dependent).permit(
         *dependent_attribute_keys, *birth_date_param_keys
