@@ -5,6 +5,24 @@
     </div>
     <div id="income-info" class="white-group">
       <div class="spacing-below-5">
+        <p><%= t(".income_forms_collected") %></p>
+        <ul class="list--bulleted">
+          <% if current_intake.state_file_w2s.present? %>
+            <li>W2</li>
+          <% end %>
+          <% if current_intake.state_file1099_rs.present? %>
+            <li>1099R</li>
+          <% end %>
+          <% if current_intake.direct_file_data.fed_unemployment.positive? %>
+            <li>1099G</li>
+          <% end %>
+          <% if current_intake.direct_file_json_data.interest_reports.count.positive? %>
+            <li>1099INT</li>
+          <% end %>
+          <% if current_intake.direct_file_data.fed_ssb.positive? || current_intake.direct_file_data.fed_taxable_ssb.positive? %>
+            <li>SSA1099</li>
+          <% end %>
+        </ul>
         <%= link_to StateFile::Questions::IncomeReviewController.to_path_helper(return_to_review: "y"), class: "button--small" do %>
           <%= t("general.edit") %>
           <span class="sr-only"><%= t(".income_details") %></span>

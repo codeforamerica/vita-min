@@ -3715,6 +3715,7 @@ en:
           income_details: Income Details
           your_refund: Your refund amount
           your_tax_owed: Your taxes owed
+          income_forms_collected: "Income form(s) collected:"
       sms_terms:
         edit:
           term: When you opt-in to the service, we will send you an SMS message to confirm your signup. We will also text you updates on your tax return (message frequency will vary) and/or OTP/2FA codes (one message per request).

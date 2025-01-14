@@ -3689,6 +3689,7 @@ es:
           income_details: Detalles de ingresos
           your_refund: La cantidad de tu reembolso
           your_tax_owed: Los impuestos que debes
+          income_forms_collected: "Formulario(s) de ingresos recopilados:"
       sms_terms:
         edit:
           term: Cuando te inscribas en el servicio, te enviaremos un mensaje de texto (SMS) para confirmar tu registro. También te enviaremos actualizaciones sobre tu declaración de impuestos (la frecuencia de los mensajes puede variar) y/o códigos OTP/2FA (un mensaje por solicitud).
