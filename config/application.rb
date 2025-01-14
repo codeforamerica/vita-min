@@ -123,7 +123,7 @@ module VitaMin
     config.ctc_end_of_login = et.parse("2024-12-31 23:59:00")
 
     # StateFile
-    config.state_file_start_of_open_intake = et.parse('2025-01-15 09:00:00')
+    config.state_file_start_of_open_intake = et.parse('2025-01-15 00:00:00')
     config.state_file_end_of_new_intakes = pt.parse('2025-04-15 23:59:59')
     config.state_file_withdrawal_date_deadline_ny = et.parse('2024-04-15 23:59:59')
     config.state_file_withdrawal_date_deadline_md = et.parse('2025-04-30 23:59:59')
