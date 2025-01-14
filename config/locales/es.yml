@@ -767,7 +767,8 @@ es:
           issued_identity_pin: "¿Usted, su cónyuge o las personas a su cargo han sido víctimas de un robo de identidad relacionado con los impuestos o han recibido un PIN de protección de identidad?"
           job_title: Título de puesto
           last_name: Apellido
-          lived_with_spouse: B. ¿Vivió con su cónyuge durante alguna parte de los últimos seis meses de 2021?
+          lived_or_worked_in_two_or_more_states: "¿Usted vivió o trabajó en dos o más estados en 2024?"
+          lived_with_spouse: B. ¿Vivió con su cónyuge durante alguna parte de los últimos seis meses de 2024?
           middle_initial: Inicial de su segundo nombre
           months_in_home: "# o número de meses que vivió en su casa el año pasado:"
           never_married: Nunca se ha casado

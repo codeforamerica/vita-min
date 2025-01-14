@@ -22,6 +22,7 @@ module Hub
                        :primary_birth_date_month,
                        :primary_birth_date_day,
                        :primary_job_title,
+                       :primary_lived_or_worked_in_two_or_more_states,
                        :primary_us_citizen,
                        :street_address,
                        :city,

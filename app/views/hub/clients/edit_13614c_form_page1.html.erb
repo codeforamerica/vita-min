@@ -80,6 +80,12 @@
         <%= f.cfa_input_field(:email_address, t(".fields.email_optional")) %>
       </div>
 
+      <div class="hub-form__row">
+        <%= f.cfa_select(:primary_lived_or_worked_in_two_or_more_states,
+          t(".fields.lived_or_worked_in_two_or_more_states"),
+          yes_no_options_for_select) %>
+      </div>
+
       <div id="marital-status-fields">
         <h2>Part II – Marital Status and Household Information</h2>
         <hr style="margin-top: 0;"/>
