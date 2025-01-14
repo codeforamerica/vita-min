@@ -2227,12 +2227,17 @@ en:
         title_closed: Our free %{state_name} tax filing service is closed for the season
         welcome_back: Welcome back %{user_name}!
     navigation:
+      deductions_and_credits: Deductions and Credits
+      household: Your Household
+      income: Income
+      review_and_submit: Review and Submit
       section_1: 'Section 1: Can you use this service'
       section_2: 'Section 2: Create account'
       section_3: 'Section 3: Terms and conditions'
       section_4: 'Section 4: Transfer your data'
       section_5: 'Section 5: Complete your state tax return'
       section_6: 'Section 6: Submit your state taxes'
+      taxes: Your 2024 Taxes
     notification_mailer:
       user_message:
         unsubscribe: If you would like to unsubscribe from emails, click <a href="%{unsubscribe_link}">here</a>.

@@ -33,5 +33,9 @@ module Navigation
         }
       end
     end
+
+    def self.show_progress?(controller_class)
+      true
+    end
   end
 end
