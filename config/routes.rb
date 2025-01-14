@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  devise_for :state_file_archived_intake_requests
   active_state_codes = StateFile::StateInformationService.active_state_codes
 
   active_state_codes.each do |code|
@@ -552,6 +551,8 @@ Rails.application.routes.draw do
 
     get '/.well-known/pki-validation/:id', to: 'public_pages#pki_validation'
   end
+
+  devise_for :state_file_archived_intake_requests
 
   constraints(Routes::StateFileDomain.new) do
     scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do

@@ -36,6 +36,19 @@ describe StateFile::ArchivedIntakes::ArchivedIntakeController, type: :controller
       expect(result.state_file_archived_intake_request).to eq request_instance
     end
 
+    context 'when current return is nil' do
+      before do
+        allow(controller).to receive(:current_request).and_return(nil)
+      end
+      it 'create a StateFileArchivedIntakeAccessLog' do
+        result = controller.create_state_file_access_log(event_type)
+
+        expect(result).to be_a(StateFileArchivedIntakeAccessLog)
+        expect(result.event_type).to eq event_type
+        expect(result.state_file_archived_intake_request).to eq nil
+      end
+    end
+
     describe '#check_feature_flag' do
       context 'when the feature flag is enabled' do
         before do

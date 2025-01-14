@@ -45,10 +45,10 @@
 <% end %>
 
 <% if Flipper.enabled?(:get_your_pdf) %>
-<div>
-    <%= t(".looking_for_return_html")%>
-      <div class = "spacing-above-10">
-        <%= link_to t(".tax_return_link"), state_file_archived_intakes_edit_email_address_path %>
-      </div>
-</div>
+  <div>
+      <%= t(".looking_for_return_html")%>
+        <div class = "spacing-above-10">
+          <%= link_to t(".tax_return_link"), state_file_archived_intakes_edit_email_address_path %>
+        </div>
+  </div>
 <% end %>
