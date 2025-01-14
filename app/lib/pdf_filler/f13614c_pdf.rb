@@ -75,7 +75,6 @@ module PdfFiller
       )
       answers.merge!(
         keep_and_normalize({
-          "form1[0].page1[0].yourEmailAddress[0]" => @intake.email_address,
           "form1[0].page1[0].maritalStatus[0].statusNeverMarried[0]" => @intake.ever_married_no?,
           "form1[0].page1[0].maritalStatus[0].statusMarried[0]" => (@intake.ever_married_yes? && @intake.married_yes? && @intake.separated_no?),
           "form1[0].page1[0].maritalStatus[0].statusLegallySeparated[0].statusLegallySeparated[0]" => (@intake.ever_married_yes? && @intake.married_yes? && @intake.separated_yes?),
