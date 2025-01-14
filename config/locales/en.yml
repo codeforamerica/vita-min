@@ -765,8 +765,16 @@ en:
           never_married: Never Married
           north_american_resident: 'Resident of US, CAN or MEX last year:'
           owner_or_holder_of_any_digital_assets: Owner or holder of any digital assets
+          pay_due_balance_directly: If they have a balance due, would they like to make a payment directly from their bank account?
+          preferred_written_language: If yes, which language?
+          presidential_campaign_fund: Presidential Election Campaign Fund $3 to go to this fund
           primary_us_citizen: U.S. citizen?
           provided_over_half_own_support: Did this person provide more than 50% of his/ her own support?
+          receive_written_communication: Receive written communications from the IRS in a language other than English?
+          refund_payment_method: 'If you are due a refund, would you like:'
+          refund_payment_method_direct_deposit: a. Direct Deposit
+          refund_payment_method_savings_bond: b. Purchase U.S. Savings Bond
+          refund_payment_method_split: c. Split refund between different accounts
           spouse_dob: Spouse's DOB
           spouse_first_name: Spouse’s First Name
           spouse_job_title: Spouse’s Job Title
@@ -834,14 +842,6 @@ en:
           q13_spouse_race: Spouse’s race?
           q14_primary_ethnicity: Ethnicity?
           q15_spouse_ethnicity: Spouse’s ethnicity?
-          q1_preferred_written_language: If yes, which language?
-          q1_receive_written_communication: Receive written communications from the IRS in a language other than English?
-          q2_presidential_campaign_fund: Presidential Election Campaign Fund $3 to go to this fund
-          q3_refund_payment_method: 'If you are due a refund, would you like:'
-          q3_refund_payment_method_direct_deposit: a. Direct Deposit
-          q3_refund_payment_method_savings_bond: b. Purchase U.S. Savings Bond
-          q3_refund_payment_method_split: c. Split refund between different accounts
-          q4_pay_due_balance_directly: If they have a balance due, would they like to make a payment directly from their bank account?
           q5_federal_disaster_area: Declared living in a federal disaster area?
           q5_federal_disaster_area_where: If yes, where?
           q6_letter_from_irs: Received a letter from the IRS?
