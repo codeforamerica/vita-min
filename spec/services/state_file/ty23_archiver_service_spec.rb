@@ -51,11 +51,11 @@ RSpec.describe StateFile::Ty23ArchiverService do
         end
       end
 
-      context 'when there are two archiveable intakes with the same hashed_ssn' do
-        let(:intake1) { create(archiver.data_source.table_name.singularize, created_at: Date.parse("2023-04-01"), hashed_ssn: "fake hashed ssn") }
+      context 'when there are two archiveable intakes with the same email' do
+        let(:intake1) { create(archiver.data_source.table_name.singularize, created_at: Date.parse("2023-04-01"), hashed_ssn: "fake hashed ssn", email_address: "test@email.com") }
         let(:intake2) {
           create(archiver.data_source.table_name.singularize, created_at: Date.parse("2023-04-02"),
-                 email_address: intake1.email_address, hashed_ssn: intake1.hashed_ssn)
+                 email_address: intake1.email_address, hashed_ssn: "fake hashed ssn2")
         }
         let(:submission1) { create(:efile_submission, :for_state, :accepted, data_source: intake1, created_at: Date.parse("2023-04-01")) }
         let(:submission2) { create(:efile_submission, :for_state, :accepted, data_source: intake2, created_at: Date.parse("2023-04-02")) }
@@ -123,6 +123,21 @@ RSpec.describe StateFile::Ty23ArchiverService do
         let(:intake) { create(archiver.data_source.table_name.singularize, created_at: Date.parse("2023-04-01"), hashed_ssn: "fake hashed ssn") }
         let(:submission) { create(:efile_submission, :for_state, :accepted, data_source: intake, created_at: Date.parse("2023-04-01")) }
         let!(:archived_intake) { create(:state_file_archived_intake, intake: intake, archiver: archiver) }
+
+        before do
+          submission.efile_submission_transitions.last.update(created_at: Date.parse("2023-04-01"))
+        end
+
+        it 'does not add it to the archiveable batch' do
+          archiver.find_archiveables
+          expect(archiver.current_batch.count).to eq(0)
+        end
+      end
+
+      context 'when an intake has no email address' do
+        let(:archiver) { described_class.new(state_code: state_code) }
+        let(:intake) { create(archiver.data_source.table_name.singularize, created_at: Date.parse("2023-04-01"), email_address: nil, hashed_ssn: "fake hashed ssn") }
+        let(:submission) { create(:efile_submission, :for_state, :accepted, data_source: intake, created_at: Date.parse("2023-04-01")) }
 
         before do
           submission.efile_submission_transitions.last.update(created_at: Date.parse("2023-04-01"))
