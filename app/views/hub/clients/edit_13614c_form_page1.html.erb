@@ -53,6 +53,9 @@
         <%= f.cfa_select(:was_full_time_student, t(".fields.was_full_time_student"), yes_no_options_for_select) %>
         <%= f.cfa_select(:had_disability, t(".fields.had_disability"), yes_no_options_for_select) %>
         <%= f.cfa_select(:was_blind, t(".fields.blind"), yes_no_options_for_select) %>
+        <%= f.cfa_select(:issued_identity_pin,
+          t(".fields.issued_an_identity_protection_pin"),
+          yes_no_options_for_select) %>
         <%= f.cfa_select(:primary_owned_or_held_any_digital_currencies,
           t(".fields.owner_or_holder_of_any_digital_assets"),
           yes_no_options_for_select) %>
@@ -71,6 +74,9 @@
         <%= f.cfa_select(:spouse_was_full_time_student, t(".fields.was_full_time_student"), yes_no_options_for_select) %>
         <%= f.cfa_select(:spouse_had_disability, t(".fields.had_disability"), yes_no_options_for_select) %>
         <%= f.cfa_select(:spouse_was_blind, t(".fields.blind"), yes_no_options_for_select) %>
+        <%= f.cfa_select(:spouse_issued_identity_pin,
+          t(".fields.issued_an_identity_protection_pin"),
+          yes_no_options_for_select) %>
         <%= f.cfa_select(:spouse_owned_or_held_any_digital_currencies,
           t(".fields.owner_or_holder_of_any_digital_assets"),
           yes_no_options_for_select) %>
@@ -78,9 +84,6 @@
 
       <div class="hub-form__row">
         <span style="background-color: #e5e5e5"><%= f.cfa_select(:claimed_by_another, t(".fields.claimed_by_another"), yes_no_options_for_select) %></span>
-      </div>
-      <div class="hub-form__row">
-        <%= f.cfa_select(:issued_identity_pin, t(".fields.issued_identity_pin"), yes_no_options_for_select) %>
       </div>
       <div class="hub-form__row">
         <%= f.cfa_input_field(:email_address, t(".fields.email_optional")) %>

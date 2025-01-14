@@ -34,6 +34,7 @@ module Hub
                        :spouse_last_name,
                        :spouse_middle_initial,
                        :spouse_owned_or_held_any_digital_currencies,
+                       :spouse_issued_identity_pin,
                        :was_blind,
                        :spouse_was_blind,
                        :spouse_birth_date_year,
