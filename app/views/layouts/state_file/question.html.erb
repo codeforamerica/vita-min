@@ -15,7 +15,7 @@
             <%= link_to t("general.back"), prev_path %>
           </div>
         <% end %>
-        <main role="main">
+        <div class="main-content-inner">
           <% if illustration_path.present? %>
             <div class="question__illustration">
               <%= image_tag("#{illustration_folder}/#{illustration_path}", alt: "") %>
@@ -27,7 +27,7 @@
               <%= card_postscript %>
             </div>
           <% end %>
-        </main>
+        </div>
       </div>
     </div>
   </section>

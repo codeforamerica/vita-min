@@ -2,7 +2,7 @@
 <% content_for :page_title, @main_heading %>
 <% content_for :body_clas, "body--home" %>
 <%= form_with url: destroy_client_session_path, local: true, method: "delete", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
-  <main role="main">
+  <div class="main-content-inner">
     <div class="slab slab--hero">
       <div class="grid-flex contained column-row space-between">
         <div class="grid-flex column-column spacing-below-35">
@@ -17,6 +17,6 @@
         </div>
       </div>
     </div>
-  </main>
+  </div>
 
 <% end %>

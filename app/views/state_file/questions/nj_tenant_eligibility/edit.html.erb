@@ -7,7 +7,9 @@
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
     <h1 class="h2"><%= title %></h1>
 
+  <div class="white-group">
     <%= f.vita_min_checkbox_set(:tenant_eligibility, @checkbox_collection, enum: true, label_text: t(".label_html")) %>
+  </div>
 
     <div class="reveal">
       <button class="reveal__button"><%= t('.helper_heading') %></button>

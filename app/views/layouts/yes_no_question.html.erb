@@ -18,7 +18,7 @@
           <div>
             <%= render "shared/progress_bar" %>
           </div>
-          <main role="main">
+          <div class="main-content-inner">
             <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
               <% if illustration_path.present? %>
                 <div class="question__illustration">
@@ -51,7 +51,7 @@
                 <% end %>
             <% end %>
             </div>
-          </main>
+          </div>
           <%= yield :after_form_question_text %>
         </div>
       </div>
