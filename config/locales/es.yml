@@ -764,7 +764,7 @@ es:
           first_name: Primer Nombre
           got_married_during_tax_year: A. En caso afirmativo, ¿se casó en 2024?
           had_disability: Discapacidad total y permanente
-          issued_identity_pin: "¿Usted, su cónyuge o las personas a su cargo han sido víctimas de un robo de identidad relacionado con los impuestos o han recibido un PIN de protección de identidad?"
+          issued_an_identity_protection_pin: "."
           job_title: Título de puesto
           last_name: Apellido
           lived_or_worked_in_two_or_more_states: "¿Usted vivió o trabajó en dos o más estados en 2024?"
@@ -773,6 +773,7 @@ es:
           months_in_home: "# o número de meses que vivió en su casa el año pasado:"
           never_married: Nunca se ha casado
           north_american_resident: 'Residente en EE.UU., Canadá o México el año pasado:'
+          owner_or_holder_of_any_digital_assets: "."
           primary_us_citizen: "¿Ciudadano estadounidense?"
           provided_over_half_own_support: "¿Aportó esta persona más del 50% de su propia manutención?"
           spouse_dob: Fecha de nacimiento de su cónyuge
