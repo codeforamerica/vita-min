@@ -3026,7 +3026,6 @@ es:
           title: Parece que su estado civil para efectos de la declaración es Cónyuge sobreviviente calificado
       nc_review:
         edit:
-          amount: Cantidad
           amount_earned: Amount earned
           child_deduction: Deducción por hijos
           interest_us_bonds: Ingresos por intereses de bonos de los Estados Unidos (no son sujetos a impuestos en Carolina del Norte)
@@ -3042,7 +3041,7 @@ es:
       nc_sales_use_tax:
         edit:
           calculated_use_tax: Ingresa el impuesto sobre uso calculado
-          explanation_html: Si realizó alguna compra sin pagar el impuesto sobre las ventas, es posible que deba pagar el impuesto sobre el uso por esas compras. Le ayudaremos a determinar el monto correcto.
+          explanation_html: Si realizó alguna compra sin pagar el impuesto sobre las ventas, es posible que deba pagar el <strong>impuesto sobre el uso</strong> por esas compras. Le ayudaremos a determinar el monto correcto.
           select_one: 'Selecciona una de las siguientes opciones:'
           state_specific:
             nc:

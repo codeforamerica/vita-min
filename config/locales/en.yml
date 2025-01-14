@@ -3068,7 +3068,6 @@ en:
           title: It looks like your filing status is Qualifying Surviving Spouse
       nc_review:
         edit:
-          amount: Amount
           amount_earned: Amount earned
           child_deduction: Child deduction
           interest_us_bonds: Interest income from U.S. bonds (not taxable in North Carolina)
