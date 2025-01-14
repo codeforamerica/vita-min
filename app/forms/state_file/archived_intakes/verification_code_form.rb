@@ -7,7 +7,6 @@ module StateFile
       def initialize(attributes = {}, email_address: nil)
         super(attributes)
         @email_address = email_address
-        assign_attributes(attributes)
       end
 
       def valid?

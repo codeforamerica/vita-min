@@ -19,18 +19,17 @@
 #
 #  fk_rails_...  (state_file_archived_intakes_id => state_file_archived_intakes.id)
 #
-class StateFileArchivedIntakeRequest < ApplicationRecord
-  devise :lockable, unlock_in: 60.minutes, unlock_strategy: :time
-  has_many :access_logs, class_name: 'StateFileArchivedIntakeAccessLog'
+require "rails_helper"
 
-  def self.maximum_attempts
-    2
-  end
+describe StateFileArchivedIntakeRequest do
+  describe "#increment_failed_attempts" do
+    let!(:request_instance) { create :state_file_archived_intake_request, failed_attempts: 1 }
+    it "locks access when failed attempts is incremented to 2" do
+      expect(request_instance.access_locked?).to eq(false)
 
-  def increment_failed_attempts
-    super
-    if attempts_exceeded? && !access_locked?
-      lock_access!
+      request_instance.increment_failed_attempts
+
+      expect(request_instance.access_locked?).to eq(true)
     end
   end
 end

@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe StateFile::ArchivedIntakes::VerificationCodeController, type: :controller do
-  let(:current_request) { create(:state_file_archived_intake_request, failed_attempts: 0) }
+  let(:current_request) { create(:state_file_archived_intake_request, email_address:email_address, failed_attempts: 0) }
   let(:email_address) { "test@example.com" }
   let(:valid_verification_code) { "123456" }
   let(:invalid_verification_code) { "654321" }
@@ -9,7 +9,6 @@ RSpec.describe StateFile::ArchivedIntakes::VerificationCodeController, type: :co
   before do
     Flipper.enable(:get_your_pdf)
     allow(controller).to receive(:current_request).and_return(current_request)
-    allow(current_request).to receive(:email_address).and_return(email_address)
     allow(I18n).to receive(:locale).and_return(:en)
   end
 
@@ -32,12 +31,12 @@ RSpec.describe StateFile::ArchivedIntakes::VerificationCodeController, type: :co
       end
 
       it "renders the edit template with a new VerificationCodeForm and queues a job" do
-        expect(ArchivedIntakeEmailVerificationCodeJob).to receive(:perform_later).with(
+        expect{
+          get :edit
+        }.to have_enqueued_job(ArchivedIntakeEmailVerificationCodeJob).with(
           email_address: email_address,
           locale: :en
         )
-
-        get :edit
 
         expect(assigns(:form)).to be_a(StateFile::ArchivedIntakes::VerificationCodeForm)
         expect(assigns(:email_address)).to eq(email_address)

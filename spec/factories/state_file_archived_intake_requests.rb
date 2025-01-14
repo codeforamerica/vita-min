@@ -19,18 +19,14 @@
 #
 #  fk_rails_...  (state_file_archived_intakes_id => state_file_archived_intakes.id)
 #
-class StateFileArchivedIntakeRequest < ApplicationRecord
-  devise :lockable, unlock_in: 60.minutes, unlock_strategy: :time
-  has_many :access_logs, class_name: 'StateFileArchivedIntakeAccessLog'
+FactoryBot.define do
+  factory :state_file_archived_intake_request do
+    email_address { "geddy_lee@gmail.com" }
+    failed_attempts { 0 }
+    locked_at { nil }
 
-  def self.maximum_attempts
-    2
-  end
-
-  def increment_failed_attempts
-    super
-    if attempts_exceeded? && !access_locked?
-      lock_access!
+    trait :locked do
+      locked_at { 5.minutes.ago }
     end
   end
 end

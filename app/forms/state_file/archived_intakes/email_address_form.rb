@@ -3,13 +3,8 @@ module StateFile
     class EmailAddressForm < Form
       attr_accessor :email_address
 
-      validates :email_address, 'valid_email_2/email': true
-      validates :email_address, presence: true
+      validates :email_address, presence: true, 'valid_email_2/email': true
 
-      def initialize(attributes = {})
-        super
-        assign_attributes(attributes)
-      end
     end
   end
 end

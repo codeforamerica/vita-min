@@ -2,7 +2,7 @@ require "rails_helper"
 require 'axe-capybara'
 require 'axe-rspec'
 
-RSpec.feature "accessing a prior year PDF" , js: true, active_job: true do
+RSpec.feature "accessing a prior year PDF", active_job: true do
   before do
     allow_any_instance_of(Routes::StateFileDomain).to receive(:matches?).and_return(true)
     Flipper.enable(:get_your_pdf)
