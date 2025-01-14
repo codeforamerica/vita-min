@@ -3,7 +3,7 @@
 <section class="slab slab--white">
   <div class="grid">
     <div class="grid__item width-three-fourths">
-      <main role="main">
+      <div class="main-content-inner">
           <h1 class="h2"><%= t(".header") %></h1>
           <div class="white-group">
             <ol class="list--numbered" style="padding-left: 2rem">
@@ -25,7 +25,7 @@
               <li><p><%= t(".body_6_html", link: url_for(host: MultiTenantService.new(:statefile).host, controller: "state_file/state_file_pages", action: 'privacy_policy')) %></p></li>
             </ol>
           </div>
-      </main>
+      </div>
     </div>
   </div>
 </section>

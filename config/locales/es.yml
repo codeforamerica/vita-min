@@ -2072,15 +2072,15 @@ es:
       nc_taxable_income: Ingreso tributables en Carolina del Norte
       nc_use_tax: Impuesto sobre el uso de Carolina del Norte
       nj_minimal_essential_health_coverage_html: |-
-        <p>Most people who have health insurance have minimum essential coverage. “Minimal essential coverage” just refers to how much your plan covers. If you have any of the following, you most likely have it:</p>
+        <p>Most people who have health insurance have minimum essential coverage. "Minimal essential coverage" just refers to how much your plan covers. If you have any of the following, you most likely have it:</p>
         <ul>
           <li>A plan through your employer</li>
-          <li>A plan bought through <a target="_blank" rel="noopener noreferrer" href="https://nj.gov/getcoverednj/">GetCoveredNJ</a></li>
+          <li>A plan bought through <a href="https://nj.gov/getcoverednj/" target="_blank" rel="noopener nofollow">GetCoveredNJ</a></li>
           <li>Medicare</li>
           <li>Medicaid (NJ FamilyCare)</li>
         </ul>
-        <p><a target="_blank" rel="noopener noreferrer" href="https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml">Here is the full list of insurance options that have minimum essential coverage.</a><p>
-        <p>If you only had standalone vision and dental plans, workers' compensation coverage, and/or coverage limited to a specified disease or illness, you didn't have minimum essential coverage. In New Jersey, as of 2018, you need minimum essential coverage, or you will likely pay additional taxes.</p>
+        <p><a href="https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml" target="_blank" rel="noopener nofollow">Here is the full list of insurance options that have minimum essential coverage.</a></p>
+        <p>If you only had standalone vision and dental plans, workers' compensation coverage, and/or coverage limited to a specified disease or illness, you didn’t have minimum essential coverage. In New Jersey, as of 2018, you need minimum essential coverage, or you may have to pay additional taxes.</p>
       register_to_vote: Regístrate para votar
       see_detailed_return: Ver información detallada de la declaración
       standard_deduction: Deducción estándar
@@ -2159,11 +2159,12 @@ es:
             Estamos cerrados por la temporada de impuestos. Desafortunadamente no puede presentar su declaración estatal con nosotros este año.
           help_text_html: |
             <ul class="list--bulleted">
-              <li>Una declaración federal de impuestos %{filing_year} <strong>aceptada</strong> mediante <a href="https://directfile.irs.gov/">IRS Direct File</a>. (No necesitas una copia de esta declaración; transferirás tu declaración aquí).
-              <li>Dirección de correo electrónico o número de teléfono.</li>
-              <li>Licencia de conducir o identificación emitida por el estado, si tienes.</li>
-              <li>Números de ruta y cuenta bancaria (si deseas recibir tu reembolso o hacer un pago de impuestos electrónicamente).</li>
+              <li>To have filed your 2024 federal return using IRS Direct File</li>
+              <li>An email address or a phone number to receive a one-time verification code</li>
+              <li>Bank routing and account numbers (if you want to receive your refund or make a tax payment electronically)</li>
+              <li>(optional) Driver's license or state issued ID</li>
             </ul>
+          help_text_title: 'What you’ll need:'
           supported_by: Respaldada por el New Jersey Office of Innovation
           title: Presenta tus impuestos estatales de New Jersey sin costo
         not_you: "¿No es %{user_name}?"
@@ -2611,6 +2612,34 @@ es:
           deduction_for_retirement_income_bailey: Deducción por ingresos de jubilación como parte del acuerdo Bailey
           deduction_for_retirement_income_uniformed: Deducción por ingresos de jubilación de los servicios uniformados
           deduction_for_taxable_portion: Deducción por la parte imponible de los beneficios del Seguro Social y de Beneficios de Jubilación Ferroviaria
+        nj_credits_unsupported:
+          also_unsupported_html: |
+            <li>Applying for an extension</li>
+            <li>Making charitable contributions to various NJ organizations through your return</li>
+            <li>Filing your federal and state tax returns using different filing statuses (for example you filed as Married Filing Jointly on your federal tax return and want to file Married Filing Separately on your state tax return)</li>
+            <li>Adding or removing dependents claimed on your federal return for purposes of your state return</li>
+            <li>Applying a portion of your 2024 refund toward your 2025 estimated taxes</li>
+          also_unsupported_title: 'We also do not support:'
+          unsupported_html: |
+            <li>Subtraction for meals, lodging, moving expenses, other reimbursed business expenses, or compensation for injuries or sickness reported as wages on your W-2</li>
+            <li>Subtraction for alimony payments you made</li>
+            <li>Pension income exclusion for taxpayers who will never be eligible for Social Security ("Special Exclusion")</li>
+            <li>Deductions for NJBEST 529 college savings accounts contributions, or for higher education tuition costs</li>
+            <li>Deduction for principal and interest paid on an NJCLASS student loan</li>
+            <li>Deduction for qualified conservation contributions</li>
+            <li>Deduction for health enterprise zones</li>
+            <li>Gold Star Family Counseling Credit</li>
+            <li>Credit for Employer of Organ/Bone Marrow Donor</li>
+            <li>Wounded Warrior Caregivers Credit</li>
+        nj_supported:
+          supported_credits_html: |
+            <li>New Jersey Earned Income Tax Credit (NJEITC)</li>
+            <li>New Jersey Child Tax Credit</li>
+            <li>New Jersey Child and Dependent Care Tax Credit</li>
+            <li>Medical Expenses Deduction</li>
+            <li>Pension/Retirement and Other Retirement Income Exclusion</li>
+            <li>Credits for Excess Unemployment Insurance (UI) and Family Leave Insurance (FLI) Contributions</li>
+            <li>Property Tax Credit or Deduction</li>
         ny_credits_unsupported:
           college_tuition_credit: College tuition credit or itemized deduction
           firefighter_ambulance_credit: Volunteer firefighters’ and ambulance workers’ credit
@@ -2974,9 +3003,9 @@ es:
       nc_county:
         edit:
           county: Condado
-          county_during_hurricane: Selecciona el condado donde tenías tu dirección permanente durante el Huracán Helene (el 25 de septiembre de 2024 o después)
-          moved_after_hurricane: "¿Estuvo tu dirección permanente en un condado diferente durante el Huracán Helene (el 25 de septiembre de 2024 o después)?"
-          title: Selecciona el condado donde tenías tu dirección permanente en diciembre 31 de %{filing_year}
+          county_during_hurricane: Seleccione el otro condado donde residió (o reside actualmente) entre el 25 de septiembre de 2024 y hoy
+          moved_after_hurricane_html: "¿Residió (o reside actualmente) en un condado <strong>diferente</strong> en cualquier momento entre el 25 de septiembre de 2024 y hoy?"
+          title: Seleccione el condado donde residía el 31 de diciembre de %{filing_year}
       nc_eligibility:
         edit:
           eligibility_ed_loan_cancelled: Se le canceló la deuda de préstamos estudiantiles en virtud de la Ley del Plan de Rescate Estadounidense.
@@ -3084,180 +3113,198 @@ es:
         title_spouse: Tú o tu cónyuge son veterano de las Fuerzas Armadas de los Estados Unidos
       nj_college_dependents_exemption:
         edit:
-          birthdate_label: 'Birthdate:'
-          college_helper_description: '"College"  is an accredited college or post-secondary school, maintains a regular faculty and curriculum, and has a group of students in attendance.'
-          college_helper_heading: What counts as "college"?
+          birthdate_label: Birthdate
+          college_helper_description: '"College" is an accredited college or post-secondary school that maintains a regular faculty and curriculum and has a group of students in attendance.'
+          college_helper_heading: What counts as “college”?
           dependent_attends_accredited_program: "%{dependent_first} is attending an accredited college or post-secondary school."
           dependent_enrolled_full_time: "%{dependent_first} attends there full time."
-          dependent_five_months_in_college: "%{dependent_first} spends at least some part of each of five calendar months in that college."
+          dependent_five_months_in_college: "%{dependent_first} spends at least some part of each of five calendar months in that college. "
           dependent_header: "(dependent)"
-          filer_pays_tuition_books: I (or my spouse, if I am filing jointly) pay for more than one-half or more of %{dependent_first}'s tuition and college costs.
-          full_time_college_helper_description: '"Full time" is whatever the college considers to be full-time.'
+          filer_pays_tuition_books: I (or my spouse, if I am filing jointly) pay for at least half of %{dependent_first}'s tuition and college costs.
+          full_time_college_helper_description: '"Full time" is whatever the college considers to be full-time. This can be found on the 1098 T tuition statement.'
           full_time_college_helper_heading: What counts as "attending college full time"?
-          subtitle_1: For each person claimed on your return (dependent) who is attending college, we need to confirm some details.
-          subtitle_2: "(You can only claim this credit for dependents listed on your return.)"
-          title: You may qualify for an additional exemption for dependents who are attending college.
-          tuition_books_helper_description_html: To calculate the total amount, add together the cost of college tuition, the cost of books (and supplies), and any money earned by the student in college work study programs. Do not include other financial aid received.
+          reminder: 'Reminder: please check the relevant boxes below for each dependent, if any apply.'
+          subtitle_html: "<p>You can only claim this for dependents listed on your return.</p> \n<p>Please check the relevant boxes below under each dependent, if any apply.</p>\n<p>We will then claim a $1,000 exemption for each dependent student who qualifies.</p>\n"
+          title: You may qualify for tax exemptions for any dependent under 22 who is attending college.
+          tuition_books_helper_description_html: To calculate the total amount, add together the cost of college tuition, the cost of books (and supplies), and any money earned by the student in college work-study programs. Do not include other financial aid received.
           tuition_books_helper_heading: How should I calculate the total amount of tuition and college costs?
       nj_county:
         edit:
           county: Condado
-          title: Selecciona el condado donde viviste el 31 de diciembre de %{filing_year}
+          title_html: We need to know <strong>where you lived on December 31, %{filing_year}.</strong>
       nj_dependents_health_insurance:
         edit:
-          continue: Click "continue" if all these people had health insurance.
+          continue: Click "Continue" if all these people had health insurance.
           coverage_heading: What is health insurance with minimum essential coverage?
           label: 'Check all the people that did NOT have health insurance:'
-          title_html: Please tell us which dependents were missing health insurance (<a target=" _blank" rel="noopener noreferrer" href="https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml">with minimum essential health coverage</a>) in 2024.
+          title_html: Please tell us which dependents were missing health insurance (<a href="https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml" target="_blank" rel="noopener nofollow">with minimum essential health coverage</a>) in %{filing_year}.
       nj_disabled_exemption:
         edit:
-          instructions_html: Las personas con discapacidad tienen derecho a exenciones de impuestos. <br><br> En Nueva Jersey, se le considera discapacitado si tiene una "incapacidad <b>total y permanente</b> para participar en cualquier actividad sustancial y lucrativa debido a cualquier impedimento físico o mental, incluida la ceguera". <br><br> (Esto es diferente de la definición de impuestos federales. Nueva Jersey no tiene en cuenta su edad ni su percepción de ingresos por discapacidad sujetos a impuestos.)
-          primary_disabled_question: "¿Está usted discapacitado según la definición de Nueva Jersey?"
-          spouse_disabled_question: "¿Su cónyuge está discapacitado según la definición de Nueva Jersey?"
-          title: Exención para discapacitados
+          instructions_html: "<p>In New Jersey, you are considered disabled if you have a \"<strong>total and permanent</strong> inability to engage in any substantial gainful activity because of any physical or mental impairment, including blindness.\"</p>  \n<p>(This is different from the federal tax definition. New Jersey doesn’t consider your age or your receipt of taxable disability income.)</p>\n"
+          primary_disabled_question: Are you disabled according to the New Jersey definition?
+          spouse_disabled_question: Is your spouse disabled according to the New Jersey definition?
+          title: People with disabilities are eligible for a tax exemption.
       nj_eitc_qualifying_child:
         edit:
-          helper_contents_html: |-
-            <p>You are the qualifying child of another taxpayer for the Earned Income Tax Credit (EITC) in 2024 if <strong>all</strong> of these are true.</p>
-            <ol>
-            <li class="spacing-below-25"><p>1. You are that person's:</p>
-            <ul><li>Child, stepchild, foster child, or a descendant of any of them, or</li>
-            <li>Sibling, half sibling, step sibling, or a descendant of any of them</li>
-            </ul></li>
-            <li class="spacing-below-25"><p>2. You were:</p>
-            <ul><li>Under age 19 at the end of the year and younger than that person (or that person's spouse, if they filed jointly), or</li>
-            <li>Under age 24 at the end of the year, a student, and younger than that person (or that person's spouse, if they filed jointly), or</li>
-            <li>Any age and had a permanent disability that prevented you from working and making money</li>
-            </ul></li>
-            <li class="spacing-below-25"><p>3. You lived:</p>
-            <ul><li>with that person in the United States for more than 6 months in 2024.</li>
-            </ul></li>
-            <li><p>4. You aren't filing a joint return with your spouse for the year. Or you're filing a joint return with your spouse only to get a refund of money you paid toward taxes.</p></li>
-            </ol>
-            <p>If <strong>all</strong> of these statements are true, you are the qualifying child of another taxpayer for EITC. This is the case even if they don't claim the credit or don't meet all of the rules to claim it.</p>
-          helper_heading: How do I know if I could be someone else's qualifying child for EITC?
-          instructions: We just have to make sure that you are not someone else's qualifying child for this credit first.
-          primary_eitc_qualifying_child_question: In %{filing_year}, could you be someone else's qualifying child for the Earned Income Tax Credit?
-          spouse_eitc_qualifying_child_question: In %{filing_year}, could your spouse be someone else's qualifying child for the Earned Income Tax Credit?
-          title: You may be eligible for the Earned Income Tax Credit
+          helper_contents_html: "<p>You are the qualifying child of another taxpayer for the New Jersey Earned Income Tax Credit (NJEITC) in %{filing_year} if all of these are true.</p>\n<ol class=\"list--numbered\">\n  <li>You are that person's:\n    <ul class=\"list--bulleted\">\n      <li>Child, stepchild, foster child, or a descendant of any of them, or</li>\n      <li>Sibling, half sibling, step sibling, or a descendant of any of them</li>\n    </ul>\n  </li>\n  <li>You were: \n    <ul class=\"list--bulleted\">\n      <li>Under age 19 at the end of the year and younger than that person (or that person's spouse, if they filed jointly), or</li>\n      <li>Under age 24 at the end of the year, a student, and younger than that person (or that person’s spouse, if they filed jointly), or</li>\n      <li>Any age and had a permanent disability that prevented you from working and making money</li>\n    </ul>\n  </li>\n  <li>You lived with that person in the United States for more than 6 months in %{filing_year}.</li>\n  <li>You aren’t filing a joint return with your spouse for the year. Or you’re filing a joint return with your spouse only to get a refund of money you paid toward taxes.</li>\n</ol>\n<p>If all of these statements are true, you are the qualifying child of another taxpayer for NJEITC. This is the case even if they don’t claim the credit or don’t meet all of the rules to claim it.</p>\n<p> If only some of these statements are true, you are NOT the qualifying child of another taxpayer for NJEITC.</p>"
+          helper_heading: How do I know if I could be someone else’s qualifying child for NJEITC?
+          instructions: 'Note: You might be able to get the state credit even if you didn’t qualify for the federal credit.'
+          primary_eitc_qualifying_child_question: In %{filing_year}, could you be someone else's qualifying child for the New Jersey Earned Income Tax Credit (NJEITC)?
+          spouse_eitc_qualifying_child_question: In %{filing_year}, could your spouse be someone else’s qualifying child for the NJEITC?
+          title: You may be eligible for the New Jersey Earned Income Tax Credit (NJEITC).
       nj_eligibility_health_insurance:
         edit:
           coverage_heading: What is health insurance with minimum essential coverage?
-          label: Did you and all members of your tax household have health insurance (with minimum essential coverage) for every month in %{filing_year}?
+          label_html: |
+            <p><strong>Did everyone in your tax household have health insurance (<a href="https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml" target="_blank" rel="noopener noreferrer">with minimum essential health coverage</a>) for every month in %{filing_year}?</strong><p>
+            <p><strong><em>You should answer yes</em></strong> if you and everyone in your household had an insurance plan through an employer, bought an insurance plan through GetCoveredNJ, or had Medicare or Medicaid (NJ Family Care). You should also answer yes if your coverage is on this list.</p>
+            <p class="spacing-below-0"><strong><em>You should answer no</em></strong> if you or someone in your household only had standalone vision and dental plans, workers' compensation coverage, or a plan limited to specific disease or illness.</p>
           tax_household_description_html: A tax household includes you, your spouse (if filing a joint return), domestic partner claimed on your return, and any individuals you claim as dependents on your NJ-1040. It also includes any individuals you can, but do not, claim as dependents on your return.
           tax_household_heading: What is considered a tax household?
           title: Let’s get started.
       nj_estimated_tax_payments:
         edit:
-          label: Total
-          subtitle: 'Please include the sum of the following:'
-          subtitle_list_1: Estimated income tax payments you made throughout the year for your New Jersey state taxes
-          subtitle_list_2: Overpayments on your %{prior_year} return that you chose to apply to your %{filing_year} New Jersey taxes
-          subtitle_list_2_sub: 'Note: you would have selected this option when filing your %{prior_year} return'
-          title: Please tell us if you already made any payments toward your %{filing_year} New Jersey taxes
+          continue: If you did not already make any payments, click "Continue".
+          description_html: |
+            <p>Please include the sum of the following:</p>
+            <ul class="list--bulleted">
+              <li><a href="https://nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git8.pdf" target="_blank" rel="noopener nofollow">Estimated income tax payments</a> you made throughout the year for your New Jersey state taxes</li>
+              <li>
+                <ul class="list--bulleted">
+                  <li><strong>This does not include withholdings in your paycheck</strong></li>
+                </ul>
+              </li<
+              <li>Overpayments on your %{prior_year} return that you chose to apply to your %{filing_year} New Jersey taxes</li>
+              <li>
+                <ul class="list--bulleted">
+                  <li>Note: you would have selected this option when filing your %{prior_year} return</li>
+                </ul>
+              </li>
+            </ul>
+          label: 'Total:'
+          title: Please tell us if you already made any payments toward your %{filing_year} New Jersey taxes.
       nj_gubernatorial_elections:
         edit:
-          details_1: You may have heard this referred to as “public financing” of campaigns.
-          details_2_html: You can contribute $1 of where your taxes go to the <a href="https://elec.nj.gov/pdffiles/temporary/WebsitePlugForGubfinProgram.pdf" target="_blank" rel="noopener noreferrer">Gubernatorial Elections Fund.</a>
-          details_3: 'FYI: Your taxes won’t increase and your refund won’t be reduced. This just gives New Jersey permission to use $1 of your tax dollars for this fund.'
+          description_html: "<p>You may have heard this referred to as \"public financing\" of campaigns.</p> \n<p>You can contribute $1 of where your taxes go to the <a href=\"https://elec.nj.gov/pdffiles/temporary/WebsitePlugForGubfinProgram.pdf\" target=\"_blank\" rel=\"noopener nofollow\">Gubernatorial Elections Fund</a>.</p>\n<p>FYI: Your taxes won’t increase and your refund won't be reduced. This just gives New Jersey permission to use $1 of your tax dollars for this Fund.</p>\n"
           primary_contribute: Would you like to contribute $1 to the fund?
           spouse_contribute: Would your spouse like to contribute $1 to the fund?
           title: The Gubernatorial Elections Fund helps qualified New Jersey governor candidates who need financial help.
       nj_homeowner_eligibility:
         edit:
-          homeowner_home_subject_to_property_taxes: Mi vivienda principal, ya sea propia o alquilada, estaba sujeta a impuestos sobre la propiedad que se pagaban como impuestos sobre la propiedad reales o a través del alquiler.
-          homeowner_main_home_multi_unit: "¿Su vivienda principal era una unidad de una propiedad de varias unidades de su propiedad?"
-          homeowner_main_home_multi_unit_max_four_one_commercial: Mi vivienda principal era una unidad en una propiedad de varias unidades que poseía, la propiedad no tenía más de cuatro unidades y no más de una de ellas era una unidad comercial.
-          homeowner_more_than_one_main_home_in_nj: "¿Tuvo usted más de una vivienda principal en New Jersey durante el año?"
-          homeowner_same_home_spouse: "¿Compartió la propiedad de su vivienda principal con alguien que no es su cónyuge?"
-          homeowner_shared_ownership_not_spouse: "¿Compartió la propiedad de su vivienda principal con alguien que no es su cónyuge?"
-          label: "¿Se aplica a usted alguna de estas situaciones?"
-          title: Dijiste que eras propietario de una vivienda en %{filing_year}.
+          helper_description_html: |
+            <ul class="list--bulleted">
+              <li>You are a disabled veteran with a 100% exemption from property taxes on your main home; or if</li>
+              <li>You made P.I.L.O.T. (Payments-In-Lieu-of-Tax) payments</li>
+              <li><a href="https://www.nj.gov/treasury/taxation/questions/propertyd2.shtml" target="_blank" rel="noopener nofollow">Another reason applies</a></li>
+            </ul>
+          helper_header: 'Leave first box unchecked if:'
+          homeowner_home_subject_to_property_taxes: I paid property taxes
+          homeowner_main_home_multi_unit: My main home was a unit in a multi-unit property I owned
+          homeowner_main_home_multi_unit_max_four_one_commercial: The property had two to four units and no more than one of those was a commercial unit
+          homeowner_more_than_one_main_home_in_nj: I lived in more than one main home in New Jersey that I paid property taxes on (i.e., I moved during the year)
+          homeowner_same_home_spouse: I lived with my spouse
+          homeowner_shared_ownership_not_spouse: I shared ownership of my main home with someone who was not my spouse
+          label_html: |
+            <p><strong>Check all that apply to the main home you owned.</strong></p>
+            <p>(If you do not want to claim this deduction or credit, leave these checkboxes blank and click <strong>"Continue."</strong>)</p>
+          title: You said you were a homeowner in %{filing_year}.
       nj_homeowner_property_tax:
         edit:
-          helper_description: TODO FILL THIS OUT
-          helper_heading: "¿Dónde puedo encontrar cuánto impuesto a la propiedad pagué?"
-          label: Impuestos sobre la propiedad pagados en %{filing_year}
-          title: Ingrese el monto de los impuestos sobre la propiedad pagados a %{municipality} por su vivienda principal en %{filing_year}.
+          helper_anchor_description_html: If you received an ANCHOR benefit, the benefit amount does not affect the amount to report on this line. (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR offers property tax relief to New Jersey residents who own or rent property in New Jersey as their main home and meet certain income limits.</a>)
+          helper_anchor_heading: What if I received ANCHOR or Homestead benefits?
+          helper_description: You can review your quarterly tax bills and add up the total paid to your municipality.
+          helper_heading: Where can I find property taxes paid?
+          label_html: "<strong>Enter property taxes paid for %{filing_year}</strong>"
+          title: Good news – you qualify for a deduction or credit.
       nj_homeowner_property_tax_worksheet:
         edit:
-          anchor_homestead_helper_description: If you received an ANCHOR Benefit, the benefit amount does not affect the amount to report on this line.
-          anchor_homestead_helper_heading: ANCHOR or Homestead benefits?
-          helper_1: Good news – we think you might qualify for a credit or deduction.
-          helper_2_html: The next step is to fill in this <a href="https://www.nj.gov/treasury/taxation/pdf/current/1040_instr_pages/1040i_32.pdf" target="_blank" rel="noopener nofollow">worksheet</a>.
-          helper_3: It will ask you about where you lived and for how long. If you moved, for example, it will have space for you to list every place where you lived.
-          helper_4: Once you fill in the worksheet, come back to this page.
-          label_html: "<b>Enter Line 4 on Worksheet G</b> </br> (Your share of total property taxes paid)"
-          title: Homeowner Property Tax Worksheet
-          where_to_find_helper_description: You can review your quarterly tax bills and add up the total paid to your municipality.
-          where_to_find_helper_heading: Where can I find property taxes paid?
+          description_html: "<p>The next step is to fill in this <a href=\"https://www.nj.gov/treasury/taxation/pdf/wrkshtg.pdf\" target=\"_blank\" rel=\"noopener nofollow\">worksheet</a>.</p> \n<p>Once you fill in the worksheet, come back to this page.</p>\n<p>The worksheet will ask you about where you lived and for how long. If you moved, for example, it will have space for you to list every place you lived.</p>\n"
+          helper_anchor_description_html: If you received an ANCHOR benefit, the benefit amount does not affect the amount to report on this line. (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR offers property tax relief to New Jersey residents who own or rent property in New Jersey as their main home and meet certain income limits.</a>)
+          helper_anchor_heading: What if I received ANCHOR or Homestead benefits?
+          helper_description: You can review your quarterly tax bills and add up the total paid to your municipality.
+          helper_heading: Where can I find property taxes paid?
+          label_html: "<strong>Enter Line 4 on Worksheet</strong><br/>(Your share of total property taxes paid)"
+          title: Good news – you qualify for a deduction or credit.
       nj_household_rent_own:
         edit:
           both_html: "<b>Both</b>: I was a homeowner for part of the year, and I was a renter for part of the year."
-          description_html: Your "main home" is where you primarily lived at any given time (e.g., a house, a condo, or an apartment). <b>You can’t have multiple main homes at the same time, but you may have different main homes throughout the year if you moved.</b>
+          description_html: Your "main home" is where you primarily lived at any given time (e.g., a house, a condo, or an apartment). <strong>You can't have multiple main homes at the same time, but you may have different main homes throughout the year if you moved.</strong>
           helper_1_description: Yes. This tax break is designed to support people in New Jersey whose money contributes to property taxes. (Renters do this by paying rent, contributing to the cost of property taxes paid by the property owners.)
           helper_1_header: Are you sure this applies to rent paid?
           helper_2_description: No. Please answer the questions in this section for your main home only. You can’t claim this tax break for a vacation home, a "second home," or a property you own and rent to someone else.
           helper_2_header: Can I claim for a vacation home or a property I rent out to someone?
           helper_3_description: If you owned a mobile home in a mobile home park, you are considered a renter. Your site fees are what you paid in rent.
           helper_3_header: What if I lived in a mobile home?
-          helper_4_description_html: The property tax <b>deduction</b> reduces your taxable income. We will deduct your share of property taxes paid or $15,000, whichever is less. For renters, we’ll consider 18% of rent paid as your share.
+          helper_4_description_html: |
+            <p>The Property Tax <strong>Deduction</strong> reduces your taxable income. We will deduct your share of property taxes paid or $15,000, whichever is less. For renters, we’ll consider 18% of rent paid as your share.</p>
+            <p>The Property Tax <strong>Credit</strong> is a $50 credit that will reduce your tax liability or increase your refund.</p>
+            <p>We will determine if the deduction or the credit saves you the most money.</p>
           helper_4_header: How much is this deduction or credit worth?
           homeowner_html: I was a <b>homeowner</b> for at least part of the year
-          label_html: How would you describe your living situation in %{filing_year} <b>as it pertains to your main home(s)</b>?
+          label_html: How would you describe your living situation in %{filing_year} <strong>as it pertains to your main home(s)</strong>?
           neither_html: Other
           tenant_html: I was a <b>renter</b> for at least part of the year
-          title: You may qualify for a property tax deduction or credit on your main home, whether you owned or rented it.
+          title: You may qualify for a Property Tax Deduction or Credit on your main home, whether you owned or rented it.
       nj_ineligible_property_tax:
         edit:
-          continue_text: Click continue to see what else we can guide you to qualify for.
+          continue_text: Click continue to keep working on your taxes.
           go_back_link: Go back to correct.
           mistake_text: Is this a mistake?
-          on_home: on the home you owned.
-          on_rental: on the home you rented.
+          on_home: on the home you lived in and owned.
+          on_rental: on the home you lived in and rented.
           reason_html: You are not eligible for this because <b>%{reason}</b>
           reason_multi_unit_conditions: this main home in a multi-unit building did not meet the requirements to claim this credit or deduction.
           reason_neither: you must own rent or own a main home in %{filing_year} to receive this credit or deduction.
-          reason_property_taxes: you did not pay property taxes (directly, or through rent) on this main home.
-          title_html: Looks like you're not eligible for the property tax credit or deduction <b>%{property}</b>
+          reason_property_taxes: did not pay property taxes (directly, or through rent) on this main home.
+          title_html: It looks like you're not eligible for the Property Tax Deduction or Credit <strong>%{property}</strong>
       nj_medical_expenses:
         edit:
           description_html: |-
-            <p>This includes expenses for yourself, your spouse, and your dependents.</p>
-            <p>Only expenses that exceed 2% of your gross income may be deducted.</p>
-            <p>You can’t deduct expenses for which you were reimbursed through your health insurance plan.</p>
+            <p>These expenses include:</p>
+            <ul class="list--bulleted">
+              <li>Expenses for yourself, your spouse and your dependents.</li>
+              <li>FYI: If you have a Health Savings Account (HSA) or Flexible Spending Account (FSA), you may have submitted a medical expense and gotten a distribution to cover that expense. For tax purposes, you can still deduct that expense.</li>
+              <li>See below for more on the definition of medical expenses.</li>
+            </ul>
+
+            <p>These expenses cannot include:</p>
+            <ul class="list--bulleted">
+              <li>Expenses for a child you didn't claim as a dependent on your return, even if you are paying for their health insurance.</li>
+              <li>Expenses for which you were reimbursed through your health insurance plan.</li>
+            </ul>
           do_not_claim: If you do not want to claim this deduction, click “Continue”.
-          help_text: Estimates are ok. For example, $3000.
-          label: Non-reimbursed medical expenses paid in %{filing_year}
-          learn_more_content_html: |-
-            <li>Physicians, dental, and other medical fees</li><li>Prescription eyeglasses and contact lenses</li>
-            <li>Hospital care</li>
-            <li>Nursing care</li>
-            <li>Medicines and drugs</li><li>Prosthetic devices</li>
-            <li>X‑rays and other diagnostic services conducted by or directed by a physician or dentist</li>
-            <li>Amounts paid for transportation primarily for and essential to medical care</li>
-            <li>Insurance (including amounts paid as premiums under Part B of Title XVIII of the Social Security Act, relating to supplementary medical insurance for the aged) covering medical care</li>
-          learn_more_meaning: Medical expenses means non-reimbursed payments for costs such as
-          learn_more_note_html: |-
-            Note: In NJ, if you are paying for your adult child’s health insurance (ages 18 to 27), this can only be deducted as a medical expense <a href="https://www.nj.gov/treasury/taxation/pdf/pubs/tams/tam14.pdf" target="blank" rel=
-            oopener noreferrer">if the child was your dependent.</a>
+          label: 'Enter total non-reimbursed medical expenses paid in %{filing_year}:'
+          learn_more_html: |-
+            <p>"Medical expenses" means non-reimbursed payments for costs such as:</p>
+            <ul class="list--bulleted">
+              <li>Physicians, dental, and other medical fees</li>
+              <li>Prescription eyeglasses and contact lenses</li>
+              <li>Hospital care</li>
+              <li>Nursing care</li>
+              <li>Medicines and drugs</li>
+              <li>Prosthetic devices</li>
+              <li>X‑rays and other diagnostic services conducted by or directed by a physician or dentist</li>
+              <li>Amounts paid for transportation primarily for and essential to medical care</li>
+              <li>Health insurance premiums (including for Medicare)</li>
+            </ul>
           learn_more_title: What are medical expenses?
-          title: You can deduct medical expenses.
+          title: You may be able to deduct medical expenses.
       nj_municipality:
         edit:
           helper_description_html: Si el lugar donde usted vive no aparece en la lista, utilice la <a href="https://www.nj.gov/nj/gov/county/localities.html" target="_blank" rel="noopener nofollow">herramienta de localidad del estado de New Jersey</a> para obtener el nombre de su municipio.
           helper_heading: El lugar donde vivo no está en la lista
           municipality: Municipio
-          title: Seleccione el municipio donde residía el 31 de diciembre de %{filing_year}
+          title_html: We need to know <strong>where you lived on December 31, %{filing_year}.</strong>
       nj_primary_state_id:
         nj_primary:
           dmv_bmv: Non-driver identification card
-          no_id: No tengo licencia de conducir ni identificación estatal/ Prefiero no compartirla
-          not_required: You do NOT need to supply this information to file your taxes. The return will not be rejected if you do not have ID or prefer not to share.
-          protect_identity: Many state revenue agencies, including New Jersey, are requesting additional information in an effort to combat stolen-identity tax fraud and to protect you and your tax refund. Providing some details about your state-issued identification will help identify you as the taxpayer.
+          helper_description_html: |
+            <p>Many state revenue agencies, including New Jersey, are trying to combat stolen-identity tax fraud and to protect you and your tax refund. Providing some details about your state-issued identification will help identify you as the taxpayer.</p>
+            <p>You do NOT need to supply this information to file your taxes. The return will not be rejected if you do not have an ID or prefer not to share.</p>
+          helper_heading: Why are you asking for this information?
+          no_id: No driver's license or state ID / Prefer not to share
           subtitle: Details from your state-issued ID, if you have one, will help New Jersey combat stolen-identity tax fraud and protect you and your tax refund.
-          title: Confirming Your Identity (Optional)
-          why_ask_this: "¿Por qué están pidiendo esta información?"
+          title: Confirm Your Identity (Optional)
       nj_review:
         edit:
           amount_calculated: Calculated Amount
@@ -3312,62 +3359,72 @@ es:
           year_of_death: Year of spouse's passing
       nj_sales_use_tax:
         edit:
-          followup_radio_label: Selecciona una de las siguientes opciones
-          manual_use_tax_label: Ingrese el impuesto de uso total calculado
-          subtitle: 'Esto incluye:'
-          subtitle_list_html: |
-            <li>Artículos adquiridos o servicios prestados fuera del estado, donde no hubo impuesto a las ventas o la tasa del impuesto a las ventas fue inferior a la tasa de New Jersey del 6,625 %.</li>
-            <li>Compras en línea en las que no se aplicó impuesto sobre ventas o uso.</li>
-            <li>Compras realizadas por usted o su cónyuge.</li>
-            <li><a href="https://nj.gov/treasury/taxation/su_10.shtml" target="_blank" rel="noopener noreferrer">Learn more</a>.
-          title: Debe compartir detalles sobre cualquier compra fuera del estado que no esté gravada.
-          use_tax_method_automated: Todas mis compras fueron de menos de $1000 cada una. Calcule el monto del impuesto al consumo para mí.
-          use_tax_method_manual: Hice una compra no gravada por más de $1000 o preferiría calcular mi impuesto sobre el uso manualmente.
-          use_tax_radio_label: "¿Realizó alguna compra fuera del estado que no pagó impuestos?"
+          followup_radio_label: 'Select one of the following:'
+          helper_description_html: "<p>This applies to online purchases where sales or use tax was not applied. (Amazon and many other online retailers apply tax.)</p> \n<p>It also applies to items or services purchased out-of-state, in a state where there was no sales tax or the sales tax rate was below the NJ rate of 6.625%.</p>\n<p>(<a href=\"https://nj.gov/treasury/taxation/su_10.shtml\" target=\"_blank\" rel=\"noopener nofollow\">Review this page for more details.</a>)</p>\n"
+          helper_heading: What kind of items or services does this apply to?
+          manual_use_tax_label_html: "<strong>Enter total use tax</strong>"
+          no_text: No (this is the common option)
+          subtitle_html: |-
+            <p>If you made any purchases without paying sales tax, you may owe use tax on those purchases. We'll help you figure out the right amount.</p>
+            <p>Note: Your tax household includes you, your spouse and your dependents.</p>
+          title: Did your tax household make any out-of-state purchases in %{filing_year} without paying full New Jersey Sales Tax?
+          use_tax_method_automated: All of my purchases were less than $1000 each. Calculate the amount of use tax for me.
+          use_tax_method_manual: I had at least one purchase over $1000, or I would prefer to calculate my use tax manually.
+          use_tax_radio_label: Did you have any untaxed out-of-state purchases?
       nj_spouse_state_id:
         nj_spouse:
           dmv_bmv: Non-driver identification card
-          no_id: No tengo licencia de conducir ni identificación estatal/ Prefiero no compartirla
-          not_required: You do NOT need to supply this information to file your taxes. The return will not be rejected if you do not have ID or prefer not to share.
-          protect_identity: To protect your identity and combat tax fraud, many state agencies are asking people to give their driver's license or state ID number.
+          helper_description_html: |
+            <p>Many state revenue agencies, including New Jersey, are trying to combat stolen-identity tax fraud and to protect you and your tax refund. Providing some details about your state-issued identification will help identify you as the taxpayer.</p>
+            <p>You do NOT need to supply this information to file your taxes. The return will not be rejected if you do not have an ID or prefer not to share.</p>
+          helper_heading: Why are you asking for this information?
+          no_id: No driver's license or state ID / Prefer not to share
           subtitle: Details from your spouse's state-issued ID, if they have one, would also help.
           title: Confirming Your Spouse's Identity (Optional)
-          why_ask_this: "¿Por qué están pidiendo esta información?"
       nj_tenant_eligibility:
         edit:
-          helper_description: Fui inquilino de una propiedad exenta de impuestos (por ejemplo, vivienda subsidiada y en el campus, propiedad de organizaciones sin fines de lucro, residencia en la que se realizaron pagos P.I.L.O.T.)
-          helper_heading: "¿Qué no está incluido aquí?"
-          label: "¿Se aplica a usted alguna de estas situaciones?"
-          tenant_access_kitchen_bath: "¿Tuviste acceso a las instalaciones de cocina y baño?"
-          tenant_building_multi_unit: Si usted alquiló su vivienda principal en un edificio que tenía más de una unidad de vivienda.
-          tenant_home_subject_to_property_taxes: Su vivienda principal, ya sea propia o alquilada, estaba sujeta a impuestos sobre la propiedad que se pagaban como impuestos sobre la propiedad reales o a través del alquiler.
-          tenant_more_than_one_main_home_in_nj: "¿Tuvo usted más de una vivienda principal en New Jersey durante el año?"
-          tenant_same_home_spouse: "¿Usted y su cónyuge vivían en la misma casa?"
-          tenant_shared_rent_not_spouse: "¿Ocupó y compartió el alquiler de su vivienda principal (apartamento/unidad de alquiler) con alguien que no era su cónyuge durante el año?"
-          title: Dijiste que eras inquilino en %{filing_year}.
+          helper_description_html: |
+            <p>Most rentals are. The building owner pays the tax. There are some types of housing that might not be taxed:</p>
+            <ul>
+              <li>A tax-exempt property, e.g. subsidized and campus housing, property owned by nonprofit organizations.</li>
+              <li>A residence on which Payments-In-Lieu-of-Tax (P.I.L.O.T) payments were made. (If you think your building may have been subject to P.I.L.O.T payments, you can contact your building owner or the municipal tax office to confirm.)</li>
+            </ul>
+          helper_heading: How do I know if the home I rented was subject to property taxes?
+          label_html: |
+            <p><strong>Check all that apply to the main home you rented.</strong></p>
+            <p>(If you do not want to claim this deduction or credit, leave these checkboxes blank and click <strong>"Continue."</strong>)</p>
+          tenant_access_kitchen_bath: I had my own kitchen and bathroom that I didn't share with other units in the building
+          tenant_building_multi_unit: It was in a building that had more than one dwelling unit (e.g. apartments, condominiums, dormitories)
+          tenant_home_subject_to_property_taxes: It was subject to property taxes paid by my landlord (this is typical for most renters)
+          tenant_more_than_one_main_home_in_nj: I lived in more than one main home in New Jersey that I paid rent for (i.e. I moved during the year)
+          tenant_same_home_spouse: I lived with my spouse
+          tenant_shared_rent_not_spouse: I lived with and shared rent with someone who was not my spouse
+          title: You said you were a renter in %{filing_year}.
       nj_tenant_property_tax_worksheet:
         edit:
-          anchor_homestead_helper_description: If you received an ANCHOR Benefit, the benefit amount does not affect the amount to report on this line.
-          anchor_homestead_helper_heading: ANCHOR benefits
-          helper_1: Good news – we think you might qualify for a credit or deduction.
-          helper_2_html: The next step is to fill in this <a href="https://www.nj.gov/treasury/taxation/pdf/current/1040_instr_pages/1040i_32.pdf" target="_blank" rel="noopener nofollow">worksheet</a>.
-          helper_3: It will ask you about where you lived and for how long. If you moved, for example, it will have space for you to list every place where you lived.
-          helper_4: Once you fill in the worksheet, come back to this page.
-          label_html: "<b>Enter Line 8 on Worksheet G</b>"
-          mobile_homeowners_helper_description: A mobile home owned in a mobile home park is considered a rental. You enter your site fees paid for 2024 in Part II, Column 3 of Worksheet G.
-          mobile_homeowners_helper_heading: Mobile Homeowners
-          title: Tenant Property Tax Worksheet
+          description_html: "<p>The next step is to fill in this <a href=\"https://www.nj.gov/treasury/taxation/pdf/wrkshtg.pdf\" target=\"_blank\" rel=\"noopener nofollow\">worksheet</a>.</p> \n<p>Once you fill in the worksheet, come back to this page.</p>\n<p>The worksheet will ask you about where you lived and for how long. If you moved, for example, it will have space for you to list every place you lived.</p>\n"
+          helper_anchor_description_html: If you received an ANCHOR benefit, the benefit amount does not affect the amount to report on line 8. (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR offers property tax relief to New Jersey residents who own or rent property in New Jersey as their main home and meet certain income limits.</a>)
+          helper_anchor_heading: What if I received ANCHOR benefits?
+          helper_description: Enter your site fees paid for %{filing_year} in the rental section of Worksheet G.
+          helper_heading: Mobile homeowners
+          label_html: "<strong>Enter Line 8 of Worksheet</strong>"
+          title: Good news – you qualify for a deduction or credit.
       nj_tenant_rent_paid:
         edit:
-          helper_description: Si usted era propietario de una casa móvil, ingrese las tarifas del sitio pagadas en %{filing_year}.
-          label: Alquiler pagado en %{filing_year}
-          title: Ingrese el alquiler pagado en %{filing_year}.
+          helper_anchor_description_html: If you received an ANCHOR benefit, the benefit amount does not affect the amount to report on line 8. (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR offers property tax relief to New Jersey residents who own or rent property in New Jersey as their main home and meet certain income limits.</a>)
+          helper_anchor_heading: What if I received ANCHOR benefits?
+          helper_description: Enter your site fees paid for %{filing_year} in the rental section of Worksheet G.
+          helper_heading: Mobile homeowners
+          label_html: "<strong>Enter your share of total rent paid in %{filing_year}</strong>"
+          title: Good news – you qualify for a deduction or credit.
       nj_veterans_exemption:
         edit:
-          instructions_html: Se le considera un veterano si es un ex miembro de las Fuerzas Armadas de los Estados Unidos dado de <a href="https://pub.njleg.state.nj.us/Bills/2024/A3500/3485_I1.PDF" target="_blank" rel="noopener nofollow">baja honorablemente</a>. <br><br> Si es la primera vez que solicita <a href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml" target="_blank" rel="noopener nofollow"">esta exención</a>, debe proporcionar <a href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml" target="_blank" rel="noopener nofollow"">documentación</a> y <a href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf" target="_blank" rel="noopener nofollow"">un formulario</a> a la División de Impuestos de Nueva Jersey. Puede hacerlo <a href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf" target="_blank" rel="noopener nofollow">en línea</a>.
-          primary_veteran_question: "¿Eres un veterano?"
-          spouse_veteran_question: "¿Su cónyuge es un veterano?"
-          title: En NJ, los veteranos son elegibles para una exención de impuestos.
+          instructions_html: |
+            <p>You are considered a veteran if you are an <a href="https://pub.njleg.state.nj.us/Bills/2024/A3500/3485_I1.PDF" target="_blank" rel="noopener nofollow">honorably discharged</a> former member of the United States Armed Forces.</p>
+            <p>If this is the first time you’re claiming <a href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml" target="_blank" rel="noopener nofollow">this exemption</a>, you have to provide <a href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml" target="_blank" rel="noopener nofollow">documentation</a> and <a href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf" target="_blank" rel="noopener nofollow">a form</a> to the New Jersey Division of Taxation. It can be done <a href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf" target="_blank" rel="noopener nofollow">online</a>. You can provide it after you finish going through this tool and submitting your return.
+          primary_veteran_question: Are you a veteran?
+          spouse_veteran_question: Is your spouse a veteran?
+          title: In New Jersey, veterans are eligible for a tax exemption.
       nj_year_of_death:
         edit:
           question: "¿En qué año falleció su cónyuge?"
@@ -3383,7 +3440,7 @@ es:
           opt_in_label: Por favor, selecciona la(s) opción(es) que mejor te funcione(n).
           phone_number: Tu número de teléfono
           phone_number_help_text: Ingresa números únicamente
-          provided_email: Le enviaremos actualizaciones sobre su declaración de impuestos a %{email_address}.
+          provided_contact: Le enviaremos actualizaciones sobre su declaración de impuestos a %{contact_info}.
           sms_notification_opt_in: Mensaje de texto
           subtitle: Necesitaremos comunicarnos contigo en caso de que tengamos preguntas o información actualizada.
           title: "¿Cuál es la mejor manera de contactarte?"
@@ -3768,10 +3825,25 @@ es:
       w2:
         edit:
           box14_explanation_md_html: Para el año fiscal %{year}, solo procesaremos el código <strong>STPICKUP</strong>, que representa las contribuciones que hiciste al sistema de jubilación estatal.
-          box14_explanation_nj_html: 'For this year, we will only need the amounts for <strong>UI/WF/SWF</strong> (may also appear as <strong>"UI/HC/WD"</strong> on your W2) and FLI.<br/><br/><strong>If you do not see these, please leave these fields blank.</strong><br/><br/><strong>Definitions:</strong><br/><br/><strong>UI/WF/SWF</strong> (may also appear as <strong>"UI/HC/WD"</strong> on your W2) represents:<ul><li><strong>UI</strong> refers to unemployment insurance contributions</li><li><strong>WF</strong> and <strong>WD</strong> refer to  workforce development partnership fund contributions</li><li><strong>SWF</strong> refers to supplemental workforce fund contributions</li><li><strong>HC</strong> refers to healthcare contributions</li><li><strong>WD</strong> refers to workforce development contributions</li></ul><strong>FLI</strong>: Represents contributions withheld for Family Leave Insurance. Family Leave Insurance (FLI) provides paid leave benefits to bond with a new child, care for a loved one, or cope with domestic/sexual violence. If you have a number for this on your paycheck, it means you have paid into this program and may be eligible to receive cash benefits.<br/><br/>We use the amounts to determine if you  might be eligible for a credit.<br/><br/>There may be other information in box 14 - those don''t need to be reported with this tool.'
+          box14_explanation_nj_html: |
+            <p>For this year, we will only need the amounts for <strong>UI/WF/SWF</strong> (may also appear as <strong>"UI/HC/WD"</strong> on your W2) <strong>and FLI</strong>.
+            <p><strong>If you do not see these, please leave these fields blank.</strong></p>
+            <p><strong>Definitions:</strong></p>
+            <ul class="list--bulleted">
+              <li><strong>UI/WF/SWF</strong> (may also appear as <strong>"UI/HC/WD"</strong> on your W2) represents:</li>
+              <ul class="list--bulleted">
+                <li><strong>UI</strong> refers to unemployment insurance contributions</li>
+                <li><strong>WF</strong> or <strong>WD</strong> refer to workforce development partnership fund contributions</li>
+                <li><strong>SWF</strong> refers to supplemental workforce fund contributions</li>
+                <li><strong>HC</strong> refers to healthcare contributions</li>
+              </ul>
+              <li><strong>FLI</strong>: Represents contributions withheld for Family Leave Insurance. Family Leave Insurance (FLI) provides paid leave benefits to bond with a new child, care for a loved one, or cope with domestic/sexual violence. If you have a number for this on your paycheck, it means you have paid into this program and may be eligible to receive cash benefits.</li>
+            </ul>
+            <p>We use the amounts to determine if you <a href="https://www.nj.gov/treasury/taxation/njit16.shtml" target="_blank" rel="noopener nofollow">might be eligible for a credit</a>.</p>
+            <p>There may be other information in Box 14. That's ok. That information doesn't need to be reported with this tool. </p>
           box14_fli_html: "<strong>FLI</strong>"
           box14_html: "<strong>Box 14,</strong> Other"
-          box14_intro_nj_html: Box 14 will have various letters in it. Those letters all represent program names.<br/><br/>For this year, we will only need the amounts for <strong>UI/WF/SWF</strong> (may also appear as <strong>"UI/HC/WD"</strong> on your W2) <strong>and FLI</strong>.<br/><br/><strong>If you do not see these, please leave these fields blank.</strong><br/><br/>There may be information for other programs in box 14 - those don't need to be reported with this tool.
+          box14_intro_nj_html: "<p>Employers may use Box 14 to report anything that doesn't fit somewhere else on a Form W-2.</p>\n<p>For this year, we will only need any amounts listed for <strong>UI/WF/SWF</strong> (may also appear as <strong>\"UI/HC/WD\"</strong> on your W2) <strong>and FLI</strong>.</p> \n<p><strong>If you do not see these, please leave these fields blank.</strong></p> \n<p>There may be other information in Box 14. That information doesn't need to be reported with this tool.</p>\n"
           box14_stpickup_help_text: Para %{year}, solo procesaremos el código STPICKUP. Si no ves este código o tienes otros códigos en Box 14, por favor déjalo en blanco.
           box14_stpickup_html: "<strong>STPICKUP</strong>"
           box14_ui_wf_swf_html: "<strong>UI/WF/SWF</strong> (This may also appear on your W2 as <strong>UI/HC/WD.</strong>)"
@@ -5402,6 +5474,7 @@ es:
         delete_cta: Eliminar a esta persona
         disabled: Con discapacidad permanente
         first_name: Nombre
+        has_ip_pin: Se le emitió un IP PIN
         last_name: Apellido
         life_circumstances: Selecciona cualesquiera casos que describan sus vidas en el último año
         life_circumstances_help: Necesitamos estas respuestas para determinar para cuáles créditos tributarios te puedes calificar.
