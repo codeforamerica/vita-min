@@ -13,7 +13,7 @@
           <% if current_intake.state_file1099_rs.present? %>
             <li>1099R</li>
           <% end %>
-          <% if current_intake.direct_file_data.fed_unemployment.positive? %>
+          <% if current_intake.state_file1099_gs.count > 0 %>
             <li>1099G</li>
           <% end %>
           <% if current_intake.direct_file_json_data.interest_reports.count.positive? %>
