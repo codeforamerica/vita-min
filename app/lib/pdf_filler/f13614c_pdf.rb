@@ -264,10 +264,10 @@ module PdfFiller
             "form1[0].page1[0].youSpouseWereIn[0].column2[0].issuedIdentityProtection[0].identityProtectionSpouse[0]" => @intake.spouse_issued_identity_pin_yes?,
 
             # Negative
-            "form1[0].page1[0].youSpouseWereIn[0].column1[0].usCitizen[0].usCitizenNo[0]" => !@intake.primary_us_citizen_yes? && !@intake.spouse_us_citizen_yes?,
-            "form1[0].page1[0].youSpouseWereIn[0].column1[0].fullTimeStudent[0].studentNo[0]" => !@intake.was_full_time_student_yes? && !@intake.spouse_was_full_time_student_yes?,
-            "form1[0].page1[0].youSpouseWereIn[0].column2[0].legallyBlind[0].legallyBlindNo[0]" => !@intake.was_blind_yes? && !@intake.spouse_was_blind_yes?,
-            "form1[0].page1[0].youSpouseWereIn[0].column2[0].totallyPermanentlyDisabled[0].disabledNo[0]" => !@intake.had_disability_yes? && !@intake.spouse_had_disability_yes?,
+            "form1[0].page1[0].youSpouseWereIn[0].column1[0].usCitizen[0].usCitizenNo[0]" => @intake.primary_us_citizen_no? && !@intake.spouse_us_citizen_yes?,
+            "form1[0].page1[0].youSpouseWereIn[0].column1[0].fullTimeStudent[0].studentNo[0]" => @intake.was_full_time_student_no? && !@intake.spouse_was_full_time_student_yes?,
+            "form1[0].page1[0].youSpouseWereIn[0].column2[0].legallyBlind[0].legallyBlindNo[0]" => @intake.was_blind_no? && !@intake.spouse_was_blind_yes?,
+            "form1[0].page1[0].youSpouseWereIn[0].column2[0].totallyPermanentlyDisabled[0].disabledNo[0]" => @intake.had_disability_no? && !@intake.spouse_had_disability_yes?,
             # TODO: Add "in the US on a visa"
             "form1[0].page1[0].youSpouseWereIn[0].column2[0].issuedIdentityProtection[0].identityProtectionNo[0]" => (!@intake.issued_identity_pin_yes? && !@intake.spouse_issued_identity_pin_yes?),
 
