@@ -35,17 +35,14 @@ describe ArchivedIntakeEmailVerificationCodeService do
       end
     end
 
-    context 'when locale is spanish' do
-
+    context 'when locale is Spanish' do
       let(:locale) { :es }
 
-      xit "sends an email that includes 'FileYourStateTaxes'" do
+      it "sends an email that includes 'FileYourStateTaxes'" do
         described_class.request_code(**params)
         email = ActionMailer::Base.deliveries.last
         expect(email.to).to eq [email_address]
-        expect(email.body.encoded).to include (
-                                                'Tu equipo de impuestos en FileYourStateT'
-                                              )
+        expect(email.body.encoded).to include ("Tu codigo de verificacion de seis digitos para FileYourStateTaxes:")
       end
     end
   end
