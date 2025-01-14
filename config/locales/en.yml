@@ -755,6 +755,7 @@ en:
           first_name: First Name
           got_married_during_tax_year: A. If Yes, Did you get married in 2024?
           had_disability: Totally and permanently disabled
+          issued_an_identity_protection_pin: Issued an identity protection PIN (IPPIN)
           issued_identity_pin: Have you, your spouse, or dependents been a victim of tax related identity theft or been issued an Identity Protection PIN?
           job_title: Job Title
           last_name: Last Name
