@@ -80,7 +80,7 @@ module PdfFiller
           "form1[0].page1[0].maritalStatus[0].statusLegallySeparated[0].statusLegallySeparated[0]" => (@intake.ever_married_yes? && @intake.married_yes? && @intake.separated_yes?),
           "form1[0].page1[0].maritalStatus[0].statusDivorced[0].statusDivorced[0]" => (@intake.ever_married_yes? && @intake.married_no? && @intake.divorced_yes?),
           "form1[0].page1[0].maritalStatus[0].marriedForAll[0].forAllYes[0]" => (@intake.married_yes? && @intake.got_married_during_tax_year_yes?),
-          "form1[0].page1[0].maritalStatus[0].marriedForAll[0].forAllNo[0]" => (@intake.married_yes? && !@intake.got_married_during_tax_year_yes?),
+          "form1[0].page1[0].maritalStatus[0].marriedForAll[0].forAllNo[0]" => (@intake.married_yes? && @intake.got_married_during_tax_year_no?),
           "form1[0].page1[0].maritalStatus[0].statusWidowed[0].statusWidowed[0]" => (@intake.ever_married_yes? && @intake.married_no? && @intake.widowed_yes?),
           "form1[0].page1[0].maritalStatus[0].liveWithSpouse[0].liveWithYes[0]" => (@intake.ever_married_yes? && @intake.lived_with_spouse_yes?),
           "form1[0].page1[0].maritalStatus[0].liveWithSpouse[0].liveWithNo[0]" => (@intake.married_yes? && @intake.lived_with_spouse_no?),
