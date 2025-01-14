@@ -5,56 +5,78 @@ RSpec.describe StateFile::NotificationPreferencesForm do
 
   describe "#valid?" do
     context "when sms_notification_opt_in is present" do
-      let(:valid_params) do
-        {
-          sms_notification_opt_in: "yes",
-          phone_number: "+14155551212"
-        }
-      end
-
-      subject(:form) { described_class.new(intake, valid_params) }
-
-      it "is valid" do
-        expect(form).to be_valid
-      end
-
-      context "when phone number is not in e164 format" do
-        let(:invalid_params) do
+      context "with no existing phone number" do
+        let(:valid_params) do
           {
             sms_notification_opt_in: "yes",
-            phone_number: "415555121"
+            phone_number: "+14155551212"
           }
         end
-        subject(:form) { described_class.new(intake, invalid_params) }
 
-        it "is invalid" do
-          form.valid?
-          expect(form).not_to be_valid
+        subject(:form) { described_class.new(intake, valid_params) }
+
+        it "is valid" do
+          expect(form).to be_valid
         end
 
-        it "adds an error to the phone_number attribute" do
-          form.valid?
-          expect(form.errors[:phone_number]).to include "Please enter a valid phone number."
+        context "when phone number is not in e164 format" do
+          let(:invalid_params) do
+            {
+              sms_notification_opt_in: "yes",
+              phone_number: "415555121"
+            }
+          end
+          subject(:form) { described_class.new(intake, invalid_params) }
+
+          it "is invalid" do
+            form.valid?
+            expect(form).not_to be_valid
+          end
+
+          it "adds an error to the phone_number attribute" do
+            form.valid?
+            expect(form.errors[:phone_number]).to include "Please enter a valid phone number."
+          end
+        end
+
+        context "when phone number is blank" do
+          let(:invalid_params) do
+            {
+              sms_notification_opt_in: "yes",
+              phone_number: ""
+            }
+          end
+          subject(:form) { described_class.new(intake, invalid_params) }
+
+          it "is invalid" do
+            form.valid?
+            expect(form).not_to be_valid
+          end
+
+          it "adds an error to the phone_number attribute" do
+            form.valid?
+            expect(form.errors[:phone_number]).to include "Please enter a valid phone number."
+          end
         end
       end
 
-      context "when phone number is blank" do
-        let(:invalid_params) do
+      context "with existing phone number" do
+        let!(:intake) { create :state_file_az_intake, phone_number: "+14155551212" }
+
+        let(:params) do
           {
             sms_notification_opt_in: "yes",
-            phone_number: ""
+            phone_number: "" # Empty phone number should be valid when there's an existing one
           }
         end
-        subject(:form) { described_class.new(intake, invalid_params) }
 
-        it "is invalid" do
-          form.valid?
-          expect(form).not_to be_valid
-        end
+        subject(:form) { described_class.new(intake, params) }
 
-        it "adds an error to the phone_number attribute" do
-          form.valid?
-          expect(form.errors[:phone_number]).to include "Please enter a valid phone number."
+        it "is valid and preserves the existing phone number" do
+          expect(form).to be_valid
+          form.save
+          expect(intake.reload.phone_number).to eq "+14155551212"
+          expect(intake.sms_notification_opt_in).to eq "yes"
         end
       end
     end

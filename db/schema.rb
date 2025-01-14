@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_20_195915) do
+ActiveRecord::Schema[7.1].define(version: 2025_01_08_233940) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1611,6 +1611,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_20_195915) do
     t.string "payer_zip"
     t.integer "recipient", default: 0, null: false
     t.string "recipient_city"
+    t.string "recipient_state"
     t.string "recipient_street_address"
     t.string "recipient_street_address_apartment"
     t.string "recipient_zip"
@@ -1681,6 +1682,30 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_20_195915) do
     t.datetime "updated_at", null: false
     t.string "zip_code"
     t.index ["record_type", "record_id"], name: "index_state_file_analytics_on_record"
+  end
+
+  create_table "state_file_archived_intake_access_logs", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.jsonb "details", default: "{}"
+    t.integer "event_type"
+    t.string "ip_address"
+    t.bigint "state_file_archived_intakes_id"
+    t.datetime "updated_at", null: false
+    t.index ["state_file_archived_intakes_id"], name: "idx_on_state_file_archived_intakes_id_e878049c06"
+  end
+
+  create_table "state_file_archived_intakes", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "email_address"
+    t.string "hashed_ssn"
+    t.string "mailing_apartment"
+    t.string "mailing_city"
+    t.string "mailing_state"
+    t.string "mailing_street"
+    t.string "mailing_zip"
+    t.string "state_code"
+    t.integer "tax_year"
+    t.datetime "updated_at", null: false
   end
 
   create_table "state_file_az1099_r_followups", force: :cascade do |t|
@@ -2233,6 +2258,20 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_20_195915) do
     t.index ["data_source_type", "data_source_id"], name: "index_state_file_notification_emails_on_data_source"
   end
 
+  create_table "state_file_notification_text_messages", force: :cascade do |t|
+    t.string "body", null: false
+    t.datetime "created_at", null: false
+    t.bigint "data_source_id"
+    t.string "data_source_type"
+    t.string "error_code"
+    t.datetime "sent_at"
+    t.string "to_phone_number", null: false
+    t.string "twilio_sid"
+    t.string "twilio_status"
+    t.datetime "updated_at", null: false
+    t.index ["data_source_type", "data_source_id"], name: "index_state_file_notification_text_messages_on_data_source"
+  end
+
   create_table "state_file_ny_intakes", force: :cascade do |t|
     t.string "account_number"
     t.integer "account_type", default: 0, null: false
@@ -2774,6 +2813,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_20_195915) do
   add_foreign_key "incoming_text_messages", "clients"
   add_foreign_key "intake_archives", "intakes", column: "id"
   add_foreign_key "intakes", "clients"
+  add_foreign_key "intakes", "drivers_licenses", column: "primary_drivers_license_id"
+  add_foreign_key "intakes", "drivers_licenses", column: "spouse_drivers_license_id"
   add_foreign_key "intakes", "intakes", column: "matching_previous_year_intake_id"
   add_foreign_key "intakes", "vita_partners"
   add_foreign_key "notes", "clients"
@@ -2788,6 +2829,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_20_195915) do
   add_foreign_key "site_coordinator_roles_vita_partners", "site_coordinator_roles"
   add_foreign_key "site_coordinator_roles_vita_partners", "vita_partners"
   add_foreign_key "source_parameters", "vita_partners"
+  add_foreign_key "state_file_archived_intake_access_logs", "state_file_archived_intakes", column: "state_file_archived_intakes_id"
   add_foreign_key "state_routing_fractions", "state_routing_targets"
   add_foreign_key "state_routing_fractions", "vita_partners"
   add_foreign_key "system_notes", "clients"

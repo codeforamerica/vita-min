@@ -4,7 +4,7 @@
   <section class="slab slab--white">
     <div class="grid">
       <div class="grid__item width-three-fourths">
-        <main role="main">
+        <div class="main-content-inner">
           <div class="question__illustration">
             <%= image_tag("portal/still-need-help.svg", alt: "") %>
           </div>
@@ -20,7 +20,7 @@
           <%= link_to portal_still_needs_help_no_more_documents_path, method: :put, class: "button button--wide button--primary text--centered" do %>
             <%= t(".no_additional_documents") %>
           <% end %>
-        </main>
+        </div>
       </div>
     </div>
   </section>

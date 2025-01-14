@@ -1,7 +1,8 @@
 class StateFileBaseIntake < ApplicationRecord
   self.ignored_columns = [:df_data_import_failed_at, :bank_name]
 
-  devise :lockable, :timeoutable, :trackable
+  devise :lockable, :trackable
+  devise :timeoutable, :timeout_in => 15.minutes, :unlock_strategy => :time
 
   self.abstract_class = true
   has_one_attached :submission_pdf
@@ -16,13 +17,10 @@ class StateFileBaseIntake < ApplicationRecord
   belongs_to :primary_state_id, class_name: "StateId", optional: true
   belongs_to :spouse_state_id, class_name: "StateId", optional: true
   accepts_nested_attributes_for :primary_state_id, :spouse_state_id
-
-  scope :accessible_intakes, -> { all }
-  devise :timeoutable, :timeout_in => 15.minutes, :unlock_strategy => :time
+  accepts_nested_attributes_for :dependents, update_only: true
 
   validates :email_address, 'valid_email_2/email': true
   validates :phone_number, allow_blank: true, e164_phone: true
-  accepts_nested_attributes_for :dependents, update_only: true
   delegate :tax_return_year, to: :direct_file_data
   alias_attribute :sms_phone_number, :phone_number
 
@@ -33,6 +31,10 @@ class StateFileBaseIntake < ApplicationRecord
   enum payment_or_deposit_type: { unfilled: 0, direct_deposit: 1, mail: 2 }, _prefix: :payment_or_deposit_type # direct deposit includes both direct_deposit and direct_debit
   enum consented_to_terms_and_conditions: { unfilled: 0, yes: 1, no: 2 }, _prefix: :consented_to_terms_and_conditions
   enum consented_to_sms_terms: { unfilled: 0, yes: 1, no: 2 }, _prefix: :consented_to_sms_terms
+  enum email_notification_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :email_notification_opt_in
+  enum sms_notification_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :sms_notification_opt_in
+
+  scope :accessible_intakes, -> { all }
   scope :with_df_data_and_no_federal_submission, lambda {
     where.not(raw_direct_file_data: nil)
          .where(federal_submission_id: nil)
@@ -135,8 +137,8 @@ class StateFileBaseIntake < ApplicationRecord
         box_14_values[deduction[:other_description]] = deduction[:other_amount]
       end
       state_file_w2.assign_attributes(
-        box14_ui_wf_swf: box_14_values['UI/WF/SWF'],
-        box14_ui_hc_wd: box_14_values['UI/HC/WD'],
+        box14_ui_wf_swf: box_14_values['UIWFSWF'],
+        box14_ui_hc_wd: box_14_values['UIHCWD'],
         box14_fli: box_14_values['FLI'],
         box14_stpickup: box_14_values['STPICKUP'],
         employer_ein: direct_file_w2.EmployerEIN,
@@ -277,6 +279,10 @@ class StateFileBaseIntake < ApplicationRecord
 
   def requires_additional_withdrawal_information?
     false
+  end
+
+  def allows_w2_editing?
+    true
   end
 
   class Person
