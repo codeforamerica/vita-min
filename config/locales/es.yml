@@ -3885,6 +3885,7 @@ es:
           ¿Ya presentó tus impuestos estatales con nosotros? <strong>Puedes descargar una copia de tu declaración estatal hasta el 31 de diciembre de 2024</strong><br /><br />
         header: Una herramienta sin costo para presentar impuestos estatales para los contribuyentes utilizando IRS Direct File
         helper_heading_html: "<strong>¿Cómo funciona este servicio?</strong>"
+        looking_for_return_html: "<strong>¿Buscas tu declaración de impuestos de Arizona o del estado de Nueva York de 2023?</strong>"
         section1_html: |
           <ol class="list--numbered" style="padding-left: 2rem">
             <li>Presenta y envía tu declaración federal con <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">IRS Direct File</a> antes de usar esta herramienta.</li>
