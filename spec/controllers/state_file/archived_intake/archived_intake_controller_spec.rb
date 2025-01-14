@@ -23,7 +23,6 @@ describe StateFile::ArchivedIntakes::ArchivedIntakeController, type: :controller
 
   describe '#create_state_file_access_log' do
     let(:event_type) { 'incorrect_ssn_challenge' }
-    let(:access_log_instance) { instance_double(StateFileArchivedIntakeAccessLog) }
 
     before do
       allow(controller).to receive(:current_request).and_return(request_instance)

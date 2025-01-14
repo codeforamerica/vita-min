@@ -36,21 +36,23 @@ FactoryBot.define do
 
     after(:create) do |archived_intake, evaluator|
       intake = evaluator.intake
-      archiver = evaluator.archiver
-      archived_intake.update(
-        email_address: intake.email_address,
-        hashed_ssn: intake.hashed_ssn,
-        mailing_apartment: intake.direct_file_data.mailing_apartment,
-        mailing_city: intake.direct_file_data.mailing_city,
-        mailing_state: intake.direct_file_data.mailing_state,
-        mailing_street: intake.direct_file_data.mailing_street,
-        mailing_zip: intake.direct_file_data.mailing_zip,
-        original_intake_id: "#{archiver.state_code}#{intake.id}",
-        tax_year: archiver.tax_year,
-        state_code: archiver.state_code,
-      )
-      archived_intake.submission_pdf.attach(intake.submission_pdf.blob)
-      archived_intake.save!
+      unless intake.nil?
+        archiver = evaluator.archiver
+        archived_intake.update(
+          email_address: intake.email_address,
+          hashed_ssn: intake.hashed_ssn,
+          mailing_apartment: intake.direct_file_data.mailing_apartment,
+          mailing_city: intake.direct_file_data.mailing_city,
+          mailing_state: intake.direct_file_data.mailing_state,
+          mailing_street: intake.direct_file_data.mailing_street,
+          mailing_zip: intake.direct_file_data.mailing_zip,
+          original_intake_id: "#{archiver.state_code}#{intake.id}",
+          tax_year: archiver.tax_year,
+          state_code: archiver.state_code,
+        )
+        archived_intake.submission_pdf.attach(intake.submission_pdf.blob)
+        archived_intake.save!
+      end
     end
   end
 end
