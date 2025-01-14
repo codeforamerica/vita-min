@@ -7,7 +7,7 @@ module StateFile
 
     attr_reader :state_code, :batch_size, :data_source, :tax_year, :current_batch, :cutoff
 
-    def initialize(state_code:, batch_size: 100, cutoff: '2025-01-01')
+    def initialize(state_code:, batch_size: 100, cutoff: '2024-06-01')
       @state_code = state_code
       @batch_size = batch_size
       @data_source = INTAKE_MAP[state_code.to_sym]
@@ -18,19 +18,18 @@ module StateFile
     end
 
     def find_archiveables
-      query_result = ActiveRecord::Base.connection.exec_query(query_archiveable_intakes)
-      @current_batch = query_result.as_json
-      Rails.logger.info("Found #{current_batch.count} #{data_source.name.pluralize} to archive.")
+      @current_batch = active_record_query
+      Rails.logger.info("Found #{current_batch.count} #{data_source.name.pluralize} to archive: #{current_batch}")
     end
 
     def archive_batch
       archived_ids = []
-      current_batch&.each do |batch_data|
-        archived_intake = StateFileArchivedIntake.new(hashed_ssn: batch_data['hashed_ssn'])
+      current_batch&.each do |source_intake|
+        archived_intake = StateFileArchivedIntake.new
         archived_intake.state_code = state_code
         archived_intake.tax_year = tax_year
 
-        source_intake = data_source.find(batch_data['intake_id'])
+        archived_intake.hashed_ssn = source_intake.hashed_ssn
         archived_intake.email_address = source_intake.email_address
         archived_intake.mailing_street = source_intake.direct_file_data.mailing_street
         archived_intake.mailing_apartment = source_intake.direct_file_data.mailing_apartment
@@ -41,13 +40,13 @@ module StateFile
         if source_intake.submission_pdf.attached?
           archived_intake.submission_pdf.attach(source_intake.submission_pdf.blob)
         else
-          Rails.logger.warn("No submission pdf attached to intake #{batch_data['intake_id']}. Continuing with batch.")
+          Rails.logger.warn("No submission pdf attached to intake #{source_intake.id}. Continuing with batch.")
         end
 
         archived_intake.save!
-        archived_ids << batch_data['intake_id']
+        archived_ids << source_intake.id
       rescue StandardError => e
-        Rails.logger.warn("Caught exception #{e} for #{batch_data}. Continuing with batch.")
+        Rails.logger.warn("Caught exception #{e} for #{source_intake.id}. Continuing with batch.")
         next
       end
       Rails.logger.info("Archived #{archived_ids.count} #{data_source.name.pluralize}: [#{archived_ids.join(', ')}]")
@@ -55,33 +54,29 @@ module StateFile
       archived_ids
     end
 
-    def query_archiveable_intakes
-      <<~SQL
-        SELECT
-          id AS intake_id, hashed_ssn
-        FROM
-          #{data_source.table_name}
-        WHERE id IN (
-          SELECT
-            efs.data_source_id
-          FROM
-            efile_submission_transitions est
-            LEFT JOIN efile_submissions efs ON efs.ID = est.efile_submission_id
-          WHERE
-            est.most_recent = TRUE
-            AND est.to_state = 'accepted'
-            AND est.created_at < '#{cutoff}'
-            AND efs.data_source_type = '#{data_source}'
-          ORDER BY
-            efs.data_source_id ASC
-        )
-        AND hashed_ssn NOT IN (
-          SELECT hashed_ssn
-          FROM state_file_archived_intakes
-          WHERE state_code = '#{state_code}' and tax_year = #{tax_year}
-        )
-        LIMIT #{batch_size}
-      SQL
+    def active_record_query
+      archiveable_intakes = data_source
+                           .where(id:
+                                    EfileSubmissionTransition
+                                      .joins(:efile_submission)
+                                      .where(
+                                        to_state: :accepted,
+                                        most_recent: true,
+                                        created_at: ..Date.parse(cutoff),
+                                        :efile_submission => { :data_source_type => data_source.name }
+                                      ).pluck(
+                                      :"efile_submission.data_source_id"
+                                    )
+                           )
+
+      # do not archive multiple intakes with the same email address
+      archived_emails = StateFileArchivedIntake.where(state_code: state_code, tax_year: tax_year).pluck(:email_address)
+      unarchived_archiveable_intakes = archiveable_intakes.where.not(email_address: archived_emails)
+
+      # There are some 2023 NY accepted intakes with duplicate hashed SSNs, and for these we will only archive the last one
+      unarchived_archiveable_intakes.group_by(&:email_address).map do |_, accepted_intakes_with_same_email_address|
+        accepted_intakes_with_same_email_address.max_by(&:created_at)
+      end.first(batch_size)
     end
   end
 end

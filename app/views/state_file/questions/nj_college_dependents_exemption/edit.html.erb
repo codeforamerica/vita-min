@@ -5,9 +5,7 @@
 
 <% content_for :card do %>
   <h1 class="h2"><%= title %></h1>
-  <p><%= t(".subtitle_1") %></p>
-  <p><%= t(".subtitle_2") %></p>
-
+  <%= t(".subtitle_html") %>
 
   <div class="reveal">
     <button class="reveal__button"><%= t('.college_helper_heading') %></button>
@@ -29,6 +27,8 @@
       <p><%= t('.tuition_books_helper_description_html') %></p>
     </div>
   </div>
+
+  <p><%= t(".reminder") %></p>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
 

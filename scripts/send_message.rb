@@ -1,5 +1,11 @@
 #!/usr/bin/env ruby
 
+# a hack to run this locally for texts is to copy the twilio credentials from demo into development
+# (make sure you reset them afterwards)
+
+# `scripts/send_message.rb help` to see all available commands
+# `scripts/send_message.rb help [COMMAND]` to see options for a command
+
 # You probably always want this, right? Opens emails in browser
 ENV['LETTER_OPENER'] = '1'
 
@@ -7,7 +13,7 @@ require_relative "../config/environment"
 
 # Horrible hack to enable emails to send within the transaction
 
-# Reopen app/models/state_file_notification_email.rb
+# Monkey-patching app/models/state_file_notification_email.rb
 class StateFileNotificationEmail
   # This is after_create_commit in the unmodified class which never fires
   # because nothing ever gets commited in the transaction
@@ -19,6 +25,19 @@ class StateFileNotificationEmail
     # This is #perform_later in the unmodified class. Obviously we don't have a
     # job queue running for this task
     StateFile::SendNotificationEmailJob.perform_now(id)
+  end
+end
+
+# Monkey-patching app/models/state_file_notification_text_message.rb
+class StateFileNotificationTextMessage
+  # This is after_create_commit in the unmodified class which never fires
+  # because nothing ever gets commited in the transaction
+  after_create :deliver
+
+  private
+
+  def deliver
+    StateFile::SendNotificationTextMessageJob.perform_now(id)
   end
 end
 

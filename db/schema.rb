@@ -1712,6 +1712,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_13_222716) do
     t.string "mailing_state"
     t.string "mailing_street"
     t.string "mailing_zip"
+    t.string "original_intake_id"
     t.string "state_code"
     t.integer "tax_year"
     t.datetime "updated_at", null: false
