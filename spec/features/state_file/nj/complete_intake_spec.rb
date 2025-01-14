@@ -282,7 +282,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t('state_file.questions.esign_declaration.edit.submit')
       
       expect(page).to be_axe_clean
-      expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", filing_year: 2024, state_name: "New Jersey")      
+      expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", filing_year: 2024, state_name: "New Jersey")
     end
 
     it "handles property tax neither flow", required_schema: "nj" do
