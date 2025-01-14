@@ -920,8 +920,8 @@ describe Efile::Md::Md502Calculator do
 
     context "deduction method is 'N'" do
       let(:deduction_method) { "N" }
-      it "returns nil" do
-        expect(instance.lines[:MD502_LINE_21].value).to eq nil
+      it "returns 0" do
+        expect(instance.lines[:MD502_LINE_21].value).to eq 0
       end
     end
   end
@@ -1332,6 +1332,7 @@ describe Efile::Md::Md502Calculator do
     let(:income) { 300_000 }
     before do
       allow_any_instance_of(described_class).to receive(:calculate_line_20).and_return income
+      allow_any_instance_of(described_class).to receive(:calculate_deduction_method).and_return "S"
       instance.calculate
     end
 
@@ -1358,6 +1359,16 @@ describe Efile::Md::Md502Calculator do
         it "calculates the local tax with the 0.027 tax rate" do
           # (0.027 * 45,000) = 1,215
           expect(instance.lines[:MD502_LINE_28_LOCAL_TAX_AMOUNT].value).to eq(1215)
+        end
+      end
+
+      context "deduction method is non standard" do
+        before do
+          allow_any_instance_of(described_class).to receive(:calculate_deduction_method).and_return "N"
+          instance.calculate
+        end
+        it 'returns 0' do
+          expect(instance.lines[:MD502_LINE_28_LOCAL_TAX_AMOUNT].value).to eq(0)
         end
       end
     end
