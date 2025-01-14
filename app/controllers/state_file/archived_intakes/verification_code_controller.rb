@@ -18,6 +18,7 @@ module StateFile
 
       def update
         @form = VerificationCodeForm.new(verification_code_form_params, email_address: current_request.email_address)
+        @email_address = current_request.email_address
 
         if @form.valid?
           create_state_file_access_log("correct_email_code")
