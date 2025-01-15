@@ -170,24 +170,45 @@ describe StateFileW2 do
   end
 
   describe "generating xml" do
-    it "Grabs the state code from the intake" do
+    let(:intake) { create :state_file_md_intake, :df_data_2_w2s }
+
+    it "Grabs the state code from the direct file W2" do
       xml = Nokogiri::XML(w2.state_tax_group_xml_node)
-      expect(xml.at("StateAbbreviationCd").text).to eq "NY"
+      expect(xml.at("StateAbbreviationCd").text).to eq "MD"
     end
 
-    context "with an Arizona Intake" do
-      let(:intake) { create :state_file_az_intake }
+    context "with a different state code on W2 State Tax Group" do
+      before do
+        intake.direct_file_data.w2s[0].StateAbbreviationCd = "AZ"
+      end
 
-      it "Grabs the state code from the intake" do
+      it "Grabs the state code from the direct file W2" do
         xml = Nokogiri::XML(w2.state_tax_group_xml_node)
         expect(xml.at("StateAbbreviationCd").text).to eq "AZ"
       end
     end
 
-    it "does not emit a StateAbbreviationCd if there is no EmployerStateIdNum" do
-      w2.employer_state_id_num = ""
-      xml = Nokogiri::XML(w2.state_tax_group_xml_node)
-      expect(xml.at("StateAbbreviationCd")).to be_nil
+    context "when there is no StateAbbreviationCd on W2 from Direct File" do
+      before do
+        intake.direct_file_data.w2s[0].StateAbbreviationCd = ""
+        intake.direct_file_data.w2s[1].StateAbbreviationCd = ""
+      end
+
+      it "hard codes a StateAbbreviationCd from intake" do
+        xml = Nokogiri::XML(w2.state_tax_group_xml_node)
+        expect(xml.at("StateAbbreviationCd").text).to eq('MD')
+      end
+    end
+
+    context "with no EmployerStateIdNum" do
+      before do
+        intake.direct_file_data.w2s[0].EmployerStateIdNum = ""
+      end
+
+      it "does not leave StateAbbreviationCd empty" do
+        xml = Nokogiri::XML(w2.state_tax_group_xml_node)
+        expect(xml.at("StateAbbreviationCd").text).to eq "MD"
+      end
     end
   end
 
