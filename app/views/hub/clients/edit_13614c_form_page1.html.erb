@@ -98,7 +98,7 @@
             <%= f.cfa_input_field(:preferred_written_language, t(".fields.preferred_written_language")) %>
           </div>
           <div class="grid__item width-one-whole">
-            <%= f.cfa_select(:register_to_vote, "7. #{t(".fields.register_to_vote")}", yes_no_options_for_select) %>
+            <%= f.cfa_select(:register_to_vote, "#{t(".fields.register_to_vote")}", yes_no_options_for_select) %>
           </div>
           <div class="grid__item width-one-whole">
             <%= f.cfa_select(:presidential_campaign_fund_donation, "#{t(".fields.presidential_campaign_fund")}",     [
@@ -109,9 +109,7 @@
             ]) %>
           </div>
           <div class="grid__item width-one-whole">
-            <div class="form-group">
-              <p class="form-question"><%= "#{t(".fields.refund_payment_method")}" %></p>
-            </div>
+            <p class="form-question"><%= "#{t(".fields.refund_payment_method")}" %></p>
           </div>
           <div class="grid__item width-one-whole">
             <%= f.cfa_select(:refund_payment_method, t(".fields.refund_payment_method_direct_deposit"), [
