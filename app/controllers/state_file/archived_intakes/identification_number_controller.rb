@@ -32,39 +32,39 @@ module StateFile
         end
 
 
-
-        archived_intake = StateFileArchivedIntake.find_by(email_address: session[:email_address])
-        hashed_ssn = SsnHashingService.hash(identification_number_form_params[:ssn])
-
-        if hashed_ssn == archived_intake.hashed_ssn
-          StateFileArchivedIntakeAccessLog.create!(
-            ip_address: ip_for_irs,
-            details: { hashed_ssn: @form.email_address },
-            event_type: 4,
-            state_file_archived_intake: archived_intake
-          )
-          redirect_to root_path
-        else
-          # create a failed attempt
-          StateFileArchivedIntakeAccessLog.create!(
-            ip_address: ip_for_irs,
-            details: { hashed_ssn: @form.email_address },
-            event_type: 5,
-          )
-
-          # check if there are other failed attempts
-          attempts = StateFileArchivedIntakeAccessLog.where(
-            ip_address: ip_for_irs,
-            event_type: 5,
-            created_at: Time.now - 5 # less than 1 hour
-          ).count
-          if attempts >= 2
-            # lock them out
-          else
-            render :edit
-            # show the page again with a validation error showing remaining attempts
-          end
-        end
+        #
+        # archived_intake = StateFileArchivedIntake.find_by(email_address: session[:email_address])
+        # hashed_ssn = SsnHashingService.hash(identification_number_form_params[:ssn])
+        #
+        # if hashed_ssn == archived_intake.hashed_ssn
+        #   StateFileArchivedIntakeAccessLog.create!(
+        #     ip_address: ip_for_irs,
+        #     details: { hashed_ssn: @form.email_address },
+        #     event_type: 4,
+        #     state_file_archived_intake: archived_intake
+        #   )
+        #   redirect_to root_path
+        # else
+        #   # create a failed attempt
+        #   StateFileArchivedIntakeAccessLog.create!(
+        #     ip_address: ip_for_irs,
+        #     details: { hashed_ssn: @form.email_address },
+        #     event_type: 5,
+        #   )
+        #
+        #   # check if there are other failed attempts
+        #   attempts = StateFileArchivedIntakeAccessLog.where(
+        #     ip_address: ip_for_irs,
+        #     event_type: 5,
+        #     created_at: Time.now - 5 # less than 1 hour
+        #   ).count
+        #   if attempts >= 2
+        #     # lock them out
+        #   else
+        #     render :edit
+        #     # show the page again with a validation error showing remaining attempts
+        #   end
+        # end
       end
 
       def identification_number_form_params

@@ -1,40 +1,48 @@
 module StateFile
   module ArchivedIntakes
     class IdentificationNumberForm < Form
-      validates :ssn, social_security_number: true, presence: true
+      attr_accessor :ssn, :ip_for_irs
+      validates :ssn, presence: true
 
-      def initialize(attributes = {})
+      def valid?
         super
-        assign_attributes(attributes)
+        return false unless ssn.present?
+
+        hashed_ssn = SsnHashingService.hash(ssn)
+        valid_ssn = ArchivedIntake.find_by(
+          email_address: session[:email_address],
+          hashed_ssn: hashed_ssn
+        ).exists?
+
+        unless valid_ssn
+          track_failed_attempt
+          add_appropriate_error
+        end
+
+        valid_ssn
       end
 
-      def validates_ssn_associated_with_archived_intake
-        # validates if SSN is nine digits, blah blah
-        # if it's not valid AND we have a previous login attempt, we'd just throw an error
+      private
 
+      def track_failed_attempt
+        StateFileArchivedIntakeAccessLog.create!(
+          ip_address: ip_for_irs,
+          event_type: 5,
+          created_at: Time.current
+        )
+      end
 
+      def add_appropriate_error
         attempts = StateFileArchivedIntakeAccessLog.where(
           ip_address: ip_for_irs,
           event_type: 5,
-          created_at: Time.now - 5 # less than 1 hour
+          created_at: Time.current..5.hours.ago
         ).count
+
         if attempts >= 2
-          errors.add(:ssn, "You have 1 attempt left")
-        else
           errors.add(:no_remaining_attempts, true)
-        end
-      end
-
-      # lock out the email if two attempts are made on that email
-      # lock out the ssn if two attempts are made
-
-      # how many different emails from the same IP address?
-
-      # 1. would it be alright if we passed the email address by session?
-
-      def save
-        run_callbacks :save do
-          valid?
+        else
+          errors.add(:ssn, I18n.t("state_file.archived_intakes.identification_number.edit.error_message"))
         end
       end
     end
