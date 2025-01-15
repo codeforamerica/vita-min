@@ -98,6 +98,9 @@
             <%= f.cfa_input_field(:preferred_written_language, t(".fields.preferred_written_language")) %>
           </div>
           <div class="grid__item width-one-whole">
+            <%= f.cfa_select(:register_to_vote, "7. #{t(".fields.register_to_vote")}", yes_no_options_for_select) %>
+          </div>
+          <div class="grid__item width-one-whole">
             <%= f.cfa_select(:presidential_campaign_fund_donation, "#{t(".fields.presidential_campaign_fund")}",     [
               ["", "unfilled"],
               ["You", "primary"],
