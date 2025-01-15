@@ -2048,7 +2048,7 @@ en:
             zero: "$0"
         title: Tell us about your filing status and income.
         vita_income_ineligible:
-          label: Did you earn income from a rental property, a farm, or cryptocurrency?
+          label: 'Did you earn income from a rental property (ex: home or car), a farm, or cryptocurrency?'
   signups:
     flash_notice: Thank you! You will receive a notification when we open.
     new:
