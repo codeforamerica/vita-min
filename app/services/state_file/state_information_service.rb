@@ -172,7 +172,7 @@ module StateFile
         vita_link_en: "https://airtable.com/appqG5OGbTLBiQ408/pagJPN5iPinERGb3Q/form",
         vita_link_es: "https://airtable.com/appqG5OGbTLBiQ408/pagS982AjKEml809R/form",
         voucher_form_name: "Form D-400V",
-        voucher_path: "/pdfs/d400v-TY2023.pdf",
+        voucher_path: "https://eservices.dor.nc.gov/vouchers/d400v.jsp?year=2024",
         w2_supported_box14_codes: [],
         w2_include_local_income_boxes: false
       },
