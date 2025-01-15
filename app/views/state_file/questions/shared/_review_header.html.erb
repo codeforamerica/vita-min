@@ -8,19 +8,19 @@
         <p><%= t(".income_forms_collected") %></p>
         <ul class="list--bulleted">
           <% if current_intake.state_file_w2s.present? %>
-            <li>W2</li>
+            <li>W-2</li>
           <% end %>
           <% if current_intake.state_file1099_rs.present? %>
-            <li>1099R</li>
+            <li>1099-R</li>
           <% end %>
           <% if current_intake.state_file1099_gs.present? %>
-            <li>1099G</li>
+            <li>1099-G</li>
           <% end %>
           <% if current_intake.direct_file_json_data.interest_reports.present? %>
-            <li>1099INT</li>
+            <li>1099-INT</li>
           <% end %>
           <% if current_intake.direct_file_data.fed_ssb.positive? || current_intake.direct_file_data.fed_taxable_ssb.positive? %>
-            <li>SSA1099</li>
+            <li>SSA-1099</li>
           <% end %>
         </ul>
         <%= link_to StateFile::Questions::IncomeReviewController.to_path_helper(return_to_review: "y"), class: "button--small" do %>
