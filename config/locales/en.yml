@@ -2039,12 +2039,12 @@ en:
 
             <p class="text--small spacing-above-15">Your income level should not include stimulus payments, public benefits, or SSI.</p>
           options:
-            12500_to_25000: "$12,500 - 25,000"
-            1_to_12500: "$1 - 12,500"
-            25000_to_40000: "$25,000 - 40,000"
-            40000_to_66000: "$40,000 - 66,000"
-            66000_to_79000: "$66,000 - 79,000"
-            over_79000: over $79,000
+            12500_to_25000: "$15,000 - 30,000"
+            1_to_12500: "$1 - $15,000"
+            25000_to_40000: "$30,000 - 45,000"
+            40000_to_66000: "$45,000 - 67,000"
+            66000_to_79000: "$67,000 - 84,000"
+            over_79000: over $84,000
             zero: "$0"
         title: Tell us about your filing status and income.
         vita_income_ineligible:
@@ -6348,10 +6348,10 @@ en:
         in_person: Prefer to talk to someone in person? Find a free tax preparation site near you using our
         in_person_link_text: VITA location finder
         income_limit:
-          direct_file: Most filers under $TBD
+          direct_file: Most filers under $200,000
           diy: under $84,000
           full_service: under $67,000
-          title: 'Income limit:'
+          title: 'Income guidance:'
         itin_assistance: ITIN application assistance
         mobile_friendly: Mobile-friendly
         required_information: Required information
@@ -6376,7 +6376,7 @@ en:
           subtitle: "(w2s, 1099s, etc)"
           title: Official tax documents
         tax_payer_residency:
-          direct_file: Available to full-year residents of Arizona, California, Florida, Massachusetts, New Hampshire, New York, Nevada, South Dakota, Tennessee, Texas, Washington, and Wyoming.
+          direct_file: Available to full-year residents of Alaska, Arizona, California, Connecticut, Florida, Idaho, Illinois, Kansas, Maine, Maryland, Massachusetts, Nevada, New Hampshire, New Jersey, New Mexico, New York, North Carolina, Oregon, Pennsylvania, South Dakota, Tennessee, Texas, Washington, Wisconsin, and Wyoming.
           diy: Available to residents of all states, Puerto Rico, and non-residents.
           full_service_html: |
             Available to residents of all states.<br>

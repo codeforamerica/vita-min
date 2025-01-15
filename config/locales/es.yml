@@ -1991,12 +1991,12 @@ es:
 
             <p class="text--small spacing-above-15">Su nivel de ingresos no debe incluir pagos de estímulo, prestaciones públicas o Seguridad de Ingreso Suplementario (SSI)</p>
           options:
-            12500_to_25000: De $12,500 a 25,000 dólares
-            1_to_12500: De $1 a 12,500 dólares
-            25000_to_40000: De $25,000 a 40,000 dólares
-            40000_to_66000: "$40,000 - 66,000"
-            66000_to_79000: "$66,000 - 79,000"
-            over_79000: más de $79,000
+            12500_to_25000: "De $15,000 a 30,000 dólares"
+            1_to_12500: "De $1 a $15,000 dólares"
+            25000_to_40000: "De $30,000 a 45,000 dólares"
+            40000_to_66000: "De $45,000 a 67,000 dólares"
+            66000_to_79000: "De $67,000 a 84,000 dólares"
+            over_79000: más de $84,000
             zero: "$0"
         title: Hablemos sobre su estado civil y sus ingresos.
         vita_income_ineligible:
@@ -6387,10 +6387,10 @@ es:
         in_person: "¿Prefiere hablar con alguien en persona? Encuentre un sitio de preparación de impuestos gratuito cerca de usted utilizando nuestro"
         in_person_link_text: Localizador de VITA
         income_limit:
-          direct_file: La mayoría de los declarantes que ganan menos de $TBD
+          direct_file: La mayoría de los declarantes que ganan menos de $200,000
           diy: menos de $84,000
           full_service: menos de $67,000
-          title: 'Límite de ingresos:'
+          title: 'Límite de asesoramiento:'
         itin_assistance: Asistencia para la solicitud del Número de Identificación Personal (ITIN)
         mobile_friendly: Adaptable para dispositivos móviles
         required_information: Información obligatoria
@@ -6415,7 +6415,7 @@ es:
           subtitle: "(w2s, 1099s, etc)"
           title: Documentos tributarios oficiales
         tax_payer_residency:
-          direct_file: Disponible para residentes de tiempo completo de Arizona, California, Florida, Massachusetts, New Hampshire, Nueva York, Nevada, Dakota del Sur, Tennessee, Texas, Washington y Wyoming.
+          direct_file: Disponible para residentes de tiempo completo de Alaska, Arizona, California, Connecticut, Florida, Idaho, Illinois, Kansas, Maine, Maryland, Massachusetts, Nevada, Nuevo Hampshire, Nueva Jersey, Nuevo México, Nuevo York, Carolina del Norte, Oregon, Pennsylvania, Dakota del Sur, Tennessee, Tejas, Washington, Wisconsin y Wyoming.
           diy: Disponible para residentes de todos los estados, Puerto Rico y no residentes.
           full_service_html: |
             Disponible para residentes de todos los estados.<br>
