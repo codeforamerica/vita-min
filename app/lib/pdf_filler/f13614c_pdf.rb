@@ -181,14 +181,11 @@ module PdfFiller
           {
             "form1[0].page1[0].presidentialElectionFund[0].presidentialElectionFundYou[0]" => (@intake.presidential_campaign_fund_donation_primary? || @intake.presidential_campaign_fund_donation_primary_and_spouse?),
             "form1[0].page3[0].q2[0].spouse[0]" => (@intake.presidential_campaign_fund_donation_spouse? || @intake.presidential_campaign_fund_donation_primary_and_spouse?),
-            "form1[0].page1[0].presidentialElectionFund[0].presidentialElectionFundNo[0]" => (!(@intake.presidential_campaign_fund_donation_spouse? || @intake.presidential_campaign_fund_donation_primary_and_spouse?) && !(@intake.presidential_campaign_fund_donation_primary? || @intake.presidential_campaign_fund_donation_primary_and_spouse?))
+            "form1[0].page1[0].presidentialElectionFund[0].presidentialElectionFundNo[0]" => (!(@intake.presidential_campaign_fund_donation_spouse? || @intake.presidential_campaign_fund_donation_primary_and_spouse?) && !(@intake.presidential_campaign_fund_donation_primary? || @intake.presidential_campaign_fund_donation_primary_and_spouse?)),
           }
         )
       )
       answers.merge!(
-        yes_no_checkboxes("form1[0].page3[0].q3[0].DirectDeposit[0]", determine_direct_deposit(@intake)),
-        yes_no_checkboxes("form1[0].page3[0].q3[0].SavingsBonds[0]", @intake.savings_purchase_bond),
-        yes_no_checkboxes("form1[0].page3[0].q3[0].DifferentAccounts[0]", @intake.savings_split_refund),
         yes_no_checkboxes("form1[0].page3[0].q4[0]", @intake.balance_pay_from_bank),
         yes_no_checkboxes("form1[0].page3[0].q5[0]", @intake.had_disaster_loss),
       )
@@ -276,6 +273,9 @@ module PdfFiller
 
             # Refund section
             "form1[0].page1[0].dueARefund[0].refundOther[0]" => @intake.savings_purchase_bond_yes?,
+            "form1[0].page1[0].dueARefund[0].refundDirectDeposit[0]" => @intake.refund_payment_method_direct_deposit?,
+            "form1[0].page1[0].dueARefund[0].refundCheckMail[0]" => @intake.refund_payment_method_check?,
+            "form1[0].page1[0].dueARefund[0].refundSplitAccounts[0]" => @intake.savings_split_refund_yes?,
 
             "form1[0].page1[0].haveBlanceDue[0].blanceBankAccount[0]" => @intake.balance_pay_from_bank_yes?,
             "form1[0].page1[0].haveBlanceDue[0].blanceMailPayment[0]" => @intake.balance_pay_from_bank_no?,
