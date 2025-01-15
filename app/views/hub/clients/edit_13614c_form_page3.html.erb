@@ -28,9 +28,6 @@
             <%= f.cfa_select(:received_irs_letter, "6. #{t(".fields.q6_letter_from_irs")}", yes_no_options_for_select) %>
           </div>
           <div class="grid__item width-one-whole">
-            <%= f.cfa_select(:register_to_vote, "7. #{t(".fields.q7_register_to_vote")}", yes_no_options_for_select) %>
-          </div>
-          <div class="grid__item width-one-whole">
             <%= f.cfa_select(:demographic_english_conversation, "8. #{t(".fields.q8_speak_and_understand_english")}", [
               ["", :unfilled],
               [t("general.very_well"), :very_well],

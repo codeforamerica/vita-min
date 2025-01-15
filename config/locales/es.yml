@@ -784,6 +784,7 @@ es:
           refund_payment_method_direct_deposit: "."
           refund_payment_method_savings_bond: "."
           refund_payment_method_split: "."
+          register_to_vote: "¿Registrarse/registrado para votar?"
           spouse_dob: Fecha de nacimiento de su cónyuge
           spouse_first_name: Nombre legal de su cónyuge
           spouse_job_title: Puesto de trabajo del cónyuge
@@ -854,7 +855,6 @@ es:
           q5_federal_disaster_area: "¿Ha sido declarado residente en una zona catastrófica federal?"
           q5_federal_disaster_area_where: Si es así, ¿en qué lugar?
           q6_letter_from_irs: "¿Recibió una carta del IRS?"
-          q7_register_to_vote: "¿Registrarse/registrado para votar?"
           q8_speak_and_understand_english: "¿Puede llevar una conversación en inglés, y tanto entenderlo como hablarlo?"
           q9_read_english: "¿Puede leer un periódico o un libro en inglés?"
         title: 13614-C página 3
