@@ -1991,11 +1991,11 @@ es:
 
             <p class="text--small spacing-above-15">Su nivel de ingresos no debe incluir pagos de estímulo, prestaciones públicas o Seguridad de Ingreso Suplementario (SSI)</p>
           options:
-            12500_to_25000: "De $15,000 a 30,000 dólares"
-            1_to_12500: "De $1 a $15,000 dólares"
-            25000_to_40000: "De $30,000 a 45,000 dólares"
-            40000_to_66000: "De $45,000 a 67,000 dólares"
-            66000_to_79000: "De $67,000 a 84,000 dólares"
+            12500_to_25000: De $15,000 a 30,000 dólares
+            1_to_12500: De $1 a $15,000 dólares
+            25000_to_40000: De $30,000 a 45,000 dólares
+            40000_to_66000: De $45,000 a 67,000 dólares
+            66000_to_79000: De $67,000 a 84,000 dólares
             over_79000: más de $84,000
             zero: "$0"
         title: Hablemos sobre su estado civil y sus ingresos.
