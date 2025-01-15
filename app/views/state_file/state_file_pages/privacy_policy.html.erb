@@ -1,10 +1,10 @@
 <% content_for :page_title, t(".header") %>
 
-<main role="main">
+<div class="main-content-inner">
   <section class="slab slab--white">
     <div class="grid">
       <div class="grid__item width-three-fourths">
-        <main role="main">
+        <div class="main-content-inner">
           <h1><%= t(".header") %></h1>
           <p><%= t(".header_1_html", link: url_for(host: MultiTenantService.new(:statefile).host, controller: "state_file/state_file_pages", action: 'about_page')) %></p>
           <p><%= t(".header_2_html") %></p>
@@ -104,8 +104,8 @@
 
           <h2><%= t(".independent_recourse_header") %></h2>
           <p><%= t(".independent_recourse_body_html") %></p>
-        </main>
+        </div>
       </div>
     </div>
   </section>
-</main>
+</div>

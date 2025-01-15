@@ -14,6 +14,7 @@
 #  payer_zip                          :string
 #  recipient                          :integer          default("unfilled"), not null
 #  recipient_city                     :string
+#  recipient_state                    :string
 #  recipient_street_address           :string
 #  recipient_street_address_apartment :string
 #  recipient_zip                      :string
@@ -37,6 +38,7 @@ RSpec.describe StateFile1099G do
         allow_any_instance_of(DirectFileData).to receive(:mailing_street).and_return "321 Main St"
         allow_any_instance_of(DirectFileData).to receive(:mailing_apartment).and_return "Apt D"
         allow_any_instance_of(DirectFileData).to receive(:mailing_city).and_return "Buffalo"
+        allow_any_instance_of(DirectFileData).to receive(:mailing_state).and_return "NY"
         allow_any_instance_of(DirectFileData).to receive(:mailing_zip).and_return "11105"
       end
 
@@ -58,6 +60,7 @@ RSpec.describe StateFile1099G do
         expect(state_file_1099.recipient_street_address).to eq state_file_1099.intake.direct_file_data.mailing_street
         expect(state_file_1099.recipient_street_address_apartment).to eq state_file_1099.intake.direct_file_data.mailing_apartment
         expect(state_file_1099.recipient_city).to eq state_file_1099.intake.direct_file_data.mailing_city
+        expect(state_file_1099.recipient_state).to eq state_file_1099.intake.direct_file_data.mailing_state
         expect(state_file_1099.recipient_zip).to eq state_file_1099.intake.direct_file_data.mailing_zip
       end
     end

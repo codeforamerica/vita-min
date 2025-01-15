@@ -4,7 +4,7 @@ It expects to be the primary content of the given page (full width).
 */
 
 .assigned-clients-index-page-body, .clients-index-page-body {
-  main, .flash-alerts .grid {
+  .main-content-inner, .flash-alerts .grid {
     width: fit-content;
   }
 

@@ -401,6 +401,70 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     HTML
   end
 
+  def vita_min_checkbox_in_set(
+    item,
+    enum: false
+  )
+    container_id = nil
+    container_class = nil
+    item_options = item[:options] || {}
+    if item[:opens_follow_up_with_id] 
+      container_class = "question-with-follow-up__question"
+      item_options["data-follow-up"] = "#" + item[:opens_follow_up_with_id]
+    elsif item[:follow_up_id]
+      container_class = "question-with-follow-up__follow-up"
+      container_id = item[:follow_up_id]
+    end
+  
+    joined_classes = ((item[:classes] || []) + ["checkbox"]).join(" ")
+    checkbox_args = [item[:method], item_options]
+    checkbox_args += ["yes", "no"] if enum
+
+    <<~HTML.html_safe
+      <div id="#{container_id}" class="#{container_class}">
+        <label class="#{joined_classes}">
+        #{check_box(*checkbox_args)} <span class="text--normal">#{item[:label]}</span>
+        </label>
+      </div>
+    HTML
+  end
+
+  # Coped from Honeycrisp form builder v1 cfa_checkbox_set, modified to allow checkboxes to have follow up
+  def vita_min_checkbox_set(
+    method,
+    collection = [],
+    label_text: "",
+    help_text: nil,
+    optional: false,
+    legend_class: "",
+    enum: false,
+    checkboxes: nil
+  )  
+    checkbox_html = (checkboxes || collection.map do |item|
+      vita_min_checkbox_in_set(item, enum: enum)
+    end.join).html_safe  
+
+    checkbox_container_classes = ["tight-ish-checkboxes"]
+    includes_follow_up = (collection.any? { |item| item[:opens_follow_up_with_id] }) || (checkbox_html.include? "follow-up")
+    checkbox_container_classes << "question-with-follow-up" if includes_follow_up
+
+    fieldset_classes = ["input-group", "form-group#{error_state(object, method)}"]
+    <<~HTML.html_safe
+      <fieldset class="#{fieldset_classes.join(' ')}">
+        #{fieldset_label_contents(
+          label_text: label_text,
+          help_text: help_text,
+          legend_class: legend_class,
+          optional: optional,
+          )}
+          <div class="#{checkbox_container_classes.join(' ')}">
+            #{checkbox_html}
+          </div>
+          #{errors_for(object, method)}
+        </fieldset>
+    HTML
+  end
+
   def submit(value, options = {})
     options[:data] ||= {}
     options[:data][:disable_with] = value

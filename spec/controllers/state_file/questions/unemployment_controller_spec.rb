@@ -24,12 +24,12 @@ RSpec.describe StateFile::Questions::UnemploymentController do
   end
 
   describe "#index" do
-    context "with existing dependents" do
+    context "with existing 1099Gs" do
       render_views
       let!(:form1099a) { create :state_file1099_g, intake: intake, recipient: :primary }
       let!(:form1099b) { create :state_file1099_g, intake: intake, recipient: :spouse }
 
-      it "renders information about each dependent" do
+      it "renders information about each form" do
         get :index
 
         expect(response.body).to include intake.primary.full_name
@@ -37,7 +37,7 @@ RSpec.describe StateFile::Questions::UnemploymentController do
       end
     end
 
-    context "with no existing dependents" do
+    context "with no existing 1099Gs" do
       render_views
       it "renders the new view" do
         get :index
@@ -66,7 +66,7 @@ RSpec.describe StateFile::Questions::UnemploymentController do
       }
     end
 
-    it "creates a new dependent linked to the current intake and redirects to the index" do
+    it "creates a new 1099G linked to the current intake and redirects to the index" do
       expect do
         post :create, params: params
       end.to change(StateFile1099G, :count).by 1
@@ -92,6 +92,44 @@ RSpec.describe StateFile::Questions::UnemploymentController do
         expect do
           post :create, params: params
         end.not_to change(StateFile1099G, :count)
+      end
+    end
+
+    context "with new address" do
+      let(:params) do
+        {
+          state_file1099_g: {
+            had_box_11: 'yes',
+            recipient: 'primary',
+            payer_name: 'Business',
+            payer_street_address: '123 Main St',
+            payer_city: 'New York',
+            payer_zip: '11102',
+            payer_tin: '270293117',
+            federal_income_tax_withheld_amount: 123,
+            state_income_tax_withheld_amount: 456,
+            unemployment_compensation_amount: 789,
+            state_identification_number: '123456789',
+            address_confirmation: "no",
+            recipient_street_address: "223 Second St",
+            recipient_street_address_apartment: "C",
+            recipient_city: "Baltimore",
+            recipient_state: "MD",
+            recipient_zip: "21211"
+          }
+        }
+      end
+
+      it "saves the new address" do
+        post :create, params: params
+
+        state_file1099_g = StateFile1099G.last
+        expect(state_file1099_g.address_confirmation).to eq "no"
+        expect(state_file1099_g.recipient_street_address).to eq "223 Second St"
+        expect(state_file1099_g.recipient_street_address_apartment).to eq "C"
+        expect(state_file1099_g.recipient_city).to eq "Baltimore"
+        expect(state_file1099_g.recipient_state).to eq "MD"
+        expect(state_file1099_g.recipient_zip).to eq "21211"
       end
     end
 
@@ -156,7 +194,7 @@ RSpec.describe StateFile::Questions::UnemploymentController do
 
     render_views
 
-    it "renders information about the existing dependent" do
+    it "renders information about the existing 1099G" do
       get :edit, params: params
 
       expect(response.body).to include("456")

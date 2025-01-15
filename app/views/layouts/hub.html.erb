@@ -63,7 +63,7 @@
 <div class="columns columns--right">
   <div class="columns--child">
     <div>
-      <main role="main" id="maincontent">
+      <div class="main-content-inner" id="maincontent">
         <div>
           <div class="flash-alerts">
             <%= render "shared/flash_alerts", flash: flash %>
@@ -71,7 +71,7 @@
           <%= yield(:notice) if content_for?(:notice) %>
         </div>
         <%= content_for?(:card) ? yield(:card) : yield %>
-      </main>
+      </div>
     </div>
   </div>
   <% if content_for?(:sticky_action_footer) %>

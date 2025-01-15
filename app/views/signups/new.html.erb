@@ -19,7 +19,7 @@
   <section class="slab slab--white">
     <div class="grid">
       <div class="grid__item width-three-fourths">
-        <main role="main">
+        <div class="main-content-inner">
           <%= form_with model: @signup, local: true, builder: VitaMinFormBuilder, html: {class: "form-card"} do |f| %>
             <h1 class="form-question">
               <%= @header %>
@@ -46,7 +46,7 @@
               </p>
             </div>
           <% end %>
-        </main>
+        </div>
       </div>
     </div>
   </section>

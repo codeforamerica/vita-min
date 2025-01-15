@@ -4,12 +4,10 @@
 %>
 
 <% content_for :card do %>
-  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
-    <h1 class="h2"><%= title %></h1>
-    <p><%= t(".details_1") %></p>
-    <p><%= t(".details_2_html") %></p>
-    <p><%= t(".details_3") %></p>
+  <h1 class="h2"><%= title %></h1>
+  <%= t(".description_html") %>
 
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
     <div class="white-group">
       <%= f.cfa_radio_set(:primary_contribution_gubernatorial_elections, label_text: t(".primary_contribute"), collection: [
         { value: "yes", label: t("general.affirmative") },

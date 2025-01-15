@@ -94,16 +94,11 @@ class StateFileNcIntake < StateFileBaseIntake
   enum untaxed_out_of_state_purchases: { unfilled: 0, yes: 1, no: 2 }, _prefix: :untaxed_out_of_state_purchases
   enum tribal_member: { unfilled: 0, yes: 1, no: 2 }, _prefix: :tribal_member
   enum moved_after_hurricane_helene: { unfilled: 0, yes: 1, no: 2 }, _prefix: :moved_after_hurricane_helene
-
   enum eligibility_withdrew_529: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_withdrew_529
   enum eligibility_lived_in_state: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_lived_in_state
   enum eligibility_out_of_state_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_out_of_state_income
-  enum email_notification_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :email_notification_opt_in
-  enum sms_notification_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :sms_notification_opt_in
-
   enum eligibility_ed_loan_cancelled: { no: 0, yes: 1 }, _prefix: :eligibility_ed_loan_cancelled
   enum eligibility_ed_loan_emp_payment: { no: 0, yes: 1 }, _prefix: :eligibility_ed_loan_emp_payment
-  enum consented_to_sms_terms: { unfilled: 0, yes: 1, no: 2 }, _prefix: :consented_to_sms_terms
 
   attr_accessor :nc_eligiblity_none
   before_save :sanitize_county_details
@@ -154,5 +149,9 @@ class StateFileNcIntake < StateFileBaseIntake
 
   def requires_additional_withdrawal_information?
     true
+  end
+
+  def allows_w2_editing?
+    false
   end
 end

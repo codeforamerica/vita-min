@@ -12,13 +12,12 @@
       <%= f.vita_min_money_field(
         :medical_expenses,
         t('.label', filing_year: current_tax_year),
-        help_text: t('.help_text'),
         classes: ["form-width--long"],
         options: { placeholder: "0" }
     ) %>
     </div>
 
-    <p><%= t(".do_not_claim") %></p>
+    <p><em><%= t(".do_not_claim") %></em></p>
 
     <div class="reveal">
         <h2 style="margin-bottom: 0">
@@ -27,9 +26,7 @@
             </button>
         </h2>
         <div class="reveal__content" id="nj-medical-details">
-            <p><%= t('.learn_more_meaning') %>:</p>
-            <ul class="list--bulleted"><%= t('.learn_more_content_html') %></ul>
-            <p><%= t('.learn_more_note_html') %></p>
+            <%= t('.learn_more_html') %>
         </div>
     </div>
 

@@ -17,6 +17,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md1099G do
     let(:recipient_street_address) { "234 Recipient St" }
     let(:recipient_street_address_apartment) { "Unit B" }
     let(:recipient_city) { "City" }
+    let(:recipient_state) { "CA" }
     let(:recipient_zip) { "11102" }
     let!(:form1099g) do
       create(
@@ -33,6 +34,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md1099G do
         recipient_street_address: recipient_street_address,
         recipient_street_address_apartment: recipient_street_address_apartment,
         recipient_zip: recipient_zip,
+        recipient_state: recipient_state,
         unemployment_compensation_amount: unemployment_compensation_amount,
         federal_income_tax_withheld_amount: federal_income_tax_withheld_amount,
         state_income_tax_withheld_amount: state_income_tax_withheld_amount,
@@ -68,7 +70,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md1099G do
       expect(doc.at("Recipient Address USAddress AddressLine1Txt").text).to eq recipient_street_address
       expect(doc.at("Recipient Address USAddress AddressLine2Txt").text).to eq recipient_street_address_apartment
       expect(doc.at("Recipient Address USAddress CityNm").text).to eq recipient_city
-      expect(doc.at("Recipient Address USAddress StateAbbreviationCd").text).to eq "MD"
+      expect(doc.at("Recipient Address USAddress StateAbbreviationCd").text).to eq recipient_state
       expect(doc.at("Recipient Address USAddress ZIPCd").text).to eq recipient_zip
       expect(doc.at("UnemploymentCompensationPaid").text).to eq unemployment_compensation_amount
       expect(doc.at("FederalTaxWithheld").text).to eq federal_income_tax_withheld_amount

@@ -35,10 +35,18 @@ describe Efile::Nj::NjPropertyTaxEligibility do
         let(:intake) do
           create(:state_file_nj_intake, *test_case[:traits])
         end
+        let(:instance) do
+          Efile::Nj::Nj1040Calculator.new(
+            year: MultiTenantService.statefile.current_tax_year,
+            intake: intake
+          )
+        end
+        before do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_29).and_return(test_case[:income])
+          instance.calculate
+        end
 
         it "returns #{test_case[:expected]}" do
-          allow(Efile::Nj::NjStateWages).to receive(:calculate_state_wages).and_return(test_case[:income])
-
           result = Efile::Nj::NjPropertyTaxEligibility.determine_eligibility(intake)
           expect(result).to eq(test_case[:expected])
         end

@@ -41,7 +41,7 @@ RSpec.describe StateFile::Questions::NjHomeownerEligibilityController do
 
       it "shows the homeowner_same_home_spouse checkbox" do
         get :edit
-        expect(response.body).to include("Did you and your spouse live in the same home?")
+        expect(response.body).to include(I18n.t("state_file.questions.nj_homeowner_eligibility.edit.homeowner_same_home_spouse"))
       end
     end
 
@@ -50,7 +50,7 @@ RSpec.describe StateFile::Questions::NjHomeownerEligibilityController do
 
       it "does not show the homeowner_same_home_spouse checkbox" do
         get :edit
-        expect(response.body).not_to include("Did you and your spouse live in the same home?")
+        expect(response.body).not_to include(I18n.t("state_file.questions.nj_homeowner_eligibility.edit.homeowner_same_home_spouse"))
       end
     end
   end

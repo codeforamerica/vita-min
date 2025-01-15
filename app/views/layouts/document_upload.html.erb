@@ -9,7 +9,7 @@
           </div>
         <% end %>
         <%= render "shared/progress_bar" %>
-        <main role="main" class="form-card--long">
+        <div class="main-content-inner form-card--long">
           <% if illustration_path.present? %>
             <div class="question__illustration">
               <%= image_tag("#{illustration_folder}/#{illustration_path}", alt: "") %>
@@ -116,7 +116,7 @@
               <% end %>
             <% end %>
           </div>
-        </main>
+        </div>
       </div>
     </div>
   </section>

@@ -11,7 +11,7 @@
     <div class="grid__item width-three-fourths">
       <%= yield :notices %>
       <%= render "shared/progress_bar" %>
-      <main role="main">
+      <div class="main-content-inner">
         <% form_action = @dependent.persisted? ? :update : :create %>
         <%= form_with url: { action: form_action }, model: @dependent, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long'} do |f| %>
           <h1 class="form-question">
@@ -47,6 +47,7 @@
             <%= f.cfa_checkbox(:us_citizen, t("views.dependents.form.was_not_citizen"), options: {checked_value: "no", unchecked_value: "yes"}) %>
             <%= f.cfa_checkbox(:north_american_resident, t("views.dependents.form.north_american_resident"), options: {checked_value: "no", unchecked_value: "yes"}) %>
             <%= f.cfa_checkbox(:disabled, t("views.dependents.form.disabled"), options: {checked_value: "yes", unchecked_value: "no"}) %>
+            <%= f.cfa_checkbox(:has_ip_pin, t("views.dependents.form.has_ip_pin"), options: {checked_value: "yes", unchecked_value: "no"}) %>
           </div>
 
           <% if @allow_deletion %>
@@ -66,7 +67,7 @@
             <%= t("views.dependents.form.save_cta") %>
           </button>
         <% end %>
-      </main>
+      </div>
     </div>
   </div>
 </section>

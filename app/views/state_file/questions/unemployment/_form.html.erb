@@ -65,7 +65,7 @@
                 <% if current_intake.direct_file_data.mailing_apartment.present? %>
                   <div class="text--bold"><%= current_intake.direct_file_data.mailing_apartment %></div>
                 <% end %>
-                <div class="text--bold"><%= current_intake.direct_file_data.mailing_city %>, <%= current_state_name %>
+                <div class="text--bold"><%= current_intake.direct_file_data.mailing_city %>, <%= current_intake.direct_file_data.mailing_state %>
                   <%= current_intake.direct_file_data.mailing_zip %></div>
               </div>
               <div>
@@ -88,7 +88,7 @@
                 <%= f.cfa_input_field(:recipient_street_address, t('state_file.questions.unemployment.edit.street_address'), classes: ["form-width--long"]) %>
                 <%= f.cfa_input_field(:recipient_street_address_apartment, t('state_file.questions.unemployment.edit.apartment'), classes: ["form-width--long"]) %>
                 <%= f.cfa_input_field(:recipient_city, t('state_file.questions.unemployment.edit.city'), classes: ["form-width--long"]) %>
-                <%= f.cfa_input_field(:unfillable, t('state_file.questions.unemployment.edit.state'), classes: ["form-width--long"], options: { value: current_state_name, disabled: true }) %>
+                <%= f.cfa_select(:recipient_state, t('state_file.questions.unemployment.edit.state'), States.keys, selected: @state_file1099_g.recipient_state || current_state_code.upcase) %>
                 <%= f.cfa_input_field(:recipient_zip, t('state_file.questions.unemployment.edit.zip_code'), classes: ["form-width--long"]) %>
               </div>
             </div>

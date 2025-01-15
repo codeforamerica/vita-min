@@ -17,14 +17,14 @@
         <div>
           <%= render "shared/progress_bar" %>
         </div>
-        <main role="main">
+        <div class="main-content-inner">
           <% if illustration_path.present? %>
             <div class="question__illustration">
               <%= image_tag("#{illustration_folder}/#{illustration_path}", alt: "") %>
             </div>
           <% end %>
           <%= yield :card %>
-        </main>
+        </div>
       </div>
     </div>
   </section>

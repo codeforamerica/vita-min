@@ -4,7 +4,7 @@
   <section class="slab slab--white">
     <div class="grid">
       <div class="grid__item width-three-fourths">
-        <main role="main">
+        <div class="main-content-inner">
           <div class="question__illustration">
             <%= image_tag("portal/still-need-help.svg", alt: "") %>
           </div>
@@ -19,7 +19,7 @@
           <%= link_to portal_edit_upload_documents_path, class: "button button--wide text--centered" do %>
             <%= t(".upload_additional_documents") %>
           <% end %>
-        </main>
+        </div>
       </div>
     </div>
   </section>

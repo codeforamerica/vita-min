@@ -7,7 +7,7 @@
   <div class="grid">
     <div class="grid__item question-wrapper">
       <%= yield :notices %>
-      <main role="main">
+      <div class="main-content-inner">
         <% if illustration_path.present? %>
           <div class="question__illustration">
             <%= image_tag("#{illustration_folder}/#{illustration_path}", alt: "") %>
@@ -18,12 +18,12 @@
           <h1 class="h1"><%= title %></h1>
 
           <% if @closed %>
-            <h2 class="h2">
+            <p class="h2">
               <%= t(".#{@state_code}.closed_html") %>
-            </h2>
-            <h2 class="h2">
+            </p>
+            <p class="h2">
               <%= t(".already_filed_html") %>
-            </h2>
+            </p>
             <div class="partner-logo-wrapper spacing-below-35">
               <div class="partner-logo-image">
                 <%= image_tag state_image_path, alt: "#{@state_name} state logo", class: "" %>
@@ -37,9 +37,9 @@
             <% end %>
           <% else %>
             <% unless @user_name.present? %>
-              <h2 class="h2">
+              <p class="h2">
                 <%= t(".built_with_html", state_name: @built_with_name) %>
-              </h2>
+              </p>
             <% end %>
 
             <div class="partner-logo-wrapper spacing-below-35">
@@ -52,8 +52,8 @@
             </div>
 
             <% if @user_name.present? %>
-              <h2 class="h2"><%= t(".welcome_back", user_name: @user_name) %></h2>
-              <h2 class="h2"><%= t(".continue", state_name: @state_name) %></h2>
+              <p class="h2"><%= t(".welcome_back", user_name: @user_name) %></p>
+              <p class="h2"><%= t(".continue", state_name: @state_name) %></p>
               <%= link_to StateFile::StateFilePagesController.to_path_helper(action: :login_options), class: "button button--primary button--wide", id: "firstCta" do %>
                 <%= t("general.sign_in") %>
               <% end %>
@@ -65,12 +65,12 @@
               <% end %>
             <% else %>
               <div class="reveal">
-                <p>
+                <h2 class="text--body text--bold spacing-below-5">
                   <button class="reveal__button">
                     <% # i18n-tasks-use t('state_file.landing_page.edit.help_text_title') # hint for the i18n linter that, yes, we are using this key (sometimes) %>
-                    <strong><%= t(".#{@state_code}.help_text_title", default: :'.help_text_title') %></strong>
+                    <%= t(".#{@state_code}.help_text_title", default: :'.help_text_title') %>
                   </button>
-                </p>
+                </h2>
                 <div class="reveal__content">
                   <% # i18n-tasks-use t('state_file.landing_page.edit.help_text_html') # hint for the i18n linter that, yes, we are using this key (sometimes) %>
                   <%= t(".#{@state_code}.help_text_html", default: :'.help_text_html', filing_year: current_tax_year) %>
@@ -79,15 +79,15 @@
               <%= form_with model: @form, url: { action: :update }, local: true, method: :put, builder: VitaMinFormBuilder do |f| %>
                 <%= f.submit t("general.get_started"), class: "button button--primary button--wide", id: "firstCta" %>
               <% end %>
-              <h2 class="h2">
+              <p class="h2">
                 <%= t(".already_started_html", sign_in_url: StateFile::StateFilePagesController.to_path_helper(action: :login_options)) %>
-              </h2>
+              </p>
             <% end %>
           <% end %>
         </div>
-        <%= image_tag 'questions/welcome.svg', class: 'fyst-home-image' %>
+        <%= image_tag 'questions/welcome.svg', class: 'fyst-home-image', alt: '' %>
 
-      </main>
+      </div>
     </div>
   </div>
 </section>

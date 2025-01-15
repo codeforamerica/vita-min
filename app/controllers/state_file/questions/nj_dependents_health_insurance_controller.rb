@@ -3,8 +3,6 @@ module StateFile
     class NjDependentsHealthInsuranceController < QuestionsController
       include ReturnToReviewConcern
 
-      before_action -> { @filing_year = Rails.configuration.statefile_current_tax_year }
-
       def self.show?(intake)
         return false unless intake.dependents.any?
         intake.has_health_insurance_requirement_exception? || intake.eligibility_all_members_health_insurance_no?

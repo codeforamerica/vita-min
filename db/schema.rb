@@ -1614,6 +1614,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_13_235549) do
     t.string "payer_zip"
     t.integer "recipient", default: 0, null: false
     t.string "recipient_city"
+    t.string "recipient_state"
     t.string "recipient_street_address"
     t.string "recipient_street_address_apartment"
     t.string "recipient_zip"
@@ -1684,6 +1685,39 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_13_235549) do
     t.datetime "updated_at", null: false
     t.string "zip_code"
     t.index ["record_type", "record_id"], name: "index_state_file_analytics_on_record"
+  end
+
+  create_table "state_file_archived_intake_access_logs", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.jsonb "details", default: "{}"
+    t.integer "event_type"
+    t.bigint "state_file_archived_intake_request_id"
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "state_file_archived_intake_requests", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "email_address"
+    t.integer "failed_attempts", default: 0, null: false
+    t.string "ip_address"
+    t.datetime "locked_at"
+    t.bigint "state_file_archived_intakes_id"
+    t.datetime "updated_at", null: false
+    t.index ["state_file_archived_intakes_id"], name: "idx_on_state_file_archived_intakes_id_31501c23f8"
+  end
+
+  create_table "state_file_archived_intakes", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "email_address"
+    t.string "hashed_ssn"
+    t.string "mailing_apartment"
+    t.string "mailing_city"
+    t.string "mailing_state"
+    t.string "mailing_street"
+    t.string "mailing_zip"
+    t.string "state_code"
+    t.integer "tax_year"
+    t.datetime "updated_at", null: false
   end
 
   create_table "state_file_az1099_r_followups", force: :cascade do |t|
@@ -2791,6 +2825,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_13_235549) do
   add_foreign_key "incoming_text_messages", "clients"
   add_foreign_key "intake_archives", "intakes", column: "id"
   add_foreign_key "intakes", "clients"
+  add_foreign_key "intakes", "drivers_licenses", column: "primary_drivers_license_id"
+  add_foreign_key "intakes", "drivers_licenses", column: "spouse_drivers_license_id"
   add_foreign_key "intakes", "intakes", column: "matching_previous_year_intake_id"
   add_foreign_key "intakes", "vita_partners"
   add_foreign_key "notes", "clients"
@@ -2805,6 +2841,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_13_235549) do
   add_foreign_key "site_coordinator_roles_vita_partners", "site_coordinator_roles"
   add_foreign_key "site_coordinator_roles_vita_partners", "vita_partners"
   add_foreign_key "source_parameters", "vita_partners"
+  add_foreign_key "state_file_archived_intake_access_logs", "state_file_archived_intake_requests"
+  add_foreign_key "state_file_archived_intake_requests", "state_file_archived_intakes", column: "state_file_archived_intakes_id"
   add_foreign_key "state_routing_fractions", "state_routing_targets"
   add_foreign_key "state_routing_fractions", "vita_partners"
   add_foreign_key "system_notes", "clients"

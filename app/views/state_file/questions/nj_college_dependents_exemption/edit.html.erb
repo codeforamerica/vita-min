@@ -5,9 +5,7 @@
 
 <% content_for :card do %>
   <h1 class="h2"><%= title %></h1>
-  <p><%= t(".subtitle_1") %></p>
-  <p><%= t(".subtitle_2") %></p>
-
+  <%= t(".subtitle_html") %>
 
   <div class="reveal">
     <button class="reveal__button"><%= t('.college_helper_heading') %></button>
@@ -30,22 +28,38 @@
     </div>
   </div>
 
+  <p><%= t(".reminder") %></p>
+
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
 
     <%= f.fields_for :dependents do |ff| %>
       <% dependent = ff.object %>
       <% if dependent.under_22? %>
         <div class="white-group">
-          <fieldset>
-            <legend class="h3"><%= dependent.full_name %> <%= t('.dependent_header') %></legend>
-            <p><%= t('.birthdate_label') %> <%= dependent.dob.strftime('%m/%d/%Y') %></p>
-            <div class="tight-checkboxes spacing-above-0">
-              <%= ff.cfa_checkbox(:nj_dependent_attends_accredited_program, t(".dependent_attends_accredited_program", dependent_first: dependent.first_name_title_case), options: { checked_value: "yes", unchecked_value: "no" }) %>
-              <%= ff.cfa_checkbox(:nj_dependent_enrolled_full_time, t(".dependent_enrolled_full_time", dependent_first: dependent.first_name_title_case), options: { checked_value: "yes", unchecked_value: "no" }) %>
-              <%= ff.cfa_checkbox(:nj_dependent_five_months_in_college, t(".dependent_five_months_in_college", dependent_first: dependent.first_name_title_case), options: { checked_value: "yes", unchecked_value: "no" }) %>
-              <%= ff.cfa_checkbox(:nj_filer_pays_tuition_for_dependent, t(".filer_pays_tuition_books", dependent_first: dependent.first_name_title_case), options: { checked_value: "yes", unchecked_value: "no" }) %>
-            </div>
-          </fieldset>
+          <%= ff.vita_min_checkbox_set(
+            :college_dependents,
+            [
+              {
+                method: :nj_dependent_attends_accredited_program,
+                label: t(".dependent_attends_accredited_program", dependent_first: dependent.first_name_title_case),
+              },
+              {
+                method: :nj_dependent_enrolled_full_time,
+                label: t(".dependent_enrolled_full_time", dependent_first: dependent.first_name_title_case)
+              },
+              {
+                method: :nj_dependent_five_months_in_college,
+                label: t(".dependent_five_months_in_college", dependent_first: dependent.first_name_title_case)
+              },
+              {
+                method: :nj_filer_pays_tuition_for_dependent,
+                label: t(".filer_pays_tuition_books", dependent_first: dependent.first_name_title_case)
+              },
+            ],
+            enum: true,
+            label_text: "#{dependent.full_name} #{t('.dependent_header')}",
+            help_text: "#{t('.birthdate_label')} #{dependent.dob.strftime('%m/%d/%Y')}"
+          )%>
         </div>
       <% end %>
     <% end %>

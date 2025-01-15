@@ -3,8 +3,6 @@ module StateFile
     class NjEligibilityHealthInsuranceController < QuestionsController
       include EligibilityOffboardingConcern
 
-      before_action -> { @filing_year = Rails.configuration.statefile_current_tax_year }
-
       def self.show?(intake)
         !intake.has_health_insurance_requirement_exception?
       end
