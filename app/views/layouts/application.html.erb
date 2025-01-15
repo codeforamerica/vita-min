@@ -27,6 +27,7 @@
       <meta property="twitter:description" content="<%=t("views.layouts.application.meta.description") %>">
       <meta property="twitter:image" content="<%= image_url("social_share_banner.png") %>">
     <% end %>
+    
     <% # Site verification for our Google app "GetYourRefund Login" %>
     <meta name="google-site-verification" content="M3qBxyQzYdn0FOmXdaGzbmbfKo8x38V3h1mmYpor2HM" />
     <meta property="og:type" content="website">
@@ -65,46 +66,55 @@
 
   <body <% if content_for :body_class %>class="<%= yield :body_class %>"<% elsif state_file? %>class="state-file"<% end %>>
     <div class="page-wrapper">
-      <div data-component="ClientMenuOverlay" class="menu-overlay"></div>
-      <% if state_file? %>
-        <%= render 'state_file/state_file_pages/client_menu' %>
-      <% elsif !hub? %>
-        <%= render "shared/client_menu" %>
-      <% end %>
+
       <div class="page-content">
-        <a href="#maincontent" id="skip-content-link" class="skip-link button--green"><%= t('views.layouts.application.skip_content')%></a>
-        <% if content_for :header %>
-          <%= yield :header %>
-        <% elsif hub? %>
-          <%= render 'shared/hub_header' %>
-        <% elsif state_file? %>
-          <%= render 'state_file/state_file_pages/header' %>
-        <% else %>
-          <%= render 'shared/header', variation: "gyr", home_link: root_path %>
-        <% end %>
+        <header role="banner">
+          <a href="#maincontent" id="skip-content-link" class="skip-link button--green"><%= t('views.layouts.application.skip_content')%></a>
 
-        <%= render "shared/environment_warning" %>
+          <div data-component="ClientMenuOverlay" class="menu-overlay"></div>
+          <% if state_file? %>
+            <%= render 'state_file/state_file_pages/client_menu' %>
+          <% elsif !hub? %>
+            <%= render "shared/client_menu" %>
+          <% end %>
 
-        <% if content_for(:back_to) %>
-          <%= render "hub/back_to", back_to: content_for(:back_to)%>
-        <% end %>
-        <div id="maincontent">
+          <% if content_for :header %>
+            <%= yield :header %>
+          <% elsif hub? %>
+            <%= render 'shared/hub_header' %>
+          <% elsif state_file? %>
+            <%= render 'state_file/state_file_pages/header' %>
+          <% else %>
+            <%= render 'shared/header', variation: "gyr", home_link: root_path %>
+          <% end %>
+
+          <%= render "shared/environment_warning" %>
+
+          <% if content_for(:back_to) %>
+            <%= render "hub/back_to", back_to: content_for(:back_to)%>
+          <% end %>
+
           <div class="flash-alerts">
             <%= render "shared/flash_alerts", flash: flash %>
           </div>
-          <%= yield(:notice) if content_for?(:notice) %>
 
+          <%= yield(:notice) if content_for?(:notice) %>
+        </header>
+
+        <main id="maincontent">
           <%= content_for?(:main) ? yield(:main) : yield %>
-          <% if content_for :footer %>
-            <%= yield :footer %>
-          <% elsif state_file? %>
-            <%= render 'state_file/state_file_pages/footer' %>
-          <% else %>
-            <%= render 'shared/footer' %>
-          <% end %>
-        </div>
+        </main>
+
+        <% if content_for :footer %>
+          <%= yield :footer %>
+        <% elsif state_file? %>
+          <%= render 'state_file/state_file_pages/footer' %>
+        <% else %>
+          <%= render 'shared/footer' %>
+        <% end %>
       </div>
     </div>
+
     <% if content_for?(:sticky_action_footer) %>
       <div class="sticky-action-footer">
         <%= yield(:sticky_action_footer) %>

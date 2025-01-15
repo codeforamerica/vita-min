@@ -3,7 +3,6 @@
 # Table name: state_file_archived_intake_requests
 #
 #  id                             :bigint           not null, primary key
-#  details                        :jsonb
 #  email_address                  :string
 #  failed_attempts                :integer          default(0), not null
 #  ip_address                     :string
@@ -21,27 +20,17 @@
 #  fk_rails_...  (state_file_archived_intakes_id => state_file_archived_intakes.id)
 #
 class StateFileArchivedIntakeRequest < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :lockable, :timeoutable, :trackable,
-  lock_strategy: :failed_attempts,
-  unlock_strategy: :time
-
+  devise :lockable, unlock_in: 60.minutes, unlock_strategy: :time
   has_many :access_logs, class_name: 'StateFileArchivedIntakeAccessLog'
-
-  def lock_strategy
-    :failed_attempts
-  end
-
-  def unlock_strategy
-    :time
-  end
 
   def self.maximum_attempts
     2
   end
 
-  def self.unlock_in
-    30.minutes
+  def increment_failed_attempts
+    super
+    if attempts_exceeded? && !access_locked?
+      lock_access!
+    end
   end
 end

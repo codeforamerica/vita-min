@@ -60,12 +60,12 @@ module StateFile
       return if require_verification && !phone_number_verified
 
       if @message_instance.sms_body.present?
-        twilio = TwilioService.new(:statefile)
-
-        twilio.send_text_message(
-          to: intake.phone_number,
-          body: @message_instance.sms_body(locale: @locale, **sms_args)
+        sent_message = StateFileNotificationTextMessage.create!(
+          data_source: intake,
+          to_phone_number: intake.phone_number,
+          body: @message_instance.sms_body(locale: locale, **sms_args),
         )
+        sent_messages << sent_message if sent_message.present?
       end
     end
     

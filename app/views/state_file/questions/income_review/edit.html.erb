@@ -7,19 +7,25 @@
   <% if @w2s.present? %>
     <div class="white-group" id="w2s">
       <p class="text--bold spacing-below-0"><%= t(".w2s_title") %></p>
-      <% @w2s.each do |w2| %>
-        <div class="spacing-above-25">
-          <p class="text--bold spacing-below-5"><%= w2.employee_name %></p>
-          <p class="spacing-below-5"><%= w2.employer_name %></p>
-          <%= link_to t(".review_and_edit_state_info"),
-                      StateFile::Questions::W2Controller.to_path_helper(
-                        action: :edit,
-                        id: w2.id,
-                        return_to_review: params[:return_to_review]
-                      ),
-                      class: "button--small"
-          %>
-        </div>
+      <% if current_intake.allows_w2_editing? %>
+        <% @w2s.each do |w2| %>
+          <div class="spacing-above-25">
+            <p class="text--bold spacing-below-5"><%= w2.employee_name %></p>
+            <p class="spacing-below-5"><%= w2.employer_name %></p>
+            <%= link_to t(".review_and_edit_state_info"),
+                        StateFile::Questions::W2Controller.to_path_helper(
+                          action: :edit,
+                          id: w2.id,
+                          return_to_review: params[:return_to_review]
+                        ),
+                        class: "button--small"
+            %>
+          </div>
+        <% end %>
+      <% else %>
+        <p class="text--grey-bold spacing-above-15 spacing-below-0">
+          <%= t(".no_info_needed") %>
+        </p>
       <% end %>
     </div>
   <% end %>
@@ -27,7 +33,12 @@
   <% if current_intake.direct_file_data.fed_unemployment > 0 %>
     <div class="white-group unemployment" id="form1099gs">
       <p class="text--bold spacing-below-0"><%= t(".unemployment_title") %></p>
-      <% if current_intake.state_file1099_gs.count > 0 %>
+      <% not_taxed_key = "state_file.questions.income_review.edit.no_info_needed_#{current_state_code}" %>
+      <% if I18n.exists?(not_taxed_key) %>
+        <p class="text--grey-bold spacing-above-15 spacing-below-0">
+          <%= t(not_taxed_key) %>
+        </p>
+      <% elsif current_intake.state_file1099_gs.count > 0 %>
         <% current_intake.state_file1099_gs.each do |state_1099g| %>
           <% recipient = current_intake.send(state_1099g.recipient) %>
           <div class="spacing-above-25">
@@ -72,7 +83,7 @@
   <% end %>
 
   <% if current_intake.direct_file_json_data.interest_reports.count > 0 %>
-    <div class="white-group">
+    <div class="white-group" id="form1099ints">
       <p class="text--bold spacing-below-0"><%= t(".interest_income_title") %></p>
       <p class="text--grey-bold spacing-above-15 spacing-below-0">
         <%= t(".interest_income_body") %>
@@ -81,10 +92,11 @@
   <% end %>
 
   <% if current_intake.direct_file_data.fed_ssb > 0 || current_intake.direct_file_data.fed_taxable_ssb > 0 %>
-    <div class="white-group">
+    <div class="white-group" id="formssa1099s">
       <p class="text--bold spacing-below-0"><%= t(".ssa_title") %></p>
       <p class="text--grey-bold spacing-above-15 spacing-below-0">
-        <%= t(".no_info_needed") %>
+        <% # i18n-tasks-use t("state_file.questions.income_review.edit.no_info_needed") # hint for the i18n linter that, yes, we are using this key (sometimes) %>
+        <%= t(".no_info_needed_#{current_state_code}", default: :'.no_info_needed') %>
       </p>
     </div>
   <% end %>

@@ -4,7 +4,6 @@ class StateFileArchivedIntakeRequests < ActiveRecord::Migration[7.1]
       t.belongs_to :state_file_archived_intakes, foreign_key: true
       t.string 'ip_address'
       t.string 'email_address'
-      t.jsonb 'details', default: '{}'
       t.timestamps
     end
 

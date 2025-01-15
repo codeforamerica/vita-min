@@ -1,8 +1,7 @@
 module StateFile
   module Questions
     class NjDependentsHealthInsuranceController < QuestionsController
-
-      before_action -> { @filing_year = Rails.configuration.statefile_current_tax_year }
+      include ReturnToReviewConcern
 
       def self.show?(intake)
         return false unless intake.dependents.any?

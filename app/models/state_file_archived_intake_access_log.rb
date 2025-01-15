@@ -14,19 +14,17 @@
 #  fk_rails_...  (state_file_archived_intake_request_id => state_file_archived_intake_requests.id)
 #
 class StateFileArchivedIntakeAccessLog < ApplicationRecord
-  belongs_to :state_file_archived_intake_request
+  belongs_to :state_file_archived_intake_request, optional: true
   enum event_type: {
-    correct_email_address: 0, # redundant
-    incorrect_email_address: 0, # redundant
-    incorrect_email_address: 0,
-    correct_verification_code: 1,
-    incorrect_verification_code: 2,
-    issued_ssn_challenge: 3, # redundant
+    issued_email_challenge: 0, 
+    correct_email_code: 1,
+    incorrect_email_code: 2,
+    issued_ssn_challenge: 3,
     correct_ssn_challenge: 4,
     incorrect_ssn_challenge: 5,
     client_lockout_begin: 6,
     client_lockout_end: 7,
-    issued_mailing_address_challenge: 8, # redundant
+    issued_mailing_address_challenge: 8,
     correct_mailing_address: 9,
     incorrect_mailing_address: 10,
     issued_pdf_download_link: 11,

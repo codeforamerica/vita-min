@@ -111,6 +111,7 @@ module StateFile
           :recipient_city,
           :recipient_street_address,
           :recipient_street_address_apartment,
+          :recipient_state,
           :recipient_zip,
           :state_identification_number
         )

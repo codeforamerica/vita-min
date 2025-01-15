@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe StateFile::ArchivedIntakes::VerificationCodeController, type: :controller do
-  let(:current_request) { create(:state_file_archived_intake_request, failed_attempts: 0) }
+  let(:current_request) { create(:state_file_archived_intake_request, email_address:email_address, failed_attempts: 0) }
   let(:email_address) { "test@example.com" }
   let(:valid_verification_code) { "123456" }
   let(:invalid_verification_code) { "654321" }
@@ -9,22 +9,39 @@ RSpec.describe StateFile::ArchivedIntakes::VerificationCodeController, type: :co
   before do
     Flipper.enable(:get_your_pdf)
     allow(controller).to receive(:current_request).and_return(current_request)
-    allow(current_request).to receive(:email_address).and_return(email_address)
     allow(I18n).to receive(:locale).and_return(:en)
   end
 
   describe "GET #edit" do
-    it "renders the edit template with a new VerificationCodeForm and queues a job" do
-      expect(ArchivedIntakeEmailVerificationCodeJob).to receive(:perform_later).with(
-        email_address: email_address,
-        locale: :en
-      )
+    context "when the request is locked" do
+      before do
+        allow(current_request).to receive(:access_locked?).and_return(true)
+      end
 
-      get :edit
+      it "redirects to the root path" do
+        get :edit
 
-      expect(assigns(:form)).to be_a(StateFile::ArchivedIntakes::VerificationCodeForm)
-      expect(assigns(:email_address)).to eq(email_address)
-      expect(response).to render_template(:edit)
+        expect(response).to redirect_to(root_path)
+      end
+    end
+
+    context "when the request is not locked" do
+      before do
+        allow(current_request).to receive(:access_locked?).and_return(false)
+      end
+
+      it "renders the edit template with a new VerificationCodeForm and queues a job" do
+        expect{
+          get :edit
+        }.to have_enqueued_job(ArchivedIntakeEmailVerificationCodeJob).with(
+          email_address: email_address,
+          locale: :en
+        )
+
+        expect(assigns(:form)).to be_a(StateFile::ArchivedIntakes::VerificationCodeForm)
+        expect(assigns(:email_address)).to eq(email_address)
+        expect(response).to render_template(:edit)
+      end
     end
   end
 
@@ -34,7 +51,7 @@ RSpec.describe StateFile::ArchivedIntakes::VerificationCodeController, type: :co
         allow_any_instance_of(StateFile::ArchivedIntakes::VerificationCodeForm).to receive(:valid?).and_return(true)
       end
 
-      it "creates a success access log, redirects to root path, and does not increment failed_attempts" do
+      it "creates a success access log and does not increment failed_attempts" do
         expect {
           post :update, params: { state_file_archived_intakes_verification_code_form: { verification_code: valid_verification_code } }
         }.to change(StateFileArchivedIntakeAccessLog, :count).by(1)
@@ -69,7 +86,7 @@ RSpec.describe StateFile::ArchivedIntakes::VerificationCodeController, type: :co
 
         expect {
           post :update, params: { state_file_archived_intakes_verification_code_form: { verification_code: invalid_verification_code } }
-        }.to change(StateFileArchivedIntakeAccessLog, :count).by(2) # One for failure, one for lock
+        }.to change(StateFileArchivedIntakeAccessLog, :count).by(2)
 
         log = StateFileArchivedIntakeAccessLog.last
         expect(log.event_type).to eq("client_lockout_begin")
