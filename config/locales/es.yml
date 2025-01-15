@@ -2000,7 +2000,7 @@ es:
             zero: "$0"
         title: Hablemos sobre su estado civil y sus ingresos.
         vita_income_ineligible:
-          label: "¿Recibió ingresos de una propiedad de renta/alquiler, una granja o criptomoneda?"
+          label: "¿Recibió ingresos de una propiedad de renta/alquiler (ej. casa or coche), una granja o criptomoneda?"
   signups:
     flash_notice: "¡Gracias! Recibirás una notificación cuando abramos."
     new:
