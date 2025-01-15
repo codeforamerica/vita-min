@@ -104,8 +104,11 @@ class StateFileW2 < ApplicationRecord
 
   def state_tax_group_xml_node
     df_w2 = state_file_intake.direct_file_data.w2s[w2_index]
-    df_w2_state_code = df_w2.present? ? df_w2.StateAbbreviationCd : ""
-    state_code = df_w2_state_code.present? ? df_w2_state_code : state_file_intake.state_code
+    state_code = if df_w2&.StateAbbreviationCd.present?
+                   df_w2.StateAbbreviationCd
+                 else
+                   state_file_intake.state_code
+                 end
 
     xml_template = Nokogiri::XML(STATE_TAX_GRP_TEMPLATE)
     xml_template.at(:StateAbbreviationCd).content = state_code&.upcase
