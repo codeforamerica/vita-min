@@ -18,6 +18,7 @@ describe Seeder do
     rows = count_rows_by_model
     expect(rows["Intake"]).to be >= 1
     expect(rows["Client"]).to be >= 1
+    expect(rows["StateFileArchivedIntake"]).to be >= 2
   end
 
   it "does not create duplicate rows" do

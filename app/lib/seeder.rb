@@ -528,6 +528,30 @@ class Seeder
     Fraud::Indicators::Timezone.create(name: "America/New_York", activated_at: DateTime.now)
     Fraud::Indicators::Timezone.create(name: "America/Los_Angeles", activated_at: DateTime.now)
     SearchIndexer.refresh_search_index
+
+    find_or_create_state_file_archived_intake(
+      email_address: "archivedaz@example.com",
+      hashed_ssn: SsnHashingService.hash("555001234"),
+      mailing_apartment: "Apt 2B",
+      mailing_city: "Munchkinville",
+      mailing_street: "123 Yellow Brick Rd",
+      mailing_state: "AZ",
+      mailing_zip: "85034",
+      state_code: "AZ",
+      tax_year: 2023
+    )
+
+    find_or_create_state_file_archived_intake(
+      email_address: "archivedny@example.com",
+      hashed_ssn: SsnHashingService.hash("555009876"),
+      mailing_apartment: "Unit 3",
+      mailing_city: "Emerald City",
+      mailing_street: "555 Tower Ave",
+      mailing_state: "NY",
+      mailing_zip: "12206",
+      state_code: "NY",
+      tax_year: 2023
+    )
   end
 
   def find_or_create_intake_and_client(intake_type, attributes)
@@ -586,6 +610,23 @@ class Seeder
       filename: "document_bundle.pdf"
     ) unless document.upload.present?
     document.save
+  end
+
+  def find_or_create_state_file_archived_intake(attributes)
+    finder_columns = [:email_address, :hashed_ssn, :state_code]
+    finder_attributes = attributes.slice(*finder_columns)
+    if finder_attributes.blank?
+      raise "Seeder must provide at least one of (#{finder_columns.join(', ')}) when making an archived intake"
+    end
+
+    archived_intake = StateFileArchivedIntake.find_by(finder_attributes) || StateFileArchivedIntake.new(attributes)
+    return archived_intake if archived_intake.persisted?
+
+    archived_intake.submission_pdf.attach(
+      io: File.open(Rails.root.join("spec", "fixtures", "files", "document_bundle.pdf")),
+      filename: "document_bundle.pdf"
+    )
+    archived_intake.save!
   end
 
   def add_images_to_verification_attempt(verification_attempt)
