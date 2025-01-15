@@ -1324,6 +1324,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_13_222716) do
     t.string "primary_suffix"
     t.integer "primary_tin_type"
     t.integer "primary_us_citizen", default: 0, null: false
+    t.integer "primary_visa", default: 0, null: false
     t.integer "product_year", null: false
     t.integer "receive_written_communication", default: 0, null: false
     t.integer "received_advance_ctc_payment"
@@ -1380,6 +1381,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_13_222716) do
     t.string "spouse_suffix"
     t.integer "spouse_tin_type"
     t.integer "spouse_us_citizen", default: 0, null: false
+    t.integer "spouse_visa", default: 0, null: false
     t.integer "spouse_was_blind", default: 0, null: false
     t.integer "spouse_was_full_time_student", default: 0, null: false
     t.string "state"
