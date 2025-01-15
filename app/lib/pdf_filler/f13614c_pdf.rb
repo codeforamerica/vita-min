@@ -136,16 +136,19 @@ module PdfFiller
         yes_no_checkboxes("form1[0].page2[0].Part4[0].q4Deductions[0]", @intake.wants_to_itemize, include_unsure: true),
       )
       answers.merge!(
-        "form1[0].page2[0].Part4[0].q4Deductions[0].taxes[0]" => yes_no_unfilled_to_checkbox(fetch_gated_value(@intake, :paid_local_tax)),
-        "form1[0].page2[0].Part4[0].q4Deductions[0].mortgage[0]" => yes_no_unfilled_to_checkbox(fetch_gated_value(@intake, :paid_mortgage_interest)),
-        "form1[0].page2[0].Part4[0].q4Deductions[0].medical[0]" => yes_no_unfilled_to_checkbox(fetch_gated_value(@intake, :paid_medical_expenses)),
-        "form1[0].page2[0].Part4[0].q4Deductions[0].charitable[0]" => yes_no_unfilled_to_checkbox(fetch_gated_value(@intake ,:paid_charitable_contributions)),
+        keep_and_normalize({
+          "form1[0].page3[0].paidFollowingExpenses[0].mortgageinterest[0]" => @intake.wants_to_itemize_yes? && @intake.ever_owned_home_yes? && @intake.paid_mortgage_interest_yes?,
+          "form1[0].page3[0].paidFollowingExpenses[0].taxesStateLocal[0]" => @intake.wants_to_itemize_yes? && @intake.paid_local_tax_yes?,
+          "form1[0].page3[0].paidFollowingExpenses[0].mendicalDentalPrescription[0]" => @intake.wants_to_itemize_yes? && @intake.paid_medical_expenses_yes?,
+          "form1[0].page3[0].paidFollowingExpenses[0].charitableContributions[0]" => @intake.wants_to_itemize_yes? && @intake.paid_charitable_contributions_yes?,
+          "form1[0].page3[0].paidExpenses[0].studentLoanInterest[0]" => @intake.paid_student_loan_interest_yes?,
+          "form1[0].page3[0].paidExpenses[0].childDependentCare[0]" => @intake.paid_dependent_care_yes?,
+          "form1[0].page3[0].paidExpenses[0].contributionsRetirementAccount[0]" => @intake.paid_retirement_contributions_yes?,
+          "form1[0].page3[0].paidExpenses[0].schooldSupplies[0]" => @intake.wants_to_itemize_yes? && @intake.paid_school_supplies_yes?,
+        })
       )
       answers.merge!(
-        yes_no_checkboxes("form1[0].page2[0].Part4[0].q5ChildOrDependent[0]", fetch_gated_value(@intake, :paid_dependent_care), include_unsure: true),
-        yes_no_checkboxes("form1[0].page2[0].Part4[0].q6ForSuppliesUsed[0]", fetch_gated_value(@intake, :paid_school_supplies), include_unsure: true),
         yes_no_checkboxes("form1[0].page2[0].Part4[0].q7ExpensesRelatedTo[0]", @intake.paid_self_employment_expenses, include_unsure: true),
-        yes_no_checkboxes("form1[0].page2[0].Part4[0].q8StudentLoanInterest[0]", @intake.paid_student_loan_interest, include_unsure: true),
 
         yes_no_checkboxes("form1[0].page2[0].Part5[0].q1HaveAHealth[0]", @intake.had_hsa, include_unsure: true),
         yes_no_checkboxes("form1[0].page2[0].Part5[0].q2HaveDebtFrom[0]", @intake.had_debt_forgiven, include_unsure: true),
