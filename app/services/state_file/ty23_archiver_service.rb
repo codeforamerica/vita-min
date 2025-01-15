@@ -67,7 +67,7 @@ module StateFile
                                       ).pluck(
                                       :"efile_submission.data_source_id"
                                     )
-                           )
+                           ).where('email_address is not null')
 
       # do not archive multiple intakes with the same email address
       archived_emails = StateFileArchivedIntake.where(state_code: state_code, tax_year: tax_year).pluck(:email_address)
