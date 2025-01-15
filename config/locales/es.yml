@@ -3262,6 +3262,8 @@ es:
           reason_multi_unit_conditions: this main home in a multi-unit building did not meet the requirements to claim this credit or deduction.
           reason_neither: you must own rent or own a main home in %{filing_year} to receive this credit or deduction.
           reason_property_taxes: did not pay property taxes (directly, or through rent) on this main home.
+          reason_income_single_mfs: you did not meet the income filing threshold of $10,000.
+          reason_income_mfj_qss_hoh: you did not meet the income filing threshold of $20,000.
           title_html: It looks like you're not eligible for the Property Tax Deduction or Credit <strong>%{property}</strong>
       nj_medical_expenses:
         edit:

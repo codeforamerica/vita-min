@@ -168,7 +168,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
     def expect_ineligible_page(property, reason)
       valid_property_values = ["on_home", "on_rental", nil]
-      valid_reasons = ["multi_unit_conditions", "property_taxes", "neither"]
+      valid_reasons = ["multi_unit_conditions", "property_taxes", "neither", "income_single_mfs", "income_mfj_qss_hoh"]
       throw "not a valid property value: #{property}" unless valid_property_values.include?(property)
       throw "not a valid reason value: #{reason}" unless valid_reasons.include?(reason)
 
@@ -465,6 +465,30 @@ RSpec.feature "Completing a state file intake", active_job: true do
         select_tenant_eligibility(["tenant_home_subject_to_property_taxes"])
         # skips rent paid page
         expect_page_after_property_tax
+      end
+    end
+
+    context "when low income and does NOT meet exception" do
+      it "handles property tax flow - single/MFS", required_schema: "nj" do
+        advance_to_start_of_intake("Minimal", expect_income_review: false) # low income MFS
+        advance_county_and_municipality
+        advance_disabled_exemption(false) # does NOT meet disabled exemption
+        advance_veterans_exemption
+        advance_medical_expenses
+        choose_household_rent_own("homeowner")
+        expect_ineligible_page(nil, "income_single_mfs")
+        expect_estimated_tax_page
+      end
+
+      it "handles property tax flow - MFJ", required_schema: "nj" do
+        advance_to_start_of_intake("Married filing jointly 15k wages") # low income MFJ
+        advance_county_and_municipality
+        advance_disabled_exemption(false) # does NOT meet disabled exemption
+        advance_veterans_exemption
+        advance_medical_expenses
+        choose_household_rent_own("homeowner")
+        expect_ineligible_page(nil, "income_mfj_qss_hoh")
+        expect_estimated_tax_page
       end
     end
   end
