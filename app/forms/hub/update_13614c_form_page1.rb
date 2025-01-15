@@ -22,6 +22,8 @@ module Hub
                        :primary_birth_date_month,
                        :primary_birth_date_day,
                        :primary_job_title,
+                       :primary_lived_or_worked_in_two_or_more_states,
+                       :primary_owned_or_held_any_digital_currencies,
                        :primary_us_citizen,
                        :street_address,
                        :city,
@@ -31,6 +33,8 @@ module Hub
                        :spouse_first_name,
                        :spouse_last_name,
                        :spouse_middle_initial,
+                       :spouse_owned_or_held_any_digital_currencies,
+                       :spouse_issued_identity_pin,
                        :was_blind,
                        :spouse_was_blind,
                        :spouse_birth_date_year,
@@ -42,7 +46,15 @@ module Hub
                        :spouse_was_full_time_student,
                        :spouse_us_citizen,
                        :never_married,
-                       :got_married_during_tax_year
+                       :got_married_during_tax_year,
+                       :receive_written_communication,
+                       :preferred_written_language,
+                       :presidential_campaign_fund_donation,
+                       :refund_payment_method,
+                       :savings_purchase_bond,
+                       :savings_split_refund,
+                       :balance_pay_from_bank,
+                       :register_to_vote
 
     attr_accessor :client
 
@@ -90,6 +102,19 @@ module Hub
                               )
       modified_attributes[:ever_married] = modified_attributes.delete(:never_married) == "yes" ? "no" : "yes"
       modified_attributes[:dependents_attributes] = formatted_dependents_attributes
+
+      # why, just why? in an ideal world, these would never be nil to begin with.
+      modified_attributes[:primary_lived_or_worked_in_two_or_more_states] ||= 'unfilled'
+      modified_attributes[:primary_owned_or_held_any_digital_currencies] ||= 'unfilled'
+      modified_attributes[:spouse_issued_identity_pin] ||= 'unfilled'
+      modified_attributes[:spouse_owned_or_held_any_digital_currencies] ||= 'unfilled'
+      modified_attributes[:balance_pay_from_bank] ||= 'unfilled'
+      modified_attributes[:presidential_campaign_fund_donation] ||= 'unfilled'
+      modified_attributes[:receive_written_communication] ||= 'unfilled'
+      modified_attributes[:refund_payment_method] ||= 'unfilled'
+      modified_attributes[:savings_purchase_bond] ||= 'unfilled'
+      modified_attributes[:savings_split_refund] ||= 'unfilled'
+      modified_attributes[:register_to_vote] ||= 'unfilled'
 
       @client.intake.update(modified_attributes)
       @client.touch(:last_13614c_update_at)
