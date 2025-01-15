@@ -24,7 +24,7 @@ module StateFile
       end
       super
     end
-    x
+
     def edit
       # Displays verify SSN form
       @form = IntakeLoginForm.new(possible_intakes: @records)
