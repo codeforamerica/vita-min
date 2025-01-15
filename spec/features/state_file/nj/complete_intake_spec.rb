@@ -220,6 +220,13 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       # sales use tax
       expect(page).to be_axe_clean
+      click_on "Go back"
+
+      # return to start of property tax flow
+      choose_household_rent_own("neither")
+      continue
+
+      # advance past sales use tax this time
       choose I18n.t('general.negative')
       continue
 
