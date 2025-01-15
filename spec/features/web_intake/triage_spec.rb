@@ -84,7 +84,7 @@ RSpec.feature "triage flow" do
       when 'GYR-DIY'
         Questions::TriageGyrDiyController
       when 'Does not qualify'
-        Questions::TriageDoNotQualifyController
+        Questions::TriageDiyController
       end
     end
 
