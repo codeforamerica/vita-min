@@ -53,7 +53,8 @@ module Hub
                        :refund_payment_method,
                        :savings_purchase_bond,
                        :savings_split_refund,
-                       :balance_pay_from_bank
+                       :balance_pay_from_bank,
+                       :register_to_vote
 
     attr_accessor :client
 
@@ -107,6 +108,13 @@ module Hub
       modified_attributes[:primary_owned_or_held_any_digital_currencies] ||= 'unfilled'
       modified_attributes[:spouse_issued_identity_pin] ||= 'unfilled'
       modified_attributes[:spouse_owned_or_held_any_digital_currencies] ||= 'unfilled'
+      modified_attributes[:balance_pay_from_bank] ||= 'unfilled'
+      modified_attributes[:presidential_campaign_fund_donation] ||= 'unfilled'
+      modified_attributes[:receive_written_communication] ||= 'unfilled'
+      modified_attributes[:refund_payment_method] ||= 'unfilled'
+      modified_attributes[:savings_purchase_bond] ||= 'unfilled'
+      modified_attributes[:savings_split_refund] ||= 'unfilled'
+      modified_attributes[:register_to_vote] ||= 'unfilled'
 
       @client.intake.update(modified_attributes)
       @client.touch(:last_13614c_update_at)

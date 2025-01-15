@@ -6,7 +6,6 @@ module Hub
                        :had_disaster_loss,
                        :received_irs_letter,
                        :had_disaster_loss_where,
-                       :register_to_vote,
                        :demographic_english_conversation,
                        :demographic_english_reading,
                        :demographic_disability,
