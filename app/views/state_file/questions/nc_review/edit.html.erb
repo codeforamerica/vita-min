@@ -31,7 +31,7 @@
       <p class="text--bold spacing-below-5"><%=t(".use_tax_applied", filing_year: current_tax_year) %></p>
       <p><%=current_intake.untaxed_out_of_state_purchases_yes? ? t("general.affirmative") : t("general.negative") %></p>
       <% if current_intake.untaxed_out_of_state_purchases_yes? %>
-        <p class="text--bold spacing-below-5"><%=t(".amount") %></p>
+        <p class="text--bold spacing-below-5"><%=t(".use_tax_amount") %></p>
         <p><%=number_to_currency(current_intake.sales_use_tax, precision: 2)%></p>
       <% end %>
       <%= link_to t("general.edit"), StateFile::Questions::NcSalesUseTaxController.to_path_helper(return_to_review: "y"), class: "button--small" %>
