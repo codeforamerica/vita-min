@@ -27,6 +27,7 @@
           <div class="grid__item width-one-half" style="background-color:#e5e5e5; padding: 10px; display: flex; align-items: flex-start; justify-content: space-between;">
             <%= f.cfa_select(:cv_w2s_cb, "(B) W-2s", yes_no_options_for_select) %>
             <%= f.cfa_select(:cv_w2s_count, "#", (0..5).map { |num| [num.to_s, num] }, { include_blank: true }) %>
+                              cv_w2s_count
           </div>
         </div>
         <hr style="margin: 5px;"/>
@@ -40,19 +41,23 @@
             <%= f.cfa_select(:cv_had_tips_cb, "(B/A) Tips (Basic when reported on W2)", yes_no_options_for_select) %>
           </div>
         </div>
-        <hr style="margin-top: 0;"/>
-
-        YOU ARE HERE:
+        <hr style="margin: 5px;"/>
 
         <!-- RETIREMENT INCOME -->
         <div class="grid">
           <div class="grid__item width-one-half">
             <%= f.cfa_select(:had_retirement_income, "(B/A) #{t(".fields.had_retirement_income")}", yes_no_options_for_select) %>
           </div>
-          <div class="grid__item width-one-half">
-            TODO
+          <div class="grid__item width-one-half" style="background-color:#e5e5e5; padding: 10px; display: block; align-items: flex-start; justify-content: space-between;">
+            <%= f.cfa_select(:cv_1099r_cb, "(B/A) 1099-R (Basic when taxable amount is reported)", yes_no_options_for_select) %>
+            <%= f.cfa_select(:cv_1099r_count, "#", (0..5).map { |num| [num.to_s, num] }, { include_blank: true }) %>
+            <span style="display: block">
+              <%= f.cfa_select(:cv_1099r_charitable_dist_cb, "(A) Qualified Charitable Distribution From 1099-R", yes_no_options_for_select) %>
+              <%= f.cfa_input_field(:cv_1099r_charitable_dist_amt, "$", classes: ["form-width--short"]) %>
+            </span>
           </div>
         </div>
+        <hr style="margin: 5px;"/>
 
         <!-- DISABILITY -->
         <div class="grid">
@@ -63,6 +68,7 @@
             TODO
           </div>
         </div>
+        <hr style="margin: 5px;"/>
 
         <!-- SSN / RAILROAD --> 
         <div class="grid">
@@ -73,6 +79,7 @@
             TODO
           </div>
         </div>
+        <hr style="margin: 5px;"/>
 
         <!-- UNEMP -->
         <div class="grid">
@@ -83,6 +90,7 @@
             TODO
           </div>
         </div>
+        <hr style="margin: 5px;"/>
 
         <!-- REFUND STATE/LOCAL -->
         <div class="grid">
@@ -93,6 +101,7 @@
             TODO
           </div>
         </div>
+        <hr style="margin: 5px;"/>
 
         <!-- INTEREST / DIVIDENDS -->
         <div class="grid">
@@ -103,6 +112,7 @@
             TODO
           </div>
         </div>
+        <hr style="margin: 5px;"/>
 
         <!-- SALES OF STOCKS BONDS -->
         <div class="grid">
@@ -114,6 +124,7 @@
             TODO
           </div>
         </div>
+        <hr style="margin: 5px;"/>
 
         <!-- ALIMONY -->
         <div class="grid">
@@ -124,6 +135,7 @@
             TODO
           </div>
         </div>
+        <hr style="margin: 5px;"/>
 
         <!-- RENTING HOUSE/ROOM etc -->
         <div class="grid">
@@ -143,16 +155,18 @@
             (will be blank)
           </div>
         </div>
+        <hr style="margin: 5px;"/>
 
         <!-- GAMBLING -->
         <div class="grid">
           <div class="grid__item width-one-half">
-            <%= f.cfa_select(:had_gambling_income, "3. (B) #{t(".fields.had_gambling_income")}", yes_no_options_for_select) %>
+            <%= f.cfa_select(:had_gambling_income, "(B) #{t(".fields.had_gambling_income")}", yes_no_options_for_select) %>
           </div>
           <div class="grid__item width-one-half">
             TODO
           </div>
         </div>
+        <hr style="margin: 5px;"/>
 
         <!-- self-employment -->
         <div class="grid">
@@ -165,6 +179,7 @@
           </div>
         </div>
 
+        <hr style="margin: 5px;"/>
         <!-- OTHER INCOME -->
         <div class="grid">
           <div class="grid__item width-one-half">
@@ -174,6 +189,7 @@
             TODO
           </div>
         </div>
+        <hr style="margin: 5px;"/>
 
       </div> <!-- end of id="income-fields" -->
 
