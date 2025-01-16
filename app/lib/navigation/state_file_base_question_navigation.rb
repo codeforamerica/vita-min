@@ -27,7 +27,7 @@ module Navigation
         end
         return if section.nil? || !step.show_steps?
         {
-          title: I18n.t(section.title),
+          title: I18n.t(section.title, default: section.title),
           step_number: index,
           number_of_steps: number_of_steps
         }

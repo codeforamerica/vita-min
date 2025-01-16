@@ -2239,11 +2239,11 @@ en:
         welcome_back: Welcome back %{user_name}!
     navigation:
       nj:
-        section_1: 'Section 1: Income Details'
-        section_2: 'Section 2: You and your Household'
-        section_3: 'Section 3: State info'
-        section_4: 'Section 4: Your state tax return'
-        section_5: 'Section 5: Submit your state tax return'
+        section_1: 'Section 1: Income'
+        section_2: 'Section 2: Your household'
+        section_3: 'Section 3: Deductions and credits'
+        section_4: 'Section 4: Your %{filing_year} taxes'
+        section_5: 'Section 5: Review and submit'
       section_1: 'Section 1: Can you use this service'
       section_2: 'Section 2: Create account'
       section_3: 'Section 3: Terms and conditions'
