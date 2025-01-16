@@ -7,9 +7,9 @@ describe StateFile::AfterTransitionMessagingService do
     create :state_file_az_intake,
            primary_first_name: "Mona",
            email_address: "mona@example.com",
-           email_address_verified_at: nil, # none of these notifications require verification
+           email_address_verified_at: nil, # none of these notifications require verification so setting this to nil tests that the message sends anyway
            phone_number: "+15551115511",
-           phone_number_verified_at: nil, # ^ so this tests that require_verification is passed in as false
+           phone_number_verified_at: 1.minute.ago,
            message_tracker: {}
   end
   let(:efile_submission) { create :efile_submission, :for_state, data_source: intake }
