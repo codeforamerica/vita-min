@@ -143,9 +143,9 @@ describe SubmissionBuilder::Ty2024::States::Md::MdReturnXml, required_schema: "m
           end
         end
 
-        context "when taxable social security benefits are prsent" do
+        context "when social security benefits are prsent" do
           before do
-            intake.direct_file_data.fed_taxable_ssb = 1
+            intake.direct_file_data.fed_ssb = 1
           end
 
           it "attaches a 502R" do
@@ -158,7 +158,7 @@ describe SubmissionBuilder::Ty2024::States::Md::MdReturnXml, required_schema: "m
 
         context "when taxable social security benefits are not prsent" do
           before do
-            intake.direct_file_data.fed_taxable_ssb = 0
+            intake.direct_file_data.fed_ssb = 0
           end
 
           it "does not attach a 502R" do
