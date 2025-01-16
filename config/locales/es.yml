@@ -3055,7 +3055,7 @@ es:
           select_one: 'Selecciona una de las siguientes opciones:'
           state_specific:
             nc:
-              manual_instructions_html: (<a href="https://www.ncdor.gov/2023-d-401-individual-income-tax-instructions/open" target="_blank" rel="noopener noreferrer">Obtén más información aquí</a> y busca 'consumer use worksheet')
+              manual_instructions_html: (<a href="https://www.ncdor.gov/2024-d-401-individual-income-tax-instructions/open" target="_blank" rel="noopener noreferrer">Obtén más información aquí</a> y busca 'consumer use worksheet')
           subtitle_html: Esto incluye compras en línea donde <b>no</b> se aplicó el impuesto sobre ventas.
           title:
             many: "¿Usted o su cónyuge realizaron alguna compra fuera del estado en %{year} sin pagar impuestos sobre ventas o de uso?"
