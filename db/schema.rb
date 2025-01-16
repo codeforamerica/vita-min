@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_01_13_222716) do
+ActiveRecord::Schema[7.1].define(version: 2025_01_15_191307) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -569,6 +569,15 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_13_222716) do
     t.datetime "updated_at", null: false
     t.index ["assigned_user_id"], name: "index_btru_on_assigned_user_id"
     t.index ["tax_return_selection_id"], name: "index_btru_on_tax_return_selection_id"
+  end
+
+  create_table "challenge_addresses", force: :cascade do |t|
+    t.string "address_line_1"
+    t.string "city"
+    t.datetime "created_at", null: false
+    t.string "state"
+    t.datetime "updated_at", null: false
+    t.string "zip"
   end
 
   create_table "client_success_roles", force: :cascade do |t|
