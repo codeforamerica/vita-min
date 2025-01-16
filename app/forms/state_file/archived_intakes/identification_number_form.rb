@@ -18,7 +18,7 @@ module StateFile
 
         archived_intake_ssn = @archived_intake_request&.state_file_archived_intake&.hashed_ssn
 
-        valid_ssn = hashed_ssn == archived_intake_ssn.remove(/\D/)
+        valid_ssn = hashed_ssn == archived_intake_ssn
 
         unless valid_ssn
           errors.add(:ssn, I18n.t("state_file.archived_intakes.identification_number.edit.error_message"))

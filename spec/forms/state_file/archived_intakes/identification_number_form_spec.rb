@@ -9,11 +9,6 @@ RSpec.describe StateFile::ArchivedIntakes::IdentificationNumberForm do
   }
   let(:state_file_archived_intake_request) { build(:state_file_archived_intake_request, state_file_archived_intake: archived_intake) }
   let(:form) { described_class.new(state_file_archived_intake_request, {ssn: input_ssn}) }
-  
-  # we always will have intake request for every test 
-  # input & archive intake match 
-  # input & archive intake don't match 
-  # input & no archived intake
 
   describe "validations" do
     context "with an input that does not look like an ssn" do
@@ -34,7 +29,17 @@ RSpec.describe StateFile::ArchivedIntakes::IdentificationNumberForm do
       end
     end
 
-    context "with a valid matching ssn input" do
+    context "with a valid matching ssn input but no matching intake" do
+      let(:archived_intake) { nil }
+      let(:input_ssn) { "123-45-6789" }
+
+      it "to not be valid" do
+        expect(form).to_not be_valid
+        expect(form.errors).to include :ssn
+      end
+    end
+
+    context "with a valid matching ssn input and with a matching intake" do
       let(:input_ssn) { "123-45-6789" }
 
       it "is valid" do

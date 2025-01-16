@@ -20,6 +20,11 @@ RSpec.feature "Completing a state file intake", active_job: true do
         # Final review page
         expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
         within "#income-info" do
+          expect(page).to have_text "W-2"
+          expect(page).to have_text "1099-R"
+          expect(page).to have_text "1099-G"
+          expect(page).not_to have_text "1099-INT"
+          expect(page).not_to have_text "SSA-1099"
           click_on I18n.t("general.edit")
         end
 
@@ -227,7 +232,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       primary_first_name: "Deedee",
       primary_last_name: "Doodoo",
       primary_birth_date: Date.new((MultiTenantService.statefile.current_tax_year - 65), 12, 1),
-      )
+    )
     intake.direct_file_data.fed_unemployment = 1000
     intake.update(raw_direct_file_data: intake.direct_file_data)
     create(:state_file_w2, state_file_intake: intake)

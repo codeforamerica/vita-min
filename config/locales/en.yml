@@ -3103,7 +3103,7 @@ en:
           select_one: 'Select one of the following:'
           state_specific:
             nc:
-              manual_instructions_html: (<a href="https://www.ncdor.gov/2023-d-401-individual-income-tax-instructions/open" target="_blank" rel="noopener noreferrer">Learn more here</a> and search for 'consumer use worksheet').
+              manual_instructions_html: (<a href="https://www.ncdor.gov/2024-d-401-individual-income-tax-instructions/open" target="_blank" rel="noopener noreferrer">Learn more here</a> and search for 'consumer use worksheet').
           subtitle_html: This includes online purchases where sales tax was <b>not</b> applied.
           title:
             one: Did you make any out-of-state purchases in %{year} without paying sales tax?
@@ -3730,6 +3730,7 @@ en:
           your_name: Your name
         review_header:
           income_details: Income Details
+          income_forms_collected: 'Income form(s) collected:'
           your_refund: Your refund amount
           your_tax_owed: Your taxes owed
       sms_terms:
@@ -3912,10 +3913,12 @@ en:
           title_html: Just a moment, we’re transferring your federal tax return to complete parts of your state return.
     state_file_pages:
       about_page:
+        check_back_for_prior_year_returns: Check back at the start of filing season to download your 2023 Arizona or New York State tax return.
         closed_subheader_html: |
           <strong>FileYourStateTaxes</strong> integrates with <strong>IRS Direct File</strong> to help you complete your state tax return <strong>for free.</strong> <br/><br/>
           <strong>We're closed for the tax season. Unfortunately you can no longer file your state return with us this year.</strong><br /><br />
           Already filed your state taxes with us? <strong>You can download a copy of your state return until December 31, 2024</strong><br /><br />
+        faq_prior_year_returns: Visit our FAQ for questions about prior year returns
         header: A free state filing service for taxpayers using IRS Direct File
         helper_heading_html: "<strong>How does this service work? </strong>"
         looking_for_return_html: "<strong>Looking for your 2023 Arizona or New York State Tax Return?</strong>"
