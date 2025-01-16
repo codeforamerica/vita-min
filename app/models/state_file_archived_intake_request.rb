@@ -18,7 +18,7 @@
 class StateFileArchivedIntakeRequest < ApplicationRecord
   devise :lockable, unlock_in: 60.minutes, unlock_strategy: :time
   has_many :state_file_archived_intake_access_logs, class_name: 'StateFileArchivedIntakeAccessLog'
-  belongs_to :state_file_archived_intake, class_name: 'StateFileArchivedIntake'
+  belongs_to :state_file_archived_intake, class_name: 'StateFileArchivedIntake', optional: true
 
   def self.maximum_attempts
     2
