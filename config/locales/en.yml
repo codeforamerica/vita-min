@@ -779,15 +779,9 @@ en:
         what_was_your_marital_status: As of December 31, %{current_tax_year}, what was your marital status?
       edit_13614c_form_page2:
         fields:
-          adopted_child: Adopt a child?
-          bought_energy_efficient_items: Purchase and install energy-efficient home items?
-          bought_marketplace_health_insurance: Have health coverage through the Marketplace (Exchange)? [Provide Form 1095-A]
           had_asset_sale_income: Income (or loss) from the sale or exchange of Stocks, Bonds, Virtual Currency or Real Estate?
-          had_capital_loss_carryover: File a federal return last year containing a “capital loss carryover” on Form 1040 Schedule D?
           had_cash_check_digital_assets: Cash/check/virtual currency payments, or other property or services for any work performed not reported on Forms W-2 or 1099?
-          had_debt_forgiven: Have credit card, student loan or mortgage debt cancelled/forgiven by a lender or have a home foreclosure?
           had_disability_income: Disability income?
-          had_hsa: Have a Health Savings Account?
           had_interest_income: 'Interest/Dividends from: checking/savings accounts, bonds, CDs, brokerage?'
           had_local_tax_refund: Refund or state/local income taxes?
           had_other_income: Other income?
@@ -796,32 +790,12 @@ en:
           had_scholarships: Scholarships?
           had_self_employment_income: Self-Employment income?
           had_social_security_income: Social Security or Railroad Retirement Benefits?
-          had_tax_credit_disallowed: Have Earned Income Credit, Child Tax Credit or American Opportunity Credit disallowed in a prior year?
           had_tips: Tip Income?
           had_unemployment_income: Unemployment Compensation?
           had_wages: Wages or Salary? (Form W-2)
-          has_ssn_of_alimony_recipient: If yes, do you have the recipient’s SSN?
           job_count: If yes, how many jobs did you have last year?
-          made_estimated_tax_payments: Make estimated tax payments or apply last year’s refund to this year’s tax?
-          made_estimated_tax_payments_amount: If so how much?
-          paid_alimony: Alimony or separate maintenance payments?
-          paid_charitable_contributions: Charitable Contributions
-          paid_dependent_care: Child or dependent care expenses such as daycare?
-          paid_local_tax: Taxes (State, Real Estate, Personal Property, Sales)
-          paid_medical_expenses: Medical & Dental (including insurance premiums)
-          paid_mortgage_interest: Mortgage Interest (Form 1098)
-          paid_post_secondary_educational_expenses: College or post secondary educational expenses for yourself, spouse or dependents?
-          paid_retirement_contributions: Contributions or repayments to a retirement account?
-          paid_school_supplies: For supplies used as an eligible educator such as a teacher, teacher's aide, counselor, etc.?
-          paid_self_employment_expenses: Expenses related to self-employment income or any other income you received?
-          paid_student_loan_interest: Student loan interest?
           received_alimony: Alimony income or separate maintenance payments?
-          received_homebuyer_credit: Receive the First Time Homebuyers Credit in 2008?
-          tax_credit_disallowed_year: If yes, for which tax year?
-          wants_to_itemize: Any of the following?
         part_3_title: Part III – Income – Last Year, Did You (or Your Spouse) Receive
-        part_4_title: Part IV – Expenses – Last Year, Did You (or Your Spouse) Pay
-        part_5_title: Part V - Life Events - Last Year, Did You (or Your Spouse)
         title: 13614-C page 2
       edit_13614c_form_page3:
         additional_info_title: Additional Information and Questions Related to the Preparation of Your Return
