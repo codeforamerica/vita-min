@@ -4,8 +4,16 @@ RSpec.describe StateFile::ArchivedIntakes::IdentificationNumberForm do
   let(:intake_ssn) { "123456789" }
   let(:hashed_ssn) { SsnHashingService.hash(intake_ssn) }
   let(:input_ssn) { "1234" }
-  let(:form) { described_class.new({ssn: input_ssn}, hashed_ssn) }
-
+  let(:archived_intake) {
+    build(:state_file_archived_intake, hashed_ssn: hashed_ssn)
+  }
+  let(:state_file_archived_intake_request) { build(:state_file_archived_intake_request, state_file_archived_intake: archived_intake) }
+  let(:form) { described_class.new(state_file_archived_intake_request, {ssn: input_ssn}) }
+  
+  # we always will have intake request for every test 
+  # input & archive intake match 
+  # input & archive intake don't match 
+  # input & no archived intake
 
   describe "validations" do
     context "with an input that does not look like an ssn" do

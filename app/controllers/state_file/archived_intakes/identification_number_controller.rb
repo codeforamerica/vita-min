@@ -1,5 +1,5 @@
 # 1. use front end validations for SSN
-# 2. give them 1 attempt at an inccorect SSN
+# 2. give them 1 attempt at an incorrect SSN
 # 3. update the access logs to have the correct event
 # 4. tests
 # 5. translations
@@ -7,9 +7,10 @@
 module StateFile
   module ArchivedIntakes
     class IdentificationNumberController < ApplicationController
+      before_action :confirm_code_verification
       def edit
-        archived_intake = StateFileArchivedIntake.find_by(email_address: session[:email_address])
-        @form = IdentificationNumberForm.new({}, archived_intake&.hashed_ssn)
+        archived_intake_request = StateFileArchivedIntakeRequest.find_by(email_address: session[:email_address])
+        @form = IdentificationNumberForm.new(archived_intake_request: archived_intake_request)
         render :edit
       end
 
@@ -17,7 +18,6 @@ module StateFile
         archived_intake = StateFileArchivedIntake.find_by(email_address: session[:email_address])
 
         @form = IdentificationNumberForm.new(
-          identification_number_form_params.merge(ip_for_irs: request.remote_ip),
           archived_intake&.hashed_ssn
         )
 
@@ -76,6 +76,11 @@ module StateFile
 
       def identification_number_form_params
         params.require(:state_file_archived_intakes_identification_number_form).permit(:ssn)
+      end
+
+      private
+      def confirm_code_verification
+        # TODO
       end
     end
   end
