@@ -111,7 +111,6 @@ module PdfFiller
         yes_no_checkboxes("form1[0].page2[0].Part3[0].q6AlimonyIncome[0]", fetch_gated_value(@intake, :received_alimony), include_unsure: true),
         yes_no_checkboxes("form1[0].page2[0].Part3[0].q7SelfEmploymentIncome[0]", @intake.had_self_employment_income, include_unsure: true),
         yes_no_checkboxes("form1[0].page2[0].Part3[0].q8CashCheckPayments[0]", @intake.had_cash_check_digital_assets, include_unsure: true),
-        yes_no_checkboxes("form1[0].page2[0].Part3[0].q9Income[0]", collective_yes_no_unsure(fetch_gated_value(@intake, :had_asset_sale_income), fetch_gated_value(@intake, :reported_asset_sale_loss), fetch_gated_value(@intake, :sold_a_home)), include_unsure: true),
         yes_no_checkboxes("form1[0].page2[0].Part3[0].q10DisabilityIncome[0]", @intake.had_disability_income, include_unsure: true),
         yes_no_checkboxes("form1[0].page2[0].Part3[0].q11RetirementIncome[0]", fetch_gated_value(@intake, :had_retirement_income), include_unsure: true),
         yes_no_checkboxes("form1[0].page2[0].Part3[0].q12UnemploymentCompensation[0]", @intake.had_unemployment_income, include_unsure: true),
@@ -122,7 +121,6 @@ module PdfFiller
         yes_no_checkboxes("form1[0].page2[0].Part4[0].q1Alimony[0]", fetch_gated_value(@intake, :paid_alimony), include_unsure: true),
         yes_no_checkboxes("form1[0].page2[0].Part4[0].q1Alimony[0].IfYes[0]", @intake.has_ssn_of_alimony_recipient),
 
-        yes_no_checkboxes("form1[0].page2[0].Part4[0].q2Contributions[0]", fetch_gated_value(@intake, :paid_retirement_contributions), include_unsure: true),
       )
       answers.merge!(
         "form1[0].page2[0].Part4[0].q2Contributions[0].IRA[0]" => yes_no_unfilled_to_checkbox(@intake.contributed_to_ira),
@@ -142,33 +140,38 @@ module PdfFiller
           "form1[0].page3[0].paidFollowingExpenses[0].mendicalDentalPrescription[0]" => @intake.wants_to_itemize_yes? && @intake.paid_medical_expenses_yes?,
           "form1[0].page3[0].paidFollowingExpenses[0].charitableContributions[0]" => @intake.wants_to_itemize_yes? && @intake.paid_charitable_contributions_yes?,
           "form1[0].page3[0].paidExpenses[0].studentLoanInterest[0]" => @intake.paid_student_loan_interest_yes?,
-          "form1[0].page3[0].paidExpenses[0].childDependentCare[0]" => @intake.paid_dependent_care_yes?,
-          "form1[0].page3[0].paidExpenses[0].contributionsRetirementAccount[0]" => @intake.paid_retirement_contributions_yes?,
+          "form1[0].page3[0].paidExpenses[0].childDependentCare[0]" => @intake.had_dependents_yes? && @intake.paid_dependent_care_yes?,
+          "form1[0].page3[0].paidExpenses[0].contributionsRetirementAccount[0]" => @intake.had_social_security_or_retirement_yes? && @intake.paid_retirement_contributions_yes?,
           "form1[0].page3[0].paidExpenses[0].schooldSupplies[0]" => @intake.wants_to_itemize_yes? && @intake.paid_school_supplies_yes?,
+          "form1[0].page3[0].paidExpenses[0].alimonyPayments[0]" => @intake.ever_married_yes? && @intake.paid_alimony_yes?,
+          "form1[0].page3[0].followingHappenDuring[0].tookEducationalClasses[0].tookEducationalClasses[0]" => @intake.paid_post_secondary_educational_expenses_yes?,
+          "form1[0].page3[0].followingHappenDuring[0].sellAHome[0]" => @intake.ever_owned_home_yes? && @intake.sold_a_home_yes?,
+          "form1[0].page3[0].followingHappenDuring[0].healthSavingsAccount[0]" => @intake.had_hsa_yes?,
+          "form1[0].page3[0].followingHappenDuring[0].purchaseMarketplaceInsurance[0]" => @intake.bought_marketplace_health_insurance_yes?,
+          "form1[0].page3[0].followingHappenDuring[0].energyEfficientItems[0].energyEfficientItems[0]" => @intake.bought_energy_efficient_items_yes?,
+          "form1[0].page3[0].followingHappenDuring[0].forgaveByLender[0].forgaveByLender[0]" => @intake.had_debt_forgiven_yes?,
+          "form1[0].page3[0].followingHappenDuring[0].lossRelatedDisaster[0]" => @intake.had_disaster_loss_yes?,
+          "form1[0].page3[0].followingHappenDuring[0].taxCreditDisallowed[0].taxCreditDisallowed[0]" => @intake.had_tax_credit_disallowed_yes?,
+          "form1[0].page3[0].followingHappenDuring[0].receivedLetterBill[0]" => @intake.received_irs_letter_yes?,
+          "form1[0].page3[0].followingHappenDuring[0].estimatedTaxPayments[0].estimatedTaxPayments[0]" => @intake.made_estimated_tax_payments_yes?,
         })
       )
+
       answers.merge!(
         yes_no_checkboxes("form1[0].page2[0].Part4[0].q7ExpensesRelatedTo[0]", @intake.paid_self_employment_expenses, include_unsure: true),
-
-        yes_no_checkboxes("form1[0].page2[0].Part5[0].q1HaveAHealth[0]", @intake.had_hsa, include_unsure: true),
-        yes_no_checkboxes("form1[0].page2[0].Part5[0].q2HaveDebtFrom[0]", @intake.had_debt_forgiven, include_unsure: true),
         yes_no_checkboxes("form1[0].page2[0].Part5[0].q3AdoptAChild[0]", fetch_gated_value(@intake, :adopted_child), include_unsure: true),
-        yes_no_checkboxes("form1[0].page2[0].Part5[0].q4HaveEarnedIncome[0]", @intake.had_tax_credit_disallowed, include_unsure: true),
       )
       answers.merge!(
         "form1[0].page2[0].Part5[0].q4HaveEarnedIncome[0].WhichTaxYear[0]" => @intake.tax_credit_disallowed_year
       )
       answers.merge!(
-        yes_no_checkboxes("form1[0].page2[0].Part5[0].q5PurchaseAndInstall[0]", @intake.bought_energy_efficient_items || "unfilled", include_unsure: true), # no default in db
         yes_no_checkboxes("form1[0].page2[0].Part5[0].q6ReceiveTheFirst[0]", fetch_gated_value(@intake, :received_homebuyer_credit), include_unsure: true),
-        yes_no_checkboxes("form1[0].page2[0].Part5[0].q7MakeEstimatedTax[0]", @intake.made_estimated_tax_payments, include_unsure: true),
       )
       answers.merge!(
         "form1[0].page2[0].Part5[0].q7MakeEstimatedTax[0].HowMuch[0]" => @intake.made_estimated_tax_payments_amount,
       )
       answers.merge!(
         yes_no_checkboxes("form1[0].page2[0].Part5[0].q8FileAFederal[0]", @intake.had_capital_loss_carryover, include_unsure: true),
-        yes_no_checkboxes("form1[0].page2[0].Part5[0].q9HaveHealth[0]", @intake.bought_marketplace_health_insurance, include_unsure: true),
       )
       answers.merge!(
         # Additional Information Section
@@ -190,13 +193,11 @@ module PdfFiller
       )
       answers.merge!(
         yes_no_checkboxes("form1[0].page3[0].q4[0]", @intake.balance_pay_from_bank),
-        yes_no_checkboxes("form1[0].page3[0].q5[0]", @intake.had_disaster_loss),
       )
       answers.merge!(
         "form1[0].page3[0].q5[0].IfYesWhere[0]" => @intake.had_disaster_loss_where,
       )
       answers.merge!(
-        yes_no_checkboxes("form1[0].page3[0].q6[0]", @intake.received_irs_letter, option_prefix: false),
         yes_no_checkboxes("form1[0].page3[0].q7[0]", @intake.register_to_vote),
       )
       answers.merge!(demographic_info) if @intake.demographic_questions_opt_in_yes? || @intake.demographic_questions_hub_edit
