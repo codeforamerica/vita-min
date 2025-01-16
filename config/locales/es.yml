@@ -791,13 +791,13 @@ es:
           had_asset_sale_income: "¿Ingresos (o pérdidas) procedentes de la venta o intercambio de acciones, bonos, moneda virtual o bienes inmuebles/propiedad?"
           had_cash_check_digital_assets: "¿Pagos en efectivo/cheques/divisas virtuales, o otros bienes o servicios por cualquier trabajo realizado no declarado en los formularios W-2 o 1099?"
           had_disability_income: "¿Ingresos por discapacidad?"
-          had_gambling_income: .
+          had_gambling_income: "."
           had_interest_income: "¿Intereses/dividendos de: cuentas corrientes/de ahorro, bonos, certificados de depósito, corretaje?"
-          had_local_tax_refund: "Reembolso del impuesto estatal o local sobre los ingresos?"
+          had_local_tax_refund: Reembolso del impuesto estatal o local sobre los ingresos?
           had_other_income: "¿Otros ingresos?"
           had_rental_income: "¿Ingresos (o pérdidas) procedentes del arrendamiento de propiedades?"
-          had_rental_income_and_used_dwelling_as_residence: .
-          had_rental_income_from_personal_property: .
+          had_rental_income_and_used_dwelling_as_residence: "."
+          had_rental_income_from_personal_property: "."
           had_retirement_income: "¿Cuentas de jubilación, ingresos de pensiones o anualidades?"
           had_scholarships: "¿Becas?"
           had_self_employment_income: "¿Ingresos por trabajo autónomo?"
@@ -807,7 +807,7 @@ es:
           had_wages: "¿Sueldo o salario? (Formulario W-2)"
           job_count: En caso afirmativo, ¿cuántos empleos tuvo el año pasado?
           received_alimony: "¿Pensión alimenticia o pensión de separación?"
-          reported_asset_sale_loss: .
+          reported_asset_sale_loss: "."
         part_3_title: Parte III - Ingresos - El año pasado, ¿recibió usted (o su cónyuge)
         title: 13614-C página 2
       edit_13614c_form_page3:
