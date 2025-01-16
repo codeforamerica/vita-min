@@ -111,22 +111,6 @@ module SubmissionBuilder
       xml.send(tag, value) if value.present?
     end
 
-    def add_non_negative_amount(xml, elem_name, line, character_limit)
-      # validates based on USAmountNNType
-      value = calculated_fields.fetch(line)&.round
-      if value && value >= 0 && value.to_s.size <= character_limit
-        xml.send(elem_name, value)
-      end
-    end
-
-    def add_integer_amount_if_present(xml, elem_name, line, character_limit)
-      # validates based on USAmountType
-      value = calculated_fields.fetch(line)&.round
-      if value.to_s.size <= character_limit
-        xml.send(elem_name, value)
-      end
-    end
-
     def email_from_intake_or_df
       if @submission.data_source.email_address.present?
         sanitize_for_xml(@submission.data_source.email_address, 75)

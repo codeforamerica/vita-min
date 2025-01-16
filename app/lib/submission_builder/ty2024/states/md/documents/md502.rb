@@ -124,60 +124,60 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
       end
       income_section(xml)
       xml.Additions do
-        add_non_negative_amount(xml, :StateRetirementPickup, :MD502_LINE_3, 15)
-        add_non_negative_amount(xml, :Total, :MD502_LINE_6, 15)
-        add_integer_amount_if_present(xml, :FedAGIAndStateAdditions, :MD502_LINE_7, 15)
+        add_element_if_present(xml, "StateRetirementPickup", :MD502_LINE_3)
+        add_element_if_present(xml, "Total", :MD502_LINE_6)
+        add_element_if_present(xml, "FedAGIAndStateAdditions", :MD502_LINE_7)
       end
       xml.Subtractions do
-        add_non_negative_amount(xml, :ChildAndDependentCareExpenses, :MD502_LINE_9, 15)
-        add_non_negative_amount(xml, :SocialSecurityRailRoadBenefits, :MD502_LINE_11, 15)
-        add_non_negative_amount(xml, :Other, :MD502_LINE_13, 15)
-        add_non_negative_amount(xml, :TwoIncome, :MD502_LINE_14, 15)
-        add_non_negative_amount(xml, :Total, :MD502_LINE_15, 15)
-        add_integer_amount_if_present(xml, :StateAdjustedGrossIncome, :MD502_LINE_16, 15)
+        add_element_if_present(xml, "ChildAndDependentCareExpenses", :MD502_LINE_9)
+        add_element_if_present(xml, "SocialSecurityRailRoadBenefits", :MD502_LINE_11)
+        add_element_if_present(xml, "Other", :MD502_LINE_13)
+        add_element_if_present(xml, "TwoIncome", :MD502_LINE_14)
+        add_element_if_present(xml, "Total", :MD502_LINE_15)
+        add_element_if_present(xml, "StateAdjustedGrossIncome", :MD502_LINE_16)
       end
       xml.Deduction do
         xml.Method calculated_fields.fetch(:MD502_DEDUCTION_METHOD)
-        add_non_negative_amount(xml, :Amount, :MD502_LINE_17, 15) if @deduction_method_is_standard
+        add_element_if_present(xml, "Amount", :MD502_LINE_17) if @deduction_method_is_standard
       end
       if @deduction_method_is_standard
-        add_integer_amount_if_present(xml, :NetIncome, :MD502_LINE_18, 15)
+        add_element_if_present(xml, "NetIncome", :MD502_LINE_18)
       end
-      add_non_negative_amount(xml, :ExemptionAmount, :MD502_LINE_19, 15)
+      add_element_if_present(xml, "ExemptionAmount", :MD502_LINE_19)
       if has_state_tax_computation?
         xml.StateTaxComputation do
-          add_non_negative_amount(xml, :TaxableNetIncome, :MD502_LINE_20, 15) if @deduction_method_is_standard
-          add_non_negative_amount(xml, :StateIncomeTax, :MD502_LINE_21, 15)
-          add_non_negative_amount(xml, :EarnedIncomeCredit, :MD502_LINE_22, 15)
+          add_element_if_present(xml, "TaxableNetIncome", :MD502_LINE_20) if @deduction_method_is_standard
+          add_element_if_present(xml, "StateIncomeTax", :MD502_LINE_21)
+          add_element_if_present(xml, "EarnedIncomeCredit", :MD502_LINE_22)
           add_element_if_present(xml, "MDEICWithQualChildInd", :MD502_LINE_22B)
-          add_non_negative_amount(xml, :PovertyLevelCredit, :MD502_LINE_23, 15) if @deduction_method_is_standard
-          add_non_negative_amount(xml, :IndividualTaxCredits, :MD502_LINE_24, 15) if @deduction_method_is_standard
-          add_non_negative_amount(xml, :TotalCredits, :MD502_LINE_26, 15)
-          add_non_negative_amount(xml, :StateTaxAfterCredits, :MD502_LINE_27, 15) if @deduction_method_is_standard
+          add_element_if_present(xml, "PovertyLevelCredit", :MD502_LINE_23) if @deduction_method_is_standard
+          add_element_if_present(xml, "IndividualTaxCredits", :MD502_LINE_24) if @deduction_method_is_standard
+          add_element_if_present(xml, "TotalCredits", :MD502_LINE_26)
+          add_element_if_present(xml, "StateTaxAfterCredits", :MD502_LINE_27) if @deduction_method_is_standard
         end
       end
       xml.LocalTaxComputation do
         add_element_if_present(xml, "LocalTaxRate", :MD502_LINE_28_LOCAL_TAX_RATE)
-        add_non_negative_amount(xml, :LocalIncomeTax, :MD502_LINE_28_LOCAL_TAX_AMOUNT, 15)
-        add_non_negative_amount(xml, :EarnedIncomeCredit, :MD502_LINE_29, 15)
-        add_non_negative_amount(xml, :PovertyLevelCredit, :MD502_LINE_30, 15)
-        add_non_negative_amount(xml, :TotalCredits, :MD502_LINE_32, 15)
-        add_non_negative_amount(xml, :LocalTaxAfterCredits, :MD502_LINE_33, 15)
+        add_element_if_present(xml, "LocalIncomeTax", :MD502_LINE_28_LOCAL_TAX_AMOUNT)
+        add_element_if_present(xml, "EarnedIncomeCredit", :MD502_LINE_29)
+        add_element_if_present(xml, "PovertyLevelCredit", :MD502_LINE_30)
+        add_element_if_present(xml, "TotalCredits", :MD502_LINE_32)
+        add_element_if_present(xml, "LocalTaxAfterCredits", :MD502_LINE_33)
       end
-      add_non_negative_amount(xml, :TotalStateAndLocalTax, :MD502_LINE_34, 15)
-      add_non_negative_amount(xml, :TotalTaxAndContributions, :MD502_LINE_39, 15)
-      add_non_negative_amount(xml, :TaxWithheld, :MD502_LINE_40, 15)
-      add_non_negative_amount(xml, :RefundableEIC, :MD502_LINE_42, 15)
-      add_integer_amount_if_present(xml, :RefundableTaxCredits, :MD502_LINE_43, 15)
-      add_integer_amount_if_present(xml, :TotalPaymentsAndCredits, :MD502_LINE_44, 15)
-      add_non_negative_amount(xml, :BalanceDue, :MD502_LINE_45, 15)
-      add_non_negative_amount(xml, :Overpayment, :MD502_LINE_46, 15)
+      add_element_if_present(xml, "TotalStateAndLocalTax", :MD502_LINE_34)
+      add_element_if_present(xml, "TotalTaxAndContributions", :MD502_LINE_39)
+      add_element_if_present(xml, "TaxWithheld", :MD502_LINE_40)
+      add_element_if_present(xml, "RefundableEIC", :MD502_LINE_42)
+      add_element_if_present(xml, "RefundableTaxCredits", :MD502_LINE_43)
+      add_element_if_present(xml, "TotalPaymentsAndCredits", :MD502_LINE_44)
+      add_element_if_present(xml, "BalanceDue", :MD502_LINE_45)
+      add_element_if_present(xml, "Overpayment", :MD502_LINE_46)
       if calculated_fields.fetch(:MD502_LINE_48).positive?
         xml.AmountOverpayment do
           xml.ToBeRefunded calculated_fields.fetch(:MD502_LINE_48)
         end
       end
-      add_non_negative_amount(xml, :TotalAmountDue, :MD502_LINE_50, 15)
+      add_element_if_present(xml, "TotalAmountDue", :MD502_LINE_50)
       xml.AuthToDirectDepositInd "X" if calculated_fields.fetch(:MD502_AUTHORIZE_DIRECT_DEPOSIT)
       if @intake.payment_or_deposit_type.to_sym == :direct_deposit && @intake.refund_or_owe_taxes_type == :refund
         xml.NameOnBankAccount do
@@ -204,9 +204,9 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
   def income_section(root_xml)
     root_xml.Income do |income|
       income.FederalAdjustedGrossIncome calculated_fields.fetch(:MD502_LINE_1)
-      add_non_negative_amount(income, :WagesSalariesAndTips, :MD502_LINE_1A, 15)
-      add_non_negative_amount(income, :EarnedIncome, :MD502_LINE_1B, 15)
-      add_non_negative_amount(income, :TaxablePensionsIRAsAnnuities, :MD502_LINE_1D, 15)
+      add_element_if_present(income, :WagesSalariesAndTips, :MD502_LINE_1A)
+      add_element_if_present(income, :EarnedIncome, :MD502_LINE_1B)
+      add_element_if_present(income, :TaxablePensionsIRAsAnnuities, :MD502_LINE_1D)
       if calculated_fields.fetch(:MD502_LINE_1E)
         income.InvestmentIncomeIndicator "X"
       end
