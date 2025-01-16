@@ -3880,10 +3880,12 @@ es:
           title_html: Un momento, estamos transfiriendo tu declaración de impuestos federal.
     state_file_pages:
       about_page:
+        check_back_for_prior_year_returns: Vuelva al comienzo de la temporada de presentación para descargar su declaración de impuestos de Arizona o del estado de Nueva York de 2023.
         closed_subheader_html: |
           <strong>FileYourStateTaxes</strong> se integra con <strong>IRS Direct File</strong> para ayudarte a completar tu declaración de impuestos estatales <strong>sin costo.</strong><br/><br/>
           <strong>Estamos cerrados por la temporada de impuestos. Desafortunadamente, no puede presentar tu declaración estatal con nosotros este año.</strong><br /><br />
           ¿Ya presentó tus impuestos estatales con nosotros? <strong>Puedes descargar una copia de tu declaración estatal hasta el 31 de diciembre de 2024</strong><br /><br />
+        faq_prior_year_returns: Visite nuestras preguntas frecuentes para preguntas sobre declaraciones de años anteriores
         header: Una herramienta sin costo para presentar impuestos estatales para los contribuyentes utilizando IRS Direct File
         helper_heading_html: "<strong>¿Cómo funciona este servicio?</strong>"
         looking_for_return_html: "<strong>¿Buscas tu declaración de impuestos de Arizona o del estado de Nueva York de 2023?</strong>"
