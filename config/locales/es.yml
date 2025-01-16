@@ -789,7 +789,6 @@ es:
       edit_13614c_form_page2:
         fields:
           had_asset_sale_income: "¿Ingresos (o pérdidas) procedentes de la venta o intercambio de acciones, bonos, moneda virtual o bienes inmuebles/propiedad?"
-          had_cash_check_digital_assets: "¿Pagos en efectivo/cheques/divisas virtuales, o otros bienes o servicios por cualquier trabajo realizado no declarado en los formularios W-2 o 1099?"
           had_disability_income: "¿Ingresos por discapacidad?"
           had_gambling_income: "."
           had_interest_income: "¿Intereses/dividendos de: cuentas corrientes/de ahorro, bonos, certificados de depósito, corretaje?"
@@ -799,7 +798,6 @@ es:
           had_rental_income_and_used_dwelling_as_residence: "."
           had_rental_income_from_personal_property: "."
           had_retirement_income: "¿Cuentas de jubilación, ingresos de pensiones o anualidades?"
-          had_scholarships: "¿Becas?"
           had_self_employment_income: "¿Ingresos por trabajo autónomo?"
           had_social_security_income: "¿Seguro Social o beneficios de Jubilación Ferroviaria?"
           had_tips: "¿Ingresos por propinas?"

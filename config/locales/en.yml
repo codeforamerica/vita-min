@@ -780,7 +780,6 @@ en:
       edit_13614c_form_page2:
         fields:
           had_asset_sale_income: Income (or loss) from the sale or exchange of Stocks, Bonds, Virtual Currency or Real Estate?
-          had_cash_check_digital_assets: Cash/check/virtual currency payments, or other property or services for any work performed not reported on Forms W-2 or 1099?
           had_disability_income: Disability income?
           had_gambling_income: Gambling winnings, including lottery
           had_interest_income: 'Interest/Dividends from: checking/savings accounts, bonds, CDs, brokerage?'
@@ -790,7 +789,6 @@ en:
           had_rental_income_and_used_dwelling_as_residence: If yes, did you use the dwelling unit as a personal residence and rent it for fewer than 15 days
           had_rental_income_from_personal_property: Income from renting personal property such as a vehicle
           had_retirement_income: Retirement account, pension or annuity proceeds
-          had_scholarships: Scholarships?
           had_self_employment_income: Self-Employment income?
           had_social_security_income: Social Security or Railroad Retirement Benefits?
           had_tips: Tip Income?
