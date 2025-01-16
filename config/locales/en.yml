@@ -2048,7 +2048,7 @@ en:
             zero: "$0"
         title: Tell us about your filing status and income.
         vita_income_ineligible:
-          label: Did you earn income from a rental property, a farm, or cryptocurrency?
+          label: 'Did you earn income from a rental property (ex: home or car), a farm, or cryptocurrency?'
   signups:
     flash_notice: Thank you! You will receive a notification when we open.
     new:
@@ -2063,6 +2063,17 @@ en:
         04_detail_links_html: See our <a href="%{terms_link}" target="_blank" rel="noopener noreferrer">Terms and Conditions</a> and <a href="%{privacy_link}" target="_blank" rel="noopener noreferrer">Privacy Policy.</a>
       subheader: Please sign up here to receive a notification when we open in January.
   state_file:
+    archived_intakes:
+      email_address:
+        edit:
+          enter_email: Enter the email address linked to your account
+      verification_code:
+        edit:
+          error_message: Incorrect verification code. After 2 failed attempts, accounts are locked.
+          subtitle_html: If you didn’t receive a code, please check your spam folder.
+          subtitle_html_2: If you still need help resubscribing, chat with us.
+          title_html: We’ve sent your code to <strong>%{email_address}</strong>
+          verify: Verify code
     faq:
       index:
         title: Common questions from %{state} taxpayers
@@ -2624,7 +2635,6 @@ en:
                 </li>
               </ul>
             </p>
-          title1: What subtractions, credits, and other situations does this service NOT support this year?
           title2: What scenarios for claiming the Maryland Earned Income Tax Credit and/or Child Tax Credit aren't supported by this service?
           title3: What if I have a situation not yet supported by FileYourStateTaxes?
         md_supported:
@@ -3068,7 +3078,6 @@ en:
           title: It looks like your filing status is Qualifying Surviving Spouse
       nc_review:
         edit:
-          amount: Amount
           amount_earned: Amount earned
           child_deduction: Child deduction
           interest_us_bonds: Interest income from U.S. bonds (not taxable in North Carolina)
@@ -3077,16 +3086,18 @@ en:
           spouse_veteran: Spouse Veteran Info
           state_credit: Enrolled member of a federally recognized Indian Tribe, and received income from a source within a reservation
           subtraction_indian_tribe: Subtraction for income of a member of an Indian tribe
-          use_tax_applied: Out-of-state purchases in %{filing_year} without paying sales or use tax
+          use_tax_amount: Amount of use tax
+          use_tax_applied: Out-of-state purchases in %{filing_year} without paying sales tax
         review_header:
           unemployment_compensation: Unemployment Compensation
       nc_sales_use_tax:
         edit:
           calculated_use_tax: Enter calculated use tax
+          explanation_html: If you made any purchases without paying sales tax, you may owe <strong>use tax</strong> on those purchases. We’ll help you figure out the right amount.
           select_one: 'Select one of the following:'
           state_specific:
             nc:
-              manual_instructions_html: (<a href="https://www.ncdor.gov/2023-d-401-individual-income-tax-instructions/open" target="_blank" rel="noopener noreferrer">Learn more here</a> and search for 'consumer use worksheet').
+              manual_instructions_html: (<a href="https://www.ncdor.gov/2024-d-401-individual-income-tax-instructions/open" target="_blank" rel="noopener noreferrer">Learn more here</a> and search for 'consumer use worksheet').
           subtitle_html: This includes online purchases where sales tax was <b>not</b> applied.
           title:
             one: Did you make any out-of-state purchases in %{year} without paying sales tax?
@@ -3195,7 +3206,7 @@ en:
           coverage_heading: What is health insurance with minimum essential coverage?
           label_html: |
             <p><strong>Did everyone in your tax household have health insurance (<a href="https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml" target="_blank" rel="noopener noreferrer">with minimum essential health coverage</a>) for every month in %{filing_year}?</strong><p>
-            <p><strong><em>You should answer yes</em></strong> if you and everyone in your household had an insurance plan through an employer, bought an insurance plan through GetCoveredNJ, or had Medicare or Medicaid (NJ Family Care). You should also answer yes if your coverage is on this list.</p>
+            <p><strong><em>You should answer yes</em></strong> if you and everyone in your household had an insurance plan through an employer, bought an insurance plan through <a href="https://nj.gov/getcoverednj/" target="_blank" rel="noopener nofollow">GetCoveredNJ</a>, or had Medicare or Medicaid (NJ Family Care). You should also answer yes if your coverage is <a href="https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml" target="_blank" rel="noopener nofollow">on this list.</a></p>
             <p class="spacing-below-0"><strong><em>You should answer no</em></strong> if you or someone in your household only had standalone vision and dental plans, workers' compensation coverage, or a plan limited to specific disease or illness.</p>
           tax_household_description_html: A tax household includes you, your spouse (if filing a joint return),  and individuals you claim as dependents. It also includes any individuals you can, but do not, claim as dependents on your return.
           tax_household_heading: What is considered a tax household?
@@ -3713,6 +3724,7 @@ en:
           your_name: Your name
         review_header:
           income_details: Income Details
+          income_forms_collected: 'Income form(s) collected:'
           your_refund: Your refund amount
           your_tax_owed: Your taxes owed
       sms_terms:
@@ -3895,25 +3907,35 @@ en:
           title_html: Just a moment, we’re transferring your federal tax return to complete parts of your state return.
     state_file_pages:
       about_page:
+        check_back_for_prior_year_returns: Check back at the start of filing season to download your 2023 Arizona or New York State tax return.
         closed_subheader_html: |
           <strong>FileYourStateTaxes</strong> integrates with <strong>IRS Direct File</strong> to help you complete your state tax return <strong>for free.</strong> <br/><br/>
           <strong>We're closed for the tax season. Unfortunately you can no longer file your state return with us this year.</strong><br /><br />
           Already filed your state taxes with us? <strong>You can download a copy of your state return until December 31, 2024</strong><br /><br />
+        faq_prior_year_returns: Visit our FAQ for questions about prior year returns
         header: A free state filing service for taxpayers using IRS Direct File
+        helper_heading_html: "<strong>How does this service work? </strong>"
+        looking_for_return_html: "<strong>Looking for your 2023 Arizona or New York State Tax Return?</strong>"
         section1_html: |
-          <strong>How does it work?</strong>
-          <ol class="list--numbered">
+          <ol class="list--numbered"  style="padding-left: 2rem">
             <li>File and submit your federal return with <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">IRS Direct File</a> before using this service.</li>
-            <li>Click "continue to file your state taxes"</li>
-            <li>Answer a few questions to make sure this is the right service for you. <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/state">Learn more about who is eligible for this tax year</a>.</li>
+            <li>Follow the link from Direct File to FileYourStateTaxes.</li>
+            <li>Answer a few questions to make sure this is the right service for you. <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/state">Learn more</a> about who is eligible for this tax year.</li>
             <li>Transfer your federal return to fill in most of your state return.</li>
             <li>Answer a few additional questions to help maximize your state tax refund.</li>
             <li>E-file your return for free!</li>
           </ol>
+          <br /><br />
           <strong>To learn more, check out the <a href=%{faq_link}>FAQs</a>.</strong>
-        subheader_1_html: "<strong>FileYourStateTaxes</strong> integrates with <strong>IRS Direct File</strong> to help you complete your state tax return <strong>for free.</strong>"
-        subheader_2_html: IRS Direct File is now broadly available to all eligible taxpayers through April 15, 2024. For more information on timeline and eligibility, or to start filing your federal return, go to <strong><a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">directfile.irs.gov</a></strong>
-        subheader_3_html: Already filed your federal return with IRS Direct File and need to complete your state return? <a href=%{login_path}>Sign in here</a>.
+        subheader_1_html: |
+          FileYourStateTaxes connects with IRS Direct File to help you complete your state tax return for free.
+          <br /><br />
+          This site will open at the start of the 2025 tax filing season and remain open until October 15, 2025 for you to file your state tax returns.
+          <br /><br />
+          <strong>In 2025, this service will support filing state tax returns in Arizona, Idaho, North Carolina, New Jersey, and Maryland.</strong>
+        subheader_2_html: To start filing your federal return, go to <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">directfile.irs.gov.</a>
+        subheader_3_html: "<strong>Already filed your federal return with IRS Direct File and need to complete your state return?</strong> <a href=%{login_path}>Sign in here</a>."
+        tax_return_link: Click here to access your tax return
       card_postscript:
         responses_saved_html: Your responses are saved. If you need a break, you can come back and log in to your account at <a href="https://fileyourstatetaxes.org">fileyourstatetaxes.org</a>.
       coming_soon:
@@ -6129,8 +6151,9 @@ en:
         options:
           had_disability: I had a permanent disability
           was_blind: I was legally blind
+          was_citizen: I was a US citizen
           was_full_time_student: I was a full-time student in a college or a trade school
-          was_not_citizen: I was not a US citizen
+          was_on_visa: I was in the US on a visa
         title: Select any situations that were true for you in %{year}
       lived_with_spouse:
         title: Did you live with your spouse during any part of the last six months of %{year}?
@@ -6287,8 +6310,9 @@ en:
         options:
           had_disability: They had a permanent disability
           was_blind: They were legally blind
+          was_citizen: They were a US citizen
           was_full_time_student: They were a full-time student in a college or a trade school
-          was_not_citizen: They were not a US citizen
+          was_on_visa: They were in the US on a visa
         title: Select any situations that were true for your spouse in %{year}
       ssn_itin:
         title: Please provide your taxpayer identification information.

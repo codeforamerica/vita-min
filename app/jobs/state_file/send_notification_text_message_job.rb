@@ -6,13 +6,17 @@ module StateFile
 
       message = twilio.send_text_message(
         to: state_file_notification_text_message.to_phone_number,
-        body: state_file_notification_text_message.body
+        body: state_file_notification_text_message.body,
+        outgoing_text_message: state_file_notification_text_message
       )
-      state_file_notification_text_message.update(
-        twilio_sid: message.sid,
-        twilio_status: message.status,
-        sent_at: DateTime.now
-      )
+      if message
+        state_file_notification_text_message.update(
+          twilio_sid: message.sid,
+          twilio_status: message.status,
+          error_code: message.error_code,
+          sent_at: DateTime.now
+        )
+      end
     end
 
     def priority
