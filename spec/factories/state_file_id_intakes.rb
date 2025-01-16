@@ -69,6 +69,7 @@
 #  spouse_months_ineligible_for_grocery_credit    :integer
 #  spouse_suffix                                  :string
 #  total_purchase_amount                          :decimal(12, 2)
+#  unfinished_intake_ids                          :text             default([]), is an Array
 #  unsubscribed_from_email                        :boolean          default(FALSE), not null
 #  veterans_support_fund_donation                 :decimal(12, 2)
 #  withdraw_amount                                :integer
