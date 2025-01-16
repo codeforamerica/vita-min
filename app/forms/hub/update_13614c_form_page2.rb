@@ -35,7 +35,65 @@ module Hub
                        :had_self_employment_income,
                        :reported_self_employment_loss,
 
-                       :had_other_income
+                       :had_other_income,
+
+                       :cv_w2s_cb,
+                       :cv_w2s_count,
+
+                       :cv_had_tips_cb,
+
+                       :cv_1099r_cb,
+                       :cv_1099r_count,
+                       :cv_1099r_charitable_dist_cb,
+                       :cv_1099r_charitable_dist_amt,
+
+                       :cv_disability_benefits_1099r_or_w2_cb,
+                       :cv_disability_benefits_1099r_or_w2_count,
+
+                       :cv_ssa1099_rrb1099_cb,
+                       :cv_ssa1099_rrb1099_count,
+
+                       :cv_1099g_cb,
+                       :cv_1099g_count,
+
+                       :cv_local_tax_refund_cb,
+                       :cv_local_tax_refund_amt,
+                       :cv_itemized_last_year_cb,
+
+                       :cv_1099int_cb,
+                       :cv_1099int_count,
+                       :cv_1099div_cb,
+                       :cv_1099div_count,
+
+                       :cv_1099b_cb,
+                       :cv_1099b_count,
+                       :cv_capital_loss_carryover_cb,
+
+                       :cv_alimony_income_cb,
+                       :cv_alimony_income_amt,
+                       :cv_alimony_excluded_from_income_cb,
+
+                       :cv_rental_income_cb,
+                       :cv_rental_expense_cb,
+                       :cv_rental_expense_amt,
+
+                       :cv_w2g_or_other_gambling_winnings_cb,
+                       :cv_w2g_or_other_gambling_winnings_count,
+
+                       :cv_schedule_c_cb,
+                       :cv_1099misc_cb,
+                       :cv_1099misc_count,
+                       :cv_1099nec_cb,
+                       :cv_1099nec_count,
+                       :cv_1099k_cb,
+                       :cv_1099k_count,
+                       :cv_other_income_reported_elsewhere_cb,
+                       :cv_schedule_c_expenses_cb,
+                       :cv_schedule_c_expenses_amt,
+
+                       :cv_other_income_cb,
+
+                       :cv_p2_notes_comments
 
     attr_accessor :client
 
