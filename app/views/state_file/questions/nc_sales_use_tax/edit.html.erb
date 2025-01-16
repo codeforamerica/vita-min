@@ -21,22 +21,22 @@
         </div>
       </div>
       <div class="question-with-follow-up__follow-up" id="sut-method-field">
-        <div class="question-with-follow-up">
-          <div class="question-with-follow-up__question">
-            <div class="white-group">
+        <div class="white-group">
+          <div class="question-with-follow-up">
+            <div class="question-with-follow-up__question">
               <%=
                 f.cfa_radio_set(
                   :sales_use_tax_calculation_method,
                   label_text: t(".select_one"),
                   collection: [
-                    { value: :automated, label: t(".use_tax_method_automated"), input_html: { "onclick": "document.querySelector('#sut-field').style.display = 'none'"} },
+                    { value: :automated, label: t(".use_tax_method_automated"), input_html: { "onclick": "document.querySelector('#sut-field').style.display = 'none'" } },
                     { value: :manual, label: "#{t(".use_tax_method_manual")} #{t(".state_specific.#{current_state_code}.manual_instructions_html")}", input_html: { "data-follow-up": "#sut-field" } },
                   ]
                 )
               %>
-              <div class="question-with-follow-up__follow-up" id="sut-field">
-                <%= f.vita_min_money_field(:sales_use_tax, t(".calculated_use_tax"), classes: ["form-width--long"]) %>
-              </div>
+            </div>
+            <div class="question-with-follow-up__follow-up" id="sut-field">
+              <%= f.vita_min_money_field(:sales_use_tax, t(".calculated_use_tax"), classes: ["form-width--long"]) %>
             </div>
           </div>
         </div>
