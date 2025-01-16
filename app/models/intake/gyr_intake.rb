@@ -99,7 +99,7 @@
 #  had_other_income                                     :integer          default("unfilled"), not null
 #  had_rental_income                                    :integer          default("unfilled"), not null
 #  had_rental_income_and_used_dwelling_as_residence     :integer          default("unfilled"), not null
-#  had_rental_income_from_personal_property             :integer          default(0), not null
+#  had_rental_income_from_personal_property             :integer          default("unfilled"), not null
 #  had_retirement_income                                :integer          default("unfilled"), not null
 #  had_scholarships                                     :integer          default("unfilled"), not null
 #  had_self_employment_income                           :integer          default("unfilled"), not null
