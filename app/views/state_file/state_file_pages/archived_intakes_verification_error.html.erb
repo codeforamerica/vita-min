@@ -1,0 +1,15 @@
+<% title = t("state_file.archived_intakes.verification_error.title") %>
+<% content_for :page_title, title %>
+
+<section class="slab question-layout <%= controller_name.gsub("_", "-") %>-outer">
+  <div class="grid">
+    <h1 class="h2"><%= title %></h1>
+    <p><%= t("state_file.archived_intakes.verification_error.subtitle", year: MultiTenantService.statefile.current_tax_year - 1) %></p>
+    <div class="bulleted">
+      <ul>
+        <li><a href="https://azdor.gov/forms/other-forms/request-copies-tax-documents"><%= t("state_file.archived_intakes.verification_error.az_dor") %></a></li>
+        <li><a href="https://www.tax.ny.gov/help/contact/get-copy-of-return.htm"><%= t("state_file.archived_intakes.verification_error.ny_dor") %></a></li>
+      </ul>
+    </div>
+  </div>
+</section>

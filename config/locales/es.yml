@@ -2026,6 +2026,11 @@ es:
           subtitle_html_2: Si aún necesitas ayuda para resuscribirte, chatea con nosotros.
           title_html: Hemos enviado tu código a <strong>%{email_address}</strong>
           verify: Verificar el código
+      verification_error:
+        title: Lo sentimos, no pudimos verificar su cuenta
+        subtitle: Visite el sitio web de la agencia tributaria de su estado para solicitar su declaración de impuestos de %{year}
+        az_dor: Departamento de Ingresos de Arizona
+        ny_dor: Departamento de Impuestos del Estado de Nueva York
     faq:
       index:
         title: 'Preguntas frecuentes de los contribuyentes de %{state}:'
