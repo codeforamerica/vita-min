@@ -785,7 +785,7 @@ en:
           had_gambling_income: Gambling winnings, including lottery
           had_interest_income: 'Interest/Dividends from: checking/savings accounts, bonds, CDs, brokerage?'
           had_local_tax_refund: Refund of state or local income tax
-          had_other_income: Other income?
+          had_other_income: 'Any other money received during the year? (example: cash payments, jury duty, awards, digital assets, royalties, union strike benefits)'
           had_rental_income: Income (or loss) from Rental Property?
           had_rental_income_and_used_dwelling_as_residence: If yes, did you use the dwelling unit as a personal residence and rent it for fewer than 15 days
           had_rental_income_from_personal_property: Income from renting personal property such as a vehicle
@@ -799,6 +799,7 @@ en:
           job_count: If yes, how many jobs did you have last year?
           received_alimony: Alimony income or separate maintenance payments?
           reported_asset_sale_loss: Did you report a loss on last year’s return
+          reported_self_employment_loss: Did you report a loss on last year's return
         part_3_title: Part III – Income – Last Year, Did You (or Your Spouse) Receive
         title: 13614-C page 2
       edit_13614c_form_page3:

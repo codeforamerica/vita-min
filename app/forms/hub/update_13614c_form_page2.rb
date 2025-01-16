@@ -32,10 +32,10 @@ module Hub
 
                        :had_gambling_income,
 
-                       :paid_retirement_contributions,
                        :had_self_employment_income,
-                       :had_other_income,
-                       :paid_alimony
+                       :reported_self_employment_loss,
+
+                       :had_other_income
 
     attr_accessor :client
 
