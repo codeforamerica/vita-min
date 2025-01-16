@@ -21,7 +21,7 @@
         <!-- WAGES -->
         <div class="grid">
           <div class="grid__item width-one-half" style="display: flex; align-items: flex-start; justify-content: space-between;">
-            <%= f.cfa_select(:had_wages, "(B) #{t(".fields.had_wages")}", yes_no_unsure_options_for_select) %>
+            <%= f.cfa_select(:had_wages, "(B) #{t(".fields.had_wages")}", yes_no_options_for_select) %>
             <%= f.cfa_select(:job_count, t(".fields.job_count"), (0..5).map { |num| [num.to_s, num] }, { include_blank: true }) %>
           </div>
 
@@ -33,7 +33,7 @@
         <!-- TIPS -->
         <div class="grid">
           <div class="grid__item width-one-half">
-            <%= f.cfa_select(:had_tips, "(B/A) #{t(".fields.had_tips")}", yes_no_unsure_options_for_select) %>
+            <%= f.cfa_select(:had_tips, "(B/A) #{t(".fields.had_tips")}", yes_no_options_for_select) %>
           </div>
           <div class="grid__item width-one-half">
             TODO
@@ -43,7 +43,7 @@
         <!-- RETIREMENT INCOME -->
         <div class="grid">
           <div class="grid__item width-one-half">
-            <%= f.cfa_select(:had_retirement_income, "(B/A) #{t(".fields.had_retirement_income")}", yes_no_unsure_options_for_select) %>
+            <%= f.cfa_select(:had_retirement_income, "(B/A) #{t(".fields.had_retirement_income")}", yes_no_options_for_select) %>
           </div>
           <div class="grid__item width-one-half">
             TODO
@@ -53,7 +53,7 @@
         <!-- DISABILITY -->
         <div class="grid">
           <div class="grid__item width-one-half">
-            <%= f.cfa_select(:had_disability_income, "(B) #{t(".fields.had_disability_income")}", yes_no_unsure_options_for_select) %>
+            <%= f.cfa_select(:had_disability_income, "(B) #{t(".fields.had_disability_income")}", yes_no_options_for_select) %>
           </div>
           <div class="grid__item width-one-half">
             TODO
@@ -63,7 +63,7 @@
         <!-- SSN / RAILROAD --> 
         <div class="grid">
           <div class="grid__item width-one-half">
-            <%= f.cfa_select(:had_social_security_income, "(B) #{t(".fields.had_social_security_income")}", yes_no_unsure_options_for_select) %>
+            <%= f.cfa_select(:had_social_security_income, "(B) #{t(".fields.had_social_security_income")}", yes_no_options_for_select) %>
           </div>
           <div class="grid__item width-one-half">
             TODO
@@ -73,7 +73,7 @@
         <!-- UNEMP -->
         <div class="grid">
           <div class="grid__item width-one-half" style="display: flex; align-items: flex-start; justify-content: space-between;">
-            <%= f.cfa_select(:had_unemployment_income, "(B) #{t(".fields.had_unemployment_income")}", yes_no_unsure_options_for_select) %>
+            <%= f.cfa_select(:had_unemployment_income, "(B) #{t(".fields.had_unemployment_income")}", yes_no_options_for_select) %>
           </div>
           <div class="grid__item width-one-half">
             TODO
@@ -83,7 +83,7 @@
         <!-- REFUND STATE/LOCAL -->
         <div class="grid">
           <div class="grid__item width-one-half">
-            <%= f.cfa_select(:had_local_tax_refund, "(B) #{t(".fields.had_local_tax_refund")}", yes_no_unsure_options_for_select) %>
+            <%= f.cfa_select(:had_local_tax_refund, "(B) #{t(".fields.had_local_tax_refund")}", yes_no_options_for_select) %>
           </div>
           <div class="grid__item width-one-half">
             TODO
@@ -93,7 +93,7 @@
         <!-- INTEREST / DIVIDENDS -->
         <div class="grid">
           <div class="grid__item width-one-half">
-            <%= f.cfa_select(:had_interest_income, "(B) #{t(".fields.had_interest_income")}", yes_no_unsure_options_for_select) %>
+            <%= f.cfa_select(:had_interest_income, "(B) #{t(".fields.had_interest_income")}", yes_no_options_for_select) %>
           </div>
           <div class="grid__item width-one-half">
             TODO
@@ -103,8 +103,8 @@
         <!-- SALES OF STOCKS BONDS -->
         <div class="grid">
           <div class="grid__item width-one-half" style="display: flex; align-items: flex-start; justify-content: space-between;">
-            <%= f.cfa_select(:had_asset_sale_income, "(A) #{t(".fields.had_asset_sale_income")}", yes_no_unsure_options_for_select) %>
-            <%= f.cfa_select(:reported_asset_sale_loss, "#{t(".fields.reported_asset_sale_loss")}", yes_no_unsure_options_for_select) %>
+            <%= f.cfa_select(:had_asset_sale_income, "(A) #{t(".fields.had_asset_sale_income")}", yes_no_options_for_select) %>
+            <%= f.cfa_select(:reported_asset_sale_loss, "#{t(".fields.reported_asset_sale_loss")}", yes_no_options_for_select) %>
           </div>
           <div class="grid__item width-one-half">
             TODO
@@ -114,7 +114,7 @@
         <!-- ALIMONY -->
         <div class="grid">
           <div class="grid__item width-one-half">
-        <%= f.cfa_select(:received_alimony, "(B) #{t(".fields.received_alimony")}", yes_no_unsure_options_for_select) %>
+        <%= f.cfa_select(:received_alimony, "(B) #{t(".fields.received_alimony")}", yes_no_options_for_select) %>
           </div>
           <div class="grid__item width-one-half">
             TODO
@@ -124,7 +124,7 @@
         <!-- RENTING HOUSE/ROOM etc -->
         <div class="grid">
           <div class="grid__item width-one-half" style="display: flex; align-items: flex-start; justify-content: space-between;">
-            <%= f.cfa_select(:had_rental_income, "(A/M) #{t(".fields.had_rental_income")}", yes_no_unsure_options_for_select) %>
+            <%= f.cfa_select(:had_rental_income, "(A/M) #{t(".fields.had_rental_income")}", yes_no_options_for_select) %>
             <%= f.cfa_select(:had_rental_income_and_used_dwelling_as_residence, "#{t(".fields.had_rental_income_and_used_dwelling_as_residence")}", yes_no_options_for_select) %>
           </div>
           <div class="grid__item width-one-half">
@@ -154,7 +154,7 @@
 
         <div class="grid">
           <div class="grid__item width-one-half">
-            <%= f.cfa_select(:had_scholarships, "3. (B) #{t(".fields.had_scholarships")}", yes_no_unsure_options_for_select) %>
+            <%= f.cfa_select(:had_scholarships, "3. (B) #{t(".fields.had_scholarships")}", yes_no_options_for_select) %>
           </div>
           <div class="grid__item width-one-half">
             TODO
@@ -162,12 +162,12 @@
         </div>
 
 
-        <%= f.cfa_select(:had_self_employment_income, "7. (A)  #{t(".fields.had_self_employment_income")}", yes_no_unsure_options_for_select) %>
-        <%= f.cfa_select(:had_cash_check_digital_assets, "8. (A)  #{t(".fields.had_cash_check_digital_assets")}", yes_no_unsure_options_for_select) %>
+        <%= f.cfa_select(:had_self_employment_income, "7. (A)  #{t(".fields.had_self_employment_income")}", yes_no_options_for_select) %>
+        <%= f.cfa_select(:had_cash_check_digital_assets, "8. (A)  #{t(".fields.had_cash_check_digital_assets")}", yes_no_options_for_select) %>
 
         <div class="grid">
           <div class="grid__item width-one-half">
-            <%= f.cfa_select(:had_other_income, "15. (B) #{t(".fields.had_other_income")}", yes_no_unsure_options_for_select) %>
+            <%= f.cfa_select(:had_other_income, "15. (B) #{t(".fields.had_other_income")}", yes_no_options_for_select) %>
           </div>
           <div class="grid__item width-one-half">
             TODO
