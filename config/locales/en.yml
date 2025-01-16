@@ -3724,6 +3724,7 @@ en:
           your_name: Your name
         review_header:
           income_details: Income Details
+          income_forms_collected: 'Income form(s) collected:'
           your_refund: Your refund amount
           your_tax_owed: Your taxes owed
       sms_terms:
