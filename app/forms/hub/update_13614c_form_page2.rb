@@ -33,6 +33,16 @@ module Hub
       new(client, existing_attributes(intake).slice(*attribute_keys))
     end
 
+    # override what's in FormAttribute to prevent nils (which
+    # are causing database errors)
+    def attributes_for(model)
+      self.class.scoped_attributes[model].reduce({}) do |hash, attribute_name|
+        v = send(attribute_name)
+        hash[attribute_name] = v ? v : 'unfilled'
+        hash
+      end
+    end
+
     def save
       return false unless valid?
 
