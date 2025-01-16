@@ -3036,7 +3036,6 @@ es:
           title: Parece que su estado civil para efectos de la declaración es Cónyuge sobreviviente calificado
       nc_review:
         edit:
-          amount: Cantidad
           amount_earned: Amount earned
           child_deduction: Deducción por hijos
           interest_us_bonds: Ingresos por intereses de bonos de los Estados Unidos (no son sujetos a impuestos en Carolina del Norte)
@@ -3045,12 +3044,14 @@ es:
           spouse_veteran: Información del Cónyuge Veterano
           state_credit: Miembro inscrito de una tribu india reconocida federalmente y recibiste ingresos de una fuente dentro de una reserva
           subtraction_indian_tribe: Resta por ingresos de un miembro de una tribu india
+          use_tax_amount: Monto del impuesto sobre el uso
           use_tax_applied: Compras fuera del estado en %{filing_year} sin pagar impuesto sobre ventas
         review_header:
           unemployment_compensation: Compensación por Desempleo
       nc_sales_use_tax:
         edit:
           calculated_use_tax: Ingresa el impuesto sobre uso calculado
+          explanation_html: Si realizó alguna compra sin pagar el impuesto sobre las ventas, es posible que deba pagar el <strong>impuesto sobre el uso</strong> por esas compras. Le ayudaremos a determinar el monto correcto.
           select_one: 'Selecciona una de las siguientes opciones:'
           state_specific:
             nc:
@@ -3165,7 +3166,7 @@ es:
           coverage_heading: What is health insurance with minimum essential coverage?
           label_html: |
             <p><strong>Did everyone in your tax household have health insurance (<a href="https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml" target="_blank" rel="noopener noreferrer">with minimum essential health coverage</a>) for every month in %{filing_year}?</strong><p>
-            <p><strong><em>You should answer yes</em></strong> if you and everyone in your household had an insurance plan through an employer, bought an insurance plan through GetCoveredNJ, or had Medicare or Medicaid (NJ Family Care). You should also answer yes if your coverage is on this list.</p>
+            <p><strong><em>You should answer yes</em></strong> if you and everyone in your household had an insurance plan through an employer, bought an insurance plan through <a href="https://nj.gov/getcoverednj/" target="_blank" rel="noopener nofollow">GetCoveredNJ</a>, or had Medicare or Medicaid (NJ Family Care). You should also answer yes if your coverage is <a href="https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml" target="_blank" rel="noopener nofollow">on this list.</a></p>
             <p class="spacing-below-0"><strong><em>You should answer no</em></strong> if you or someone in your household only had standalone vision and dental plans, workers' compensation coverage, or a plan limited to specific disease or illness.</p>
           tax_household_description_html: A tax household includes you, your spouse (if filing a joint return), domestic partner claimed on your return, and any individuals you claim as dependents on your NJ-1040. It also includes any individuals you can, but do not, claim as dependents on your return.
           tax_household_heading: What is considered a tax household?
@@ -6164,8 +6165,9 @@ es:
         options:
           had_disability: Yo tenía una discapacidad permanente
           was_blind: Yo estaba legalmente ciego
+          was_citizen: Yo era ciudadano estadounidense
           was_full_time_student: Yo era un estudiante a tiempo completo en una universidad o una escuela de oficios
-          was_not_citizen: No era ciudadano estadounidense
+          was_on_visa: Yo estaba en los Estados Unidos con visado
         title: Seleccione las situaciones que fueron verdaderas para usted en el %{year}
       lived_with_spouse:
         title: "¿Vivió con su cónyuge durante alguna parte de los últimos seis meses de %{year}?"
@@ -6337,8 +6339,9 @@ es:
         options:
           had_disability: Mi cónyuge tenía una discapacidad permanente
           was_blind: Mi cónyuge era legalmente ciego
+          was_citizen: Eran ciudadanos estadounidenses
           was_full_time_student: Mi cónyuge era un estudiante a tiempo completo en una universidad o una escuela de oficios
-          was_not_citizen: No eran ciudadanos estadounidenses
+          was_on_visa: Mi cónyuge estaba en los Estados Unidos con visado
         title: Seleccione cualquier situación que haya sido cierta para su cónyuge en %{year}
       ssn_itin:
         title: Favor de proporcionar su información de identificación del contribuyente, "taxpayer identification information" en inglés.
