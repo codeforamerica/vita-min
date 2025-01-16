@@ -482,63 +482,63 @@ class Intake::GyrIntake < Intake
   enum register_to_vote: { unfilled: 0, yes: 1, no: 2 }, _prefix: :register_to_vote
 
   # 14c p2 volunteer fields for ty2024
-enum cv_w2s_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_w2s_cb
-enum cv_w2s_count: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_w2s_count
+  enum cv_w2s_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_w2s_cb
+  enum cv_w2s_count: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_w2s_count
 
-enum cv_had_tips_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_had_tips_cb
+  enum cv_had_tips_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_had_tips_cb
 
-enum cv_1099r_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1099r_cb
-enum cv_1099r_count: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1099r_count
-enum cv_1099r_charitable_dist_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1099r_charitable_dist_cb
-enum cv_1099r_charitable_dist_amt: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1099r_charitable_dist_amt
+  enum cv_1099r_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1099r_cb
+  enum cv_1099r_count: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1099r_count
+  enum cv_1099r_charitable_dist_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1099r_charitable_dist_cb
+  enum cv_1099r_charitable_dist_amt: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1099r_charitable_dist_amt
 
-enum cv_disability_benefits_1099r_or_w2_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_disability_benefits_1099r_or_w2_cb
-enum cv_disability_benefits_1099r_or_w2_count: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_disability_benefits_1099r_or_w2_count
+  enum cv_disability_benefits_1099r_or_w2_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_disability_benefits_1099r_or_w2_cb
+  enum cv_disability_benefits_1099r_or_w2_count: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_disability_benefits_1099r_or_w2_count
 
-enum cv_ssa1099_rrb1099_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_ssa1099_rrb1099_cb
-enum cv_ssa1099_rrb1099_count: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_ssa1099_rrb1099_count
+  enum cv_ssa1099_rrb1099_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_ssa1099_rrb1099_cb
+  enum cv_ssa1099_rrb1099_count: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_ssa1099_rrb1099_count
 
-enum cv_1099g_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1099g_cb
-enum cv_1099g_count: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1099g_count
+  enum cv_1099g_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1099g_cb
+  enum cv_1099g_count: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1099g_count
 
-enum cv_local_tax_refund_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_local_tax_refund_cb
-enum cv_local_tax_refund_amt: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_local_tax_refund_amt
-enum cv_itemized_last_year_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_itemized_last_year_cb
+  enum cv_local_tax_refund_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_local_tax_refund_cb
+  enum cv_local_tax_refund_amt: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_local_tax_refund_amt
+  enum cv_itemized_last_year_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_itemized_last_year_cb
 
-enum cv_1099int_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1099int_cb
-enum cv_1099int_count: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1099int_count
-enum cv_1099div_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1099div_cb
-enum cv_1099div_count: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1099div_count
+  enum cv_1099int_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1099int_cb
+  enum cv_1099int_count: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1099int_count
+  enum cv_1099div_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1099div_cb
+  enum cv_1099div_count: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1099div_count
 
-enum cv_1099b_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1099b_cb
-enum cv_1099b_count: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1099b_count
-enum cv_capital_loss_carryover_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_capital_loss_carryover_cb
+  enum cv_1099b_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1099b_cb
+  enum cv_1099b_count: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1099b_count
+  enum cv_capital_loss_carryover_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_capital_loss_carryover_cb
 
-enum cv_alimony_income_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_alimony_income_cb
-enum cv_alimony_income_amt: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_alimony_income_amt
-enum cv_alimony_excluded_from_income_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_alimony_excluded_from_income_cb
+  enum cv_alimony_income_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_alimony_income_cb
+  enum cv_alimony_income_amt: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_alimony_income_amt
+  enum cv_alimony_excluded_from_income_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_alimony_excluded_from_income_cb
 
-enum cv_rental_income_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_rental_income_cb
-enum cv_rental_expense_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_rental_expense_cb
-enum cv_rental_expense_amt: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_rental_expense_amt
+  enum cv_rental_income_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_rental_income_cb
+  enum cv_rental_expense_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_rental_expense_cb
+  enum cv_rental_expense_amt: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_rental_expense_amt
 
-enum cv_w2g_or_other_gambling_winnings_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_w2g_or_other_gambling_winnings_cb
-enum cv_w2g_or_other_gambling_winnings_count: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_w2g_or_other_gambling_winnings_count
+  enum cv_w2g_or_other_gambling_winnings_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_w2g_or_other_gambling_winnings_cb
+  enum cv_w2g_or_other_gambling_winnings_count: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_w2g_or_other_gambling_winnings_count
 
-enum cv_schedule_c_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_schedule_c_cb
-enum cv_1099misc_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1099misc_cb
-enum cv_1099misc_count: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1099misc_count
-enum cv_1099nec_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1099nec_cb
-enum cv_1099nec_count: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1099nec_count
-enum cv_1099k_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1099k_cb
-enum cv_1099k_count: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1099k_count
-enum cv_other_income_reported_elsewhere_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_other_income_reported_elsewhere_cb
-enum cv_schedule_c_expenses_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_schedule_c_expenses_cb
-enum cv_schedule_c_expenses_amt: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_schedule_c_expenses_amt
+  enum cv_schedule_c_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_schedule_c_cb
+  enum cv_1099misc_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1099misc_cb
+  enum cv_1099misc_count: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1099misc_count
+  enum cv_1099nec_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1099nec_cb
+  enum cv_1099nec_count: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1099nec_count
+  enum cv_1099k_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1099k_cb
+  enum cv_1099k_count: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1099k_count
+  enum cv_other_income_reported_elsewhere_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_other_income_reported_elsewhere_cb
+  enum cv_schedule_c_expenses_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_schedule_c_expenses_cb
+  enum cv_schedule_c_expenses_amt: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_schedule_c_expenses_amt
 
-enum cv_other_income_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_other_income_cb
+  enum cv_other_income_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_other_income_cb
 
-enum cv_p2_notes_comments: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_p2_notes_comments
+  enum cv_p2_notes_comments: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_p2_notes_comments
 
   belongs_to :matching_previous_year_intake, class_name: "Intake::GyrIntake", optional: true
 

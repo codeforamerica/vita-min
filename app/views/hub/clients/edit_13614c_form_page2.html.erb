@@ -24,21 +24,25 @@
             <%= f.cfa_select(:had_wages, "(B) #{t(".fields.had_wages")}", yes_no_options_for_select) %>
             <%= f.cfa_select(:job_count, t(".fields.job_count"), (0..5).map { |num| [num.to_s, num] }, { include_blank: true }) %>
           </div>
-
-          <div class="grid__item width-one-half">
-            TODO
+          <div class="grid__item width-one-half" style="background-color:#e5e5e5; padding: 10px; display: flex; align-items: flex-start; justify-content: space-between;">
+            <%= f.cfa_select(:cv_w2s_cb, "(B) W-2s", yes_no_options_for_select) %>
+            <%= f.cfa_select(:cv_w2s_count, "#", (0..5).map { |num| [num.to_s, num] }, { include_blank: true }) %>
           </div>
         </div>
+        <hr style="margin: 5px;"/>
 
         <!-- TIPS -->
         <div class="grid">
           <div class="grid__item width-one-half">
             <%= f.cfa_select(:had_tips, "(B/A) #{t(".fields.had_tips")}", yes_no_options_for_select) %>
           </div>
-          <div class="grid__item width-one-half">
-            TODO
+          <div class="grid__item width-one-half" style="background-color:#e5e5e5; padding: 10px; display: flex; align-items: flex-start; justify-content: space-between;">
+            <%= f.cfa_select(:cv_had_tips_cb, "(B/A) Tips (Basic when reported on W2)", yes_no_options_for_select) %>
           </div>
         </div>
+        <hr style="margin-top: 0;"/>
+
+        YOU ARE HERE:
 
         <!-- RETIREMENT INCOME -->
         <div class="grid">
