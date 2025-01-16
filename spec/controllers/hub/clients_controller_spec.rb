@@ -1949,24 +1949,7 @@ RSpec.describe Hub::ClientsController do
           expect(system_note.client).to eq(client)
           expect(system_note.user).to eq(user)
           expect(system_note.data['changes']).to match({
-                                                         "cv_1099b_count" => [nil, "unfilled"],
-                                                         "cv_1099div_count" => [nil, "unfilled"],
-                                                         "cv_1099g_count" => [nil, "unfilled"],
-                                                         "cv_1099int_count" => [nil, "unfilled"],
-                                                         "cv_1099k_count" => [nil, "unfilled"],
-                                                         "cv_1099misc_count" => [nil, "unfilled"],
-                                                         "cv_1099nec_count" => [nil, "unfilled"],
-                                                         "cv_1099r_charitable_dist_amt" => [nil, "unfilled"],
-                                                         "cv_1099r_count" => [nil, "unfilled"],
-                                                         "cv_alimony_income_amt" => [nil, "unfilled"],
-                                                         "cv_disability_benefits_1099r_or_w2_count" => [nil, "unfilled"],
-                                                         "cv_local_tax_refund_amt" => [nil, "unfilled"],
                                                          "cv_p2_notes_comments" => [nil, "unfilled"],
-                                                         "cv_rental_expense_amt" => [nil, "unfilled"],
-                                                         "cv_schedule_c_expenses_amt" => [nil, "unfilled"],
-                                                         "cv_ssa1099_rrb1099_count" => [nil, "unfilled"],
-                                                         "cv_w2g_or_other_gambling_winnings_count" => [nil, "unfilled"],
-                                                         "cv_w2s_count" => [nil, "unfilled"],
                                                          "had_disability_income" => [intake.had_disability_income, "no"],
                                                          # commenting out a few for gyr1-613; save in case for later.
                                                          # "bought_energy_efficient_items" => [intake.bought_energy_efficient_items, "unfilled"],
