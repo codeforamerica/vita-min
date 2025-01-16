@@ -2069,7 +2069,7 @@ en:
           enter_email: Enter the email address linked to your account
       identification_number:
         edit:
-          error_message: Please enter a valid social secuirty number
+          error_message: Incorrect SSN/ITIN. After 2 failed attempts, accounts are locked.
           help_text: To keep your identity safe, we need to confirm your social security number.
           ssn_label: Social Security Number or ITIN
           title: We found your account! Please confirm your identity
