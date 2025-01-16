@@ -241,5 +241,22 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
         expect(xml.css("Subtractions IntUSObligations").text).to eq "2"
       end
     end
+
+    context "az-8879" do
+      let(:intake) { create(:state_file_az_intake, :df_data_1099_int) }
+
+      before do
+        # allow_any_instance_of(Efile::Az::Az140Calculator).to receive(:calculate_line_79).and_return 500
+        # allow_any_instance_of(Efile::Az::Az140Calculator).to receive(:calculate_line_79).and_return 500
+      end
+
+      it "fills in the lines correctly" do
+        expect(xml.css("AZAdjGrossIncome").text).to eq "2"
+        expect(xml.css("DeductionAmt BalanceOfTaxDue").text).to eq "2"
+        expect(xml.css("TotalPaymentAndCredits AzIncTaxWithheld").text).to eq "2"
+        expect(xml.css("RefundAmt").text).to eq "2"
+        expect(xml.css("AmtOwed").text).to eq "2"
+      end
+    end
   end
 end

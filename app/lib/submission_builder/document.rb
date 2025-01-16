@@ -106,6 +106,22 @@ module SubmissionBuilder
       end
     end
 
+    def add_us_amount_int_value(xml, elem_name, line)
+      # validates USAmountType, 15 digit limit
+      value = calculated_fields.fetch(line).to_i
+      if value.present? && value.to_s.length <= 15
+        xml.send(elem_name, value)
+      end
+    end
+
+    def add_non_negative_int_value(xml, elem_name, line)
+      # validates USAmountNNType, 15 digit limit
+      value = calculated_fields.fetch(line).to_i
+      if value.present? && value.to_s.length <= 15 && value >= 0
+        xml.send(elem_name, value)
+      end
+    end
+
     def add_element_if_present(xml, tag, line_id)
       value = calculated_fields.fetch(line_id)
       xml.send(tag, value) if value.present?

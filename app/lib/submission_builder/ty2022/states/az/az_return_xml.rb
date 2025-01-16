@@ -117,7 +117,7 @@ module SubmissionBuilder
                 xml.ExemAmtBlind calculated_fields.fetch(:AZ140_LINE_39)
                 xml.ExemAmtParentsAncestors calculated_fields.fetch(:AZ140_LINE_41)
               end
-              xml.AZAdjGrossIncome calculated_fields.fetch(:AZ140_LINE_42)
+              add_us_amount_int_value(xml, :AZAdjGrossIncome, :AZ140_LINE_42)
               xml.DeductionAmt do
                 xml.DeductionTypeIndc calculated_fields.fetch(:AZ140_LINE_43S)
                 xml.AZDeductions calculated_fields.fetch(:AZ140_LINE_43)
@@ -142,10 +142,10 @@ module SubmissionBuilder
                 xml.DepTaxCredit calculated_fields.fetch(:AZ140_LINE_49)
                 xml.FamilyIncomeTaxCredit calculated_fields.fetch(:AZ140_LINE_50)
                 xml.CreditsFromAZ301 calculated_fields.fetch(:AZ140_LINE_51)
-                xml.BalanceOfTaxDue calculated_fields.fetch(:AZ140_LINE_52)
+                add_us_amount_int_value(xml, :BalanceOfTaxDue, :AZ140_LINE_52)
               end
               xml.TotalPaymentAndCredits do
-                xml.AzIncTaxWithheld calculated_fields.fetch(:AZ140_LINE_53)
+                add_non_negative_int_value(xml, :AzIncTaxWithheld, :AZ140_LINE_53)
                 xml.IncrExciseTaxCr calculated_fields.fetch(:AZ140_LINE_56)
               end
               xml.TotalPayments calculated_fields.fetch(:AZ140_LINE_59)
@@ -161,9 +161,9 @@ module SubmissionBuilder
                 end
               end
               if calculated_fields[:AZ140_LINE_79].positive?
-                xml.RefundAmt calculated_fields.fetch(:AZ140_LINE_79)
+                add_non_negative_int_value(xml, :RefundAmt, :AZ140_LINE_79)
               else
-                xml.AmtOwed calculated_fields.fetch(:AZ140_LINE_80)
+                add_non_negative_int_value(xml, :AmtOwed, :AZ140_LINE_80)
               end
             end
             xml_doc.at('*')
