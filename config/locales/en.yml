@@ -3078,7 +3078,6 @@ en:
           title: It looks like your filing status is Qualifying Surviving Spouse
       nc_review:
         edit:
-          amount: Amount
           amount_earned: Amount earned
           child_deduction: Child deduction
           interest_us_bonds: Interest income from U.S. bonds (not taxable in North Carolina)
@@ -3087,16 +3086,18 @@ en:
           spouse_veteran: Spouse Veteran Info
           state_credit: Enrolled member of a federally recognized Indian Tribe, and received income from a source within a reservation
           subtraction_indian_tribe: Subtraction for income of a member of an Indian tribe
-          use_tax_applied: Out-of-state purchases in %{filing_year} without paying sales or use tax
+          use_tax_amount: Amount of use tax
+          use_tax_applied: Out-of-state purchases in %{filing_year} without paying sales tax
         review_header:
           unemployment_compensation: Unemployment Compensation
       nc_sales_use_tax:
         edit:
           calculated_use_tax: Enter calculated use tax
+          explanation_html: If you made any purchases without paying sales tax, you may owe <strong>use tax</strong> on those purchases. We’ll help you figure out the right amount.
           select_one: 'Select one of the following:'
           state_specific:
             nc:
-              manual_instructions_html: (<a href="https://www.ncdor.gov/2023-d-401-individual-income-tax-instructions/open" target="_blank" rel="noopener noreferrer">Learn more here</a> and search for 'consumer use worksheet').
+              manual_instructions_html: (<a href="https://www.ncdor.gov/2024-d-401-individual-income-tax-instructions/open" target="_blank" rel="noopener noreferrer">Learn more here</a> and search for 'consumer use worksheet').
           subtitle_html: This includes online purchases where sales tax was <b>not</b> applied.
           title:
             one: Did you make any out-of-state purchases in %{year} without paying sales tax?
@@ -3205,7 +3206,7 @@ en:
           coverage_heading: What is health insurance with minimum essential coverage?
           label_html: |
             <p><strong>Did everyone in your tax household have health insurance (<a href="https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml" target="_blank" rel="noopener noreferrer">with minimum essential health coverage</a>) for every month in %{filing_year}?</strong><p>
-            <p><strong><em>You should answer yes</em></strong> if you and everyone in your household had an insurance plan through an employer, bought an insurance plan through GetCoveredNJ, or had Medicare or Medicaid (NJ Family Care). You should also answer yes if your coverage is on this list.</p>
+            <p><strong><em>You should answer yes</em></strong> if you and everyone in your household had an insurance plan through an employer, bought an insurance plan through <a href="https://nj.gov/getcoverednj/" target="_blank" rel="noopener nofollow">GetCoveredNJ</a>, or had Medicare or Medicaid (NJ Family Care). You should also answer yes if your coverage is <a href="https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml" target="_blank" rel="noopener nofollow">on this list.</a></p>
             <p class="spacing-below-0"><strong><em>You should answer no</em></strong> if you or someone in your household only had standalone vision and dental plans, workers' compensation coverage, or a plan limited to specific disease or illness.</p>
           tax_household_description_html: A tax household includes you, your spouse (if filing a joint return),  and individuals you claim as dependents. It also includes any individuals you can, but do not, claim as dependents on your return.
           tax_household_heading: What is considered a tax household?
@@ -3739,6 +3740,7 @@ en:
           your_name: Your name
         review_header:
           income_details: Income Details
+          income_forms_collected: 'Income form(s) collected:'
           your_refund: Your refund amount
           your_tax_owed: Your taxes owed
       sms_terms:
@@ -3921,10 +3923,12 @@ en:
           title_html: Just a moment, we’re transferring your federal tax return to complete parts of your state return.
     state_file_pages:
       about_page:
+        check_back_for_prior_year_returns: Check back at the start of filing season to download your 2023 Arizona or New York State tax return.
         closed_subheader_html: |
           <strong>FileYourStateTaxes</strong> integrates with <strong>IRS Direct File</strong> to help you complete your state tax return <strong>for free.</strong> <br/><br/>
           <strong>We're closed for the tax season. Unfortunately you can no longer file your state return with us this year.</strong><br /><br />
           Already filed your state taxes with us? <strong>You can download a copy of your state return until December 31, 2024</strong><br /><br />
+        faq_prior_year_returns: Visit our FAQ for questions about prior year returns
         header: A free state filing service for taxpayers using IRS Direct File
         helper_heading_html: "<strong>How does this service work? </strong>"
         looking_for_return_html: "<strong>Looking for your 2023 Arizona or New York State Tax Return?</strong>"
@@ -6163,8 +6167,9 @@ en:
         options:
           had_disability: I had a permanent disability
           was_blind: I was legally blind
+          was_citizen: I was a US citizen
           was_full_time_student: I was a full-time student in a college or a trade school
-          was_not_citizen: I was not a US citizen
+          was_on_visa: I was in the US on a visa
         title: Select any situations that were true for you in %{year}
       lived_with_spouse:
         title: Did you live with your spouse during any part of the last six months of %{year}?
@@ -6321,8 +6326,9 @@ en:
         options:
           had_disability: They had a permanent disability
           was_blind: They were legally blind
+          was_citizen: They were a US citizen
           was_full_time_student: They were a full-time student in a college or a trade school
-          was_not_citizen: They were not a US citizen
+          was_on_visa: They were in the US on a visa
         title: Select any situations that were true for your spouse in %{year}
       ssn_itin:
         title: Please provide your taxpayer identification information.
