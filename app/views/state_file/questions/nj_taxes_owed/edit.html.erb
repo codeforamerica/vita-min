@@ -1,0 +1,40 @@
+<% content_for :page_title, t(".page_title") %>
+<% content_for :card do %>
+  <h1 class="h2">
+    <%= t(".title_html", owed_amount: taxes_owed, state_name: current_state_name) %>
+  </h1>
+  <% if taxes_owed >= 400 %>
+    <p><%= t('.underpayment_notice_html') %></p>
+  <% end %>
+  <p><%= t('.more_tax_information_html') %></p>
+
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <div class="question-with-follow-up">
+      <div class="question-with-follow-up__question white-group">
+        <p><%= t('.subtitle') %></p>
+        <%= f.cfa_radio_set(
+          :payment_or_deposit_type,
+          collection: [
+            { value: :direct_deposit, label: t(".pay_bank"), input_html: { "data-follow-up": "#pay-from-bank" } },
+            { value: :mail, label: t(".pay_mail_online_html",
+                                               tax_payment_info_url: StateFile::StateInformationService.tax_payment_info_url(current_state_code),
+                                               tax_payment_info_text: StateFile::StateInformationService.tax_payment_info_text(current_state_code),
+                                               ) },
+          ]
+        ) %>
+      </div>
+      <div class="question-with-follow-up__follow-up" id="pay-from-bank">
+        <div class="question-with-follow-up">
+          <div class="question-with-follow-up__question">
+            <%= render 'state_file/questions/tax_refund/bank_details', form: f, owe_taxes: true %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%= f.continue %>
+  <% end %>
+<% end %>
+
+<% content_for :script do %>
+  <%= render 'shared/disable_copy_paste' %>
+<% end %>
