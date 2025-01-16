@@ -8,12 +8,18 @@ module StateFile
   module ArchivedIntakes
     class IdentificationNumberController < ApplicationController
       def edit
-        @form = IdentificationNumberForm.new
+        archived_intake = StateFileArchivedIntake.find_by(email_address: session[:email_address])
+        @form = IdentificationNumberForm.new({}, archived_intake&.hashed_ssn)
         render :edit
       end
 
       def update
-        @form = IdentificationNumberForm.new(identification_number_form_params)
+        archived_intake = StateFileArchivedIntake.find_by(email_address: session[:email_address])
+
+        @form = IdentificationNumberForm.new(
+          identification_number_form_params.merge(ip_for_irs: request.remote_ip),
+          archived_intake&.hashed_ssn
+        )
 
         # validates if we have an associated SSN with the intake
         # if yes, great! keep on keeping on
@@ -22,10 +28,11 @@ module StateFile
         # second attempt: we offboard, we can't find their account
 
         if @form.valid?
-          # move them on
+          redirect_to root_path
+          #need to add address challaned
         else
           if @form.errors.include?(:no_remaining_attempts)
-            # redirect to offboarding
+            redirect_to offboarding_path
           else
             render :edit
           end
