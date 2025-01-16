@@ -98,6 +98,8 @@
 #  had_medicaid_medicare                                :integer          default("unfilled"), not null
 #  had_other_income                                     :integer          default("unfilled"), not null
 #  had_rental_income                                    :integer          default("unfilled"), not null
+#  had_rental_income_and_used_dwelling_as_residence     :integer          default("unfilled"), not null
+#  had_rental_income_from_personal_property             :integer          default(0), not null
 #  had_retirement_income                                :integer          default("unfilled"), not null
 #  had_scholarships                                     :integer          default("unfilled"), not null
 #  had_self_employment_income                           :integer          default("unfilled"), not null
@@ -346,6 +348,8 @@ class Intake::GyrIntake < Intake
   enum had_medicaid_medicare: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_medicaid_medicare
   enum had_other_income: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_other_income
   enum had_rental_income: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_rental_income
+  enum had_rental_income_from_personal_property: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_rental_income_from_personal_property
+  enum had_rental_income_and_used_dwelling_as_residence: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_rental_income_and_used_dwelling_as_residence
   enum had_retirement_income: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_retirement_income
   enum had_self_employment_income: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_self_employment_income
   enum had_social_security_income: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_social_security_income

@@ -3,22 +3,39 @@ module Hub
     include FormAttributes
 
     set_attributes_for :intake,
+
                        :had_wages,
                        :job_count,
+
                        :had_tips,
-                       :had_interest_income,
-                       :had_local_tax_refund,
-                       :received_alimony,
-                       :had_self_employment_income,
-                       :had_asset_sale_income,
-                       :had_disability_income,
+
                        :had_retirement_income,
-                       :had_unemployment_income,
+
+                       :had_disability_income,
+
                        :had_social_security_income,
+
+                       :had_unemployment_income,
+
+                       :had_local_tax_refund,
+
+                       :had_interest_income,
+
+                       :had_asset_sale_income,
+                       :reported_asset_sale_loss,
+
+                       :received_alimony,
+
                        :had_rental_income,
+                       :had_rental_income_and_used_dwelling_as_residence,
+                       :had_rental_income_from_personal_property,
+
+                       :had_gambling_income,
+
+                       :paid_retirement_contributions,
+                       :had_self_employment_income,
                        :had_other_income,
-                       :paid_alimony,
-                       :paid_retirement_contributions
+                       :paid_alimony
 
     attr_accessor :client
 

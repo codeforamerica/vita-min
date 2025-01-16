@@ -782,11 +782,14 @@ en:
           had_asset_sale_income: Income (or loss) from the sale or exchange of Stocks, Bonds, Virtual Currency or Real Estate?
           had_cash_check_digital_assets: Cash/check/virtual currency payments, or other property or services for any work performed not reported on Forms W-2 or 1099?
           had_disability_income: Disability income?
+          had_gambling_income: Gambling winnings, including lottery
           had_interest_income: 'Interest/Dividends from: checking/savings accounts, bonds, CDs, brokerage?'
-          had_local_tax_refund: Refund or state/local income taxes?
+          had_local_tax_refund: Refund of state or local income tax
           had_other_income: Other income?
           had_rental_income: Income (or loss) from Rental Property?
-          had_retirement_income: Retirement income or payments from Pensions. Annuities, and or IRA?
+          had_rental_income_and_used_dwelling_as_residence: If yes, did you use the dwelling unit as a personal residence and rent it for fewer than 15 days
+          had_rental_income_from_personal_property: Income from renting personal property such as a vehicle
+          had_retirement_income: Retirement account, pension or annuity proceeds
           had_scholarships: Scholarships?
           had_self_employment_income: Self-Employment income?
           had_social_security_income: Social Security or Railroad Retirement Benefits?
@@ -795,6 +798,7 @@ en:
           had_wages: Wages or Salary? (Form W-2)
           job_count: If yes, how many jobs did you have last year?
           received_alimony: Alimony income or separate maintenance payments?
+          reported_asset_sale_loss: Did you report a loss on last year’s return
         part_3_title: Part III – Income – Last Year, Did You (or Your Spouse) Receive
         title: 13614-C page 2
       edit_13614c_form_page3:
