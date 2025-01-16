@@ -67,6 +67,7 @@
 #  street_address                    :string
 #  tribal_member                     :integer          default("unfilled"), not null
 #  tribal_wages_amount               :decimal(12, 2)
+#  unfinished_intake_ids             :text             default([]), is an Array
 #  unsubscribed_from_email           :boolean          default(FALSE), not null
 #  untaxed_out_of_state_purchases    :integer          default("unfilled"), not null
 #  withdraw_amount                   :integer

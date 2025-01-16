@@ -3061,7 +3061,7 @@ es:
           select_one: 'Selecciona una de las siguientes opciones:'
           state_specific:
             nc:
-              manual_instructions_html: (<a href="https://www.ncdor.gov/2023-d-401-individual-income-tax-instructions/open" target="_blank" rel="noopener noreferrer">Obtén más información aquí</a> y busca 'consumer use worksheet')
+              manual_instructions_html: (<a href="https://www.ncdor.gov/2024-d-401-individual-income-tax-instructions/open" target="_blank" rel="noopener noreferrer">Obtén más información aquí</a> y busca 'consumer use worksheet')
           subtitle_html: Esto incluye compras en línea donde <b>no</b> se aplicó el impuesto sobre ventas.
           title:
             many: "¿Usted o su cónyuge realizaron alguna compra fuera del estado en %{year} sin pagar impuestos sobre ventas o de uso?"
@@ -3704,6 +3704,7 @@ es:
           your_name: Tu nombre
         review_header:
           income_details: Detalles de ingresos
+          income_forms_collected: 'Formulario(s) de ingresos recopilados:'
           your_refund: La cantidad de tu reembolso
           your_tax_owed: Los impuestos que debes
       sms_terms:
@@ -3886,10 +3887,12 @@ es:
           title_html: Un momento, estamos transfiriendo tu declaración de impuestos federal.
     state_file_pages:
       about_page:
+        check_back_for_prior_year_returns: Vuelva al comienzo de la temporada de presentación para descargar su declaración de impuestos de Arizona o del estado de Nueva York de 2023.
         closed_subheader_html: |
           <strong>FileYourStateTaxes</strong> se integra con <strong>IRS Direct File</strong> para ayudarte a completar tu declaración de impuestos estatales <strong>sin costo.</strong><br/><br/>
           <strong>Estamos cerrados por la temporada de impuestos. Desafortunadamente, no puede presentar tu declaración estatal con nosotros este año.</strong><br /><br />
           ¿Ya presentó tus impuestos estatales con nosotros? <strong>Puedes descargar una copia de tu declaración estatal hasta el 31 de diciembre de 2024</strong><br /><br />
+        faq_prior_year_returns: Visite nuestras preguntas frecuentes para preguntas sobre declaraciones de años anteriores
         header: Una herramienta sin costo para presentar impuestos estatales para los contribuyentes utilizando IRS Direct File
         helper_heading_html: "<strong>¿Cómo funciona este servicio?</strong>"
         looking_for_return_html: "<strong>¿Buscas tu declaración de impuestos de Arizona o del estado de Nueva York de 2023?</strong>"
