@@ -7,8 +7,6 @@ module Navigation
       section && section.increment_step?
     end
 
-    section_4_title = I18n.t("state_file.navigation.nj.section_4", filing_year: MultiTenantService.statefile.current_tax_year)
-
     SECTIONS = [
       Navigation::NavigationSection.new("", [
                                           Navigation::NavigationStep.new(StateFile::Questions::EligibleController),
@@ -57,7 +55,7 @@ module Navigation
                                           Navigation::NavigationStep.new(StateFile::Questions::NjTenantRentPaidController), # Line 40a
                                           # question after property taxes set in NjPropertyTaxFlowOffRamp
                                       ]),
-      Navigation::NavigationSection.new(section_4_title, [
+      Navigation::NavigationSection.new(I18n.t("state_file.navigation.nj.section_4", filing_year: MultiTenantService.statefile.current_tax_year), [
                                           Navigation::NavigationStep.new(StateFile::Questions::NjSalesUseTaxController), # Line 51
                                           Navigation::NavigationStep.new(StateFile::Questions::NjEstimatedTaxPaymentsController), # Line 57
                                       ]),
