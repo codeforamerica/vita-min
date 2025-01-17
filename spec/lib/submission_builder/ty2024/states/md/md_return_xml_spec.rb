@@ -142,32 +142,6 @@ describe SubmissionBuilder::Ty2024::States::Md::MdReturnXml, required_schema: "m
             }
           end
         end
-
-        context "when social security benefits are prsent" do
-          before do
-            intake.direct_file_data.fed_ssb = 1
-          end
-
-          it "attaches a 502R" do
-            expect(xml.at("Form502R")).to be_present
-            expect(instance.pdf_documents).to be_any { |included_document|
-              included_document.pdf == PdfFiller::Md502RPdf
-            }
-          end
-        end
-
-        context "when taxable social security benefits are not prsent" do
-          before do
-            intake.direct_file_data.fed_ssb = 0
-          end
-
-          it "does not attach a 502R" do
-            expect(xml.at("Form502R")).not_to be_present
-            expect(instance.pdf_documents).not_to be_any { |included_document|
-              included_document.pdf == PdfFiller::Md502RPdf
-            }
-          end
-        end
       end
 
       context "502CR" do

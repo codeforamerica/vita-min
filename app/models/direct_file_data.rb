@@ -301,7 +301,6 @@ class DirectFileData < DfXmlAccessor
   end
 
   def fed_ssb=(value)
-    create_or_destroy_df_xml_node(__method__, true)
     write_df_xml_value(__method__, value)
   end
 

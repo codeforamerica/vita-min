@@ -12,7 +12,7 @@ RSpec.describe PdfFiller::Md502RPdf do
     let(:pdf_fields) { filled_in_values(file_path) }
 
     before do
-      intake.direct_file_data.fed_ssb = 100
+      intake.direct_file_data.fed_taxable_pensions = 100
     end
 
     it 'uses field names that exist in the pdf' do
