@@ -1,6 +1,7 @@
 module StateFile
   module ArchivedIntakes
     class ArchivedIntakeController < ApplicationController
+      before_action :check_feature_flag
       def current_request
         StateFileArchivedIntakeRequest.find_by(ip_address: ip_for_irs, email_address: session[:email_address])
       end

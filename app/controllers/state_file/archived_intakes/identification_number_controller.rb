@@ -1,14 +1,9 @@
-# 1. use front end validations for SSN
-# 2. give them 1 attempt at an incorrect SSN
-# 3. update the access logs to have the correct event
-# 4. tests
-# 5. translations
-# 6. remove the session and use the path to pass the email address
 module StateFile
   module ArchivedIntakes
     class IdentificationNumberController < ArchivedIntakeController
-      before_action :check_feature_flag
       before_action :confirm_code_verification
+      before_action :is_request_locked
+
       def edit
         @form = IdentificationNumberForm.new(archived_intake_request: current_request)
         render :edit
@@ -43,6 +38,14 @@ module StateFile
       def confirm_code_verification
         unless session[:code_verified]
           create_state_file_access_log("unauthorized_ssn_attempt")
+          redirect_to root_path
+        end
+      end
+
+      def is_request_locked
+        if current_request.access_locked?
+
+          # this redirect to be changed when we have an offboarding page
           redirect_to root_path
         end
       end

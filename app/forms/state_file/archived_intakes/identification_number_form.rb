@@ -21,7 +21,7 @@ module StateFile
         valid_ssn = hashed_ssn == archived_intake_ssn
 
         unless valid_ssn
-          errors.add(:ssn, I18n.t("state_file.archived_intakes.identification_number.edit.error_message"))
+          errors.add(:ssn, I18n.t("state_file.archived_intakes.identification_numbeer.edit.error_message"))
         end
 
         valid_ssn

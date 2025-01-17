@@ -1,7 +1,10 @@
 require "rails_helper"
 
-RSpec.feature "accessing a prior year PDF", active_job: true do
-
+RSpec.feature "accessing a prior year PDF", active_job: true, js: true do
+  let(:intake_ssn) { "123456789" }
+  let(:hashed_ssn) { SsnHashingService.hash(intake_ssn) }
+  let!(:archived_intake) { create(:state_file_archived_intake, hashed_ssn: hashed_ssn, email_address: intake_request_email) }
+  let(:intake_request_email) { "someone@example.com" }
   before do
     allow_any_instance_of(Routes::StateFileDomain).to receive(:matches?).and_return(true)
   end
@@ -23,6 +26,9 @@ RSpec.feature "accessing a prior year PDF", active_job: true do
       code = mail.html_part.body.to_s.match(%r{<strong> (\d{6})\.</strong>})[1]
       fill_in "Enter the 6-digit code", with: code
       click_on I18n.t("state_file.archived_intakes.verification_code.edit.verify")
+      expect(page).to have_text I18n.t("state_file.archived_intakes.identification_number.edit.title")
+      fill_in I18n.t("state_file.archived_intakes.identification_number.edit.ssn_label"), with: "123456789"
+      click_on I18n.t("general.continue")
       expect(current_path).to eq(root_path)
     end
   end
