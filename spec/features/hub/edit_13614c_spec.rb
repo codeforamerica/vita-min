@@ -88,6 +88,7 @@ RSpec.describe "a user editing a clients 13614c form" do
       select "No", from: I18n.t("hub.clients.edit_13614c_form_page1.fields.pay_due_balance_directly")
 
       select "No", from: I18n.t("hub.clients.edit_13614c_form_page1.fields.register_to_vote")
+      select "No", from: I18n.t("hub.clients.edit_13614c_form_page1.fields.lived_or_worked_in_two_or_more_states")
 
       within "#dependents-fields" do
         expect(find_field("hub_update13614c_form_page1[dependents_attributes][0][first_name]").value).to eq "Lara"
@@ -126,6 +127,7 @@ RSpec.describe "a user editing a clients 13614c form" do
       expect(find_field("hub_update13614c_form_page1[savings_split_refund]").value).to eq "yes"
       expect(find_field("hub_update13614c_form_page1[balance_pay_from_bank]").value).to eq "no"
       expect(find_field("hub_update13614c_form_page1[register_to_vote]").value).to eq "no"
+      expect(find_field("hub_update13614c_form_page1[multiple_states]").value).to eq "no"
 
       expect(page).to have_text('Last client 13614-C update: Mar 4 5:10 AM')
       within "#dependents-fields" do
