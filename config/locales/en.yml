@@ -838,6 +838,12 @@ en:
       edit_13614c_form_page3:
         additional_info_title: Additional Information and Questions Related to the Preparation of Your Return
         fields:
+          q10_household_disability: Do they or any member of their household have a disability?
+          q11_veteran: Veteran from the U.S. Armed Forces?
+          q12_primary_race: Race?
+          q13_spouse_race: Spouse’s race?
+          q14_primary_ethnicity: Ethnicity?
+          q15_spouse_ethnicity: Spouse’s ethnicity?
           q1_preferred_written_language: If yes, which language?
           q1_receive_written_communication: Receive written communications from the IRS in a language other than English?
           q2_presidential_campaign_fund: Presidential Election Campaign Fund $3 to go to this fund
@@ -846,12 +852,6 @@ en:
           q3_refund_payment_method_savings_bond: b. Purchase U.S. Savings Bond
           q3_refund_payment_method_split: c. Split refund between different accounts
           q4_pay_due_balance_directly: If they have a balance due, would they like to make a payment directly from their bank account?
-          q10_household_disability: Do they or any member of their household have a disability?
-          q11_veteran: Veteran from the U.S. Armed Forces?
-          q12_primary_race: Race?
-          q13_spouse_race: Spouse’s race?
-          q14_primary_ethnicity: Ethnicity?
-          q15_spouse_ethnicity: Spouse’s ethnicity?
           q5_federal_disaster_area: Declared living in a federal disaster area?
           q5_federal_disaster_area_where: If yes, where?
           q6_letter_from_irs: Received a letter from the IRS?
