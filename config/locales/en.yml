@@ -2074,6 +2074,11 @@ en:
           subtitle_html_2: If you still need help resubscribing, chat with us.
           title_html: We’ve sent your code to <strong>%{email_address}</strong>
           verify: Verify code
+      verification_error:
+        az_dor: Arizona Department of Revenue
+        ny_dor: NY State Tax Department
+        subtitle: Please visit your state's tax agency website to request your %{year} tax return
+        title: Sorry, we were not able to verify your account
     faq:
       index:
         title: Common questions from %{state} taxpayers
