@@ -493,6 +493,14 @@ en:
       fr: French
       ru: Russian
       zh: Mandarin
+    written_language_options:
+      en: English
+      es: Spanish
+      zh-cn: Chinese Simplified
+      zh-tw: Chinese Traditional
+      ko: Korean
+      ru: Russian
+      vi: Vietnamese
     languages: Languages
     last_four_ssn: Last 4 of SSN/ITIN
     last_name: Last name
@@ -6119,7 +6127,8 @@ en:
           other: In %{year}, did you or your spouse have any income from interest or dividends?
       interview_scheduling:
         help_text: We will try our best to schedule your review based on the information you provide.
-        language_select: What is your preferred language for the review?
+        interview_preference: What is your preferred language for the review?
+        written_preference: What is your preferred written language?
         title: Do you have any time preferences for your interview phone call?
       irs_letter:
         title:
