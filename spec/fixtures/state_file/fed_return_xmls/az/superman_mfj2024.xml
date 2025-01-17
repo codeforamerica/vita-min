@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>e21700d6</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400000101</PrimarySSN>
+            <SpouseSSN>600000097</SpouseSSN>
+            <NameLine1Txt>JONATHAN R &amp; MARTHA&lt;KENT</NameLine1Txt>
+            <PrimaryNameControlTxt>KENT</PrimaryNameControlTxt>
+            <SpouseNameControlTxt>KENT</SpouseNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>1000 East Hickory Lane</AddressLine1Txt>
+                <CityNm>Chandler</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>85286</ZIPCd>
+            </USAddress>
+            <PhoneNum>4805551234</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000010-1613-4c71-a040-fb6a412541c3@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="6">
+        <IRS1040 documentId="IRS10400001">
+            <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
+            <DependentDetail>
+                <DependentFirstNm>Clark</DependentFirstNm>
+                <DependentLastNm>Kent</DependentLastNm>
+                <DependentNameControlTxt>KENT</DependentNameControlTxt>
+                <DependentSSN>600001118</DependentSSN>
+                <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+                <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+            </DependentDetail>
+            <ChldWhoLivedWithYouCnt>1</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>3</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001 W20002" referenceDocumentName="IRSW2">35000</WagesAmt>
+            <WagesSalariesAndTipsAmt>35000</WagesSalariesAndTipsAmt>
+            <TaxableInterestAmt referenceDocumentId="IRS1040B001" referenceDocumentName="IRS1040ScheduleB">7000</TaxableInterestAmt>
+            <SocSecBnftAmt>8000</SocSecBnftAmt>
+            <TaxableSocSecAmt>5700</TaxableSocSecAmt>
+            <TotalIncomeAmt>47700</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>47700</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>29200</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>29200</TotalDeductionsAmt>
+            <TaxableIncomeAmt>18500</TaxableIncomeAmt>
+            <TaxAmt>1853</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>1853</TotalTaxBeforeCrAndOthTaxesAmt>
+            <CTCODCAmt>1853</CTCODCAmt>
+            <TotalCreditsAmt>1853</TotalCreditsAmt>
+            <TaxLessCreditsAmt>0</TaxLessCreditsAmt>
+            <TotalTaxAmt>0</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>3000</FormW2WithheldTaxAmt>
+            <WithholdingTaxAmt>3000</WithholdingTaxAmt>
+            <EarnedIncomeCreditAmt referenceDocumentId="IRSEIC0001" referenceDocumentName="IRS1040ScheduleEIC">1323</EarnedIncomeCreditAmt>
+            <AdditionalChildTaxCreditAmt referenceDocumentId="IRS8812001" referenceDocumentName="IRS1040Schedule8812">147</AdditionalChildTaxCreditAmt>
+            <RefundableCreditsAmt>1470</RefundableCreditsAmt>
+            <TotalPaymentsAmt>4470</TotalPaymentsAmt>
+            <OverpaidAmt>4470</OverpaidAmt>
+            <RefundAmt>4470</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Race car driver</PrimaryOccupationTxt>
+            <SpouseOccupationTxt>Soldier</SpouseOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1040Schedule8812 documentId="IRS8812001" documentName="IRS1040Schedule8812">
+            <AdjustedGrossIncomeAmt>47700</AdjustedGrossIncomeAmt>
+            <ModifiedAGIAmt>47700</ModifiedAGIAmt>
+            <QlfyChildUnderAgeSSNCnt>1</QlfyChildUnderAgeSSNCnt>
+            <QlfyChildUnderAgeSSNLimtAmt>2000</QlfyChildUnderAgeSSNLimtAmt>
+            <OtherDependentCnt>0</OtherDependentCnt>
+            <InitialCTCODCAmt>2000</InitialCTCODCAmt>
+            <FilingStatusThresholdCd>400000</FilingStatusThresholdCd>
+            <ExcessAdjGrossIncomeAmt>0</ExcessAdjGrossIncomeAmt>
+            <ModifiedAGIPhaseOutAmt>0</ModifiedAGIPhaseOutAmt>
+            <CTCODCOverAGILimitInd>true</CTCODCOverAGILimitInd>
+            <CTCODCAfterAGILimitAmt>2000</CTCODCAfterAGILimitAmt>
+            <ACTCTaxLiabiltyLimitAmt>1853</ACTCTaxLiabiltyLimitAmt>
+            <CTCODCAmt>1853</CTCODCAmt>
+            <ClaimACTCAllFilersGrp>
+                <ACTCBeforeLimitAmt>147</ACTCBeforeLimitAmt>
+                <QlfyChildUnderAgeSSNCnt>1</QlfyChildUnderAgeSSNCnt>
+                <QlfyChildUnderAgeSSNLimtAmt>1700</QlfyChildUnderAgeSSNLimtAmt>
+                <ACTCAfterLimitAmt>147</ACTCAfterLimitAmt>
+                <TotalEarnedIncomeAmt>35000</TotalEarnedIncomeAmt>
+                <EarnedIncmMoreThanSpecifiedInd>true</EarnedIncmMoreThanSpecifiedInd>
+                <NetTotalEarnedIncomeAmt>32500</NetTotalEarnedIncomeAmt>
+                <NetEarnedIncomeCalculatedAmt>4875</NetEarnedIncomeCalculatedAmt>
+                <ThreeOrMoreQlfyChildrenInd>false</ThreeOrMoreQlfyChildrenInd>
+            </ClaimACTCAllFilersGrp>
+            <AdditionalChildTaxCreditAmt>147</AdditionalChildTaxCreditAmt>
+        </IRS1040Schedule8812>
+        <IRS1040ScheduleB documentId="IRS1040B001" documentName="IRS1040ScheduleB">
+            <Form1040SchBPartIGroup2>
+                <InterestPayerName>
+                    <BusinessNameLine1Txt>Kryptonite Savings Bank</BusinessNameLine1Txt>
+                </InterestPayerName>
+                <InterestAmt>7000</InterestAmt>
+            </Form1040SchBPartIGroup2>
+            <InterestSubtotalAmt interestSubtotalLiteralCd="INTEREST SUBTOTAL">7000</InterestSubtotalAmt>
+            <TaxableInterestSubtotalAmt>7000</TaxableInterestSubtotalAmt>
+            <CalculatedTotalTaxableIntAmt>7000</CalculatedTotalTaxableIntAmt>
+            <ForeignAccountsQuestionInd>false</ForeignAccountsQuestionInd>
+            <ForeignTrustQuestionInd>false</ForeignTrustQuestionInd>
+        </IRS1040ScheduleB>
+        <IRS1040ScheduleEIC documentId="IRSEIC0001" documentName="IRS1040ScheduleEIC">
+            <QualifyingChildInformation>
+                <QualifyingChildNameControlTxt>KENT</QualifyingChildNameControlTxt>
+                <ChildFirstAndLastName>
+                    <PersonFirstNm>Clark</PersonFirstNm>
+                    <PersonLastNm>Kent</PersonLastNm>
+                </ChildFirstAndLastName>
+                <QualifyingChildSSN>600001118</QualifyingChildSSN>
+                <ChildBirthYr>2009</ChildBirthYr>
+                <ChildRelationshipCd>DAUGHTER</ChildRelationshipCd>
+                <MonthsChildLivedWithYouCnt>12</MonthsChildLivedWithYouCnt>
+            </QualifyingChildInformation>
+        </IRS1040ScheduleEIC>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>400000101</EmployeeSSN>
+            <EmployerEIN>018765432</EmployerEIN>
+            <EmployerNameControlTxt>NASC</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>NASCAR</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>1 Sports Center</AddressLine1Txt>
+                <CityNm>Daytona Beach</CityNm>
+                <StateAbbreviationCd>FL</StateAbbreviationCd>
+                <ZIPCd>32114</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Jonathan R Kent</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>1000 East Hickory Lane</AddressLine1Txt>
+                <CityNm>Chandler</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>85286</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>15000</WagesAmt>
+            <WithholdingAmt>1000</WithholdingAmt>
+            <SocialSecurityWagesAmt>15000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>700</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>15000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>200</MedicareTaxWithheldAmt>
+            <RetirementPlanInd>X</RetirementPlanInd>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                    <EmployerStateIdNum>87654321</EmployerStateIdNum>
+                    <StateWagesAmt>15000</StateWagesAmt>
+                    <StateIncomeTaxAmt>1500</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+        <IRSW2 documentId="W20002" documentName="IRSW2">
+            <EmployeeSSN>600000097</EmployeeSSN>
+            <EmployerEIN>019876543</EmployerEIN>
+            <EmployerNameControlTxt>ARIZ</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Arizona Farms Inc</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>8899 East 56th Street</AddressLine1Txt>
+                <CityNm>Indianapolis</CityNm>
+                <StateAbbreviationCd>IN</StateAbbreviationCd>
+                <ZIPCd>46249</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Martha Kent</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>1000 East Hickory Lane</AddressLine1Txt>
+                <CityNm>Chandler</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>85286</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>20000</WagesAmt>
+            <WithholdingAmt>2000</WithholdingAmt>
+            <SocialSecurityWagesAmt>20000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>1300</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>20000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>300</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                    <EmployerStateIdNum>12345</EmployerStateIdNum>
+                    <StateWagesAmt>20000</StateWagesAmt>
+                    <StateIncomeTaxAmt>2000</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>

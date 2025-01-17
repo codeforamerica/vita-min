@@ -1,0 +1,82 @@
+{
+  "familyAndHousehold": [
+    {
+      "monthsLivedWithTPInUS": "twelve",
+      "lastName": "Kent",
+      "hohQualifyingPerson": null,
+      "isClaimedDependent": true,
+      "qualifyingChild": true,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "2009-02-28",
+      "suffix": null,
+      "residencyDuration": "allYear",
+      "firstName": "Clark",
+      "middleInitial": null,
+      "scheduleEicLine4aNo": false,
+      "tin": "600-00-1118",
+      "eligibleDependent": true,
+      "relationship": "biologicalChild",
+      "ssnNotValidForEmployment": false
+    }
+  ],
+  "filers": [
+    {
+      "lastName": "Kent",
+      "dateOfBirth": "1980-12-05",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "firstName": "Jonathan",
+      "middleInitial": "R",
+      "educatorExpenses": "0.00",
+      "tin": "400-00-0101",
+      "interestReportsTotal": "6500.00",
+      "isDisabled": false,
+      "form1099GsTotal": "0.00",
+      "isStudent": false,
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": null
+    },
+    {
+      "lastName": "Kent",
+      "dateOfBirth": "1982-08-08",
+      "suffix": null,
+      "isPrimaryFiler": false,
+      "firstName": "Martha",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "600-00-0097",
+      "interestReportsTotal": "0.00",
+      "isDisabled": false,
+      "form1099GsTotal": "0.00",
+      "isStudent": false,
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [
+    {
+      "usedTin": "400-00-0101",
+      "unionDuesAmount": null
+    },
+    {
+      "usedTin": "600-00-0097",
+      "unionDuesAmount": null
+    }
+  ],
+  "interestReports": [
+    {
+      "has1099": true,
+      "taxExemptAndTaxCreditBondCusipNo": null,
+      "interestOnGovernmentBonds": "500.00",
+      "taxExemptInterest": "0.00",
+      "payerTin": null,
+      "recipientTin": "400-00-0101",
+      "payer": "Kryptonite Savings Bank",
+      "1099Amount": "6500.00",
+      "no1099Amount": null,
+      "taxWithheld": "0.00"
+    }
+  ]
+}
