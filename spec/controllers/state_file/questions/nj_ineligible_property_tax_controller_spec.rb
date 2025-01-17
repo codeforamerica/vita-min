@@ -153,5 +153,22 @@ RSpec.describe StateFile::Questions::NjIneligiblePropertyTaxController do
       get :edit
       expect(response).to be_successful
     end
+
+    context 'when reason is not income' do
+      let(:intake) { create :state_file_nj_intake, household_rent_own: "neither" }
+      it 'shows mistake text' do
+        allow(Efile::Nj::NjPropertyTaxEligibility).to receive(:ineligible?).and_return false
+        get :edit
+        expect(response.body).to have_text(I18n.t("state_file.questions.nj_ineligible_property_tax.edit.mistake_text"))
+      end
+    end
+
+    context 'when reason is income' do
+      it 'does not show mistake text' do
+        allow(Efile::Nj::NjPropertyTaxEligibility).to receive(:ineligible?).and_return true
+        get :edit
+        expect(response.body).not_to have_text(I18n.t("state_file.questions.nj_ineligible_property_tax.edit.mistake_text"))
+      end
+    end
   end
 end
