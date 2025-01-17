@@ -6,7 +6,8 @@
 # 6. remove the session and use the path to pass the email address
 module StateFile
   module ArchivedIntakes
-    class IdentificationNumberController < ApplicationController
+    class IdentificationNumberController < ArchivedIntakeController
+      before_action :check_feature_flag
       before_action :confirm_code_verification
       def edit
         archived_intake_request = StateFileArchivedIntakeRequest.find_by(email_address: session[:email_address])
@@ -15,72 +16,35 @@ module StateFile
       end
 
       def update
-        archived_intake = StateFileArchivedIntake.find_by(email_address: session[:email_address])
-
-        @form = IdentificationNumberForm.new(
-          archived_intake&.hashed_ssn
-        )
-
-        # validates if we have an associated SSN with the intake
-        # if yes, great! keep on keeping on
-        # if no, we record that attempt, we check how many attempts they have made
-        # first attempt: we throw the validation error
-        # second attempt: we offboard, we can't find their account
+        archived_intake_request = StateFileArchivedIntakeRequest.find_by(email_address: session[:email_address])
+        @form = IdentificationNumberForm.new(archived_intake_request: archived_intake_request, **identification_number_form_params)
 
         if @form.valid?
-          redirect_to root_path
-          #need to add address challaned
+          create_state_file_access_log("correct_ssn_challenge")
+          current_request.reset_failed_attempts!
+          redirect_to state_file_archived_intakes_edit_identification_number_path
         else
-          if @form.errors.include?(:no_remaining_attempts)
-            redirect_to offboarding_path
-          else
-            render :edit
+          create_state_file_access_log("incorrect_ssn_challenge")
+          current_request.increment_failed_attempts
+          if current_request.access_locked?
+            create_state_file_access_log("client_lockout_begin")
+            # this redirect to be changed when we have an offboarding page
+            redirect_to root_path
+            return
           end
+          render :edit
         end
-
-
-        #
-        # archived_intake = StateFileArchivedIntake.find_by(email_address: session[:email_address])
-        # hashed_ssn = SsnHashingService.hash(identification_number_form_params[:ssn])
-        #
-        # if hashed_ssn == archived_intake.hashed_ssn
-        #   StateFileArchivedIntakeAccessLog.create!(
-        #     ip_address: ip_for_irs,
-        #     details: { hashed_ssn: @form.email_address },
-        #     event_type: 4,
-        #     state_file_archived_intake: archived_intake
-        #   )
-        #   redirect_to root_path
-        # else
-        #   # create a failed attempt
-        #   StateFileArchivedIntakeAccessLog.create!(
-        #     ip_address: ip_for_irs,
-        #     details: { hashed_ssn: @form.email_address },
-        #     event_type: 5,
-        #   )
-        #
-        #   # check if there are other failed attempts
-        #   attempts = StateFileArchivedIntakeAccessLog.where(
-        #     ip_address: ip_for_irs,
-        #     event_type: 5,
-        #     created_at: Time.now - 5 # less than 1 hour
-        #   ).count
-        #   if attempts >= 2
-        #     # lock them out
-        #   else
-        #     render :edit
-        #     # show the page again with a validation error showing remaining attempts
-        #   end
-        # end
       end
 
       def identification_number_form_params
         params.require(:state_file_archived_intakes_identification_number_form).permit(:ssn)
       end
 
-      private
       def confirm_code_verification
-        # TODO
+        unless session[:code_verified]
+          create_state_file_access_log("unauthorized_ssn_attempt")
+          redirect_to root_path
+        end
       end
     end
   end
