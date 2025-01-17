@@ -477,7 +477,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
         advance_medical_expenses
         choose_household_rent_own("homeowner")
         expect_ineligible_page(nil, "income_single_mfs")
-        expect_estimated_tax_page
+        expect_page_after_property_tax
       end
 
       it "handles property tax flow - MFJ", required_schema: "nj" do
@@ -488,7 +488,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
         advance_medical_expenses
         choose_household_rent_own("homeowner")
         expect_ineligible_page(nil, "income_mfj_qss_hoh")
-        expect_estimated_tax_page
+        expect_page_after_property_tax
       end
     end
   end
