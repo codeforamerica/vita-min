@@ -23,8 +23,7 @@ module StateFile
           current_request.increment_failed_attempts
           if current_request.access_locked?
             create_state_file_access_log("client_lockout_begin")
-            # this redirect to be changed when we have an offboarding page
-            redirect_to root_path
+            redirect_to state_file_archived_intakes_verification_error_path
             return
           end
           render :edit
@@ -44,9 +43,7 @@ module StateFile
 
       def is_request_locked
         if current_request.access_locked?
-
-          # this redirect to be changed when we have an offboarding page
-          redirect_to root_path
+          redirect_to state_file_archived_intakes_verification_error_path
         end
       end
     end

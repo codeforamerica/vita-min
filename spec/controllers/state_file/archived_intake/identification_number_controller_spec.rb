@@ -36,7 +36,7 @@ RSpec.describe StateFile::ArchivedIntakes::IdentificationNumberController, type:
       intake_request.lock_access!
       get :edit
 
-      expect(response).to redirect_to(root_path)
+      expect(response).to redirect_to(state_file_archived_intakes_verification_error_path)
     end
 
     it "redirect to root if code verification was not completed" do
@@ -63,6 +63,7 @@ RSpec.describe StateFile::ArchivedIntakes::IdentificationNumberController, type:
         expect(intake_request.reload.failed_attempts).to eq(0)
 
         expect(response).to redirect_to(root_path)
+        # need to change to address path
       end
 
       it "resets failed attempts to zero even if one failed attempt has already been made" do
@@ -106,7 +107,7 @@ RSpec.describe StateFile::ArchivedIntakes::IdentificationNumberController, type:
 
         expect(intake_request.reload.failed_attempts).to eq(2)
         expect(intake_request.reload.access_locked?).to be_truthy
-        expect(response).to redirect_to(root_path)
+        expect(response).to redirect_to(state_file_archived_intakes_verification_error_path)
       end
     end
   end
