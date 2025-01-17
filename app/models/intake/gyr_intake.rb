@@ -562,6 +562,6 @@ class Intake::GyrIntake < Intake
   end
 
   def preferred_written_language_string
-    I18n.t("general.written_language_options.#{preferred_written_language}", default: nil)&.capitalize || preferred_written_language&.capitalize
+    I18n.t("general.written_language_options.#{preferred_written_language}", default: nil) || preferred_written_language&.capitalize
   end
 end
