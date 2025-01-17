@@ -3,9 +3,17 @@ module Hub
     include FormAttributes
 
     set_attributes_for :intake,
+                       :receive_written_communication,
+                       :preferred_written_language,
+                       :refund_payment_method,
+                       :savings_purchase_bond,
+                       :savings_split_refund,
+                       :balance_pay_from_bank,
                        :had_disaster_loss,
                        :received_irs_letter,
+                       :presidential_campaign_fund_donation,
                        :had_disaster_loss_where,
+                       :register_to_vote,
                        :demographic_english_conversation,
                        :demographic_english_reading,
                        :demographic_disability,

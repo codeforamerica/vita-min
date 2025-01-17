@@ -838,6 +838,14 @@ en:
       edit_13614c_form_page3:
         additional_info_title: Additional Information and Questions Related to the Preparation of Your Return
         fields:
+          q1_preferred_written_language: If yes, which language?
+          q1_receive_written_communication: Receive written communications from the IRS in a language other than English?
+          q2_presidential_campaign_fund: Presidential Election Campaign Fund $3 to go to this fund
+          q3_refund_payment_method: 'If you are due a refund, would you like:'
+          q3_refund_payment_method_direct_deposit: a. Direct Deposit
+          q3_refund_payment_method_savings_bond: b. Purchase U.S. Savings Bond
+          q3_refund_payment_method_split: c. Split refund between different accounts
+          q4_pay_due_balance_directly: If they have a balance due, would they like to make a payment directly from their bank account?
           q10_household_disability: Do they or any member of their household have a disability?
           q11_veteran: Veteran from the U.S. Armed Forces?
           q12_primary_race: Race?
@@ -847,6 +855,7 @@ en:
           q5_federal_disaster_area: Declared living in a federal disaster area?
           q5_federal_disaster_area_where: If yes, where?
           q6_letter_from_irs: Received a letter from the IRS?
+          q7_register_to_vote: Register to vote?
           q8_speak_and_understand_english: Can carry on a conversation in English, both understanding & speaking?
           q9_read_english: Can read a newspaper or book in English?
         title: 13614-C page 3

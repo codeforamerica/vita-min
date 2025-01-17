@@ -853,9 +853,18 @@ es:
           q13_spouse_race: "¿Raza del cónyuge?"
           q14_primary_ethnicity: "¿Etnicidad?"
           q15_spouse_ethnicity: "¿Origen étnico del cónyuge?"
+          q1_preferred_written_language: Si la respuesta es afirmativa, ¿en qué lengua?
+          q1_receive_written_communication: "¿Recibe comunicaciones escritas del IRS en un idioma distinto del inglés?"
+          q2_presidential_campaign_fund: Fondo de la Campaña Electoral Presidencial $3 para este fondo
+          q3_refund_payment_method: 'Si se le debe un reembolso, ¿le gustaría:'
+          q3_refund_payment_method_direct_deposit: a. Depósito directo
+          q3_refund_payment_method_savings_bond: b. Compra de bonos de ahorro de EE.UU.
+          q3_refund_payment_method_split: c. Dividir el reembolso entre diferentes cuentas
+          q4_pay_due_balance_directly: Si tiene un saldo pendiente, ¿le gustaría pagar directamente desde su cuenta bancaria?
           q5_federal_disaster_area: "¿Ha sido declarado residente en una zona catastrófica federal?"
           q5_federal_disaster_area_where: Si es así, ¿en qué lugar?
           q6_letter_from_irs: "¿Recibió una carta del IRS?"
+          q7_register_to_vote: "¿Registrarse/registrado para votar?"
           q8_speak_and_understand_english: "¿Puede llevar una conversación en inglés, y tanto entenderlo como hablarlo?"
           q9_read_english: "¿Puede leer un periódico o un libro en inglés?"
         title: 13614-C página 3

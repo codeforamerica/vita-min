@@ -21,11 +21,43 @@
 
         <div class="grid">
           <div class="grid__item width-one-whole">
+            <%= f.cfa_select(:receive_written_communication, "1. #{t(".fields.q1_receive_written_communication")}", yes_no_options_for_select) %>
+            <%= f.cfa_input_field(:preferred_written_language, t(".fields.q1_preferred_written_language")) %>
+          </div>
+          <div class="grid__item width-one-whole">
+            <%= f.cfa_select(:presidential_campaign_fund_donation, "2. #{t(".fields.q2_presidential_campaign_fund")}",     [
+              ["", "unfilled"],
+              ["You", "primary"],
+              ["Spouse", "spouse"],
+              ["You and your spouse", "primary_and_spouse"],
+            ]) %>
+          </div>
+          <div class="grid__item width-one-whole">
+            <div class="form-group">
+              <p class="form-question"><%= "3. #{t(".fields.q3_refund_payment_method")}" %></p>
+            </div>
+          </div>
+          <div class="grid__item width-one-whole">
+            <%= f.cfa_select(:refund_payment_method, t(".fields.q3_refund_payment_method_direct_deposit"), [
+              ["", "unfilled"],
+              [I18n.t("general.affirmative"), "direct_deposit"],
+              [I18n.t("general.negative"), "check"],
+            ]) %>
+            <%= f.cfa_select(:savings_purchase_bond, t(".fields.q3_refund_payment_method_savings_bond"), yes_no_options_for_select) %>
+            <%= f.cfa_select(:savings_split_refund, t(".fields.q3_refund_payment_method_split"), yes_no_options_for_select) %>
+          </div>
+          <div class="grid__item width-one-whole">
+            <%= f.cfa_select(:balance_pay_from_bank, "4. #{t(".fields.q4_pay_due_balance_directly")}", yes_no_options_for_select) %>
+          </div>
+          <div class="grid__item width-one-whole">
             <%= f.cfa_select(:had_disaster_loss, "5. #{t(".fields.q5_federal_disaster_area")}", yes_no_options_for_select) %>
             <%= f.cfa_input_field(:had_disaster_loss_where, t(".fields.q5_federal_disaster_area_where")) %>
           </div>
           <div class="grid__item width-one-whole">
             <%= f.cfa_select(:received_irs_letter, "6. #{t(".fields.q6_letter_from_irs")}", yes_no_options_for_select) %>
+          </div>
+          <div class="grid__item width-one-whole">
+            <%= f.cfa_select(:register_to_vote, "7. #{t(".fields.q7_register_to_vote")}", yes_no_options_for_select) %>
           </div>
           <div class="grid__item width-one-whole">
             <%= f.cfa_select(:demographic_english_conversation, "8. #{t(".fields.q8_speak_and_understand_english")}", [

@@ -118,15 +118,14 @@ RSpec.describe "a user editing a clients 13614c form" do
       expect(find_field("hub_update13614c_form_page1[spouse_birth_date_day]").value).to eq "20"
       expect(find_field("hub_update13614c_form_page1[spouse_birth_date_month]").value).to eq "10"
 
-      # FIXME - intake is nil here, tests won't work as-is
-      # expect(intake.receive_written_communication).to eq "yes"
-      # expect(intake.preferred_written_language).to eq "Chinese"
-      # expect(intake.presidential_campaign_fund_donation).to eq "primary"
-      # expect(intake.refund_payment_method).to eq "direct_deposit"
-      # expect(intake.savings_purchase_bond).to eq "no"
-      # expect(intake.savings_split_refund).to eq "yes"
-      # expect(intake.balance_pay_from_bank).to eq "no"
-      # expect(intake.register_to_vote).to eq "no"
+      expect(find_field("hub_update13614c_form_page1[receive_written_communication]").value).to eq "yes"
+      expect(find_field("hub_update13614c_form_page1[preferred_written_language]").value).to eq "Chinese"
+      expect(find_field("hub_update13614c_form_page1[presidential_campaign_fund_donation]").value).to eq "primary"
+      expect(find_field("hub_update13614c_form_page1[refund_payment_method]").value).to eq "direct_deposit"
+      expect(find_field("hub_update13614c_form_page1[savings_purchase_bond]").value).to eq "no"
+      expect(find_field("hub_update13614c_form_page1[savings_split_refund]").value).to eq "yes"
+      expect(find_field("hub_update13614c_form_page1[balance_pay_from_bank]").value).to eq "no"
+      expect(find_field("hub_update13614c_form_page1[register_to_vote]").value).to eq "no"
 
       expect(page).to have_text('Last client 13614-C update: Mar 4 5:10 AM')
       within "#dependents-fields" do
@@ -322,10 +321,21 @@ RSpec.describe "a user editing a clients 13614c form" do
 
       expect(page).to have_text I18n.t("hub.clients.edit_13614c_form_page3.additional_info_title")
 
+      select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page3.fields.q1_receive_written_communication")
+      fill_in I18n.t("hub.clients.edit_13614c_form_page3.fields.q1_preferred_written_language"), with: "Chinese"
+      select "You", from: I18n.t("hub.clients.edit_13614c_form_page3.fields.q2_presidential_campaign_fund")
+
+      select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page3.fields.q3_refund_payment_method_direct_deposit")
+      select "No", from: I18n.t("hub.clients.edit_13614c_form_page3.fields.q3_refund_payment_method_savings_bond")
+      select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page3.fields.q3_refund_payment_method_split")
+
+      select "No", from: I18n.t("hub.clients.edit_13614c_form_page3.fields.q4_pay_due_balance_directly")
+
       select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page3.fields.q5_federal_disaster_area")
       fill_in I18n.t("hub.clients.edit_13614c_form_page3.fields.q5_federal_disaster_area_where"), with: "Paradise"
 
       select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page3.fields.q6_letter_from_irs")
+      select "No", from: I18n.t("hub.clients.edit_13614c_form_page3.fields.q7_register_to_vote")
 
       # Deliberately don't fill in the conversational language question
       select "Well", from: I18n.t("hub.clients.edit_13614c_form_page3.fields.q9_read_english")
@@ -350,9 +360,17 @@ RSpec.describe "a user editing a clients 13614c form" do
       expect(page).to have_text I18n.t("general.changes_saved")
 
       intake = client.intake.reload
+      expect(intake.receive_written_communication).to eq "yes"
+      expect(intake.preferred_written_language).to eq "Chinese"
+      expect(intake.presidential_campaign_fund_donation).to eq "primary"
+      expect(intake.refund_payment_method).to eq "direct_deposit"
+      expect(intake.savings_purchase_bond).to eq "no"
+      expect(intake.savings_split_refund).to eq "yes"
+      expect(intake.balance_pay_from_bank).to eq "no"
       expect(intake.had_disaster_loss).to eq "yes"
       expect(intake.had_disaster_loss_where).to eq "Paradise"
       expect(intake.received_irs_letter).to eq "yes"
+      expect(intake.register_to_vote).to eq "no"
       expect(intake.demographic_english_conversation).to eq "unfilled"
       expect(intake.demographic_english_reading).to eq "well"
       expect(intake.demographic_disability).to eq "no"
