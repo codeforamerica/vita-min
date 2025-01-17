@@ -244,6 +244,11 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       # Review
       expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
+      expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.your_name")
+      expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.spouse_name")
+      dependents_dob = page.all(:css, 'h4', text: I18n.t('state_file.questions.shared.abstract_review_header.dependent_dob')).count
+      expect(dependents_dob).to eq(6)
+
       expect(page).to be_axe_clean.within "main"
 
       groups = page.all(:css, '.white-group').count
