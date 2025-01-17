@@ -529,6 +529,7 @@ class Seeder
     Fraud::Indicators::Timezone.create(name: "America/Los_Angeles", activated_at: DateTime.now)
     SearchIndexer.refresh_search_index
 
+    # AZ StateFileArchivedIntakes (5)
     find_or_create_state_file_archived_intake(
       email_address: "archivedaz@example.com",
       hashed_ssn: SsnHashingService.hash("555001234"),
@@ -542,15 +543,112 @@ class Seeder
     )
 
     find_or_create_state_file_archived_intake(
+      email_address: "archivedaz1@example.com",
+      hashed_ssn: SsnHashingService.hash("555001235"),
+      mailing_apartment: nil,
+      mailing_city: "Munchkinville",
+      mailing_street: "15 West Tower Blvd",
+      mailing_state: "AZ",
+      mailing_zip: "85035",
+      state_code: "AZ",
+      tax_year: 2023
+    )
+
+    find_or_create_state_file_archived_intake(
+      email_address: "archivedaz2@example.com",
+      hashed_ssn: SsnHashingService.hash("555001236"),
+      mailing_apartment: "Bldg 5",
+      mailing_city: "Munchkinville",
+      mailing_street: "15 Maypole St",
+      mailing_state: "AZ",
+      mailing_zip: "85040",
+      state_code: "AZ",
+      tax_year: 2023
+    )
+
+    find_or_create_state_file_archived_intake(
+      email_address: "archivedaz3@example.com",
+      hashed_ssn: SsnHashingService.hash("555001237"),
+      mailing_apartment: "Bldg A",
+      mailing_city: "Thropp City",
+      mailing_street: "5 Whispers Ln",
+      mailing_state: "AZ",
+      mailing_zip: "85001",
+      state_code: "AZ",
+      tax_year: 2023
+    )
+
+    find_or_create_state_file_archived_intake(
+      email_address: "archivedaz4@example.com",
+      hashed_ssn: SsnHashingService.hash("555001238"),
+      mailing_apartment: "APT 2",
+      mailing_city: "Winkie County",
+      mailing_street: "22-1 Arjiki Centre",
+      mailing_state: "AZ",
+      mailing_zip: "85701",
+      state_code: "AZ",
+      tax_year: 2023
+    )
+
+    # NY StateFileArchivedIntakes (5)
+    find_or_create_state_file_archived_intake(
       email_address: "archivedny@example.com",
       hashed_ssn: SsnHashingService.hash("555009876"),
       mailing_apartment: "Unit 3",
       mailing_city: "Emerald City",
       mailing_street: "555 Tower Ave",
       mailing_state: "NY",
-      mailing_zip: "12206",
+      mailing_zip: "10001",
       state_code: "NY",
       tax_year: 2023
+    )
+
+    find_or_create_state_file_archived_intake(
+      email_address: "archivedny1@example.com",
+      hashed_ssn: SsnHashingService.hash("555009875"),
+      mailing_apartment: "Unit 50A",
+      mailing_city: "Emerald City",
+      mailing_street: "120-12 Underground St",
+      mailing_state: "NY",
+      mailing_zip: "10006",
+      state_code: "NY",
+      tax_year: 2023
+    )
+
+    find_or_create_state_file_archived_intake(
+      email_address: "archivedny2@example.com",
+      hashed_ssn: SsnHashingService.hash("555009874"),
+      mailing_apartment: "Bldg 5",
+      mailing_city: "Shiz",
+      mailing_street: "202 University Avenue",
+      mailing_state: "NY",
+      mailing_zip: "12208",
+      state_code: "NY",
+      tax_year: 2023
+    )
+
+    find_or_create_state_file_archived_intake(
+      email_address: "archivedny3@example.com",
+      hashed_ssn: SsnHashingService.hash("555009873"),
+      mailing_apartment: nil,
+      mailing_city: "Wittica",
+      mailing_street: "9 Great Railway Rd",
+      mailing_state: "NY",
+      mailing_zip: "11355",
+      state_code: "NY",
+      tax_year: 2023
+    )
+
+    find_or_create_state_file_archived_intake(
+      email_address: "archivedny4@example.com",
+      hashed_ssn: SsnHashingService.hash("555009872"),
+      mailing_apartment: "Apt 1501",
+      mailing_city: "Frottica",
+      mailing_street: "12 Purple Meadow Dr",
+      mailing_state: "NY",
+      mailing_zip: "11101",
+      state_code: "NY",
+      tax_year: 11101
     )
   end
 
