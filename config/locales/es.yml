@@ -2189,6 +2189,12 @@ es:
         title_closed: Nuestro servicio gratuito para declarar tus impuestos estatales de %{state_name} está cerrado por temporada
         welcome_back: "¡Bienvenido de nuevo %{user_name}!"
     navigation:
+      nj:
+        section_1: 'Section 1: Income'
+        section_2: 'Section 2: Your household'
+        section_3: 'Section 3: Deductions and credits'
+        section_4: 'Section 4: Your %{filing_year} taxes'
+        section_5: 'Section 5: Review and submit'
       section_1: 'Sección 1: ¿Puedes usar esta herramienta?'
       section_2: 'Sección 2: Crear cuenta'
       section_3: 'Sección 3: Términos y condiciones'
