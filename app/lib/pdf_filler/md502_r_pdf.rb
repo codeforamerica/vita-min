@@ -16,6 +16,8 @@ module PdfFiller
 
     def hash_for_pdf
       {
+        'Your Age 1': @xml_document.at('PrimaryAge')&.text,
+        'Spouses Age': @xml_document.at('SecondaryAge')&.text,
       }
     end
   end
