@@ -11,8 +11,8 @@ module StateFile
 
         if @form.valid?
           archived_intake = StateFileArchivedIntake.find_by(email_address: @form.email_address)
-          session[:email_address] = @form.email_address
-          StateFileArchivedIntakeRequest.find_or_create_by(email_address: @form.email_address, ip_address: ip_for_irs, state_file_archived_intake_id: archived_intake&.id )
+          request = StateFileArchivedIntakeRequest.find_or_create_by(email_address: @form.email_address, ip_address: ip_for_irs, state_file_archived_intake_id: archived_intake&.id)
+          session[:email_address] = request.email_address
           create_state_file_access_log("issued_email_challenge")
 
           redirect_to state_file_archived_intakes_edit_verification_code_path
