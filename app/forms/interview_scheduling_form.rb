@@ -5,6 +5,8 @@ class InterviewSchedulingForm < QuestionsForm
                      :preferred_written_language
 
   def save
+    preferred_written_language_not_english = preferred_written_language == "en" ? 'no' : 'yes'
+    @intake.update(receive_written_communication: preferred_written_language_not_english)
     @intake.update(attributes_for(:intake))
   end
 

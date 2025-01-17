@@ -50,5 +50,10 @@ module Hub
       @client.intake.update(attributes_for(:intake))
       @client.touch(:last_13614c_update_at)
     end
+
+    def self.existing_attributes(intake)
+      intake.preferred_written_language = intake.preferred_written_language_string
+      super
+    end
   end
 end

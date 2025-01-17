@@ -496,8 +496,8 @@ en:
     written_language_options:
       en: English
       es: Spanish
-      zh-cn: Chinese Simplified
-      zh-tw: Chinese Traditional
+      zh_cn: Chinese Simplified
+      zh_tw: Chinese Traditional
       ko: Korean
       ru: Russian
       vi: Vietnamese
