@@ -96,7 +96,7 @@ RSpec.describe PdfFiller::F13614cPdf do
           paid_self_employment_expenses: "no",
           paid_student_loan_interest: "yes",
           phone_number: "+14158161286",
-          preferred_written_language: "Greek",
+          preferred_written_language: "ro",
           presidential_campaign_fund_donation: "primary",
           primary_birth_date: Date.new(1961, 4, 19),
           primary_consented_to_service: "yes",
@@ -192,6 +192,11 @@ RSpec.describe PdfFiller::F13614cPdf do
         all_fields_in_pdf = form_fields.map(&:name)
         expect(all_fields_in_pdf).to match_array(intake_pdf.hash_for_pdf.keys)
       end
+
+      # add written_language_preference lines when rebase with PR #5342
+      # "form1[0].page1[0].writtenCommunicationLanguage[0].otherLanguageNo[0]" => nil,
+      # "form1[0].page1[0].writtenCommunicationLanguage[0].otherLanguageYou[0]" => '1',
+      # "form1[0].page1[0].writtenCommunicationLanguage[0].whatLanguage[0]" => "Russian",
 
       # TODO reenable for TY2024
       xit "fills out answers from the DB into the pdf" do
