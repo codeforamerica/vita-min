@@ -19,6 +19,13 @@
           <%= t(".section1_html", faq_link: state_faq_path(us_state: 'us')) %>
         </div>
       </div>
+
+      <% unless Flipper.enabled?(:get_your_pdf) %>
+        <div>
+          <p class="text--bold"><%= t(".check_back_for_prior_year_returns") %></p>
+          <%= link_to t(".faq_prior_year_returns"), state_faq_section_path(us_state: :az, section_key: "how_can_i_access_my_2023_state_tax_return") %>
+        </div>
+      <% end %>
     <% else %>
       <div>
         <%= t(".closed_subheader_html") %>

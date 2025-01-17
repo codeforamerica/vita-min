@@ -6,12 +6,14 @@
 <% content_for :card do %>
   <h1 class="h2"><%= title %></h1>
   <p><%= t(".reason_html", reason: ineligible_reason) %></p>
-  <p>
-    <span><%= t(".mistake_text") %></span>
-    <%= link_to StateFile::Questions::NjHouseholdRentOwnController.to_path_helper do %>
-      <%= t(".go_back_link") %>
-    <% end %>
-  </p>
+  <% unless Efile::Nj::NjPropertyTaxEligibility.ineligible?(current_intake) %>
+    <p>
+      <span><%= t(".mistake_text") %></span>
+      <%= link_to StateFile::Questions::NjHouseholdRentOwnController.to_path_helper do %>
+        <%= t(".go_back_link") %>
+      <% end %>
+    </p>
+  <% end  %>
   <p><%= t(".continue_text") %></p>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>

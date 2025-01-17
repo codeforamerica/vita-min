@@ -10,9 +10,9 @@ describe StateFile::NjPropertyTaxFlowOffRamp do
     end
 
     context "when not return to review" do
-      it "returns Nj Estimated Tax Payments path" do
+      it "returns Nj Use Tax path" do
         options = {}
-        expect(described_class.next_controller(options)).to eq("/en/questions/nj-estimated-tax-payments")
+        expect(described_class.next_controller(options)).to eq("/en/questions/nj-sales-use-tax")
       end
     end
   end

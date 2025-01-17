@@ -8,7 +8,7 @@ module StateFile
         options[:return_to_review] = params[:return_to_review] if params[:return_to_review].present?
 
         if Efile::Nj::NjPropertyTaxEligibility.ineligible?(current_intake)
-          return StateFile::NjPropertyTaxFlowOffRamp.next_controller(options)
+          return NjIneligiblePropertyTaxController.to_path_helper(options)
         end
         
         case current_intake.household_rent_own

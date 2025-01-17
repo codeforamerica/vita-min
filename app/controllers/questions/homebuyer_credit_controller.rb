@@ -4,9 +4,7 @@ module Questions
 
     layout "yes_no_question"
 
-    def self.show?(intake)
-      intake.ever_owned_home_yes?
-    end
+    def self.show?(intake) = false
 
     private
 
