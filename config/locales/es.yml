@@ -3259,6 +3259,8 @@ es:
           on_home: on the home you lived in and owned.
           on_rental: on the home you lived in and rented.
           reason_html: You are not eligible for this because <b>%{reason}</b>
+          reason_income_mfj_qss_hoh: you did not meet the income filing threshold of $20,000.
+          reason_income_single_mfs: you did not meet the income filing threshold of $10,000.
           reason_multi_unit_conditions: this main home in a multi-unit building did not meet the requirements to claim this credit or deduction.
           reason_neither: you must own rent or own a main home in %{filing_year} to receive this credit or deduction.
           reason_property_taxes: did not pay property taxes (directly, or through rent) on this main home.
