@@ -54,6 +54,7 @@ RSpec.feature "Income Review", active_job: true do
     it "displays w2 info on edit screen" do
       advance_to_income_edit
 
+      expect(page).to have_css(".progress-steps")
       expect(page).to have_field('state_file_w2_box14_ui_wf_swf', with: '180.0')
       expect(page).to have_field('state_file_w2_box14_fli', with: '145.0')
       expect(page).to have_field('state_file_w2_employer_state_id_num', with: '221236333')
