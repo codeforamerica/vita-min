@@ -1,11 +1,11 @@
 module StateFile
   module ArchivedIntakes
     class IdentificationNumberForm < Form
-      attr_accessor :ssn, :archived_intake_ssn, :ip_for_irs # maybe delete IP, unclear
+      attr_accessor :ssn, :archived_intake_request
       validates :ssn, presence: true
 
       def initialize(archived_intake_request, attributes = {})
-        super()
+        super(attributes)
         @ssn = attributes[:ssn]
         @archived_intake_request = archived_intake_request
       end

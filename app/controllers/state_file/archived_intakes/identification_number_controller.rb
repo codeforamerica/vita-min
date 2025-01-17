@@ -10,19 +10,18 @@ module StateFile
       before_action :check_feature_flag
       before_action :confirm_code_verification
       def edit
-        archived_intake_request = StateFileArchivedIntakeRequest.find_by(email_address: session[:email_address])
-        @form = IdentificationNumberForm.new(archived_intake_request: archived_intake_request)
+        @form = IdentificationNumberForm.new(archived_intake_request: current_request)
         render :edit
       end
 
       def update
-        archived_intake_request = StateFileArchivedIntakeRequest.find_by(email_address: session[:email_address])
-        @form = IdentificationNumberForm.new(archived_intake_request: archived_intake_request, **identification_number_form_params)
+        @form = IdentificationNumberForm.new(current_request, identification_number_form_params)
 
         if @form.valid?
           create_state_file_access_log("correct_ssn_challenge")
           current_request.reset_failed_attempts!
-          redirect_to state_file_archived_intakes_edit_identification_number_path
+          redirect_to root_path
+          # need to change to address controller
         else
           create_state_file_access_log("incorrect_ssn_challenge")
           current_request.increment_failed_attempts
