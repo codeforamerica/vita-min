@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "accessing a prior year PDF", active_job: true, js: true do
+RSpec.feature "accessing a prior year PDF", active_job: true do
   let(:intake_ssn) { "123456789" }
   let(:hashed_ssn) { SsnHashingService.hash(intake_ssn) }
   let!(:archived_intake) { create(:state_file_archived_intake, hashed_ssn: hashed_ssn, email_address: intake_request_email) }
