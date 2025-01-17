@@ -266,7 +266,7 @@ module PdfFiller
             "form1[0].page1[0].youSpouseWereIn[0].column2[0].legallyBlind[0].legallyBlindNo[0]" => @intake.was_blind_no? && !@intake.spouse_was_blind_yes?,
             "form1[0].page1[0].youSpouseWereIn[0].column2[0].totallyPermanentlyDisabled[0].disabledNo[0]" => @intake.had_disability_no? && !@intake.spouse_had_disability_yes?,
             # TODO: Add "in the US on a visa"
-            "form1[0].page1[0].youSpouseWereIn[0].column2[0].issuedIdentityProtection[0].identityProtectionNo[0]" => (!@intake.issued_identity_pin_yes? && !@intake.spouse_issued_identity_pin_yes?),
+            "form1[0].page1[0].youSpouseWereIn[0].column2[0].issuedIdentityProtection[0].identityProtectionNo[0]" => @intake.issued_identity_pin_no? && !@intake.spouse_issued_identity_pin_yes?,
 
             # People who have digital assets are considered out of scope
             "form1[0].page1[0].youSpouseWereIn[0].column2[0].holdDigitalAssets[0].digitalAssetsNo[0]" => true,
