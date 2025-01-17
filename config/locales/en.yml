@@ -2080,6 +2080,11 @@ en:
           subtitle_html_2: If you still need help resubscribing, chat with us.
           title_html: We’ve sent your code to <strong>%{email_address}</strong>
           verify: Verify code
+      verification_error:
+        az_dor: Arizona Department of Revenue
+        ny_dor: NY State Tax Department
+        subtitle: Please visit your state's tax agency website to request your %{year} tax return
+        title: Sorry, we were not able to verify your account
     faq:
       index:
         title: Common questions from %{state} taxpayers
@@ -2244,6 +2249,12 @@ en:
         title_closed: Our free %{state_name} tax filing service is closed for the season
         welcome_back: Welcome back %{user_name}!
     navigation:
+      nj:
+        section_1: 'Section 1: Income'
+        section_2: 'Section 2: Your household'
+        section_3: 'Section 3: Deductions and credits'
+        section_4: 'Section 4: Your %{filing_year} taxes'
+        section_5: 'Section 5: Review and submit'
       section_1: 'Section 1: Can you use this service'
       section_2: 'Section 2: Create account'
       section_3: 'Section 3: Terms and conditions'
@@ -3305,6 +3316,8 @@ en:
           on_home: on the home you lived in and owned.
           on_rental: on the home you lived in and rented.
           reason_html: You are not eligible for this because <b>%{reason}</b>
+          reason_income_mfj_qss_hoh: you did not meet the income filing threshold of $20,000.
+          reason_income_single_mfs: you did not meet the income filing threshold of $10,000.
           reason_multi_unit_conditions: this main home in a multi-unit building did not meet the requirements to claim this credit or deduction.
           reason_neither: you must have rented or owned a main home in %{filing_year} to receive this credit or deduction.
           reason_property_taxes: did not pay property taxes (directly, or through rent) on this main home.

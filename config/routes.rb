@@ -562,6 +562,7 @@ Rails.application.routes.draw do
           patch 'email_address', to: 'email_address#update'
           get 'verification_code/edit', to: 'verification_code#edit', as: 'edit_verification_code'
           patch 'verification_code', to: 'verification_code#update'
+          get 'verification_error', to: "/state_file/state_file_pages#archived_intakes_verification_error"
           get 'identification_number/edit', to: 'identification_number#edit', as: 'edit_identification_number'
           patch 'identification_number', to: 'identification_number#update'
         end
