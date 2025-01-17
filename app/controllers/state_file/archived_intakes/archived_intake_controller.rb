@@ -5,6 +5,10 @@ module StateFile
         StateFileArchivedIntakeRequest.find_by(ip_address: ip_for_irs, email_address: session[:email_address])
       end
 
+      def current_archived_intake
+        current_request.state_file_archived_intake
+      end
+
       def create_state_file_access_log(event_type)
         StateFileArchivedIntakeAccessLog.create!(
           event_type: event_type,

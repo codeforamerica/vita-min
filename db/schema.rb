@@ -572,12 +572,10 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_15_191307) do
   end
 
   create_table "challenge_addresses", force: :cascade do |t|
-    t.string "address_line_1"
-    t.string "city"
+    t.string "address", null: false
     t.datetime "created_at", null: false
-    t.string "state"
+    t.string "state_code", null: false
     t.datetime "updated_at", null: false
-    t.string "zip"
   end
 
   create_table "client_success_roles", force: :cascade do |t|

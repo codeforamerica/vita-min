@@ -24,7 +24,7 @@ module StateFile
           create_state_file_access_log("correct_email_code")
           current_request.reset_failed_attempts!
           # this should take us to the ssn page
-          redirect_to root_path
+          redirect_to state_file_archived_intakes_edit_mailing_address_validation_path
         else
           create_state_file_access_log("incorrect_email_code")
           current_request.increment_failed_attempts
