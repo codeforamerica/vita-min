@@ -10,7 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_01_13_222716) do
+ActiveRecord::Schema[7.1].define(version: 2025_01_16_220546) do
+  create_schema "analytics"
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1324,6 +1326,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_13_222716) do
     t.string "primary_suffix"
     t.integer "primary_tin_type"
     t.integer "primary_us_citizen", default: 0, null: false
+    t.integer "primary_visa", default: 0, null: false
     t.integer "product_year", null: false
     t.integer "receive_written_communication", default: 0, null: false
     t.integer "received_advance_ctc_payment"
@@ -1380,6 +1383,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_13_222716) do
     t.string "spouse_suffix"
     t.integer "spouse_tin_type"
     t.integer "spouse_us_citizen", default: 0, null: false
+    t.integer "spouse_visa", default: 0, null: false
     t.integer "spouse_was_blind", default: 0, null: false
     t.integer "spouse_was_full_time_student", default: 0, null: false
     t.string "state"
@@ -1698,9 +1702,9 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_13_222716) do
     t.integer "failed_attempts", default: 0, null: false
     t.string "ip_address"
     t.datetime "locked_at"
-    t.bigint "state_file_archived_intakes_id"
+    t.bigint "state_file_archived_intake_id"
     t.datetime "updated_at", null: false
-    t.index ["state_file_archived_intakes_id"], name: "idx_on_state_file_archived_intakes_id_31501c23f8"
+    t.index ["state_file_archived_intake_id"], name: "idx_on_state_file_archived_intake_id_7dd0f99380"
   end
 
   create_table "state_file_archived_intakes", force: :cascade do |t|
@@ -1926,6 +1930,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_13_222716) do
     t.bigint "spouse_state_id_id"
     t.string "spouse_suffix"
     t.decimal "total_purchase_amount", precision: 12, scale: 2
+    t.text "unfinished_intake_ids", default: [], array: true
     t.boolean "unsubscribed_from_email", default: false, null: false
     t.datetime "updated_at", null: false
     t.decimal "veterans_support_fund_donation", precision: 12, scale: 2
@@ -2121,6 +2126,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_13_222716) do
     t.string "street_address"
     t.integer "tribal_member", default: 0, null: false
     t.decimal "tribal_wages_amount", precision: 12, scale: 2
+    t.text "unfinished_intake_ids", default: [], array: true
     t.boolean "unsubscribed_from_email", default: false, null: false
     t.integer "untaxed_out_of_state_purchases", default: 0, null: false
     t.datetime "updated_at", null: false
@@ -2839,7 +2845,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_13_222716) do
   add_foreign_key "site_coordinator_roles_vita_partners", "vita_partners"
   add_foreign_key "source_parameters", "vita_partners"
   add_foreign_key "state_file_archived_intake_access_logs", "state_file_archived_intake_requests"
-  add_foreign_key "state_file_archived_intake_requests", "state_file_archived_intakes", column: "state_file_archived_intakes_id"
   add_foreign_key "state_routing_fractions", "state_routing_targets"
   add_foreign_key "state_routing_fractions", "vita_partners"
   add_foreign_key "system_notes", "clients"
