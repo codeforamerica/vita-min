@@ -1,14 +1,13 @@
 require "rails_helper"
 
 describe StateFile::AfterTransitionMessagingService do
-  include MockTwilio
   include ActiveJob::TestHelper
 
   let(:intake) do
     create :state_file_az_intake,
            primary_first_name: "Mona",
            email_address: "mona@example.com",
-           email_address_verified_at: 1.minute.ago,
+           email_address_verified_at: nil, # none of these notifications require verification so setting this to nil tests that the message sends anyway
            phone_number: "+15551115511",
            phone_number_verified_at: 1.minute.ago,
            message_tracker: {}
@@ -34,6 +33,7 @@ describe StateFile::AfterTransitionMessagingService do
         expect do
           messaging_service.send_efile_submission_accepted_message
         end.to change(StateFileNotificationEmail, :count).by(1)
+                                                         .and change(StateFileNotificationTextMessage, :count).by(1)
 
         expect(efile_submission.message_tracker).to include "messages.state_file.accepted_refund"
 
@@ -50,6 +50,7 @@ describe StateFile::AfterTransitionMessagingService do
         expect do
           messaging_service.send_efile_submission_accepted_message
         end.to change(StateFileNotificationEmail, :count).by(1)
+                                                         .and change(StateFileNotificationTextMessage, :count).by(1)
 
         expect(efile_submission.message_tracker).to include "messages.state_file.accepted_refund"
 
@@ -79,6 +80,7 @@ describe StateFile::AfterTransitionMessagingService do
         expect do
           messaging_service.send_efile_submission_accepted_message
         end.to change(StateFileNotificationEmail, :count).by(1)
+                                                         .and change(StateFileNotificationTextMessage, :count).by(1)
 
         expect(efile_submission.message_tracker).to include "messages.state_file.accepted_owe"
 
@@ -102,10 +104,11 @@ describe StateFile::AfterTransitionMessagingService do
   describe "#send_efile_submission_rejected_message" do
     let(:message) { StateFile::AutomatedMessage::Rejected }
 
-    it "sends the accepted refund" do
+    it "sends the rejected message" do
       expect do
         messaging_service.send_efile_submission_rejected_message
       end.to change(StateFileNotificationEmail, :count).by(1)
+                                                       .and change(StateFileNotificationTextMessage, :count).by(1)
 
       expect(efile_submission.message_tracker).to include "messages.state_file.rejected"
       expect(StateFile::MessagingService).to have_received(:new).with(intake: intake, submission: efile_submission, message: message, body_args: body_args)
@@ -115,20 +118,11 @@ describe StateFile::AfterTransitionMessagingService do
   describe "#send_efile_submission_terminal_rejected_message" do
     let(:message) { StateFile::AutomatedMessage::TerminalRejected }
 
-    it "sends the terminal rejected refund email" do
+    it "sends the terminal rejected refund email and text" do
       expect do
         messaging_service.send_efile_submission_terminal_rejected_message
       end.to change(StateFileNotificationEmail, :count).by(1)
-
-      expect(efile_submission.message_tracker).to include "messages.state_file.terminal_rejected"
-      expect(StateFile::MessagingService).to have_received(:new).with(intake: intake, submission: efile_submission, message: message, body_args: body_args)
-    end
-
-    it "sends the terminal rejected refund sms" do
-      expect do
-        messaging_service.send_efile_submission_terminal_rejected_message
-        perform_enqueued_jobs
-      end.to change(FakeTwilioClient.messages, :count).by(1)
+                                                       .and change(StateFileNotificationTextMessage, :count).by(1)
 
       expect(efile_submission.message_tracker).to include "messages.state_file.terminal_rejected"
       expect(StateFile::MessagingService).to have_received(:new).with(intake: intake, submission: efile_submission, message: message, body_args: body_args)
@@ -138,10 +132,11 @@ describe StateFile::AfterTransitionMessagingService do
   describe "#send_efile_submission_still_processing_message" do
     let(:message) { StateFile::AutomatedMessage::StillProcessing }
 
-    it "sends the accepted refund" do
+    it "sends the still processing email and text" do
       expect do
         messaging_service.send_efile_submission_still_processing_message
       end.to change(StateFileNotificationEmail, :count).by(1)
+                                                       .and change(StateFileNotificationTextMessage, :count).by(1)
 
       expect(efile_submission.message_tracker).to include "messages.state_file.still_processing"
       expect(StateFile::MessagingService).to have_received(:new).with(intake: intake, submission: efile_submission, message: message)
@@ -152,12 +147,13 @@ describe StateFile::AfterTransitionMessagingService do
     let(:message) { StateFile::AutomatedMessage::SuccessfulSubmission }
 
     context "intake has only one submission" do
-      let(:body_args) { { return_status_link: "http://statefile.test.localhost/en/questions/return-status", submitted_or_resubmitted: "submitted"} }
+      let(:body_args) { { return_status_link: "http://statefile.test.localhost/en/questions/return-status", submitted_or_resubmitted: "submitted" } }
 
       it "sends the successful submission message" do
         expect do
           messaging_service.send_efile_submission_successful_submission_message
         end.to change(StateFileNotificationEmail, :count).by(1)
+                                                         .and change(StateFileNotificationTextMessage, :count).by(1)
 
         expect(efile_submission.message_tracker).to include "messages.state_file.successful_submission"
         expect(StateFile::MessagingService).to have_received(:new).with(intake: intake, submission: efile_submission, message: message, body_args: body_args)
@@ -165,13 +161,14 @@ describe StateFile::AfterTransitionMessagingService do
     end
 
     context "intake has more than one submission" do
-      let(:body_args) { { return_status_link: "http://statefile.test.localhost/en/questions/return-status", submitted_or_resubmitted: "resubmitted"} }
+      let(:body_args) { { return_status_link: "http://statefile.test.localhost/en/questions/return-status", submitted_or_resubmitted: "resubmitted" } }
       let!(:second_efile_submission) { create :efile_submission, :for_state, data_source: intake }
 
       it "sends the successful submission message" do
         expect do
           messaging_service.send_efile_submission_successful_submission_message
         end.to change(StateFileNotificationEmail, :count).by(1)
+                                                         .and change(StateFileNotificationTextMessage, :count).by(1)
 
         expect(efile_submission.message_tracker).to include "messages.state_file.successful_submission"
         expect(StateFile::MessagingService).to have_received(:new).with(intake: intake, submission: efile_submission, message: message, body_args: body_args)
