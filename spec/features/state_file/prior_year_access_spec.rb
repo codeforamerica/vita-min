@@ -8,7 +8,8 @@ RSpec.feature "accessing a prior year PDF", active_job: true do
 
   context "get_your_pdf flag is enabled" do
     before do
-      Flipper.enable(:get_your_pdf)
+      allow(Flipper).to receive(:enabled?).and_call_original
+      allow(Flipper).to receive(:enabled?).with(:get_your_pdf).and_return(true)
     end
 
     it "has content" do

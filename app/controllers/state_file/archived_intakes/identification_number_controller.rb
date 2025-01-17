@@ -20,6 +20,7 @@ module StateFile
         if @form.valid?
           create_state_file_access_log("correct_ssn_challenge")
           current_request.reset_failed_attempts!
+          session[:ssn_verified] = true
           redirect_to root_path
           # need to change to address controller
         else
