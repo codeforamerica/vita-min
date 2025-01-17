@@ -2522,9 +2522,6 @@ en:
           property_tax_credit_heading_html: '<a href="https://azdor.gov/individuals/income-tax-filing-assistance/tax-credits" target="_blank" rel="noopener nofollow">Property Tax Credit</a>. To qualify for this credit you must:'
           property_tax_credit_income: have total household income less than $3,751 if you live alone; or total household income less than $5,501 if you live with others; and
           property_tax_credit_paid: have paid property taxes or rent on a home in Arizona during the year
-          public_school_tax_credit_heading_html: '<a href="https://azdor.gov/tax-credits/public-school-tax-credit" target="_blank" rel="noopener nofollow">Public School Tax Credit</a>. To qualify for this credit, you must:'
-          public_school_tax_credit_paid_fees: Have paid school-related fees or donated money to a public school
-          public_school_tax_credit_provide_info_html: Provide school information, including the <a href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_ADESchoolListing.pdf" target="_blank" rel="noopener nofollow">CTDS code</a>
         az_supported:
           charitable_contributions_credit: Credit for Contributions to Qualifying Charitable Organizations
           dependent_credit: Dependent Credit
