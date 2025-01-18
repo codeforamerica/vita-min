@@ -251,6 +251,7 @@ module PdfFiller
             "form1[0].page1[0].youSpouseWereIn[0].column2[0].totallyPermanentlyDisabled[0].disabledYou[0]" => @intake.had_disability_yes?,
             # TODO: Add "in the US on a visa"
             "form1[0].page1[0].youSpouseWereIn[0].column2[0].issuedIdentityProtection[0].identityProtectionYou[0]" => @intake.issued_identity_pin_yes?,
+              "form1[0].page1[0].liveWorkStates[0].liveWorkYes[0]" => @intake.multiple_states_yes?,
 
             # Spouse
             "form1[0].page1[0].youSpouseWereIn[0].column1[0].usCitizen[0].usCitizenSpouse[0]" => @intake.spouse_us_citizen_yes?,
@@ -267,6 +268,7 @@ module PdfFiller
             "form1[0].page1[0].youSpouseWereIn[0].column2[0].totallyPermanentlyDisabled[0].disabledNo[0]" => @intake.had_disability_no? && !@intake.spouse_had_disability_yes?,
             # TODO: Add "in the US on a visa"
             "form1[0].page1[0].youSpouseWereIn[0].column2[0].issuedIdentityProtection[0].identityProtectionNo[0]" => (!@intake.issued_identity_pin_yes? && !@intake.spouse_issued_identity_pin_yes?),
+            "form1[0].page1[0].liveWorkStates[0].liveWorkNo[0]" => @intake.multiple_states_no?,
 
             # People who have digital assets are considered out of scope
             "form1[0].page1[0].youSpouseWereIn[0].column2[0].holdDigitalAssets[0].digitalAssetsNo[0]" => true,
