@@ -42,6 +42,8 @@ module StateFile
       @sign_in_closed = app_time.after?(Rails.configuration.state_file_end_of_in_progress_intakes)
     end
 
+    def archived_intakes_verification_error; end
+
     private
 
     def transfer_url(key, redirect_url)

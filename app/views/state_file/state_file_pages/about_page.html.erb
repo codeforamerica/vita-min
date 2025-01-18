@@ -13,9 +13,19 @@
         <p><%= t(".subheader_3_html", login_path: login_options_path) %></p>
       </div>
 
-      <div class="white-group spacing-below-15 spacing-above-35">
-        <%= t(".section1_html", faq_link: state_faq_path(us_state: 'us')) %>
+      <div class="reveal">
+        <button class="reveal__button"><%= t('.helper_heading_html') %></button>
+        <div class="reveal__content">
+          <%= t(".section1_html", faq_link: state_faq_path(us_state: 'us')) %>
+        </div>
       </div>
+
+      <% unless Flipper.enabled?(:get_your_pdf) %>
+        <div>
+          <p class="text--bold"><%= t(".check_back_for_prior_year_returns") %></p>
+          <%= link_to t(".faq_prior_year_returns"), state_faq_section_path(us_state: :az, section_key: "how_can_i_access_my_2023_state_tax_return") %>
+        </div>
+      <% end %>
     <% else %>
       <div>
         <%= t(".closed_subheader_html") %>
@@ -42,4 +52,13 @@
     </div>
   <% end %>
 </section>
+<% end %>
+
+<% if Flipper.enabled?(:get_your_pdf) %>
+  <div>
+      <%= t(".looking_for_return_html")%>
+        <div class = "spacing-above-10">
+          <%= link_to t(".tax_return_link"), state_file_archived_intakes_edit_email_address_path %>
+        </div>
+  </div>
 <% end %>
