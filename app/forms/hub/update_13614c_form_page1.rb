@@ -103,8 +103,8 @@ module Hub
       modified_attributes[:ever_married] = modified_attributes.delete(:never_married) == "yes" ? "no" : "yes"
       modified_attributes[:dependents_attributes] = formatted_dependents_attributes
 
-      # why, just why? in an ideal world, these would never be nil to begin with.
-      modified_attributes[:primary_lived_or_worked_in_two_or_more_states] ||= 'unfilled'
+      # we are getting null violations from the database; the below lines fix that.
+      modified_attributes[:multiple_states] ||= 'unfilled'
       modified_attributes[:primary_owned_or_held_any_digital_currencies] ||= 'unfilled'
       modified_attributes[:spouse_issued_identity_pin] ||= 'unfilled'
       modified_attributes[:spouse_owned_or_held_any_digital_currencies] ||= 'unfilled'

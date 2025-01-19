@@ -88,6 +88,8 @@ RSpec.describe "a user editing a clients 13614c form" do
       select "No", from: I18n.t("hub.clients.edit_13614c_form_page1.fields.pay_due_balance_directly")
 
       select "No", from: I18n.t("hub.clients.edit_13614c_form_page1.fields.register_to_vote")
+
+      # multiple_states field
       select "No", from: I18n.t("hub.clients.edit_13614c_form_page1.fields.lived_or_worked_in_two_or_more_states")
 
       within "#dependents-fields" do

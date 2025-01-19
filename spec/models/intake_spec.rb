@@ -173,7 +173,6 @@
 #  primary_job_title                                    :string
 #  primary_last_four_ssn                                :text
 #  primary_last_name                                    :string
-#  primary_lived_or_worked_in_two_or_more_states        :integer          default(0), not null
 #  primary_middle_initial                               :string
 #  primary_owned_or_held_any_digital_currencies         :integer          default(0), not null
 #  primary_prior_year_agi_amount                        :integer

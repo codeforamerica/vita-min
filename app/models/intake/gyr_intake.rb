@@ -173,7 +173,6 @@
 #  primary_job_title                                    :string
 #  primary_last_four_ssn                                :text
 #  primary_last_name                                    :string
-#  primary_lived_or_worked_in_two_or_more_states        :integer          default("unfilled"), not null
 #  primary_middle_initial                               :string
 #  primary_owned_or_held_any_digital_currencies         :integer          default("unfilled"), not null
 #  primary_prior_year_agi_amount                        :integer
@@ -387,7 +386,6 @@ class Intake::GyrIntake < Intake
   enum paid_school_supplies: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :paid_school_supplies
   enum paid_student_loan_interest: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :paid_student_loan_interest
   enum phone_number_can_receive_texts: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :phone_number_can_receive_texts
-  enum primary_lived_or_worked_in_two_or_more_states: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_lived_or_worked_in_two_or_more_states
   enum primary_owned_or_held_any_digital_currencies: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_owned_or_held_any_digital_currencies
   enum primary_us_citizen: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_us_citizen
   enum primary_visa: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_visa
