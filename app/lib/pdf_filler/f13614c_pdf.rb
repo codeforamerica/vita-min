@@ -98,26 +98,34 @@ module PdfFiller
       answers["form1[0].page1[0].additionalSpace[0].additionalSpace[0]"] = @dependents.length > 3 ? "1" : nil
 
       answers.merge!(
-        yes_no_checkboxes("form1[0].page2[0].Part3[0].q1WagesOrSalary[0]", @intake.had_wages, include_unsure: true)
+        keep_and_normalize({
+          "form1[0].page2[0].receivedMoneyFrom[0].wagesPartFull[0]" => @intake.had_wages_yes?,
+          "form1[0].page2[0].receivedMoneyFrom[0].receivedMoneyTimps[0]" => @intake.had_tips_yes?,
+          "form1[0].page2[0].receivedMoneyFrom[0].retirementAccount[0]" => @intake.had_social_security_or_retirement_yes? && @intake.had_retirement_income_yes?,
+          "form1[0].page2[0].receivedMoneyFrom[0].disabilityBenefits[0].disabilityBenefits[0]" => @intake.had_disability_income_yes?,
+          "form1[0].page2[0].receivedMoneyFrom[0].socialSecurityRailroad[0]" => @intake.had_social_security_or_retirement_yes? && @intake.had_social_security_income_yes?,
+          "form1[0].page2[0].receivedMoneyFrom[0].unemploymentBenefits[0]" => @intake.had_unemployment_income_yes?,
+          "form1[0].page2[0].receivedMoneyFrom[0].refundStateLocal[0]" => @intake.wants_to_itemize_yes? && @intake.had_local_tax_refund_yes?,
+          "form1[0].page2[0].receivedMoneyFrom[0].interestOrDividends[0]" => @intake.had_interest_income_yes?,
+          "form1[0].page2[0].receivedMoneyFrom[0].saleStocksBonds[0]" => @intake.sold_assets_yes? && @intake.had_asset_sale_income_yes?,
+          "form1[0].page2[0].receivedMoneyFrom[0].reportALoss[0].reportLossYes[0]" => @intake.sold_assets_yes? && @intake.reported_asset_sale_loss_yes?,
+          "form1[0].page2[0].receivedMoneyFrom[0].reportALoss[0].reportLossNo[0]" => @intake.sold_assets_yes? && @intake.reported_asset_sale_loss_no?,
+          "form1[0].page2[0].receivedMoneyFrom[0].receivedAlimony[0]" => @intake.ever_married_yes? && @intake.received_alimony_yes?,
+          "form1[0].page2[0].receivedMoneyFrom[0].incomeRentingHouse[0].incomeRentingHouse[0]" => @intake.had_rental_income_yes?,
+          "form1[0].page2[0].receivedMoneyFrom[0].gamblingLotteryWinnings[0]" => @intake.wants_to_itemize_yes? && @intake.had_gambling_income_yes?,
+          "form1[0].page2[0].receivedMoneyFrom[0].paymentsContractSelf[0]" => @intake.had_self_employment_income_yes?,
+          "form1[0].page2[0].receivedMoneyFrom[0].lossLastReturn[0].reportLossYes[0]" => @intake.reported_self_employment_loss_yes?,
+          "form1[0].page2[0].receivedMoneyFrom[0].lossLastReturn[0].reportLossNo[0]" => @intake.reported_self_employment_loss_no?,
+          "form1[0].page2[0].receivedMoneyFrom[0].otherMoneyReceived[0].otherMoneyReceived[0]" => @intake.had_other_income_yes?
+        })
       )
+
+      answers["form1[0].page2[0].receivedMoneyFrom[0].howManyJobs[0]"] = @intake.job_count.to_s
+
       answers.merge!(
-        "form1[0].page2[0].Part3[0].q1WagesOrSalary[0].NumberOfJobs[0]" => @intake.job_count.to_s,
-      )
-      answers.merge!(
-        yes_no_checkboxes("form1[0].page2[0].Part3[0].q2TipIncome[0]", @intake.had_tips, include_unsure: true),
         yes_no_checkboxes("form1[0].page2[0].Part3[0].q3Scholarships[0]", @intake.had_scholarships, include_unsure: true),
-        yes_no_checkboxes("form1[0].page2[0].Part3[0].q4InterestDividendsFrom[0]", @intake.had_interest_income, include_unsure: true),
-        yes_no_checkboxes("form1[0].page2[0].Part3[0].q5RefundOfState[0]", fetch_gated_value(@intake, :had_local_tax_refund), include_unsure: true),
-        yes_no_checkboxes("form1[0].page2[0].Part3[0].q6AlimonyIncome[0]", fetch_gated_value(@intake, :received_alimony), include_unsure: true),
-        yes_no_checkboxes("form1[0].page2[0].Part3[0].q7SelfEmploymentIncome[0]", @intake.had_self_employment_income, include_unsure: true),
         yes_no_checkboxes("form1[0].page2[0].Part3[0].q8CashCheckPayments[0]", @intake.had_cash_check_digital_assets, include_unsure: true),
-        yes_no_checkboxes("form1[0].page2[0].Part3[0].q9Income[0]", collective_yes_no_unsure(fetch_gated_value(@intake, :had_asset_sale_income), fetch_gated_value(@intake, :reported_asset_sale_loss), fetch_gated_value(@intake, :sold_a_home)), include_unsure: true),
         yes_no_checkboxes("form1[0].page2[0].Part3[0].q10DisabilityIncome[0]", @intake.had_disability_income, include_unsure: true),
-        yes_no_checkboxes("form1[0].page2[0].Part3[0].q11RetirementIncome[0]", fetch_gated_value(@intake, :had_retirement_income), include_unsure: true),
-        yes_no_checkboxes("form1[0].page2[0].Part3[0].q12UnemploymentCompensation[0]", @intake.had_unemployment_income, include_unsure: true),
-        yes_no_checkboxes("form1[0].page2[0].Part3[0].q13SocialSecurityOr[0]", fetch_gated_value(@intake, :had_social_security_income), include_unsure: true),
-        yes_no_checkboxes("form1[0].page2[0].Part3[0].q14IncomeOrLoss[0]", @intake.had_rental_income, include_unsure: true),
-        yes_no_checkboxes("form1[0].page2[0].Part3[0].q15OtherIncome[0]", collective_yes_no_unsure(@intake.had_other_income, fetch_gated_value(@intake, :had_gambling_income)), include_unsure: true),
 
         yes_no_checkboxes("form1[0].page2[0].Part4[0].q1Alimony[0]", fetch_gated_value(@intake, :paid_alimony), include_unsure: true),
         yes_no_checkboxes("form1[0].page2[0].Part4[0].q1Alimony[0].IfYes[0]", @intake.has_ssn_of_alimony_recipient),
@@ -133,7 +141,6 @@ module PdfFiller
 
       answers.merge!(
         yes_no_checkboxes("form1[0].page2[0].Part4[0].q3PostSecondary[0]", @intake.paid_post_secondary_educational_expenses, include_unsure: true),
-        yes_no_checkboxes("form1[0].page2[0].Part4[0].q4Deductions[0]", @intake.wants_to_itemize, include_unsure: true),
       )
       answers.merge!(
         "form1[0].page2[0].Part4[0].q4Deductions[0].taxes[0]" => yes_no_unfilled_to_checkbox(fetch_gated_value(@intake, :paid_local_tax)),
