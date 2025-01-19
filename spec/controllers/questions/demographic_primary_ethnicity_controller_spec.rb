@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Questions::DemographicPrimaryEthnicityController do
-  # Skip for TY2024
+  # Skip for TY2024 - we've hidden this screen from the flow.
   xdescribe "#update" do
     context "with valid params" do
       let(:params) do
@@ -38,7 +38,7 @@ RSpec.describe Questions::DemographicPrimaryEthnicityController do
     end
   end
 
-  # Skip for TY2024
+  # Skip for TY2024 - we've hidden this screen from the flow.
   xdescribe 'next_path' do
     let(:intake) { create :intake, demographic_questions_opt_in: "yes", filing_joint: filing_joint }
 

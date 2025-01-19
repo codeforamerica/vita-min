@@ -3,6 +3,7 @@ class DemographicPrimaryRaceForm < QuestionsForm
                      :demographic_primary_american_indian_alaska_native,
                      :demographic_primary_black_african_american,
                      :demographic_primary_mena,
+                     :demographic_primary_hispanic_latino,
                      :demographic_primary_native_hawaiian_pacific_islander,
                      :demographic_primary_asian,
                      :demographic_primary_white,

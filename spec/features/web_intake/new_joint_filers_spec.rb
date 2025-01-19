@@ -579,11 +579,24 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     click_on "Continue"
     screenshot_after do
       expect(page).to have_selector("h1", text: "What is your race and/or ethnicity?")
+      check "American Indian or Alaska Native"
+      check "Native Hawaiian or other Pacific Islander"
+      check "Asian"
+      check "Black or African American"
+      check "Hispanic or Latino"
+      check "Middle Eastern or North African"
       check "White"
+
     end
     click_on "Continue"
     screenshot_after do
-      expect(page).to have_selector("h1", text: "What is your spouse's race and/or ethnicity?")
+    expect(page).to have_selector("h1", text: "What is your spouse's race and/or ethnicity?")
+      check "American Indian or Alaska Native"
+      check "Native Hawaiian or other Pacific Islander"
+      check "Asian"
+      check "Black or African American"
+      check "Hispanic or Latino"
+      check "Middle Eastern or North African"
       check "White"
     end
     click_on "Continue"
