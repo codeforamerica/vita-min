@@ -242,20 +242,23 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
       end
     end
 
-    context "az-8879" do
-      let(:intake) { create(:state_file_az_intake, :df_data_1099_int) }
+    context "AZ-8879 fields (E-file Signature Authorization)" do
+      let(:intake) { create(:state_file_az_intake) }
 
       before do
-        # allow_any_instance_of(Efile::Az::Az140Calculator).to receive(:calculate_line_79).and_return 500
-        # allow_any_instance_of(Efile::Az::Az140Calculator).to receive(:calculate_line_80).and_return 500
+        allow_any_instance_of(Efile::Az::Az140Calculator).to receive(:calculate_line_42).and_return 12000
+        allow_any_instance_of(Efile::Az::Az140Calculator).to receive(:calculate_line_52).and_return 500
+        allow_any_instance_of(Efile::Az::Az140Calculator).to receive(:calculate_line_53).and_return 100
+        allow_any_instance_of(Efile::Az::Az140Calculator).to receive(:calculate_line_79).and_return 120
+        allow_any_instance_of(Efile::Az::Az140Calculator).to receive(:calculate_line_80).and_return 0
       end
 
       it "fills in the lines correctly" do
-        expect(xml.css("AZAdjGrossIncome").text).to eq "2"
-        expect(xml.css("DeductionAmt BalanceOfTaxDue").text).to eq "2"
-        expect(xml.css("TotalPaymentAndCredits AzIncTaxWithheld").text).to eq "2"
-        expect(xml.css("RefundAmt").text).to eq "2"
-        expect(xml.css("AmtOwed").text).to eq "2"
+        expect(xml.css("AZAdjGrossIncome").text).to eq "12000"
+        expect(xml.css("DeductionAmt BalanceOfTaxDue").text).to eq "500"
+        expect(xml.css("TotalPaymentAndCredits AzIncTaxWithheld").text).to eq "100"
+        expect(xml.css("RefundAmt").text).to eq "120"
+        expect(xml.css("AmtOwed").text).to eq ""
       end
     end
   end
