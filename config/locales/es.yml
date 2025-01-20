@@ -751,7 +751,7 @@ es:
       edit_13614c_form_page1:
         fields:
           apt: Apt.
-          below_qualifying_relative_income_requirement: "¿Tenía esta persona menos de $4,400 de ingresos?"
+          below_qualifying_relative_income_requirement: "¿Tenía esta persona menos de $5,050 de ingresos?"
           blind: Legalmente invidente/ciego
           can_be_claimed_by_other: "¿Es esta persona que califica como hijo o familiar de otra persona?"
           claimed_by_another: "¿Puede alguien declarar a usted o a su cónyuge como dependiente?"

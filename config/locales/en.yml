@@ -742,7 +742,7 @@ en:
       edit_13614c_form_page1:
         fields:
           apt: Apt.
-          below_qualifying_relative_income_requirement: Did this person have less than $4,400 of income?
+          below_qualifying_relative_income_requirement: Did this person have less than $5,050 of income?
           blind: Legally blind
           can_be_claimed_by_other: Is this person a qualifying child/relative of any other person?
           claimed_by_another: Can anyone else claim the taxpayer or spouse on their tax return?
