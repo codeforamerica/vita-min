@@ -109,7 +109,7 @@ module Hub
     end
 
     # override what's in FormAttribute to prevent nils (which
-    # are causing database errors)
+    # are causing database null violation errors)
     def attributes_for(model)
       skip = [:job_count,
               :cv_w2s_count,
@@ -128,7 +128,8 @@ module Hub
               :cv_1099misc_count,
               :cv_1099nec_count,
               :cv_1099k_count,
-              :cv_schedule_c_expenses_amt]
+              :cv_schedule_c_expenses_amt,
+              :cv_p2_notes_comments]
       self.class.scoped_attributes[model].reduce({}) do |hash, attribute_name|
         v = send(attribute_name)
         unless skip.include? attribute_name

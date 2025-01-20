@@ -85,9 +85,8 @@
           <div class="grid__item width-one-half" style="display: flex; align-items: flex-start; justify-content: space-between;">
             <%= f.cfa_select(:had_unemployment_income, "(B) #{t(".fields.had_unemployment_income")}", yes_no_options_for_select) %>
           </div>
-          <div class="grid__item width-one-half" style="background-color:#e5e5e5; padding: 10px; display: block; align-items: flex-start; justify-content: space-between;">
+          <div class="grid__item width-one-half" style="background-color:#e5e5e5; padding: 10px; display: flex; align-items: flex-start; justify-content: space-between;">
             <%= f.cfa_select(:cv_1099g_cb, "(B) 1099-G", yes_no_options_for_select) %>
-            <%= f.cfa_input_field(:cv_1099r_charitable_dist_amt, "$", classes: ["form-width--short"]) %>
             <%= f.cfa_select(:cv_1099g_count, "#", (0..5).map { |num| [num.to_s, num] }, { include_blank: true }) %>
           </div>
         </div>
@@ -99,9 +98,13 @@
             <%= f.cfa_select(:had_local_tax_refund, "(B) #{t(".fields.had_local_tax_refund")}", yes_no_options_for_select) %>
           </div>
           <div class="grid__item width-one-half" style="background-color:#e5e5e5; padding: 10px; display: block; align-items: flex-start; justify-content: space-between;">
-            <%= f.cfa_select(:cv_local_tax_refund_cb, "(B) Refund", yes_no_options_for_select) %>
-            <%= f.cfa_input_field(:cv_local_tax_refund_amt, "$", classes: ["form-width--short"]) %>
-            <%= f.cfa_select(:cv_itemized_last_year_cb, "(B) Itemized last year", yes_no_options_for_select) %>
+            <table border=0 width="100%">
+              <tr>
+                <td><%= f.cfa_select(:cv_local_tax_refund_cb, "(B) Refund", yes_no_options_for_select) %>
+                <td align=right><%= f.cfa_input_field(:cv_local_tax_refund_amt, "$", classes: ["form-width--short"]) %>
+              <tr>
+                <td><%= f.cfa_select(:cv_itemized_last_year_cb, "(B) Itemized last year", yes_no_options_for_select) %>
+            </table>
           </div>
         </div>
         <hr style="margin: 5px;"/>
@@ -112,10 +115,12 @@
             <%= f.cfa_select(:had_interest_income, "(B) #{t(".fields.had_interest_income")}", yes_no_options_for_select) %>
           </div>
           <div class="grid__item width-one-half" style="background-color:#e5e5e5; padding: 10px; display: block; align-items: flex-start; justify-content: space-between;">
-            <%= f.cfa_select(:cv_1099int_cb, "(B) 1099-INT", yes_no_options_for_select) %>
-            <%= f.cfa_select(:cv_1099int_count, "#", (0..5).map { |num| [num.to_s, num] }, { include_blank: true }) %>
-            <%= f.cfa_select(:cv_1099div_cb, "(B) 1099-DIV", yes_no_options_for_select) %>
-            <%= f.cfa_select(:cv_1099div_count, "#", (0..5).map { |num| [num.to_s, num] }, { include_blank: true }) %>
+            <table width="100%">
+              <tr><td><%= f.cfa_select(:cv_1099int_cb, "(B) 1099-INT", yes_no_options_for_select) %>
+              <td align=right><%= f.cfa_select(:cv_1099int_count, "#", (0..5).map { |num| [num.to_s, num] }, { include_blank: true }) %>
+              <tr><td><%= f.cfa_select(:cv_1099div_cb, "(B) 1099-DIV", yes_no_options_for_select) %>
+              <td align=right><%= f.cfa_select(:cv_1099div_count, "#", (0..5).map { |num| [num.to_s, num] }, { include_blank: true }) %>
+            </table>
           </div>
         </div>
         <hr style="margin: 5px;"/>
@@ -126,8 +131,12 @@
             <%= f.cfa_select(:had_asset_sale_income, "(A) #{t(".fields.had_asset_sale_income")}", yes_no_options_for_select) %>
             <%= f.cfa_select(:reported_asset_sale_loss, "#{t(".fields.reported_asset_sale_loss")}", yes_no_options_for_select) %>
           </div>
-          <div class="grid__item width-one-half">
-            TODO
+          <div class="grid__item width-one-half" style="background-color:#e5e5e5; padding: 10px; display: block; align-items: flex-start; justify-content: space-between;">
+            <table width="100%">
+              <tr><td><%= f.cfa_select(:cv_1099b_cb, "(A) 1099-B (include brokerage statement)", yes_no_options_for_select) %>
+              <td align=right><%= f.cfa_select(:cv_1099b_count, "#", (0..5).map { |num| [num.to_s, num] }, { include_blank: true }) %>
+              <tr><td><%= f.cfa_select(:cv_capital_loss_carryover_cb, "Capital loss carryover", yes_no_options_for_select) %>
+            </table>
           </div>
         </div>
         <hr style="margin: 5px;"/>
@@ -137,8 +146,12 @@
           <div class="grid__item width-one-half">
         <%= f.cfa_select(:received_alimony, "(B) #{t(".fields.received_alimony")}", yes_no_options_for_select) %>
           </div>
-          <div class="grid__item width-one-half">
-            TODO
+          <div class="grid__item width-one-half" style="background-color:#e5e5e5; padding: 10px; display: block; align-items: flex-start; justify-content: space-between;">
+            <table width="100%">
+              <tr><td><%= f.cfa_select(:cv_alimony_income_cb, "(B) Alimony", yes_no_options_for_select) %>
+              <td align=right><%= f.cfa_input_field(:cv_alimony_income_amt, "$", classes: ["form-width--short"]) %>
+              <tr><td> <%= f.cfa_select(:cv_alimony_excluded_from_income_cb, "Excluded from income", yes_no_options_for_select) %>
+            </table>
           </div>
         </div>
         <hr style="margin: 5px;"/>
@@ -149,16 +162,20 @@
             <%= f.cfa_select(:had_rental_income, "(A/M) #{t(".fields.had_rental_income")}", yes_no_options_for_select) %>
             <%= f.cfa_select(:had_rental_income_and_used_dwelling_as_residence, "#{t(".fields.had_rental_income_and_used_dwelling_as_residence")}", yes_no_options_for_select) %>
           </div>
-          <div class="grid__item width-one-half">
-            TODO
+          <div class="grid__item width-one-half" style="background-color:#e5e5e5; padding: 10px; display: block; align-items: flex-start; justify-content: space-between;">
+            <table width="100%">
+              <tr><td><%= f.cfa_select(:cv_rental_income_cb, "(A/M) Rental income (Advanced when the dwelling is a personal residence and rented for fewer than 15 days)", yes_no_options_for_select) %>
+              <tr><td><%= f.cfa_select(:cv_rental_expense_cb, "Rental expense", yes_no_options_for_select) %>
+              <td align=right><%= f.cfa_input_field(:cv_rental_expense_amt, "$", classes: ["form-width--short"]) %>
+            </table>
           </div>
         </div>
         <div class="grid">
           <div class="grid__item width-one-half">
               <%= f.cfa_select(:had_rental_income_from_personal_property, "#{t(".fields.had_rental_income_from_personal_property")}", yes_no_options_for_select) %>
           </div>
-          <div class="grid__item width-one-half">
-            (will be blank)
+          <div class="grid__item width-one-half" style="background-color:#e5e5e5; padding: 10px; display: block; align-items: flex-start; justify-content: space-between;">
+            &nbsp;
           </div>
         </div>
         <hr style="margin: 5px;"/>
@@ -168,8 +185,10 @@
           <div class="grid__item width-one-half">
             <%= f.cfa_select(:had_gambling_income, "#{t(".fields.had_gambling_income")}", yes_no_options_for_select) %>
           </div>
-          <div class="grid__item width-one-half">
-            TODO
+          <div class="grid__item width-one-half" style="background-color:#e5e5e5; padding: 10px; display: block; align-items: flex-start; justify-content: space-between;">
+              <%= f.cfa_select(:cv_w2g_or_other_gambling_winnings_cb, "(B) W-2G or other gambling winnings (list losses below if taxpayer can itemize deductions)", yes_no_options_for_select) %>
+              <%= f.cfa_select(:cv_w2g_or_other_gambling_winnings_count, "#", (0..5).map { |num| [num.to_s, num] }, { include_blank: true }) %>
+            </table>
           </div>
         </div>
         <hr style="margin: 5px;"/>
@@ -180,8 +199,19 @@
         <%= f.cfa_select(:had_self_employment_income, "(A)  #{t(".fields.had_self_employment_income")}", yes_no_options_for_select) %>
         <%= f.cfa_select(:reported_self_employment_loss, "#{t(".fields.reported_self_employment_loss")}", yes_no_options_for_select) %>
           </div>
-          <div class="grid__item width-one-half">
-            TODO
+          <div class="grid__item width-one-half" style="background-color:#e5e5e5; padding: 10px; display: block; align-items: flex-start; justify-content: space-between;">
+            <table width="100%">
+              <tr><td><%= f.cfa_select(:cv_schedule_c_cb, "(A) Schedule C", yes_no_options_for_select) %>
+              <tr><td><%= f.cfa_select(:cv_1099misc_cb, "1099-MISC", yes_no_options_for_select) %>
+              <td align=right><%= f.cfa_select(:cv_1099misc_count, "#", (0..5).map { |num| [num.to_s, num] }, { include_blank: true }) %>
+              <tr><td><%= f.cfa_select(:cv_1099nec_cb, "1099-NEC", yes_no_options_for_select) %>
+              <td align=right><%= f.cfa_select(:cv_1099nec_count, "#", (0..5).map { |num| [num.to_s, num] }, { include_blank: true }) %>
+              <tr><td><%= f.cfa_select(:cv_1099k_cb, "1099-K", yes_no_options_for_select) %>
+              <td align=right><%= f.cfa_select(:cv_1099k_count, "#", (0..5).map { |num| [num.to_s, num] }, { include_blank: true }) %>
+              <tr><td><%= f.cfa_select(:cv_other_income_reported_elsewhere_cb, "Other income reported elsewhere", yes_no_options_for_select) %>
+              <tr><td><%= f.cfa_select(:cv_schedule_c_expenses_cb, "Schedule C expenses", yes_no_options_for_select) %>
+              <td align=right><%= f.cfa_input_field(:cv_schedule_c_expenses_amt, "$", classes: ["form-width--short"]) %>
+            </table>
           </div>
         </div>
 
@@ -191,11 +221,18 @@
           <div class="grid__item width-one-half">
             <%= f.cfa_select(:had_other_income, "#{t(".fields.had_other_income")}", yes_no_options_for_select) %>
           </div>
-          <div class="grid__item width-one-half">
-            TODO
+          <div class="grid__item width-one-half" style="background-color:#e5e5e5; padding: 10px; display: block; align-items: flex-start; justify-content: space-between;">
+              <%= f.cfa_select(:cv_other_income_cb, "Other income (see Pub 4012 for guidance on other income, i.e.,
+scope of service chart)", yes_no_options_for_select) %>
           </div>
         </div>
+
+        <!-- COMMENTS -->
         <hr style="margin: 5px;"/>
+        <div class="grid" style="background-color:#e5e5e5; padding: 10px; display: block; align-items: flex-start; justify-content: space-between;"">
+            <%= f.cfa_input_field(:cv_p2_notes_comments, "Notes/Comments", classes: ["form-width--long"]) %>
+          </div>
+        </div>
 
       </div> <!-- end of id="income-fields" -->
 
