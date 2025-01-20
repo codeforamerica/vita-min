@@ -439,7 +439,7 @@ class Intake::GyrIntake < Intake
   enum paid_self_employment_expenses: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :paid_self_employment_expenses
   enum had_capital_loss_carryover: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_capital_loss_carryover
   enum receive_written_communication: { unfilled: 0, yes: 1, no: 2 }, _prefix: :receive_written_communication
-  enum presidential_campaign_fund_donation: { unfilled: 0, primary: 1, spouse: 2, primary_and_spouse: 3 }, _prefix: :presidential_campaign_fund_donation
+  enum presidential_campaign_fund_donation: { unfilled: 0, primary: 1, spouse: 2, primary_and_spouse: 3, no: 4 }, _prefix: :presidential_campaign_fund_donation
   enum register_to_vote: { unfilled: 0, yes: 1, no: 2 }, _prefix: :register_to_vote
 
   belongs_to :matching_previous_year_intake, class_name: "Intake::GyrIntake", optional: true
