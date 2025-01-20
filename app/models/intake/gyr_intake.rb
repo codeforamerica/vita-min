@@ -186,6 +186,7 @@
 #  primary_suffix                                       :string
 #  primary_tin_type                                     :integer
 #  primary_us_citizen                                   :integer          default("unfilled"), not null
+#  primary_visa                                         :integer          default("unfilled"), not null
 #  product_year                                         :integer          not null
 #  receive_written_communication                        :integer          default("unfilled"), not null
 #  received_advance_ctc_payment                         :integer
@@ -241,6 +242,7 @@
 #  spouse_suffix                                        :string
 #  spouse_tin_type                                      :integer
 #  spouse_us_citizen                                    :integer          default("unfilled"), not null
+#  spouse_visa                                          :integer          default("unfilled"), not null
 #  spouse_was_blind                                     :integer          default("unfilled"), not null
 #  spouse_was_full_time_student                         :integer          default("unfilled"), not null
 #  state                                                :string
@@ -310,6 +312,8 @@
 #
 #  fk_rails_...  (client_id => clients.id)
 #  fk_rails_...  (matching_previous_year_intake_id => intakes.id)
+#  fk_rails_...  (primary_drivers_license_id => drivers_licenses.id)
+#  fk_rails_...  (spouse_drivers_license_id => drivers_licenses.id)
 #  fk_rails_...  (vita_partner_id => vita_partners.id)
 #
 class Intake::GyrIntake < Intake
@@ -385,6 +389,7 @@ class Intake::GyrIntake < Intake
   enum paid_student_loan_interest: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :paid_student_loan_interest
   enum phone_number_can_receive_texts: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :phone_number_can_receive_texts
   enum primary_us_citizen: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_us_citizen
+  enum primary_visa: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_visa
   enum received_alimony: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :received_alimony
   enum received_homebuyer_credit: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :received_homebuyer_credit
   enum received_irs_letter: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :received_irs_letter
@@ -403,6 +408,7 @@ class Intake::GyrIntake < Intake
   enum spouse_us_citizen: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_us_citizen
   enum spouse_was_full_time_student: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_was_full_time_student
   enum spouse_was_blind: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_was_blind
+  enum spouse_visa: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_visa
   enum was_blind: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :was_blind
   enum was_full_time_student: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :was_full_time_student
   enum widowed: { unfilled: 0, yes: 1, no: 2 }, _prefix: :widowed

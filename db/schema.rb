@@ -11,6 +11,7 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.1].define(version: 2025_01_19_200253) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1328,6 +1329,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_19_200253) do
     t.string "primary_suffix"
     t.integer "primary_tin_type"
     t.integer "primary_us_citizen", default: 0, null: false
+    t.integer "primary_visa", default: 0, null: false
     t.integer "product_year", null: false
     t.integer "receive_written_communication", default: 0, null: false
     t.integer "received_advance_ctc_payment"
@@ -1384,6 +1386,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_19_200253) do
     t.string "spouse_suffix"
     t.integer "spouse_tin_type"
     t.integer "spouse_us_citizen", default: 0, null: false
+    t.integer "spouse_visa", default: 0, null: false
     t.integer "spouse_was_blind", default: 0, null: false
     t.integer "spouse_was_full_time_student", default: 0, null: false
     t.string "state"
@@ -1615,6 +1618,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_19_200253) do
     t.string "payer_zip"
     t.integer "recipient", default: 0, null: false
     t.string "recipient_city"
+    t.string "recipient_state"
     t.string "recipient_street_address"
     t.string "recipient_street_address_apartment"
     t.string "recipient_zip"
@@ -1685,6 +1689,39 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_19_200253) do
     t.datetime "updated_at", null: false
     t.string "zip_code"
     t.index ["record_type", "record_id"], name: "index_state_file_analytics_on_record"
+  end
+
+  create_table "state_file_archived_intake_access_logs", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.jsonb "details", default: "{}"
+    t.integer "event_type"
+    t.bigint "state_file_archived_intake_request_id"
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "state_file_archived_intake_requests", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "email_address"
+    t.integer "failed_attempts", default: 0, null: false
+    t.string "ip_address"
+    t.datetime "locked_at"
+    t.bigint "state_file_archived_intake_id"
+    t.datetime "updated_at", null: false
+    t.index ["state_file_archived_intake_id"], name: "idx_on_state_file_archived_intake_id_7dd0f99380"
+  end
+
+  create_table "state_file_archived_intakes", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "email_address"
+    t.string "hashed_ssn"
+    t.string "mailing_apartment"
+    t.string "mailing_city"
+    t.string "mailing_state"
+    t.string "mailing_street"
+    t.string "mailing_zip"
+    t.string "state_code"
+    t.integer "tax_year"
+    t.datetime "updated_at", null: false
   end
 
   create_table "state_file_az1099_r_followups", force: :cascade do |t|
@@ -1896,6 +1933,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_19_200253) do
     t.bigint "spouse_state_id_id"
     t.string "spouse_suffix"
     t.decimal "total_purchase_amount", precision: 12, scale: 2
+    t.text "unfinished_intake_ids", default: [], array: true
     t.boolean "unsubscribed_from_email", default: false, null: false
     t.datetime "updated_at", null: false
     t.decimal "veterans_support_fund_donation", precision: 12, scale: 2
@@ -2091,6 +2129,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_19_200253) do
     t.string "street_address"
     t.integer "tribal_member", default: 0, null: false
     t.decimal "tribal_wages_amount", precision: 12, scale: 2
+    t.text "unfinished_intake_ids", default: [], array: true
     t.boolean "unsubscribed_from_email", default: false, null: false
     t.integer "untaxed_out_of_state_purchases", default: 0, null: false
     t.datetime "updated_at", null: false
@@ -2235,6 +2274,20 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_19_200253) do
     t.string "to", null: false
     t.datetime "updated_at", null: false
     t.index ["data_source_type", "data_source_id"], name: "index_state_file_notification_emails_on_data_source"
+  end
+
+  create_table "state_file_notification_text_messages", force: :cascade do |t|
+    t.string "body", null: false
+    t.datetime "created_at", null: false
+    t.bigint "data_source_id"
+    t.string "data_source_type"
+    t.string "error_code"
+    t.datetime "sent_at"
+    t.string "to_phone_number", null: false
+    t.string "twilio_sid"
+    t.string "twilio_status"
+    t.datetime "updated_at", null: false
+    t.index ["data_source_type", "data_source_id"], name: "index_state_file_notification_text_messages_on_data_source"
   end
 
   create_table "state_file_ny_intakes", force: :cascade do |t|
@@ -2778,6 +2831,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_19_200253) do
   add_foreign_key "incoming_text_messages", "clients"
   add_foreign_key "intake_archives", "intakes", column: "id"
   add_foreign_key "intakes", "clients"
+  add_foreign_key "intakes", "drivers_licenses", column: "primary_drivers_license_id"
+  add_foreign_key "intakes", "drivers_licenses", column: "spouse_drivers_license_id"
   add_foreign_key "intakes", "intakes", column: "matching_previous_year_intake_id"
   add_foreign_key "intakes", "vita_partners"
   add_foreign_key "notes", "clients"
@@ -2792,6 +2847,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_19_200253) do
   add_foreign_key "site_coordinator_roles_vita_partners", "site_coordinator_roles"
   add_foreign_key "site_coordinator_roles_vita_partners", "vita_partners"
   add_foreign_key "source_parameters", "vita_partners"
+  add_foreign_key "state_file_archived_intake_access_logs", "state_file_archived_intake_requests"
   add_foreign_key "state_routing_fractions", "state_routing_targets"
   add_foreign_key "state_routing_fractions", "vita_partners"
   add_foreign_key "system_notes", "clients"

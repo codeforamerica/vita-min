@@ -287,7 +287,9 @@ module Efile
       end
 
       def calculate_line_15
-        Efile::Nj::NjStateWages.calculate_state_wages(@intake)
+        @intake.state_file_w2s.sum do |w2|
+          w2.state_wages_amount.to_i
+        end
       end
 
       def calculate_line_16a
@@ -374,7 +376,11 @@ module Efile
       end
 
       def calculate_line_42
-        should_use_property_tax_deduction ? line_or_zero(:NJ1040_LINE_39) - calculate_property_tax_deduction : line_or_zero(:NJ1040_LINE_39)
+        if should_use_property_tax_deduction
+          [line_or_zero(:NJ1040_LINE_39) - calculate_property_tax_deduction, 0].max
+        else
+          line_or_zero(:NJ1040_LINE_39)
+        end
       end
 
       def calculate_line_43

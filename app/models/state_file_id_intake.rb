@@ -69,6 +69,7 @@
 #  spouse_months_ineligible_for_grocery_credit    :integer
 #  spouse_suffix                                  :string
 #  total_purchase_amount                          :decimal(12, 2)
+#  unfinished_intake_ids                          :text             default([]), is an Array
 #  unsubscribed_from_email                        :boolean          default(FALSE), not null
 #  veterans_support_fund_donation                 :decimal(12, 2)
 #  withdraw_amount                                :integer
@@ -96,9 +97,6 @@ class StateFileIdIntake < StateFileBaseIntake
   enum primary_has_grocery_credit_ineligible_months: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_has_grocery_credit_ineligible_months
   enum spouse_has_grocery_credit_ineligible_months: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_has_grocery_credit_ineligible_months
   enum received_id_public_assistance: { unfilled: 0, yes: 1, no: 2 }, _prefix: :received_id_public_assistance
-  enum email_notification_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :email_notification_opt_in
-  enum sms_notification_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :sms_notification_opt_in
-  enum consented_to_sms_terms: { unfilled: 0, yes: 1, no: 2 }, _prefix: :consented_to_sms_terms
 
   def disqualifying_df_data_reason; end
 

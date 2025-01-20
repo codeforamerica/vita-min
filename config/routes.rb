@@ -552,9 +552,18 @@ Rails.application.routes.draw do
     get '/.well-known/pki-validation/:id', to: 'public_pages#pki_validation'
   end
 
+  devise_for :state_file_archived_intake_requests
+
   constraints(Routes::StateFileDomain.new) do
     scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
       namespace :state_file do
+        namespace :archived_intakes do
+          get 'email_address/edit', to: 'email_address#edit', as: 'edit_email_address'
+          patch 'email_address', to: 'email_address#update'
+          get 'verification_code/edit', to: 'verification_code#edit', as: 'edit_verification_code'
+          patch 'verification_code', to: 'verification_code#update'
+          get 'verification_error', to: "/state_file/state_file_pages#archived_intakes_verification_error"
+        end
         namespace :questions do
           get "show_xml", to: "confirmation#show_xml"
           get "explain_calculations", to: "confirmation#explain_calculations"

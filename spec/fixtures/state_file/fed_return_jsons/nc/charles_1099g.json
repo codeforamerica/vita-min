@@ -1,0 +1,36 @@
+{
+  "familyAndHousehold": [],
+  "filers": [
+    {
+      "lastName": "Xavier",
+      "dateOfBirth": "1963-10-10",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "firstName": "Charles",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "145-00-2905",
+      "interestReportsTotal": "0.00",
+      "isDisabled": false,
+      "form1099GsTotal": "10500.00",
+      "isStudent": false,
+      "ssnNotValidForEmployment": null,
+      "hsaTotalDeductibleAmount": null
+    }
+  ],
+  "form1099Gs": [
+    {
+      "has1099": true,
+      "stateTaxWithheld": "100.00",
+      "amount": "10500.00",
+      "amountPaidBackForBenefitsInTaxYear": "0.00",
+      "federalTaxWithheld": "500.00",
+      "stateIdNumber": "123456789",
+      "payerTin": "56-6000756",
+      "payer": "NC Department of Commerce",
+      "recipientTin": "145-00-2905"
+    }
+  ],
+  "formW2s": [],
+  "interestReports": []
+}

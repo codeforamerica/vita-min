@@ -8,7 +8,6 @@ module SubmissionBuilder
 
             def document
               form1099g = @kwargs[:form1099g]
-              state_abbreviation = "MD"
 
               build_xml_doc("MD1099G", documentId: "MD1099G-#{form1099g.id}") do |xml|
                 if form1099g.payer_name.present?
@@ -19,7 +18,7 @@ module SubmissionBuilder
                     xml.Address do
                       xml.AddressLine1Txt sanitize_for_xml(form1099g.payer_street_address.tr('-', ' '), 35)
                       xml.CityNm sanitize_for_xml(form1099g.payer_city, 22)
-                      xml.StateAbbreviationCd state_abbreviation
+                      xml.StateAbbreviationCd "MD"
                       xml.ZIPCd form1099g.payer_zip
                     end
                     xml.IDNumber form1099g.payer_tin
@@ -38,7 +37,7 @@ module SubmissionBuilder
                       xml.AddressLine1Txt sanitize_for_xml(form1099g.recipient_address_line1, 35)
                       xml.AddressLine2Txt sanitize_for_xml(form1099g.recipient_address_line2, 35) if form1099g.recipient_address_line2.present?
                       xml.CityNm sanitize_for_xml(form1099g.recipient_city, 22)
-                      xml.StateAbbreviationCd state_abbreviation
+                      xml.StateAbbreviationCd form1099g.recipient_state
                       xml.ZIPCd sanitize_for_xml(form1099g.recipient_zip)
                     end
                   end

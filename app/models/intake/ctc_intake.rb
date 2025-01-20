@@ -186,6 +186,7 @@
 #  primary_suffix                                       :string
 #  primary_tin_type                                     :integer
 #  primary_us_citizen                                   :integer          default(0), not null
+#  primary_visa                                         :integer          default(0), not null
 #  product_year                                         :integer          not null
 #  receive_written_communication                        :integer          default(0), not null
 #  received_advance_ctc_payment                         :integer
@@ -241,6 +242,7 @@
 #  spouse_suffix                                        :string
 #  spouse_tin_type                                      :integer
 #  spouse_us_citizen                                    :integer          default(0), not null
+#  spouse_visa                                          :integer          default(0), not null
 #  spouse_was_blind                                     :integer          default("unfilled"), not null
 #  spouse_was_full_time_student                         :integer          default(0), not null
 #  state                                                :string
@@ -310,6 +312,8 @@
 #
 #  fk_rails_...  (client_id => clients.id)
 #  fk_rails_...  (matching_previous_year_intake_id => intakes.id)
+#  fk_rails_...  (primary_drivers_license_id => drivers_licenses.id)
+#  fk_rails_...  (spouse_drivers_license_id => drivers_licenses.id)
 #  fk_rails_...  (vita_partner_id => vita_partners.id)
 #
 class Intake::CtcIntake < Intake

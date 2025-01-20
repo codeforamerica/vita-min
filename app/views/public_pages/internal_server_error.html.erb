@@ -1,10 +1,10 @@
 <% content_for :page_title, t("general.error.sorry_something_went_wrong") %>
 
-<main role="main">
+<div class="main-content-inner">
   <section class="slab slab--white">
     <div class="grid">
       <div class="grid__item width-three-fourths">
-        <main role="main">
+        <div class="main-content-inner">
           <div class="offboarding--illustration">
             <%= image_tag("server-error.svg", alt: "") %>
           </div>
@@ -31,8 +31,8 @@
               <%=t("views.public_pages.error.cta") %>
             <% end %>
           </div>
-        </main>
+        </div>
       </div>
     </div>
   </section>
-</main>
+</div>
