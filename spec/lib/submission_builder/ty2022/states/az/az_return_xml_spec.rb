@@ -247,7 +247,7 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
 
       before do
         # allow_any_instance_of(Efile::Az::Az140Calculator).to receive(:calculate_line_79).and_return 500
-        # allow_any_instance_of(Efile::Az::Az140Calculator).to receive(:calculate_line_79).and_return 500
+        # allow_any_instance_of(Efile::Az::Az140Calculator).to receive(:calculate_line_80).and_return 500
       end
 
       it "fills in the lines correctly" do
