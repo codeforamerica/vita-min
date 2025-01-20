@@ -17,7 +17,7 @@ RSpec.describe StateFile::Questions::BaseReviewController do
     context 'when income documents are present' do
       let(:intake) { create :state_file_id_intake }
 
-      it 'returns false' do
+      it 'returns true' do
         expect(controller.send(:income_documents_present?)).to be_truthy
       end
     end

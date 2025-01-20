@@ -372,7 +372,7 @@ en:
       stepsister: Stepsister
       uncle: Uncle
     dependents: Dependents
-    description: A simple and free state filing tool for Arizona and New York taxpayers using IRS Direct File.
+    description: A free state filing service for taxpayers using IRS Direct File.
     divorced: Divorced
     document_deadline: In order to file by the deadline, we need all required documents by October 8th.
     document_type: Document type
@@ -2051,6 +2051,11 @@ en:
           subtitle_html_2: If you still need help resubscribing, chat with us.
           title_html: We’ve sent your code to <strong>%{email_address}</strong>
           verify: Verify code
+      verification_error:
+        az_dor: Arizona Department of Revenue
+        ny_dor: NY State Tax Department
+        subtitle: Please visit your state's tax agency website to request your %{year} tax return
+        title: Sorry, we were not able to verify your account
     faq:
       index:
         title: Common questions from %{state} taxpayers
@@ -2215,6 +2220,12 @@ en:
         title_closed: Our free %{state_name} tax filing service is closed for the season
         welcome_back: Welcome back %{user_name}!
     navigation:
+      nj:
+        section_1: 'Section 1: Income'
+        section_2: 'Section 2: Your household'
+        section_3: 'Section 3: Deductions and credits'
+        section_4: 'Section 4: Your %{filing_year} taxes'
+        section_5: 'Section 5: Review and submit'
       section_1: 'Section 1: Can you use this service'
       section_2: 'Section 2: Create account'
       section_3: 'Section 3: Terms and conditions'
@@ -2493,9 +2504,6 @@ en:
           property_tax_credit_heading_html: '<a href="https://azdor.gov/individuals/income-tax-filing-assistance/tax-credits" target="_blank" rel="noopener nofollow">Property Tax Credit</a>. To qualify for this credit you must:'
           property_tax_credit_income: have total household income less than $3,751 if you live alone; or total household income less than $5,501 if you live with others; and
           property_tax_credit_paid: have paid property taxes or rent on a home in Arizona during the year
-          public_school_tax_credit_heading_html: '<a href="https://azdor.gov/tax-credits/public-school-tax-credit" target="_blank" rel="noopener nofollow">Public School Tax Credit</a>. To qualify for this credit, you must:'
-          public_school_tax_credit_paid_fees: Have paid school-related fees or donated money to a public school
-          public_school_tax_credit_provide_info_html: Provide school information, including the <a href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_ADESchoolListing.pdf" target="_blank" rel="noopener nofollow">CTDS code</a>
         az_supported:
           charitable_contributions_credit: Credit for Contributions to Qualifying Charitable Organizations
           dependent_credit: Dependent Credit
@@ -3074,7 +3082,7 @@ en:
           select_one: 'Select one of the following:'
           state_specific:
             nc:
-              manual_instructions_html: (<a href="https://www.ncdor.gov/2023-d-401-individual-income-tax-instructions/open" target="_blank" rel="noopener noreferrer">Learn more here</a> and search for 'consumer use worksheet').
+              manual_instructions_html: (<a href="https://www.ncdor.gov/2024-d-401-individual-income-tax-instructions/open" target="_blank" rel="noopener noreferrer">Learn more here</a> and search for 'consumer use worksheet').
           subtitle_html: This includes online purchases where sales tax was <b>not</b> applied.
           title:
             one: Did you make any out-of-state purchases in %{year} without paying sales tax?
@@ -3279,6 +3287,8 @@ en:
           on_home: on the home you lived in and owned.
           on_rental: on the home you lived in and rented.
           reason_html: You are not eligible for this because <b>%{reason}</b>
+          reason_income_mfj_qss_hoh: you did not meet the income filing threshold of $20,000.
+          reason_income_single_mfs: you did not meet the income filing threshold of $10,000.
           reason_multi_unit_conditions: this main home in a multi-unit building did not meet the requirements to claim this credit or deduction.
           reason_neither: you must have rented or owned a main home in %{filing_year} to receive this credit or deduction.
           reason_property_taxes: did not pay property taxes (directly, or through rent) on this main home.
@@ -3701,6 +3711,7 @@ en:
           your_name: Your name
         review_header:
           income_details: Income Details
+          income_forms_collected: 'Income form(s) collected:'
           your_refund: Your refund amount
           your_tax_owed: Your taxes owed
       sms_terms:
@@ -3883,10 +3894,12 @@ en:
           title_html: Just a moment, we’re transferring your federal tax return to complete parts of your state return.
     state_file_pages:
       about_page:
+        check_back_for_prior_year_returns: Check back at the start of filing season to download your 2023 Arizona or New York State tax return.
         closed_subheader_html: |
           <strong>FileYourStateTaxes</strong> integrates with <strong>IRS Direct File</strong> to help you complete your state tax return <strong>for free.</strong> <br/><br/>
           <strong>We're closed for the tax season. Unfortunately you can no longer file your state return with us this year.</strong><br /><br />
           Already filed your state taxes with us? <strong>You can download a copy of your state return until December 31, 2024</strong><br /><br />
+        faq_prior_year_returns: Visit our FAQ for questions about prior year returns
         header: A free state filing service for taxpayers using IRS Direct File
         helper_heading_html: "<strong>How does this service work? </strong>"
         looking_for_return_html: "<strong>Looking for your 2023 Arizona or New York State Tax Return?</strong>"
@@ -6125,8 +6138,9 @@ en:
         options:
           had_disability: I had a permanent disability
           was_blind: I was legally blind
+          was_citizen: I was a US citizen
           was_full_time_student: I was a full-time student in a college or a trade school
-          was_not_citizen: I was not a US citizen
+          was_on_visa: I was in the US on a visa
         title: Select any situations that were true for you in %{year}
       lived_with_spouse:
         title: Did you live with your spouse during any part of the last six months of %{year}?
@@ -6283,8 +6297,9 @@ en:
         options:
           had_disability: They had a permanent disability
           was_blind: They were legally blind
+          was_citizen: They were a US citizen
           was_full_time_student: They were a full-time student in a college or a trade school
-          was_not_citizen: They were not a US citizen
+          was_on_visa: They were in the US on a visa
         title: Select any situations that were true for your spouse in %{year}
       ssn_itin:
         title: Please provide your taxpayer identification information.
