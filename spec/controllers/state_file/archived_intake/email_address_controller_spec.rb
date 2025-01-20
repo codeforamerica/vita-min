@@ -34,7 +34,7 @@ RSpec.describe StateFile::ArchivedIntakes::EmailAddressController, type: :contro
           request = StateFileArchivedIntakeRequest.last
           expect(request.ip_address).to eq(ip_address)
           expect(request.email_address).to eq(valid_email_address)
-          expect(request.state_file_archived_intakes_id).to eq(archived_intake.id)
+          expect(request.state_file_archived_intake_id).to eq(archived_intake.id)
 
           log = StateFileArchivedIntakeAccessLog.last
           expect(log.state_file_archived_intake_request_id).to eq(request.id)
@@ -56,7 +56,7 @@ RSpec.describe StateFile::ArchivedIntakes::EmailAddressController, type: :contro
           request = StateFileArchivedIntakeRequest.last
           expect(request.ip_address).to eq(ip_address)
           expect(request.email_address).to eq(valid_email_address)
-          expect(request.state_file_archived_intakes_id).to eq(nil)
+          expect(request.state_file_archived_intake_id).to eq(nil)
 
           log = StateFileArchivedIntakeAccessLog.last
           expect(log.state_file_archived_intake_request_id).to eq(request.id)

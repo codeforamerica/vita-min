@@ -1,0 +1,101 @@
+{
+  "familyAndHousehold": [
+    {
+      "monthsLivedWithTPInUS": "twelve",
+      "lastName": "Kent",
+      "hohQualifyingPerson": null,
+      "isClaimedDependent": true,
+      "qualifyingChild": true,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": true,
+      "dateOfBirth": "2004-06-07",
+      "suffix": null,
+      "residencyDuration": "allYear",
+      "firstName": "Kara",
+      "middleInitial": null,
+      "scheduleEicLine4aNo": false,
+      "tin": "600-00-1213",
+      "eligibleDependent": true,
+      "relationship": "biologicalChild",
+      "ssnNotValidForEmployment": false
+    },
+    {
+      "monthsLivedWithTPInUS": "twelve",
+      "lastName": "Kent",
+      "hohQualifyingPerson": null,
+      "isClaimedDependent": true,
+      "qualifyingChild": true,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "2020-02-29",
+      "suffix": null,
+      "residencyDuration": "allYear",
+      "firstName": "Clark",
+      "middleInitial": null,
+      "scheduleEicLine4aNo": false,
+      "tin": "600-00-1214",
+      "eligibleDependent": true,
+      "relationship": "adoptedChild",
+      "ssnNotValidForEmployment": false
+    }
+  ],
+  "filers": [
+    {
+      "lastName": "Kent",
+      "dateOfBirth": "1980-12-05",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "firstName": "Jonathan",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "300-00-1211",
+      "interestReportsTotal": "0.00",
+      "isDisabled": false,
+      "form1099GsTotal": "0.00",
+      "isStudent": false,
+      "ssnNotValidForEmployment": null,
+      "hsaTotalDeductibleAmount": null
+    },
+    {
+      "lastName": "Kent",
+      "dateOfBirth": "1978-08-08",
+      "suffix": null,
+      "isPrimaryFiler": false,
+      "firstName": "Martha",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "400-00-1212",
+      "interestReportsTotal": "800.00",
+      "isDisabled": false,
+      "form1099GsTotal": "0.00",
+      "isStudent": false,
+      "ssnNotValidForEmployment": null,
+      "hsaTotalDeductibleAmount": null
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [
+    {
+      "usedTin": "300-00-1211",
+      "unionDuesAmount": null
+    },
+    {
+      "usedTin": "400-00-1212",
+      "unionDuesAmount": null
+    }
+  ],
+  "interestReports": [
+    {
+      "has1099": true,
+      "taxExemptAndTaxCreditBondCusipNo": null,
+      "interestOnGovernmentBonds": "500.00",
+      "taxExemptInterest": "0.00",
+      "payerTin": null,
+      "recipientTin": "400-00-1212",
+      "payer": "Superhero Investments Ltd",
+      "taxWithheld": "0.00",
+      "no1099Amount": null,
+      "1099Amount": "800.00"
+    }
+  ]
+}

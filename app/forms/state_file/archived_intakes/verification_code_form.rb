@@ -10,6 +10,8 @@ module StateFile
       end
 
       def valid?
+        return true if Rails.configuration.allow_magic_verification_code && verification_code == "000000"
+
         hashed_verification_code = VerificationCodeService.hash_verification_code_with_contact_info(@email_address, verification_code)
 
         valid_code = EmailAccessToken.lookup(hashed_verification_code).exists?

@@ -2,7 +2,7 @@
 <% content_for :page_title, title %>
 <% content_for :card do %>
   <h1 class="h2"><%= title %></h1>
-  <p><%= t(".subtitle", start_year: current_tax_year - 5, end_year: current_tax_year - 2) %></p>
+  <p><%= t(".subtitle", start_year: current_tax_year - 4, end_year: current_tax_year - 1) %></p>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="question-with-follow-up">

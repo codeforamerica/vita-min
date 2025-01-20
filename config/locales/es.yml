@@ -374,7 +374,7 @@ es:
       stepsister: Hermanastra
       uncle: Tío
     dependents: Dependientes
-    description: Una herramienta de presentación de impuestos estatales simple y gratis para los contribuyentes de Arizona y Nueva York que utilizan IRS Direct File.
+    description: Un servicio gratuito de presentación de impuestos estatales para los contribuyentes que utilizan IRS Direct File.
     divorced: Divorciado
     document_deadline: Para presentar su declaración de impuestos antes de la fecha límite, necesitamos todos los documentos requeridos antes del 8 de octubre.
     document_type: Clase de documento
@@ -2026,6 +2026,11 @@ es:
           subtitle_html_2: Si aún necesitas ayuda para resuscribirte, chatea con nosotros.
           title_html: Hemos enviado tu código a <strong>%{email_address}</strong>
           verify: Verificar el código
+      verification_error:
+        az_dor: Departamento de Ingresos de Arizona
+        ny_dor: Departamento de Impuestos del Estado de Nueva York
+        subtitle: Visite el sitio web de la agencia tributaria de su estado para solicitar su declaración de impuestos de %{year}
+        title: Lo sentimos, no pudimos verificar su cuenta
     faq:
       index:
         title: 'Preguntas frecuentes de los contribuyentes de %{state}:'
@@ -2189,6 +2194,12 @@ es:
         title_closed: Nuestro servicio gratuito para declarar tus impuestos estatales de %{state_name} está cerrado por temporada
         welcome_back: "¡Bienvenido de nuevo %{user_name}!"
     navigation:
+      nj:
+        section_1: 'Section 1: Income'
+        section_2: 'Section 2: Your household'
+        section_3: 'Section 3: Deductions and credits'
+        section_4: 'Section 4: Your %{filing_year} taxes'
+        section_5: 'Section 5: Review and submit'
       section_1: 'Sección 1: ¿Puedes usar esta herramienta?'
       section_2: 'Sección 2: Crear cuenta'
       section_3: 'Sección 3: Términos y condiciones'
@@ -2472,9 +2483,6 @@ es:
           property_tax_credit_heading_html: '<a href="https://azdor.gov/individuals/income-tax-filing-assistance/tax-credits" target="_blank" rel="noopener nofollow">Crédito por impuestos a la propiedad. </a>. Para calificar para este crédito debes:'
           property_tax_credit_income: Tener un ingreso total del hogar menor a $3,751 si vives solo; o un ingreso total del hogar menor a $5,501 si vives con otros
           property_tax_credit_paid: Haber pagado impuestos a la propiedad o alquiler de una vivienda en Arizona durante el año
-          public_school_tax_credit_heading_html: '<a href="https://azdor.gov/tax-credits/public-school-tax-credit" target="_blank" rel="noopener nofollow">Public School Tax Credit</a>. To qualify for this credit, you must:'
-          public_school_tax_credit_paid_fees: Have paid school-related fees or donated money to a public school
-          public_school_tax_credit_provide_info_html: Provide school information, including the <a href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_ADESchoolListing.pdf" target="_blank" rel="noopener nofollow">CTDS code</a>
         az_supported:
           charitable_contributions_credit: Crédito por contribuciones a organizaciones caritativas calificadas
           dependent_credit: Crédito por dependientes
@@ -3055,7 +3063,7 @@ es:
           select_one: 'Selecciona una de las siguientes opciones:'
           state_specific:
             nc:
-              manual_instructions_html: (<a href="https://www.ncdor.gov/2023-d-401-individual-income-tax-instructions/open" target="_blank" rel="noopener noreferrer">Obtén más información aquí</a> y busca 'consumer use worksheet')
+              manual_instructions_html: (<a href="https://www.ncdor.gov/2024-d-401-individual-income-tax-instructions/open" target="_blank" rel="noopener noreferrer">Obtén más información aquí</a> y busca 'consumer use worksheet')
           subtitle_html: Esto incluye compras en línea donde <b>no</b> se aplicó el impuesto sobre ventas.
           title:
             many: "¿Usted o su cónyuge realizaron alguna compra fuera del estado en %{year} sin pagar impuestos sobre ventas o de uso?"
@@ -3262,6 +3270,8 @@ es:
           on_home: on the home you lived in and owned.
           on_rental: on the home you lived in and rented.
           reason_html: You are not eligible for this because <b>%{reason}</b>
+          reason_income_mfj_qss_hoh: you did not meet the income filing threshold of $20,000.
+          reason_income_single_mfs: you did not meet the income filing threshold of $10,000.
           reason_multi_unit_conditions: this main home in a multi-unit building did not meet the requirements to claim this credit or deduction.
           reason_neither: you must own rent or own a main home in %{filing_year} to receive this credit or deduction.
           reason_property_taxes: did not pay property taxes (directly, or through rent) on this main home.
@@ -3698,6 +3708,7 @@ es:
           your_name: Tu nombre
         review_header:
           income_details: Detalles de ingresos
+          income_forms_collected: 'Formulario(s) de ingresos recopilados:'
           your_refund: La cantidad de tu reembolso
           your_tax_owed: Los impuestos que debes
       sms_terms:
@@ -3880,10 +3891,12 @@ es:
           title_html: Un momento, estamos transfiriendo tu declaración de impuestos federal.
     state_file_pages:
       about_page:
+        check_back_for_prior_year_returns: Vuelva al comienzo de la temporada de presentación para descargar su declaración de impuestos de Arizona o del estado de Nueva York de 2023.
         closed_subheader_html: |
           <strong>FileYourStateTaxes</strong> se integra con <strong>IRS Direct File</strong> para ayudarte a completar tu declaración de impuestos estatales <strong>sin costo.</strong><br/><br/>
           <strong>Estamos cerrados por la temporada de impuestos. Desafortunadamente, no puede presentar tu declaración estatal con nosotros este año.</strong><br /><br />
           ¿Ya presentó tus impuestos estatales con nosotros? <strong>Puedes descargar una copia de tu declaración estatal hasta el 31 de diciembre de 2024</strong><br /><br />
+        faq_prior_year_returns: Visite nuestras preguntas frecuentes para preguntas sobre declaraciones de años anteriores
         header: Una herramienta sin costo para presentar impuestos estatales para los contribuyentes utilizando IRS Direct File
         helper_heading_html: "<strong>¿Cómo funciona este servicio?</strong>"
         looking_for_return_html: "<strong>¿Buscas tu declaración de impuestos de Arizona o del estado de Nueva York de 2023?</strong>"

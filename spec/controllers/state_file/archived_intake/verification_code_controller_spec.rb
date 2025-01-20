@@ -21,7 +21,7 @@ RSpec.describe StateFile::ArchivedIntakes::VerificationCodeController, type: :co
       it "redirects to the root path" do
         get :edit
 
-        expect(response).to redirect_to(root_path)
+        expect(response).to redirect_to(state_file_archived_intakes_verification_error_path)
       end
     end
 
@@ -93,7 +93,7 @@ RSpec.describe StateFile::ArchivedIntakes::VerificationCodeController, type: :co
 
         expect(current_request.reload.failed_attempts).to eq(2)
         expect(current_request.reload.access_locked?).to be_truthy
-        expect(response).to redirect_to(root_path)
+        expect(response).to redirect_to(state_file_archived_intakes_verification_error_path)
       end
     end
   end

@@ -5,7 +5,7 @@ module StateFile
         if options[:return_to_review].present?
           StateFile::Questions::NjReviewController.to_path_helper
         else
-          StateFile::Questions::NjEstimatedTaxPaymentsController.to_path_helper(options)
+          StateFile::Questions::NjSalesUseTaxController.to_path_helper(options)
         end
       end
     end

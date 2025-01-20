@@ -1,0 +1,82 @@
+{
+  "familyAndHousehold": [
+    {
+      "monthsLivedWithTPInUS": "twelve",
+      "lastName": "Kent",
+      "hohQualifyingPerson": null,
+      "isClaimedDependent": true,
+      "qualifyingChild": true,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "2012-02-29",
+      "suffix": null,
+      "residencyDuration": "allYear",
+      "firstName": "Clark",
+      "middleInitial": null,
+      "tin": "300-00-1212",
+      "scheduleEicLine4aNo": false,
+      "eligibleDependent": true,
+      "relationship": "adoptedChild",
+      "ssnNotValidForEmployment": false
+    }
+  ],
+  "filers": [
+    {
+      "lastName": "Kent",
+      "dateOfBirth": "1950-12-05",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "firstName": "Jonathan",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "400-00-1210",
+      "interestReportsTotal": "5000.00",
+      "isDisabled": false,
+      "form1099GsTotal": "0.00",
+      "isStudent": false,
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": null
+    },
+    {
+      "lastName": "Kent",
+      "dateOfBirth": "1960-08-08",
+      "suffix": null,
+      "isPrimaryFiler": false,
+      "firstName": "Martha",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "600-00-1211",
+      "interestReportsTotal": "0.00",
+      "isDisabled": false,
+      "form1099GsTotal": "0.00",
+      "isStudent": false,
+      "ssnNotValidForEmployment": null,
+      "hsaTotalDeductibleAmount": null
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [
+    {
+      "usedTin": "600-00-1211",
+      "unionDuesAmount": null
+    },
+    {
+      "usedTin": "400-00-1210",
+      "unionDuesAmount": null
+    }
+  ],
+  "interestReports": [
+    {
+      "has1099": true,
+      "taxExemptAndTaxCreditBondCusipNo": null,
+      "interestOnGovernmentBonds": "500.00",
+      "taxExemptInterest": "0.00",
+      "payerTin": null,
+      "recipientTin": "400-00-1210",
+      "payer": "Superhero Investments Ltd",
+      "taxWithheld": "0.00",
+      "1099Amount": "5000.00",
+      "no1099Amount": null
+    }
+  ]
+}
