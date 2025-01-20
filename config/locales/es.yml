@@ -781,9 +781,10 @@ es:
           primary_us_citizen: "¿Ciudadano estadounidense?"
           provided_over_half_own_support: "¿Aportó esta persona más del 50% de su propia manutención?"
           receive_written_communication: "."
+          refund_check_by_mail: "."
+          refund_other: "."
           refund_payment_method: "."
           refund_payment_method_direct_deposit: "."
-          refund_payment_method_savings_bond: "."
           refund_payment_method_split: "."
           register_to_vote: "¿Registrarse/registrado para votar?"
           spouse_dob: Fecha de nacimiento de su cónyuge

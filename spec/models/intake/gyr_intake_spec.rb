@@ -192,6 +192,9 @@
 #  received_irs_letter                                  :integer          default("unfilled"), not null
 #  received_stimulus_payment                            :integer          default("unfilled"), not null
 #  referrer                                             :string
+#  refund_check_by_mail                                 :integer
+#  refund_direct_deposit                                :integer
+#  refund_other                                         :string
 #  refund_payment_method                                :integer          default("unfilled"), not null
 #  register_to_vote                                     :integer          default("unfilled"), not null
 #  reported_asset_sale_loss                             :integer          default("unfilled"), not null

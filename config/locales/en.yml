@@ -772,10 +772,11 @@ en:
           primary_us_citizen: U.S. citizen?
           provided_over_half_own_support: Did this person provide more than 50% of his/ her own support?
           receive_written_communication: Receive written communications from the IRS in a language other than English?
+          refund_check_by_mail: Check by mail
+          refund_other: Other
           refund_payment_method: 'If you are due a refund, would you like:'
-          refund_payment_method_direct_deposit: a. Direct Deposit
-          refund_payment_method_savings_bond: b. Purchase U.S. Savings Bond
-          refund_payment_method_split: c. Split refund between different accounts
+          refund_payment_method_direct_deposit: Direct Deposit
+          refund_payment_method_split: Split refund between different accounts
           register_to_vote: Would you like information on how to vote and/or how to register to vote
           spouse_dob: Spouse's DOB
           spouse_first_name: Spouse’s First Name

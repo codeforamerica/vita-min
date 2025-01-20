@@ -51,8 +51,11 @@ module Hub
                        :preferred_written_language,
                        :presidential_campaign_fund_donation,
                        :refund_payment_method,
+                       :refund_direct_deposit,
+                       :refund_check_by_mail,
                        :savings_purchase_bond,
                        :savings_split_refund,
+                       :refund_other,
                        :balance_pay_from_bank,
                        :register_to_vote
 
@@ -88,6 +91,11 @@ module Hub
           spouse_birth_date_day: birth_date.day,
         )
       end
+
+      # if refund_direct_deposit is unfilled and refund_payment_method is 'direct_deposit' -> set refund_direct_deposit
+      # if refund_check_by_mail is unfilled and refund_payment_method is 'check' -> set refund_check_by_mail
+      # if refund_other is nil and savings_purchase_bond is yes, fill in str as 'Purchase US Savings Bond'
+      # TODO pry and check initial val of refund_other, and also after a save
       result
     end
 
