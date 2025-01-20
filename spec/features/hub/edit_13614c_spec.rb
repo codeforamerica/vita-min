@@ -82,7 +82,8 @@ RSpec.describe "a user editing a clients 13614c form" do
       select "You", from: I18n.t("hub.clients.edit_13614c_form_page1.fields.presidential_campaign_fund")
 
       select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page1.fields.refund_payment_method_direct_deposit")
-      select "No", from: I18n.t("hub.clients.edit_13614c_form_page1.fields.refund_payment_method_savings_bond")
+      select "No", from: I18n.t("hub.clients.edit_13614c_form_page1.fields.refund_check_by_mail")
+      fill_in 'hub_update13614c_form_page1_refund_other', with: "Purchase US Savings Bond"
       select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page1.fields.refund_payment_method_split")
 
       select "No", from: I18n.t("hub.clients.edit_13614c_form_page1.fields.pay_due_balance_directly")
@@ -124,9 +125,10 @@ RSpec.describe "a user editing a clients 13614c form" do
       expect(find_field("hub_update13614c_form_page1[receive_written_communication]").value).to eq "yes"
       expect(find_field("hub_update13614c_form_page1[preferred_written_language]").value).to eq "Chinese"
       expect(find_field("hub_update13614c_form_page1[presidential_campaign_fund_donation]").value).to eq "primary"
-      expect(find_field("hub_update13614c_form_page1[refund_payment_method]").value).to eq "direct_deposit"
-      expect(find_field("hub_update13614c_form_page1[savings_purchase_bond]").value).to eq "no"
+      expect(find_field("hub_update13614c_form_page1[refund_direct_deposit]").value).to eq "yes"
+      expect(find_field("hub_update13614c_form_page1[refund_check_by_mail]").value).to eq "no"
       expect(find_field("hub_update13614c_form_page1[savings_split_refund]").value).to eq "yes"
+      expect(find_field("hub_update13614c_form_page1[refund_other]").value).to eq "Purchase US Savings Bond"
       expect(find_field("hub_update13614c_form_page1[balance_pay_from_bank]").value).to eq "no"
       expect(find_field("hub_update13614c_form_page1[register_to_vote]").value).to eq "no"
       expect(find_field("hub_update13614c_form_page1[multiple_states]").value).to eq "no"
@@ -330,7 +332,8 @@ RSpec.describe "a user editing a clients 13614c form" do
       select "You", from: I18n.t("hub.clients.edit_13614c_form_page3.fields.q2_presidential_campaign_fund")
 
       select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page3.fields.q3_refund_payment_method_direct_deposit")
-      select "No", from: I18n.t("hub.clients.edit_13614c_form_page3.fields.q3_refund_payment_method_savings_bond")
+      # going away altogether in gyr1-614
+      #select "No", from: I18n.t("hub.clients.edit_13614c_form_page3.fields.q3_refund_payment_method_savings_bond")
       select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page3.fields.q3_refund_payment_method_split")
 
       select "No", from: I18n.t("hub.clients.edit_13614c_form_page3.fields.q4_pay_due_balance_directly")
@@ -368,7 +371,8 @@ RSpec.describe "a user editing a clients 13614c form" do
       expect(intake.preferred_written_language).to eq "Chinese"
       expect(intake.presidential_campaign_fund_donation).to eq "primary"
       expect(intake.refund_payment_method).to eq "direct_deposit"
-      expect(intake.savings_purchase_bond).to eq "no"
+      # going away altogether in gyr1-614
+      # expect(intake.savings_purchase_bond).to eq "no"
       expect(intake.savings_split_refund).to eq "yes"
       expect(intake.balance_pay_from_bank).to eq "no"
       expect(intake.had_disaster_loss).to eq "yes"
