@@ -495,14 +495,6 @@ es:
       fr: Francés
       ru: Ruso
       zh: Mandarín
-    written_language_options:
-      en: Inglés
-      es: Español
-      zh_cn: Chino Simplificado
-      zh_tw: Chino Tradicional
-      ko: Coreano
-      ru: Ruso
-      vi: Vietnamita
     languages: Idiomas
     last_four_ssn: Últimos 4 de SSN)/ITIN
     last_name: Apellido
@@ -636,6 +628,14 @@ es:
     vita_long: 'VITA: Asistencia Voluntaria al Contribuyente Tributario'
     well: Bien
     widowed: Viudo/a
+    written_language_options:
+      en: Inglés
+      es: Español
+      ko: Coreano
+      ru: Ruso
+      vi: Vietnamita
+      zh_cn: Chino Simplificado
+      zh_tw: Chino Tradicional
     year: año
     year_date: Año
     you: usted
@@ -6142,8 +6142,8 @@ es:
       interview_scheduling:
         help_text: 'Haremos todo lo posible para programar su revisión basada en la información que nos proporcione. '
         interview_preference: "¿Cuál idioma prefiere para la revisión?"
-        written_preference: ¿Cuál es tu idioma escrito preferido?
         title: "¿Tiene alguna preferencia de tiempo para su entrevista telefónica?"
+        written_preference: "¿Cuál es tu idioma escrito preferido?"
       irs_letter:
         title:
           many: En %{year}, ¿recibió usted o su cónyuge alguna carta o factura del IRS?

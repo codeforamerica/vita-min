@@ -493,14 +493,6 @@ en:
       fr: French
       ru: Russian
       zh: Mandarin
-    written_language_options:
-      en: English
-      es: Spanish
-      zh_cn: Chinese Simplified
-      zh_tw: Chinese Traditional
-      ko: Korean
-      ru: Russian
-      vi: Vietnamese
     languages: Languages
     last_four_ssn: Last 4 of SSN/ITIN
     last_name: Last name
@@ -634,6 +626,14 @@ en:
     vita_long: 'VITA: Volunteer Income Tax Assistance'
     well: Well
     widowed: Widowed
+    written_language_options:
+      en: English
+      es: Spanish
+      ko: Korean
+      ru: Russian
+      vi: Vietnamese
+      zh_cn: Chinese Simplified
+      zh_tw: Chinese Traditional
     year: year
     year_date: Year
     you: you
@@ -6128,8 +6128,8 @@ en:
       interview_scheduling:
         help_text: We will try our best to schedule your review based on the information you provide.
         interview_preference: What is your preferred language for the review?
-        written_preference: What is your preferred written language?
         title: Do you have any time preferences for your interview phone call?
+        written_preference: What is your preferred written language?
       irs_letter:
         title:
           one: In %{year}, did you receive any letter or bill from the IRS?
