@@ -162,7 +162,7 @@ RSpec.describe "a user editing a clients 13614c form" do
       expect(intake.had_wages_yes?).to eq false # check that we did not persist information
     end
 
-    scenario "I can see and update the 13614c page 2 form" do
+    scenario "I can see and update the 13614c page 2 form", js: true do
       visit hub_client_path(id: client.id)
       within ".client-profile" do
         click_on "Edit 13614-C"
