@@ -18,6 +18,10 @@ jobs:
           heroku_app_name: ${{ env.HEROKU_APP_NAME }}
           justlogin: true
 
+      - name: Install Heroku CLI
+        run: |
+          curl https://cli-assets.heroku.com/install.sh | sh
+
       - name: Predestroy the app associated with the closed PR
         run: heroku run rails heroku:review_app_predestroy --app=${{ env.HEROKU_APP_NAME }}
         env:
