@@ -537,7 +537,14 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
         expect(page).to have_text I18n.t("state_file.landing_page.ny_closed.title")
 
+        # spot check a few pages for redirecting to landing page
         visit "/questions/ny-eligibility-residence"
+        expect(page).to have_text I18n.t("state_file.landing_page.ny_closed.title")
+
+        visit "/questions/ny-sales-use-tax"
+        expect(page).to have_text I18n.t("state_file.landing_page.ny_closed.title")
+
+        visit "/questions/ny-review"
         expect(page).to have_text I18n.t("state_file.landing_page.ny_closed.title")
       end
     end
