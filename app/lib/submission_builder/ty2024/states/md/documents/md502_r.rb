@@ -10,6 +10,8 @@ module SubmissionBuilder
 
             def document
               build_xml_doc("Form502R", documentId: "Form502R") do |xml|
+                xml.PrimaryAge @intake.calculate_age(@intake.primary_birth_date, inclusive_of_jan_1: false)
+                xml.SecondaryAge @intake.calculate_age(@intake.spouse_birth_date, inclusive_of_jan_1: false) if @intake.filing_status_mfj?
               end
             end
 
