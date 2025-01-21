@@ -10,6 +10,7 @@ module StateFile
         # @prior_year_intake = StateFileArchivedIntake.last
         @prior_year_intake = StateFileArchivedIntake.find_by!(email_address: current_request.email_address)
         @pdf_url = @prior_year_intake.submission_pdf.url(expires_in: 30.minutes, disposition: "inline")
+        create_state_file_access_log("issued_pdf_download_link")
       end
 
       private
@@ -20,8 +21,10 @@ module StateFile
         redirect_to root_path
       end
 
-      # TODO - implement when ssn code is merged
       def require_archived_intake_verified
+        return if session[:ssn_verified].present?
+
+        redirect_to root_path
       end
     end
   end
