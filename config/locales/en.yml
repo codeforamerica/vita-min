@@ -538,6 +538,8 @@ en:
       american_indian_alaska_native: American Indian or Alaska Native
       asian: Asian
       black_african_american: Black or African American
+      hispanic_latino: Hispanic or Latino
+      mena: Middle Eastern or North African
       native_hawaiian_pacific_islander: Native Hawaiian or other Pacific Islander
       white: White
     register: Sign Up
@@ -6023,13 +6025,13 @@ en:
       demographic_primary_ethnicity:
         title: What is your ethnicity?
       demographic_primary_race:
-        title: What is your race?
+        title: What is your race and/or ethnicity?
       demographic_questions:
         title: Are you willing to answer some additional questions to help us better serve you?
       demographic_spouse_ethnicity:
         title: What is your spouse's ethnicity?
       demographic_spouse_race:
-        title: What is your spouse's race?
+        title: What is your spouse's race and/or ethnicity?
       demographic_veteran:
         title: Are you or your spouse a veteran of the U.S. Armed Forces?
       dependent_care:
