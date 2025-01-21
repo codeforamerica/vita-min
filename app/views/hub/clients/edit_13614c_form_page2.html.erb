@@ -98,7 +98,7 @@
             <%= f.cfa_select(:had_local_tax_refund, "(B) #{t(".fields.had_local_tax_refund")}", yes_no_options_for_select) %>
           </div>
           <div class="grid__item width-one-half" style="background-color:#e5e5e5; padding: 10px; display: block; align-items: flex-start; justify-content: space-between;">
-            <table border=0 width="100%">
+            <table width="100%">
               <tr>
                 <td><%= f.cfa_select(:cv_local_tax_refund_cb, "(B) Refund", yes_no_options_for_select) %>
                 <td align=right><%= f.cfa_input_field(:cv_local_tax_refund_amt, "$", classes: ["form-width--short"]) %>
@@ -188,7 +188,6 @@
           <div class="grid__item width-one-half" style="background-color:#e5e5e5; padding: 10px; display: block; align-items: flex-start; justify-content: space-between;">
               <%= f.cfa_select(:cv_w2g_or_other_gambling_winnings_cb, "(B) W-2G or other gambling winnings (list losses below if taxpayer can itemize deductions)", yes_no_options_for_select) %>
               <%= f.cfa_select(:cv_w2g_or_other_gambling_winnings_count, "#", (0..5).map { |num| [num.to_s, num] }, { include_blank: true }) %>
-            </table>
           </div>
         </div>
         <hr style="margin: 5px;"/>

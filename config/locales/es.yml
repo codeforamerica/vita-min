@@ -790,13 +790,13 @@ es:
         fields:
           had_asset_sale_income: "¿Ingresos (o pérdidas) procedentes de la venta o intercambio de acciones, bonos, moneda virtual o bienes inmuebles/propiedad?"
           had_disability_income: "¿Ingresos por discapacidad?"
-          had_gambling_income: "Ganancias en juegos de azar, incluida la lotería."
+          had_gambling_income: Ganancias en juegos de azar, incluida la lotería.
           had_interest_income: "¿Intereses/dividendos de: cuentas corrientes/de ahorro, bonos, certificados de depósito, corretaje?"
           had_local_tax_refund: Reembolso del impuesto estatal o local sobre los ingresos?
           had_other_income: "¿Otros ingresos?"
           had_rental_income: "¿Ingresos (o pérdidas) procedentes del arrendamiento de propiedades?"
-          had_rental_income_and_used_dwelling_as_residence: "En caso afirmativo, ¿usó la unidad de vivienda como residencia personal y la alquiló por menos de 15 días?"
-          had_rental_income_from_personal_property: "Ingresos por alquiler de bienes personales, como un vehículo."
+          had_rental_income_and_used_dwelling_as_residence: En caso afirmativo, ¿usó la unidad de vivienda como residencia personal y la alquiló por menos de 15 días?
+          had_rental_income_from_personal_property: Ingresos por alquiler de bienes personales, como un vehículo.
           had_retirement_income: "¿Cuentas de jubilación, ingresos de pensiones o anualidades?"
           had_self_employment_income: "¿Ingresos por trabajo autónomo?"
           had_social_security_income: "¿Seguro Social o beneficios de Jubilación Ferroviaria?"
