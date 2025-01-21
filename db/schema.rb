@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_01_16_220546) do
+ActiveRecord::Schema[7.1].define(version: 2025_01_21_232137) do
   create_schema "analytics"
 
   # These are extensions that must be enabled in order to support this database
@@ -1279,6 +1279,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_16_220546) do
     t.integer "needs_help_2020", default: 0, null: false
     t.integer "needs_help_2021", default: 0, null: false
     t.integer "needs_help_2022", default: 0, null: false
+    t.integer "needs_help_2023", default: 0, null: false
     t.integer "needs_help_current_year", default: 0, null: false
     t.integer "needs_help_previous_year_1", default: 0, null: false
     t.integer "needs_help_previous_year_2", default: 0, null: false
