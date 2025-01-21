@@ -376,7 +376,7 @@ RSpec.describe "a user editing a clients 13614c form" do
       expect(intake.cv_p2_notes_comments).to eq "Hello"
     end
 
-    scenario "I can see and update the 13614c page 3 form" do
+    scenario "I can see and update the 13614c page 3 form", js: true do
       visit hub_client_path(id: client.id)
       within ".client-profile" do
         click_on "Edit 13614-C"
@@ -389,8 +389,6 @@ RSpec.describe "a user editing a clients 13614c form" do
 
       expect(page).to have_text "Expenses and Tax Related Events"
 
-      # TODO add setup
-      # hub_update13614c_form_page3_
       select "Yes", from: "hub_update13614c_form_page3_paid_mortgage_interest"
       select "Yes", from: "hub_update13614c_form_page3_cv_1098_cb"
       select "5", from: "hub_update13614c_form_page3_cv_1098_count"
@@ -403,6 +401,29 @@ RSpec.describe "a user editing a clients 13614c form" do
 
       select "Yes", from: "hub_update13614c_form_page3_paid_charitable_contributions"
 
+      fill_in "hub_update13614c_form_page3_cv_14c_page_3_notes_part_1", with: "Hello, note 1"
+
+      select "Yes", from: "hub_update13614c_form_page3_paid_student_loan_interest"
+      select "Yes", from: "hub_update13614c_form_page3_cv_1098e_cb"
+
+      select "Yes", from: "hub_update13614c_form_page3_paid_dependent_care"
+      select "Yes", from: "hub_update13614c_form_page3_cv_child_dependent_care_credit_cb"
+
+      select "Yes", from: "hub_update13614c_form_page3_paid_retirement_contributions"
+      select "Yes", from: "hub_update13614c_form_page3_contributed_to_ira"
+
+      select "Yes", from: "hub_update13614c_form_page3_paid_school_supplies"
+      select "Yes", from: "hub_update13614c_form_page3_cv_edu_expenses_deduction_cb"
+      fill_in "hub_update13614c_form_page3_cv_edu_expenses_deduction_amt", with: '2814'
+
+      select "Yes", from: "hub_update13614c_form_page3_paid_alimony"
+      select "Yes", from: "hub_update13614c_form_page3_cv_paid_alimony_w_spouse_ssn_cb"
+      # skip; getting 'SSN fields must include dashes in tests' and don't see a way to override.
+      # fill_in "hub_update13614c_form_page3_cv_paid_alimony_w_spouse_ssn_amt", with: '2815'
+      select "Yes", from: "hub_update13614c_form_page3_cv_alimony_income_adjustment_yn_cb"
+
+      fill_in "hub_update13614c_form_page3_cv_14c_page_3_notes_part_2", with: "Hello, note 2"
+
       click_on I18n.t("general.save")
 
       expect(page).to have_text I18n.t("hub.clients.edit_13614c_form_page3.title")
@@ -410,7 +431,6 @@ RSpec.describe "a user editing a clients 13614c form" do
 
       intake = client.intake.reload
 
-      # TODO expects
       expect(intake.paid_mortgage_interest).to eq "yes"
       expect(intake.cv_1098_cb).to eq "yes"
       expect(intake.cv_1098_count).to eq 5
@@ -422,8 +442,29 @@ RSpec.describe "a user editing a clients 13614c form" do
       expect(intake.cv_med_expense_itemized_deduction_cb).to eq "yes"
 
       expect(intake.paid_charitable_contributions).to eq "yes"
-      
 
+      expect(intake.cv_14c_page_3_notes_part_1).to eq "Hello, note 1"
+
+      expect(intake.paid_student_loan_interest).to eq "yes"
+      expect(intake.cv_1098e_cb).to eq "yes"
+
+      expect(intake.paid_dependent_care).to eq "yes"
+      expect(intake.cv_child_dependent_care_credit_cb).to eq "yes"
+
+      expect(intake.paid_retirement_contributions).to eq "yes"
+      expect(intake.contributed_to_ira).to eq "yes"
+
+      expect(intake.paid_school_supplies).to eq "yes"
+      expect(intake.cv_edu_expenses_deduction_cb).to eq "yes"
+      expect(intake.cv_edu_expenses_deduction_amt).to eq 2814
+
+      expect(intake.paid_alimony).to eq "yes"
+      expect(intake.cv_paid_alimony_w_spouse_ssn_cb).to eq "yes"
+      # skip; getting 'SSN fields must include dashes in tests' and don't see a way to override.
+      # expect(intake.cv_paid_alimony_w_spouse_ssn_amt).to eq 2815
+      expect(intake.cv_alimony_income_adjustment_yn_cb).to eq "yes"
+
+      expect(intake.cv_14c_page_3_notes_part_2).to eq "Hello, note 2"
 
     end
   end

@@ -19,6 +19,10 @@
 
         <hr style="margin-top: 0;"/>
 
+        <!-- ************************************ SECTION ONE ******************************** -->
+        <hr style="margin: 5px; height:5px;"/>
+        <!-- ************************************ SECTION ONE ******************************** -->
+
         <h3>Paid any of the following expenses to itemize in 2024?</h3>
 
         <!-- MORTGAGE -->
@@ -66,6 +70,97 @@
           </div>
         </div>
         <hr style="margin: 5px;"/>
+
+        <!-- NOTES PART 1 -->
+        <div class="grid" style="background-color:#e5e5e5; padding: 10px; display: block; align-items: flex-start; justify-content: space-between;">
+            <%= f.cfa_input_field(:cv_14c_page_3_notes_part_1, "Notes/Comments", classes: ["form-width--long"]) %>
+        </div>
+
+        <!-- *********************************** SECTION TWO ******************************** -->
+        <hr style="margin: 5px; margin-top: 40px; height:5px;"/>
+        <!-- *********************************** SECTION TWO ******************************** -->
+
+        <h3>Did any of the following happen during 2024?</h3>
+
+        <!-- STUDENT LOAN INTEREST -->
+        <div class="grid">
+          <div class="grid__item width-one-half" style="display: flex; align-items: flex-start; justify-content: space-between;">
+            <%= f.cfa_select(:paid_student_loan_interest, "(B) Student loan interest", yes_no_options_for_select) %>
+          </div>
+          <div class="grid__item width-one-half" style="background-color:#e5e5e5; padding: 10px; display: flex; align-items: flex-start; justify-content: space-between;">
+            <%= f.cfa_select(:cv_1098e_cb, "(B) 1098-E", yes_no_options_for_select) %>
+          </div>
+        </div>
+        <hr style="margin: 5px;"/>
+
+        <!-- CHILDCARE -->
+        <div class="grid">
+          <div class="grid__item width-one-half" style="display: flex; align-items: flex-start; justify-content: space-between;">
+            <%= f.cfa_select(:paid_dependent_care, "(B) Child and dependent care", yes_no_options_for_select) %>
+          </div>
+          <div class="grid__item width-one-half" style="background-color:#e5e5e5; padding: 10px; display: flex; align-items: flex-start; justify-content: space-between;">
+            <%= f.cfa_select(:cv_child_dependent_care_credit_cb, "(B) Child and dependent care credit", yes_no_options_for_select) %>
+          </div>
+        </div>
+        <hr style="margin: 5px;"/>
+
+        <!-- RETIREMENT CONTRIB -->
+        <div class="grid">
+          <div class="grid__item width-one-half" style="display: flex; align-items: flex-start; justify-content: space-between;">
+            <%= f.cfa_select(:paid_retirement_contributions, "(B/A) Contributions to a retirement account", yes_no_options_for_select) %>
+          </div>
+          <div class="grid__item width-one-half" style="background-color:#e5e5e5; padding: 10px; display: flex; align-items: flex-start; justify-content: space-between;">
+            <%= f.cfa_select(:contributed_to_ira, "(B/A) IRA (Basic if a Roth IRA or 401K)", yes_no_options_for_select) %>
+          </div>
+        </div>
+        <hr style="margin: 5px;"/>
+
+        <!-- SCHOOL SUPPLIES -->
+        <div class="grid">
+          <div class="grid__item width-one-half" style="display: flex; align-items: flex-start; justify-content: space-between;">
+            <%= f.cfa_select(:paid_school_supplies, "(B) School supplies by a teacher, teacher’s aide or other educator", yes_no_options_for_select) %>
+          </div>
+          <div class="grid__item width-one-half" style="background-color:#e5e5e5; padding: 10px; display: flex; align-items: flex-start; justify-content: space-between;">
+            <%= f.cfa_select(:cv_edu_expenses_deduction_cb, "(B) Educator expenses deduction", yes_no_options_for_select) %>
+            <%= f.cfa_input_field(:cv_edu_expenses_deduction_amt, "$", classes: ["form-width--short"]) %>
+          </div>
+        </div>
+        <hr style="margin: 5px;"/>
+
+        <!-- ALIMONY - 1ST ROW -->
+        <div class="grid">
+          <div class="grid__item width-one-half" style="display: flex; align-items: flex-start; justify-content: space-between;">
+            <%= f.cfa_select(:paid_alimony, "(B) Alimony payments (do not include child support)", yes_no_options_for_select) %>
+          </div>
+          <div class="grid__item width-one-half" style="background-color:#e5e5e5; padding: 10px; display: flex; align-items: flex-start; justify-content: space-between;">
+            <%= f.cfa_select(:cv_paid_alimony_w_spouse_ssn_cb, "(B) Alimony payments with spouse’s SSN", yes_no_options_for_select) %>
+            <%= f.cfa_input_field(:cv_paid_alimony_w_spouse_ssn_amt, "$", classes: ["form-width--short"]) %>
+          </div>
+        </div>
+        <!-- no HR here. -->
+
+        <!-- ALIMONY ROW 2 - ADJ TO INCOME -->
+        <div class="grid">
+          <div class="grid__item width-one-half" style="display: flex; align-items: flex-start; justify-content: space-between;">
+            &nbsp;<br>&nbsp;
+          </div>
+          <div class="grid__item width-one-half" style="background-color:#e5e5e5; padding: 10px; display: block; height: 100%;">
+            <%= f.cfa_select(:cv_alimony_income_adjustment_yn_cb, "Adjustment to income", yes_no_options_for_select) %>
+          </div>
+        </div>
+        <hr style="margin: 5px;"/>
+
+        <!-- NOTES PART 2 -->
+        <div class="grid" style="background-color:#e5e5e5; padding: 10px; display: block; align-items: flex-start; justify-content: space-between;">
+            <%= f.cfa_input_field(:cv_14c_page_3_notes_part_2, "Notes/Comments", classes: ["form-width--long"]) %>
+        </div>
+
+        <!-- *********************************** SECTION THREE ******************************** -->
+        <hr style="margin: 5px; margin-top: 40px; height:5px;"/>
+        <!-- *********************************** SECTION THREE ******************************** -->
+
+        <h3>Did any of the following happen during 2024?</h3>
+
 
 
 
