@@ -14,7 +14,7 @@ module StateFile
 
       def set_sorted_vars 
         @w2s = current_intake.state_file_w2s&.sort_by { |w2| [w2.employee_name, w2.employer_name] }
-        @w2_warnings = @w2s.map { |w2| [w2.id, should_show_warning?(w2)] }.to_h
+        @w2_warnings = @w2s.map { |w2| [w2.id, should_show_warning?(w2, @w2s.size)] }.to_h
       end
 
       def update
@@ -31,12 +31,14 @@ module StateFile
 
       private
 
-      def should_show_warning?(w2)
-        return true if w2.get_box14_ui_overwrite.nil?
-        return true if w2.get_box14_ui_overwrite > 179.78
-        
-        return true if w2.box14_fli.nil?
-        return true if w2.box14_fli > 145.26
+      def should_show_warning?(w2, w2_count)
+        if w2_count > 1
+          return true if w2.get_box14_ui_overwrite.nil?
+          return true if w2.box14_fli.nil?
+        end
+
+        return true if w2.get_box14_ui_overwrite.to_f > 179.78
+        return true if w2.box14_fli.to_f > 145.26
 
         false
       end

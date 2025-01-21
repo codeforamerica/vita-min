@@ -101,16 +101,32 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
       end
     end
 
-    context "when no W2s with warnings" do
-      let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_ui_wf_swf: 179.78, box14_fli: 145.26) }
+    context "when no W2 box 14 warnings" do
+      shared_examples "does not display W2 warnings" do
+        it "does not display W2 warnings" do
+          get :edit, params: params
+          expect(response.body).not_to have_text "We need to double-check some information"
+        end
+      end
 
-      it "does not display W2 warnings" do
-        get :edit, params: params
-        expect(response.body).not_to have_text "We need to double-check some information"
+      context "when only one w2 and box14_ui_wf_swf is not present" do
+        let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_fli: 145.26) }
+        include_examples "does not display W2 warnings"
+      end
+
+      context "when only one w2 and fli is not present" do
+        let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_ui_wf_swf: 179.78) }
+        include_examples "does not display W2 warnings"
+      end
+
+      context "when two or more w2s and box14_ui_wf_swf and fli are valid on both" do
+        let!(:state_file_w2_1) { create(:state_file_w2, state_file_intake: intake, box14_ui_wf_swf: 179.78, box14_fli: 145.26) }
+        let!(:state_file_w2_2) { create(:state_file_w2, state_file_intake: intake, box14_ui_wf_swf: 179.78, box14_fli: 145.26) }
+        include_examples "does not display W2 warnings"
       end
     end
 
-    context "when W2 warnings are present" do
+    context "when W2 box 14 warnings are present" do
       shared_examples "displays at least one W2 warning" do
         it "displays at least one W2 warning" do
           get :edit, params: params
@@ -118,8 +134,9 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
         end
       end
 
-      context "when box14_ui_wf_swf is not present" do
-        let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_fli: 145.26) }
+      context "when two W2s and box14_ui_wf_swf is not present in one" do
+        let!(:state_file_w2_1) { create(:state_file_w2, state_file_intake: intake, box14_fli: 145.26) }
+        let!(:state_file_w2_2) { create(:state_file_w2, state_file_intake: intake, box14_ui_wf_swf: 179.78, box14_fli: 145.26) }
         include_examples "displays at least one W2 warning"
       end
 
@@ -128,8 +145,9 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
         include_examples "displays at least one W2 warning"
       end
 
-      context "when fli is not present" do
-        let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_ui_wf_swf: 179.78) }
+      context "when two W2s and fli is not present in one" do
+        let!(:state_file_w2_1) { create(:state_file_w2, state_file_intake: intake, box14_ui_wf_swf: 179.78) }
+        let!(:state_file_w2_2) { create(:state_file_w2, state_file_intake: intake, box14_ui_wf_swf: 179.78, box14_fli: 145.26) }
         include_examples "displays at least one W2 warning"
       end
 
