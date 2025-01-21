@@ -29,7 +29,7 @@ module StateFile
           bucket_name = 'vita-min-prod-docs'
           file_key = "#{current_archived_intake.mailing_state.downcase}_addresses.csv"
         else
-          bucket_name = 'vita-min-demo-docs'
+          bucket_name = 'vita-min-heroku-docs'
           file_key = 'non_prod_addresses.csv'
         end
 
