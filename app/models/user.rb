@@ -321,7 +321,11 @@ class User < ApplicationRecord
     email = auth_hash.info['email']
     return nil unless google_login_domain?(email) && google_login_domain?(auth_hash.extra.id_info["hd"])
 
-    user = User.where(email: email, role_type: "AdminRole", external_provider: [nil, oauth2_provider_name], external_uid: [nil, auth_hash['uid']], suspended_at: nil).first
+    matching_users = User.where(email: email, external_provider: [nil, oauth2_provider_name], external_uid: [nil, auth_hash['uid']], suspended_at: nil)
+    user = matching_users.where(role_type: "AdminRole").first || matching_users.first
+    if matching_users.count > 1
+      Rails.logger.warn("Found multiple hub accounts for #{email}, logging into #{user.role_type} account")
+    end
     user.update!(external_provider: oauth2_provider_name, external_uid: auth_hash['uid']) if user.present? && user.external_uid.nil?
     user
   end
