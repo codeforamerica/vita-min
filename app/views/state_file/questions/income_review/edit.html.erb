@@ -6,7 +6,7 @@
 
   <% if @w2s.present? %>
     <div class="white-group" id="w2s">
-      <p class="text--bold spacing-below-0"><%= t(".w2s_title") %></p>
+      <h2 class="text--body text--bold spacing-below-0"><%= t(".w2s_title") %></h2>
       <% if current_intake.allows_w2_editing? %>
         <% @w2s.each do |w2| %>
           <div class="spacing-above-25">
@@ -32,7 +32,7 @@
 
   <% if current_intake.direct_file_data.fed_unemployment > 0 %>
     <div class="white-group unemployment" id="form1099gs">
-      <p class="text--bold spacing-below-0"><%= t(".unemployment_title") %></p>
+      <h2 class="text--body text--bold spacing-below-0"><%= t(".unemployment_title") %></h2>
       <% not_taxed_key = "state_file.questions.income_review.edit.no_info_needed_#{current_state_code}" %>
       <% if I18n.exists?(not_taxed_key) %>
         <p class="text--grey-bold spacing-above-15 spacing-below-0">
@@ -64,7 +64,7 @@
 
   <% if current_intake.state_file1099_rs.present? %>
     <div class="white-group retirement-income" id="form1099rs">
-      <p class="text--bold spacing-below-0"><%= t(".retirement_income_title") %></p>
+      <h2 class="text--body text--bold spacing-below-0"><%= t(".retirement_income_title") %></h2>
       <% current_intake.state_file1099_rs.each do |state_1099r| %>
         <div class="spacing-above-25">
           <p class="text--bold spacing-below-5"><%= state_1099r.recipient_name %></p>
@@ -84,7 +84,7 @@
 
   <% if current_intake.direct_file_json_data.interest_reports.count > 0 %>
     <div class="white-group" id="form1099ints">
-      <p class="text--bold spacing-below-0"><%= t(".interest_income_title") %></p>
+      <h2 class="text--body text--bold spacing-below-0"><%= t(".interest_income_title") %></h2>
       <p class="text--grey-bold spacing-above-15 spacing-below-0">
         <%= t(".interest_income_body") %>
       </p>
@@ -93,7 +93,7 @@
 
   <% if current_intake.direct_file_data.fed_ssb > 0 || current_intake.direct_file_data.fed_taxable_ssb > 0 %>
     <div class="white-group" id="formssa1099s">
-      <p class="text--bold spacing-below-0"><%= t(".ssa_title") %></p>
+      <h2 class="text--body text--bold spacing-below-0"><%= t(".ssa_title") %></h2>
       <p class="text--grey-bold spacing-above-15 spacing-below-0">
         <% # i18n-tasks-use t("state_file.questions.income_review.edit.no_info_needed") # hint for the i18n linter that, yes, we are using this key (sometimes) %>
         <%= t(".no_info_needed_#{current_state_code}", default: :'.no_info_needed') %>
