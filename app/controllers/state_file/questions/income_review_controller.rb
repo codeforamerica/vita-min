@@ -14,6 +14,7 @@ module StateFile
 
       def set_sorted_vars 
         @w2s = current_intake.state_file_w2s&.sort_by { |w2| [w2.employee_name, w2.employer_name] }
+        @w2_warnings = @w2s.map { |w2| [w2.id, should_show_warning?(w2)] }.to_h
       end
 
       def update
@@ -26,6 +27,16 @@ module StateFile
         else
           update_for_device_id_collection(current_intake&.initial_efile_device_info)
         end
+      end
+
+      private
+
+      def should_show_warning?(w2)
+        return true if w2.get_box14_ui_overwrite.nil?
+
+        return true if w2.get_box14_ui_overwrite > 179.78
+
+        false
       end
     end
   end

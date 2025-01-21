@@ -100,6 +100,33 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
         expect(response.body).to have_link(href: edit_w2_path(id: state_file_w2_2.id))
       end
     end
+
+    context "when no W2s with warnings" do
+      let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_ui_wf_swf: 100) }
+
+      it "does not display W2 warnings" do
+        get :edit, params: params
+        expect(response.body).not_to have_text "We need to double-check some information"
+      end
+    end
+
+    context "when W2 warnings are present because box14_ui_wf_swf is not present" do
+      let!(:state_file_w2_3) { create(:state_file_w2, state_file_intake: intake) }
+
+      it "displays W2 warnings" do
+        get :edit, params: params
+        expect(response.body).to have_text "We need to double-check some information"
+      end
+    end
+
+    context "when W2 warnings are present because box14_ui_wf_swf is too high" do
+      let!(:state_file_w2_3) { create(:state_file_w2, state_file_intake: intake, box14_ui_wf_swf: 179.79) }
+
+      it "displays W2 warnings" do
+        get :edit, params: params
+        expect(response.body).to have_text "We need to double-check some information"
+      end
+    end
   end
 
   describe "unemployment card" do

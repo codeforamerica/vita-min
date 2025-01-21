@@ -2897,6 +2897,7 @@ es:
           title: Estos son los formularios de ingresos que transferimos de su declaración de impuestos federales.
           unemployment_title: Beneficios de desempleo (1099-G)
           w2s_title: Empleos (W-2)
+          warning: ⚠️ We need to double-check some information
       initiate_data_transfer:
         data_transfer_buttons:
           from_fake_df_page: Transferir datos desde una página falsa de transferencia de DF.
