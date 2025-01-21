@@ -564,6 +564,9 @@ Rails.application.routes.draw do
           patch 'verification_code', to: 'verification_code#update'
           get 'mailing_address_validation/edit', to: 'mailing_address_validation#edit', as: 'edit_mailing_address_validation'
           patch 'mailing_address_validation', to: 'mailing_address_validation#update'
+          get 'verification_error', to: "/state_file/state_file_pages#archived_intakes_verification_error"
+          get 'identification_number/edit', to: 'identification_number#edit', as: 'edit_identification_number'
+          patch 'identification_number', to: 'identification_number#update'
         end
         namespace :questions do
           get "show_xml", to: "confirmation#show_xml"

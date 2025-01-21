@@ -4,8 +4,7 @@ module StateFile
       before_action :check_feature_flag
       def edit
         if current_request.access_locked?
-          # this redirect to be changed when we have an offboarding page
-          redirect_to root_path
+          redirect_to state_file_archived_intakes_verification_error_path
           return
         end
         @form = VerificationCodeForm.new(email_address: current_request.email_address)
@@ -23,15 +22,14 @@ module StateFile
         if @form.valid?
           create_state_file_access_log("correct_email_code")
           current_request.reset_failed_attempts!
-          # this should take us to the ssn page
-          redirect_to state_file_archived_intakes_edit_mailing_address_validation_path
+          session[:code_verified] = true
+          redirect_to state_file_archived_intakes_edit_identification_number_path
         else
           create_state_file_access_log("incorrect_email_code")
           current_request.increment_failed_attempts
           if current_request.access_locked?
             create_state_file_access_log("client_lockout_begin")
-            # this redirect to be changed when we have an offboarding page
-            redirect_to root_path
+            redirect_to state_file_archived_intakes_verification_error_path
             return
           end
           render :edit

@@ -126,6 +126,7 @@ describe 'EfileError' do
       "terms-and-conditions",
       "unemployment",
       "verification-code",
+      "w2",
       "waiting-to-load-data"
     ]
   end
