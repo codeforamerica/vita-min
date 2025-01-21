@@ -22,6 +22,8 @@ module Hub
                        :had_tax_credit_disallowed,
                        :received_irs_letter,
                        :made_estimated_tax_payments,
+                       :cv_1098_cb,
+                       :cv_1098_count,
                        :cv_med_expense_standard_deduction_cb,
                        :cv_med_expense_itemized_deduction_cb,
                        :cv_1098e_cb,

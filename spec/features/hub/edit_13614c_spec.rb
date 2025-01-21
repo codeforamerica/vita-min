@@ -390,6 +390,18 @@ RSpec.describe "a user editing a clients 13614c form" do
       expect(page).to have_text "Expenses and Tax Related Events"
 
       # TODO add setup
+      # hub_update13614c_form_page3_
+      select "Yes", from: "hub_update13614c_form_page3_paid_mortgage_interest"
+      select "Yes", from: "hub_update13614c_form_page3_cv_1098_cb"
+      select "5", from: "hub_update13614c_form_page3_cv_1098_count"
+
+      select "Yes", from: "hub_update13614c_form_page3_paid_local_tax"
+
+      select "Yes", from: "hub_update13614c_form_page3_paid_medical_expenses"
+      select "Yes", from: "hub_update13614c_form_page3_cv_med_expense_standard_deduction_cb"
+      select "Yes", from: "hub_update13614c_form_page3_cv_med_expense_itemized_deduction_cb"
+
+      select "Yes", from: "hub_update13614c_form_page3_paid_charitable_contributions"
 
       click_on I18n.t("general.save")
 
@@ -399,6 +411,20 @@ RSpec.describe "a user editing a clients 13614c form" do
       intake = client.intake.reload
 
       # TODO expects
+      expect(intake.paid_mortgage_interest).to eq "yes"
+      expect(intake.cv_1098_cb).to eq "yes"
+      expect(intake.cv_1098_count).to eq 5
+
+      expect(intake.paid_local_tax).to eq "yes"
+
+      expect(intake.paid_medical_expenses).to eq "yes"
+      expect(intake.cv_med_expense_standard_deduction_cb).to eq "yes"
+      expect(intake.cv_med_expense_itemized_deduction_cb).to eq "yes"
+
+      expect(intake.paid_charitable_contributions).to eq "yes"
+      
+
+
     end
   end
 end

@@ -21,7 +21,6 @@
 
         <h3>Paid any of the following expenses to itemize in 2024?</h3>
 
-
         <!-- MORTGAGE -->
         <div class="grid">
           <div class="grid__item width-one-half" style="display: flex; align-items: flex-start; justify-content: space-between;">
@@ -30,6 +29,40 @@
           <div class="grid__item width-one-half" style="background-color:#e5e5e5; padding: 10px; display: flex; align-items: flex-start; justify-content: space-between;">
             <%= f.cfa_select(:cv_1098_cb, "(B) W-2s", yes_no_options_for_select) %>
             <%= f.cfa_select(:cv_1098_count, "#", (0..5).map { |num| [num.to_s, num] }, { include_blank: true }) %>
+          </div>
+        </div>
+        <hr style="margin: 5px;"/>
+
+        <!-- STATE / LOCAL TAXES -->
+        <div class="grid">
+          <div class="grid__item width-one-half" style="display: flex; align-items: flex-start; justify-content: space-between;">
+            <%= f.cfa_select(:paid_local_tax, "(A) Taxes: state, local, real estate, sales, etc.", yes_no_options_for_select) %>
+          </div>
+          <div class="grid__item width-one-half" style="background-color:#e5e5e5; padding: 10px; display: block; height: 100%;">
+            &nbsp;<br>&nbsp;
+          </div>
+        </div>
+        <hr style="margin: 5px;"/>
+
+        <!-- MEDICAL EXPENSES -->
+        <div class="grid">
+          <div class="grid__item width-one-half" style="display: flex; align-items: flex-start; justify-content: space-between;">
+            <%= f.cfa_select(:paid_medical_expenses, "(A) Medical, dental, prescription expenses", yes_no_options_for_select) %>
+          </div>
+          <div class="grid__item width-one-half" style="background-color:#e5e5e5; padding: 10px; display: flex; align-items: flex-start; justify-content: space-between;">
+            <%= f.cfa_select(:cv_med_expense_standard_deduction_cb, "(B) Standard deduction", yes_no_options_for_select) %>
+            <%= f.cfa_select(:cv_med_expense_itemized_deduction_cb, "(A) Itemized deduction", yes_no_options_for_select) %>
+          </div>
+        </div>
+        <hr style="margin: 5px;"/>
+
+        <!-- CHARITABLE CONTRIBUTIONS -->
+        <div class="grid">
+          <div class="grid__item width-one-half" style="display: flex; align-items: flex-start; justify-content: space-between;">
+            <%= f.cfa_select(:paid_charitable_contributions, "(A) Charitable contributions", yes_no_options_for_select) %>
+          </div>
+          <div class="grid__item width-one-half" style="background-color:#e5e5e5; padding: 10px; display: block; height: 100%;">
+            &nbsp;<br>&nbsp;
           </div>
         </div>
         <hr style="margin: 5px;"/>
