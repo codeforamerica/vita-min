@@ -795,7 +795,7 @@ es:
           had_local_tax_refund: Reembolso del impuesto estatal o local sobre los ingresos?
           had_other_income: "¿Otros ingresos?"
           had_rental_income: "¿Ingresos (o pérdidas) procedentes del arrendamiento de propiedades?"
-          had_rental_income_and_used_dwelling_as_residence: "."
+          had_rental_income_and_used_dwelling_as_residence: "En caso afirmativo, ¿usó la unidad de vivienda como residencia personal y la alquiló por menos de 15 días?"
           had_rental_income_from_personal_property: "."
           had_retirement_income: "¿Cuentas de jubilación, ingresos de pensiones o anualidades?"
           had_self_employment_income: "¿Ingresos por trabajo autónomo?"
