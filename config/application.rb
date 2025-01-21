@@ -84,7 +84,7 @@ module VitaMin
     config.gyr_current_tax_year = 2024
     config.ctc_current_tax_year = 2021
     config.statefile_current_tax_year = 2024
-    config.product_year = 2024
+    config.product_year = 2025
 
     pt = Time.find_zone('America/Los_Angeles')
     et = Time.find_zone('America/New_York')
