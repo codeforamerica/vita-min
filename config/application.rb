@@ -138,6 +138,17 @@ module VitaMin
     config.intercom_app_id_statefile = "rtcpj4hf"
     config.google_login_enabled = true
 
+    local_network_ip_ranges = [
+      "127.0.0.0/8",    # localhost IPv4 range, per RFC-3330
+      "::1",            # localhost IPv6
+      "fc00::/7",       # private IPv6 range fc00::/7
+      "10.0.0.0/8",     # private IPv4 range 10.x.x.x
+      "172.16.0.0/12",  # private IPv4 range 172.16.0.0 .. 172.31.255.255
+      "192.168.0.0/16", # private IPv4 range 192.168.x.x
+    ]
+    aws_ip_ranges = JSON.parse(File.read("ip-ranges.json"))["prefixes"].map { |ip_json| ip_json["ip_prefix"] }
+    config.action_dispatch.trusted_proxies = (local_network_ip_ranges + aws_ip_ranges).map { |ip_string| IPAddr.new(ip_string) }
+
     # Add pdftk to PATH
     ENV['PATH'] += ":#{Rails.root}/vendor/pdftk"
 
