@@ -17,6 +17,7 @@ module StateFile
           current_request.reset_failed_attempts!
           session[:ssn_verified] = true
           redirect_to root_path
+          # TODO: https://codeforamerica.atlassian.net/browse/FYST-1518
           # need to change to address controller
         else
           create_state_file_access_log("incorrect_ssn_challenge")

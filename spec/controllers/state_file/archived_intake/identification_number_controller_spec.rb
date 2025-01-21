@@ -62,8 +62,9 @@ RSpec.describe StateFile::ArchivedIntakes::IdentificationNumberController, type:
         expect(session[:ssn_verified]).to eq(true)
         expect(intake_request.reload.failed_attempts).to eq(0)
 
-        expect(response).to redirect_to(root_path)
+        # TODO: https://codeforamerica.atlassian.net/browse/FYST-1518
         # need to change to address path
+        expect(response).to redirect_to(root_path)
       end
 
       it "resets failed attempts to zero even if one failed attempt has already been made" do

@@ -29,6 +29,9 @@ RSpec.feature "accessing a prior year PDF", active_job: true do
       expect(page).to have_text I18n.t("state_file.archived_intakes.identification_number.edit.title")
       fill_in I18n.t("state_file.archived_intakes.identification_number.edit.ssn_label"), with: "123456789"
       click_on I18n.t("general.continue")
+
+      # TODO: https://codeforamerica.atlassian.net/browse/FYST-1518
+      # need to change to address path
       expect(current_path).to eq(root_path)
     end
   end

@@ -15,7 +15,6 @@ module StateFile
 
       def check_feature_flag
         unless Flipper.enabled?(:get_your_pdf)
-          # this redirect to be changed when we have an offboarding page
           redirect_to root_path
         end
       end
