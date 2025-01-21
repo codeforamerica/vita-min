@@ -4,6 +4,9 @@ module StateFile
       before_action :check_feature_flag
       before_action :require_archived_intake_email
       before_action :require_archived_intake_verified
+      before_action do
+        ActiveStorage::Current.url_options = { protocol: request.protocol, host: request.host, port: request.port }
+      end
 
 
       def index
