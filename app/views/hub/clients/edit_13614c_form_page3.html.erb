@@ -12,124 +12,21 @@
                   html: { class: 'form-card form-question-13614-page3' } do |f| %>
       <div>
         <div style="display: flex; justify-content: space-between;">
-          <h2><%= t(".additional_info_title") %></h2>
+          <h2>Expenses and Tax Related Events: Check only the boxes that apply to you and/or your spouse.</h2>
 
           <%= render '13614c_page_links', current_page: 3 %>
         </div>
 
         <hr style="margin-top: 0;"/>
 
+        <h3>Paid any of the following expenses to itemize in 2024?</h3>
+
         <div class="grid">
-          <div class="grid__item width-one-whole">
-            <%= f.cfa_select(:receive_written_communication, "1. #{t(".fields.q1_receive_written_communication")}", yes_no_options_for_select) %>
-            <%= f.cfa_input_field(:preferred_written_language, t(".fields.q1_preferred_written_language")) %>
-          </div>
-          <div class="grid__item width-one-whole">
-            <%= f.cfa_select(:presidential_campaign_fund_donation, "2. #{t(".fields.q2_presidential_campaign_fund")}",     [
-              ["", "unfilled"],
-              ["You", "primary"],
-              ["Spouse", "spouse"],
-              ["You and your spouse", "primary_and_spouse"],
-            ]) %>
-          </div>
-          <div class="grid__item width-one-whole">
-            <div class="form-group">
-              <p class="form-question"><%= "3. #{t(".fields.q3_refund_payment_method")}" %></p>
-            </div>
-          </div>
-          <div class="grid__item width-one-whole">
-            <%= f.cfa_select(:refund_payment_method, t(".fields.q3_refund_payment_method_direct_deposit"), [
-              ["", "unfilled"],
-              [I18n.t("general.affirmative"), "direct_deposit"],
-              [I18n.t("general.negative"), "check"],
-            ]) %>
-            <%= f.cfa_select(:savings_purchase_bond, t(".fields.q3_refund_payment_method_savings_bond"), yes_no_options_for_select) %>
-            <%= f.cfa_select(:savings_split_refund, t(".fields.q3_refund_payment_method_split"), yes_no_options_for_select) %>
-          </div>
-          <div class="grid__item width-one-whole">
-            <%= f.cfa_select(:balance_pay_from_bank, "4. #{t(".fields.q4_pay_due_balance_directly")}", yes_no_options_for_select) %>
-          </div>
-          <div class="grid__item width-one-whole">
-            <%= f.cfa_select(:had_disaster_loss, "5. #{t(".fields.q5_federal_disaster_area")}", yes_no_options_for_select) %>
-            <%= f.cfa_input_field(:had_disaster_loss_where, t(".fields.q5_federal_disaster_area_where")) %>
-          </div>
-          <div class="grid__item width-one-whole">
-            <%= f.cfa_select(:received_irs_letter, "6. #{t(".fields.q6_letter_from_irs")}", yes_no_options_for_select) %>
-          </div>
-          <div class="grid__item width-one-whole">
-            <%= f.cfa_select(:register_to_vote, "7. #{t(".fields.q7_register_to_vote")}", yes_no_options_for_select) %>
-          </div>
-          <div class="grid__item width-one-whole">
-            <%= f.cfa_select(:demographic_english_conversation, "8. #{t(".fields.q8_speak_and_understand_english")}", [
-              ["", :unfilled],
-              [t("general.very_well"), :very_well],
-              [t("general.well"), :well],
-              [t("general.not_well"), :not_well],
-              [t("general.not_at_all"), :not_at_all],
-            ]) %>
-          </div>
-          <div class="grid__item width-one-whole">
-            <%= f.cfa_select(:demographic_english_reading, "9. #{t(".fields.q9_read_english")}", [
-              ["", :unfilled],
-              [t("general.very_well"), :very_well],
-              [t("general.well"), :well],
-              [t("general.not_well"), :not_well],
-              [t("general.not_at_all"), :not_at_all],
-            ]) %>
-          </div>
-          <div class="grid__item width-one-whole">
-            <%= f.cfa_select(:demographic_disability, "10. #{t(".fields.q10_household_disability")}", yes_no_options_for_select + [[I18n.t("general.prefer_not_to_answer"), "prefer_not_to_answer"]]) %>
-          </div>
-          <div class="grid__item width-one-whole">
-            <%= f.cfa_select(:demographic_veteran, "11. #{t(".fields.q11_veteran")}", yes_no_options_for_select + [[I18n.t("general.prefer_not_to_answer"), "prefer_not_to_answer"]]) %>
-          </div>
-          <div class="grid__item width-one-whole">
-            <div class="form-group">
-              <p class="form-question"><%= "12. #{t(".fields.q12_primary_race")}" %></p>
-            </div>
-          </div>
-          <div class="grid__item width-one-whole primary-demographic-race">
-            <div class="form-group checkbox-set">
-              <%= f.hub_checkbox(:demographic_primary_american_indian_alaska_native, t("general.race.american_indian_alaska_native"), options: { checked_value: true, unchecked_value: false }) %>
-              <%= f.hub_checkbox(:demographic_primary_asian, t("general.race.asian"), options: { checked_value: true, unchecked_value: false }) %>
-              <%= f.hub_checkbox(:demographic_primary_black_african_american, t("general.race.black_african_american"), options: { checked_value: true, unchecked_value: false }) %>
-              <%= f.hub_checkbox(:demographic_primary_native_hawaiian_pacific_islander, t("general.race.native_hawaiian_pacific_islander"), options: { checked_value: true, unchecked_value: false }) %>
-              <%= f.hub_checkbox(:demographic_primary_white, t("general.race.white"), options: { checked_value: true, unchecked_value: false }) %>
-              <%= f.hub_checkbox(:demographic_primary_prefer_not_to_answer_race, t("general.prefer_not_to_answer"), options: { checked_value: true, unchecked_value: false }) %>
-            </div>
+          <div class="grid__item width-one-half" style="display: flex; align-items: flex-start; justify-content: space-between;">
           </div>
 
-          <div class="grid__item width-one-whole">
-            <div class="form-group">
-              <p class="form-question"><%= "13. #{t(".fields.q13_spouse_race")}" %></p>
-            </div>
-          </div>
-          <div class="grid__item width-one-whole spouse-demographic-race">
-            <div class="form-group checkbox-set">
-              <%= f.hub_checkbox(:demographic_spouse_american_indian_alaska_native, t("general.race.american_indian_alaska_native"), options: { checked_value: true, unchecked_value: false }) %>
-              <%= f.hub_checkbox(:demographic_spouse_asian, t("general.race.asian"), options: { checked_value: true, unchecked_value: false }) %>
-              <%= f.hub_checkbox(:demographic_spouse_black_african_american, t("general.race.black_african_american"), options: { checked_value: true, unchecked_value: false }) %>
-              <%= f.hub_checkbox(:demographic_spouse_native_hawaiian_pacific_islander, t("general.race.native_hawaiian_pacific_islander"), options: { checked_value: true, unchecked_value: false }) %>
-              <%= f.hub_checkbox(:demographic_spouse_white, t("general.race.white"), options: { checked_value: true, unchecked_value: false }) %>
-              <%= f.hub_checkbox(:demographic_spouse_prefer_not_to_answer_race, t("general.prefer_not_to_answer"), options: { checked_value: true, unchecked_value: false }) %>
-            </div>
-          </div>
-          <div class="grid__item width-one-whole">
-            <%= f.cfa_select(:demographic_primary_ethnicity, "14. #{t(".fields.q14_primary_ethnicity")}", [
-              ["", :unfilled],
-              [t("general.ethnicity.hispanic"), :hispanic_latino],
-              [t("general.ethnicity.not_hispanic"), :not_hispanic_latino],
-              [t("general.prefer_not_to_answer"), :prefer_not_to_answer],
-            ]) %>
-          </div>
-          <div class="grid__item width-one-whole">
-            <%= f.cfa_select(:demographic_spouse_ethnicity, "15. #{t(".fields.q15_spouse_ethnicity")}", [
-              ["", :unfilled],
-              [t("general.ethnicity.hispanic"), :hispanic_latino],
-              [t("general.ethnicity.not_hispanic"), :not_hispanic_latino],
-              [t("general.prefer_not_to_answer"), :prefer_not_to_answer],
-            ]) %>
-          </div>
+          <div class="grid__item width-one-half">
+          </div>1G
         </div>
       </div>
 
