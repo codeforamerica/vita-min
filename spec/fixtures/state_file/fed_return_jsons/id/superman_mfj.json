@@ -1,0 +1,82 @@
+{
+  "filers": [
+    {
+      "tin": "400-00-1220",
+      "suffix": null,
+      "lastName": "Kent",
+      "firstName": "Jonathan",
+      "isStudent": false,
+      "isDisabled": false,
+      "dateOfBirth": "1950-12-05",
+      "middleInitial": null,
+      "isPrimaryFiler": true,
+      "form1099GsTotal": "0.00",
+      "educatorExpenses": "0.00",
+      "interestReportsTotal": "5000.00",
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": null
+    },
+    {
+      "tin": "600-00-1221",
+      "suffix": null,
+      "lastName": "Kent",
+      "firstName": "Martha",
+      "isStudent": false,
+      "isDisabled": false,
+      "dateOfBirth": "1960-08-08",
+      "middleInitial": null,
+      "isPrimaryFiler": false,
+      "form1099GsTotal": "0.00",
+      "educatorExpenses": "0.00",
+      "interestReportsTotal": "0.00",
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "formW2s": [
+    {
+      "usedTin": "400-00-1220",
+      "unionDuesAmount": null
+    },
+    {
+      "usedTin": "600-00-1221",
+      "unionDuesAmount": null
+    }
+  ],
+  "form1099Gs": [],
+  "interestReports": [
+    {
+      "payer": "Superhero Investments Ltd",
+      "has1099": true,
+      "payerTin": null,
+      "1099Amount": "5000.00",
+      "taxWithheld": "0.00",
+      "no1099Amount": null,
+      "recipientTin": "400-00-1220",
+      "taxExemptInterest": "0.00",
+      "interestOnGovernmentBonds": "500.00",
+      "taxExemptAndTaxCreditBondCusipNo": null
+    }
+  ],
+  "familyAndHousehold": [
+    {
+      "tin": "300-00-1222",
+      "suffix": null,
+      "lastName": "Kent",
+      "firstName": "Clark",
+      "dateOfBirth": "2012-02-29",
+      "relationship": "adoptedChild",
+      "middleInitial": null,
+      "qualifyingChild": true,
+      "eligibleDependent": true,
+      "residencyDuration": "allYear",
+      "isClaimedDependent": true,
+      "hohQualifyingPerson": null,
+      "scheduleEicLine4aNo": false,
+      "scheduleEicLine4aYes": false,
+      "scheduleEicLine4bYes": false,
+      "monthsLivedWithTPInUS": "twelve",
+      "ssnNotValidForEmployment": false
+    }
+  ]
+}
