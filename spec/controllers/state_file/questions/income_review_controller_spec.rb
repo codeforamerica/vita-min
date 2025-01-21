@@ -110,21 +110,22 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
       end
     end
 
-    context "when W2 warnings are present because box14_ui_wf_swf is not present" do
-      let!(:state_file_w2_3) { create(:state_file_w2, state_file_intake: intake) }
-
-      it "displays W2 warnings" do
-        get :edit, params: params
-        expect(response.body).to have_text "We need to double-check some information"
+    context "when W2 warnings are present" do
+      shared_examples "displays at least one W2 warning" do
+        it "displays at least one W2 warning" do
+          get :edit, params: params
+          expect(response.body).to have_text "We need to double-check some information"
+        end
       end
-    end
 
-    context "when W2 warnings are present because box14_ui_wf_swf is too high" do
-      let!(:state_file_w2_3) { create(:state_file_w2, state_file_intake: intake, box14_ui_wf_swf: 179.79) }
+      context "when box14_ui_wf_swf is not present" do
+        let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake) }
+        include_examples "displays at least one W2 warning"
+      end
 
-      it "displays W2 warnings" do
-        get :edit, params: params
-        expect(response.body).to have_text "We need to double-check some information"
+      context "when box14_ui_wf_swf is too high" do
+        let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_ui_wf_swf: 179.79) }
+        include_examples "displays at least one W2 warning"
       end
     end
   end
