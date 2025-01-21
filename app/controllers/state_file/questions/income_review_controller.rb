@@ -33,8 +33,10 @@ module StateFile
 
       def should_show_warning?(w2)
         return true if w2.get_box14_ui_overwrite.nil?
-
         return true if w2.get_box14_ui_overwrite > 179.78
+        
+        return true if w2.box14_fli.nil?
+        return true if w2.box14_fli > 145.26
 
         false
       end

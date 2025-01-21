@@ -102,7 +102,7 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
     end
 
     context "when no W2s with warnings" do
-      let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_ui_wf_swf: 100) }
+      let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_ui_wf_swf: 179.78, box14_fli: 145.26) }
 
       it "does not display W2 warnings" do
         get :edit, params: params
@@ -119,12 +119,22 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
       end
 
       context "when box14_ui_wf_swf is not present" do
-        let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake) }
+        let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_fli: 145.26) }
         include_examples "displays at least one W2 warning"
       end
 
       context "when box14_ui_wf_swf is too high" do
         let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_ui_wf_swf: 179.79) }
+        include_examples "displays at least one W2 warning"
+      end
+
+      context "when fli is not present" do
+        let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_ui_wf_swf: 179.78) }
+        include_examples "displays at least one W2 warning"
+      end
+
+      context "when fli is too high" do
+        let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_fli: 145.27) }
         include_examples "displays at least one W2 warning"
       end
     end
