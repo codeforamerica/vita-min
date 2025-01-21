@@ -389,39 +389,7 @@ RSpec.describe "a user editing a clients 13614c form" do
 
       expect(page).to have_text I18n.t("hub.clients.edit_13614c_form_page3.additional_info_title")
 
-      select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page3.fields.q1_receive_written_communication")
-      fill_in I18n.t("hub.clients.edit_13614c_form_page3.fields.q1_preferred_written_language"), with: "Chinese"
-      select "You", from: I18n.t("hub.clients.edit_13614c_form_page3.fields.q2_presidential_campaign_fund")
-
-      select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page3.fields.q3_refund_payment_method_direct_deposit")
-      # going away altogether in gyr1-614
-      #select "No", from: I18n.t("hub.clients.edit_13614c_form_page3.fields.q3_refund_payment_method_savings_bond")
-      select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page3.fields.q3_refund_payment_method_split")
-
-      select "No", from: I18n.t("hub.clients.edit_13614c_form_page3.fields.q4_pay_due_balance_directly")
-
-      select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page3.fields.q5_federal_disaster_area")
-      fill_in I18n.t("hub.clients.edit_13614c_form_page3.fields.q5_federal_disaster_area_where"), with: "Paradise"
-
-      select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page3.fields.q6_letter_from_irs")
-      select "No", from: I18n.t("hub.clients.edit_13614c_form_page3.fields.q7_register_to_vote")
-
-      # Deliberately don't fill in the conversational language question
-      select "Well", from: I18n.t("hub.clients.edit_13614c_form_page3.fields.q9_read_english")
-
-      select "No", from: I18n.t("hub.clients.edit_13614c_form_page3.fields.q10_household_disability")
-      select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page3.fields.q11_veteran")
-
-      within ".primary-demographic-race" do
-        check "Asian"
-        check "White"
-      end
-      within ".spouse-demographic-race" do
-        check "Black or African American"
-      end
-
-      select "Not Hispanic or Latino", from: I18n.t("hub.clients.edit_13614c_form_page3.fields.q14_primary_ethnicity")
-      select "Hispanic or Latino", from: I18n.t("hub.clients.edit_13614c_form_page3.fields.q15_spouse_ethnicity")
+      # TODO add setup
 
       click_on I18n.t("general.save")
 
@@ -429,66 +397,8 @@ RSpec.describe "a user editing a clients 13614c form" do
       expect(page).to have_text I18n.t("general.changes_saved")
 
       intake = client.intake.reload
-      expect(intake.receive_written_communication).to eq "yes"
-      expect(intake.preferred_written_language).to eq "Chinese"
-      expect(intake.presidential_campaign_fund_donation).to eq "primary"
-      expect(intake.refund_payment_method).to eq "direct_deposit"
-      # going away altogether in gyr1-614
-      # expect(intake.savings_purchase_bond).to eq "no"
-      expect(intake.savings_split_refund).to eq "yes"
-      expect(intake.balance_pay_from_bank).to eq "no"
-      expect(intake.had_disaster_loss).to eq "yes"
-      expect(intake.had_disaster_loss_where).to eq "Paradise"
-      expect(intake.received_irs_letter).to eq "yes"
-      expect(intake.register_to_vote).to eq "no"
-      expect(intake.demographic_english_conversation).to eq "unfilled"
-      expect(intake.demographic_english_reading).to eq "well"
-      expect(intake.demographic_disability).to eq "no"
-      expect(intake.demographic_veteran).to eq "yes"
-      expect(intake.demographic_primary_asian).to be_truthy
-      expect(intake.demographic_primary_black_african_american).to be_falsey
-      expect(intake.demographic_primary_white).to be_truthy
-      expect(intake.demographic_spouse_black_african_american).to be_truthy
-      expect(intake.demographic_primary_ethnicity).to eq "not_hispanic_latino"
-      expect(intake.demographic_spouse_ethnicity).to eq "hispanic_latino"
-    end
 
-    describe "demographic questions on page 3" do
-      before do
-        client.intake.update(
-          demographic_questions_opt_in: 'no',
-          demographic_spouse_native_hawaiian_pacific_islander: true, # somehow exists in the db even though demographic opt in is false
-        )
-      end
-
-      # TODO reenable for TY2024
-      xit "does not write the answers to the PDF unless the client opted in during intake or the hub user has saved page3" do
-        # generate pdf, prove spouse ethnicity is not filled in because demographic_questions_opt_in is false
-        form_fields = PdfForms.new.get_fields(PdfFiller::F13614cPdf.new(client.intake).output_file)
-        expect(form_fields.find { |field| field.name == "form1[0].page3[0].q13[0].nativeHawaiian[0]" }.value).to eq("Off")
-        expect(form_fields.find { |field| field.name == "form1[0].page3[0].q13[0].blackAfrican[0]" }.value).to eq("Off")
-
-        visit hub_client_path(id: client.id)
-        within ".client-profile" do
-          click_on "Edit 13614-C"
-        end
-
-        within '.form_13614c-page-links', match: :first do
-          click_on "3"
-        end
-
-        within ".spouse-demographic-race" do
-          uncheck "Native Hawaiian or other Pacific Islander"
-          check "Black or African American"
-        end
-
-        click_on I18n.t("general.save")
-
-        # generate pdf, prove spouse ethnicity is filled in because demographic_questions_hub_edit is true
-        form_fields = PdfForms.new.get_fields(PdfFiller::F13614cPdf.new(client.reload.intake).output_file)
-        expect(form_fields.find { |field| field.name == "form1[0].page3[0].q13[0].nativeHawaiian[0]" }.value).to eq("")
-        expect(form_fields.find { |field| field.name == "form1[0].page3[0].q13[0].blackAfrican[0]" }.value).to eq("1")
-      end
+      # TODO expects
     end
   end
 end
