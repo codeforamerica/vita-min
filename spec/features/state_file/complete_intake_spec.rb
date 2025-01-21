@@ -10,136 +10,6 @@ RSpec.feature "Completing a state file intake", active_job: true do
     allow_any_instance_of(Routes::StateFileDomain).to receive(:matches?).and_return(true)
   end
 
-  context "NY", :flow_explorer_screenshot, js: true do
-    it "has content", required_schema: "ny" do
-      visit "/"
-      click_on "Start Test NY"
-
-      expect(page).to have_text I18n.t("state_file.landing_page.edit.ny.title")
-      click_on I18n.t('general.get_started'), id: "firstCta"
-
-      step_through_eligibility_screener(us_state: "ny")
-
-      step_through_initial_authentication(contact_preference: :email)
-
-      check "Email"
-      check "Text message"
-      fill_in "Your phone number", with: "+12025551212"
-      click_on "Continue"
-
-      expect(page).to have_text I18n.t('state_file.questions.sms_terms.edit.title')
-      click_on I18n.t("general.accept")
-
-      expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
-      click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
-
-      step_through_df_data_transfer
-
-      expect(page).to have_text I18n.t("state_file.questions.nyc_residency.edit.title", year: filing_year)
-      choose "I did not live in New York City at all in #{filing_year}"
-      choose I18n.t("general.affirmative")
-      click_on I18n.t("general.continue")
-
-      expect(page).to have_text I18n.t("state_file.questions.eligibility_offboarding.edit.ineligible_reason.nyc_maintained_home")
-      click_on "Go back"
-      expect(page).to have_text I18n.t("state_file.questions.nyc_residency.edit.title", year: filing_year)
-      choose "I lived in New York City all year in #{filing_year}"
-      click_on I18n.t("general.continue")
-
-      expect(page).to have_text I18n.t("state_file.questions.ny_county.edit.title", filing_year: filing_year)
-      select("Nassau", from: "County")
-      click_on I18n.t("general.continue")
-
-      expect(page).to have_text I18n.t("state_file.questions.ny_school_district.edit.title", filing_year: filing_year)
-      select("Bellmore-Merrick CHS Bellmore", from: "School District Name")
-      click_on I18n.t("general.continue")
-
-      expect(page).to have_text I18n.t("state_file.questions.ny_permanent_address.edit.title")
-      choose I18n.t("general.affirmative")
-      click_on I18n.t("general.continue")
-      click_on "Go back"
-
-      expect(page).to have_text I18n.t("state_file.questions.ny_permanent_address.edit.title")
-      choose I18n.t("general.negative")
-      # if they previously confirmed their address from DF, don't show it filled in on the form for a new permanent address
-      expect(find_field("state_file_ny_permanent_address_form[permanent_street]").value).to eq ""
-      fill_in I18n.t("state_file.questions.ny_permanent_address.edit.street_address_label"), with: "321 Peanut Way"
-      fill_in I18n.t("state_file.questions.ny_permanent_address.edit.apartment_number_label"), with: "B"
-      fill_in I18n.t("state_file.questions.ny_permanent_address.edit.city_label"), with: "New York"
-      fill_in I18n.t("state_file.questions.ny_permanent_address.edit.zip_label"), with: "11102"
-      click_on I18n.t("general.continue")
-
-      expect(page).to have_text I18n.t('state_file.questions.ny_sales_use_tax.edit.title.one', year: filing_year)
-      choose I18n.t("general.negative")
-      click_on I18n.t("general.continue")
-
-      expect(page).to have_text I18n.t('state_file.questions.primary_state_id.edit.title')
-      choose I18n.t('state_file.questions.primary_state_id.state_id.id_type_question.dmv')
-      fill_in I18n.t('state_file.questions.primary_state_id.state_id.id_details.number'), with: "012345678"
-      select_cfa_date "state_file_ny_primary_state_id_form_issue_date", 4.years.ago.beginning_of_year
-      select_cfa_date "state_file_ny_primary_state_id_form_expiration_date", 4.years.from_now.beginning_of_year
-      select("New York", from: I18n.t('state_file.questions.primary_state_id.state_id.id_details.issue_state'))
-      fill_in "For New York IDs: First three characters of the document number (located on the back of your ID)", with: "ABC"
-      click_on I18n.t("general.continue")
-
-      expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title')
-      choose I18n.t("general.affirmative")
-      fill_in I18n.t('state_file.questions.unemployment.edit.payer_name'), with: "Business Name"
-      fill_in I18n.t('state_file.questions.unemployment.edit.payer_address'), with: "123 Main St"
-      fill_in I18n.t('state_file.questions.unemployment.edit.city'), with: "New York", match: :first
-      fill_in I18n.t('state_file.questions.unemployment.edit.zip_code'), with: "11102", match: :first
-      fill_in I18n.t('state_file.questions.unemployment.edit.payer_tin'), with: "270293117"
-      choose I18n.t('state_file.questions.unemployment.edit.confirm_address_yes')
-      fill_in 'state_file1099_g_unemployment_compensation_amount', with: "123"
-      fill_in 'state_file1099_g_federal_income_tax_withheld_amount', with: "456"
-      fill_in 'state_file1099_g_state_identification_number', with: "123456789"
-      fill_in 'state_file1099_g_state_income_tax_withheld_amount', with: "789"
-      click_on I18n.t("general.continue")
-
-      expect(page).to have_text(I18n.t('state_file.questions.unemployment.index.1099_label', name: StateFileNyIntake.last.primary.full_name))
-      click_on I18n.t("general.continue")
-
-      # From the review page, the user can go back to certain screens to edit and then should return directly to the
-      # review page. This is well-covered by unit tests, but let's test just one of those screens here
-      expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
-      within "#county" do
-        click_on I18n.t("general.edit")
-      end
-      expect(page).to have_text I18n.t("state_file.questions.ny_county.edit.title", filing_year: filing_year)
-      click_on I18n.t("general.continue")
-      expect(page).to have_text I18n.t("state_file.questions.ny_school_district.edit.title", filing_year: filing_year)
-      click_on I18n.t("general.continue")
-      expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
-      click_on I18n.t("general.continue")
-
-      expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.tax_refund.edit.title_html", state_name: "New York", refund_amount: 1468))
-      expect(page).not_to have_text "Your responses are saved. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org."
-      choose I18n.t("state_file.questions.tax_refund.edit.mail")
-      click_on I18n.t("general.continue")
-
-      expect(page).to have_text(I18n.t('state_file.questions.esign_declaration.edit.title', state_name: "New York"))
-      expect(page).to have_text("I have examined the information on my NYS electronic tax return, including all information transferred to my NYS return from my federal return")
-      check "state_file_esign_declaration_form_primary_esigned"
-      click_on I18n.t('state_file.questions.esign_declaration.edit.submit')
-
-      expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "New York", filing_year: filing_year)
-      expect(page).to have_link I18n.t("state_file.questions.submission_confirmation.edit.download_state_return_pdf")
-      click_on "Main XML Doc"
-      expect(page.body).to include('ReturnState')
-      expect(page.body).to include('<FirstName>Testy</FirstName>')
-
-      assert_flow_explorer_sample_params_includes_everything('ny')
-
-      perform_enqueued_jobs
-      submission = EfileSubmission.last
-      # Asserting on metadata so we can get a good error if bundling starts to fail
-      # (the metadata will include error_code and raw_response)
-      expect(submission.last_transition.metadata).to eq({})
-      expect(submission.submission_bundle).to be_present
-      expect(submission.current_state).to eq("queued")
-    end
-  end
-
   context "AZ", :flow_explorer_screenshot, js: true do
     it "has content", required_schema: "az" do
       visit "/"
@@ -656,6 +526,20 @@ RSpec.feature "Completing a state file intake", active_job: true do
       submission = EfileSubmission.last
       expect(submission.submission_bundle).to be_present
       expect(submission.current_state).to eq("queued")
+    end
+  end
+
+  context "deprecated" do
+    context "NY", js: true do
+      it "doesn't allow filers in anymore and redirects all pages to landing page", required_schema: "ny" do
+        visit "/"
+        click_on "Start Test NY"
+
+        expect(page).to have_text I18n.t("state_file.landing_page.ny_closed.title")
+
+        visit "/questions/ny-eligibility-residence"
+        expect(page).to have_text I18n.t("state_file.landing_page.ny_closed.title")
+      end
     end
   end
 end

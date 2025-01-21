@@ -17,6 +17,10 @@ module StateFile
       @state_code = params[:us_state]
       @state_name = StateFile::StateInformationService.state_name(@state_code)
       @built_with_name = @state_code == "nj" ? "New Jersey Office of Innovation" : @state_name
+
+      if @state_code == "ny"
+        render :ny_closed
+      end
     end
 
     def update
@@ -40,5 +44,6 @@ module StateFile
 
     def illustration_path; end
 
+    def ny_closed; end
   end
 end

@@ -14,14 +14,6 @@ RSpec.describe StateFile::LandingPageController do
       end
     end
 
-    it_behaves_like :start_intake_concern, intake_class: StateFileNyIntake, intake_factory: :state_file_ny_intake do
-      let(:valid_params) do
-        {
-          us_state: "ny"
-        }
-      end
-    end
-
     it_behaves_like :start_intake_concern, intake_class: StateFileNjIntake, intake_factory: :state_file_nj_intake do
       let(:valid_params) do
         {
@@ -32,15 +24,15 @@ RSpec.describe StateFile::LandingPageController do
   end
 
   describe "#edit" do
-    let(:intake) { create :state_file_ny_intake }
+    let(:intake) { create :state_file_az_intake }
     before do
       sign_in intake
     end
 
     it "does not set the current_step" do
-      get :edit, params: { us_state: :ny }
+      get :edit, params: { us_state: :az }
       expect(response).to be_ok
-      expect(StateFileNyIntake.last.current_step).to be_nil
+      expect(StateFileAzIntake.last.current_step).to be_nil
     end
 
     context "when it is after closing" do
@@ -50,7 +42,7 @@ RSpec.describe StateFile::LandingPageController do
         end
       end
       it "does not redirect them to the about page" do
-        get :edit, params: { us_state: :ny }
+        get :edit, params: { us_state: :az }
         expect(response).not_to have_http_status(:redirect)
       end
     end

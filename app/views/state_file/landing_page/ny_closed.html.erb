@@ -1,0 +1,49 @@
+<% state_image_path = "partner-logos/#{@state_code}gov-logo.svg" %>
+<% title = t(".title") %>
+
+<% content_for :page_title, title %>
+
+<section class="slab question-layout <%= controller_name.gsub("_", "-") %>-outer">
+  <div class="grid">
+    <div class="grid__item question-wrapper">
+      <%= yield :notices %>
+      <div class="main-content-inner">
+        <% if illustration_path.present? %>
+          <div class="question__illustration">
+            <%= image_tag("#{illustration_folder}/#{illustration_path}", alt: "") %>
+          </div>
+        <% end %>
+
+        <div class="landing-page-content">
+          <h1 class="h1"><%= title %></h1>
+
+          <p class="h2"><%= t(".body_html") %></p>
+
+          <div class="partner-logo-wrapper spacing-below-35">
+            <div class="partner-logo-image">
+              <%= image_tag state_image_path, alt: "#{@state_name} state logo", class: "" %>
+            </div>
+            <div class="partner-logo-text text--body text--bold">
+              <%= t(".supported_by") %>
+            </div>
+          </div>
+
+          <% if @user_name.present? %>
+            <p class="h2"><%= t(".welcome_back", user_name: @user_name) %></p>
+            <p class="h2"><%= t(".continue", state_name: @state_name) %></p>
+            <%= link_to StateFile::StateFilePagesController.to_path_helper(action: :login_options), class: "button button--primary button--wide", id: "firstCta" do %>
+              <%= t("general.sign_in") %>
+            <% end %>
+            <%= form_with model: @form, url: { action: :update }, local: true, method: :put, builder: VitaMinFormBuilder, id: "start-again-form" do |f| %>
+              <h2 class="h2">
+                <%= t(".not_you", user_name: @user_name) %>
+                <%= f.submit t(".start_new", state_name: @state_name), class: "button--link" %>
+              </h2>
+            <% end %>
+          <% end %>
+        </div>
+        <%= image_tag 'questions/welcome.svg', class: 'fyst-home-image', alt: '' %>
+      </div>
+    </div>
+  </div>
+</section>
