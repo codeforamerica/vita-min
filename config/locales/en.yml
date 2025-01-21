@@ -2043,6 +2043,11 @@ en:
       subheader: Please sign up here to receive a notification when we open in January.
   state_file:
     archived_intakes:
+      pdfs:
+        index:
+          title: Your account has been successfully verified!
+          subtitle: To access your 2023 %{state} tax return, click the link below.
+          download: Download 2023 Tax Return
       email_address:
         edit:
           enter_email: Enter the email address linked to your account
