@@ -322,10 +322,10 @@ class User < ApplicationRecord
     return nil unless google_login_domain?(email) && google_login_domain?(auth_hash.extra.id_info["hd"])
 
     matching_users = User.where(email: email, external_provider: [nil, oauth2_provider_name], external_uid: [nil, auth_hash['uid']], suspended_at: nil)
+    # NOTE: Duplicate emails should never happen because there is a `validates_uniqueness_of` email constraint
+    #   However, I wanted to preserve the previous implementation as closely as possible, which means prioritizing
+    #   returning a user account with AdminRole, if one exists
     user = matching_users.where(role_type: "AdminRole").first || matching_users.first
-    if matching_users.count > 1
-      Rails.logger.warn("Found multiple hub accounts for #{email}, logging into #{user.role_type} account")
-    end
     user.update!(external_provider: oauth2_provider_name, external_uid: auth_hash['uid']) if user.present? && user.external_uid.nil?
     user
   end
