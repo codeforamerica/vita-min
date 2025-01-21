@@ -790,7 +790,7 @@ es:
         fields:
           had_asset_sale_income: "¿Ingresos (o pérdidas) procedentes de la venta o intercambio de acciones, bonos, moneda virtual o bienes inmuebles/propiedad?"
           had_disability_income: "¿Ingresos por discapacidad?"
-          had_gambling_income: "."
+          had_gambling_income: "Ganancias en juegos de azar, incluida la lotería."
           had_interest_income: "¿Intereses/dividendos de: cuentas corrientes/de ahorro, bonos, certificados de depósito, corretaje?"
           had_local_tax_refund: Reembolso del impuesto estatal o local sobre los ingresos?
           had_other_income: "¿Otros ingresos?"
