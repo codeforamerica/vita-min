@@ -1,4 +1,4 @@
-<% if current_intake.present?
+<% if current_intake.present? && question_navigator.show_progress?(controller.class)
   progress = question_navigator.get_progress(controller.class)
   unless progress.nil?
     number_of_steps = progress[:number_of_steps]

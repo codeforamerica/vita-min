@@ -2,6 +2,10 @@ module StateFile
   module Questions
     class W2Controller < QuestionsController
       before_action :load_w2
+
+      def self.show?(intake) # only accessed via button, not navigator
+        false
+      end
       
       def edit
         @state_code = current_state_code
