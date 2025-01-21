@@ -98,7 +98,7 @@ class MultiTenantService
     current_tax_year - 1
   end
 
-  def filing_years(now = app_time)
+  def filing_years(now = DateTime.now)
     if service_type == :ctc || service_type == :state_file
       [current_tax_year]
     else
