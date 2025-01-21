@@ -21,13 +21,21 @@
 
         <h3>Paid any of the following expenses to itemize in 2024?</h3>
 
+
+        <!-- MORTGAGE -->
         <div class="grid">
           <div class="grid__item width-one-half" style="display: flex; align-items: flex-start; justify-content: space-between;">
+            <%= f.cfa_select(:paid_mortgage_interest, "(A) Mortgage Interest", yes_no_options_for_select) %>
           </div>
-
-          <div class="grid__item width-one-half">
-          </div>1G
+          <div class="grid__item width-one-half" style="background-color:#e5e5e5; padding: 10px; display: flex; align-items: flex-start; justify-content: space-between;">
+            <%= f.cfa_select(:cv_1098_cb, "(B) W-2s", yes_no_options_for_select) %>
+            <%= f.cfa_select(:cv_1098_count, "#", (0..5).map { |num| [num.to_s, num] }, { include_blank: true }) %>
+          </div>
         </div>
+        <hr style="margin: 5px;"/>
+
+
+
       </div>
 
       <div style="display: flex; justify-content: space-between;">

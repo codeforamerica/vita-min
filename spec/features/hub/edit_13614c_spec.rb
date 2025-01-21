@@ -387,7 +387,7 @@ RSpec.describe "a user editing a clients 13614c form" do
       end
       expect(page).to have_text I18n.t("hub.clients.edit_13614c_form_page3.title")
 
-      expect(page).to have_text I18n.t("Expenses and Tax Related Events")
+      expect(page).to have_text "Expenses and Tax Related Events"
 
       # TODO add setup
 
