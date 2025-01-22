@@ -56,7 +56,7 @@ module Efile
           elsif RETRYABLE_LOG_CONTENTS.any? { |contents| log_contents.match(contents) }
             raise RetryableError, log_contents
           else
-            Rail.logger.error("GyrEfiler exit code: #{exit_code}")
+            Rails.logger.info("GyrEfiler exit code: #{exit_code}")
             raise Error, log_contents
           end
         end
