@@ -102,7 +102,7 @@ en:
     file_yourself:
       edit:
         info:
-        - File taxes online on your own using our partner website. This is our quickest option for households earning under $79,000 to file taxes and collect the tax credits you are owed!
+        - File taxes online on your own using our partner website. This is our quickest option for households earning under $84,000 to file taxes and collect the tax credits you are owed!
         - To get started, we’ll need to collect some basic information.
         title: File taxes on your own
   documents:
@@ -744,10 +744,10 @@ en:
       edit_13614c_form_page1:
         fields:
           apt: Apt.
-          below_qualifying_relative_income_requirement: Did this person have less than $4,400 of income?
+          below_qualifying_relative_income_requirement: Did this person have less than $5,050 of income?
           blind: Legally blind
           can_be_claimed_by_other: Is this person a qualifying child/relative of any other person?
-          claimed_by_another: Can anyone claim you or your spouse as a dependent?
+          claimed_by_another: Can anyone else claim the taxpayer or spouse on their tax return?
           contact_number: Contact Number
           disabled: Totally and Permanently Disabled
           dob: DOB
@@ -755,25 +755,38 @@ en:
           filer_provided_over_half_housing_support: Did the taxpayer(s) pay more than half the cost of maintaining a home for this person?
           filer_provided_over_half_support: Did the taxpayer(s) provide more than 50% of support for this person?
           first_name: First Name
-          got_married_during_tax_year: A. If Yes, Did you get married in 2021?
+          got_married_during_tax_year: A. If Yes, Did you get married in 2024?
           had_disability: Totally and permanently disabled
-          issued_identity_pin: Have you, your spouse, or dependents been a victim of tax related identity theft or been issued an Identity Protection PIN?
+          issued_an_identity_protection_pin: Issued an identity protection PIN (IPPIN)
+          issued_ippin: Issued IPPIN
           job_title: Job Title
           last_name: Last Name
-          lived_with_spouse: B. Did you live with your spouse during any part of the last six months of 2021?
+          lived_or_worked_in_two_or_more_states: Did you live or work in two or more states in 2024?
+          lived_with_spouse: B. Did you live with your spouse during any part of the last six months of 2024?
           middle_initial: M.I.
           months_in_home: "# of mos. lived in home last year:"
           never_married: Never Married
           north_american_resident: 'Resident of US, CAN or MEX last year:'
+          owner_or_holder_of_any_digital_assets: Owner or holder of any digital assets
+          pay_due_balance_directly: If they have a balance due, would they like to make a payment directly from their bank account?
+          preferred_written_language: If yes, which language?
+          presidential_campaign_fund: Presidential Election Campaign Fund $3 to go to this fund
           primary_us_citizen: U.S. citizen?
           provided_over_half_own_support: Did this person provide more than 50% of his/ her own support?
+          receive_written_communication: Receive written communications from the IRS in a language other than English?
+          refund_check_by_mail: Check by mail
+          refund_other: Other
+          refund_payment_method: 'If you are due a refund, would you like:'
+          refund_payment_method_direct_deposit: Direct Deposit
+          refund_payment_method_split: Split refund between different accounts
+          register_to_vote: Would you like information on how to vote and/or how to register to vote
           spouse_dob: Spouse's DOB
           spouse_first_name: Spouse’s First Name
           spouse_job_title: Spouse’s Job Title
           spouse_us_citizen: Spouse U.S. citizen?
           us_citizen: US citizen
           was_full_time_student: Full Time Student
-          was_married: Single or Married as of 12/31/21
+          was_married: Single or Married as of 12/31/2024
           was_student: Full-time Student last year
         last_year_was_your_spouse: 'Last year, was your spouse:'
         last_year_were_you: 'Last year, were you:'
@@ -1983,7 +1996,7 @@ en:
         description: File quickly on your own.
         list:
           file: File for %{current_tax_year} only
-          income: 'Income: under $79,000'
+          income: 'Income: under $84,000'
         timeframe: 45 minutes to file
         title: File Myself
       gyr_tile:
@@ -1991,7 +2004,7 @@ en:
         description: File confidently with assistance from our IRS-certified volunteers.
         list:
           file: File for %{oldest_filing_year}-%{current_tax_year}
-          income: 'Income: under $66,000'
+          income: 'Income: under $67,000'
           ssn: Must show copies of your Social Security card or ITIN paperwork
         timeframe: 2-3 weeks to file
         title: File with Help
@@ -2002,7 +2015,7 @@ en:
     triage_do_not_qualify:
       edit:
         faq_link_text: If you have additional questions, visit our FAQ page.
-        help_text: Our free service is available to households earning less than $79,000 a year.
+        help_text: Our free service is available to households earning less than $84,000 a year.
         title: Unfortunately, it looks like you do not qualify for our free service.
     triage_gyr:
       edit:
@@ -2041,12 +2054,12 @@ en:
 
             <p class="text--small spacing-above-15">Your income level should not include stimulus payments, public benefits, or SSI.</p>
           options:
-            12500_to_25000: "$12,500 - 25,000"
-            1_to_12500: "$1 - 12,500"
-            25000_to_40000: "$25,000 - 40,000"
-            40000_to_66000: "$40,000 - 66,000"
-            66000_to_79000: "$66,000 - 79,000"
-            over_79000: over $79,000
+            12500_to_25000: "$15,000 - 30,000"
+            1_to_12500: "$1 - $15,000"
+            25000_to_40000: "$30,000 - 45,000"
+            40000_to_66000: "$45,000 - 67,000"
+            66000_to_79000: "$67,000 - 84,000"
+            over_79000: over $84,000
             zero: "$0"
         title: Tell us about your filing status and income.
         vita_income_ineligible:
@@ -5660,7 +5673,7 @@ en:
           quote:
             courtney: "“I'm excited to extend our free services to those who can't come into one of our physical locations.I know taxes can be intimidating, which is why we are here to help!”"
             denise: "“Being part of an organization that works to bridge the gap between where people are and where they want (or need) to be is both fulfilling and always exciting.”"
-          subheader: We've formed a national coalition of community partners and dedicated volunteers to help us provide free tax filing assistance to families earning less than about $66,000 a year.
+          subheader: We've formed a national coalition of community partners and dedicated volunteers to help us provide free tax filing assistance to families earning less than about $67,000 a year.
         title: About Us
       error:
         body: It looks like there was a server error. We've been notified of the issue and will work to fix it!
@@ -6482,9 +6495,9 @@ en:
         in_person_link_text: VITA location finder
         income_limit:
           direct_file: Most filers under $200,000
-          diy: under $79,000
-          full_service: under $66,000
-          title: 'Income limit:'
+          diy: under $84,000
+          full_service: under $67,000
+          title: 'Income guidance:'
         itin_assistance: ITIN application assistance
         mobile_friendly: Mobile-friendly
         required_information: Required information
@@ -6509,7 +6522,7 @@ en:
           subtitle: "(w2s, 1099s, etc)"
           title: Official tax documents
         tax_payer_residency:
-          direct_file: Available to full-year residents of Arizona, California, Florida, Massachusetts, New Hampshire, New York, Nevada, South Dakota, Tennessee, Texas, Washington, and Wyoming.
+          direct_file: Available to full-year residents of Alaska, Arizona, California, Connecticut, Florida, Idaho, Illinois, Kansas, Maine, Maryland, Massachusetts, Nevada, New Hampshire, New Jersey, New Mexico, New York, North Carolina, Oregon, Pennsylvania, South Dakota, Tennessee, Texas, Washington, Wisconsin, and Wyoming.
           diy: Available to residents of all states, Puerto Rico, and non-residents.
           full_service_html: |
             Available to residents of all states.<br>

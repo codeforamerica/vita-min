@@ -122,6 +122,15 @@ module ApplicationHelper
     ]
   end
 
+  def yes_no_na_options_for_select
+    [
+      ["", "unfilled"],
+      [I18n.t("general.affirmative"), "yes"],
+      [I18n.t("general.negative"), "no"],
+      ["N/A", "na"],
+    ]
+  end
+
   def submission_status_icon(status)
     case status
     when "intake_in_progress", "fraud_hold"

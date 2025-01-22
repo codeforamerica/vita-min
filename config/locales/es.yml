@@ -753,7 +753,7 @@ es:
       edit_13614c_form_page1:
         fields:
           apt: Apt.
-          below_qualifying_relative_income_requirement: "¿Tenía esta persona menos de $4,400 de ingresos?"
+          below_qualifying_relative_income_requirement: "¿Tenía esta persona menos de $5,050 de ingresos?"
           blind: Legalmente invidente/ciego
           can_be_claimed_by_other: "¿Es esta persona que califica como hijo o familiar de otra persona?"
           claimed_by_another: "¿Puede alguien declarar a usted o a su cónyuge como dependiente?"
@@ -764,25 +764,38 @@ es:
           filer_provided_over_half_housing_support: "¿El contribuyente o contribuyentes aportaron más de la mitad de los gastos de vivienda de esta persona?"
           filer_provided_over_half_support: "¿El contribuyente o contribuyentes aportaron más del 50% de la manutención de esta persona?"
           first_name: Primer Nombre
-          got_married_during_tax_year: A. En caso afirmativo, ¿se casó en 2021?
+          got_married_during_tax_year: A. En caso afirmativo, ¿se casó en 2024?
           had_disability: Discapacidad total y permanente
-          issued_identity_pin: "¿Usted, su cónyuge o las personas a su cargo han sido víctimas de un robo de identidad relacionado con los impuestos o han recibido un PIN de protección de identidad?"
+          issued_an_identity_protection_pin: "."
+          issued_ippin: Se le emitió un IPPIN
           job_title: Título de puesto
           last_name: Apellido
-          lived_with_spouse: B. ¿Vivió con su cónyuge durante alguna parte de los últimos seis meses de 2021?
+          lived_or_worked_in_two_or_more_states: "¿Usted vivió o trabajó en dos o más estados en 2024?"
+          lived_with_spouse: B. ¿Vivió con su cónyuge durante alguna parte de los últimos seis meses de 2024?
           middle_initial: Inicial de su segundo nombre
           months_in_home: "# o número de meses que vivió en su casa el año pasado:"
           never_married: Nunca se ha casado
           north_american_resident: 'Residente en EE.UU., Canadá o México el año pasado:'
+          owner_or_holder_of_any_digital_assets: "."
+          pay_due_balance_directly: "."
+          preferred_written_language: "."
+          presidential_campaign_fund: "."
           primary_us_citizen: "¿Ciudadano estadounidense?"
           provided_over_half_own_support: "¿Aportó esta persona más del 50% de su propia manutención?"
+          receive_written_communication: "."
+          refund_check_by_mail: "."
+          refund_other: "."
+          refund_payment_method: "."
+          refund_payment_method_direct_deposit: "."
+          refund_payment_method_split: "."
+          register_to_vote: "¿Registrarse/registrado para votar?"
           spouse_dob: Fecha de nacimiento de su cónyuge
           spouse_first_name: Nombre legal de su cónyuge
           spouse_job_title: Puesto de trabajo del cónyuge
           spouse_us_citizen: "¿El cónyuge es ciudadano de EE.UU.?"
           us_citizen: Ciudadano de los Estados Unidos
           was_full_time_student: Estudiante a tiempo completo
-          was_married: Soltero o casado a partir del 12/31/2021
+          was_married: Soltero o casado a partir del 12/31/2024
           was_student: Estudiante a tiempo completo el año pasado
         last_year_was_your_spouse: 'El año pasado, ¿fue su cónyuge:'
         last_year_were_you: 'El año pasado, ¿fue su usted:'
@@ -1935,7 +1948,7 @@ es:
         description: Declare rápidamente por su cuenta.
         list:
           file: Declare solo para %{current_tax_year}
-          income: 'Ingresos: menos de $79,000'
+          income: 'Ingresos: menos de $84,000'
         timeframe: 45 minutos para declarar
         title: Declarar por cuenta propia
       gyr_tile:
@@ -1943,7 +1956,7 @@ es:
         description: Presente su declaración de impuestos con confianza con la ayuda de nuestros voluntarios certificados por el IRS.
         list:
           file: Presentar para %{oldest_filing_year}-%{current_tax_year}
-          income: 'Ingresos: menos de $66,000'
+          income: 'Ingresos: menos de $67,000'
           ssn: Debe mostrar copias de su tarjeta de Seguro Social o papeleo de su Número de Identificación Personal (ITIN)
         timeframe: De 2-3 semanas para declarar sus impuestos
         title: " Declare con Ayuda"
@@ -1954,7 +1967,7 @@ es:
     triage_do_not_qualify:
       edit:
         faq_link_text: Si tiene preguntas adicionales, visite nuestra página de preguntas frecuentes.
-        help_text: Nuestro servicio sin costo está disponible para hogares con ingresos inferiores a $79,000 al año.
+        help_text: Nuestro servicio sin costo está disponible para hogares con ingresos inferiores a $84,000 al año.
         title: Desafortunadamente, parece que no califica para nuestro servicio gratuito.
     triage_gyr:
       edit:
@@ -1993,12 +2006,12 @@ es:
 
             <p class="text--small spacing-above-15">Su nivel de ingresos no debe incluir pagos de estímulo, prestaciones públicas o Seguridad de Ingreso Suplementario (SSI)</p>
           options:
-            12500_to_25000: De $12,500 a 25,000 dólares
-            1_to_12500: De $1 a 12,500 dólares
-            25000_to_40000: De $25,000 a 40,000 dólares
-            40000_to_66000: "$40,000 - 66,000"
-            66000_to_79000: "$66,000 - 79,000"
-            over_79000: más de $79,000
+            12500_to_25000: De $15,000 a 30,000 dólares
+            1_to_12500: De $1 a $15,000 dólares
+            25000_to_40000: De $30,000 a 45,000 dólares
+            40000_to_66000: De $45,000 a 67,000 dólares
+            66000_to_79000: De $67,000 a 84,000 dólares
+            over_79000: más de $84,000
             zero: "$0"
         title: Hablemos sobre su estado civil y sus ingresos.
         vita_income_ineligible:
@@ -6522,9 +6535,9 @@ es:
         in_person_link_text: Localizador de VITA
         income_limit:
           direct_file: La mayoría de los declarantes que ganan menos de $200,000
-          diy: menos de $79,000
-          full_service: menos de $66,000
-          title: 'Límite de ingresos:'
+          diy: menos de $84,000
+          full_service: menos de $67,000
+          title: 'Límite de asesoramiento:'
         itin_assistance: Asistencia para la solicitud del Número de Identificación Personal (ITIN)
         mobile_friendly: Adaptable para dispositivos móviles
         required_information: Información obligatoria
@@ -6549,7 +6562,7 @@ es:
           subtitle: "(w2s, 1099s, etc)"
           title: Documentos tributarios oficiales
         tax_payer_residency:
-          direct_file: Disponible para residentes de tiempo completo de Arizona, California, Florida, Massachusetts, New Hampshire, Nueva York, Nevada, Dakota del Sur, Tennessee, Texas, Washington y Wyoming.
+          direct_file: Disponible para residentes de tiempo completo de Alaska, Arizona, California, Connecticut, Florida, Idaho, Illinois, Kansas, Maine, Maryland, Massachusetts, Nevada, Nuevo Hampshire, Nueva Jersey, Nuevo México, Nuevo York, Carolina del Norte, Oregon, Pennsylvania, Dakota del Sur, Tennessee, Tejas, Washington, Wisconsin y Wyoming.
           diy: Disponible para residentes de todos los estados, Puerto Rico y no residentes.
           full_service_html: |
             Disponible para residentes de todos los estados.<br>
