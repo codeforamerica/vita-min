@@ -38,7 +38,7 @@ module StateFile
     end
 
     def redirect_deprecated_state
-      if params[:controller].include?("ny") || (current_intake.present? && current_state_code == "ny")
+      if controller_name.starts_with?("ny") || (current_intake.present? && current_state_code == "ny")
         redirect_to state_landing_page_path(us_state: :ny)
       end
     end

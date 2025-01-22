@@ -544,7 +544,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
         allow(VerificationCodeService).to receive(:hash_verification_code_with_contact_info).with(email_address, verification_code).and_return(hashed_verification_code)
       end
 
-      it "doesn't allow filers in anymore and redirects all pages to landing page", required_schema: "ny" do
+      it "doesn't allow filers in anymore and redirects all pages to landing page" do
         visit "/"
         click_on "Start Test NY"
 
