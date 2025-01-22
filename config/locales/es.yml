@@ -2396,7 +2396,7 @@ es:
             eligibility_ed_loan_cancelled: se te canceló un préstamo estudiantil bajo la Ley del Plan de Rescate Estadounidense.
             eligibility_ed_loan_emp_payment: recibiste un Pago de Préstamo Educativo Calificado pagado por tu empleador.
             eligibility_emergency_rental_assistance: recibió asistencia de alquiler de emergencia %{filing_year}
-            eligibility_home_different_areas: o tu cónyuge tenían hogares permanentes en dos condados, ciudades o áreas impositivas diferentes el último día de %{filing_year}
+            eligibility_home_different_areas: y su cónyuge tenía residencias permanentes en dos condados, ciudades, pueblos o áreas impositivas diferentes el último día de %{filing_year}
             eligibility_homebuyer_withdrawal: retiró dinero de una cuenta de comprador de vivienda por primera vez que no se utilizó para comprar una casa en Maryland
             eligibility_homebuyer_withdrawal_mfj: o tu cónyuge retiraron dinero de una Cuenta de Comprador de Vivienda Por Primera Vez que no se utilizó para comprar una casa en Maryland.
             eligibility_lived_in_state: no viviste en %{state} durante todo el %{filing_year}
