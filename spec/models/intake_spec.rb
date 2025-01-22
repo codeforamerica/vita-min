@@ -39,6 +39,8 @@
 #  demographic_primary_asian                            :boolean
 #  demographic_primary_black_african_american           :boolean
 #  demographic_primary_ethnicity                        :integer          default(0), not null
+#  demographic_primary_hispanic_latino                  :boolean
+#  demographic_primary_mena                             :boolean
 #  demographic_primary_native_hawaiian_pacific_islander :boolean
 #  demographic_primary_prefer_not_to_answer_race        :boolean
 #  demographic_primary_white                            :boolean
@@ -48,6 +50,8 @@
 #  demographic_spouse_asian                             :boolean
 #  demographic_spouse_black_african_american            :boolean
 #  demographic_spouse_ethnicity                         :integer          default(0), not null
+#  demographic_spouse_hispanic_latino                   :boolean
+#  demographic_spouse_mena                              :boolean
 #  demographic_spouse_native_hawaiian_pacific_islander  :boolean
 #  demographic_spouse_prefer_not_to_answer_race         :boolean
 #  demographic_spouse_white                             :boolean
@@ -182,6 +186,7 @@
 #  primary_suffix                                       :string
 #  primary_tin_type                                     :integer
 #  primary_us_citizen                                   :integer          default(0), not null
+#  primary_visa                                         :integer          default(0), not null
 #  product_year                                         :integer          not null
 #  receive_written_communication                        :integer          default(0), not null
 #  received_advance_ctc_payment                         :integer
@@ -237,6 +242,7 @@
 #  spouse_suffix                                        :string
 #  spouse_tin_type                                      :integer
 #  spouse_us_citizen                                    :integer          default(0), not null
+#  spouse_visa                                          :integer          default(0), not null
 #  spouse_was_blind                                     :integer          default(0), not null
 #  spouse_was_full_time_student                         :integer          default(0), not null
 #  state                                                :string

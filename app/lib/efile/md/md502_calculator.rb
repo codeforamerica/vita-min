@@ -390,6 +390,8 @@ module Efile
           percent = ranges[range_index][2]
           in_excess_of = ranges[range_index][0].begin
           (base + ((taxable_net_income - in_excess_of) * percent)).round
+        else
+          0
         end
       end
 
@@ -403,7 +405,7 @@ module Efile
       end
 
       def calculate_line_22b
-        (@direct_file_data.fed_eic_qc_claimed && line_or_zero(:MD502_LINE_22).positive?) ? "X" : nil
+        @direct_file_data.fed_eic_qc_claimed && line_or_zero(:MD502_LINE_22).positive? ? "X" : nil
       end
 
       def calculate_line_23
@@ -521,25 +523,29 @@ module Efile
       end
 
       def calculate_line_28_local_tax_amount
-        taxable_net_income = line_or_zero(:MD502_LINE_20)
+        if deduction_method_is_standard?
+          taxable_net_income = line_or_zero(:MD502_LINE_20)
 
-        if @intake.residence_county == "Anne Arundel"
-          tax = 0
-          previous_threshold = 0
+          if @intake.residence_county == "Anne Arundel"
+            tax = 0
+            previous_threshold = 0
 
-          anne_arundel_local_tax_brackets.each do |bracket|
-            if taxable_net_income > previous_threshold
-              income_in_bracket = [taxable_net_income, bracket[:threshold]].min - previous_threshold
-              tax += income_in_bracket * bracket[:rate].to_d
-              previous_threshold = bracket[:threshold]
-            else
-              break
+            anne_arundel_local_tax_brackets.each do |bracket|
+              if taxable_net_income > previous_threshold
+                income_in_bracket = [taxable_net_income, bracket[:threshold]].min - previous_threshold
+                tax += income_in_bracket * bracket[:rate].to_d
+                previous_threshold = bracket[:threshold]
+              else
+                break
+              end
             end
-          end
 
-          tax.round
+            tax.round
+          else
+            (local_tax_rate * taxable_net_income).round
+          end
         else
-          (local_tax_rate * taxable_net_income).round
+          0
         end
       end
 

@@ -173,6 +173,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t("state_file.questions.az_prior_last_names.edit.title.one")
+      expect(page).to have_text I18n.t("state_file.questions.az_prior_last_names.edit.subtitle", start_year: MultiTenantService.statefile.current_tax_year - 4, end_year: MultiTenantService.statefile.current_tax_year - 1)
       choose "state_file_az_prior_last_names_form_has_prior_last_names_yes"
       fill_in "state_file_az_prior_last_names_form_prior_last_names", with: "Jordan, Pippen, Rodman"
       click_on I18n.t("general.continue")

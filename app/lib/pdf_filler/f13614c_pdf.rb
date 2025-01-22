@@ -77,7 +77,7 @@ module PdfFiller
         keep_and_normalize({
           "form1[0].page1[0].maritalStatus[0].statusNeverMarried[0]" => @intake.ever_married_no?,
           "form1[0].page1[0].maritalStatus[0].statusMarried[0]" => (@intake.ever_married_yes? && @intake.married_yes? && @intake.separated_no?),
-          "form1[0].page1[0].maritalStatus[0].statusLegallySeparated[0].statusLegallySeparated[0]" => (@intake.ever_married_yes? && @intake.married_yes? && @intake.separated_yes?),
+          "form1[0].page1[0].maritalStatus[0].statusLegallySeparated[0].statusLegallySeparated[0]" => (@intake.ever_married_yes? && @intake.separated_yes?),
           "form1[0].page1[0].maritalStatus[0].statusDivorced[0].statusDivorced[0]" => (@intake.ever_married_yes? && @intake.married_no? && @intake.divorced_yes?),
           "form1[0].page1[0].maritalStatus[0].marriedForAll[0].forAllYes[0]" => (@intake.married_yes? && @intake.got_married_during_tax_year_yes?),
           "form1[0].page1[0].maritalStatus[0].marriedForAll[0].forAllNo[0]" => (@intake.married_yes? && @intake.got_married_during_tax_year_no?),
@@ -233,17 +233,17 @@ module PdfFiller
         "form1[0].page1[0].yourLastName[0]" => @intake.primary.last_name,
         "form1[0].page1[0].mailingAddress[0]" => @intake.street_address,
         "form1[0].page1[0].yourDateOfBirth[0]" => strftime_date(@intake.primary.birth_date),
-        "form1[0].page1[0].yourTelephoneNumber[0]" => @intake.formatted_phone_number,
         "form1[0].page1[0].yourEmailAddress[0]" => @intake.email_address,
         "form1[0].page1[0].yourJobTitle[0]" => @intake.primary_job_title,
+        "form1[0].page1[0].yourTelephoneNumber[0]" => @intake.formatted_phone_number,
 
         # Spouse
         "form1[0].page1[0].spousesFirstName[0]" => @intake.spouse.first_name,
         "form1[0].page1[0].spousesMiddleInitial[0]" => @intake.spouse.middle_initial,
         "form1[0].page1[0].spousesLastName[0]" => @intake.spouse.last_name,
-        "form1[0].page1[0].spousesTelephoneNumber[0]" => @intake.spouse_phone_number,
         "form1[0].page1[0].spousesDateOfBirth[0]" => strftime_date(@intake.spouse.birth_date),
         "form1[0].page1[0].spousesJobTitle[0]" => @intake.spouse_job_title,
+        "form1[0].page1[0].spousesTelephoneNumber[0]" => @intake.formatted_spouse_phone_number,
       }.merge(
         # These represent "You", "Spouse", "No" on the PDF. Pass a boolean as to whether it should be checked.
         keep_and_normalize(
@@ -255,6 +255,7 @@ module PdfFiller
             "form1[0].page1[0].youSpouseWereIn[0].column2[0].totallyPermanentlyDisabled[0].disabledYou[0]" => @intake.had_disability_yes?,
             # TODO: Add "in the US on a visa"
             "form1[0].page1[0].youSpouseWereIn[0].column2[0].issuedIdentityProtection[0].identityProtectionYou[0]" => @intake.issued_identity_pin_yes?,
+             "form1[0].page1[0].liveWorkStates[0].liveWorkYes[0]" => @intake.multiple_states_yes?,
 
             # Spouse
             "form1[0].page1[0].youSpouseWereIn[0].column1[0].usCitizen[0].usCitizenSpouse[0]" => @intake.spouse_us_citizen_yes?,
@@ -271,6 +272,7 @@ module PdfFiller
             "form1[0].page1[0].youSpouseWereIn[0].column2[0].totallyPermanentlyDisabled[0].disabledNo[0]" => @intake.had_disability_no? && !@intake.spouse_had_disability_yes?,
             # TODO: Add "in the US on a visa"
             "form1[0].page1[0].youSpouseWereIn[0].column2[0].issuedIdentityProtection[0].identityProtectionNo[0]" => (!@intake.issued_identity_pin_yes? && !@intake.spouse_issued_identity_pin_yes?),
+            "form1[0].page1[0].liveWorkStates[0].liveWorkNo[0]" => @intake.multiple_states_no?,
 
             # People who have digital assets are considered out of scope
             "form1[0].page1[0].youSpouseWereIn[0].column2[0].holdDigitalAssets[0].digitalAssetsNo[0]" => true,

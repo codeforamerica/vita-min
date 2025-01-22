@@ -7,6 +7,14 @@ module StateFile
       helper_method :on_home_or_rental
 
       def determine_reason
+        if Efile::Nj::NjPropertyTaxEligibility.ineligible?(current_intake)
+          if current_intake.filing_status_single? || current_intake.filing_status_mfs?
+            return "income_single_mfs"
+          else
+            return "income_mfj_qss_hoh"
+          end
+        end
+
         if current_intake.household_rent_own_neither?
           return "neither"
         end

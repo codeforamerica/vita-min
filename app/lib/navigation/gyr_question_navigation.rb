@@ -80,7 +80,6 @@ module Navigation
 
       # Dependent related questions
       Questions::DependentCareController,
-      Questions::AdoptedChildController,
 
       # Student questions
       Questions::StudentController,
@@ -130,7 +129,6 @@ module Navigation
       Questions::EverOwnedHomeController,
       Questions::SoldHomeController,
       Questions::MortgageInterestController,
-      Questions::HomebuyerCreditController,
 
       # Miscellaneous
       Questions::DisasterLossController,
@@ -161,8 +159,6 @@ module Navigation
       Questions::DemographicVeteranController,
       Questions::DemographicPrimaryRaceController,
       Questions::DemographicSpouseRaceController,
-      Questions::DemographicPrimaryEthnicityController,
-      Questions::DemographicSpouseEthnicityController,
     ].freeze
   end
 end
