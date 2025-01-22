@@ -2469,7 +2469,7 @@ en:
           body_html: You cannot use this service this year because you %{ineligible_reason}. <br><br><strong>Is this a mistake?</strong> <a href=%{prev_link}>Go back to correct.</a>
           ineligible_reason:
             eligibility_529_for_non_qual_expense: withdrew money from a 529 college savings account and used it for a non-qualifying expense in %{filing_year}
-            eligibility_ed_loan_cancelled: had a student loan debt canceled under the American Rescue Plan Act.
+            eligibility_ed_loan_cancelled: had student loan debt canceled under the American Rescue Plan Act.
             eligibility_ed_loan_emp_payment: received a Qualified Education Loan Payment paid by your employer.
             eligibility_emergency_rental_assistance: received emergency rental assistance in %{filing_year}
             eligibility_home_different_areas: or your spouse had your permanent homes in two different counties, cities, towns, or taxing areas on the last day the tax year %{filing_year}
@@ -3085,7 +3085,7 @@ en:
           title: Select the county where you resided on December 31, %{filing_year}
       nc_eligibility:
         edit:
-          eligibility_ed_loan_cancelled: Had a student loan debt canceled under the American Rescue Plan Act
+          eligibility_ed_loan_cancelled: Had student loan debt canceled under the American Rescue Plan Act
           eligibility_ed_loan_emp_payment: Received a Qualified Education Loan Payment paid by your employer
           none: None of these apply
           question: Did any of the following less common scenarios apply to you (or your spouse, if married filing jointly) in %{filing_year}?
@@ -3136,7 +3136,7 @@ en:
       nc_spouse_state_id:
         nc_spouse:
           encourage_sharing: While providing this information is encouraged, it is optional and not required to file your North Carolina taxes.
-          protect_identity: To protect your identity and combat tax fraud, many state revenue agencies are asking people to give their driver’s license or state ID number.
+          protect_identity: To protect your identity and combat tax fraud, many state revenue agencies are requesting that filers provide their driver’s license or state-issued ID number.
           why_ask_this: Why are you asking for this information?
       nc_subtractions:
         edit:
@@ -3776,7 +3776,7 @@ en:
       submission_confirmation:
         edit:
           download_state_return_pdf: Download your state return
-          email_text_update: You'll receive an email or text update when your state tax return is accepted.
+          email_text_update: You'll receive an email and text update when your state tax return is accepted.
           email_update: You'll receive an email update when your state tax return is accepted.
           text_update: You'll receive an sms update when your state tax return is accepted.
           title: Your %{filing_year} %{state_name} state tax return is now submitted!
