@@ -38,15 +38,20 @@ module StateFile
           return true if w2.box14_fli.nil?
         end
 
-        return true if w2.get_box14_ui_overwrite.to_f > StateFile::StateInformationService
-          .w2_supported_box14_codes(current_state)
-          .find { |code| code[:name] == "UI_WF_SWF" }[:limit]
+        ui_wf_swf_max = find_limit("UI_WF_SWF")
+        return true if ui_wf_swf_max.present? && w2.get_box14_ui_overwrite.to_f > ui_wf_swf_max
         
-        return true if w2.box14_fli.to_f > StateFile::StateInformationService
-          .w2_supported_box14_codes(current_state)
-          .find { |code| code[:name] == "FLI" }[:limit]
+        fli_max = find_limit("FLI")
+        return true if fli_max.present? && w2.box14_fli.to_f > fli_max
 
         false
+      end
+
+      def find_limit(name)
+        code = StateFile::StateInformationService
+          .w2_supported_box14_codes(current_state_code)
+          .find { |code| code[:name] == name }
+        code ? code[:limit] : nil
       end
     end
   end

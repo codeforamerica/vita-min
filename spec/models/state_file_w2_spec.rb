@@ -147,15 +147,20 @@ describe StateFileW2 do
     context "box 14 limit validation" do
       before do
         w2.check_box14_limits = true
+        allow(StateFile::StateInformationService).to receive(:w2_supported_box14_codes)
+          .and_return([
+            { name: "UI_WF_SWF", limit: 179.78 },
+            { name: "FLI", limit: 145.26 }
+          ])
       end
   
-      it "is invalid when box14_ui_wf_swf exceeds the limit" do
+      it "is invalid when box14_ui_wf_swf exceeds the state limit" do
         w2.box14_ui_wf_swf = 179.79
         expect(w2).not_to be_valid
         expect(w2.errors[:box14_ui_wf_swf]).to include(I18n.t("validators.dollar_limit", limit: '179.78'))
       end
   
-      it "is invalid when box14_fli exceeds the limit" do
+      it "is invalid when box14_fli exceeds the state limit" do
         w2.box14_fli = 145.27
         expect(w2).not_to be_valid
         expect(w2.errors[:box14_fli]).to include(I18n.t("validators.dollar_limit", limit: '145.26'))

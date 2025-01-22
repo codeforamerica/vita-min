@@ -130,18 +130,20 @@ class StateFileW2 < ApplicationRecord
   private
 
   def validate_box14_limits
-    validate_limit(:box14_ui_wf_swf, StateFile::StateInformationService
-      .w2_supported_box14_codes(current_state)
-      .find { |code| code[:name] == "UI_WF_SWF" }[:limit])
+    validate_limit(:box14_ui_wf_swf, find_limit("UI_WF_SWF"))
+    validate_limit(:box14_fli, find_limit("FLI"))
+  end
 
-    validate_limit(:box14_fli, StateFile::StateInformationService
-      .w2_supported_box14_codes(current_state)
-      .find { |code| code[:name] == "FLI" }[:limit])
+  def find_limit(name)
+    code = StateFile::StateInformationService
+      .w2_supported_box14_codes(state_file_intake.state_code)
+      .find { |code| code[:name] == name }
+    code ? code[:limit] : nil
   end
 
   def validate_limit(field, limit)
     value = send(field)
-    if value.present? && value > limit
+    if value.present? && limit.present? && value > limit
       errors.add(field, I18n.t("validators.dollar_limit", limit: '%.2f' % limit))
     end
   end

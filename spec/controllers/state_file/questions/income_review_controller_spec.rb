@@ -127,6 +127,8 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
     end
 
     context "when W2 box 14 warnings are present" do
+      let(:intake) { create(:state_file_nj_intake) }
+
       shared_examples "displays at least one W2 warning" do
         it "displays at least one W2 warning" do
           get :edit, params: params
