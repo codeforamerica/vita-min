@@ -63,8 +63,10 @@ class EfileSubmissionStateMachine
     !Rails.env.production?
   end
 
-  after_transition(to: :preparing) do |submission|
-    StateFile::AfterTransitionMessagingService.new(submission).send_efile_submission_successful_submission_message
+  after_transition(to: :preparing) do |submission, transition|
+    if transition.initiated_by.nil? # suppress messages for resubmissions initiated in the hub
+      StateFile::AfterTransitionMessagingService.new(submission).send_efile_submission_successful_submission_message
+    end
     submission.transition_to(:bundling)
   end
 
@@ -117,7 +119,7 @@ class EfileSubmissionStateMachine
     StateFile::AfterTransitionMessagingService.new(submission).send_efile_submission_accepted_message
     send_mixpanel_event(submission, "state_file_efile_return_accepted")
   end
-  
+
   after_transition(to: :resubmitted) do |submission, transition|
     @new_submission = submission.data_source.efile_submissions.create
 
@@ -129,13 +131,12 @@ class EfileSubmissionStateMachine
   end
 
   after_transition do |submission, transition|
-    from_status = (
+    from_status = 
       EfileSubmissionTransition
         .where(efile_submission_id: transition.efile_submission_id)
         .where.not(id: transition.id)
         .last
         &.to_state
-    )
     Rails.logger.info({
       event_type: "submission_transition",
       from_status: from_status,
