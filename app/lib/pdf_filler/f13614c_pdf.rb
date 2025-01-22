@@ -249,7 +249,7 @@ module PdfFiller
             "form1[0].page1[0].youSpouseWereIn[0].column1[0].fullTimeStudent[0].studentYou[0]" => @intake.was_full_time_student_yes?,
             "form1[0].page1[0].youSpouseWereIn[0].column2[0].legallyBlind[0].legallyBlindYou[0]" => @intake.was_blind_yes?,
             "form1[0].page1[0].youSpouseWereIn[0].column2[0].totallyPermanentlyDisabled[0].disabledYou[0]" => @intake.had_disability_yes?,
-            # TODO: Add "in the US on a visa"
+            "form1[0].page1[0].youSpouseWereIn[0].column1[0].usOnVisa[0].onVisaYou[0]" => @intake.primary_visa_yes?,
             "form1[0].page1[0].youSpouseWereIn[0].column2[0].issuedIdentityProtection[0].identityProtectionYou[0]" => @intake.issued_identity_pin_yes?,
               "form1[0].page1[0].liveWorkStates[0].liveWorkYes[0]" => @intake.multiple_states_yes?,
 
@@ -258,7 +258,7 @@ module PdfFiller
             "form1[0].page1[0].youSpouseWereIn[0].column1[0].fullTimeStudent[0].studentSpouse[0]" => @intake.spouse_was_full_time_student_yes?,
             "form1[0].page1[0].youSpouseWereIn[0].column2[0].legallyBlind[0].legallyBlindSpouse[0]" => @intake.spouse_was_blind_yes?,
             "form1[0].page1[0].youSpouseWereIn[0].column2[0].totallyPermanentlyDisabled[0].disabledSpouse[0]" => @intake.spouse_had_disability_yes?,
-            # TODO: Add "in the US on a visa"
+            "form1[0].page1[0].youSpouseWereIn[0].column1[0].usOnVisa[0].onVisaSpouse[0]" => @intake.spouse_visa_yes?,
             "form1[0].page1[0].youSpouseWereIn[0].column2[0].issuedIdentityProtection[0].identityProtectionSpouse[0]" => @intake.spouse_issued_identity_pin_yes?,
 
             # Negative
@@ -266,7 +266,7 @@ module PdfFiller
             "form1[0].page1[0].youSpouseWereIn[0].column1[0].fullTimeStudent[0].studentNo[0]" => @intake.was_full_time_student_no? && !@intake.spouse_was_full_time_student_yes?,
             "form1[0].page1[0].youSpouseWereIn[0].column2[0].legallyBlind[0].legallyBlindNo[0]" => @intake.was_blind_no? && !@intake.spouse_was_blind_yes?,
             "form1[0].page1[0].youSpouseWereIn[0].column2[0].totallyPermanentlyDisabled[0].disabledNo[0]" => @intake.had_disability_no? && !@intake.spouse_had_disability_yes?,
-            # TODO: Add "in the US on a visa"
+            "form1[0].page1[0].youSpouseWereIn[0].column1[0].usOnVisa[0].onVisaNo[0]" => @intake.primary_visa_no? && @intake.spouse_visa_no?,
             "form1[0].page1[0].youSpouseWereIn[0].column2[0].issuedIdentityProtection[0].identityProtectionNo[0]" => (!@intake.issued_identity_pin_yes? && !@intake.spouse_issued_identity_pin_yes?),
             "form1[0].page1[0].liveWorkStates[0].liveWorkNo[0]" => @intake.multiple_states_no?,
 
