@@ -588,6 +588,11 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("general.continue")
       click_on I18n.t("general.continue")
 
+      expect(page).to have_text I18n.t('state_file.questions.md_social_security_benefits.edit.title')
+      fill_in 'state_file_md_social_security_benefits_form[primary_ssb_amount]', with: "4000.0"
+      fill_in 'state_file_md_social_security_benefits_form[spouse_ssb_amount]', with: "4000.0"
+      click_on I18n.t("general.continue")
+
       # md_two_income_subtractions
       expect(page).to have_text I18n.t('state_file.questions.md_two_income_subtractions.edit.title', year: filing_year)
       fill_in 'state_file_md_two_income_subtractions_form[primary_student_loan_interest_ded_amount]', with: "1300.0"
