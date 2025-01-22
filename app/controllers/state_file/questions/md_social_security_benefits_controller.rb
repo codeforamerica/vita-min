@@ -2,6 +2,7 @@ module StateFile
   module Questions
     class MdSocialSecurityBenefitsController < QuestionsController
       def self.show?(intake)
+        Flipper.enabled?(:show_md_ssa) &&
         intake.filing_status_mfj? && intake.direct_file_data.fed_ssb.positive?
       end
 

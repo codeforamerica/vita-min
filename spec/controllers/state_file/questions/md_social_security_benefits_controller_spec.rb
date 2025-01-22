@@ -4,6 +4,8 @@ RSpec.describe StateFile::Questions::MdSocialSecurityBenefitsController do
   let(:intake) { create :state_file_md_intake }
   before do
     sign_in intake
+    allow(Flipper).to receive(:enabled?).and_call_original
+    allow(Flipper).to receive(:enabled?).with(:show_md_ssa).and_return(true)
   end
 
   describe ".show?" do
