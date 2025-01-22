@@ -54,7 +54,7 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
           xml.AddressLine1Txt sanitize_for_xml(@intake.permanent_street, 30)
           xml.AddressLine2Txt sanitize_for_xml(@intake.permanent_apartment, 30) if @intake.permanent_apartment.present?
           xml.CityNm sanitize_for_xml(@intake.permanent_city, 20)
-          xml.StateAbbreviationCd @intake.state_code.upcase
+          xml.StateAbbreviationCd @intake.direct_file_data.mailing_state.upcase
           xml.ZIPCd @intake.permanent_zip
         end
       end
@@ -124,9 +124,9 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
       end
       income_section(xml)
       xml.Additions do
-        xml.StateRetirementPickup calculated_fields.fetch(:MD502_LINE_3)
-        xml.Total calculated_fields.fetch(:MD502_LINE_6)
-        xml.FedAGIAndStateAdditions calculated_fields.fetch(:MD502_LINE_7)
+        add_element_if_present(xml, "StateRetirementPickup", :MD502_LINE_3)
+        add_element_if_present(xml, "Total", :MD502_LINE_6)
+        add_element_if_present(xml, "FedAGIAndStateAdditions", :MD502_LINE_7)
       end
       xml.Subtractions do
         add_element_if_present(xml, "ChildAndDependentCareExpenses", :MD502_LINE_9)
@@ -138,22 +138,22 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
       end
       xml.Deduction do
         xml.Method calculated_fields.fetch(:MD502_DEDUCTION_METHOD)
-        xml.Amount calculated_fields.fetch(:MD502_LINE_17) if @deduction_method_is_standard
+        add_element_if_present(xml, "Amount", :MD502_LINE_17) if @deduction_method_is_standard
       end
       if @deduction_method_is_standard
-        xml.NetIncome calculated_fields.fetch(:MD502_LINE_18)
+        add_element_if_present(xml, "NetIncome", :MD502_LINE_18)
       end
-      xml.ExemptionAmount calculated_fields.fetch(:MD502_LINE_19)
+      add_element_if_present(xml, "ExemptionAmount", :MD502_LINE_19)
       if has_state_tax_computation?
         xml.StateTaxComputation do
-          xml.TaxableNetIncome calculated_fields.fetch(:MD502_LINE_20) if @deduction_method_is_standard
+          add_element_if_present(xml, "TaxableNetIncome", :MD502_LINE_20) if @deduction_method_is_standard
           add_element_if_present(xml, "StateIncomeTax", :MD502_LINE_21)
           add_element_if_present(xml, "EarnedIncomeCredit", :MD502_LINE_22)
           add_element_if_present(xml, "MDEICWithQualChildInd", :MD502_LINE_22B)
-          xml.PovertyLevelCredit calculated_fields.fetch(:MD502_LINE_23) if @deduction_method_is_standard
-          xml.IndividualTaxCredits calculated_fields.fetch(:MD502_LINE_24) if @deduction_method_is_standard
-          xml.TotalCredits calculated_fields.fetch(:MD502_LINE_26)
-          xml.StateTaxAfterCredits calculated_fields.fetch(:MD502_LINE_27) if @deduction_method_is_standard
+          add_element_if_present(xml, "PovertyLevelCredit", :MD502_LINE_23) if @deduction_method_is_standard
+          add_element_if_present(xml, "IndividualTaxCredits", :MD502_LINE_24) if @deduction_method_is_standard
+          add_element_if_present(xml, "TotalCredits", :MD502_LINE_26)
+          add_element_if_present(xml, "StateTaxAfterCredits", :MD502_LINE_27) if @deduction_method_is_standard
         end
       end
       xml.LocalTaxComputation do
@@ -165,32 +165,32 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
         add_element_if_present(xml, "LocalTaxAfterCredits", :MD502_LINE_33)
       end
       add_element_if_present(xml, "TotalStateAndLocalTax", :MD502_LINE_34)
-      add_non_zero_value(xml, :TotalTaxAndContributions, :MD502_LINE_39)
-      xml.TaxWithheld calculated_fields.fetch(:MD502_LINE_40)
-      add_non_zero_value(xml, :RefundableEIC, :MD502_LINE_42)
-      add_non_zero_value(xml, :RefundableTaxCredits, :MD502_LINE_43)
-      add_non_zero_value(xml, :TotalPaymentsAndCredits, :MD502_LINE_44)
-      add_non_zero_value(xml, :BalanceDue, :MD502_LINE_45)
-      add_non_zero_value(xml, :Overpayment, :MD502_LINE_46)
+      add_element_if_present(xml, "TotalTaxAndContributions", :MD502_LINE_39)
+      add_element_if_present(xml, "TaxWithheld", :MD502_LINE_40)
+      add_element_if_present(xml, "RefundableEIC", :MD502_LINE_42)
+      add_element_if_present(xml, "RefundableTaxCredits", :MD502_LINE_43)
+      add_element_if_present(xml, "TotalPaymentsAndCredits", :MD502_LINE_44)
+      add_element_if_present(xml, "BalanceDue", :MD502_LINE_45)
+      add_element_if_present(xml, "Overpayment", :MD502_LINE_46)
       if calculated_fields.fetch(:MD502_LINE_48).positive?
         xml.AmountOverpayment do
           xml.ToBeRefunded calculated_fields.fetch(:MD502_LINE_48)
         end
       end
-      add_non_zero_value(xml, :TotalAmountDue, :MD502_LINE_50)
+      add_element_if_present(xml, "TotalAmountDue", :MD502_LINE_50)
       xml.AuthToDirectDepositInd "X" if calculated_fields.fetch(:MD502_AUTHORIZE_DIRECT_DEPOSIT)
       if @intake.payment_or_deposit_type.to_sym == :direct_deposit && @intake.refund_or_owe_taxes_type == :refund
         xml.NameOnBankAccount do
-          xml.FirstName sanitize_for_xml(@intake.account_holder_first_name) if @intake.account_holder_first_name
+          xml.FirstName sanitize_for_xml(@intake.account_holder_first_name, 16) if @intake.account_holder_first_name
           xml.MiddleInitial sanitize_for_xml(@intake.account_holder_middle_initial) if @intake.account_holder_middle_initial
-          xml.LastName sanitize_for_xml(@intake.account_holder_last_name) if @intake.account_holder_last_name
+          xml.LastName sanitize_for_xml(@intake.account_holder_last_name, 32) if @intake.account_holder_last_name
           xml.NameSuffix @intake.account_holder_suffix if @intake.account_holder_suffix
         end
         if @intake.has_joint_account_holder_yes?
           xml.NameOnBankAccount do
-            xml.FirstName sanitize_for_xml(@intake.joint_account_holder_first_name) if @intake.joint_account_holder_first_name
+            xml.FirstName sanitize_for_xml(@intake.joint_account_holder_first_name, 16) if @intake.joint_account_holder_first_name
             xml.MiddleInitial sanitize_for_xml(@intake.joint_account_holder_middle_initial) if @intake.joint_account_holder_middle_initial
-            xml.LastName sanitize_for_xml(@intake.joint_account_holder_last_name) if @intake.joint_account_holder_last_name
+            xml.LastName sanitize_for_xml(@intake.joint_account_holder_last_name, 32) if @intake.joint_account_holder_last_name
             xml.NameSuffix @intake.joint_account_holder_suffix if @intake.joint_account_holder_suffix
           end
         end
@@ -204,9 +204,9 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
   def income_section(root_xml)
     root_xml.Income do |income|
       income.FederalAdjustedGrossIncome calculated_fields.fetch(:MD502_LINE_1)
-      income.WagesSalariesAndTips calculated_fields.fetch(:MD502_LINE_1A)
-      income.EarnedIncome calculated_fields.fetch(:MD502_LINE_1B)
-      income.TaxablePensionsIRAsAnnuities calculated_fields.fetch(:MD502_LINE_1D)
+      add_element_if_present(income, :WagesSalariesAndTips, :MD502_LINE_1A)
+      add_element_if_present(income, :EarnedIncome, :MD502_LINE_1B)
+      add_element_if_present(income, :TaxablePensionsIRAsAnnuities, :MD502_LINE_1D)
       if calculated_fields.fetch(:MD502_LINE_1E)
         income.InvestmentIncomeIndicator "X"
       end

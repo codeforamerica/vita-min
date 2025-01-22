@@ -21,7 +21,7 @@ RSpec.describe StateFile::ArchivedIntakes::VerificationCodeController, type: :co
       it "redirects to the root path" do
         get :edit
 
-        expect(response).to redirect_to(root_path)
+        expect(response).to redirect_to(state_file_archived_intakes_verification_error_path)
       end
     end
 
@@ -58,8 +58,9 @@ RSpec.describe StateFile::ArchivedIntakes::VerificationCodeController, type: :co
 
         log = StateFileArchivedIntakeAccessLog.last
         expect(log.event_type).to eq("correct_email_code")
+        expect(session[:code_verified]).to eq(true)
         expect(current_request.failed_attempts).to eq(0)
-        expect(response).to redirect_to(root_path)
+        expect(response).to redirect_to(state_file_archived_intakes_edit_identification_number_path)
       end
     end
 
@@ -75,6 +76,7 @@ RSpec.describe StateFile::ArchivedIntakes::VerificationCodeController, type: :co
 
         log = StateFileArchivedIntakeAccessLog.last
         expect(log.event_type).to eq("incorrect_email_code")
+        expect(session[:code_verified]).to eq(nil)
 
         expect(current_request.reload.failed_attempts).to eq(1)
         expect(assigns(:form)).to be_a(StateFile::ArchivedIntakes::VerificationCodeForm)
@@ -90,10 +92,11 @@ RSpec.describe StateFile::ArchivedIntakes::VerificationCodeController, type: :co
 
         log = StateFileArchivedIntakeAccessLog.last
         expect(log.event_type).to eq("client_lockout_begin")
+        expect(session[:code_verified]).to eq(nil)
 
         expect(current_request.reload.failed_attempts).to eq(2)
         expect(current_request.reload.access_locked?).to be_truthy
-        expect(response).to redirect_to(root_path)
+        expect(response).to redirect_to(state_file_archived_intakes_verification_error_path)
       end
     end
   end

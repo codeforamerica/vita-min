@@ -38,6 +38,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("general.accept")
 
       expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
+      expect(page).not_to have_css(".progress-steps")
       expect(page).to be_axe_clean if check_a11y
       click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
 
@@ -45,6 +46,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       if expect_income_review
         expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
+        expect(page).to have_css(".progress-steps")
         expect(page).to be_axe_clean if check_a11y
         continue
       end
@@ -244,6 +246,11 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       # Review
       expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
+      expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.your_name")
+      expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.spouse_name")
+      dependents_dob = page.all(:css, 'h4', text: I18n.t('state_file.questions.shared.abstract_review_header.dependent_dob')).count
+      expect(dependents_dob).to eq(6)
+
       expect(page).to be_axe_clean.within "main"
 
       groups = page.all(:css, '.white-group').count
@@ -284,11 +291,13 @@ RSpec.feature "Completing a state file intake", active_job: true do
       continue
 
       expect(page).to be_axe_clean
+      expect(page).to have_css(".progress-steps")
       check I18n.t('state_file.questions.esign_declaration.edit.primary_esign')
       check I18n.t('state_file.questions.esign_declaration.edit.spouse_esign')
       click_on I18n.t('state_file.questions.esign_declaration.edit.submit')
       
       expect(page).to be_axe_clean
+      expect(page).not_to have_css(".progress-steps")
       expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", filing_year: 2024, state_name: "New Jersey")
     end
 
