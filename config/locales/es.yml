@@ -2186,10 +2186,10 @@ es:
           title: Declara tus impuestos estatales de Maryland sin costo
         nc:
           closed_html: |
-            <strong>FileYourStateTaxes</strong> ha sido creado por Code for America en colaboración con el estado de North Carolina para integrarse con el servicio Direct File del IRS.<br /><br />
+            <strong>FileYourStateTaxes</strong> ha sido creado por Code for America en colaboración con el estado de Carolina del Norte para integrarse con el servicio Direct File del IRS.<br /><br />
             Estamos cerrados por la temporada de impuestos. Desafortunadamente no puede presentar su declaración estatal con nosotros este año.
-          supported_by: Respaldada por el estado de North Carolina
-          title: Declara tus impuestos estatales de North Carolina sin costo
+          supported_by: Respaldada por el estado de Carolina del Norte
+          title: Declara tus impuestos estatales de Carolina del Norte sin costo
         nj:
           closed_html: |
             <strong>FileYourStateTaxes</strong> se creó en asociación con el New Jersey Office of Innovation para integrarse con la herramienta Direct File del IRS.<br /><br />
