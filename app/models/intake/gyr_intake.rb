@@ -178,6 +178,7 @@
 #  primary_last_four_ssn                                :text
 #  primary_last_name                                    :string
 #  primary_middle_initial                               :string
+#  primary_owned_or_held_any_digital_currencies         :integer          default("unfilled"), not null
 #  primary_prior_year_agi_amount                        :integer
 #  primary_prior_year_signature_pin                     :string
 #  primary_signature_pin                                :text
@@ -195,6 +196,9 @@
 #  received_irs_letter                                  :integer          default("unfilled"), not null
 #  received_stimulus_payment                            :integer          default("unfilled"), not null
 #  referrer                                             :string
+#  refund_check_by_mail                                 :integer
+#  refund_direct_deposit                                :integer
+#  refund_other                                         :string
 #  refund_payment_method                                :integer          default("unfilled"), not null
 #  register_to_vote                                     :integer          default("unfilled"), not null
 #  reported_asset_sale_loss                             :integer          default("unfilled"), not null
@@ -233,6 +237,7 @@
 #  spouse_last_four_ssn                                 :text
 #  spouse_last_name                                     :string
 #  spouse_middle_initial                                :string
+#  spouse_owned_or_held_any_digital_currencies          :integer          default("unfilled"), not null
 #  spouse_phone_number                                  :string
 #  spouse_prior_year_agi_amount                         :integer
 #  spouse_prior_year_signature_pin                      :string
@@ -388,12 +393,15 @@ class Intake::GyrIntake < Intake
   enum paid_school_supplies: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :paid_school_supplies
   enum paid_student_loan_interest: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :paid_student_loan_interest
   enum phone_number_can_receive_texts: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :phone_number_can_receive_texts
+  enum primary_owned_or_held_any_digital_currencies: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_owned_or_held_any_digital_currencies
   enum primary_us_citizen: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_us_citizen
   enum primary_visa: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_visa
   enum received_alimony: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :received_alimony
   enum received_homebuyer_credit: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :received_homebuyer_credit
   enum received_irs_letter: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :received_irs_letter
   enum received_stimulus_payment: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :received_stimulus_payment
+  enum refund_check_by_mail: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :refund_check_by_mail
+  enum refund_direct_deposit: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :refund_direct_deposit
   enum reported_asset_sale_loss: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :reported_asset_sale_loss
   enum reported_self_employment_loss: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :reported_self_employment_loss
   enum satisfaction_face: { unfilled: 0, positive: 1, neutral: 2, negative: 3 }, _prefix: :satisfaction_face
@@ -405,6 +413,7 @@ class Intake::GyrIntake < Intake
   enum spouse_consented_to_service: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_consented_to_service
   enum spouse_had_disability: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_had_disability
   enum spouse_issued_identity_pin: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :spouse_issued_identity_pin
+  enum spouse_owned_or_held_any_digital_currencies: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :spouse_owned_or_held_any_digital_currencies
   enum spouse_us_citizen: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_us_citizen
   enum spouse_was_full_time_student: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_was_full_time_student
   enum spouse_was_blind: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_was_blind
@@ -439,7 +448,7 @@ class Intake::GyrIntake < Intake
   enum paid_self_employment_expenses: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :paid_self_employment_expenses
   enum had_capital_loss_carryover: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_capital_loss_carryover
   enum receive_written_communication: { unfilled: 0, yes: 1, no: 2 }, _prefix: :receive_written_communication
-  enum presidential_campaign_fund_donation: { unfilled: 0, primary: 1, spouse: 2, primary_and_spouse: 3 }, _prefix: :presidential_campaign_fund_donation
+  enum presidential_campaign_fund_donation: { unfilled: 0, primary: 1, spouse: 2, primary_and_spouse: 3, no: 4 }, _prefix: :presidential_campaign_fund_donation
   enum register_to_vote: { unfilled: 0, yes: 1, no: 2 }, _prefix: :register_to_vote
 
   belongs_to :matching_previous_year_intake, class_name: "Intake::GyrIntake", optional: true
