@@ -3611,7 +3611,7 @@ es:
       post_data_transfer:
         edit:
           subtitle: A continuación, revisaremos los detalles de tu declaración estatal y te pediremos información para completar tu declaración de impuestos estatal de  %{state_name}.
-          title: "¡Hemos transferido tu declaración de impuestos federal exitosamente! "
+          title: "¡Hemos transferido tu declaración de impuestos federal exitosamente!"
       primary_state_id:
         edit:
           ny_subtitle: Esta información es necesaria para todos los residentes de Nueva York con una identificación emitida por el estado.
@@ -3810,7 +3810,7 @@ es:
           confirm_address_yes: Sí, esa es la dirección correcta
           dont_worry: Si tienes más de un 1099-G, no te preocupes, podrás agregarlo en la siguiente página.
           federal_income_tax_withheld_html: "<strong>Casilla 4</strong>, Impuesto federal sobre los ingresos retenido"
-          had_box_11: "¿Aparece una cantidad por impuesto estatal sobre ingresos (casilla 11) en tu compensación por desempleo (Formulario 1099-G)? "
+          had_box_11: "¿Aparece una cantidad por impuesto estatal sobre ingresos (casilla 11) en tu compensación por desempleo (Formulario 1099-G)?"
           information_content_html: |
             Busca el 1099-G que usaste para declarar tus ingresos por desempleo en tu declaración de impuestos federal. Si tienes varios 1099-G, puedes agregarlos.<br><br>
             A continuación, te compartimos dónde encontrar la información que necesitamos:</br>
