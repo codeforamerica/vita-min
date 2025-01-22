@@ -409,7 +409,7 @@ module PdfFiller
         "form1[0].page4[0].yourSpousesRaceEthnicity[0].hispanicLatino[0]" => @intake.demographic_spouse_hispanic_latino?,
         "form1[0].page4[0].yourSpousesRaceEthnicity[0].middleEsternNorthAfrican[0]" => @intake.demographic_spouse_mena?,
         "form1[0].page4[0].yourSpousesRaceEthnicity[0].hawaiianPacific[0]" => @intake.demographic_spouse_native_hawaiian_pacific_islander?,
-        "form1[0].page4[0].yourSpousesRaceEthnicity[0].white[0]" => @intake.demographic_spouse_white,
+        "form1[0].page4[0].yourSpousesRaceEthnicity[0].white[0]" => @intake.demographic_spouse_white?,
         # Appears not to be used in 2024 tax year
         # "form1[0].page3[0].q13[0].notAnswer[0]" => @intake.demographic_spouse_prefer_not_to_answer_race,
         # "form1[0].page3[0].q13[0].noSpouse[0]" => nil,
