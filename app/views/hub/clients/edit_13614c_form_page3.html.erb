@@ -161,9 +161,177 @@
 
         <h3>Did any of the following happen during 2024?</h3>
 
+        <!-- EDU EXPENSES ROW 1 -->
+        <div class="grid">
+          <div class="grid__item width-one-half" style="display: flex; align-items: flex-start; justify-content: space-between;">
+            <%= f.cfa_select(:paid_post_secondary_educational_expenses, "(B) You or someone in your family took educational classes
+(technical school, college, job related, etc.)", yes_no_options_for_select) %>
+          </div>
+          <div class="grid__item width-one-half" style="background-color:#e5e5e5; padding: 10px; display: flex; align-items: flex-start; justify-content: space-between;">
+            <%= f.cfa_select(:cv_taxable_scholarship_income_cb, "(B) Taxable scholarship income", yes_no_options_for_select) %>
+          </div>
+        </div>
+        <!-- no HR here. -->
 
+        <!-- EDU EXPENSES ROW 2 -->
+        <div class="grid">
+          <div class="grid__item width-one-half" style="display: flex; align-items: flex-start; justify-content: space-between;">
+            &nbsp;<br>&nbsp;
+          </div>
+          <div class="grid__item width-one-half" style="background-color:#e5e5e5; padding: 10px; display: block; height: 100%;">
+            <%= f.cfa_select(:cv_1098t_cb, "(B) 1098-T (itemized statement from school, invoice, etc.)", yes_no_options_for_select) %>
+          </div>
+        </div>
+        <!-- no HR here. -->
 
+        <!-- EDU EXPENSES ROW 3 -->
+        <div class="grid">
+          <div class="grid__item width-one-half" style="display: flex; align-items: flex-start; justify-content: space-between;">
+            &nbsp;<br>&nbsp;
+          </div>
+          <div class="grid__item width-one-half" style="background-color:#e5e5e5; padding: 10px; display: block; height: 100%;">
+            <%= f.cfa_select(:cv_edu_credit_or_tuition_deduction_cb, "(B) Education credit or tuition and fees deduction", yes_no_options_for_select) %>
+          </div>
+        </div>
+        <hr style="margin: 5px;"/>
 
+        <!-- SELL A HOME -->
+        <div class="grid">
+          <div class="grid__item width-one-half" style="display: flex; align-items: flex-start; justify-content: space-between;">
+            <%= f.cfa_select(:sold_a_home, "(A) Sell a home", yes_no_options_for_select) %>
+          </div>
+          <div class="grid__item width-one-half" style="background-color:#e5e5e5; padding: 10px; display: flex; align-items: flex-start; justify-content: space-between;">
+            <%= f.cfa_select(:cv_1099s_cb, "(A) Sale of home (1099-S)", yes_no_options_for_select) %>
+          </div>
+        </div>
+        <hr style="margin: 5px;"/>
+
+        <!-- HSA -->
+        <div class="grid">
+          <div class="grid__item width-one-half" style="display: flex; align-items: flex-start; justify-content: space-between;">
+            <%= f.cfa_select(:had_hsa, "(A) Have a health savings account (HSA)", yes_no_options_for_select) %>
+          </div>
+          <div class="grid__item width-one-half" style="background-color:#e5e5e5; padding: 10px; display: flex; align-items: flex-start; justify-content: space-between;">
+            <%= f.cfa_select(:cv_hsa_contrib_cb, "HSA contributions", yes_no_options_for_select) %>
+            <%= f.cfa_select(:cv_hsa_distrib_cb, "HSA distributions", yes_no_options_for_select) %>
+          </div>
+        </div>
+        <hr style="margin: 5px;"/>
+
+        <!-- MARKETPLACE HEALTH INS -->
+        <div class="grid">
+          <div class="grid__item width-one-half" style="display: flex; align-items: flex-start; justify-content: space-between;">
+            <%= f.cfa_select(:bought_marketplace_health_insurance, "(A) Purchase health insurance through the Marketplace (Exchange)", yes_no_options_for_select) %>
+          </div>
+          <div class="grid__item width-one-half" style="background-color:#e5e5e5; padding: 10px; display: flex; align-items: flex-start; justify-content: space-between;">
+            <%= f.cfa_select(:cv_1095a_cb, "(A) 1095-A", yes_no_options_for_select) %>
+          </div>
+        </div>
+        <hr style="margin: 5px;"/>
+
+        <!-- ENERGY EFFIICIENT STUFF FOR HOME -->
+        <div class="grid">
+          <div class="grid__item width-one-half" style="display: flex; align-items: flex-start; justify-content: space-between;">
+            <%= f.cfa_select(:bought_energy_efficient_items, "(A) Purchase and install energy-efficient home items (example:
+windows, furnace, insulation, etc.)", yes_no_options_for_select) %>
+          </div>
+          <div class="grid__item width-one-half" style="background-color:#e5e5e5; padding: 10px; display: flex; align-items: flex-start; justify-content: space-between;">
+            <%= f.cfa_select(:cv_energy_efficient_home_improv_credit_cb, "(B) Energy efficient home improvement credits", yes_no_options_for_select) %>
+          </div>
+        </div>
+        <hr style="margin: 5px;"/>
+
+        <!-- DEBT CANCELLED -->
+        <div class="grid">
+          <div class="grid__item width-one-half" style="display: flex; align-items: flex-start; justify-content: space-between;">
+            <%= f.cfa_select(:had_debt_forgiven, "(A) Have credit card, mortgage, or other debt cancelled/forgiven
+by a lender", yes_no_options_for_select) %>
+          </div>
+          <div class="grid__item width-one-half" style="background-color:#e5e5e5; padding: 10px; display: flex; align-items: flex-start; justify-content: space-between;">
+            <%= f.cfa_select(:cv_1099c_cb, "(A) 1099-C", yes_no_options_for_select) %>
+          </div>
+        </div>
+        <hr style="margin: 5px;"/>
+
+        <!-- DISASTER LOSS -->
+        <div class="grid">
+          <div class="grid__item width-one-half" style="display: flex; align-items: flex-start; justify-content: space-between;">
+            <%= f.cfa_select(:had_disaster_loss, "(A) Have a loss related to a declared Federal disaster area", yes_no_options_for_select) %>
+          </div>
+          <div class="grid__item width-one-half" style="background-color:#e5e5e5; padding: 10px; display: flex; align-items: flex-start; justify-content: space-between;">
+            <%= f.cfa_select(:cv_1099a_cb, "(A) 1099-A", yes_no_options_for_select) %>
+            <%= f.cfa_select(:cv_disaster_relief_impacts_return_cb, "Disaster relief impacts return", yes_no_options_for_select) %>
+          </div>
+        </div>
+        <hr style="margin: 5px;"/>
+
+        <!-- TAX CREDIT DISALLOWED -->
+        <div class="grid">
+          <div class="grid__item width-one-half" style="display: flex; align-items: flex-start; justify-content: space-between;">
+            <%= f.cfa_select(:had_tax_credit_disallowed, "(B) Have a tax credit disallowed (example: earned income credit,
+child tax credit, or American opportunity credit)", yes_no_options_for_select) %>
+          </div>
+          <div class="grid__item width-one-half" style="background-color:#e5e5e5; padding: 10px; display: flex; align-items: flex-start; justify-content: space-between;">
+            <table style="width: 100%;">
+              <tr><td><%= f.cfa_select(:cv_eitc_ctc_aotc_hoh_disallowed_in_a_prev_yr_cb, "(B) EITC, CTC, AOTC or HOH disallowed in a previous year", yes_no_options_for_select) %>
+              <tr><td><%= f.cfa_input_field(:tax_credit_disallowed_year, "Year disallowed", classes: ["form-width--short"]) %>
+              <tr><td><%= f.cfa_input_field(:cv_tax_credit_disallowed_reason, "Reason", classes: ["form-width--short"]) %>
+            </table>
+          </div>
+        </div>
+        <hr style="margin: 5px;"/>
+
+        <!-- LETTER FROM IRS -->
+        <div class="grid">
+          <div class="grid__item width-one-half" style="display: flex; align-items: flex-start; justify-content: space-between;">
+            <%= f.cfa_select(:received_irs_letter, "Receive any letter or bill from the IRS", yes_no_options_for_select) %>
+          </div>
+          <div class="grid__item width-one-half" style="background-color:#e5e5e5; padding: 10px; display: flex; align-items: flex-start; justify-content: space-between;">
+            <%= f.cfa_select(:cv_eligible_for_litc_referral_cb, "Eligible for Low Income Taxpayer Clinic referral", yes_no_options_for_select) %>
+          </div>
+        </div>
+        <hr style="margin: 5px;"/>
+
+        <!-- ESTIMATED TAX PAYMENTS ROW 1 -->
+        <div class="grid">
+          <div class="grid__item width-one-half" style="display: flex; align-items: flex-start; justify-content: space-between;">
+            <%= f.cfa_select(:made_estimated_tax_payments, "(B) Make estimated tax payments or apply last year’s refund to
+2024 taxes", yes_no_options_for_select) %>
+          </div>
+          <div class="grid__item width-one-half" style="background-color:#e5e5e5; padding: 10px; display: flex; align-items: flex-start; justify-content: space-between;">
+            <%= f.cfa_select(:cv_estimated_tax_payments_cb, "Estimated tax payments", yes_no_options_for_select) %>
+            <%= f.cfa_input_field(:cv_estimated_tax_payments_amt, "$", classes: ["form-width--short"]) %>
+          </div>
+        </div>
+        <!-- no HR here -->
+
+        <!-- ESTIMATED TAX PAYMENTS ROW 2 -->
+        <div class="grid">
+          <div class="grid__item width-one-half" style="display: flex; align-items: flex-start; justify-content: space-between;">
+            &nbsp;
+          </div>
+          <div class="grid__item width-one-half" style="background-color:#e5e5e5; padding: 10px; display: flex; align-items: flex-start; justify-content: space-between;">
+            <%= f.cfa_select(:cv_last_years_refund_applied_to_this_yr_cb, "Last year’s refund applied to this year", yes_no_options_for_select) %>
+            <%= f.cfa_input_field(:cv_last_years_refund_applied_to_this_yr_amt, "$", classes: ["form-width--short"]) %>
+          </div>
+        </div>
+        <!-- no HR here -->
+
+        <!-- ESTIMATED TAX PAYMENTS ROW 3 -->
+        <div class="grid">
+          <div class="grid__item width-one-half" style="display: flex; align-items: flex-start; justify-content: space-between;">
+            &nbsp;
+          </div>
+          <div class="grid__item width-one-half" style="background-color:#e5e5e5; padding: 10px; display: flex; align-items: flex-start; justify-content: space-between;">
+            <%= f.cfa_select(:cv_last_years_return_available_cb, "Last year’s return available", yes_no_options_for_select) %>
+          </div>
+        </div>
+        <hr style="margin: 5px;"/>
+
+        <!-- NOTES PART 3 -->
+        <div class="grid" style="background-color:#e5e5e5; padding: 10px; display: block; align-items: flex-start; justify-content: space-between; margin-bottom: 20px;">
+            <%= f.cfa_input_field(:cv_14c_page_3_notes_part_3, "Notes/Comments", classes: ["form-width--long"]) %>
+        </div>
       </div>
 
       <div style="display: flex; justify-content: space-between;">

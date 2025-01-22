@@ -424,6 +424,48 @@ RSpec.describe "a user editing a clients 13614c form" do
 
       fill_in "hub_update13614c_form_page3_cv_14c_page_3_notes_part_2", with: "Hello, note 2"
 
+      select "Yes", from: "hub_update13614c_form_page3_paid_post_secondary_educational_expenses"
+      select "Yes", from: "hub_update13614c_form_page3_cv_taxable_scholarship_income_cb"
+      select "Yes", from: "hub_update13614c_form_page3_cv_1098t_cb"
+      select "Yes", from: "hub_update13614c_form_page3_cv_edu_credit_or_tuition_deduction_cb"
+
+      select "Yes", from: "hub_update13614c_form_page3_sold_a_home"
+      select "Yes", from: "hub_update13614c_form_page3_cv_1099s_cb"
+
+      select "Yes", from: "hub_update13614c_form_page3_had_hsa"
+      select "Yes", from: "hub_update13614c_form_page3_cv_hsa_contrib_cb"
+      select "Yes", from: "hub_update13614c_form_page3_cv_hsa_distrib_cb"
+
+      select "Yes", from: "hub_update13614c_form_page3_bought_marketplace_health_insurance"
+      select "Yes", from: "hub_update13614c_form_page3_cv_1095a_cb"
+
+      select "Yes", from: "hub_update13614c_form_page3_bought_energy_efficient_items"
+      select "Yes", from: "hub_update13614c_form_page3_cv_energy_efficient_home_improv_credit_cb"
+
+      select "Yes", from: "hub_update13614c_form_page3_had_debt_forgiven"
+      select "Yes", from: "hub_update13614c_form_page3_cv_1099c_cb"
+
+      select "Yes", from: "hub_update13614c_form_page3_had_disaster_loss"
+      select "Yes", from: "hub_update13614c_form_page3_cv_1099a_cb"
+      select "Yes", from: "hub_update13614c_form_page3_cv_disaster_relief_impacts_return_cb"
+
+      select "Yes", from: "hub_update13614c_form_page3_had_tax_credit_disallowed"
+      select "Yes", from: "hub_update13614c_form_page3_cv_eitc_ctc_aotc_hoh_disallowed_in_a_prev_yr_cb"
+      fill_in "hub_update13614c_form_page3_tax_credit_disallowed_year", with: '2000'
+      fill_in "hub_update13614c_form_page3_cv_tax_credit_disallowed_reason", with: 'a reason'
+
+      select "Yes", from: "hub_update13614c_form_page3_received_irs_letter"
+      select "Yes", from: "hub_update13614c_form_page3_cv_eligible_for_litc_referral_cb"
+
+      select "Yes", from: "hub_update13614c_form_page3_made_estimated_tax_payments"
+      select "Yes", from: "hub_update13614c_form_page3_cv_estimated_tax_payments_cb"
+      fill_in "hub_update13614c_form_page3_cv_estimated_tax_payments_amt", with: "3000"
+      select "Yes", from: "hub_update13614c_form_page3_cv_last_years_refund_applied_to_this_yr_cb"
+      fill_in "hub_update13614c_form_page3_cv_last_years_refund_applied_to_this_yr_amt", with: "3001"
+      select "Yes", from: "hub_update13614c_form_page3_cv_last_years_return_available_cb"
+
+      fill_in "hub_update13614c_form_page3_cv_14c_page_3_notes_part_3", with: "Hello, note 3"
+
       click_on I18n.t("general.save")
 
       expect(page).to have_text I18n.t("hub.clients.edit_13614c_form_page3.title")
@@ -466,6 +508,47 @@ RSpec.describe "a user editing a clients 13614c form" do
 
       expect(intake.cv_14c_page_3_notes_part_2).to eq "Hello, note 2"
 
+      expect(intake.paid_post_secondary_educational_expenses).to eq "yes"
+      expect(intake.cv_taxable_scholarship_income_cb).to eq "yes"
+      expect(intake.cv_1098t_cb).to eq "yes"
+      expect(intake.cv_edu_credit_or_tuition_deduction_cb).to eq "yes"
+
+      expect(intake.sold_a_home).to eq "yes"
+      expect(intake.cv_1099s_cb).to eq "yes"
+
+      expect(intake.had_hsa).to eq "yes"
+      expect(intake.cv_hsa_contrib_cb).to eq "yes"
+      expect(intake.cv_hsa_distrib_cb).to eq "yes"
+
+      expect(intake.bought_marketplace_health_insurance).to eq "yes"
+      expect(intake.cv_1095a_cb).to eq "yes"
+
+      expect(intake.bought_energy_efficient_items).to eq "yes"
+      expect(intake.cv_energy_efficient_home_improv_credit_cb).to eq "yes"
+
+      expect(intake.had_debt_forgiven).to eq "yes"
+      expect(intake.cv_1099c_cb).to eq "yes"
+
+      expect(intake.had_disaster_loss).to eq "yes"
+      expect(intake.cv_1099a_cb).to eq "yes"
+      expect(intake.cv_disaster_relief_impacts_return_cb).to eq "yes"
+
+      expect(intake.had_tax_credit_disallowed).to eq "yes"
+      expect(intake.cv_eitc_ctc_aotc_hoh_disallowed_in_a_prev_yr_cb).to eq "yes"
+      expect(intake.tax_credit_disallowed_year).to eq 2000
+      expect(intake.cv_tax_credit_disallowed_reason).to eq 'a reason'
+
+      expect(intake.received_irs_letter).to eq "yes"
+      expect(intake.cv_eligible_for_litc_referral_cb).to eq "yes"
+
+      expect(intake.made_estimated_tax_payments).to eq "yes"
+      expect(intake.cv_estimated_tax_payments_cb).to eq "yes"
+      expect(intake.cv_estimated_tax_payments_amt).to eq 3000
+      expect(intake.cv_last_years_refund_applied_to_this_yr_cb).to eq "yes"
+      expect(intake.cv_last_years_refund_applied_to_this_yr_amt).to eq 3001
+      expect(intake.cv_last_years_return_available_cb).to eq "yes"
+
+      expect(intake.cv_14c_page_3_notes_part_3).to eq "Hello, note 3"
     end
   end
 end
