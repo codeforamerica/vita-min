@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>e21700d6</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>300001211</PrimarySSN>
+            <SpouseSSN>400001212</SpouseSSN>
+            <NameLine1Txt>JONATHAN &amp; MARTHA&lt;KENT</NameLine1Txt>
+            <PrimaryNameControlTxt>KENT</PrimaryNameControlTxt>
+            <SpouseNameControlTxt>KENT</SpouseNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>344 Clinton St</AddressLine1Txt>
+                <CityNm>Smallville</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07105</ZIPCd>
+            </USAddress>
+            <PhoneNum>2015556789</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+30000121-14de-44af-b765-5ff15c5536f6@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="7">
+        <IRS1040 documentId="IRS10400001">
+            <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
+            <DependentDetail>
+                <DependentFirstNm>Kara</DependentFirstNm>
+                <DependentLastNm>Kent</DependentLastNm>
+                <DependentNameControlTxt>KENT</DependentNameControlTxt>
+                <DependentSSN>600001213</DependentSSN>
+                <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+                <EligibleForODCInd>X</EligibleForODCInd>
+            </DependentDetail>
+            <DependentDetail>
+                <DependentFirstNm>Clark</DependentFirstNm>
+                <DependentLastNm>Kent</DependentLastNm>
+                <DependentNameControlTxt>KENT</DependentNameControlTxt>
+                <DependentSSN>600001214</DependentSSN>
+                <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+                <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+            </DependentDetail>
+            <ChldWhoLivedWithYouCnt>2</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>4</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001 W20002" referenceDocumentName="IRSW2">33000</WagesAmt>
+            <WagesSalariesAndTipsAmt>33000</WagesSalariesAndTipsAmt>
+            <TaxableInterestAmt>1300</TaxableInterestAmt>
+            <SocSecBnftAmt>8000</SocSecBnftAmt>
+            <TaxableSocSecAmt>3150</TaxableSocSecAmt>
+            <TotalIncomeAmt>37450</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>37450</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>29200</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>29200</TotalDeductionsAmt>
+            <TaxableIncomeAmt>8250</TaxableIncomeAmt>
+            <TaxAmt>828</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>828</TotalTaxBeforeCrAndOthTaxesAmt>
+            <CTCODCAmt>138</CTCODCAmt>
+            <TotalNonrefundableCreditsAmt>690</TotalNonrefundableCreditsAmt>
+            <TotalCreditsAmt>828</TotalCreditsAmt>
+            <TaxLessCreditsAmt>0</TaxLessCreditsAmt>
+            <TotalTaxAmt>0</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>1500</FormW2WithheldTaxAmt>
+            <WithholdingTaxAmt>1500</WithholdingTaxAmt>
+            <EarnedIncomeCreditAmt referenceDocumentId="IRSEIC0001" referenceDocumentName="IRS1040ScheduleEIC">5310</EarnedIncomeCreditAmt>
+            <AdditionalChildTaxCreditAmt referenceDocumentId="IRS8812001" referenceDocumentName="IRS1040Schedule8812">1700</AdditionalChildTaxCreditAmt>
+            <RefundableCreditsAmt>7010</RefundableCreditsAmt>
+            <TotalPaymentsAmt>8510</TotalPaymentsAmt>
+            <OverpaidAmt>8510</OverpaidAmt>
+            <RefundAmt>8510</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Race Car Driver</PrimaryOccupationTxt>
+            <SpouseOccupationTxt>Farmer</SpouseOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1040Schedule3 documentId="IRS1040S3001">
+            <CreditForChildAndDepdCareAmt referenceDocumentId="IRS2441001" referenceDocumentName="IRS2441">690</CreditForChildAndDepdCareAmt>
+            <TotalNonrefundableCreditsAmt>690</TotalNonrefundableCreditsAmt>
+        </IRS1040Schedule3>
+        <IRS1040Schedule8812 documentId="IRS8812001" documentName="IRS1040Schedule8812">
+            <AdjustedGrossIncomeAmt>37450</AdjustedGrossIncomeAmt>
+            <ModifiedAGIAmt>37450</ModifiedAGIAmt>
+            <QlfyChildUnderAgeSSNCnt>1</QlfyChildUnderAgeSSNCnt>
+            <QlfyChildUnderAgeSSNLimtAmt>2000</QlfyChildUnderAgeSSNLimtAmt>
+            <OtherDependentCnt>1</OtherDependentCnt>
+            <OtherDependentCreditAmt>500</OtherDependentCreditAmt>
+            <InitialCTCODCAmt>2500</InitialCTCODCAmt>
+            <FilingStatusThresholdCd>400000</FilingStatusThresholdCd>
+            <ExcessAdjGrossIncomeAmt>0</ExcessAdjGrossIncomeAmt>
+            <ModifiedAGIPhaseOutAmt>0</ModifiedAGIPhaseOutAmt>
+            <CTCODCOverAGILimitInd>true</CTCODCOverAGILimitInd>
+            <CTCODCAfterAGILimitAmt>2500</CTCODCAfterAGILimitAmt>
+            <ACTCTaxLiabiltyLimitAmt>138</ACTCTaxLiabiltyLimitAmt>
+            <CTCODCAmt>138</CTCODCAmt>
+            <ClaimACTCAllFilersGrp>
+                <ACTCBeforeLimitAmt>2362</ACTCBeforeLimitAmt>
+                <QlfyChildUnderAgeSSNCnt>1</QlfyChildUnderAgeSSNCnt>
+                <QlfyChildUnderAgeSSNLimtAmt>1700</QlfyChildUnderAgeSSNLimtAmt>
+                <ACTCAfterLimitAmt>1700</ACTCAfterLimitAmt>
+                <TotalEarnedIncomeAmt>33000</TotalEarnedIncomeAmt>
+                <EarnedIncmMoreThanSpecifiedInd>true</EarnedIncmMoreThanSpecifiedInd>
+                <NetTotalEarnedIncomeAmt>30500</NetTotalEarnedIncomeAmt>
+                <NetEarnedIncomeCalculatedAmt>4575</NetEarnedIncomeCalculatedAmt>
+                <ThreeOrMoreQlfyChildrenInd>false</ThreeOrMoreQlfyChildrenInd>
+            </ClaimACTCAllFilersGrp>
+            <AdditionalChildTaxCreditAmt>1700</AdditionalChildTaxCreditAmt>
+        </IRS1040Schedule8812>
+        <IRS1040ScheduleEIC documentId="IRSEIC0001" documentName="IRS1040ScheduleEIC">
+            <QualifyingChildInformation>
+                <QualifyingChildNameControlTxt>KENT</QualifyingChildNameControlTxt>
+                <ChildFirstAndLastName>
+                    <PersonFirstNm>Kara</PersonFirstNm>
+                    <PersonLastNm>Kent</PersonLastNm>
+                </ChildFirstAndLastName>
+                <QualifyingChildSSN>600001213</QualifyingChildSSN>
+                <ChildBirthYr>2004</ChildBirthYr>
+                <ChildIsAStudentUnder24Ind>true</ChildIsAStudentUnder24Ind>
+                <ChildRelationshipCd>DAUGHTER</ChildRelationshipCd>
+                <MonthsChildLivedWithYouCnt>12</MonthsChildLivedWithYouCnt>
+            </QualifyingChildInformation>
+            <QualifyingChildInformation>
+                <QualifyingChildNameControlTxt>KENT</QualifyingChildNameControlTxt>
+                <ChildFirstAndLastName>
+                    <PersonFirstNm>Clark</PersonFirstNm>
+                    <PersonLastNm>Kent</PersonLastNm>
+                </ChildFirstAndLastName>
+                <QualifyingChildSSN>600001214</QualifyingChildSSN>
+                <ChildBirthYr>2020</ChildBirthYr>
+                <ChildRelationshipCd>DAUGHTER</ChildRelationshipCd>
+                <MonthsChildLivedWithYouCnt>12</MonthsChildLivedWithYouCnt>
+            </QualifyingChildInformation>
+        </IRS1040ScheduleEIC>
+        <IRS2441 documentId="IRS2441001" documentName="IRS2441">
+            <CareProviderGrp>
+                <CareProviderBusinessName>
+                    <BusinessNameLine1Txt>Superhero care</BusinessNameLine1Txt>
+                </CareProviderBusinessName>
+                <CareProviderBusNameControlTxt>SUPE</CareProviderBusNameControlTxt>
+                <USAddress>
+                    <AddressLine1Txt>1 Main St</AddressLine1Txt>
+                    <CityNm>Smallville</CityNm>
+                    <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                    <ZIPCd>07101</ZIPCd>
+                </USAddress>
+                <EIN>017878787</EIN>
+                <HouseholdEmployeeInd>false</HouseholdEmployeeInd>
+                <PaidAmt>3000</PaidAmt>
+            </CareProviderGrp>
+            <QualifyingPersonGrp>
+                <QualifyingPersonName>
+                    <PersonFirstNm>Clark</PersonFirstNm>
+                    <PersonLastNm>Kent</PersonLastNm>
+                </QualifyingPersonName>
+                <QualifyingPersonNameControlTxt>KENT</QualifyingPersonNameControlTxt>
+                <QualifyingPersonSSN>600001214</QualifyingPersonSSN>
+                <QualifiedCareExpensesPaidAmt>3000</QualifiedCareExpensesPaidAmt>
+            </QualifyingPersonGrp>
+            <TotalQlfdExpensesOrLimitAmt>3000</TotalQlfdExpensesOrLimitAmt>
+            <PrimaryEarnedIncomeAmt>19000</PrimaryEarnedIncomeAmt>
+            <SpouseEarnedIncomeAmt>14000</SpouseEarnedIncomeAmt>
+            <SmallerOfExpensesOrIncomeAmt>3000</SmallerOfExpensesOrIncomeAmt>
+            <AdjustedGrossIncomeAmt>37450</AdjustedGrossIncomeAmt>
+            <CareExpensesDecimalAmt>0.23</CareExpensesDecimalAmt>
+            <CalculatedTentativeExpenseAmt>690</CalculatedTentativeExpenseAmt>
+            <TotalEligCDCCAmt>690</TotalEligCDCCAmt>
+            <TaxLiabLmtFromCrLmtWrkshtAmt>828</TaxLiabLmtFromCrLmtWrkshtAmt>
+            <CreditForChildAndDepdCareAmt>690</CreditForChildAndDepdCareAmt>
+        </IRS2441>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>300001211</EmployeeSSN>
+            <EmployerEIN>018765432</EmployerEIN>
+            <EmployerNameControlTxt>NASC</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>NASCAR</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>1 Sports Center</AddressLine1Txt>
+                <CityNm>Daytona Beach</CityNm>
+                <StateAbbreviationCd>FL</StateAbbreviationCd>
+                <ZIPCd>32114</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Jonathan Kent</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>344 Clinton St</AddressLine1Txt>
+                <CityNm>Smallville</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07105</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>19000</WagesAmt>
+            <WithholdingAmt>1000</WithholdingAmt>
+            <SocialSecurityWagesAmt>19000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>800</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>19000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>600</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                    <EmployerStateIdNum>87654321</EmployerStateIdNum>
+                    <StateWagesAmt>15000</StateWagesAmt>
+                    <StateIncomeTaxAmt>3000</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+        <IRSW2 documentId="W20002" documentName="IRSW2">
+            <EmployeeSSN>400001212</EmployeeSSN>
+            <EmployerEIN>019876543</EmployerEIN>
+            <EmployerNameControlTxt>NEWJ</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>New Jersey Farms Inc</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>1 Farming St</AddressLine1Txt>
+                <CityNm>Smallville</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07101</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Martha Kent</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>344 Clinton St</AddressLine1Txt>
+                <CityNm>Smallville</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07105</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>14000</WagesAmt>
+            <WithholdingAmt>500</WithholdingAmt>
+            <SocialSecurityWagesAmt>14000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>400</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>14000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>300</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                    <EmployerStateIdNum>87654322</EmployerStateIdNum>
+                    <StateWagesAmt>10000</StateWagesAmt>
+                    <StateIncomeTaxAmt>500</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>

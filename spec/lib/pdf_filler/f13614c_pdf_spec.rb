@@ -198,10 +198,10 @@ RSpec.describe PdfFiller::F13614cPdf do
         output_file = intake_pdf.output_file
         result = non_preparer_fields(output_file.path)
         expect(result).to include(
-          "form1[0].page1[0].q1YourFirstName[0]" => "Hoofie",
-          "form1[0].page1[0].q1YourMiddleInitial[0]" => "",
-          "form1[0].page1[0].q1YourLastName[0]" => "Heifer",
-          "form1[0].page1[0].q1TelephoneNumber[0]" => "(415) 816-1286",
+          "form1[0].page1[0].yourFirstName[0]" => "Hoofie",
+          "form1[0].page1[0].yourMiddleInitial[0]" => "",
+          "form1[0].page1[0].yourLastName[0]" => "Heifer",
+          "form1[0].page1[0].telephoneNumber[0]" => "(415) 816-1286",
           "form1[0].page1[0].q1AreYouA[0].optionYes[0]" => "Off",
           "form1[0].page1[0].q1AreYouA[0].optionNo[0]" => "1",
           "form1[0].page1[0].q2SpouseFirstName[0]" => "Hattie",
@@ -508,6 +508,32 @@ RSpec.describe PdfFiller::F13614cPdf do
             "form1[0].page2[0].Part5[0].q6ReceiveTheFirst[0].optionUnsure[0]" => "Off",
             "form1[0].page2[0].Part4[0].q4Deductions[0].mortgage[0]" => "1",
           )
+        end
+      end
+
+      describe "you_and_spouse_info" do
+        it "should contain the correct information" do
+          expect(intake_pdf.you_and_spouse_info).to include({
+            # You
+            "form1[0].page1[0].yourFirstName[0]" => "Hoofie",
+            "form1[0].page1[0].yourMiddleInitial[0]" => nil,
+            "form1[0].page1[0].yourLastName[0]" => "Heifer",
+            "form1[0].page1[0].yourTelephoneNumber[0]" => "(415) 816-1286",
+            "form1[0].page1[0].yourDateOfBirth[0]" => "4/19/1961",
+            "form1[0].page1[0].yourJobTitle[0]" => nil,
+
+            # Spouse
+            "form1[0].page1[0].youSpouseWereIn[0].column2[0].totallyPermanentlyDisabled[0].disabledYou[0]" => "1",
+            "form1[0].page1[0].youSpouseWereIn[0].column2[0].legallyBlind[0].legallyBlindNo[0]" => "1",
+            "form1[0].page1[0].spousesFirstName[0]" => 'Hattie',
+            "form1[0].page1[0].spousesMiddleInitial[0]" => nil,
+            "form1[0].page1[0].spousesLastName[0]" => 'Heifer',
+            "form1[0].page1[0].spousesTelephoneNumber[0]" => nil,
+            "form1[0].page1[0].spousesDateOfBirth[0]" => "11/1/1959",
+            "form1[0].page1[0].spousesJobTitle[0]" => nil,
+            "form1[0].page1[0].youSpouseWereIn[0].column2[0].totallyPermanentlyDisabled[0].disabledYou[0]" => "1",
+            "form1[0].page1[0].youSpouseWereIn[0].column2[0].legallyBlind[0].legallyBlindNo[0]" => "1",
+          })
         end
       end
 

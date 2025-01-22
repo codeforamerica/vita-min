@@ -38,6 +38,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("general.accept")
 
       expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
+      expect(page).not_to have_css(".progress-steps")
       expect(page).to be_axe_clean if check_a11y
       click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
 
@@ -45,6 +46,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       if expect_income_review
         expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
+        expect(page).to have_css(".progress-steps")
         expect(page).to be_axe_clean if check_a11y
         continue
       end
@@ -168,7 +170,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
     def expect_ineligible_page(property, reason)
       valid_property_values = ["on_home", "on_rental", nil]
-      valid_reasons = ["multi_unit_conditions", "property_taxes", "neither"]
+      valid_reasons = ["multi_unit_conditions", "property_taxes", "neither", "income_single_mfs", "income_mfj_qss_hoh"]
       throw "not a valid property value: #{property}" unless valid_property_values.include?(property)
       throw "not a valid reason value: #{reason}" unless valid_reasons.include?(reason)
 
@@ -244,6 +246,11 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       # Review
       expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
+      expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.your_name")
+      expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.spouse_name")
+      dependents_dob = page.all(:css, 'h4', text: I18n.t('state_file.questions.shared.abstract_review_header.dependent_dob')).count
+      expect(dependents_dob).to eq(6)
+
       expect(page).to be_axe_clean.within "main"
 
       groups = page.all(:css, '.white-group').count
@@ -284,11 +291,13 @@ RSpec.feature "Completing a state file intake", active_job: true do
       continue
 
       expect(page).to be_axe_clean
+      expect(page).to have_css(".progress-steps")
       check I18n.t('state_file.questions.esign_declaration.edit.primary_esign')
       check I18n.t('state_file.questions.esign_declaration.edit.spouse_esign')
       click_on I18n.t('state_file.questions.esign_declaration.edit.submit')
       
       expect(page).to be_axe_clean
+      expect(page).not_to have_css(".progress-steps")
       expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", filing_year: 2024, state_name: "New Jersey")
     end
 
@@ -464,6 +473,30 @@ RSpec.feature "Completing a state file intake", active_job: true do
         expect_ineligible_page("on_home", "property_taxes")
         select_tenant_eligibility(["tenant_home_subject_to_property_taxes"])
         # skips rent paid page
+        expect_page_after_property_tax
+      end
+    end
+
+    context "when low income and does NOT meet exception" do
+      it "handles property tax flow - single/MFS", required_schema: "nj" do
+        advance_to_start_of_intake("Minimal", expect_income_review: false) # low income MFS
+        advance_county_and_municipality
+        advance_disabled_exemption(false) # does NOT meet disabled exemption
+        advance_veterans_exemption
+        advance_medical_expenses
+        choose_household_rent_own("homeowner")
+        expect_ineligible_page(nil, "income_single_mfs")
+        expect_page_after_property_tax
+      end
+
+      it "handles property tax flow - MFJ", required_schema: "nj" do
+        advance_to_start_of_intake("Married filing jointly 15k wages") # low income MFJ
+        advance_county_and_municipality
+        advance_disabled_exemption(false) # does NOT meet disabled exemption
+        advance_veterans_exemption
+        advance_medical_expenses
+        choose_household_rent_own("homeowner")
+        expect_ineligible_page(nil, "income_mfj_qss_hoh")
         expect_page_after_property_tax
       end
     end
