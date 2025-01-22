@@ -374,7 +374,7 @@ es:
       stepsister: Hermanastra
       uncle: Tío
     dependents: Dependientes
-    description: Una herramienta de presentación de impuestos estatales simple y gratis para los contribuyentes de Arizona y Nueva York que utilizan IRS Direct File.
+    description: Un servicio gratuito de presentación de impuestos estatales para los contribuyentes que utilizan IRS Direct File.
     divorced: Divorciado
     document_deadline: Para presentar su declaración de impuestos antes de la fecha límite, necesitamos todos los documentos requeridos antes del 8 de octubre.
     document_type: Clase de documento
@@ -2026,6 +2026,11 @@ es:
           subtitle_html_2: Si aún necesitas ayuda para resuscribirte, chatea con nosotros.
           title_html: Hemos enviado tu código a <strong>%{email_address}</strong>
           verify: Verificar el código
+      verification_error:
+        az_dor: Departamento de Ingresos de Arizona
+        ny_dor: Departamento de Impuestos del Estado de Nueva York
+        subtitle: Visite el sitio web de la agencia tributaria de su estado para solicitar su declaración de impuestos de %{year}
+        title: Lo sentimos, no pudimos verificar su cuenta
     faq:
       index:
         title: 'Preguntas frecuentes de los contribuyentes de %{state}:'
@@ -2189,6 +2194,12 @@ es:
         title_closed: Nuestro servicio gratuito para declarar tus impuestos estatales de %{state_name} está cerrado por temporada
         welcome_back: "¡Bienvenido de nuevo %{user_name}!"
     navigation:
+      nj:
+        section_1: 'Section 1: Income'
+        section_2: 'Section 2: Your household'
+        section_3: 'Section 3: Deductions and credits'
+        section_4: 'Section 4: Your %{filing_year} taxes'
+        section_5: 'Section 5: Review and submit'
       section_1: 'Sección 1: ¿Puedes usar esta herramienta?'
       section_2: 'Sección 2: Crear cuenta'
       section_3: 'Sección 3: Términos y condiciones'
@@ -3259,6 +3270,8 @@ es:
           on_home: on the home you lived in and owned.
           on_rental: on the home you lived in and rented.
           reason_html: You are not eligible for this because <b>%{reason}</b>
+          reason_income_mfj_qss_hoh: you did not meet the income filing threshold of $20,000.
+          reason_income_single_mfs: you did not meet the income filing threshold of $10,000.
           reason_multi_unit_conditions: this main home in a multi-unit building did not meet the requirements to claim this credit or deduction.
           reason_neither: you must own rent or own a main home in %{filing_year} to receive this credit or deduction.
           reason_property_taxes: did not pay property taxes (directly, or through rent) on this main home.

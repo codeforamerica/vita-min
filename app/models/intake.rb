@@ -456,6 +456,10 @@ class Intake < ApplicationRecord
     PhoneParser.formatted_phone_number(phone_number)
   end
 
+  def formatted_spouse_phone_number
+    PhoneParser.formatted_phone_number(spouse_phone_number)
+  end
+
   def formatted_sms_phone_number
     PhoneParser.formatted_phone_number(sms_phone_number)
   end
