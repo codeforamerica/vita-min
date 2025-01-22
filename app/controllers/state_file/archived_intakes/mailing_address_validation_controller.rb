@@ -25,18 +25,15 @@ module StateFile
       end
 
       def generate_address_options
-        if Rails.env.production?
-          bucket_name = 'vita-min-prod-docs'
-          file_key = "#{current_archived_intake.mailing_state.downcase}_addresses.csv"
+        if Rails.env == "development"
+          file_path = Rails.root.join('app', 'lib', 'challenge_addresses', 'test_addresses.csv')
         else
-          bucket_name = 'vita-min-heroku-docs'
-          file_key = 'non_prod_addresses.csv'
+          bucket = select_bucket
+          file_key = "challenge_addresses/#{current_archived_intake.mailing_state.downcase}_addresses.csv"
+          file_path = File.join(Rails.root, "tmp", "#{current_archived_intake.mailing_state.downcase}_addresses.csv")
+
+          download_file_from_s3(bucket, file_key, file_path) unless File.exist?(file_path)
         end
-
-        file_path = File.join(Rails.root, "tmp", File.basename(file_key))
-
-        download_file_from_s3(bucket_name, file_key, file_path) unless File.exist?(file_path)
-
         addresses = CSV.read(file_path, headers: false).flatten
         random_addresses = addresses.sample(2)
         (random_addresses + [current_archived_intake.full_address]).shuffle
@@ -68,6 +65,18 @@ module StateFile
         end
       end
 
+      def select_bucket
+        case Rails.env
+        when 'production'
+          'vita-min-prod-docs'
+        when 'staging'
+          'vita-min-staging-docs'
+        when 'demo'
+          'vita-min-demo-docs'
+        when 'heroku'
+          'vita-min-heroku-docs'
+        end
+      end
     end
   end
 end

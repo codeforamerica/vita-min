@@ -1,16 +1,21 @@
-<% content_for :page_title, "Edit Mailing Address" %>
+<% title = t(".title") %>
 <section class="slab question-layout <%= controller_name.gsub("_", "-") %>-outer">
   <div class="grid">
     <div class="grid__item question-wrapper">
+      <% content_for :page_title, title %>
       <%= form_with model: @form, url: { action: :update }, local: true, method: :patch, builder: VitaMinFormBuilder do |f| %>
-        <%= f.cfa_radio_set(
-              :selected_address,
-              label_text: "Please select your mailing address:",
-              collection: @addresses.map { |address| { value: address, label: address } }
-            ) %>
+        <h1 class="h2" id="main-question"><%= title %></h1>
+        <p><%= t(".identity_safe") %></p>
+        <div class="white-group">
+          <%= f.cfa_radio_set(
+                :selected_address,
+                label_text: t(".radio_button_title"),
+                collection: @addresses.map { |address| { value: address, label: address } }
+              ) %>
+        </div>
         <div class="form-actions">
           <button type="submit" class="button button--primary button--wide spacing-below-15">
-            <%= "bruh" %>
+            <%= t("general.continue") %>
           </button>
         </div>
       <% end %>
