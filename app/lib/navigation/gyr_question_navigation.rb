@@ -159,8 +159,6 @@ module Navigation
       Questions::DemographicVeteranController,
       Questions::DemographicPrimaryRaceController,
       Questions::DemographicSpouseRaceController,
-      Questions::DemographicPrimaryEthnicityController,
-      Questions::DemographicSpouseEthnicityController,
     ].freeze
   end
 end
