@@ -540,6 +540,8 @@ es:
       american_indian_alaska_native: Indio Americano o Nativo de Alaska
       asian: Asiático
       black_african_american: Negro o afroamericano
+      hispanic_latino: Hispano o latino
+      mena: Oriente Medio o norteafricano
       native_hawaiian_pacific_islander: Nativo de Hawái u otra isla del Pacífico
       white: Blanco
     register: Regístrate
@@ -2019,6 +2021,12 @@ es:
       email_address:
         edit:
           enter_email: Ingresa la dirección de correo electrónico vinculada a tu cuenta
+      identification_number:
+        edit:
+          error_message: SSN/ITIN incorrecto. Después de 2 intentos fallidos, las cuentas se bloquean.
+          help_text: Para mantener tu identidad segura, necesitamos confirmar tu número de seguro social.
+          ssn_label: Número de Seguro Social o ITIN
+          title: "¡Encontramos tu cuenta! Por favor, confirma tu identidad."
       verification_code:
         edit:
           error_message: Después de 2 intentos fallidos, las cuentas serán bloqueadas.
@@ -2417,7 +2425,7 @@ es:
           body_html: No puedes usar este servicio este año porque %{ineligible_reason}. <br><br><strong>¿Fue un error?</strong> <a href=%{prev_link}>Regresa para corregirlo.</a>
           ineligible_reason:
             eligibility_529_for_non_qual_expense: retiraste dinero de una cuenta de ahorro universitario 529 y lo utilizaste para un gasto no calificado en el %{filing_year}
-            eligibility_ed_loan_cancelled: " tuve un préstamo estudiantil cancelado bajo la Ley del Plan de Rescate Estadounidense."
+            eligibility_ed_loan_cancelled: " tuve préstamo estudiantil cancelado bajo la Ley del Plan de Rescate Estadounidense."
             eligibility_ed_loan_emp_payment: recibió un Pago de Préstamo Educativo Calificado pagado por tu empleador.
             eligibility_emergency_rental_assistance: recibió asistencia de alquiler de emergencia %{filing_year}
             eligibility_home_different_areas: o tu cónyuge tienen hogares permanentes en dos condados, ciudades o áreas impositivas diferentes el último día de %{filing_year}
@@ -3078,7 +3086,7 @@ es:
       nc_spouse_state_id:
         nc_spouse:
           encourage_sharing: Aunque se recomienda compartir esta información, no es un requisito para presentar tus impuestos en Carolina del Norte.
-          protect_identity: To protect your identity and combat tax fraud, many state revenue agencies are asking people to give their driver’s license or state ID number.
+          protect_identity: 'Para proteger tu identidad y prevenir el fraude fiscal, muchas agencias estatales piden tu número de licencia de conducir o de identificación estatal. '
           why_ask_this: "¿Por qué están pidiendo esta información?"
       nc_subtractions:
         edit:
@@ -3733,7 +3741,7 @@ es:
       submission_confirmation:
         edit:
           download_state_return_pdf: Descarga tu declaración estatal
-          email_text_update: Recibirás una actualización por correo electrónico o mensaje de texto una vez tu declaración de impuestos haya sido aceptada.
+          email_text_update: Recibirás una actualización por correo electrónico y mensaje de texto una vez tu declaración de impuestos haya sido aceptada.
           email_update: Recibirás una actualización por correo electrónico cuando tu declaración de impuestos estatales sea aceptada.
           text_update: Recibirás una actualización por SMS cuando una vez tu declaración de impuestos haya sido aceptada.
           title: "¡Tu declaración de impuestos de %{state_name}de %{filing_year} ha sido enviada! "
@@ -6021,13 +6029,13 @@ es:
       demographic_primary_ethnicity:
         title: Cuál es tu etnicidad?
       demographic_primary_race:
-        title: "¿Cuál es su raza?"
+        title: "¿Cuál es su raza y/o grupo étnico?"
       demographic_questions:
         title: "¿Está dispuesto a responder algunas preguntas adicionales para ayudarnos a servirle mejor?"
       demographic_spouse_ethnicity:
         title: "¿Cuál es el origen étnico de su cónyuge?"
       demographic_spouse_race:
-        title: "¿Cuál es la raza de tu cónyuge?"
+        title: "¿Cuál es la raza y/o grupo étnico de tu cónyuge?"
       demographic_veteran:
         title: "¿Es usted o su cónyuge veterano de las Fuerzas Armadas de los EE. UU.?"
       dependent_care:
