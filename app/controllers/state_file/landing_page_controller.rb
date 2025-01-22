@@ -45,5 +45,7 @@ module StateFile
     def illustration_path; end
 
     def ny_closed; end
+
+    def redirect_deprecated_state; end # stops infinite redirect
   end
 end

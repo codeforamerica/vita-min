@@ -38,8 +38,7 @@ module StateFile
     end
 
     def redirect_deprecated_state
-      # this just handles controllers with "ny" in the name; other controllers are shared and should redirect to login
-      if params[:controller].include?("ny")
+      if params[:controller].include?("ny") || (current_intake.present? && current_state_code == "ny")
         redirect_to state_landing_page_path(us_state: :ny)
       end
     end

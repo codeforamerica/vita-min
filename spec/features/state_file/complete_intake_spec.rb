@@ -531,6 +531,19 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
   context "deprecated" do
     context "NY", js: true do
+      let(:email_address) { "someone@example.com" }
+      let(:ssn) { "111223333" }
+      let(:hashed_ssn) { "hashed_ssn" }
+      let(:verification_code) { "000004" }
+      let(:hashed_verification_code) { "hashed_verification_code" }
+
+      before do
+        create :state_file_ny_intake, email_address: email_address, hashed_ssn: hashed_ssn, df_data_import_succeeded_at: 5.minutes.ago
+        allow(SsnHashingService).to receive(:hash).with(ssn).and_return hashed_ssn
+        allow(VerificationCodeService).to receive(:generate).with(anything).and_return [verification_code, hashed_verification_code]
+        allow(VerificationCodeService).to receive(:hash_verification_code_with_contact_info).with(email_address, verification_code).and_return(hashed_verification_code)
+      end
+
       it "doesn't allow filers in anymore and redirects all pages to landing page", required_schema: "ny" do
         visit "/"
         click_on "Start Test NY"
@@ -545,6 +558,23 @@ RSpec.feature "Completing a state file intake", active_job: true do
         expect(page).to have_text I18n.t("state_file.landing_page.ny_closed.title")
 
         visit "/questions/ny-review"
+        expect(page).to have_text I18n.t("state_file.landing_page.ny_closed.title")
+
+        # try to log in with existing ny intake and get redirected
+        visit "/login-options"
+        expect(page).to have_text "Sign in to FileYourStateTaxes"
+        click_on "Sign in with email"
+        expect(page).to have_text "Sign in with your email address"
+        fill_in "Your email address", with: email_address
+        perform_enqueued_jobs do
+          click_on "Send code"
+        end
+        expect(page).to have_text "Enter the code to continue"
+        fill_in "Enter the 6-digit code", with: verification_code
+        click_on "Verify code"
+        expect(page).to have_text "Code verified! Authentication needed to continue."
+        fill_in "Enter your Social Security number or ITIN. For example, 123-45-6789.", with: ssn
+        click_on "Continue"
         expect(page).to have_text I18n.t("state_file.landing_page.ny_closed.title")
       end
     end

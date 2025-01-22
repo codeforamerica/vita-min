@@ -27,20 +27,6 @@
               <%= t(".supported_by") %>
             </div>
           </div>
-
-          <% if @user_name.present? %>
-            <p class="h2"><%= t(".welcome_back", user_name: @user_name) %></p>
-            <p class="h2"><%= t(".continue", state_name: @state_name) %></p>
-            <%= link_to StateFile::StateFilePagesController.to_path_helper(action: :login_options), class: "button button--primary button--wide", id: "firstCta" do %>
-              <%= t("general.sign_in") %>
-            <% end %>
-            <%= form_with model: @form, url: { action: :update }, local: true, method: :put, builder: VitaMinFormBuilder, id: "start-again-form" do |f| %>
-              <h2 class="h2">
-                <%= t(".not_you", user_name: @user_name) %>
-                <%= f.submit t(".start_new", state_name: @state_name), class: "button--link" %>
-              </h2>
-            <% end %>
-          <% end %>
         </div>
         <%= image_tag 'questions/welcome.svg', class: 'fyst-home-image', alt: '' %>
       </div>
