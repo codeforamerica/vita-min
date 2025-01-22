@@ -2173,7 +2173,7 @@ es:
           title: Declara tus impuestos estatales de Maryland sin costo
         nc:
           closed_html: |
-            <strong>FileYourStateTaxes</strong> ha sido creado por Code for America en colaboración con el estado de [state name] para integrarse con  el servicio Direct File del IRS.<br /><br />
+            <strong>FileYourStateTaxes</strong> ha sido creado por Code for America en colaboración con el estado de North Carolina para integrarse con el servicio Direct File del IRS.<br /><br />
             Estamos cerrados por la temporada de impuestos. Desafortunadamente no puede presentar su declaración estatal con nosotros este año.
           supported_by: Respaldada por el estado de North Carolina
           title: Declara tus impuestos estatales de North Carolina sin costo
@@ -2234,7 +2234,7 @@ es:
             many: "¿Tú y tu cónyuge donaron a organizaciones sin fines de lucro exentas de impuestos?"
             one: "¿Donaste tú a organizaciones sin fines de lucro exentas de impuestos?"
             other: "¿Tú y tu cónyuge donaron a organizaciones sin fines de lucro exentas de impuestos?"
-          title: " ¡Podrías ser elegible para recibir créditos y deducciones adicionales de Arizona! "
+          title: "¡Podrías ser elegible para recibir créditos y deducciones adicionales de Arizona!"
       az_excise_credit:
         edit:
           household_excise_credit_claimed_amt: Ingresa la cantidad total del Crédito Tributario por Impuesto de Consumo Aumentado reclamado por los miembros de tu hogar.
@@ -2295,7 +2295,7 @@ es:
             Visita el Departamento de Ingresos de Arizona para encontrar la información.
             <br/><br/>
             Para evitar errores, resalte el texto en el PDF, luego cópielo (Ctrl + C) y péguelo (Ctrl + V) directamente en esta página.
-          school_details_question: "¿Dónde puedo encontrar la información de la escuela? "
+          school_details_question: "¿Dónde puedo encontrar la información de la escuela?"
           which_qualify: "¿Qué donaciones y tarifas califican?"
         index:
           add_another: Agregar otra donación
@@ -2430,7 +2430,7 @@ es:
             eligibility_emergency_rental_assistance: recibió asistencia de alquiler de emergencia %{filing_year}
             eligibility_home_different_areas: o tu cónyuge tenían hogares permanentes en dos condados, ciudades o áreas impositivas diferentes el último día de %{filing_year}
             eligibility_homebuyer_withdrawal: retiró dinero de una cuenta de comprador de vivienda por primera vez que no se utilizó para comprar una casa en Maryland
-            eligibility_homebuyer_withdrawal_mfj: o tu cónyuge retiraron dinero de una Cuenta de Comprador de Vivienda Por Primera Vez  que no se utilizó para comprar una casa en Maryland.
+            eligibility_homebuyer_withdrawal_mfj: o tu cónyuge retiraron dinero de una Cuenta de Comprador de Vivienda Por Primera Vez que no se utilizó para comprar una casa en Maryland.
             eligibility_lived_in_state: no viviste en %{state} durante todo el %{filing_year}
             eligibility_married_filing_separately: estás presentando una declaración de impuestos "casado, declarando por separado"
             eligibility_out_of_state_income: recibiste ingresos en otro estado en el %{filing_year}
@@ -2512,7 +2512,7 @@ es:
         id_credits_unsupported:
           change_in_filing_status: Cambio en el estado civil tributario de la declaración federal a estatal
           dependents_not_claimed_fed_return: Agregar dependientes no reclamados en la declaración federal
-          earned_on_reservation: Ingresos Obtenidos en una Reserva por un Indígena Estadounidense 
+          earned_on_reservation: Ingresos Obtenidos en una Reserva por un Indígena Estadounidense
           education_contribution_credit: Crédito de Aportes a Entidades Educativas
           id_college_savings_program: Resta del Programa de Idaho Para el Ahorro Universitario
           id_youth_rehab_contributions: Crédito de Idaho por Contribuciones a Centros de Rehabilitación y Jóvenes
@@ -2535,10 +2535,10 @@ es:
                 <ul>
                   <li>Suministros para el aula para maestros de grados K a 12</li>
                   <li>Cuotas sindicales</li>
-                  <li>Pagos de un sistema de pensiones a bomberos y policías por lesiones o discapacidades relacionadas con el trabajo </li>
+                  <li>Pagos de un sistema de pensiones a bomberos y policías por lesiones o discapacidades relacionadas con el trabajo</li>
                   <li>Gastos de hasta $5,000 de una persona ciega para un lector, o hasta $1,000 de un empleador para comprar un lector para un empleado ciego</li>
                   <li>Contribuciones a cuentas ABLE</li>
-                  <li>Exclusión de pensiones (si tienes menos de 65 años y quieres incluirla debido a una discapacidad permanente, por primera vez)  </li>
+                  <li>Exclusión de pensiones (si tienes menos de 65 años y quieres incluirla debido a una discapacidad permanente, por primera vez)</li>
                   <li>Cualquier otra deducción de Maryland no mencionada aquí (consulta el formulario 502SU)</li>
                 </ul>
               </li>
@@ -2607,7 +2607,7 @@ es:
                 </li>
               </ul>
             </p>
-          title2: "¿Qué escenarios para reclamar el Crédito Tributario por Ingresos del Trabajo de Maryland y/o el Crédito Tributario por Hijos  no admite este servicio?"
+          title2: "¿Qué escenarios para reclamar el Crédito Tributario por Ingresos del Trabajo de Maryland y/o el Crédito Tributario por Hijos no admite este servicio?"
           title3: "¿Qué sucede si FileYourStateTaxes aún no puede procesar mi situación fiscal?"
         md_supported:
           heading1: 'Resta:'
@@ -2622,7 +2622,7 @@ es:
           sub5: Beneficios de Seguridad Social y Jubilación de Ferrocarriles sujetos a impuestos
           sub6: Ingresos por intereses de obligaciones de EE. UU. o posesiones de EE. UU.
           sub7: Resta por ingresos de dos personas para contribuyentes casados que declaran juntos
-          sub8: Crédito Tributario Estatal y Local por Ingresos de Trabajo (si reclamaste el Crédito Tributario Federal  por Ingreso de Trabajo)
+          sub8: Crédito Tributario Estatal y Local por Ingresos de Trabajo (si reclamaste el Crédito Tributario Federal por Ingreso de Trabajo)
           sub9: Crédito Tributario Estatal por Hijos (para niños menores de 6 años)
         nc_credits_unsupported:
           college_savings_account: Contribuciones a cuentas de ahorro 529 para la universidad
@@ -2858,7 +2858,7 @@ es:
           title: "¡Podrías ser elegible para una excepción al Impuesto del Fondo Permanente para Edificios!"
       id_primary_state_id:
         id_primary:
-          encourage_sharing_html: Si tú y tu cónyuge tienen una licencia de conducir o una tarjeta de identificación emitida por el estado, por favor ingresa la información solicitada de ella. La declaración no será rechazada si no se ingresa un número de  licencia de conducir o identificación emitida por el estado.<br><br>Compartir esta información, puede ayudar a identificarte como la persona contribuyente.
+          encourage_sharing_html: Si tú y tu cónyuge tienen una licencia de conducir o una tarjeta de identificación emitida por el estado, por favor ingresa la información solicitada de ella. La declaración no será rechazada si no se ingresa un número de licencia de conducir o identificación emitida por el estado.<br><br>Compartir esta información, puede ayudar a identificarte como la persona contribuyente.
           protect_identity: Muchas agencias de ingresos estatales, incluido Idaho, están solicitando información adicional en un esfuerzo por combatir el fraude fiscal por robo de identidad y protegerte a ti y a tu reembolso de impuestos.
           read_more_here_html: Puedes leer más <a href="https://tax.idaho.gov/taxes/income-tax/individual-income/refund/" target="_blank" rel="noopener noreferrer">aquí</a>.
           subtitle: Proporcione su número de licencia de conducir o tarjeta de identidad cuando presente su declaración electrónica para ayudar a procesar su reembolso más rápido.
@@ -2917,7 +2917,7 @@ es:
             <p>Primero, <strong>asegúrate de que tu declaración federal haya sido aceptada.</strong></p>
             <p><strong>¿Cómo sé si fue aceptada?</strong></p>
             <p>Recibirás dos correos electrónicos del IRS: uno al enviar tu declaración federal de impuestos y otro cuando tu declaración haya sido aceptada. Revisa tu correo electrónico y bandeja de spam para confirmar si recibiste uno de aceptación. </p>
-            <p>Esta transferencia segura desde el servicio de  Direct File del IRS generalmente toma 3 minutos o menos.</p>
+            <p>Esta transferencia segura desde el servicio de Direct File del IRS generalmente toma 3 minutos o menos.</p>
           title: Ahora completemos tu declaración de impuestos estatal
       md_county:
         edit:
@@ -2941,11 +2941,11 @@ es:
           eligibility_mfj_two_different_areas_label_text: "¿Tú y tu cónyuge tenían sus hogares permanentes en dos condados, ciudades, pueblos o áreas fiscales diferentes el último día de %{year}?"
           eligibility_mfj_two_different_areas_no: No, mi cónyuge y yo vivimos en el mismo condado, ciudad, pueblo o área fiscal
           eligibility_mfj_two_different_areas_yes: Sí, mi cónyuge y yo vivimos permanentemente en condados, ciudades, pueblos o áreas fiscales diferentes
-          eligibility_non_mfj_first_time_homebuyer_withdrawal_label_text_html: "¿Retiraste dinero de una Cuenta de Comprador de Vivienda por Primera Vez y <strong> no </strong>  lo usaste para comprar una casa en Maryland en %{year}?"
+          eligibility_non_mfj_first_time_homebuyer_withdrawal_label_text_html: "¿Retiraste dinero de una Cuenta de Comprador de Vivienda por Primera Vez y <strong>no</strong> lo usaste para comprar una casa en Maryland en %{year}?"
           permanent_home_copy: No puedes usar este servicio si tú y tu cónyuge viven en diferentes condados, ciudades, pueblos o áreas fiscales, y no es una situación temporal.
           permanent_home_copy2: Si dejas tu hogar permanente para trabajar o cuidar a alguien, pero planeas regresar, tu hogar permanente no ha cambiado. Se considera que tú y tu cónyuge viven en diferentes condados, ciudades, pueblos o áreas fiscales sólo si están quedándose en estos hogares separados y no es temporal.
           permanent_home_heading: "¿Qué es un hogar permanente?"
-          subtitle: Para la temporada de %{year},  este servicio sólo estará disponible para personas con situaciones fiscales específicas. Para saber si puedes usarlo, responde las siguientes preguntas.
+          subtitle: Para la temporada de %{year}, este servicio sólo estará disponible para personas con situaciones fiscales específicas. Para saber si puedes usarlo, responde las siguientes preguntas.
           title: Primero, veamos si puedes usar este servicio para declarar tus impuestos del Maryland de %{year}
       md_had_health_insurance:
         edit:
@@ -2997,7 +2997,7 @@ es:
       md_spouse_state_id:
         md_spouse:
           dmv_bmv_label: Identificación estatal del MVA
-          encourage_sharing_html: Si tú y tu cónyuge tienen una licencia de conducir o una tarjeta de identificación emitida por el estado, por favor ingresa la información solicitada de ella. La declaración no será rechazada si no se ingresa un número de  licencia de conducir o identificación emitida por el estado. <br><br> Compartir esta información, puede ayudar a identificarte como la persona contribuyente.
+          encourage_sharing_html: Si tú y tu cónyuge tienen una licencia de conducir o una tarjeta de identificación emitida por el estado, por favor ingresa la información solicitada de ella. La declaración no será rechazada si no se ingresa un número de licencia de conducir o identificación emitida por el estado. <br><br> Compartir esta información, puede ayudar a identificarte como la persona contribuyente.
           protect_identity: Muchas agencias de ingresos estatales, incluida Maryland, están solicitando información adicional en un esfuerzo por combatir el fraude fiscal por identidad robada y protegerlo a usted y a su reembolso de impuestos.
           subtitle: El Contralor de Maryland solicita que la información de tu licencia de conducir o tarjeta de identificación emitida por el estado se incluya con la declaración, pero no rechazará la declaración si no está incluida.
           why_ask_this: "¿Por qué están pidiendo esta información?"
@@ -3330,7 +3330,7 @@ es:
             <p>Muchas agencias de ingresos estatales, incluyendo la de New Jersey, combaten el fraude fiscal por robo de identidad para protegerte a ti y a tu reembolso de impuestos. Dar algunos detalles sobre tu identificación estatal, si la tienes, ayudará a identificarte como contribuyente.</p>
             <p>NO es necesario que des esta información para presentar tus impuestos. La declaración no será rechazada si no tienes una identificación o prefieres no compartirla.</p>
           helper_heading: "¿Por qué piden esta información?"
-          no_id: " No tiene licencia de conducir ni identificación estatal/ Prefiere no compartirla"
+          no_id: "No tiene licencia de conducir ni identificación estatal/ Prefiere no compartirla"
           subtitle: Details from your state-issued ID, if you have one, will help New Jersey combat stolen-identity tax fraud and protect you and your tax refund.
           title: Confirma tu Identidad (Opcional)
       nj_review:
@@ -3462,7 +3462,7 @@ es:
         edit:
           email_address_label: Tu correo electrónico
           email_notification_opt_in: Correo electrónico
-          message_body_one: No compartiremos tu información con terceros. La frecuencia de los mensajes puede variar. Puede que apliquen tarifas por mensajes y datos. 
+          message_body_one: No compartiremos tu información con terceros. La frecuencia de los mensajes puede variar. Puede que apliquen tarifas por mensajes y datos.
           message_body_two_html: Envía un mensaje de texto con la palabra HELP al 46207 para obtener ayuda. Envía un mensaje de texto con la palabra STOP al 46207 para no recibir más mensajes. Los proveedores de telefonía móvil (por ejemplo, AT&T, Verizon, T-Mobile, Sprint, etc.) no son responsables de mensajes no entregados o retrasados. Consulta nuestros<a target="_blank" href=%{sms_terms_link}>Términos y condiciones de SMS</a> y <a target="_blank" href=%{privacy_link}>Política de privacidad</a>.
           message_title: Detalles de mensajería
           opt_in_label: Por favor, selecciona la(s) opción(es) que mejor te funcione(n).
@@ -3724,9 +3724,9 @@ es:
         edit:
           term: Cuando te inscribas en el servicio, te enviaremos un mensaje de texto (SMS) para confirmar tu registro. También te enviaremos actualizaciones sobre tu declaración de impuestos (la frecuencia de los mensajes puede variar) y/o códigos OTP/2FA (un mensaje por solicitud).
           term_2_html: Puedes cancelar el servicio de SMS en cualquier momento. Simplemente <strong>envía la palabra "STOP" </strong>al 46207. Después de que envíes el mensaje SMS con la palabra "STOP", te enviaremos un SMS para confirmar que te has dado de baja. Después de esto, ya no recibirás más SMS de nuestra parte. Si deseas unirte nuevamente, simplemente <strong>responde con la palabra "START"</strong> y comenzaremos a enviarte mensajes de texto otra vez.
-          term_3_html: Si en algún momento olvidas qué palabras clave son compatibles, solo <strong>envía un mensaje de texto con la palabra"HELP"</strong>. al 46207. Después de que envíes el SMS con la palabra "HELP", responderemos con instrucciones sobre cómo usar nuestro servicio, así como sobre cómo darte de baja.  
+          term_3_html: Si en algún momento olvidas qué palabras clave son compatibles, solo <strong>envía un mensaje de texto con la palabra"HELP"</strong>. al 46207. Después de que envíes el SMS con la palabra "HELP", responderemos con instrucciones sobre cómo usar nuestro servicio, así como sobre cómo darte de baja.
           term_4_html: "<strong>Podemos enviar mensajes a los siguientes proveedores de telefonía móvil</strong>"
-          term_5: 'Proveedores principales: AT&T, Verizon Wireless, Sprint, T-Mobile, U.S. Cellular, Alltel, Boost Mobile, Nextel y Virgin Mobile.  '
+          term_5: 'Proveedores principales: AT&T, Verizon Wireless, Sprint, T-Mobile, U.S. Cellular, Alltel, Boost Mobile, Nextel y Virgin Mobile.'
           term_6: 'Proveedores menores: Alaska Communications Systems (ACS), Appalachian Wireless (EKN), Bluegrass Cellular, Cellular One of East Central IL (ECIT), Cellular One of Northeast Pennsylvania, Cincinnati Bell Wireless, Cricket, Coral Wireless (Mobi PCS), COX, Cross, Element Mobile (Flat Wireless), Epic Touch (Elkhart Telephone), GCI, Golden State, Hawkeye (Chat Mobility), Hawkeye (NW Missouri), Illinois Valley Cellular, Inland Cellular, iWireless (Iowa Wireless), Keystone Wireless (Immix Wireless/PC Man), Mosaic (Consolidated o CTC Telecom), Nex-Tech Wireless, NTelos, Panhandle Communications, Pioneer, Plateau (Texas RSA 3 Ltd), Revol, RINA, Simmetry (TMP Corporation), Thumb Cellular, Union Wireless, United Wireless, Viaero Wireless, y West Central (WCC o 5 Star Wireless).'
           term_7: Los proveedores de telefonía móvil (por ejemplo, AT&T, Verizon, T-Mobile, Sprint, etc.) no son responsables de mensajes no entregados o retrasados.
           term_8_html: 'Como siempre, pueden aplicar tarifas por mensajes y datos para cualquier mensaje que te enviemos y que nos envíes. Si tienes alguna pregunta sobre tu plan de mensajes o plan de datos, es mejor contactar a tu proveedor de telefonía móvil. <br> <br>Si tienes preguntas sobre los servicios proporcionados por este código corto, puedes enviar un correo electrónico a <strong>help@fileyourstatetaxes.org</strong>.
@@ -3785,7 +3785,7 @@ es:
             <strong>Cuando usas el servicio FileYourStateTaxes, te estás comprometiendo a lo siguiente:</strong><br>
             <ul class="list--numbered">
           decline: Rechazar
-          list_items_html: <strong>Presentación de tu declaración fácil:</strong> FileYourStateTaxes es un servicio gratis y fácil de usar desarrollado por Code for America para ayudarte a declarar tus impuestos estatales, de manera conveniente, después de completar tu declaración federal.</li><strong>Transferencia de datos:</strong> Nos estás permitiendo usar los datos de tu declaración federal como punto de partida para tu declaración de impuestos estatales.</li><strong>Preguntas para mayor precisión:</strong> Es posible que te hagamos algunas preguntas adicionales para asegurarnos que tu declaración de impuestos estatales quede completa y precisa.</li><strong>Presentación electrónica modernizada:</strong>  Enviaremos tu declaración de impuestos estatal y una copia de tu declaración de impuestos federal utilizando el sistema de Presentación Electrónica Modernizada (MeF por sus siglas en inglés), que la vincula a tu declaración federal.</li><strong>Tu responsabilidad:</strong> Eres responsable de asegurar que la información que proporciones sea precisa y que estás cumpliendo con todas las leyes federales y estatales cuando usas FileYourStateTaxes.</li><strong>Sin garantías:</strong> Hacemos nuestro mejor esfuerzo pero no podemos garantizar la exactitud o el éxito de tu declaración de impuestos estatales cuando utilizas FileYourStateTaxes.</li><strong>Privacidad y seguridad:</strong> La protección de tu privacidad y tus datos es importante para nosotros. Consulta nuestra <a href="%{privacy_policy_link}" target="_blank" rel="noopener nofollow">Política de Privacidad</a> para obtener más información.</li><strong>Mantente informado:</strong> Te enviaremos actualizaciones sobre tu declaración de impuestos estatales a través de tu método de comunicación preferido, ya sea por mensaje de texto o correo electrónico. Esto incluye actualizaciones de estado, recordatorios e información importante.</li><strong>Tu elección:</strong> Puedes cambiar tu método de comunicación preferido o escoger no recibir actualizaciones en cualquier momento siguiendo las instrucciones en los mensajes o a través de la configuración de tu cuenta.</li><strong>Eliminación de datos:</strong> Tienes derecho a pedirnos que eliminemos tus datos personales e información relacionada con tus impuestos de FileYourStateTaxes en cualquier momento. Simplemente envíanos un correo electrónico a help@fileyourtaxes.org. Pero ten en cuenta que esto podría afectar tu acceso al servicio.</li><strong>Enlaces a sitios de terceros:</strong> Los enlaces en el software te permitirán salir de FileYourStateTaxes. Los sitios vinculados no están bajo el control de FileYourStateTaxes y FileYourStateTaxes no es responsable del contenido de ningún sitio vinculado ni de ningún enlace contenido en un sitio vinculado, ni de cambios o actualizaciones en dichos sitios. FileYourStateTaxes proporciona estos enlaces sólo como una conveniencia, y la inclusión de cualquier enlace no implica respaldo por parte de FileYourStateTaxes del sitio.</li><strong>Ley Aplicable:</strong> Este acuerdo se regirá y se interpretará de acuerdo con las leyes del estado de California.</li><strong>Preguntas e inquietudes:</strong> Si tienes alguna pregunta o inquietud sobre estos términos, no dudes en contactarnos en <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.</li>
+          list_items_html: <strong>Presentación de tu declaración fácil:</strong> FileYourStateTaxes es un servicio gratis y fácil de usar desarrollado por Code for America para ayudarte a declarar tus impuestos estatales, de manera conveniente, después de completar tu declaración federal.</li><strong>Transferencia de datos:</strong> Nos estás permitiendo usar los datos de tu declaración federal como punto de partida para tu declaración de impuestos estatales.</li><strong>Preguntas para mayor precisión:</strong> Es posible que te hagamos algunas preguntas adicionales para asegurarnos que tu declaración de impuestos estatales quede completa y precisa.</li><strong>Presentación electrónica modernizada:</strong> Enviaremos tu declaración de impuestos estatal y una copia de tu declaración de impuestos federal utilizando el sistema de Presentación Electrónica Modernizada (MeF por sus siglas en inglés), que la vincula a tu declaración federal.</li><strong>Tu responsabilidad:</strong> Eres responsable de asegurar que la información que proporciones sea precisa y que estás cumpliendo con todas las leyes federales y estatales cuando usas FileYourStateTaxes.</li><strong>Sin garantías:</strong> Hacemos nuestro mejor esfuerzo pero no podemos garantizar la exactitud o el éxito de tu declaración de impuestos estatales cuando utilizas FileYourStateTaxes.</li><strong>Privacidad y seguridad:</strong> La protección de tu privacidad y tus datos es importante para nosotros. Consulta nuestra <a href="%{privacy_policy_link}" target="_blank" rel="noopener nofollow">Política de Privacidad</a> para obtener más información.</li><strong>Mantente informado:</strong> Te enviaremos actualizaciones sobre tu declaración de impuestos estatales a través de tu método de comunicación preferido, ya sea por mensaje de texto o correo electrónico. Esto incluye actualizaciones de estado, recordatorios e información importante.</li><strong>Tu elección:</strong> Puedes cambiar tu método de comunicación preferido o escoger no recibir actualizaciones en cualquier momento siguiendo las instrucciones en los mensajes o a través de la configuración de tu cuenta.</li><strong>Eliminación de datos:</strong> Tienes derecho a pedirnos que eliminemos tus datos personales e información relacionada con tus impuestos de FileYourStateTaxes en cualquier momento. Simplemente envíanos un correo electrónico a help@fileyourtaxes.org. Pero ten en cuenta que esto podría afectar tu acceso al servicio.</li><strong>Enlaces a sitios de terceros:</strong> Los enlaces en el software te permitirán salir de FileYourStateTaxes. Los sitios vinculados no están bajo el control de FileYourStateTaxes y FileYourStateTaxes no es responsable del contenido de ningún sitio vinculado ni de ningún enlace contenido en un sitio vinculado, ni de cambios o actualizaciones en dichos sitios. FileYourStateTaxes proporciona estos enlaces sólo como una conveniencia, y la inclusión de cualquier enlace no implica respaldo por parte de FileYourStateTaxes del sitio.</li><strong>Ley Aplicable:</strong> Este acuerdo se regirá y se interpretará de acuerdo con las leyes del estado de California.</li><strong>Preguntas e inquietudes:</strong> Si tienes alguna pregunta o inquietud sobre estos términos, no dudes en contactarnos en <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.</li>
           list_items_no_sms_html: "<strong>Mantente informado:</strong> Te enviaremos actualizaciones sobre tu declaración de impuestos estatales a través de tu método de comunicación preferido, ya sea por mensaje de texto o correo electrónico. Esto incluye actualizaciones de estado, recordatorios e información importante.</li>\n"
           ny_text_html: |
             <strong>Presenta tu declaración de impuestos del estado de Nueva York electrónicamente sin costo adicional. </strong><br><br>
@@ -3955,7 +3955,7 @@ es:
         additional_services_header: Servicios y Recursos Adicionales
         analytics_header: Analítica
         analytics_html: Utilizamos MixPanel y Google Analytics para entender cómo los visitantes usan nuestro sitio y para recopilar métricas de rendimiento agregadas. Haz clic <a href="https://mixpanel.com/legal/privacy-policy/">AQUÍ</a>, para obtener más información sobre las prácticas de privacidad de MixPanel y las opciones de exclusión que ofrece. Haz clic <a href="https://policies.google.com/privacy?hl=en-US">AQUÍ</a>, para obtener más información sobre las prácticas de privacidad de Google Analytics y las opciones de exclusión que ofrece. También puedes enviar un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org"> help@fileyourstatetaxes.org</a> para obtener información adicional.
-        changes: Es posible que cambiemos  esta Política de Privacidad de vez en cuando. Consulta esta página con frecuencia para obtener actualizaciones, ya que continuar usando nuestros servicios después de cualquier cambio en esta Política de Privacidad constituirá tu aceptación de los cambios. Para cambios importantes, te notificaremos por correo electrónico u otros medios consistentes con la ley aplicable.
+        changes: Es posible que cambiemos esta Política de Privacidad de vez en cuando. Consulta esta página con frecuencia para obtener actualizaciones, ya que continuar usando nuestros servicios después de cualquier cambio en esta Política de Privacidad constituirá tu aceptación de los cambios. Para cambios importantes, te notificaremos por correo electrónico u otros medios consistentes con la ley aplicable.
         changes_header: Cambios
         collect_info_third_parties_html: |
           <p>También podemos recopilar tu información de terceros como</p>
@@ -5809,7 +5809,7 @@ es:
           carriers_heading_html: "<strong>Podemos entregar mensajes a los siguientes proveedores de telefonía móvil:</strong>"
           keywords_html: Si en cualquier momento se le olvidan las palabras claves que se utilizan, simplemente envíe el texto "<strong>HELP</strong>" al <strong>58750</strong>. Después de que mande el mensaje SMS de "<strong>HELP</strong>", le reponderemos dándole las instrucciones de cómo utilizar el servicio y cómo darse.
           major_carriers_html: "<strong>Proveedores principales:</strong>AT&T, Verizon Wireless, Sprint, T-Mobile, U.S. Cellular, Alltel, Boost Mobile, Nextel y Virgin Mobile."
-          minor_carriers_html: "<strong>Proveedores menores:</strong>Alaska Communications Systems (ACS), Appalachian Wireless (EKN), Bluegrass Cellular, Cellular One of East Central IL (ECIT), Cellular One of Northeast Pennsylvania, Cincinnati Bell Wireless, Cricket, Coral Wireless (Mobi PCS), COX, Cross, Element Mobile (Flat Wireless), Epic Touch (Elkhart Telephone), GCI, Golden State, Hawkeye (Chat Mobility), Hawkeye (NW Missouri), Illinois Valley Cellular, Inland Cellular, iWireless (Iowa Wireless), Keystone Wireless (Immix Wireless/PC Man), Mosaic (Consolidated o CTC Telecom), Nex-Tech Wireless, NTelos, Panhandle Communications, Pioneer, Plateau (Texas RSA 3 Ltd), Revol, RINA, Simmetry (TMP Corporation), Thumb Cellular, Union Wireless, United Wireless, Viaero Wireless, y West Central (WCC o 5 Star Wireless).  "
+          minor_carriers_html: "<strong>Proveedores menores:</strong>Alaska Communications Systems (ACS), Appalachian Wireless (EKN), Bluegrass Cellular, Cellular One of East Central IL (ECIT), Cellular One of Northeast Pennsylvania, Cincinnati Bell Wireless, Cricket, Coral Wireless (Mobi PCS), COX, Cross, Element Mobile (Flat Wireless), Epic Touch (Elkhart Telephone), GCI, Golden State, Hawkeye (Chat Mobility), Hawkeye (NW Missouri), Illinois Valley Cellular, Inland Cellular, iWireless (Iowa Wireless), Keystone Wireless (Immix Wireless/PC Man), Mosaic (Consolidated o CTC Telecom), Nex-Tech Wireless, NTelos, Panhandle Communications, Pioneer, Plateau (Texas RSA 3 Ltd), Revol, RINA, Simmetry (TMP Corporation), Thumb Cellular, Union Wireless, United Wireless, Viaero Wireless, y West Central (WCC o 5 Star Wireless). "
           privacy_html: 'Si tiene cualquier pregunta con respecto a privacidad, favor de leer nuestra política de privacidad: <a href="https://www.getyourrefund.org/privacy">www.getyourrefund.org/privacy</a>'
           rates_html: Como siempre, pueden aplicar tarifas de mensajes y datos enviados por usted a nosotros o de nosotros a usted. Recibirá <strong>10 mensajes al mes</strong>. Si tiene cualquier pregunta sobre su plan de textos o plan de datos, conviene comunicarse con su proveedor de servicio móvil. Para toda pregunta referente a los servicios proporcionados por este código abreviado, favor de enviar un correo a <strong>support@getyourrefund.org</strong>.
           sms_cancellation_html: Puede cancelar el servicio SMS en cualquier momento. Simplemente envíe el texto "<strong>STOP</strong>" al <strong>58750</strong>. Después de enviarnos el mensaje SMS de "<strong>STOP</strong>", le enviaremos un mensaje SMS confirmando que ha sido dado de baja. Habiendo recibido esto, no recibirá más mensajes de nosotros. Si desea volver a suscribirse, simplemente responda "<strong>START</strong>" y volveremos a mandarle mensajes SMS.
