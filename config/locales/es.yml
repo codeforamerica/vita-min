@@ -3258,8 +3258,13 @@ es:
           description_html: |-
             <p>If you had at least %{two_percent_of_income} in non-reimbursed medical expenses, you are eligible for a deduction. Enter the full amount of your non-reimbursed expenses here. We’ll deduct the right amount for your situation.</p>
             <p>If your medical expenses were less than %{two_percent_of_income}, you are not eligible for the deduction. Click "Continue."</p>
+<<<<<<< HEAD
             
             <p>Estos gastos incluyen:</p>
+=======
+
+            <p>These expenses include:</p>
+>>>>>>> 5340d1e10 (normalize)
             <ul class="list--bulleted">
               <li>Gastos para ti, tu cónyuge y tus dependientes.</li>
               <li>Para tu información: Si tienes una Cuenta de Ahorros para la Salud (HSA por las siglas en inglés) o una Cuenta de Gastos Flexible (FSA por las siglas en inglés), puede que hayas presentado un gasto médico y recibido una distribución para cubrir ese gasto. Para fines fiscales, aún puedes deducir ese gasto.</li>
