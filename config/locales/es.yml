@@ -1935,7 +1935,7 @@ es:
         description: Declare rápidamente por su cuenta.
         list:
           file: Declare solo para %{current_tax_year}
-          income: 'Ingresos: menos de $79,000'
+          income: 'Ingresos: menos de $84,000'
         timeframe: 45 minutos para declarar
         title: Declarar por cuenta propia
       gyr_tile:
@@ -1943,7 +1943,7 @@ es:
         description: Presente su declaración de impuestos con confianza con la ayuda de nuestros voluntarios certificados por el IRS.
         list:
           file: Presentar para %{oldest_filing_year}-%{current_tax_year}
-          income: 'Ingresos: menos de $66,000'
+          income: 'Ingresos: menos de $67,000'
           ssn: Debe mostrar copias de su tarjeta de Seguro Social o papeleo de su Número de Identificación Personal (ITIN)
         timeframe: De 2-3 semanas para declarar sus impuestos
         title: " Declare con Ayuda"
@@ -1954,7 +1954,7 @@ es:
     triage_do_not_qualify:
       edit:
         faq_link_text: Si tiene preguntas adicionales, visite nuestra página de preguntas frecuentes.
-        help_text: Nuestro servicio sin costo está disponible para hogares con ingresos inferiores a $79,000 al año.
+        help_text: Nuestro servicio sin costo está disponible para hogares con ingresos inferiores a $84,000 al año.
         title: Desafortunadamente, parece que no califica para nuestro servicio gratuito.
     triage_gyr:
       edit:
@@ -1993,12 +1993,12 @@ es:
 
             <p class="text--small spacing-above-15">Su nivel de ingresos no debe incluir pagos de estímulo, prestaciones públicas o Seguridad de Ingreso Suplementario (SSI)</p>
           options:
-            12500_to_25000: De $12,500 a 25,000 dólares
-            1_to_12500: De $1 a 12,500 dólares
-            25000_to_40000: De $25,000 a 40,000 dólares
-            40000_to_66000: "$40,000 - 66,000"
-            66000_to_79000: "$66,000 - 79,000"
-            over_79000: más de $79,000
+            12500_to_25000: De $15,000 a 30,000 dólares
+            1_to_12500: De $1 a $15,000 dólares
+            25000_to_40000: De $30,000 a 45,000 dólares
+            40000_to_66000: De $45,000 a 67,000 dólares
+            66000_to_79000: De $67,000 a 84,000 dólares
+            over_79000: más de $84,000
             zero: "$0"
         title: Hablemos sobre su estado civil y sus ingresos.
         vita_income_ineligible:
@@ -5645,7 +5645,7 @@ es:
           quote:
             courtney: '"Me alegra mucho poder extender nuestros servicios gratuitos a aquellos que no están cerca de nuestras oficinas. Sé que preparar una declaración de impuestos puede asustar a algunas personas, ¡pero estamos aquí para ayudarlas!"'
             denise: '"Formar parte de una organización que hace todo lo posible por disminuir la distancia entre el lugar donde están las personas y el lugar en el que quieren (o necesitan) estar, es muy gratificante y siempre emocionante".'
-          subheader: 'Hemos formado una coalición nacional de socios comunitarios y voluntarios dedicados a ayudarnos a proporcionarles asistencia gratuita para la declaración de impuestos a las familias que ganan menos de $66,000 dólares al año. '
+          subheader: 'Hemos formado una coalición nacional de socios comunitarios y voluntarios dedicados a ayudarnos a proporcionarles asistencia gratuita para la declaración de impuestos a las familias que ganan menos de $67,000 dólares al año. '
         title: Quiénes somos
       error:
         body: Parece que hubo un error en el servidor. Nos han informado del problema y haremos lo posible para solucionarlo.
@@ -6521,9 +6521,9 @@ es:
         in_person_link_text: Localizador de VITA
         income_limit:
           direct_file: La mayoría de los declarantes que ganan menos de $200,000
-          diy: menos de $79,000
-          full_service: menos de $66,000
-          title: 'Límite de ingresos:'
+          diy: menos de $84,000
+          full_service: menos de $67,000
+          title: 'Límite de asesoramiento:'
         itin_assistance: Asistencia para la solicitud del Número de Identificación Personal (ITIN)
         mobile_friendly: Adaptable para dispositivos móviles
         required_information: Información obligatoria
@@ -6548,7 +6548,7 @@ es:
           subtitle: "(w2s, 1099s, etc)"
           title: Documentos tributarios oficiales
         tax_payer_residency:
-          direct_file: Disponible para residentes de tiempo completo de Arizona, California, Florida, Massachusetts, New Hampshire, Nueva York, Nevada, Dakota del Sur, Tennessee, Texas, Washington y Wyoming.
+          direct_file: Disponible para residentes de tiempo completo de Alaska, Arizona, California, Connecticut, Florida, Idaho, Illinois, Kansas, Maine, Maryland, Massachusetts, Nevada, Nuevo Hampshire, Nueva Jersey, Nuevo México, Nuevo York, Carolina del Norte, Oregon, Pennsylvania, Dakota del Sur, Tennessee, Tejas, Washington, Wisconsin y Wyoming.
           diy: Disponible para residentes de todos los estados, Puerto Rico y no residentes.
           full_service_html: |
             Disponible para residentes de todos los estados.<br>
