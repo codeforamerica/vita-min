@@ -5,15 +5,27 @@
   <p class="spacing-below-15 spacing-above-0"><%= t(".subtitle") %></p>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+
+
     <div class="question-with-follow-up">
-      <div class="question-with-follow-up__question">
-        <div class="white-group">
-          <p><%= t('.opt_in_label') %></p>
-          <div class="tight-checkboxes spacing-above-0 spacing-below-0">
-            <%= f.cfa_checkbox(:sms_notification_opt_in, t(".sms_notification_opt_in"), options: { checked_value: "yes", unchecked_value: "no", "data-follow-up": "#sms-opt-in" }) %>
-            <%= f.cfa_checkbox(:email_notification_opt_in, t(".email_notification_opt_in"), options: { checked_value: "yes", unchecked_value: "no", "data-follow-up": "#email-opt-in" }) %>
-          </div>
-        </div>
+      <div class="white-group question-with-follow-up__question">
+        <%= f.vita_min_checkbox_set(
+          :opt_in,
+          [
+            {
+              method: :sms_notification_opt_in,
+              label: t(".sms_notification_opt_in"),
+              opens_follow_up_with_id: "sms-opt-in"
+            },
+            {
+              method: :email_notification_opt_in,
+              label: t(".email_notification_opt_in"),
+              opens_follow_up_with_id: "email-opt-in"
+            }
+          ], 
+          enum: true,
+          label_text: t('.opt_in_label')
+        ) %>
       </div>
 
       <div class="question-with-follow-up__follow-up" id="sms-opt-in">
