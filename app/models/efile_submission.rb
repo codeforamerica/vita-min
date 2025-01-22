@@ -195,10 +195,17 @@ class EfileSubmission < ApplicationRecord
     else
       pdf_documents = bundle_class.new(self).pdf_documents
       output_file = Tempfile.new(["tax_document", ".pdf"], "tmp/")
+      final_output_file = Tempfile.new(["final_tax_document", ".pdf"], "tmp/")
+      fdf_output = Tempfile.new(["form_output", ".fdf"], "tmp/")
+      
       filled_out_documents = pdf_documents.map { |document| document.pdf.new(self, **document.kwargs).output_file }
       pdftk = PdfForms.new
+
+      pdftk.call_pdftk filled_out_documents[0], 'generate_fdf', 'output', fdf_output
       pdftk.cat(*filled_out_documents.push(output_file.path))
-      pdftk.call_pdftk output_file, 'update_info', in_files[0], 'output', output_file
+      pdftk.call_pdftk output_file, 'fill_form', fdf_output, final_output_file
+
+      # final_output_file
       output_file
       # filled_out_documents[0]
     end

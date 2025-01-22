@@ -52,7 +52,7 @@ module PdfHelper
       [source_pdf_name, ".pdf"],
       "tmp/",
       )
-    PdfForms.new.fill_form(source_pdf_path, pdf_tempfile.path, hash_for_pdf)
+    PdfForms.new.fill_form(source_pdf_path, pdf_tempfile.path, hash_for_pdf, { need_appearances: true })
     pdf_tempfile
   end
 
