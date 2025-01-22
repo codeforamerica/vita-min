@@ -1423,9 +1423,9 @@ es:
   messages:
     closing_soon:
       email:
-        body: 'Cerramos la temporada de impuestos de GetYourRefund el {end_of_in_progress_intake_date}. Necesitamos todos los documentos requeridos antes del {end_of_docs_date} de lo contrario, no podremos preparar su declaración de impuestos. Por favor inicie sesión y responda antes del {end_of_docs_date}.  <<Client.LoginLink>> Si no tenemos noticias suyas para entonces, cerraremos su caso y podrá presentar su declaración de impuestos con nosotros el próximo año.'
-        subject: 'GetYourRefund cerrará próximamente -- actúe ahora si necesita services de preparación de impuestos.'
-      sms: 'Cerramos la temporada de impuestos de GetYourRefund el {end_of_in_progress_intake_date}. Necesitamos todos los documentos requeridos antes del {end_of_docs_date}; de lo contrario, no podremos preparar su declaración de impuestos. Por favor inicie sesión y responda antes del {end_of_docs_date}.  <<Client.LoginLink>> Si no tenemos noticias suyas para entonces, cerraremos su caso y podrá presentar su declaración de impuestos con nosotros el próximo año.'
+        body: Cerramos la temporada de impuestos de GetYourRefund el {end_of_in_progress_intake_date}. Necesitamos todos los documentos requeridos antes del {end_of_docs_date} de lo contrario, no podremos preparar su declaración de impuestos. Por favor inicie sesión y responda antes del {end_of_docs_date}.  <<Client.LoginLink>> Si no tenemos noticias suyas para entonces, cerraremos su caso y podrá presentar su declaración de impuestos con nosotros el próximo año.
+        subject: GetYourRefund cerrará próximamente -- actúe ahora si necesita services de preparación de impuestos.
+      sms: Cerramos la temporada de impuestos de GetYourRefund el {end_of_in_progress_intake_date}. Necesitamos todos los documentos requeridos antes del {end_of_docs_date}; de lo contrario, no podremos preparar su declaración de impuestos. Por favor inicie sesión y responda antes del {end_of_docs_date}.  <<Client.LoginLink>> Si no tenemos noticias suyas para entonces, cerraremos su caso y podrá presentar su declaración de impuestos con nosotros el próximo año.
     contact_info_change:
       email:
         body: |
@@ -2248,7 +2248,7 @@ es:
           prior_last_names_label:
             many: Ingresa todos los apellidos utilizados por usted y su cónyuge en los últimos cuatro años.
             one: 'Ingresa todos los apellidos que usaste en los últimos cuatro años. (Ejemplo: Smith, Jones, Brown)'
-            other: 'Ingresa todos los apellidos que usaste en los últimos cuatro años.'
+            other: Ingresa todos los apellidos que usaste en los últimos cuatro años.
           subtitle: Esto incluye los años fiscales del %{start_year}al %{end_year}.
           title:
             many: "¿Usted o su cónyuge presentaron una declaración con un apellido diferente en los últimos cuatro años?"
@@ -2419,7 +2419,7 @@ es:
           action_html: "<strong>¿Fue un error?</strong>"
           go_back_link: Regresa para corregirlo.
           subtitle: Lamentablemente, para continuar presentando tus impuestos estatales con FileYourStateTaxes, debes aceptar los términos y condiciones.
-          title: 'Has rechazado los términos y condiciones.'
+          title: Has rechazado los términos y condiciones.
       eligibility_offboarding:
         edit:
           body_html: No puedes usar este servicio este año porque %{ineligible_reason}. <br><br><strong>¿Fue un error?</strong><a href=%{prev_link}>Regresa para corregirlo.</a>
@@ -2968,7 +2968,7 @@ es:
           title: Antes de que envíes, tenemos algunas preguntas sobre la cobertura de seguro de salud
           what_will_be_shared: "¿Qué información se compartirá con Maryland Health Connection?"
           which_members_not_have_insurance: Selecciona al(los) miembro(s) de tu hogar que <strong>no tenía(n)</strong> cobertura de salud al finalizar %{tax_year}.
-          why_ask_explanation: 'Esta información ayudará a Maryland Health Connection a determinar la elegibilidad para miembros de tu hogar que no tienen seguro médico para que reciban cobertura de salud sin costo o de bajo costo. Compartir esta información<strong>no afectará</strong>tu declaración de impuestos y no generará penalizaciones.'
+          why_ask_explanation: Esta información ayudará a Maryland Health Connection a determinar la elegibilidad para miembros de tu hogar que no tienen seguro médico para que reciban cobertura de salud sin costo o de bajo costo. Compartir esta información<strong>no afectará</strong>tu declaración de impuestos y no generará penalizaciones.
           why_ask_this: "¿Por qué te preguntamos esto?"
       md_permanent_address:
         edit:
@@ -3044,7 +3044,7 @@ es:
       nc_primary_state_id:
         nc_primary:
           encourage_sharing: Aunque se recomienda compartir esta información, no es un requisito para presentar tus impuestos en Carolina del Norte.
-          protect_identity: 'Para proteger tu identidad y prevenir el fraude fiscal, muchas agencias estatales piden tu número de licencia de conducir o de identificación estatal.'
+          protect_identity: Para proteger tu identidad y prevenir el fraude fiscal, muchas agencias estatales piden tu número de licencia de conducir o de identificación estatal.
           why_ask_this: "¿Por qué están pidiendo esta información?"
       nc_qss_info:
         edit:
@@ -3087,7 +3087,7 @@ es:
       nc_spouse_state_id:
         nc_spouse:
           encourage_sharing: Aunque se recomienda compartir esta información, no es un requisito para presentar tus impuestos en Carolina del Norte.
-          protect_identity: 'Para proteger tu identidad y prevenir el fraude fiscal, muchas agencias estatales piden tu número de licencia de conducir o de identificación estatal.'
+          protect_identity: Para proteger tu identidad y prevenir el fraude fiscal, muchas agencias estatales piden tu número de licencia de conducir o de identificación estatal.
           why_ask_this: "¿Por qué están pidiendo esta información?"
       nc_subtractions:
         edit:
@@ -3330,7 +3330,7 @@ es:
             <p>Muchas agencias de ingresos estatales, incluyendo la de New Jersey, combaten el fraude fiscal por robo de identidad para protegerte a ti y a tu reembolso de impuestos. Dar algunos detalles sobre tu identificación estatal, si la tienes, ayudará a identificarte como contribuyente.</p>
             <p>NO es necesario que des esta información para presentar tus impuestos. La declaración no será rechazada si no tienes una identificación o prefieres no compartirla.</p>
           helper_heading: "¿Por qué piden esta información?"
-          no_id: "No tiene licencia de conducir ni identificación estatal/ Prefiere no compartirla"
+          no_id: No tiene licencia de conducir ni identificación estatal/ Prefiere no compartirla
           subtitle: Details from your state-issued ID, if you have one, will help New Jersey combat stolen-identity tax fraud and protect you and your tax refund.
           title: Confirma tu Identidad (Opcional)
       nj_review:
@@ -3610,7 +3610,7 @@ es:
           title: Ingresa tu número de teléfono
       post_data_transfer:
         edit:
-          subtitle: 'A continuación, revisaremos los detalles de tu declaración estatal y te pediremos información para completar tu declaración de impuestos estatal de  %{state_name}.'
+          subtitle: A continuación, revisaremos los detalles de tu declaración estatal y te pediremos información para completar tu declaración de impuestos estatal de  %{state_name}.
           title: "¡Hemos transferido tu declaración de impuestos federal exitosamente! "
       primary_state_id:
         edit:
@@ -3621,7 +3621,7 @@ es:
             expiration: Fecha de Vencimiento
             first_three_doc_num_html: "<strong>Para identificaciones de Nueva York:</strong> Los primeros tres caracteres del número de documento (ubicado en la parte posterior de tu identificación)"
             issue: Fecha de emisión
-            issue_state: 'Estado de emisión'
+            issue_state: Estado de emisión
             no_expiration_date: Sin fecha de expiración
             number: Número de identificación
           id_type_question:
@@ -3684,7 +3684,7 @@ es:
         pending:
           check_spam: Si han pasado más de dos días desde que enviaste tu declaración de impuestos estatal, revisa tu carpeta de spam.
           title: Has enviado tu declaración de impuestos de %{state_name} de %{filing_year}
-          waiting_for acceptance: 'Tu declaración de impuestos estatal aún está esperando ser aceptada.'
+          waiting_for acceptance: Tu declaración de impuestos estatal aún está esperando ser aceptada.
         rejected:
           edit_return: Edita tu declaración estatal
           email_us_html: Envíanos un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>
@@ -3842,7 +3842,7 @@ es:
           lets_review: Gracias por compartirnos esa información. Revisémosla.
           unemployment_compensation: 'Compensación por desempleo: %{amount}'
       use_different_service:
-        body: 'Antes de escoger una opción, asegúrate de que te permita presentar tu declaración de impuestos sólo a nivel estatal. Necesitarás volver a ingresar la información de tu declaración de impuestos federal para preparar tu declaración de impuestos estatal. Es posible que apliquen tarifas.'
+        body: Antes de escoger una opción, asegúrate de que te permita presentar tu declaración de impuestos sólo a nivel estatal. Necesitarás volver a ingresar la información de tu declaración de impuestos federal para preparar tu declaración de impuestos estatal. Es posible que apliquen tarifas.
         faq_link: Visita nuestras Preguntas Frecuentes
         title: "¿Quieres presentar tus impuestos usando un producto o servicio diferente?"
       verification_code:
@@ -4236,7 +4236,7 @@ es:
         edit_info:
           add_bank_information: Agregue su información bancaria
           no_ba_error_html: "<strong>Error: </strong>Seleccionó Deposito Directo, pero no agregó su información bancaria. Por favor actualice su información bancaria seleccionando Agregar información bancaria a continuación."
-          no_bank_account: 'No ingreso su información bancaria.'
+          no_bank_account: No ingreso su información bancaria.
           title: Corrija su información enviada
           will_send_check_to_address: Recibirá un cheque a su dirección postal. Si desea recibir deposito directo, seleccione el botón para agregar su información bancaria a continuación.
         home:
@@ -4943,8 +4943,8 @@ es:
             one: El IRS no le permite usar GetCTC si sus ingresos superan los $12,550. Sin embargo, aún puede ser elegible para créditos tributarios si presenta una declaración de impuestos completa.
             other: El IRS no le permite usar GetCTC si su ingreso combinado supera los $25,100. Sin embargo, usted y su cónyuge aún pueden ser elegibles para créditos tributarios si presentan una declaración de impuestos completa.
           title:
-            many: 'Desafortunadamente, usted y su cónyuge no pueden usar GetCTC debido a sus ingresos declarados.'
-            one: 'Desafortunadamente, no puede usar GetCTC debido a sus ingresos informados.'
+            many: Desafortunadamente, usted y su cónyuge no pueden usar GetCTC debido a sus ingresos declarados.
+            one: Desafortunadamente, no puede usar GetCTC debido a sus ingresos informados.
             other: Desafortunadamente, usted y su cónyuge no pueden usar GetCTC debido a sus ingresos declarados.
         spouse_drivers_license:
           help_text: Si ingresa esta información, el IRS puede procesar más rápido sus pagos. Si no tiene una licencia de conducir o una tarjeta de identificación emitida por el estado, o no desea ingresarla, puede omitir este paso.
@@ -5646,7 +5646,7 @@ es:
           quote:
             courtney: '"Me alegra mucho poder extender nuestros servicios gratuitos a aquellos que no están cerca de nuestras oficinas. Sé que preparar una declaración de impuestos puede asustar a algunas personas, ¡pero estamos aquí para ayudarlas!"'
             denise: '"Formar parte de una organización que hace todo lo posible por disminuir la distancia entre el lugar donde están las personas y el lugar en el que quieren (o necesitan) estar, es muy gratificante y siempre emocionante".'
-          subheader: 'Hemos formado una coalición nacional de socios comunitarios y voluntarios dedicados a ayudarnos a proporcionarles asistencia gratuita para la declaración de impuestos a las familias que ganan menos de $66,000 dólares al año.'
+          subheader: Hemos formado una coalición nacional de socios comunitarios y voluntarios dedicados a ayudarnos a proporcionarles asistencia gratuita para la declaración de impuestos a las familias que ganan menos de $66,000 dólares al año.
         title: Quiénes somos
       error:
         body: Parece que hubo un error en el servidor. Nos han informado del problema y haremos lo posible para solucionarlo.
@@ -6151,7 +6151,7 @@ es:
           one: En %{year}, ¿tuvo algún ingreso por intereses o dividendos?
           other: En el %{year}, ¿Tuvo usted o su pareja ingresos por intereses o dividendos?
       interview_scheduling:
-        help_text: 'Haremos todo lo posible para programar su revisión basada en la información que nos proporcione.'
+        help_text: Haremos todo lo posible para programar su revisión basada en la información que nos proporcione.
         language_select: "¿Cuál idioma prefiere para la revisión?"
         title: "¿Tiene alguna preferencia de tiempo para su entrevista telefónica?"
       irs_letter:
@@ -6233,7 +6233,7 @@ es:
         note_html: La frecuencia del mensaje variará. Pueden aplicar tarifas de mensajes y datos enviados por usted a nosotros o de nosotros a usted. Envíe el texto "HELP" al 58750 para ayuda. Envía STOP al 58750 para cancelar. Los operadores (por ejemplo, AT&T, Verizon, T-Mobile, Sprint, etc.) no son responsables de los mensajes retrasados o no entregados. Consulte nuestros <a href="%{terms_url}">Términos y Condiciones</a> y <a href="%{privacy_url}">Política de Privacidad</a>.
         options:
           email_notification_opt_in: Envíeme un correo electrónico
-          header: 'Necesitaremos comunicarnos contigo en caso de que tengamos preguntas o información actualizada. Por favor, selecciona la(s) opción(es) que mejor te funcione.'
+          header: Necesitaremos comunicarnos contigo en caso de que tengamos preguntas o información actualizada. Por favor, selecciona la(s) opción(es) que mejor te funcione.
           sms_notification_opt_in: Mensaje de Texto
         title: "¿Cuál es la mejor manera de contactarte?"
       optional_consent:
