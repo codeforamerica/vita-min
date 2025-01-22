@@ -9,7 +9,7 @@
       <p><%= t('.subtitle', state: @prior_year_intake.state_code) %></p>
 
       <%= link_to @pdf_url, class: "button button--primary button--wide spacing-below-15 button--icon button--icon--centered" do %>
-        <%= image_tag("icons/download.svg", alt: "") %><%= t(".download") %>
+        <%= image_tag("icons/download.svg", alt: "", style: "filter: invert(1); vertical-align: middle;") %><%= t(".download") %>
       <% end %>
     </div>
   </div>
