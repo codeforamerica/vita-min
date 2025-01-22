@@ -1876,7 +1876,6 @@ RSpec.describe Hub::ClientsController do
             had_debt_forgiven: "unfilled",
             adopted_child: "unfilled",
             had_tax_credit_disallowed: "unfilled",
-            bought_energy_efficient_items: "unfilled",
             received_homebuyer_credit: "unfilled",
             made_estimated_tax_payments: "unfilled",
             had_scholarships: "unfilled",
@@ -1986,6 +1985,7 @@ RSpec.describe Hub::ClientsController do
           id: client.id,
           commit: I18n.t('general.save'),
           hub_update13614c_form_page3: {
+<<<<<<< HEAD
             had_disaster_loss: intake.had_disaster_loss,
             received_irs_letter: intake.received_irs_letter,
             had_disaster_loss_where: intake.had_disaster_loss_where,
@@ -2007,13 +2007,17 @@ RSpec.describe Hub::ClientsController do
             demographic_spouse_prefer_not_to_answer_race: intake.demographic_spouse_prefer_not_to_answer_race,
             demographic_primary_ethnicity: intake.demographic_primary_ethnicity,
             demographic_spouse_ethnicity: intake.demographic_spouse_ethnicity,
+=======
+            bought_energy_efficient_items: "unfilled",
+            tax_credit_disallowed_year: "2001"
+>>>>>>> 3d1ea43f3 (update clients_controller spec test)
           }
         }
       }
 
       it_behaves_like :a_post_action_for_authenticated_users_only, action: :update_13614c_form_page3
 
-      xcontext "with a signed in user" do
+      context "with a signed in user" do
         let(:user) { create(:user, role: create(:organization_lead_role, organization: organization)) }
 
         before do
@@ -2028,10 +2032,12 @@ RSpec.describe Hub::ClientsController do
           expect(flash[:notice]).to eq I18n.t("general.changes_saved")
           expect(response).to redirect_to edit_13614c_form_page3_hub_client_path(id: client)
           client.reload
+          expect(client.intake.tax_credit_disallowed_year).to eq 2001
 
           system_note = SystemNote::ClientChange.last
           expect(system_note.client).to eq(client)
           expect(system_note.user).to eq(user)
+          expect(system_note.data['changes']).to match({"bought_energy_efficient_items"=>[nil, "unfilled"], "tax_credit_disallowed_year"=>[nil, 2001]})
           expect(client.last_13614c_update_at).to be_within(1.second).of(DateTime.now)
         end
 
@@ -2044,6 +2050,7 @@ RSpec.describe Hub::ClientsController do
           expect(response).to redirect_to hub_client_path(id: client.id)
 
           client.reload
+          expect(client.intake.tax_credit_disallowed_year).to eq 2001
         end
       end
     end
