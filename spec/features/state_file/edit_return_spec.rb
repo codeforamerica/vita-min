@@ -9,12 +9,12 @@ RSpec.feature "Editing a rejected intake with an auto-wait error" do
   let(:hashed_verification_code) { "hashed_verification_code" }
   let(:double_hashed_verification_code) { "double_hashed_verification_code" }
 
-  let!(:ny_intake) { create :state_file_ny_intake, email_address: email_address, hashed_ssn: hashed_ssn, primary_first_name: "Jerry" }
+  let!(:az_intake) { create :state_file_az_intake, email_address: email_address, hashed_ssn: hashed_ssn, primary_first_name: "Jerry" }
   let!(:efile_submission) {
     create :efile_submission,
            :for_state,
            :transmitted,
-           data_source: ny_intake
+           data_source: az_intake
   }
   let!(:efile_error) {
     create :efile_error,
@@ -24,7 +24,7 @@ RSpec.feature "Editing a rejected intake with an auto-wait error" do
            code: "STATE-901",
            severity: "Reject",
            source: "irs",
-           service_type: :state_file_ny
+           service_type: :state_file_az
   }
   let(:raw_response) do
     "<Acknowledgement>\n
@@ -84,11 +84,11 @@ RSpec.feature "Editing a rejected intake with an auto-wait error" do
     fill_in "Enter your Social Security number or ITIN. For example, 123-45-6789.", with: ssn
     click_on "Continue"
 
-    expect(page).to have_text "Unfortunately, your #{filing_year} New York state tax return was rejected"
+    expect(page).to have_text I18n.t("state_file.questions.return_status.rejected.title", filing_year: filing_year, state_name: "Arizona")
     click_on "Edit your state return"
 
-    # goes back to the NY review page
-    expect(page).to have_text I18n.t("state_file.questions.ny_review.edit.total_ny_tax")
+    # goes back to the AZ review page
+    expect(page).to have_text I18n.t("state_file.questions.az_review.edit.az_tax")
     click_on I18n.t("general.continue")
 
     expect(URI.parse(current_url).path).to eq "/en/questions/taxes-owed"

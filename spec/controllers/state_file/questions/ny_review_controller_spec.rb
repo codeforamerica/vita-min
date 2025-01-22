@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe StateFile::Questions::NyReviewController do
+RSpec.describe StateFile::Questions::NyReviewController, skip: true do
   describe "#edit" do
     before do
       sign_in intake

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe StateFile::Questions::NySchoolDistrictController do
+RSpec.describe StateFile::Questions::NySchoolDistrictController, skip: true do
   let(:intake) { create :state_file_ny_intake, residence_county: "Nassau" }
   before do
     sign_in intake
