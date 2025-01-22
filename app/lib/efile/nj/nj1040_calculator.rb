@@ -6,8 +6,12 @@ module Efile
 
       RENT_CONVERSION = 0.18
       MAX_NJ_CTC_DEPENDENTS = 9
-      EXCESS_UI_WF_SWF_MAX = 179.78 # also applies to ui hc wd
-      EXCESS_FLI_MAX = 145.26
+      EXCESS_UI_WF_SWF_MAX = StateFile::StateInformationService
+        .w2_supported_box14_codes("nj")
+        .find { |code| code[:name] == "UI_WF_SWF" }[:limit]
+      EXCESS_FLI_MAX = StateFile::StateInformationService
+        .w2_supported_box14_codes("nj")
+        .find { |code| code[:name] == "FLI" }[:limit]
 
       def initialize(year:, intake:, include_source: false)
         super

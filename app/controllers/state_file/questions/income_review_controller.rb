@@ -32,13 +32,21 @@ module StateFile
       private
 
       def should_show_warning?(w2, w2_count)
+        # TODO: per filer!
         if w2_count > 1
           return true if w2.get_box14_ui_overwrite.nil?
           return true if w2.box14_fli.nil?
         end
 
-        return true if w2.get_box14_ui_overwrite.to_f > 179.78
-        return true if w2.box14_fli.to_f > 145.26
+        EXCESS_UI_WF_SWF_MAX = StateFile::StateInformationService
+          .w2_supported_box14_codes(current_state)
+          .find { |code| code[:name] == "UI_WF_SWF" }[:limit]
+        EXCESS_FLI_MAX = StateFile::StateInformationService
+          .w2_supported_box14_codes(current_state)
+          .find { |code| code[:name] == "FLI" }[:limit]
+
+        return true if w2.get_box14_ui_overwrite.to_f > EXCESS_UI_WF_SWF_MAX
+        return true if w2.box14_fli.to_f > EXCESS_FLI_MAX
 
         false
       end

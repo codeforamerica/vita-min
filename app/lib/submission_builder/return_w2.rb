@@ -19,7 +19,7 @@ module SubmissionBuilder
         box14_codes = StateFile::StateInformationService.w2_supported_box14_codes(state_code)
         @xml_node.xpath("//OtherDeductionsBenefitsGrp[Desc='UIHCWD']").remove
         box14_codes.each do |code|
-          add_box_14_node(code, node_after_box_14_codes)
+          add_box_14_node(code.name, node_after_box_14_codes)
         end
       end
         
