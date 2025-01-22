@@ -2471,12 +2471,12 @@ es:
               </ul>
             </p>
           other_options_reveal:
-            fees: 'Es posible que apliquen costos.'
+            fees: Es posible que apliquen costos.
             list:
               body: 'Muchos servicios comerciales de preparación de impuestos ofrecen la opción de declarar sólo los impuestos estatales. Aquí tienes algunos consejos para elegir una opción:'
               list1: Confirma que el servicio te permita presentar sólo tu declaración estatal. Es posible que necesites consultar con el soporte al cliente.
               list2: Prepárate para volver a ingresar la información de tu declaración federal, ya que se necesita para tu declaración estatal.
-              list3: 'Al declarar, envía sólo tu declaración estatal. Si vuelves a enviar tu declaración federal, puede ser rechazada.'
+              list3: Al declarar, envía sólo tu declaración estatal. Si vuelves a enviar tu declaración federal, puede ser rechazada.
             title: "¿Cuáles son mis otras opciones para declarar mis impuestos estatales?"
           vita_option_title: "¿Qué opciones gratuitas tengo para declarar mis impuestos estatales?"
       eligible:
@@ -3470,7 +3470,7 @@ es:
           phone_number_help_text: Ingresa números únicamente
           provided_contact: Le enviaremos actualizaciones sobre su declaración de impuestos a %{contact_info}.
           sms_notification_opt_in: Mensaje de texto
-          subtitle: 'Necesitaremos comunicarnos contigo en caso de que tengamos preguntas o información actualizada.'
+          subtitle: Necesitaremos comunicarnos contigo en caso de que tengamos preguntas o información actualizada.
           title: "¿Cuál es la mejor manera de contactarte?"
         form:
           at_least_one: Se requiere al menos una preferencia de notificación
@@ -3560,7 +3560,7 @@ es:
             one: "¿Realizaste alguna compra fuera del estado en %{year} sin pagar impuestos de venta o de uso?"
             other: "¿Usted o su cónyuge realizaron alguna compra fuera del estado en %{year} sin pagar impuestos sobre ventas o de uso?"
           use_tax_method_automated: Todas mis compras fueron de menos de $1,000 cada una. Calcula la cantidad de impuesto sobre el uso por mi.
-          use_tax_method_manual_html: 'Tuve una compra sin impuestos por más de $1,000, o preferiría calcular mí impuesto de uso manualmente. (<a href="https://www.tax.ny.gov/pdf/current_forms/st/st140.pdf" target="_blank" rel="noopener noreferrer">Obtén más información aquí</a> y busca "exact calculation method")'
+          use_tax_method_manual_html: Tuve una compra sin impuestos por más de $1,000, o preferiría calcular mí impuesto de uso manualmente. (<a href="https://www.tax.ny.gov/pdf/current_forms/st/st140.pdf" target="_blank" rel="noopener noreferrer">Obtén más información aquí</a> y busca "exact calculation method")
       ny_school_district:
         edit:
           helper_description_html: Puedes buscar tu distrito escolar <a href="https://www.greatschools.org/school-district-boundaries-map/" target="_blank" rel="noopener nofollow">aquí</a>. Si aún no estás seguro, contacta a la escuela pública más cercana y pregunta el nombre del distrito escolar.
