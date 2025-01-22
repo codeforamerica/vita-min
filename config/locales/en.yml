@@ -2043,11 +2043,6 @@ en:
       subheader: Please sign up here to receive a notification when we open in January.
   state_file:
     archived_intakes:
-      pdfs:
-        index:
-          title: Your account has been successfully verified!
-          subtitle: To access your 2023 %{state} tax return, click the link below.
-          download: Download 2023 Tax Return
       email_address:
         edit:
           enter_email: Enter the email address linked to your account
@@ -2062,6 +2057,11 @@ en:
           identity_safe: To keep your identity safe, we need to confirm the address on your 2023 tax return.
           radio_button_title: Select the mailing address for your 2023 tax return.
           title: Confirm your address to access your tax return
+      pdfs:
+        index:
+          download: Download 2023 Tax Return
+          subtitle: To access your 2023 %{state} tax return, click the link below.
+          title: Your account has been successfully verified!
       verification_code:
         edit:
           error_message: Incorrect verification code. After 2 failed attempts, accounts are locked.

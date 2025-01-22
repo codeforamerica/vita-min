@@ -2009,6 +2009,11 @@ es:
           identity_safe: Para proteger su identidad, necesitamos confirmar la dirección en su declaración de impuestos de 2023.
           radio_button_title: Seleccione la dirección postal para su declaración de impuestos de 2023.
           title: Confirme su dirección para acceder a su declaración de impuestos
+      pdfs:
+        index:
+          download: Descargar Declaración de Impuestos 2023
+          subtitle: Para acceder a su declaración de impuestos %{state} de 2023, haga clic en el enlace a continuación.
+          title: "¡Su cuenta ha sido verificada exitosamente!"
       verification_code:
         edit:
           error_message: Después de 2 intentos fallidos, las cuentas serán bloqueadas.
