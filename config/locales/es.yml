@@ -2985,6 +2985,15 @@ es:
           county_html: "<strong>Condado</strong>"
           political_subdivision_html: "<strong>Subdivisión política</strong>"
           your_address: Dirección donde vivías el 31 de diciembre del%{filing_year}
+      md_social_security_benefits:
+        edit:
+          description: Para informar correctamente los beneficios del Seguro Social en su declaración de impuestos de Maryland, necesitamos recopilar información adicional.
+          spouse_portion_label_html: <strong>La porción de beneficios del Seguro Social de su cónyuge</strong>
+          sum_form_error: La asignación debe ser igual a %{total_ssb}
+          subtitle: Ingrese la porción de los beneficios del Seguro Social asignada entre usted y su cónyuge. Consulte el Formulario(s) SSA-1099, Casilla 5 para más información.
+          title: Necesitamos más información sobre sus beneficios del Seguro Social
+          total_html: El monto total de los beneficios del Seguro Social reportados en la declaración federal de usted y su cónyuge es <strong>%{total_ssb}</strong>.
+          your_portion_label_html: <strong>Su porción de los beneficios del Seguro Social</strong>
       md_spouse_state_id:
         md_spouse:
           dmv_bmv_label: Identificación estatal del MVA

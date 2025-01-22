@@ -3028,12 +3028,14 @@ en:
           political_subdivision_html: "<strong>Political subdivision</strong>"
           your_address: Address lived at on December 31, %{filing_year}
       md_social_security_benefits:
-        description: In order to accurately report your Social Security benefits on your Maryland tax return, we need to collect some additional information.
-        spouse_portion_label: Your spouse’s portion of Social Security benefits
-        subtitle: Enter the portion of the Social Security benefits allocated between you and your spouse. See Form(s) SSA-1099, Box 5 for more information.
-        title: We need more information about your Social Security Benefits
-        total_html: The total amount of Social Security benefits reported on your and your spouse’s federal return is <strong>%{total_ssa}</strong>.
-        your_portion_label: Your portion of Social Security benefits
+        edit:
+          description: In order to accurately report your Social Security benefits on your Maryland tax return, we need to collect some additional information.
+          spouse_portion_label_html: <strong>Your spouse’s portion of Social Security benefits</strong>
+          sum_form_error: Allocation must equal %{total_ssb}
+          subtitle: Enter the portion of the Social Security benefits allocated between you and your spouse. See Form(s) SSA-1099, Box 5 for more information.
+          title: We need more information about your Social Security Benefits
+          total_html: The total amount of Social Security benefits reported on your and your spouse’s federal return is <strong>%{total_ssb}</strong>.
+          your_portion_label_html: <strong>Your portion of Social Security benefits</strong>
       md_spouse_state_id:
         md_spouse:
           dmv_bmv_label: MVA State ID

@@ -1,13 +1,13 @@
 module StateFile
   module Questions
-    class MdSocialSecurityBenefitsController < BaseReviewController
+    class MdSocialSecurityBenefitsController < QuestionsController
       def self.show?(intake)
-        intake.filing_status_mfj? && intake.direct_file_data.fed_student_loan_interest.present?
+        intake.filing_status_mfj? && intake.direct_file_data.fed_ssb.present?
       end
 
       def edit
         super
-        @total_deduction = current_intake.direct_file_data.fed_student_loan_interest || 0
+        @total_ssb = current_intake.direct_file_data.fed_ssb || 0
       end
     end
   end

@@ -2,18 +2,18 @@
 
 <% content_for :card do %>
   <h1 class="h2"><%= t(".title") %></h1>
-  <p class="spacing-below-5"><%= t(".description") %></p>
+  <p class="spacing-below-25"><%= t(".description") %></p>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="white-group">
-      <p class="spacing-below-5"><%= t(".subtitle") %></p>
-      <p class="text--small spacing-below-5"><%= t(".total_html", total_ssa: number_to_currency(@total_deduction)) %></p>
-      <div class="form-question spacing-below-25">
-        <%= f.vita_min_money_field(:primary_student_loan_interest_ded_amount, t(".your_portion_label"), classes: ["form-width--long"]) %>
+      <p class="spacing-below-15"><%= t(".subtitle") %></p>
+      <p class="text--small spacing-below-15"><%= t(".total_html", total_ssb: number_to_currency(@total_ssb)) %></p>
+      <div class="form-question spacing-below-5">
+        <%= f.vita_min_money_field(:primary_ssb_amount, t(".your_portion_label_html"), classes: ["form-width--long"]) %>
       </div>
 
-      <div class="form-question spacing-below-25">
-        <%= f.vita_min_money_field(:spouse_student_loan_interest_ded_amount, t(".spouse_portion_label"), classes: ["form-width--long"]) %>
+      <div class="form-question spacing-below-5">
+        <%= f.vita_min_money_field(:spouse_ssb_amount, t(".spouse_portion_label_html"), classes: ["form-width--long"]) %>
       </div>
     </div>
 
