@@ -130,15 +130,13 @@ class StateFileW2 < ApplicationRecord
   private
 
   def validate_box14_limits
-    EXCESS_UI_WF_SWF_MAX = StateFile::StateInformationService
+    validate_limit(:box14_ui_wf_swf, StateFile::StateInformationService
       .w2_supported_box14_codes(current_state)
-      .find { |code| code[:name] == "UI_WF_SWF" }[:limit]
-    EXCESS_FLI_MAX = StateFile::StateInformationService
-      .w2_supported_box14_codes(current_state)
-      .find { |code| code[:name] == "FLI" }[:limit]
+      .find { |code| code[:name] == "UI_WF_SWF" }[:limit])
 
-    validate_limit(:box14_ui_wf_swf, EXCESS_UI_WF_SWF_MAX)
-    validate_limit(:box14_fli, EXCESS_FLI_MAX)
+    validate_limit(:box14_fli, StateFile::StateInformationService
+      .w2_supported_box14_codes(current_state)
+      .find { |code| code[:name] == "FLI" }[:limit])
   end
 
   def validate_limit(field, limit)

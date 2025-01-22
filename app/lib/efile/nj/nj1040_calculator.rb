@@ -6,12 +6,6 @@ module Efile
 
       RENT_CONVERSION = 0.18
       MAX_NJ_CTC_DEPENDENTS = 9
-      EXCESS_UI_WF_SWF_MAX = StateFile::StateInformationService
-        .w2_supported_box14_codes("nj")
-        .find { |code| code[:name] == "UI_WF_SWF" }[:limit]
-      EXCESS_FLI_MAX = StateFile::StateInformationService
-        .w2_supported_box14_codes("nj")
-        .find { |code| code[:name] == "FLI" }[:limit]
 
       def initialize(year:, intake:, include_source: false)
         super
@@ -255,23 +249,35 @@ module Efile
       end
 
       def line_59_primary
-        get_personal_excess(@intake.primary.ssn, ->(w2) { w2.get_box14_ui_overwrite }, EXCESS_UI_WF_SWF_MAX)
+        get_personal_excess(@intake.primary.ssn, ->(w2) { w2.get_box14_ui_overwrite }, excess_ui_wf_swf_max)
       end
 
       def line_59_spouse
         if @intake.filing_status_mfj?
-          get_personal_excess(@intake.spouse.ssn, ->(w2) { w2.get_box14_ui_overwrite }, EXCESS_UI_WF_SWF_MAX)
+          get_personal_excess(@intake.spouse.ssn, ->(w2) { w2.get_box14_ui_overwrite }, excess_ui_wf_swf_max)
         end
       end
 
       def line_61_primary
-        get_personal_excess(@intake.primary.ssn, ->(w2) { w2[:box14_fli] }, EXCESS_FLI_MAX)
+        get_personal_excess(@intake.primary.ssn, ->(w2) { w2[:box14_fli] }, excess_fli_max)
       end
 
       def line_61_spouse
         if @intake.filing_status_mfj?
-          get_personal_excess(@intake.spouse.ssn, ->(w2) { w2[:box14_fli] }, EXCESS_FLI_MAX)
+          get_personal_excess(@intake.spouse.ssn, ->(w2) { w2[:box14_fli] }, excess_fli_max)
         end
+      end
+
+      def excess_ui_wf_swf_max
+        @excess_ui_wf_swf_max ||= StateFile::StateInformationService
+          .w2_supported_box14_codes("nj")
+          .find { |code| code[:name] == "UI_WF_SWF" }[:limit]
+      end
+
+      def excess_fli_max
+        @excess_fli_max ||= StateFile::StateInformationService
+          .w2_supported_box14_codes("nj")
+          .find { |code| code[:name] == "FLI" }[:limit]
       end
 
       private
