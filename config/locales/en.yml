@@ -2205,10 +2205,14 @@ en:
           supported_by: Supported by the state of North Carolina
           title: File your North Carolina state taxes for free
         nj:
+          built_with_html: |
+            <strong>FileYourStateTaxes</strong> takes about 10 to 15 minutes to complete. Get started by setting up your account.
+            <br/><br/>
+            This service is built in partnership with the New Jersey Office of Innovation to integrate with IRS Direct File.
           closed_html: "<strong>FileYourStateTaxes</strong> is built in partnership with the New Jersey Office of Innovation to integrate with IRS Direct File.<br /><br />\nWe're closed for the tax season. Unfortunately you can no longer file your state return with us this year.              \n"
           help_text_html: |
             <ul class="list--bulleted">
-              <li>To have filed your 2024 federal return using IRS Direct File</li>
+              <li>To have filed your 2024 federal return using <a href="https://directfile.irs.gov/" target="_blank" rel="noopener nofollow">IRS Direct File</a></li>
               <li>An email address or a phone number to receive a one-time verification code</li>
               <li>Bank routing and account numbers (if you want to receive your refund or make a tax payment electronically)</li>
               <li>(optional) Driver's license or state issued ID</li>

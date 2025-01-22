@@ -32,7 +32,7 @@
           <% else %>
             <% unless @user_name.present? %>
               <p class="h2">
-                <%= t(".built_with_html", state_name: @built_with_name) %>
+                <%= t(".#{@state_code}.built_with_html", default: t(".built_with_html", state_name: @state_name) ) %>
               </p>
             <% end %>
 

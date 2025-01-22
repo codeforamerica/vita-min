@@ -2154,12 +2154,13 @@ es:
           supported_by: Respaldada por el estado de Carolina del Norte
           title: Declara tus impuestos estatales de Carolina del Norte sin costo
         nj:
+          built_with_html: "Te tomará alrededor de 10 y 15 minutos completar tu declaración con <strong>FileYourStateTaxes</strong>. \n<br/><br/>\nEsta servicio ha sido creada en colaboración con el New Jersey Office of Innovation para integrarse con Direct File del IRS.\n"
           closed_html: |
             <strong>FileYourStateTaxes</strong> se creó en asociación con el New Jersey Office of Innovation para integrarse con la herramienta Direct File del IRS.<br /><br />
             Estamos cerrados por la temporada de impuestos. Desafortunadamente no puede presentar su declaración estatal con nosotros este año.
           help_text_html: |
             <ul class="list--bulleted">
-              <li>Haber presentado tu declaración federal de 2024 usando IRS Direct File</li>
+              <li>Haber presentado tu declaración federal de 2024 usando <a href="https://directfile.irs.gov/" target="_blank" rel="noopener nofollow">IRS Direct File</a></li>
               <li>Un email o un número de teléfono para recibir un código de verificación único</li>
               <li>Números de ruta y cuenta bancaria (si deseas recibir tu reembolso o realizar un pago de impuestos electrónicamente)</li>
               <li>(opcional) Licencia de conducir o identificación emitida por el estado</li>
