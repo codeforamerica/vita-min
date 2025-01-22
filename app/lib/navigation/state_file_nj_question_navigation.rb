@@ -55,8 +55,8 @@ module Navigation
                                           Navigation::NavigationStep.new(StateFile::Questions::NjEstimatedTaxPaymentsController), # Line 57
                                           Navigation::NavigationStep.new(StateFile::Questions::PrimaryStateIdController), # Footer
                                           Navigation::NavigationStep.new(StateFile::Questions::SpouseStateIdController), # Footer
-                                          Navigation::NavigationStep.new(StateFile::Questions::NjReviewController), # review should come before taxes owed / refund due screens
-                                          Navigation::NavigationStep.new(StateFile::Questions::NjTaxesOwedController),
+                                          Navigation::NavigationStep.new(StateFile::Questions::NjReviewController), # REVIEW: should come before taxes owed / refund due screens
+                                          Navigation::NavigationStep.new(StateFile::Questions::TaxesOwedController),
                                           Navigation::NavigationStep.new(StateFile::Questions::TaxRefundController),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjGubernatorialElectionsController),
                                           Navigation::NavigationStep.new(StateFile::Questions::EsignDeclarationController), # creates EfileSubmission and transitions to preparing

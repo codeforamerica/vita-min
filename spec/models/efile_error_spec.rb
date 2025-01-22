@@ -96,7 +96,6 @@ describe 'EfileError' do
       "nj-municipality",
       "nj-review",
       "nj-sales-use-tax",
-      "nj-taxes-owed",
       "nj-tenant-eligibility",
       "nj-tenant-property-tax-worksheet",
       "nj-tenant-rent-paid",

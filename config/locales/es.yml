@@ -3390,22 +3390,6 @@ es:
           no_id: No driver's license or state ID / Prefer not to share
           subtitle: Details from your spouse's state-issued ID, if they have one, would also help.
           title: Confirming Your Spouse's Identity (Optional)
-      nj_taxes_owed:
-        edit:
-          more_tax_information_html: <p><a href="https://www.nj.gov/treasury/taxation/payments-notices.shtml" target="_blank" rel="noopener nofollow">Here is more information about tax due dates and payment methods.</a></p>
-          page_title: You owe state taxes. How would you like to pay?
-          pay_bank: Pay directly from your checking or savings account (direct debit)
-          pay_mail_online_html: Pay by mail or online at <a target="_blank" rel="noopener nofollow" href="%{tax_payment_info_url}">%{tax_payment_info_text}</a>
-          subtitle: How would you like to pay?
-          title_html: You owe <strong>$%{owed_amount}</strong> in %{state_name} state taxes.
-          underpayment_notice_html: |-
-            <p> This can happen for many reasons, but common ones are: </p>
-            <ul class="list--bulleted">
-              <li>if there weren’t enough taxes withheld from your paycheck (you may want to discuss with your employer for future years), or</li>
-              <li>if you haven’t made enough in estimated tax payments.</li>
-            </ul>
-            <p> You might be charged interest on what you owe. If that applies to you, you will get a notice from the State of New Jersey Division of Taxation in the mail.</p>
-            <p><strong>You should definitely continue with this filing. The sooner you file, the less you will eventually have to pay in penalties.</strong></p>
       nj_tenant_eligibility:
         edit:
           helper_description_html: |
@@ -3766,12 +3750,21 @@ es:
           title_html: Buenas noticias, recibirás un reembolso de impuestos del estado de %{state_name} de <strong>$%{refund_amount}.</strong>
       taxes_owed:
         edit:
+          more_tax_information_nj_html: <p><a href="https://www.nj.gov/treasury/taxation/payments-notices.shtml" target="_blank" rel="noopener nofollow">Here is more information about tax due dates and payment methods.</a></p>
           page_title: Debes impuestos estatales. ¿Cómo te gustaría pagar?
           pay_bank: Directamente desde tu cuenta corriente o de ahorros (débito directo)
           pay_mail_online_html: Por correo o en línea en <a target="_blank" rel="noopener nofollow" href="%{tax_payment_info_url}">%{tax_payment_info_text}</a>
           subtitle: "¿Cómo te gustaría pagar?"
           subtitle_html: Para obtener más información sobre las fechas de vencimiento de impuestos y los métodos de pago, visita <a target="_blank" rel="noopener nofollow" href="https://marylandtaxes.gov/">Marylandtaxes.gov</a>
           title_html: Debes <strong>$%{owed_amount}</strong> en impuestos estatales de %{state_name}. ¿Cómo te gustaría pagar?
+          underpayment_notice_nj_html: |-
+            <p> This can happen for many reasons, but common ones are: </p>
+            <ul class="list--bulleted">
+              <li>if there weren’t enough taxes withheld from your paycheck (you may want to discuss with your employer for future years), or</li>
+              <li>if you haven’t made enough in estimated tax payments.</li>
+            </ul>
+            <p> You might be charged interest on what you owe. If that applies to you, you will get a notice from the State of New Jersey Division of Taxation in the mail.</p>
+            <p><strong>You should definitely continue with this filing. The sooner you file, the less you will eventually have to pay in penalties.</strong></p>
       terms_and_conditions:
         edit:
           accept: Aceptar
