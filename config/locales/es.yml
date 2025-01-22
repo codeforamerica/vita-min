@@ -540,6 +540,8 @@ es:
       american_indian_alaska_native: Indio Americano o Nativo de Alaska
       asian: Asiático
       black_african_american: Negro o afroamericano
+      hispanic_latino: Hispano o latino
+      mena: Oriente Medio o norteafricano
       native_hawaiian_pacific_islander: Nativo de Hawái u otra isla del Pacífico
       white: Blanco
     register: Regístrate
@@ -2019,6 +2021,12 @@ es:
       email_address:
         edit:
           enter_email: Ingresa la dirección de correo electrónico vinculada a tu cuenta
+      identification_number:
+        edit:
+          error_message: SSN/ITIN incorrecto. Después de 2 intentos fallidos, las cuentas se bloquean.
+          help_text: Para mantener tu identidad segura, necesitamos confirmar tu número de seguro social.
+          ssn_label: Número de Seguro Social o ITIN
+          title: "¡Encontramos tu cuenta! Por favor, confirma tu identidad."
       verification_code:
         edit:
           error_message: Después de 2 intentos fallidos, las cuentas serán bloqueadas.
@@ -6021,13 +6029,13 @@ es:
       demographic_primary_ethnicity:
         title: Cuál es tu etnicidad?
       demographic_primary_race:
-        title: "¿Cuál es su raza?"
+        title: "¿Cuál es su raza y/o grupo étnico?"
       demographic_questions:
         title: "¿Está dispuesto a responder algunas preguntas adicionales para ayudarnos a servirle mejor?"
       demographic_spouse_ethnicity:
         title: "¿Cuál es el origen étnico de su cónyuge?"
       demographic_spouse_race:
-        title: "¿Cuál es la raza de tu cónyuge?"
+        title: "¿Cuál es la raza y/o grupo étnico de tu cónyuge?"
       demographic_veteran:
         title: "¿Es usted o su cónyuge veterano de las Fuerzas Armadas de los EE. UU.?"
       dependent_care:
