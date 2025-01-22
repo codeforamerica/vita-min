@@ -3086,7 +3086,7 @@ es:
       nc_spouse_state_id:
         nc_spouse:
           encourage_sharing: Aunque se recomienda compartir esta información, no es un requisito para presentar tus impuestos en Carolina del Norte.
-          protect_identity: To protect your identity and combat tax fraud, many state revenue agencies are asking people to give their driver’s license or state ID number.
+          protect_identity: 'Para proteger tu identidad y prevenir el fraude fiscal, muchas agencias estatales piden tu número de licencia de conducir o de identificación estatal. '
           why_ask_this: "¿Por qué están pidiendo esta información?"
       nc_subtractions:
         edit:
