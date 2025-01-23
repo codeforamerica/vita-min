@@ -56,6 +56,7 @@
 #  political_subdivision                      :string
 #  primary_birth_date                         :date
 #  primary_did_not_have_health_insurance      :integer          default("unfilled"), not null
+#  primary_disabled                           :integer          default("unfilled"), not null
 #  primary_esigned                            :integer          default("unfilled"), not null
 #  primary_esigned_at                         :datetime
 #  primary_first_name                         :string
@@ -71,6 +72,7 @@
 #  referrer                                   :string
 #  residence_county                           :string
 #  routing_number                             :string
+#  secondary_disabled                         :integer          default("unfilled"), not null
 #  sign_in_count                              :integer          default(0), not null
 #  sms_notification_opt_in                    :integer          default("unfilled"), not null
 #  source                                     :string
