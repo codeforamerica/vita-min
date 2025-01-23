@@ -42,20 +42,13 @@ module StateFile
 
         return true if w2.box14_ui_wf_swf.present? && w2.box14_ui_hc_wd.present?
 
-        ui_wf_swf_max = find_limit("UI_WF_SWF")
+        ui_wf_swf_max = StateFileW2.find_limit("UI_WF_SWF", w2.state_file_intake.state_code)
         return true if ui_wf_swf_max.present? && w2.get_box14_ui_overwrite.to_f > ui_wf_swf_max
         
-        fli_max = find_limit("FLI")
+        fli_max = StateFileW2.find_limit("FLI", w2.state_file_intake.state_code)
         return true if fli_max.present? && w2.box14_fli.to_f > fli_max
 
         false
-      end
-
-      def find_limit(name)
-        code = StateFile::StateInformationService
-          .w2_supported_box14_codes(current_state_code)
-          .find { |code| code[:name] == name }
-        code ? code[:limit] : nil
       end
     end
   end

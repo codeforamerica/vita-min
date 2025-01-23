@@ -34,18 +34,12 @@ module Efile
       end
 
       def column_a_excess
-        max = StateFile::StateInformationService
-          .w2_supported_box14_codes("nj")
-          .find { |code| code[:name] == "UI_WF_SWF" }[:limit]
-        difference = (column_a_total - max).round
+        difference = (column_a_total - StateFileW2.find_limit("UI_WF_SWF", "nj")).round
         difference.positive? ? difference : 0
       end
 
       def column_c_excess
-        max = StateFile::StateInformationService
-          .w2_supported_box14_codes("nj")
-          .find { |code| code[:name] == "FLI" }[:limit]
-        difference = (column_c_total - max).round
+        difference = (column_c_total - StateFileW2.find_limit("FLI", "nj")).round
         difference.positive? ? difference : 0
       end
     end

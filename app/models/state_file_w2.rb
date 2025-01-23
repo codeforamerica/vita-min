@@ -127,18 +127,18 @@ class StateFileW2 < ApplicationRecord
     box14_ui_wf_swf || box14_ui_hc_wd
   end
 
+  def self.find_limit(name, state_code)
+    code = StateFile::StateInformationService
+      .w2_supported_box14_codes(state_code)
+      .find { |code| code[:name] == name }
+    code ? code[:limit] : nil
+  end
+
   private
 
   def validate_box14_limits
-    validate_limit(:box14_ui_wf_swf, find_limit("UI_WF_SWF"))
-    validate_limit(:box14_fli, find_limit("FLI"))
-  end
-
-  def find_limit(name)
-    code = StateFile::StateInformationService
-      .w2_supported_box14_codes(state_file_intake.state_code)
-      .find { |code| code[:name] == name }
-    code ? code[:limit] : nil
+    validate_limit(:box14_ui_wf_swf, self.class.find_limit("UI_WF_SWF", state_file_intake.state_code))
+    validate_limit(:box14_fli, self.class.find_limit("FLI", state_file_intake.state_code))
   end
 
   def validate_limit(field, limit)

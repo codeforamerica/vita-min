@@ -269,15 +269,11 @@ module Efile
       end
 
       def excess_ui_wf_swf_max
-        @excess_ui_wf_swf_max ||= StateFile::StateInformationService
-          .w2_supported_box14_codes("nj")
-          .find { |code| code[:name] == "UI_WF_SWF" }[:limit]
+        @excess_ui_wf_swf_max ||= StateFileW2.find_limit("UI_WF_SWF", "nj")
       end
 
       def excess_fli_max
-        @excess_fli_max ||= StateFile::StateInformationService
-          .w2_supported_box14_codes("nj")
-          .find { |code| code[:name] == "FLI" }[:limit]
+        @excess_fli_max ||= StateFileW2.find_limit("FLI", "nj")
       end
 
       private

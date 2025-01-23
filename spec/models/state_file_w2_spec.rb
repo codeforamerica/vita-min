@@ -242,4 +242,30 @@ describe StateFileW2 do
       end
     end
   end
+
+  describe "self.find_limit" do
+    context "when the limit is found" do
+      before do
+        allow(StateFile::StateInformationService).to receive(:w2_supported_box14_codes)
+          .and_return([
+            { name: "UI_WF_SWF", limit: 179.78 },
+            { name: "FLI", limit: 145.26 }
+          ])
+      end
+
+      it "returns the correct limit for a valid name" do
+        expect(StateFileW2.find_limit("UI_WF_SWF", intake.state_code)).to eq(179.78)
+        expect(StateFileW2.find_limit("FLI", intake.state_code)).to eq(145.26)
+      end
+
+      it "returns nil for an invalid name" do
+        expect(StateFileW2.find_limit("NON_EXISTENT", intake.state_code)).to be_nil
+      end
+    end
+
+    it "returns nil when empty array" do
+      allow(StateFile::StateInformationService).to receive(:w2_supported_box14_codes).and_return([])
+      expect(StateFileW2.find_limit("UI_WF_SWF", intake.state_code)).to be_nil
+    end
+  end
 end
