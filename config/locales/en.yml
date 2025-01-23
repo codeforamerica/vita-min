@@ -3252,7 +3252,7 @@ en:
           title: You said you were a homeowner in %{filing_year}.
       nj_homeowner_property_tax:
         edit:
-          helper_anchor_description_html: If you received an ANCHOR benefit, the benefit amount does not affect the amount to report on this line. (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> offers property tax relief to New Jersey residents who own or rent property in New Jersey as their main home and meet certain income limits.)
+          helper_anchor_description_html: If you received an ANCHOR benefit, the benefit amount does not affect the amount to report above. (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> offers property tax relief to New Jersey residents who own or rent property in New Jersey as their main home and meet certain income limits.)
           helper_anchor_heading: What if I received ANCHOR or Homestead benefits?
           helper_description: You can review your quarterly tax bills and add up the total paid to your municipality.
           helper_heading: Where can I find property taxes paid?
@@ -3261,11 +3261,11 @@ en:
       nj_homeowner_property_tax_worksheet:
         edit:
           description_html: "<p>The next step is to fill in this <a href=\"https://www.nj.gov/treasury/taxation/pdf/wrkshtg.pdf\" target=\"_blank\" rel=\"noopener nofollow\">worksheet</a>.</p> \n<p>Once you fill in the worksheet, come back to this page.</p>\n<p>The worksheet will ask you about where you lived and for how long. If you moved, for example, it will have space for you to list every place you lived.</p>\n"
-          helper_anchor_description_html: If you received an ANCHOR benefit, the benefit amount does not affect the amount to report on this line. (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> offers property tax relief to New Jersey residents who own or rent property in New Jersey as their main home and meet certain income limits.)
+          helper_anchor_description_html: If you received an ANCHOR benefit, the benefit amount does not affect the amount to report above. (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> offers property tax relief to New Jersey residents who own or rent property in New Jersey as their main home and meet certain income limits.)
           helper_anchor_heading: What if I received ANCHOR or Homestead benefits?
           helper_description: You can review your quarterly tax bills and add up the total paid to your municipality.
           helper_heading: Where can I find property taxes paid?
-          label_html: "<strong>Enter Line 4 on Worksheet</strong><br/>(Your share of total property taxes paid)"
+          label_html: "<strong>Enter Line 4 of Worksheet</strong><br/>(Your share of total property taxes paid)"
           title: Good news – you qualify for a deduction or credit.
       nj_household_rent_own:
         edit:
@@ -3447,17 +3447,17 @@ en:
       nj_tenant_property_tax_worksheet:
         edit:
           description_html: "<p>The next step is to fill in this <a href=\"https://www.nj.gov/treasury/taxation/pdf/wrkshtg.pdf\" target=\"_blank\" rel=\"noopener nofollow\">worksheet</a>.</p> \n<p>Once you fill in the worksheet, come back to this page.</p>\n<p>The worksheet will ask you about where you lived and for how long. If you moved, for example, it will have space for you to list every place you lived.</p>\n"
-          helper_anchor_description_html: If you received an ANCHOR benefit, the benefit amount does not affect the amount to report on line 8. (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> offers property tax relief to New Jersey residents who own or rent property in New Jersey as their main home and meet certain income limits.)
+          helper_anchor_description_html: If you received an ANCHOR benefit, the benefit amount does not affect the amount to report above. (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> offers property tax relief to New Jersey residents who own or rent property in New Jersey as their main home and meet certain income limits.)
           helper_anchor_heading: What if I received ANCHOR benefits?
-          helper_description: Enter your site fees paid for %{filing_year} in the rental section of Worksheet G.
+          helper_description: Enter your site fees paid for %{filing_year} in the rental section of the <a href=\"https://www.nj.gov/treasury/taxation/pdf/wrkshtg.pdf\" target=\"_blank\" rel=\"noopener nofollow\">worksheet</a>.
           helper_heading: Mobile homeowners
-          label_html: "<strong>Enter Line 8 of Worksheet</strong>"
+          label_html: "<strong>Enter Line 8 of Worksheet</strong><br/>(Your share of total rent paid)"
           title: Good news – you qualify for a deduction or credit.
       nj_tenant_rent_paid:
         edit:
-          helper_anchor_description_html: If you received an ANCHOR benefit, the benefit amount does not affect the amount to report on line 8. (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> offers property tax relief to New Jersey residents who own or rent property in New Jersey as their main home and meet certain income limits.)
+          helper_anchor_description_html: If you received an ANCHOR benefit, the benefit amount does not affect the amount to report above. (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> offers property tax relief to New Jersey residents who own or rent property in New Jersey as their main home and meet certain income limits.)
           helper_anchor_heading: What if I received ANCHOR benefits?
-          helper_description: Enter your site fees paid for %{filing_year} in the rental section of Worksheet G.
+          helper_description: Enter your site fees paid for %{filing_year}.
           helper_heading: Mobile homeowners
           label_html: "<strong>Enter your share of total rent paid in %{filing_year}</strong>"
           title: Good news – you qualify for a deduction or credit.
