@@ -3762,12 +3762,21 @@ en:
           title_html: Good news, you're getting a %{state_name} state tax refund of <strong>$%{refund_amount}.</strong>
       taxes_owed:
         edit:
+          more_tax_information_nj_html: <p><a href="https://www.nj.gov/treasury/taxation/payments-notices.shtml" target="_blank" rel="noopener nofollow">Here is more information about tax due dates and payment methods.</a></p>
           page_title: You owe state taxes. How would you like to pay?
           pay_bank: Pay directly from your checking or savings account (direct debit)
           pay_mail_online_html: Pay by mail or online at <a target="_blank" rel="noopener nofollow" href="%{tax_payment_info_url}">%{tax_payment_info_text}</a>
           subtitle: How would you like to pay?
           subtitle_html: For more information about tax due dates and payment methods, visit <a target="_blank" rel="noopener nofollow" href="https://marylandtaxes.gov/">Marylandtaxes.gov</a>
           title_html: You owe <strong>$%{owed_amount}</strong> in %{state_name} state taxes.
+          underpayment_notice_nj_html: |-
+            <p> This can happen for many reasons, but common ones are: </p>
+            <ul class="list--bulleted">
+              <li>if there weren’t enough taxes withheld from your paycheck (you may want to discuss with your employer for future years), or</li>
+              <li>if you haven’t made enough in estimated tax payments.</li>
+            </ul>
+            <p> You might be charged interest on what you owe. If that applies to you, you will get a notice from the State of New Jersey Division of Taxation in the mail.</p>
+            <p><strong>You should definitely continue with this filing. The sooner you file, the less you will eventually have to pay in penalties.</strong></p>
       terms_and_conditions:
         edit:
           accept: Accept
