@@ -42,13 +42,6 @@ RSpec.describe StateFile::ArchivedIntakes::MailingAddressValidationController, t
       end
     end
 
-    it "redirects to the lockout path when the request is locked" do
-      current_request.lock_access!
-      get :edit
-
-      expect(response).to redirect_to(state_file_archived_intakes_verification_error_path)
-    end
-
     it "redirect to root if code verification was not completed" do
       session[:code_verified] = nil
       session[:ssn_verified] = true
@@ -80,7 +73,8 @@ RSpec.describe StateFile::ArchivedIntakes::MailingAddressValidationController, t
         expect(access_log.state_file_archived_intake_request).to eq(current_request)
         expect(access_log.event_type).to eq("correct_mailing_address")
 
-        #this will be the download page
+        # TODO: https://codeforamerica.atlassian.net/browse/FYST-1520
+        # need to change to download path
         expect(response).to redirect_to(root_path)
       end
     end

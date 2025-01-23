@@ -18,7 +18,9 @@ module StateFile
 
         if @form.valid?
           create_state_file_access_log("correct_mailing_address")
-          # this should take us to the download
+          session[:mailing_verified] = true
+          # TODO: https://codeforamerica.atlassian.net/browse/FYST-1520
+          # need to change to download path
           redirect_to root_path
         elsif params["state_file_archived_intakes_mailing_address_validation_form"].present?
           create_state_file_access_log("incorrect_mailing_address")
