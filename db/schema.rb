@@ -11,7 +11,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.1].define(version: 2025_01_21_171015) do
-
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1172,9 +1171,15 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_21_171015) do
     t.integer "contributed_to_roth_ira", default: 0, null: false
     t.datetime "created_at", null: false
     t.string "current_step"
-<<<<<<< HEAD
+    t.integer "cv_1095a_cb", default: 0, null: false
+    t.integer "cv_1098_cb", default: 0, null: false
+    t.integer "cv_1098_count"
+    t.integer "cv_1098e_cb", default: 0, null: false
+    t.integer "cv_1098t_cb", default: 0, null: false
+    t.integer "cv_1099a_cb", default: 0, null: false
     t.integer "cv_1099b_cb", default: 0, null: false
     t.integer "cv_1099b_count"
+    t.integer "cv_1099c_cb", default: 0, null: false
     t.integer "cv_1099div_cb", default: 0, null: false
     t.integer "cv_1099div_count"
     t.integer "cv_1099g_cb", default: 0, null: false
@@ -1191,45 +1196,18 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_21_171015) do
     t.decimal "cv_1099r_charitable_dist_amt", precision: 12, scale: 2
     t.integer "cv_1099r_charitable_dist_cb", default: 0, null: false
     t.integer "cv_1099r_count"
-    t.integer "cv_alimony_excluded_from_income_cb", default: 0, null: false
-    t.decimal "cv_alimony_income_amt", precision: 12, scale: 2
-    t.integer "cv_alimony_income_cb", default: 0, null: false
-    t.integer "cv_capital_loss_carryover_cb", default: 0, null: false
-    t.integer "cv_disability_benefits_1099r_or_w2_cb", default: 0, null: false
-    t.integer "cv_disability_benefits_1099r_or_w2_count"
-    t.integer "cv_had_tips_cb", default: 0, null: false
-    t.integer "cv_itemized_last_year_cb", default: 0, null: false
-    t.decimal "cv_local_tax_refund_amt", precision: 12, scale: 2
-    t.integer "cv_local_tax_refund_cb", default: 0, null: false
-    t.integer "cv_other_income_cb", default: 0, null: false
-    t.integer "cv_other_income_reported_elsewhere_cb", default: 0, null: false
-    t.string "cv_p2_notes_comments"
-    t.decimal "cv_rental_expense_amt", precision: 12, scale: 2
-    t.integer "cv_rental_expense_cb", default: 0, null: false
-    t.integer "cv_rental_income_cb", default: 0, null: false
-    t.integer "cv_schedule_c_cb", default: 0, null: false
-    t.decimal "cv_schedule_c_expenses_amt", precision: 12, scale: 2
-    t.integer "cv_schedule_c_expenses_cb", default: 0, null: false
-    t.integer "cv_ssa1099_rrb1099_cb", default: 0, null: false
-    t.integer "cv_ssa1099_rrb1099_count"
-    t.integer "cv_w2g_or_other_gambling_winnings_cb", default: 0, null: false
-    t.integer "cv_w2g_or_other_gambling_winnings_count"
-    t.integer "cv_w2s_cb", default: 0, null: false
-    t.integer "cv_w2s_count"
-=======
-    t.integer "cv_1095a_cb", default: 0, null: false
-    t.integer "cv_1098_cb", default: 0, null: false
-    t.integer "cv_1098_count"
-    t.integer "cv_1098e_cb", default: 0, null: false
-    t.integer "cv_1098t_cb", default: 0, null: false
-    t.integer "cv_1099a_cb", default: 0, null: false
-    t.integer "cv_1099c_cb", default: 0, null: false
     t.integer "cv_1099s_cb", default: 0, null: false
     t.string "cv_14c_page_3_notes_part_1"
     t.string "cv_14c_page_3_notes_part_2"
     t.string "cv_14c_page_3_notes_part_3"
+    t.integer "cv_alimony_excluded_from_income_cb", default: 0, null: false
     t.integer "cv_alimony_income_adjustment_yn_cb", default: 0, null: false
+    t.decimal "cv_alimony_income_amt", precision: 12, scale: 2
+    t.integer "cv_alimony_income_cb", default: 0, null: false
+    t.integer "cv_capital_loss_carryover_cb", default: 0, null: false
     t.integer "cv_child_dependent_care_credit_cb", default: 0, null: false
+    t.integer "cv_disability_benefits_1099r_or_w2_cb", default: 0, null: false
+    t.integer "cv_disability_benefits_1099r_or_w2_count"
     t.integer "cv_disaster_relief_impacts_return_cb", default: 0, null: false
     t.integer "cv_edu_credit_or_tuition_deduction_cb", default: 0, null: false
     t.decimal "cv_edu_expenses_deduction_amt", precision: 12, scale: 2
@@ -1239,18 +1217,36 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_21_171015) do
     t.integer "cv_energy_efficient_home_improv_credit_cb", default: 0, null: false
     t.decimal "cv_estimated_tax_payments_amt", precision: 12, scale: 2
     t.integer "cv_estimated_tax_payments_cb", default: 0, null: false
+    t.integer "cv_had_tips_cb", default: 0, null: false
     t.integer "cv_hsa_contrib_cb", default: 0, null: false
     t.integer "cv_hsa_distrib_cb", default: 0, null: false
+    t.integer "cv_itemized_last_year_cb", default: 0, null: false
     t.decimal "cv_last_years_refund_applied_to_this_yr_amt", precision: 12, scale: 2
     t.integer "cv_last_years_refund_applied_to_this_yr_cb", default: 0, null: false
     t.integer "cv_last_years_return_available_cb", default: 0, null: false
+    t.decimal "cv_local_tax_refund_amt", precision: 12, scale: 2
+    t.integer "cv_local_tax_refund_cb", default: 0, null: false
     t.integer "cv_med_expense_itemized_deduction_cb", default: 0, null: false
     t.integer "cv_med_expense_standard_deduction_cb", default: 0, null: false
+    t.integer "cv_other_income_cb", default: 0, null: false
+    t.integer "cv_other_income_reported_elsewhere_cb", default: 0, null: false
+    t.string "cv_p2_notes_comments"
     t.decimal "cv_paid_alimony_w_spouse_ssn_amt", precision: 12, scale: 2
     t.integer "cv_paid_alimony_w_spouse_ssn_cb", default: 0, null: false
+    t.decimal "cv_rental_expense_amt", precision: 12, scale: 2
+    t.integer "cv_rental_expense_cb", default: 0, null: false
+    t.integer "cv_rental_income_cb", default: 0, null: false
+    t.integer "cv_schedule_c_cb", default: 0, null: false
+    t.decimal "cv_schedule_c_expenses_amt", precision: 12, scale: 2
+    t.integer "cv_schedule_c_expenses_cb", default: 0, null: false
+    t.integer "cv_ssa1099_rrb1099_cb", default: 0, null: false
+    t.integer "cv_ssa1099_rrb1099_count"
     t.string "cv_tax_credit_disallowed_reason"
     t.integer "cv_taxable_scholarship_income_cb", default: 0, null: false
->>>>>>> 26f0588f7 (create and setup new columns/fields for hub p3)
+    t.integer "cv_w2g_or_other_gambling_winnings_cb", default: 0, null: false
+    t.integer "cv_w2g_or_other_gambling_winnings_count"
+    t.integer "cv_w2s_cb", default: 0, null: false
+    t.integer "cv_w2s_count"
     t.integer "demographic_disability", default: 0, null: false
     t.integer "demographic_english_conversation", default: 0, null: false
     t.integer "demographic_english_reading", default: 0, null: false
