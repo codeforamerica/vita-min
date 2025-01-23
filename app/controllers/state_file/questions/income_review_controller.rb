@@ -38,6 +38,8 @@ module StateFile
           return true if w2.box14_fli.nil?
         end
 
+        return true if w2.box14_ui_wf_swf.present? && w2.box14_ui_hc_wd.present?
+
         ui_wf_swf_max = find_limit("UI_WF_SWF")
         return true if ui_wf_swf_max.present? && w2.get_box14_ui_overwrite.to_f > ui_wf_swf_max
         

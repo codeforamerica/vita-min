@@ -76,6 +76,10 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
   end
 
   describe "W-2s card" do
+    before(:each) do
+      StateFileW2.delete_all
+    end
+
     context "when there are no w2s" do
       it "does not show the card" do
         get :edit, params: params
@@ -102,6 +106,8 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
     end
 
     context "when no W2 box 14 warnings" do
+      let(:intake) { create(:state_file_nj_intake) }
+      
       shared_examples "does not display W2 warnings" do
         it "does not display W2 warnings" do
           get :edit, params: params
@@ -155,6 +161,11 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
 
       context "when fli is too high" do
         let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_fli: 145.27) }
+        include_examples "displays at least one W2 warning"
+      end
+
+      context "when a single W2 has values in both UI/HC/WD and UI/WF/SWF" do
+        let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_ui_wf_swf: 10, box14_ui_hc_wd: 10, box14_fli: 145.26) }
         include_examples "displays at least one W2 warning"
       end
     end
