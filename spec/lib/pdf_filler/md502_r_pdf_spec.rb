@@ -68,6 +68,18 @@ RSpec.describe PdfFiller::Md502RPdf do
         expect(pdf_fields["Your Age 1"]).to eq("65")
         expect(pdf_fields["Spouses Age"]).to eq("64")
       end
+
+      context "Line 9" do
+        before do
+          allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_9a).and_return 100
+          allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_9b).and_return 200
+        end
+
+        it "output correct information" do
+          expect(pdf_fields["and Tier II See Instructions for Part 5                                   9a"]).to eq("100")
+          expect(pdf_fields["9b"]).to eq("200")
+        end
+      end
     end
   end
 end

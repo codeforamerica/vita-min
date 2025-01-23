@@ -30,7 +30,7 @@ module Efile
           intake: @intake
         )
 
-        @md502r = Efile::Md::Md502rCalculator.new(
+        @md502r = Efile::Md::Md502RCalculator.new(
           value_access_tracker: @value_access_tracker,
           lines: @lines,
           intake: @intake

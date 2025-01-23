@@ -26,6 +26,8 @@ module PdfFiller
         'Spouses Social Security Number': @xml_document.at('Secondary TaxpayerSSN')&.text,
         'Your Age 1': @xml_document.at('PrimaryAge')&.text,
         'Spouses Age': @xml_document.at('SecondaryAge')&.text,
+        'and Tier II See Instructions for Part 5                                   9a': @xml_document.at('PriSSecurityRailRoadBenefits')&.text,
+        '9b': @xml_document.at('SecSSecurityRailRoadBenefits')&.text,
       }
     end
   end

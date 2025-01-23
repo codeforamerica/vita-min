@@ -1,6 +1,6 @@
 module Efile
   module Md
-    class Md502rCalculator < ::Efile::TaxCalculator
+    class Md502RCalculator < ::Efile::TaxCalculator
       attr_reader :lines, :value_access_tracker
 
       def initialize(value_access_tracker:, lines:, intake:)
@@ -19,15 +19,15 @@ module Efile
 
       def calculate_line_9a
         if @intake.filing_status_mfj? && @intake.direct_file_data.fed_ssb.positive?
-          @intake.primary_ssb_amount
+          @intake.primary_ssb_amount.round
         else
-          @intake.direct_file_data.fed_ssb
+          @intake.direct_file_data.fed_ssb.round
         end
       end
 
       def calculate_line_9b
         if @intake.filing_status_mfj? && @intake.direct_file_data.fed_ssb.positive?
-          @intake.spouse_ssb_amount
+          @intake.spouse_ssb_amount.round
         end
       end
     end
