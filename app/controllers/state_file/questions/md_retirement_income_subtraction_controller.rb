@@ -5,10 +5,7 @@ module StateFile
 
       before_action :load_1099r
 
-      def load_1099r
-        @index = params[:index].present? ? params[:index].to_i : 0
-        @state_file_1099r = current_intake.state_file1099_rs[@index]
-      end
+      attr_reader :index, :state_file_1099r
 
       def initialized_edit_form
         attribute_keys = Attributes.new(form_class.attribute_names).to_sym
@@ -17,17 +14,7 @@ module StateFile
       end
 
       def initialized_update_form
-        puts "HELLO"
-        puts params
-        puts form_params
         form_class.new(retrieve_or_create_state_specific_followup, form_params)
-      end
-
-      def retrieve_or_create_state_specific_followup
-        unless @state_file_1099r.state_specific_followup.present?
-          @state_file_1099r.state_specific_followup = StateFileMd1099RFollowup.create
-        end
-        @state_file_1099r.state_specific_followup
       end
 
       def self.show?(intake)
@@ -38,7 +25,7 @@ module StateFile
         options = {}
         options[:return_to_review] = params[:return_to_review] if params[:return_to_review].present?
         prev_index = @index - 1
-        if @index.positive?
+        if prev_index.negative?
           super
         else
           options[:index] = prev_index
@@ -57,6 +44,24 @@ module StateFile
           MdRetirementIncomeSubtractionController.to_path_helper(options)
         end
       end
+
+      private
+
+      def load_1099r
+        @index = params[:index].present? ? params[:index].to_i : 0
+        @state_file_1099r = current_intake.state_file1099_rs[@index]
+        if @state_file_1099r.nil?
+          render "public_pages/page_not_found", status: 404
+        end
+      end
+
+      def retrieve_or_create_state_specific_followup
+        unless @state_file_1099r.state_specific_followup.present?
+          @state_file_1099r.state_specific_followup = StateFileMd1099RFollowup.create
+        end
+        @state_file_1099r.state_specific_followup
+      end
+
     end
   end
 end

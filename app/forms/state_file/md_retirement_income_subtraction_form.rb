@@ -1,18 +1,15 @@
 module StateFile
-  class MdRetirementIncomeSubtractionForm < QuestionsForm
+  class MdRetirementIncomeSubtractionForm < Form
     include FormAttributes
 
     set_attributes_for :state_specific_followup, :income_source, :service_type
 
     attr_accessor :state_specific_followup
 
-    # validates :income_source, presence: true
-    # validates :service_type, presence: true
+    validates :income_source, presence: true
+    validates :service_type, presence: true
 
     def initialize(state_specific_followup = nil, params = {})
-      puts "HELLO AGAIN"
-      puts state_specific_followup
-      puts params
       @state_specific_followup = state_specific_followup
       super(params)
     end
