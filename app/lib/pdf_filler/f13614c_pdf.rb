@@ -74,6 +74,11 @@ module PdfFiller
         yes_no_checkboxes("form1[0].page1[0].q11HaveYouOr[0]", collective_yes_no_unsure(@intake.issued_identity_pin, @intake.spouse_issued_identity_pin))
       )
       answers.merge!(
+        "form1[0].page1[0].writtenCommunicationLanguage[0].otherLanguageNo[0]" => @intake.written_language_preference_english? ? '1' : nil,
+        "form1[0].page1[0].writtenCommunicationLanguage[0].otherLanguageYou[0]" => @intake.written_language_preference_english? ? nil : '1',
+        "form1[0].page1[0].writtenCommunicationLanguage[0].whatLanguage[0]" => @intake.written_language_preference_english? ? nil : @intake.preferred_written_language_string
+      )
+      answers.merge!(
         keep_and_normalize({
           "form1[0].page1[0].maritalStatus[0].statusNeverMarried[0]" => @intake.ever_married_no?,
           "form1[0].page1[0].maritalStatus[0].statusMarried[0]" => (@intake.ever_married_yes? && @intake.married_yes? && @intake.separated_no?),

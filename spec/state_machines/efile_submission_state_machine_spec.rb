@@ -17,9 +17,24 @@ describe EfileSubmissionStateMachine do
         allow(messaging_service).to receive(:send_efile_submission_successful_submission_message)
       end
 
-      it "sends a successful submission message" do
-        submission.transition_to!(:preparing)
-        expect(messaging_service).to have_received(:send_efile_submission_successful_submission_message)
+      context "is the submission does not have an initiated by id" do
+        before do
+          allow(submission).to receive(:admin_resubmission?).and_return(false)
+        end
+        it "sends a successful submission message" do
+          submission.transition_to!(:preparing)
+          expect(messaging_service).to have_received(:send_efile_submission_successful_submission_message)
+        end
+      end
+
+      context "is the submission does have an initiated by id" do
+        before do
+          allow(submission).to receive(:admin_resubmission?).and_return(true)
+        end
+        it "does not send a successful submission message" do
+          submission.transition_to!(:preparing)
+          expect(messaging_service).not_to have_received(:send_efile_submission_successful_submission_message)
+        end
       end
     end
 
