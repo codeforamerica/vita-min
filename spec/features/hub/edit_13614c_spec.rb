@@ -189,7 +189,7 @@ RSpec.describe "a user editing a clients 13614c form" do
       expect(intake.had_wages_yes?).to eq false # check that we did not persist information
     end
 
-    scenario "I can see and update the 13614c page 2 form" do
+    scenario "I can see and update the 13614c page 2 form", js: true do
       visit hub_client_path(id: client.id)
       within ".client-profile" do
         click_on "Edit 13614-C"
@@ -200,118 +200,180 @@ RSpec.describe "a user editing a clients 13614c form" do
       end
       expect(page).to have_text I18n.t("hub.clients.edit_13614c_form_page2.title")
 
-      expect(page).to have_text "Part III – Income – Last Year, Did You (or Your Spouse) Receive"
+      expect(page).to have_text "Income – Last Year, Did You (or Your Spouse) Receive"
 
-      # for questions that were gated, show that unfilled in database means no on the pdf
-      expect(page).to have_select("hub_update13614c_form_page2[received_alimony]", selected: "[No]")
+      expect(find_field("hub_update13614c_form_page2[job_count]").value).to eq "2"
 
-      within "#income-fields" do
-        expect(find_field("hub_update13614c_form_page2[job_count]").value).to eq "2"
+      # left column #
 
-        select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_wages")
-        select "3", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.job_count")
-        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_tips")
-        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_scholarships")
-        select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_interest_income")
-        select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_local_tax_refund")
-        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.received_alimony")
-        select "I don't know", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_self_employment_income")
-        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_cash_check_digital_assets")
-        select "I don't know", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_asset_sale_income")
-        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_disability_income")
-        select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_retirement_income")
-        select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_unemployment_income")
-        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_social_security_income")
-        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_rental_income")
-        select "I don't know", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_other_income")
-      end
+      select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_wages")
+      select "3", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.job_count")
+      select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_tips")
+      select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_retirement_income")
+      select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_disability_income")
+      select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_social_security_income")
+      select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_unemployment_income")
+      select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_local_tax_refund")
+      select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_interest_income")
+      select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_asset_sale_income")
+      select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.reported_asset_sale_loss")
+      select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.received_alimony")
+      select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_rental_income")
+      select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_rental_income_and_used_dwelling_as_residence")
+      select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_rental_income_from_personal_property")
+      select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_gambling_income")
+      select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_self_employment_income")
+      select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.reported_self_employment_loss")
+      select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_other_income")
 
-      within "#expenses-fields" do
-        select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_alimony")
-        select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.has_ssn_of_alimony_recipient")
-        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_retirement_contributions")
-        check "IRA (A)"
-        check "401K (B)"
-        check "Roth IRA (B)"
-        check "Other"
-        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_post_secondary_educational_expenses")
-        select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.wants_to_itemize")
-        check I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_medical_expenses")
-        check I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_mortgage_interest")
-        check I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_local_tax")
-        check I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_charitable_contributions")
-        select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_dependent_care")
-        select "I don't know", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_school_supplies")
-        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_self_employment_expenses")
-        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.paid_student_loan_interest")
-      end
+      # right column #
 
-      within "#life-events-fields" do
-        select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_hsa")
-        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_debt_forgiven")
-        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.adopted_child")
-        select "I don't know", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_tax_credit_disallowed")
-        fill_in I18n.t("hub.clients.edit_13614c_form_page2.fields.tax_credit_disallowed_year"), with: "2018"
-        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.bought_energy_efficient_items")
-        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.received_homebuyer_credit")
-        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.made_estimated_tax_payments")
-        fill_in I18n.t("hub.clients.edit_13614c_form_page2.fields.made_estimated_tax_payments_amount"), with: "3,000"
-        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.had_capital_loss_carryover")
-        select "No", from: I18n.t("hub.clients.edit_13614c_form_page2.fields.bought_marketplace_health_insurance")
-      end
+      select "Yes", from: "hub_update13614c_form_page2_cv_w2s_cb"
+      select "5", from: "hub_update13614c_form_page2_cv_w2s_count"
+
+      select "Yes", from: "hub_update13614c_form_page2_cv_had_tips_cb"
+
+      select "Yes", from: "hub_update13614c_form_page2_cv_1099r_cb"
+      select "5", from: "hub_update13614c_form_page2_cv_1099r_count"
+      select "Yes", from: "hub_update13614c_form_page2_cv_1099r_charitable_dist_cb"
+      fill_in "hub_update13614c_form_page2_cv_1099r_charitable_dist_amt", with: 2814
+
+      select "Yes", from: "hub_update13614c_form_page2_cv_disability_benefits_1099r_or_w2_cb"
+      select "5", from: "hub_update13614c_form_page2_cv_disability_benefits_1099r_or_w2_count"
+
+      select "Yes", from: "hub_update13614c_form_page2_cv_ssa1099_rrb1099_cb"
+      select "5", from: "hub_update13614c_form_page2_cv_ssa1099_rrb1099_count"
+
+      select "Yes", from: "hub_update13614c_form_page2_cv_1099g_cb"
+      select "5", from: "hub_update13614c_form_page2_cv_1099g_count"
+
+      select "Yes", from: "hub_update13614c_form_page2_cv_local_tax_refund_cb"
+      fill_in "hub_update13614c_form_page2_cv_local_tax_refund_amt", with: 2815
+      select "Yes", from: "hub_update13614c_form_page2_cv_itemized_last_year_cb"
+
+      select "Yes", from: "hub_update13614c_form_page2_cv_1099int_cb"
+      select "5", from: "hub_update13614c_form_page2_cv_1099int_count"
+      select "Yes", from: "hub_update13614c_form_page2_cv_1099div_cb"
+      select "5", from: "hub_update13614c_form_page2_cv_1099div_count"
+
+      select "Yes", from: "hub_update13614c_form_page2_cv_1099b_cb"
+      select "5", from: "hub_update13614c_form_page2_cv_1099b_count"
+      select "Yes", from: "hub_update13614c_form_page2_cv_capital_loss_carryover_cb"
+
+      select "Yes", from: "hub_update13614c_form_page2_cv_alimony_income_cb"
+      fill_in "hub_update13614c_form_page2_cv_alimony_income_amt", with: 2816
+      select "Yes", from: "hub_update13614c_form_page2_cv_alimony_excluded_from_income_cb"
+
+      select "Yes", from: "hub_update13614c_form_page2_cv_rental_income_cb"
+      select "Yes", from: "hub_update13614c_form_page2_cv_rental_expense_cb"
+      fill_in "hub_update13614c_form_page2_cv_rental_expense_amt", with: 2817
+
+      select "Yes", from: "hub_update13614c_form_page2_cv_w2g_or_other_gambling_winnings_cb"
+      select "5", from: "hub_update13614c_form_page2_cv_w2g_or_other_gambling_winnings_count"
+
+      select "Yes", from: "hub_update13614c_form_page2_cv_schedule_c_cb"
+      select "Yes", from: "hub_update13614c_form_page2_cv_1099misc_cb"
+      select "5", from: "hub_update13614c_form_page2_cv_1099misc_count"
+      select "Yes", from: "hub_update13614c_form_page2_cv_1099nec_cb"
+      select "5", from: "hub_update13614c_form_page2_cv_1099nec_count"
+      select "Yes", from: "hub_update13614c_form_page2_cv_1099k_cb"
+      select "5", from: "hub_update13614c_form_page2_cv_1099k_count"
+      select "Yes", from: "hub_update13614c_form_page2_cv_other_income_reported_elsewhere_cb"
+      select "Yes", from: "hub_update13614c_form_page2_cv_schedule_c_expenses_cb"
+      fill_in "hub_update13614c_form_page2_cv_schedule_c_expenses_amt", with: 2818
+
+      select "Yes", from: "hub_update13614c_form_page2_cv_other_income_cb"
+
+      fill_in "hub_update13614c_form_page2_cv_p2_notes_comments", with: "Hello"
 
       click_on I18n.t("general.save")
 
       expect(page).to have_text I18n.t("hub.clients.edit_13614c_form_page2.title")
       expect(page).to have_text I18n.t("general.changes_saved")
 
+      # left column #
+
       intake = client.intake.reload
       expect(intake.had_wages_yes?).to eq true
+      expect(intake.had_wages).to eq 'yes'
       expect(intake.job_count).to eq 3
-      expect(intake.had_tips_no?).to eq true
-      expect(intake.had_scholarships_no?).to eq true
-      expect(intake.made_estimated_tax_payments_no?).to eq true
-      expect(intake.had_interest_income_yes?).to eq true
-      expect(intake.had_local_tax_refund_yes?).to eq true
-      expect(intake.had_self_employment_income_unsure?).to eq true
-      expect(intake.had_cash_check_digital_assets_no?).to eq true
-      expect(intake.had_asset_sale_income_unsure?).to eq true
-      expect(intake.had_disability_income_no?).to eq true
+      expect(intake.had_tips_yes?).to eq true
       expect(intake.had_retirement_income_yes?).to eq true
+      expect(intake.had_disability_income_yes?).to eq true
+      expect(intake.had_social_security_income_yes?).to eq true
       expect(intake.had_unemployment_income_yes?).to eq true
-      expect(intake.had_social_security_income_no?).to eq true
-      expect(intake.had_rental_income_no?).to eq true
-      expect(intake.had_other_income_unsure?).to eq true
+      expect(intake.had_local_tax_refund_yes?).to eq true
+      expect(intake.had_interest_income_yes?).to eq true
+      expect(intake.had_asset_sale_income_yes?).to eq true
+      expect(intake.reported_asset_sale_loss_yes?).to eq true
+      expect(intake.received_alimony?).to eq true
+      expect(intake.had_rental_income_yes?).to eq true
+      expect(intake.had_rental_income_and_used_dwelling_as_residence_yes?).to eq true
+      expect(intake.had_rental_income_from_personal_property_yes?).to eq true
+      expect(intake.had_gambling_income_yes?).to eq true
+      expect(intake.had_self_employment_income_yes?).to eq true
+      expect(intake.reported_self_employment_loss_yes?).to eq true
+      expect(intake.had_other_income_yes?).to eq true
 
-      expect(intake.paid_alimony_yes?).to eq true
-      expect(intake.has_ssn_of_alimony_recipient_yes?).to eq true
-      expect(intake.paid_retirement_contributions_no?).to eq true
-      expect(intake.contributed_to_ira_yes?).to eq true
-      expect(intake.contributed_to_roth_ira_yes?).to eq true
-      expect(intake.contributed_to_401k_yes?).to eq true
-      expect(intake.contributed_to_other_retirement_account_yes?).to eq true
-      expect(intake.paid_post_secondary_educational_expenses_no?).to eq true
-      expect(intake.wants_to_itemize_yes?).to eq true
-      expect(intake.paid_local_tax_yes?).to eq true
-      expect(intake.paid_mortgage_interest_yes?).to eq true
-      expect(intake.paid_medical_expenses_yes?).to eq true
-      expect(intake.paid_charitable_contributions_yes?).to eq true
-      expect(intake.paid_dependent_care_yes?).to eq true
-      expect(intake.paid_school_supplies_unsure?).to eq true
-      expect(intake.paid_self_employment_expenses_no?).to eq true
-      expect(intake.paid_student_loan_interest_no?).to eq true
+      # right column #
 
-      expect(intake.had_hsa_yes?).to eq true
-      expect(intake.had_debt_forgiven_no?).to eq true
-      expect(intake.adopted_child_no?).to eq true
-      expect(intake.had_tax_credit_disallowed_unsure?).to eq true
-      expect(intake.tax_credit_disallowed_year).to eq 2018
-      expect(intake.bought_energy_efficient_items_no?).to eq true
-      expect(intake.received_homebuyer_credit_no?).to eq true
-      expect(intake.made_estimated_tax_payments_no?).to eq true
-      expect(intake.made_estimated_tax_payments_amount).to eq 3000
-      expect(intake.had_capital_loss_carryover_no?).to eq true
-      expect(intake.bought_marketplace_health_insurance_no?).to eq true
+      expect(intake.cv_w2s_cb_yes?).to eq true
+      expect(intake.cv_w2s_count).to eq 5
+
+      expect(intake.cv_had_tips_cb_yes?).to eq true
+
+      expect(intake.cv_1099r_cb_yes?).to eq true
+      expect(intake.cv_1099r_count).to eq 5
+      expect(intake.cv_1099r_charitable_dist_cb_yes?).to eq true
+      expect(intake.cv_1099r_charitable_dist_amt).to eq 2814
+
+      expect(intake.cv_disability_benefits_1099r_or_w2_cb_yes?).to eq true
+      expect(intake.cv_disability_benefits_1099r_or_w2_count).to eq 5
+
+      expect(intake.cv_ssa1099_rrb1099_cb_yes?).to eq true
+      expect(intake.cv_ssa1099_rrb1099_count).to eq 5
+
+      expect(intake.cv_1099g_cb_yes?).to eq true
+      expect(intake.cv_1099g_count).to eq 5
+
+      expect(intake.cv_local_tax_refund_cb_yes?).to eq true
+      expect(intake.cv_local_tax_refund_amt).to eq 2815
+      expect(intake.cv_itemized_last_year_cb_yes?).to eq true
+
+      expect(intake.cv_1099int_cb_yes?).to eq true
+      expect(intake.cv_1099int_count).to eq 5
+      expect(intake.cv_1099div_cb_yes?).to eq true
+      expect(intake.cv_1099div_count).to eq 5
+
+      expect(intake.cv_1099b_cb_yes?).to eq true
+      expect(intake.cv_1099b_count).to eq 5
+      expect(intake.cv_capital_loss_carryover_cb_yes?).to eq true
+
+      expect(intake.cv_alimony_income_cb_yes?).to eq true
+      expect(intake.cv_alimony_income_amt).to eq 2816
+      expect(intake.cv_alimony_excluded_from_income_cb_yes?).to eq true
+
+      expect(intake.cv_rental_income_cb_yes?).to eq true
+      expect(intake.cv_rental_expense_cb_yes?).to eq true
+      expect(intake.cv_rental_expense_amt).to eq 2817
+
+      expect(intake.cv_w2g_or_other_gambling_winnings_cb_yes?).to eq true
+      expect(intake.cv_w2g_or_other_gambling_winnings_count).to eq 5
+
+      expect(intake.cv_schedule_c_cb_yes?).to eq true
+      expect(intake.cv_1099misc_cb_yes?).to eq true
+      expect(intake.cv_1099misc_count).to eq 5
+      expect(intake.cv_1099nec_cb_yes?).to eq true
+      expect(intake.cv_1099nec_count).to eq 5
+      expect(intake.cv_1099k_cb_yes?).to eq true
+      expect(intake.cv_1099k_count).to eq 5
+      expect(intake.cv_other_income_reported_elsewhere_cb_yes?).to eq true
+      expect(intake.cv_schedule_c_expenses_cb_yes?).to eq true
+      expect(intake.cv_schedule_c_expenses_amt).to eq 2818
+
+      expect(intake.cv_other_income_cb_yes?).to eq true
+
+      expect(intake.cv_p2_notes_comments).to eq "Hello"
     end
 
     scenario "I can see and update the 13614c page 3 form" do

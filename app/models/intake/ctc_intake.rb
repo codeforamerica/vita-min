@@ -32,6 +32,49 @@
 #  contributed_to_other_retirement_account              :integer          default(0), not null
 #  contributed_to_roth_ira                              :integer          default(0), not null
 #  current_step                                         :string
+#  cv_1099b_cb                                          :integer          default(0), not null
+#  cv_1099b_count                                       :integer
+#  cv_1099div_cb                                        :integer          default(0), not null
+#  cv_1099div_count                                     :integer
+#  cv_1099g_cb                                          :integer          default(0), not null
+#  cv_1099g_count                                       :integer
+#  cv_1099int_cb                                        :integer          default(0), not null
+#  cv_1099int_count                                     :integer
+#  cv_1099k_cb                                          :integer          default(0), not null
+#  cv_1099k_count                                       :integer
+#  cv_1099misc_cb                                       :integer          default(0), not null
+#  cv_1099misc_count                                    :integer
+#  cv_1099nec_cb                                        :integer          default(0), not null
+#  cv_1099nec_count                                     :integer
+#  cv_1099r_cb                                          :integer          default(0), not null
+#  cv_1099r_charitable_dist_amt                         :decimal(12, 2)
+#  cv_1099r_charitable_dist_cb                          :integer          default(0), not null
+#  cv_1099r_count                                       :integer
+#  cv_alimony_excluded_from_income_cb                   :integer          default(0), not null
+#  cv_alimony_income_amt                                :decimal(12, 2)
+#  cv_alimony_income_cb                                 :integer          default(0), not null
+#  cv_capital_loss_carryover_cb                         :integer          default(0), not null
+#  cv_disability_benefits_1099r_or_w2_cb                :integer          default(0), not null
+#  cv_disability_benefits_1099r_or_w2_count             :integer
+#  cv_had_tips_cb                                       :integer          default(0), not null
+#  cv_itemized_last_year_cb                             :integer          default(0), not null
+#  cv_local_tax_refund_amt                              :decimal(12, 2)
+#  cv_local_tax_refund_cb                               :integer          default(0), not null
+#  cv_other_income_cb                                   :integer          default(0), not null
+#  cv_other_income_reported_elsewhere_cb                :integer          default(0), not null
+#  cv_p2_notes_comments                                 :string
+#  cv_rental_expense_amt                                :decimal(12, 2)
+#  cv_rental_expense_cb                                 :integer          default(0), not null
+#  cv_rental_income_cb                                  :integer          default(0), not null
+#  cv_schedule_c_cb                                     :integer          default(0), not null
+#  cv_schedule_c_expenses_amt                           :decimal(12, 2)
+#  cv_schedule_c_expenses_cb                            :integer          default(0), not null
+#  cv_ssa1099_rrb1099_cb                                :integer          default(0), not null
+#  cv_ssa1099_rrb1099_count                             :integer
+#  cv_w2g_or_other_gambling_winnings_cb                 :integer          default(0), not null
+#  cv_w2g_or_other_gambling_winnings_count              :integer
+#  cv_w2s_cb                                            :integer          default(0), not null
+#  cv_w2s_count                                         :integer
 #  demographic_disability                               :integer          default(0), not null
 #  demographic_english_conversation                     :integer          default(0), not null
 #  demographic_english_reading                          :integer          default(0), not null
@@ -102,6 +145,8 @@
 #  had_medicaid_medicare                                :integer          default(0), not null
 #  had_other_income                                     :integer          default(0), not null
 #  had_rental_income                                    :integer          default(0), not null
+#  had_rental_income_and_used_dwelling_as_residence     :integer          default(0), not null
+#  had_rental_income_from_personal_property             :integer          default(0), not null
 #  had_retirement_income                                :integer          default(0), not null
 #  had_scholarships                                     :integer          default(0), not null
 #  had_self_employment_income                           :integer          default(0), not null

@@ -803,49 +803,26 @@ es:
         what_was_your_marital_status: Para el 31 de diciembre de %{current_tax_year}, ¿cuál era su estado civil?
       edit_13614c_form_page2:
         fields:
-          adopted_child: "¿Adoptó a un niño?"
-          bought_energy_efficient_items: "¿Compró e instaló artículos domésticos eficientes desde el punto de vista energético?"
-          bought_marketplace_health_insurance: "¿Tiene cobertura de salud a través del Mercado (Exchange)? [Proporcione el Formulario 1095-A]"
           had_asset_sale_income: "¿Ingresos (o pérdidas) procedentes de la venta o intercambio de acciones, bonos, moneda virtual o bienes inmuebles/propiedad?"
-          had_capital_loss_carryover: '¿Presentó el año pasado una declaración federal de impuestos que contenía un "traslado de pérdidas de capital",  en inglés: "capital loss carryover" en el Formulario 1040, Anexo D?'
-          had_cash_check_digital_assets: "¿Pagos en efectivo/cheques/divisas virtuales, o otros bienes o servicios por cualquier trabajo realizado no declarado en los formularios W-2 o 1099?"
-          had_debt_forgiven: "¿Ha cancelado/perdonado un prestamista la deuda de una tarjeta de crédito, un préstamo estudiantil o una hipoteca, o ha sufrido una ejecución hipotecaria?"
           had_disability_income: "¿Ingresos por discapacidad?"
-          had_hsa: "¿Tiene una cuenta de ahorro para gastos médicos?"
+          had_gambling_income: Ganancias en juegos de azar, incluida la lotería.
           had_interest_income: "¿Intereses/dividendos de: cuentas corrientes/de ahorro, bonos, certificados de depósito, corretaje?"
-          had_local_tax_refund: "¿Reembolso o impuestos estatales o locales?"
+          had_local_tax_refund: Reembolso del impuesto estatal o local sobre los ingresos?
           had_other_income: "¿Otros ingresos?"
           had_rental_income: "¿Ingresos (o pérdidas) procedentes del arrendamiento de propiedades?"
-          had_retirement_income: "¿Ingresos de jubilación o pagos de Pensiones, Anualidades, y o IRA--en español: Cuenta Individual de Jubilación?"
-          had_scholarships: "¿Becas?"
+          had_rental_income_and_used_dwelling_as_residence: En caso afirmativo, ¿usó la unidad de vivienda como residencia personal y la alquiló por menos de 15 días?
+          had_rental_income_from_personal_property: Ingresos por alquiler de bienes personales, como un vehículo.
+          had_retirement_income: "¿Cuentas de jubilación, ingresos de pensiones o anualidades?"
           had_self_employment_income: "¿Ingresos por trabajo autónomo?"
           had_social_security_income: "¿Seguro Social o beneficios de Jubilación Ferroviaria?"
-          had_tax_credit_disallowed: "¿Le han negado el Crédito por Ingreso del Trabajo, el Crédito Tributario por Hijos o el Crédito de Oportunidad Americana en un año anterior?"
           had_tips: "¿Ingresos por propinas?"
           had_unemployment_income: "¿Compensación por desempleo?"
           had_wages: "¿Sueldo o salario? (Formulario W-2)"
-          has_ssn_of_alimony_recipient: En caso afirmativo, ¿tiene el Número de Seguro Social (SSN) del beneficiario?
           job_count: En caso afirmativo, ¿cuántos empleos tuvo el año pasado?
-          made_estimated_tax_payments: "¿Hizo pagos de impuestos estimados o aplicó el reembolso del año pasado a los impuestos de este año?"
-          made_estimated_tax_payments_amount: Si es así, ¿cuánto?
-          paid_alimony: "¿Pensión alimenticia o pensión por separación?"
-          paid_charitable_contributions: Contribuciones de beneficencia/Caridad
-          paid_dependent_care: "¿Gastos de cuidado de hijos o dependientes, como guardería?"
-          paid_local_tax: Impuestos (estatales, bienes inmuebles, bienes personales, ventas)
-          paid_medical_expenses: Seguro médico y dental (incluyendo cuotas de seguro)
-          paid_mortgage_interest: Intereses hipotecarios (formulario 1098)
-          paid_post_secondary_educational_expenses: "¿Gastos de educación universitaria o postsecundaria para usted, su cónyuge o las personas a su cargo?"
-          paid_retirement_contributions: "¿Contribuciones o reembolsos a una cuenta de jubilación?"
-          paid_school_supplies: "¿Para materiales utilizados como educador elegible, como profesor, ayudante de profesor, orientador, etc.?"
-          paid_self_employment_expenses: "¿Gastos relacionados con los ingresos por trabajo autónomo o cualquier otro ingreso que haya percibido?"
-          paid_student_loan_interest: "¿Intereses de préstamos estudiantiles?"
           received_alimony: "¿Pensión alimenticia o pensión de separación?"
-          received_homebuyer_credit: "¿Recibió el crédito First Time Homebuyers Credit, en español: compradores de vivienda por primera vez en 2008?"
-          tax_credit_disallowed_year: De ser así, ¿para qué año tributario fue?
-          wants_to_itemize: "¿Alguno de los siguientes?"
-        part_3_title: Parte III - Ingresos - El año pasado, ¿recibió usted (o su cónyuge)
-        part_4_title: Parte IV - Gastos - El año pasado, ¿pagó usted (o su cónyuge)?
-        part_5_title: 'Parte V - Eventos de la vida: el año pasado, ¿usted (o su cónyuge)'
+          reported_asset_sale_loss: "¿Reportó una pérdida en la declaración del año pasado?"
+          reported_self_employment_loss: "¿Reportó una pérdida en la declaración del año pasado?"
+        part_3_title: Ingresos - El año pasado, ¿recibió usted (o su cónyuge)
         title: 13614-C página 2
       edit_13614c_form_page3:
         additional_info_title: Información Adicional y Preguntas Relacionadas con la Preparación de su Declaración

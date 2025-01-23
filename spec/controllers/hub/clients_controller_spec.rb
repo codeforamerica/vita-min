@@ -1942,23 +1942,19 @@ RSpec.describe Hub::ClientsController do
           expect(client.intake.had_debt_forgiven_unfilled?).to eq true
           expect(client.intake.adopted_child_unfilled?).to eq true
           expect(client.intake.had_tax_credit_disallowed_unfilled?).to eq true
-          expect(client.intake.bought_energy_efficient_items_unfilled?).to eq true
           expect(client.intake.received_homebuyer_credit_unfilled?).to eq true
           expect(client.intake.made_estimated_tax_payments_unfilled?).to eq true
-          expect(client.intake.paid_local_tax_yes?).to eq true
           expect(client.intake.paid_mortgage_interest_unfilled?).to eq true
           expect(client.intake.paid_medical_expenses_unfilled?).to eq true
           expect(client.intake.paid_charitable_contributions_unfilled?).to eq true
           expect(client.intake.paid_self_employment_expenses_unfilled?).to eq true
           expect(client.intake.had_capital_loss_carryover_unfilled?).to eq true
-          expect(client.intake.bought_marketplace_health_insurance_yes?).to eq true
 
           system_note = SystemNote::ClientChange.last
           expect(system_note.client).to eq(client)
           expect(system_note.user).to eq(user)
           expect(system_note.data['changes']).to match({
                                                          "had_disability_income" => [intake.had_disability_income, "no"],
-                                                         "bought_energy_efficient_items" => [intake.bought_energy_efficient_items, "unfilled"],
                                                          "had_other_income" => [intake.had_other_income, "no"],
                                                          "had_rental_income" => [intake.had_rental_income, "unsure"],
                                                          "had_retirement_income" => [intake.had_retirement_income, "no"],
@@ -1966,8 +1962,6 @@ RSpec.describe Hub::ClientsController do
                                                          "had_unemployment_income" => [intake.had_unemployment_income, "yes"],
                                                          "had_wages" => [intake.had_wages, "yes"],
                                                          "job_count" => [intake.job_count, 3],
-                                                         "paid_local_tax" => [intake.paid_local_tax, "yes"],
-                                                         "bought_marketplace_health_insurance" => [intake.bought_marketplace_health_insurance, "yes"]
                                                        })
           expect(client.last_13614c_update_at).to be_within(1.second).of(DateTime.now)
         end
