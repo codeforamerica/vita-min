@@ -2110,12 +2110,12 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_23_160619) do
     t.string "referrer"
     t.string "residence_county"
     t.string "routing_number"
-    t.integer "secondary_disabled", default: 0, null: false
     t.integer "sign_in_count", default: 0, null: false
     t.integer "sms_notification_opt_in", default: 0, null: false
     t.string "source"
     t.date "spouse_birth_date"
     t.integer "spouse_did_not_have_health_insurance", default: 0, null: false
+    t.integer "spouse_disabled", default: 0, null: false
     t.integer "spouse_esigned", default: 0, null: false
     t.datetime "spouse_esigned_at"
     t.string "spouse_first_name"

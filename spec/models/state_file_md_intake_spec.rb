@@ -73,12 +73,12 @@
 #  referrer                                   :string
 #  residence_county                           :string
 #  routing_number                             :string
-#  secondary_disabled                         :integer          default("unfilled"), not null
 #  sign_in_count                              :integer          default(0), not null
 #  sms_notification_opt_in                    :integer          default("unfilled"), not null
 #  source                                     :string
 #  spouse_birth_date                          :date
 #  spouse_did_not_have_health_insurance       :integer          default("unfilled"), not null
+#  spouse_disabled                            :integer          default("unfilled"), not null
 #  spouse_esigned                             :integer          default("unfilled"), not null
 #  spouse_esigned_at                          :datetime
 #  spouse_first_name                          :string
