@@ -46,24 +46,20 @@ class StateFileArchivedIntakeRequest < ApplicationRecord
   end
 
   def fetch_random_addresses
-    file_path = determine_csv_file_path
-    addresses = CSV.read(file_path, headers: false).flatten
+    if Rails.env.development? || Rails.env.test?
+      file_path = Rails.root.join('app', 'lib', 'challenge_addresses', 'test_addresses.csv')
+      addresses = CSV.read(file_path, headers: false).flatten
+    else
+      bucket = select_bucket
+      file_key = "challenge_addresses/#{state_file_archived_intake&.mailing_state&.downcase}_addresses.csv"
+      file_path = File.join(Rails.root, "tmp", "#{current_archived_intake.mailing_state.downcase}_addresses.csv")
+      addresses = download_file_from_s3(bucket, file_key, file_path)
+    end
     addresses.sample(2)
   end
 
-  def determine_csv_file_path
-    if Rails.env.development? || Rails.env.test?
-      Rails.root.join('app', 'lib', 'challenge_addresses', 'test_addresses.csv')
-    else
-      file_path = Rails.root.join('tmp', 'challenge_addresses.csv')
-      download_file_from_s3(file_path) unless File.exist?(file_path)
-      file_path
-    end
-  end
 
-  def download_file_from_s3(file_path)
-    bucket = select_bucket
-    file_key = "challenge_addresses/#{state_file_archived_intake&.mailing_state&.downcase}_addresses.csv"
+  def download_file_from_s3(bucket, file_key, file_path)
     s3_client = Aws::S3::Client.new(region: 'us-east-1', credentials: s3_credentials)
     s3_client.get_object(
       response_target: file_path,
@@ -89,8 +85,6 @@ class StateFileArchivedIntakeRequest < ApplicationRecord
       'vita-min-demo-docs'
     when 'heroku'
       'vita-min-heroku-docs'
-    else
-      'vita-min-default-docs'
     end
   end
 end
