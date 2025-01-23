@@ -628,6 +628,14 @@ en:
     vita_long: 'VITA: Volunteer Income Tax Assistance'
     well: Well
     widowed: Widowed
+    written_language_options:
+      en: English
+      es: Spanish
+      ko: Korean
+      ru: Russian
+      vi: Vietnamese
+      zh_cn: Chinese Simplified
+      zh_tw: Chinese Traditional
     year: year
     year_date: Year
     you: you
@@ -3304,6 +3312,9 @@ en:
       nj_medical_expenses:
         edit:
           description_html: |-
+            <p>If you had at least %{medical_expenses_threshold} in non-reimbursed medical expenses, you are eligible for a deduction. Enter the full amount of your non-reimbursed expenses here. We’ll deduct the right amount for your situation.</p>
+            <p>If your medical expenses were less than %{medical_expenses_threshold}, you are not eligible for the deduction. Click "Continue."</p>
+
             <p>These expenses include:</p>
             <ul class="list--bulleted">
               <li>Expenses for yourself, your spouse and your dependents.</li>
@@ -6123,8 +6134,9 @@ en:
           other: In %{year}, did you or your spouse have any income from interest or dividends?
       interview_scheduling:
         help_text: We will try our best to schedule your review based on the information you provide.
-        language_select: What is your preferred language for the review?
+        interview_preference: What is your preferred language for the review?
         title: Do you have any time preferences for your interview phone call?
+        written_preference: What is your preferred written language?
       irs_letter:
         title:
           one: In %{year}, did you receive any letter or bill from the IRS?

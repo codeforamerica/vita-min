@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_01_21_221117) do
+ActiveRecord::Schema[7.1].define(version: 2025_01_23_160619) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -2029,6 +2029,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_21_221117) do
 
   create_table "state_file_md1099_r_followups", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.integer "income_source", default: 0, null: false
+    t.integer "service_type", default: 0, null: false
     t.datetime "updated_at", null: false
   end
 
@@ -2090,6 +2092,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_21_221117) do
     t.string "political_subdivision"
     t.date "primary_birth_date"
     t.integer "primary_did_not_have_health_insurance", default: 0, null: false
+    t.integer "primary_disabled", default: 0, null: false
     t.integer "primary_esigned", default: 0, null: false
     t.datetime "primary_esigned_at"
     t.string "primary_first_name"
@@ -2112,6 +2115,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_21_221117) do
     t.string "source"
     t.date "spouse_birth_date"
     t.integer "spouse_did_not_have_health_insurance", default: 0, null: false
+    t.integer "spouse_disabled", default: 0, null: false
     t.integer "spouse_esigned", default: 0, null: false
     t.datetime "spouse_esigned_at"
     t.string "spouse_first_name"
