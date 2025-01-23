@@ -6128,7 +6128,7 @@ es:
           other: En el %{year}, ¿Tuvo usted o su pareja ingresos por intereses o dividendos?
       interview_scheduling:
         help_text: Haremos todo lo posible para programar su revisión basada en la información que nos proporcione.
-        language_select: "¿Cuál idioma prefiere para la revisión?"
+        interview_preference: "¿Cuál idioma prefiere para la revisión?"
         title: "¿Tiene alguna preferencia de tiempo para su entrevista telefónica?"
         written_preference: "¿Cuál es tu idioma escrito preferido?"
       irs_letter:
