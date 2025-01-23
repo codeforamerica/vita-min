@@ -17,19 +17,19 @@
           <legend class="spacing-below-5"><%= t(".box14_html") %></legend>
           <% @box14_codes.each do |code| %>
             <div class="form-question spacing-below-25">
-              <% field_name = "box14_#{code.name.downcase}" %>
-              <% value = if code.name == "UIWFSWF"
+              <% field_name = "box14_#{code['name'].downcase}" %>
+              <% value = if code['name'] == "UIWFSWF"
                 @w2.get_box14_ui_overwrite
               else
                 @w2.send(field_name)
               end %>
               <%= f.vita_min_money_field(
                     field_name.to_sym,
-                    t(".box14_#{code.name.downcase}_html"),
+                    t(".box14_#{code['name'].downcase}_html"),
                     options: { value: value },
                     classes: ["form-width--long"]
                   ) %>
-                  <%= t(".box14_#{code.name.downcase}_help_text", year: MultiTenantService.statefile.current_tax_year, default: nil) %>
+                  <%= t(".box14_#{code['name'].downcase}_help_text", year: MultiTenantService.statefile.current_tax_year, default: nil) %>
             </div>
           </fieldset>
         <% end %>
