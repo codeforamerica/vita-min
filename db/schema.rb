@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_01_21_171015) do
+ActiveRecord::Schema[7.1].define(version: 2025_01_21_221117) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -2097,6 +2097,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_21_171015) do
     t.string "primary_middle_initial"
     t.string "primary_signature"
     t.text "primary_signature_pin"
+    t.decimal "primary_ssb_amount", precision: 12, scale: 2, default: "0.0", null: false
     t.string "primary_ssn"
     t.bigint "primary_state_id_id"
     t.decimal "primary_student_loan_interest_ded_amount", precision: 12, scale: 2, default: "0.0", null: false
@@ -2117,6 +2118,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_21_171015) do
     t.string "spouse_last_name"
     t.string "spouse_middle_initial"
     t.text "spouse_signature_pin"
+    t.decimal "spouse_ssb_amount", precision: 12, scale: 2, default: "0.0", null: false
     t.string "spouse_ssn"
     t.bigint "spouse_state_id_id"
     t.decimal "spouse_student_loan_interest_ded_amount", precision: 12, scale: 2, default: "0.0", null: false
