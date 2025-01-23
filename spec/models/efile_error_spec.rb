@@ -68,6 +68,7 @@ describe 'EfileError' do
       "md-had-health-insurance",
       "md-permanent-address",
       "md-review",
+      "md-social-security-benefits",
       "md-tax-refund",
       "md-two-income-subtractions",
       "nc-county",
