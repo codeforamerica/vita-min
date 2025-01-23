@@ -12,8 +12,8 @@ module SubmissionBuilder
               build_xml_doc("Form502R", documentId: "Form502R") do |xml|
                 xml.PrimaryAge @intake.calculate_age(@intake.primary_birth_date, inclusive_of_jan_1: false)
                 xml.SecondaryAge @intake.calculate_age(@intake.spouse_birth_date, inclusive_of_jan_1: false) if @intake.filing_status_mfj?
-                add_element_if_present(xml, :PriSSecurityRailRoadBenefits, :MD502R_LINE_9A)
-                add_element_if_present(xml, :SecSSecurityRailRoadBenefits, :MD502R_LINE_9B)
+                add_element_if_present(xml, :PriSSecurityRailRoadBenefits, :MD502R_LINE_9A) if Flipper.enabled?(:show_md_ssa)
+                add_element_if_present(xml, :SecSSecurityRailRoadBenefits, :MD502R_LINE_9B) if Flipper.enabled?(:show_md_ssa)
               end
             end
 

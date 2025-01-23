@@ -73,6 +73,8 @@ RSpec.describe PdfFiller::Md502RPdf do
         before do
           allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_9a).and_return 100
           allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_9b).and_return 200
+          allow(Flipper).to receive(:enabled?).and_call_original
+          allow(Flipper).to receive(:enabled?).with(:show_md_ssa).and_return(true)
         end
 
         it "output correct information" do

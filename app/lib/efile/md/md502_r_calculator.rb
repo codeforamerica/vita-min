@@ -18,7 +18,7 @@ module Efile
       private
 
       def calculate_line_9a
-        if @intake.filing_status_mfj? && @intake.direct_file_data.fed_ssb.positive?
+        if @intake.filing_status_mfj? && @intake.direct_file_data.fed_ssb.positive? && @intake.primary_ssb_amount.present?
           @intake.primary_ssb_amount.round
         else
           @intake.direct_file_data.fed_ssb.round
@@ -26,7 +26,7 @@ module Efile
       end
 
       def calculate_line_9b
-        if @intake.filing_status_mfj? && @intake.direct_file_data.fed_ssb.positive?
+        if @intake.filing_status_mfj? && @intake.direct_file_data.fed_ssb.positive? && @intake.spouse_ssb_amount.present?
           @intake.spouse_ssb_amount.round
         end
       end

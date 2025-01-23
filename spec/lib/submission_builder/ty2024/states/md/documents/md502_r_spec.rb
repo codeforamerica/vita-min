@@ -29,6 +29,8 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502R, required_sche
         before do
           allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_9a).and_return 100
           allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_9b).and_return 200
+          allow(Flipper).to receive(:enabled?).and_call_original
+          allow(Flipper).to receive(:enabled?).with(:show_md_ssa).and_return(true)
         end
         it "outputs all relevant values" do
           expect(xml.at("Form502R PriSSecurityRailRoadBenefits").text.to_i).to eq(100)
