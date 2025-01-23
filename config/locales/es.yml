@@ -3046,8 +3046,9 @@ es:
           interest_us_bonds: Ingresos por intereses de bonos de los Estados Unidos (no son sujetos a impuestos en Carolina del Norte)
           primary_veteran: Estado de veterano de las Fuerzas Armadas de los Estados Unidos
           social_security_benefits: Beneficios del Seguro Social (no sujetos a impuestos en Carolina del Norte)
-          spouse_veteran: Información del Cónyuge Veterano
+          spouse_veteran: Estado de veterano de las Fuerzas Armadas de los Estados Unidos de tu cónyuge
           state_credit: Miembro inscrito de una tribu indígena reconocida por el gobierno federal y recibiste ingresos de una fuente dentro de una reserva
+          state_details_title: Detalles estatales
           subtraction_indian_tribe: Resta por ingresos de un miembro de una tribu india
           use_tax_amount: Cantidad del impuesto sobre uso
           use_tax_applied: Compras fuera del estado en %{filing_year} sin pagar impuesto sobre ventas
@@ -3689,8 +3690,8 @@ es:
           reject_desc: 'Descripción del Rechazo:'
           title: Lamentablemente, tu declaración de impuestos estatal de %{state_name}de %{filing_year} fue rechazada
       review:
-        county: Condado donde estaba ubicada su dirección permanente el 31 de diciembre de %{filing_year}
-        county_during_hurricane: Condado donde estaba ubicada su dirección permanente durante el huracán Helene
+        county: Condado donde vivías el 31 de diciembre de %{filing_year}
+        county_during_hurricane: Otro condado donde vivías (o actualmente vives) entre el 25 de septiembre y la fecha de hoy
       shared:
         abstract_review_header:
           amount_rounding_notice_html: "<strong>Hemos redondeado automáticamente todas las cantidades en dólares al número entero más cercano.</strong> La %{state_agency_name} sólo aceptará números enteros en la declaración de impuestos final."

@@ -3090,8 +3090,9 @@ en:
           interest_us_bonds: Interest income from U.S. bonds (not taxable in North Carolina)
           primary_veteran: United States Armed Forces veteran status
           social_security_benefits: Social Security benefits (not taxable in North Carolina)
-          spouse_veteran: Spouse Veteran Info
+          spouse_veteran: Your spouse's United States Armed Forces veteran status
           state_credit: Enrolled member of a federally recognized Indian Tribe, and received income from a source within a reservation
+          state_details_title: State Details
           subtraction_indian_tribe: Subtraction for income of a member of an Indian tribe
           use_tax_amount: Amount of use tax
           use_tax_applied: Out-of-state purchases in %{filing_year} without paying sales tax
@@ -3717,8 +3718,8 @@ en:
           reject_desc: 'Reject Description:'
           title: Unfortunately, your %{filing_year} %{state_name} state tax return was rejected
       review:
-        county: County where your permanent address was located on December 31, %{filing_year}
-        county_during_hurricane: County where your permanent address was located during Hurricane Helene
+        county: County where you resided on December 31, %{filing_year}
+        county_during_hurricane: Other county where you resided (or currently reside) between September 25th, 2024 and today
       shared:
         abstract_review_header:
           amount_rounding_notice_html: "<strong>We have automatically rounded all dollar amounts to the nearest whole number.</strong> The %{state_agency_name} will only accept whole numbers on the final tax return."
