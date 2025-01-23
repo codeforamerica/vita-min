@@ -2217,15 +2217,16 @@ en:
           supported_by: Supported by the New Jersey Division of Taxation
           title: File your New Jersey taxes for free
         not_you: Not %{user_name}?
-        ny:
-          closed_html: |
-            <strong>FileYourStateTaxes</strong> is built in partnership with New York State to integrate with IRS Direct File.<br /><br />
-            We're closed for the tax season. Unfortunately you can no longer file your state return with us this year.
-          supported_by: Supported by New York State
-          title: File your New York State taxes for free
         start_new: Click here to start a new %{state_name} State return.
         title_closed: Our free %{state_name} tax filing service is closed for the season
         welcome_back: Welcome back %{user_name}!
+      ny_closed:
+        body_html: |
+          This service doesn’t support New York State tax returns for 2024. You can still file with IRS Direct File and New York State Direct File. To see if you’re eligible and start your federal return, visit <a href="https://directfile.irs.gov/">IRS Direct File</a>.
+          <br /><br />
+          To download your 2023 NY State tax return, please <a href="https://www.fileyourstatetaxes.org/en/az/faq/how_can_i_access_my_2023_state_tax_return">visit our FAQ</a>.
+        supported_by: Supported by New York State
+        title: Thank you for visiting FileYourStateTaxes
     navigation:
       nj:
         section_1: 'Section 1: Income'

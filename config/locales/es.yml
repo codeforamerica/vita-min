@@ -2168,15 +2168,16 @@ es:
           supported_by: Respaldado por el estado de New Jersey Division of Taxation
           title: Presenta tus impuestos estatales de New Jersey sin costo
         not_you: "¿No es %{user_name}?"
-        ny:
-          closed_html: |
-            <strong>FileYourStateTaxes</strong> se creó en asociación con el estado de Nueva York para integrarse con la herramienta Direct File del IRS.<br /><br />
-            Estamos cerrados por la temporada de impuestos. Lamentablemente no puede presentar su declaración estatal con nosotros este año.
-          supported_by: Respaldada por el estado de Nueva York
-          title: Declara tus impuestos Estatales de Nueva York sin costo
         start_new: Haga clic aquí para iniciar una nueva declaración estatal de %{state_name}.
         title_closed: Nuestro servicio gratuito para declarar tus impuestos estatales de %{state_name} está cerrado por la temporada
         welcome_back: "¡Bienvenido de nuevo %{user_name}!"
+      ny_closed:
+        body_html: |
+          No puedes usar este servicio para declarar tus impuestos estatales de Nueva York de 2024. Sin embargo, podrías declarar con IRS Direct File y New York State Direct File. Para verificar tu elegibilidad y comenzar a presentar tu declaración federal, visita a IRS Direct File. a <a href="https://directfile.irs.gov/">IRS Direct File</a>.
+          <br /><br />
+          Para descargar tu declaración de impuestos de Nueva York de 2023, <a href="https://www.fileyourstatetaxes.org/en/az/faq/how_can_i_access_my_2023_state_tax_return">visita nuestras preguntas frecuentes</a>.
+        supported_by: Respaldada por el estado de Nueva York
+        title: Gracias por visitar FileYourStateTaxes
     navigation:
       nj:
         section_1: 'Sección 1: Ingresos'
