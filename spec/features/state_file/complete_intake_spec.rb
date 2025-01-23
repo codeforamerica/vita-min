@@ -561,7 +561,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
         expect(page).to have_text I18n.t("state_file.landing_page.ny_closed.title")
 
         # try to log in with existing ny intake and get redirected
-        visit "/login-options"
+        visit "/questions/return-status"
         expect(page).to have_text "Sign in to FileYourStateTaxes"
         click_on "Sign in with email"
         expect(page).to have_text "Sign in with your email address"
