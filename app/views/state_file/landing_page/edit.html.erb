@@ -8,12 +8,6 @@
     <div class="grid__item question-wrapper">
       <%= yield :notices %>
       <div class="main-content-inner">
-        <% if illustration_path.present? %>
-          <div class="question__illustration">
-            <%= image_tag("#{illustration_folder}/#{illustration_path}", alt: "") %>
-          </div>
-        <% end %>
-
         <div class="landing-page-content">
           <h1 class="h1"><%= title %></h1>
 
