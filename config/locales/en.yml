@@ -3202,13 +3202,17 @@ en:
             <p>Please include the sum of the following:</p>
             <ul class="list--bulleted">
               <li><a href="https://nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git8.pdf" target="_blank" rel="noopener nofollow">Estimated income tax payments</a> you made throughout the year for your New Jersey state taxes</li>
-              <ul class="list--bulleted">
-                <li><strong>This does not include withholdings in your paycheck</strong></li>
-              </ul>
+              <li class="list--no-bullets">
+                <ul class="list--bulleted">
+                  <li><strong>This does not include withholdings in your paycheck</strong></li>
+                </ul>
+              </li>
               <li>Overpayments on your %{prior_year} return that you chose to apply to your %{filing_year} New Jersey taxes</li>
-              <ul class="list--bulleted">
-                <li>Note: you would have selected this option when filing your %{prior_year} return</li>
-              </ul>
+              <li class="list--no-bullets">
+                <ul class="list--bulleted">
+                  <li>Note: you would have selected this option when filing your %{prior_year} return</li>
+                </ul>
+              </li>
             </ul>
           label: 'Total:'
           title: Please tell us if you already made any payments toward your %{filing_year} New Jersey taxes.
