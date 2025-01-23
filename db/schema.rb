@@ -2102,6 +2102,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_23_160619) do
     t.string "primary_middle_initial"
     t.string "primary_signature"
     t.text "primary_signature_pin"
+    t.decimal "primary_ssb_amount", precision: 12, scale: 2, default: "0.0", null: false
     t.string "primary_ssn"
     t.bigint "primary_state_id_id"
     t.decimal "primary_student_loan_interest_ded_amount", precision: 12, scale: 2, default: "0.0", null: false
@@ -2111,7 +2112,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_23_160619) do
     t.string "referrer"
     t.string "residence_county"
     t.string "routing_number"
-    t.integer "secondary_disabled", default: 0, null: false
     t.integer "sign_in_count", default: 0, null: false
     t.integer "sms_notification_opt_in", default: 0, null: false
     t.string "source"
@@ -2123,6 +2123,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_23_160619) do
     t.string "spouse_last_name"
     t.string "spouse_middle_initial"
     t.text "spouse_signature_pin"
+    t.decimal "spouse_ssb_amount", precision: 12, scale: 2, default: "0.0", null: false
     t.string "spouse_ssn"
     t.bigint "spouse_state_id_id"
     t.decimal "spouse_student_loan_interest_ded_amount", precision: 12, scale: 2, default: "0.0", null: false
