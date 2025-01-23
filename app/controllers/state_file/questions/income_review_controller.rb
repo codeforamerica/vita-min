@@ -35,6 +35,10 @@ module StateFile
       private
 
       def should_show_warning?(w2, w2_count_for_filer)
+        return false if StateFile::StateInformationService
+          .w2_supported_box14_codes(w2.state_file_intake.state_code)
+          .none? { |code| code[:name] == "UI_WF_SWF" || code[:name] == "FLI" }
+
         if w2_count_for_filer > 1
           return true if w2.get_box14_ui_overwrite.nil?
           return true if w2.box14_fli.nil?

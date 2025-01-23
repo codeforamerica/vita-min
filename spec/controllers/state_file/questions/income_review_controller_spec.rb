@@ -115,6 +115,13 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
         end
       end
 
+      context "when not in a state that requires ui_wf_swf or fli Box 14 values" do
+        let(:intake) { create(:state_file_az_intake) }
+        let!(:w2_1) { create(:state_file_w2, state_file_intake: intake) }
+        let!(:w2_2) { create(:state_file_w2, state_file_intake: intake) }
+        include_examples "does not display W2 warnings"
+      end
+
       context "when no w2s" do
         include_examples "does not display W2 warnings"
       end
