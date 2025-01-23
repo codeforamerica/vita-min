@@ -1,6 +1,7 @@
 module StateFile
   module ArchivedIntakes
     class ArchivedIntakeController < ApplicationController
+      before_action :check_feature_flag
       def current_request
         StateFileArchivedIntakeRequest.find_by(ip_address: ip_for_irs, email_address: session[:email_address])
       end
@@ -14,7 +15,6 @@ module StateFile
 
       def check_feature_flag
         unless Flipper.enabled?(:get_your_pdf)
-          # this redirect to be changed when we have an offboarding page
           redirect_to root_path
         end
       end
