@@ -5,7 +5,7 @@
 
 <% content_for :card do %>
   <h1 class="h2"><%= t(".title") %></h1>
-  <%= t(".description_html", two_percent_of_income: number_to_currency(current_intake.medical_expenses_threshold)) %>
+  <%= t(".description_html", medical_expenses_threshold: number_to_currency(current_intake.medical_expenses_threshold)) %>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="white-group">
