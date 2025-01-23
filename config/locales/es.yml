@@ -3163,17 +3163,13 @@ es:
             <p>Incluye la suma de lo siguiente:</p>
             <ul class="list--bulleted">
               <li><a href="https://nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git8.pdf" target="_blank" rel="noopener nofollow">Pagos estimados de impuestos sobre tus ingresos</a> que hiciste durante el año para tus impuestos estatales de New Jersey</li>
-              <li>
-                <ul class="list--bulleted">
-                  <li><strong>Esto no incluye las retenciones de tu cheque (paycheck)</strong></li>
-                </ul>
-              </li<
+              <ul class="list--bulleted">
+                <li><strong>Esto no incluye las retenciones de tu cheque (paycheck)</strong></li>
+              </ul>
               <li>Pagos en exceso en tu declaración de %{prior_year} que elegiste aplicar a tus impuestos estatales de New Jersey en %{filing_year}</li>
-              <li>
-                <ul class="list--bulleted">
-                  <li>Nota: habrías seleccionado esta opción al presentar tu declaración de %{prior_year}</li>
-                </ul>
-              </li>
+              <ul class="list--bulleted">
+                <li>Nota: habrías seleccionado esta opción al presentar tu declaración de %{prior_year}</li>
+              </ul>
             </ul>
           label: 'Total:'
           title: Por favor, dinos si ya pagaste parte de tus impuestos estatales de New Jersey de %{filing_year}.
