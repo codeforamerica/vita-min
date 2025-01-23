@@ -2006,8 +2006,8 @@ es:
       verification_code:
         edit:
           error_message: Después de 2 intentos fallidos, las cuentas serán bloqueadas.
+          subtitle_2_html: Si aún necesitas ayuda para resuscribirte, <a class="open-intercom">chatea con nosotros</a>.
           subtitle_html: Si no recibiste un código, revisa tu carpeta de spam. Si aún necesitas ayuda para volver a suscribirte, chatea con nosotros.
-          subtitle_html_2: Si aún necesitas ayuda para resuscribirte, chatea con nosotros.
           title_html: Hemos enviado tu código a <strong>%{email_address}</strong>
           verify: Verificar el código
       verification_error:
@@ -3843,7 +3843,7 @@ es:
       verification_code:
         edit:
           action: " Verificar el código"
-          subtitle_html: Si no recibiste un código por favor revisa tu carpeta de spam. Si aún necesitas ayuda, chatea con nosotros.
+          subtitle_html: Si no recibiste un código por favor revisa tu carpeta de spam. Si aún necesitas ayuda, <a class="open-intercom">chatea con nosotros</a>.
           title_html: Te enviamos tu código a <strong>%{contact_info}</strong>
           verification_code_label: Ingresa el código de 6 dígitos
       w2:
