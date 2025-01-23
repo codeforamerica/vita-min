@@ -2234,6 +2234,13 @@ es:
             Para obtener más información, visite: <a href="https://azdor.gov/individual-income-tax-filing-assistance/verifying-identity-and-avoiding-identity-theft" target="_blank" rel="noopener noreferrer">azdor.gov/individual-income-tax-filing-assistance/verifying-identity-and-avoiding-identity-theft</a>
           reveal_title: "¿Por qué me pides esta información?"
           subtitle: El Departamento de Ingresos de Arizona solicita que la licencia de conducir/tarjeta de identificación se incluya con la declaración, pero no rechazará la declaración si no está incluida.
+      az_spouse_state_id:
+        az_spouse:
+          reveal_content_html: |
+            En un esfuerzo continuo por proteger a los contribuyentes del robo de identidad, el IRS, las agencias tributarias estatales y la industria tributaria le piden que proporcione su licencia de conducir o número de identificación emitido por el estado.<br/>
+            Para obtener más información, visite: <a href="https://azdor.gov/individual-income-tax-filing-assistance/verifying-identity-and-avoiding-identity-theft" target="_blank" rel="noopener noreferrer">azdor.gov/individual-income-tax-filing-assistance/verifying-identity-and-avoiding-identity-theft</a>
+          reveal_title: "¿Por qué me pides esta información?"
+          subtitle: El Departamento de Ingresos de Arizona solicita que la licencia de conducir/tarjeta de identificación se incluya con la declaración, pero no rechazará la declaración si no está incluida.
       az_prior_last_names:
         edit:
           prior_last_names_label:
