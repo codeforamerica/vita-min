@@ -80,7 +80,8 @@ RSpec.describe StateFile::ArchivedIntakes::MailingAddressValidationController, t
         expect(access_log.state_file_archived_intake_request).to eq(current_request)
         expect(access_log.event_type).to eq("correct_mailing_address")
 
-        # expect(response).to redirect_to(state_file_archived_intakes_edit_mailing_address_validation_path)
+        #this will be the download page
+        expect(response).to redirect_to(root_path)
       end
     end
 
