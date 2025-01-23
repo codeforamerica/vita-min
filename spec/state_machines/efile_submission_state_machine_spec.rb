@@ -17,34 +17,23 @@ describe EfileSubmissionStateMachine do
         allow(messaging_service).to receive(:send_efile_submission_successful_submission_message)
       end
 
-      context "with a previous submission" do
-        let(:previous_submission) { create(:efile_submission, :resubmitted, :for_state) }
-
+      context "is the submission does not have an initiated by id" do
         before do
-          allow(submission).to receive(:previous_submission_id).and_return(previous_submission.id)
+          allow(submission).to receive(:admin_resubmission?).and_return(false)
         end
-
-        context "client was notified_of_rejection" do
-          let!(:notified_of_rejection_transition) { create(:efile_submission_transition, efile_submission: previous_submission, to_state: "notified_of_rejection", most_recent: false, sort_key: 80) }
-
-          it "sends a successful submission message" do
-            submission.transition_to!(:preparing)
-            expect(messaging_service).to have_received(:send_efile_submission_successful_submission_message)
-          end
-        end
-
-        context "client was not notified_of_rejection" do
-          it "does not send a successful submission message" do
-            submission.transition_to!(:preparing)
-            expect(messaging_service).not_to have_received(:send_efile_submission_successful_submission_message)
-          end
-        end
-      end
-
-      context "without a previous submission" do
         it "sends a successful submission message" do
           submission.transition_to!(:preparing)
           expect(messaging_service).to have_received(:send_efile_submission_successful_submission_message)
+        end
+      end
+
+      context "is the submission does have an initiated by id" do
+        before do
+          allow(submission).to receive(:admin_resubmission?).and_return(true)
+        end
+        it "does not send a successful submission message" do
+          submission.transition_to!(:preparing)
+          expect(messaging_service).not_to have_received(:send_efile_submission_successful_submission_message)
         end
       end
     end

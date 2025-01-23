@@ -67,8 +67,7 @@ class EfileSubmissionStateMachine
     # only send if the most recent efile_submission was notified_of_rejection (i.e. any efile_submission_transitions have :auto_cancel)
     # previous_submission_id on EfileSubmission will lead us to the original submission
     # if original submission has any transitions with "notified_of_rejection" "to_state" then we DO send message, otherwise skip
-    if submission&.previous_submission_id.present?
-    else
+    unless submission.admin_resubmission?
       StateFile::AfterTransitionMessagingService.new(submission).send_efile_submission_successful_submission_message
     end
     submission.transition_to(:bundling)
