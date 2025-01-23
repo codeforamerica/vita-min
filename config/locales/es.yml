@@ -3410,7 +3410,7 @@ es:
           description_html: "<p>El siguiente paso es completar esta  <a href=\"https://www.nj.gov/treasury/taxation/pdf/wrkshtg.pdf\" target=\"_blank\" rel=\"noopener nofollow\">hoja de trabajo</a>.</p> \n<p>Una vez que la completes, vuelve a esta página.</p>\n<p>La hoja de trabajo te preguntará dónde viviste y por cuánto tiempo. Si te mudaste, por ejemplo, tendrá espacio para que enumeres todos los lugares donde viviste.</p>\n"
           helper_anchor_description_html: Si recibiste un beneficio de Comunidades Accesibles de New Jersey para Propietarios e Inquilinos (ANCHOR por las siglas en inglés), el monto del beneficio no afecta el monto a informar en la línea 8. (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> ofrece alivio de impuestos a la propiedad a residentes de New Jersey que tengan o alquilen una vivienda principal en New Jersey y que cumplan con ciertos límites de ingresos).
           helper_anchor_heading: "¿Qué pasa si recibí beneficios ANCHOR?"
-          helper_description: Escribe las tarifas de tu sitio pagadas en %{filing_year} en la sección de alquiler de la Hoja de trabajo G.
+          helper_description: Escribe las tarifas de tu sitio pagadas en %{filing_year} en la sección de alquiler de <a href=\"https://www.nj.gov/treasury/taxation/pdf/wrkshtg.pdf\" target=\"_blank\" rel=\"noopener nofollow\">la Hoja de trabajo G</a>.
           helper_heading: Dueños/as de casas móviles/rodantes
           label_html: "<strong>Ingresa la Línea 8 de la Hoja de trabajo</strong>"
           title: Buenas noticias—calificas para una deducción o crédito
