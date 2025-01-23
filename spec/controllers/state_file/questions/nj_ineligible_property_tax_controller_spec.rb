@@ -60,6 +60,41 @@ RSpec.describe StateFile::Questions::NjIneligiblePropertyTaxController do
         end
       end
     end
+
+    describe "reason_income_single_mfs" do
+      context "when filing status is single and ineligible for exemption" do
+        let(:intake) { create :state_file_nj_intake, :df_data_minimal }
+        it "returns reason_income_single_mfs text" do
+          allow(Efile::Nj::NjPropertyTaxEligibility).to receive(:ineligible?).and_return true
+          get :edit, params: {}
+          expected_text = I18n.t("state_file.questions.nj_ineligible_property_tax.edit.reason_income_single_mfs")
+          expect(subject.ineligible_reason).to eq(expected_text)
+        end
+      end
+
+      context "when filing status is MFS and ineligible for exemption" do
+        let(:intake) { create :state_file_nj_intake, :df_data_mfs }
+        it "returns reason_income_single_mfs text" do
+          allow(Efile::Nj::NjPropertyTaxEligibility).to receive(:ineligible?).and_return true
+          get :edit, params: {}
+          expected_text = I18n.t("state_file.questions.nj_ineligible_property_tax.edit.reason_income_single_mfs")
+
+          expect(subject.ineligible_reason).to eq(expected_text)
+        end
+      end
+    end
+
+    describe "reason_income_mfj_qss_hoh" do
+      context "when filing status is MFJ/QSS/HOH and ineligible for exemption" do
+        let(:intake) { create :state_file_nj_intake, :df_data_mfj }
+        it "returns reason_income_mfj_qss_hoh text" do
+          allow(Efile::Nj::NjPropertyTaxEligibility).to receive(:ineligible?).and_return true
+          get :edit, params: {}
+          expected_text = I18n.t("state_file.questions.nj_ineligible_property_tax.edit.reason_income_mfj_qss_hoh")
+          expect(subject.ineligible_reason).to eq(expected_text)
+        end
+      end
+    end
   end
 
   describe "#on_home_or_rental" do
@@ -117,6 +152,23 @@ RSpec.describe StateFile::Questions::NjIneligiblePropertyTaxController do
     it 'succeeds' do
       get :edit
       expect(response).to be_successful
+    end
+
+    context 'when reason is not income' do
+      let(:intake) { create :state_file_nj_intake, household_rent_own: "neither" }
+      it 'shows mistake text' do
+        allow(Efile::Nj::NjPropertyTaxEligibility).to receive(:ineligible?).and_return false
+        get :edit
+        expect(response.body).to have_text(I18n.t("state_file.questions.nj_ineligible_property_tax.edit.mistake_text"))
+      end
+    end
+
+    context 'when reason is income' do
+      it 'does not show mistake text' do
+        allow(Efile::Nj::NjPropertyTaxEligibility).to receive(:ineligible?).and_return true
+        get :edit
+        expect(response.body).not_to have_text(I18n.t("state_file.questions.nj_ineligible_property_tax.edit.mistake_text"))
+      end
     end
   end
 end

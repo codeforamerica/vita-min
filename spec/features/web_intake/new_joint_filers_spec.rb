@@ -270,10 +270,6 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
       expect(page).to have_selector("h1", text: "In #{current_tax_year}, did you or your spouse pay any child or dependent care expenses?")
     end
     click_on "Yes"
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "In #{current_tax_year}, did you or your spouse adopt a child?")
-    end
-    click_on "Yes"
 
     # Student questions
     screenshot_after do
@@ -578,23 +574,26 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     end
     click_on "Continue"
     screenshot_after do
-      expect(page).to have_selector("h1", text: "What is your race?")
+      expect(page).to have_selector("h1", text: "What is your race and/or ethnicity?")
+      check "American Indian or Alaska Native"
+      check "Native Hawaiian or other Pacific Islander"
+      check "Asian"
+      check "Black or African American"
+      check "Hispanic or Latino"
+      check "Middle Eastern or North African"
       check "White"
+
     end
     click_on "Continue"
     screenshot_after do
-      expect(page).to have_selector("h1", text: "What is your spouse's race?")
+    expect(page).to have_selector("h1", text: "What is your spouse's race and/or ethnicity?")
+      check "American Indian or Alaska Native"
+      check "Native Hawaiian or other Pacific Islander"
+      check "Asian"
+      check "Black or African American"
+      check "Hispanic or Latino"
+      check "Middle Eastern or North African"
       check "White"
-    end
-    click_on "Continue"
-    screenshot_after do
-      expect(page).to have_text("What is your ethnicity?")
-      choose "Not Hispanic or Latino"
-    end
-    click_on "Continue"
-    screenshot_after do
-      expect(page).to have_text("What is your spouse's ethnicity?")
-      choose "Not Hispanic or Latino"
     end
     click_on "Continue"
   end
