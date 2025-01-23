@@ -630,6 +630,14 @@ es:
     vita_long: 'VITA: Asistencia Voluntaria al Contribuyente Tributario'
     well: Bien
     widowed: Viudo/a
+    written_language_options:
+      en: Inglés
+      es: Español
+      ko: Coreano
+      ru: Ruso
+      vi: Vietnamita
+      zh_cn: Chino Simplificado
+      zh_tw: Chino Tradicional
     year: año
     year_date: Año
     you: usted
@@ -6141,8 +6149,9 @@ es:
           other: En el %{year}, ¿Tuvo usted o su pareja ingresos por intereses o dividendos?
       interview_scheduling:
         help_text: Haremos todo lo posible para programar su revisión basada en la información que nos proporcione.
-        language_select: "¿Cuál idioma prefiere para la revisión?"
+        interview_preference: "¿Cuál idioma prefiere para la revisión?"
         title: "¿Tiene alguna preferencia de tiempo para su entrevista telefónica?"
+        written_preference: "¿Cuál es tu idioma escrito preferido?"
       irs_letter:
         title:
           many: En %{year}, ¿recibió usted o su cónyuge alguna carta o factura del IRS?
