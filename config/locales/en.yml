@@ -102,7 +102,7 @@ en:
     file_yourself:
       edit:
         info:
-        - File taxes online on your own using our partner website. This is our quickest option for households earning under $79,000 to file taxes and collect the tax credits you are owed!
+        - File taxes online on your own using our partner website. This is our quickest option for households earning under $84,000 to file taxes and collect the tax credits you are owed!
         - To get started, we’ll need to collect some basic information.
         title: File taxes on your own
   documents:
@@ -744,10 +744,10 @@ en:
       edit_13614c_form_page1:
         fields:
           apt: Apt.
-          below_qualifying_relative_income_requirement: Did this person have less than $4,400 of income?
+          below_qualifying_relative_income_requirement: Did this person have less than $5,050 of income?
           blind: Legally blind
           can_be_claimed_by_other: Is this person a qualifying child/relative of any other person?
-          claimed_by_another: Can anyone claim you or your spouse as a dependent?
+          claimed_by_another: Can anyone else claim the taxpayer or spouse on their tax return?
           contact_number: Contact Number
           disabled: Totally and Permanently Disabled
           dob: DOB
@@ -755,25 +755,38 @@ en:
           filer_provided_over_half_housing_support: Did the taxpayer(s) pay more than half the cost of maintaining a home for this person?
           filer_provided_over_half_support: Did the taxpayer(s) provide more than 50% of support for this person?
           first_name: First Name
-          got_married_during_tax_year: A. If Yes, Did you get married in 2021?
+          got_married_during_tax_year: A. If Yes, Did you get married in 2024?
           had_disability: Totally and permanently disabled
-          issued_identity_pin: Have you, your spouse, or dependents been a victim of tax related identity theft or been issued an Identity Protection PIN?
+          issued_an_identity_protection_pin: Issued an identity protection PIN (IPPIN)
+          issued_ippin: Issued IPPIN
           job_title: Job Title
           last_name: Last Name
-          lived_with_spouse: B. Did you live with your spouse during any part of the last six months of 2021?
+          lived_or_worked_in_two_or_more_states: Did you live or work in two or more states in 2024?
+          lived_with_spouse: B. Did you live with your spouse during any part of the last six months of 2024?
           middle_initial: M.I.
           months_in_home: "# of mos. lived in home last year:"
           never_married: Never Married
           north_american_resident: 'Resident of US, CAN or MEX last year:'
+          owner_or_holder_of_any_digital_assets: Owner or holder of any digital assets
+          pay_due_balance_directly: If they have a balance due, would they like to make a payment directly from their bank account?
+          preferred_written_language: If yes, which language?
+          presidential_campaign_fund: Presidential Election Campaign Fund $3 to go to this fund
           primary_us_citizen: U.S. citizen?
           provided_over_half_own_support: Did this person provide more than 50% of his/ her own support?
+          receive_written_communication: Receive written communications from the IRS in a language other than English?
+          refund_check_by_mail: Check by mail
+          refund_other: Other
+          refund_payment_method: 'If you are due a refund, would you like:'
+          refund_payment_method_direct_deposit: Direct Deposit
+          refund_payment_method_split: Split refund between different accounts
+          register_to_vote: Would you like information on how to vote and/or how to register to vote
           spouse_dob: Spouse's DOB
           spouse_first_name: Spouse’s First Name
           spouse_job_title: Spouse’s Job Title
           spouse_us_citizen: Spouse U.S. citizen?
           us_citizen: US citizen
           was_full_time_student: Full Time Student
-          was_married: Single or Married as of 12/31/21
+          was_married: Single or Married as of 12/31/2024
           was_student: Full-time Student last year
         last_year_was_your_spouse: 'Last year, was your spouse:'
         last_year_were_you: 'Last year, were you:'
@@ -781,73 +794,28 @@ en:
         what_was_your_marital_status: As of December 31, %{current_tax_year}, what was your marital status?
       edit_13614c_form_page2:
         fields:
-          adopted_child: Adopt a child?
-          bought_energy_efficient_items: Purchase and install energy-efficient home items?
-          bought_marketplace_health_insurance: Have health coverage through the Marketplace (Exchange)? [Provide Form 1095-A]
           had_asset_sale_income: Income (or loss) from the sale or exchange of Stocks, Bonds, Virtual Currency or Real Estate?
-          had_capital_loss_carryover: File a federal return last year containing a “capital loss carryover” on Form 1040 Schedule D?
-          had_cash_check_digital_assets: Cash/check/virtual currency payments, or other property or services for any work performed not reported on Forms W-2 or 1099?
-          had_debt_forgiven: Have credit card, student loan or mortgage debt cancelled/forgiven by a lender or have a home foreclosure?
           had_disability_income: Disability income?
-          had_hsa: Have a Health Savings Account?
+          had_gambling_income: Gambling winnings, including lottery
           had_interest_income: 'Interest/Dividends from: checking/savings accounts, bonds, CDs, brokerage?'
-          had_local_tax_refund: Refund or state/local income taxes?
-          had_other_income: Other income?
+          had_local_tax_refund: Refund of state or local income tax
+          had_other_income: 'Any other money received during the year? (example: cash payments, jury duty, awards, digital assets, royalties, union strike benefits)'
           had_rental_income: Income (or loss) from Rental Property?
-          had_retirement_income: Retirement income or payments from Pensions. Annuities, and or IRA?
-          had_scholarships: Scholarships?
+          had_rental_income_and_used_dwelling_as_residence: If yes, did you use the dwelling unit as a personal residence and rent it for fewer than 15 days
+          had_rental_income_from_personal_property: Income from renting personal property such as a vehicle
+          had_retirement_income: Retirement account, pension or annuity proceeds
           had_self_employment_income: Self-Employment income?
           had_social_security_income: Social Security or Railroad Retirement Benefits?
-          had_tax_credit_disallowed: Have Earned Income Credit, Child Tax Credit or American Opportunity Credit disallowed in a prior year?
           had_tips: Tip Income?
           had_unemployment_income: Unemployment Compensation?
           had_wages: Wages or Salary? (Form W-2)
-          has_ssn_of_alimony_recipient: If yes, do you have the recipient’s SSN?
           job_count: If yes, how many jobs did you have last year?
-          made_estimated_tax_payments: Make estimated tax payments or apply last year’s refund to this year’s tax?
-          made_estimated_tax_payments_amount: If so how much?
-          paid_alimony: Alimony or separate maintenance payments?
-          paid_charitable_contributions: Charitable Contributions
-          paid_dependent_care: Child or dependent care expenses such as daycare?
-          paid_local_tax: Taxes (State, Real Estate, Personal Property, Sales)
-          paid_medical_expenses: Medical & Dental (including insurance premiums)
-          paid_mortgage_interest: Mortgage Interest (Form 1098)
-          paid_post_secondary_educational_expenses: College or post secondary educational expenses for yourself, spouse or dependents?
-          paid_retirement_contributions: Contributions or repayments to a retirement account?
-          paid_school_supplies: For supplies used as an eligible educator such as a teacher, teacher's aide, counselor, etc.?
-          paid_self_employment_expenses: Expenses related to self-employment income or any other income you received?
-          paid_student_loan_interest: Student loan interest?
           received_alimony: Alimony income or separate maintenance payments?
-          received_homebuyer_credit: Receive the First Time Homebuyers Credit in 2008?
-          tax_credit_disallowed_year: If yes, for which tax year?
-          wants_to_itemize: Any of the following?
-        part_3_title: Part III – Income – Last Year, Did You (or Your Spouse) Receive
-        part_4_title: Part IV – Expenses – Last Year, Did You (or Your Spouse) Pay
-        part_5_title: Part V - Life Events - Last Year, Did You (or Your Spouse)
+          reported_asset_sale_loss: Did you report a loss on last year’s return
+          reported_self_employment_loss: Did you report a loss on last year's return
+        part_3_title: Income – Last Year, Did You (or Your Spouse) Receive
         title: 13614-C page 2
       edit_13614c_form_page3:
-        additional_info_title: Additional Information and Questions Related to the Preparation of Your Return
-        fields:
-          q10_household_disability: Do they or any member of their household have a disability?
-          q11_veteran: Veteran from the U.S. Armed Forces?
-          q12_primary_race: Race?
-          q13_spouse_race: Spouse’s race?
-          q14_primary_ethnicity: Ethnicity?
-          q15_spouse_ethnicity: Spouse’s ethnicity?
-          q1_preferred_written_language: If yes, which language?
-          q1_receive_written_communication: Receive written communications from the IRS in a language other than English?
-          q2_presidential_campaign_fund: Presidential Election Campaign Fund $3 to go to this fund
-          q3_refund_payment_method: 'If you are due a refund, would you like:'
-          q3_refund_payment_method_direct_deposit: a. Direct Deposit
-          q3_refund_payment_method_savings_bond: b. Purchase U.S. Savings Bond
-          q3_refund_payment_method_split: c. Split refund between different accounts
-          q4_pay_due_balance_directly: If they have a balance due, would they like to make a payment directly from their bank account?
-          q5_federal_disaster_area: Declared living in a federal disaster area?
-          q5_federal_disaster_area_where: If yes, where?
-          q6_letter_from_irs: Received a letter from the IRS?
-          q7_register_to_vote: Register to vote?
-          q8_speak_and_understand_english: Can carry on a conversation in English, both understanding & speaking?
-          q9_read_english: Can read a newspaper or book in English?
         title: 13614-C page 3
       edit_take_action:
         blank_no_internal_note: If blank, no internal note is added.
@@ -1983,7 +1951,7 @@ en:
         description: File quickly on your own.
         list:
           file: File for %{current_tax_year} only
-          income: 'Income: under $79,000'
+          income: 'Income: under $84,000'
         timeframe: 45 minutes to file
         title: File Myself
       gyr_tile:
@@ -1991,7 +1959,7 @@ en:
         description: File confidently with assistance from our IRS-certified volunteers.
         list:
           file: File for %{oldest_filing_year}-%{current_tax_year}
-          income: 'Income: under $66,000'
+          income: 'Income: under $67,000'
           ssn: Must show copies of your Social Security card or ITIN paperwork
         timeframe: 2-3 weeks to file
         title: File with Help
@@ -2002,7 +1970,7 @@ en:
     triage_do_not_qualify:
       edit:
         faq_link_text: If you have additional questions, visit our FAQ page.
-        help_text: Our free service is available to households earning less than $79,000 a year.
+        help_text: Our free service is available to households earning less than $84,000 a year.
         title: Unfortunately, it looks like you do not qualify for our free service.
     triage_gyr:
       edit:
@@ -2041,12 +2009,12 @@ en:
 
             <p class="text--small spacing-above-15">Your income level should not include stimulus payments, public benefits, or SSI.</p>
           options:
-            12500_to_25000: "$12,500 - 25,000"
-            1_to_12500: "$1 - 12,500"
-            25000_to_40000: "$25,000 - 40,000"
-            40000_to_66000: "$40,000 - 66,000"
-            66000_to_79000: "$66,000 - 79,000"
-            over_79000: over $79,000
+            12500_to_25000: "$15,000 - 30,000"
+            1_to_12500: "$1 - $15,000"
+            25000_to_40000: "$30,000 - 45,000"
+            40000_to_66000: "$45,000 - 67,000"
+            66000_to_79000: "$67,000 - 84,000"
+            over_79000: over $84,000
             zero: "$0"
         title: Tell us about your filing status and income.
         vita_income_ineligible:
@@ -2469,7 +2437,7 @@ en:
           body_html: You cannot use this service this year because you %{ineligible_reason}. <br><br><strong>Is this a mistake?</strong> <a href=%{prev_link}>Go back to correct.</a>
           ineligible_reason:
             eligibility_529_for_non_qual_expense: withdrew money from a 529 college savings account and used it for a non-qualifying expense in %{filing_year}
-            eligibility_ed_loan_cancelled: had a student loan debt canceled under the American Rescue Plan Act.
+            eligibility_ed_loan_cancelled: had student loan debt canceled under the American Rescue Plan Act.
             eligibility_ed_loan_emp_payment: received a Qualified Education Loan Payment paid by your employer.
             eligibility_emergency_rental_assistance: received emergency rental assistance in %{filing_year}
             eligibility_home_different_areas: or your spouse had your permanent homes in two different counties, cities, towns, or taxing areas on the last day the tax year %{filing_year}
@@ -2579,10 +2547,10 @@ en:
                 <ul>
                   <li>Classroom supplies for K-12 teachers</li>
                   <li>Union dues</li>
-                  <li>Payments from a pension system to firemen and policemen for job-related injuries or disabilities </li>
-                  <li>Expenses up to $5,000 incurred by a blind person for a reader, or up to $1,000 incurred by an employer for a reader for a blind employee</li>
+                  <li>Payments from a pension system to firemen and policemen for job-related injuries or disabilities</li>
+                  <li>Expenses up to $5,000 incurred by a blind person for a reader, or up to $1,000 incurred by an employer for a reader for a blind employee</li>
                   <li>ABLE account contributions</li>
-                  <li>Pension exclusion (if you are under 65 and are claiming this based on a permanent disability for the first time)</li>
+                  <li>Pension exclusion (if you are under 65 and are claiming this based on a permanent disability for the first time)</li>
                   <li>Any other Maryland subtractions not listed here (see Form 502SU)</li>
                 </ul>
               </li>
@@ -3076,7 +3044,7 @@ en:
           title: Select the county where you resided on December 31, %{filing_year}
       nc_eligibility:
         edit:
-          eligibility_ed_loan_cancelled: Had a student loan debt canceled under the American Rescue Plan Act
+          eligibility_ed_loan_cancelled: Had student loan debt canceled under the American Rescue Plan Act
           eligibility_ed_loan_emp_payment: Received a Qualified Education Loan Payment paid by your employer
           none: None of these apply
           question: Did any of the following less common scenarios apply to you (or your spouse, if married filing jointly) in %{filing_year}?
@@ -3127,7 +3095,7 @@ en:
       nc_spouse_state_id:
         nc_spouse:
           encourage_sharing: While providing this information is encouraged, it is optional and not required to file your North Carolina taxes.
-          protect_identity: To protect your identity and combat tax fraud, many state revenue agencies are asking people to give their driver’s license or state ID number.
+          protect_identity: To protect your identity and combat tax fraud, many state revenue agencies are requesting that filers provide their driver’s license or state-issued ID number.
           why_ask_this: Why are you asking for this information?
       nc_subtractions:
         edit:
@@ -3767,7 +3735,7 @@ en:
       submission_confirmation:
         edit:
           download_state_return_pdf: Download your state return
-          email_text_update: You'll receive an email or text update when your state tax return is accepted.
+          email_text_update: You'll receive an email and text update when your state tax return is accepted.
           email_update: You'll receive an email update when your state tax return is accepted.
           text_update: You'll receive an sms update when your state tax return is accepted.
           title: Your %{filing_year} %{state_name} state tax return is now submitted!
@@ -3794,12 +3762,21 @@ en:
           title_html: Good news, you're getting a %{state_name} state tax refund of <strong>$%{refund_amount}.</strong>
       taxes_owed:
         edit:
+          more_tax_information_nj_html: <p><a href="https://www.nj.gov/treasury/taxation/payments-notices.shtml" target="_blank" rel="noopener nofollow">Here is more information about tax due dates and payment methods.</a></p>
           page_title: You owe state taxes. How would you like to pay?
           pay_bank: Pay directly from your checking or savings account (direct debit)
           pay_mail_online_html: Pay by mail or online at <a target="_blank" rel="noopener nofollow" href="%{tax_payment_info_url}">%{tax_payment_info_text}</a>
           subtitle: How would you like to pay?
           subtitle_html: For more information about tax due dates and payment methods, visit <a target="_blank" rel="noopener nofollow" href="https://marylandtaxes.gov/">Marylandtaxes.gov</a>
           title_html: You owe <strong>$%{owed_amount}</strong> in %{state_name} state taxes.
+          underpayment_notice_nj_html: |-
+            <p> This can happen for many reasons, but common ones are: </p>
+            <ul class="list--bulleted">
+              <li>if there weren’t enough taxes withheld from your paycheck (you may want to discuss with your employer for future years), or</li>
+              <li>if you haven’t made enough in estimated tax payments.</li>
+            </ul>
+            <p> You might be charged interest on what you owe. If that applies to you, you will get a notice from the State of New Jersey Division of Taxation in the mail.</p>
+            <p><strong>You should definitely continue with this filing. The sooner you file, the less you will eventually have to pay in penalties.</strong></p>
       terms_and_conditions:
         edit:
           accept: Accept
@@ -5660,7 +5637,7 @@ en:
           quote:
             courtney: "“I'm excited to extend our free services to those who can't come into one of our physical locations.I know taxes can be intimidating, which is why we are here to help!”"
             denise: "“Being part of an organization that works to bridge the gap between where people are and where they want (or need) to be is both fulfilling and always exciting.”"
-          subheader: We've formed a national coalition of community partners and dedicated volunteers to help us provide free tax filing assistance to families earning less than about $66,000 a year.
+          subheader: We've formed a national coalition of community partners and dedicated volunteers to help us provide free tax filing assistance to families earning less than about $67,000 a year.
         title: About Us
       error:
         body: It looks like there was a server error. We've been notified of the issue and will work to fix it!
@@ -6482,9 +6459,9 @@ en:
         in_person_link_text: VITA location finder
         income_limit:
           direct_file: Most filers under $200,000
-          diy: under $79,000
-          full_service: under $66,000
-          title: 'Income limit:'
+          diy: under $84,000
+          full_service: under $67,000
+          title: 'Income guidance:'
         itin_assistance: ITIN application assistance
         mobile_friendly: Mobile-friendly
         required_information: Required information
@@ -6509,7 +6486,7 @@ en:
           subtitle: "(w2s, 1099s, etc)"
           title: Official tax documents
         tax_payer_residency:
-          direct_file: Available to full-year residents of Arizona, California, Florida, Massachusetts, New Hampshire, New York, Nevada, South Dakota, Tennessee, Texas, Washington, and Wyoming.
+          direct_file: Available to full-year residents of Alaska, Arizona, California, Connecticut, Florida, Idaho, Illinois, Kansas, Maine, Maryland, Massachusetts, Nevada, New Hampshire, New Jersey, New Mexico, New York, North Carolina, Oregon, Pennsylvania, South Dakota, Tennessee, Texas, Washington, Wisconsin, and Wyoming.
           diy: Available to residents of all states, Puerto Rico, and non-residents.
           full_service_html: |
             Available to residents of all states.<br>
