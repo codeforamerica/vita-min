@@ -2047,7 +2047,7 @@ en:
         edit:
           error_message: Incorrect verification code. After 2 failed attempts, accounts are locked.
           subtitle_html: If you didn’t receive a code, please check your spam folder.
-          subtitle_html_2: If you still need help, <a class="open-intercom">chat with us</a>.
+          subtitle_2_html: If you still need help, <a class="open-intercom">chat with us</a>.
           title_html: We’ve sent your code to <strong>%{email_address}</strong>
           verify: Verify code
       verification_error:
