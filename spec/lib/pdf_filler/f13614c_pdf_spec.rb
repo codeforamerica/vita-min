@@ -96,7 +96,7 @@ RSpec.describe PdfFiller::F13614cPdf do
           paid_self_employment_expenses: "no",
           paid_student_loan_interest: "yes",
           phone_number: "+14158161286",
-          preferred_written_language: "Greek",
+          preferred_written_language: "ro",
           presidential_campaign_fund_donation: "primary",
           primary_birth_date: Date.new(1961, 4, 19),
           primary_consented_to_service: "yes",
@@ -193,15 +193,20 @@ RSpec.describe PdfFiller::F13614cPdf do
         expect(all_fields_in_pdf).to match_array(intake_pdf.hash_for_pdf.keys)
       end
 
+      # add written_language_preference lines when rebase with PR #5342
+      # "form1[0].page1[0].writtenCommunicationLanguage[0].otherLanguageNo[0]" => nil,
+      # "form1[0].page1[0].writtenCommunicationLanguage[0].otherLanguageYou[0]" => '1',
+      # "form1[0].page1[0].writtenCommunicationLanguage[0].whatLanguage[0]" => "Russian",
+
       # TODO reenable for TY2024
       xit "fills out answers from the DB into the pdf" do
         output_file = intake_pdf.output_file
         result = non_preparer_fields(output_file.path)
         expect(result).to include(
-          "form1[0].page1[0].q1YourFirstName[0]" => "Hoofie",
-          "form1[0].page1[0].q1YourMiddleInitial[0]" => "",
-          "form1[0].page1[0].q1YourLastName[0]" => "Heifer",
-          "form1[0].page1[0].q1TelephoneNumber[0]" => "(415) 816-1286",
+          "form1[0].page1[0].yourFirstName[0]" => "Hoofie",
+          "form1[0].page1[0].yourMiddleInitial[0]" => "",
+          "form1[0].page1[0].yourLastName[0]" => "Heifer",
+          "form1[0].page1[0].telephoneNumber[0]" => "(415) 816-1286",
           "form1[0].page1[0].q1AreYouA[0].optionYes[0]" => "Off",
           "form1[0].page1[0].q1AreYouA[0].optionNo[0]" => "1",
           "form1[0].page1[0].q2SpouseFirstName[0]" => "Hattie",
@@ -508,6 +513,32 @@ RSpec.describe PdfFiller::F13614cPdf do
             "form1[0].page2[0].Part5[0].q6ReceiveTheFirst[0].optionUnsure[0]" => "Off",
             "form1[0].page2[0].Part4[0].q4Deductions[0].mortgage[0]" => "1",
           )
+        end
+      end
+
+      describe "you_and_spouse_info" do
+        it "should contain the correct information" do
+          expect(intake_pdf.you_and_spouse_info).to include({
+            # You
+            "form1[0].page1[0].yourFirstName[0]" => "Hoofie",
+            "form1[0].page1[0].yourMiddleInitial[0]" => nil,
+            "form1[0].page1[0].yourLastName[0]" => "Heifer",
+            "form1[0].page1[0].yourTelephoneNumber[0]" => "(415) 816-1286",
+            "form1[0].page1[0].yourDateOfBirth[0]" => "4/19/1961",
+            "form1[0].page1[0].yourJobTitle[0]" => nil,
+
+            # Spouse
+            "form1[0].page1[0].youSpouseWereIn[0].column2[0].totallyPermanentlyDisabled[0].disabledYou[0]" => "1",
+            "form1[0].page1[0].youSpouseWereIn[0].column2[0].legallyBlind[0].legallyBlindNo[0]" => "1",
+            "form1[0].page1[0].spousesFirstName[0]" => 'Hattie',
+            "form1[0].page1[0].spousesMiddleInitial[0]" => nil,
+            "form1[0].page1[0].spousesLastName[0]" => 'Heifer',
+            "form1[0].page1[0].spousesTelephoneNumber[0]" => nil,
+            "form1[0].page1[0].spousesDateOfBirth[0]" => "11/1/1959",
+            "form1[0].page1[0].spousesJobTitle[0]" => nil,
+            "form1[0].page1[0].youSpouseWereIn[0].column2[0].totallyPermanentlyDisabled[0].disabledYou[0]" => "1",
+            "form1[0].page1[0].youSpouseWereIn[0].column2[0].legallyBlind[0].legallyBlindNo[0]" => "1",
+          })
         end
       end
 

@@ -158,7 +158,7 @@ module StateFile
         pay_taxes_link: "https://www.nc.gov/working/taxes",
         return_type: "FormNCD400",
         review_controller_class: StateFile::Questions::NcReviewController,
-        schema_file_name: "NCIndividual2024v0.7.zip",
+        schema_file_name: "NCIndividual2024v1.0.zip",
         software_id_key: "sin",
         state_name: "North Carolina",
         submission_type: "FormNCD400",
