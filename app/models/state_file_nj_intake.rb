@@ -203,5 +203,10 @@ class StateFileNjIntake < StateFileBaseIntake
     false
   end
 
+  def medical_expenses_threshold
+    nj_gross_income = calculator.lines[:NJ1040_LINE_29].value
+    (nj_gross_income * 0.02).floor
+  end
+
 end
 
