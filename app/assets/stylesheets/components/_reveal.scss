@@ -6,7 +6,7 @@
   padding: .2em .5em .3em .7em;
 
   &:focus-within {
-    box-shadow: 0 0 0 3px #FFFFFF, 0px 0px 0px 8px #C2850C;
+    box-shadow: $focus-box-shadow;
   }
 }
 
