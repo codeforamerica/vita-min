@@ -1876,7 +1876,6 @@ RSpec.describe Hub::ClientsController do
             had_debt_forgiven: "unfilled",
             adopted_child: "unfilled",
             had_tax_credit_disallowed: "unfilled",
-            bought_energy_efficient_items: "unfilled",
             received_homebuyer_credit: "unfilled",
             made_estimated_tax_payments: "unfilled",
             had_scholarships: "unfilled",
@@ -1942,23 +1941,19 @@ RSpec.describe Hub::ClientsController do
           expect(client.intake.had_debt_forgiven_unfilled?).to eq true
           expect(client.intake.adopted_child_unfilled?).to eq true
           expect(client.intake.had_tax_credit_disallowed_unfilled?).to eq true
-          expect(client.intake.bought_energy_efficient_items_unfilled?).to eq true
           expect(client.intake.received_homebuyer_credit_unfilled?).to eq true
           expect(client.intake.made_estimated_tax_payments_unfilled?).to eq true
-          expect(client.intake.paid_local_tax_yes?).to eq true
           expect(client.intake.paid_mortgage_interest_unfilled?).to eq true
           expect(client.intake.paid_medical_expenses_unfilled?).to eq true
           expect(client.intake.paid_charitable_contributions_unfilled?).to eq true
           expect(client.intake.paid_self_employment_expenses_unfilled?).to eq true
           expect(client.intake.had_capital_loss_carryover_unfilled?).to eq true
-          expect(client.intake.bought_marketplace_health_insurance_yes?).to eq true
 
           system_note = SystemNote::ClientChange.last
           expect(system_note.client).to eq(client)
           expect(system_note.user).to eq(user)
           expect(system_note.data['changes']).to match({
                                                          "had_disability_income" => [intake.had_disability_income, "no"],
-                                                         "bought_energy_efficient_items" => [intake.bought_energy_efficient_items, "unfilled"],
                                                          "had_other_income" => [intake.had_other_income, "no"],
                                                          "had_rental_income" => [intake.had_rental_income, "unsure"],
                                                          "had_retirement_income" => [intake.had_retirement_income, "no"],
@@ -1966,8 +1961,6 @@ RSpec.describe Hub::ClientsController do
                                                          "had_unemployment_income" => [intake.had_unemployment_income, "yes"],
                                                          "had_wages" => [intake.had_wages, "yes"],
                                                          "job_count" => [intake.job_count, 3],
-                                                         "paid_local_tax" => [intake.paid_local_tax, "yes"],
-                                                         "bought_marketplace_health_insurance" => [intake.bought_marketplace_health_insurance, "yes"]
                                                        })
           expect(client.last_13614c_update_at).to be_within(1.second).of(DateTime.now)
         end
@@ -1992,27 +1985,8 @@ RSpec.describe Hub::ClientsController do
           id: client.id,
           commit: I18n.t('general.save'),
           hub_update13614c_form_page3: {
-            had_disaster_loss: intake.had_disaster_loss,
-            received_irs_letter: intake.received_irs_letter,
-            had_disaster_loss_where: intake.had_disaster_loss_where,
-            demographic_english_conversation: intake.demographic_english_conversation,
-            demographic_english_reading: intake.demographic_english_reading,
-            demographic_disability: intake.demographic_disability,
-            demographic_veteran: intake.demographic_veteran,
-            demographic_primary_american_indian_alaska_native: intake.demographic_primary_american_indian_alaska_native,
-            demographic_primary_asian: intake.demographic_primary_asian,
-            demographic_primary_black_african_american: intake.demographic_primary_black_african_american,
-            demographic_primary_native_hawaiian_pacific_islander: intake.demographic_primary_native_hawaiian_pacific_islander,
-            demographic_primary_white: intake.demographic_primary_white,
-            demographic_primary_prefer_not_to_answer_race: intake.demographic_primary_prefer_not_to_answer_race,
-            demographic_spouse_american_indian_alaska_native: intake.demographic_spouse_american_indian_alaska_native,
-            demographic_spouse_asian: intake.demographic_spouse_asian,
-            demographic_spouse_black_african_american: intake.demographic_spouse_black_african_american,
-            demographic_spouse_native_hawaiian_pacific_islander: intake.demographic_spouse_native_hawaiian_pacific_islander,
-            demographic_spouse_white: intake.demographic_spouse_white,
-            demographic_spouse_prefer_not_to_answer_race: intake.demographic_spouse_prefer_not_to_answer_race,
-            demographic_primary_ethnicity: intake.demographic_primary_ethnicity,
-            demographic_spouse_ethnicity: intake.demographic_spouse_ethnicity,
+            bought_energy_efficient_items: "unfilled",
+            tax_credit_disallowed_year: "2001"
           }
         }
       }
@@ -2034,10 +2008,12 @@ RSpec.describe Hub::ClientsController do
           expect(flash[:notice]).to eq I18n.t("general.changes_saved")
           expect(response).to redirect_to edit_13614c_form_page3_hub_client_path(id: client)
           client.reload
+          expect(client.intake.tax_credit_disallowed_year).to eq 2001
 
           system_note = SystemNote::ClientChange.last
           expect(system_note.client).to eq(client)
           expect(system_note.user).to eq(user)
+          expect(system_note.data['changes']).to match({"bought_energy_efficient_items"=>[nil, "unfilled"], "tax_credit_disallowed_year"=>[nil, 2001]})
           expect(client.last_13614c_update_at).to be_within(1.second).of(DateTime.now)
         end
 
@@ -2050,6 +2026,7 @@ RSpec.describe Hub::ClientsController do
           expect(response).to redirect_to hub_client_path(id: client.id)
 
           client.reload
+          expect(client.intake.tax_credit_disallowed_year).to eq 2001
         end
       end
     end

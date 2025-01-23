@@ -794,73 +794,28 @@ en:
         what_was_your_marital_status: As of December 31, %{current_tax_year}, what was your marital status?
       edit_13614c_form_page2:
         fields:
-          adopted_child: Adopt a child?
-          bought_energy_efficient_items: Purchase and install energy-efficient home items?
-          bought_marketplace_health_insurance: Have health coverage through the Marketplace (Exchange)? [Provide Form 1095-A]
           had_asset_sale_income: Income (or loss) from the sale or exchange of Stocks, Bonds, Virtual Currency or Real Estate?
-          had_capital_loss_carryover: File a federal return last year containing a “capital loss carryover” on Form 1040 Schedule D?
-          had_cash_check_digital_assets: Cash/check/virtual currency payments, or other property or services for any work performed not reported on Forms W-2 or 1099?
-          had_debt_forgiven: Have credit card, student loan or mortgage debt cancelled/forgiven by a lender or have a home foreclosure?
           had_disability_income: Disability income?
-          had_hsa: Have a Health Savings Account?
+          had_gambling_income: Gambling winnings, including lottery
           had_interest_income: 'Interest/Dividends from: checking/savings accounts, bonds, CDs, brokerage?'
-          had_local_tax_refund: Refund or state/local income taxes?
-          had_other_income: Other income?
+          had_local_tax_refund: Refund of state or local income tax
+          had_other_income: 'Any other money received during the year? (example: cash payments, jury duty, awards, digital assets, royalties, union strike benefits)'
           had_rental_income: Income (or loss) from Rental Property?
-          had_retirement_income: Retirement income or payments from Pensions. Annuities, and or IRA?
-          had_scholarships: Scholarships?
+          had_rental_income_and_used_dwelling_as_residence: If yes, did you use the dwelling unit as a personal residence and rent it for fewer than 15 days
+          had_rental_income_from_personal_property: Income from renting personal property such as a vehicle
+          had_retirement_income: Retirement account, pension or annuity proceeds
           had_self_employment_income: Self-Employment income?
           had_social_security_income: Social Security or Railroad Retirement Benefits?
-          had_tax_credit_disallowed: Have Earned Income Credit, Child Tax Credit or American Opportunity Credit disallowed in a prior year?
           had_tips: Tip Income?
           had_unemployment_income: Unemployment Compensation?
           had_wages: Wages or Salary? (Form W-2)
-          has_ssn_of_alimony_recipient: If yes, do you have the recipient’s SSN?
           job_count: If yes, how many jobs did you have last year?
-          made_estimated_tax_payments: Make estimated tax payments or apply last year’s refund to this year’s tax?
-          made_estimated_tax_payments_amount: If so how much?
-          paid_alimony: Alimony or separate maintenance payments?
-          paid_charitable_contributions: Charitable Contributions
-          paid_dependent_care: Child or dependent care expenses such as daycare?
-          paid_local_tax: Taxes (State, Real Estate, Personal Property, Sales)
-          paid_medical_expenses: Medical & Dental (including insurance premiums)
-          paid_mortgage_interest: Mortgage Interest (Form 1098)
-          paid_post_secondary_educational_expenses: College or post secondary educational expenses for yourself, spouse or dependents?
-          paid_retirement_contributions: Contributions or repayments to a retirement account?
-          paid_school_supplies: For supplies used as an eligible educator such as a teacher, teacher's aide, counselor, etc.?
-          paid_self_employment_expenses: Expenses related to self-employment income or any other income you received?
-          paid_student_loan_interest: Student loan interest?
           received_alimony: Alimony income or separate maintenance payments?
-          received_homebuyer_credit: Receive the First Time Homebuyers Credit in 2008?
-          tax_credit_disallowed_year: If yes, for which tax year?
-          wants_to_itemize: Any of the following?
-        part_3_title: Part III – Income – Last Year, Did You (or Your Spouse) Receive
-        part_4_title: Part IV – Expenses – Last Year, Did You (or Your Spouse) Pay
-        part_5_title: Part V - Life Events - Last Year, Did You (or Your Spouse)
+          reported_asset_sale_loss: Did you report a loss on last year’s return
+          reported_self_employment_loss: Did you report a loss on last year's return
+        part_3_title: Income – Last Year, Did You (or Your Spouse) Receive
         title: 13614-C page 2
       edit_13614c_form_page3:
-        additional_info_title: Additional Information and Questions Related to the Preparation of Your Return
-        fields:
-          q10_household_disability: Do they or any member of their household have a disability?
-          q11_veteran: Veteran from the U.S. Armed Forces?
-          q12_primary_race: Race?
-          q13_spouse_race: Spouse’s race?
-          q14_primary_ethnicity: Ethnicity?
-          q15_spouse_ethnicity: Spouse’s ethnicity?
-          q1_preferred_written_language: If yes, which language?
-          q1_receive_written_communication: Receive written communications from the IRS in a language other than English?
-          q2_presidential_campaign_fund: Presidential Election Campaign Fund $3 to go to this fund
-          q3_refund_payment_method: 'If you are due a refund, would you like:'
-          q3_refund_payment_method_direct_deposit: a. Direct Deposit
-          q3_refund_payment_method_savings_bond: b. Purchase U.S. Savings Bond
-          q3_refund_payment_method_split: c. Split refund between different accounts
-          q4_pay_due_balance_directly: If they have a balance due, would they like to make a payment directly from their bank account?
-          q5_federal_disaster_area: Declared living in a federal disaster area?
-          q5_federal_disaster_area_where: If yes, where?
-          q6_letter_from_irs: Received a letter from the IRS?
-          q7_register_to_vote: Register to vote?
-          q8_speak_and_understand_english: Can carry on a conversation in English, both understanding & speaking?
-          q9_read_english: Can read a newspaper or book in English?
         title: 13614-C page 3
       edit_take_action:
         blank_no_internal_note: If blank, no internal note is added.
@@ -3816,12 +3771,21 @@ en:
           title_html: Good news, you're getting a %{state_name} state tax refund of <strong>$%{refund_amount}.</strong>
       taxes_owed:
         edit:
+          more_tax_information_nj_html: <p><a href="https://www.nj.gov/treasury/taxation/payments-notices.shtml" target="_blank" rel="noopener nofollow">Here is more information about tax due dates and payment methods.</a></p>
           page_title: You owe state taxes. How would you like to pay?
           pay_bank: Pay directly from your checking or savings account (direct debit)
           pay_mail_online_html: Pay by mail or online at <a target="_blank" rel="noopener nofollow" href="%{tax_payment_info_url}">%{tax_payment_info_text}</a>
           subtitle: How would you like to pay?
           subtitle_html: For more information about tax due dates and payment methods, visit <a target="_blank" rel="noopener nofollow" href="https://marylandtaxes.gov/">Marylandtaxes.gov</a>
           title_html: You owe <strong>$%{owed_amount}</strong> in %{state_name} state taxes.
+          underpayment_notice_nj_html: |-
+            <p> This can happen for many reasons, but common ones are: </p>
+            <ul class="list--bulleted">
+              <li>if there weren’t enough taxes withheld from your paycheck (you may want to discuss with your employer for future years), or</li>
+              <li>if you haven’t made enough in estimated tax payments.</li>
+            </ul>
+            <p> You might be charged interest on what you owe. If that applies to you, you will get a notice from the State of New Jersey Division of Taxation in the mail.</p>
+            <p><strong>You should definitely continue with this filing. The sooner you file, the less you will eventually have to pay in penalties.</strong></p>
       terms_and_conditions:
         edit:
           accept: Accept
