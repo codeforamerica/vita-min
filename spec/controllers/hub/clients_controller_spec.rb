@@ -1979,7 +1979,7 @@ RSpec.describe Hub::ClientsController do
       end
     end
 
-    xdescribe "#update_13614c_form_page3" do
+    describe "#update_13614c_form_page3" do
       let(:params) {
         {
           id: client.id,
@@ -2037,21 +2037,20 @@ RSpec.describe Hub::ClientsController do
           id: client.id,
           commit: I18n.t('general.save'),
           hub_update13614c_form_page4: {
-            demographic_english_conversation: intake.demographic_english_conversation,
+            demographic_english_conversation: "well",
             demographic_english_reading: intake.demographic_english_reading,
-            demographic_disability: intake.demographic_disability,
+            demographic_disability: "yes",
             demographic_veteran: intake.demographic_veteran,
-            demographic_primary_american_indian_alaska_native: intake.demographic_primary_american_indian_alaska_native,
+            demographic_primary_american_indian_alaska_native: true,
             demographic_primary_asian: intake.demographic_primary_asian,
             demographic_primary_black_african_american: intake.demographic_primary_black_african_american,
-            demographic_primary_mena: intake.demographic_primary_mena,
+            demographic_primary_mena: true,
             demographic_primary_native_hawaiian_pacific_islander: intake.demographic_primary_native_hawaiian_pacific_islander,
             demographic_primary_white: intake.demographic_primary_white,
-            demographic_primary_prefer_not_to_answer_race: intake.demographic_primary_prefer_not_to_answer_race,
             demographic_spouse_american_indian_alaska_native: intake.demographic_spouse_american_indian_alaska_native,
             demographic_spouse_asian: intake.demographic_spouse_asian,
             demographic_spouse_black_african_american: intake.demographic_spouse_black_african_american,
-            demographic_spouse_mena: intake.demographic_spouse_asian,
+            demographic_spouse_mena: true,
             demographic_spouse_native_hawaiian_pacific_islander: intake.demographic_spouse_native_hawaiian_pacific_islander,
             demographic_spouse_white: intake.demographic_spouse_white,
           }
@@ -2069,18 +2068,24 @@ RSpec.describe Hub::ClientsController do
 
         it "updates the clients intake with the 13614c data, creates a system note, and regenerates the pdf when clients press Save" do
           expect do
-            put :update_13614c_form_page3, params: params
+            put :update_13614c_form_page4, params: params
           end.to have_enqueued_job(GenerateF13614cPdfJob)
 
           expect(flash[:notice]).to eq I18n.t("general.changes_saved")
           expect(response).to redirect_to edit_13614c_form_page4_hub_client_path(id: client)
           client.reload
-          expect(client.intake.preferred_written_language).to eq "Greek"
+          expect(client.intake.demographic_english_conversation).to eq "well"
 
           system_note = SystemNote::ClientChange.last
           expect(system_note.client).to eq(client)
           expect(system_note.user).to eq(user)
-          expect(system_note.data['changes']).to match({ "preferred_written_language" => [intake.preferred_written_language, "Greek"] })
+          expect(system_note.data['changes']).to match({
+            "demographic_english_conversation" => [intake.demographic_english_conversation, "well"],
+            "demographic_disability" => ["unfilled", "yes"],
+            "demographic_primary_american_indian_alaska_native" => [nil, true],
+            "demographic_primary_mena" => [nil, true],
+            "demographic_spouse_mena" => [nil, true],
+          })
           expect(client.last_13614c_update_at).to be_within(1.second).of(DateTime.now)
         end
 
@@ -2093,7 +2098,7 @@ RSpec.describe Hub::ClientsController do
           expect(response).to redirect_to hub_client_path(id: client.id)
 
           client.reload
-          expect(client.intake.preferred_written_language).to eq "Greek"
+          expect(client.intake.demographic_english_conversation).to eq "well"
         end
       end
     end
