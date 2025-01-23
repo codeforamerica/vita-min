@@ -56,6 +56,7 @@
 #  political_subdivision                      :string
 #  primary_birth_date                         :date
 #  primary_did_not_have_health_insurance      :integer          default("unfilled"), not null
+#  primary_disabled                           :integer          default("unfilled"), not null
 #  primary_esigned                            :integer          default("unfilled"), not null
 #  primary_esigned_at                         :datetime
 #  primary_first_name                         :string
@@ -77,6 +78,7 @@
 #  source                                     :string
 #  spouse_birth_date                          :date
 #  spouse_did_not_have_health_insurance       :integer          default("unfilled"), not null
+#  spouse_disabled                            :integer          default("unfilled"), not null
 #  spouse_esigned                             :integer          default("unfilled"), not null
 #  spouse_esigned_at                          :datetime
 #  spouse_first_name                          :string
@@ -125,6 +127,8 @@ class StateFileMdIntake < StateFileBaseIntake
   enum spouse_did_not_have_health_insurance: { unfilled: 0, yes: 1, no: 2}, _prefix: :spouse_did_not_have_health_insurance
   enum bank_authorization_confirmed: { unfilled: 0, yes: 1, no: 2 }, _prefix: :bank_authorization_confirmed
   enum has_joint_account_holder: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_joint_account_holder
+  enum primary_disabled: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_disabled
+  enum spouse_disabled: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_disabled
 
   def disqualifying_df_data_reason
     w2_states = direct_file_data.parsed_xml.css('W2StateLocalTaxGrp W2StateTaxGrp StateAbbreviationCd')
