@@ -3030,6 +3030,21 @@ en:
           protect_identity: Many state revenue agencies, including Maryland, are requesting additional information in an effort to combat stolen-identity tax fraud and to protect you and your tax refund.
           subtitle: The Comptroller of Maryland requests the information from your Driver's License or state-issued ID card be included with the return, but won't reject the return if it's not included.
           why_ask_this: Why are you asking for this information?
+      md_retirement_income_subtraction:
+        edit:
+          doc_1099r_label: 1099-R
+          income_source_question: "Select the source of this income:"
+          income_source_other: Other retirement income (for example, a Keogh Plan, also known as an HR-10) (less common)
+          income_source_pension_annuity_endowment: A pension, annuity, or endowment from an "employee retirement system" (more common)
+          service_type_military: Your service in the military or military death benefits received on behalf of a spouse or ex-spouse
+          service_type_none: None of the above apply
+          service_type_public_safety: Your service as a public safety employee
+          service_type_question: "Did this income come from:"
+          subtitle: We need more information about this 1099-R to file your state tax return and check your eligibility for subtractions.
+          taxable_amount_label: Taxable amount
+          taxpayer_name_label: Taxpayer name
+          title: You might be eligible for a Maryland retirement income subtraction!
+
       md_review:
         edit:
           county_html: "<strong>County</strong>"
