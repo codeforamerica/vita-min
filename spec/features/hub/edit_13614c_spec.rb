@@ -550,5 +550,65 @@ RSpec.describe "a user editing a clients 13614c form" do
 
       expect(intake.cv_14c_page_3_notes_part_3).to eq "Hello, note 3"
     end
+
+    scenario "I can see and update the 13614c page 4 form" do
+      visit hub_client_path(id: client.id)
+      within ".client-profile" do
+        click_on "Edit 13614-C"
+      end
+
+      within '.form_13614c-page-links', match: :first do
+        click_on "4"
+      end
+      expect(page).to have_text "Optional Information"
+      expect(page).to have_text "You are not required to answer these questions"
+
+      # select "Yes", from: "TODO"
+
+      click_on I18n.t("general.save")
+
+      expect(page).to have_text "Optional Information"
+      expect(page).to have_text I18n.t("general.changes_saved")
+
+      intake = client.intake.reload
+      #expect(intake.TODO).to eq "yes"
+    end
+
+    describe "demographic questions on page 4 work in tandem with other flags" do
+      before do
+        client.intake.update(
+          demographic_questions_opt_in: 'no',
+          demographic_spouse_native_hawaiian_pacific_islander: true, # somehow exists in the db even though demographic opt in is false
+        )
+      end
+
+      it "does not write the answers to the PDF unless the client opted in during intake or the hub user has saved page4" do
+        # generate pdf, prove spouse ethnicity is not filled in because demographic_questions_opt_in is false
+        form_fields = PdfForms.new.get_fields(PdfFiller::F13614cPdf.new(client.intake).output_file)
+        expect(form_fields.find { |field| field.name == "form1[0].page4[0].yourRaceEthnicity[0].hawaiianPacific[0]" }.value).to eq("Off")
+        expect(form_fields.find { |field| field.name == "form1[0].page4[0].yourRaceEthnicity[0].blackAfricanAmerican[0]" }.value).to eq("Off")
+
+        visit hub_client_path(id: client.id)
+        within ".client-profile" do
+          click_on "Edit 13614-C"
+        end
+
+        within '.form_13614c-page-links', match: :first do
+          click_on "4"
+        end
+
+        within ".spouse-demographic-race" do
+          uncheck "Native Hawaiian or Pacific Islander"
+          check "Black or African American"
+        end
+
+        click_on I18n.t("general.save")
+
+        # generate pdf, prove spouse ethnicity is filled in because demographic_questions_hub_edit is true
+        form_fields = PdfForms.new.get_fields(PdfFiller::F13614cPdf.new(client.reload.intake).output_file)
+        expect(form_fields.find { |field| field.name == "form1[0].page4[0].yourRaceEthnicity[0].hawaiianPacific[0]" }.value).to eq("")
+        expect(form_fields.find { |field| field.name == "form1[0].page4[0].yourRaceEthnicity[0].blackAfricanAmerican[0]" }.value).to eq("1")
+      end
+    end
   end
 end
