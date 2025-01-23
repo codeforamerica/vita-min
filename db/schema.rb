@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_01_21_232137) do
+ActiveRecord::Schema[7.1].define(version: 2025_01_21_171015) do
   create_schema "analytics"
 
   # These are extensions that must be enabled in order to support this database

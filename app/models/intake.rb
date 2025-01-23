@@ -744,7 +744,7 @@ class Intake < ApplicationRecord
   end
 
   def self.archived_columns
-    ["needs_help_2017", "was_on_visa", "spouse_was_on_visa", "had_student_in_family"] # todo add dropped columns
+    ["needs_help_2017", "was_on_visa", "spouse_was_on_visa", "had_student_in_family"]
   end
   delegate *archived_columns, to: :intake_archive, allow_nil: true
   has_one :intake_archive, foreign_key: :id, dependent: :destroy
