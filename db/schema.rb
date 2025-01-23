@@ -1320,6 +1320,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_21_221117) do
     t.text "primary_last_four_ssn"
     t.string "primary_last_name"
     t.string "primary_middle_initial"
+    t.integer "primary_owned_or_held_any_digital_currencies", default: 0, null: false
     t.integer "primary_prior_year_agi_amount"
     t.string "primary_prior_year_signature_pin"
     t.text "primary_signature_pin"
@@ -1337,6 +1338,9 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_21_221117) do
     t.integer "received_irs_letter", default: 0, null: false
     t.integer "received_stimulus_payment", default: 0, null: false
     t.string "referrer"
+    t.integer "refund_check_by_mail"
+    t.integer "refund_direct_deposit"
+    t.string "refund_other"
     t.integer "refund_payment_method", default: 0, null: false
     t.integer "register_to_vote", default: 0, null: false
     t.integer "reported_asset_sale_loss", default: 0, null: false
@@ -1376,6 +1380,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_21_221117) do
     t.text "spouse_last_four_ssn"
     t.string "spouse_last_name"
     t.string "spouse_middle_initial"
+    t.integer "spouse_owned_or_held_any_digital_currencies", default: 0, null: false
     t.string "spouse_phone_number"
     t.integer "spouse_prior_year_agi_amount"
     t.string "spouse_prior_year_signature_pin"
@@ -2014,7 +2019,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_21_221117) do
     t.string "primary_middle_initial"
     t.string "primary_signature"
     t.text "primary_signature_pin"
-    t.decimal "primary_ssb_amount", precision: 12, scale: 2, default: "0.0", null: false
     t.string "primary_ssn"
     t.bigint "primary_state_id_id"
     t.decimal "primary_student_loan_interest_ded_amount", precision: 12, scale: 2, default: "0.0", null: false
@@ -2035,7 +2039,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_21_221117) do
     t.string "spouse_last_name"
     t.string "spouse_middle_initial"
     t.text "spouse_signature_pin"
-    t.decimal "spouse_ssb_amount", precision: 12, scale: 2, default: "0.0", null: false
     t.string "spouse_ssn"
     t.bigint "spouse_state_id_id"
     t.decimal "spouse_student_loan_interest_ded_amount", precision: 12, scale: 2, default: "0.0", null: false

@@ -178,6 +178,7 @@
 #  primary_last_four_ssn                                :text
 #  primary_last_name                                    :string
 #  primary_middle_initial                               :string
+#  primary_owned_or_held_any_digital_currencies         :integer          default(0), not null
 #  primary_prior_year_agi_amount                        :integer
 #  primary_prior_year_signature_pin                     :string
 #  primary_signature_pin                                :text
@@ -195,6 +196,9 @@
 #  received_irs_letter                                  :integer          default(0), not null
 #  received_stimulus_payment                            :integer          default(0), not null
 #  referrer                                             :string
+#  refund_check_by_mail                                 :integer
+#  refund_direct_deposit                                :integer
+#  refund_other                                         :string
 #  refund_payment_method                                :integer          default("unfilled"), not null
 #  register_to_vote                                     :integer          default(0), not null
 #  reported_asset_sale_loss                             :integer          default(0), not null
@@ -233,6 +237,7 @@
 #  spouse_last_four_ssn                                 :text
 #  spouse_last_name                                     :string
 #  spouse_middle_initial                                :string
+#  spouse_owned_or_held_any_digital_currencies          :integer          default(0), not null
 #  spouse_phone_number                                  :string
 #  spouse_prior_year_agi_amount                         :integer
 #  spouse_prior_year_signature_pin                      :string
@@ -458,6 +463,10 @@ class Intake < ApplicationRecord
   # Returns the phone number formatted for user display, e.g.: "(510) 555-1234"
   def formatted_phone_number
     PhoneParser.formatted_phone_number(phone_number)
+  end
+
+  def formatted_spouse_phone_number
+    PhoneParser.formatted_phone_number(spouse_phone_number)
   end
 
   def formatted_sms_phone_number
