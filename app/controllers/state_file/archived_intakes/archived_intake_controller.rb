@@ -17,9 +17,19 @@ module StateFile
         )
       end
 
+      def address_challenge_set
+        (current_request.fake_addresses.push(current_archived_intake.full_address)).shuffle
+      end
+
       def check_feature_flag
         unless Flipper.enabled?(:get_your_pdf)
           redirect_to root_path
+        end
+      end
+
+      def is_request_locked
+        if current_request.access_locked?
+          redirect_to state_file_archived_intakes_verification_error_path
         end
       end
     end

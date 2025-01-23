@@ -3,7 +3,8 @@ require 'rails_helper'
 describe StateFile::ArchivedIntakes::ArchivedIntakeController, type: :controller do
   let(:ip_address) { '192.168.0.1' }
   let(:email_address) { 'test@example.com' }
-  let!(:request_instance) { create :state_file_archived_intake_request, ip_address: ip_address, email_address: email_address }
+  let(:intake) {create :state_file_archived_intake}
+  let!(:request_instance) { create :state_file_archived_intake_request, ip_address: ip_address, email_address: email_address, state_file_archived_intake: intake }
   before do
     allow(controller).to receive(:ip_for_irs).and_return(ip_address)
     session[:email_address] = email_address
@@ -18,6 +19,19 @@ describe StateFile::ArchivedIntakes::ArchivedIntakeController, type: :controller
       session[:email_address] = "non_existant_email@bad.com"
 
       expect(controller.current_request).to be_nil
+    end
+  end
+
+  describe '#current_archived_intake' do
+    it 'finds the StateFileArchivedIntakeRequest by IP and email address' do
+      expect(controller.current_archived_intake).to eq(intake)
+    end
+
+    context 'when a request does not have an intake' do
+      let!(:request_instance) { create :state_file_archived_intake_request, ip_address: ip_address, email_address: email_address }
+      it 'returns nil if no intake is found' do
+        expect(controller.current_archived_intake).to be_nil
+      end
     end
   end
 
