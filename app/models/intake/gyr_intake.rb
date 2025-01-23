@@ -458,7 +458,7 @@ class Intake::GyrIntake < Intake
   enum needs_help_2020: { unfilled: 0, yes: 1, no: 2 }, _prefix: :needs_help_2020
   enum needs_help_2021: { unfilled: 0, yes: 1, no: 2 }, _prefix: :needs_help_2021
   enum needs_help_2022: { unfilled: 0, yes: 1, no: 2 }, _prefix: :needs_help_2022
-  enum needs_help_2022: { unfilled: 0, yes: 1, no: 2 }, _prefix: :needs_help_2023
+  enum needs_help_2023: { unfilled: 0, yes: 1, no: 2 }, _prefix: :needs_help_2023
   enum needs_help_previous_year_3: {unfilled: 0, yes: 1, no: 2}, _prefix: :needs_help_previous_year_3
   enum needs_help_previous_year_2: {unfilled: 0, yes: 1, no: 2}, _prefix: :needs_help_previous_year_2
   enum needs_help_previous_year_1: {unfilled: 0, yes: 1, no: 2}, _prefix: :needs_help_previous_year_1
