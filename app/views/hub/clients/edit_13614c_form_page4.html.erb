@@ -28,6 +28,7 @@ IRS with your tax return. You are not required to answer these questions." %></h
               [t("general.well"), :well],
               [t("general.not_well"), :not_well],
               [t("general.not_at_all"), :not_at_all],
+              ["Prefer not to answer", :prefer_not_to_answer],
             ]) %>
           </div>
           <div class="grid__item width-one-whole">
@@ -37,46 +38,47 @@ IRS with your tax return. You are not required to answer these questions." %></h
               [t("general.well"), :well],
               [t("general.not_well"), :not_well],
               [t("general.not_at_all"), :not_at_all],
+              ["Prefer not to answer", :prefer_not_to_answer],
             ]) %>
           </div>
           <div class="grid__item width-one-whole">
-            <%= f.cfa_select(:demographic_disability, "3. Do you or any member of your household have a disability", yes_no_options_for_select) %>
+            <%= f.cfa_select(:demographic_disability, "3. Do you or any member of your household have a disability", yes_no_prefer_not_to_answer_options_for_select) %>
           </div>
           <div class="grid__item width-one-whole">
-            <%= f.cfa_select(:demographic_veteran, "4. Are you or your spouse a Veteran of the U.S. Armed Forces", yes_no_options_for_select) %>
+            <%= f.cfa_select(:demographic_veteran, "4. Are you or your spouse a Veteran of the U.S. Armed Forces", yes_no_prefer_not_to_answer_options_for_select) %>
           </div>
           <div class="grid__item width-one-whole">
             <div class="form-group">
-              <p class="form-question"><%= "TODO" %></p>
+              <p class="form-question">5. What is your race and/or ethnicity? Select all that apply</p>
             </div>
           </div>
 
           <div class="grid__item width-one-whole primary-demographic-race">
             <div class="form-group checkbox-set">
-              <%= f.hub_checkbox(:demographic_primary_american_indian_alaska_native, "TODO", options: { checked_value: true, unchecked_value: false }) %>
-              <%= f.hub_checkbox(:demographic_primary_asian, "TODO", options: { checked_value: true, unchecked_value: false }) %>
-              <%= f.hub_checkbox(:demographic_primary_black_african_american, "TODO", options: { checked_value: true, unchecked_value: false }) %>
-              <%= f.hub_checkbox(:demographic_primary_hispanic_latino, "TODO", options: { checked_value: true, unchecked_value: false }) %>
-              <%= f.hub_checkbox(:demographic_primary_mena, "TODO", options: { checked_value: true, unchecked_value: false }) %>
-              <%= f.hub_checkbox(:demographic_primary_native_hawaiian_pacific_islander, "TODO", options: { checked_value: true, unchecked_value: false }) %>
-              <%= f.hub_checkbox(:demographic_primary_white, "TODO", options: { checked_value: true, unchecked_value: false }) %>
+              <%= f.hub_checkbox(:demographic_primary_american_indian_alaska_native, "American Indian or Alaska Native", options: { checked_value: true, unchecked_value: false }) %>
+              <%= f.hub_checkbox(:demographic_primary_asian, "Asian", options: { checked_value: true, unchecked_value: false }) %>
+              <%= f.hub_checkbox(:demographic_primary_black_african_american, "Black or African American", options: { checked_value: true, unchecked_value: false }) %>
+              <%= f.hub_checkbox(:demographic_primary_hispanic_latino, "Hispanic or Latino", options: { checked_value: true, unchecked_value: false }) %>
+              <%= f.hub_checkbox(:demographic_primary_mena, "Middle Eastern or North African", options: { checked_value: true, unchecked_value: false }) %>
+              <%= f.hub_checkbox(:demographic_primary_native_hawaiian_pacific_islander, "Native Hawaiian or Pacific Islander", options: { checked_value: true, unchecked_value: false }) %>
+              <%= f.hub_checkbox(:demographic_primary_white, "White", options: { checked_value: true, unchecked_value: false }) %>
             </div>
           </div>
 
           <div class="grid__item width-one-whole">
             <div class="form-group">
-              <p class="form-question"><%= "TODO" %></p>
+              <p class="form-question">6. What is your spouse’s race and/or ethnicity? Select all that apply</p>
             </div>
           </div>
           <div class="grid__item width-one-whole spouse-demographic-race">
             <div class="form-group checkbox-set">
-              <%= f.hub_checkbox(:demographic_spouse_american_indian_alaska_native, "TODO", options: { checked_value: true, unchecked_value: false }) %>
-              <%= f.hub_checkbox(:demographic_spouse_asian, "TODO", options: { checked_value: true, unchecked_value: false }) %>
-              <%= f.hub_checkbox(:demographic_spouse_black_african_american, "TODO", options: { checked_value: true, unchecked_value: false }) %>
-              <%= f.hub_checkbox(:demographic_spouse_hispanic_latino, "TODO", options: { checked_value: true, unchecked_value: false }) %>
-              <%= f.hub_checkbox(:demographic_spouse_mena, "TODO", options: { checked_value: true, unchecked_value: false }) %>
-              <%= f.hub_checkbox(:demographic_spouse_native_hawaiian_pacific_islander, "TODO", options: { checked_value: true, unchecked_value: false }) %>
-              <%= f.hub_checkbox(:demographic_spouse_white, "TODO", options: { checked_value: true, unchecked_value: false }) %>
+              <%= f.hub_checkbox(:demographic_spouse_american_indian_alaska_native, "American Indian or Alaska Native", options: { checked_value: true, unchecked_value: false }) %>
+              <%= f.hub_checkbox(:demographic_spouse_asian, "Asian", options: { checked_value: true, unchecked_value: false }) %>
+              <%= f.hub_checkbox(:demographic_spouse_black_african_american, "Black or African American", options: { checked_value: true, unchecked_value: false }) %>
+              <%= f.hub_checkbox(:demographic_spouse_hispanic_latino, "Hispanic or Latino", options: { checked_value: true, unchecked_value: false }) %>
+              <%= f.hub_checkbox(:demographic_spouse_mena, "Middle Eastern or North African", options: { checked_value: true, unchecked_value: false }) %>
+              <%= f.hub_checkbox(:demographic_spouse_native_hawaiian_pacific_islander, "Native Hawaiian or Pacific Islander", options: { checked_value: true, unchecked_value: false }) %>
+              <%= f.hub_checkbox(:demographic_spouse_white, "White", options: { checked_value: true, unchecked_value: false }) %>
             </div>
           </div>
         </div>
