@@ -1244,7 +1244,7 @@ es:
         cant_locate: Necesito ayuda para encontrar mis documento(s) de %{doc_type}.
         cant_obtain: No puedo obtener documento(s) de %{doc_type}.
         doesnt_apply: No creo que este documento de %{doc_type} me aplique.
-      not_ready_to_not_filing: Transición%{tax_year}declaración de impuestos de No listo a No presentar después de%{days}días de inacción por parte del Cliente.
+      not_ready_to_not_filing: Transición%{tax_year}declaración de impuestos de No listo a No presentar después de %{days} días de inacción por parte del Cliente.
     tax_return_selections:
       help_text:
         many: Está viendo %{count} resultados de su búsqueda guardada
@@ -2472,7 +2472,7 @@ es:
             Asegurémonos de que este servicio es el indicado para ti.<br><br>
             Estas son las restas y los créditos <strong>que puedes</strong> reclamar para maximizar tu reembolso.
           not_supported: "¿Qué sucede si FileYourStateTaxes aún no puede procesar mi situación fiscal?"
-          title1: Puedes usar este servicio para declarar tus impuestos estatales de%{state}de %{year}
+          title1: Puedes usar este servicio para declarar tus impuestos estatales de %{state} de %{year}
           title2_html: |
             Asegurémonos de que este servicio es el indicado para ti.<br><br>
             Estos son los créditos y las deducciones que <strong>podrás</strong> reclamar para maximizar tu reembolso.
@@ -3114,7 +3114,7 @@ es:
           dependent_enrolled_full_time: "%{dependent_first} attends there full time."
           dependent_five_months_in_college: "%{dependent_first} pasa al menos alguna parte de cada uno de los cinco meses calendario en esa universidad."
           dependent_header: "(dependent)"
-          filer_pays_tuition_books: Yo (o mi cónyuge, si presentamos una declaración conjunta) pago al menos la mitad de la matrícula y los costos universitarios de%{dependent_first}.
+          filer_pays_tuition_books: Yo (o mi cónyuge, si presentamos una declaración conjunta) pago al menos la mitad de la matrícula y los costos universitarios de %{dependent_first}.
           full_time_college_helper_description: '"Tiempo completo" (full time) es lo que la universidad considere como tiempo completo. Esto se puede encontrar en el estado de cuenta de matrícula 1098 T.'
           full_time_college_helper_heading: What counts as "attending college full time"?
           reminder: 'Recordatorio: marca las casillas correspondientes a continuación para cada dependiente, si corresponde.'
