@@ -1985,32 +1985,8 @@ RSpec.describe Hub::ClientsController do
           id: client.id,
           commit: I18n.t('general.save'),
           hub_update13614c_form_page3: {
-<<<<<<< HEAD
-            had_disaster_loss: intake.had_disaster_loss,
-            received_irs_letter: intake.received_irs_letter,
-            had_disaster_loss_where: intake.had_disaster_loss_where,
-            demographic_english_conversation: intake.demographic_english_conversation,
-            demographic_english_reading: intake.demographic_english_reading,
-            demographic_disability: intake.demographic_disability,
-            demographic_veteran: intake.demographic_veteran,
-            demographic_primary_american_indian_alaska_native: intake.demographic_primary_american_indian_alaska_native,
-            demographic_primary_asian: intake.demographic_primary_asian,
-            demographic_primary_black_african_american: intake.demographic_primary_black_african_american,
-            demographic_primary_native_hawaiian_pacific_islander: intake.demographic_primary_native_hawaiian_pacific_islander,
-            demographic_primary_white: intake.demographic_primary_white,
-            demographic_primary_prefer_not_to_answer_race: intake.demographic_primary_prefer_not_to_answer_race,
-            demographic_spouse_american_indian_alaska_native: intake.demographic_spouse_american_indian_alaska_native,
-            demographic_spouse_asian: intake.demographic_spouse_asian,
-            demographic_spouse_black_african_american: intake.demographic_spouse_black_african_american,
-            demographic_spouse_native_hawaiian_pacific_islander: intake.demographic_spouse_native_hawaiian_pacific_islander,
-            demographic_spouse_white: intake.demographic_spouse_white,
-            demographic_spouse_prefer_not_to_answer_race: intake.demographic_spouse_prefer_not_to_answer_race,
-            demographic_primary_ethnicity: intake.demographic_primary_ethnicity,
-            demographic_spouse_ethnicity: intake.demographic_spouse_ethnicity,
-=======
             bought_energy_efficient_items: "unfilled",
             tax_credit_disallowed_year: "2001"
->>>>>>> 3d1ea43f3 (update clients_controller spec test)
           }
         }
       }
