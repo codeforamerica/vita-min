@@ -3409,7 +3409,7 @@ es:
         edit:
           helper_anchor_description_html: Si recibió un beneficio ANCHOR, el monto del beneficio no afecta el monto a declarar en la línea 8. (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> ofrece desgravación del impuesto a la propiedad a los residentes de Nueva Jersey que poseen o alquilan propiedades en Nueva Jersey como su hogar principal y cumplen con ciertos límites de ingresos).
           helper_anchor_heading: "¿Qué pasa si recibí beneficios ANCHOR?"
-          helper_description: Escribe las tarifas de tu sitio pagadas en %{filing_year}en la sección de alquiler de la Hoja de trabajo G.
+          helper_description: Escribe las tarifas de tu sitio pagadas en %{filing_year} en la sección de alquiler de la Hoja de trabajo G.
           helper_heading: Dueños/as de casas móviles/rodantes
           label_html: "<strong>Ingresa tu parte total del alquiler que pagaste en %{filing_year}</strong>"
           title: Buenas noticias—calificas para una deducción o crédito
@@ -4763,12 +4763,12 @@ es:
           - pagos por cuenta propia o por contrato
           subtitle: 'Los ingresos pueden venir de cualquiera de las siguientes fuentes:'
           title:
-            many: "¿Usted y su cónyuge ganaron menos de  en %{standard_deduction}en %{current_tax_year}?"
-            one: "¿Ganaste menos de %{standard_deduction}en %{current_tax_year}?"
+            many: "¿Usted y su cónyuge ganaron menos de  en %{standard_deduction} en %{current_tax_year}?"
+            one: "¿Ganaste menos de %{standard_deduction} en %{current_tax_year}?"
             other: "¿Usted y su cónyuge ganaron menos de %{standard_deduction} en %{current_tax_year}?"
         investment_income:
           help_text: En general, los ingresos por inversiones incluyen intereses, dividendos, ganancias de capital y distribuciones de fondos mutuos.
-          married_title: "¿Usted y su cónyuge ganaron más de $10,000 en ingreso de inversiones en  %{current_tax_year}?"
+          married_title: "¿Usted y su cónyuge ganaron más de $10,000 en ingreso de inversiones en %{current_tax_year}?"
           reveal_content: Si obtuvo ingresos de inversiones (como intereses de una cuenta de ahorros, dividendos de acciones o ganancias de capital de una inversión), habría recibido un 1099-INT, 1099-DIV o 1099-B con la cantidad.
           reveal_title: "¿Cómo verifico la cantidad de mis ingreso de inversiones?"
           title: "¿Ganó más de $10,000 en ingreso de inversiones en %{current_tax_year}?"
