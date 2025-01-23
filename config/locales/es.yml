@@ -3737,12 +3737,21 @@ es:
           title_html: Buenas noticias, recibirás un reembolso de impuestos del estado de %{state_name} de <strong>$%{refund_amount}.</strong>
       taxes_owed:
         edit:
+          more_tax_information_nj_html: <p><a href="https://www.nj.gov/treasury/taxation/payments-notices.shtml" target="_blank" rel="noopener nofollow">Aquí hay más información sobre las fechas de vencimiento de impuestos y los modos de pago.</a></p>
           page_title: Debes impuestos estatales. ¿Cómo te gustaría pagar?
           pay_bank: Directamente desde tu cuenta corriente o de ahorros (débito directo)
           pay_mail_online_html: Por correo o en línea en <a target="_blank" rel="noopener nofollow" href="%{tax_payment_info_url}">%{tax_payment_info_text}</a>
           subtitle: "¿Cómo te gustaría pagar?"
           subtitle_html: Para obtener más información sobre las fechas de vencimiento de impuestos y los métodos de pago, visita <a target="_blank" rel="noopener nofollow" href="https://marylandtaxes.gov/">Marylandtaxes.gov</a>
           title_html: Debes <strong>$%{owed_amount}</strong> en impuestos estatales de %{state_name}.
+          underpayment_notice_nj_html: |-
+            <p>Esto puede suceder por muchas razones, las más comunes son:</p>
+            <ul class="list--bulleted">
+              <li>Porque no se retuvieron suficientes impuestos de tu cheque/recibo de pago (paycheck) (podrías charlar esto con tu empleador/a para los próximos años), o</li>
+              <li>Porque no hiciste suficientes pagos de impuestos estimados.</li>
+            </ul>
+            <p>Es posible que te cobren intereses sobre lo que debes. Si este es tu caso, recibirás un aviso de la División de Impuestos del Estado de New Jersey por correo.</p>
+            <p><strong>Definitivamente debes continuar con esta declaración de impuestos. Cuanto antes lo hagas, menos tendrás que pagar en multas.</strong></p>
       terms_and_conditions:
         edit:
           accept: Aceptar
