@@ -1,0 +1,98 @@
+<% @title = 'Optional Information' %>
+<% content_for :page_title, @title %>
+<% content_for :card do %>
+  <div class="form_13614c slab slab--not-padded">
+    <h1><%= @title %></h1>
+    <p>Last client 13614-C
+      update: <%= @client.last_13614c_update_at&.in_time_zone("America/Los_Angeles")&.strftime("%b %-d %l:%M %p") %></p>
+
+    <%= form_with model: @form,
+                  url: edit_13614c_form_page4_hub_client_path,
+                  method: :put, local: true, builder: VitaMinFormBuilder,
+                  html: { class: 'form-card form-question-13614-page3' } do |f| %>
+      <div>
+        <div style="display: flex; justify-content: space-between;">
+          <h2><%= "The following information is for statistical purposes only. Your responses to these questions are not a part of your tax return and are not transmitted to the
+IRS with your tax return. You are not required to answer these questions." %></h2>
+
+          <%= render '13614c_page_links', current_page: 3 %>
+        </div>
+
+        <hr style="margin-top: 0;"/>
+
+        <div class="grid">
+          <div class="grid__item width-one-whole">
+            <%= f.cfa_select(:demographic_english_conversation, "1. Would you say you can carry on a conversation in English", [
+              ["", :unfilled],
+              [t("general.very_well"), :very_well],
+              [t("general.well"), :well],
+              [t("general.not_well"), :not_well],
+              [t("general.not_at_all"), :not_at_all],
+            ]) %>
+          </div>
+          <div class="grid__item width-one-whole">
+            <%= f.cfa_select(:demographic_english_reading, "2. Would you say you can read a newspaper in English", [
+              ["", :unfilled],
+              [t("general.very_well"), :very_well],
+              [t("general.well"), :well],
+              [t("general.not_well"), :not_well],
+              [t("general.not_at_all"), :not_at_all],
+            ]) %>
+          </div>
+          <div class="grid__item width-one-whole">
+            <%= f.cfa_select(:demographic_disability, "3. Do you or any member of your household have a disability", yes_no_options_for_select) %>
+          </div>
+          <div class="grid__item width-one-whole">
+            <%= f.cfa_select(:demographic_veteran, "4. Are you or your spouse a Veteran of the U.S. Armed Forces", yes_no_options_for_select) %>
+          </div>
+          <div class="grid__item width-one-whole">
+            <div class="form-group">
+              <p class="form-question"><%= "TODO" %></p>
+            </div>
+          </div>
+
+          <div class="grid__item width-one-whole primary-demographic-race">
+            <div class="form-group checkbox-set">
+              <%= f.hub_checkbox(:demographic_primary_american_indian_alaska_native, "TODO", options: { checked_value: true, unchecked_value: false }) %>
+              <%= f.hub_checkbox(:demographic_primary_asian, "TODO", options: { checked_value: true, unchecked_value: false }) %>
+              <%= f.hub_checkbox(:demographic_primary_black_african_american, "TODO", options: { checked_value: true, unchecked_value: false }) %>
+              <%= f.hub_checkbox(:demographic_primary_hispanic_latino, "TODO", options: { checked_value: true, unchecked_value: false }) %>
+              <%= f.hub_checkbox(:demographic_primary_mena, "TODO", options: { checked_value: true, unchecked_value: false }) %>
+              <%= f.hub_checkbox(:demographic_primary_native_hawaiian_pacific_islander, "TODO", options: { checked_value: true, unchecked_value: false }) %>
+              <%= f.hub_checkbox(:demographic_primary_white, "TODO", options: { checked_value: true, unchecked_value: false }) %>
+            </div>
+          </div>
+
+          <div class="grid__item width-one-whole">
+            <div class="form-group">
+              <p class="form-question"><%= "TODO" %></p>
+            </div>
+          </div>
+          <div class="grid__item width-one-whole spouse-demographic-race">
+            <div class="form-group checkbox-set">
+              <%= f.hub_checkbox(:demographic_spouse_american_indian_alaska_native, "TODO", options: { checked_value: true, unchecked_value: false }) %>
+              <%= f.hub_checkbox(:demographic_spouse_asian, "TODO", options: { checked_value: true, unchecked_value: false }) %>
+              <%= f.hub_checkbox(:demographic_spouse_black_african_american, "TODO", options: { checked_value: true, unchecked_value: false }) %>
+              <%= f.hub_checkbox(:demographic_spouse_hispanic_latino, "TODO", options: { checked_value: true, unchecked_value: false }) %>
+              <%= f.hub_checkbox(:demographic_spouse_mena, "TODO", options: { checked_value: true, unchecked_value: false }) %>
+              <%= f.hub_checkbox(:demographic_spouse_native_hawaiian_pacific_islander, "TODO", options: { checked_value: true, unchecked_value: false }) %>
+              <%= f.hub_checkbox(:demographic_spouse_white, "TODO", options: { checked_value: true, unchecked_value: false }) %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: space-between;">
+        <div>
+          <%= f.submit t("general.save"), class: "button button--cta"%>
+          <%= f.submit t("general.save_and_exit"), class: "button button--cta"%>
+          <%= link_to t("general.cancel"), cancel_13614c_hub_client_path, class: "button button--danger",
+                      data: { confirm: t("general.confirm_exit_without_saving") } %>
+        </div>
+
+        <%= render '13614c_page_links', current_page: 4 %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
