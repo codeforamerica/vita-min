@@ -3258,7 +3258,7 @@ es:
           description_html: |-
             <p>If you had at least %{two_percent_of_income} in non-reimbursed medical expenses, you are eligible for a deduction. Enter the full amount of your non-reimbursed expenses here. We’ll deduct the right amount for your situation.</p>
             <p>If your medical expenses were less than %{two_percent_of_income}, you are not eligible for the deduction. Click "Continue."</p>
-            
+
             <p>Estos gastos incluyen:</p>
             <ul class="list--bulleted">
               <li>Gastos para ti, tu cónyuge y tus dependientes.</li>
