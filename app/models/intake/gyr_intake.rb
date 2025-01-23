@@ -75,6 +75,39 @@
 #  cv_w2g_or_other_gambling_winnings_count              :integer
 #  cv_w2s_cb                                            :integer          default("unfilled"), not null
 #  cv_w2s_count                                         :integer
+#  cv_1095a_cb                                          :integer          default("unfilled"), not null
+#  cv_1098_cb                                           :integer          default("unfilled"), not null
+#  cv_1098_count                                        :integer
+#  cv_1098e_cb                                          :integer          default("unfilled"), not null
+#  cv_1098t_cb                                          :integer          default("unfilled"), not null
+#  cv_1099a_cb                                          :integer          default("unfilled"), not null
+#  cv_1099c_cb                                          :integer          default("unfilled"), not null
+#  cv_1099s_cb                                          :integer          default("unfilled"), not null
+#  cv_14c_page_3_notes_part_1                           :string
+#  cv_14c_page_3_notes_part_2                           :string
+#  cv_14c_page_3_notes_part_3                           :string
+#  cv_alimony_income_adjustment_yn_cb                   :integer          default("unfilled"), not null
+#  cv_child_dependent_care_credit_cb                    :integer          default("unfilled"), not null
+#  cv_disaster_relief_impacts_return_cb                 :integer          default("unfilled"), not null
+#  cv_edu_credit_or_tuition_deduction_cb                :integer          default("unfilled"), not null
+#  cv_edu_expenses_deduction_amt                        :decimal(12, 2)
+#  cv_edu_expenses_deduction_cb                         :integer          default("unfilled"), not null
+#  cv_eitc_ctc_aotc_hoh_disallowed_in_a_prev_yr_cb      :integer          default("unfilled"), not null
+#  cv_eligible_for_litc_referral_cb                     :integer          default("unfilled"), not null
+#  cv_energy_efficient_home_improv_credit_cb            :integer          default("unfilled"), not null
+#  cv_estimated_tax_payments_amt                        :decimal(12, 2)
+#  cv_estimated_tax_payments_cb                         :integer          default("unfilled"), not null
+#  cv_hsa_contrib_cb                                    :integer          default("unfilled"), not null
+#  cv_hsa_distrib_cb                                    :integer          default("unfilled"), not null
+#  cv_last_years_refund_applied_to_this_yr_amt          :decimal(12, 2)
+#  cv_last_years_refund_applied_to_this_yr_cb           :integer          default("unfilled"), not null
+#  cv_last_years_return_available_cb                    :integer          default("unfilled"), not null
+#  cv_med_expense_itemized_deduction_cb                 :integer          default("unfilled"), not null
+#  cv_med_expense_standard_deduction_cb                 :integer          default("unfilled"), not null
+#  cv_paid_alimony_w_spouse_ssn_amt                     :decimal(12, 2)
+#  cv_paid_alimony_w_spouse_ssn_cb                      :integer          default("unfilled"), not null
+#  cv_tax_credit_disallowed_reason                      :string
+#  cv_taxable_scholarship_income_cb                     :integer          default("unfilled"), not null
 #  demographic_disability                               :integer          default("unfilled"), not null
 #  demographic_english_conversation                     :integer          default("unfilled"), not null
 #  demographic_english_reading                          :integer          default("unfilled"), not null
@@ -497,6 +530,30 @@ class Intake::GyrIntake < Intake
   enum receive_written_communication: { unfilled: 0, yes: 1, no: 2 }, _prefix: :receive_written_communication
   enum presidential_campaign_fund_donation: { unfilled: 0, primary: 1, spouse: 2, primary_and_spouse: 3, no: 4 }, _prefix: :presidential_campaign_fund_donation
   enum register_to_vote: { unfilled: 0, yes: 1, no: 2 }, _prefix: :register_to_vote
+  enum cv_1098_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1098_cb
+  enum cv_med_expense_standard_deduction_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_med_expense_standard_deduction_cb
+  enum cv_med_expense_itemized_deduction_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_med_expense_itemized_deduction_cb
+  enum cv_1098e_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1098e_cb
+  enum cv_child_dependent_care_credit_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_child_dependent_care_credit_cb
+  enum cv_edu_expenses_deduction_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_edu_expenses_deduction_cb
+  enum cv_paid_alimony_w_spouse_ssn_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_paid_alimony_w_spouse_ssn_cb
+  enum cv_alimony_income_adjustment_yn_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_alimony_income_adjustment_yn_cb
+  enum cv_taxable_scholarship_income_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_taxable_scholarship_income_cb
+  enum cv_1098t_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1098t_cb
+  enum cv_edu_credit_or_tuition_deduction_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_edu_credit_or_tuition_deduction_cb
+  enum cv_1099s_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1099s_cb
+  enum cv_hsa_contrib_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_hsa_contrib_cb
+  enum cv_hsa_distrib_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_hsa_distrib_cb
+  enum cv_1095a_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1095a_cb
+  enum cv_energy_efficient_home_improv_credit_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_energy_efficient_home_improv_credit_cb
+  enum cv_1099c_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1099c_cb
+  enum cv_1099a_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1099a_cb
+  enum cv_disaster_relief_impacts_return_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_disaster_relief_impacts_return_cb
+  enum cv_eitc_ctc_aotc_hoh_disallowed_in_a_prev_yr_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_eitc_ctc_aotc_hoh_disallowed_in_a_prev_yr_cb
+  enum cv_eligible_for_litc_referral_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_eligible_for_litc_referral_cb
+  enum cv_estimated_tax_payments_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_estimated_tax_payments_cb
+  enum cv_last_years_refund_applied_to_this_yr_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_last_years_refund_applied_to_this_yr_cb
+  enum cv_last_years_return_available_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_last_years_return_available_cb                          
 
   # 14c p2 volunteer fields for ty2024
   enum cv_w2s_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_w2s_cb

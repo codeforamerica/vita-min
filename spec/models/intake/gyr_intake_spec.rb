@@ -75,6 +75,39 @@
 #  cv_w2g_or_other_gambling_winnings_count              :integer
 #  cv_w2s_cb                                            :integer          default("unfilled"), not null
 #  cv_w2s_count                                         :integer
+#  cv_1095a_cb                                          :integer          default("unfilled"), not null
+#  cv_1098_cb                                           :integer          default("unfilled"), not null
+#  cv_1098_count                                        :integer
+#  cv_1098e_cb                                          :integer          default("unfilled"), not null
+#  cv_1098t_cb                                          :integer          default("unfilled"), not null
+#  cv_1099a_cb                                          :integer          default("unfilled"), not null
+#  cv_1099c_cb                                          :integer          default("unfilled"), not null
+#  cv_1099s_cb                                          :integer          default("unfilled"), not null
+#  cv_14c_page_3_notes_part_1                           :string
+#  cv_14c_page_3_notes_part_2                           :string
+#  cv_14c_page_3_notes_part_3                           :string
+#  cv_alimony_income_adjustment_yn_cb                   :integer          default("unfilled"), not null
+#  cv_child_dependent_care_credit_cb                    :integer          default("unfilled"), not null
+#  cv_disaster_relief_impacts_return_cb                 :integer          default("unfilled"), not null
+#  cv_edu_credit_or_tuition_deduction_cb                :integer          default("unfilled"), not null
+#  cv_edu_expenses_deduction_amt                        :decimal(12, 2)
+#  cv_edu_expenses_deduction_cb                         :integer          default("unfilled"), not null
+#  cv_eitc_ctc_aotc_hoh_disallowed_in_a_prev_yr_cb      :integer          default("unfilled"), not null
+#  cv_eligible_for_litc_referral_cb                     :integer          default("unfilled"), not null
+#  cv_energy_efficient_home_improv_credit_cb            :integer          default("unfilled"), not null
+#  cv_estimated_tax_payments_amt                        :decimal(12, 2)
+#  cv_estimated_tax_payments_cb                         :integer          default("unfilled"), not null
+#  cv_hsa_contrib_cb                                    :integer          default("unfilled"), not null
+#  cv_hsa_distrib_cb                                    :integer          default("unfilled"), not null
+#  cv_last_years_refund_applied_to_this_yr_amt          :decimal(12, 2)
+#  cv_last_years_refund_applied_to_this_yr_cb           :integer          default("unfilled"), not null
+#  cv_last_years_return_available_cb                    :integer          default("unfilled"), not null
+#  cv_med_expense_itemized_deduction_cb                 :integer          default("unfilled"), not null
+#  cv_med_expense_standard_deduction_cb                 :integer          default("unfilled"), not null
+#  cv_paid_alimony_w_spouse_ssn_amt                     :decimal(12, 2)
+#  cv_paid_alimony_w_spouse_ssn_cb                      :integer          default("unfilled"), not null
+#  cv_tax_credit_disallowed_reason                      :string
+#  cv_taxable_scholarship_income_cb                     :integer          default("unfilled"), not null
 #  demographic_disability                               :integer          default("unfilled"), not null
 #  demographic_english_conversation                     :integer          default("unfilled"), not null
 #  demographic_english_reading                          :integer          default("unfilled"), not null
