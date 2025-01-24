@@ -9,11 +9,11 @@
       <div class="yes-no-buttons">
         <%= f.hidden_field :locale, value: params['locale'] %>
         <% if Flipper.enabled?(:sms_notifications) %>
-          <%= f.button :submit, name: "#{f.object_name}[contact_preference]", value: "text", class: "button", "aria-describedby": "main-question" do %>
+          <%= f.button :submit, name: "#{f.object_name}[contact_preference]", value: "text", class: "button" do %>
             <%= t(".text_message_option") %>
           <% end %>
         <% end %>
-        <%= f.button :submit, name: "#{f.object_name}[contact_preference]", value: "email", class: "button", "aria-describedby": "main-question" do %>
+        <%= f.button :submit, name: "#{f.object_name}[contact_preference]", value: "email", class: "button" do %>
           <%= t(".email_option") %>
         <% end %>
       </div>

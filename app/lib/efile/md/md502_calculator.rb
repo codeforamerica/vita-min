@@ -29,6 +29,12 @@ module Efile
           lines: @lines,
           intake: @intake
         )
+
+        @md502r = Efile::Md::Md502RCalculator.new(
+          value_access_tracker: @value_access_tracker,
+          lines: @lines,
+          intake: @intake
+        )
       end
 
       def calculate
@@ -113,6 +119,7 @@ module Efile
         set_line(:MD502_LINE_50, :calculate_line_50)
         set_line(:MD502_AUTHORIZE_DIRECT_DEPOSIT, @intake, :bank_authorization_confirmed_yes?)
         @md502cr.calculate
+        @md502r.calculate
         @lines.transform_values(&:value)
       end
 
