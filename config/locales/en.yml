@@ -2928,6 +2928,7 @@ en:
           title: Here are the income forms we transferred from your federal tax return.
           unemployment_title: Unemployment benefits (1099-G)
           w2s_title: Jobs (W-2)
+          warning: "⚠️ We need to double-check some information"
       initiate_data_transfer:
         data_transfer_buttons:
           from_fake_df_page: Transfer data from fake DF transfer page
