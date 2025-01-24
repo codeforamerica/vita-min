@@ -26,7 +26,7 @@
               <%= f.vita_min_money_field(
                     field_name.to_sym,
                     t(".box14_#{code['name'].downcase}_html"),
-                    options: { value: value },
+                    options: { value: value || 0 },
                     classes: ["form-width--long"]
                   ) %>
                   <%= t(".box14_#{code['name'].downcase}_help_text", year: MultiTenantService.statefile.current_tax_year, default: nil) %>
