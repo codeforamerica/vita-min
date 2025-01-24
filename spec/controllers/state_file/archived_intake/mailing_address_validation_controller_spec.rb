@@ -65,13 +65,14 @@ RSpec.describe StateFile::ArchivedIntakes::MailingAddressValidationController, t
     context "with a valid chosen address" do
       it "creates an access log and redirects to the root path" do
         post :update, params: {
-          state_file_archived_intakes_mailing_address_validation_form: { selected_address: intake.full_address, addresses: controller.address_challenge_set}
+          state_file_archived_intakes_mailing_address_validation_form: { selected_address: intake.full_address, addresses: current_request.address_challenge_set}
         }
         expect(assigns(:form)).to be_valid
 
         access_log = StateFileArchivedIntakeAccessLog.last
         expect(access_log.state_file_archived_intake_request).to eq(current_request)
         expect(access_log.event_type).to eq("correct_mailing_address")
+        expect(session[:mailing_verified]).to eq(true)
 
         # TODO: https://codeforamerica.atlassian.net/browse/FYST-1520
         # need to change to download path
@@ -82,13 +83,14 @@ RSpec.describe StateFile::ArchivedIntakes::MailingAddressValidationController, t
     context "with an invalid chosen address" do
       it "creates an access log and redirects to the root path and locks the request" do
         post :update, params: {
-          state_file_archived_intakes_mailing_address_validation_form: { selected_address: current_request.fake_address_1, addresses: controller.address_challenge_set}
+          state_file_archived_intakes_mailing_address_validation_form: { selected_address: current_request.fake_address_1, addresses: current_request.address_challenge_set}
         }
         expect(assigns(:form)).not_to be_valid
 
         access_log = StateFileArchivedIntakeAccessLog.last
         expect(access_log.state_file_archived_intake_request).to eq(current_request)
         expect(access_log.event_type).to eq("incorrect_mailing_address")
+        expect(session[:mailing_verified]).to eq(nil)
         expect(current_request.access_locked?).to eq(true)
         expect(response).to redirect_to(state_file_archived_intakes_verification_error_path)
       end

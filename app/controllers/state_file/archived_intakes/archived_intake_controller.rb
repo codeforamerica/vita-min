@@ -17,9 +17,6 @@ module StateFile
         )
       end
 
-      def address_challenge_set
-        (current_request.fake_addresses.push(current_archived_intake.full_address)).shuffle
-      end
 
       def check_feature_flag
         unless Flipper.enabled?(:get_your_pdf)

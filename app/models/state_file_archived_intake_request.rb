@@ -39,8 +39,13 @@ class StateFileArchivedIntakeRequest < ApplicationRecord
     [fake_address_1, fake_address_2]
   end
 
+  def address_challenge_set
+    (fake_addresses.push(state_file_archived_intake.full_address)).shuffle
+  end
+
   private
 
+  # this is here because we don't want people to get new fake addresses if they refresh the page or return with a new session
   def populate_fake_addresses
     self.fake_address_1, self.fake_address_2 = fetch_random_addresses
   end
