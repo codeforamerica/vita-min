@@ -80,10 +80,6 @@ module PdfFiller
       )
       answers.merge!(
         keep_and_normalize(
-          {
-            # "form1[0].page1[0].maritalStatus[0].marriedForAll[0].forAllYes[0]" => @intake.got_married_during_tax_year_yes?,
-            # "form1[0].page1[0].maritalStatus[0].marriedForAll[0].forAllNo[0]" => @intake.got_married_during_tax_year_no?,
-          },
           with_prefix("form1[0].page1[0].maritalStatus[0]") do
             {
               "statusNeverMarried[0]" => @intake.ever_married_no?,
