@@ -46,18 +46,20 @@ class StateFileArchivedIntakeRequest < ApplicationRecord
   end
 
   def fetch_random_addresses
-    if Rails.env.development? || Rails.env.test?
-      file_path = Rails.root.join('app', 'lib', 'challenge_addresses', 'test_addresses.csv')
-      addresses = CSV.read(file_path, headers: false).flatten
-    else
-      bucket = 'vita-min-heroku-docs'
-      file_key = 'non_prod_addresses.csv'
-      file_path = File.join(Rails.root, "tmp", File.basename(file_key))
+    if state_file_archived_intake.present?
+      if Rails.env.development? || Rails.env.test?
+        file_path = Rails.root.join('app', 'lib', 'challenge_addresses', 'test_addresses.csv')
+      else
+        bucket = select_bucket
+        file_key = Rails.env.development? ? "#{current_archived_intake.mailing_state.downcase}_addresses.csv" : 'non_prod_addresses.csv'
 
-      download_file_from_s3(bucket, file_key, file_path) unless File.exist?(file_path)
+        file_path = File.join(Rails.root, "tmp", File.basename(file_key))
+
+        download_file_from_s3(bucket, file_key, file_path) unless File.exist?(file_path)
+      end
       addresses = CSV.read(file_path, headers: false).flatten
+      addresses.sample(2)
     end
-    addresses.sample(2)
   end
 
   def download_file_from_s3(bucket, file_key, file_path)
