@@ -46,18 +46,21 @@ class StateFileArchivedIntakeRequest < ApplicationRecord
   end
 
   def fetch_random_addresses
-    if Rails.env.development? || Rails.env.test?
-      file_path = Rails.root.join('app', 'lib', 'challenge_addresses', 'test_addresses.csv')
-      addresses = CSV.read(file_path, headers: false).flatten
-    else
-      bucket = select_bucket
-      file_key = "challenge_addresses/#{state_file_archived_intake&.mailing_state&.downcase}_addresses.csv"
-      file_path = File.join(Rails.root, "tmp", "#{current_archived_intake.mailing_state.downcase}_addresses.csv")
-      addresses = download_file_from_s3(bucket, file_key, file_path)
-    end
-    addresses.sample(2)
-  end
+    if state_file_archived_intake.present?
+      if Rails.env.development? || Rails.env.test?
+        file_path = Rails.root.join('app', 'lib', 'challenge_addresses', 'test_addresses.csv')
+      else
+        bucket = select_bucket
+        file_key = Rails.env.development? ? "#{current_archived_intake.mailing_state.downcase}_addresses.csv" : 'non_prod_addresses.csv'
 
+        file_path = File.join(Rails.root, "tmp", File.basename(file_key))
+
+        download_file_from_s3(bucket, file_key, file_path) unless File.exist?(file_path)
+      end
+      addresses = CSV.read(file_path, headers: false).flatten
+      addresses.sample(2)
+    end
+  end
 
   def download_file_from_s3(bucket, file_key, file_path)
     s3_client = Aws::S3::Client.new(region: 'us-east-1', credentials: s3_credentials)
@@ -69,10 +72,14 @@ class StateFileArchivedIntakeRequest < ApplicationRecord
   end
 
   def s3_credentials
-    Aws::Credentials.new(
-      ENV["AWS_ACCESS_KEY_ID"] || Rails.application.credentials.dig(:aws, :access_key_id),
-      ENV["AWS_SECRET_ACCESS_KEY"] || Rails.application.credentials.dig(:aws, :secret_access_key)
-    )
+    if ENV["AWS_ACCESS_KEY_ID"].present?
+      Aws::Credentials.new(ENV["AWS_ACCESS_KEY_ID"], ENV["AWS_SECRET_ACCESS_KEY"])
+    else
+      Aws::Credentials.new(
+        Rails.application.credentials.dig(:aws, :access_key_id),
+        Rails.application.credentials.dig(:aws, :secret_access_key)
+      )
+    end
   end
 
   def select_bucket
