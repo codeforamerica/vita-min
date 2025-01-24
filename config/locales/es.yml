@@ -2970,9 +2970,9 @@ es:
           why_ask_this: "¿Por qué están pidiendo esta información?"
       md_review:
         edit:
-          county_html: "<strong>Condado</strong>"
-          political_subdivision_html: "<strong>Subdivisión política</strong>"
-          your_address: Dirección donde vivías el 31 de diciembre del%{filing_year}
+          county_html: "<strong>Condado donde vivías el 31 de diciembre de %{filing_year}</strong>"
+          political_subdivision_html: "<strong>Subdivisión política donde vivías el 31 de diciembre de %{filing_year}</strong>"
+          your_address: Dirección donde vivías el 31 de diciembre del %{filing_year}
       md_social_security_benefits:
         edit:
           description: Para informar correctamente los beneficios del Seguro Social en su declaración de impuestos de Maryland, necesitamos recopilar información adicional.
