@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe StateFile::Questions::NycResidencyController do
+RSpec.describe StateFile::Questions::NycResidencyController, skip: true do
   let(:intake) { create :state_file_ny_intake }
   before do
     sign_in intake

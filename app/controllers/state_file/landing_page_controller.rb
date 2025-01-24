@@ -1,11 +1,7 @@
 module StateFile
   class LandingPageController < ApplicationController
     include StateFile::StateFileControllerConcern
-    include StateFile::StateFileIntakeConcern
-    helper_method :prev_path, :illustration_path
     layout "state_file"
-
-    before_action :require_state_file_intake_login, except: [:edit, :update]
 
     def edit
       @closed = app_time.after?(Rails.configuration.state_file_end_of_in_progress_intakes)
@@ -17,6 +13,10 @@ module StateFile
       @state_code = params[:us_state]
       @state_name = StateFile::StateInformationService.state_name(@state_code)
       @built_with_name = @state_code == "nj" ? "New Jersey Office of Innovation" : @state_name
+
+      if @state_code == "ny"
+        render :ny_closed
+      end
     end
 
     def update
@@ -33,12 +33,5 @@ module StateFile
       navigation = StateFile::StateInformationService.navigation_class(params[:us_state])
       redirect_to navigation.controllers.first.to_path_helper
     end
-
-    private
-
-    def prev_path; end
-
-    def illustration_path; end
-
   end
 end

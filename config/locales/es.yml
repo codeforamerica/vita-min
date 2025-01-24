@@ -630,6 +630,14 @@ es:
     vita_long: 'VITA: Asistencia Voluntaria al Contribuyente Tributario'
     well: Bien
     widowed: Viudo/a
+    written_language_options:
+      en: Inglés
+      es: Español
+      ko: Coreano
+      ru: Ruso
+      vi: Vietnamita
+      zh_cn: Chino Simplificado
+      zh_tw: Chino Tradicional
     year: año
     year_date: Año
     you: usted
@@ -2003,8 +2011,8 @@ es:
       verification_code:
         edit:
           error_message: Después de 2 intentos fallidos, las cuentas serán bloqueadas.
+          subtitle_2_html: Si aún necesitas ayuda para resuscribirte, <a class="open-intercom">chatea con nosotros</a>.
           subtitle_html: Si no recibiste un código, revisa tu carpeta de spam. Si aún necesitas ayuda para volver a suscribirte, chatea con nosotros.
-          subtitle_html_2: Si aún necesitas ayuda para resuscribirte, chatea con nosotros.
           title_html: Hemos enviado tu código a <strong>%{email_address}</strong>
           verify: Verificar el código
       verification_error:
@@ -2165,15 +2173,16 @@ es:
           supported_by: Respaldado por el estado de New Jersey Division of Taxation
           title: Presenta tus impuestos estatales de New Jersey sin costo
         not_you: "¿No es %{user_name}?"
-        ny:
-          closed_html: |
-            <strong>FileYourStateTaxes</strong> se creó en asociación con el estado de Nueva York para integrarse con la herramienta Direct File del IRS.<br /><br />
-            Estamos cerrados por la temporada de impuestos. Lamentablemente no puede presentar su declaración estatal con nosotros este año.
-          supported_by: Respaldada por el estado de Nueva York
-          title: Declara tus impuestos Estatales de Nueva York sin costo
         start_new: Haga clic aquí para iniciar una nueva declaración estatal de %{state_name}.
         title_closed: Nuestro servicio gratuito para declarar tus impuestos estatales de %{state_name} está cerrado por la temporada
         welcome_back: "¡Bienvenido de nuevo %{user_name}!"
+      ny_closed:
+        body_html: |
+          No puedes usar este servicio para declarar tus impuestos estatales de Nueva York de 2024. Sin embargo, podrías declarar con IRS Direct File y New York State Direct File. Para verificar tu elegibilidad y comenzar a presentar tu declaración federal, visita a IRS Direct File. a <a href="https://directfile.irs.gov/">IRS Direct File</a>.
+          <br /><br />
+          Para descargar tu declaración de impuestos de Nueva York de 2023, <a href="https://www.fileyourstatetaxes.org/en/az/faq/how_can_i_access_my_2023_state_tax_return">visita nuestras preguntas frecuentes</a>.
+        supported_by: Respaldada por el estado de Nueva York
+        title: Gracias por visitar FileYourStateTaxes
     navigation:
       nj:
         section_1: 'Sección 1: Ingresos'
@@ -3176,14 +3185,12 @@ es:
           description_html: |
             <p>Incluye la suma de lo siguiente:</p>
             <ul class="list--bulleted">
-              <li><a href="https://nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git8.pdf" target="_blank" rel="noopener nofollow">Pagos estimados de impuestos sobre tus ingresos</a> que hiciste durante el año para tus impuestos estatales de New Jersey</li>
-              <li>
+              <li><a href="https://nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git8.pdf" target="_blank" rel="noopener nofollow">Pagos estimados de impuestos sobre tus ingresos</a> que hiciste durante el año para tus impuestos estatales de New Jersey
                 <ul class="list--bulleted">
                   <li><strong>Esto no incluye las retenciones de tu cheque (paycheck)</strong></li>
                 </ul>
-              </li<
-              <li>Pagos en exceso en tu declaración de %{prior_year} que elegiste aplicar a tus impuestos estatales de New Jersey en %{filing_year}</li>
-              <li>
+              </li>
+              <li>Pagos en exceso en tu declaración de %{prior_year} que elegiste aplicar a tus impuestos estatales de New Jersey en %{filing_year}
                 <ul class="list--bulleted">
                   <li>Nota: habrías seleccionado esta opción al presentar tu declaración de %{prior_year}</li>
                 </ul>
@@ -3270,6 +3277,9 @@ es:
       nj_medical_expenses:
         edit:
           description_html: |-
+            <p>If you had at least %{medical_expenses_threshold} in non-reimbursed medical expenses, you are eligible for a deduction. Enter the full amount of your non-reimbursed expenses here. We’ll deduct the right amount for your situation.</p>
+            <p>If your medical expenses were less than %{medical_expenses_threshold}, you are not eligible for the deduction. Click "Continue."</p>
+
             <p>Estos gastos incluyen:</p>
             <ul class="list--bulleted">
               <li>Gastos para ti, tu cónyuge y tus dependientes.</li>
@@ -3839,7 +3849,7 @@ es:
       verification_code:
         edit:
           action: " Verificar el código"
-          subtitle_html: Si no recibiste un código por favor revisa tu carpeta de spam. Si aún necesitas ayuda, chatea con nosotros.
+          subtitle_html: Si no recibiste un código por favor revisa tu carpeta de spam. Si aún necesitas ayuda, <a class="open-intercom">chatea con nosotros</a>.
           title_html: Te enviamos tu código a <strong>%{contact_info}</strong>
           verification_code_label: Ingresa el código de 6 dígitos
       w2:
@@ -6143,8 +6153,9 @@ es:
           other: En el %{year}, ¿Tuvo usted o su pareja ingresos por intereses o dividendos?
       interview_scheduling:
         help_text: Haremos todo lo posible para programar su revisión basada en la información que nos proporcione.
-        language_select: "¿Cuál idioma prefiere para la revisión?"
+        interview_preference: "¿Cuál idioma prefiere para la revisión?"
         title: "¿Tiene alguna preferencia de tiempo para su entrevista telefónica?"
+        written_preference: "¿Cuál es tu idioma escrito preferido?"
       irs_letter:
         title:
           many: En %{year}, ¿recibió usted o su cónyuge alguna carta o factura del IRS?
