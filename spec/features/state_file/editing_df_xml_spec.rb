@@ -13,12 +13,12 @@ RSpec.feature "editing direct file XML with the FederalInfoController", active_j
 
   it "does not modify the df xml if nothing was changed" do
     visit "/"
-    click_on "Start Test NY"
+    click_on "Start Test AZ"
 
-    expect(page).to have_text I18n.t("state_file.landing_page.edit.ny.title")
+    expect(page).to have_text I18n.t("state_file.landing_page.edit.az.title")
     click_on "Get Started", id: "firstCta"
 
-    step_through_eligibility_screener(us_state: "ny")
+    step_through_eligibility_screener(us_state: "az")
 
     step_through_initial_authentication(contact_preference: :text_message)
     check "Email"
@@ -32,14 +32,14 @@ RSpec.feature "editing direct file XML with the FederalInfoController", active_j
     expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
     click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
 
-    step_through_df_data_transfer("Transfer Javier")
+    step_through_df_data_transfer("Transfer Alexis hoh")
 
-    xml_before = StateFileNyIntake.last.raw_direct_file_data.strip
+    xml_before = StateFileAzIntake.last.raw_direct_file_data.strip
 
     click_on I18n.t("general.continue")
-    expect(page).to have_text I18n.t('state_file.questions.nyc_residency.edit.title', year: tax_year)
+    expect(page).to have_text I18n.t("state_file.questions.az_prior_last_names.edit.title", count: 1)
 
-    xml_after = StateFileNyIntake.last.raw_direct_file_data.strip
+    xml_after = StateFileAzIntake.last.raw_direct_file_data.strip
     expect(xml_before).to eq(xml_after)
   end
 

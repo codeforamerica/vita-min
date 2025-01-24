@@ -13,6 +13,10 @@ class StateFile::FaqController < ApplicationController
   end
 
   def show
+    if params[:us_state] == 'ny'
+      redirect_to state_landing_page_path(us_state: "ny")
+      return
+    end
     @section_key = params[:section_key]
     @faq_category = FaqCategory.find_by(slug: @section_key, product_type: FaqCategory.state_to_product_type(params[:us_state]))
 
