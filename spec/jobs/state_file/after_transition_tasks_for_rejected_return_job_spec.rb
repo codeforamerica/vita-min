@@ -3,13 +3,35 @@ require "rails_helper"
 describe StateFile::AfterTransitionTasksForRejectedReturnJob do
   describe '.perform' do
     let(:submission) { create(:efile_submission, :transmitted, :for_state) }
-    let(:efile_error) { create(:efile_error, code: "IRS-ERROR", expose: true, auto_wait: auto_wait, auto_cancel: auto_cancel, service_type: :ctc) }
+    let(:efile_error) { create(:efile_error, code: "IRS-ERROR", expose: true, auto_wait: auto_wait, auto_cancel: auto_cancel, service_type: :state_file_ny) }
     let(:auto_wait) { false }
     let(:auto_cancel) { false }
 
     before do
       allow(ClientMessagingService).to receive(:send_system_message_to_all_opted_in_contact_methods)
       submission.transition_to!(:rejected, error_code: efile_error.code)
+    end
+
+    context "when error is auto-wait" do
+      let(:auto_wait) { true }
+      let(:auto_cancel) { false }
+
+      it "transitions to resubmitted exactly once" do
+        StateFile::AfterTransitionTasksForRejectedReturnJob.perform_now(submission, submission.last_transition)
+
+        expect(submission.current_state).to eq("notified_of_rejection")
+      end
+    end
+
+    context "when error is auto-cancel" do
+      let(:auto_wait) { false }
+      let(:auto_cancel) { true }
+
+      it "transitions to resubmitted exactly once" do
+        StateFile::AfterTransitionTasksForRejectedReturnJob.perform_now(submission, submission.last_transition)
+
+        expect(submission.current_state).to eq("cancelled")
+      end
     end
 
     context "when the error is auto-resubmit" do
