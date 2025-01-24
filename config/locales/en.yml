@@ -4073,6 +4073,25 @@ en:
         header: FileYourStateTaxes text messaging terms and conditions
         major_carriers: 'Major carriers: AT&T, Verizon Wireless, Sprint, T-Mobile, U.S. Cellular, Alltel, Boost Mobile, Nextel, and Virgin Mobile.'
         minor_carriers: 'Minor carriers: Alaska Communications Systems (ACS), Appalachian Wireless (EKN), Bluegrass Cellular, Cellular One of East Central IL (ECIT), Cellular One of Northeast Pennsylvania, Cincinnati Bell Wireless, Cricket, Coral Wireless (Mobi PCS), COX, Cross, Element Mobile (Flat Wireless), Epic Touch (Elkhart Telephone), GCI, Golden State, Hawkeye (Chat Mobility), Hawkeye (NW Missouri), Illinois Valley Cellular, Inland Cellular, iWireless (Iowa Wireless), Keystone Wireless (Immix Wireless/PC Man), Mosaic (Consolidated or CTC Telecom), Nex-Tech Wireless, NTelos, Panhandle Communications, Pioneer, Plateau (Texas RSA 3 Ltd), Revol, RINA, Simmetry (TMP Corporation), Thumb Cellular, Union Wireless, United Wireless, Viaero Wireless, and West Central (WCC or 5 Star Wireless).'
+    state_information_service:
+      az:
+        department_of_taxation: Arizona Department of Revenue
+        state_name: Arizona
+      id:
+        department_of_taxation: Idaho State Tax Commission
+        state_name: Idaho
+      md:
+        department_of_taxation: Comptroller of Maryland
+        state_name: Maryland
+      nc:
+        department_of_taxation: N.C. Department of Revenue
+        state_name: North Carolina
+      nj:
+        department_of_taxation: New Jersey Division of Taxation
+        state_name: New Jersey
+      ny:
+        department_of_taxation: I don't know
+        state_name: New York
   validators:
     account_number: This account number is not valid for direct deposit transactions. Please review your account number or switch to check payments.
     alpha: Only letters A-Z and a-z are accepted.
