@@ -2959,6 +2959,17 @@ es:
           title: "¿Vivías en esta dirección el 31 de diciembre de %{filing_year}?"
           where_did_you_live: "¿Dónde vivías el 31 de diciembre de %{filing_year}?"
           zip_label: Código postal
+      md_permanently_disabled:
+        edit:
+          help_text_html: Se le considera totalmente discapacitado si tiene una condición mental o física que le impide trabajar y ganarse la vida. <br><br>Se espera que esta condición dure mucho tiempo, por un período indefinido o que resulte en su fallecimiento. Si tiene menos de 65 años y desea reclamar la exclusión de la pensión, debe haber adjuntado una certificación de un médico calificado que indique la naturaleza de su discapacidad y que usted está totalmente discapacitado en una declaración de impuestos presentada previamente.
+          help_title: "¿Qué se considera totalmente y permanentemente discapacitado?"
+          no_neither: No, ninguno de nosotros lo está
+          proof_question: "¿Ha proporcionado prueba de su discapacidad a Maryland para la exclusión de la pensión en años fiscales anteriores?"
+          title: "¿Está usted totalmente y permanentemente discapacitado?"
+          title_spouse: "¿Usted o su cónyuge están totalmente y permanentemente discapacitados?"
+          yes_both: Sí, ambos lo estamos
+          yes_me: Sí, yo lo estoy
+          yes_spouse: Sí, mi cónyuge lo está
       md_primary_state_id:
         md_primary:
           dmv_bmv_label: Identificación estatal del MVA

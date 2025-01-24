@@ -1,0 +1,52 @@
+<% if current_intake.filing_status_mfj? %>
+  <% title = t(".title_spouse") %>
+<% else %>
+  <% title = t(".title") %>
+<% end %>
+<% content_for :page_title, title %>
+<% content_for :card do %>
+  <h1 class="h2"><%= title %></h1>
+
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <div class="question-with-follow-up">
+      <div class="question-with-follow-up__question">
+        <div class="white-group">
+          <% if current_intake.filing_status_mfj? %>
+          <%= f.cfa_radio_set(:mfj_disability, collection: [
+            { value: "me", label: t(".yes_me"), input_html: { "data-follow-up": "#disability-proof" } },
+            { value: "spouse", label: t(".yes_spouse"), input_html: { "data-follow-up": "#disability-proof" } },
+            { value: "both", label: t(".yes_both"), input_html: { "data-follow-up": "#disability-proof" } },
+            { value: "no", label: t(".no_neither") }
+          ], legend_class: "sr-only") %>
+          <% else %>
+            <%= f.cfa_radio_set(:primary_disabled, collection: [
+              { value: "yes", label: t("general.affirmative"), input_html: { "data-follow-up": "#disability-proof" } },
+              { value: "no", label: t("general.negative") }
+            ], legend_class: "sr-only") %>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="question-with-follow-up__follow-up" id="disability-proof">
+        <div class="white-group">
+          <%= f.cfa_radio_set(:primary_veteran, label_text: t(".proof_question"), collection: [
+            { value: "yes", label: t("general.affirmative") },
+            { value: "no", label: t("general.negative") },
+          ]) %>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <button class="reveal__button"><%= t(".help_title") %></button>
+      <div class="reveal__content">
+        <p><%= t(".help_text_html") %></p>
+      </div>
+    </div>
+
+    <% if params[:return_to_review].present? %>
+      <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
+    <% end %>
+    <%= f.continue %>
+  <% end %>
+<% end %>

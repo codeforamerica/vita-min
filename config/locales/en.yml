@@ -3000,6 +3000,17 @@ en:
           title: Did you live at this address on December 31, %{filing_year}?
           where_did_you_live: Where did you live on December 31, %{filing_year}?
           zip_label: Zip Code
+      md_permanently_disabled:
+        edit:
+          help_text_html: You are considered totally disabled if you have a mental or physical condition that stops you from working and earning a living. <br><br>This condition is expected to last a long time, for an indefinite period or to result in your death. If you are under 65 and want to claim the pension exclusion, you must have attached a certification from a qualified physician stating the nature of your impairment and that you are totally disabled to a previously filed tax return.
+          help_title: What is considered totally and permanently disabled?
+          no_neither: No, neither of us is
+          proof_question: Have you provided proof of your disability to Maryland for the pension exclusion in previous tax years?
+          title: Are you totally and permanently disabled?
+          title_spouse: Are you or your spouse totally and permanently disabled?
+          yes_both: Yes, we both are
+          yes_me: Yes, I am
+          yes_spouse: Yes, my spouse is
       md_primary_state_id:
         md_primary:
           dmv_bmv_label: MVA State ID
