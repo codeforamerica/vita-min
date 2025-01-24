@@ -76,8 +76,10 @@ RSpec.describe StateFile::NcRetirementIncomeSubtractionForm, type: :model do
         income_source: "bailey_settlement",
         bailey_settlement_at_least_five_years: "yes",
         bailey_settlement_from_retirement_plan: "yes",
+        bailey_settlement_none_apply: "no",
         uniformed_services_retired: "no",
         uniformed_services_qualifying_plan: "no",
+        uniformed_services_none_apply: "no",
       }
 
       form = described_class.new(follow_up, params)
