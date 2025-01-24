@@ -130,7 +130,8 @@ RSpec.describe StateFile::Questions::W2Controller do
       end
 
       context "with NJ Box 14 fields" do
-        let(:intake) { create :state_file_nj_intake }
+        let(:intake) { create(:state_file_nj_intake) }
+        let!(:state_file_w2) { create :state_file_w2, state_file_intake: intake, box14_ui_hc_wd: 10 }
         let(:params) do
           {
             id: state_file_w2.id,
@@ -139,7 +140,6 @@ RSpec.describe StateFile::Questions::W2Controller do
               state_wages_amount: 10000,
               state_income_tax_amount: 500,
               box14_ui_wf_swf: 23,
-              box14_ui_hc_wd: 0,
               box14_fli: 45,
             }
           }
@@ -149,7 +149,7 @@ RSpec.describe StateFile::Questions::W2Controller do
           post :update, params: params
           state_file_w2.reload
           expect(state_file_w2.box14_ui_wf_swf).to eq 23
-          expect(state_file_w2.box14_ui_hc_wd).to eq 0
+          expect(state_file_w2.box14_ui_hc_wd).to eq nil
           expect(state_file_w2.box14_fli).to eq 45
         end
       end
@@ -221,7 +221,6 @@ RSpec.describe StateFile::Questions::W2Controller do
             state_wages_amount: 10000,
             state_income_tax_amount: 500,
             box14_ui_wf_swf: 99999,
-            box14_ui_hc_wd: 34,
             box14_fli: 45,
           }
         }
