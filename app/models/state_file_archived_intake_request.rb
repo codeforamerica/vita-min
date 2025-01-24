@@ -62,7 +62,7 @@ class StateFileArchivedIntakeRequest < ApplicationRecord
     s3_client = Aws::S3::Client.new(region: 'us-east-1', credentials: s3_credentials)
     s3_client.get_object(
       response_target: file_path,
-      bucket: bucket,
+      bucket: 'vita-min-heroku-docs',
       key: file_key
     )
   end
