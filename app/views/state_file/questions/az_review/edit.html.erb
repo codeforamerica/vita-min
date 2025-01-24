@@ -1,14 +1,19 @@
 <% content_for :page_title, t("state_file.questions.shared.abstract_review_header.title") %>
-<div id="prior-last-names" class="white-group">
-  <div class="spacing-below-5">
-    <p class="text--bold spacing-below-5"><%=t(".last_names") %></p>
-    <p><%=current_intake.prior_last_names || t("general.none") %></p>
-    <%= link_to t("general.edit"), StateFile::Questions::AzPriorLastNamesController.to_path_helper(return_to_review: "y"), class: "button--small" %>
+<%= content_for :additional_review_header_sections do %>
+  <div id="prior-last-names" class="white-group">
+    <div class="spacing-below-5">
+      <p class="text--bold spacing-below-5"><%=t(".last_names") %></p>
+      <p><%=current_intake.prior_last_names || t("general.none") %></p>
+      <%= link_to t("general.edit"), StateFile::Questions::AzPriorLastNamesController.to_path_helper(return_to_review: "y"), class: "button--small" %>
+    </div>
   </div>
-</div>
+<% end %>
+
 <% content_for :card do %>
   <%= render "state_file/questions/shared/review_header" %>
-
+  <div class="spacing-below-25">
+    <h2 class="text--body text--bold spacing-below-5"><%=t("state_file.questions.shared.review_header.state_details_title") %></h2>
+  </div>
   <div id="public-school-contributions" class="white-group">
     <div class="spacing-below-5">
       <p class="text--bold spacing-below-5"><%=t(".made_az322_contributions") %></p>

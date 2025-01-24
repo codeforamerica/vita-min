@@ -3708,6 +3708,7 @@ es:
         review_header:
           income_details: Detalles de ingresos
           income_forms_collected: 'Formulario(s) de ingresos recogidos:'
+          state_details_title: Detalles estatales
           your_refund: La cantidad de tu reembolso
           your_tax_owed: Los impuestos que debes
       sms_terms:

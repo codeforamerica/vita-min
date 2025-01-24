@@ -3736,6 +3736,7 @@ en:
         review_header:
           income_details: Income Details
           income_forms_collected: 'Income form(s) collected:'
+          state_details_title: State Details
           your_refund: Your refund amount
           your_tax_owed: Your taxes owed
       sms_terms:
