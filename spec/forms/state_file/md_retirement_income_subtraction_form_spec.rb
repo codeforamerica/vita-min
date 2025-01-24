@@ -8,7 +8,7 @@ RSpec.describe StateFile::MdRetirementIncomeSubtractionForm do
     let(:form) { described_class.new(state_file_md1099_r_followup, params) }
 
     context "validations" do
-      context "with invalid amounts" do
+      context "with invalid parameters" do
         let(:params) { {} }
         it "returns false and adds an error to the form" do
           expect(form.valid?).to eq false
@@ -16,7 +16,7 @@ RSpec.describe StateFile::MdRetirementIncomeSubtractionForm do
         end
       end
 
-      context "with valid amounts" do
+      context "with valid parameters" do
         let(:params) {
           {
             income_source: "pension_annuity_endowment",
