@@ -2044,7 +2044,7 @@ en:
     archived_intakes:
       email_address:
         edit:
-          enter_email: Enter the email address linked to your account
+          enter_email: Enter the email address linked to your account test
       identification_number:
         edit:
           error_message: Incorrect SSN/ITIN. After 2 failed attempts, accounts are locked.
