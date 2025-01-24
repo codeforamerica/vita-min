@@ -3265,7 +3265,7 @@ en:
           helper_anchor_heading: What if I received ANCHOR or Homestead benefits?
           helper_description: You can review your quarterly tax bills and add up the total paid to your municipality.
           helper_heading: Where can I find property taxes paid?
-          label_html: "<strong>Enter Line 4 of Worksheet</strong><br/>(Your share of total property taxes paid)"
+          label_html: "<strong>Enter Line 4 of worksheet</strong><br/>(Your share of total property taxes paid)"
           title: Good news – you qualify for a deduction or credit.
       nj_household_rent_own:
         edit:
