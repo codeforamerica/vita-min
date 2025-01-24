@@ -1,4 +1,4 @@
-<% title1 = t(".title1", year: current_tax_year, state: current_intake.state_name) %>
+<% title1 = t(".title1", year: current_tax_year, state: current_intake.state_name(locale: I18n.locale)) %>
 
 <% content_for :page_title, title1 %>
 <% content_for :card do %>

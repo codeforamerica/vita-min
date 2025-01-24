@@ -51,8 +51,8 @@ class StateFileBaseIntake < ApplicationRecord
 
   delegate :state_code, to: :class
 
-  def state_name
-    StateFile::StateInformationService.state_name(state_code)
+  def state_name(locale: self.locale)
+    [:es, 'es'].include?(locale) ? StateFile::StateInformationService.state_name_es(state_code) : StateFile::StateInformationService.state_name(state_code)
   end
 
   def direct_file_data
