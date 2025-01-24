@@ -56,6 +56,7 @@
 #  political_subdivision                      :string
 #  primary_birth_date                         :date
 #  primary_did_not_have_health_insurance      :integer          default("unfilled"), not null
+#  primary_disabled                           :integer          default("unfilled"), not null
 #  primary_esigned                            :integer          default("unfilled"), not null
 #  primary_esigned_at                         :datetime
 #  primary_first_name                         :string
@@ -77,6 +78,7 @@
 #  source                                     :string
 #  spouse_birth_date                          :date
 #  spouse_did_not_have_health_insurance       :integer          default("unfilled"), not null
+#  spouse_disabled                            :integer          default("unfilled"), not null
 #  spouse_esigned                             :integer          default("unfilled"), not null
 #  spouse_esigned_at                          :datetime
 #  spouse_first_name                          :string

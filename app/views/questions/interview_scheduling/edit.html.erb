@@ -9,8 +9,14 @@
 
     <%= f.cfa_select(
           :preferred_interview_language,
-          t("views.questions.interview_scheduling.language_select"),
+          t("views.questions.interview_scheduling.interview_preference"),
           @form.language_options
+        ) %>
+
+    <%= f.cfa_select(
+          :preferred_written_language,
+          t("views.questions.interview_scheduling.written_preference"),
+          @form.written_language_options
         ) %>
 
     <div class="spacing-above-60">

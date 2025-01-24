@@ -713,4 +713,12 @@ class Intake::GyrIntake < Intake
   def self.opted_out_gyr_intakes(email)
     Intake::GyrIntake.where(email_address: email).where(email_notification_opt_in: 'no')
   end
+
+  def written_language_preference_english?
+    receive_written_communication_no? || ["english", "inglés", "ingles", "inglesa", "en"].include?(preferred_written_language&.downcase)
+  end
+
+  def preferred_written_language_string
+    I18n.t("general.written_language_options.#{preferred_written_language}", default: nil) || preferred_written_language&.capitalize
+  end
 end

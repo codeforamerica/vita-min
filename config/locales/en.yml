@@ -628,6 +628,14 @@ en:
     vita_long: 'VITA: Volunteer Income Tax Assistance'
     well: Well
     widowed: Widowed
+    written_language_options:
+      en: English
+      es: Spanish
+      ko: Korean
+      ru: Russian
+      vi: Vietnamese
+      zh_cn: Chinese Simplified
+      zh_tw: Chinese Traditional
     year: year
     year_date: Year
     you: you
@@ -2046,8 +2054,8 @@ en:
       verification_code:
         edit:
           error_message: Incorrect verification code. After 2 failed attempts, accounts are locked.
+          subtitle_2_html: If you still need help, <a class="open-intercom">chat with us</a>.
           subtitle_html: If you didn’t receive a code, please check your spam folder.
-          subtitle_html_2: If you still need help resubscribing, chat with us.
           title_html: We’ve sent your code to <strong>%{email_address}</strong>
           verify: Verify code
       verification_error:
@@ -2209,15 +2217,16 @@ en:
           supported_by: Supported by the New Jersey Division of Taxation
           title: File your New Jersey taxes for free
         not_you: Not %{user_name}?
-        ny:
-          closed_html: |
-            <strong>FileYourStateTaxes</strong> is built in partnership with New York State to integrate with IRS Direct File.<br /><br />
-            We're closed for the tax season. Unfortunately you can no longer file your state return with us this year.
-          supported_by: Supported by New York State
-          title: File your New York State taxes for free
         start_new: Click here to start a new %{state_name} State return.
         title_closed: Our free %{state_name} tax filing service is closed for the season
         welcome_back: Welcome back %{user_name}!
+      ny_closed:
+        body_html: |
+          This service doesn’t support New York State tax returns for 2024. You can still file with IRS Direct File and New York State Direct File. To see if you’re eligible and start your federal return, visit <a href="https://directfile.irs.gov/">IRS Direct File</a>.
+          <br /><br />
+          To download your 2023 NY State tax return, please <a href="https://www.fileyourstatetaxes.org/en/az/faq/how_can_i_access_my_2023_state_tax_return">visit our FAQ</a>.
+        supported_by: Supported by New York State
+        title: Thank you for visiting FileYourStateTaxes
     navigation:
       nj:
         section_1: 'Section 1: Income'
@@ -3210,14 +3219,12 @@ en:
           description_html: |
             <p>Please include the sum of the following:</p>
             <ul class="list--bulleted">
-              <li><a href="https://nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git8.pdf" target="_blank" rel="noopener nofollow">Estimated income tax payments</a> you made throughout the year for your New Jersey state taxes</li>
-              <li>
+              <li><a href="https://nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git8.pdf" target="_blank" rel="noopener nofollow">Estimated income tax payments</a> you made throughout the year for your New Jersey state taxes
                 <ul class="list--bulleted">
                   <li><strong>This does not include withholdings in your paycheck</strong></li>
                 </ul>
-              </li<
-              <li>Overpayments on your %{prior_year} return that you chose to apply to your %{filing_year} New Jersey taxes</li>
-              <li>
+              </li>
+              <li>Overpayments on your %{prior_year} return that you chose to apply to your %{filing_year} New Jersey taxes
                 <ul class="list--bulleted">
                   <li>Note: you would have selected this option when filing your %{prior_year} return</li>
                 </ul>
@@ -3304,6 +3311,9 @@ en:
       nj_medical_expenses:
         edit:
           description_html: |-
+            <p>If you had at least %{medical_expenses_threshold} in non-reimbursed medical expenses, you are eligible for a deduction. Enter the full amount of your non-reimbursed expenses here. We’ll deduct the right amount for your situation.</p>
+            <p>If your medical expenses were less than %{medical_expenses_threshold}, you are not eligible for the deduction. Click "Continue."</p>
+
             <p>These expenses include:</p>
             <ul class="list--bulleted">
               <li>Expenses for yourself, your spouse and your dependents.</li>
@@ -3859,7 +3869,7 @@ en:
       verification_code:
         edit:
           action: Verify code
-          subtitle_html: If you didn’t receive a code, please check your spam folder. If you still need help resubscribing, chat with us.
+          subtitle_html: If you didn’t receive a code, please check your spam folder. If you still need help, <a class="open-intercom">chat with us</a>.
           title_html: We’ve sent your code to <strong>%{contact_info}</strong>
           verification_code_label: Enter the 6-digit code
       w2:
@@ -6123,8 +6133,9 @@ en:
           other: In %{year}, did you or your spouse have any income from interest or dividends?
       interview_scheduling:
         help_text: We will try our best to schedule your review based on the information you provide.
-        language_select: What is your preferred language for the review?
+        interview_preference: What is your preferred language for the review?
         title: Do you have any time preferences for your interview phone call?
+        written_preference: What is your preferred written language?
       irs_letter:
         title:
           one: In %{year}, did you receive any letter or bill from the IRS?
