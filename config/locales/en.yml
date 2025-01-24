@@ -4090,7 +4090,7 @@ en:
         department_of_taxation: New Jersey Division of Taxation
         state_name: New Jersey
       ny:
-        department_of_taxation: I don't know
+        department_of_taxation: Department of Taxation and Finance
         state_name: New York
   validators:
     account_number: This account number is not valid for direct deposit transactions. Please review your account number or switch to check payments.
