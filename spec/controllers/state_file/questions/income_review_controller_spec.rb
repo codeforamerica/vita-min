@@ -164,10 +164,10 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
     context "when W2 box 14 warnings are present" do
       let(:intake) { create(:state_file_nj_intake) }
 
-      shared_examples "displays at least one W2 warning" do
-        it "displays at least one W2 warning" do
+      shared_examples "displays one W2 warning" do
+        it "displays one W2 warning" do
           get :edit, params: params
-          expect(response.body).to have_text "We need to double-check some information"
+          expect(response.body.scan(/We need to double-check some information/).size).to eq(1)
         end
       end
 
@@ -176,7 +176,7 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
         let(:primary_ssn_from_fixture) { intake.primary.ssn }
         let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_fli: 145.26) }
         let!(:w2_2) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_ui_wf_swf: 179.78, box14_fli: 145.26) }
-        include_examples "displays at least one W2 warning"
+        include_examples "displays one W2 warning"
       end
 
       context "when secondary has two W2s and box14_ui_wf_swf is not present in one" do
@@ -184,12 +184,12 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
         let(:spouse_ssn_from_fixture) { intake.spouse.ssn }
         let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, employee_ssn: spouse_ssn_from_fixture, box14_fli: 145.26) }
         let!(:w2_2) { create(:state_file_w2, state_file_intake: intake, employee_ssn: spouse_ssn_from_fixture, box14_ui_wf_swf: 179.78, box14_fli: 145.26) }
-        include_examples "displays at least one W2 warning"
+        include_examples "displays one W2 warning"
       end
 
       context "when box14_ui_wf_swf is too high" do
         let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_ui_wf_swf: 179.79) }
-        include_examples "displays at least one W2 warning"
+        include_examples "displays one W2 warning"
       end
 
       context "when primary has two W2s and fli is not present in one" do
@@ -197,7 +197,7 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
         let(:primary_ssn_from_fixture) { intake.primary.ssn }
         let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_ui_wf_swf: 179.78) }
         let!(:w2_2) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_ui_wf_swf: 179.78, box14_fli: 145.26) }
-        include_examples "displays at least one W2 warning"
+        include_examples "displays one W2 warning"
       end
 
       context "when secondary has two W2s and fli is not present in one" do
@@ -205,17 +205,17 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
         let(:spouse_ssn_from_fixture) { intake.spouse.ssn }
         let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, employee_ssn: spouse_ssn_from_fixture, box14_ui_wf_swf: 179.78) }
         let!(:w2_2) { create(:state_file_w2, state_file_intake: intake, employee_ssn: spouse_ssn_from_fixture, box14_ui_wf_swf: 179.78, box14_fli: 145.26) }
-        include_examples "displays at least one W2 warning"
+        include_examples "displays one W2 warning"
       end
 
       context "when fli is too high" do
         let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_fli: 145.27) }
-        include_examples "displays at least one W2 warning"
+        include_examples "displays one W2 warning"
       end
 
       context "when a single W2 has values in both UI/HC/WD and UI/WF/SWF" do
         let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_ui_wf_swf: 10, box14_ui_hc_wd: 10, box14_fli: 145.26) }
-        include_examples "displays at least one W2 warning"
+        include_examples "displays one W2 warning"
       end
     end
   end
