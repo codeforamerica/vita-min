@@ -4,7 +4,6 @@
 #
 #  id                                                   :bigint           not null, primary key
 #  additional_info                                      :string
-#  additional_notes_comments                            :text
 #  adopted_child                                        :integer          default(0), not null
 #  advance_ctc_amount_received                          :integer
 #  advance_ctc_entry_method                             :integer          default(0), not null
