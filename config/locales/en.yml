@@ -3031,7 +3031,7 @@ en:
             </ul>
             <p>This applies to federal employees in the United States, including Maryland and its political subdivisions.</p>
           service_type_military: Your service in the military or military death benefits received on behalf of a spouse or ex-spouse
-          service_type_none: None of the above apply
+          service_type_none: None of these apply
           service_type_public_safety: Your service as a public safety employee
           service_type_question: "Did this income come from:"
           subtitle: We need more information about this 1099-R to file your state tax return and check your eligibility for subtractions.
@@ -3042,7 +3042,7 @@ en:
           retirement_plan_reveal_html: |
             <p>Plans that are part of an employee retirement system include:</p>
             <ul>
-              <li>401(k)</li>
+              <li>401(k) plans</li>
               <li>Pension, profit-sharing, or stock bonus plans (like 401(a), 403, 403(b), or 457(b))</li>
               <li>Deferred compensation plans from state or local governments or tax-exempt organizations (like 457(b))</li>
               <li>Thrift savings plan</li>

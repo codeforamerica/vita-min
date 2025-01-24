@@ -2965,6 +2965,50 @@ es:
           protect_identity: Muchas agencias de ingresos estatales, incluido Maryland, están solicitando información adicional como un esfuerzo para combatir el fraude fiscal por robo de identidad y para protegerte a ti y tu reembolso de impuestos.
           subtitle: El Contralor de Maryland solicita que la información de tu licencia de conducir o tarjeta de identificación emitida por el estado se incluya con la declaración, pero no rechazará la declaración si no está incluida.
           why_ask_this: "¿Por qué están pidiendo esta información?"
+      md_retirement_income_subtraction:
+        edit:
+          doc_1099r_label: 1099-R
+          income_source_question: "Selecciona la fuente de este ingreso:"
+          income_source_other: Otros ingresos de jubilación (por ejemplo, un plan Keogh, también conocido como HR-10) (este es menos común)
+          income_source_pension_annuity_endowment: Una pensión, renta vitalicia o dotación de un “sistema de jubilación para empleados” (este es más común)
+          military_service_reveal_header: ¿Qué servicios militares califican?
+          military_service_reveal_html: |
+            <p>Para calificar, debes haber sido:</p>
+            <ul>
+              <li>Miembro de las fuerzas armadas activas o de reserva de los Estados Unidos.</li>
+              <li>Miembro en servicio activo del Servicio de Salud Pública, la Administración Nacional Oceánica y Atmosférica, o el Servicio de Costas y Geodésico.</li>
+              <li>Un miembro de la Guardia Nacional de Maryland, o</li>
+              <li>El cónyuge sobreviviente o ex-cónyuge de un miembro de una de las ramas mencionadas anteriormente.</li>
+            </ul>
+          public_service_reveal_header: ¿Qué servicios califican como empleado de seguridad pública?
+          public_service_reveal_html: |
+            <p>Para calificar, debes ser un empleado retirado como:</p>
+            <ul>
+              <li>Oficial de correcciones</li>
+              <li>Oficial de la ley</li>
+              <li>Bombero, trabajador de rescate o personal de servicios de emergencia</li>
+            </ul>
+            <p>Esto se aplica a empleados federales de los Estados Unidos, incluidos Maryland y sus subdivisiones políticas.</p>
+          service_type_military: Tu servicio en el ejército o los beneficios por fallecimiento militar de un cónyuge o ex-cónyuge
+          service_type_none: Ninguna de estas aplica
+          service_type_public_safety: Tu servicio como trabajador de seguridad pública
+          service_type_question: "Este ingreso provino de:"
+          subtitle: Necesitamos más información de tu formulario 1099-R para confirmar tu elegibilidad.
+          taxable_amount_label: Cantidad sujeta a impuestos
+          taxpayer_name_label: Nombre del contribuyente
+          title: ¡Podrías ser elegible para una resta de ingresos por jubilación de Maryland!
+          retirement_plan_reveal_header: ¿Qué planes de jubilación son parte de un sistema de jubilación de empleados?
+          retirement_plan_reveal_html: |
+            <p>Los planes que son parte de un sistema de jubilación de empleados incluyen:</p>
+            <ul>
+              <li>Planes 401(k)</li>
+              <li>Planes de pensión, participación en ganancias o bonos en acciones (como 401(a), 403, 403(b) o 457(b))</li>
+              <li>Planes de compensación diferida de gobiernos estatales o locales o de organizaciones exentas de impuestos (como 457(b))</li>
+              <li>Planes de ahorro para el retiro</li>
+              <li>Planes SIMPLE 401(k) para pequeñas empresas</li>
+            </ul>
+            <p>Esto no incluye planes Keogh ni ingresos de jubilación de otros países.</p>
+            <p>Los ingresos de una IRA tradicional, IRA Roth, IRA de traspaso o un plan simplificado para empleados (SEP) no son compatibles con este servicio.</p>
       md_review:
         edit:
           county_html: "<strong>Condado</strong>"
