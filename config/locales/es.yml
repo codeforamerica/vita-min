@@ -2850,7 +2850,6 @@ es:
           no_donations_selected: "<strong>No se seleccionaron donaciones</strong>"
           permanent_building_fund_tax: Impuesto sobre el Fondo de Edificios Permanentes
           purchases_without_sales_tax: Compras sin pagar impuesto de ventas
-          state_details_title: Detalles estatales
           voluntary_charitable_donations: Donaciones caritativas voluntarias
       id_sales_use_tax:
         edit:
@@ -3048,7 +3047,6 @@ es:
           social_security_benefits: Beneficios del Seguro Social (no sujetos a impuestos en Carolina del Norte)
           spouse_veteran: Estado de veterano de las Fuerzas Armadas de los Estados Unidos de tu cónyuge
           state_credit: Miembro inscrito de una tribu indígena reconocida por el gobierno federal y recibiste ingresos de una fuente dentro de una reserva
-          state_details_title: Detalles estatales
           subtraction_indian_tribe: Resta por ingresos de un miembro de una tribu india
           use_tax_amount: Cantidad del impuesto sobre uso
           use_tax_applied: Compras fuera del estado en %{filing_year} sin pagar impuesto sobre ventas
