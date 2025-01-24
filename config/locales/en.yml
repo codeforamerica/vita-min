@@ -3009,9 +3009,9 @@ en:
       md_retirement_income_subtraction:
         edit:
           doc_1099r_label: 1099-R
-          income_source_question: "Select the source of this income:"
           income_source_other: Other retirement income (for example, a Keogh Plan, also known as an HR-10) (less common)
           income_source_pension_annuity_endowment: A pension, annuity, or endowment from an "employee retirement system" (more common)
+          income_source_question: 'Select the source of this income:'
           military_service_reveal_header: What military service qualifies?
           military_service_reveal_html: |
             <p>To qualify, you must have been:</p>
@@ -3030,14 +3030,6 @@ en:
               <li>Firefighter, rescue worker, or emergency services personnel</li>
             </ul>
             <p>This applies to federal employees in the United States, including Maryland and its political subdivisions.</p>
-          service_type_military: Your service in the military or military death benefits received on behalf of a spouse or ex-spouse
-          service_type_none: None of these apply
-          service_type_public_safety: Your service as a public safety employee
-          service_type_question: "Did this income come from:"
-          subtitle: We need more information about this 1099-R to file your state tax return and check your eligibility for subtractions.
-          taxable_amount_label: Taxable amount
-          taxpayer_name_label: Taxpayer name
-          title: You might be eligible for a Maryland retirement income subtraction!
           retirement_plan_reveal_header: What retirement plans are considered part of an employee retirement system?
           retirement_plan_reveal_html: |
             <p>Plans that are part of an employee retirement system include:</p>
@@ -3050,6 +3042,14 @@ en:
             </ul>
             <p>This does not include Keogh plans or foreign retirement income.</p>
             <p>Income from a traditional IRA, Roth IRA, rollover IRA, or a simplified employee plan (SEP) is not supported by this product.</p>
+          service_type_military: Your service in the military or military death benefits received on behalf of a spouse or ex-spouse
+          service_type_none: None of these apply
+          service_type_public_safety: Your service as a public safety employee
+          service_type_question: 'Did this income come from:'
+          subtitle: We need more information about this 1099-R to file your state tax return and check your eligibility for subtractions.
+          taxable_amount_label: Taxable amount
+          taxpayer_name_label: Taxpayer name
+          title: You might be eligible for a Maryland retirement income subtraction!
       md_review:
         edit:
           county_html: "<strong>County</strong>"
