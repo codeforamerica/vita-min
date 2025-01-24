@@ -5,6 +5,14 @@ RSpec.feature "Creating new drop off clients" do
     let(:user) { create :admin_user }
     let!(:vita_partner) { create :organization, name: "Brassica Asset Builders" }
     let!(:child_partner) { create :site, parent_organization: vita_partner, name: "Floret Financial Readiness" }
+    let(:during_tax_season) { DateTime.parse("2025-02-14") }
+
+    around do |example|
+      Timecop.freeze(during_tax_season) do
+        example.run
+      end
+    end
+
     before do
       login_as user
     end
@@ -62,9 +70,8 @@ RSpec.feature "Creating new drop off clients" do
       end
 
       # fields for tax return years
-      current_tax_year = MultiTenantService.new(:gyr).current_tax_year
-      check current_tax_year.to_s
-      check (current_tax_year - 2).to_s
+      check "2024"
+      check "2022"
       select "Basic", from: "hub_create_client_form_tax_returns_attributes_0_certification_level"
       select "Basic", from: "hub_create_client_form_tax_returns_attributes_2_certification_level"
 
@@ -94,10 +101,10 @@ RSpec.feature "Creating new drop off clients" do
       expect(page).to have_text "spicypeter@pepper.com"
 
       within ".tax-return-list" do
-        expect(page).not_to have_text (current_tax_year - 1).to_s
-        expect(page).to have_text (current_tax_year - 2).to_s
-        expect(page).not_to have_text (current_tax_year - 3).to_s
-        expect(page).to have_text current_tax_year.to_s
+        expect(page).not_to have_text 2021
+        expect(page).not_to have_text 2023
+        expect(page).to have_text 2022
+        expect(page).to have_text 2024
       end
 
       within ".primary-ssn" do
