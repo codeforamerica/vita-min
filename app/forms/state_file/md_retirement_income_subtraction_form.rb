@@ -2,22 +2,20 @@ module StateFile
   class MdRetirementIncomeSubtractionForm < Form
     include FormAttributes
 
-    set_attributes_for :state_specific_followup, :income_source, :service_type
+    set_attributes_for :state_file_md1099_r_followup, :income_source, :service_type
 
-    attr_accessor :state_specific_followup
+    attr_accessor :state_file_md1099_r_followup
 
     validates :income_source, presence: true
     validates :service_type, presence: true
 
-    def initialize(state_specific_followup = nil, params = {})
-      @state_specific_followup = state_specific_followup
+    def initialize(state_file_md1099_r_followup = nil, params = {})
+      @state_file_md1099_r_followup = state_file_md1099_r_followup
       super(params)
     end
 
     def save
-      @state_specific_followup.income_source = self.income_source
-      @state_specific_followup.service_type = self.service_type
-      @state_specific_followup.save
+      state_file_md1099_r_followup.update(attributes_for(:state_file_md1099_r_followup))
     end
   end
 end
