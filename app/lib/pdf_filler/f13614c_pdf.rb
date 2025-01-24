@@ -257,11 +257,24 @@ module PdfFiller
             # People who have digital assets are considered out of scope
             "form1[0].page1[0].youSpouseWereIn[0].column2[0].holdDigitalAssets[0].digitalAssetsNo[0]" => true,
           },
+          with_prefix("form1[0].page1[0].liveWorkStates[0]") do
+            {
+              "liveWorkYes[0]" => @intake.multiple_states_yes?,
+              "liveWorkNo[0]" => @intake.multiple_states_no?,
+            }
+          end,
           with_prefix("form1[0].page1[0].youSpouseWereIn[0].column1[0].usCitizen[0]") do
             {
                 "usCitizenYou[0]" => @intake.primary_us_citizen_yes?,
                 "usCitizenSpouse[0]" => @intake.spouse_us_citizen_yes?,
                 "usCitizenNo[0]" => @intake.primary_us_citizen_no? && !@intake.spouse_us_citizen_yes?,
+            }
+          end,
+          with_prefix("form1[0].page1[0].youSpouseWereIn[0].column1[0].usOnVisa[0]") do
+            {
+              "onVisaYou[0]" => @intake.primary_visa_yes?,
+              "onVisaSpouse[0]" => @intake.spouse_visa_yes?,
+              "onVisaNo[0]" => @intake.primary_visa_no? && !@intake.spouse_visa_yes?
             }
           end,
           with_prefix('form1[0].page1[0].youSpouseWereIn[0].column1[0].fullTimeStudent[0]') do
@@ -285,24 +298,11 @@ module PdfFiller
               "disabledNo[0]" => @intake.had_disability_no? && !@intake.spouse_had_disability_yes?,
             }
           end,
-          with_prefix("form1[0].page1[0].youSpouseWereIn[0].column1[0].usOnVisa[0]") do
-            {
-              "onVisaYou[0]" => @intake.primary_visa_yes?,
-              "onVisaSpouse[0]" => @intake.spouse_visa_yes?,
-              "onVisaNo[0]" => @intake.primary_visa_no? && !@intake.spouse_visa_yes?
-            }
-          end,
           with_prefix("form1[0].page1[0].youSpouseWereIn[0].column2[0].issuedIdentityProtection[0]") do
             {
               "identityProtectionYou[0]" => @intake.issued_identity_pin_yes?,
               "identityProtectionSpouse[0]" => @intake.spouse_issued_identity_pin_yes?,
               "identityProtectionNo[0]" => @intake.issued_identity_pin_no? && !@intake.spouse_issued_identity_pin_yes?,
-            }
-          end,
-          with_prefix("form1[0].page1[0].liveWorkStates[0]") do
-            {
-              "liveWorkYes[0]" => @intake.multiple_states_yes?,
-              "liveWorkNo[0]" => @intake.multiple_states_no?,
             }
           end,
           with_prefix("form1[0].page1[0].dueARefund[0]") do
@@ -356,26 +356,6 @@ module PdfFiller
       else
         gated_question_value
       end
-    end
-
-    def spouse_info
-      {
-        "form1[0].page1[0].spousesFirstName[0]" => @intake.spouse.first_name,
-        "form1[0].page1[0].spousesMiddleInitial[0]" => @intake.spouse.middle_initial,
-        "form1[0].page1[0].spousesLastName[0]" => @intake.spouse.last_name,
-        "form1[0].page1[0].spousesTelephoneNumber[0]" => @intake.spouse_phone_number,
-        "form1[0].page1[0].spousesDateOfBirth[0]" => strftime_date(@intake.spouse.birth_date),
-        "form1[0].page1[0].spousesJobTitle[0]" => @intake.spouse_job_title,
-      }.merge(
-        keep_and_normalize(
-          {
-            "form1[0].page1[0].youSpouseWereIn[0].column1[0].usCitizen[0].usCitizenSpouse[0]" => @intake.spouse_us_citizen_yes?,
-            "form1[0].page1[0].youSpouseWereIn[0].column1[0].fullTimeStudent[0].studentSpouse[0]" => @intake.spouse_was_full_time_student_yes?,
-            "form1[0].page1[0].youSpouseWereIn[0].column2[0].totallyPermanentlyDisabled[0].disabledSpouse[0]" => @intake.spouse_had_disability_yes?,
-            "form1[0].page1[0].youSpouseWereIn[0].column2[0].legallyBlind[0].legallyBlindSpouse[0]" => @intake.spouse_was_blind_yes?,
-          }
-        )
-      )
     end
 
     def dependents_info
