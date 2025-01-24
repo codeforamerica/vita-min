@@ -57,7 +57,7 @@ module StateFile
 
       def retrieve_or_create_state_specific_followup
         unless @state_file_1099r.state_specific_followup.present?
-          @state_file_1099r.state_specific_followup = StateFileMd1099RFollowup.create
+          @state_file_1099r.update(state_specific_followup: StateFileMd1099RFollowup.create)
         end
         @state_file_1099r.state_specific_followup
       end

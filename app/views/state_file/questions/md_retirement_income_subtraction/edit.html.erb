@@ -34,12 +34,26 @@
             ) %>
     </div>
 
-<!--    <div class="reveal">-->
-<!--      <p><button class="reveal__button"><%#= t('.helper_heading') %></button></p>-->
-<!--      <div class="reveal__content">-->
-<!--        <p><%#= t('.helper_description_html') %></p>-->
-<!--      </div>-->
-<!--    </div>-->
+    <div class="reveal">
+      <p><button class="reveal__button"><%= t('.retirement_plan_reveal_header') %></button></p>
+      <div class="reveal__content">
+        <%= t('.retirement_plan_reveal_html') %>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <p><button class="reveal__button"><%= t('.military_service_reveal_header') %></button></p>
+      <div class="reveal__content">
+        <%= t('.military_service_reveal_html') %>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <p><button class="reveal__button"><%= t('.public_service_reveal_header') %></button></p>
+      <div class="reveal__content">
+        <%= t('.public_service_reveal_html') %>
+      </div>
+    </div>
 
     <% if params[:return_to_review].present? %>
       <%= hidden_field_tag "return_to_review", params[:return_to_review] %>

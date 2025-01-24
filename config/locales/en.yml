@@ -3012,6 +3012,24 @@ en:
           income_source_question: "Select the source of this income:"
           income_source_other: Other retirement income (for example, a Keogh Plan, also known as an HR-10) (less common)
           income_source_pension_annuity_endowment: A pension, annuity, or endowment from an "employee retirement system" (more common)
+          military_service_reveal_header: What military service qualifies?
+          military_service_reveal_html: |
+            <p>To qualify, you must have been:</p>
+            <ul>
+              <li>A member of the active or reserve armed forces of the United States, or</li>
+              <li>An active duty member of the Public Health Service, National Oceanic and Atmospheric Administration, or Coast and Geodetic Survey, or</li>
+              <li>A member of the Maryland National Guard, or</li>
+              <li>The surviving spouse or ex-spouse of a member of one of the branches listed above</li>
+            </ul>
+          public_service_reveal_header: What service qualifies as a public safety employee?
+          public_service_reveal_html: |
+            <p>To qualify, you must be a retired:</p>
+            <ul>
+              <li>Correctional officer, or</li>
+              <li>Law enforcement officer, or</li>
+              <li>Firefighter, rescue worker, or emergency services personnel</li>
+            </ul>
+            <p>This applies to federal employees in the United States, including Maryland and its political subdivisions.</p>
           service_type_military: Your service in the military or military death benefits received on behalf of a spouse or ex-spouse
           service_type_none: None of the above apply
           service_type_public_safety: Your service as a public safety employee
@@ -3020,7 +3038,18 @@ en:
           taxable_amount_label: Taxable amount
           taxpayer_name_label: Taxpayer name
           title: You might be eligible for a Maryland retirement income subtraction!
-
+          retirement_plan_reveal_header: What retirement plans are considered part of an employee retirement system?
+          retirement_plan_reveal_html: |
+            <p>Plans that are part of an employee retirement system include:</p>
+            <ul>
+              <li>401(k)</li>
+              <li>Pension, profit-sharing, or stock bonus plans (like 401(a), 403, 403(b), or 457(b))</li>
+              <li>Deferred compensation plans from state or local governments or tax-exempt organizations (like 457(b))</li>
+              <li>Thrift savings plan</li>
+              <li>SIMPLE 401(k) plans for small businesses</li>
+            </ul>
+            <p>This does not include Keogh plans or foreign retirement income.</p>
+            <p>Income from a traditional IRA, Roth IRA, rollover IRA, or a simplified employee plan (SEP) is not supported by this product.</p>
       md_review:
         edit:
           county_html: "<strong>County</strong>"

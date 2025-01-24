@@ -145,5 +145,4 @@ describe StateFile::Questions::MdRetirementIncomeSubtractionController do
       end
     end
   end
-
 end
