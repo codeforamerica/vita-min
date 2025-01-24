@@ -51,19 +51,19 @@ class StateFileArchivedIntakeRequest < ApplicationRecord
       addresses = CSV.read(file_path, headers: false).flatten
     else
       bucket = select_bucket
-      file_key = "challenge_addresses/#{state_file_archived_intake&.mailing_state&.downcase}_addresses.csv"
-      file_path = File.join(Rails.root, "tmp", "#{current_archived_intake.mailing_state.downcase}_addresses.csv")
-      addresses = download_file_from_s3(bucket)
+      file_key = 'non_prod_addresses.csv'
+      addresses = download_file_from_s3(bucket, file_key)
     end
     addresses.sample(2)
   end
 
-  def download_file_from_s3(file_path)
+  def download_file_from_s3(bucket, file_key)
+    file_path = File.join(Rails.root, "tmp", File.basename(file_key))
     s3_client = Aws::S3::Client.new(region: 'us-east-1', credentials: s3_credentials)
     s3_client.get_object(
       response_target: file_path,
-      bucket: 'vita-min-heroku-docs',
-      key: 'non_prod_addresses.csv'
+      bucket: bucket,
+      key: file_key
     )
   end
 
