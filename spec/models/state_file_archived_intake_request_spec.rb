@@ -54,54 +54,118 @@ describe StateFileArchivedIntakeRequest do
     end
   end
 
-  describe '#determine_csv_file_path' do
-    let(:state_file_archived_intake_request) { build(:state_file_archived_intake_request) }
+  describe "#fetch_random_addresses" do
+    let(:state_file_archived_intake) { create(:state_file_archived_intake, mailing_state: "NY") }
+    let(:state_file_archived_intake_request) { create(:state_file_archived_intake_request, state_file_archived_intake: state_file_archived_intake) }
 
-    context 'in development or test environment' do
-      it 'returns the correct file path for development' do
-        allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new('development'))
+    before do
+      allow(Aws::S3::Client).to receive(:new).and_return(
+        double("Aws::S3::Client", get_object: true)
+      )
+      allow(CSV).to receive(:read).and_return(["123 Fake St", "456 Imaginary Rd"])
+    end
 
-        file_path = state_file_archived_intake_request.send(:determine_csv_file_path)
+    context "when in production environment" do
+      before { allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new("production")) }
+      context "when state_file_archived_intake has different mailing states" do
+        it "uses the correct file key and for AZ" do
+          state_file_archived_intake.update!(mailing_state: "AZ")
+          state_file_archived_intake_request.update!(state_file_archived_intake: state_file_archived_intake)
 
-        expect(file_path).to eq(Rails.root.join('app', 'lib', 'challenge_addresses', 'test_addresses.csv'))
-      end
+          allow(state_file_archived_intake_request).to receive(:download_file_from_s3).and_call_original
 
-      it 'returns the correct file path for test' do
-        allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new('test'))
+          expect(state_file_archived_intake_request).to receive(:download_file_from_s3).with(
+            "vita-min-prod-docs",
+            "az_addresses.csv",
+            Rails.root.join("tmp", "az_addresses.csv").to_s
+          )
 
-        file_path = state_file_archived_intake_request.send(:determine_csv_file_path)
+          state_file_archived_intake_request.send(:fetch_random_addresses)
+        end
 
-        expect(file_path).to eq(Rails.root.join('app', 'lib', 'challenge_addresses', 'test_addresses.csv'))
+        it "uses the correct file key and bucket for NY" do
+          state_file_archived_intake.update!(mailing_state: "NY")
+          state_file_archived_intake_request.update!(state_file_archived_intake: state_file_archived_intake)
+
+          allow(state_file_archived_intake_request).to receive(:download_file_from_s3).and_call_original
+
+          expect(state_file_archived_intake_request).to receive(:download_file_from_s3).with(
+            "vita-min-prod-docs",
+            "ny_addresses.csv",
+            Rails.root.join("tmp", "ny_addresses.csv").to_s
+          )
+
+          state_file_archived_intake_request.send(:fetch_random_addresses)
+        end
       end
     end
 
-    context 'in production or other environments' do
-      it 'returns the correct file path and ensures S3 download is called for AZ' do
-        allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new('production'))
-        allow(File).to receive(:exist?).and_return(false)
-        state_file_archived_intake_request.state_file_archived_intake = build(:state_file_archived_intake, mailing_state: 'AZ')
+    context "when in staging environment" do
+      before { allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new("staging")) }
 
+      it "uses the correct bucket and file key" do
         expect(state_file_archived_intake_request).to receive(:download_file_from_s3).with(
-          Rails.root.join('tmp', 'challenge_addresses.csv')
+          "vita-min-staging-docs",
+          "non_prod_addresses.csv",
+          Rails.root.join("tmp", "non_prod_addresses.csv").to_s
         )
 
-        file_path = state_file_archived_intake_request.send(:determine_csv_file_path)
-
-        expect(file_path).to eq(Rails.root.join('tmp', 'challenge_addresses.csv'))
+        state_file_archived_intake_request.send(:fetch_random_addresses)
       end
+    end
 
-      it 'returns the correct file path and ensures S3 download is called for NY' do
-        allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new('production'))
-        allow(File).to receive(:exist?).and_return(false)
-        state_file_archived_intake_request.state_file_archived_intake = build(:state_file_archived_intake, mailing_state: 'NY')
+    context "when in development environment" do
+      before { allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new("development")) }
 
-        expect(state_file_archived_intake_request).to receive(:download_file_from_s3).with(
-          Rails.root.join('tmp', 'challenge_addresses.csv')
+      it "uses the correct local file path" do
+        expect(CSV).to receive(:read).with(
+          Rails.root.join("app", "lib", "challenge_addresses", "test_addresses.csv"),
+          headers: false
+        ).and_return(["123 Fake St", "456 Imaginary Rd"])
+
+        state_file_archived_intake_request.send(:fetch_random_addresses)
+      end
+    end
+
+    context "when in test environment" do
+      before { allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new("test")) }
+
+      it "uses the correct local file path" do
+        expect(CSV).to receive(:read).with(
+          Rails.root.join("app", "lib", "challenge_addresses", "test_addresses.csv"),
+          headers: false
         )
 
-        file_path = state_file_archived_intake_request.send(:determine_csv_file_path)
+        state_file_archived_intake_request.send(:fetch_random_addresses)
+      end
+    end
 
-        expect(file_path).to eq(Rails.root.join('tmp', 'challenge_addresses.csv'))
+    context "when in demo environment" do
+      before { allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new("demo")) }
+
+      it "uses the correct bucket and file key" do
+        expect(state_file_archived_intake_request).to receive(:download_file_from_s3).with(
+          "vita-min-demo-docs",
+          "non_prod_addresses.csv",
+          Rails.root.join("tmp", "non_prod_addresses.csv").to_s
+        )
+
+        state_file_archived_intake_request.send(:fetch_random_addresses)
+      end
+    end
+  end
+
+  describe "#populate_fake_addresses" do
+    let(:state_file_archived_intake_request) { build(:state_file_archived_intake_request, fake_address_1: nil, fake_address_2: nil) }
+
+    context "when state_file_archived_intake is not present" do
+      before { allow(state_file_archived_intake_request).to receive(:state_file_archived_intake).and_return(nil) }
+
+      it "does not populate fake_address_1 and fake_address_2" do
+        state_file_archived_intake_request.save
+
+        expect(state_file_archived_intake_request.fake_address_1).to be_nil
+        expect(state_file_archived_intake_request.fake_address_2).to be_nil
       end
     end
   end

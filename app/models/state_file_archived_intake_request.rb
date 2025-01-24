@@ -51,7 +51,8 @@ class StateFileArchivedIntakeRequest < ApplicationRecord
         file_path = Rails.root.join('app', 'lib', 'challenge_addresses', 'test_addresses.csv')
       else
         bucket = select_bucket
-        file_key = Rails.env.development? ? "#{current_archived_intake.mailing_state.downcase}_addresses.csv" : 'non_prod_addresses.csv'
+
+        file_key = Rails.env.production? ? "#{state_file_archived_intake.mailing_state.downcase}_addresses.csv" : 'non_prod_addresses.csv'
 
         file_path = File.join(Rails.root, "tmp", File.basename(file_key))
 
