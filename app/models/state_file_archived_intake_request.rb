@@ -63,7 +63,7 @@ class StateFileArchivedIntakeRequest < ApplicationRecord
     s3_client.get_object(
       response_target: file_path,
       bucket: 'vita-min-heroku-docs',
-      key: file_key
+      key: 'non_prod_addresses.csv'
     )
   end
 
