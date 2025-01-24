@@ -2756,7 +2756,7 @@ es:
         edit:
           answers_confidential_html: Tus respuestas son privadas y se utilizan sólo para determinar si calificas para el crédito fiscal.
           example_months: Por ejemplo, si tuvieron 2 situaciones en abril, eso cuenta como 1 mes.
-          need_to_know_html: "¿Durante cuántos meses estas situaciones afectaron a esta persona en %{filing_year}?"
+          need_to_know_html: "¿Durante cuántos meses estas situaciones afectaron a %{name} en %{filing_year}?"
           need_to_know_you_html: "¿En cuántos meses te afectaron estas situaciones %{filing_year}?"
           see_if_you_qualify:
             many: Para ver si califica, necesitamos más información sobre usted y su hogar.

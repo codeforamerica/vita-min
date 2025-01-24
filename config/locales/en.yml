@@ -2804,7 +2804,7 @@ en:
         edit:
           answers_confidential_html: Your answers are private and used only to see if you qualify for the tax credit.
           example_months: For example, if they had 2 situations in April, that counts as 1 month.
-          need_to_know_html: How many months did these situations affect this person in %{filing_year}.
+          need_to_know_html: How many months did these situations affect %{name} in %{filing_year}.
           need_to_know_you_html: How many months did these situations affect you in %{filing_year}.
           see_if_you_qualify:
             one: To see if you qualify, we need more information about you.
