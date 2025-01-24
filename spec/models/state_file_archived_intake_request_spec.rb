@@ -54,7 +54,7 @@ describe StateFileArchivedIntakeRequest do
     end
   end
 
-  describe '#determine_csv_file_path' do
+  describe '#fetch_random_addresses' do
     let(:state_file_archived_intake_request) { build(:state_file_archived_intake_request) }
 
     context 'in development or test environment' do

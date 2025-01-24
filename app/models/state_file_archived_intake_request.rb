@@ -24,7 +24,7 @@ class StateFileArchivedIntakeRequest < ApplicationRecord
   has_many :state_file_archived_intake_access_logs, class_name: 'StateFileArchivedIntakeAccessLog'
   belongs_to :state_file_archived_intake, class_name: 'StateFileArchivedIntake', optional: true
 
-  before_create :populate_fake_addresses
+  # before_create :populate_fake_addresses
 
   def self.maximum_attempts
     2
