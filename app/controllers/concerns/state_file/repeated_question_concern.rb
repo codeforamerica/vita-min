@@ -1,6 +1,5 @@
 module StateFile
   # This concern can be used by any StateFile::Questions::QuestionsController that needs to show a page repeatedly for each of a list of items
-  # It persists a return_to_review param through each page if one is present
   # It requires you to add a hidden `index` input to your edit template
   module RepeatedQuestionConcern
     extend ActiveSupport::Concern
@@ -17,7 +16,6 @@ module StateFile
         super
       else
         options = { index: prev_index }
-        options[:return_to_review] = params[:return_to_review] if params[:return_to_review].present?
         self.class.to_path_helper(options)
       end
     end
@@ -28,7 +26,6 @@ module StateFile
         super
       else
         options = {index: next_index}
-        options[:return_to_review] = params[:return_to_review] if params[:return_to_review].present?
         self.class.to_path_helper(options)
       end
     end

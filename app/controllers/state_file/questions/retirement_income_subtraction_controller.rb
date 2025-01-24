@@ -1,7 +1,6 @@
 module StateFile
   module Questions
     class RetirementIncomeSubtractionController < QuestionsController
-      include ReturnToReviewConcern
       include RepeatedQuestionConcern
 
       attr_reader :state_file_1099r

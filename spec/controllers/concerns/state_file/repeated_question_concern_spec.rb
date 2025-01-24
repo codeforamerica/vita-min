@@ -25,62 +25,40 @@ RSpec.describe StateFile::RepeatedQuestionConcern, type: :controller do
   end
 
   describe "#next_path" do
-    context 'when not return_to_review' do
-      context "when no index is passed in" do
-        it "next path is index = 1" do
-          get :index
-          expect(subject.next_path).to eq("/path?index=1")
-        end
-      end
-
-      context "when an index is passed in that is < num_items - 1" do
-        it "next path has an incremented index" do
-          get :index, params: {index: "1"}
-          expect(subject.next_path).to eq("/path?index=2")
-        end
-      end
-
-      context "when an index is passed in that == num_items - 1" do
-        it "next path is the next controller" do
-          get :index, params: {index: "2"}
-          expect(subject.next_path).to eq("/next_path")
-        end
+    context "when no index is passed in" do
+      it "next path is index = 1" do
+        get :index
+        expect(subject.next_path).to eq("/path?index=1")
       end
     end
 
-    context 'when return_to_review' do
-      context "when there are additional items" do
-        it "next path has an incremented index and review param" do
-          get :index, params: { return_to_review: "y" }
-          expect(subject.next_path).to eq("/path?index=1&return_to_review=y")
-        end
+    context "when an index is passed in that is < num_items - 1" do
+      it "next path has an incremented index" do
+        get :index, params: { index: "1" }
+        expect(subject.next_path).to eq("/path?index=2")
+      end
+    end
+
+    context "when an index is passed in that == num_items - 1" do
+      it "next path is the next controller" do
+        get :index, params: { index: "2" }
+        expect(subject.next_path).to eq("/next_path")
       end
     end
   end
 
   describe "#prev_path" do
-    context 'when not return_to_review' do
-      context "when index is > 0" do
-        it "prev path has a decremented index" do
-          get :index, params: { index: "1" }
-          expect(subject.prev_path).to eq("/path?index=0")
-        end
-      end
-
-      context "when index is 0 or omitted" do
-        it "prev path is whichever is previous overall" do
-          get :index
-          expect(subject.prev_path).to eq("/prev_path")
-        end
+    context "when index is > 0" do
+      it "prev path has a decremented index" do
+        get :index, params: { index: "1" }
+        expect(subject.prev_path).to eq("/path?index=0")
       end
     end
 
-    context 'when return_to_review' do
-      context "when index is > 0" do
-        it "prev path has a decremented index and return to review set" do
-          get :index, params: { index: "1", return_to_review: "y" }
-          expect(subject.prev_path).to eq("/path?index=0&return_to_review=y")
-        end
+    context "when index is 0 or omitted" do
+      it "prev path is whichever is previous overall" do
+        get :index
+        expect(subject.prev_path).to eq("/prev_path")
       end
     end
   end
