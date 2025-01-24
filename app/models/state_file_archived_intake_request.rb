@@ -53,7 +53,7 @@ class StateFileArchivedIntakeRequest < ApplicationRecord
       bucket = select_bucket
       file_key = "challenge_addresses/#{state_file_archived_intake&.mailing_state&.downcase}_addresses.csv"
       file_path = File.join(Rails.root, "tmp", "#{current_archived_intake.mailing_state.downcase}_addresses.csv")
-      addresses = download_file_from_s3(bucket, file_key, file_path)
+      addresses = download_file_from_s3(bucket)
     end
     addresses.sample(2)
   end
