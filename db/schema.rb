@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_01_23_160619) do
+ActiveRecord::Schema[7.1].define(version: 2025_01_23_224356) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -2142,7 +2142,12 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_23_160619) do
   end
 
   create_table "state_file_nc1099_r_followups", force: :cascade do |t|
+    t.integer "bailey_settlement_at_least_five_years", default: 0, null: false
+    t.integer "bailey_settlement_from_retirement_plan", default: 0, null: false
     t.datetime "created_at", null: false
+    t.integer "income_source", default: 0, null: false
+    t.integer "uniformed_services_qualifying_plan", default: 0, null: false
+    t.integer "uniformed_services_retired", default: 0, null: false
     t.datetime "updated_at", null: false
   end
 

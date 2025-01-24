@@ -231,6 +231,10 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text(I18n.t('state_file.questions.unemployment.index.1099_label', name: StateFileNcIntake.last.primary.full_name))
       click_on I18n.t("general.continue")
 
+      expect(page).to have_text("You might be eligible for a North Carolina retirement income deduction!")
+      choose "None of these apply"
+      click_on I18n.t("general.continue")
+
       expect(strip_html_tags(page.body)).to have_text strip_html_tags(I18n.t("state_file.questions.nc_subtractions.edit.title_html.other"))
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
