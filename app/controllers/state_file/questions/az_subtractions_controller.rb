@@ -3,7 +3,7 @@ module StateFile
     class AzSubtractionsController < QuestionsController
       include ReturnToReviewConcern
       def self.show?(intake)
-        current_intake.eligible_for_az_subtractions?
+        intake.eligible_for_az_subtractions?
       end
 
       private
