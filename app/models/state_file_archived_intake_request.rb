@@ -24,7 +24,7 @@ class StateFileArchivedIntakeRequest < ApplicationRecord
   has_many :state_file_archived_intake_access_logs, class_name: 'StateFileArchivedIntakeAccessLog'
   belongs_to :state_file_archived_intake, class_name: 'StateFileArchivedIntake', optional: true
 
-  # before_create :populate_fake_addresses
+  before_create :populate_fake_addresses
 
   def self.maximum_attempts
     2
@@ -58,7 +58,6 @@ class StateFileArchivedIntakeRequest < ApplicationRecord
     addresses.sample(2)
   end
 
-
   def download_file_from_s3(bucket, file_key, file_path)
     s3_client = Aws::S3::Client.new(region: 'us-east-1', credentials: s3_credentials)
     s3_client.get_object(
@@ -69,10 +68,14 @@ class StateFileArchivedIntakeRequest < ApplicationRecord
   end
 
   def s3_credentials
-    Aws::Credentials.new(
-      ENV["AWS_ACCESS_KEY_ID"] || Rails.application.credentials.dig(:aws, :access_key_id),
-      ENV["AWS_SECRET_ACCESS_KEY"] || Rails.application.credentials.dig(:aws, :secret_access_key)
-    )
+    if ENV["AWS_ACCESS_KEY_ID"].present?
+      Aws::Credentials.new(ENV["AWS_ACCESS_KEY_ID"], ENV["AWS_SECRET_ACCESS_KEY"])
+    else
+      Aws::Credentials.new(
+        Rails.application.credentials.dig(:aws, :access_key_id),
+        Rails.application.credentials.dig(:aws, :secret_access_key)
+      )
+    end
   end
 
   def select_bucket
