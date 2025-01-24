@@ -18,10 +18,12 @@ module Efile
       private
 
       def calculate_line_9a
-        if @intake.filing_status_mfj? && @intake.direct_file_data.fed_ssb.positive? && @intake.primary_ssb_amount.present?
-          @intake.primary_ssb_amount.round
-        else
-          @intake.direct_file_data.fed_ssb.round
+        if @intake.direct_file_data.fed_ssb.positive?
+          if @intake.filing_status_mfj?
+            @intake.primary_ssb_amount&.round || 0
+          else
+            @intake.direct_file_data.fed_ssb.round
+          end
         end
       end
 

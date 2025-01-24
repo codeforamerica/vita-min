@@ -30,7 +30,7 @@ describe Efile::Md::Md502RCalculator do
 
       it 'returns primary social security benefits amount from the intake' do
         main_calculator.calculate
-        expect(instance.lines[:MD502R_LINE_9A].value).to eq 0
+        expect(instance.lines[:MD502R_LINE_9A].value).to eq nil
       end
     end
 
