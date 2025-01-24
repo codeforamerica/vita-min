@@ -466,6 +466,7 @@ module PdfFiller
     # Adds a prefix to hash keys. Used to group related answers to a given question
     #
     # @param field_prefix [String] A prefix string
+    # @yield [] Should return a hash
     # @return [Hash] The resulting hash with keys transformed
     def with_prefix(field_prefix)
       hash = yield
