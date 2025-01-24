@@ -111,7 +111,7 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
       shared_examples "does not display W2 warnings" do
         it "does not display W2 warnings" do
           get :edit, params: params
-          expect(response.body).not_to have_text "We need to double-check some information"
+          expect(response.body).not_to have_text I18n.t("state_file.questions.income_review.edit.warning")
         end
       end
 
@@ -167,7 +167,7 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
       shared_examples "displays one W2 warning" do
         it "displays one W2 warning" do
           get :edit, params: params
-          expect(response.body.scan(/We need to double-check some information/).size).to eq(1)
+          expect(response.body.scan(I18n.t("state_file.questions.income_review.edit.warning")).size).to eq(1)
         end
       end
 
