@@ -3936,7 +3936,7 @@ es:
         faq: Preguntas Frecuentes
         privacy_policy: Política de Privacidad
         sms_terms: Términos de SMS
-        state_file_description_html: FileYourStateTaxes ha sido creado por<a target="_blank" rel="noopener nofollow" href="https://www.codeforamerica.org">Code for America</a> en colaboración con estados para integrarse con el servicio Direct File del IRS
+        state_file_description_html: FileYourStateTaxes ha sido creado por <a target="_blank" rel="noopener nofollow" href="https://www.codeforamerica.org">Code for America</a> en colaboración con estados para integrarse con el servicio Direct File del IRS
       login_options:
         email_signin: Iniciar sesión con correo electrónico
         help_text_html: "¿Eres nuevo en FileYourStateTaxes? <a href=%{link}>Comienza aquí</a>"
