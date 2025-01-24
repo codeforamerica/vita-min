@@ -58,7 +58,7 @@ class StateFileArchivedIntakeRequest < ApplicationRecord
     addresses.sample(2)
   end
 
-  def download_file_from_s3(bucket, file_key, file_path)
+  def download_file_from_s3(file_path)
     s3_client = Aws::S3::Client.new(region: 'us-east-1', credentials: s3_credentials)
     s3_client.get_object(
       response_target: file_path,
