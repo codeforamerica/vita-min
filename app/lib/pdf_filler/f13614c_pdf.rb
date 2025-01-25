@@ -77,6 +77,8 @@ module PdfFiller
         "form1[0].page1[0].writtenCommunicationLanguage[0].otherLanguageNo[0]" => @intake.written_language_preference_english? ? '1' : nil,
         "form1[0].page1[0].writtenCommunicationLanguage[0].otherLanguageYou[0]" => @intake.written_language_preference_english? ? nil : '1',
         "form1[0].page1[0].writtenCommunicationLanguage[0].whatLanguage[0]" => @intake.written_language_preference_english? ? nil : @intake.preferred_written_language_string
+      # TODO: This doesn't exist for spouse and it doesn't seem like we collect it anyways. It is part of the ticket though
+      # answers["form1[0].page1[0].writtenCommunicationLanguage[0].whatLanguage[0]"] = @intake.preferred_written_language
       )
       answers.merge!(
         keep_and_normalize({
@@ -102,6 +104,7 @@ module PdfFiller
       )
       answers["form1[0].page1[0].additionalSpace[0].additionalSpace[0]"] = @dependents.length > 3 ? "1" : nil
 
+      # PAGE 2: INCOME
       answers.merge!(
         yes_no_checkboxes("form1[0].page2[0].Part3[0].q1WagesOrSalary[0]", @intake.had_wages, include_unsure: true)
       )
@@ -125,7 +128,6 @@ module PdfFiller
 
         yes_no_checkboxes("form1[0].page2[0].Part4[0].q1Alimony[0]", fetch_gated_value(@intake, :paid_alimony), include_unsure: true),
         yes_no_checkboxes("form1[0].page2[0].Part4[0].q1Alimony[0].IfYes[0]", @intake.has_ssn_of_alimony_recipient),
-
       )
       answers.merge!(
         "form1[0].page2[0].Part4[0].q2Contributions[0].IRA[0]" => yes_no_unfilled_to_checkbox(@intake.contributed_to_ira),
@@ -137,7 +139,94 @@ module PdfFiller
       answers.merge!(
         yes_no_checkboxes("form1[0].page2[0].Part4[0].q3PostSecondary[0]", @intake.paid_post_secondary_educational_expenses, include_unsure: true),
         yes_no_checkboxes("form1[0].page2[0].Part4[0].q4Deductions[0]", @intake.wants_to_itemize, include_unsure: true),
+        )
+
+      # PAGE TWO: right-side certified volunteer section
+      answers.merge!(
+        # Wages: W-2s
+        "form1[0].page2[0].incomeIncluded[0].formW2s[0]" => yes_no_unfilled_to_checkbox(@intake.cv_w2s_cb),
+        "form1[0].page2[0].incomeIncluded[0].formW2sNumber[0]" => @intake.cv_w2s_count.to_s,
+
+        # Tips
+        "form1[0].page2[0].incomeIncluded[0].tipsBasicReported[0]" => yes_no_unfilled_to_checkbox(@intake.cv_had_tips_cb),
+
+        # Retirement income: 1099-R, Qualified Charitable Distribution
+        "form1[0].page2[0].incomeIncluded[0].form1099R[0]" => yes_no_unfilled_to_checkbox(@intake.cv_1099r_cb),
+        "form1[0].page2[0].incomeIncluded[0].form1099RNumber[0]" => @intake.cv_1099r_count,
+        "form1[0].page2[0].incomeIncluded[0].qualifiedCharitableDistribution[0]" => yes_no_unfilled_to_checkbox(@intake.cv_1099r_charitable_dist_cb),
+        "form1[0].page2[0].incomeIncluded[0].qualifiedCharitableAmount[0]" => @intake.cv_1099r_charitable_dist_amt,
+
+        # Disability
+        "form1[0].page2[0].incomeIncluded[0].disabilityBenefits[0]" => yes_no_unfilled_to_checkbox(@intake.cv_disability_benefits_1099r_or_w2_cb),
+        "form1[0].page2[0].incomeIncluded[0].disabilityBenefitsNumber[0]" => @intake.cv_disability_benefits_1099r_or_w2_count,
+
+        # SSA-1099, RRB-1099
+        "form1[0].page2[0].incomeIncluded[0].ssaRRB1099[0]" => yes_no_unfilled_to_checkbox(@intake.cv_ssa1099_rrb1099_cb),
+        "form1[0].page2[0].incomeIncluded[0].ssaRRB1099Number[0]" => @intake.cv_ssa1099_rrb1099_count,
+
+        # Unemployment 1099-G
+        "form1[0].page2[0].incomeIncluded[0].form1099G[0]" => yes_no_unfilled_to_checkbox(@intake.cv_1099g_cb),
+        "form1[0].page2[0].incomeIncluded[0].form1099GNumber[0]" => @intake.cv_1099g_count,
+
+        # Refund
+        "form1[0].page2[0].incomeIncluded[0].refund[0].refund[0]" => yes_no_unfilled_to_checkbox(@intake.cv_local_tax_refund_cb),
+        "form1[0].page2[0].incomeIncluded[0].refund[0].refundAmount[0]" => @intake.cv_local_tax_refund_amt,
+
+        # Itemized last year
+        "form1[0].page2[0].incomeIncluded[0].itemizedLastYear[0].itemizedLastYear[0]" => yes_no_unfilled_to_checkbox(@intake.cv_itemized_last_year_cb),
+        "form1[0].page2[0].incomeIncluded[0].itemizedLastYear[0].itemizedYes[0]" => yes_no_unfilled_to_checkbox(@intake.cv_itemized_last_year_cb),
+        "form1[0].page2[0].incomeIncluded[0].itemizedLastYear[0].itemizedNo[0]" => yes_no_unfilled_to_opposite_checkbox(@intake.cv_itemized_last_year_cb),
+
+        # 1099-INT/DIV
+        "form1[0].page2[0].incomeIncluded[0].form1099INTDIV[0].form1099INT[0]" => yes_no_unfilled_to_checkbox(@intake.cv_1099int_cb),
+        "form1[0].page2[0].incomeIncluded[0].form1099INTDIV[0].form1099INTNumber[0]" => @intake.cv_1099int_count,
+        "form1[0].page2[0].incomeIncluded[0].form1099INTDIV[0].form1099DIV[0]" => yes_no_unfilled_to_checkbox(@intake.cv_1099div_cb),
+        "form1[0].page2[0].incomeIncluded[0].form1099INTDIV[0].form1099DIVNumber[0]" => @intake.cv_1099div_count,
+
+        # 1099-B
+        "form1[0].page2[0].incomeIncluded[0].form1099B[0].form1099B[0]" => yes_no_unfilled_to_checkbox(@intake.cv_1099b_cb),
+        "form1[0].page2[0].incomeIncluded[0].form1099B[0].form1099BNumber[0]" => @intake.cv_1099b_count,
+
+        # Capital loss carryover
+        "form1[0].page2[0].incomeIncluded[0].form1099B[0].capitalLossCarryover[0].capitalLossCarryover[0]" => yes_no_unfilled_to_checkbox(@intake.cv_capital_loss_carryover_cb),
+        "form1[0].page2[0].incomeIncluded[0].form1099B[0].capitalLossCarryover[0].capitalLossCarryoverYes[0]" => yes_no_unfilled_to_checkbox(@intake.cv_capital_loss_carryover_cb),
+        "form1[0].page2[0].incomeIncluded[0].form1099B[0].capitalLossCarryover[0].capitalLossCarryoverNo[0]" => yes_no_unfilled_to_opposite_checkbox(@intake.cv_capital_loss_carryover_cb),
+
+        # Alimony
+        "form1[0].page2[0].incomeIncluded[0].alimonyIncome[0].alimonyIncome[0]" => yes_no_unfilled_to_checkbox(@intake.cv_alimony_income_cb),
+        "form1[0].page2[0].incomeIncluded[0].alimonyIncome[0].alimonyAmount[0]" => @intake.cv_alimony_income_amt,
+        # Alimony - Excluded from income
+        "form1[0].page2[0].incomeIncluded[0].alimonyIncome[0].excludedYes[0]" => yes_no_unfilled_to_checkbox(@intake.cv_alimony_excluded_from_income_cb),
+        "form1[0].page2[0].incomeIncluded[0].alimonyIncome[0].excludedNo[0]" => yes_no_unfilled_to_opposite_checkbox(@intake.cv_alimony_excluded_from_income_cb),
+
+        # Rental income
+        "form1[0].page2[0].incomeIncluded[0].rentalIncome[0].rentalIncome[0]" => yes_no_unfilled_to_checkbox(@intake.cv_rental_income_cb),
+        "form1[0].page2[0].incomeIncluded[0].rentalIncome[0].rentalExpense[0]" => yes_no_unfilled_to_checkbox(@intake.cv_rental_expense_cb),
+        "form1[0].page2[0].incomeIncluded[0].rentalIncome[0].rentalExpenseAmount[0]" => @intake.cv_rental_expense_amt,
+
+        # Gambling
+        "form1[0].page2[0].incomeIncluded[0].formW2G[0].formW2G[0]" => yes_no_unfilled_to_checkbox(@intake.cv_w2g_or_other_gambling_winnings_cb),
+        "form1[0].page2[0].incomeIncluded[0].formW2G[0].formW2GNumber[0]" => @intake.cv_w2g_or_other_gambling_winnings_count,
+
+        # Schedule C: Self-employment
+        "form1[0].page2[0].incomeIncluded[0].scheduleC[0]" => yes_no_unfilled_to_checkbox(@intake.cv_schedule_c_cb),
+
+        "form1[0].page2[0].incomeIncluded[0].form1099MISC[0]" => yes_no_unfilled_to_checkbox(@intake.cv_1099misc_cb),
+        "form1[0].page2[0].incomeIncluded[0].form1099MISCNumber[0]" => @intake.cv_1099misc_count,
+
+        "form1[0].page2[0].incomeIncluded[0].form1099NEC[0]" => yes_no_unfilled_to_checkbox(@intake.cv_1099nec_cb),
+        "form1[0].page2[0].incomeIncluded[0].form1099NECNumber[0]" => @intake.cv_1099nec_count,
+
+        "form1[0].page2[0].incomeIncluded[0].form1099K[0]" => yes_no_unfilled_to_checkbox(@intake.cv_1099k_cb),
+        "form1[0].page2[0].incomeIncluded[0].form1099KNumber[0]" => @intake.cv_1099k_count,
+
+        "form1[0].page2[0].incomeIncluded[0].otherInomceReported[0]" => yes_no_unfilled_to_checkbox(@intake.cv_other_income_reported_elsewhere_cb),
+
+        "form1[0].page2[0].incomeIncluded[0].scheduleCExpenses[0]" => yes_no_unfilled_to_checkbox(@intake.cv_schedule_c_expenses_cb),
+        "form1[0].page2[0].incomeIncluded[0].scheduleCExpensesAmount[0]" => @intake.cv_schedule_c_expenses_amt,
       )
+
+      # PAGE 3
       answers.merge!(
         keep_and_normalize({
           "form1[0].page3[0].paidFollowingExpenses[0].mortgageinterest[0]" => @intake.wants_to_itemize_yes? && @intake.ever_owned_home_yes? && @intake.paid_mortgage_interest_yes?,
@@ -178,14 +267,6 @@ module PdfFiller
       answers.merge!(
         yes_no_checkboxes("form1[0].page2[0].Part5[0].q8FileAFederal[0]", @intake.had_capital_loss_carryover, include_unsure: true),
       )
-      answers.merge!(
-        # Additional Information Section
-        # double check this works?
-        yes_no_checkboxes("form1[0].page3[0].q1[0]", @intake.preferred_written_language.present? ? "yes" : "no"),
-      )
-
-      # TODO: This doesn't exist for spouse and it doesn't seem like we collect it anyways. It is part of the ticket though
-      # answers["form1[0].page1[0].writtenCommunicationLanguage[0].whatLanguage[0]"] = @intake.preferred_written_language
 
       answers.merge!(
         keep_and_normalize(
@@ -212,6 +293,8 @@ module PdfFiller
       answers.merge!(vita_consent_to_disclose_info) if @intake.client&.consent&.disclose_consented_at
       answers
     end
+
+    private
 
     def vita_consent_to_disclose_info
       # aka form 15080 on page 4 info
@@ -427,8 +510,6 @@ module PdfFiller
         "form1[0].page3[0].q15[0].noSpouse[0]" => nil,
       }
     end
-
-    private
 
     def single_dependent_params(dependent, index:)
       {
