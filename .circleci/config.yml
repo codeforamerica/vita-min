@@ -2,7 +2,7 @@
 version: 2.1
 
 orbs:
-  slack: circleci/slack@4.9.3
+  slack: circleci/slack@5.1.1
 
 executors:
   ruby_executor:
@@ -119,6 +119,7 @@ jobs:
           path: ~/test-results
       - slack/notify:
           branch_pattern: main, fake-main-for-testing, release
+          channel: "C0540PNTLGN" # tax-alerts
           event: fail
           mentions: "@badger"
           template: basic_fail_1
@@ -159,6 +160,7 @@ jobs:
           paths: [tmp/parallel_runtime_rspec.log]
       - slack/notify:
           branch_pattern: main, fake-main-for-testing, release
+          channel: "C0540PNTLGN" # tax-alerts
           event: fail
           mentions: "@badger"
           template: basic_fail_1
@@ -196,6 +198,15 @@ jobs:
       - run: echo $APTIBLE_PUBLIC_KEY >> ~/.ssh/known_hosts
       - run: git fetch --depth=1000000
       - run: git push git@beta.aptible.com:vita-min-prod/vita-min-prod.git $CIRCLE_SHA1:master
+      - slack/notify:
+          channel: "C0544ERAFQV" # tax-eng
+          event: pass
+          template: success_tagged_deploy_1
+      - slack/notify:
+          channel: "C0544ERAFQV" # tax-eng
+          event: fail
+          mentions: "@badger"
+          template: basic_fail_1
     parallelism: 1
 workflows:
   version: 2
@@ -206,9 +217,9 @@ workflows:
             branches:
               only: translations_a24d8971fccee9a494b7267ce7f7deae_es
       - run_js_tests:
-          context: gyr_deploy_alerts
+          context: tax-bot
       - run_ruby_tests:
-          context: gyr_deploy_alerts
+          context: tax-bot
       - run_annotate
       - deploy_to_aptible--demo:
           requires: [run_js_tests, run_ruby_tests]
@@ -225,6 +236,7 @@ workflows:
             branches:
               only: [circleci-update-flow-explorer-screenshots]
       - deploy_to_aptible--production:
+          context: tax-bot
           requires: [run_js_tests, run_ruby_tests]
           filters:
             branches:
