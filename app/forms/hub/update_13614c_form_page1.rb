@@ -92,9 +92,9 @@ module Hub
 
       # Intake flow assigns 2-char language code to preferred_written_language
       # but here we switch to the person-readable name of the language upon
-      # first loading of hub editable 14-c page 1. And upon first save, the
-      # string, possibly altered by the user, also is what gets saved into the
-      # field. See the method GyrIntake#preferred_written_language_string for
+      # first loading of hub editable 14-c page 1. (And upon a save, the
+      # string, possibly altered by the user, also is what will get saved into the
+      # field.) See the method GyrIntake#preferred_written_language_string for
       # more insight. (Jan. 2025)
       result.merge!(preferred_written_language: intake.preferred_written_language_string)
 
