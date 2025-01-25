@@ -1,0 +1,31 @@
+<% @title = 'Additional Notes/Comments' %>
+<% content_for :page_title, @title %>
+<% content_for :card do %>
+  <div class="form_13614c slab slab--not-padded">
+    <h1><%= @title %></h1>
+    <p>Last client 13614-C
+      update: <%= @client.last_13614c_update_at&.in_time_zone("America/Los_Angeles")&.strftime("%b %-d %l:%M %p") %></p>
+
+    <%= form_with model: @form,
+                  url: edit_13614c_form_page5_hub_client_path,
+                  method: :put, local: true, builder: VitaMinFormBuilder,
+                  html: { class: 'form-card form-question-13614-page5' } do |f| %>
+      <div>
+        <hr style="margin-top: 0;"/>
+        <%= f.cfa_textarea :additional_notes_comments, '', options: {rows: '2', columns: 100} %>
+      </div>
+
+      <div style="display: flex; justify-content: space-between;">
+        <div>
+          <%= f.submit t("general.save"), class: "button button--cta"%>
+          <%= f.submit t("general.save_and_exit"), class: "button button--cta"%>
+          <%= link_to t("general.cancel"), cancel_13614c_hub_client_path, class: "button button--danger",
+                      data: { confirm: t("general.confirm_exit_without_saving") } %>
+        </div>
+
+        <%= render '13614c_page_links', current_page: 4 %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
