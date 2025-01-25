@@ -608,6 +608,16 @@ RSpec.describe PdfFiller::F13614cPdf do
               COMMENT
             end
           end
+
+          context "when there is nothing to put in the notes field" do
+              before do
+                intake.update(additional_notes_comments: nil)
+              end
+
+              it "everything still works ok" do
+                expect(intake_pdf.hash_for_pdf[additional_comments_key]).to eq("\n\n")
+              end
+            end
         end
       end
 

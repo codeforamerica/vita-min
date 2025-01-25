@@ -210,9 +210,7 @@ module PdfFiller
 
       # ty2024 page 5
 
-      cmts = @intake.additional_notes_comments || ''
-      cmts += "\n\n" << dependents_4th_and_up
-      answers["form1[0].page5[0].AdditionalComments[0].AdditionalNotesComments[0]"] = cmts
+      answers["form1[0].page5[0].AdditionalComments[0].AdditionalNotesComments[0]"] = (@intake.additional_notes_comments || '') << "\n\n" << dependents_4th_and_up
 
       # end - ty2024 page 5
 
