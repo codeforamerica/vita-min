@@ -14,7 +14,6 @@ describe StateFile::AfterTransitionTasksForRejectedReturnJob do
 
     context "when error is auto-wait" do
       let(:auto_wait) { true }
-      let(:auto_cancel) { false }
 
       it "transitions to resubmitted exactly once" do
         StateFile::AfterTransitionTasksForRejectedReturnJob.perform_now(submission, submission.last_transition)
@@ -24,7 +23,6 @@ describe StateFile::AfterTransitionTasksForRejectedReturnJob do
     end
 
     context "when error is auto-cancel" do
-      let(:auto_wait) { false }
       let(:auto_cancel) { true }
 
       it "transitions to resubmitted exactly once" do
