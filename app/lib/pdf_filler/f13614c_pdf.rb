@@ -102,7 +102,6 @@ module PdfFiller
       answers["form1[0].page1[0].maritalStatus[0].statusLegallySeparated[0].dateSeparateDecree[0]"] = @intake.separated_year
       answers["form1[0].page1[0].maritalStatus[0].statusDivorced[0].dateFinalDecree[0]"] = @intake.divorced_year
       answers["form1[0].page1[0].maritalStatus[0].statusWidowed[0].yearSpousesDeath[0]"] = @intake.widowed_year
-      answers["form1[0].page1[0].additionalSpace[0].additionalSpace[0]"] = @dependents.length > 3 ? "1" : nil
 
       answers.merge!(
         yes_no_checkboxes("form1[0].page2[0].Part3[0].q1WagesOrSalary[0]", @intake.had_wages, include_unsure: true)
@@ -208,9 +207,13 @@ module PdfFiller
         yes_no_checkboxes("form1[0].page3[0].q7[0]", @intake.register_to_vote),
       )
       answers.merge!(demographic_info) if @intake.demographic_questions_opt_in_yes? || @intake.demographic_questions_hub_edit
-      answers.merge!(
-        "form1[0].page3[0].AdditionalComments[0].AdditionalComments[1]" => additional_comments,
-      )
+
+      # ty2024 page 5
+
+      answers["form1[0].page5[0].AdditionalComments[0].AdditionalNotesComments[0]"] = @intake.additional_notes_comments
+
+      # end - ty2024 page 5
+
       answers.merge!(vita_consent_to_disclose_info) if @intake.client&.consent&.disclose_consented_at
       answers
     end
