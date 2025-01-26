@@ -177,6 +177,18 @@ module PdfFiller
           'form1[0].page3[0].stndardItemizedDeductions[0].standardDeduction[0]' => bool_checkbox(@intake.cv_med_expense_standard_deduction_cb == YES),
           'form1[0].page3[0].stndardItemizedDeductions[0].itemizedDeduction[0]' => bool_checkbox(@intake.cv_med_expense_itemized_deduction_cb == YES),
           'form1[0].page3[0].stndardItemizedComments[0].stndardItemizedComments[0]' => @intake.cv_14c_page_3_notes_part_1.to_s,
+
+          # page 3 rhs section 2 of 3
+          'form1[0].page3[0].expensesToReport[0].form1098E[0]' => bool_checkbox(@intake.cv_1098e_cb == YES),
+          'form1[0].page3[0].expensesToReport[0].childDependentCare[0]' => bool_checkbox(@intake.cv_child_dependent_care_credit_cb == YES),
+          'form1[0].page3[0].expensesToReport[0].iraBasicRoth[0]' => bool_checkbox(@intake. contributed_to_ira == YES),
+          'form1[0].page3[0].expensesToReport[0].educatorExpensesDeduction[0]' => bool_checkbox(@intake.cv_edu_expenses_deduction_cb == YES),
+          'form1[0].page3[0].expensesToReport[0].educatorExpensesDeductionAmount[0]' => @intake.cv_edu_expenses_deduction_amt.to_s,
+          'form1[0].page3[0].expensesToReport[0].alimonyPayments[0].alimonyPayments[0]' => bool_checkbox(@intake.cv_paid_alimony_w_spouse_ssn_cb == YES),
+          'form1[0].page3[0].expensesToReport[0].alimonyPayments[0].alimonyPaymentsAmount[0]' => @intake.cv_paid_alimony_w_spouse_ssn_amt.to_s,
+          'form1[0].page3[0].expensesToReport[0].alimonyPayments[0].adjustementYes[0]' => yes_no_unfilled_to_checkbox(@intake.cv_alimony_income_adjustment_yn_cb),
+          'form1[0].page3[0].expensesToReport[0].alimonyPayments[0].adjustementNo[0]' => yes_no_unfilled_to_opposite_checkbox(@intake.cv_alimony_income_adjustment_yn_cb),
+          'form1[0].page3[0].expensesReportComments[0].expensesReportComments[0]' => @intake.cv_14c_page_3_notes_part_2.to_s
       )
 
       answers.merge!(
