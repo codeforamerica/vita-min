@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe StateFile::IntakeLoginsController, type: :controller do
-  let(:intake) do
+  let!(:intake) do
     create(
       :state_file_az_intake,
       email_address: "client@example.com",
@@ -9,7 +9,6 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
       hashed_ssn: "hashed_ssn"
     )
   end
-  before { intake }
   let(:intake_query) { StateFileAzIntake.where(id: intake) }
 
   before do
@@ -73,6 +72,8 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
         end
 
         it "enqueues a RequestVerificationCodeEmailJob and renders a form for the code" do
+          intake.email_address_verified_at = DateTime.now
+          intake.save!
           expect {
             post :create, params: params
           }.to have_enqueued_job(RequestVerificationCodeForLoginJob).with(
@@ -98,6 +99,8 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
         end
 
         it "enqueues a text message login request job with the right data and renders the 'enter verification code' page" do
+          intake.phone_number_verified_at = DateTime.now
+          intake.save!
           expect {
             post :create, params: params
           }.to have_enqueued_job(RequestVerificationCodeForLoginJob).with(
@@ -170,7 +173,11 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
 
     context "as an authenticated intake" do
       render_views
-      before { sign_in intake }
+      before do
+        intake.phone_number_verified_at = DateTime.now
+        intake.save!
+        sign_in intake
+      end
 
       it "renders the login page" do
         post :create, params: { state_file_request_intake_login_form: { sms_phone_number: "(510) 555 1234"}}
