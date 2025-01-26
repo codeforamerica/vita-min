@@ -41,6 +41,8 @@ module PdfFiller
       ],
     }
 
+    YES = 'yes'
+
     def source_pdf_name
       "f13614c-TY2024"
     end
@@ -142,17 +144,22 @@ module PdfFiller
       )
       answers.merge!(
         keep_and_normalize({
-          "form1[0].page3[0].paidFollowingExpenses[0].mortgageinterest[0]" => @intake.wants_to_itemize_yes? && @intake.ever_owned_home_yes? && @intake.paid_mortgage_interest_yes?,
-          "form1[0].page3[0].paidFollowingExpenses[0].taxesStateLocal[0]" => @intake.wants_to_itemize_yes? && @intake.paid_local_tax_yes?,
-          "form1[0].page3[0].paidFollowingExpenses[0].mendicalDentalPrescription[0]" => @intake.wants_to_itemize_yes? && @intake.paid_medical_expenses_yes?,
-          "form1[0].page3[0].paidFollowingExpenses[0].charitableContributions[0]" => @intake.wants_to_itemize_yes? && @intake.paid_charitable_contributions_yes?,
+          # page 3 lhs section 1 of 3
+          "form1[0].page3[0].paidFollowingExpenses[0].mortgageinterest[0]" => @intake.paid_mortgage_interest_yes?,
+          "form1[0].page3[0].paidFollowingExpenses[0].taxesStateLocal[0]" => @intake.paid_local_tax_yes?,
+          "form1[0].page3[0].paidFollowingExpenses[0].mendicalDentalPrescription[0]" => @intake.paid_medical_expenses_yes?,
+          "form1[0].page3[0].paidFollowingExpenses[0].charitableContributions[0]" => @intake.paid_charitable_contributions_yes?,
+
+          # page 3 lhs section 2 of 3
           "form1[0].page3[0].paidExpenses[0].studentLoanInterest[0]" => @intake.paid_student_loan_interest_yes?,
-          "form1[0].page3[0].paidExpenses[0].childDependentCare[0]" => @intake.had_dependents_yes? && @intake.paid_dependent_care_yes?,
-          "form1[0].page3[0].paidExpenses[0].contributionsRetirementAccount[0]" => @intake.had_social_security_or_retirement_yes? && @intake.paid_retirement_contributions_yes?,
-          "form1[0].page3[0].paidExpenses[0].schooldSupplies[0]" => @intake.wants_to_itemize_yes? && @intake.paid_school_supplies_yes?,
-          "form1[0].page3[0].paidExpenses[0].alimonyPayments[0]" => @intake.ever_married_yes? && @intake.paid_alimony_yes?,
+          "form1[0].page3[0].paidExpenses[0].childDependentCare[0]" => @intake.paid_dependent_care_yes?,
+          "form1[0].page3[0].paidExpenses[0].contributionsRetirementAccount[0]" => @intake.paid_retirement_contributions_yes?,
+          "form1[0].page3[0].paidExpenses[0].schooldSupplies[0]" => @intake.paid_school_supplies_yes?,
+          "form1[0].page3[0].paidExpenses[0].alimonyPayments[0]" => @intake.paid_alimony_yes?,
+
+          # page 3 lhs section 3 of 3
           "form1[0].page3[0].followingHappenDuring[0].tookEducationalClasses[0].tookEducationalClasses[0]" => @intake.paid_post_secondary_educational_expenses_yes?,
-          "form1[0].page3[0].followingHappenDuring[0].sellAHome[0]" => @intake.ever_owned_home_yes? && @intake.sold_a_home_yes?,
+          "form1[0].page3[0].followingHappenDuring[0].sellAHome[0]" => @intake.sold_a_home_yes?,
           "form1[0].page3[0].followingHappenDuring[0].healthSavingsAccount[0]" => @intake.had_hsa_yes?,
           "form1[0].page3[0].followingHappenDuring[0].purchaseMarketplaceInsurance[0]" => @intake.bought_marketplace_health_insurance_yes?,
           "form1[0].page3[0].followingHappenDuring[0].energyEfficientItems[0].energyEfficientItems[0]" => @intake.bought_energy_efficient_items_yes?,
@@ -162,6 +169,14 @@ module PdfFiller
           "form1[0].page3[0].followingHappenDuring[0].receivedLetterBill[0]" => @intake.received_irs_letter_yes?,
           "form1[0].page3[0].followingHappenDuring[0].estimatedTaxPayments[0].estimatedTaxPayments[0]" => @intake.made_estimated_tax_payments_yes?,
         })
+      )
+      answers.merge!(
+          # page 3 rhs section 1 of 3
+          'form1[0].page3[0].stndardItemizedDeductions[0].form1098[0]' => bool_checkbox(@intake.cv_1098_cb == YES),
+          'form1[0].page3[0].stndardItemizedDeductions[0].form1098Number[0]' => @intake.cv_1098_count.to_s,
+          'form1[0].page3[0].stndardItemizedDeductions[0].standardDeduction[0]' => bool_checkbox(@intake.cv_med_expense_standard_deduction_cb == YES),
+          'form1[0].page3[0].stndardItemizedDeductions[0].itemizedDeduction[0]' => bool_checkbox(@intake.cv_med_expense_itemized_deduction_cb == YES),
+          'form1[0].page3[0].stndardItemizedComments[0].stndardItemizedComments[0]' => @intake.cv_14c_page_3_notes_part_1.to_s,
       )
 
       answers.merge!(

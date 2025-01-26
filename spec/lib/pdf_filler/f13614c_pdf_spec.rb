@@ -542,6 +542,32 @@ RSpec.describe PdfFiller::F13614cPdf do
         end
       end
 
+      describe 'page 3 (expenses) gray questions on right-hand side' do
+        describe 'section 1 on 3' do
+          it 'looks good when all choices are no and fields are nil' do
+            intake.update(
+              cv_1098_cb: 'no',
+              cv_1098_count: nil,
+              cv_med_expense_standard_deduction_cb: 'no',
+              cv_med_expense_itemized_deduction_cb: 'no',
+              cv_14c_page_3_notes_part_1: nil
+            )
+
+            output_file = intake_pdf.output_file
+            result = non_preparer_fields(output_file.path)
+            expect(result).to include(
+              'form1[0].page3[0].stndardItemizedDeductions[0].form1098[0]' => '',
+              'form1[0].page3[0].stndardItemizedDeductions[0].form1098Number[0]' => '',
+              'form1[0].page3[0].stndardItemizedDeductions[0].standardDeduction[0]' => '',
+              'form1[0].page3[0].stndardItemizedDeductions[0].itemizedDeduction[0]' => '',
+              'form1[0].page3[0].stndardItemizedComments[0].stndardItemizedComments[0]' => ''
+            )
+          end
+          it 'works when all choices are all yes and filled in' do
+          end
+        end
+      end
+
       describe "#hash_for_pdf" do
         describe 'additional comments field' do
           let(:additional_comments_key) { "form1[0].page3[0].AdditionalComments[0].AdditionalComments[1]" }
