@@ -34,12 +34,12 @@ module Efile
       end
 
       def column_a_excess
-        difference = (column_a_total - Nj1040Calculator::EXCESS_UI_WF_SWF_MAX).round
+        difference = (column_a_total - StateFileW2.find_limit("UI_WF_SWF", "nj")).round
         difference.positive? ? difference : 0
       end
 
-      def column_c_excess 
-        difference = (column_c_total - Nj1040Calculator::EXCESS_FLI_MAX).round
+      def column_c_excess
+        difference = (column_c_total - StateFileW2.find_limit("FLI", "nj")).round
         difference.positive? ? difference : 0
       end
     end
