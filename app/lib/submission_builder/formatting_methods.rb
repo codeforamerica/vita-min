@@ -16,11 +16,7 @@ module SubmissionBuilder
 
     def sanitize_zipcode(zipcode_str)
       sanitized_zipcode = sanitize_for_xml(zipcode_str)
-      if @submission.data_source.state_code == "md"
-        sanitized_zipcode.gsub("-", "")
-      else
-        sanitized_zipcode
-      end
+      sanitized_zipcode.gsub("-", "")
     end
 
     def datetime_type(datetime)

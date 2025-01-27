@@ -40,11 +40,7 @@ describe SubmissionBuilder::ReturnHeader do
           expect(doc.at("USAddress AddressLine2Txt").text).to eq mailing_apartment
           expect(doc.at("USAddress CityNm").text).to eq mailing_city
           expect(doc.at("USAddress StateAbbreviationCd").text).to eq state_code.upcase
-          if state_code == "md"
-            expect(doc.at("USAddress ZIPCd").text).to eq "123451234"
-          else
-            expect(doc.at("USAddress ZIPCd").text).to eq "12345-1234"
-          end
+          expect(doc.at("USAddress ZIPCd").text).to eq "123451234"
         end
 
         context "with out-of-state mailing state" do
