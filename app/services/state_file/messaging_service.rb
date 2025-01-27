@@ -56,6 +56,7 @@ module StateFile
 
     def send_sms(require_verification: true)
       phone_number_verified = intake.phone_number_verified_at.present? || matching_intakes_has_phone_number_verified_at?(intake)
+      return if intake.sms_notification_opt_in_no?
       return if intake.phone_number.nil?
       return if require_verification && !phone_number_verified
 
