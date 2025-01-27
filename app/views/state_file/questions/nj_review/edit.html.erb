@@ -23,7 +23,7 @@
     </section>
   <% end %>
 
-  <% if current_intake.has_health_insurance_requirement_exception? || current_intake.eligibility_all_members_health_insurance_no? %>
+  <% if current_intake.dependents.any? && (current_intake.has_health_insurance_requirement_exception? || current_intake.eligibility_all_members_health_insurance_no?) %>
     <section id="missing-health-insurance" class="white-group">
       <div class="spacing-below-5">
         <h2 class="text--body text--bold spacing-below-5"><%=t(".missing_health_insurance") %></h2>
