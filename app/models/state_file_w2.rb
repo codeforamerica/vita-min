@@ -51,23 +51,23 @@ class StateFileW2 < ApplicationRecord
   encrypts :employee_ssn
 
   validates :w2_index, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
-  validates :employer_state_id_num, length: { maximum: 16, message: ->(_object, _data) { I18n.t('state_file.questions.w2.edit.employer_state_id_error') } }
-  validates :state_wages_amount, numericality: { greater_than_or_equal_to: 0 }, if: -> { state_wages_amount.present? }
-  validates :state_income_tax_amount, numericality: { greater_than_or_equal_to: 0 }, if: -> { state_income_tax_amount.present? }
-  validates :local_wages_and_tips_amount, numericality: { greater_than_or_equal_to: 0 }, if: -> { local_wages_and_tips_amount.present? }
-  validates :local_income_tax_amount, numericality: { greater_than_or_equal_to: 0 }, if: -> { local_income_tax_amount.present? }
-  validates :box14_fli, numericality: { greater_than_or_equal_to: 0 }, if: -> { box14_fli.present? }
-  validates :box14_stpickup, numericality: { greater_than_or_equal_to: 0 }, if: -> { box14_stpickup.present? }
-  validates :box14_ui_hc_wd, numericality: { greater_than_or_equal_to: 0 }, if: -> { box14_ui_hc_wd.present? }
-  validates :box14_ui_wf_swf, numericality: { greater_than_or_equal_to: 0 }, if: -> { box14_ui_wf_swf.present? }
-  validates :wages, numericality: { greater_than_or_equal_to: 0 }, if: -> { wages.present? }
-  validates :locality_nm, presence: { message: ->(_object, _data) { I18n.t('state_file.questions.w2.edit.locality_nm_missing_error') } }, if: -> { local_wages_and_tips_amount.present? && local_wages_and_tips_amount.positive? }
-  validates :employer_state_id_num, presence: true, if: -> { state_wages_amount.present? && state_wages_amount.positive? }
-  validates :employer_ein, presence: true, format: { with: /\A[0-9]{9}\z/, message: ->(*_args) { I18n.t('validators.ein') } }
-  validates :locality_nm, format: { with: /\A[a-zA-Z]{1}([A-Za-z\-\s']{0,19})\z/, message: :only_letters }, if: -> { locality_nm.present? }
-  validate :validate_box14_limits, if: :check_box14_limits
-  validate :validate_tax_amts
-  validate :state_specific_validation
+  validates :employer_state_id_num, length: { maximum: 16, message: ->(_object, _data) { I18n.t('state_file.questions.w2.edit.employer_state_id_error') } }, on: :state_file_edit
+  validates :state_wages_amount, numericality: { greater_than_or_equal_to: 0 }, if: -> { state_wages_amount.present? }, on: :state_file_edit
+  validates :state_income_tax_amount, numericality: { greater_than_or_equal_to: 0 }, if: -> { state_income_tax_amount.present? }, on: :state_file_edit
+  validates :local_wages_and_tips_amount, numericality: { greater_than_or_equal_to: 0 }, if: -> { local_wages_and_tips_amount.present? && StateFile::StateInformationService.w2_include_local_income_boxes(state_file_intake.state_code) }, on: :state_file_edit
+  validates :local_income_tax_amount, numericality: { greater_than_or_equal_to: 0 }, if: -> { local_income_tax_amount.present? && StateFile::StateInformationService.w2_include_local_income_boxes(state_file_intake.state_code) }, on: :state_file_edit
+  validates :box14_fli, numericality: { greater_than_or_equal_to: 0 }, if: -> { box14_fli.present? }, on: :state_file_edit
+  validates :box14_stpickup, numericality: { greater_than_or_equal_to: 0 }, if: -> { box14_stpickup.present? }, on: :state_file_edit
+  validates :box14_ui_hc_wd, numericality: { greater_than_or_equal_to: 0 }, if: -> { box14_ui_hc_wd.present? }, on: :state_file_edit
+  validates :box14_ui_wf_swf, numericality: { greater_than_or_equal_to: 0 }, if: -> { box14_ui_wf_swf.present? }, on: :state_file_edit
+  validates :wages, numericality: { greater_than_or_equal_to: 0 }, if: -> { wages.present? }, on: :state_file_edit
+  validates :locality_nm, presence: { message: ->(_object, _data) { I18n.t('state_file.questions.w2.edit.locality_nm_missing_error') } }, if: -> { local_wages_and_tips_amount.present? && local_wages_and_tips_amount.positive? && StateFile::StateInformationService.w2_include_local_income_boxes(state_file_intake.state_code)  }, on: :state_file_edit
+  validates :employer_state_id_num, presence: true, if: -> { state_wages_amount.present? && state_wages_amount.positive? }, on: :state_file_edit
+  validates :employer_ein, presence: true, format: { with: /\A[0-9]{9}\z/, message: ->(*_args) { I18n.t('validators.ein') } }, on: :state_file_edit
+  validates :locality_nm, format: { with: /\A[a-zA-Z]{1}([A-Za-z\-\s']{0,19})\z/, message: :only_letters }, if: -> { locality_nm.present? }, on: :state_file_edit
+  validate :validate_box14_limits, if: :check_box14_limits, on: :state_file_edit
+  validate :validate_tax_amts, on: :state_file_edit
+  validate :state_specific_validation, on: :state_file_edit
   before_validation :locality_nm_to_upper_case
 
   def state_specific_validation
