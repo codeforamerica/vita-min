@@ -3,7 +3,7 @@ require "rails_helper"
 describe StateFile::AfterTransitionTasksForRejectedReturnJob do
   describe '.perform' do
     let(:submission) { create(:efile_submission, :transmitted, :for_state) }
-    let(:efile_error) { create(:efile_error, code: "IRS-ERROR", expose: true, auto_wait: auto_wait, auto_cancel: auto_cancel, service_type: :state_file_ny) }
+    let(:efile_error) { create(:efile_error, code: "IRS-ERROR", expose: true, auto_wait: auto_wait, auto_cancel: auto_cancel, service_type: :state_file_az) }
     let(:auto_wait) { false }
     let(:auto_cancel) { false }
 

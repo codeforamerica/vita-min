@@ -2,7 +2,7 @@ require "rails_helper"
 describe Hub::StateFile::EfileErrorsController do
   let!(:state_file_admin) { create :state_file_admin_user }
   describe "#index" do
-    let!(:efile_error) { create :efile_error, code: "CANCEL-ME-123", service_type: :state_file_ny }
+    let!(:efile_error) { create :efile_error, code: "CANCEL-ME-123", service_type: :state_file_az }
 
     context "as an authenticated user" do
       before do
@@ -18,7 +18,7 @@ describe Hub::StateFile::EfileErrorsController do
   end
 
   describe "#edit" do
-    let(:efile_error) { create :efile_error, service_type: :state_file_ny }
+    let(:efile_error) { create :efile_error, service_type: :state_file_az }
     let(:params) { { id: efile_error.id } }
 
     context "as an authenticated user" do
@@ -34,13 +34,13 @@ describe Hub::StateFile::EfileErrorsController do
   end
 
   describe "#update" do
-    let!(:efile_error) { create :efile_error, service_type: :state_file_ny, expose: false }
+    let!(:efile_error) { create :efile_error, service_type: :state_file_az, expose: false }
     let(:params) do
       {
         id: efile_error.id,
         efile_error: {
           expose: true,
-          service_type: :state_file_ny,
+          service_type: :state_file_az,
           auto_cancel: true,
           auto_wait: true,
           description_en: "<div>We were unable to verify your address. Can you check to see if there are any mistakes?</div>",
@@ -75,9 +75,9 @@ describe Hub::StateFile::EfileErrorsController do
       let(:rejected_submission) { create :efile_submission, :for_state, :rejected }
       let(:cancelled_submission) { create :efile_submission, :for_state, :cancelled }
       let(:failed_submission) { create :efile_submission, :for_state, :failed }
-      let(:wait_efile_error) { create :efile_error, code: "WAIT-ME-123", auto_wait: true, service_type: :state_file_ny }
-      let(:cancel_efile_error) { create :efile_error, code: "CANCEL-ME-123", auto_cancel: true, service_type: :state_file_ny }
-      let(:not_handled_error) { create :efile_error, code: "NOTHING-ME-123", auto_cancel: false, auto_wait: false, service_type: :state_file_ny }
+      let(:wait_efile_error) { create :efile_error, code: "WAIT-ME-123", auto_wait: true, service_type: :state_file_az }
+      let(:cancel_efile_error) { create :efile_error, code: "CANCEL-ME-123", auto_cancel: true, service_type: :state_file_az }
+      let(:not_handled_error) { create :efile_error, code: "NOTHING-ME-123", auto_cancel: false, auto_wait: false, service_type: :state_file_az }
       let(:params) do
         {
           id: wait_efile_error.id,
