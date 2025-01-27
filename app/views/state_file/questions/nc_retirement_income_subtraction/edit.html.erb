@@ -1,5 +1,5 @@
 <%
-  title = t(".title" )
+  title = t(".title")
   content_for :page_title, title
 %>
 
@@ -8,32 +8,84 @@
   <p><%= t(".subtitle") %></p>
   <p><%= t(".doc_1099r_label") %>: <b><%= @state_file_1099r.payer_name %></b></p>
   <p><%= t(".taxpayer_name_label") %>: <b><%= @state_file_1099r.recipient_name %></b></p>
-  <p><%= t(".taxable_amount_label") %>: <b><%= number_to_currency(@state_file_1099r.taxable_amount, precision: 0) %></b></p>
+  <p><%= t(".taxable_amount_label") %>: <b><%= number_to_currency(@state_file_1099r.taxable_amount, precision: 0) %></b>
+  </p>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
-    <div class="white-group">
-      <%= f.cfa_radio_set(
-            :income_source,
-            label_text: t(".income_source_question"),
-            collection: [
-              {
-                value: :bailey_settlement,
-                label: t(".income_source_bailey_settlement_html"),
-                input_html: { "data-follow-up": "#select-bailey-settlement" }
-              },
-              { value: :uniformed_services, label: t(".uniformed_services_html") },
-              { value: :other, label: t(".income_source_other") },
-            ],
+    <div class="question-with-follow-up">
+      <div class="white-group question-with-follow-up__question">
+        <%= f.cfa_radio_set(
+              :income_source,
+              label_text: t(".income_source_question"),
+              collection: [
+                {
+                  value: :bailey_settlement,
+                  label: t(".income_source_bailey_settlement_html"),
+                  input_html: { "data-follow-up": "#select-bailey-settlement" }
+                },
+                {
+                  value: :uniformed_services,
+                  label: t(".uniformed_services_html"),
+                  input_html: { "data-follow-up": "#select-uniform-services" }
+                },
+                { value: :other, label: t(".other") },
+              ],
             ) %>
-    </div>
+      </div>
 
-    <div class="question-with-follow-up__follow-up" id="uniformed_services_html">
-      <div class="white-group">
-        <p><%= t(".bailey_settlement_checkboxes") %></p>
-        <%= f.cfa_checkbox(:bailey_settlement_at_least_five_years, t(".bailey_settlement_at_least_five_years"), options: { checked_value: "yes", unchecked_value: "no" }) %>
-        <%= f.cfa_checkbox(:bailey_settlement_from_retirement_plan, t(".bailey_settlement_from_retirement_plan"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <div class="question-with-follow-up__follow-up" id="select-bailey-settlement">
+        <div class="white-group">
+          <div class="tight-checkboxes">
+            <p><%= t(".bailey_settlement_checkboxes") %></p>
+            <%= f.cfa_checkbox(:bailey_settlement_at_least_five_years, t(".bailey_settlement_at_least_five_years"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+            <%= f.cfa_checkbox(:bailey_settlement_from_retirement_plan, t(".bailey_settlement_from_retirement_plan"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+            <%= f.cfa_checkbox(:bailey_settlement_none_apply, t(".other"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+          </div>
+        </div>
+      </div>
+
+      <div class="question-with-follow-up__follow-up" id="select-uniform-services">
+        <div class="white-group">
+          <div class="tight-checkboxes">
+            <p><%= t(".uniformed_services_checkboxes") %></p>
+            <%= f.cfa_checkbox(:uniformed_services_retired, t(".uniformed_services_retired"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+            <%= f.cfa_checkbox(:uniformed_services_qualifying_plan, t(".uniformed_services_qualifying_plan"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+            <%= f.cfa_checkbox(:uniformed_services_none_apply, t(".other"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+          </div>
+        </div>
       </div>
     </div>
+
+    <div class="reveal">
+      <p>
+        <button class="reveal__button"><%= t('.what_is_bailey') %></button>
+      </p>
+      <div class="reveal__content">
+        <p><%= t('.bailey_description') %></p>
+        <ul class="list--bulleted">
+          <% t(".bailey_reveal_bullets").each do |bailey_bullet| %>
+            <li><%= bailey_bullet %></li>
+          <% end %>
+        </ul>
+        <p class="spacing-above-15"><%= t('.bailey_more_info_html') %></p>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <p>
+        <button class="reveal__button"><%= t('.what_are_uniformed_services') %></button>
+      </p>
+      <div class="reveal__content">
+        <p><%= t('.uniformed_services_description') %></p>
+        <ul class="list--bulleted">
+          <% t(".uniformed_services_bullets").each do |uniformed_services_bullet| %>
+            <li><%= uniformed_services_bullet %></li>
+          <% end %>
+        </ul>
+        <p class="spacing-above-15"><%= t('.uniformed_services_more_info_html') %></p>
+      </div>
+    </div>
+
 
     <% if params[:return_to_review].present? %>
       <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
@@ -43,4 +95,6 @@
     <% end %>
     <%= f.continue %>
   <% end %>
+
+
 <% end %>

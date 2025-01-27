@@ -3039,6 +3039,39 @@ es:
           question: "¿En qué año falleció tu cónyuge?"
           subtitle: Para continuar, necesitamos confirmar información adicional sobre tu cónyuge fallecido.
           title: Parece que tu estado civil es "Cónyuge sobreviviente calificado"
+      nc_retirement_income_subtraction:
+        edit:
+          bailey_description: 'El Acuerdo Bailey es una decisión de la Corte Suprema de Carolina del Norte. Dice que algunos planes de jubilación no pueden pagar impuestos en Carolina del Norte. Estos planes incluyen:'
+          bailey_more_info_html: Visite <a target="_blank" href="https://www.ncdor.gov/bailey-decision-concerning-federal-state-and-local-retirement-benefits">el Departamento de Ingresos de Carolina </a> del Norte para obtener más información.
+          bailey_reveal_bullets:
+          - Sistema de Jubilación de Maestros y Empleados Estatales de Carolina del Norte
+          - Sistema de jubilación de empleados del gobierno local de Carolina del Norte
+          - Sistema Consolidado de Jubilación Judicial de Carolina del Norte
+          - Sistema de Retiro de Empleados Federales
+          - Sistema de jubilación del servicio civil de los Estados Unidos
+          bailey_settlement_at_least_five_years: "¿Tenía usted o su cónyuge al menos cinco años de servicio acreditable antes del 12 de agosto de 1989?"
+          bailey_settlement_checkboxes: Marque todas las casillas sobre el Acuerdo Bailey que se apliquen a usted o a su cónyuge.
+          bailey_settlement_from_retirement_plan: "¿Recibió usted o su cónyuge beneficios de jubilación del plan 401(k) o 457 de Carolina del Norte y estuvo contratado o contribuyó al plan antes del 12 de agosto de 1989?"
+          doc_1099r_label: 1099-R
+          income_source_bailey_settlement_html: Beneficios de jubilación como parte del <strong>Acuerdo Bailey</strong>
+          income_source_question: Seleccione la fuente de este ingreso
+          other: Ninguno de estos se aplica
+          subtitle: Necesitamos más información sobre este 1099-R para verificar su elegibilidad.
+          taxable_amount_label: 'Base imponible:'
+          taxpayer_name_label: Nombre del contribuyente
+          title: "¡Podría ser elegible para una deducción de ingresos por jubilación en Carolina del Norte!"
+          uniformed_services_bullets:
+          - Las Fuerzas Armadas
+          - El cuerpo comisionado de la Administración Nacional Oceánica y Atmosférica (NOAA)
+          - El cuerpo comisionado de los Servicios de Salud Pública de los Estados Unidos (USPHS)
+          uniformed_services_checkboxes: Marque todas las casillas sobre los Servicios Uniformados que se apliquen a usted o su cónyuge.
+          uniformed_services_description: 'Los Servicios Uniformados son grupos de personas que desempeñan funciones militares y afines. Estos incluyen:'
+          uniformed_services_html: Beneficios de jubilación de los <strong>Servicios Uniformados</strong>
+          uniformed_services_more_info_html: Puedes <a target="_blank" href="https://deploymentpsych.org/system/files/member_resource/TheUniformedServices_1.pdf"> leer más detalles sobre los servicios uniformados aquí. </a>
+          uniformed_services_qualifying_plan: "¿Estos pagos fueron de un Plan de Beneficios para Sobrevivientes calificado a un beneficiario de un miembro retirado que sirvió al menos 20 años o que estaba médicamente retirado de los Servicios Uniformados?"
+          uniformed_services_retired: "¿Es usted o su cónyuge un miembro jubilado que sirvió al menos 20 años o estuvo retirado por motivos médicos de los Servicios Uniformados?"
+          what_are_uniformed_services: "¿Qué son los Servicios Uniformados?"
+          what_is_bailey: "¿Qué es el Acuerdo Bailey?"
       nc_review:
         edit:
           amount_earned: Amount earned
@@ -3896,18 +3929,6 @@ es:
         edit:
           subtitle_html: Esto suele tardar unos minutos. No cierres esta página<br><br> Usaremos la información de tu declaración de impuestos federal para completar algunas secciones de tu declaración estatal.
           title_html: Un momento, estamos transfiriendo tu declaración de impuestos federal.
-      nc_retirement_income_subtraction:
-        edit:
-          title: ¡Podría ser elegible para una deducción de ingresos por jubilación en Carolina del Norte!
-          subtitle: Necesitamos más información sobre este 1099-R para verificar su elegibilidad.
-          doc_1099r_label: "1099-R"
-          taxpayer_name_label: "Nombre del contribuyente"
-          taxable_amount_label: "Base imponible:"
-          income_source_question: "Seleccione la fuente de este ingreso"
-          income_source_bailey_settlement_html: "Beneficios de jubilación como parte del <strong>Acuerdo Bailey</strong>"
-          uniformed_services_html: "Beneficios de jubilación de los <strong>Servicios Uniformados</strong>"
-          income_source_other: "Ninguno de estos se aplica"
-          bailey_settlement_checkboxes: "Marque todas las casillas sobre el Acuerdo Bailey que se apliquen a usted o a su cónyuge."
     state_file_pages:
       about_page:
         check_back_for_prior_year_returns: Vuelva al comienzo de la temporada de presentación para descargar su declaración de impuestos de Arizona o del estado de Nueva York de 2023.

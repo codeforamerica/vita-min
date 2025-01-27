@@ -3083,6 +3083,39 @@ en:
           question: What was the year of your spouse’s passing?
           subtitle: In order to continue, we need to confirm additional information about your deceased spouse.
           title: It looks like your filing status is Qualifying Surviving Spouse
+      nc_retirement_income_subtraction:
+        edit:
+          bailey_description: 'The Bailey Settlement is a decision by the North Carolina Supreme Court. It says that some retirement plans can''t be taxed in North Carolina. These plans include:'
+          bailey_more_info_html: Visit the <a target="_blank" href="https://www.ncdor.gov/bailey-decision-concerning-federal-state-and-local-retirement-benefits"> North Carolina Department of Revenue </a> for more information.
+          bailey_reveal_bullets:
+          - North Carolina Teachers’ and State Employees’ Retirement System
+          - North Carolina Local Governmental Employees’ Retirement System
+          - North Carolina Consolidated Judicial Retirement System
+          - Federal Employees’ Retirement System
+          - United States Civil Service Retirement System
+          bailey_settlement_at_least_five_years: Did you or your spouse have at least five years of creditable service by August 12, 1989?
+          bailey_settlement_checkboxes: Check all the boxes about the Bailey Settlement that apply to you or your spouse.
+          bailey_settlement_from_retirement_plan: Did you or your spouse receive retirement benefits from NC's 401(k) or 457 plan, and were you contracted to OR contributed to the plan before August 12, 1989?
+          doc_1099r_label: 1099-R
+          income_source_bailey_settlement_html: Retirement benefits as part of <strong>Bailey Settlement</strong>
+          income_source_question: Select the source of this income
+          other: None of these apply
+          subtitle: We need more information about this 1099-R to check your eligibility.
+          taxable_amount_label: 'Taxable amount:'
+          taxpayer_name_label: Taxpayer name
+          title: You might be eligible for a North Carolina retirement income deduction!
+          uniformed_services_bullets:
+          - The Armed Forces
+          - The commissioned corps of the National Oceanic and Atmospheric Administration (NOAA)
+          - The commissioned corps of the United States Public Health Services (USPHS)
+          uniformed_services_checkboxes: Check all the boxes about the Uniformed Services that apply to you or your spouse.
+          uniformed_services_description: 'Uniformed Services are groups of people in military and related roles. These include:'
+          uniformed_services_html: Retirement benefits from the <strong> Uniformed Services</strong>
+          uniformed_services_more_info_html: You can <a target="_blank" href="https://deploymentpsych.org/system/files/member_resource/TheUniformedServices_1.pdf"> read more details about the uniformed services here.</a>
+          uniformed_services_qualifying_plan: Were these payments from a qualifying Survivor Benefit Plan to a beneficiary of a retired member who served at least 20 years or who was medically retired from the Uniformed Services?
+          uniformed_services_retired: Are you or your spouse a retired member who served at least 20 years or were medically retired from the Uniformed Services?
+          what_are_uniformed_services: What are the Uniformed Services?
+          what_is_bailey: What is the Bailey Settlement?
       nc_review:
         edit:
           amount_earned: Amount earned
@@ -3924,18 +3957,6 @@ en:
         edit:
           subtitle_html: This usually takes a few minutes. Don’t close this page.<br><br> We’ll use your federal tax return information to complete sections of your state return.
           title_html: Just a moment, we’re transferring your federal tax return to complete parts of your state return.
-      nc_retirement_income_subtraction:
-        edit:
-          title: You might be eligible for a North Carolina retirement income deduction!
-          subtitle: We need more information about this 1099-R to check your eligibility.
-          doc_1099r_label: "1099-R"
-          taxpayer_name_label: "Taxpayer name"
-          taxable_amount_label: "Taxable amount:"
-          income_source_question: "Select the source of this income"
-          income_source_bailey_settlement_html: "Retirement benefits as part of <strong>Bailey Settlement</strong>"
-          uniformed_services_html: "Retirement benefits from the <strong> Uniformed Services</strong>"
-          income_source_other: "None of these apply"
-          bailey_settlement_checkboxes: "Check all the boxes about the Bailey Settlement that apply to you or your spouse."
     state_file_pages:
       about_page:
         check_back_for_prior_year_returns: Check back at the start of filing season to download your 2023 Arizona or New York State tax return.
