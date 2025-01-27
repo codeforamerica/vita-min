@@ -11,7 +11,7 @@ module StateFile
     end
 
     def get_employer_name(w2, truncate: false)
-      truncate ? w2.employer_name[0...35] : w2.employer_name
+      truncate ? sanitize_for_xml(w2.employer_name, 35) : w2.employer_name
     end
 
     def get_wages(w2)
