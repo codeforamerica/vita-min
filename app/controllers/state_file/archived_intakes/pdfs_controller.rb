@@ -3,8 +3,8 @@ module StateFile
     class PdfsController < ArchivedIntakeController
       before_action :check_feature_flag
       before_action :require_archived_intake_email
-      before_action :require_archived_intake_verified
-      before_action :require_mailig_address_verified
+      before_action :require_archived_intake_ssn_verified
+      before_action :require_mailing_address_verified
       before_action do
         if Rails.env.development? || Rails.env.test?
           ActiveStorage::Current.url_options = { protocol: request.protocol, host: request.host, port: request.port }
@@ -33,13 +33,13 @@ module StateFile
         redirect_to root_path
       end
 
-      def require_archived_intake_verified
+      def require_archived_intake_ssn_verified
         return if session[:ssn_verified].present?
 
         redirect_to root_path
       end
 
-      def require_mailig_address_verified
+      def require_mailing_address_verified
         return if session[:mailing_verified].present?
 
         redirect_to root_path
