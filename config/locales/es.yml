@@ -2422,6 +2422,7 @@ es:
             permanent_address_outside_md: no estaban viviendo en Maryland en diciembre 31
             permanent_address_outside_ny: no viviste en Nueva York durante todo el %{filing_year}
           title: Desafortunadamente, no puedes utilizar este servicio este año. No te preocupes, aquí tienes otras opciones para declarar.
+          title_nj: Desafortunadamente, según la información que tenemos, no puedes usar esta herramienta este año. No te preocupes; hay otras opciones de presentación.
         other_options:
           faq_link: Visita nuestras Preguntas Frecuentes
           learn_more_here_html: Obtén más información <a href="%{link}" rel="noopener nofollow" target="_blank">aquí.</a>

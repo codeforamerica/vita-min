@@ -2468,7 +2468,9 @@ en:
             nyc_residency: you lived in or maintained a home in New York City for some of the year.
             permanent_address_outside_md: did not reside in Maryland on Dec 31st
             permanent_address_outside_ny: you did not live in New York for all of %{filing_year}
-          title: Unfortunately, you can't use this service this year. Don't worry, there are other filing options.
+          title:
+            default: Unfortunately, you can't use this service this year. Don't worry, there are other filing options.
+            nj: Unfortunately, based on the information we have, you can't use this tool this year. Don't worry; there are other filing options.
         other_options:
           faq_link: Visit our FAQ
           learn_more_here_html: Learn more <a href="%{link}" rel="noopener nofollow" target="_blank">here.</a>
