@@ -72,13 +72,12 @@ describe Hub::StateFile::EfileErrorsController do
 
   describe "#reprocess" do
     context "as an authenticated user" do
-      let!(:transition_error) { create :efile_submission_transition_error, efile_error: wait_efile_error, efile_submission_transition: submission_to_transition.last_transition, efile_submission_id: submission_to_transition.id }
-      let!(:failed_transition_error) { create :efile_submission_transition_error, efile_error: cancel_efile_error, efile_submission_transition: failed_submission.last_transition, efile_submission_id: failed_submission.id }
-      let(:submission_to_transition) { create :efile_submission, :for_state, :rejected }
+      let(:rejected_submission) { create :efile_submission, :for_state, :rejected }
       let(:cancelled_submission) { create :efile_submission, :for_state, :cancelled }
       let(:failed_submission) { create :efile_submission, :for_state, :failed }
       let(:wait_efile_error) { create :efile_error, code: "WAIT-ME-123", auto_wait: true, service_type: :state_file_ny }
       let(:cancel_efile_error) { create :efile_error, code: "CANCEL-ME-123", auto_cancel: true, service_type: :state_file_ny }
+      let(:not_handled_error) { create :efile_error, code: "NOTHING-ME-123", auto_cancel: false, auto_wait: false, service_type: :state_file_ny }
       let(:params) do
         {
           id: wait_efile_error.id,
@@ -87,28 +86,113 @@ describe Hub::StateFile::EfileErrorsController do
       before do
         sign_in state_file_admin
       end
-      it "successfully transitions submissions in a rejected state to the auto-transition state on the error" do
-        expect(submission_to_transition.current_state).to eq "rejected"
-        patch :reprocess, params: params
-        expect(submission_to_transition.current_state(force_reload: true)).to eq "waiting"
-        expect(flash[:notice]).to eq("Successfully reprocessed 1 submission(s) with WAIT-ME-123 error!")
+
+      context "in rejected state" do
+        context "with only auto_wait errors" do
+          let!(:transition_error) { create :efile_submission_transition_error, efile_error: wait_efile_error, efile_submission_transition: rejected_submission.last_transition, efile_submission_id: rejected_submission.id }
+
+          it "successfully transitions submissions in a rejected state to the auto-transition notified_of_rejection state on the error" do
+            expect(rejected_submission.current_state).to eq "rejected"
+            patch :reprocess, params: params
+            expect(rejected_submission.current_state(force_reload: true)).to eq "notified_of_rejection"
+            expect(flash[:notice]).to eq("Successfully reprocessed 1 submission(s) with WAIT-ME-123 error!")
+          end
+        end
+
+        context "with auto_wait and unhandled error" do
+          let!(:not_handled_transition_error) { create :efile_submission_transition_error, efile_error: not_handled_error, efile_submission_transition: rejected_submission.last_transition, efile_submission_id: rejected_submission.id }
+          let!(:auto_wait_transition_error) { create :efile_submission_transition_error, efile_error: wait_efile_error, efile_submission_transition: rejected_submission.last_transition, efile_submission_id: rejected_submission.id }
+          let(:params) do
+            {
+              id: wait_efile_error.id,
+            }
+          end
+
+          it "successfully transitions submissions in a rejected state to the auto-transition waiting state on the error" do
+            expect(rejected_submission.current_state).to eq "rejected"
+            patch :reprocess, params: params
+            expect(rejected_submission.current_state(force_reload: true)).to eq "waiting"
+            expect(flash[:notice]).to eq("Successfully reprocessed 1 submission(s) with WAIT-ME-123 error!")
+          end
+        end
+
+        context "with auto_cancel error" do
+          let!(:transition_error) { create :efile_submission_transition_error, efile_error: cancel_efile_error, efile_submission_transition: rejected_submission.last_transition, efile_submission_id: rejected_submission.id }
+          let(:params) do
+            {
+              id: cancel_efile_error.id,
+            }
+          end
+          it "successfully transitions submissions in a rejected state to the auto-transition cancelled state on the error" do
+            expect(rejected_submission.current_state).to eq "rejected"
+            patch :reprocess, params: params
+            expect(rejected_submission.current_state(force_reload: true)).to eq "cancelled"
+            expect(flash[:notice]).to eq("Successfully reprocessed 1 submission(s) with CANCEL-ME-123 error!")
+          end
+        end
       end
 
-      it "does not transition submissions in a non-failed/rejected state or those with a different error" do
-        expect(cancelled_submission.current_state).to eq "cancelled"
-        expect(failed_submission.current_state).to eq "failed"
-        patch :reprocess, params: params
-        expect(cancelled_submission.current_state(force_reload: true)).to eq "cancelled"
-        expect(failed_submission.current_state(force_reload: true)).to eq "failed"
+      context "in failed states" do
+        let!(:transition_error) {
+          create :efile_submission_transition_error,
+                 efile_error: wait_efile_error,
+                 efile_submission_transition: failed_submission.last_transition,
+                 efile_submission_id: failed_submission.id
+        }
+
+        context "with auto_cancel error" do
+          let!(:transition_error) { create :efile_submission_transition_error, efile_error: cancel_efile_error, efile_submission_transition: failed_submission.last_transition, efile_submission_id: failed_submission.id }
+          let(:params) do
+            {
+              id: cancel_efile_error.id,
+            }
+          end
+          it "successfully transitions submissions in a rejected state to the auto-transition cancelled state on the error" do
+            expect(failed_submission.current_state).to eq "failed"
+            patch :reprocess, params: params
+            expect(failed_submission.current_state(force_reload: true)).to eq "cancelled"
+            expect(flash[:notice]).to eq("Successfully reprocessed 1 submission(s) with CANCEL-ME-123 error!")
+          end
+        end
+
+        context "with only auto_wait errors" do
+          it "does not transition submissions those with a different error" do
+            expect(failed_submission.current_state).to eq "failed"
+            patch :reprocess, params: params
+            expect(failed_submission.current_state(force_reload: true)).to eq "waiting"
+          end
+        end
+
+        context "with non-auto_wait errors" do
+          let!(:not_waiting_transition_error) {
+            create :efile_submission_transition_error,
+                   efile_error: not_handled_error,
+                   efile_submission_transition: failed_submission.last_transition,
+                   efile_submission_id: failed_submission.id
+          }
+          it "does not transition submissions those with a different error" do
+            expect(failed_submission.current_state).to eq "failed"
+            patch :reprocess, params: params
+            expect(failed_submission.current_state(force_reload: true)).to eq "failed"
+          end
+        end
+      end
+
+      context "in cancelled states" do
+        it "does not transition submissions in a non-failed/rejected state or those with a different error" do
+          expect(cancelled_submission.current_state).to eq "cancelled"
+          patch :reprocess, params: params
+          expect(cancelled_submission.current_state(force_reload: true)).to eq "cancelled"
+        end
       end
 
       context "with no auto-transition on the error" do
-        let(:do_nothing_error) { create :efile_error, code: "NOTHING-ME-123", auto_cancel: false, auto_wait: false, service_type: :ctc }
         let(:params) do
           {
-            id: do_nothing_error.id,
+            id: not_handled_error.id,
           }
         end
+
         it "flashes a notice about not being able to process" do
           patch :reprocess, params: params
           expect(flash[:notice]).to eq("Could not reprocess NOTHING-ME-123. Try again.")
