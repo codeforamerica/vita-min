@@ -643,6 +643,112 @@ RSpec.describe PdfFiller::F13614cPdf do
             )
           end
         end
+
+        describe 'section 3 on 3 ' do
+          it 'looks good when all choices are no and fields are nil' do
+            intake.update(
+              cv_taxable_scholarship_income_cb: 'no',
+              cv_1098t_cb: 'no',
+              cv_edu_credit_or_tuition_deduction_cb: 'no',
+              cv_1099s_cb: 'no',
+              cv_hsa_contrib_cb: 'no',
+              cv_hsa_distrib_cb: 'no',
+              cv_1095a_cb: 'no',
+              cv_energy_efficient_home_improv_credit_cb: 'no',
+              cv_1099c_cb: 'no',
+              cv_1099a_cb: 'no',
+              cv_disaster_relief_impacts_return_cb: 'no',
+              cv_eitc_ctc_aotc_hoh_disallowed_in_a_prev_yr_cb: 'no',
+              tax_credit_disallowed_year: nil,
+              cv_tax_credit_disallowed_reason: nil,
+              cv_eligible_for_litc_referral_cb: 'no',
+              cv_estimated_tax_payments_cb: 'no',
+              cv_estimated_tax_payments_amt: nil,
+              cv_last_years_refund_applied_to_this_yr_cb: 'no',
+              cv_last_years_refund_applied_to_this_yr_amt: nil,
+              cv_last_years_return_available_cb: 'no',
+              cv_14c_page_3_notes_part_3: nil,
+            )
+
+            output_file = intake_pdf.output_file
+            result = non_preparer_fields(output_file.path)
+            expect(result).to include(
+              'form1[0].page3[0].informationToReport[0].taxableScholarshipIncome[0]' => '',
+              'form1[0].page3[0].informationToReport[0].form1098T[0]' => '',
+              'form1[0].page3[0].informationToReport[0].educationCreditTuition[0]' => '',
+              'form1[0].page3[0].informationToReport[0].saleOfHome[0]' => '',
+              'form1[0].page3[0].informationToReport[0].hsaContributions[0]' => '',
+              'form1[0].page3[0].informationToReport[0].hsaDistributions[0]' => '',
+              'form1[0].page3[0].informationToReport[0].form1095A[0]' => '',
+              'form1[0].page3[0].informationToReport[0].efficientHomeImprovement[0]' => '',
+              'form1[0].page3[0].informationToReport[0].form1099C[0]' => '',
+              'form1[0].page3[0].informationToReport[0].form1099A[0]' => '',
+              'form1[0].page3[0].informationToReport[0].disasterReliefImpacts[0]' => '',
+              'form1[0].page3[0].informationToReport[0].disallowedPreviousYear[0]' => '',
+              'form1[0].page3[0].informationToReport[0].YearDisallowedReason[0].yearDisallowed[0]' => '',
+              'form1[0].page3[0].informationToReport[0].YearDisallowedReason[0].reasonDisallowed[0]' => '',
+              'form1[0].page3[0].informationToReport[0].eligibleLITCReferral[0]' => '',
+              'form1[0].page3[0].informationToReport[0].estimatedTaxPayments[0].estimatedTaxPayments[0]' => '',
+              'form1[0].page3[0].informationToReport[0].estimatedTaxPayments[0].taxPaymentsAmount[0]' => '',
+              'form1[0].page3[0].informationToReport[0].lastYearsRefund[0].lastYearsRefund[0]' => '',
+              'form1[0].page3[0].informationToReport[0].lastYearsRefund[0].refundAmount[0]' => '',
+              'form1[0].page3[0].informationToReport[0].lastReturnAvailable[0]' => '',
+              'form1[0].page3[0].informationReportComment[0].informationReportComment[0]' => '',
+            )
+          end
+
+          it 'works when all choices are all yes and filled in' do
+            intake.update(
+              cv_taxable_scholarship_income_cb: 'yes',
+              cv_1098t_cb: 'yes',
+              cv_edu_credit_or_tuition_deduction_cb: 'yes',
+              cv_1099s_cb: 'yes',
+              cv_hsa_contrib_cb: 'yes',
+              cv_hsa_distrib_cb: 'yes',
+              cv_1095a_cb: 'yes',
+              cv_energy_efficient_home_improv_credit_cb: 'yes',
+              cv_1099c_cb: 'yes',
+              cv_1099a_cb: 'yes',
+              cv_disaster_relief_impacts_return_cb: 'yes',
+              cv_eitc_ctc_aotc_hoh_disallowed_in_a_prev_yr_cb: 'yes',
+              tax_credit_disallowed_year: '2001',
+              cv_tax_credit_disallowed_reason: 'an explanation',
+              cv_eligible_for_litc_referral_cb: 'yes',
+              cv_estimated_tax_payments_cb: 'yes',
+              cv_estimated_tax_payments_amt: 2816,
+              cv_last_years_refund_applied_to_this_yr_cb: 'yes',
+              cv_last_years_refund_applied_to_this_yr_amt: 2817,
+              cv_last_years_return_available_cb: 'yes',
+              cv_14c_page_3_notes_part_3: 'section 3 note!!!',
+            )
+
+            output_file = intake_pdf.output_file
+            result = non_preparer_fields(output_file.path)
+            expect(result).to include(
+              'form1[0].page3[0].informationToReport[0].taxableScholarshipIncome[0]' => '1',
+              'form1[0].page3[0].informationToReport[0].form1098T[0]' => '1',
+              'form1[0].page3[0].informationToReport[0].educationCreditTuition[0]' => '1',
+              'form1[0].page3[0].informationToReport[0].saleOfHome[0]' => '1',
+              'form1[0].page3[0].informationToReport[0].hsaContributions[0]' => '1',
+              'form1[0].page3[0].informationToReport[0].hsaDistributions[0]' => '1',
+              'form1[0].page3[0].informationToReport[0].form1095A[0]' => '1',
+              'form1[0].page3[0].informationToReport[0].efficientHomeImprovement[0]' => '1',
+              'form1[0].page3[0].informationToReport[0].form1099C[0]' => '1',
+              'form1[0].page3[0].informationToReport[0].form1099A[0]' => '1',
+              'form1[0].page3[0].informationToReport[0].disasterReliefImpacts[0]' => '1',
+              'form1[0].page3[0].informationToReport[0].disallowedPreviousYear[0]' => '1',
+              'form1[0].page3[0].informationToReport[0].YearDisallowedReason[0].yearDisallowed[0]' => '2001',
+              'form1[0].page3[0].informationToReport[0].YearDisallowedReason[0].reasonDisallowed[0]' => 'an explanation',
+              'form1[0].page3[0].informationToReport[0].eligibleLITCReferral[0]' => '1',
+              'form1[0].page3[0].informationToReport[0].estimatedTaxPayments[0].estimatedTaxPayments[0]' => '1',
+              'form1[0].page3[0].informationToReport[0].estimatedTaxPayments[0].taxPaymentsAmount[0]' => '2816.0',
+              'form1[0].page3[0].informationToReport[0].lastYearsRefund[0].lastYearsRefund[0]' => '1',
+              'form1[0].page3[0].informationToReport[0].lastYearsRefund[0].refundAmount[0]' => '2817.0',
+              'form1[0].page3[0].informationToReport[0].lastReturnAvailable[0]' => '1',
+              'form1[0].page3[0].informationReportComment[0].informationReportComment[0]' => 'section 3 note!!!',
+            )
+          end
+        end
       end
 
       describe "#hash_for_pdf" do
