@@ -15,7 +15,7 @@ describe StateFile::AfterTransitionTasksForRejectedReturnJob do
     context "when error is auto-wait" do
       let(:auto_wait) { true }
 
-      it "transitions to resubmitted exactly once" do
+      it "transitions to notified_of_rejection" do
         StateFile::AfterTransitionTasksForRejectedReturnJob.perform_now(submission, submission.last_transition)
 
         expect(submission.current_state).to eq("notified_of_rejection")
@@ -25,9 +25,11 @@ describe StateFile::AfterTransitionTasksForRejectedReturnJob do
     context "when error is auto-cancel" do
       let(:auto_cancel) { true }
 
-      it "transitions to resubmitted exactly once" do
+      it "transitions to notified_of_rejection, then cancelled" do
         StateFile::AfterTransitionTasksForRejectedReturnJob.perform_now(submission, submission.last_transition)
 
+        expect(submission.efile_submission_transitions.last(2).first.to_state).to eq("notified_of_rejection")
+        expect(submission.efile_submission_transitions.last.to_state).to eq("cancelled")
         expect(submission.current_state).to eq("cancelled")
       end
     end
