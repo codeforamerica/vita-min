@@ -3,8 +3,7 @@ module StateFile
     class AzSubtractionsController < QuestionsController
       include ReturnToReviewConcern
       def self.show?(intake)
-        wages_salaries_tips = intake.direct_file_data.fed_wages_salaries_tips
-        wages_salaries_tips.present? && wages_salaries_tips > 0
+        intake.eligible_for_az_subtractions?
       end
 
       private
