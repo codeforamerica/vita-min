@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe StateFile::Questions::NySalesUseTaxController do
+RSpec.describe StateFile::Questions::NySalesUseTaxController, skip: true do
   let(:intake) { create :state_file_ny_intake }
   before do
     sign_in intake

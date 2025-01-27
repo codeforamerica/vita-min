@@ -631,4 +631,64 @@ describe Intake::GyrIntake do
       end
     end
   end
+
+  describe "#written_language_preference_english?" do
+    context "when receive_written_communication is no" do
+      let(:intake) { create :intake, receive_written_communication: "no", preferred_written_language: 'es' }
+
+      it "returns true" do
+        expect(intake.written_language_preference_english?).to eq true
+      end
+    end
+
+    context "when preferred_written_language is 'en'" do
+      let(:intake) { create :intake, receive_written_communication: 'unfilled', preferred_written_language: 'en' }
+
+      it "returns true" do
+        expect(intake.written_language_preference_english?).to eq true
+      end
+    end
+
+    context "when preferred_written_language is 'EngliSh'" do
+      let(:intake) { create :intake, receive_written_communication: 'unfilled', preferred_written_language: 'EngliSh' }
+
+      it "returns true" do
+        expect(intake.written_language_preference_english?).to eq true
+      end
+    end
+
+    context "when preferred_written_language is 'ingles'" do
+      let(:intake) { create :intake, receive_written_communication: 'unfilled', preferred_written_language: 'ingles' }
+
+      it "returns true" do
+        expect(intake.written_language_preference_english?).to eq true
+      end
+    end
+
+    context "when receive_written_communication is nil and preferred_written_language is 'es'" do
+      let(:intake) { create :intake, receive_written_communication: 'unfilled', preferred_written_language: 'es' }
+
+      it "returns false" do
+        expect(intake.written_language_preference_english?).to eq false
+      end
+    end
+  end
+
+  describe "#preferred_written_language_string?" do
+    context "when preferred_written_language is a key" do
+      let(:intake) { create :intake, preferred_written_language: 'zh_tw' }
+
+      it "returns its value" do
+        expect(intake.preferred_written_language_string).to eq "Chinese Traditional"
+      end
+    end
+
+    context "when preferred_written_language is not a key" do
+      let(:intake) { create :intake, preferred_written_language: 'spaNish' }
+
+      it "returns preferred_written_language" do
+        expect(intake.preferred_written_language_string).to eq "Spanish"
+      end
+    end
+  end
 end

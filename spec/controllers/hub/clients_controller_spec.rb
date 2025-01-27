@@ -1979,7 +1979,7 @@ RSpec.describe Hub::ClientsController do
       end
     end
 
-    xdescribe "#update_13614c_form_page3" do
+    describe "#update_13614c_form_page3" do
       let(:params) {
         {
           id: client.id,
@@ -2027,6 +2027,78 @@ RSpec.describe Hub::ClientsController do
 
           client.reload
           expect(client.intake.tax_credit_disallowed_year).to eq 2001
+        end
+      end
+    end
+
+    describe "#update_13614c_form_page4" do
+      let(:params) {
+        {
+          id: client.id,
+          commit: I18n.t('general.save'),
+          hub_update13614c_form_page4: {
+            demographic_english_conversation: "well",
+            demographic_english_reading: intake.demographic_english_reading,
+            demographic_disability: "yes",
+            demographic_veteran: intake.demographic_veteran,
+            demographic_primary_american_indian_alaska_native: true,
+            demographic_primary_asian: intake.demographic_primary_asian,
+            demographic_primary_black_african_american: intake.demographic_primary_black_african_american,
+            demographic_primary_mena: true,
+            demographic_primary_native_hawaiian_pacific_islander: intake.demographic_primary_native_hawaiian_pacific_islander,
+            demographic_primary_white: intake.demographic_primary_white,
+            demographic_spouse_american_indian_alaska_native: intake.demographic_spouse_american_indian_alaska_native,
+            demographic_spouse_asian: intake.demographic_spouse_asian,
+            demographic_spouse_black_african_american: intake.demographic_spouse_black_african_american,
+            demographic_spouse_mena: true,
+            demographic_spouse_native_hawaiian_pacific_islander: intake.demographic_spouse_native_hawaiian_pacific_islander,
+            demographic_spouse_white: intake.demographic_spouse_white,
+          }
+        }
+      }
+
+      it_behaves_like :a_post_action_for_authenticated_users_only, action: :update_13614c_form_page4
+
+      context "with a signed in user" do
+        let(:user) { create(:user, role: create(:organization_lead_role, organization: organization)) }
+
+        before do
+          sign_in user
+        end
+
+        it "updates the clients intake with the 13614c data, creates a system note, and regenerates the pdf when clients press Save" do
+          expect do
+            put :update_13614c_form_page4, params: params
+          end.to have_enqueued_job(GenerateF13614cPdfJob)
+
+          expect(flash[:notice]).to eq I18n.t("general.changes_saved")
+          expect(response).to redirect_to edit_13614c_form_page4_hub_client_path(id: client)
+          client.reload
+          expect(client.intake.demographic_english_conversation).to eq "well"
+
+          system_note = SystemNote::ClientChange.last
+          expect(system_note.client).to eq(client)
+          expect(system_note.user).to eq(user)
+          expect(system_note.data['changes']).to match({
+            "demographic_english_conversation" => [intake.demographic_english_conversation, "well"],
+            "demographic_disability" => ["unfilled", "yes"],
+            "demographic_primary_american_indian_alaska_native" => [nil, true],
+            "demographic_primary_mena" => [nil, true],
+            "demographic_spouse_mena" => [nil, true],
+          })
+          expect(client.last_13614c_update_at).to be_within(1.second).of(DateTime.now)
+        end
+
+        it "updates the clients intake with the 13614c page 4 data, and direct to hub client page when client clicks Save and Exit" do
+          expect do
+            put :update_13614c_form_page4, params: params.update(commit: I18n.t('general.save_and_exit'))
+          end.to have_enqueued_job(GenerateF13614cPdfJob)
+
+          expect(flash[:notice]).to eq "Changes saved"
+          expect(response).to redirect_to hub_client_path(id: client.id)
+
+          client.reload
+          expect(client.intake.demographic_english_conversation).to eq "well"
         end
       end
     end
