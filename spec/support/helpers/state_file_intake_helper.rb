@@ -67,6 +67,13 @@ module StateFileIntakeHelper
     end
   end
 
+  def expect_programmatically_associated_help_text
+    help_texts = page.all(:css, '.text--help')
+    help_texts.each do |el|
+      binding.pry
+    end
+  end
+
   def step_through_initial_authentication(contact_preference: :text_message)
     expect(page).to have_text I18n.t("state_file.questions.contact_preference.edit.title")
 
@@ -75,7 +82,7 @@ module StateFileIntakeHelper
       click_on "Text me a code"
 
       expect(page).to have_text "Enter your phone number"
-      # TODO: EXPECT HELPER TEXT programmatically associated
+      expect_programmatically_associated_help_text
       fill_in "Your phone number", with: "4153334444"
       click_on "Send code"
 
@@ -90,7 +97,7 @@ module StateFileIntakeHelper
       click_on "Email me a code"
 
       expect(page).to have_text "Enter your email address"
-      # TODO: EXPECT HELPER TEXT programmatically associated
+      expect_programmatically_associated_help_text
       fill_in I18n.t("state_file.questions.email_address.edit.email_address_label"), with: "someone@example.com"
       click_on "Send code"
 
