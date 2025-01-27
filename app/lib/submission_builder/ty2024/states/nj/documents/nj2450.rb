@@ -21,7 +21,7 @@ module SubmissionBuilder
                   xml.Body do
                     column_a = w2.box14_ui_wf_swf&.positive? ? w2.box14_ui_wf_swf : w2.box14_ui_hc_wd
 
-                    xml.EmployerName w2.employer_name
+                    xml.EmployerName w2.employer_name[0...35]
                     xml.FedEmployerId w2.employer_ein
                     xml.Wages w2.wages&.round
                     xml.Deductions do
