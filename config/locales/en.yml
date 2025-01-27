@@ -3924,6 +3924,18 @@ en:
         edit:
           subtitle_html: This usually takes a few minutes. Don’t close this page.<br><br> We’ll use your federal tax return information to complete sections of your state return.
           title_html: Just a moment, we’re transferring your federal tax return to complete parts of your state return.
+      nc_retirement_income_subtraction:
+        edit:
+          title: You might be eligible for a North Carolina retirement income deduction!
+          subtitle: We need more information about this 1099-R to check your eligibility.
+          doc_1099r_label: "1099-R"
+          taxpayer_name_label: "Taxpayer name"
+          taxable_amount_label: "Taxable amount:"
+          income_source_question: "Select the source of this income"
+          income_source_bailey_settlement_html: "Retirement benefits as part of <strong>Bailey Settlement</strong>"
+          uniformed_services_html: "Retirement benefits from the <strong> Uniformed Services</strong>"
+          income_source_other: "None of these apply"
+          bailey_settlement_checkboxes: "Check all the boxes about the Bailey Settlement that apply to you or your spouse."
     state_file_pages:
       about_page:
         check_back_for_prior_year_returns: Check back at the start of filing season to download your 2023 Arizona or New York State tax return.

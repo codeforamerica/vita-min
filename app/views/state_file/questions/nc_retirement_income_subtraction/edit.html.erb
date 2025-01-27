@@ -1,0 +1,46 @@
+<%
+  title = t(".title" )
+  content_for :page_title, title
+%>
+
+<% content_for :card do %>
+  <h1 class="h2"><%= title %></h1>
+  <p><%= t(".subtitle") %></p>
+  <p><%= t(".doc_1099r_label") %>: <b><%= @state_file_1099r.payer_name %></b></p>
+  <p><%= t(".taxpayer_name_label") %>: <b><%= @state_file_1099r.recipient_name %></b></p>
+  <p><%= t(".taxable_amount_label") %>: <b><%= number_to_currency(@state_file_1099r.taxable_amount, precision: 0) %></b></p>
+
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <div class="white-group">
+      <%= f.cfa_radio_set(
+            :income_source,
+            label_text: t(".income_source_question"),
+            collection: [
+              {
+                value: :bailey_settlement,
+                label: t(".income_source_bailey_settlement_html"),
+                input_html: { "data-follow-up": "#select-bailey-settlement" }
+              },
+              { value: :uniformed_services, label: t(".uniformed_services_html") },
+              { value: :other, label: t(".income_source_other") },
+            ],
+            ) %>
+    </div>
+
+    <div class="question-with-follow-up__follow-up" id="uniformed_services_html">
+      <div class="white-group">
+        <p><%= t(".bailey_settlement_checkboxes") %></p>
+        <%= f.cfa_checkbox(:bailey_settlement_at_least_five_years, t(".bailey_settlement_at_least_five_years"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+        <%= f.cfa_checkbox(:bailey_settlement_from_retirement_plan, t(".bailey_settlement_from_retirement_plan"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+      </div>
+    </div>
+
+    <% if params[:return_to_review].present? %>
+      <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
+    <% end %>
+    <% if params[:index].present? %>
+      <%= hidden_field_tag "index", params[:index] %>
+    <% end %>
+    <%= f.continue %>
+  <% end %>
+<% end %>

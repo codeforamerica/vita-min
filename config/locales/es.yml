@@ -3896,6 +3896,18 @@ es:
         edit:
           subtitle_html: Esto suele tardar unos minutos. No cierres esta página<br><br> Usaremos la información de tu declaración de impuestos federal para completar algunas secciones de tu declaración estatal.
           title_html: Un momento, estamos transfiriendo tu declaración de impuestos federal.
+      nc_retirement_income_subtraction:
+        edit:
+          title: ¡Podría ser elegible para una deducción de ingresos por jubilación en Carolina del Norte!
+          subtitle: Necesitamos más información sobre este 1099-R para verificar su elegibilidad.
+          doc_1099r_label: "1099-R"
+          taxpayer_name_label: "Nombre del contribuyente"
+          taxable_amount_label: "Base imponible:"
+          income_source_question: "Seleccione la fuente de este ingreso"
+          income_source_bailey_settlement_html: "Beneficios de jubilación como parte del <strong>Acuerdo Bailey</strong>"
+          uniformed_services_html: "Beneficios de jubilación de los <strong>Servicios Uniformados</strong>"
+          income_source_other: "Ninguno de estos se aplica"
+          bailey_settlement_checkboxes: "Marque todas las casillas sobre el Acuerdo Bailey que se apliquen a usted o a su cónyuge."
     state_file_pages:
       about_page:
         check_back_for_prior_year_returns: Vuelva al comienzo de la temporada de presentación para descargar su declaración de impuestos de Arizona o del estado de Nueva York de 2023.
