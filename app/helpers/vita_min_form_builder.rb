@@ -472,6 +472,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     HTML
   end
 
+  alias v1_cfa_input_field cfa_input_field
   def cfa_input_field(
     method,
     label_text,
@@ -479,24 +480,41 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     help_text: nil,
     options: {},
     autofocus: nil,
-
     classes: [],
-    prefix: nil,
-    postfix: nil,
     optional: false,
-    notice: nil
+    prefix: nil
   )
+    if prefix
+      return v1_cfa_input_field(
+        method,
+        label_text,
+        type: type,
+        help_text: help_text,
+        options: options,
+        autofocus: autofocus,
+        classes: classes,
+        optional: optional,
+        prefix: prefix,
+        postfix: nil, # not used in this application
+        notice: nil, # not used in this application
+      )
+    end
+
     text_field_options = options.merge(
       type: type,
       autofocus: autofocus,
-      # required: options.required || !optional  todo fix
+      required: options[:required]
     )
+
+    if !options[:required] && optional
+      text_field_options = text_field_options.merge(required: false)
+    end
 
     @v2_builder.cfa_text_field(
       method,
       label_text,
       help_text: help_text,
-      wrapper_options: {},
+      wrapper_options: { class: classes.join(' ') },
       label_options: {},
       **text_field_options
     )
