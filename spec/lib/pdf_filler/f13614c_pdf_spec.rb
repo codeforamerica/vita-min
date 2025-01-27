@@ -152,7 +152,12 @@ RSpec.describe PdfFiller::F13614cPdf do
           disabled: "no",
           north_american_resident: "yes",
           us_citizen: "yes",
-          was_student: "no"
+          was_student: "no",
+          can_be_claimed_by_other: "yes",
+          provided_over_half_own_support: "no",
+          below_qualifying_relative_income_requirement: "yes",
+          filer_provided_over_half_support: "yes",
+          filer_provided_over_half_housing_support: "na",
         )
         create(
           :dependent,
@@ -166,7 +171,12 @@ RSpec.describe PdfFiller::F13614cPdf do
           disabled: "no",
           north_american_resident: "yes",
           us_citizen: "yes",
-          was_student: "yes"
+          was_student: "yes",
+          can_be_claimed_by_other: "no",
+          provided_over_half_own_support: "na",
+          below_qualifying_relative_income_requirement: "yes",
+          filer_provided_over_half_support: "na",
+          filer_provided_over_half_housing_support: "yes",
         )
         create(
           :dependent,
@@ -180,8 +190,40 @@ RSpec.describe PdfFiller::F13614cPdf do
           disabled: "yes",
           north_american_resident: "yes",
           us_citizen: "no",
-          was_student: "no"
+          was_student: "no",
+          can_be_claimed_by_other: "no",
+          provided_over_half_own_support: "yes",
+          below_qualifying_relative_income_requirement: "na",
+          filer_provided_over_half_support: "na",
+          filer_provided_over_half_housing_support: "yes",
         )
+      end
+
+      it 'fills out certified volunteer section of the dependent info correctly' do
+        output_file = intake_pdf.output_file
+        result = non_preparer_fields(output_file.path)
+        expect(result).to include(
+                            "form1[0].page1[0].anyoneElseClaim[0].otherClaimYes[0]" => "",
+                            "form1[0].page1[0].anyoneElseClaim[0].otherClaimNo[0]" => "1",
+                            # dependent 1
+                            "form1[0].page1[0].namesOf[0].Row1[0].qualifyingChildDependent[0]" => "Yes",
+                            "form1[0].page1[0].namesOf[0].Row1[0].ownSupport[0]" => "No",
+                            "form1[0].page1[0].namesOf[0].Row1[0].lessThanIncome[0]" => "Yes",
+                            "form1[0].page1[0].namesOf[0].Row1[0].supportForPerson[0]" => "Yes",
+                            "form1[0].page1[0].namesOf[0].Row1[0].costMaintainingHome[0]" => "N/A",
+                            # dependent 2
+                            "form1[0].page1[0].namesOf[0].Row2[0].qualifyingChildDependent[0]" => "No",
+                            "form1[0].page1[0].namesOf[0].Row2[0].ownSupport[0]" => "N/A",
+                            "form1[0].page1[0].namesOf[0].Row2[0].lessThanIncome[0]" => "Yes",
+                            "form1[0].page1[0].namesOf[0].Row2[0].supportForPerson[0]" => "N/A",
+                            "form1[0].page1[0].namesOf[0].Row2[0].costMaintainingHome[0]" => "Yes",
+                            # dependent 3
+                            "form1[0].page1[0].namesOf[0].Row3[0].qualifyingChildDependent[0]" => "No",
+                            "form1[0].page1[0].namesOf[0].Row3[0].ownSupport[0]" => "Yes",
+                            "form1[0].page1[0].namesOf[0].Row3[0].lessThanIncome[0]" => "N/A",
+                            "form1[0].page1[0].namesOf[0].Row3[0].supportForPerson[0]" => "N/A",
+                            "form1[0].page1[0].namesOf[0].Row3[0].costMaintainingHome[0]" => "Yes",
+                            )
       end
 
       # TODO reenable for TY2024
@@ -536,8 +578,6 @@ RSpec.describe PdfFiller::F13614cPdf do
             "form1[0].page1[0].spousesTelephoneNumber[0]" => nil,
             "form1[0].page1[0].spousesDateOfBirth[0]" => "11/1/1959",
             "form1[0].page1[0].spousesJobTitle[0]" => nil,
-            "form1[0].page1[0].youSpouseWereIn[0].column2[0].totallyPermanentlyDisabled[0].disabledYou[0]" => "1",
-            "form1[0].page1[0].youSpouseWereIn[0].column2[0].legallyBlind[0].legallyBlindNo[0]" => "1",
           })
         end
       end
