@@ -2,6 +2,10 @@ module StateFile
   module Questions
     class W2Controller < QuestionsController
       before_action :load_w2
+
+      def self.show?(intake) # only accessed via button, not navigator
+        false
+      end
       
       def edit
         @state_code = current_state_code
@@ -12,6 +16,7 @@ module StateFile
         @w2.check_box14_limits = true
 
         if @w2.valid?
+          @w2.box14_ui_hc_wd = nil
           @w2.save
           redirect_to StateFile::Questions::IncomeReviewController.to_path_helper(return_to_review: params[:return_to_review])
         else

@@ -4,7 +4,7 @@ module SubmissionBuilder
 
     def document
       form1099g = @kwargs[:form1099g]
-      state_abbreviation = form1099g.intake.state_code.upcase
+      state_abbreviation = form1099g.recipient_state
 
       build_xml_doc("State1099G", documentId: "State1099G-#{form1099g.id}") do |xml|
         if form1099g.payer_name.present?
@@ -15,7 +15,7 @@ module SubmissionBuilder
             xml.AddressLine1Txt sanitize_for_xml(form1099g.payer_street_address.tr('-', ' '), 35)
             xml.CityNm sanitize_for_xml(form1099g.payer_city, 22)
             xml.StateAbbreviationCd state_abbreviation
-            xml.ZIPCd form1099g.payer_zip
+            xml.ZIPCd sanitize_zipcode(form1099g.payer_zip)
           end
           xml.PayerEIN form1099g.payer_tin
         end
@@ -31,7 +31,7 @@ module SubmissionBuilder
           xml.AddressLine2Txt sanitize_for_xml(form1099g.recipient_address_line2, 35) if form1099g.recipient_address_line2.present?
           xml.CityNm sanitize_for_xml(form1099g.recipient_city, 22)
           xml.StateAbbreviationCd state_abbreviation
-          xml.ZIPCd sanitize_for_xml(form1099g.recipient_zip)
+          xml.ZIPCd sanitize_zipcode(form1099g.recipient_zip)
         end
         xml.UnemploymentCompensation form1099g.unemployment_compensation_amount&.round
         xml.FederalTaxWithheld form1099g.federal_income_tax_withheld_amount&.round

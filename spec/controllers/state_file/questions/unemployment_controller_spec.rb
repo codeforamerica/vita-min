@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe StateFile::Questions::UnemploymentController do
-  let(:intake) { create :state_file_ny_intake, filing_status: :married_filing_jointly, spouse_first_name: "Glenn", spouse_last_name: "Gary" }
+  let(:intake) { create :state_file_az_intake, filing_status: :married_filing_jointly, spouse_first_name: "Glenn", spouse_last_name: "Gary" }
   before do
     sign_in intake
   end
@@ -13,12 +13,12 @@ RSpec.describe StateFile::Questions::UnemploymentController do
     end
 
     it "is false for a return that did not have unemployment income" do
-      intake = create :state_file_ny_intake, raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml("ny_single_w2")
+      intake = create :state_file_az_intake, raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml("az_johnny_mfj")
       expect(described_class.show?(intake)).to be_falsey
     end
 
     it "is false for a return that has a zero unemployment income" do
-      intake = create :state_file_ny_intake, raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml("ny_educator_deduction")
+      intake = create :state_file_id_intake, raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml("id_lana_single")
       expect(described_class.show?(intake)).to be_falsey
     end
   end
@@ -134,7 +134,7 @@ RSpec.describe StateFile::Questions::UnemploymentController do
     end
 
     context "if the intake was anything other than married filing jointly" do
-      let(:intake) { create :state_file_ny_intake, filing_status: :single, spouse_first_name: nil, spouse_last_name: nil }
+      let(:intake) { create :state_file_az_intake, filing_status: :single, spouse_first_name: nil, spouse_last_name: nil }
 
       before do
         params[:state_file1099_g].delete(:recipient)

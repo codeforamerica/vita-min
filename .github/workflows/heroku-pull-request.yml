@@ -16,6 +16,10 @@ jobs:
           fetch-depth: ${{ github.event.action == 'closed' && 1 || 0 }}
           ref: ${{ github.event.action != 'closed' && github.head_ref || '' }}
 
+      - name: Install Heroku CLI
+        run: |
+          curl https://cli-assets.heroku.com/install.sh | sh
+
       - name: Login to Heroku
         uses: akhileshns/heroku-deploy@v3.12.13
         with:

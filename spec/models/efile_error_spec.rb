@@ -68,6 +68,7 @@ describe 'EfileError' do
       "md-had-health-insurance",
       "md-permanent-address",
       "md-review",
+      "md-social-security-benefits",
       "md-tax-refund",
       "md-two-income-subtractions",
       "nc-county",
@@ -126,6 +127,7 @@ describe 'EfileError' do
       "terms-and-conditions",
       "unemployment",
       "verification-code",
+      "w2",
       "waiting-to-load-data"
     ]
   end

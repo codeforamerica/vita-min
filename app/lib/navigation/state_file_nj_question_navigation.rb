@@ -30,6 +30,7 @@ module Navigation
                                       ], false),
       Navigation::NavigationSection.new("state_file.navigation.nj.section_1", [
                                           Navigation::NavigationStep.new(StateFile::Questions::IncomeReviewController), # line 15-27, but intentionally moved up for eligibility checks
+                                          Navigation::NavigationStep.new(StateFile::Questions::W2Controller),
                                       ]),
       Navigation::NavigationSection.new("state_file.navigation.nj.section_2", [
                                           Navigation::NavigationStep.new(StateFile::Questions::NjEligibilityHealthInsuranceController),
@@ -62,7 +63,7 @@ module Navigation
       Navigation::NavigationSection.new("state_file.navigation.nj.section_5", [
                                           Navigation::NavigationStep.new(StateFile::Questions::PrimaryStateIdController), # Footer
                                           Navigation::NavigationStep.new(StateFile::Questions::SpouseStateIdController), # Footer
-                                          Navigation::NavigationStep.new(StateFile::Questions::NjReviewController), # review should come before taxes owed / refund due screens
+                                          Navigation::NavigationStep.new(StateFile::Questions::NjReviewController), # review controller should come before taxes owed / refund due screens
                                           Navigation::NavigationStep.new(StateFile::Questions::TaxesOwedController),
                                           Navigation::NavigationStep.new(StateFile::Questions::TaxRefundController),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjGubernatorialElectionsController),

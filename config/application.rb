@@ -81,27 +81,28 @@ module VitaMin
     config.middleware.use Middleware::CleanupMimeTypeHeaders
     config.middleware.use Middleware::RejectInvalidParams
     config.middleware.use Middleware::RejectBadlyEncodedHeaders
-    config.gyr_current_tax_year = 2023
+    config.gyr_current_tax_year = 2024
     config.ctc_current_tax_year = 2021
     config.statefile_current_tax_year = 2024
-    config.product_year = 2024
+    config.product_year = 2025
 
     pt = Time.find_zone('America/Los_Angeles')
     et = Time.find_zone('America/New_York')
 
     # These defaults can be overridden per-environment if needed
     # GetYourRefund
-    config.start_of_unique_links_only_intake = pt.parse('2024-01-24 12:00:00')
-    config.start_of_open_intake = pt.parse('2024-01-31 09:59:59')
-    config.tax_deadline = et.parse('2024-04-15 23:59:59')
-    config.end_of_intake = et.parse('2024-10-01 23:59:59')
-    config.end_of_docs = et.parse('2024-10-08 23:59:59')
-    config.doc_submission_deadline = et.parse('2024-04-01 23:59:59')
-    config.end_of_closing = et.parse('2024-10-15 23:59:59')
-    config.end_of_in_progress_intake = et.parse('2024-10-15 23:59:59')
-    config.end_of_login = et.parse('2024-10-23 23:59:00')
+    config.start_of_unique_links_only_intake = pt.parse('2025-01-24 12:00:00')
+    config.start_of_open_intake = pt.parse('2025-01-31 09:59:59')
+    config.tax_deadline = et.parse('2025-04-15 23:59:59')
+    config.end_of_intake = et.parse('2025-10-01 23:59:59')
+    config.end_of_docs = et.parse('2025-10-08 23:59:59')
+    config.doc_submission_deadline = et.parse('2025-04-01 23:59:59')
+    config.end_of_closing = et.parse('2025-10-15 23:59:59')
+    config.end_of_in_progress_intake = et.parse('2025-10-15 23:59:59')
+    config.end_of_login = et.parse('2025-10-23 23:59:00')
 
     config.tax_year_filing_seasons = {
+      2024 => [et.parse("2025-01-29 00:00:00"), et.parse("2025-04-15 23:59:59")],
       2023 => [et.parse("2024-01-29 00:00:00"), et.parse("2024-04-15 23:59:59")],
       2022 => [et.parse("2023-01-23 00:00:00"), et.parse("2023-04-18 23:59:59")],
       2021 => [et.parse("2022-01-24 00:00:00"), et.parse("2022-04-18 23:59:59")],
@@ -137,6 +138,22 @@ module VitaMin
     config.intercom_app_id = "rird6gz6"
     config.intercom_app_id_statefile = "rtcpj4hf"
     config.google_login_enabled = true
+
+    # These are the default trusted proxies, copied from ActionDispatch's remote_ip.rb.
+    #  See this quote from that file for why they are duplicated here:
+    # "Note that passing an enumerable will *replace* the default set of trusted proxies."
+    local_network_ip_ranges = [
+      "127.0.0.0/8",    # localhost IPv4 range, per RFC-3330
+      "::1",            # localhost IPv6
+      "fc00::/7",       # private IPv6 range fc00::/7
+      "10.0.0.0/8",     # private IPv4 range 10.x.x.x
+      "172.16.0.0/12",  # private IPv4 range 172.16.0.0 .. 172.31.255.255
+      "192.168.0.0/16", # private IPv4 range 192.168.x.x
+    ]
+    # This file is downloaded from https://docs.aws.amazon.com/vpc/latest/userguide/aws-ip-ranges.html#aws-ip-download
+    aws_ip_ranges = JSON.parse(File.read("config/aws_ip_ranges.json"))["prefixes"].map { |ip_json| ip_json["ip_prefix"] }
+    # Telling ActionDispatch about AWS' IP ranges prevents their load balancers etc from being interpreted as the client IP
+    config.action_dispatch.trusted_proxies = (local_network_ip_ranges + aws_ip_ranges).map { |ip_string| IPAddr.new(ip_string) }
 
     # Add pdftk to PATH
     ENV['PATH'] += ":#{Rails.root}/vendor/pdftk"

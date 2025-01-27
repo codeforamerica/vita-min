@@ -66,22 +66,22 @@ RSpec.describe Hub::CreateClientForm do
         primary_tin_type: "ssn",
         tax_returns_attributes: {
           "0" => {
-            year: "2022",
+            year: Rails.configuration.gyr_current_tax_year.to_s,
             is_hsa: "1",
             certification_level: "basic"
           },
           "1" => {
-            year: "2021",
+            year: (Rails.configuration.gyr_current_tax_year - 1).to_s,
             is_hsa: "0",
             certification_level: "basic"
           },
           "2" => {
-            year: "2020",
+            year: (Rails.configuration.gyr_current_tax_year - 2).to_s,
             is_hsa: "1",
             certification_level: "basic"
           },
           "3" => {
-            year: "2023",
+            year: (Rails.configuration.gyr_current_tax_year - 3).to_s,
             is_hsa: "0",
             certification_level: "advanced"
           },
@@ -166,7 +166,8 @@ RSpec.describe Hub::CreateClientForm do
         expect(intake.needs_help_previous_year_3).to eq "yes"
         expect(intake.needs_help_previous_year_1).to eq "yes"
         expect(intake.needs_help_current_year).to eq "yes"
-        expect(tax_returns.map(&:year)).to match_array [2023, 2022, 2021, 2020]
+        current_tax_year = Rails.configuration.gyr_current_tax_year
+        expect(tax_returns.map(&:year)).to match_array [current_tax_year, (current_tax_year - 1), (current_tax_year - 2), (current_tax_year - 3)]
         expect(tax_returns.map(&:client).uniq).to eq [intake.client]
         expect(tax_returns.map(&:service_type).uniq).to eq ["drop_off"]
       end
