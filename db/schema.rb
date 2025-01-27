@@ -1359,6 +1359,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_23_160619) do
     t.integer "needs_help_2020", default: 0, null: false
     t.integer "needs_help_2021", default: 0, null: false
     t.integer "needs_help_2022", default: 0, null: false
+    t.integer "needs_help_2023", default: 0, null: false
     t.integer "needs_help_current_year", default: 0, null: false
     t.integer "needs_help_previous_year_1", default: 0, null: false
     t.integer "needs_help_previous_year_2", default: 0, null: false

@@ -218,6 +218,7 @@
 #  needs_help_2020                                      :integer          default("unfilled"), not null
 #  needs_help_2021                                      :integer          default("unfilled"), not null
 #  needs_help_2022                                      :integer          default("unfilled"), not null
+#  needs_help_2023                                      :integer          default("unfilled"), not null
 #  needs_help_current_year                              :integer          default("unfilled"), not null
 #  needs_help_previous_year_1                           :integer          default("unfilled"), not null
 #  needs_help_previous_year_2                           :integer          default("unfilled"), not null
@@ -574,18 +575,18 @@ describe Intake::GyrIntake do
 
     context "with unfilled filing years" do
       it "returns prior tax year" do
-        expect(intake.year_before_most_recent_filing_year).to eq 2022
+        expect(intake.year_before_most_recent_filing_year).to eq (Rails.application.config.gyr_current_tax_year - 1)
       end
     end
 
     context "when a year is selected" do
       let!(:client) { create :client, tax_returns: [
-        build(:tax_return, year: 2019),
-        build(:tax_return, year: 2018)
+        build(:tax_return, year: 2021),
+        build(:tax_return, year: 2022)
       ], intake: intake }
 
       it "returns the year before most recent filing year" do
-        expect(intake.year_before_most_recent_filing_year).to eq 2018
+        expect(intake.year_before_most_recent_filing_year).to eq 2021
       end
     end
   end
