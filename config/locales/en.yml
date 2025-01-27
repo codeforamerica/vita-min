@@ -2453,7 +2453,7 @@ en:
             eligibility_ed_loan_cancelled: had student loan debt canceled under the American Rescue Plan Act.
             eligibility_ed_loan_emp_payment: received a Qualified Education Loan Payment paid by your employer.
             eligibility_emergency_rental_assistance: received emergency rental assistance in %{filing_year}
-            eligibility_home_different_areas: or your spouse had your permanent homes in two different counties, cities, towns, or taxing areas on the last day the tax year %{filing_year}
+            eligibility_home_different_areas: and your spouse had your permanent homes in two different counties, cities, towns, or taxing areas on the last day of %{filing_year}
             eligibility_homebuyer_withdrawal: withdrew money from a first-time homebuyer account not used to buy a home in Maryland
             eligibility_homebuyer_withdrawal_mfj: or your spouse withdrew money from a first-time homebuyer account not used to buy a home in Maryland
             eligibility_lived_in_state: did not live in %{state} for all of %{filing_year}
@@ -2687,7 +2687,7 @@ en:
             <li>New Jersey Earned Income Tax Credit (NJEITC)</li>
             <li>New Jersey Child Tax Credit</li>
             <li>New Jersey Child and Dependent Care Tax Credit</li>
-            <li>Medical Expenses Deduction</li>
+            <li>New Jersey Medical Expenses Deduction</li>
             <li>Pension/Retirement and Other Retirement Income Exclusion</li>
             <li>Credits for Excess Unemployment Insurance (UI) and Family Leave Insurance (FLI) Contributions</li>
             <li>Property Tax Credit or Deduction</li>
@@ -3264,7 +3264,7 @@ en:
           title: You said you were a homeowner in %{filing_year}.
       nj_homeowner_property_tax:
         edit:
-          helper_anchor_description_html: If you received an ANCHOR benefit, the benefit amount does not affect the amount to report on this line. (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> offers property tax relief to New Jersey residents who own or rent property in New Jersey as their main home and meet certain income limits.)
+          helper_anchor_description_html: If you received an ANCHOR benefit, the benefit amount does not affect the amount to report above. (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> offers property tax relief to New Jersey residents who own or rent property in New Jersey as their main home and meet certain income limits.)
           helper_anchor_heading: What if I received ANCHOR or Homestead benefits?
           helper_description: You can review your quarterly tax bills and add up the total paid to your municipality.
           helper_heading: Where can I find property taxes paid?
@@ -3273,11 +3273,11 @@ en:
       nj_homeowner_property_tax_worksheet:
         edit:
           description_html: "<p>The next step is to fill in this <a href=\"https://www.nj.gov/treasury/taxation/pdf/wrkshtg.pdf\" target=\"_blank\" rel=\"noopener nofollow\">worksheet</a>.</p> \n<p>Once you fill in the worksheet, come back to this page.</p>\n<p>The worksheet will ask you about where you lived and for how long. If you moved, for example, it will have space for you to list every place you lived.</p>\n"
-          helper_anchor_description_html: If you received an ANCHOR benefit, the benefit amount does not affect the amount to report on this line. (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> offers property tax relief to New Jersey residents who own or rent property in New Jersey as their main home and meet certain income limits.)
+          helper_anchor_description_html: If you received an ANCHOR benefit, the benefit amount does not affect the amount to report above. (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> offers property tax relief to New Jersey residents who own or rent property in New Jersey as their main home and meet certain income limits.)
           helper_anchor_heading: What if I received ANCHOR or Homestead benefits?
           helper_description: You can review your quarterly tax bills and add up the total paid to your municipality.
           helper_heading: Where can I find property taxes paid?
-          label_html: "<strong>Enter Line 4 on Worksheet</strong><br/>(Your share of total property taxes paid)"
+          label_html: "<strong>Enter line 4 of worksheet</strong><br/>(Your share of total property taxes paid)"
           title: Good news – you qualify for a deduction or credit.
       nj_household_rent_own:
         edit:
@@ -3402,7 +3402,7 @@ en:
             51_use_tax: Use tax
             54_total_tax: Total tax
             55_tax_withheld: New Jersey Tax withheld
-            56_property_tax_credit: Property Tax Deduction or Credit
+            56_property_tax_credit: Property Tax Credit
             58_nj_eitc: New Jersey Earned Income Tax Credit (NJEITC)
             59_excess_uiwfswf: Excess UI/WF/SWF withheld
             61_excess_fli: Excess FLI withheld
@@ -3462,17 +3462,17 @@ en:
       nj_tenant_property_tax_worksheet:
         edit:
           description_html: "<p>The next step is to fill in this <a href=\"https://www.nj.gov/treasury/taxation/pdf/wrkshtg.pdf\" target=\"_blank\" rel=\"noopener nofollow\">worksheet</a>.</p> \n<p>Once you fill in the worksheet, come back to this page.</p>\n<p>The worksheet will ask you about where you lived and for how long. If you moved, for example, it will have space for you to list every place you lived.</p>\n"
-          helper_anchor_description_html: If you received an ANCHOR benefit, the benefit amount does not affect the amount to report on line 8. (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> offers property tax relief to New Jersey residents who own or rent property in New Jersey as their main home and meet certain income limits.)
+          helper_anchor_description_html: If you received an ANCHOR benefit, the benefit amount does not affect the amount to report above. (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> offers property tax relief to New Jersey residents who own or rent property in New Jersey as their main home and meet certain income limits.)
           helper_anchor_heading: What if I received ANCHOR benefits?
-          helper_description: Enter your site fees paid for %{filing_year} in the rental section of Worksheet G.
+          helper_description_html: Enter your site fees paid for %{filing_year} in the rental section of the <a href="https://www.nj.gov/treasury/taxation/pdf/wrkshtg.pdf" target="_blank" rel="noopener nofollow">worksheet</a>.
           helper_heading: Mobile homeowners
-          label_html: "<strong>Enter Line 8 of Worksheet</strong>"
+          label_html: "<strong>Enter line 8 of worksheet</strong><br/>(Your share of total rent paid)"
           title: Good news – you qualify for a deduction or credit.
       nj_tenant_rent_paid:
         edit:
-          helper_anchor_description_html: If you received an ANCHOR benefit, the benefit amount does not affect the amount to report on line 8. (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> offers property tax relief to New Jersey residents who own or rent property in New Jersey as their main home and meet certain income limits.)
+          helper_anchor_description_html: If you received an ANCHOR benefit, the benefit amount does not affect the amount to report above. (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> offers property tax relief to New Jersey residents who own or rent property in New Jersey as their main home and meet certain income limits.)
           helper_anchor_heading: What if I received ANCHOR benefits?
-          helper_description: Enter your site fees paid for %{filing_year} in the rental section of Worksheet G.
+          helper_description: Enter your site fees paid for %{filing_year}.
           helper_heading: Mobile homeowners
           label_html: "<strong>Enter your share of total rent paid in %{filing_year}</strong>"
           title: Good news – you qualify for a deduction or credit.
@@ -3746,7 +3746,7 @@ en:
           term_5: 'Major carriers: AT&T, Verizon Wireless, Sprint, T-Mobile, U.S. Cellular, Alltel, Boost Mobile, Nextel, and Virgin Mobile.'
           term_6: 'Minor carriers: Alaska Communications Systems (ACS), Appalachian Wireless (EKN), Bluegrass Cellular, Cellular One of East Central IL (ECIT), Cellular One of Northeast Pennsylvania, Cincinnati Bell Wireless, Cricket, Coral Wireless (Mobi PCS), COX, Cross, Element Mobile (Flat Wireless), Epic Touch (Elkhart Telephone), GCI, Golden State, Hawkeye (Chat Mobility), Hawkeye (NW Missouri), Illinois Valley Cellular, Inland Cellular, iWireless (Iowa Wireless), Keystone Wireless (Immix Wireless/PC Man), Mosaic (Consolidated or CTC Telecom), Nex-Tech Wireless, NTelos, Panhandle Communications, Pioneer, Plateau (Texas RSA 3 Ltd), Revol, RINA, Simmetry (TMP Corporation), Thumb Cellular, Union Wireless, United Wireless, Viaero Wireless, and West Central (WCC or 5 Star Wireless).'
           term_7: Carriers (e.g. AT&T, Verizon, T-Mobile, Sprint, etc.) are not responsible or liable for undelivered or delayed messages.
-          term_8_html: 'As always, message and data rates may apply for any messages sent to you from us and to us from you. If you have any questions about your text plan or data plan, it is best to contact your wireless provider. <br><br>For all questions about the services provided by this short code, you can send an email to <strong>help@fileyourstatetaxes.org</strong>.
+          term_8_html: 'As always, message and data rates may apply for any messages sent to you from us and to us from you. If you have any questions about your text plan or data plan, it is best to contact your wireless provider. <br><br>For all questions about the services provided by this short code, you can send an email to <strong><a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a></strong>.
 
             '
           term_9_html: 'If you have any questions regarding privacy, please read our privacy policy:  <a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/privacy-policy">www.fileyourstatetaxes.org/privacy-policy</a>
