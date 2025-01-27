@@ -52,6 +52,23 @@ describe Ability do
           expect(subject.can?(:manage, state_efile_submission)).to eq true
         end
       end
+
+
+      %w[state_file unfilled state_file_az state_file_ny state_file_md state_file_nc state_file_id].each do |service_type|
+        context "with state efile error" do
+          let!(:state_efile_error) { create :efile_error, service_type: service_type }
+          it "can manage the state efile error" do
+            expect(subject.can?(:manage, state_efile_error)).to eq true
+          end
+        end
+      end
+
+      context "with nj state efile error" do
+        let!(:state_efile_error) { create :efile_error, service_type: "state_file_nj" }
+        it "cannot manage the state efile error" do
+          expect(subject.can?(:manage, state_efile_error)).to eq false
+        end
+      end
     end
 
     context "state_file false" do

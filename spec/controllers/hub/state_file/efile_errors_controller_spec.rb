@@ -4,6 +4,8 @@ describe Hub::StateFile::EfileErrorsController do
   describe "#index" do
     let!(:efile_error) { create :efile_error, code: "CANCEL-ME-123", service_type: :state_file_az }
 
+    it_behaves_like :an_action_for_admins_only , action: :index, method: :get
+
     context "as an authenticated user" do
       before do
         sign_in state_file_admin
@@ -20,6 +22,8 @@ describe Hub::StateFile::EfileErrorsController do
   describe "#edit" do
     let(:efile_error) { create :efile_error, service_type: :state_file_az }
     let(:params) { { id: efile_error.id } }
+
+    it_behaves_like :an_action_for_state_file_admins_only, action: :edit, method: :get
 
     context "as an authenticated user" do
       before do
@@ -50,6 +54,8 @@ describe Hub::StateFile::EfileErrorsController do
         }
       }
     end
+
+    it_behaves_like :an_action_for_state_file_admins_only, action: :update, method: :put
 
     context "as an authenticated user" do
       before do
