@@ -138,21 +138,11 @@ module VitaMin
     config.intercom_app_id_statefile = "rtcpj4hf"
     config.google_login_enabled = true
 
-    # These are the default trusted proxies, copied from ActionDispatch's remote_ip.rb.
-    #  See this quote from that file for why they are duplicated here:
-    # "Note that passing an enumerable will *replace* the default set of trusted proxies."
-    local_network_ip_ranges = [
-      "127.0.0.0/8",    # localhost IPv4 range, per RFC-3330
-      "::1",            # localhost IPv6
-      "fc00::/7",       # private IPv6 range fc00::/7
-      "10.0.0.0/8",     # private IPv4 range 10.x.x.x
-      "172.16.0.0/12",  # private IPv4 range 172.16.0.0 .. 172.31.255.255
-      "192.168.0.0/16", # private IPv4 range 192.168.x.x
-    ]
-    # This file is downloaded from https://docs.aws.amazon.com/vpc/latest/userguide/aws-ip-ranges.html#aws-ip-download
-    aws_ip_ranges = JSON.parse(File.read("config/aws_ip_ranges.json"))["prefixes"].map { |ip_json| ip_json["ip_prefix"] }
-    # Telling ActionDispatch about AWS' IP ranges prevents their load balancers etc from being interpreted as the client IP
-    config.action_dispatch.trusted_proxies = (local_network_ip_ranges + aws_ip_ranges).map { |ip_string| IPAddr.new(ip_string) }
+    # # These need to happen after initialization because classes haven't been loaded yet
+    # config.after_initialize do
+    #   ConfigureTrustedProxiesJob.perform_now(current_or_cached: :cached)
+    #   ConfigureTrustedProxiesJob.perform_later(current_or_cached: :current)
+    # end
 
     # Add pdftk to PATH
     ENV['PATH'] += ":#{Rails.root}/vendor/pdftk"
