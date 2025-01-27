@@ -14,6 +14,11 @@ module SubmissionBuilder
       sanitized_string&.strip
     end
 
+    def sanitize_zipcode(zipcode_str)
+      sanitized_zipcode = sanitize_for_xml(zipcode_str)
+      sanitized_zipcode.gsub("-", "")
+    end
+
     def datetime_type(datetime)
       return nil unless datetime.present?
 
