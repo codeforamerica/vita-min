@@ -1,4 +1,9 @@
 class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
+  def initialize(*args)
+    super(*args)
+    @v2_builder = Cfa::Styleguide::CfaV2FormBuilder.new(*args)
+  end
+
   def vita_min_field_in_label(
       method,
       label_text,
@@ -465,6 +470,36 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
           #{errors_for(object, method)}
         </fieldset>
     HTML
+  end
+
+  def cfa_input_field(
+    method,
+    label_text,
+    type: "text",
+    help_text: nil,
+    options: {},
+    autofocus: nil,
+
+    classes: [],
+    prefix: nil,
+    postfix: nil,
+    optional: false,
+    notice: nil
+  )
+    text_field_options = options.merge(
+      type: type,
+      autofocus: autofocus,
+      # required: options.required || !optional  todo fix
+    )
+
+    @v2_builder.cfa_text_field(
+      method,
+      label_text,
+      help_text: help_text,
+      wrapper_options: {},
+      label_options: {},
+      **text_field_options
+    )
   end
 
   def submit(value, options = {})
