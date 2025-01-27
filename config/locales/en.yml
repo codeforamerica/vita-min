@@ -577,7 +577,7 @@ en:
     sms_phone_number: Cell phone number
     sorry: We're sorry!
     spouse_last_four_ssn: Spouse's last 4 of SSN/ITIN
-    spread_the_word_html: Let your friends and family know about <a target="_blank" rel="noopener nofollow" href="https://directfile.irs.gov/">IRS Direct File</a> so they can file their taxes for free.
+    spread_the_word_html: Let your friends and family know about <a target="_blank" rel="noopener nofollow" href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">IRS Direct File</a> so they can file their taxes for free.
     ssn: SSN
     ssn_itin: SSN/ITIN
     start_filing: Start filing
@@ -2179,7 +2179,7 @@ en:
         download_your_record: Download Your Record
         help_text_html: |
           <ul class="list--bulleted">
-            <li>An <strong>accepted</strong> %{filing_year} federal return using <a href="https://directfile.irs.gov/">IRS Direct File</a>. (You don’t need a copy of this return; you’ll transfer your return here.)
+            <li>An <strong>accepted</strong> %{filing_year} federal return using <a href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">IRS Direct File</a>. (You don’t need a copy of this return; you’ll transfer your return here.)
             <li>Email address or phone number</li>
             <li>Driver’s license or state-issued ID, if you have one</li>
             <li>Form 1099-G (If you received unemployment benefits in %{filing_year}.)</li>
@@ -2212,7 +2212,7 @@ en:
           closed_html: "<strong>FileYourStateTaxes</strong> is built in partnership with the New Jersey Office of Innovation to integrate with IRS Direct File.<br /><br />\nWe're closed for the tax season. Unfortunately you can no longer file your state return with us this year.              \n"
           help_text_html: |
             <ul class="list--bulleted">
-              <li>To have filed your 2024 federal return using <a href="https://directfile.irs.gov/" target="_blank" rel="noopener nofollow">IRS Direct File</a></li>
+              <li>To have filed your 2024 federal return using <a href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode" target="_blank" rel="noopener nofollow">IRS Direct File</a></li>
               <li>An email address or a phone number to receive a one-time verification code</li>
               <li>Bank routing and account numbers (if you want to receive your refund or make a tax payment electronically)</li>
               <li>(optional) Driver's license or state issued ID</li>
@@ -2226,7 +2226,7 @@ en:
         welcome_back: Welcome back %{user_name}!
       ny_closed:
         body_html: |
-          This service doesn’t support New York State tax returns for 2024. You can still file with IRS Direct File and New York State Direct File. To see if you’re eligible and start your federal return, visit <a href="https://directfile.irs.gov/">IRS Direct File</a>.
+          This service doesn’t support New York State tax returns for 2024. You can still file with IRS Direct File and New York State Direct File. To see if you’re eligible and start your federal return, visit <a href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">IRS Direct File</a>.
           <br /><br />
           To download your 2023 NY State tax return, please <a href="https://www.fileyourstatetaxes.org/en/az/faq/how_can_i_access_my_2023_state_tax_return">visit our FAQ</a>.
         supported_by: Supported by New York State
@@ -3937,9 +3937,9 @@ en:
         looking_for_return_html: "<strong>Looking for your 2023 Arizona or New York State Tax Return?</strong>"
         section1_html: |
           <ol class="list--numbered"  style="padding-left: 2rem">
-            <li>File and submit your federal return with <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">IRS Direct File</a> before using this service.</li>
+            <li>File and submit your federal return with <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">IRS Direct File</a> before using this service.</li>
             <li>Follow the link from Direct File to FileYourStateTaxes.</li>
-            <li>Answer a few questions to make sure this is the right service for you. <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/state">Learn more</a> about who is eligible for this tax year.</li>
+            <li>Answer a few questions to make sure this is the right service for you. <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">Learn more</a> about who is eligible for this tax year.</li>
             <li>Transfer your federal return to fill in most of your state return.</li>
             <li>Answer a few additional questions to help maximize your state tax refund.</li>
             <li>E-file your return for free!</li>
@@ -3952,7 +3952,7 @@ en:
           This site will open at the start of the 2025 tax filing season and remain open until October 15, 2025 for you to file your state tax returns.
           <br /><br />
           <strong>In 2025, this service will support filing state tax returns in Arizona, Idaho, North Carolina, New Jersey, and Maryland.</strong>
-        subheader_2_html: To start filing your federal return, go to <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">directfile.irs.gov.</a>
+        subheader_2_html: To start filing your federal return, go to <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">directfile.irs.gov.</a>
         subheader_3_html: "<strong>Already filed your federal return with IRS Direct File and need to complete your state return?</strong> <a href=%{login_path}>Sign in here</a>."
         tax_return_link: Click here to access your tax return
       card_postscript:
