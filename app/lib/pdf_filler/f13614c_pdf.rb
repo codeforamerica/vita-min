@@ -468,7 +468,6 @@ module PdfFiller
         "form1[0].page1[0].namesOf[0].Row#{index}[0].residentUSCandaMexico[0]" => yes_no_unfilled_to_YN(dependent.north_american_resident),
         "form1[0].page1[0].namesOf[0].Row#{index}[0].fullTimeStudent[0]" => yes_no_unfilled_to_YN(dependent.was_student),
         "form1[0].page1[0].namesOf[0].Row#{index}[0].totallyPermanentlyDisabled[0]" => yes_no_unfilled_to_YN(dependent.disabled),
-        "form1[0].page1[0].namesOf[0].Row#{index}[0].qualifyingChildDependent[0]" => dependent.can_be_claimed_by_other,
         # certified volunteer section
         "form1[0].page1[0].namesOf[0].Row#{index}[0].qualifyingChildDependent[0]" => yes_no_na_unfilled_to_Yes_No_NA(dependent.can_be_claimed_by_other),
         "form1[0].page1[0].namesOf[0].Row#{index}[0].ownSupport[0]" => yes_no_na_unfilled_to_Yes_No_NA(dependent.provided_over_half_own_support),
