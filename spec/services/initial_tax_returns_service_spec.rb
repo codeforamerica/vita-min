@@ -22,7 +22,7 @@ describe InitialTaxReturnsService do
     end
 
     context "when a tax return for a selected year already exists" do
-      let!(:tax_return) { create :tax_return, :intake_in_progress, client: intake.client, year: MultiTenantService.new(:gyr).current_tax_year - 3 }
+      let!(:tax_return) { create :tax_return, :intake_in_progress, client: intake.client, year: 2020 }
       let(:intake) { create :intake, needs_help_current_year: "yes", needs_help_previous_year_1: "yes", needs_help_previous_year_3: "yes" }
 
       before do
@@ -39,8 +39,8 @@ describe InitialTaxReturnsService do
         subject.create!
 
         expect(intake.tax_returns.count).to eq 3
-        expect(intake.tax_returns.pluck(:year)).to match_array([MultiTenantService.new(:gyr).current_tax_year - 3, MultiTenantService.new(:gyr).current_tax_year - 1, MultiTenantService.new(:gyr).current_tax_year])
-        expect(intake.tax_returns.find_by(year: MultiTenantService.new(:gyr).current_tax_year - 3)).to eq tax_return
+        expect(intake.tax_returns.pluck(:year)).to match_array([2020, 2022, 2023])
+        expect(intake.tax_returns.find_by(year: 2020)).to eq tax_return
       end
     end
 
