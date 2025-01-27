@@ -224,6 +224,12 @@ module PdfFiller
 
         "form1[0].page2[0].incomeIncluded[0].scheduleCExpenses[0]" => yes_no_unfilled_to_checkbox(@intake.cv_schedule_c_expenses_cb),
         "form1[0].page2[0].incomeIncluded[0].scheduleCExpensesAmount[0]" => @intake.cv_schedule_c_expenses_amt,
+
+        # Other income
+        "form1[0].page2[0].incomeIncluded[0].otherIncome[0].otherIncome[0]" => yes_no_unfilled_to_checkbox(@intake.cv_other_income_cb),
+
+        # Notes/Comments
+        "form1[0].page2[0].IncomeIncludedComment[0].IncomeIncludedComments[0]" => @intake.cv_p2_notes_comments,
       )
 
       # PAGE 3
@@ -294,7 +300,6 @@ module PdfFiller
       answers
     end
 
-    private
 
     def vita_consent_to_disclose_info
       # aka form 15080 on page 4 info
@@ -510,6 +515,8 @@ module PdfFiller
         "form1[0].page3[0].q15[0].noSpouse[0]" => nil,
       }
     end
+
+    private
 
     def single_dependent_params(dependent, index:)
       {
