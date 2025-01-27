@@ -75,6 +75,7 @@ module StateFileIntakeHelper
       click_on "Text me a code"
 
       expect(page).to have_text "Enter your phone number"
+      # TODO: EXPECT HELPER TEXT programmatically associated
       fill_in "Your phone number", with: "4153334444"
       click_on "Send code"
 
@@ -89,6 +90,7 @@ module StateFileIntakeHelper
       click_on "Email me a code"
 
       expect(page).to have_text "Enter your email address"
+      # TODO: EXPECT HELPER TEXT programmatically associated
       fill_in I18n.t("state_file.questions.email_address.edit.email_address_label"), with: "someone@example.com"
       click_on "Send code"
 
