@@ -11,7 +11,7 @@ describe SubmissionBuilder::ReturnHeader do
         let(:mailing_street) { "1234 Main Street" }
         let(:mailing_apartment) { "B" }
         let(:mailing_city) { "Citayy" }
-        let(:mailing_zip) { "54321" }
+        let(:mailing_zip) { "12345-1234" }
         let(:tax_return_year) { 2024 }
         let(:efin) { "123455" }
         let(:sin) { "223455" }
@@ -40,7 +40,11 @@ describe SubmissionBuilder::ReturnHeader do
           expect(doc.at("USAddress AddressLine2Txt").text).to eq mailing_apartment
           expect(doc.at("USAddress CityNm").text).to eq mailing_city
           expect(doc.at("USAddress StateAbbreviationCd").text).to eq state_code.upcase
-          expect(doc.at("USAddress ZIPCd").text).to eq mailing_zip
+          if state_code == "md"
+            expect(doc.at("USAddress ZIPCd").text).to eq "123451234"
+          else
+            expect(doc.at("USAddress ZIPCd").text).to eq "12345-1234"
+          end
         end
 
         context "with out-of-state mailing state" do
@@ -363,9 +367,9 @@ describe SubmissionBuilder::ReturnHeader do
       let(:doc) { SubmissionBuilder::ReturnHeader.new(submission).document }
       context "for #{state_code} returns" do
         it "does not add XML elements for PaidPreparerInformationGrp" do
-          expect(doc.at("PaidPreparerInformationGrp")).not_to be_present 
-          expect(doc.at("PaidPreparerInformationGrp PTIN")).not_to be_present 
-          expect(doc.at("PaidPreparerInformationGrp PreparerPersonNm")).not_to be_present 
+          expect(doc.at("PaidPreparerInformationGrp")).not_to be_present
+          expect(doc.at("PaidPreparerInformationGrp PTIN")).not_to be_present
+          expect(doc.at("PaidPreparerInformationGrp PreparerPersonNm")).not_to be_present
         end
       end
     end
