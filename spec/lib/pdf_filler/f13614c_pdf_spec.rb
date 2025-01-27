@@ -648,8 +648,8 @@ RSpec.describe PdfFiller::F13614cPdf do
                 expect(intake_pdf.hash_for_pdf[additional_comments_key]).to eq(<<~COMMENT.strip)
                   Other income types: garden gnoming
                   Additional Dependents:
-                  (a) Polly Pony (b) 8/27/2018 (c) Baby (d) 5 (e) N (f) Y (g) S (h) N (i) Y CVP: ////
-                  (a) Patrick Pony (b) 3/11/2019 (c) Son (d) 8 (e) N (f) Y (g) S (h) N (i) N CVP: ////
+                  (a) Polly Pony (b) 8/27/2018 (c) Baby (d) 5 (e) S (f) N (g) Y (h) N (i) Y CVP: ////
+                  (a) Patrick Pony (b) 3/11/2019 (c) Son (d) 8 (e) S (f) N (g) Y (h) N (i) N CVP: ////
                 COMMENT
               end
             end
@@ -670,8 +670,8 @@ RSpec.describe PdfFiller::F13614cPdf do
                   if there is another gnome living in my garden but only i have an income, does that make me head of household? Also here are some additional notes.
                   Other income types: garden gnoming
                   Additional Dependents:
-                  (a) Polly Pony (b) 8/27/2018 (c) Baby (d) 5 (e) N (f) Y (g) S (h) N (i) Y CVP: Y/N/Y/N/Y
-                  (a) Patrick Pony (b) 3/11/2019 (c) Son (d) 8 (e) N (f) Y (g) S (h) N (i) N CVP: ////
+                  (a) Polly Pony (b) 8/27/2018 (c) Baby (d) 5 (e) S (f) N (g) Y (h) N (i) Y CVP: Yes/No/Yes/No/Yes
+                  (a) Patrick Pony (b) 3/11/2019 (c) Son (d) 8 (e) S (f) N (g) Y (h) N (i) N CVP: ////
                 COMMENT
               end
             end
