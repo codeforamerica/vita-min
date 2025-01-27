@@ -17,7 +17,7 @@ module SubmissionBuilder
         end
         xml.TaxYr @submission.data_source.tax_return_year
         if state_submission_builder.ptin.present? && state_submission_builder.preparer_person_name.present?
-          xml.PaidPreparerInformationGrp do 
+          xml.PaidPreparerInformationGrp do
             xml.PTIN state_submission_builder.ptin
             xml.PreparerPersonNm state_submission_builder.preparer_person_name
           end
@@ -69,7 +69,7 @@ module SubmissionBuilder
               xml.CityNm sanitize_for_xml(@submission.data_source.direct_file_data.mailing_city, @submission.data_source.city_name_length_20? ? 20 : 22)
             end
             xml.StateAbbreviationCd @submission.data_source.direct_file_data.mailing_state.upcase
-            xml.ZIPCd @submission.data_source.direct_file_data.mailing_zip if @submission.data_source.direct_file_data.mailing_zip.present?
+            xml.ZIPCd sanitize_zipcode(@submission.data_source.direct_file_data.mailing_zip) if @submission.data_source.direct_file_data.mailing_zip.present?
           end
         end
       end

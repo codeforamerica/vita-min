@@ -21,6 +21,11 @@
                         class: "button--small"
             %>
           </div>
+          <% if @w2_warnings[w2.id] %>
+            <div class="notice--warning spacing-above-5">
+              <p><%= t(".warning") %></p>
+            </div>
+          <% end %>
         <% end %>
       <% else %>
         <p class="text--grey-bold spacing-above-15 spacing-below-0">

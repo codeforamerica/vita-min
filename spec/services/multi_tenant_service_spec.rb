@@ -80,6 +80,14 @@ describe MultiTenantService do
       expect(described_class.new(:ctc).filing_years(fake_time)).to eq [2023]
       expect(described_class.new(:gyr).filing_years(fake_time)).to eq [2023, 2022, 2021]
     end
+
+    context "during the 2025 GYR open season" do
+      it "returns 2021, 2022, 2023, 2024" do
+        fake_time = DateTime.parse("2025-02-14")
+
+        expect(described_class.new(:gyr).filing_years(fake_time)).to eq [2024, 2023, 2022, 2021]
+      end
+    end
   end
 
   describe "#backtax_years" do

@@ -739,15 +739,22 @@ RSpec.describe User, type: :model, requires_default_vita_partners: true do
 
     context "coalition lead" do
       let(:user) { create :coalition_lead_user }
-      it "is Admin" do
+      it "is Coalition Lead" do
         expect(user.role_name).to eq "Coalition Lead"
       end
     end
 
     context "organization lead" do
       let(:user) { create :organization_lead_user }
-      it "is Admin" do
+      it "is Organization Lead" do
         expect(user.role_name).to eq "Organization Lead"
+      end
+    end
+
+    context "State File Nj Staff" do
+      let(:user) { create :state_file_nj_staff_user }
+      it "is State File NJ Staff" do
+        expect(user.role_name).to eq "State File Nj Staff"
       end
     end
   end
@@ -784,14 +791,14 @@ RSpec.describe User, type: :model, requires_default_vita_partners: true do
 
     context "coalition lead" do
       let(:user) { create :coalition_lead_user, name: "Martha Mango", coalition: (create :coalition, name: "This Coalition") }
-      it "is Admin" do
+      it "is coalition lead" do
         expect(user.name_with_role_and_entity).to eq "Martha Mango (Coalition Lead) - This Coalition"
       end
     end
 
     context "organization lead" do
       let(:user) { create :organization_lead_user, name: "Patty Persimmon", organization: (create :organization, name: "Some Org") }
-      it "is Admin" do
+      it "is organization lead" do
         expect(user.name_with_role_and_entity).to eq "Patty Persimmon (Organization Lead) - Some Org"
       end
     end
@@ -822,7 +829,13 @@ RSpec.describe User, type: :model, requires_default_vita_partners: true do
     let(:suspended_at) { nil }
     let!(:user) { create :admin_user, email: email, suspended_at: suspended_at }
     let(:provider) { "google_oauth2" }
-    let(:auth_hash) { OmniAuth::AuthHash.new(provider: provider, uid: "12345678901234567890", info: { email: email, name: "Betty Boop" }, extra: { "id_info" => { "hd" => email.split("@")[1] } }) }
+    let(:auth_hash) {
+      OmniAuth::AuthHash.new(
+        provider: provider,
+        uid: "12345678901234567890",
+        info: { email: email, name: "Betty Boop" },
+        extra: { "id_info" => { "hd" => email.split("@")[1] } })
+    }
 
     context "has a @codeforamerica.org email" do
       context "has an admin account" do
@@ -841,8 +854,9 @@ RSpec.describe User, type: :model, requires_default_vita_partners: true do
           it "updates the uid and provider" do
             expect do
               User.from_omniauth(auth_hash)
-            end.to change { user.reload.external_provider }.from(nil).to(provider)
-                                                           .and change { user.reload.external_uid }.from(nil).to("12345678901234567890")
+            end.to change { user.reload.external_provider }
+                     .from(nil).to(provider)
+                     .and change { user.reload.external_uid }.from(nil).to("12345678901234567890")
           end
         end
 
@@ -856,11 +870,11 @@ RSpec.describe User, type: :model, requires_default_vita_partners: true do
         end
       end
 
-      context "is a greeter account" do
-        let!(:user) { create :greeter_user, email: email }
+      context "is a NJ Staff account" do
+        let!(:user) { create :state_file_nj_staff_user, email: email }
 
-        it "returns nil" do
-          expect(User.from_omniauth(auth_hash)).to eq nil
+        it "returns the NJ Staff account" do
+          expect(User.from_omniauth(auth_hash)).to eq user
         end
       end
     end

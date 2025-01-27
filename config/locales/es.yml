@@ -630,6 +630,14 @@ es:
     vita_long: 'VITA: Asistencia Voluntaria al Contribuyente Tributario'
     well: Bien
     widowed: Viudo/a
+    written_language_options:
+      en: Inglés
+      es: Español
+      ko: Coreano
+      ru: Ruso
+      vi: Vietnamita
+      zh_cn: Chino Simplificado
+      zh_tw: Chino Tradicional
     year: año
     year_date: Año
     you: usted
@@ -1244,7 +1252,7 @@ es:
         cant_locate: Necesito ayuda para encontrar mis documento(s) de %{doc_type}.
         cant_obtain: No puedo obtener documento(s) de %{doc_type}.
         doesnt_apply: No creo que este documento de %{doc_type} me aplique.
-      not_ready_to_not_filing: Transición%{tax_year}declaración de impuestos de No listo a No presentar después de%{days}días de inacción por parte del Cliente.
+      not_ready_to_not_filing: Transición %{tax_year} declaración de impuestos de No listo a No presentar después de %{days} días de inacción por parte del Cliente.
     tax_return_selections:
       help_text:
         many: Está viendo %{count} resultados de su búsqueda guardada
@@ -1998,8 +2006,8 @@ es:
       verification_code:
         edit:
           error_message: Después de 2 intentos fallidos, las cuentas serán bloqueadas.
+          subtitle_2_html: Si aún necesitas ayuda para resuscribirte, <a class="open-intercom">chatea con nosotros</a>.
           subtitle_html: Si no recibiste un código, revisa tu carpeta de spam. Si aún necesitas ayuda para volver a suscribirte, chatea con nosotros.
-          subtitle_html_2: Si aún necesitas ayuda para resuscribirte, chatea con nosotros.
           title_html: Hemos enviado tu código a <strong>%{email_address}</strong>
           verify: Verificar el código
       verification_error:
@@ -2146,12 +2154,13 @@ es:
           supported_by: Respaldada por el estado de Carolina del Norte
           title: Declara tus impuestos estatales de Carolina del Norte sin costo
         nj:
+          built_with_html: "Te tomará alrededor de 10 y 15 minutos completar tu declaración con <strong>FileYourStateTaxes</strong>. \n<br/><br/>\nEsta servicio ha sido creada en colaboración con el New Jersey Office of Innovation para integrarse con Direct File del IRS.\n"
           closed_html: |
             <strong>FileYourStateTaxes</strong> se creó en asociación con el New Jersey Office of Innovation para integrarse con la herramienta Direct File del IRS.<br /><br />
             Estamos cerrados por la temporada de impuestos. Desafortunadamente no puede presentar su declaración estatal con nosotros este año.
           help_text_html: |
             <ul class="list--bulleted">
-              <li>Haber presentado tu declaración federal de 2024 usando IRS Direct File</li>
+              <li>Haber presentado tu declaración federal de 2024 usando <a href="https://directfile.irs.gov/" target="_blank" rel="noopener nofollow">IRS Direct File</a></li>
               <li>Un email o un número de teléfono para recibir un código de verificación único</li>
               <li>Números de ruta y cuenta bancaria (si deseas recibir tu reembolso o realizar un pago de impuestos electrónicamente)</li>
               <li>(opcional) Licencia de conducir o identificación emitida por el estado</li>
@@ -2160,15 +2169,16 @@ es:
           supported_by: Respaldado por el estado de New Jersey Division of Taxation
           title: Presenta tus impuestos estatales de New Jersey sin costo
         not_you: "¿No es %{user_name}?"
-        ny:
-          closed_html: |
-            <strong>FileYourStateTaxes</strong> se creó en asociación con el estado de Nueva York para integrarse con la herramienta Direct File del IRS.<br /><br />
-            Estamos cerrados por la temporada de impuestos. Lamentablemente no puede presentar su declaración estatal con nosotros este año.
-          supported_by: Respaldada por el estado de Nueva York
-          title: Declara tus impuestos Estatales de Nueva York sin costo
         start_new: Haga clic aquí para iniciar una nueva declaración estatal de %{state_name}.
         title_closed: Nuestro servicio gratuito para declarar tus impuestos estatales de %{state_name} está cerrado por la temporada
         welcome_back: "¡Bienvenido de nuevo %{user_name}!"
+      ny_closed:
+        body_html: |
+          No puedes usar este servicio para declarar tus impuestos estatales de Nueva York de 2024. Sin embargo, podrías declarar con IRS Direct File y New York State Direct File. Para verificar tu elegibilidad y comenzar a presentar tu declaración federal, visita a IRS Direct File. a <a href="https://directfile.irs.gov/">IRS Direct File</a>.
+          <br /><br />
+          Para descargar tu declaración de impuestos de Nueva York de 2023, <a href="https://www.fileyourstatetaxes.org/en/az/faq/how_can_i_access_my_2023_state_tax_return">visita nuestras preguntas frecuentes</a>.
+        supported_by: Respaldada por el estado de Nueva York
+        title: Gracias por visitar FileYourStateTaxes
     navigation:
       nj:
         section_1: 'Sección 1: Ingresos'
@@ -2208,7 +2218,7 @@ es:
           household_excise_credit_claimed_amt: Ingresa la cantidad total del Crédito Tributario por Impuesto de Consumo Aumentado reclamado por los miembros de tu hogar.
           household_excise_credit_claimed_amt_help_text: Puedes encontrar esta información en la línea 56 de su declaración de Arizona.
           household_excise_credit_html: "¿Alguien en tu hogar presentó una declaración de impuestos por separado de la tuya y reclamó el Crédito por Aumento de Impuestos Especiales de Arizona?<br><br> (Tu hogar incluye a todas las personas con las que viviste, incluso si no están incluidas en tu declaración.)"
-          primary_was_incarcerated: "¿Estuviste encarcelado en una prisión del condado, estatal o federal durante al menos 60 días en%{tax_year}?"
+          primary_was_incarcerated: "¿Estuviste encarcelado en una prisión del condado, estatal o federal durante al menos 60 días en %{tax_year}?"
           spouse_was_incarcerated: "¿Tu cónyuge estuvo encarcelado en una prisión del condado, estatal o federal durante al menos 60 días en %{tax_year}?"
           title: Es posible que seas elegible para el Crédito Tributario por Aumento de Impuestos Especiales.
       az_prior_last_names:
@@ -2325,7 +2335,7 @@ es:
       az_senior_dependents:
         edit:
           assistance_label: "¿%{name} necesitaba ayuda con actividades diarias como vestirse, comer, beber, tomar medicamentos, ir de compras o preparar la comida?"
-          passed_away_label: "%{name}falleció en%{filing_year}?"
+          passed_away_label: "%{name}falleció en %{filing_year}?"
           title: Necesitamos información adicional sobre %{dependents_name_list}
       az_subtractions:
         edit:
@@ -2396,7 +2406,7 @@ es:
             eligibility_ed_loan_cancelled: se te canceló un préstamo estudiantil bajo la Ley del Plan de Rescate Estadounidense.
             eligibility_ed_loan_emp_payment: recibiste un Pago de Préstamo Educativo Calificado pagado por tu empleador.
             eligibility_emergency_rental_assistance: recibió asistencia de alquiler de emergencia %{filing_year}
-            eligibility_home_different_areas: o tu cónyuge tenían hogares permanentes en dos condados, ciudades o áreas impositivas diferentes el último día de %{filing_year}
+            eligibility_home_different_areas: y su cónyuge tenía residencias permanentes en dos condados, ciudades, pueblos o áreas impositivas diferentes el último día de %{filing_year}
             eligibility_homebuyer_withdrawal: retiró dinero de una cuenta de comprador de vivienda por primera vez que no se utilizó para comprar una casa en Maryland
             eligibility_homebuyer_withdrawal_mfj: o tu cónyuge retiraron dinero de una Cuenta de Comprador de Vivienda Por Primera Vez que no se utilizó para comprar una casa en Maryland.
             eligibility_lived_in_state: no viviste en %{state} durante todo el %{filing_year}
@@ -2472,7 +2482,7 @@ es:
             Asegurémonos de que este servicio es el indicado para ti.<br><br>
             Estas son las restas y los créditos <strong>que puedes</strong> reclamar para maximizar tu reembolso.
           not_supported: "¿Qué sucede si FileYourStateTaxes aún no puede procesar mi situación fiscal?"
-          title1: Puedes usar este servicio para declarar tus impuestos estatales de%{state}de %{year}
+          title1: Puedes usar este servicio para declarar tus impuestos estatales de %{state} de %{year}
           title2_html: |
             Asegurémonos de que este servicio es el indicado para ti.<br><br>
             Estos son los créditos y las deducciones que <strong>podrás</strong> reclamar para maximizar tu reembolso.
@@ -2630,7 +2640,7 @@ es:
             <li>Crédito por Ingreso del Trabajo de New Jersey (NJEITC por las siglas en inglés)</li>
             <li>Crédito por Hijos de New Jersey</li>
             <li>Crédito por Cuidado de Menores y Dependientes de New Jersey</li>
-            <li>Deducción de Gastos Médicos</li>
+            <li>Deducción de Gastos Médicos de New Jersey</li>
             <li>Exclusión de Pensión/Jubilación y Otros Ingresos de Jubilación</li>
             <li>Créditos por Contribuciones Excedentes del Seguro de Desempleo (UI) y del Seguro de Licencia Familiar (FLI)</li>
             <li>Crédito o Deducción de Impuestos sobre la Propiedad</li>
@@ -2758,7 +2768,7 @@ es:
           situation_undocumented: Vivir en los Estados Unidos sin documentación
           situations_question:
             many: "¿Alguna de las siguientes situaciones aplicó a ti o tu hogar en %{year}?"
-            one: "¿Alguna de las siguientes situaciones aplicó a ti en%{year}?"
+            one: "¿Alguna de las siguientes situaciones aplicó a ti en %{year}?"
             other: "¿Alguna de las siguientes situaciones aplicó a ti o tu hogar %{year}?"
           title: "¡Podrías ser elegible para el Crédito de Idaho por Compras de Alimentos!"
           title_html: "¡Podrías ser elegible para el<a href=https://tax.idaho.gov/taxes/income-tax/individual-income/popular-credits-and-deductions/idaho-grocery-credit/>Crédito de Idaho por Compras de Alimentos</a>!"
@@ -2794,7 +2804,7 @@ es:
           health_insurance_premium_question:
             many: "¿Pagó primas de seguro médico para usted y su hogar en %{year}?"
             one: "¿Pagó usted primas de seguro médico en %{year}?"
-            other: "¿Pagaste primas de seguro médico tuyas y tu hogar en%{year}?"
+            other: "¿Pagaste primas de seguro médico tuyas y tu hogar en %{year}?"
           medicaid_content: Sí, si estás inscrito en Medicaid, tu prima de seguro médico cuenta. Revisa tu carta mensual del Departamento de Salud y Bienestar de Idaho para conocer el monto de tu prima. Podría ser tan bajo como $0, dependiendo de tus ingresos y otros factores.
           medicaid_title: "¿Los pagos de Medicaid y Medicare cuentan?"
           qualifications_content_html: |
@@ -2874,6 +2884,7 @@ es:
           title: Estos son los formularios de ingresos que transferimos de su declaración de impuestos federales.
           unemployment_title: Beneficios de desempleo (1099-G)
           w2s_title: Empleos (W-2)
+          warning: "⚠️ We need to double-check some information"
       initiate_data_transfer:
         data_transfer_buttons:
           from_fake_df_page: Transferir datos desde una página falsa de transferencia de DF.
@@ -2962,6 +2973,15 @@ es:
           county_html: "<strong>Condado</strong>"
           political_subdivision_html: "<strong>Subdivisión política</strong>"
           your_address: Dirección donde vivías el 31 de diciembre del%{filing_year}
+      md_social_security_benefits:
+        edit:
+          description: Para informar correctamente los beneficios del Seguro Social en su declaración de impuestos de Maryland, necesitamos recopilar información adicional.
+          spouse_portion_label_html: "<strong>La porción de beneficios del Seguro Social de su cónyuge</strong>"
+          subtitle: Ingrese la porción de los beneficios del Seguro Social asignada entre usted y su cónyuge. Consulte el Formulario(s) SSA-1099, Casilla 5 para más información.
+          sum_form_error: La asignación debe ser igual a %{total_ssb}
+          title: Necesitamos más información sobre sus beneficios del Seguro Social
+          total_html: El monto total de los beneficios del Seguro Social reportados en la declaración federal de usted y su cónyuge es <strong>%{total_ssb}</strong>.
+          your_portion_label_html: "<strong>Su porción de los beneficios del Seguro Social</strong>"
       md_spouse_state_id:
         md_spouse:
           dmv_bmv_label: Identificación estatal del MVA
@@ -3114,7 +3134,7 @@ es:
           dependent_enrolled_full_time: "%{dependent_first} attends there full time."
           dependent_five_months_in_college: "%{dependent_first} pasa al menos alguna parte de cada uno de los cinco meses calendario en esa universidad."
           dependent_header: "(dependent)"
-          filer_pays_tuition_books: Yo (o mi cónyuge, si presentamos una declaración conjunta) pago al menos la mitad de la matrícula y los costos universitarios de%{dependent_first}.
+          filer_pays_tuition_books: Yo (o mi cónyuge, si presentamos una declaración conjunta) pago al menos la mitad de la matrícula y los costos universitarios de %{dependent_first}.
           full_time_college_helper_description: '"Tiempo completo" (full time) es lo que la universidad considere como tiempo completo. Esto se puede encontrar en el estado de cuenta de matrícula 1098 T.'
           full_time_college_helper_heading: What counts as "attending college full time"?
           reminder: 'Recordatorio: marca las casillas correspondientes a continuación para cada dependiente, si corresponde.'
@@ -3162,14 +3182,12 @@ es:
           description_html: |
             <p>Incluye la suma de lo siguiente:</p>
             <ul class="list--bulleted">
-              <li><a href="https://nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git8.pdf" target="_blank" rel="noopener nofollow">Pagos estimados de impuestos sobre tus ingresos</a> que hiciste durante el año para tus impuestos estatales de New Jersey</li>
-              <li>
+              <li><a href="https://nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git8.pdf" target="_blank" rel="noopener nofollow">Pagos estimados de impuestos sobre tus ingresos</a> que hiciste durante el año para tus impuestos estatales de New Jersey
                 <ul class="list--bulleted">
                   <li><strong>Esto no incluye las retenciones de tu cheque (paycheck)</strong></li>
                 </ul>
-              </li<
-              <li>Pagos en exceso en tu declaración de %{prior_year} que elegiste aplicar a tus impuestos estatales de New Jersey en %{filing_year}</li>
-              <li>
+              </li>
+              <li>Pagos en exceso en tu declaración de %{prior_year} que elegiste aplicar a tus impuestos estatales de New Jersey en %{filing_year}
                 <ul class="list--bulleted">
                   <li>Nota: habrías seleccionado esta opción al presentar tu declaración de %{prior_year}</li>
                 </ul>
@@ -3204,16 +3222,16 @@ es:
           title: Dijiste que eras propietario de una vivienda en %{filing_year}.
       nj_homeowner_property_tax:
         edit:
-          helper_anchor_description_html: Si recibiste un beneficio de Comunidades Accesibles de New Jersey para Propietarios e Inquilinos (ANCHOR por las siglas en inglés), el monto del beneficio no afecta el monto a informar en la línea 8. (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> ofrece alivio de impuestos a la propiedad a residentes de New Jersey que tengan o alquilen una vivienda principal en New Jersey y que cumplan con ciertos límites de ingresos.)
+          helper_anchor_description_html: Si recibiste un beneficio de Comunidades Accesibles de New Jersey para Propietarios e Inquilinos (ANCHOR por las siglas en inglés), el monto del beneficio no afecta el monto a informar de la pregunta superior. (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> ofrece alivio de impuestos a la propiedad a residentes de New Jersey que tengan o alquilen una vivienda principal en New Jersey y que cumplan con ciertos límites de ingresos.)
           helper_anchor_heading: "¿Qué pasa si recibí beneficios ANCHOR?"
           helper_description: Puedes revisar tus facturas de impuestos trimestrales y sumar el total pagado a tu municipio.
           helper_heading: "¿Dónde puedo encontrar los impuestos sobre la propiedad pagados?"
-          label_html: "<strong>Ingresa impuestos sobre la propiedad pagados en%{filing_year}</strong>"
+          label_html: "<strong>Ingresa impuestos sobre la propiedad pagados en %{filing_year}</strong>"
           title: Buenas noticias—calificas para una deducción o crédito
       nj_homeowner_property_tax_worksheet:
         edit:
           description_html: "<p>El siguiente paso es completar esta<a href=\"https://www.nj.gov/treasury/taxation/pdf/wrkshtg.pdf\" target=\"_blank\" rel=\"noopener nofollow\">hoja de trabajo</a>.</p> \n<p>Una vez que la completes, vuelve a esta página.</p>\n<p>La hoja de trabajo te preguntará dónde viviste y por cuánto tiempo. Si te mudaste, por ejemplo, tendrá espacio para que enumeres todos los lugares donde viviste.</p>\n"
-          helper_anchor_description_html: Si recibió un beneficio ANCHOR, el monto del beneficio no afecta el monto a declarar en esta línea. (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> ofrece desgravación del impuesto a la propiedad a los residentes de Nueva Jersey que poseen o alquilar una propiedad en Nueva Jersey como su hogar principal y cumplir con ciertos límites de ingresos).
+          helper_anchor_description_html: Si recibió un beneficio ANCHOR, el monto del beneficio no afecta el monto a declarar en la pregunta superior. (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> ofrece desgravación del impuesto a la propiedad a los residentes de Nueva Jersey que poseen o alquilar una propiedad en Nueva Jersey como su hogar principal y cumplir con ciertos límites de ingresos).
           helper_anchor_heading: "¿Qué pasa si recibí beneficios ANCHOR?"
           helper_description: Puedes revisar tus facturas de impuestos trimestrales y sumar el total pagado a tu municipio.
           helper_heading: "¿Dónde puedo encontrar los impuestos sobre la propiedad pagados?"
@@ -3256,6 +3274,9 @@ es:
       nj_medical_expenses:
         edit:
           description_html: |-
+            <p>If you had at least %{medical_expenses_threshold} in non-reimbursed medical expenses, you are eligible for a deduction. Enter the full amount of your non-reimbursed expenses here. We’ll deduct the right amount for your situation.</p>
+            <p>If your medical expenses were less than %{medical_expenses_threshold}, you are not eligible for the deduction. Click "Continue."</p>
+
             <p>Estos gastos incluyen:</p>
             <ul class="list--bulleted">
               <li>Gastos para ti, tu cónyuge y tus dependientes.</li>
@@ -3399,17 +3420,17 @@ es:
       nj_tenant_property_tax_worksheet:
         edit:
           description_html: "<p>El siguiente paso es completar esta  <a href=\"https://www.nj.gov/treasury/taxation/pdf/wrkshtg.pdf\" target=\"_blank\" rel=\"noopener nofollow\">hoja de trabajo</a>.</p> \n<p>Una vez que la completes, vuelve a esta página.</p>\n<p>La hoja de trabajo te preguntará dónde viviste y por cuánto tiempo. Si te mudaste, por ejemplo, tendrá espacio para que enumeres todos los lugares donde viviste.</p>\n"
-          helper_anchor_description_html: Si recibiste un beneficio de Comunidades Accesibles de New Jersey para Propietarios e Inquilinos (ANCHOR por las siglas en inglés), el monto del beneficio no afecta el monto a informar en la línea 8. (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> ofrece alivio de impuestos a la propiedad a residentes de New Jersey que tengan o alquilen una vivienda principal en New Jersey y que cumplan con ciertos límites de ingresos).
+          helper_anchor_description_html: Si recibiste un beneficio de Comunidades Accesibles de New Jersey para Propietarios e Inquilinos (ANCHOR por las siglas en inglés), el monto del beneficio no afecta el monto a informar en la pregunta superior. (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> ofrece alivio de impuestos a la propiedad a residentes de New Jersey que tengan o alquilen una vivienda principal en New Jersey y que cumplan con ciertos límites de ingresos).
           helper_anchor_heading: "¿Qué pasa si recibí beneficios ANCHOR?"
-          helper_description: Escribe las tarifas de tu sitio pagadas en %{filing_year} en la sección de alquiler de la Hoja de trabajo G.
+          helper_description_html: Escribe las tarifas de tu sitio pagadas en %{filing_year} en la sección de alquiler de la <a href="https://www.nj.gov/treasury/taxation/pdf/wrkshtg.pdf" target="_blank" rel="noopener nofollow">Hoja de trabajo (link en inglés)</a>.
           helper_heading: Dueños/as de casas móviles/rodantes
-          label_html: "<strong>Ingresa la Línea 8 de la Hoja de trabajo</strong>"
+          label_html: "<strong>Ingresa la Línea 8 de la Hoja de Trabajo</strong><br/>(Tu parte del total de impuestos sobre la propiedad pagados)"
           title: Buenas noticias—calificas para una deducción o crédito
       nj_tenant_rent_paid:
         edit:
-          helper_anchor_description_html: Si recibió un beneficio ANCHOR, el monto del beneficio no afecta el monto a declarar en la línea 8. (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> ofrece desgravación del impuesto a la propiedad a los residentes de Nueva Jersey que poseen o alquilan propiedades en Nueva Jersey como su hogar principal y cumplen con ciertos límites de ingresos).
+          helper_anchor_description_html: Si recibió un beneficio ANCHOR, el monto del beneficio no afecta el monto a declarar en la pregunta superior. (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> ofrece desgravación del impuesto a la propiedad a los residentes de Nueva Jersey que poseen o alquilan propiedades en Nueva Jersey como su hogar principal y cumplen con ciertos límites de ingresos).
           helper_anchor_heading: "¿Qué pasa si recibí beneficios ANCHOR?"
-          helper_description: Escribe las tarifas de tu sitio pagadas en%{filing_year}en la sección de alquiler de la Hoja de trabajo G.
+          helper_description: Ingresa las tarifas de tu sitio pagadas en %{filing_year}.
           helper_heading: Dueños/as de casas móviles/rodantes
           label_html: "<strong>Ingresa tu parte total del alquiler que pagaste en %{filing_year}</strong>"
           title: Buenas noticias—calificas para una deducción o crédito
@@ -3697,7 +3718,7 @@ es:
           term_5: 'Proveedores principales: AT&T, Verizon Wireless, Sprint, T-Mobile, U.S. Cellular, Alltel, Boost Mobile, Nextel y Virgin Mobile.'
           term_6: 'Proveedores menores: Alaska Communications Systems (ACS), Appalachian Wireless (EKN), Bluegrass Cellular, Cellular One of East Central IL (ECIT), Cellular One of Northeast Pennsylvania, Cincinnati Bell Wireless, Cricket, Coral Wireless (Mobi PCS), COX, Cross, Element Mobile (Flat Wireless), Epic Touch (Elkhart Telephone), GCI, Golden State, Hawkeye (Chat Mobility), Hawkeye (NW Missouri), Illinois Valley Cellular, Inland Cellular, iWireless (Iowa Wireless), Keystone Wireless (Immix Wireless/PC Man), Mosaic (Consolidated o CTC Telecom), Nex-Tech Wireless, NTelos, Panhandle Communications, Pioneer, Plateau (Texas RSA 3 Ltd), Revol, RINA, Simmetry (TMP Corporation), Thumb Cellular, Union Wireless, United Wireless, Viaero Wireless, y West Central (WCC o 5 Star Wireless).'
           term_7: Los proveedores de telefonía móvil (por ejemplo, AT&T, Verizon, T-Mobile, Sprint, etc.) no son responsables de mensajes no entregados o retrasados.
-          term_8_html: 'Como siempre, pueden aplicar tarifas por mensajes y datos para cualquier mensaje que te enviemos y que nos envíes. Si tienes alguna pregunta sobre tu plan de mensajes o plan de datos, es mejor contactar a tu proveedor de telefonía móvil. <br> <br>Si tienes preguntas sobre los servicios proporcionados por este código corto, puedes enviar un correo electrónico a <strong>help@fileyourstatetaxes.org</strong>.
+          term_8_html: 'Como siempre, pueden aplicar tarifas por mensajes y datos para cualquier mensaje que te enviemos y que nos envíes. Si tienes alguna pregunta sobre tu plan de mensajes o plan de datos, es mejor contactar a tu proveedor de telefonía móvil. <br> <br>Si tienes preguntas sobre los servicios proporcionados por este código corto, puedes enviar un correo electrónico a <strong><a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a></strong>.
 
             '
           term_9_html: 'Si tienes alguna pregunta sobre la privacidad, por favor lee nuestra política de privacidad:<a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/privacy-policy">www.fileyourstatetaxes.org/es/privacy-policy</a>
@@ -3737,12 +3758,21 @@ es:
           title_html: Buenas noticias, recibirás un reembolso de impuestos del estado de %{state_name} de <strong>$%{refund_amount}.</strong>
       taxes_owed:
         edit:
+          more_tax_information_nj_html: <p><a href="https://www.nj.gov/treasury/taxation/payments-notices.shtml" target="_blank" rel="noopener nofollow">Aquí hay más información sobre las fechas de vencimiento de impuestos y los modos de pago.</a></p>
           page_title: Debes impuestos estatales. ¿Cómo te gustaría pagar?
           pay_bank: Directamente desde tu cuenta corriente o de ahorros (débito directo)
           pay_mail_online_html: Por correo o en línea en <a target="_blank" rel="noopener nofollow" href="%{tax_payment_info_url}">%{tax_payment_info_text}</a>
           subtitle: "¿Cómo te gustaría pagar?"
           subtitle_html: Para obtener más información sobre las fechas de vencimiento de impuestos y los métodos de pago, visita <a target="_blank" rel="noopener nofollow" href="https://marylandtaxes.gov/">Marylandtaxes.gov</a>
           title_html: Debes <strong>$%{owed_amount}</strong> en impuestos estatales de %{state_name}.
+          underpayment_notice_nj_html: |-
+            <p>Esto puede suceder por muchas razones, las más comunes son:</p>
+            <ul class="list--bulleted">
+              <li>Porque no se retuvieron suficientes impuestos de tu cheque/recibo de pago (paycheck) (podrías charlar esto con tu empleador/a para los próximos años), o</li>
+              <li>Porque no hiciste suficientes pagos de impuestos estimados.</li>
+            </ul>
+            <p>Es posible que te cobren intereses sobre lo que debes. Si este es tu caso, recibirás un aviso de la División de Impuestos del Estado de New Jersey por correo.</p>
+            <p><strong>Definitivamente debes continuar con esta declaración de impuestos. Cuanto antes lo hagas, menos tendrás que pagar en multas.</strong></p>
       terms_and_conditions:
         edit:
           accept: Aceptar
@@ -3816,7 +3846,7 @@ es:
       verification_code:
         edit:
           action: " Verificar el código"
-          subtitle_html: Si no recibiste un código por favor revisa tu carpeta de spam. Si aún necesitas ayuda, chatea con nosotros.
+          subtitle_html: Si no recibiste un código por favor revisa tu carpeta de spam. Si aún necesitas ayuda, <a class="open-intercom">chatea con nosotros</a>.
           title_html: Te enviamos tu código a <strong>%{contact_info}</strong>
           verification_code_label: Ingresa el código de 6 dígitos
       w2:
@@ -4754,12 +4784,12 @@ es:
           - pagos por cuenta propia o por contrato
           subtitle: 'Los ingresos pueden venir de cualquiera de las siguientes fuentes:'
           title:
-            many: "¿Usted y su cónyuge ganaron menos de  en %{standard_deduction}en %{current_tax_year}?"
-            one: "¿Ganaste menos de %{standard_deduction}en %{current_tax_year}?"
+            many: "¿Usted y su cónyuge ganaron menos de  en %{standard_deduction} en %{current_tax_year}?"
+            one: "¿Ganaste menos de %{standard_deduction} en %{current_tax_year}?"
             other: "¿Usted y su cónyuge ganaron menos de %{standard_deduction} en %{current_tax_year}?"
         investment_income:
           help_text: En general, los ingresos por inversiones incluyen intereses, dividendos, ganancias de capital y distribuciones de fondos mutuos.
-          married_title: "¿Usted y su cónyuge ganaron más de $10,000 en ingreso de inversiones en  %{current_tax_year}?"
+          married_title: "¿Usted y su cónyuge ganaron más de $10,000 en ingreso de inversiones en %{current_tax_year}?"
           reveal_content: Si obtuvo ingresos de inversiones (como intereses de una cuenta de ahorros, dividendos de acciones o ganancias de capital de una inversión), habría recibido un 1099-INT, 1099-DIV o 1099-B con la cantidad.
           reveal_title: "¿Cómo verifico la cantidad de mis ingreso de inversiones?"
           title: "¿Ganó más de $10,000 en ingreso de inversiones en %{current_tax_year}?"
@@ -6120,8 +6150,9 @@ es:
           other: En el %{year}, ¿Tuvo usted o su pareja ingresos por intereses o dividendos?
       interview_scheduling:
         help_text: Haremos todo lo posible para programar su revisión basada en la información que nos proporcione.
-        language_select: "¿Cuál idioma prefiere para la revisión?"
+        interview_preference: "¿Cuál idioma prefiere para la revisión?"
         title: "¿Tiene alguna preferencia de tiempo para su entrevista telefónica?"
+        written_preference: "¿Cuál es tu idioma escrito preferido?"
       irs_letter:
         title:
           many: En %{year}, ¿recibió usted o su cónyuge alguna carta o factura del IRS?

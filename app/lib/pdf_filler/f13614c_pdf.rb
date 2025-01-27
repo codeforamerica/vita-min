@@ -74,27 +74,34 @@ module PdfFiller
         yes_no_checkboxes("form1[0].page1[0].q11HaveYouOr[0]", collective_yes_no_unsure(@intake.issued_identity_pin, @intake.spouse_issued_identity_pin))
       )
       answers.merge!(
-        keep_and_normalize({
-          "form1[0].page1[0].maritalStatus[0].statusNeverMarried[0]" => @intake.ever_married_no?,
-          "form1[0].page1[0].maritalStatus[0].statusMarried[0]" => (@intake.ever_married_yes? && @intake.married_yes? && @intake.separated_no?),
-          "form1[0].page1[0].maritalStatus[0].statusLegallySeparated[0].statusLegallySeparated[0]" => (@intake.ever_married_yes? && @intake.separated_yes?),
-          "form1[0].page1[0].maritalStatus[0].statusDivorced[0].statusDivorced[0]" => (@intake.ever_married_yes? && @intake.married_no? && @intake.divorced_yes?),
-          "form1[0].page1[0].maritalStatus[0].marriedForAll[0].forAllYes[0]" => (@intake.married_yes? && @intake.got_married_during_tax_year_yes?),
-          "form1[0].page1[0].maritalStatus[0].marriedForAll[0].forAllNo[0]" => (@intake.married_yes? && @intake.got_married_during_tax_year_no?),
-          "form1[0].page1[0].maritalStatus[0].statusWidowed[0].statusWidowed[0]" => (@intake.ever_married_yes? && @intake.married_no? && @intake.widowed_yes?),
-          "form1[0].page1[0].maritalStatus[0].liveWithSpouse[0].liveWithYes[0]" => (@intake.ever_married_yes? && @intake.lived_with_spouse_yes?),
-          "form1[0].page1[0].maritalStatus[0].liveWithSpouse[0].liveWithNo[0]" => (@intake.married_yes? && @intake.lived_with_spouse_no?),
-        })
+        "form1[0].page1[0].writtenCommunicationLanguage[0].otherLanguageNo[0]" => @intake.written_language_preference_english? ? '1' : nil,
+        "form1[0].page1[0].writtenCommunicationLanguage[0].otherLanguageYou[0]" => @intake.written_language_preference_english? ? nil : '1',
+        "form1[0].page1[0].writtenCommunicationLanguage[0].whatLanguage[0]" => @intake.written_language_preference_english? ? nil : @intake.preferred_written_language_string
+      )
+      answers.merge!(
+        keep_and_normalize(
+          with_prefix("form1[0].page1[0].maritalStatus[0]") do
+            {
+              "statusNeverMarried[0]" => @intake.ever_married_no?,
+              "statusMarried[0]" => @intake.married_yes?,
+              # Yes, this is how it is in the pdf.
+              "statusLegallySeparated[0].statusLegallySeparated[0]" => @intake.separated_yes?,
+              "statusDivorced[0].statusDivorced[0]" => @intake.divorced_yes?,
+              "statusWidowed[0].statusWidowed[0]" => @intake.widowed_yes?,
+              "liveWithSpouse[0].liveWithYes[0]" => @intake.lived_with_spouse_yes?,
+              "liveWithSpouse[0].liveWithNo[0]" => @intake.lived_with_spouse_no?,
+              # TODO: Not enough info for these fields
+              #
+              # "marriedForAll[0].forAllYes[0]" => @intake,
+              # "marriedForAll[0].forAllNo[0]" => @intake,
+            }
+          end
+        )
       )
 
       answers["form1[0].page1[0].maritalStatus[0].statusLegallySeparated[0].dateSeparateDecree[0]"] = @intake.separated_year
       answers["form1[0].page1[0].maritalStatus[0].statusDivorced[0].dateFinalDecree[0]"] = @intake.divorced_year
       answers["form1[0].page1[0].maritalStatus[0].statusWidowed[0].yearSpousesDeath[0]"] = @intake.widowed_year
-
-      answers.merge!(
-        yes_no_checkboxes("form1[0].page1[0].q1AsOfDecember[0].q1aGetMarried[0]", @intake.got_married_during_tax_year),
-        yes_no_checkboxes("form1[0].page1[0].q1AsOfDecember[0].q1bLiveWith[0]", fetch_gated_value(@intake, :lived_with_spouse)),
-      )
       answers["form1[0].page1[0].additionalSpace[0].additionalSpace[0]"] = @dependents.length > 3 ? "1" : nil
 
       answers.merge!(
@@ -253,47 +260,73 @@ module PdfFiller
         "form1[0].page1[0].spousesJobTitle[0]" => @intake.spouse_job_title,
         "form1[0].page1[0].spousesTelephoneNumber[0]" => @intake.formatted_spouse_phone_number,
       }.merge(
-        # These represent "You", "Spouse", "No" on the PDF. Pass a boolean as to whether it should be checked.
         keep_and_normalize(
           {
-            # You
-            "form1[0].page1[0].youSpouseWereIn[0].column1[0].usCitizen[0].usCitizenYou[0]" => @intake.primary_us_citizen_yes?,
-            "form1[0].page1[0].youSpouseWereIn[0].column1[0].fullTimeStudent[0].studentYou[0]" => @intake.was_full_time_student_yes?,
-            "form1[0].page1[0].youSpouseWereIn[0].column2[0].legallyBlind[0].legallyBlindYou[0]" => @intake.was_blind_yes?,
-            "form1[0].page1[0].youSpouseWereIn[0].column2[0].totallyPermanentlyDisabled[0].disabledYou[0]" => @intake.had_disability_yes?,
-            "form1[0].page1[0].youSpouseWereIn[0].column1[0].usOnVisa[0].onVisaYou[0]" => @intake.primary_visa_yes?,
-            "form1[0].page1[0].youSpouseWereIn[0].column2[0].issuedIdentityProtection[0].identityProtectionYou[0]" => @intake.issued_identity_pin_yes?,
-             "form1[0].page1[0].liveWorkStates[0].liveWorkYes[0]" => @intake.multiple_states_yes?,
-
-            # Spouse
-            "form1[0].page1[0].youSpouseWereIn[0].column1[0].usCitizen[0].usCitizenSpouse[0]" => @intake.spouse_us_citizen_yes?,
-            "form1[0].page1[0].youSpouseWereIn[0].column1[0].fullTimeStudent[0].studentSpouse[0]" => @intake.spouse_was_full_time_student_yes?,
-            "form1[0].page1[0].youSpouseWereIn[0].column2[0].legallyBlind[0].legallyBlindSpouse[0]" => @intake.spouse_was_blind_yes?,
-            "form1[0].page1[0].youSpouseWereIn[0].column2[0].totallyPermanentlyDisabled[0].disabledSpouse[0]" => @intake.spouse_had_disability_yes?,
-            "form1[0].page1[0].youSpouseWereIn[0].column1[0].usOnVisa[0].onVisaSpouse[0]" => @intake.spouse_visa_yes?,
-            "form1[0].page1[0].youSpouseWereIn[0].column2[0].issuedIdentityProtection[0].identityProtectionSpouse[0]" => @intake.spouse_issued_identity_pin_yes?,
-
-            # Negative
-            "form1[0].page1[0].youSpouseWereIn[0].column1[0].usCitizen[0].usCitizenNo[0]" => @intake.primary_us_citizen_no? && !@intake.spouse_us_citizen_yes?,
-            "form1[0].page1[0].youSpouseWereIn[0].column1[0].fullTimeStudent[0].studentNo[0]" => @intake.was_full_time_student_no? && !@intake.spouse_was_full_time_student_yes?,
-            "form1[0].page1[0].youSpouseWereIn[0].column2[0].legallyBlind[0].legallyBlindNo[0]" => @intake.was_blind_no? && !@intake.spouse_was_blind_yes?,
-            "form1[0].page1[0].youSpouseWereIn[0].column2[0].totallyPermanentlyDisabled[0].disabledNo[0]" => @intake.had_disability_no? && !@intake.spouse_had_disability_yes?,
-            "form1[0].page1[0].youSpouseWereIn[0].column1[0].usOnVisa[0].onVisaNo[0]" => @intake.primary_visa_no? && @intake.spouse_visa_no?,
-            "form1[0].page1[0].youSpouseWereIn[0].column2[0].issuedIdentityProtection[0].identityProtectionNo[0]" => (!@intake.issued_identity_pin_yes? && !@intake.spouse_issued_identity_pin_yes?),
-            "form1[0].page1[0].liveWorkStates[0].liveWorkNo[0]" => @intake.multiple_states_no?,
-
             # People who have digital assets are considered out of scope
             "form1[0].page1[0].youSpouseWereIn[0].column2[0].holdDigitalAssets[0].digitalAssetsNo[0]" => true,
-
-            # Refund section
-            "form1[0].page1[0].dueARefund[0].refundOther[0]" => @intake.savings_purchase_bond_yes?,
-            "form1[0].page1[0].dueARefund[0].refundDirectDeposit[0]" => @intake.refund_payment_method_direct_deposit?,
-            "form1[0].page1[0].dueARefund[0].refundCheckMail[0]" => @intake.refund_payment_method_check?,
-            "form1[0].page1[0].dueARefund[0].refundSplitAccounts[0]" => @intake.savings_split_refund_yes?,
-
-            "form1[0].page1[0].haveBlanceDue[0].blanceBankAccount[0]" => @intake.balance_pay_from_bank_yes?,
-            "form1[0].page1[0].haveBlanceDue[0].blanceMailPayment[0]" => @intake.balance_pay_from_bank_no?,
-          }
+          },
+          with_prefix("form1[0].page1[0].liveWorkStates[0]") do
+            {
+              "liveWorkYes[0]" => @intake.multiple_states_yes?,
+              "liveWorkNo[0]" => @intake.multiple_states_no?,
+            }
+          end,
+          with_prefix("form1[0].page1[0].youSpouseWereIn[0].column1[0].usCitizen[0]") do
+            {
+                "usCitizenYou[0]" => @intake.primary_us_citizen_yes?,
+                "usCitizenSpouse[0]" => @intake.spouse_us_citizen_yes?,
+                "usCitizenNo[0]" => @intake.primary_us_citizen_no? && !@intake.spouse_us_citizen_yes?,
+            }
+          end,
+          with_prefix("form1[0].page1[0].youSpouseWereIn[0].column1[0].usOnVisa[0]") do
+            {
+              "onVisaYou[0]" => @intake.primary_visa_yes?,
+              "onVisaSpouse[0]" => @intake.spouse_visa_yes?,
+              "onVisaNo[0]" => @intake.primary_visa_no? && !@intake.spouse_visa_yes?
+            }
+          end,
+          with_prefix('form1[0].page1[0].youSpouseWereIn[0].column1[0].fullTimeStudent[0]') do
+            {
+              "studentYou[0]" => @intake.was_full_time_student_yes?,
+              "studentSpouse[0]" => @intake.spouse_was_full_time_student_yes?,
+              "studentNo[0]" => @intake.was_full_time_student_no? && !@intake.spouse_was_full_time_student_yes?,
+            }
+          end,
+          with_prefix("form1[0].page1[0].youSpouseWereIn[0].column2[0].legallyBlind[0]") do
+            {
+              "legallyBlindYou[0]" => @intake.was_blind_yes?,
+              "legallyBlindSpouse[0]" => @intake.spouse_was_blind_yes?,
+              "legallyBlindNo[0]" => @intake.was_blind_no? && !@intake.spouse_was_blind_yes?,
+            }
+          end,
+          with_prefix("form1[0].page1[0].youSpouseWereIn[0].column2[0].totallyPermanentlyDisabled[0]") do
+            {
+              "disabledYou[0]" => @intake.had_disability_yes?,
+              "disabledSpouse[0]" => @intake.spouse_had_disability_yes?,
+              "disabledNo[0]" => @intake.had_disability_no? && !@intake.spouse_had_disability_yes?,
+            }
+          end,
+          with_prefix("form1[0].page1[0].youSpouseWereIn[0].column2[0].issuedIdentityProtection[0]") do
+            {
+              "identityProtectionYou[0]" => @intake.issued_identity_pin_yes?,
+              "identityProtectionSpouse[0]" => @intake.spouse_issued_identity_pin_yes?,
+              "identityProtectionNo[0]" => @intake.issued_identity_pin_no? && !@intake.spouse_issued_identity_pin_yes?,
+            }
+          end,
+          with_prefix("form1[0].page1[0].dueARefund[0]") do
+            {
+              "refundOther[0]" => @intake.savings_purchase_bond_yes?,
+              "refundDirectDeposit[0]" => @intake.refund_payment_method_direct_deposit?,
+              "refundCheckMail[0]" => @intake.refund_payment_method_check?,
+              "refundSplitAccounts[0]" => @intake.savings_split_refund_yes?,
+            }
+          end,
+          with_prefix("form1[0].page1[0].haveBlanceDue[0]") do
+            {
+              "blanceBankAccount[0]" => @intake.balance_pay_from_bank_yes?,
+              "blanceMailPayment[0]" => @intake.balance_pay_from_bank_no?,
+            }
+          end
         )
       )
 
@@ -319,26 +352,6 @@ module PdfFiller
       result
     end
 
-    # Trims the hash to only the values as tested by the block, which should
-    # return true if keeping. Additionally, it normalizes the value to the
-    # value specified.
-    # 
-    # @see {Enumerable#keep_if}
-    # @see {Hash#transform_values}
-    #
-    # @param normalize_to [Proc, Any] Either a literal value to normalize to or a callable to call on the value to normalize. Defaults to "1"
-    # @param keep_if [Proc] Passed literaly to Hash#keep_if. Defaults to a truthiness check on value
-    # @return [Hash]
-    def keep_and_normalize(pdf_hash, normalize_to: "1", keep_if: ->(_k, v) { v })
-      normalizer = if normalize_to.respond_to?(:call)
-                     normalize_to
-                   else
-                     proc { normalize_to }
-                   end
-
-      pdf_hash.keep_if(&keep_if).transform_values(&normalizer)
-    end
-
     def fetch_gated_value(intake, field)
       gating_question_columns = GATES.select do |_gating_question, gated_values|
         gated_values.any?(field)
@@ -351,26 +364,6 @@ module PdfFiller
       else
         gated_question_value
       end
-    end
-
-    def spouse_info
-      {
-        "form1[0].page1[0].spousesFirstName[0]" => @intake.spouse.first_name,
-        "form1[0].page1[0].spousesMiddleInitial[0]" => @intake.spouse.middle_initial,
-        "form1[0].page1[0].spousesLastName[0]" => @intake.spouse.last_name,
-        "form1[0].page1[0].spousesTelephoneNumber[0]" => @intake.spouse_phone_number,
-        "form1[0].page1[0].spousesDateOfBirth[0]" => strftime_date(@intake.spouse.birth_date),
-        "form1[0].page1[0].spousesJobTitle[0]" => @intake.spouse_job_title,
-      }.merge(
-        keep_and_normalize(
-          {
-            "form1[0].page1[0].youSpouseWereIn[0].column1[0].usCitizen[0].usCitizenSpouse[0]" => @intake.spouse_us_citizen_yes?,
-            "form1[0].page1[0].youSpouseWereIn[0].column1[0].fullTimeStudent[0].studentSpouse[0]" => @intake.spouse_was_full_time_student_yes?,
-            "form1[0].page1[0].youSpouseWereIn[0].column2[0].totallyPermanentlyDisabled[0].disabledSpouse[0]" => @intake.spouse_had_disability_yes?,
-            "form1[0].page1[0].youSpouseWereIn[0].column2[0].legallyBlind[0].legallyBlindSpouse[0]" => @intake.spouse_was_blind_yes?,
-          }
-        )
-      )
     end
 
     def dependents_info
@@ -432,6 +425,42 @@ module PdfFiller
     end
 
     private
+
+    # Trims the hash to only the values as tested by the block, which should
+    # return true if keeping. Additionally, it normalizes the value to the
+    # value specified.
+    # 
+    # @see {Enumerable#keep_if}
+    # @see {Hash#transform_values}
+    #
+    # @param pdf_hash [Hash, Array] Either an array of hashes or a hash. When given an array, it will merge each hash together
+    # @param normalize_to [Proc, Any] Either a literal value to normalize to or a callable to call on the value to normalize. Defaults to "1"
+    # @param keep_if [Proc] Passed literally to Hash#keep_if. Defaults to a truthiness check on value
+    # @return [Hash]
+    def keep_and_normalize(*pdf_hash, normalize_to: "1", keep_if: ->(_k, v) { v })
+      if pdf_hash.is_a?(Array)
+        pdf_hash = pdf_hash.reduce(&:merge)
+      end
+
+      normalizer = if normalize_to.respond_to?(:call)
+                     normalize_to
+                   else
+                     proc { normalize_to }
+                   end
+
+      pdf_hash.keep_if(&keep_if).transform_values(&normalizer)
+    end
+
+    # Adds a prefix to hash keys. Used to group related answers to a given question
+    #
+    # @param field_prefix [String] A prefix string
+    # @yield [] Should return a hash
+    # @return [Hash] The resulting hash with keys transformed
+    def with_prefix(field_prefix)
+      hash = yield
+
+      hash.transform_keys! {|k| "#{field_prefix}.#{k}"}
+    end
 
     def single_dependent_params(dependent, index:)
       {

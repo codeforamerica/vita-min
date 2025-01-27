@@ -32,8 +32,15 @@
 #  contributed_to_other_retirement_account              :integer          default("unfilled"), not null
 #  contributed_to_roth_ira                              :integer          default("unfilled"), not null
 #  current_step                                         :string
+#  cv_1095a_cb                                          :integer          default("unfilled"), not null
+#  cv_1098_cb                                           :integer          default("unfilled"), not null
+#  cv_1098_count                                        :integer
+#  cv_1098e_cb                                          :integer          default("unfilled"), not null
+#  cv_1098t_cb                                          :integer          default("unfilled"), not null
+#  cv_1099a_cb                                          :integer          default("unfilled"), not null
 #  cv_1099b_cb                                          :integer          default("unfilled"), not null
 #  cv_1099b_count                                       :integer
+#  cv_1099c_cb                                          :integer          default("unfilled"), not null
 #  cv_1099div_cb                                        :integer          default("unfilled"), not null
 #  cv_1099div_count                                     :integer
 #  cv_1099g_cb                                          :integer          default("unfilled"), not null
@@ -50,44 +57,18 @@
 #  cv_1099r_charitable_dist_amt                         :decimal(12, 2)
 #  cv_1099r_charitable_dist_cb                          :integer          default("unfilled"), not null
 #  cv_1099r_count                                       :integer
-#  cv_alimony_excluded_from_income_cb                   :integer          default("unfilled"), not null
-#  cv_alimony_income_amt                                :decimal(12, 2)
-#  cv_alimony_income_cb                                 :integer          default("unfilled"), not null
-#  cv_capital_loss_carryover_cb                         :integer          default("unfilled"), not null
-#  cv_disability_benefits_1099r_or_w2_cb                :integer          default("unfilled"), not null
-#  cv_disability_benefits_1099r_or_w2_count             :integer
-#  cv_had_tips_cb                                       :integer          default("unfilled"), not null
-#  cv_itemized_last_year_cb                             :integer          default("unfilled"), not null
-#  cv_local_tax_refund_amt                              :decimal(12, 2)
-#  cv_local_tax_refund_cb                               :integer          default("unfilled"), not null
-#  cv_other_income_cb                                   :integer          default("unfilled"), not null
-#  cv_other_income_reported_elsewhere_cb                :integer          default("unfilled"), not null
-#  cv_p2_notes_comments                                 :string
-#  cv_rental_expense_amt                                :decimal(12, 2)
-#  cv_rental_expense_cb                                 :integer          default("unfilled"), not null
-#  cv_rental_income_cb                                  :integer          default("unfilled"), not null
-#  cv_schedule_c_cb                                     :integer          default("unfilled"), not null
-#  cv_schedule_c_expenses_amt                           :decimal(12, 2)
-#  cv_schedule_c_expenses_cb                            :integer          default("unfilled"), not null
-#  cv_ssa1099_rrb1099_cb                                :integer          default("unfilled"), not null
-#  cv_ssa1099_rrb1099_count                             :integer
-#  cv_w2g_or_other_gambling_winnings_cb                 :integer          default("unfilled"), not null
-#  cv_w2g_or_other_gambling_winnings_count              :integer
-#  cv_w2s_cb                                            :integer          default("unfilled"), not null
-#  cv_w2s_count                                         :integer
-#  cv_1095a_cb                                          :integer          default("unfilled"), not null
-#  cv_1098_cb                                           :integer          default("unfilled"), not null
-#  cv_1098_count                                        :integer
-#  cv_1098e_cb                                          :integer          default("unfilled"), not null
-#  cv_1098t_cb                                          :integer          default("unfilled"), not null
-#  cv_1099a_cb                                          :integer          default("unfilled"), not null
-#  cv_1099c_cb                                          :integer          default("unfilled"), not null
 #  cv_1099s_cb                                          :integer          default("unfilled"), not null
 #  cv_14c_page_3_notes_part_1                           :string
 #  cv_14c_page_3_notes_part_2                           :string
 #  cv_14c_page_3_notes_part_3                           :string
+#  cv_alimony_excluded_from_income_cb                   :integer          default("unfilled"), not null
 #  cv_alimony_income_adjustment_yn_cb                   :integer          default("unfilled"), not null
+#  cv_alimony_income_amt                                :decimal(12, 2)
+#  cv_alimony_income_cb                                 :integer          default("unfilled"), not null
+#  cv_capital_loss_carryover_cb                         :integer          default("unfilled"), not null
 #  cv_child_dependent_care_credit_cb                    :integer          default("unfilled"), not null
+#  cv_disability_benefits_1099r_or_w2_cb                :integer          default("unfilled"), not null
+#  cv_disability_benefits_1099r_or_w2_count             :integer
 #  cv_disaster_relief_impacts_return_cb                 :integer          default("unfilled"), not null
 #  cv_edu_credit_or_tuition_deduction_cb                :integer          default("unfilled"), not null
 #  cv_edu_expenses_deduction_amt                        :decimal(12, 2)
@@ -97,17 +78,36 @@
 #  cv_energy_efficient_home_improv_credit_cb            :integer          default("unfilled"), not null
 #  cv_estimated_tax_payments_amt                        :decimal(12, 2)
 #  cv_estimated_tax_payments_cb                         :integer          default("unfilled"), not null
+#  cv_had_tips_cb                                       :integer          default("unfilled"), not null
 #  cv_hsa_contrib_cb                                    :integer          default("unfilled"), not null
 #  cv_hsa_distrib_cb                                    :integer          default("unfilled"), not null
+#  cv_itemized_last_year_cb                             :integer          default("unfilled"), not null
 #  cv_last_years_refund_applied_to_this_yr_amt          :decimal(12, 2)
 #  cv_last_years_refund_applied_to_this_yr_cb           :integer          default("unfilled"), not null
 #  cv_last_years_return_available_cb                    :integer          default("unfilled"), not null
+#  cv_local_tax_refund_amt                              :decimal(12, 2)
+#  cv_local_tax_refund_cb                               :integer          default("unfilled"), not null
 #  cv_med_expense_itemized_deduction_cb                 :integer          default("unfilled"), not null
 #  cv_med_expense_standard_deduction_cb                 :integer          default("unfilled"), not null
+#  cv_other_income_cb                                   :integer          default("unfilled"), not null
+#  cv_other_income_reported_elsewhere_cb                :integer          default("unfilled"), not null
+#  cv_p2_notes_comments                                 :string
 #  cv_paid_alimony_w_spouse_ssn_amt                     :decimal(12, 2)
 #  cv_paid_alimony_w_spouse_ssn_cb                      :integer          default("unfilled"), not null
+#  cv_rental_expense_amt                                :decimal(12, 2)
+#  cv_rental_expense_cb                                 :integer          default("unfilled"), not null
+#  cv_rental_income_cb                                  :integer          default("unfilled"), not null
+#  cv_schedule_c_cb                                     :integer          default("unfilled"), not null
+#  cv_schedule_c_expenses_amt                           :decimal(12, 2)
+#  cv_schedule_c_expenses_cb                            :integer          default("unfilled"), not null
+#  cv_ssa1099_rrb1099_cb                                :integer          default("unfilled"), not null
+#  cv_ssa1099_rrb1099_count                             :integer
 #  cv_tax_credit_disallowed_reason                      :string
 #  cv_taxable_scholarship_income_cb                     :integer          default("unfilled"), not null
+#  cv_w2g_or_other_gambling_winnings_cb                 :integer          default("unfilled"), not null
+#  cv_w2g_or_other_gambling_winnings_count              :integer
+#  cv_w2s_cb                                            :integer          default("unfilled"), not null
+#  cv_w2s_count                                         :integer
 #  demographic_disability                               :integer          default("unfilled"), not null
 #  demographic_english_conversation                     :integer          default("unfilled"), not null
 #  demographic_english_reading                          :integer          default("unfilled"), not null
@@ -218,6 +218,7 @@
 #  needs_help_2020                                      :integer          default("unfilled"), not null
 #  needs_help_2021                                      :integer          default("unfilled"), not null
 #  needs_help_2022                                      :integer          default("unfilled"), not null
+#  needs_help_2023                                      :integer          default("unfilled"), not null
 #  needs_help_current_year                              :integer          default("unfilled"), not null
 #  needs_help_previous_year_1                           :integer          default("unfilled"), not null
 #  needs_help_previous_year_2                           :integer          default("unfilled"), not null
@@ -574,18 +575,18 @@ describe Intake::GyrIntake do
 
     context "with unfilled filing years" do
       it "returns prior tax year" do
-        expect(intake.year_before_most_recent_filing_year).to eq 2022
+        expect(intake.year_before_most_recent_filing_year).to eq (Rails.application.config.gyr_current_tax_year - 1)
       end
     end
 
     context "when a year is selected" do
       let!(:client) { create :client, tax_returns: [
-        build(:tax_return, year: 2019),
-        build(:tax_return, year: 2018)
+        build(:tax_return, year: 2021),
+        build(:tax_return, year: 2022)
       ], intake: intake }
 
       it "returns the year before most recent filing year" do
-        expect(intake.year_before_most_recent_filing_year).to eq 2018
+        expect(intake.year_before_most_recent_filing_year).to eq 2021
       end
     end
   end
@@ -627,6 +628,66 @@ describe Intake::GyrIntake do
 
       it "returns true" do
         expect(intake.triaged_intake?).to eq true
+      end
+    end
+  end
+
+  describe "#written_language_preference_english?" do
+    context "when receive_written_communication is no" do
+      let(:intake) { create :intake, receive_written_communication: "no", preferred_written_language: 'es' }
+
+      it "returns true" do
+        expect(intake.written_language_preference_english?).to eq true
+      end
+    end
+
+    context "when preferred_written_language is 'en'" do
+      let(:intake) { create :intake, receive_written_communication: 'unfilled', preferred_written_language: 'en' }
+
+      it "returns true" do
+        expect(intake.written_language_preference_english?).to eq true
+      end
+    end
+
+    context "when preferred_written_language is 'EngliSh'" do
+      let(:intake) { create :intake, receive_written_communication: 'unfilled', preferred_written_language: 'EngliSh' }
+
+      it "returns true" do
+        expect(intake.written_language_preference_english?).to eq true
+      end
+    end
+
+    context "when preferred_written_language is 'ingles'" do
+      let(:intake) { create :intake, receive_written_communication: 'unfilled', preferred_written_language: 'ingles' }
+
+      it "returns true" do
+        expect(intake.written_language_preference_english?).to eq true
+      end
+    end
+
+    context "when receive_written_communication is nil and preferred_written_language is 'es'" do
+      let(:intake) { create :intake, receive_written_communication: 'unfilled', preferred_written_language: 'es' }
+
+      it "returns false" do
+        expect(intake.written_language_preference_english?).to eq false
+      end
+    end
+  end
+
+  describe "#preferred_written_language_string?" do
+    context "when preferred_written_language is a key" do
+      let(:intake) { create :intake, preferred_written_language: 'zh_tw' }
+
+      it "returns its value" do
+        expect(intake.preferred_written_language_string).to eq "Chinese Traditional"
+      end
+    end
+
+    context "when preferred_written_language is not a key" do
+      let(:intake) { create :intake, preferred_written_language: 'spaNish' }
+
+      it "returns preferred_written_language" do
+        expect(intake.preferred_written_language_string).to eq "Spanish"
       end
     end
   end

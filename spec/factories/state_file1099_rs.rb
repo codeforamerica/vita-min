@@ -46,7 +46,7 @@ FactoryBot.define do
     payer_address_line1 { "123 Sesame ST" }
     payer_address_line2 { "Apt 202" }
     payer_city_name { "Long Island" }
-    payer_zip { "12345" }
+    payer_zip { "12345-1234" }
     payer_identification_number { "22345" }
     recipient_ssn { "123456789" }
     recipient_name { "Dorothy Jane Red" }

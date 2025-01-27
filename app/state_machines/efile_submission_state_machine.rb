@@ -64,7 +64,9 @@ class EfileSubmissionStateMachine
   end
 
   after_transition(to: :preparing) do |submission|
-    StateFile::AfterTransitionMessagingService.new(submission).send_efile_submission_successful_submission_message
+    unless submission.admin_resubmission?
+      StateFile::AfterTransitionMessagingService.new(submission).send_efile_submission_successful_submission_message
+    end
     submission.transition_to(:bundling)
   end
 

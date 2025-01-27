@@ -133,6 +133,13 @@ FactoryBot.define do
       role { build(:client_success_role) }
     end
 
+    factory :state_file_nj_staff_user do
+      sequence(:email) { |n| "state.file.nj.staff#{n}@example.com" }
+      sequence(:name) { |n| "State File NJ Staff the #{n}th" }
+
+      role { build(:state_file_nj_staff_role) }
+    end
+
     factory :invited_user do
       association :invited_by, factory: :admin_user
       invitation_created_at { 1.day.ago - 1.minute }

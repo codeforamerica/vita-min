@@ -131,6 +131,15 @@ module ApplicationHelper
     ]
   end
 
+  def yes_no_prefer_not_to_answer_options_for_select
+    [
+      ["", "unfilled"],
+      [I18n.t("general.affirmative"), "yes"],
+      [I18n.t("general.negative"), "no"],
+      [I18n.t("general.prefer_not_to_answer"), "prefer_not_to_answer"],
+    ]
+  end
+
   def submission_status_icon(status)
     case status
     when "intake_in_progress", "fraud_hold"
