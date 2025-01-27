@@ -17,7 +17,7 @@
             { value: "spouse", label: t(".yes_spouse"), input_html: { "data-follow-up": "#disability-proof" } },
             { value: "both", label: t(".yes_both"), input_html: { "data-follow-up": "#disability-proof" } },
             { value: "no", label: t(".no_neither") }
-          ], legend_class: "sr-only") %>
+          ]) %>
           <% else %>
             <%= f.cfa_radio_set(:primary_disabled, collection: [
               { value: "yes", label: t("general.affirmative"), input_html: { "data-follow-up": "#disability-proof" } },
@@ -29,7 +29,7 @@
 
       <div class="question-with-follow-up__follow-up" id="disability-proof">
         <div class="white-group">
-          <%= f.cfa_radio_set(:primary_veteran, label_text: t(".proof_question"), collection: [
+          <%= f.cfa_radio_set(:proof_of_disability_submitted, label_text: t(".proof_question"), collection: [
             { value: "yes", label: t("general.affirmative") },
             { value: "no", label: t("general.negative") },
           ]) %>
