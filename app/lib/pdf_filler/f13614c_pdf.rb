@@ -77,8 +77,6 @@ module PdfFiller
         "form1[0].page1[0].writtenCommunicationLanguage[0].otherLanguageNo[0]" => @intake.written_language_preference_english? ? '1' : nil,
         "form1[0].page1[0].writtenCommunicationLanguage[0].otherLanguageYou[0]" => @intake.written_language_preference_english? ? nil : '1',
         "form1[0].page1[0].writtenCommunicationLanguage[0].whatLanguage[0]" => @intake.written_language_preference_english? ? nil : @intake.preferred_written_language_string
-      # TODO: This doesn't exist for spouse and it doesn't seem like we collect it anyways. It is part of the ticket though
-      # answers["form1[0].page1[0].writtenCommunicationLanguage[0].whatLanguage[0]"] = @intake.preferred_written_language
       )
       answers.merge!(
         keep_and_normalize(
