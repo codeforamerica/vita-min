@@ -23,12 +23,12 @@ module StateFile
     def send_message(require_verification: true)
       return nil if message_tracker.already_sent? && message.send_only_once?
 
-      send_email(require_verification: require_verification) if @do_email && !intake.unsubscribed_from_email?
+      send_email(require_verification: require_verification) if @do_email && !intake.unsubscribed_from_email? && !intake.email_notification_opt_in_no?
       if intake.unsubscribed_from_email?
         DatadogApi.increment("mailgun.state_file_notification_emails.not_sent_because_unsubscribed")
       end
 
-      send_sms(require_verification:) if @do_sms
+      send_sms(require_verification:) if @do_sms && !intake.sms_notification_opt_in_no?
 
       message_tracker.record(sent_messages.last.created_at) if sent_messages.any? # will this be recorded correctly with what we have on line 40
 
@@ -56,7 +56,6 @@ module StateFile
 
     def send_sms(require_verification: true)
       phone_number_verified = intake.phone_number_verified_at.present? || matching_intakes_has_phone_number_verified_at?(intake)
-      return if intake.sms_notification_opt_in_no?
       return if intake.phone_number.nil?
       return if require_verification && !phone_number_verified
 
