@@ -102,7 +102,6 @@ module PdfFiller
       answers["form1[0].page1[0].maritalStatus[0].statusLegallySeparated[0].dateSeparateDecree[0]"] = @intake.separated_year
       answers["form1[0].page1[0].maritalStatus[0].statusDivorced[0].dateFinalDecree[0]"] = @intake.divorced_year
       answers["form1[0].page1[0].maritalStatus[0].statusWidowed[0].yearSpousesDeath[0]"] = @intake.widowed_year
-      answers["form1[0].page1[0].additionalSpace[0].additionalSpace[0]"] = @dependents.length > 3 ? "1" : nil
 
       answers.merge!(
         yes_no_checkboxes("form1[0].page2[0].Part3[0].q1WagesOrSalary[0]", @intake.had_wages, include_unsure: true)
@@ -252,9 +251,13 @@ module PdfFiller
         yes_no_checkboxes("form1[0].page3[0].q7[0]", @intake.register_to_vote),
       )
       answers.merge!(demographic_info) if @intake.demographic_questions_opt_in_yes? || @intake.demographic_questions_hub_edit
-      answers.merge!(
-        "form1[0].page3[0].AdditionalComments[0].AdditionalComments[1]" => additional_comments,
-      )
+
+      # ty2024 page 5
+
+      answers["form1[0].page5[0].AdditionalComments[0].AdditionalNotesComments[0]"] = (@intake.additional_notes_comments || '') << "\n\n" << dependents_4th_and_up
+
+      # end - ty2024 page 5
+
       answers.merge!(vita_consent_to_disclose_info) if @intake.client&.consent&.disclose_consented_at
       answers
     end
@@ -517,34 +520,33 @@ module PdfFiller
       }
     end
 
-    def additional_comments
-      parts = []
+    def dependents_4th_and_up
+      return '' if @dependents.length < 4
 
-      parts << "#{@intake.additional_info} #{@intake.final_info}" if @intake.additional_info.present? || @intake.final_info.present?
+      s = "Additional Dependents:\n"
+      sep = ' // '
 
-      parts << "Other income types: #{@intake.other_income_types}" if @intake.other_income_types.present?
+      @dependents[3..].map do |dependent|
+        s << dependent.full_name << sep
+        s << strftime_date(dependent.birth_date) << sep
+        s << dependent.relationship << sep
+        s << 'Months lived in home in 2024: ' << dependent.months_in_home.to_s << sep
+        s << 'Single or married in 2024: ' << married_to_SM(dependent.was_married) << sep
+        s << 'US citizen: ' << yes_no_unfilled_to_YN(dependent.us_citizen) << sep
+        s << 'Resident of US/Canada/Mexico: ' << yes_no_unfilled_to_YN(dependent.north_american_resident) << sep
+        s << 'FT student: ' << yes_no_unfilled_to_YN(dependent.was_student) << sep
+        s << 'Disabled: ' << yes_no_unfilled_to_YN(dependent.disabled) << sep
+        s << 'Issued IPPIN: ' << yes_no_unfilled_to_YN(dependent.has_ip_pin) << sep
 
-      parts << <<~COMMENT.strip if @dependents.length > 3
-        Additional Dependents:
-        #{
-        @dependents[3..].map do |dependent|
-          letters = ('a'..'i').to_a
-          dependent_values = single_dependent_params(dependent, index: 0).values
-          cvp_values = []
-          tagged_values = []
-          dependent_values.each do |val|
-            letter = letters.shift
-            if letter
-              tagged_values << "(#{letter}) #{val}"
-            else
-              cvp_values << val
-            end
-          end.compact
-          "#{tagged_values.join(' ')} CVP: #{cvp_values.join('/')}"
-        end.join("\n")
-        }
-      COMMENT
-      parts.join("\n")
+        # gray fields
+        s << 'Qualifying child or relative of any other person: ' <<  yes_no_na_unfilled_to_YNNA(dependent.can_be_claimed_by_other) << sep
+        s << 'Provided more than 50% of their own support: ' << yes_no_na_unfilled_to_YNNA(dependent.provided_over_half_own_support) << sep
+        s << 'Had less than $5,050 income: ' << yes_no_na_unfilled_to_YNNA(dependent.below_qualifying_relative_income_requirement) << sep
+        s << 'Taxpayer(s) provided more than 50% of support: ' << yes_no_na_unfilled_to_YNNA(dependent.filer_provided_over_half_support) << sep
+        s << 'Taxpayer(s) paid more than half the cost of maintaining home for this person: ' << yes_no_na_unfilled_to_YNNA(dependent.filer_provided_over_half_housing_support) << "\n\n"
+      end.join()
+
+      s
     end
 
     def determine_direct_deposit(intake)
@@ -561,6 +563,16 @@ module PdfFiller
         "unfilled" => ""
       }[yes_no_unfilled]
     end
+
+    def yes_no_na_unfilled_to_YNNA(yes_no_na_unfilled)
+      {
+        "yes" => "Y",
+        "no" => "N",
+        "na" => "N/A",
+        "unfilled" => ""
+      }[yes_no_na_unfilled]
+    end
+
 
     def married_to_SM(was_married_yes_no_unfilled)
       {
