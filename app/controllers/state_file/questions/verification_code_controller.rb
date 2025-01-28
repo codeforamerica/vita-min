@@ -49,7 +49,10 @@ module StateFile
 
       def get_existing_intake(intake)
 
-        state_intake_classes = StateFile::StateInformationService.state_intake_classes
+        #we don't help new york any more
+        state_intake_classes = StateFile::StateInformationService.state_intake_classes.reject do |klass|
+          klass == StateFileNyIntake
+        end
 
         state_intake_classes.each do |intake_class|
           search = intake_class.where.not(id: intake.id, raw_direct_file_data: nil)
