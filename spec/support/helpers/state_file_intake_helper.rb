@@ -70,7 +70,9 @@ module StateFileIntakeHelper
   def expect_programmatically_associated_help_text
     help_texts = page.all(:css, '.text--help')
     help_texts.each do |el|
-      binding.pry
+      id = el[:id]
+      inputs_described_by_el = page.all(:css, "input[aria-describedby='#{id}']")
+      expect(inputs_described_by_el.length).to eq(1)
     end
   end
 
