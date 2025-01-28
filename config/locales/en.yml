@@ -3916,7 +3916,6 @@ en:
           save_and_continue: Save and Continue
           state_income_tax_amt_error: Cannot be greater than State wages and tips.
           state_wages_amt_error: Please enter State wages and tips
-          state_wages_exceed_amt_error: Total state wages and tips cannot be greater than $%{wages_amount}
           wages_amt_error: Total income tax cannot be greater than $%{wages_amount}
           what_is_box14_md: What could be in Box 14?
           what_is_box14_nj: What should I put in these Box 14 fields?
