@@ -3888,7 +3888,6 @@ es:
           save_and_continue: Guardar y Continuar
           state_income_tax_amt_error: No puede ser mayor que los salarios y propinas estatales.
           state_wages_amt_error: Ingresa los salarios y propinas estatales
-          state_wages_exceed_amt_error: El total de salarios e ingresos estatales no puede ser mayor que $%{wages_amount}
           wages_amt_error: El impuesto sobre la renta total no puede ser mas de $%{wages_amount}
           what_is_box14_md: "¿Qué podría aparecer en la casilla 14?"
           what_is_box14_nj: "¿Qué debo poner en los casilleros 14?"

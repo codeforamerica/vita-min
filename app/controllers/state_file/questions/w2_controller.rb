@@ -15,9 +15,9 @@ module StateFile
         @w2.assign_attributes(form_params)
         @w2.check_box14_limits = true
 
-        if @w2.valid?
+        if @w2.valid?(:state_file_edit)
           @w2.box14_ui_hc_wd = nil
-          @w2.save
+          @w2.save(context: :state_file_edit)
           redirect_to StateFile::Questions::IncomeReviewController.to_path_helper(return_to_review: params[:return_to_review])
         else
           render :edit
