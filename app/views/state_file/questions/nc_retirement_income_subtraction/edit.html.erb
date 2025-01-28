@@ -35,8 +35,8 @@
 
       <div class="question-with-follow-up__follow-up" id="select-bailey-settlement">
         <div class="white-group">
+          <p class="spacing-below-15"><%= t(".bailey_settlement_checkboxes") %></p>
           <div class="tight-checkboxes">
-            <p><%= t(".bailey_settlement_checkboxes") %></p>
             <%= f.cfa_checkbox(:bailey_settlement_at_least_five_years, t(".bailey_settlement_at_least_five_years"), options: { checked_value: "yes", unchecked_value: "no" }) %>
             <%= f.cfa_checkbox(:bailey_settlement_from_retirement_plan, t(".bailey_settlement_from_retirement_plan"), options: { checked_value: "yes", unchecked_value: "no" }) %>
             <%= f.cfa_checkbox(:bailey_settlement_none_apply, t(".other"), options: { checked_value: "yes", unchecked_value: "no" }) %>
@@ -46,8 +46,8 @@
 
       <div class="question-with-follow-up__follow-up" id="select-uniform-services">
         <div class="white-group">
+          <p class="spacing-below-15"><%= t(".uniformed_services_checkboxes") %></p>
           <div class="tight-checkboxes">
-            <p><%= t(".uniformed_services_checkboxes") %></p>
             <%= f.cfa_checkbox(:uniformed_services_retired, t(".uniformed_services_retired"), options: { checked_value: "yes", unchecked_value: "no" }) %>
             <%= f.cfa_checkbox(:uniformed_services_qualifying_plan, t(".uniformed_services_qualifying_plan"), options: { checked_value: "yes", unchecked_value: "no" }) %>
             <%= f.cfa_checkbox(:uniformed_services_none_apply, t(".other"), options: { checked_value: "yes", unchecked_value: "no" }) %>

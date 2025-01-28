@@ -3098,7 +3098,7 @@ en:
           bailey_settlement_from_retirement_plan: Did you or your spouse receive retirement benefits from NC's 401(k) or 457 plan, and were you contracted to OR contributed to the plan before August 12, 1989?
           doc_1099r_label: 1099-R
           income_source_bailey_settlement_html: Retirement benefits as part of <strong>Bailey Settlement</strong>
-          income_source_question: Select the source of this income
+          income_source_question: "Select the source of this income:"
           other: None of these apply
           subtitle: We need more information about this 1099-R to check your eligibility.
           taxable_amount_label: 'Taxable amount:'

@@ -3054,7 +3054,7 @@ es:
           bailey_settlement_from_retirement_plan: "¿Recibió usted o su cónyuge beneficios de jubilación del plan 401(k) o 457 de Carolina del Norte y estuvo contratado o contribuyó al plan antes del 12 de agosto de 1989?"
           doc_1099r_label: 1099-R
           income_source_bailey_settlement_html: Beneficios de jubilación como parte del <strong>Acuerdo Bailey</strong>
-          income_source_question: Seleccione la fuente de este ingreso
+          income_source_question: "Seleccione la fuente de este ingreso:"
           other: Ninguno de estos se aplica
           subtitle: Necesitamos más información sobre este 1099-R para verificar su elegibilidad.
           taxable_amount_label: 'Base imponible:'
