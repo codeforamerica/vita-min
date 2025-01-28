@@ -157,6 +157,7 @@ RSpec.describe PdfFiller::F13614cPdf do
           below_qualifying_relative_income_requirement: "yes",
           filer_provided_over_half_support: "yes",
           filer_provided_over_half_housing_support: "na",
+          has_ip_pin: "yes",
         )
         create(
           :dependent,
@@ -176,6 +177,7 @@ RSpec.describe PdfFiller::F13614cPdf do
           below_qualifying_relative_income_requirement: "yes",
           filer_provided_over_half_support: "na",
           filer_provided_over_half_housing_support: "yes",
+          has_ip_pin: "no",
         )
         create(
           :dependent,
@@ -195,6 +197,7 @@ RSpec.describe PdfFiller::F13614cPdf do
           below_qualifying_relative_income_requirement: "na",
           filer_provided_over_half_support: "na",
           filer_provided_over_half_housing_support: "yes",
+          has_ip_pin: "unfilled",
         )
       end
 
@@ -212,6 +215,7 @@ RSpec.describe PdfFiller::F13614cPdf do
                             "form1[0].page1[0].namesOf[0].Row1[0].residentUSCandaMexico[0]" => "Y",
                             "form1[0].page1[0].namesOf[0].Row1[0].fullTimeStudent[0]" => "N",
                             "form1[0].page1[0].namesOf[0].Row1[0].totallyPermanentlyDisabled[0]" => "N",
+                            "form1[0].page1[0].namesOf[0].Row1[0].issuedIPPIN[0]" => "Y",
                             # dependent 2
                             "form1[0].page1[0].namesOf[0].Row2[0].nameFirstLast[0]" => "Parker Pony",
                             "form1[0].page1[0].namesOf[0].Row2[0].dateOfBirth[0]" => "12/10/2001",
@@ -222,6 +226,7 @@ RSpec.describe PdfFiller::F13614cPdf do
                             "form1[0].page1[0].namesOf[0].Row2[0].residentUSCandaMexico[0]" => "Y",
                             "form1[0].page1[0].namesOf[0].Row2[0].fullTimeStudent[0]" => "Y",
                             "form1[0].page1[0].namesOf[0].Row2[0].totallyPermanentlyDisabled[0]" => "N",
+                            "form1[0].page1[0].namesOf[0].Row2[0].issuedIPPIN[0]" => "N",
                             # dependent 3
                             "form1[0].page1[0].namesOf[0].Row3[0].nameFirstLast[0]" => "Penny Pony",
                             "form1[0].page1[0].namesOf[0].Row3[0].dateOfBirth[0]" => "10/15/2010",
@@ -232,6 +237,7 @@ RSpec.describe PdfFiller::F13614cPdf do
                             "form1[0].page1[0].namesOf[0].Row3[0].residentUSCandaMexico[0]" => "Y",
                             "form1[0].page1[0].namesOf[0].Row3[0].fullTimeStudent[0]" => "N",
                             "form1[0].page1[0].namesOf[0].Row3[0].totallyPermanentlyDisabled[0]" => "Y",
+                            "form1[0].page1[0].namesOf[0].Row3[0].issuedIPPIN[0]" => "",
                             )
       end
 
