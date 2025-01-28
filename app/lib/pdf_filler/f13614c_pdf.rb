@@ -104,25 +104,41 @@ module PdfFiller
       answers["form1[0].page1[0].maritalStatus[0].statusWidowed[0].yearSpousesDeath[0]"] = @intake.widowed_year
 
       answers.merge!(
-        yes_no_checkboxes("form1[0].page2[0].Part3[0].q1WagesOrSalary[0]", @intake.had_wages, include_unsure: true)
+        keep_and_normalize(
+          with_prefix("form1[0].page2[0].receivedMoneyFrom[0]") do
+            {
+              "wagesPartFull[0]" => @intake.had_wages_yes?,
+              "receivedMoneyTimps[0]" => @intake.had_tips_yes?,
+              "retirementAccount[0]" => @intake.had_retirement_income_yes?,
+              "disabilityBenefits[0].disabilityBenefits[0]" => @intake.had_disability_income_yes?,
+              "socialSecurityRailroad[0]" => @intake.had_social_security_income_yes?,
+              "unemploymentBenefits[0]" => @intake.had_unemployment_income_yes?,
+              "refundStateLocal[0]" => @intake.had_local_tax_refund_yes?,
+              "interestOrDividends[0]" => @intake.had_interest_income_yes?,
+              "saleStocksBonds[0]" => @intake.had_asset_sale_income_yes?,
+              "reportALoss[0].reportLossYes[0]" => @intake.reported_asset_sale_loss_yes?,
+              "reportALoss[0].reportLossNo[0]" => @intake.reported_asset_sale_loss_no?,
+              "receivedAlimony[0]" => @intake.received_alimony_yes?,
+              "incomeRentingHouse[0].incomeRentingHouse[0]" => @intake.had_rental_income_yes?,
+              "useAsPersonal[0].personalResidenceYes[0]" => @intake.had_rental_income_and_used_dwelling_as_residence_yes?,
+              "useAsPersonal[0].personalResidenceNo[0]" => @intake.had_rental_income_and_used_dwelling_as_residence_no?,
+              "incomeRentingVehicle[0]" => @intake.had_rental_income_from_personal_property_yes?,
+              "gamblingLotteryWinnings[0]" => @intake.had_gambling_income_yes?,
+              "paymentsContractSelf[0]" => @intake.had_self_employment_income_yes?,
+              "lossLastReturn[0].reportLossYes[0]" => @intake.reported_self_employment_loss_yes?,
+              "lossLastReturn[0].reportLossNo[0]" => @intake.reported_self_employment_loss_no?,
+              "otherMoneyReceived[0].otherMoneyReceived[0]" => @intake.had_other_income_yes?
+            }
+          end
+        )
       )
+
+      answers["form1[0].page2[0].receivedMoneyFrom[0].howManyJobs[0]"] = @intake.job_count.to_s
+
       answers.merge!(
-        "form1[0].page2[0].Part3[0].q1WagesOrSalary[0].NumberOfJobs[0]" => @intake.job_count.to_s,
-      )
-      answers.merge!(
-        yes_no_checkboxes("form1[0].page2[0].Part3[0].q2TipIncome[0]", @intake.had_tips, include_unsure: true),
         yes_no_checkboxes("form1[0].page2[0].Part3[0].q3Scholarships[0]", @intake.had_scholarships, include_unsure: true),
-        yes_no_checkboxes("form1[0].page2[0].Part3[0].q4InterestDividendsFrom[0]", @intake.had_interest_income, include_unsure: true),
-        yes_no_checkboxes("form1[0].page2[0].Part3[0].q5RefundOfState[0]", fetch_gated_value(@intake, :had_local_tax_refund), include_unsure: true),
-        yes_no_checkboxes("form1[0].page2[0].Part3[0].q6AlimonyIncome[0]", fetch_gated_value(@intake, :received_alimony), include_unsure: true),
-        yes_no_checkboxes("form1[0].page2[0].Part3[0].q7SelfEmploymentIncome[0]", @intake.had_self_employment_income, include_unsure: true),
         yes_no_checkboxes("form1[0].page2[0].Part3[0].q8CashCheckPayments[0]", @intake.had_cash_check_digital_assets, include_unsure: true),
         yes_no_checkboxes("form1[0].page2[0].Part3[0].q10DisabilityIncome[0]", @intake.had_disability_income, include_unsure: true),
-        yes_no_checkboxes("form1[0].page2[0].Part3[0].q11RetirementIncome[0]", fetch_gated_value(@intake, :had_retirement_income), include_unsure: true),
-        yes_no_checkboxes("form1[0].page2[0].Part3[0].q12UnemploymentCompensation[0]", @intake.had_unemployment_income, include_unsure: true),
-        yes_no_checkboxes("form1[0].page2[0].Part3[0].q13SocialSecurityOr[0]", fetch_gated_value(@intake, :had_social_security_income), include_unsure: true),
-        yes_no_checkboxes("form1[0].page2[0].Part3[0].q14IncomeOrLoss[0]", @intake.had_rental_income, include_unsure: true),
-        yes_no_checkboxes("form1[0].page2[0].Part3[0].q15OtherIncome[0]", collective_yes_no_unsure(@intake.had_other_income, fetch_gated_value(@intake, :had_gambling_income)), include_unsure: true),
 
         yes_no_checkboxes("form1[0].page2[0].Part4[0].q1Alimony[0]", fetch_gated_value(@intake, :paid_alimony), include_unsure: true),
         yes_no_checkboxes("form1[0].page2[0].Part4[0].q1Alimony[0].IfYes[0]", @intake.has_ssn_of_alimony_recipient),
@@ -137,7 +153,6 @@ module PdfFiller
 
       answers.merge!(
         yes_no_checkboxes("form1[0].page2[0].Part4[0].q3PostSecondary[0]", @intake.paid_post_secondary_educational_expenses, include_unsure: true),
-        yes_no_checkboxes("form1[0].page2[0].Part4[0].q4Deductions[0]", @intake.wants_to_itemize, include_unsure: true),
       )
       answers.merge!(
         keep_and_normalize({
