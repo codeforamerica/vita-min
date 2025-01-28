@@ -282,7 +282,7 @@ es:
         is_hsa: es HSA
       taxes_owed:
         withdraw_amount_higher_than_owed: Ingresa una cantidad menor o igual a %{owed_amount}
-        withdrawal_date_deadline: Introduzca una fecha entre hoy y Abril %{day}, %{year}o antes
+        withdrawal_date_deadline: Introduzca una fecha entre hoy y Abril %{day}, %{year} o antes
   general:
     NA: N/A
     about: Acerca de
