@@ -128,14 +128,6 @@ FactoryBot.define do
     
     after(:build) do |intake, evaluator|
       intake.municipality_code = "0101"
-      numeric_status = {
-        single: 1,
-        married_filing_jointly: 2,
-        married_filing_separately: 3,
-        head_of_household: 4,
-        qualifying_widow: 5,
-        }[evaluator.filing_status.to_sym] || evaluator.filing_status
-      intake.direct_file_data.filing_status = numeric_status
       intake.direct_file_data.primary_ssn = evaluator.primary_ssn || intake.direct_file_data.primary_ssn
       intake.direct_file_data.spouse_ssn = evaluator.spouse_ssn || intake.direct_file_data.spouse_ssn
       intake.raw_direct_file_data = intake.direct_file_data.to_s
@@ -181,8 +173,6 @@ FactoryBot.define do
     trait :df_data_no_deps do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_springsteen_mfj') }
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_springsteen_mfj') }
-      primary_birth_date { Date.new(1990, 1, 1) }
-      spouse_birth_date { Date.new(1990, 1, 1) }
     end
 
     trait :df_data_many_deps do
