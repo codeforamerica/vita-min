@@ -1398,9 +1398,9 @@ es:
   messages:
     closing_soon:
       email:
-        body: 'Cerramos la temporada de impuestos de GetYourRefund el {end_of_in_progress_intake_date}. Necesitamos todos los documentos requeridos antes del {end_of_docs_date} de lo contrario, no podremos preparar su declaración de impuestos. Por favor inicie sesión y responda antes del {end_of_docs_date}.  <<Client.LoginLink>> Si no tenemos noticias suyas para entonces, cerraremos su caso y podrá presentar su declaración de impuestos con nosotros el próximo año. '
+        body: 'Cerramos la temporada de impuestos de GetYourRefund el %{end_of_in_progress_intake_date}. Necesitamos todos los documentos requeridos antes del %{end_of_docs_date} de lo contrario, no podremos preparar su declaración de impuestos. Por favor inicie sesión y responda antes del %{end_of_docs_date}.  <<Client.LoginLink>> Si no tenemos noticias suyas para entonces, cerraremos su caso y podrá presentar su declaración de impuestos con nosotros el próximo año.'
         subject: GetYourRefund cerrará próximamente -- actúe ahora si necesita services de preparación de impuestos.
-      sms: 'Cerramos la temporada de impuestos de GetYourRefund el {end_of_in_progress_intake_date}. Necesitamos todos los documentos requeridos antes del {end_of_docs_date}; de lo contrario, no podremos preparar su declaración de impuestos. Por favor inicie sesión y responda antes del {end_of_docs_date}.  <<Client.LoginLink>> Si no tenemos noticias suyas para entonces, cerraremos su caso y podrá presentar su declaración de impuestos con nosotros el próximo año. '
+      sms: 'Cerramos la temporada de impuestos de GetYourRefund el %{end_of_in_progress_intake_date}. Necesitamos todos los documentos requeridos antes del %{end_of_docs_date}; de lo contrario, no podremos preparar su declaración de impuestos. Por favor inicie sesión y responda antes del %{end_of_docs_date}.  <<Client.LoginLink>> Si no tenemos noticias suyas para entonces, cerraremos su caso y podrá presentar su declaración de impuestos con nosotros el próximo año.'
     contact_info_change:
       email:
         body: |
@@ -1646,9 +1646,17 @@ es:
           El equipo de FileYourStateTaxes
       terminal_rejected:
         email:
-          body: ''
+          body: |
+            Hola, %{primary_first_name}:
+
+            Lamentablemente, %{state_name} rechazó su declaración de impuestos estatales debido a un problema que no se puede resolver en nuestra herramienta. ¡No se preocupe! Podemos ayudarlo a brindarle orientación sobre los próximos pasos. Puede chatear con nosotros en %{return_status_link}.
+
+            ¿Tiene preguntas? Responda a este correo electrónico.
+
+            Atentamente,
+            El equipo de FileYourStateTaxes
           subject: 'Notificación de FileYourStateTaxes: La Declaración de Impuestos Estatales de %{state_name}  %{state_name}.'
-        sms: ''
+        sms: "Hola, %{primary_first_name}: Lamentablemente, %{state_name} rechazó tu declaración de impuestos estatales por un problema que no se puede resolver en nuestra herramienta. ¡No te preocupes! Podemos ayudarte a brindar orientación sobre los próximos pasos. Chatea con nosotros en %{return_status_link}. \n\n¿Tienes preguntas? Responde a este texto.\n"
       welcome:
         email:
           body: "Hola,\n\n¡Hemos creado exitosamente tu cuenta en FileYourStateTaxes! Te enviaremos actualizaciones sobre el estado de tu declaración de impuestos estatal una vez que la envíes. Mientras estás presentando tu declaración, tus respuestas se guardarán a medida que avances. Si necesitas hacer una pausa, puedes regresar e iniciar sesión en tu cuenta en fileyourstatetaxes.org/es.\n\nTu ID de cliente es %{intake_id}. Esta es una pieza importante de información de tu cuenta que puedes necesitar al hablar con nuestro equipo de soporte. Por favor, haz un seguimiento de este número y no borres este mensaje.\n\n¿Necesitas ayuda? Responde a este correo electrónico.\n\nSaludos, \nEl equipo de FileYourStateTaxes\n"
@@ -2159,7 +2167,10 @@ es:
         title_closed: Nuestro servicio gratuito para declarar tus impuestos estatales de %{state_name} está cerrado por la temporada
         welcome_back: "¡Bienvenido de nuevo %{user_name}!"
       ny_closed:
-        body_html: ''
+        body_html: |
+          No puedes usar este servicio para declarar tus impuestos estatales de Nueva York de 2024. Sin embargo, podrías declarar con IRS Direct File y New York State Direct File. Para verificar tu elegibilidad y comenzar a presentar tu declaración federal, visita a IRS Direct File. a <a href="https://directfile.irs.gov/">IRS Direct File</a>.
+          <br /><br />
+          Para descargar tu declaración de impuestos de Nueva York de 2023, <a href="https://www.fileyourstatetaxes.org/es/az/faq/how_can_i_access_my_2023_state_tax_return">visita nuestras preguntas frecuentes</a>.
         supported_by: Respaldada por el estado de Nueva York
         title: Gracias por visitar FileYourStateTaxes
     navigation:
@@ -2209,7 +2220,7 @@ es:
           prior_last_names_label:
             many: Ingresa todos los apellidos utilizados por usted y su cónyuge en los últimos cuatro años.
             one: 'Ingresa todos los apellidos que usaste en los últimos cuatro años. (Ejemplo: Smith, Jones, Brown)'
-            other: 'Ingresa todos los apellidos que usaste en los últimos cuatro años. '
+            other: 'Ingresa todos los apellidos que usaste en los últimos cuatro años.'
           subtitle: Esto incluye los años fiscales del %{start_year} al %{end_year}
           title:
             many: "¿Usted o su cónyuge presentaron una declaración con un apellido diferente en los últimos cuatro años?"
@@ -2498,7 +2509,7 @@ es:
                   <li>Pagos de un sistema de pensiones a bomberos y policías por lesiones o discapacidades relacionadas con el trabajo</li>
                   <li>Gastos de hasta $5,000 de una persona ciega para un lector, o hasta $1,000 de un empleador para comprar un lector para un empleado ciego</li>
                   <li>Contribuciones a cuentas ABLE</li>
-                  <li>Exclusión de pensiones (si tienes menos de 65 años y quieres incluirla debido a una discapacidad permanente, por primera vez)  </li>
+                  <li>Exclusión de pensiones (si tienes menos de 65 años y quieres incluirla debido a una discapacidad permanente, por primera vez)</li>
                   <li>Cualquier otra deducción de Maryland no mencionada aquí (consulta el formulario 502SU)</li>
                 </ul>
               </li>
@@ -2534,11 +2545,11 @@ es:
               </li>
             </ul>
             <p>
-             Encuentra un desglose más detallado de los créditos y restas no respaldados este año <a href="https://www.fileyourstatetaxes.org/en/md/faq/md_not_supported_credits_and_subtractions" rel="noopener nofollow" target="_blank">aquí</a>.
+             Encuentra un desglose más detallado de los créditos y restas no respaldados este año <a href="https://www.fileyourstatetaxes.org/es/md/faq/md_not_supported_credits_and_subtractions" rel="noopener nofollow" target="_blank">aquí</a>.
             </p>
           body2_html: |
             <p>
-              Este año, <strong>no puedes reclamar el Crédito Tributario por Ingresos del Trabajo de Maryland utilizando este servicio </strong> en los siguientes escenarios:
+              Este año, <strong>no puedes reclamar el Crédito Tributario por Ingresos del Trabajo de Maryland utilizando este servicio</strong> en los siguientes escenarios:
             </p>
             <ul>
               <li>Si tú u otras personas en tu familia tienen un Número de Identificación del Contribuyente Individual (ITIN) en lugar de un Número de Seguro Social y han recibido ingresos de un trabajo</li>
@@ -2558,7 +2569,7 @@ es:
                       <a href="https://airtable.com/appAgBw351Iig0YI4/pagVvtGPWrpURJrrd/form" rel="noopener nofollow" target="_blank">Comienza con VITA ahora</a>
                     </li>
                     <li>
-                      Obtén más información sobre este proceso y otras opciones para presentar tu declaración <a href="https://www.fileyourstatetaxes.org/en/md/faq/what_are_my_other_state_filing_options_this_year_46" rel="noopener nofollow" target="_blank">here</a>.
+                      Obtén más información sobre este proceso y otras opciones para presentar tu declaración <a href="https://www.fileyourstatetaxes.org/es/md/faq/what_are_my_other_state_filing_options_this_year_46" rel="noopener nofollow" target="_blank">aquí</a>.
                     </li>
                   </ul>
                 </li>
@@ -2750,7 +2761,7 @@ es:
           situation_undocumented: Vivir en los Estados Unidos sin documentación
           situations_question:
             many: "¿Alguna de las siguientes situaciones aplicó a ti o tu hogar en %{year}?"
-            one: "¿Alguna de las siguientes situaciones aplicó a ti en%{year}?"
+            one: "¿Alguna de las siguientes situaciones aplicó a ti en %{year}?"
             other: "¿Alguna de las siguientes situaciones aplicó a ti o tu hogar %{year}?"
           title: "¡Podrías ser elegible para el Crédito de Idaho por Compras de Alimentos!"
           title_html: "¡Podrías ser elegible para el<a href=https://tax.idaho.gov/taxes/income-tax/individual-income/popular-credits-and-deductions/idaho-grocery-credit/>Crédito de Idaho por Compras de Alimentos</a>!"
@@ -2818,7 +2829,7 @@ es:
           title: "¡Podrías ser elegible para una excepción al Impuesto del Fondo Permanente para Edificios!"
       id_primary_state_id:
         id_primary:
-          encourage_sharing_html: Si tú y tu cónyuge tienen una licencia de conducir o una tarjeta de identificación emitida por el estado, por favor ingresa la información solicitada de ella. La declaración no será rechazada si no se ingresa un número de  licencia de conducir o identificación emitida por el estado.<br><br>Compartir esta información, puede ayudar a identificarte como la persona contribuyente.
+          encourage_sharing_html: Si tú y tu cónyuge tienen una licencia de conducir o una tarjeta de identificación emitida por el estado, por favor ingresa la información solicitada de ella. La declaración no será rechazada si no se ingresa un número de licencia de conducir o identificación emitida por el estado.<br><br>Compartir esta información, puede ayudar a identificarte como la persona contribuyente.
           protect_identity: Muchas agencias de ingresos estatales, incluido Idaho, están solicitando información adicional en un esfuerzo por combatir el fraude fiscal por robo de identidad y protegerte a ti y a tu reembolso de impuestos.
           read_more_here_html: Puedes leer más <a href="https://tax.idaho.gov/taxes/income-tax/individual-income/refund/" target="_blank" rel="noopener noreferrer">aquí</a>.
           subtitle: Proporcione su número de licencia de conducir o tarjeta de identidad cuando presente su declaración electrónica para ayudar a procesar su reembolso más rápido.
@@ -2855,7 +2866,7 @@ es:
           help_text: Te pediremos que ingreses la información que pueda faltar.
           interest_income_body: No se necesita información estatal adicional
           interest_income_title: Ingresos por intereses (1099-INT)
-          invalid_w2: ''
+          invalid_w2: 'Hay un problema con uno o más formularios W-2. Por favor revise y corrija antes de continuar.'
           no_info_needed: No se necesita información estatal adicional
           no_info_needed_nj: Este ingreso no es tributable en New Jersey.
           retirement_income_title: Jubilación (1099-R)
@@ -2877,7 +2888,7 @@ es:
             <p>Primero, <strong>asegúrate de que tu declaración federal haya sido aceptada.</strong></p>
             <p><strong>¿Cómo sé si fue aceptada?</strong></p>
             <p>Recibirás dos correos electrónicos del IRS: uno al enviar tu declaración federal de impuestos y otro cuando tu declaración haya sido aceptada. Revisa tu correo electrónico y carpeta de spam para confirmar si recibiste uno de aceptación. </p>
-            <p>La transferencia segura desde el servicio de Direct File del IRS generalmente toma 3 minutos o menos. </p>
+            <p>La transferencia segura desde el servicio de Direct File del IRS generalmente toma 3 minutos o menos.</p>
           title: Ahora completemos tu declaración de impuestos estatal
       md_county:
         edit:
@@ -2897,15 +2908,15 @@ es:
       md_eligibility_filing_status:
         edit:
           eligibility_filing_status_label_text: "¿Estás casado y presentando una declaración de impuestos estatales conjunta?"
-          eligibility_first_time_homebuyer_withdrawal_label_text_html: "¿Tú o tu cónyuge retiraron dinero de una Cuenta de Comprador de Vivienda por Primera Vez y <strong> no </strong>  lo utilizaron para comprar una casa en Maryland en  %{year}?"
+          eligibility_first_time_homebuyer_withdrawal_label_text_html: "¿Tú o tu cónyuge retiraron dinero de una Cuenta de Comprador de Vivienda por Primera Vez y <strong>no</strong> lo utilizaron para comprar una casa en Maryland en %{year}?"
           eligibility_mfj_two_different_areas_label_text: "¿Tú y tu cónyuge tenían sus hogares permanentes en dos condados, ciudades, pueblos o áreas fiscales diferentes el último día de %{year}?"
           eligibility_mfj_two_different_areas_no: No, mi cónyuge y yo vivimos en el mismo condado, ciudad, pueblo o área fiscal
           eligibility_mfj_two_different_areas_yes: Sí, mi cónyuge y yo vivimos permanentemente en condados, ciudades, pueblos o áreas fiscales diferentes
-          eligibility_non_mfj_first_time_homebuyer_withdrawal_label_text_html: "¿Retiraste dinero de una Cuenta de Comprador de Vivienda por Primera Vez y <strong> no </strong>  lo usaste para comprar una casa en Maryland en %{year}?"
+          eligibility_non_mfj_first_time_homebuyer_withdrawal_label_text_html: "¿Retiraste dinero de una Cuenta de Comprador de Vivienda por Primera Vez y <strong>no</strong> lo usaste para comprar una casa en Maryland en %{year}?"
           permanent_home_copy: No puedes usar este servicio si tú y tu cónyuge viven en diferentes condados, ciudades, pueblos o áreas fiscales, y no es una situación temporal.
           permanent_home_copy2: Si dejas tu hogar permanente para trabajar o cuidar a alguien, pero planeas regresar, tu hogar permanente no ha cambiado. Se considera que tú y tu cónyuge viven en diferentes condados, ciudades, pueblos o áreas fiscales sólo si están quedándose en estos hogares separados y no es temporal.
           permanent_home_heading: "¿Qué es un hogar permanente?"
-          subtitle: Para la temporada de %{year},  este servicio sólo estará disponible para personas con situaciones fiscales específicas. Para saber si puedes usarlo, responde las siguientes preguntas.
+          subtitle: Para la temporada de %{year}, este servicio sólo estará disponible para personas con situaciones fiscales específicas. Para saber si puedes usarlo, responde las siguientes preguntas.
           title: Primero, veamos si puedes usar este servicio para declarar tus impuestos del Maryland de %{year}
       md_had_health_insurance:
         edit:
@@ -2927,8 +2938,8 @@ es:
           subtitle: Compartir esta información <strong>no</strong> afectará tu declaración de impuestos.
           title: Antes de que envíes, tenemos algunas preguntas sobre la cobertura de seguro de salud
           what_will_be_shared: "¿Qué información se compartirá con Maryland Health Connection?"
-          which_members_not_have_insurance: Selecciona al(los) miembro(s) de tu hogar que <strong> no tenía(n) </strong>  cobertura de salud al finalizar %{tax_year}.
-          why_ask_explanation: 'Esta información ayudará a Maryland Health Connection a determinar la elegibilidad para miembros de tu hogar que no tienen seguro médico para que reciban cobertura de salud sin costo o de bajo costo. Compartir esta información<strong>no afectará</strong>tu declaración de impuestos y no generará penalizaciones.  '
+          which_members_not_have_insurance: Selecciona al(los) miembro(s) de tu hogar que <strong>no tenía(n)</strong> cobertura de salud al finalizar %{tax_year}.
+          why_ask_explanation: 'Esta información ayudará a Maryland Health Connection a determinar la elegibilidad para miembros de tu hogar que no tienen seguro médico para que reciban cobertura de salud sin costo o de bajo costo. Compartir esta información<strong>no afectará</strong>tu declaración de impuestos y no generará penalizaciones.'
           why_ask_this: "¿Por qué te preguntamos esto?"
       md_permanent_address:
         edit:
@@ -3216,7 +3227,7 @@ es:
           helper_anchor_heading: "¿Qué pasa si recibí beneficios ANCHOR u Homestead?"
           helper_description: Puedes revisar tus facturas de impuestos trimestrales y sumar el total pagado a tu municipio.
           helper_heading: "¿Dónde puedo encontrar los impuestos sobre la propiedad pagados?"
-          label_html: "<strong>Ingresa la Línea 4 de la Hoja de Trabajo</strong><br/>(Tu parte del total de impuestos sobre la propiedad pagados)"
+          label_html: "<strong>Ingresa la Línea 4 de la Hoja de Trabajo</strong><br/> (Tu parte del total de impuestos sobre la propiedad pagados)"
           title: Buenas noticias—calificas para una deducción o crédito
       nj_household_rent_own:
         edit:
@@ -3401,11 +3412,11 @@ es:
       nj_tenant_property_tax_worksheet:
         edit:
           description_html: "<p>Completa esta  <a href=\"https://www.nj.gov/treasury/taxation/pdf/wrkshtg.pdf\" target=\"_blank\" rel=\"noopener nofollow\">hoja de trabajo</a>.</p> \n<p>Una vez que la completes, vuelve a esta página.</p>\n<p>La hoja de trabajo te preguntará dónde viviste y por cuánto tiempo. Si te mudaste, por ejemplo, tendrá espacio para que enumeres todos los lugares donde viviste.</p>\n"
-          helper_anchor_description_html: 'Si recibiste un beneficio de Comunidades Accesibles de New Jersey para Propietarios e Inquilinos (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a>por las siglas en inglés), el monto del beneficio no afecta el monto a informar de la pregunta superior. (ANCHOR ofrece alivio de impuestos a la propiedad a residentes de New Jersey que tengan o alquilen una vivienda principal en New Jersey y que cumplan con ciertos límites de ingresos). '
+          helper_anchor_description_html: 'Si recibiste un beneficio de Comunidades Accesibles de New Jersey para Propietarios e Inquilinos (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> por las siglas en inglés), el monto del beneficio no afecta el monto a informar de la pregunta superior. (ANCHOR ofrece alivio de impuestos a la propiedad a residentes de New Jersey que tengan o alquilen una vivienda principal en New Jersey y que cumplan con ciertos límites de ingresos).'
           helper_anchor_heading: "¿Qué pasa si recibí beneficios ANCHOR?"
           helper_description_html: Escribe las tarifas de tu sitio pagadas en 2024 %{filing_year} en la sección de alquiler de la <a href="https://www.nj.gov/treasury/taxation/pdf/wrkshtg.pdf" target="_blank" rel="noopener nofollow">Hoja de trabajo (link en inglés)</a>.
           helper_heading: Dueños/as de casas móviles/rodantes
-          label_html: "<strong>Ingresa la Línea 8 de la Hoja de trabajo</strong><br/>(Tu parte del alquiler total pagado)"
+          label_html: "<strong>Ingresa la Línea 8 de la Hoja de trabajo</strong><br/> (Tu parte del alquiler total pagado)"
           title: Buenas noticias—calificas para una deducción o crédito
       nj_tenant_rent_paid:
         edit:
@@ -3419,7 +3430,7 @@ es:
         edit:
           instructions_html: |
             <p>Se considera veterano a ex miembros de las Fuerzas Armadas de los Estados Unidos que hayan recibido una <a href="https://pub.njleg.state.nj.us/Bills/2024/A3500/3485_I1.PDF" target="_blank" rel="noopener nofollow">baja honorable</a>.</p>
-            <p>Si esta es la primera vez que reclamas <a href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml" target="_blank" rel="noopener nofollow">esta exención</a>, debes presentar <a href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml" target="_blank" rel="noopener nofollow">documentación</a> y <a href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf" target="_blank" rel="noopener nofollow">un formulario</a> a la División de Impuestos del Estado de New Jersey. Puedes hacerlo <a href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf" target="_blank" rel="noopener nofollow">online</a>. Puedes presentarlo después de terminar de usar esta herramienta y enviar tu declaración..
+            <p>Si esta es la primera vez que reclamas <a href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml" target="_blank" rel="noopener nofollow">esta exención</a>, debes presentar <a href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml" target="_blank" rel="noopener nofollow">documentación</a> y <a href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf" target="_blank" rel="noopener nofollow">un formulario</a> a la División de Impuestos del Estado de New Jersey. Puedes hacerlo <a href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf" target="_blank" rel="noopener nofollow">online</a>. Puedes presentarlo después de terminar de usar esta herramienta y enviar tu declaración.
           primary_veteran_question: "¿Eres veterano/a de guerra?"
           spouse_veteran_question: "¿Tu cónyuge es veterano/a de guerra?"
           title: En New Jersey, los veteranos/as de guerra son elegibles para una exención de impuestos.
@@ -3432,7 +3443,7 @@ es:
         edit:
           email_address_label: Tu correo electrónico
           email_notification_opt_in: Correo electrónico
-          message_body_one: No compartiremos tu información con terceros. La frecuencia de los mensajes puede variar. Puede que apliquen tarifas por mensajes y datos. 
+          message_body_one: No compartiremos tu información con terceros. La frecuencia de los mensajes puede variar. Puede que apliquen tarifas por mensajes y datos.
           message_body_two_html: Envía un mensaje de texto con la palabra HELP al 46207 para obtener ayuda. Envía un mensaje de texto con la palabra STOP al 46207 para no recibir más mensajes. Los proveedores de telefonía móvil (por ejemplo, AT&T, Verizon, T-Mobile, Sprint, etc.) no son responsables de mensajes no entregados o retrasados. Consulta nuestros <a target="_blank" href=%{sms_terms_link}>Términos y condiciones de SMS</a> y <a target="_blank" href=%{privacy_link}>Política de privacidad</a>.
           message_title: Detalles de mensajería
           opt_in_label: Por favor, selecciona la(s) opción(es) que mejor te funcione(n).
