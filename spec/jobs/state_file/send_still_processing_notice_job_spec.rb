@@ -49,5 +49,17 @@ RSpec.describe StateFile::SendStillProcessingNoticeJob, type: :job do
         end
       end
     end
+
+    context "the client is unsubscribed from sms" do
+      before do
+        intake.update(sms_notification_opt_in: "no")
+      end
+
+      it "does not send the message" do
+        described_class.perform_now(submission)
+
+        expect(after_transition_messaging_service).not_to have_received(:send_efile_submission_still_processing_message)
+      end
+    end
   end
 end

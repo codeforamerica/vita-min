@@ -429,4 +429,8 @@ class StateFileBaseIntake < ApplicationRecord
     end
     MultiTenantService.statefile.current_tax_year - birth_year
   end
+
+  def unsubscribed_from_sms?
+    self.sms_notification_opt_in == "no"
+  end
 end
