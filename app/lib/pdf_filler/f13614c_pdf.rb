@@ -153,7 +153,6 @@ module PdfFiller
 
       answers.merge!(
         yes_no_checkboxes("form1[0].page2[0].Part4[0].q3PostSecondary[0]", @intake.paid_post_secondary_educational_expenses, include_unsure: true),
-        yes_no_checkboxes("form1[0].page2[0].Part4[0].q4Deductions[0]", @intake.wants_to_itemize, include_unsure: true),
         )
 
       # PAGE TWO: right-side certified volunteer section
