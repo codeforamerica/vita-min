@@ -105,26 +105,33 @@ module PdfFiller
       answers["form1[0].page1[0].additionalSpace[0].additionalSpace[0]"] = @dependents.length > 3 ? "1" : nil
 
       answers.merge!(
-        keep_and_normalize({
-          "form1[0].page2[0].receivedMoneyFrom[0].wagesPartFull[0]" => @intake.had_wages_yes?,
-          "form1[0].page2[0].receivedMoneyFrom[0].receivedMoneyTimps[0]" => @intake.had_tips_yes?,
-          "form1[0].page2[0].receivedMoneyFrom[0].retirementAccount[0]" => @intake.had_social_security_or_retirement_yes? && @intake.had_retirement_income_yes?,
-          "form1[0].page2[0].receivedMoneyFrom[0].disabilityBenefits[0].disabilityBenefits[0]" => @intake.had_disability_income_yes?,
-          "form1[0].page2[0].receivedMoneyFrom[0].socialSecurityRailroad[0]" => @intake.had_social_security_or_retirement_yes? && @intake.had_social_security_income_yes?,
-          "form1[0].page2[0].receivedMoneyFrom[0].unemploymentBenefits[0]" => @intake.had_unemployment_income_yes?,
-          "form1[0].page2[0].receivedMoneyFrom[0].refundStateLocal[0]" => @intake.wants_to_itemize_yes? && @intake.had_local_tax_refund_yes?,
-          "form1[0].page2[0].receivedMoneyFrom[0].interestOrDividends[0]" => @intake.had_interest_income_yes?,
-          "form1[0].page2[0].receivedMoneyFrom[0].saleStocksBonds[0]" => @intake.sold_assets_yes? && @intake.had_asset_sale_income_yes?,
-          "form1[0].page2[0].receivedMoneyFrom[0].reportALoss[0].reportLossYes[0]" => @intake.sold_assets_yes? && @intake.reported_asset_sale_loss_yes?,
-          "form1[0].page2[0].receivedMoneyFrom[0].reportALoss[0].reportLossNo[0]" => @intake.sold_assets_yes? && @intake.reported_asset_sale_loss_no?,
-          "form1[0].page2[0].receivedMoneyFrom[0].receivedAlimony[0]" => @intake.ever_married_yes? && @intake.received_alimony_yes?,
-          "form1[0].page2[0].receivedMoneyFrom[0].incomeRentingHouse[0].incomeRentingHouse[0]" => @intake.had_rental_income_yes?,
-          "form1[0].page2[0].receivedMoneyFrom[0].gamblingLotteryWinnings[0]" => @intake.wants_to_itemize_yes? && @intake.had_gambling_income_yes?,
-          "form1[0].page2[0].receivedMoneyFrom[0].paymentsContractSelf[0]" => @intake.had_self_employment_income_yes?,
-          "form1[0].page2[0].receivedMoneyFrom[0].lossLastReturn[0].reportLossYes[0]" => @intake.reported_self_employment_loss_yes?,
-          "form1[0].page2[0].receivedMoneyFrom[0].lossLastReturn[0].reportLossNo[0]" => @intake.reported_self_employment_loss_no?,
-          "form1[0].page2[0].receivedMoneyFrom[0].otherMoneyReceived[0].otherMoneyReceived[0]" => @intake.had_other_income_yes?
-        })
+        keep_and_normalize(
+          with_prefix("form1[0].page2[0].receivedMoneyFrom[0]") do
+            {
+              "wagesPartFull[0]" => @intake.had_wages_yes?,
+              "receivedMoneyTimps[0]" => @intake.had_tips_yes?,
+              "retirementAccount[0]" => @intake.had_retirement_income_yes?,
+              "disabilityBenefits[0].disabilityBenefits[0]" => @intake.had_disability_income_yes?,
+              "socialSecurityRailroad[0]" => @intake.had_social_security_income_yes?,
+              "unemploymentBenefits[0]" => @intake.had_unemployment_income_yes?,
+              "refundStateLocal[0]" => @intake.had_local_tax_refund_yes?,
+              "interestOrDividends[0]" => @intake.had_interest_income_yes?,
+              "saleStocksBonds[0]" => @intake.had_asset_sale_income_yes?,
+              "reportALoss[0].reportLossYes[0]" => @intake.reported_asset_sale_loss_yes?,
+              "reportALoss[0].reportLossNo[0]" => @intake.reported_asset_sale_loss_no?,
+              "receivedAlimony[0]" => @intake.received_alimony_yes?,
+              "incomeRentingHouse[0].incomeRentingHouse[0]" => @intake.had_rental_income_yes?,
+              "useAsPersonal[0].personalResidenceYes[0]" => @intake.had_rental_income_and_used_dwelling_as_residence_yes?,
+              "useAsPersonal[0].personalResidenceNo[0]" => @intake.had_rental_income_and_used_dwelling_as_residence_no?,
+              "incomeRentingVehicle[0]" => @intake.had_rental_income_from_personal_property_yes?,
+              "gamblingLotteryWinnings[0]" => @intake.had_gambling_income_yes?,
+              "paymentsContractSelf[0]" => @intake.had_self_employment_income_yes?,
+              "lossLastReturn[0].reportLossYes[0]" => @intake.reported_self_employment_loss_yes?,
+              "lossLastReturn[0].reportLossNo[0]" => @intake.reported_self_employment_loss_no?,
+              "otherMoneyReceived[0].otherMoneyReceived[0]" => @intake.had_other_income_yes?
+            }
+          end
+        )
       )
 
       answers["form1[0].page2[0].receivedMoneyFrom[0].howManyJobs[0]"] = @intake.job_count.to_s
