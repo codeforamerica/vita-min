@@ -1398,9 +1398,9 @@ es:
   messages:
     closing_soon:
       email:
-        body: 'Cerramos la temporada de impuestos de GetYourRefund el %{end_of_in_progress_intake_date}. Necesitamos todos los documentos requeridos antes del %{end_of_docs_date} de lo contrario, no podremos preparar su declaración de impuestos. Por favor inicie sesión y responda antes del %{end_of_docs_date}.  <<Client.LoginLink>> Si no tenemos noticias suyas para entonces, cerraremos su caso y podrá presentar su declaración de impuestos con nosotros el próximo año.'
+        body: Cerramos la temporada de impuestos de GetYourRefund el %{end_of_in_progress_intake_date}. Necesitamos todos los documentos requeridos antes del %{end_of_docs_date} de lo contrario, no podremos preparar su declaración de impuestos. Por favor inicie sesión y responda antes del %{end_of_docs_date}.  <<Client.LoginLink>> Si no tenemos noticias suyas para entonces, cerraremos su caso y podrá presentar su declaración de impuestos con nosotros el próximo año.
         subject: GetYourRefund cerrará próximamente -- actúe ahora si necesita services de preparación de impuestos.
-      sms: 'Cerramos la temporada de impuestos de GetYourRefund el %{end_of_in_progress_intake_date}. Necesitamos todos los documentos requeridos antes del %{end_of_docs_date}; de lo contrario, no podremos preparar su declaración de impuestos. Por favor inicie sesión y responda antes del %{end_of_docs_date}.  <<Client.LoginLink>> Si no tenemos noticias suyas para entonces, cerraremos su caso y podrá presentar su declaración de impuestos con nosotros el próximo año.'
+      sms: Cerramos la temporada de impuestos de GetYourRefund el %{end_of_in_progress_intake_date}. Necesitamos todos los documentos requeridos antes del %{end_of_docs_date}; de lo contrario, no podremos preparar su declaración de impuestos. Por favor inicie sesión y responda antes del %{end_of_docs_date}.  <<Client.LoginLink>> Si no tenemos noticias suyas para entonces, cerraremos su caso y podrá presentar su declaración de impuestos con nosotros el próximo año.
     contact_info_change:
       email:
         body: |
@@ -2220,7 +2220,7 @@ es:
           prior_last_names_label:
             many: Ingresa todos los apellidos utilizados por usted y su cónyuge en los últimos cuatro años.
             one: 'Ingresa todos los apellidos que usaste en los últimos cuatro años. (Ejemplo: Smith, Jones, Brown)'
-            other: 'Ingresa todos los apellidos que usaste en los últimos cuatro años.'
+            other: Ingresa todos los apellidos que usaste en los últimos cuatro años.
           subtitle: Esto incluye los años fiscales del %{start_year} al %{end_year}
           title:
             many: "¿Usted o su cónyuge presentaron una declaración con un apellido diferente en los últimos cuatro años?"
@@ -2866,7 +2866,7 @@ es:
           help_text: Te pediremos que ingreses la información que pueda faltar.
           interest_income_body: No se necesita información estatal adicional
           interest_income_title: Ingresos por intereses (1099-INT)
-          invalid_w2: 'Hay un problema con uno o más formularios W-2. Por favor revise y corrija antes de continuar.'
+          invalid_w2: Hay un problema con uno o más formularios W-2. Por favor revise y corrija antes de continuar.
           no_info_needed: No se necesita información estatal adicional
           no_info_needed_nj: Este ingreso no es tributable en New Jersey.
           retirement_income_title: Jubilación (1099-R)
@@ -2939,7 +2939,7 @@ es:
           title: Antes de que envíes, tenemos algunas preguntas sobre la cobertura de seguro de salud
           what_will_be_shared: "¿Qué información se compartirá con Maryland Health Connection?"
           which_members_not_have_insurance: Selecciona al(los) miembro(s) de tu hogar que <strong>no tenía(n)</strong> cobertura de salud al finalizar %{tax_year}.
-          why_ask_explanation: 'Esta información ayudará a Maryland Health Connection a determinar la elegibilidad para miembros de tu hogar que no tienen seguro médico para que reciban cobertura de salud sin costo o de bajo costo. Compartir esta información<strong>no afectará</strong>tu declaración de impuestos y no generará penalizaciones.'
+          why_ask_explanation: Esta información ayudará a Maryland Health Connection a determinar la elegibilidad para miembros de tu hogar que no tienen seguro médico para que reciban cobertura de salud sin costo o de bajo costo. Compartir esta información<strong>no afectará</strong>tu declaración de impuestos y no generará penalizaciones.
           why_ask_this: "¿Por qué te preguntamos esto?"
       md_permanent_address:
         edit:
@@ -3412,7 +3412,7 @@ es:
       nj_tenant_property_tax_worksheet:
         edit:
           description_html: "<p>Completa esta  <a href=\"https://www.nj.gov/treasury/taxation/pdf/wrkshtg.pdf\" target=\"_blank\" rel=\"noopener nofollow\">hoja de trabajo</a>.</p> \n<p>Una vez que la completes, vuelve a esta página.</p>\n<p>La hoja de trabajo te preguntará dónde viviste y por cuánto tiempo. Si te mudaste, por ejemplo, tendrá espacio para que enumeres todos los lugares donde viviste.</p>\n"
-          helper_anchor_description_html: 'Si recibiste un beneficio de Comunidades Accesibles de New Jersey para Propietarios e Inquilinos (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> por las siglas en inglés), el monto del beneficio no afecta el monto a informar de la pregunta superior. (ANCHOR ofrece alivio de impuestos a la propiedad a residentes de New Jersey que tengan o alquilen una vivienda principal en New Jersey y que cumplan con ciertos límites de ingresos).'
+          helper_anchor_description_html: Si recibiste un beneficio de Comunidades Accesibles de New Jersey para Propietarios e Inquilinos (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> por las siglas en inglés), el monto del beneficio no afecta el monto a informar de la pregunta superior. (ANCHOR ofrece alivio de impuestos a la propiedad a residentes de New Jersey que tengan o alquilen una vivienda principal en New Jersey y que cumplan con ciertos límites de ingresos).
           helper_anchor_heading: "¿Qué pasa si recibí beneficios ANCHOR?"
           helper_description_html: Escribe las tarifas de tu sitio pagadas en 2024 %{filing_year} en la sección de alquiler de la <a href="https://www.nj.gov/treasury/taxation/pdf/wrkshtg.pdf" target="_blank" rel="noopener nofollow">Hoja de trabajo (link en inglés)</a>.
           helper_heading: Dueños/as de casas móviles/rodantes
