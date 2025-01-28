@@ -2406,7 +2406,7 @@ es:
             eligibility_ed_loan_cancelled: se te canceló un préstamo estudiantil bajo la Ley del Plan de Rescate Estadounidense.
             eligibility_ed_loan_emp_payment: recibiste un Pago de Préstamo Educativo Calificado pagado por tu empleador.
             eligibility_emergency_rental_assistance: recibió asistencia de alquiler de emergencia %{filing_year}
-            eligibility_home_different_areas: o tu cónyuge tenían hogares permanentes en dos condados, ciudades o áreas impositivas diferentes el último día de %{filing_year}
+            eligibility_home_different_areas: y su cónyuge tenía residencias permanentes en dos condados, ciudades, pueblos o áreas impositivas diferentes el último día de %{filing_year}
             eligibility_homebuyer_withdrawal: retiró dinero de una cuenta de comprador de vivienda por primera vez que no se utilizó para comprar una casa en Maryland
             eligibility_homebuyer_withdrawal_mfj: o tu cónyuge retiraron dinero de una Cuenta de Comprador de Vivienda Por Primera Vez que no se utilizó para comprar una casa en Maryland.
             eligibility_lived_in_state: no viviste en %{state} durante todo el %{filing_year}
@@ -2640,7 +2640,7 @@ es:
             <li>Crédito por Ingreso del Trabajo de New Jersey (NJEITC por las siglas en inglés)</li>
             <li>Crédito por Hijos de New Jersey</li>
             <li>Crédito por Cuidado de Menores y Dependientes de New Jersey</li>
-            <li>Deducción de Gastos Médicos</li>
+            <li>Deducción de Gastos Médicos de New Jersey</li>
             <li>Exclusión de Pensión/Jubilación y Otros Ingresos de Jubilación</li>
             <li>Créditos por Contribuciones Excedentes del Seguro de Desempleo (UI) y del Seguro de Licencia Familiar (FLI)</li>
             <li>Crédito o Deducción de Impuestos sobre la Propiedad</li>
@@ -2850,7 +2850,6 @@ es:
           no_donations_selected: "<strong>No se seleccionaron donaciones</strong>"
           permanent_building_fund_tax: Impuesto sobre el Fondo de Edificios Permanentes
           purchases_without_sales_tax: Compras sin pagar impuesto de ventas
-          state_details_title: Detalles estatales
           voluntary_charitable_donations: Donaciones caritativas voluntarias
       id_sales_use_tax:
         edit:
@@ -2970,9 +2969,9 @@ es:
           why_ask_this: "¿Por qué están pidiendo esta información?"
       md_review:
         edit:
-          county_html: "<strong>Condado</strong>"
-          political_subdivision_html: "<strong>Subdivisión política</strong>"
-          your_address: Dirección donde vivías el 31 de diciembre del%{filing_year}
+          county_html: "<strong>Condado donde vivías el 31 de diciembre de %{filing_year}</strong>"
+          political_subdivision_html: "<strong>Subdivisión política donde vivías el 31 de diciembre de %{filing_year}</strong>"
+          your_address: Dirección donde vivías el 31 de diciembre del %{filing_year}
       md_social_security_benefits:
         edit:
           description: Para informar correctamente los beneficios del Seguro Social en su declaración de impuestos de Maryland, necesitamos recopilar información adicional.
@@ -3046,7 +3045,7 @@ es:
           interest_us_bonds: Ingresos por intereses de bonos de los Estados Unidos (no son sujetos a impuestos en Carolina del Norte)
           primary_veteran: Estado de veterano de las Fuerzas Armadas de los Estados Unidos
           social_security_benefits: Beneficios del Seguro Social (no sujetos a impuestos en Carolina del Norte)
-          spouse_veteran: Información del Cónyuge Veterano
+          spouse_veteran: Estado de veterano de las Fuerzas Armadas de los Estados Unidos de tu cónyuge
           state_credit: Miembro inscrito de una tribu indígena reconocida por el gobierno federal y recibiste ingresos de una fuente dentro de una reserva
           subtraction_indian_tribe: Resta por ingresos de un miembro de una tribu india
           use_tax_amount: Cantidad del impuesto sobre uso
@@ -3222,7 +3221,7 @@ es:
           title: Dijiste que eras propietario de una vivienda en %{filing_year}.
       nj_homeowner_property_tax:
         edit:
-          helper_anchor_description_html: Si recibiste un beneficio de Comunidades Accesibles de New Jersey para Propietarios e Inquilinos (ANCHOR por las siglas en inglés), el monto del beneficio no afecta el monto a informar en la línea 8. (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> ofrece alivio de impuestos a la propiedad a residentes de New Jersey que tengan o alquilen una vivienda principal en New Jersey y que cumplan con ciertos límites de ingresos.)
+          helper_anchor_description_html: Si recibiste un beneficio de Comunidades Accesibles de New Jersey para Propietarios e Inquilinos (ANCHOR por las siglas en inglés), el monto del beneficio no afecta el monto a informar de la pregunta superior. (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> ofrece alivio de impuestos a la propiedad a residentes de New Jersey que tengan o alquilen una vivienda principal en New Jersey y que cumplan con ciertos límites de ingresos.)
           helper_anchor_heading: "¿Qué pasa si recibí beneficios ANCHOR?"
           helper_description: Puedes revisar tus facturas de impuestos trimestrales y sumar el total pagado a tu municipio.
           helper_heading: "¿Dónde puedo encontrar los impuestos sobre la propiedad pagados?"
@@ -3231,7 +3230,7 @@ es:
       nj_homeowner_property_tax_worksheet:
         edit:
           description_html: "<p>El siguiente paso es completar esta<a href=\"https://www.nj.gov/treasury/taxation/pdf/wrkshtg.pdf\" target=\"_blank\" rel=\"noopener nofollow\">hoja de trabajo</a>.</p> \n<p>Una vez que la completes, vuelve a esta página.</p>\n<p>La hoja de trabajo te preguntará dónde viviste y por cuánto tiempo. Si te mudaste, por ejemplo, tendrá espacio para que enumeres todos los lugares donde viviste.</p>\n"
-          helper_anchor_description_html: Si recibió un beneficio ANCHOR, el monto del beneficio no afecta el monto a declarar en esta línea. (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> ofrece desgravación del impuesto a la propiedad a los residentes de Nueva Jersey que poseen o alquilar una propiedad en Nueva Jersey como su hogar principal y cumplir con ciertos límites de ingresos).
+          helper_anchor_description_html: Si recibió un beneficio ANCHOR, el monto del beneficio no afecta el monto a declarar en la pregunta superior. (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> ofrece desgravación del impuesto a la propiedad a los residentes de Nueva Jersey que poseen o alquilar una propiedad en Nueva Jersey como su hogar principal y cumplir con ciertos límites de ingresos).
           helper_anchor_heading: "¿Qué pasa si recibí beneficios ANCHOR?"
           helper_description: Puedes revisar tus facturas de impuestos trimestrales y sumar el total pagado a tu municipio.
           helper_heading: "¿Dónde puedo encontrar los impuestos sobre la propiedad pagados?"
@@ -3420,17 +3419,17 @@ es:
       nj_tenant_property_tax_worksheet:
         edit:
           description_html: "<p>El siguiente paso es completar esta  <a href=\"https://www.nj.gov/treasury/taxation/pdf/wrkshtg.pdf\" target=\"_blank\" rel=\"noopener nofollow\">hoja de trabajo</a>.</p> \n<p>Una vez que la completes, vuelve a esta página.</p>\n<p>La hoja de trabajo te preguntará dónde viviste y por cuánto tiempo. Si te mudaste, por ejemplo, tendrá espacio para que enumeres todos los lugares donde viviste.</p>\n"
-          helper_anchor_description_html: Si recibiste un beneficio de Comunidades Accesibles de New Jersey para Propietarios e Inquilinos (ANCHOR por las siglas en inglés), el monto del beneficio no afecta el monto a informar en la línea 8. (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> ofrece alivio de impuestos a la propiedad a residentes de New Jersey que tengan o alquilen una vivienda principal en New Jersey y que cumplan con ciertos límites de ingresos).
+          helper_anchor_description_html: Si recibiste un beneficio de Comunidades Accesibles de New Jersey para Propietarios e Inquilinos (ANCHOR por las siglas en inglés), el monto del beneficio no afecta el monto a informar en la pregunta superior. (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> ofrece alivio de impuestos a la propiedad a residentes de New Jersey que tengan o alquilen una vivienda principal en New Jersey y que cumplan con ciertos límites de ingresos).
           helper_anchor_heading: "¿Qué pasa si recibí beneficios ANCHOR?"
-          helper_description: Escribe las tarifas de tu sitio pagadas en %{filing_year} en la sección de alquiler de la Hoja de trabajo G.
+          helper_description_html: Escribe las tarifas de tu sitio pagadas en %{filing_year} en la sección de alquiler de la <a href="https://www.nj.gov/treasury/taxation/pdf/wrkshtg.pdf" target="_blank" rel="noopener nofollow">Hoja de trabajo (link en inglés)</a>.
           helper_heading: Dueños/as de casas móviles/rodantes
-          label_html: "<strong>Ingresa la Línea 8 de la Hoja de trabajo</strong>"
+          label_html: "<strong>Ingresa la Línea 8 de la Hoja de Trabajo</strong><br/>(Tu parte del total de impuestos sobre la propiedad pagados)"
           title: Buenas noticias—calificas para una deducción o crédito
       nj_tenant_rent_paid:
         edit:
-          helper_anchor_description_html: Si recibió un beneficio ANCHOR, el monto del beneficio no afecta el monto a declarar en la línea 8. (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> ofrece desgravación del impuesto a la propiedad a los residentes de Nueva Jersey que poseen o alquilan propiedades en Nueva Jersey como su hogar principal y cumplen con ciertos límites de ingresos).
+          helper_anchor_description_html: Si recibió un beneficio ANCHOR, el monto del beneficio no afecta el monto a declarar en la pregunta superior. (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> ofrece desgravación del impuesto a la propiedad a los residentes de Nueva Jersey que poseen o alquilan propiedades en Nueva Jersey como su hogar principal y cumplen con ciertos límites de ingresos).
           helper_anchor_heading: "¿Qué pasa si recibí beneficios ANCHOR?"
-          helper_description: Escribe las tarifas de tu sitio pagadas en %{filing_year} en la sección de alquiler de la Hoja de trabajo G.
+          helper_description: Ingresa las tarifas de tu sitio pagadas en %{filing_year}.
           helper_heading: Dueños/as de casas móviles/rodantes
           label_html: "<strong>Ingresa tu parte total del alquiler que pagaste en %{filing_year}</strong>"
           title: Buenas noticias—calificas para una deducción o crédito
@@ -3689,8 +3688,8 @@ es:
           reject_desc: 'Descripción del Rechazo:'
           title: Lamentablemente, tu declaración de impuestos estatal de %{state_name}de %{filing_year} fue rechazada
       review:
-        county: Condado donde estaba ubicada su dirección permanente el 31 de diciembre de %{filing_year}
-        county_during_hurricane: Condado donde estaba ubicada su dirección permanente durante el huracán Helene
+        county: Condado donde vivías el 31 de diciembre de %{filing_year}
+        county_during_hurricane: Otro condado donde vivías (o actualmente vives) entre el 25 de septiembre y la fecha de hoy
       shared:
         abstract_review_header:
           amount_rounding_notice_html: "<strong>Hemos redondeado automáticamente todas las cantidades en dólares al número entero más cercano.</strong> La %{state_agency_name} sólo aceptará números enteros en la declaración de impuestos final."
@@ -3707,6 +3706,7 @@ es:
         review_header:
           income_details: Detalles de ingresos
           income_forms_collected: 'Formulario(s) de ingresos recogidos:'
+          state_details_title: Detalles estatales
           your_refund: La cantidad de tu reembolso
           your_tax_owed: Los impuestos que debes
       sms_terms:
@@ -3718,7 +3718,7 @@ es:
           term_5: 'Proveedores principales: AT&T, Verizon Wireless, Sprint, T-Mobile, U.S. Cellular, Alltel, Boost Mobile, Nextel y Virgin Mobile.'
           term_6: 'Proveedores menores: Alaska Communications Systems (ACS), Appalachian Wireless (EKN), Bluegrass Cellular, Cellular One of East Central IL (ECIT), Cellular One of Northeast Pennsylvania, Cincinnati Bell Wireless, Cricket, Coral Wireless (Mobi PCS), COX, Cross, Element Mobile (Flat Wireless), Epic Touch (Elkhart Telephone), GCI, Golden State, Hawkeye (Chat Mobility), Hawkeye (NW Missouri), Illinois Valley Cellular, Inland Cellular, iWireless (Iowa Wireless), Keystone Wireless (Immix Wireless/PC Man), Mosaic (Consolidated o CTC Telecom), Nex-Tech Wireless, NTelos, Panhandle Communications, Pioneer, Plateau (Texas RSA 3 Ltd), Revol, RINA, Simmetry (TMP Corporation), Thumb Cellular, Union Wireless, United Wireless, Viaero Wireless, y West Central (WCC o 5 Star Wireless).'
           term_7: Los proveedores de telefonía móvil (por ejemplo, AT&T, Verizon, T-Mobile, Sprint, etc.) no son responsables de mensajes no entregados o retrasados.
-          term_8_html: 'Como siempre, pueden aplicar tarifas por mensajes y datos para cualquier mensaje que te enviemos y que nos envíes. Si tienes alguna pregunta sobre tu plan de mensajes o plan de datos, es mejor contactar a tu proveedor de telefonía móvil. <br> <br>Si tienes preguntas sobre los servicios proporcionados por este código corto, puedes enviar un correo electrónico a <strong>help@fileyourstatetaxes.org</strong>.
+          term_8_html: 'Como siempre, pueden aplicar tarifas por mensajes y datos para cualquier mensaje que te enviemos y que nos envíes. Si tienes alguna pregunta sobre tu plan de mensajes o plan de datos, es mejor contactar a tu proveedor de telefonía móvil. <br> <br>Si tienes preguntas sobre los servicios proporcionados por este código corto, puedes enviar un correo electrónico a <strong><a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a></strong>.
 
             '
           term_9_html: 'Si tienes alguna pregunta sobre la privacidad, por favor lee nuestra política de privacidad:<a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/privacy-policy">www.fileyourstatetaxes.org/es/privacy-policy</a>
@@ -4192,7 +4192,7 @@ es:
           <strong>Autorizo al sitio de VITA:</strong>
           La transferencia global de datos permite a TaxSlayer LLC, el proveedor del software de impuestos VITA/TCE, poner a disposición su información de declaración de impuestos para CUALQUIER sitio de voluntarios que participe en el programa VITA/TCE del IRS que usted seleccione para preparar una declaración de impuestos en la próxima temporada de presentación. Esto significa que podrá visitar cualquier sitio de voluntarios que utilice TaxSlayer el próximo año y que su declaración de impuestos se completará con los datos del año en curso, independientemente de dónde haya presentado su declaración de impuestos este año.
 
-          <strong>Este consentimiento es válido hasta el 30 de noviembre de %{product_year}</strong>
+          <strong>Este consentimiento es válido hasta el 30 de noviembre de 2026</strong>
 
           La información de la declaración de impuestos que se divulgará incluye, pero no se limita a, información demográfica, financiera y otra información personal identificable, sobre usted, su declaración de impuestos y sus fuentes de ingresos, que se introdujo en el software de preparación de impuestos con el fin de preparar su declaración de impuestos.
 
@@ -4200,7 +4200,7 @@ es:
 
           No es necesario que proporcione su consentimiento para el socio de VITA/TCE que prepare su declaración de impuestos este año. La transferencia de datos solo le ayudará si visita un socio de VITA o TCE diferente el próximo año.
 
-          <i>Limitación en la duración del consentimiento</i>: Yo/nosotros, el contribuyente, no deseamos limitar la duración del consentimiento de la divulgación de la información de la declaración de impuestos a una fecha anterior a la presentada arriba (30 de noviembre de %{product_year}). Si yo/nosotros deseamos limitar la duración del consentimiento de la divulgación a una fecha anterior, negaré el consentimiento.
+          <i>Limitación de la duración del consentimiento:</i> Yo/Nosotros, el(los) contribuyente(s), no deseamos limitar la duración del consentimiento de la divulgación de la información de la declaración de impuestos a una fecha más temprana a la indicada anteriormente (30 de noviembre de 2026). Si yo/nosotros deseamos limitar la duración del consentimiento de la divulgación a una fecha anterior, yo/nosotros denegaremos el consentimiento.
 
           <i>Limitación en el alcance de la divulgación</i>: Yo/nosotros, el contribuyente, no deseamos limitar más el alcance de la divulgación de la información de la declaración de impuestos que la presentada anteriormente. Si yo/nosotros deseamos limitar más el alcance de la divulgación de la información de la declaración de impuestos que la presentada anteriormente, yo/nosotros negaremos el consentimiento.
 

@@ -206,4 +206,9 @@ class StateFileAzIntake < StateFileBaseIntake
   def requires_hoh_qualifying_person_name?
     filing_status == :head_of_household
   end
+
+  def eligible_for_az_subtractions?
+    wages_salaries_tips = direct_file_data.fed_wages_salaries_tips
+    wages_salaries_tips.present? && wages_salaries_tips > 0
+  end
 end

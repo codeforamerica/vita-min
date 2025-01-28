@@ -21,13 +21,13 @@ module SubmissionBuilder
                   xml.Body do
                     column_a = w2.box14_ui_wf_swf&.positive? ? w2.box14_ui_wf_swf : w2.box14_ui_hc_wd
 
-                    xml.EmployerName w2.employer_name
+                    xml.EmployerName get_employer_name(w2, truncate: true)
                     xml.FedEmployerId w2.employer_ein
-                    xml.Wages w2.wages&.round
+                    xml.Wages get_wages(w2)
                     xml.Deductions do
-                      xml.ColumnA column_a&.round || 0
+                      xml.ColumnA get_column_a(w2)
                       xml.ColumnB 0
-                      xml.ColumnC w2.box14_fli&.round || 0
+                      xml.ColumnC get_column_c(w2)
                     end
                     xml.FilerIndicator filer_indicator
                   end

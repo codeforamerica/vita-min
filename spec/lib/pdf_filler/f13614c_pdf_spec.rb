@@ -11,7 +11,7 @@ RSpec.describe PdfFiller::F13614cPdf do
         create(
           :intake,
           client: build(:client, :with_consent, consented_to_service_at: Date.new(2024, 1, 1)),
-          additional_info: "if there is another gnome living in my garden but only i have an income, does that make me head of household?",
+          additional_notes_comments: "if there is another gnome living in my garden but only i have an income, does that make me head of household?",
           adopted_child: "no",
           advance_ctc_amount_received: 500,
           balance_pay_from_bank: "no",
@@ -51,7 +51,6 @@ RSpec.describe PdfFiller::F13614cPdf do
           ever_married: "yes",
           ever_owned_home: "no",
           filing_joint: "yes",
-          final_info: "Also here are some additional notes.",
           had_asset_sale_income: "yes",
           had_capital_loss_carryover: "no",
           had_cash_check_digital_assets: "no",
@@ -542,16 +541,222 @@ RSpec.describe PdfFiller::F13614cPdf do
         end
       end
 
+      describe 'page 3 (expenses) gray questions on right-hand side' do
+        describe 'section 1 on 3' do
+          it 'looks good when all choices are no and fields are nil' do
+            intake.update(
+              cv_1098_cb: 'no',
+              cv_1098_count: nil,
+              cv_med_expense_standard_deduction_cb: 'no',
+              cv_med_expense_itemized_deduction_cb: 'no',
+              cv_14c_page_3_notes_part_1: nil
+            )
+
+            output_file = intake_pdf.output_file
+            result = non_preparer_fields(output_file.path)
+            expect(result).to include(
+              'form1[0].page3[0].stndardItemizedDeductions[0].form1098[0]' => '',
+              'form1[0].page3[0].stndardItemizedDeductions[0].form1098Number[0]' => '',
+              'form1[0].page3[0].stndardItemizedDeductions[0].standardDeduction[0]' => '',
+              'form1[0].page3[0].stndardItemizedDeductions[0].itemizedDeduction[0]' => '',
+              'form1[0].page3[0].stndardItemizedComments[0].stndardItemizedComments[0]' => ''
+            )
+          end
+          it 'works when all choices are all yes and filled in' do
+            intake.update(
+              cv_1098_cb: 'yes',
+              cv_1098_count: 5,
+              cv_med_expense_standard_deduction_cb: 'yes',
+              cv_med_expense_itemized_deduction_cb: 'yes',
+              cv_14c_page_3_notes_part_1: 'section 1 note'
+            )
+
+            output_file = intake_pdf.output_file
+            result = non_preparer_fields(output_file.path)
+            expect(result).to include(
+              'form1[0].page3[0].stndardItemizedDeductions[0].form1098[0]' => '1',
+              'form1[0].page3[0].stndardItemizedDeductions[0].form1098Number[0]' => '5',
+              'form1[0].page3[0].stndardItemizedDeductions[0].standardDeduction[0]' => '1',
+              'form1[0].page3[0].stndardItemizedDeductions[0].itemizedDeduction[0]' => '1',
+              'form1[0].page3[0].stndardItemizedComments[0].stndardItemizedComments[0]' => 'section 1 note'
+            )
+          end
+        end
+
+        describe 'section 2 on 3' do
+          it 'looks good when all choices are no and fields are nil' do
+            intake.update(
+              cv_1098e_cb: 'no',
+              cv_child_dependent_care_credit_cb: 'no',
+              contributed_to_ira: 'no',
+              cv_edu_expenses_deduction_cb: 'no',
+              cv_edu_expenses_deduction_amt: nil,
+              cv_paid_alimony_w_spouse_ssn_cb: 'no',
+              cv_paid_alimony_w_spouse_ssn_amt: nil,
+              cv_alimony_income_adjustment_yn_cb: 'no',
+              cv_14c_page_3_notes_part_2: nil,
+            )
+
+            output_file = intake_pdf.output_file
+            result = non_preparer_fields(output_file.path)
+            expect(result).to include(
+              'form1[0].page3[0].expensesToReport[0].form1098E[0]' => '',
+              'form1[0].page3[0].expensesToReport[0].childDependentCare[0]' => '',
+              'form1[0].page3[0].expensesToReport[0].iraBasicRoth[0]' => '',
+              'form1[0].page3[0].expensesToReport[0].educatorExpensesDeduction[0]' => '',
+              'form1[0].page3[0].expensesToReport[0].educatorExpensesDeductionAmount[0]' => '',
+              'form1[0].page3[0].expensesToReport[0].alimonyPayments[0].alimonyPayments[0]' => '',
+              'form1[0].page3[0].expensesToReport[0].alimonyPayments[0].alimonyPaymentsAmount[0]' => '',
+              'form1[0].page3[0].expensesToReport[0].alimonyPayments[0].adjustementYes[0]' => '',
+              'form1[0].page3[0].expensesToReport[0].alimonyPayments[0].adjustementNo[0]' => '1',
+              'form1[0].page3[0].expensesReportComments[0].expensesReportComments[0]' => '',
+            )
+          end
+
+          it 'works when all choices are all yes and filled in' do
+            intake.update(
+              cv_1098e_cb: 'yes',
+              cv_child_dependent_care_credit_cb: 'yes',
+              contributed_to_ira: 'yes',
+              cv_edu_expenses_deduction_cb: 'yes',
+              cv_edu_expenses_deduction_amt: 2814,
+              cv_paid_alimony_w_spouse_ssn_cb: 'yes',
+              cv_paid_alimony_w_spouse_ssn_amt: 2815,
+              cv_alimony_income_adjustment_yn_cb: 'yes',
+              cv_14c_page_3_notes_part_2: 'section 2 note!!',
+            )
+
+            output_file = intake_pdf.output_file
+            result = non_preparer_fields(output_file.path)
+            expect(result).to include(
+              'form1[0].page3[0].expensesToReport[0].form1098E[0]' => '1',
+              'form1[0].page3[0].expensesToReport[0].childDependentCare[0]' => '1',
+              'form1[0].page3[0].expensesToReport[0].iraBasicRoth[0]' => '1',
+              'form1[0].page3[0].expensesToReport[0].educatorExpensesDeduction[0]' => '1',
+              'form1[0].page3[0].expensesToReport[0].educatorExpensesDeductionAmount[0]' => '2814.0',
+              'form1[0].page3[0].expensesToReport[0].alimonyPayments[0].alimonyPayments[0]' => '1',
+              'form1[0].page3[0].expensesToReport[0].alimonyPayments[0].alimonyPaymentsAmount[0]' => '2815.0',
+              'form1[0].page3[0].expensesToReport[0].alimonyPayments[0].adjustementYes[0]' => '1',
+              'form1[0].page3[0].expensesToReport[0].alimonyPayments[0].adjustementNo[0]' => '',
+              'form1[0].page3[0].expensesReportComments[0].expensesReportComments[0]' => 'section 2 note!!',
+            )
+          end
+        end
+
+        describe 'section 3 on 3 ' do
+          it 'looks good when all choices are no and fields are nil' do
+            intake.update(
+              cv_taxable_scholarship_income_cb: 'no',
+              cv_1098t_cb: 'no',
+              cv_edu_credit_or_tuition_deduction_cb: 'no',
+              cv_1099s_cb: 'no',
+              cv_hsa_contrib_cb: 'no',
+              cv_hsa_distrib_cb: 'no',
+              cv_1095a_cb: 'no',
+              cv_energy_efficient_home_improv_credit_cb: 'no',
+              cv_1099c_cb: 'no',
+              cv_1099a_cb: 'no',
+              cv_disaster_relief_impacts_return_cb: 'no',
+              cv_eitc_ctc_aotc_hoh_disallowed_in_a_prev_yr_cb: 'no',
+              tax_credit_disallowed_year: nil,
+              cv_tax_credit_disallowed_reason: nil,
+              cv_eligible_for_litc_referral_cb: 'no',
+              cv_estimated_tax_payments_cb: 'no',
+              cv_estimated_tax_payments_amt: nil,
+              cv_last_years_refund_applied_to_this_yr_cb: 'no',
+              cv_last_years_refund_applied_to_this_yr_amt: nil,
+              cv_last_years_return_available_cb: 'no',
+              cv_14c_page_3_notes_part_3: nil,
+            )
+
+            output_file = intake_pdf.output_file
+            result = non_preparer_fields(output_file.path)
+            expect(result).to include(
+              'form1[0].page3[0].informationToReport[0].taxableScholarshipIncome[0]' => '',
+              'form1[0].page3[0].informationToReport[0].form1098T[0]' => '',
+              'form1[0].page3[0].informationToReport[0].educationCreditTuition[0]' => '',
+              'form1[0].page3[0].informationToReport[0].saleOfHome[0]' => '',
+              'form1[0].page3[0].informationToReport[0].hsaContributions[0]' => '',
+              'form1[0].page3[0].informationToReport[0].hsaDistributions[0]' => '',
+              'form1[0].page3[0].informationToReport[0].form1095A[0]' => '',
+              'form1[0].page3[0].informationToReport[0].efficientHomeImprovement[0]' => '',
+              'form1[0].page3[0].informationToReport[0].form1099C[0]' => '',
+              'form1[0].page3[0].informationToReport[0].form1099A[0]' => '',
+              'form1[0].page3[0].informationToReport[0].disasterReliefImpacts[0]' => '',
+              'form1[0].page3[0].informationToReport[0].disallowedPreviousYear[0]' => '',
+              'form1[0].page3[0].informationToReport[0].YearDisallowedReason[0].yearDisallowed[0]' => '',
+              'form1[0].page3[0].informationToReport[0].YearDisallowedReason[0].reasonDisallowed[0]' => '',
+              'form1[0].page3[0].informationToReport[0].eligibleLITCReferral[0]' => '',
+              'form1[0].page3[0].informationToReport[0].estimatedTaxPayments[0].estimatedTaxPayments[0]' => '',
+              'form1[0].page3[0].informationToReport[0].estimatedTaxPayments[0].taxPaymentsAmount[0]' => '',
+              'form1[0].page3[0].informationToReport[0].lastYearsRefund[0].lastYearsRefund[0]' => '',
+              'form1[0].page3[0].informationToReport[0].lastYearsRefund[0].refundAmount[0]' => '',
+              'form1[0].page3[0].informationToReport[0].lastReturnAvailable[0]' => '',
+              'form1[0].page3[0].informationReportComment[0].informationReportComment[0]' => '',
+            )
+          end
+
+          it 'works when all choices are all yes and filled in' do
+            intake.update(
+              cv_taxable_scholarship_income_cb: 'yes',
+              cv_1098t_cb: 'yes',
+              cv_edu_credit_or_tuition_deduction_cb: 'yes',
+              cv_1099s_cb: 'yes',
+              cv_hsa_contrib_cb: 'yes',
+              cv_hsa_distrib_cb: 'yes',
+              cv_1095a_cb: 'yes',
+              cv_energy_efficient_home_improv_credit_cb: 'yes',
+              cv_1099c_cb: 'yes',
+              cv_1099a_cb: 'yes',
+              cv_disaster_relief_impacts_return_cb: 'yes',
+              cv_eitc_ctc_aotc_hoh_disallowed_in_a_prev_yr_cb: 'yes',
+              tax_credit_disallowed_year: '2001',
+              cv_tax_credit_disallowed_reason: 'an explanation',
+              cv_eligible_for_litc_referral_cb: 'yes',
+              cv_estimated_tax_payments_cb: 'yes',
+              cv_estimated_tax_payments_amt: 2816,
+              cv_last_years_refund_applied_to_this_yr_cb: 'yes',
+              cv_last_years_refund_applied_to_this_yr_amt: 2817,
+              cv_last_years_return_available_cb: 'yes',
+              cv_14c_page_3_notes_part_3: 'section 3 note!!!',
+            )
+
+            output_file = intake_pdf.output_file
+            result = non_preparer_fields(output_file.path)
+            expect(result).to include(
+              'form1[0].page3[0].informationToReport[0].taxableScholarshipIncome[0]' => '1',
+              'form1[0].page3[0].informationToReport[0].form1098T[0]' => '1',
+              'form1[0].page3[0].informationToReport[0].educationCreditTuition[0]' => '1',
+              'form1[0].page3[0].informationToReport[0].saleOfHome[0]' => '1',
+              'form1[0].page3[0].informationToReport[0].hsaContributions[0]' => '1',
+              'form1[0].page3[0].informationToReport[0].hsaDistributions[0]' => '1',
+              'form1[0].page3[0].informationToReport[0].form1095A[0]' => '1',
+              'form1[0].page3[0].informationToReport[0].efficientHomeImprovement[0]' => '1',
+              'form1[0].page3[0].informationToReport[0].form1099C[0]' => '1',
+              'form1[0].page3[0].informationToReport[0].form1099A[0]' => '1',
+              'form1[0].page3[0].informationToReport[0].disasterReliefImpacts[0]' => '1',
+              'form1[0].page3[0].informationToReport[0].disallowedPreviousYear[0]' => '1',
+              'form1[0].page3[0].informationToReport[0].YearDisallowedReason[0].yearDisallowed[0]' => '2001',
+              'form1[0].page3[0].informationToReport[0].YearDisallowedReason[0].reasonDisallowed[0]' => 'an explanation',
+              'form1[0].page3[0].informationToReport[0].eligibleLITCReferral[0]' => '1',
+              'form1[0].page3[0].informationToReport[0].estimatedTaxPayments[0].estimatedTaxPayments[0]' => '1',
+              'form1[0].page3[0].informationToReport[0].estimatedTaxPayments[0].taxPaymentsAmount[0]' => '2816.0',
+              'form1[0].page3[0].informationToReport[0].lastYearsRefund[0].lastYearsRefund[0]' => '1',
+              'form1[0].page3[0].informationToReport[0].lastYearsRefund[0].refundAmount[0]' => '2817.0',
+              'form1[0].page3[0].informationToReport[0].lastReturnAvailable[0]' => '1',
+              'form1[0].page3[0].informationReportComment[0].informationReportComment[0]' => 'section 3 note!!!',
+            )
+          end
+        end
+      end
+
       describe "#hash_for_pdf" do
         describe 'additional comments field' do
-          let(:additional_comments_key) { "form1[0].page3[0].AdditionalComments[0].AdditionalComments[1]" }
+          let(:additional_comments_key) { "form1[0].page5[0].AdditionalComments[0].AdditionalNotesComments[0]" }
 
           context "when there are only 3 or less dependents" do
             it "does not reference additional dependents" do
-              expect(intake_pdf.hash_for_pdf[additional_comments_key]).to eq(<<~COMMENT.strip)
-                if there is another gnome living in my garden but only i have an income, does that make me head of household? Also here are some additional notes.
-                Other income types: garden gnoming
-              COMMENT
+              expect(intake_pdf.hash_for_pdf[additional_comments_key]).to eq("if there is another gnome living in my garden but only i have an income, does that make me head of household?\n\n")
             end
           end
 
@@ -562,14 +767,20 @@ RSpec.describe PdfFiller::F13614cPdf do
                 intake: intake,
                 first_name: "Polly",
                 last_name: "Pony",
-                relationship: "Baby",
                 birth_date: Date.new(2018, 8, 27),
+                relationship: "Baby",
                 months_in_home: 5,
                 was_married: "no",
-                disabled: "yes",
-                north_american_resident: "yes",
                 us_citizen: "no",
+                north_american_resident: "yes",
                 was_student: "no",
+                disabled: "yes",
+                has_ip_pin: 'yes',
+                can_be_claimed_by_other: 'na',
+                provided_over_half_own_support: 'yes',
+                below_qualifying_relative_income_requirement: 'no',
+                filer_provided_over_half_support: 'na',
+                filer_provided_over_half_housing_support: 'yes',
               )
             end
             let!(:patrick) do
@@ -578,64 +789,44 @@ RSpec.describe PdfFiller::F13614cPdf do
                 intake: intake,
                 first_name: "Patrick",
                 last_name: "Pony",
-                relationship: "Son",
                 birth_date: Date.new(2019, 3, 11),
+                relationship: "Son",
                 months_in_home: 8,
                 was_married: "no",
-                disabled: "no",
-                north_american_resident: "yes",
                 us_citizen: "no",
+                north_american_resident: "yes",
                 was_student: "no",
+                disabled: "no",
+                has_ip_pin: 'no',
+                can_be_claimed_by_other: 'yes',
+                provided_over_half_own_support: 'no',
+                below_qualifying_relative_income_requirement: 'na',
+                filer_provided_over_half_support: 'yes',
+                filer_provided_over_half_housing_support: 'no',
               )
             end
 
-            xit "includes extra dependent information in the additional comments field" do
-              expect(intake_pdf.hash_for_pdf[additional_comments_key]).to eq(<<~COMMENT.strip)
-                if there is another gnome living in my garden but only i have an income, does that make me head of household? Also here are some additional notes.
-                Other income types: garden gnoming
+            it "includes extra dependent information in the additional comments field" do
+              expect(intake_pdf.hash_for_pdf[additional_comments_key]).to eq(<<~COMMENT)
+                if there is another gnome living in my garden but only i have an income, does that make me head of household?
+
                 Additional Dependents:
-                (a) Polly Pony (b) 8/27/2018 (c) Baby (d) 5 (e) N (f) Y (g) S (h) N (i) Y CVP: ////
-                (a) Patrick Pony (b) 3/11/2019 (c) Son (d) 8 (e) N (f) Y (g) S (h) N (i) N CVP: ////
+                Polly Pony // 8/27/2018 // Baby // Months lived in home in 2024: 5 // Single or married in 2024: S // US citizen: N // Resident of US/Canada/Mexico: Y // FT student: N // Disabled: Y // Issued IPPIN: Y // Qualifying child or relative of any other person: N/A // Provided more than 50% of their own support: Y // Had less than $5,050 income: N // Taxpayer(s) provided more than 50% of support: N/A // Taxpayer(s) paid more than half the cost of maintaining home for this person: Y
+
+                Patrick Pony // 3/11/2019 // Son // Months lived in home in 2024: 8 // Single or married in 2024: S // US citizen: N // Resident of US/Canada/Mexico: Y // FT student: N // Disabled: N // Issued IPPIN: N // Qualifying child or relative of any other person: Y // Provided more than 50% of their own support: N // Had less than $5,050 income: N/A // Taxpayer(s) provided more than 50% of support: Y // Taxpayer(s) paid more than half the cost of maintaining home for this person: N\n
               COMMENT
             end
-
-            context "when there is no additional_info or final_info present" do
-              before do
-                intake.update(additional_info: nil, final_info: nil)
-              end
-
-              it "includes extra dependent information with no leading whitespace" do
-                expect(intake_pdf.hash_for_pdf[additional_comments_key]).to eq(<<~COMMENT.strip)
-                  Other income types: garden gnoming
-                  Additional Dependents:
-                  (a) Polly Pony (b) 8/27/2018 (c) Baby (d) 5 (e) N (f) Y (g) S (h) N (i) Y CVP: ////
-                  (a) Patrick Pony (b) 3/11/2019 (c) Son (d) 8 (e) N (f) Y (g) S (h) N (i) N CVP: ////
-                COMMENT
-              end
-            end
-
-            context "when a hub user has filled out the CVP information" do
-              before do
-                polly.update(
-                  can_be_claimed_by_other: 'yes',
-                  provided_over_half_own_support: 'no',
-                  below_qualifying_relative_income_requirement: 'yes',
-                  filer_provided_over_half_support: 'no',
-                  filer_provided_over_half_housing_support: 'yes',
-                )
-              end
-
-              it "includes the CVP information after all the lettered dependent columns" do
-                expect(intake_pdf.hash_for_pdf[additional_comments_key]).to eq(<<~COMMENT.strip)
-                  if there is another gnome living in my garden but only i have an income, does that make me head of household? Also here are some additional notes.
-                  Other income types: garden gnoming
-                  Additional Dependents:
-                  (a) Polly Pony (b) 8/27/2018 (c) Baby (d) 5 (e) N (f) Y (g) S (h) N (i) Y CVP: Y/N/Y/N/Y
-                  (a) Patrick Pony (b) 3/11/2019 (c) Son (d) 8 (e) N (f) Y (g) S (h) N (i) N CVP: ////
-                COMMENT
-              end
-            end
           end
+
+          context "when there is nothing to put in the notes field" do
+              before do
+                intake.update(additional_notes_comments: nil)
+              end
+
+              it "everything still works ok" do
+                expect(intake_pdf.hash_for_pdf[additional_comments_key]).to eq("\n\n")
+              end
+            end
         end
       end
 
