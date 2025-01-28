@@ -790,13 +790,13 @@ es:
           presidential_campaign_fund: Fondo de campaña electoral presidencial $3 para ir a este fondo
           primary_us_citizen: "¿Ciudadano estadounidense?"
           provided_over_half_own_support: "¿Aportó esta persona más del 50% de su propia manutención?"
-          receive_written_communication: ¿Recibir comunicaciones escritas del IRS en un idioma distinto al inglés?
+          receive_written_communication: "¿Recibir comunicaciones escritas del IRS en un idioma distinto al inglés?"
           refund_check_by_mail: Cheque por correo
           refund_other: Otro
           refund_payment_method: 'Si se le debe un reembolso, ¿le gustaría:'
           refund_payment_method_direct_deposit: Depósito directo
           refund_payment_method_split: Dividir el reembolso entre diferentes cuentas
-          register_to_vote: ¿Le gustaría información sobre cómo votar y/o cómo registrarse para votar?
+          register_to_vote: "¿Le gustaría información sobre cómo votar y/o cómo registrarse para votar?"
           spouse_dob: Fecha de nacimiento de su cónyuge
           spouse_first_name: Nombre legal de su cónyuge
           spouse_job_title: Puesto de trabajo del cónyuge
@@ -816,7 +816,7 @@ es:
           had_gambling_income: Ganancias en juegos de azar, incluida la lotería.
           had_interest_income: "¿Intereses/dividendos de: cuentas corrientes/de ahorro, bonos, certificados de depósito, corretaje?"
           had_local_tax_refund: Reembolso de impuestos estatales o locales sobre la renta
-          had_other_income: '¿Recibió algún otro dinero durante el año? (ejemplo: pagos en efectivo, servicio de jurado, premios, activos digitales, regalías, beneficios por huelgas sindicales)'
+          had_other_income: "¿Recibió algún otro dinero durante el año? (ejemplo: pagos en efectivo, servicio de jurado, premios, activos digitales, regalías, beneficios por huelgas sindicales)"
           had_rental_income: "¿Ingresos (o pérdidas) procedentes del arrendamiento de propiedades?"
           had_rental_income_and_used_dwelling_as_residence: En caso afirmativo, ¿usó la unidad de vivienda como residencia personal y la alquiló por menos de 15 días?
           had_rental_income_from_personal_property: Ingresos por alquiler de bienes personales, como un vehículo.
