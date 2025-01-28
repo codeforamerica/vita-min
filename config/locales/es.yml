@@ -784,19 +784,19 @@ es:
           months_in_home: "# o número de meses que vivió en su casa el año pasado:"
           never_married: Nunca se ha casado
           north_american_resident: 'Residente en EE.UU., Canadá o México el año pasado:'
-          owner_or_holder_of_any_digital_assets: Owner or holder of any digital assets
-          pay_due_balance_directly: If they have a balance due, would they like to make a payment directly from their bank account?
-          preferred_written_language: If yes, which language?
-          presidential_campaign_fund: Presidential Election Campaign Fund $3 to go to this fund
+          owner_or_holder_of_any_digital_assets: Propietario o poseedor de cualquier activo digital
+          pay_due_balance_directly: Si tienen un saldo adeudado, ¿les gustaría realizar un pago directamente desde su cuenta bancaria?
+          preferred_written_language: En caso afirmativo, ¿en qué idioma?
+          presidential_campaign_fund: Fondo de campaña electoral presidencial $3 para ir a este fondo
           primary_us_citizen: "¿Ciudadano estadounidense?"
           provided_over_half_own_support: "¿Aportó esta persona más del 50% de su propia manutención?"
-          receive_written_communication: Receive written communications from the IRS in a language other than English?
-          refund_check_by_mail: Check by mail
-          refund_other: Other
-          refund_payment_method: 'If you are due a refund, would you like:'
-          refund_payment_method_direct_deposit: Direct Deposit
-          refund_payment_method_split: Split refund between different accounts
-          register_to_vote: Would you like information on how to vote and/or how to register to vote
+          receive_written_communication: ¿Recibir comunicaciones escritas del IRS en un idioma distinto al inglés?
+          refund_check_by_mail: Cheque por correo
+          refund_other: Otro
+          refund_payment_method: 'Si se le debe un reembolso, ¿le gustaría:'
+          refund_payment_method_direct_deposit: Depósito directo
+          refund_payment_method_split: Dividir el reembolso entre diferentes cuentas
+          register_to_vote: ¿Le gustaría información sobre cómo votar y/o cómo registrarse para votar?
           spouse_dob: Fecha de nacimiento de su cónyuge
           spouse_first_name: Nombre legal de su cónyuge
           spouse_job_title: Puesto de trabajo del cónyuge
@@ -815,12 +815,12 @@ es:
           had_disability_income: "¿Ingresos por discapacidad?"
           had_gambling_income: Ganancias en juegos de azar, incluida la lotería.
           had_interest_income: "¿Intereses/dividendos de: cuentas corrientes/de ahorro, bonos, certificados de depósito, corretaje?"
-          had_local_tax_refund: Refund of state or local income tax
-          had_other_income: 'Any other money received during the year? (example: cash payments, jury duty, awards, digital assets, royalties, union strike benefits)'
+          had_local_tax_refund: Reembolso de impuestos estatales o locales sobre la renta
+          had_other_income: '¿Recibió algún otro dinero durante el año? (ejemplo: pagos en efectivo, servicio de jurado, premios, activos digitales, regalías, beneficios por huelgas sindicales)'
           had_rental_income: "¿Ingresos (o pérdidas) procedentes del arrendamiento de propiedades?"
-          had_rental_income_and_used_dwelling_as_residence: If yes, did you use the dwelling unit as a personal residence and rent it for fewer than 15 days
-          had_rental_income_from_personal_property: Income from renting personal property such as a vehicle
-          had_retirement_income: Retirement account, pension or annuity proceeds
+          had_rental_income_and_used_dwelling_as_residence: En caso afirmativo, ¿usó la unidad de vivienda como residencia personal y la alquiló por menos de 15 días?
+          had_rental_income_from_personal_property: Ingresos por alquiler de bienes personales, como un vehículo.
+          had_retirement_income: "¿Cuentas de jubilación, ingresos de pensiones o anualidades?"
           had_self_employment_income: "¿Ingresos por trabajo autónomo?"
           had_social_security_income: "¿Seguro Social o beneficios de Jubilación Ferroviaria?"
           had_tips: "¿Ingresos por propinas?"
@@ -828,9 +828,9 @@ es:
           had_wages: "¿Sueldo o salario? (Formulario W-2)"
           job_count: En caso afirmativo, ¿cuántos empleos tuvo el año pasado?
           received_alimony: "¿Pensión alimenticia o pensión de separación?"
-          reported_asset_sale_loss: Did you report a loss on last year’s return
-          reported_self_employment_loss: Did you report a loss on last year's return
-        part_3_title: Income – Last Year, Did You (or Your Spouse) Receive
+          reported_asset_sale_loss: "¿Reportó una pérdida en la declaración del año pasado?"
+          reported_self_employment_loss: "¿Reportó una pérdida en la declaración del año pasado?"
+        part_3_title: Ingresos - El año pasado, ¿recibió usted (o su cónyuge)
         title: 13614-C página 2
       edit_13614c_form_page3:
         title: 13614-C página 3
@@ -1554,14 +1554,14 @@ es:
             El equipo de FileYourStateTaxes
           subject: 'Recordatorio final: FileYourStateTaxes cerrará el 25 de abril.'
         sms: |
-          Hola %{primary_first_name} - Aún no ha presentado su declaración de impuestos estatales. Asegúrese de presentar sus impuestos estatales lo antes posible para evitar cargos por presentación tardía. Vaya a fileyourstatetaxes.org/en/us/login-options para finalizarlos ahora. FileYourStateTaxes cerrará sus servicios del año el 25 de abril.
+          Hola %{primary_first_name} - Aún no ha presentado su declaración de impuestos estatales. Asegúrese de presentar sus impuestos estatales lo antes posible para evitar cargos por presentación tardía. Vaya a fileyourstatetaxes.org/es/us/login-options para finalizarlos ahora. FileYourStateTaxes cerrará sus servicios del año el 25 de abril.
           ¿Necesitar ayuda? Envíenos un correo electrónico a help@fileyourstatetaxes.org.
       pre_deadline_reminder:
         email:
           body: "Hola %{primary_first_name}, \n\nAún no has presentado tu declaración de impuestos estatales. Asegúrate de presentar tus impuestos estatales antes del 15 de abril para evitar multas por presentación tardía de %{state_name}. \n\nVe a fileyourstatetaxes.org/es/us/login-options para terminarlos ahora.\n\n¿Necesitas ayuda? Responde a este mensaje de texto.\n\nAtentamente,\nEl equipo de FileYourStateTaxes\n"
           subject: "¡No olvides terminar tu declaración de impuestos estatales antes del 15 de abril!"
         sms: |
-          Hola %{primary_first_name} - Aún no ha presentado su declaración de impuestos estatales. Asegúrese de presentar sus impuestos estatales antes del 15 de abril para evitar cargos por presentación tardía. Vaya a fileyourstatetaxes.org/en/us/login-options para finalizarlos ahora.
+          Hola %{primary_first_name} - Aún no ha presentado su declaración de impuestos estatales. Asegúrese de presentar sus impuestos estatales antes del 15 de abril para evitar cargos por presentación tardía. Vaya a fileyourstatetaxes.org/es/us/login-options para finalizarlos ahora.
           ¿Necesitar ayuda? Envíenos un correo electrónico a help@fileyourstatetaxes.org.
       reject_resolution_reminder:
         email:
@@ -1969,12 +1969,12 @@ es:
 
             <p class="text--small spacing-above-15">Su nivel de ingresos no debe incluir pagos de estímulo, prestaciones públicas o Seguridad de Ingreso Suplementario (SSI)</p>
           options:
-            12500_to_25000: "$15,000 - 30,000"
-            1_to_12500: "$1 - $15,000"
-            25000_to_40000: "$30,000 - 45,000"
-            40000_to_66000: "$45,000 - 67,000"
-            66000_to_79000: "$67,000 - 84,000"
-            over_79000: over $84,000
+            12500_to_25000: De $15,000 a 30,000 dólares
+            1_to_12500: De $1 a $15,000 dólares
+            25000_to_40000: De $30,000 a 45,000 dólares
+            40000_to_66000: De $45,000 a 67,000 dólares
+            66000_to_79000: De $67,000 a 84,000 dólares
+            over_79000: más de $84,000
             zero: "$0"
         title: Hablemos sobre su estado civil y sus ingresos.
         vita_income_ineligible:
