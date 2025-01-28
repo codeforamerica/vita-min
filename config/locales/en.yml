@@ -2895,7 +2895,6 @@ en:
           no_donations_selected: "<strong>No donations selected</strong>"
           permanent_building_fund_tax: Permanent Building Fund Tax
           purchases_without_sales_tax: Purchases without paying sales tax
-          state_details_title: State Details
           voluntary_charitable_donations: Voluntary Charitable Donations
       id_sales_use_tax:
         edit:
@@ -3014,8 +3013,8 @@ en:
           why_ask_this: Why are you asking for this information?
       md_review:
         edit:
-          county_html: "<strong>County</strong>"
-          political_subdivision_html: "<strong>Political subdivision</strong>"
+          county_html: "<strong> County lived in on December 31, %{filing_year}</strong>"
+          political_subdivision_html: "<strong>Political subdivision lived in on December 31, %{filing_year}</strong>"
           your_address: Address lived at on December 31, %{filing_year}
       md_social_security_benefits:
         edit:
@@ -3090,7 +3089,7 @@ en:
           interest_us_bonds: Interest income from U.S. bonds (not taxable in North Carolina)
           primary_veteran: United States Armed Forces veteran status
           social_security_benefits: Social Security benefits (not taxable in North Carolina)
-          spouse_veteran: Spouse Veteran Info
+          spouse_veteran: Your spouse's United States Armed Forces veteran status
           state_credit: Enrolled member of a federally recognized Indian Tribe, and received income from a source within a reservation
           subtraction_indian_tribe: Subtraction for income of a member of an Indian tribe
           use_tax_amount: Amount of use tax
@@ -3717,8 +3716,8 @@ en:
           reject_desc: 'Reject Description:'
           title: Unfortunately, your %{filing_year} %{state_name} state tax return was rejected
       review:
-        county: County where your permanent address was located on December 31, %{filing_year}
-        county_during_hurricane: County where your permanent address was located during Hurricane Helene
+        county: County where you resided on December 31, %{filing_year}
+        county_during_hurricane: Other county where you resided (or currently reside) between September 25th, 2024 and today
       shared:
         abstract_review_header:
           amount_rounding_notice_html: "<strong>We have automatically rounded all dollar amounts to the nearest whole number.</strong> The %{state_agency_name} will only accept whole numbers on the final tax return."
@@ -3735,6 +3734,7 @@ en:
         review_header:
           income_details: Income Details
           income_forms_collected: 'Income form(s) collected:'
+          state_details_title: State Details
           your_refund: Your refund amount
           your_tax_owed: Your taxes owed
       sms_terms:
