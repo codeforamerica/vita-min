@@ -579,7 +579,7 @@ es:
     sms_phone_number: Número de celular
     sorry: "¡Ay, no! ¡Lo sentimos!"
     spouse_last_four_ssn: Últimos 4 de SSN/ITIN de su cónyuge
-    spread_the_word_html: Cuéntale a tus amigos y familiares sobre <a target="_blank" rel="noopener nofollow" href="https://directfile.irs.gov/">el servicio Direct File del IRS </a> para que puedan presentar sus impuestos de forma gratuita.
+    spread_the_word_html: Cuéntale a tus amigos y familiares sobre <a target="_blank" rel="noopener nofollow" href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">el servicio Direct File del IRS </a> para que puedan presentar sus impuestos de forma gratuita.
     ssn: SSN
     ssn_itin: SSN/ITIN
     start_filing: Empiece a declarar
@@ -2003,6 +2003,11 @@ es:
           help_text: Para mantener tu identidad segura, necesitamos confirmar tu número de seguro social.
           ssn_label: Número de Seguro Social o ITIN
           title: "¡Encontramos tu cuenta! Por favor, confirma tu identidad."
+      mailing_address_validation:
+        edit:
+          identity_safe: Para proteger su identidad, necesitamos confirmar la dirección en su declaración de impuestos de 2023.
+          radio_button_title: Seleccione la dirección postal para su declaración de impuestos de 2023.
+          title: Confirme su dirección para acceder a su declaración de impuestos
       verification_code:
         edit:
           error_message: Después de 2 intentos fallidos, las cuentas serán bloqueadas.
@@ -2128,7 +2133,7 @@ es:
         download_your_record: Descarga tu declaración
         help_text_html: |
           <ul class="list--bulleted">
-            <li>Una declaración federal de impuestos %{filing_year} <strong>aceptada</strong> A través de <a href="https://directfile.irs.gov/">IRS Direct File</a>. (No necesitas una copia de esta declaración; transferirás tu declaración aquí).
+            <li>Una declaración federal de impuestos %{filing_year} <strong>aceptada</strong> A través de <a href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">IRS Direct File</a>. (No necesitas una copia de esta declaración; transferirás tu declaración aquí).
             <li>Una dirección de correo electrónico o un número de teléfono.</li>
             <li>Tu licencia de conducir o identificación emitida por el estado, si la tienes.</li>
             <li>El formulario 1099-G (si recibiste beneficios de desempleo en %{filing_year}).</li>
@@ -2154,12 +2159,13 @@ es:
           supported_by: Respaldada por el estado de Carolina del Norte
           title: Declara tus impuestos estatales de Carolina del Norte sin costo
         nj:
+          built_with_html: "Te tomará alrededor de 10 y 15 minutos completar tu declaración con <strong>FileYourStateTaxes</strong>. \n<br/><br/>\nEsta servicio ha sido creada en colaboración con el New Jersey Office of Innovation para integrarse con Direct File del IRS.\n"
           closed_html: |
             <strong>FileYourStateTaxes</strong> se creó en asociación con el New Jersey Office of Innovation para integrarse con la herramienta Direct File del IRS.<br /><br />
             Estamos cerrados por la temporada de impuestos. Desafortunadamente no puede presentar su declaración estatal con nosotros este año.
           help_text_html: |
             <ul class="list--bulleted">
-              <li>Haber presentado tu declaración federal de 2024 usando IRS Direct File</li>
+              <li>Haber presentado tu declaración federal de 2024 usando <a href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode" target="_blank" rel="noopener nofollow">IRS Direct File</a></li>
               <li>Un email o un número de teléfono para recibir un código de verificación único</li>
               <li>Números de ruta y cuenta bancaria (si deseas recibir tu reembolso o realizar un pago de impuestos electrónicamente)</li>
               <li>(opcional) Licencia de conducir o identificación emitida por el estado</li>
@@ -2173,7 +2179,7 @@ es:
         welcome_back: "¡Bienvenido de nuevo %{user_name}!"
       ny_closed:
         body_html: |
-          No puedes usar este servicio para declarar tus impuestos estatales de Nueva York de 2024. Sin embargo, podrías declarar con IRS Direct File y New York State Direct File. Para verificar tu elegibilidad y comenzar a presentar tu declaración federal, visita a IRS Direct File. a <a href="https://directfile.irs.gov/">IRS Direct File</a>.
+          No puedes usar este servicio para declarar tus impuestos estatales de Nueva York de 2024. Sin embargo, podrías declarar con IRS Direct File y New York State Direct File. Para verificar tu elegibilidad y comenzar a presentar tu declaración federal, visita a IRS Direct File. a <a href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">IRS Direct File</a>.
           <br /><br />
           Para descargar tu declaración de impuestos de Nueva York de 2023, <a href="https://www.fileyourstatetaxes.org/en/az/faq/how_can_i_access_my_2023_state_tax_return">visita nuestras preguntas frecuentes</a>.
         supported_by: Respaldada por el estado de Nueva York
@@ -2405,7 +2411,7 @@ es:
             eligibility_ed_loan_cancelled: se te canceló un préstamo estudiantil bajo la Ley del Plan de Rescate Estadounidense.
             eligibility_ed_loan_emp_payment: recibiste un Pago de Préstamo Educativo Calificado pagado por tu empleador.
             eligibility_emergency_rental_assistance: recibió asistencia de alquiler de emergencia %{filing_year}
-            eligibility_home_different_areas: o tu cónyuge tenían hogares permanentes en dos condados, ciudades o áreas impositivas diferentes el último día de %{filing_year}
+            eligibility_home_different_areas: y su cónyuge tenía residencias permanentes en dos condados, ciudades, pueblos o áreas impositivas diferentes el último día de %{filing_year}
             eligibility_homebuyer_withdrawal: retiró dinero de una cuenta de comprador de vivienda por primera vez que no se utilizó para comprar una casa en Maryland
             eligibility_homebuyer_withdrawal_mfj: o tu cónyuge retiraron dinero de una Cuenta de Comprador de Vivienda Por Primera Vez que no se utilizó para comprar una casa en Maryland.
             eligibility_lived_in_state: no viviste en %{state} durante todo el %{filing_year}
@@ -2496,7 +2502,6 @@ es:
           itemized_deductions: Deducciones detalladas
           long_term_care_insurance_subtraction: Resta del Seguro de Atención a Largo Plazo
           maintaining_elderly_disabled_credit: Crédito por Mantener un Hogar para Personas Mayores o Discapacitadas
-          voluntary_donations: Todas las donaciones voluntarias
         id_supported:
           child_care_deduction: Resta de cuidado de niños y dependientes
           health_insurance_premiums_subtraction: Resta de primas de seguro médico
@@ -2639,7 +2644,7 @@ es:
             <li>Crédito por Ingreso del Trabajo de New Jersey (NJEITC por las siglas en inglés)</li>
             <li>Crédito por Hijos de New Jersey</li>
             <li>Crédito por Cuidado de Menores y Dependientes de New Jersey</li>
-            <li>Deducción de Gastos Médicos</li>
+            <li>Deducción de Gastos Médicos de New Jersey</li>
             <li>Exclusión de Pensión/Jubilación y Otros Ingresos de Jubilación</li>
             <li>Créditos por Contribuciones Excedentes del Seguro de Desempleo (UI) y del Seguro de Licencia Familiar (FLI)</li>
             <li>Crédito o Deducción de Impuestos sobre la Propiedad</li>
@@ -2849,7 +2854,6 @@ es:
           no_donations_selected: "<strong>No se seleccionaron donaciones</strong>"
           permanent_building_fund_tax: Impuesto sobre el Fondo de Edificios Permanentes
           purchases_without_sales_tax: Compras sin pagar impuesto de ventas
-          state_details_title: Detalles estatales
           voluntary_charitable_donations: Donaciones caritativas voluntarias
       id_sales_use_tax:
         edit:
@@ -2883,6 +2887,7 @@ es:
           title: Estos son los formularios de ingresos que transferimos de su declaración de impuestos federales.
           unemployment_title: Beneficios de desempleo (1099-G)
           w2s_title: Empleos (W-2)
+          warning: "⚠️ We need to double-check some information"
       initiate_data_transfer:
         data_transfer_buttons:
           from_fake_df_page: Transferir datos desde una página falsa de transferencia de DF.
@@ -2979,9 +2984,9 @@ es:
           why_ask_this: "¿Por qué están pidiendo esta información?"
       md_review:
         edit:
-          county_html: "<strong>Condado</strong>"
-          political_subdivision_html: "<strong>Subdivisión política</strong>"
-          your_address: Dirección donde vivías el 31 de diciembre del%{filing_year}
+          county_html: "<strong>Condado donde vivías el 31 de diciembre de %{filing_year}</strong>"
+          political_subdivision_html: "<strong>Subdivisión política donde vivías el 31 de diciembre de %{filing_year}</strong>"
+          your_address: Dirección donde vivías el 31 de diciembre del %{filing_year}
       md_social_security_benefits:
         edit:
           description: Para informar correctamente los beneficios del Seguro Social en su declaración de impuestos de Maryland, necesitamos recopilar información adicional.
@@ -3055,7 +3060,7 @@ es:
           interest_us_bonds: Ingresos por intereses de bonos de los Estados Unidos (no son sujetos a impuestos en Carolina del Norte)
           primary_veteran: Estado de veterano de las Fuerzas Armadas de los Estados Unidos
           social_security_benefits: Beneficios del Seguro Social (no sujetos a impuestos en Carolina del Norte)
-          spouse_veteran: Información del Cónyuge Veterano
+          spouse_veteran: Estado de veterano de las Fuerzas Armadas de los Estados Unidos de tu cónyuge
           state_credit: Miembro inscrito de una tribu indígena reconocida por el gobierno federal y recibiste ingresos de una fuente dentro de una reserva
           subtraction_indian_tribe: Resta por ingresos de un miembro de una tribu india
           use_tax_amount: Cantidad del impuesto sobre uso
@@ -3231,7 +3236,7 @@ es:
           title: Dijiste que eras propietario de una vivienda en %{filing_year}.
       nj_homeowner_property_tax:
         edit:
-          helper_anchor_description_html: Si recibiste un beneficio de Comunidades Accesibles de New Jersey para Propietarios e Inquilinos (ANCHOR por las siglas en inglés), el monto del beneficio no afecta el monto a informar en la línea 8. (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> ofrece alivio de impuestos a la propiedad a residentes de New Jersey que tengan o alquilen una vivienda principal en New Jersey y que cumplan con ciertos límites de ingresos.)
+          helper_anchor_description_html: Si recibiste un beneficio de Comunidades Accesibles de New Jersey para Propietarios e Inquilinos (ANCHOR por las siglas en inglés), el monto del beneficio no afecta el monto a informar de la pregunta superior. (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> ofrece alivio de impuestos a la propiedad a residentes de New Jersey que tengan o alquilen una vivienda principal en New Jersey y que cumplan con ciertos límites de ingresos.)
           helper_anchor_heading: "¿Qué pasa si recibí beneficios ANCHOR?"
           helper_description: Puedes revisar tus facturas de impuestos trimestrales y sumar el total pagado a tu municipio.
           helper_heading: "¿Dónde puedo encontrar los impuestos sobre la propiedad pagados?"
@@ -3240,7 +3245,7 @@ es:
       nj_homeowner_property_tax_worksheet:
         edit:
           description_html: "<p>El siguiente paso es completar esta<a href=\"https://www.nj.gov/treasury/taxation/pdf/wrkshtg.pdf\" target=\"_blank\" rel=\"noopener nofollow\">hoja de trabajo</a>.</p> \n<p>Una vez que la completes, vuelve a esta página.</p>\n<p>La hoja de trabajo te preguntará dónde viviste y por cuánto tiempo. Si te mudaste, por ejemplo, tendrá espacio para que enumeres todos los lugares donde viviste.</p>\n"
-          helper_anchor_description_html: Si recibió un beneficio ANCHOR, el monto del beneficio no afecta el monto a declarar en esta línea. (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> ofrece desgravación del impuesto a la propiedad a los residentes de Nueva Jersey que poseen o alquilar una propiedad en Nueva Jersey como su hogar principal y cumplir con ciertos límites de ingresos).
+          helper_anchor_description_html: Si recibió un beneficio ANCHOR, el monto del beneficio no afecta el monto a declarar en la pregunta superior. (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> ofrece desgravación del impuesto a la propiedad a los residentes de Nueva Jersey que poseen o alquilar una propiedad en Nueva Jersey como su hogar principal y cumplir con ciertos límites de ingresos).
           helper_anchor_heading: "¿Qué pasa si recibí beneficios ANCHOR?"
           helper_description: Puedes revisar tus facturas de impuestos trimestrales y sumar el total pagado a tu municipio.
           helper_heading: "¿Dónde puedo encontrar los impuestos sobre la propiedad pagados?"
@@ -3429,17 +3434,17 @@ es:
       nj_tenant_property_tax_worksheet:
         edit:
           description_html: "<p>El siguiente paso es completar esta  <a href=\"https://www.nj.gov/treasury/taxation/pdf/wrkshtg.pdf\" target=\"_blank\" rel=\"noopener nofollow\">hoja de trabajo</a>.</p> \n<p>Una vez que la completes, vuelve a esta página.</p>\n<p>La hoja de trabajo te preguntará dónde viviste y por cuánto tiempo. Si te mudaste, por ejemplo, tendrá espacio para que enumeres todos los lugares donde viviste.</p>\n"
-          helper_anchor_description_html: Si recibiste un beneficio de Comunidades Accesibles de New Jersey para Propietarios e Inquilinos (ANCHOR por las siglas en inglés), el monto del beneficio no afecta el monto a informar en la línea 8. (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> ofrece alivio de impuestos a la propiedad a residentes de New Jersey que tengan o alquilen una vivienda principal en New Jersey y que cumplan con ciertos límites de ingresos).
+          helper_anchor_description_html: Si recibiste un beneficio de Comunidades Accesibles de New Jersey para Propietarios e Inquilinos (ANCHOR por las siglas en inglés), el monto del beneficio no afecta el monto a informar en la pregunta superior. (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> ofrece alivio de impuestos a la propiedad a residentes de New Jersey que tengan o alquilen una vivienda principal en New Jersey y que cumplan con ciertos límites de ingresos).
           helper_anchor_heading: "¿Qué pasa si recibí beneficios ANCHOR?"
-          helper_description: Escribe las tarifas de tu sitio pagadas en %{filing_year} en la sección de alquiler de la Hoja de trabajo G.
+          helper_description_html: Escribe las tarifas de tu sitio pagadas en %{filing_year} en la sección de alquiler de la <a href="https://www.nj.gov/treasury/taxation/pdf/wrkshtg.pdf" target="_blank" rel="noopener nofollow">Hoja de trabajo (link en inglés)</a>.
           helper_heading: Dueños/as de casas móviles/rodantes
-          label_html: "<strong>Ingresa la Línea 8 de la Hoja de trabajo</strong>"
+          label_html: "<strong>Ingresa la Línea 8 de la Hoja de Trabajo</strong><br/>(Tu parte del total de impuestos sobre la propiedad pagados)"
           title: Buenas noticias—calificas para una deducción o crédito
       nj_tenant_rent_paid:
         edit:
-          helper_anchor_description_html: Si recibió un beneficio ANCHOR, el monto del beneficio no afecta el monto a declarar en la línea 8. (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> ofrece desgravación del impuesto a la propiedad a los residentes de Nueva Jersey que poseen o alquilan propiedades en Nueva Jersey como su hogar principal y cumplen con ciertos límites de ingresos).
+          helper_anchor_description_html: Si recibió un beneficio ANCHOR, el monto del beneficio no afecta el monto a declarar en la pregunta superior. (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> ofrece desgravación del impuesto a la propiedad a los residentes de Nueva Jersey que poseen o alquilan propiedades en Nueva Jersey como su hogar principal y cumplen con ciertos límites de ingresos).
           helper_anchor_heading: "¿Qué pasa si recibí beneficios ANCHOR?"
-          helper_description: Escribe las tarifas de tu sitio pagadas en %{filing_year} en la sección de alquiler de la Hoja de trabajo G.
+          helper_description: Ingresa las tarifas de tu sitio pagadas en %{filing_year}.
           helper_heading: Dueños/as de casas móviles/rodantes
           label_html: "<strong>Ingresa tu parte total del alquiler que pagaste en %{filing_year}</strong>"
           title: Buenas noticias—calificas para una deducción o crédito
@@ -3698,8 +3703,8 @@ es:
           reject_desc: 'Descripción del Rechazo:'
           title: Lamentablemente, tu declaración de impuestos estatal de %{state_name}de %{filing_year} fue rechazada
       review:
-        county: Condado donde estaba ubicada su dirección permanente el 31 de diciembre de %{filing_year}
-        county_during_hurricane: Condado donde estaba ubicada su dirección permanente durante el huracán Helene
+        county: Condado donde vivías el 31 de diciembre de %{filing_year}
+        county_during_hurricane: Otro condado donde vivías (o actualmente vives) entre el 25 de septiembre y la fecha de hoy
       shared:
         abstract_review_header:
           amount_rounding_notice_html: "<strong>Hemos redondeado automáticamente todas las cantidades en dólares al número entero más cercano.</strong> La %{state_agency_name} sólo aceptará números enteros en la declaración de impuestos final."
@@ -3716,6 +3721,7 @@ es:
         review_header:
           income_details: Detalles de ingresos
           income_forms_collected: 'Formulario(s) de ingresos recogidos:'
+          state_details_title: Detalles estatales
           your_refund: La cantidad de tu reembolso
           your_tax_owed: Los impuestos que debes
       sms_terms:
@@ -3727,7 +3733,7 @@ es:
           term_5: 'Proveedores principales: AT&T, Verizon Wireless, Sprint, T-Mobile, U.S. Cellular, Alltel, Boost Mobile, Nextel y Virgin Mobile.'
           term_6: 'Proveedores menores: Alaska Communications Systems (ACS), Appalachian Wireless (EKN), Bluegrass Cellular, Cellular One of East Central IL (ECIT), Cellular One of Northeast Pennsylvania, Cincinnati Bell Wireless, Cricket, Coral Wireless (Mobi PCS), COX, Cross, Element Mobile (Flat Wireless), Epic Touch (Elkhart Telephone), GCI, Golden State, Hawkeye (Chat Mobility), Hawkeye (NW Missouri), Illinois Valley Cellular, Inland Cellular, iWireless (Iowa Wireless), Keystone Wireless (Immix Wireless/PC Man), Mosaic (Consolidated o CTC Telecom), Nex-Tech Wireless, NTelos, Panhandle Communications, Pioneer, Plateau (Texas RSA 3 Ltd), Revol, RINA, Simmetry (TMP Corporation), Thumb Cellular, Union Wireless, United Wireless, Viaero Wireless, y West Central (WCC o 5 Star Wireless).'
           term_7: Los proveedores de telefonía móvil (por ejemplo, AT&T, Verizon, T-Mobile, Sprint, etc.) no son responsables de mensajes no entregados o retrasados.
-          term_8_html: 'Como siempre, pueden aplicar tarifas por mensajes y datos para cualquier mensaje que te enviemos y que nos envíes. Si tienes alguna pregunta sobre tu plan de mensajes o plan de datos, es mejor contactar a tu proveedor de telefonía móvil. <br> <br>Si tienes preguntas sobre los servicios proporcionados por este código corto, puedes enviar un correo electrónico a <strong>help@fileyourstatetaxes.org</strong>.
+          term_8_html: 'Como siempre, pueden aplicar tarifas por mensajes y datos para cualquier mensaje que te enviemos y que nos envíes. Si tienes alguna pregunta sobre tu plan de mensajes o plan de datos, es mejor contactar a tu proveedor de telefonía móvil. <br> <br>Si tienes preguntas sobre los servicios proporcionados por este código corto, puedes enviar un correo electrónico a <strong><a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a></strong>.
 
             '
           term_9_html: 'Si tienes alguna pregunta sobre la privacidad, por favor lee nuestra política de privacidad:<a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/privacy-policy">www.fileyourstatetaxes.org/es/privacy-policy</a>
@@ -3897,7 +3903,6 @@ es:
           save_and_continue: Guardar y Continuar
           state_income_tax_amt_error: No puede ser mayor que los salarios y propinas estatales.
           state_wages_amt_error: Ingresa los salarios y propinas estatales
-          state_wages_exceed_amt_error: El total de salarios e ingresos estatales no puede ser mayor que $%{wages_amount}
           wages_amt_error: El impuesto sobre la renta total no puede ser mas de $%{wages_amount}
           what_is_box14_md: "¿Qué podría aparecer en la casilla 14?"
           what_is_box14_nj: "¿Qué debo poner en los casilleros 14?"
@@ -3918,9 +3923,9 @@ es:
         looking_for_return_html: "<strong>¿Buscas tu declaración de impuestos de Arizona o del estado de Nueva York de 2023?</strong>"
         section1_html: |
           <ol class="list--numbered" style="padding-left: 2rem">
-          <li>Primero, presenta y envía tu declaración federal con <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">el servicio Direct File del IRS</a> antes de usar este servicio.</li>
+          <li>Primero, presenta y envía tu declaración federal con <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">el servicio Direct File del IRS</a> antes de usar este servicio.</li>
           <li>Sigue el enlace de Direct File a FileYourStateTaxes.</li>
-          <li>Responde algunas preguntas para asegurarte de que este servicio sea adecuado para ti. <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/state">Obtén más información</a> sobre quién es elegible este año fiscal.</li>
+          <li>Responde algunas preguntas para asegurarte de que este servicio sea adecuado para ti. <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">Obtén más información</a> sobre quién es elegible este año fiscal.</li>
           <li>Transfiere tu declaración federal para completar automáticamente la mayor parte de tu declaración estatal.</li>
           <li>Responde algunas preguntas adicionales para aumentar tu reembolso de impuestos estatal.</li>
           <li>¡Presenta tu declaración electrónicamente sin costo!</li>
@@ -3933,7 +3938,7 @@ es:
           Este sitio empezará a funcionar al inicio de la temporada de impuestos de 2025 y estará activo hasta el 15 de octubre de 2025 para que puedas presentar tus declaraciones de impuestos estatales.
           <br /><br />
           <strong>En 2025, este servicio funcionará para presentar los impuestos estatales en Arizona, Idaho, Carolina del Norte, Nueva Jersey y Maryland.</strong>
-        subheader_2_html: Para declarar tus impuestos federales, visita <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">directfile.irs.gov.</a>
+        subheader_2_html: Para declarar tus impuestos federales, visita <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">directfile.irs.gov.</a>
         subheader_3_html: "<strong>¿Ya presentaste tu declaración federal con IRS Direct File y necesitas completar tu declaración estatal?</strong> <a href=%{login_path}>Inicia sesión aquí</a>."
         tax_return_link: Haga clic aquí para acceder a su declaración de impuestos.
       card_postscript:
@@ -4054,6 +4059,25 @@ es:
         header: FileYourStateTaxes términos y condiciones de mensajería de texto
         major_carriers: 'Proveedores principales: AT&T, Verizon Wireless, Sprint, T-Mobile, U.S. Cellular, Alltel, Boost Mobile, Nextel y Virgin Mobile.'
         minor_carriers: 'Proveedores menores: Alaska Communications Systems (ACS), Appalachian Wireless (EKN), Bluegrass Cellular, Cellular One of East Central IL (ECIT), Cellular One of Northeast Pennsylvania, Cincinnati Bell Wireless, Cricket, Coral Wireless (Mobi PCS), COX, Cross, Element Mobile (Flat Wireless), Epic Touch (Elkhart Telephone), GCI, Golden State, Hawkeye (Chat Mobility), Hawkeye (NW Missouri), Illinois Valley Cellular, Inland Cellular, iWireless (Iowa Wireless), Keystone Wireless (Immix Wireless/PC Man), Mosaic (Consolidated o CTC Telecom), Nex-Tech Wireless, NTelos, Panhandle Communications, Pioneer, Plateau (Texas RSA 3 Ltd), Revol, RINA, Simmetry (TMP Corporation), Thumb Cellular, Union Wireless, United Wireless, Viaero Wireless, y West Central (WCC o 5 Star Wireless).'
+    state_information_service:
+      az:
+        department_of_taxation: Departamento de Ingresos de Arizona
+        state_name: Arizona
+      id:
+        department_of_taxation: Comisión Estatal de Impuestos de Idaho
+        state_name: Idaho
+      md:
+        department_of_taxation: Contralor de Maryland
+        state_name: Maryland
+      nc:
+        department_of_taxation: Departamento de Ingresos de Carolina del Norte
+        state_name: Carolina del Norte
+      nj:
+        department_of_taxation: New Jersey Division of Taxation
+        state_name: New Jersey
+      ny:
+        department_of_taxation: Departamento de Impuestos y Finanzas de Nueva York
+        state_name: Nueva York
   validators:
     account_number: Este número de cuenta no es válido para transacciones de depósito directo. Revise su número de cuenta o cambie a pagos con cheque.
     alpha: Sólo se aceptan las letras A-Z y a-z.
@@ -4182,7 +4206,7 @@ es:
           <strong>Autorizo al sitio de VITA:</strong>
           La transferencia global de datos permite a TaxSlayer LLC, el proveedor del software de impuestos VITA/TCE, poner a disposición su información de declaración de impuestos para CUALQUIER sitio de voluntarios que participe en el programa VITA/TCE del IRS que usted seleccione para preparar una declaración de impuestos en la próxima temporada de presentación. Esto significa que podrá visitar cualquier sitio de voluntarios que utilice TaxSlayer el próximo año y que su declaración de impuestos se completará con los datos del año en curso, independientemente de dónde haya presentado su declaración de impuestos este año.
 
-          <strong>Este consentimiento es válido hasta el 30 de noviembre de %{product_year}</strong>
+          <strong>Este consentimiento es válido hasta el 30 de noviembre de 2026</strong>
 
           La información de la declaración de impuestos que se divulgará incluye, pero no se limita a, información demográfica, financiera y otra información personal identificable, sobre usted, su declaración de impuestos y sus fuentes de ingresos, que se introdujo en el software de preparación de impuestos con el fin de preparar su declaración de impuestos.
 
@@ -4190,7 +4214,7 @@ es:
 
           No es necesario que proporcione su consentimiento para el socio de VITA/TCE que prepare su declaración de impuestos este año. La transferencia de datos solo le ayudará si visita un socio de VITA o TCE diferente el próximo año.
 
-          <i>Limitación en la duración del consentimiento</i>: Yo/nosotros, el contribuyente, no deseamos limitar la duración del consentimiento de la divulgación de la información de la declaración de impuestos a una fecha anterior a la presentada arriba (30 de noviembre de %{product_year}). Si yo/nosotros deseamos limitar la duración del consentimiento de la divulgación a una fecha anterior, negaré el consentimiento.
+          <i>Limitación de la duración del consentimiento:</i> Yo/Nosotros, el(los) contribuyente(s), no deseamos limitar la duración del consentimiento de la divulgación de la información de la declaración de impuestos a una fecha más temprana a la indicada anteriormente (30 de noviembre de 2026). Si yo/nosotros deseamos limitar la duración del consentimiento de la divulgación a una fecha anterior, yo/nosotros denegaremos el consentimiento.
 
           <i>Limitación en el alcance de la divulgación</i>: Yo/nosotros, el contribuyente, no deseamos limitar más el alcance de la divulgación de la información de la declaración de impuestos que la presentada anteriormente. Si yo/nosotros deseamos limitar más el alcance de la divulgación de la información de la declaración de impuestos que la presentada anteriormente, yo/nosotros negaremos el consentimiento.
 

@@ -495,7 +495,18 @@ RSpec.feature "Completing a state file intake", active_job: true do
         advance_disabled_exemption(false) # does NOT meet disabled exemption
         advance_veterans_exemption
         advance_medical_expenses
-        choose_household_rent_own("homeowner")
+        choose_household_rent_own("tenant")
+        expect_ineligible_page(nil, "income_mfj_qss_hoh")
+        expect_page_after_property_tax
+      end
+
+      it "handles property tax flow - MFJ and both homeowner/renter", required_schema: "nj" do
+        advance_to_start_of_intake("Married filing jointly 15k wages") # low income MFJ
+        advance_county_and_municipality
+        advance_disabled_exemption(false) # does NOT meet disabled exemption
+        advance_veterans_exemption
+        advance_medical_expenses
+        choose_household_rent_own("both")
         expect_ineligible_page(nil, "income_mfj_qss_hoh")
         expect_page_after_property_tax
       end

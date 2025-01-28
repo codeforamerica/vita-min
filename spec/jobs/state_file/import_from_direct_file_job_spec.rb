@@ -70,17 +70,19 @@ RSpec.describe StateFile::ImportFromDirectFileJob, type: :job do
       end
     end
 
-    context "when the associated models are invalid after synching" do
+    context "when the DF data contains invalid data in associated models that can be corrected by the user later" do
       let(:xml_result) { StateFile::DirectFileApiResponseSampleService.new.read_xml('test_miranda_1099r_with_df_w2_error') }
       let(:direct_file_intake_json) { StateFile::DirectFileApiResponseSampleService.new.read_json('test_miranda_1099r_with_df_w2_error') }
 
-      it "catches the error and persists it to the intake record" do
+      it "ignores the errors so that the user can continue through the application" do
         auth_code = "miranda_1099r_with_df_w2_error"
         described_class.perform_now(authorization_code: auth_code, intake: intake)
 
-        expect(intake.df_data_import_succeeded_at).to be_nil
-        expect(intake.df_data_import_errors.count).to eq(1)
-        expect(intake.df_data_import_errors.first.message).to eq("Validation failed: Employer state id num EIN cannot be more than 16 characters.")
+        expect(intake.df_data_import_succeeded_at).to be_present
+        expect(intake.df_data_import_errors).to be_empty
+
+        expect(intake.state_file_w2s.first).not_to be_valid(:state_file_edit)
+        expect(intake.state_file1099_rs.second).not_to be_valid(:retirement_income_intake)
       end
     end
 
