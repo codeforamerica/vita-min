@@ -5,7 +5,6 @@ module StateFile
     GETTER_METHODS = [
       :intake_class,
       :calculator_class,
-      :department_of_taxation,
       :filing_years,
       :mail_voucher_address,
       :navigation_class,
@@ -14,7 +13,6 @@ module StateFile
       :review_controller_class,
       :schema_file_name,
       :software_id_key,
-      :state_name,
       :submission_builder_class,
       :submission_type,
       :survey_link,
@@ -39,6 +37,16 @@ module StateFile
 
           STATES_INFO[state_code][attribute]
         end
+      end
+
+      def state_name(state_code)
+        raise InvalidStateCodeError, state_code unless STATES_INFO.key?(state_code)
+        I18n.t("state_file.state_information_service.#{state_code}.state_name")
+      end
+
+      def department_of_taxation(state_code)
+        raise InvalidStateCodeError, state_code unless STATES_INFO.key?(state_code)
+        I18n.t("state_file.state_information_service.#{state_code}.department_of_taxation")
       end
 
       def active_state_codes
@@ -72,14 +80,12 @@ module StateFile
         review_controller_class: StateFile::Questions::AzReviewController,
         schema_file_name: "AZIndividual2024v2.0.zip",
         software_id_key: "sin",
-        state_name: "Arizona",
         submission_builder_class: SubmissionBuilder::Ty2022::States::Az::AzReturnXml,
         survey_link: "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_0v0BnYNRoLIqzhY",
         submission_type: "Form140",
         tax_payment_info_text: "https://azdor.gov/make-payment-online",
         tax_payment_info_url: "https://azdor.gov/making-payments-late-payments-and-filing-extensions",
         tax_refund_url: "https://aztaxes.gov/home/checkrefund",
-        department_of_taxation: "Arizona Department of Revenue",
         timezone: 'America/Phoenix',
         vita_link_en: "https://airtable.com/appMTIDgfgmMZjPqh/pag78AN26G3oA2i9q/form",
         vita_link_es: " https://airtable.com/appMTIDgfgmMZjPqh/pagpZYWNWu2uH2JZh/form",
@@ -99,7 +105,6 @@ module StateFile
         pay_taxes_link: "https://tax.idaho.gov/online-services/e-pay/",
         return_type: "Form40",
         review_controller_class: StateFile::Questions::IdReviewController,
-        state_name: "Idaho",
         schema_file_name: "ID_MeF2024V0.1.zip",
         software_id_key: "sin",
         submission_type: "Form40",
@@ -108,7 +113,6 @@ module StateFile
         tax_payment_info_text: "https://tax.idaho.gov/e-pay/",
         tax_payment_info_url: "https://tax.idaho.gov/online-services/e-pay/",
         tax_refund_url: "https://tax.idaho.gov/taxes/income-tax/individual-income/refund/",
-        department_of_taxation: "Idaho State Tax Commission",
         timezone: 'America/Boise',
         vita_link_en: "https://airtable.com/appqG5OGbTLBiQ408/pagt2JWaKQRG5I0gl/form",
         vita_link_es: "https://airtable.com/appqG5OGbTLBiQ408/pagTE56DjYpVNc5pX/form",
@@ -122,23 +126,21 @@ module StateFile
         calculator_class: Efile::Md::Md502Calculator,
         filing_years: [2024],
         mail_voucher_address: "Comptroller of Maryland<br/>" \
-          "Payment Processing<br/>" \
-          "PO Box 8888<br/>" \
-          "Annapolis, MD 21401-8888".html_safe,
+                              "Payment Processing<br/>" \
+                              "PO Box 8888<br/>" \
+                              "Annapolis, MD 21401-8888".html_safe,
         navigation_class: Navigation::StateFileMdQuestionNavigation,
         pay_taxes_link: "https://www.marylandtaxes.gov/individual/individual-payments.php",
         return_type: "502",
         review_controller_class: StateFile::Questions::MdReviewController,
         schema_file_name: "MDIndividual2024v1.0.zip",
         software_id_key: "md_sin", # MD assigned us a unique software id only in use for MD
-        state_name: "Maryland",
         submission_type: "MD502",
         submission_builder_class: SubmissionBuilder::Ty2024::States::Md::MdReturnXml,
         survey_link: "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_24BAmNMNrpkhLwy",
         tax_payment_info_text: "Marylandtaxes.gov",
         tax_payment_info_url: "https://www.marylandtaxes.gov/individual/individual-payments.php",
         tax_refund_url: "https://interactive.marylandtaxes.gov/INDIV/refundstatus/home.aspx",
-        department_of_taxation: "Comptroller of Maryland",
         timezone: 'America/New_York',
         vita_link_en: "https://airtable.com/appAgBw351Iig0YI4/pagVvtGPWrpURJrrd/form",
         vita_link_es: "https://airtable.com/appAgBw351Iig0YI4/pagpUP2HSWNXzPlIz/form",
@@ -160,14 +162,12 @@ module StateFile
         review_controller_class: StateFile::Questions::NcReviewController,
         schema_file_name: "NCIndividual2024v1.0.zip",
         software_id_key: "sin",
-        state_name: "North Carolina",
         submission_type: "FormNCD400",
         submission_builder_class: SubmissionBuilder::Ty2024::States::Nc::NcReturnXml,
         survey_link: "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_1MM0vBfZ5N2OMLA",
         tax_payment_info_text: "NCDOR.gov",
         tax_payment_info_url: "https://www.ncdor.gov/file-pay/pay-individual-income-tax",
         tax_refund_url: "https://eservices.dor.nc.gov/wheresmyrefund/SelectionServlet",
-        department_of_taxation: "N.C. Department of Revenue",
         timezone: 'America/New_York',
         vita_link_en: "https://airtable.com/appqG5OGbTLBiQ408/pagJPN5iPinERGb3Q/form",
         vita_link_es: "https://airtable.com/appqG5OGbTLBiQ408/pagS982AjKEml809R/form",
@@ -184,7 +184,6 @@ module StateFile
         review_controller_class: StateFile::Questions::NjReviewController,
         submission_builder_class: SubmissionBuilder::Ty2024::States::Nj::NjReturnXml,
         software_id_key: "sin",
-        state_name: "New Jersey",
         return_type: "Resident",
         schema_file_name: "NJIndividual2024V0.1.zip",
         mail_voucher_address: "State of New Jersey<br/>" \
@@ -197,7 +196,6 @@ module StateFile
         tax_payment_info_text: "https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp",
         tax_payment_info_url: "https://www.state.nj.us/treasury/taxation/payments-notices.shtml",
         tax_refund_url: "https://www20.state.nj.us/TYTR_TGI_INQ/jsp/prompt.jsp",
-        department_of_taxation: "New Jersey Division of Taxation",
         timezone: 'America/New_York',
         vita_link_en: "https://airtable.com/appqG5OGbTLBiQ408/pag9EUHzAZzfRIwUn/form",
         vita_link_es: "https://airtable.com/appqG5OGbTLBiQ408/pagVcLm52Stg9p4hY/form",
@@ -218,7 +216,6 @@ module StateFile
         pay_taxes_link: "https://www.tax.ny.gov/pay/",
         return_type: "IT201",
         review_controller_class: StateFile::Questions::NyReviewController,
-        state_name: "New York",
         submission_type: "IT201",
         schema_file_name: "NYSIndividual2023V4.0.zip",
         software_id_key: "sin",
@@ -227,7 +224,6 @@ module StateFile
         tax_payment_info_text: "Tax.NY.gov",
         tax_payment_info_url: "https://www.tax.ny.gov/pay/ind/pay-income-tax-online.htm",
         tax_refund_url: "https://www.tax.ny.gov/pit/file/refund.htm",
-        department_of_taxation: "",
         timezone: 'America/New_York',
         vita_link_en: "",
         vita_link_es: "",
