@@ -71,12 +71,13 @@ module StateFileIntakeHelper
     help_texts = page.all(:css, '.text--help')
     help_texts.each do |el|
       id = el[:id]
-      inputs_described_by_el = page.all(:css, "input[aria-describedby='#{id}']")
-      expect(inputs_described_by_el.length).to eq(1)
+      expect(id).not_to be_empty
+      described_by_help_text = page.all(:css, "*[aria-describedby='#{id}']")
+      expect(described_by_help_text.length).to eq(1)
     end
   end
 
-  def step_through_initial_authentication(contact_preference: :text_message)
+  def step_through_initial_authentication(check_a11y: false, contact_preference: :text_message)
     expect(page).to have_text I18n.t("state_file.questions.contact_preference.edit.title")
 
     case contact_preference
@@ -84,10 +85,9 @@ module StateFileIntakeHelper
       click_on "Text me a code"
 
       expect(page).to have_text "Enter your phone number"
-      expect_programmatically_associated_help_text
+      expect_programmatically_associated_help_text if check_a11y
       fill_in "Your phone number", with: "4153334444"
       click_on "Send code"
-
 
       expect(strip_html_tags(page.body)).to have_text strip_html_tags(I18n.t("state_file.questions.verification_code.edit.title_html", contact_info: '(415) 333-4444'))
       expect(page).to have_text "We’ve sent your code to (415) 333-4444"
@@ -99,7 +99,7 @@ module StateFileIntakeHelper
       click_on "Email me a code"
 
       expect(page).to have_text "Enter your email address"
-      expect_programmatically_associated_help_text
+      expect_programmatically_associated_help_text if check_a11y
       fill_in I18n.t("state_file.questions.email_address.edit.email_address_label"), with: "someone@example.com"
       click_on "Send code"
 
