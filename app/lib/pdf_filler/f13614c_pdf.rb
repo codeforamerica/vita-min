@@ -70,7 +70,6 @@ module PdfFiller
         "form1[0].page1[0].mailingZIPCode[0]" => @intake.zip_code,
       )
       answers.merge!(
-        yes_no_checkboxes("form1[0].page1[0].q10CanAnyoneClaim[0]", @intake.claimed_by_another, include_unsure: true),
         yes_no_checkboxes("form1[0].page1[0].q11HaveYouOr[0]", collective_yes_no_unsure(@intake.issued_identity_pin, @intake.spouse_issued_identity_pin))
       )
       answers.merge!(
@@ -103,6 +102,10 @@ module PdfFiller
       answers["form1[0].page1[0].maritalStatus[0].statusDivorced[0].dateFinalDecree[0]"] = @intake.divorced_year
       answers["form1[0].page1[0].maritalStatus[0].statusWidowed[0].yearSpousesDeath[0]"] = @intake.widowed_year
 
+      answers["form1[0].page1[0].anyoneElseClaim[0].otherClaimYes[0]"] = yes_no_unfilled_to_checkbox(@intake.claimed_by_another)
+      answers["form1[0].page1[0].anyoneElseClaim[0].otherClaimNo[0]"] = yes_no_unfilled_to_opposite_checkbox(@intake.claimed_by_another)
+
+      # PAGE 2
       answers.merge!(
         yes_no_checkboxes("form1[0].page2[0].Part3[0].q1WagesOrSalary[0]", @intake.had_wages, include_unsure: true)
       )
@@ -254,7 +257,17 @@ module PdfFiller
 
       # ty2024 page 5
 
-      answers["form1[0].page5[0].AdditionalComments[0].AdditionalNotesComments[0]"] = (@intake.additional_notes_comments || '') << "\n\n" << dependents_4th_and_up
+      answers.merge!(
+        with_prefix("form1[0].page5[0].AdditionalComments[0]") do
+          hash = { "AdditionalNotesComments[0]" => @intake.additional_notes_comments || '' }
+
+          hash["AdditionalNotesComments[0]"] << "\n\nOther income types: #{@intake.other_income_types}" if @intake.other_income_types.present?
+
+          hash["AdditionalNotesComments[0]"] << "\n\n#{dependents_4th_and_up}"
+
+          hash
+        end
+      )
 
       # end - ty2024 page 5
 
@@ -503,20 +516,21 @@ module PdfFiller
 
     def single_dependent_params(dependent, index:)
       {
-        "form1[0].page1[0].namesOf[0].Row#{index}[0].name[0]" => dependent.full_name,
-        "form1[0].page1[0].namesOf[0].Row#{index}[0].dateBirth[0]" => strftime_date(dependent.birth_date),
-        "form1[0].page1[0].namesOf[0].Row#{index}[0].relationship[0]" => dependent.relationship,
-        "form1[0].page1[0].namesOf[0].Row#{index}[0].months[0]" => dependent.months_in_home.to_s,
-        "form1[0].page1[0].namesOf[0].Row#{index}[0].USCitizen[0]" => yes_no_unfilled_to_YN(dependent.us_citizen),
-        "form1[0].page1[0].namesOf[0].Row#{index}[0].residentOf[0]" => yes_no_unfilled_to_YN(dependent.north_american_resident),
+        "form1[0].page1[0].namesOf[0].Row#{index}[0].nameFirstLast[0]" => dependent.full_name,
+        "form1[0].page1[0].namesOf[0].Row#{index}[0].dateOfBirth[0]" => strftime_date(dependent.birth_date),
+        "form1[0].page1[0].namesOf[0].Row#{index}[0].relationshipToYou[0]" => dependent.relationship,
+        "form1[0].page1[0].namesOf[0].Row#{index}[0].monthsLivedHome[0]" => dependent.months_in_home.to_s,
         "form1[0].page1[0].namesOf[0].Row#{index}[0].singleMarried[0]" => married_to_SM(dependent.was_married),
-        "form1[0].page1[0].namesOf[0].Row#{index}[0].student[0]" => yes_no_unfilled_to_YN(dependent.was_student),
-        "form1[0].page1[0].namesOf[0].Row#{index}[0].disabled[0]" => yes_no_unfilled_to_YN(dependent.disabled),
-        "form1[0].page1[0].namesOf[0].Row#{index}[0].claimedBySomeone[0]" => yes_no_unfilled_to_YN(dependent.can_be_claimed_by_other),
-        "form1[0].page1[0].namesOf[0].Row#{index}[0].providedMoreThen[0]" => yes_no_unfilled_to_YN(dependent.provided_over_half_own_support),
-        "form1[0].page1[0].namesOf[0].Row#{index}[0].hadIncomeLess[0]" => yes_no_unfilled_to_YN(dependent.below_qualifying_relative_income_requirement),
-        "form1[0].page1[0].namesOf[0].Row#{index}[0].supportPerson[0]" => yes_no_unfilled_to_YN(dependent.filer_provided_over_half_support),
-        "form1[0].page1[0].namesOf[0].Row#{index}[0].maintainedHome[0]" => yes_no_unfilled_to_YN(dependent.filer_provided_over_half_housing_support),
+        "form1[0].page1[0].namesOf[0].Row#{index}[0].usCitizen[0]" => yes_no_unfilled_to_YN(dependent.us_citizen),
+        "form1[0].page1[0].namesOf[0].Row#{index}[0].residentUSCandaMexico[0]" => yes_no_unfilled_to_YN(dependent.north_american_resident),
+        "form1[0].page1[0].namesOf[0].Row#{index}[0].fullTimeStudent[0]" => yes_no_unfilled_to_YN(dependent.was_student),
+        "form1[0].page1[0].namesOf[0].Row#{index}[0].totallyPermanentlyDisabled[0]" => yes_no_unfilled_to_YN(dependent.disabled),
+        # certified volunteer section
+        "form1[0].page1[0].namesOf[0].Row#{index}[0].qualifyingChildDependent[0]" => yes_no_na_unfilled_to_Yes_No_NA(dependent.can_be_claimed_by_other),
+        "form1[0].page1[0].namesOf[0].Row#{index}[0].ownSupport[0]" => yes_no_na_unfilled_to_Yes_No_NA(dependent.provided_over_half_own_support),
+        "form1[0].page1[0].namesOf[0].Row#{index}[0].lessThanIncome[0]" => yes_no_na_unfilled_to_Yes_No_NA(dependent.below_qualifying_relative_income_requirement),
+        "form1[0].page1[0].namesOf[0].Row#{index}[0].supportForPerson[0]" => yes_no_na_unfilled_to_Yes_No_NA(dependent.filer_provided_over_half_support),
+        "form1[0].page1[0].namesOf[0].Row#{index}[0].costMaintainingHome[0]" => yes_no_na_unfilled_to_Yes_No_NA(dependent.filer_provided_over_half_housing_support),
       }
     end
 
@@ -573,6 +587,14 @@ module PdfFiller
       }[yes_no_na_unfilled]
     end
 
+    def yes_no_na_unfilled_to_Yes_No_NA(yes_no_na_unfilled)
+      {
+        "yes" => "Yes",
+        "no" => "No",
+        "na" => "N/A",
+        "unfilled" => ""
+      }[yes_no_na_unfilled]
+    end
 
     def married_to_SM(was_married_yes_no_unfilled)
       {
