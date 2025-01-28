@@ -22,17 +22,15 @@ module StateFile
     end
 
     def save
-      # TODO: check to see if we need to clear out affirmative checkbox values that apply to the non-selected income source
       attributes_to_save = attributes_for(:state_file_nc1099_r_followup).excluding(:bailey_settlement_none_apply, :uniformed_services_none_apply)
       @state_file_nc1099_r_followup.update(attributes_to_save)
     end
 
     def answered_follow_up_question
-      # TODO: add error copy
       if income_source == "bailey_settlement" && [bailey_settlement_at_least_five_years, bailey_settlement_from_retirement_plan, bailey_settlement_none_apply].none?("yes")
-        errors.add(:bailey_settlement_none_apply)
+        errors.add(:bailey_settlement_none_apply, I18n.t("general.please_select_at_least_one_option"))
       elsif income_source == "uniformed_services" && [uniformed_services_retired, uniformed_services_qualifying_plan, uniformed_services_none_apply].none?("yes")
-        errors.add(:uniformed_services_none_apply)
+        errors.add(:uniformed_services_none_apply, I18n.t("general.please_select_at_least_one_option"))
       end
     end
   end
