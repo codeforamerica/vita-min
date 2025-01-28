@@ -142,17 +142,22 @@ module PdfFiller
       )
       answers.merge!(
         keep_and_normalize({
-          "form1[0].page3[0].paidFollowingExpenses[0].mortgageinterest[0]" => @intake.wants_to_itemize_yes? && @intake.ever_owned_home_yes? && @intake.paid_mortgage_interest_yes?,
-          "form1[0].page3[0].paidFollowingExpenses[0].taxesStateLocal[0]" => @intake.wants_to_itemize_yes? && @intake.paid_local_tax_yes?,
-          "form1[0].page3[0].paidFollowingExpenses[0].mendicalDentalPrescription[0]" => @intake.wants_to_itemize_yes? && @intake.paid_medical_expenses_yes?,
-          "form1[0].page3[0].paidFollowingExpenses[0].charitableContributions[0]" => @intake.wants_to_itemize_yes? && @intake.paid_charitable_contributions_yes?,
+          # page 3 lhs section 1 of 3
+          "form1[0].page3[0].paidFollowingExpenses[0].mortgageinterest[0]" => @intake.paid_mortgage_interest_yes?,
+          "form1[0].page3[0].paidFollowingExpenses[0].taxesStateLocal[0]" => @intake.paid_local_tax_yes?,
+          "form1[0].page3[0].paidFollowingExpenses[0].mendicalDentalPrescription[0]" => @intake.paid_medical_expenses_yes?,
+          "form1[0].page3[0].paidFollowingExpenses[0].charitableContributions[0]" => @intake.paid_charitable_contributions_yes?,
+
+          # page 3 lhs section 2 of 3
           "form1[0].page3[0].paidExpenses[0].studentLoanInterest[0]" => @intake.paid_student_loan_interest_yes?,
-          "form1[0].page3[0].paidExpenses[0].childDependentCare[0]" => @intake.had_dependents_yes? && @intake.paid_dependent_care_yes?,
-          "form1[0].page3[0].paidExpenses[0].contributionsRetirementAccount[0]" => @intake.had_social_security_or_retirement_yes? && @intake.paid_retirement_contributions_yes?,
-          "form1[0].page3[0].paidExpenses[0].schooldSupplies[0]" => @intake.wants_to_itemize_yes? && @intake.paid_school_supplies_yes?,
-          "form1[0].page3[0].paidExpenses[0].alimonyPayments[0]" => @intake.ever_married_yes? && @intake.paid_alimony_yes?,
+          "form1[0].page3[0].paidExpenses[0].childDependentCare[0]" => @intake.paid_dependent_care_yes?,
+          "form1[0].page3[0].paidExpenses[0].contributionsRetirementAccount[0]" => @intake.paid_retirement_contributions_yes?,
+          "form1[0].page3[0].paidExpenses[0].schooldSupplies[0]" => @intake.paid_school_supplies_yes?,
+          "form1[0].page3[0].paidExpenses[0].alimonyPayments[0]" => @intake.paid_alimony_yes?,
+
+          # page 3 lhs section 3 of 3
           "form1[0].page3[0].followingHappenDuring[0].tookEducationalClasses[0].tookEducationalClasses[0]" => @intake.paid_post_secondary_educational_expenses_yes?,
-          "form1[0].page3[0].followingHappenDuring[0].sellAHome[0]" => @intake.ever_owned_home_yes? && @intake.sold_a_home_yes?,
+          "form1[0].page3[0].followingHappenDuring[0].sellAHome[0]" => @intake.sold_a_home_yes?,
           "form1[0].page3[0].followingHappenDuring[0].healthSavingsAccount[0]" => @intake.had_hsa_yes?,
           "form1[0].page3[0].followingHappenDuring[0].purchaseMarketplaceInsurance[0]" => @intake.bought_marketplace_health_insurance_yes?,
           "form1[0].page3[0].followingHappenDuring[0].energyEfficientItems[0].energyEfficientItems[0]" => @intake.bought_energy_efficient_items_yes?,
@@ -163,11 +168,50 @@ module PdfFiller
           "form1[0].page3[0].followingHappenDuring[0].estimatedTaxPayments[0].estimatedTaxPayments[0]" => @intake.made_estimated_tax_payments_yes?,
         })
       )
-
       answers.merge!(
-        yes_no_checkboxes("form1[0].page2[0].Part4[0].q7ExpensesRelatedTo[0]", @intake.paid_self_employment_expenses, include_unsure: true),
-        yes_no_checkboxes("form1[0].page2[0].Part5[0].q3AdoptAChild[0]", fetch_gated_value(@intake, :adopted_child), include_unsure: true),
+          # page 3 rhs section 1 of 3
+          'form1[0].page3[0].stndardItemizedDeductions[0].form1098[0]' => bool_checkbox(@intake.cv_1098_cb_yes?),
+          'form1[0].page3[0].stndardItemizedDeductions[0].form1098Number[0]' => @intake.cv_1098_count.to_s,
+          'form1[0].page3[0].stndardItemizedDeductions[0].standardDeduction[0]' => bool_checkbox(@intake.cv_med_expense_standard_deduction_cb_yes?),
+          'form1[0].page3[0].stndardItemizedDeductions[0].itemizedDeduction[0]' => bool_checkbox(@intake.cv_med_expense_itemized_deduction_cb_yes?),
+          'form1[0].page3[0].stndardItemizedComments[0].stndardItemizedComments[0]' => @intake.cv_14c_page_3_notes_part_1,
+
+          # page 3 rhs section 2 of 3
+          'form1[0].page3[0].expensesToReport[0].form1098E[0]' => bool_checkbox(@intake.cv_1098e_cb_yes?),
+          'form1[0].page3[0].expensesToReport[0].childDependentCare[0]' => bool_checkbox(@intake.cv_child_dependent_care_credit_cb_yes?),
+          'form1[0].page3[0].expensesToReport[0].iraBasicRoth[0]' => bool_checkbox(@intake. contributed_to_ira_yes?),
+          'form1[0].page3[0].expensesToReport[0].educatorExpensesDeduction[0]' => bool_checkbox(@intake.cv_edu_expenses_deduction_cb_yes?),
+          'form1[0].page3[0].expensesToReport[0].educatorExpensesDeductionAmount[0]' => @intake.cv_edu_expenses_deduction_amt.to_s,
+          'form1[0].page3[0].expensesToReport[0].alimonyPayments[0].alimonyPayments[0]' => bool_checkbox(@intake.cv_paid_alimony_w_spouse_ssn_cb_yes?),
+          'form1[0].page3[0].expensesToReport[0].alimonyPayments[0].alimonyPaymentsAmount[0]' => @intake.cv_paid_alimony_w_spouse_ssn_amt.to_s,
+          'form1[0].page3[0].expensesToReport[0].alimonyPayments[0].adjustementYes[0]' => yes_no_unfilled_to_checkbox(@intake.cv_alimony_income_adjustment_yn_cb),
+          'form1[0].page3[0].expensesToReport[0].alimonyPayments[0].adjustementNo[0]' => yes_no_unfilled_to_opposite_checkbox(@intake.cv_alimony_income_adjustment_yn_cb),
+          'form1[0].page3[0].expensesReportComments[0].expensesReportComments[0]' => @intake.cv_14c_page_3_notes_part_2,
+
+          # page 3 rhs section 3 of 3
+          'form1[0].page3[0].informationToReport[0].taxableScholarshipIncome[0]' => bool_checkbox(@intake.cv_taxable_scholarship_income_cb_yes?),
+          'form1[0].page3[0].informationToReport[0].form1098T[0]' => bool_checkbox(@intake.cv_1098t_cb_yes?),
+          'form1[0].page3[0].informationToReport[0].educationCreditTuition[0]' => bool_checkbox(@intake.cv_edu_credit_or_tuition_deduction_cb_yes?),
+          'form1[0].page3[0].informationToReport[0].saleOfHome[0]' => bool_checkbox(@intake.cv_1099s_cb_yes?),
+          'form1[0].page3[0].informationToReport[0].hsaContributions[0]' => bool_checkbox(@intake.cv_hsa_contrib_cb_yes?),
+          'form1[0].page3[0].informationToReport[0].hsaDistributions[0]' => bool_checkbox(@intake.cv_hsa_distrib_cb_yes?),
+          'form1[0].page3[0].informationToReport[0].form1095A[0]' => bool_checkbox(@intake.cv_1095a_cb_yes?),
+          'form1[0].page3[0].informationToReport[0].efficientHomeImprovement[0]' => bool_checkbox(@intake.cv_energy_efficient_home_improv_credit_cb_yes?),
+          'form1[0].page3[0].informationToReport[0].form1099C[0]' => bool_checkbox(@intake.cv_1099c_cb_yes?),
+          'form1[0].page3[0].informationToReport[0].form1099A[0]' => bool_checkbox(@intake.cv_1099a_cb_yes?),
+          'form1[0].page3[0].informationToReport[0].disasterReliefImpacts[0]' => bool_checkbox(@intake.cv_disaster_relief_impacts_return_cb_yes?),
+          'form1[0].page3[0].informationToReport[0].disallowedPreviousYear[0]' => bool_checkbox(@intake.cv_eitc_ctc_aotc_hoh_disallowed_in_a_prev_yr_cb_yes?),
+          'form1[0].page3[0].informationToReport[0].YearDisallowedReason[0].yearDisallowed[0]' => @intake.tax_credit_disallowed_year,
+          'form1[0].page3[0].informationToReport[0].YearDisallowedReason[0].reasonDisallowed[0]' => @intake.cv_tax_credit_disallowed_reason,
+          'form1[0].page3[0].informationToReport[0].eligibleLITCReferral[0]' => bool_checkbox(@intake.cv_eligible_for_litc_referral_cb_yes?),
+          'form1[0].page3[0].informationToReport[0].estimatedTaxPayments[0].estimatedTaxPayments[0]' => bool_checkbox(@intake.cv_estimated_tax_payments_cb_yes?),
+          'form1[0].page3[0].informationToReport[0].estimatedTaxPayments[0].taxPaymentsAmount[0]' => @intake.cv_estimated_tax_payments_amt.to_s,
+          'form1[0].page3[0].informationToReport[0].lastYearsRefund[0].lastYearsRefund[0]' => bool_checkbox(@intake.cv_last_years_refund_applied_to_this_yr_cb_yes?),
+          'form1[0].page3[0].informationToReport[0].lastYearsRefund[0].refundAmount[0]' => @intake.cv_last_years_refund_applied_to_this_yr_amt.to_s,
+          'form1[0].page3[0].informationToReport[0].lastReturnAvailable[0]' => bool_checkbox(@intake.cv_last_years_return_available_cb_yes?),
+          'form1[0].page3[0].informationReportComment[0].informationReportComment[0]' => @intake.cv_14c_page_3_notes_part_3,
       )
+
       answers.merge!(
         "form1[0].page2[0].Part5[0].q4HaveEarnedIncome[0].WhichTaxYear[0]" => @intake.tax_credit_disallowed_year
       )
