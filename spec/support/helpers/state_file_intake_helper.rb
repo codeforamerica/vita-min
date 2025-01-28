@@ -43,7 +43,6 @@ module StateFileIntakeHelper
       expect(page).to have_text I18n.t("state_file.questions.eligible.id_credits_unsupported.education_contribution_credit")
       expect(page).to have_text I18n.t("state_file.questions.eligible.id_credits_unsupported.itemized_deductions")
       expect(page).to have_text I18n.t("state_file.questions.eligible.id_credits_unsupported.dependents_not_claimed_fed_return")
-      expect(page).to have_text I18n.t("state_file.questions.eligible.id_credits_unsupported.voluntary_donations")
       expect(page).to have_text I18n.t("state_file.questions.eligible.id_credits_unsupported.change_in_filing_status")
     when "md"
       expect(page).to have_text I18n.t("state_file.questions.md_eligibility_filing_status.edit.title", year: filing_year)

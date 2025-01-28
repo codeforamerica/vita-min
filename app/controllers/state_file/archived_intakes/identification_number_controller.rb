@@ -16,9 +16,7 @@ module StateFile
           create_state_file_access_log("correct_ssn_challenge")
           current_request.reset_failed_attempts!
           session[:ssn_verified] = true
-          redirect_to root_path
-          # TODO: https://codeforamerica.atlassian.net/browse/FYST-1518
-          # need to change to address controller
+          redirect_to state_file_archived_intakes_edit_mailing_address_validation_path
         else
           create_state_file_access_log("incorrect_ssn_challenge")
           current_request.increment_failed_attempts
@@ -39,12 +37,6 @@ module StateFile
         unless session[:code_verified]
           create_state_file_access_log("unauthorized_ssn_attempt")
           redirect_to root_path
-        end
-      end
-
-      def is_request_locked
-        if current_request.access_locked?
-          redirect_to state_file_archived_intakes_verification_error_path
         end
       end
     end

@@ -577,7 +577,7 @@ en:
     sms_phone_number: Cell phone number
     sorry: We're sorry!
     spouse_last_four_ssn: Spouse's last 4 of SSN/ITIN
-    spread_the_word_html: Let your friends and family know about <a target="_blank" rel="noopener nofollow" href="https://directfile.irs.gov/">IRS Direct File</a> so they can file their taxes for free.
+    spread_the_word_html: Let your friends and family know about <a target="_blank" rel="noopener nofollow" href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">IRS Direct File</a> so they can file their taxes for free.
     ssn: SSN
     ssn_itin: SSN/ITIN
     start_filing: Start filing
@@ -2051,6 +2051,11 @@ en:
           help_text: To keep your identity safe, we need to confirm your social security number.
           ssn_label: Social Security Number or ITIN
           title: We found your account! Please confirm your identity
+      mailing_address_validation:
+        edit:
+          identity_safe: To keep your identity safe, we need to confirm the address on your 2023 tax return.
+          radio_button_title: Select the mailing address for your 2023 tax return.
+          title: Confirm your address to access your tax return
       verification_code:
         edit:
           error_message: Incorrect verification code. After 2 failed attempts, accounts are locked.
@@ -2179,7 +2184,7 @@ en:
         download_your_record: Download Your Record
         help_text_html: |
           <ul class="list--bulleted">
-            <li>An <strong>accepted</strong> %{filing_year} federal return using <a href="https://directfile.irs.gov/">IRS Direct File</a>. (You don’t need a copy of this return; you’ll transfer your return here.)
+            <li>An <strong>accepted</strong> %{filing_year} federal return using <a href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">IRS Direct File</a>. (You don’t need a copy of this return; you’ll transfer your return here.)
             <li>Email address or phone number</li>
             <li>Driver’s license or state-issued ID, if you have one</li>
             <li>Form 1099-G (If you received unemployment benefits in %{filing_year}.)</li>
@@ -2212,7 +2217,7 @@ en:
           closed_html: "<strong>FileYourStateTaxes</strong> is built in partnership with the New Jersey Office of Innovation to integrate with IRS Direct File.<br /><br />\nWe're closed for the tax season. Unfortunately you can no longer file your state return with us this year.              \n"
           help_text_html: |
             <ul class="list--bulleted">
-              <li>To have filed your 2024 federal return using <a href="https://directfile.irs.gov/" target="_blank" rel="noopener nofollow">IRS Direct File</a></li>
+              <li>To have filed your 2024 federal return using <a href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode" target="_blank" rel="noopener nofollow">IRS Direct File</a></li>
               <li>An email address or a phone number to receive a one-time verification code</li>
               <li>Bank routing and account numbers (if you want to receive your refund or make a tax payment electronically)</li>
               <li>(optional) Driver's license or state issued ID</li>
@@ -2226,7 +2231,7 @@ en:
         welcome_back: Welcome back %{user_name}!
       ny_closed:
         body_html: |
-          This service doesn’t support New York State tax returns for 2024. You can still file with IRS Direct File and New York State Direct File. To see if you’re eligible and start your federal return, visit <a href="https://directfile.irs.gov/">IRS Direct File</a>.
+          This service doesn’t support New York State tax returns for 2024. You can still file with IRS Direct File and New York State Direct File. To see if you’re eligible and start your federal return, visit <a href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">IRS Direct File</a>.
           <br /><br />
           To download your 2023 NY State tax return, please <a href="https://www.fileyourstatetaxes.org/en/az/faq/how_can_i_access_my_2023_state_tax_return">visit our FAQ</a>.
         supported_by: Supported by New York State
@@ -2544,7 +2549,6 @@ en:
           itemized_deductions: Itemized deductions
           long_term_care_insurance_subtraction: Long-term Care Insurance Subtraction
           maintaining_elderly_disabled_credit: Credit for Maintaining a Home for the Elderly or Disabled
-          voluntary_donations: All voluntary donations
         id_supported:
           child_care_deduction: Child and Dependent Care Deduction
           health_insurance_premiums_subtraction: Health Insurance Premiums subtraction
@@ -2895,7 +2899,6 @@ en:
           no_donations_selected: "<strong>No donations selected</strong>"
           permanent_building_fund_tax: Permanent Building Fund Tax
           purchases_without_sales_tax: Purchases without paying sales tax
-          state_details_title: State Details
           voluntary_charitable_donations: Voluntary Charitable Donations
       id_sales_use_tax:
         edit:
@@ -3014,8 +3017,8 @@ en:
           why_ask_this: Why are you asking for this information?
       md_review:
         edit:
-          county_html: "<strong>County</strong>"
-          political_subdivision_html: "<strong>Political subdivision</strong>"
+          county_html: "<strong> County lived in on December 31, %{filing_year}</strong>"
+          political_subdivision_html: "<strong>Political subdivision lived in on December 31, %{filing_year}</strong>"
           your_address: Address lived at on December 31, %{filing_year}
       md_social_security_benefits:
         edit:
@@ -3090,7 +3093,7 @@ en:
           interest_us_bonds: Interest income from U.S. bonds (not taxable in North Carolina)
           primary_veteran: United States Armed Forces veteran status
           social_security_benefits: Social Security benefits (not taxable in North Carolina)
-          spouse_veteran: Spouse Veteran Info
+          spouse_veteran: Your spouse's United States Armed Forces veteran status
           state_credit: Enrolled member of a federally recognized Indian Tribe, and received income from a source within a reservation
           subtraction_indian_tribe: Subtraction for income of a member of an Indian tribe
           use_tax_amount: Amount of use tax
@@ -3717,8 +3720,8 @@ en:
           reject_desc: 'Reject Description:'
           title: Unfortunately, your %{filing_year} %{state_name} state tax return was rejected
       review:
-        county: County where your permanent address was located on December 31, %{filing_year}
-        county_during_hurricane: County where your permanent address was located during Hurricane Helene
+        county: County where you resided on December 31, %{filing_year}
+        county_during_hurricane: Other county where you resided (or currently reside) between September 25th, 2024 and today
       shared:
         abstract_review_header:
           amount_rounding_notice_html: "<strong>We have automatically rounded all dollar amounts to the nearest whole number.</strong> The %{state_agency_name} will only accept whole numbers on the final tax return."
@@ -3735,6 +3738,7 @@ en:
         review_header:
           income_details: Income Details
           income_forms_collected: 'Income form(s) collected:'
+          state_details_title: State Details
           your_refund: Your refund amount
           your_tax_owed: Your taxes owed
       sms_terms:
@@ -3916,7 +3920,6 @@ en:
           save_and_continue: Save and Continue
           state_income_tax_amt_error: Cannot be greater than State wages and tips.
           state_wages_amt_error: Please enter State wages and tips
-          state_wages_exceed_amt_error: Total state wages and tips cannot be greater than $%{wages_amount}
           wages_amt_error: Total income tax cannot be greater than $%{wages_amount}
           what_is_box14_md: What could be in Box 14?
           what_is_box14_nj: What should I put in these Box 14 fields?
@@ -3937,9 +3940,9 @@ en:
         looking_for_return_html: "<strong>Looking for your 2023 Arizona or New York State Tax Return?</strong>"
         section1_html: |
           <ol class="list--numbered"  style="padding-left: 2rem">
-            <li>File and submit your federal return with <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">IRS Direct File</a> before using this service.</li>
+            <li>File and submit your federal return with <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">IRS Direct File</a> before using this service.</li>
             <li>Follow the link from Direct File to FileYourStateTaxes.</li>
-            <li>Answer a few questions to make sure this is the right service for you. <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/state">Learn more</a> about who is eligible for this tax year.</li>
+            <li>Answer a few questions to make sure this is the right service for you. <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">Learn more</a> about who is eligible for this tax year.</li>
             <li>Transfer your federal return to fill in most of your state return.</li>
             <li>Answer a few additional questions to help maximize your state tax refund.</li>
             <li>E-file your return for free!</li>
@@ -3952,7 +3955,7 @@ en:
           This site will open at the start of the 2025 tax filing season and remain open until October 15, 2025 for you to file your state tax returns.
           <br /><br />
           <strong>In 2025, this service will support filing state tax returns in Arizona, Idaho, North Carolina, New Jersey, and Maryland.</strong>
-        subheader_2_html: To start filing your federal return, go to <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/">directfile.irs.gov.</a>
+        subheader_2_html: To start filing your federal return, go to <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">directfile.irs.gov.</a>
         subheader_3_html: "<strong>Already filed your federal return with IRS Direct File and need to complete your state return?</strong> <a href=%{login_path}>Sign in here</a>."
         tax_return_link: Click here to access your tax return
       card_postscript:
@@ -4073,6 +4076,25 @@ en:
         header: FileYourStateTaxes text messaging terms and conditions
         major_carriers: 'Major carriers: AT&T, Verizon Wireless, Sprint, T-Mobile, U.S. Cellular, Alltel, Boost Mobile, Nextel, and Virgin Mobile.'
         minor_carriers: 'Minor carriers: Alaska Communications Systems (ACS), Appalachian Wireless (EKN), Bluegrass Cellular, Cellular One of East Central IL (ECIT), Cellular One of Northeast Pennsylvania, Cincinnati Bell Wireless, Cricket, Coral Wireless (Mobi PCS), COX, Cross, Element Mobile (Flat Wireless), Epic Touch (Elkhart Telephone), GCI, Golden State, Hawkeye (Chat Mobility), Hawkeye (NW Missouri), Illinois Valley Cellular, Inland Cellular, iWireless (Iowa Wireless), Keystone Wireless (Immix Wireless/PC Man), Mosaic (Consolidated or CTC Telecom), Nex-Tech Wireless, NTelos, Panhandle Communications, Pioneer, Plateau (Texas RSA 3 Ltd), Revol, RINA, Simmetry (TMP Corporation), Thumb Cellular, Union Wireless, United Wireless, Viaero Wireless, and West Central (WCC or 5 Star Wireless).'
+    state_information_service:
+      az:
+        department_of_taxation: Arizona Department of Revenue
+        state_name: Arizona
+      id:
+        department_of_taxation: Idaho State Tax Commission
+        state_name: Idaho
+      md:
+        department_of_taxation: Comptroller of Maryland
+        state_name: Maryland
+      nc:
+        department_of_taxation: N.C. Department of Revenue
+        state_name: North Carolina
+      nj:
+        department_of_taxation: New Jersey Division of Taxation
+        state_name: New Jersey
+      ny:
+        department_of_taxation: Department of Taxation and Finance
+        state_name: New York
   validators:
     account_number: This account number is not valid for direct deposit transactions. Please review your account number or switch to check payments.
     alpha: Only letters A-Z and a-z are accepted.
@@ -4202,7 +4224,7 @@ en:
           <strong>I authorize the VITA site:</strong>
           Global Carry Forward of data allows TaxSlayer LLC, the provider of the VITA/TCE tax software to make your tax return information available to ANY volunteer site participating in the IRS's VITA/TCE program that you select to prepare a tax return in the next filing season. This means you will be able to visit any volunteer site using TaxSlayer next year and have your tax return populate with your current year data, regardless of where you filed your tax return this year.
 
-          <strong>This consent is valid through November 30, %{product_year}</strong>
+          <strong>This consent is valid through November 30, 2026</strong>
 
           The tax return information that will be disclosed includes, but is not limited to, demographic, financial and other personally identifiable information, about you, your tax return and your sources of income, which was input into the tax preparation software for the purpose of preparing your tax return.
 
@@ -4210,7 +4232,7 @@ en:
 
           You do not need to provide consent for the VITA/TCE partner preparing your tax return this year Carry Forward will assist you only if you visit a different VITA or TCE partner next year.
 
-          <i>Limitation on the Duration of Consent</i>: I/we, the taxpayer, do not wish to limit the duration of the consent-of the disclosure of tax return information to a date earlier than presented above (November 30, %{product_year}). If I/we wish to limit the duration of the consent of the disclosure to an earlier date, I will deny consent.
+          <i>Limitation on the Duration of Consent</i>: I/we, the taxpayer, do not wish to limit the duration of the consent of the disclosure of tax return information to a date earlier than presented above (November 30, 2026). If I/we wish to limit the duration of the consent of the disclosure to an earlier date, I/we will deny consent.
 
           <i>Limitation on the Scope of Disclosure</i>: I/we, the taxpayer, do not wish to limit the scope of the disclosure of tax return information further than presented above. If I/we wish to limit the scope of the disclosure of tax return information further than presented above, I/we will deny consent.
 

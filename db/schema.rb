@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_01_23_160619) do
+ActiveRecord::Schema[7.1].define(version: 2025_01_24_000028) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1141,6 +1141,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_23_160619) do
 
   create_table "intakes", force: :cascade do |t|
     t.string "additional_info"
+    t.text "additional_notes_comments"
     t.integer "adopted_child", default: 0, null: false
     t.integer "advance_ctc_amount_received"
     t.integer "advance_ctc_entry_method", default: 0, null: false
@@ -1786,6 +1787,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_23_160619) do
     t.datetime "created_at", null: false
     t.string "email_address"
     t.integer "failed_attempts", default: 0, null: false
+    t.string "fake_address_1"
+    t.string "fake_address_2"
     t.string "ip_address"
     t.datetime "locked_at"
     t.bigint "state_file_archived_intake_id"

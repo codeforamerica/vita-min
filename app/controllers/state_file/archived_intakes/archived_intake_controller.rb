@@ -6,6 +6,10 @@ module StateFile
         StateFileArchivedIntakeRequest.find_by(ip_address: ip_for_irs, email_address: session[:email_address])
       end
 
+      def current_archived_intake
+        current_request.state_file_archived_intake
+      end
+
       def create_state_file_access_log(event_type)
         StateFileArchivedIntakeAccessLog.create!(
           event_type: event_type,
@@ -13,9 +17,16 @@ module StateFile
         )
       end
 
+
       def check_feature_flag
         unless Flipper.enabled?(:get_your_pdf)
           redirect_to root_path
+        end
+      end
+
+      def is_request_locked
+        if current_request.access_locked?
+          redirect_to state_file_archived_intakes_verification_error_path
         end
       end
     end
