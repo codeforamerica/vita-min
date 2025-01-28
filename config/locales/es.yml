@@ -3451,7 +3451,7 @@ es:
           phone_number_help_text: Ingresa números únicamente
           provided_contact: Le enviaremos actualizaciones sobre su declaración de impuestos a %{contact_info}.
           sms_notification_opt_in: Mensaje de texto
-          subtitle: 'Necesitaremos comunicarnos contigo en caso de que tengamos preguntas o información actualizada. '
+          subtitle: 'Necesitaremos comunicarnos contigo en caso de que tengamos preguntas o información actualizada.'
           title: "¿Cuál es la mejor manera de contactarte?"
         form:
           at_least_one: Se requiere al menos una preferencia de notificación
@@ -3592,7 +3592,7 @@ es:
       post_data_transfer:
         edit:
           subtitle: A continuación, revisaremos los detalles de tu declaración estatal y te pediremos información para completar tu declaración de impuestos estatal de %{state_name}.
-          title: "¡Hemos transferido tu declaración de impuestos federales exitosamente! "
+          title: "¡Hemos transferido tu declaración de impuestos federales exitosamente!"
       primary_state_id:
         edit:
           ny_subtitle: Esta información es necesaria para todos los residentes de Nueva York con una identificación emitida por el estado.
@@ -3764,7 +3764,7 @@ es:
               <li>Porque no se retuvieron suficientes impuestos de tu cheque/recibo de pago (paycheck) (podrías charlar esto con tu empleador/a para los próximos años), o</li>
               <li>Porque no hiciste suficientes pagos de impuestos estimados.</li>
             </ul>
-            <p> Es posible que te cobren intereses sobre lo que debes. Si este es tu caso, recibirás un aviso de la División de Impuestos del Estado de New Jersey por correo.</p>
+            <p>Es posible que te cobren intereses sobre lo que debes. Si este es tu caso, recibirás un aviso de la División de Impuestos del Estado de New Jersey por correo.</p>
             <p><strong>Definitivamente debes continuar con esta declaración de impuestos. Cuanto antes lo hagas, menos tendrás que pagar en multas.</strong></p>
       terms_and_conditions:
         edit:
@@ -3801,9 +3801,9 @@ es:
           confirm_address_yes: Sí, esa es la dirección correcta
           dont_worry: Si tienes más de un 1099-G, no te preocupes, podrás agregarlo en la siguiente página.
           federal_income_tax_withheld_html: "<strong>Casilla 4</strong>, Impuesto federal sobre los ingresos retenido"
-          had_box_11: "¿Aparece una cantidad por impuesto estatal sobre ingresos (casilla 11) en tu compensación por desempleo (Formulario 1099-G)? "
+          had_box_11: "¿Aparece una cantidad por impuesto estatal sobre ingresos (casilla 11) en tu compensación por desempleo (Formulario 1099-G)?"
           information_content_html: |
-            Busca el 1099-G que usaste para declarar tus ingresos por desempleo en tu declaración de impuestos federales. Si tienes varios 1099-G, puedes agregarlos.  <br><br>
+            Busca el 1099-G que usaste para declarar tus ingresos por desempleo en tu declaración de impuestos federales. Si tienes varios 1099-G, puedes agregarlos.<br><br>
             A continuación, te compartimos dónde encontrar la información que necesitamos:</br>
             <ol class="list--numbered">
               <li><strong>A quién pertenece el formulario</strong> se puede encontrar en el lado izquierdo del formulario, si corresponde. Busca “nombre del beneficiario” (“recipient’s name.”)</li>
@@ -3882,7 +3882,7 @@ es:
           state_income_tax_amt_error: No puede ser mayor que los salarios y propinas estatales.
           state_wages_amt_error: Ingresa los salarios y propinas estatales
           wages_amt_error: El impuesto sobre la renta total no puede ser mas de $%{wages_amount}
-          what_is_box14_md: "¿Qué podría aparecer en la casilla 14? "
+          what_is_box14_md: "¿Qué podría aparecer en la casilla 14?"
           what_is_box14_nj: "¿Qué debo poner en los casilleros 14?"
       waiting_to_load_data:
         edit:
@@ -3907,8 +3907,8 @@ es:
           <br /><br />
           <strong>En 2025, este servicio funcionará para presentar los impuestos estatales en Arizona, Idaho, Carolina del Norte, New Jersey y Maryland.</strong>
         subheader_2_html: ''
-        subheader_3_html: ''
-        tax_return_link: ''
+        subheader_3_html: "<strong>¿Ya presentaste tu declaración federal con IRS Direct File y necesitas completar tu declaración estatal?</strong> <a href=%{login_path}>Inicia sesión aquí</a>."
+        tax_return_link: Haga clic aquí para acceder a su declaración de impuestos.
       card_postscript:
         responses_saved_html: Tus respuestas fueron guardadas. Si necesitas hacer una pausa, puedes regresar e iniciar sesión en tu cuenta en <a href="https://fileyourstatetaxes.org">fileyourstatetaxes.org</a>.
       coming_soon:
@@ -3935,7 +3935,7 @@ es:
         additional_services_header: Servicios y Recursos Adicionales
         analytics_header: Analítica
         analytics_html: Utilizamos MixPanel y Google Analytics para entender cómo los visitantes usan nuestro sitio y para recopilar métricas de rendimiento agregadas. Haz clic <a href="https://mixpanel.com/legal/privacy-policy/">AQUÍ</a>, para obtener más información sobre las prácticas de privacidad de MixPanel y las opciones de exclusión que ofrece. Haz clic <a href="https://policies.google.com/privacy?hl=en-US">AQUÍ</a>, para obtener más información sobre las prácticas de privacidad de Google Analytics y las opciones de exclusión que ofrece. También puedes enviar un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org"> help@fileyourstatetaxes.org</a> para obtener información adicional.
-        changes: Es posible que cambiemos  esta Política de Privacidad de vez en cuando. Consulta esta página con frecuencia para obtener actualizaciones, ya que continuar usando nuestros servicios después de cualquier cambio en esta Política de Privacidad constituirá tu aceptación de los cambios. Para cambios importantes, te notificaremos por correo electrónico u otros medios consistentes con la ley aplicable.
+        changes: Es posible que cambiemos esta Política de Privacidad de vez en cuando. Consulta esta página con frecuencia para obtener actualizaciones, ya que continuar usando nuestros servicios después de cualquier cambio en esta Política de Privacidad constituirá tu aceptación de los cambios. Para cambios importantes, te notificaremos por correo electrónico u otros medios consistentes con la ley aplicable.
         changes_header: Cambios
         collect_info_third_parties_html: |
           <p>También podemos recopilar tu información de terceros como</p>
@@ -4053,7 +4053,7 @@ es:
     atin: Por favor, ingrese un número de identificación fiscal válido de adopción.
     ctds_code: El código escolar/CTDS debe ser un número de 9 dígitos.
     dollar_limit: Este monto no puede superar los $%{limit}. Si lo hace, por favor pide asistencia mediante el chat para obtener más información.
-    ein: 'El EIN, o en español: Número de Identificación del Empleador, debe ser un número de 9 dígitos. '
+    ein: 'El EIN, o en español: Número de Identificación del Empleador, debe ser un número de 9 dígitos.'
     file_type: Por favor sube un tipo de documento válido. Los tipos aceptados incluyen %{valid_types}
     file_zero_length: Sube un archivo válido. El archivo que cargó parece estar vacío.
     ip_pin: El IP PIN debe ser un número de 6 dígitos.
@@ -4090,7 +4090,7 @@ es:
         ¿Recibiste este código sin registrarte? Envíanos un correo electrónico a help@%{service_name_lower}.org
 
         Tu equipo de impuestos en %{service_name}.org
-      subject: ''
+      subject: 'Six-Digit Code from FileYourStateTaxes'
     no_match:
       body_html: |
         Hola, <br /><br />
@@ -4784,8 +4784,8 @@ es:
           - pagos por cuenta propia o por contrato
           subtitle: 'Los ingresos pueden venir de cualquiera de las siguientes fuentes:'
           title:
-            many: "¿Usted y su cónyuge ganaron menos de  en %{standard_deduction}en %{current_tax_year}?"
-            one: "¿Ganaste menos de %{standard_deduction}en %{current_tax_year}?"
+            many: "¿Usted y su cónyuge ganaron menos de en %{standard_deduction} en %{current_tax_year}?"
+            one: "¿Ganaste menos de %{standard_deduction} en %{current_tax_year}?"
             other: "¿Usted y su cónyuge ganaron menos de %{standard_deduction} en %{current_tax_year}?"
         investment_income:
           help_text: En general, los ingresos por inversiones incluyen intereses, dividendos, ganancias de capital y distribuciones de fondos mutuos.
@@ -4941,8 +4941,8 @@ es:
             one: El IRS no le permite usar GetCTC si sus ingresos superan los $12,550. Sin embargo, aún puede ser elegible para créditos tributarios si presenta una declaración de impuestos completa.
             other: El IRS no le permite usar GetCTC si su ingreso combinado supera los $25,100. Sin embargo, usted y su cónyuge aún pueden ser elegibles para créditos tributarios si presentan una declaración de impuestos completa.
           title:
-            many: 'Desafortunadamente, usted y su cónyuge no pueden usar GetCTC debido a sus ingresos declarados. '
-            one: 'Desafortunadamente, no puede usar GetCTC debido a sus ingresos informados. '
+            many: 'Desafortunadamente, usted y su cónyuge no pueden usar GetCTC debido a sus ingresos declarados.'
+            one: 'Desafortunadamente, no puede usar GetCTC debido a sus ingresos informados.'
             other: Desafortunadamente, usted y su cónyuge no pueden usar GetCTC debido a sus ingresos declarados.
         spouse_drivers_license:
           help_text: Si ingresa esta información, el IRS puede procesar más rápido sus pagos. Si no tiene una licencia de conducir o una tarjeta de identificación emitida por el estado, o no desea ingresarla, puede omitir este paso.
@@ -5817,7 +5817,7 @@ es:
         facts_html:
         - ¡Cobre su pago de estímulo de 2020 presentando su impuestos por medio de <a href="/">GetYourRefund</a>!
         - Revisa el estado de tu pago de estímulo en <a href='https://www.irs.gov/coronavirus/get-my-payment' data-track-click='stimulus-irs-get-my-payment' data-track-attribute-position='homepage' target='_blank' rel='noopener noreferrer'>IRS Obtener mi pago website</a>
-        - 'Llama a la Línea Directa de Pago de Impacto Económico 211 (en inglés: 211 Economic Impact Payment); <a href=''tel:1-844-322-3639'' data-track-click=''call-211-hotline'' data-track-attribute-position=''homepage''>+1 (844) 322-3639</a>'
+        - 'Llama a la Línea Directa de Pago de Impacto Económico 211 (en inglés: 211 Economic Impact Payment); <a href='"tel:1-844-322-3639" data-track-click="call-211-hotline" data-track-attribute-position="homepage">+1 (844) 322-3639</a>'
         file_with_help:
           header: Recoja su pago de estímulo de 2020 presentando su declaración de impuestos hoy mismo!
         heading: "¿Necesitas ayuda para conseguir tu pago de estímulo (también conocido como Pago de Impacto Económico)?"
@@ -6149,7 +6149,7 @@ es:
           one: En %{year}, ¿tuvo algún ingreso por intereses o dividendos?
           other: En el %{year}, ¿Tuvo usted o su pareja ingresos por intereses o dividendos?
       interview_scheduling:
-        help_text: 'Haremos todo lo posible para programar su revisión basada en la información que nos proporcione. '
+        help_text: 'Haremos todo lo posible para programar su revisión basada en la información que nos proporcione.'
         interview_preference: "¿Cuál idioma prefiere para la revisión?"
         title: "¿Tiene alguna preferencia de tiempo para su entrevista telefónica?"
         written_preference: "¿En qué idioma prefiere escribir?"
