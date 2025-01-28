@@ -80,20 +80,28 @@ class StateFileW2 < ApplicationRecord
     if (state_income_tax_amount || 0).positive? && (state_wages_amount || 0) <= 0
       errors.add(:state_wages_amount, I18n.t("state_file.questions.w2.edit.state_wages_amt_error"))
     end
-    if (local_income_tax_amount || 0).positive? && (local_wages_and_tips_amount || 0) <= 0
-      errors.add(:local_wages_and_tips_amount, I18n.t("state_file.questions.w2.edit.local_wages_and_tips_amt_error"))
-    end
     if state_income_tax_amount.present? && state_wages_amount.present? && state_income_tax_amount > state_wages_amount
       errors.add(:state_income_tax_amount, I18n.t("state_file.questions.w2.edit.state_income_tax_amt_error"))
     end
-    if local_income_tax_amount.present? && local_wages_and_tips_amount.present? && local_income_tax_amount > local_wages_and_tips_amount
-      errors.add(:local_income_tax_amount, I18n.t("state_file.questions.w2.edit.local_income_tax_amt_error"))
+    if StateFile::StateInformationService.w2_include_local_income_boxes(state_file_intake.state_code)
+      if (local_income_tax_amount || 0).positive? && (local_wages_and_tips_amount || 0) <= 0
+        errors.add(:local_wages_and_tips_amount, I18n.t("state_file.questions.w2.edit.local_wages_and_tips_amt_error"))
+      end
+      if local_income_tax_amount.present? && local_wages_and_tips_amount.present? && local_income_tax_amount > local_wages_and_tips_amount
+        errors.add(:local_income_tax_amount, I18n.t("state_file.questions.w2.edit.local_income_tax_amt_error"))
+      end
     end
     w2 = state_file_intake.direct_file_data.w2s[w2_index]
     if w2.present?
-      if state_income_tax_amount.present? && local_income_tax_amount.present? && (state_income_tax_amount + local_income_tax_amount > w2.WagesAmt)
-        errors.add(:local_income_tax_amount, I18n.t("state_file.questions.w2.edit.wages_amt_error", wages_amount: w2.WagesAmt))
-        errors.add(:state_income_tax_amount, I18n.t("state_file.questions.w2.edit.wages_amt_error", wages_amount: w2.WagesAmt))
+      if StateFile::StateInformationService.w2_include_local_income_boxes(state_file_intake.state_code)
+        if state_income_tax_amount.present? && local_income_tax_amount.present? && (state_income_tax_amount + local_income_tax_amount > w2.WagesAmt)
+          errors.add(:local_income_tax_amount, I18n.t("state_file.questions.w2.edit.wages_amt_error", wages_amount: w2.WagesAmt))
+          errors.add(:state_income_tax_amount, I18n.t("state_file.questions.w2.edit.wages_amt_error", wages_amount: w2.WagesAmt))
+        end
+      else
+        if state_income_tax_amount.present? && state_income_tax_amount > w2.WagesAmt
+          errors.add(:state_income_tax_amount, I18n.t("state_file.questions.w2.edit.wages_amt_error", wages_amount: w2.WagesAmt))
+        end
       end
     end
   end
