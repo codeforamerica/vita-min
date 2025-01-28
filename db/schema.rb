@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_01_19_200253) do
-
+ActiveRecord::Schema[7.1].define(version: 2025_01_24_000028) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1142,6 +1141,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_19_200253) do
 
   create_table "intakes", force: :cascade do |t|
     t.string "additional_info"
+    t.text "additional_notes_comments"
     t.integer "adopted_child", default: 0, null: false
     t.integer "advance_ctc_amount_received"
     t.integer "advance_ctc_entry_method", default: 0, null: false
@@ -1172,6 +1172,82 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_19_200253) do
     t.integer "contributed_to_roth_ira", default: 0, null: false
     t.datetime "created_at", null: false
     t.string "current_step"
+    t.integer "cv_1095a_cb", default: 0, null: false
+    t.integer "cv_1098_cb", default: 0, null: false
+    t.integer "cv_1098_count"
+    t.integer "cv_1098e_cb", default: 0, null: false
+    t.integer "cv_1098t_cb", default: 0, null: false
+    t.integer "cv_1099a_cb", default: 0, null: false
+    t.integer "cv_1099b_cb", default: 0, null: false
+    t.integer "cv_1099b_count"
+    t.integer "cv_1099c_cb", default: 0, null: false
+    t.integer "cv_1099div_cb", default: 0, null: false
+    t.integer "cv_1099div_count"
+    t.integer "cv_1099g_cb", default: 0, null: false
+    t.integer "cv_1099g_count"
+    t.integer "cv_1099int_cb", default: 0, null: false
+    t.integer "cv_1099int_count"
+    t.integer "cv_1099k_cb", default: 0, null: false
+    t.integer "cv_1099k_count"
+    t.integer "cv_1099misc_cb", default: 0, null: false
+    t.integer "cv_1099misc_count"
+    t.integer "cv_1099nec_cb", default: 0, null: false
+    t.integer "cv_1099nec_count"
+    t.integer "cv_1099r_cb", default: 0, null: false
+    t.decimal "cv_1099r_charitable_dist_amt", precision: 12, scale: 2
+    t.integer "cv_1099r_charitable_dist_cb", default: 0, null: false
+    t.integer "cv_1099r_count"
+    t.integer "cv_1099s_cb", default: 0, null: false
+    t.string "cv_14c_page_3_notes_part_1"
+    t.string "cv_14c_page_3_notes_part_2"
+    t.string "cv_14c_page_3_notes_part_3"
+    t.integer "cv_alimony_excluded_from_income_cb", default: 0, null: false
+    t.integer "cv_alimony_income_adjustment_yn_cb", default: 0, null: false
+    t.decimal "cv_alimony_income_amt", precision: 12, scale: 2
+    t.integer "cv_alimony_income_cb", default: 0, null: false
+    t.integer "cv_capital_loss_carryover_cb", default: 0, null: false
+    t.integer "cv_child_dependent_care_credit_cb", default: 0, null: false
+    t.integer "cv_disability_benefits_1099r_or_w2_cb", default: 0, null: false
+    t.integer "cv_disability_benefits_1099r_or_w2_count"
+    t.integer "cv_disaster_relief_impacts_return_cb", default: 0, null: false
+    t.integer "cv_edu_credit_or_tuition_deduction_cb", default: 0, null: false
+    t.decimal "cv_edu_expenses_deduction_amt", precision: 12, scale: 2
+    t.integer "cv_edu_expenses_deduction_cb", default: 0, null: false
+    t.integer "cv_eitc_ctc_aotc_hoh_disallowed_in_a_prev_yr_cb", default: 0, null: false
+    t.integer "cv_eligible_for_litc_referral_cb", default: 0, null: false
+    t.integer "cv_energy_efficient_home_improv_credit_cb", default: 0, null: false
+    t.decimal "cv_estimated_tax_payments_amt", precision: 12, scale: 2
+    t.integer "cv_estimated_tax_payments_cb", default: 0, null: false
+    t.integer "cv_had_tips_cb", default: 0, null: false
+    t.integer "cv_hsa_contrib_cb", default: 0, null: false
+    t.integer "cv_hsa_distrib_cb", default: 0, null: false
+    t.integer "cv_itemized_last_year_cb", default: 0, null: false
+    t.decimal "cv_last_years_refund_applied_to_this_yr_amt", precision: 12, scale: 2
+    t.integer "cv_last_years_refund_applied_to_this_yr_cb", default: 0, null: false
+    t.integer "cv_last_years_return_available_cb", default: 0, null: false
+    t.decimal "cv_local_tax_refund_amt", precision: 12, scale: 2
+    t.integer "cv_local_tax_refund_cb", default: 0, null: false
+    t.integer "cv_med_expense_itemized_deduction_cb", default: 0, null: false
+    t.integer "cv_med_expense_standard_deduction_cb", default: 0, null: false
+    t.integer "cv_other_income_cb", default: 0, null: false
+    t.integer "cv_other_income_reported_elsewhere_cb", default: 0, null: false
+    t.string "cv_p2_notes_comments"
+    t.decimal "cv_paid_alimony_w_spouse_ssn_amt", precision: 12, scale: 2
+    t.integer "cv_paid_alimony_w_spouse_ssn_cb", default: 0, null: false
+    t.decimal "cv_rental_expense_amt", precision: 12, scale: 2
+    t.integer "cv_rental_expense_cb", default: 0, null: false
+    t.integer "cv_rental_income_cb", default: 0, null: false
+    t.integer "cv_schedule_c_cb", default: 0, null: false
+    t.decimal "cv_schedule_c_expenses_amt", precision: 12, scale: 2
+    t.integer "cv_schedule_c_expenses_cb", default: 0, null: false
+    t.integer "cv_ssa1099_rrb1099_cb", default: 0, null: false
+    t.integer "cv_ssa1099_rrb1099_count"
+    t.string "cv_tax_credit_disallowed_reason"
+    t.integer "cv_taxable_scholarship_income_cb", default: 0, null: false
+    t.integer "cv_w2g_or_other_gambling_winnings_cb", default: 0, null: false
+    t.integer "cv_w2g_or_other_gambling_winnings_count"
+    t.integer "cv_w2s_cb", default: 0, null: false
+    t.integer "cv_w2s_count"
     t.integer "demographic_disability", default: 0, null: false
     t.integer "demographic_english_conversation", default: 0, null: false
     t.integer "demographic_english_reading", default: 0, null: false
@@ -1242,6 +1318,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_19_200253) do
     t.integer "had_medicaid_medicare", default: 0, null: false
     t.integer "had_other_income", default: 0, null: false
     t.integer "had_rental_income", default: 0, null: false
+    t.integer "had_rental_income_and_used_dwelling_as_residence", default: 0, null: false
+    t.integer "had_rental_income_from_personal_property", default: 0, null: false
     t.integer "had_retirement_income", default: 0, null: false
     t.integer "had_scholarships", default: 0, null: false
     t.integer "had_self_employment_income", default: 0, null: false
@@ -1282,6 +1360,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_19_200253) do
     t.integer "needs_help_2020", default: 0, null: false
     t.integer "needs_help_2021", default: 0, null: false
     t.integer "needs_help_2022", default: 0, null: false
+    t.integer "needs_help_2023", default: 0, null: false
     t.integer "needs_help_current_year", default: 0, null: false
     t.integer "needs_help_previous_year_1", default: 0, null: false
     t.integer "needs_help_previous_year_2", default: 0, null: false
@@ -1321,6 +1400,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_19_200253) do
     t.text "primary_last_four_ssn"
     t.string "primary_last_name"
     t.string "primary_middle_initial"
+    t.integer "primary_owned_or_held_any_digital_currencies", default: 0, null: false
     t.integer "primary_prior_year_agi_amount"
     t.string "primary_prior_year_signature_pin"
     t.text "primary_signature_pin"
@@ -1338,6 +1418,9 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_19_200253) do
     t.integer "received_irs_letter", default: 0, null: false
     t.integer "received_stimulus_payment", default: 0, null: false
     t.string "referrer"
+    t.integer "refund_check_by_mail"
+    t.integer "refund_direct_deposit"
+    t.string "refund_other"
     t.integer "refund_payment_method", default: 0, null: false
     t.integer "register_to_vote", default: 0, null: false
     t.integer "reported_asset_sale_loss", default: 0, null: false
@@ -1377,6 +1460,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_19_200253) do
     t.text "spouse_last_four_ssn"
     t.string "spouse_last_name"
     t.string "spouse_middle_initial"
+    t.integer "spouse_owned_or_held_any_digital_currencies", default: 0, null: false
     t.string "spouse_phone_number"
     t.integer "spouse_prior_year_agi_amount"
     t.string "spouse_prior_year_signature_pin"
@@ -1947,6 +2031,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_19_200253) do
 
   create_table "state_file_md1099_r_followups", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.integer "income_source", default: 0, null: false
+    t.integer "service_type", default: 0, null: false
     t.datetime "updated_at", null: false
   end
 
@@ -2008,6 +2094,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_19_200253) do
     t.string "political_subdivision"
     t.date "primary_birth_date"
     t.integer "primary_did_not_have_health_insurance", default: 0, null: false
+    t.integer "primary_disabled", default: 0, null: false
     t.integer "primary_esigned", default: 0, null: false
     t.datetime "primary_esigned_at"
     t.string "primary_first_name"
@@ -2015,6 +2102,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_19_200253) do
     t.string "primary_middle_initial"
     t.string "primary_signature"
     t.text "primary_signature_pin"
+    t.decimal "primary_ssb_amount", precision: 12, scale: 2, default: "0.0", null: false
     t.string "primary_ssn"
     t.bigint "primary_state_id_id"
     t.decimal "primary_student_loan_interest_ded_amount", precision: 12, scale: 2, default: "0.0", null: false
@@ -2029,12 +2117,14 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_19_200253) do
     t.string "source"
     t.date "spouse_birth_date"
     t.integer "spouse_did_not_have_health_insurance", default: 0, null: false
+    t.integer "spouse_disabled", default: 0, null: false
     t.integer "spouse_esigned", default: 0, null: false
     t.datetime "spouse_esigned_at"
     t.string "spouse_first_name"
     t.string "spouse_last_name"
     t.string "spouse_middle_initial"
     t.text "spouse_signature_pin"
+    t.decimal "spouse_ssb_amount", precision: 12, scale: 2, default: "0.0", null: false
     t.string "spouse_ssn"
     t.bigint "spouse_state_id_id"
     t.decimal "spouse_student_loan_interest_ded_amount", precision: 12, scale: 2, default: "0.0", null: false

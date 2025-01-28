@@ -144,7 +144,7 @@ module StateFile
         vita_link_es: "https://airtable.com/appAgBw351Iig0YI4/pagpUP2HSWNXzPlIz/form",
         voucher_form_name: "Form PV",
         voucher_path: "/pdfs/md-pv-TY2024.pdf",
-        w2_supported_box14_codes: ["STPICKUP"],
+        w2_supported_box14_codes: [{name: "STPICKUP"}],
         w2_include_local_income_boxes: true
       },
       nc: {
@@ -158,7 +158,7 @@ module StateFile
         pay_taxes_link: "https://www.nc.gov/working/taxes",
         return_type: "FormNCD400",
         review_controller_class: StateFile::Questions::NcReviewController,
-        schema_file_name: "NCIndividual2024v0.7.zip",
+        schema_file_name: "NCIndividual2024v1.0.zip",
         software_id_key: "sin",
         state_name: "North Carolina",
         submission_type: "FormNCD400",
@@ -203,7 +203,7 @@ module StateFile
         vita_link_es: "https://airtable.com/appqG5OGbTLBiQ408/pagVcLm52Stg9p4hY/form",
         voucher_form_name: "NJ-1040-V (NJ Gross Income Tax Resident Payment Voucher)",
         voucher_path: "/pdfs/nj1040v-TY2024.pdf",
-        w2_supported_box14_codes: ["UI_WF_SWF", "FLI"],
+        w2_supported_box14_codes: [{name: "UI_WF_SWF", limit: 179.78}, {name: "FLI", limit: 145.26}],
         w2_include_local_income_boxes: false
       },
       ny: {
