@@ -21,14 +21,12 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj2450, required_sche
       it "fills body for each w2" do
         body_elements = xml.css("Body")
         expect(body_elements.count).to eq 2
+        w2_long_employer_name = body_elements[0]
+        expect(w2_long_employer_name.at('EmployerName').text.length).to eq(35)
 
         body_elements.each do |body|
           w2 = [w2_1, w2_2].find { |test_w2| test_w2.employer_ein == body.at('FedEmployerId').text}
-
           expect(body.at('EmployerName').text).to eq(w2.employer_name[0...35])
-          if w2.employer_name == long_employer_name
-            expect(body.at('EmployerName').text.length).to eq(35)
-          end
           expect(body.at('Wages').text).to eq(w2.wages.round.to_s)
           expect(body.at('Deductions ColumnA').text).to eq(w2.box14_ui_hc_wd.round.to_s)
           expect(body.at('Deductions ColumnC').text).to eq(w2.box14_fli.round.to_s)

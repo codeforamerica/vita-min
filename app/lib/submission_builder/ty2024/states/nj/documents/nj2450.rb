@@ -19,8 +19,6 @@ module SubmissionBuilder
               build_xml_doc("FormNJ2450") do |xml|
                 w2s.each do |w2|
                   xml.Body do
-                    column_a = w2.box14_ui_wf_swf&.positive? ? w2.box14_ui_wf_swf : w2.box14_ui_hc_wd
-
                     xml.EmployerName get_employer_name(w2, truncate: true)
                     xml.FedEmployerId w2.employer_ein
                     xml.Wages get_wages(w2)
