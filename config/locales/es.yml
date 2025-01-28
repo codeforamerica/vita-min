@@ -3465,7 +3465,7 @@ es:
           phone_number_help_text: Ingresa números únicamente
           provided_contact: Le enviaremos actualizaciones sobre su declaración de impuestos a %{contact_info}.
           sms_notification_opt_in: Mensaje de texto
-          subtitle: 'Necesitaremos comunicarnos contigo en caso de que tengamos preguntas o información actualizada.'
+          subtitle: Necesitaremos comunicarnos contigo en caso de que tengamos preguntas o información actualizada.
           title: "¿Cuál es la mejor manera de contactarte?"
         form:
           at_least_one: Se requiere al menos una preferencia de notificación
@@ -4114,7 +4114,7 @@ es:
         ¿Recibiste este código sin registrarte? Envíanos un correo electrónico a help@%{service_name_lower}.org
 
         Tu equipo de impuestos en %{service_name}.org
-      subject: 'Six-Digit Code from FileYourStateTaxes'
+      subject: Six-Digit Code from FileYourStateTaxes
     no_match:
       body_html: |
         Hola, <br /><br />
@@ -4965,8 +4965,8 @@ es:
             one: El IRS no le permite usar GetCTC si sus ingresos superan los $12,550. Sin embargo, aún puede ser elegible para créditos tributarios si presenta una declaración de impuestos completa.
             other: El IRS no le permite usar GetCTC si su ingreso combinado supera los $25,100. Sin embargo, usted y su cónyuge aún pueden ser elegibles para créditos tributarios si presentan una declaración de impuestos completa.
           title:
-            many: 'Desafortunadamente, usted y su cónyuge no pueden usar GetCTC debido a sus ingresos declarados.'
-            one: 'Desafortunadamente, no puede usar GetCTC debido a sus ingresos informados.'
+            many: Desafortunadamente, usted y su cónyuge no pueden usar GetCTC debido a sus ingresos declarados.
+            one: Desafortunadamente, no puede usar GetCTC debido a sus ingresos informados.
             other: Desafortunadamente, usted y su cónyuge no pueden usar GetCTC debido a sus ingresos declarados.
         spouse_drivers_license:
           help_text: Si ingresa esta información, el IRS puede procesar más rápido sus pagos. Si no tiene una licencia de conducir o una tarjeta de identificación emitida por el estado, o no desea ingresarla, puede omitir este paso.
@@ -5841,7 +5841,7 @@ es:
         facts_html:
         - ¡Cobre su pago de estímulo de 2020 presentando su impuestos por medio de <a href="/">GetYourRefund</a>!
         - Revisa el estado de tu pago de estímulo en <a href='https://www.irs.gov/coronavirus/get-my-payment' data-track-click='stimulus-irs-get-my-payment' data-track-attribute-position='homepage' target='_blank' rel='noopener noreferrer'>IRS Obtener mi pago website</a>
-        - 'Llama a la Línea Directa de Pago de Impacto Económico 211 (en inglés: 211 Economic Impact Payment); <a href='"tel:1-844-322-3639" data-track-click="call-211-hotline" data-track-attribute-position="homepage">+1 (844) 322-3639</a>'
+        - 'Llama a la Línea Directa de Pago de Impacto Económico 211 (en inglés: 211 Economic Impact Payment); <a href="tel:1-844-322-3639" data-track-click="call-211-hotline" data-track-attribute-position="homepage">+1 (844) 322-3639</a>'
         file_with_help:
           header: Recoja su pago de estímulo de 2020 presentando su declaración de impuestos hoy mismo!
         heading: "¿Necesitas ayuda para conseguir tu pago de estímulo (también conocido como Pago de Impacto Económico)?"
@@ -6173,7 +6173,7 @@ es:
           one: En %{year}, ¿tuvo algún ingreso por intereses o dividendos?
           other: En el %{year}, ¿Tuvo usted o su pareja ingresos por intereses o dividendos?
       interview_scheduling:
-        help_text: 'Haremos todo lo posible para programar su revisión basada en la información que nos proporcione.'
+        help_text: Haremos todo lo posible para programar su revisión basada en la información que nos proporcione.
         interview_preference: "¿Cuál idioma prefiere para la revisión?"
         title: "¿Tiene alguna preferencia de tiempo para su entrevista telefónica?"
         written_preference: "¿En qué idioma prefiere escribir?"
