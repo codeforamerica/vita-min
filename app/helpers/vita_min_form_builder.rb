@@ -454,22 +454,43 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     checkbox_container_classes << "question-with-follow-up" if includes_follow_up
 
     fieldset_classes = ["input-group", "form-group#{error_state(object, method)}"]
-    describedby = object.errors[method].any? ? "##{error_label(method)}" : nil
+
+    describedby_ids = []
+    if help_text.present?
+      help_text_id = help_text_id(method)
+      help_text_html = <<~HTML.html_safe
+        <div class="text--help" id="#{help_text_id}">
+          #{help_text}
+        </div>
+      HTML
+      describedby_ids << help_text_id
+    end
+
+    if object.errors[method].any?
+      describedby_ids << "##{error_label(method)}"
+    end
+    describedby = describedby_ids.join(' ')
 
     <<~HTML.html_safe
       <fieldset class="#{fieldset_classes.join(' ')}" aria-describedby="#{describedby}">
         #{fieldset_label_contents(
           label_text: label_text,
-          help_text: help_text,
           legend_class: legend_class,
           optional: optional,
+          help_text: nil
           )}
+          #{help_text_html}
           <div class="#{checkbox_container_classes.join(' ')}">
             #{checkbox_html}
           </div>
           #{errors_for(object, method)}
         </fieldset>
     HTML
+  end
+
+  def help_text_id(method)
+    # Private method in honeycrisp v2 form builder
+    "#{sanitized_id(method)}__help-text"
   end
 
   alias v1_cfa_input_field cfa_input_field
@@ -484,7 +505,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     optional: false,
     prefix: nil
   )
-    if prefix
+    if prefix || options[:'data-mask']
       return v1_cfa_input_field(
         method,
         label_text,
