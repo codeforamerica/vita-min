@@ -2,11 +2,12 @@ module PdfFiller
   class Nj2450Pdf
     include PdfHelper
     include StateFile::NjPdfHelper
+    include StateFile::Nj2450Helper
     include TimeHelper
 
     W2_PDF_KEYS = [
       {
-        employer_name: 'Name1',
+        employer_name: "Name1",
         employer_ein: 'Fed Emp ID',
         wages: 'Wages1',
         column_a: 'A1',
@@ -115,13 +116,17 @@ module PdfFiller
     end
 
     def w2s
-      @xml_document.css('Body').map do |w2|
+      # Breaks the pattern of getting PDF values from XML
+      # because we don't want to truncate the employer name in the PDF
+      # Uses helpers to get w2 values here and in XML to keep them in sync
+      db_w2s = get_persons_w2s(intake, primary_or_spouse)
+      @w2s ||= db_w2s.map do |w2|
         {
-          employer_name: w2.at('EmployerName')&.text,
-          employer_ein: w2.at('FedEmployerId')&.text,
-          wages: w2.at('Wages')&.text,
-          column_a: w2.at('ColumnA')&.text,
-          column_c: w2.at('ColumnC')&.text,
+          employer_name: get_employer_name(w2),
+          employer_ein: w2.employer_ein,
+          wages: get_wages(w2),
+          column_a: get_column_a(w2),
+          column_c: get_column_c(w2),
         }
       end
     end
