@@ -70,6 +70,18 @@ describe StateFileW2 do
       end
     end
 
+    context "states where we don't show local boxes" do
+      let(:intake) { create :state_file_nc_intake }
+
+      it "doesn't validate local tax fields" do
+        w2.locality_nm = "asdf"
+        w2.local_wages_and_tips_amount = -1
+        w2.local_income_tax_amount = -1
+        expect(w2).to be_valid(:state_file_edit)
+        expect(w2.errors).to be_empty
+      end
+    end
+
     it "requires both locality_nm to be present if wages_and_tips_amt is present" do
       w2.locality_nm = nil
       expect(w2).not_to be_valid(:state_file_edit)
