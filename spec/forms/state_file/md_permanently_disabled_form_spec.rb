@@ -59,6 +59,14 @@ RSpec.describe StateFile::MdPermanentlyDisabledForm do
         end
       end
 
+      context "when primary_disabled is no and proof of disability submitted is not present" do
+        let(:params) { { primary_disabled: "no", proof_of_disability_submitted: "" } }
+
+        it "is valid" do
+          expect(form).to be_valid
+        end
+      end
+
       context "when proof_of_disability_submitted is required" do
         let(:params) { { primary_disabled: "yes", proof_of_disability_submitted: "" } }
 
@@ -84,6 +92,30 @@ RSpec.describe StateFile::MdPermanentlyDisabledForm do
           intake.reload
           expect(intake.primary_disabled).to eq "yes"
           expect(intake.spouse_disabled).to eq "no"
+          expect(intake.proof_of_disability_submitted).to eq "yes"
+        end
+      end
+
+      context "when mfj_disability is 'spouse'" do
+        let(:params) { { mfj_disability: "spouse", proof_of_disability_submitted: "yes" } }
+
+        it "updates intake with primary_disabled: 'no' and spouse_disabled: 'yes'" do
+          form.save
+          intake.reload
+          expect(intake.primary_disabled).to eq "no"
+          expect(intake.spouse_disabled).to eq "yes"
+          expect(intake.proof_of_disability_submitted).to eq "yes"
+        end
+      end
+
+      context "when mfj_disability is 'both'" do
+        let(:params) { { mfj_disability: "both", proof_of_disability_submitted: "yes" } }
+
+        it "updates intake with primary_disabled: 'yes' and spouse_disabled: 'yes'" do
+          form.save
+          intake.reload
+          expect(intake.primary_disabled).to eq "yes"
+          expect(intake.spouse_disabled).to eq "yes"
           expect(intake.proof_of_disability_submitted).to eq "yes"
         end
       end
