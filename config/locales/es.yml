@@ -511,7 +511,7 @@ es:
     negative: 'No'
     new: Nuevo
     new_unique_link: Nuevo Enlace único
-    nj_staff: Personal de Nueva Jersey
+    nj_staff: Personal de New Jersey
     no_intake: Sin ingesta
     none: Ninguna
     none_of_the_above: Ninguna de las anteriores
@@ -3428,7 +3428,7 @@ es:
           description_html: "<p>Completa esta  <a href=\"https://www.nj.gov/treasury/taxation/pdf/wrkshtg.pdf\" target=\"_blank\" rel=\"noopener nofollow\">hoja de trabajo</a>.</p> \n<p>Una vez que la completes, vuelve a esta página.</p>\n<p>La hoja de trabajo te preguntará dónde viviste y por cuánto tiempo. Si te mudaste, por ejemplo, tendrá espacio para que enumeres todos los lugares donde viviste.</p>\n"
           helper_anchor_description_html: Si recibiste un beneficio de Comunidades Accesibles de New Jersey para Propietarios e Inquilinos (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> por las siglas en inglés), el monto del beneficio no afecta el monto a informar de la pregunta superior. (ANCHOR ofrece alivio de impuestos a la propiedad a residentes de New Jersey que tengan o alquilen una vivienda principal en New Jersey y que cumplan con ciertos límites de ingresos).
           helper_anchor_heading: "¿Qué pasa si recibí beneficios ANCHOR?"
-          helper_description_html: Escribe las tarifas de tu sitio pagadas en 2024 %{filing_year} en la sección de alquiler de la <a href="https://www.nj.gov/treasury/taxation/pdf/wrkshtg.pdf" target="_blank" rel="noopener nofollow">Hoja de trabajo (link en inglés)</a>.
+          helper_description_html: Escribe las tarifas de tu sitio pagadas en %{filing_year} en la sección de alquiler de la <a href="https://www.nj.gov/treasury/taxation/pdf/wrkshtg.pdf" target="_blank" rel="noopener nofollow">Hoja de trabajo (link en inglés)</a>.
           helper_heading: Dueños/as de casas móviles/rodantes
           label_html: "<strong>Ingresa la Línea 8 de la Hoja de trabajo</strong><br/> (Tu parte del alquiler total pagado)"
           title: Buenas noticias—calificas para una deducción o crédito
@@ -3555,7 +3555,7 @@ es:
             one: "¿Realizaste alguna compra fuera del estado en %{year} sin pagar impuestos de venta o de uso?"
             other: "¿Usted o su cónyuge realizaron alguna compra fuera del estado en %{year} sin pagar impuestos sobre ventas o de uso?"
           use_tax_method_automated: Todas mis compras fueron de menos de $1,000 cada una. Calcula la cantidad de impuesto sobre el uso por mi.
-          use_tax_method_manual_html: Tuve una compra sin impuestos por más de $1,000, o preferiría calcular mí impuesto de uso manualmente. (<a href="https://www.tax.ny.gov/pdf/current_forms/st/st140.pdf" target="_blank" rel="noopener noreferrer">Obtén más información aquí</a> y busca 'exact calculation method’)
+          use_tax_method_manual_html: Tuve una compra sin impuestos por más de $1,000, o preferiría calcular mí impuesto de uso manualmente. (<a href="https://www.tax.ny.gov/pdf/current_forms/st/st140.pdf" target="_blank" rel="noopener noreferrer">Obtén más información aquí</a> y busca 'exact calculation method')
       ny_school_district:
         edit:
           helper_description_html: Puedes buscar tu distrito escolar <a href="https://www.greatschools.org/school-district-boundaries-map/" target="_blank" rel="noopener nofollow">aquí</a>. Si aún no estás seguro, contacta a la escuela pública más cercana y pregunta el nombre del distrito escolar.
