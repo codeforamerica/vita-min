@@ -178,6 +178,13 @@ FactoryBot.define do
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_minimal') }
     end
 
+    trait :df_data_no_deps do
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_springsteen_mfj') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_springsteen_mfj') }
+      primary_birth_date { Date.new(1990, 1, 1) }
+      spouse_birth_date { Date.new(1990, 1, 1) }
+    end
+
     trait :df_data_many_deps do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_zeus_many_deps') }
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_zeus_many_deps') }
