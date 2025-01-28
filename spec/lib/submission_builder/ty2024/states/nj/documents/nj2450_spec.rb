@@ -14,7 +14,8 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj2450, required_sche
     end
 
     context "primary" do
-      let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_ui_hc_wd: 99, box14_fli: 100, employer_ein: '123456789', wages: '999') }
+      let(:long_employer_name) { "Derek Zoolander Center for Kids Who Can't Read Good" }
+      let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_ui_hc_wd: 99, box14_fli: 100, employer_ein: '123456789', wages: '999', employer_name: long_employer_name) }
       let!(:w2_2) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_ui_hc_wd: 134, box14_fli: 123, employer_ein: '923456781', wages: '888') }  
 
       it "fills body for each w2" do
@@ -24,7 +25,10 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj2450, required_sche
         body_elements.each do |body|
           w2 = [w2_1, w2_2].find { |test_w2| test_w2.employer_ein == body.at('FedEmployerId').text}
 
-          expect(body.at('EmployerName').text).to eq(w2.employer_name)
+          expect(body.at('EmployerName').text).to eq(w2.employer_name[0...35])
+          if w2.employer_name == long_employer_name
+            expect(body.at('EmployerName').text.length).to eq(35)
+          end
           expect(body.at('Wages').text).to eq(w2.wages.round.to_s)
           expect(body.at('Deductions ColumnA').text).to eq(w2.box14_ui_hc_wd.round.to_s)
           expect(body.at('Deductions ColumnC').text).to eq(w2.box14_fli.round.to_s)

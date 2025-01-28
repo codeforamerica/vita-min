@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 primary_test_cases = [
-  { employer_name: 'Primary 1', wages: 1000, box14_fli: 90, box14_ui_hc_wd: 100, employer_ein: 710415181 },
+  { employer_name: "Derek Zoolander Center for Kids Who Can't Read Good", wages: 1000, box14_fli: 90, box14_ui_hc_wd: 100, employer_ein: 710415181 },
   { employer_name: 'Primary 2', wages: 1001, box14_fli: 91, box14_ui_hc_wd: 101, employer_ein: 710415182 },
   { employer_name: 'Primary 3', wages: 1002, box14_fli: 92, box14_ui_hc_wd: 102, employer_ein: 710415183 },
   { employer_name: 'Primary 4', wages: 1003, box14_fli: 93, box14_ui_hc_wd: 103, employer_ein: 710415184 },

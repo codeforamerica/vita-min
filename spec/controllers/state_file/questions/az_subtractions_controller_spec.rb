@@ -23,4 +23,28 @@ RSpec.describe StateFile::Questions::AzSubtractionsController do
       end
     end
   end
+
+  describe "#show" do
+    context "with wages, salaries, and tips greater than 0" do
+      it "returns true" do
+        allow(intake.direct_file_data).to receive(:fed_wages_salaries_tips).and_return(21_000)
+        expect(described_class.show?(intake)).to eq true
+      end
+    end
+
+    context "without wages, salaries, and tips" do
+      it "returns false" do
+        allow(intake.direct_file_data).to receive(:fed_wages_salaries_tips).and_return(nil)
+        expect(described_class.show?(intake)).to eq false
+      end
+    end
+
+    context "with wages, salaries, and tips equal to 0" do
+      it "returns false" do
+        allow(intake.direct_file_data).to receive(:fed_wages_salaries_tips).and_return(0)
+        expect(described_class.show?(intake)).to eq false
+      end
+    end
+  end
+
 end

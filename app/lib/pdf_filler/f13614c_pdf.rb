@@ -102,32 +102,47 @@ module PdfFiller
       answers["form1[0].page1[0].maritalStatus[0].statusLegallySeparated[0].dateSeparateDecree[0]"] = @intake.separated_year
       answers["form1[0].page1[0].maritalStatus[0].statusDivorced[0].dateFinalDecree[0]"] = @intake.divorced_year
       answers["form1[0].page1[0].maritalStatus[0].statusWidowed[0].yearSpousesDeath[0]"] = @intake.widowed_year
-      answers["form1[0].page1[0].additionalSpace[0].additionalSpace[0]"] = @dependents.length > 3 ? "1" : nil
 
       answers.merge!(
-        yes_no_checkboxes("form1[0].page2[0].Part3[0].q1WagesOrSalary[0]", @intake.had_wages, include_unsure: true)
+        keep_and_normalize(
+          with_prefix("form1[0].page2[0].receivedMoneyFrom[0]") do
+            {
+              "wagesPartFull[0]" => @intake.had_wages_yes?,
+              "receivedMoneyTimps[0]" => @intake.had_tips_yes?,
+              "retirementAccount[0]" => @intake.had_retirement_income_yes?,
+              "disabilityBenefits[0].disabilityBenefits[0]" => @intake.had_disability_income_yes?,
+              "socialSecurityRailroad[0]" => @intake.had_social_security_income_yes?,
+              "unemploymentBenefits[0]" => @intake.had_unemployment_income_yes?,
+              "refundStateLocal[0]" => @intake.had_local_tax_refund_yes?,
+              "interestOrDividends[0]" => @intake.had_interest_income_yes?,
+              "saleStocksBonds[0]" => @intake.had_asset_sale_income_yes?,
+              "reportALoss[0].reportLossYes[0]" => @intake.reported_asset_sale_loss_yes?,
+              "reportALoss[0].reportLossNo[0]" => @intake.reported_asset_sale_loss_no?,
+              "receivedAlimony[0]" => @intake.received_alimony_yes?,
+              "incomeRentingHouse[0].incomeRentingHouse[0]" => @intake.had_rental_income_yes?,
+              "useAsPersonal[0].personalResidenceYes[0]" => @intake.had_rental_income_and_used_dwelling_as_residence_yes?,
+              "useAsPersonal[0].personalResidenceNo[0]" => @intake.had_rental_income_and_used_dwelling_as_residence_no?,
+              "incomeRentingVehicle[0]" => @intake.had_rental_income_from_personal_property_yes?,
+              "gamblingLotteryWinnings[0]" => @intake.had_gambling_income_yes?,
+              "paymentsContractSelf[0]" => @intake.had_self_employment_income_yes?,
+              "lossLastReturn[0].reportLossYes[0]" => @intake.reported_self_employment_loss_yes?,
+              "lossLastReturn[0].reportLossNo[0]" => @intake.reported_self_employment_loss_no?,
+              "otherMoneyReceived[0].otherMoneyReceived[0]" => @intake.had_other_income_yes?
+            }
+          end
+        )
       )
+
+      answers["form1[0].page2[0].receivedMoneyFrom[0].howManyJobs[0]"] = @intake.job_count.to_s
+
+      # PAGE 2: INCOME
       answers.merge!(
-        "form1[0].page2[0].Part3[0].q1WagesOrSalary[0].NumberOfJobs[0]" => @intake.job_count.to_s,
-      )
-      answers.merge!(
-        yes_no_checkboxes("form1[0].page2[0].Part3[0].q2TipIncome[0]", @intake.had_tips, include_unsure: true),
         yes_no_checkboxes("form1[0].page2[0].Part3[0].q3Scholarships[0]", @intake.had_scholarships, include_unsure: true),
-        yes_no_checkboxes("form1[0].page2[0].Part3[0].q4InterestDividendsFrom[0]", @intake.had_interest_income, include_unsure: true),
-        yes_no_checkboxes("form1[0].page2[0].Part3[0].q5RefundOfState[0]", fetch_gated_value(@intake, :had_local_tax_refund), include_unsure: true),
-        yes_no_checkboxes("form1[0].page2[0].Part3[0].q6AlimonyIncome[0]", fetch_gated_value(@intake, :received_alimony), include_unsure: true),
-        yes_no_checkboxes("form1[0].page2[0].Part3[0].q7SelfEmploymentIncome[0]", @intake.had_self_employment_income, include_unsure: true),
         yes_no_checkboxes("form1[0].page2[0].Part3[0].q8CashCheckPayments[0]", @intake.had_cash_check_digital_assets, include_unsure: true),
         yes_no_checkboxes("form1[0].page2[0].Part3[0].q10DisabilityIncome[0]", @intake.had_disability_income, include_unsure: true),
-        yes_no_checkboxes("form1[0].page2[0].Part3[0].q11RetirementIncome[0]", fetch_gated_value(@intake, :had_retirement_income), include_unsure: true),
-        yes_no_checkboxes("form1[0].page2[0].Part3[0].q12UnemploymentCompensation[0]", @intake.had_unemployment_income, include_unsure: true),
-        yes_no_checkboxes("form1[0].page2[0].Part3[0].q13SocialSecurityOr[0]", fetch_gated_value(@intake, :had_social_security_income), include_unsure: true),
-        yes_no_checkboxes("form1[0].page2[0].Part3[0].q14IncomeOrLoss[0]", @intake.had_rental_income, include_unsure: true),
-        yes_no_checkboxes("form1[0].page2[0].Part3[0].q15OtherIncome[0]", collective_yes_no_unsure(@intake.had_other_income, fetch_gated_value(@intake, :had_gambling_income)), include_unsure: true),
 
         yes_no_checkboxes("form1[0].page2[0].Part4[0].q1Alimony[0]", fetch_gated_value(@intake, :paid_alimony), include_unsure: true),
         yes_no_checkboxes("form1[0].page2[0].Part4[0].q1Alimony[0].IfYes[0]", @intake.has_ssn_of_alimony_recipient),
-
       )
       answers.merge!(
         "form1[0].page2[0].Part4[0].q2Contributions[0].IRA[0]" => yes_no_unfilled_to_checkbox(@intake.contributed_to_ira),
@@ -138,21 +153,118 @@ module PdfFiller
 
       answers.merge!(
         yes_no_checkboxes("form1[0].page2[0].Part4[0].q3PostSecondary[0]", @intake.paid_post_secondary_educational_expenses, include_unsure: true),
-        yes_no_checkboxes("form1[0].page2[0].Part4[0].q4Deductions[0]", @intake.wants_to_itemize, include_unsure: true),
+        )
+
+      # PAGE TWO: right-side certified volunteer section
+      answers.merge!(
+        # Wages: W-2s
+        "form1[0].page2[0].incomeIncluded[0].formW2s[0]" => yes_no_unfilled_to_checkbox(@intake.cv_w2s_cb),
+        "form1[0].page2[0].incomeIncluded[0].formW2sNumber[0]" => @intake.cv_w2s_count.to_s,
+
+        # Tips
+        "form1[0].page2[0].incomeIncluded[0].tipsBasicReported[0]" => yes_no_unfilled_to_checkbox(@intake.cv_had_tips_cb),
+
+        # Retirement income: 1099-R, Qualified Charitable Distribution
+        "form1[0].page2[0].incomeIncluded[0].form1099R[0]" => yes_no_unfilled_to_checkbox(@intake.cv_1099r_cb),
+        "form1[0].page2[0].incomeIncluded[0].form1099RNumber[0]" => @intake.cv_1099r_count,
+        "form1[0].page2[0].incomeIncluded[0].qualifiedCharitableDistribution[0]" => yes_no_unfilled_to_checkbox(@intake.cv_1099r_charitable_dist_cb),
+        "form1[0].page2[0].incomeIncluded[0].qualifiedCharitableAmount[0]" => @intake.cv_1099r_charitable_dist_amt,
+
+        # Disability
+        "form1[0].page2[0].incomeIncluded[0].disabilityBenefits[0]" => yes_no_unfilled_to_checkbox(@intake.cv_disability_benefits_1099r_or_w2_cb),
+        "form1[0].page2[0].incomeIncluded[0].disabilityBenefitsNumber[0]" => @intake.cv_disability_benefits_1099r_or_w2_count,
+
+        # SSA-1099, RRB-1099
+        "form1[0].page2[0].incomeIncluded[0].ssaRRB1099[0]" => yes_no_unfilled_to_checkbox(@intake.cv_ssa1099_rrb1099_cb),
+        "form1[0].page2[0].incomeIncluded[0].ssaRRB1099Number[0]" => @intake.cv_ssa1099_rrb1099_count,
+
+        # Unemployment 1099-G
+        "form1[0].page2[0].incomeIncluded[0].form1099G[0]" => yes_no_unfilled_to_checkbox(@intake.cv_1099g_cb),
+        "form1[0].page2[0].incomeIncluded[0].form1099GNumber[0]" => @intake.cv_1099g_count,
+
+        # Refund
+        "form1[0].page2[0].incomeIncluded[0].refund[0].refund[0]" => yes_no_unfilled_to_checkbox(@intake.cv_local_tax_refund_cb),
+        "form1[0].page2[0].incomeIncluded[0].refund[0].refundAmount[0]" => @intake.cv_local_tax_refund_amt,
+
+        # Itemized last year
+        "form1[0].page2[0].incomeIncluded[0].itemizedLastYear[0].itemizedLastYear[0]" => yes_no_unfilled_to_checkbox(@intake.cv_itemized_last_year_cb),
+        "form1[0].page2[0].incomeIncluded[0].itemizedLastYear[0].itemizedYes[0]" => yes_no_unfilled_to_checkbox(@intake.cv_itemized_last_year_cb),
+        "form1[0].page2[0].incomeIncluded[0].itemizedLastYear[0].itemizedNo[0]" => yes_no_unfilled_to_opposite_checkbox(@intake.cv_itemized_last_year_cb),
+
+        # 1099-INT/DIV
+        "form1[0].page2[0].incomeIncluded[0].form1099INTDIV[0].form1099INT[0]" => yes_no_unfilled_to_checkbox(@intake.cv_1099int_cb),
+        "form1[0].page2[0].incomeIncluded[0].form1099INTDIV[0].form1099INTNumber[0]" => @intake.cv_1099int_count,
+        "form1[0].page2[0].incomeIncluded[0].form1099INTDIV[0].form1099DIV[0]" => yes_no_unfilled_to_checkbox(@intake.cv_1099div_cb),
+        "form1[0].page2[0].incomeIncluded[0].form1099INTDIV[0].form1099DIVNumber[0]" => @intake.cv_1099div_count,
+
+        # 1099-B
+        "form1[0].page2[0].incomeIncluded[0].form1099B[0].form1099B[0]" => yes_no_unfilled_to_checkbox(@intake.cv_1099b_cb),
+        "form1[0].page2[0].incomeIncluded[0].form1099B[0].form1099BNumber[0]" => @intake.cv_1099b_count,
+
+        # Capital loss carryover
+        "form1[0].page2[0].incomeIncluded[0].form1099B[0].capitalLossCarryover[0].capitalLossCarryover[0]" => yes_no_unfilled_to_checkbox(@intake.cv_capital_loss_carryover_cb),
+        "form1[0].page2[0].incomeIncluded[0].form1099B[0].capitalLossCarryover[0].capitalLossCarryoverYes[0]" => yes_no_unfilled_to_checkbox(@intake.cv_capital_loss_carryover_cb),
+        "form1[0].page2[0].incomeIncluded[0].form1099B[0].capitalLossCarryover[0].capitalLossCarryoverNo[0]" => yes_no_unfilled_to_opposite_checkbox(@intake.cv_capital_loss_carryover_cb),
+
+        # Alimony
+        "form1[0].page2[0].incomeIncluded[0].alimonyIncome[0].alimonyIncome[0]" => yes_no_unfilled_to_checkbox(@intake.cv_alimony_income_cb),
+        "form1[0].page2[0].incomeIncluded[0].alimonyIncome[0].alimonyAmount[0]" => @intake.cv_alimony_income_amt,
+        # Alimony - Excluded from income
+        "form1[0].page2[0].incomeIncluded[0].alimonyIncome[0].excludedYes[0]" => yes_no_unfilled_to_checkbox(@intake.cv_alimony_excluded_from_income_cb),
+        "form1[0].page2[0].incomeIncluded[0].alimonyIncome[0].excludedNo[0]" => yes_no_unfilled_to_opposite_checkbox(@intake.cv_alimony_excluded_from_income_cb),
+
+        # Rental income
+        "form1[0].page2[0].incomeIncluded[0].rentalIncome[0].rentalIncome[0]" => yes_no_unfilled_to_checkbox(@intake.cv_rental_income_cb),
+        "form1[0].page2[0].incomeIncluded[0].rentalIncome[0].rentalExpense[0]" => yes_no_unfilled_to_checkbox(@intake.cv_rental_expense_cb),
+        "form1[0].page2[0].incomeIncluded[0].rentalIncome[0].rentalExpenseAmount[0]" => @intake.cv_rental_expense_amt,
+
+        # Gambling
+        "form1[0].page2[0].incomeIncluded[0].formW2G[0].formW2G[0]" => yes_no_unfilled_to_checkbox(@intake.cv_w2g_or_other_gambling_winnings_cb),
+        "form1[0].page2[0].incomeIncluded[0].formW2G[0].formW2GNumber[0]" => @intake.cv_w2g_or_other_gambling_winnings_count,
+
+        # Schedule C: Self-employment
+        "form1[0].page2[0].incomeIncluded[0].scheduleC[0]" => yes_no_unfilled_to_checkbox(@intake.cv_schedule_c_cb),
+
+        "form1[0].page2[0].incomeIncluded[0].form1099MISC[0]" => yes_no_unfilled_to_checkbox(@intake.cv_1099misc_cb),
+        "form1[0].page2[0].incomeIncluded[0].form1099MISCNumber[0]" => @intake.cv_1099misc_count,
+
+        "form1[0].page2[0].incomeIncluded[0].form1099NEC[0]" => yes_no_unfilled_to_checkbox(@intake.cv_1099nec_cb),
+        "form1[0].page2[0].incomeIncluded[0].form1099NECNumber[0]" => @intake.cv_1099nec_count,
+
+        "form1[0].page2[0].incomeIncluded[0].form1099K[0]" => yes_no_unfilled_to_checkbox(@intake.cv_1099k_cb),
+        "form1[0].page2[0].incomeIncluded[0].form1099KNumber[0]" => @intake.cv_1099k_count,
+
+        "form1[0].page2[0].incomeIncluded[0].otherInomceReported[0]" => yes_no_unfilled_to_checkbox(@intake.cv_other_income_reported_elsewhere_cb),
+
+        "form1[0].page2[0].incomeIncluded[0].scheduleCExpenses[0]" => yes_no_unfilled_to_checkbox(@intake.cv_schedule_c_expenses_cb),
+        "form1[0].page2[0].incomeIncluded[0].scheduleCExpensesAmount[0]" => @intake.cv_schedule_c_expenses_amt,
+
+        # Other income
+        "form1[0].page2[0].incomeIncluded[0].otherIncome[0].otherIncome[0]" => yes_no_unfilled_to_checkbox(@intake.cv_other_income_cb),
+
+        # Notes/Comments
+        "form1[0].page2[0].IncomeIncludedComment[0].IncomeIncludedComments[0]" => @intake.cv_p2_notes_comments,
       )
+
+      # PAGE 3
       answers.merge!(
         keep_and_normalize({
-          "form1[0].page3[0].paidFollowingExpenses[0].mortgageinterest[0]" => @intake.wants_to_itemize_yes? && @intake.ever_owned_home_yes? && @intake.paid_mortgage_interest_yes?,
-          "form1[0].page3[0].paidFollowingExpenses[0].taxesStateLocal[0]" => @intake.wants_to_itemize_yes? && @intake.paid_local_tax_yes?,
-          "form1[0].page3[0].paidFollowingExpenses[0].mendicalDentalPrescription[0]" => @intake.wants_to_itemize_yes? && @intake.paid_medical_expenses_yes?,
-          "form1[0].page3[0].paidFollowingExpenses[0].charitableContributions[0]" => @intake.wants_to_itemize_yes? && @intake.paid_charitable_contributions_yes?,
+          # page 3 lhs section 1 of 3
+          "form1[0].page3[0].paidFollowingExpenses[0].mortgageinterest[0]" => @intake.paid_mortgage_interest_yes?,
+          "form1[0].page3[0].paidFollowingExpenses[0].taxesStateLocal[0]" => @intake.paid_local_tax_yes?,
+          "form1[0].page3[0].paidFollowingExpenses[0].mendicalDentalPrescription[0]" => @intake.paid_medical_expenses_yes?,
+          "form1[0].page3[0].paidFollowingExpenses[0].charitableContributions[0]" => @intake.paid_charitable_contributions_yes?,
+
+          # page 3 lhs section 2 of 3
           "form1[0].page3[0].paidExpenses[0].studentLoanInterest[0]" => @intake.paid_student_loan_interest_yes?,
-          "form1[0].page3[0].paidExpenses[0].childDependentCare[0]" => @intake.had_dependents_yes? && @intake.paid_dependent_care_yes?,
-          "form1[0].page3[0].paidExpenses[0].contributionsRetirementAccount[0]" => @intake.had_social_security_or_retirement_yes? && @intake.paid_retirement_contributions_yes?,
-          "form1[0].page3[0].paidExpenses[0].schooldSupplies[0]" => @intake.wants_to_itemize_yes? && @intake.paid_school_supplies_yes?,
-          "form1[0].page3[0].paidExpenses[0].alimonyPayments[0]" => @intake.ever_married_yes? && @intake.paid_alimony_yes?,
+          "form1[0].page3[0].paidExpenses[0].childDependentCare[0]" => @intake.paid_dependent_care_yes?,
+          "form1[0].page3[0].paidExpenses[0].contributionsRetirementAccount[0]" => @intake.paid_retirement_contributions_yes?,
+          "form1[0].page3[0].paidExpenses[0].schooldSupplies[0]" => @intake.paid_school_supplies_yes?,
+          "form1[0].page3[0].paidExpenses[0].alimonyPayments[0]" => @intake.paid_alimony_yes?,
+
+          # page 3 lhs section 3 of 3
           "form1[0].page3[0].followingHappenDuring[0].tookEducationalClasses[0].tookEducationalClasses[0]" => @intake.paid_post_secondary_educational_expenses_yes?,
-          "form1[0].page3[0].followingHappenDuring[0].sellAHome[0]" => @intake.ever_owned_home_yes? && @intake.sold_a_home_yes?,
+          "form1[0].page3[0].followingHappenDuring[0].sellAHome[0]" => @intake.sold_a_home_yes?,
           "form1[0].page3[0].followingHappenDuring[0].healthSavingsAccount[0]" => @intake.had_hsa_yes?,
           "form1[0].page3[0].followingHappenDuring[0].purchaseMarketplaceInsurance[0]" => @intake.bought_marketplace_health_insurance_yes?,
           "form1[0].page3[0].followingHappenDuring[0].energyEfficientItems[0].energyEfficientItems[0]" => @intake.bought_energy_efficient_items_yes?,
@@ -163,11 +275,50 @@ module PdfFiller
           "form1[0].page3[0].followingHappenDuring[0].estimatedTaxPayments[0].estimatedTaxPayments[0]" => @intake.made_estimated_tax_payments_yes?,
         })
       )
-
       answers.merge!(
-        yes_no_checkboxes("form1[0].page2[0].Part4[0].q7ExpensesRelatedTo[0]", @intake.paid_self_employment_expenses, include_unsure: true),
-        yes_no_checkboxes("form1[0].page2[0].Part5[0].q3AdoptAChild[0]", fetch_gated_value(@intake, :adopted_child), include_unsure: true),
+          # page 3 rhs section 1 of 3
+          'form1[0].page3[0].stndardItemizedDeductions[0].form1098[0]' => bool_checkbox(@intake.cv_1098_cb_yes?),
+          'form1[0].page3[0].stndardItemizedDeductions[0].form1098Number[0]' => @intake.cv_1098_count.to_s,
+          'form1[0].page3[0].stndardItemizedDeductions[0].standardDeduction[0]' => bool_checkbox(@intake.cv_med_expense_standard_deduction_cb_yes?),
+          'form1[0].page3[0].stndardItemizedDeductions[0].itemizedDeduction[0]' => bool_checkbox(@intake.cv_med_expense_itemized_deduction_cb_yes?),
+          'form1[0].page3[0].stndardItemizedComments[0].stndardItemizedComments[0]' => @intake.cv_14c_page_3_notes_part_1,
+
+          # page 3 rhs section 2 of 3
+          'form1[0].page3[0].expensesToReport[0].form1098E[0]' => bool_checkbox(@intake.cv_1098e_cb_yes?),
+          'form1[0].page3[0].expensesToReport[0].childDependentCare[0]' => bool_checkbox(@intake.cv_child_dependent_care_credit_cb_yes?),
+          'form1[0].page3[0].expensesToReport[0].iraBasicRoth[0]' => bool_checkbox(@intake. contributed_to_ira_yes?),
+          'form1[0].page3[0].expensesToReport[0].educatorExpensesDeduction[0]' => bool_checkbox(@intake.cv_edu_expenses_deduction_cb_yes?),
+          'form1[0].page3[0].expensesToReport[0].educatorExpensesDeductionAmount[0]' => @intake.cv_edu_expenses_deduction_amt.to_s,
+          'form1[0].page3[0].expensesToReport[0].alimonyPayments[0].alimonyPayments[0]' => bool_checkbox(@intake.cv_paid_alimony_w_spouse_ssn_cb_yes?),
+          'form1[0].page3[0].expensesToReport[0].alimonyPayments[0].alimonyPaymentsAmount[0]' => @intake.cv_paid_alimony_w_spouse_ssn_amt.to_s,
+          'form1[0].page3[0].expensesToReport[0].alimonyPayments[0].adjustementYes[0]' => yes_no_unfilled_to_checkbox(@intake.cv_alimony_income_adjustment_yn_cb),
+          'form1[0].page3[0].expensesToReport[0].alimonyPayments[0].adjustementNo[0]' => yes_no_unfilled_to_opposite_checkbox(@intake.cv_alimony_income_adjustment_yn_cb),
+          'form1[0].page3[0].expensesReportComments[0].expensesReportComments[0]' => @intake.cv_14c_page_3_notes_part_2,
+
+          # page 3 rhs section 3 of 3
+          'form1[0].page3[0].informationToReport[0].taxableScholarshipIncome[0]' => bool_checkbox(@intake.cv_taxable_scholarship_income_cb_yes?),
+          'form1[0].page3[0].informationToReport[0].form1098T[0]' => bool_checkbox(@intake.cv_1098t_cb_yes?),
+          'form1[0].page3[0].informationToReport[0].educationCreditTuition[0]' => bool_checkbox(@intake.cv_edu_credit_or_tuition_deduction_cb_yes?),
+          'form1[0].page3[0].informationToReport[0].saleOfHome[0]' => bool_checkbox(@intake.cv_1099s_cb_yes?),
+          'form1[0].page3[0].informationToReport[0].hsaContributions[0]' => bool_checkbox(@intake.cv_hsa_contrib_cb_yes?),
+          'form1[0].page3[0].informationToReport[0].hsaDistributions[0]' => bool_checkbox(@intake.cv_hsa_distrib_cb_yes?),
+          'form1[0].page3[0].informationToReport[0].form1095A[0]' => bool_checkbox(@intake.cv_1095a_cb_yes?),
+          'form1[0].page3[0].informationToReport[0].efficientHomeImprovement[0]' => bool_checkbox(@intake.cv_energy_efficient_home_improv_credit_cb_yes?),
+          'form1[0].page3[0].informationToReport[0].form1099C[0]' => bool_checkbox(@intake.cv_1099c_cb_yes?),
+          'form1[0].page3[0].informationToReport[0].form1099A[0]' => bool_checkbox(@intake.cv_1099a_cb_yes?),
+          'form1[0].page3[0].informationToReport[0].disasterReliefImpacts[0]' => bool_checkbox(@intake.cv_disaster_relief_impacts_return_cb_yes?),
+          'form1[0].page3[0].informationToReport[0].disallowedPreviousYear[0]' => bool_checkbox(@intake.cv_eitc_ctc_aotc_hoh_disallowed_in_a_prev_yr_cb_yes?),
+          'form1[0].page3[0].informationToReport[0].YearDisallowedReason[0].yearDisallowed[0]' => @intake.tax_credit_disallowed_year,
+          'form1[0].page3[0].informationToReport[0].YearDisallowedReason[0].reasonDisallowed[0]' => @intake.cv_tax_credit_disallowed_reason,
+          'form1[0].page3[0].informationToReport[0].eligibleLITCReferral[0]' => bool_checkbox(@intake.cv_eligible_for_litc_referral_cb_yes?),
+          'form1[0].page3[0].informationToReport[0].estimatedTaxPayments[0].estimatedTaxPayments[0]' => bool_checkbox(@intake.cv_estimated_tax_payments_cb_yes?),
+          'form1[0].page3[0].informationToReport[0].estimatedTaxPayments[0].taxPaymentsAmount[0]' => @intake.cv_estimated_tax_payments_amt.to_s,
+          'form1[0].page3[0].informationToReport[0].lastYearsRefund[0].lastYearsRefund[0]' => bool_checkbox(@intake.cv_last_years_refund_applied_to_this_yr_cb_yes?),
+          'form1[0].page3[0].informationToReport[0].lastYearsRefund[0].refundAmount[0]' => @intake.cv_last_years_refund_applied_to_this_yr_amt.to_s,
+          'form1[0].page3[0].informationToReport[0].lastReturnAvailable[0]' => bool_checkbox(@intake.cv_last_years_return_available_cb_yes?),
+          'form1[0].page3[0].informationReportComment[0].informationReportComment[0]' => @intake.cv_14c_page_3_notes_part_3,
       )
+
       answers.merge!(
         "form1[0].page2[0].Part5[0].q4HaveEarnedIncome[0].WhichTaxYear[0]" => @intake.tax_credit_disallowed_year
       )
@@ -180,14 +331,6 @@ module PdfFiller
       answers.merge!(
         yes_no_checkboxes("form1[0].page2[0].Part5[0].q8FileAFederal[0]", @intake.had_capital_loss_carryover, include_unsure: true),
       )
-      answers.merge!(
-        # Additional Information Section
-        # double check this works?
-        yes_no_checkboxes("form1[0].page3[0].q1[0]", @intake.preferred_written_language.present? ? "yes" : "no"),
-      )
-
-      # TODO: This doesn't exist for spouse and it doesn't seem like we collect it anyways. It is part of the ticket though
-      # answers["form1[0].page1[0].writtenCommunicationLanguage[0].whatLanguage[0]"] = @intake.preferred_written_language
 
       answers.merge!(
         keep_and_normalize(
@@ -208,12 +351,17 @@ module PdfFiller
         yes_no_checkboxes("form1[0].page3[0].q7[0]", @intake.register_to_vote),
       )
       answers.merge!(demographic_info) if @intake.demographic_questions_opt_in_yes? || @intake.demographic_questions_hub_edit
-      answers.merge!(
-        "form1[0].page3[0].AdditionalComments[0].AdditionalComments[1]" => additional_comments,
-      )
+
+      # ty2024 page 5
+
+      answers["form1[0].page5[0].AdditionalComments[0].AdditionalNotesComments[0]"] = (@intake.additional_notes_comments || '') << "\n\n" << dependents_4th_and_up
+
+      # end - ty2024 page 5
+
       answers.merge!(vita_consent_to_disclose_info) if @intake.client&.consent&.disclose_consented_at
       answers
     end
+
 
     def vita_consent_to_disclose_info
       # aka form 15080 on page 4 info
@@ -473,34 +621,33 @@ module PdfFiller
       }
     end
 
-    def additional_comments
-      parts = []
+    def dependents_4th_and_up
+      return '' if @dependents.length < 4
 
-      parts << "#{@intake.additional_info} #{@intake.final_info}" if @intake.additional_info.present? || @intake.final_info.present?
+      s = "Additional Dependents:\n"
+      sep = ' // '
 
-      parts << "Other income types: #{@intake.other_income_types}" if @intake.other_income_types.present?
+      @dependents[3..].map do |dependent|
+        s << dependent.full_name << sep
+        s << strftime_date(dependent.birth_date) << sep
+        s << dependent.relationship << sep
+        s << 'Months lived in home in 2024: ' << dependent.months_in_home.to_s << sep
+        s << 'Single or married in 2024: ' << married_to_SM(dependent.was_married) << sep
+        s << 'US citizen: ' << yes_no_unfilled_to_YN(dependent.us_citizen) << sep
+        s << 'Resident of US/Canada/Mexico: ' << yes_no_unfilled_to_YN(dependent.north_american_resident) << sep
+        s << 'FT student: ' << yes_no_unfilled_to_YN(dependent.was_student) << sep
+        s << 'Disabled: ' << yes_no_unfilled_to_YN(dependent.disabled) << sep
+        s << 'Issued IPPIN: ' << yes_no_unfilled_to_YN(dependent.has_ip_pin) << sep
 
-      parts << <<~COMMENT.strip if @dependents.length > 3
-        Additional Dependents:
-        #{
-        @dependents[3..].map do |dependent|
-          letters = ('a'..'i').to_a
-          dependent_values = single_dependent_params(dependent, index: 0).values
-          cvp_values = []
-          tagged_values = []
-          dependent_values.each do |val|
-            letter = letters.shift
-            if letter
-              tagged_values << "(#{letter}) #{val}"
-            else
-              cvp_values << val
-            end
-          end.compact
-          "#{tagged_values.join(' ')} CVP: #{cvp_values.join('/')}"
-        end.join("\n")
-        }
-      COMMENT
-      parts.join("\n")
+        # gray fields
+        s << 'Qualifying child or relative of any other person: ' <<  yes_no_na_unfilled_to_YNNA(dependent.can_be_claimed_by_other) << sep
+        s << 'Provided more than 50% of their own support: ' << yes_no_na_unfilled_to_YNNA(dependent.provided_over_half_own_support) << sep
+        s << 'Had less than $5,050 income: ' << yes_no_na_unfilled_to_YNNA(dependent.below_qualifying_relative_income_requirement) << sep
+        s << 'Taxpayer(s) provided more than 50% of support: ' << yes_no_na_unfilled_to_YNNA(dependent.filer_provided_over_half_support) << sep
+        s << 'Taxpayer(s) paid more than half the cost of maintaining home for this person: ' << yes_no_na_unfilled_to_YNNA(dependent.filer_provided_over_half_housing_support) << "\n\n"
+      end.join()
+
+      s
     end
 
     def determine_direct_deposit(intake)
@@ -517,6 +664,16 @@ module PdfFiller
         "unfilled" => ""
       }[yes_no_unfilled]
     end
+
+    def yes_no_na_unfilled_to_YNNA(yes_no_na_unfilled)
+      {
+        "yes" => "Y",
+        "no" => "N",
+        "na" => "N/A",
+        "unfilled" => ""
+      }[yes_no_na_unfilled]
+    end
+
 
     def married_to_SM(was_married_yes_no_unfilled)
       {
