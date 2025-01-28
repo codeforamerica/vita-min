@@ -2003,6 +2003,11 @@ es:
           help_text: Para mantener tu identidad segura, necesitamos confirmar tu número de seguro social.
           ssn_label: Número de Seguro Social o ITIN
           title: "¡Encontramos tu cuenta! Por favor, confirma tu identidad."
+      mailing_address_validation:
+        edit:
+          identity_safe: Para proteger su identidad, necesitamos confirmar la dirección en su declaración de impuestos de 2023.
+          radio_button_title: Seleccione la dirección postal para su declaración de impuestos de 2023.
+          title: Confirme su dirección para acceder a su declaración de impuestos
       verification_code:
         edit:
           error_message: Después de 2 intentos fallidos, las cuentas serán bloqueadas.

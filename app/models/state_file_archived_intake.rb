@@ -18,4 +18,9 @@
 class StateFileArchivedIntake < ApplicationRecord
   has_one_attached :submission_pdf
   has_many :state_file_archived_intake_requests, class_name: 'StateFileArchivedIntakeRequest'
+
+  def full_address
+    address_parts = [mailing_street, mailing_apartment, mailing_city, mailing_state, mailing_zip]
+    address_parts.compact_blank.join(', ')
+  end
 end
