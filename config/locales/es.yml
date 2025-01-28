@@ -4173,7 +4173,7 @@ es:
           <strong>Autorizo al sitio de VITA:</strong>
           La transferencia global de datos permite a TaxSlayer LLC, el proveedor del software de impuestos VITA/TCE, poner a disposición su información de declaración de impuestos para CUALQUIER sitio de voluntarios que participe en el programa VITA/TCE del IRS que usted seleccione para preparar una declaración de impuestos en la próxima temporada de presentación. Esto significa que podrá visitar cualquier sitio de voluntarios que utilice TaxSlayer el próximo año y que su declaración de impuestos se completará con los datos del año en curso, independientemente de dónde haya presentado su declaración de impuestos este año.
 
-          <strong>Este consentimiento es válido hasta el 30 de noviembre de %{product_year}</strong>
+          <strong>Este consentimiento es válido hasta el 30 de noviembre de 2026</strong>
 
           La información de la declaración de impuestos que se divulgará incluye, pero no se limita a, información demográfica, financiera y otra información personal identificable, sobre usted, su declaración de impuestos y sus fuentes de ingresos, que se introdujo en el software de preparación de impuestos con el fin de preparar su declaración de impuestos.
 
@@ -4181,7 +4181,7 @@ es:
 
           No es necesario que proporcione su consentimiento para el socio de VITA/TCE que prepare su declaración de impuestos este año. La transferencia de datos solo le ayudará si visita un socio de VITA o TCE diferente el próximo año.
 
-          <i>Limitación en la duración del consentimiento</i>: Yo/nosotros, el contribuyente, no deseamos limitar la duración del consentimiento de la divulgación de la información de la declaración de impuestos a una fecha anterior a la presentada arriba (30 de noviembre de %{product_year}). Si yo/nosotros deseamos limitar la duración del consentimiento de la divulgación a una fecha anterior, negaré el consentimiento.
+          <i>Limitación de la duración del consentimiento:</i> Yo/Nosotros, el(los) contribuyente(s), no deseamos limitar la duración del consentimiento de la divulgación de la información de la declaración de impuestos a una fecha más temprana a la indicada anteriormente (30 de noviembre de 2026). Si yo/nosotros deseamos limitar la duración del consentimiento de la divulgación a una fecha anterior, yo/nosotros denegaremos el consentimiento.
 
           <i>Limitación en el alcance de la divulgación</i>: Yo/nosotros, el contribuyente, no deseamos limitar más el alcance de la divulgación de la información de la declaración de impuestos que la presentada anteriormente. Si yo/nosotros deseamos limitar más el alcance de la divulgación de la información de la declaración de impuestos que la presentada anteriormente, yo/nosotros negaremos el consentimiento.
 
