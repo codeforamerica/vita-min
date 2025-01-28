@@ -73,28 +73,12 @@ module PdfFiller
         yes_no_checkboxes("form1[0].page1[0].q10CanAnyoneClaim[0]", @intake.claimed_by_another, include_unsure: true),
         yes_no_checkboxes("form1[0].page1[0].q11HaveYouOr[0]", collective_yes_no_unsure(@intake.issued_identity_pin, @intake.spouse_issued_identity_pin))
       )
-      answers.merge!(
-        keep_and_normalize({
-          "form1[0].page1[0].maritalStatus[0].statusNeverMarried[0]" => @intake.ever_married_no?,
-          "form1[0].page1[0].maritalStatus[0].statusMarried[0]" => (@intake.ever_married_yes? && @intake.married_yes? && @intake.separated_no?),
-          "form1[0].page1[0].maritalStatus[0].statusLegallySeparated[0].statusLegallySeparated[0]" => (@intake.ever_married_yes? && @intake.separated_yes?),
-          "form1[0].page1[0].maritalStatus[0].statusDivorced[0].statusDivorced[0]" => (@intake.ever_married_yes? && @intake.married_no? && @intake.divorced_yes?),
-          "form1[0].page1[0].maritalStatus[0].marriedForAll[0].forAllYes[0]" => (@intake.married_yes? && @intake.got_married_during_tax_year_yes?),
-          "form1[0].page1[0].maritalStatus[0].marriedForAll[0].forAllNo[0]" => (@intake.married_yes? && @intake.got_married_during_tax_year_no?),
-          "form1[0].page1[0].maritalStatus[0].statusWidowed[0].statusWidowed[0]" => (@intake.ever_married_yes? && @intake.married_no? && @intake.widowed_yes?),
-          "form1[0].page1[0].maritalStatus[0].liveWithSpouse[0].liveWithYes[0]" => (@intake.ever_married_yes? && @intake.lived_with_spouse_yes?),
-          "form1[0].page1[0].maritalStatus[0].liveWithSpouse[0].liveWithNo[0]" => (@intake.married_yes? && @intake.lived_with_spouse_no?),
-        }),
-      )
+
       answers.merge!({
         "form1[0].page1[0].writtenCommunicationLanguage[0].otherLanguageNo[0]" => @intake.written_language_preference_english? ? '1' : nil,
         "form1[0].page1[0].writtenCommunicationLanguage[0].otherLanguageYou[0]" => @intake.written_language_preference_english? ? nil : '1',
         "form1[0].page1[0].writtenCommunicationLanguage[0].whatLanguage[0]" => @intake.written_language_preference_english? ? nil : @intake.preferred_written_language_string
       })
-
-      answers["form1[0].page1[0].maritalStatus[0].statusLegallySeparated[0].dateSeparateDecree[0]"] = @intake.separated_year
-      answers["form1[0].page1[0].maritalStatus[0].statusDivorced[0].dateFinalDecree[0]"] = @intake.divorced_year
-      answers["form1[0].page1[0].maritalStatus[0].statusWidowed[0].yearSpousesDeath[0]"] = @intake.widowed_year
 
       answers.merge!(
         keep_and_normalize(
@@ -407,26 +391,6 @@ module PdfFiller
         result["#{pdf_key_base}.optionUnsure[0]"] = enum_value == "unsure" ? "1" : "Off"
       end
       result
-    end
-
-    # Trims the hash to only the values as tested by the block, which should
-    # return true if keeping. Additionally, it normalizes the value to the
-    # value specified.
-    # 
-    # @see {Enumerable#keep_if}
-    # @see {Hash#transform_values}
-    #
-    # @param normalize_to [Proc, Any] Either a literal value to normalize to or a callable to call on the value to normalize. Defaults to "1"
-    # @param keep_if [Proc] Passed literaly to Hash#keep_if. Defaults to a truthiness check on value
-    # @return [Hash]
-    def keep_and_normalize(pdf_hash, normalize_to: "1", keep_if: ->(_k, v) { v })
-      normalizer = if normalize_to.respond_to?(:call)
-                     normalize_to
-                   else
-                     proc { normalize_to }
-                   end
-
-      pdf_hash.keep_if(&keep_if).transform_values(&normalizer)
     end
 
     def fetch_gated_value(intake, field)
