@@ -558,7 +558,7 @@ RSpec.describe PdfFiller::F13614cPdf do
           "form1[0].page3[0].q15[0].notAnswer[0]" => "",
           "form1[0].page3[0].q15[0].noSpouse[0]" => "",
           "form1[0].page3[0].AdditionalComments[0].AdditionalComments[1]" =>
-            "if there is another gnome living in my garden but only i have an income, does that make me head of household? Also here are some additional notes.\rOther income types: garden gnoming",
+            "if there is another gnome living in my garden but only i have an income, does that make me head of household? Also here are some additional notes.",
           "form1[0].page4[0].primaryTaxpayer[0]" => "Hoofie Heifer",
           "form1[0].page4[0].primarydateSigned[0]" => "1/1/2024",
           "form1[0].page4[0].secondaryTaxpayer[0]" => "Hattie Heifer",
@@ -844,7 +844,7 @@ RSpec.describe PdfFiller::F13614cPdf do
 
           context "when there are only 3 or less dependents" do
             it "does not reference additional dependents" do
-              expect(intake_pdf.hash_for_pdf[additional_comments_key]).to eq("if there is another gnome living in my garden but only i have an income, does that make me head of household?\n\nOther income types: garden gnoming\n\n")
+              expect(intake_pdf.hash_for_pdf[additional_comments_key]).to eq("if there is another gnome living in my garden but only i have an income, does that make me head of household?\n\n")
             end
           end
 
@@ -898,8 +898,6 @@ RSpec.describe PdfFiller::F13614cPdf do
               expect(intake_pdf.hash_for_pdf[additional_comments_key]).to eq(<<~COMMENT)
                 if there is another gnome living in my garden but only i have an income, does that make me head of household?
 
-                Other income types: garden gnoming
-
                 Additional Dependents:
                 Polly Pony // 8/27/2018 // Baby // Months lived in home in 2024: 5 // Single or married in 2024: S // US citizen: N // Resident of US/Canada/Mexico: Y // FT student: N // Disabled: Y // Issued IPPIN: Y // Qualifying child or relative of any other person: N/A // Provided more than 50% of their own support: Y // Had less than $5,050 income: N // Taxpayer(s) provided more than 50% of support: N/A // Taxpayer(s) paid more than half the cost of maintaining home for this person: Y
 
@@ -915,8 +913,6 @@ RSpec.describe PdfFiller::F13614cPdf do
               it "includes extra dependent information with no leading whitespace" do
                 expect(intake_pdf.hash_for_pdf[additional_comments_key].strip).to eq(<<~COMMENT.strip)
                   if there is another gnome living in my garden but only i have an income, does that make me head of household?
-
-                  Other income types: garden gnoming
 
                   Additional Dependents:
                   Polly Pony // 8/27/2018 // Baby // Months lived in home in 2024: 5 // Single or married in 2024: S // US citizen: N // Resident of US/Canada/Mexico: Y // FT student: N // Disabled: Y // Issued IPPIN: Y // Qualifying child or relative of any other person: N/A // Provided more than 50% of their own support: Y // Had less than $5,050 income: N // Taxpayer(s) provided more than 50% of support: N/A // Taxpayer(s) paid more than half the cost of maintaining home for this person: Y
@@ -940,8 +936,6 @@ RSpec.describe PdfFiller::F13614cPdf do
               it "includes the CVP information after all the lettered dependent columns" do
                 expect(intake_pdf.hash_for_pdf[additional_comments_key].strip).to eq(<<~COMMENT.strip)
                   if there is another gnome living in my garden but only i have an income, does that make me head of household?
-
-                  Other income types: garden gnoming
 
                   Additional Dependents:
                   Polly Pony // 8/27/2018 // Baby // Months lived in home in 2024: 5 // Single or married in 2024: S // US citizen: N // Resident of US/Canada/Mexico: Y // FT student: N // Disabled: Y // Issued IPPIN: Y // Qualifying child or relative of any other person: Y // Provided more than 50% of their own support: N // Had less than $5,050 income: Y // Taxpayer(s) provided more than 50% of support: N // Taxpayer(s) paid more than half the cost of maintaining home for this person: Y

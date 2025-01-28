@@ -257,17 +257,7 @@ module PdfFiller
 
       # ty2024 page 5
 
-      answers.merge!(
-        with_prefix("form1[0].page5[0].AdditionalComments[0]") do
-          hash = { "AdditionalNotesComments[0]" => @intake.additional_notes_comments || '' }
-
-          hash["AdditionalNotesComments[0]"] << "\n\nOther income types: #{@intake.other_income_types}" if @intake.other_income_types.present?
-
-          hash["AdditionalNotesComments[0]"] << "\n\n#{dependents_4th_and_up}"
-
-          hash
-        end
-      )
+      answers["form1[0].page5[0].AdditionalComments[0].AdditionalNotesComments[0]"] = (@intake.additional_notes_comments || '') << "\n\n" << dependents_4th_and_up
 
       # end - ty2024 page 5
 
