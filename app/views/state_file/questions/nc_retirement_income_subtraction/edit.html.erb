@@ -96,5 +96,46 @@
     <%= f.continue %>
   <% end %>
 
-
+  <script>
+      document.addEventListener("DOMContentLoaded", function () {
+          let baileySettlementNoneCheckbox = document.getElementById("state_file_nc_retirement_income_subtraction_form_bailey_settlement_none_apply");
+          let baileySettlementCheckboxes = [
+              document.getElementById("state_file_nc_retirement_income_subtraction_form_bailey_settlement_at_least_five_years"),
+              document.getElementById("state_file_nc_retirement_income_subtraction_form_bailey_settlement_from_retirement_plan")
+          ];
+          let uniformedServicesNoneCheckbox = document.getElementById("state_file_nc_retirement_income_subtraction_form_uniformed_services_none_apply");
+          let uniformedServicesCheckboxes = [
+              document.getElementById("state_file_nc_retirement_income_subtraction_form_uniformed_services_retired"),
+              document.getElementById("state_file_nc_retirement_income_subtraction_form_uniformed_services_qualifying_plan")
+          ];
+          var uncheckOthers = function (noneCheckbox, otherCheckboxes) {
+              if (noneCheckbox.checked) {
+                  otherCheckboxes.forEach(function (checkbox) {
+                      checkbox.checked = false;
+                  })
+              }
+          };
+          var uncheckNone = function (currentCheckbox, noneCheckbox) {
+              if (currentCheckbox.checked) {
+                  noneCheckbox.checked = false;
+              }
+          };
+          baileySettlementNoneCheckbox.addEventListener("change", function () {
+              uncheckOthers(baileySettlementNoneCheckbox, baileySettlementCheckboxes);
+          });
+          uniformedServicesNoneCheckbox.addEventListener("change", function () {
+              uncheckOthers(uniformedServicesNoneCheckbox, uniformedServicesCheckboxes);
+          });
+          baileySettlementCheckboxes.forEach(function (checkbox) {
+              checkbox.addEventListener("change", function () {
+                  uncheckNone(this, baileySettlementNoneCheckbox);
+              });
+          });
+          uniformedServicesCheckboxes.forEach(function (checkbox) {
+              checkbox.addEventListener("change", function () {
+                  uncheckNone(this, uniformedServicesNoneCheckbox);
+              });
+          });
+      })
+  </script>
 <% end %>
