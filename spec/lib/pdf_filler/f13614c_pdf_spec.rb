@@ -272,13 +272,15 @@ RSpec.describe PdfFiller::F13614cPdf do
         expect(all_fields_in_pdf).to match_array(intake_pdf.hash_for_pdf.keys)
       end
 
-      it 'fills out written language preference section correctly' do
+      it 'fills out written language preference and voter information sections correctly' do
         output_file = intake_pdf.output_file
         result = non_preparer_fields(output_file.path)
         expect(result).to include(
                             "form1[0].page1[0].writtenCommunicationLanguage[0].otherLanguageNo[0]" => '',
                             "form1[0].page1[0].writtenCommunicationLanguage[0].otherLanguageYou[0]" => '1',
                             "form1[0].page1[0].writtenCommunicationLanguage[0].whatLanguage[0]" => "Russian",
+                            "form1[0].page1[0].howToVote[0].voteInformationYes[0]" => "",
+                            "form1[0].page1[0].howToVote[0].voteInformationNo[0]" => "1",
                           )
       end
 
@@ -514,8 +516,8 @@ RSpec.describe PdfFiller::F13614cPdf do
           "form1[0].page3[0].q5[0].IfYesWhere[0]" => "Athens",
           "form1[0].page3[0].q6[0].yes[0]" => "Off",
           "form1[0].page3[0].q6[0].optionNo[0]" => "1",
-          "form1[0].page3[0].q7[0].optionYes[0]" => "Off",
-          "form1[0].page3[0].q7[0].optionNo[0]" => "1",
+          "form1[0].page1[0].howToVote[0].voteInformationYes[0]" => "",
+          "form1[0].page1[0].howToVote[0].voteInformationNo[0]" => "1",
           "form1[0].page3[0].q8[0].veryWell[0]" => "",
           "form1[0].page3[0].q8[0].well[0]" => "1",
           "form1[0].page3[0].q8[0].notWell[0]" => "",

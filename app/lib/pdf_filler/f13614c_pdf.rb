@@ -208,7 +208,8 @@ module PdfFiller
         "form1[0].page3[0].q5[0].IfYesWhere[0]" => @intake.had_disaster_loss_where,
       )
       answers.merge!(
-        yes_no_checkboxes("form1[0].page3[0].q7[0]", @intake.register_to_vote),
+        "form1[0].page1[0].howToVote[0].voteInformationYes[0]" => yes_no_unfilled_to_checkbox(@intake.register_to_vote),
+        "form1[0].page1[0].howToVote[0].voteInformationNo[0]" => yes_no_unfilled_to_opposite_checkbox(@intake.register_to_vote)
       )
       answers.merge!(demographic_info) if @intake.demographic_questions_opt_in_yes? || @intake.demographic_questions_hub_edit
       answers.merge!(
