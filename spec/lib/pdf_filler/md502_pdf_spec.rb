@@ -495,6 +495,21 @@ RSpec.describe PdfFiller::Md502Pdf do
         expect(pdf_fields["50"]).to eq "100"
         expect(pdf_fields["50 decimal"]).to eq "00"
       end
+
+      context "direct deposit payment is chosen" do
+        before do
+          intake.update(
+            payment_or_deposit_type: :direct_deposit,
+            routing_number: "123456789",
+            account_number: "87654321",
+            account_type: "checking"
+          )
+        end
+
+        it "should not try to fill out names on bank account" do
+          expect(pdf_fields["51d Names as it appears on the bank account"]).to eq ""
+        end
+      end
     end
 
     context "when there is a refund" do

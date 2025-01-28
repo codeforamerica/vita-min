@@ -1574,7 +1574,7 @@ describe Efile::Nj::Nj1040Calculator do
       it 'does not fill line 59' do
         w2 = intake.state_file_w2s.first 
         w2.update_attribute(:box14_ui_wf_swf, 0)
-        w2.update_attribute(:box14_ui_hc_wd, described_class::EXCESS_UI_WF_SWF_MAX + 1)
+        w2.update_attribute(:box14_ui_hc_wd, instance.excess_ui_wf_swf_max + 1)
         instance.calculate
         expect(instance.lines[:NJ1040_LINE_59].value).to eq(nil)
       end
@@ -1589,7 +1589,7 @@ describe Efile::Nj::Nj1040Calculator do
       it 'does not fill line 59' do
         first_w2 = intake.state_file_w2s.first 
         first_w2.update_attribute(:box14_ui_wf_swf, 0)
-        first_w2.update_attribute(:box14_ui_hc_wd, described_class::EXCESS_UI_WF_SWF_MAX + 1)
+        first_w2.update_attribute(:box14_ui_hc_wd, instance.excess_ui_wf_swf_max + 1)
         instance.calculate
         expect(instance.lines[:NJ1040_LINE_59].value).to eq(nil)
       end
@@ -1608,32 +1608,32 @@ describe Efile::Nj::Nj1040Calculator do
       end
     end
 
-    context "with multiple w2s, one of which has an excess contribution of more than #{described_class::EXCESS_UI_WF_SWF_MAX}" do 
+    context "with multiple w2s, one of which has an excess contribution of more than excess_ui_wf_swf_max" do 
       let(:intake) { create(:state_file_nj_intake, :df_data_2_w2s) }
       it 'does not fill line 59' do
         first_w2 = intake.state_file_w2s.first 
         second_w2 = intake.state_file_w2s.all[1]
-        first_w2.update_attribute(:box14_ui_wf_swf, described_class::EXCESS_UI_WF_SWF_MAX + 1)
+        first_w2.update_attribute(:box14_ui_wf_swf, instance.excess_ui_wf_swf_max + 1)
         second_w2.update_attribute(:box14_ui_wf_swf, 1)
         instance.calculate
         expect(instance.lines[:NJ1040_LINE_59].value).to eq(nil)
       end
     end
 
-    context "with multiple w2s that do not individually exceed #{described_class::EXCESS_UI_WF_SWF_MAX}, but have a total excess contribution of more than #{described_class::EXCESS_UI_WF_SWF_MAX}" do 
+    context "with multiple w2s that do not individually exceed excess_ui_wf_swf_max, but have a total excess contribution of more than excess_ui_wf_swf_max" do 
       let(:intake) { create(:state_file_nj_intake, :df_data_2_w2s) }
       it 'fills line 59 with the sum of the contributions less the excess threshold' do
         first_w2 = intake.state_file_w2s.first 
         second_w2 = intake.state_file_w2s.all[1]
-        contribution_1 = described_class::EXCESS_UI_WF_SWF_MAX - 1
-        contribution_2 = described_class::EXCESS_UI_WF_SWF_MAX - 2
+        contribution_1 = instance.excess_ui_wf_swf_max - 1
+        contribution_2 = instance.excess_ui_wf_swf_max - 2
 
         first_w2.update_attribute(:box14_ui_wf_swf, contribution_1)
         second_w2.update_attribute(:box14_ui_wf_swf, contribution_2)
         second_w2.update_attribute(:box14_ui_hc_wd, 1)
         instance.calculate
 
-        expected_sum = (contribution_1 + contribution_2 - described_class::EXCESS_UI_WF_SWF_MAX).round
+        expected_sum = (contribution_1 + contribution_2 - instance.excess_ui_wf_swf_max).round
         expect(instance.lines[:NJ1040_LINE_59].value).to eq(expected_sum)
       end
     end
@@ -1647,30 +1647,30 @@ describe Efile::Nj::Nj1040Calculator do
       let!(:w2_3) { create(:state_file_w2, state_file_intake: intake, employee_ssn: spouse_ssn_from_fixture, box14_ui_hc_wd: 10) }
       let!(:w2_4) { create(:state_file_w2, state_file_intake: intake, employee_ssn: spouse_ssn_from_fixture, box14_ui_hc_wd: 10) }
 
-      context "mfj with multiple w2s per spouse that are each less than the max, total more than #{described_class::EXCESS_UI_WF_SWF_MAX} altogether, but total less than #{described_class::EXCESS_UI_WF_SWF_MAX} for each spouse" do 
+      context "mfj with multiple w2s per spouse that are each less than the max, total more than excess_ui_wf_swf_max altogether, but total less than excess_ui_wf_swf_max for each spouse" do 
         it 'does not fill line 59' do
           expect(instance.lines[:NJ1040_LINE_59].value).to eq(nil)
         end
       end
       
-      context "mfj with multiple w2s per person that individually do not exceed #{described_class::EXCESS_UI_WF_SWF_MAX}, total more than #{described_class::EXCESS_UI_WF_SWF_MAX} for spouse, but total less than #{described_class::EXCESS_UI_WF_SWF_MAX} for primary" do 
+      context "mfj with multiple w2s per person that individually do not exceed excess_ui_wf_swf_max, total more than excess_ui_wf_swf_max for spouse, but total less than excess_ui_wf_swf_max for primary" do 
         it 'fills line 59 for the partner with multiple w2s' do
-          contribution_1 = described_class::EXCESS_UI_WF_SWF_MAX - 1
-          contribution_2 = described_class::EXCESS_UI_WF_SWF_MAX - 2
+          contribution_1 = instance.excess_ui_wf_swf_max - 1
+          contribution_2 = instance.excess_ui_wf_swf_max - 2
           w2_3.update_attribute(:box14_ui_wf_swf, contribution_1)
           w2_4.update_attribute(:box14_ui_hc_wd, contribution_2)
           instance.calculate
-          expected_sum = (contribution_1 + contribution_2 - described_class::EXCESS_UI_WF_SWF_MAX).round
+          expected_sum = (contribution_1 + contribution_2 - instance.excess_ui_wf_swf_max).round
           expect(instance.lines[:NJ1040_LINE_59].value).to eq(expected_sum)
         end
       end
       
-      context "mfj with multiple w2s per spouse that individually do not exceed #{described_class::EXCESS_UI_WF_SWF_MAX} and total more than #{described_class::EXCESS_UI_WF_SWF_MAX} for each spouse" do 
+      context "mfj with multiple w2s per spouse that individually do not exceed excess_ui_wf_swf_max and total more than excess_ui_wf_swf_max for each spouse" do 
         it 'adds the sum for both spouses to line 59' do
-          contribution_1 = described_class::EXCESS_UI_WF_SWF_MAX - 1
-          contribution_2 = described_class::EXCESS_UI_WF_SWF_MAX - 2
-          contribution_3 = described_class::EXCESS_UI_WF_SWF_MAX - 3
-          contribution_4 = described_class::EXCESS_UI_WF_SWF_MAX - 4
+          contribution_1 = instance.excess_ui_wf_swf_max - 1
+          contribution_2 = instance.excess_ui_wf_swf_max - 2
+          contribution_3 = instance.excess_ui_wf_swf_max - 3
+          contribution_4 = instance.excess_ui_wf_swf_max - 4
           w2_1.update_attribute(:box14_ui_wf_swf, contribution_1)
           w2_2.update_attribute(:box14_ui_wf_swf, contribution_2)
           w2_3.update_attribute(:box14_ui_wf_swf, contribution_3)
@@ -1694,7 +1694,7 @@ describe Efile::Nj::Nj1040Calculator do
       let(:intake) { create(:state_file_nj_intake, :df_data_box_14) }
       it 'does not fill line 61' do
         w2 = intake.state_file_w2s.first 
-        w2.update_attribute(:box14_fli, described_class::EXCESS_FLI_MAX + 1)
+        w2.update_attribute(:box14_fli, instance.excess_fli_max + 1)
         instance.calculate
         expect(instance.lines[:NJ1040_LINE_61].value).to eq(nil)
       end
@@ -1709,7 +1709,7 @@ describe Efile::Nj::Nj1040Calculator do
       it 'does not fill line 61' do
         first_w2 = intake.state_file_w2s.all[0]
         second_w2 = intake.state_file_w2s.all[1]
-        first_w2.update_attribute(:box14_fli, described_class::EXCESS_FLI_MAX + 1)
+        first_w2.update_attribute(:box14_fli, instance.excess_fli_max + 1)
         second_w2.update_attribute(:box14_fli, nil)
         instance.calculate
         expect(instance.lines[:NJ1040_LINE_61].value).to eq(nil)
@@ -1729,31 +1729,31 @@ describe Efile::Nj::Nj1040Calculator do
       end
     end
 
-    context "with multiple w2s, one of which has an excess contribution of more than #{described_class::EXCESS_FLI_MAX}" do 
+    context "with multiple w2s, one of which has an excess contribution of more than excess_fli_max" do 
       let(:intake) { create(:state_file_nj_intake, :df_data_2_w2s) }
       it 'does not fill line 61' do
         first_w2 = intake.state_file_w2s.first 
         second_w2 = intake.state_file_w2s.all[1]
-        first_w2.update_attribute(:box14_fli, described_class::EXCESS_FLI_MAX + 1)
+        first_w2.update_attribute(:box14_fli, instance.excess_fli_max + 1)
         second_w2.update_attribute(:box14_fli, 1)
         instance.calculate
         expect(instance.lines[:NJ1040_LINE_61].value).to eq(nil)
       end
     end
 
-    context "with multiple w2s that do not individually exceed #{described_class::EXCESS_FLI_MAX}, but have a total excess contribution of more than #{described_class::EXCESS_FLI_MAX}" do 
+    context "with multiple w2s that do not individually exceed excess_fli_max, but have a total excess contribution of more than excess_fli_max" do 
       let(:intake) { create(:state_file_nj_intake, :df_data_2_w2s) }
       it 'fills line 61 with the sum of the contributions less the excess threshold' do
         first_w2 = intake.state_file_w2s.first 
         second_w2 = intake.state_file_w2s.all[1]
-        contribution_1 = described_class::EXCESS_FLI_MAX - 1
-        contribution_2 = described_class::EXCESS_FLI_MAX - 2
+        contribution_1 = instance.excess_fli_max - 1
+        contribution_2 = instance.excess_fli_max - 2
 
         first_w2.update_attribute(:box14_fli, contribution_1)
         second_w2.update_attribute(:box14_fli, contribution_2)
         instance.calculate
 
-        expected_sum = (contribution_1 + contribution_2 - described_class::EXCESS_FLI_MAX).round
+        expected_sum = (contribution_1 + contribution_2 - instance.excess_fli_max).round
         expect(instance.lines[:NJ1040_LINE_61].value).to eq(expected_sum)
       end
     end
@@ -1767,31 +1767,31 @@ describe Efile::Nj::Nj1040Calculator do
       let!(:w2_3) { create(:state_file_w2, state_file_intake: intake, employee_ssn: spouse_ssn_from_fixture, box14_fli: 10) }
       let!(:w2_4) { create(:state_file_w2, state_file_intake: intake, employee_ssn: spouse_ssn_from_fixture, box14_fli: 10) }
 
-      context "mfj with multiple w2s per spouse, each under #{described_class::EXCESS_FLI_MAX}, that total more than #{described_class::EXCESS_FLI_MAX} altogether, but total less than #{described_class::EXCESS_FLI_MAX} for each spouse" do 
+      context "mfj with multiple w2s per spouse, each under excess_fli_max, that total more than excess_fli_max altogether, but total less than excess_fli_max for each spouse" do 
         it 'does not fill line 61' do
           expect(instance.lines[:NJ1040_LINE_61].value).to eq(nil)
         end
       end
       
-      context "mfj with multiple w2s per person that individually do not exceed #{described_class::EXCESS_FLI_MAX}, total more than #{described_class::EXCESS_FLI_MAX} for spouse, but total less than #{described_class::EXCESS_FLI_MAX} for primary" do 
+      context "mfj with multiple w2s per person that individually do not exceed excess_fli_max, total more than excess_fli_max for spouse, but total less than excess_fli_max for primary" do 
         it 'fills line 61 for the partner with multiple w2s' do
-          contribution_1 = described_class::EXCESS_FLI_MAX - 1
-          contribution_2 = described_class::EXCESS_FLI_MAX - 2
+          contribution_1 = instance.excess_fli_max - 1
+          contribution_2 = instance.excess_fli_max - 2
           w2_3.update_attribute(:box14_fli, contribution_1)
           w2_4.update_attribute(:box14_fli, contribution_2)
           instance.calculate
 
-          expected_sum = (contribution_1 + contribution_2 - described_class::EXCESS_FLI_MAX).round
+          expected_sum = (contribution_1 + contribution_2 - instance.excess_fli_max).round
           expect(instance.lines[:NJ1040_LINE_61].value).to eq(expected_sum)
         end
       end
       
-      context "mfj with multiple w2s per spouse that individually do not exceed #{described_class::EXCESS_FLI_MAX} and total more than #{described_class::EXCESS_FLI_MAX} for each spouse" do 
+      context "mfj with multiple w2s per spouse that individually do not exceed excess_fli_max and total more than excess_fli_max for each spouse" do 
         it 'adds the sum for both spouses to line 61' do
-          contribution_1 = described_class::EXCESS_FLI_MAX - 1
-          contribution_2 = described_class::EXCESS_FLI_MAX - 2
-          contribution_3 = described_class::EXCESS_FLI_MAX - 3
-          contribution_4 = described_class::EXCESS_FLI_MAX - 4
+          contribution_1 = instance.excess_fli_max - 1
+          contribution_2 = instance.excess_fli_max - 2
+          contribution_3 = instance.excess_fli_max - 3
+          contribution_4 = instance.excess_fli_max - 4
           w2_1.update_attribute(:box14_fli, contribution_1)
           w2_2.update_attribute(:box14_fli, contribution_2)
           w2_3.update_attribute(:box14_fli, contribution_3)

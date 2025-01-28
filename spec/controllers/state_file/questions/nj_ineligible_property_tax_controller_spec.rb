@@ -133,6 +133,15 @@ RSpec.describe StateFile::Questions::NjIneligiblePropertyTaxController do
       end
     end
 
+    context "when indicated both rent and own and ineligible" do
+      let(:intake) { create :state_file_nj_intake, household_rent_own: "both" }
+      it "next path is next_controller for property tax flow" do
+        allow(Efile::Nj::NjPropertyTaxEligibility).to receive(:ineligible?).and_return true
+        get :edit, params: {on_home_or_rental: "home"}
+        expect(subject.next_path).to eq(StateFile::NjPropertyTaxFlowOffRamp.next_controller({}))
+      end
+    end
+
     context "when not both rent and own" do
       let(:intake) { create :state_file_nj_intake, household_rent_own: "own" }
       it "next path is next_controller for property tax flow" do
