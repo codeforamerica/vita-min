@@ -63,7 +63,6 @@ module StateFile
         nil
       end
 
-
       def redirect_into_login(intake, existing_intake)
         contact_info = (
           if intake.contact_preference == "email"
