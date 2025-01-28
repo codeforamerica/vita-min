@@ -13,6 +13,8 @@ module Efile
       def calculate
         set_line(:NCD400_S_LINE_18, :calculate_line_18)
         set_line(:NCD400_S_LINE_19, @direct_file_data, :fed_taxable_ssb)
+        set_line(:NCD400_S_LINE_20, :calculate_line_20)
+        set_line(:NCD400_S_LINE_21, :calculate_line_21)
         set_line(:NCD400_S_LINE_27, :calculate_line_27)
         set_line(:NCD400_S_LINE_41, :calculate_line_41)
       end
@@ -21,6 +23,28 @@ module Efile
 
       def calculate_line_18
         @intake.direct_file_json_data.interest_reports.sum(&:interest_on_government_bonds).round
+      end
+
+      def calculate_line_20
+        @intake.state_file1099_rs.sum do |state_file1099_r|
+          if state_file1099_r.state_specific_followup.income_source_bailey_settlement? &&
+            (state_file1099_r.state_specific_followup.bailey_settlement_at_least_five_years_yes? || state_file1099_r.state_specific_followup.bailey_settlement_from_retirement_plan_yes?)
+            state_file1099_r.taxable_amount
+          else
+            0
+          end
+        end
+      end
+
+      def calculate_line_21
+        @intake.state_file1099_rs.sum do |state_file1099_r|
+          if state_file1099_r.state_specific_followup.income_source_uniformed_services? &&
+            (state_file1099_r.state_specific_followup.uniformed_services_retired_yes? || state_file1099_r.state_specific_followup.uniformed_services_qualifying_plan_yes?)
+            state_file1099_r.taxable_amount
+          else
+            0
+          end
+        end
       end
 
       def calculate_line_27

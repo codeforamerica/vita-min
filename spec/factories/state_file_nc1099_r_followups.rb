@@ -13,6 +13,5 @@
 #
 FactoryBot.define do
   factory :state_file_nc1099_r_followup do
-    
   end
 end
