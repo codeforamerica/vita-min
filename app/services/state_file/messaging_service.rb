@@ -68,7 +68,7 @@ module StateFile
         sent_messages << sent_message if sent_message.present?
       end
     end
-    
+
     def matching_intakes_has_email_verified_at?(intake)
       return if intake.email_address.nil? || intake.hashed_ssn.nil?
 
