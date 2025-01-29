@@ -8,12 +8,6 @@
     <div class="grid__item question-wrapper">
       <%= yield :notices %>
       <div class="main-content-inner">
-        <% if illustration_path.present? %>
-          <div class="question__illustration">
-            <%= image_tag("#{illustration_folder}/#{illustration_path}", alt: "") %>
-          </div>
-        <% end %>
-
         <div class="landing-page-content">
           <h1 class="h1"><%= title %></h1>
 
@@ -29,7 +23,7 @@
                 <%= image_tag state_image_path, alt: "#{@state_name} state logo", class: "" %>
               </div>
               <div class="partner-logo-text text--body text--bold">
-                <%=t(".#{@state_code}.supported_by") %>
+                <%= t(".#{@state_code}.supported_by") %>
               </div>
             </div>
             <%= link_to StateFile::StateFilePagesController.to_path_helper(action: :login_options), class: "button button--primary button--wide", id: "firstCta" do %>
@@ -38,7 +32,7 @@
           <% else %>
             <% unless @user_name.present? %>
               <p class="h2">
-                <%= t(".built_with_html", state_name: @built_with_name) %>
+                <%= t(".#{@state_code}.built_with_html", default: t(".built_with_html", state_name: @state_name) ) %>
               </p>
             <% end %>
 
@@ -47,7 +41,7 @@
                 <%= image_tag state_image_path, alt: "#{@state_name} state logo", class: "" %>
               </div>
               <div class="partner-logo-text text--body text--bold">
-                <%=t(".#{@state_code}.supported_by") %>
+                <%= t(".#{@state_code}.supported_by") %>
               </div>
             </div>
 
@@ -60,7 +54,7 @@
               <%= form_with model: @form, url: { action: :update }, local: true, method: :put, builder: VitaMinFormBuilder, id: "start-again-form" do |f| %>
                 <h2 class="h2">
                   <%= t(".not_you", user_name: @user_name) %>
-                  <%=f.submit t(".start_new", state_name: @state_name), class: "button--link" %>
+                  <%= f.submit t(".start_new", state_name: @state_name), class: "button--link" %>
                 </h2>
               <% end %>
             <% else %>
@@ -86,7 +80,6 @@
           <% end %>
         </div>
         <%= image_tag 'questions/welcome.svg', class: 'fyst-home-image', alt: '' %>
-
       </div>
     </div>
   </div>

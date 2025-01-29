@@ -10,14 +10,14 @@ RSpec.feature "Unsubscribing from email", active_job: true do
 
   scenario "the link in the email unsubscribes the client" do
     visit "/"
-    click_on "Start Test NY"
+    click_on "Start Test AZ"
 
-    expect(page).to have_text I18n.t("state_file.landing_page.edit.ny.title")
+    expect(page).to have_text I18n.t("state_file.landing_page.edit.az.title")
     click_on I18n.t('general.get_started'), id: "firstCta"
 
-    step_through_eligibility_screener(us_state: "ny")
+    step_through_eligibility_screener(us_state: "az")
 
-    intake = StateFileNyIntake.last
+    intake = StateFileAzIntake.last
     expect(intake.unsubscribed_from_email).to eq false
 
     step_through_initial_authentication(contact_preference: :email)

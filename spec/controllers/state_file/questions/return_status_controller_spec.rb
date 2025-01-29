@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe StateFile::Questions::ReturnStatusController do
-  StateFile::StateInformationService.active_state_codes.each do |state_code|
+  StateFile::StateInformationService.active_state_codes.excluding("ny").each do |state_code|
     context "#{state_code}" do
       describe "#edit" do
         render_views

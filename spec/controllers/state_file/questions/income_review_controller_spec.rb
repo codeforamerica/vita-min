@@ -76,6 +76,10 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
   end
 
   describe "W-2s card" do
+    before(:each) do
+      StateFileW2.delete_all
+    end
+
     context "when there are no w2s" do
       it "does not show the card" do
         get :edit, params: params
@@ -98,6 +102,120 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
         expect(response.body).to have_text "First Enterprises"
         expect(response.body).to have_text "First Corporation"
         expect(response.body).to have_link(href: edit_w2_path(id: state_file_w2_2.id))
+      end
+    end
+
+    context "when no W2 box 14 warnings" do
+      let(:intake) { create(:state_file_nj_intake) }
+      
+      shared_examples "does not display W2 warnings" do
+        it "does not display W2 warnings" do
+          get :edit, params: params
+          expect(response.body).not_to have_text I18n.t("state_file.questions.income_review.edit.warning")
+        end
+      end
+
+      context "when not in a state that requires ui_wf_swf or fli Box 14 values" do
+        let(:intake) { create(:state_file_az_intake) }
+        let!(:w2_1) { create(:state_file_w2, state_file_intake: intake) }
+        let!(:w2_2) { create(:state_file_w2, state_file_intake: intake) }
+        include_examples "does not display W2 warnings"
+      end
+
+      context "when no w2s" do
+        include_examples "does not display W2 warnings"
+      end
+
+      context "when only one w2 and box14_ui_wf_swf is not present" do
+        let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_fli: 145.26) }
+        include_examples "does not display W2 warnings"
+      end
+
+      context "when only one w2 and fli is not present" do
+        let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_ui_wf_swf: 179.78) }
+        include_examples "does not display W2 warnings"
+      end
+
+      context "when there are two w2s where box14_ui_wf_swf is not present but they have different filers" do
+        let(:intake) { create(:state_file_nj_intake, :married_filing_jointly) }
+        let(:primary_ssn_from_fixture) { intake.primary.ssn }
+        let(:spouse_ssn_from_fixture) { intake.spouse.ssn }
+        let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_fli: 145.26) }
+        let!(:w2_2) { create(:state_file_w2, state_file_intake: intake, employee_ssn: spouse_ssn_from_fixture, box14_fli: 145.26) }
+        include_examples "does not display W2 warnings"
+      end
+
+      context "when there are two w2s where fli is not present but they have different filers" do
+        let(:intake) { create(:state_file_nj_intake, :married_filing_jointly) }
+        let(:primary_ssn_from_fixture) { intake.primary.ssn }
+        let(:spouse_ssn_from_fixture) { intake.spouse.ssn }
+        let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_ui_wf_swf: 179.78) }
+        let!(:w2_2) { create(:state_file_w2, state_file_intake: intake, employee_ssn: spouse_ssn_from_fixture, box14_ui_wf_swf: 179.78) }
+        include_examples "does not display W2 warnings"
+      end
+
+      context "when two or more w2s and box14_ui_wf_swf and fli are valid on both" do
+        let!(:state_file_w2_1) { create(:state_file_w2, state_file_intake: intake, box14_ui_wf_swf: 179.78, box14_fli: 145.26) }
+        let!(:state_file_w2_2) { create(:state_file_w2, state_file_intake: intake, box14_ui_wf_swf: 179.78, box14_fli: 145.26) }
+        include_examples "does not display W2 warnings"
+      end
+    end
+
+    context "when W2 box 14 warnings are present" do
+      let(:intake) { create(:state_file_nj_intake) }
+
+      shared_examples "displays one W2 warning" do
+        it "displays one W2 warning" do
+          get :edit, params: params
+          expect(response.body.scan(I18n.t("state_file.questions.income_review.edit.warning")).size).to eq(1)
+        end
+      end
+
+      context "when primary has two W2s and box14_ui_wf_swf is not present in one" do
+        let(:intake) { create(:state_file_nj_intake, :married_filing_jointly) }
+        let(:primary_ssn_from_fixture) { intake.primary.ssn }
+        let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_fli: 145.26) }
+        let!(:w2_2) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_ui_wf_swf: 179.78, box14_fli: 145.26) }
+        include_examples "displays one W2 warning"
+      end
+
+      context "when secondary has two W2s and box14_ui_wf_swf is not present in one" do
+        let(:intake) { create(:state_file_nj_intake, :married_filing_jointly) }
+        let(:spouse_ssn_from_fixture) { intake.spouse.ssn }
+        let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, employee_ssn: spouse_ssn_from_fixture, box14_fli: 145.26) }
+        let!(:w2_2) { create(:state_file_w2, state_file_intake: intake, employee_ssn: spouse_ssn_from_fixture, box14_ui_wf_swf: 179.78, box14_fli: 145.26) }
+        include_examples "displays one W2 warning"
+      end
+
+      context "when box14_ui_wf_swf is too high" do
+        let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_ui_wf_swf: 179.79) }
+        include_examples "displays one W2 warning"
+      end
+
+      context "when primary has two W2s and fli is not present in one" do
+        let(:intake) { create(:state_file_nj_intake, :married_filing_jointly) }
+        let(:primary_ssn_from_fixture) { intake.primary.ssn }
+        let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_ui_wf_swf: 179.78) }
+        let!(:w2_2) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_ui_wf_swf: 179.78, box14_fli: 145.26) }
+        include_examples "displays one W2 warning"
+      end
+
+      context "when secondary has two W2s and fli is not present in one" do
+        let(:intake) { create(:state_file_nj_intake, :married_filing_jointly) }
+        let(:spouse_ssn_from_fixture) { intake.spouse.ssn }
+        let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, employee_ssn: spouse_ssn_from_fixture, box14_ui_wf_swf: 179.78) }
+        let!(:w2_2) { create(:state_file_w2, state_file_intake: intake, employee_ssn: spouse_ssn_from_fixture, box14_ui_wf_swf: 179.78, box14_fli: 145.26) }
+        include_examples "displays one W2 warning"
+      end
+
+      context "when fli is too high" do
+        let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_fli: 145.27) }
+        include_examples "displays one W2 warning"
+      end
+
+      context "when a single W2 has values in both UI/HC/WD and UI/WF/SWF" do
+        let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_ui_wf_swf: 10, box14_ui_hc_wd: 10, box14_fli: 145.26) }
+        include_examples "displays one W2 warning"
       end
     end
   end

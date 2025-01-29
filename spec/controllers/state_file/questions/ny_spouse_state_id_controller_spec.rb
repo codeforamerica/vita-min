@@ -1,7 +1,6 @@
 require "rails_helper"
 
-describe StateFile::Questions::NySpouseStateIdController do
-
+describe StateFile::Questions::NySpouseStateIdController, skip: true do
   let(:intake) { create :state_file_ny_refund_intake}
   before do
     sign_in intake

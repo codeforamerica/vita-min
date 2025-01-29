@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe StateFile::Questions::WaitingToLoadDataController do
-  let!(:intake) { create(:state_file_ny_intake) }
+  let!(:intake) { create(:state_file_az_intake) }
 
   before do
     sign_in intake
