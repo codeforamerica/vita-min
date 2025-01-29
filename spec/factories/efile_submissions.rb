@@ -48,7 +48,7 @@ FactoryBot.define do
 
     trait :for_state do
       tax_return {}
-      data_source { create :state_file_ny_intake }
+      data_source { create :state_file_az_intake }
     end
 
     EfileSubmissionStateMachine.states.each do |state|
