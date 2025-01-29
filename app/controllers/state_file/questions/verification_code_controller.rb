@@ -48,6 +48,7 @@ module StateFile
       private
 
       def get_existing_intake(intake)
+        return nil if intake.email_address.nil? && intake.phone_number.nil?
 
         #we don't help new york any more
         state_intake_classes = StateFile::StateInformationService.state_intake_classes.reject do |klass|
