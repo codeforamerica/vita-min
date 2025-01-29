@@ -25,7 +25,7 @@ module StateFile
           puts "no contact method; index #{i}; #{contact[:contact_info]} #{contact[:state_code]}"
           return
         end
-        SendReminderApologyMessageJob.perform_later(
+        SendDfTransferIssueMessageJob.perform_later(
           email: contact[:email],
           sms: contact[:sms],
           contact_info: contact[:contact_info],
