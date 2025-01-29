@@ -29,9 +29,6 @@ module SubmissionBuilder
         end
         xml.SoftwareId EnvironmentCredentials.irs(StateFile::StateInformationService.software_id_key(@submission.data_source.state_code).to_sym)
         xml.ReturnType StateFile::StateInformationService.return_type(@submission.data_source.state_code)
-        if StateFile::StateInformationService.special_program_value(@submission.data_source.state_code)
-          xml.SpecialProgram StateFile::StateInformationService.special_program_value(@submission.data_source.state_code)
-        end
         xml.Filer do
           xml.Primary do
             xml.TaxpayerName do
