@@ -18,6 +18,10 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
       expect(build_response.errors).not_to be_present
     end
 
+    it "includes the SpecialProgram node in the RetrunHeaderState" do
+      expect(xml.document.at('ReturnHeaderState SpecialProgram').text).to eq "Direct File"
+    end
+
     context "married filing jointly" do
       let(:intake) { create(:state_file_az_intake, filing_status: :married_filing_jointly) }
 
