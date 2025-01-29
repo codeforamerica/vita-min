@@ -8,7 +8,7 @@ RSpec.describe StateFile::Questions::NjReviewController do
   describe "#edit" do
     render_views
     context 'when no dependents' do
-      let(:intake) { create :state_file_nj_intake, :df_data_no_deps }
+      let(:intake) { create :state_file_nj_intake, :df_data_box_14 }
 
       it 'does not show the dependents without health insurance block' do
         allow_any_instance_of(StateFileNjIntake).to receive(:has_health_insurance_requirement_exception?).and_return false
