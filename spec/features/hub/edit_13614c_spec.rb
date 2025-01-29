@@ -615,8 +615,7 @@ RSpec.describe "a user editing a clients 13614c form" do
       expect(intake.demographic_spouse_white).to be_truthy
     end
 
-    # TODO reenable this after GYR1-603 / https://github.com/codeforamerica/vita-min/pull/5406 gets merged.
-    xdescribe "demographic questions on page 4 work in tandem with other flags" do
+    describe "demographic questions on page 4 work in tandem with other flags" do
       before do
         client.intake.update(
           demographic_questions_opt_in: 'no',
@@ -624,7 +623,7 @@ RSpec.describe "a user editing a clients 13614c form" do
         )
       end
 
-      it "does not write the answers to the PDF unless the client opted in during intake or the hub user has saved page4" do
+      it "does not write the answers to the PDF unless the client opted in during intake or the hub user has saved page 4" do
         # generate pdf, prove spouse ethnicity is not filled in because demographic_questions_opt_in is false
         form_fields = PdfForms.new.get_fields(PdfFiller::F13614cPdf.new(client.intake).output_file)
         expect(form_fields.find { |field| field.name == "form1[0].page4[0].yourSpousesRaceEthnicity[0].hawaiianPacific[0]" }.value).to eq("Off")
