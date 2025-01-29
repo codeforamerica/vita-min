@@ -290,13 +290,27 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
       classes: [],
       help_text: nil
     )
+
+    describedby_ids = []
+    
+    if help_text
+      help_id = help_text_id(method)
+      describedby_ids << help_id
+    end
+    
+    if object.errors[method].any?
+      describedby_ids << "##{error_label(method)}"
+    end
+
     text_field_options = standard_options.merge(
       class: (classes + ["text-input money-input"]).join(" "),
+      'aria-describedby': describedby_ids.join(' ')
       ).merge(error_attributes(method: method)).merge(placeholder: '0.00').merge(options)
 
     text_field_options[:id] ||= sanitized_id(method)
     options[:input_id] ||= sanitized_id(method)
 
+    # TODO: THIS IS OVERRIDING THE ARIA DESCRIBEDBY WHEN THERE ARE ERRORS
     text_field_html = text_field(method, text_field_options)
 
     wrapper_classes = classes + ['money-input-group']
@@ -308,11 +322,11 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
       options: options,
       wrapper_classes: wrapper_classes,
       help_text: help_text
-      )
+    )
 
     html_output = <<~HTML
       <div class="form-group#{error_state(object, method)} money-input-form-group">
-      #{label_and_field_html}
+        #{label_and_field_html}
         #{errors_for(object, method)}
       </div>
     HTML
@@ -341,7 +355,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     html_output = <<~HTML
       <div class="form-group#{error_state(object, method)}">
       #{label_and_field_html}
-        #{errors_for(object, method)}
+      #{errors_for(object, method)}
       </div>
     HTML
     html_output.html_safe
@@ -457,13 +471,9 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
 
     describedby_ids = []
     if help_text.present?
-      help_text_id = help_text_id(method)
-      help_text_html = <<~HTML.html_safe
-        <div class="text--help" id="#{help_text_id}">
-          #{help_text}
-        </div>
-      HTML
-      describedby_ids << help_text_id
+      help_id = help_text_id(method)
+      help_html = help_text_html(help_text, help_id)
+      describedby_ids << help_id
     end
 
     if object.errors[method].any?
@@ -479,7 +489,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
           optional: optional,
           help_text: nil
           )}
-          #{help_text_html}
+          #{help_html}
           <div class="#{checkbox_container_classes.join(' ')}">
             #{checkbox_html}
           </div>
@@ -488,10 +498,26 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     HTML
   end
 
-  def help_text_id(method)
-    # Private method in honeycrisp v2 form builder
-    "#{sanitized_id(method)}__help-text"
+  def submit(value, options = {})
+    options[:data] ||= {}
+    options[:data][:disable_with] = value
+    super(value, **options)
   end
+
+  def continue(value = I18n.t("general.continue"))
+    submit(value, class: "button button--primary button--wide")
+  end
+
+  def warning_for_select(element_id, permitted_values, msg)
+    @template.content_tag(:div, msg,
+      class: "warning warning-for-select",
+      'data-warning-for-select': element_id,
+      style: "display:none",
+      'data-permitted': permitted_values.to_json
+    )
+  end
+
+  # Methods that override honeycriscp v1
 
   alias v1_cfa_input_field cfa_input_field
   def cfa_input_field(
@@ -541,22 +567,63 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     )
   end
 
-  def submit(value, options = {})
-    options[:data] ||= {}
-    options[:data][:disable_with] = value
-    super(value, **options)
+  # Added help text to label and field method instead to remove it from label
+  def label_contents(label_text, help_text, optional: false)
+    label_text = <<~HTML
+      <div class="form-question">#{label_text + optional_text(optional)}</div>
+    HTML
+
+    label_text.html_safe
   end
 
-  def continue(value = I18n.t("general.continue"))
-    submit(value, class: "button button--primary button--wide")
-  end
+  def label_and_field(
+    method,
+    label_text,
+    field,
+    help_text: nil,
+    prefix: nil,
+    postfix: nil,
+    optional: false,
+    options: {},
+    notice: nil,
+    wrapper_classes: []
+  )    
+    if help_text
+      help_id = help_text_id(method)
+      help_html = help_text_html(help_text, help_id)
+    end
+    
+    
+    if options[:input_id]
+      for_options = options.merge(
+        for: options[:input_id],
+      )
+      for_options.delete(:input_id)
+      for_options.delete(:maxlength)
+    end
 
-  def warning_for_select(element_id, permitted_values, msg)
-    @template.content_tag(:div, msg,
-      class: "warning warning-for-select",
-      'data-warning-for-select': element_id,
-      style: "display:none",
-      'data-permitted': permitted_values.to_json
+    formatted_label = label(
+      method,
+      label_contents(label_text, help_text, optional: optional),
+      (for_options || options),
     )
+    formatted_label += notice_html(notice).html_safe if notice
+
+    formatted_label += help_html
+
+    formatted_label + formatted_field(prefix, field, postfix, wrapper_classes).html_safe
+  end
+
+  def help_text_html(help_text, id)
+    <<~HTML.html_safe
+      <div class="text--help" id="#{id}">
+        #{help_text}
+      </div>
+    HTML
+  end
+
+  def help_text_id(method)
+    # Private method in honeycrisp v2 form builder
+    "#{sanitized_id(method)}__help-text"
   end
 end
