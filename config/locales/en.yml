@@ -1547,14 +1547,12 @@ en:
       df_transfer_issue_message:
         email:
           body: |
-            Hello,
-
-            You may have experienced an issue transferring your federal return data over from IRS Direct File. This issue is now resolved.
-
-            To continue filing your state tax return, please create a new account  with FileYourStateTaxes by visiting: https://www.fileyourstatetaxes.org/en/%{state_code}/landing-page
-
-            We’re sorry for any inconvenience this has caused. Please let us know if any other questions come up!
-          subject: TBD
+            Hello, You may have experienced an issue transferring your federal return data from IRS Direct File. This issue is now resolved.
+            
+            To continue filing your state tax return, please create a new account with FileYourStateTaxes by visiting: https://www.fileyourstatetaxes.org/en/%{state_code}/landing-page
+            
+            Need help? Email us at help@fileyourstatetaxes.org or chat with us on FileYourStateTaxes.org
+          subject: "FileYourStateTaxes: Regarding your %{state_name} tax return data import"
         sms: |
           Hello, you may have experienced an issue transferring your federal return data from IRS Direct File. This issue is now resolved.
 

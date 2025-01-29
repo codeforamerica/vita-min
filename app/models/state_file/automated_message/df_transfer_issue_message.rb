@@ -17,7 +17,7 @@ module StateFile::AutomatedMessage
     end
 
     def email_subject(state_code:)
-      I18n.t("messages.state_file.df_transfer_issue_message.email.subject", state_code: state_code)
+      I18n.t("messages.state_file.df_transfer_issue_message.email.subject", state_name: StateFile::StateInformationService.state_name(state_code))
     end
 
     def email_body(state_code:)
