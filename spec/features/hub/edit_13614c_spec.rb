@@ -648,7 +648,7 @@ RSpec.describe "a user editing a clients 13614c form" do
         # generate pdf, prove spouse ethnicity is filled in because demographic_questions_hub_edit is true
         form_fields = PdfForms.new.get_fields(PdfFiller::F13614cPdf.new(client.reload.intake).output_file)
         expect(form_fields.find { |field| field.name == "form1[0].page4[0].yourSpousesRaceEthnicity[0].hawaiianPacific[0]" }.value).to eq("Off")
-        expect(form_fields.find { |field| field.name == "form1[0].page4[0].yourSpousesRaceEthnicity[0].blackAfricanAmerican[0]]" }.value).to eq("1")
+        expect(form_fields.find { |field| field.name == "form1[0].page4[0].yourSpousesRaceEthnicity[0].blackAfricanAmerican[0]" }.value).to eq("1")
       end
     end
 
