@@ -128,6 +128,10 @@ module Hub
       @form = Update13614cFormPage4.from_client(@client)
     end
 
+    def edit_13614c_form_page5
+      @form = Update13614cFormPage5.from_client(@client)
+    end
+
     def save_and_maybe_exit(save_button_clicked, path_to_13614c_page)
       if save_button_clicked == I18n.t("general.save")
         redirect_to path_to_13614c_page
@@ -184,6 +188,17 @@ module Hub
       end
     end
 
+    def update_13614c_form_page5
+      @form = Update13614cFormPage5.new(@client, update_13614c_form_page5_params)
+
+      if @form.valid? && @form.save
+        SystemNote::ClientChange.generate!(initiated_by: current_user, intake: @client.intake)
+        GenerateF13614cPdfJob.perform_later(@client.intake.id, "Hub Edited 13614-C.pdf")
+        flash[:notice] = I18n.t("general.changes_saved")
+        save_and_maybe_exit(params[:commit], edit_13614c_form_page5_hub_client_path(id: @client.id))
+      end
+    end
+
     def cancel_13614c
       redirect_to hub_client_path(id: @client.id)
     end
@@ -231,6 +246,10 @@ module Hub
 
     def update_13614c_form_page4_params
       params.require(Update13614cFormPage4.form_param).permit(Update13614cFormPage4.attribute_names)
+    end
+
+    def update_13614c_form_page5_params
+      params.require(Update13614cFormPage5.form_param).permit(Update13614cFormPage5.attribute_names)
     end
 
     def create_client_form_params

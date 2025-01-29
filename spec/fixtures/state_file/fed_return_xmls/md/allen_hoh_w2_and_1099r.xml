@@ -211,6 +211,7 @@
       <PayerEIN>000000011</PayerEIN>
       <PhoneNum>2225551111</PhoneNum>
       <GrossDistributionAmt>2000</GrossDistributionAmt>
+      <RecipientNm>Allen Rose</RecipientNm>
       <TaxableAmt>10000</TaxableAmt>
       <FederalIncomeTaxWithheldAmt>3000</FederalIncomeTaxWithheldAmt>
       <F1099RDistributionCd>9</F1099RDistributionCd>

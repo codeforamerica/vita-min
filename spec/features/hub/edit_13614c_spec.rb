@@ -652,5 +652,29 @@ RSpec.describe "a user editing a clients 13614c form" do
         expect(form_fields.find { |field| field.name == "form1[0].page4[0].yourSpousesRaceEthnicity[0].blackAfricanAmerican[0]]" }.value).to eq("1")
       end
     end
+
+    scenario 'I can see and update the 13614c page 5 form', js: true do
+      visit hub_client_path(id: client.id)
+      within '.client-profile' do
+        click_on 'Edit 13614-C'
+      end
+
+      within '.form_13614c-page-links', match: :first do
+        click_on '5'
+      end
+      header = 'Additional Notes/Comments'
+      expect(page).to have_text header
+
+      note = 'It was very late and everyone had left the café except an old man who sat in the shadow the leaves of the tree made against the electric light.'
+      fill_in 'hub_update13614c_form_page5_additional_notes_comments', with: note
+
+      click_on I18n.t('general.save')
+
+      expect(page).to have_text header
+      expect(page).to have_text I18n.t('general.changes_saved')
+
+      intake = client.intake.reload
+      expect(intake.additional_notes_comments).to eq note
+    end
   end
 end
