@@ -28,7 +28,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
 
     formatted_label = label(
         method,
-        label_contents(label_text, help_text, optional: optional) + field_html,
+        label_contents(label_text, help_text, optional: optional, include_help_text: false) + field_html,
         (for_options || options),
         )
     formatted_label += notice_html(notice).html_safe if notice
@@ -70,6 +70,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
         label_text,
         options[:help_text],
         optional: options[:optional],
+        include_help_text: false
         ),
       class: label_class,
       )
@@ -568,10 +569,16 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
   end
 
   # Added help text to label and field method instead to remove it from label
-  def label_contents(label_text, help_text, optional: false)
+  def label_contents(label_text, help_text, optional: false, include_help_text: true)
     label_text = <<~HTML
       <div class="form-question">#{label_text + optional_text(optional)}</div>
     HTML
+
+    if help_text && include_help_text
+      label_text << <<~HTML
+        <p class="text--help">#{help_text}</p>
+      HTML
+    end
 
     label_text.html_safe
   end
@@ -604,7 +611,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
 
     formatted_label = label(
       method,
-      label_contents(label_text, help_text, optional: optional),
+      label_contents(label_text, help_text, optional: optional, include_help_text: false),
       (for_options || options),
     )
     formatted_label += notice_html(notice).html_safe if notice
