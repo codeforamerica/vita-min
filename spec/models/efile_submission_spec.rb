@@ -110,7 +110,7 @@ describe EfileSubmission do
       context "when HOLD_OFF_EFILE_SUBMISSIONS_FOR_STATES includes a single state value" do
         context "and it is the same as the submission" do
           around do |example|
-            ENV['HOLD_OFF_EFILE_SUBMISSIONS_FOR_STATES'] = 'ny'
+            ENV['HOLD_OFF_EFILE_SUBMISSIONS_FOR_STATES'] = 'az'
             example.run
             ENV.delete('HOLD_OFF_EFILE_SUBMISSIONS_FOR_STATES')
           end
@@ -136,7 +136,7 @@ describe EfileSubmission do
       context "when HOLD_OFF_EFILE_SUBMISSIONS_FOR_STATES includes multiple state values" do
         context "and includes the same as the submission" do
           around do |example|
-            ENV['HOLD_OFF_EFILE_SUBMISSIONS_FOR_STATES'] = 'ny md'
+            ENV['HOLD_OFF_EFILE_SUBMISSIONS_FOR_STATES'] = 'az md'
             example.run
             ENV.delete('HOLD_OFF_EFILE_SUBMISSIONS_FOR_STATES')
           end
