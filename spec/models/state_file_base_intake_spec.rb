@@ -210,11 +210,11 @@ describe StateFileBaseIntake do
       )
     }
 
-    it "rejects when state_wages_amount greater than w2.WagesAmt" do
+    it "allows state_wages_amount to be greater than w2.WagesAmt" do
       w2.state_wages_amount = 1000000
       intake.validate_state_specific_w2_requirements(w2)
-      expect(w2).not_to be_valid
-      expect(w2.errors[:state_wages_amount]).to be_present
+      expect(w2).to be_valid(:state_file_edit)
+      expect(w2.errors[:state_wages_amount]).not_to be_present
     end
   end
 end

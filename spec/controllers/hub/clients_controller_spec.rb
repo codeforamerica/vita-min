@@ -87,22 +87,22 @@ RSpec.describe Hub::ClientsController do
           vita_partner_id: vita_partner_id,
           tax_returns_attributes: {
             "0": {
-              year: "2020",
+              year: Rails.configuration.gyr_current_tax_year.to_s,
               is_hsa: true,
               certification_level: "advanced"
             },
             "1": {
-              year: "2019",
+              year: (Rails.configuration.gyr_current_tax_year - 1).to_s,
               is_hsa: false,
               certification_level: "basic"
             },
             "2": {
-              year: "2018",
+              year: (Rails.configuration.gyr_current_tax_year - 2).to_s,
               is_hsa: false,
               certification_level: "basic"
             },
             "3": {
-              year: "2017",
+              year: (Rails.configuration.gyr_current_tax_year - 3).to_s,
               is_hsa: false,
               certification_level: "advanced"
             },
@@ -2099,6 +2099,57 @@ RSpec.describe Hub::ClientsController do
 
           client.reload
           expect(client.intake.demographic_english_conversation).to eq "well"
+        end
+      end
+    end
+
+    describe "#update_13614c_form_page5" do
+      let(:params) {
+        {
+          id: client.id,
+          commit: I18n.t('general.save'),
+          hub_update13614c_form_page5: {
+            additional_notes_comments: 'Call me Ishmael.'
+          }
+        }
+      }
+
+      it_behaves_like :a_post_action_for_authenticated_users_only, action: :update_13614c_form_page5
+
+      context "with a signed in user" do
+        let(:user) { create(:user, role: create(:organization_lead_role, organization: organization)) }
+
+        before do
+          sign_in user
+        end
+
+        it "updates the clients intake with the 13614c data, creates a system note, and regenerates the pdf when clients press Save" do
+          expect do
+            put :update_13614c_form_page5, params: params
+          end.to have_enqueued_job(GenerateF13614cPdfJob)
+
+          expect(flash[:notice]).to eq I18n.t("general.changes_saved")
+          expect(response).to redirect_to edit_13614c_form_page5_hub_client_path(id: client)
+          client.reload
+          expect(client.intake.additional_notes_comments).to eq 'Call me Ishmael.'
+
+          system_note = SystemNote::ClientChange.last
+          expect(system_note.client).to eq(client)
+          expect(system_note.user).to eq(user)
+          expect(system_note.data['changes']).to match({"additional_notes_comments"=>[nil, 'Call me Ishmael.']})
+          expect(client.last_13614c_update_at).to be_within(1.second).of(DateTime.now)
+        end
+
+        it "updates the clients intake with the 13614c page 5 data, and direct to hub client page when client clicks Save and Exit" do
+          expect do
+            put :update_13614c_form_page5, params: params.update(commit: I18n.t('general.save_and_exit'))
+          end.to have_enqueued_job(GenerateF13614cPdfJob)
+
+          expect(flash[:notice]).to eq "Changes saved"
+          expect(response).to redirect_to hub_client_path(id: client.id)
+
+          client.reload
+          expect(client.intake.additional_notes_comments).to eq 'Call me Ishmael.'
         end
       end
     end

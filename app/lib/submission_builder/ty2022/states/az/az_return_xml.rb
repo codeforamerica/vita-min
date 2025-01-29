@@ -44,7 +44,7 @@ module SubmissionBuilder
             xml_doc = build_xml_doc("Form140") do |xml|
               xml.LNPriorYrs sanitize_for_xml(@submission.data_source.prior_last_names)
               xml.FilingStatus filing_status
-              if hoh_qualifying_person.present?
+              if hoh_qualifying_person.present? && @submission.data_source.filing_status_hoh?
                 xml.QualChildDependentName do
                   xml.FirstName sanitize_for_xml(hoh_qualifying_person[:first_name], 16)
                   xml.LastName sanitize_for_xml(hoh_qualifying_person[:last_name], 32)
