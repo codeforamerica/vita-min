@@ -6,7 +6,7 @@ module Hub::StateFile
 
     def index
       Rails.application.eager_load!
-      @messages = StateFile::AutomatedMessage::BaseAutomatedMessage.descendants
+      @messages = StateFile::AutomatedMessage::BaseAutomatedMessage.descendants.excluding(StateFile::AutomatedMessage::DfTransferIssueMessage)
       @locales = [:en, :es]
       @us_state = StateFile::StateInformationService.active_state_codes.include?(params[:us_state]) ? params[:us_state] : "az"
       get_intake
