@@ -1544,6 +1544,21 @@ en:
             The FileYourStateTaxes team
           subject: 'FileYourStateTaxes Update: %{state_name} State Return Accepted'
         sms: "Hi %{primary_first_name} - %{state_name} accepted your state tax return! You can expect to receive your refund as soon as %{state_name} approves your refund amount. \n\nDownload your return and check your refund status at %{return_status_link}\n\nNeed help? Email us at help@fileyourstatetaxes.org.\n"
+      df_transfer_issue_message:
+        email:
+          body: |
+            Hello, You may have experienced an issue transferring your federal return data from IRS Direct File. This issue is now resolved.
+
+            To continue filing your state tax return, please create a new account with FileYourStateTaxes by visiting: https://www.fileyourstatetaxes.org/en/%{state_code}/landing-page
+
+            Need help? Email us at help@fileyourstatetaxes.org or chat with us on FileYourStateTaxes.org
+          subject: 'FileYourStateTaxes: Regarding your %{state_name} tax return data import'
+        sms: |
+          Hello, you may have experienced an issue transferring your federal return data from IRS Direct File. This issue is now resolved.
+
+          To continue filing your state tax return, please create a new account with FileYourStateTaxes by visiting: https://www.fileyourstatetaxes.org/en/%{state_code}/landing-page
+
+          Need help? Email us at help@fileyourstatetaxes.org
       finish_return:
         email:
           body: |
@@ -1625,20 +1640,6 @@ en:
           Hi %{primary_first_name} - Unfortunately, %{state_name} rejected your state tax return. Don't worry! We can help you fix and resubmit it at %{return_status_link}.
 
           Questions? Email us at help@fileyourstatetaxes.org.
-      reminder_apology:
-        email:
-          body: |
-            Hi %{primary_first_name},
-
-            Due to an error, some FileYourStateTaxes users who had already completed their state tax returns received an email earlier today reminding them to file by April 15.
-
-            If you have received a notification that your state return was accepted, you may disregard the reminder email you may have received earlier today. You can confirm your return status by visiting fileyourstatetaxes.org/en/us/login-options and logging into your account.
-
-            We sincerely apologize for the confusion and the stress this may have caused.
-
-            Thanks,
-            FileYourStateTaxes
-          subject: Please disregard previous message from FileYourStateTaxes
       still_processing:
         email:
           body: |

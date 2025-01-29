@@ -1513,6 +1513,21 @@ es:
           body: "Hola %{primary_first_name},\n\n¡%{state_name} ha aceptado tu declaración de impuestos estatales! Puedes esperar recibir tu reembolso tan pronto como %{state_name} apruebe la cantidad de tu reembolso.\n\nDescarga tu declaración y verifica el estado de tu reembolso en <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.\n\nSaludos, \nEl equipo de FileYourStateTaxes\n"
           subject: 'Actualización de FileYourStateTaxes: Declaración Estatal de %{state_name} Aceptada'
         sms: "Hola %{primary_first_name} - %{state_name} ¡Acepté su declaración de impuestos estatales! Puede esperar recibir su reembolso tan pronto como %{state_name} apruebe el monto de su reembolso. \n\nDescargue su devolución y verifique el estado de su reembolso en %{return_status_link}\n\n¿Necesitar ayuda? Envíenos un correo electrónico a help@fileyourstatetaxes.org.\n"
+      df_transfer_issue_message:
+        email:
+          body: |
+            Hello, You may have experienced an issue transferring your federal return data from IRS Direct File. This issue is now resolved.
+
+            To continue filing your state tax return, please create a new account with FileYourStateTaxes by visiting: https://www.fileyourstatetaxes.org/en/%{state_code}/landing-page
+
+            Need help? Email us at help@fileyourstatetaxes.org or chat with us on FileYourStateTaxes.org
+          subject: 'FileYourStateTaxes: Regarding your %{state_name} tax return data import'
+        sms: |
+          Hello, you may have experienced an issue transferring your federal return data from IRS Direct File. This issue is now resolved.
+
+          To continue filing your state tax return, please create a new account with FileYourStateTaxes by visiting: https://www.fileyourstatetaxes.org/en/%{state_code}/landing-page
+
+          Need help? Email us at help@fileyourstatetaxes.org
       finish_return:
         email:
           body: |
@@ -1586,20 +1601,6 @@ es:
           Hola %{primary_first_name} - Lamentablemente, %{state_name} rechazó su declaración de impuestos estatales. ¡No te preocupes! Podemos ayudarle a solucionarlo y volver a enviarlo en %{return_status_link}.
 
           ¿Preguntas? Envíenos un correo electrónico a help@fileyourstatetaxes.org.
-      reminder_apology:
-        email:
-          body: |
-            Hola %{primary_first_name},
-
-            Debido a un error, algunos usuarios de FileYourStateTaxes que ya enviaron sus declaraciones de impuestos estatales recibieron un mensaje hoy recordándoles que la fecha límite de declarar es el 15 de abril.
-
-            Si has recibido una noticia diciendo que tu declaración fue aceptada, puedes ignorar el mensaje recordatorio que hayas recibido hoy. Puedes confirmar el estatus de tu declaración visitando fileyourstatetaxes.org/es/us/login-options e ingresando a tu cuenta.
-
-            Nos disculpamos sinceramente por la confusión y el estrés que esto haya causado.
-
-            Gracias,
-            FileYourStateTaxes
-          subject: Favor de ignorar el mensaje recordatorio de FileYourStateTaxes
       still_processing:
         email:
           body: |
