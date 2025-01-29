@@ -97,7 +97,7 @@ module SubmissionBuilder
                       xml.Dependents do
                         xml.DependentsName do
                           xml.FirstName sanitize_for_xml(dependent.first_name)
-                          xml.MiddleInitial sanitize_for_xml(dependent.middle_initial) if dependent.middle_initial.present?
+                          xml.MiddleInitial sanitize_middle_initial(dependent.middle_initial) if sanitize_middle_initial(dependent.middle_initial).present?
                           xml.LastName sanitize_for_xml(dependent.last_name)
                           xml.NameSuffix dependent.suffix.upcase if dependent.suffix.present?
                         end
