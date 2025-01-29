@@ -13,7 +13,7 @@ module StateFile
     def self.run(contact_list)
       contact_list.each_with_index do |contact, i|
         puts "."
-        if !StateFile::StateInformationService.active_state_codes.not.include?(state_code)
+        if !StateFile::StateInformationService.active_state_codes.include?(state_code)
           puts "state code missing or invalid; index #{i}; #{contact.contact_info}"
           return
         end
