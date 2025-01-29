@@ -14,12 +14,18 @@ RSpec.feature "Logging in" do
     allow_any_instance_of(Routes::StateFileDomain).to receive(:matches?).and_return(true)
     allow(SsnHashingService).to receive(:hash).with(ssn).and_return hashed_ssn
     allow(VerificationCodeService).to receive(:generate).with(anything).and_return [verification_code, hashed_verification_code]
+
+    # mock case for correct code
+    allow(VerificationCodeService).to receive(:hash_verification_code_with_contact_info).with(email_address, verification_code).and_return(hashed_verification_code)
+    allow(VerificationCodeService).to receive(:hash_verification_code_with_contact_info).with(phone_number, verification_code).and_return(hashed_verification_code)
+    # mock case for wrong code
+    allow(VerificationCodeService).to receive(:hash_verification_code_with_contact_info).with(phone_number, "999999").and_return("hashed_wrong_verification_code")
     allow(TwilioService).to receive(:new).and_return twilio_service
     allow(twilio_service).to receive(:send_text_message)
     Flipper.enable :sms_notifications
   end
 
-  context "when account exists" do
+  context "with an existing account" do
     let!(:az_intake) {
       create :state_file_az_intake,
              phone_number: phone_number,
@@ -34,14 +40,6 @@ RSpec.feature "Logging in" do
              df_data_import_succeeded_at: 5.minutes.ago,
              email_address_verified_at: DateTime.now
     }
-
-    before do
-      # mock case for correct code
-      allow(VerificationCodeService).to receive(:hash_verification_code_with_contact_info).with(email_address, verification_code).and_return(hashed_verification_code)
-      allow(VerificationCodeService).to receive(:hash_verification_code_with_contact_info).with(phone_number, verification_code).and_return(hashed_verification_code)
-      # mock case for wrong code
-      allow(VerificationCodeService).to receive(:hash_verification_code_with_contact_info).with(phone_number, "999999").and_return("hashed_wrong_verification_code")
-    end
 
     scenario "signing in with phone number" do
       visit "/login-options"
@@ -97,7 +95,7 @@ RSpec.feature "Logging in" do
     end
   end
 
-  context "when account does not exist" do
+  context "with an account that does not exist" do
     scenario "attempting to sign in with non-existent email" do
       visit "/login-options"
       expect(page).to have_text "Sign in to FileYourStateTaxes"
