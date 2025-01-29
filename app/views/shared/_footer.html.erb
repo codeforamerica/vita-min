@@ -66,6 +66,7 @@
 
         <% unless Rails.env.production? %>
           <li><%= link_to "Flow explorer", flows_path %></li>
+          <li><%= link_to "Session toggles", session_toggles_path, target: "_blank" %></li>
         <% end %>
       </ul>
 

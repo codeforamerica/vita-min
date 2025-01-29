@@ -23,7 +23,7 @@ module StateFile
       def update
         if @w2s.any? do |w2|
             w2.check_box14_limits = true
-            !w2.valid?
+            !w2.valid?(:state_file_edit)
           end
           flash[:alert] = I18n.t("state_file.questions.income_review.edit.invalid_w2")
           render :edit
