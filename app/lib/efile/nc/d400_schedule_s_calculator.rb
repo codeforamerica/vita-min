@@ -26,7 +26,7 @@ module Efile
       end
 
       def calculate_line_20
-        @intake.state_file1099_rs.sum do |state_file1099_r|
+        @intake.state_file1099_rs.where.not(state_specific_followup: nil).sum do |state_file1099_r|
           if state_file1099_r.state_specific_followup.income_source_bailey_settlement? &&
             (state_file1099_r.state_specific_followup.bailey_settlement_at_least_five_years_yes? || state_file1099_r.state_specific_followup.bailey_settlement_from_retirement_plan_yes?)
             state_file1099_r.taxable_amount
@@ -37,7 +37,7 @@ module Efile
       end
 
       def calculate_line_21
-        @intake.state_file1099_rs.sum do |state_file1099_r|
+        @intake.state_file1099_rs.where.not(state_specific_followup: nil).sum do |state_file1099_r|
           if state_file1099_r.state_specific_followup.income_source_uniformed_services? &&
             (state_file1099_r.state_specific_followup.uniformed_services_retired_yes? || state_file1099_r.state_specific_followup.uniformed_services_qualifying_plan_yes?)
             state_file1099_r.taxable_amount

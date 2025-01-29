@@ -80,6 +80,7 @@ describe Efile::Nc::D400ScheduleSCalculator do
         state_file1099_r: create(:state_file1099_r, taxable_amount: 1000, intake: intake)
       )
     end
+    let!(:state_file1099_r_no_followup) { create(:state_file1099_r, intake: intake) }
 
     it "adds up the taxable income amounts from df 1099Rs from Bailey Settlement" do
       d400_calculator.calculate
@@ -122,6 +123,7 @@ describe Efile::Nc::D400ScheduleSCalculator do
         state_file1099_r: create(:state_file1099_r, taxable_amount: 1000, intake: intake)
       )
     end
+    let!(:state_file1099_r_no_followup) { create(:state_file1099_r, intake: intake) }
 
     it "adds up the taxable income amounts from df 1099Rs from Uniformed Services" do
       d400_calculator.calculate

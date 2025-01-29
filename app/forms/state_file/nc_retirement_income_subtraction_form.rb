@@ -23,6 +23,7 @@ module StateFile
 
     def save
       attributes_to_save = attributes_for(:state_file_nc1099_r_followup).excluding(:bailey_settlement_none_apply, :uniformed_services_none_apply)
+      attributes_to_save.each { |attr, value| attributes_to_save[attr] = "no" if value.nil? }
       @state_file_nc1099_r_followup.update(attributes_to_save)
     end
 

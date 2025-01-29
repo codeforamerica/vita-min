@@ -165,6 +165,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
   context "NC", :flow_explorer_screenshot, js: true do
     before do
       allow_any_instance_of(Efile::Nc::D400Calculator).to receive(:refund_or_owed_amount).and_return 1000
+      Flipper.enable(:show_retirement_ui)
     end
 
     it "has content", required_schema: "nc" do
@@ -231,8 +232,13 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text(I18n.t('state_file.questions.unemployment.index.1099_label', name: StateFileNcIntake.last.primary.full_name))
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text("You might be eligible for a North Carolina retirement income deduction!")
-      choose "None of these apply"
+      expect(page).to have_text(I18n.t("state_file.questions.nc_retirement_income_subtraction.edit.title"))
+      choose strip_html_tags(I18n.t("state_file.questions.nc_retirement_income_subtraction.edit.income_source_bailey_settlement_html"))
+      check I18n.t("state_file.questions.nc_retirement_income_subtraction.edit.bailey_settlement_at_least_five_years")
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text(I18n.t("state_file.questions.nc_retirement_income_subtraction.edit.title"))
+      choose I18n.t("state_file.questions.nc_retirement_income_subtraction.edit.other")
       click_on I18n.t("general.continue")
 
       expect(strip_html_tags(page.body)).to have_text strip_html_tags(I18n.t("state_file.questions.nc_subtractions.edit.title_html.other"))
