@@ -257,8 +257,8 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
             expect(xml.document.at("Exemptions Standard Count")&.text).to eq("0")
             expect(xml.document.at("Exemptions Standard Amount")&.text).to eq("0")
 
-            expect(xml.document.at("Total Standard Count")&.text).to eq("0")
-            expect(xml.document.at("Total Standard Amount")&.text).to eq("0")
+            expect(xml.document.at("Exemptions Total Count")&.text).to eq("0")
+            expect(xml.document.at("Exemptions Total Amount")&.text).to eq("0")
           end
         end
 
