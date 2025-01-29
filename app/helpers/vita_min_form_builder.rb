@@ -200,7 +200,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     text_field_options = standard_options.merge(
       type: 'text',
       class: "text-input",
-    ).merge(options).merge(error_attributes(method: input_method))
+    ).merge(error_attributes(method: input_method)).merge(options)
 
     text_field_options[:id] ||= sanitized_id(input_method)
     text_field_options[:input_id] ||= sanitized_id(input_method)
@@ -299,18 +299,18 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     end
     
     if object.errors[method].any?
-      describedby_ids << "##{error_label(method)}"
+      describedby_ids << error_label(method)
     end
 
-    text_field_options = standard_options.merge(
+    
+    text_field_options = standard_options.merge(error_attributes(method: method)).merge(
       class: (classes + ["text-input money-input"]).join(" "),
       'aria-describedby': describedby_ids.join(' ')
-      ).merge(error_attributes(method: method)).merge(placeholder: '0.00').merge(options)
-
+    ).merge(placeholder: '0.00').merge(options)
+    
     text_field_options[:id] ||= sanitized_id(method)
     options[:input_id] ||= sanitized_id(method)
-
-    # TODO: THIS IS OVERRIDING THE ARIA DESCRIBEDBY WHEN THERE ARE ERRORS
+    
     text_field_html = text_field(method, text_field_options)
 
     wrapper_classes = classes + ['money-input-group']
@@ -477,7 +477,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     end
 
     if object.errors[method].any?
-      describedby_ids << "##{error_label(method)}"
+      describedby_ids << error_label(method)
     end
     describedby = describedby_ids.join(' ')
 
