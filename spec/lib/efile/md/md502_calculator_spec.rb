@@ -95,7 +95,7 @@ describe Efile::Md::Md502Calculator do
   describe "#calculate_line_a_amount" do
     context "when primary or spouse is claimed as a dependent" do
       before do
-        intake.direct_file_data.filing_status = 6 # dependent
+        intake.direct_file_data.primary_claim_as_dependent = "X"
       end
 
       it "returns 0" do
@@ -697,6 +697,9 @@ describe Efile::Md::Md502Calculator do
 
                 before do
                   allow_any_instance_of(described_class).to receive(:calculate_line_16).and_return agi_limit
+                  if filing_status == "dependent"
+                    intake.direct_file_data.primary_claim_as_dependent = "X"
+                  end
                 end
 
                 it "returns the value corresponding to #{agi_limit} MD AGI limit" do
@@ -966,8 +969,10 @@ describe Efile::Md::Md502Calculator do
     end
 
     context "when filing as a dependent and no qualifying children" do
-      let(:filing_status) { "dependent" }
       let(:df_xml_key) { "md_zeus_two_w2s" }
+      before do
+        intake.direct_file_data.primary_claim_as_dependent = "X"
+      end
       it 'EIC is nil' do
         expect(instance.lines[:MD502_LINE_22].value).to eq nil
       end
@@ -1039,9 +1044,14 @@ describe Efile::Md::Md502Calculator do
     end
 
     context "when filing as dependent" do
-      let(:filing_status) { "dependent" }
       let(:line_1b) { 20_000 }
       let(:line_7) { 15_000 }
+
+      before do
+        intake.direct_file_data.primary_claim_as_dependent = "X"
+      end
+
+      # TODO THIS TEST DOES NOT BREAK WHEN NOT FILING AS DEPENDENT
 
       it "returns 0" do
         expect(instance.lines[:MD502_LINE_23].value).to eq(0)
@@ -1603,8 +1613,12 @@ describe Efile::Md::Md502Calculator do
     end
 
     context "when filing as a dependent and no qualifying children" do
-      let(:filing_status) { "dependent" }
       let(:df_xml_key) { "md_zeus_two_w2s" }
+
+      before do
+        intake.direct_file_data.primary_claim_as_dependent = "X"
+      end
+
       it 'refundable EIC is nil' do
         expect(instance.lines[:MD502_LINE_42].value).to eq nil
       end
