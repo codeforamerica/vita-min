@@ -509,6 +509,43 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
           end
         end
 
+        context "with no matching intake" do
+          let(:contact_method) { "email_address" }
+          let(:params) do
+            {
+              id: "raw_token",
+              contact_method: contact_method,
+              state_file_intake_login_form: {
+                ssn: nil
+              }
+            }
+          end
+
+          before do
+            allow_any_instance_of(StateFile::IntakeLoginForm).to receive(:valid?).and_return(true)
+            allow_any_instance_of(StateFile::IntakeLoginForm).to receive(:intake_to_log_in).and_return(nil)
+            controller.instance_variable_set(:@contact_method, contact_method)
+          end
+
+          it "sets a flash alert with the email when contact method is email" do
+            post :update, params: params
+
+            expect(flash[:alert]).to eq I18n.t("state_file.intake_logins.new.email_address.not_found")
+            expect(response).to render_template(:new)
+          end
+
+          context "with sms phone number" do
+            let(:contact_method) { "sms_phone_number" }
+
+            it "sets flash alert for phone number" do
+              post :update, params: params
+
+              expect(flash[:alert]).to eq I18n.t("state_file.intake_logins.new.sms_phone_number.not_found")
+              expect(response).to render_template(:new)
+            end
+          end
+        end
+
         context "without a matching ssn" do
           before do
             allow(SsnHashingService).to receive(:hash).with(ssn).and_return "something_else"
