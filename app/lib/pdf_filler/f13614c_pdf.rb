@@ -72,11 +72,13 @@ module PdfFiller
       answers.merge!(
         yes_no_checkboxes("form1[0].page1[0].q11HaveYouOr[0]", collective_yes_no_unsure(@intake.issued_identity_pin, @intake.spouse_issued_identity_pin))
       )
-      answers.merge!(
+
+      answers.merge!({
         "form1[0].page1[0].writtenCommunicationLanguage[0].otherLanguageNo[0]" => @intake.written_language_preference_english? ? '1' : nil,
         "form1[0].page1[0].writtenCommunicationLanguage[0].otherLanguageYou[0]" => @intake.written_language_preference_english? ? nil : '1',
         "form1[0].page1[0].writtenCommunicationLanguage[0].whatLanguage[0]" => @intake.written_language_preference_english? ? nil : @intake.preferred_written_language_string
-      )
+      })
+
       answers.merge!(
         keep_and_normalize(
           with_prefix("form1[0].page1[0].maritalStatus[0]") do
@@ -520,51 +522,68 @@ module PdfFiller
     end
 
     def demographic_info
-      {
-        "form1[0].page3[0].q8[0].veryWell[0]" => @intake.demographic_english_conversation_very_well? ? '1' : nil,
-        "form1[0].page3[0].q8[0].well[0]" => @intake.demographic_english_conversation_well? ? '1' : nil,
-        "form1[0].page3[0].q8[0].notWell[0]" => @intake.demographic_english_conversation_not_well? ? '1' : nil,
-        "form1[0].page3[0].q8[0].notAtAll[0]" => @intake.demographic_english_conversation_not_at_all? ? '1' : nil,
-        "form1[0].page3[0].q8[0].notAnswer[0]" => @intake.demographic_english_conversation_prefer_not_to_answer? ? '1' : nil,
+      keep_and_normalize(
+        {
+          # Appears not to be used in 2024 tax year
+          # "form1[0].page3[0].q13[0].notAnswer[0]" => @intake.demographic_spouse_prefer_not_to_answer_race,
+          # "form1[0].page3[0].q13[0].noSpouse[0]" => nil,
+        },
+        with_prefix("form1[0].page4[0].optionalQuestions[0].carryConversationEnglish[0]") do
+          {
+            "veryWell[0]" => @intake.demographic_english_conversation_very_well?,
+            "well[0]" => @intake.demographic_english_conversation_well?,
+            "notWell[0]" => @intake.demographic_english_conversation_not_well?,
+            "notAtAll[0]" => @intake.demographic_english_conversation_not_at_all?,
+            "notAnswer[0]" => @intake.demographic_english_conversation_prefer_not_to_answer?,
+          }
+        end,
+        with_prefix("form1[0].page4[0].optionalQuestions[0].readNewspaperEnglish[0]") do
+          {
+            "veryWell[0]" => @intake.demographic_english_reading_very_well?,
+            "well[0]" => @intake.demographic_english_reading_well?,
+            "notWell[0]" => @intake.demographic_english_reading_not_well?,
+            "notAtAll[0]" => @intake.demographic_english_reading_not_at_all?,
+            "notAnswer[0]" => @intake.demographic_english_reading_prefer_not_to_answer?,
+          }
+        end,
+        with_prefix("form1[0].page4[0].optionalQuestions[0].memberHouseholdDisability[0]") do
+          {
+            "disabilityYes[0]" => @intake.demographic_disability_yes?,
+            "disabilityNo[0]" => @intake.demographic_disability_no?,
+            "notAnswer[0]" => @intake.demographic_disability_prefer_not_to_answer?,
 
-        "form1[0].page3[0].q9[0].veryWell[0]" => @intake.demographic_english_reading_very_well? ? '1' : nil,
-        "form1[0].page3[0].q9[0].well[0]" => @intake.demographic_english_reading_well? ? '1' : nil,
-        "form1[0].page3[0].q9[0].notWell[0]" => @intake.demographic_english_reading_not_well? ? '1' : nil,
-        "form1[0].page3[0].q9[0].notAtAll[0]" => @intake.demographic_english_reading_not_at_all? ? '1' : nil,
-        "form1[0].page3[0].q9[0].notAnswer[0]" => @intake.demographic_english_reading_prefer_not_to_answer? ? '1' : nil,
-
-        "form1[0].page3[0].q10[0].optionYes[0]" => @intake.demographic_disability_yes? ? '1' : nil,
-        "form1[0].page3[0].q10[0].optionNo[0]" => @intake.demographic_disability_no? ? '1' : nil,
-        "form1[0].page3[0].q10[0].notAnswer[0]" => @intake.demographic_disability_prefer_not_to_answer? ? '1' : nil,
-
-        "form1[0].page3[0].q11[0].optionYes[0]" => @intake.demographic_veteran_yes? ? '1' : nil,
-        "form1[0].page3[0].q11[0].optionNo[0]" => @intake.demographic_veteran_no? ? '1' : nil,
-        "form1[0].page3[0].q11[0].notAnswer[0]" => @intake.demographic_veteran_prefer_not_to_answer? ? '1' : nil,
-
-        "form1[0].page3[0].q12[0].americanIndian[0]" => bool_checkbox(@intake.demographic_primary_american_indian_alaska_native),
-        "form1[0].page3[0].q12[0].asian[0]" => bool_checkbox(@intake.demographic_primary_asian),
-        "form1[0].page3[0].q12[0].blackAfrican[0]" => bool_checkbox(@intake.demographic_primary_black_african_american),
-        "form1[0].page3[0].q12[0].nativeHawaiian[0]" => bool_checkbox(@intake.demographic_primary_native_hawaiian_pacific_islander),
-        "form1[0].page3[0].q12[0].white[0]" => bool_checkbox(@intake.demographic_primary_white),
-        "form1[0].page3[0].q12[0].notAnswer[0]" => bool_checkbox(@intake.demographic_primary_prefer_not_to_answer_race),
-
-        "form1[0].page3[0].q13[0].americanIndian[0]" => bool_checkbox(@intake.demographic_spouse_american_indian_alaska_native),
-        "form1[0].page3[0].q13[0].asian[0]" => bool_checkbox(@intake.demographic_spouse_asian),
-        "form1[0].page3[0].q13[0].blackAfrican[0]" => bool_checkbox(@intake.demographic_spouse_black_african_american),
-        "form1[0].page3[0].q13[0].nativeHawaiian[0]" => bool_checkbox(@intake.demographic_spouse_native_hawaiian_pacific_islander),
-        "form1[0].page3[0].q13[0].white[0]" => bool_checkbox(@intake.demographic_spouse_white),
-        "form1[0].page3[0].q13[0].notAnswer[0]" => bool_checkbox(@intake.demographic_spouse_prefer_not_to_answer_race),
-        "form1[0].page3[0].q13[0].noSpouse[0]" => nil,
-
-        "form1[0].page3[0].q14[0].hispanicLatino[0]" => bool_checkbox(@intake.demographic_primary_ethnicity_hispanic_latino?),
-        "form1[0].page3[0].q14[0].notHispanicLatino[0]" => bool_checkbox(@intake.demographic_primary_ethnicity_not_hispanic_latino?),
-        "form1[0].page3[0].q14[0].notAnswer[0]" => bool_checkbox(@intake.demographic_primary_ethnicity_prefer_not_to_answer?),
-
-        "form1[0].page3[0].q15[0].hispanicLatino[0]" => bool_checkbox(@intake.demographic_spouse_ethnicity_hispanic_latino?),
-        "form1[0].page3[0].q15[0].notHispanicLatino[0]" => bool_checkbox(@intake.demographic_spouse_ethnicity_not_hispanic_latino?),
-        "form1[0].page3[0].q15[0].notAnswer[0]" => bool_checkbox(@intake.demographic_spouse_ethnicity_prefer_not_to_answer?),
-        "form1[0].page3[0].q15[0].noSpouse[0]" => nil,
-      }
+          }
+        end,
+        with_prefix("form1[0].page4[0].optionalQuestions[0].youSpouseVeteran[0]") do
+          {
+            "veteranYes[0]" => @intake.demographic_veteran_yes?,
+            "veteranNo[0]" => @intake.demographic_veteran_no?,
+            "notAnswer[0]" => @intake.demographic_veteran_prefer_not_to_answer?,
+          }
+        end,
+        with_prefix("form1[0].page4[0].yourRaceEthnicity[0]") do
+          {
+            "americanIndian[0]" => @intake.demographic_primary_american_indian_alaska_native?,
+            "asian[0]" => @intake.demographic_primary_asian?,
+            "blackAfricanAmerican[0]" => @intake.demographic_primary_black_african_american?,
+            "hispanicLatino[0]" => @intake.demographic_primary_hispanic_latino?,
+            "middleEsternNorthAfrican[0]" => @intake.demographic_primary_mena?,
+            "hawaiianPacific[0]" => @intake.demographic_primary_native_hawaiian_pacific_islander?,
+            "white[0]" => @intake.demographic_primary_white?,
+          }
+        end,
+        with_prefix("form1[0].page4[0].yourSpousesRaceEthnicity[0]") do
+          {
+            "americanIndian[0]" => @intake.demographic_spouse_american_indian_alaska_native?,
+            "asian[0]" => @intake.demographic_spouse_asian?,
+            "blackAfricanAmerican[0]" => @intake.demographic_spouse_black_african_american?,
+            "hispanicLatino[0]" => @intake.demographic_spouse_hispanic_latino?,
+            "middleEsternNorthAfrican[0]" => @intake.demographic_spouse_mena?,
+            "hawaiianPacific[0]" => @intake.demographic_spouse_native_hawaiian_pacific_islander?,
+            "white[0]" => @intake.demographic_spouse_white?,
+          }
+        end
+      )
     end
 
     private
