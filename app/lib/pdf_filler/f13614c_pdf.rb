@@ -70,14 +70,15 @@ module PdfFiller
         "form1[0].page1[0].mailingZIPCode[0]" => @intake.zip_code,
       )
       answers.merge!(
-        yes_no_checkboxes("form1[0].page1[0].q10CanAnyoneClaim[0]", @intake.claimed_by_another, include_unsure: true),
         yes_no_checkboxes("form1[0].page1[0].q11HaveYouOr[0]", collective_yes_no_unsure(@intake.issued_identity_pin, @intake.spouse_issued_identity_pin))
       )
-      answers.merge!(
+
+      answers.merge!({
         "form1[0].page1[0].writtenCommunicationLanguage[0].otherLanguageNo[0]" => @intake.written_language_preference_english? ? '1' : nil,
         "form1[0].page1[0].writtenCommunicationLanguage[0].otherLanguageYou[0]" => @intake.written_language_preference_english? ? nil : '1',
         "form1[0].page1[0].writtenCommunicationLanguage[0].whatLanguage[0]" => @intake.written_language_preference_english? ? nil : @intake.preferred_written_language_string
-      )
+      })
+
       answers.merge!(
         keep_and_normalize(
           with_prefix("form1[0].page1[0].maritalStatus[0]") do
@@ -103,6 +104,13 @@ module PdfFiller
       answers["form1[0].page1[0].maritalStatus[0].statusDivorced[0].dateFinalDecree[0]"] = @intake.divorced_year
       answers["form1[0].page1[0].maritalStatus[0].statusWidowed[0].yearSpousesDeath[0]"] = @intake.widowed_year
 
+      answers["form1[0].page1[0].anyoneElseClaim[0].otherClaimYes[0]"] = yes_no_unfilled_to_checkbox(@intake.claimed_by_another)
+      answers["form1[0].page1[0].anyoneElseClaim[0].otherClaimNo[0]"] = yes_no_unfilled_to_opposite_checkbox(@intake.claimed_by_another)
+
+      answers["form1[0].page1[0].howToVote[0].voteInformationYes[0]"] = yes_no_unfilled_to_checkbox(@intake.register_to_vote)
+      answers["form1[0].page1[0].howToVote[0].voteInformationNo[0]"] = yes_no_unfilled_to_opposite_checkbox(@intake.register_to_vote)
+
+      # PAGE 2
       answers.merge!(
         keep_and_normalize(
           with_prefix("form1[0].page2[0].receivedMoneyFrom[0]") do
@@ -347,9 +355,6 @@ module PdfFiller
       answers.merge!(
         "form1[0].page3[0].q5[0].IfYesWhere[0]" => @intake.had_disaster_loss_where,
       )
-      answers.merge!(
-        yes_no_checkboxes("form1[0].page3[0].q7[0]", @intake.register_to_vote),
-      )
       answers.merge!(demographic_info) if @intake.demographic_questions_opt_in_yes? || @intake.demographic_questions_hub_edit
 
       # ty2024 page 5
@@ -517,51 +522,68 @@ module PdfFiller
     end
 
     def demographic_info
-      {
-        "form1[0].page3[0].q8[0].veryWell[0]" => @intake.demographic_english_conversation_very_well? ? '1' : nil,
-        "form1[0].page3[0].q8[0].well[0]" => @intake.demographic_english_conversation_well? ? '1' : nil,
-        "form1[0].page3[0].q8[0].notWell[0]" => @intake.demographic_english_conversation_not_well? ? '1' : nil,
-        "form1[0].page3[0].q8[0].notAtAll[0]" => @intake.demographic_english_conversation_not_at_all? ? '1' : nil,
-        "form1[0].page3[0].q8[0].notAnswer[0]" => @intake.demographic_english_conversation_prefer_not_to_answer? ? '1' : nil,
+      keep_and_normalize(
+        {
+          # Appears not to be used in 2024 tax year
+          # "form1[0].page3[0].q13[0].notAnswer[0]" => @intake.demographic_spouse_prefer_not_to_answer_race,
+          # "form1[0].page3[0].q13[0].noSpouse[0]" => nil,
+        },
+        with_prefix("form1[0].page4[0].optionalQuestions[0].carryConversationEnglish[0]") do
+          {
+            "veryWell[0]" => @intake.demographic_english_conversation_very_well?,
+            "well[0]" => @intake.demographic_english_conversation_well?,
+            "notWell[0]" => @intake.demographic_english_conversation_not_well?,
+            "notAtAll[0]" => @intake.demographic_english_conversation_not_at_all?,
+            "notAnswer[0]" => @intake.demographic_english_conversation_prefer_not_to_answer?,
+          }
+        end,
+        with_prefix("form1[0].page4[0].optionalQuestions[0].readNewspaperEnglish[0]") do
+          {
+            "veryWell[0]" => @intake.demographic_english_reading_very_well?,
+            "well[0]" => @intake.demographic_english_reading_well?,
+            "notWell[0]" => @intake.demographic_english_reading_not_well?,
+            "notAtAll[0]" => @intake.demographic_english_reading_not_at_all?,
+            "notAnswer[0]" => @intake.demographic_english_reading_prefer_not_to_answer?,
+          }
+        end,
+        with_prefix("form1[0].page4[0].optionalQuestions[0].memberHouseholdDisability[0]") do
+          {
+            "disabilityYes[0]" => @intake.demographic_disability_yes?,
+            "disabilityNo[0]" => @intake.demographic_disability_no?,
+            "notAnswer[0]" => @intake.demographic_disability_prefer_not_to_answer?,
 
-        "form1[0].page3[0].q9[0].veryWell[0]" => @intake.demographic_english_reading_very_well? ? '1' : nil,
-        "form1[0].page3[0].q9[0].well[0]" => @intake.demographic_english_reading_well? ? '1' : nil,
-        "form1[0].page3[0].q9[0].notWell[0]" => @intake.demographic_english_reading_not_well? ? '1' : nil,
-        "form1[0].page3[0].q9[0].notAtAll[0]" => @intake.demographic_english_reading_not_at_all? ? '1' : nil,
-        "form1[0].page3[0].q9[0].notAnswer[0]" => @intake.demographic_english_reading_prefer_not_to_answer? ? '1' : nil,
-
-        "form1[0].page3[0].q10[0].optionYes[0]" => @intake.demographic_disability_yes? ? '1' : nil,
-        "form1[0].page3[0].q10[0].optionNo[0]" => @intake.demographic_disability_no? ? '1' : nil,
-        "form1[0].page3[0].q10[0].notAnswer[0]" => @intake.demographic_disability_prefer_not_to_answer? ? '1' : nil,
-
-        "form1[0].page3[0].q11[0].optionYes[0]" => @intake.demographic_veteran_yes? ? '1' : nil,
-        "form1[0].page3[0].q11[0].optionNo[0]" => @intake.demographic_veteran_no? ? '1' : nil,
-        "form1[0].page3[0].q11[0].notAnswer[0]" => @intake.demographic_veteran_prefer_not_to_answer? ? '1' : nil,
-
-        "form1[0].page3[0].q12[0].americanIndian[0]" => bool_checkbox(@intake.demographic_primary_american_indian_alaska_native),
-        "form1[0].page3[0].q12[0].asian[0]" => bool_checkbox(@intake.demographic_primary_asian),
-        "form1[0].page3[0].q12[0].blackAfrican[0]" => bool_checkbox(@intake.demographic_primary_black_african_american),
-        "form1[0].page3[0].q12[0].nativeHawaiian[0]" => bool_checkbox(@intake.demographic_primary_native_hawaiian_pacific_islander),
-        "form1[0].page3[0].q12[0].white[0]" => bool_checkbox(@intake.demographic_primary_white),
-        "form1[0].page3[0].q12[0].notAnswer[0]" => bool_checkbox(@intake.demographic_primary_prefer_not_to_answer_race),
-
-        "form1[0].page3[0].q13[0].americanIndian[0]" => bool_checkbox(@intake.demographic_spouse_american_indian_alaska_native),
-        "form1[0].page3[0].q13[0].asian[0]" => bool_checkbox(@intake.demographic_spouse_asian),
-        "form1[0].page3[0].q13[0].blackAfrican[0]" => bool_checkbox(@intake.demographic_spouse_black_african_american),
-        "form1[0].page3[0].q13[0].nativeHawaiian[0]" => bool_checkbox(@intake.demographic_spouse_native_hawaiian_pacific_islander),
-        "form1[0].page3[0].q13[0].white[0]" => bool_checkbox(@intake.demographic_spouse_white),
-        "form1[0].page3[0].q13[0].notAnswer[0]" => bool_checkbox(@intake.demographic_spouse_prefer_not_to_answer_race),
-        "form1[0].page3[0].q13[0].noSpouse[0]" => nil,
-
-        "form1[0].page3[0].q14[0].hispanicLatino[0]" => bool_checkbox(@intake.demographic_primary_ethnicity_hispanic_latino?),
-        "form1[0].page3[0].q14[0].notHispanicLatino[0]" => bool_checkbox(@intake.demographic_primary_ethnicity_not_hispanic_latino?),
-        "form1[0].page3[0].q14[0].notAnswer[0]" => bool_checkbox(@intake.demographic_primary_ethnicity_prefer_not_to_answer?),
-
-        "form1[0].page3[0].q15[0].hispanicLatino[0]" => bool_checkbox(@intake.demographic_spouse_ethnicity_hispanic_latino?),
-        "form1[0].page3[0].q15[0].notHispanicLatino[0]" => bool_checkbox(@intake.demographic_spouse_ethnicity_not_hispanic_latino?),
-        "form1[0].page3[0].q15[0].notAnswer[0]" => bool_checkbox(@intake.demographic_spouse_ethnicity_prefer_not_to_answer?),
-        "form1[0].page3[0].q15[0].noSpouse[0]" => nil,
-      }
+          }
+        end,
+        with_prefix("form1[0].page4[0].optionalQuestions[0].youSpouseVeteran[0]") do
+          {
+            "veteranYes[0]" => @intake.demographic_veteran_yes?,
+            "veteranNo[0]" => @intake.demographic_veteran_no?,
+            "notAnswer[0]" => @intake.demographic_veteran_prefer_not_to_answer?,
+          }
+        end,
+        with_prefix("form1[0].page4[0].yourRaceEthnicity[0]") do
+          {
+            "americanIndian[0]" => @intake.demographic_primary_american_indian_alaska_native?,
+            "asian[0]" => @intake.demographic_primary_asian?,
+            "blackAfricanAmerican[0]" => @intake.demographic_primary_black_african_american?,
+            "hispanicLatino[0]" => @intake.demographic_primary_hispanic_latino?,
+            "middleEsternNorthAfrican[0]" => @intake.demographic_primary_mena?,
+            "hawaiianPacific[0]" => @intake.demographic_primary_native_hawaiian_pacific_islander?,
+            "white[0]" => @intake.demographic_primary_white?,
+          }
+        end,
+        with_prefix("form1[0].page4[0].yourSpousesRaceEthnicity[0]") do
+          {
+            "americanIndian[0]" => @intake.demographic_spouse_american_indian_alaska_native?,
+            "asian[0]" => @intake.demographic_spouse_asian?,
+            "blackAfricanAmerican[0]" => @intake.demographic_spouse_black_african_american?,
+            "hispanicLatino[0]" => @intake.demographic_spouse_hispanic_latino?,
+            "middleEsternNorthAfrican[0]" => @intake.demographic_spouse_mena?,
+            "hawaiianPacific[0]" => @intake.demographic_spouse_native_hawaiian_pacific_islander?,
+            "white[0]" => @intake.demographic_spouse_white?,
+          }
+        end
+      )
     end
 
     private
@@ -604,20 +626,21 @@ module PdfFiller
 
     def single_dependent_params(dependent, index:)
       {
-        "form1[0].page1[0].namesOf[0].Row#{index}[0].name[0]" => dependent.full_name,
-        "form1[0].page1[0].namesOf[0].Row#{index}[0].dateBirth[0]" => strftime_date(dependent.birth_date),
-        "form1[0].page1[0].namesOf[0].Row#{index}[0].relationship[0]" => dependent.relationship,
-        "form1[0].page1[0].namesOf[0].Row#{index}[0].months[0]" => dependent.months_in_home.to_s,
-        "form1[0].page1[0].namesOf[0].Row#{index}[0].USCitizen[0]" => yes_no_unfilled_to_YN(dependent.us_citizen),
-        "form1[0].page1[0].namesOf[0].Row#{index}[0].residentOf[0]" => yes_no_unfilled_to_YN(dependent.north_american_resident),
+        "form1[0].page1[0].namesOf[0].Row#{index}[0].nameFirstLast[0]" => dependent.full_name,
+        "form1[0].page1[0].namesOf[0].Row#{index}[0].dateOfBirth[0]" => strftime_date(dependent.birth_date),
+        "form1[0].page1[0].namesOf[0].Row#{index}[0].relationshipToYou[0]" => dependent.relationship,
+        "form1[0].page1[0].namesOf[0].Row#{index}[0].monthsLivedHome[0]" => dependent.months_in_home.to_s,
         "form1[0].page1[0].namesOf[0].Row#{index}[0].singleMarried[0]" => married_to_SM(dependent.was_married),
-        "form1[0].page1[0].namesOf[0].Row#{index}[0].student[0]" => yes_no_unfilled_to_YN(dependent.was_student),
-        "form1[0].page1[0].namesOf[0].Row#{index}[0].disabled[0]" => yes_no_unfilled_to_YN(dependent.disabled),
-        "form1[0].page1[0].namesOf[0].Row#{index}[0].claimedBySomeone[0]" => yes_no_unfilled_to_YN(dependent.can_be_claimed_by_other),
-        "form1[0].page1[0].namesOf[0].Row#{index}[0].providedMoreThen[0]" => yes_no_unfilled_to_YN(dependent.provided_over_half_own_support),
-        "form1[0].page1[0].namesOf[0].Row#{index}[0].hadIncomeLess[0]" => yes_no_unfilled_to_YN(dependent.below_qualifying_relative_income_requirement),
-        "form1[0].page1[0].namesOf[0].Row#{index}[0].supportPerson[0]" => yes_no_unfilled_to_YN(dependent.filer_provided_over_half_support),
-        "form1[0].page1[0].namesOf[0].Row#{index}[0].maintainedHome[0]" => yes_no_unfilled_to_YN(dependent.filer_provided_over_half_housing_support),
+        "form1[0].page1[0].namesOf[0].Row#{index}[0].usCitizen[0]" => yes_no_unfilled_to_YN(dependent.us_citizen),
+        "form1[0].page1[0].namesOf[0].Row#{index}[0].residentUSCandaMexico[0]" => yes_no_unfilled_to_YN(dependent.north_american_resident),
+        "form1[0].page1[0].namesOf[0].Row#{index}[0].fullTimeStudent[0]" => yes_no_unfilled_to_YN(dependent.was_student),
+        "form1[0].page1[0].namesOf[0].Row#{index}[0].totallyPermanentlyDisabled[0]" => yes_no_unfilled_to_YN(dependent.disabled),
+        # certified volunteer section
+        "form1[0].page1[0].namesOf[0].Row#{index}[0].qualifyingChildDependent[0]" => yes_no_na_unfilled_to_Yes_No_NA(dependent.can_be_claimed_by_other),
+        "form1[0].page1[0].namesOf[0].Row#{index}[0].ownSupport[0]" => yes_no_na_unfilled_to_Yes_No_NA(dependent.provided_over_half_own_support),
+        "form1[0].page1[0].namesOf[0].Row#{index}[0].lessThanIncome[0]" => yes_no_na_unfilled_to_Yes_No_NA(dependent.below_qualifying_relative_income_requirement),
+        "form1[0].page1[0].namesOf[0].Row#{index}[0].supportForPerson[0]" => yes_no_na_unfilled_to_Yes_No_NA(dependent.filer_provided_over_half_support),
+        "form1[0].page1[0].namesOf[0].Row#{index}[0].costMaintainingHome[0]" => yes_no_na_unfilled_to_Yes_No_NA(dependent.filer_provided_over_half_housing_support),
       }
     end
 
@@ -665,6 +688,15 @@ module PdfFiller
       }[yes_no_unfilled]
     end
 
+    def yes_no_na_unfilled_to_Yes_No_NA(yes_no_na_unfilled)
+      {
+        "yes" => "Yes",
+        "no" => "No",
+        "na" => "N/A",
+        "unfilled" => ""
+      }[yes_no_na_unfilled]
+    end
+
     def yes_no_na_unfilled_to_YNNA(yes_no_na_unfilled)
       {
         "yes" => "Y",
@@ -673,7 +705,6 @@ module PdfFiller
         "unfilled" => ""
       }[yes_no_na_unfilled]
     end
-
 
     def married_to_SM(was_married_yes_no_unfilled)
       {

@@ -95,7 +95,7 @@ RSpec.describe PdfFiller::F13614cPdf do
           paid_self_employment_expenses: "no",
           paid_student_loan_interest: "yes",
           phone_number: "+14158161286",
-          preferred_written_language: "ro",
+          preferred_written_language: "ru",
           presidential_campaign_fund_donation: "primary",
           primary_birth_date: Date.new(1961, 4, 19),
           primary_consented_to_service: "yes",
@@ -151,7 +151,12 @@ RSpec.describe PdfFiller::F13614cPdf do
           disabled: "no",
           north_american_resident: "yes",
           us_citizen: "yes",
-          was_student: "no"
+          was_student: "no",
+          can_be_claimed_by_other: "yes",
+          provided_over_half_own_support: "no",
+          below_qualifying_relative_income_requirement: "yes",
+          filer_provided_over_half_support: "yes",
+          filer_provided_over_half_housing_support: "na",
         )
         create(
           :dependent,
@@ -165,7 +170,12 @@ RSpec.describe PdfFiller::F13614cPdf do
           disabled: "no",
           north_american_resident: "yes",
           us_citizen: "yes",
-          was_student: "yes"
+          was_student: "yes",
+          can_be_claimed_by_other: "no",
+          provided_over_half_own_support: "na",
+          below_qualifying_relative_income_requirement: "yes",
+          filer_provided_over_half_support: "na",
+          filer_provided_over_half_housing_support: "yes",
         )
         create(
           :dependent,
@@ -179,8 +189,77 @@ RSpec.describe PdfFiller::F13614cPdf do
           disabled: "yes",
           north_american_resident: "yes",
           us_citizen: "no",
-          was_student: "no"
+          was_student: "no",
+          can_be_claimed_by_other: "no",
+          provided_over_half_own_support: "yes",
+          below_qualifying_relative_income_requirement: "na",
+          filer_provided_over_half_support: "na",
+          filer_provided_over_half_housing_support: "yes",
         )
+      end
+
+      it 'fills out the dependent info section on page 1 correctly' do
+        output_file = intake_pdf.output_file
+        result = non_preparer_fields(output_file.path)
+        expect(result).to include(
+                            # dependent 1
+                            "form1[0].page1[0].namesOf[0].Row1[0].nameFirstLast[0]" => "Percy Pony",
+                            "form1[0].page1[0].namesOf[0].Row1[0].dateOfBirth[0]" => "3/2/2005",
+                            "form1[0].page1[0].namesOf[0].Row1[0].relationshipToYou[0]" => "Child",
+                            "form1[0].page1[0].namesOf[0].Row1[0].monthsLivedHome[0]" => "12",
+                            "form1[0].page1[0].namesOf[0].Row1[0].singleMarried[0]" => "S",
+                            "form1[0].page1[0].namesOf[0].Row1[0].usCitizen[0]" => "Y",
+                            "form1[0].page1[0].namesOf[0].Row1[0].residentUSCandaMexico[0]" => "Y",
+                            "form1[0].page1[0].namesOf[0].Row1[0].fullTimeStudent[0]" => "N",
+                            "form1[0].page1[0].namesOf[0].Row1[0].totallyPermanentlyDisabled[0]" => "N",
+                            # dependent 2
+                            "form1[0].page1[0].namesOf[0].Row2[0].nameFirstLast[0]" => "Parker Pony",
+                            "form1[0].page1[0].namesOf[0].Row2[0].dateOfBirth[0]" => "12/10/2001",
+                            "form1[0].page1[0].namesOf[0].Row2[0].relationshipToYou[0]" => "Some kid at my house",
+                            "form1[0].page1[0].namesOf[0].Row2[0].monthsLivedHome[0]" => "4",
+                            "form1[0].page1[0].namesOf[0].Row2[0].singleMarried[0]" => "M",
+                            "form1[0].page1[0].namesOf[0].Row2[0].usCitizen[0]" => "Y",
+                            "form1[0].page1[0].namesOf[0].Row2[0].residentUSCandaMexico[0]" => "Y",
+                            "form1[0].page1[0].namesOf[0].Row2[0].fullTimeStudent[0]" => "Y",
+                            "form1[0].page1[0].namesOf[0].Row2[0].totallyPermanentlyDisabled[0]" => "N",
+                            # dependent 3
+                            "form1[0].page1[0].namesOf[0].Row3[0].nameFirstLast[0]" => "Penny Pony",
+                            "form1[0].page1[0].namesOf[0].Row3[0].dateOfBirth[0]" => "10/15/2010",
+                            "form1[0].page1[0].namesOf[0].Row3[0].relationshipToYou[0]" => "Progeny",
+                            "form1[0].page1[0].namesOf[0].Row3[0].monthsLivedHome[0]" => "12",
+                            "form1[0].page1[0].namesOf[0].Row3[0].singleMarried[0]" => "S",
+                            "form1[0].page1[0].namesOf[0].Row3[0].usCitizen[0]" => "N",
+                            "form1[0].page1[0].namesOf[0].Row3[0].residentUSCandaMexico[0]" => "Y",
+                            "form1[0].page1[0].namesOf[0].Row3[0].fullTimeStudent[0]" => "N",
+                            "form1[0].page1[0].namesOf[0].Row3[0].totallyPermanentlyDisabled[0]" => "Y",
+                            )
+      end
+
+      it 'fills out certified volunteer section of the dependent info on page 1 correctly' do
+        output_file = intake_pdf.output_file
+        result = non_preparer_fields(output_file.path)
+        expect(result).to include(
+                            "form1[0].page1[0].anyoneElseClaim[0].otherClaimYes[0]" => "",
+                            "form1[0].page1[0].anyoneElseClaim[0].otherClaimNo[0]" => "1",
+                            # dependent 1
+                            "form1[0].page1[0].namesOf[0].Row1[0].qualifyingChildDependent[0]" => "Yes",
+                            "form1[0].page1[0].namesOf[0].Row1[0].ownSupport[0]" => "No",
+                            "form1[0].page1[0].namesOf[0].Row1[0].lessThanIncome[0]" => "Yes",
+                            "form1[0].page1[0].namesOf[0].Row1[0].supportForPerson[0]" => "Yes",
+                            "form1[0].page1[0].namesOf[0].Row1[0].costMaintainingHome[0]" => "N/A",
+                            # dependent 2
+                            "form1[0].page1[0].namesOf[0].Row2[0].qualifyingChildDependent[0]" => "No",
+                            "form1[0].page1[0].namesOf[0].Row2[0].ownSupport[0]" => "N/A",
+                            "form1[0].page1[0].namesOf[0].Row2[0].lessThanIncome[0]" => "Yes",
+                            "form1[0].page1[0].namesOf[0].Row2[0].supportForPerson[0]" => "N/A",
+                            "form1[0].page1[0].namesOf[0].Row2[0].costMaintainingHome[0]" => "Yes",
+                            # dependent 3
+                            "form1[0].page1[0].namesOf[0].Row3[0].qualifyingChildDependent[0]" => "No",
+                            "form1[0].page1[0].namesOf[0].Row3[0].ownSupport[0]" => "Yes",
+                            "form1[0].page1[0].namesOf[0].Row3[0].lessThanIncome[0]" => "N/A",
+                            "form1[0].page1[0].namesOf[0].Row3[0].supportForPerson[0]" => "N/A",
+                            "form1[0].page1[0].namesOf[0].Row3[0].costMaintainingHome[0]" => "Yes",
+                            )
       end
 
       # TODO reenable for TY2024
@@ -192,10 +271,17 @@ RSpec.describe PdfFiller::F13614cPdf do
         expect(all_fields_in_pdf).to match_array(intake_pdf.hash_for_pdf.keys)
       end
 
-      # add written_language_preference lines when rebase with PR #5342
-      # "form1[0].page1[0].writtenCommunicationLanguage[0].otherLanguageNo[0]" => nil,
-      # "form1[0].page1[0].writtenCommunicationLanguage[0].otherLanguageYou[0]" => '1',
-      # "form1[0].page1[0].writtenCommunicationLanguage[0].whatLanguage[0]" => "Russian",
+      it 'fills out written language preference and voter information sections correctly' do
+        output_file = intake_pdf.output_file
+        result = non_preparer_fields(output_file.path)
+        expect(result).to include(
+                            "form1[0].page1[0].writtenCommunicationLanguage[0].otherLanguageNo[0]" => '',
+                            "form1[0].page1[0].writtenCommunicationLanguage[0].otherLanguageYou[0]" => '1',
+                            "form1[0].page1[0].writtenCommunicationLanguage[0].whatLanguage[0]" => "Russian",
+                            "form1[0].page1[0].howToVote[0].voteInformationYes[0]" => "",
+                            "form1[0].page1[0].howToVote[0].voteInformationNo[0]" => "1",
+                          )
+      end
 
       # TODO reenable for TY2024
       xit "fills out answers from the DB into the pdf" do
@@ -429,8 +515,8 @@ RSpec.describe PdfFiller::F13614cPdf do
                             "form1[0].page3[0].q5[0].IfYesWhere[0]" => "Athens",
                             "form1[0].page3[0].q6[0].yes[0]" => "Off",
                             "form1[0].page3[0].q6[0].optionNo[0]" => "1",
-                            "form1[0].page3[0].q7[0].optionYes[0]" => "Off",
-                            "form1[0].page3[0].q7[0].optionNo[0]" => "1",
+                            "form1[0].page1[0].howToVote[0].voteInformationYes[0]" => "",
+                            "form1[0].page1[0].howToVote[0].voteInformationNo[0]" => "1",
                             "form1[0].page3[0].q8[0].veryWell[0]" => "",
                             "form1[0].page3[0].q8[0].well[0]" => "1",
                             "form1[0].page3[0].q8[0].notWell[0]" => "",
