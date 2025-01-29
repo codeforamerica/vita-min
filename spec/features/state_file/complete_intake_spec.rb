@@ -165,7 +165,8 @@ RSpec.feature "Completing a state file intake", active_job: true do
   context "NC", :flow_explorer_screenshot, js: true do
     before do
       allow_any_instance_of(Efile::Nc::D400Calculator).to receive(:refund_or_owed_amount).and_return 1000
-      Flipper.enable(:show_retirement_ui)
+      allow(Flipper).to receive(:enabled?).and_call_original
+      allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
     end
 
     it "has content", required_schema: "nc" do

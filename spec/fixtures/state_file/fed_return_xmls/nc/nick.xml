@@ -158,6 +158,13 @@
       <FederalIncomeTaxWithheldAmt>300</FederalIncomeTaxWithheldAmt>
       <F1099RDistributionCd>7</F1099RDistributionCd>
       <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+      <F1099RStateLocalTaxGrp>
+        <F1099RStateTaxGrp>
+          <StateTaxWithheldAmt>0</StateTaxWithheldAmt>
+          <StateDistributionAmt>0</StateDistributionAmt>
+        </F1099RStateTaxGrp>
+      </F1099RStateLocalTaxGrp>
+      <CapitalGainAmt>0</CapitalGainAmt>
     </IRS1099R>
     <IRS1099R documentId="IRS1099R0002">
       <PayerNameControlTxt>PAYEE</PayerNameControlTxt>
@@ -178,6 +185,13 @@
       <FederalIncomeTaxWithheldAmt>300</FederalIncomeTaxWithheldAmt>
       <F1099RDistributionCd>7</F1099RDistributionCd>
       <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+      <F1099RStateLocalTaxGrp>
+        <F1099RStateTaxGrp>
+          <StateTaxWithheldAmt>0</StateTaxWithheldAmt>
+          <StateDistributionAmt>0</StateDistributionAmt>
+        </F1099RStateTaxGrp>
+      </F1099RStateLocalTaxGrp>
+      <CapitalGainAmt>0</CapitalGainAmt>
     </IRS1099R>
     <IRS2441><TotalQlfdExpensesOrLimitAmt>0</TotalQlfdExpensesOrLimitAmt></IRS2441>
   </ReturnData>
