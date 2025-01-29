@@ -31,7 +31,7 @@ module SubmissionBuilder
                         xml.SpouseSSN intake.spouse.ssn
                         xml.SpouseName do
                           xml.FirstName sanitize_for_xml(intake.spouse.first_name)
-                          xml.MiddleInitial sanitize_for_xml(intake.spouse.middle_initial) if intake.spouse.middle_initial.present?
+                          xml.MiddleInitial sanitize_middle_initial(intake.spouse.middle_initial) if sanitize_middle_initial(intake.spouse.middle_initial).present?
                           xml.LastName sanitize_for_xml(intake.spouse.last_name)
                           xml.NameSuffix intake.spouse.suffix.upcase if intake.spouse.suffix.present?
                         end
