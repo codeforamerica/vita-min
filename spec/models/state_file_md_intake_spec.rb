@@ -68,6 +68,7 @@
 #  primary_ssn                                :string
 #  primary_student_loan_interest_ded_amount   :decimal(12, 2)   default(0.0), not null
 #  primary_suffix                             :string
+#  proof_of_disability_submitted              :integer          default("unfilled"), not null
 #  raw_direct_file_data                       :text
 #  raw_direct_file_intake_data                :jsonb
 #  referrer                                   :string
