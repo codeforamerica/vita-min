@@ -23,6 +23,9 @@ module Questions
 
     def after_update_success
       super
+
+      GenerateF13614cPdfJob.perform_later(current_intake.id)
+
       if next_path == root_path
         clear_intake_session
       end

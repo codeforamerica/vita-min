@@ -8,9 +8,7 @@
   </div>
 <% end %>
 
-<% content_for :card do %>
-  <%= render "state_file/questions/shared/review_header" %>
-
+<% content_for :additional_review_header_sections do %>
   <div id="county-and-subdivision" class="white-group">
     <div class="spacing-below-5">
       <p class="spacing-below-5"><%=t(".county_html", filing_year: current_tax_year) %></p>
@@ -20,6 +18,11 @@
       <%= link_to t("general.edit"), StateFile::Questions::MdCountyController.to_path_helper(return_to_review: "y"), class: "button--small" %>
     </div>
   </div>
+<% end %>
+
+<% content_for :card do %>
+  <%= render "state_file/questions/shared/review_header" %>
+
   <div id="details" class="reveal">
     <p><button class="reveal__button"><%= t("state_file.general.see_detailed_return") %></button></p>
     <div class="reveal__content">

@@ -111,7 +111,9 @@
             <F1099RStateLocalTaxGrp>
                 <F1099RStateTaxGrp>
                     <StateAbbreviationCd>ID</StateAbbreviationCd>
+                    <PayerStateIdNum>123456789asdfghjklqwertyuiop</PayerStateIdNum>
                     <StateDistributionAmt>2000</StateDistributionAmt>
+                    <StateTaxWithheldAmt>10</StateTaxWithheldAmt>
                     <F1099RLocalTaxGrp>
                         <LocalTaxWithheldAmt>2000</LocalTaxWithheldAmt>
                         <LocalityNm>How Town</LocalityNm>

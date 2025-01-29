@@ -16,7 +16,7 @@
                 <AddressLine1Txt>456 Maple Avenue</AddressLine1Txt>
                 <CityNm>Newark</CityNm>
                 <StateAbbreviationCd>NJ</StateAbbreviationCd>
-                <ZIPCd>07102</ZIPCd>
+                <ZIPCd>07102-1234</ZIPCd>
             </USAddress>
             <PhoneNum>2015552233</PhoneNum>
         </Filer>
