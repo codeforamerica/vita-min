@@ -78,6 +78,23 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502Cr, required_sch
           expect(xml.at("Form502CR Summary")).to be_nil
           expect(xml.at("Form502CR Refundable")).not_to be_nil
         end
+
+        context "has positive MD502CR_PART_CC_LINE_7 value" do
+          before do
+            intake.direct_file_data.fed_credit_for_child_and_dependent_care_amount = 10
+            allow_any_instance_of(Efile::Md::Md502crCalculator).to receive(:calculate_part_cc_line_7).and_return 100
+          end
+
+          it "does output parts B but not M or AA but still outputs part CC" do
+            expect(xml.at("Form502CR ChildAndDependentCare FederalAdjustedGrossIncome").text.to_i).to eq(100)
+            expect(xml.at("Form502CR ChildAndDependentCare FederalChildCareCredit").text.to_i).to eq(10)
+            expect(xml.at("Form502CR ChildAndDependentCare DecimalAmount").text.to_d).to eq(0.32)
+            expect(xml.at("Form502CR ChildAndDependentCare Credit").text.to_i).to eq(3)
+            expect(xml.at("Form502CR Senior")).to be_nil
+            expect(xml.at("Form502CR Summary")).to be_nil
+            expect(xml.at("Form502CR Refundable")).not_to be_nil
+          end
+        end
       end
     end
   end
