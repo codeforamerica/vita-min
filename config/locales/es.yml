@@ -4062,8 +4062,8 @@ es:
           box14_intro_nj_html: "<p>Los empleadores pueden usar el Casillero 14 para reportar datos que no encajen en otro lugar del Formulario W-2.</p>\n<p>Este año, solo necesitaremos cualquier monto indicado para <strong>UI/WF/SWF</strong> (también puede aparecer como <strong>\"UI/HC/WD\"</strong> en tu W2) <strong>y FLI</strong>.</p> \n<p><strong>Si no los ves, deja estos campos en blanco.</strong></p> \n<p>Puede haber otros datos en el casillero 14 que no necesitan ser reportados con esta herramienta.</p>\n"
           box14_stpickup_help_text_html: Para %{year}, solo procesaremos el código STPICKUP. Si no ves este código o tienes otros códigos en Box 14, por favor déjalo en blanco.
           box14_stpickup_html: "<strong>STPICKUP</strong>"
-          box14_ui_wf_swf_html: "<strong>UI/WF/SWF</strong>"
           box14_ui_wf_swf_help_text_html: "(También puede aparecer en su W2 como <strong>UI/HC/WD.</strong>)"
+          box14_ui_wf_swf_html: "<strong>UI/WF/SWF</strong>"
           box15_html: "<strong>Casilla 15,</strong> Número de identificación estatal del empleador"
           box16_html: "<strong>Casilla 16</strong>, Salarios estatales, propinas, etc."
           box17_html: "<strong>Casilla 17</strong>, Impuesto estatal sobre los ingresos"
