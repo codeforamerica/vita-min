@@ -13,23 +13,23 @@ module StateFile
     def self.run(contact_list)
       contact_list.each_with_index do |contact, i|
         puts "."
-        if !StateFile::StateInformationService.active_state_codes.include?(contact.state_code)
-          puts "state code missing or invalid; index #{i}; #{contact.contact_info}"
+        if !StateFile::StateInformationService.active_state_codes.include?(contact[:state_code])
+          puts "state code missing or invalid; index #{i}; #{contact[:contact_info]}"
           return
         end
-        if contact.contact_info.blank?
-          puts "no contact info; index #{i}; #{contact.state_code}"
+        if contact[:contact_info].blank?
+          puts "no contact info; index #{i}; #{contact[:state_code]}"
           return
         end
-        if !contact.email && !contact.sms
-          puts "no contact method; index #{i}; #{contact.contact_info} #{contact.state_code}"
+        if !contact[:email] && !contact[:sms]
+          puts "no contact method; index #{i}; #{contact[:contact_info]} #{contact[:state_code]}"
           return
         end
         SendReminderApologyMessageJob.perform_later(
-          email: contact.email,
-          sms: contact.sms,
-          contact_info: contact.contact_info,
-          state_code: contact.state_code
+          email: contact[:email],
+          sms: contact[:sms],
+          contact_info: contact[:contact_info],
+          state_code: contact[:state_code]
         )
       end
     end

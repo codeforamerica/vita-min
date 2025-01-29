@@ -1521,13 +1521,13 @@ es:
             To continue filing your state tax return, please create a new account with FileYourStateTaxes by visiting: https://www.fileyourstatetaxes.org/en/%{state_code}/landing-page
 
             Need help? Email us at help@fileyourstatetaxes.org or chat with us on FileYourStateTaxes.org
-          subject: "FileYourStateTaxes: Regarding your %{state_name} tax return data import"
+          subject: 'FileYourStateTaxes: Regarding your %{state_name} tax return data import'
         sms: |
           Hello, you may have experienced an issue transferring your federal return data from IRS Direct File. This issue is now resolved.
 
           To continue filing your state tax return, please create a new account with FileYourStateTaxes by visiting: https://www.fileyourstatetaxes.org/en/%{state_code}/landing-page
 
-          Need help? Email us at help@fileyourstatetaxes.org"
+          Need help? Email us at help@fileyourstatetaxes.org
       finish_return:
         email:
           body: |
