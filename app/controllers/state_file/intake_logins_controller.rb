@@ -18,7 +18,7 @@ module StateFile
         intake_classes = client_login_service.intake_classes
         @records = intake_classes.map { |intake_class| @form.filter_records(intake_class) }.flatten
         if @records.blank?
-          flash[:alert] = I18n.t("state_file.intake_logins.new.#{@contact_method}.not_found")
+          flash[:alert] = I18n.t("state_file.intake_logins.new.#{@contact_method}.not_found_html")
           render :new and return
         end
       end
@@ -88,7 +88,7 @@ module StateFile
     def sign_in_and_redirect
       intake = @form.intake_to_log_in(@records)
       if intake.nil?
-        flash[:alert] = I18n.t("state_file.intake_logins.new.#{@contact_method}.not_found")
+        flash[:alert] = I18n.t("state_file.intake_logins.new.#{@contact_method}.not_found_html")
         return render :new
       end
 

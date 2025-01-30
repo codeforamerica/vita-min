@@ -530,7 +530,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
           it "sets a flash alert with the email when contact method is email" do
             post :update, params: params
 
-            expect(flash[:alert]).to eq I18n.t("state_file.intake_logins.new.email_address.not_found")
+            expect(flash[:alert]).to eq I18n.t("state_file.intake_logins.new.email_address.not_found_html")
             expect(response).to render_template(:new)
           end
 
@@ -540,7 +540,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
             it "sets flash alert for phone number" do
               post :update, params: params
 
-              expect(flash[:alert]).to eq I18n.t("state_file.intake_logins.new.sms_phone_number.not_found")
+              expect(flash[:alert]).to eq I18n.t("state_file.intake_logins.new.sms_phone_number.not_found_html")
               expect(response).to render_template(:new)
             end
           end
