@@ -90,20 +90,20 @@ RSpec.describe PdfFiller::Md502RPdf do
         allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
       end
 
-      context "with disabled filers" do
+      context "filers are disabled" do
         before do
           allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_primary_disabled).and_return "X"
           allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_spouse_disabled).and_return "X"
         end
 
-        it "outputs all relevant values" do
+        it "checks the relevant boxes" do
           expect(pdf_fields["You"]).to eq("On")
           expect(pdf_fields["Spouse"]).to eq("On")
         end
       end
 
-      context "with no disabled filers" do
-        it "outputs all relevant values" do
+      context "filers are not disabled" do
+        it "does not check the boxes" do
           expect(pdf_fields["You"]).to eq("Off")
           expect(pdf_fields["Spouse"]).to eq("Off")
         end

@@ -33,7 +33,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502R, required_sche
       end
 
       context "disability" do
-        context "with disabled filers" do
+        context "filers are disabled" do
           before do
             allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_primary_disabled).and_return "X"
             allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_spouse_disabled).and_return "X"
@@ -45,8 +45,8 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502R, required_sche
           end
         end
 
-        context "with no disabled filers" do
-          it "outputs all relevant values" do
+        context "filers are not disabled" do
+          it "outputs no values for disabled indicator" do
             expect(xml.at("Form502R PriTotalPermDisabledIndicator")).to be_nil
             expect(xml.at("Form502R SecTotalPermDisabledIndicator")).to be_nil
           end
