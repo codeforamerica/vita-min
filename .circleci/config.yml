@@ -190,6 +190,15 @@ jobs:
       - run: echo $APTIBLE_PUBLIC_KEY >> ~/.ssh/known_hosts
       - run: git fetch --depth=1000000
       - run: git push --force git@beta.aptible.com:vita-min-staging/vita-min-staging.git $CIRCLE_SHA1:master
+      - slack/notify:
+          channel: "C0544ERAFQV" # tax-eng
+          event: pass
+          template: success_tagged_deploy_1
+      - slack/notify:
+          channel: "C0544ERAFQV" # tax-eng
+          event: fail
+          mentions: "@badger"
+          template: basic_fail_1
     parallelism: 1
   deploy_to_aptible--production:
     executor: ruby_executor
@@ -227,6 +236,7 @@ workflows:
             branches:
               only: main
       - deploy_to_aptible--staging:
+          context: tax-bot
           requires: [run_js_tests, run_ruby_tests]
           filters:
             branches:
