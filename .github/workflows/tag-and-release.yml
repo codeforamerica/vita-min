@@ -30,15 +30,18 @@ on:
         type: string
 
 jobs:
-  tag-release:
+  deployment:
     runs-on: ubuntu-latest
+    environment:
+      name: vita-min-staging
+      url: https://staging.fileyourstatetaxes.org/
     steps:
-      - name: Check out release branch
+      - name: Check out deployment branch
         uses: actions/checkout@v4
         with:
-          ref: release
+          ref: staging
           fetch-tags: true
-      - name: Check for merge conflicts from main to release
+      - name: Check for merge conflicts
         run: |
           git fetch origin $GITHUB_SHA
           git merge --ff-only $GITHUB_SHA || {
@@ -51,7 +54,7 @@ jobs:
             exit 1
           }
 
-      - name: Increment release version
+      - name: Increment version
         run: |
           # parse major, minor, and patch versions from the last release
           latest_version="$(git tag --list | grep 'version-' | sort --version-sort | tail -n1)"
@@ -69,8 +72,6 @@ jobs:
           echo "NEW_VERSION=${new_version}" >> $GITHUB_ENV
 
       - name: Generate release notes
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           release_command="gh release create ${{ env.NEW_VERSION }} --target ${{ github.sha }} --generate-notes --latest --draft"
           if [[ -n "${{ github.event.inputs.release_title }}" ]]; then
@@ -84,23 +85,20 @@ jobs:
           eval ${release_command}
           echo "https://github.com/codeforamerica/vita-min/releases/latest"
 
-      - name: Merge tag into release branch
-        run: |
-          git checkout release
-          
-          echo "Updating release branch on GitHub. This triggers deployment."
+      - name: deploy
+        run: |          
           git merge "${{ env.NEW_VERSION }}" --ff-only
 
+          echo "github ref: ${GITHUB_REF}"
           if [[ "${GITHUB_REF}" != "refs/heads/main" ]]; then
             echo "this concludes testing - this job was not intiated from main"
             exit 0
           fi
-          git push origin release
+
+          echo "Updating branch on GitHub. This triggers deployment in CircleCI."
+          git push
           
-          echo "✨ Release initiated!"
-          echo "👀 Watch progress on CircleCI: https://app.circleci.com/pipelines/github/codeforamerica/vita-min?branch=release"
+          echo "✨ Deployment initiated!"
+          echo "👀 Watch progress on CircleCI: https://app.circleci.com/pipelines/github/codeforamerica/vita-min?branch=staging"
           echo "📝 Release notes here: https://github.com/codeforamerica/vita-min/releases/latest"
           echo "🧷 If needed, rollback to: ${{ env.OLD_VERSION }}"
-
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
