@@ -54,7 +54,7 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
           xml.AddressLine1Txt sanitize_for_xml(@intake.permanent_street, 30)
           xml.AddressLine2Txt sanitize_for_xml(@intake.permanent_apartment, 30) if @intake.permanent_apartment.present?
           xml.CityNm sanitize_for_xml(@intake.permanent_city, 20)
-          xml.StateAbbreviationCd @intake.direct_file_data.mailing_state.upcase
+          xml.StateAbbreviationCd "MD"
           xml.ZIPCd sanitize_zipcode(@intake.permanent_zip)
         end
       end
@@ -72,8 +72,8 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
           xml.send(filing_status, "X")
         end
       end
-      if has_exemptions?
-        xml.Exemptions do
+      xml.Exemptions do
+        if has_exemptions?
           xml.Primary do
             add_element_if_present(xml, "Standard", :MD502_LINE_A_PRIMARY)
             add_element_if_present(xml, "Over65", :MD502_LINE_B_PRIMARY_SENIOR)
@@ -86,24 +86,26 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
               add_element_if_present(xml, "Blind", :MD502_LINE_B_SPOUSE_BLIND)
             end
           end
-          xml.Standard do
-            xml.Count calculated_fields.fetch(:MD502_LINE_A_COUNT)
-            xml.Amount calculated_fields.fetch(:MD502_LINE_A_AMOUNT)
-          end
+        end
+        xml.Standard do
+          xml.Count calculated_fields.fetch(:MD502_LINE_A_COUNT)
+          xml.Amount calculated_fields.fetch(:MD502_LINE_A_AMOUNT)
+        end
+        if has_exemptions?
           xml.Additional do
             xml.Count calculated_fields.fetch(:MD502_LINE_B_COUNT)
             xml.Amount calculated_fields.fetch(:MD502_LINE_B_AMOUNT)
           end
-          if has_dependent_exemption?
-            xml.Dependents do
-              xml.Count calculated_fields.fetch(:MD502_LINE_C_COUNT)
-              xml.Amount calculated_fields.fetch(:MD502_LINE_C_AMOUNT)
-            end
+        end
+        if has_dependent_exemption?
+          xml.Dependents do
+            xml.Count calculated_fields.fetch(:MD502_LINE_C_COUNT)
+            xml.Amount calculated_fields.fetch(:MD502_LINE_C_AMOUNT)
           end
-          xml.Total do
-            xml.Count calculated_fields.fetch(:MD502_LINE_D_COUNT_TOTAL)
-            xml.Amount calculated_fields.fetch(:MD502_LINE_D_AMOUNT_TOTAL)
-          end
+        end
+        xml.Total do
+          xml.Count calculated_fields.fetch(:MD502_LINE_D_COUNT_TOTAL)
+          xml.Amount calculated_fields.fetch(:MD502_LINE_D_AMOUNT_TOTAL)
         end
       end
       if has_healthcare_coverage_section?

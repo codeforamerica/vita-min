@@ -44,7 +44,7 @@ module SubmissionBuilder
             xml_doc = build_xml_doc("Form140") do |xml|
               xml.LNPriorYrs sanitize_for_xml(@submission.data_source.prior_last_names)
               xml.FilingStatus filing_status
-              if hoh_qualifying_person.present?
+              if hoh_qualifying_person.present? && @submission.data_source.filing_status_hoh?
                 xml.QualChildDependentName do
                   xml.FirstName sanitize_for_xml(hoh_qualifying_person[:first_name], 16)
                   xml.LastName sanitize_for_xml(hoh_qualifying_person[:last_name], 32)
@@ -63,7 +63,7 @@ module SubmissionBuilder
                   xml.DependentDetails do
                     xml.Name do
                       xml.FirstName sanitize_for_xml(dependent.first_name, 16)
-                      xml.MiddleInitial sanitize_for_xml(dependent.middle_initial, 1) if dependent.middle_initial.present?
+                      xml.MiddleInitial sanitize_middle_initial(dependent.middle_initial) if sanitize_middle_initial(dependent.middle_initial).present?
                       xml.LastName sanitize_for_xml(dependent.last_name, 32)
                     end
                     unless dependent.ssn.nil?
@@ -82,7 +82,7 @@ module SubmissionBuilder
                   xml.QualParentsAncestors do
                     xml.Name do
                       xml.FirstName sanitize_for_xml(dependent.first_name, 16)
-                      xml.MiddleInitial sanitize_for_xml(dependent.middle_initial, 1) if dependent.middle_initial.present?
+                      xml.MiddleInitial sanitize_middle_initial(dependent.middle_initial) if sanitize_middle_initial(dependent.middle_initial).present?
                       xml.LastName sanitize_for_xml(dependent.last_name, 32)
                     end
                     unless dependent.ssn.nil?
