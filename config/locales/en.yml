@@ -2481,29 +2481,60 @@ en:
         other_options:
           faq_link: Visit our FAQ
           learn_more_here_html: Learn more <a href="%{link}" rel="noopener nofollow" target="_blank">here.</a>
-          md_reveal_content_html: |
-            <p>
-              You have other free options for filing your state return:
-              <ul>
-                <li>
-                  File for free with IRS-Certified VITA volunteers in Maryland.
-                  <ul>
-                    <li>
-                      If you choose this option, you'll be connected with a VITA partner in Maryland. Expect a quick intake call in a few days to discuss your tax situation and securely upload your documents. This process may take 2-3 weeks to complete.
-                    </li>
-                    <li>
-                      Get started with VITA now
-                    </li>
-                    <li>
-                      Learn more about this process and other filing options here.
-                    </li>
-                  </ul>
+          reveal_content_html:
+            md: |
+              <p>
+                You have other free options for filing your state return:
+                <ul>
                   <li>
-                    Get started with the Comptroller of Maryland's <a href="https://www.marylandtaxes.gov/individual/tax-assistance/free-tax-prep.php" rel="noopener nofollow" target="_blank">Free Income Tax Preparation</a>service.
+                    File for free with IRS-Certified VITA volunteers in Maryland.
+                    <ul>
+                      <li>
+                        If you choose this option, you'll be connected with a VITA partner in Maryland. Expect a quick intake call in a few days to discuss your tax situation and securely upload your documents. This process may take 2-3 weeks to complete.
+                      </li>
+                      <li>
+                        Get started with VITA now
+                      </li>
+                      <li>
+                        Learn more about this process and other filing options here.
+                      </li>
+                    </ul>
+                    <li>
+                      Get started with the Comptroller of Maryland's <a href="https://www.marylandtaxes.gov/individual/tax-assistance/free-tax-prep.php" rel="noopener nofollow" target="_blank">Free Income Tax Preparation</a>service.
+                    </li>
                   </li>
-                </li>
-              </ul>
-            </p>
+                </ul>
+              </p>
+            nj: |
+              <p>
+                Certified tax preparers at Simplify CT can help prepare and e-file your state tax return for free over the course of about 2-3 weeks.
+              </p>
+              <p>
+                The process:
+                <ul>
+                  <li>
+                    You complete a short form to request state-only assistance. (You will get an automated email confirming you submitted the form.)
+                  </li>
+                  <li>
+                    A certified tax preparer will share a link to securely upload your federal tax form (1040), tax documents, and ID.
+                  </li>
+                  <li>
+                    They will give you a call to ask for additional information.
+                  </li>
+                  <li>
+                    Once your return is ready, they'll schedule a call to review and answer any of your questions.
+                  </li>
+                  <li>
+                    You'll sign your state tax form online.
+                  </li>
+                  <li>
+                    The tax preparer will e-file your state taxes.
+                  </li>
+                </ul>
+              </p>
+              <p>
+                If you have questions in the meantime, please use the chat or email <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>. If you have questions after Simplify CT has contacted you, email <a href="mailto:help@simplifyct.org">help@simplifyct.org</a>.
+              </p>
           other_options_reveal:
             fees: Fees may apply.
             list:

@@ -4,11 +4,13 @@
   <p><button class="reveal__button"><%= vita_option_title %></button></p>
   <div class="reveal__content">
     <div>
-      <% if current_state_code == "md" %>
-        <%= t('.md_reveal_content_html') %>
+      <% content_key = ".reveal_content_html.#{current_state_code}" %>
+      <% content_html = t(content_key, default: nil) %>
+      <% if content_html.present? %>
+        <%= content_html.html_safe %>
       <% else %>
         <%= render partial: "state_file/questions/eligible/vita_option" %>
-      <% end %>
+      <% end %>  
     </div>
   </div>
 </div>
