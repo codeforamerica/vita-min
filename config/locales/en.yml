@@ -2512,7 +2512,9 @@ en:
               list2: Be ready to reenter info from your federal return, as it’s needed for your state return.
               list3: When filing, only submit your state return. If you submit your federal return again, your federal return may be rejected.
             title: What are my other state filing options?
-          vita_option_title: What are my free state filing options?
+          vita_option_title:
+            default: What are my free state filing options?
+            nj: Learn more about the VITA process
       eligible:
         az_credits_unsupported:
           other_credits_301_html: Nonrefundable credits listed on <a href="https://azdor.gov/sites/default/files/2023-03/FORMS_CREDIT_2022_301-SBI_f.pdf" target="_blank" rel="noopener nofollow">AZ Form 301</a>

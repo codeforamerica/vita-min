@@ -2465,7 +2465,9 @@ es:
               list2: Prepárate para volver a ingresar la información de tu declaración federal, ya que se necesita para tu declaración estatal.
               list3: Al declarar, envía sólo tu declaración estatal. Si vuelves a enviar tu declaración federal, puede ser rechazada.
             title: "¿Cuáles son mis otras opciones para declarar mis impuestos estatales?"
-          vita_option_title: "¿Qué opciones gratuitas tengo para declarar mis impuestos estatales?"
+          vita_option_title:
+            default: "¿Qué opciones gratuitas tengo para declarar mis impuestos estatales?"
+            nj: Lee más sobre el proceso de VITA
       eligible:
         az_credits_unsupported:
           other_credits_301_html: Créditos no reembolsables enumerados en el <a href="https://azdor.gov/sites/default/files/2023-03/FORMS_CREDIT_2022_301-SBI_f.pdf" target="_blank" rel="noopener nofollow">Formulario AZ 301</a>
