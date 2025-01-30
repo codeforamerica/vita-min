@@ -2,7 +2,9 @@ module StateFile
   module ArchivedIntakes
     class PdfsController < ArchivedIntakeController
       before_action :check_feature_flag
+      before_action :is_request_locked
       before_action :require_archived_intake_email
+      before_action :require_archived_intake_email_code_verified
       before_action :require_archived_intake_ssn_verified
       before_action :require_mailing_address_verified
       before_action do
@@ -30,19 +32,25 @@ module StateFile
       def require_archived_intake_email
         return if session[:email_address].present?
 
-        redirect_to root_path
+        redirect_to state_file_archived_intakes_verification_error_path
+      end
+
+      def require_archived_intake_email_code_verified
+        return if session[:code_verified].present?
+
+        redirect_to state_file_archived_intakes_verification_error_path
       end
 
       def require_archived_intake_ssn_verified
         return if session[:ssn_verified].present?
 
-        redirect_to root_path
+        redirect_to state_file_archived_intakes_verification_error_path
       end
 
       def require_mailing_address_verified
         return if session[:mailing_verified].present?
 
-        redirect_to root_path
+        redirect_to state_file_archived_intakes_verification_error_path
       end
     end
   end
