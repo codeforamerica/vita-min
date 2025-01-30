@@ -2198,7 +2198,7 @@ es:
       section_4: Transferir tus datos
       section_5: Completa tu declaración de impuestos estatales
       section_6: Envía tus impuestos estatales
-      step_description: 'Paso %{current_step} de %{total_steps}: '
+      step_description: 'Sección %{current_step} de %{total_steps}: '
     notification_mailer:
       user_message:
         unsubscribe: Si deseas cancelar la suscripción a los correos electrónicos, haz clic <a href="%{unsubscribe_link}">aquí</a>.

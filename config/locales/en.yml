@@ -2250,7 +2250,7 @@ en:
       section_4: Transfer your data
       section_5: Complete your state tax return
       section_6: Submit your state taxes
-      step_description: 'Step %{current_step} of %{total_steps}: '
+      step_description: 'Section %{current_step} of %{total_steps}: '
     notification_mailer:
       user_message:
         unsubscribe: If you would like to unsubscribe from emails, click <a href="%{unsubscribe_link}">here</a>.
