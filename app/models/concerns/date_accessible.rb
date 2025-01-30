@@ -16,6 +16,10 @@ module DateAccessible
     def self.date_accessor(*properties)
       self.date_reader(*properties)
       self.date_writer(*properties)
+
+      properties.each do |property|
+        attr_accessor "#{property}_month_val", "#{property}_day_val", "#{property}_year_val"
+      end
     end
 
     # Creates *_day, *_month, and *_year setters for the specified date
@@ -29,15 +33,15 @@ module DateAccessible
 
       properties.each do |property|
         self.define_method("#{property}_month") do
-          send(property)&.month
+          instance_variable_get("@#{property}_month_val") || send(property)&.month
         end
 
         self.define_method("#{property}_year") do
-          send(property)&.year
+          instance_variable_get("@#{property}_year_val") || send(property)&.year
         end
 
         self.define_method("#{property}_day") do
-          send(property)&.day
+          instance_variable_get("@#{property}_day_val") || send(property)&.day
         end
       end
     end
@@ -53,21 +57,22 @@ module DateAccessible
 
       properties.each do |property|
         self.define_method("#{property}_month=") do |month|
-          change_date_property(property, month: month) unless month.blank?
+          instance_variable_set("@#{property}_month_val", month.presence&.to_i)
+          try_set_date(property)
         end
 
         self.define_method("#{property}_year=") do |year|
-          change_date_property(property, year: year) unless year.blank?
+          instance_variable_set("@#{property}_year_val", year.presence&.to_i)
+          try_set_date(property)
         end
 
         self.define_method("#{property}_day=") do |day|
-          change_date_property(property, day: day) unless day.blank?
+          instance_variable_set("@#{property}_day_val", day.presence&.to_i)
+          try_set_date(property)
         end
       end
     end
 
-    # Takes in valid arguments to Date#change. Will create a new date if
-    # `date_of_contribution` is nil, otherwise will merely modify the correct
     # date part. Values can be strings as long as #to_i renders an appropriate
     # integer. Note that Date#change only accepts :year, :month, and :day as
     # keys, all other keys will be treated as nothing was passed at all.
@@ -79,15 +84,20 @@ module DateAccessible
     #
     # @param date_property [Symbol] The property to manipulate
     # @param args [Hash<Symbol, String | Integer>] Arguments conforming to Date#change
-    def change_date_property(date_property, args)
-      existing_date = send(date_property) || Date.new
+    def try_set_date(property)
+      year = instance_variable_get("@#{property}_year_val")
+      month = instance_variable_get("@#{property}_month_val")
+      day = instance_variable_get("@#{property}_day_val")
 
-      self.send(
-          "#{date_property}=",
-          existing_date.change(**args.transform_values(&:to_i))
-      )
-    rescue Date::Error
-      nil
+      if year.present? && month.present? && day.present?
+        begin
+          self.send("#{property}=", Date.new(year, month, day))
+        rescue Date::Error
+          self.send("#{property}=", nil)
+        end
+      else
+        self.send("#{property}=", nil)
+      end
     end
   end
 end
