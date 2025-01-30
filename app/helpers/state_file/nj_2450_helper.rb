@@ -19,7 +19,7 @@ module StateFile
     end
 
     def get_column_a(w2)
-      column_a = w2.box14_ui_wf_swf&.positive? ? w2.box14_ui_wf_swf : w2.box14_ui_hc_wd
+      column_a = w2.get_box14_ui_overwrite || 0
       column_a&.round || 0
     end
 
