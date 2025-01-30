@@ -25,18 +25,45 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502R, required_sche
         expect(xml.at("Form502R SecondaryAge").text.to_i).to eq(64)
       end
 
-      context "Line 9" do
+      context "show_md_ssa" do
         before do
-          allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_9a).and_return 100
-          allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_9b).and_return 200
           allow(Flipper).to receive(:enabled?).and_call_original
           allow(Flipper).to receive(:enabled?).with(:show_md_ssa).and_return(true)
         end
-        it "outputs all relevant values" do
-          expect(xml.at("Form502R PriSSecurityRailRoadBenefits").text.to_i).to eq(100)
-          expect(xml.at("Form502R SecSSecurityRailRoadBenefits").text.to_i).to eq(200)
+
+        context "disability" do
+          context "with disabled filers" do
+            before do
+              allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_primary_disabled).and_return "X"
+              allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_spouse_disabled).and_return "X"
+            end
+
+            it "outputs all relevant values" do
+              expect(xml.at("Form502R PriTotalPermDisabledIndicator").text).to eq("X")
+              expect(xml.at("Form502R SecTotalPermDisabledIndicator").text).to eq("X")
+            end
+          end
+
+          context "with no disabled filers" do
+            it "outputs all relevant values" do
+              expect(xml.at("Form502R PriTotalPermDisabledIndicator")).to be_nil
+              expect(xml.at("Form502R SecTotalPermDisabledIndicator")).to be_nil
+            end
+          end
+        end
+
+        context "Line 9" do
+          before do
+            allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_9a).and_return 100
+            allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_9b).and_return 200
+          end
+          it "outputs all relevant values" do
+            expect(xml.at("Form502R PriSSecurityRailRoadBenefits").text.to_i).to eq(100)
+            expect(xml.at("Form502R SecSSecurityRailRoadBenefits").text.to_i).to eq(200)
+          end
         end
       end
+
     end
   end
 end
