@@ -58,8 +58,8 @@ jobs:
         run: |
           # parse major, minor, and patch versions from the last release
           latest_version="$(git tag --list | grep 'version-' | sort --version-sort | tail -n1)"
-          IFS='.' read -r major minor patch <<< "${latest_version#version-}"
-          echo "OLD_VERSION=$latest_version" >> $GITHUB_ENV
+          IFS='.' read -r major minor patch <<< "${latest_version#staging-}"
+          echo "OLD_VERSION=${latest_version:-0.0.0}" >> $GITHUB_ENV
           
           # increment appropriately for the release type (default to patch)
           release_type="${{ github.event.inputs.release_type || 'patch' }}"
@@ -68,12 +68,12 @@ jobs:
             "minor" ) ((minor++)); patch=0;;
             "patch" ) ((patch++));;
           esac
-          new_version="version-${major}.${minor}.${patch}"
+          new_version="staging-${major}.${minor}.${patch}"
           echo "NEW_VERSION=${new_version}" >> $GITHUB_ENV
 
       - name: Generate release notes
         run: |
-          release_command="gh release create ${{ env.NEW_VERSION }} --target ${{ github.sha }} --generate-notes --latest --draft"
+          release_command="gh release create ${{ env.NEW_VERSION }} --target ${{ github.sha }} --generate-notes --draft"
           if [[ -n "${{ github.event.inputs.release_title }}" ]]; then
             release_command="${release_command} --title '${{ github.event.inputs.release_title }}'"
           fi
@@ -102,3 +102,5 @@ jobs:
           echo "👀 Watch progress on CircleCI: https://app.circleci.com/pipelines/github/codeforamerica/vita-min?branch=staging"
           echo "📝 Release notes here: https://github.com/codeforamerica/vita-min/releases/latest"
           echo "🧷 If needed, rollback to: ${{ env.OLD_VERSION }}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
