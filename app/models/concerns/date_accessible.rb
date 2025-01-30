@@ -73,7 +73,7 @@ module DateAccessible
     # keys, all other keys will be treated as nothing was passed at all.
     #
     # Note that until all three fragments are passed; month, day, and year
-    # For year, a range must be indicated or else it is not validated.
+    # For year, a range must be indicated on the validator on the property itself
     #
     # @see Date#change
     #

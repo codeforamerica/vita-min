@@ -24,12 +24,12 @@ module StateFile
 
       validates :issue_date,
                 inclusion: {
-                  in: Date.new(2000)..DateTime.now, message: I18n.t('errors.attributes.birth_date.blank')
+                  in: Date.new(2000)..DateTime.now, message: ->(_object, _data) {I18n.t('errors.attributes.birth_date.blank')}
                 },
                 presence: true, unless: -> { id_type == "no_id" }
       validates :expiration_date,
                 inclusion: {
-                  in: Date.new(Time.now.year - 3)..Date.new(Time.now.year + 50), message: I18n.t('errors.attributes.birth_date.blank')
+                  in: Date.new(Time.now.year - 3)..Date.new(Time.now.year + 50), message: ->(_object, _data) { I18n.t('errors.attributes.birth_date.blank') }
                 },
                 presence: true, unless: -> { id_type == "no_id" || non_expiring == "1" }
       validates :state, presence: true, inclusion: { in: States.keys }, unless: -> { id_type == "no_id" }
