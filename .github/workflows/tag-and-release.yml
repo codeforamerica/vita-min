@@ -1,0 +1,105 @@
+name: Tag and Release
+# 1. Tag latest commit on main
+# 2. Compare tag to release, get github release notes
+# 3. Merge main into release branch (triggers CircleCI pipeline)
+
+on:
+  push:
+    branches:
+      - main
+      - fake-main-for-testing
+  workflow_dispatch:
+    inputs:
+      release_type:
+        description: 'Part of version to increment (major, minor, patch)'
+        required: true
+        default: 'patch'
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+      release_title:
+        description: 'Optional title to replace auto-generated one'
+        required: false
+        type: string
+      additional_notes:
+        description: 'Optional notes to prepend to auto-generated notes'
+        required: false
+        type: string
+
+jobs:
+  tag-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out release branch
+        uses: actions/checkout@v4
+        with:
+          ref: release
+          fetch-tags: true
+      - name: Check for merge conflicts from main to release
+        run: |
+          git checkout release
+          git merge --ff-only $GITHUB_SHA || {
+            # merge failed
+            echo "unable to merge via fast-forward. likely conflict."
+            echo "try viewing the conflict output locally:"
+            echo "\`git fetch origin\`"
+            echo "\`git checkout release\`"
+            echo "\`git merge -ff main\`"
+            exit 1
+          }
+
+      - name: Increment release version
+        run: |
+          # parse major, minor, and patch versions from the last release
+          latest_version="$(git tag --list | grep 'version-' | sort --version-sort | tail -n1)"
+          IFS='.' read -r major minor patch <<< "$latest_version"
+          echo "OLD_VERSION=$latest_version" >> $GITHUB_ENV
+          
+          # increment appropriately for the release type (default to patch)
+          release_type="${{ github.event.inputs.release_type || 'patch' }}"
+          case "${release_type}" in
+            "major" ) ((major++)); minor=0; patch=0;;
+            "minor" ) ((minor++)); patch=0;;
+            "patch" ) ((patch++));;
+          esac
+          new_version="version-${major}.${minor}.${patch}"
+          echo "NEW_VERSION=${new_version}" >> $GITHUB_ENV
+
+      - name: Generate release notes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          release_command="gh release create ${{ env.NEW_VERSION }} --target ${{ github.sha }} --generate-notes --latest"
+          if [[ -n "${{ github.event.inputs.release_title }}" ]]; then
+            release_command="${release_command} --title '${{ github.event.inputs.release_title }}'"
+          fi
+          if [[ -n "${{ github.event.inputs.additional_notes }}" ]]; then
+            release_command="${release_command} --notes '${{ github.event.inputs.additional_notes }}'"
+          fi
+
+          echo "Running: ${release_command}"
+          eval ${release_command}
+          echo "https://github.com/codeforamerica/vita-min/releases/latest"
+
+      - name: Merge tag into release branch
+        run: |
+          git checkout release
+          
+          echo "Updating release branch on GitHub. This triggers deployment."
+          git merge "${{ env.NEW_VERSION }}" --ff-only
+
+          if [[ -n ${{ github.ref != 'refs/heads/main' }} ]]; then
+            echo "this concludes testing - this job was not intiated from main"
+            exit 0
+          fi
+          git push origin release
+          
+          echo "✨ Release initiated!"
+          echo "👀 Watch progress on CircleCI: https://app.circleci.com/pipelines/github/codeforamerica/vita-min?branch=release"
+          echo "📝 Release notes here: https://github.com/codeforamerica/vita-min/releases/latest"
+          echo "🧷 If needed, rollback to: ${{ env.OLD_VERSION }}"
+
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
