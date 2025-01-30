@@ -14,7 +14,7 @@ describe Efile::Md::Md502Calculator do
   describe "#calculate_line_a_primary" do
     context 'primary not claimed as a dependent' do
       before do
-        intake.direct_file_data.primary_claim_as_dependent = ""
+        allow_any_instance_of(DirectFileData).to receive(:claimed_as_dependent?).and_return false
       end
 
       it "checks the value" do
@@ -25,7 +25,7 @@ describe Efile::Md::Md502Calculator do
 
     context 'primary is claimed as a dependent' do
       before do
-        intake.direct_file_data.primary_claim_as_dependent = "X"
+        allow_any_instance_of(DirectFileData).to receive(:claimed_as_dependent?).and_return true
       end
 
       it "returns nil" do
@@ -70,7 +70,7 @@ describe Efile::Md::Md502Calculator do
     context "when line a yourself is checked but spouse isn't" do
       before do
         intake.direct_file_data.filing_status = 1 # single
-        intake.direct_file_data.primary_claim_as_dependent = ""
+        allow_any_instance_of(DirectFileData).to receive(:claimed_as_dependent?).and_return false
       end
 
       it "returns 1" do
@@ -82,7 +82,7 @@ describe Efile::Md::Md502Calculator do
     context "when line a yourself and spouse isn't checked" do
       before do
         intake.direct_file_data.filing_status = 1 # single
-        intake.direct_file_data.primary_claim_as_dependent = "X"
+        allow_any_instance_of(DirectFileData).to receive(:claimed_as_dependent?).and_return true
       end
 
       it "returns 1" do
@@ -95,7 +95,7 @@ describe Efile::Md::Md502Calculator do
   describe "#calculate_line_a_amount" do
     context "when primary or spouse is claimed as a dependent" do
       before do
-        intake.direct_file_data.primary_claim_as_dependent = "X"
+        allow_any_instance_of(DirectFileData).to receive(:claimed_as_dependent?).and_return true
       end
 
       it "returns 0" do
@@ -698,7 +698,7 @@ describe Efile::Md::Md502Calculator do
                 before do
                   allow_any_instance_of(described_class).to receive(:calculate_line_16).and_return agi_limit
                   if filing_status == "dependent"
-                    intake.direct_file_data.primary_claim_as_dependent = "X"
+                    allow_any_instance_of(DirectFileData).to receive(:claimed_as_dependent?).and_return true
                   end
                 end
 
