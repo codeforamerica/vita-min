@@ -92,7 +92,8 @@ jobs:
           echo "https://github.com/codeforamerica/vita-min/releases/latest"
 
       - name: deploy
-        run: |          
+        run: |
+          git fetch --tags
           git merge "${{ env.NEW_VERSION }}" --ff-only
 
           echo "github ref: ${GITHUB_REF}"
