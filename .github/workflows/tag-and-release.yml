@@ -4,6 +4,11 @@ name: Tag and Release
 # 3. Merge main into release branch (triggers CircleCI pipeline)
 
 on:
+  # workflow_dispatch will only work if the default branch has this config
+  # for testing, this will run action on every merge (does not test inputs)
+  push:
+    branches:
+      - fake-main-for-testing
   workflow_dispatch:
     inputs:
       release_type:
