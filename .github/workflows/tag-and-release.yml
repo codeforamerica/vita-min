@@ -35,9 +35,11 @@ jobs:
     environment:
       name: vita-min-staging
       url: https://staging.fileyourstatetaxes.org/
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Check out deployment branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
         with:
           ref: staging
           fetch-tags: true
@@ -57,16 +59,20 @@ jobs:
       - name: Increment version
         run: |
           # parse major, minor, and patch versions from the last release
-          latest_version="$(git tag --list | grep 'version-' | sort --version-sort | tail -n1)"
-          IFS='.' read -r major minor patch <<< "${latest_version#staging-}"
-          echo "OLD_VERSION=${latest_version:-0.0.0}" >> $GITHUB_ENV
+          latest_tag="$(git tag --list | grep 'staging-' | sort --version-sort | tail -n1)"
+          trimmed_version="${latest_version#staging-}"
+          old_version="${trimmed_version:-0.0.0}"
+          IFS='.' read -r major minor patch <<< "${old_version}"
+          echo "OLD_VERSION=${old_version}" >> $GITHUB_ENV
           
           # increment appropriately for the release type (default to patch)
           release_type="${{ github.event.inputs.release_type || 'patch' }}"
+          echo "incrementing ${release_type} version"
           case "${release_type}" in
-            "major" ) ((major++)); minor=0; patch=0;;
-            "minor" ) ((minor++)); patch=0;;
-            "patch" ) ((patch++));;
+            'major' ) ((major=major+1)); minor=0; patch=0;;
+            'minor' ) ((minor=minor+1)); patch=0;;
+            'patch' ) ((patch=patch+1));;
+            * ) echo "Invalid release type"; exit 1;;
           esac
           new_version="staging-${major}.${minor}.${patch}"
           echo "NEW_VERSION=${new_version}" >> $GITHUB_ENV
@@ -102,5 +108,3 @@ jobs:
           echo "👀 Watch progress on CircleCI: https://app.circleci.com/pipelines/github/codeforamerica/vita-min?branch=staging"
           echo "📝 Release notes here: https://github.com/codeforamerica/vita-min/releases/latest"
           echo "🧷 If needed, rollback to: ${{ env.OLD_VERSION }}"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
