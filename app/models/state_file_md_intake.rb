@@ -219,10 +219,6 @@ class StateFileMdIntake < StateFileBaseIntake
     true
   end
 
-  def check_nra_status?
-    true
-  end
-
   def allows_refund_amount_in_xml?
     false
   end
