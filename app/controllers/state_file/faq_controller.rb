@@ -2,14 +2,22 @@ class StateFile::FaqController < ApplicationController
   layout "state_file"
 
   def index
-    visible_state_code_names = StateFile::StateInformationService.state_code_to_name_map.filter do |state_code, _|
-      filing_years_to_show.all? { |year| StateFile::StateInformationService.filing_years(state_code).include?(year) }
+    visible_state_code_names = StateFile::StateInformationService.state_code_to_name_map
+      .filter { |state_code, _| filing_years_to_show.all? { |year| StateFile::StateInformationService.filing_years(state_code).include?(year) } }
+      .reduce({}) { |acc, (state_code, state_name)| acc[state_code] = { state_name: }; acc}
+
+    visible_state_code_names.slice!(params[:us_state]) unless params[:us_state] == "us"
+    product_types = visible_state_code_names.keys.map do |code|
+      FaqCategory.state_to_product_type(code)
     end
-    @state_code_names = if params[:us_state] == 'us'
-                          visible_state_code_names
-                        else
-                          visible_state_code_names.slice(params[:us_state])
-                        end
+
+    @categories = FaqCategory
+      .where(product_type: product_types)
+      .reduce(visible_state_code_names) do |acc, cat|
+        acc[cat.product_type.last(2)][:categories] ||= []
+        acc[cat.product_type.last(2)][:categories] << cat
+        acc
+      end
   end
 
   def show

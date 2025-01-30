@@ -1,9 +1,12 @@
 <div class="spacing-above-35">
-  <% @state_code_names.each do |_state_code, _state_name| %>
-    <% title = t('.title', state: _state_name) %>
-    <h1 class="h2"><%= title %></h1>
+  <% @categories.each do |state_code, data| %>
+    <h1 class="h2"><%= t('.title', state: data[:state_name]) %></h1>
     <div class="spacing-below-35 spacing-above-35">
-      <%= render 'state_file/state_file_pages/state_taxpayers', state: _state_code %>
+      <% data[:categories]&.each do |cat| %>
+        <div class="spacing-above-15">
+          <%= link_to cat.name(I18n.locale), state_faq_section_path(section_key: cat.slug, us_state: state_code) %>
+        </div>
+      <% end %>
     </div>
   <% end %>
 </div>
