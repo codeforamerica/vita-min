@@ -41,7 +41,7 @@ class Ability
         cannot :manage, StateId
         cannot :manage, EfileSubmission, data_source_type: StateFile::StateInformationService.state_intake_class_names
         cannot :manage, EfileError do |error|
-          error.service_type == "state_file" || error.service_type == "unfilled"
+          %w[state_file unfilled state_file_az state_file_ny state_file_md state_file_nc state_file_id].include?(error.service_type)
         end
       end
       unless user.email.include?("@codeforamerica.org")

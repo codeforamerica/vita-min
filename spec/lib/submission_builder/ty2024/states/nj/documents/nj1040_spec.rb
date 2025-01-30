@@ -199,6 +199,16 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
         expect(xml.document.at('FilingStatus MarriedCuPartFilingSeparate SpouseName LastName').text).to eq(intake.spouse.last_name)
       end
 
+      context "without spouse ssn" do
+        let(:intake) { create(:state_file_nj_intake, :married_filing_separately) }
+        
+        it "does not fill spouse ssn, but fills other spouse fields" do
+          intake.direct_file_data.spouse_ssn = nil
+          expect(xml.document.at('FilingStatus MarriedCuPartFilingSeparate SpouseSSN')).to eq(nil)
+          expect(xml.document.at('FilingStatus MarriedCuPartFilingSeparate SpouseName FirstName').text).to eq(intake.spouse.first_name)
+        end
+      end
+
       context "has lower cased suffix" do
         before do
           intake.spouse_suffix = "sr"

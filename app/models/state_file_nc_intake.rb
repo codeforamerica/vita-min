@@ -155,4 +155,8 @@ class StateFileNcIntake < StateFileBaseIntake
   def allows_w2_editing?
     false
   end
+
+  def check_nra_status?
+    true
+  end
 end

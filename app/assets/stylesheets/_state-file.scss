@@ -72,14 +72,11 @@
   font-size: 1.6rem;
   -webkit-font-smoothing: antialiased;
   font-smooth: always;
+  background-color: $color-state-file-bg;
 
   .fyst-logo {
     width: 222px;
     height: 38px;
-  }
-
-  .question-layout {
-    background-color: $color-state-file-bg;
   }
 
   .main-header {

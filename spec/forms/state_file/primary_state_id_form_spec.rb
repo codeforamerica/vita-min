@@ -35,6 +35,29 @@ RSpec.describe StateFile::PrimaryStateIdForm do
   end
 
   describe "#valid?" do
+    context "when params are invalid" do
+      let(:invalid_params) do
+        {
+          "id_type" => "driver_license",
+          "id_number" => "123456789",
+          "issue_date_month" => "3",
+          "issue_date_day" => "6",
+          "issue_date_year" => "",
+          "expiration_date_month" => "4",
+          "expiration_date_day" => "5",
+          "expiration_date_year" => "",
+          "state" => "AZ",
+        }
+      end
+
+      it "returns false" do
+        form = described_class.new(intake, invalid_params)
+        expect(form).not_to be_valid
+        expect(form.errors[:issue_date]).to be_present
+        expect(form.errors[:expiration_date]).to be_present
+      end
+    end
+
     context "when no state id" do
       let(:params) do
         {

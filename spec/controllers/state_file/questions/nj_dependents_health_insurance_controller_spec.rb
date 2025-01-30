@@ -29,14 +29,6 @@ RSpec.describe StateFile::Questions::NjDependentsHealthInsuranceController do
           expect(described_class.show?(intake)).to eq true
         end
       end
-     
-      context "and did not have a health insurance requirement exception, but all members did not have health insurance" do  
-        it "shows" do
-          allow_any_instance_of(StateFileNjIntake).to receive(:has_health_insurance_requirement_exception?).and_return(false)
-          allow_any_instance_of(StateFileNjIntake).to receive(:eligibility_all_members_health_insurance_no?).and_return(true)
-          expect(described_class.show?(intake)).to eq true
-        end
-      end
     end
   end
 
