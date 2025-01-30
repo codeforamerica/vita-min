@@ -42,8 +42,8 @@ describe Efile::Md::Md502RCalculator do
     context "spouse filer is disabled" do
       let(:spouse_disabled) { "yes" }
 
-      it "returns X" do
-        expect(instance.lines[:MD502R_LINE_SPOUSE_DISABLED].value).to eq 'X'
+      it "returns nil" do
+        expect(instance.lines[:MD502R_LINE_SPOUSE_DISABLED].value).to eq nil
       end
     end
 
@@ -52,6 +52,26 @@ describe Efile::Md::Md502RCalculator do
 
       it "returns nil" do
         expect(instance.lines[:MD502R_LINE_SPOUSE_DISABLED].value).to eq nil
+      end
+    end
+
+    context "filing_status mfj" do
+      let(:filing_status) { "married_filing_jointly" }
+
+      context "spouse filer is disabled" do
+        let(:spouse_disabled) { "yes" }
+
+        it "returns X" do
+          expect(instance.lines[:MD502R_LINE_SPOUSE_DISABLED].value).to eq 'X'
+        end
+      end
+
+      context "spouse filer is not disabled" do
+        let(:spouse_disabled) { "no" }
+
+        it "returns nil" do
+          expect(instance.lines[:MD502R_LINE_SPOUSE_DISABLED].value).to eq nil
+        end
       end
     end
   end
