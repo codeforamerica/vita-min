@@ -29,11 +29,40 @@ describe Efile::Md::Md502SuCalculator do
     end
   end
 
+  describe 'line u' do
+    let!(:state_file_md1099_r_followup_with_military_service_1) do
+      create(
+        :state_file_md1099_r_followup,
+        service_type: "military",
+        state_file1099_r: create(:state_file1099_r, taxable_amount: 1_000, intake: intake)
+      )
+    end
+    let!(:state_file_md1099_r_followup_with_military_service_2) do
+      create(
+        :state_file_md1099_r_followup,
+        service_type: "military",
+        state_file1099_r: create(:state_file1099_r, taxable_amount: 1_000, intake: intake)
+      )
+    end
+    let!(:state_file_md1099_r_followup_without_military) do
+      create(
+        :state_file_md1099_r_followup,
+        service_type: "none",
+        state_file1099_r: create(:state_file1099_r, taxable_amount: 1_000, intake: intake)
+      )
+    end
+    it "totals the military retirement income" do
+      instance.calculate
+      expect(instance.lines[:MD502_SU_LINE_U].value).to eq(2_000)
+    end
+  end
+
   describe 'line 1' do
     it 'totals lines a through yc' do
       allow(instance).to receive(:calculate_line_ab).and_return 100
+      allow(instance).to receive(:calculate_line_u).and_return 100
       instance.calculate
-      expect(instance.lines[:MD502_SU_LINE_1].value).to eq(100)
+      expect(instance.lines[:MD502_SU_LINE_1].value).to eq(200)
     end
   end
 end

@@ -11,10 +11,13 @@ module SubmissionBuilder
             def document
               build_xml_doc("Form502SU", documentId: "Form502SU") do |xml|
                 xml.Subtractions do |subtractions|
-                  if calculated_fields.fetch(:MD502_SU_LINE_AB).positive?
-                    subtractions.OtherDetail do |other_detail|
-                      other_detail.Code "AB"
-                      other_detail.Amount calculated_fields.fetch(:MD502_SU_LINE_AB)
+                  code_letters.each do |code_letter|
+                    code_letter_calculation = "MD502_SU_LINE_#{code_letter}".to_sym
+                    if calculated_fields.fetch(code_letter_calculation).positive?
+                      subtractions.OtherDetail do |other_detail|
+                        other_detail.Code code_letter
+                        other_detail.Amount calculated_fields.fetch(code_letter_calculation)
+                      end
                     end
                   end
                   subtractions.Total calculated_fields.fetch(:MD502_SU_LINE_1)
@@ -23,6 +26,10 @@ module SubmissionBuilder
             end
 
             private
+
+            def code_letters
+              ["AB", "U"]
+            end
 
             def intake
               @submission.data_source

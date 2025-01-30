@@ -6,7 +6,7 @@ module Efile
       def initialize(value_access_tracker:, lines:, intake:)
         @value_access_tracker = value_access_tracker
         @lines = lines
-        intake = intake
+        @intake = intake
         @direct_file_json_data = intake.direct_file_json_data
       end
 
@@ -23,7 +23,11 @@ module Efile
         @direct_file_json_data.interest_reports.sum(&:interest_on_government_bonds).round
       end
 
-      def calculate_line_u; end
+      def calculate_line_u
+        @intake.state_file1099_rs.where.not(state_specific_followup: nil).sum do |state_file1099_r|
+          state_file1099_r.state_specific_followup.service_type_military? ? state_file1099_r.taxable_amount : 0
+        end
+      end
 
       def calculate_line_v; end
 
