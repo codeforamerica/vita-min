@@ -8,6 +8,7 @@ module StateFile
       end
 
       def index
+        binding.pry
         @az322_contributions = current_intake.az322_contributions
         unless @az322_contributions.present?
           build_contribution
@@ -16,6 +17,7 @@ module StateFile
       end
 
       def new
+        binding.pry
         build_contribution
       end
 
@@ -24,25 +26,31 @@ module StateFile
       end
 
       def create
-        @az322_contribution = current_intake.az322_contributions.build(az322_contribution_params)
+        binding.pry
         @az322_contributions = current_intake.az322_contributions
-        if @az322_contribution.made_contribution_no?
-          return redirect_to next_path
-        end
+        if @az322_contributions.present?
+          @az322_contribution = current_intake.az322_contributions.build(az322_contribution_params)
+          @az322_contributions = current_intake.az322_contributions
+          if @az322_contribution.made_contribution_no?
+            return redirect_to next_path
+          end
 
-        if current_intake.valid?(:az322) && @az322_contribution.valid?
-          @az322_contribution.save
-          redirect_to action: :index, return_to_review: params[:return_to_review]
+          if current_intake.valid?(:az322) && @az322_contribution.valid?
+            @az322_contribution.save
+            redirect_to action: :index, return_to_review: params[:return_to_review]
+          end
         else
-          render :new
+          render :index
         end
       end
 
       def edit
+        binding.pry
         @az322_contribution = current_intake.az322_contributions.find(params[:id])
       end
 
       def update
+        binding.pry
         @az322_contribution = current_intake.az322_contributions.find(params[:id])
         @az322_contribution.assign_attributes(az322_contribution_params)
 
@@ -50,11 +58,12 @@ module StateFile
           @az322_contribution.destroy
           return redirect_to action: :index, return_to_review: params[:return_to_review]
         end
-
+        binding.pry
         if @az322_contribution.valid?
           @az322_contribution.save
           redirect_to action: :index, return_to_review: params[:return_to_review]
         else
+          binding.pry
           render :edit
         end
       end
