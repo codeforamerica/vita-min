@@ -4,8 +4,7 @@ module StateFile
       include ReturnToReviewConcern
 
       def self.show?(intake)
-        return false unless intake.dependents.any?
-        intake.has_health_insurance_requirement_exception? || intake.eligibility_all_members_health_insurance_no?
+        intake.dependents.any? && intake.has_health_insurance_requirement_exception?
       end
 
       def form_params
