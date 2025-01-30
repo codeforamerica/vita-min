@@ -1,4 +1,5 @@
-<% title = t(".title") %>
+<% title_key = ".title.#{current_state_code}" %>
+<% title = I18n.exists?(title_key, locale) ? t(title_key) : t(".title.default") %>
 
 <% content_for :page_title, title %>
 <% content_for :card do %>
