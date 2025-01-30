@@ -571,7 +571,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
   # Added help text to label and field method instead to remove it from label
   def label_contents(label_text, help_text, optional: false, include_help_text: true)
     label_text = <<~HTML
-      <div class="form-question">#{label_text + optional_text(optional)}</div>
+      <span class="form-question">#{label_text + optional_text(optional)}</span>
     HTML
 
     if help_text && include_help_text
