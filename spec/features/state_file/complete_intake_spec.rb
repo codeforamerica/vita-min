@@ -12,7 +12,6 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
   context "AZ", :flow_explorer_screenshot, js: true do
     it "has content", required_schema: "az" do
-      click_on "Nothing"
       visit "/"
       click_on "Start Test AZ"
 
