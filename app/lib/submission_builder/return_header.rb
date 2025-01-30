@@ -51,7 +51,7 @@ module SubmissionBuilder
                 xml.LastName sanitize_for_xml(@submission.data_source.spouse.last_name, 32) if @submission.data_source.spouse.last_name.present?
                 xml.NameSuffix @submission.data_source.spouse.suffix.upcase if @submission.data_source.spouse.suffix.present?
               end
-              if @intake.check_nra_status? && @intake.direct_file_data.non_resident_alien == "NRA" && @intake.filing_status_mfs?
+              if @intake.direct_file_data.non_resident_alien == "NRA"
                 xml.NRALiteralCd "NRA"
               else
                 xml.TaxpayerSSN @submission.data_source.spouse.ssn if @submission.data_source.spouse.ssn.present?
