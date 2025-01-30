@@ -393,9 +393,22 @@ describe SubmissionBuilder::ReturnHeader do
 
     context "AZ intake" do
       let(:intake) { create(:state_file_az_intake,) }
+      let(:submission) { create(:efile_submission, data_source: intake) }
+      let(:doc) { SubmissionBuilder::ReturnHeader.new(submission).document }
       it "does not include disaster relief xml" do
         expect(doc.at('DisasterReliefTxt')).not_to be_present
       end
+    end
+  end
+
+  context "NC or MD filer with MFS status and NRA spouse" do
+    let(:intake) { create(:state_file_md_intake, :mfs_with_nra_spouse) }
+    let(:submission) { create(:efile_submission, data_source: intake) }
+    let(:doc) { SubmissionBuilder::ReturnHeader.new(submission).document }
+
+    it "it does not fill out spouse ssn and fills in NRALiteralCd" do
+      expect(doc.at('Filer Secondary TaxpayerSSN')).not_to be_present
+      expect(doc.at('Filer Secondary NRALiteralCd').content).to eq "NRA"
     end
   end
 end
