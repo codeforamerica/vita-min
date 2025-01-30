@@ -9,10 +9,15 @@ module Hub
     before_action :setup_sortable_client, only: [:index]
     # need to use the presenter for :update bc it has ITIN applicant methods that are used in the form
     before_action :wrap_client_in_hub_presenter, only: [:show, :edit, :edit_take_action, :update, :update_take_action]
-    before_action :redirect_unless_client_is_hub_status_editable, only: [:edit, :edit_take_action, :update, :update_take_action]
+    before_action :redirect_if_not_authorized, only: [
+      :edit, :edit_take_action, :update, :update_take_action,
+      :edit_13614c_form_page1, :update_13614c_form_page1,
+      :edit_13614c_form_page2, :update_13614c_form_page2,
+      :edit_13614c_form_page3, :update_13614c_form_page3,
+      :edit_13614c_form_page4, :update_13614c_form_page4,
+      :edit_13614c_form_page5, :update_13614c_form_page5
+    ]
     layout "hub"
-
-    MAX_COUNT = 1000
 
     def index
       @page_title = I18n.t("hub.clients.index.title")
@@ -47,8 +52,6 @@ module Hub
     end
 
     def edit
-      return render "public_pages/page_not_found", status: 404 if @client.intake.is_ctc?
-
       @form = UpdateClientForm.from_client(@client)
     end
 
@@ -130,6 +133,10 @@ module Hub
 
     def edit_13614c_form_page5
       @form = Update13614cFormPage5.from_client(@client)
+    end
+
+    def redirect_if_not_authorized
+      raise CanCan::AccessDenied if @client.nil? || cannot?(:update, @client) || @client.intake.is_ctc?
     end
 
     def save_and_maybe_exit(save_button_clicked, path_to_13614c_page)
@@ -266,10 +273,6 @@ module Hub
 
     def wrap_client_in_hub_presenter
       @client = HubClientPresenter.new(@client)
-    end
-
-    def redirect_unless_client_is_hub_status_editable
-      redirect_to hub_client_path(id: @client.id) unless @client.hub_status_updatable
     end
 
     class HubClientPresenter < SimpleDelegator
