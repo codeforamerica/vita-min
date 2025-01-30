@@ -401,7 +401,7 @@ describe SubmissionBuilder::ReturnHeader do
     end
   end
 
-  context "NC or MD filer with MFS status and NRA spouse" do
+  context "filer with MFS status NRA spouse if condition is to be checked" do
     let(:intake) { create(:state_file_md_intake, :mfs_with_nra_spouse) }
     let(:submission) { create(:efile_submission, data_source: intake) }
     let(:doc) { SubmissionBuilder::ReturnHeader.new(submission).document }

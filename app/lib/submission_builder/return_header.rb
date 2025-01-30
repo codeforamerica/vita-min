@@ -43,7 +43,8 @@ module SubmissionBuilder
             xml.DateSigned date_type_for_timezone(@submission.data_source.primary_esigned_at)&.strftime("%F") if @submission.data_source.primary_esigned_yes?
             xml.USPhone @submission.data_source.direct_file_data.phone_number if @submission.data_source.direct_file_data.phone_number.present?
           end
-          if @submission.data_source&.spouse&.ssn.present? && @submission.data_source&.spouse&.first_name.present? && (!@intake.filing_status_mfs? || @intake.check_nra_status?)
+          has_nra_spouse = @intake.check_nra_status? && @intake.direct_file_data.non_resident_alien == "NRA" && @intake.filing_status_mfs?
+          if @submission.data_source&.spouse&.ssn.present? && @submission.data_source&.spouse&.first_name.present? && (!@intake.filing_status_mfs? || has_nra_spouse)
             xml.Secondary do
               xml.TaxpayerName do
                 xml.FirstName sanitize_for_xml(@submission.data_source.spouse.first_name, 16) if @submission.data_source.spouse.first_name.present?
@@ -53,8 +54,8 @@ module SubmissionBuilder
               end
               if @intake.direct_file_data.non_resident_alien == "NRA"
                 xml.NRALiteralCd "NRA"
-              else
-                xml.TaxpayerSSN @submission.data_source.spouse.ssn if @submission.data_source.spouse.ssn.present?
+              elsif @submission.data_source.spouse.ssn.present?
+                xml.TaxpayerSSN @submission.data_source.spouse.ssn
               end
               xml.DateOfBirth date_type(@submission.data_source.spouse.birth_date) if @submission.data_source.spouse.birth_date.present?
               xml.TaxpayerPIN @submission.data_source.spouse_signature_pin if @submission.data_source.ask_for_signature_pin? && @submission.data_source.ask_spouse_esign?
