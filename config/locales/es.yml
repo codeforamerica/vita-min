@@ -2186,19 +2186,19 @@ es:
         supported_by: Respaldada por el estado de Nueva York
         title: Gracias por visitar FileYourStateTaxes
     navigation:
-      step_description: 'Paso %{current_step} de %{total_steps}: '
       nj:
-        section_1: 'Ingresos'
-        section_2: 'Tu hogar'
-        section_3: 'Deducciones y créditos'
-        section_4: 'Tus impuestos de %{filing_year}'
-        section_5: 'Revisar y enviar'
-      section_1: '¿Puedes usar esta herramienta?'
-      section_2: 'Crear cuenta'
-      section_3: 'Términos y condiciones'
-      section_4: 'Transferir tus datos'
-      section_5: 'Completa tu declaración de impuestos estatales'
-      section_6: 'Envía tus impuestos estatales'
+        section_1: Ingresos
+        section_2: Tu hogar
+        section_3: Deducciones y créditos
+        section_4: Tus impuestos de %{filing_year}
+        section_5: Revisar y enviar
+      section_1: "¿Puedes usar esta herramienta?"
+      section_2: Crear cuenta
+      section_3: Términos y condiciones
+      section_4: Transferir tus datos
+      section_5: Completa tu declaración de impuestos estatales
+      section_6: Envía tus impuestos estatales
+      step_description: 'Paso %{current_step} de %{total_steps}: '
     notification_mailer:
       user_message:
         unsubscribe: Si deseas cancelar la suscripción a los correos electrónicos, haz clic <a href="%{unsubscribe_link}">aquí</a>.
