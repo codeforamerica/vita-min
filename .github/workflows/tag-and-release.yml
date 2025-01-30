@@ -13,7 +13,7 @@ on:
     inputs:
       release_type:
         description: 'Part of version to increment (major, minor, patch)'
-        required: true
+        required: false
         default: 'patch'
         type: choice
         options:
