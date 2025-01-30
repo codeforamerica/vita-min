@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe StateFile::Questions::NyEligibilityCollegeSavingsWithdrawalController do
+RSpec.describe StateFile::Questions::NyEligibilityCollegeSavingsWithdrawalController, skip: true do
   describe "#update" do
     # use the eligibility_offboarding_concern shared example if the page
     # should redirect to the state file eligibility offboarding page

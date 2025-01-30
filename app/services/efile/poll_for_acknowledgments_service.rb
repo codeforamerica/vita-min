@@ -3,7 +3,7 @@ StatusRecordGroup = Struct.new(:irs_submission_id, :state, :xml)
 
 module Efile
   class PollForAcknowledgmentsService
-    TRANSMITTED_STATUSES = ["Received", "Ready for Pickup", "Ready for Pick-Up", "Sent to State", "Received by State"]
+    TRANSMITTED_STATUSES = ["Received", "Ready for Pickup", "Ready for Pick-Up", "Sent to State", "Received by State", "Rejected Acknowledgment Created"]
     READY_FOR_ACK_STATUSES = ["Denied by IRS", "Acknowledgement Received from State", "Acknowledgement Retrieved", "Notified"]
 
     def self.run

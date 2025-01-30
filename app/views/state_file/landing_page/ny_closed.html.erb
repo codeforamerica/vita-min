@@ -1,0 +1,29 @@
+<% state_image_path = "partner-logos/#{@state_code}gov-logo.svg" %>
+<% title = t(".title") %>
+
+<% content_for :page_title, title %>
+
+<section class="slab question-layout <%= controller_name.gsub("_", "-") %>-outer">
+  <div class="grid">
+    <div class="grid__item question-wrapper">
+      <%= yield :notices %>
+      <div class="main-content-inner">
+        <div class="landing-page-content">
+          <h1 class="h1"><%= title %></h1>
+
+          <p class="h2"><%= t(".body_html") %></p>
+
+          <div class="partner-logo-wrapper spacing-below-35">
+            <div class="partner-logo-image">
+              <%= image_tag state_image_path, alt: "#{@state_name} state logo", class: "" %>
+            </div>
+            <div class="partner-logo-text text--body text--bold">
+              <%= t(".supported_by") %>
+            </div>
+          </div>
+        </div>
+        <%= image_tag 'questions/welcome.svg', class: 'fyst-home-image', alt: '' %>
+      </div>
+    </div>
+  </div>
+</section>

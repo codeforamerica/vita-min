@@ -768,6 +768,10 @@ MD502_SU_LINE_V:
   label: "TBD"
 MD502_SU_LINE_1:
   label: "1 Add lines a. through yc. and enter this amount on line 13 of Form 502 with the appropriate code letters"
+MD502R_LINE_9A:
+  label: "Total social security benefits for primary"
+MD502R_LINE_9B:
+  label: "Total social security benefits for spouse"
 NCD400_LINE_6:
   label: '6 Federal Adjusted Gross Income'
 NCD400_LINE_9:

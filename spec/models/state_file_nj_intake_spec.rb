@@ -305,4 +305,17 @@ RSpec.describe StateFileNjIntake, type: :model do
       expect(w2.errors[:state_wages_amount]).not_to be_present
     end
   end
+
+  describe "#medical_expenses_threshold" do
+    let(:intake) { create :state_file_nj_intake }
+    it "returns 2% of NJ Gross Income" do
+      allow(intake.calculator.lines).to receive(:[]).with(:NJ1040_LINE_29).and_return(double(value: 10_000))
+      expect(intake.medical_expenses_threshold).to eq 200
+    end
+
+    it "rounds down to whole number" do
+      allow(intake.calculator.lines).to receive(:[]).with(:NJ1040_LINE_29).and_return(double(value: 12_345))
+      expect(intake.medical_expenses_threshold).to eq 246
+    end
+  end
 end

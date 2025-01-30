@@ -15,13 +15,6 @@ namespace :state_file do
     StateFile::SendPostDeadlineReminderService.run
   end
 
-  task send_reminder_apology_message: :environment do
-    return unless DateTime.now.year == 2024
-    return if ENV["DO_NOT_SEND_APOLOGY_EMAIL"].present?
-
-    StateFile::SendReminderApologyService.run
-  end
-
   task backfill_intake_submission_pdfs: :environment do
     batch_size = 5
     intake_types = StateFile::StateInformationService.state_intake_classes

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe StateFile::Questions::InitiateDataTransferController do
-  let(:intake) { create :state_file_ny_intake }
+  let(:intake) { create :state_file_az_intake }
   let(:state_file_analytics) { intake.state_file_analytics }
   before do
     sign_in intake

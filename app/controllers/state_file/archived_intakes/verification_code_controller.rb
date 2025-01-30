@@ -22,8 +22,8 @@ module StateFile
         if @form.valid?
           create_state_file_access_log("correct_email_code")
           current_request.reset_failed_attempts!
-          # this should take us to the ssn page
-          redirect_to root_path
+          session[:code_verified] = true
+          redirect_to state_file_archived_intakes_edit_identification_number_path
         else
           create_state_file_access_log("incorrect_email_code")
           current_request.increment_failed_attempts

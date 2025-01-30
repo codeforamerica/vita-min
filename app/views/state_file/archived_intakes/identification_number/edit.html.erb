@@ -1,0 +1,15 @@
+<% title = t(".title")  %>
+<section class="slab question-layout <%= controller_name.gsub("_", "-") %>-outer">
+  <div class="grid">
+    <div class="grid__item question-wrapper">
+      <h1 class="h2" id="main-question"><%= title %></h1>
+      <p><%= t(".help_text")  %></p>
+      <%= form_with model: @form, url: state_file_archived_intakes_identification_number_path, local: true, method: :patch, builder: VitaMinFormBuilder do |f| %>
+        <div class="white-group">
+          <%= f.cfa_input_field(:ssn,  t(".ssn_label"), help_text: '123-45-6789', classes: ["form-width--long"]) %>
+        </div>
+        <%= f.submit t("general.continue"), class: "button button--primary button--wide spacing-below-15" %>
+      <% end %>
+    </div>
+  </div>
+</section>

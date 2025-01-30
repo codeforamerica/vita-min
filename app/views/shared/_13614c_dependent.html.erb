@@ -1,6 +1,6 @@
 <tr class="dependent-form">
   <%= f.hidden_field :id %>
-  <td><%= f.cfa_input_field :first_name, "", classes: ["form-width--long"] %></td>
+  <td style="width: 100px;"><%= f.cfa_input_field :first_name, "", classes: ["form-width--long grid__item width-one-third"] %></td>
   <td><%= f.cfa_input_field :last_name, "", classes: ["form-width--long"] %></td>
 
   <td><%= f.vita_min_date_text_fields(
@@ -14,20 +14,21 @@
             include_blank: true
           ) %></td>
   <td><%= f.cfa_select :months_in_home, "", 1..12 %></td>
-  <td><%= f.cfa_select :us_citizen, "", short_yes_no_unsure_options_for_select %></td>
-  <td><%= f.cfa_select :north_american_resident, "", short_yes_no_unsure_options_for_select %></td>
   <td><%= f.cfa_select :was_married, "", [
     ["", "unfilled"],
     ['S', "no"],
     ['M', "yes"],
   ] %></td>
+  <td><%= f.cfa_select :us_citizen, "", short_yes_no_unsure_options_for_select %></td>
+  <td><%= f.cfa_select :north_american_resident, "", short_yes_no_unsure_options_for_select %></td>
   <td><%= f.cfa_select :was_student, "", short_yes_no_unsure_options_for_select %></td>
   <td><%= f.cfa_select :disabled, "", short_yes_no_unsure_options_for_select %></td>
-  <td><%= f.cfa_select :can_be_claimed_by_other, "", yes_no_options_for_select %></td>
-  <td><%= f.cfa_select :provided_over_half_own_support, "", yes_no_options_for_select %></td>
-  <td><%= f.cfa_select :below_qualifying_relative_income_requirement, "", yes_no_options_for_select %></td>
-  <td><%= f.cfa_select :filer_provided_over_half_support, "", yes_no_options_for_select %></td>
-  <td><%= f.cfa_select :filer_provided_over_half_housing_support, "", yes_no_options_for_select %></td>
+  <td><%= f.cfa_select :has_ip_pin, "", yes_no_options_for_select %></td>
+  <td style="background-color: #e5e5e5"><%= f.cfa_select :can_be_claimed_by_other, "", yes_no_na_options_for_select %></td>
+  <td style="background-color: #e5e5e5"><%= f.cfa_select :provided_over_half_own_support, "", yes_no_na_options_for_select %></td>
+  <td style="background-color: #e5e5e5"><%= f.cfa_select :below_qualifying_relative_income_requirement, "", yes_no_na_options_for_select %></td>
+  <td style="background-color: #e5e5e5"><%= f.cfa_select :filer_provided_over_half_support, "", yes_no_na_options_for_select %></td>
+  <td style="background-color: #e5e5e5"><%= f.cfa_select :filer_provided_over_half_housing_support, "", yes_no_na_options_for_select %></td>
 
   <td>
   <%= f.hidden_field :_destroy %>

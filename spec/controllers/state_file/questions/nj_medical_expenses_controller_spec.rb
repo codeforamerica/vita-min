@@ -13,6 +13,12 @@ RSpec.describe StateFile::Questions::NjMedicalExpensesController do
       expect(response).to be_successful
     end
 
+    it 'displays 2% of NJ Gross Income in the content' do
+      allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_29).and_return 12_345
+      get :edit
+      expect(response.body).to have_text "$246"
+    end
+
     describe "#update" do 
       context "when a user has medical expenses" do
         let(:form_params) {

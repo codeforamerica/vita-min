@@ -258,6 +258,12 @@ FactoryBot.define do
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_sinatra_qss') }
       filing_status { "qualifying_widow" }
     end
+
+    trait :df_data_taxes_owed do
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_jones_mfj') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_jones_mfj') }
+      filing_status { "married_filing_jointly" }
+    end
     
     trait :df_data_box_14 do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_lucky_single') }

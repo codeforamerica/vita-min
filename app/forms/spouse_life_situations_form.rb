@@ -6,12 +6,8 @@ class SpouseLifeSituationsForm < QuestionsForm
     spouse_was_full_time_student == "yes" ||
       spouse_us_citizen == "yes" ||
       spouse_had_disability == "yes" ||
-      spouse_was_blind == "yes"
-  end
-
-  def self.existing_attributes(intake)
-    result = super
-    result
+      spouse_was_blind == "yes" ||
+      spouse_visa == "yes"
   end
 
   def save

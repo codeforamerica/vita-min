@@ -7,12 +7,8 @@ class LifeSituationsForm < QuestionsForm
     was_full_time_student == "yes" ||
       primary_us_citizen == "yes" ||
       had_disability == "yes" ||
-      was_blind == "yes"
-  end
-
-  def self.existing_attributes(intake)
-    result = super
-    result
+      was_blind == "yes" ||
+      primary_visa == "yes"
   end
 
   def save

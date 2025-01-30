@@ -197,10 +197,13 @@ class StateFileNjIntake < StateFileBaseIntake
     }
   end
 
-  def validate_state_specific_w2_requirements(w2); end
-
   def ask_for_signature_pin?
     false
+  end
+
+  def medical_expenses_threshold
+    nj_gross_income = calculator.lines[:NJ1040_LINE_29].value
+    (nj_gross_income * 0.02).floor
   end
 
 end

@@ -7,7 +7,7 @@
         <%= form_with model: @form, url: { action: :update }, local: true, method: :patch, builder: VitaMinFormBuilder do |f| %>
             <h1 class="h2" id="main-question"><%= title %></h1>
             <p><%= t(".subtitle_html") %></p>
-            <p><%= t(".subtitle_html_2") %></p>
+            <p><%= t(".subtitle_2_html") %></p>
             <div class="white-group">
               <%= f.cfa_input_field(:verification_code, t("state_file.questions.verification_code.edit.verification_code_label"), classes: ["form-width--long"]) %>
             </div>

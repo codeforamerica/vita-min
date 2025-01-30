@@ -42,9 +42,16 @@ module Hub::StateFile
 
     def reprocess
       if @efile_error.present? && (@efile_error.auto_wait || @efile_error.auto_cancel)
-        auto_transition_to_state = @efile_error.auto_wait ? :waiting : :cancelled
-        submission_ids = EfileSubmissionTransitionError.accessible_by(current_ability).includes(:efile_error, :efile_submission_transition).where(efile_error: @efile_error, efile_submission_transitions: { most_recent: true, to_state: ["rejected", "failed"] }).pluck(:efile_submission_id)
-        EfileSubmission.accessible_by(current_ability).where(id: submission_ids).find_each { |submission| submission.transition_to(auto_transition_to_state) }
+        submission_ids = EfileSubmissionTransitionError.accessible_by(current_ability)
+                                                       .includes(:efile_error, :efile_submission_transition)
+                                                       .where(
+                                                         efile_error: @efile_error,
+                                                         efile_submission_transitions: { most_recent: true, to_state: ["rejected", "failed"] }
+                                                       )
+                                                       .pluck(:efile_submission_id)
+        EfileSubmission.accessible_by(current_ability).where(id: submission_ids).find_each do |submission|
+          submission.transition_to(auto_transition_to_state(@efile_error, submission))
+        end
 
         flash[:notice] = "Successfully reprocessed #{submission_ids.count} submission(s) with #{@efile_error.code} error!"
       else
@@ -55,6 +62,20 @@ module Hub::StateFile
 
     def permitted_params
       params.require(:efile_error).permit(:expose, :auto_cancel, :auto_wait, :correction_path, :description_en, :description_es, :resolution_en, :resolution_es)
+    end
+
+    private
+
+    def auto_transition_to_state(efile_error, submission)
+      return :cancelled if efile_error.auto_cancel
+
+      transition = submission.last_transition
+      all_errors_auto_wait = transition.efile_errors.all?(&:auto_wait)
+      if submission.current_state == "rejected"
+        all_errors_auto_wait ? :notified_of_rejection : :waiting
+      elsif all_errors_auto_wait # failed current_state
+        :waiting
+      end
     end
   end
 end

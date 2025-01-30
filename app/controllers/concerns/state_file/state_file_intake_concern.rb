@@ -4,7 +4,7 @@ module StateFile
     include StateFile::StateFileControllerConcern
 
     included do
-      before_action :require_state_file_intake_login
+      before_action :redirect_deprecated_state, :require_state_file_intake_login
       helper_method :current_intake, :current_state_code, :current_state_name, :card_postscript
     end
 
@@ -34,6 +34,12 @@ module StateFile
         session[:after_state_file_intake_login_path] = request.original_fullpath if request.get?
         flash[:notice] = I18n.t("devise.failure.timeout")
         redirect_to StateFile::StateFilePagesController.to_path_helper(action: :login_options)
+      end
+    end
+
+    def redirect_deprecated_state
+      if controller_name.starts_with?("ny") || (current_intake.present? && current_state_code == "ny")
+        redirect_to state_landing_page_path(us_state: :ny)
       end
     end
   end

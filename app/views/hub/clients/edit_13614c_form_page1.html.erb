@@ -53,6 +53,12 @@
         <%= f.cfa_select(:was_full_time_student, t(".fields.was_full_time_student"), yes_no_options_for_select) %>
         <%= f.cfa_select(:had_disability, t(".fields.had_disability"), yes_no_options_for_select) %>
         <%= f.cfa_select(:was_blind, t(".fields.blind"), yes_no_options_for_select) %>
+        <%= f.cfa_select(:issued_identity_pin,
+          t(".fields.issued_an_identity_protection_pin"),
+          yes_no_options_for_select) %>
+        <%= f.cfa_select(:primary_owned_or_held_any_digital_currencies,
+          t(".fields.owner_or_holder_of_any_digital_assets"),
+          yes_no_options_for_select) %>
       </div>
 
       <div id="spouse-additional-info" class="hub-form__row">
@@ -68,16 +74,56 @@
         <%= f.cfa_select(:spouse_was_full_time_student, t(".fields.was_full_time_student"), yes_no_options_for_select) %>
         <%= f.cfa_select(:spouse_had_disability, t(".fields.had_disability"), yes_no_options_for_select) %>
         <%= f.cfa_select(:spouse_was_blind, t(".fields.blind"), yes_no_options_for_select) %>
+        <%= f.cfa_select(:spouse_issued_identity_pin,
+          t(".fields.issued_an_identity_protection_pin"),
+          yes_no_options_for_select) %>
+        <%= f.cfa_select(:spouse_owned_or_held_any_digital_currencies,
+          t(".fields.owner_or_holder_of_any_digital_assets"),
+          yes_no_options_for_select) %>
       </div>
 
       <div class="hub-form__row">
-        <%= f.cfa_select(:claimed_by_another, t(".fields.claimed_by_another"), yes_no_unsure_options_for_select) %>
-      </div>
-      <div class="hub-form__row">
-        <%= f.cfa_select(:issued_identity_pin, t(".fields.issued_identity_pin"), yes_no_options_for_select) %>
-      </div>
-      <div class="hub-form__row">
         <%= f.cfa_input_field(:email_address, t(".fields.email_optional")) %>
+      </div>
+
+      <div class="hub-form__row">
+        <%= f.cfa_select(:multiple_states,
+          t(".fields.lived_or_worked_in_two_or_more_states"),
+          yes_no_options_for_select) %>
+      </div>
+
+      <div class="grid">
+          <div class="grid__item width-one-whole">
+            <%= f.cfa_select(:receive_written_communication, "#{t(".fields.receive_written_communication")}", yes_no_options_for_select) %>
+            <%= f.cfa_input_field(:preferred_written_language, t(".fields.preferred_written_language")) %>
+          </div>
+          <div class="grid__item width-one-whole">
+            <%= f.cfa_select(:register_to_vote, "#{t(".fields.register_to_vote")}", yes_no_options_for_select) %>
+          </div>
+          <div class="grid__item width-one-whole">
+            <%= f.cfa_select(:presidential_campaign_fund_donation, "#{t(".fields.presidential_campaign_fund")}",     [
+              ["", "unfilled"],
+              ["You", "primary"],
+              ["Spouse", "spouse"],
+              ["You and your spouse", "primary_and_spouse"],
+              ["No", "no"],
+            ]) %>
+          </div>
+          <div class="grid__item width-one-whole">
+            <p class="form-question"><%= "#{t(".fields.refund_payment_method")}" %></p>
+          </div>
+          <div class="grid__item width-one-whole">
+            <%= f.cfa_select(:refund_direct_deposit, t(".fields.refund_payment_method_direct_deposit"), yes_no_options_for_select) %>
+            <%= f.cfa_select(:refund_check_by_mail, t(".fields.refund_check_by_mail"), yes_no_options_for_select) %>
+            <%= f.cfa_select(:savings_split_refund, t(".fields.refund_payment_method_split"), yes_no_options_for_select) %>
+            <%= f.cfa_input_field(:refund_other, t(".fields.refund_other"), classes: ["form-width--short"]) %>
+          </div>
+          <div class="grid__item width-one-whole">
+            <%= f.cfa_select(:balance_pay_from_bank, "#{t(".fields.pay_due_balance_directly")}", yes_no_options_for_select) %>
+          </div>
+      </div>
+      <div class="hub-form__row">
+        <span style="background-color: #e5e5e5; margin-bottom: 20px;"><%= f.cfa_select(:claimed_by_another, t(".fields.claimed_by_another"), yes_no_options_for_select) %></span>
       </div>
 
       <div id="marital-status-fields">
@@ -116,16 +162,17 @@
             <th><%= t("hub.clients.edit_13614c_form_page1.fields.dob") %></th>
             <th>Relationship</th>
             <th class="th-small"><%= t("hub.clients.edit_13614c_form_page1.fields.months_in_home") %></th>
+            <th class="th-small"><%= t("hub.clients.edit_13614c_form_page1.fields.was_married") %></th>
             <th class="th-small"><%= t("hub.clients.edit_13614c_form_page1.fields.us_citizen") %></th>
             <th class="th-small"><%= t("hub.clients.edit_13614c_form_page1.fields.north_american_resident") %></th>
-            <th class="th-small"><%= t("hub.clients.edit_13614c_form_page1.fields.was_married") %></th>
             <th class="th-small"><%= t("hub.clients.edit_13614c_form_page1.fields.was_student") %></th>
             <th class="th-small"><%= t("hub.clients.edit_13614c_form_page1.fields.disabled") %></th>
-            <th class="th-small"><%= t("hub.clients.edit_13614c_form_page1.fields.can_be_claimed_by_other") %></th>
-            <th class="th-small"><%= t("hub.clients.edit_13614c_form_page1.fields.provided_over_half_own_support") %></th>
-            <th class="th-small"><%= t("hub.clients.edit_13614c_form_page1.fields.below_qualifying_relative_income_requirement") %></th>
-            <th class="th-small"><%= t("hub.clients.edit_13614c_form_page1.fields.filer_provided_over_half_support") %></th>
-            <th class="th-small"><%= t("hub.clients.edit_13614c_form_page1.fields.filer_provided_over_half_housing_support") %></th>
+            <th class="th-small"><%= t("hub.clients.edit_13614c_form_page1.fields.issued_ippin") %></th>
+            <th class="th-small" style="background-color: #e5e5e5"><%= t("hub.clients.edit_13614c_form_page1.fields.can_be_claimed_by_other") %></th>
+            <th class="th-small" style="background-color: #e5e5e5"><%= t("hub.clients.edit_13614c_form_page1.fields.provided_over_half_own_support") %></th>
+            <th class="th-small" style="background-color: #e5e5e5"><%= t("hub.clients.edit_13614c_form_page1.fields.below_qualifying_relative_income_requirement") %></th>
+            <th class="th-small" style="background-color: #e5e5e5"><%= t("hub.clients.edit_13614c_form_page1.fields.filer_provided_over_half_support") %></th>
+            <th class="th-small" style="background-color: #e5e5e5"><%= t("hub.clients.edit_13614c_form_page1.fields.filer_provided_over_half_housing_support") %></th>
             <th></th>
           </tr>
           <%= f.fields_for :dependents do |ff| %>

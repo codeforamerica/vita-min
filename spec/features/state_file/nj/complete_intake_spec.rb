@@ -194,6 +194,11 @@ RSpec.feature "Completing a state file intake", active_job: true do
       advance_medical_expenses
     end
 
+    def check_xml_results
+      click_on "Main XML Doc"
+      expect(page.body).to include('<ZIPCd>071021234</ZIPCd>')
+    end
+
     it "advances past the loading screen by listening for an actioncable broadcast", required_schema: "nj" do
       advance_to_start_of_intake("O neal walker catchall mfj", check_a11y: true, expect_income_review: true)
       
@@ -299,6 +304,8 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to be_axe_clean
       expect(page).not_to have_css(".progress-steps")
       expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", filing_year: 2024, state_name: "New Jersey")
+
+      check_xml_results
     end
 
     it "handles property tax neither flow", required_schema: "nj" do
@@ -495,7 +502,18 @@ RSpec.feature "Completing a state file intake", active_job: true do
         advance_disabled_exemption(false) # does NOT meet disabled exemption
         advance_veterans_exemption
         advance_medical_expenses
-        choose_household_rent_own("homeowner")
+        choose_household_rent_own("tenant")
+        expect_ineligible_page(nil, "income_mfj_qss_hoh")
+        expect_page_after_property_tax
+      end
+
+      it "handles property tax flow - MFJ and both homeowner/renter", required_schema: "nj" do
+        advance_to_start_of_intake("Married filing jointly 15k wages") # low income MFJ
+        advance_county_and_municipality
+        advance_disabled_exemption(false) # does NOT meet disabled exemption
+        advance_veterans_exemption
+        advance_medical_expenses
+        choose_household_rent_own("both")
         expect_ineligible_page(nil, "income_mfj_qss_hoh")
         expect_page_after_property_tax
       end

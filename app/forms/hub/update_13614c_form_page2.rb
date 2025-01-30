@@ -3,50 +3,97 @@ module Hub
     include FormAttributes
 
     set_attributes_for :intake,
+
                        :had_wages,
                        :job_count,
+
                        :had_tips,
-                       :had_interest_income,
-                       :had_local_tax_refund,
-                       :received_alimony,
-                       :had_self_employment_income,
-                       :had_asset_sale_income,
-                       :had_disability_income,
+
                        :had_retirement_income,
-                       :had_unemployment_income,
+
+                       :had_disability_income,
+
                        :had_social_security_income,
+
+                       :had_unemployment_income,
+
+                       :had_local_tax_refund,
+
+                       :had_interest_income,
+
+                       :had_asset_sale_income,
+                       :reported_asset_sale_loss,
+
+                       :received_alimony,
+
                        :had_rental_income,
+                       :had_rental_income_and_used_dwelling_as_residence,
+                       :had_rental_income_from_personal_property,
+
+                       :had_gambling_income,
+
+                       :had_self_employment_income,
+                       :reported_self_employment_loss,
+
                        :had_other_income,
-                       :paid_alimony,
-                       :paid_retirement_contributions,
-                       :paid_dependent_care,
-                       :paid_school_supplies,
-                       :paid_student_loan_interest,
-                       :had_hsa,
-                       :had_debt_forgiven,
-                       :adopted_child,
-                       :had_tax_credit_disallowed,
-                       :bought_energy_efficient_items,
-                       :received_homebuyer_credit,
-                       :made_estimated_tax_payments,
-                       :had_scholarships,
-                       :had_cash_check_digital_assets,
-                       :has_ssn_of_alimony_recipient,
-                       :contributed_to_ira,
-                       :contributed_to_roth_ira,
-                       :contributed_to_401k,
-                       :contributed_to_other_retirement_account,
-                       :paid_post_secondary_educational_expenses,
-                       :wants_to_itemize,
-                       :paid_local_tax,
-                       :paid_mortgage_interest,
-                       :paid_medical_expenses,
-                       :paid_charitable_contributions,
-                       :paid_self_employment_expenses,
-                       :tax_credit_disallowed_year,
-                       :made_estimated_tax_payments_amount,
-                       :had_capital_loss_carryover,
-                       :bought_marketplace_health_insurance
+
+                       :cv_w2s_cb,
+                       :cv_w2s_count,
+
+                       :cv_had_tips_cb,
+
+                       :cv_1099r_cb,
+                       :cv_1099r_count,
+                       :cv_1099r_charitable_dist_cb,
+                       :cv_1099r_charitable_dist_amt,
+
+                       :cv_disability_benefits_1099r_or_w2_cb,
+                       :cv_disability_benefits_1099r_or_w2_count,
+
+                       :cv_ssa1099_rrb1099_cb,
+                       :cv_ssa1099_rrb1099_count,
+
+                       :cv_1099g_cb,
+                       :cv_1099g_count,
+
+                       :cv_local_tax_refund_cb,
+                       :cv_local_tax_refund_amt,
+                       :cv_itemized_last_year_cb,
+
+                       :cv_1099int_cb,
+                       :cv_1099int_count,
+                       :cv_1099div_cb,
+                       :cv_1099div_count,
+
+                       :cv_1099b_cb,
+                       :cv_1099b_count,
+                       :cv_capital_loss_carryover_cb,
+
+                       :cv_alimony_income_cb,
+                       :cv_alimony_income_amt,
+                       :cv_alimony_excluded_from_income_cb,
+
+                       :cv_rental_income_cb,
+                       :cv_rental_expense_cb,
+                       :cv_rental_expense_amt,
+
+                       :cv_w2g_or_other_gambling_winnings_cb,
+                       :cv_w2g_or_other_gambling_winnings_count,
+
+                       :cv_schedule_c_cb,
+                       :cv_1099misc_cb,
+                       :cv_1099misc_count,
+                       :cv_1099nec_cb,
+                       :cv_1099nec_count,
+                       :cv_1099k_cb,
+                       :cv_1099k_count,
+                       :cv_other_income_reported_elsewhere_cb,
+                       :cv_schedule_c_expenses_cb,
+                       :cv_schedule_c_expenses_amt,
+
+                       :cv_other_income_cb,
+
+                       :cv_p2_notes_comments
 
     attr_accessor :client
 
@@ -61,9 +108,41 @@ module Hub
       new(client, existing_attributes(intake).slice(*attribute_keys))
     end
 
+    # override what's in FormAttribute to prevent nils (which
+    # are causing database null violation errors)
+    def attributes_for(model)
+      skip = [:job_count,
+              :cv_w2s_count,
+              :cv_1099r_count,
+              :cv_1099r_charitable_dist_amt,
+              :cv_disability_benefits_1099r_or_w2_count,
+              :cv_ssa1099_rrb1099_count,
+              :cv_1099g_count,
+              :cv_local_tax_refund_amt,
+              :cv_1099int_count,
+              :cv_1099div_count,
+              :cv_1099b_count,
+              :cv_alimony_income_amt,
+              :cv_rental_expense_amt,
+              :cv_w2g_or_other_gambling_winnings_count,
+              :cv_1099misc_count,
+              :cv_1099nec_count,
+              :cv_1099k_count,
+              :cv_schedule_c_expenses_amt,
+              :cv_p2_notes_comments]
+      self.class.scoped_attributes[model].reduce({}) do |hash, attribute_name|
+        v = send(attribute_name)
+        unless skip.include? attribute_name
+          hash[attribute_name] = v ? v : 'unfilled'
+        else
+          hash[attribute_name] = v
+        end
+        hash
+      end
+    end
+
     def save
       return false unless valid?
-
       @client.intake.update(attributes_for(:intake))
       @client.touch(:last_13614c_update_at)
     end

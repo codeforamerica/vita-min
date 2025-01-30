@@ -2,24 +2,21 @@ require 'rails_helper'
 
 RSpec.describe StateFile::Questions::ConfirmationController do
   describe "#show_xml" do
-    context "in ny" do
-      let(:ny_intake) do
+    context "in az" do
+      let(:az_intake) do
         create(
-          :state_file_ny_intake,
+          :state_file_az_intake,
           :with_efile_device_infos,
           primary_first_name: "Jerry",
-          school_district_id: 441,
-          school_district: "Bellmore-Merrick CHS",
-          school_district_number: 46
         )
       end
-      let(:efile_submission) { create :efile_submission, :for_state, data_source: ny_intake }
+      let(:efile_submission) { create :efile_submission, :for_state, data_source: az_intake }
 
       before do
-        sign_in ny_intake
+        sign_in az_intake
       end
 
-      it "returns some xml", required_schema: "ny" do
+      it "returns some xml", required_schema: "az" do
         get :show_xml, params: { id: efile_submission.id }
         expect(Nokogiri::XML(response.body).at('Primary FirstName').text).to eq("Jerry")
       end
@@ -33,16 +30,6 @@ RSpec.describe StateFile::Questions::ConfirmationController do
 
     before do
       sign_in intake
-    end
-
-    context "in ny" do
-      let(:intake) { create :state_file_ny_intake, :with_efile_device_infos, primary_first_name: "Jerry" }
-
-      it "shows a little bit about how each line was calculated" do
-        get :explain_calculations, params: { id: efile_submission.id }
-        expect(response.body).to include('IT201_LINE_1')
-        expect(response.body).to include('IT213_LINE_14')
-      end
     end
 
     context "in az" do

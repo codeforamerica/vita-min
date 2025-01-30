@@ -73,20 +73,20 @@ class Dependent < ApplicationRecord
   enum full_time_student: { unfilled: 0, yes: 1, no: 2 }, _prefix: :full_time_student
   enum permanently_totally_disabled: { unfilled: 0, yes: 1, no: 2 }, _prefix: :permanently_totally_disabled
   enum no_ssn_atin: { unfilled: 0, yes: 1, no: 2 }, _prefix: :no_ssn_atin
-  enum provided_over_half_own_support: { unfilled: 0, yes: 1, no: 2 }, _prefix: :provided_over_half_own_support
+  enum provided_over_half_own_support: { unfilled: 0, yes: 1, no: 2, na: 3 }, _prefix: :provided_over_half_own_support
   enum filed_joint_return: { unfilled: 0, yes: 1, no: 2 }, _prefix: :filed_joint_return
   enum lived_with_more_than_six_months: { unfilled: 0, yes: 1, no: 2 }, _prefix: :lived_with_more_than_six_months
-  enum cant_be_claimed_by_other: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cant_be_claimed_by_other
+  enum cant_be_claimed_by_other: { unfilled: 0, yes: 1, no: 2, na: 3 }, _prefix: :cant_be_claimed_by_other
   enum residence_exception_born: { unfilled: 0, yes: 1, no: 2 }, _prefix: :residence_exception_born
   enum residence_exception_passed_away: { unfilled: 0, yes: 1, no: 2 }, _prefix: :residence_exception_passed_away
   enum residence_exception_adoption: { unfilled: 0, yes: 1, no: 2 }, _prefix: :residence_exception_adoption
   enum permanent_residence_with_client: { unfilled: 0, yes: 1, no: 2 }, _prefix: :permanent_residence_with_client
   enum claim_anyway: { unfilled: 0, yes: 1, no: 2 }, _prefix: :claim_anyway
   enum meets_misc_qualifying_relative_requirements: { unfilled: 0, yes: 1, no: 2 }, _prefix: :meets_misc_qualifying_relative_requirements
-  enum below_qualifying_relative_income_requirement: { unfilled: 0, yes: 1, no: 2 }, _prefix: :below_qualifying_relative_income_requirement
-  enum filer_provided_over_half_support: { unfilled: 0, yes: 1, no: 2 }, _prefix: :filer_provided_over_half_support
+  enum below_qualifying_relative_income_requirement: { unfilled: 0, yes: 1, no: 2, na: 3 }, _prefix: :below_qualifying_relative_income_requirement
+  enum filer_provided_over_half_support: { unfilled: 0, yes: 1, no: 2, na: 3 }, _prefix: :filer_provided_over_half_support
   enum residence_lived_with_all_year: { unfilled: 0, yes: 1, no: 2 }, _prefix: :residence_lived_with_all_year
-  enum filer_provided_over_half_housing_support: { unfilled: 0, yes: 1, no: 2 }, _prefix: :filer_provided_over_half_housing_support
+  enum filer_provided_over_half_housing_support: { unfilled: 0, yes: 1, no: 2, na: 3 }, _prefix: :filer_provided_over_half_housing_support
 
   before_destroy :remove_error_associations
 

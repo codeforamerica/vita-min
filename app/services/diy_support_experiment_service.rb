@@ -1,4 +1,6 @@
 class DiySupportExperimentService
+  # The DIY support experiment was a one-time experiment done for TY2022.
+
   def self.fsa_domain
     if Rails.env.test?
       "https://www.example.com"

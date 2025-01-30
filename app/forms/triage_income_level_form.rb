@@ -12,5 +12,12 @@ class TriageIncomeLevelForm < QuestionsForm
 
   def save
     @intake.update(attributes_for(:intake))
+
+    triage_vita_income_ineligible = attributes_for(:intake)[:triage_vita_income_ineligible]
+    # the last question on this screen asks about rental income from home/car.
+    if triage_vita_income_ineligible == 'no'
+      @intake.update(had_rental_income: 'no')
+      @intake.update(had_rental_income_from_personal_property: 'no')
+    end
   end
 end

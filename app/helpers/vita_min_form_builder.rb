@@ -449,8 +449,10 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     checkbox_container_classes << "question-with-follow-up" if includes_follow_up
 
     fieldset_classes = ["input-group", "form-group#{error_state(object, method)}"]
+    describedby = object.errors[method].any? ? "##{error_label(method)}" : nil
+
     <<~HTML.html_safe
-      <fieldset class="#{fieldset_classes.join(' ')}">
+      <fieldset class="#{fieldset_classes.join(' ')}" aria-describedby="#{describedby}">
         #{fieldset_label_contents(
           label_text: label_text,
           help_text: help_text,

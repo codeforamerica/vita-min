@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe StateFile::Questions::EsignDeclarationController do
-  let(:intake) { create :state_file_ny_intake }
+  let(:intake) { create :state_file_az_intake }
   let(:device_id) { "ABC123" }
   let(:params) do
     {

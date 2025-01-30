@@ -5,6 +5,8 @@
 #  id                            :bigint           not null, primary key
 #  email_address                 :string
 #  failed_attempts               :integer          default(0), not null
+#  fake_address_1                :string
+#  fake_address_2                :string
 #  ip_address                    :string
 #  locked_at                     :datetime
 #  created_at                    :datetime         not null

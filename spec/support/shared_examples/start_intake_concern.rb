@@ -1,6 +1,6 @@
 require "rails_helper"
 
-shared_examples :start_intake_concern do |intake_class:, intake_factory:|
+shared_examples :start_intake_concern do |intake_class:|
   describe "start of intake" do
     before do
       cookies.encrypted[:visitor_id] = "visitor-id"
@@ -21,7 +21,7 @@ shared_examples :start_intake_concern do |intake_class:, intake_factory:|
 
     context "with an existing intake in the session" do
       let(:existing_intake) do
-        create(intake_factory)
+        create(intake_class.name.underscore)
       end
 
       before { sign_in existing_intake }

@@ -8,10 +8,9 @@ RSpec.feature "Logging in with an existing account" do
   let(:ssn) { "111223333" }
   let(:hashed_ssn) { "hashed_ssn" }
   let!(:az_intake) { create :state_file_az_intake, phone_number: phone_number, hashed_ssn: hashed_ssn, df_data_import_succeeded_at: 5.minutes.ago }
-  let!(:ny_intake) { create :state_file_ny_intake, email_address: email_address, hashed_ssn: hashed_ssn, df_data_import_succeeded_at: 5.minutes.ago  }
+  let!(:az_intake_2) { create :state_file_az_intake, email_address: email_address, hashed_ssn: hashed_ssn, df_data_import_succeeded_at: 5.minutes.ago  }
   let(:verification_code) { "000004" }
   let(:hashed_verification_code) { "hashed_verification_code" }
-  let(:double_hashed_verification_code) { "double_hashed_verification_code" }
 
   before do
     allow_any_instance_of(Routes::StateFileDomain).to receive(:matches?).and_return(true)
