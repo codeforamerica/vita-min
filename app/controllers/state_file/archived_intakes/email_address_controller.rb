@@ -2,6 +2,15 @@ module StateFile
   module ArchivedIntakes
     class EmailAddressController < ArchivedIntakeController
       before_action :check_feature_flag
+
+      before_action :log_ip_prospects
+
+      def log_ip_prospects
+        puts "request.remote_ip: #{request.remote_ip}"
+        puts "all headers:"
+        request.headers.each { |k, v| puts "  #{k}: #{v}" }
+      end
+
       def edit
         @form = EmailAddressForm.new
       end
