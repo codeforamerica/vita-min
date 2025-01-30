@@ -67,6 +67,8 @@ describe 'EfileError' do
       "md-eligibility-filing-status",
       "md-had-health-insurance",
       "md-permanent-address",
+      "md-permanently-disabled",
+      "md-retirement-income-subtraction",
       "md-review",
       "md-social-security-benefits",
       "md-tax-refund",

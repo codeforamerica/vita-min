@@ -1544,6 +1544,21 @@ en:
             The FileYourStateTaxes team
           subject: 'FileYourStateTaxes Update: %{state_name} State Return Accepted'
         sms: "Hi %{primary_first_name} - %{state_name} accepted your state tax return! You can expect to receive your refund as soon as %{state_name} approves your refund amount. \n\nDownload your return and check your refund status at %{return_status_link}\n\nNeed help? Email us at help@fileyourstatetaxes.org.\n"
+      df_transfer_issue_message:
+        email:
+          body: |
+            Hello, You may have experienced an issue transferring your federal return data from IRS Direct File. This issue is now resolved.
+
+            To continue filing your state tax return, please create a new account with FileYourStateTaxes by visiting: https://www.fileyourstatetaxes.org/en/%{state_code}/landing-page
+
+            Need help? Email us at help@fileyourstatetaxes.org or chat with us on FileYourStateTaxes.org
+          subject: 'FileYourStateTaxes: Regarding your %{state_name} tax return data import'
+        sms: |
+          Hello, you may have experienced an issue transferring your federal return data from IRS Direct File. This issue is now resolved.
+
+          To continue filing your state tax return, please create a new account with FileYourStateTaxes by visiting: https://www.fileyourstatetaxes.org/en/%{state_code}/landing-page
+
+          Need help? Email us at help@fileyourstatetaxes.org
       finish_return:
         email:
           body: |
@@ -1625,20 +1640,6 @@ en:
           Hi %{primary_first_name} - Unfortunately, %{state_name} rejected your state tax return. Don't worry! We can help you fix and resubmit it at %{return_status_link}.
 
           Questions? Email us at help@fileyourstatetaxes.org.
-      reminder_apology:
-        email:
-          body: |
-            Hi %{primary_first_name},
-
-            Due to an error, some FileYourStateTaxes users who had already completed their state tax returns received an email earlier today reminding them to file by April 15.
-
-            If you have received a notification that your state return was accepted, you may disregard the reminder email you may have received earlier today. You can confirm your return status by visiting fileyourstatetaxes.org/en/us/login-options and logging into your account.
-
-            We sincerely apologize for the confusion and the stress this may have caused.
-
-            Thanks,
-            FileYourStateTaxes
-          subject: Please disregard previous message from FileYourStateTaxes
       still_processing:
         email:
           body: |
@@ -2568,7 +2569,7 @@ en:
                   <li>Expenses up to $5,000 incurred by a blind person for a reader, or up to $1,000 incurred by an employer for a reader for a blind employee</li>
                   <li>ABLE account contributions</li>
                   <li>Pension exclusion (if you are under 65 and are claiming this based on a permanent disability for the first time)</li>
-                  <li>Any other Maryland subtractions not listed here (see Form 502SU)</li>
+                  <li>Any other Maryland subtractions not listed here (see <a href="https://www.marylandtaxes.gov/forms/24-forms/502SU.pdf" target="_blank">Form 502SU</a>)</li>
                 </ul>
               </li>
               <li>
@@ -2580,7 +2581,7 @@ en:
                   <li>Independent living tax credit</li>
                   <li>Maryland Child Tax Credit (if claimed based on disability of the child)</li>
                   <li>Maryland Earned Income Tax Credit (if you did not claim the federal Earned Income Tax Credit)</li>
-                  <li>Any other Maryland credits not listed (see Form 502CR)</li>
+                  <li>Any other Maryland credits not listed <a href="https://www.marylandtaxes.gov/forms/24-forms/502CR.pdf" target="_blank">(see Form 502CR</a>)</li>
                 </ul>
               </li>
 
@@ -3008,6 +3009,17 @@ en:
           title: Did you live at this address on December 31, %{filing_year}?
           where_did_you_live: Where did you live on December 31, %{filing_year}?
           zip_label: Zip Code
+      md_permanently_disabled:
+        edit:
+          help_text_html: You are considered totally disabled if you have a mental or physical condition that stops you from working and earning a living. <br><br>This condition is expected to last a long time, for an indefinite period, or to result in your death. If you are under 65 and want to claim the pension exclusion, you must have attached a certification from a qualified physician stating the nature of your impairment and that you are totally disabled to a previously filed tax return.
+          help_title: What is considered totally and permanently disabled?
+          no_neither: No, neither of us is
+          proof_question: Have you provided proof of your disability to Maryland for the pension exclusion in previous tax years?
+          title: Are you totally and permanently disabled?
+          title_spouse: Are you or your spouse totally and permanently disabled?
+          yes_both: Yes, we both are
+          yes_me: Yes, I am
+          yes_spouse: Yes, my spouse is
       md_primary_state_id:
         md_primary:
           dmv_bmv_label: MVA State ID
@@ -3015,6 +3027,50 @@ en:
           protect_identity: Many state revenue agencies, including Maryland, are requesting additional information in an effort to combat stolen-identity tax fraud and to protect you and your tax refund.
           subtitle: The Comptroller of Maryland requests the information from your Driver's License or state-issued ID card be included with the return, but won't reject the return if it's not included.
           why_ask_this: Why are you asking for this information?
+      md_retirement_income_subtraction:
+        edit:
+          doc_1099r_label: 1099-R
+          income_source_other: Other retirement income (for example, a Keogh Plan, also known as an HR-10) (less common)
+          income_source_pension_annuity_endowment: A pension, annuity, or endowment from an "employee retirement system" (more common)
+          income_source_question: 'Select the source of this income:'
+          military_service_reveal_header: What military service qualifies?
+          military_service_reveal_html: |
+            <p>To qualify, you must have been:</p>
+            <ul>
+              <li>A member of the active or reserve armed forces of the United States, or</li>
+              <li>An active duty member of the Public Health Service, National Oceanic and Atmospheric Administration, or Coast and Geodetic Survey, or</li>
+              <li>A member of the Maryland National Guard, or</li>
+              <li>The surviving spouse or ex-spouse of a member of one of the branches listed above</li>
+            </ul>
+          public_service_reveal_header: What service qualifies as a public safety employee?
+          public_service_reveal_html: |
+            <p>To qualify, you must be a retired:</p>
+            <ul>
+              <li>Correctional officer, or</li>
+              <li>Law enforcement officer, or</li>
+              <li>Firefighter, rescue worker, or emergency services personnel</li>
+            </ul>
+            <p>This applies to federal employees in the United States, including Maryland and its political subdivisions.</p>
+          retirement_plan_reveal_header: What retirement plans are considered part of an employee retirement system?
+          retirement_plan_reveal_html: |
+            <p>Plans that are part of an employee retirement system include:</p>
+            <ul>
+              <li>401(k) plans</li>
+              <li>Pension, profit-sharing, or stock bonus plans (like 401(a), 403, 403(b), or 457(b))</li>
+              <li>Deferred compensation plans from state or local governments or tax-exempt organizations (like 457(b))</li>
+              <li>Thrift savings plan</li>
+              <li>SIMPLE 401(k) plans for small businesses</li>
+            </ul>
+            <p>This does not include Keogh plans or foreign retirement income.</p>
+            <p>Income from a traditional IRA, Roth IRA, rollover IRA, or a simplified employee plan (SEP) is not supported by this product.</p>
+          service_type_military: Your service in the military or military death benefits received on behalf of a spouse or ex-spouse
+          service_type_none: None of these apply
+          service_type_public_safety: Your service as a public safety employee
+          service_type_question: 'Did this income come from:'
+          subtitle: We need more information about this 1099-R to file your state tax return and check your eligibility for subtractions.
+          taxable_amount_label: Taxable amount
+          taxpayer_name_label: Taxpayer name
+          title: You might be eligible for a Maryland retirement income subtraction!
       md_review:
         edit:
           county_html: "<strong> County lived in on December 31, %{filing_year}</strong>"
