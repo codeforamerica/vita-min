@@ -3,15 +3,13 @@
   <% vita_option_title = I18n.exists?(vita_option_title_key) ? t(vita_option_title_key) : t(".vita_option_title.default") %>
   <p><button class="reveal__button"><%= vita_option_title %></button></p>
   <div class="reveal__content">
-    <div>
-      <% content_key = ".reveal_content_html.#{current_state_code}" %>
-      <% content_html = t(content_key, default: nil) %>
-      <% if content_html.present? %>
-        <%= content_html.html_safe %>
-      <% else %>
-        <%= render partial: "state_file/questions/eligible/vita_option" %>
-      <% end %>  
-    </div>
+    <% content_key = ".reveal_content_html.#{current_state_code}" %>
+    <% content_html = t(content_key, default: nil) %>
+    <% if content_html.present? %>
+      <%= content_html.html_safe %>
+    <% else %>
+      <%= render partial: "state_file/questions/eligible/vita_option" %>
+    <% end %>
   </div>
 </div>
 
