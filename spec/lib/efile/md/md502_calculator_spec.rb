@@ -1024,7 +1024,7 @@ describe Efile::Md::Md502Calculator do
   end
 
   describe "#calculate_line_23" do
-    let (:deduction_method_standard) { true}
+    let (:deduction_method_standard) { true }
     let (:claimed_as_dependent) { false }
 
     before do
