@@ -3,41 +3,42 @@ require "rails_helper"
 RSpec.describe Navigation::StateFileAzQuestionNavigation do
   describe "Flow" do
     it "Flow has not changed" do
-      expect(Navigation::StateFileAzQuestionNavigation::FLOW).to eq([
-                                                                      StateFile::Questions::EligibleController,
-                                                                      StateFile::Questions::ContactPreferenceController,
-                                                                      StateFile::Questions::PhoneNumberController,
-                                                                      StateFile::Questions::EmailAddressController,
-                                                                      StateFile::Questions::VerificationCodeController,
-                                                                      StateFile::Questions::CodeVerifiedController,
-                                                                      StateFile::Questions::NotificationPreferencesController,
-                                                                      StateFile::Questions::SmsTermsController,
-                                                                      StateFile::Questions::TermsAndConditionsController,
-                                                                      StateFile::Questions::DeclinedTermsAndConditionsController,
-                                                                      StateFile::Questions::InitiateDataTransferController,
-                                                                      StateFile::Questions::CanceledDataTransferController, # show? false
-                                                                      StateFile::Questions::WaitingToLoadDataController,
-                                                                      StateFile::Questions::PostDataTransferController,
-                                                                      StateFile::Questions::FederalInfoController,
-                                                                      StateFile::Questions::DataTransferOffboardingController,
-                                                                      StateFile::Questions::AzSeniorDependentsController,
-                                                                      StateFile::Questions::AzPriorLastNamesController,
-                                                                      StateFile::Questions::IncomeReviewController,
-                                                                      StateFile::Questions::UnemploymentController,
-                                                                      StateFile::Questions::AzPublicSchoolContributionsController,
-                                                                      StateFile::Questions::AzCharitableContributionsController,
-                                                                      StateFile::Questions::AzQualifyingOrganizationContributionsController,
-                                                                      StateFile::Questions::AzSubtractionsController,
-                                                                      StateFile::Questions::AzExciseCreditController,
-                                                                      StateFile::Questions::PrimaryStateIdController,
-                                                                      StateFile::Questions::SpouseStateIdController,
-                                                                      StateFile::Questions::AzReviewController,
-                                                                      StateFile::Questions::TaxesOwedController,
-                                                                      StateFile::Questions::TaxRefundController,
-                                                                      StateFile::Questions::EsignDeclarationController, # creates EfileSubmission and transitions to preparing
-                                                                      StateFile::Questions::SubmissionConfirmationController,
-                                                                      StateFile::Questions::ReturnStatusController,
-                                                                    ])
+      expected_flow = [
+        StateFile::Questions::EligibleController,
+        StateFile::Questions::ContactPreferenceController,
+        StateFile::Questions::PhoneNumberController,
+        StateFile::Questions::EmailAddressController,
+        StateFile::Questions::VerificationCodeController,
+        StateFile::Questions::CodeVerifiedController,
+        StateFile::Questions::NotificationPreferencesController,
+        StateFile::Questions::SmsTermsController,
+        StateFile::Questions::TermsAndConditionsController,
+        StateFile::Questions::DeclinedTermsAndConditionsController,
+        StateFile::Questions::InitiateDataTransferController,
+        StateFile::Questions::CanceledDataTransferController, # show? false
+        StateFile::Questions::WaitingToLoadDataController,
+        StateFile::Questions::PostDataTransferController,
+        StateFile::Questions::FederalInfoController,
+        StateFile::Questions::DataTransferOffboardingController,
+        StateFile::Questions::AzSeniorDependentsController,
+        StateFile::Questions::AzPriorLastNamesController,
+        StateFile::Questions::IncomeReviewController,
+        StateFile::Questions::UnemploymentController,
+        StateFile::Questions::AzPublicSchoolContributionsController,
+        StateFile::Questions::AzCharitableContributionsController,
+        StateFile::Questions::AzQualifyingOrganizationContributionsController,
+        StateFile::Questions::AzSubtractionsController,
+        StateFile::Questions::AzExciseCreditController,
+        StateFile::Questions::PrimaryStateIdController,
+        StateFile::Questions::SpouseStateIdController,
+        StateFile::Questions::AzReviewController,
+        StateFile::Questions::TaxesOwedController,
+        StateFile::Questions::TaxRefundController,
+        StateFile::Questions::EsignDeclarationController, # creates EfileSubmission and transitions to preparing
+        StateFile::Questions::SubmissionConfirmationController,
+        StateFile::Questions::ReturnStatusController,
+      ]
+      expect(Navigation::StateFileAzQuestionNavigation::FLOW).to eq(expected_flow)
     end
   end
 
