@@ -242,7 +242,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
         end
       end
 
-      context "exemptions stuff" do
+      context "exemptions" do
         context "when there are no exemptions" do
           it "only shows lines a and d, count and amount" do
             [
@@ -335,7 +335,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
         end
       end
 
-      context "healthcare coverage stuff" do
+      context "healthcare coverage" do
         context "truthy answers" do
           before do
             intake.update(primary_did_not_have_health_insurance: true)
