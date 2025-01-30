@@ -24,6 +24,8 @@ module Efile
       end
 
       def calculate_spouse_disabled
+        return unless @intake.filing_status_mfj?
+
         @intake.spouse_disabled_yes? ? "X" : nil
       end
       def calculate_line_9a
