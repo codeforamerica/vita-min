@@ -1,7 +1,7 @@
 <div class="reveal">
   <% vita_option_title_key = "state_file.questions.eligibility_offboarding.other_options.vita_option_title.#{current_state_code}" %>
   <% vita_option_title = I18n.exists?(vita_option_title_key) ? t(vita_option_title_key) : t(".vita_option_title.default") %>
-  <p><button class="reveal__button"><%= vita_option_title %></button></p>
+  <button class="reveal__button"><%= vita_option_title %></button>
   <div class="reveal__content">
     <% content_key = ".reveal_content_html.#{current_state_code}" %>
     <% content_html = t(content_key, default: nil) %>
@@ -14,7 +14,7 @@
 </div>
 
 <div class="reveal">
-  <p><button class="reveal__button"><%= t('.other_options_reveal.title') %></button></p>
+  <button class="reveal__button"><%= t('.other_options_reveal.title') %></button>
   <div class="reveal__content">
     <p><%= t('.other_options_reveal.list.body') %></p>
     <ul>
