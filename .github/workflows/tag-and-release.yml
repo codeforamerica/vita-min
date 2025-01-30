@@ -39,14 +39,14 @@ jobs:
           fetch-tags: true
       - name: Check for merge conflicts from main to release
         run: |
-          git checkout release
+          git fetch origin $GITHUB_SHA
           git merge --ff-only $GITHUB_SHA || {
             # merge failed
             echo "unable to merge via fast-forward. likely conflict."
             echo "try viewing the conflict output locally:"
-            echo "\`git fetch origin\`"
-            echo "\`git checkout release\`"
-            echo "\`git merge -ff main\`"
+            echo "git fetch origin"
+            echo "git checkout release"
+            echo "git merge --ff main"
             exit 1
           }
 
