@@ -11,6 +11,51 @@ describe Efile::Md::Md502RCalculator do
   end
   let(:instance) { main_calculator.instance_variable_get(:@md502r) }
 
+  describe "#calculate_line_00b_primary_disabled" do
+    let(:primary_disabled) { "no" }
+    let(:spouse_disabled) { "no" }
+
+    before do
+      intake.update(
+        primary_disabled: primary_disabled,
+        spouse_disabled: spouse_disabled
+      )
+      main_calculator.calculate
+    end
+
+    context "primary filer is disabled" do
+      let(:primary_disabled) { "yes" }
+
+      it "returns X" do
+        expect(instance.lines[:MD502R_LINE_PRIMARY_DISABLED].value).to eq 'X'
+      end
+    end
+
+    context "primary filer is not disabled" do
+      let(:primary_disabled) { "no" }
+
+      it "returns nil" do
+        expect(instance.lines[:MD502R_LINE_SPOUSE_DISABLED].value).to eq nil
+      end
+    end
+
+    context "spouse filer is disabled" do
+      let(:spouse_disabled) { "yes" }
+
+      it "returns X" do
+        expect(instance.lines[:MD502R_LINE_SPOUSE_DISABLED].value).to eq 'X'
+      end
+    end
+
+    context "spouse filer is not disabled" do
+      let(:spouse_disabled) { "no" }
+
+      it "returns nil" do
+        expect(instance.lines[:MD502R_LINE_SPOUSE_DISABLED].value).to eq nil
+      end
+    end
+  end
+
   describe '#calculate_9a' do
     context 'when filing MFJ with positive federal social security benefits' do
       let(:filing_status) { "married_filing_jointly" }

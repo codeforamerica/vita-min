@@ -11,12 +11,21 @@ module Efile
       end
 
       def calculate
+        set_line(:MD502R_LINE_PRIMARY_DISABLED, :calculate_primary_disabled)
+        set_line(:MD502R_LINE_SPOUSE_DISABLED, :calculate_spouse_disabled)
         set_line(:MD502R_LINE_9A, :calculate_line_9a)
         set_line(:MD502R_LINE_9B, :calculate_line_9b)
       end
 
       private
 
+      def calculate_primary_disabled
+        @intake.primary_disabled_yes? ? "X" : nil
+      end
+
+      def calculate_spouse_disabled
+        @intake.spouse_disabled_yes? ? "X" : nil
+      end
       def calculate_line_9a
         if @intake.direct_file_data.fed_ssb.positive?
           if @intake.filing_status_mfj?
