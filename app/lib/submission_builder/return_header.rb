@@ -44,7 +44,7 @@ module SubmissionBuilder
             xml.USPhone @submission.data_source.direct_file_data.phone_number if @submission.data_source.direct_file_data.phone_number.present?
           end
           has_nra_spouse = @intake.check_nra_status? && @intake.direct_file_data.non_resident_alien == "NRA" && @intake.filing_status_mfs?
-          if @submission.data_source&.spouse&.ssn.present? && @submission.data_source&.spouse&.first_name.present? && (!@intake.filing_status_mfs? || has_nra_spouse)
+          if @submission.data_source.spouse&.ssn.present? && @submission.data_source.spouse&.first_name.present? && (!@intake.filing_status_mfs? || has_nra_spouse)
             xml.Secondary do
               xml.TaxpayerName do
                 xml.FirstName sanitize_for_xml(@submission.data_source.spouse.first_name, 16) if @submission.data_source.spouse.first_name.present?
