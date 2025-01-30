@@ -4,10 +4,6 @@ name: Tag and Release
 # 3. Merge main into release branch (triggers CircleCI pipeline)
 
 on:
-  push:
-    branches:
-      - main
-      - fake-main-for-testing
   workflow_dispatch:
     inputs:
       release_type:
@@ -54,7 +50,7 @@ jobs:
         run: |
           # parse major, minor, and patch versions from the last release
           latest_version="$(git tag --list | grep 'version-' | sort --version-sort | tail -n1)"
-          IFS='.' read -r major minor patch <<< "$latest_version"
+          IFS='.' read -r major minor patch <<< "${latest_version#version-}"
           echo "OLD_VERSION=$latest_version" >> $GITHUB_ENV
           
           # increment appropriately for the release type (default to patch)
@@ -71,7 +67,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          release_command="gh release create ${{ env.NEW_VERSION }} --target ${{ github.sha }} --generate-notes --latest"
+          release_command="gh release create ${{ env.NEW_VERSION }} --target ${{ github.sha }} --generate-notes --latest --draft"
           if [[ -n "${{ github.event.inputs.release_title }}" ]]; then
             release_command="${release_command} --title '${{ github.event.inputs.release_title }}'"
           fi
@@ -90,7 +86,7 @@ jobs:
           echo "Updating release branch on GitHub. This triggers deployment."
           git merge "${{ env.NEW_VERSION }}" --ff-only
 
-          if [[ -n ${{ github.ref != 'refs/heads/main' }} ]]; then
+          if [[ "${GITHUB_REF}" != "refs/heads/main" ]]; then
             echo "this concludes testing - this job was not intiated from main"
             exit 0
           fi
