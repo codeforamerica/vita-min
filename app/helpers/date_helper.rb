@@ -67,7 +67,6 @@ module DateHelper
   end
 
   def parse_date_params(year, month, day)
-    binding.pry
     date_values = [year, month, day]
     return nil if date_values.any?(&:blank?)
 

@@ -73,17 +73,6 @@ module DateAccessible
       end
     end
 
-    # date part. Values can be strings as long as #to_i renders an appropriate
-    # integer. Note that Date#change only accepts :year, :month, and :day as
-    # keys, all other keys will be treated as nothing was passed at all.
-    #
-    # Note that until all three fragments are passed; month, day, and year, the
-    # year is nonsense. This is expected to be caught by validation.
-    #
-    # @see Date#change
-    #
-    # @param date_property [Symbol] The property to manipulate
-    # @param args [Hash<Symbol, String | Integer>] Arguments conforming to Date#change
     def try_set_date(property)
       year = instance_variable_get("@#{property}_year_val")
       month = instance_variable_get("@#{property}_month_val")
