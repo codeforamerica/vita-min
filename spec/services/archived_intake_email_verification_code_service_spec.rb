@@ -42,7 +42,8 @@ describe ArchivedIntakeEmailVerificationCodeService do
         described_class.request_code(**params)
         email = ActionMailer::Base.deliveries.last
         expect(email.to).to eq [email_address]
-        expect(email.body.encoded).to include ("Tu codigo de verificacion de seis digitos para FileYourStateTaxes:")
+        expect(email.body.encoded).to include ("Tu equipo de impuestos en FileYourStateTaxes.org")
+        expect(email.body.encoded).to include ("123456")
       end
     end
   end
