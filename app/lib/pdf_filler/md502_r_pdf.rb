@@ -26,6 +26,8 @@ module PdfFiller
         'Spouses Social Security Number': @xml_document.at('Secondary TaxpayerSSN')&.text,
         'Your Age 1': @xml_document.at('PrimaryAge')&.text,
         'Spouses Age': @xml_document.at('SecondaryAge')&.text,
+        You: check_box_if_x(@xml_document.at('PriTotalPermDisabledIndicator')&.text),
+        Spouse: check_box_if_x(@xml_document.at('SecTotalPermDisabledIndicator')&.text),
         }
       if Flipper.enabled?(:show_md_ssa)
         answers.merge!(
@@ -34,6 +36,10 @@ module PdfFiller
         )
       end
       answers
+    end
+
+    def check_box_if_x(value)
+      value == "X" ? 'On' : 'Off'
     end
   end
 end

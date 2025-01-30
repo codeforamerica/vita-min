@@ -83,5 +83,31 @@ RSpec.describe PdfFiller::Md502RPdf do
         end
       end
     end
+
+    context "Part 3: Disability" do
+      before do
+        allow(Flipper).to receive(:enabled?).and_call_original
+        allow(Flipper).to receive(:enabled?).with(:show_md_ssa).and_return(true)
+      end
+
+      context "with disabled filers" do
+        before do
+          allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_primary_disabled).and_return "X"
+          allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_spouse_disabled).and_return "X"
+        end
+
+        it "outputs all relevant values" do
+          expect(pdf_fields["You"]).to eq("On")
+          expect(pdf_fields["Spouse"]).to eq("On")
+        end
+      end
+
+      context "with no disabled filers" do
+        it "outputs all relevant values" do
+          expect(pdf_fields["You"]).to eq("Off")
+          expect(pdf_fields["Spouse"]).to eq("Off")
+        end
+      end
+    end
   end
 end
