@@ -7,7 +7,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502R, required_sche
     let(:build_response) { described_class.build(submission, validate: false) }
     let(:xml) { Nokogiri::XML::Document.parse(build_response.document.to_xml) }
 
-    it "generates a valid xml" do
+    after do
       expect(build_response.errors).to be_empty
     end
 
