@@ -404,6 +404,8 @@ module Efile
 
       def calculate_line_22
         # Earned Income Credit (EIC)
+        return if filing_status_dependent?
+
         if filing_status_mfj? || filing_status_mfs? || @direct_file_data.fed_eic_qc_claimed
           (@direct_file_data.fed_eic * 0.50).round
         elsif filing_status_single? || filing_status_hoh? || filing_status_qw?
@@ -599,6 +601,8 @@ module Efile
 
       def calculate_line_42
         # Earned Income Credit (EIC)
+        return if filing_status_dependent?
+
         if filing_status_mfj? || filing_status_mfs? || @direct_file_data.fed_eic_qc_claimed
           [(@direct_file_data.fed_eic * 0.45).round - line_or_zero(:MD502_LINE_21), 0].max
         elsif filing_status_single? || filing_status_hoh? || filing_status_qw?
@@ -635,7 +639,7 @@ module Efile
       end
 
       def filing_status_dependent?
-        @filing_status == :dependent
+        @intake.direct_file_data.claimed_as_dependent?
       end
 
       def deduction_method_is_standard?
