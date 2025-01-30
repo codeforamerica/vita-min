@@ -8,5 +8,12 @@
     <p><%= t(".body_html", ineligible_reason: ineligible_reason, prev_link: prev_path) %></p>
   <% end %>
 
+  <% href = I18n.locale == :en ? StateFile::StateInformationService.vita_link_en(current_state_code) : StateFile::StateInformationService.vita_link_es(current_state_code) %>
+  <% if href.present? %>
+    <%= link_to(href, class: "button button--primary button--wide spacing-below-15") do %>
+      <%= t('.connect_to_vita') %>
+    <% end %>
+  <% end %>
+
   <%= render 'state_file/questions/eligibility_offboarding/other_options' %>
 <% end %>

@@ -2407,6 +2407,7 @@ es:
       eligibility_offboarding:
         edit:
           body_html: No puedes usar este servicio este año porque %{ineligible_reason}. <br><br><strong>¿Fue un error?</strong><a href=%{prev_link}>Regresa para corregirlo.</a>
+          connect_to_vita: Conéctate ahora
           ineligible_reason:
             eligibility_529_for_non_qual_expense: retiraste dinero de una cuenta de ahorro universitario 529 y lo utilizaste para un gasto no calificado en el %{filing_year}
             eligibility_ed_loan_cancelled: se te canceló un préstamo estudiantil bajo la Ley del Plan de Rescate Estadounidense.
