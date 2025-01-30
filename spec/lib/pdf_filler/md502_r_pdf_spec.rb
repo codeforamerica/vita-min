@@ -87,7 +87,7 @@ RSpec.describe PdfFiller::Md502RPdf do
     context "Part 3: Disability" do
       before do
         allow(Flipper).to receive(:enabled?).and_call_original
-        allow(Flipper).to receive(:enabled?).with(:show_md_ssa).and_return(true)
+        allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
       end
 
       context "with disabled filers" do
