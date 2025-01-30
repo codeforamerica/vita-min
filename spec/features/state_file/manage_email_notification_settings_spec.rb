@@ -21,6 +21,10 @@ RSpec.feature "Unsubscribing from email", active_job: true do
     expect(intake.unsubscribed_from_email).to eq false
 
     step_through_initial_authentication(contact_preference: :email)
+
+    check "Email"
+    click_on I18n.t("general.continue")
+
     perform_enqueued_jobs
     email = ActionMailer::Base.deliveries.last
 
