@@ -8,7 +8,6 @@ module StateFile
       end
 
       def index
-        binding.pry
         @az322_contributions = current_intake.az322_contributions
         unless @az322_contributions.present?
           build_contribution
@@ -17,53 +16,56 @@ module StateFile
       end
 
       def new
-        binding.pry
         build_contribution
       end
 
       def build_contribution
-        @az322_contribution = current_intake.az322_contributions.build
+        if session[:selected_no_on_school_contributions]
+          @az322_contribution = current_intake.az322_contributions.build(made_contribution: "no")
+        else
+          @az322_contribution = current_intake.az322_contributions.build
+        end
       end
 
       def create
-        binding.pry
-        @az322_contributions = current_intake.az322_contributions
-        if @az322_contributions.present?
+        if params[:az322_contribution].present?
           @az322_contribution = current_intake.az322_contributions.build(az322_contribution_params)
           @az322_contributions = current_intake.az322_contributions
           if @az322_contribution.made_contribution_no?
+            session[:selected_no_on_school_contributions] = true
             return redirect_to next_path
           end
 
           if current_intake.valid?(:az322) && @az322_contribution.valid?
             @az322_contribution.save
             redirect_to action: :index, return_to_review: params[:return_to_review]
+          else
+            render :new
           end
         else
-          render :index
+          build_contribution
+          render :new
         end
       end
 
       def edit
-        binding.pry
         @az322_contribution = current_intake.az322_contributions.find(params[:id])
       end
 
       def update
-        binding.pry
         @az322_contribution = current_intake.az322_contributions.find(params[:id])
         @az322_contribution.assign_attributes(az322_contribution_params)
 
         if @az322_contribution.made_contribution_no?
+          session[:selected_no_on_school_contributions] = true
           @az322_contribution.destroy
           return redirect_to action: :index, return_to_review: params[:return_to_review]
         end
-        binding.pry
+
         if @az322_contribution.valid?
           @az322_contribution.save
           redirect_to action: :index, return_to_review: params[:return_to_review]
         else
-          binding.pry
           render :edit
         end
       end
