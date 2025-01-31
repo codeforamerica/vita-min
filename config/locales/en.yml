@@ -2478,6 +2478,8 @@ en:
           title:
             default: Unfortunately, you can't use this service this year. Don't worry, there are other filing options.
             nj: Unfortunately, based on the information we have, you can't use this tool this year. Don't worry; there are other filing options.
+          vita_introduction:
+            nj: You can file your state taxes for free with help from IRS-certified Volunteer Income Tax Assistance (VITA) tax preparers at Simplify CT.
       eligible:
         az_credits_unsupported:
           other_credits_301_html: Nonrefundable credits listed on <a href="https://azdor.gov/sites/default/files/2023-03/FORMS_CREDIT_2022_301-SBI_f.pdf" target="_blank" rel="noopener nofollow">AZ Form 301</a>

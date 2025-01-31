@@ -1,5 +1,5 @@
 <% # i18n-tasks-use t('state_file.questions.eligibility_offboarding.edit.title.nj') # hint for the i18n linter that, yes, we are using this key (sometimes) %>
-<% title_key = ".title.#{current_state_code}" %>
+<% title_key = "state_file.questions.eligibility_offboarding.edit.title.#{current_state_code}" %>
 <% title = I18n.exists?(title_key, locale) ? t(title_key) : t(".title.default") %>
 
 <% content_for :page_title, title %>
@@ -7,6 +7,13 @@
   <h1 class="h2"><%= title %></h1>
   <% unless ineligible_reason.nil? %>
     <p><%= t(".body_html", ineligible_reason: ineligible_reason, prev_link: prev_path) %></p>
+  <% end %>
+
+  <% # i18n-tasks-use t('state_file.questions.eligibility_offboarding.edit.vita_introduction.nj') # hint for the i18n linter that, yes, we are using this key (sometimes) %>
+  <% vita_introduction_key = "state_file.questions.eligibility_offboarding.edit.vita_introduction.#{current_state_code}" %>
+  <% vita_introduction = I18n.exists?(vita_introduction_key, locale) ? t(vita_introduction_key) : nil %>
+  <% if vita_introduction.present? %>
+    <p><%= vita_introduction %></p>
   <% end %>
 
   <% href = I18n.locale == :en ? StateFile::StateInformationService.vita_link_en(current_state_code) : StateFile::StateInformationService.vita_link_es(current_state_code) %>

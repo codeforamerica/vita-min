@@ -2434,6 +2434,8 @@ es:
           title:
             default: Desafortunadamente, no puedes utilizar este servicio este año. No te preocupes, aquí tienes otras opciones para declarar.
             nj: Desafortunadamente, según la información que tenemos, no puedes usar esta herramienta este año. No te preocupes; hay otras opciones de presentación.
+          vita_introduction:
+            nj: Puedes presentar tus impuestos estatales de forma gratuita con la ayuda de preparadores de impuestos voluntarios certificados por el IRS del programa Volunteer Income Tax Assistance (VITA por las siglas en inglés) en Simplify CT.
       eligible:
         az_credits_unsupported:
           other_credits_301_html: Créditos no reembolsables enumerados en el <a href="https://azdor.gov/sites/default/files/2023-03/FORMS_CREDIT_2022_301-SBI_f.pdf" target="_blank" rel="noopener nofollow">Formulario AZ 301</a>
