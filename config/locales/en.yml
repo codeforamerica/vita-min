@@ -2502,10 +2502,8 @@ en:
             list:
               body: 'Many commercial tax preparation services offer state-only tax filing. Here are some quick tips:'
               list1: Confirm that the service lets you file just your state return. You might need to check with customer support.
-              list2: Be ready to reenter info from your federal return, as it’s needed for your state return.
+              list2: Be ready to reenter info from your federal return, as it's needed for your state return.
               list3: When filing, only submit your state return. If you submit your federal return again, your federal return may be rejected.
-            reveal_content_html:
-              nj: 
             title: What are my other state filing options?
           title:
             default: Unfortunately, you can't use this service this year. Don't worry, there are other filing options.
