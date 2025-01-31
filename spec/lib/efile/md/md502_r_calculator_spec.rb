@@ -2,7 +2,8 @@ require 'rails_helper'
 
 describe Efile::Md::Md502RCalculator do
   let(:filing_status) { "single" }
-  let(:intake) { create(:state_file_md_intake, :df_data_2_w2s, filing_status: filing_status) } # df_data_2_w2s has $8000 in federal social security benefits
+  # df_data_2_w2s has $8000 in federal social security benefits
+  let(:intake) { create(:state_file_md_intake, :df_data_2_w2s, filing_status: filing_status) }
   let(:main_calculator) do
     Efile::Md::Md502Calculator.new(
       year: MultiTenantService.statefile.current_tax_year,
@@ -71,6 +72,79 @@ describe Efile::Md::Md502RCalculator do
 
         it "returns nil" do
           expect(instance.lines[:MD502R_LINE_SPOUSE_DISABLED].value).to eq nil
+        end
+      end
+    end
+  end
+
+  [['1a', :primary, :spouse]].each do |line, recipient, not_recipient|
+    let(:line_key) { "MD502R_LINE_#{line.upcase}" }
+    describe "#calculate_line_#{line}" do
+      context "with 1099rs" do
+        let(:income_source) { "pension_annuity_endowment" }
+        let(:other_income_source) { "other" }
+        let!(:state_1099r_followup) do
+          create(
+            :state_file_md1099_r_followup,
+            income_source: income_source,
+            state_file1099_r: create(:state_file1099_r, taxable_amount: 25, intake: intake, recipient_ssn: intake.send(recipient).ssn)
+          )
+        end
+        let!(:other_1099r_followup) {
+          create(
+            :state_file_md1099_r_followup,
+            income_source: other_income_source,
+            state_file1099_r: create(:state_file1099_r, taxable_amount: 50, intake: intake, recipient_ssn: intake.send(recipient).ssn)
+          )
+        }
+
+        before do
+          main_calculator.calculate
+        end
+
+        context "with multiple pension_annunity_endowment 1099rs" do
+          let(:other_income_source) { "pension_annuity_endowment" }
+
+          it "should add up all 1099r taxable_amount if all have pension_annuity_endowment income_source" do
+            expect(instance.lines[line_key].value).to eq 75
+          end
+        end
+
+        context "with only a single pension_annuity_endowment" do
+          let(:other_income_source) { "other" }
+
+          it "should only return taxable_amount of 1099r with pension_annuity_endowment income_source" do
+            expect(instance.lines[line_key].value).to eq 25
+          end
+        end
+
+        context "with no single pension_annuity_endowment" do
+          let(:income_source) { "other" }
+          let(:other_income_source) { "other" }
+
+          it "should return 0" do
+            expect(instance.lines[line_key].value).to eq 0
+          end
+        end
+      end
+
+      context "with only 1099rs of spouse" do
+        let!(:state_1099r_followup) do
+          create(
+            :state_file_md1099_r_followup,
+            income_source: 'pension_annuity_endowment',
+            state_file1099_r: create(:state_file1099_r, taxable_amount: 25, intake: intake, recipient_ssn: intake.send(not_recipient).ssn)
+          )
+        end
+
+        it "returns nil" do
+          expect(instance.lines[line_key]).to be_nil
+        end
+      end
+
+      context "with no 1099rs" do
+        it "returns nil" do
+          expect(instance.lines[line_key]).to be_nil
         end
       end
     end
