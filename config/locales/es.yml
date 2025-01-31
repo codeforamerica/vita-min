@@ -2466,59 +2466,59 @@ es:
             nj: Desafortunadamente, según la información que tenemos, no puedes usar esta herramienta este año. No te preocupes; hay otras opciones de presentación.
           vita_option:
             content_html:
-                md: |
-                  <p>
-                    Tienes otras opciones gratuitas para presentar tu declaración estatal:
-                    <ul>
-                      <li>
-                        Declara gratis con voluntarios VITA certificados por el IRS en Maryland.
-                        <ul>
-                          <li>
-                            Si eliges esta opción, te conectarás con un socio de Asistencia Voluntaria para la Declaración de Impuestos (VITA) en Maryland. Recibirás una llamada en los próximos días. Tendrás que responder algunas preguntas adicionales sobre tu situación tributaria y enviar de forma segura tus documentos en línea. Este proceso puede tardar de 2 a 3 semanas en completarse.
-                          </li>
-                          <li>
-                            Comienza con VITA ahora
-                          </li>
-                          <li>
-                            Aprende más sobre este proceso y otras opciones de declaración aquí.
-                          </li>
-                        </ul>
+              md: |
+                <p>
+                  Tienes otras opciones gratuitas para presentar tu declaración estatal:
+                  <ul>
+                    <li>
+                      Declara gratis con voluntarios VITA certificados por el IRS en Maryland.
+                      <ul>
                         <li>
-                          Comienza con el servicio  <a href="https://www.marylandtaxes.gov/individual/tax-assistance/free-tax-prep.php" rel="noopener nofollow" target="_blank">gratuito de preparación de impuestos sobre ingresos</a>del Contralor de Maryland.
+                          Si eliges esta opción, te conectarás con un socio de Asistencia Voluntaria para la Declaración de Impuestos (VITA) en Maryland. Recibirás una llamada en los próximos días. Tendrás que responder algunas preguntas adicionales sobre tu situación tributaria y enviar de forma segura tus documentos en línea. Este proceso puede tardar de 2 a 3 semanas en completarse.
                         </li>
-                      </li>
-                    </ul>
-                  </p>
-                nj: |
-                  <p>
-                    Los preparadores de impuestos certificados en Simplify CT pueden ayudarte a preparar y presentar electrónicamente tu declaración de impuestos estatales de forma gratuita en un plazo de aproximadamente 2-3 semanas.
-                  </p>
-                  <p>
-                    El proceso:
-                    <ul>
+                        <li>
+                          Comienza con VITA ahora
+                        </li>
+                        <li>
+                          Aprende más sobre este proceso y otras opciones de declaración aquí.
+                        </li>
+                      </ul>
                       <li>
-                        Completa un formulario corto para solicitar asistencia solo para el estado. (Recibirás un email automático confirmando que lo enviaste).
+                        Comienza con el servicio  <a href="https://www.marylandtaxes.gov/individual/tax-assistance/free-tax-prep.php" rel="noopener nofollow" target="_blank">gratuito de preparación de impuestos sobre ingresos</a>del Contralor de Maryland.
                       </li>
-                      <li>
-                        Un preparador de impuestos certificado compartirá un enlace para cargar de forma segura tu formulario de impuestos federales (1040), documentos fiscales e identificación.
-                      </li>
-                      <li>
-                        Te llamarán para pedirte más datos.
-                      </li>
-                      <li>
-                        Una vez que tu declaración esté lista, programarán una llamada para revisarla y responder tus preguntas.
-                      </li>
-                      <li>
-                        Firmarás tu formulario de impuestos estatales en línea.
-                      </li>
-                      <li>
-                        El preparador de impuestos presentará electrónicamente tus impuestos estatales.
-                      </li>
-                    </ul>
-                  </p>
-                  <p>
-                    Si tienes preguntas, usa el chat o envía un email a <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>. Si tienes preguntas después de que Simplify CT se haya comunicado contigo, escribe a <a href="mailto:help@simplifyct.org">help@simplifyct.org</a>.
-                  </p>
+                    </li>
+                  </ul>
+                </p>
+              nj: |
+                <p>
+                  Los preparadores de impuestos certificados en Simplify CT pueden ayudarte a preparar y presentar electrónicamente tu declaración de impuestos estatales de forma gratuita en un plazo de aproximadamente 2-3 semanas.
+                </p>
+                <p>
+                  El proceso:
+                  <ul>
+                    <li>
+                      Completa un formulario corto para solicitar asistencia solo para el estado. (Recibirás un email automático confirmando que lo enviaste).
+                    </li>
+                    <li>
+                      Un preparador de impuestos certificado compartirá un enlace para cargar de forma segura tu formulario de impuestos federales (1040), documentos fiscales e identificación.
+                    </li>
+                    <li>
+                      Te llamarán para pedirte más datos.
+                    </li>
+                    <li>
+                      Una vez que tu declaración esté lista, programarán una llamada para revisarla y responder tus preguntas.
+                    </li>
+                    <li>
+                      Firmarás tu formulario de impuestos estatales en línea.
+                    </li>
+                    <li>
+                      El preparador de impuestos presentará electrónicamente tus impuestos estatales.
+                    </li>
+                  </ul>
+                </p>
+                <p>
+                  Si tienes preguntas, usa el chat o envía un email a <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>. Si tienes preguntas después de que Simplify CT se haya comunicado contigo, escribe a <a href="mailto:help@simplifyct.org">help@simplifyct.org</a>.
+                </p>
             title:
               default: "¿Qué opciones gratuitas tengo para declarar mis impuestos estatales?"
               nj: Lee más sobre el proceso de VITA
