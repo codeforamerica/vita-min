@@ -6,6 +6,41 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
     sign_in intake
   end
 
+  describe ".show?" do
+    context "when the intake has school contributions" do
+      before do
+        intake.school_contributions_yes!
+      end
+
+      it "shows" do
+        expect(described_class).to be_show(intake)
+      end
+    end
+
+    context "when the intake does not have school contributions" do
+      before do
+        intake.school_contributions_no!
+      end
+
+      it "shows" do
+        expect(described_class).not_to be_show(intake)
+      end
+    end
+
+    context "TEMPORARY when the intake has school contributions unfilled" do
+      # clients who are currently in the flow and have not gone through the new page before this one will not have
+      # this question answered and should still see the page
+
+      before do
+        intake.school_contributions_unfilled!
+      end
+
+      it "shows" do
+        expect(described_class).to be_show(intake)
+      end
+    end
+  end
+
   describe "#index" do
     context "with existing contributions" do
       render_views
@@ -39,7 +74,6 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
     let(:params) do
       {
         az322_contribution: {
-          made_contribution: 'yes',
           school_name: 'School A',
           ctds_code: '123456789',
           district_name: 'District A',
@@ -82,25 +116,13 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
       }.not_to change(intake.az322_contributions, :count)
     end
 
-    context "when 'no' was selected for made_contribution" do
-      before do
-        params[:az322_contribution][:made_contribution] = 'no'
-      end
-
-      it "creates nothing" do
-        expect do
-          post :create, params: params
-        end.not_to change(Az322Contribution, :count)
-      end
-    end
-
     context "with invalid params" do
       render_views
 
       let(:invalid_params) do
         {
           az322_contribution: {
-            made_contribution: nil,
+            amount: 0,
           }
         }
       end
@@ -112,6 +134,36 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
 
         expect(response).to render_template(:new)
         expect(response.body).to include "Can't be blank"
+      end
+    end
+
+    context "DEPRECATED BEHAVIOR; keep tests until page is changed on prod" do
+      let(:params) do
+        {
+          az322_contribution: {
+            made_contribution: 'yes',
+            school_name: 'School A',
+            ctds_code: '123456789',
+            district_name: 'District A',
+            amount: 100,
+            date_of_contribution_month: '8',
+            date_of_contribution_day: "12",
+            date_of_contribution_year: Rails.configuration.statefile_current_tax_year
+          }
+        }
+      end
+
+      it "creates a new contribution linked to the current intake and redirects to the index" do
+        expect do
+          post :create, params: params
+        end.to change(Az322Contribution, :count).by 1
+
+        expect(response).to redirect_to(action: :index)
+
+        contribution = Az322Contribution.last
+        expect(contribution.state_file_az_intake).to eq intake
+        expect(contribution.school_name).to eq 'School A'
+        expect(contribution.amount).to eq 100
       end
     end
   end
@@ -134,7 +186,6 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
       {
         id: contribution.id,
         az322_contribution: {
-          made_contribution: 'yes',
           school_name: 'New School',
           ctds_code: '123456789',
           district_name: 'District A',
@@ -152,20 +203,6 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
 
       contribution.reload
       expect(contribution.school_name).to eq 'New School'
-    end
-
-    context "when 'no' was selected for made_contribution" do
-      before do
-        params[:az322_contribution][:made_contribution] = 'no'
-      end
-
-      it "deletes the contribution" do
-        expect do
-          post :update, params: params
-        end.to change(Az322Contribution, :count).by(-1)
-
-        expect { contribution.reload }.to raise_error(ActiveRecord::RecordNotFound)
-      end
     end
 
     context "with invalid params" do
@@ -189,6 +226,32 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
         expect(response).to render_template(:edit)
         expect(response.body).to include "Can't be blank"
         expect(response.body).to include "School Code/CTDS must be a 9 digit number"
+      end
+    end
+
+    context "DEPRECATED BEHAVIOR; keep tests until page is changed on prod" do
+      let(:params) do
+        {
+          id: contribution.id,
+          az322_contribution: {
+            made_contribution: 'yes',
+            school_name: 'New School',
+            ctds_code: '123456789',
+            district_name: 'District A',
+            amount: 100,
+            date_of_contribution_month: '8',
+            date_of_contribution_day: "12",
+            date_of_contribution_year: Rails.configuration.statefile_current_tax_year.to_s
+          }
+        }
+      end
+
+      it "updates the contribution and redirects to the index" do
+        post :update, params: params
+        expect(response).to redirect_to(action: :index)
+
+        contribution.reload
+        expect(contribution.school_name).to eq 'New School'
       end
     end
   end

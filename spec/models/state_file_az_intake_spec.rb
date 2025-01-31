@@ -54,6 +54,7 @@
 #  raw_direct_file_intake_data            :jsonb
 #  referrer                               :string
 #  routing_number                         :string
+#  school_contributions                   :integer          default("unfilled"), not null
 #  sign_in_count                          :integer          default(0), not null
 #  sms_notification_opt_in                :integer          default("unfilled"), not null
 #  source                                 :string
