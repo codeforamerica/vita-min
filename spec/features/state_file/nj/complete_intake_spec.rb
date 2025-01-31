@@ -308,6 +308,17 @@ RSpec.feature "Completing a state file intake", active_job: true do
       check_xml_results
     end
 
+    it "shown ineligible offboarding when investment interest over 12k" do
+      advance_to_start_of_intake("Investment income 12k", check_a11y: true, expect_income_review: true)
+
+      expect(page).to have_text I18n.t("state_file.questions.nj_eligibility_health_insurance.edit.title")
+      choose I18n.t("general.negative")
+      continue
+
+      expect(page).to be_axe_clean
+      expect(page).to have_text I18n.t("state_file.questions.eligibility_offboarding.edit.title.nj")
+    end
+
     it "handles property tax neither flow", required_schema: "nj" do
       advance_to_start_of_intake("Zeus one dep")
       advance_to_property_tax_page
