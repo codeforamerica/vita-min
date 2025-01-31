@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>c21d6eb3</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400001234</PrimarySSN>
+            <NameLine1Txt>AVRIL L&lt;COMPLICATED</NameLine1Txt>
+            <PrimaryNameControlTxt>COMP</PrimaryNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>123 Crab Way</AddressLine1Txt>
+                <CityNm>Rockville</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>20850</ZIPCd>
+            </USAddress>
+            <PhoneNum>2223334444</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000123-4838-41e2-81f9-96bf565d71f9@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="2">
+        <IRS1040 documentId="IRS10400001">
+            <IndividualReturnFilingStatusCd>1</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <PrimaryClaimAsDependentInd>X</PrimaryClaimAsDependentInd>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>1</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">14850</WagesAmt>
+            <WagesSalariesAndTipsAmt>14850</WagesSalariesAndTipsAmt>
+            <TotalIncomeAmt>14850</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>14850</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>14600</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>14600</TotalDeductionsAmt>
+            <TaxableIncomeAmt>250</TaxableIncomeAmt>
+            <TaxAmt>26</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>26</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>26</TaxLessCreditsAmt>
+            <TotalTaxAmt>26</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>500</FormW2WithheldTaxAmt>
+            <WithholdingTaxAmt>500</WithholdingTaxAmt>
+            <TotalPaymentsAmt>500</TotalPaymentsAmt>
+            <OverpaidAmt>474</OverpaidAmt>
+            <RefundAmt>474</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>music</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>400001234</EmployeeSSN>
+            <EmployerEIN>001234568</EmployerEIN>
+            <EmployerNameControlTxt>YEAH</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Yeah No Factory</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>300 Fake street</AddressLine1Txt>
+                <CityNm>bethesda</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>20814</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Avril L Complicated</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>123 Crab Way</AddressLine1Txt>
+                <CityNm>Rockville</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>20850</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>14850</WagesAmt>
+            <WithholdingAmt>500</WithholdingAmt>
+            <SocialSecurityWagesAmt>14850</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>200</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>14850</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>200</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>MD</StateAbbreviationCd>
+                    <EmployerStateIdNum>12345</EmployerStateIdNum>
+                    <StateWagesAmt>14850</StateWagesAmt>
+                    <StateIncomeTaxAmt>100</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>

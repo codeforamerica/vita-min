@@ -78,8 +78,8 @@ module Efile
       @filing_status == :qualifying_widow
     end
 
-    def filing_status_dependent?
-      @filing_status == :dependent
+    def md_filing_status_dependent?
+      @direct_file_data.claimed_as_dependent?
     end
   end
 end
