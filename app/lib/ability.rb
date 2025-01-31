@@ -22,6 +22,7 @@ class Ability
     if user.admin?
       # All admins who are also state file
       can :manage, :all
+      can :destroy, Client if user.admin?
 
       # Non-NJ staff cannot manage NJ EfileErrors, EfileSubmissions or FAQs
       cannot :manage, EfileError, service_type: "state_file_nj"
@@ -85,7 +86,9 @@ class Ability
     ].freeze
 
     if user.role?(client_role_whitelist)
-      can :manage, Client, vita_partner: accessible_groups
+      can :read, Client, vita_partner: accessible_groups
+      # can only edit/update Intakes from the current product year
+      can [:create, :update], Client, intake: { product_year: Rails.configuration.product_year }, vita_partner: accessible_groups
     end
 
     if user.greeter?
@@ -114,15 +117,25 @@ class Ability
 
     # Only admins can destroy clients
     cannot :destroy, Client unless user.admin?
-    can :manage, [
+
+    can [:create, :update, :destroy], [
+      Note,
       Document,
+      TaxReturn
+    ], client: { intake: { product_year: Rails.configuration.product_year }, vita_partner: accessible_groups }
+
+    can [:read], [
+      Note,
+      Document,
+      TaxReturn
+    ], client: { vita_partner: accessible_groups }
+
+    can :manage, [
       IncomingEmail,
       IncomingTextMessage,
-      Note,
       OutgoingEmail,
       OutgoingTextMessage,
       SystemNote,
-      TaxReturn,
     ], client: { vita_partner: accessible_groups }
 
     can :manage, TaxReturnSelection, tax_returns: { client: { vita_partner: accessible_groups } }
