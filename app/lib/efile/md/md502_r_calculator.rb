@@ -20,6 +20,8 @@ module Efile
         set_line(:MD502R_LINE_8, :calculate_line_8)
         set_line(:MD502R_LINE_9A, :calculate_line_9a)
         set_line(:MD502R_LINE_9B, :calculate_line_9b)
+        set_line(:MD502R_LINE_10A, :calculate_line_10a)
+        set_line(:MD502R_LINE_10B, :calculate_line_10b)
       end
 
       private
@@ -68,6 +70,14 @@ module Efile
         if @intake.filing_status_mfj? && @intake.direct_file_data.fed_ssb.positive? && @intake.spouse_ssb_amount.present?
           @intake.spouse_ssb_amount.round
         end
+      end
+
+      def calculate_line_10a
+        line_or_zero(:MD502_SU_LINE_U_PRIMARY) + line_or_zero(:MD502_SU_LINE_V_PRIMARY)
+      end
+
+      def calculate_line_10b
+        line_or_zero(:MD502_SU_LINE_U_SPOUSE) + line_or_zero(:MD502_SU_LINE_V_SPOUSE)
       end
     end
   end

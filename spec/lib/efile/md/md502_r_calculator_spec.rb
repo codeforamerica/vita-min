@@ -218,6 +218,30 @@ describe Efile::Md::Md502RCalculator do
       end
     end
   end
+
+  describe "#calculate_line_10a" do
+    before do
+      allow_any_instance_of(Efile::Md::Md502SuCalculator).to receive(:calculate_line_u_primary).and_return(10)
+      allow_any_instance_of(Efile::Md::Md502SuCalculator).to receive(:calculate_line_v_primary).and_return(20)
+    end
+
+    it "returns the sum of MD502SU Line U and Line V for primary" do
+      main_calculator.calculate
+      expect(instance.lines[:MD502R_LINE_10A].value).to eq 30
+    end
+  end
+
+  describe "#calculate_line_10b" do
+    before do
+      allow_any_instance_of(Efile::Md::Md502SuCalculator).to receive(:calculate_line_u_spouse).and_return(30)
+      allow_any_instance_of(Efile::Md::Md502SuCalculator).to receive(:calculate_line_v_spouse).and_return(40)
+    end
+
+    it "returns the sum of MD502SU Line U and Line V for spouse" do
+      main_calculator.calculate
+      expect(instance.lines[:MD502R_LINE_10B].value).to eq 70
+    end
+  end
 end
 
 
