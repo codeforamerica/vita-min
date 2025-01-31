@@ -41,7 +41,9 @@ module PdfFiller
           '1b' => @xml_document.at('SourceRetirementIncome SecondaryTaxPayer EmployeeRetirementSystem')&.text,
           'including foreign retirement income                                     7a' => @xml_document.at('SourceRetirementIncome PrimaryTaxPayer OtherAndForeign')&.text,
           '7b' => @xml_document.at('SourceRetirementIncome SecondaryTaxPayer OtherAndForeign')&.text,
-          'income on lines 1z 4b and 5b of your federal Form 1040 and line 8t of your federal Schedule 1      8' => @xml_document.at('SourceRetirementIncome TotalPensionsIRAsAnnuities')&.text
+          'income on lines 1z 4b and 5b of your federal Form 1040 and line 8t of your federal Schedule 1      8' => @xml_document.at('SourceRetirementIncome TotalPensionsIRAsAnnuities')&.text,
+          'retirement from code letter v on Form 502SU income subtracted on Maryland Form 502  10a' => @xml_document.at('PriMilLawEnforceIncSub')&.text,
+          '10b' => @xml_document.at('SecMilLawEnforceIncSub')&.text,
         )
       end
       answers

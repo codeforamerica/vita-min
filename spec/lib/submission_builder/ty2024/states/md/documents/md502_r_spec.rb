@@ -82,6 +82,18 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502R, required_sche
           end
         end
       end
+
+      context "PriMilLawEnforceIncSub and SecMilLawEnforceIncSub" do
+        before do
+          allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_10a).and_return 33
+          allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_10b).and_return 66
+        end
+
+        it "should have empty nodes for this section" do
+          expect(xml.at("Form502R PriMilLawEnforceIncSub").text).to eq("33")
+          expect(xml.at("Form502R SecMilLawEnforceIncSub").text).to eq("66")
+        end
+      end
     end
 
     context "show_md_ssa" do
