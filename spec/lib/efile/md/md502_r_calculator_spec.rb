@@ -77,12 +77,18 @@ describe Efile::Md::Md502RCalculator do
     end
   end
 
-  [['1a', :primary, :spouse]].each do |line, recipient, not_recipient|
-    let(:line_key) { "MD502R_LINE_#{line.upcase}" }
+  [
+    ['1a', :primary, :spouse, :pension_annuity_endowment, :other],
+    ['1b', :spouse, :primary, :pension_annuity_endowment, :other],
+    ['7a', :primary, :spouse, :other, :pension_annuity_endowment],
+    ['7b', :spouse, :primary, :other, :pension_annuity_endowment],
+  ].each do |line, recipient, not_recipient, income_source_to_sum, income_source_to_reject|
     describe "#calculate_line_#{line}" do
+      let(:line_key) { "MD502R_LINE_#{line.upcase}" }
+
       context "with 1099rs" do
-        let(:income_source) { "pension_annuity_endowment" }
-        let(:other_income_source) { "other" }
+        let(:income_source) { income_source_to_sum }
+        let(:other_income_source) { income_source_to_reject }
         let!(:state_1099r_followup) do
           create(
             :state_file_md1099_r_followup,
@@ -103,7 +109,7 @@ describe Efile::Md::Md502RCalculator do
         end
 
         context "with multiple pension_annunity_endowment 1099rs" do
-          let(:other_income_source) { "pension_annuity_endowment" }
+          let(:other_income_source) { income_source_to_sum }
 
           it "should add up all 1099r taxable_amount if all have pension_annuity_endowment income_source" do
             expect(instance.lines[line_key].value).to eq 75
@@ -111,16 +117,13 @@ describe Efile::Md::Md502RCalculator do
         end
 
         context "with only a single pension_annuity_endowment" do
-          let(:other_income_source) { "other" }
-
           it "should only return taxable_amount of 1099r with pension_annuity_endowment income_source" do
             expect(instance.lines[line_key].value).to eq 25
           end
         end
 
         context "with no single pension_annuity_endowment" do
-          let(:income_source) { "other" }
-          let(:other_income_source) { "other" }
+          let(:income_source) { income_source_to_reject }
 
           it "should return 0" do
             expect(instance.lines[line_key].value).to eq 0
@@ -132,7 +135,7 @@ describe Efile::Md::Md502RCalculator do
         let!(:state_1099r_followup) do
           create(
             :state_file_md1099_r_followup,
-            income_source: 'pension_annuity_endowment',
+            income_source: income_source_to_sum,
             state_file1099_r: create(:state_file1099_r, taxable_amount: 25, intake: intake, recipient_ssn: intake.send(not_recipient).ssn)
           )
         end
