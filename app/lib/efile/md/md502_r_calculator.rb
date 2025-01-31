@@ -35,19 +35,19 @@ module Efile
       end
 
       def calculate_line_1a
-        @intake.sum_1099_r_followup_type_for_filer(@intake.filer_1099_rs(:primary), :income_type_pension_annuity_endowment?)
+        @intake.sum_1099_r_followup_type_for_filer(@intake.filer_1099_rs(:primary), :income_source_pension_annuity_endowment?)
       end
 
       def calculate_line_1b
-        @intake.sum_1099_r_followup_type_for_filer(@intake.filer_1099_rs(:spouse), :income_type_pension_annuity_endowment?)
+        @intake.sum_1099_r_followup_type_for_filer(@intake.filer_1099_rs(:spouse), :income_source_pension_annuity_endowment?)
       end
 
       def calculate_line_7a
-        @intake.sum_1099_r_followup_type_for_filer(@intake.filer_1099_rs(:primary), :income_type_other?)
+        @intake.sum_1099_r_followup_type_for_filer(@intake.filer_1099_rs(:primary), :income_source_other?)
       end
 
       def calculate_line_7b
-        @intake.sum_1099_r_followup_type_for_filer(@intake.filer_1099_rs(:spouse), :income_type_other?)
+        @intake.sum_1099_r_followup_type_for_filer(@intake.filer_1099_rs(:spouse), :income_source_other?)
       end
 
       def calculate_line_8
