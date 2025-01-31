@@ -1,4 +1,3 @@
-
 StatusRecordGroup = Struct.new(:irs_submission_id, :state, :xml)
 
 module Efile
@@ -103,8 +102,9 @@ module Efile
       submissions = EfileSubmission.where(irs_submission_id: groups_by_irs_submission_id.keys)
       submissions.each do |submission|
         status_updates += 1
-        xml_node = groups_by_irs_submission_id[submission.irs_submission_id]
-        status = xml_node.css('SubmissionStatusTxt').text.strip
+        xml_nodes = groups_by_irs_submission_id[submission.irs_submission_id]
+        xml_node = xml_node_with_most_recent_submission_status(xml_nodes)
+        status = status_from_xml_node(xml_node)
         new_state = submission_status_to_state(status)
         last_raw_response = submission.efile_submission_transitions.last&.metadata["raw_response"]
         submission.transition_to(new_state, raw_response: xml_node.to_xml) unless xml_node.to_xml == last_raw_response
@@ -115,13 +115,32 @@ module Efile
 
     def self.group_status_records_by_submission_id(doc)
       # The service returns multiple status records for the each submission id. It looks like they are in reverse
-      # chronological order (But are not properly date stamped), so we grab the first ones.
+      # chronological order (But are not properly date stamped), although we have seen examples where they are out of
+      # order. Regardless, we return each submission ID's list of statuses in the order they are encountered in the XML
       doc.css('StatusRecordGrp').each_with_object({}) do |xml, groups_by_irs_submission_id|
         irs_submission_id = xml.css("SubmissionId").text.strip
-        unless groups_by_irs_submission_id[irs_submission_id]
-          groups_by_irs_submission_id[irs_submission_id] = xml
+        if groups_by_irs_submission_id[irs_submission_id]
+          groups_by_irs_submission_id[irs_submission_id].append(xml)
+        else
+          groups_by_irs_submission_id[irs_submission_id] = [xml]
         end
       end
+    end
+
+    def self.xml_node_with_most_recent_submission_status(submission_status_xml_nodes)
+      # We might see out-of-order statuses in the list, so search the list for more-progresses statuses first
+      preferred_status_order = [READY_FOR_ACK_STATUSES, TRANSMITTED_STATUSES]
+      preferred_status_order.each do |statuses_to_look_for|
+        most_recent_status_node = submission_status_xml_nodes.find do |xml_node|
+          statuses_to_look_for.include? status_from_xml_node(xml_node)
+        end
+        return most_recent_status_node if most_recent_status_node.present?
+      end
+      nil
+    end
+
+    def self.status_from_xml_node(xml_node)
+      xml_node&.css('SubmissionStatusTxt')&.text&.strip
     end
 
     def self.submission_status_to_state(status)
