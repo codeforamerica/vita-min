@@ -64,20 +64,20 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502R, required_sche
           end
 
           it "outputs all relevant values" do
-            expect(xml.at("Form502R SourceRetirementIncome PrimaryTaxPayer EmployeeRetirementSystem").text).to eq("100")
-            expect(xml.at("Form502R SourceRetirementIncome PrimaryTaxPayer OtherAndForeign").text).to eq("500")
-            expect(xml.at("Form502R SourceRetirementIncome SecondaryTaxPayer EmployeeRetirementSystem").text).to eq("200")
-            expect(xml.at("Form502R SourceRetirementIncome SecondaryTaxPayer OtherAndForeign").text).to eq("333")
+            expect(xml.at("Form502R SourceRetirementIncome PrimaryTaxpayer EmployeeRetirementSystem").text).to eq("100")
+            expect(xml.at("Form502R SourceRetirementIncome PrimaryTaxpayer OtherAndForeign").text).to eq("500")
+            expect(xml.at("Form502R SourceRetirementIncome SecondaryTaxpayer EmployeeRetirementSystem").text).to eq("200")
+            expect(xml.at("Form502R SourceRetirementIncome SecondaryTaxpayer OtherAndForeign").text).to eq("333")
             expect(xml.at("Form502R SourceRetirementIncome TotalPensionsIRAsAnnuities").text).to eq("1133")
           end
         end
 
         context "without income" do
           it "should have empty nodes for this section" do
-            expect(xml.at("Form502R SourceRetirementIncome PrimaryTaxPayer EmployeeRetirementSystem").text).to eq("0")
-            expect(xml.at("Form502R SourceRetirementIncome PrimaryTaxPayer OtherAndForeign").text).to eq("0")
-            expect(xml.at("Form502R SourceRetirementIncome SecondaryTaxPayer EmployeeRetirementSystem").text).to eq("0")
-            expect(xml.at("Form502R SourceRetirementIncome SecondaryTaxPayer OtherAndForeign").text).to eq("0")
+            expect(xml.at("Form502R SourceRetirementIncome PrimaryTaxpayer EmployeeRetirementSystem").text).to eq("0")
+            expect(xml.at("Form502R SourceRetirementIncome PrimaryTaxpayer OtherAndForeign").text).to eq("0")
+            expect(xml.at("Form502R SourceRetirementIncome SecondaryTaxpayer EmployeeRetirementSystem").text).to eq("0")
+            expect(xml.at("Form502R SourceRetirementIncome SecondaryTaxpayer OtherAndForeign").text).to eq("0")
             expect(xml.at("Form502R SourceRetirementIncome TotalPensionsIRAsAnnuities").text).to eq("0")
           end
         end
