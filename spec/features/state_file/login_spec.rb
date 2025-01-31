@@ -105,7 +105,7 @@ RSpec.feature "Logging in" do
       fill_in I18n.t("state_file.intake_logins.new.email_address.label"), with: "nonexistent@example.com"
       click_button I18n.t("state_file.questions.email_address.edit.action")
 
-      expect(page).to have_text I18n.t("state_file.intake_logins.new.email_address.not_found_html")
+      expect(page).to have_text "Sorry, we don’t have an account registered for that email address."
     end
 
     scenario "attempting to sign in with non-existent phone number" do
@@ -117,7 +117,7 @@ RSpec.feature "Logging in" do
       fill_in I18n.t("state_file.intake_logins.new.sms_phone_number.label"), with: "+15555555555"
       click_button I18n.t("state_file.questions.email_address.edit.action")
 
-      expect(page).to have_text I18n.t("state_file.intake_logins.new.sms_phone_number.not_found_html")
+      expect(page).to have_text "Sorry, we don’t have an account registered for that phone number."
     end
   end
 end
