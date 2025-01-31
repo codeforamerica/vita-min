@@ -35,6 +35,15 @@ module PdfFiller
           "9b" => @xml_document.at('SecSSecurityRailRoadBenefits')&.text
         )
       end
+      if Flipper.enabled?(:show_retirement_ui)
+        answers.merge!(
+          'compensation plan or foreign retirement income                           1a' => @xml_document.at('SourceRetirementIncome PrimaryTaxPayer EmployeeRetirementSystem')&.text,
+          '1b' => @xml_document.at('SourceRetirementIncome SecondaryTaxPayer EmployeeRetirementSystem')&.text,
+          'including foreign retirement income                                     7a' => @xml_document.at('SourceRetirementIncome PrimaryTaxPayer OtherAndForeign')&.text,
+          '7b' => @xml_document.at('SourceRetirementIncome SecondaryTaxPayer OtherAndForeign')&.text,
+          'income on lines 1z 4b and 5b of your federal Form 1040 and line 8t of your federal Schedule 1      8' => @xml_document.at('SourceRetirementIncome TotalPensionsIRAsAnnuities')&.text
+        )
+      end
       answers
     end
 

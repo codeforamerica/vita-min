@@ -109,5 +109,24 @@ RSpec.describe PdfFiller::Md502RPdf do
         end
       end
     end
+
+    context "Part 4: Retirement and Pension Benefits" do
+      before do
+        allow(Flipper).to receive(:enabled?).and_call_original
+        allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
+        allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_1a).and_return 4
+        allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_1b).and_return 3
+        allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_7a).and_return 2
+        allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_7b).and_return 1
+      end
+
+      it "output correct information" do
+        expect(pdf_fields["compensation plan or foreign retirement income                           1a"]).to eq("4")
+        expect(pdf_fields["1b"]).to eq("3")
+        expect(pdf_fields["including foreign retirement income                                     7a"]).to eq("2")
+        expect(pdf_fields["7b"]).to eq("1")
+        expect(pdf_fields["income on lines 1z 4b and 5b of your federal Form 1040 and line 8t of your federal Schedule 1      8"]).to eq("10")
+      end
+    end
   end
 end
