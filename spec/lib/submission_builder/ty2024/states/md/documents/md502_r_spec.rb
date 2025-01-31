@@ -52,6 +52,36 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502R, required_sche
           end
         end
       end
+
+      context "SourceRetirementIncome section" do
+        context "with income" do
+          before do
+            allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_1a).and_return 100
+            allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_1b).and_return 200
+            allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_7a).and_return 500
+            allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_7b).and_return 333
+            allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_8).and_return 1133
+          end
+
+          it "outputs all relevant values" do
+            expect(xml.at("Form502R SourceRetirementIncome PrimaryTaxPayer EmployeeRetirementSystem").text).to eq("100")
+            expect(xml.at("Form502R SourceRetirementIncome PrimaryTaxPayer OtherAndForeign").text).to eq("500")
+            expect(xml.at("Form502R SourceRetirementIncome SecondaryTaxPayer EmployeeRetirementSystem").text).to eq("200")
+            expect(xml.at("Form502R SourceRetirementIncome SecondaryTaxPayer OtherAndForeign").text).to eq("333")
+            expect(xml.at("Form502R SourceRetirementIncome TotalPensionsIRAsAnnuities").text).to eq("1133")
+          end
+        end
+
+        context "without income" do
+          it "should have empty nodes for this section" do
+            expect(xml.at("Form502R SourceRetirementIncome PrimaryTaxPayer EmployeeRetirementSystem").text).to eq("0")
+            expect(xml.at("Form502R SourceRetirementIncome PrimaryTaxPayer OtherAndForeign").text).to eq("0")
+            expect(xml.at("Form502R SourceRetirementIncome SecondaryTaxPayer EmployeeRetirementSystem").text).to eq("0")
+            expect(xml.at("Form502R SourceRetirementIncome SecondaryTaxPayer OtherAndForeign").text).to eq("0")
+            expect(xml.at("Form502R SourceRetirementIncome TotalPensionsIRAsAnnuities").text).to eq("0")
+          end
+        end
+      end
     end
 
     context "show_md_ssa" do
