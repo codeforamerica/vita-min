@@ -34,36 +34,20 @@ module Efile
         @intake.spouse_disabled_yes? ? "X" : nil
       end
 
-      def filer_1099_rs(primary_or_spouse)
-        @intake.state_file1099_rs.filter do |state_file_1099_r|
-          state_file_1099_r.recipient_ssn == @intake.send(primary_or_spouse).ssn
-        end
-      end
-
       def calculate_line_1a
-        sum_income_type_for_filer(filer_1099_rs(:primary), :pension_annuity_endowment)
+        @intake.sum_1099_r_followup_type_for_filer(@intake.filer_1099_rs(:primary), :income_type_pension_annuity_endowment?)
       end
 
       def calculate_line_1b
-        sum_income_type_for_filer(filer_1099_rs(:spouse), :pension_annuity_endowment)
-      end
-
-      def sum_income_type_for_filer(filer_1099_rs, income_type)
-        filer_1099_rs.sum do |state_file_1099_r|
-          if state_file_1099_r.state_specific_followup&.send("income_source_#{income_type}?")
-            state_file_1099_r.taxable_amount&.round
-          else
-            0
-          end
-        end
+        @intake.sum_1099_r_followup_type_for_filer(@intake.filer_1099_rs(:spouse), :income_type_pension_annuity_endowment?)
       end
 
       def calculate_line_7a
-        sum_income_type_for_filer(filer_1099_rs(:primary), :other)
+        @intake.sum_1099_r_followup_type_for_filer(@intake.filer_1099_rs(:primary), :income_type_other?)
       end
 
       def calculate_line_7b
-        sum_income_type_for_filer(filer_1099_rs(:spouse), :other)
+        @intake.sum_1099_r_followup_type_for_filer(@intake.filer_1099_rs(:spouse), :income_type_other?)
       end
 
       def calculate_line_8
