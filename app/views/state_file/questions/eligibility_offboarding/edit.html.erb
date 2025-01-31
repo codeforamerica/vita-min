@@ -16,46 +16,11 @@
     <% end %>
   <% end %>
 
-  <div class="reveal">
-    <% # i18n-tasks-use t('state_file.questions.eligibility_offboarding.edit.vita_option.title.nj') # hint for the i18n linter that, yes, we are using this key (sometimes) %> 
-    <% vita_option_title_key = "state_file.questions.eligibility_offboarding.edit.vita_option.title.#{current_state_code}" %>
-    <% vita_option_title = I18n.exists?(vita_option_title_key) ? t(vita_option_title_key) : t(".vita_option.title.default") %>
-    <button class="reveal__button"><%= vita_option_title %></button>
-    <div class="reveal__content">
-      <% vita_content_key = ".vita_option.content_html.#{current_state_code}" %>
-      <% vita_content_html = t(vita_content_key, default: nil) %>
-      <% if vita_content_html.present? %>
-        <%= vita_content_html.html_safe %>
-      <% else %>
-        <%= render partial: "state_file/questions/eligible/vita_option" %>
-      <% end %>
-    </div>
-  </div>
-
-  <div class="reveal">
-    <button class="reveal__button"><%= t('.other_options.title') %></button>
-    <div class="reveal__content">
-      <% # i18n-tasks-use t('state_file.questions.eligibility_offboarding.edit.other_options.content_html.nj') # hint for the i18n linter that, yes, we are using this key (sometimes) %>
-      <% other_options_content_key = ".other_options.content_html.#{current_state_code}" %>
-      <% other_options_content_html = t(other_options_content_key, default: nil) %>
-      <% if other_options_content_html.present? %>
-        <%= other_options_content_html.html_safe %>
-      <% else %>
-        <p><%= t('.other_options.list.body') %></p>
-        <ul>
-          <li><%= t('.other_options.list.list1') %></li>
-          <li><%= t('.other_options.list.list2') %></li>
-          <li><%= t('.other_options.list.list3') %></li>
-        </ul>
-        <p><%= t('.other_options.fees') %></p>
-        <p><%= t('.other_options.learn_more_here_html', link: @faq_other_options_link) %></p>
-      <% end %>
-    </div>
-  </div>
+  <%= render 'state_file/questions/eligible/other_filing_options' %>
 
   <% unless href.present? %>
     <p class="spacing-above-35"><%= link_to t("state_file.questions.eligible.vita_option.vita_link"), @vita_link %></p>
   <% end %>
-  
-  <p><%= link_to t(".faq_link"), state_faq_path(us_state: current_state_code) %></p>
+
+  <p><%= link_to t("state_file.questions.eligible.faq_link"), state_faq_path(us_state: current_state_code) %></p>
 <% end %>
