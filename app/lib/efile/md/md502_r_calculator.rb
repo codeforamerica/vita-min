@@ -17,6 +17,7 @@ module Efile
         set_line(:MD502R_LINE_1B, :calculate_line_1b)
         set_line(:MD502R_LINE_7A, :calculate_line_7a)
         set_line(:MD502R_LINE_7B, :calculate_line_7b)
+        set_line(:MD502R_LINE_8, :calculate_line_8)
         set_line(:MD502R_LINE_9A, :calculate_line_9a)
         set_line(:MD502R_LINE_9B, :calculate_line_9b)
       end
@@ -63,6 +64,10 @@ module Efile
 
       def calculate_line_7b
         sum_income_type_for_filer(filer_1099_rs(:spouse), :other)
+      end
+
+      def calculate_line_8
+        [line_or_zero(:MD502R_LINE_1A), line_or_zero(:MD502R_LINE_1B), line_or_zero(:MD502R_LINE_7A), line_or_zero(:MD502R_LINE_7B)].sum
       end
 
       def calculate_line_9a

@@ -153,6 +153,20 @@ describe Efile::Md::Md502RCalculator do
     end
   end
 
+  describe "#calculate_8" do
+    before do
+      allow_any_instance_of(described_class).to receive(:calculate_line_1a).and_return 100
+      allow_any_instance_of(described_class).to receive(:calculate_line_1b).and_return 200
+      allow_any_instance_of(described_class).to receive(:calculate_line_7a).and_return 300
+      allow_any_instance_of(described_class).to receive(:calculate_line_7b).and_return 500
+    end
+
+    it "sums up all income" do
+      main_calculator.calculate
+      expect(instance.lines[:MD502R_LINE_8].value).to eq 1100
+    end
+  end
+
   describe '#calculate_9a' do
     context 'when filing MFJ with positive federal social security benefits' do
       let(:filing_status) { "married_filing_jointly" }
