@@ -1,3 +1,4 @@
+<% # i18n-tasks-use t('state_file.questions.eligibility_offboarding.edit.title.nj') # hint for the i18n linter that, yes, we are using this key (sometimes) %>
 <% title_key = ".title.#{current_state_code}" %>
 <% title = I18n.exists?(title_key, locale) ? t(title_key) : t(".title.default") %>
 
@@ -16,6 +17,7 @@
   <% end %>
 
   <div class="reveal">
+    <% # i18n-tasks-use t('state_file.questions.eligibility_offboarding.edit.vita_option.title.nj') # hint for the i18n linter that, yes, we are using this key (sometimes) %> 
     <% vita_option_title_key = "state_file.questions.eligibility_offboarding.edit.vita_option.title.#{current_state_code}" %>
     <% vita_option_title = I18n.exists?(vita_option_title_key) ? t(vita_option_title_key) : t(".vita_option.title.default") %>
     <button class="reveal__button"><%= vita_option_title %></button>
@@ -33,6 +35,7 @@
   <div class="reveal">
     <button class="reveal__button"><%= t('.other_options.title') %></button>
     <div class="reveal__content">
+      <% # i18n-tasks-use t('state_file.questions.eligibility_offboarding.edit.other_options.content_html.nj') # hint for the i18n linter that, yes, we are using this key (sometimes) %>
       <% other_options_content_key = ".other_options.content_html.#{current_state_code}" %>
       <% other_options_content_html = t(other_options_content_key, default: nil) %>
       <% if other_options_content_html.present? %>
