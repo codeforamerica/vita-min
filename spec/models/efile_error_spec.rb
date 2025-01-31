@@ -76,6 +76,7 @@ describe 'EfileError' do
       "nc-county",
       "nc-eligibility",
       "nc-qss-info",
+      "nc-retirement-income-subtraction",
       "nc-review",
       "nc-sales-use-tax",
       "nc-subtractions",
