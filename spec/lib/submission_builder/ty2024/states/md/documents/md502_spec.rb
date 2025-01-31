@@ -229,9 +229,9 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
         end
       end
 
-      context "exemptions stuff" do
+      context "exemptions" do
         context "when there are no exemptions" do
-          it "omits the whole exemptions section" do
+          it "only shows lines a and d, count and amount" do
             [
               :calculate_line_c_count,
               :calculate_line_c_amount,
@@ -241,7 +241,11 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
               allow_any_instance_of(Efile::Md::Md502Calculator).to receive(method).and_return 0
             end
 
-            expect(xml.document.at("Exemptions")).to be_nil
+            expect(xml.document.at("Exemptions Standard Count")&.text).to eq("0")
+            expect(xml.document.at("Exemptions Standard Amount")&.text).to eq("0")
+
+            expect(xml.document.at("Exemptions Total Count")&.text).to eq("0")
+            expect(xml.document.at("Exemptions Total Amount")&.text).to eq("0")
           end
         end
 
@@ -318,7 +322,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
         end
       end
 
-      context "healthcare coverage stuff" do
+      context "healthcare coverage" do
         context "truthy answers" do
           before do
             intake.update(primary_did_not_have_health_insurance: true)

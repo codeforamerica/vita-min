@@ -19,6 +19,14 @@ module SubmissionBuilder
       sanitized_zipcode.gsub("-", "")
     end
 
+    def sanitize_middle_initial(middle_initial)
+      return if middle_initial.blank?
+
+      sanitized_middle_initial = sanitize_for_xml(middle_initial)
+      sanitized_middle_initial = sanitized_middle_initial.tr('^A-Za-z', '')
+      sanitized_middle_initial&.first(1)
+    end
+
     def datetime_type(datetime)
       return nil unless datetime.present?
 

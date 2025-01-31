@@ -85,7 +85,7 @@ describe Efile::Md::Md502Calculator do
         intake.direct_file_data.primary_claim_as_dependent = "X"
       end
 
-      it "returns 1" do
+      it "returns 0" do
         instance.calculate
         expect(instance.lines[:MD502_LINE_A_COUNT].value).to eq 0
       end

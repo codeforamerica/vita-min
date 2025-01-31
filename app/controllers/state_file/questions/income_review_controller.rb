@@ -21,7 +21,7 @@ module StateFile
       end
 
       def update
-        if @w2s.any? do |w2|
+        if current_intake.allows_w2_editing? && @w2s.any? do |w2|
             w2.check_box14_limits = true
             !w2.valid?(:state_file_edit)
           end
