@@ -865,11 +865,14 @@ RSpec.describe Hub::ClientsController do
     let(:params) do
       { id: client.id, client: { action: "set" } }
     end
-    let(:client) { create :client, vita_partner: organization }
+    let(:intake) { create :intake, client: create(:client, vita_partner: organization) }
+    let(:client) { intake.client }
     before { sign_in(user) }
 
     it "redirects to hub client path" do
       patch :flag, params: params
+      puts "***************"
+      puts client.intake.product_year
       expect(response).to redirect_to(hub_client_path(id: client.id))
     end
 
