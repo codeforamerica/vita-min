@@ -2694,7 +2694,7 @@ en:
             content_html:
               nj: |
                 <p>
-                  You can also file your return online through <a href="https://www.njportal.com/Taxation/NJ1040/">the State of New Jersey's eFile system</a>, or by mail. Contact <a href="https://nj.gov/treasury/taxation/contact.shtml">NJ Treasury's Division of Taxation</a> if you have questions.
+                  You can also file your return online through <a href="https://www.njportal.com/Taxation/NJ1040/" target="_blank" rel="noopener noreferrer">the State of New Jersey's eFile system</a>, or by mail. Contact <a href="https://nj.gov/treasury/taxation/contact.shtml" target="_blank" rel="noopener noreferrer">NJ Treasury's Division of Taxation</a> if you have questions.
                 </p>
                 <p>
                   There are several commercial tax preparation services that offer state-only tax filing. Here are a few tips and tricks when choosing an option:

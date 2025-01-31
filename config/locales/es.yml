@@ -2650,7 +2650,7 @@ es:
             content_html:
               nj: |
                 <p>
-                  También puedes presentar tu declaración online mediante <a href="https://www.njportal.com/Taxation/NJ1040/">eFile del estado de New Jersey</a>, o por correo postal. <a href="https://nj.gov/treasury/taxation/contact.shtml">Comunícate con la División de Impuestos del Tesoro de NJ si tienes preguntas</a>.
+                  También puedes presentar tu declaración online mediante <a href="https://www.njportal.com/Taxation/NJ1040/" target="_blank" rel="noopener noreferrer">eFile del estado de New Jersey</a>, o por correo postal. <a href="https://nj.gov/treasury/taxation/contact.shtml" target="_blank" rel="noopener noreferrer">Comunícate con la División de Impuestos del Tesoro de NJ si tienes preguntas</a>.
                 </p>
                 <p>
                   Existen varios servicios comerciales de preparación de impuestos que ofrecen la presentación de impuestos solo para el estado. Algunos consejos para elegir una opción:

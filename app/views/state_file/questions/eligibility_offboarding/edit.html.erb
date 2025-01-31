@@ -18,7 +18,7 @@
 
   <% href = I18n.locale == :en ? StateFile::StateInformationService.vita_link_en(current_state_code) : StateFile::StateInformationService.vita_link_es(current_state_code) %>
   <% if href.present? %>
-    <%= link_to(href, class: "button button--primary button--wide spacing-below-15") do %>
+    <%= link_to(href, class: "button button--primary button--wide spacing-below-15", target: "_blank", rel: "noopener noreferrer") do %>
       <%= t('.connect_to_vita') %>
     <% end %>
   <% end %>
@@ -26,8 +26,8 @@
   <%= render 'state_file/questions/eligible/other_filing_options' %>
 
   <% unless href.present? %>
-    <p class="spacing-above-35"><%= link_to t("state_file.questions.eligible.vita_option.vita_link"), @vita_link %></p>
+    <p class="spacing-above-35"><%= link_to t("state_file.questions.eligible.vita_option.vita_link"), @vita_link, target: "_blank", rel: "noopener noreferrer" %></p>
   <% end %>
 
-  <p><%= link_to t("state_file.questions.eligible.faq_link"), state_faq_path(us_state: current_state_code) %></p>
+  <p><%= link_to t("state_file.questions.eligible.faq_link"), state_faq_path(us_state: current_state_code), target: "_blank", rel: "noopener noreferrer" %></p>
 <% end %>
