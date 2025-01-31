@@ -772,6 +772,16 @@ MD502R_LINE_PRIMARY_DISABLED:
   label: "Is Primary Taxpayer totally and permanently disabled? (intake question)"
 MD502R_LINE_SPOUSE_DISABLED:
   label: "Is Secondary Taxpayer totally and permanently disabled? (intake question)"
+MD502R_LINE_1A:
+  label: "Retirement income received by Primary Taxpayer as a pension, annuity from employee retirement system qualified under Sections 401(a), 403 or 457(b)"
+MD502R_LINE_1B:
+  label: "Retirement income received by Secondary Taxpayer as a pension, annuity from employee retirement system qualified under Sections 401(a), 403 or 457(b)"
+MD502R_LINE_7A:
+  label: "Other retirement income and foreign retirement income received by Primary Taxpayer"
+MD502R_LINE_7B:
+  label: "Other retirement income and foreign retirement income received by Secondary Taxpayer"
+MD502R_LINE_8:
+  label: "Total of all retirement source income for primary and secondary taxpayers"
 MD502R_LINE_9A:
   label: "Total social security benefits for primary"
 MD502R_LINE_9B:
