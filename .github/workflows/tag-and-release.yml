@@ -45,8 +45,8 @@ jobs:
           fetch-tags: true
       - name: Check for merge conflicts
         run: |
-          git fetch origin $GITHUB_SHA
-          git merge --ff-only $GITHUB_SHA || {
+          git fetch origin ${GITHUB_SHA}
+          git merge --ff-only ${GITHUB_SHA} || {
             # merge failed
             echo "unable to merge via fast-forward. likely conflict."
             echo "try viewing the conflict output locally:"
@@ -75,11 +75,11 @@ jobs:
             * ) echo "Invalid release type"; exit 1;;
           esac
           new_version="staging-${major}.${minor}.${patch}"
-          echo "NEW_VERSION=${new_version}" >> $GITHUB_ENV
+          echo "NEW_VERSION=${new_version}" >> ${GITHUB_ENV}
 
       - name: Generate release notes
         run: |
-          release_command="gh release create ${{ env.NEW_VERSION }} --target ${{ github.sha }} --generate-notes --draft"
+          release_command="gh release create ${{ env.NEW_VERSION }} --target ${GITHUB_SHA} --generate-notes --draft"
           if [[ -n "${{ github.event.inputs.release_title }}" ]]; then
             release_command="${release_command} --title '${{ github.event.inputs.release_title }}'"
           fi
@@ -93,15 +93,6 @@ jobs:
 
       - name: deploy
         run: |
-          git fetch --tags
-          git merge "${{ env.NEW_VERSION }}" --ff-only
-
-          echo "github ref: ${GITHUB_REF}"
-          if [[ "${GITHUB_REF}" != "refs/heads/main" ]]; then
-            echo "this concludes testing - this job was not intiated from main"
-            exit 0
-          fi
-
           echo "Updating branch on GitHub. This triggers deployment in CircleCI."
           git push
           
