@@ -113,6 +113,5 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502R, required_sche
         end
       end
     end
-
   end
 end
