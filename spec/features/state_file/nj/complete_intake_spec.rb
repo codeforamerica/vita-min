@@ -47,6 +47,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       if expect_income_review
         expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
         expect(page).to have_css(".progress-steps")
+        expect(page).to have_text("Section 1 of 5: Income")
         expect(page).to be_axe_clean if check_a11y
         continue
       end
@@ -54,6 +55,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
     def advance_health_insurance_eligibility
       expect(page).to have_text I18n.t("state_file.questions.nj_eligibility_health_insurance.edit.title")
+      expect(page).to have_text("Section 2 of 5: Your household")
       choose I18n.t("general.affirmative")
       continue
     end
@@ -101,6 +103,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
     def advance_medical_expenses(amount: 1000)
       fill_in I18n.t('state_file.questions.nj_medical_expenses.edit.label', filing_year: filing_year), with: amount
+      expect(page).to have_text("Section 3 of 5: Deductions and credits")
       continue
     end
 
@@ -166,6 +169,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
     def expect_page_after_property_tax
       expect(page).to have_text I18n.t("state_file.questions.nj_sales_use_tax.edit.title", filing_year: filing_year)
+      expect(page).to have_text("Section 4 of 5: Your 2024 taxes")
     end
 
     def expect_ineligible_page(property, reason)
@@ -297,6 +301,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       expect(page).to be_axe_clean
       expect(page).to have_css(".progress-steps")
+      expect(page).to have_text("Section 5 of 5: Review and submit")
       check I18n.t('state_file.questions.esign_declaration.edit.primary_esign')
       check I18n.t('state_file.questions.esign_declaration.edit.spouse_esign')
       click_on I18n.t('state_file.questions.esign_declaration.edit.submit')

@@ -5,11 +5,11 @@
     step_number = progress[:step_number]
     title = progress[:title]
     %>
-    <div class="progress-steps" title="<%=title%> (<%=step_number%> / <%=number_of_steps%>)"><%
+    <div class="progress-steps"><%
       (0..number_of_steps-1).each do |step| %>
         <div class="progress-step<%=(step_number >= step) ? " completed-step" : "" %>"></div>
       <% end %>
     </div>
-    <p class="progress-text"><%= title %></p>
+    <p class="progress-text"><%= I18n.t("state_file.navigation.step_description", current_step: step_number + 1, total_steps: number_of_steps).concat(title) %></p>
   <% end
  end %>
