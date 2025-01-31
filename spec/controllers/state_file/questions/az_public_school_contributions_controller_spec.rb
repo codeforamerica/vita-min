@@ -87,10 +87,11 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
         params[:az322_contribution][:made_contribution] = 'no'
       end
 
-      it "creates nothing" do
+      it "creates nothing and sets the session to no contributions" do
         expect do
           post :create, params: params
         end.not_to change(Az322Contribution, :count)
+        expect(session[:selected_no_on_school_contributions]).to eq(true)
       end
     end
 
