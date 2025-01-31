@@ -16,13 +16,13 @@ module SubmissionBuilder
                   add_element_if_present(xml, :PriTotalPermDisabledIndicator, :MD502R_LINE_PRIMARY_DISABLED)
                   add_element_if_present(xml, :SecTotalPermDisabledIndicator, :MD502R_LINE_SPOUSE_DISABLED)
                   xml.SourceRetirementIncome do
-                    xml.PrimaryTaxPayer do
+                    xml.PrimaryTaxpayer do
                       add_element_if_present(xml, :EmployeeRetirementSystem, :MD502R_LINE_1A)
                       add_element_if_present(xml, :OtherAndForeign, :MD502R_LINE_7A)
                     end
 
                     if @intake.filing_status_mfj?
-                      xml.SecondaryTaxPayer do
+                      xml.SecondaryTaxpayer do
                         add_element_if_present(xml, :EmployeeRetirementSystem, :MD502R_LINE_1B)
                         add_element_if_present(xml, :OtherAndForeign, :MD502R_LINE_7B)
                       end
