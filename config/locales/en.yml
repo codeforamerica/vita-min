@@ -2718,63 +2718,63 @@ en:
               list3: When filing, only submit your state return. If you submit your federal return again, your federal return may be rejected.
             title: What are my other state filing options?
           vita_option:
-              content_html:
-                md: |
-                  <p>
-                    You have other free options for filing your state return:
-                    <ul>
-                      <li>
-                        File for free with IRS-Certified VITA volunteers in Maryland.
-                        <ul>
-                          <li>
-                            If you choose this option, you'll be connected with a VITA partner in Maryland. Expect a quick intake call in a few days to discuss your tax situation and securely upload your documents. This process may take 2-3 weeks to complete.
-                          </li>
-                          <li>
-                            Get started with VITA now
-                          </li>
-                          <li>
-                            Learn more about this process and other filing options here.
-                          </li>
-                        </ul>
+            content_html:
+              md: |
+                <p>
+                  You have other free options for filing your state return:
+                  <ul>
+                    <li>
+                      File for free with IRS-Certified VITA volunteers in Maryland.
+                      <ul>
                         <li>
-                          Get started with the Comptroller of Maryland's <a href="https://www.marylandtaxes.gov/individual/tax-assistance/free-tax-prep.php" rel="noopener nofollow" target="_blank">Free Income Tax Preparation</a>service.
+                          If you choose this option, you'll be connected with a VITA partner in Maryland. Expect a quick intake call in a few days to discuss your tax situation and securely upload your documents. This process may take 2-3 weeks to complete.
                         </li>
-                      </li>
-                    </ul>
-                  </p>
-                nj: |
-                  <p>
-                    Certified tax preparers at Simplify CT can help prepare and e-file your state tax return for free over the course of about 2-3 weeks.
-                  </p>
-                  <p>
-                    The process:
-                    <ul>
+                        <li>
+                          Get started with VITA now
+                        </li>
+                        <li>
+                          Learn more about this process and other filing options here.
+                        </li>
+                      </ul>
                       <li>
-                        You complete a short form to request state-only assistance. (You will get an automated email confirming you submitted the form.)
+                        Get started with the Comptroller of Maryland's <a href="https://www.marylandtaxes.gov/individual/tax-assistance/free-tax-prep.php" rel="noopener nofollow" target="_blank">Free Income Tax Preparation</a>service.
                       </li>
-                      <li>
-                        A certified tax preparer will share a link to securely upload your federal tax form (1040), tax documents, and ID.
-                      </li>
-                      <li>
-                        They will give you a call to ask for additional information.
-                      </li>
-                      <li>
-                        Once your return is ready, they'll schedule a call to review and answer any of your questions.
-                      </li>
-                      <li>
-                        You'll sign your state tax form online.
-                      </li>
-                      <li>
-                        The tax preparer will e-file your state taxes.
-                      </li>
-                    </ul>
-                  </p>
-                  <p>
-                    If you have questions in the meantime, please use the chat or email <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>. If you have questions after Simplify CT has contacted you, email <a href="mailto:help@simplifyct.org">help@simplifyct.org</a>.
-                  </p>
-              title:
-                default: What are my free state filing options?
-                nj: Learn more about the VITA process
+                    </li>
+                  </ul>
+                </p>
+              nj: |
+                <p>
+                  Certified tax preparers at Simplify CT can help prepare and e-file your state tax return for free over the course of about 2-3 weeks.
+                </p>
+                <p>
+                  The process:
+                  <ul>
+                    <li>
+                      You complete a short form to request state-only assistance. (You will get an automated email confirming you submitted the form.)
+                    </li>
+                    <li>
+                      A certified tax preparer will share a link to securely upload your federal tax form (1040), tax documents, and ID.
+                    </li>
+                    <li>
+                      They will give you a call to ask for additional information.
+                    </li>
+                    <li>
+                      Once your return is ready, they'll schedule a call to review and answer any of your questions.
+                    </li>
+                    <li>
+                      You'll sign your state tax form online.
+                    </li>
+                    <li>
+                      The tax preparer will e-file your state taxes.
+                    </li>
+                  </ul>
+                </p>
+                <p>
+                  If you have questions in the meantime, please use the chat or email <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>. If you have questions after Simplify CT has contacted you, email <a href="mailto:help@simplifyct.org">help@simplifyct.org</a>.
+                </p>
+            title:
+              default: What are my free state filing options?
+              nj: Learn more about the VITA process
         vita_option:
           vita_link: Get started with VITA now
           want_to_claim_learn_more_html: Learn more about this process and other filing options <a href="%{link}" target="_blank">here</a>.
