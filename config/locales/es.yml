@@ -2450,10 +2450,10 @@ es:
                       Si eliges esta opción, te conectarás con un socio de Asistencia Voluntaria para la Declaración de Impuestos (VITA) en Maryland. Recibirás una llamada en los próximos días. Tendrás que responder algunas preguntas adicionales sobre tu situación tributaria y enviar de forma segura tus documentos en línea. Este proceso puede tardar de 2 a 3 semanas en completarse.
                     </li>
                     <li>
-                      Comienza con VITA ahora
+                      <a href="%{vita_link}" rel="noopener nofollow" target="_blank">Comienza con VITA ahora</a>
                     </li>
                     <li>
-                      Aprende más sobre este proceso y otras opciones de declaración aquí.
+                      Aprende más sobre este proceso y otras opciones de declaración <a href="%{link}" rel="noopener nofollow" target="_blank">aquí</a>.
                     </li>
                   </ul>
                   <li>
