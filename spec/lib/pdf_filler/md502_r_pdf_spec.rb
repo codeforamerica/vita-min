@@ -69,6 +69,54 @@ RSpec.describe PdfFiller::Md502RPdf do
         expect(pdf_fields["Spouses Age"]).to eq("64")
       end
 
+    end
+
+    context "Part 3: Disability" do
+      before do
+        allow(Flipper).to receive(:enabled?).and_call_original
+        allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
+      end
+
+      context "filers are disabled" do
+        before do
+          allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_primary_disabled).and_return "X"
+          allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_spouse_disabled).and_return "X"
+        end
+
+        it "checks the relevant boxes" do
+          expect(pdf_fields["You"]).to eq("On")
+          expect(pdf_fields["Spouse"]).to eq("On")
+        end
+      end
+
+      context "filers are not disabled" do
+        it "does not check the boxes" do
+          expect(pdf_fields["You"]).to eq("Off")
+          expect(pdf_fields["Spouse"]).to eq("Off")
+        end
+      end
+    end
+
+    context "Part 4: Retirement and Pension Benefits" do
+      before do
+        allow(Flipper).to receive(:enabled?).and_call_original
+        allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
+        allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_1a).and_return 4
+        allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_1b).and_return 3
+        allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_7a).and_return 2
+        allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_7b).and_return 1
+      end
+
+      it "output correct information" do
+        expect(pdf_fields["compensation plan or foreign retirement income                           1a"]).to eq("4")
+        expect(pdf_fields["1b"]).to eq("3")
+        expect(pdf_fields["including foreign retirement income                                     7a"]).to eq("2")
+        expect(pdf_fields["7b"]).to eq("1")
+        expect(pdf_fields["income on lines 1z 4b and 5b of your federal Form 1040 and line 8t of your federal Schedule 1      8"]).to eq("10")
+      end
+    end
+
+    context "Part 5: SecSSecurityRailRoadBenefits and Military/Public Safety Retirement Income" do
       context "Line 9" do
         before do
           allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_9a).and_return 100
@@ -80,6 +128,20 @@ RSpec.describe PdfFiller::Md502RPdf do
         it "output correct information" do
           expect(pdf_fields["and Tier II See Instructions for Part 5                                   9a"]).to eq("100")
           expect(pdf_fields["9b"]).to eq("200")
+        end
+      end
+
+      context "line 10" do
+        before do
+          allow(Flipper).to receive(:enabled?).and_call_original
+          allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
+          allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_10a).and_return 50
+          allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_10b).and_return 68
+        end
+
+        it "output correct information" do
+          expect(pdf_fields["retirement from code letter v on Form 502SU income subtracted on Maryland Form 502  10a"]).to eq("50")
+          expect(pdf_fields["10b"]).to eq("68")
         end
       end
     end
