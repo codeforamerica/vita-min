@@ -2117,11 +2117,11 @@ es:
       new:
         email_address:
           label: Tu dirección de correo electrónico
-          not_found: Lo siento, no tenemos una cuenta registrada con ese correo electrónico. ¿Te gustaría iniciar sesión con un correo electrónico diferente?
+          not_found_html: Lo siento, no tenemos una cuenta registrada para esa dirección de correo electrónico. <a href="https://www.fileyourstatetaxes.org/en/us/faq">Haz clic aquí</a> para comenzar con FileYourStateTaxes.
           title: Inicia sesión con tu dirección de correo electrónico. Para continuar presentando tu declaración de impuestos estatales de manera segura, te enviaremos un código seguro.
         sms_phone_number:
           label: Tu número de teléfono
-          not_found: Lo siento, no tenemos una cuenta registrada para ese número de teléfono. ¿Te gustaría iniciar sesión con un número de teléfono diferente?
+          not_found_html: Lo sentimos, no tenemos una cuenta registrada para ese número de teléfono. <a href="https://www.fileyourstatetaxes.org/en/us/faq">Haz clic aquí</a> para comenzar con FileYourStateTaxes.
           title: Inicia sesión con tu número de teléfono. Para continuar presentando tu declaración de impuestos estatales de manera segura, te enviaremos un código seguro.
       no_match_sms: Alguien intentó iniciar sesión en FileYourStateTaxes con este número de teléfono, pero no pudimos encontrar una coincidencia. ¿Te registraste con otro número de teléfono? También puedes visitar %{url} para comenzar.
     landing_page:
