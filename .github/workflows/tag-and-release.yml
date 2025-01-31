@@ -1,25 +1,28 @@
 name: Tag and Release
-# 1. Tag latest commit on main
-# 2. Compare tag to release, get github release notes
-# 3. Merge main into release branch (triggers CircleCI pipeline)
+# 1. Merge current commit and check for errors
+# 2. Generate a version
+# 3. Draft a release with auto-generated notes (tag not pushed yet)
+# 4. Push merged changes
 
 on:
-  # workflow_dispatch will only work if the default branch has this config
+  # since workflow_dispatch will only work if the default branch has this config,
   # for testing, this will run action on every merge (does not test inputs)
   push:
     branches:
       - fake-main-for-testing
   workflow_dispatch:
     inputs:
+      environment:
+        description: 'Where to deploy'
+        required: true
+        default: 'staging'
+        options: [staging, demo, prod]
       release_type:
         description: 'Part of version to increment (major, minor, patch)'
         required: false
         default: 'patch'
         type: choice
-        options:
-          - patch
-          - minor
-          - major
+        options: [patch, minor, major]
       release_title:
         description: 'Optional title to replace auto-generated one'
         required: false
@@ -31,36 +34,44 @@ on:
 
 jobs:
   deployment:
+    name: "Initiate deployment to ${{ github.event.inputs.environment }}"
     runs-on: ubuntu-latest
     environment:
-      name: vita-min-staging
-      url: https://staging.fileyourstatetaxes.org/
+      name: vita-min-${{ github.event.inputs.environment }}
+      url: ${{ env.FYST_URL }}
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - name: Check out deployment branch
+      - name: Check out ${{ env.TARGET_BRANCH }} branch
         uses: actions/checkout@v3
         with:
-          ref: staging
+          ref: ${{ env.TARGET_BRANCH }}
           fetch-tags: true
+
       - name: Check for merge conflicts
         run: |
+          target_sha=$(git show -s --format=%H)
+          if [[ ${target_sha} == ${GITHUB_SHA} ]]; then
+             echo "Target SHA already matches. No need to deploy."
+             exit 0
+          fi
           git fetch origin ${GITHUB_SHA}
           git merge --ff-only ${GITHUB_SHA} || {
             # merge failed
             echo "unable to merge via fast-forward. likely conflict."
             echo "try viewing the conflict output locally:"
             echo "git fetch origin"
-            echo "git checkout release"
-            echo "git merge --ff main"
+            echo "git checkout ${{ env.TARGET_BRANCH }}"
+            echo "git merge --ff ${{ github.ref_name }}"
             exit 1
           }
 
       - name: Increment version
+        if: github.event.inputs.environment == 'prod'
         run: |
           # parse major, minor, and patch versions from the last release
-          latest_tag="$(git tag --list | grep 'staging-' | sort --version-sort | tail -n1)"
-          trimmed_version="${latest_version#staging-}"
+          latest_tag="$(git tag --list | grep 'version-' | sort --version-sort | tail -n1)"
+          trimmed_version="${latest_version#version-}"
           old_version="${trimmed_version:-0.0.0}"
           IFS='.' read -r major minor patch <<< "${old_version}"
           echo "OLD_VERSION=${old_version}" >> $GITHUB_ENV
@@ -74,10 +85,11 @@ jobs:
             'patch' ) ((patch=patch+1));;
             * ) echo "Invalid release type"; exit 1;;
           esac
-          new_version="staging-${major}.${minor}.${patch}"
+          new_version="version-${major}.${minor}.${patch}"
           echo "NEW_VERSION=${new_version}" >> ${GITHUB_ENV}
 
       - name: Generate release notes
+        if: github.event.inputs.environment == 'prod'
         run: |
           release_command="gh release create ${{ env.NEW_VERSION }} --target ${GITHUB_SHA} --generate-notes --draft"
           if [[ -n "${{ github.event.inputs.release_title }}" ]]; then
@@ -87,7 +99,6 @@ jobs:
             release_command="${release_command} --notes '${{ github.event.inputs.additional_notes }}'"
           fi
 
-          echo "Running: ${release_command}"
           eval ${release_command}
           echo "https://github.com/codeforamerica/vita-min/releases/latest"
 
@@ -96,7 +107,9 @@ jobs:
           echo "Updating branch on GitHub. This triggers deployment in CircleCI."
           git push
           
-          echo "✨ Deployment initiated!"
-          echo "👀 Watch progress on CircleCI: https://app.circleci.com/pipelines/github/codeforamerica/vita-min?branch=staging"
-          echo "📝 Release notes here: https://github.com/codeforamerica/vita-min/releases/latest"
-          echo "🧷 If needed, rollback to: ${{ env.OLD_VERSION }}"
+          echo "✨ Deployment to ${{ github.event.inputs.environment }} initiated!"
+          echo "👀 Watch progress on CircleCI: https://app.circleci.com/pipelines/github/codeforamerica/vita-min?branch=${{ env.TARGET_BRANCH }}"
+          if [[ "${{ github.event.inputs.environment == 'prod' }}" ]]; then
+            echo "📝 (Draft) Release notes here: https://github.com/codeforamerica/vita-min/releases"
+            echo "🧷 If needed, rollback to: ${{ env.OLD_VERSION }}"
+          fi
