@@ -407,8 +407,9 @@ module PdfFiller
       }.merge(
         keep_and_normalize(
           {
-            # People who have digital assets are considered out of scope
-            "form1[0].page1[0].youSpouseWereIn[0].column2[0].holdDigitalAssets[0].digitalAssetsNo[0]" => true,
+            "form1[0].page1[0].youSpouseWereIn[0].column2[0].holdDigitalAssets[0].digitalAssetsYou[0]" => @intake.primary_owned_or_held_any_digital_currencies_yes?,
+            "form1[0].page1[0].youSpouseWereIn[0].column2[0].holdDigitalAssets[0].digitalAssetsSpouse[0]" => @intake.spouse_owned_or_held_any_digital_currencies_yes?,
+            "form1[0].page1[0].youSpouseWereIn[0].column2[0].holdDigitalAssets[0].digitalAssetsNo[0]" => @intake.primary_owned_or_held_any_digital_currencies_no? && !@intake.spouse_owned_or_held_any_digital_currencies_yes?,
           },
           with_prefix("form1[0].page1[0].liveWorkStates[0]") do
             {
