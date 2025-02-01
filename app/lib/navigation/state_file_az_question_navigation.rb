@@ -32,7 +32,7 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::AzPriorLastNamesController),
         Navigation::NavigationStep.new(StateFile::Questions::IncomeReviewController),
         Navigation::NavigationStep.new(StateFile::Questions::UnemploymentController),
-        Navigation::NavigationStep.new(StateFile::Questions::AzSchoolContributionsController),
+        Navigation::NavigationStep.new(StateFile::Questions::AzMadeAz322ContributionsController),
         Navigation::NavigationStep.new(StateFile::Questions::AzPublicSchoolContributionsController),
         Navigation::NavigationStep.new(StateFile::Questions::AzCharitableContributionsController),
         Navigation::NavigationStep.new(StateFile::Questions::AzQualifyingOrganizationContributionsController),

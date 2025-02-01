@@ -2321,7 +2321,7 @@ es:
           tribal_member: Miembro de una tribu indígena reconocida por el gobierno federal
           tribal_wages: Cantidad ganada mientras vivías y trabajabas en la reserva como miembro de una tribu indígena estadounidense reconocida federalmente
           was_incarcerated: Encarcelados en una prisión del condado, estatal o federal durante al menos 60 días en %{filing_year}
-      az_school_contributions:
+      az_made_az322_contributions:
         edit:
           donations_this_year: "¿Qué pasa con las donaciones hechas en %{current_year}?"
           donations_this_year_details_html: |
@@ -2335,7 +2335,7 @@ es:
           - Pruebas estandarizadas y sus tarifas
           - Evaluación de educación técnica y profesional
           - Entrenamiento de Reanimación Cardiopulmonar (RCP)
-          school_contributions:
+          made_az322_contributions:
             many: "¿Pagaste tarifas o hiciste contribuciones en efectivo a una escuela pública en %{year}? No incluyas cantidades reclamadas en la declaración de impuestos del año pasado."
             one: "¿Pagaste tarifas o hiciste contribuciones en efectivo a una escuela pública en %{year}? No incluyas cantidades reclamadas en la declaración de impuestos del año pasado."
             other: "¿Tú o tu cónyuge pagaron alguna tarifa o donaron dinero a una escuela pública de Arizona en  %{year}?"

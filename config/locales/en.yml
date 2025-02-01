@@ -2374,7 +2374,7 @@ en:
           tribal_member: Member of a federally recognized American Indian tribe
           tribal_wages: Amount earned while living and working on the reservation as a member of a federally recognized American Indian tribe
           was_incarcerated: Incarcerated in a county, state, or federal prison for at least 60 days in %{filing_year}
-      az_school_contributions:
+      az_made_az322_contributions:
         edit:
           donations_this_year: What about donations made in %{current_year}?
           donations_this_year_details_html: |
@@ -2388,7 +2388,7 @@ en:
           - Standardized Testing and Fees
           - Career and Technical Education Assessment
           - CPR Training
-          school_contributions:
+          made_az322_contributions:
             one: Did you pay any fees or make any qualified cash donation to an Arizona public school in %{year}?
             other: Did you or your spouse pay any fees or make any qualified cash donation to an Arizona public school in %{year}?
           which_qualify: Which donations and fees qualify?

@@ -6,7 +6,7 @@ module StateFile
       def self.show?(intake)
         # clients who are currently in the flow and have not gone through the new page before this one will not have
         # this question answered and should still see the page
-        intake.school_contributions_yes? || intake.school_contributions_unfilled?
+        intake.made_az322_contributions_yes? || intake.made_az322_contributions_unfilled?
       end
 
       def self.navigation_actions

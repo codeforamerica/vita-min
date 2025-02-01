@@ -37,6 +37,7 @@
 #  locale                                 :string           default("en")
 #  locked_at                              :datetime
 #  made_az321_contributions               :integer          default("unfilled"), not null
+#  made_az322_contributions               :integer          default("unfilled"), not null
 #  message_tracker                        :jsonb
 #  payment_or_deposit_type                :integer          default("unfilled"), not null
 #  phone_number                           :string
@@ -54,7 +55,6 @@
 #  raw_direct_file_intake_data            :jsonb
 #  referrer                               :string
 #  routing_number                         :string
-#  school_contributions                   :integer          default("unfilled"), not null
 #  sign_in_count                          :integer          default(0), not null
 #  sms_notification_opt_in                :integer          default("unfilled"), not null
 #  source                                 :string
@@ -101,10 +101,10 @@ class StateFileAzIntake < StateFileBaseIntake
   enum tribal_member: { unfilled: 0, yes: 1, no: 2 }, _prefix: :tribal_member
   enum armed_forces_member: { unfilled: 0, yes: 1, no: 2 }, _prefix: :armed_forces_member
   enum charitable_contributions: { unfilled: 0, yes: 1, no: 2 }, _prefix: :charitable_contributions
-  enum school_contributions: { unfilled: 0, yes: 1, no: 2 }, _prefix: :school_contributions
   enum eligibility_married_filing_separately: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_married_filing_separately
   enum eligibility_529_for_non_qual_expense: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_529_for_non_qual_expense
   enum made_az321_contributions: { unfilled: 0, yes: 1, no: 2 }, _prefix: :made_az321_contributions
+  enum made_az322_contributions: { unfilled: 0, yes: 1, no: 2 }, _prefix: :made_az322_contributions
   enum eligibility_lived_in_state: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_lived_in_state
   enum eligibility_out_of_state_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_out_of_state_income
 

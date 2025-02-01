@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe StateFile::Questions::AzSchoolContributionsController do
+RSpec.describe StateFile::Questions::AzMadeAz322ContributionsController do
   let(:intake) { create :state_file_az_intake }
   before do
     sign_in intake
@@ -20,8 +20,8 @@ RSpec.describe StateFile::Questions::AzSchoolContributionsController do
     it_behaves_like :return_to_review_concern do
       let(:form_params) do
         {
-          state_file_az_school_contributions_form: {
-            school_contributions: "yes",
+          state_file_az_made_az322_contributions_form: {
+            made_az322_contributions: "yes",
           }
         }
       end

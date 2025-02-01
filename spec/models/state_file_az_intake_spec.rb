@@ -37,6 +37,7 @@
 #  locale                                 :string           default("en")
 #  locked_at                              :datetime
 #  made_az321_contributions               :integer          default("unfilled"), not null
+#  made_az322_contributions               :integer          default("unfilled"), not null
 #  message_tracker                        :jsonb
 #  payment_or_deposit_type                :integer          default("unfilled"), not null
 #  phone_number                           :string
@@ -54,7 +55,6 @@
 #  raw_direct_file_intake_data            :jsonb
 #  referrer                               :string
 #  routing_number                         :string
-#  school_contributions                   :integer          default("unfilled"), not null
 #  sign_in_count                          :integer          default(0), not null
 #  sms_notification_opt_in                :integer          default("unfilled"), not null
 #  source                                 :string

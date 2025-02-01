@@ -9,7 +9,7 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
   describe ".show?" do
     context "when the intake has school contributions" do
       before do
-        intake.school_contributions_yes!
+        intake.made_az322_contributions_yes!
       end
 
       it "shows" do
@@ -19,7 +19,7 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
 
     context "when the intake does not have school contributions" do
       before do
-        intake.school_contributions_no!
+        intake.made_az322_contributions_no!
       end
 
       it "shows" do
@@ -32,7 +32,7 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
       # this question answered and should still see the page
 
       before do
-        intake.school_contributions_unfilled!
+        intake.made_az322_contributions_unfilled!
       end
 
       it "shows" do

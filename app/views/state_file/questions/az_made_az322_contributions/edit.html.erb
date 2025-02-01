@@ -10,8 +10,8 @@
 
     <div class="white-group">
       <%= f.cfa_radio_set(
-            :school_contributions,
-            label_text: t('.school_contributions', count: current_intake.filer_count, year: current_tax_year),
+            :made_az322_contributions,
+            label_text: t('.made_az322_contributions', count: current_intake.filer_count, year: current_tax_year),
             collection: [
               { value: :yes, label: t('general.affirmative') },
               { value: :no, label: t('general.negative') }

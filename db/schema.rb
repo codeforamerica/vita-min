@@ -1854,6 +1854,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_30_234706) do
     t.string "locale", default: "en"
     t.datetime "locked_at"
     t.integer "made_az321_contributions", default: 0, null: false
+    t.integer "made_az322_contributions", default: 0, null: false
     t.jsonb "message_tracker", default: {}
     t.integer "payment_or_deposit_type", default: 0, null: false
     t.string "phone_number"
@@ -1872,7 +1873,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_30_234706) do
     t.jsonb "raw_direct_file_intake_data"
     t.string "referrer"
     t.string "routing_number"
-    t.integer "school_contributions", default: 0, null: false
     t.integer "sign_in_count", default: 0, null: false
     t.integer "sms_notification_opt_in", default: 0, null: false
     t.string "source"
