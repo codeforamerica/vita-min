@@ -2651,11 +2651,11 @@ es:
             <li>Crédito para Cuidadores de Guerreros/Veteranos Heridos</li>
         nj_supported:
           supported_credits_html: |
-            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/eitc/eitcinfo.shtml">Crédito Tributario por Ingresos del Trabajo de New Jersey (NJEITC for sus siglas en inglés)</a></li>
-            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/individuals/childtaxcredit.shtml">Crédito por Cuidado de Menores y Dependientes de New Jersey</a></li>
-            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/depcarecred.shtml">Crédito Tributario por Cuidado de Niños y Dependientes de New Jersey</a></li>
+            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/eitc/eitcinfo.shtml">Crédito por Ingreso del Trabajo de New Jersey (NJEITC por las siglas en inglés)</a></li>
+            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/individuals/childtaxcredit.shtml">Crédito por Hijos de New Jersey</a></li>
+            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/depcarecred.shtml">Crédito por Cuidado de Menores y Dependientes de New Jersey</a></li>
             <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/njit13.shtml#:~:text=Medical%20Expenses%0AYou,TAM%202011%2D14.">Deducción de Gastos Médicos</a></li>
-            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/njit7.shtml">Exclusión de Pensiones/Jubilación y Otros Ingresos de Jubilación</a></li>
+            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/njit7.shtml">Exclusión de Pensión/Jubilación y Otros Ingresos de Jubilación</a></li>
             <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/njit16.shtml">Créditos por Contribuciones Excedentes del Seguro de Desempleo (UI por las siglas en inglés) y del Seguro de Licencia Familiar (FLI por las siglas en inglés)</a></li>
             <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/njit35.shtml">Crédito o Deducción de Impuestos sobre la Propiedad</a></li>
         ny_credits_unsupported:
