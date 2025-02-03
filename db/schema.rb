@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_01_24_172223) do
+ActiveRecord::Schema[7.1].define(version: 2025_02_03_161418) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -2240,6 +2240,26 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_24_172223) do
   end
 
   create_table "state_file_nj_intakes", force: :cascade do |t|
+    t.integer "NJ1040_LINE_12_COUNT", default: 0, null: false
+    t.integer "NJ1040_LINE_15", default: 0, null: false
+    t.integer "NJ1040_LINE_16A", default: 0, null: false
+    t.integer "NJ1040_LINE_16B", default: 0, null: false
+    t.integer "NJ1040_LINE_29", default: 0, null: false
+    t.integer "NJ1040_LINE_31", default: 0, null: false
+    t.integer "NJ1040_LINE_41", default: 0, null: false
+    t.integer "NJ1040_LINE_42", default: 0, null: false
+    t.integer "NJ1040_LINE_43", default: 0, null: false
+    t.integer "NJ1040_LINE_51", default: 0, null: false
+    t.integer "NJ1040_LINE_56", default: 0, null: false
+    t.integer "NJ1040_LINE_58", default: 0, null: false
+    t.integer "NJ1040_LINE_58_IRS", default: 0, null: false
+    t.integer "NJ1040_LINE_59", default: 0, null: false
+    t.integer "NJ1040_LINE_61", default: 0, null: false
+    t.integer "NJ1040_LINE_64", default: 0, null: false
+    t.integer "NJ1040_LINE_65", default: 0, null: false
+    t.integer "NJ1040_LINE_65_DEPENDENTS", default: 0, null: false
+    t.integer "NJ1040_LINE_7_SELF", default: 0, null: false
+    t.integer "NJ1040_LINE_7_SPOUSE", default: 0, null: false
     t.string "account_number"
     t.integer "account_type", default: 0, null: false
     t.string "bank_name"
@@ -2924,8 +2944,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_24_172223) do
   add_foreign_key "incoming_text_messages", "clients"
   add_foreign_key "intake_archives", "intakes", column: "id"
   add_foreign_key "intakes", "clients"
-  add_foreign_key "intakes", "drivers_licenses", column: "primary_drivers_license_id"
-  add_foreign_key "intakes", "drivers_licenses", column: "spouse_drivers_license_id"
   add_foreign_key "intakes", "intakes", column: "matching_previous_year_intake_id"
   add_foreign_key "intakes", "vita_partners"
   add_foreign_key "notes", "clients"

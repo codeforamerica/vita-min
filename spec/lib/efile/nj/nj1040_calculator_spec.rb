@@ -2171,4 +2171,73 @@ describe Efile::Nj::Nj1040Calculator do
       expect(instance.refund_or_owed_amount).to eq(20)
     end
   end
+
+  describe "after calculate called" do
+    it "sets intake columns for metabase analytics" do
+      expected_line_7_self = 1
+      expected_line_7_spouse = 1
+      expected_line_12_count = 4
+      expected_line_15 = 10_000
+      expected_line_16a = 20_000
+      expected_line_16b = 30_000
+      expected_line_29 = 40_000
+      expected_line_31 = 1_000
+      expected_line_41 = 2_000
+      expected_line_42 = 3_000
+      expected_line_43 = 4_000
+      expected_line_51 = 5_000
+      expected_line_56 = 6_000
+      expected_line_58 = 7_000
+      expected_line_58_irs = 1
+      expected_line_59 = 9_000
+      expected_line_61 = 9
+      expected_line_64 = 10
+      expected_line_65 = 1
+      expected_line_65_dependents = 3
+
+      allow(instance).to receive(:line_7_self_checkbox).and_return expected_line_7_self
+      allow(instance).to receive(:line_7_spouse_checkbox).and_return expected_line_7_spouse
+      allow(instance).to receive(:line_12_count).and_return expected_line_12_count
+      allow(instance).to receive(:calculate_line_15).and_return expected_line_15
+      allow(instance).to receive(:calculate_line_16a).and_return expected_line_16a
+      allow(instance).to receive(:calculate_line_16b).and_return expected_line_16b
+      allow(instance).to receive(:calculate_line_29).and_return expected_line_29
+      allow(instance).to receive(:calculate_line_31).and_return expected_line_31
+      allow(instance).to receive(:calculate_line_41).and_return expected_line_41
+      allow(instance).to receive(:calculate_line_42).and_return expected_line_42
+      allow(instance).to receive(:calculate_line_43).and_return expected_line_43
+      allow(instance).to receive(:calculate_line_51).and_return expected_line_51
+      allow(instance).to receive(:calculate_line_56).and_return expected_line_56
+      allow(instance).to receive(:calculate_line_58).and_return expected_line_58
+      allow(instance).to receive(:calculate_line_58_irs).and_return expected_line_58_irs
+      allow(instance).to receive(:calculate_line_59).and_return expected_line_59
+      allow(instance).to receive(:calculate_line_61).and_return expected_line_61
+      allow(instance).to receive(:calculate_line_64).and_return expected_line_64
+      allow(instance).to receive(:calculate_line_65).and_return expected_line_65
+      allow(instance).to receive(:number_of_dependents_age_5_younger).and_return expected_line_65_dependents
+
+      instance.calculate
+
+      expect(intake.NJ1040_LINE_7_SELF).to eq(expected_line_7_self)
+      expect(intake.NJ1040_LINE_7_SPOUSE).to eq(expected_line_7_spouse)
+      expect(intake.NJ1040_LINE_12_COUNT).to eq(expected_line_12_count)
+      expect(intake.NJ1040_LINE_15).to eq(expected_line_15)
+      expect(intake.NJ1040_LINE_16A).to eq(expected_line_16a)
+      expect(intake.NJ1040_LINE_16B).to eq(expected_line_16b)
+      expect(intake.NJ1040_LINE_29).to eq(expected_line_29)
+      expect(intake.NJ1040_LINE_31).to eq(expected_line_31)
+      expect(intake.NJ1040_LINE_41).to eq(expected_line_41)
+      expect(intake.NJ1040_LINE_42).to eq(expected_line_42)
+      expect(intake.NJ1040_LINE_43).to eq(expected_line_43)
+      expect(intake.NJ1040_LINE_51).to eq(expected_line_51)
+      expect(intake.NJ1040_LINE_56).to eq(expected_line_56)
+      expect(intake.NJ1040_LINE_58).to eq(expected_line_58)
+      expect(intake.NJ1040_LINE_58_IRS).to eq(expected_line_58_irs)
+      expect(intake.NJ1040_LINE_59).to eq(expected_line_59)
+      expect(intake.NJ1040_LINE_61).to eq(expected_line_61)
+      expect(intake.NJ1040_LINE_64).to eq(expected_line_64)
+      expect(intake.NJ1040_LINE_65).to eq(expected_line_65)
+      expect(intake.NJ1040_LINE_65_DEPENDENTS).to eq(expected_line_65_dependents)
+    end
+  end
 end
