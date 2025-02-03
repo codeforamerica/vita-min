@@ -1701,11 +1701,11 @@ en:
       welcome:
         email:
           body: |
-            Welcome!
+            Hi,
 
-            We successfully created your FileYourStateTaxes account! We'll send you updates on your state tax return status once you submit it. While you are filing, your responses will be saved as you go. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org.
+            Your FileYourStateTaxes account is ready to use! We'll send updates once you submit your state tax return. Your progress is saved as you go, and you can log back in anytime at fileyourstatetaxes.org.
 
-            Your Client ID is %{intake_id}. This is an important piece of account information that you may need when talking to our support team. Please keep track of this number and do not delete this message.
+            <strong>Your Client ID is %{intake_id}. Keep it handy for support.</strong>
 
             Need help? Reply to this email.
 
@@ -1713,9 +1713,11 @@ en:
             The FileYourStateTaxes team
           subject: Welcome to FileYourStateTaxes
         sms: |
-          Welcome! We successfully created your FileYourStateTaxes account! We'll send you updates on your state tax return status once you submit it. While you are filing, your responses will be saved as you go. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org
+          Hi! Your FileYourStateTaxes account is ready to use. We'll send updates when you submit your state tax return. Your progress is saved as you go, so you can log back in anytime.
 
-          Need help? Email us at help@fileyourstatetaxes.org. Text "STOP" to unsubscribe.
+          Your Client ID is %{intake_id}. Keep it handy for support.
+
+          Need help? Email us at help@fileyourstatetaxes.org Text "STOP" to opt out of notifications.
     successful_submission_drop_off:
       email:
         body: |

@@ -1661,12 +1661,14 @@ es:
         sms: "Hola, %{primary_first_name}: Lamentablemente, %{state_name} rechazó tu declaración de impuestos estatales por un problema que no se puede resolver en nuestra herramienta. ¡No te preocupes! Podemos ayudarte a brindar orientación sobre los próximos pasos. Chatea con nosotros en %{return_status_link}. \n\n¿Tienes preguntas? Responde a este texto.\n"
       welcome:
         email:
-          body: "Hola,\n\n¡Hemos creado exitosamente tu cuenta en FileYourStateTaxes! Te enviaremos actualizaciones sobre el estado de tu declaración de impuestos estatal una vez que la envíes. Mientras estás presentando tu declaración, tus respuestas se guardarán a medida que avances. Si necesitas hacer una pausa, puedes regresar e iniciar sesión en tu cuenta en fileyourstatetaxes.org/es.\n\nTu ID de cliente es %{intake_id}. Esta es una pieza importante de información de tu cuenta que puedes necesitar al hablar con nuestro equipo de soporte. Por favor, haz un seguimiento de este número y no borres este mensaje.\n\n¿Necesitas ayuda? Responde a este correo electrónico.\n\nSaludos, \nEl equipo de FileYourStateTaxes\n"
+          body: "Hola,\n\n¡Tu cuenta de FileYourStateTaxes está lista para que la uses! Te mandaremos actualizaciones una vez que envíes tu declaración de impuestos estatales. Tu progreso se guarda mientras avanzas, y puedes volver a entrar en cualquier momento en fileyourstatetaxes.org/es.\n\n</strong>Tu ID de cliente es %{intake_id}. Tenlo a la mano por si necesitas apoyo.</strong>\n\n¿Necesitas ayuda? Responde a este correo electrónico.\n\nSaludos, \nEl equipo de FileYourStateTaxes\n"
           subject: Bienvenido a FileYourStateTaxes
         sms: |
-          ¡Bienvenido! ¡Creamos exitosamente su cuenta FileYourStateTaxes! Le enviaremos actualizaciones sobre el estado de su declaración de impuestos estatales una vez que la envíe. Mientras presenta la solicitud, sus respuestas se guardarán a medida que avanza. Si necesita un descanso, puede regresar e iniciar sesión en su cuenta en fileyourstatetaxes.org
+          ¡Hola! Tu cuenta de FileYourStateTaxes está lista. Te mandaremos actualizaciones cuando envíes tu declaración de impuestos estatales. Tu progreso se guarda mientras avanzas, así que puedes volver a entrar en cualquier momento.
 
-          ¿Necesitar ayuda? Envíenos un correo electrónico a help@fileyourstatetaxes.org. Envía "STOP" para cancelar la suscripción.
+          Tu ID de cliente es %{intake_id}. Tenlo a la mano por si necesitas apoyo.
+
+          ¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org. Envía "STOP" para dejar de recibir mensajes.
     successful_submission_drop_off:
       email:
         body: |
