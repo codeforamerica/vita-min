@@ -2259,7 +2259,7 @@ en:
       section_6: 'Section 6: Submit your state taxes'
     notification_mailer:
       user_message:
-        unsubscribe: If you would like to unsubscribe from emails, click <a href="%{unsubscribe_link}">here</a>.
+        unsubscribe: To unsubscribe from emails, <a href="%{unsubscribe_link}">click here</a>.
     notifications_settings:
       unsubscribe_from_emails:
         help_text_html: If you change your mind and would like to opt in later, <a class="open-intercom">chat with us</a> or email us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org.</a>

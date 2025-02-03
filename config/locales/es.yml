@@ -2210,7 +2210,7 @@ es:
       section_6: 'Sección 6: Envía tus impuestos estatales'
     notification_mailer:
       user_message:
-        unsubscribe: Si deseas cancelar la suscripción a los correos electrónicos, haz clic <a href="%{unsubscribe_link}">aquí</a>.
+        unsubscribe: Para dejar de recibir los correos electrónicos, <a href="%{unsubscribe_link}">haz clic aquí</a>.
     notifications_settings:
       unsubscribe_from_emails:
         help_text_html: Si cambias de opinión y deseas suscribirte más tarde, <a class="open-intercom">chatea con nosotros</a> o envíanos un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org.</a>
