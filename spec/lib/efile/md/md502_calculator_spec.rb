@@ -14,7 +14,7 @@ describe Efile::Md::Md502Calculator do
   describe "#calculate_line_a_primary" do
     context 'primary not claimed as a dependent' do
       before do
-        intake.direct_file_data.primary_claim_as_dependent = ""
+        allow_any_instance_of(DirectFileData).to receive(:claimed_as_dependent?).and_return false
       end
 
       it "checks the value" do
@@ -25,7 +25,7 @@ describe Efile::Md::Md502Calculator do
 
     context 'primary is claimed as a dependent' do
       before do
-        intake.direct_file_data.primary_claim_as_dependent = "X"
+        allow_any_instance_of(DirectFileData).to receive(:claimed_as_dependent?).and_return true
       end
 
       it "returns nil" do
@@ -70,7 +70,7 @@ describe Efile::Md::Md502Calculator do
     context "when line a yourself is checked but spouse isn't" do
       before do
         intake.direct_file_data.filing_status = 1 # single
-        intake.direct_file_data.primary_claim_as_dependent = ""
+        allow_any_instance_of(DirectFileData).to receive(:claimed_as_dependent?).and_return false
       end
 
       it "returns 1" do
@@ -82,7 +82,7 @@ describe Efile::Md::Md502Calculator do
     context "when line a yourself and spouse isn't checked" do
       before do
         intake.direct_file_data.filing_status = 1 # single
-        intake.direct_file_data.primary_claim_as_dependent = "X"
+        allow_any_instance_of(DirectFileData).to receive(:claimed_as_dependent?).and_return true
       end
 
       it "returns 0" do
@@ -95,7 +95,7 @@ describe Efile::Md::Md502Calculator do
   describe "#calculate_line_a_amount" do
     context "when primary or spouse is claimed as a dependent" do
       before do
-        intake.direct_file_data.filing_status = 6 # dependent
+        allow_any_instance_of(DirectFileData).to receive(:claimed_as_dependent?).and_return true
       end
 
       it "returns 0" do
@@ -697,6 +697,9 @@ describe Efile::Md::Md502Calculator do
 
                 before do
                   allow_any_instance_of(described_class).to receive(:calculate_line_16).and_return agi_limit
+                  if filing_status == "dependent"
+                    allow_any_instance_of(DirectFileData).to receive(:claimed_as_dependent?).and_return true
+                  end
                 end
 
                 it "returns the value corresponding to #{agi_limit} MD AGI limit" do
@@ -937,8 +940,10 @@ describe Efile::Md::Md502Calculator do
       )
     }
     let(:federal_eic) { 1001 }
+    let(:claimed_as_dependent) { false }
 
     before do
+      allow_any_instance_of(DirectFileData).to receive(:claimed_as_dependent?).and_return claimed_as_dependent
       intake.direct_file_data.fed_eic = federal_eic
       instance.calculate
     end
@@ -966,8 +971,9 @@ describe Efile::Md::Md502Calculator do
     end
 
     context "when filing as a dependent and no qualifying children" do
-      let(:filing_status) { "dependent" }
       let(:df_xml_key) { "md_zeus_two_w2s" }
+      let(:claimed_as_dependent) { true }
+
       it 'EIC is nil' do
         expect(instance.lines[:MD502_LINE_22].value).to eq nil
       end
@@ -1018,20 +1024,21 @@ describe Efile::Md::Md502Calculator do
   end
 
   describe "#calculate_line_23" do
+    let (:deduction_method_standard) { true }
+    let (:claimed_as_dependent) { false }
+
     before do
       intake.direct_file_data.fed_wages_salaries_tips = line_1b
       allow_any_instance_of(described_class).to receive(:calculate_line_7).and_return(line_7)
-      allow_any_instance_of(described_class).to receive(:deduction_method_is_standard?).and_return(true)
+      allow_any_instance_of(described_class).to receive(:deduction_method_is_standard?).and_return(deduction_method_standard)
+      allow_any_instance_of(DirectFileData).to receive(:claimed_as_dependent?).and_return claimed_as_dependent
       instance.calculate
     end
 
     context "deduction method is nonstandard" do
-      let(:line_1b) { 20_000 }
-      let(:line_7) { 15_000 }
-
-      before do
-        allow_any_instance_of(described_class).to receive(:deduction_method_is_standard?).and_return(false)
-      end
+      let(:line_1b) { 5_000 }
+      let(:line_7) { 10_000 }
+      let(:deduction_method_standard) { false }
 
       it "returns 0" do
         expect(instance.lines[:MD502_LINE_23].value).to eq 0
@@ -1039,9 +1046,9 @@ describe Efile::Md::Md502Calculator do
     end
 
     context "when filing as dependent" do
-      let(:filing_status) { "dependent" }
-      let(:line_1b) { 20_000 }
-      let(:line_7) { 15_000 }
+      let(:line_1b) { 5_000 }
+      let(:line_7) { 10_000 }
+      let(:claimed_as_dependent) { true }
 
       it "returns 0" do
         expect(instance.lines[:MD502_LINE_23].value).to eq(0)
@@ -1546,10 +1553,12 @@ describe Efile::Md::Md502Calculator do
       )
     }
     let(:federal_eic) { 1200 }
+    let(:claimed_as_dependent) { false }
 
     before do
       intake.direct_file_data.fed_eic = federal_eic
       allow_any_instance_of(described_class).to receive(:calculate_line_21).and_return 500
+      allow_any_instance_of(DirectFileData).to receive(:claimed_as_dependent?).and_return claimed_as_dependent
       instance.calculate
     end
 
@@ -1603,8 +1612,9 @@ describe Efile::Md::Md502Calculator do
     end
 
     context "when filing as a dependent and no qualifying children" do
-      let(:filing_status) { "dependent" }
       let(:df_xml_key) { "md_zeus_two_w2s" }
+      let(:claimed_as_dependent) { true }
+
       it 'refundable EIC is nil' do
         expect(instance.lines[:MD502_LINE_42].value).to eq nil
       end

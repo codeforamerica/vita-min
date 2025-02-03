@@ -1,0 +1,45 @@
+{
+  "familyAndHousehold": [],
+  "filers": [
+    {
+      "lastName": "Greenpigeon",
+      "dateOfBirth": null,
+      "suffix": null,
+      "isPrimaryFiler": false,
+      "firstName": "Western",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": null,
+      "interestReportsTotal": "0.00",
+      "isDisabled": null,
+      "form1099GsTotal": "0.00",
+      "isStudent": null,
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": null
+    },
+    {
+      "lastName": "Goldfinch",
+      "dateOfBirth": "1940-12-06",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "firstName": "Eastern",
+      "middleInitial": "Z",
+      "educatorExpenses": "0.00",
+      "tin": "300-00-3211",
+      "interestReportsTotal": "0.00",
+      "isDisabled": false,
+      "form1099GsTotal": "0.00",
+      "isStudent": false,
+      "ssnNotValidForEmployment": null,
+      "hsaTotalDeductibleAmount": null
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [
+    {
+      "usedTin": "300-00-3211",
+      "unionDuesAmount": null
+    }
+  ],
+  "interestReports": []
+}
