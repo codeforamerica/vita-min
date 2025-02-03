@@ -106,7 +106,7 @@ module StateFileIntakeHelper
     click_on "Continue"
   end
 
-  def step_through_df_data_transfer(sample_name = "Transfer my #{filing_year} federal tax return to FileYourStateTaxes")
+  def step_through_df_data_transfer(sample_name = "Transfer my #{filing_year} federal tax return to FileYourStateTaxes", expect_success = true)
     expect(page).to have_text I18n.t('state_file.questions.initiate_data_transfer.edit.title')
     click_on I18n.t('state_file.questions.initiate_data_transfer.data_transfer_buttons.from_fake_df_page')
 
@@ -122,7 +122,7 @@ module StateFileIntakeHelper
     unless Capybara.current_driver == Capybara.javascript_driver
       find_link("HIDDEN BUTTON", visible: :any).click
     end
-    click_on I18n.t("general.continue")
+    click_on I18n.t("general.continue") if expect_success
   end
 
   def assert_flow_explorer_sample_params_includes_everything(us_state)

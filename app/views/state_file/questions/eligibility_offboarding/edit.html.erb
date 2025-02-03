@@ -9,8 +9,8 @@
     <p><%= t(".body_html", ineligible_reason: ineligible_reason, prev_link: prev_path) %></p>
   <% end %>
 
-  <% # i18n-tasks-use t('state_file.questions.eligibility_offboarding.edit.vita_introduction.nj') # hint for the i18n linter that, yes, we are using this key (sometimes) %>
-  <% vita_introduction_key = "state_file.questions.eligibility_offboarding.edit.vita_introduction.#{current_state_code}" %>
+  <% # i18n-tasks-use t('state_file.questions.eligible.vita_option.vita_introduction.nj') # hint for the i18n linter that, yes, we are using this key (sometimes) %>
+  <% vita_introduction_key = "state_file.questions.eligible.vita_option.vita_introduction.#{current_state_code}" %>
   <% vita_introduction = I18n.exists?(vita_introduction_key, locale) ? t(vita_introduction_key) : nil %>
   <% if vita_introduction.present? %>
     <p><%= vita_introduction %></p>
@@ -19,7 +19,7 @@
   <% href = I18n.locale == :en ? StateFile::StateInformationService.vita_link_en(current_state_code) : StateFile::StateInformationService.vita_link_es(current_state_code) %>
   <% if href.present? %>
     <%= link_to(href, class: "button button--primary button--wide spacing-below-15", target: "_blank", rel: "noopener noreferrer") do %>
-      <%= t('.connect_to_vita') %>
+      <%= t('state_file.questions.eligible.vita_option.connect_to_vita') %>
     <% end %>
   <% end %>
 

@@ -12,7 +12,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
   context "NJ", :flow_explorer_screenshot, js: true do
 
-    def advance_to_start_of_intake(df_persona_name, check_a11y: false, expect_income_review: true)
+    def advance_to_start_of_intake(df_persona_name, check_a11y: false, expect_income_review: true, expect_success: true)
       visit "/"
       click_on "Start Test NJ"
 
@@ -42,7 +42,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to be_axe_clean if check_a11y
       click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
 
-      step_through_df_data_transfer("Transfer #{df_persona_name}")
+      step_through_df_data_transfer("Transfer #{df_persona_name}", expect_success)
 
       if expect_income_review
         expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
@@ -308,8 +308,15 @@ RSpec.feature "Completing a state file intake", active_job: true do
       check_xml_results
     end
 
-    it "shown ineligible offboarding when investment interest over 12k" do
-      advance_to_start_of_intake("Investment income 12k", check_a11y: true, expect_income_review: true)
+    it "shown offboarding when exempt interest over 10k" do
+      advance_to_start_of_intake("Exempt interest over 10k", expect_income_review: false, expect_success: false)
+
+      expect(page).to be_axe_clean
+      expect(page).to have_text I18n.t("state_file.questions.data_transfer_offboarding.edit.title")
+    end
+
+    it "shown offboarding when no health insurance" do
+      advance_to_start_of_intake("Superman mfj")
 
       expect(page).to have_text I18n.t("state_file.questions.nj_eligibility_health_insurance.edit.title")
       choose I18n.t("general.negative")

@@ -2459,7 +2459,6 @@ en:
       eligibility_offboarding:
         edit:
           body_html: You cannot use this service this year because %{ineligible_reason}. <br><br><strong>Is this a mistake?</strong> <a href=%{prev_link}>Go back to correct.</a>
-          connect_to_vita: Get connected now
           ineligible_reason:
             eligibility_529_for_non_qual_expense: you withdrew money from a 529 college savings account and used it for a non-qualifying expense in %{filing_year}
             eligibility_ed_loan_cancelled: you had student loan debt canceled under the American Rescue Plan Act.
@@ -2483,8 +2482,6 @@ en:
           title:
             default: Unfortunately, you can't use this service this year. Don't worry, there are other filing options.
             nj: Unfortunately, based on the information we have, you can't use this tool this year. Don't worry; there are other filing options.
-          vita_introduction:
-            nj: You can file your state taxes for free with help from IRS-certified Volunteer Income Tax Assistance (VITA) tax preparers at Simplify CT.
       eligible:
         az_credits_unsupported:
           other_credits_301_html: Nonrefundable credits listed on <a href="https://azdor.gov/sites/default/files/2023-03/FORMS_CREDIT_2022_301-SBI_f.pdf" target="_blank" rel="noopener nofollow">AZ Form 301</a>
@@ -2783,6 +2780,9 @@ en:
               default: What are my free state filing options?
               nj: Learn more about the VITA process
         vita_option:
+          connect_to_vita: Get connected now
+          vita_introduction:
+            nj: You can file your state taxes for free with help from IRS-certified Volunteer Income Tax Assistance (VITA) tax preparers at Simplify CT.
           vita_link: Get started with VITA now
           want_to_claim_learn_more_html: Learn more about this process and other filing options <a href="%{link}" target="_blank">here</a>.
           want_to_claim_vita: You may be able to file your state return for free with help from IRS-certified VITA volunteers, but it may take 2-3 weeks to complete.
