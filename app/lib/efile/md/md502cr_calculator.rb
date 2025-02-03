@@ -52,7 +52,7 @@ module Efile
           if @intake.primary_senior?
             credit = 1750
           end
-        elsif (filing_status_single? || filing_status_mfs? || filing_status_dependent?) && agi <= 100_000
+        elsif (filing_status_single? || filing_status_mfs? || md_filing_status_dependent?) && agi <= 100_000
           if @intake.primary_senior?
             credit = 1000
           end

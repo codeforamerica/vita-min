@@ -3,7 +3,7 @@
   <div class="reveal__content">
     <div>
       <% if current_state_code == "md" %>
-        <%= t('.md_reveal_content_html') %>
+        <%= t('.md_reveal_content_html', vita_link: @vita_link, link: @faq_other_options_link) %>
       <% else %>
         <%= render partial: "state_file/questions/eligible/vita_option" %>
       <% end %>

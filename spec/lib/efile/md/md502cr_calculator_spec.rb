@@ -227,7 +227,17 @@ describe Efile::Md::Md502crCalculator do
 
     %w[single married_filing_separately dependent].each do |filing_status|
       context "when filing status is #{filing_status}" do
-        let(:filing_status) { filing_status }
+        if filing_status == "dependent"
+          let(:filing_status) { "single" }
+          let(:claimed_as_dependent) { true}
+        else
+          let(:filing_status) { filing_status }
+          let(:claimed_as_dependent) { false }
+        end
+
+        before do
+          allow_any_instance_of(DirectFileData).to receive(:claimed_as_dependent?).and_return claimed_as_dependent
+        end
 
         context "when filer is 65 or older" do
           before do

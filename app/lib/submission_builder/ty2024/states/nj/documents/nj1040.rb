@@ -28,7 +28,7 @@ module SubmissionBuilder
                     case status
                     when :married_filing_separately
                       xml.MarriedCuPartFilingSeparate do
-                        xml.SpouseSSN intake.spouse.ssn
+                        xml.SpouseSSN intake.spouse.ssn if intake.spouse.ssn
                         xml.SpouseName do
                           xml.FirstName sanitize_for_xml(intake.spouse.first_name)
                           xml.MiddleInitial sanitize_middle_initial(intake.spouse.middle_initial) if sanitize_middle_initial(intake.spouse.middle_initial).present?
