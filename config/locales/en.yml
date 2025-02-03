@@ -1707,7 +1707,7 @@ en:
           body: |
             Hi,
 
-            Your FileYourStateTaxes account is ready to use! We'll send updates once you submit your state tax return. Your progress is saved as you go, and you can log back in anytime at fileyourstatetaxes.org.
+            Your FileYourStateTaxes account is ready to use! We'll send updates once you submit your state tax return. Your progress is saved as you go, and you can log back in anytime at <a  target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/en/login-options">fileyourstatetaxes.org</a>.org.
 
             <strong>Your Client ID is %{intake_id}. Keep it handy for support.</strong>
 
