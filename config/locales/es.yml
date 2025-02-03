@@ -1533,17 +1533,21 @@ es:
           body: |
             Hola %{primary_first_name},
 
-            Todavía no has enviado tu declaración de impuestos estatales. Como recordatorio, los impuestos estatales vencen el 15 de abril.
+            Todavía no has enviado tu declaración de impuestos estatales. Recuerda que los impuestos estatales vencen el 15 de abril.
 
-            Completa la tuya ahora, ve a <a target="_blank" rel="noopener nofollow" href="https://fileyourstatetaxes.org/es">fileyourstatetaxes.org/es</a>
+            Completa tu declaración ahora visitando <a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/es/login-options">www.fileyourstatetaxes.org/es/login-options</a>.
 
             ¿Necesitas ayuda? Responde a este correo electrónico.
 
             Atentamente,
             El equipo de FileYourStateTaxes
-          subject: "¡No olvides terminar tu declaración de impuestos estatales!"
+          subject: "Recuerda completar tu declaración de impuestos estatales"
         sms: |
-          Hola %{primary_first_name} - Aún no has presentado tu declaración de impuestos estatales. Como recordatorio, los impuestos estatales vencen antes del 15 de abril. Vaya a fileyourstatetaxes.org para finalizarlos ahora.
+          Hola %{primary_first_name} - Aún no has enviado tu declaración de impuestos estatales.
+
+          Los impuestos estatales vencen el 15 de abril.
+
+          Completa tu declaración ahora en <a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/es/login-options">www.fileyourstatetaxes.org/es/login-options</a>
 
           ¿Necesitar ayuda? Envíenos un correo electrónico a help@fileyourstatetaxes.org.
       issue_resolved:
