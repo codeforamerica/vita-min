@@ -10,7 +10,7 @@ describe "Cache control" do
   context "user on profile page, logs out and clicks back button", js: true do
     it "cache is cleared and redirects to the login page" do
       visit hub_user_profile_path
-      click_on 'Sign out'
+      click_on 'Sign out', visible: :all
       page.evaluate_script('window.history.back()')
       expect(page).to have_text "Sign in"
     end
@@ -19,7 +19,7 @@ describe "Cache control" do
   context "user on client page, logs out and clicks back button", js: true do
     it "cache is cleared and redirects to the login page" do
       visit hub_clients_path
-      click_on 'Sign out'
+      click_on 'Sign out', visible: :all
       page.evaluate_script('window.history.back()')
       expect(page).to have_text "Sign in"
     end
