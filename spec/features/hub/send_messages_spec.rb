@@ -104,9 +104,11 @@ RSpec.feature "Read and send messages to a client", js: true do
         visit hub_client_path(id: client)
         click_on "Messages"
 
-        expect(page).to have_content(archived_intake.preferred_name)
-        expect(page).to have_content(incoming_text_message.body)
-        expect(page).to have_content("Called by")
+        within ".day-list" do
+          expect(page).to have_content(archived_intake.preferred_name)
+          expect(page).to have_content(incoming_text_message.body)
+          expect(page).to have_content("Called by")
+        end
       end
     end
 
