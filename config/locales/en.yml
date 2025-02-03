@@ -2108,7 +2108,7 @@ en:
       md_pension_income_exclusion: Pension income exclusion
       md_poverty_level_credit: Maryland Poverty Level Credit
       md_public_safety_retirement_income_exclusion: Public safety retirement income exclusion
-      md_refundable_child_dependent_care_credit: Refundable Child and Dependent Care Credit
+      md_refundable_child_dependent_care_credit: Maryland Refundable Credit for Child and Dependent Care Expenses
       md_refundable_earned_income_tax_credit: Refundable Maryland Earned Income Tax Credit
       md_return_type: Type of return
       md_senior_tax_credit: Senior Tax Credit
@@ -2601,7 +2601,7 @@ en:
               </li>
 
               <li>
-                Payments
+                Payments:
                 <ul>
                   <li>Estimated tax payments</li>
                   <li>Extension tax payments</li>
@@ -2613,11 +2613,11 @@ en:
             </p>
           body2_html: |
             <p>
-              This year, you can't <strong>claim the Maryland EITC using this service</strong> in these scenarios:
+              This year, you <strong>can't claim the Maryland EITC using this service</strong> in these scenarios:
             </p>
             <ul>
               <li>If you or other people in your family have an Individual Taxpayer Identification Number (ITIN) instead of a Social Security Number and you earned income from a job</li>
-              <li>If you are less than 25 years old, you earned less than $18,600 (or $25,600 if you're filing a joint return), and you were not claimed as a dependent by somebody else</li>
+              <li>If you are less than 25 years old, you earned less than $18,600 (or $25,600 if you’re filing a joint return), you were not claimed as a dependent by somebody else, and you didn’t claim anyone on your return</li>
             </ul>
             <p>
               For the Maryland CTC, you <strong>can't claim a child with a permanent disability that is between the ages of 6 and 17 using this service</strong> this year.
@@ -2659,6 +2659,7 @@ en:
           sub7: Two-income subtraction for married filing jointly taxpayers
           sub8: State and local Earned Income Tax credits (if you claimed the federal Earned Income Tax Credit)
           sub9: State Child Tax Credit (for children under 6)
+          subject_to_eligibility: All subtractions and credits are subject to eligibility requirements.
         nc_credits_unsupported:
           college_savings_account: 529 College Savings Account Contributions
           credits_carried: Credits carried forward from previous years
