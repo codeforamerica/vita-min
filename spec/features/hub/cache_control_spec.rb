@@ -10,9 +10,7 @@ describe "Cache control" do
   context "user on profile page, logs out and clicks back button", js: true do
     it "cache is cleared and redirects to the login page" do
       visit hub_user_profile_path
-      within ".main-menu" do
-        click_on 'Sign out'
-      end
+      click_on 'Sign out'
       page.evaluate_script('window.history.back()')
       expect(page).to have_text "Sign in"
     end
