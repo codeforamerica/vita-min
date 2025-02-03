@@ -158,6 +158,10 @@ class StateFileMdIntake < StateFileBaseIntake
     super(dob, inclusive_of_jan_1: false)
   end
 
+  def is_filer_55_and_older?(filer)
+    calculate_age(send(filer)&.birth_date, inclusive_of_jan_1: false) >= 55
+  end
+
   def sanitize_bank_details
     if (payment_or_deposit_type || "").to_sym != :direct_deposit
       self.account_type = "unfilled"

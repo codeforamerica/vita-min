@@ -123,6 +123,41 @@ RSpec.describe StateFileMdIntake, type: :model do
     end
   end
 
+  describe "is_filer_55_and_older?" do
+
+    context "when primary is 55 or older" do
+      let(:dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 55), 1, 1) }
+      let(:intake) { create :state_file_md_intake, primary_birth_date: dob }
+      it "returns true" do
+        expect(intake.is_filer_55_and_older?(:primary)).to eq true
+      end
+    end
+
+    context "when the primary is younger than 55" do
+      let!(:intake) { create :state_file_md_intake, primary_birth_date: dob }
+      let(:dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 54), 1, 1) }
+      it "returns true" do
+        expect(intake.is_filer_55_and_older?(:primary)).to eq false
+      end
+    end
+
+    context "when the spouse is 55 or older" do
+      let(:dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 55), 1, 1) }
+      let(:intake) { create :state_file_md_intake, spouse_birth_date: dob }
+      it "returns true" do
+        expect(intake.is_filer_55_and_older?(:spouse)).to eq true
+      end
+    end
+
+    context "when the spouse is younger than 55" do
+      let(:dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 54), 1, 1) }
+      let(:intake) { create :state_file_md_intake, spouse_birth_date: dob }
+      it "returns true" do
+        expect(intake.is_filer_55_and_older?(:spouse)).to eq false
+      end
+    end
+  end
+
   describe "#eligibility_filing_status" do
     subject(:intake) do
       create(:state_file_md_intake, eligibility_filing_status_mfj: :yes)
@@ -223,13 +258,13 @@ RSpec.describe StateFileMdIntake, type: :model do
   end
 
   describe "#address" do
-  context "a confirmed address" do
-    subject(:intake) { create :state_file_md_intake, :with_confirmed_address }
+    context "a confirmed address" do
+        subject(:intake) { create :state_file_md_intake, :with_confirmed_address }
 
-      it "returns the permanent address" do
-        expect(intake.address).to eq("321 Main St Apt 2, Baltimore, MD 21202")
+        it "returns the permanent address" do
+          expect(intake.address).to eq("321 Main St Apt 2, Baltimore, MD 21202")
+        end
       end
-    end
 
     context "an unconfirmed address" do
       subject(:intake) { create :state_file_md_intake, :with_permanent_address, confirmed_permanent_address: "no" }
