@@ -19,7 +19,7 @@ module SubmissionBuilder
                     xml.Dependent do
                       xml.Name do
                         xml.FirstName sanitize_for_xml(dependent.first_name, 16)
-                        xml.MiddleInitial sanitize_for_xml(dependent.middle_initial, 1) if dependent.middle_initial.present?
+                        xml.MiddleInitial sanitize_middle_initial(dependent.middle_initial) if sanitize_middle_initial(dependent.middle_initial).present?
                         xml.LastName sanitize_for_xml(dependent.last_name, 32)
                       end
                       xml.SSN dependent.ssn

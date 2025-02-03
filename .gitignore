@@ -76,3 +76,5 @@ df_api/*.txt
 
 jmeter_test/results/*
 jmeter_test/jmeter.log
+
+.env

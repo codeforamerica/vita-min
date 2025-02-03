@@ -32,7 +32,7 @@ RSpec.describe StateFile::ArchivedIntakes::IdentificationNumberController, type:
       expect(response).to render_template(:edit)
     end
 
-    it "redirects to the root path when the request is locked" do
+    it "redirects to the lockout path when the request is locked" do
       intake_request.lock_access!
       get :edit
 
@@ -62,9 +62,7 @@ RSpec.describe StateFile::ArchivedIntakes::IdentificationNumberController, type:
         expect(session[:ssn_verified]).to eq(true)
         expect(intake_request.reload.failed_attempts).to eq(0)
 
-        # TODO: https://codeforamerica.atlassian.net/browse/FYST-1518
-        # need to change to address path
-        expect(response).to redirect_to(root_path)
+        expect(response).to redirect_to(state_file_archived_intakes_edit_mailing_address_validation_path)
       end
 
       it "resets failed attempts to zero even if one failed attempt has already been made" do

@@ -30,9 +30,13 @@ RSpec.feature "accessing a prior year PDF", active_job: true do
       fill_in I18n.t("state_file.archived_intakes.identification_number.edit.ssn_label"), with: "123456789"
       click_on I18n.t("general.continue")
 
-      # TODO: https://codeforamerica.atlassian.net/browse/FYST-1518
-      # need to change to address path
-      expect(current_path).to eq(root_path)
+      expect(current_path).to eq(state_file_archived_intakes_edit_mailing_address_validation_path)
+      correct_address = archived_intake.full_address
+      expect(page).to have_text(correct_address)
+      choose(correct_address)
+      click_on I18n.t("general.continue")
+
+      expect(current_path).to eq(state_file_archived_intakes_pdfs_path)
     end
   end
 

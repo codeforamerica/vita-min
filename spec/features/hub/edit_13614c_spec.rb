@@ -615,8 +615,7 @@ RSpec.describe "a user editing a clients 13614c form" do
       expect(intake.demographic_spouse_white).to be_truthy
     end
 
-    # TODO reenable this after GYR1-603 / https://github.com/codeforamerica/vita-min/pull/5406 gets merged.
-    xdescribe "demographic questions on page 4 work in tandem with other flags" do
+    describe "demographic questions on page 4 work in tandem with other flags" do
       before do
         client.intake.update(
           demographic_questions_opt_in: 'no',
@@ -624,7 +623,7 @@ RSpec.describe "a user editing a clients 13614c form" do
         )
       end
 
-      it "does not write the answers to the PDF unless the client opted in during intake or the hub user has saved page4" do
+      it "does not write the answers to the PDF unless the client opted in during intake or the hub user has saved page 4" do
         # generate pdf, prove spouse ethnicity is not filled in because demographic_questions_opt_in is false
         form_fields = PdfForms.new.get_fields(PdfFiller::F13614cPdf.new(client.intake).output_file)
         expect(form_fields.find { |field| field.name == "form1[0].page4[0].yourSpousesRaceEthnicity[0].hawaiianPacific[0]" }.value).to eq("Off")
@@ -649,8 +648,32 @@ RSpec.describe "a user editing a clients 13614c form" do
         # generate pdf, prove spouse ethnicity is filled in because demographic_questions_hub_edit is true
         form_fields = PdfForms.new.get_fields(PdfFiller::F13614cPdf.new(client.reload.intake).output_file)
         expect(form_fields.find { |field| field.name == "form1[0].page4[0].yourSpousesRaceEthnicity[0].hawaiianPacific[0]" }.value).to eq("Off")
-        expect(form_fields.find { |field| field.name == "form1[0].page4[0].yourSpousesRaceEthnicity[0].blackAfricanAmerican[0]]" }.value).to eq("1")
+        expect(form_fields.find { |field| field.name == "form1[0].page4[0].yourSpousesRaceEthnicity[0].blackAfricanAmerican[0]" }.value).to eq("1")
       end
+    end
+
+    scenario 'I can see and update the 13614c page 5 form', js: true do
+      visit hub_client_path(id: client.id)
+      within '.client-profile' do
+        click_on 'Edit 13614-C'
+      end
+
+      within '.form_13614c-page-links', match: :first do
+        click_on '5'
+      end
+      header = 'Additional Notes/Comments'
+      expect(page).to have_text header
+
+      note = 'It was very late and everyone had left the café except an old man who sat in the shadow the leaves of the tree made against the electric light.'
+      fill_in 'hub_update13614c_form_page5_additional_notes_comments', with: note
+
+      click_on I18n.t('general.save')
+
+      expect(page).to have_text header
+      expect(page).to have_text I18n.t('general.changes_saved')
+
+      intake = client.intake.reload
+      expect(intake.additional_notes_comments).to eq note
     end
   end
 end

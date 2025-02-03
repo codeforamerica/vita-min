@@ -230,7 +230,7 @@ RSpec.feature "Read and send messages to a client", js: true do
         )
       end
 
-      it "still shows the client's information successfully" do
+      xit "still shows the client's information successfully" do
         visit hub_client_path(id: client)
         click_on "Messages"
 

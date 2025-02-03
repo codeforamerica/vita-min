@@ -52,6 +52,23 @@ describe Ability do
           expect(subject.can?(:manage, state_efile_submission)).to eq true
         end
       end
+
+
+      %w[state_file unfilled state_file_az state_file_ny state_file_md state_file_nc state_file_id].each do |service_type|
+        context "with state efile error" do
+          let!(:state_efile_error) { create :efile_error, service_type: service_type }
+          it "can manage the state efile error" do
+            expect(subject.can?(:manage, state_efile_error)).to eq true
+          end
+        end
+      end
+
+      context "with nj state efile error" do
+        let!(:state_efile_error) { create :efile_error, service_type: "state_file_nj" }
+        it "cannot manage the state efile error" do
+          expect(subject.can?(:manage, state_efile_error)).to eq false
+        end
+      end
     end
 
     context "state_file false" do
@@ -85,6 +102,21 @@ describe Ability do
         expect(subject.can?(:manage, IncomingEmail.new(client: client))).to eq true
         expect(subject.can?(:manage, Document.new(client: client))).to eq true
         expect(subject.can?(:manage, Note.new(client: client))).to eq true
+      end
+    end
+
+    context "state_file_nj_staff" do
+      let(:user) { create :state_file_nj_staff_user }
+      let!(:state_efile_submission) { create :efile_submission, :for_state, data_source: create(:state_file_nj_intake) }
+      let!(:state_efile_error) { create :efile_error, service_type: "state_file_nj" }
+      let!(:faq_category) { create :faq_category, product_type: :state_file_nj }
+      let!(:faq_item) { create(:faq_item, faq_category: faq_category) }
+
+      it "can manage the state efile submission" do
+        expect(subject.can?(:manage, state_efile_submission)).to eq true
+        expect(subject.can?(:manage, state_efile_error)).to eq true
+        expect(subject.can?(:manage, faq_category)).to eq true
+        expect(subject.can?(:manage, faq_item)).to eq true
       end
     end
   end
