@@ -1572,7 +1572,7 @@ en:
 
             Best,
             The FileYourStateTaxes team
-          subject: Remember to finish your state tax return!
+          subject: Remember to finish your state tax return
         sms: |
           Hi %{primary_first_name} - You haven't submitted your state tax return yet.
 
