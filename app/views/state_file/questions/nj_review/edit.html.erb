@@ -60,7 +60,7 @@
   <section id="county-municipality" class="white-group">
     <div class="spacing-below-5">
       <h2 class="text--body text--bold spacing-below-5"><%=t(".county_municipality", filing_year: current_tax_year) %></h2>
-      <p><%=current_intake.county %> <%= t(".county") %></p>
+      <p><%= t(".county", county: current_intake.county) %></p>
       <p><%=current_intake.municipality_name %></p>
 
       <%= link_to StateFile::Questions::NjCountyMunicipalityController.to_path_helper(return_to_review: "y"), class: "button--small" do %>

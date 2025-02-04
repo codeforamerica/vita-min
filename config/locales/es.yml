@@ -3394,7 +3394,7 @@ es:
           college_dependents: Exención para dependientes que asisten a la universidad
           college_dependents_none: No aplica
           continue_helper: Revisa y haz clic en "Continuar" si está todo correcto.
-          county: Condado
+          county: Condado de %{county}
           county_municipality: Lugar donde vivías hasta el 31 de diciembre de %{filing_year}
           edit_disability: estado de discapacidad
           edit_veteran: estado de veterano/a de guerra

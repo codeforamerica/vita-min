@@ -3433,7 +3433,7 @@ en:
           college_dependents: Dependent(s) attending college exemption
           college_dependents_none: Not applicable
           continue_helper: Click "Continue" if all this looks right to you.
-          county: County
+          county: "%{county} County"
           county_municipality: Where you lived as of Dec 31, %{filing_year}
           edit_disability: disability status
           edit_veteran: veteran status
