@@ -9,7 +9,7 @@ RSpec.describe StateFile::NjCountyMunicipalityForm do
     context "invalid params" do
       context "without a county" do
         let(:invalid_params) do
-          { :county => nil }
+          { county: nil }
         end
 
         it "is invalid" do
