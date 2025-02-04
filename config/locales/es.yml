@@ -330,6 +330,7 @@ es:
     client_success: Éxito del cliente
     coalition: Coalición
     coalition_lead: Líder de coalición
+    code_for_america: Code for America
     complete: completo
     confirm: Confirmar
     confirm_exit_without_saving: Si se sale de esta página, no se guardarán los cambios. ¿Desea salir de todas formas?
@@ -511,6 +512,7 @@ es:
     negative: 'No'
     new: Nuevo
     new_unique_link: Nuevo Enlace único
+    nj_ooi: la Oficina de Innovación de New Jersey
     nj_staff: Personal de New Jersey
     no_intake: Sin ingesta
     none: Ninguna
