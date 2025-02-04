@@ -291,20 +291,11 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
       help_text: nil
     )
 
-    describedby_ids = []
-    
-    if help_text
-      help_id = help_text_id(method)
-      describedby_ids << help_id
-    end
-    
-    if object.errors[method].any?
-      describedby_ids << error_label(method)
-    end
+    describedby = get_describedby(method, help_text: help_text)
 
     text_field_options = standard_options.merge(error_attributes(method: method)).merge(
       class: (classes + ["text-input money-input"]).join(" "),
-      'aria-describedby': describedby_ids.join(' ')
+      'aria-describedby': describedby
     ).merge(placeholder: '0.00').merge(options)
     
     text_field_options[:id] ||= sanitized_id(method)
@@ -470,17 +461,12 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
 
     fieldset_classes = ["input-group", "form-group#{error_state(object, method)}"]
 
-    describedby_ids = []
+    describedby = get_describedby(method, help_text: help_text)
+
     if help_text.present?
       help_id = help_text_id(method)
       help_html = help_text_html(help_text, help_id)
-      describedby_ids << help_id
     end
-
-    if object.errors[method].any?
-      describedby_ids << error_label(method)
-    end
-    describedby = describedby_ids.join(' ')
 
     <<~HTML.html_safe
       <fieldset class="#{fieldset_classes.join(' ')}" aria-describedby="#{describedby}">
@@ -517,6 +503,21 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
       style: "display:none",
       'data-permitted': permitted_values.to_json
     )
+  end
+
+  def get_describedby(method, help_text: nil)
+    describedby_ids = []
+
+    if help_text
+      help_id = help_text_id(method)
+      describedby_ids << help_id
+    end
+
+    if object.errors[method].any?
+      describedby_ids << error_label(method)
+    end
+
+    describedby_ids.join(' ')
   end
 
   ##### Methods that copy from or override honeycrisp
