@@ -1518,7 +1518,7 @@ es:
 
             Atentamente,
             El equipo de FileYourStateTaxes
-          subject: 'Declaración de impuestos del estado %{state_name} aceptada - Pago pendiente'
+          subject: Declaración de impuestos del estado %{state_name} aceptada - Pago pendiente
         sms: "Hola %{primary_first_name} - %{state_name}¡Acepté su declaración de impuestos estatales! Asegúrese de pagar sus impuestos estatales antes del 15 de abril al %{state_pay_taxes_link} si no ha pagado mediante depósito directo o cheque. \n\n\nDescarga tu declaración en %{return_status_link}\n\n¿Preguntas? Envíenos un correo electrónico a help@fileyourstatetaxes.org.\n"
       accepted_refund:
         email:
@@ -1529,13 +1529,8 @@ es:
 
             Atentamente,
             El equipo de FileYourStateTaxes
-          subject: 'Declaración de impuestos estatales de %{state_name} aceptada'
-        sms: |
-          Hola %{primary_first_name} -  Buenas noticias,¡ %{state_name} ha aceptado tu declaración de impuestos estatales! 
-
-          Descarga tu declaración y verifica el estado de tu reembolso en %{return_status_link}
-
-          ¿Necesitar ayuda? Envíanos un email a help@fileyourstatetaxes.org."
+          subject: Declaración de impuestos estatales de %{state_name} aceptada
+        sms: "Hola %{primary_first_name} -  Buenas noticias,¡ %{state_name} ha aceptado tu declaración de impuestos estatales! \n\nDescarga tu declaración y verifica el estado de tu reembolso en %{return_status_link}\n\n¿Necesitar ayuda? Envíanos un email a help@fileyourstatetaxes.org.\"\n"
       df_transfer_issue_message:
         email:
           body: |

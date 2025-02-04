@@ -1531,7 +1531,7 @@ en:
 
             Best,
             The FileYourStateTaxes team
-          subject: '%{state_name} State Return Accepted- Payment Due'
+          subject: "%{state_name} State Return Accepted- Payment Due"
         sms: |
           Hi %{primary_first_name} - Your %{state_name} state tax return has been accepted and a payment is due. Any amount not paid by the filing deadline could add extra penalties and fees.
 
@@ -1552,12 +1552,7 @@ en:
             Best,
             The FileYourStateTaxes team
           subject: "%{state_name} State Return Accepted"
-        sms: |
-          Hi %{primary_first_name} - Good News, %{state_name} accepted your state tax return! 
-
-          Download your return and check your refund status at %{return_status_link}
-
-          Need help? Email us at help@fileyourstatetaxes.org.
+        sms: "Hi %{primary_first_name} - Good News, %{state_name} accepted your state tax return! \n\nDownload your return and check your refund status at %{return_status_link}\n\nNeed help? Email us at help@fileyourstatetaxes.org.\n"
       df_transfer_issue_message:
         email:
           body: |
