@@ -1623,16 +1623,18 @@ es:
           body: |
             Hola %{primary_first_name},
 
-            ¡%{submitted_or_resubmitted} exitosamente su declaración de impuestos del estado de %{state_name}! Le informaremos en 1 o 2 días sobre el estado de su devolución. Puede descargar su declaración y verificar el estado en <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
+            ¡Has %{submitted_or_resubmitted} con éxito tu declaración de impuestos estatales de %{state_name}! Te actualizaremos sobre el estado de tu declaración en 1 o 2 días hábiles.
 
-            ¿Necesitas ayuda? Responder a este correo electrónico.
+            Puedes descargar y verificar el estado de tu declaración visitando <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">https://www.fileyourstatetaxes.org/en/questions/return-status</a>.
+
+            ¿Necesitas ayuda? Responde a este correo electrónico.
 
             Atentamente,
             El equipo de FileYourStateTaxes
-          resubmitted: Reenvió
-          subject: 'Actualización de FileYourStateTaxes: %{state_name} Declaración estatal aceptada'
-          submitted: Envió
-        sms: Hola %{primary_first_name} - ¡Has %{submitted_or_resubmitted} tu %{state_name} declaración de impuestos estatales! Le informaremos en 1 o 2 días sobre el estado de su devolución. Puedes descargar tu declaración y consultar el estado en %{return_status_link}. ¿Necesitar ayuda? Envíenos un correo electrónico a help@fileyourstatetaxes.org.
+          resubmitted: vuelto a enviar
+          subject: Declaración de impuestos estatales de %{state_name} enviada
+          submitted: enviado
+        sms: Hola %{primary_first_name} - ¡Has %{submitted_or_resubmitted} con éxito tu declaración de impuestos estatales de %{state_name}! Te actualizaremos en 1-2 días sobre el estado de tu declaración. Puedes descargar y verificar el estado de tu declaración en %{return_status_link}. ¿Necesitar ayuda? Envíanos un email a help@fileyourstatetaxes.org.
       survey_notification:
         email:
           body: |

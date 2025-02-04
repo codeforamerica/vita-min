@@ -1542,7 +1542,7 @@ en:
 
             Best,
             The FileYourStateTaxes team
-          subject: 'FileYourStateTaxes Update: %{state_name} State Return Accepted'
+          subject: "%{state_name} State Return Accepted"
         sms: "Hi %{primary_first_name} - %{state_name} accepted your state tax return! You can expect to receive your refund as soon as %{state_name} approves your refund amount. \n\nDownload your return and check your refund status at %{return_status_link}\n\nNeed help? Email us at help@fileyourstatetaxes.org.\n"
       df_transfer_issue_message:
         email:
@@ -1662,14 +1662,16 @@ en:
           body: |
             Hi %{primary_first_name},
 
-            You successfully %{submitted_or_resubmitted} your %{state_name} state tax return! We'll update you in 1-2 days on the status of your return. You can download your return and check the status at <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
+            You successfully %{submitted_or_resubmitted} your %{state_name} state tax return! We'll update you in 1-2 days on the status of your return.
+
+            You can download your return and check the status at <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
 
             Need help? Reply to this email.
 
             Best,
             The FileYourStateTaxes team
           resubmitted: resubmitted
-          subject: 'FileYourStateTaxes Update: %{state_name} State Return Submitted'
+          subject: "%{state_name} State Return Submitted"
           submitted: submitted
         sms: Hi %{primary_first_name} - You successfully  %{submitted_or_resubmitted} your %{state_name} state tax return! We'll update you in 1-2 days on the status of your return. You can download your return and check the status at %{return_status_link}. Need help? Email us at help@fileyourstatetaxes.org.
       survey_notification:
