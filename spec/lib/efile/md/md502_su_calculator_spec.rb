@@ -71,7 +71,7 @@ describe Efile::Md::Md502SuCalculator do
     end
   end
 
-  describe "#calculate_military_per_person" do
+  describe "#calculate_military_per_filer" do
     context "when the taxable amount is higher than the age calculation" do
       before do
         allow(instance).to receive(:calculate_military_taxable_amount).and_return 30_000
@@ -81,16 +81,16 @@ describe Efile::Md::Md502SuCalculator do
       context "when the filer is older than 55" do
         let(:is_55_and_older) { true }
         it "returns 20,000" do
-          expect(instance.calculate_military_per_person(:primary)).to eq(20_000)
-          expect(instance.calculate_military_per_person(:spouse)).to eq(20_000)
+          expect(instance.calculate_military_per_filer(:primary)).to eq(20_000)
+          expect(instance.calculate_military_per_filer(:spouse)).to eq(20_000)
         end
       end
 
       context "when the filer is younger than 55" do
         let(:is_55_and_older) { false }
         it "returns 12,500" do
-          expect(instance.calculate_military_per_person(:primary)).to eq(12_500)
-          expect(instance.calculate_military_per_person(:spouse)).to eq(12_500)
+          expect(instance.calculate_military_per_filer(:primary)).to eq(12_500)
+          expect(instance.calculate_military_per_filer(:spouse)).to eq(12_500)
         end
       end
     end
@@ -101,29 +101,29 @@ describe Efile::Md::Md502SuCalculator do
         allow_any_instance_of(StateFileMdIntake).to receive(:is_filer_55_and_older?).and_return false
       end
       it "returns the taxable amount" do
-        expect(instance.calculate_military_per_person(:primary)).to eq(10_000)
-        expect(instance.calculate_military_per_person(:spouse)).to eq(10_000)
+        expect(instance.calculate_military_per_filer(:primary)).to eq(10_000)
+        expect(instance.calculate_military_per_filer(:spouse)).to eq(10_000)
       end
     end
   end
 
   describe "#calculate_line_u_primary" do
     before do
-      allow(instance).to receive(:calculate_military_per_person).with(:primary).and_return 10_000
+      allow(instance).to receive(:calculate_military_per_filer).with(:primary).and_return 10_000
     end
 
-    it "returns the value for #calculate_military_per_person" do
+    it "returns the value for #calculate_military_per_filer" do
       expect(instance.calculate_line_u_primary).to eq(10_000)
     end
   end
 
   describe "#calculate_line_u_spouse" do
     before do
-      allow(instance).to receive(:calculate_military_per_person).with(:spouse).and_return 10_000
+      allow(instance).to receive(:calculate_military_per_filer).with(:spouse).and_return 10_000
     end
 
     context "when a single filer" do
-      it "returns the value for #calculate_military_per_person" do
+      it "returns the value for #calculate_military_per_filer" do
         expect(instance.calculate_line_u_spouse).to eq(0)
       end
     end
