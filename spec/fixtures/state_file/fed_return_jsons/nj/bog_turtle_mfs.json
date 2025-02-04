@@ -1,0 +1,45 @@
+{
+  "familyAndHousehold": [],
+  "filers": [
+    {
+      "lastName": "Turtle",
+      "dateOfBirth": "1950-12-05",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "firstName": "Bog",
+      "middleInitial": "Q",
+      "educatorExpenses": "0.00",
+      "tin": "300-00-2211",
+      "interestReportsTotal": "0.00",
+      "isDisabled": false,
+      "form1099GsTotal": "0.00",
+      "isStudent": false,
+      "ssnNotValidForEmployment": null,
+      "hsaTotalDeductibleAmount": null
+    },
+    {
+      "lastName": "Tortoise",
+      "dateOfBirth": null,
+      "suffix": null,
+      "isPrimaryFiler": false,
+      "firstName": "Box",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": null,
+      "interestReportsTotal": "0.00",
+      "isDisabled": null,
+      "form1099GsTotal": "0.00",
+      "isStudent": null,
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [
+    {
+      "usedTin": "300-00-2211",
+      "unionDuesAmount": null
+    }
+  ],
+  "interestReports": []
+}

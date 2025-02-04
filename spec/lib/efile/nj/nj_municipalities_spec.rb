@@ -56,34 +56,29 @@ describe Efile::Nj::NjMunicipalities do
     end
   end
 
-  describe ".municipality_select_options_for_county" do
-    context "with a valid county name" do
-      it "returns a list of municipalities and associated codes" do
-        result = described_class.municipality_select_options_for_county("Hudson")
-        expect(result.length).to eq 12
-        expect(result).to include(
-                            ["Bayonne City", "0901"],
-                            ["East Newark Borough", "0902"],
-                            ["Guttenberg Town", "0903"],
-                            ["Harrison Town", "0904"],
-                            ["Hoboken City", "0905"],
-                            ["Jersey City", "0906"],
-                            ["Kearny Town", "0907"],
-                            ["North Bergen Township", "0908"],
-                            ["Secaucus Town", "0909"],
-                            ["Union City", "0910"],
-                            ["Weehawken Township", "0911"],
-                            ["West New York Town", "0912"],
-                          )
-      end
-    end
+  describe ".municipality_select_options_for_all_counties" do
+    it "returns a dictionary of counties to list of municipalities and associated codes" do
+      result = described_class.municipality_select_options_for_all_counties
+      expect(result.keys.length).to eq 21
 
-    context "with a missing county name" do
-      it "raises an error" do
-        expect {
-          described_class.municipality_select_options_for_county("Imaginary County")
-        }.to raise_error(KeyError)
-      end
+      expect(result["Atlantic"][0]).to eq ["Absecon City", "0101"]
+
+      hudson_results = result["Hudson"]
+      expect(hudson_results.length).to eq 12
+      expect(hudson_results).to include(
+                          ["Bayonne City", "0901"],
+                          ["East Newark Borough", "0902"],
+                          ["Guttenberg Town", "0903"],
+                          ["Harrison Town", "0904"],
+                          ["Hoboken City", "0905"],
+                          ["Jersey City", "0906"],
+                          ["Kearny Town", "0907"],
+                          ["North Bergen Township", "0908"],
+                          ["Secaucus Town", "0909"],
+                          ["Union City", "0910"],
+                          ["Weehawken Township", "0911"],
+                          ["West New York Town", "0912"],
+                        )
     end
   end
 end

@@ -175,5 +175,13 @@ FactoryBot.define do
     trait :with_filers_synced do
       after(:create, &:synchronize_filers_to_database)
     end
+
+    trait :mfs_with_nra_spouse do
+      filing_status { 'married_filing_separately' }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nc_wylie_mfs_nra') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nc_wylie_mfs_nra') }
+
+      after(:create, &:synchronize_filers_to_database)
+    end
   end
 end

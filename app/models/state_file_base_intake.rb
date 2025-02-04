@@ -252,6 +252,10 @@ class StateFileBaseIntake < ApplicationRecord
     false
   end
 
+  def check_nra_status?
+    false
+  end
+
   def ask_spouse_esign?
     filing_status_mfj? && !spouse_deceased?
   end

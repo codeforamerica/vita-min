@@ -1401,9 +1401,9 @@ en:
   messages:
     closing_soon:
       email:
-        body: We are closing GetYourRefund for the tax season on {end_of_in_progress_intake_date}. We will need all required documentation by {end_of_docs_date}; otherwise, we will not be able to prepare your taxes. Please login and respond by {end_of_docs_date}. <<Client.LoginLink>> If we do not hear from you by then, we will close out your case and you can file with us next year.
+        body: We are closing GetYourRefund for the tax season on %{end_of_in_progress_intake_date}. We will need all required documentation by %{end_of_docs_date}; otherwise, we will not be able to prepare your taxes. Please login and respond by %{end_of_docs_date}. <<Client.LoginLink>> If we do not hear from you by then, we will close out your case and you can file with us next year.
         subject: GetYourRefund closing soon -- take action now if you need tax services
-      sms: We are closing GetYourRefund for the tax season on {end_of_in_progress_intake_date}. We will need all required documentation by {end_of_docs_date}; otherwise, we will not be able to prepare your taxes. Please login and respond by {end_of_docs_date}. <<Client.LoginLink>> If we do not hear from you by then, we will close out your case and you can file with us next year.
+      sms: We are closing GetYourRefund for the tax season on %{end_of_in_progress_intake_date}. We will need all required documentation by %{end_of_docs_date}; otherwise, we will not be able to prepare your taxes. Please login and respond by %{end_of_docs_date}. <<Client.LoginLink>> If we do not hear from you by then, we will close out your case and you can file with us next year.
     contact_info_change:
       email:
         body: |
@@ -2057,6 +2057,11 @@ en:
           identity_safe: To keep your identity safe, we need to confirm the address on your 2023 tax return.
           radio_button_title: Select the mailing address for your 2023 tax return.
           title: Confirm your address to access your tax return
+      pdfs:
+        index:
+          download: Download 2023 Tax Return
+          subtitle: To access your 2023 %{state} tax return, click the link below.
+          title: Your account has been successfully verified!
       verification_code:
         edit:
           error_message: Incorrect verification code. After 2 failed attempts, accounts are locked.
@@ -2103,7 +2108,7 @@ en:
       md_pension_income_exclusion: Pension income exclusion
       md_poverty_level_credit: Maryland Poverty Level Credit
       md_public_safety_retirement_income_exclusion: Public safety retirement income exclusion
-      md_refundable_child_dependent_care_credit: Refundable Child and Dependent Care Credit
+      md_refundable_child_dependent_care_credit: Maryland Refundable Credit for Child and Dependent Care Expenses
       md_refundable_earned_income_tax_credit: Refundable Maryland Earned Income Tax Credit
       md_return_type: Type of return
       md_senior_tax_credit: Senior Tax Credit
@@ -2160,11 +2165,11 @@ en:
       new:
         email_address:
           label: Your email address
-          not_found: Sorry, we don’t have an account registered for that email. Would you like to sign in with a different email?
+          not_found_html: Sorry, we don’t have an account registered for that email address. <a href="https://www.fileyourstatetaxes.org/en/us/faq">Click here</a> to get started with FileYourStateTaxes.
           title: Sign in with your email address. To continue filing your state tax return safely, we’ll send you a secure code.
         sms_phone_number:
           label: Your phone number
-          not_found: Sorry, we don’t have an account registered for that phone number. Would you like to sign in with a different phone number?
+          not_found_html: Sorry, we don’t have an account registered for that phone number. <a href="https://www.fileyourstatetaxes.org/en/us/faq">Click here</a> to get started with FileYourStateTaxes.
           title: Sign in with your phone number. To continue filing your state tax return safely, we’ll send you a secure code.
       no_match_sms: Someone tried to sign in to FileYourStateTaxes with this phone number, but we couldn't find a match. Did you sign up with a different phone number? You can also visit %{url} to get started.
     landing_page:
@@ -2239,17 +2244,18 @@ en:
         title: Thank you for visiting FileYourStateTaxes
     navigation:
       nj:
-        section_1: 'Section 1: Income'
-        section_2: 'Section 2: Your household'
-        section_3: 'Section 3: Deductions and credits'
-        section_4: 'Section 4: Your %{filing_year} taxes'
-        section_5: 'Section 5: Review and submit'
-      section_1: 'Section 1: Can you use this service'
-      section_2: 'Section 2: Create account'
-      section_3: 'Section 3: Terms and conditions'
-      section_4: 'Section 4: Transfer your data'
-      section_5: 'Section 5: Complete your state tax return'
-      section_6: 'Section 6: Submit your state taxes'
+        section_1: Income
+        section_2: Your household
+        section_3: Deductions and credits
+        section_4: Your %{filing_year} taxes
+        section_5: Review and submit
+      section_1: Can you use this service
+      section_2: Create account
+      section_3: Terms and conditions
+      section_4: Transfer your data
+      section_5: Complete your state tax return
+      section_6: Submit your state taxes
+      step_description: 'Section %{current_step} of %{total_steps}: '
     notification_mailer:
       user_message:
         unsubscribe: If you would like to unsubscribe from emails, click <a href="%{unsubscribe_link}">here</a>.
@@ -2453,63 +2459,30 @@ en:
           title: You’ve declined the terms and conditions.
       eligibility_offboarding:
         edit:
-          body_html: You cannot use this service this year because you %{ineligible_reason}. <br><br><strong>Is this a mistake?</strong> <a href=%{prev_link}>Go back to correct.</a>
+          body_html: You cannot use this service this year because %{ineligible_reason}. <br><br><strong>Is this a mistake?</strong> <a href=%{prev_link}>Go back to correct.</a>
           ineligible_reason:
-            eligibility_529_for_non_qual_expense: withdrew money from a 529 college savings account and used it for a non-qualifying expense in %{filing_year}
-            eligibility_ed_loan_cancelled: had student loan debt canceled under the American Rescue Plan Act.
-            eligibility_ed_loan_emp_payment: received a Qualified Education Loan Payment paid by your employer.
-            eligibility_emergency_rental_assistance: received emergency rental assistance in %{filing_year}
-            eligibility_home_different_areas: and your spouse had your permanent homes in two different counties, cities, towns, or taxing areas on the last day of %{filing_year}
-            eligibility_homebuyer_withdrawal: withdrew money from a first-time homebuyer account not used to buy a home in Maryland
-            eligibility_homebuyer_withdrawal_mfj: or your spouse withdrew money from a first-time homebuyer account not used to buy a home in Maryland
-            eligibility_lived_in_state: did not live in %{state} for all of %{filing_year}
-            eligibility_married_filing_separately: are filing “married filing separately”
-            eligibility_out_of_state_income: earned income in another state in %{filing_year}
-            eligibility_part_year_nyc_resident: were a part-time New York City resident in %{filing_year}
-            eligibility_withdrew_529: withdrew money from a 529 college savings account in %{filing_year}
-            eligibility_withdrew_msa_fthb: withdrew money from a medical savings account or a first-time homebuyer account
-            eligibility_yonkers: lived or earned income in Yonkers in %{filing_year}
+            eligibility_529_for_non_qual_expense: you withdrew money from a 529 college savings account and used it for a non-qualifying expense in %{filing_year}
+            eligibility_ed_loan_cancelled: you had student loan debt canceled under the American Rescue Plan Act.
+            eligibility_ed_loan_emp_payment: you received a Qualified Education Loan Payment paid by your employer.
+            eligibility_emergency_rental_assistance: you received emergency rental assistance in %{filing_year}
+            eligibility_home_different_areas: you and your spouse had your permanent homes in two different counties, cities, towns, or taxing areas on the last day of %{filing_year}
+            eligibility_homebuyer_withdrawal: you withdrew money from a first-time homebuyer account not used to buy a home in Maryland
+            eligibility_homebuyer_withdrawal_mfj: you or your spouse withdrew money from a first-time homebuyer account not used to buy a home in Maryland
+            eligibility_lived_in_state: you did not live in %{state} for all of %{filing_year}
+            eligibility_married_filing_separately: you are filing “married filing separately”
+            eligibility_out_of_state_income: you earned income in another state in %{filing_year}
+            eligibility_part_year_nyc_resident: you were a part-time New York City resident in %{filing_year}
+            eligibility_withdrew_529: you withdrew money from a 529 college savings account in %{filing_year}
+            eligibility_withdrew_msa_fthb: you withdrew money from a medical savings account or a first-time homebuyer account
+            eligibility_yonkers: you lived or earned income in Yonkers in %{filing_year}
             health_insurance_eligibility: someone in your tax household did not have health insurance (with minimum essential coverage) for every month in %{filing_year}
             nyc_maintained_home: you lived in or maintained a home in New York City for some of the year.
             nyc_residency: you lived in or maintained a home in New York City for some of the year.
-            permanent_address_outside_md: did not reside in Maryland on Dec 31st
+            permanent_address_outside_md: you did not reside in Maryland on Dec 31st
             permanent_address_outside_ny: you did not live in New York for all of %{filing_year}
-          title: Unfortunately, you can't use this service this year. Don't worry, there are other filing options.
-        other_options:
-          faq_link: Visit our FAQ
-          learn_more_here_html: Learn more <a href="%{link}" rel="noopener nofollow" target="_blank">here.</a>
-          md_reveal_content_html: |
-            <p>
-              You have other free options for filing your state return:
-              <ul>
-                <li>
-                  File for free with IRS-Certified VITA volunteers in Maryland.
-                  <ul>
-                    <li>
-                      If you choose this option, you'll be connected with a VITA partner in Maryland. Expect a quick intake call in a few days to discuss your tax situation and securely upload your documents. This process may take 2-3 weeks to complete.
-                    </li>
-                    <li>
-                      Get started with VITA now
-                    </li>
-                    <li>
-                      Learn more about this process and other filing options here.
-                    </li>
-                  </ul>
-                  <li>
-                    Get started with the Comptroller of Maryland's <a href="https://www.marylandtaxes.gov/individual/tax-assistance/free-tax-prep.php" rel="noopener nofollow" target="_blank">Free Income Tax Preparation</a>service.
-                  </li>
-                </li>
-              </ul>
-            </p>
-          other_options_reveal:
-            fees: Fees may apply.
-            list:
-              body: 'Many commercial tax preparation services offer state-only tax filing. Here are some quick tips:'
-              list1: Confirm that the service lets you file just your state return. You might need to check with customer support.
-              list2: Be ready to reenter info from your federal return, as it’s needed for your state return.
-              list3: When filing, only submit your state return. If you submit your federal return again, your federal return may be rejected.
-            title: What are my other state filing options?
-          vita_option_title: What are my free state filing options?
+          title:
+            default: Unfortunately, you can't use this service this year. Don't worry, there are other filing options.
+            nj: Unfortunately, based on the information we have, you can't use this tool this year. Don't worry; there are other filing options.
       eligible:
         az_credits_unsupported:
           other_credits_301_html: Nonrefundable credits listed on <a href="https://azdor.gov/sites/default/files/2023-03/FORMS_CREDIT_2022_301-SBI_f.pdf" target="_blank" rel="noopener nofollow">AZ Form 301</a>
@@ -2540,6 +2513,7 @@ en:
             Let's make sure this is the right service for you.<br><br>
             Here are the credits and deductions you <strong>may</strong> be able to claim to maximize your refund.
           warning: Please review the subtractions and credits that are supported this year to ensure this service is right for your tax needs.
+        faq_link: Visit our FAQ
         id_credits_unsupported:
           change_in_filing_status: Change in filing status from federal to state return
           dependents_not_claimed_fed_return: Adding dependents not claimed on the federal return
@@ -2569,7 +2543,7 @@ en:
                   <li>Expenses up to $5,000 incurred by a blind person for a reader, or up to $1,000 incurred by an employer for a reader for a blind employee</li>
                   <li>ABLE account contributions</li>
                   <li>Pension exclusion (if you are under 65 and are claiming this based on a permanent disability for the first time)</li>
-                  <li>Any other Maryland subtractions not listed here (see Form 502SU)</li>
+                  <li>Any other Maryland subtractions not listed here (see <a href="https://www.marylandtaxes.gov/forms/24-forms/502SU.pdf" target="_blank">Form 502SU</a>)</li>
                 </ul>
               </li>
               <li>
@@ -2581,7 +2555,7 @@ en:
                   <li>Independent living tax credit</li>
                   <li>Maryland Child Tax Credit (if claimed based on disability of the child)</li>
                   <li>Maryland Earned Income Tax Credit (if you did not claim the federal Earned Income Tax Credit)</li>
-                  <li>Any other Maryland credits not listed (see Form 502CR)</li>
+                  <li>Any other Maryland credits not listed <a href="https://www.marylandtaxes.gov/forms/24-forms/502CR.pdf" target="_blank">(see Form 502CR</a>)</li>
                 </ul>
               </li>
 
@@ -2596,7 +2570,7 @@ en:
               </li>
 
               <li>
-                Payments
+                Payments:
                 <ul>
                   <li>Estimated tax payments</li>
                   <li>Extension tax payments</li>
@@ -2608,11 +2582,11 @@ en:
             </p>
           body2_html: |
             <p>
-              This year, you can't <strong>claim the Maryland EITC using this service</strong> in these scenarios:
+              This year, you <strong>can't claim the Maryland EITC using this service</strong> in these scenarios:
             </p>
             <ul>
               <li>If you or other people in your family have an Individual Taxpayer Identification Number (ITIN) instead of a Social Security Number and you earned income from a job</li>
-              <li>If you are less than 25 years old, you earned less than $18,600 (or $25,600 if you're filing a joint return), and you were not claimed as a dependent by somebody else</li>
+              <li>If you are less than 25 years old, you earned less than $18,600 (or $25,600 if you’re filing a joint return), you were not claimed as a dependent by somebody else, and you didn’t claim anyone on your return</li>
             </ul>
             <p>
               For the Maryland CTC, you <strong>can't claim a child with a permanent disability that is between the ages of 6 and 17 using this service</strong> this year.
@@ -2654,6 +2628,7 @@ en:
           sub7: Two-income subtraction for married filing jointly taxpayers
           sub8: State and local Earned Income Tax credits (if you claimed the federal Earned Income Tax Credit)
           sub9: State Child Tax Credit (for children under 6)
+          subject_to_eligibility: All subtractions and credits are subject to eligibility requirements.
         nc_credits_unsupported:
           college_savings_account: 529 College Savings Account Contributions
           credits_carried: Credits carried forward from previous years
@@ -2718,7 +2693,98 @@ en:
           nyc_school_tax_credit: NYC School Tax Credit
           nys_eic: NYS/NYC Earned Income Credit
           nys_hh_credit: NYS/NYC Household Credit
+        other_filing_options:
+          other_options:
+            content_html:
+              nj: |
+                <p>
+                  You can also file your return online through <a href="https://www.njportal.com/Taxation/NJ1040/" target="_blank" rel="noopener noreferrer">the State of New Jersey's eFile system</a>, or by mail. Contact <a href="https://nj.gov/treasury/taxation/contact.shtml" target="_blank" rel="noopener noreferrer">NJ Treasury's Division of Taxation</a> if you have questions.
+                </p>
+                <p>
+                  There are several commercial tax preparation services that offer state-only tax filing. Here are a few tips and tricks when choosing an option:
+                  <ul>
+                    <li>
+                      Since you've already submitted your federal tax return, make sure the service or software you use allows you to file a state-only tax return. You may need to reach out to their customer support to confirm.
+                    </li>
+                    <li>
+                      You'll be asked to reenter or provide the same information you reported on your federal return. This information is needed to complete parts of your state return.
+                    </li>
+                    <li>
+                      When you file, make sure you only submit your state tax return. If you submit your federal return again, your federal return may be rejected.
+                    </li>
+                  </ul>
+                </p>
+                Fees may apply.
+            fees: Fees may apply.
+            learn_more_here_html: Learn more <a href="%{link}" rel="noopener nofollow" target="_blank">here.</a>
+            list:
+              body: 'Many commercial tax preparation services offer state-only tax filing. Here are some quick tips:'
+              list1: Confirm that the service lets you file just your state return. You might need to check with customer support.
+              list2: Be ready to reenter info from your federal return, as it's needed for your state return.
+              list3: When filing, only submit your state return. If you submit your federal return again, your federal return may be rejected.
+            title: What are my other state filing options?
+          vita_option:
+            content_html:
+              md: |
+                <p>
+                  You have other free options for filing your state return:
+                  <ul>
+                    <li>
+                      File for free with IRS-Certified VITA volunteers in Maryland.
+                      <ul>
+                        <li>
+                          If you choose this option, you'll be connected with a VITA partner in Maryland. Expect a quick intake call in a few days to discuss your tax situation and securely upload your documents. This process may take 2-3 weeks to complete.
+                        </li>
+                        <li>
+                          <a href="%{vita_link}" rel="noopener nofollow" target="_blank">Get started with VITA now</a>
+                        </li>
+                        <li>
+                          Learn more about this process and other filing options <a href="%{link}" rel="noopener nofollow" target="_blank">here.</a>
+                        </li>
+                      </ul>
+                      <li>
+                        Get started with the Comptroller of Maryland's <a href="https://www.marylandtaxes.gov/individual/tax-assistance/free-tax-prep.php" rel="noopener nofollow" target="_blank">Free Income Tax Preparation</a>service.
+                      </li>
+                    </li>
+                  </ul>
+                </p>
+              nj: |
+                <p>
+                  Certified tax preparers at Simplify CT can help prepare and e-file your state tax return for free over the course of about 2-3 weeks.
+                </p>
+                <p>
+                  The process:
+                  <ul>
+                    <li>
+                      You complete a short form to request state-only assistance. (You will get an automated email confirming you submitted the form.)
+                    </li>
+                    <li>
+                      A certified tax preparer will share a link to securely upload your federal tax form (1040), tax documents, and ID.
+                    </li>
+                    <li>
+                      They will give you a call to ask for additional information.
+                    </li>
+                    <li>
+                      Once your return is ready, they'll schedule a call to review and answer any of your questions.
+                    </li>
+                    <li>
+                      You'll sign your state tax form online.
+                    </li>
+                    <li>
+                      The tax preparer will e-file your state taxes.
+                    </li>
+                  </ul>
+                </p>
+                <p>
+                  If you have questions in the meantime, please use the chat or email <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>. If you have questions after Simplify CT has contacted you, email <a href="mailto:help@simplifyct.org">help@simplifyct.org</a>.
+                </p>
+            title:
+              default: What are my free state filing options?
+              nj: Learn more about the VITA process
         vita_option:
+          connect_to_vita: Get connected now
+          vita_introduction:
+            nj: You can file your state taxes for free with help from IRS-certified Volunteer Income Tax Assistance (VITA) tax preparers at Simplify CT.
           vita_link: Get started with VITA now
           want_to_claim_learn_more_html: Learn more about this process and other filing options <a href="%{link}" target="_blank">here</a>.
           want_to_claim_vita: You may be able to file your state return for free with help from IRS-certified VITA volunteers, but it may take 2-3 weeks to complete.
@@ -2809,7 +2875,7 @@ en:
         edit:
           answers_confidential_html: Your answers are private and used only to see if you qualify for the tax credit.
           example_months: For example, if they had 2 situations in April, that counts as 1 month.
-          need_to_know_html: How many months did these situations affect this person in %{filing_year}.
+          need_to_know_html: How many months did these situations affect %{name} in %{filing_year}.
           need_to_know_you_html: How many months did these situations affect you in %{filing_year}.
           see_if_you_qualify:
             one: To see if you qualify, we need more information about you.
@@ -3276,9 +3342,12 @@ en:
           title: You may qualify for tax exemptions for any dependent under 22 who is attending college.
           tuition_books_helper_description_html: To calculate the total amount, add together the cost of college tuition, the cost of books (and supplies), and any money earned by the student in college work-study programs. Do not include other financial aid received.
           tuition_books_helper_heading: How should I calculate the total amount of tuition and college costs?
-      nj_county:
+      nj_county_municipality:
         edit:
           county: County
+          helper_description_html: You can use the <a href="https://www.nj.gov/nj/gov/county/localities.html" target="_blank" rel="noopener nofollow">NJ state locality tool</a> to get the name of your county or municipality. You can type in just your city and it will tell you your municipality and county. (To find your county, don’t select a county in the dropdown — just enter your city.)
+          helper_heading: I'm not sure of my county or municipality
+          municipality: Municipality
           title_html: We need to know <strong>where you lived on December 31, %{filing_year}.</strong>
       nj_dependents_health_insurance:
         edit:
@@ -3440,12 +3509,6 @@ en:
             </ul>
           learn_more_title: What are medical expenses?
           title: You may be able to deduct medical expenses.
-      nj_municipality:
-        edit:
-          helper_description_html: You can use the <a href="https://www.nj.gov/nj/gov/county/localities.html" target="_blank" rel="noopener nofollow">NJ state locality tool</a> to get the name of your county or municipality. You can type in just your city and it will tell you your municipality and county. (To find your county, don’t select a county in the dropdown — just enter your city.)
-          helper_heading: I'm not sure of my county or municipality
-          municipality: Municipality
-          title_html: We need to know <strong>where you lived on December 31, %{filing_year}.</strong>
       nj_primary_state_id:
         nj_primary:
           dmv_bmv: Non-driver identification card
@@ -3463,6 +3526,7 @@ en:
           college_dependents: Dependent(s) attending college exemption
           college_dependents_none: Not applicable
           continue_helper: Click "Continue" if all this looks right to you.
+          county: "%{county} County"
           county_municipality: Where you lived as of Dec 31, %{filing_year}
           edit_disability: disability status
           edit_veteran: veteran status

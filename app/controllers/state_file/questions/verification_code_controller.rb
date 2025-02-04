@@ -48,10 +48,23 @@ module StateFile
       private
 
       def get_existing_intake(intake)
-        search = intake.class.where.not(id: intake.id, raw_direct_file_data: nil)
-        search = search.where(phone_number: intake.phone_number) if intake.phone_number.present?
-        search = search.where(email_address: intake.email_address) if intake.email_address.present?
-        search.first
+        return nil if intake.email_address.nil? && intake.phone_number.nil?
+
+        #we don't help new york any more
+        state_intake_classes = StateFile::StateInformationService.state_intake_classes.reject do |klass|
+          klass == StateFileNyIntake
+        end
+
+        state_intake_classes.each do |intake_class|
+          search = intake_class.where.not(id: intake.id, raw_direct_file_data: nil)
+          search = search.where(phone_number: intake.phone_number) if intake.phone_number.present?
+          search = search.where(email_address: intake.email_address) if intake.email_address.present?
+
+          existing_intake = search.first
+          return existing_intake if existing_intake
+        end
+
+        nil
       end
 
       def redirect_into_login(intake, existing_intake)

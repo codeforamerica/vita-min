@@ -63,7 +63,7 @@ RSpec.describe StateFile::ArchivedIntakes::MailingAddressValidationController, t
 
   describe "PATCH #update" do
     context "with a valid chosen address" do
-      it "creates an access log and redirects to the root path" do
+      it "creates an access log and redirects to the download page" do
         post :update, params: {
           state_file_archived_intakes_mailing_address_validation_form: { selected_address: intake.full_address, addresses: current_request.address_challenge_set}
         }
@@ -74,9 +74,7 @@ RSpec.describe StateFile::ArchivedIntakes::MailingAddressValidationController, t
         expect(access_log.event_type).to eq("correct_mailing_address")
         expect(session[:mailing_verified]).to eq(true)
 
-        # TODO: https://codeforamerica.atlassian.net/browse/FYST-1520
-        # need to change to download path
-        expect(response).to redirect_to(root_path)
+        expect(response).to redirect_to(state_file_archived_intakes_pdfs_path)
       end
     end
 

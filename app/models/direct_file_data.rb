@@ -672,6 +672,7 @@ class DirectFileData < DfXmlAccessor
   end
 
   def non_resident_alien=(value)
+    create_or_destroy_df_xml_node(__method__, true, 'NRALiteralCd')
     write_df_xml_value(__method__, value)
   end
 
