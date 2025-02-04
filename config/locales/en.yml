@@ -2536,8 +2536,8 @@ en:
           increased_excise_credit: Increased Excise Credit
           public_school_credit: Public School Tax Credit
         edit:
-          faq_link: Find a more detailed breakdown of this year's unsupported credits, deductions, and other situations here.
           credits_not_supported: What subtractions, credits, and household situations does this service not support this year?
+          faq_link: Find a more detailed breakdown of this year's unsupported credits, deductions, and other situations here.
           md_title2_html: |
             Let's make sure this is the right service for you.<br><br>
             Here are the credits and subtractions you <strong>may</strong> be able to claim to maximize your refund.
@@ -3179,7 +3179,7 @@ en:
           use_tax_method_automated: I did not keep a complete record of all purchases. <b>Calculate the amount of use tax for me.</b>
           use_tax_method_manual: I kept a complete record of all purchases and will calculate my use tax manually.
           what_are_sales_taxes: What are sales taxes?
-          what_are_sales_taxes_body: "Sales Tax: This is a tax collected at the point of sale when you buy goods within your state."
+          what_are_sales_taxes_body: 'Sales Tax: This is a tax collected at the point of sale when you buy goods within your state.'
           what_are_use_taxes: What are use taxes?
           what_are_use_taxes_body: If you buy something from another state (like online shopping or purchases from a store located in another state) and you don’t pay sales tax on it, you are generally required to pay use tax to your home state.
       nc_spouse_state_id:

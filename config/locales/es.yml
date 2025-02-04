@@ -2492,8 +2492,8 @@ es:
           increased_excise_credit: Crédito por Aumento de Impuestos Especiales
           public_school_credit: Crédito Tributario para Escuelas Públicas de Arizona
         edit:
-          faq_link: Encuentra un desglose más detallado de los créditos y restas y otras situaciones no respaldadas este año aquí.
           credits_not_supported: "¿Qué restas, créditos y otras situaciones NO admite este servicio este año?"
+          faq_link: Encuentra un desglose más detallado de los créditos y restas y otras situaciones no respaldadas este año aquí.
           md_title2_html: |
             Asegurémonos de que este servicio es el indicado para ti.<br><br>
             Estas son las restas y los créditos <strong>que puedes </strong> reclamar para maximizar tu reembolso.
@@ -3139,7 +3139,7 @@ es:
           use_tax_method_automated: No mantuve un registro completo de todas las compras. <b>Calculen el monto del impuesto sobre uso por mí.</b>
           use_tax_method_manual: Mantuve un registro completo de todas las compras y haré el cálculo de mi impuesto sobre uso manualmente.
           what_are_sales_taxes: "¿Qué son los impuestos sobre ventas?"
-          what_are_sales_taxes_body: "Impuesto sobre ventas: Este es un impuesto recaudado en el punto de venta cuando compras bienes dentro de tu estado."
+          what_are_sales_taxes_body: 'Impuesto sobre ventas: Este es un impuesto recaudado en el punto de venta cuando compras bienes dentro de tu estado.'
           what_are_use_taxes: "¿Qué son los impuestos sobre uso?"
           what_are_use_taxes_body: Si compras algo de otro estado (como compras en línea o en una tienda ubicada en otro estado) y no pagas el impuesto sobre ventas, generalmente se requiere que pagues el impuesto sobre uso a tu estado de residencia.
       nc_spouse_state_id:
