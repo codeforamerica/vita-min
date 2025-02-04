@@ -1552,7 +1552,7 @@ en:
             Best,
             The FileYourStateTaxes team
           subject: "%{state_name} State Return Accepted"
-        sms: "Hi %{primary_first_name} - Good News, %{state_name} accepted your state tax return! \n\nDownload your return and check your refund status at %{return_status_link}\n\nNeed help? Email us at help@fileyourstatetaxes.org.\n"
+        sms: "Hi %{primary_first_name} - Good news, %{state_name} accepted your state tax return! \n\nDownload your return and check your refund status at %{return_status_link}\n\nNeed help? Email us at help@fileyourstatetaxes.org.\n"
       df_transfer_issue_message:
         email:
           body: |
