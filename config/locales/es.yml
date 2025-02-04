@@ -2060,7 +2060,7 @@ es:
       md_pension_income_exclusion: Exclusión de ingresos de pensión
       md_poverty_level_credit: Crédito de Maryland por Nivel de Pobreza
       md_public_safety_retirement_income_exclusion: Exclusión de ingresos de jubilación de seguridad pública
-      md_refundable_child_dependent_care_credit: Crédito reembolsable por cuidado de niños y dependientes
+      md_refundable_child_dependent_care_credit: Crédito Reembolsable de Maryland por Gastos de Cuidado de Niños y Dependiente
       md_refundable_earned_income_tax_credit: Crédito Tributario Reembolsable de Maryland Ganado
       md_return_type: Tipo de declaración
       md_senior_tax_credit: Crédito tributario para Personas Mayores
@@ -2195,17 +2195,18 @@ es:
         title: Gracias por visitar FileYourStateTaxes
     navigation:
       nj:
-        section_1: 'Sección 1: Ingresos'
-        section_2: 'Sección 2: Tu hogar'
-        section_3: 'Sección 3: Deducciones y créditos'
-        section_4: 'Sección 4: Tus impuestos de %{filing_year}'
-        section_5: 'Sección 5: Revisar y enviar'
-      section_1: 'Sección 1: ¿Puedes usar esta herramienta?'
-      section_2: 'Sección 2: Crear cuenta'
-      section_3: 'Sección 3: Términos y condiciones'
-      section_4: 'Sección 4: Transferir tus datos'
-      section_5: 'Sección 5: Completa tu declaración de impuestos estatales'
-      section_6: 'Sección 6: Envía tus impuestos estatales'
+        section_1: Ingresos
+        section_2: Tu hogar
+        section_3: Deducciones y créditos
+        section_4: Tus impuestos de %{filing_year}
+        section_5: Revisar y enviar
+      section_1: "¿Puedes usar esta herramienta?"
+      section_2: Crear cuenta
+      section_3: Términos y condiciones
+      section_4: Transferir tus datos
+      section_5: Completa tu declaración de impuestos estatales
+      section_6: Envía tus impuestos estatales
+      step_description: 'Sección %{current_step} de %{total_steps}: '
     notification_mailer:
       user_message:
         unsubscribe: Si deseas cancelar la suscripción a los correos electrónicos, haz clic <a href="%{unsubscribe_link}">aquí</a>.
@@ -2525,7 +2526,7 @@ es:
               </li>
 
               <li>
-                Pagos
+                Pagos:
                 <ul>
                   <li>Pagos de impuestos estimados</li>
                   <li>Pagos de impuestos por extensión</li>
@@ -2583,6 +2584,7 @@ es:
           sub7: Resta por ingresos de dos personas para contribuyentes casados que declaran juntos
           sub8: Crédito Tributario Estatal y Local por Ingresos de Trabajo (si reclamaste el Crédito Tributario Federal por Ingreso de Trabajo)
           sub9: Crédito Tributario Estatal por Hijos (para niños menores de 6 años)
+          subject_to_eligibility: Todas las restas y créditos están sujetos a requisitos de elegibilidad.
         nc_credits_unsupported:
           college_savings_account: Contribuciones a cuentas de ahorro 529 para la universidad
           credits_carried: Créditos acumulados de años anteriores
