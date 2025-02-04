@@ -1521,16 +1521,25 @@ en:
           body: |
             Hi %{primary_first_name},
 
-            %{state_name} accepted your state tax return! Make sure to pay your state taxes by April 15 at %{state_pay_taxes_link} if you have not paid via direct debit while filing your return.
+            Your %{state_name} state tax return has been <strong>accepted and a payment is due</strong>.
+
+            <strong>If you have not already paid via direct debit while filing your return, please submit your payment by April 15 at %{state_pay_taxes_link}</strong>. Any amount not paid by the filing deadline could add extra penalties and fees.
 
             Download your return at <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
 
-            Questions? Reply to this email.
+            Need help? Reply to this email.
 
             Best,
             The FileYourStateTaxes team
-          subject: 'FileYourStateTaxes Update: %{state_name} State Return Accepted'
-        sms: "Hi %{primary_first_name} - %{state_name} accepted your state tax return! Make sure to pay your state taxes by April 15 at %{state_pay_taxes_link} if you have not paid via direct deposit or check. \n\nDownload your return at %{return_status_link}\n\nQuestions? Email us at help@fileyourstatetaxes.org.\n"
+          subject: '%{state_name} State Return Accepted- Payment Due'
+        sms: |
+          Hi %{primary_first_name} - Your %{state_name} state tax return has been accepted and a payment is due. Any amount not paid by the filing deadline could add extra penalties and fees.
+
+          If you haven't submited your payment via direct debit, please do so by April 15 at %{state_pay_taxes_link}.
+
+          Download your return at %{return_status_link}
+
+          Need help? Email us at help@fileyourstatetaxes.org
       accepted_refund:
         email:
           body: |

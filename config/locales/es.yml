@@ -1505,8 +1505,20 @@ es:
     state_file:
       accepted_owe:
         email:
-          body: "Hola %{primary_first_name},\n\n¡%{state_name} aceptó tu declaración de impuestos estatales! Asegúrate de pagar tus impuestos estatales antes del 15 de abril en %{state_pay_taxes_link} si no los pagaste mediante débito directo al presentar tu declaración.\n\nDescarga tu declaración en <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.\n\n¿Preguntas? Responde a este correo electrónico.\n\nSaludos, \nEl equipo de FileYourStateTaxes\n"
-          subject: 'Actualización de FileYourStateTaxes: Declaración Estatal de %{state_name} Aceptada'
+          body: |
+            Hola %{primary_first_name},
+
+            Tu declaración de impuestos estatales de %{state_name} <strong>ha sido aceptada y hay un pago pendiente</strong>.
+
+            <strong>Si no pagaste ya mediante débito directo al presentar tu declaración, por favor, haz tu pago antes del 15 de abril visitando %{state_pay_taxes_link}</strong>. Cualquier cantidad no pagada antes de la fecha límite de presentación podría significar multas y costos adicionales.
+
+            Descarga tu declaración visitando <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.
+
+            ¿Necesitas ayuda? Responde a este correo.
+
+            Atentamente,
+            El equipo de FileYourStateTaxes
+          subject: 'Declaración de impuestos del estado %{state_name} aceptada - Pago pendiente'
         sms: "Hola %{primary_first_name} - %{state_name}¡Acepté su declaración de impuestos estatales! Asegúrese de pagar sus impuestos estatales antes del 15 de abril al %{state_pay_taxes_link} si no ha pagado mediante depósito directo o cheque. \n\n\nDescarga tu declaración en %{return_status_link}\n\n¿Preguntas? Envíenos un correo electrónico a help@fileyourstatetaxes.org.\n"
       accepted_refund:
         email:
