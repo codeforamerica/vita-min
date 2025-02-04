@@ -16,12 +16,14 @@ module Efile
           municipality.municipality_name
         end
 
-        def municipality_select_options_for_county(county)
+        def municipality_select_options_for_all_counties
           load
-          rows = @municipalities_by_county[county]
-
-          raise KeyError.new("Invalid county") unless rows
-          rows.map { |r| [r.municipality_name, r.code] }.sort
+          sorted_municipalities_by_county = {}
+          @municipalities_by_county.keys.each do |county|
+            rows = @municipalities_by_county[county]
+            sorted_municipalities_by_county[county] = rows.map { |r| [r.municipality_name, r.code] }.sort
+          end
+          sorted_municipalities_by_county
         end
 
         private

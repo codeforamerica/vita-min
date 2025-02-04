@@ -3309,9 +3309,12 @@ en:
           title: You may qualify for tax exemptions for any dependent under 22 who is attending college.
           tuition_books_helper_description_html: To calculate the total amount, add together the cost of college tuition, the cost of books (and supplies), and any money earned by the student in college work-study programs. Do not include other financial aid received.
           tuition_books_helper_heading: How should I calculate the total amount of tuition and college costs?
-      nj_county:
+      nj_county_municipality:
         edit:
           county: County
+          helper_description_html: You can use the <a href="https://www.nj.gov/nj/gov/county/localities.html" target="_blank" rel="noopener nofollow">NJ state locality tool</a> to get the name of your county or municipality. You can type in just your city and it will tell you your municipality and county. (To find your county, don’t select a county in the dropdown — just enter your city.)
+          helper_heading: I'm not sure of my county or municipality
+          municipality: Municipality
           title_html: We need to know <strong>where you lived on December 31, %{filing_year}.</strong>
       nj_dependents_health_insurance:
         edit:
@@ -3473,12 +3476,6 @@ en:
             </ul>
           learn_more_title: What are medical expenses?
           title: You may be able to deduct medical expenses.
-      nj_municipality:
-        edit:
-          helper_description_html: You can use the <a href="https://www.nj.gov/nj/gov/county/localities.html" target="_blank" rel="noopener nofollow">NJ state locality tool</a> to get the name of your county or municipality. You can type in just your city and it will tell you your municipality and county. (To find your county, don’t select a county in the dropdown — just enter your city.)
-          helper_heading: I'm not sure of my county or municipality
-          municipality: Municipality
-          title_html: We need to know <strong>where you lived on December 31, %{filing_year}.</strong>
       nj_primary_state_id:
         nj_primary:
           dmv_bmv: Non-driver identification card
@@ -3496,6 +3493,7 @@ en:
           college_dependents: Dependent(s) attending college exemption
           college_dependents_none: Not applicable
           continue_helper: Click "Continue" if all this looks right to you.
+          county: "%{county} County"
           county_municipality: Where you lived as of Dec 31, %{filing_year}
           edit_disability: disability status
           edit_veteran: veteran status
