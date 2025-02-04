@@ -2147,6 +2147,24 @@ describe Efile::Nj::Nj1040Calculator do
     end
   end
 
+  describe 'line 79 checkbox' do
+    context 'when user selected pay by mail' do
+      let(:intake) { create(:state_file_nj_intake, payment_or_deposit_type: :mail) }
+
+      it 'returns false' do
+        expect(instance.lines[:NJ1040_LINE_79_CHECKBOX].value).to eq(false)
+      end
+    end
+
+    context 'when user selected pay by direct debit' do
+      let(:intake) { create(:state_file_nj_intake, payment_or_deposit_type: :direct_deposit) }
+
+      it 'returns true' do
+        expect(instance.lines[:NJ1040_LINE_79_CHECKBOX].value).to eq(true)
+      end
+    end
+  end
+
   describe 'line 80 Refund amount' do
     it 'returns 0 when line 68 is not above 0' do
       allow(instance).to receive(:calculate_line_68).and_return 0
