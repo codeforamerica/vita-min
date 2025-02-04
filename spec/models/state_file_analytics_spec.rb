@@ -55,6 +55,10 @@ describe StateFileAnalytics do
       context "#{state_code}  calculator implements #analytics_attrs" do
         let(:intake) { create "state_file_#{state_code}_intake".to_sym }
 
+        before do
+          allow(intake).to receive(:spouse_birth_date).and_return(MultiTenantService.statefile.end_of_current_tax_year - 40)
+        end
+
         it "returns some analytics attributes" do
           analytics = StateFileAnalytics.create(record: intake)
           expect(analytics.calculated_attrs.symbolize_keys).to be_present
