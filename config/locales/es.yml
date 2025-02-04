@@ -2492,6 +2492,7 @@ es:
           increased_excise_credit: Crédito por Aumento de Impuestos Especiales
           public_school_credit: Crédito Tributario para Escuelas Públicas de Arizona
         edit:
+          faq_link: Encuentra un desglose más detallado de los créditos y restas y otras situaciones no respaldadas este año aquí.
           credits_not_supported: "¿Qué restas, créditos y otras situaciones NO admite este servicio este año?"
           md_title2_html: |
             Asegurémonos de que este servicio es el indicado para ti.<br><br>
@@ -3132,13 +3133,13 @@ es:
               manual_instructions_html: (<a href="https://www.ncdor.gov/2024-d-401-individual-income-tax-instructions/open" target="_blank" rel="noopener noreferrer">Obtén más información aquí,</a> buscando 'consumer use worksheet).
           subtitle_html: Esto incluye compras en línea donde <b>no</b> se aplicó el impuesto sobre ventas.
           title:
-            many: "¿Usted o su cónyuge realizaron alguna compra fuera del estado en %{year} sin pagar impuestos sobre ventas o de uso?"
-            one: "¿Realizaste alguna compra fuera del estado en %{year} sin pagar impuestos de venta o de uso?"
+            many: "¿Tú o tu cónyuge hiciste alguna compra fuera del estado en %{year} sin pagar impuestos sobre ventas?"
+            one: "¿Hiciste alguna compra fuera del estado en %{year} sin pagar impuestos sobre ventas?"
             other: "¿Tú o tu cónyuge hiciste alguna compra fuera del estado en %{year} sin pagar impuestos sobre ventas?"
           use_tax_method_automated: No mantuve un registro completo de todas las compras. <b>Calculen el monto del impuesto sobre uso por mí.</b>
           use_tax_method_manual: Mantuve un registro completo de todas las compras y haré el cálculo de mi impuesto sobre uso manualmente.
           what_are_sales_taxes: "¿Qué son los impuestos sobre ventas?"
-          what_are_sales_taxes_body: Este es un impuesto recaudado en el punto de venta cuando compras bienes dentro de tu estado.
+          what_are_sales_taxes_body: "Impuesto sobre ventas: Este es un impuesto recaudado en el punto de venta cuando compras bienes dentro de tu estado."
           what_are_use_taxes: "¿Qué son los impuestos sobre uso?"
           what_are_use_taxes_body: Si compras algo de otro estado (como compras en línea o en una tienda ubicada en otro estado) y no pagas el impuesto sobre ventas, generalmente se requiere que pagues el impuesto sobre uso a tu estado de residencia.
       nc_spouse_state_id:
@@ -3149,9 +3150,9 @@ es:
       nc_subtractions:
         edit:
           title_html:
-            many: ¿Es usted o su cónyuge un miembro inscrito de una <a href="https://biamaps.geoplatform.gov/Tribal-Leaders-Directory/" target="_blank">tribu indígena reconocida federalmente</a> y recibieron ingresos mientras vivían en una reserva?
-            one: ¿Es usted un miembro inscrito de una <a href="https://biamaps.geoplatform.gov/Tribal-Leaders-Directory/" target="_blank">tribu indígena reconocida federalmente</a> y recibió ingresos mientras vivía en una reserva?
-            other: ¿Tú o tu cónyuge son miembros inscritos de una <a href="https://biamaps.geoplatform.gov/Tribal-Leaders-Directory/" target="_blank">tribu indígena estadounidense reconocida por el gobierno federal</a> recibiendo salario mientras vivía y trabajaba en la reserva?
+            many: ¿Tú o tu cónyuge son miembros inscritos de una <a href="https://biamaps.geoplatform.gov/Tribal-Leaders-Directory/" target="_blank">tribu indígena reconocida por el gobierno federal</a> y recibiste ingresos mientras vivían y trabajaban en la reserva?
+            one: ¿Eres miembro inscrito de una <a href="https://biamaps.geoplatform.gov/Tribal-Leaders-Directory/" target="_blank">tribu indígena reconocida por el gobierno federal</a> y recibiste ingresos mientras vivías y trabajabas en la reserva?
+            other: ¿Tú o tu cónyuge son miembros inscritos de una <a href="https://biamaps.geoplatform.gov/Tribal-Leaders-Directory/" target="_blank">tribu indígena reconocida por el gobierno federal</a> y recibiste ingresos mientras vivían y trabajaban en la reserva?
           tribal_wages_field: Ingrese la cantidad ganada
           tribal_wages_question_html: Ingresa el monto de los ingresos recibidos de actividades en la reserva reconocida federalmente. <br><br> Esta cantidad no debe ser mayor que $%{amount_limit}.
       nc_tax_refund:
@@ -6075,7 +6076,7 @@ es:
         account_type:
           checking: Corriente (Checking)
           label: Tipo de cuenta bancaria
-          savings: Ahorros
+          savings: Ahorros (Savings)
         bank_name: Nombre del banco
         help_text: Su nombre debe aparecer en su cuenta bancaria para que pueda recibir su dinero.
         routing_number: Número de ruta bancaria
