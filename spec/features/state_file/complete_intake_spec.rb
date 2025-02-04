@@ -538,7 +538,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       let(:hashed_verification_code) { "hashed_verification_code" }
 
       before do
-        create :state_file_ny_intake, email_address: email_address, hashed_ssn: hashed_ssn, df_data_import_succeeded_at: 5.minutes.ago
+        create :state_file_ny_intake, email_address: email_address, hashed_ssn: hashed_ssn, df_data_import_succeeded_at: 5.minutes.ago, email_address_verified_at: 5.minutes.ago
         allow(SsnHashingService).to receive(:hash).with(ssn).and_return hashed_ssn
         allow(VerificationCodeService).to receive(:generate).with(anything).and_return [verification_code, hashed_verification_code]
         allow(VerificationCodeService).to receive(:hash_verification_code_with_contact_info).with(email_address, verification_code).and_return(hashed_verification_code)
