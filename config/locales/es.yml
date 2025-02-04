@@ -1510,9 +1510,20 @@ es:
         sms: "Hola %{primary_first_name} - %{state_name}¡Acepté su declaración de impuestos estatales! Asegúrese de pagar sus impuestos estatales antes del 15 de abril al %{state_pay_taxes_link} si no ha pagado mediante depósito directo o cheque. \n\n\nDescarga tu declaración en %{return_status_link}\n\n¿Preguntas? Envíenos un correo electrónico a help@fileyourstatetaxes.org.\n"
       accepted_refund:
         email:
-          body: "Hola %{primary_first_name},\n\n¡%{state_name} ha aceptado tu declaración de impuestos estatales! Puedes esperar recibir tu reembolso tan pronto como %{state_name} apruebe la cantidad de tu reembolso.\n\nDescarga tu declaración y verifica el estado de tu reembolso en <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.\n\nSaludos, \nEl equipo de FileYourStateTaxes\n"
-          subject: 'Actualización de FileYourStateTaxes: Declaración Estatal de %{state_name} Aceptada'
-        sms: "Hola %{primary_first_name} - %{state_name} ¡Acepté su declaración de impuestos estatales! Puede esperar recibir su reembolso tan pronto como %{state_name} apruebe el monto de su reembolso. \n\nDescargue su devolución y verifique el estado de su reembolso en %{return_status_link}\n\n¿Necesitar ayuda? Envíenos un correo electrónico a help@fileyourstatetaxes.org.\n"
+          body: |
+            "Hola %{primary_first_name},
+
+            ¡Tu declaración de impuestos estatales de %{state_name} ha sido aceptada! Descarga tu declaración y verifica el estado de tu reembolso visitando <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.
+
+            Atentamente,
+            El equipo de FileYourStateTaxes
+          subject: 'Declaración de impuestos estatales de %{state_name} aceptada'
+        sms: |
+          Hola %{primary_first_name} -  Buenas noticias,¡ %{state_name} ha aceptado tu declaración de impuestos estatales! 
+
+          Descarga tu declaración y verifica el estado de tu reembolso en %{return_status_link}
+
+          ¿Necesitar ayuda? Envíanos un email a help@fileyourstatetaxes.org."
       df_transfer_issue_message:
         email:
           body: |
@@ -1549,7 +1560,7 @@ es:
 
           Completa tu declaración ahora en <a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/es/login-options">www.fileyourstatetaxes.org/es/login-options</a>
 
-          ¿Necesitar ayuda? Envíenos un correo electrónico a help@fileyourstatetaxes.org.
+          ¿Necesitar ayuda? Envíanos un correo electrónico a help@fileyourstatetaxes.org.
       issue_resolved:
         email:
           body: "Hola, ¡Gracias por usar FileYourStateTaxes!\n\nTodos los problemas que hayas experimentado al usar nuestra herramienta han sido resueltos. Para continuar presentando tus impuestos estatales, <a href=\"%{login_link}\">inicia sesión aquí.</a>\n\nSaludos, \nEl equipo de FileYourStateTaxes\n"

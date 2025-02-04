@@ -1543,7 +1543,12 @@ en:
             Best,
             The FileYourStateTaxes team
           subject: "%{state_name} State Return Accepted"
-        sms: "Hi %{primary_first_name} - %{state_name} accepted your state tax return! You can expect to receive your refund as soon as %{state_name} approves your refund amount. \n\nDownload your return and check your refund status at %{return_status_link}\n\nNeed help? Email us at help@fileyourstatetaxes.org.\n"
+        sms: |
+          Hi %{primary_first_name} - Good News, %{state_name} accepted your state tax return! 
+
+          Download your return and check your refund status at %{return_status_link}
+
+          Need help? Email us at help@fileyourstatetaxes.org.
       df_transfer_issue_message:
         email:
           body: |
