@@ -2009,6 +2009,11 @@ es:
           identity_safe: Para proteger su identidad, necesitamos confirmar la dirección en su declaración de impuestos de 2023.
           radio_button_title: Seleccione la dirección postal para su declaración de impuestos de 2023.
           title: Confirme su dirección para acceder a su declaración de impuestos
+      pdfs:
+        index:
+          download: Descargar Declaración de Impuestos 2023
+          subtitle: Para acceder a su declaración de impuestos %{state} de 2023, haga clic en el enlace a continuación.
+          title: "¡Su cuenta ha sido verificada exitosamente!"
       verification_code:
         edit:
           error_message: Código incorrecto. Después de 2 intentos fallidos, las cuentas se bloquean.
@@ -2451,10 +2456,10 @@ es:
                       Si eliges esta opción, te conectarás con un socio de Asistencia Voluntaria para la Declaración de Impuestos (VITA) en Maryland. Recibirás una llamada en los próximos días. Tendrás que responder algunas preguntas adicionales sobre tu situación tributaria y enviar de forma segura tus documentos en línea. Este proceso puede tardar de 2 a 3 semanas en completarse.
                     </li>
                     <li>
-                      Comienza con VITA ahora
+                      <a href="%{vita_link}" rel="noopener nofollow" target="_blank">Comienza con VITA ahora</a>
                     </li>
                     <li>
-                      Aprende más sobre este proceso y otras opciones de declaración aquí.
+                      Aprende más sobre este proceso y otras opciones de declaración <a href="%{link}" rel="noopener nofollow" target="_blank">aquí</a>.
                     </li>
                   </ul>
                   <li>
@@ -2773,7 +2778,7 @@ es:
         edit:
           answers_confidential_html: Tus respuestas son privadas y se utilizan sólo para determinar si calificas para el crédito fiscal.
           example_months: Por ejemplo, si tuvieron 2 situaciones en abril, eso cuenta como 1 mes.
-          need_to_know_html: "¿Durante cuántos meses estas situaciones afectaron a esta persona en %{filing_year}?"
+          need_to_know_html: "¿Durante cuántos meses estas situaciones afectaron a %{name} en %{filing_year}?"
           need_to_know_you_html: "¿En cuántos meses te afectaron estas situaciones %{filing_year}?"
           see_if_you_qualify:
             many: Para ver si califica, necesitamos más información sobre usted y su hogar.
