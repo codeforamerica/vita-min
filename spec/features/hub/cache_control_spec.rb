@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe "Cache control" do
+RSpec.feature "Cache control" do
   let(:user) { create :admin_user }
 
   before do
