@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>c21d6eb3</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>300003211</PrimarySSN>
+            <NameLine1Txt>EASTERN Z&lt;GOLDFINCH</NameLine1Txt>
+            <PrimaryNameControlTxt>GOLD</PrimaryNameControlTxt>
+            <SpouseNameControlTxt>GREE</SpouseNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>1 Bird Street</AddressLine1Txt>
+                <CityNm>Newark</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07121</ZIPCd>
+            </USAddress>
+            <PhoneNum>2015557676</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+30000321-12bb-4442-84e8-4df975a55f09@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="3">
+        <IRS1040 documentId="IRS10400001">
+            <Form1040SRInd>X</Form1040SRInd>
+            <IndividualReturnFilingStatusCd>3</IndividualReturnFilingStatusCd>
+            <NRALiteralCd>NRA</NRALiteralCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <Primary65OrOlderInd>X</Primary65OrOlderInd>
+            <TotalBoxesCheckedCnt>1</TotalBoxesCheckedCnt>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>1</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">2000</WagesAmt>
+            <WagesSalariesAndTipsAmt>2000</WagesSalariesAndTipsAmt>
+            <PensionsAnnuitiesAmt>30000</PensionsAnnuitiesAmt>
+            <TotalTaxablePensionsAmt>25000</TotalTaxablePensionsAmt>
+            <TotalIncomeAmt>27000</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>27000</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>16150</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>16150</TotalDeductionsAmt>
+            <TaxableIncomeAmt>10850</TaxableIncomeAmt>
+            <TaxAmt>1088</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>1088</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>1088</TaxLessCreditsAmt>
+            <TotalTaxAmt>1088</TotalTaxAmt>
+            <OwedAmt>1088</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Ornithologist</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1099R documentId="IRS1099R0001">
+            <PayerNameControlTxt>FIDE</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Fidelity</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>1 Retirement St</AddressLine1Txt>
+                <CityNm>Newark</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07121</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>008278278</PayerEIN>
+            <PhoneNum>2015557676</PhoneNum>
+            <RecipientSSN>300003211</RecipientSSN>
+            <RecipientNm>Eastern Z Goldfinch</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>1 Bird Street</AddressLine1Txt>
+                <CityNm>Newark</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07121</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>30000</GrossDistributionAmt>
+            <TaxableAmt>25000</TaxableAmt>
+            <F1099RDistributionCd>7</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                    <PayerStateIdNum>1414141</PayerStateIdNum>
+                    <StateDistributionAmt>30000</StateDistributionAmt>
+                    <F1099RLocalTaxGrp/>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>300003211</EmployeeSSN>
+            <EmployerEIN>001919191</EmployerEIN>
+            <EmployerNameControlTxt>BIRD</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Bird Center</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>1 Main St</AddressLine1Txt>
+                <CityNm>Newark</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07101</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Eastern Z Goldfinch</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>1 Bird Street</AddressLine1Txt>
+                <CityNm>Newark</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07121</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>2000</WagesAmt>
+            <SocialSecurityWagesAmt>2000</SocialSecurityWagesAmt>
+            <MedicareWagesAndTipsAmt>2000</MedicareWagesAndTipsAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                    <EmployerStateIdNum>8181818</EmployerStateIdNum>
+                    <StateWagesAmt>2000</StateWagesAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>

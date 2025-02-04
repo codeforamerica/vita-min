@@ -1401,9 +1401,9 @@ en:
   messages:
     closing_soon:
       email:
-        body: We are closing GetYourRefund for the tax season on {end_of_in_progress_intake_date}. We will need all required documentation by {end_of_docs_date}; otherwise, we will not be able to prepare your taxes. Please login and respond by {end_of_docs_date}. <<Client.LoginLink>> If we do not hear from you by then, we will close out your case and you can file with us next year.
+        body: We are closing GetYourRefund for the tax season on %{end_of_in_progress_intake_date}. We will need all required documentation by %{end_of_docs_date}; otherwise, we will not be able to prepare your taxes. Please login and respond by %{end_of_docs_date}. <<Client.LoginLink>> If we do not hear from you by then, we will close out your case and you can file with us next year.
         subject: GetYourRefund closing soon -- take action now if you need tax services
-      sms: We are closing GetYourRefund for the tax season on {end_of_in_progress_intake_date}. We will need all required documentation by {end_of_docs_date}; otherwise, we will not be able to prepare your taxes. Please login and respond by {end_of_docs_date}. <<Client.LoginLink>> If we do not hear from you by then, we will close out your case and you can file with us next year.
+      sms: We are closing GetYourRefund for the tax season on %{end_of_in_progress_intake_date}. We will need all required documentation by %{end_of_docs_date}; otherwise, we will not be able to prepare your taxes. Please login and respond by %{end_of_docs_date}. <<Client.LoginLink>> If we do not hear from you by then, we will close out your case and you can file with us next year.
     contact_info_change:
       email:
         body: |
@@ -2057,6 +2057,11 @@ en:
           identity_safe: To keep your identity safe, we need to confirm the address on your 2023 tax return.
           radio_button_title: Select the mailing address for your 2023 tax return.
           title: Confirm your address to access your tax return
+      pdfs:
+        index:
+          download: Download 2023 Tax Return
+          subtitle: To access your 2023 %{state} tax return, click the link below.
+          title: Your account has been successfully verified!
       verification_code:
         edit:
           error_message: Incorrect verification code. After 2 failed attempts, accounts are locked.
@@ -2103,7 +2108,7 @@ en:
       md_pension_income_exclusion: Pension income exclusion
       md_poverty_level_credit: Maryland Poverty Level Credit
       md_public_safety_retirement_income_exclusion: Public safety retirement income exclusion
-      md_refundable_child_dependent_care_credit: Refundable Child and Dependent Care Credit
+      md_refundable_child_dependent_care_credit: Maryland Refundable Credit for Child and Dependent Care Expenses
       md_refundable_earned_income_tax_credit: Refundable Maryland Earned Income Tax Credit
       md_return_type: Type of return
       md_senior_tax_credit: Senior Tax Credit
@@ -2239,17 +2244,18 @@ en:
         title: Thank you for visiting FileYourStateTaxes
     navigation:
       nj:
-        section_1: 'Section 1: Income'
-        section_2: 'Section 2: Your household'
-        section_3: 'Section 3: Deductions and credits'
-        section_4: 'Section 4: Your %{filing_year} taxes'
-        section_5: 'Section 5: Review and submit'
-      section_1: 'Section 1: Can you use this service'
-      section_2: 'Section 2: Create account'
-      section_3: 'Section 3: Terms and conditions'
-      section_4: 'Section 4: Transfer your data'
-      section_5: 'Section 5: Complete your state tax return'
-      section_6: 'Section 6: Submit your state taxes'
+        section_1: Income
+        section_2: Your household
+        section_3: Deductions and credits
+        section_4: Your %{filing_year} taxes
+        section_5: Review and submit
+      section_1: Can you use this service
+      section_2: Create account
+      section_3: Terms and conditions
+      section_4: Transfer your data
+      section_5: Complete your state tax return
+      section_6: Submit your state taxes
+      step_description: 'Section %{current_step} of %{total_steps}: '
     notification_mailer:
       user_message:
         unsubscribe: If you would like to unsubscribe from emails, click <a href="%{unsubscribe_link}">here</a>.
@@ -2489,10 +2495,10 @@ en:
                       If you choose this option, you'll be connected with a VITA partner in Maryland. Expect a quick intake call in a few days to discuss your tax situation and securely upload your documents. This process may take 2-3 weeks to complete.
                     </li>
                     <li>
-                      Get started with VITA now
+                      <a href="%{vita_link}" rel="noopener nofollow" target="_blank">Get started with VITA now</a>
                     </li>
                     <li>
-                      Learn more about this process and other filing options here.
+                      Learn more about this process and other filing options <a href="%{link}" rel="noopener nofollow" target="_blank">here.</a>
                     </li>
                   </ul>
                   <li>
@@ -2596,7 +2602,7 @@ en:
               </li>
 
               <li>
-                Payments
+                Payments:
                 <ul>
                   <li>Estimated tax payments</li>
                   <li>Extension tax payments</li>
@@ -2608,11 +2614,11 @@ en:
             </p>
           body2_html: |
             <p>
-              This year, you can't <strong>claim the Maryland EITC using this service</strong> in these scenarios:
+              This year, you <strong>can't claim the Maryland EITC using this service</strong> in these scenarios:
             </p>
             <ul>
               <li>If you or other people in your family have an Individual Taxpayer Identification Number (ITIN) instead of a Social Security Number and you earned income from a job</li>
-              <li>If you are less than 25 years old, you earned less than $18,600 (or $25,600 if you're filing a joint return), and you were not claimed as a dependent by somebody else</li>
+              <li>If you are less than 25 years old, you earned less than $18,600 (or $25,600 if you’re filing a joint return), you were not claimed as a dependent by somebody else, and you didn’t claim anyone on your return</li>
             </ul>
             <p>
               For the Maryland CTC, you <strong>can't claim a child with a permanent disability that is between the ages of 6 and 17 using this service</strong> this year.
@@ -2654,6 +2660,7 @@ en:
           sub7: Two-income subtraction for married filing jointly taxpayers
           sub8: State and local Earned Income Tax credits (if you claimed the federal Earned Income Tax Credit)
           sub9: State Child Tax Credit (for children under 6)
+          subject_to_eligibility: All subtractions and credits are subject to eligibility requirements.
         nc_credits_unsupported:
           college_savings_account: 529 College Savings Account Contributions
           credits_carried: Credits carried forward from previous years
@@ -2809,7 +2816,7 @@ en:
         edit:
           answers_confidential_html: Your answers are private and used only to see if you qualify for the tax credit.
           example_months: For example, if they had 2 situations in April, that counts as 1 month.
-          need_to_know_html: How many months did these situations affect this person in %{filing_year}.
+          need_to_know_html: How many months did these situations affect %{name} in %{filing_year}.
           need_to_know_you_html: How many months did these situations affect you in %{filing_year}.
           see_if_you_qualify:
             one: To see if you qualify, we need more information about you.

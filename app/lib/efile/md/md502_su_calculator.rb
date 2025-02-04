@@ -15,6 +15,10 @@ module Efile
         set_line(:MD502_SU_LINE_U, :calculate_line_u) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
         set_line(:MD502_SU_LINE_V, :calculate_line_v) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
         set_line(:MD502_SU_LINE_1, :calculate_line_1)
+        set_line(:MD502_SU_LINE_U_PRIMARY, :calculate_line_u_primary) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
+        set_line(:MD502_SU_LINE_V_PRIMARY, :calculate_line_v_primary) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
+        set_line(:MD502_SU_LINE_U_SPOUSE, :calculate_line_u_spouse) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
+        set_line(:MD502_SU_LINE_V_SPOUSE, :calculate_line_v_spouse) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
       end
 
       private
@@ -22,6 +26,14 @@ module Efile
       def calculate_line_ab
         @direct_file_json_data.interest_reports.sum(&:interest_on_government_bonds).round
       end
+
+      def calculate_line_u_primary; end
+
+      def calculate_line_v_primary; end
+
+      def calculate_line_u_spouse; end
+
+      def calculate_line_v_spouse; end
 
       def calculate_line_u; end
 

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>c21d6eb3</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>300002211</PrimarySSN>
+            <NameLine1Txt>BOG Q&lt;TURTLE</NameLine1Txt>
+            <PrimaryNameControlTxt>TURT</PrimaryNameControlTxt>
+            <SpouseNameControlTxt>TORT</SpouseNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>10 New Jersey St</AddressLine1Txt>
+                <CityNm>Newark</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07102</ZIPCd>
+            </USAddress>
+            <PhoneNum>2015551515</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+30000221-121c-4cf6-8089-85ad9800a945@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="3">
+        <IRS1040 documentId="IRS10400001">
+            <Form1040SRInd>X</Form1040SRInd>
+            <IndividualReturnFilingStatusCd>3</IndividualReturnFilingStatusCd>
+            <SpouseNm>Box Tortoise</SpouseNm>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <Primary65OrOlderInd>X</Primary65OrOlderInd>
+            <TotalBoxesCheckedCnt>1</TotalBoxesCheckedCnt>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>1</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">10000</WagesAmt>
+            <WagesSalariesAndTipsAmt>10000</WagesSalariesAndTipsAmt>
+            <PensionsAnnuitiesAmt>70000</PensionsAnnuitiesAmt>
+            <TotalTaxablePensionsAmt>30000</TotalTaxablePensionsAmt>
+            <TotalIncomeAmt>40000</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>40000</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>16150</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>16150</TotalDeductionsAmt>
+            <TaxableIncomeAmt>23850</TaxableIncomeAmt>
+            <TaxAmt>2633</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>2633</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>2633</TaxLessCreditsAmt>
+            <TotalTaxAmt>2633</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>2000</FormW2WithheldTaxAmt>
+            <WithholdingTaxAmt>2000</WithholdingTaxAmt>
+            <TotalPaymentsAmt>2000</TotalPaymentsAmt>
+            <OwedAmt>633</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Reptile</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1099R documentId="IRS1099R0001">
+            <PayerNameControlTxt>FIDE</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Fidelity</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>1 Retirement St</AddressLine1Txt>
+                <CityNm>St Louis</CityNm>
+                <StateAbbreviationCd>MO</StateAbbreviationCd>
+                <ZIPCd>63129</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>001414141</PayerEIN>
+            <RecipientSSN>300002211</RecipientSSN>
+            <RecipientNm>Bog Q Turtle</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>10 New Jersey St</AddressLine1Txt>
+                <CityNm>Newark</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07102</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>70000</GrossDistributionAmt>
+            <TaxableAmt>30000</TaxableAmt>
+            <F1099RDistributionCd>7</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <StateTaxWithheldAmt>1000</StateTaxWithheldAmt>
+                    <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                    <PayerStateIdNum>1414141</PayerStateIdNum>
+                    <StateDistributionAmt>70000</StateDistributionAmt>
+                    <F1099RLocalTaxGrp/>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>300002211</EmployeeSSN>
+            <EmployerEIN>011234567</EmployerEIN>
+            <EmployerNameControlTxt>REPT</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Reptile Center</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>1 Main St</AddressLine1Txt>
+                <CityNm>Newark</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07101</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Bog Q Turtle</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>10 New Jersey St</AddressLine1Txt>
+                <CityNm>Newark</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07102</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>10000</WagesAmt>
+            <WithholdingAmt>2000</WithholdingAmt>
+            <SocialSecurityWagesAmt>10000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>1000</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>10000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>500</MedicareTaxWithheldAmt>
+            <OtherDeductionsBenefitsGrp>
+                <Desc>FLI</Desc>
+                <Amt>145</Amt>
+            </OtherDeductionsBenefitsGrp>
+            <OtherDeductionsBenefitsGrp>
+                <Desc>UIHCWD</Desc>
+                <Amt>101</Amt>
+            </OtherDeductionsBenefitsGrp>
+            <OtherDeductionsBenefitsGrp>
+                <Desc>UIWFSWF</Desc>
+                <Amt>180</Amt>
+            </OtherDeductionsBenefitsGrp>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                    <EmployerStateIdNum>7654321</EmployerStateIdNum>
+                    <StateWagesAmt>10000</StateWagesAmt>
+                    <StateIncomeTaxAmt>2000</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>
