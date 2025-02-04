@@ -53,11 +53,7 @@ describe StateFileAnalytics do
 
     StateFile::StateInformationService.active_state_codes.each do |state_code|
       context "#{state_code}  calculator implements #analytics_attrs" do
-        let(:intake) { create "state_file_#{state_code}_intake".to_sym }
-
-        before do
-          allow(intake).to receive(:spouse_birth_date).and_return(MultiTenantService.statefile.end_of_current_tax_year - 40)
-        end
+        let(:intake) { create "state_file_#{state_code}_intake".to_sym, :with_spouse}
 
         it "returns some analytics attributes" do
           analytics = StateFileAnalytics.create(record: intake)
