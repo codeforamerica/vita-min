@@ -28,7 +28,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
 
     formatted_label = label(
         method,
-        label_contents(label_text, help_text, optional: optional, include_help_text: false) + field_html,
+        label_contents(label_text, help_text, optional: optional) + field_html,
         (for_options || options),
         )
     formatted_label += notice_html(notice).html_safe if notice
@@ -70,8 +70,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
         label_text,
         options[:help_text],
         optional: options[:optional],
-        include_help_text: false
-        ),
+      ),
       class: label_class,
       )
     html_options_with_errors = html_options.merge(error_attributes(method: method))
@@ -201,7 +200,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     text_field_options = standard_options.merge(
       type: 'text',
       class: "text-input",
-    ).merge(error_attributes(method: input_method)).merge(options)
+    ).merge(options).merge(error_attributes(method: input_method))
 
     text_field_options[:id] ||= sanitized_id(input_method)
     text_field_options[:input_id] ||= sanitized_id(input_method)
@@ -303,7 +302,6 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
       describedby_ids << error_label(method)
     end
 
-    
     text_field_options = standard_options.merge(error_attributes(method: method)).merge(
       class: (classes + ["text-input money-input"]).join(" "),
       'aria-describedby': describedby_ids.join(' ')
@@ -421,6 +419,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     HTML
   end
 
+  # Used in vita min checkbox set and to manually pass checkboxes for a child object
   def vita_min_checkbox_in_set(
     item,
     enum: false
@@ -450,6 +449,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
   end
 
   # Coped from Honeycrisp form builder v1 cfa_checkbox_set, modified to allow checkboxes to have follow up
+  # As of Feb 2025 only used for NJ and common elements
   def vita_min_checkbox_set(
     method,
     collection = [],
@@ -489,6 +489,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
           legend_class: legend_class,
           optional: optional,
           help_text: nil
+            # Help text added below to move outside of the fieldset and programmatically associate
           )}
           #{help_html}
           <div class="#{checkbox_container_classes.join(' ')}">
@@ -518,8 +519,9 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     )
   end
 
-  # Methods that override honeycriscp v1
+  ##### Methods that copy from or override honeycrisp
 
+  # By default, use honeycrisp v2 input field bc it implements field, help, and error text correctly
   alias v1_cfa_input_field cfa_input_field
   def cfa_input_field(
     method,
@@ -532,6 +534,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     optional: false,
     prefix: nil
   )
+    # These options do not exist in honeycrisp v2
     if prefix || options[:'data-mask']
       return v1_cfa_input_field(
         method,
@@ -568,13 +571,16 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     )
   end
 
-  # Added help text to label and field method instead to remove it from label
+  # Adapted from honeycrisp v1 to use valid child element for label and optionally move help text outside label
   def label_contents(label_text, help_text, optional: false, include_help_text: true)
+    # Uses valid child element for a label instead of a p tag
     label_text = <<~HTML
       <span class="form-question">#{label_text + optional_text(optional)}</span>
     HTML
 
+    # Option to not include help text for components that move it outside the label
     if help_text && include_help_text
+      # Leaves invalid child element intact
       label_text << <<~HTML
         <p class="text--help">#{help_text}</p>
       HTML
@@ -583,6 +589,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     label_text.html_safe
   end
 
+  # Adapted from honeycrisp v1 to add help text after label rather than in it
   def label_and_field(
     method,
     label_text,
@@ -594,13 +601,15 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     options: {},
     notice: nil,
     wrapper_classes: []
-  )    
+  )
+
+    # Added
     if help_text
       help_id = help_text_id(method)
       help_html = help_text_html(help_text, help_id)
     end
     
-    
+    # Identical to honeycrisp
     if options[:input_id]
       for_options = options.merge(
         for: options[:input_id],
@@ -611,16 +620,20 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
 
     formatted_label = label(
       method,
+      # Changed from honeycrisp to exclude help text from label
       label_contents(label_text, help_text, optional: optional, include_help_text: false),
       (for_options || options),
     )
     formatted_label += notice_html(notice).html_safe if notice
 
+    # Added to put help text after label
     formatted_label += help_html
 
+    # Identical to honeycrisp
     formatted_label + formatted_field(prefix, field, postfix, wrapper_classes).html_safe
   end
 
+  # Copied private method from honeycrisp v2 form builder
   def help_text_html(help_text, id)
     <<~HTML.html_safe
       <div class="text--help" id="#{id}">
@@ -629,8 +642,8 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     HTML
   end
 
+  # Copied private method from honeycrisp v2 form builder
   def help_text_id(method)
-    # Private method in honeycrisp v2 form builder
     "#{sanitized_id(method)}__help-text"
   end
 end
