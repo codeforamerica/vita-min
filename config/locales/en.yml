@@ -1664,7 +1664,7 @@ en:
 
             Best,
             The FileYourStateTaxes team
-          subject: 'Your %{state_name} state tax return is taking longer than expected'
+          subject: Your %{state_name} state tax return is taking longer than expected
         sms: Hi %{primary_first_name} - It's taking longer than expected to process your state tax return. Don't worry! We'll let you know as soon as we know your return status. You don't need to do anything right now. Need help? Email us at help@fileyourstatetaxes.org.
       successful_submission:
         email:
@@ -1711,7 +1711,7 @@ en:
 
             Best,
             The FileYourStateTaxes team
-          subject: '%{state_name} State Return Rejected.'
+          subject: "%{state_name} State Return Rejected."
         sms: "Hi %{primary_first_name} - Unfortunately, %{state_name} rejected your state tax return for an issue that cannot be resolved on our service. Don't worry! We can help provide guidance on next steps. Chat with us at %{return_status_link}. \n\Need help? Email us at help@fileyourstatetaxes.org.\n"
       welcome:
         email:

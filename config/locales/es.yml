@@ -1520,7 +1520,15 @@ es:
             El equipo de FileYourStateTaxes
           subject: Declaración de impuestos del estado %{state_name} aceptada - Pago pendiente
         sms: |
-          Hola %{primary_first_name} - Tu declaración de impuestos estatales de %{state_name} ha sido aceptada y hay un pago pendiente.\n\nSino has hecho tu pago mediante débito directo, por favor hazlo antes del 15 de abril en %{state_pay_taxes_link}. Cualquier cantidad no pagada antes de la fecha límite de presentación podría significar multas y costos adicionales.\n\nDescarga tu declaración en %{return_status_link}\n\n¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org.\n"
+          Hola %{primary_first_name} - Tu declaración de impuestos estatales de %{state_name} ha sido aceptada y hay un pago pendiente.
+
+          Sino has hecho tu pago mediante débito directo, por favor hazlo antes del 15 de abril en %{state_pay_taxes_link}.
+
+          Cualquier cantidad no pagada antes de la fecha límite de presentación podría significar multas y costos adicionales.
+
+          Descarga tu declaración en %{return_status_link}
+
+          ¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org
       accepted_refund:
         email:
           body: |
@@ -1597,7 +1605,7 @@ es:
       pre_deadline_reminder:
         email:
           body: "Hola %{primary_first_name}, \n\nAún no has presentado tu declaración de impuestos estatales. Asegúrate de presentar tus impuestos estatales antes del 15 de abril para evitar multas por presentación tardía de %{state_name}. \n\nVe a fileyourstatetaxes.org/es/us/login-options para terminarlos ahora.\n\n¿Necesitas ayuda? Responde a este mensaje de texto.\n\nAtentamente,\nEl equipo de FileYourStateTaxes\n"
-          subject: "Recuerda completar tu declaración de impuestos estatales"
+          subject: Recuerda completar tu declaración de impuestos estatales
         sms: |
           Hola %{primary_first_name} - Aún no has enviado tu declaración de impuestos estatales. Asegúrate de presentar tus impuestos estatales antes del 15 de abril para evitar multas por declarar tarde. Ve a fileyourstatetaxes.org/es/us/login-options para completar tu delcaración ahora.
           ¿Necesitar ayuda? Envíanos un email a help@fileyourstatetaxes.org.
@@ -1643,7 +1651,7 @@ es:
 
             Atentamente,
             El equipo de FileYourStateTaxes
-          subject: 'Tu declaración de impuestos del estado %{state_name} está tardando más de lo esperado'
+          subject: Tu declaración de impuestos del estado %{state_name} está tardando más de lo esperado
         sms: Hola %{primary_first_name} - Procesar tu declaración de impuestos estatales está tardando más de lo esperado . ¡No te preocupes! Te avisaremos apenas tengamos actualizaciones del estado de tu declaración. No necesitas hacer nada en este momento. ¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org.
       successful_submission:
         email:
@@ -1690,8 +1698,11 @@ es:
 
             Atentamente,
             El equipo de FileYourStateTaxes
-          subject: 'Declaración de impuestos estatales de %{state_name} rechazada'
-        sms: "Hola, %{primary_first_name}: Lamentablemente, %{state_name}ha rechazado tu declaración de impuestos estatales debido a un problema que no se puede resolver a través de nuestro servicio. ¡No te preocupes! Podemos darte orientación sobre los siguientes pasos. Chatea con nosotros en %{return_status_link}.\n\n¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org.\n"
+          subject: Declaración de impuestos estatales de %{state_name} rechazada
+        sms: |
+          Hola, %{primary_first_name}: Lamentablemente, %{state_name}ha rechazado tu declaración de impuestos estatales debido a un problema que no se puede resolver a través de nuestro servicio. ¡No te preocupes! Podemos darte orientación sobre los siguientes pasos. Chatea con nosotros en %{return_status_link}.
+
+          ¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org.
       welcome:
         email:
           body: |
