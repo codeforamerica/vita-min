@@ -1401,9 +1401,9 @@ en:
   messages:
     closing_soon:
       email:
-        body: We are closing GetYourRefund for the tax season on {end_of_in_progress_intake_date}. We will need all required documentation by {end_of_docs_date}; otherwise, we will not be able to prepare your taxes. Please login and respond by {end_of_docs_date}. <<Client.LoginLink>> If we do not hear from you by then, we will close out your case and you can file with us next year.
+        body: We are closing GetYourRefund for the tax season on %{end_of_in_progress_intake_date}. We will need all required documentation by %{end_of_docs_date}; otherwise, we will not be able to prepare your taxes. Please login and respond by %{end_of_docs_date}. <<Client.LoginLink>> If we do not hear from you by then, we will close out your case and you can file with us next year.
         subject: GetYourRefund closing soon -- take action now if you need tax services
-      sms: We are closing GetYourRefund for the tax season on {end_of_in_progress_intake_date}. We will need all required documentation by {end_of_docs_date}; otherwise, we will not be able to prepare your taxes. Please login and respond by {end_of_docs_date}. <<Client.LoginLink>> If we do not hear from you by then, we will close out your case and you can file with us next year.
+      sms: We are closing GetYourRefund for the tax season on %{end_of_in_progress_intake_date}. We will need all required documentation by %{end_of_docs_date}; otherwise, we will not be able to prepare your taxes. Please login and respond by %{end_of_docs_date}. <<Client.LoginLink>> If we do not hear from you by then, we will close out your case and you can file with us next year.
     contact_info_change:
       email:
         body: |
@@ -2057,6 +2057,11 @@ en:
           identity_safe: To keep your identity safe, we need to confirm the address on your 2023 tax return.
           radio_button_title: Select the mailing address for your 2023 tax return.
           title: Confirm your address to access your tax return
+      pdfs:
+        index:
+          download: Download 2023 Tax Return
+          subtitle: To access your 2023 %{state} tax return, click the link below.
+          title: Your account has been successfully verified!
       verification_code:
         edit:
           error_message: Incorrect verification code. After 2 failed attempts, accounts are locked.
@@ -2239,17 +2244,18 @@ en:
         title: Thank you for visiting FileYourStateTaxes
     navigation:
       nj:
-        section_1: 'Section 1: Income'
-        section_2: 'Section 2: Your household'
-        section_3: 'Section 3: Deductions and credits'
-        section_4: 'Section 4: Your %{filing_year} taxes'
-        section_5: 'Section 5: Review and submit'
-      section_1: 'Section 1: Can you use this service'
-      section_2: 'Section 2: Create account'
-      section_3: 'Section 3: Terms and conditions'
-      section_4: 'Section 4: Transfer your data'
-      section_5: 'Section 5: Complete your state tax return'
-      section_6: 'Section 6: Submit your state taxes'
+        section_1: Income
+        section_2: Your household
+        section_3: Deductions and credits
+        section_4: Your %{filing_year} taxes
+        section_5: Review and submit
+      section_1: Can you use this service
+      section_2: Create account
+      section_3: Terms and conditions
+      section_4: Transfer your data
+      section_5: Complete your state tax return
+      section_6: Submit your state taxes
+      step_description: 'Section %{current_step} of %{total_steps}: '
     notification_mailer:
       user_message:
         unsubscribe: If you would like to unsubscribe from emails, click <a href="%{unsubscribe_link}">here</a>.
@@ -2489,10 +2495,10 @@ en:
                       If you choose this option, you'll be connected with a VITA partner in Maryland. Expect a quick intake call in a few days to discuss your tax situation and securely upload your documents. This process may take 2-3 weeks to complete.
                     </li>
                     <li>
-                      Get started with VITA now
+                      <a href="%{vita_link}" rel="noopener nofollow" target="_blank">Get started with VITA now</a>
                     </li>
                     <li>
-                      Learn more about this process and other filing options here.
+                      Learn more about this process and other filing options <a href="%{link}" rel="noopener nofollow" target="_blank">here.</a>
                     </li>
                   </ul>
                   <li>
@@ -2809,7 +2815,7 @@ en:
         edit:
           answers_confidential_html: Your answers are private and used only to see if you qualify for the tax credit.
           example_months: For example, if they had 2 situations in April, that counts as 1 month.
-          need_to_know_html: How many months did these situations affect this person in %{filing_year}.
+          need_to_know_html: How many months did these situations affect %{name} in %{filing_year}.
           need_to_know_you_html: How many months did these situations affect you in %{filing_year}.
           see_if_you_qualify:
             one: To see if you qualify, we need more information about you.
