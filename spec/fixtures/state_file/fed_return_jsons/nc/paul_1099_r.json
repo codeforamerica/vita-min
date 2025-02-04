@@ -1,0 +1,24 @@
+{
+  "familyAndHousehold": [],
+  "filers": [
+    {
+      "lastName": "Atreides",
+      "dateOfBirth": "1942-12-11",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "firstName": "Paul",
+      "middleInitial": "J",
+      "educatorExpenses": "0.00",
+      "tin": "317-00-2231",
+      "interestReportsTotal": "0.00",
+      "isDisabled": false,
+      "form1099GsTotal": "0.00",
+      "isStudent": false,
+      "ssnNotValidForEmployment": null,
+      "hsaTotalDeductibleAmount": null
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [],
+  "interestReports": []
+}
