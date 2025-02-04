@@ -176,6 +176,8 @@ RSpec.configure do |config|
   end
 
   config.before(type: :feature) do |example|
+    Capybara.page.current_window.resize_to(2000, 4000)
+
     if config.filter.rules[:flow_explorer_screenshot]
       example.metadata[:js] = true
       Capybara.current_driver = Capybara.javascript_driver
