@@ -264,42 +264,60 @@ describe Efile::PollForAcknowledgmentsService do
     let!(:fed_efile_submission1) { create(:efile_submission, :transmitted, submission_bundle: { filename: "sensible-filename.zip", io: StringIO.new("i am a zip file") }) }
     let!(:fed_efile_submission2) { create(:efile_submission, :transmitted, submission_bundle: { filename: "sensible-filename.zip", io: StringIO.new("i am a zip file") }) }
 
-    before do
-      fed_efile_submission1.update!(irs_submission_id: irs_submission_id1)
-      fed_efile_submission2.update!(irs_submission_id: irs_submission_id2)
-      state_efile_submission1.update!(irs_submission_id: irs_submission_id3)
-      state_efile_submission2.update!(irs_submission_id: irs_submission_id4)
-    end
+    let(:correctly_ordered_statuses_multiple_submissions_transmitted) {
+      Nokogiri::XML(
+        <<~XML
+          <?xml version='1.0' encoding='UTF-8'?>  
+          <StatusRecordList xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile">
+              <Cnt>4</Cnt>
+              <StatusRecordGrp>
+                  <SubmissionId>4414662024003wte794o</SubmissionId>
+                  <SubmissionStatusTxt>Received by State</SubmissionStatusTxt>
+                  <SubmsnStatusAcknowledgementDt>2024-01-04</SubmsnStatusAcknowledgementDt>
+              </StatusRecordGrp>
+              <StatusRecordGrp>
+                  <SubmissionId>abcdefghijklmnopqrst</SubmissionId>
+                  <SubmissionStatusTxt>Received by State</SubmissionStatusTxt>
+                  <SubmsnStatusAcknowledgementDt>2024-01-04</SubmsnStatusAcknowledgementDt>
+              </StatusRecordGrp>
+              <StatusRecordGrp>
+                  <SubmissionId>abcdefghijklmnopqrst</SubmissionId>
+                  <SubmissionStatusTxt>Sent to State</SubmissionStatusTxt>
+                  <SubmsnStatusAcknowledgementDt>2024-01-04</SubmsnStatusAcknowledgementDt>
+              </StatusRecordGrp>
+              <StatusRecordGrp>
+                  <SubmissionId>4414662024003wte794o</SubmissionId>
+                  <SubmissionStatusTxt>Sent to State</SubmissionStatusTxt>
+                  <SubmsnStatusAcknowledgementDt>2024-01-04</SubmsnStatusAcknowledgementDt>
+              </StatusRecordGrp>
+              <StatusRecordGrp>
+                  <SubmissionId>abcdefghijklmnopqrst</SubmissionId>
+                  <SubmissionStatusTxt>Ready for Pick-Up</SubmissionStatusTxt>
+                  <SubmsnStatusAcknowledgementDt>2024-01-03</SubmsnStatusAcknowledgementDt>
+              </StatusRecordGrp>
+              <StatusRecordGrp>
+                  <SubmissionId>abcdefghijklmnopqrst</SubmissionId>
+                  <SubmissionStatusTxt>Received</SubmissionStatusTxt>
+                  <SubmsnStatusAcknowledgementDt>2024-01-03</SubmsnStatusAcknowledgementDt>
+              </StatusRecordGrp>
+              <StatusRecordGrp>
+                  <SubmissionId>4414662024003wte794o</SubmissionId>
+                  <SubmissionStatusTxt>Ready for Pick-Up</SubmissionStatusTxt>
+                  <SubmsnStatusAcknowledgementDt>2024-01-03</SubmsnStatusAcknowledgementDt>
+              </StatusRecordGrp>
+              <StatusRecordGrp>
+                  <SubmissionId>4414662024003wte794o</SubmissionId>
+                  <SubmissionStatusTxt>Received</SubmissionStatusTxt>
+                  <SubmsnStatusAcknowledgementDt>2024-01-03</SubmsnStatusAcknowledgementDt>
+              </StatusRecordGrp>
+          </StatusRecordList>
+        XML
+      )
+    }
 
-    describe ".transmitted_submission_ids" do
-      it "returns an array of IRS submission IDs" do
-        expect(described_class.transmitted_submission_ids).to match_array([irs_submission_id1, irs_submission_id2])
-      end
-    end
-
-    describe ".transmitted_state_submission_ids" do
-      it "returns an array of IRS submission IDs" do
-        expect(described_class.transmitted_state_submission_ids).to match_array([irs_submission_id3, irs_submission_id4])
-      end
-    end
-
-    context "getting status from state" do
-      it "interprets ready_for_ack successfully" do
-        ["Denied by IRS", "Acknowledgement Received from State", "Acknowledgement Retrieved", "Notified"].each do |status|
-          expect(Efile::PollForAcknowledgmentsService.submission_status_to_state(status)).to eq :ready_for_ack
-        end
-      end
-      it "interprets transmitted successfully" do
-        expect(Efile::PollForAcknowledgmentsService.submission_status_to_state("Received")).to eq :transmitted
-      end
-      it "interprets unknown states as failed" do
-        expect(Efile::PollForAcknowledgmentsService.submission_status_to_state("My dog ate it")).to eq :failed
-      end
-    end
-
-    context "statuses for submission_id" do
-      it "groups statuses by submission_id" do
-        doc = Nokogiri::XML(<<-TEXT
+    let(:correctly_ordered_statuses_transmitted) {
+      Nokogiri::XML(
+        <<~XML
           <?xml version='1.0' encoding='UTF-8'?>  
           <StatusRecordList xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile">
               <Cnt>4</Cnt>
@@ -324,11 +342,145 @@ describe Efile::PollForAcknowledgmentsService do
                   <SubmsnStatusAcknowledgementDt>2024-01-03</SubmsnStatusAcknowledgementDt>
               </StatusRecordGrp>
           </StatusRecordList>
-          TEXT
-        )
-        result = Efile::PollForAcknowledgmentsService.group_status_records_by_submission_id(doc)
-        expect(result.keys.length).to eq 1
-        expect(result["4414662024003wte794o"].css("SubmissionStatusTxt").text).to eq "Received by State"
+        XML
+      )
+    }
+
+    let(:correctly_ordered_statuses_ready_for_ack) {
+      Nokogiri::XML(
+        <<~XML
+          <?xml version='1.0' encoding='UTF-8'?>  
+          <StatusRecordList xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile">
+              <Cnt>5</Cnt>
+              <StatusRecordGrp>
+                  <SubmissionId>4414662024003wte794o</SubmissionId>
+                  <SubmissionStatusTxt>Acknowledgement Received from State</SubmissionStatusTxt>
+                  <SubmsnStatusAcknowledgementDt>2024-01-04</SubmsnStatusAcknowledgementDt>
+              </StatusRecordGrp>
+              <StatusRecordGrp>
+                  <SubmissionId>4414662024003wte794o</SubmissionId>
+                  <SubmissionStatusTxt>Received by State</SubmissionStatusTxt>
+                  <SubmsnStatusAcknowledgementDt>2024-01-04</SubmsnStatusAcknowledgementDt>
+              </StatusRecordGrp>
+              <StatusRecordGrp>
+                  <SubmissionId>4414662024003wte794o</SubmissionId>
+                  <SubmissionStatusTxt>Sent to State</SubmissionStatusTxt>
+                  <SubmsnStatusAcknowledgementDt>2024-01-04</SubmsnStatusAcknowledgementDt>
+              </StatusRecordGrp>
+              <StatusRecordGrp>
+                  <SubmissionId>4414662024003wte794o</SubmissionId>
+                  <SubmissionStatusTxt>Ready for Pick-Up</SubmissionStatusTxt>
+                  <SubmsnStatusAcknowledgementDt>2024-01-03</SubmsnStatusAcknowledgementDt>
+              </StatusRecordGrp>
+              <StatusRecordGrp>
+                  <SubmissionId>4414662024003wte794o</SubmissionId>
+                  <SubmissionStatusTxt>Received</SubmissionStatusTxt>
+                  <SubmsnStatusAcknowledgementDt>2024-01-03</SubmsnStatusAcknowledgementDt>
+              </StatusRecordGrp>
+          </StatusRecordList>
+        XML
+      )
+    }
+
+    let(:out_of_order_statuses_ready_for_ack) {
+      Nokogiri::XML(
+        <<~XML
+          <?xml version='1.0' encoding='UTF-8'?>  
+          <StatusRecordList xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile">
+              <Cnt>5</Cnt>
+              <StatusRecordGrp>
+                  <SubmissionId>4414662024003wte794o</SubmissionId>
+                  <SubmissionStatusTxt>Received by State</SubmissionStatusTxt>
+                  <SubmsnStatusAcknowledgementDt>2024-01-04</SubmsnStatusAcknowledgementDt>
+              </StatusRecordGrp>
+              <StatusRecordGrp>
+                  <SubmissionId>4414662024003wte794o</SubmissionId>
+                  <SubmissionStatusTxt>Acknowledgement Received from State</SubmissionStatusTxt>
+                  <SubmsnStatusAcknowledgementDt>2024-01-04</SubmsnStatusAcknowledgementDt>
+              </StatusRecordGrp>
+              <StatusRecordGrp>
+                  <SubmissionId>4414662024003wte794o</SubmissionId>
+                  <SubmissionStatusTxt>Sent to State</SubmissionStatusTxt>
+                  <SubmsnStatusAcknowledgementDt>2024-01-04</SubmsnStatusAcknowledgementDt>
+              </StatusRecordGrp>
+              <StatusRecordGrp>
+                  <SubmissionId>4414662024003wte794o</SubmissionId>
+                  <SubmissionStatusTxt>Ready for Pick-Up</SubmissionStatusTxt>
+                  <SubmsnStatusAcknowledgementDt>2024-01-03</SubmsnStatusAcknowledgementDt>
+              </StatusRecordGrp>
+              <StatusRecordGrp>
+                  <SubmissionId>4414662024003wte794o</SubmissionId>
+                  <SubmissionStatusTxt>Received</SubmissionStatusTxt>
+                  <SubmsnStatusAcknowledgementDt>2024-01-03</SubmsnStatusAcknowledgementDt>
+              </StatusRecordGrp>
+          </StatusRecordList>
+        XML
+      )
+    }
+
+    before do
+      fed_efile_submission1.update!(irs_submission_id: irs_submission_id1)
+      fed_efile_submission2.update!(irs_submission_id: irs_submission_id2)
+      state_efile_submission1.update!(irs_submission_id: irs_submission_id3)
+      state_efile_submission2.update!(irs_submission_id: irs_submission_id4)
+    end
+
+    describe ".transmitted_submission_ids" do
+      it "returns an array of IRS submission IDs" do
+        expect(described_class.transmitted_submission_ids).to match_array([irs_submission_id1, irs_submission_id2])
+      end
+    end
+
+    describe ".transmitted_state_submission_ids" do
+      it "returns an array of IRS submission IDs" do
+        expect(described_class.transmitted_state_submission_ids).to match_array([irs_submission_id3, irs_submission_id4])
+      end
+    end
+
+    context "getting status from state" do
+      it "interprets ready_for_ack successfully" do
+        ["Denied by IRS", "Acknowledgement Received from State", "Acknowledgement Retrieved", "Notified"].each do |status|
+          expect(described_class.submission_status_to_state(status)).to eq :ready_for_ack
+        end
+      end
+      it "interprets transmitted successfully" do
+        expect(described_class.submission_status_to_state("Received")).to eq :transmitted
+      end
+      it "interprets unknown states as failed" do
+        expect(described_class.submission_status_to_state("My dog ate it")).to eq :failed
+      end
+    end
+
+    describe ".group_status_records_by_submission_id" do
+      it "groups statuses by submission_id, preserving their order" do
+        result = described_class.group_status_records_by_submission_id(correctly_ordered_statuses_multiple_submissions_transmitted)
+        expect(result.keys.length).to eq 2
+        submission_ids = %w[4414662024003wte794o abcdefghijklmnopqrst]
+        submission_ids.each do |submission_id|
+          expect(result[submission_id].length).to eq 4
+          expect(result[submission_id].first.css("SubmissionStatusTxt").text).to eq "Received by State"
+          expect(result[submission_id].last.css("SubmissionStatusTxt").text).to eq "Received"
+        end
+      end
+    end
+
+    describe ".xml_node_with_most_recent_submission_status" do
+      it "gets the most recent xml node indicating a transmitted state in a correctly ordered list of statuses" do
+        xml_nodes = described_class.group_status_records_by_submission_id(correctly_ordered_statuses_transmitted)["4414662024003wte794o"]
+        xml_node = described_class.xml_node_with_most_recent_submission_status(xml_nodes)
+        expect(xml_node.css("SubmissionStatusTxt").text).to eq "Received by State"
+      end
+
+      it "gets the most recent xml node indicating a ready-for-ack state in a correctly ordered list of statuses" do
+        xml_nodes = described_class.group_status_records_by_submission_id(correctly_ordered_statuses_ready_for_ack)["4414662024003wte794o"]
+        xml_node = described_class.xml_node_with_most_recent_submission_status(xml_nodes)
+        expect(xml_node.css("SubmissionStatusTxt").text).to eq "Acknowledgement Received from State"
+      end
+
+      it "gets the most recent xml node indicating a ready-for-ack state in an incorrectly ordered list of statuses" do
+        xml_nodes = described_class.group_status_records_by_submission_id(out_of_order_statuses_ready_for_ack)["4414662024003wte794o"]
+        xml_node = described_class.xml_node_with_most_recent_submission_status(xml_nodes)
+        expect(xml_node.css("SubmissionStatusTxt").text).to eq "Acknowledgement Received from State"
       end
     end
   end

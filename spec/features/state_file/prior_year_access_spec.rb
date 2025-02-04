@@ -36,9 +36,7 @@ RSpec.feature "accessing a prior year PDF", active_job: true do
       choose(correct_address)
       click_on I18n.t("general.continue")
 
-      # TODO: https://codeforamerica.atlassian.net/browse/FYST-1520
-      # need to change to download path
-      expect(current_path).to eq(root_path)
+      expect(current_path).to eq(state_file_archived_intakes_pdfs_path)
     end
   end
 
