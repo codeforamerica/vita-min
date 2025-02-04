@@ -2230,6 +2230,16 @@ es:
           primary_was_incarcerated: "¿Estuviste encarcelado en una prisión del condado, estatal o federal durante al menos 60 días en %{tax_year}?"
           spouse_was_incarcerated: "¿Tu cónyuge estuvo encarcelado en una prisión del condado, estatal o federal durante al menos 60 días en %{tax_year}?"
           title: Es posible que seas elegible para el Crédito Tributario por Aumento de Impuestos Especiales.
+      az_primary_state_id:
+        az_primary:
+          learn_more_html: |
+            Para obtener más información, visita: <br>
+            <a href="https://azdor.gov/individuals/income-tax-filing-assistance/verifying-identity-and-avoiding-identity-theft" target="_blank">
+            azdor.gov/individuals/income-tax-filing-assistance/verifying-identity-and-avoiding-identity-theft
+            </a>
+          ongoing_effort: Como parte de un esfuerzo continuo para proteger a los contribuyentes del robo de identidad, el IRS, las agencias fiscales estatales y la industria fiscal te piden que compartas tu número de licencia de conducir o de identificación emitida por el estado.
+          requests_drivers_license: El Departamento de Ingresos de Arizona pide que se incluya la licencia de conducir o tarjeta de identificación con la declaración, pero no rechazará la declaración si no se incluye.
+          why_are_you_asking: "¿Por qué estamos pidiéndote esta información?"
       az_prior_last_names:
         edit:
           prior_last_names_label: 'Ingresa todos los apellidos que usaste en los últimos cuatro años. (Ejemplo: Smith, Jones, Brown)'
@@ -2342,9 +2352,6 @@ es:
           assistance_label: "¿%{name} necesitaba ayuda con actividades diarias como vestirse, comer, beber, tomar medicamentos, ir de compras o preparar la comida?"
           passed_away_label: "%{name} falleció en %{filing_year}?"
           title: Necesitamos información adicional sobre %{dependents_name_list}
-      az_primary_state_id:
-        az_primary:
-          requests_drivers_license: El Departamento de Ingresos de Arizona pide que se incluya la licencia de conducir o tarjeta de identificación con la declaración, pero no rechazará la declaración si no se incluye.
       az_subtractions:
         edit:
           armed_forces_member_label:
