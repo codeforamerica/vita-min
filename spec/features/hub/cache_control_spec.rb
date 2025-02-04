@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "Cache control", :flow_explorer_screenshot do
+RSpec.feature "Cache control", js: true do
   let(:user) { create :admin_user }
 
   before do
