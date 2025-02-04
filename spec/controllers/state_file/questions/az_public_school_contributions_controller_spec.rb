@@ -105,7 +105,7 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
       render_views
 
       context "yes/no question" do
-        it 'should not create the contribution when the made_az322_contributions is missing' do
+        it 'should not create the contribution when made_az322_contributions is missing' do
           expect {
             put :create, params: {
               az322_contribution: {
@@ -131,7 +131,16 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
         let(:invalid_params) do
           {
             az322_contribution: {
-              amount: 0,
+              state_file_az_intake_attributes: {
+                made_az322_contributions: "yes",
+              },
+              school_name: 'School A',
+              ctds_code: '123456789',
+              district_name: 'District A',
+              amount: 0, # must have amount
+              date_of_contribution_month: '8',
+              date_of_contribution_day: "12",
+              date_of_contribution_year: Rails.configuration.statefile_current_tax_year
             }
           }
         end
@@ -142,12 +151,13 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
           end.not_to change(Az322Contribution, :count)
 
           expect(response).to render_template(:new)
-          expect(response.body).to include "Can't be blank"
+          expect(response.body).to include "must be greater than 0"
         end
       end
     end
 
     context "DEPRECATED BEHAVIOR; keep tests until page is changed on prod" do
+      # missing state_file_az_intake_attributes/made_az322_contributions
       let(:params) do
         {
           az322_contribution: {
