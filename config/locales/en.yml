@@ -2303,6 +2303,21 @@ en:
           school_name_help_text: Please use the official school name
           title_html: You might be eligible for the <a href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_guideline-public-school-ECA-tax-credit.pdf" target="_blank">Arizona Public School Credit</a>!
         form:
+          donations_this_year: What about donations made in %{current_year}?
+          donations_this_year_details_html: |
+            FileYourStateTaxes only allows you to add payment to the corresponding tax period.
+            <br/><br/>
+            You can report any donations made in %{current_year} in next year’s tax return.
+          made_az322_contributions:
+            one: Did you pay any fees or make any qualified cash donation to an Arizona public school in %{year}?
+            other: Did you or your spouse pay any fees or make any qualified cash donation to an Arizona public school in %{year}?
+          more_details_html: Visit the <a href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_guideline-public-school-ECA-tax-credit.pdf" target="_blank">Arizona Department of Revenue Guide</a> for more details.
+          qualifying_list:
+          - Extracurricular Activities
+          - Character Education
+          - Standardized Testing and Fees
+          - Career and Technical Education Assessment
+          - CPR Training
           school_details_answer_html: |
             You can find this information on the receipt you received from the school.
             <br/><br/>
@@ -2312,6 +2327,7 @@ en:
             <br/><br/>
             To avoid any errors, highlight the text in the pdf then copy (Ctrl + C) and paste (Ctrl + V) directly to this page.
           school_details_question: Where can I find the school details?
+          which_qualify: Which donations and fees qualify?
         index:
           add_another: Add another donation
           delete_confirmation: Are you sure you want to delete this contribution?
@@ -2374,24 +2390,6 @@ en:
           tribal_member: Member of a federally recognized American Indian tribe
           tribal_wages: Amount earned while living and working on the reservation as a member of a federally recognized American Indian tribe
           was_incarcerated: Incarcerated in a county, state, or federal prison for at least 60 days in %{filing_year}
-      az_made_az322_contributions:
-        edit:
-          donations_this_year: What about donations made in %{current_year}?
-          donations_this_year_details_html: |
-            FileYourStateTaxes only allows you to add payment to the corresponding tax period.
-            <br/><br/>
-            You can report any donations made in %{current_year} in next year’s tax return.
-          more_details_html: Visit the <a href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_guideline-public-school-ECA-tax-credit.pdf" target="_blank">Arizona Department of Revenue Guide</a> for more details.
-          qualifying_list:
-          - Extracurricular Activities
-          - Character Education
-          - Standardized Testing and Fees
-          - Career and Technical Education Assessment
-          - CPR Training
-          made_az322_contributions:
-            one: Did you pay any fees or make any qualified cash donation to an Arizona public school in %{year}?
-            other: Did you or your spouse pay any fees or make any qualified cash donation to an Arizona public school in %{year}?
-          which_qualify: Which donations and fees qualify?
       az_senior_dependents:
         edit:
           assistance_label: Did %{name} need assistance with daily living activities such as dressing, eating, taking medication, shopping, or preparing their food?

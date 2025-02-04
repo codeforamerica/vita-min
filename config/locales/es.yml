@@ -2255,6 +2255,22 @@ es:
           school_name_help_text: Por favor ingresa el nombre oficial
           title_html: ¡Podrías ser elegible para el <a href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_guideline-public-school-ECA-tax-credit.pdf" target="_blank">crédito tributario de las escuelas públicas de Arizona! </a>!
         form:
+          donations_this_year: "¿Qué pasa con las donaciones hechas en %{current_year}?"
+          donations_this_year_details_html: |
+            FileYourStateTaxes sólo te permite agregar donaciones del período fiscal correspondiente.
+            <br/><br/>
+            Puedes reportar cualquier donación hecha en %{current_year} en la declaración de impuestos del próximo año.
+          made_az322_contributions:
+            many: "¿Pagaste tarifas o hiciste contribuciones en efectivo a una escuela pública en %{year}? No incluyas cantidades reclamadas en la declaración de impuestos del año pasado."
+            one: "¿Pagaste tarifas o hiciste contribuciones en efectivo a una escuela pública en %{year}? No incluyas cantidades reclamadas en la declaración de impuestos del año pasado."
+            other: "¿Tú o tu cónyuge pagaron alguna tarifa o donaron dinero a una escuela pública de Arizona en  %{year}?"
+          more_details_html: Visita el <a href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_guideline-public-school-ECA-tax-credit.pdf" target="_blank">Departamento de Ingresos de Arizona</a>para más detalles.
+          qualifying_list:
+          - Actividades extracurriculares
+          - Educación en valores
+          - Pruebas estandarizadas y sus tarifas
+          - Evaluación de educación técnica y profesional
+          - Entrenamiento de Reanimación Cardiopulmonar (RCP)
           school_details_answer_html: |
             Puedes encontrar esta información en el recibo que te entregaron en la escuela.
             <br/><br/>
@@ -2264,6 +2280,7 @@ es:
             <br/><br/>
             Para evitar errores, resalte el texto en el PDF, luego cópielo (Ctrl + C) y péguelo (Ctrl + V) directamente en esta página.
           school_details_question: "¿Dónde puedo encontrar la información de la escuela?"
+          which_qualify: "¿Qué donaciones y tarifas califican?"
         index:
           add_another: Agregar otra donación
           delete_confirmation: "¿Estás seguro de que quieres eliminar esta contribución?"
@@ -2321,25 +2338,6 @@ es:
           tribal_member: Miembro de una tribu indígena reconocida por el gobierno federal
           tribal_wages: Cantidad ganada mientras vivías y trabajabas en la reserva como miembro de una tribu indígena estadounidense reconocida federalmente
           was_incarcerated: Encarcelados en una prisión del condado, estatal o federal durante al menos 60 días en %{filing_year}
-      az_made_az322_contributions:
-        edit:
-          donations_this_year: "¿Qué pasa con las donaciones hechas en %{current_year}?"
-          donations_this_year_details_html: |
-            FileYourStateTaxes sólo te permite agregar donaciones del período fiscal correspondiente.
-            <br/><br/>
-            Puedes reportar cualquier donación hecha en %{current_year} en la declaración de impuestos del próximo año.
-          more_details_html: Visita el <a href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_guideline-public-school-ECA-tax-credit.pdf" target="_blank">Departamento de Ingresos de Arizona</a>para más detalles.
-          qualifying_list:
-          - Actividades extracurriculares
-          - Educación en valores
-          - Pruebas estandarizadas y sus tarifas
-          - Evaluación de educación técnica y profesional
-          - Entrenamiento de Reanimación Cardiopulmonar (RCP)
-          made_az322_contributions:
-            many: "¿Pagaste tarifas o hiciste contribuciones en efectivo a una escuela pública en %{year}? No incluyas cantidades reclamadas en la declaración de impuestos del año pasado."
-            one: "¿Pagaste tarifas o hiciste contribuciones en efectivo a una escuela pública en %{year}? No incluyas cantidades reclamadas en la declaración de impuestos del año pasado."
-            other: "¿Tú o tu cónyuge pagaron alguna tarifa o donaron dinero a una escuela pública de Arizona en  %{year}?"
-          which_qualify: "¿Qué donaciones y tarifas califican?"
       az_senior_dependents:
         edit:
           assistance_label: "¿%{name} necesitaba ayuda con actividades diarias como vestirse, comer, beber, tomar medicamentos, ir de compras o preparar la comida?"

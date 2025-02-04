@@ -109,9 +109,10 @@ class StateFileAzIntake < StateFileBaseIntake
   enum eligibility_out_of_state_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_out_of_state_income
 
   validates :made_az321_contributions, inclusion: { in: ["yes", "no"]}, on: :az321_form_create
+  validates :made_az322_contributions, inclusion: { in: ["yes", "no"]}, on: :az322_form_create
   validates :az321_contributions, length: { maximum: 10 }
+  validates :az322_contributions, length: { maximum: 10 }, on: :az322_form_create
 
-  validates :az322_contributions, length: { maximum: 10 }, on: :az322
   def federal_dependent_count_under_17
     self.dependents.select{ |dependent| dependent.under_17? }.length
   end

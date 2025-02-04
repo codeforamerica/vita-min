@@ -22,6 +22,7 @@ class Az322Contribution < ApplicationRecord
   date_accessor :date_of_contribution
 
   belongs_to :state_file_az_intake
+  accepts_nested_attributes_for :state_file_az_intake, update_only: true
 
   validates :school_name, presence: true
   validates :ctds_code, presence: true, format: { with: /\A\d{9}\z/, message: -> (_object, _data) { I18n.t("validators.ctds_code") }}

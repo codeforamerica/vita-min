@@ -6,41 +6,6 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
     sign_in intake
   end
 
-  describe ".show?" do
-    context "when the intake has school contributions" do
-      before do
-        intake.made_az322_contributions_yes!
-      end
-
-      it "shows" do
-        expect(described_class).to be_show(intake)
-      end
-    end
-
-    context "when the intake does not have school contributions" do
-      before do
-        intake.made_az322_contributions_no!
-      end
-
-      it "shows" do
-        expect(described_class).not_to be_show(intake)
-      end
-    end
-
-    context "TEMPORARY when the intake has school contributions unfilled" do
-      # clients who are currently in the flow and have not gone through the new page before this one will not have
-      # this question answered and should still see the page
-
-      before do
-        intake.made_az322_contributions_unfilled!
-      end
-
-      it "shows" do
-        expect(described_class).to be_show(intake)
-      end
-    end
-  end
-
   describe "#index" do
     context "with existing contributions" do
       render_views
@@ -62,9 +27,25 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
   end
 
   describe "#new" do
+    render_views
+
     it "builds a new contribution" do
       get :new
       expect(assigns(:az322_contribution)).to be_a_new(Az322Contribution)
+    end
+
+    context "showing the yes/no question" do
+      it "shows when there are no contributions" do
+        get :new
+        expect(response.body).to include I18n.t("state_file.questions.az_public_school_contributions.form.made_az322_contributions", count: intake.filer_count, year: MultiTenantService.new(:statefile).current_tax_year)
+      end
+
+      it "does not show when there are contributions" do
+        create(:az322_contribution, state_file_az_intake: intake)
+
+        get :new
+        expect(response.body).not_to include I18n.t("state_file.questions.az_public_school_contributions.form.made_az322_contributions", count: intake.filer_count, year: MultiTenantService.new(:statefile).current_tax_year)
+      end
     end
   end
 
@@ -74,6 +55,9 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
     let(:params) do
       {
         az322_contribution: {
+          state_file_az_intake_attributes: {
+            made_az322_contributions: "yes",
+          },
           school_name: 'School A',
           ctds_code: '123456789',
           district_name: 'District A',
@@ -92,6 +76,7 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
 
       expect(response).to redirect_to(action: :index)
 
+      expect(intake.reload.made_az322_contributions).to eq "yes"
       contribution = Az322Contribution.last
       expect(contribution.state_file_az_intake).to eq intake
       expect(contribution.school_name).to eq 'School A'
@@ -119,21 +104,46 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
     context "with invalid params" do
       render_views
 
-      let(:invalid_params) do
-        {
-          az322_contribution: {
-            amount: 0,
-          }
-        }
+      context "yes/no question" do
+        it 'should not create the contribution when the made_az322_contributions is missing' do
+          expect {
+            put :create, params: {
+              az322_contribution: {
+                state_file_az_intake_attributes: {
+                  made_az322_contributions: nil,
+                },
+                school_name: 'School A',
+                ctds_code: '123456789',
+                district_name: 'District A',
+                amount: 100,
+                date_of_contribution_month: '8',
+                date_of_contribution_day: "12",
+                date_of_contribution_year: Rails.configuration.statefile_current_tax_year
+              }
+            }
+          }.not_to change(Az321Contribution, :count)
+
+          expect(response).to render_template :new
+        end
       end
 
-      it "renders new with validation errors" do
-        expect do
-          post :create, params: invalid_params
-        end.not_to change(Az322Contribution, :count)
+      context "contribution is invalid" do
+        let(:invalid_params) do
+          {
+            az322_contribution: {
+              amount: 0,
+            }
+          }
+        end
 
-        expect(response).to render_template(:new)
-        expect(response.body).to include "Can't be blank"
+        it "renders new with validation errors" do
+          expect do
+            post :create, params: invalid_params
+          end.not_to change(Az322Contribution, :count)
+
+          expect(response).to render_template(:new)
+          expect(response.body).to include "Can't be blank"
+        end
       end
     end
 

@@ -70,9 +70,6 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       expect(strip_html_tags(page.body)).to have_text strip_html_tags(I18n.t('state_file.questions.az_public_school_contributions.edit.title_html'))
       choose I18n.t("general.affirmative")
-      click_on I18n.t("general.continue")
-
-      expect(strip_html_tags(page.body)).to have_text strip_html_tags(I18n.t('state_file.questions.az_public_school_contributions.edit.title_html'))
       fill_in "az322_contribution_school_name", with: "Tax Elementary"
       fill_in "az322_contribution_ctds_code", with: "123456789"
       fill_in "az322_contribution_district_name", with: "Testerson"
