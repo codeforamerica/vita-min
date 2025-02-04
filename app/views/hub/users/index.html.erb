@@ -4,15 +4,20 @@
 <% content_for :card do %>
   <div class="slab">
     <h1 class="h1"><%= t(".title") %></h1>
-
-    <span>
-      <%= t("general.search") %>
-    </span>
-    <%= form_tag hub_users_path, method: "get", class: "hub-searchbar" do %>
-      <input type="text" class="hub-searchbar__input" id="search" name="search"/>
-      <%= image_submit_tag("magnifying-glass-icon-white.svg", class: "hub-searchbar__button") %>
-    <% end %>
-
+    <div class="grid">
+      <div class="grid__item width-one-half" style="display: flex; align-items: baseline; justify-content: flex-start;">
+        <span style="padding-right: 5px">
+          <%= t("general.search") %>
+        </span>
+        <%= form_tag hub_users_path, method: "get", class: "hub-searchbar" do %>
+          <input type="text" class="hub-searchbar__input" id="search" name="search"/>
+          <%= image_submit_tag("magnifying-glass-icon-white.svg", class: "hub-searchbar__button") %>
+        <% end %>
+      </div>
+      <div class="grid__item width-one-half" style="display: flex; align-items: baseline; justify-content: flex-end;">
+        <button id="toggle-suspended-btn" class="button">Hide Suspended Users</button>
+      </div>
+    </div>
     <table class="index-table user-table">
       <caption class="index-table__title">
         <%= page_entries_info @users, model: "entry" %>
@@ -38,7 +43,7 @@
 
       <tbody class="index-table__body">
       <% @users.each do |user| %>
-        <tr id="user-<%= user.id %>" class="index-table__row">
+        <tr id="user-<%= user.id %>" class="index-table__row user-row" data-suspended="<%= user.suspended? %>">
           <th scope="row" class="index-table__row-header">
             <% if can?(:edit, user) %>
               <%= link_to user.name, edit_hub_user_path(id: user) %>
@@ -64,4 +69,27 @@
       </tbody>
     </table>
   </div>
+<% end %>
+
+<% content_for :script do %>
+  <script>
+      document.addEventListener("DOMContentLoaded", function () {
+          const button = document.getElementById("toggle-suspended-btn");
+          let hidden = false;
+
+          button.addEventListener("click", function () {
+              hidden = !hidden;
+
+              document.querySelectorAll(".user-row").forEach(row => {
+                  if (row.dataset.suspended === "true") {
+                      row.style.display = hidden ? "none" : "";
+                  }
+              });
+
+              button.textContent = hidden ? "Show Suspended Users" : "Hide Suspended Users";
+              button.style.backgroundColor = hidden ? "black" : "white";
+              button.style.color = hidden ? "white" : "black";
+          });
+      });
+  </script>
 <% end %>
