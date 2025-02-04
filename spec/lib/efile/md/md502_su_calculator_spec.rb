@@ -30,7 +30,7 @@ describe Efile::Md::Md502SuCalculator do
   end
 
   describe "#calculate_military_per_filer" do
-    context "when the taxable amount is higher than the age calculation" do
+    context "when the taxable amount is higher than the age benefit amount" do
       before do
         allow_any_instance_of(StateFileMdIntake).to receive(:sum_1099_r_followup_type_for_filer).and_return 30_000
         allow_any_instance_of(StateFileMdIntake).to receive(:is_filer_55_and_older?).and_return is_55_and_older
@@ -53,7 +53,7 @@ describe Efile::Md::Md502SuCalculator do
       end
     end
 
-    context "when the taxable amount is lower than the age calculation" do
+    context "when the taxable amount is lower than the age benefit amount" do
       before do
         allow_any_instance_of(StateFileMdIntake).to receive(:sum_1099_r_followup_type_for_filer).and_return 10_000
         allow_any_instance_of(StateFileMdIntake).to receive(:is_filer_55_and_older?).and_return false
