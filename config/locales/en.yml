@@ -1658,14 +1658,14 @@ en:
           body: |
             Hi %{primary_first_name},
 
-            It's taking longer than expected to process your state tax return. Don't worry! We'll let you know as soon as we know your return status. You don't need to do anything right now.
+            It's taking longer than expected to process your state tax return. Don't worry! <strong>No action is needed right now</strong>. We'll update you as we know your return status.
 
-            Questions? Reply to this email.
+            Need help? Reply to this email.
 
             Best,
             The FileYourStateTaxes team
-          subject: 'FileYourStateTaxes Update: Your %{state_name} state tax return is taking longer than expected'
-        sms: Hi %{primary_first_name} - It's taking longer than expected to process your state tax return. Don't worry! We'll let you know as soon as we know your return status. You don't need to do anything right now. Questions? Email us at help@fileyourstatetaxes.org.
+          subject: 'Your %{state_name} state tax return is taking longer than expected'
+        sms: Hi %{primary_first_name} - It's taking longer than expected to process your state tax return. Don't worry! We'll let you know as soon as we know your return status. You don't need to do anything right now. Need help? Email us at help@fileyourstatetaxes.org.
       successful_submission:
         email:
           body: |

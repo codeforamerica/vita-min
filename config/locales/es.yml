@@ -1637,14 +1637,14 @@ es:
           body: |
             Hola %{primary_first_name},
 
-            Está tardando más de lo esperado procesar tu declaración de impuestos estatales. ¡No te preocupes! Te avisaremos tan pronto como conozcamos el estado de tu declaración. No es necesario que hagas nada en este momento.
+            Procesar tu declaración de impuestos estatal está tardando más de lo esperado. ¡No te preocupes! <strong>No necesitas hacer nada en este momento.</strong> Te avisaremos apenas tengamos actualizaciones del estado de tu declaración.
 
-            ¿Preguntas? Responde a este correo electrónico.
+            ¿Necesitas ayuda? Responde a este correo.
 
             Atentamente,
             El equipo de FileYourStateTaxes
-          subject: 'Notificación de FileYourStateTaxes: La declaración de impuestos estatales de %{state_name} está tardando más de lo esperado'
-        sms: Hola %{primary_first_name} - Está tardando más de lo esperado procesar su declaración de impuestos estatales. ¡No te preocupes! Le informaremos tan pronto como sepamos el estado de su devolución. No necesitas hacer nada ahora. ¿Preguntas? Envíenos un correo electrónico a help@fileyourstatetaxes.org.
+          subject: 'Tu declaración de impuestos del estado %{state_name} está tardando más de lo esperado'
+        sms: Hola %{primary_first_name} - Procesar tu declaración de impuestos estatales está tardando más de lo esperado . ¡No te preocupes! Te avisaremos apenas tengamos actualizaciones del estado de tu declaración. No necesitas hacer nada en este momento. ¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org.
       successful_submission:
         email:
           body: |
