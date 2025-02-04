@@ -3954,7 +3954,10 @@ es:
             <li>
               <strong>Preguntas e inquietudes:</strong> Si tienes alguna pregunta o inquietud sobre estos términos, no dudes en contactarnos en <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
             </li>
-          list_items_no_sms_html: "<strong>Mantente informado:</strong> Te enviaremos actualizaciones sobre tu declaración de impuestos estatales a través de tu método de comunicación preferido, ya sea por mensaje de texto o correo electrónico. Esto incluye actualizaciones de estado, recordatorios e información importante.</li>\n"
+          list_items_no_sms_html: |
+            <li>
+              <strong>Mantente informado:</strong> Te enviaremos actualizaciones sobre tu declaración de impuestos estatales a través de tu método de comunicación preferido, ya sea por mensaje de texto o correo electrónico. Esto incluye actualizaciones de estado, recordatorios e información importante.
+            </li>
           ny_text_html: |
             <strong>Presenta tu declaración de impuestos del estado de Nueva York electrónicamente sin costo adicional. </strong><br><br>
             Antes de imprimir y enviar tu declaración, ten en cuenta que no hay un costo adicional por presentarla electrónicamente. Otras razones para presentar electrónicamente:
