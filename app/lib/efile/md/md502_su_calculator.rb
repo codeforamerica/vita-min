@@ -33,7 +33,7 @@ module Efile
       end
 
       def calculate_line_u_spouse
-        @intake.filing_status_mfj? && @intake.spouse_birth_date.present? ? calculate_military_per_filer(:spouse) : 0
+        @intake.filing_status_mfj? ? calculate_military_per_filer(:spouse) : 0
       end
 
       private
