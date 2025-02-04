@@ -937,8 +937,8 @@ describe Efile::Md::Md502Calculator do
     let!(:intake) {
       create(
         :state_file_md_intake,
+        :with_spouse,
         filing_status: filing_status,
-        spouse_birth_date: MultiTenantService.statefile.end_of_current_tax_year - 40,
         raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml(df_xml_key)
       )
     }
