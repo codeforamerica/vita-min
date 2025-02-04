@@ -603,7 +603,7 @@ module Efile
       end
 
       def calculate_line_79_checkbox
-        @intake.payment_or_deposit_type_direct_deposit?
+        @intake.payment_or_deposit_type_direct_deposit? && line_or_zero(:NJ1040_LINE_79).positive?
       end
 
       def calculate_line_80
