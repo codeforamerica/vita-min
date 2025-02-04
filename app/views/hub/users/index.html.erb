@@ -75,11 +75,9 @@
   <script>
       document.addEventListener("DOMContentLoaded", function () {
           const button = document.getElementById("toggle-suspended-btn");
-          let hidden = false;
+          let hidden = localStorage.getItem("hideSuspended") === "true";
 
-          button.addEventListener("click", function () {
-              hidden = !hidden;
-
+          function applyFilter() {
               document.querySelectorAll(".user-row").forEach(row => {
                   if (row.dataset.suspended === "true") {
                       row.style.display = hidden ? "none" : "";
@@ -89,7 +87,30 @@
               button.textContent = hidden ? "Show Suspended Users" : "Hide Suspended Users";
               button.style.backgroundColor = hidden ? "black" : "white";
               button.style.color = hidden ? "white" : "black";
+          }
+
+          applyFilter();
+
+          button.addEventListener("click", function () {
+              hidden = !hidden;
+              localStorage.setItem("hideSuspended", hidden);
+              applyFilter();
           });
+
+          const observer = new MutationObserver(mutations => {
+              mutations.forEach(mutation => {
+                  mutation.addedNodes.forEach(node => {
+                      if (node.classList && node.classList.contains("user-row") && node.dataset.suspended === "true") {
+                          node.style.display = hidden ? "none" : "";
+                      }
+                  });
+              });
+          });
+
+          const userTable = document.querySelector("#users-table tbody");
+          if (userTable) {
+              observer.observe(userTable, { childList: true });
+          }
       });
   </script>
 <% end %>
