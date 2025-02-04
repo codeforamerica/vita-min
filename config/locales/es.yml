@@ -1618,12 +1618,20 @@ es:
         sms: Hola %{primary_first_name} - Este es un recordatorio de que %{state_name} rechazó su declaración de impuestos estatales. Podemos ayudarle a solucionarlo y volver a enviarlo en %{return_status_link}.Asegúrese de tomar medidas lo antes posible para evitar cargos por presentación tardía. FileYourStateTaxes cerrará sus servicios del año el 25 de abril. ¿Preguntas? Envíenos un correo electrónico a help@fileyourstatetaxes.org.
       rejected:
         email:
-          body: "Hola %{primary_first_name},\n\nLamentablemente, %{state_name} rechazó tu declaración de impuestos estatales. ¡No te preocupes! Podemos ayudarte a corregirla y volver a enviarla en <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.\n\n¿Preguntas? Responde a este correo electrónico.\n\nSaludos, \nEl equipo de FileYourStateTaxes\n"
-          subject: 'Actualización de FileYourStateTaxes: Declaración Estatal de %{state_name} Rechazada. Acción Necesaria.'
-        sms: |
-          Hola %{primary_first_name} - Lamentablemente, %{state_name} rechazó su declaración de impuestos estatales. ¡No te preocupes! Podemos ayudarle a solucionarlo y volver a enviarlo en %{return_status_link}.
+          body: |
+            Hola %{primary_first_name},
 
-          ¿Preguntas? Envíenos un correo electrónico a help@fileyourstatetaxes.org.
+            Lamentablemente, %{state_name} rechazó tu declaración de impuestos estatales. ¡No te preocupes! Podemos ayudarte a corregirla y volver a enviarla en <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.
+
+            ¿Necesitas ayuda? Responde a este correo electrónico.
+
+            Atentamente,
+            El equipo de FileYourStateTaxes
+          subject: 'Acción necesaria: La declaración de Impuestos Estatales de %{state_name}fue rechazada.'
+        sms: |
+          Hola %{primary_first_name} - Lamentablemente, %{state_name} rechazó su declaración de impuestos estatales. ¡No te preocupes! Podemos ayudarte a corregirla y volver a enviarla en %{return_status_link}.
+
+          ¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org.
       still_processing:
         email:
           body: |

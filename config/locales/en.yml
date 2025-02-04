@@ -1648,11 +1648,11 @@ en:
 
             Best,
             The FileYourStateTaxes team
-          subject: 'FileYourStateTaxes Update: %{state_name} State Return Rejected. Action Needed'
+          subject: 'Action Needed: %{state_name} State Return Rejected'
         sms: |
           Hi %{primary_first_name} - Unfortunately, %{state_name} rejected your state tax return. Don't worry! We can help you fix and resubmit it at %{return_status_link}.
 
-          Questions? Email us at help@fileyourstatetaxes.org.
+          Need help? Email us at help@fileyourstatetaxes.org.
       still_processing:
         email:
           body: |
