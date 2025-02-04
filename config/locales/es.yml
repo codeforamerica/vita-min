@@ -2497,8 +2497,8 @@ es:
           increased_excise_credit: Crédito por Aumento de Impuestos Especiales
           public_school_credit: Crédito Tributario para Escuelas Públicas de Arizona
         edit:
-          faq_link: Encuentra un desglose más detallado de los créditos y restas y otras situaciones no respaldadas este año aquí.
           credits_not_supported: "¿Qué restas, créditos y otras situaciones NO admite este servicio este año?"
+          faq_link: Encuentra un desglose más detallado de los créditos y restas y otras situaciones no respaldadas este año aquí.
           md_title2_html: |
             Asegurémonos de que este servicio es el indicado para ti.<br><br>
             Estas son las restas y los créditos <strong>que puedes </strong> reclamar para maximizar tu reembolso.
