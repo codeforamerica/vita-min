@@ -8,6 +8,15 @@ RSpec.describe VitaMinFormBuilder do
     template.extend ActionView::Helpers::FormTagHelper
     template.extend ActionView::Helpers::FormOptionsHelper
   end
+  let(:fake_model) do
+    FakeModel.new
+  end
+  let(:form_builder) { VitaMinFormBuilder.new("fake_model", fake_model, template, {}) }
+
+  class FakeModel < Cfa::Styleguide::FormExample
+    attr_accessor :money
+  end
+
 
   describe "#vita_min_searchbar" do
     it "defaults to an accessible html output" do
@@ -169,6 +178,85 @@ RSpec.describe VitaMinFormBuilder do
       element = doc.css('input').first
       expect(element.attribute('data-disable-with').text).to eq("Submit!")
       expect(element.attribute('data-existing-data')&.text).to eq("is retained")
+    end
+  end
+
+  # Modified from honeycrisp form builder spec
+  describe "#cfa_input_field" do
+    context "with a prefix" do
+      it "renders a v1 input field with a label that contains a span tag" do
+        class SampleForm < Cfa::Styleguide::FormExample
+          attr_accessor :money
+        end
+
+        form = SampleForm.new
+        form_builder = described_class.new("form", form, template, {})
+        output = form_builder.cfa_input_field(:money, "How much do you make?", prefix: "$")
+        expect(output).to be_html_safe
+        expect(output).to match_html <<-HTML
+        <div class="form-group">
+          <label for="form_money">
+            <span class="form-question">How much do you make?</span>
+          </label>
+          <div class="text-input-group-container">
+            <div class="text-input-group">
+              <div class="text-input-group__prefix">$</div>
+              <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="text" class="text-input" id="form_money" name="form[money]" />
+          </div>
+        </div>
+        HTML
+      end
+    end
+
+    context "without a prefix" do
+      it "renders a v2 input field with a label that contains a span tag" do
+        output = form_builder.cfa_input_field(:money, "How much do you make?", help_text: 'example@email.com', classes: ["form-width--long"], type: "email", options: { autocomplete: "email", required: true })
+        expect(output).to be_html_safe
+        expect(output).to match_html <<-HTML
+        <div class="form-group">
+          <label for="form_money">
+            <span class="form-question">How much do you make?</span>
+          </label>
+          <div class="text-input-group-container">
+            <div class="text-input-group">
+              <div class="text-input-group__prefix">$</div>
+              <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="text" class="text-input" id="form_money" name="form[money]" />
+          </div>
+        </div>
+        HTML
+      end
+
+      it "adds help text and error ids to aria-describedby" do
+        class SampleForm < Cfa::Styleguide::FormExample
+          attr_accessor :name
+          validates_presence_of :name
+        end
+  
+        form = SampleForm.new
+        form.validate
+  
+        form_builder = described_class.new("form", form, template, {})
+        output = form_builder.cfa_input_field(
+          :name,
+          "How is name?",
+          help_text: "Name is name",
+        )
+        expect(output).to be_html_safe
+        expect(output).to match_html <<-HTML
+        <div class="form-group form-group--error">
+          <div class="field_with_errors">
+            <label for="form_name">
+              <span class="form-question">How is name?</span>
+            </label>
+          </div>
+          <div class="text--help" id="name__help-text">Name is name</div>
+          <div class="field_with_errors">
+            <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="text" class="text-input" aria-describedby="name__help-text form_name__errors" id="form_name" name="form[name]" />
+          </div>
+          <span class="text--error" id="form_name__errors"><i class="icon-warning"></i> can't be blank </div>
+        </div>
+        HTML
+      end
     end
   end
 end

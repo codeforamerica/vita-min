@@ -535,6 +535,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     optional: false,
     prefix: nil
   )
+
     # These options do not exist in honeycrisp v2
     if prefix || options[:'data-mask']
       return v1_cfa_input_field(
