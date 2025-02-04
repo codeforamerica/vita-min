@@ -27,10 +27,6 @@ module SubmissionBuilder
 
             private
 
-            def code_letters
-              ["AB", "U"]
-            end
-
             def intake
               @submission.data_source
             end
