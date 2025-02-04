@@ -871,8 +871,6 @@ RSpec.describe Hub::ClientsController do
 
     it "redirects to hub client path" do
       patch :flag, params: params
-      puts "***************"
-      puts client.intake.product_year
       expect(response).to redirect_to(hub_client_path(id: client.id))
     end
 

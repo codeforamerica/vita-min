@@ -88,7 +88,7 @@ class Ability
     if user.role?(client_role_whitelist)
       can :read, Client, vita_partner: accessible_groups
       # can only edit/update Intakes from the current product year
-      can [:create, :update], Client, intake: { product_year: Rails.configuration.product_year }, vita_partner: accessible_groups
+      can [:create, :update, :flag, :edit_take_action, :update_take_action, :toggle_field, :unlock], Client, intake: { product_year: Rails.configuration.product_year }, vita_partner: accessible_groups
     end
 
     if user.greeter?
