@@ -22,9 +22,4 @@
   <% end %>
 
   <%= render 'state_file/questions/eligible/other_filing_options' %>
-
-  <% unless vita_link.present? %>
-    <p class="spacing-above-35"><%= link_to t("state_file.questions.eligible.vita_option.vita_link"), @vita_link %></p>
-    <p><%= link_to t("state_file.questions.eligible.faq_link"), state_faq_path(us_state: current_state_code) %></p>
-  <% end %>
 <% end %>
