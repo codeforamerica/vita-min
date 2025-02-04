@@ -175,8 +175,11 @@ RSpec.configure do |config|
     Seeder.load_fraud_indicators
   end
 
-  config.before(type: :feature) do |example|
+  config.before(:each, js: true) do |example|
     Capybara.page.current_window.resize_to(2000, 4000)
+  end
+
+  config.before(type: :feature) do |example|
 
     if config.filter.rules[:flow_explorer_screenshot]
       example.metadata[:js] = true
