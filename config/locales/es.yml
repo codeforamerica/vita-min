@@ -3916,7 +3916,7 @@ es:
           decline: Rechazar
           list_items_html: |
             <li>
-              <strong>Presentación de tu declaración fácil:</strong> FileYourStateTaxes es un servicio gratis y fácil de usar desarrollado por Code for America para ayudarte a declarar tus impuestos estatales, de manera conveniente, después de completar tu declaración de impuestos federales.
+              <strong>Presentación de tu declaración fácil:</strong> FileYourStateTaxes es un servicio gratis y fácil de usar desarrollado por %{ownership} para ayudarte a declarar tus impuestos estatales, de manera conveniente, después de completar tu declaración de impuestos federales.
             </li>
             <li>
               <strong>Transferencia de datos:</strong> Nos estás permitiendo usar los datos de tu declaración federal como punto de partida para tu declaración de impuestos estatales.
