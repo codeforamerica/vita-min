@@ -3,7 +3,13 @@ require 'rails_helper'
 describe Efile::Md::Md502RCalculator do
   let(:filing_status) { "single" }
   # df_data_2_w2s has $8000 in federal social security benefits
-  let(:intake) { create(:state_file_md_intake, :df_data_2_w2s, filing_status: filing_status) }
+  let(:intake) {
+    if filing_status == 'married_filing_jointly'
+      create(:state_file_md_intake, :df_data_2_w2s, :with_spouse, filing_status: filing_status)
+    else
+      create(:state_file_md_intake, :df_data_2_w2s, filing_status: filing_status)
+    end
+  }
   let(:main_calculator) do
     Efile::Md::Md502Calculator.new(
       year: MultiTenantService.statefile.current_tax_year,
@@ -143,6 +149,7 @@ describe Efile::Md::Md502RCalculator do
     context 'when filing MFJ with positive federal social security benefits' do
       let(:filing_status) { "married_filing_jointly" }
       before do
+        allow(intake.direct_file_data).to receive(:fed_ssb).and_return(100)
         intake.primary_ssb_amount = 600.32
         main_calculator.calculate
       end
@@ -154,7 +161,6 @@ describe Efile::Md::Md502RCalculator do
 
     context 'when filing MFJ without positive federal social security benefits' do
       let(:filing_status) { "married_filing_jointly" }
-      let(:intake) { create(:state_file_md_intake, filing_status: filing_status) }
 
       it 'returns primary social security benefits amount from the intake' do
         main_calculator.calculate
@@ -173,7 +179,9 @@ describe Efile::Md::Md502RCalculator do
   describe '#calculate_line_9b' do
     context 'when filing MFJ with positive federal social security benefits' do
       let(:filing_status) { "married_filing_jointly" }
+
       before do
+        allow(intake.direct_file_data).to receive(:fed_ssb).and_return(100)
         intake.spouse_ssb_amount = 400.34
         main_calculator.calculate
       end
