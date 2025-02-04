@@ -1684,14 +1684,14 @@ es:
           body: |
             Hola, %{primary_first_name}:
 
-            Lamentablemente, %{state_name} rechazó su declaración de impuestos estatales debido a un problema que no se puede resolver en nuestra herramienta. ¡No se preocupe! Podemos ayudarlo a brindarle orientación sobre los próximos pasos. Puede chatear con nosotros en %{return_status_link}.
+            Lamentablemente, %{state_name} ha rechazado tu declaración de impuestos estatal debido a un problema que no se puede resolver en nuestro servicio. ¡No te preocupes! Podemos darte orientación sobre los siguientes pasos. Chatea con nosotros en %{return_status_link}.
 
-            ¿Tiene preguntas? Responda a este correo electrónico.
+            ¿Necesitas ayuda? Responde a este correo.
 
             Atentamente,
             El equipo de FileYourStateTaxes
-          subject: 'Notificación de FileYourStateTaxes: La Declaración de Impuestos Estatales de %{state_name}  %{state_name}.'
-        sms: "Hola, %{primary_first_name}: Lamentablemente, %{state_name} rechazó tu declaración de impuestos estatales por un problema que no se puede resolver en nuestra herramienta. ¡No te preocupes! Podemos ayudarte a brindar orientación sobre los próximos pasos. Chatea con nosotros en %{return_status_link}. \n\n¿Tienes preguntas? Responde a este texto.\n"
+          subject: 'Declaración de impuestos estatales de %{state_name} rechazada'
+        sms: "Hola, %{primary_first_name}: Lamentablemente, %{state_name}ha rechazado tu declaración de impuestos estatales debido a un problema que no se puede resolver a través de nuestro servicio. ¡No te preocupes! Podemos darte orientación sobre los siguientes pasos. Chatea con nosotros en %{return_status_link}.\n\n¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org.\n"
       welcome:
         email:
           body: |
