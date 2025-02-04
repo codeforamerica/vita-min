@@ -1623,7 +1623,7 @@ es:
             Atentamente,
             El equipo de FileYourStateTaxes
           subject: "¡Toma acción en tu declaración estatal de %{state_name} rechazada!"
-        sms: Hola %{primary_first_name} - Este es un recordatorio de que %{state_name} rechazó su declaración de impuestos estatales. Podemos ayudarle a solucionarlo y volver a enviarlo en %{return_status_link}.Asegúrese de tomar medidas lo antes posible para evitar cargos por presentación tardía. FileYourStateTaxes cerrará sus servicios del año el 25 de abril. ¿Preguntas? Envíenos un correo electrónico a help@fileyourstatetaxes.org.
+        sms: Hola %{primary_first_name} - Este es un recordatorio de que %{state_name} rechazó su declaración de impuestos estatales. Podemos ayudarle a solucionarlo y volver a enviarlo en %{return_status_link}. Asegúrese de tomar medidas lo antes posible para evitar cargos por presentación tardía. FileYourStateTaxes cerrará sus servicios del año el 25 de abril. ¿Preguntas? Envíenos un correo electrónico a help@fileyourstatetaxes.org.
       rejected:
         email:
           body: |
