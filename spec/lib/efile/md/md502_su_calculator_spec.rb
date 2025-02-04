@@ -29,52 +29,10 @@ describe Efile::Md::Md502SuCalculator do
     end
   end
 
-  describe '#calculate_military_taxable_amount' do
-    let!(:intake) { create(:state_file_md_intake, :with_spouse) }
-    let!(:state_file_1099_r_without_followup) {
-      create(
-      :state_file1099_r,
-      taxable_amount: 1_000,
-      intake: intake)
-    }
-    let!(:state_file_md1099_r_followup_with_military_service_for_primary_1) do
-      create(
-        :state_file_md1099_r_followup,
-        service_type: "military",
-        state_file1099_r: create(:state_file1099_r, taxable_amount: 1_000, intake: intake, recipient_ssn: intake.primary.ssn)
-      )
-    end
-    let!(:state_file_md1099_r_followup_with_military_service_for_primary_2) do
-      create(
-        :state_file_md1099_r_followup,
-        service_type: "military",
-        state_file1099_r: create(:state_file1099_r, taxable_amount: 1_500, intake: intake, recipient_ssn: intake.primary.ssn)
-      )
-    end
-    let!(:state_file_md1099_r_followup_with_military_service_for_spouse) do
-      create(
-        :state_file_md1099_r_followup,
-        service_type: "military",
-        state_file1099_r: create(:state_file1099_r, taxable_amount: 2_000, intake: intake, recipient_ssn: intake.spouse.ssn)
-      )
-    end
-    let!(:state_file_md1099_r_followup_without_military) do
-      create(
-        :state_file_md1099_r_followup,
-        service_type: "none",
-        state_file1099_r: create(:state_file1099_r, taxable_amount: 1_000, intake: intake)
-      )
-    end
-    it "totals the military retirement income" do
-      expect(instance.calculate_military_taxable_amount(:primary)).to eq(2_500)
-      expect(instance.calculate_military_taxable_amount(:spouse)).to eq(2_000)
-    end
-  end
-
   describe "#calculate_military_per_filer" do
     context "when the taxable amount is higher than the age calculation" do
       before do
-        allow(instance).to receive(:calculate_military_taxable_amount).and_return 30_000
+        allow_any_instance_of(StateFileMdIntake).to receive(:sum_1099_r_followup_type_for_filer).and_return 30_000
         allow_any_instance_of(StateFileMdIntake).to receive(:is_filer_55_and_older?).and_return is_55_and_older
       end
 
@@ -97,7 +55,7 @@ describe Efile::Md::Md502SuCalculator do
 
     context "when the taxable amount is lower than the age calculation" do
       before do
-        allow(instance).to receive(:calculate_military_taxable_amount).and_return 10_000
+        allow_any_instance_of(StateFileMdIntake).to receive(:sum_1099_r_followup_type_for_filer).and_return 10_000
         allow_any_instance_of(StateFileMdIntake).to receive(:is_filer_55_and_older?).and_return false
       end
       it "returns the taxable amount" do

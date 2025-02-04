@@ -23,21 +23,9 @@ module Efile
         set_line(:MD502_SU_LINE_1, :calculate_line_1)
       end
 
-      # this will be replaced by arin's method
-      def calculate_military_taxable_amount(filer)
-        applicable_1099_rs = @intake.state_file1099_rs.where.not(state_specific_followup: nil)
-        applicable_1099_rs.sum do |state_file1099_r|
-          if state_file1099_r.recipient_ssn == @intake.send(filer).ssn && state_file1099_r.state_specific_followup.service_type_military?
-            state_file1099_r.taxable_amount
-          else
-            0
-          end
-        end
-      end
-
       def calculate_military_per_filer(filer)
         age_benefits = @intake.is_filer_55_and_older?(filer) ? 20_000 : 12_500
-        [calculate_military_taxable_amount(:primary), age_benefits].min
+        [@intake.sum_1099_r_followup_type_for_filer(:primary, :service_type_military?), age_benefits].min
       end
 
       def calculate_line_u_primary
