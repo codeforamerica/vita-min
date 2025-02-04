@@ -144,7 +144,7 @@ describe Efile::Md::Md502SuCalculator do
 
     it "sums the primary and spouse line u calculations" do
       instance.calculate
-      expect(instance.calculate_line_u).to eq(35_000)
+      expect(instance.lines[:MD502_SU_LINE_U].value).to eq(35_000)
     end
   end
 
