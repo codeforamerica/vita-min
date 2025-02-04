@@ -1604,7 +1604,7 @@ es:
           ¿Necesitar ayuda? Envíenos un correo electrónico a help@fileyourstatetaxes.org.
       pre_deadline_reminder:
         email:
-          body: "Hola %{primary_first_name}, \n\nAún no has presentado tu declaración de impuestos estatales. Asegúrate de presentar tus impuestos estatales antes del 15 de abril para evitar multas por presentación tardía de %{state_name}. \n\nVe a fileyourstatetaxes.org/es/us/login-options para terminarlos ahora.\n\n¿Necesitas ayuda? Responde a este mensaje de texto.\n\nAtentamente,\nEl equipo de FileYourStateTaxes\n"
+          body: "Hola %{primary_first_name}, \n\nTodavía no has enviado tu declaración de impuestos estatales. Recuerda que los impuestos estatales vencen el 15 de abril. Asegúrate de presentar tus impuestos estatales antes del 15 de abril para evitar multas por declarar tarde de %{state_name}.\n\nCompleta tu declaración ahora visitando www.fileyourstatetaxes.org/es/login-options\n\n¿Necesitas ayuda? Responde a este correo electrónico.\n\nAtentamente,\nEl equipo de FileYourStateTaxes\n"
           subject: Recuerda completar tu declaración de impuestos estatales
         sms: |
           Hola %{primary_first_name} - Aún no has enviado tu declaración de impuestos estatales. Asegúrate de presentar tus impuestos estatales antes del 15 de abril para evitar multas por declarar tarde. Ve a fileyourstatetaxes.org/es/us/login-options para completar tu delcaración ahora.
