@@ -2946,8 +2946,7 @@ es:
       income_review:
         edit:
           help_text: Te pediremos que ingreses la información que pueda faltar.
-          interest_income_body: No se necesita información estatal adicional.
-          interest_income_body_nj: No se necesita información adicional.
+          interest_income_body: No se necesita información adicional.
           interest_income_title: Ingresos por intereses (1099-INT)
           invalid_w2: Hay un problema con uno o más formularios W-2. Por favor revise y corrija antes de continuar.
           no_info_needed: No se necesita información estatal adicional

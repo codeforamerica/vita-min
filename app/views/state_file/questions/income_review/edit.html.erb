@@ -91,8 +91,7 @@
     <div class="white-group" id="form1099ints">
       <h2 class="text--body text--bold spacing-below-0"><%= t(".interest_income_title") %></h2>
       <p class="text--grey-bold spacing-above-15 spacing-below-0">
-        <% # i18n-tasks-use t("state_file.questions.income_review.edit.interest_income_body") # hint for the i18n linter that, yes, we are using this key (sometimes) %>
-        <%= t(".interest_income_body_#{current_state_code}", default: :'.interest_income_body') %>
+        <%= t('.interest_income_body') %>
       </p>
     </div>
   <% end %>

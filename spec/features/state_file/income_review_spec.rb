@@ -49,7 +49,7 @@ RSpec.feature "Income Review", active_job: true do
 
       within '#form1099ints' do
         expect(page).to have_text I18n.t("state_file.questions.income_review.edit.interest_income_title")
-        expect(page).to have_text I18n.t("state_file.questions.income_review.edit.interest_income_body_nj")
+        expect(page).to have_text I18n.t("state_file.questions.income_review.edit.interest_income_body")
       end
     end
 

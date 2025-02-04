@@ -2987,8 +2987,7 @@ en:
       income_review:
         edit:
           help_text: We will collect any missing information.
-          interest_income_body: No additional state information needed.
-          interest_income_body_nj: No additional information needed.
+          interest_income_body: No additional information needed.
           interest_income_title: Interest income (1099-INT)
           invalid_w2: There is an issue with one or more W-2 forms. Please review and correct before proceeding.
           no_info_needed: No additional state info needed
