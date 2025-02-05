@@ -6,9 +6,10 @@ module StateFile
       def self.show?(intake) # only accessed via button, not navigator
         false
       end
-      
+
       def edit
         @state_code = current_state_code
+        @w2.valid?(:state_file_edit)
       end
 
       def update
