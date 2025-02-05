@@ -12,7 +12,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
   context "NJ", :flow_explorer_screenshot, js: true do
 
-    def advance_to_start_of_intake(df_persona_name, check_a11y: false, expect_income_review: true)
+    def advance_to_start_of_intake(df_persona_name, check_a11y: false, expect_income_review: true, expect_success: true)
       visit "/"
       click_on "Start Test NJ"
 
@@ -42,7 +42,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to be_axe_clean if check_a11y
       click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
 
-      step_through_df_data_transfer("Transfer #{df_persona_name}")
+      step_through_df_data_transfer("Transfer #{df_persona_name}", expect_success)
 
       if expect_income_review
         expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
@@ -62,8 +62,6 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
     def advance_county_and_municipality(county = "Atlantic", municipality = "Atlantic City")
       select county
-      continue
-
       select municipality
       continue
     end
@@ -313,6 +311,24 @@ RSpec.feature "Completing a state file intake", active_job: true do
       check_xml_results
     end
 
+    it "shown offboarding when exempt interest over 10k" do
+      advance_to_start_of_intake("Exempt interest over 10k", expect_income_review: false, expect_success: false)
+
+      expect(page).to be_axe_clean
+      expect(page).to have_text I18n.t("state_file.questions.data_transfer_offboarding.edit.title")
+    end
+
+    it "shown offboarding when no health insurance" do
+      advance_to_start_of_intake("Superman mfj")
+
+      expect(page).to have_text I18n.t("state_file.questions.nj_eligibility_health_insurance.edit.title")
+      choose I18n.t("general.negative")
+      continue
+
+      expect(page).to be_axe_clean
+      expect(page).to have_text I18n.t("state_file.questions.eligibility_offboarding.edit.title.nj")
+    end
+
     it "handles property tax neither flow", required_schema: "nj" do
       advance_to_start_of_intake("Zeus one dep")
       advance_to_property_tax_page
@@ -522,6 +538,75 @@ RSpec.feature "Completing a state file intake", active_job: true do
         expect_ineligible_page(nil, "income_mfj_qss_hoh")
         expect_page_after_property_tax
       end
+    end
+
+    context "county / municipality screen" do
+
+      def expect_county_question_exists
+        expect(page).to have_text I18n.t("state_file.questions.nj_county_municipality.edit.county")
+      end
+
+      def expect_municipality_question_exists
+        expect(page).to have_text I18n.t("state_file.questions.nj_county_municipality.edit.municipality")
+      end
+
+      def expect_municipality_question_hidden
+        expect(page).not_to have_text I18n.t("state_file.questions.nj_county_municipality.edit.municipality")
+      end
+
+      it "does not show municipality selector unless county selected" do
+        advance_to_start_of_intake("Minimal", expect_income_review: false)
+
+        # land on county/municipality page
+        expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.nj_county_municipality.edit.title_html", filing_year: 2024))
+        expect_county_question_exists
+        expect_municipality_question_hidden
+
+        # select county
+        select "Atlantic"
+        expect_county_question_exists
+        expect_municipality_question_exists
+
+        # unselect county
+        within find('#county-question') do
+          select I18n.t('general.select_prompt')
+        end
+        expect_county_question_exists
+        expect_municipality_question_hidden
+      end
+
+      it "populates municipality selector based on county" do
+        advance_to_start_of_intake("Minimal", expect_income_review: false)
+
+        select "Atlantic"
+        within find('#municipality-question') do
+          expect(page.all("option").length).to eq(24) # 23 municipalities + 1 "- Select -"
+          expect(page).to have_text "Absecon City"
+          expect(page).to have_text "Atlantic City"
+          expect(page).to have_text "Egg Harbor City"
+          expect(page).to have_text "Weymouth Township"
+        end
+
+        select "Mercer"
+        within find('#municipality-question') do
+          expect(page.all("option").length).to eq(13) # 12 municipalities + 1 "- Select -"
+          expect(page).to have_text "East Windsor Township"
+          expect(page).to have_text "Hopewell Township"
+          expect(page).to have_text "West Windsor Township"
+        end
+      end
+
+      it "un-selects municipality when county changes" do
+        advance_to_start_of_intake("Minimal", expect_income_review: false)
+
+        select "Atlantic"
+        select "Absecon City"
+        expect(find("#state_file_nj_county_municipality_form_municipality_code").value).to eq("0101")
+
+        select "Mercer"
+        expect(find("#state_file_nj_county_municipality_form_municipality_code").value).to eq("")
+      end
+
     end
   end
 end
