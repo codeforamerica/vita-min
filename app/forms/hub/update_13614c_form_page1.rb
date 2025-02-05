@@ -125,6 +125,8 @@ module Hub
       modified_attributes[:receive_written_communication] ||= 'unfilled'
       modified_attributes[:savings_split_refund] ||= 'unfilled'
       modified_attributes[:register_to_vote] ||= 'unfilled'
+      modified_attributes[:primary_visa] ||= 'unfilled'
+      modified_attributes[:spouse_visa] ||= 'unfilled'
 
       @client.intake.update(modified_attributes)
       @client.touch(:last_13614c_update_at)
