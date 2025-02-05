@@ -1,0 +1,62 @@
+<%
+  title = t("state_file.questions.retirement_income_subtraction.title", state_name: current_state_name)
+  content_for :page_title, title
+%>
+
+<% content_for :card do %>
+  <h1 class="h2"><%= title %></h1>
+  <p><%= t(".subtitle") %></p>
+  <p><%= t("state_file.questions.retirement_income_subtraction.doc_1099r_label") %>: <b><%= @state_file_1099r.payer_name %></b></p>
+  <p><%= t("state_file.questions.retirement_income_subtraction.taxpayer_name_label") %>: <b><%= @state_file_1099r.recipient_name %></b></p>
+  <p><%= t("state_file.questions.retirement_income_subtraction.taxable_amount_label") %>: <b><%= number_to_currency(@state_file_1099r.taxable_amount, precision: 0) %></b>
+  </p>
+
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <div class="white-group">
+      <%= f.cfa_radio_set(
+            :income_source,
+            label_text: t("state_file.questions.retirement_income_subtraction.income_source_question"),
+            collection: [
+              {
+                value: :uniformed_services,
+                label: t(".uniformed_services"),
+              },
+              {
+                value: :pension_plan,
+                label: t(".pension_plan"),
+              },
+              { value: :other, label: t("state_file.questions.retirement_income_subtraction.none_apply") },
+            ],
+          ) %>
+    </div>
+
+    <div class="reveal">
+      <p>
+        <button class="reveal__button"><%= t('.which_pensions') %></button>
+      </p>
+      <div class="reveal__content">
+        <p class="text--bold"><%= t('.federal') %></p>
+        <ul class="list--bulleted">
+          <% t(".federal_bullet_points").each do |federal_bullet_point| %>
+            <li><%= federal_bullet_point %></li>
+          <% end %>
+        </ul>
+        <p class="text--bold"><%= t('.state_local') %></p>
+        <ul class="list--bulleted">
+          <% t(".state_local_bullet_points").each do |state_local_bullet_point| %>
+            <li><%= state_local_bullet_point %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+
+
+    <% if params[:return_to_review].present? %>
+      <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
+    <% end %>
+    <% if params[:index].present? %>
+      <%= hidden_field_tag "index", params[:index] %>
+    <% end %>
+    <%= f.continue %>
+  <% end %>
+<% end %>
