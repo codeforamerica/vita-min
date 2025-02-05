@@ -57,7 +57,7 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
       before do
         allow(subject).to receive(:next_path).and_return mock_next_path
       end
-      
+
       context "with W-2s having invalid Box 14 values" do
         let(:intake) { create(:state_file_nj_intake) }
         let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_ui_wf_swf: 200) }
@@ -65,7 +65,7 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
         it "does not proceed and renders edit with an alert" do
           post :update, params: params
           expect(response).to render_template(:edit)
-          expect(flash[:alert]).to eq I18n.t("state_file.questions.income_review.edit.invalid_w2")
+          expect(assigns(:invalid_income_form_error)).to eq I18n.t("state_file.questions.income_review.edit.invalid_income_form_error")
         end
 
         context "state is NC (i.e. w2s are not editable)" do
