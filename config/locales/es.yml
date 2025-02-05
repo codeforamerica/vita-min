@@ -4940,7 +4940,7 @@ es:
           subtitle: 'Los ingresos pueden venir de cualquiera de las siguientes fuentes:'
           title:
             many: "¿Usted y su cónyuge ganaron menos de en %{standard_deduction} en %{current_tax_year}?"
-            one: "¿Ganaste menos de %{standard_deduction}en %{current_tax_year}?"
+            one: "¿Ganaste menos de %{standard_deduction} en %{current_tax_year}?"
             other: "¿Usted y su cónyuge ganaron menos de %{standard_deduction} en %{current_tax_year}?"
         investment_income:
           help_text: En general, los ingresos por inversiones incluyen intereses, dividendos, ganancias de capital y distribuciones de fondos mutuos.
