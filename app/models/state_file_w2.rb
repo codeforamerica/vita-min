@@ -122,7 +122,7 @@ class StateFileW2 < ApplicationRecord
 
     xml_template = Nokogiri::XML(STATE_TAX_GRP_TEMPLATE)
     xml_template.at(:StateAbbreviationCd).content = state_code&.upcase
-    xml_template.at(:EmployerStateIdNum).content = employer_state_id_num
+    xml_template.at(:EmployerStateIdNum).content = employer_state_id_num.delete("\u00AD")
     xml_template.at(:StateWagesAmt).content = state_wages_amount&.round
     xml_template.at(:StateIncomeTaxAmt).content = state_income_tax_amount&.round
     xml_template.at(:LocalWagesAndTipsAmt).content = local_wages_and_tips_amount&.round
