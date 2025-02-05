@@ -9,5 +9,8 @@
       <li><%=t('.credits_for_rehabilitating') %></li>
       <li><%=t('.credits_carried') %></li>
     </ul>
+    <p>
+      <%= link_to t('state_file.questions.eligible.edit.faq_link'), state_faq_path(us_state: 'nc', locale: I18n.locale) %>
+    </p>
   </div>
 </div>

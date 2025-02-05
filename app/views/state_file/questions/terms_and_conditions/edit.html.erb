@@ -9,7 +9,7 @@
     <p>
       <%= t(".body_text_opener_html") %>
       <% @li_items.each do |item| %>
-        <%= content_tag(:li, raw(item)) %>
+        <%= raw(item) %>
       <% end %>
       <%= t(".body_text_closer_html", privacy_policy_link: state_file_privacy_policy_path) %>
     </p>
