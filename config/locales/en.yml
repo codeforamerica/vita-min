@@ -3253,8 +3253,6 @@ en:
           subtraction_indian_tribe: Subtraction for income of a member of an Indian tribe
           use_tax_amount: Amount of use tax
           use_tax_applied: Out-of-state purchases in %{filing_year} without paying sales tax
-        review_header:
-          unemployment_compensation: Unemployment Compensation
       nc_sales_use_tax:
         edit:
           calculated_use_tax: Enter calculated use tax
