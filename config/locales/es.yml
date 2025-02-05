@@ -2486,8 +2486,8 @@ es:
           id_child_tax_credit: Crédito Tributario de Idaho por Hijos
           id_grocery_credit: Crédito de Idaho por Compras de Alimentos
           interest_from_obligations: Resta de intereses de obligaciones del gobierno de los Estados Unidos
-          social_security_railroad_deduction: Deducciones de Seguridad Social y Beneficios de Jubilación Ferroviaria
           retirement_benefits_deduction: Deducciones por Beneficios de Jubilación
+          social_security_railroad_deduction: Deducciones de Seguridad Social y Beneficios de Jubilación Ferroviaria
         md_reveals:
           body1_html: |
             <ul>
@@ -2858,6 +2858,8 @@ es:
           you_example_months: Por ejemplo, si tuviste 2 situaciones en abril, eso cuenta como 1 mes.
       id_grocery_credit_review:
         edit:
+          body_p1: Esta cantidad de crédito será parte de tus cálculos fiscales finales. Si se te debe un reembolso de impuestos estatales, la cantidad del crédito aumentará tu reembolso final. Si debes impuestos, el crédito reducirá la cantidad que debes.
+          body_p2: Puedes revisar la cantidad  total de tu reembolso estatal de Idaho al final.
           donate_impact_content_p1: Tu decisión de donar es final una vez que envíes tu declaración de impuestos y no puede ser cambiada a través de una declaración enmendada.
           donate_impact_content_p2: El Fondo de Bienestar Cooperativo es un fondo fiduciario en el tesoro estatal y todo el dinero se destina a la asistencia pública y a fines de bienestar.
           donate_impact_heading: "¿Cómo afectará la donación de mi crédito a mi declaración de impuestos?"
@@ -2866,8 +2868,6 @@ es:
           title: Eres elegible para recibir $%{grocery_credit_amount} del crédito por compras de alimentos de Idaho!
           title_html: Eres elegible para recibir <strong>$%{grocery_credit_amount}</strong> del crédito por compras de alimentos de Idaho!"
           would_you_like_to_donate: "¿Te gustaría donar tu crédito completo al Fondo de Bienestar Cooperativo?"
-          body_p1: Esta cantidad de crédito será parte de tus cálculos fiscales finales. Si se te debe un reembolso de impuestos estatales, la cantidad del crédito aumentará tu reembolso final. Si debes impuestos, el crédito reducirá la cantidad que debes.
-          body_p2: Puedes revisar la cantidad  total de tu reembolso estatal de Idaho al final.
       id_health_insurance_premium:
         edit:
           amount_paid_helper_text: Cantidad total pagada en %{year}
@@ -2932,8 +2932,6 @@ es:
         edit:
           sales_tax_content: 'Impuesto sobre ventas: Este es un impuesto recaudado en el punto de venta cuando compras bienes dentro de tu estado.'
           sales_tax_title: "¿Qué son los impuestos sobre ventas?"
-          use_tax_title: "¿Qué son los impuestos sobre uso?"
-          use_tax_content: Si compras algo de otro estado (como compras en línea o en una tienda ubicada en otro estado) y no pagas el impuesto sobre ventas, generalmente se requiere que pagues el impuesto sobre uso a tu estado de residencia.
           sales_use_tax_helper_text: Ingrese el monto total
           subtitle_html: Esto incluye compras en línea donde <strong>no</strong> se aplicó el impuesto sobre ventas. Si hiciste alguna compra sin pagar impuestos sobre la venta, puede que debas el impuesto sobre el uso de esas compras. Te ayudaremos a saber la cantidad exacta.
           title:
@@ -2941,6 +2939,8 @@ es:
             one: "¿Hiciste alguna compra fuera del estado en %{year} sin pagar impuestos sobre ventas?"
             other: "¿Tú o tu cónyuge hiciste alguna compra fuera del estado en %{year} sin pagar impuestos sobre ventas?"
           unpaid_sales_use_tax_label_html: Ingresa la <b>cantidad total de compras</b> a las que no se les aplicaron impuestos sobre las ventas o el uso %{year}.
+          use_tax_content: Si compras algo de otro estado (como compras en línea o en una tienda ubicada en otro estado) y no pagas el impuesto sobre ventas, generalmente se requiere que pagues el impuesto sobre uso a tu estado de residencia.
+          use_tax_title: "¿Qué son los impuestos sobre uso?"
       id_spouse_state_id:
         id_spouse:
           encourage_sharing_html: Si tú y tu cónyuge tienen una licencia de conducir o una tarjeta de identificación emitida por el estado, por favor comparte la información que solicitamos de la misma. La declaración no será rechazada si no compartes una licencia de conducir o una identificación emitida por el estado.<br><br>Si compartes esta información, puede ayudar a que te identifiquen como el contribuyente.
