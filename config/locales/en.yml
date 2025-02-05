@@ -2665,13 +2665,13 @@ en:
             <li>Wounded Warrior Caregivers Credit</li>
         nj_supported:
           supported_credits_html: |
-            <li>New Jersey Earned Income Tax Credit (NJEITC)</li>
-            <li>New Jersey Child Tax Credit</li>
-            <li>New Jersey Child and Dependent Care Tax Credit</li>
-            <li>New Jersey Medical Expenses Deduction</li>
-            <li>Pension/Retirement and Other Retirement Income Exclusion</li>
-            <li>Credits for Excess Unemployment Insurance (UI) and Family Leave Insurance (FLI) Contributions</li>
-            <li>Property Tax Credit or Deduction</li>
+            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/eitc/eitcinfo.shtml">New Jersey Earned Income Tax Credit (NJEITC)</a></li>
+            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/individuals/childtaxcredit.shtml">New Jersey Child Tax Credit</a></li>
+            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/depcarecred.shtml">New Jersey Child and Dependent Care Tax Credit</a></li>
+            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/njit13.shtml#:~:text=Medical%20Expenses%0AYou,TAM%202011%2D14.">New Jersey Medical Expenses Deduction</a></li>
+            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/njit7.shtml">Pension/Retirement and Other Retirement Income Exclusion</a></li>
+            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/njit16.shtml">Credits for Excess Unemployment Insurance (UI) and Family Leave Insurance (FLI) Contributions</a></li>
+            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/njit35.shtml">Property Tax Credit or Deduction</a> (applicable to renters and homeowners)</li>
         ny_credits_unsupported:
           college_tuition_credit: College tuition credit or itemized deduction
           firefighter_ambulance_credit: Volunteer firefighters’ and ambulance workers’ credit
