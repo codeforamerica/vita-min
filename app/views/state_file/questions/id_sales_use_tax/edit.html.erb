@@ -21,7 +21,7 @@
       </div>
       <div class="question-with-follow-up__follow-up" id="sut-field">
         <div class="white-group">
-          <div class="spacing-below-15"><%= t(".unpaid_sales_use_tax_label_html") %></div>
+          <div class="spacing-below-15"><%= t(".unpaid_sales_use_tax_label_html", year: MultiTenantService.statefile.current_tax_year) %></div>
           <p class="text--help text--small spacing-below-0"><b><%= t(".sales_use_tax_helper_text") %></b></p>
           <%= f.vita_min_money_field(:total_purchase_amount, "", classes: ["form-width--long"]) %>
         </div>
@@ -30,6 +30,11 @@
       <div class="reveal">
         <p><button href="#" class="reveal__button"><%= t('.sales_tax_title') %></button></p>
         <div class="reveal__content"><%= t('.sales_tax_content') %></div>
+      </div>
+
+      <div class="reveal">
+        <p><button href="#" class="reveal__button"><%= t('.use_tax_title') %></button></p>
+        <div class="reveal__content"><%= t('.use_tax_content') %></div>
       </div>
     </div>
 
