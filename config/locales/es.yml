@@ -2567,6 +2567,7 @@ es:
                 </li>
               </ul>
             </p>
+          credits_not_supported: "¿Qué restas, créditos y otras situaciones NO admite este servicio este año?"
           title2: "¿Qué escenarios para reclamar el Crédito Tributario por Ingresos del Trabajo de Maryland y/o el Crédito Tributario por Hijos no admite este servicio?"
           title3: "¿Qué pasa si aún no puedo usar FileYourStateTaxes para mi situación concreta?"
         md_supported:
