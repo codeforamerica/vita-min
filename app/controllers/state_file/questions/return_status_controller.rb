@@ -31,7 +31,8 @@ module StateFile
         return nil unless return_status == 'rejected'
         # in the case that its in the notified_of_rejection or waiting state
         # we can't just grab the efile errors from the last transition
-        # order(id: :asc) is purely to ensure consistent last efile error is returned for test purposes
+        # order(id: :asc) is purely to ensure consistent last efile error is returned for test purposes,
+        # currently, we do not care which efile error is "last" and shown on the return-status page
         last_efile_errors = @submission_to_show&.efile_submission_transitions&.where(to_state: 'rejected')&.last&.efile_errors&.order(id: :asc)
 
         return nil if last_efile_errors.blank?
