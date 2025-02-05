@@ -2611,6 +2611,7 @@ en:
                 </li>
               </ul>
             </p>
+          credits_not_supported: What subtractions, credits, and other situations does this service NOT support this year?
           title2: What scenarios for claiming the Maryland Earned Income Tax Credit and/or Child Tax Credit aren't supported by this service?
           title3: What if I have a situation not yet supported by FileYourStateTaxes?
         md_supported:
@@ -2664,13 +2665,13 @@ en:
             <li>Wounded Warrior Caregivers Credit</li>
         nj_supported:
           supported_credits_html: |
-            <li>New Jersey Earned Income Tax Credit (NJEITC)</li>
-            <li>New Jersey Child Tax Credit</li>
-            <li>New Jersey Child and Dependent Care Tax Credit</li>
-            <li>New Jersey Medical Expenses Deduction</li>
-            <li>Pension/Retirement and Other Retirement Income Exclusion</li>
-            <li>Credits for Excess Unemployment Insurance (UI) and Family Leave Insurance (FLI) Contributions</li>
-            <li>Property Tax Credit or Deduction</li>
+            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/eitc/eitcinfo.shtml">New Jersey Earned Income Tax Credit (NJEITC)</a></li>
+            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/individuals/childtaxcredit.shtml">New Jersey Child Tax Credit</a></li>
+            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/depcarecred.shtml">New Jersey Child and Dependent Care Tax Credit</a></li>
+            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/njit13.shtml#:~:text=Medical%20Expenses%0AYou,TAM%202011%2D14.">New Jersey Medical Expenses Deduction</a></li>
+            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/njit7.shtml">Pension/Retirement and Other Retirement Income Exclusion</a></li>
+            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/njit16.shtml">Credits for Excess Unemployment Insurance (UI) and Family Leave Insurance (FLI) Contributions</a></li>
+            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/njit35.shtml">Property Tax Credit or Deduction</a> (applicable to renters and homeowners)</li>
         ny_credits_unsupported:
           college_tuition_credit: College tuition credit or itemized deduction
           firefighter_ambulance_credit: Volunteer firefighters’ and ambulance workers’ credit
@@ -2986,7 +2987,7 @@ en:
       income_review:
         edit:
           help_text: We will collect any missing information.
-          interest_income_body: No additional state info needed
+          interest_income_body: No additional information needed.
           interest_income_title: Interest income (1099-INT)
           invalid_w2: There is an issue with one or more W-2 forms. Please review and correct before proceeding.
           no_info_needed: No additional state info needed

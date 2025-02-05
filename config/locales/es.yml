@@ -2086,7 +2086,7 @@ es:
         <p>La mayoría de las personas que tienen seguro de salud tienen cobertura mínima esencial. "Cobertura mínima esencial" se refiere a cuánto cubre tu plan. Si tienes alguno de los siguientes, lo más probable es que lo tengas:</p>
         <ul>
           <li>Un plan a través de tu trabajo</li>
-          <li>Un plan comprado a través de <a href="https://nj.gov/getcoverednj/" target="_blank" rel="noopener nofollow">GetCoveredNJ</a></li>
+          <li>Un plan comprado a través de <a href="https://nj.gov/getcoverednj/espanol/" target="_blank" rel="noopener nofollow">GetCoveredNJ</a></li>
           <li>Medicare</li>
           <li>Medicaid (NJ FamilyCare)</li>
         </ul>
@@ -2567,6 +2567,7 @@ es:
                 </li>
               </ul>
             </p>
+          credits_not_supported: "¿Qué restas, créditos y otras situaciones NO admite este servicio este año?"
           title2: "¿Qué escenarios para reclamar el Crédito Tributario por Ingresos del Trabajo de Maryland y/o el Crédito Tributario por Hijos no admite este servicio?"
           title3: "¿Qué pasa si aún no puedo usar FileYourStateTaxes para mi situación concreta?"
         md_supported:
@@ -2620,13 +2621,13 @@ es:
             <li>Crédito para Cuidadores de Guerreros/Veteranos Heridos</li>
         nj_supported:
           supported_credits_html: |
-            <li>Crédito por Ingreso del Trabajo de New Jersey (NJEITC por las siglas en inglés)</li>
-            <li>Crédito por Hijos de New Jersey</li>
-            <li>Crédito por Cuidado de Menores y Dependientes de New Jersey</li>
-            <li>Deducción de Gastos Médicos</li>
-            <li>Exclusión de Pensión/Jubilación y Otros Ingresos de Jubilación</li>
-            <li>Créditos por Contribuciones Excedentes del Seguro de Desempleo (UI por las siglas en inglés) y del Seguro de Licencia Familiar (FLI por las siglas en inglés)</li>
-            <li>Crédito o Deducción de Impuestos sobre la Propiedad</li>
+            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/eitc/eitcinfo.shtml">Crédito por Ingreso del Trabajo de New Jersey (NJEITC por las siglas en inglés)</a></li>
+            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/individuals/childtaxcredit.shtml">Crédito por Hijos de New Jersey</a></li>
+            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/depcarecred.shtml">Crédito por Cuidado de Menores y Dependientes de New Jersey</a></li>
+            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/njit13.shtml#:~:text=Medical%20Expenses%0AYou,TAM%202011%2D14.">Deducción de Gastos Médicos</a></li>
+            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/njit7.shtml">Exclusión de Pensión/Jubilación y Otros Ingresos de Jubilación</a></li>
+            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/njit16.shtml">Créditos por Contribuciones Excedentes del Seguro de Desempleo (UI por las siglas en inglés) y del Seguro de Licencia Familiar (FLI por las siglas en inglés)</a></li>
+            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/njit35.shtml">Crédito o Deducción de Impuestos sobre la Propiedad</a> (aplicable para inquilinos/as y dueños/as)</li>
         ny_credits_unsupported:
           college_tuition_credit: College tuition credit or itemized deduction
           firefighter_ambulance_credit: Volunteer firefighters’ and ambulance workers’ credit
@@ -2945,7 +2946,7 @@ es:
       income_review:
         edit:
           help_text: Te pediremos que ingreses la información que pueda faltar.
-          interest_income_body: No se necesita información estatal adicional
+          interest_income_body: No se necesita información adicional.
           interest_income_title: Ingresos por intereses (1099-INT)
           invalid_w2: Hay un problema con uno o más formularios W-2. Por favor revise y corrija antes de continuar.
           no_info_needed: No se necesita información estatal adicional
@@ -3335,7 +3336,7 @@ es:
           coverage_heading: "¿Qué es el seguro de salud con cobertura mínima esencial?"
           label_html: |
             <p><strong>¿Tuvieron seguro de salud (<a href="https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml" target="_blank" rel="noopener noreferrer">con cobertura médica mínima esencial</a>) todos los meses de %{filing_year}, tú y todas las personas en tu hogar tributable?</strong><p>
-            <p><strong><em>Debes responder sí </em></strong>si todas las personas en tu hogar tuvieron un plan de seguro a través de un trabajo, compraron un plan de seguro a través de <a href="https://nj.gov/getcoverednj/" target="_blank" rel="noopener nofollow">GetCoveredNJ</a>, o tuvieron Medicare o Medicaid (NJ Family Care). También debes responder sí si tu cobertura está <a href="https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml" target="_blank" rel="noopener nofollow">en esta lista (link en inglés).</a></p>
+            <p><strong><em>Debes responder sí </em></strong>si todas las personas en tu hogar tuvieron un plan de seguro a través de un trabajo, compraron un plan de seguro a través de <a href="https://nj.gov/getcoverednj/espanol/" target="_blank" rel="noopener nofollow">GetCoveredNJ</a>, o tuvieron Medicare o Medicaid (NJ Family Care). También debes responder sí si tu cobertura está <a href="https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml" target="_blank" rel="noopener nofollow">en esta lista (link en inglés).</a></p>
             <p class="spacing-below-0"><strong><em>Debes responder no</em></strong> si tú o alguien en tu hogar solo tuvo plan de visión o dental independientes, cobertura de compensación laboral o un plan limitado a una enfermedad o dolencia específica.</p>
           tax_household_description_html: Un hogar tributable/fiscal te incluye a ti, tu cónyuge (si presentas una declaración conjunta) y a todas las personas que podrías reclamar como dependientes, aunque no lo hagas.
           tax_household_heading: "¿Qué se considera un hogar tributable/fiscal?"

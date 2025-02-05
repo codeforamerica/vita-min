@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>e2a3446e</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400002105</PrimarySSN>
+            <SpouseSSN>600002106</SpouseSSN>
+            <NameLine1Txt>PYTHAGORAS&lt;TRIANGLE&lt;&amp; E SPACEMAN</NameLine1Txt>
+            <PrimaryNameControlTxt>TRIA</PrimaryNameControlTxt>
+            <SpouseNameControlTxt>SPAC</SpouseNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>10 Phoenicia Place</AddressLine1Txt>
+                <CityNm>Phoenix</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>85201</ZIPCd>
+            </USAddress>
+            <PhoneNum>4805553456</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000210-536b-43b2-9da9-05fbe8c62bfb@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="3">
+        <IRS1040 documentId="IRS10400001">
+            <Form1040SRInd>X</Form1040SRInd>
+            <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <Primary65OrOlderInd>X</Primary65OrOlderInd>
+            <Spouse65OrOlderInd>X</Spouse65OrOlderInd>
+            <TotalBoxesCheckedCnt>2</TotalBoxesCheckedCnt>
+            <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
+            <DependentDetail>
+                <DependentFirstNm>Little</DependentFirstNm>
+                <DependentLastNm>Mathdude</DependentLastNm>
+                <DependentNameControlTxt>MATH</DependentNameControlTxt>
+                <DependentSSN>700002345</DependentSSN>
+                <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+                <EligibleForODCInd>X</EligibleForODCInd>
+            </DependentDetail>
+            <ChldWhoLivedWithYouCnt>1</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>3</TotalExemptionsCnt>
+            <PensionsAnnuitiesAmt>12500</PensionsAnnuitiesAmt>
+            <TotalTaxablePensionsAmt>15700</TotalTaxablePensionsAmt>
+            <TotalIncomeAmt>15700</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>15700</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>32300</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>32300</TotalDeductionsAmt>
+            <TaxableIncomeAmt>0</TaxableIncomeAmt>
+            <TaxAmt>0</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>0</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>0</TaxLessCreditsAmt>
+            <TotalTaxAmt>0</TotalTaxAmt>
+            <WithholdingTaxAmt>1500</WithholdingTaxAmt>
+            <TotalPaymentsAmt>1500</TotalPaymentsAmt>
+            <OverpaidAmt>1500</OverpaidAmt>
+            <RefundAmt>1500</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Triangler</PrimaryOccupationTxt>
+            <SpouseOccupationTxt>Geometer</SpouseOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1099R documentId="IRS1099R0001">
+            <PayerNameControlTxt>HYPO</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Hypotenuse Investments</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>1 A Squared Road</AddressLine1Txt>
+                <CityNm>Phoenix</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>85202</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>002424242</PayerEIN>
+            <RecipientSSN>400002105</RecipientSSN>
+            <RecipientNm>Pythagoras Triangle</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>10 Phoenicia Place</AddressLine1Txt>
+                <CityNm>Phoenix</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>85201</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>12500</GrossDistributionAmt>
+            <TaxableAmt>2200</TaxableAmt>
+            <FederalIncomeTaxWithheldAmt>500</FederalIncomeTaxWithheldAmt>
+            <F1099RDistributionCd>7</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <StateTaxWithheldAmt>100</StateTaxWithheldAmt>
+                    <PayerStateIdNum>345676543</PayerStateIdNum>
+                    <StateDistributionAmt>12500</StateDistributionAmt>
+                    <F1099RLocalTaxGrp/>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRS1099R documentId="IRS1099R0002">
+            <PayerNameControlTxt>DIME</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Dimensional Space Retirement</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>1 Greek St</AddressLine1Txt>
+                <CityNm>San Francisco</CityNm>
+                <StateAbbreviationCd>CA</StateAbbreviationCd>
+                <ZIPCd>94105</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>003535353</PayerEIN>
+            <RecipientSSN>600002106</RecipientSSN>
+            <RecipientNm>Euclid Spaceman</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>2 Recipient St</AddressLine1Txt>
+                <CityNm>New York</CityNm>
+                <StateAbbreviationCd>NY</StateAbbreviationCd>
+                <ZIPCd>10013</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>13500</GrossDistributionAmt>
+            <TaxableAmt>13500</TaxableAmt>
+            <FederalIncomeTaxWithheldAmt>1000</FederalIncomeTaxWithheldAmt>
+            <F1099RDistributionCd>7</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <StateTaxWithheldAmt>500</StateTaxWithheldAmt>
+                    <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                    <PayerStateIdNum>2345432</PayerStateIdNum>
+                    <StateDistributionAmt>13500</StateDistributionAmt>
+                    <F1099RLocalTaxGrp/>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+    </ReturnData>
+</Return>
