@@ -54,7 +54,6 @@ en:
     formats:
       default: "%-m/%-d/%Y"
       long: "%B %-d, %Y"
-      medium: "%-d de %B"
   devise:
     failure:
       invalid: Incorrect email or password. After 5 login attempts, accounts are locked.
