@@ -44,43 +44,43 @@
           </div>
         </div>
       <% end %>
-    </div>
 
-    <div class="<%= "question-with-follow-up__follow-up" if show_yes_no %>" id="contribution-details">
-      <div class="white-group">
-        <p class="form-question spacing-below-25"><%= t('state_file.questions.az_public_school_contributions.edit.additional_info') %></p>
-        <div class="form-group-tight">
-          <%= f.cfa_input_field(
-                :school_name,
-                t('state_file.questions.az_public_school_contributions.edit.school_name'),
-                classes: ["form-width--long"],
-                help_text: t("state_file.questions.az_public_school_contributions.edit.school_name_help_text")
-              ) %>
-          <%= f.cfa_input_field(:ctds_code, t('state_file.questions.az_public_school_contributions.edit.ctds_code'), classes: ["form-width--long"]) %>
-          <%= f.cfa_input_field(:district_name, t('state_file.questions.az_public_school_contributions.edit.district_name'), classes: ["form-width--long"]) %>
-          <%= f.vita_min_money_field(
-                :amount,
-                t('state_file.questions.az_public_school_contributions.edit.amount', year: current_tax_year),
-                classes: ["form-width--long"],
-                help_text: t("state_file.questions.az_public_school_contributions.edit.amount_help_text", count: current_intake.filer_count)
-              ) %>
-          <div class="date-select">
-            <%= f.cfa_date_select(
-                  :date_of_contribution,
-                  t("state_file.questions.az_public_school_contributions.edit.date_of_contribution", year: current_tax_year),
-                  options: {
-                    start_year: current_tax_year,
-                    end_year: current_tax_year,
-                  }
+      <div class="<%= "question-with-follow-up__follow-up" if show_yes_no %>" id="contribution-details">
+        <div class="white-group">
+          <p class="form-question spacing-below-25"><%= t('state_file.questions.az_public_school_contributions.edit.additional_info') %></p>
+          <div class="form-group-tight">
+            <%= f.cfa_input_field(
+                  :school_name,
+                  t('state_file.questions.az_public_school_contributions.edit.school_name'),
+                  classes: ["form-width--long"],
+                  help_text: t("state_file.questions.az_public_school_contributions.edit.school_name_help_text")
                 ) %>
+            <%= f.cfa_input_field(:ctds_code, t('state_file.questions.az_public_school_contributions.edit.ctds_code'), classes: ["form-width--long"]) %>
+            <%= f.cfa_input_field(:district_name, t('state_file.questions.az_public_school_contributions.edit.district_name'), classes: ["form-width--long"]) %>
+            <%= f.vita_min_money_field(
+                  :amount,
+                  t('state_file.questions.az_public_school_contributions.edit.amount', year: current_tax_year),
+                  classes: ["form-width--long"],
+                  help_text: t("state_file.questions.az_public_school_contributions.edit.amount_help_text", count: current_intake.filer_count)
+                ) %>
+            <div class="date-select">
+              <%= f.cfa_date_select(
+                    :date_of_contribution,
+                    t("state_file.questions.az_public_school_contributions.edit.date_of_contribution", year: current_tax_year),
+                    options: {
+                      start_year: current_tax_year,
+                      end_year: current_tax_year,
+                    }
+                  ) %>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="reveal">
-        <button class="reveal__button"><%= t(".school_details_question") %></button>
-        <div class="reveal__content">
-          <p><%= t(".school_details_answer_html") %></p>
+        <div class="reveal">
+          <button class="reveal__button"><%= t(".school_details_question") %></button>
+          <div class="reveal__content">
+            <p><%= t(".school_details_answer_html") %></p>
+          </div>
         </div>
       </div>
     </div>
