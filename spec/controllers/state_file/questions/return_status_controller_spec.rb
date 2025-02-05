@@ -379,10 +379,8 @@ RSpec.describe StateFile::Questions::ReturnStatusController do
             end
           end
 
-          context "with NCD400-1100 and NCD400-1080 errors" do
+          context "specified error-shown edge cases" do
             let(:rejected_transition) { efile_submission.efile_submission_transitions.where(to_state: 'rejected').last }
-            let(:main_efile_error) { create :efile_error, code: "NCD400-1100", service_type: :state_file_nc, expose: true, auto_wait: true }
-            let(:related_efile_error) { create :efile_error, code: "NCD400-1080", service_type: :state_file_nc, expose: true, auto_wait: true }
             let!(:transition_error) {
               create :efile_submission_transition_error,
                      efile_error: main_efile_error,
@@ -396,42 +394,34 @@ RSpec.describe StateFile::Questions::ReturnStatusController do
                      efile_submission_id: efile_submission.id
             }
 
-            it "should show the NCD400-1100 even though NCD400-1080 is the last error" do
-              get :edit
-              expect(response.body).to include main_efile_error.code
-              expect(response.body).not_to include related_efile_error.code
+            context "with NCD400-1100 and NCD400-1080 errors" do
+              let(:main_efile_error) { create :efile_error, code: "NCD400-1100", service_type: :state_file_nc, expose: true, auto_wait: true }
+              let(:related_efile_error) { create :efile_error, code: "NCD400-1080", service_type: :state_file_nc, expose: true, auto_wait: true }
+
+              it "should show the NCD400-1100 even though NCD400-1080 is the last error" do
+                get :edit
+                expect(response.body).to include main_efile_error.code
+                expect(response.body).not_to include related_efile_error.code
+              end
             end
-          end
 
-          context "with Form502-01550-010 and related errors" do
-            let(:rejected_transition) { efile_submission.efile_submission_transitions.where(to_state: 'rejected').last }
-            let(:main_efile_error) { create :efile_error, code: "Form502-01150-010", service_type: :state_file_md, expose: true, auto_wait: true }
-            let(:related_efile_error) { create :efile_error, code: "Form502-01230-005", service_type: :state_file_md, expose: true, auto_wait: true }
-            let(:related_efile_error_2) { create :efile_error, code: "Form502-01150-005", service_type: :state_file_md, expose: true, auto_wait: true }
-            let!(:transition_error) {
-              create :efile_submission_transition_error,
-                     efile_error: main_efile_error,
-                     efile_submission_transition: rejected_transition,
-                     efile_submission_id: efile_submission.id
-            }
-            let!(:related_transition_error) {
-              create :efile_submission_transition_error,
-                     efile_error: related_efile_error,
-                     efile_submission_transition: rejected_transition,
-                     efile_submission_id: efile_submission.id
-            }
-            let!(:related_transition_error_2) {
-              create :efile_submission_transition_error,
-                     efile_error: related_efile_error_2,
-                     efile_submission_transition: rejected_transition,
-                     efile_submission_id: efile_submission.id
-            }
+            context "with Form502-01550-010 and related errors" do
+              let(:main_efile_error) { create :efile_error, code: "Form502-01150-010", service_type: :state_file_md, expose: true, auto_wait: true }
+              let(:related_efile_error) { create :efile_error, code: "Form502-01230-005", service_type: :state_file_md, expose: true, auto_wait: true }
+              let(:related_efile_error_2) { create :efile_error, code: "Form502-01150-005", service_type: :state_file_md, expose: true, auto_wait: true }
+              let!(:related_transition_error_2) {
+                create :efile_submission_transition_error,
+                       efile_error: related_efile_error_2,
+                       efile_submission_transition: rejected_transition,
+                       efile_submission_id: efile_submission.id
+              }
 
-            it "should show the NCD400-1100 even though NCD400-1080 is the last error" do
-              get :edit
-              expect(response.body).to include main_efile_error.code
-              expect(response.body).not_to include related_efile_error.code
-              expect(response.body).not_to include related_efile_error_2.code
+              it "should show the NCD400-1100 even though NCD400-1080 is the last error" do
+                get :edit
+                expect(response.body).to include main_efile_error.code
+                expect(response.body).not_to include related_efile_error.code
+                expect(response.body).not_to include related_efile_error_2.code
+              end
             end
           end
         end
