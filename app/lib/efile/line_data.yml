@@ -956,6 +956,8 @@ NJ1040_LINE_78:
   label: '78 Total Adjustments to Tax Due/Overpayment amount (Add lines 69 through 77)'
 NJ1040_LINE_79:
   label: '79 Balance due (If line 67 is more than zero, add line 67 and line 78)'
+NJ1040_LINE_79_CHECKBOX:
+  label: 'Fill in if paying by e-check or credit card'
 NJ1040_LINE_80:
   label: '80 Refund amount (If line 68 is more than zero, subtract line 78 from line 68)'
 NJ2450_COLUMN_A_TOTAL_PRIMARY:
