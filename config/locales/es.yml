@@ -1590,18 +1590,18 @@ es:
           body: |-
             Hola %{primary_first_name},
 
-            Notamos que todavía no has enviado tu declaración de impuestos estatales con la cuenta asociada a este correo electrónico. Si enviaste tu declaración estatal de otra manera, o la enviaste con otro correo electrónico, puedes ignorar este mensaje.
+            Aún no has enviado tu declaración de impuestos estatales. Te recordamos que el plazo para completar los impuestos estatales venció el 15 de abril. Asegúrate de enviar tu declaración de impuestos estatales lo antes posible para evitar multas por declarar tarde de %{state_name}.
 
-            Este es un recordatorio que la fecha límite para enviar tu declaración estatal fue el 15 de abril, pero aún no es demasiado tarde para presentarla. Visita a https://www.fileyourstatetaxes.org/es/us/login-options para verificar el estado de tu declaración o completarla ahora. Debes enviar tu declaración tan pronto como posible para evitar cargos de presentaciones tardías de %{state_name}. Nuestros servicios cerrarán el 25 de abril. Después de esa fecha, ya no podrás presentar tu declaración a través de FileYourStateTaxes.
+            Visita https://www.fileyourstatetaxes.org/en/us/login-options para completar tu declaración ahora.
 
-            ¿Preguntas? Responde a este correo electrónico.
+            ¿Necesitas ayuda? Responde a este correo electrónico.
 
             Atentamente,
             El equipo de FileYourStateTaxes
-          subject: 'Recordatorio final: FileYourStateTaxes cerrará el 25 de abril.'
+          subject: 'Recuerda completar tu declaración de impuestos estatales lo antes posible'
         sms: |
-          Hola %{primary_first_name} - Aún no ha presentado su declaración de impuestos estatales. Asegúrese de presentar sus impuestos estatales lo antes posible para evitar cargos por presentación tardía. Vaya a fileyourstatetaxes.org/es/us/login-options para finalizarlos ahora. FileYourStateTaxes cerrará sus servicios del año el 25 de abril.
-          ¿Necesitar ayuda? Envíenos un correo electrónico a help@fileyourstatetaxes.org.
+          Hola %{primary_first_name} - Aún no has enviado tu declaración de impuestos estatales. Asegúrate de presentar tus impuestos estatales lo antes posible para evitar multas por declarar tarde. Ve a fileyourstatetaxes.org/es/us/login-options para completar tu declaración ahora.
+          ¿Necesitar ayuda? Envíanos un email a help@fileyourstatetaxes.org.
       pre_deadline_reminder:
         email:
           body: "Hola %{primary_first_name}, \n\nTodavía no has enviado tu declaración de impuestos estatales. Recuerda que los impuestos estatales vencen el 15 de abril. Asegúrate de presentar tus impuestos estatales antes del 15 de abril para evitar multas por declarar tarde de %{state_name}.\n\nCompleta tu declaración ahora visitando www.fileyourstatetaxes.org/es/login-options\n\n¿Necesitas ayuda? Responde a este correo electrónico.\n\nAtentamente,\nEl equipo de FileYourStateTaxes\n"
