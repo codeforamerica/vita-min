@@ -147,6 +147,16 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400, required_schema
         expect(xml.document.at('MFSSpouseName LastName')&.text).to eq "Spouse"
         expect(xml.document.at('MFSSpouseSSN')&.text).to eq "111100030"
       end
+
+      context "filer has spouse with NRA status" do
+        before do
+          intake.direct_file_data.non_resident_alien = "NRA"
+        end
+
+        it 'does not fill out spouse ssn' do
+          expect(xml.document.at('MFSSpouseSSN')).to be_nil
+        end
+      end
     end
 
     context "hoh filers" do

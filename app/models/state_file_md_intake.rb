@@ -68,6 +68,7 @@
 #  primary_ssn                                :string
 #  primary_student_loan_interest_ded_amount   :decimal(12, 2)   default(0.0), not null
 #  primary_suffix                             :string
+#  proof_of_disability_submitted              :integer          default("unfilled"), not null
 #  raw_direct_file_data                       :text
 #  raw_direct_file_intake_data                :jsonb
 #  referrer                                   :string
@@ -129,6 +130,7 @@ class StateFileMdIntake < StateFileBaseIntake
   enum has_joint_account_holder: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_joint_account_holder
   enum primary_disabled: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_disabled
   enum spouse_disabled: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_disabled
+  enum proof_of_disability_submitted: { unfilled: 0, yes: 1, no: 2 }, _prefix: :proof_of_disability_submitted
 
   def disqualifying_df_data_reason
     w2_states = direct_file_data.parsed_xml.css('W2StateLocalTaxGrp W2StateTaxGrp StateAbbreviationCd')
@@ -206,6 +208,22 @@ class StateFileMdIntake < StateFileBaseIntake
     else
       apt = self.permanent_apartment.present? ? " #{self.permanent_apartment}" : ""
       "#{self.permanent_street}#{apt}, #{self.permanent_city} MD, #{self.permanent_zip}"
+    end
+  end
+
+  def filer_1099_rs(primary_or_spouse)
+    state_file1099_rs.filter do |state_file_1099_r|
+      state_file_1099_r.recipient_ssn == send(primary_or_spouse).ssn
+    end
+  end
+
+  def sum_1099_r_followup_type_for_filer(filer_1099_rs, followup_type)
+    filer_1099_rs.sum do |state_file_1099_r|
+      if state_file_1099_r.state_specific_followup&.send(followup_type)
+        state_file_1099_r.taxable_amount&.round
+      else
+        0
+      end
     end
   end
 

@@ -252,6 +252,10 @@ class StateFileBaseIntake < ApplicationRecord
     false
   end
 
+  def check_nra_status?
+    false
+  end
+
   def ask_spouse_esign?
     filing_status_mfj? && !spouse_deceased?
   end
@@ -261,10 +265,6 @@ class StateFileBaseIntake < ApplicationRecord
   end
 
   def validate_state_specific_w2_requirements(w2)
-    w2_xml = direct_file_data.w2s[w2.w2_index]
-    if w2_xml.present? && w2.state_wages_amount.present? && w2.state_wages_amount > w2_xml.WagesAmt
-      w2.errors.add(:state_wages_amount, I18n.t("state_file.questions.w2.edit.state_wages_exceed_amt_error", wages_amount: w2_xml.WagesAmt))
-    end
   end
 
   def validate_state_specific_1099_g_requirements(state_file1099_g)

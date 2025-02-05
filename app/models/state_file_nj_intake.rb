@@ -197,10 +197,12 @@ class StateFileNjIntake < StateFileBaseIntake
     }
   end
 
-  def validate_state_specific_w2_requirements(w2); end
-
   def ask_for_signature_pin?
     false
+  end
+
+  def check_nra_status?
+    true
   end
 
   def medical_expenses_threshold

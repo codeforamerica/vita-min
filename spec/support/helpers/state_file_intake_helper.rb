@@ -43,7 +43,6 @@ module StateFileIntakeHelper
       expect(page).to have_text I18n.t("state_file.questions.eligible.id_credits_unsupported.education_contribution_credit")
       expect(page).to have_text I18n.t("state_file.questions.eligible.id_credits_unsupported.itemized_deductions")
       expect(page).to have_text I18n.t("state_file.questions.eligible.id_credits_unsupported.dependents_not_claimed_fed_return")
-      expect(page).to have_text I18n.t("state_file.questions.eligible.id_credits_unsupported.voluntary_donations")
       expect(page).to have_text I18n.t("state_file.questions.eligible.id_credits_unsupported.change_in_filing_status")
     when "md"
       expect(page).to have_text I18n.t("state_file.questions.md_eligibility_filing_status.edit.title", year: filing_year)
@@ -56,7 +55,7 @@ module StateFileIntakeHelper
       click_on I18n.t("general.continue")
     when "nc"
       expect(page).to have_text I18n.t("state_file.questions.nc_eligibility.edit.title", filing_year: filing_year)
-      check "state_file_nc_eligibility_form_nc_eligiblity_none"
+      check I18n.t("state_file.questions.nc_eligibility.edit.none")
       click_on I18n.t("general.continue")
     when "nj"
       click_on I18n.t("general.continue")
@@ -107,7 +106,7 @@ module StateFileIntakeHelper
     click_on "Continue"
   end
 
-  def step_through_df_data_transfer(sample_name = "Transfer my #{filing_year} federal tax return to FileYourStateTaxes")
+  def step_through_df_data_transfer(sample_name = "Transfer my #{filing_year} federal tax return to FileYourStateTaxes", expect_success = true)
     expect(page).to have_text I18n.t('state_file.questions.initiate_data_transfer.edit.title')
     click_on I18n.t('state_file.questions.initiate_data_transfer.data_transfer_buttons.from_fake_df_page')
 
@@ -123,7 +122,7 @@ module StateFileIntakeHelper
     unless Capybara.current_driver == Capybara.javascript_driver
       find_link("HIDDEN BUTTON", visible: :any).click
     end
-    click_on I18n.t("general.continue")
+    click_on I18n.t("general.continue") if expect_success
   end
 
   def assert_flow_explorer_sample_params_includes_everything(us_state)

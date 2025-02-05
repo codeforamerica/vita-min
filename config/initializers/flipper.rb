@@ -11,6 +11,7 @@ begin
   Flipper.disable :show_retirement_ui unless Flipper.exist?(:show_retirement_ui)
   Flipper.disable :sms_notifications unless Flipper.exist?(:sms_notifications)
   Flipper.disable :hub_dashboard unless Flipper.exist?(:hub_dashboard)
+  Flipper.disable :get_your_pdf unless Flipper.exist?(:get_your_pdf)
   if Rails.env.heroku? || Rails.env.demo?
     Flipper.disable :prevent_duplicate_accepted_statefile_submissions unless Flipper.exist?(:prevent_duplicate_accepted_statefile_submissions)
   else

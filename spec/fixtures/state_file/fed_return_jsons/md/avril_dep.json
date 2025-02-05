@@ -1,0 +1,29 @@
+{
+  "familyAndHousehold": [],
+  "filers": [
+    {
+      "lastName": "Complicated",
+      "dateOfBirth": "1995-01-01",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "firstName": "Avril",
+      "middleInitial": "L",
+      "educatorExpenses": "0.00",
+      "tin": "400-00-1234",
+      "interestReportsTotal": "0.00",
+      "isDisabled": false,
+      "form1099GsTotal": "0.00",
+      "isStudent": false,
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [
+    {
+      "usedTin": "400-00-1234",
+      "unionDuesAmount": null
+    }
+  ],
+  "interestReports": []
+}

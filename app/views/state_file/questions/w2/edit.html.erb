@@ -31,8 +31,8 @@
                   ) %>
                   <%= t(".box14_#{code['name'].downcase}_help_text", year: MultiTenantService.statefile.current_tax_year, default: nil) %>
             </div>
-          </fieldset>
-        <% end %>
+          <% end %>
+        </fieldset>
       <% end %>
       <div class="form-question spacing-below-25">
         <%= f.cfa_input_field(:employer_state_id_num, t(".box15_html"), classes: ["form-width--long"]) %>

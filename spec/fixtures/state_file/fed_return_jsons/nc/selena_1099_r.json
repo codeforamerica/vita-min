@@ -1,0 +1,24 @@
+{
+  "familyAndHousehold": [],
+  "filers": [
+    {
+      "lastName": "Kyle",
+      "dateOfBirth": "1942-01-13",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "firstName": "Selena",
+      "middleInitial": "J",
+      "educatorExpenses": "0.00",
+      "tin": "344-00-7788",
+      "interestReportsTotal": "0.00",
+      "isDisabled": false,
+      "form1099GsTotal": "0.00",
+      "isStudent": false,
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [],
+  "interestReports": []
+}

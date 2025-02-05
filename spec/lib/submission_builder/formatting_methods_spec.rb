@@ -146,6 +146,30 @@ describe SubmissionBuilder::FormattingMethods do
     end
   end
 
+  describe "#sanitize_middle_initial" do
+    let(:middle_initial) { nil }
+
+    it "should return nil if middle_initial is not present" do
+      expect(dummy_class.sanitize_middle_initial(middle_initial)).to be_nil
+    end
+
+    context "with bad middle initial" do
+      let(:middle_initial) { "-" }
+
+      it "should remove unaccepted character" do
+        expect(dummy_class.sanitize_middle_initial(middle_initial)).to eq("")
+      end
+    end
+
+    context "with preceding unaccepted characters before an acceptable character" do
+      let(:middle_initial) { " -0 A B" }
+
+      it "should remove unaccepted character and return the first acceptable character" do
+        expect(dummy_class.sanitize_middle_initial(middle_initial)).to eq("A")
+      end
+    end
+  end
+
   describe "#truncate" do
     include SubmissionBuilder::FormattingMethods
     it "doesn't affect valid strings" do

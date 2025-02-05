@@ -178,7 +178,7 @@ module PdfFiller
 
     def full_names_of_bank_account_holders
       intake = @submission.data_source
-      return nil unless intake.payment_or_deposit_type.to_sym == :direct_deposit
+      return nil unless intake.payment_or_deposit_type.to_sym == :direct_deposit && intake.refund_or_owe_taxes_type == :refund
 
       if intake.has_joint_account_holder_yes?
         account_holder_full_name + " and " + account_holder_full_name(for_joint: true)
@@ -191,6 +191,8 @@ module PdfFiller
       attributes = %w[FirstName MiddleInitial LastName NameSuffix]
       account_holder_xmls = @xml_document.css('Form502 NameOnBankAccount')
       account_holder_xml = for_joint ? account_holder_xmls[1] : account_holder_xmls[0]
+      return if account_holder_xml.nil?
+
       attributes.map { |attr| account_holder_xml.at(attr)&.text }.filter_map(&:presence).join(" ")
     end
 

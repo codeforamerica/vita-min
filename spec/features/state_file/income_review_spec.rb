@@ -1,4 +1,6 @@
 require "rails_helper"
+require 'axe-capybara'
+require 'axe-rspec'
 
 RSpec.feature "Income Review", active_job: true do
   include StateFileIntakeHelper
@@ -7,7 +9,7 @@ RSpec.feature "Income Review", active_job: true do
     allow_any_instance_of(Routes::StateFileDomain).to receive(:matches?).and_return(true)
   end
 
-  context "NJ", :flow_explorer_screenshot, required_schema: "nj", js: true do
+  context "NJ", :flow_explorer_screenshot, js: true, required_schema: "nj" do
     def advance_to_data_transfer
       visit "/"
       click_on "Start Test NJ"
@@ -47,13 +49,14 @@ RSpec.feature "Income Review", active_job: true do
 
       within '#form1099ints' do
         expect(page).to have_text I18n.t("state_file.questions.income_review.edit.interest_income_title")
-        expect(page).to have_text I18n.t("state_file.questions.income_review.edit.no_info_needed")
+        expect(page).to have_text I18n.t("state_file.questions.income_review.edit.interest_income_body")
       end
     end
 
     it "displays w2 info on edit screen" do
       advance_to_income_edit
 
+      expect(page).to be_axe_clean
       expect(page).to have_css(".progress-steps")
       expect(page).to have_field('state_file_w2_box14_ui_wf_swf', with: '180.0')
       expect(page).to have_field('state_file_w2_box14_fli', with: '145.0')
