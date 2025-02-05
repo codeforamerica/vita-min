@@ -528,6 +528,9 @@ es:
     organization_lead: Líder de organización
     organizations: Organizaciones
     other_options: Intente otra opción de declaración gratis
+    owner:
+      default: Code for America
+      nj: Code for America y la Oficina de Innovación de New Jersey
     partner: Socio
     password: Contraseña
     phone: Teléfono
@@ -3945,8 +3948,50 @@ es:
             <strong>Cuando usas el servicio FileYourStateTaxes, te estás comprometiendo a lo siguiente:</strong><br>
             <ul class="list--numbered">
           decline: Rechazar
-          list_items_html: <strong>Presentación de tu declaración fácil:</strong> FileYourStateTaxes es un servicio gratis y fácil de usar desarrollado por Code for America para ayudarte a declarar tus impuestos estatales, de manera conveniente, después de completar tu declaración de impuestos federales.</li><strong>Transferencia de datos:</strong> Nos estás permitiendo usar los datos de tu declaración federal como punto de partida para tu declaración de impuestos estatales.</li><strong>Preguntas para mayor precisión:</strong> Es posible que te hagamos algunas preguntas adicionales para asegurarnos que tu declaración de impuestos estatales quede completa y precisa.</li><strong>Presentación electrónica modernizada:</strong>  Enviaremos tu declaración de impuestos estatal y una copia de tu declaración de impuestos federal utilizando el sistema de Presentación Electrónica Modernizada (MeF por sus siglas en inglés), que la vincula a tu declaración federal.</li><strong>Tu responsabilidad:</strong> Eres responsable de asegurar que la información que proporciones sea precisa y que estás cumpliendo con todas las leyes federales y estatales cuando usas FileYourStateTaxes.</li><strong>Sin garantías:</strong> Hacemos nuestro mejor esfuerzo pero no podemos garantizar la exactitud o el éxito de tu declaración de impuestos estatales cuando utilizas FileYourStateTaxes.</li><strong>Privacidad y seguridad:</strong> La protección de tu privacidad y tus datos es importante para nosotros. Consulta nuestra <a href="%{privacy_policy_link}" target="_blank" rel="noopener nofollow">Política de Privacidad</a> para obtener más información.</li><strong>Mantente informado:</strong> Te enviaremos actualizaciones sobre tu declaración de impuestos estatales a través de tu método de comunicación preferido, ya sea por mensaje de texto o correo electrónico. Esto incluye actualizaciones de estado, recordatorios e información importante.</li><strong>Tu elección:</strong> Puedes cambiar tu método de comunicación preferido o escoger no recibir actualizaciones en cualquier momento siguiendo las instrucciones en los mensajes o a través de la configuración de tu cuenta.</li><strong>Eliminación de datos:</strong> Tienes derecho a pedirnos que eliminemos tus datos personales e información relacionada con tus impuestos de FileYourStateTaxes en cualquier momento. Simplemente envíanos un correo electrónico a help@fileyourtaxes.org. Pero ten en cuenta que esto podría afectar tu acceso al servicio.</li><strong>Enlaces a sitios de terceros:</strong> Los enlaces en el software te permitirán salir de FileYourStateTaxes. Los sitios vinculados no están bajo el control de FileYourStateTaxes y FileYourStateTaxes no es responsable del contenido de ningún sitio vinculado ni de ningún enlace contenido en un sitio vinculado, ni de cambios o actualizaciones en dichos sitios. FileYourStateTaxes proporciona estos enlaces sólo como una conveniencia, y la inclusión de cualquier enlace no implica respaldo por parte de FileYourStateTaxes del sitio.</li><strong>Ley Aplicable:</strong> Este acuerdo se regirá y se interpretará de acuerdo con las leyes del estado de California.</li><strong>Preguntas e inquietudes:</strong> Si tienes alguna pregunta o inquietud sobre estos términos, no dudes en contactarnos en <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.</li>
-          list_items_no_sms_html: "<strong>Mantente informado:</strong> Te enviaremos actualizaciones sobre tu declaración de impuestos estatales a través de tu método de comunicación preferido, ya sea por mensaje de texto o correo electrónico. Esto incluye actualizaciones de estado, recordatorios e información importante.</li>\n"
+          list_items_html: |
+            <li>
+              <strong>Presentación de tu declaración fácil:</strong> FileYourStateTaxes es un servicio gratis y fácil de usar desarrollado por %{owner} para ayudarte a declarar tus impuestos estatales, de manera conveniente, después de completar tu declaración de impuestos federales.
+            </li>
+            <li>
+              <strong>Transferencia de datos:</strong> Nos estás permitiendo usar los datos de tu declaración federal como punto de partida para tu declaración de impuestos estatales.
+            </li>
+            <li>
+              <strong>Preguntas para mayor precisión:</strong> Es posible que te hagamos algunas preguntas adicionales para asegurarnos que tu declaración de impuestos estatales quede completa y precisa.
+            </li>
+            <li>
+              <strong>Presentación electrónica modernizada:</strong> Enviaremos tu declaración de impuestos estatal y una copia de tu declaración de impuestos federal utilizando el sistema de Presentación Electrónica Modernizada (MeF por sus siglas en inglés), que la vincula a tu declaración federal.
+            </li>
+            <li>
+              <strong>Tu responsabilidad:</strong> Eres responsable de asegurar que la información que proporciones sea precisa y que estás cumpliendo con todas las leyes federales y estatales cuando usas FileYourStateTaxes.
+            </li>
+            <li>
+              <strong>Sin garantías:</strong> Hacemos nuestro mejor esfuerzo pero no podemos garantizar la exactitud o el éxito de tu declaración de impuestos estatales cuando utilizas FileYourStateTaxes.
+            </li>
+            <li>
+              <strong>Privacidad y seguridad:</strong> La protección de tu privacidad y tus datos es importante para nosotros. Consulta nuestra <a href="%{privacy_policy_link}" target="_blank" rel="noopener nofollow">Política de Privacidad</a> para obtener más información.
+            </li>
+            <li>
+              <strong>Mantente informado:</strong> Te enviaremos actualizaciones sobre tu declaración de impuestos estatales a través de tu método de comunicación preferido, ya sea por mensaje de texto o correo electrónico. Esto incluye actualizaciones de estado, recordatorios e información importante.
+            </li>
+            <li>
+              <strong>Tu elección:</strong> Puedes cambiar tu método de comunicación preferido o escoger no recibir actualizaciones en cualquier momento siguiendo las instrucciones en los mensajes o a través de la configuración de tu cuenta.
+            </li>
+            <li>
+              <strong>Eliminación de datos:</strong> Tienes derecho a pedirnos que eliminemos tus datos personales e información relacionada con tus impuestos de FileYourStateTaxes en cualquier momento. Simplemente envíanos un correo electrónico a help@fileyourtaxes.org. Pero ten en cuenta que esto podría afectar tu acceso al servicio.
+            </li>
+            <li>
+              <strong>Enlaces a sitios de terceros:</strong> Los enlaces en el software te permitirán salir de FileYourStateTaxes. Los sitios vinculados no están bajo el control de FileYourStateTaxes y FileYourStateTaxes no es responsable del contenido de ningún sitio vinculado ni de ningún enlace contenido en un sitio vinculado, ni de cambios o actualizaciones en dichos sitios. FileYourStateTaxes proporciona estos enlaces sólo como una conveniencia, y la inclusión de cualquier enlace no implica respaldo por parte de FileYourStateTaxes del sitio.
+            </li>
+            <li>
+              <strong>Ley Aplicable:</strong> Este acuerdo se regirá y se interpretará de acuerdo con las leyes del estado de California.
+            </li>
+            <li>
+              <strong>Preguntas e inquietudes:</strong> Si tienes alguna pregunta o inquietud sobre estos términos, no dudes en contactarnos en <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
+            </li>
+          list_items_no_sms_html: |
+            <li>
+              <strong>Mantente informado:</strong> Te enviaremos actualizaciones sobre tu declaración de impuestos estatales a través de tu método de comunicación preferido, ya sea por mensaje de texto o correo electrónico. Esto incluye actualizaciones de estado, recordatorios e información importante.
+            </li>
           ny_text_html: |
             <strong>Presenta tu declaración de impuestos del estado de Nueva York electrónicamente sin costo adicional. </strong><br><br>
             Antes de imprimir y enviar tu declaración, ten en cuenta que no hay un costo adicional por presentarla electrónicamente. Otras razones para presentar electrónicamente:
