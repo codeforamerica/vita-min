@@ -2148,13 +2148,15 @@ describe Efile::Nj::Nj1040Calculator do
   end
 
   describe 'line 79 checkbox' do
+    let(:intake) { create(:state_file_nj_intake, payment_or_deposit_type: payment_or_deposit_type) }
+
     def stub_balance_owed(balance)
       allow(instance).to receive(:calculate_line_67).and_return balance
       instance.calculate
     end
 
     context 'when user selected pay by mail & owes a balance' do
-      let(:intake) { create(:state_file_nj_intake, payment_or_deposit_type: :mail) }
+      let(:payment_or_deposit_type) { :mail }
 
       it 'returns false' do
         stub_balance_owed(100)
@@ -2163,7 +2165,7 @@ describe Efile::Nj::Nj1040Calculator do
     end
 
     context 'when user selected pay by direct debit & owes a balance' do
-      let(:intake) { create(:state_file_nj_intake, payment_or_deposit_type: :direct_deposit) }
+      let(:payment_or_deposit_type) { :direct_deposit }
 
       it 'returns true' do
         stub_balance_owed(100)
@@ -2172,7 +2174,7 @@ describe Efile::Nj::Nj1040Calculator do
     end
 
     context 'when user selected pay by direct debit but is not owing a balance' do
-      let(:intake) { create(:state_file_nj_intake, payment_or_deposit_type: :direct_deposit) }
+      let(:payment_or_deposit_type) { :direct_deposit }
 
       it 'returns false' do
         stub_balance_owed(0)
