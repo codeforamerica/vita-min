@@ -2531,7 +2531,7 @@ en:
           id_grocery_credit: Idaho Grocery Credit
           interest_from_obligations: Interest from U.S government obligations subtraction
           retirement_benefits_deduction: Retirement Benefits deductions
-          social_security_railroad_deduction: Social Security and Railroad Retirement subtraction
+          social_security_retirement_deduction: Social Security and Railroad Retirement subtraction
         md_reveals:
           body1_html: |
             <ul>

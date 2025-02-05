@@ -2487,7 +2487,7 @@ es:
           id_grocery_credit: Crédito de Idaho por Compras de Alimentos
           interest_from_obligations: Resta de intereses de obligaciones del gobierno de los Estados Unidos
           retirement_benefits_deduction: Deducciones por Beneficios de Jubilación
-          social_security_railroad_deduction: Deducciones de Seguridad Social y Beneficios de Jubilación Ferroviaria
+          social_security_retirement_deduction: Deducciones de Seguridad Social y Beneficios de Jubilación Ferroviaria
         md_reveals:
           body1_html: |
             <ul>
