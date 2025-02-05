@@ -3,7 +3,7 @@ module Efile
     class Md502SuCalculator < ::Efile::TaxCalculator
       attr_reader :lines, :value_access_tracker
 
-      CODE_LETTERS = ["AB", "U"]
+      CALCULATED_FIELDS_AND_CODE_LETTERS = { MD502_SU_LINE_AB: "AB", MD502_SU_LINE_U: "U" }
 
       def initialize(value_access_tracker:, lines:, intake:)
         @value_access_tracker = value_access_tracker

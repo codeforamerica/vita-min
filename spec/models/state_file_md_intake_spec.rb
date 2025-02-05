@@ -283,6 +283,7 @@ RSpec.describe StateFileMdIntake, type: :model do
         create(
           :state_file1099_r,
           taxable_amount: 1_000,
+          recipient_ssn: intake.primary.ssn,
           intake: intake)
       }
       let!(:state_file_md1099_r_followup_with_military_service_for_primary_1) do
@@ -310,7 +311,7 @@ RSpec.describe StateFileMdIntake, type: :model do
         create(
           :state_file_md1099_r_followup,
           service_type: "none",
-          state_file1099_r: create(:state_file1099_r, taxable_amount: 1_000, intake: intake)
+          state_file1099_r: create(:state_file1099_r, taxable_amount: 1_000, intake: intake, recipient_ssn: intake.spouse.ssn)
         )
       end
 

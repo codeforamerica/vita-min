@@ -13,7 +13,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502Su, required_sch
     describe ".document" do
       context "Subtractions" do
         context "individual code letter tests" do
-          Efile::Md::Md502SuCalculator::CODE_LETTERS.each do |code_letter|
+          Efile::Md::Md502SuCalculator::CALCULATED_FIELDS_AND_CODE_LETTERS.values.each do | code_letter|
             code_letter_sym = "calculate_line_#{code_letter}".to_sym.downcase
 
             context "when the #{code_letter} subtraction is present" do
@@ -42,12 +42,12 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502Su, required_sch
 
         context "multiple code letters" do
           before do
-            Efile::Md::Md502SuCalculator::CODE_LETTERS.each do |code_letter|
-              allow_any_instance_of(Efile::Md::Md502SuCalculator).to receive("calculate_line_#{code_letter}".to_sym.downcase).and_return(100)
+            Efile::Md::Md502SuCalculator::CALCULATED_FIELDS_AND_CODE_LETTERS.values.each do |code_letter|
+              allow_any_instance_of(Efile::Md::Md502SuCalculator).to receive("calculate_line_#{code_letter}".downcase.to_sym).and_return(100)
             end
           end
 
-          Efile::Md::Md502SuCalculator::CODE_LETTERS.each_with_index do |code_letter, i|
+          Efile::Md::Md502SuCalculator::CALCULATED_FIELDS_AND_CODE_LETTERS.values.each_with_index do |code_letter, i|
             it "outputs the XML for code #{code_letter.downcase}" do
               expect(xml.search("Form502SU Subtractions OtherDetail Code")[i].text).to eq(code_letter)
               expect(xml.search("Form502SU Subtractions OtherDetail Amount")[i].text.to_i).to eq(100)
