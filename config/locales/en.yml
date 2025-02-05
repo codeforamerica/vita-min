@@ -329,7 +329,6 @@ en:
     client_success: Client success
     coalition: Coalition
     coalition_lead: Coalition lead
-    code_for_america: Code for America
     complete: complete
     confirm: Confirm
     confirm_exit_without_saving: Navigating away from this page will not save your changes. Continue anyway?
@@ -510,7 +509,6 @@ en:
     negative: 'No'
     new: New
     new_unique_link: Additional unique link
-    nj_ooi: the New Jersey Office of Innovation
     nj_staff: New Jersey Staff
     no_intake: No intake for client
     none: None
@@ -528,6 +526,9 @@ en:
     organization_lead: Organization lead
     organizations: Organizations
     other_options: Try another free tax filing option
+    owner:
+      default: Code for America
+      nj: Code for America and the New Jersey Office of Innovation
     partner: Partner
     password: Password
     phone: Phone
@@ -3974,7 +3975,7 @@ en:
           decline: Decline
           list_items_html: |
             <li>
-              <strong>Easy Tax Filing:</strong> FileYourStateTaxes is a free and easy to use service built by %{ownership} to help you file your state tax return conveniently after you've completed your federal return.
+              <strong>Easy Tax Filing:</strong> FileYourStateTaxes is a free and easy to use service built by %{owner} to help you file your state tax return conveniently after you've completed your federal return.
             </li>
             <li>
               <strong>Data Transfer:</strong> You're letting us use your federal return data as the starting point for your state tax return.

@@ -330,7 +330,6 @@ es:
     client_success: Éxito del cliente
     coalition: Coalición
     coalition_lead: Líder de coalición
-    code_for_america: Code for America
     complete: completo
     confirm: Confirmar
     confirm_exit_without_saving: Si se sale de esta página, no se guardarán los cambios. ¿Desea salir de todas formas?
@@ -512,7 +511,6 @@ es:
     negative: 'No'
     new: Nuevo
     new_unique_link: Nuevo Enlace único
-    nj_ooi: la Oficina de Innovación de New Jersey
     nj_staff: Personal de New Jersey
     no_intake: Sin ingesta
     none: Ninguna
@@ -530,6 +528,9 @@ es:
     organization_lead: Líder de organización
     organizations: Organizaciones
     other_options: Intente otra opción de declaración gratis
+    owner:
+      default: Code for America
+      nj: Code for America y la Oficina de Innovación de New Jersey
     partner: Socio
     password: Contraseña
     phone: Teléfono
@@ -3949,7 +3950,7 @@ es:
           decline: Rechazar
           list_items_html: |
             <li>
-              <strong>Presentación de tu declaración fácil:</strong> FileYourStateTaxes es un servicio gratis y fácil de usar desarrollado por %{ownership} para ayudarte a declarar tus impuestos estatales, de manera conveniente, después de completar tu declaración de impuestos federales.
+              <strong>Presentación de tu declaración fácil:</strong> FileYourStateTaxes es un servicio gratis y fácil de usar desarrollado por %{owner} para ayudarte a declarar tus impuestos estatales, de manera conveniente, después de completar tu declaración de impuestos federales.
             </li>
             <li>
               <strong>Transferencia de datos:</strong> Nos estás permitiendo usar los datos de tu declaración federal como punto de partida para tu declaración de impuestos estatales.
