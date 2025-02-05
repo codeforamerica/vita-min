@@ -684,5 +684,22 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
         expect(xml.at("Form502 RefundableTaxCredits")&.text).to eq('400')
       end
     end
+
+    describe "email address" do
+      context "if intake has no email adress" do
+        it "doesn't fill in email address" do
+          expect(xml.document.at('EmailAddress')).not_to be_present
+        end
+      end
+
+      context "if intake has an email adress" do
+        before do
+          intake.email_address = "test@email.com"
+        end
+        it "fill in email address" do
+          expect(xml.document.at('EmailAddress')&.text).to eq "test@email.com"
+        end
+      end
+    end
   end
 end
