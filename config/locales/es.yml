@@ -1614,16 +1614,17 @@ es:
           body: |
             Hola %{primary_first_name},
 
-            Como recordatorio, tu declaración de impuestos estatales de %{state_name} fue rechazada. ¡No te preocupes! Podemos ayudarte a corregirla y volver a enviarla en <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>. Asegúrate de tomar acción en tu declaración rechazada lo más pronto posible para evitar cargos por presentación tardía del estado de %{state_name}.
 
-            Los servicios de FileYourStateTaxes se cerrarán para el año el 25 de abril.
+            Te recordamos que tu declaración de impuestos estatales de %{state_name} fue rechazada. ¡No te preocupes! Podemos ayudarte a corregirla y volver a enviarla visitando <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
 
-            ¿Preguntas? Responde a este correo electrónico.
+            <strong>Asegúrate de tomar acción en tu declaración rechazada lo más pronto posible para evitar costos extra por declarar tarde de %{state_name}.</strong>
+
+            ¿Necesitas ayuda? Responde a este correo electrónico.
 
             Atentamente,
             El equipo de FileYourStateTaxes
-          subject: "¡Toma acción en tu declaración estatal de %{state_name} rechazada!"
-        sms: Hola %{primary_first_name} - Este es un recordatorio de que %{state_name} rechazó su declaración de impuestos estatales. Podemos ayudarle a solucionarlo y volver a enviarlo en %{return_status_link}. Asegúrese de tomar medidas lo antes posible para evitar cargos por presentación tardía. FileYourStateTaxes cerrará sus servicios del año el 25 de abril. ¿Preguntas? Envíenos un correo electrónico a help@fileyourstatetaxes.org.
+          subject: "Toma acción en tu declaración estatal rechazada de %{state_name}"Asegúrese de tomar medidas lo antes posible para evitar cargos por presentación tardía. FileYourStateTaxes cerrará sus servicios del año el 25 de abril
+        sms: Hola %{primary_first_name} - Te recordamos que tu declaración de impuestos estatales de [Nombre del Estado] fue rechazada. Podemos ayudarte a corregirla y volver a enviarla en %{return_status_link}. Asegúrate de tomar acción lo más pronto posible para evitar costos extra por declarar tarde. ¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org.
       rejected:
         email:
           body: |
