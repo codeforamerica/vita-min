@@ -177,7 +177,9 @@ FactoryBot.define do
     end
 
     trait :with_az322_contributions do
-      after(:build) do |intake|
+      made_az322_contributions { "yes" }
+
+      after(:create) do |intake|
         create(:az322_contribution,
                date_of_contribution: "#{Rails.configuration.statefile_current_tax_year}-03-04",
                ctds_code: '123456789',
