@@ -16,19 +16,8 @@ module StateFile
     end
 
     def save
-      is_first_time_verifying = intake.phone_number_verified_at.blank? && intake.email_address_verified_at.blank?
       intake.touch(:phone_number_verified_at) if is_text_based?
       intake.touch(:email_address_verified_at) if is_email_based?
-      if is_first_time_verifying
-        messaging_service = StateFile::MessagingService.new(
-          message: StateFile::AutomatedMessage::Welcome,
-          intake: intake,
-          sms: is_text_based?,
-          email: is_email_based?,
-          body_args: {intake_id: intake.id}
-        )
-        messaging_service.send_message
-      end
     end
 
     private

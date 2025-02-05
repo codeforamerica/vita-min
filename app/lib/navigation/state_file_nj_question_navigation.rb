@@ -36,8 +36,7 @@ module Navigation
                                           Navigation::NavigationStep.new(StateFile::Questions::NjEligibilityHealthInsuranceController),
                                           Navigation::NavigationStep.new(StateFile::Questions::EligibilityOffboardingController, false),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjYearOfDeathController), # Line 5
-                                          Navigation::NavigationStep.new(StateFile::Questions::NjCountyController), # header
-                                          Navigation::NavigationStep.new(StateFile::Questions::NjMunicipalityController), # header
+                                          Navigation::NavigationStep.new(StateFile::Questions::NjCountyMunicipalityController), # header
                                           Navigation::NavigationStep.new(StateFile::Questions::NjDisabledExemptionController), # Line 8
                                           Navigation::NavigationStep.new(StateFile::Questions::NjVeteransExemptionController), # Line 9
                                           Navigation::NavigationStep.new(StateFile::Questions::NjCollegeDependentsExemptionController), # Line 13
