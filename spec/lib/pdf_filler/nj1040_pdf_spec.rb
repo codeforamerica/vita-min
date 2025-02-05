@@ -2201,6 +2201,18 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       end
     end
 
+    describe 'line 79 - paying by e-check / credit card checkbox' do
+      it 'checks box when calculated is true' do
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_79_checkbox).and_return true
+        expect(pdf_fields["Line77bdue"]).to eq "On"
+      end
+
+      it 'does not check box when calculated is false' do
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_79_checkbox).and_return false
+        expect(pdf_fields["Line77bdue"]).to eq "Off"
+      end
+    end
+
     describe 'line 80 - Refund amount' do
       it 'inserts xml output' do
         allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_80).and_return 12_345_678
