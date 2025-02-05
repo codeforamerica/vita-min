@@ -31,6 +31,18 @@ module StateFile
         return nil unless return_status == 'rejected'
         # in the case that its in the notified_of_rejection or waiting state
         # we can't just grab the efile errors from the last transition
+        last_efile_errors = @submission_to_show&.efile_submission_transitions&.where(to_state: 'rejected')&.last&.efile_errors
+
+        return nil if last_efile_errors.blank?
+
+        # Temporary solution to unblock clients in NC/MD
+        if last_efile_errors.where(code: "NCD400-1100").present?
+          return last_efile_errors.where(code: "NCD400-1100").first
+        end
+        if last_efile_errors.where(code: "Form502-01150-010").present?
+          return last_efile_errors.where(code: "Form502-01150-010").first
+        end
+
         @submission_to_show&.efile_submission_transitions&.where(to_state: 'rejected')&.last&.efile_errors&.last
       end
 
