@@ -67,11 +67,7 @@ class StateFileNjAnalytics < ApplicationRecord
       claimed_as_dep: state_file_nj_intake.direct_file_data.claimed_as_dependent?,
     }
     required_fields.each do |metric|
-      if nj1040_fields[metric].nil?
-        0
-      else
-        metabase_metrics[metric] = nj1040_fields[metric]
-      end
+      metabase_metrics[metric] = nj1040_fields[metric] || 0
     end
     metabase_metrics  
   end
