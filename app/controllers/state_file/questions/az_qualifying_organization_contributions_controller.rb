@@ -90,7 +90,7 @@ module StateFile
         params.require(:az321_contribution).permit(
             :charity_name, :charity_code, :amount,
             :date_of_contribution_day, :date_of_contribution_month,
-            :date_of_contribution_year, :made_az321_contributions,
+            :date_of_contribution_year,
             state_file_az_intake_attributes: [:made_az321_contributions]
           )
       end

@@ -31,7 +31,7 @@ RSpec.describe StateFile::AzCharitableContributionsForm do
       end
 
       it "Requires all contributions to be numeric" do
-        form = described_class.new(intake, params.merge({ charitable_cash_amount: "a10", charitable_noncash_amount: "b20"}))
+        form = described_class.new(intake, params.merge({ charitable_cash_amount: "a10", charitable_noncash_amount: "b20" }))
         expect(form).not_to be_valid
         expect(form.errors).to include :charitable_cash_amount
         expect(form.errors).to include :charitable_noncash_amount
@@ -40,9 +40,9 @@ RSpec.describe StateFile::AzCharitableContributionsForm do
       context "when non cash contributions exceed 500" do
         let(:params) do
           super().merge({
-            charitable_cash_amount: 100,
-            charitable_noncash_amount: 600,
-          })
+                          charitable_cash_amount: 100,
+                          charitable_noncash_amount: 600,
+                        })
         end
 
         it "returns false" do
@@ -53,8 +53,6 @@ RSpec.describe StateFile::AzCharitableContributionsForm do
       end
     end
   end
-
-
 
   describe "#save" do
     let(:intake) { create :state_file_az_intake }
@@ -95,7 +93,7 @@ RSpec.describe StateFile::AzCharitableContributionsForm do
   end
 
   describe "going back and saying no to charitable contributions" do
-    let(:intake) { create :state_file_az_intake, charitable_cash_amount: 100, charitable_noncash_amount: 100}
+    let(:intake) { create :state_file_az_intake, charitable_cash_amount: 100, charitable_noncash_amount: 100 }
     let(:valid_params) do
       {
         charitable_contributions: "no",
