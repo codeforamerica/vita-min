@@ -106,6 +106,15 @@
     </div>
   <% end %>
 
+  <% if @invalid_income_form_error.present? %>
+    <p class="form-group form-group--error">
+      <span class="text--error">
+        <i class="icon-warning"></i>
+        <%= @invalid_income_form_error %>
+      </span>
+    </p>
+  <% end %>
+
   <%= form_with model: @form, url: { action: :update }, data: { efile_security_information: true, form_name: "state_file_income_review_form" },
                 local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <%= f.hidden_field(:device_id) %>
