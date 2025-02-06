@@ -41,8 +41,8 @@ module StateFile
         if last_efile_errors.where(code: "NCD400-1100").present?
           return last_efile_errors.where(code: "NCD400-1100").first
         end
-        if last_efile_errors.where(code: "Form502-01150-010").present?
-          return last_efile_errors.where(code: "Form502-01150-010").first
+        if last_efile_errors.where(code: "Form502-01550-010").present?
+          return last_efile_errors.where(code: "Form502-01550-010").first
         end
 
         last_efile_errors.last
