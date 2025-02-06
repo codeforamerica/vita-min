@@ -91,10 +91,8 @@ module PdfFiller
               "statusWidowed[0].statusWidowed[0]" => @intake.widowed_yes?,
               "liveWithSpouse[0].liveWithYes[0]" => @intake.lived_with_spouse_yes?,
               "liveWithSpouse[0].liveWithNo[0]" => @intake.lived_with_spouse_no?,
-              # TODO: Not enough info for these fields
-              #
-              # "marriedForAll[0].forAllYes[0]" => @intake,
-              # "marriedForAll[0].forAllNo[0]" => @intake,
+              "marriedForAll[0].forAllYes[0]" => @intake.married_for_all_of_tax_year_yes?,
+              "marriedForAll[0].forAllNo[0]" => @intake.married_for_all_of_tax_year_no?,
             }
           end
         )
@@ -407,8 +405,9 @@ module PdfFiller
       }.merge(
         keep_and_normalize(
           {
-            # People who have digital assets are considered out of scope
-            "form1[0].page1[0].youSpouseWereIn[0].column2[0].holdDigitalAssets[0].digitalAssetsNo[0]" => true,
+            "form1[0].page1[0].youSpouseWereIn[0].column2[0].holdDigitalAssets[0].digitalAssetsYou[0]" => @intake.primary_owned_or_held_any_digital_currencies_yes?,
+            "form1[0].page1[0].youSpouseWereIn[0].column2[0].holdDigitalAssets[0].digitalAssetsSpouse[0]" => @intake.spouse_owned_or_held_any_digital_currencies_yes?,
+            "form1[0].page1[0].youSpouseWereIn[0].column2[0].holdDigitalAssets[0].digitalAssetsNo[0]" => @intake.primary_owned_or_held_any_digital_currencies_no? && !@intake.spouse_owned_or_held_any_digital_currencies_yes?,
           },
           with_prefix("form1[0].page1[0].liveWorkStates[0]") do
             {
@@ -460,9 +459,9 @@ module PdfFiller
           end,
           with_prefix("form1[0].page1[0].dueARefund[0]") do
             {
-              "refundOther[0]" => @intake.savings_purchase_bond_yes?,
-              "refundDirectDeposit[0]" => @intake.refund_payment_method_direct_deposit?,
-              "refundCheckMail[0]" => @intake.refund_payment_method_check?,
+              'refundOther[0]' => @intake.refund_other_cb_yes?,
+              "refundDirectDeposit[0]" => @intake.refund_direct_deposit_yes?,
+              "refundCheckMail[0]" => @intake.refund_check_by_mail_yes?,
               "refundSplitAccounts[0]" => @intake.savings_split_refund_yes?,
             }
           end,
@@ -475,11 +474,7 @@ module PdfFiller
         )
       )
 
-      # TODO: How do we handle alternate languages?
-
-      if @intake.savings_purchase_bond_yes?
-        hash["form1[0].page1[0].dueARefund[0].refundOtherExplain[0]"] = "Purchase United States Savings Bond"
-      end
+      hash['form1[0].page1[0].dueARefund[0].refundOtherExplain[0]'] = @intake.refund_other
 
       hash
     end
@@ -672,13 +667,6 @@ module PdfFiller
       end.join()
 
       s
-    end
-
-    def determine_direct_deposit(intake)
-      return "yes" if intake.refund_payment_method_direct_deposit?
-      return "no" if intake.refund_payment_method_check?
-
-      "unfilled"
     end
 
     def yes_no_unfilled_to_YN(yes_no_unfilled)

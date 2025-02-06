@@ -209,6 +209,7 @@
 #  made_estimated_tax_payments                          :integer          default("unfilled"), not null
 #  made_estimated_tax_payments_amount                   :decimal(12, 2)
 #  married                                              :integer          default("unfilled"), not null
+#  married_for_all_of_tax_year                          :integer          default("unfilled"), not null
 #  multiple_states                                      :integer          default("unfilled"), not null
 #  navigator_has_verified_client_identity               :boolean
 #  navigator_name                                       :string
@@ -279,6 +280,7 @@
 #  refund_check_by_mail                                 :integer
 #  refund_direct_deposit                                :integer
 #  refund_other                                         :string
+#  refund_other_cb                                      :integer          default("unfilled"), not null
 #  refund_payment_method                                :integer          default("unfilled"), not null
 #  register_to_vote                                     :integer          default("unfilled"), not null
 #  reported_asset_sale_loss                             :integer          default("unfilled"), not null
