@@ -30,7 +30,7 @@ RSpec.describe StateFile::NjRetirementIncomeSourceForm do
   end
 
   describe ".save" do
-    context "when saving a new county" do
+    context "when saving an income source" do
       let(:form_params) do
         { income_source: :military_pension }
       end
