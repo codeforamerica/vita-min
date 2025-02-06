@@ -118,7 +118,8 @@
             <%= f.cfa_select(:refund_direct_deposit, t(".fields.refund_payment_method_direct_deposit"), yes_no_options_for_select) %>
             <%= f.cfa_select(:refund_check_by_mail, t(".fields.refund_check_by_mail"), yes_no_options_for_select) %>
             <%= f.cfa_select(:savings_split_refund, t(".fields.refund_payment_method_split"), yes_no_options_for_select) %>
-            <%= f.cfa_input_field(:refund_other, t(".fields.refund_other"), classes: ["form-width--short"]) %>
+            <%= f.cfa_select(:refund_other_cb, 'Other', yes_no_options_for_select) %>
+            <%= f.cfa_input_field(:refund_other, 'Explain', classes: ["form-width--short"]) %>
           </div>
           <div class="grid__item width-one-whole">
             <%= f.cfa_select(:balance_pay_from_bank, "#{t(".fields.pay_due_balance_directly")}", yes_no_options_for_select) %>
