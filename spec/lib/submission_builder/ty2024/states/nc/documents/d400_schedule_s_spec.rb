@@ -12,6 +12,8 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400ScheduleS, requir
         interest_report = instance_double(DirectFileJsonData::DfJsonInterestReport)
         allow(interest_report).to receive(:interest_on_government_bonds).and_return 323.00
         allow(intake.direct_file_json_data).to receive(:interest_reports).and_return [interest_report]
+        allow_any_instance_of(Efile::Nc::D400ScheduleSCalculator).to receive(:calculate_line_20).and_return(100)
+        allow_any_instance_of(Efile::Nc::D400ScheduleSCalculator).to receive(:calculate_line_21).and_return(200)
 
         intake.direct_file_data.fed_taxable_ssb = 123
         intake.tribal_member = "yes"
@@ -21,8 +23,10 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400ScheduleS, requir
       it "correctly fills answers" do
         expect(xml.document.at('DedFedAGI USInterestInc').text).to eq "323"
         expect(xml.document.at('DedFedAGI TaxPortSSRRB').text).to eq "123"
+        expect(xml.document.at('DedFedAGI BaileyRetireBenef').text).to eq "100"
+        expect(xml.document.at('DedFedAGI CertRetireBeneByMember').text).to eq "200"
         expect(xml.document.at('DedFedAGI ExmptIncFedRecInd').text).to eq "100"
-        expect(xml.document.at('DedFedAGI TotDedFromFAGI').text).to eq "546"
+        expect(xml.document.at('DedFedAGI TotDedFromFAGI').text).to eq "846"
       end
     end
 
