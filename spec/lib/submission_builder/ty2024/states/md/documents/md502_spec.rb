@@ -264,7 +264,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
         end
 
         context "line B section" do
-          let(:intake) { create(:state_file_md_intake, filing_status: "married_filing_jointly") }
+          let(:intake) { create(:state_file_md_intake, :with_spouse) }
 
           before do
             allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_b_primary_senior).and_return "X"

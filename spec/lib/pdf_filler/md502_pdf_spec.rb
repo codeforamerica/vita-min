@@ -316,16 +316,16 @@ RSpec.describe PdfFiller::Md502Pdf do
 
       context "with 502SU Subtractions" do
         before do
-          allow_any_instance_of(Efile::Md::Md502SuCalculator).to receive(:calculate_line_1).and_return 100
           allow_any_instance_of(Efile::Md::Md502SuCalculator).to receive(:calculate_line_ab).and_return 100
+          allow_any_instance_of(Efile::Md::Md502SuCalculator).to receive(:calculate_line_u).and_return 100
         end
 
         it "fills out subtractions fields correctly" do
           expect(pdf_fields["1SU"]).to eq "ab"
-          expect(pdf_fields["2SU"]).to eq ""
+          expect(pdf_fields["2SU"]).to eq "u"
           expect(pdf_fields["3SU"]).to eq ""
           expect(pdf_fields["4SU"]).to eq ""
-          expect(pdf_fields["13"].to_i).to eq 100
+          expect(pdf_fields["13"].to_i).to eq 200
         end
       end
 
