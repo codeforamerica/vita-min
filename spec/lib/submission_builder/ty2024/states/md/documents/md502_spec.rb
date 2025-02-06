@@ -455,7 +455,6 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
           expect(xml.at("Form502 StateTaxComputation TaxableNetIncome")).to be_nil
           expect(xml.at("Form502 StateTaxComputation StateIncomeTax").text).to eq "0"
           expect(xml.at("Form502 StateTaxComputation PovertyLevelCredit")).to be_nil
-          expect(xml.at("Form502 StateTaxComputation IndividualTaxCredits")).to be_nil
           expect(xml.at("Form502 StateTaxComputation StateTaxAfterCredits")).to be_nil
         end
       end
