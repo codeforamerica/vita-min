@@ -406,7 +406,7 @@ RSpec.describe StateFile::Questions::ReturnStatusController do
             end
 
             context "with Form502-01550-010 and related errors" do
-              let(:main_efile_error) { create :efile_error, code: "Form502-01150-010", service_type: :state_file_md, expose: true, auto_wait: true }
+              let(:main_efile_error) { create :efile_error, code: "Form502-01550-010", service_type: :state_file_md, expose: true, auto_wait: true }
               let(:related_efile_error) { create :efile_error, code: "Form502-01230-005", service_type: :state_file_md, expose: true, auto_wait: true }
               let(:related_efile_error_2) { create :efile_error, code: "Form502-01150-005", service_type: :state_file_md, expose: true, auto_wait: true }
               let!(:related_transition_error_2) {
