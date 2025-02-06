@@ -91,10 +91,8 @@ module PdfFiller
               "statusWidowed[0].statusWidowed[0]" => @intake.widowed_yes?,
               "liveWithSpouse[0].liveWithYes[0]" => @intake.lived_with_spouse_yes?,
               "liveWithSpouse[0].liveWithNo[0]" => @intake.lived_with_spouse_no?,
-              # TODO: Not enough info for these fields
-              #
-              # "marriedForAll[0].forAllYes[0]" => @intake,
-              # "marriedForAll[0].forAllNo[0]" => @intake,
+              "marriedForAll[0].forAllYes[0]" => @intake.married_for_all_of_tax_year_yes?,
+              "marriedForAll[0].forAllNo[0]" => @intake.married_for_all_of_tax_year_no?,
             }
           end
         )

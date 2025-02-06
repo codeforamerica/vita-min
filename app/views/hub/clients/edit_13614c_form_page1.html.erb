@@ -138,7 +138,7 @@
         </div>
         <div class="hub-form__row">
           <%= f.hub_checkbox(:married, t("general.married"), options: { classes: ["checkbox--wide"], checked_value: "yes", unchecked_value: "no" }) %>
-          <%= f.cfa_select(:got_married_during_tax_year, t(".fields.got_married_during_tax_year"), yes_no_options_for_select) %>
+          <%= f.cfa_select(:married_for_all_of_tax_year, 'If married, were you married for all of 2024', yes_no_options_for_select) %>
           <%= f.cfa_select(:lived_with_spouse, t(".fields.lived_with_spouse"), yes_no_options_for_select) %>
         </div>
         <div class="hub-form__row">
