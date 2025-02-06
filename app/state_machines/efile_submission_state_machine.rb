@@ -119,7 +119,7 @@ class EfileSubmissionStateMachine
     StateFile::AfterTransitionMessagingService.new(submission).send_efile_submission_accepted_message
     send_mixpanel_event(submission, "state_file_efile_return_accepted")
   end
-  
+
   after_transition(to: :resubmitted) do |submission, transition|
     @new_submission = submission.data_source.efile_submissions.create
 
