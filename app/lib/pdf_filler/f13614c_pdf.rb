@@ -461,7 +461,7 @@ module PdfFiller
           end,
           with_prefix("form1[0].page1[0].dueARefund[0]") do
             {
-              "refundOther[0]" => @intake.savings_purchase_bond_yes?,
+              'refundOther[0]' => @intake.refund_other_cb_yes?,
               "refundDirectDeposit[0]" => @intake.refund_direct_deposit_yes?,
               "refundCheckMail[0]" => @intake.refund_check_by_mail_yes?,
               "refundSplitAccounts[0]" => @intake.savings_split_refund_yes?,
@@ -476,11 +476,7 @@ module PdfFiller
         )
       )
 
-      # TODO: How do we handle alternate languages?
-
-      if @intake.savings_purchase_bond_yes?
-        hash["form1[0].page1[0].dueARefund[0].refundOtherExplain[0]"] = "Purchase United States Savings Bond"
-      end
+      hash['form1[0].page1[0].dueARefund[0].refundOtherExplain[0]'] = @intake.refund_other
 
       hash
     end
