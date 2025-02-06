@@ -129,6 +129,7 @@ module Hub
       modified_attributes[:primary_visa] ||= 'unfilled'
       modified_attributes[:spouse_visa] ||= 'unfilled'
       modified_attributes[:refund_other_cb] ||= 'unfilled'
+      modified_attributes[:married_for_all_of_tax_year] ||= 'unfilled'
 
       @client.intake.update(modified_attributes)
       @client.touch(:last_13614c_update_at)

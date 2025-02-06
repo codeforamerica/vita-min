@@ -79,12 +79,16 @@ RSpec.describe "a user editing a clients 13614c form" do
       fill_in 'hub_update13614c_form_page1_spouse_birth_date_day', with: '20'
       fill_in 'hub_update13614c_form_page1_spouse_birth_date_year', with: '1998'
 
+      select "No", from: "hub_update13614c_form_page1_primary_visa"
+      select "Yes", from: "hub_update13614c_form_page1_spouse_visa"
+
       select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page1.fields.receive_written_communication")
       fill_in I18n.t("hub.clients.edit_13614c_form_page1.fields.preferred_written_language"), with: "Chinese"
       select "You", from: I18n.t("hub.clients.edit_13614c_form_page1.fields.presidential_campaign_fund")
 
       select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page1.fields.refund_payment_method_direct_deposit")
       select "No", from: I18n.t("hub.clients.edit_13614c_form_page1.fields.refund_check_by_mail")
+      select "Yes", from: 'hub_update13614c_form_page1_refund_other_cb'
       fill_in 'hub_update13614c_form_page1_refund_other', with: "Purchase US Savings Bond"
       select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page1.fields.refund_payment_method_split")
 
@@ -136,10 +140,13 @@ RSpec.describe "a user editing a clients 13614c form" do
       expect(find_field("hub_update13614c_form_page1[refund_direct_deposit]").value).to eq "yes"
       expect(find_field("hub_update13614c_form_page1[refund_check_by_mail]").value).to eq "no"
       expect(find_field("hub_update13614c_form_page1[savings_split_refund]").value).to eq "yes"
+      expect(find_field("hub_update13614c_form_page1[refund_other_cb]").value).to eq "yes"
       expect(find_field("hub_update13614c_form_page1[refund_other]").value).to eq "Purchase US Savings Bond"
       expect(find_field("hub_update13614c_form_page1[balance_pay_from_bank]").value).to eq "no"
       expect(find_field("hub_update13614c_form_page1[register_to_vote]").value).to eq "no"
       expect(find_field("hub_update13614c_form_page1[multiple_states]").value).to eq "no"
+      expect(find_field("hub_update13614c_form_page1[primary_visa]").value).to eq "no"
+      expect(find_field("hub_update13614c_form_page1[spouse_visa]").value).to eq "yes"
 
       expect(find_field("hub_update13614c_form_page1[primary_owned_or_held_any_digital_currencies]").value).to eq 'yes'
       expect(find_field("hub_update13614c_form_page1[spouse_owned_or_held_any_digital_currencies]").value).to eq 'no'
