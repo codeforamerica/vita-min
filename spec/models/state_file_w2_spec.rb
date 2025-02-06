@@ -233,9 +233,9 @@ describe StateFileW2 do
 
     context "when EmployerStateIdNum contains soft hyphens" do
       it "removes soft hyphens when generating XML" do
-        w2.employer_state_id_num = "123\u00AD456"
+        w2.employer_state_id_num = "86­2124319"
         xml = Nokogiri::XML(w2.state_tax_group_xml_node)
-        expect(xml.at("EmployerStateIdNum").text).to eq "123456"
+        expect(xml.at("EmployerStateIdNum").text).to eq "862124319"
       end
     end
   end
