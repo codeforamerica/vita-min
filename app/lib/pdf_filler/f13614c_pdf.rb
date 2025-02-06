@@ -462,8 +462,8 @@ module PdfFiller
           with_prefix("form1[0].page1[0].dueARefund[0]") do
             {
               "refundOther[0]" => @intake.savings_purchase_bond_yes?,
-              "refundDirectDeposit[0]" => @intake.refund_payment_method_direct_deposit?,
-              "refundCheckMail[0]" => @intake.refund_payment_method_check?,
+              "refundDirectDeposit[0]" => @intake.refund_direct_deposit_yes?,
+              "refundCheckMail[0]" => @intake.refund_check_by_mail_yes?,
               "refundSplitAccounts[0]" => @intake.savings_split_refund_yes?,
             }
           end,
@@ -673,13 +673,6 @@ module PdfFiller
       end.join()
 
       s
-    end
-
-    def determine_direct_deposit(intake)
-      return "yes" if intake.refund_payment_method_direct_deposit?
-      return "no" if intake.refund_payment_method_check?
-
-      "unfilled"
     end
 
     def yes_no_unfilled_to_YN(yes_no_unfilled)
