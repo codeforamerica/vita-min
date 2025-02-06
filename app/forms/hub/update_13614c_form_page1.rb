@@ -25,6 +25,7 @@ module Hub
                        :multiple_states,
                        :primary_owned_or_held_any_digital_currencies,
                        :primary_us_citizen,
+                       :primary_visa,
                        :street_address,
                        :city,
                        :state,
@@ -45,14 +46,16 @@ module Hub
                        :spouse_phone_number,
                        :spouse_was_full_time_student,
                        :spouse_us_citizen,
+                       :spouse_visa,
                        :never_married,
-                       :got_married_during_tax_year,
+                       :married_for_all_of_tax_year,
                        :receive_written_communication,
                        :preferred_written_language,
                        :presidential_campaign_fund_donation,
                        :refund_direct_deposit,
                        :refund_check_by_mail,
                        :savings_split_refund,
+                       :refund_other_cb,
                        :refund_other,
                        :balance_pay_from_bank,
                        :register_to_vote
@@ -123,6 +126,10 @@ module Hub
       modified_attributes[:receive_written_communication] ||= 'unfilled'
       modified_attributes[:savings_split_refund] ||= 'unfilled'
       modified_attributes[:register_to_vote] ||= 'unfilled'
+      modified_attributes[:primary_visa] ||= 'unfilled'
+      modified_attributes[:spouse_visa] ||= 'unfilled'
+      modified_attributes[:refund_other_cb] ||= 'unfilled'
+      modified_attributes[:married_for_all_of_tax_year] ||= 'unfilled'
 
       @client.intake.update(modified_attributes)
       @client.touch(:last_13614c_update_at)
