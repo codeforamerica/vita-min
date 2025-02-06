@@ -279,6 +279,7 @@
 #  refund_check_by_mail                                 :integer
 #  refund_direct_deposit                                :integer
 #  refund_other                                         :string
+#  refund_other_cb                                      :integer          default("unfilled"), not null
 #  refund_payment_method                                :integer          default("unfilled"), not null
 #  register_to_vote                                     :integer          default("unfilled"), not null
 #  reported_asset_sale_loss                             :integer          default("unfilled"), not null
@@ -485,6 +486,7 @@ class Intake::GyrIntake < Intake
   enum received_stimulus_payment: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :received_stimulus_payment
   enum refund_check_by_mail: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :refund_check_by_mail
   enum refund_direct_deposit: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :refund_direct_deposit
+  enum refund_other_cb: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :refund_other_cb
   enum reported_asset_sale_loss: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :reported_asset_sale_loss
   enum reported_self_employment_loss: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :reported_self_employment_loss
   enum satisfaction_face: { unfilled: 0, positive: 1, neutral: 2, negative: 3 }, _prefix: :satisfaction_face
