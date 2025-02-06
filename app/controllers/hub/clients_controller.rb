@@ -133,16 +133,17 @@ module Hub
       @form = Update13614cFormPage5.from_client(@client)
     end
 
-    def redirect_if_not_authorized
-      raise CanCan::AccessDenied if @client.nil? || cannot?(:update, @client) || @client.intake.is_ctc?
-    end
-
     def save_and_maybe_exit(save_button_clicked, path_to_13614c_page)
       if save_button_clicked == I18n.t("general.save")
         redirect_to path_to_13614c_page
       else # should always be: params[:commit] == I18n.t("general.save_and_exit")
         redirect_to hub_client_path(id: @client.id)
       end
+    end
+
+    def redirect_if_not_authorized
+      authorize! :hub_client_management, @client
+      # raise CanCan::AccessDenied if @client.nil? || @client.intake.is_ctc? || cannot?(:hub_client_management, @client)
     end
 
     def update_13614c_form_page1
@@ -298,13 +299,8 @@ module Hub
         @client = client
         __setobj__(client)
         @intake = client.intake
-        if @intake.present? && @intake.product_year != Rails.configuration.product_year
-          @archived = true
-        end
-        if @intake.blank?
-          @intake = Archived::Intake2021.find_by(client_id: @client.id)
-          @archived = true if @intake
-        end
+        @archived = client.has_archived_intake?
+        @intake = @archived ? client.archived_intake : client.intake
         # For a short while, we created Client records with no intake and/or moved which client the intake belonged to.
         if !@intake && @client.created_at < Date.parse('2022-04-15')
           @missing_intake = true

@@ -8,12 +8,15 @@ class Ability
     end
 
     # Custom actions
+    # Todo: Add new pages here
+    # Todo: maybe add some short of test if there are missing actions
     alias_action :flag, :toggle_field, :edit_take_action, :update_take_action,
-                 :unlock, :edit_13614c_form_page1, :edit_13614c_form_page2,
-                 :edit_13614c_form_page3, :save_and_maybe_exit,
+                 :unlock, :save_and_maybe_exit,
+                 :edit_13614c_form_page1, :edit_13614c_form_page2,
+                 :edit_13614c_form_page3, :edit_13614c_form_page4, :edit_13614c_form_page5,
                  :update_13614c_form_page1, :update_13614c_form_page2,
-                 :update_13614c_form_page3, :cancel_13614c,
-                 :resource_to_client_redirect,
+                 :update_13614c_form_page3, :update_13614c_form_page4, :update_13614c_form_page5,
+                 :cancel_13614c, :resource_to_client_redirect,
                  to: :hub_client_management
 
     accessible_groups = user.accessible_vita_partners
@@ -87,8 +90,11 @@ class Ability
 
     if user.role?(client_role_whitelist)
       can :read, Client, vita_partner: accessible_groups
-      # can only edit/update Intakes from the current product year
-      can [:create, :update, :flag, :edit_take_action, :update_take_action, :toggle_field, :unlock], Client, intake: { product_year: Rails.configuration.product_year }, vita_partner: accessible_groups
+
+      client_management_actions = [:create, :update, :edit, :hub_client_management]
+      can client_management_actions, Client, vita_partner: accessible_groups
+      # Can only take actions on non-archived intakes
+      cannot client_management_actions, Client, &:has_archived_intake?
     end
 
     if user.greeter?
