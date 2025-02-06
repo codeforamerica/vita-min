@@ -55,6 +55,7 @@ module Hub
                        :refund_direct_deposit,
                        :refund_check_by_mail,
                        :savings_split_refund,
+                       :refund_other_cb,
                        :refund_other,
                        :balance_pay_from_bank,
                        :register_to_vote
@@ -127,6 +128,7 @@ module Hub
       modified_attributes[:register_to_vote] ||= 'unfilled'
       modified_attributes[:primary_visa] ||= 'unfilled'
       modified_attributes[:spouse_visa] ||= 'unfilled'
+      modified_attributes[:refund_other_cb] ||= 'unfilled'
 
       @client.intake.update(modified_attributes)
       @client.touch(:last_13614c_update_at)
