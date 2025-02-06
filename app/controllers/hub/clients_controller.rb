@@ -9,14 +9,17 @@ module Hub
     before_action :setup_sortable_client, only: [:index]
     # need to use the presenter for :update bc it has ITIN applicant methods that are used in the form
     before_action :wrap_client_in_hub_presenter, only: [:show, :edit, :edit_take_action, :update, :update_take_action]
-    before_action :redirect_unless_client_is_hub_status_editable, only: [:edit, :edit_take_action, :update, :update_take_action]
+    before_action :redirect_if_not_authorized, only: [
+      :edit, :edit_take_action, :update, :update_take_action,
+      :edit_13614c_form_page1, :update_13614c_form_page1,
+      :edit_13614c_form_page2, :update_13614c_form_page2,
+      :edit_13614c_form_page3, :update_13614c_form_page3,
+      :edit_13614c_form_page4, :update_13614c_form_page4,
+      :edit_13614c_form_page5, :update_13614c_form_page5
+    ]
     layout "hub"
 
-    MAX_COUNT = 1000
-
     def index
-      @page_title = I18n.t("hub.clients.index.title")
-
       @clients = @client_sorter.filtered_and_sorted_clients.page(params[:page]).load
       @message_summaries = RecentMessageSummaryService.messages(@clients.map(&:id))
     end
@@ -47,8 +50,6 @@ module Hub
     end
 
     def edit
-      return render "public_pages/page_not_found", status: 404 if @client.intake.is_ctc?
-
       @form = UpdateClientForm.from_client(@client)
     end
 
@@ -138,6 +139,11 @@ module Hub
       else # should always be: params[:commit] == I18n.t("general.save_and_exit")
         redirect_to hub_client_path(id: @client.id)
       end
+    end
+
+    def redirect_if_not_authorized
+      authorize! :hub_client_management, @client
+      # raise CanCan::AccessDenied if @client.nil? || @client.intake.is_ctc? || cannot?(:hub_client_management, @client)
     end
 
     def update_13614c_form_page1
@@ -268,10 +274,6 @@ module Hub
       @client = HubClientPresenter.new(@client)
     end
 
-    def redirect_unless_client_is_hub_status_editable
-      redirect_to hub_client_path(id: @client.id) unless @client.hub_status_updatable
-    end
-
     class HubClientPresenter < SimpleDelegator
       attr_reader :intake
       attr_reader :archived
@@ -297,13 +299,8 @@ module Hub
         @client = client
         __setobj__(client)
         @intake = client.intake
-        if @intake.present? && @intake.product_year != Rails.configuration.product_year
-          @archived = true
-        end
-        if @intake.blank?
-          @intake = Archived::Intake2021.find_by(client_id: @client.id)
-          @archived = true if @intake
-        end
+        @archived = client.has_archived_intake?
+        @intake = @archived ? client.archived_intake : client.intake
         # For a short while, we created Client records with no intake and/or moved which client the intake belonged to.
         if !@intake && @client.created_at < Date.parse('2022-04-15')
           @missing_intake = true

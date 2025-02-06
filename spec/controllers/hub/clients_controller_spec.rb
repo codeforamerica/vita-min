@@ -865,7 +865,8 @@ RSpec.describe Hub::ClientsController do
     let(:params) do
       { id: client.id, client: { action: "set" } }
     end
-    let(:client) { create :client, vita_partner: organization }
+    let(:intake) { create :intake, client: create(:client, vita_partner: organization) }
+    let(:client) { intake.client }
     before { sign_in(user) }
 
     it "redirects to hub client path" do
@@ -1180,10 +1181,10 @@ RSpec.describe Hub::ClientsController do
           create(:archived_2021_gyr_intake, client: client)
         end
 
-        it "redirects to the /show page for the client" do
+        it "redirects to Access Denied page" do
           get :edit_take_action, params: params
 
-          expect(response).to redirect_to(hub_client_path(id: client.id))
+          expect(response).to be_forbidden
         end
       end
 
