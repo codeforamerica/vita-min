@@ -28,6 +28,12 @@ FactoryBot.define do
     tax_year { 2023 }
     submission_pdf { nil }
 
+    trait :with_pdf do
+      after(:create) do |archived_intake|
+        archived_intake.submission_pdf.attach(io: File.open("public/pdfs/ID-VP.pdf"), filename: "ID-VP.pdf")
+      end
+    end
+
     transient do
       intake { nil }
       archiver { nil }

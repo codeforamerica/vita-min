@@ -72,8 +72,8 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
           xml.send(filing_status, "X")
         end
       end
-      if has_exemptions?
-        xml.Exemptions do
+      xml.Exemptions do
+        if has_exemptions?
           xml.Primary do
             add_element_if_present(xml, "Standard", :MD502_LINE_A_PRIMARY)
             add_element_if_present(xml, "Over65", :MD502_LINE_B_PRIMARY_SENIOR)
@@ -86,24 +86,26 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
               add_element_if_present(xml, "Blind", :MD502_LINE_B_SPOUSE_BLIND)
             end
           end
-          xml.Standard do
-            xml.Count calculated_fields.fetch(:MD502_LINE_A_COUNT)
-            xml.Amount calculated_fields.fetch(:MD502_LINE_A_AMOUNT)
-          end
+        end
+        xml.Standard do
+          xml.Count calculated_fields.fetch(:MD502_LINE_A_COUNT)
+          xml.Amount calculated_fields.fetch(:MD502_LINE_A_AMOUNT)
+        end
+        if has_exemptions?
           xml.Additional do
             xml.Count calculated_fields.fetch(:MD502_LINE_B_COUNT)
             xml.Amount calculated_fields.fetch(:MD502_LINE_B_AMOUNT)
           end
-          if has_dependent_exemption?
-            xml.Dependents do
-              xml.Count calculated_fields.fetch(:MD502_LINE_C_COUNT)
-              xml.Amount calculated_fields.fetch(:MD502_LINE_C_AMOUNT)
-            end
+        end
+        if has_dependent_exemption?
+          xml.Dependents do
+            xml.Count calculated_fields.fetch(:MD502_LINE_C_COUNT)
+            xml.Amount calculated_fields.fetch(:MD502_LINE_C_AMOUNT)
           end
-          xml.Total do
-            xml.Count calculated_fields.fetch(:MD502_LINE_D_COUNT_TOTAL)
-            xml.Amount calculated_fields.fetch(:MD502_LINE_D_AMOUNT_TOTAL)
-          end
+        end
+        xml.Total do
+          xml.Count calculated_fields.fetch(:MD502_LINE_D_COUNT_TOTAL)
+          xml.Amount calculated_fields.fetch(:MD502_LINE_D_AMOUNT_TOTAL)
         end
       end
       if has_healthcare_coverage_section?
@@ -151,7 +153,7 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
           add_element_if_present(xml, "EarnedIncomeCredit", :MD502_LINE_22)
           add_element_if_present(xml, "MDEICWithQualChildInd", :MD502_LINE_22B)
           add_element_if_present(xml, "PovertyLevelCredit", :MD502_LINE_23) if @deduction_method_is_standard
-          add_element_if_present(xml, "IndividualTaxCredits", :MD502_LINE_24) if @deduction_method_is_standard
+          add_element_if_present(xml, "IndividualTaxCredits", :MD502_LINE_24)
           add_element_if_present(xml, "TotalCredits", :MD502_LINE_26)
           add_element_if_present(xml, "StateTaxAfterCredits", :MD502_LINE_27) if @deduction_method_is_standard
         end
@@ -196,6 +198,7 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
         end
       end
       xml.DaytimePhoneNumber @direct_file_data.phone_number if @direct_file_data.phone_number.present?
+      xml.EmailAddress @intake.email_address if @intake.email_address.present?
     end
   end
 

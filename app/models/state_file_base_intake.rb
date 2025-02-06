@@ -252,6 +252,10 @@ class StateFileBaseIntake < ApplicationRecord
     false
   end
 
+  def check_nra_status?
+    false
+  end
+
   def ask_spouse_esign?
     filing_status_mfj? && !spouse_deceased?
   end
@@ -424,5 +428,9 @@ class StateFileBaseIntake < ApplicationRecord
       birth_year -= 1 if birthday_is_jan_1
     end
     MultiTenantService.statefile.current_tax_year - birth_year
+  end
+
+  def unsubscribed_from_sms?
+    self.sms_notification_opt_in == "no"
   end
 end
