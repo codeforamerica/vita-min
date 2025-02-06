@@ -198,6 +198,7 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
         end
       end
       xml.DaytimePhoneNumber @direct_file_data.phone_number if @direct_file_data.phone_number.present?
+      xml.EmailAddress @intake.email_address if @intake.email_address.present?
     end
   end
 

@@ -54,7 +54,6 @@ es:
     formats:
       default: "%-m/%-d/%Y"
       long: "%-d de %B de %Y"
-      medium: "%-d de %B"
   devise:
     failure:
       invalid: Correo o contraseña incorrectos. Después de 5 intentos de inicio de sesión, las cuentas se bloquean.
@@ -528,6 +527,9 @@ es:
     organization_lead: Líder de organización
     organizations: Organizaciones
     other_options: Intente otra opción de declaración gratis
+    owner:
+      default: Code for America
+      nj: Code for America y la Oficina de Innovación de New Jersey
     partner: Socio
     password: Contraseña
     phone: Teléfono
@@ -2060,7 +2062,7 @@ es:
       md_pension_income_exclusion: Exclusión de ingresos de pensión
       md_poverty_level_credit: Crédito de Maryland por Nivel de Pobreza
       md_public_safety_retirement_income_exclusion: Exclusión de ingresos de jubilación de seguridad pública
-      md_refundable_child_dependent_care_credit: Crédito reembolsable por cuidado de niños y dependientes
+      md_refundable_child_dependent_care_credit: Crédito Reembolsable de Maryland por Gastos de Cuidado de Niños y Dependiente
       md_refundable_earned_income_tax_credit: Crédito Tributario Reembolsable de Maryland Ganado
       md_return_type: Tipo de declaración
       md_senior_tax_credit: Crédito tributario para Personas Mayores
@@ -2086,7 +2088,7 @@ es:
         <p>La mayoría de las personas que tienen seguro de salud tienen cobertura mínima esencial. "Cobertura mínima esencial" se refiere a cuánto cubre tu plan. Si tienes alguno de los siguientes, lo más probable es que lo tengas:</p>
         <ul>
           <li>Un plan a través de tu trabajo</li>
-          <li>Un plan comprado a través de <a href="https://nj.gov/getcoverednj/" target="_blank" rel="noopener nofollow">GetCoveredNJ</a></li>
+          <li>Un plan comprado a través de <a href="https://nj.gov/getcoverednj/espanol/" target="_blank" rel="noopener nofollow">GetCoveredNJ</a></li>
           <li>Medicare</li>
           <li>Medicaid (NJ FamilyCare)</li>
         </ul>
@@ -2117,11 +2119,11 @@ es:
       new:
         email_address:
           label: Tu dirección de correo electrónico
-          not_found: Lo siento, no tenemos una cuenta registrada con ese correo electrónico. ¿Te gustaría iniciar sesión con un correo electrónico diferente?
+          not_found_html: Lo siento, no tenemos una cuenta registrada para esa dirección de correo electrónico. <a href="https://www.fileyourstatetaxes.org/en/us/faq">Haz clic aquí</a> para comenzar con FileYourStateTaxes.
           title: Inicia sesión con tu dirección de correo electrónico. Para continuar presentando tu declaración de impuestos estatales de manera segura, te enviaremos un código seguro.
         sms_phone_number:
           label: Tu número de teléfono
-          not_found: Lo siento, no tenemos una cuenta registrada para ese número de teléfono. ¿Te gustaría iniciar sesión con un número de teléfono diferente?
+          not_found_html: Lo sentimos, no tenemos una cuenta registrada para ese número de teléfono. <a href="https://www.fileyourstatetaxes.org/en/us/faq">Haz clic aquí</a> para comenzar con FileYourStateTaxes.
           title: Inicia sesión con tu número de teléfono. Para continuar presentando tu declaración de impuestos estatales de manera segura, te enviaremos un código seguro.
       no_match_sms: Alguien intentó iniciar sesión en FileYourStateTaxes con este número de teléfono, pero no pudimos encontrar una coincidencia. ¿Te registraste con otro número de teléfono? También puedes visitar %{url} para comenzar.
     landing_page:
@@ -2195,17 +2197,18 @@ es:
         title: Gracias por visitar FileYourStateTaxes
     navigation:
       nj:
-        section_1: 'Sección 1: Ingresos'
-        section_2: 'Sección 2: Tu hogar'
-        section_3: 'Sección 3: Deducciones y créditos'
-        section_4: 'Sección 4: Tus impuestos de %{filing_year}'
-        section_5: 'Sección 5: Revisar y enviar'
-      section_1: 'Sección 1: ¿Puedes usar esta herramienta?'
-      section_2: 'Sección 2: Crear cuenta'
-      section_3: 'Sección 3: Términos y condiciones'
-      section_4: 'Sección 4: Transferir tus datos'
-      section_5: 'Sección 5: Completa tu declaración de impuestos estatales'
-      section_6: 'Sección 6: Envía tus impuestos estatales'
+        section_1: Ingresos
+        section_2: Tu hogar
+        section_3: Deducciones y créditos
+        section_4: Tus impuestos de %{filing_year}
+        section_5: Revisar y enviar
+      section_1: "¿Puedes usar esta herramienta?"
+      section_2: Crear cuenta
+      section_3: Términos y condiciones
+      section_4: Transferir tus datos
+      section_5: Completa tu declaración de impuestos estatales
+      section_6: Envía tus impuestos estatales
+      step_description: 'Sección %{current_step} de %{total_steps}: '
     notification_mailer:
       user_message:
         unsubscribe: Si deseas cancelar la suscripción a los correos electrónicos, haz clic <a href="%{unsubscribe_link}">aquí</a>.
@@ -2414,15 +2417,15 @@ es:
           title: Has rechazado los términos y condiciones.
       eligibility_offboarding:
         edit:
-          body_html: No puedes usar este servicio este año porque %{ineligible_reason}. <br><br><strong>¿Fue un error?</strong><a href=%{prev_link}> Regresa para corregirlo.</a>
+          body_html: No puedes usar este servicio este año porque %{ineligible_reason}. <br><br><strong>¿Fue un error?</strong> <a href=%{prev_link}>Regresa para corregirlo.</a>
           ineligible_reason:
             eligibility_529_for_non_qual_expense: retiraste dinero de una cuenta de ahorro universitario 529 y lo utilizaste para un gasto no calificado en el %{filing_year}
             eligibility_ed_loan_cancelled: se te canceló un préstamo estudiantil deuda bajo la Ley del Plan de Rescate Estadounidense.
             eligibility_ed_loan_emp_payment: recibiste un Pago de Préstamo Educativo Calificado pagado por tu empleador.
             eligibility_emergency_rental_assistance: recibió asistencia de alquiler de emergencia %{filing_year}
-            eligibility_home_different_areas: y tu cónyuge tenían hogares permanentes en dos condados, ciudades, pueblos o áreas impositivas diferentes el último día de %{filing_year}
+            eligibility_home_different_areas: tú y tu cónyuge tenían hogares permanentes en dos condados, ciudades, pueblos o áreas impositivas diferentes el último día de %{filing_year}
             eligibility_homebuyer_withdrawal: retiró dinero de una cuenta de comprador de vivienda por primera vez que no se utilizó para comprar una casa en Maryland
-            eligibility_homebuyer_withdrawal_mfj: o tu cónyuge retiraron dinero de una Cuenta de Comprador de Vivienda Por Primera Vez que no se utilizó para comprar una casa en Maryland.
+            eligibility_homebuyer_withdrawal_mfj: tú o tu cónyuge retiraron dinero de una Cuenta de Comprador de Vivienda Por Primera Vez que no se utilizó para comprar una casa en Maryland.
             eligibility_lived_in_state: no viviste en %{state} durante todo el %{filing_year}
             eligibility_married_filing_separately: estás presentando una declaración de impuestos "casado, declarando por separado"
             eligibility_out_of_state_income: recibiste ingresos en otro estado en el %{filing_year}
@@ -2435,42 +2438,9 @@ es:
             nyc_residency: viviste o mantuviste una casa en la Ciudad de Nueva York durante parte del año.
             permanent_address_outside_md: no estaban viviendo en Maryland en diciembre 31
             permanent_address_outside_ny: no viviste en Nueva York durante todo el %{filing_year}
-          title: Desafortunadamente, no puedes utilizar este servicio este año. No te preocupes, aquí tienes otras opciones para declarar.
-        other_options:
-          faq_link: Visita nuestras Preguntas Frecuentes
-          learn_more_here_html: Obtén más información <a href="%{link}" rel="noopener nofollow" target="_blank">aquí.</a>
-          md_reveal_content_html: |
-            <p>
-            Tienes otras opciones gratuitas para presentar tu declaración estatal:
-              <ul>
-                <li>
-                  Declara gratis con voluntarios VITA certificados por el IRS en Maryland.
-                  <ul>
-                    <li>
-                      Si eliges esta opción, te conectarás con un socio de Asistencia Voluntaria para la Declaración de Impuestos (VITA) en Maryland. Recibirás una llamada en los próximos días. Tendrás que responder algunas preguntas adicionales sobre tu situación tributaria y enviar de forma segura tus documentos en línea. Este proceso puede tardar de 2 a 3 semanas en completarse.
-                    </li>
-                    <li>
-                      Comienza con VITA ahora
-                    </li>
-                    <li>
-                      Aprende más sobre este proceso y otras opciones de declaración aquí.
-                    </li>
-                  </ul>
-                  <li>
-                    Comienza con el servicio  <a href="https://www.marylandtaxes.gov/individual/tax-assistance/free-tax-prep.php" rel="noopener nofollow" target="_blank">gratuito de preparación de impuestos sobre ingresos</a>del Contralor de Maryland.
-                  </li>
-                </li>
-              </ul>
-            </p>
-          other_options_reveal:
-            fees: Es posible que apliquen costos.
-            list:
-              body: 'Muchos servicios comerciales de preparación de impuestos ofrecen la opción de declarar sólo los impuestos estatales. Aquí tienes algunos consejos rápidos:'
-              list1: Confirma que el servicio te permita presentar sólo tu declaración estatal. Es posible que necesites consultar con el soporte al cliente.
-              list2: Prepárate para volver a ingresar la información de tu declaración federal, ya que se necesita para tu declaración estatal.
-              list3: Al declarar, envía sólo tu declaración estatal. Si vuelves a enviar tu declaración federal, puede ser rechazada.
-            title: "¿Cuáles son mis otras opciones para declarar mis impuestos estatales?"
-          vita_option_title: "¿Qué opciones gratuitas tengo para declarar mis impuestos estatales?"
+          title:
+            default: Desafortunadamente, no puedes utilizar este servicio este año. No te preocupes, aquí tienes otras opciones para declarar.
+            nj: Desafortunadamente, según la información que tenemos, no puedes usar esta herramienta este año. No te preocupes; hay otras opciones de presentación.
       eligible:
         az_credits_unsupported:
           other_credits_301_html: Créditos no reembolsables enumerados en el <a href="https://azdor.gov/sites/default/files/2023-03/FORMS_CREDIT_2022_301-SBI_f.pdf" target="_blank" rel="noopener nofollow">Formulario AZ 301</a>
@@ -2492,6 +2462,7 @@ es:
           public_school_credit: Crédito Tributario para Escuelas Públicas de Arizona
         edit:
           credits_not_supported: "¿Qué restas, créditos y otras situaciones NO admite este servicio este año?"
+          faq_link: Encuentra un desglose más detallado de los créditos y restas y otras situaciones no respaldadas este año aquí.
           md_title2_html: |
             Asegurémonos de que este servicio es el indicado para ti.<br><br>
             Estas son las restas y los créditos <strong>que puedes </strong> reclamar para maximizar tu reembolso.
@@ -2501,6 +2472,7 @@ es:
             Asegurémonos de que este servicio es el indicado para ti.<br><br>
             Estos son los créditos y las deducciones que <strong>puedes</strong> reclamar para maximizar tu reembolso.
           warning: Por favor, revisa las restas y créditos que puedes incluir este año y asegúrate de que este servicio sea adecuado para tus necesidades fiscales.
+        faq_link: Visita nuestras Preguntas Frecuentes
         id_credits_unsupported:
           change_in_filing_status: Cambio en el estado civil tributario de la declaración federal a estatal
           dependents_not_claimed_fed_return: Agregar dependientes no reclamados en la declaración federal
@@ -2557,7 +2529,7 @@ es:
               </li>
 
               <li>
-                Pagos
+                Pagos:
                 <ul>
                   <li>Pagos de impuestos estimados</li>
                   <li>Pagos de impuestos por extensión</li>
@@ -2598,6 +2570,7 @@ es:
                 </li>
               </ul>
             </p>
+          credits_not_supported: "¿Qué restas, créditos y otras situaciones NO admite este servicio este año?"
           title2: "¿Qué escenarios para reclamar el Crédito Tributario por Ingresos del Trabajo de Maryland y/o el Crédito Tributario por Hijos no admite este servicio?"
           title3: "¿Qué pasa si aún no puedo usar FileYourStateTaxes para mi situación concreta?"
         md_supported:
@@ -2615,6 +2588,7 @@ es:
           sub7: Resta por ingresos de dos personas para contribuyentes casados que declaran juntos
           sub8: Crédito Tributario Estatal y Local por Ingresos de Trabajo (si reclamaste el Crédito Tributario Federal por Ingreso de Trabajo)
           sub9: Crédito Tributario Estatal por Hijos (para niños menores de 6 años)
+          subject_to_eligibility: Todas las restas y créditos están sujetos a requisitos de elegibilidad.
         nc_credits_unsupported:
           college_savings_account: Contribuciones a cuentas de ahorro 529 para la universidad
           credits_carried: Créditos acumulados de años anteriores
@@ -2650,13 +2624,13 @@ es:
             <li>Crédito para Cuidadores de Guerreros/Veteranos Heridos</li>
         nj_supported:
           supported_credits_html: |
-            <li>Crédito por Ingreso del Trabajo de New Jersey (NJEITC por las siglas en inglés)</li>
-            <li>Crédito por Hijos de New Jersey</li>
-            <li>Crédito por Cuidado de Menores y Dependientes de New Jersey</li>
-            <li>Deducción de Gastos Médicos</li>
-            <li>Exclusión de Pensión/Jubilación y Otros Ingresos de Jubilación</li>
-            <li>Créditos por Contribuciones Excedentes del Seguro de Desempleo (UI por las siglas en inglés) y del Seguro de Licencia Familiar (FLI por las siglas en inglés)</li>
-            <li>Crédito o Deducción de Impuestos sobre la Propiedad</li>
+            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/eitc/eitcinfo.shtml">Crédito por Ingreso del Trabajo de New Jersey (NJEITC por las siglas en inglés)</a></li>
+            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/individuals/childtaxcredit.shtml">Crédito por Hijos de New Jersey</a></li>
+            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/depcarecred.shtml">Crédito por Cuidado de Menores y Dependientes de New Jersey</a></li>
+            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/njit13.shtml#:~:text=Medical%20Expenses%0AYou,TAM%202011%2D14.">Deducción de Gastos Médicos</a></li>
+            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/njit7.shtml">Exclusión de Pensión/Jubilación y Otros Ingresos de Jubilación</a></li>
+            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/njit16.shtml">Créditos por Contribuciones Excedentes del Seguro de Desempleo (UI por las siglas en inglés) y del Seguro de Licencia Familiar (FLI por las siglas en inglés)</a></li>
+            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/njit35.shtml">Crédito o Deducción de Impuestos sobre la Propiedad</a> (aplicable para inquilinos/as y dueños/as)</li>
         ny_credits_unsupported:
           college_tuition_credit: College tuition credit or itemized deduction
           firefighter_ambulance_credit: Volunteer firefighters’ and ambulance workers’ credit
@@ -2679,7 +2653,98 @@ es:
           nyc_school_tax_credit: Crédito tributario escolar de la ciudad de Nueva York
           nys_eic: Crédito tributario por ingreso del trabajo (Estado de Nueva York)
           nys_hh_credit: Crédito por Unidad Familiar (Estado de Nueva York)
+        other_filing_options:
+          other_options:
+            content_html:
+              nj: |
+                <p>
+                  También puedes presentar tu declaración online mediante <a href="https://www.njportal.com/Taxation/NJ1040/" target="_blank" rel="noopener noreferrer">eFile del estado de New Jersey</a>, o por correo postal. <a href="https://nj.gov/treasury/taxation/contact.shtml" target="_blank" rel="noopener noreferrer">Comunícate con la División de Impuestos del Tesoro de NJ si tienes preguntas</a>.
+                </p>
+                <p>
+                  Existen varios servicios comerciales de preparación de impuestos que ofrecen la presentación de impuestos solo para el estado. Algunos consejos para elegir una opción:
+                  <ul>
+                    <li>
+                      Dado que enviaste tu declaración de impuestos federales, asegúrate de que el servicio o el software que utilizas te permita presentar una declaración de impuestos solo para el estado. Puede que tenga que contactar el servicio de atención al cliente para confirmarlo.
+                    </li>
+                    <li>
+                      Se te pedirá que vuelvas a dar la misma información que dio en su declaración federal. Esta es necesaria para completar partes de tu declaración estatal.
+                    </li>
+                    <li>
+                      Cuando presentes tu declaración, asegúrate de enviar solo tu declaración de impuestos estatales. Si envías tu declaración federal nuevamente, esta puede ser rechazada.
+                    </li>
+                  </ul>
+                </p>
+                Puede que haya tarifas.
+            fees: Es posible que apliquen costos.
+            learn_more_here_html: Obtén más información <a href="%{link}" rel="noopener nofollow" target="_blank">aquí.</a>
+            list:
+              body: 'Muchos servicios comerciales de preparación de impuestos ofrecen la opción de declarar sólo los impuestos estatales. Aquí tienes algunos consejos rápidos:'
+              list1: Confirma que el servicio te permita presentar sólo tu declaración estatal. Es posible que necesites consultar con el soporte al cliente.
+              list2: Prepárate para volver a ingresar la información de tu declaración federal, ya que se necesita para tu declaración estatal.
+              list3: Al declarar, envía sólo tu declaración estatal. Si vuelves a enviar tu declaración federal, puede ser rechazada.
+            title: "¿Cuáles son mis otras opciones para declarar mis impuestos estatales?"
+          vita_option:
+            content_html:
+              md: |
+                <p>
+                  Tienes otras opciones gratuitas para presentar tu declaración estatal:
+                  <ul>
+                    <li>
+                      Declara gratis con voluntarios VITA certificados por el IRS en Maryland.
+                      <ul>
+                        <li>
+                          Si eliges esta opción, te conectarás con un socio de Asistencia Voluntaria para la Declaración de Impuestos (VITA) en Maryland. Recibirás una llamada en los próximos días. Tendrás que responder algunas preguntas adicionales sobre tu situación tributaria y enviar de forma segura tus documentos en línea. Este proceso puede tardar de 2 a 3 semanas en completarse.
+                        </li>
+                        <li>
+                          <a href="%{vita_link}" rel="noopener nofollow" target="_blank">Comienza con VITA ahora</a>
+                        </li>
+                        <li>
+                          Aprende más sobre este proceso y otras opciones de declaración <a href="%{link}" rel="noopener nofollow" target="_blank">aquí</a>.
+                        </li>
+                      </ul>
+                      <li>
+                        Comienza con el servicio  <a href="https://www.marylandtaxes.gov/individual/tax-assistance/free-tax-prep.php" rel="noopener nofollow" target="_blank">gratuito de preparación de impuestos sobre ingresos</a>del Contralor de Maryland.
+                      </li>
+                    </li>
+                  </ul>
+                </p>
+              nj: |
+                <p>
+                  Los preparadores de impuestos certificados en Simplify CT pueden ayudarte a preparar y presentar electrónicamente tu declaración de impuestos estatales de forma gratuita en un plazo de aproximadamente 2-3 semanas.
+                </p>
+                <p>
+                  El proceso:
+                  <ul>
+                    <li>
+                      Completa un formulario corto para solicitar asistencia solo para el estado. (Recibirás un email automático confirmando que lo enviaste).
+                    </li>
+                    <li>
+                      Un preparador de impuestos certificado compartirá un enlace para cargar de forma segura tu formulario de impuestos federales (1040), documentos fiscales e identificación.
+                    </li>
+                    <li>
+                      Te llamarán para pedirte más datos.
+                    </li>
+                    <li>
+                      Una vez que tu declaración esté lista, programarán una llamada para revisarla y responder tus preguntas.
+                    </li>
+                    <li>
+                      Firmarás tu formulario de impuestos estatales en línea.
+                    </li>
+                    <li>
+                      El preparador de impuestos presentará electrónicamente tus impuestos estatales.
+                    </li>
+                  </ul>
+                </p>
+                <p>
+                  Si tienes preguntas, usa el chat o envía un email a <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>. Si tienes preguntas después de que Simplify CT se haya comunicado contigo, escribe a <a href="mailto:help@simplifyct.org">help@simplifyct.org</a>.
+                </p>
+            title:
+              default: "¿Qué opciones gratuitas tengo para declarar mis impuestos estatales?"
+              nj: Lee más sobre el proceso de VITA
         vita_option:
+          connect_to_vita: Conéctate ahora
+          vita_introduction:
+            nj: Puedes presentar tus impuestos estatales de forma gratuita con la ayuda de preparadores de impuestos voluntarios certificados por el IRS del programa Volunteer Income Tax Assistance (VITA por las siglas en inglés) en Simplify CT.
           vita_link: Comienza con VITA ahora
           want_to_claim_learn_more_html: Obtén más información sobre este proceso y otras opciones para presentar tu declaración  <a href="%{link}" target="_blank">aquí</a>.
           want_to_claim_vita: Es posible que puedas presentar tu declaración estatal de forma gratuita con voluntarios VITA certificados por el IRS, pero puede tardar de 2 a 3 semanas en completarse.
@@ -2769,7 +2834,7 @@ es:
         edit:
           answers_confidential_html: Tus respuestas son privadas y se utilizan sólo para determinar si calificas para el crédito fiscal.
           example_months: Por ejemplo, si tuvieron 2 situaciones en abril, eso cuenta como 1 mes.
-          need_to_know_html: "¿Durante cuántos meses estas situaciones afectaron a esta persona en %{filing_year}?"
+          need_to_know_html: "¿Durante cuántos meses estas situaciones afectaron a %{name} en %{filing_year}?"
           need_to_know_you_html: "¿En cuántos meses te afectaron estas situaciones %{filing_year}?"
           see_if_you_qualify:
             many: Para ver si califica, necesitamos más información sobre usted y su hogar.
@@ -2884,7 +2949,7 @@ es:
       income_review:
         edit:
           help_text: Te pediremos que ingreses la información que pueda faltar.
-          interest_income_body: No se necesita información estatal adicional
+          interest_income_body: No se necesita información adicional.
           interest_income_title: Ingresos por intereses (1099-INT)
           invalid_income_form_error: Hay un problema con la información del estado en uno o más de sus formularios de ingresos. Revíselo y edítelo antes de continuar.
           no_info_needed: No se necesita información estatal adicional
@@ -3106,6 +3171,39 @@ es:
           question: "¿En qué año falleció tu cónyuge?"
           subtitle: Para continuar, necesitamos confirmar información adicional sobre tu cónyuge fallecido.
           title: Parece que tu estado civil es "Cónyuge sobreviviente calificado"
+      nc_retirement_income_subtraction:
+        edit:
+          bailey_description: 'El Acuerdo Bailey es una decisión de la Corte Suprema de Carolina del Norte. Dice que algunos planes de jubilación no pueden pagar impuestos en Carolina del Norte. Estos planes incluyen:'
+          bailey_more_info_html: Visite <a target="_blank" href="https://www.ncdor.gov/bailey-decision-concerning-federal-state-and-local-retirement-benefits">el Departamento de Ingresos de Carolina </a> del Norte para obtener más información.
+          bailey_reveal_bullets:
+          - Sistema de Jubilación de Maestros y Empleados Estatales de Carolina del Norte
+          - Sistema de jubilación de empleados del gobierno local de Carolina del Norte
+          - Sistema Consolidado de Jubilación Judicial de Carolina del Norte
+          - Sistema de Retiro de Empleados Federales
+          - Sistema de jubilación del servicio civil de los Estados Unidos
+          bailey_settlement_at_least_five_years: "¿Tenía usted o su cónyuge al menos cinco años de servicio acreditable antes del 12 de agosto de 1989?"
+          bailey_settlement_checkboxes: Marque todas las casillas sobre el Acuerdo Bailey que se apliquen a usted o a su cónyuge.
+          bailey_settlement_from_retirement_plan: "¿Recibió usted o su cónyuge beneficios de jubilación del plan 401(k) o 457 de Carolina del Norte y estuvo contratado o contribuyó al plan antes del 12 de agosto de 1989?"
+          doc_1099r_label: 1099-R
+          income_source_bailey_settlement_html: Beneficios de jubilación como parte del <strong>Acuerdo Bailey</strong>
+          income_source_question: 'Seleccione la fuente de este ingreso:'
+          other: Ninguno de estos se aplica
+          subtitle: Necesitamos más información sobre este 1099-R para verificar su elegibilidad.
+          taxable_amount_label: 'Base imponible:'
+          taxpayer_name_label: Nombre del contribuyente
+          title: "¡Podría ser elegible para una deducción de ingresos por jubilación en Carolina del Norte!"
+          uniformed_services_bullets:
+          - Las Fuerzas Armadas
+          - El cuerpo comisionado de la Administración Nacional Oceánica y Atmosférica (NOAA)
+          - El cuerpo comisionado de los Servicios de Salud Pública de los Estados Unidos (USPHS)
+          uniformed_services_checkboxes: Marque todas las casillas sobre los Servicios Uniformados que se apliquen a usted o su cónyuge.
+          uniformed_services_description: 'Los Servicios Uniformados son grupos de personas que desempeñan funciones militares y afines. Estos incluyen:'
+          uniformed_services_html: Beneficios de jubilación de los <strong>Servicios Uniformados</strong>
+          uniformed_services_more_info_html: Puedes <a target="_blank" href="https://deploymentpsych.org/system/files/member_resource/TheUniformedServices_1.pdf"> leer más detalles sobre los servicios uniformados aquí. </a>
+          uniformed_services_qualifying_plan: "¿Estos pagos fueron de un Plan de Beneficios para Sobrevivientes calificado a un beneficiario de un miembro retirado que sirvió al menos 20 años o que estaba médicamente retirado de los Servicios Uniformados?"
+          uniformed_services_retired: "¿Es usted o su cónyuge un miembro jubilado que sirvió al menos 20 años o estuvo retirado por motivos médicos de los Servicios Uniformados?"
+          what_are_uniformed_services: "¿Qué son los Servicios Uniformados?"
+          what_is_bailey: "¿Qué es el Acuerdo Bailey?"
       nc_review:
         edit:
           amount_earned: Amount earned
@@ -3130,13 +3228,13 @@ es:
               manual_instructions_html: (<a href="https://www.ncdor.gov/2024-d-401-individual-income-tax-instructions/open" target="_blank" rel="noopener noreferrer">Obtén más información aquí,</a> buscando 'consumer use worksheet).
           subtitle_html: Esto incluye compras en línea donde <b>no</b> se aplicó el impuesto sobre ventas.
           title:
-            many: "¿Usted o su cónyuge realizaron alguna compra fuera del estado en %{year} sin pagar impuestos sobre ventas o de uso?"
-            one: "¿Realizaste alguna compra fuera del estado en %{year} sin pagar impuestos de venta o de uso?"
+            many: "¿Tú o tu cónyuge hiciste alguna compra fuera del estado en %{year} sin pagar impuestos sobre ventas?"
+            one: "¿Hiciste alguna compra fuera del estado en %{year} sin pagar impuestos sobre ventas?"
             other: "¿Tú o tu cónyuge hiciste alguna compra fuera del estado en %{year} sin pagar impuestos sobre ventas?"
           use_tax_method_automated: No mantuve un registro completo de todas las compras. <b>Calculen el monto del impuesto sobre uso por mí.</b>
           use_tax_method_manual: Mantuve un registro completo de todas las compras y haré el cálculo de mi impuesto sobre uso manualmente.
           what_are_sales_taxes: "¿Qué son los impuestos sobre ventas?"
-          what_are_sales_taxes_body: Este es un impuesto recaudado en el punto de venta cuando compras bienes dentro de tu estado.
+          what_are_sales_taxes_body: 'Impuesto sobre ventas: Este es un impuesto recaudado en el punto de venta cuando compras bienes dentro de tu estado.'
           what_are_use_taxes: "¿Qué son los impuestos sobre uso?"
           what_are_use_taxes_body: Si compras algo de otro estado (como compras en línea o en una tienda ubicada en otro estado) y no pagas el impuesto sobre ventas, generalmente se requiere que pagues el impuesto sobre uso a tu estado de residencia.
       nc_spouse_state_id:
@@ -3147,9 +3245,9 @@ es:
       nc_subtractions:
         edit:
           title_html:
-            many: ¿Es usted o su cónyuge un miembro inscrito de una <a href="https://biamaps.geoplatform.gov/Tribal-Leaders-Directory/" target="_blank">tribu indígena reconocida federalmente</a> y recibieron ingresos mientras vivían en una reserva?
-            one: ¿Es usted un miembro inscrito de una <a href="https://biamaps.geoplatform.gov/Tribal-Leaders-Directory/" target="_blank">tribu indígena reconocida federalmente</a> y recibió ingresos mientras vivía en una reserva?
-            other: ¿Tú o tu cónyuge son miembros inscritos de una <a href="https://biamaps.geoplatform.gov/Tribal-Leaders-Directory/" target="_blank">tribu indígena estadounidense reconocida por el gobierno federal</a> recibiendo salario mientras vivía y trabajaba en la reserva?
+            many: ¿Tú o tu cónyuge son miembros inscritos de una <a href="https://biamaps.geoplatform.gov/Tribal-Leaders-Directory/" target="_blank">tribu indígena reconocida por el gobierno federal</a> y recibiste ingresos mientras vivían y trabajaban en la reserva?
+            one: ¿Eres miembro inscrito de una <a href="https://biamaps.geoplatform.gov/Tribal-Leaders-Directory/" target="_blank">tribu indígena reconocida por el gobierno federal</a> y recibiste ingresos mientras vivías y trabajabas en la reserva?
+            other: ¿Tú o tu cónyuge son miembros inscritos de una <a href="https://biamaps.geoplatform.gov/Tribal-Leaders-Directory/" target="_blank">tribu indígena reconocida por el gobierno federal</a> y recibiste ingresos mientras vivían y trabajaban en la reserva?
           tribal_wages_field: Ingrese la cantidad ganada
           tribal_wages_question_html: Ingresa el monto de los ingresos recibidos de actividades en la reserva reconocida federalmente. <br><br> Esta cantidad no debe ser mayor que $%{amount_limit}.
       nc_tax_refund:
@@ -3209,9 +3307,12 @@ es:
           title: Puedes calificar para exenciones de impuestos por cualquier dependiente menor de 22 años que asista a la universidad.
           tuition_books_helper_description_html: Para calcular el monto total, suma el costo de la matrícula universitaria, el costo de los libros (y materiales) y cualquier dinero ganado por el/la estudiante en programas de trabajo y estudio universitarios. No incluyas otra ayuda financiera recibida.
           tuition_books_helper_heading: "¿Cómo debo calcular el monto total de la matrícula y los costos universitarios?"
-      nj_county:
+      nj_county_municipality:
         edit:
           county: Condado
+          helper_description_html: Puedes usar la <a href="https://www.nj.gov/nj/gov/county/localities.html" target="_blank" rel="noopener nofollow">herramienta de localidades del estado de New Jersey</a> para obtener el nombre de tu condado o municipio. Puedes escribir solo tu ciudad y te dirá cuál es tu municipio y condado. (Para encontrar tu condado, no selecciones un condado en el menú desplegable, solo ingresa tu ciudad).
+          helper_heading: No sé con certeza cuál es mi condado o municipio.
+          municipality: Municipio
           title_html: Necesitamos saber <strong>dónde vivías el 31 de diciembre %{filing_year}.</strong>
       nj_dependents_health_insurance:
         edit:
@@ -3238,7 +3339,7 @@ es:
           coverage_heading: "¿Qué es el seguro de salud con cobertura mínima esencial?"
           label_html: |
             <p><strong>¿Tuvieron seguro de salud (<a href="https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml" target="_blank" rel="noopener noreferrer">con cobertura médica mínima esencial</a>) todos los meses de %{filing_year}, tú y todas las personas en tu hogar tributable?</strong><p>
-            <p><strong><em>Debes responder sí </em></strong>si todas las personas en tu hogar tuvieron un plan de seguro a través de un trabajo, compraron un plan de seguro a través de <a href="https://nj.gov/getcoverednj/" target="_blank" rel="noopener nofollow">GetCoveredNJ</a>, o tuvieron Medicare o Medicaid (NJ Family Care). También debes responder sí si tu cobertura está <a href="https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml" target="_blank" rel="noopener nofollow">en esta lista (link en inglés).</a></p>
+            <p><strong><em>Debes responder sí </em></strong>si todas las personas en tu hogar tuvieron un plan de seguro a través de un trabajo, compraron un plan de seguro a través de <a href="https://nj.gov/getcoverednj/espanol/" target="_blank" rel="noopener nofollow">GetCoveredNJ</a>, o tuvieron Medicare o Medicaid (NJ Family Care). También debes responder sí si tu cobertura está <a href="https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml" target="_blank" rel="noopener nofollow">en esta lista (link en inglés).</a></p>
             <p class="spacing-below-0"><strong><em>Debes responder no</em></strong> si tú o alguien en tu hogar solo tuvo plan de visión o dental independientes, cobertura de compensación laboral o un plan limitado a una enfermedad o dolencia específica.</p>
           tax_household_description_html: Un hogar tributable/fiscal te incluye a ti, tu cónyuge (si presentas una declaración conjunta) y a todas las personas que podrías reclamar como dependientes, aunque no lo hagas.
           tax_household_heading: "¿Qué se considera un hogar tributable/fiscal?"
@@ -3373,12 +3474,6 @@ es:
             </ul>
           learn_more_title: "¿Qué son los gastos médicos?"
           title: Puedes deducir gastos médicos.
-      nj_municipality:
-        edit:
-          helper_description_html: Puedes usar la <a href="https://www.nj.gov/nj/gov/county/localities.html" target="_blank" rel="noopener nofollow">herramienta de localidades del estado de New Jersey</a> para obtener el nombre de tu condado o municipio. Puedes escribir solo tu ciudad y te dirá cuál es tu municipio y condado. (Para encontrar tu condado, no selecciones un condado en el menú desplegable, solo ingresa tu ciudad).
-          helper_heading: No sé con certeza cuál es mi condado o municipio.
-          municipality: Municipio
-          title_html: Necesitamos saber <strong>dónde vivías el 31 de diciembre %{filing_year}.</strong>
       nj_primary_state_id:
         nj_primary:
           dmv_bmv: Tarjeta de identificación estatal
@@ -3396,6 +3491,7 @@ es:
           college_dependents: Exención para dependientes que asisten a la universidad
           college_dependents_none: No aplica
           continue_helper: Revisa y haz clic en "Continuar" si está todo correcto.
+          county: Condado de %{county}
           county_municipality: Lugar donde vivías hasta el 31 de diciembre de %{filing_year}
           edit_disability: estado de discapacidad
           edit_veteran: estado de veterano/a de guerra
@@ -3851,8 +3947,50 @@ es:
             <strong>Cuando usas el servicio FileYourStateTaxes, te estás comprometiendo a lo siguiente:</strong><br>
             <ul class="list--numbered">
           decline: Rechazar
-          list_items_html: <strong>Presentación de tu declaración fácil:</strong> FileYourStateTaxes es un servicio gratis y fácil de usar desarrollado por Code for America para ayudarte a declarar tus impuestos estatales, de manera conveniente, después de completar tu declaración de impuestos federales.</li><strong>Transferencia de datos:</strong> Nos estás permitiendo usar los datos de tu declaración federal como punto de partida para tu declaración de impuestos estatales.</li><strong>Preguntas para mayor precisión:</strong> Es posible que te hagamos algunas preguntas adicionales para asegurarnos que tu declaración de impuestos estatales quede completa y precisa.</li><strong>Presentación electrónica modernizada:</strong>  Enviaremos tu declaración de impuestos estatal y una copia de tu declaración de impuestos federal utilizando el sistema de Presentación Electrónica Modernizada (MeF por sus siglas en inglés), que la vincula a tu declaración federal.</li><strong>Tu responsabilidad:</strong> Eres responsable de asegurar que la información que proporciones sea precisa y que estás cumpliendo con todas las leyes federales y estatales cuando usas FileYourStateTaxes.</li><strong>Sin garantías:</strong> Hacemos nuestro mejor esfuerzo pero no podemos garantizar la exactitud o el éxito de tu declaración de impuestos estatales cuando utilizas FileYourStateTaxes.</li><strong>Privacidad y seguridad:</strong> La protección de tu privacidad y tus datos es importante para nosotros. Consulta nuestra <a href="%{privacy_policy_link}" target="_blank" rel="noopener nofollow">Política de Privacidad</a> para obtener más información.</li><strong>Mantente informado:</strong> Te enviaremos actualizaciones sobre tu declaración de impuestos estatales a través de tu método de comunicación preferido, ya sea por mensaje de texto o correo electrónico. Esto incluye actualizaciones de estado, recordatorios e información importante.</li><strong>Tu elección:</strong> Puedes cambiar tu método de comunicación preferido o escoger no recibir actualizaciones en cualquier momento siguiendo las instrucciones en los mensajes o a través de la configuración de tu cuenta.</li><strong>Eliminación de datos:</strong> Tienes derecho a pedirnos que eliminemos tus datos personales e información relacionada con tus impuestos de FileYourStateTaxes en cualquier momento. Simplemente envíanos un correo electrónico a help@fileyourtaxes.org. Pero ten en cuenta que esto podría afectar tu acceso al servicio.</li><strong>Enlaces a sitios de terceros:</strong> Los enlaces en el software te permitirán salir de FileYourStateTaxes. Los sitios vinculados no están bajo el control de FileYourStateTaxes y FileYourStateTaxes no es responsable del contenido de ningún sitio vinculado ni de ningún enlace contenido en un sitio vinculado, ni de cambios o actualizaciones en dichos sitios. FileYourStateTaxes proporciona estos enlaces sólo como una conveniencia, y la inclusión de cualquier enlace no implica respaldo por parte de FileYourStateTaxes del sitio.</li><strong>Ley Aplicable:</strong> Este acuerdo se regirá y se interpretará de acuerdo con las leyes del estado de California.</li><strong>Preguntas e inquietudes:</strong> Si tienes alguna pregunta o inquietud sobre estos términos, no dudes en contactarnos en <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.</li>
-          list_items_no_sms_html: "<strong>Mantente informado:</strong> Te enviaremos actualizaciones sobre tu declaración de impuestos estatales a través de tu método de comunicación preferido, ya sea por mensaje de texto o correo electrónico. Esto incluye actualizaciones de estado, recordatorios e información importante.</li>\n"
+          list_items_html: |
+            <li>
+              <strong>Presentación de tu declaración fácil:</strong> FileYourStateTaxes es un servicio gratis y fácil de usar desarrollado por %{owner} para ayudarte a declarar tus impuestos estatales, de manera conveniente, después de completar tu declaración de impuestos federales.
+            </li>
+            <li>
+              <strong>Transferencia de datos:</strong> Nos estás permitiendo usar los datos de tu declaración federal como punto de partida para tu declaración de impuestos estatales.
+            </li>
+            <li>
+              <strong>Preguntas para mayor precisión:</strong> Es posible que te hagamos algunas preguntas adicionales para asegurarnos que tu declaración de impuestos estatales quede completa y precisa.
+            </li>
+            <li>
+              <strong>Presentación electrónica modernizada:</strong> Enviaremos tu declaración de impuestos estatal y una copia de tu declaración de impuestos federal utilizando el sistema de Presentación Electrónica Modernizada (MeF por sus siglas en inglés), que la vincula a tu declaración federal.
+            </li>
+            <li>
+              <strong>Tu responsabilidad:</strong> Eres responsable de asegurar que la información que proporciones sea precisa y que estás cumpliendo con todas las leyes federales y estatales cuando usas FileYourStateTaxes.
+            </li>
+            <li>
+              <strong>Sin garantías:</strong> Hacemos nuestro mejor esfuerzo pero no podemos garantizar la exactitud o el éxito de tu declaración de impuestos estatales cuando utilizas FileYourStateTaxes.
+            </li>
+            <li>
+              <strong>Privacidad y seguridad:</strong> La protección de tu privacidad y tus datos es importante para nosotros. Consulta nuestra <a href="%{privacy_policy_link}" target="_blank" rel="noopener nofollow">Política de Privacidad</a> para obtener más información.
+            </li>
+            <li>
+              <strong>Mantente informado:</strong> Te enviaremos actualizaciones sobre tu declaración de impuestos estatales a través de tu método de comunicación preferido, ya sea por mensaje de texto o correo electrónico. Esto incluye actualizaciones de estado, recordatorios e información importante.
+            </li>
+            <li>
+              <strong>Tu elección:</strong> Puedes cambiar tu método de comunicación preferido o escoger no recibir actualizaciones en cualquier momento siguiendo las instrucciones en los mensajes o a través de la configuración de tu cuenta.
+            </li>
+            <li>
+              <strong>Eliminación de datos:</strong> Tienes derecho a pedirnos que eliminemos tus datos personales e información relacionada con tus impuestos de FileYourStateTaxes en cualquier momento. Simplemente envíanos un correo electrónico a help@fileyourtaxes.org. Pero ten en cuenta que esto podría afectar tu acceso al servicio.
+            </li>
+            <li>
+              <strong>Enlaces a sitios de terceros:</strong> Los enlaces en el software te permitirán salir de FileYourStateTaxes. Los sitios vinculados no están bajo el control de FileYourStateTaxes y FileYourStateTaxes no es responsable del contenido de ningún sitio vinculado ni de ningún enlace contenido en un sitio vinculado, ni de cambios o actualizaciones en dichos sitios. FileYourStateTaxes proporciona estos enlaces sólo como una conveniencia, y la inclusión de cualquier enlace no implica respaldo por parte de FileYourStateTaxes del sitio.
+            </li>
+            <li>
+              <strong>Ley Aplicable:</strong> Este acuerdo se regirá y se interpretará de acuerdo con las leyes del estado de California.
+            </li>
+            <li>
+              <strong>Preguntas e inquietudes:</strong> Si tienes alguna pregunta o inquietud sobre estos términos, no dudes en contactarnos en <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
+            </li>
+          list_items_no_sms_html: |
+            <li>
+              <strong>Mantente informado:</strong> Te enviaremos actualizaciones sobre tu declaración de impuestos estatales a través de tu método de comunicación preferido, ya sea por mensaje de texto o correo electrónico. Esto incluye actualizaciones de estado, recordatorios e información importante.
+            </li>
           ny_text_html: |
             <strong>Presenta tu declaración de impuestos del estado de Nueva York electrónicamente sin costo adicional. </strong><br><br>
             Antes de imprimir y enviar tu declaración, ten en cuenta que no hay un costo adicional por presentarla electrónicamente. Otras razones para presentar electrónicamente:
@@ -6073,7 +6211,7 @@ es:
         account_type:
           checking: Corriente (Checking)
           label: Tipo de cuenta bancaria
-          savings: Ahorros
+          savings: Ahorros (Savings)
         bank_name: Nombre del banco
         help_text: Su nombre debe aparecer en su cuenta bancaria para que pueda recibir su dinero.
         routing_number: Número de ruta bancaria
