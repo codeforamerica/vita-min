@@ -108,7 +108,7 @@
     </section>
   <% end %>
 
-  <% if current_intake.state_file1099_rs.length.positive? %>
+  <% if current_intake.state_file1099_rs.length.positive? && Flipper.enabled?(:show_retirement_ui) %>
     <section id="retirement-income-source" class="white-group">
       <div class="spacing-below-5">
         <h2 class="text--body text--bold spacing-below-25"><%=t(".retirement_income_source") %></h2>

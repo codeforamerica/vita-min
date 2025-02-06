@@ -39,7 +39,7 @@ module StateFile
       end
 
       def self.show?(intake)
-        intake.state_file1099_rs.length.positive?
+        Flipper.enabled?(:show_retirement_ui) && intake.state_file1099_rs.length.positive?
       end
 
       def prev_path
