@@ -51,7 +51,7 @@ describe StateFileNjAnalytics do
       expected_line_12_count = 18
       expected_line_15 = 10_000
       expected_line_16a = 20_000
-      expected_line_16b = 30_000
+      expected_line_16b = 0
       expected_line_29 = 40_000
       expected_line_31 = 1_000
       expected_line_41 = 2_000
@@ -116,6 +116,17 @@ describe StateFileNjAnalytics do
       expect(columns[:NJ1040_LINE_64]).to eq(expected_line_64)
       expect(columns[:NJ1040_LINE_65]).to eq(expected_line_65)
       expect(columns[:NJ1040_LINE_65_DEPENDENTS]).to eq(expected_line_65_dependents)
+    end
+
+    it "sets nil values from the calculator to 0 in the record" do
+      analytics_record = StateFileNjAnalytics.create(state_file_nj_intake: intake)
+
+      expected_line_16b = 0
+      allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_16b).and_return nil
+
+      columns = analytics_record.calculated_fields
+
+      expect(columns[:NJ1040_LINE_16B]).to eq(expected_line_16b)
     end
   end
 end
