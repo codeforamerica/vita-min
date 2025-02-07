@@ -6,7 +6,7 @@
 <% content_for :card do %>
   <hgroup>
     <h1 class="h2"><%= title %></h1>
-    <p class="h3"><%= t(".subtitle") %></p>
+    <p><%= t(".subtitle") %></p>
   </hgroup>
   <p><%= t(".doc_1099r_label") %> <b><%= @name_1099r %></b></p>
   <p><%= t(".taxpayer_name_label") %> <b><%= @taxpayer_name %></b></p>
@@ -20,7 +20,7 @@
             collection: [
               { value: :military_pension, label: t(".option_military_pension") },
               { value: :military_survivors_benefits, label: t(".option_military_survivor_benefit") },
-              { value: :none, label: t(".option_none_html") },
+              { value: :none, label: t(".option_none") },
             ],
           ) %>
     </div>

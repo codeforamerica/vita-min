@@ -3477,7 +3477,7 @@ es:
           label: 'Select the source of this income:'
           option_military_pension: U.S. military pension
           option_military_survivor_benefit: U.S. military survivor's benefits
-          option_none_html: None of these apply <i>(Choose this if you have a civil service pension or annuity)</i>
+          option_none: None of these apply (Choose this if you have a civil service pension or annuity)
           subtitle: We need more information about this 1099-R.
           taxable_amount_label: 'Taxable Amount:'
           taxpayer_name_label: 'Taxpayer Name:'
