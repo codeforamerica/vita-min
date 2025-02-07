@@ -2257,10 +2257,6 @@ es:
           ctds_code: Código de la escuela/CTDS
           date_of_contribution: Fecha del pago en %{year}
           district_name: Nombre del distrito escolar
-          made_contribution:
-            many: "¿Pagaste tarifas o hiciste contribuciones en efectivo a una escuela pública en %{year}? No incluyas cantidades reclamadas en la declaración de impuestos del año pasado."
-            one: "¿Pagaste tarifas o hiciste contribuciones en efectivo a una escuela pública en %{year}? No incluyas cantidades reclamadas en la declaración de impuestos del año pasado."
-            other: "¿Tú o tu cónyuge pagaron alguna tarifa o donaron dinero a una escuela pública de Arizona en  %{year}?"
           school_name: Nombre de la escuela
           school_name_help_text: Por favor ingresa el nombre oficial
           title_html: ¡Podrías ser elegible para el <a href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_guideline-public-school-ECA-tax-credit.pdf" target="_blank">crédito tributario de las escuelas públicas de Arizona! </a>!
@@ -2270,6 +2266,10 @@ es:
             FileYourStateTaxes sólo te permite agregar donaciones del período fiscal correspondiente.
             <br/><br/>
             Puedes reportar cualquier donación hecha en %{current_year} en la declaración de impuestos del próximo año.
+          made_az322_contributions:
+            many: "¿Pagaste tarifas o hiciste contribuciones en efectivo a una escuela pública en %{year}? No incluyas cantidades reclamadas en la declaración de impuestos del año pasado."
+            one: "¿Pagaste tarifas o hiciste contribuciones en efectivo a una escuela pública en %{year}? No incluyas cantidades reclamadas en la declaración de impuestos del año pasado."
+            other: "¿Tú o tu cónyuge pagaron alguna tarifa o donaron dinero a una escuela pública de Arizona en  %{year}?"
           more_details_html: Visita el <a href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_guideline-public-school-ECA-tax-credit.pdf" target="_blank">Departamento de Ingresos de Arizona</a>para más detalles.
           qualifying_list:
           - Actividades extracurriculares
@@ -2928,7 +2928,7 @@ es:
           help_text: Te pediremos que ingreses la información que pueda faltar.
           interest_income_body: No se necesita información adicional.
           interest_income_title: Ingresos por intereses (1099-INT)
-          invalid_w2: Hay un problema con uno o más formularios W-2. Revisa y corrige antes de continuar.
+          invalid_income_form_error: Hay un problema con la información del estado en uno o más de sus formularios de ingresos. Revíselo y edítelo antes de continuar.
           no_info_needed: No se necesita información estatal adicional
           no_info_needed_nj: Este ingreso no es tributable en New Jersey.
           retirement_income_title: Jubilación (1099-R)
