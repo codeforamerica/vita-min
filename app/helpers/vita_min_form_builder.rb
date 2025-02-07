@@ -12,6 +12,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
       wrapper_classes: []
   )
     # this override allows us to wrap the field in a label
+    # used only for file field
     if options[:input_id]
       for_options = options.merge(
           for: options[:input_id],
@@ -23,9 +24,10 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
 
     formatted_label = label(
         method,
-        label_contents(label_text, help_text, optional: optional) + field_html,
+        label_contents(label_text, has_help_text: help_text, optional: optional) + field_html,
         (for_options || options),
         )
+    formatted_label += help_text_html(help_text, method) if help_text
     formatted_label += notice_html(notice).html_safe if notice
 
     formatted_label.html_safe
