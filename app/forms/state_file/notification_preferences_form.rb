@@ -17,6 +17,7 @@ module StateFile
 
       if is_first_time_setup
         messaging_service = StateFile::MessagingService.new(
+          locale: I18n.locale,
           message: StateFile::AutomatedMessage::Welcome,
           intake: @intake,
           sms: sms_notification_opt_in == "yes",
