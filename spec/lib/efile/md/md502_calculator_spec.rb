@@ -1122,26 +1122,9 @@ describe Efile::Md::Md502Calculator do
       allow_any_instance_of(Efile::Md::Md502crCalculator).to receive(:calculate_part_aa_line_14).and_return(100)
     end
 
-    context "when deduction method is standard" do
-      before do
-        allow_any_instance_of(described_class).to receive(:deduction_method_is_standard?).and_return(true)
-        instance.calculate
-      end
-
-      it "returns the value from MD502CR Part AA Line 14" do
-        expect(instance.lines[:MD502_LINE_24].value).to eq(100)
-      end
-    end
-
-    context "when deduction method is non-standard" do
-      before do
-        allow_any_instance_of(described_class).to receive(:deduction_method_is_standard?).and_return(false)
-        instance.calculate
-      end
-
-      it "returns 0" do
-        expect(instance.lines[:MD502_LINE_24].value).to eq(0)
-      end
+    it "returns the value from MD502CR Part AA Line 14" do
+      instance.calculate
+      expect(instance.lines[:MD502_LINE_24].value).to eq(100)
     end
   end
 
