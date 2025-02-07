@@ -22,9 +22,9 @@ module StateFile
 
       def update
         if current_intake.allows_w2_editing? && @w2s.any? do |w2|
-            w2.check_box14_limits = true
-            !w2.valid?(:state_file_edit)
-          end
+             w2.check_box14_limits = true
+             !w2.valid?(:state_file_edit)
+           end
           flash[:alert] = I18n.t("state_file.questions.income_review.edit.invalid_w2")
           render :edit
         else
@@ -35,6 +35,8 @@ module StateFile
       private
 
       def should_show_warning?(w2, w2_count_for_filer)
+        return true if w2.wages.present? && !w2.state_wages_amount.positive?
+
         return false if StateFile::StateInformationService
           .w2_supported_box14_codes(w2.state_file_intake.state_code)
           .none? { |code| code[:name] == "UI_WF_SWF" || code[:name] == "FLI" }
