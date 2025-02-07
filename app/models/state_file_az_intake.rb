@@ -37,6 +37,7 @@
 #  locale                                 :string           default("en")
 #  locked_at                              :datetime
 #  made_az321_contributions               :integer          default("unfilled"), not null
+#  made_az322_contributions               :integer          default("unfilled"), not null
 #  message_tracker                        :jsonb
 #  payment_or_deposit_type                :integer          default("unfilled"), not null
 #  phone_number                           :string
@@ -103,13 +104,15 @@ class StateFileAzIntake < StateFileBaseIntake
   enum eligibility_married_filing_separately: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_married_filing_separately
   enum eligibility_529_for_non_qual_expense: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_529_for_non_qual_expense
   enum made_az321_contributions: { unfilled: 0, yes: 1, no: 2 }, _prefix: :made_az321_contributions
+  enum made_az322_contributions: { unfilled: 0, yes: 1, no: 2 }, _prefix: :made_az322_contributions
   enum eligibility_lived_in_state: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_lived_in_state
   enum eligibility_out_of_state_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_out_of_state_income
 
   validates :made_az321_contributions, inclusion: { in: ["yes", "no"]}, on: :az321_form_create
+  validates :made_az322_contributions, inclusion: { in: ["yes", "no"]}, on: :az322_form_create
   validates :az321_contributions, length: { maximum: 10 }
+  validates :az322_contributions, length: { maximum: 10 }
 
-  validates :az322_contributions, length: { maximum: 10 }, on: :az322
   def federal_dependent_count_under_17
     self.dependents.select{ |dependent| dependent.under_17? }.length
   end

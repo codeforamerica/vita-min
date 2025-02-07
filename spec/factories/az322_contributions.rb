@@ -7,7 +7,6 @@
 #  ctds_code               :string
 #  date_of_contribution    :date
 #  district_name           :string
-#  made_contribution       :integer          default("unfilled"), not null
 #  school_name             :string
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
@@ -22,7 +21,6 @@ FactoryBot.define do
     date_of_contribution_year { Rails.configuration.statefile_current_tax_year }
     date_of_contribution_month { "3" }
     date_of_contribution_day { "4" }
-    made_contribution { "yes" }
     ctds_code { "100206038" }
     school_name { "Schublic Pool" }
     district_name { "Dool Schistrict" }

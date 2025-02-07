@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>71fe11e6</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>123001234</PrimarySSN>
+            <NameLine1Txt>BRITA J&lt;NRA-SPOUSE</NameLine1Txt>
+            <PrimaryNameControlTxt>NRA-</PrimaryNameControlTxt>
+            <SpouseNameControlTxt>NRA</SpouseNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>742 Evergreen Terrace</AddressLine1Txt>
+                <CityNm>Springfield</CityNm>
+                <StateAbbreviationCd>IL</StateAbbreviationCd>
+                <ZIPCd>62701</ZIPCd>
+            </USAddress>
+            <PhoneNum>2223334444</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+950789ad-56bf-4440-b656-5611a2472f72@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="2">
+        <IRS1040 documentId="IRS10400001">
+            <Form1040SRInd>X</Form1040SRInd>
+            <IndividualReturnFilingStatusCd>3</IndividualReturnFilingStatusCd>
+            <NRALiteralCd>NRA</NRALiteralCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <Primary65OrOlderInd>X</Primary65OrOlderInd>
+            <TotalBoxesCheckedCnt>1</TotalBoxesCheckedCnt>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>1</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">10000</WagesAmt>
+            <WagesSalariesAndTipsAmt>10000</WagesSalariesAndTipsAmt>
+            <TotalIncomeAmt>10000</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>10000</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>16150</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>16150</TotalDeductionsAmt>
+            <TaxableIncomeAmt>0</TaxableIncomeAmt>
+            <TaxAmt>0</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>0</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>0</TaxLessCreditsAmt>
+            <TotalTaxAmt>0</TotalTaxAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>NRA member</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>123001234</EmployeeSSN>
+            <EmployerEIN>001919191</EmployerEIN>
+            <EmployerNameControlTxt>THIS</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>This W2 Has No State Income or Withholding Industries</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>1 Main St</AddressLine1Txt>
+                <CityNm>Baltimore</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21201</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Brita J NRA-Spouse</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>742 Evergreen Terrace</AddressLine1Txt>
+                <CityNm>Springfield</CityNm>
+                <StateAbbreviationCd>IL</StateAbbreviationCd>
+                <ZIPCd>62701</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>10000</WagesAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>MD</StateAbbreviationCd>
+                    <EmployerStateIdNum>2424242</EmployerStateIdNum>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>
