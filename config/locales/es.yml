@@ -2231,7 +2231,7 @@ es:
         edit:
           household_excise_credit_claimed_amt: Ingresa la cantidad total del Crédito Tributario por Impuesto de Consumo Aumentado reclamado por los miembros de tu hogar.
           household_excise_credit_claimed_amt_help_text: Puedes encontrar esta información en la línea 56 de tu declaración de Arizona.
-          household_excise_credit_html: "¿Alguien en tu hogar presentó una declaración de impuestos por separado de la tuya y reclamó el Crédito por Aumento de Impuestos Especiales de Arizona?<br><br> (Tu hogar incluye a todas las personas con las que viviste, incluso si no están incluidas en tu declaración.)"
+          household_excise_credit_html: "¿Alguien en tu hogar presentó una declaración de impuestos separado de la tuya y reclamó el Crédito por Aumento de Impuestos Especiales de Arizona?<br><br> (Tu hogar incluye a todas las personas con las que viviste, incluso si no están incluidas en tu declaración.)"
           primary_was_incarcerated: "¿Estuviste encarcelado en una prisión del condado, estatal o federal durante al menos 60 días en %{tax_year}?"
           spouse_was_incarcerated: "¿Tu cónyuge estuvo encarcelado en una prisión del condado, estatal o federal durante al menos 60 días en %{tax_year}?"
           title: Es posible que seas elegible para el Crédito Tributario por Aumento de Impuestos Especiales.
@@ -2380,7 +2380,7 @@ es:
             other: "¿Alguna de las siguientes situaciones te aplican a ti o su cónyuge en %{year}?"
           tribal_member_label:
             many: Tú o tu cónyuge son miembros inscritos de una <u>tribu indígena estadounidense reconocida por el gobierno federal</u> y ganaron salario mientras vivían y trabajaban en la reserva.
-            one: Tú eres un miembro inscrito de una <a href="https://www.bia.gov/service/tribal-leaders-directory/federally-recognized-tribes" target="_blank" rel="noopener nofollow">tribu indígena estadounidense reconocida por el gobierno federal</a> y ganó un salario mientras vivía y trabajaba en la reserva.
+            one: Eres un miembro inscrito de <a href="https://www.bia.gov/service/tribal-leaders-directory/federally-recognized-tribes" target="_blank" rel="noopener nofollow">una tribu indígena estadounidense reconocida por el gobierno federal</a> y ganó un salario mientras vivía y trabajaba en la reserva.
             other: Tú o tu cónyuge son miembros inscritos de una <u>tribu indígena estadounidense reconocida por el gobierno federal</u> y recibieron ingresos mientras vivían y trabajaban en la reserva.
           tribal_wages_label:
             many: "¿Cuánto ganaste tú o tu cónyuge mientras vivían y trabajaban en la reserva de tu tribu o la de tu cónyuge?"
@@ -2747,7 +2747,7 @@ es:
           resubmit: Volver a enviar tu declaración estatal
           spouse_esign: Mi cónyuge ha leído y acepta la certificación anterior
           submit: Envía tu declaración estatal
-          title: Firma de manera electrónica tu declaración de impuestos del estado de %{state_name}
+          title: Firma electrónicamente tu declaración de impuestos del estado de %{state_name}
       id_donations:
         edit:
           add_the_amount: Ingresa el valor que te gustaría donar a cualquiera de las organizaciones a continuación
@@ -3708,9 +3708,9 @@ es:
              Hacer tu cheque o giro postal a nombre de %{payable_to}. Escribe tu SSN o ITIN completo, "%{filing_year} Tax", y "Form %{form_number}" en tu pago.
             </li>
           direct_debit_html: Si tienes un saldo de impuestos pendiente, recuerda <strong>pagarlo en línea en <a target="_blank" rel="noopener nofollow" href="%{tax_payment_info_url}">%{tax_payment_info_text}</a></strong> o por correo antes de la fecha límite de declaración que es el 15 de abril.
-          download_voucher: Descarga el formulario de comprobante de pago
+          download_voucher: Descarga e imprime el formulario de comprobante de pago completado.
           feedback: Valoramos sus comentarios; háganos saber lo que piensa de esta herramienta.
-          include_payment: Necesitarás el formulario de comprobante de pago
+          include_payment: Completa el formulario de comprobante de pago
           mail_voucher_and_payment: 'Envía el formulario de comprobante de pago y tu pago por correo postal a:'
           md:
             refund_details_html: |
