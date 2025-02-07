@@ -48,6 +48,31 @@ describe EfileSubmissionStateMachine do
       end
     end
 
+    context "to queued" do
+      let!(:submission) { create(:efile_submission, :bundling, :for_state, data_source: submitted_intake) }
+      before do
+        allow(StateFile::CreateNjAnalyticsRecordJob).to receive(:perform_later)
+      end
+
+      context "for NJ" do
+        let!(:submitted_intake) { create :state_file_nj_intake }
+
+        it "creates the NJ Analytics record" do
+          submission.transition_to!(:queued)
+          expect(StateFile::CreateNjAnalyticsRecordJob).to have_received(:perform_later).with(submission.id)
+        end
+      end
+
+      context "for not NJ" do
+        let!(:submitted_intake) { create :state_file_az_intake }
+
+        it "does not create the NJ Analytics record" do
+          submission.transition_to!(:queued)
+          expect(StateFile::CreateNjAnalyticsRecordJob).not_to have_received(:perform_later).with(submission.id)
+        end
+      end
+    end
+
     context "to transmitted" do
       let(:submission) { create(:efile_submission, :queued, :for_state) }
       before do
@@ -61,7 +86,7 @@ describe EfileSubmissionStateMachine do
 
         expect(submission.data_source.state_file_analytics.fed_eitc_amount).to eq 1776
         expect(submission.data_source.state_file_analytics.filing_status).to eq 1
-        expect(submission.data_source.state_file_analytics.refund_or_owed_amount).to eq -2000
+        expect(submission.data_source.state_file_analytics.refund_or_owed_amount).to eq(-2000)
       end
     end
 

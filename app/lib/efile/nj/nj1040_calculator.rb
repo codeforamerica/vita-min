@@ -27,6 +27,8 @@ module Efile
         set_line(:NJ1040_LINE_6_SPOUSE, :line_6_spouse_checkbox)
         set_line(:NJ1040_LINE_7_SELF, :line_7_self_checkbox)
         set_line(:NJ1040_LINE_7_SPOUSE, :line_7_spouse_checkbox)
+        set_line(:NJ1040_LINE_8_SELF, :line_8_self_checkbox)
+        set_line(:NJ1040_LINE_8_SPOUSE, :line_8_spouse_checkbox)
         set_line(:NJ1040_LINE_10_COUNT, :calculate_line_10_count)
         set_line(:NJ1040_LINE_10_EXEMPTION, :calculate_line_10_exemption)
         set_line(:NJ1040_LINE_11_COUNT, :calculate_line_11_count)
@@ -211,8 +213,8 @@ module Efile
       end
 
       def calculate_line_8
-        number_of_line_8_exemptions = number_of_true_checkboxes([@direct_file_data.is_primary_blind? || @intake.primary_disabled_yes?,
-                                                                 @direct_file_data.is_spouse_blind? || @intake.spouse_disabled_yes?])
+        number_of_line_8_exemptions = number_of_true_checkboxes([line_8_self_checkbox,
+                                                                 line_8_spouse_checkbox])
         number_of_line_8_exemptions * 1_000
       end
 
@@ -281,6 +283,14 @@ module Efile
 
       def line_6_spouse_checkbox
         @intake.filing_status_mfj?
+      end
+
+      def line_8_self_checkbox
+        @direct_file_data.is_primary_blind? || @intake.primary_disabled_yes?
+      end
+
+      def line_8_spouse_checkbox
+        @direct_file_data.is_spouse_blind? || @intake.spouse_disabled_yes?
       end
 
       def calculate_line_13
