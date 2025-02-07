@@ -37,7 +37,7 @@ RSpec.describe StateFile::ArchivedIntakes::VerificationCodeForm do
         allow(EmailAccessToken).to receive_message_chain(:lookup, :exists?).and_return(false)
 
         expect(form.valid?).to be false
-        expect(form.errors[:verification_code]).to include("Incorrect verification code. After 2 failed attempts, accounts are locked.")
+        expect(form.errors[:verification_code]).to include("Please enter a valid code")
       end
     end
 
@@ -49,7 +49,7 @@ RSpec.describe StateFile::ArchivedIntakes::VerificationCodeForm do
       }
       it "adds an error and returns false" do
         expect(form.valid?).to be false
-        expect(form.errors[:verification_code]).to include("Incorrect verification code. After 2 failed attempts, accounts are locked.")
+        expect(form.errors[:verification_code]).to include("Please enter a valid code")
       end
     end
   end
