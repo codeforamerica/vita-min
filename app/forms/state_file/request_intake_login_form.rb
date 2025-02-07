@@ -3,9 +3,9 @@ module StateFile
 
     def filter_records(intake_class)
       if email_address.present?
-        intake_class.where(email_address: email_address)
+        intake_class.where(email_address: email_address).where.not(email_address_verified_at: nil)
       else
-        intake_class.where(phone_number: sms_phone_number)
+        intake_class.where(phone_number: sms_phone_number).where.not(phone_number_verified_at: nil)
       end
     end
 
