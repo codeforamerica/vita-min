@@ -1,0 +1,37 @@
+{
+  "familyAndHousehold": [],
+  "filers": [
+    {
+      "lastName": "Simpson",
+      "dateOfBirth": "1955-03-09",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "firstName": "Marjorie",
+      "middleInitial": "J",
+      "educatorExpenses": "0.00",
+      "tin": "123-00-1234",
+      "interestReportsTotal": "0.00",
+      "isDisabled": false,
+      "form1099GsTotal": "0.00",
+      "isStudent": false,
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [
+    {
+      "usedTin": "123-00-1234",
+      "unionDuesAmount": null
+    },
+    {
+      "usedTin": "123-00-1234",
+      "unionDuesAmount": null
+    },
+    {
+      "usedTin": "123-00-1234",
+      "unionDuesAmount": null
+    }
+  ],
+  "interestReports": []
+}
