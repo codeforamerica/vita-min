@@ -35,7 +35,7 @@ module StateFile
       private
 
       def should_show_warning?(w2, w2_count_for_filer)
-        return true if w2.wages.present? && !w2.state_wages_amount.positive?
+        return true if w2.wages.positive? && !w2.state_wages_amount.positive?
 
         return false if StateFile::StateInformationService
           .w2_supported_box14_codes(w2.state_file_intake.state_code)

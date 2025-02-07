@@ -104,12 +104,37 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
           expect(response).to redirect_to mock_next_path
         end
       end
+
+      context "with W-2s having valid Box 16 values" do
+        let(:intake) { create(:state_file_nj_intake) }
+        let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, wages: 0, state_wages_amount: 0, state_income_tax_amount: 0) }
+
+        it "does not show an alert" do
+          post :update, params: params
+          expect(flash[:alert]).to be_nil
+          expect(response).to redirect_to mock_next_path
+        end
+      end
     end
   end
 
   describe "W-2s card" do
     before do
       StateFileW2.delete_all
+    end
+
+    shared_examples "does not display W2 warnings" do
+      it "does not display W2 warnings" do
+        get :edit, params: params
+        expect(response.body).not_to have_text I18n.t("state_file.questions.income_review.edit.warning")
+      end
+    end
+
+    shared_examples "displays one W2 warning" do
+      it "displays one W2 warning" do
+        get :edit, params: params
+        expect(response.body.scan(I18n.t("state_file.questions.income_review.edit.warning")).size).to eq(1)
+      end
     end
 
     context "when there are no w2s" do
@@ -139,13 +164,6 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
 
     context "when no W2 box 14 warnings" do
       let(:intake) { create(:state_file_nj_intake) }
-
-      shared_examples "does not display W2 warnings" do
-        it "does not display W2 warnings" do
-          get :edit, params: params
-          expect(response.body).not_to have_text I18n.t("state_file.questions.income_review.edit.warning")
-        end
-      end
 
       context "when not in a state that requires ui_wf_swf or fli Box 14 values" do
         let(:intake) { create(:state_file_az_intake) }
@@ -190,13 +208,6 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
         let!(:state_file_w2_1) { create(:state_file_w2, state_file_intake: intake, box14_ui_wf_swf: 179.78, box14_fli: 145.26) }
         let!(:state_file_w2_2) { create(:state_file_w2, state_file_intake: intake, box14_ui_wf_swf: 179.78, box14_fli: 145.26) }
         include_examples "does not display W2 warnings"
-      end
-    end
-
-    shared_examples "displays one W2 warning" do
-      it "displays one W2 warning" do
-        get :edit, params: params
-        expect(response.body.scan(I18n.t("state_file.questions.income_review.edit.warning")).size).to eq(1)
       end
     end
 
@@ -255,6 +266,12 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
       let(:intake) { create(:state_file_nj_intake) }
       let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, state_wages_amount: 0, state_income_tax_amount: 0) }
       include_examples "displays one W2 warning"
+    end
+
+    context "when W2 box 16 warnings are not present" do
+      let(:intake) { create(:state_file_nj_intake) }
+      let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, wages: 0, state_wages_amount: 0, state_income_tax_amount: 0) }
+      include_examples "does not display W2 warnings"
     end
   end
 
