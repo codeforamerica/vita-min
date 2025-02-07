@@ -13,6 +13,7 @@ module StateFile
 
       def edit
         @state_code = current_state_code
+        @w2.valid?(:state_file_edit)
       end
 
       def update

@@ -58,26 +58,33 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
         allow(subject).to receive(:next_path).and_return mock_next_path
       end
 
+      shared_examples "shows error and does not proceed" do
+        it "shows error and does not proceed" do
+          post :update, params: params
+          expect(response).to render_template(:edit)
+          expect(response.body).to have_text I18n.t("state_file.questions.income_review.edit.invalid_income_form_error")
+        end
+      end
+
+      shared_examples "proceeds as if there are no errors" do
+        it "proceeds as if there are no errors" do
+          post :update, params: params
+          expect(response.body).not_to have_text I18n.t("state_file.questions.income_review.edit.invalid_income_form_error")
+          expect(response).to redirect_to mock_next_path
+        end
+      end
+
       context "with W-2s with missing state wages" do
         let(:intake) { create(:state_file_nj_intake) }
         let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, state_wages_amount: 0, state_income_tax_amount: 0) }
-
-        it "does not proceed and renders edit with an alert" do
-          post :update, params: params
-          expect(response).to render_template(:edit)
-          expect(flash[:alert]).to eq I18n.t("state_file.questions.income_review.edit.invalid_w2")
-        end
+        include_examples "shows error and does not proceed"
       end
       
       context "with W-2s having invalid Box 14 values" do
         let(:intake) { create(:state_file_nj_intake) }
         let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_ui_wf_swf: 200) }
 
-        it "does not proceed and renders edit with an alert" do
-          post :update, params: params
-          expect(response).to render_template(:edit)
-          expect(flash[:alert]).to eq I18n.t("state_file.questions.income_review.edit.invalid_w2")
-        end
+        include_examples "shows error and does not proceed"
 
         context "state is NC (i.e. w2s are not editable)" do
           let(:intake) { create(:state_file_nc_intake) }
@@ -85,12 +92,8 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
           before do
             allow_any_instance_of(StateFileW2).to receive(:valid?).and_return false
           end
-
-          it "proceeds as if there are no errors" do
-            post :update, params: params
-            expect(flash[:alert]).to be_nil
-            expect(response).to redirect_to mock_next_path
-          end
+          
+          include_examples "proceeds as if there are no errors"
         end
       end
 
@@ -98,22 +101,14 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
         let(:intake) { create(:state_file_nj_intake) }
         let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_ui_wf_swf: 100) }
 
-        it "does not show an alert" do
-          post :update, params: params
-          expect(flash[:alert]).to be_nil
-          expect(response).to redirect_to mock_next_path
-        end
+        include_examples "proceeds as if there are no errors"
       end
 
       context "with W-2s having valid Box 16 values" do
         let(:intake) { create(:state_file_nj_intake) }
         let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, wages: 0, state_wages_amount: 0, state_income_tax_amount: 0) }
 
-        it "does not show an alert" do
-          post :update, params: params
-          expect(flash[:alert]).to be_nil
-          expect(response).to redirect_to mock_next_path
-        end
+        include_examples "proceeds as if there are no errors"
       end
     end
   end
