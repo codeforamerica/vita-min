@@ -2438,7 +2438,7 @@ en:
           title: You canceled the transfer of your federal return.
       code_verified:
         edit:
-          continue_to_set_up: Continue to finish setting up your account.
+          continue_to_set_up: You can now continue filing your state tax return.
           title: Code verified!
       contact_preference:
         edit:

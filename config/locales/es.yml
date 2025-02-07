@@ -2394,7 +2394,7 @@ es:
           title: Cancelaste la transferencia de tu declaración federal de impuestos.
       code_verified:
         edit:
-          continue_to_set_up: Continua para terminar de crear tu cuenta.
+          continue_to_set_up: Ahora puedes continuar tu declaración de impuestos estatal.
           title: "¡Código verificado!"
       contact_preference:
         edit:
@@ -3917,7 +3917,7 @@ es:
           bank_title: 'Comparte los detalles de tu cuenta bancaria:'
           confirm_account_number: Confirma el número de cuenta
           confirm_routing_number: Confirma el número de ruta bancaria (routing number)
-          date_withdraw_text: "¿Cuándo te gustaría que se retiren los fondos de tu cuenta?  (debe ser antes o en día del 15 de abril de de %{with_drawal_deadline_year}):"
+          date_withdraw_text: "¿Cuándo te gustaría que se retiren los fondos de tu cuenta?  (debe ser antes o en día del %{withdrawal_deadline_date} de %{with_drawal_deadline_year}):"
           foreign_accounts: No se aceptan cuentas extranjeras
           routing_number: Número de ruta bancaria (routing number)
           withdraw_amount: "¿Cuánto autorizas sea retirado de tu cuenta? (La cantidad total que debes es: %{owed_amount}.)"
@@ -5591,7 +5591,7 @@ es:
         32_sms: Mensajes SMS operativos (texto)
         33_sms_details_html: Puede darse de baja de los mensajes transaccionales enviando un mensaje de texto de STOP al 58750 en cualquier momento. Cuando recibamos su solicitud de cancelación, le enviaremos un último mensaje de texto para confirmar su cancelación. Consulte las <a href="https://www.getyourrefund.org/sms-terms" rel="noopener nofollow" target="_blank">condiciones de GetYourRefund</a> para obtener más detalles e instrucciones para darse de baja de estos servicios. Los datos obtenidos a través del programa de códigos cortos no se compartirán con terceros para sus fines de marketing.
         34_analytics: Analítica
-        35_analytics_details_html: Utilizamos MixPanel y Google Analytics para entender cómo los visitantes utilizan nuestro sitio y para recopilar métricas de rendimiento agregadas. Para obtener más información sobre las prácticas de privacidad de MixPanel y las opciones de exclusión que ofrece, haga clic en <a href="https://mixpanel.com/legal/privacy-policy/" rel="noopener nofollow" target="_blank">HERE</a>. Para obtener más información sobre las prácticas de privacidad de Google Analytics y las opciones de exclusión que ofrece, haga clic en <a href="https://policies.google.com/privacy?hl=en-US" rel="noopener nofollow" target="_blank">HERE</a>. También puede enviar un correo electrónico a a help@fileyourstatetaxes.org para obtener información adicional.
+        35_analytics_details_html: Utilizamos MixPanel y Google Analytics para entender cómo los visitantes utilizan nuestro sitio y para recopilar métricas de rendimiento agregadas. Para obtener más información sobre las prácticas de privacidad de MixPanel y las opciones de exclusión que ofrece, haga clic en <a href="https://mixpanel.com/legal/privacy-policy/" rel="noopener nofollow" target="_blank">AQUÍ</a>. Para obtener más información sobre las prácticas de privacidad de Google Analytics y las opciones de exclusión que ofrece, haga clic en <a href="https://policies.google.com/privacy?hl=en-US" rel="noopener nofollow" target="_blank">AQUÍ</a>. También puede enviar un correo electrónico a %{email_link} para obtener información adicional.
         36_additional_services: Servicios y Recursos Adicionales
         37_additional_services_details: Puede ser que le proporcionemos enlaces adicionales a recursos que consideramos que le serán útiles. Estos enlaces pueden llevarlo a sitios que están afiliados con nosotros que pudieran operar bajo diferentes prácticas de privacidad. No somos responsables del contenido ni de las prácticas de dichos sitios. Animamos a nuestros visitantes y usuarios a estar atentos cuando salgan de nuestro sitio y de leer las declaraciones de privacidad de cualquier otro sitio, ya que no controlamos la manera en la cual los demás sitios recopilan información personal.
         38_how_we_protect: Cómo protegemos su información

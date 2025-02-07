@@ -46,7 +46,8 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
         get :new, params: { contact_method: "email_address" }
 
         expect(response.status).to eq(200)
-        expect(response.body).to include "Sign in with your email address. To continue filing your state tax return safely, we’ll send you a secure code."
+        expect(response.body).to include "Sign in with your email address."
+        expect(response.body).to include "To continue filing your state tax return safely, we’ll send you a secure code."
       end
     end
   end
@@ -381,7 +382,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
         get :edit, params: params
 
         expect(response.status).to eq(200)
-        expect(response.body).to include "Code verified! Authentication needed to continue."
+        expect(response.body).to include "We found your account! Please confirm your identity to finish signing in."
       end
 
       context "when the intake does not have an ssn" do
