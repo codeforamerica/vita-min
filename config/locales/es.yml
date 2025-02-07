@@ -3823,7 +3823,7 @@ es:
               body: Puedes editar y volver a enviar tu declaración estatal haciendo clic en el botón a continuación.
               title: "¿Qué sigue?"
             no_edit:
-              body_html: Desafortunadamente, el problema con la presentación de tu declaración estatal no se puede resolver a través de nuestro servicio. Te recomendamos descargar tu declaración, que puede servirte con los siguientes pasos.
+              body_html: Desafortunadamente, ha habido un problema con la presentación de su declaración estatal que no se puede resolver con nuestra herramienta. Le recomendamos descargar su declaración para ayudarle en los próximos pasos. Chatea con nosotros o envíanos un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a> para obtener orientación sobre los próximos pasos.
               title: "¿Qué puedo hacer a continuación?"
           reject_code: 'Código de Rechazo:'
           reject_desc: 'Descripción del Rechazo:'
