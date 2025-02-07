@@ -91,7 +91,7 @@ jobs:
       - name: Generate release notes
         if: github.event.inputs.environment == 'prod'
         run: |
-          release_command="gh release create ${{ env.NEW_VERSION }} --target ${GITHUB_SHA} --generate-notes --draft"
+          release_command="gh release create ${{ env.NEW_VERSION }} --target ${GITHUB_SHA} --generate-notes"
           if [[ -n "${{ github.event.inputs.release_title }}" ]]; then
             release_command="${release_command} --title '${{ github.event.inputs.release_title }}'"
           fi
