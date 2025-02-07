@@ -763,7 +763,11 @@ MD502CR_PART_M_LINE_1:
 MD502_SU_LINE_AB:
   label: "AB Income from U.S. Government obligations"
 MD502_SU_LINE_U:
-  label: "TBD"
+  label: "Military Retirement Income. Individuals at least 55 years of age on the last day of the taxable year may claim up to $20,000 of military retirement income received in the taxable year. Individuals under the age of 55 on the last day of the taxable year may claim up to $12,500 of military retirement income received in the taxable year."
+MD502_SU_LINE_U_PRIMARY:
+  label: "Military Retirement Income For Primary. Individuals at least 55 years of age on the last day of the taxable year may claim up to $20,000 of military retirement income received in the taxable year. Individuals under the age of 55 on the last day of the taxable year may claim up to $12,500 of military retirement income received in the taxable year."
+MD502_SU_LINE_U_SPOUSE:
+    label: "Military Retirement Income For Spouse. Individuals at least 55 years of age on the last day of the taxable year may claim up to $20,000 of military retirement income received in the taxable year. Individuals under the age of 55 on the last day of the taxable year may claim up to $12,500 of military retirement income received in the taxable year."
 MD502_SU_LINE_V:
   label: "TBD"
 MD502_SU_LINE_U_PRIMARY:
