@@ -2,7 +2,7 @@
 <% content_for :page_title, title %>
 <% content_for :card do %>
   <h1 class="h2" id="main-question"><%= title %></h1>
-
+  <p><%= t(".to_continue") %></p>
   <%= form_with model: @form, url: StateFile::IntakeLoginsController.to_path_helper(action: :create, contact_method: @contact_method), local: true, method: "post", builder: VitaMinFormBuilder do |f| %>
     <div class="white-group">
       <%= f.cfa_input_field(@contact_method.to_sym, t(".#{@contact_method}.label"), classes: ["form-width--long"]) %>

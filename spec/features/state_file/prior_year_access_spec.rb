@@ -17,10 +17,12 @@ RSpec.feature "accessing a prior year PDF", active_job: true do
 
     it "has content" do
       visit "/"
-      click_on I18n.t("state_file.state_file_pages.about_page.tax_return_link")
+      within("[data-testid='get-your-pdf-sign-in']") do
+        click_on I18n.t("general.sign_in")
+      end
       fill_in I18n.t("state_file.questions.email_address.edit.email_address_label"), with: "someone@example.com"
       click_on I18n.t("state_file.questions.email_address.edit.action")
-      expect(page).to have_text "We’ve sent your code to someone@example.com"
+      expect(page).to have_text "We’ve sent a code to someone@example.com"
       perform_enqueued_jobs
       mail = ActionMailer::Base.deliveries.last
       code = mail.html_part.body.to_s.match(%r{<strong> (\d{6})\.</strong>})[1]
@@ -43,7 +45,7 @@ RSpec.feature "accessing a prior year PDF", active_job: true do
   context "get_your_pdf flag is not enabled" do
     it "has content" do
       visit "/"
-      expect(page).to_not have_text I18n.t("state_file.state_file_pages.about_page.tax_return_link")
+      expect(page).to_not have_text I18n.t("state_file.state_file_pages.about_page.looking_for_return_html")
     end
   end
 end
