@@ -217,4 +217,44 @@ describe StateFileBaseIntake do
       expect(w2.errors[:state_wages_amount]).not_to be_present
     end
   end
+
+  describe "#controller_for_current_step" do
+    let(:current_step) { "/en/questions/az-prior-last-names" }
+    let(:intake) { create :state_file_az_intake, current_step: current_step }
+
+    it "returns the correct controller" do
+      expect(intake.controller_for_current_step).to eq StateFile::Questions::AzPriorLastNamesController
+    end
+
+    context "there are efile submissions" do
+      let!(:efile_submission) { create :efile_submission, data_source: intake }
+
+      it "returns the return status controller" do
+        expect(intake.controller_for_current_step).to eq StateFile::Questions::ReturnStatusController
+      end
+    end
+
+    context "current step throws an error" do
+      let(:current_step) { "/en/questions/some-garbage" }
+
+      it "returns the terms and conditions controller" do
+        expect(intake.controller_for_current_step).to eq StateFile::Questions::TermsAndConditionsController
+      end
+
+      context "there is a hashed ssn" do
+        it "returns the post data transfer controller" do
+          intake.update(hashed_ssn: "123")
+          expect(intake.controller_for_current_step).to eq StateFile::Questions::PostDataTransferController
+        end
+      end
+    end
+
+    context "step is w2" do
+      let(:current_step) { "/en/questions/w2" }
+
+      it "returns the income review controller" do
+        expect(intake.controller_for_current_step).to eq StateFile::Questions::IncomeReviewController
+      end
+    end
+  end
 end
