@@ -375,8 +375,12 @@ class StateFileBaseIntake < ApplicationRecord
       StateFile::Questions::ReturnStatusController
     else
       step_name = current_step.split('/').last
-      controller_name = "StateFile::Questions::#{step_name.underscore.camelize}Controller"
-      controller_name.constantize
+      controller_name = if step_name == "w2"
+                          StateFile::Questions::IncomeReviewController
+                        else
+                          "StateFile::Questions::#{step_name.underscore.camelize}Controller".constantize
+                        end
+      controller_name
     end
   rescue StandardError
     if hashed_ssn.present?
@@ -384,7 +388,6 @@ class StateFileBaseIntake < ApplicationRecord
     else
       StateFile::Questions::TermsAndConditionsController
     end
-
   end
 
   def self.opted_out_state_file_intakes(email)
