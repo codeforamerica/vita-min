@@ -234,7 +234,8 @@ RSpec.describe StateFile::NotificationPreferencesForm do
             intake: intake,
             sms: false,
             email: true,
-            body_args: { intake_id: intake.id }
+            body_args: { intake_id: intake.id },
+            locale: :en
           )
           form.save
         end
@@ -255,7 +256,8 @@ RSpec.describe StateFile::NotificationPreferencesForm do
             intake: intake,
             sms: true,
             email: false,
-            body_args: { intake_id: intake.id }
+            body_args: { intake_id: intake.id },
+            locale: :en
           )
           form.save
         end
@@ -278,7 +280,8 @@ RSpec.describe StateFile::NotificationPreferencesForm do
             intake: intake,
             sms: true,
             email: true,
-            body_args: { intake_id: intake.id }
+            body_args: { intake_id: intake.id },
+            locale: :en
           )
           form.save
         end

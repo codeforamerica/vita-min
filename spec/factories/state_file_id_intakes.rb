@@ -153,6 +153,10 @@ FactoryBot.define do
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('id_lana_single') }
     end
 
+    trait :with_spouse do
+      :mfj_filer_with_json
+    end
+
     trait :mfj_filer_with_json do
       filing_status { "married_filing_jointly" }
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('id_paul_mfj') }

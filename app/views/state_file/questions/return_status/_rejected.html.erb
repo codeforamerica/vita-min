@@ -31,10 +31,10 @@
   <% end %>
 <% end %>
 
-<% if @error&.auto_cancel %>
+<% if @error&.auto_cancel || @submission_to_show.current_state == "cancelled" %>
   <section class="spacing-below-15">
     <p class="spacing-below-5"><strong><%= t('.next_steps.no_edit.title') %></strong></p>
-    <%= @error.resolution(I18n.locale).present? ? @error.resolution(I18n.locale) : t('.next_steps.no_edit.body_html') %>
+    <%= @error&.resolution(I18n.locale).present? ? @error.resolution(I18n.locale) : t('.next_steps.no_edit.body_html') %>
   </section>
 <% end %>
 
@@ -45,17 +45,19 @@
   </section>
 <% end %>
 
-<section>
-  <p class="spacing-below-5"><strong><%= t('.have_questions') %></strong></p>
-  <ul class="list--bulleted">
-    <li class="text--underline open-intercom">
-      <%= t("general.chat_with_us") %>
-    </li>
-    <li>
-      <%= t(".email_us_html") %>
-    </li>
-  </ul>
-</section>
+<% if @submission_to_show.current_state != "cancelled" %>
+  <section>
+    <p class="spacing-below-5"><strong><%= t('.have_questions') %></strong></p>
+    <ul class="list--bulleted">
+      <li class="text--underline open-intercom">
+        <%= t("general.chat_with_us") %>
+      </li>
+      <li>
+        <%= t(".email_us_html") %>
+      </li>
+    </ul>
+  </section>
+<% end %>
 
 <% if @error&.auto_wait %>
   <% edit_return_controller = @error.correction_path.present? ? EfileError.path_to_controller(@error.correction_path) : EfileError.default_controller(current_state_code) %>

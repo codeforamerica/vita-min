@@ -444,7 +444,6 @@ module Efile
       end
 
       def calculate_line_24
-        return 0 unless deduction_method_is_standard?
         line_or_zero(:MD502CR_PART_AA_LINE_14)
       end
 
