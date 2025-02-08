@@ -293,6 +293,11 @@ FactoryBot.define do
       spouse_ssn { "123456789" }
     end
 
+    trait :with_spouse do
+      :married_filing_jointly
+    end
+
+
     trait :head_of_household do
       filing_status { "head_of_household" }
     end

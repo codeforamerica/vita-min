@@ -13,6 +13,12 @@ class FileYourselfForm < Form
   end
 
   def save
-    diy_intake.update!(attributes_for(:diy_intake))
+    attrs = attributes_for(:diy_intake)
+    begin
+      diy_intake.update!(attrs)
+    rescue ActiveRecord::RecordInvalid => e
+      Sentry.capture_exception(e, extra: { diy_intake_id: diy_intake.id, attributes: attrs })
+      diy_intake.update!(attrs.merge(filing_frequency: "unfilled"))
+    end
   end
 end

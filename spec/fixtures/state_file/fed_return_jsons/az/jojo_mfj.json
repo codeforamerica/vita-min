@@ -1,0 +1,40 @@
+{
+  "familyAndHousehold": [],
+  "filers": [
+    {
+      "lastName": "McCartney",
+      "dateOfBirth": "1940-11-05",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "firstName": "Jojo",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "400-00-2101",
+      "interestReportsTotal": "0.00",
+      "isDisabled": false,
+      "form1099GsTotal": "0.00",
+      "isStudent": false,
+      "ssnNotValidForEmployment": true,
+      "hsaTotalDeductibleAmount": null
+    },
+    {
+      "lastName": "Morgan",
+      "dateOfBirth": "1970-04-04",
+      "suffix": null,
+      "isPrimaryFiler": false,
+      "firstName": "Loretta",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "600-00-2102",
+      "interestReportsTotal": "0.00",
+      "isDisabled": false,
+      "form1099GsTotal": "0.00",
+      "isStudent": false,
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [],
+  "interestReports": []
+}

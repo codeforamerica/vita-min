@@ -158,6 +158,10 @@ class StateFileMdIntake < StateFileBaseIntake
     super(dob, inclusive_of_jan_1: false)
   end
 
+  def is_filer_55_and_older?(filer)
+    calculate_age(send(filer)&.birth_date, inclusive_of_jan_1: false) >= 55
+  end
+
   def sanitize_bank_details
     if (payment_or_deposit_type || "").to_sym != :direct_deposit
       self.account_type = "unfilled"
@@ -208,6 +212,22 @@ class StateFileMdIntake < StateFileBaseIntake
     else
       apt = self.permanent_apartment.present? ? " #{self.permanent_apartment}" : ""
       "#{self.permanent_street}#{apt}, #{self.permanent_city} MD, #{self.permanent_zip}"
+    end
+  end
+
+  def filer_1099_rs(primary_or_spouse)
+    state_file1099_rs.filter do |state_file_1099_r|
+      state_file_1099_r.recipient_ssn == send(primary_or_spouse).ssn
+    end
+  end
+
+  def sum_1099_r_followup_type_for_filer(primary_or_spouse, followup_type)
+    filer_1099_rs(primary_or_spouse).sum do |state_file_1099_r|
+      if state_file_1099_r.state_specific_followup&.send(followup_type)
+        state_file_1099_r.taxable_amount&.round
+      else
+        0
+      end
     end
   end
 

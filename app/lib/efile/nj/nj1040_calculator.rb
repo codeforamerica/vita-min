@@ -78,6 +78,7 @@ module Efile
         set_line(:NJ1040_LINE_77, :calculate_line_77)
         set_line(:NJ1040_LINE_78, :calculate_line_78)
         set_line(:NJ1040_LINE_79, :calculate_line_79)
+        set_line(:NJ1040_LINE_79_CHECKBOX, :calculate_line_79_checkbox)
         set_line(:NJ1040_LINE_80, :calculate_line_80)
         @nj2450_primary.calculate if line_59_primary || line_61_primary
         @nj2450_spouse.calculate if line_59_spouse || line_61_spouse
@@ -599,6 +600,10 @@ module Efile
           return line_or_zero(:NJ1040_LINE_67) + line_or_zero(:NJ1040_LINE_78)
         end
         0
+      end
+
+      def calculate_line_79_checkbox
+        @intake.payment_or_deposit_type_direct_deposit? && line_or_zero(:NJ1040_LINE_79).positive?
       end
 
       def calculate_line_80

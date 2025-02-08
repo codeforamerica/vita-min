@@ -6,6 +6,20 @@
 
   <p><%= t('.offboarding_reason', reason: ineligible_reason) %></p>
 
-  <%= render 'state_file/questions/eligibility_offboarding/other_options' %>
+  <% # i18n-tasks-use t('state_file.questions.eligible.vita_option.vita_introduction.nj') # hint for the i18n linter that, yes, we are using this key (sometimes) %>
+  <% vita_introduction_key = "state_file.questions.eligible.vita_option.vita_introduction.#{current_state_code}" %>
+  <% vita_introduction = I18n.exists?(vita_introduction_key, locale) ? t(vita_introduction_key) : nil %>
+  <% if vita_introduction.present? %>
+    <p><%= vita_introduction %></p>
+  <% end %>
 
+  <% vita_link = I18n.locale == :en ? StateFile::StateInformationService.vita_link_en(current_state_code) : StateFile::StateInformationService.vita_link_es(current_state_code) %>
+  <% if vita_link.present? %>
+    <p><%= link_to t("state_file.questions.eligible.faq_link"), state_faq_path(us_state: current_state_code) %></p>
+    <%= link_to(vita_link, class: "button button--primary button--wide spacing-below-15", target: "_blank", rel: "noopener noreferrer") do %>
+      <%= t('state_file.questions.eligible.vita_option.connect_to_vita') %>
+    <% end %>
+  <% end %>
+
+  <%= render 'state_file/questions/eligible/other_filing_options' %>
 <% end %>

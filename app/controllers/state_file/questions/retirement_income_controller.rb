@@ -1,6 +1,11 @@
 module StateFile
   module Questions
     class RetirementIncomeController < QuestionsController
+
+      def prev_path
+        StateFile::Questions::IncomeReviewController.to_path_helper(return_to_review: params[:return_to_review])
+      end
+      
       def edit
         @state_file1099_r = current_intake.state_file1099_rs.find(params[:id])
       end

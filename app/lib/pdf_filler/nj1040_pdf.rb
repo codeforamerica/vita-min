@@ -89,6 +89,9 @@ module PdfFiller
         # line 65 nj child tax credit
         '64': @xml_document.at("Body NJChildTCNumOfDep")&.text,
 
+        # line 79 payment checkbox
+        Line77bdue: calculated_fields_not_in_xml.fetch(:NJ1040_LINE_79_CHECKBOX) ? "On" : "Off",
+
         # Gubernatorial elections fund
         Group245: @xml_document.at("Body PrimGubernElectFund").present? ? 'Choice1' : 'Choice2',
         Group246: if get_mfj_spouse_ssn

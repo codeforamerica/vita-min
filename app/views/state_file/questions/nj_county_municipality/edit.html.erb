@@ -1,0 +1,65 @@
+<%
+    title = t(".title_html", filing_year: current_tax_year)
+    content_for :page_title, ActionView::Base.full_sanitizer.sanitize(title)
+%>
+
+<% content_for :card do %>
+  <h1 class="h2"><%= title %></h1>
+
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <div class="spacing-below-25">
+      <div class="white-group" id="county-question">
+        <%= f.vita_min_state_file_select(:county, t(".county"), Efile::Nj::NjMunicipalities.county_options, label_class: 'form-label--bold', prompt: t('general.select_prompt') ) %>
+      </div>
+
+      <div class="white-group" id="municipality-question">
+        <%= f.vita_min_state_file_select(:municipality_code, t(".municipality"), [], label_class: 'form-label--bold', prompt: t('general.select_prompt')) %>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <button class="reveal__button"><%= t('.helper_heading') %></button>
+      <div class="reveal__content">
+        <p><%= t('.helper_description_html') %></p>
+      </div>
+    </div>
+
+    <% if params[:return_to_review].present? %>
+      <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
+    <% end %>
+    <%= f.continue %>
+  <% end %>
+<% end %>
+
+<% content_for :script do %>
+  <script>
+      document.getElementById("municipality-question").style.display = "none"
+
+      document.addEventListener('DOMContentLoaded', function() {
+          const countySelect = document.getElementById('state_file_nj_county_municipality_form_county');
+          const municipalitySelect = document.getElementById('state_file_nj_county_municipality_form_municipality_code');
+          const savedMunicipality = '<%= @form.municipality_code %>';
+          const allMunicipalitiesByCounty = <%= raw @municipalities_by_county.to_json %>;
+
+          function populateMunicipalities(county) {
+              municipalitySelect.innerHTML = '<option value="">' + '<%= t('general.select_prompt') %>' + '</option>';
+              if (county) {
+                document.getElementById("municipality-question").style.display = "block"
+                allMunicipalitiesByCounty[county].forEach(([name, value]) => {
+                    const option = new Option(name, value);
+                    option.selected = (value === savedMunicipality);
+                    municipalitySelect.add(option);
+                });
+              } else {
+                document.getElementById("municipality-question").style.display = "none"
+              }
+          }
+
+          countySelect.addEventListener('change', function() {
+              populateMunicipalities(this.value);
+          });
+
+          populateMunicipalities(countySelect.value);
+      });
+  </script>
+<% end %>

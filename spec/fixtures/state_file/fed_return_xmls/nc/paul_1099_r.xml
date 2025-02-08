@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>c21d6eb3</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>317002231</PrimarySSN>
+            <NameLine1Txt>PAUL J&lt;ATREIDES</NameLine1Txt>
+            <PrimaryNameControlTxt>ATRE</PrimaryNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>2 Arakis Circle</AddressLine1Txt>
+                <CityNm>Garner</CityNm>
+                <StateAbbreviationCd>NC</StateAbbreviationCd>
+                <ZIPCd>27529</ZIPCd>
+            </USAddress>
+            <PhoneNum>3033333325</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+31700223-1ce6-45d7-8ed4-d39ef582a349@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="2">
+        <IRS1040 documentId="IRS10400001">
+            <Form1040SRInd>X</Form1040SRInd>
+            <IndividualReturnFilingStatusCd>1</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <Primary65OrOlderInd>X</Primary65OrOlderInd>
+            <TotalBoxesCheckedCnt>1</TotalBoxesCheckedCnt>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>1</TotalExemptionsCnt>
+            <TotalTaxablePensionsAmt>40000</TotalTaxablePensionsAmt>
+            <TotalIncomeAmt>40000</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>40000</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>16550</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>16550</TotalDeductionsAmt>
+            <TaxableIncomeAmt>23450</TaxableIncomeAmt>
+            <TaxAmt>2585</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>2585</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>2585</TaxLessCreditsAmt>
+            <TotalTaxAmt>2585</TotalTaxAmt>
+            <WithholdingTaxAmt>500</WithholdingTaxAmt>
+            <TotalPaymentsAmt>500</TotalPaymentsAmt>
+            <OwedAmt>2085</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Retired</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1099R documentId="IRS1099R0001">
+            <PayerNameControlTxt>SHAI</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Shai Hulud Ltd</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>1 Spice Blvd</AddressLine1Txt>
+                <CityNm>Garner</CityNm>
+                <StateAbbreviationCd>NC</StateAbbreviationCd>
+                <ZIPCd>27529</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>379122191</PayerEIN>
+            <RecipientSSN>317002231</RecipientSSN>
+            <RecipientNm>Paul J Atreides</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>2 Arakis Circle</AddressLine1Txt>
+                <CityNm>Garner</CityNm>
+                <StateAbbreviationCd>NC</StateAbbreviationCd>
+                <ZIPCd>27529</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>40000</GrossDistributionAmt>
+            <TaxableAmt>40000</TaxableAmt>
+            <FederalIncomeTaxWithheldAmt>500</FederalIncomeTaxWithheldAmt>
+            <F1099RDistributionCd>7</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <StateAbbreviationCd>NC</StateAbbreviationCd>
+                    <PayerStateIdNum>99-0013761</PayerStateIdNum>
+                    <F1099RLocalTaxGrp/>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+    </ReturnData>
+</Return>

@@ -1,0 +1,60 @@
+{
+  "familyAndHousehold": [
+    {
+      "monthsLivedWithTPInUS": "twelve",
+      "lastName": "Mathdude",
+      "isClaimedDependent": true,
+      "hohQualifyingPerson": null,
+      "qualifyingChild": true,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "2015-08-08",
+      "suffix": null,
+      "residencyDuration": "allYear",
+      "firstName": "Little",
+      "middleInitial": null,
+      "tin": "700-00-2345",
+      "scheduleEicLine4aNo": false,
+      "eligibleDependent": true,
+      "relationship": "biologicalChild",
+      "ssnNotValidForEmployment": true
+    }
+  ],
+  "filers": [
+    {
+      "lastName": "Spaceman",
+      "dateOfBirth": "1942-03-03",
+      "suffix": null,
+      "isPrimaryFiler": false,
+      "firstName": "Euclid",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "600-00-2106",
+      "interestReportsTotal": "0.00",
+      "isDisabled": false,
+      "form1099GsTotal": "0.00",
+      "isStudent": false,
+      "ssnNotValidForEmployment": true,
+      "hsaTotalDeductibleAmount": null
+    },
+    {
+      "lastName": "Triangle",
+      "dateOfBirth": "1941-10-05",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "firstName": "Pythagoras",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "400-00-2105",
+      "interestReportsTotal": "0.00",
+      "isDisabled": false,
+      "form1099GsTotal": "0.00",
+      "isStudent": false,
+      "ssnNotValidForEmployment": null,
+      "hsaTotalDeductibleAmount": null
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [],
+  "interestReports": []
+}

@@ -12,5 +12,8 @@
       <li><%=t('.dependents_not_claimed_fed_return') %></li>
       <li><%=t('.change_in_filing_status') %></li>
     </ul>
+    <p>
+      <%= link_to t('state_file.questions.eligible.edit.faq_link'), state_faq_path(us_state: 'id', locale: I18n.locale) %>
+    </p>
   </div>
 </div>

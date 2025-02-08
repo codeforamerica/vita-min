@@ -2,7 +2,8 @@ require 'rails_helper'
 
 describe Efile::Md::Md502crCalculator do
   let(:filing_status) { "single" }
-  let(:intake) { create(:state_file_md_intake, filing_status: filing_status) }
+  let(:includes_spouse) { filing_status == "married_filing_jointly" ? :with_spouse : nil}
+  let(:intake) { create(:state_file_md_intake, includes_spouse, filing_status: filing_status) }
   let(:main_calculator) do
     Efile::Md::Md502Calculator.new(
       year: MultiTenantService.statefile.current_tax_year,
@@ -457,7 +458,6 @@ describe Efile::Md::Md502crCalculator do
         end
       end
     end
-
 
     context "when married filing jointly" do
       let(:filing_status) { "married_filing_jointly" }

@@ -11,7 +11,21 @@ module StateFile
       attributes_to_exclude = []
       attributes_to_exclude << :email_address if @intake.email_address.present?
       attributes_to_exclude << :phone_number if @intake.phone_number.present?
+      is_first_time_setup = @intake.sms_notification_opt_in == "unfilled" && @intake.email_notification_opt_in == "unfilled"
+
       @intake.update(attributes_for(:intake).except(*attributes_to_exclude))
+
+      if is_first_time_setup
+        messaging_service = StateFile::MessagingService.new(
+          locale: I18n.locale,
+          message: StateFile::AutomatedMessage::Welcome,
+          intake: @intake,
+          sms: sms_notification_opt_in == "yes",
+          email: email_notification_opt_in == "yes",
+          body_args: { intake_id: @intake.id }
+        )
+        messaging_service.send_message
+      end
     end
 
     private

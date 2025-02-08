@@ -53,6 +53,22 @@ describe StateFile::MessagingService do
           messaging_service.send_message
         end.to change(StateFileNotificationEmail, :count).by(1)
       end
+
+      it "should not send a message if email notifications are opted out" do
+        intake.update(email_notification_opt_in: "no")
+
+        expect {
+          messaging_service.send_message
+        }.not_to change(StateFileNotificationEmail, :count)
+      end
+
+      it "should send a message if email notifications are opted in" do
+        intake.update(email_notification_opt_in: "yes")
+
+        expect {
+          messaging_service.send_message
+        }.to change(StateFileNotificationEmail, :count).by(1)
+      end
     end
   end
 
@@ -69,6 +85,22 @@ describe StateFile::MessagingService do
       expect {
         messaging_service.send_message
       }.to not_change(StateFileNotificationTextMessage, :count)
+    end
+
+    it "should not send a message if SMS notifications are opted out" do
+      intake.update(sms_notification_opt_in: "no")
+
+      expect {
+        messaging_service.send_message
+      }.not_to change(StateFileNotificationTextMessage, :count)
+    end
+
+    it "should send a message if SMS notifications are opted in" do
+      intake.update(sms_notification_opt_in: "yes")
+
+      expect {
+        messaging_service.send_message
+      }.to change(StateFileNotificationTextMessage, :count).by(1)
     end
   end
 

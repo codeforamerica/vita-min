@@ -14,5 +14,8 @@
         <%=t('.also_unsupported_html') %>
       </ul>
     </div>
+    <p>
+      <%= link_to t('state_file.questions.eligible.edit.faq_link'), state_faq_path(us_state: 'nj', locale: I18n.locale) %>
+    </p>
   </div>
 </div>

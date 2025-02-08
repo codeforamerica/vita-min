@@ -17,12 +17,17 @@ RSpec.describe PdfFiller::NcD400ScheduleSPdf do
 
     context "pulling fields from xml" do
       it 'sets fields to the correct values' do
+        allow_any_instance_of(Efile::Nc::D400ScheduleSCalculator).to receive(:calculate_line_20).and_return 100
+        allow_any_instance_of(Efile::Nc::D400ScheduleSCalculator).to receive(:calculate_line_21).and_return 200
+
         expect(pdf_fields['y_d400schswf_ssn']).to eq '145004904'
         expect(pdf_fields['y_d400wf_lname2_PG2']).to eq 'Carolinian'
         expect(pdf_fields['y_d400schswf_li18_good']).to eq '0'
         expect(pdf_fields['y_d400schswf_li19_good']).to eq '0'
+        expect(pdf_fields['y_d400schswf_li20_good']).to eq '100'
+        expect(pdf_fields['y_d400schswf_li21_good']).to eq '200'
         expect(pdf_fields['y_d400schswf_li27_good']).to eq '500'
-        expect(pdf_fields['y_d400schswf_li41_good']).to eq '500'
+        expect(pdf_fields['y_d400schswf_li41_good']).to eq '800'
       end
     end
   end

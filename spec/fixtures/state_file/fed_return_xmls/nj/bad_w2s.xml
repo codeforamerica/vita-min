@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>71fe11e6</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>123001234</PrimarySSN>
+            <NameLine1Txt>MARJORIE J&lt;SIMPSON</NameLine1Txt>
+            <PrimaryNameControlTxt>SIMP</PrimaryNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>742 Evergreen Terrace</AddressLine1Txt>
+                <CityNm>Springfield</CityNm>
+                <StateAbbreviationCd>IL</StateAbbreviationCd>
+                <ZIPCd>62701</ZIPCd>
+            </USAddress>
+            <PhoneNum>2223334444</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+d097694e-9d82-4164-b828-ff5aa20c66e0@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="4">
+        <IRS1040 documentId="IRS10400001">
+            <Form1040SRInd>X</Form1040SRInd>
+            <IndividualReturnFilingStatusCd>1</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <Primary65OrOlderInd>X</Primary65OrOlderInd>
+            <TotalBoxesCheckedCnt>1</TotalBoxesCheckedCnt>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>1</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001 W20002 W20003" referenceDocumentName="IRSW2">26000</WagesAmt>
+            <WagesSalariesAndTipsAmt>26000</WagesSalariesAndTipsAmt>
+            <TotalIncomeAmt>26000</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>26000</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>16550</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>16550</TotalDeductionsAmt>
+            <TaxableIncomeAmt>9450</TaxableIncomeAmt>
+            <TaxAmt>948</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>948</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>948</TaxLessCreditsAmt>
+            <TotalTaxAmt>948</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>2000</FormW2WithheldTaxAmt>
+            <WithholdingTaxAmt>2000</WithholdingTaxAmt>
+            <TotalPaymentsAmt>2000</TotalPaymentsAmt>
+            <OverpaidAmt>1052</OverpaidAmt>
+            <RefundAmt>1052</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Writer</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>123001234</EmployeeSSN>
+            <EmployerEIN>001313131</EmployerEIN>
+            <EmployerNameControlTxt>HASS</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Has State ID But No State Income Industries</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>1 Main St</AddressLine1Txt>
+                <CityNm>Newark</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07111</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Marjorie J Simpson</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>742 Evergreen Terrace</AddressLine1Txt>
+                <CityNm>Springfield</CityNm>
+                <StateAbbreviationCd>IL</StateAbbreviationCd>
+                <ZIPCd>62701</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>10000</WagesAmt>
+            <WithholdingAmt>2000</WithholdingAmt>
+            <SocialSecurityWagesAmt>10000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>1000</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>10000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>900</MedicareTaxWithheldAmt>
+            <OtherDeductionsBenefitsGrp>
+                <Desc>FLI</Desc>
+                <Amt>70</Amt>
+            </OtherDeductionsBenefitsGrp>
+            <OtherDeductionsBenefitsGrp>
+                <Desc>UIHCWD</Desc>
+                <Amt>100</Amt>
+            </OtherDeductionsBenefitsGrp>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                    <EmployerStateIdNum>1313131</EmployerStateIdNum>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+        <IRSW2 documentId="W20002" documentName="IRSW2">
+            <EmployeeSSN>123001234</EmployeeSSN>
+            <EmployerEIN>003535353</EmployerEIN>
+            <EmployerNameControlTxt>NOST</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>No State Info Whatsoever Ltd</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>2 Main St</AddressLine1Txt>
+                <CityNm>Newark</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07888</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Marjorie J Simpson</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>742 Evergreen Terrace</AddressLine1Txt>
+                <CityNm>Springfield</CityNm>
+                <StateAbbreviationCd>IL</StateAbbreviationCd>
+                <ZIPCd>62701</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>11000</WagesAmt>
+            <OtherDeductionsBenefitsGrp>
+                <Desc>FLI</Desc>
+                <Amt>80</Amt>
+            </OtherDeductionsBenefitsGrp>
+            <OtherDeductionsBenefitsGrp>
+                <Desc>UIWFSWF</Desc>
+                <Amt>40</Amt>
+            </OtherDeductionsBenefitsGrp>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+        <IRSW2 documentId="W20003" documentName="IRSW2">
+            <EmployeeSSN>123001234</EmployeeSSN>
+            <EmployerEIN>004646464</EmployerEIN>
+            <EmployerNameControlTxt>HASI</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Has ID and Income but no Withholding Inc</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>3 Main St</AddressLine1Txt>
+                <CityNm>Newark</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07444</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Marjorie J Simpson</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>742 Evergreen Terrace</AddressLine1Txt>
+                <CityNm>Springfield</CityNm>
+                <StateAbbreviationCd>IL</StateAbbreviationCd>
+                <ZIPCd>62701</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>5000</WagesAmt>
+            <OtherDeductionsBenefitsGrp>
+                <Desc>FLI</Desc>
+                <Amt>35</Amt>
+            </OtherDeductionsBenefitsGrp>
+            <OtherDeductionsBenefitsGrp>
+                <Desc>UIWFSWF</Desc>
+                <Amt>99</Amt>
+            </OtherDeductionsBenefitsGrp>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                    <EmployerStateIdNum>242424242</EmployerStateIdNum>
+                    <StateWagesAmt>7000</StateWagesAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>

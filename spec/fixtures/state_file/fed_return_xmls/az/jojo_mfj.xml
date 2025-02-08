@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>e2a3446e</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400002101</PrimarySSN>
+            <SpouseSSN>600002102</SpouseSSN>
+            <NameLine1Txt>JOJO&lt;MCCARTNEY&lt;&amp; LORETTA MORGAN</NameLine1Txt>
+            <PrimaryNameControlTxt>MCCA</PrimaryNameControlTxt>
+            <SpouseNameControlTxt>MORG</SpouseNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>10 Get Back Road</AddressLine1Txt>
+                <CityNm>Tucson</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>85286</ZIPCd>
+            </USAddress>
+            <PhoneNum>4805552345</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000210-1481-426c-8d90-f693b8cf90d9@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="3">
+        <IRS1040 documentId="IRS10400001">
+            <Form1040SRInd>X</Form1040SRInd>
+            <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <Primary65OrOlderInd>X</Primary65OrOlderInd>
+            <TotalBoxesCheckedCnt>1</TotalBoxesCheckedCnt>
+            <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>2</TotalExemptionsCnt>
+            <PensionsAnnuitiesAmt>21000</PensionsAnnuitiesAmt>
+            <TotalTaxablePensionsAmt>15000</TotalTaxablePensionsAmt>
+            <TotalIncomeAmt>15000</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>15000</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>30750</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>30750</TotalDeductionsAmt>
+            <TaxableIncomeAmt>0</TaxableIncomeAmt>
+            <TaxAmt>0</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>0</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>0</TaxLessCreditsAmt>
+            <TotalTaxAmt>0</TotalTaxAmt>
+            <WithholdingTaxAmt>1900</WithholdingTaxAmt>
+            <TotalPaymentsAmt>1900</TotalPaymentsAmt>
+            <OverpaidAmt>1900</OverpaidAmt>
+            <RefundAmt>1900</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Loner</PrimaryOccupationTxt>
+            <SpouseOccupationTxt>Another man</SpouseOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1099R documentId="IRS1099R0001">
+            <PayerNameControlTxt>ABBE</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Abbey Road Studios Retirement</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>1 Very Long and Very Winding Road</AddressLine1Txt>
+                <CityNm>St Louis</CityNm>
+                <StateAbbreviationCd>MO</StateAbbreviationCd>
+                <ZIPCd>63106</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>008765678</PayerEIN>
+            <RecipientSSN>400002101</RecipientSSN>
+            <RecipientNm>Jojo McCartney</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>1 California Grass Way</AddressLine1Txt>
+                <CityNm>Palm Springs</CityNm>
+                <StateAbbreviationCd>CA</StateAbbreviationCd>
+                <ZIPCd>92240</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>11000</GrossDistributionAmt>
+            <TaxableAmt>8000</TaxableAmt>
+            <FederalIncomeTaxWithheldAmt>1000</FederalIncomeTaxWithheldAmt>
+            <F1099RDistributionCd>7</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <StateTaxWithheldAmt>500</StateTaxWithheldAmt>
+                    <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                    <PayerStateIdNum>1234567</PayerStateIdNum>
+                    <StateDistributionAmt>11000</StateDistributionAmt>
+                    <F1099RLocalTaxGrp/>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRS1099R documentId="IRS1099R0002">
+            <PayerNameControlTxt>HIGH</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>High heeled shoes fund</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>1 Retirement Avenue</AddressLine1Txt>
+                <CityNm>Honolulu</CityNm>
+                <StateAbbreviationCd>HI</StateAbbreviationCd>
+                <ZIPCd>96795</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>005858585</PayerEIN>
+            <RecipientSSN>600002102</RecipientSSN>
+            <RecipientNm>Loretta Morgan</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>10 Get Back Road</AddressLine1Txt>
+                <CityNm>Tucson</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>85286</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>10000</GrossDistributionAmt>
+            <TaxableAmt>7000</TaxableAmt>
+            <FederalIncomeTaxWithheldAmt>900</FederalIncomeTaxWithheldAmt>
+            <F1099RDistributionCd>2</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <StateTaxWithheldAmt>400</StateTaxWithheldAmt>
+                    <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                    <PayerStateIdNum>2345678</PayerStateIdNum>
+                    <StateDistributionAmt>10000</StateDistributionAmt>
+                    <F1099RLocalTaxGrp/>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+    </ReturnData>
+</Return>

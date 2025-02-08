@@ -1,4 +1,6 @@
-<% title = t(".title") %>
+<% # i18n-tasks-use t('state_file.questions.eligibility_offboarding.edit.title.nj') # hint for the i18n linter that, yes, we are using this key (sometimes) %>
+<% title_key = "state_file.questions.eligibility_offboarding.edit.title.#{current_state_code}" %>
+<% title = I18n.exists?(title_key, locale) ? t(title_key) : t(".title.default") %>
 
 <% content_for :page_title, title %>
 <% content_for :card do %>
@@ -7,5 +9,25 @@
     <p><%= t(".body_html", ineligible_reason: ineligible_reason, prev_link: prev_path) %></p>
   <% end %>
 
-  <%= render 'state_file/questions/eligibility_offboarding/other_options' %>
+  <% # i18n-tasks-use t('state_file.questions.eligible.vita_option.vita_introduction.nj') # hint for the i18n linter that, yes, we are using this key (sometimes) %>
+  <% vita_introduction_key = "state_file.questions.eligible.vita_option.vita_introduction.#{current_state_code}" %>
+  <% vita_introduction = I18n.exists?(vita_introduction_key, locale) ? t(vita_introduction_key) : nil %>
+  <% if vita_introduction.present? %>
+    <p><%= vita_introduction %></p>
+  <% end %>
+
+  <% vita_link = I18n.locale == :en ? StateFile::StateInformationService.vita_link_en(current_state_code) : StateFile::StateInformationService.vita_link_es(current_state_code) %>
+  <% if vita_link.present? %>
+    <p><%= link_to t("state_file.questions.eligible.faq_link"), state_faq_path(us_state: current_state_code), target: "_blank", rel: "noopener noreferrer" %></p>
+    <%= link_to(vita_link, class: "button button--primary button--wide spacing-below-25", target: "_blank", rel: "noopener noreferrer") do %>
+      <%= t('state_file.questions.eligible.vita_option.connect_to_vita') %>
+    <% end %>
+  <% end %>
+
+  <%= render 'state_file/questions/eligible/other_filing_options' %>
+
+  <% unless vita_link.present? %>
+    <p class="spacing-above-35"><%= link_to t("state_file.questions.eligible.vita_option.vita_link"), @vita_link, target: "_blank", rel: "noopener noreferrer" %></p>
+    <p><%= link_to t("state_file.questions.eligible.faq_link"), state_faq_path(us_state: current_state_code), target: "_blank", rel: "noopener noreferrer" %></p>
+  <% end %>
 <% end %>
