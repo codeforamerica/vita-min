@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_01_30_234706) do
+ActiveRecord::Schema[7.1].define(version: 2025_01_24_172223) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1854,7 +1854,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_30_234706) do
     t.string "locale", default: "en"
     t.datetime "locked_at"
     t.integer "made_az321_contributions", default: 0, null: false
-    t.integer "made_az322_contributions", default: 0, null: false
     t.jsonb "message_tracker", default: {}
     t.integer "payment_or_deposit_type", default: 0, null: false
     t.string "phone_number"

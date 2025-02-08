@@ -37,7 +37,6 @@
 #  locale                                 :string           default("en")
 #  locked_at                              :datetime
 #  made_az321_contributions               :integer          default("unfilled"), not null
-#  made_az322_contributions               :integer          default("unfilled"), not null
 #  message_tracker                        :jsonb
 #  payment_or_deposit_type                :integer          default("unfilled"), not null
 #  phone_number                           :string
@@ -177,9 +176,7 @@ FactoryBot.define do
     end
 
     trait :with_az322_contributions do
-      made_az322_contributions { "yes" }
-
-      after(:create) do |intake|
+      after(:build) do |intake|
         create(:az322_contribution,
                date_of_contribution: "#{Rails.configuration.statefile_current_tax_year}-03-04",
                ctds_code: '123456789',

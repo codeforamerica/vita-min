@@ -10,12 +10,14 @@ RSpec.describe StateFile::Questions::AzQualifyingOrganizationContributionsContro
   end
 
   describe ".show?" do
+
     context "when the intake has charitable contributions" do
       before do
         intake.charitable_contributions_yes!
       end
 
       context "when the intake has cash contributions" do
+
         before do
           intake.update(charitable_cash_amount: 1)
         end
@@ -27,6 +29,7 @@ RSpec.describe StateFile::Questions::AzQualifyingOrganizationContributionsContro
       end
 
       context "when the intake does not have cash contributions" do
+
         before do
           intake.update(charitable_cash_amount: 0)
         end
@@ -34,7 +37,9 @@ RSpec.describe StateFile::Questions::AzQualifyingOrganizationContributionsContro
         it "does not show" do
           expect(described_class).not_to be_show(intake)
         end
+
       end
+
     end
 
     context "when the intake does not have charitable contributions" do
@@ -46,6 +51,7 @@ RSpec.describe StateFile::Questions::AzQualifyingOrganizationContributionsContro
         expect(described_class).not_to be_show(intake)
       end
     end
+
   end
 
   describe "#index" do
@@ -102,7 +108,7 @@ RSpec.describe StateFile::Questions::AzQualifyingOrganizationContributionsContro
   end
 
   describe "edit" do
-    let(:contribution) { create(:az321_contribution, state_file_az_intake: intake) }
+    let(:contribution) { create(:az321_contribution, state_file_az_intake: intake)}
 
     it 'should render information about the contribution' do
       get :edit, params: { id: contribution.id }
@@ -270,7 +276,7 @@ RSpec.describe StateFile::Questions::AzQualifyingOrganizationContributionsContro
   end
 
   describe "destroy" do
-    let!(:contribution) { create(:az321_contribution, state_file_az_intake: intake) }
+    let!(:contribution) { create(:az321_contribution, state_file_az_intake: intake)}
 
     it 'should delete the contribution when valid' do
       expect {

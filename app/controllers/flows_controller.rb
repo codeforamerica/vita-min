@@ -665,7 +665,6 @@ class FlowsController < ApplicationController
         email_notification_opt_in: "yes",
         phone_number: "+15005550006",
         sms_notification_opt_in: "yes",
-        made_az322_contributions: "yes",
       )
       status_specific_attributes = case filing_status
                                    when :married_filing_jointly, :married_filing_separately
