@@ -20,6 +20,9 @@
         <li><%=t('.other_credits_add_dependents') %></li>
         <li><%=t('.other_credits_change_filing_status') %></li>
       </ul>
+      <p>
+        <%= link_to t('state_file.questions.eligible.edit.faq_link'), state_faq_path(us_state: 'az', locale: I18n.locale) %>
+      </p>
     </div>
   </div>
 </div>
