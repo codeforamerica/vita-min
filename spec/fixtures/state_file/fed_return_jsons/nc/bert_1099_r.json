@@ -1,0 +1,45 @@
+{
+  "familyAndHousehold": [],
+  "filers": [
+    {
+      "lastName": "Muppet",
+      "dateOfBirth": "1943-11-11",
+      "suffix": null,
+      "isPrimaryFiler": false,
+      "firstName": "Ernie",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "134-00-3891",
+      "interestReportsTotal": "0.00",
+      "isDisabled": false,
+      "form1099GsTotal": "0.00",
+      "isStudent": false,
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": null
+    },
+    {
+      "lastName": "Muppet",
+      "dateOfBirth": "1944-10-10",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "firstName": "Bert",
+      "middleInitial": "J",
+      "educatorExpenses": "0.00",
+      "tin": "144-00-3231",
+      "interestReportsTotal": "0.00",
+      "isDisabled": false,
+      "form1099GsTotal": "0.00",
+      "isStudent": false,
+      "ssnNotValidForEmployment": null,
+      "hsaTotalDeductibleAmount": null
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [
+    {
+      "usedTin": "144-00-3231",
+      "unionDuesAmount": null
+    }
+  ],
+  "interestReports": []
+}

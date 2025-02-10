@@ -70,6 +70,13 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text(I18n.t('state_file.questions.unemployment.index.1099_label', name: StateFileAzIntake.last.primary.full_name))
       click_on I18n.t("general.continue")
 
+      # TODO: replace with unit spec
+      expect(strip_html_tags(page.body)).to have_text strip_html_tags(I18n.t('state_file.questions.az_public_school_contributions.edit.title_html'))
+      choose I18n.t("general.negative")
+      click_on I18n.t("general.continue")
+      expect(page).to have_text I18n.t("state_file.questions.az_charitable_contributions.edit.title")
+      click_on I18n.t("general.back")
+
       expect(strip_html_tags(page.body)).to have_text strip_html_tags(I18n.t('state_file.questions.az_public_school_contributions.edit.title_html'))
       choose I18n.t("general.affirmative")
       fill_in "az322_contribution_school_name", with: "Tax Elementary"
@@ -167,6 +174,8 @@ RSpec.feature "Completing a state file intake", active_job: true do
   context "NC", :flow_explorer_screenshot, js: true do
     before do
       allow_any_instance_of(Efile::Nc::D400Calculator).to receive(:refund_or_owed_amount).and_return 1000
+      allow(Flipper).to receive(:enabled?).and_call_original
+      allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
     end
 
     it "has content", required_schema: "nc" do
@@ -231,6 +240,15 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("general.continue")
 
       expect(page).to have_text(I18n.t('state_file.questions.unemployment.index.1099_label', name: StateFileNcIntake.last.primary.full_name))
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text(I18n.t("state_file.questions.nc_retirement_income_subtraction.edit.title"))
+      choose strip_html_tags(I18n.t("state_file.questions.nc_retirement_income_subtraction.edit.income_source_bailey_settlement_html"))
+      check I18n.t("state_file.questions.nc_retirement_income_subtraction.edit.bailey_settlement_at_least_five_years")
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text(I18n.t("state_file.questions.nc_retirement_income_subtraction.edit.title"))
+      choose I18n.t("state_file.questions.nc_retirement_income_subtraction.edit.other")
       click_on I18n.t("general.continue")
 
       expect(strip_html_tags(page.body)).to have_text strip_html_tags(I18n.t("state_file.questions.nc_subtractions.edit.title_html.other"))
@@ -540,7 +558,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       let(:hashed_verification_code) { "hashed_verification_code" }
 
       before do
-        create :state_file_ny_intake, email_address: email_address, hashed_ssn: hashed_ssn, df_data_import_succeeded_at: 5.minutes.ago
+        create :state_file_ny_intake, email_address: email_address, hashed_ssn: hashed_ssn, df_data_import_succeeded_at: 5.minutes.ago, email_address_verified_at: 5.minutes.ago
         allow(SsnHashingService).to receive(:hash).with(ssn).and_return hashed_ssn
         allow(VerificationCodeService).to receive(:generate).with(anything).and_return [verification_code, hashed_verification_code]
         allow(VerificationCodeService).to receive(:hash_verification_code_with_contact_info).with(email_address, verification_code).and_return(hashed_verification_code)
