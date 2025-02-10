@@ -134,11 +134,6 @@ module Hub
       end
     end
 
-    def redirect_if_not_authorized
-      # todo: change name/back? redirects are happening based on ability in ability file
-      raise CanCan::AccessDenied if @client.nil? || @client.intake.is_ctc?
-    end
-
     def update_13614c_form_page1
       @form = Update13614cFormPage1.new(@client, update_13614c_form_page1_params)
 

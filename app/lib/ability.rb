@@ -8,15 +8,13 @@ class Ability
     end
 
     # Custom actions
-    # Todo: Add new pages here
-    # Todo: maybe add some short of test if there are missing actions
-    alias_action :flag, :toggle_field, :edit_take_action, :update_take_action,
-                 :unlock, :save_and_maybe_exit,
+    alias_action :flag, :toggle_field, :unlock,
+                 :edit_take_action, :update_take_action,
                  :edit_13614c_form_page1, :edit_13614c_form_page2,
                  :edit_13614c_form_page3, :edit_13614c_form_page4, :edit_13614c_form_page5,
                  :update_13614c_form_page1, :update_13614c_form_page2,
                  :update_13614c_form_page3, :update_13614c_form_page4, :update_13614c_form_page5,
-                 :cancel_13614c,
+                 :cancel_13614c, :save_and_maybe_exit,
                  to: :hub_client_management
 
     accessible_groups = user.accessible_vita_partners
@@ -80,7 +78,7 @@ class Ability
     can :read, Organization, id: accessible_groups.pluck(:id)
     can :read, Site, id: accessible_groups.pluck(:id)
 
-    # CLIENT CONTROLLER PERMISSIONS
+    # HUB CLIENT CONTROLLER PERMISSIONS
     # overly permissive, need to narrow permissions
     # break out role and specify permissions when making modifications
     client_role_whitelist = [
