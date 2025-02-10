@@ -231,7 +231,7 @@ class StateFileMdIntake < StateFileBaseIntake
     end
   end
 
-  def sum_1099_r_two_followup_types_for_filer(primary_or_spouse, followup_type_1, followup_type_2)
+  def sum_two_1099_r_followup_types_for_filer(primary_or_spouse, followup_type_1, followup_type_2)
     filer_1099_rs(primary_or_spouse).sum do |state_file_1099_r|
       state_specific_followup = state_file_1099_r.state_specific_followup
       if state_specific_followup&.send(followup_type_1) && state_specific_followup&.send(followup_type_2)

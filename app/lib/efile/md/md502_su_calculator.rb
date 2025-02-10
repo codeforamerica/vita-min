@@ -3,7 +3,7 @@ module Efile
     class Md502SuCalculator < ::Efile::TaxCalculator
       attr_reader :lines, :value_access_tracker
 
-      CALCULATED_FIELDS_AND_CODE_LETTERS = { MD502_SU_LINE_AB: "AB", MD502_SU_LINE_U: "U" }
+      CALCULATED_FIELDS_AND_CODE_LETTERS = { MD502_SU_LINE_AB: "AB", MD502_SU_LINE_U: "U", MD502_SU_LINE_V: "V" }
 
       def initialize(value_access_tracker:, lines:, intake:)
         @value_access_tracker = value_access_tracker
@@ -28,12 +28,29 @@ module Efile
         [@intake.sum_1099_r_followup_type_for_filer(:primary, :service_type_military?), age_benefits].min
       end
 
+      def calculate_public_safety_employee(filer)
+        if @intake.is_filer_55_and_older?(filer)
+          pension_annuity_and_public_safety = @intake.sum_two_1099_r_followup_types_for_filer(filer, :income_source_pension_annuity_endowment?, :service_type_public_safety?)
+          [pension_annuity_and_public_safety, 15_000].min
+        else
+          0
+        end
+      end
+
       def calculate_line_u_primary
         calculate_military_per_filer(:primary)
       end
 
       def calculate_line_u_spouse
         @intake.filing_status_mfj? ? calculate_military_per_filer(:spouse) : 0
+      end
+
+      def calculate_line_v_primary
+        calculate_public_safety_employee(:primary)
+      end
+
+      def calculate_line_v_spouse
+        @intake.filing_status_mfj? ? calculate_public_safety_employee(:spouse) : 0
       end
 
       private
@@ -46,11 +63,9 @@ module Efile
         line_or_zero(:MD502_SU_LINE_U_PRIMARY) + line_or_zero(:MD502_SU_LINE_U_SPOUSE)
       end
 
-      def calculate_line_v_primary; end
-
-      def calculate_line_v_spouse; end
-
-      def calculate_line_v; end
+      def calculate_line_v
+        line_or_zero(:MD502_SU_LINE_V_PRIMARY) + line_or_zero(:MD502_SU_LINE_V_SPOUSE)
+      end
 
       def calculate_line_1
         line_or_zero(:MD502_SU_LINE_AB) + line_or_zero(:MD502_SU_LINE_U) + line_or_zero(:MD502_SU_LINE_V)

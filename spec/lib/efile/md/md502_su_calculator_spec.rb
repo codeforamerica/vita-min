@@ -65,6 +65,44 @@ describe Efile::Md::Md502SuCalculator do
     end
   end
 
+  describe "#calculate_public_safety_employee" do
+    before do
+      allow_any_instance_of(StateFileMdIntake).to receive(:is_filer_55_and_older?).and_return is_55_and_older
+    end
+
+    context "when the age is lower than 55" do
+      let(:is_55_and_older) { false }
+      it "returns 0" do
+        expect(instance.calculate_public_safety_employee(:primary)).to eq(0)
+        expect(instance.calculate_public_safety_employee(:spouse)).to eq(0)
+      end
+    end
+
+    context "when the age is older than 55" do
+      let(:is_55_and_older) { true }
+      before do
+        allow_any_instance_of(StateFileMdIntake).to receive(:sum_two_1099_r_followup_types_for_filer).and_return followup_sum
+      end
+
+      context "when the total taxable amount of the applicable followups is less 15,000" do
+        let(:followup_sum) { 14_999 }
+        it "returns the total taxable amount of the followups" do
+          expect(instance.calculate_public_safety_employee(:primary)).to eq(14_999)
+          expect(instance.calculate_public_safety_employee(:spouse)).to eq(14_999)
+        end
+      end
+
+      context "when the total taxable amount of the applicable followups is more than 15,000" do
+        let(:followup_sum) { 15_001 }
+
+        it "returns 15,000" do
+          expect(instance.calculate_public_safety_employee(:primary)).to eq(15_000)
+          expect(instance.calculate_public_safety_employee(:spouse)).to eq(15_000)
+        end
+      end
+    end
+  end
+
   describe "#calculate_line_u_primary" do
     before do
       allow(instance).to receive(:calculate_military_per_filer).with(:primary).and_return 10_000
@@ -94,6 +132,35 @@ describe Efile::Md::Md502SuCalculator do
     end
   end
 
+  describe "#calculate_line_v_primary" do
+    before do
+      allow(instance).to receive(:calculate_public_safety_employee).with(:primary).and_return 10_000
+    end
+
+    it "returns the value for #calculate_military_per_filer" do
+      expect(instance.calculate_line_v_primary).to eq(10_000)
+    end
+  end
+
+  describe "#calculate_line_v_spouse" do
+    before do
+      allow(instance).to receive(:calculate_public_safety_employee).with(:spouse).and_return 10_000
+    end
+
+    context "when a single filer" do
+      it "returns the value for #calculate_military_per_filer" do
+        expect(instance.calculate_line_v_spouse).to eq(0)
+      end
+    end
+
+    context "when mfj" do
+      let(:intake) { create(:state_file_md_intake, :with_spouse) }
+      it "returns 0" do
+        expect(instance.calculate_line_v_spouse).to eq(10_000)
+      end
+    end
+  end
+
   describe "#calculate_line_u" do
     before do
       allow(instance).to receive(:calculate_line_u_primary).and_return(15_000)
@@ -103,6 +170,18 @@ describe Efile::Md::Md502SuCalculator do
     it "sums the primary and spouse line u calculations" do
       instance.calculate
       expect(instance.lines[:MD502_SU_LINE_U].value).to eq(35_000)
+    end
+  end
+
+  describe "#calculate_line_v" do
+    before do
+      allow(instance).to receive(:calculate_line_v_primary).and_return(15_000)
+      allow(instance).to receive(:calculate_line_v_spouse).and_return(20_000)
+    end
+
+    it "sums the primary and spouse line u calculations" do
+      instance.calculate
+      expect(instance.lines[:MD502_SU_LINE_V].value).to eq(35_000)
     end
   end
 
