@@ -3257,6 +3257,8 @@ en:
           amount_earned: Amount earned
           child_deduction: Child deduction
           interest_us_bonds: Interest income from U.S. bonds (not taxable in North Carolina)
+          benefits_vested_pensions: Subtraction for retirement benefits by vested qualifying government pensions
+          service_members: Subtraction for retirement benefits received by service members
           primary_veteran: United States Armed Forces veteran status
           social_security_benefits: Social Security benefits (not taxable in North Carolina)
           spouse_veteran: Your spouse's United States Armed Forces veteran status
