@@ -24,7 +24,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       continue
 
       expect(page).to be_axe_clean if check_a11y
-      step_through_initial_authentication(contact_preference: :email)
+      step_through_initial_authentication(contact_preference: :email, check_a11y: check_a11y)
       expect(page).to be_axe_clean if check_a11y
 
       check "Email"
@@ -97,6 +97,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
           check I18n.t('state_file.questions.nj_college_dependents_exemption.edit.filer_pays_tuition_books')
         end
       end
+      expect_programmatically_associated_help_text
       continue
     end
 
