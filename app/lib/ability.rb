@@ -7,8 +7,8 @@ class Ability
       return
     end
 
-    # Custom actions
-    alias_action :flag, :toggle_field, :unlock,
+    # Custom client controller actions
+    alias_action :flag, :toggle_field,
                  :edit_take_action, :update_take_action,
                  :edit_13614c_form_page1, :edit_13614c_form_page2,
                  :edit_13614c_form_page3, :edit_13614c_form_page4, :edit_13614c_form_page5,
@@ -91,6 +91,10 @@ class Ability
 
       can [:create, :update, :edit, :hub_client_management],
           Client, vita_partner: accessible_groups, intake: { product_year: Rails.configuration.product_year }
+    end
+
+    if user.role?([:admin, :org_lead, :site_coordinator])
+      can :unlock, Client, vita_partner: accessible_groups, intake: { product_year: Rails.configuration.product_year }
     end
 
     if user.greeter?

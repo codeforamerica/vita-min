@@ -99,8 +99,6 @@ module Hub
     end
 
     def unlock
-      raise CanCan::AccessDenied unless current_user.admin? || current_user.org_lead? || current_user.site_coordinator?
-
       @client.unlock_access! if @client.access_locked?
       flash[:notice] = I18n.t("hub.clients.unlock.account_unlocked", name: @client.preferred_name)
       redirect_to(hub_client_path(id: @client))
