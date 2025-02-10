@@ -1,0 +1,43 @@
+<%
+    title = t(".title" )
+    content_for :page_title, title
+%>
+
+<% content_for :card do %>
+  <hgroup>
+    <h1 class="h2"><%= title %></h1>
+    <p><%= t(".subtitle") %></p>
+  </hgroup>
+  <p><%= t(".doc_1099r_label") %> <b><%= @name_1099r %></b></p>
+  <p><%= t(".taxpayer_name_label") %> <b><%= @taxpayer_name %></b></p>
+  <p><%= t(".taxable_amount_label") %> <b><%= number_to_currency(@amount, precision: 0) %></b></p>
+
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <div class="white-group">
+      <%= f.cfa_radio_set(
+            :income_source,
+            label_text: t(".label"),
+            collection: [
+              { value: :military_pension, label: t(".option_military_pension") },
+              { value: :military_survivors_benefits, label: t(".option_military_survivor_benefit") },
+              { value: :none, label: t(".option_none") },
+            ],
+          ) %>
+    </div>
+
+    <div class="reveal">
+      <button class="reveal__button"><%= t('.helper_heading') %></button>
+      <div class="reveal__content">
+        <%= t('.helper_description_html') %>
+      </div>
+    </div>
+
+    <% if params[:return_to_review].present? %>
+      <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
+    <% end %>
+    <% if params[:index].present? %>
+      <%= hidden_field_tag "index", params[:index] %>
+    <% end %>
+    <%= f.continue %>
+  <% end %>
+<% end %>
