@@ -43,6 +43,8 @@ module Hub
     end
 
     def edit
+      raise CanCan::AccessDenied if @client.intake.is_ctc?
+
       @form = UpdateClientForm.from_client(@client)
     end
 

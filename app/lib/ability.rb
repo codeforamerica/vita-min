@@ -117,7 +117,7 @@ class Ability
     # Only admins can destroy clients
     cannot :destroy, Client unless user.admin?
 
-    can [:create, :update, :destroy], [
+    can [:create, :update, :edit, :destroy], [
       Note,
       Document,
       TaxReturn
