@@ -5,7 +5,7 @@ module Hub
 
     before_action :load_vita_partners, only: [:new, :create, :index]
     before_action :load_users, only: [:index]
-    load_and_authorize_resource except: [:new, :create, :resource_to_client_redirect]
+    load_and_authorize_resource except: [:new, :create, :resource_to_client_redirect] # why except new and create
     before_action :setup_sortable_client, only: [:index]
     # need to use the presenter for :update bc it has ITIN applicant methods that are used in the form
     before_action :wrap_client_in_hub_presenter, only: [:show, :edit, :edit_take_action, :update, :update_take_action]
@@ -142,8 +142,8 @@ module Hub
     end
 
     def redirect_if_not_authorized
-      authorize! :hub_client_management, @client
-      # raise CanCan::AccessDenied if @client.nil? || @client.intake.is_ctc? || cannot?(:hub_client_management, @client)
+      # todo: change name/back? redirects are happening based on ability in ability file
+      raise CanCan::AccessDenied if @client.nil? || @client.intake.is_ctc?
     end
 
     def update_13614c_form_page1

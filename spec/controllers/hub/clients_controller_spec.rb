@@ -938,10 +938,10 @@ RSpec.describe Hub::ClientsController do
           create(:archived_2021_gyr_intake, client: client)
         end
 
-        it "redirects to the /show page for the client" do
+        it "redirects to Access Denied page" do
           get :edit, params: params
 
-          expect(response).to redirect_to(hub_client_path(id: client.id))
+          expect(response).to be_forbidden
         end
       end
     end
@@ -1052,10 +1052,10 @@ RSpec.describe Hub::ClientsController do
           create(:archived_2021_gyr_intake, client: client)
         end
 
-        it "redirects to the /show page for the client" do
+        it "response is forbidden (403)" do
           post :update, params: { id: client.id }
 
-          expect(response).to redirect_to(hub_client_path(id: client.id))
+          expect(response).to be_forbidden
         end
       end
 
@@ -1299,13 +1299,11 @@ RSpec.describe Hub::ClientsController do
       end
 
       context "when the client is not hub updatable" do
-        before do
-          allow_any_instance_of(Hub::ClientsController::HubClientPresenter).to receive(:hub_status_updatable).and_return(false)
-        end
+        let(:intake) { build :ctc_intake, email_address: "gob@example.com", sms_phone_number: "+14155551212" }
 
         it "raises bad request" do
           post :update_take_action, params: params
-          expect(response).to redirect_to hub_client_path(id: client.id)
+          expect(response).to be_forbidden
         end
       end
 
