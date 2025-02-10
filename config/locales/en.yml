@@ -2887,7 +2887,7 @@ en:
             one: To see if you qualify, we need more information about you.
             other: To see if you qualify, we need more information about you and your household.
           select_household_members: 'Select the members of the household any of these situations applied to in %{tax_year}:'
-          situation_incarceration: Were incarcerated
+          situation_incarceration: were incarcerated
           situation_snap: received food stamps / SNAP-EBT
           situation_undocumented: lived in the US undocumented
           situations_question:
@@ -2984,7 +2984,7 @@ en:
           title:
             one: Did you make any out-of-state purchases in %{year} without paying sales tax?
             other: Did you or your spouse make any out-of-state purchases in %{year} without paying sales tax?
-          unpaid_sales_use_tax_label_html: Enter the <b>total amount of purchases</b> that didn’t have sales tax applied in %{year}.
+          unpaid_sales_use_tax_label_html: Enter the <strong>total amount of purchases</strong> that didn’t have sales tax applied in %{year}.
           use_tax_content: If you buy something from another state (like online shopping or purchases from a store located in another state) and you don’t pay sales tax on it, you are generally required to pay use tax to your home state.
           use_tax_title: What are use taxes?
       id_spouse_state_id:

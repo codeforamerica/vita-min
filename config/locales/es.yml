@@ -2919,7 +2919,7 @@ es:
             many: "¿Tú o tu cónyuge hiciste alguna compra fuera del estado en %{year} sin pagar impuestos sobre ventas?"
             one: "¿Hiciste alguna compra fuera del estado en %{year} sin pagar impuestos sobre ventas?"
             other: "¿Tú o tu cónyuge hiciste alguna compra fuera del estado en %{year} sin pagar impuestos sobre ventas?"
-          unpaid_sales_use_tax_label_html: Ingresa la <b>cantidad total de compras</b> a las que no se les aplicaron impuestos sobre las ventas o el uso %{year}.
+          unpaid_sales_use_tax_label_html: Ingresa la <strong>cantidad total de compras</strong> a las que no se les aplicaron impuestos sobre las ventas o el uso %{year}.
           use_tax_content: Si compras algo de otro estado (como compras en línea o en una tienda ubicada en otro estado) y no pagas el impuesto sobre ventas, generalmente se requiere que pagues el impuesto sobre uso a tu estado de residencia.
           use_tax_title: "¿Qué son los impuestos sobre uso?"
       id_spouse_state_id:
