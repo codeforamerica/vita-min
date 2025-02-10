@@ -2528,13 +2528,15 @@ en:
           itemized_deductions: Itemized deductions
           long_term_care_insurance_subtraction: Long-term Care Insurance Subtraction
           maintaining_elderly_disabled_credit: Credit for Maintaining a Home for the Elderly or Disabled
+          not_supported_this_year: 'Credits and deductions not supported this year:'
         id_supported:
-          child_care_deduction: Child and Dependent Care Deduction
+          child_care_deduction: Idaho Child and Dependent Care Subtraction
           health_insurance_premiums_subtraction: Health Insurance Premiums subtraction
           id_child_tax_credit: Idaho Child Tax Credit
           id_grocery_credit: Idaho Grocery Credit
-          interest_from_obligations: Interest from U.S government obligations
-          social_security_retirement_deduction: Social Security and Retirement Benefits deductions
+          interest_from_obligations: Interest from U.S government obligations subtraction
+          retirement_benefits_deduction: Retirement Benefits deductions
+          social_security_retirement_deduction: Social Security and Railroad Retirement subtraction
         md_reveals:
           body1_html: |
             <ul>
@@ -2872,10 +2874,10 @@ en:
           emergency_rental_assistance_explanation: The Emergency Rental Assistance (ERA) program is a federal program that gives money to help households pay for rent and utility bills. It was created in response to the Covid-19 pandemic.
           subtitle_1: For this tax season, this service will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
           title: First, let's see if you can use this service to file your %{filing_year} Idaho taxes
-          withdrew_msa_fthb: 'In %{filing_year}, did you (or your spouse if you’re filing together) withdraw money from any of the following:'
+          withdrew_msa_fthb: Did any of the following scenarios apply to you or your spouse in %{filing_year}
           withdrew_msa_fthb_list:
-            bullet_1_html: Withdrew money from our Idaho Medical Savings Account and used it for a <a href="%{link}" target="_blank" rel="noopener noreferrer">non-qualifying expense</a>.
-            bullet_2_html: Withdrew money from our First-Time Homebuyer Account and used it for <a href="%{link}" target="_blank" rel="noopener noreferrer">non-eligible home costs</a>.
+            bullet_1_html: Withdrew money from your Idaho Medical Savings Account and used it for a <a href="%{link}" target="_blank" rel="noopener noreferrer">non-qualifying expense</a>.
+            bullet_2_html: Withdrew money from your First-Time Homebuyer Account and used it for <a href="%{link}" target="_blank" rel="noopener noreferrer">non-eligible home costs</a>.
       id_grocery_credit:
         edit:
           answers_confidential_html: Your answers are private and used only to see if you qualify for the tax credit.
@@ -2886,7 +2888,7 @@ en:
             one: To see if you qualify, we need more information about you.
             other: To see if you qualify, we need more information about you and your household.
           select_household_members: 'Select the members of the household any of these situations applied to in %{tax_year}:'
-          situation_incarceration: experienced incarceration
+          situation_incarceration: were incarcerated
           situation_snap: received food stamps / SNAP-EBT
           situation_undocumented: lived in the US undocumented
           situations_question:
@@ -2905,13 +2907,15 @@ en:
           you_example_months: For example, if you had 2 situations in April, that counts as 1 month.
       id_grocery_credit_review:
         edit:
+          body_p1: This credit amount will be part of your final tax calculations. If you are owed a state tax refund, the credit amount will increase your final refund amount. If you owe taxes, the credit will lower the amount you owe.
+          body_p2: You can review your total Idaho state refund amount at the end.
           donate_impact_content_p1: Your choice to donate is final once you submit your tax return and cannot be changed through an amended return.
           donate_impact_content_p2: The Cooperative Welfare Fund is a trust fund in the state treasury, and all money goes toward public assistance and welfare purposes.
           donate_impact_heading: How will donating my credit impact my tax return?
           donate_warning_p1: Your donation will be deducted from your total state refund.
           donate_warning_p2: Your choice to donate is final and cannot be changed through an amended return.
-          title: You will receive $%{grocery_credit_amount} from the Idaho Grocery Credit!
-          title_html: You will receive <strong>$%{grocery_credit_amount}</strong> from the Idaho Grocery Credit!
+          title: Good news! You're eligible for $%{grocery_credit_amount} from the Idaho Grocery Credit!
+          title_html: Good news! You're eligible for <strong>$%{grocery_credit_amount}</strong> from the Idaho Grocery Credit!
           would_you_like_to_donate: Would you like to donate your entire credit to the Cooperative Welfare Fund?
       id_health_insurance_premium:
         edit:
@@ -2934,7 +2938,7 @@ en:
             <br/><br/>
             If you have Medicare you can deduct Medicare A (if you are voluntarily enrolled and not covered under Social Security), as well as Medicare B and D if you are voluntarily enrolled. Medicare Advantage also qualifies.
           qualifications_title: Which health coverage premiums qualify?
-          qualifying_amount_help_text: Enter the total amount of qualifying health insurance premiums your household paid in %{year}.
+          qualifying_amount_help_text_html: Enter the <strong>total amount</strong> of qualifying health insurance premiums your household paid in %{year}.
           subtitle:
             one: To see if you qualify, we need more information about you.
             other: To see if you qualify, we need more information about you and your household.
@@ -2952,8 +2956,8 @@ en:
       id_permanent_building_fund:
         edit:
           receive_public_assistance_explanation: Public assistance payments do not include food stamps nor WIC payments.
-          receive_public_assistance_single: Did you receive Idaho public assistance payments at the end of the tax year?
-          receive_public_assistance_spouse: Did you or your spouse receive Idaho public assistance payments at the end of the tax year?
+          receive_public_assistance_single: Were you receiving Idaho public assistance payments at the end of the tax year?
+          receive_public_assistance_spouse: Were you or your spouse receiving Idaho public assistance payments at the end of the tax year?
           title: You might be eligible for an exception to the permanent building fund tax!
       id_primary_state_id:
         id_primary:
@@ -2977,11 +2981,13 @@ en:
           sales_tax_content: This is a tax collected at the point of sale when you buy goods within your state. However, if you purchased items through an out-of-state seller, they may not have collected Idaho sales tax at the time.
           sales_tax_title: What are sales taxes?
           sales_use_tax_helper_text: Enter total amount
-          subtitle_html: This includes online purchases where sales tax was <strong>not</strong> applied.
+          subtitle_html: This includes online purchases where sales tax was <strong>not</strong> applied. If you made any purchases without paying sales tax, you may owe use tax on those purchases. We’ll help you figure out the right amount
           title:
             one: Did you make any out-of-state purchases in %{year} without paying sales tax?
             other: Did you or your spouse make any out-of-state purchases in %{year} without paying sales tax?
-          unpaid_sales_use_tax_label_html: Please enter the <b>total amount of purchases</b> that didn’t have sales or use tax applied.
+          unpaid_sales_use_tax_label_html: Enter the <strong>total amount of purchases</strong> that didn’t have sales tax applied in %{year}.
+          use_tax_content: If you buy something from another state (like online shopping or purchases from a store located in another state) and you don’t pay sales tax on it, you are generally required to pay use tax to your home state.
+          use_tax_title: What are use taxes?
       id_spouse_state_id:
         id_spouse:
           encourage_sharing_html: If you and your spouse have a driver’s license or state issued identification card please provide the requested information from it. The return will not be rejected if you do not provide a driver’s license or state-issued identification. <br><br> If you provide this information, it may help to identify you as the taxpayer.
@@ -3872,7 +3878,7 @@ en:
               body: You can edit and resubmit your state return by clicking the button below.
               title: What's next?
             no_edit:
-              body_html: Unfortunately, the issue with filing your state return cannot be resolved on our service. We recommend you download your return to assist you in next steps.
+              body_html: Unfortunately, there has been an issue with filing your state return that cannot be resolved on our tool. We recommend you download your return to assist you in next steps. Chat with us or email us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a> for guidance on next steps.
               title: What can I do next?
           reject_code: 'Reject Code:'
           reject_desc: 'Reject Description:'
