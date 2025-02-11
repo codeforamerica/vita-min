@@ -2467,11 +2467,11 @@ en:
           title: You’ve declined the terms and conditions.
       eligibility_offboarding:
         edit:
-          body_html: You cannot use this service this year because %{ineligible_reason}. <br><br><strong>Is this a mistake?</strong> <a href=%{prev_link}>Go back to correct.</a>
+          body_html: You cannot use this service this year because <strong>%{ineligible_reason}.</strong> <br><br><strong>Is this a mistake?</strong> <a href=%{prev_link}>Go back to correct.</a>
           ineligible_reason:
             eligibility_529_for_non_qual_expense: you withdrew money from a 529 college savings account and used it for a non-qualifying expense in %{filing_year}
-            eligibility_ed_loan_cancelled: you had student loan debt canceled under the American Rescue Plan Act.
-            eligibility_ed_loan_emp_payment: you received a Qualified Education Loan Payment paid by your employer.
+            eligibility_ed_loan_cancelled: you had student loan debt canceled under the American Rescue Plan Act
+            eligibility_ed_loan_emp_payment: you received a Qualified Education Loan Payment paid by your employer
             eligibility_emergency_rental_assistance: you (or your spouse) received emergency rental assistance in %{filing_year}
             eligibility_home_different_areas: you and your spouse had your permanent homes in two different counties, cities, towns, or taxing areas on the last day of %{filing_year}
             eligibility_homebuyer_withdrawal: you withdrew money from a first-time homebuyer account not used to buy a home in Maryland
@@ -2484,8 +2484,8 @@ en:
             eligibility_withdrew_msa_fthb: you either withdrew money from your Idaho Medical Savings Account and used it for a non-qualifying expense or you withdrew money from your First-Time Homebuyer Account and used it for non-eligible home costs
             eligibility_yonkers: you lived or earned income in Yonkers in %{filing_year}
             health_insurance_eligibility: someone in your tax household did not have health insurance (with minimum essential coverage) for every month in %{filing_year}
-            nyc_maintained_home: you lived in or maintained a home in New York City for some of the year.
-            nyc_residency: you lived in or maintained a home in New York City for some of the year.
+            nyc_maintained_home: you lived in or maintained a home in New York City for some of the year
+            nyc_residency: you lived in or maintained a home in New York City for some of the year
             permanent_address_outside_md: you did not reside in Maryland on Dec 31st
             permanent_address_outside_ny: you did not live in New York for all of %{filing_year}
           title:
