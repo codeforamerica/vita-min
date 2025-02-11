@@ -7,19 +7,20 @@ name: Tag and Release
 on:
   # since workflow_dispatch will only work if the default branch has this config,
   # for testing, this will run action on every merge (does not test inputs)
-  push:
-    branches:
-      - fake-main-for-testing
+#  push:
+#    branches:
+#      - fake-main-for-testing
   workflow_dispatch:
     inputs:
       environment:
         description: 'Where to deploy'
         required: true
         default: 'staging'
+        type: choice
         options: [staging, demo, prod]
       release_type:
         description: 'Part of version to increment (major, minor, patch)'
-        required: false
+        required: true
         default: 'patch'
         type: choice
         options: [patch, minor, major]
@@ -50,10 +51,11 @@ jobs:
 
       - name: Check for merge conflicts
         run: |
+          echo "Checking deployment for ${{ github.ref_name }} to ${{ env.TARGET_BRANCH }}"
           target_sha=$(git show -s --format=%H)
           if [[ ${target_sha} == ${GITHUB_SHA} ]]; then
-             echo "Target SHA already matches. No need to deploy."
-             exit 0
+             echo "Current SHA ${GITHUB_SHA} already matches the target SHA ${target_sha}. No need to deploy."
+             exit 1
           fi
           git fetch origin ${GITHUB_SHA}
           git merge --ff-only ${GITHUB_SHA} || {
@@ -71,7 +73,7 @@ jobs:
         run: |
           # parse major, minor, and patch versions from the last release
           latest_tag="$(git tag --list | grep 'version-' | sort --version-sort | tail -n1)"
-          trimmed_version="${latest_version#version-}"
+          trimmed_version="${latest_tag#version-}"
           old_version="${trimmed_version:-0.0.0}"
           IFS='.' read -r major minor patch <<< "${old_version}"
           echo "OLD_VERSION=${old_version}" >> $GITHUB_ENV
