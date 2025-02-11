@@ -236,4 +236,53 @@ describe SubmissionBuilder::AuthenticationHeader do
       end
     end
   end
+
+  context "FirstInput" do
+    let(:submission) { create(:efile_submission, data_source: intake) }
+    let(:xml) { SubmissionBuilder::AuthenticationHeader.new(submission).document }
+
+    context "in a state that does not require banking information in FinancialResolution" do
+      context "refund" do
+        let(:intake) { create(:state_file_az_refund_intake) }
+
+        it "leaves FirstInput details blank" do
+          expect(xml.at("FirstInput RoutingTransitNum")).to be_nil
+          expect(xml.at("FirstInput DepositorAccountNum")).to be_nil
+          expect(xml.at("FirstInput InputTimestamp")).to be_nil
+        end
+      end
+
+      context "owed" do
+        let(:intake) { create(:state_file_az_owed_intake) }
+
+        it "leaves FirstInput details blank" do
+          expect(xml.at("FirstInput RoutingTransitNum")).to be_nil
+          expect(xml.at("FirstInput DepositorAccountNum")).to be_nil
+          expect(xml.at("FirstInput InputTimestamp")).to be_nil
+        end
+      end
+    end
+
+    context "in a state that requires banking information in FinancialResolution" do
+      context "refund" do
+        let(:intake) { create(:state_file_md_refund_intake, primary_esigned_at: DateTime.new(2025, 2, 15, 12).in_time_zone(StateFile::StateInformationService.timezone("md"))) }
+
+        it "fills out the FirstInput banking information" do
+          expect(xml.at("FirstInput RoutingTransitNum").text).to eq "111111111"
+          expect(xml.at("FirstInput DepositorAccountNum").text).to eq "222222222"
+          expect(xml.at("FirstInput InputTimestamp").text).to eq "2025-02-15T07:00:00-05:00"
+        end
+      end
+
+      context "owed" do
+        let(:intake) { create(:state_file_md_owed_intake, primary_esigned_at: DateTime.new(2025, 2, 15, 12).in_time_zone(StateFile::StateInformationService.timezone("md"))) }
+
+        it "fills out the FirstInput banking information" do
+          expect(xml.at("FirstInput RoutingTransitNum").text).to eq "111111111"
+          expect(xml.at("FirstInput DepositorAccountNum").text).to eq "222222222"
+          expect(xml.at("FirstInput InputTimestamp").text).to eq "2025-02-15T07:00:00-05:00"
+        end
+      end
+    end
+  end
 end
