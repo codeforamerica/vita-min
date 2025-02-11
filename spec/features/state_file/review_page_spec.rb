@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "Completing a state file intake", active_job: true do
+RSpec.feature "Completing a state file intake", active_job: true, js: true do
   include MockTwilio
   include StateFileIntakeHelper
 
@@ -9,7 +9,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
   end
 
   StateFile::StateInformationService.active_state_codes.without("ny").each do |state_code|
-    context "#{state_code.upcase}", js: true do
+    context "#{state_code.upcase}" do
       it "allows user to navigate to income review page, edit an income form, and then navigate back to final review page", required_schema: state_code do
         set_up_intake_and_associated_records(state_code)
 
@@ -41,6 +41,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
         # Back on income review page
         expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
+        expect(page.find('input[name="state_file_income_review_form[device_id]"]', visible: false).value).to be_present
         click_on I18n.t("general.continue")
 
         # Final review page
@@ -62,6 +63,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
         # Back on income review page
         expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
+        expect(page.find('input[name="state_file_income_review_form[device_id]"]', visible: false).value).to be_present
         click_on I18n.t("general.continue")
 
         # Final review page
@@ -83,6 +85,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
         # Back on income review page
         expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
+        expect(page.find('input[name="state_file_income_review_form[device_id]"]', visible: false).value).to be_present
         click_on I18n.t("general.continue")
 
         # Final review page
@@ -100,6 +103,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
         # Back on income review page
         expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
+        expect(page.find('input[name="state_file_income_review_form[device_id]"]', visible: false).value).to be_present
         click_on I18n.t("general.continue")
 
         # Final review page
