@@ -6,9 +6,14 @@ module StateFile
       def self.show?(intake) # only accessed via button, not navigator
         false
       end
-      
+
+      def prev_path
+        StateFile::Questions::IncomeReviewController.to_path_helper(return_to_review: params[:return_to_review])
+      end
+
       def edit
         @state_code = current_state_code
+        @w2.valid?(:state_file_edit)
       end
 
       def update

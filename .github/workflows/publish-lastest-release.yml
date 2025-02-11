@@ -1,0 +1,20 @@
+name: Publish Latest Release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  publish-release:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Publish github release notes
+        run: |
+          tagName=$(gh release list --json isDraft,tagName,publishedAt --jq '[.[] | select(.isDraft == true) | {tagName: (.tagName), timestamp: (.publishedAt | fromdateiso8601)}] | sort_by(.timestamp) | last | .tagName')
+          if [ -z "$tagName" ]; then
+            echo "All release are already published"
+            exit 0
+          fi
+          gh release edit $(tagName) --draft=false
+          echo "https://github.com/codeforamerica/vita-min/releases/latest"

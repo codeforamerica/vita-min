@@ -144,6 +144,11 @@ describe StateFile::AfterTransitionMessagingService do
   end
 
   describe "#send_efile_submission_successful_submission_message" do
+    before do
+      allow(StateFile::MessagingService).to receive(:new).with(intake: intake, submission: efile_submission, message: message, body_args: body_args, locale: :en).and_return(sf_messaging_service)
+      allow(StateFile::MessagingService).to receive(:new).with(intake: intake, submission: efile_submission, message: message).and_return(sf_messaging_service)
+    end
+
     let(:message) { StateFile::AutomatedMessage::SuccessfulSubmission }
 
     context "intake has only one submission" do
@@ -156,7 +161,7 @@ describe StateFile::AfterTransitionMessagingService do
                                                          .and change(StateFileNotificationTextMessage, :count).by(1)
 
         expect(efile_submission.message_tracker).to include "messages.state_file.successful_submission"
-        expect(StateFile::MessagingService).to have_received(:new).with(intake: intake, submission: efile_submission, message: message, body_args: body_args)
+        expect(StateFile::MessagingService).to have_received(:new).with(intake: intake, submission: efile_submission, message: message, body_args: body_args, locale: :en)
       end
     end
 
@@ -171,7 +176,7 @@ describe StateFile::AfterTransitionMessagingService do
                                                          .and change(StateFileNotificationTextMessage, :count).by(1)
 
         expect(efile_submission.message_tracker).to include "messages.state_file.successful_submission"
-        expect(StateFile::MessagingService).to have_received(:new).with(intake: intake, submission: efile_submission, message: message, body_args: body_args)
+        expect(StateFile::MessagingService).to have_received(:new).with(intake: intake, submission: efile_submission, message: message, body_args: body_args, locale: :en)
       end
     end
   end

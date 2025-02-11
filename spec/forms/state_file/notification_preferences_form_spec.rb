@@ -209,4 +209,105 @@ RSpec.describe StateFile::NotificationPreferencesForm do
       end
     end
   end
+
+  describe "#save" do
+    before do
+      messaging_service = instance_double(StateFile::MessagingService)
+      allow(StateFile::MessagingService).to receive(:new).and_return(messaging_service)
+      allow(messaging_service).to receive(:send_message)
+    end
+    context "when setting notification preferences for the first time" do
+      let!(:intake) { create :state_file_az_intake, sms_notification_opt_in: "unfilled", email_notification_opt_in: "unfilled" }
+
+      context "when opting into email notifications" do
+        let(:params) do
+          {
+            email_notification_opt_in: "yes",
+            email_address: "test@example.com"
+          }
+        end
+        subject(:form) { described_class.new(intake, params) }
+
+        it "sends welcome message" do
+          expect(StateFile::MessagingService).to receive(:new).with(
+            message: StateFile::AutomatedMessage::Welcome,
+            intake: intake,
+            sms: false,
+            email: true,
+            body_args: { intake_id: intake.id },
+            locale: :en
+          )
+          form.save
+        end
+      end
+
+      context "when opting into SMS notifications" do
+        let(:params) do
+          {
+            sms_notification_opt_in: "yes",
+            phone_number: "+14155551212"
+          }
+        end
+        subject(:form) { described_class.new(intake, params) }
+
+        it "sends a welcome SMS" do
+          expect(StateFile::MessagingService).to receive(:new).with(
+            message: StateFile::AutomatedMessage::Welcome,
+            intake: intake,
+            sms: true,
+            email: false,
+            body_args: { intake_id: intake.id },
+            locale: :en
+          )
+          form.save
+        end
+      end
+
+      context "when opting into both SMS and email notifications" do
+        let(:params) do
+          {
+            sms_notification_opt_in: "yes",
+            phone_number: "+14155551212",
+            email_notification_opt_in: "yes",
+            email_address: "test@example.com"
+          }
+        end
+        subject(:form) { described_class.new(intake, params) }
+
+        it "sends both welcome email and SMS" do
+          expect(StateFile::MessagingService).to receive(:new).with(
+            message: StateFile::AutomatedMessage::Welcome,
+            intake: intake,
+            sms: true,
+            email: true,
+            body_args: { intake_id: intake.id },
+            locale: :en
+          )
+          form.save
+        end
+      end
+
+      context "when updating existing notification preferences" do
+        let!(:intake) { 
+          create :state_file_az_intake,
+                               sms_notification_opt_in: "no",
+                               email_notification_opt_in: "no" }
+
+        context "when changing notification preferences" do
+          let(:params) do
+            {
+              sms_notification_opt_in: "yes",
+              phone_number: "+14155551212"
+            }
+          end
+          subject(:form) { described_class.new(intake, params) }
+
+          it "does not send welcome message" do
+            expect(StateFile::MessagingService).not_to receive(:new)
+            form.save
+          end
+        end
+      end
+    end
+  end
 end
