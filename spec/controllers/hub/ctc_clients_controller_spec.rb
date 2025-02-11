@@ -116,21 +116,21 @@ RSpec.describe Hub::CtcClientsController do
         expect(system_note.client).to eq(client)
         expect(system_note.user).to eq(user)
         expect(system_note.data['changes']).to match({
-                                                       "spouse_ssn" => ["[REDACTED]", "[REDACTED]"],
-                                                       "primary_ssn" => ["[REDACTED]", "[REDACTED]"],
-                                                       "email_address" => ["cher@example.com", "san@mateo.com"],
-                                                       "primary_tin_type" => ["ssn", nil],
-                                                       "spouse_last_name" => ["Hesse", "Diego"],
-                                                       "primary_last_name" => ["Cherimoya", "Mateo"],
-                                                       "spouse_birth_date" => ["1929-09-02", "1980-01-11"],
-                                                       "spouse_first_name" => ["Eva", "San"],
-                                                       "primary_first_name" => ["Cher", "San"],
-                                                       "eip1_amount_received" => [1000, 9000],
-                                                       "spouse_email_address" => ["eva@hesse.com", "san@diego.com"],
-                                                       "spouse_last_four_ssn" => ["[REDACTED]", "[REDACTED]"],
-                                                       "primary_last_four_ssn" => ["[REDACTED]", "[REDACTED]"],
-                                                       "preferred_interview_language" => ["en", nil],
-                                                     })
+          "spouse_ssn" => ["[REDACTED]", "[REDACTED]"],
+          "primary_ssn" => ["[REDACTED]", "[REDACTED]"],
+          "email_address" => ["cher@example.com", "san@mateo.com"],
+          "primary_tin_type" => ["ssn", nil],
+          "spouse_last_name" => ["Hesse", "Diego"],
+          "primary_last_name" => ["Cherimoya", "Mateo"],
+          "spouse_birth_date" => ["1929-09-02", "1980-01-11"],
+          "spouse_first_name" => ["Eva", "San"],
+          "primary_first_name" => ["Cher", "San"],
+          "eip1_amount_received" => [1000, 9000],
+          "spouse_email_address" => ["eva@hesse.com", "san@diego.com"],
+          "spouse_last_four_ssn" => ["[REDACTED]", "[REDACTED]"],
+          "primary_last_four_ssn" => ["[REDACTED]", "[REDACTED]"],
+          "preferred_interview_language" => ["en", nil],
+       })
       end
 
       context "when the client's email address has changed" do
