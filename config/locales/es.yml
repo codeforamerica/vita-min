@@ -2412,7 +2412,7 @@ es:
           title: Has rechazado los términos y condiciones.
       eligibility_offboarding:
         edit:
-          body_html: No puedes usar este servicio este año porque %{ineligible_reason}. <br><br><strong>¿Es un error?</strong> <a href=%{prev_link}>Regresa para corregirlo.</a>
+          body_html: No puedes usar este servicio este año porque <strong>%{ineligible_reason}.</strong> <br><br><strong>¿Es un error?</strong> <a href=%{prev_link}>Regresa para corregirlo.</a>
           ineligible_reason:
             eligibility_529_for_non_qual_expense: retiraste dinero de una cuenta de ahorro universitario 529 y lo utilizaste para un gasto no calificado en el %{filing_year}
             eligibility_ed_loan_cancelled: se te canceló un préstamo estudiantil deuda bajo la Ley del Plan de Rescate Estadounidense.
@@ -3894,7 +3894,7 @@ es:
           bank_title: 'Comparte los detalles de tu cuenta bancaria:'
           confirm_account_number: Confirma el número de cuenta
           confirm_routing_number: Confirma el número de ruta bancaria (routing number)
-          date_withdraw_text: "¿Cuándo te gustaría que se retiren los fondos de tu cuenta?  (debe ser antes o en %{withdrawal_deadline_date} de %{with_drawal_deadline_year}):"
+          date_withdraw_text: "¿Cuándo te gustaría que se retiren los fondos de tu cuenta?  (debe ser antes o en el%{withdrawal_deadline_date} de %{with_drawal_deadline_year}):"
           foreign_accounts: No se aceptan cuentas extranjeras
           routing_number: Número de ruta bancaria (routing number)
           withdraw_amount: "¿Cuánto autorizas sea retirado de tu cuenta? (La cantidad total que debes es: %{owed_amount}.)"
