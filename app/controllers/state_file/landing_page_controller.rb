@@ -18,9 +18,14 @@ module StateFile
     end
 
     def update
-      all_current_intakes = StateFile::StateInformationService.active_state_codes.map { |c| send("current_state_file_#{c}_intake".to_sym) }.compact
-      if all_current_intakes.present?
-        all_current_intakes.each { |intake| sign_out intake }
+      if acts_like_production?
+        current_state_intake = send("current_state_file_#{params[:us_state]}_intake".to_sym)
+        sign_out current_state_intake if current_state_intake.present?
+      else
+        all_current_intakes = StateFile::StateInformationService.active_state_codes.map { |c| send("current_state_file_#{c}_intake".to_sym) }.compact
+        if all_current_intakes.present?
+          all_current_intakes.each { |intake| sign_out intake }
+        end
       end
       intake = StateInformationService.intake_class(params[:us_state]).new(
         visitor_id: cookies.encrypted[:visitor_id],

@@ -19,7 +19,7 @@ shared_examples :start_intake_concern do |intake_class:|
       expect(intake.referrer).to eq "https://www.goggles.com/get-tax-refund"
     end
 
-    context "with existing intakes in the session, one in-state and one out-of-state" do
+    context "with existing intakes in the session" do
       let(:existing_intake) do
         create(intake_class.name.underscore)
       end
@@ -35,14 +35,36 @@ shared_examples :start_intake_concern do |intake_class:|
         sign_in existing_oos_intake
       end
 
-      it "replaces the existing intake in the session with a new one" do
-        post :update, params: valid_params
-        logged_in_intakes = StateFile::StateInformationService.state_intake_classes.map do |klass|
-          subject.send("current_#{klass.name.underscore}")
-        end.compact
-        expect(logged_in_intakes).not_to include existing_intake
-        expect(logged_in_intakes).not_to include existing_oos_intake
-        expect(logged_in_intakes).to include intake_class.send(:last)
+      context "in production" do
+        before do
+          allow(Rails).to receive(:env).and_return("production".inquiry)
+        end
+
+        it "replaces the existing in-state intake and does not clear the out of state intakes" do
+          post :update, params: valid_params
+          logged_in_intakes = StateFile::StateInformationService.state_intake_classes.map do |klass|
+            subject.send("current_#{klass.name.underscore}")
+          end.compact
+          expect(logged_in_intakes).not_to include existing_intake
+          expect(logged_in_intakes).to include existing_oos_intake
+          expect(logged_in_intakes).to include intake_class.send(:last)
+        end
+      end
+
+      context "in any other environment" do
+        before do
+          allow(Rails).to receive(:env).and_return("demo".inquiry)
+        end
+
+        it "replaces the existing in-state intake and clears the out of state intakes" do
+          post :update, params: valid_params
+          logged_in_intakes = StateFile::StateInformationService.state_intake_classes.map do |klass|
+            subject.send("current_#{klass.name.underscore}")
+          end.compact
+          expect(logged_in_intakes).not_to include existing_intake
+          expect(logged_in_intakes).not_to include existing_oos_intake
+          expect(logged_in_intakes).to include intake_class.send(:last)
+        end
       end
     end
   end
