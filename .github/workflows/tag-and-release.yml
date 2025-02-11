@@ -1,15 +1,10 @@
 name: Tag and Release
 # 1. Merge current commit and check for errors
 # 2. Generate a version
-# 3. Draft a release with auto-generated notes (tag not pushed yet)
+# 3. Create a release with auto-generated notes
 # 4. Push merged changes
 
 on:
-  # since workflow_dispatch will only work if the default branch has this config,
-  # for testing, this will run action on every merge (does not test inputs)
-#  push:
-#    branches:
-#      - fake-main-for-testing
   workflow_dispatch:
     inputs:
       environment:
@@ -112,6 +107,6 @@ jobs:
           echo "✨ Deployment to ${{ github.event.inputs.environment }} initiated!"
           echo "👀 Watch progress on CircleCI: https://app.circleci.com/pipelines/github/codeforamerica/vita-min?branch=${{ vars.TARGET_BRANCH }}"
           if [[ "${{ github.event.inputs.environment == 'prod' }}" ]]; then
-            echo "📝 (Draft) Release notes here: https://github.com/codeforamerica/vita-min/releases"
+            echo "📝 Release notes here: https://github.com/codeforamerica/vita-min/releases/latest"
             echo "🧷 If needed, rollback to: ${{ env.OLD_VERSION }}"
           fi
