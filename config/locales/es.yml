@@ -2100,7 +2100,7 @@ es:
         body_html: Esta cuenta ha sido bloqueada debido a demasiados intentos fallidos de inicio de sesión. Si necesitas ayuda para desbloquear esta cuenta, por favor envíanos un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
         title: Esta cuenta ha sido bloqueada
       edit:
-        help_text: Para salvaguardar tu identidad, necesitamos confirmar tu número de seguro social para la verificación de identificación.
+        help_text: Para mantener segura tu identidad, necesitamos confirmar tu número de Seguro Social.
         ssn_label: Ingresa tu número de Seguro Social o ITIN. Por ejemplo, 123-45-6789.
         title: "¡Encontramos tu cuenta! Por favor confirma tu identidad para terminar de iniciar sesión."
       enter_verification_code:
@@ -2391,7 +2391,7 @@ es:
           title: Cancelaste la transferencia de tu declaración federal de impuestos.
       code_verified:
         edit:
-          continue_to_set_up: Ahora puedes continuar tu declaración de impuestos estatal.
+          continue_to_set_up: Continua para terminar de crear tu cuenta.
           title: "¡Código verificado!"
       contact_preference:
         edit:
@@ -3599,13 +3599,13 @@ es:
           message_body_one: No compartiremos tu información con terceros. La frecuencia de los mensajes puede variar. Puede que apliquen tarifas por mensajes y datos.
           message_body_two_html: Envía un mensaje de texto con la palabra HELP al 46207 para obtener ayuda. Envía un mensaje de texto con la palabra STOP al 46207 para no recibir más mensajes. Los proveedores de telefonía móvil (por ejemplo, AT&T, Verizon, T-Mobile, Sprint, etc.) no son responsables de mensajes no entregados o retrasados. Consulta nuestros <a target="_blank" href=%{sms_terms_link}>Términos y condiciones de SMS</a> y <a target="_blank" href=%{privacy_link}>Política de privacidad</a>.
           message_title: Detalles de mensajería
-          opt_in_label: Por favor, selecciona la(s) opción(es) que mejor te funcione(n).
+          opt_in_label: "Selecciona cómo te gustaría recibir notificaciones:"
           phone_number: Tu número de teléfono
           phone_number_help_text: Ingresa números únicamente
           provided_contact: Te enviaremos actualizaciones sobre tu declaración de impuestos a %{contact_info}.
           sms_notification_opt_in: Mensaje de texto
           subtitle: Nos pondremos en contacto contigo con preguntas y actualizaciones sobre el estado de tu declaración de impuestos.
-          title: 'Selecciona cómo te gustaría recibir notificaciones:'
+          title: "¿Cómo quieres recibir las actualizaciones de tu declaración de impuestos?"
         form:
           at_least_one: Se requiere al menos una preferencia de notificación
       ny_county:
@@ -4037,7 +4037,7 @@ es:
       verification_code:
         edit:
           action: " Verificar el código"
-          subtitle_html: Si no recibiste un código, <a class="open-intercom">por favor chatea con nosotros.</a>.
+          subtitle_html: Si no recibiste un código, <a class="open-intercom">por favor chatea con nosotros</a>.
           title_html: Te enviamos tu código a <strong>%{contact_info}</strong>
           verification_code_label: Ingresa el código de 6 dígitos
       w2:

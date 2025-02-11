@@ -2154,7 +2154,7 @@ en:
         body_html: This account has been locked due to too many failed login attempts. If you need help unlocking this account, please email us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
         title: This account has been locked
       edit:
-        help_text: To safeguard your identity, we need to confirm your social security number for identification verification.
+        help_text: To keep your identity safe, we need to confirm your social security number.
         ssn_label: Enter your Social Security number or ITIN. For example, 123-45-6789.
         title: We found your account! Please confirm your identity to finish signing in.
       enter_verification_code:
@@ -2441,7 +2441,7 @@ en:
           title: You canceled the transfer of your federal return.
       code_verified:
         edit:
-          continue_to_set_up: You can now continue filing your state tax return.
+          continue_to_set_up: Continue to finish setting up your account.
           title: Code verified!
       contact_preference:
         edit:
@@ -3662,13 +3662,13 @@ en:
           message_body_one: We will not share your information with any outside parties. Message frequency will vary. Message and data rates may apply.
           message_body_two_html: Text HELP to 46207 for help. Text STOP to 46207 to cancel. Carriers (e.g. AT&T, Verizon, T-Mobile, Sprint, etc.) are not responsible or liable for undelivered or delayed messages. See our <a target="_blank" href=%{sms_terms_link}>SMS Terms and Conditions</a> and <a target="_blank" href=%{privacy_link}>Privacy Policy</a>.
           message_title: Messaging details
-          opt_in_label: Please select the option(s) that work best for you.
+          opt_in_label: "Select how you would like to receive notifications:"
           phone_number: Your phone number
           phone_number_help_text: Enter numbers only
           provided_contact: We’ll send updates about your tax return to %{contact_info}.
           sms_notification_opt_in: Text message
           subtitle: We will reach out with questions and updates on the status of your tax return.
-          title: 'Select how you would like to receive notifications:'
+          title: How would you like to get updates on your tax return?
         form:
           at_least_one: At least one notification preference is required
       ny_county:
@@ -4086,7 +4086,7 @@ en:
       verification_code:
         edit:
           action: Verify code
-          subtitle_html: If you didn’t receive a code, please <a class="open-intercom">chat with us.</a>.
+          subtitle_html: If you didn’t receive a code, please <a class="open-intercom">chat with us</a>.
           title_html: We’ve sent your code to <strong>%{contact_info}</strong>
           verification_code_label: Enter the 6-digit code
       w2:
