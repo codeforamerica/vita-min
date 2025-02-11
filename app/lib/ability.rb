@@ -23,7 +23,6 @@ class Ability
     if user.admin?
       # All admins who are also state file
       can :manage, :all
-      can :destroy, Client if user.admin?
 
       # Non-NJ staff cannot manage NJ EfileErrors, EfileSubmissions or FAQs
       cannot :manage, EfileError, service_type: "state_file_nj"
@@ -46,7 +45,7 @@ class Ability
           %w[state_file unfilled state_file_az state_file_ny state_file_md state_file_nc state_file_id].include?(error.service_type)
         end
       end
-      unless user.email.include?("@codeforamerica.org")
+      unless user.email.downcase.include?("@codeforamerica.org")
         cannot :manage, :flipper_dashboard
       end
       return
@@ -72,7 +71,7 @@ class Ability
     can :manage, User, id: user.id
 
     # Anyone can read info about users that they can access
-    can :read, User, id: user.accessible_users.pluck(:id)
+    can :read, User, id: user.accessible_users.ids
 
     # Anyone can read info about an organization or site they can access
     can :read, Organization, id: accessible_groups.pluck(:id)
@@ -98,20 +97,19 @@ class Ability
     end
 
     if user.greeter?
-      can [:update, :read, :hub_client_management],
-        Client,
-        tax_returns: {
-          current_state: %w[intake_ready intake_greeter_info_requested intake_needs_doc_help],
-        },
-        vita_partner: accessible_groups, intake: { product_year: Rails.configuration.product_year }
+      general_states = %w[intake_ready intake_greeter_info_requested intake_needs_doc_help]
+      assigned_states = %w[file_not_filing file_hold]
 
-      can [:update, :read, :hub_client_management],
-        Client,
-        tax_returns: {
-          current_state: %w[file_not_filing file_hold],
-          assigned_user: user,
-        },
-        vita_partner: accessible_groups, intake: { product_year: Rails.configuration.product_year }
+      can :read, Client, tax_returns: { current_state: general_states }, vita_partner: accessible_groups
+      can :read, Client, tax_returns: { current_state: assigned_states, assigned_user: user }, vita_partner: accessible_groups
+
+      can [:update, :hub_client_management], Client,
+          tax_returns: { current_state: general_states },
+          vita_partner: accessible_groups, intake: { product_year: Rails.configuration.product_year }
+
+      can [:update, :hub_client_management], Client,
+          tax_returns: { current_state: assigned_states, assigned_user: user },
+          vita_partner: accessible_groups, intake: { product_year: Rails.configuration.product_year }
     end
 
     # Only admins can destroy clients
@@ -166,7 +164,7 @@ class Ability
       can :read, Coalition, id: user.role.coalition_id
 
       # Coalition leads can view and edit users who are coalition leads, organization leads, site coordinators, and team members in their coalition
-      can :manage, User, id: user.accessible_users.pluck(:id)
+      can :manage, User, id: user.accessible_users.ids
 
       # Coalition leads can create coalition leads, organization leads, site coordinators, and team members in their coalition
       can :manage, CoalitionLeadRole, coalition: user.role.coalition
@@ -178,7 +176,7 @@ class Ability
     if user.org_lead?
 
       # Organization leads can view and edit users who are organization leads, site coordinators, and team members in their coalition
-      can :manage, User, id: user.accessible_users.pluck(:id)
+      can :manage, User, id: user.accessible_users.ids
 
       # Organization leads can create organization leads, site coordinators, and team members in their org
       can :manage, OrganizationLeadRole, organization: user.role.organization
