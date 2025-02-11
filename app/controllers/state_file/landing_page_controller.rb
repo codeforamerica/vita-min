@@ -18,7 +18,10 @@ module StateFile
     end
 
     def update
-      sign_out current_intake if current_intake.present?
+      all_current_intakes = StateFile::StateInformationService.active_state_codes.map { |c| send("current_state_file_#{c}_intake".to_sym) }.compact
+      if all_current_intakes.present?
+        all_current_intakes.each { |intake| sign_out intake }
+      end
       intake = StateInformationService.intake_class(params[:us_state]).new(
         visitor_id: cookies.encrypted[:visitor_id],
         source: session[:source],

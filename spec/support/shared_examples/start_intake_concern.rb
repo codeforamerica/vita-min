@@ -19,30 +19,21 @@ shared_examples :start_intake_concern do |intake_class:|
       expect(intake.referrer).to eq "https://www.goggles.com/get-tax-refund"
     end
 
-    context "with an existing intake in the session" do
+    context "with existing intakes in the session, one in-state and one out-of-state" do
       let(:existing_intake) do
         create(intake_class.name.underscore)
       end
-
-      before { sign_in existing_intake }
-
-      it "replaces the existing intake in the session with a new one" do
-        post :update, params: valid_params
-        logged_in_intake = subject.send("current_#{intake_class.name.underscore}")
-        expect(logged_in_intake).not_to eq existing_intake
-        expect(logged_in_intake).to eq intake_class.send(:last)
-      end
-    end
-
-    context "with an existing intake from another state" do
-      let(:existing_intake) do
+      let(:existing_oos_intake) do
         intake_classes = StateFile::StateInformationService.state_intake_classes.excluding(StateFileNyIntake)
         other_intake_class_index = intake_classes.find_index(intake_class) - 1
         other_intake_class = intake_classes[other_intake_class_index]
         create(other_intake_class.name.underscore)
       end
 
-      before { sign_in existing_intake }
+      before do
+        sign_in existing_intake
+        sign_in existing_oos_intake
+      end
 
       it "replaces the existing intake in the session with a new one" do
         post :update, params: valid_params
@@ -50,6 +41,7 @@ shared_examples :start_intake_concern do |intake_class:|
           subject.send("current_#{klass.name.underscore}")
         end.compact
         expect(logged_in_intakes).not_to include existing_intake
+        expect(logged_in_intakes).not_to include existing_oos_intake
         expect(logged_in_intakes).to include intake_class.send(:last)
       end
     end
