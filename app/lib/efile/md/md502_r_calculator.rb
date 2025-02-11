@@ -22,6 +22,8 @@ module Efile
         set_line(:MD502R_LINE_9B, :calculate_line_9b)
         set_line(:MD502R_LINE_10A, :calculate_line_10a)
         set_line(:MD502R_LINE_10B, :calculate_line_10b)
+        set_line(:MD502R_LINE_11A, :calculate_line_11a)
+        set_line(:MD502R_LINE_11B, :calculate_line_11b)
       end
 
       private
@@ -78,6 +80,22 @@ module Efile
 
       def calculate_line_10b
         line_or_zero(:MD502_SU_LINE_U_SPOUSE) + line_or_zero(:MD502_SU_LINE_V_SPOUSE)
+      end
+
+      def calculate_line_11(filer)
+        letter = filer == :primary ? "A" : "B"
+        qualifying_pension_minus_ssn_or_railroad = line_or_zero("MD502R_LINE_1#{letter}".to_sym) - line_or_zero("MD502R_LINE_10#{letter}".to_sym)
+        tentative_exclusion = 39_500 - line_or_zero("MD502R_LINE_9#{letter}".to_sym)
+        result = [qualifying_pension_minus_ssn_or_railroad, tentative_exclusion].min
+        [result, 0].max
+      end
+
+      def calculate_line_11a
+        @intake.qualifies_for_pension_exclusion?(:primary) ? calculate_line_11(:primary) : 0
+      end
+
+      def calculate_line_11b
+        @intake.filing_status_mfj? && @intake.qualifies_for_pension_exclusion?(:spouse) ? calculate_line_11(:spouse) : 0
       end
     end
   end
