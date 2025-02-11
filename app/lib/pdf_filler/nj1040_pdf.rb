@@ -269,6 +269,23 @@ module PdfFiller
                                                  ]))
       end
 
+      # line 20a
+      if @xml_document.at("PensAnnuitAndIraWithdraw") && Flipper.enabled?(:show_retirement_ui)
+        retirement_income = @xml_document.at("PensAnnuitAndIraWithdraw").text.to_i
+        answers.merge!(insert_digits_into_fields(retirement_income, [
+          "141",
+          "140",
+          "139",
+          "138",
+          "137",
+          "136",
+          "undefined_56",
+          "undefined_55",
+          "undefined_54",
+          "20a"
+        ]))
+      end
+
       if @xml_document.at("TotalIncome").present?
         total_income = @xml_document.at("TotalIncome").text.to_i
         answers.merge!(insert_digits_into_fields(total_income, [
