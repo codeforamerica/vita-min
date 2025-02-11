@@ -77,6 +77,9 @@ class EfileSubmissionStateMachine
   after_transition(to: :queued) do |submission|
     StateFile::SendSubmissionJob.perform_later(submission)
     StateFile::BuildSubmissionPdfJob.perform_later(submission.id)
+    if submission.data_source.state_code == 'nj'
+      StateFile::CreateNjAnalyticsRecordJob.perform_later(submission.id)
+    end
   end
 
   after_transition(to: :transmitted) do |submission|
@@ -131,13 +134,13 @@ class EfileSubmissionStateMachine
   end
 
   after_transition do |submission, transition|
-    from_status = (
+    from_status = 
       EfileSubmissionTransition
         .where(efile_submission_id: transition.efile_submission_id)
         .where.not(id: transition.id)
         .last
         &.to_state
-    )
+    
     Rails.logger.info({
       event_type: "submission_transition",
       from_status: from_status,

@@ -451,7 +451,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
           end
 
           context "when there are multiple intakes with a matching ssn" do
-            let(:second_intake) do
+            let!(:second_intake) do
               create(
                 :state_file_az_intake,
                 email_address: "client@example.com",
@@ -470,6 +470,20 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
 
                 expect(subject.current_state_file_az_intake).to eq(second_intake)
                 expect(response).to redirect_to questions_return_status_path
+                expect(session["warden.user.state_file_az_intake.key"].first.first).to eq second_intake.id
+              end
+            end
+
+            context "when one intake has an ssn and one does not" do
+              let(:intake_query) { StateFileAzIntake.where(phone_number: "+15105551234") }
+
+              it "chooses the one with an ssn" do
+                intake.update(hashed_ssn: nil)
+
+                post :update, params: params
+
+                expect(subject.current_state_file_az_intake).to eq(second_intake)
+                expect(response).to redirect_to questions_post_data_transfer_path
                 expect(session["warden.user.state_file_az_intake.key"].first.first).to eq second_intake.id
               end
             end

@@ -86,7 +86,12 @@ module StateFile
     end
 
     def sign_in_and_redirect
-      intake = @form.intake_to_log_in(@records)
+      records_with_ssn = @records.where.not(hashed_ssn: nil)
+      intake = if records_with_ssn.present?
+                 @form.intake_to_log_in(records_with_ssn)
+               else
+                 @form.intake_to_log_in(@records)
+               end
       if intake.nil?
         flash[:alert] = I18n.t("state_file.intake_logins.new.#{@contact_method}.not_found_html")
         return render :new

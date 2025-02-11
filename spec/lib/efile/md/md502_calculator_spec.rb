@@ -3,7 +3,8 @@ require 'rails_helper'
 describe Efile::Md::Md502Calculator do
   let(:filing_status) { "single" }
   let(:county) { "Allegany" }
-  let(:intake) { create(:state_file_md_intake, filing_status: filing_status, residence_county: county) }
+  let(:includes_spouse) { filing_status == "married_filing_jointly" ? :with_spouse : nil}
+  let(:intake) { create(:state_file_md_intake, includes_spouse, filing_status: filing_status, residence_county: county) }
   let(:instance) do
     described_class.new(
       year: MultiTenantService.statefile.current_tax_year,
@@ -692,7 +693,8 @@ describe Efile::Md::Md502Calculator do
 
             agis_to_deductions.each do |agi_limit, deduction_amount|
               context "agi is #{agi_limit}" do
-                let(:intake) { create(:state_file_md_intake, filing_status: filing_status) }
+                let(:includes_spouse) { filing_status == "married_filing_jointly" ? :with_spouse : nil}
+                let(:intake) { create(:state_file_md_intake, includes_spouse, filing_status: filing_status) }
                 let(:calculator_instance) { described_class.new(year: MultiTenantService.statefile.current_tax_year, intake: intake) }
 
                 before do
@@ -935,6 +937,7 @@ describe Efile::Md::Md502Calculator do
     let!(:intake) {
       create(
         :state_file_md_intake,
+        :with_spouse,
         filing_status: filing_status,
         raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml(df_xml_key)
       )
@@ -1567,6 +1570,15 @@ describe Efile::Md::Md502Calculator do
     context "when mfj and no qualifying children" do
       let(:filing_status) { "married_filing_jointly" }
       let(:df_xml_key) { "md_zeus_two_w2s" }
+
+      let!(:intake) {
+        create(
+          :state_file_md_intake,
+          :with_spouse,
+          filing_status: filing_status,
+          raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml(df_xml_key)
+        )
+      }
       it 'refundable EIC equals (federal EIC * .45) - Maryland tax (line 21)' do
         expect(instance.lines[:MD502_LINE_42].value).to eq 40
       end

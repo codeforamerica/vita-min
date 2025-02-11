@@ -104,6 +104,13 @@ RSpec.describe StateFile::Questions::VerificationCodeController do
           intake.save!
         end
       end
+      let!(:existing_intake_no_df_data) do
+        build(:state_file_az_intake, contact_preference: "email", email_address: "someone@example.com").tap do |intake|
+          intake.raw_direct_file_data = nil
+          intake.save!
+        end
+      end
+
       let(:token) { EmailAccessToken.generate!(email_address: "someone@example.com") }
 
       it "redirects to the next path" do

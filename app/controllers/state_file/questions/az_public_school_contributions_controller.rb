@@ -4,6 +4,7 @@ module StateFile
       include ReturnToReviewConcern
 
       before_action :set_contribution_count
+      before_action :maybe_opt_out_and_continue, only: [:update, :create]
 
       def self.navigation_actions
         [:index, :new]
@@ -70,6 +71,17 @@ module StateFile
 
       def contributions
         @contributions ||= current_intake.az322_contributions
+      end
+
+      def maybe_opt_out_and_continue
+        current_intake.assign_attributes(
+          az322_contribution_params.fetch(:state_file_az_intake_attributes, {})
+        )
+        current_intake.save(context: :az322_form_create)
+
+        if current_intake.made_az322_contributions_no?
+          redirect_to next_path, return_to_review: params[:return_to_review]
+        end
       end
 
       def set_contribution_count = @contribution_count = contributions.count

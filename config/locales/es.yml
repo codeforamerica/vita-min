@@ -2483,13 +2483,15 @@ es:
           itemized_deductions: Deducciones detalladas
           long_term_care_insurance_subtraction: Resta del Seguro de Atención a Largo Plazo
           maintaining_elderly_disabled_credit: Crédito por Mantener un Hogar para Personas Mayores o Discapacitadas
+          not_supported_this_year: 'Créditos y deducciones no admitidos este año:'
         id_supported:
-          child_care_deduction: Resta de cuidado de niños y dependientes
+          child_care_deduction: Resta de Idaho por Gastos de Cuidado Niños y Dependientes
           health_insurance_premiums_subtraction: Resta de primas de seguro médico
           id_child_tax_credit: Crédito Tributario de Idaho por Hijos
           id_grocery_credit: Crédito de Idaho por Compras de Alimentos
-          interest_from_obligations: Resta de intereses de obligaciones del gobierno de EE. UU.
-          social_security_retirement_deduction: Deducciones de Seguridad Social y Beneficios de Jubilación
+          interest_from_obligations: Resta de intereses de obligaciones del gobierno de los Estados Unidos
+          retirement_benefits_deduction: Deducciones por Beneficios de Jubilación
+          social_security_retirement_deduction: Deducciones de Seguridad Social y Beneficios de Jubilación Ferroviaria
         md_reveals:
           body1_html: |
             <ul>
@@ -2810,8 +2812,8 @@ es:
           title: Primero, veamos si puedes usar este servicio para declarar tus impuestos del Idaho de %{filing_year}
           withdrew_msa_fthb: En %{filing_year}, ¿retiró usted (o su cónyuge si presentan juntos) dinero de alguno de los siguientes?
           withdrew_msa_fthb_list:
-            bullet_1_html: Retiraste dinero de nuestra Cuenta de Ahorros Médicos de Idaho y lo usaste para <a href="%{link}" target="_blank" rel="noopener noreferrer">un gasto no calificado</a>.
-            bullet_2_html: Retiraste dinero de nuestra Cuenta de Comprador de Vivienda por Primera Vez y lo usaste para <a href="%{link}" target="_blank" rel="noopener noreferrer">costos de vivienda no elegibles</a>.
+            bullet_1_html: Retiraste dinero de tu Cuenta de Ahorros Médicos de Idaho y lo usaste para un <a href="%{link}" target="_blank" rel="noopener noreferrer">gasto no calificado</a>.
+            bullet_2_html: Retiraste dinero tu Cuenta de Comprador de Vivienda por Primera Vez y lo usaste para un <a href="%{link}" target="_blank" rel="noopener noreferrer">gasto no calificado</a>.
       id_grocery_credit:
         edit:
           answers_confidential_html: Tus respuestas son privadas y se utilizan sólo para determinar si calificas para el crédito fiscal.
@@ -2823,7 +2825,7 @@ es:
             one: Para ver si usted califica, necesitamos más información sobre usted.
             other: Para ver si calificas, necesitamos más información sobre ti y tu hogar.
           select_household_members: 'Selecciona a las personas de tu hogar para quienes aplican estas situaciones en %{tax_year}:'
-          situation_incarceration: Estar encarcelado
+          situation_incarceration: Estuvo encarcelado
           situation_snap: Recibir cupones de alimentos / SNAP-EBT
           situation_undocumented: Vivir en los Estados Unidos sin documentación
           situations_question:
@@ -2843,13 +2845,15 @@ es:
           you_example_months: Por ejemplo, si tuviste 2 situaciones en abril, eso cuenta como 1 mes.
       id_grocery_credit_review:
         edit:
+          body_p1: Esta cantidad de crédito será parte de tus cálculos fiscales finales. Si se te debe un reembolso de impuestos estatales, la cantidad del crédito aumentará tu reembolso final. Si debes impuestos, el crédito reducirá la cantidad que debes.
+          body_p2: Puedes revisar la cantidad  total de tu reembolso estatal de Idaho al final.
           donate_impact_content_p1: Tu decisión de donar es final una vez que envíes tu declaración de impuestos y no puede ser cambiada a través de una declaración enmendada.
           donate_impact_content_p2: El Fondo de Bienestar Cooperativo es un fondo fiduciario en el tesoro estatal y todo el dinero se destina a la asistencia pública y a fines de bienestar.
           donate_impact_heading: "¿Cómo afectará la donación de mi crédito a mi declaración de impuestos?"
           donate_warning_p1: Tu donación se deducirá del total de tu reembolso estatal.
           donate_warning_p2: Tu decisión de donar es definitiva y no se puede cambiar mediante una declaración enmendada.
-          title: "¡Recibirás $%{grocery_credit_amount} del crédito por compras de alimentos de Idaho!"
-          title_html: "¡Recibirás <strong>$%{grocery_credit_amount}</strong> del crédito por compras de alimentos de Idaho!"
+          title: Eres elegible para recibir $%{grocery_credit_amount} del crédito por compras de alimentos de Idaho!
+          title_html: Eres elegible para recibir <strong>$%{grocery_credit_amount}</strong> del crédito por compras de alimentos de Idaho!"
           would_you_like_to_donate: "¿Te gustaría donar tu crédito completo al Fondo de Bienestar Cooperativo?"
       id_health_insurance_premium:
         edit:
@@ -2872,7 +2876,7 @@ es:
             <br/><br/>
             Si tienes Medicare, puedes deducir Medicare A (si estás inscrito voluntariamente y no estás cubierto por el Seguro Social), así como Medicare B y D si estás inscrito voluntariamente. Medicare Advantage también califica.
           qualifications_title: "¿Qué primas de cobertura de salud califican?"
-          qualifying_amount_help_text: Ingresa la cantidad total de las primas de seguro de salud que califican que tu hogar pagó en %{year}
+          qualifying_amount_help_text_html: Ingresa la <strong>cantidad total</strong> de las primas de seguro de salud que califican que tu hogar pagó en %{year}
           subtitle:
             many: Para ver si califica, necesitamos más información sobre usted y su hogar.
             one: Para ver si califica, necesitamos más información sobre usted.
@@ -2891,8 +2895,8 @@ es:
       id_permanent_building_fund:
         edit:
           receive_public_assistance_explanation: Los pagos de asistencia pública no incluyen cupones de alimentos ni pagos de WIC.
-          receive_public_assistance_single: "¿Recibiste tú pagos de asistencia pública de Idaho al final del año fiscal?"
-          receive_public_assistance_spouse: "¿Recibiste tú o tu cónyuge recibieron pagos de asistencia pública de Idaho al final del año fiscal?"
+          receive_public_assistance_single: "¿Tú estaban recibiendo pagos de asistencia pública de Idaho al final del año fiscal?"
+          receive_public_assistance_spouse: "¿Tú o tu cónyuge estaban recibiendo pagos de asistencia pública de Idaho al final del año fiscal?"
           title: "¡Podrías ser elegible para una excepción al Impuesto del Fondo Permanente para Edificios!"
       id_primary_state_id:
         id_primary:
@@ -2916,12 +2920,14 @@ es:
           sales_tax_content: 'Impuesto sobre ventas: Este es un impuesto recaudado en el punto de venta cuando compras bienes dentro de tu estado.'
           sales_tax_title: "¿Qué son los impuestos sobre ventas?"
           sales_use_tax_helper_text: Ingrese el monto total
-          subtitle_html: Esto incluye compras en línea donde <strong>no</strong> se aplicó el impuesto sobre ventas.
+          subtitle_html: Esto incluye compras en línea donde <strong>no</strong> se aplicó el impuesto sobre ventas. Si hiciste alguna compra sin pagar impuestos sobre la venta, puede que debas el impuesto sobre el uso de esas compras. Te ayudaremos a saber la cantidad exacta.
           title:
             many: "¿Tú o tu cónyuge hiciste alguna compra fuera del estado en %{year} sin pagar impuestos sobre ventas?"
             one: "¿Hiciste alguna compra fuera del estado en %{year} sin pagar impuestos sobre ventas?"
             other: "¿Tú o tu cónyuge hiciste alguna compra fuera del estado en %{year} sin pagar impuestos sobre ventas?"
-          unpaid_sales_use_tax_label_html: Ingrese el <b>cantidad total de compras</b> a las que no se les aplicaron impuestos sobre las ventas o el uso.
+          unpaid_sales_use_tax_label_html: Ingresa la <strong>cantidad total de compras</strong> a las que no se les aplicaron impuestos sobre las ventas o el uso %{year}.
+          use_tax_content: Si compras algo de otro estado (como compras en línea o en una tienda ubicada en otro estado) y no pagas el impuesto sobre ventas, generalmente se requiere que pagues el impuesto sobre uso a tu estado de residencia.
+          use_tax_title: "¿Qué son los impuestos sobre uso?"
       id_spouse_state_id:
         id_spouse:
           encourage_sharing_html: Si tú y tu cónyuge tienen una licencia de conducir o una tarjeta de identificación emitida por el estado, por favor comparte la información que solicitamos de la misma. La declaración no será rechazada si no compartes una licencia de conducir o una identificación emitida por el estado.<br><br>Si compartes esta información, puede ayudar a que te identifiquen como el contribuyente.
@@ -3466,6 +3472,21 @@ es:
           no_id: No tiene licencia de conducir ni identificación estatal/ Prefiere no compartirla
           subtitle: Si tienes una identificación emitida por el estado (state-issued ID), ayudará a New Jersey a combatir el fraude fiscal por robo de identidad y a protegerte a ti y a tu reembolso de impuestos.
           title: Confirma tu Identidad (Opcional)
+      nj_retirement_income_source:
+        edit:
+          doc_1099r_label: '1099-R:'
+          helper_description_html: |
+            <p>U.S. military pensions result from service in the Army, Navy, Air Force, Marine Corps, or Coast Guard. Generally, qualifying military pensions and military survivor's benefit payments are paid by the U.S. Defense Finance and Accounting Service.</p>
+            <p>Civil service pensions and annuities do not count as military pensions, even if they are based on credit for military service. Generally, civil service annuities are paid by the U.S. Office of Personnel Management.</p>
+          helper_heading: What counts as a U.S. military pension?
+          label: 'Select the source of this income:'
+          option_military_pension: U.S. military pension
+          option_military_survivor_benefit: U.S. military survivor's benefits
+          option_none: None of these apply (Choose this if you have a civil service pension or annuity)
+          subtitle: We need more information about this 1099-R.
+          taxable_amount_label: 'Taxable Amount:'
+          taxpayer_name_label: 'Taxpayer Name:'
+          title: Some of your retirement income might not be taxed in New Jersey.
       nj_review:
         edit:
           amount_calculated: Monto calculado
@@ -3492,6 +3513,14 @@ es:
           property_tax_credit_deduction: Deducción o Crédito por Impuestos a la Propiedad
           property_tax_paid: Impuestos sobre la propiedad pagados en %{filing_year}
           rent_paid: Alquiler pagado en %{filing_year}
+          retirement_income_source: 1099-R Retirement Income Source
+          retirement_income_source_doc_1099r_label: '1099-R:'
+          retirement_income_source_label: 'Source:'
+          retirement_income_source_military_pension: U.S. military pension
+          retirement_income_source_military_survivor_benefit: U.S. military survivor's benefits
+          retirement_income_source_none: Neither U.S. military pension nor U.S. military survivor's benefits
+          retirement_income_source_taxable_amount_label: 'Taxable Amount:'
+          retirement_income_source_taxpayer_name_label: 'Taxpayer Name:'
           reveal:
             15_wages_salaries_tips: Salarios, sueldos, propinas
             16a_interest_income: Ingreso total
@@ -3831,7 +3860,7 @@ es:
               body: Puedes editar y volver a enviar tu declaración estatal haciendo clic en el botón a continuación.
               title: "¿Qué sigue?"
             no_edit:
-              body_html: Desafortunadamente, el problema con la presentación de tu declaración estatal no se puede resolver a través de nuestro servicio. Te recomendamos descargar tu declaración, que puede servirte con los siguientes pasos.
+              body_html: Desafortunadamente, ha habido un problema con la presentación de su declaración estatal que no se puede resolver con nuestra herramienta. Le recomendamos descargar su declaración para ayudarle en los próximos pasos. Chatea con nosotros o envíanos un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a> para obtener orientación sobre los próximos pasos.
               title: "¿Qué puedo hacer a continuación?"
           reject_code: 'Código de Rechazo:'
           reject_desc: 'Descripción del Rechazo:'
