@@ -36,14 +36,14 @@ module Navigation
                                           Navigation::NavigationStep.new(StateFile::Questions::NjEligibilityHealthInsuranceController),
                                           Navigation::NavigationStep.new(StateFile::Questions::EligibilityOffboardingController, false),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjYearOfDeathController), # Line 5
-                                          Navigation::NavigationStep.new(StateFile::Questions::NjCountyController), # header
-                                          Navigation::NavigationStep.new(StateFile::Questions::NjMunicipalityController), # header
+                                          Navigation::NavigationStep.new(StateFile::Questions::NjCountyMunicipalityController), # header
                                           Navigation::NavigationStep.new(StateFile::Questions::NjDisabledExemptionController), # Line 8
                                           Navigation::NavigationStep.new(StateFile::Questions::NjVeteransExemptionController), # Line 9
                                           Navigation::NavigationStep.new(StateFile::Questions::NjCollegeDependentsExemptionController), # Line 13
                                           Navigation::NavigationStep.new(StateFile::Questions::NjDependentsHealthInsuranceController), # Line 14
                                       ]),
       Navigation::NavigationSection.new("state_file.navigation.nj.section_3", [
+                                          Navigation::NavigationStep.new(StateFile::Questions::NjRetirementIncomeSourceController),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjMedicalExpensesController), # Line 31
                                           Navigation::NavigationStep.new(StateFile::Questions::NjEitcQualifyingChildController), # Line 58, intentionally moved up to be in the context of other credits and deductions, and to ensure there is a consistent page after the property taxes section.
                                           Navigation::NavigationStep.new(StateFile::Questions::NjHouseholdRentOwnController), # Line 40b

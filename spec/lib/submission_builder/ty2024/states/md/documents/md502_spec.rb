@@ -72,38 +72,25 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
             expect(xml.at("MarylandAddress ZIPCd").text).to eq "214011234"
           end
 
-          context "when user had an out-of-state permanent address from DF" do
+          context "when user had an out-of-state permanent address from DF and enters a new address in MD" do
             before do
               intake.direct_file_data.mailing_city = "Denver"
               intake.direct_file_data.mailing_state = "CO"
               intake.direct_file_data.mailing_zip = "80212-1234"
+              intake.confirmed_permanent_address_no!
+              intake.permanent_street = "313 Poppy Street"
+              intake.permanent_apartment = "Apt A"
+              intake.permanent_city = "Baltimore"
+              intake.permanent_zip = "21201-1234"
             end
 
-            it "outputs their DF address as their physical address" do
-              expect(xml.at("MarylandAddress AddressLine1Txt").text).to eq "312 Poppy Street"
-              expect(xml.at("MarylandAddress AddressLine2Txt").text).to eq "Apt B"
-              expect(xml.at("MarylandAddress CityNm").text).to eq "Denver"
-              expect(xml.at("MarylandAddress StateAbbreviationCd").text).to eq "CO"
-              expect(xml.at("MarylandAddress ZIPCd").text).to eq "802121234"
+            it "outputs their entered address as their physical address" do
+              expect(xml.at("MarylandAddress AddressLine1Txt").text).to eq "313 Poppy Street"
+              expect(xml.at("MarylandAddress AddressLine2Txt").text).to eq "Apt A"
+              expect(xml.at("MarylandAddress CityNm").text).to eq "Baltimore"
+              expect(xml.at("MarylandAddress StateAbbreviationCd").text).to eq "MD"
+              expect(xml.at("MarylandAddress ZIPCd").text).to eq "212011234"
             end
-          end
-        end
-
-        context "when the user has entered a different permanent address" do
-          before do
-            intake.confirmed_permanent_address_no!
-            intake.permanent_street = "313 Poppy Street"
-            intake.permanent_apartment = "Apt A"
-            intake.permanent_city = "Baltimore"
-            intake.permanent_zip = "21201-1234"
-          end
-
-          it "outputs their entered address as their physical address" do
-            expect(xml.at("MarylandAddress AddressLine1Txt").text).to eq "313 Poppy Street"
-            expect(xml.at("MarylandAddress AddressLine2Txt").text).to eq "Apt A"
-            expect(xml.at("MarylandAddress CityNm").text).to eq "Baltimore"
-            expect(xml.at("MarylandAddress StateAbbreviationCd").text).to eq "MD"
-            expect(xml.at("MarylandAddress ZIPCd").text).to eq "212011234"
           end
         end
       end
@@ -242,9 +229,9 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
         end
       end
 
-      context "exemptions stuff" do
+      context "exemptions" do
         context "when there are no exemptions" do
-          it "omits the whole exemptions section" do
+          it "only shows lines a and d, count and amount" do
             [
               :calculate_line_c_count,
               :calculate_line_c_amount,
@@ -254,7 +241,11 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
               allow_any_instance_of(Efile::Md::Md502Calculator).to receive(method).and_return 0
             end
 
-            expect(xml.document.at("Exemptions")).to be_nil
+            expect(xml.document.at("Exemptions Standard Count")&.text).to eq("0")
+            expect(xml.document.at("Exemptions Standard Amount")&.text).to eq("0")
+
+            expect(xml.document.at("Exemptions Total Count")&.text).to eq("0")
+            expect(xml.document.at("Exemptions Total Amount")&.text).to eq("0")
           end
         end
 
@@ -273,7 +264,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
         end
 
         context "line B section" do
-          let(:intake) { create(:state_file_md_intake, filing_status: "married_filing_jointly") }
+          let(:intake) { create(:state_file_md_intake, :with_spouse) }
 
           before do
             allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_b_primary_senior).and_return "X"
@@ -331,7 +322,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
         end
       end
 
-      context "healthcare coverage stuff" do
+      context "healthcare coverage" do
         context "truthy answers" do
           before do
             intake.update(primary_did_not_have_health_insurance: true)
@@ -464,7 +455,6 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
           expect(xml.at("Form502 StateTaxComputation TaxableNetIncome")).to be_nil
           expect(xml.at("Form502 StateTaxComputation StateIncomeTax").text).to eq "0"
           expect(xml.at("Form502 StateTaxComputation PovertyLevelCredit")).to be_nil
-          expect(xml.at("Form502 StateTaxComputation IndividualTaxCredits")).to be_nil
           expect(xml.at("Form502 StateTaxComputation StateTaxAfterCredits")).to be_nil
         end
       end
@@ -691,6 +681,23 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
 
       it 'outputs the total refundable credit' do
         expect(xml.at("Form502 RefundableTaxCredits")&.text).to eq('400')
+      end
+    end
+
+    describe "email address" do
+      context "if intake has no email adress" do
+        it "doesn't fill in email address" do
+          expect(xml.document.at('EmailAddress')).not_to be_present
+        end
+      end
+
+      context "if intake has an email adress" do
+        before do
+          intake.email_address = "test@email.com"
+        end
+        it "fill in email address" do
+          expect(xml.document.at('EmailAddress')&.text).to eq "test@email.com"
+        end
       end
     end
   end

@@ -2,7 +2,8 @@ require 'rails_helper'
 
 describe Efile::Md::Md502crCalculator do
   let(:filing_status) { "single" }
-  let(:intake) { create(:state_file_md_intake, filing_status: filing_status) }
+  let(:includes_spouse) { filing_status == "married_filing_jointly" ? :with_spouse : nil}
+  let(:intake) { create(:state_file_md_intake, includes_spouse, filing_status: filing_status) }
   let(:main_calculator) do
     Efile::Md::Md502Calculator.new(
       year: MultiTenantService.statefile.current_tax_year,
@@ -227,7 +228,17 @@ describe Efile::Md::Md502crCalculator do
 
     %w[single married_filing_separately dependent].each do |filing_status|
       context "when filing status is #{filing_status}" do
-        let(:filing_status) { filing_status }
+        if filing_status == "dependent"
+          let(:filing_status) { "single" }
+          let(:claimed_as_dependent) { true}
+        else
+          let(:filing_status) { filing_status }
+          let(:claimed_as_dependent) { false }
+        end
+
+        before do
+          allow_any_instance_of(DirectFileData).to receive(:claimed_as_dependent?).and_return claimed_as_dependent
+        end
 
         context "when filer is 65 or older" do
           before do
@@ -447,7 +458,6 @@ describe Efile::Md::Md502crCalculator do
         end
       end
     end
-
 
     context "when married filing jointly" do
       let(:filing_status) { "married_filing_jointly" }

@@ -69,13 +69,19 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502Cr, required_sch
 
       context "when deduction method is N" do
         before do
+          intake.direct_file_data.fed_credit_for_child_and_dependent_care_amount = 10
           allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return("N")
         end
 
-        it "does not output parts B, M or AA but still outputs part CC" do
-          expect(xml.at("Form502CR ChildAndDependentCare")).to be_nil
-          expect(xml.at("Form502CR Senior")).to be_nil
-          expect(xml.at("Form502CR Summary")).to be_nil
+        it "does output parts B, M, AA, and part CC" do
+          expect(xml.at("Form502CR ChildAndDependentCare FederalAdjustedGrossIncome").text.to_i).to eq(100)
+          expect(xml.at("Form502CR ChildAndDependentCare FederalChildCareCredit").text.to_i).to eq(10)
+          expect(xml.at("Form502CR ChildAndDependentCare DecimalAmount").text.to_d).to eq(0.32)
+          expect(xml.at("Form502CR ChildAndDependentCare Credit").text.to_i).to eq(3)
+          expect(xml.at("Form502CR Senior Credit").text.to_i).to eq(1_000)
+          expect(xml.at("Form502CR Summary ChildAndDependentCareCr").text.to_i).to eq(3)
+          expect(xml.at("Form502CR Summary SeniorCr").text.to_i).to eq(1_000)
+          expect(xml.at("Form502CR Summary TotalCredits").text.to_i).to eq(1003)
           expect(xml.at("Form502CR Refundable")).not_to be_nil
         end
       end

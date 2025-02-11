@@ -11,6 +11,8 @@ module SubmissionBuilder
                 xml.DedFedAGI do
                   add_nc_amount_nn_value(xml, :USInterestInc, :NCD400_S_LINE_18)
                   add_nc_amount_nn_value(xml, :TaxPortSSRRB, :NCD400_S_LINE_19)
+                  add_nc_amount_nn_value(xml, :BaileyRetireBenef, :NCD400_S_LINE_20)
+                  add_nc_amount_nn_value(xml, :CertRetireBeneByMember, :NCD400_S_LINE_21)
                   add_nc_amount_nn_value(xml, :ExmptIncFedRecInd, :NCD400_S_LINE_27)
                   add_nc_amount_nn_value(xml, :TotDedFromFAGI, :NCD400_S_LINE_41)
                 end

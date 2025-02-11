@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module SubmissionBuilder
   module Ty2022
     module States
@@ -35,6 +36,7 @@ module SubmissionBuilder
           end
 
           def build_state_specific_tags(document)
+            document.at("ReturnHeaderState ReturnType").add_next_sibling(special_program)
             if !@submission.data_source.routing_number.nil? && !@submission.data_source.account_number.nil?
               document.at("ReturnState").add_child(financial_transaction)
             end
@@ -63,7 +65,7 @@ module SubmissionBuilder
                   xml.DependentDetails do
                     xml.Name do
                       xml.FirstName sanitize_for_xml(dependent.first_name, 16)
-                      xml.MiddleInitial sanitize_for_xml(dependent.middle_initial, 1) if dependent.middle_initial.present?
+                      xml.MiddleInitial sanitize_middle_initial(dependent.middle_initial) if sanitize_middle_initial(dependent.middle_initial).present?
                       xml.LastName sanitize_for_xml(dependent.last_name, 32)
                     end
                     unless dependent.ssn.nil?
@@ -82,7 +84,7 @@ module SubmissionBuilder
                   xml.QualParentsAncestors do
                     xml.Name do
                       xml.FirstName sanitize_for_xml(dependent.first_name, 16)
-                      xml.MiddleInitial sanitize_for_xml(dependent.middle_initial, 1) if dependent.middle_initial.present?
+                      xml.MiddleInitial sanitize_middle_initial(dependent.middle_initial) if sanitize_middle_initial(dependent.middle_initial).present?
                       xml.LastName sanitize_for_xml(dependent.last_name, 32)
                     end
                     unless dependent.ssn.nil?
@@ -185,6 +187,10 @@ module SubmissionBuilder
             SchemaFileLoader.load_file("us_states", "unpacked", "AZIndividual2024v2.0", "AZIndividual", "IndividualReturnAZ140.xsd")
           end
 
+          def special_program
+            "<SpecialProgram>Direct File</SpecialProgram>"
+          end
+
           def supported_documents
             supported_docs = [
               {
@@ -200,7 +206,7 @@ module SubmissionBuilder
               {
                 xml: SubmissionBuilder::Ty2022::States::Az::Documents::Az301,
                 pdf: PdfFiller::Az301Pdf,
-                include:  @submission.data_source.az321_contributions.present? || @submission.data_source.az322_contributions.present?
+                include: @submission.data_source.az321_contributions.present? || @submission.data_source.az322_contributions.present?
               },
               {
                 xml: SubmissionBuilder::Ty2022::States::Az::Documents::Az321Contribution,

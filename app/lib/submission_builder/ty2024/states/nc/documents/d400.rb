@@ -30,10 +30,12 @@ module SubmissionBuilder
                 if @submission.data_source.filing_status_mfs?
                   xml.MFSSpouseName do
                     xml.FirstName sanitize_for_xml(@submission.data_source.spouse.first_name, 16) if @submission.data_source.spouse.first_name.present?
-                    xml.MiddleInitial sanitize_for_xml(@submission.data_source.spouse.middle_initial, 1) if @submission.data_source.spouse.middle_initial.present?
+                    xml.MiddleInitial sanitize_middle_initial(@submission.data_source.spouse.middle_initial) if sanitize_middle_initial(@submission.data_source.spouse.middle_initial).present?
                     xml.LastName sanitize_for_xml(@submission.data_source.spouse.last_name, 32) if @submission.data_source.spouse.last_name.present?
                   end
-                  xml.MFSSpouseSSN @submission.data_source.direct_file_data.spouse_ssn
+                  unless @submission.data_source.direct_file_data.non_resident_alien == "NRA"
+                    xml.MFSSpouseSSN @submission.data_source.direct_file_data.spouse_ssn
+                  end
                 end
                 if @submission.data_source.filing_status_qw? && @submission.data_source.spouse_death_year.present?
                   xml.QWYearSpouseDied @submission.data_source.spouse_death_year
@@ -72,7 +74,7 @@ module SubmissionBuilder
                   xml.PaymentContact do
                     xml.PersonName do
                       xml.FirstName sanitize_for_xml(@submission.data_source.primary.first_name, 16) if @submission.data_source.primary.first_name.present?
-                      xml.MiddleInitial sanitize_for_xml(@submission.data_source.primary.middle_initial, 1) if @submission.data_source.primary.middle_initial.present?
+                      xml.MiddleInitial sanitize_middle_initial(@submission.data_source.primary.middle_initial) if sanitize_middle_initial(@submission.data_source.primary.middle_initial).present?
                       xml.LastName sanitize_for_xml(@submission.data_source.primary.last_name, 32) if @submission.data_source.primary.last_name.present?
                       xml.NameSuffix @submission.data_source.primary.suffix.upcase if @submission.data_source.primary.suffix.present?
                     end

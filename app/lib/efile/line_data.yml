@@ -763,15 +763,45 @@ MD502CR_PART_M_LINE_1:
 MD502_SU_LINE_AB:
   label: "AB Income from U.S. Government obligations"
 MD502_SU_LINE_U:
-  label: "TBD"
+  label: "Military Retirement Income. Individuals at least 55 years of age on the last day of the taxable year may claim up to $20,000 of military retirement income received in the taxable year. Individuals under the age of 55 on the last day of the taxable year may claim up to $12,500 of military retirement income received in the taxable year."
+MD502_SU_LINE_U_PRIMARY:
+  label: "Military Retirement Income For Primary. Individuals at least 55 years of age on the last day of the taxable year may claim up to $20,000 of military retirement income received in the taxable year. Individuals under the age of 55 on the last day of the taxable year may claim up to $12,500 of military retirement income received in the taxable year."
+MD502_SU_LINE_U_SPOUSE:
+    label: "Military Retirement Income For Spouse. Individuals at least 55 years of age on the last day of the taxable year may claim up to $20,000 of military retirement income received in the taxable year. Individuals under the age of 55 on the last day of the taxable year may claim up to $12,500 of military retirement income received in the taxable year."
 MD502_SU_LINE_V:
+  label: "TBD"
+MD502_SU_LINE_U_PRIMARY:
+  label: "TBD"
+MD502_SU_LINE_V_PRIMARY:
+  label: "TBD"
+MD502_SU_LINE_U_SPOUSE:
+  label: "TBD"
+MD502_SU_LINE_V_SPOUSE:
   label: "TBD"
 MD502_SU_LINE_1:
   label: "1 Add lines a. through yc. and enter this amount on line 13 of Form 502 with the appropriate code letters"
+MD502R_LINE_PRIMARY_DISABLED:
+  label: "Is Primary Taxpayer totally and permanently disabled? (intake question)"
+MD502R_LINE_SPOUSE_DISABLED:
+  label: "Is Secondary Taxpayer totally and permanently disabled? (intake question)"
+MD502R_LINE_1A:
+  label: "Retirement income received by Primary Taxpayer as a pension, annuity from employee retirement system qualified under Sections 401(a), 403 or 457(b)"
+MD502R_LINE_1B:
+  label: "Retirement income received by Secondary Taxpayer as a pension, annuity from employee retirement system qualified under Sections 401(a), 403 or 457(b)"
+MD502R_LINE_7A:
+  label: "Other retirement income and foreign retirement income received by Primary Taxpayer"
+MD502R_LINE_7B:
+  label: "Other retirement income and foreign retirement income received by Secondary Taxpayer"
+MD502R_LINE_8:
+  label: "Total of all retirement source income for primary and secondary taxpayers"
 MD502R_LINE_9A:
   label: "Total social security benefits for primary"
 MD502R_LINE_9B:
   label: "Total social security benefits for spouse"
+MD502R_LINE_10A:
+  label: "Primary Taxpayer amount of military income subtracted on Form 502SU with code u and amount of Correctional officers, Law Enforcement officers, or fire, rescue, or emergency services personnel income subtracted on Form 502SU with code v"
+MD502R_LINE_10B:
+  label: "Secondary Taxpayer amount of military income subtracted on Form 502SU with code u and amount of Correctional officers, Law Enforcement officers, or fire, rescue, or emergency services personnel income subtracted on Form 502SU with code v"
 NCD400_LINE_6:
   label: '6 Federal Adjusted Gross Income'
 NCD400_LINE_9:
@@ -814,6 +844,10 @@ NCD400_S_LINE_18:
   label: "18 Taxable Portion of Social Security and Railroad Retirement Benefits (DF IRS1040 TaxableInterestAmt)"
 NCD400_S_LINE_19:
   label: "Interest Income From obligations of the United States' Possessions (DF IRS1040 TaxableSocSecAmt)"
+NCD400_S_LINE_20:
+  label: "Retirement Benefits Receivedby Vested N.C. State Government, N.C. Local Government, or Federal Government Retirees, i.e. Bailey Settlement"
+NCD400_S_LINE_21:
+  label: "Certain Retirement Benefits Recieved by a Retired Member of the United States Uniformed Services Not Deducted on Line 20"
 NCD400_S_LINE_27:
   label: '27 Exempt Income Earned or Received by a Member of a Federally Recognized Indian Tribe'
 NCD400_S_LINE_41:
@@ -824,6 +858,10 @@ NJ1040_LINE_7_SELF:
   label: '7 Primary Senior 65+ Exemption'
 NJ1040_LINE_7_SPOUSE:
   label: '7 Spouse Senior 65+ Exemption'
+NJ1040_LINE_8_SELF:
+  label: '8 Primary Blind/Disabled Exemption'
+NJ1040_LINE_8_SPOUSE:
+  label: '8 Spouse Blind/Disabled Exemption'
 NJ1040_LINE_10_COUNT:
   label: 'Number of Qualified Dependent Children'
 NJ1040_LINE_10_EXEMPTION:
@@ -926,6 +964,8 @@ NJ1040_LINE_78:
   label: '78 Total Adjustments to Tax Due/Overpayment amount (Add lines 69 through 77)'
 NJ1040_LINE_79:
   label: '79 Balance due (If line 67 is more than zero, add line 67 and line 78)'
+NJ1040_LINE_79_CHECKBOX:
+  label: 'Fill in if paying by e-check or credit card'
 NJ1040_LINE_80:
   label: '80 Refund amount (If line 68 is more than zero, subtract line 78 from line 68)'
 NJ2450_COLUMN_A_TOTAL_PRIMARY:

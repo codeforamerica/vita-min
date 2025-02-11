@@ -1,0 +1,45 @@
+{
+  "familyAndHousehold": [],
+  "filers": [
+    {
+      "lastName": "NRA",
+      "dateOfBirth": null,
+      "suffix": null,
+      "isPrimaryFiler": false,
+      "firstName": "Federico",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": null,
+      "interestReportsTotal": "0.00",
+      "isDisabled": null,
+      "form1099GsTotal": "0.00",
+      "isStudent": null,
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": null
+    },
+    {
+      "lastName": "NRA-Spouse",
+      "dateOfBirth": "1955-03-09",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "firstName": "Brita",
+      "middleInitial": "J",
+      "educatorExpenses": "0.00",
+      "tin": "123-00-1234",
+      "interestReportsTotal": "0.00",
+      "isDisabled": false,
+      "form1099GsTotal": "0.00",
+      "isStudent": false,
+      "ssnNotValidForEmployment": null,
+      "hsaTotalDeductibleAmount": null
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [
+    {
+      "usedTin": "123-00-1234",
+      "unionDuesAmount": null
+    }
+  ],
+  "interestReports": []
+}

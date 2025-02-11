@@ -27,6 +27,8 @@ module Efile
         set_line(:NJ1040_LINE_6_SPOUSE, :line_6_spouse_checkbox)
         set_line(:NJ1040_LINE_7_SELF, :line_7_self_checkbox)
         set_line(:NJ1040_LINE_7_SPOUSE, :line_7_spouse_checkbox)
+        set_line(:NJ1040_LINE_8_SELF, :line_8_self_checkbox)
+        set_line(:NJ1040_LINE_8_SPOUSE, :line_8_spouse_checkbox)
         set_line(:NJ1040_LINE_10_COUNT, :calculate_line_10_count)
         set_line(:NJ1040_LINE_10_EXEMPTION, :calculate_line_10_exemption)
         set_line(:NJ1040_LINE_11_COUNT, :calculate_line_11_count)
@@ -78,6 +80,7 @@ module Efile
         set_line(:NJ1040_LINE_77, :calculate_line_77)
         set_line(:NJ1040_LINE_78, :calculate_line_78)
         set_line(:NJ1040_LINE_79, :calculate_line_79)
+        set_line(:NJ1040_LINE_79_CHECKBOX, :calculate_line_79_checkbox)
         set_line(:NJ1040_LINE_80, :calculate_line_80)
         @nj2450_primary.calculate if line_59_primary || line_61_primary
         @nj2450_spouse.calculate if line_59_spouse || line_61_spouse
@@ -210,8 +213,8 @@ module Efile
       end
 
       def calculate_line_8
-        number_of_line_8_exemptions = number_of_true_checkboxes([@direct_file_data.is_primary_blind? || @intake.primary_disabled_yes?,
-                                                                 @direct_file_data.is_spouse_blind? || @intake.spouse_disabled_yes?])
+        number_of_line_8_exemptions = number_of_true_checkboxes([line_8_self_checkbox,
+                                                                 line_8_spouse_checkbox])
         number_of_line_8_exemptions * 1_000
       end
 
@@ -280,6 +283,14 @@ module Efile
 
       def line_6_spouse_checkbox
         @intake.filing_status_mfj?
+      end
+
+      def line_8_self_checkbox
+        @direct_file_data.is_primary_blind? || @intake.primary_disabled_yes?
+      end
+
+      def line_8_spouse_checkbox
+        @direct_file_data.is_spouse_blind? || @intake.spouse_disabled_yes?
       end
 
       def calculate_line_13
@@ -599,6 +610,10 @@ module Efile
           return line_or_zero(:NJ1040_LINE_67) + line_or_zero(:NJ1040_LINE_78)
         end
         0
+      end
+
+      def calculate_line_79_checkbox
+        @intake.payment_or_deposit_type_direct_deposit? && line_or_zero(:NJ1040_LINE_79).positive?
       end
 
       def calculate_line_80

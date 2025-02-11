@@ -5,7 +5,7 @@ module StateFile
 
     def new
       @contact_method = params[:contact_method]
-      unless ["email_address", "sms_phone_number"].include?(@contact_method)
+      unless %w[email_address sms_phone_number].include?(@contact_method)
         return render "public_pages/page_not_found", status: 404
       end
       super
@@ -18,7 +18,7 @@ module StateFile
         intake_classes = client_login_service.intake_classes
         @records = intake_classes.map { |intake_class| @form.filter_records(intake_class) }.flatten
         if @records.blank?
-          flash[:alert] = I18n.t("state_file.intake_logins.new.#{@contact_method}.not_found")
+          @form.errors.add(@contact_method, I18n.t("state_file.intake_logins.new.#{@contact_method}.not_found_html"))
           render :new and return
         end
       end
@@ -86,14 +86,23 @@ module StateFile
     end
 
     def sign_in_and_redirect
-      intake = @form.intake_to_log_in(@records)
+      records_with_ssn = @records.where.not(hashed_ssn: nil)
+      intake = if records_with_ssn.present?
+                 @form.intake_to_log_in(records_with_ssn)
+               else
+                 @form.intake_to_log_in(@records)
+               end
+      if intake.nil?
+        flash[:alert] = I18n.t("state_file.intake_logins.new.#{@contact_method}.not_found_html")
+        return render :new
+      end
 
-      # Note: for god knows what reason, you cannot reference "current_state_file_#{state_code}_intake" or the new intake will fail to log in,
-      # or at least in the test it seems to fail. Couldn't think of a better solution than grabbing the id from the session even though it looks terrible.
-      # (Should return an array of 1 id)
-      unfinished_logged_in_intake_ids = StateFile::StateInformationService.active_state_codes.map do |state_code|
+      # NOTE: for god knows what reason, you cannot reference "current_state_file_#{state_code}_intake" or the new
+      # intake will fail to log in, or at least in the test it seems to fail. Couldn't think of a better solution than
+      # grabbing the id from the session even though it looks terrible. (Should return an array of 1 id)
+      unfinished_logged_in_intake_ids = StateFile::StateInformationService.active_state_codes.filter_map do |state_code|
         session.dig("warden.user.state_file_#{state_code}_intake.key", 0)
-      end.compact
+      end
 
       sign_in intake
 

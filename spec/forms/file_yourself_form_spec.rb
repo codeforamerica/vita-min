@@ -84,5 +84,25 @@ RSpec.describe FileYourselfForm do
       expect(diy_intake.visitor_id).to eq "visitor_1"
       expect(diy_intake.locale).to eq "es"
     end
+
+    context "when invalid filing_frequency key" do
+      let(:invalid_params) { valid_params.merge(additional_params).merge(filing_frequency: "not_valid") }
+      let(:record_invalid_error) { ActiveRecord::RecordInvalid.new(diy_intake) }
+
+      before do
+        allow(Sentry).to receive(:capture_exception)
+      end
+
+      it "captures a Sentry exception and saves with a valid key" do
+        form = described_class.new(diy_intake, invalid_params)
+        form.save
+        expect(Sentry).to have_received(:capture_exception).with(
+          instance_of(ActiveRecord::RecordInvalid),
+          extra: hash_including(:diy_intake_id, :attributes)
+        )
+        diy_intake.reload
+        expect(diy_intake.filing_frequency).to eq "unfilled"
+      end
+    end
   end
 end
