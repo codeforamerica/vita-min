@@ -261,11 +261,21 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       expect(page).to be_axe_clean.within "main"
 
-      groups = page.all(:css, '.white-group').count
-      h2s = page.all(:css, 'h2').count
-      expect(groups).to eq(h2s - 2)
-      # total should be h2s -1 to account for the h2 reveal button
-      # there's also an extra h2 in the veteran exemption box
+      household_details_h3s = 2 + dependents_dob
+      income_details_h3s = 0
+      dependents_attending_college_h3s = 1
+      where_you_lived_as_of_dec_31_h3s = 1
+      disability_exemption_h3s = 1
+      veterans_exemption_h3s = 2
+      medical_expenses_h3s = 1
+      property_tax_h3s = 1
+      payments_made_h3s = 1
+      use_tax_h3s = 1
+      reveal_h3 = 1
+      total_expected_h3s = household_details_h3s + income_details_h3s + dependents_attending_college_h3s + where_you_lived_as_of_dec_31_h3s + disability_exemption_h3s + veterans_exemption_h3s + medical_expenses_h3s + property_tax_h3s + payments_made_h3s + use_tax_h3s + reveal_h3
+
+      h3s = page.all(:css, 'h3').count
+      expect(total_expected_h3s).to eq(h3s)
 
       edit_buttons = page.all(:css, '.white-group a')
       edit_buttons_count = edit_buttons.count
@@ -569,7 +579,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
         expect_municipality_question_exists
 
         # unselect county
-        within find('#county-question') do
+        within find_by_id('county-question') do
           select I18n.t('general.select_prompt')
         end
         expect_county_question_exists
@@ -580,7 +590,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
         advance_to_start_of_intake("Minimal", expect_income_review: false)
 
         select "Atlantic"
-        within find('#municipality-question') do
+        within find_by_id('municipality-question') do
           expect(page.all("option").length).to eq(24) # 23 municipalities + 1 "- Select -"
           expect(page).to have_text "Absecon City"
           expect(page).to have_text "Atlantic City"
@@ -589,7 +599,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
         end
 
         select "Mercer"
-        within find('#municipality-question') do
+        within find_by_id('municipality-question') do
           expect(page.all("option").length).to eq(13) # 12 municipalities + 1 "- Select -"
           expect(page).to have_text "East Windsor Township"
           expect(page).to have_text "Hopewell Township"
@@ -602,10 +612,10 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
         select "Atlantic"
         select "Absecon City"
-        expect(find("#state_file_nj_county_municipality_form_municipality_code").value).to eq("0101")
+        expect(find_by_id('state_file_nj_county_municipality_form_municipality_code').value).to eq("0101")
 
         select "Mercer"
-        expect(find("#state_file_nj_county_municipality_form_municipality_code").value).to eq("")
+        expect(find_by_id('state_file_nj_county_municipality_form_municipality_code').value).to eq("")
       end
 
     end
