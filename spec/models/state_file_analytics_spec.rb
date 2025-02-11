@@ -53,7 +53,7 @@ describe StateFileAnalytics do
 
     StateFile::StateInformationService.active_state_codes.each do |state_code|
       context "#{state_code}  calculator implements #analytics_attrs" do
-        let(:intake) { create "state_file_#{state_code}_intake".to_sym }
+        let(:intake) { create "state_file_#{state_code}_intake".to_sym, :with_spouse}
 
         it "returns some analytics attributes" do
           analytics = StateFileAnalytics.create(record: intake)

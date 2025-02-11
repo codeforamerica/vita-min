@@ -526,6 +526,9 @@ en:
     organization_lead: Organization lead
     organizations: Organizations
     other_options: Try another free tax filing option
+    owner:
+      default: Code for America
+      nj: Code for America and the New Jersey Office of Innovation
     partner: Partner
     password: Password
     phone: Phone
@@ -1592,7 +1595,7 @@ en:
 
             We noticed that you have not submitted a state tax return yet with the account associated with this email address. If you submitted your state return another way, or you submitted your return under a different email address, you can disregard this message.
 
-            This is a reminder that state taxes were due by April 15, but it's still not too late to file! Go to https://www.fileyourstatetaxes.org/en/us/login-options to check your return status or finish your return now. We encourage you to submit your return as soon as possible in order to avoid late filings fees from %{state_name}. Our services will be closing for the year on April 25. After this date, you will no longer be able to file through FileYourStateTaxes.
+            This is a reminder that state taxes were due by April 15, but it's still not too late to file! Go to https://www.fileyourstatetaxes.org/en/login-options to check your return status or finish your return now. We encourage you to submit your return as soon as possible in order to avoid late filings fees from %{state_name}. Our services will be closing for the year on April 25. After this date, you will no longer be able to file through FileYourStateTaxes.
 
             Need help? Reply to this email.
 
@@ -1600,14 +1603,14 @@ en:
             The FileYourStateTaxes team
           subject: 'Final Reminder: FileYourStateTaxes closes April 25.'
         sms: |
-          Hi %{primary_first_name} - You haven't submitted your state tax return yet. Make sure to submit your state taxes as soon as possible to avoid late filing fees. Go to fileyourstatetaxes.org/en/us/login-options to finish them now. FileYourStateTaxes will be closing its services for the year on April 25.
+          Hi %{primary_first_name} - You haven't submitted your state tax return yet. Make sure to submit your state taxes as soon as possible to avoid late filing fees. Go to fileyourstatetaxes.org/en/login-options to finish them now. FileYourStateTaxes will be closing its services for the year on April 25.
           Need help? Email us at help@fileyourstatetaxes.org.
       pre_deadline_reminder:
         email:
-          body: "Hi %{primary_first_name},\n\nYou haven't submitted your state tax return yet. As a reminder, state taxes are due by April 15. Make sure to submit your state tax return by April 15 in order to avoid late filing fees from %{state_name}. \n\nGo to fileyourstatetaxes.org/en/us/login-options to finish them now.\n\nNeed help? Reply to this email.\n\nBest,\nThe FileYourStateTaxes team\n"
+          body: "Hi %{primary_first_name},\n\nYou haven't submitted your state tax return yet. As a reminder, state taxes are due by April 15. Make sure to submit your state tax return by April 15 in order to avoid late filing fees from %{state_name}. \n\nGo to fileyourstatetaxes.org/en/login-options to finish them now.\n\nNeed help? Reply to this email.\n\nBest,\nThe FileYourStateTaxes team\n"
           subject: Don't forget to finish your state tax return by April 15!
         sms: |
-          Hi %{primary_first_name} - You haven't submitted your state tax return yet. Make sure to submit your state taxes by April 15 in order to avoid late filing fees. Go to fileyourstatetaxes.org/en/us/login-options to finish them now.
+          Hi %{primary_first_name} - You haven't submitted your state tax return yet. Make sure to submit your state taxes by April 15 in order to avoid late filing fees. Go to fileyourstatetaxes.org/en/login-options to finish them now.
           Need help? Email us at help@fileyourstatetaxes.org.
       reject_resolution_reminder:
         email:
@@ -2305,9 +2308,6 @@ en:
           ctds_code: School Code/CTDS
           date_of_contribution: Date of payment in %{year}
           district_name: School District Name
-          made_contribution:
-            one: Did you pay any fees or make any qualified cash donation to an Arizona public school in %{year}?
-            other: Did you or your spouse pay any fees or make any qualified cash donation to an Arizona public school in %{year}?
           school_name: School Name
           school_name_help_text: Please use the official school name
           title_html: You might be eligible for the <a href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_guideline-public-school-ECA-tax-credit.pdf" target="_blank">Arizona Public School Credit</a>!
@@ -2317,6 +2317,9 @@ en:
             FileYourStateTaxes only allows you to add payment to the corresponding tax period.
             <br/><br/>
             You can report any donations made in %{current_year} in next year’s tax return.
+          made_az322_contributions:
+            one: Did you pay any fees or make any qualified cash donation to an Arizona public school in %{year}?
+            other: Did you or your spouse pay any fees or make any qualified cash donation to an Arizona public school in %{year}?
           more_details_html: Visit the <a href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_guideline-public-school-ECA-tax-credit.pdf" target="_blank">Arizona Department of Revenue Guide</a> for more details.
           qualifying_list:
           - Extracurricular Activities
@@ -2525,6 +2528,7 @@ en:
           public_school_credit: Public School Tax Credit
         edit:
           credits_not_supported: What subtractions, credits, and household situations does this service not support this year?
+          faq_link: Find a more detailed breakdown of this year's unsupported credits, deductions, and other situations here.
           md_title2_html: |
             Let's make sure this is the right service for you.<br><br>
             Here are the credits and subtractions you <strong>may</strong> be able to claim to maximize your refund.
@@ -2545,13 +2549,15 @@ en:
           itemized_deductions: Itemized deductions
           long_term_care_insurance_subtraction: Long-term Care Insurance Subtraction
           maintaining_elderly_disabled_credit: Credit for Maintaining a Home for the Elderly or Disabled
+          not_supported_this_year: 'Credits and deductions not supported this year:'
         id_supported:
-          child_care_deduction: Child and Dependent Care Deduction
+          child_care_deduction: Idaho Child and Dependent Care Subtraction
           health_insurance_premiums_subtraction: Health Insurance Premiums subtraction
           id_child_tax_credit: Idaho Child Tax Credit
           id_grocery_credit: Idaho Grocery Credit
-          interest_from_obligations: Interest from U.S government obligations
-          social_security_retirement_deduction: Social Security and Retirement Benefits deductions
+          interest_from_obligations: Interest from U.S government obligations subtraction
+          retirement_benefits_deduction: Retirement Benefits deductions
+          social_security_retirement_deduction: Social Security and Railroad Retirement subtraction
         md_reveals:
           body1_html: |
             <ul>
@@ -2632,6 +2638,7 @@ en:
                 </li>
               </ul>
             </p>
+          credits_not_supported: What subtractions, credits, and other situations does this service NOT support this year?
           title2: What scenarios for claiming the Maryland Earned Income Tax Credit and/or Child Tax Credit aren't supported by this service?
           title3: What if I have a situation not yet supported by FileYourStateTaxes?
         md_supported:
@@ -2685,13 +2692,13 @@ en:
             <li>Wounded Warrior Caregivers Credit</li>
         nj_supported:
           supported_credits_html: |
-            <li>New Jersey Earned Income Tax Credit (NJEITC)</li>
-            <li>New Jersey Child Tax Credit</li>
-            <li>New Jersey Child and Dependent Care Tax Credit</li>
-            <li>New Jersey Medical Expenses Deduction</li>
-            <li>Pension/Retirement and Other Retirement Income Exclusion</li>
-            <li>Credits for Excess Unemployment Insurance (UI) and Family Leave Insurance (FLI) Contributions</li>
-            <li>Property Tax Credit or Deduction</li>
+            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/eitc/eitcinfo.shtml">New Jersey Earned Income Tax Credit (NJEITC)</a></li>
+            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/individuals/childtaxcredit.shtml">New Jersey Child Tax Credit</a></li>
+            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/depcarecred.shtml">New Jersey Child and Dependent Care Tax Credit</a></li>
+            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/njit13.shtml#:~:text=Medical%20Expenses%0AYou,TAM%202011%2D14.">New Jersey Medical Expenses Deduction</a></li>
+            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/njit7.shtml">Pension/Retirement and Other Retirement Income Exclusion</a></li>
+            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/njit16.shtml">Credits for Excess Unemployment Insurance (UI) and Family Leave Insurance (FLI) Contributions</a></li>
+            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/njit35.shtml">Property Tax Credit or Deduction</a> (applicable to renters and homeowners)</li>
         ny_credits_unsupported:
           college_tuition_credit: College tuition credit or itemized deduction
           firefighter_ambulance_credit: Volunteer firefighters’ and ambulance workers’ credit
@@ -2888,10 +2895,10 @@ en:
           emergency_rental_assistance_explanation: The Emergency Rental Assistance (ERA) program is a federal program that gives money to help households pay for rent and utility bills. It was created in response to the Covid-19 pandemic.
           subtitle_1: For this tax season, this service will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
           title: First, let's see if you can use this service to file your %{filing_year} Idaho taxes
-          withdrew_msa_fthb: 'In %{filing_year}, did you (or your spouse if you’re filing together) withdraw money from any of the following:'
+          withdrew_msa_fthb: Did any of the following scenarios apply to you or your spouse in %{filing_year}
           withdrew_msa_fthb_list:
-            bullet_1_html: Withdrew money from our Idaho Medical Savings Account and used it for a <a href="%{link}" target="_blank" rel="noopener noreferrer">non-qualifying expense</a>.
-            bullet_2_html: Withdrew money from our First-Time Homebuyer Account and used it for <a href="%{link}" target="_blank" rel="noopener noreferrer">non-eligible home costs</a>.
+            bullet_1_html: Withdrew money from your Idaho Medical Savings Account and used it for a <a href="%{link}" target="_blank" rel="noopener noreferrer">non-qualifying expense</a>.
+            bullet_2_html: Withdrew money from your First-Time Homebuyer Account and used it for <a href="%{link}" target="_blank" rel="noopener noreferrer">non-eligible home costs</a>.
       id_grocery_credit:
         edit:
           answers_confidential_html: Your answers are private and used only to see if you qualify for the tax credit.
@@ -2902,7 +2909,7 @@ en:
             one: To see if you qualify, we need more information about you.
             other: To see if you qualify, we need more information about you and your household.
           select_household_members: 'Select the members of the household any of these situations applied to in %{tax_year}:'
-          situation_incarceration: experienced incarceration
+          situation_incarceration: were incarcerated
           situation_snap: received food stamps / SNAP-EBT
           situation_undocumented: lived in the US undocumented
           situations_question:
@@ -2921,13 +2928,15 @@ en:
           you_example_months: For example, if you had 2 situations in April, that counts as 1 month.
       id_grocery_credit_review:
         edit:
+          body_p1: This credit amount will be part of your final tax calculations. If you are owed a state tax refund, the credit amount will increase your final refund amount. If you owe taxes, the credit will lower the amount you owe.
+          body_p2: You can review your total Idaho state refund amount at the end.
           donate_impact_content_p1: Your choice to donate is final once you submit your tax return and cannot be changed through an amended return.
           donate_impact_content_p2: The Cooperative Welfare Fund is a trust fund in the state treasury, and all money goes toward public assistance and welfare purposes.
           donate_impact_heading: How will donating my credit impact my tax return?
           donate_warning_p1: Your donation will be deducted from your total state refund.
           donate_warning_p2: Your choice to donate is final and cannot be changed through an amended return.
-          title: You will receive $%{grocery_credit_amount} from the Idaho Grocery Credit!
-          title_html: You will receive <strong>$%{grocery_credit_amount}</strong> from the Idaho Grocery Credit!
+          title: Good news! You're eligible for $%{grocery_credit_amount} from the Idaho Grocery Credit!
+          title_html: Good news! You're eligible for <strong>$%{grocery_credit_amount}</strong> from the Idaho Grocery Credit!
           would_you_like_to_donate: Would you like to donate your entire credit to the Cooperative Welfare Fund?
       id_health_insurance_premium:
         edit:
@@ -2950,7 +2959,7 @@ en:
             <br/><br/>
             If you have Medicare you can deduct Medicare A (if you are voluntarily enrolled and not covered under Social Security), as well as Medicare B and D if you are voluntarily enrolled. Medicare Advantage also qualifies.
           qualifications_title: Which health coverage premiums qualify?
-          qualifying_amount_help_text: Enter the total amount of qualifying health insurance premiums your household paid in %{year}.
+          qualifying_amount_help_text_html: Enter the <strong>total amount</strong> of qualifying health insurance premiums your household paid in %{year}.
           subtitle:
             one: To see if you qualify, we need more information about you.
             other: To see if you qualify, we need more information about you and your household.
@@ -2968,8 +2977,8 @@ en:
       id_permanent_building_fund:
         edit:
           receive_public_assistance_explanation: Public assistance payments do not include food stamps nor WIC payments.
-          receive_public_assistance_single: Did you receive Idaho public assistance payments at the end of the tax year?
-          receive_public_assistance_spouse: Did you or your spouse receive Idaho public assistance payments at the end of the tax year?
+          receive_public_assistance_single: Were you receiving Idaho public assistance payments at the end of the tax year?
+          receive_public_assistance_spouse: Were you or your spouse receiving Idaho public assistance payments at the end of the tax year?
           title: You might be eligible for an exception to the permanent building fund tax!
       id_primary_state_id:
         id_primary:
@@ -2993,11 +3002,13 @@ en:
           sales_tax_content: This is a tax collected at the point of sale when you buy goods within your state. However, if you purchased items through an out-of-state seller, they may not have collected Idaho sales tax at the time.
           sales_tax_title: What are sales taxes?
           sales_use_tax_helper_text: Enter total amount
-          subtitle_html: This includes online purchases where sales tax was <strong>not</strong> applied.
+          subtitle_html: This includes online purchases where sales tax was <strong>not</strong> applied. If you made any purchases without paying sales tax, you may owe use tax on those purchases. We’ll help you figure out the right amount
           title:
             one: Did you make any out-of-state purchases in %{year} without paying sales tax?
             other: Did you or your spouse make any out-of-state purchases in %{year} without paying sales tax?
-          unpaid_sales_use_tax_label_html: Please enter the <b>total amount of purchases</b> that didn’t have sales or use tax applied.
+          unpaid_sales_use_tax_label_html: Enter the <strong>total amount of purchases</strong> that didn’t have sales tax applied in %{year}.
+          use_tax_content: If you buy something from another state (like online shopping or purchases from a store located in another state) and you don’t pay sales tax on it, you are generally required to pay use tax to your home state.
+          use_tax_title: What are use taxes?
       id_spouse_state_id:
         id_spouse:
           encourage_sharing_html: If you and your spouse have a driver’s license or state issued identification card please provide the requested information from it. The return will not be rejected if you do not provide a driver’s license or state-issued identification. <br><br> If you provide this information, it may help to identify you as the taxpayer.
@@ -3007,9 +3018,9 @@ en:
       income_review:
         edit:
           help_text: We will collect any missing information.
-          interest_income_body: No additional state info needed
+          interest_income_body: No additional information needed.
           interest_income_title: Interest income (1099-INT)
-          invalid_w2: There is an issue with one or more W-2 forms. Please review and correct before proceeding.
+          invalid_income_form_error: There is an issue with the state information on one or more of your income forms. Please review and edit before proceeding.
           no_info_needed: No additional state info needed
           no_info_needed_nj: This income is not taxed in New Jersey.
           retirement_income_title: Retirement income (1099-R)
@@ -3291,7 +3302,7 @@ en:
           use_tax_method_automated: I did not keep a complete record of all purchases. <b>Calculate the amount of use tax for me.</b>
           use_tax_method_manual: I kept a complete record of all purchases and will calculate my use tax manually.
           what_are_sales_taxes: What are sales taxes?
-          what_are_sales_taxes_body: This is a tax collected at the point of sale when you buy goods within your state.
+          what_are_sales_taxes_body: 'Sales Tax: This is a tax collected at the point of sale when you buy goods within your state.'
           what_are_use_taxes: What are use taxes?
           what_are_use_taxes_body: If you buy something from another state (like online shopping or purchases from a store located in another state) and you don’t pay sales tax on it, you are generally required to pay use tax to your home state.
       nc_spouse_state_id:
@@ -3865,7 +3876,7 @@ en:
                 </ul>
               </li>
             refund_details_html: |
-              For the latest information on refund processing and to check your refund status, visit <a target="_blank" rel="noopener nofollow" href="www.ncdor.gov/file-pay/refund-process">www.ncdor.gov/file-pay/refund-process</a>.
+              For the latest information on refund processing and to check your refund status, visit <a target="_blank" rel="noopener nofollow" href="https://www.ncdor.gov/file-pay/refund-process">www.ncdor.gov/file-pay/refund-process</a>.
               <br/><br/>
               You'll need to enter your Social Security Number and the exact refund amount.
               <br/><br/>
@@ -3895,7 +3906,7 @@ en:
               body: You can edit and resubmit your state return by clicking the button below.
               title: What's next?
             no_edit:
-              body_html: Unfortunately, the issue with filing your state return cannot be resolved on our service. We recommend you download your return to assist you in next steps.
+              body_html: Unfortunately, there has been an issue with filing your state return that cannot be resolved on our tool. We recommend you download your return to assist you in next steps. Chat with us or email us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a> for guidance on next steps.
               title: What can I do next?
           reject_code: 'Reject Code:'
           reject_desc: 'Reject Description:'
@@ -3984,7 +3995,7 @@ en:
               <li>if there weren’t enough taxes withheld from your paycheck (you may want to discuss with your employer for future years), or</li>
               <li>if you haven’t made enough in estimated tax payments.</li>
             </ul>
-            <p> You might be charged interest on what you owe. If that applies to you, you will get a notice from the State of New Jersey Division of Taxation in the mail.</p>
+            <p>You might be charged interest on what you owe. If that applies to you, you will get a notice from the State of New Jersey Division of Taxation in the mail.</p>
             <p><strong>You should definitely continue with this filing. The sooner you file, the less you will eventually have to pay in penalties.</strong></p>
       terms_and_conditions:
         edit:
@@ -3996,8 +4007,50 @@ en:
             <strong>When you use the FileYourStateTaxes service, here's what you're agreeing to:</strong><br>
             <ul class="list--numbered">
           decline: Decline
-          list_items_html: <strong>Easy Tax Filing:</strong> FileYourStateTaxes is a free and easy to use service built by Code for America to help you file your state tax return conveniently after you've completed your federal return.</li> <strong>Data Transfer:</strong> You're letting us use your federal return data as the starting point for your state tax return.</li> <strong>Questions for Accuracy:</strong> Sometimes we might ask you a few more questions to make sure your state tax return is complete and accurate.</li> <strong>Modernized eFile:</strong> We'll submit your state tax return using the Modernized eFile (MeF) system, which links it to your federal return.</li> <strong>Your Responsibility:</strong> You're responsible for making sure the information you provide is accurate and that you follow all federal and state tax laws.</li> <strong>No Guarantees:</strong> We do our best, but we can't guarantee the accuracy or success of your state tax return when you use FileYourStateTaxes.</li> <strong>Privacy and Security:</strong> We're serious about protecting your privacy and data. Check out our <a href="%{privacy_policy_link}" target="_blank" rel="noopener nofollow">Privacy Policy</a> for all the details.</li> <strong>Stay Updated:</strong> We'll send you updates about your state tax return through your preferred communication method - either text message (SMS) or email. This includes status updates, reminders, and important information.</li> <strong>Your Choice:</strong> You can change your preferred communication method or opt out of these updates anytime by following the instructions in the messages or through your account settings.</li> <strong>Data Removal:</strong> You have the right to ask us to remove your personal data and tax-related information from FileYourStateTaxes whenever you want. Just contact us or use the data removal function in the software. But keep in mind, this might affect your access to the service.</li> <strong>Links to Third Party Sites:</strong> Links in the software will let you leave FileYourStateTaxes. The linked sites are not under the control of FileYourStateTaxes and FileYourStateTaxes is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. FileYourStateTaxes is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement by FileYourStateTaxes of the site.</li> <strong>Governing Law:</strong> This Agreement will be governed by and construed in accordance with the laws of the state of California.</li> <strong>Questions and Concerns:</strong> If you have any questions or concerns about these terms, feel free to reach out to us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.</li>
-          list_items_no_sms_html: "<strong>Stay Updated:</strong> We'll send you updates about your state tax return through your preferred communication method - either SMS or email. This includes status updates, reminders, and important information.</li>\n"
+          list_items_html: |
+            <li>
+              <strong>Easy Tax Filing:</strong> FileYourStateTaxes is a free and easy to use service built by %{owner} to help you file your state tax return conveniently after you've completed your federal return.
+            </li>
+            <li>
+              <strong>Data Transfer:</strong> You're letting us use your federal return data as the starting point for your state tax return.
+            </li>
+            <li>
+              <strong>Questions for Accuracy:</strong> Sometimes we might ask you a few more questions to make sure your state tax return is complete and accurate.
+            </li>
+            <li>
+              <strong>Modernized eFile:</strong> We'll submit your state tax return using the Modernized eFile (MeF) system, which links it to your federal return.
+            </li>
+            <li>
+              <strong>Your Responsibility:</strong> You're responsible for making sure the information you provide is accurate and that you follow all federal and state tax laws.
+            </li>
+            <li>
+              <strong>No Guarantees:</strong> We do our best, but we can't guarantee the accuracy or success of your state tax return when you use FileYourStateTaxes.
+            </li>
+            <li>
+              <strong>Privacy and Security:</strong> We're serious about protecting your privacy and data. Check out our <a href="%{privacy_policy_link}" target="_blank" rel="noopener nofollow">Privacy Policy</a> for all the details.
+            </li>
+            <li>
+              <strong>Stay Updated:</strong> We'll send you updates about your state tax return through your preferred communication method - either text message (SMS) or email. This includes status updates, reminders, and important information.
+            </li>
+            <li>
+              <strong>Your Choice:</strong> You can change your preferred communication method or opt out of these updates anytime by following the instructions in the messages or through your account settings.
+            </li>
+            <li>
+              <strong>Data Removal:</strong> You have the right to ask us to remove your personal data and tax-related information from FileYourStateTaxes whenever you want. Just contact us or use the data removal function in the software. But keep in mind, this might affect your access to the service.
+            </li>
+            <li>
+              <strong>Links to Third Party Sites:</strong> Links in the software will let you leave FileYourStateTaxes. The linked sites are not under the control of FileYourStateTaxes and FileYourStateTaxes is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. FileYourStateTaxes is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement by FileYourStateTaxes of the site.
+            </li>
+            <li>
+              <strong>Governing Law:</strong> This Agreement will be governed by and construed in accordance with the laws of the state of California.
+            </li>
+            <li>
+              <strong>Questions and Concerns:</strong> If you have any questions or concerns about these terms, feel free to reach out to us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
+            </li>
+          list_items_no_sms_html: |
+            <li>
+              <strong>Stay Updated:</strong> We'll send you updates about your state tax return through your preferred communication method - either SMS or email. This includes status updates, reminders, and important information.
+            </li>
           ny_text_html: |
             <strong>E-file your New York State income tax return at no extra charge.</strong><br><br>
             Before you print and mail your return, please note that there is no additional fee for filing it electronically. Other reasons to e-file:
