@@ -546,11 +546,9 @@
     line-height: 2.4rem;
   }
 
-  .review-header {
-    .with-top-separator {
-      padding-top: 25px;
-      border-top: 1px solid $color-state-file-separator;
-    }
+  .with-top-separator {
+    padding-top: 25px;
+    border-top: 1px solid $color-state-file-separator;
   }
 
   .review-section {
