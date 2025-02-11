@@ -270,7 +270,7 @@ module PdfFiller
       end
 
       # line 20a
-      if @xml_document.at("PensAnnuitAndIraWithdraw") && Flipper.enabled?(:show_retirement_ui)
+      if @xml_document.at("PensAnnuitAndIraWithdraw")
         retirement_income = @xml_document.at("PensAnnuitAndIraWithdraw").text.to_i
         answers.merge!(insert_digits_into_fields(retirement_income, [
           "141",

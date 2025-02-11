@@ -159,10 +159,6 @@ FactoryBot.define do
       end
     end
 
-    trait :with_1099_rs_synced do
-      after(:create, &:synchronize_df_1099_rs_to_database)
-    end
-
     trait :df_data_2_w2s do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_zeus_two_w2s') }
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_zeus_two_w2s') }

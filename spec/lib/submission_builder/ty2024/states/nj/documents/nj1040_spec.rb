@@ -422,6 +422,17 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
       end
     end
 
+    describe "disabled show_retirement_ui flag" do
+      before do
+        allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(false)
+      end
+
+      it "does not show line 20a PensAnnuitAndIraWithdraw even when there is a value" do
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_20a).and_return 300
+        expect(xml.at("PensAnnuitAndIraWithdraw")).to eq(nil)
+      end
+    end
+
     describe "retirement income - line 20a" do
       before do
         allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
