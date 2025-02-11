@@ -140,7 +140,6 @@ class Ability
     ], client: { vita_partner: accessible_groups }
 
     can :manage, TaxReturnSelection, tax_returns: { client: { vita_partner: accessible_groups, intake: { product_year: Rails.configuration.product_year } } }
-    cannot :manage, TaxReturnSelection, tax_returns: { client: { vita_partner: VitaPartner.where.not(id: accessible_groups) } }
 
     can :manage, EfileSubmission, tax_return: { client: { vita_partner: accessible_groups } }
 
