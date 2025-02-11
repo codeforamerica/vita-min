@@ -42,6 +42,7 @@
 #  phone_number                                   :string
 #  phone_number_verified_at                       :datetime
 #  primary_birth_date                             :date
+#  primary_disabled                               :integer          default("unfilled"), not null
 #  primary_esigned                                :integer          default("unfilled"), not null
 #  primary_esigned_at                             :datetime
 #  primary_first_name                             :string
@@ -54,12 +55,14 @@
 #  raw_direct_file_intake_data                    :jsonb
 #  received_id_public_assistance                  :integer          default("unfilled"), not null
 #  referrer                                       :string
+#  retirement_deduction_eligibility               :integer          default("unfilled"), not null
 #  routing_number                                 :string
 #  sign_in_count                                  :integer          default(0), not null
 #  sms_notification_opt_in                        :integer          default("unfilled"), not null
 #  source                                         :string
 #  special_olympics_donation                      :decimal(12, 2)
 #  spouse_birth_date                              :date
+#  spouse_disabled                                :integer          default("unfilled"), not null
 #  spouse_esigned                                 :integer          default("unfilled"), not null
 #  spouse_esigned_at                              :datetime
 #  spouse_first_name                              :string

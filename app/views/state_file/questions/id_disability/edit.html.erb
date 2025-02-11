@@ -1,0 +1,38 @@
+<% title = t(".title") %>
+<% content_for :page_title, t(".title") %>
+<% content_for :card do %>
+  <h1 class="h2"><%= title %></h1>
+
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <div class="white-group">
+      <% if current_intake.filing_status_mfj? %>
+        <%= f.cfa_radio_set(:mfj_disability, label_text: t(".question_spouse"), collection: [
+          { value: "me", label: t(".yes_me") },
+          { value: "spouse", label: t(".yes_spouse") },
+          { value: "both", label: t(".yes_both") },
+          { value: "no", label: t(".no_neither") }
+        ]) %>
+      <% else %>
+        <%= f.cfa_radio_set(:primary_disabled, label_text: t(".question"), collection: [
+          { value: "yes", label: t("general.affirmative") },
+          { value: "no", label: t("general.negative") }
+        ], legend_class: "sr-only") %>
+      <% end %>
+    </div>
+
+    <div class="reveal">
+      <button class="reveal__button"><%= t(".help_title") %></button>
+      <div class="reveal__content">
+        <p><%= t(".help_text") %></p>
+        <ul>
+          <li><%= t(".help_b1") %></li>
+          <li><%= t(".help_b2") %></li>
+          <li><%= t(".help_b3") %></li>
+          <li><%= t(".help_b4") %></li>
+        </ul>
+      </div>
+    </div>
+
+    <%= f.continue %>
+  <% end %>
+<% end %>
