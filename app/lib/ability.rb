@@ -71,7 +71,7 @@ class Ability
     can :manage, User, id: user.id
 
     # Anyone can read info about users that they can access
-    can :read, User, id: user.accessible_users.ids
+    can :read, User, id: user.accessible_users.pluck(:id)
 
     # Anyone can read info about an organization or site they can access
     can :read, Organization, id: accessible_groups.pluck(:id)
@@ -164,7 +164,7 @@ class Ability
       can :read, Coalition, id: user.role.coalition_id
 
       # Coalition leads can view and edit users who are coalition leads, organization leads, site coordinators, and team members in their coalition
-      can :manage, User, id: user.accessible_users.ids
+      can :manage, User, id: user.accessible_users.pluck(:id)
 
       # Coalition leads can create coalition leads, organization leads, site coordinators, and team members in their coalition
       can :manage, CoalitionLeadRole, coalition: user.role.coalition
@@ -176,7 +176,7 @@ class Ability
     if user.org_lead?
 
       # Organization leads can view and edit users who are organization leads, site coordinators, and team members in their coalition
-      can :manage, User, id: user.accessible_users.ids
+      can :manage, User, id: user.accessible_users.pluck(:id)
 
       # Organization leads can create organization leads, site coordinators, and team members in their org
       can :manage, OrganizationLeadRole, organization: user.role.organization

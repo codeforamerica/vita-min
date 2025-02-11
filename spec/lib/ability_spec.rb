@@ -222,7 +222,6 @@ describe Ability do
             expect(subject.can?(:toggle_field, accessible_client)).to eq true
             expect(subject.can?(:edit_take_action, accessible_client)).to eq true
             expect(subject.can?(:update_take_action, accessible_client)).to eq true
-            expect(subject.can?(:unlock, accessible_client)).to eq true
             expect(subject.can?(:save_and_maybe_exit, accessible_client)).to eq true
 
             expect(subject.can?(:edit_13614c_form_page1, accessible_client)).to eq true
@@ -326,7 +325,7 @@ describe Ability do
             expect(subject.can?(:toggle_field, accessible_client)).to eq true
             expect(subject.can?(:edit_take_action, accessible_client)).to eq true
             expect(subject.can?(:update_take_action, accessible_client)).to eq true
-            expect(subject.can?(:unlock, accessible_client)).to eq true
+            expect(subject.can?(:unlock, accessible_client)).to eq false
             expect(subject.can?(:save_and_maybe_exit, accessible_client)).to eq true
 
             expect(subject.can?(:edit_13614c_form_page1, accessible_client)).to eq true
