@@ -223,7 +223,7 @@ describe Efile::Md::Md502RCalculator do
     end
   end
 
-  describe "#calculate_line_11_a" do
+  describe "#calculate_line_11a" do
     context "when primary qualifies" do
       before do
         allow_any_instance_of(StateFileMdIntake).to receive(:qualifies_for_pension_exclusion?).with(:primary).and_return(true)
@@ -270,7 +270,7 @@ describe Efile::Md::Md502RCalculator do
 
   end
 
-  describe "#calculate_line_11_b" do
+  describe "#calculate_line_11b" do
 
     context "when spouse qualifies" do
       let(:filing_status) { "married_filing_jointly"}
