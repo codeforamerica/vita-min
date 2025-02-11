@@ -24,7 +24,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
 
     formatted_label = label(
         method,
-        label_contents(label_text, has_help_text: help_text, optional: optional) + field_html,
+        label_contents(label_text, has_help_text: !!help_text, optional: optional) + field_html,
         (for_options || options),
         )
     formatted_label += help_text_html(help_text, method) if help_text
@@ -72,7 +72,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
       )
     html_options_with_errors = html_options.merge(error_attributes(method: method))
 
-    help_html = help_text_html(options[:help_text], :method)
+    help_html = help_text_html(options[:help_text], method)
 
     html_output = <<~HTML
       <div class="form-group#{error_state(object, method)}">
