@@ -53,10 +53,25 @@ RSpec.describe StateFile::Questions::PostDataTransferController do
     end
 
     context "with federal data which we could not import successfully" do
-      it "redirects to the offboard screen" do
+      before do
         intake.update(df_data_import_succeeded_at: nil)
+      end
+
+      it "redirects to the offboard screen" do
         response = get :edit
         expect(response).to redirect_to(StateFile::StateFilePagesController.to_path_helper(action: "data_import_failed"))
+      end
+
+      context "with disqualifying reason" do
+        let(:intake) { create :state_file_nj_intake }
+        before do
+          allow_any_instance_of(DirectFileData).to receive(:filing_status).and_return(nil)
+        end
+
+        it "should redirect to offborad screen" do
+          response = get :edit
+          expect(response).to redirect_to(StateFile::StateFilePagesController.to_path_helper(action: "data_import_failed"))
+        end
       end
     end
 
