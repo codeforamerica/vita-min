@@ -1533,9 +1533,9 @@ en:
             The FileYourStateTaxes team
           subject: "%{state_name} State Return Accepted- Payment Due"
         sms: |
-          Hi %{primary_first_name} - Your %{state_name} state tax return has been accepted and a payment is due. Any amount not paid by the filing deadline could add extra penalties and fees.
+          Hi %{primary_first_name} - Your %{state_name} state tax return has been accepted and a payment is due.
 
-          If you haven't submited your payment via direct debit, please do so by April 15 at %{state_pay_taxes_link}.
+          If you haven't submited your payment via direct debit, please do so by April 15 at %{state_pay_taxes_link}. Any amount not paid by the filing deadline could add extra penalties and fees.
 
           Download your return at %{return_status_link}
 
@@ -1636,7 +1636,10 @@ en:
             Best,
             The FileYourStateTaxes team
           subject: Take action on your rejected %{state_name} state return.
-        sms: Hi %{primary_first_name} - This is a reminder that %{state_name} rejected your state tax return. We can help you fix and resubmit it at %{return_status_link}. Make sure to take action as soon as possible in order to avoid late filing fees.
+        sms: |
+          Hi %{primary_first_name} - This is a reminder that %{state_name} rejected your state tax return. We can help you fix and resubmit it at %{return_status_link}. Make sure to take action as soon as possible in order to avoid late filing fees.
+
+          Need help? Email us at help@fileyourstatetaxes.org.
       rejected:
         email:
           body: |
@@ -1697,9 +1700,6 @@ en:
           subject: Your feedback on FileYourStateTaxes
         sms: |
           Hi %{primary_first_name} - Thank you for submitting your taxes with FileYourStateTaxes! We would love feedback on your experience so we can improve! Could you tell us about how it went? Take our 5 minute survey here: %{survey_link}
-
-          Best,
-          The FileYourStateTaxes team
       terminal_rejected:
         email:
           body: |
@@ -1712,7 +1712,7 @@ en:
             Best,
             The FileYourStateTaxes team
           subject: "%{state_name} State Return Rejected."
-        sms: "Hi %{primary_first_name} - Unfortunately, %{state_name} rejected your state tax return for an issue that cannot be resolved on our service. Don't worry! We can help provide guidance on next steps. Chat with us at %{return_status_link}. \n\Need help? Email us at help@fileyourstatetaxes.org.\n"
+        sms: "Hi %{primary_first_name} - Unfortunately, %{state_name} rejected your state tax return for an issue that cannot be resolved on our service. Don't worry! We can help provide guidance on next steps. Chat with us at %{return_status_link}. \n\nNeed help? Email us at help@fileyourstatetaxes.org.\n"
       welcome:
         email:
           body: |
