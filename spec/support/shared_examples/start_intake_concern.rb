@@ -28,7 +28,7 @@ shared_examples :start_intake_concern do |intake_class:|
 
       it "replaces the existing intake in the session with a new one" do
         post :update, params: valid_params
-        logged_in_intake = intake_class.find(session["warden.user.#{intake_class.name.underscore}.key"].first.first)
+        logged_in_intake = subject.send("current_#{intake_class.name.underscore}")
         expect(logged_in_intake).not_to eq existing_intake
         expect(logged_in_intake).to eq intake_class.send(:last)
       end
@@ -47,8 +47,7 @@ shared_examples :start_intake_concern do |intake_class:|
       it "replaces the existing intake in the session with a new one" do
         post :update, params: valid_params
         logged_in_intakes = StateFile::StateInformationService.state_intake_classes.map do |klass|
-          intake_id = session["warden.user.#{klass.name.underscore}.key"]&.first&.first
-          intake_id.present? ? klass.find(intake_id) : nil
+          subject.send("current_#{klass.name.underscore}")
         end.compact
         expect(logged_in_intakes).not_to include existing_intake
         expect(logged_in_intakes).to include intake_class.send(:last)
