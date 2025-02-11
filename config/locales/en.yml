@@ -1608,7 +1608,7 @@ en:
 
             You haven't submitted your state tax return yet. As a reminder, state taxes were due by April 15. Make sure to submit your state  tax return as soon as possible in order to avoid late filing fees from %{state_name}.
 
-            Go to https://www.fileyourstatetaxes.org/en/login-options to finish them now.
+            Go to <a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/en/login-options">fileyourstatetaxes.org/en/login-options</a> to finish them now.
 
             Need help? Reply to this email.
 
@@ -1620,7 +1620,17 @@ en:
           Need help? Email us at help@fileyourstatetaxes.org.
       pre_deadline_reminder:
         email:
-          body: "Hi %{primary_first_name},\n\nYou haven't submitted your state tax return yet. As a reminder, state taxes are due by April 15. Make sure to submit your state tax return by April 15 in order to avoid late filing fees from %{state_name}. \n\nGo to fileyourstatetaxes.org/en/login-options to finish them now.\n\nNeed help? Reply to this email.\n\nBest,\nThe FileYourStateTaxes team\n"
+          body: |
+            Hi %{primary_first_name},
+
+            You haven't submitted your state tax return yet. As a reminder, state taxes are due by April 15. Make sure to submit your state tax return by April 15 in order to avoid late filing fees from %{state_name}.
+
+            Go to <a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/en/login-options">fileyourstatetaxes.org/en/login-options</a> to finish them now.
+
+            Need help? Reply to this email.
+
+            Best,
+            The FileYourStateTaxes team
           subject: Don't forget to finish your state tax return by April 15!
         sms: |
           Hi %{primary_first_name} - You haven't submitted your state tax return yet. Make sure to submit your state taxes by April 15 in order to avoid late filing fees. Go to fileyourstatetaxes.org/en/login-options to finish them now.

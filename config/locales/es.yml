@@ -1589,7 +1589,7 @@ es:
 
             Aún no has enviado tu declaración de impuestos estatales. Te recordamos que el plazo para completar los impuestos estatales venció el 15 de abril. Asegúrate de enviar tu declaración de impuestos estatales lo antes posible para evitar multas por declarar tarde de %{state_name}.
 
-            Visita https://www.fileyourstatetaxes.org/es/login-options para completar tu declaración ahora.
+            Visita <a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/es/login-options">www.fileyourstatetaxes.org/es/login-options</a> para completar tu declaración ahora.
 
             ¿Necesitas ayuda? Responde a este correo electrónico.
 
@@ -1601,7 +1601,17 @@ es:
           ¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org.
       pre_deadline_reminder:
         email:
-          body: "Hola %{primary_first_name}, \n\nTodavía no has enviado tu declaración de impuestos estatales. Recuerda que los impuestos estatales vencen el 15 de abril. Asegúrate de presentar tus impuestos estatales antes del 15 de abril para evitar multas por declarar tarde de %{state_name}.\n\nCompleta tu declaración ahora visitando www.fileyourstatetaxes.org/es/login-options\n\n¿Necesitas ayuda? Responde a este correo electrónico.\n\nAtentamente,\nEl equipo de FileYourStateTaxes\n"
+          body: |
+            Hola %{primary_first_name},
+
+            Todavía no has enviado tu declaración de impuestos estatales. Recuerda que los impuestos estatales vencen el 15 de abril. Asegúrate de presentar tus impuestos estatales antes del 15 de abril para evitar multas por declarar tarde de %{state_name}.
+
+            Completa tu declaración ahora visitando <a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/es/login-options">www.fileyourstatetaxes.org/es/login-options</a>
+
+            ¿Necesitas ayuda? Responde a este correo electrónico.
+
+            Atentamente,
+            El equipo de FileYourStateTaxes
           subject: Recuerda completar tu declaración de impuestos estatales
         sms: |
           Hola %{primary_first_name} - Aún no has enviado tu declaración de impuestos estatales. Asegúrate de presentar tus impuestos estatales antes del 15 de abril para evitar multas por declarar tarde. Ve a fileyourstatetaxes.org/es/login-options para completar tu delcaración ahora.
