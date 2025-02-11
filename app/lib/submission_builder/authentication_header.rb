@@ -7,11 +7,11 @@ module SubmissionBuilder
       build_xml_doc("AuthenticationHeader") do |xml|
         xml.FilingLicenseTypeCd "O"
         xml.FinancialResolution do
-          if @intake.has_banking_information_in_financial_resolution?
+          if @intake.has_banking_information_in_financial_resolution? && @intake.routing_number.present? && @intake.account_number.present? && @intake.primary_esigned_at.prsent?
             xml.FirstInput do
-              xml.RoutingTransitNum sanitize_for_xml(@submission.data_source.routing_number) if @submission.data_source.routing_number.present?
-              xml.DepositorAccountNum sanitize_for_xml(@submission.data_source.account_number) if @submission.data_source.account_number.present?
-              xml.InputTimestamp @intake.primary_esigned_at.in_time_zone(StateFile::StateInformationService.timezone("md")).strftime("%FT%T%:z") if @intake.primary_esigned_at.present?
+              xml.RoutingTransitNum sanitize_for_xml(@submission.data_source.routing_number)
+              xml.DepositorAccountNum sanitize_for_xml(@submission.data_source.account_number)
+              xml.InputTimestamp @intake.primary_esigned_at.in_time_zone(StateFile::StateInformationService.timezone("md")).strftime("%FT%T%:z")
             end
           end
           xml.Submission do
