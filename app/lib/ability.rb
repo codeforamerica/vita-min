@@ -89,7 +89,7 @@ class Ability
     if user.role?(client_role_whitelist)
       can :read, Client, vita_partner: accessible_groups
 
-      can [:create, :update, :edit, :hub_client_management],
+      can [:create, :update, :hub_client_management],
           Client, vita_partner: accessible_groups, intake: { product_year: Rails.configuration.product_year }
     end
 
@@ -117,17 +117,19 @@ class Ability
     # Only admins can destroy clients
     cannot :destroy, Client unless user.admin?
 
-    can [:create, :update, :edit, :destroy], [
-      Note,
-      Document,
-      TaxReturn
-    ], client: { vita_partner: accessible_groups, intake: { product_year: Rails.configuration.product_year } }
-
     can [:read], [
       Note,
       Document,
       TaxReturn
     ], client: { vita_partner: accessible_groups }
+
+    can [:create, :update, :destroy], [
+      Note,
+      TaxReturn
+    ], client: { vita_partner: accessible_groups, intake: { product_year: Rails.configuration.product_year } }
+
+    can [:create, :update, :destroy, :archived, :confirm],
+        Document, client: { vita_partner: accessible_groups, intake: { product_year: Rails.configuration.product_year } }
 
     can :manage, [
       IncomingEmail,
