@@ -330,7 +330,7 @@ RSpec.describe StateFileMdIntake, type: :model do
     end
   end
 
-  describe "#at_least_one_filer_disabled_with_proof?" do
+  describe "#at_least_one_disabled_filer_with_proof?" do
     context "when mfj" do
       let(:intake) do
         create(:state_file_md_intake,
@@ -346,7 +346,7 @@ RSpec.describe StateFileMdIntake, type: :model do
         let(:spouse_disabled) { "no" }
         let(:proof_of_disability_submitted) { "no" }
         it "returns false" do
-          expect(intake.at_least_one_filer_disabled_with_proof?).to eq(false)
+          expect(intake.at_least_one_disabled_filer_with_proof?).to eq(false)
         end
       end
 
@@ -355,7 +355,7 @@ RSpec.describe StateFileMdIntake, type: :model do
         let(:spouse_disabled) { "no" }
         let(:proof_of_disability_submitted) { "yes" }
         it "returns false" do
-          expect(intake.at_least_one_filer_disabled_with_proof?).to eq(false)
+          expect(intake.at_least_one_disabled_filer_with_proof?).to eq(false)
         end
       end
 
@@ -364,7 +364,7 @@ RSpec.describe StateFileMdIntake, type: :model do
         let(:spouse_disabled) { "yes" }
         let(:proof_of_disability_submitted) { "yes" }
         it "returns true" do
-          expect(intake.at_least_one_filer_disabled_with_proof?).to eq(true)
+          expect(intake.at_least_one_disabled_filer_with_proof?).to eq(true)
         end
       end
     end
@@ -381,7 +381,7 @@ RSpec.describe StateFileMdIntake, type: :model do
         let(:primary_disabled) { "yes" }
         let(:proof_of_disability_submitted) { "no" }
         it "returns false" do
-          expect(intake.at_least_one_filer_disabled_with_proof?).to eq(false)
+          expect(intake.at_least_one_disabled_filer_with_proof?).to eq(false)
         end
       end
 
@@ -389,7 +389,7 @@ RSpec.describe StateFileMdIntake, type: :model do
         let(:primary_disabled) { "no" }
         let(:proof_of_disability_submitted) { "yes" }
         it "returns false" do
-          expect(intake.at_least_one_filer_disabled_with_proof?).to eq(false)
+          expect(intake.at_least_one_disabled_filer_with_proof?).to eq(false)
         end
       end
 
@@ -397,7 +397,7 @@ RSpec.describe StateFileMdIntake, type: :model do
         let(:primary_disabled) { "yes" }
         let(:proof_of_disability_submitted) { "yes" }
         it "returns true" do
-          expect(intake.at_least_one_filer_disabled_with_proof?).to eq(true)
+          expect(intake.at_least_one_disabled_filer_with_proof?).to eq(true)
         end
       end
     end
@@ -405,7 +405,7 @@ RSpec.describe StateFileMdIntake, type: :model do
 
   describe "qualifies_for_pension_exclusion?" do
     before do
-      allow_any_instance_of(StateFileMdIntake).to receive(:at_least_one_filer_disabled_with_proof?).and_return is_disabled
+      allow_any_instance_of(StateFileMdIntake).to receive(:at_least_one_disabled_filer_with_proof?).and_return is_disabled
     end
     let(:senior_primary_dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 65), 1, 1) }
     let(:non_senior_spouse_dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 64), 1, 1) }
