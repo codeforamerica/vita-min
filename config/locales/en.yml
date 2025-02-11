@@ -3662,7 +3662,7 @@ en:
           message_body_one: We will not share your information with any outside parties. Message frequency will vary. Message and data rates may apply.
           message_body_two_html: Text HELP to 46207 for help. Text STOP to 46207 to cancel. Carriers (e.g. AT&T, Verizon, T-Mobile, Sprint, etc.) are not responsible or liable for undelivered or delayed messages. See our <a target="_blank" href=%{sms_terms_link}>SMS Terms and Conditions</a> and <a target="_blank" href=%{privacy_link}>Privacy Policy</a>.
           message_title: Messaging details
-          opt_in_label: "Select how you would like to receive notifications:"
+          opt_in_label: 'Select how you would like to receive notifications:'
           phone_number: Your phone number
           phone_number_help_text: Enter numbers only
           provided_contact: We’ll send updates about your tax return to %{contact_info}.

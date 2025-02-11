@@ -62,7 +62,7 @@ RSpec.feature "Logging in" do
       fill_in "Enter the 6-digit code", with: verification_code
       click_on "Verify code"
 
-      expect(page).to have_text "We found your account! Please confirm your identity to finish signing in."
+      expect(page).to have_text I18n.t("state_file.intake_logins.edit.title")
       fill_in "Enter your Social Security number or ITIN. For example, 123-45-6789.", with: ssn
       click_on "Continue"
 
@@ -87,7 +87,7 @@ RSpec.feature "Logging in" do
       fill_in "Enter the 6-digit code", with: verification_code
       click_on "Verify code"
 
-      expect(page).to have_text "We found your account! Please confirm your identity to finish signing in."
+      expect(page).to have_text I18n.t("state_file.intake_logins.edit.title")
       fill_in "Enter your Social Security number or ITIN. For example, 123-45-6789.", with: ssn
       click_on "Continue"
 
