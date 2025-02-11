@@ -1532,9 +1532,9 @@ es:
       accepted_refund:
         email:
           body: |
-            "Hola %{primary_first_name},
+            Hola %{primary_first_name},
 
-            ¡Tu declaración de impuestos estatales de %{state_name} ha sido aceptada! Descarga tu declaración y verifica el estado de tu reembolso visitando <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.
+            ¡Tu declaración de impuestos estatales de %{state_name} ha sido <strong>aceptada</strong>! Descarga tu declaración y verifica el estado de tu reembolso visitando <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.
 
             Atentamente,
             El equipo de FileYourStateTaxes
@@ -1683,8 +1683,7 @@ es:
             Atentamente,
             El equipo de FileYourStateTaxes
           subject: Tu opinión sobre FileYourStateTaxes
-        sms: |
-          Hola %{primary_first_name} - ¡Gracias por usar FileYourStateTaxes para declarar tus impuestos! ¡Nos encantaría conocer tu opinión sobre tu experiencia para poder mejorar! ¿Podrías contarnos cómo te fue? Completa nuestra encuesta de 5 minutos aquí: %{survey_link}
+        sms: 'Hola %{primary_first_name} - ¡Gracias por usar FileYourStateTaxes para declarar tus impuestos! ¡Nos encantaría conocer tu opinión sobre tu experiencia para poder mejorar! ¿Podrías contarnos cómo te fue? Completa nuestra encuesta de 5 minutos aquí: %{survey_link}'
       terminal_rejected:
         email:
           body: |
