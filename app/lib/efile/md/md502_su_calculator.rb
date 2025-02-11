@@ -17,9 +17,9 @@ module Efile
         set_line(:MD502_SU_LINE_U_PRIMARY, :calculate_line_u_primary)
         set_line(:MD502_SU_LINE_U_SPOUSE, :calculate_line_u_spouse)
         set_line(:MD502_SU_LINE_U, :calculate_line_u)
-        set_line(:MD502_SU_LINE_V_PRIMARY, :calculate_line_v_primary) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
-        set_line(:MD502_SU_LINE_V_SPOUSE, :calculate_line_v_spouse) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
-        set_line(:MD502_SU_LINE_V, :calculate_line_v) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
+        set_line(:MD502_SU_LINE_V_PRIMARY, :calculate_line_v_primary)
+        set_line(:MD502_SU_LINE_V_SPOUSE, :calculate_line_v_spouse)
+        set_line(:MD502_SU_LINE_V, :calculate_line_v)
         set_line(:MD502_SU_LINE_1, :calculate_line_1)
       end
 

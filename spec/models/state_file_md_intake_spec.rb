@@ -363,14 +363,14 @@ RSpec.describe StateFileMdIntake, type: :model do
         end
       end
 
-      context "when both followups are present" do
+      context "when the income source qualifies the filer" do
         it "returns the sum of the taxable amount" do
           expect(intake.sum_two_1099_r_followup_types_for_filer(:spouse, :income_source_pension_annuity_endowment?, :service_type_public_safety? )).to eq(2500)
         end
       end
     end
 
-    context "when neither followup present" do
+    context "when none of the 1099-Rs are from a qualifying source" do
       let!(:intake) { create(:state_file_md_intake, :with_spouse) }
       let(:state_file_md1099_r_followup_with_one_followup_criterion_for_primary) do
         create(

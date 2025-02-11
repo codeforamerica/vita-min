@@ -119,14 +119,14 @@ describe Efile::Md::Md502SuCalculator do
     end
 
     context "when a single filer" do
-      it "returns the value for #calculate_military_per_filer" do
+      it "returns 0" do
         expect(instance.calculate_line_u_spouse).to eq(0)
       end
     end
 
     context "when mfj" do
       let(:intake) { create(:state_file_md_intake, :with_spouse) }
-      it "returns 0" do
+      it "returns the value for #calculate_military_per_filer" do
         expect(instance.calculate_line_u_spouse).to eq(10_000)
       end
     end
@@ -137,7 +137,7 @@ describe Efile::Md::Md502SuCalculator do
       allow(instance).to receive(:calculate_public_safety_employee).with(:primary).and_return 10_000
     end
 
-    it "returns the value for #calculate_military_per_filer" do
+    it "returns the value for #calculate_public_safety_employee" do
       expect(instance.calculate_line_v_primary).to eq(10_000)
     end
   end
@@ -148,14 +148,14 @@ describe Efile::Md::Md502SuCalculator do
     end
 
     context "when a single filer" do
-      it "returns the value for #calculate_military_per_filer" do
+      it "returns 0" do
         expect(instance.calculate_line_v_spouse).to eq(0)
       end
     end
 
     context "when mfj" do
       let(:intake) { create(:state_file_md_intake, :with_spouse) }
-      it "returns 0" do
+      it "returns the value for #calculate_public_safety_employee" do
         expect(instance.calculate_line_v_spouse).to eq(10_000)
       end
     end
