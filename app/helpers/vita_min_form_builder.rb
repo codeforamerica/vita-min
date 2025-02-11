@@ -57,6 +57,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
 
     html_options = {
       class: "select__element",
+      'aria-describedby': get_describedby(method, help_text: options[:help_text]),
     }
 
     label_class = options[:label_class] || ""
@@ -67,10 +68,9 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
         label_text,
         has_help_text: !!options[:help_text],
         optional: options[:optional],
-        ),
+      ),
       class: label_class,
-      )
-    html_options_with_errors = html_options.merge(error_attributes(method: method))
+    )
 
     help_html = help_text_html(options[:help_text], method)
 
@@ -79,7 +79,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
         #{formatted_label}
         #{help_html}
         <div class="select">
-          #{select(method, collection, options, html_options_with_errors, &block)}
+          #{select(method, collection, options, html_options, &block)}
         </div>
         #{errors_for(object, method)}
       </div>
