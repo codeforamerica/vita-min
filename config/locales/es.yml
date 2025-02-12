@@ -3894,7 +3894,7 @@ es:
           bank_title: 'Comparte los detalles de tu cuenta bancaria:'
           confirm_account_number: Confirma el número de cuenta
           confirm_routing_number: Confirma el número de ruta bancaria (routing number)
-          date_withdraw_text: "¿Cuándo te gustaría que se retiren los fondos de tu cuenta? (debe ser antes o en %{withdrawal_deadline_date} de %{with_drawal_deadline_year}):"
+          date_withdraw_text: "¿Cuándo te gustaría que se retiren los fondos de tu cuenta?  (debe ser antes o en %{withdrawal_deadline_date} de %{with_drawal_deadline_year}):"
           foreign_accounts: No se aceptan cuentas extranjeras
           routing_number: Número de ruta bancaria (routing number)
           withdraw_amount: "¿Cuánto autorizas sea retirado de tu cuenta? (La cantidad total que debes es: %{owed_amount}.)"
