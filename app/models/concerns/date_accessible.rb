@@ -44,14 +44,16 @@ module DateAccessible
         attr_writer :"#{property}_month", :"#{property}_year", :"#{property}_day"
 
         before_validation do
-          send(
-            "#{property}=",
-            Date.new(
-                send("#{property}_year").to_i,
-                send("#{property}_month").to_i,
-                send("#{property}_day").to_i,
+          if send(property.to_s).blank? && send("#{property}_year").present? && send("#{property}_month").present? && send("#{property}_day").present?
+            send(
+              "#{property}=",
+              Date.new(
+                  send("#{property}_year").to_i,
+                  send("#{property}_month").to_i,
+                  send("#{property}_day").to_i,
+              )
             )
-          )
+          end
         rescue Date::Error
           send("#{property}=", nil)
         end
