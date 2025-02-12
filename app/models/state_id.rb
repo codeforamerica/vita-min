@@ -36,6 +36,8 @@ class StateId < ApplicationRecord
     end
   end
 
+  private
+
   def remove_long_dashes(input)
     input.gsub(/[\u2013\u2014]/, '')
   end
