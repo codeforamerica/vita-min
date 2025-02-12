@@ -1723,4 +1723,16 @@ describe Efile::Md::Md502Calculator do
       end
     end
   end
+
+  describe "#calculate_line_10a" do
+    before do
+      allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_11a).and_return(100_000)
+      allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_11b).and_return(100_000)
+    end
+
+    it "totals the line 11a & 11b calculations from 502R" do
+      instance.calculate
+      expect(instance.lines[:MD502_LINE_10A].value).to eq(200_000)
+    end
+  end
 end

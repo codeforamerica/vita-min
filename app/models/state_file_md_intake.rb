@@ -265,4 +265,5 @@ class StateFileMdIntake < StateFileBaseIntake
   def qualifies_for_pension_exclusion?(filer)
     send("#{filer}_senior?".to_sym) || at_least_one_disabled_filer_with_proof?
   end
+
 end

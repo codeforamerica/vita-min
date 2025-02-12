@@ -69,9 +69,10 @@ module Efile
 
         # Subtractions
         set_line(:MD502_LINE_9, @direct_file_data, :total_qualifying_dependent_care_expenses_or_limit_amt)
-        set_line(:MD502_LINE_10A, :calculate_line_10a) # STUBBED: PLEASE REPLACE, don't forget line_data.yml
         set_line(:MD502_LINE_11, @direct_file_data, :fed_taxable_ssb)
         @md502_su.calculate
+        @md502r.calculate # depends on 502SU
+        set_line(:MD502_LINE_10A, :calculate_line_10a) # depends on 502R
         set_line(:MD502_LINE_13, :calculate_line_13)
         if filing_status_mfj?
           @two_income_subtraction_worksheet.calculate
@@ -119,7 +120,7 @@ module Efile
         set_line(:MD502_LINE_50, :calculate_line_50)
         set_line(:MD502_AUTHORIZE_DIRECT_DEPOSIT, @intake, :bank_authorization_confirmed_yes?)
         @md502cr.calculate
-        @md502r.calculate
+
         @lines.transform_values(&:value)
       end
 
@@ -245,7 +246,9 @@ module Efile
         line_or_zero(:MD502_LINE_1) + line_or_zero(:MD502_LINE_6)
       end
 
-      def calculate_line_10a; end
+      def calculate_line_10a
+        line_or_zero(:MD502R_LINE_11A) + line_or_zero(:MD502R_LINE_11B)
+      end
 
       def calculate_line_13
         @lines[:MD502_SU_LINE_1].value
