@@ -31,7 +31,7 @@ module Hub::StateFile
     def message_params
       intake = get_intake
       state_code = intake.state_code
-      locale = intake.locale || "en"
+      locale = I18n.locale
       submitted_key = intake.efile_submissions.count > 1 ? "resubmitted" : "submitted"
       {
         primary_first_name: intake.primary_first_name,
