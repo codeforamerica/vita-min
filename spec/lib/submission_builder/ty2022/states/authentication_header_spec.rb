@@ -272,6 +272,18 @@ describe SubmissionBuilder::AuthenticationHeader do
           expect(xml.at("FirstInput DepositorAccountNum").text).to eq "222222222"
           expect(xml.at("FirstInput InputTimestamp").text).to eq "2025-02-15T07:00:00-05:00"
         end
+
+        context "with mail selected for their refund" do
+          before do
+            intake.update(payment_or_deposit_type: "mail")
+          end
+
+          it "leaves FirstInput details blank" do
+            expect(xml.at("FirstInput RoutingTransitNum")).to be_nil
+            expect(xml.at("FirstInput DepositorAccountNum")).to be_nil
+            expect(xml.at("FirstInput InputTimestamp")).to be_nil
+          end
+        end
       end
 
       context "owed" do
@@ -281,6 +293,18 @@ describe SubmissionBuilder::AuthenticationHeader do
           expect(xml.at("FirstInput RoutingTransitNum").text).to eq "111111111"
           expect(xml.at("FirstInput DepositorAccountNum").text).to eq "222222222"
           expect(xml.at("FirstInput InputTimestamp").text).to eq "2025-02-15T07:00:00-05:00"
+        end
+
+        context "with mail selected for their refund" do
+          before do
+            intake.update(payment_or_deposit_type: "mail")
+          end
+
+          it "leaves FirstInput details blank" do
+            expect(xml.at("FirstInput RoutingTransitNum")).to be_nil
+            expect(xml.at("FirstInput DepositorAccountNum")).to be_nil
+            expect(xml.at("FirstInput InputTimestamp")).to be_nil
+          end
         end
       end
     end
