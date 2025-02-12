@@ -44,7 +44,7 @@ module DateAccessible
         attr_writer :"#{property}_month", :"#{property}_year", :"#{property}_day"
 
         before_validation do
-          if send(property.to_s).blank? && send("#{property}_year").present? && send("#{property}_month").present? && send("#{property}_day").present?
+          if send("#{property}_year").present? && send("#{property}_month").present? && send("#{property}_day").present?
             send(
               "#{property}=",
               Date.new(
