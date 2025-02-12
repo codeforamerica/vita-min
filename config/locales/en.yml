@@ -2324,7 +2324,7 @@ en:
           district_name: School District Name
           school_name: School Name
           school_name_help_text: Please use the official school name
-          title_html: You might be eligible for the <a href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_guideline-public-school-ECA-tax-credit.pdf" target="_blank">Arizona Public School Credit</a>!
+          title_html: You might be eligible for the <a href="https://azdor.gov/sites/default/files/document/PUBLICATION_2024_ADESchoolListing.pdf" target="_blank">Arizona Public School Credit</a>!
         form:
           donations_this_year: What about donations made in %{current_year}?
           donations_this_year_details_html: |
@@ -2334,7 +2334,7 @@ en:
           made_az322_contributions:
             one: Did you pay any fees or make any qualified cash donation to an Arizona public school in %{year}?
             other: Did you or your spouse pay any fees or make any qualified cash donation to an Arizona public school in %{year}?
-          more_details_html: Visit the <a href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_guideline-public-school-ECA-tax-credit.pdf" target="_blank">Arizona Department of Revenue Guide</a> for more details.
+          more_details_html: Visit the <a href="https://azdor.gov/sites/default/files/document/PUBLICATION_2024_ADESchoolListing.pdf" target="_blank">Arizona Department of Revenue Guide</a> for more details.
           qualifying_list:
           - Extracurricular Activities
           - Character Education
@@ -2346,7 +2346,7 @@ en:
             <br/><br/>
             OR
             <br/><br/>
-            Visit the Arizona Department of Revenue to find the details.
+            Visit the <a href="https://azdor.gov/sites/default/files/document/PUBLICATION_2024_ADESchoolListing.pdf" target="_blank">Arizona Department of Revenue</a> to find the details.
             <br/><br/>
             To avoid any errors, highlight the text in the pdf then copy (Ctrl + C) and paste (Ctrl + V) directly to this page.
           school_details_question: Where can I find the school details?

@@ -2271,7 +2271,7 @@ es:
           district_name: Nombre del distrito escolar
           school_name: Nombre de la escuela
           school_name_help_text: Por favor ingresa el nombre oficial
-          title_html: ¡Podrías ser elegible para el <a href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_guideline-public-school-ECA-tax-credit.pdf" target="_blank">crédito tributario de las escuelas públicas de Arizona! </a>!
+          title_html: ¡Podrías ser elegible para el <a href="https://azdor.gov/sites/default/files/document/PUBLICATION_2024_ADESchoolListing.pdf" target="_blank">crédito tributario de las escuelas públicas de Arizona! </a>!
         form:
           donations_this_year: "¿Qué pasa con las donaciones hechas en %{current_year}?"
           donations_this_year_details_html: |
@@ -2282,7 +2282,7 @@ es:
             many: "¿Pagaste tarifas o hiciste contribuciones en efectivo a una escuela pública en %{year}? No incluyas cantidades reclamadas en la declaración de impuestos del año pasado."
             one: "¿Pagaste tarifas o hiciste contribuciones en efectivo a una escuela pública en %{year}? No incluyas cantidades reclamadas en la declaración de impuestos del año pasado."
             other: "¿Tú o tu cónyuge pagaron alguna tarifa o donaron dinero a una escuela pública de Arizona en  %{year}?"
-          more_details_html: Visita el <a href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_guideline-public-school-ECA-tax-credit.pdf" target="_blank">Departamento de Ingresos de Arizona</a>para más detalles.
+          more_details_html: Visita el <a href="https://azdor.gov/sites/default/files/document/PUBLICATION_2024_ADESchoolListing.pdf" target="_blank">Departamento de Ingresos de Arizona</a>para más detalles.
           qualifying_list:
           - Actividades extracurriculares
           - Educación en valores
@@ -2294,7 +2294,7 @@ es:
             <br/><br/>
             O
             <br/><br/>
-            Visita el Departamento de Ingresos de Arizona para encontrar la información.
+            Visita el <a href="https://azdor.gov/sites/default/files/document/PUBLICATION_2024_ADESchoolListing.pdf" target="_blank">Departamento de Ingresos de Arizona</a> para encontrar la información.
             <br/><br/>
             Para evitar errores, resalte el texto en el PDF, luego cópielo (Ctrl + C) y péguelo (Ctrl + V) directamente en esta página.
           school_details_question: "¿Dónde puedo encontrar la información de la escuela?"
