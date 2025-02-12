@@ -1997,15 +1997,15 @@ es:
           enter_email: Ingresa la dirección de correo electrónico asociada a tu cuenta.
       identification_number:
         edit:
-          error_message: SSN/ITIN incorrecto. Después de 2 intentos fallidos, las cuentas se bloquean.
+          error_message: Por favor ingresa el SSN/ITIN correcto
           help_text: Para mantener segura tu identidad, necesitamos confirmar tu número de Seguro Social.
           ssn_label: Número de Seguro Social (SSN) o Número de Identificación Personal (ITIN)
           title: "¡Encontramos tu cuenta! Por favor confirma tu identidad"
       mailing_address_validation:
         edit:
-          identity_safe: Para mantener tu identidad segura, necesitamos confirmar la dirección en tu declaración de impuestos de 2023.
-          radio_button_title: Selecciona la dirección de correo postal que usaste para tu declaración de impuestos de 2023.
-          title: Confirma tu dirección para acceder a tu declaración de impuestos
+          identity_safe: Para proteger su identidad, necesitamos confirmar la dirección en su declaración de impuestos de 2023.
+          radio_button_title: 'Seleccione la dirección postal para su declaración de impuestos de 2023:'
+          title: Confirme su dirección para acceder a su declaración de impuestos
       pdfs:
         index:
           download: Descargar la declaración de 2023
@@ -2013,14 +2013,15 @@ es:
           title: "¡Tu cuenta fue verificada exitosamente!"
       verification_code:
         edit:
-          error_message: Código incorrecto. Después de 2 intentos fallidos, las cuentas se bloquean.
+          error_message: Por favor ingresa un código válido
           subtitle_2_html: Si aún necesitas ayuda, <a class="open-intercom">chatea con nosotros</a>.
           subtitle_html: Si no recibiste un código por favor revisa tu carpeta de spam.
-          title_html: Te enviamos tu código a <strong>%{email_address}</strong>
+          title_html: Enviamos el código a <strong>%{email_address}</strong>
           verify: Verificar el código
       verification_error:
         az_dor: Departamento de Ingresos de Arizona
         ny_dor: Departamento de Impuestos del Estado de Nueva York
+        return_to_home: Regresar al inicio
         subtitle: Por favor, visita el sitio web de la agencia fiscal de tu estado para solicitar tu declaración de impuestos de %{year}
         title: Lo sentimos, no nos fue posible verificar tu cuenta
     faq:
@@ -2099,9 +2100,9 @@ es:
         body_html: Esta cuenta ha sido bloqueada debido a demasiados intentos fallidos de inicio de sesión. Si necesitas ayuda para desbloquear esta cuenta, por favor envíanos un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
         title: Esta cuenta ha sido bloqueada
       edit:
-        help_text: Para salvaguardar tu identidad, necesitamos confirmar tu número de seguro social para la verificación de identificación.
+        help_text: Para mantener segura tu identidad, necesitamos confirmar tu número de Seguro Social.
         ssn_label: Ingresa tu número de Seguro Social o ITIN. Por ejemplo, 123-45-6789.
-        title: Código verificado. Se necesita autenticación para continuar.
+        title: "¡Encontramos tu cuenta! Por favor confirma tu identidad para terminar de iniciar sesión."
       enter_verification_code:
         code_sent_to_closed_html: Hemos enviado su código a %{contact_info}. Si no recibió un código y necesita ayuda para volver a suscribirse, envíenos un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
         code_sent_to_html: Te enviamos tu código a %{contact_info}. Si no recibiste un código y necesitas ayuda para volver a suscribirte, chatea con nosotros.
@@ -2114,12 +2115,13 @@ es:
       new:
         email_address:
           label: Tu dirección de correo electrónico
-          not_found_html: Lo siento, no tenemos una cuenta registrada con ese correo electrónico. <a href="https://www.fileyourstatetaxes.org/en/us/faq">Haga clic</a> para comenzar con FileYourStateTaxes.
-          title: Inicia sesión con tu dirección de correo electrónico. Para continuar presentando tu declaración de impuestos estatal de manera segura, te enviaremos un código seguro.
+          not_found_html: Lo siento, no tenemos una cuenta registrada para esa dirección de correo electrónico. <a href="https://www.fileyourstatetaxes.org/en/us/faq">Haz clic aquí</a> para comenzar con FileYourStateTaxes.
+          title: Inicia sesión con tu dirección de correo electrónico
         sms_phone_number:
           label: Tu número de teléfono
-          not_found_html: Lo siento, no tenemos una cuenta registrada con ese número de teléfono. <a href="https://www.fileyourstatetaxes.org/en/us/faq">Haga clic</a> para comenzar con FileYourStateTaxes.
-          title: Inicia sesión con tu número de teléfono. Para continuar presentando tu declaración de impuestos estatal de manera segura, te enviaremos un código seguro.
+          not_found_html: Lo sentimos, no tenemos una cuenta registrada para ese número de teléfono. <a href="https://www.fileyourstatetaxes.org/en/us/faq">Haz clic aquí</a> para comenzar con FileYourStateTaxes.
+          title: Inicia sesión con tu número de teléfono
+        to_continue: Para continuar presentando tu declaración de impuestos estatal de manera segura, te enviaremos un código seguro.
       no_match_sms: Alguien intentó iniciar sesión en FileYourStateTaxes con este número de teléfono, pero no pudimos encontrar una coincidencia. ¿Te registraste con otro número de teléfono? También puedes visitar %{url} para comenzar.
     landing_page:
       edit:
@@ -2127,8 +2129,9 @@ es:
         already_started_html: ¿Ya comenzaste a presentar tu declaración de impuestos estatales? <a href="%{sign_in_url}">Inicia sesión</a>.
         az:
           closed_html: |
-            <strong>FileYourStateTaxes</strong> se creó en asociación con el estado de Arizona para integrarse con la herramienta Direct File del IRS.<br /><br />
-            Ya cerramos por esta temporada de impuestos. Desafortunadamente, ya no puedes presentar tu declaración de impuestos estatales con nosotros este año.
+            Ya cerramos por esta temporada de impuestos. <br /><br />
+            <strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el estado de Arizona para integrarse con el servicio Direct File del IRS.<br /><br />
+            Desafortunadamente, ya no puedes presentar tu declaración de impuestos estatales con nosotros este año.
           supported_by: Respaldada por el estado de Arizona
           title: Declara tus impuestos estatales de Arizona sin costo
         built_with_html: "Te tomará alrededor de 10 y 15 minutos completar tu declaración con <strong>FileYourStateTaxes</strong>. \n<br/><br/>\nEste servicio ha sido creado en colaboración con el estado de %{state_name} para conectarse con el servicio Direct File del IRS.\n"
@@ -2145,20 +2148,23 @@ es:
         help_text_title: "¿Qué necesito para completar mi declaración de impuestos estatales?"
         id:
           closed_html: |
+            Ya cerramos por esta temporada de impuestos. <br /><br />
             <strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el estado de Idaho para integrarse con el servicio Direct File del IRS.<br /><br />
-            Ya cerramos por esta temporada de impuestos. Desafortunadamente, ya no puedes presentar tu declaración de impuestos estatales con nosotros este año.
+            Desafortunadamente, ya no puedes presentar tu declaración de impuestos estatales con nosotros este año.
           supported_by: Respaldada por el estado de Idaho
           title: Declara tus impuestos estatales de Idaho sin costo
         md:
           closed_html: |
+            Ya cerramos por esta temporada de impuestos. <br /><br />
             <strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el estado de Maryland para integrarse con el servicio Direct File del IRS.<br /><br />
-            Ya cerramos por esta temporada de impuestos. Desafortunadamente, ya no puedes presentar tu declaración de impuestos estatales con nosotros este año.
+            Desafortunadamente, ya no puedes presentar tu declaración de impuestos estatales con nosotros este año.
           supported_by: Respaldada por el estado de Maryland
           title: Declara tus impuestos estatales de Maryland sin costo
         nc:
           closed_html: |
+            Ya cerramos por esta temporada de impuestos. <br /><br />
             <strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el estado de Carolina del Norte para integrarse con el servicio Direct File del IRS.<br /><br />
-            Ya cerramos por esta temporada de impuestos. Desafortunadamente, ya no puedes presentar tu declaración de impuestos estatales con nosotros este año.
+            Desafortunadamente, ya no puedes presentar tu declaración de impuestos estatales con nosotros este año.
           supported_by: Respaldada por el estado de Carolina del Norte
           title: Declara tus impuestos estatales de Carolina del Norte sin costo
         nj:
@@ -2391,13 +2397,12 @@ es:
           title: Cancelaste la transferencia de tu declaración federal de impuestos.
       code_verified:
         edit:
-          subtitle_email: A partir de ahora, recibirás actualizaciones por correo electrónico cuando tu declaración de impuestos estatales sea aceptada.
-          subtitle_text: A partir de ahora, recibirás actualizaciones por texto cuando tu declaración de impuestos estatales sea aceptada.
+          continue_to_set_up: Continua para terminar de crear tu cuenta.
           title: "¡Código verificado!"
       contact_preference:
         edit:
           email_option: Enviar código por correo electrónico
-          subtitle: Con una cuenta recibirás notificaciones sobre el estado de tu declaración de impuestos estatal.
+          subtitle: Puedes volver a ingresar a tu cuenta en cualquier momento usando el número de teléfono o el correo electrónico que agregues.
           text_message_option: Enviar código por mensaje de texto
           title: Ahora crea tu cuenta con un código rápido
       data_transfer_offboarding:
@@ -2418,29 +2423,29 @@ es:
           title: Has rechazado los términos y condiciones.
       eligibility_offboarding:
         edit:
-          body_html: No puedes usar este servicio este año porque %{ineligible_reason}. <br><br><strong>¿Es un error?</strong> <a href=%{prev_link}>Regresa para corregirlo.</a>
+          body_html: No puedes usar este servicio este año porque <strong>%{ineligible_reason}.</strong> <br><br><strong>¿Es un error?</strong> <a href=%{prev_link}>Regresa para corregirlo.</a>
           ineligible_reason:
             eligibility_529_for_non_qual_expense: retiraste dinero de una cuenta de ahorro universitario 529 y lo utilizaste para un gasto no calificado en el %{filing_year}
-            eligibility_ed_loan_cancelled: se te canceló un préstamo estudiantil deuda bajo la Ley del Plan de Rescate Estadounidense.
-            eligibility_ed_loan_emp_payment: recibiste un Pago de Préstamo Educativo Calificado pagado por tu empleador.
-            eligibility_emergency_rental_assistance: tu recibieron asistencia de alquiler de emergencia en %{filing_year}
-            eligibility_home_different_areas: tú o tu cónyuge tenían hogares permanentes en dos condados, ciudades, pueblos o áreas impositivas diferentes el último día de %{filing_year}
-            eligibility_homebuyer_withdrawal: retiró dinero de una Cuenta de Comprador de Vivienda Por Primera Vez que no se utilizó para comprar una casa en Maryland
+            eligibility_ed_loan_cancelled: se te canceló un préstamo estudiantil deuda bajo la Ley del Plan de Rescate Estadounidens
+            eligibility_ed_loan_emp_payment: recibiste un Pago de Préstamo Educativo Calificado pagado por tu empleador
+            eligibility_emergency_rental_assistance: tú, o tu cónyuge, recibieron asistencia de alquiler de emergencia en %{filing_year}
+            eligibility_home_different_areas: tú y tu cónyuge tenían hogares permanentes en dos condados, ciudades, pueblos o áreas impositivas diferentes el último día de %{filing_year}
+            eligibility_homebuyer_withdrawal: retiró dinero de una cuenta de comprador de vivienda por primera vez que no se utilizó para comprar una casa en Maryland
             eligibility_homebuyer_withdrawal_mfj: tú o tu cónyuge retiraron dinero de una Cuenta de Comprador de Vivienda Por Primera Vez que no se utilizó para comprar una casa en Maryland
             eligibility_lived_in_state: no viviste en %{state} durante todo el %{filing_year}
             eligibility_married_filing_separately: estás presentando una declaración de impuestos "casado, declarando por separado"
             eligibility_out_of_state_income: recibiste ingresos en otro estado en el %{filing_year}
             eligibility_part_year_nyc_resident: fuiste residente a tiempo parcial de la ciudad de Nueva York en el %{filing_year}
-            eligibility_withdrew_529: retiraste dinero de una cuenta de ahorro universitario 529 en %{filing_year}
-            eligibility_withdrew_msa_fthb: tú retiraron dinero de una Cuenta de Comprador de Vivienda Por Primera Vez
+            eligibility_withdrew_529: retiraste dinero de una cuenta de ahorro universitario 529 en el %{filing_year}
+            eligibility_withdrew_msa_fthb: retiraste dinero de tu Cuenta de Ahorros Médicos de Idaho y lo usaste para un gasto no calificado, o retiraste dinero de tu Cuenta de Comprador de Vivienda por Primera Vez y lo usaste para costos de vivienda no elegibles
             eligibility_yonkers: viviste o recibiste ingresos en Yonkers en el %{filing_year}
             health_insurance_eligibility: alguien en tu hogar fiscal no tuvo seguro médico (con cobertura mínima esencial) durante todos los meses de %{filing_year}
             nyc_maintained_home: no viviste en Nueva York durante todo el
-            nyc_residency: viviste o mantuviste una casa en la Ciudad de Nueva York durante parte del año.
-            permanent_address_outside_md: no estabas viviendo en Maryland el 31 de diciembre
+            nyc_residency: viviste o mantuviste una casa en la Ciudad de Nueva York durante parte del año
+            permanent_address_outside_md: no estaban viviendo en Maryland el diciembre 31
             permanent_address_outside_ny: no viviste en Nueva York durante todo el %{filing_year}
           title:
-            default: Desafortunadamente, no puedes usar este servicio este año. No te preocupes, aquí tienes otras opciones de presentación.
+            default: Lamentablemente no puedes utilizar este servicio este año. ¡No te preocupes, tienes otras opciones para presentar tu declaración!
             nj: Desafortunadamente, según la información que tenemos, no puedes usar esta herramienta este año. No te preocupes; hay otras opciones de presentación.
       eligible:
         az_credits_unsupported:
@@ -2484,13 +2489,15 @@ es:
           itemized_deductions: Deducciones detalladas
           long_term_care_insurance_subtraction: Resta del Seguro de Atención a Largo Plazo
           maintaining_elderly_disabled_credit: Crédito por Mantener un Hogar para Personas Mayores o Discapacitadas
+          not_supported_this_year: 'Créditos y deducciones no admitidos este año:'
         id_supported:
-          child_care_deduction: Resta de cuidado de niños y dependientes
+          child_care_deduction: Resta de Idaho por Gastos de Cuidado Niños y Dependientes
           health_insurance_premiums_subtraction: Resta de primas de seguro médico
           id_child_tax_credit: Crédito Tributario de Idaho por Hijos
           id_grocery_credit: Crédito de Idaho por Compras de Alimentos
-          interest_from_obligations: Resta de intereses de obligaciones del gobierno de EE. UU.
-          social_security_retirement_deduction: Deducciones de Seguridad Social y Beneficios de Jubilación
+          interest_from_obligations: Resta de intereses de obligaciones del gobierno de los Estados Unidos
+          retirement_benefits_deduction: Deducciones por Beneficios de Jubilación
+          social_security_retirement_deduction: Deducciones de Seguridad Social y Beneficios de Jubilación Ferroviaria
         md_reveals:
           body1_html: |
             <ul>
@@ -2809,12 +2816,12 @@ es:
         edit:
           emergency_rental_assistance: En %{filing_year}, ¿Tú, o tu cónyuge si están declarando juntos, recibieron asistencia de emergencia para el pago de alquiler?
           emergency_rental_assistance_explanation: El programa de Asistencia de Emergencia para el Pago de Alquiler (ERA, por sus siglas en inglés) es un programa federal que da dinero para ayudar a los hogares a pagar el alquiler y las facturas de servicios públicos. Se creó en respuesta a la pandemia de Covid-19.
-          subtitle_1: Para esta temporada de impuestos, este servicio sólo estará disponible para personas con situaciones fiscales específicas. Para saber si puedes usarlo responde las siguientes preguntas.
-          title: Primero, veamos si puedes usar este servicio para declarar tus impuestos de Idaho de %{filing_year}
+          subtitle_1: Para esta temporada de impuestos, este servicio sólo estará disponible para personas con situaciones fiscales específicas. Para saber si puedes usar el servicio responde las siguientes preguntas.
+          title: Primero, veamos si puedes usar este servicio para declarar tus impuestos del %{filing_year} de Idaho
           withdrew_msa_fthb: En %{filing_year}, ¿retiró usted (o su cónyuge si presentan juntos) dinero de alguno de los siguientes?
           withdrew_msa_fthb_list:
-            bullet_1_html: Retiraste dinero de nuestra Cuenta de Ahorros Médicos de Idaho y lo usaste para <a href="%{link}" target="_blank" rel="noopener noreferrer">un gasto no calificado</a>.
-            bullet_2_html: Retiraste dinero de nuestra Cuenta de Comprador de Vivienda por Primera Vez y lo usaste para <a href="%{link}" target="_blank" rel="noopener noreferrer">costos de vivienda no elegibles</a>.
+            bullet_1_html: Retiraste dinero de tu Cuenta de Ahorros Médicos de Idaho y lo usaste para un <a href="%{link}" target="_blank" rel="noopener noreferrer">gasto no calificado</a>.
+            bullet_2_html: Retiraste dinero tu Cuenta de Comprador de Vivienda por Primera Vez y lo usaste para un <a href="%{link}" target="_blank" rel="noopener noreferrer">gasto no calificado</a>.
       id_grocery_credit:
         edit:
           answers_confidential_html: Tus respuestas son privadas y se utilizan sólo para determinar si calificas para el crédito fiscal.
@@ -2826,7 +2833,7 @@ es:
             one: Para ver si usted califica, necesitamos más información sobre usted.
             other: Para ver si calificas, necesitamos más información sobre ti y tu hogar.
           select_household_members: 'Selecciona a las personas de tu hogar para quienes aplican estas situaciones en %{tax_year}:'
-          situation_incarceration: Estar encarcelado
+          situation_incarceration: Estuvo encarcelado
           situation_snap: Recibir cupones de alimentos / SNAP-EBT
           situation_undocumented: Vivir en los Estados Unidos sin documentación
           situations_question:
@@ -2846,13 +2853,15 @@ es:
           you_example_months: Por ejemplo, si tuviste 2 situaciones en abril, eso cuenta como 1 mes.
       id_grocery_credit_review:
         edit:
+          body_p1: Esta cantidad de crédito será parte de tus cálculos fiscales finales. Si se te debe un reembolso de impuestos estatales, la cantidad del crédito aumentará tu reembolso final. Si debes impuestos, el crédito reducirá la cantidad que debes.
+          body_p2: Puedes revisar la cantidad  total de tu reembolso estatal de Idaho al final.
           donate_impact_content_p1: Tu decisión de donar es final una vez que envíes tu declaración de impuestos y no puede ser cambiada a través de una declaración enmendada.
           donate_impact_content_p2: El Fondo de Bienestar Cooperativo es un fondo fiduciario en el tesoro estatal y todo el dinero se destina a la asistencia pública y a fines de bienestar.
           donate_impact_heading: "¿Cómo afectará la donación de mi crédito a mi declaración de impuestos?"
           donate_warning_p1: Tu donación se deducirá del total de tu reembolso estatal.
           donate_warning_p2: Tu decisión de donar es definitiva y no se puede cambiar mediante una declaración enmendada.
-          title: "¡Recibirás $%{grocery_credit_amount} del crédito por compras de alimentos de Idaho!"
-          title_html: "¡Recibirás <strong>$%{grocery_credit_amount}</strong> del crédito por compras de alimentos de Idaho!"
+          title: Eres elegible para recibir $%{grocery_credit_amount} del crédito por compras de alimentos de Idaho!
+          title_html: Eres elegible para recibir <strong>$%{grocery_credit_amount}</strong> del crédito por compras de alimentos de Idaho!"
           would_you_like_to_donate: "¿Te gustaría donar tu crédito completo al Fondo de Bienestar Cooperativo?"
       id_health_insurance_premium:
         edit:
@@ -2875,7 +2884,7 @@ es:
             <br/><br/>
             Si tienes Medicare, puedes deducir Medicare A (si estás inscrito voluntariamente y no estás cubierto por el Seguro Social), así como Medicare B y D si estás inscrito voluntariamente. Medicare Advantage también califica.
           qualifications_title: "¿Qué primas de cobertura de salud califican?"
-          qualifying_amount_help_text: Ingresa la cantidad total de las primas de seguro de salud que califican que tu hogar pagó en %{year}
+          qualifying_amount_help_text_html: Ingresa la <strong>cantidad total</strong> de las primas de seguro de salud que califican que tu hogar pagó en %{year}
           subtitle:
             many: Para ver si califica, necesitamos más información sobre usted y su hogar.
             one: Para ver si califica, necesitamos más información sobre usted.
@@ -2894,8 +2903,8 @@ es:
       id_permanent_building_fund:
         edit:
           receive_public_assistance_explanation: Los pagos de asistencia pública no incluyen cupones de alimentos ni pagos de WIC.
-          receive_public_assistance_single: "¿Recibiste tú pagos de asistencia pública de Idaho al final del año fiscal?"
-          receive_public_assistance_spouse: "¿Recibiste tú o tu cónyuge recibieron pagos de asistencia pública de Idaho al final del año fiscal?"
+          receive_public_assistance_single: "¿Tú estaban recibiendo pagos de asistencia pública de Idaho al final del año fiscal?"
+          receive_public_assistance_spouse: "¿Tú o tu cónyuge estaban recibiendo pagos de asistencia pública de Idaho al final del año fiscal?"
           title: "¡Podrías ser elegible para una excepción al Impuesto del Fondo Permanente para Edificios!"
       id_primary_state_id:
         id_primary:
@@ -2919,12 +2928,14 @@ es:
           sales_tax_content: 'Impuesto sobre ventas: Este es un impuesto recaudado en el punto de venta cuando compras bienes dentro de tu estado.'
           sales_tax_title: "¿Qué son los impuestos sobre ventas?"
           sales_use_tax_helper_text: Ingrese el monto total
-          subtitle_html: Esto incluye compras en línea donde <strong>no</strong> se aplicó el impuesto sobre ventas.
+          subtitle_html: Esto incluye compras en línea donde <strong>no</strong> se aplicó el impuesto sobre ventas. Si hiciste alguna compra sin pagar impuestos sobre la venta, puede que debas el impuesto sobre el uso de esas compras. Te ayudaremos a saber la cantidad exacta.
           title:
             many: "¿Tú o tu cónyuge hiciste alguna compra fuera del estado en %{year} sin pagar impuestos sobre ventas?"
             one: "¿Hiciste alguna compra fuera del estado en %{year} sin pagar impuestos sobre ventas?"
             other: "¿Tú o tu cónyuge hiciste alguna compra fuera del estado en %{year} sin pagar impuestos sobre ventas?"
-          unpaid_sales_use_tax_label_html: Ingrese el <b>cantidad total de compras</b> a las que no se les aplicaron impuestos sobre las ventas o el uso.
+          unpaid_sales_use_tax_label_html: Ingresa la <strong>cantidad total de compras</strong> a las que no se les aplicaron impuestos sobre las ventas o el uso %{year}.
+          use_tax_content: Si compras algo de otro estado (como compras en línea o en una tienda ubicada en otro estado) y no pagas el impuesto sobre ventas, generalmente se requiere que pagues el impuesto sobre uso a tu estado de residencia.
+          use_tax_title: "¿Qué son los impuestos sobre uso?"
       id_spouse_state_id:
         id_spouse:
           encourage_sharing_html: Si tú y tu cónyuge tienen una licencia de conducir o una tarjeta de identificación emitida por el estado, por favor comparte la información que solicitamos de la misma. La declaración no será rechazada si no compartes una licencia de conducir o una identificación emitida por el estado.<br><br>Si compartes esta información, puede ayudar a que te identifiquen como el contribuyente.
@@ -2986,8 +2997,8 @@ es:
           permanent_home_copy: No puedes usar este servicio si tú y tu cónyuge viven en diferentes condados, ciudades, pueblos o áreas fiscales, y no es una situación temporal.
           permanent_home_copy2: Si dejas tu hogar permanente para trabajar o cuidar a alguien, pero planeas regresar, tu hogar permanente no ha cambiado. Se considera que tú y tu cónyuge viven en diferentes condados, ciudades, pueblos o áreas fiscales sólo si están quedándose en estos hogares separados y no es temporal.
           permanent_home_heading: "¿Qué es un hogar permanente?"
-          subtitle: Para la temporada de %{year}, este servicio sólo estará disponible para personas con situaciones fiscales específicas. Para saber si puedes usarlo, responde las siguientes preguntas.
-          title: Primero, veamos si puedes usar este servicio para declarar tus impuestos de Maryland de %{year}
+          subtitle: Para la temporada de %{year}, este servicio sólo estará disponible para personas con situaciones fiscales específicas. Para saber si puedes usar el servico responde las siguientes preguntas.
+          title: Primero, veamos si puedes usar este servicio para declarar tus impuestos del %{year} de Maryland
       md_had_health_insurance:
         edit:
           authorize_follow_up: Si respondes que sí, compartiremos tu información y la dirección de correo electrónico registrada con Maryland Health Connection.
@@ -3145,7 +3156,7 @@ es:
           none: Ninguna de estas opciones aplica
           question: "¿Alguna de las siguientes situaciones menos comunes aplicó en tu caso (o el de tu cónyuge, si casado presentando conjunta) en %{filing_year}?"
           subtitle: Para esta temporada de impuestos, este servicio sólo estará disponible para personas con situaciones fiscales específicas. Para saber si puedes usar el servicio responde las siguientes preguntas.
-          title: Primero, veamos si puedes usar este servicio para declarar tus impuestos de Carolina del Norte de %{filing_year}
+          title: Primero, veamos si puedes usar este servicio para declarar tus impuestos del %{filing_year} de Carolina del Norte
       nc_primary_state_id:
         nc_primary:
           encourage_sharing: Aunque se recomienda compartir esta información, no es un requisito para presentar tus impuestos en Carolina del Norte.
@@ -3247,7 +3258,7 @@ es:
           bank_title: 'Por favor, comparte los detalles de tu cuenta bancaria:'
           confirm_account_number: Confirma el número de cuenta
           confirm_routing_number: Confirma el número de ruta bancaria (routing number)
-          date_withdraw_text: "¿Cuándo te gustaría que se retiren los fondos de tu cuenta? (debe ser antes o en el día del %{withdrawal_deadline_date}, %{with_drawal_deadline_year}):"
+          date_withdraw_text: "¿Cuándo te gustaría que se retiren los fondos de tu cuenta? (debe ser antes o en el día del %{withdrawal_deadline_date} de %{with_drawal_deadline_year}):"
           foreign_accounts_owed: No están permitidos los depósitos directos internacionales.
           foreign_accounts_refund: No están permitidos los depósitos directos internacionales.
           routing_number: Número de ruta bancaria (routing number)
@@ -3469,6 +3480,21 @@ es:
           no_id: No tiene licencia de conducir ni identificación estatal/ Prefiere no compartirla
           subtitle: Si tienes una identificación emitida por el estado (state-issued ID), ayudará a New Jersey a combatir el fraude fiscal por robo de identidad y a protegerte a ti y a tu reembolso de impuestos.
           title: Confirma tu Identidad (Opcional)
+      nj_retirement_income_source:
+        edit:
+          doc_1099r_label: '1099-R:'
+          helper_description_html: |
+            <p>U.S. military pensions result from service in the Army, Navy, Air Force, Marine Corps, or Coast Guard. Generally, qualifying military pensions and military survivor's benefit payments are paid by the U.S. Defense Finance and Accounting Service.</p>
+            <p>Civil service pensions and annuities do not count as military pensions, even if they are based on credit for military service. Generally, civil service annuities are paid by the U.S. Office of Personnel Management.</p>
+          helper_heading: What counts as a U.S. military pension?
+          label: 'Select the source of this income:'
+          option_military_pension: U.S. military pension
+          option_military_survivor_benefit: U.S. military survivor's benefits
+          option_none: None of these apply (Choose this if you have a civil service pension or annuity)
+          subtitle: We need more information about this 1099-R.
+          taxable_amount_label: 'Taxable Amount:'
+          taxpayer_name_label: 'Taxpayer Name:'
+          title: Some of your retirement income might not be taxed in New Jersey.
       nj_review:
         edit:
           amount_calculated: Monto calculado
@@ -3495,6 +3521,14 @@ es:
           property_tax_credit_deduction: Deducción o Crédito por Impuestos a la Propiedad
           property_tax_paid: Impuestos sobre la propiedad pagados en %{filing_year}
           rent_paid: Alquiler pagado en %{filing_year}
+          retirement_income_source: 1099-R Retirement Income Source
+          retirement_income_source_doc_1099r_label: '1099-R:'
+          retirement_income_source_label: 'Source:'
+          retirement_income_source_military_pension: U.S. military pension
+          retirement_income_source_military_survivor_benefit: U.S. military survivor's benefits
+          retirement_income_source_none: Neither U.S. military pension nor U.S. military survivor's benefits
+          retirement_income_source_taxable_amount_label: 'Taxable Amount:'
+          retirement_income_source_taxpayer_name_label: 'Taxpayer Name:'
           reveal:
             15_wages_salaries_tips: Salarios, sueldos, propinas
             16a_interest_income: Ingreso total
@@ -3602,13 +3636,13 @@ es:
           message_body_one: No compartiremos tu información con terceros. La frecuencia de los mensajes puede variar. Puede que apliquen tarifas por mensajes y datos.
           message_body_two_html: Envía un mensaje de texto con la palabra HELP al 46207 para obtener ayuda. Envía un mensaje de texto con la palabra STOP al 46207 para no recibir más mensajes. Los proveedores de telefonía móvil (por ejemplo, AT&T, Verizon, T-Mobile, Sprint, etc.) no son responsables de mensajes no entregados o retrasados. Consulta nuestros <a target="_blank" href=%{sms_terms_link}>Términos y condiciones de SMS</a> y <a target="_blank" href=%{privacy_link}>Política de privacidad</a>.
           message_title: Detalles de mensajería
-          opt_in_label: Por favor, selecciona la(s) opción(es) que mejor te funcione(n).
+          opt_in_label: 'Selecciona cómo te gustaría recibir notificaciones:'
           phone_number: Tu número de teléfono
           phone_number_help_text: Ingresa números únicamente
           provided_contact: Te enviaremos actualizaciones sobre tu declaración de impuestos a %{contact_info}.
           sms_notification_opt_in: Mensaje de texto
-          subtitle: Necesitaremos comunicarnos contigo en caso de que tengamos preguntas o información actualizada.
-          title: "¿Cuál es la mejor manera de contactarte?"
+          subtitle: Nos pondremos en contacto contigo con preguntas y actualizaciones sobre el estado de tu declaración de impuestos.
+          title: "¿Cómo quieres recibir las actualizaciones de tu declaración de impuestos?"
         form:
           at_least_one: Se requiere al menos una preferencia de notificación
       ny_county:
@@ -3742,6 +3776,9 @@ es:
         edit:
           action: Enviar el código
           helper_text: Ingresa sólo números
+          message_body_one: No compartiremos tu información con terceros. La frecuencia de los mensajes puede variar. Puede que apliquen tarifas por mensajes y datos.
+          message_body_two_html: Envía un mensaje de texto con la palabra HELP al 46207 para obtener ayuda. Envía un mensaje de texto con la palabra STOP al 46207 para no recibir más mensajes. Los proveedores de telefonía móvil (por ejemplo, AT&T, Verizon, T-Mobile, Sprint, etc.) no son responsables de mensajes no entregados o retrasados. Consulta nuestros <a target="_blank" href=%{sms_terms_link}>Términos y condiciones de SMS</a> y <a target="_blank" href=%{privacy_link}>Política de privacidad</a>.
+          messaging_details: Detalles de mensajería
           phone_number_label: Tu número de teléfono
           subtitle_html: Para crear una cuenta nueva, ingresa un número de teléfono que aún no esté en uso.<br><br>Utiliza un número de teléfono al que puedas acceder.
           title: Ingresa tu número de teléfono
@@ -3782,7 +3819,7 @@ es:
           direct_debit_html: Si tienes un saldo de impuestos pendiente, recuerda <strong>pagarlo en línea en <a target="_blank" rel="noopener nofollow" href="%{tax_payment_info_url}">%{tax_payment_info_text}</a></strong> o por correo antes de la fecha límite de declaración que es el 15 de abril.
           download_voucher: Descarga e imprime el formulario de comprobante de pago completado.
           feedback: Valoramos sus comentarios; háganos saber lo que piensa de esta herramienta.
-          include_payment: Completa el formulario de comprobante de pago.
+          include_payment: Completa el formulario de comprobante de pago
           mail_voucher_and_payment: 'Envía el formulario de comprobante de pago y tu pago por correo postal a:'
           md:
             refund_details_html: |
@@ -3896,7 +3933,7 @@ es:
           bank_title: 'Comparte los detalles de tu cuenta bancaria:'
           confirm_account_number: Confirma el número de cuenta
           confirm_routing_number: Confirma el número de ruta bancaria (routing number)
-          date_withdraw_text: "¿Cuándo te gustaría que se retiren los fondos de tu cuenta?  (debe ser antes o en %{withdrawal_deadline_date} de %{with_drawal_deadline_year}):"
+          date_withdraw_text: "¿Cuándo te gustaría que se retiren los fondos de tu cuenta?  (debe ser antes o en el día del %{withdrawal_deadline_date} de %{with_drawal_deadline_year}):"
           foreign_accounts: No se aceptan cuentas extranjeras
           routing_number: Número de ruta bancaria (routing number)
           withdraw_amount: "¿Cuánto autorizas sea retirado de tu cuenta? (La cantidad total que debes es: %{owed_amount}.)"
@@ -4037,7 +4074,7 @@ es:
       verification_code:
         edit:
           action: " Verificar el código"
-          subtitle_html: Si no recibiste un código por favor revisa tu carpeta de spam. Si aún necesitas ayuda, <a class="open-intercom">chatea con nosotros</a>.
+          subtitle_html: Si no recibiste un código, <a class="open-intercom">por favor chatea con nosotros</a>.
           title_html: Te enviamos tu código a <strong>%{contact_info}</strong>
           verification_code_label: Ingresa el código de 6 dígitos
       w2:
@@ -4096,7 +4133,7 @@ es:
         faq_prior_year_returns: Visita nuestra sección de preguntas frecuentes si tienes dudas sobre declaraciones de años anteriores.
         header: Un servicio sin costo para declarar los impuestos estatales para las personas que usaron IRS Direct File
         helper_heading_html: "<strong>¿Cómo funciona este servicio?</strong>"
-        looking_for_return_html: "<strong>¿Necesitas tu declaración de impuestos de Arizona o Nueva York de 2023?</strong>"
+        looking_for_return_html: "<strong>¿Necesitas tu declaración de impuestos de Arizona o Nueva York de 2023?</strong> Puedes iniciar sesión para descargar una copia de tu declaración estatal hasta el 31 de diciembre de 2024."
         section1_html: |
           <ol class="list--numbered" style="padding-left: 2rem">
             <li>Primero, presenta y envía tu declaración federal con el servicio <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">Direct File del IRS</a> antes de usar este servicio.</li>
@@ -4115,10 +4152,9 @@ es:
           <br /><br />
           <strong>En 2025, este servicio funcionará para presentar los impuestos estatales en Arizona, Idaho, Carolina del Norte, New Jersey y Maryland.</strong>
         subheader_2_html: Para declarar tus declaración de impuestos federales, visita <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">directfile.irs.gov.</a>
-        subheader_3_html: "<strong>¿Ya presentaste tu declaración federal con IRS Direct File y necesitas completar tu declaración estatal?</strong> <a href=%{login_path}>Inicia sesión aquí</a>."
-        tax_return_link: Haga clic aquí para obtener tus declaraciones de impuestos
+        subheader_3_html: "<strong>¿Ya comenzaste declaración de impuestos estatales y quieres completarla?</strong> <a href=%{login_path}>Inicia sesión aquí</a>."
       card_postscript:
-        responses_saved_html: Tus respuestas fueron guardadas. Si necesitas hacer una pausa, puedes regresar e iniciar sesión en tu cuenta en <a href="https://fileyourstatetaxes.org">fileyourstatetaxes.org</a>.
+        responses_saved_html: Tus respuestas fueron guardadas. Puedes regresar e iniciar sesión en tu cuenta en <a href="https://fileyourstatetaxes.org">fileyourstatetaxes.org</a> en cualquier momento.
       coming_soon:
         title: Próximamente
       data_import_failed:
@@ -4171,13 +4207,13 @@ es:
         how_we_collect_your_info_item_2: Nos comparten documentos para usar nuestros servicios
         how_we_collect_your_info_item_3: Se comunican con nosotros (por ejemplo, a través de correo electrónico, chat, redes sociales o de otra manera)
         independent_recourse_body_html: 'Si tienes una inquietud no resuelta sobre privacidad o uso de datos que no hayamos respondido satisfactoriamente, comunícate con nuestro proveedor de resolución de disputas de terceros con sede en EE. UU. (sin costo) usando este formulario, disponible en inglés: <a href="https://feedback-form.truste.com/watchdog/request">https://feedback-form.truste.com/watchdog/request</a>.'
-        independent_recourse_header: Mecanismo de Recurso Independiente
+        independent_recourse_header: Cómo apelar una decisión
         info_collect_1_html: 'No vendemos tu información personal. No compartimos tu información personal con ningún tercero, excepto según se establece en esta Política de Privacidad y de conformidad con el <a href="https://www.law.cornell.edu/cfr/text/26/301.7216-2" target="_blank" rel="noopener nofollow">26 CFR 301.7216-2.</a> De conformidad con la regulación, podemos usar o divulgar tu información en los siguientes casos:'
         info_collect_item_1: Para análisis e informes, es posible que compartamos información agregada limitada con agencias gubernamentales u otros terceros, incluido el IRS o los departamentos estatales de ingresos, para analizar el uso de nuestros servicios, con el fin de mejorar y ampliar nuestros servicios. Dicho análisis siempre se realiza usando datos anonimados, y la información nunca se divulga en conjuntos menores a diez declaraciones.
         info_collect_item_2: 'Para investigación que buscan mejorar nuestros productos de declaración de impuestos, incluido:'
         info_collect_item_2_1: Para invitarte a completar cuestionarios sobre tu experiencia usando nuestro servicio.
-        info_collect_item_2_2: Para enviarte oportunidades para participar en sesiones pagas de investigación de usuarios pagadas, para aprender más sobre tu experiencia usando nuestro servicio y para orientar el desarrollo de futuros productos sin costo de declaración de impuestos.
-        info_collect_item_3_html: "<em>Solo para usuarios de Arizona de FileYourStateTaxes:</em> Para notificarte sobre la disponibilidad de servicios gratuitos de declaración de impuestos en el futuro."
+        info_collect_item_2_2: Para enviarte oportunidades para participar en sesiones pagas de investigación de usuarios, para aprender más sobre tu experiencia usando nuestro servicio y para orientar el desarrollo de futuros productos sin costo de declaración de impuestos.
+        info_collect_item_3_html: Para notificarte sobre la disponibilidad de servicios gratuitos de declaración de impuestos en el futuro.
         info_collect_item_4: Si es necesario, es posible que divulguemos tu información a contratistas que nos ayuden a brindar nuestros servicios. Exigimos que nuestros terceros que actúan en nuestro nombre mantengan segura tu información personal y no permitimos que estos terceros utilicen o compartan tu información personal para ningún otro fin que no sea brindar servicios en nuestro nombre.
         info_collect_item_5: 'Cumplimiento legal: En ciertas situaciones, es posible que se nos requiera compartir datos personales en respuesta a solicitudes legítimas de autoridades públicas, incluyendo para cumplir con requisitos de seguridad nacional o de aplicación de la ley. También puede que compartamos tu información personal según lo exigido por la ley, como para cumplir con una citación u otro proceso legal, cuando creamos de buena fe que la divulgación es necesaria para proteger nuestros derechos, proteger tu seguridad o la seguridad de otros, investigar fraudes o responder a una solicitud gubernamental.'
         info_we_collect_1: 'Seguimos el principio de Minimización de Datos en la recolección y uso de tu información personal. Puede que obtengamos la siguiente información sobre ti, tus dependientes o miembros de tu hogar:'
@@ -4200,9 +4236,9 @@ es:
         postal_mail_item_1_html: Ponte en contacto con nosotros enviando un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a> y solicitando que te excluyan de los correos electrónicos de actualización de FileYourStateTaxes
         postal_mail_item_2: Sigue las instrucciones para darte de baja que compartimos en correos electrónicos o correo postal.
         protect_info_1: Proteger tu información personal es extremadamente importante para nosotros, por lo que tomamos precauciones administrativas, técnicas y físicas razonables para proteger tu información tanto en línea como fuera de línea. Sin embargo, ningún sistema puede garantizar su seguridad al 100%.
-        protect_info_2: Sin embargo, ningún sistema puede garantizar su seguridad al 100%.
-        protect_info_3_html: 'Para usuarios de Arizona FileYourStateTaxes: En caso de violación del sistema de seguridad, se te notificará de acuerdo con <a href="https://www.azleg.gov/ars/18/00552.htm">ARS 18-552</a>.'
-        protect_info_4: Si tienes preguntas sobre la seguridad de tu información personal, o si tienes motivos para creer que la información personal que tenemos sobre ti ya no es segura, contáctanos de inmediato un correo electrónico a help@fileyourstatetaxes.org.
+        protect_info_2: Sin embargo, ningún sistema puede garantizarse al 100% seguro.
+        protect_info_3_html: En caso de una violación del sistema de seguridad, se te notificará de acuerdo con las leyes estatales aplicables sobre notificaciones de violaciones de seguridad.
+        protect_info_4: Si tienes preguntas sobre la seguridad de tu información personal, o si tienes motivos para creer que la información personal que tenemos sobre ti ya no es segura, contáctanos de inmediato un correo electrónico a help@fileyourstatetaxes.org para obtener información adicional.
         protect_info_header: Cómo protegemos tu información
         questions_1_html: 'Si tienes alguna pregunta, comentario, inquietud o queja sobre el Sitio, contáctanos por correo electrónico en <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a> o por correo postal a:'
         questions_2: Haremos todo lo posible para resolver el problema.
@@ -5613,7 +5649,7 @@ es:
         32_sms: Mensajes SMS operativos (texto)
         33_sms_details_html: Puede darse de baja de los mensajes transaccionales enviando un mensaje de texto de STOP al 58750 en cualquier momento. Cuando recibamos su solicitud de cancelación, le enviaremos un último mensaje de texto para confirmar su cancelación. Consulte las <a href="https://www.getyourrefund.org/sms-terms" rel="noopener nofollow" target="_blank">condiciones de GetYourRefund</a> para obtener más detalles e instrucciones para darse de baja de estos servicios. Los datos obtenidos a través del programa de códigos cortos no se compartirán con terceros para sus fines de marketing.
         34_analytics: Analítica
-        35_analytics_details_html: Utilizamos MixPanel y Google Analytics para entender cómo los visitantes utilizan nuestro sitio y para recopilar métricas de rendimiento agregadas. Para obtener más información sobre las prácticas de privacidad de MixPanel y las opciones de exclusión que ofrece, haga clic en <a href="https://mixpanel.com/legal/privacy-policy/" rel="noopener nofollow" target="_blank">HERE</a>. Para obtener más información sobre las prácticas de privacidad de Google Analytics y las opciones de exclusión que ofrece, haga clic en <a href="https://policies.google.com/privacy?hl=en-US" rel="noopener nofollow" target="_blank">HERE</a>. También puede enviar un correo electrónico a %{email_link} para obtener más información.
+        35_analytics_details_html: Utilizamos MixPanel y Google Analytics para entender cómo los visitantes utilizan nuestro sitio y para recopilar métricas de rendimiento agregadas. Para obtener más información sobre las prácticas de privacidad de MixPanel y las opciones de exclusión que ofrece, haga clic en <a href="https://mixpanel.com/legal/privacy-policy/" rel="noopener nofollow" target="_blank">AQUÍ</a>. Para obtener más información sobre las prácticas de privacidad de Google Analytics y las opciones de exclusión que ofrece, haga clic en <a href="https://policies.google.com/privacy?hl=en-US" rel="noopener nofollow" target="_blank">AQUÍ</a>. También puede enviar un correo electrónico a %{email_link} para obtener información adicional.
         36_additional_services: Servicios y Recursos Adicionales
         37_additional_services_details: Puede ser que le proporcionemos enlaces adicionales a recursos que consideramos que le serán útiles. Estos enlaces pueden llevarlo a sitios que están afiliados con nosotros que pudieran operar bajo diferentes prácticas de privacidad. No somos responsables del contenido ni de las prácticas de dichos sitios. Animamos a nuestros visitantes y usuarios a estar atentos cuando salgan de nuestro sitio y de leer las declaraciones de privacidad de cualquier otro sitio, ya que no controlamos la manera en la cual los demás sitios recopilan información personal.
         38_how_we_protect: Cómo protegemos su información
@@ -5628,9 +5664,9 @@ es:
         43_children_details: No recopilamos información personal de forma intencionada de menores de 16 años no emancipados.
         44_changes: Cambios
         45_changes_summary: Es posible que modifiquemos esta Política de Privacidad de vez en cuando. Por favor, revise esta página con frecuencia para ver si hay actualizaciones, ya que su uso continuado de nuestros Servicios después de cualquier cambio en esta Política de Privacidad constituirá su aceptación de los cambios. En el caso de cambios sustanciales, se lo notificaremos por correo electrónico o por otros medios compatibles con la legislación aplicable.
-        46_access_request: Solicitud de Acceso
+        46_access_request: Tus derechos
         47_access_request_list_html:
-        - GetCTC.org respeta el control que usted ejerce sobre su información y, si lo solicita, le confirmaremos si tenemos o estamos procesando la información que hemos recopilado de usted. También tiene derecho a modificar o corregir la información personal inexacta o incompleta, a solicitar la eliminación de su información personal o a pedir que dejemos de utilizarla. En determinadas circunstancias no podremos atender su solicitud, como por ejemplo si interfiere con nuestras obligaciones reglamentarias, afecta a asuntos legales, no podemos verificar su identidad o supone un costo o esfuerzo desproporcionado, pero en cualquier caso responderemos a su solicitud en un plazo razonable y le daremos una explicación. Para hacernos una solicitud de este tipo, envíenos un correo electrónico a %{email_link}.
+        - GetCTC.org respeta el control que usted ejerce sobre su información y, si lo solicita, le confirmaremos si tenemos o estamos procesando la información que hemos recopilado de usted. También tiene derecho a modificar o corregir la información personal inexacta o incompleta, solicitar una copia portable o la eliminación de su información personal o a pedir que dejemos de utilizarla. En determinadas circunstancias no podremos atender su solicitud, como por ejemplo si interfiere con nuestras obligaciones reglamentarias, afecta a asuntos legales, no podemos verificar su identidad o supone un costo o esfuerzo desproporcionado, pero en cualquier caso responderemos a su solicitud en un plazo razonable y le daremos una explicación. Para hacernos una solicitud de este tipo, envíenos un correo electrónico a %{email_link}.
         - Favor de tener en cuenta que, en el caso de la información personal sobre usted que hayamos obtenido o recibido para su utilización en nombre de una entidad independiente y no afiliada, que haya determinado los medios y los fines del tratamiento, todas las solicitudes de este tipo deberán dirigirse directamente a dicha entidad. Respetaremos y apoyaremos cualquier instrucción que nos proporcionen con respecto a su información personal.
         47_effective_date: Fecha de vigencia
         48_effective_date_info: Esta versión de la política entrará en vigor a partir del 22 de octubre de 2021.

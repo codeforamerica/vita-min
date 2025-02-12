@@ -2,6 +2,10 @@
   <li><%= t(".child_care_deduction") %></li>
   <li><%= t(".interest_from_obligations") %></li>
   <li><%= t(".social_security_retirement_deduction") %></li>
+
+  <% if Flipper.enabled?(:show_retirement_ui) %>
+    <li><%= t(".retirement_benefits_deduction") %></li>
+  <% end %>
   <li><%= t(".health_insurance_premiums_subtraction") %></li>
   <li><%= t(".id_child_tax_credit") %></li>
   <li><a href=" https://tax.idaho.gov/taxes/income-tax/individual-income/popular-credits-and-deductions/idaho-grocery-credit" target="_blank" rel="noopener nofollow"><%= t(".id_grocery_credit") %></a></li>

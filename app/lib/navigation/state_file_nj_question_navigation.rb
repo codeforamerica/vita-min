@@ -43,6 +43,7 @@ module Navigation
                                           Navigation::NavigationStep.new(StateFile::Questions::NjDependentsHealthInsuranceController), # Line 14
                                       ]),
       Navigation::NavigationSection.new("state_file.navigation.nj.section_3", [
+                                          Navigation::NavigationStep.new(StateFile::Questions::NjRetirementIncomeSourceController),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjMedicalExpensesController), # Line 31
                                           Navigation::NavigationStep.new(StateFile::Questions::NjEitcQualifyingChildController), # Line 58, intentionally moved up to be in the context of other credits and deductions, and to ensure there is a consistent page after the property taxes section.
                                           Navigation::NavigationStep.new(StateFile::Questions::NjHouseholdRentOwnController), # Line 40b

@@ -5,6 +5,9 @@
 <% content_for :card do %>
   <h1 class="h2"><%= t('.title_html', grocery_credit_amount: grocery_credit_amount) %></h1>
 
+  <p><%= t('.body_p1') %></p>
+  <p><%= t('.body_p2') %></p>
+
   <%= form_with model: @form, url: { action: :update }, method: :put, local: true, builder: VitaMinFormBuilder, class: 'form-card' do |f| %>
     <div class="white-group">
       <p class="spacing-below-0"><%= t(".would_you_like_to_donate") %></p>
