@@ -3553,6 +3553,7 @@ es:
           reveal:
             15_wages_salaries_tips: Salarios, sueldos, propinas
             16a_interest_income: Ingreso total
+            20a_retirement_income: Retirement income
             27_total_income: Ingreso total
             29_nj_gross_income: Ingreso Bruto de New Jersey
             30_exemptions: Exenciones (según el tamaño de tu familia, estado de discapacidad, estado de veterano/a de guerra)

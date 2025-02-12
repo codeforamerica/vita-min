@@ -38,6 +38,7 @@ module Efile
         set_line(:NJ1040_LINE_15, :calculate_line_15)
         set_line(:NJ1040_LINE_16A, :calculate_line_16a)
         set_line(:NJ1040_LINE_16B, :calculate_line_16b)
+        set_line(:NJ1040_LINE_20A, :calculate_line_20a)
         set_line(:NJ1040_LINE_27, :calculate_line_27)
         set_line(:NJ1040_LINE_29, :calculate_line_29)
         set_line(:NJ1040_LINE_31, :calculate_line_31)
@@ -317,8 +318,16 @@ module Efile
         calculate_tax_exempt_interest_income if calculate_tax_exempt_interest_income.positive?
       end
 
+      def calculate_line_20a
+        applicable_1099rs = @intake.state_file1099_rs.select do |state_file_1099r|
+          state_file_1099r.state_specific_followup.present? && state_file_1099r.state_specific_followup.income_source_none?
+        end
+
+        applicable_1099rs.sum(&:taxable_amount).round
+      end
+
       def calculate_line_27
-        line_or_zero(:NJ1040_LINE_15) + line_or_zero(:NJ1040_LINE_16A)
+        line_or_zero(:NJ1040_LINE_15) + line_or_zero(:NJ1040_LINE_16A) + line_or_zero(:NJ1040_LINE_20A)
       end
 
       def calculate_line_29
