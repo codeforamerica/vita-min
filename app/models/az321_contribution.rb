@@ -33,6 +33,5 @@ class Az321Contribution < ApplicationRecord
   validates :date_of_contribution,
     inclusion: {
       in: TAX_YEAR.beginning_of_year..TAX_YEAR.end_of_year
-    },
-    presence: true
+    }
 end
