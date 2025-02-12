@@ -267,10 +267,16 @@ describe SubmissionBuilder::AuthenticationHeader do
       context "refund" do
         let(:intake) { create(:state_file_md_refund_intake, primary_esigned_at: DateTime.new(2025, 2, 15, 12).in_time_zone(StateFile::StateInformationService.timezone("md"))) }
 
-        it "fills out the FirstInput banking information" do
-          expect(xml.at("FirstInput RoutingTransitNum").text).to eq "111111111"
-          expect(xml.at("FirstInput DepositorAccountNum").text).to eq "222222222"
-          expect(xml.at("FirstInput InputTimestamp").text).to eq "2025-02-15T07:00:00-05:00"
+        context "with direct_deposit for their refund" do
+          before do
+            intake.update(payment_or_deposit_type: "direct_deposit")
+          end
+
+          it "fills out the FirstInput banking information" do
+            expect(xml.at("FirstInput RoutingTransitNum").text).to eq "111111111"
+            expect(xml.at("FirstInput DepositorAccountNum").text).to eq "222222222"
+            expect(xml.at("FirstInput InputTimestamp").text).to eq "2025-02-15T07:00:00-05:00"
+          end
         end
 
         context "with mail selected for their refund" do
@@ -289,10 +295,16 @@ describe SubmissionBuilder::AuthenticationHeader do
       context "owed" do
         let(:intake) { create(:state_file_md_owed_intake, primary_esigned_at: DateTime.new(2025, 2, 15, 12).in_time_zone(StateFile::StateInformationService.timezone("md"))) }
 
-        it "fills out the FirstInput banking information" do
-          expect(xml.at("FirstInput RoutingTransitNum").text).to eq "111111111"
-          expect(xml.at("FirstInput DepositorAccountNum").text).to eq "222222222"
-          expect(xml.at("FirstInput InputTimestamp").text).to eq "2025-02-15T07:00:00-05:00"
+        context "with direct_deposit for their refund" do
+          before do
+            intake.update(payment_or_deposit_type: "direct_deposit")
+          end
+
+          it "fills out the FirstInput banking information" do
+            expect(xml.at("FirstInput RoutingTransitNum").text).to eq "111111111"
+            expect(xml.at("FirstInput DepositorAccountNum").text).to eq "222222222"
+            expect(xml.at("FirstInput InputTimestamp").text).to eq "2025-02-15T07:00:00-05:00"
+          end
         end
 
         context "with mail selected for their refund" do
