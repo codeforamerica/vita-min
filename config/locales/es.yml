@@ -2130,7 +2130,7 @@ es:
         az:
           closed_html: |
             Ya cerramos por esta temporada de impuestos. <br /><br />
-            <strong>FileYourStateTaxes</strong> se creó en asociación con el estado de Arizona para integrarse con la herramienta Direct File del IRS.<br /><br />
+            <strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el estado de Arizona para integrarse con el servicio Direct File del IRS.<br /><br />
             Desafortunadamente, ya no puedes presentar tu declaración de impuestos estatales con nosotros este año.
           supported_by: Respaldada por el estado de Arizona
           title: Declara tus impuestos estatales de Arizona sin costo
@@ -2149,21 +2149,21 @@ es:
         id:
           closed_html: |
             Ya cerramos por esta temporada de impuestos. <br /><br />
-            <strong>FileYourStateTaxes</strong> se creó en asociación con el estado de Idaho para integrarse con la herramienta Direct File del IRS.<br /><br />
+            <strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el estado de Idaho para integrarse con el servicio Direct File del IRS.<br /><br />
             Desafortunadamente, ya no puedes presentar tu declaración de impuestos estatales con nosotros este año.
           supported_by: Respaldada por el estado de Idaho
           title: Declara tus impuestos estatales de Idaho sin costo
         md:
           closed_html: |
             Ya cerramos por esta temporada de impuestos. <br /><br />
-            <strong>FileYourStateTaxes</strong> se creó en asociación con el estado de Maryland para integrarse con la herramienta Direct File del IRS.<br /><br />
+            <strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el estado de Maryland para integrarse con el servicio Direct File del IRS.<br /><br />
             Desafortunadamente, ya no puedes presentar tu declaración de impuestos estatales con nosotros este año.
           supported_by: Respaldada por el estado de Maryland
           title: Declara tus impuestos estatales de Maryland sin costo
         nc:
           closed_html: |
             Ya cerramos por esta temporada de impuestos. <br /><br />
-            <strong>FileYourStateTaxes</strong> se creó en asociación con el estado de Carolina del Norte para integrarse con la herramienta Direct File del IRS.<br /><br />
+            <strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el estado de Carolina del Norte para integrarse con el servicio Direct File del IRS.<br /><br />
             Desafortunadamente, ya no puedes presentar tu declaración de impuestos estatales con nosotros este año.
           supported_by: Respaldada por el estado de Carolina del Norte
           title: Declara tus impuestos estatales de Carolina del Norte sin costo
@@ -2808,8 +2808,8 @@ es:
         edit:
           emergency_rental_assistance: En %{filing_year}, ¿Tú, o tu cónyuge si están declarando juntos, recibieron asistencia de emergencia para el pago de alquiler?
           emergency_rental_assistance_explanation: El programa de Asistencia de Emergencia para el Pago de Alquiler (ERA, por sus siglas en inglés) es un programa federal que da dinero para ayudar a los hogares a pagar el alquiler y las facturas de servicios públicos. Se creó en respuesta a la pandemia de Covid-19.
-          subtitle_1: Para esta temporada de impuestos, este servicio sólo estará disponible para personas con situaciones fiscales específicas. Para saber si puedes usar el responde las siguientes preguntas.
-          title: Primero, veamos si puedes usar este servicio para declarar tus impuestos del Idaho de %{filing_year}
+          subtitle_1: Para esta temporada de impuestos, este servicio sólo estará disponible para personas con situaciones fiscales específicas. Para saber si puedes usar el servicio responde las siguientes preguntas.
+          title: Primero, veamos si puedes usar este servicio para declarar tus impuestos del %{filing_year} de Idaho
           withdrew_msa_fthb: En %{filing_year}, ¿retiró usted (o su cónyuge si presentan juntos) dinero de alguno de los siguientes?
           withdrew_msa_fthb_list:
             bullet_1_html: Retiraste dinero de tu Cuenta de Ahorros Médicos de Idaho y lo usaste para un <a href="%{link}" target="_blank" rel="noopener noreferrer">gasto no calificado</a>.
@@ -2989,8 +2989,8 @@ es:
           permanent_home_copy: No puedes usar este servicio si tú y tu cónyuge viven en diferentes condados, ciudades, pueblos o áreas fiscales, y no es una situación temporal.
           permanent_home_copy2: Si dejas tu hogar permanente para trabajar o cuidar a alguien, pero planeas regresar, tu hogar permanente no ha cambiado. Se considera que tú y tu cónyuge viven en diferentes condados, ciudades, pueblos o áreas fiscales sólo si están quedándose en estos hogares separados y no es temporal.
           permanent_home_heading: "¿Qué es un hogar permanente?"
-          subtitle: Para la temporada de %{year}, este servicio sólo estará disponible para personas con situaciones fiscales específicas. Para saber si puedes usarlo, responde las siguientes preguntas.
-          title: Primero, veamos si puedes usar este servicio para declarar tus impuestos del Maryland de %{year}
+          subtitle: Para la temporada de %{year}, este servicio sólo estará disponible para personas con situaciones fiscales específicas. Para saber si puedes usar el servico responde las siguientes preguntas.
+          title: Primero, veamos si puedes usar este servicio para declarar tus impuestos del %{year} de Maryland
       md_had_health_insurance:
         edit:
           authorize_follow_up: Si respondes que sí, compartiremos tu información y la dirección de correo electrónico registrada con Maryland Health Connection.
@@ -3148,7 +3148,7 @@ es:
           none: Ninguna de estas opciones aplica
           question: "¿Alguna de las siguientes situaciones menos comunes aplicó en tu caso (o el de tu cónyuge, si casado presentando conjunta) en %{filing_year}?"
           subtitle: Para esta temporada de impuestos, este servicio sólo estará disponible para personas con situaciones fiscales específicas. Para saber si puedes usar el servicio responde las siguientes preguntas.
-          title: Primero, veamos si puedes usar este servicio para declarar tus impuestos del Carolina del Norte de %{filing_year}
+          title: Primero, veamos si puedes usar este servicio para declarar tus impuestos del %{filing_year} de Carolina del Norte
       nc_primary_state_id:
         nc_primary:
           encourage_sharing: Aunque se recomienda compartir esta información, no es un requisito para presentar tus impuestos en Carolina del Norte.
@@ -3250,7 +3250,7 @@ es:
           bank_title: 'Por favor, comparte los detalles de tu cuenta bancaria:'
           confirm_account_number: Confirma el número de cuenta
           confirm_routing_number: Confirma el número de ruta bancaria (routing number)
-          date_withdraw_text: "¿Cuándo te gustaría que se retiren los fondos de tu cuenta? (debe ser antes o en el día del %{withdrawal_deadline_date}, %{with_drawal_deadline_year}):"
+          date_withdraw_text: "¿Cuándo te gustaría que se retiren los fondos de tu cuenta? (debe ser antes o en el día del %{withdrawal_deadline_date} de %{with_drawal_deadline_year}):"
           foreign_accounts_owed: No están permitidos los depósitos directos internacionales.
           foreign_accounts_refund: No están permitidos los depósitos directos internacionales.
           routing_number: Número de ruta bancaria (routing number)
