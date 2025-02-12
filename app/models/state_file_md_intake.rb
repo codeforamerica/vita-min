@@ -253,4 +253,8 @@ class StateFileMdIntake < StateFileBaseIntake
   def allows_refund_amount_in_xml?
     false
   end
+
+  def has_banking_information_in_financial_resolution?
+    true
+  end
 end
