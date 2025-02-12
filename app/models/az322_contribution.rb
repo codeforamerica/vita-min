@@ -25,12 +25,11 @@ class Az322Contribution < ApplicationRecord
   accepts_nested_attributes_for :state_file_az_intake, update_only: true
 
   validates :school_name, presence: true
-  validates :ctds_code, presence: true, format: { with: /\A\d{9}\z/, message: -> (_object, _data) { I18n.t("validators.ctds_code") }}
+  validates :ctds_code, presence: true, format: { with: /\A\d{9}\z/, message: ->(_object, _data) { I18n.t("validators.ctds_code") }}
   validates :district_name, presence: true
   validates :amount, presence: true, numericality: { greater_than: 0 }
   validates :date_of_contribution,
             inclusion: {
               in: TAX_YEAR.beginning_of_year..TAX_YEAR.end_of_year
-            },
-            presence: true
+            }
 end
