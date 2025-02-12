@@ -2431,7 +2431,7 @@ es:
             eligibility_out_of_state_income: recibiste ingresos en otro estado en el %{filing_year}
             eligibility_part_year_nyc_resident: fuiste residente a tiempo parcial de la ciudad de Nueva York en el %{filing_year}
             eligibility_withdrew_529: retiraste dinero de una cuenta de ahorro universitario 529 en el %{filing_year}
-            eligibility_withdrew_msa_fthb: retiraste dinero de tu Cuenta de Ahorros Médicos de Idaho y lo usaste para un gasto no calificado, o retiraste dinero de tu Cuenta de Comprador de Vivienda por Primera Vez y lo usaste para costos de vivienda no elegibles.
+            eligibility_withdrew_msa_fthb: retiraste dinero de tu Cuenta de Ahorros Médicos de Idaho y lo usaste para un gasto no calificado, o retiraste dinero de tu Cuenta de Comprador de Vivienda por Primera Vez y lo usaste para costos de vivienda no elegibles
             eligibility_yonkers: viviste o recibiste ingresos en Yonkers en el %{filing_year}
             health_insurance_eligibility: alguien en tu hogar fiscal no tuvo seguro médico (con cobertura mínima esencial) durante todos los meses de %{filing_year}
             nyc_maintained_home: no viviste en Nueva York durante todo el
