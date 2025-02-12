@@ -310,6 +310,7 @@ describe Efile::Md::Md502RCalculator do
 
     context "when the spouse does not qualify" do
       context "when the filer is not married filing jointly" do
+        let(:filing_status) { "single" }
         it "returns 0" do
           main_calculator.calculate
           expect(instance.lines[:MD502R_LINE_11B].value).to eq 0
