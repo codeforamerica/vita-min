@@ -1026,6 +1026,7 @@ es:
         add_doc: Agregar documento
         archived_documents: Documentos archivados
         client_doc: Cliente
+        edit_file_info: Editar información del archivo
         empty_file: "(archivo vacío)"
         expanded_id_allowed: Este cliente puede enviar tipos de ID ampliados como parte del experimento.
         file_name: Nombre de archivo
@@ -1033,7 +1034,6 @@ es:
         system_generated_doc: Auto-generado
         upload_by: Subido por
         upload_date: Fecha de carga
-        edit_file_info: Editar información del archivo
     has_duplicates: Posibles duplicados detectados
     has_previous_year_intakes: Ingreso(s) del año anterior
     itin_applicant: Solicitante de Número de Identificación Personal (ITIN)

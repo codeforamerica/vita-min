@@ -1018,6 +1018,7 @@ en:
         add_doc: Add document
         archived_documents: Archived documents
         client_doc: Client
+        edit_file_info: Edit File Info
         empty_file: "(empty file)"
         expanded_id_allowed: This client is allowed to submit Expanded ID Types as part of the experiment.
         file_name: File Name
@@ -1025,7 +1026,6 @@ en:
         system_generated_doc: Auto-generated
         upload_by: Uploaded By
         upload_date: Upload Date
-        edit_file_info: Edit File Info
     has_duplicates: Potential duplicates detected
     has_previous_year_intakes: Previous year intake(s)
     itin_applicant: ITIN applicant
