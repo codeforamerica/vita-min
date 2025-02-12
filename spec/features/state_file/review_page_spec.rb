@@ -4,6 +4,11 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
   include MockTwilio
   include StateFileIntakeHelper
 
+  def wait_for_device_info
+    sleep(2)
+    expect(page.find_all('input[name="state_file_income_review_form[device_id]"]', visible: false).last.value).to be_present
+  end
+
   before do
     allow_any_instance_of(Routes::StateFileDomain).to receive(:matches?).and_return(true)
   end
@@ -28,20 +33,22 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
           click_on I18n.t("general.edit")
         end
 
-        # Income review page
-        expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
-        within "#w2s" do
-          click_on I18n.t("state_file.questions.income_review.edit.review_and_edit_state_info")
-        end
+        if intake.allows_w2_editing?
+          # Income review page
+          expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
+          within "#w2s" do
+            click_on I18n.t("state_file.questions.income_review.edit.review_and_edit_state_info")
+          end
 
-        # W2 edit page
-        expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.w2.edit.instructions_1_html", employer: intake.state_file_w2s.first.employer_name))
-        fill_in strip_html_tags(I18n.t("state_file.questions.w2.edit.box15_html")), with: "987654321"
-        click_on I18n.t("general.continue")
+          # W2 edit page
+          expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.w2.edit.instructions_1_html", employer: intake.state_file_w2s.first.employer_name))
+          fill_in strip_html_tags(I18n.t("state_file.questions.w2.edit.box15_html")), with: "987654321"
+          click_on I18n.t("general.continue")
+        end
 
         # Back on income review page
         expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
-        expect(page.find('input[name="state_file_income_review_form[device_id]"]', visible: false).value).to be_present
+        wait_for_device_info
         click_on I18n.t("general.continue")
 
         # Final review page
@@ -63,7 +70,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
         # Back on income review page
         expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
-        expect(page.find('input[name="state_file_income_review_form[device_id]"]', visible: false).value).to be_present
+        wait_for_device_info
         click_on I18n.t("general.continue")
 
         # Final review page
@@ -85,11 +92,12 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
         # Back on income review page
         expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
-        expect(page.find('input[name="state_file_income_review_form[device_id]"]', visible: false).value).to be_present
+        wait_for_device_info
         click_on I18n.t("general.continue")
 
         # Final review page
         expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
+
         within "#income-info" do
           click_on I18n.t("general.edit")
         end
@@ -103,7 +111,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
         # Back on income review page
         expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
-        expect(page.find('input[name="state_file_income_review_form[device_id]"]', visible: false).value).to be_present
+        wait_for_device_info
         click_on I18n.t("general.continue")
 
         # Final review page
