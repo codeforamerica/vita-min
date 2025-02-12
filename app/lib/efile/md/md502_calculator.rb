@@ -247,7 +247,11 @@ module Efile
       end
 
       def calculate_line_10a
-        line_or_zero(:MD502R_LINE_11A) + line_or_zero(:MD502R_LINE_11B)
+        if Flipper.enabled?(:show_retirement_ui)
+          line_or_zero(:MD502R_LINE_11A) + line_or_zero(:MD502R_LINE_11B)
+        else
+          0
+        end
       end
 
       def calculate_line_13

@@ -1730,9 +1730,23 @@ describe Efile::Md::Md502Calculator do
       allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_11b).and_return(100_000)
     end
 
-    it "totals the line 11a & 11b calculations from 502R" do
-      instance.calculate
-      expect(instance.lines[:MD502_LINE_10A].value).to eq(200_000)
+    context "flipper flag is on" do
+      before do
+        allow(Flipper).to receive(:enabled?).and_call_original
+        allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
+      end
+
+      it "totals the line 11a & 11b calculations from 502R" do
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_10A].value).to eq(200_000)
+      end
+    end
+
+    context "flipper flag is off" do
+      it "returns 0" do
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_10A].value).to eq 0
+      end
     end
   end
 end

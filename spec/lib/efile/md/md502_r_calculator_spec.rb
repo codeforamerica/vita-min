@@ -224,32 +224,50 @@ describe Efile::Md::Md502RCalculator do
   end
 
   describe "#calculate_line_11a" do
-    context "when primary qualifies" do
+    context "flipper flag is on" do
       before do
-        allow_any_instance_of(StateFileMdIntake).to receive(:qualifies_for_pension_exclusion?).with(:primary).and_return(true)
-        allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_1a).and_return(100_000)
-        allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_10a).and_return(80_000)
-        allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_9a).and_return(line_9_a_value)
+        allow(Flipper).to receive(:enabled?).and_call_original
+        allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
       end
 
-      context "when qualifying_pension_minus_ssn_or_railroad is less than the tentative exclusion" do
-        let(:line_9_a_value) { 14_500}
-        it "returns the value for qualifying_pension_minus_ssn_or_railroad" do
-          main_calculator.calculate
-          expect(instance.lines[:MD502R_LINE_11A].value).to eq 20_000
+      context "when primary qualifies" do
+        before do
+          allow_any_instance_of(StateFileMdIntake).to receive(:qualifies_for_pension_exclusion?).with(:primary).and_return(true)
+          allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_1a).and_return(100_000)
+          allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_10a).and_return(80_000)
+          allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_9a).and_return(line_9_a_value)
+        end
+
+        context "when qualifying_pension_minus_ssn_or_railroad is less than the tentative exclusion" do
+          let(:line_9_a_value) { 14_500}
+          it "returns the value for qualifying_pension_minus_ssn_or_railroad" do
+            main_calculator.calculate
+            expect(instance.lines[:MD502R_LINE_11A].value).to eq 20_000
+          end
+        end
+
+        context "when qualifying_pension_minus_ssn_or_railroad is greater than the tentative exclusion" do
+          let(:line_9_a_value) { 24_500}
+          it "returns the value for the tentative exclusion" do
+            main_calculator.calculate
+            expect(instance.lines[:MD502R_LINE_11A].value).to eq 15_000
+          end
+        end
+
+        context "when the smaller amount is negative" do
+          let(:line_9_a_value) { 39_501}
+          it "returns 0" do
+            main_calculator.calculate
+            expect(instance.lines[:MD502R_LINE_11A].value).to eq 0
+          end
         end
       end
 
-      context "when qualifying_pension_minus_ssn_or_railroad is greater than the tentative exclusion" do
-        let(:line_9_a_value) { 24_500}
-        it "returns the value for the tentative exclusion" do
-          main_calculator.calculate
-          expect(instance.lines[:MD502R_LINE_11A].value).to eq 15_000
+      context "when the primary does not qualify" do
+        before do
+          allow_any_instance_of(StateFileMdIntake).to receive(:qualifies_for_pension_exclusion?).with(:primary).and_return(false)
         end
-      end
 
-      context "when the smaller amount is negative" do
-        let(:line_9_a_value) { 39_501}
         it "returns 0" do
           main_calculator.calculate
           expect(instance.lines[:MD502R_LINE_11A].value).to eq 0
@@ -257,80 +275,87 @@ describe Efile::Md::Md502RCalculator do
       end
     end
 
-    context "when the primary does not qualify" do
-      before do
-        allow_any_instance_of(StateFileMdIntake).to receive(:qualifies_for_pension_exclusion?).with(:primary).and_return(false)
-      end
-
+    context "flipper flag is off" do
       it "returns 0" do
         main_calculator.calculate
         expect(instance.lines[:MD502R_LINE_11A].value).to eq 0
       end
     end
-
   end
 
   describe "#calculate_line_11b" do
-
-    context "when spouse qualifies" do
-      let(:filing_status) { "married_filing_jointly"}
-
+    context "flipper flag is on" do
       before do
-        allow_any_instance_of(StateFileMdIntake).to receive(:qualifies_for_pension_exclusion?).and_call_original
-        allow_any_instance_of(StateFileMdIntake).to receive(:qualifies_for_pension_exclusion?).with(:spouse).and_return(true)
-        allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_1b).and_return(100_000)
-        allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_10b).and_return(80_000)
-        allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_9b).and_return(line_9_b_value)
+        allow(Flipper).to receive(:enabled?).and_call_original
+        allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
       end
 
-      context "when qualifying_pension_minus_ssn_or_railroad is less than the tentative exclusion" do
-        let(:line_9_b_value) { 14_500}
-        it "returns the value for qualifying_pension_minus_ssn_or_railroad" do
-          main_calculator.calculate
-          expect(instance.lines[:MD502R_LINE_11B].value).to eq 20_000
-        end
-      end
-
-      context "when qualifying_pension_minus_ssn_or_railroad is greater than the tentative exclusion" do
-        let(:line_9_b_value) { 24_500}
-        it "returns the value for the tentative exclusion" do
-          main_calculator.calculate
-          expect(instance.lines[:MD502R_LINE_11B].value).to eq 15_000
-        end
-      end
-
-      context "when the smaller amount is negative" do
-        let(:line_9_b_value) { 39_501}
-        it "returns 0" do
-          main_calculator.calculate
-          expect(instance.lines[:MD502R_LINE_11B].value).to eq 0
-        end
-      end
-    end
-
-    context "when the spouse does not qualify" do
-      context "when the filer is not married filing jointly" do
-        let(:filing_status) { "single" }
-        it "returns 0" do
-          main_calculator.calculate
-          expect(instance.lines[:MD502R_LINE_11B].value).to eq 0
-        end
-      end
-
-      context "when the filer is not qualified for pension exclusion" do
-        let(:filing_status) { "married_filing_jointly" }
+      context "when spouse qualifies" do
+        let(:filing_status) { "married_filing_jointly"}
 
         before do
           allow_any_instance_of(StateFileMdIntake).to receive(:qualifies_for_pension_exclusion?).and_call_original
-          allow_any_instance_of(StateFileMdIntake).to receive(:qualifies_for_pension_exclusion?).with(:spouse).and_return(false)
+          allow_any_instance_of(StateFileMdIntake).to receive(:qualifies_for_pension_exclusion?).with(:spouse).and_return(true)
+          allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_1b).and_return(100_000)
+          allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_10b).and_return(80_000)
+          allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_9b).and_return(line_9_b_value)
         end
 
-        it "returns 0" do
-          main_calculator.calculate
-          expect(instance.lines[:MD502R_LINE_11B].value).to eq 0
+        context "when qualifying_pension_minus_ssn_or_railroad is less than the tentative exclusion" do
+          let(:line_9_b_value) { 14_500}
+          it "returns the value for qualifying_pension_minus_ssn_or_railroad" do
+            main_calculator.calculate
+            expect(instance.lines[:MD502R_LINE_11B].value).to eq 20_000
+          end
+        end
+
+        context "when qualifying_pension_minus_ssn_or_railroad is greater than the tentative exclusion" do
+          let(:line_9_b_value) { 24_500}
+          it "returns the value for the tentative exclusion" do
+            main_calculator.calculate
+            expect(instance.lines[:MD502R_LINE_11B].value).to eq 15_000
+          end
+        end
+
+        context "when the smaller amount is negative" do
+          let(:line_9_b_value) { 39_501}
+          it "returns 0" do
+            main_calculator.calculate
+            expect(instance.lines[:MD502R_LINE_11B].value).to eq 0
+          end
+        end
+      end
+
+      context "when the spouse does not qualify" do
+        context "when the filer is not married filing jointly" do
+          let(:filing_status) { "single" }
+          it "returns 0" do
+            main_calculator.calculate
+            expect(instance.lines[:MD502R_LINE_11B].value).to eq 0
+          end
+        end
+
+        context "when the spouse is not qualified for pension exclusion" do
+          let(:filing_status) { "married_filing_jointly" }
+
+          before do
+            allow_any_instance_of(StateFileMdIntake).to receive(:qualifies_for_pension_exclusion?).and_call_original
+            allow_any_instance_of(StateFileMdIntake).to receive(:qualifies_for_pension_exclusion?).with(:spouse).and_return(false)
+          end
+
+          it "returns 0" do
+            main_calculator.calculate
+            expect(instance.lines[:MD502R_LINE_11B].value).to eq 0
+          end
         end
       end
     end
 
+    context "flipper flag is off" do
+      it "returns 0" do
+        main_calculator.calculate
+        expect(instance.lines[:MD502R_LINE_11B].value).to eq 0
+      end
+    end
   end
 end

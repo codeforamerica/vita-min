@@ -91,11 +91,19 @@ module Efile
       end
 
       def calculate_line_11a
-        @intake.qualifies_for_pension_exclusion?(:primary) ? calculate_line_11(:primary) : 0
+        if Flipper.enabled?(:show_retirement_ui)
+          @intake.qualifies_for_pension_exclusion?(:primary) ? calculate_line_11(:primary) : 0
+        else
+          0
+        end
       end
 
       def calculate_line_11b
-        @intake.filing_status_mfj? && @intake.qualifies_for_pension_exclusion?(:spouse) ? calculate_line_11(:spouse) : 0
+        if Flipper.enabled?(:show_retirement_ui)
+          @intake.filing_status_mfj? && @intake.qualifies_for_pension_exclusion?(:spouse) ? calculate_line_11(:spouse) : 0
+        else
+          0
+        end
       end
     end
   end
