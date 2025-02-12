@@ -131,7 +131,10 @@ module Efile
 
       def calculate_line_29b
         # total subtraction amount for uniformed services
-        0
+        primary_uniformed_retirement_amount = @intake.sum_1099_r_followup_type_for_filer(:primary, :income_source_uniformed_services?)
+        return primary_uniformed_retirement_amount unless @intake.filing_status_mfj?
+
+        [primary_uniformed_retirement_amount, @intake.sum_1099_r_followup_type_for_filer(:spouse, :income_source_uniformed_services?)].sum
       end
 
       def calculate_line_31

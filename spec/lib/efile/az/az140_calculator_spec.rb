@@ -124,7 +124,7 @@ describe Efile::Az::Az140Calculator do
     end
   end
 
-  describe "Line 29" do
+  describe "Line 29a" do
     context "has qualifying pension plan" do
       before do
         allow_any_instance_of(StateFileAzIntake).to receive(:sum_1099_r_followup_type_for_filer).and_call_original
@@ -182,16 +182,62 @@ describe Efile::Az::Az140Calculator do
       end
     end
 
+    describe "Line 29b" do
+      context "has retirement income from uniformed services" do
+        before do
+          allow_any_instance_of(StateFileAzIntake).to receive(:sum_1099_r_followup_type_for_filer).and_call_original
+        end
+
+        context "single" do
+          before do
+            allow_any_instance_of(StateFileAzIntake).to receive(:sum_1099_r_followup_type_for_filer).with(:primary, :income_source_uniformed_services?).and_return 199
+          end
+
+          it "returns sum of uniformed services retirement income" do
+            instance.calculate
+            expect(instance.lines[:AZ140_LINE_29B].value).to eq(199)
+          end
+        end
+
+        context "mfj" do
+          before do
+            allow_any_instance_of(StateFileAzIntake).to receive(:filing_status_mfj?).and_return true
+            allow_any_instance_of(StateFileAzIntake).to receive(:sum_1099_r_followup_type_for_filer).with(:primary, :income_source_uniformed_services?).and_return 100
+            allow_any_instance_of(StateFileAzIntake).to receive(:sum_1099_r_followup_type_for_filer).with(:spouse, :income_source_uniformed_services?).and_return 300
+          end
+
+          it "returns sum of both retirement incomes" do
+            instance.calculate
+            expect(instance.lines[:AZ140_LINE_29B].value).to eq(400)
+          end
+        end
+      end
+
+      context "has no qualifying retirement income from uniformed services" do
+        before do
+          allow_any_instance_of(StateFileAzIntake).to receive(:sum_1099_r_followup_type_for_filer).and_call_original
+          allow_any_instance_of(StateFileAzIntake).to receive(:sum_1099_r_followup_type_for_filer).with(:primary, :income_source_uniformed_services?).and_return 0
+          allow_any_instance_of(StateFileAzIntake).to receive(:sum_1099_r_followup_type_for_filer).with(:spouse, :income_source_uniformed_services?).and_return 0
+        end
+
+        it "returns 0" do
+          instance.calculate
+          expect(instance.lines[:AZ140_LINE_29B].value).to eq(0)
+        end
+      end
+    end
+
+
     context "has qualifying no qualifying pension plan" do
       before do
         allow_any_instance_of(StateFileAzIntake).to receive(:sum_1099_r_followup_type_for_filer).and_call_original
-        allow_any_instance_of(StateFileAzIntake).to receive(:sum_1099_r_followup_type_for_filer).with(:primary, :income_source_pension_plan?).and_return 0
-        allow_any_instance_of(StateFileAzIntake).to receive(:sum_1099_r_followup_type_for_filer).with(:spouse, :income_source_pension_plan?).and_return 0
+        allow_any_instance_of(StateFileAzIntake).to receive(:sum_1099_r_followup_type_for_filer).with(:primary, :income_source_uniformed_services?).and_return 0
+        allow_any_instance_of(StateFileAzIntake).to receive(:sum_1099_r_followup_type_for_filer).with(:spouse, :income_source_uniformed_services?).and_return 0
       end
 
       it "returns 0" do
         instance.calculate
-        expect(instance.lines[:AZ140_LINE_29A].value).to eq(0)
+        expect(instance.lines[:AZ140_LINE_29B].value).to eq(0)
       end
     end
   end
