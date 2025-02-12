@@ -41,8 +41,8 @@ module Efile
         set_line(:AZ140_LINE_14, :calculate_line_14)
         set_line(:AZ140_LINE_19, :calculate_line_19)
         set_line(:AZ140_LINE_28, :calculate_line_28)
-        set_line(:AZ140_LINE_29A, :calculate_line_29A)
-        set_line(:AZ140_LINE_29B, :calculate_line_29B)
+        set_line(:AZ140_LINE_29A, :calculate_line_29a)
+        set_line(:AZ140_LINE_29B, :calculate_line_29b)
         set_line(:AZ140_LINE_30, @direct_file_data, :fed_taxable_ssb)
         set_line(:AZ140_LINE_31, :calculate_line_31)
         set_line(:AZ140_LINE_32, :calculate_line_32)
@@ -119,12 +119,17 @@ module Efile
         @intake.direct_file_json_data.interest_reports.sum(&:interest_on_government_bonds).round
       end
 
-      def calculate_line_29A
+      def calculate_line_29a
         # total subtraction amount for pensions up to the maximum of $2,500 each for primary and spouse
-        0
+        primary_pension_amount = @intake.sum_1099_r_followup_type_for_filer(:primary, :income_source_pension_plan?)
+        primary_max_allowed_subtraction = [primary_pension_amount, 2500].min
+        return primary_max_allowed_subtraction unless @intake.filing_status_mfj?
+
+        spouse_pension_amount = @intake.sum_1099_r_followup_type_for_filer(:spouse, :income_source_pension_plan?)
+        [primary_max_allowed_subtraction, [spouse_pension_amount, 2500].min].sum
       end
 
-      def calculate_line_29B
+      def calculate_line_29b
         # total subtraction amount for uniformed services
         0
       end
