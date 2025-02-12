@@ -8,7 +8,7 @@ module StateFile
           [
             { text_key: '15_wages_salaries_tips', value: line_or_zero(:NJ1040_LINE_15) },
             { text_key: '16a_interest_income', value: line_or_zero(:NJ1040_LINE_16A) },
-            # { text_key: '20a_retirement_income', value: line_or_zero(:NJ1040_LINE_20A) },
+            { text_key: '20a_retirement_income', value: line_or_zero(:NJ1040_LINE_20A) },
             { text_key: '27_total_income', value: line_or_zero(:NJ1040_LINE_27) },
             # { text_key: '28c_retirement_excluded_from_taxation', value: line_or_zero(:NJ1040_LINE_28C) },
             { text_key: '29_nj_gross_income', value: line_or_zero(:NJ1040_LINE_29) },
