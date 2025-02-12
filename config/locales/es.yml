@@ -3224,9 +3224,11 @@ es:
       nc_review:
         edit:
           amount_earned: Amount earned
+          benefits_vested_pensions: Resta por beneficios de jubilación de pensiones gubernamentales calificadas
           child_deduction: Deducción por hijos
           interest_us_bonds: Ingresos por intereses de bonos de los Estados Unidos (no son sujetos a impuestos en Carolina del Norte)
           primary_veteran: Estado de veterano de las Fuerzas Armadas de los Estados Unidos
+          service_members: Resta por beneficios de jubilación recibidos por miembros del servicio
           social_security_benefits: Beneficios del Seguro Social (no sujetos a impuestos en Carolina del Norte)
           spouse_veteran: Estado de veterano de las Fuerzas Armadas de los Estados Unidos de tu cónyuge
           state_credit: Miembro inscrito de una tribu indígena reconocida por el gobierno federal y recibiste ingresos de una fuente dentro de una reserva
