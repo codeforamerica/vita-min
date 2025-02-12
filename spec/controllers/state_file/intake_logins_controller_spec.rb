@@ -47,7 +47,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
 
         expect(response.status).to eq(200)
         expect(response.body).to include (I18n.t("state_file.intake_logins.new.email_address.title"))
-        expect(response.body).to include "To continue filing your state tax return safely, we’ll send you a secure code."
+        expect(response.body).to include (I18n.t("state_file.intake_logins.new.to_continue"))
       end
     end
   end
