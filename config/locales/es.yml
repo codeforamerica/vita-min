@@ -3782,7 +3782,7 @@ es:
           direct_debit_html: Si tienes un saldo de impuestos pendiente, recuerda <strong>pagarlo en línea en <a target="_blank" rel="noopener nofollow" href="%{tax_payment_info_url}">%{tax_payment_info_text}</a></strong> o por correo antes de la fecha límite de declaración que es el 15 de abril.
           download_voucher: Descarga e imprime el formulario de comprobante de pago completado.
           feedback: Valoramos sus comentarios; háganos saber lo que piensa de esta herramienta.
-          include_payment: Incluir el formulario de comprobante de pago.
+          include_payment: Completa el formulario de comprobante de pago.
           mail_voucher_and_payment: 'Envía el formulario de comprobante de pago y tu pago por correo postal a:'
           md:
             refund_details_html: |
