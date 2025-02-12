@@ -1645,7 +1645,7 @@ es:
             El equipo de FileYourStateTaxes
           subject: 'Acción necesaria: La declaración de Impuestos Estatales de %{state_name} fue rechazada.'
         sms: |
-          Hola %{primary_first_name} - Lamentablemente, %{state_name} rechazó su declaración de impuestos estatales. ¡No te preocupes! Podemos ayudarte a corregirla y volver a enviarla en %{return_status_link}.
+          Hola %{primary_first_name} - Lamentablemente, %{state_name} rechazó tu declaración de impuestos estatales. ¡No te preocupes! Podemos ayudarte a corregirla y volver a enviarla en %{return_status_link}.
 
           ¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org.
       still_processing:
