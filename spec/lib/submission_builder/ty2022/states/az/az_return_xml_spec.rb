@@ -274,13 +274,15 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
         expect(xml.css("Subtractions IntUSObligations").text).to eq "2"
       end
 
-      context "has 1099R pension subtraction" do
+      context "has 1099R subtractions" do
         before do
           allow_any_instance_of(Efile::Az::Az140Calculator).to receive(:calculate_line_29a).and_return 500
+          allow_any_instance_of(Efile::Az::Az140Calculator).to receive(:calculate_line_29b).and_return 420
         end
 
         it "should fill out the amount" do
           expect(xml.at("Subtractions ExecFedStateLocGovPen").text).to eq "500"
+          expect(xml.at("Subtractions SubExclBenAnnPen").text).to eq "420"
         end
       end
     end
