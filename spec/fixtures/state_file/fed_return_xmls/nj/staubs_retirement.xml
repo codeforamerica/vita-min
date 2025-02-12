@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>99d28588</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400004005</PrimarySSN>
+            <SpouseSSN>400004006</SpouseSSN>
+            <NameLine1Txt>DANIELLE &amp; THOMAS&lt;STAUB</NameLine1Txt>
+            <PrimaryNameControlTxt>STAU</PrimaryNameControlTxt>
+            <SpouseNameControlTxt>STAU</SpouseNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>123 Sesame St</AddressLine1Txt>
+                <CityNm>Anchorage</CityNm>
+                <StateAbbreviationCd>AK</StateAbbreviationCd>
+                <ZIPCd>99501</ZIPCd>
+            </USAddress>
+            <PhoneNum>2223334444</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000400-5379-4ca6-8947-7f8d17bc043d@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="6">
+        <IRS1040 documentId="IRS10400001">
+            <Form1040SRInd>X</Form1040SRInd>
+            <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <Primary65OrOlderInd>X</Primary65OrOlderInd>
+            <Spouse65OrOlderInd>X</Spouse65OrOlderInd>
+            <TotalBoxesCheckedCnt>2</TotalBoxesCheckedCnt>
+            <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>2</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">500</WagesAmt>
+            <WagesSalariesAndTipsAmt>500</WagesSalariesAndTipsAmt>
+            <TaxableInterestAmt referenceDocumentId="IRS1040B001" referenceDocumentName="IRS1040ScheduleB">10000</TaxableInterestAmt>
+            <PensionsAnnuitiesAmt>160000</PensionsAnnuitiesAmt>
+            <TotalTaxablePensionsAmt>114000</TotalTaxablePensionsAmt>
+            <TotalIncomeAmt>124500</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>124500</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>32300</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>32300</TotalDeductionsAmt>
+            <TaxableIncomeAmt>92200</TaxableIncomeAmt>
+            <TaxAmt>10603</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>10603</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>10603</TaxLessCreditsAmt>
+            <TotalTaxAmt>10603</TotalTaxAmt>
+            <OwedAmt>10603</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Ornithologist</PrimaryOccupationTxt>
+            <SpouseOccupationTxt>Magician</SpouseOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1040ScheduleB documentId="IRS1040B001" documentName="IRS1040ScheduleB">
+            <Form1040SchBPartIGroup2>
+                <InterestPayerName>
+                    <BusinessNameLine1Txt>Jersey Investments</BusinessNameLine1Txt>
+                </InterestPayerName>
+                <InterestAmt>10000</InterestAmt>
+            </Form1040SchBPartIGroup2>
+            <InterestSubtotalAmt interestSubtotalLiteralCd="INTEREST SUBTOTAL">10000</InterestSubtotalAmt>
+            <TaxableInterestSubtotalAmt>10000</TaxableInterestSubtotalAmt>
+            <CalculatedTotalTaxableIntAmt>10000</CalculatedTotalTaxableIntAmt>
+            <ForeignAccountsQuestionInd>false</ForeignAccountsQuestionInd>
+            <ForeignTrustQuestionInd>false</ForeignTrustQuestionInd>
+        </IRS1040ScheduleB>
+        <IRS1099R documentId="IRS1099R0001">
+            <PayerNameControlTxt>HOUS</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Housewife Retirement</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>1 Money St</AddressLine1Txt>
+                <CityNm>Trenton</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>08601</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>001000005</PayerEIN>
+            <RecipientSSN>400004005</RecipientSSN>
+            <RecipientNm>Danielle Staub</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>123 Sesame St</AddressLine1Txt>
+                <CityNm>Anchorage</CityNm>
+                <StateAbbreviationCd>AK</StateAbbreviationCd>
+                <ZIPCd>99501</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>70000</GrossDistributionAmt>
+            <TaxableAmt>44000</TaxableAmt>
+            <F1099RDistributionCd>7</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <StateTaxWithheldAmt>3000</StateTaxWithheldAmt>
+                    <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                    <PayerStateIdNum>1000005</PayerStateIdNum>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRS1099R documentId="IRS1099R0002">
+            <PayerNameControlTxt>JERS</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Jersey Retirement</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>1 Retirement St</AddressLine1Txt>
+                <CityNm>San Francisco</CityNm>
+                <StateAbbreviationCd>CA</StateAbbreviationCd>
+                <ZIPCd>94117</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>001000006</PayerEIN>
+            <RecipientSSN>400004006</RecipientSSN>
+            <RecipientNm>Thomas Staub</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>123 Sesame St</AddressLine1Txt>
+                <CityNm>Anchorage</CityNm>
+                <StateAbbreviationCd>AK</StateAbbreviationCd>
+                <ZIPCd>99501</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>50000</GrossDistributionAmt>
+            <TaxableAmt>37000</TaxableAmt>
+            <F1099RDistributionCd>7</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <StateTaxWithheldAmt>3100</StateTaxWithheldAmt>
+                    <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                    <PayerStateIdNum>1000006</PayerStateIdNum>
+                    <StateDistributionAmt>5000</StateDistributionAmt>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRS1099R documentId="IRS1099R0003">
+            <PayerNameControlTxt>ATLA</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Atlantic Retirement</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>1 Golden Years Avenue</AddressLine1Txt>
+                <CityNm>Bangor</CityNm>
+                <StateAbbreviationCd>ME</StateAbbreviationCd>
+                <ZIPCd>04401</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>001000007</PayerEIN>
+            <RecipientSSN>400004006</RecipientSSN>
+            <RecipientNm>Thomas Staub</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>1 Main St</AddressLine1Txt>
+                <CityNm>Fairfield</CityNm>
+                <StateAbbreviationCd>CT</StateAbbreviationCd>
+                <ZIPCd>06522</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>40000</GrossDistributionAmt>
+            <TaxableAmt>33000</TaxableAmt>
+            <F1099RDistributionCd>7</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <StateTaxWithheldAmt>3200</StateTaxWithheldAmt>
+                    <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                    <PayerStateIdNum>10000007</PayerStateIdNum>
+                    <StateDistributionAmt>80000</StateDistributionAmt>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>400004006</EmployeeSSN>
+            <EmployerEIN>001919191</EmployerEIN>
+            <EmployerNameControlTxt>BRAV</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Bravo Inc</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>1 Main St</AddressLine1Txt>
+                <CityNm>Newark</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07220</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Thomas Staub</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>123 Sesame St</AddressLine1Txt>
+                <CityNm>Anchorage</CityNm>
+                <StateAbbreviationCd>AK</StateAbbreviationCd>
+                <ZIPCd>99501</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>500</WagesAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                    <EmployerStateIdNum>12345</EmployerStateIdNum>
+                    <StateWagesAmt>500</StateWagesAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>
