@@ -2293,11 +2293,19 @@ en:
           primary_was_incarcerated: Were you incarcerated in a county, state, or federal prison for at least 60 days in %{tax_year}?
           spouse_was_incarcerated: Was your spouse incarcerated in a county, state, or federal prison for at least 60 days in %{tax_year}?
           title: You might be eligible for the Increased Excise Tax Credit.
+      az_primary_state_id:
+        az_primary:
+          learn_more_html: |
+            To learn more, visit:<br>
+            <a href="https://azdor.gov/individuals/income-tax-filing-assistance/verifying-identity-and-avoiding-identity-theft" target="_blank">
+            azdor.gov/individuals/income-tax-filing-assistance/verifying-identity-and-avoiding-identity-theft
+            </a>
+          ongoing_effort: In an ongoing effort to protect taxpayers from identity theft, the IRS, state tax agencies, and the tax industry are asking you to provide your driver’s license or state-issued identification number.
+          requests_drivers_license: The Arizona Department of Revenue requests the Driver’s License/Identification card to be included with the return but won’t reject the return if it’s not included.
+          why_are_you_asking: Why are you asking for this information?
       az_prior_last_names:
         edit:
-          prior_last_names_label:
-            one: 'Enter all last names used in the last four years. (Ex: Smith, Jones, Brown)'
-            other: Enter all last names used by you and your spouse in the last four years.
+          prior_last_names_label: 'Enter all last names used in the last four years. (Ex: Smith, Jones, Brown)'
           subtitle: This includes tax years %{start_year}-%{end_year}.
           title:
             one: Did you file with a different last name in the last four years?
@@ -2309,8 +2317,8 @@ en:
           additional_info: Please add details for each public school you paid fees or made donations to.
           amount: Amount of donations/fees paid in %{year}
           amount_help_text:
-            one: Arizona will credit up to $200
-            other: Arizona will credit up to $400
+            one: Arizona credits up to $200
+            other: Arizona credits up to $400
           ctds_code: School Code/CTDS
           date_of_contribution: Date of payment in %{year}
           district_name: School District Name
@@ -2799,7 +2807,8 @@ en:
             nj: You can file your state taxes for free with help from IRS-certified Volunteer Income Tax Assistance (VITA) tax preparers at Simplify CT.
           vita_link: Get started with VITA now
           want_to_claim_learn_more_html: Learn more about this process and other filing options <a href="%{link}" target="_blank">here</a>.
-          want_to_claim_vita: You may be able to file your state return for free with help from IRS-certified VITA volunteers, but it may take 2-3 weeks to complete.
+          want_to_claim_vita_1: If you choose this option, you'll be connected with a VITA partner in %{state_name}. Expect a quick intake call in a few days to discuss your tax situation and securely upload your documents.
+          want_to_claim_vita_2: IRS-certified VITA volunteers will prepare your state return, typically within 2-3 weeks.
       email_address:
         edit:
           action: Send code
@@ -2819,6 +2828,7 @@ en:
               </ul>
               <p>If I have filed a balance due return, I understand that if the ADOR does not receive full and timely payment of my tax liability by April 15, 2024, I will remain liable for the tax liability and all applicable interest and penalties.</p>
               <p>I consent to my Electronic Return Originator (ERO) or On-Line Service Provider (OLSP) sending my electronic Arizona individual income tax return and accompanying schedules and statements to ADOR, and I consent to my ERO or OLSP sending such information to ADOR through a transmitter. I consent to ADOR sending my ERO, OLSP and/or transmitter an acknowledgement of receipt of transmission and an indication of whether or not the transmission of my return is accepted and, if the return is rejected, the reason(s) for the rejection. If the processing of my return or refund is delayed, I authorize ADOR to disclose to my ERO, OLSP and/ or transmitter the reason(s) for the delay, or when the refund was sent. If ADOR contacts my ERO for a copy of my return, any documents or schedules to my return, and/or this authorization form, I authorize my ERO to release copies of the requested documents to ADOR.</p>
+              <p>By using a computer system and software to prepare and/or file my tax return(s) electronically, I consent to the transmission of my return(s) and to the disclosure of all information about my use of the system and software to the Arizona State Tax Commission.</p>
               <p>I declare under penalties of perjury that to the best of my knowledge and belief the return is true, correct and complete.</p>
           id:
             body_html: |

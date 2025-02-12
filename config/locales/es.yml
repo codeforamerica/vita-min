@@ -2235,20 +2235,26 @@ es:
         edit:
           household_excise_credit_claimed_amt: Ingresa la cantidad total del Crédito Tributario por Impuesto de Consumo Aumentado reclamado por los miembros de tu hogar.
           household_excise_credit_claimed_amt_help_text: Puedes encontrar esta información en la línea 56 de tu declaración de Arizona.
-          household_excise_credit_html: "¿Alguien en tu hogar presentó una declaración de impuestos por separado de la tuya y reclamó el Crédito por Aumento de Impuestos Especiales de Arizona?<br><br> (Tu hogar incluye a todas las personas con las que viviste, incluso si no están incluidas en tu declaración.)"
+          household_excise_credit_html: "¿Alguien en tu hogar presentó una declaración de impuestos separado de la tuya y reclamó el Crédito por Aumento de Impuestos Especiales de Arizona?<br><br> (Tu hogar incluye a todas las personas con las que viviste, incluso si no están incluidas en tu declaración.)"
           primary_was_incarcerated: "¿Estuviste encarcelado en una prisión del condado, estatal o federal durante al menos 60 días en %{tax_year}?"
           spouse_was_incarcerated: "¿Tu cónyuge estuvo encarcelado en una prisión del condado, estatal o federal durante al menos 60 días en %{tax_year}?"
           title: Es posible que seas elegible para el Crédito Tributario por Aumento de Impuestos Especiales.
+      az_primary_state_id:
+        az_primary:
+          learn_more_html: |
+            Para obtener más información, visita: <br>
+            <a href="https://azdor.gov/individuals/income-tax-filing-assistance/verifying-identity-and-avoiding-identity-theft" target="_blank">
+            azdor.gov/individuals/income-tax-filing-assistance/verifying-identity-and-avoiding-identity-theft
+            </a>
+          ongoing_effort: Como parte de un esfuerzo continuo para proteger a los contribuyentes del robo de identidad, el IRS, las agencias fiscales estatales y la industria fiscal te piden que compartas tu número de licencia de conducir o de identificación emitida por el estado.
+          requests_drivers_license: El Departamento de Ingresos de Arizona pide que se incluya la licencia de conducir o tarjeta de identificación con la declaración, pero no rechazará la declaración si no se incluye.
+          why_are_you_asking: "¿Por qué estamos pidiéndote esta información?"
       az_prior_last_names:
         edit:
-          prior_last_names_label:
-            many: Ingresa todos los apellidos utilizados por usted y su cónyuge en los últimos cuatro años.
-            one: 'Ingresa todos los apellidos que usaste en los últimos cuatro años. (Ejemplo: Smith, Jones, Brown)'
-            other: Ingresa todos los apellidos que usaste en los últimos cuatro años.
+          prior_last_names_label: 'Ingresa todos los apellidos que usaste en los últimos cuatro años. (Ejemplo: Smith, Jones, Brown)'
           subtitle: Esto incluye los años fiscales del %{start_year} al %{end_year}
           title:
-            many: "¿Usted o su cónyuge presentaron una declaración con un apellido diferente en los últimos cuatro años?"
-            one: "¿Presentaste con un apellido diferente en los últimos cuatro años?"
+            one: "¿Declaraste con un apellido diferente en los últimos cuatro años?"
             other: "¿Tú o tu cónyuge presentaron una declaración con un apellido diferente en los últimos cuatro años?"
       az_public_school_contributions:
         destroy:
@@ -2257,8 +2263,8 @@ es:
           additional_info: Por favor ingresa la información de cada escuela pública a la que le pagaste tarifas o donaste dinero.
           amount: Cantidad de las donaciones/pagos en %{year}
           amount_help_text:
-            many: Arizona permite un máximo crédito tributario de las escuelas públicas de $400
-            one: Arizona permite un máximo crédito tributario de las escuelas públicas de $200
+            many: Arizona acreditará hasta  $400
+            one: Arizona acreditará hasta $200
             other: Arizona acreditará hasta  $400
           ctds_code: Código de la escuela/CTDS
           date_of_contribution: Fecha del pago en %{year}
@@ -2359,7 +2365,7 @@ es:
         edit:
           armed_forces_member_label:
             many: Tú o tu cónyuge son miembros de las Reservas, la Guardia Nacional o las Fuerzas Armadas de los Estados Unidos y recibieron un salario por el servicio activo.
-            one: Tú eres miembro de las Reservas, la Guardia Nacional o las Fuerzas Armadas de los Estados Unidos y recibió un salario por el servicio activo.
+            one: Eres miembro de las Reservas, la Guardia Nacional o las Fuerzas Armadas de los Estados Unidos y recibiste un salario por el servicio activo.
             other: Tú o tu cónyuge son miembros de las Reservas, la Guardia Nacional o las Fuerzas Armadas de los Estados Unidos y recibieron un salario por el servicio activo.
           armed_forces_wages_label:
             many: "¿Cuánto recibiste tú o tu cónyuge en salario por servicio activo?"
@@ -2378,7 +2384,7 @@ es:
             other: "¿Alguna de las siguientes situaciones te aplican a ti o su cónyuge en %{year}?"
           tribal_member_label:
             many: Tú o tu cónyuge son miembros inscritos de una <u>tribu indígena estadounidense reconocida por el gobierno federal</u> y ganaron salario mientras vivían y trabajaban en la reserva.
-            one: Tú eres un miembro inscrito de una <a href="https://www.bia.gov/service/tribal-leaders-directory/federally-recognized-tribes" target="_blank" rel="noopener nofollow">tribu indígena estadounidense reconocida por el gobierno federal</a> y ganó un salario mientras vivía y trabajaba en la reserva.
+            one: Eres un miembro inscrito de <a href="https://www.bia.gov/service/tribal-leaders-directory/federally-recognized-tribes" target="_blank" rel="noopener nofollow">una tribu indígena estadounidense reconocida por el gobierno federal</a> y ganó un salario mientras vivía y trabajaba en la reserva.
             other: Tú o tu cónyuge son miembros inscritos de una <u>tribu indígena estadounidense reconocida por el gobierno federal</u> y recibieron ingresos mientras vivían y trabajaban en la reserva.
           tribal_wages_label:
             many: "¿Cuánto ganaste tú o tu cónyuge mientras vivían y trabajaban en la reserva de tu tribu o la de tu cónyuge?"
@@ -2730,8 +2736,9 @@ es:
           vita_introduction:
             nj: Puedes presentar tus impuestos estatales de forma gratuita con la ayuda de preparadores de impuestos voluntarios certificados por el IRS del programa Volunteer Income Tax Assistance (VITA por las siglas en inglés) en Simplify CT.
           vita_link: Comienza con VITA ahora
-          want_to_claim_learn_more_html: Obtén más información sobre este proceso y otras opciones para presentar tu declaración  <a href="%{link}" target="_blank">aquí</a>.
-          want_to_claim_vita: Es posible que puedas presentar tu declaración estatal de forma gratuita con voluntarios VITA certificados por el IRS, pero puede tardar de 2 a 3 semanas en completarse.
+          want_to_claim_learn_more_html: Obtén más información <a href="%{link}" target="_blank">aquí</a>.
+          want_to_claim_vita_1: Si eliges esta opción, te conectarás con un socio de Asistencia Voluntaria para la Declaración de Impuestos (VITA) en %{state_name}. Recibirás una llamada en los próximos días. Tendrás que responder algunas preguntas adicionales sobre tu situación tributaria y enviar de forma segura tus documentos en línea.
+          want_to_claim_vita_2: Los voluntarios certificados por el IRS de VITA prepararán  tu declaración estatal generalmente entre 2 y 3 semanas.
       email_address:
         edit:
           action: Enviar el código
@@ -2750,6 +2757,7 @@ es:
               <li><em>Si debo impuestos y compartí información para débito directo,</em> autorizo al Departamento de Ingresos de Arizona (ADOR) y a su Agente Financiero designado a iniciar un retiro de fondos electrónico ACH (débito directo) en la cuenta del instituto financiero indicada en el software de preparación de impuestos para el pago de mis impuestos de Arizona adeudados en esta declaración. También autorizo a las instituciones financieras involucradas en el procesamiento del pago electrónico de impuestos a recibir información confidencial necesaria para responder a consultas y resolver problemas relacionados con el pago.</li>
               </ul>
               <p>Si he presentado una declaración de saldo adeudado, entiendo que si el ADOR no recibe el pago completo y oportuno de mi responsabilidad tributaria antes del 15 de abril de 2025, seguiré siendo responsable de la responsabilidad tributaria y todos los intereses y penalidades aplicables.</p><p>Consiento que mi Originador de Declaraciones Electrónicas (ERO) o Proveedor de Servicios en Línea (OLSP) envíe mi declaración electrónica de impuestos sobre el ingreso individual de Arizona y los horarios y declaraciones adjuntas a ADOR, y consiento que mi ERO o OLSP envíe dicha información a ADOR a través de un transmisor. Consiento que ADOR envíe a mi ERO, OLSP y/o transmisor un acuse de recibo de la transmisión y una indicación de si se acepta o no la transmisión de mi declaración, y, si se rechaza, la razón o razones del rechazo. Si se retrasa el procesamiento de mi declaración o reembolso, autorizo a ADOR a divulgar a mi ERO, OLSP y/ o transmisor la razón o razones del retraso, o cuando se envió el reembolso. Si ADOR se comunica con mi ERO para obtener una copia de mi declaración, cualquier documento o horario de mi declaración, y/o este formulario de autorización, autorizo a mi ERO a proporcionar copias de los documentos solicitados a ADOR.</p>
+              <p>Al utilizar un sistema informático y software para preparar y/o presentar mi(s) declaracion(es) de impuestos electrónicamente, doy mi consentimiento para la transmisión de mi(s) declaración(es) y para la divulgación de toda la información sobre mi uso del sistema y del software al Departamento de Ingresos de Arizona.</p>
               <p>Yo declaro bajo pena de perjurio que, según mi leal saber y entender, la declaración es verdadera, correcta y completa.</p>
           id:
             body_html: |
