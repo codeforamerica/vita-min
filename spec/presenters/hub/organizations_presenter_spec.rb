@@ -57,9 +57,9 @@ describe Hub::OrganizationsPresenter do
       end
     end
 
-    describe "#unrouted_independent_organizations" do
+    describe "#unrouted_organizations" do
       it "returns a collection of the independent organizations that have no state routing rules" do
-        expect(subject.unrouted_independent_organizations).to match_array([unrouted_organization])
+        expect(subject.unrouted_organizations).to match_array([high_capacity_unrouted_organization, unrouted_organization, unrouted_organization_with_coalition])
       end
     end
 
@@ -115,12 +115,12 @@ describe Hub::OrganizationsPresenter do
       end
     end
 
-    describe "#unrouted_independent_organizations" do
+    describe "#unrouted_organizations" do
       context "with a user with access to one unrouted organization" do
         let(:user) { create(:user, role: create(:organization_lead_role, organization: unrouted_organization)) }
 
         it "returns just the one organization even though other unrouted orgs exist" do
-          expect(subject.unrouted_independent_organizations).to match_array([unrouted_organization])
+          expect(subject.unrouted_organizations).to match_array([unrouted_organization])
         end
       end
     end

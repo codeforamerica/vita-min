@@ -59,8 +59,8 @@ module Hub
       capacity
     end
 
-    def unrouted_independent_organizations
-      organizations.where.missing(:state_routing_targets).where(coalition_id: nil)
+    def unrouted_organizations
+      organizations.where.missing(:state_routing_targets)
     end
 
     def unrouted_coalitions
