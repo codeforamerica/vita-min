@@ -1025,6 +1025,7 @@ en:
         system_generated_doc: Auto-generated
         upload_by: Uploaded By
         upload_date: Upload Date
+        edit_file_info: Edit File Info
     has_duplicates: Potential duplicates detected
     has_previous_year_intakes: Previous year intake(s)
     itin_applicant: ITIN applicant

@@ -1033,6 +1033,7 @@ es:
         system_generated_doc: Auto-generado
         upload_by: Subido por
         upload_date: Fecha de carga
+        edit_file_info: Editar información del archivo
     has_duplicates: Posibles duplicados detectados
     has_previous_year_intakes: Ingreso(s) del año anterior
     itin_applicant: Solicitante de Número de Identificación Personal (ITIN)
