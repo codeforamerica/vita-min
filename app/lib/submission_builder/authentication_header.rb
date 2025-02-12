@@ -7,7 +7,7 @@ module SubmissionBuilder
       build_xml_doc("AuthenticationHeader") do |xml|
         xml.FilingLicenseTypeCd "O"
         xml.FinancialResolution do
-          if @intake.has_banking_information_in_financial_resolution? && @intake.payment_or_deposit_type == "direct_deposit"
+          if @intake.has_banking_information_in_financial_resolution? && @intake.payment_or_deposit_type_direct_deposit?
             xml.FirstInput do
               xml.RoutingTransitNum sanitize_for_xml(@intake.routing_number) if @intake.routing_number.present?
               xml.DepositorAccountNum sanitize_for_xml(@intake.account_number) if @intake.account_number.present?
