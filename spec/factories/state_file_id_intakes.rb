@@ -160,6 +160,8 @@ FactoryBot.define do
       filing_status { "married_filing_jointly" }
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('id_paul_mfj') }
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('id_paul_mfj') }
+
+      after(:create, &:synchronize_filers_to_database)
     end
 
     trait :with_dependents do

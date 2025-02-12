@@ -80,11 +80,15 @@ module Efile
       end
 
       def calculate_sec_b_line_8d
-        line_or_zero(:ID39R_B_LINE_8A) - (line_or_zero(:ID39R_B_LINE_8B) + line_or_zero(:ID39R_B_LINE_8A))
+        [line_or_zero(:ID39R_B_LINE_8a) - (line_or_zero(:ID39R_B_LINE_8b) + line_or_zero(:ID39R_B_LINE_8c)), 0].max
       end
 
       def calculate_sec_b_line_8e
 
+      end
+
+      def calculate_sec_b_line_8f
+        [line_or_zero(:ID39R_B_LINE_8d), line_or_zero(:ID39R_B_LINE_8e)].min
       end
 
       def calculate_sec_b_line_18
