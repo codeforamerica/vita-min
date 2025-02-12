@@ -2379,6 +2379,27 @@ en:
           delete_confirmation: Are you sure you want to delete this contribution?
           maximum_records: You have provided the maximum amount of records.
           title: Here are the Qualifying Charitable donations we've collected.
+      az_retirement_income_subtraction:
+        edit:
+          federal: Federal
+          federal_bullet_points:
+          - US Government Service Retirement and Disability Fund
+          - US Foreign Service Retirement and Disability System
+          - Other federal retirement systems or plans established by federal law
+          pension_plan: Qualifying federal, Arizona, or government pension plan
+          state_local: State/local
+          state_local_bullet_points:
+          - Arizona State Retirement System
+          - Arizona State Retirement Plan
+          - Corrections Officer Retirement Plan
+          - Public Safety Personnel Retirement System
+          - Elected Officials Retirement Plan
+          - Retirement program established by the Arizona Board of Regents
+          - Retirement program established by Arizona community college district
+          - Retirement plan established for employees of a county, city, or town in Arizona
+          subtitle: To see if you qualify, we need more information from your 1099-R
+          uniformed_services: Retired or retainer pay of the uniformed services of the United States
+          which_pensions: Which government pensions qualify?
       az_review:
         edit:
           armed_forces_member: Member of the U.S. Armed Forces
@@ -3861,6 +3882,13 @@ en:
           box15_html: "<b>Box 15</b>, State/Payer’s State Number"
           box16_html: "<b>Box 16</b>, State distribution"
           title_html: Please review your retirement income (1099-R) details for <strong>%{payer_name}</strong>.
+      retirement_income_subtraction:
+        doc_1099r_label: 1099-R
+        income_source_question: 'Select the source of this income:'
+        none_apply: None of these apply
+        taxable_amount_label: Taxable amount
+        taxpayer_name_label: Taxpayer name
+        title: You might be eligible for a %{state_name} retirement income deduction!
       return_status:
         accepted:
           check_payable_html: |
