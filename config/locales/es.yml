@@ -1668,7 +1668,7 @@ es:
 
             ¡Has %{submitted_or_resubmitted} con éxito tu declaración de impuestos estatales de %{state_name}! Te actualizaremos sobre el estado de tu declaración en 1 o 2 días hábiles.
 
-            Puedes descargar y verificar el estado de tu declaración visitando <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">https://www.fileyourstatetaxes.org/en/questions/return-status</a>.
+            Puedes descargar y verificar el estado de tu declaración visitando <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
 
             ¿Necesitas ayuda? Responde a este correo electrónico.
 
