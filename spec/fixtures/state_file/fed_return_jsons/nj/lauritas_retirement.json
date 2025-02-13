@@ -1,0 +1,54 @@
+{
+  "familyAndHousehold": [],
+  "socialSecurityReports": [],
+  "filers": [
+    {
+      "lastName": "Laurita",
+      "dateOfBirth": "1963-01-02",
+      "suffix": null,
+      "isPrimaryFiler": false,
+      "firstName": "Chris",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "400-00-4002",
+      "interestReportsTotal": "0.00",
+      "isDisabled": false,
+      "form1099GsTotal": "0.00",
+      "isStudent": false,
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": null
+    },
+    {
+      "lastName": "Laurita",
+      "dateOfBirth": "1963-01-01",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "firstName": "Jacqueline",
+      "middleInitial": "J",
+      "educatorExpenses": "0.00",
+      "tin": "400-00-4001",
+      "interestReportsTotal": "2000.00",
+      "isDisabled": false,
+      "form1099GsTotal": "0.00",
+      "isStudent": false,
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [],
+  "interestReports": [
+    {
+      "has1099": true,
+      "taxExemptAndTaxCreditBondCusipNo": null,
+      "interestOnGovernmentBonds": "0.00",
+      "payerTin": null,
+      "taxExemptInterest": "0.00",
+      "recipientTin": "400-00-4001",
+      "payer": "Housewife Bank",
+      "no1099Amount": null,
+      "1099Amount": "2000.00",
+      "taxWithheld": "0.00"
+    }
+  ]
+}
