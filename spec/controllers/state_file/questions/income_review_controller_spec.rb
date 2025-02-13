@@ -114,7 +114,7 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
   end
 
   describe "W-2s card" do
-    before do
+    before(:each) do
       StateFileW2.delete_all
     end
 
