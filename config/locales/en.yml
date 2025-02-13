@@ -3317,15 +3317,25 @@ en:
       nc_review:
         edit:
           amount_earned: Amount earned
+          bailey_settlement_at_least_five_years: At least five years of creditable service by August 12, 1989
+          bailey_settlement_from_retirement_plan: Received retirement benefits from NC’s 401(k) or 457 plan, and contributed to the plan before August 12, 1989
           benefits_vested_pensions: Subtraction for retirement benefits by vested qualifying government pensions
           child_deduction: Child deduction
           interest_us_bonds: Interest income from U.S. bonds (not taxable in North Carolina)
+          none_apply: None apply
           primary_veteran: United States Armed Forces veteran status
+          retirement_income_deductions: North Carolina retirement income deductions
+          retirement_income_deductions_explanation: These allow people to deduct all or a portion of their retirement income from their taxes.
+          retirement_income_source_bailey_settlement: Retirement benefits as part of the Bailey Settlement
+          retirement_income_source_uniformed_services: Retirement benefits from the Uniformed Services
+          retirement_income_source_review_and_edit: Review and edit 1099-R %{index}
           service_members: Subtraction for retirement benefits received by service members
           social_security_benefits: Social Security benefits (not taxable in North Carolina)
           spouse_veteran: Your spouse's United States Armed Forces veteran status
           state_credit: Enrolled member of a federally recognized Indian Tribe, and received income from a source within a reservation
           subtraction_indian_tribe: Subtraction for income of a member of an Indian tribe
+          uniformed_twenty_years_medical_retired: Retired member who served at least 20 years or were medically retired from the Uniformed Services
+          uniformed_survivor_benefit_plan: Payments from a qualifying Survivor Benefit Plan to a beneficiary of a retired member who served at least 20 years or who was medically retired from the Uniformed Services
           use_tax_amount: Amount of use tax
           use_tax_applied: Out-of-state purchases in %{filing_year} without paying sales tax
       nc_sales_use_tax:

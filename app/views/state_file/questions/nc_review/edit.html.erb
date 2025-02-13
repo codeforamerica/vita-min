@@ -2,6 +2,52 @@
 <% content_for :card do %>
   <%= render "state_file/questions/shared/review_header" %>
 
+  <% if current_intake.state_file1099_rs.length.positive? && Flipper.enabled?(:show_retirement_ui) %>
+    <section id="retirement-income-source" class="white-group">
+      <div class="spacing-below-5">
+        <h2 class="text--body text--bold spacing-below-25"><%=t(".retirement_income_deductions") %></h2>
+        <p><%= t(".retirement_income_deductions_explanation") %></p>
+
+        <% current_intake.state_file1099_rs.each_with_index do |state_file1099_r, index| %>
+          <% unless state_file1099_r.state_specific_followup.nil? %>
+            <div class="spacing-above-15 spacing-below-15">
+              <div>
+                <p class="spacing-below-0"><b><%= state_file1099_r.payer_name %></b></p>
+                <ul class="list--bulleted spacing-above-0">
+                  <% if state_file1099_r.state_specific_followup.income_source_bailey_settlement? %>
+                    <li><%= t(".retirement_income_source_bailey_settlement") %></li>
+                    <% if state_file1099_r.state_specific_followup.bailey_settlement_at_least_five_years_yes? %>
+                      <li><%= t(".bailey_settlement_at_least_five_years") %></li>
+                    <% elsif state_file1099_r.state_specific_followup.bailey_settlement_from_retirement_plan_yes? %>
+                      <li><%= t(".bailey_settlement_from_retirement_plan") %></li>
+                    <% else %>
+                      <li><%= t(".none_apply") %></li>
+                    <% end %>
+                  <% elsif state_file1099_r.state_specific_followup.income_source_uniformed_services? %>
+                    <li><%= t(".retirement_income_source_uniformed_services") %></li>
+                    <% if state_file1099_r.state_specific_followup.uniformed_services_retired? %>
+                      <li><%= t(".uniformed_twenty_years_medical_retired") %></li>
+                    <% elsif state_file1099_r.state_specific_followup.uniformed_services_qualifying_plan? %>
+                      <li><%= t(".uniformed_survivor_benefit_plan") %></li>
+                    <% else %>
+                      <li><%= t(".none_apply") %></li>
+                    <% end %>
+                  <% else %>
+                    <li><%= t(".none_apply") %></li>
+                  <% end %>
+                </ul>
+              </div>
+              <%= link_to StateFile::Questions::NcRetirementIncomeSubtractionController.to_path_helper(return_to_review: "y", index: index), class: "button--small" do %>
+                <%= t("general.review_and_edit") %>
+                <span class="sr-only"><%= t(".retirement_income_source_review_and_edit", index: index + 1) %></span>
+              <% end %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </section>
+  <% end %>
+
   <div id="nc-county" class="white-group">
     <div class="spacing-below-5">
       <p class="text--bold spacing-below-5"><%= t("state_file.questions.review.county", filing_year: current_tax_year) %></p>
