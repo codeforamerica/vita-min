@@ -520,14 +520,60 @@ describe Efile::Nj::Nj1040Calculator do
     end
   end
 
+  describe 'line 20a - taxable retirement income' do
+    let(:intake) { create(:state_file_nj_intake) }
+    let!(:state_file_1099r_1) { create :state_file1099_r, intake: intake, taxable_amount: 300 }
+    let!(:state_file_1099r_2) { create :state_file1099_r, intake: intake, taxable_amount: 100.55 }
+    let!(:state_file_1099r_3) { create :state_file1099_r, intake: intake, taxable_amount: 500 }
+    let!(:state_specific_followup_1) { create :state_file_nj1099_r_followup, state_file1099_r: state_file_1099r_1, income_source: income_source_1 }
+    let!(:state_specific_followup_2) { create :state_file_nj1099_r_followup, state_file1099_r: state_file_1099r_2, income_source: income_source_2 }
+    let!(:state_specific_followup_3) { create :state_file_nj1099_r_followup, state_file1099_r: state_file_1099r_3, income_source: income_source_3 }
+
+    before do
+      intake.reload
+      instance.calculate
+    end
+
+    context 'when all 1099-Rs are applicable (non-military)' do
+      let(:income_source_1) { :none }
+      let(:income_source_2) { :none }
+      let(:income_source_3) { :none }
+
+      it 'sets line 20a to the sum of all 1099-Rs, rounded' do
+        expect(instance.lines[:NJ1040_LINE_20A].value).to eq(901)
+      end
+    end
+
+    context 'when some 1099-Rs are military pension or survivor benefits' do
+      let(:income_source_1) { :military_pension }
+      let(:income_source_2) { :military_survivors_benefits }
+      let(:income_source_3) { :none }
+
+      it 'does not include military pension / survivor benefits in line 20a sum' do
+        expect(instance.lines[:NJ1040_LINE_20A].value).to eq(500)
+      end
+    end
+
+    context 'when all 1099-Rs are military pension or survivor benefits' do
+      let(:income_source_1) { :military_pension }
+      let(:income_source_2) { :military_survivors_benefits }
+      let(:income_source_3) { :military_pension }
+
+      it 'line 20a sums to zero' do
+        expect(instance.lines[:NJ1040_LINE_20A].value).to eq(0)
+      end
+    end
+  end
+
   describe 'line 27 - total income' do
     let(:intake) { create(:state_file_nj_intake) }
 
-    it 'sets line 27 to the sum of all state wage amounts' do
+    it 'sets line 27 to the sum of all state wage amounts plus line 20a (taxable retirement income)' do
       allow(instance).to receive(:calculate_line_15).and_return 50_000
       allow(instance).to receive(:calculate_line_16a).and_return 1_000
+      allow(instance).to receive(:calculate_line_20a).and_return 3_000
       instance.calculate
-      expect(instance.lines[:NJ1040_LINE_27].value).to eq(51_000)
+      expect(instance.lines[:NJ1040_LINE_27].value).to eq(54_000)
     end
   end
 
@@ -2144,6 +2190,42 @@ describe Efile::Nj::Nj1040Calculator do
       allow(instance).to receive(:calculate_line_78).and_return 10
       instance.calculate
       expect(instance.lines[:NJ1040_LINE_79].value).to eq(20)
+    end
+  end
+
+  describe 'line 79 checkbox' do
+    let(:intake) { create(:state_file_nj_intake, payment_or_deposit_type: payment_or_deposit_type) }
+
+    def stub_balance_owed(balance)
+      allow(instance).to receive(:calculate_line_67).and_return balance
+      instance.calculate
+    end
+
+    context 'when user selected pay by mail & owes a balance' do
+      let(:payment_or_deposit_type) { :mail }
+
+      it 'returns false' do
+        stub_balance_owed(100)
+        expect(instance.lines[:NJ1040_LINE_79_CHECKBOX].value).to eq(false)
+      end
+    end
+
+    context 'when user selected pay by direct debit & owes a balance' do
+      let(:payment_or_deposit_type) { :direct_deposit }
+
+      it 'returns true' do
+        stub_balance_owed(100)
+        expect(instance.lines[:NJ1040_LINE_79_CHECKBOX].value).to eq(true)
+      end
+    end
+
+    context 'when user selected pay by direct debit but is not owing a balance' do
+      let(:payment_or_deposit_type) { :direct_deposit }
+
+      it 'returns false' do
+        stub_balance_owed(0)
+        expect(instance.lines[:NJ1040_LINE_79_CHECKBOX].value).to eq(false)
+      end
     end
   end
 

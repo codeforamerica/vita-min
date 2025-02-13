@@ -114,6 +114,7 @@
 class StateFileNjIntake < StateFileBaseIntake
   self.ignored_columns += ["primary_signature_pin", "spouse_signature_pin"]
   encrypts :account_number, :routing_number, :raw_direct_file_data, :raw_direct_file_intake_data
+  has_many :state_file_nj_analytics
 
   enum household_rent_own: { unfilled: 0, rent: 1, own: 2, neither: 3, both: 4 }, _prefix: :household_rent_own
 

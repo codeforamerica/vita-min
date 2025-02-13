@@ -123,6 +123,41 @@ RSpec.describe StateFileMdIntake, type: :model do
     end
   end
 
+  describe "is_filer_55_and_older?" do
+
+    context "when primary is 55 or older" do
+      let(:dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 55), 1, 1) }
+      let(:intake) { create :state_file_md_intake, primary_birth_date: dob }
+      it "returns true" do
+        expect(intake.is_filer_55_and_older?(:primary)).to eq true
+      end
+    end
+
+    context "when the primary is younger than 55" do
+      let!(:intake) { create :state_file_md_intake, primary_birth_date: dob }
+      let(:dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 54), 1, 1) }
+      it "returns true" do
+        expect(intake.is_filer_55_and_older?(:primary)).to eq false
+      end
+    end
+
+    context "when the spouse is 55 or older" do
+      let(:dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 55), 1, 1) }
+      let(:intake) { create :state_file_md_intake, spouse_birth_date: dob }
+      it "returns true" do
+        expect(intake.is_filer_55_and_older?(:spouse)).to eq true
+      end
+    end
+
+    context "when the spouse is younger than 55" do
+      let(:dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 54), 1, 1) }
+      let(:intake) { create :state_file_md_intake, spouse_birth_date: dob }
+      it "returns true" do
+        expect(intake.is_filer_55_and_older?(:spouse)).to eq false
+      end
+    end
+  end
+
   describe "#eligibility_filing_status" do
     subject(:intake) do
       create(:state_file_md_intake, eligibility_filing_status_mfj: :yes)
@@ -223,19 +258,138 @@ RSpec.describe StateFileMdIntake, type: :model do
   end
 
   describe "#address" do
-  context "a confirmed address" do
-    subject(:intake) { create :state_file_md_intake, :with_confirmed_address }
+    context "a confirmed address" do
+        subject(:intake) { create :state_file_md_intake, :with_confirmed_address }
 
-      it "returns the permanent address" do
-        expect(intake.address).to eq("321 Main St Apt 2, Baltimore, MD 21202")
+        it "returns the permanent address" do
+          expect(intake.address).to eq("321 Main St Apt 2, Baltimore, MD 21202")
+        end
       end
-    end
 
     context "an unconfirmed address" do
       subject(:intake) { create :state_file_md_intake, :with_permanent_address, confirmed_permanent_address: "no" }
 
       it "returns the submitted permanent address" do
         expect(intake.address).to eq("123 Main St Apt 1, Baltimore MD, 21201")
+      end
+    end
+  end
+
+  describe "#sum_1099_r_followup_type_for_filer" do
+
+    context "with 1099Rs" do
+      let!(:intake) { create(:state_file_md_intake, :with_spouse) }
+      let!(:state_file_1099_r_without_followup) {
+        create(
+          :state_file1099_r,
+          taxable_amount: 1_000,
+          recipient_ssn: intake.primary.ssn,
+          intake: intake)
+      }
+      let!(:state_file_md1099_r_followup_with_military_service_for_primary_1) do
+        create(
+          :state_file_md1099_r_followup,
+          service_type: "military",
+          state_file1099_r: create(:state_file1099_r, taxable_amount: 1_000, intake: intake, recipient_ssn: intake.primary.ssn)
+        )
+      end
+      let!(:state_file_md1099_r_followup_with_military_service_for_primary_2) do
+        create(
+          :state_file_md1099_r_followup,
+          service_type: "military",
+          state_file1099_r: create(:state_file1099_r, taxable_amount: 1_500, intake: intake, recipient_ssn: intake.primary.ssn)
+        )
+      end
+      let!(:state_file_md1099_r_followup_with_military_service_for_spouse) do
+        create(
+          :state_file_md1099_r_followup,
+          service_type: "military",
+          state_file1099_r: create(:state_file1099_r, taxable_amount: 2_000, intake: intake, recipient_ssn: intake.spouse.ssn)
+        )
+      end
+      let!(:state_file_md1099_r_followup_without_military) do
+        create(
+          :state_file_md1099_r_followup,
+          service_type: "none",
+          state_file1099_r: create(:state_file1099_r, taxable_amount: 1_000, intake: intake, recipient_ssn: intake.spouse.ssn)
+        )
+      end
+
+      it "totals the followup income" do
+        expect(intake.sum_1099_r_followup_type_for_filer(:primary, :service_type_military?)).to eq(2_500)
+        expect(intake.sum_1099_r_followup_type_for_filer(:spouse, :service_type_military?)).to eq(2_000)
+      end
+    end
+
+    context "without 1099Rs" do
+      let(:intake) { create(:state_file_md_intake) }
+      it "returns 0" do
+        expect(intake.sum_1099_r_followup_type_for_filer(:primary, :service_type_military?)).to eq(0)
+        expect(intake.sum_1099_r_followup_type_for_filer(:spouse, :service_type_military?)).to eq(0)
+      end
+    end
+  end
+
+  describe "#sum_two_1099_r_followup_types_for_filer" do
+    context "with followups present" do
+      let!(:intake) { create(:state_file_md_intake, :with_spouse) }
+      let(:state_file_md1099_r_followup_with_one_followup_criterion_for_primary) do
+        create(
+          :state_file_md1099_r_followup,
+          income_source: "pension_annuity_endowment",
+          state_file1099_r: create(:state_file1099_r, taxable_amount: 1_000, intake: intake, recipient_ssn: intake.primary.ssn)
+        )
+      end
+      let!(:state_file_md1099_r_followup_with_both_followup_criteria_for_spouse_1) do
+        create(
+          :state_file_md1099_r_followup,
+          income_source: "pension_annuity_endowment",
+          service_type: "public_safety",
+          state_file1099_r: create(:state_file1099_r, taxable_amount: 1_000, intake: intake, recipient_ssn: intake.spouse.ssn)
+        )
+      end
+      let!(:state_file_md1099_r_followup_with_both_followup_criteria_for_spouse_2) do
+        create(
+          :state_file_md1099_r_followup,
+          income_source: "pension_annuity_endowment",
+          service_type: "public_safety",
+          state_file1099_r: create(:state_file1099_r, taxable_amount: 1_500, intake: intake, recipient_ssn: intake.spouse.ssn)
+        )
+      end
+
+      context "when only one followup is present" do
+        it "returns 0" do
+          expect(intake.sum_two_1099_r_followup_types_for_filer(:primary, :income_source_pension_annuity_endowment?, :service_type_public_safety? )).to eq(0)
+        end
+      end
+
+      context "when the income source qualifies the filer" do
+        it "returns the sum of the taxable amount" do
+          expect(intake.sum_two_1099_r_followup_types_for_filer(:spouse, :income_source_pension_annuity_endowment?, :service_type_public_safety? )).to eq(2500)
+        end
+      end
+    end
+
+    context "when none of the 1099-Rs are from a qualifying source" do
+      let!(:intake) { create(:state_file_md_intake, :with_spouse) }
+      let(:state_file_md1099_r_followup_with_one_followup_criterion_for_primary) do
+        create(
+          :state_file_md1099_r_followup,
+          income_source: "other",
+          service_type: "none",
+          state_file1099_r: create(:state_file1099_r, taxable_amount: 1_000, intake: intake, recipient_ssn: intake.primary.ssn)
+        )
+      end
+      it "returns 0" do
+        expect(intake.sum_two_1099_r_followup_types_for_filer(:primary, :income_source_pension_annuity_endowment?, :service_type_public_safety? )).to eq(0)
+      end
+    end
+
+    context "without 1099Rs" do
+      let(:intake) { create(:state_file_md_intake) }
+      it "returns 0" do
+        expect(intake.sum_two_1099_r_followup_types_for_filer(:primary, :income_source_pension_annuity_endowment?, :service_type_public_safety? )).to eq(0)
+        expect(intake.sum_two_1099_r_followup_types_for_filer(:spouse, :income_source_pension_annuity_endowment?, :service_type_public_safety? )).to eq(0)
       end
     end
   end

@@ -91,7 +91,7 @@
     <div class="white-group" id="form1099ints">
       <h2 class="text--body text--bold spacing-below-0"><%= t(".interest_income_title") %></h2>
       <p class="text--grey-bold spacing-above-15 spacing-below-0">
-        <%= t(".interest_income_body") %>
+        <%= t('.interest_income_body') %>
       </p>
     </div>
   <% end %>
@@ -104,6 +104,15 @@
         <%= t(".no_info_needed_#{current_state_code}", default: :'.no_info_needed') %>
       </p>
     </div>
+  <% end %>
+
+  <% if @invalid_income_form_error.present? %>
+    <p class="form-group form-group--error">
+      <span class="text--error">
+        <i class="icon-warning"></i>
+        <%= @invalid_income_form_error %>
+      </span>
+    </p>
   <% end %>
 
   <%= form_with model: @form, url: { action: :update }, data: { efile_security_information: true, form_name: "state_file_income_review_form" },

@@ -11,6 +11,11 @@ RSpec.feature "Completing a state file intake", active_job: true do
   end
 
   context "AZ", :flow_explorer_screenshot, js: true do
+    before do
+      allow(Flipper).to receive(:enabled?).and_call_original
+      allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
+    end
+
     it "has content", required_schema: "az" do
       visit "/"
       click_on "Start Test AZ"
@@ -19,6 +24,8 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t('general.get_started'), id: "firstCta"
 
       click_on I18n.t("general.continue")
+
+      
 
       step_through_initial_authentication(contact_preference: :email)
 
@@ -67,6 +74,16 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       expect(page).to have_text(I18n.t('state_file.questions.unemployment.index.1099_label', name: StateFileAzIntake.last.primary.full_name))
       click_on I18n.t("general.continue")
+
+      expect(page).to have_text(I18n.t("state_file.questions.retirement_income_subtraction.title", state_name: "Arizona"))
+      choose I18n.t("state_file.questions.retirement_income_subtraction.none_apply")
+      click_on I18n.t("general.continue")
+
+      expect(strip_html_tags(page.body)).to have_text strip_html_tags(I18n.t('state_file.questions.az_public_school_contributions.edit.title_html'))
+      choose I18n.t("general.negative")
+      click_on I18n.t("general.continue")
+      expect(page).to have_text I18n.t("state_file.questions.az_charitable_contributions.edit.title")
+      click_on I18n.t("general.back")
 
       expect(strip_html_tags(page.body)).to have_text strip_html_tags(I18n.t('state_file.questions.az_public_school_contributions.edit.title_html'))
       choose I18n.t("general.affirmative")
@@ -583,7 +600,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
         expect(page).to have_text "Enter the code to continue"
         fill_in "Enter the 6-digit code", with: verification_code
         click_on "Verify code"
-        expect(page).to have_text "Code verified! Authentication needed to continue."
+        expect(page).to have_text I18n.t("state_file.intake_logins.edit.title")
         fill_in "Enter your Social Security number or ITIN. For example, 123-45-6789.", with: ssn
         click_on "Continue"
         expect(page).to have_text I18n.t("state_file.landing_page.ny_closed.title")

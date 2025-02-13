@@ -3,11 +3,15 @@ require 'rails_helper'
 RSpec.describe PdfFiller::Az322Pdf do
   include PdfSpecHelper
 
-  let(:submission) { create :efile_submission, tax_return: nil, data_source: create(:state_file_az_intake, :with_az322_contributions) }
+  let(:submission) do
+    create :efile_submission,
+           tax_return: nil,
+           data_source: create(:state_file_az_intake, :with_az322_contributions)
+  end
   let(:pdf) { described_class.new(submission) }
 
   describe '#hash_for_pdf', required_schema: "az" do
-    let!(:pdf_fields) { filled_in_values(described_class.new(submission).output_file.path) }
+    let!(:pdf_fields) { filled_in_values(described_class.new(submission.reload).output_file.path) }
     it 'uses field names that exist in the pdf' do
       missing_fields = pdf.hash_for_pdf.keys.map(&:to_s) - pdf_fields.keys
       expect(missing_fields).to eq([])

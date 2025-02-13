@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>99d28588</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400004001</PrimarySSN>
+            <SpouseSSN>400004002</SpouseSSN>
+            <NameLine1Txt>JACQUELINE J &amp; CHRIS&lt;LAURITA</NameLine1Txt>
+            <PrimaryNameControlTxt>LAUR</PrimaryNameControlTxt>
+            <SpouseNameControlTxt>LAUR</SpouseNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>1 Main St</AddressLine1Txt>
+                <CityNm>Atlantic City</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>08201</ZIPCd>
+            </USAddress>
+            <PhoneNum>2015551234</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000400-1201-45a9-a629-9cf6870a321d@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="4">
+        <IRS1040 documentId="IRS10400001">
+            <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>2</TotalExemptionsCnt>
+            <TaxableInterestAmt referenceDocumentId="IRS1040B001" referenceDocumentName="IRS1040ScheduleB">2000</TaxableInterestAmt>
+            <PensionsAnnuitiesAmt>163000</PensionsAnnuitiesAmt>
+            <TotalTaxablePensionsAmt>58000</TotalTaxablePensionsAmt>
+            <TotalIncomeAmt>60000</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>60000</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>29200</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>29200</TotalDeductionsAmt>
+            <TaxableIncomeAmt>30800</TaxableIncomeAmt>
+            <TaxAmt>3235</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>3235</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>3235</TaxLessCreditsAmt>
+            <TotalTaxAmt>3235</TotalTaxAmt>
+            <OwedAmt>3235</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Real housewife</PrimaryOccupationTxt>
+            <SpouseOccupationTxt>Businessman</SpouseOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1040ScheduleB documentId="IRS1040B001" documentName="IRS1040ScheduleB">
+            <Form1040SchBPartIGroup2>
+                <InterestPayerName>
+                    <BusinessNameLine1Txt>Housewife Bank</BusinessNameLine1Txt>
+                </InterestPayerName>
+                <InterestAmt>2000</InterestAmt>
+            </Form1040SchBPartIGroup2>
+            <InterestSubtotalAmt interestSubtotalLiteralCd="INTEREST SUBTOTAL">2000</InterestSubtotalAmt>
+            <TaxableInterestSubtotalAmt>2000</TaxableInterestSubtotalAmt>
+            <CalculatedTotalTaxableIntAmt>2000</CalculatedTotalTaxableIntAmt>
+            <ForeignAccountsQuestionInd>false</ForeignAccountsQuestionInd>
+            <ForeignTrustQuestionInd>false</ForeignTrustQuestionInd>
+        </IRS1040ScheduleB>
+        <IRS1099R documentId="IRS1099R0001">
+            <PayerNameControlTxt>REAL</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Real Housewife Pension</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>1 Finance St</AddressLine1Txt>
+                <CityNm>New York</CityNm>
+                <StateAbbreviationCd>NY</StateAbbreviationCd>
+                <ZIPCd>10011</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>001000001</PayerEIN>
+            <RecipientSSN>400004001</RecipientSSN>
+            <RecipientNm>Jacqueline J Laurita</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>1 Main St</AddressLine1Txt>
+                <CityNm>Atlantic City</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>08201</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>81000</GrossDistributionAmt>
+            <TaxableAmt>37000</TaxableAmt>
+            <F1099RDistributionCd>2</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <StateTaxWithheldAmt>900</StateTaxWithheldAmt>
+                    <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                    <PayerStateIdNum>1000001</PayerStateIdNum>
+                    <StateDistributionAmt>81000</StateDistributionAmt>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRS1099R documentId="IRS1099R0002">
+            <PayerNameControlTxt>JERS</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Jersey Investments</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>1 Main St</AddressLine1Txt>
+                <CityNm>Newark</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07102</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>001000002</PayerEIN>
+            <RecipientSSN>400004002</RecipientSSN>
+            <RecipientNm>Chris Laurita</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>1 Main St</AddressLine1Txt>
+                <CityNm>St Louis</CityNm>
+                <StateAbbreviationCd>MO</StateAbbreviationCd>
+                <ZIPCd>63102</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>82000</GrossDistributionAmt>
+            <TaxableAmt>21000</TaxableAmt>
+            <F1099RDistributionCd>7</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <StateTaxWithheldAmt>800</StateTaxWithheldAmt>
+                    <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                    <PayerStateIdNum>1000002</PayerStateIdNum>
+                    <StateDistributionAmt>82000</StateDistributionAmt>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+    </ReturnData>
+</Return>

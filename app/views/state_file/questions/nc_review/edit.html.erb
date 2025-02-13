@@ -72,6 +72,16 @@
       </div>
 
       <div class="spacing-below-25">
+        <p class="text--bold spacing-below-5"><%= t(".benefits_vested_pensions") %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:NCD400_S_LINE_20)) %></p>
+      </div>
+
+      <div class="spacing-below-25">
+        <p class="text--bold spacing-below-5"><%= t(".service_members") %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:NCD400_S_LINE_21)) %></p>
+      </div>
+
+      <div class="spacing-below-25">
         <p class="text--bold spacing-below-5"><%= t(".subtraction_indian_tribe") %></p>
         <p><%= number_to_currency(current_intake.calculator.line_or_zero(:NCD400_S_LINE_27)) %></p>
       </div>

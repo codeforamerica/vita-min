@@ -56,7 +56,7 @@ class User < ApplicationRecord
     :email, :id, :name, :phone_number, :role_type
   ], using: { tsearch: { prefix: true } }
 
-  self.per_page = 25
+  self.per_page = 50
 
   before_validation :format_phone_number
   validates :phone_number, e164_phone: true, allow_blank: true

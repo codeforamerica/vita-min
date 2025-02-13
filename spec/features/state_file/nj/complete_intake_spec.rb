@@ -38,6 +38,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("general.accept")
 
       expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
+      expect(page).to have_text I18n.t('general.owner.nj')
       expect(page).not_to have_css(".progress-steps")
       expect(page).to be_axe_clean if check_a11y
       click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
@@ -277,7 +278,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       click_on I18n.t("state_file.questions.nj_review.edit.reveal.header")
       amounts_in_calculation_details = page.all(:xpath, '//*[contains(@class,"main-content-inner")]/section[last()]//p[contains(text(),"$")]')
-      expect(amounts_in_calculation_details.count).to eq(19)
+      expect(amounts_in_calculation_details.count).to eq(20)
       expect(page).to be_axe_clean
       continue
 

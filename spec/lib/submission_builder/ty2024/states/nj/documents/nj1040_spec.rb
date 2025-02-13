@@ -359,9 +359,9 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
 
       context "when w2 wages exist" do
         it "includes the sum in WagesSalariesTips item" do
-          expected_sum = 50000 + 50000 + 50000 + 50000
-          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_15).and_return expected_sum
-          expect(xml.at("WagesSalariesTips").text).to eq(expected_sum.to_s)
+          expected = 200_000
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_15).and_return expected
+          expect(xml.at("WagesSalariesTips").text).to eq(expected.to_s)
         end
       end
     end
@@ -422,15 +422,43 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
       end
     end
 
+    describe "disabled show_retirement_ui flag" do
+      before do
+        allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(false)
+      end
+
+      it "does not show line 20a PensAnnuitAndIraWithdraw even when there is a value" do
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_20a).and_return 300
+        expect(xml.at("PensAnnuitAndIraWithdraw")).to eq(nil)
+      end
+    end
+
+    describe "retirement income - line 20a" do
+      before do
+        allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
+      end
+
+      context "when applicable retirement income exists" do
+        it "fills PensAnnuitAndIraWithdraw with the values from calculator" do
+          expected_total = 30_000
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_20a).and_return expected_total
+          expect(xml.at("PensAnnuitAndIraWithdraw").text).to eq(expected_total.to_s)
+        end
+      end
+
+      context "when filer does not have applicable retirement income" do
+        it "does not include TotalIncome in the XML" do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_20a).and_return 0
+          expect(xml.at("PensAnnuitAndIraWithdraw")).to eq(nil)
+        end
+      end
+    end
+
     describe "total income - line 27" do
       context "when filer submits w2 wages" do
-        it "fills TotalIncome with the values from Line 15 and line 16A" do
-          expected_line_15_w2_wages = 200_000
-          expected_line_16a = 500
-          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_15).and_return expected_line_15_w2_wages
-          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_16a).and_return expected_line_16a
-          expected_total = expected_line_15_w2_wages + expected_line_16a
-          expect(xml.at("WagesSalariesTips").text).to eq(expected_line_15_w2_wages.to_s)
+        it "fills TotalIncome with the values from calculator" do
+          expected_total = 150_000
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_27).and_return expected_total
           expect(xml.at("TotalIncome").text).to eq(expected_total.to_s)
         end
       end
@@ -446,13 +474,9 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
     describe "gross income - line 29" do
       context "when filer submits w2 wages" do
         it "fills TotalIncome with the value from Line 15" do
-          expected_line_15_w2_wages = 200_000
-          expected_line_16a = 500
-          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_15).and_return expected_line_15_w2_wages
-          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_16a).and_return expected_line_16a
-          expected_total = expected_line_15_w2_wages + expected_line_16a
-          expect(xml.at("WagesSalariesTips").text).to eq(expected_line_15_w2_wages.to_s)
-          expect(xml.at("GrossIncome").text).to eq(expected_total.to_s)
+          expected = 200_000
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_29).and_return expected
+          expect(xml.at("GrossIncome").text).to eq(expected.to_s)
         end
       end
 

@@ -3,7 +3,13 @@ require 'rails_helper'
 describe Efile::Md::Md502RCalculator do
   let(:filing_status) { "single" }
   # df_data_2_w2s has $8000 in federal social security benefits
-  let(:intake) { create(:state_file_md_intake, :df_data_2_w2s, filing_status: filing_status) }
+  let(:intake) {
+    if filing_status == 'married_filing_jointly'
+      create(:state_file_md_intake, :df_data_2_w2s, :with_spouse, filing_status: filing_status)
+    else
+      create(:state_file_md_intake, :df_data_2_w2s, filing_status: filing_status)
+    end
+  }
   let(:main_calculator) do
     Efile::Md::Md502Calculator.new(
       year: MultiTenantService.statefile.current_tax_year,
@@ -77,79 +83,51 @@ describe Efile::Md::Md502RCalculator do
     end
   end
 
-  [
-    ['1a', :primary, :spouse, :pension_annuity_endowment, :other],
-    ['1b', :spouse, :primary, :pension_annuity_endowment, :other],
-    ['7a', :primary, :spouse, :other, :pension_annuity_endowment],
-    ['7b', :spouse, :primary, :other, :pension_annuity_endowment],
-  ].each do |line, recipient, not_recipient, income_source_to_sum, income_source_to_reject|
-    describe "#calculate_line_#{line}" do
-      let(:line_key) { "MD502R_LINE_#{line.upcase}" }
+  describe "#calculate_line_1a" do
+    before do
+      allow_any_instance_of(StateFileMdIntake).to receive(:sum_1099_r_followup_type_for_filer).and_call_original
+      allow_any_instance_of(StateFileMdIntake).to receive(:sum_1099_r_followup_type_for_filer).with(:primary, :income_source_pension_annuity_endowment?).and_return 10_000
+    end
 
-      context "with 1099rs" do
-        let(:income_source) { income_source_to_sum }
-        let(:other_income_source) { income_source_to_reject }
-        let!(:state_1099r_followup) do
-          create(
-            :state_file_md1099_r_followup,
-            income_source: income_source,
-            state_file1099_r: create(:state_file1099_r, taxable_amount: 25, intake: intake, recipient_ssn: intake.send(recipient).ssn)
-          )
-        end
-        let!(:other_1099r_followup) {
-          create(
-            :state_file_md1099_r_followup,
-            income_source: other_income_source,
-            state_file1099_r: create(:state_file1099_r, taxable_amount: 50, intake: intake, recipient_ssn: intake.send(recipient).ssn)
-          )
-        }
+    it "returns sum of primary filer income from pension_annuity_endowment" do
+      main_calculator.calculate
+      expect(instance.lines[:MD502R_LINE_1A].value).to eq 10_000
+    end
+  end
 
-        before do
-          main_calculator.calculate
-        end
+  describe "#calculate_line_1b" do
+    before do
+      allow_any_instance_of(StateFileMdIntake).to receive(:sum_1099_r_followup_type_for_filer).and_call_original
+      allow_any_instance_of(StateFileMdIntake).to receive(:sum_1099_r_followup_type_for_filer).with(:spouse, :income_source_pension_annuity_endowment?).and_return 10_000
+    end
 
-        context "with multiple pension_annunity_endowment 1099rs" do
-          let(:other_income_source) { income_source_to_sum }
+    it "returns sum of primary filer income from pension_annuity_endowment" do
+      main_calculator.calculate
+      expect(instance.lines[:MD502R_LINE_1B].value).to eq 10_000
+    end
+  end
 
-          it "should add up all 1099r taxable_amount if all have pension_annuity_endowment income_source" do
-            expect(instance.lines[line_key].value).to eq 75
-          end
-        end
+  describe "#calculate_line_7a" do
+    before do
+      allow_any_instance_of(StateFileMdIntake).to receive(:sum_1099_r_followup_type_for_filer).and_call_original
+      allow_any_instance_of(StateFileMdIntake).to receive(:sum_1099_r_followup_type_for_filer).with(:primary, :income_source_other?).and_return 10_000
+    end
 
-        context "with only a single pension_annuity_endowment" do
-          it "should only return taxable_amount of 1099r with pension_annuity_endowment income_source" do
-            expect(instance.lines[line_key].value).to eq 25
-          end
-        end
+    it "returns sum of primary filer income from pension_annuity_endowment" do
+      main_calculator.calculate
+      expect(instance.lines[:MD502R_LINE_7A].value).to eq 10_000
+    end
+  end
 
-        context "with no single pension_annuity_endowment" do
-          let(:income_source) { income_source_to_reject }
+  describe "#calculate_line_7b" do
+    before do
+      allow_any_instance_of(StateFileMdIntake).to receive(:sum_1099_r_followup_type_for_filer).and_call_original
+      allow_any_instance_of(StateFileMdIntake).to receive(:sum_1099_r_followup_type_for_filer).with(:spouse, :income_source_other?).and_return 10_000
+    end
 
-          it "should return 0" do
-            expect(instance.lines[line_key].value).to eq 0
-          end
-        end
-      end
-
-      context "with only 1099rs of spouse" do
-        let!(:state_1099r_followup) do
-          create(
-            :state_file_md1099_r_followup,
-            income_source: income_source_to_sum,
-            state_file1099_r: create(:state_file1099_r, taxable_amount: 25, intake: intake, recipient_ssn: intake.send(not_recipient).ssn)
-          )
-        end
-
-        it "returns nil" do
-          expect(instance.lines[line_key]).to be_nil
-        end
-      end
-
-      context "with no 1099rs" do
-        it "returns nil" do
-          expect(instance.lines[line_key]).to be_nil
-        end
-      end
+    it "returns sum of primary filer income from pension_annuity_endowment" do
+      main_calculator.calculate
+      expect(instance.lines[:MD502R_LINE_7B].value).to eq 10_000
     end
   end
 
@@ -171,6 +149,7 @@ describe Efile::Md::Md502RCalculator do
     context 'when filing MFJ with positive federal social security benefits' do
       let(:filing_status) { "married_filing_jointly" }
       before do
+        allow(intake.direct_file_data).to receive(:fed_ssb).and_return(100)
         intake.primary_ssb_amount = 600.32
         main_calculator.calculate
       end
@@ -182,7 +161,6 @@ describe Efile::Md::Md502RCalculator do
 
     context 'when filing MFJ without positive federal social security benefits' do
       let(:filing_status) { "married_filing_jointly" }
-      let(:intake) { create(:state_file_md_intake, filing_status: filing_status) }
 
       it 'returns primary social security benefits amount from the intake' do
         main_calculator.calculate
@@ -201,7 +179,9 @@ describe Efile::Md::Md502RCalculator do
   describe '#calculate_line_9b' do
     context 'when filing MFJ with positive federal social security benefits' do
       let(:filing_status) { "married_filing_jointly" }
+
       before do
+        allow(intake.direct_file_data).to receive(:fed_ssb).and_return(100)
         intake.spouse_ssb_amount = 400.34
         main_calculator.calculate
       end
@@ -243,5 +223,3 @@ describe Efile::Md::Md502RCalculator do
     end
   end
 end
-
-
