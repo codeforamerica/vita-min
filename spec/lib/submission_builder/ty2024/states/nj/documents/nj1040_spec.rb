@@ -497,6 +497,55 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
       end
     end
 
+    describe "Other Retirement Income Exclusion - line 28a" do
+      before do
+        allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
+      end
+
+      context "when filer is eligible" do
+        it 'sets PensionExclusion to the line 28a value' do
+          expected = 5_000
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_28a).and_return expected
+          expect(xml.at("PensionExclusion").text).to eq(expected.to_s)
+        end
+      end
+    end
+
+    describe "Other Retirement Income Exclusion - line 28b" do
+      before do
+        allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
+      end
+      
+      context "when filer is eligible" do
+        it 'sets OtherRetireIncomeExclus to the line 28b value' do
+          expected = 1_000
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_28b).and_return expected
+          expect(xml.at("OtherRetireIncomeExclus").text).to eq(expected.to_s)
+        end
+      end
+
+      context "when filer is ineligible" do
+        it "does not include TotalIncome in the XML" do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_28b).and_return 0
+          expect(xml.at("OtherRetireIncomeExclus")).to eq(nil)
+        end
+      end
+    end
+
+    describe "Other Retirement Income Exclusion - line 28c" do
+      before do
+        allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
+      end
+
+      context "when filer is eligible" do
+        it 'sets TotalExclusionAmount to the line 28c value' do
+          expected = 2_000
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_28c).and_return expected
+          expect(xml.at("TotalExclusionAmount").text).to eq(expected.to_s)
+        end
+      end
+    end
+
     describe "gross income - line 29" do
       context "when filer submits w2 wages" do
         it "fills TotalIncome with the value from Line 15" do
