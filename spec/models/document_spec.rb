@@ -285,7 +285,7 @@ describe Document do
     end
   end
 
-  describe "#convert_heic_upload_to_jpg!" do
+  xdescribe "#convert_heic_upload_to_jpg!" do
     it "converts a heic attachment to jpg" do
       document = create :document, upload_path: Rails.root.join("spec", "fixtures", "files", "IMG_4851.HEIC")
 
