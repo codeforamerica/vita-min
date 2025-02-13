@@ -2,10 +2,10 @@ require 'rails_helper'
 
 RSpec.describe Hub::BulkActions::ChangeOrganizationController do
   let(:organization) { create :organization }
-  let(:client) { create :client, vita_partner: organization }
-  let(:tax_return_1) { create :tax_return, client: client, year: 2020 }
-  let(:tax_return_2) { create :tax_return, client: client, year: 2019 }
-  let(:tax_return_3) { create :tax_return, client: client, year: 2018 }
+  let(:intake){ create :intake, client: create(:client, vita_partner: organization), product_year: Rails.configuration.product_year }
+  let(:tax_return_1) { create :tax_return, client: intake.client, year: 2020 }
+  let(:tax_return_2) { create :tax_return, client: intake.client, year: 2019 }
+  let(:tax_return_3) { create :tax_return, client: intake.client, year: 2018 }
   let!(:tax_return_selection) { create :tax_return_selection, tax_returns: [tax_return_1, tax_return_2, tax_return_3] }
   let(:user) { create :organization_lead_user, organization: organization }
 
@@ -27,6 +27,17 @@ RSpec.describe Hub::BulkActions::ChangeOrganizationController do
           get :edit, params: params
 
           expect(assigns(:vita_partners)).to match_array [organization, site, other_site]
+        end
+      end
+
+      context "with an archived intake" do
+        before do
+          intake.update(product_year: Rails.configuration.product_year - 2)
+        end
+
+        it "response is forbidden (403)" do
+          get :edit, params: params
+          expect(response).to be_forbidden
         end
       end
     end
@@ -79,6 +90,17 @@ RSpec.describe Hub::BulkActions::ChangeOrganizationController do
               put :update, params: params
             }.not_to change { user.notifications.count }
           }.not_to have_enqueued_job
+        end
+      end
+
+      context "with an archived intake" do
+        before do
+          intake.update(product_year: Rails.configuration.product_year - 2)
+        end
+
+        it "response is forbidden (403)" do
+          put :update, params: params
+          expect(response).to be_forbidden
         end
       end
     end

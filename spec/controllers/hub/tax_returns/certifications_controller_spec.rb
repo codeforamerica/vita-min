@@ -1,9 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe Hub::TaxReturns::CertificationsController do
+  let(:user) { create :organization_lead_user }
+  let!(:unauthorized_org_lead) { create :organization_lead_user }
+  let(:intake){ create :intake, product_year: product_year, client: create(:client, :with_gyr_return, vita_partner: user.role.organization)}
+  let(:product_year) { Rails.configuration.product_year }
+  let(:tax_return) { intake.client.tax_returns.first }
+
   describe "#update" do
-    let(:user) { create :organization_lead_user }
-    let(:tax_return) { create :gyr_tax_return, client: (create :client, vita_partner: user.role.organization) }
     let(:next_path) { "/next/path" }
     let(:params) { { id: tax_return.id, certification_level: "foreign_student", next: next_path } }
 
@@ -20,6 +24,7 @@ RSpec.describe Hub::TaxReturns::CertificationsController do
           tax_return.reload
         }.to change(tax_return, :certification_level).to('foreign_student')
       end
+
       context "redirecting on success" do
         context "with next param" do
           it "redirects to referring path without params" do
@@ -44,6 +49,25 @@ RSpec.describe Hub::TaxReturns::CertificationsController do
             expect(response).to redirect_to(hub_client_path(id: tax_return.client.id))
           end
         end
+      end
+
+      context "with an archived intake" do
+        let(:product_year) { Rails.configuration.product_year - 1 }
+        it "response is forbidden (403)" do
+          patch :update, params: params
+          expect(response).to be_forbidden
+        end
+      end
+    end
+
+    context "with an unauthorized user" do
+      before do
+        sign_in unauthorized_org_lead
+      end
+
+      it "is not allowed to access the page" do
+        patch :update, params: params
+        expect(response).to be_forbidden
       end
     end
   end

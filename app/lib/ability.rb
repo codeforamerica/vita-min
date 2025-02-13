@@ -7,13 +7,14 @@ class Ability
       return
     end
 
-    # Custom actions
-    alias_action :flag, :toggle_field, :edit_take_action, :update_take_action,
-                 :unlock, :edit_13614c_form_page1, :edit_13614c_form_page2,
-                 :edit_13614c_form_page3, :save_and_maybe_exit,
+    # Custom client controller actions
+    alias_action :flag, :toggle_field,
+                 :edit_take_action, :update_take_action,
+                 :edit_13614c_form_page1, :edit_13614c_form_page2,
+                 :edit_13614c_form_page3, :edit_13614c_form_page4, :edit_13614c_form_page5,
                  :update_13614c_form_page1, :update_13614c_form_page2,
-                 :update_13614c_form_page3, :cancel_13614c,
-                 :resource_to_client_redirect,
+                 :update_13614c_form_page3, :update_13614c_form_page4, :update_13614c_form_page5,
+                 :cancel_13614c, :save_and_maybe_exit,
                  to: :hub_client_management
 
     accessible_groups = user.accessible_vita_partners
@@ -44,7 +45,7 @@ class Ability
           %w[state_file unfilled state_file_az state_file_ny state_file_md state_file_nc state_file_id].include?(error.service_type)
         end
       end
-      unless user.email.include?("@codeforamerica.org")
+      unless user.email.downcase.include?("@codeforamerica.org")
         cannot :manage, :flipper_dashboard
       end
       return
@@ -76,57 +77,71 @@ class Ability
     can :read, Organization, id: accessible_groups.pluck(:id)
     can :read, Site, id: accessible_groups.pluck(:id)
 
-    # This was overly permissive. We should work out what the permissions should
-    # be for each role and reduce this check. As we need to modify this, please
-    # break out the role and specify permissions more granularly
+    # HUB CLIENT CONTROLLER PERMISSIONS
+    # overly permissive, need to narrow permissions
+    # break out role and specify permissions when making modifications
     client_role_whitelist = [
       :client_success, :admin, :org_lead, :site_coordinator,
       :coalition_lead, :state_file_admin, :team_member
     ].freeze
 
     if user.role?(client_role_whitelist)
-      can :manage, Client, vita_partner: accessible_groups
+      can :read, Client, vita_partner: accessible_groups
+
+      can [:create, :update, :hub_client_management],
+          Client, vita_partner: accessible_groups, intake: { product_year: Rails.configuration.product_year }
+    end
+
+    if user.role?([:admin, :org_lead, :site_coordinator])
+      can :unlock, Client, vita_partner: accessible_groups, intake: { product_year: Rails.configuration.product_year }
     end
 
     if user.greeter?
-      can [:update, :read, :hub_client_management],
-        Client,
-        tax_returns: {
-          current_state: [
-            'intake_ready',
-            'intake_greeter_info_requested',
-            'intake_needs_doc_help',
-          ],
-        },
-        vita_partner: accessible_groups
+      general_states = %w[intake_ready intake_greeter_info_requested intake_needs_doc_help]
+      assigned_states = %w[file_not_filing file_hold]
 
-      can [:update, :read, :hub_client_management],
-        Client,
-        tax_returns: {
-          current_state: [
-            'file_not_filing',
-            'file_hold',
-          ],
-          assigned_user: user,
-        },
-        vita_partner: accessible_groups
+      can :read, Client, tax_returns: { current_state: general_states }, vita_partner: accessible_groups
+      can :read, Client, tax_returns: { current_state: assigned_states, assigned_user: user }, vita_partner: accessible_groups
+
+      can [:update, :hub_client_management], Client,
+          tax_returns: { current_state: general_states },
+          vita_partner: accessible_groups, intake: { product_year: Rails.configuration.product_year }
+
+      can [:update, :hub_client_management], Client,
+          tax_returns: { current_state: assigned_states, assigned_user: user },
+          vita_partner: accessible_groups, intake: { product_year: Rails.configuration.product_year }
     end
 
     # Only admins can destroy clients
     cannot :destroy, Client unless user.admin?
-    can :manage, [
+
+    can [:read], [
+      Note,
       Document,
+      TaxReturn
+    ], client: { vita_partner: accessible_groups }
+
+    can [:create, :update, :destroy], [
+      Note,
+      TaxReturn
+    ], client: { vita_partner: accessible_groups, intake: { product_year: Rails.configuration.product_year } }
+
+    can [:create, :update, :destroy, :archived, :confirm],
+        Document, client: { vita_partner: accessible_groups, intake: { product_year: Rails.configuration.product_year } }
+
+    can :manage, [
       IncomingEmail,
       IncomingTextMessage,
-      Note,
       OutgoingEmail,
       OutgoingTextMessage,
       SystemNote,
-      TaxReturn,
     ], client: { vita_partner: accessible_groups }
 
-    can :manage, TaxReturnSelection, tax_returns: { client: { vita_partner: accessible_groups } }
-    cannot :manage, TaxReturnSelection, tax_returns: { client: { vita_partner: VitaPartner.where.not(id: accessible_groups) }}
+    can :manage, TaxReturnSelection, tax_returns: { client: { vita_partner: accessible_groups, intake: { product_year: Rails.configuration.product_year } } }
+    cannot :manage, TaxReturnSelection, tax_returns: { client: { vita_partner: VitaPartner.where.not(id: accessible_groups) } }
+    cannot :manage, TaxReturnSelection do |selection|
+      selection.tax_returns.any? { |tax_return| tax_return.client.has_archived_intake? }
+    end
 
     can :manage, EfileSubmission, tax_return: { client: { vita_partner: accessible_groups } }
 
