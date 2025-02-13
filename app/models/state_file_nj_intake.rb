@@ -211,5 +211,10 @@ class StateFileNjIntake < StateFileBaseIntake
     (nj_gross_income * 0.02).floor
   end
 
+  def validate_state_specific_w2_requirements(w2)
+    super
+    # if w2.wages.positive? && !w2.state_wages_amount.positive?
+    #   w2.errors.add(:state_wages_amount, I18n.t("state_file.questions.nj_w2.edit.state_wages_amount_error"))
+    # end
+  end
 end
-
