@@ -14,7 +14,7 @@
       <li><%=t('.change_in_filing_status') %></li>
     </ul>
     <p>
-      <%= link_to t('state_file.questions.eligible.edit.faq_link'), state_faq_path(us_state: 'id', locale: I18n.locale) %>
+      <%= t('state_file.questions.eligible.edit.faq_link_html', url: "#{root_url}/id/faq/what_idaho_credits_and_deductions_does_fileyourstatetaxes_not_support_this_year") %>
     </p>
   </div>
 </div>

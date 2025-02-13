@@ -10,7 +10,7 @@
       <li><%=t('.credits_carried') %></li>
     </ul>
     <p>
-      <%= link_to t('state_file.questions.eligible.edit.faq_link'), state_faq_path(us_state: 'nc', locale: I18n.locale) %>
+      <%= t('state_file.questions.eligible.edit.faq_link_html', url: "#{root_url}/nc/faq/what_north_carolina_credits_and_deductions_does_fileyourstatetaxes_not_support_this_year") %>
     </p>
   </div>
 </div>
