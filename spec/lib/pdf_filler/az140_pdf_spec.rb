@@ -33,6 +33,18 @@ RSpec.describe PdfFiller::Az140Pdf do
       end
     end
 
+    context "with retirement income" do
+      before do
+        allow_any_instance_of(Efile::Az::Az140Calculator).to receive(:calculate_line_29a).and_return 102
+        allow_any_instance_of(Efile::Az::Az140Calculator).to receive(:calculate_line_29b).and_return 233
+      end
+
+      it "fills the fields correctly" do
+        expect(pdf.hash_for_pdf["29a"]).to eq "102"
+        expect(pdf.hash_for_pdf["29b"]).to eq "233"
+      end
+    end
+
     context 'Nonrefundable Credits from Arizona Form 301, Part 2, line 62' do
       before do
         allow_any_instance_of(Efile::Az::Az301Calculator).to receive(:calculate_line_60).and_return 100
