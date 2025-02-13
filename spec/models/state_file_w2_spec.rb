@@ -108,7 +108,6 @@ describe StateFileW2 do
     end
 
     it "permits state_wages_amt to be blank if state_income_tax_amt is blank" do
-      w2.wages = 0
       w2.state_wages_amount = 0
       w2.state_income_tax_amount = 0
       expect(w2).to be_valid(:state_file_edit)
@@ -121,7 +120,6 @@ describe StateFileW2 do
     end
 
     it "permits state_wages_amt to be blank if state_income_tax_amt is blank" do
-      w2.wages = 0
       w2.employer_state_id_num = nil
       w2.state_wages_amount = 0
       w2.state_income_tax_amount = 0
@@ -166,9 +164,9 @@ describe StateFileW2 do
         w2.check_box14_limits = true
         allow(StateFile::StateInformationService).to receive(:w2_supported_box14_codes)
           .and_return([
-                        { name: "UI_WF_SWF", limit: 179.78 },
-                        { name: "FLI", limit: 145.26 }
-                      ])
+            { name: "UI_WF_SWF", limit: 179.78 },
+            { name: "FLI", limit: 145.26 }
+          ])
       end
   
       it "is invalid when box14_ui_wf_swf exceeds the state limit" do
@@ -273,9 +271,9 @@ describe StateFileW2 do
       before do
         allow(StateFile::StateInformationService).to receive(:w2_supported_box14_codes)
           .and_return([
-                        { name: "UI_WF_SWF", limit: 179.78 },
-                        { name: "FLI", limit: 145.26 }
-                      ])
+            { name: "UI_WF_SWF", limit: 179.78 },
+            { name: "FLI", limit: 145.26 }
+          ])
       end
 
       it "returns the correct limit for a valid name" do
