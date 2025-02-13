@@ -166,9 +166,9 @@ describe StateFileW2 do
         w2.check_box14_limits = true
         allow(StateFile::StateInformationService).to receive(:w2_supported_box14_codes)
           .and_return([
-                        { name: "UI_WF_SWF", limit: 179.78 },
-                        { name: "FLI", limit: 145.26 }
-                      ])
+            { name: "UI_WF_SWF", limit: 179.78 },
+            { name: "FLI", limit: 145.26 }
+          ])
       end
   
       it "is invalid when box14_ui_wf_swf exceeds the state limit" do
@@ -273,9 +273,9 @@ describe StateFileW2 do
       before do
         allow(StateFile::StateInformationService).to receive(:w2_supported_box14_codes)
           .and_return([
-                        { name: "UI_WF_SWF", limit: 179.78 },
-                        { name: "FLI", limit: 145.26 }
-                      ])
+            { name: "UI_WF_SWF", limit: 179.78 },
+            { name: "FLI", limit: 145.26 }
+          ])
       end
 
       it "returns the correct limit for a valid name" do
