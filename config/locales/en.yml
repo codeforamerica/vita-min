@@ -2567,7 +2567,7 @@ en:
           public_school_credit: Public School Tax Credit
         edit:
           credits_not_supported: What subtractions, credits, and household situations does this service not support this year?
-          faq_link: Find a more detailed breakdown of this year's unsupported credits, deductions, and other situations here.
+          faq_link_html: Find a more detailed breakdown of this year's unsupported credits, deductions, and other situations <a href="%{url}">here</a>.
           md_title2_html: |
             Let's make sure this is the right service for you.<br><br>
             Here are the credits and subtractions you <strong>may</strong> be able to claim to maximize your refund.
