@@ -24,3 +24,4 @@ FactoryBot.define do
     state_file_az_intake
   end
 end
+

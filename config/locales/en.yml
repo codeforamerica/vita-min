@@ -15,7 +15,7 @@ en:
             charity_code:
               invalid: should be a five digit number beginning with 2
             date_of_contribution:
-              inclusion: Date must be in the current tax year
+              inclusion: Date must be valid and in the current tax year
         state_file_1099_r:
           errors:
             must_be_less_than_gross_distribution: Must be less than gross distribution amount
