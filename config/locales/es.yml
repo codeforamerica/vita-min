@@ -1507,14 +1507,41 @@ es:
     state_file:
       accepted_owe:
         email:
-          body: "Hola %{primary_first_name},\n\n¡%{state_name} aceptó tu declaración de impuestos estatales! Asegúrate de pagar tus impuestos estatales antes del 15 de abril en %{state_pay_taxes_link} si no los pagaste mediante débito directo al presentar tu declaración.\n\nDescarga tu declaración en <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.\n\n¿Preguntas? Responde a este correo electrónico.\n\nSaludos, \nEl equipo de FileYourStateTaxes\n"
-          subject: 'Actualización de FileYourStateTaxes: Declaración Estatal de %{state_name} Aceptada'
-        sms: "Hola %{primary_first_name} - %{state_name}¡Acepté su declaración de impuestos estatales! Asegúrese de pagar sus impuestos estatales antes del 15 de abril al %{state_pay_taxes_link} si no ha pagado mediante depósito directo o cheque. \n\n\nDescarga tu declaración en %{return_status_link}\n\n¿Preguntas? Envíenos un correo electrónico a help@fileyourstatetaxes.org.\n"
+          body: |
+            Hola %{primary_first_name},
+
+            Tu declaración de impuestos estatales de %{state_name} <strong>ha sido aceptada y hay un pago pendiente</strong>.
+
+            <strong>Si no pagaste ya mediante débito directo al presentar tu declaración, por favor, haz tu pago antes del 15 de abril visitando %{state_pay_taxes_link}</strong>. Cualquier cantidad no pagada antes de la fecha límite de presentación podría significar multas y costos adicionales.
+
+            Descarga tu declaración visitando <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.
+
+            ¿Necesitas ayuda? Responde a este correo.
+
+            Atentamente,
+            El equipo de FileYourStateTaxes
+          subject: Declaración de impuestos del estado %{state_name} aceptada - Pago pendiente
+        sms: |
+          Hola %{primary_first_name} - Tu declaración de impuestos estatales de %{state_name} ha sido aceptada y hay un pago pendiente.
+
+          Sino has hecho tu pago mediante débito directo, por favor hazlo antes del 15 de abril en %{state_pay_taxes_link}.
+
+          Cualquier cantidad no pagada antes de la fecha límite de presentación podría significar multas y costos adicionales.
+
+          Descarga tu declaración en %{return_status_link}
+
+          ¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org
       accepted_refund:
         email:
-          body: "Hola %{primary_first_name},\n\n¡%{state_name} ha aceptado tu declaración de impuestos estatales! Puedes esperar recibir tu reembolso tan pronto como %{state_name} apruebe la cantidad de tu reembolso.\n\nDescarga tu declaración y verifica el estado de tu reembolso en <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.\n\nSaludos, \nEl equipo de FileYourStateTaxes\n"
-          subject: 'Actualización de FileYourStateTaxes: Declaración Estatal de %{state_name} Aceptada'
-        sms: "Hola %{primary_first_name} - %{state_name} ¡Acepté su declaración de impuestos estatales! Puede esperar recibir su reembolso tan pronto como %{state_name} apruebe el monto de su reembolso. \n\nDescargue su devolución y verifique el estado de su reembolso en %{return_status_link}\n\n¿Necesitar ayuda? Envíenos un correo electrónico a help@fileyourstatetaxes.org.\n"
+          body: |
+            Hola %{primary_first_name},
+
+            ¡Tu declaración de impuestos estatales de %{state_name} ha sido <strong>aceptada</strong>! Descarga tu declaración y verifica el estado de tu reembolso visitando <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.
+
+            Atentamente,
+            El equipo de FileYourStateTaxes
+          subject: Declaración de impuestos estatales de %{state_name} aceptada
+        sms: "Hola %{primary_first_name} - Buenas noticias, ¡%{state_name} ha aceptado tu declaración de impuestos estatales! \n\nDescarga tu declaración y verifica el estado de tu reembolso en %{return_status_link}\n\n¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org.\"\n"
       df_transfer_issue_message:
         email:
           body: |
@@ -1530,19 +1557,23 @@ es:
           body: |
             Hola %{primary_first_name},
 
-            Todavía no has enviado tu declaración de impuestos estatales. Como recordatorio, los impuestos estatales vencen el 15 de abril.
+            Todavía no has enviado tu declaración de impuestos estatales. Recuerda que los impuestos estatales vencen el 15 de abril.
 
-            Completa la tuya ahora, ve a <a target="_blank" rel="noopener nofollow" href="https://fileyourstatetaxes.org/es">fileyourstatetaxes.org/es</a>
+            Completa tu declaración ahora visitando <a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/es/login-options">www.fileyourstatetaxes.org/es/login-options</a>.
 
             ¿Necesitas ayuda? Responde a este correo electrónico.
 
             Atentamente,
             El equipo de FileYourStateTaxes
-          subject: "¡No olvides terminar tu declaración de impuestos estatales!"
+          subject: Recuerda completar tu declaración de impuestos estatales
         sms: |
-          Hola %{primary_first_name} - Aún no has presentado tu declaración de impuestos estatales. Como recordatorio, los impuestos estatales vencen antes del 15 de abril. Vaya a fileyourstatetaxes.org/es para finalizarlos ahora.
+          Hola %{primary_first_name} - Aún no has enviado tu declaración de impuestos estatales.
 
-          ¿Necesitar ayuda? Envíenos un correo electrónico a help@fileyourstatetaxes.org.
+          Los impuestos estatales vencen el 15 de abril.
+
+          Completa tu declaración ahora en www.fileyourstatetaxes.org/es/login-options.
+
+          ¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org.
       issue_resolved:
         email:
           body: "Hola, ¡Gracias por usar FileYourStateTaxes!\n\nTodos los problemas que hayas experimentado al usar nuestra herramienta han sido resueltos. Para continuar presentando tus impuestos estatales, <a href=\"%{login_link}\">inicia sesión aquí.</a>\n\nSaludos, \nEl equipo de FileYourStateTaxes\n"
@@ -1556,114 +1587,146 @@ es:
           body: |-
             Hola %{primary_first_name},
 
-            Notamos que todavía no has enviado tu declaración de impuestos estatales con la cuenta asociada a este correo electrónico. Si enviaste tu declaración estatal de otra manera, o la enviaste con otro correo electrónico, puedes ignorar este mensaje.
+            Aún no has enviado tu declaración de impuestos estatales. Te recordamos que el plazo para completar los impuestos estatales venció el 15 de abril. Asegúrate de enviar tu declaración de impuestos estatales lo antes posible para evitar multas por declarar tarde de %{state_name}.
 
-            Este es un recordatorio que la fecha límite para enviar tu declaración estatal fue el 15 de abril, pero aún no es demasiado tarde para presentarla. Visita a https://www.fileyourstatetaxes.org/es/login-options para verificar el estado de tu declaración o completarla ahora. Debes enviar tu declaración tan pronto como posible para evitar cargos de presentaciones tardías de %{state_name}. Nuestros servicios cerrarán el 25 de abril. Después de esa fecha, ya no podrás presentar tu declaración a través de FileYourStateTaxes.
+            Visita <a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/es/login-options">www.fileyourstatetaxes.org/es/login-options</a> para completar tu declaración ahora.
 
-            ¿Preguntas? Responde a este correo electrónico.
+            ¿Necesitas ayuda? Responde a este correo electrónico.
 
             Atentamente,
             El equipo de FileYourStateTaxes
-          subject: 'Recordatorio final: FileYourStateTaxes cerrará el 25 de abril.'
+          subject: Recuerda completar tu declaración de impuestos estatales lo antes posible
         sms: |
-          Hola %{primary_first_name} - Aún no ha presentado su declaración de impuestos estatales. Asegúrese de presentar sus impuestos estatales lo antes posible para evitar cargos por presentación tardía. Vaya a fileyourstatetaxes.org/es/login-options para finalizarlos ahora. FileYourStateTaxes cerrará sus servicios del año el 25 de abril.
-          ¿Necesitar ayuda? Envíenos un correo electrónico a help@fileyourstatetaxes.org.
+          Hola %{primary_first_name} - Aún no has enviado tu declaración de impuestos estatales. Asegúrate de presentar tus impuestos estatales lo antes posible para evitar multas por declarar tarde. Ve a fileyourstatetaxes.org/es/login-options para completar tu declaración ahora.
+          ¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org.
       pre_deadline_reminder:
         email:
-          body: "Hola %{primary_first_name}, \n\nAún no has presentado tu declaración de impuestos estatales. Asegúrate de presentar tus impuestos estatales antes del 15 de abril para evitar multas por presentación tardía de %{state_name}. \n\nVe a fileyourstatetaxes.org/es/login-options para terminarlos ahora.\n\n¿Necesitas ayuda? Responde a este mensaje de texto.\n\nAtentamente,\nEl equipo de FileYourStateTaxes\n"
-          subject: "¡No olvides terminar tu declaración de impuestos estatales antes del 15 de abril!"
+          body: |
+            Hola %{primary_first_name},
+
+            Todavía no has enviado tu declaración de impuestos estatales. Recuerda que los impuestos estatales vencen el 15 de abril. Asegúrate de presentar tus impuestos estatales antes del 15 de abril para evitar multas por declarar tarde de %{state_name}.
+
+            Completa tu declaración ahora visitando <a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/es/login-options">www.fileyourstatetaxes.org/es/login-options</a>
+
+            ¿Necesitas ayuda? Responde a este correo electrónico.
+
+            Atentamente,
+            El equipo de FileYourStateTaxes
+          subject: Recuerda completar tu declaración de impuestos estatales
         sms: |
-          Hola %{primary_first_name} - Aún no ha presentado su declaración de impuestos estatales. Asegúrese de presentar sus impuestos estatales antes del 15 de abril para evitar cargos por presentación tardía. Vaya a fileyourstatetaxes.org/es/login-options para finalizarlos ahora.
-          ¿Necesitar ayuda? Envíenos un correo electrónico a help@fileyourstatetaxes.org.
+          Hola %{primary_first_name} - Aún no has enviado tu declaración de impuestos estatales. Asegúrate de presentar tus impuestos estatales antes del 15 de abril para evitar multas por declarar tarde. Ve a fileyourstatetaxes.org/es/login-options para completar tu delcaración ahora.
+          ¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org.
       reject_resolution_reminder:
         email:
           body: |
             Hola %{primary_first_name},
 
-            Como recordatorio, tu declaración de impuestos estatales de %{state_name} fue rechazada. ¡No te preocupes! Podemos ayudarte a corregirla y volver a enviarla en <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>. Asegúrate de tomar acción en tu declaración rechazada lo más pronto posible para evitar cargos por presentación tardía del estado de %{state_name}.
 
-            Los servicios de FileYourStateTaxes se cerrarán para el año el 25 de abril.
+            Te recordamos que tu declaración de impuestos estatales de %{state_name} fue rechazada. ¡No te preocupes! Podemos ayudarte a corregirla y volver a enviarla visitando <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
 
-            ¿Preguntas? Responde a este correo electrónico.
+            <strong>Asegúrate de tomar acción en tu declaración rechazada lo más pronto posible para evitar costos extra por declarar tarde de %{state_name}.</strong>
+
+            ¿Necesitas ayuda? Responde a este correo electrónico.
 
             Atentamente,
             El equipo de FileYourStateTaxes
-          subject: "¡Toma acción en tu declaración estatal de %{state_name} rechazada!"
-        sms: Hola %{primary_first_name} - Este es un recordatorio de que %{state_name} rechazó su declaración de impuestos estatales. Podemos ayudarle a solucionarlo y volver a enviarlo en %{return_status_link}.Asegúrese de tomar medidas lo antes posible para evitar cargos por presentación tardía. FileYourStateTaxes cerrará sus servicios del año el 25 de abril. ¿Preguntas? Envíenos un correo electrónico a help@fileyourstatetaxes.org.
+          subject: Toma acción en tu declaración estatal rechazada de %{state_name}
+        sms: Hola %{primary_first_name} - Te recordamos que tu declaración de impuestos estatales de %{state_name} fue rechazada. Podemos ayudarte a corregirla y volver a enviarla en %{return_status_link}. Asegúrate de tomar acción lo más pronto posible para evitar costos extra por declarar tarde. ¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org.
       rejected:
         email:
-          body: "Hola %{primary_first_name},\n\nLamentablemente, %{state_name} rechazó tu declaración de impuestos estatales. ¡No te preocupes! Podemos ayudarte a corregirla y volver a enviarla en <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.\n\n¿Preguntas? Responde a este correo electrónico.\n\nSaludos, \nEl equipo de FileYourStateTaxes\n"
-          subject: 'Actualización de FileYourStateTaxes: Declaración Estatal de %{state_name} Rechazada. Acción Necesaria.'
-        sms: |
-          Hola %{primary_first_name} - Lamentablemente, %{state_name} rechazó su declaración de impuestos estatales. ¡No te preocupes! Podemos ayudarle a solucionarlo y volver a enviarlo en %{return_status_link}.
+          body: |
+            Hola %{primary_first_name},
 
-          ¿Preguntas? Envíenos un correo electrónico a help@fileyourstatetaxes.org.
+            Lamentablemente, %{state_name} rechazó tu declaración de impuestos estatales. ¡No te preocupes! Podemos ayudarte a corregirla y volver a enviarla en <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.
+
+            ¿Necesitas ayuda? Responde a este correo electrónico.
+
+            Atentamente,
+            El equipo de FileYourStateTaxes
+          subject: 'Acción necesaria: La declaración de Impuestos Estatales de %{state_name} fue rechazada.'
+        sms: |
+          Hola %{primary_first_name} - Lamentablemente, %{state_name} rechazó tu declaración de impuestos estatales. ¡No te preocupes! Podemos ayudarte a corregirla y volver a enviarla en %{return_status_link}.
+
+          ¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org.
       still_processing:
         email:
           body: |
             Hola %{primary_first_name},
 
-            Está tardando más de lo esperado procesar tu declaración de impuestos estatales. ¡No te preocupes! Te avisaremos tan pronto como conozcamos el estado de tu declaración. No es necesario que hagas nada en este momento.
+            Procesar tu declaración de impuestos estatal está tardando más de lo esperado. ¡No te preocupes! <strong>No necesitas hacer nada en este momento.</strong> Te avisaremos apenas tengamos actualizaciones del estado de tu declaración.
 
-            ¿Preguntas? Responde a este correo electrónico.
+            ¿Necesitas ayuda? Responde a este correo.
 
             Atentamente,
             El equipo de FileYourStateTaxes
-          subject: 'Actualización de FileYourStateTaxes: La declaración de impuestos estatales de %{state_name} está tardando más de lo esperado'
-        sms: Hola %{primary_first_name} - Está tardando más de lo esperado procesar su declaración de impuestos estatales. ¡No te preocupes! Le informaremos tan pronto como sepamos el estado de su devolución. No necesitas hacer nada ahora. ¿Preguntas? Envíenos un correo electrónico a help@fileyourstatetaxes.org.
+          subject: Tu declaración de impuestos del estado %{state_name} está tardando más de lo esperado
+        sms: Hola %{primary_first_name} - Procesar tu declaración de impuestos estatales está tardando más de lo esperado . ¡No te preocupes! Te avisaremos apenas tengamos actualizaciones del estado de tu declaración. No necesitas hacer nada en este momento. ¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org.
       successful_submission:
         email:
           body: |
             Hola %{primary_first_name},
 
-            ¡%{submitted_or_resubmitted} exitosamente su declaración de impuestos del estado de %{state_name}! Le informaremos en 1 o 2 días sobre el estado de su devolución. Puede descargar su declaración y verificar el estado en <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
+            ¡Has %{submitted_or_resubmitted} con éxito tu declaración de impuestos estatales de %{state_name}! Te actualizaremos sobre el estado de tu declaración en 1 o 2 días hábiles.
 
-            ¿Necesitas ayuda? Responder a este correo electrónico.
+            Puedes descargar y verificar el estado de tu declaración visitando <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
+
+            ¿Necesitas ayuda? Responde a este correo electrónico.
 
             Atentamente,
             El equipo de FileYourStateTaxes
-          resubmitted: Reenvió
-          subject: 'Actualización de FileYourStateTaxes: %{state_name} Declaración estatal enviada'
-          submitted: Envió
-        sms: Hola %{primary_first_name} - ¡Has %{submitted_or_resubmitted} tu %{state_name} declaración de impuestos estatales! Le informaremos en 1 o 2 días sobre el estado de su devolución. Puedes descargar tu declaración y consultar el estado en %{return_status_link}. ¿Necesitar ayuda? Envíenos un correo electrónico a help@fileyourstatetaxes.org.
+          resubmitted: vuelto a enviar
+          subject: Declaración de impuestos estatales de %{state_name} enviada
+          submitted: enviado
+        sms: Hola %{primary_first_name} - ¡Has %{submitted_or_resubmitted} con éxito tu declaración de impuestos estatales de %{state_name}! Te actualizaremos en 1-2 días sobre el estado de tu declaración. Puedes descargar y verificar el estado de tu declaración en %{return_status_link}. ¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org.
       survey_notification:
         email:
           body: |
             Hola %{primary_first_name},
 
-            ¡Gracias por enviar tus impuestos con FileYourStateTaxes! ¡Nos encantaría recibir comentarios sobre tu experiencia para que podamos mejorar! ¿Podrías contarnos cómo te fue?
+            ¡Gracias por usar FileYourStateTaxes para declarar tus impuestos! ¡Nos encantaría conocer tu opinión sobre tu experiencia para poder mejorar! ¿Podrías contarnos cómo te fue?
 
-            Responda nuestra encuesta de 5 minutos aquí: %{survey_link}
+            Completa nuestra encuesta de 5 minutos aquí: %{survey_link}
 
             Atentamente,
             El equipo de FileYourStateTaxes
-          subject: Tus comentarios sobre FileYourStateTaxes
-        sms: |
-          Hola %{primary_first_name} -¡Gracias por enviar sus impuestos con FileYourStateTaxes! ¡Nos encantaría recibir comentarios sobre tu experiencia para que podamos mejorar! ¿Podrías contarnos cómo te fue? Responda nuestra encuesta de 5 minutos aquí: %{survey_link}
-
-          Atentamente,
-          El equipo de FileYourStateTaxes
+          subject: Tu opinión sobre FileYourStateTaxes
+        sms: 'Hola %{primary_first_name} - ¡Gracias por usar FileYourStateTaxes para declarar tus impuestos! ¡Nos encantaría conocer tu opinión sobre tu experiencia para poder mejorar! ¿Podrías contarnos cómo te fue? Completa nuestra encuesta de 5 minutos aquí: %{survey_link}'
       terminal_rejected:
         email:
           body: |
             Hola %{primary_first_name},
 
-            Lamentablemente, %{state_name} rechazó tu declaración de impuestos estatales por un problema que no se puede resolver en nuestra herramienta. ¡No te preocupes! Podemos ayudarte a brindar orientación sobre los próximos pasos. Chatea con nosotros en %{return_status_link}.
+            Lamentablemente, %{state_name} ha rechazado tu declaración de impuestos estatal debido a un problema que no se puede resolver en nuestro servicio. ¡No te preocupes! Podemos darte orientación sobre los siguientes pasos. Chatea con nosotros en %{return_status_link}.
 
-            ¿Tiene preguntas? Responda a este correo electrónico.
+            ¿Necesitas ayuda? Responde a este correo.
 
             Atentamente,
             El equipo de FileYourStateTaxes
-          subject: 'Actualización de FileYourStateTaxes: La Declaración de Impuestos Estatales de %{state_name}.'
-        sms: "Hola %{primary_first_name} - Lamentablemente, %{state_name} rechazó tu declaración de impuestos estatales por un problema que no se puede resolver en nuestra herramienta. ¡No te preocupes! Podemos ayudarte a brindar orientación sobre los próximos pasos. Chatea con nosotros en %{return_status_link}. \n\n¿Tienes preguntas? Responde a este texto.\n"
+          subject: Declaración de impuestos estatales de %{state_name} rechazada
+        sms: |
+          Hola, %{primary_first_name}: Lamentablemente, %{state_name} ha rechazado tu declaración de impuestos estatales debido a un problema que no se puede resolver a través de nuestro servicio. ¡No te preocupes! Podemos darte orientación sobre los siguientes pasos. Chatea con nosotros en %{return_status_link}.
+
+          ¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org.
       welcome:
         email:
-          body: "Hola,\n\n¡Hemos creado exitosamente tu cuenta en FileYourStateTaxes! Te enviaremos actualizaciones sobre el estado de tu declaración de impuestos estatal una vez que la envíes. Mientras estás presentando tu declaración, tus respuestas se guardarán a medida que avances. Si necesitas hacer una pausa, puedes regresar e iniciar sesión en tu cuenta en fileyourstatetaxes.org/es.\n\nTu ID de cliente es %{intake_id}. Esta es una pieza importante de información de tu cuenta que puedes necesitar al hablar con nuestro equipo de soporte. Por favor, haz un seguimiento de este número y no borres este mensaje.\n\n¿Necesitas ayuda? Responde a este correo electrónico.\n\nSaludos, \nEl equipo de FileYourStateTaxes\n"
+          body: |
+            Hola,
+
+            ¡Tu cuenta de FileYourStateTaxes está lista para que la uses! Te mandaremos actualizaciones una vez que envíes tu declaración de impuestos estatales. Tu progreso se guarda mientras avanzas, y puedes volver a entrar en cualquier momento en <a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/es/login-options">fileyourstatetaxes.org/es</a>.
+
+            <strong>Tu ID de cliente es %{intake_id}. Tenlo a la mano por si necesitas apoyo.</strong>
+
+            ¿Necesitas ayuda? Responde a este correo electrónico.
+
+            Atentamente,
+            El equipo de FileYourStateTaxes
           subject: Bienvenido a FileYourStateTaxes
         sms: |
-          ¡Bienvenido! ¡Creamos exitosamente tu cuenta FileYourStateTaxes! Le enviaremos actualizaciones sobre el estado de tu declaración de impuestos estatales una vez que la envíe. Mientras presenta la solicitud, tus respuestas se guardarán a medida que avanza. Si necesita un descanso, puede regresar e iniciar sesión en tu cuenta en fileyourstatetaxes.org
+          ¡Hola! Tu cuenta de FileYourStateTaxes está lista. Te mandaremos actualizaciones cuando envíes tu declaración de impuestos estatales. Tu progreso se guarda mientras avanzas, así que puedes volver a entrar en cualquier momento.
 
-          ¿Necesitar ayuda? Envíenos un correo electrónico a help@fileyourstatetaxes.org. Envía "STOP" para cancelar la suscripción.
+          Tu ID de cliente es %{intake_id}. Tenlo a la mano por si necesitas apoyo.
+
+          ¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org. Envía "STOP" para dejar de recibir mensajes.
     successful_submission_drop_off:
       email:
         body: |
@@ -2212,7 +2275,7 @@ es:
       step_description: 'Sección %{current_step} de %{total_steps}: '
     notification_mailer:
       user_message:
-        unsubscribe: Si deseas cancelar la suscripción a los correos electrónicos, haz clic <a href="%{unsubscribe_link}">aquí</a>.
+        unsubscribe: Para dejar de recibir los correos electrónicos, <a href="%{unsubscribe_link}">haz clic aquí</a>.
     notifications_settings:
       unsubscribe_from_emails:
         help_text_html: Si cambias de opinión y deseas suscribirte más tarde, <a class="open-intercom">chatea con nosotros</a> o envíanos un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org.</a>
@@ -3235,8 +3298,6 @@ es:
           subtraction_indian_tribe: Resta por ingresos de un miembro de una tribu india
           use_tax_amount: Cantidad del impuesto sobre uso
           use_tax_applied: Compras fuera del estado en %{filing_year} sin pagar impuesto sobre ventas
-        review_header:
-          unemployment_compensation: Compensación por Desempleo
       nc_sales_use_tax:
         edit:
           calculated_use_tax: Ingresa el impuesto sobre uso calculado
@@ -4164,7 +4225,7 @@ es:
         faq_prior_year_returns: Visita nuestra sección de preguntas frecuentes si tienes dudas sobre declaraciones de años anteriores.
         header: Un servicio sin costo para declarar los impuestos estatales para las personas que usaron IRS Direct File
         helper_heading_html: "<strong>¿Cómo funciona este servicio?</strong>"
-        looking_for_return_html: "<strong>¿Necesitas tu declaración de impuestos de Arizona o Nueva York de 2023?</strong> Puedes iniciar sesión para descargar una copia de tu declaración estatal hasta el 31 de diciembre de 2024."
+        looking_for_return_html: "<strong>¿Necesitas tu declaración de impuestos de Arizona o Nueva York de 2023?</strong>"
         section1_html: |
           <ol class="list--numbered" style="padding-left: 2rem">
             <li>Primero, presenta y envía tu declaración federal con el servicio <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">Direct File del IRS</a> antes de usar este servicio.</li>

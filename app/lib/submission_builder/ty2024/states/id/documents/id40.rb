@@ -21,7 +21,7 @@ module SubmissionBuilder
                 add_non_zero_value(xml, :SpouseExemption, :ID40_LINE_6B)
                 add_non_zero_value(xml, :OtherExemption, :ID40_LINE_6C)
                 add_non_zero_value(xml, :TotalExemption, :ID40_LINE_6D)
-                unless @intake.filing_status_single? && @intake.dependents.count.zero?
+                unless @direct_file_data.primary_claim_as_dependent == "X"
                   xml.DependentGrid do
                     xml.DependentFirstName sanitize_for_xml(@intake.primary.first_name, 20)
                     xml.DependentLastName sanitize_for_xml(@intake.primary.last_name, 20)

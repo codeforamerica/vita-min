@@ -1,0 +1,71 @@
+{
+  "familyAndHousehold": [],
+  "socialSecurityReports": [],
+  "filers": [
+    {
+      "lastName": "Manzo",
+      "dateOfBirth": "1967-07-05",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "firstName": "Caroline",
+      "middleInitial": "J",
+      "educatorExpenses": "0.00",
+      "tin": "400-00-4003",
+      "interestReportsTotal": "30000.00",
+      "isDisabled": false,
+      "form1099GsTotal": "0.00",
+      "isStudent": false,
+      "ssnNotValidForEmployment": null,
+      "hsaTotalDeductibleAmount": null
+    },
+    {
+      "lastName": "Monzo",
+      "dateOfBirth": "1962-12-31",
+      "suffix": null,
+      "isPrimaryFiler": false,
+      "firstName": "Albert",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "400-00-4004",
+      "interestReportsTotal": "25000.00",
+      "isDisabled": false,
+      "form1099GsTotal": "0.00",
+      "isStudent": false,
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [
+    {
+      "usedTin": "400-00-4003",
+      "unionDuesAmount": null
+    }
+  ],
+  "interestReports": [
+    {
+      "has1099": true,
+      "taxExemptAndTaxCreditBondCusipNo": null,
+      "interestOnGovernmentBonds": "0.00",
+      "payerTin": null,
+      "taxExemptInterest": "0.00",
+      "payer": "Atlantic City Investments",
+      "recipientTin": "400-00-4004",
+      "no1099Amount": null,
+      "taxWithheld": "0.00",
+      "1099Amount": "25000.00"
+    },
+    {
+      "has1099": true,
+      "taxExemptAndTaxCreditBondCusipNo": null,
+      "interestOnGovernmentBonds": "0.00",
+      "payerTin": null,
+      "taxExemptInterest": "0.00",
+      "payer": "Jersey Investments",
+      "recipientTin": "400-00-4003",
+      "no1099Amount": null,
+      "1099Amount": "30000.00",
+      "taxWithheld": "0.00"
+    }
+  ]
+}
