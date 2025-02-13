@@ -419,7 +419,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
             it "does not output the pension exclusions" do
               expect(xml.at("Form502 Subtractions PriPensionExclusionInd")).to be_nil
               expect(xml.at("Form502 Subtractions SecPensionExclusionInd")).to be_nil
-              expect(xml.at("Form502 Subtractions PensionExclusions").text.to_i).to eq(0)
+              expect(xml.at("Form502 Subtractions PensionExclusions")).to be_nil
             end
           end
         end

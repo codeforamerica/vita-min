@@ -132,16 +132,16 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
       end
       xml.Subtractions do
         add_element_if_present(xml, "ChildAndDependentCareExpenses", :MD502_LINE_9)
-        add_element_if_present(xml, "SocialSecurityRailRoadBenefits", :MD502_LINE_11)
-        add_element_if_present(xml, "Other", :MD502_LINE_13)
-        add_element_if_present(xml, "TwoIncome", :MD502_LINE_14)
-        add_element_if_present(xml, "Total", :MD502_LINE_15)
-        add_element_if_present(xml, "StateAdjustedGrossIncome", :MD502_LINE_16)
         if Flipper.enabled?(:show_retirement_ui)
           xml.PriPensionExclusionInd "X" if calculated_fields.fetch(:MD502R_LINE_11A).positive?
           xml.SecPensionExclusionInd "X" if calculated_fields.fetch(:MD502R_LINE_11B).positive?
           add_non_zero_value(xml, "PensionExclusions", :MD502_LINE_10A)
         end
+        add_element_if_present(xml, "SocialSecurityRailRoadBenefits", :MD502_LINE_11)
+        add_element_if_present(xml, "Other", :MD502_LINE_13)
+        add_element_if_present(xml, "TwoIncome", :MD502_LINE_14)
+        add_element_if_present(xml, "Total", :MD502_LINE_15)
+        add_element_if_present(xml, "StateAdjustedGrossIncome", :MD502_LINE_16)
       end
       xml.Deduction do
         xml.Method calculated_fields.fetch(:MD502_DEDUCTION_METHOD)
