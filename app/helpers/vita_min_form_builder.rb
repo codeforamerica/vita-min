@@ -408,14 +408,14 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     container_id = nil
     container_class = nil
     item_options = item[:options] || {}
-    if item[:opens_follow_up_with_id] 
+    if item[:opens_follow_up_with_id]
       container_class = "question-with-follow-up__question"
       item_options["data-follow-up"] = "#" + item[:opens_follow_up_with_id]
     elsif item[:follow_up_id]
       container_class = "question-with-follow-up__follow-up"
       container_id = item[:follow_up_id]
     end
-  
+
     joined_classes = ((item[:classes] || []) + ["checkbox"]).join(" ")
     checkbox_args = [item[:method], item_options]
     checkbox_args += ["yes", "no"] if enum
@@ -439,10 +439,10 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     legend_class: "",
     enum: false,
     checkboxes: nil
-  )  
+  )
     checkbox_html = (checkboxes || collection.map do |item|
       vita_min_checkbox_in_set(item, enum: enum)
-    end.join).html_safe  
+    end.join).html_safe
 
     checkbox_container_classes = ["tight-ish-checkboxes"]
     includes_follow_up = (collection.any? { |item| item[:opens_follow_up_with_id] }) || (checkbox_html.include? "follow-up")

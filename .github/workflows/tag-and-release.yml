@@ -1,25 +1,21 @@
 name: Tag and Release
 # 1. Merge current commit and check for errors
 # 2. Generate a version
-# 3. Draft a release with auto-generated notes (tag not pushed yet)
+# 3. Create a release with auto-generated notes
 # 4. Push merged changes
 
 on:
-  # since workflow_dispatch will only work if the default branch has this config,
-  # for testing, this will run action on every merge (does not test inputs)
-  push:
-    branches:
-      - fake-main-for-testing
   workflow_dispatch:
     inputs:
       environment:
         description: 'Where to deploy'
         required: true
         default: 'staging'
+        type: choice
         options: [staging, demo, prod]
       release_type:
         description: 'Part of version to increment (major, minor, patch)'
-        required: false
+        required: true
         default: 'patch'
         type: choice
         options: [patch, minor, major]
@@ -38,22 +34,23 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: vita-min-${{ github.event.inputs.environment }}
-      url: ${{ env.FYST_URL }}
+      url: ${{ vars.FYST_URL }}
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - name: Check out ${{ env.TARGET_BRANCH }} branch
+      - name: Check out ${{ vars.TARGET_BRANCH }} branch
         uses: actions/checkout@v3
         with:
-          ref: ${{ env.TARGET_BRANCH }}
+          ref: ${{ vars.TARGET_BRANCH }}
           fetch-tags: true
 
       - name: Check for merge conflicts
         run: |
+          echo "Checking deployment for ${{ github.ref_name }} to ${{ vars.TARGET_BRANCH }}"
           target_sha=$(git show -s --format=%H)
           if [[ ${target_sha} == ${GITHUB_SHA} ]]; then
-             echo "Target SHA already matches. No need to deploy."
-             exit 0
+             echo "Current SHA ${GITHUB_SHA} already matches the target SHA ${target_sha}. No need to deploy."
+             exit 1
           fi
           git fetch origin ${GITHUB_SHA}
           git merge --ff-only ${GITHUB_SHA} || {
@@ -61,7 +58,7 @@ jobs:
             echo "unable to merge via fast-forward. likely conflict."
             echo "try viewing the conflict output locally:"
             echo "git fetch origin"
-            echo "git checkout ${{ env.TARGET_BRANCH }}"
+            echo "git checkout ${{ vars.TARGET_BRANCH }}"
             echo "git merge --ff ${{ github.ref_name }}"
             exit 1
           }
@@ -71,7 +68,7 @@ jobs:
         run: |
           # parse major, minor, and patch versions from the last release
           latest_tag="$(git tag --list | grep 'version-' | sort --version-sort | tail -n1)"
-          trimmed_version="${latest_version#version-}"
+          trimmed_version="${latest_tag#version-}"
           old_version="${trimmed_version:-0.0.0}"
           IFS='.' read -r major minor patch <<< "${old_version}"
           echo "OLD_VERSION=${old_version}" >> $GITHUB_ENV
@@ -108,8 +105,8 @@ jobs:
           git push
           
           echo "✨ Deployment to ${{ github.event.inputs.environment }} initiated!"
-          echo "👀 Watch progress on CircleCI: https://app.circleci.com/pipelines/github/codeforamerica/vita-min?branch=${{ env.TARGET_BRANCH }}"
+          echo "👀 Watch progress on CircleCI: https://app.circleci.com/pipelines/github/codeforamerica/vita-min?branch=${{ vars.TARGET_BRANCH }}"
           if [[ "${{ github.event.inputs.environment == 'prod' }}" ]]; then
-            echo "📝 (Draft) Release notes here: https://github.com/codeforamerica/vita-min/releases"
+            echo "📝 Release notes here: https://github.com/codeforamerica/vita-min/releases/latest"
             echo "🧷 If needed, rollback to: ${{ env.OLD_VERSION }}"
           fi

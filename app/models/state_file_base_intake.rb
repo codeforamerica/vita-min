@@ -264,8 +264,7 @@ class StateFileBaseIntake < ApplicationRecord
     direct_file_data.spouse_deceased?
   end
 
-  def validate_state_specific_w2_requirements(w2)
-  end
+  def validate_state_specific_w2_requirements(w2); end
 
   def validate_state_specific_1099_g_requirements(state_file1099_g)
     unless /\A\d{9}\z/.match?(state_file1099_g.payer_tin)
@@ -283,6 +282,10 @@ class StateFileBaseIntake < ApplicationRecord
 
   def allows_w2_editing?
     true
+  end
+
+  def has_banking_information_in_financial_resolution?
+    false
   end
 
   class Person
@@ -375,8 +378,11 @@ class StateFileBaseIntake < ApplicationRecord
       StateFile::Questions::ReturnStatusController
     else
       step_name = current_step.split('/').last
-      controller_name = "StateFile::Questions::#{step_name.underscore.camelize}Controller"
-      controller_name.constantize
+      if step_name == "w2"
+        StateFile::Questions::IncomeReviewController
+      else
+        "StateFile::Questions::#{step_name.underscore.camelize}Controller".constantize
+      end
     end
   rescue StandardError
     if hashed_ssn.present?
@@ -384,7 +390,6 @@ class StateFileBaseIntake < ApplicationRecord
     else
       StateFile::Questions::TermsAndConditionsController
     end
-
   end
 
   def self.opted_out_state_file_intakes(email)

@@ -1812,6 +1812,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_11_044009) do
 
   create_table "state_file_az1099_r_followups", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.integer "income_source", default: 0, null: false
     t.datetime "updated_at", null: false
   end
 
@@ -1854,6 +1855,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_11_044009) do
     t.string "locale", default: "en"
     t.datetime "locked_at"
     t.integer "made_az321_contributions", default: 0, null: false
+    t.integer "made_az322_contributions", default: 0, null: false
     t.jsonb "message_tracker", default: {}
     t.integer "payment_or_deposit_type", default: 0, null: false
     t.string "phone_number"
@@ -2244,7 +2246,38 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_11_044009) do
 
   create_table "state_file_nj1099_r_followups", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.integer "income_source", default: 0, null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "state_file_nj_analytics", force: :cascade do |t|
+    t.integer "NJ1040_LINE_12_COUNT", default: 0, null: false
+    t.integer "NJ1040_LINE_15", default: 0, null: false
+    t.integer "NJ1040_LINE_16A", default: 0, null: false
+    t.integer "NJ1040_LINE_16B", default: 0, null: false
+    t.integer "NJ1040_LINE_29", default: 0, null: false
+    t.integer "NJ1040_LINE_31", default: 0, null: false
+    t.integer "NJ1040_LINE_41", default: 0, null: false
+    t.integer "NJ1040_LINE_42", default: 0, null: false
+    t.integer "NJ1040_LINE_43", default: 0, null: false
+    t.integer "NJ1040_LINE_51", default: 0, null: false
+    t.integer "NJ1040_LINE_56", default: 0, null: false
+    t.integer "NJ1040_LINE_58", default: 0, null: false
+    t.boolean "NJ1040_LINE_58_IRS"
+    t.integer "NJ1040_LINE_59", default: 0, null: false
+    t.integer "NJ1040_LINE_61", default: 0, null: false
+    t.integer "NJ1040_LINE_64", default: 0, null: false
+    t.integer "NJ1040_LINE_65", default: 0, null: false
+    t.integer "NJ1040_LINE_65_DEPENDENTS", default: 0, null: false
+    t.boolean "NJ1040_LINE_7_SELF"
+    t.boolean "NJ1040_LINE_7_SPOUSE"
+    t.boolean "NJ1040_LINE_8_SELF"
+    t.boolean "NJ1040_LINE_8_SPOUSE"
+    t.boolean "claimed_as_dep"
+    t.datetime "created_at", null: false
+    t.bigint "state_file_nj_intake_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["state_file_nj_intake_id"], name: "index_state_file_nj_analytics_on_state_file_nj_intake_id"
   end
 
   create_table "state_file_nj_intakes", force: :cascade do |t|

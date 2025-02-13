@@ -54,6 +54,7 @@ class StateFileW2 < ApplicationRecord
   with_options on: :state_file_edit do
     validates :employer_state_id_num, length: { maximum: 16, message: ->(_object, _data) { I18n.t('state_file.questions.w2.edit.employer_state_id_error') } }
     validates :state_wages_amount, numericality: { greater_than_or_equal_to: 0 }, if: -> { state_wages_amount.present? }
+    validates :state_wages_amount, numericality: { greater_than: 0 }, if: -> { wages.positive? }
     validates :state_income_tax_amount, numericality: { greater_than_or_equal_to: 0 }, if: -> { state_income_tax_amount.present? }
     validates :local_wages_and_tips_amount, numericality: { greater_than_or_equal_to: 0 }, if: -> { local_wages_and_tips_amount.present? && StateFile::StateInformationService.w2_include_local_income_boxes(state_file_intake.state_code) }
     validates :local_income_tax_amount, numericality: { greater_than_or_equal_to: 0 }, if: -> { local_income_tax_amount.present? && StateFile::StateInformationService.w2_include_local_income_boxes(state_file_intake.state_code) }
@@ -98,10 +99,8 @@ class StateFileW2 < ApplicationRecord
           errors.add(:local_income_tax_amount, I18n.t("state_file.questions.w2.edit.wages_amt_error", wages_amount: w2.WagesAmt))
           errors.add(:state_income_tax_amount, I18n.t("state_file.questions.w2.edit.wages_amt_error", wages_amount: w2.WagesAmt))
         end
-      else
-        if state_income_tax_amount.present? && state_income_tax_amount > w2.WagesAmt
-          errors.add(:state_income_tax_amount, I18n.t("state_file.questions.w2.edit.wages_amt_error", wages_amount: w2.WagesAmt))
-        end
+      elsif state_income_tax_amount.present? && state_income_tax_amount > w2.WagesAmt
+        errors.add(:state_income_tax_amount, I18n.t("state_file.questions.w2.edit.wages_amt_error", wages_amount: w2.WagesAmt))
       end
     end
   end

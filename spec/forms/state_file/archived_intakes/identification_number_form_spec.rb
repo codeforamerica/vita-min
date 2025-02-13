@@ -17,7 +17,7 @@ RSpec.describe StateFile::ArchivedIntakes::IdentificationNumberForm do
       it "is not valid and adds a validation error" do
         expect(form).not_to be_valid
         expect(form.errors).to include :ssn
-        expect(form.errors[:ssn]).to include "Incorrect SSN/ITIN. After 2 failed attempts, accounts are locked."
+        expect(form.errors[:ssn]).to include I18n.t("state_file.archived_intakes.identification_number.edit.error_message")
       end
     end
 
@@ -38,7 +38,7 @@ RSpec.describe StateFile::ArchivedIntakes::IdentificationNumberForm do
       it "to not be valid" do
         expect(form).to_not be_valid
         expect(form.errors).to include :ssn
-        expect(form.errors[:ssn]).to include "Incorrect SSN/ITIN. After 2 failed attempts, accounts are locked."
+        expect(form.errors[:ssn]).to include I18n.t("state_file.archived_intakes.identification_number.edit.error_message")
       end
     end
 

@@ -22,6 +22,8 @@ module PdfFiller
         'Spouses Last Name' => @submission.data_source.spouse.last_name,
         'Spouses Social Security Number' => @submission.data_source.spouse.ssn,
         'ab Income from US Government obligations See Instruction 13                         ab' => calculated_fields.fetch(:MD502_SU_LINE_AB),
+        'retirement income received in the taxable year                                     u' => calculated_fields.fetch(:MD502_SU_LINE_U),
+        "v" => calculated_fields.fetch(:MD502_SU_LINE_V),
         'appropriate code letters                                                  TOTAL 1' => calculated_fields.fetch(:MD502_SU_LINE_1),
         'NAME' => @submission.data_source.primary.last_name,
         'SSN' => @submission.data_source.primary.ssn,

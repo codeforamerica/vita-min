@@ -149,6 +149,10 @@ FactoryBot.define do
       after(:create, &:synchronize_df_w2s_to_database)
     end
 
+    trait :with_spouse do
+      :mfj_with_complete_spouse
+    end
+
     trait :mfj_with_complete_spouse do
       transient do
         filing_status { 'married_filing_jointly' }

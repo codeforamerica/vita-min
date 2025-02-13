@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>99d28588</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400004003</PrimarySSN>
+            <SpouseSSN>400004004</SpouseSSN>
+            <NameLine1Txt>CAROLINE J&lt;MANZO&lt;&amp; ALBERT MONZO</NameLine1Txt>
+            <PrimaryNameControlTxt>MANZ</PrimaryNameControlTxt>
+            <SpouseNameControlTxt>MONZ</SpouseNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>742 Evergreen Terrace</AddressLine1Txt>
+                <CityNm>Springfield</CityNm>
+                <StateAbbreviationCd>IL</StateAbbreviationCd>
+                <ZIPCd>62701</ZIPCd>
+            </USAddress>
+            <PhoneNum>2223334444</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000400-3777-4e4d-b2a8-c532ca7fca61@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="5">
+        <IRS1040 documentId="IRS10400001">
+            <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>2</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">500</WagesAmt>
+            <WagesSalariesAndTipsAmt>500</WagesSalariesAndTipsAmt>
+            <TaxableInterestAmt referenceDocumentId="IRS1040B001" referenceDocumentName="IRS1040ScheduleB">55000</TaxableInterestAmt>
+            <TotalTaxablePensionsAmt>44000</TotalTaxablePensionsAmt>
+            <TotalIncomeAmt>99500</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>99500</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>29200</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>29200</TotalDeductionsAmt>
+            <TaxableIncomeAmt>70300</TaxableIncomeAmt>
+            <TaxAmt>7975</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>7975</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>7975</TaxLessCreditsAmt>
+            <TotalTaxAmt>7975</TotalTaxAmt>
+            <OwedAmt>7975</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Housewife</PrimaryOccupationTxt>
+            <SpouseOccupationTxt>Jerseyan</SpouseOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1040ScheduleB documentId="IRS1040B001" documentName="IRS1040ScheduleB">
+            <Form1040SchBPartIGroup2>
+                <InterestPayerName>
+                    <BusinessNameLine1Txt>Jersey Investments</BusinessNameLine1Txt>
+                </InterestPayerName>
+                <InterestAmt>30000</InterestAmt>
+            </Form1040SchBPartIGroup2>
+            <Form1040SchBPartIGroup2>
+                <InterestPayerName>
+                    <BusinessNameLine1Txt>Atlantic City Investments</BusinessNameLine1Txt>
+                </InterestPayerName>
+                <InterestAmt>25000</InterestAmt>
+            </Form1040SchBPartIGroup2>
+            <InterestSubtotalAmt interestSubtotalLiteralCd="INTEREST SUBTOTAL">55000</InterestSubtotalAmt>
+            <TaxableInterestSubtotalAmt>55000</TaxableInterestSubtotalAmt>
+            <CalculatedTotalTaxableIntAmt>55000</CalculatedTotalTaxableIntAmt>
+            <ForeignAccountsQuestionInd>false</ForeignAccountsQuestionInd>
+            <ForeignTrustQuestionInd>false</ForeignTrustQuestionInd>
+        </IRS1040ScheduleB>
+        <IRS1099R documentId="IRS1099R0001">
+            <PayerNameControlTxt>HOUS</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Housewife Retirement</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>1 Retirement St</AddressLine1Txt>
+                <CityNm>Trenton</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07222</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>001000002</PayerEIN>
+            <RecipientSSN>400004003</RecipientSSN>
+            <RecipientNm>Caroline J Manzo</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>742 Evergreen Terrace</AddressLine1Txt>
+                <CityNm>Springfield</CityNm>
+                <StateAbbreviationCd>IL</StateAbbreviationCd>
+                <ZIPCd>62701</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>23000</GrossDistributionAmt>
+            <TaxableAmt>23000</TaxableAmt>
+            <F1099RDistributionCd>7</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <StateTaxWithheldAmt>1000</StateTaxWithheldAmt>
+                    <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                    <PayerStateIdNum>1414141</PayerStateIdNum>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRS1099R documentId="IRS1099R0002">
+            <PayerNameControlTxt>JERS</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Jersey Retirement</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>1 Retirement St</AddressLine1Txt>
+                <CityNm>Jersey City</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07122</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>001000004</PayerEIN>
+            <RecipientSSN>400004004</RecipientSSN>
+            <RecipientNm>Albert Monzo</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>742 Evergreen Terrace</AddressLine1Txt>
+                <CityNm>Springfield</CityNm>
+                <StateAbbreviationCd>IL</StateAbbreviationCd>
+                <ZIPCd>62701</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>21000</GrossDistributionAmt>
+            <TaxableAmt>21000</TaxableAmt>
+            <F1099RDistributionCd>7</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <StateTaxWithheldAmt>1100</StateTaxWithheldAmt>
+                    <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                    <PayerStateIdNum>1000004</PayerStateIdNum>
+                    <StateDistributionAmt>21000</StateDistributionAmt>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>400004003</EmployeeSSN>
+            <EmployerEIN>011919191</EmployerEIN>
+            <EmployerNameControlTxt>BRAV</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Bravo Inc</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>1 TV Avenue</AddressLine1Txt>
+                <CityNm>Newark</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07102</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Caroline J Manzo</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>742 Evergreen Terrace</AddressLine1Txt>
+                <CityNm>Springfield</CityNm>
+                <StateAbbreviationCd>IL</StateAbbreviationCd>
+                <ZIPCd>62701</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>500</WagesAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                    <EmployerStateIdNum>123456</EmployerStateIdNum>
+                    <StateWagesAmt>500</StateWagesAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>

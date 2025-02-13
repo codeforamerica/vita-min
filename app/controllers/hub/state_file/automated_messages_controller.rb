@@ -28,10 +28,10 @@ module Hub::StateFile
       )
     end
 
-    def message_params
+    def message_params(locale)
       intake = get_intake
       state_code = intake.state_code
-      locale = intake.locale || "en"
+      locale = locale || I18n.locale
       submitted_key = intake.efile_submissions.count > 1 ? "resubmitted" : "submitted"
       {
         primary_first_name: intake.primary_first_name,
@@ -47,10 +47,10 @@ module Hub::StateFile
 
     def email_message(message_class, locale)
       replaced_body = message_class.new.email_body(
-        **{locale: locale}.update(message_params)
+        **{locale: locale}.update(message_params(locale))
       ).gsub('<<', '&lt;&lt;').gsub('>>', '&gt;&gt;')
       subject = message_class.new.email_subject(
-        **{locale: locale}.update(message_params)
+        **{locale: locale}.update(message_params(locale))
       )
       email = StateFileNotificationEmail.new(to: "example@example.com",
                                              body: replaced_body,
@@ -64,7 +64,7 @@ module Hub::StateFile
 
     def sms_body(message_class, locale)
       message_class.new.sms_body(
-        **{locale: locale}.update(message_params)
+        **{locale: locale}.update(message_params(locale))
       )
     end
   end
