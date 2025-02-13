@@ -1524,29 +1524,38 @@ en:
           body: |
             Hi %{primary_first_name},
 
-            %{state_name} accepted your state tax return! Make sure to pay your state taxes by April 15 at %{state_pay_taxes_link} if you have not paid via direct debit while filing your return.
+            Your %{state_name} state tax return has been <strong>accepted and a payment is due</strong>.
+
+            <strong>If you have not already paid via direct debit while filing your return, please submit your payment by April 15 at %{state_pay_taxes_link}</strong>. Any amount not paid by the filing deadline could add extra penalties and fees.
 
             Download your return at <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
 
-            Questions? Reply to this email.
+            Need help? Reply to this email.
 
             Best,
             The FileYourStateTaxes team
-          subject: 'FileYourStateTaxes Update: %{state_name} State Return Accepted'
-        sms: "Hi %{primary_first_name} - %{state_name} accepted your state tax return! Make sure to pay your state taxes by April 15 at %{state_pay_taxes_link} if you have not paid via direct deposit or check. \n\nDownload your return at %{return_status_link}\n\nQuestions? Email us at help@fileyourstatetaxes.org.\n"
+          subject: "%{state_name} State Return Accepted- Payment Due"
+        sms: |
+          Hi %{primary_first_name} - Your %{state_name} state tax return has been accepted and a payment is due.
+
+          If you haven't submited your payment via direct debit, please do so by April 15 at %{state_pay_taxes_link}. Any amount not paid by the filing deadline could add extra penalties and fees.
+
+          Download your return at %{return_status_link}
+
+          Need help? Email us at help@fileyourstatetaxes.org
       accepted_refund:
         email:
           body: |
             Hi %{primary_first_name},
 
-            %{state_name} accepted your state tax return!  You can expect to receive your refund as soon as %{state_name} approves your refund amount.
+            Your %{state_name} state return has been <strong>accepted</strong>!
 
             Download your return and check your refund status at <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
 
             Best,
             The FileYourStateTaxes team
-          subject: 'FileYourStateTaxes Update: %{state_name} State Return Accepted'
-        sms: "Hi %{primary_first_name} - %{state_name} accepted your state tax return! You can expect to receive your refund as soon as %{state_name} approves your refund amount. \n\nDownload your return and check your refund status at %{return_status_link}\n\nNeed help? Email us at help@fileyourstatetaxes.org.\n"
+          subject: "%{state_name} State Return Accepted"
+        sms: "Hi %{primary_first_name} - Good news, %{state_name} accepted your state tax return! \n\nDownload your return and check your refund status at %{return_status_link}\n\nNeed help? Email us at help@fileyourstatetaxes.org.\n"
       df_transfer_issue_message:
         email:
           body: |
@@ -1567,17 +1576,21 @@ en:
           body: |
             Hi %{primary_first_name},
 
-            You haven't submitted your state tax return yet. As a reminder, state taxes are due by April 15.
+            You haven't submitted your state tax return yet. State taxes are due by April 15.
 
-            Go to <a target="_blank" rel="noopener nofollow" href="https://fileyourstatetaxes.org">fileyourstatetaxes.org</a> to finish them now.
+            Go to <a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/en/login-options">fileyourstatetaxes.org/en/login-options</a> to finish them now.
 
             Need help? Reply to this email.
 
             Best,
             The FileYourStateTaxes team
-          subject: Don't forget to finish your state tax return!
+          subject: Remember to finish your state tax return
         sms: |
-          Hi %{primary_first_name} - You haven't submitted your state tax return yet. As a reminder, state taxes are due by April 15. Go to fileyourstatetaxes.org to finish them now.
+          Hi %{primary_first_name} - You haven't submitted your state tax return yet.
+
+          State taxes are due by April 15.
+
+          Go to www.fileyourstatetaxes.org/en/login-options to finish them now.
 
           Need help? Email us at help@fileyourstatetaxes.org.
       issue_resolved:
@@ -1593,21 +1606,31 @@ en:
           body: |-
             Hi %{primary_first_name},
 
-            We noticed that you have not submitted a state tax return yet with the account associated with this email address. If you submitted your state return another way, or you submitted your return under a different email address, you can disregard this message.
+            You haven't submitted your state tax return yet. As a reminder, state taxes were due by April 15. Make sure to submit your state  tax return as soon as possible in order to avoid late filing fees from %{state_name}.
 
-            This is a reminder that state taxes were due by April 15, but it's still not too late to file! Go to https://www.fileyourstatetaxes.org/en/login-options to check your return status or finish your return now. We encourage you to submit your return as soon as possible in order to avoid late filings fees from %{state_name}. Our services will be closing for the year on April 25. After this date, you will no longer be able to file through FileYourStateTaxes.
+            Go to <a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/en/login-options">fileyourstatetaxes.org/en/login-options</a> to finish them now.
 
             Need help? Reply to this email.
 
             Best,
             The FileYourStateTaxes team
-          subject: 'Final Reminder: FileYourStateTaxes closes April 25.'
+          subject: Make sure to finish filing your state taxes as soon as possible
         sms: |
-          Hi %{primary_first_name} - You haven't submitted your state tax return yet. Make sure to submit your state taxes as soon as possible to avoid late filing fees. Go to fileyourstatetaxes.org/en/login-options to finish them now. FileYourStateTaxes will be closing its services for the year on April 25.
+          Hi %{primary_first_name} - You haven't submitted your state tax return yet. Make sure to submit your state taxes as soon as possible to avoid late filing fees. Go to fileyourstatetaxes.org/en/login-options to finish them now.
           Need help? Email us at help@fileyourstatetaxes.org.
       pre_deadline_reminder:
         email:
-          body: "Hi %{primary_first_name},\n\nYou haven't submitted your state tax return yet. As a reminder, state taxes are due by April 15. Make sure to submit your state tax return by April 15 in order to avoid late filing fees from %{state_name}. \n\nGo to fileyourstatetaxes.org/en/login-options to finish them now.\n\nNeed help? Reply to this email.\n\nBest,\nThe FileYourStateTaxes team\n"
+          body: |
+            Hi %{primary_first_name},
+
+            You haven't submitted your state tax return yet. As a reminder, state taxes are due by April 15. Make sure to submit your state tax return by April 15 in order to avoid late filing fees from %{state_name}.
+
+            Go to <a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/en/login-options">fileyourstatetaxes.org/en/login-options</a> to finish them now.
+
+            Need help? Reply to this email.
+
+            Best,
+            The FileYourStateTaxes team
           subject: Don't forget to finish your state tax return by April 15!
         sms: |
           Hi %{primary_first_name} - You haven't submitted your state tax return yet. Make sure to submit your state taxes by April 15 in order to avoid late filing fees. Go to fileyourstatetaxes.org/en/login-options to finish them now.
@@ -1617,16 +1640,19 @@ en:
           body: |
             Hi %{primary_first_name},
 
-            As a reminder,  %{state_name} rejected your state tax return. Don't worry! We can help you fix and resubmit it at <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>. Make sure to take action on your rejected return as soon as possible in order to avoid late filing fees from  %{state_name} state.
+            A reminder that your %{state_name} state tax return was rejected. Don’t worry! You can fix and resubmit it at <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
 
-            FileYourStateTaxes will be closing its services for the year on April 25.
+            <strong>Please take action as soon as possible to avoid late filing fees from %{state_name}.</strong>
 
-            Questions? Reply to this email.
+            Need help? Reply to this email.
 
             Best,
             The FileYourStateTaxes team
           subject: Take action on your rejected %{state_name} state return.
-        sms: Hi %{primary_first_name} - This is a reminder that %{state_name} rejected your state tax return. We can help you fix and resubmit it at %{return_status_link}. Make sure to take action as soon as possible in order to avoid late filing fees. FileYourStateTaxes will be closing its services for the year on April 25. Questions? Email us at help@fileyourstatetaxes.org.
+        sms: |
+          Hi %{primary_first_name} - This is a reminder that %{state_name} rejected your state tax return. We can help you fix and resubmit it at %{return_status_link}. Make sure to take action as soon as possible in order to avoid late filing fees.
+
+          Need help? Email us at help@fileyourstatetaxes.org.
       rejected:
         email:
           body: |
@@ -1634,41 +1660,43 @@ en:
 
             Unfortunately, %{state_name} rejected your state tax return. Don't worry! We can help you fix and resubmit it at <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
 
-            Questions? Reply to this email.
+            Need help? Reply to this email.
 
             Best,
             The FileYourStateTaxes team
-          subject: 'FileYourStateTaxes Update: %{state_name} State Return Rejected. Action Needed'
+          subject: 'Action Needed: %{state_name} State Return Rejected'
         sms: |
           Hi %{primary_first_name} - Unfortunately, %{state_name} rejected your state tax return. Don't worry! We can help you fix and resubmit it at %{return_status_link}.
 
-          Questions? Email us at help@fileyourstatetaxes.org.
+          Need help? Email us at help@fileyourstatetaxes.org.
       still_processing:
         email:
           body: |
             Hi %{primary_first_name},
 
-            It's taking longer than expected to process your state tax return. Don't worry! We'll let you know as soon as we know your return status. You don't need to do anything right now.
+            It's taking longer than expected to process your state tax return. Don't worry! <strong>No action is needed right now</strong>. We'll update you as we know your return status.
 
-            Questions? Reply to this email.
+            Need help? Reply to this email.
 
             Best,
             The FileYourStateTaxes team
-          subject: 'FileYourStateTaxes Update: Your %{state_name} state tax return is taking longer than expected'
-        sms: Hi %{primary_first_name} - It's taking longer than expected to process your state tax return. Don't worry! We'll let you know as soon as we know your return status. You don't need to do anything right now. Questions? Email us at help@fileyourstatetaxes.org.
+          subject: Your %{state_name} state tax return is taking longer than expected
+        sms: Hi %{primary_first_name} - It's taking longer than expected to process your state tax return. Don't worry! We'll let you know as soon as we know your return status. You don't need to do anything right now. Need help? Email us at help@fileyourstatetaxes.org.
       successful_submission:
         email:
           body: |
             Hi %{primary_first_name},
 
-            You successfully %{submitted_or_resubmitted} your %{state_name} state tax return! We'll update you in 1-2 days on the status of your return. You can download your return and check the status at <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
+            You successfully %{submitted_or_resubmitted} your %{state_name} state tax return! We'll update you in 1-2 business days on the status of your return.
+
+            You can download your return and check the status at <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
 
             Need help? Reply to this email.
 
             Best,
             The FileYourStateTaxes team
           resubmitted: resubmitted
-          subject: 'FileYourStateTaxes Update: %{state_name} State Return Submitted'
+          subject: "%{state_name} State Return Submitted"
           submitted: submitted
         sms: Hi %{primary_first_name} - You successfully  %{submitted_or_resubmitted} your %{state_name} state tax return! We'll update you in 1-2 days on the status of your return. You can download your return and check the status at %{return_status_link}. Need help? Email us at help@fileyourstatetaxes.org.
       survey_notification:
@@ -1683,32 +1711,28 @@ en:
             Best,
             The FileYourStateTaxes team
           subject: Your feedback on FileYourStateTaxes
-        sms: |
-          Hi %{primary_first_name} - Thank you for submitting your taxes with FileYourStateTaxes! We would love feedback on your experience so we can improve! Could you tell us about how it went? Take our 5 minute survey here: %{survey_link}
-
-          Best,
-          The FileYourStateTaxes team
+        sms: 'Hi %{primary_first_name} - Thank you for submitting your taxes with FileYourStateTaxes! We would love feedback on your experience so we can improve! Could you tell us about how it went? Take our 5 minute survey here: %{survey_link}'
       terminal_rejected:
         email:
           body: |
             Hi %{primary_first_name},
 
-            Unfortunately, %{state_name} rejected your state tax return due to an issue that cannot be resolved on our tool. Don't worry! We can help provide guidance on next steps. You can chat with us at %{return_status_link}.
+            Unfortunately, %{state_name} rejected your state tax return due to an issue that cannot be resolved on our service. Don't worry! We can help provide guidance on next steps. Chat with us at %{return_status_link}.
 
-            Questions? Reply to this email.
+            Need help? Reply to this email.
 
             Best,
             The FileYourStateTaxes team
-          subject: 'FileYourStateTaxes Update: %{state_name} State Return Rejected.'
-        sms: "Hi %{primary_first_name} - Unfortunately, %{state_name} rejected your state tax return for an issue that cannot be resolved on our tool. Don't worry! We can help provide guidance on next steps. Chat with us at %{return_status_link}. \n\nQuestions? Reply to this text.\n"
+          subject: "%{state_name} State Return Rejected."
+        sms: "Hi %{primary_first_name} - Unfortunately, %{state_name} rejected your state tax return for an issue that cannot be resolved on our service. Don't worry! We can help provide guidance on next steps. Chat with us at %{return_status_link}. \n\nNeed help? Email us at help@fileyourstatetaxes.org.\n"
       welcome:
         email:
           body: |
-            Welcome!
+            Hi,
 
-            We successfully created your FileYourStateTaxes account! We'll send you updates on your state tax return status once you submit it. While you are filing, your responses will be saved as you go. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org.
+            Your FileYourStateTaxes account is ready to use! We'll send updates once you submit your state tax return. Your progress is saved as you go, and you can log back in anytime at <a  target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/en/login-options">fileyourstatetaxes.org</a>.
 
-            Your Client ID is %{intake_id}. This is an important piece of account information that you may need when talking to our support team. Please keep track of this number and do not delete this message.
+            <strong>Your Client ID is %{intake_id}. Keep it handy for support.</strong>
 
             Need help? Reply to this email.
 
@@ -1716,9 +1740,11 @@ en:
             The FileYourStateTaxes team
           subject: Welcome to FileYourStateTaxes
         sms: |
-          Welcome! We successfully created your FileYourStateTaxes account! We'll send you updates on your state tax return status once you submit it. While you are filing, your responses will be saved as you go. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org
+          Hi! Your FileYourStateTaxes account is ready to use. We'll send updates when you submit your state tax return. Your progress is saved as you go, so you can log back in anytime.
 
-          Need help? Email us at help@fileyourstatetaxes.org. Text "STOP" to unsubscribe.
+          Your Client ID is %{intake_id}. Keep it handy for support.
+
+          Need help? Email us at help@fileyourstatetaxes.org Text "STOP" to opt out of notifications.
     successful_submission_drop_off:
       email:
         body: |
@@ -2267,7 +2293,7 @@ en:
       step_description: 'Section %{current_step} of %{total_steps}: '
     notification_mailer:
       user_message:
-        unsubscribe: If you would like to unsubscribe from emails, click <a href="%{unsubscribe_link}">here</a>.
+        unsubscribe: To unsubscribe from emails, <a href="%{unsubscribe_link}">click here</a>.
     notifications_settings:
       unsubscribe_from_emails:
         help_text_html: If you change your mind and would like to opt in later, <a class="open-intercom">chat with us</a> or email us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org.</a>
@@ -2324,7 +2350,7 @@ en:
           district_name: School District Name
           school_name: School Name
           school_name_help_text: Please use the official school name
-          title_html: You might be eligible for the <a href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_guideline-public-school-ECA-tax-credit.pdf" target="_blank">Arizona Public School Credit</a>!
+          title_html: You might be eligible for the <a href="https://azdor.gov/sites/default/files/document/PUBLICATION_2024_ADESchoolListing.pdf" target="_blank">Arizona Public School Credit</a>!
         form:
           donations_this_year: What about donations made in %{current_year}?
           donations_this_year_details_html: |
@@ -2334,7 +2360,7 @@ en:
           made_az322_contributions:
             one: Did you pay any fees or make any qualified cash donation to an Arizona public school in %{year}?
             other: Did you or your spouse pay any fees or make any qualified cash donation to an Arizona public school in %{year}?
-          more_details_html: Visit the <a href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_guideline-public-school-ECA-tax-credit.pdf" target="_blank">Arizona Department of Revenue Guide</a> for more details.
+          more_details_html: Visit the <a href="https://azdor.gov/sites/default/files/document/PUBLICATION_2024_ADESchoolListing.pdf" target="_blank">Arizona Department of Revenue Guide</a> for more details.
           qualifying_list:
           - Extracurricular Activities
           - Character Education
@@ -2346,7 +2372,7 @@ en:
             <br/><br/>
             OR
             <br/><br/>
-            Visit the Arizona Department of Revenue to find the details.
+            Visit the <a href="https://azdor.gov/sites/default/files/document/PUBLICATION_2024_ADESchoolListing.pdf" target="_blank">Arizona Department of Revenue</a> to find the details.
             <br/><br/>
             To avoid any errors, highlight the text in the pdf then copy (Ctrl + C) and paste (Ctrl + V) directly to this page.
           school_details_question: Where can I find the school details?
@@ -2522,7 +2548,7 @@ en:
             nj: Unfortunately, based on the information we have, you can't use this tool this year. Don't worry; there are other filing options.
       eligible:
         az_credits_unsupported:
-          other_credits_301_html: Nonrefundable credits listed on <a href="https://azdor.gov/sites/default/files/2023-03/FORMS_CREDIT_2022_301-SBI_f.pdf" target="_blank" rel="noopener nofollow">AZ Form 301</a>
+          other_credits_301_html: Nonrefundable credits listed on <a href="https://azdor.gov/sites/default/files/document/FORMS_CREDIT_2024_301_f.pdf" target="_blank" rel="noopener nofollow">AZ Form 301</a>
           other_credits_529_html: <a href="https://az529.gov/what-is-a-529-plan/az-tax-incentives/" target="_blank" rel="noopener nofollow">Arizona 529 plan contributions deduction</a>
           other_credits_add_dependents: Adding dependents not claimed on the federal return
           other_credits_change_filing_status: Change in filing status from federal to state return
@@ -3291,9 +3317,11 @@ en:
       nc_review:
         edit:
           amount_earned: Amount earned
+          benefits_vested_pensions: Subtraction for retirement benefits by vested qualifying government pensions
           child_deduction: Child deduction
           interest_us_bonds: Interest income from U.S. bonds (not taxable in North Carolina)
           primary_veteran: United States Armed Forces veteran status
+          service_members: Subtraction for retirement benefits received by service members
           social_security_benefits: Social Security benefits (not taxable in North Carolina)
           spouse_veteran: Your spouse's United States Armed Forces veteran status
           state_credit: Enrolled member of a federally recognized Indian Tribe, and received income from a source within a reservation

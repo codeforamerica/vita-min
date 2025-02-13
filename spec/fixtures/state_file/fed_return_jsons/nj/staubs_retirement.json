@@ -1,0 +1,59 @@
+{
+  "familyAndHousehold": [],
+  "socialSecurityReports": [],
+  "filers": [
+    {
+      "lastName": "Staub",
+      "dateOfBirth": "1952-04-05",
+      "suffix": null,
+      "isPrimaryFiler": false,
+      "firstName": "Thomas",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "400-00-4006",
+      "interestReportsTotal": "0.00",
+      "isDisabled": false,
+      "form1099GsTotal": "0.00",
+      "isStudent": false,
+      "ssnNotValidForEmployment": null,
+      "hsaTotalDeductibleAmount": null
+    },
+    {
+      "lastName": "Staub",
+      "dateOfBirth": "1943-02-10",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "firstName": "Danielle",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "400-00-4005",
+      "interestReportsTotal": "10000.00",
+      "isDisabled": false,
+      "form1099GsTotal": "0.00",
+      "isStudent": false,
+      "ssnNotValidForEmployment": null,
+      "hsaTotalDeductibleAmount": null
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [
+    {
+      "usedTin": "400-00-4006",
+      "unionDuesAmount": null
+    }
+  ],
+  "interestReports": [
+    {
+      "has1099": false,
+      "taxExemptAndTaxCreditBondCusipNo": null,
+      "interestOnGovernmentBonds": "0.00",
+      "taxExemptInterest": "0.00",
+      "payerTin": null,
+      "payer": "Jersey Investments",
+      "recipientTin": "400-00-4005",
+      "taxWithheld": "0.00",
+      "no1099Amount": "10000.00",
+      "1099Amount": "0.00"
+    }
+  ]
+}

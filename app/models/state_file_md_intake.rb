@@ -266,4 +266,7 @@ class StateFileMdIntake < StateFileBaseIntake
     send("#{filer}_senior?".to_sym) || at_least_one_disabled_filer_with_proof?
   end
 
+  def has_banking_information_in_financial_resolution?
+    true
+  end
 end
