@@ -1,13 +1,18 @@
 module Hub
   class OrganizationsPresenter
-    attr_reader :current_ability, :organizations, :target_entries, :coalitions, :state_routing_targets
+    # load and authorize? except if org lead
+    attr_reader :current_ability, :organizations, :target_entries, :coalitions, :state_routing_targets, :state_routing_targets_for_orgs_under_coalitions
 
     def initialize(current_ability)
       @current_ability = current_ability
       accessible_organizations = Organization.accessible_by(current_ability)
       @organizations = accessible_organizations.includes(:child_sites).with_computed_client_count.load
       @coalitions = Coalition.accessible_by(current_ability)
+      coalition_parents_of_dependent_orgs = accessible_organizations.where.not(coalition_id: nil).pluck(:coalition_id)
+      #srts for independent orgs, dependent orgs and coalitions
+      @state_routing_targets_of_parent_coalition = StateRoutingTarget.where(target_id: coalition_parents_of_dependent_orgs).load.group_by(&:state_abbreviation)
       @state_routing_targets = StateRoutingTarget.where(target: accessible_organizations).or(StateRoutingTarget.where(target: @coalitions)).load.group_by(&:state_abbreviation)
+      binding.pry
     end
 
     Capacity = Struct.new(:current_count, :total_capacity) do
@@ -16,10 +21,33 @@ module Hub
       end
     end
 
+    # i want an array of coalitions and orgs organized by state
+    # state => coalitions and orgs
+    # can we just do all the authorization stuff at the end?
+
     def accessible_entities_for(state)
-      @state_routing_targets[state]&.map do |target|
+      # need to return the vita partners by the state they are under
+      accessible_entities = @state_routing_targets[state]&.map do |target|
+        # if SRT is connected to coalition then grab coalition
+        # but if is a user that can't see coalitions then we need to grab their
+        # @presenter.organizations.where.not(coalition_id: nil)
         target.target_type == "Coalition" ? coalition(target.target_id) : organization(target.target_id)
       end
+
+      if @coalitions.empty? && @organizations.present?
+        # then check that parent coalition doesn't have SRT in state
+        @state_routing_targets_of_parent_coalition[state]&.map do |target|
+          if target.target_type == "Coalition"
+            target.organizations.each do |org|
+              accessible_entities << org if organization(org.id)
+            end
+          elsif target.target_type == "Organization"
+            accessible_entities << organization(target.target_id)
+          end
+        end
+      end
+
+      return accessible_entities
     end
 
     # use instead of coalition.organizations in the view so that we're not loading organizations 2x
