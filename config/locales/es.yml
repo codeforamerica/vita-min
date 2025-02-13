@@ -3298,8 +3298,6 @@ es:
           subtraction_indian_tribe: Resta por ingresos de un miembro de una tribu india
           use_tax_amount: Cantidad del impuesto sobre uso
           use_tax_applied: Compras fuera del estado en %{filing_year} sin pagar impuesto sobre ventas
-        review_header:
-          unemployment_compensation: Compensación por Desempleo
       nc_sales_use_tax:
         edit:
           calculated_use_tax: Ingresa el impuesto sobre uso calculado
