@@ -228,7 +228,10 @@ describe Document do
   describe "after_create" do
     include ActiveJob::TestHelper
 
-    context "when the file extension is .heic" do
+    # iOS 18 uses a different codec. We are relying now on safari and MMS to
+    # handle this before it gets to us. For more information, see ticket
+    # GYR1-673
+    xcontext "when the file extension is .heic" do
       before do
         allow(HeicToJpgJob).to receive(:perform_later).and_call_original
       end
