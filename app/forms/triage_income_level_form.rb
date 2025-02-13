@@ -18,6 +18,8 @@ class TriageIncomeLevelForm < QuestionsForm
     if triage_vita_income_ineligible == 'no'
       @intake.update(had_rental_income: 'no')
       @intake.update(had_rental_income_from_personal_property: 'no')
+      @intake.update(primary_owned_or_held_any_digital_currencies: 'no')
+      @intake.update(spouse_owned_or_held_any_digital_currencies: 'no')
     end
   end
 end
