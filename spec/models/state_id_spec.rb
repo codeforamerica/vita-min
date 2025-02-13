@@ -37,12 +37,27 @@ describe StateId do
          .and change(state_id, :state).to(nil)
       end
     end
+
     context "when non_expiring" do
       it " clears expiration_date" do
         state_id.non_expiring = true
         expect {
           state_id.update(id_type: "no_id")
         }.to change(state_id, :expiration_date).to(nil)
+      end
+    end
+
+    context "when a long dash is in the id number" do
+      it "removes the dash" do
+        state_id.update(id_number: "MD —123–456")
+        expect(state_id.id_number).to eq("MD 123456")
+      end
+    end
+
+    context "when a long dash is in the id number" do
+      it "removes the long dash but leaves the normal dash" do
+        state_id.update(id_number: "MD-—123–456")
+        expect(state_id.id_number).to eq("MD-123456")
       end
     end
   end

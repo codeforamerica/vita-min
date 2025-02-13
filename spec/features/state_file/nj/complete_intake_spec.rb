@@ -278,7 +278,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       click_on I18n.t("state_file.questions.nj_review.edit.reveal.header")
       amounts_in_calculation_details = page.all(:xpath, '//*[contains(@class,"main-content-inner")]/section[last()]//p[contains(text(),"$")]')
-      expect(amounts_in_calculation_details.count).to eq(19)
+      expect(amounts_in_calculation_details.count).to eq(20)
       expect(page).to be_axe_clean
       continue
 

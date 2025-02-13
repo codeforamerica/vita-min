@@ -231,6 +231,17 @@ class StateFileMdIntake < StateFileBaseIntake
     end
   end
 
+  def sum_two_1099_r_followup_types_for_filer(primary_or_spouse, income_source, service_type)
+    filer_1099_rs(primary_or_spouse).sum do |state_file_1099_r|
+      state_specific_followup = state_file_1099_r.state_specific_followup
+      if state_specific_followup&.send(income_source) && state_specific_followup&.send(service_type)
+        state_file_1099_r.taxable_amount&.round
+      else
+        0
+      end
+    end
+  end
+
   def extract_apartment_from_mailing_street?
     true
   end
@@ -241,5 +252,9 @@ class StateFileMdIntake < StateFileBaseIntake
 
   def allows_refund_amount_in_xml?
     false
+  end
+
+  def has_banking_information_in_financial_resolution?
+    true
   end
 end

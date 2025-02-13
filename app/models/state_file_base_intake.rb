@@ -284,6 +284,10 @@ class StateFileBaseIntake < ApplicationRecord
     true
   end
 
+  def has_banking_information_in_financial_resolution?
+    false
+  end
+
   class Person
     attr_reader :first_name, :middle_initial, :last_name, :suffix, :birth_date, :ssn, :primary_or_spouse
 
