@@ -23,7 +23,7 @@ module Navigation
                                           Navigation::NavigationStep.new(StateFile::Questions::InitiateDataTransferController),
                                           Navigation::NavigationStep.new(StateFile::Questions::CanceledDataTransferController, false), # show? false
                                           Navigation::NavigationStep.new(StateFile::Questions::WaitingToLoadDataController),
-                                          Navigation::NavigationStep.new(StateFile::Questions::PostDataTransferController, false),
+                                          Navigation::NavigationStep.new(StateFile::Questions::PostDataTransferController),
                                           # Federal info does not show to users
                                           Navigation::NavigationStep.new(StateFile::Questions::FederalInfoController),
                                           Navigation::NavigationStep.new(StateFile::Questions::DataTransferOffboardingController, false),
