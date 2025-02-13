@@ -33,9 +33,9 @@ module SubmissionBuilder
 
                 add_element_if_present(xml, :PriSSecurityRailRoadBenefits, :MD502R_LINE_9A) if Flipper.enabled?(:show_md_ssa)
                 add_element_if_present(xml, :PriMilLawEnforceIncSub, :MD502R_LINE_10A) if Flipper.enabled?(:show_retirement_ui)
-                add_element_if_present(xml, :PriPensionExclusion, :MD502R_LINE_11A) if Flipper.enabled?(:show_retirement_ui)
                 add_element_if_present(xml, :SecSSecurityRailRoadBenefits, :MD502R_LINE_9B) if Flipper.enabled?(:show_md_ssa)
                 add_element_if_present(xml, :SecMilLawEnforceIncSub, :MD502R_LINE_10B) if Flipper.enabled?(:show_retirement_ui)
+                add_element_if_present(xml, :PriPensionExclusion, :MD502R_LINE_11A) if Flipper.enabled?(:show_retirement_ui)
                 add_element_if_present(xml, :SecPensionExclusion, :MD502R_LINE_11B) if Flipper.enabled?(:show_retirement_ui)
               end
             end

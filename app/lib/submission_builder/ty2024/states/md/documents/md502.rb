@@ -140,7 +140,7 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
         if Flipper.enabled?(:show_retirement_ui)
           xml.PriPensionExclusionInd "X" if calculated_fields.fetch(:MD502R_LINE_11A).positive?
           xml.SecPensionExclusionInd "X" if calculated_fields.fetch(:MD502R_LINE_11B).positive?
-          add_element_if_present(xml, "PensionExclusions", :MD502_LINE_10A)
+          add_non_zero_value(xml, "PensionExclusions", :MD502_LINE_10A)
         end
       end
       xml.Deduction do
