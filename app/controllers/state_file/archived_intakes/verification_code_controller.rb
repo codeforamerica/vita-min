@@ -2,11 +2,8 @@ module StateFile
   module ArchivedIntakes
     class VerificationCodeController < ArchivedIntakeController
       before_action :check_feature_flag
+      before_action :is_request_locked
       def edit
-        if current_request.access_locked?
-          redirect_to state_file_archived_intakes_verification_error_path
-          return
-        end
         @form = VerificationCodeForm.new(email_address: current_request.email_address)
         @email_address = current_request.email_address
         ArchivedIntakeEmailVerificationCodeJob.perform_later(
