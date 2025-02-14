@@ -2,7 +2,7 @@ module StateFile
   module Questions
     class QuestionsController < ::Questions::QuestionsController
       include StateFile::StateFileIntakeConcern
-      before_action :redirect_if_no_intake, :redirect_if_in_progress_intakes_ended
+      before_action :redirect_if_no_intake, :redirect_if_in_progress_intakes_ended, :redirect_if_df_data_required
 
       # default layout for all state file questions
       layout "state_file/question"
@@ -25,6 +25,15 @@ module StateFile
 
       def redirect_if_no_intake
         unless current_intake.present?
+          flash[:notice] = I18n.t("devise.failure.timeout")
+          redirect_to StateFile::StateFilePagesController.to_path_helper(action: :login_options)
+        end
+      end
+
+      def redirect_if_df_data_required
+        return unless question_navigator&.get_section(self.class)&.df_data_required
+
+        unless current_intake.raw_direct_file_data.present?
           flash[:notice] = I18n.t("devise.failure.timeout")
           redirect_to StateFile::StateFilePagesController.to_path_helper(action: :login_options)
         end

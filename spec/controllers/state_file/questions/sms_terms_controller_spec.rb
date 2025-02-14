@@ -1,10 +1,13 @@
 require "rails_helper"
 
 RSpec.describe StateFile::Questions::SmsTermsController do
+  it_behaves_like :df_data_required, false, :az
+
   let(:intake) { create :state_file_md_intake }
   before do
     sign_in intake
   end
+
   describe "#show?" do
     context "when phone number is present" do
       let(:intake) { create :state_file_nj_intake, phone_number: "+15038675309" }
