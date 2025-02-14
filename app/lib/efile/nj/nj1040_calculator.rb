@@ -320,11 +320,11 @@ module Efile
       end
 
       def calculate_line_20a
-        applicable_1099rs.sum(&:taxable_amount).round
+        non_military_1099rs.sum(&:taxable_amount).round
       end
 
       def calculate_line_20b
-        (applicable_1099rs.sum(&:gross_distribution_amount) - applicable_1099rs.sum(&:taxable_amount)).round
+        (non_military_1099rs.sum(&:gross_distribution_amount) - non_military_1099rs.sum(&:taxable_amount)).round
       end
 
       def calculate_line_27
@@ -661,7 +661,7 @@ module Efile
         is_mfs && is_same_home
       end
 
-      def applicable_1099rs
+      def non_military_1099rs
         @intake.state_file1099_rs.select do |state_file_1099r|
           state_file_1099r.state_specific_followup.present? && state_file_1099r.state_specific_followup.income_source_none?
         end
