@@ -2553,6 +2553,7 @@ es:
         edit:
           credits_not_supported: "¿Qué restas, créditos y otras situaciones NO admite este servicio este año?"
           faq_link: Encuentra un desglose más detallado de los créditos y restas y otras situaciones no respaldadas este año aquí.
+          faq_link_html: Encuentra un desglose más detallado de los créditos y restas y otras situaciones no respaldadas este año <a href="%{url}">aquí</a>.
           md_title2_html: |
             Asegurémonos de que este servicio es el indicado para ti.<br><br>
             Estas son las restas y los créditos <strong>que puedes </strong> reclamar para maximizar tu reembolso.
@@ -2629,7 +2630,7 @@ es:
               </li>
             </ul>
             <p>
-            Encuentra un desglose más detallado de los créditos y restas no respaldados este año <a href="https://www.fileyourstatetaxes.org/es/md/faq/md_not_supported_credits_and_subtractions" rel="noopener nofollow" target="_blank">aquí</a>.
+            Encuentra un desglose más detallado de los créditos y restas y otras situaciones no respaldadas este año <a href="https://www.fileyourstatetaxes.org/es/md/faq/md_not_supported_credits_and_subtractions" rel="noopener nofollow" target="_blank">aquí</a>.
             </p>
           body2_html: |
             <p>
@@ -3323,8 +3324,6 @@ es:
           subtraction_indian_tribe: Resta por ingresos de un miembro de una tribu india
           use_tax_amount: Cantidad del impuesto sobre uso
           use_tax_applied: Compras fuera del estado en %{filing_year} sin pagar impuesto sobre ventas
-        review_header:
-          unemployment_compensation: Compensación por Desempleo
       nc_sales_use_tax:
         edit:
           calculated_use_tax: Ingresa el impuesto sobre uso calculado
@@ -4218,9 +4217,10 @@ es:
           box14_fli_html: "<strong>FLI</strong>"
           box14_html: "<strong>Box 14,</strong> Other"
           box14_intro_nj_html: "<p>Los empleadores pueden usar el Casillero 14 para reportar datos que no encajen en otro lugar del Formulario W-2.</p>\n<p>Este año, solo necesitaremos cualquier monto indicado para <strong>UI/WF/SWF</strong> (también puede aparecer como <strong>\"UI/HC/WD\"</strong> en tu W2) <strong>y FLI</strong>.</p> \n<p><strong>Si no los ves, deja estos campos en blanco.</strong></p> \n<p>Puede haber otros datos en el casillero 14 que no necesitan ser reportados con esta herramienta.</p>\n"
-          box14_stpickup_help_text: Para %{year}, solo procesaremos el código STPICKUP. Si no ves este código o tienes otros códigos en Box 14, por favor déjalo en blanco.
+          box14_stpickup_help_text_html: Para %{year}, solo procesaremos el código STPICKUP. Si no ves este código o tienes otros códigos en Box 14, por favor déjalo en blanco.
           box14_stpickup_html: "<strong>STPICKUP</strong>"
-          box14_ui_wf_swf_html: "<strong>UI/WF/SWF</strong> (También puede aparecer en su W2 como <strong>UI/HC/WD.</strong>)"
+          box14_ui_wf_swf_help_text_html: "(También puede aparecer en su W2 como <strong>UI/HC/WD.</strong>)"
+          box14_ui_wf_swf_html: "<strong>UI/WF/SWF</strong>"
           box15_html: "<strong>Casilla 15,</strong> Número de identificación estatal del empleador"
           box16_html: "<strong>Casilla 16</strong>, Salarios estatales, propinas, etc."
           box17_html: "<strong>Casilla 17</strong>, Impuesto estatal sobre los ingresos"
@@ -4252,7 +4252,7 @@ es:
         faq_prior_year_returns: Visita nuestra sección de preguntas frecuentes si tienes dudas sobre declaraciones de años anteriores.
         header: Un servicio sin costo para declarar los impuestos estatales para las personas que usaron IRS Direct File
         helper_heading_html: "<strong>¿Cómo funciona este servicio?</strong>"
-        looking_for_return_html: "<strong>¿Necesitas tu declaración de impuestos de Arizona o Nueva York de 2023?</strong> Puedes iniciar sesión para descargar una copia de tu declaración estatal hasta el 31 de diciembre de 2024."
+        looking_for_return_html: "<strong>¿Necesitas tu declaración de impuestos de Arizona o Nueva York de 2023?</strong>"
         section1_html: |
           <ol class="list--numbered" style="padding-left: 2rem">
             <li>Primero, presenta y envía tu declaración federal con el servicio <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">Direct File del IRS</a> antes de usar este servicio.</li>

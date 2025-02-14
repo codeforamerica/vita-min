@@ -1,0 +1,117 @@
+{
+  "filers": [
+    {
+      "tin": "500-00-5970",
+      "suffix": null,
+      "lastName": "Tomahto",
+      "firstName": "Tomato",
+      "isStudent": false,
+      "isDisabled": false,
+      "dateOfBirth": "1955-06-06",
+      "middleInitial": null,
+      "isPrimaryFiler": false,
+      "form1099GsTotal": "5031.02",
+      "educatorExpenses": "0.00",
+      "interestReportsTotal": "150.00",
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": null
+    },
+    {
+      "tin": "400-00-5570",
+      "suffix": null,
+      "lastName": "Potahto",
+      "firstName": "Potato",
+      "isStudent": false,
+      "isDisabled": false,
+      "dateOfBirth": "1970-05-05",
+      "middleInitial": null,
+      "isPrimaryFiler": true,
+      "form1099GsTotal": "2000.34",
+      "educatorExpenses": "0.00",
+      "interestReportsTotal": "23.00",
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "formW2s": [
+    {
+      "usedTin": "500-00-5970",
+      "unionDuesAmount": null
+    },
+    {
+      "usedTin": "400-00-5570",
+      "unionDuesAmount": null
+    }
+  ],
+  "form1099Gs": [
+    {
+      "payer": "Idaho DOL",
+      "amount": "2000.34",
+      "has1099": true,
+      "payerTin": "34-5678912",
+      "recipientTin": "400-00-5570",
+      "stateIdNumber": "123456",
+      "stateTaxWithheld": "200.03",
+      "federalTaxWithheld": "200.00",
+      "amountPaidBackForBenefitsInTaxYear": "0.00"
+    },
+    {
+      "payer": "Idaho DOL",
+      "amount": "5031.02",
+      "has1099": true,
+      "payerTin": "34-5678912",
+      "recipientTin": "500-00-5970",
+      "stateIdNumber": "123456",
+      "stateTaxWithheld": "502.00",
+      "federalTaxWithheld": "503.00",
+      "amountPaidBackForBenefitsInTaxYear": "0.00"
+    }
+  ],
+  "interestReports": [
+    {
+      "payer": "Russet Investments",
+      "has1099": true,
+      "payerTin": null,
+      "1099Amount": "150.00",
+      "taxWithheld": "0.00",
+      "no1099Amount": null,
+      "recipientTin": "500-00-5970",
+      "taxExemptInterest": "0.00",
+      "interestOnGovernmentBonds": "10.00",
+      "taxExemptAndTaxCreditBondCusipNo": null
+    },
+    {
+      "payer": "Yukon Gold Bank",
+      "has1099": true,
+      "payerTin": null,
+      "1099Amount": "23.00",
+      "taxWithheld": "0.00",
+      "no1099Amount": null,
+      "recipientTin": "400-00-5570",
+      "taxExemptInterest": "0.00",
+      "interestOnGovernmentBonds": "0.00",
+      "taxExemptAndTaxCreditBondCusipNo": null
+    }
+  ],
+  "familyAndHousehold": [
+    {
+      "tin": "300-00-4041",
+      "suffix": null,
+      "lastName": "Cob",
+      "firstName": "Cornathan",
+      "dateOfBirth": "2020-05-13",
+      "relationship": "grandChildOrOtherDescendantOfChild",
+      "middleInitial": null,
+      "qualifyingChild": true,
+      "eligibleDependent": true,
+      "residencyDuration": "allYear",
+      "isClaimedDependent": true,
+      "hohQualifyingPerson": false,
+      "scheduleEicLine4aNo": false,
+      "scheduleEicLine4aYes": false,
+      "scheduleEicLine4bYes": false,
+      "monthsLivedWithTPInUS": "twelve",
+      "ssnNotValidForEmployment": false
+    }
+  ]
+}

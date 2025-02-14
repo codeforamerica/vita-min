@@ -17,9 +17,9 @@ AZ140_LINE_19:
 AZ140_LINE_28:
   label: '28 Interest on US obligations such as Savings Bonds and Treasury Bills included in the AZ Column'
 AZ140_LINE_29A:
-  label: '29A total subtraction amount for pensions up to the maximum of $2,500 each for primary and spouse.'
+  label: '29a total subtraction amount for pensions up to the maximum of $2,500 each for primary and spouse.'
 AZ140_LINE_29B:
-  label: "29B Total subtraction amount for benefits, annuities, and pensions for retired/retainer pay of uniformed services"
+  label: "29b Total subtraction amount for benefits, annuities, and pensions for retired/retainer pay of uniformed services"
 AZ140_LINE_30:
   label: '30 U.S. Social Security or Railroad Retirement Act benefits included as income on your federal return (taxable amount)'
 AZ140_LINE_31:
@@ -888,6 +888,8 @@ NJ1040_LINE_16B:
   label: 'Tax-exempt interest income (Enclose schedule) (See instructions) Do not include on line 16a'
 NJ1040_LINE_20A:
   label: '20a Taxable pension, annuity, and IRA distributions/withdrawals (See instructions)'
+NJ1040_LINE_20B:
+  label: '20b Excludable pension, annuity, and IRA distributions/withdrawals (See instr)'
 NJ1040_LINE_27:
   label: '27 Total Income (Add lines 15, 16a, and 20a)'
 NJ1040_LINE_29:
