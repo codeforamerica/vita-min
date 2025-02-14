@@ -878,6 +878,8 @@ NJ1040_LINE_16B:
   label: 'Tax-exempt interest income (Enclose schedule) (See instructions) Do not include on line 16a'
 NJ1040_LINE_20A:
   label: '20a Taxable pension, annuity, and IRA distributions/withdrawals (See instructions)'
+NJ1040_LINE_20B:
+  label: '20b Excludable pension, annuity, and IRA distributions/withdrawals (See instr)'
 NJ1040_LINE_27:
   label: '27 Total Income (Add lines 15, 16a, and 20a)'
 NJ1040_LINE_29:

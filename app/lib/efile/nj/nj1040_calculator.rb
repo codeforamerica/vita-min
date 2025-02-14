@@ -39,6 +39,7 @@ module Efile
         set_line(:NJ1040_LINE_16A, :calculate_line_16a)
         set_line(:NJ1040_LINE_16B, :calculate_line_16b)
         set_line(:NJ1040_LINE_20A, :calculate_line_20a)
+        set_line(:NJ1040_LINE_20B, :calculate_line_20b)
         set_line(:NJ1040_LINE_27, :calculate_line_27)
         set_line(:NJ1040_LINE_29, :calculate_line_29)
         set_line(:NJ1040_LINE_31, :calculate_line_31)
@@ -319,11 +320,11 @@ module Efile
       end
 
       def calculate_line_20a
-        applicable_1099rs = @intake.state_file1099_rs.select do |state_file_1099r|
-          state_file_1099r.state_specific_followup.present? && state_file_1099r.state_specific_followup.income_source_none?
-        end
-
         applicable_1099rs.sum(&:taxable_amount).round
+      end
+
+      def calculate_line_20b
+        (applicable_1099rs.sum(&:gross_distribution_amount) - line_or_zero(:NJ1040_LINE_20A)).round
       end
 
       def calculate_line_27
@@ -658,6 +659,12 @@ module Efile
         is_mfs = @intake.filing_status_mfs?
         is_same_home = @intake.tenant_same_home_spouse_yes? || @intake.homeowner_same_home_spouse_yes?
         is_mfs && is_same_home
+      end
+
+      def applicable_1099rs
+        @intake.state_file1099_rs.select do |state_file_1099r|
+          state_file_1099r.state_specific_followup.present? && state_file_1099r.state_specific_followup.income_source_none?
+        end
       end
     end
   end
