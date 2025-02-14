@@ -19,6 +19,12 @@ module StateFile
         create_state_file_access_log("issued_pdf_download_link")
       end
 
+      def log_and_redirect
+        create_state_file_access_log("client_pdf_download_click")
+        pdf_url = params[:pdf_url]
+        redirect_to pdf_url
+      end
+
       private
 
       def pdf_expiration_time
