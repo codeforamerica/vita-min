@@ -584,8 +584,8 @@ describe Efile::Nj::Nj1040Calculator do
       let(:income_source_2) { :none }
       let(:income_source_3) { :none }
 
-      it 'sets line 20a to the sum of all 1099-Rs gross distribution amount minus line 20a, rounded' do
-        expected = 299 # 1200.01 - 901, rounded
+      it 'sets line 20a to the sum of all 1099-Rs gross distribution amount minus taxable amount, rounded' do
+        expected = 300 # 1200.01 - 900.50 = 299.51, rounded
         expect(instance.lines[:NJ1040_LINE_20B].value).to eq(expected)
       end
     end

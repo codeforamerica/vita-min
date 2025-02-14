@@ -324,7 +324,7 @@ module Efile
       end
 
       def calculate_line_20b
-        (applicable_1099rs.sum(&:gross_distribution_amount) - line_or_zero(:NJ1040_LINE_20A)).round
+        (applicable_1099rs.sum(&:gross_distribution_amount) - applicable_1099rs.sum(&:taxable_amount)).round
       end
 
       def calculate_line_27
