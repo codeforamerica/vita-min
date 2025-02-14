@@ -89,9 +89,21 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502R, required_sche
           allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_10b).and_return 66
         end
 
-        it "should have empty nodes for this section" do
+        it "outputs all relevant values" do
           expect(xml.at("Form502R PriMilLawEnforceIncSub").text).to eq("33")
           expect(xml.at("Form502R SecMilLawEnforceIncSub").text).to eq("66")
+        end
+      end
+
+      context "PriPensionExclusion and SecPensionExclusion" do
+        before do
+          allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_11a).and_return 100
+          allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_11b).and_return 200
+        end
+
+        it "outputs all relevant values" do
+          expect(xml.at("Form502R PriPensionExclusion").text).to eq("100")
+          expect(xml.at("Form502R SecPensionExclusion").text).to eq("200")
         end
       end
     end

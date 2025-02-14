@@ -44,6 +44,8 @@ module PdfFiller
           'income on lines 1z 4b and 5b of your federal Form 1040 and line 8t of your federal Schedule 1      8' => @xml_document.at('SourceRetirementIncome TotalPensionsIRAsAnnuities')&.text,
           'retirement from code letter v on Form 502SU income subtracted on Maryland Form 502  10a' => @xml_document.at('PriMilLawEnforceIncSub')&.text,
           '10b' => @xml_document.at('SecMilLawEnforceIncSub')&.text,
+          '11 Pension Exclusion from line 5 of Worksheet 13A                           11a 1' => @xml_document.at('PriPensionExclusion')&.text,
+          '11b' => @xml_document.at('SecPensionExclusion')&.text,
         )
       end
       answers
