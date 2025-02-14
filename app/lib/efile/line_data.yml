@@ -185,7 +185,7 @@ ID39R_B_LINE_8d:
 ID39R_B_LINE_8e:
   label: '8e. Qualifying retirement benefits included in federal income'
 ID39R_B_LINE_8f:
-  label: '8f. Enter the smaller of line 8d or 8e here'
+  label: '8f. Retirement benefits deduction. Enter the smaller of line 8d or 8e here'
 ID39R_B_LINE_18:
   label: '18. Health insurance premium paid amount for household'
 ID39R_B_LINE_24:
