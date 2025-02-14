@@ -27,7 +27,15 @@ module DateAccessible
       properties = [properties] unless properties.is_a?(Enumerable)
 
       properties.each do |property|
-        attr_reader :"#{property}_month", :"#{property}_year", :"#{property}_day"
+        self.define_method("#{property}_month") do
+          self.instance_variable_get("@#{property}_month") || send(property)&.month
+        end
+        self.define_method("#{property}_year") do
+          self.instance_variable_get("@#{property}_year") || send(property)&.year
+        end
+        self.define_method("#{property}_day") do
+          self.instance_variable_get("@#{property}_day") || send(property)&.day
+        end
       end
     end
 
@@ -44,15 +52,12 @@ module DateAccessible
         attr_writer :"#{property}_month", :"#{property}_year", :"#{property}_day"
 
         before_validation do
-          if send("#{property}_year").present? && send("#{property}_month").present? && send("#{property}_day").present?
-            send(
-              "#{property}=",
-              Date.new(
-                  send("#{property}_year").to_i,
-                  send("#{property}_month").to_i,
-                  send("#{property}_day").to_i,
-              )
-            )
+          month_to_set = self.instance_variable_get("@#{property}_month")
+          day_to_set = self.instance_variable_get("@#{property}_day")
+          year_to_set = self.instance_variable_get("@#{property}_year")
+
+          if year_to_set.present? && month_to_set.present? && day_to_set.present?
+            send("#{property}=", Date.new(year_to_set.to_i, month_to_set.to_i, day_to_set.to_i))
           end
         rescue Date::Error
           send("#{property}=", nil)
