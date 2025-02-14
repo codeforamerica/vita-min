@@ -188,6 +188,23 @@ FactoryBot.define do
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('id_estrada_donations') }
     end
 
+
+    trait :with_eligible_1099r_income do
+      after(:create) do |intake|
+        create(:state_file1099_r, intake: intake, taxable_amount: 2000) do |form_1099r|
+          create(:state_file_id1099_r_followup, state_file1099_r: form_1099r, eligible_income_source: "yes")
+        end
+      end
+    end
+
+    trait :with_ineligible_1099r_income do
+      after(:create) do |intake|
+        create(:state_file1099_r, intake: intake, taxable_amount: 2000) do |form_1099r|
+          create(:state_file_id1099_r_followup, state_file1099_r: form_1099r, eligible_income_source: "no")
+        end
+      end
+    end
+
     trait :primary_blind do
       after(:build) do |intake|
         intake.direct_file_data.primary_blind = "X"

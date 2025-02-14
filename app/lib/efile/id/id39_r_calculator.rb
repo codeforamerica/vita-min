@@ -17,6 +17,7 @@ module Efile
         set_line(:ID39R_B_LINE_7, :calculate_sec_b_line_7)
         set_line(:ID39R_B_LINE_6, :calculate_sec_b_line_6)
         set_line(:ID39R_B_LINE_8a, :calculate_sec_b_line_8a)
+        set_line(:ID39R_B_LINE_8b, -> { 0 })
         set_line(:ID39R_B_LINE_8c, :calculate_sec_b_line_8c)
         set_line(:ID39R_B_LINE_8d, :calculate_sec_b_line_8d)
         set_line(:ID39R_B_LINE_8e, :calculate_sec_b_line_8e)
@@ -84,7 +85,13 @@ module Efile
       end
 
       def calculate_sec_b_line_8e
-
+        @intake.state_file1099_rs.sum do |form1099r|
+          if form1099r.state_specific_followup&.eligible_income_source_yes? && form1099r.taxable_amount.present?
+            form1099r.taxable_amount
+          else
+            0
+          end
+        end
       end
 
       def calculate_sec_b_line_8f
