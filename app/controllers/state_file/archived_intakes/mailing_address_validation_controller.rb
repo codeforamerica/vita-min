@@ -23,7 +23,7 @@ module StateFile
           redirect_to state_file_archived_intakes_pdfs_path
         elsif params["state_file_archived_intakes_mailing_address_validation_form"].present?
           create_state_file_access_log("incorrect_mailing_address")
-          current_request.lock_access!
+          current_request.update(permanently_locked_at: Time.now)
           redirect_to state_file_archived_intakes_verification_error_path
         else
           render :edit
