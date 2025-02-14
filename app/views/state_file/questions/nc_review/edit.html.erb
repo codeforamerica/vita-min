@@ -11,7 +11,7 @@
         <% current_intake.state_file1099_rs.each_with_index do |state_file1099_r, index| %>
           <% followup = state_file1099_r.state_specific_followup %>
           <% unless followup.nil? %>
-            <div class="spacing-above-15 spacing-below-15">
+            <div id=<%= "retirement-income-source-#{index}" %> class="spacing-above-15 spacing-below-15">
               <div>
                 <p class="spacing-below-0"><b><%= state_file1099_r.payer_name %></b></p>
                 <ul class="list--bulleted spacing-above-0">
