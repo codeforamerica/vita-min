@@ -1,0 +1,40 @@
+{
+  "filers": [
+    {
+      "tin": "410-00-6688",
+      "suffix": null,
+      "lastName": "Jones",
+      "firstName": "Aardvark",
+      "isStudent": false,
+      "isDisabled": false,
+      "dateOfBirth": "1963-08-08",
+      "middleInitial": null,
+      "isPrimaryFiler": false,
+      "form1099GsTotal": "0.00",
+      "educatorExpenses": "0.00",
+      "interestReportsTotal": "0.00",
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": null
+    },
+    {
+      "tin": "400-00-7779",
+      "suffix": null,
+      "lastName": "Jones",
+      "firstName": "Pangolin",
+      "isStudent": false,
+      "isDisabled": false,
+      "dateOfBirth": "1962-01-01",
+      "middleInitial": null,
+      "isPrimaryFiler": true,
+      "form1099GsTotal": "0.00",
+      "educatorExpenses": "0.00",
+      "interestReportsTotal": "0.00",
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "formW2s": [],
+  "form1099Gs": [],
+  "interestReports": [],
+  "familyAndHousehold": []
+}
