@@ -155,8 +155,9 @@ RSpec.describe PdfFiller::Id39rPdf do
         allow_any_instance_of(Efile::Id::Id39RCalculator).to receive(:calculate_sec_b_line_7).and_return 3
         allow_any_instance_of(Efile::Id::Id39RCalculator).to receive(:calculate_sec_b_line_8a).and_return 100
         allow_any_instance_of(Efile::Id::Id39RCalculator).to receive(:calculate_sec_b_line_8c).and_return 200
-        allow_any_instance_of(Efile::Id::Id39RCalculator).to receive(:calculate_sec_b_line_8e).and_return 300
-        allow_any_instance_of(Efile::Id::Id39RCalculator).to receive(:calculate_sec_b_line_8f).and_return 400
+        allow_any_instance_of(Efile::Id::Id39RCalculator).to receive(:calculate_sec_b_line_8d).and_return 300
+        allow_any_instance_of(Efile::Id::Id39RCalculator).to receive(:calculate_sec_b_line_8e).and_return 400
+        allow_any_instance_of(Efile::Id::Id39RCalculator).to receive(:calculate_sec_b_line_8f).and_return 500
         allow_any_instance_of(Efile::Id::Id39RCalculator).to receive(:calculate_sec_b_line_18).and_return 4
       end
 
@@ -166,10 +167,11 @@ RSpec.describe PdfFiller::Id39rPdf do
         expect(pdf_fields["BL7"]).to eq "3"
         expect(pdf_fields["BL8a"]).to eq "100"
         expect(pdf_fields["BL8c"]).to eq "200"
-        expect(pdf_fields["BL8e"]).to eq "300"
-        expect(pdf_fields["BL8f"]).to eq "400"
+        expect(pdf_fields["BL8d"]).to eq "300"
+        expect(pdf_fields["BL8e"]).to eq "400"
+        expect(pdf_fields["BL8f"]).to eq "500"
         expect(pdf_fields["BL18"]).to eq "4"
-        expect(pdf_fields["BL24"]).to eq "410"
+        expect(pdf_fields["BL24"]).to eq "510"
       end
     end
 

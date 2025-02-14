@@ -22,6 +22,7 @@ module PdfFiller
         "BL7" => @xml_document.at('Form39R TxblSSAndRRBenefits')&.text,
         "BL8a" => @xml_document.at('Form39R PensionFilingStatusAmount')&.text,
         "BL8c" => @xml_document.at('Form39R SocialSecurityBenefits')&.text,
+        "BL8d" => calculated_fields.fetch(:ID39R_B_LINE_8d),
         "BL8e" => @xml_document.at('Form39R PensionExclusions')&.text,
         "BL8f" => @xml_document.at('Form39R RetirementBenefitsDeduction')&.text,
         "BL18" => @xml_document.at('Form39R HealthInsurancePaid')&.text,
@@ -37,6 +38,11 @@ module PdfFiller
           )
       end
       answers
+    end
+
+    private
+    def calculated_fields
+      @calculated_fields ||= @submission.data_source.tax_calculator.calculate
     end
   end
 end
