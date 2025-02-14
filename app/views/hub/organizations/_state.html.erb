@@ -8,15 +8,25 @@
     <div class="text--small spacing-below-0"><%= display_capacity(@presenter.state_capacity(state_abbreviation)) %></div>
   </div>
   <ul class="no-bullets">
-    <% if @presenter.accessible_entities_for(state_abbreviation) %>
-      <% @presenter.accessible_entities_for(state_abbreviation).each do |entity| %>
+    <% accessible_entities = @presenter.accessible_entities_for(state_abbreviation) %>
+    <% if accessible_entities.present? %>
+      <% accessible_entities.each do |entity| %>
         <% if entity.is_a? Coalition %>
           <%= render "coalition", coalition: entity %>
         <% else %>
           <%= render "organization", organization: entity %>
         <% end %>
       <% end %>
-    <% else %>
+    <% end %>
+
+    <% show_dependent_orgs = current_user.org_lead? && @presenter.organizations.where.not(coalition_id: nil).present? %>
+    <% if show_dependent_orgs %>
+      <% @presenter.organizations.where.not(coalition_id: nil).each do |org| %>
+        <%= render "organization", organization: org %>
+      <% end %>
+    <% end %>
+
+    <% if accessible_entities.nil? && !show_dependent_orgs %>
       <li><i>No partners operating in <%= state_name %></i></li>
     <% end %>
   </ul>
