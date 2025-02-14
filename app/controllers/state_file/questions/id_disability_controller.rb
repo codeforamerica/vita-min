@@ -16,6 +16,12 @@ module StateFile
           primary_age >= 62 && primary_age < 65
         end
       end
+
+      private
+
+      def form_params
+        params.require(:state_file_id_disability_form).permit(:mfj_disability, :primary_disabled, :spouse_disabled)
+      end
     end
   end
 end

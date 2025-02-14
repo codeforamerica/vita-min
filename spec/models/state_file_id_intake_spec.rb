@@ -55,7 +55,6 @@
 #  raw_direct_file_intake_data                    :jsonb
 #  received_id_public_assistance                  :integer          default("unfilled"), not null
 #  referrer                                       :string
-#  retirement_deduction_eligibility               :integer          default("unfilled"), not null
 #  routing_number                                 :string
 #  sign_in_count                                  :integer          default(0), not null
 #  sms_notification_opt_in                        :integer          default("unfilled"), not null

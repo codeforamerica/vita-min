@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_02_11_044009) do
+ActiveRecord::Schema[7.1].define(version: 2025_02_13_201933) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1945,6 +1945,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_11_044009) do
 
   create_table "state_file_id1099_r_followups", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.integer "eligible_income_source", default: 0, null: false
     t.datetime "updated_at", null: false
   end
 
@@ -2006,7 +2007,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_11_044009) do
     t.jsonb "raw_direct_file_intake_data"
     t.integer "received_id_public_assistance", default: 0, null: false
     t.string "referrer"
-    t.integer "retirement_deduction_eligibility", default: 0, null: false
     t.string "routing_number"
     t.integer "sign_in_count", default: 0, null: false
     t.integer "sms_notification_opt_in", default: 0, null: false

@@ -55,7 +55,6 @@
 #  raw_direct_file_intake_data                    :jsonb
 #  received_id_public_assistance                  :integer          default("unfilled"), not null
 #  referrer                                       :string
-#  retirement_deduction_eligibility               :integer          default("unfilled"), not null
 #  routing_number                                 :string
 #  sign_in_count                                  :integer          default(0), not null
 #  sms_notification_opt_in                        :integer          default("unfilled"), not null
@@ -102,9 +101,8 @@ class StateFileIdIntake < StateFileBaseIntake
   enum received_id_public_assistance: { unfilled: 0, yes: 1, no: 2 }, _prefix: :received_id_public_assistance
   enum primary_disabled: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_disabled
   enum spouse_disabled: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_disabled
-  enum retirement_deduction_eligibility: { unfilled: 0, yes: 1, no: 2 }, _prefix: :retirement_deduction_eligibility
 
-    def disqualifying_df_data_reason; end
+  def disqualifying_df_data_reason; end
 
   def disqualifying_eligibility_rules
     {

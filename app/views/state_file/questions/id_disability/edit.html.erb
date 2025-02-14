@@ -10,7 +10,7 @@
           { value: "me", label: t(".yes_me") },
           { value: "spouse", label: t(".yes_spouse") },
           { value: "both", label: t(".yes_both") },
-          { value: "no", label: t(".no_neither") }
+          { value: "none", label: t(".no_neither") }
         ]) %>
       <% else %>
         <%= f.cfa_radio_set(:primary_disabled, label_text: t(".question"), collection: [
