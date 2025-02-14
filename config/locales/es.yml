@@ -2553,6 +2553,7 @@ es:
         edit:
           credits_not_supported: "¿Qué restas, créditos y otras situaciones NO admite este servicio este año?"
           faq_link: Encuentra un desglose más detallado de los créditos y restas y otras situaciones no respaldadas este año aquí.
+          faq_link_html: Encuentra un desglose más detallado de los créditos y restas y otras situaciones no respaldadas este año <a href="%{url}">aquí</a>.
           md_title2_html: |
             Asegurémonos de que este servicio es el indicado para ti.<br><br>
             Estas son las restas y los créditos <strong>que puedes </strong> reclamar para maximizar tu reembolso.
@@ -2629,7 +2630,7 @@ es:
               </li>
             </ul>
             <p>
-            Encuentra un desglose más detallado de los créditos y restas no respaldados este año <a href="https://www.fileyourstatetaxes.org/es/md/faq/md_not_supported_credits_and_subtractions" rel="noopener nofollow" target="_blank">aquí</a>.
+            Encuentra un desglose más detallado de los créditos y restas y otras situaciones no respaldadas este año <a href="https://www.fileyourstatetaxes.org/es/md/faq/md_not_supported_credits_and_subtractions" rel="noopener nofollow" target="_blank">aquí</a>.
             </p>
           body2_html: |
             <p>
