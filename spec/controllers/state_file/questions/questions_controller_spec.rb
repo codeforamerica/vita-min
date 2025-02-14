@@ -19,7 +19,6 @@ end
 
 RSpec.describe StateFile::Questions::QuestionsController do
   describe "#prev_path" do
-
     before do
       allow(current_controller).to receive(:current_intake).and_return(nil)
       allow(current_controller).to receive(:form_navigation).and_return(QuestionNavigation.new(current_controller))
@@ -79,7 +78,6 @@ RSpec.describe StateFile::Questions::QuestionsController do
       end
 
       context "the current action is not in the navigation_actions list" do
-
         context "due to validation errors causing the create action to render the new template" do
           before do
             allow(current_controller).to receive(:action_name).and_return("create")
