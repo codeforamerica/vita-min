@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>a1978a1a</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400003037</PrimarySSN>
+            <SpouseSSN>400003038</SpouseSSN>
+            <NameLine1Txt>TIGER J&lt;APRON&lt;&amp; BABY BALLERINA</NameLine1Txt>
+            <PrimaryNameControlTxt>APRO</PrimaryNameControlTxt>
+            <SpouseNameControlTxt>BALL</SpouseNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>123 Dont Grow Up Lane NE</AddressLine1Txt>
+                <CityNm>Bremerton</CityNm>
+                <StateAbbreviationCd>WA</StateAbbreviationCd>
+                <ZIPCd>98312</ZIPCd>
+            </USAddress>
+            <PhoneNum>2223334444</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000303-75a6-40eb-9ec5-a5d2fa716888@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="6">
+        <IRS1040 documentId="IRS10400001">
+            <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>2</TotalExemptionsCnt>
+            <PensionsAnnuitiesAmt>115000</PensionsAnnuitiesAmt>
+            <TotalTaxablePensionsAmt pensionsAnnuitiesLiteralCd="ROLLOVER">60500</TotalTaxablePensionsAmt>
+            <SocSecBnftAmt>15000</SocSecBnftAmt>
+            <TaxableSocSecAmt>12750</TaxableSocSecAmt>
+            <TotalIncomeAmt>73250</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>73250</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>29200</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>29200</TotalDeductionsAmt>
+            <TaxableIncomeAmt>44050</TaxableIncomeAmt>
+            <TaxAmt>4825</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>4825</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>4825</TaxLessCreditsAmt>
+            <TotalTaxAmt>4825</TotalTaxAmt>
+            <WithholdingTaxAmt>7500</WithholdingTaxAmt>
+            <TotalPaymentsAmt>7500</TotalPaymentsAmt>
+            <OverpaidAmt>2675</OverpaidAmt>
+            <RefundAmt>2675</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Zookeeper</PrimaryOccupationTxt>
+            <SpouseOccupationTxt>Bellybutton inspector</SpouseOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1099R documentId="IRS1099R0001">
+            <PayerNameControlTxt>NOSC</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>No Scrubs LLC</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>Retirement Solutions Center</AddressLine1Txt>
+                <AddressLine2Txt>PO Box 1600</AddressLine2Txt>
+                <CityNm>Denver</CityNm>
+                <StateAbbreviationCd>CO</StateAbbreviationCd>
+                <ZIPCd>80201</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>232934115</PayerEIN>
+            <PhoneNum>3035555555</PhoneNum>
+            <RecipientSSN>400003037</RecipientSSN>
+            <RecipientNm>Tiger J Apron</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>100 messy street</AddressLine1Txt>
+                <CityNm>Bremerton</CityNm>
+                <StateAbbreviationCd>WA</StateAbbreviationCd>
+                <ZIPCd>98312</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>28000</GrossDistributionAmt>
+            <TaxableAmt>28000</TaxableAmt>
+            <TotalDistributionInd>X</TotalDistributionInd>
+            <FederalIncomeTaxWithheldAmt>4500</FederalIncomeTaxWithheldAmt>
+            <F1099RDistributionCd>2</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <StateTaxWithheldAmt>100</StateTaxWithheldAmt>
+                    <StateAbbreviationCd>MD</StateAbbreviationCd>
+                    <PayerStateIdNum>ab-356</PayerStateIdNum>
+                    <StateDistributionAmt>45000</StateDistributionAmt>
+                    <F1099RLocalTaxGrp/>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRS1099R documentId="IRS1099R0002">
+            <PayerNameControlTxt>LAWY</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Lawyers Eat Chips Too Inc</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>1400 N Decatur Blvd</AddressLine1Txt>
+                <CityNm>Las Vegas</CityNm>
+                <StateAbbreviationCd>NV</StateAbbreviationCd>
+                <ZIPCd>89108</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>941737782</PayerEIN>
+            <RecipientSSN>400003037</RecipientSSN>
+            <RecipientNm>Tiger J Apron</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>123 Dont Grow Up Lane NE</AddressLine1Txt>
+                <CityNm>Bremerton</CityNm>
+                <StateAbbreviationCd>WA</StateAbbreviationCd>
+                <ZIPCd>98312</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>15000</GrossDistributionAmt>
+            <TaxableAmt>7500</TaxableAmt>
+            <FederalIncomeTaxWithheldAmt>1000</FederalIncomeTaxWithheldAmt>
+            <F1099RDistributionCd>2</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <TotalEmployeeContributionsAmt>1500</TotalEmployeeContributionsAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <StateTaxWithheldAmt>0</StateTaxWithheldAmt>
+                    <StateAbbreviationCd>MD</StateAbbreviationCd>
+                    <PayerStateIdNum>50003</PayerStateIdNum>
+                    <StateDistributionAmt>0</StateDistributionAmt>
+                    <F1099RLocalTaxGrp/>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRS1099R documentId="IRS1099R0003">
+            <PayerNameControlTxt>HEAL</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Healthy foods are for big boys</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>PO Box 123</AddressLine1Txt>
+                <CityNm>Chino</CityNm>
+                <StateAbbreviationCd>CA</StateAbbreviationCd>
+                <ZIPCd>91710</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>953582843</PayerEIN>
+            <RecipientSSN>400003038</RecipientSSN>
+            <RecipientNm>Baby Ballerina</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>123 Dont Grow Up Lane NE</AddressLine1Txt>
+                <CityNm>Bremerton</CityNm>
+                <StateAbbreviationCd>WA</StateAbbreviationCd>
+                <ZIPCd>98312</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>17000</GrossDistributionAmt>
+            <TaxableAmt>17000</TaxableAmt>
+            <TotalDistributionInd>X</TotalDistributionInd>
+            <FederalIncomeTaxWithheldAmt>1500</FederalIncomeTaxWithheldAmt>
+            <F1099RDistributionCd>2</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <StateTaxWithheldAmt>800</StateTaxWithheldAmt>
+                    <StateAbbreviationCd>MD</StateAbbreviationCd>
+                    <F1099RLocalTaxGrp/>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRS1099R documentId="IRS1099R0004">
+            <PayerNameControlTxt>LAWY</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Lawyers Each Chips Too Inc</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>1400 N Decatur Blvd</AddressLine1Txt>
+                <CityNm>Las Vegas</CityNm>
+                <StateAbbreviationCd>NV</StateAbbreviationCd>
+                <ZIPCd>89108</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>941737782</PayerEIN>
+            <RecipientSSN>400003038</RecipientSSN>
+            <RecipientNm>Baby Ballerina</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>123 Dont Grow Up Lane NE</AddressLine1Txt>
+                <CityNm>Bremerton</CityNm>
+                <StateAbbreviationCd>WA</StateAbbreviationCd>
+                <ZIPCd>98312</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>8000</GrossDistributionAmt>
+            <TaxableAmt>8000</TaxableAmt>
+            <TotalDistributionInd>X</TotalDistributionInd>
+            <FederalIncomeTaxWithheldAmt>500</FederalIncomeTaxWithheldAmt>
+            <F1099RDistributionCd>7</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <StateTaxWithheldAmt>100</StateTaxWithheldAmt>
+                    <StateAbbreviationCd>MD</StateAbbreviationCd>
+                    <PayerStateIdNum>50003</PayerStateIdNum>
+                    <F1099RLocalTaxGrp/>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRS1099R documentId="IRS1099R0005">
+            <PayerNameControlTxt>AMER</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>The American Ballet</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>890 Broadway</AddressLine1Txt>
+                <CityNm>New York</CityNm>
+                <StateAbbreviationCd>NY</StateAbbreviationCd>
+                <ZIPCd>10003</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>823967259</PayerEIN>
+            <RecipientSSN>400003038</RecipientSSN>
+            <RecipientNm>Baby Ballerina</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>600 Easy Street</AddressLine1Txt>
+                <CityNm>Joplin</CityNm>
+                <StateAbbreviationCd>MO</StateAbbreviationCd>
+                <ZIPCd>64804</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>100000</GrossDistributionAmt>
+            <F1099RDistributionCd>G</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <F1099RLocalTaxGrp/>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+    </ReturnData>
+</Return>

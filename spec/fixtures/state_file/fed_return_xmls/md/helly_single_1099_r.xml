@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>a1978a1a</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400003042</PrimarySSN>
+            <NameLine1Txt>HELLY J&lt;REAGAN</NameLine1Txt>
+            <PrimaryNameControlTxt>REAG</PrimaryNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>5401 Overtime Contingency Blvd A</AddressLine1Txt>
+                <CityNm>Hagerstown</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21740</ZIPCd>
+            </USAddress>
+            <PhoneNum>2223334444</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000304-23e4-4f8b-b6ad-360685c2612e@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="4">
+        <IRS1040 documentId="IRS10400001">
+            <Form1040SRInd>X</Form1040SRInd>
+            <IndividualReturnFilingStatusCd>1</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <Primary65OrOlderInd>X</Primary65OrOlderInd>
+            <TotalBoxesCheckedCnt>1</TotalBoxesCheckedCnt>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>1</TotalExemptionsCnt>
+            <TotalTaxablePensionsAmt>77000</TotalTaxablePensionsAmt>
+            <SocSecBnftAmt>25000</SocSecBnftAmt>
+            <TaxableSocSecAmt>21250</TaxableSocSecAmt>
+            <TotalIncomeAmt>98250</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>98250</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>16550</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>16550</TotalDeductionsAmt>
+            <TaxableIncomeAmt>81700</TaxableIncomeAmt>
+            <TaxAmt>13033</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>13033</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>13033</TaxLessCreditsAmt>
+            <TotalTaxAmt>13033</TotalTaxAmt>
+            <WithholdingTaxAmt>7000</WithholdingTaxAmt>
+            <TotalPaymentsAmt>7000</TotalPaymentsAmt>
+            <OwedAmt>6033</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Macrodata Refiner</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1099R documentId="IRS1099R0001">
+            <PayerNameControlTxt>LUMO</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Lumon Industries</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>123 Main Street</AddressLine1Txt>
+                <CityNm>Baltimore</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21223</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>823967259</PayerEIN>
+            <RecipientSSN>400003042</RecipientSSN>
+            <RecipientNm>Helly J Reagan</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>5401 Overtime Contingency Blvd</AddressLine1Txt>
+                <AddressLine2Txt>A</AddressLine2Txt>
+                <CityNm>Hagerstown</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21740</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>45000</GrossDistributionAmt>
+            <TaxableAmt>45000</TaxableAmt>
+            <TotalDistributionInd>X</TotalDistributionInd>
+            <FederalIncomeTaxWithheldAmt>4500</FederalIncomeTaxWithheldAmt>
+            <F1099RDistributionCd>7</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <StateTaxWithheldAmt>3200</StateTaxWithheldAmt>
+                    <StateAbbreviationCd>MD</StateAbbreviationCd>
+                    <PayerStateIdNum>123456</PayerStateIdNum>
+                    <StateDistributionAmt>45000</StateDistributionAmt>
+                    <F1099RLocalTaxGrp/>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRS1099R documentId="IRS1099R0002">
+            <PayerNameControlTxt>USDE</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>US Department of Defense</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>123 Main Street</AddressLine1Txt>
+                <CityNm>Baltimore</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21223</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>943025021</PayerEIN>
+            <RecipientSSN>400003042</RecipientSSN>
+            <RecipientNm>Helly J Reagan</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>5401 Overtime Contingency Blvd</AddressLine1Txt>
+                <AddressLine2Txt>A</AddressLine2Txt>
+                <CityNm>Hagerstown</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21740</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>18000</GrossDistributionAmt>
+            <TaxableAmt>18000</TaxableAmt>
+            <TotalDistributionInd>X</TotalDistributionInd>
+            <FederalIncomeTaxWithheldAmt>1500</FederalIncomeTaxWithheldAmt>
+            <F1099RDistributionCd>7</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <StateTaxWithheldAmt>250</StateTaxWithheldAmt>
+                    <StateDistributionAmt>0</StateDistributionAmt>
+                    <F1099RLocalTaxGrp/>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRS1099R documentId="IRS1099R0003">
+            <PayerNameControlTxt>CITY</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>City of Kier</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>123 Main Street</AddressLine1Txt>
+                <CityNm>Baltimore</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21223</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>841233483</PayerEIN>
+            <RecipientSSN>400003042</RecipientSSN>
+            <RecipientNm>Helly J Reagan</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>5401 Overtime Contingency Blvd</AddressLine1Txt>
+                <AddressLine2Txt>A</AddressLine2Txt>
+                <CityNm>Hagerstown</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21740</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>14000</GrossDistributionAmt>
+            <TaxableAmt>14000</TaxableAmt>
+            <TotalDistributionInd>X</TotalDistributionInd>
+            <FederalIncomeTaxWithheldAmt>1000</FederalIncomeTaxWithheldAmt>
+            <F1099RDistributionCd>7</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <StateTaxWithheldAmt>100</StateTaxWithheldAmt>
+                    <F1099RLocalTaxGrp/>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+    </ReturnData>
+</Return>
