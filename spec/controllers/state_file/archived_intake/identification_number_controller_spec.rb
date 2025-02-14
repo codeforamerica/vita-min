@@ -39,6 +39,13 @@ RSpec.describe StateFile::ArchivedIntakes::IdentificationNumberController, type:
       expect(response).to redirect_to(state_file_archived_intakes_verification_error_path)
     end
 
+    it "redirects to the lockout path when the request is permantly locked" do
+      intake_request.update(permanently_locked_at: Time.now)
+      get :edit
+
+      expect(response).to redirect_to(state_file_archived_intakes_verification_error_path)
+    end
+
     it "redirect to root if code verification was not completed" do
       session[:code_verified] = nil
       get :edit

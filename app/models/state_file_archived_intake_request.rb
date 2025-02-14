@@ -9,7 +9,6 @@
 #  fake_address_2                :string
 #  ip_address                    :string
 #  locked_at                     :datetime
-#  permanently_locked_at         :datetime
 #  created_at                    :datetime         not null
 #  updated_at                    :datetime         not null
 #  state_file_archived_intake_id :bigint

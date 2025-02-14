@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_02_14_222745) do
+ActiveRecord::Schema[7.1].define(version: 2025_02_14_234544) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1791,7 +1791,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_14_222745) do
     t.string "fake_address_2"
     t.string "ip_address"
     t.datetime "locked_at"
-    t.datetime "permanently_locked_at"
     t.bigint "state_file_archived_intake_id"
     t.datetime "updated_at", null: false
     t.index ["state_file_archived_intake_id"], name: "idx_on_state_file_archived_intake_id_7dd0f99380"
@@ -1806,6 +1805,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_14_222745) do
     t.string "mailing_state"
     t.string "mailing_street"
     t.string "mailing_zip"
+    t.datetime "permanently_locked_at"
     t.string "state_code"
     t.integer "tax_year"
     t.datetime "updated_at", null: false
