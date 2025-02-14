@@ -3297,15 +3297,15 @@ es:
           retirement_income_deductions: Deducciones por ingresos de jubilación en Carolina del Norte
           retirement_income_deductions_explanation: Estas permiten a las personas deducir de sus impuestos todo o parte de sus ingresos de jubilación.
           retirement_income_source_bailey_settlement: Beneficios de jubilación como parte del Acuerdo Bailey
-          retirement_income_source_uniformed_services: Beneficios de jubilación de los Servicios Uniformados
           retirement_income_source_review_and_edit: Revisar y editar 1099-R %{index}
+          retirement_income_source_uniformed_services: Beneficios de jubilación de los Servicios Uniformados
           service_members: Resta por beneficios de jubilación recibidos por miembros del servicio
           social_security_benefits: Beneficios del Seguro Social (no sujetos a impuestos en Carolina del Norte)
           spouse_veteran: Estado de veterano de las Fuerzas Armadas de los Estados Unidos de tu cónyuge
           state_credit: Miembro inscrito de una tribu indígena reconocida por el gobierno federal y recibiste ingresos de una fuente dentro de una reserva
           subtraction_indian_tribe: Resta por ingresos de un miembro de una tribu india
-          uniformed_twenty_years_medical_retired: Miembro retirado que prestó servicio al menos 20 años o fue retirado por razones médicas de los Servicios Uniformados
           uniformed_survivor_benefit_plan: Pagos de un Plan de Beneficios para Sobrevivientes calificado a un beneficiario de un miembro retirado que prestó servicio al menos 20 años o que fue retirado por razones médicas de los Servicios Uniformados
+          uniformed_twenty_years_medical_retired: Miembro retirado que prestó servicio al menos 20 años o fue retirado por razones médicas de los Servicios Uniformados
           use_tax_amount: Cantidad del impuesto sobre uso
           use_tax_applied: Compras fuera del estado en %{filing_year} sin pagar impuesto sobre ventas
       nc_sales_use_tax:
