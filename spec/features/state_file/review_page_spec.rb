@@ -196,9 +196,19 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
       within "#retirement-income-source" do
         expect(page).to have_text "Dorothy Red"
-        expect(page).to have_text "Retirement benefits as part of the Bailey Settlement"
-        expect(page).to have_text "At least five years of creditable service by August 12, 1989"
-        click_on I18n.t("general.edit")
+        expect(page).to have_text I18n.t("state_file.questions.nc_review.edit.retirement_income_source_bailey_settlement")
+        expect(page).to have_text I18n.t("state_file.questions.nc_review.edit.bailey_settlement_at_least_five_years")
+        click_on I18n.t("general.review_and_edit")
+      end
+
+      check I18n.t("state_file.questions.nc_retirement_income_subtraction.edit.bailey_settlement_from_retirement_plan")
+      click_on I18n.t("general.continue")
+
+      within "#retirement-income-source" do
+        expect(page).to have_text "Dorothy Red"
+        expect(page).to have_text I18n.t("state_file.questions.nc_review.edit.retirement_income_source_bailey_settlement")
+        expect(page).to have_text I18n.t("state_file.questions.nc_review.edit.bailey_settlement_at_least_five_years")
+        expect(page).to have_text I18n.t("state_file.questions.nc_review.edit.bailey_settlement_from_retirement_plan")
       end
     end
   end

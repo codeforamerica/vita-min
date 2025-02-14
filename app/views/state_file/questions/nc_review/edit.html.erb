@@ -9,27 +9,32 @@
         <p><%= t(".retirement_income_deductions_explanation") %></p>
 
         <% current_intake.state_file1099_rs.each_with_index do |state_file1099_r, index| %>
-          <% unless state_file1099_r.state_specific_followup.nil? %>
+          <% followup = state_file1099_r.state_specific_followup %>
+          <% unless followup.nil? %>
             <div class="spacing-above-15 spacing-below-15">
               <div>
                 <p class="spacing-below-0"><b><%= state_file1099_r.payer_name %></b></p>
                 <ul class="list--bulleted spacing-above-0">
-                  <% if state_file1099_r.state_specific_followup.income_source_bailey_settlement? %>
+                  <% if followup.income_source_bailey_settlement? %>
                     <li><%= t(".retirement_income_source_bailey_settlement") %></li>
-                    <% if state_file1099_r.state_specific_followup.bailey_settlement_at_least_five_years_yes? %>
+                    <% if followup.bailey_settlement_at_least_five_years_yes? %>
                       <li><%= t(".bailey_settlement_at_least_five_years") %></li>
-                    <% elsif state_file1099_r.state_specific_followup.bailey_settlement_from_retirement_plan_yes? %>
+                    <% end %>
+                    <% if followup.bailey_settlement_from_retirement_plan_yes? %>
                       <li><%= t(".bailey_settlement_from_retirement_plan") %></li>
-                    <% else %>
+                    <% end %>
+                    <% if !followup.bailey_settlement_from_retirement_plan_yes? && !followup.bailey_settlement_from_retirement_plan_yes? %>
                       <li><%= t(".none_apply") %></li>
                     <% end %>
-                  <% elsif state_file1099_r.state_specific_followup.income_source_uniformed_services? %>
+                  <% elsif followup.income_source_uniformed_services? %>
                     <li><%= t(".retirement_income_source_uniformed_services") %></li>
-                    <% if state_file1099_r.state_specific_followup.uniformed_services_retired? %>
+                    <% if followup.uniformed_services_retired_yes? %>
                       <li><%= t(".uniformed_twenty_years_medical_retired") %></li>
-                    <% elsif state_file1099_r.state_specific_followup.uniformed_services_qualifying_plan? %>
+                    <% end %>
+                    <% if followup.uniformed_services_qualifying_plan_yes? %>
                       <li><%= t(".uniformed_survivor_benefit_plan") %></li>
-                    <% else %>
+                    <% end %>
+                    <% if !followup.uniformed_services_retired_yes? && !followup.uniformed_services_qualifying_plan_yes? %>
                       <li><%= t(".none_apply") %></li>
                     <% end %>
                   <% else %>
