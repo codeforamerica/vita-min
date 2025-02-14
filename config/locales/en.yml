@@ -2923,12 +2923,9 @@ en:
           help_text: The following individuals are classified as disabled
           help_title: What is classified as disabled?
           no_neither: No, neither of us is
-          proof_question: Have you provided proof of your disability to Maryland for the pension exclusion in previous tax years?
-          subtitle: To see if you qualify, we need more information about you.
-          subtitle_spouse: To see if you qualify, we need more information about you and your spouse.
-          title: You might be eligible for Idaho Retirement Income Deduction.
           question: Do you meet the qualifications to be classified as disabled?
           question_spouse: Do you or your spouse meet the qualifications to be classified as disabled?
+          title: You might be eligible for Idaho Retirement Income Deduction.
           yes_both: Yes, we both are
           yes_me: Yes, I am
           yes_spouse: Yes, my spouse is
@@ -3049,14 +3046,14 @@ en:
           why_ask_this: Why are you asking for this information?
       id_retirement_and_pension_income:
         edit:
-          bullet_1:
-          subtitle: We need more information about your 1099-R to check your eligibility.
           question: 'Does this retirement income come from any of the following:'
           question_b1: Your service as a Civil Service employee
           question_b2: Your service as an Idaho firefighter
           question_b3: Your service as a Police officer of an Idaho city
           question_b4: Your service as a member of the U.S. military
           question_b5: Survivor benefits from a deceased spouse’s pension from one of the sources listed above”
+          read_more: Read more on the additional information on these qualified retirement benefits.
+          subtitle: We need more information about your 1099-R to check your eligibility.
       id_review:
         edit:
           donations_optional: Idaho taxpayers can make voluntary charitable donations to organizations when they file their state income tax return.

@@ -1,11 +1,11 @@
 module StateFile
   module Questions
     class IdDisabilityController < QuestionsController
-      def self.show?(intake)
-        Flipper.enabled?(:show_retirement_ui) &&
-          intake.state_file1099_rs.any? { |form1099r| form1099r.taxable_amount&.to_f&.positive? } &&
-          !intake.filing_status_mfs? && meets_age_requirements?(intake)
-      end
+      # def self.show?(intake)
+      #   Flipper.enabled?(:show_retirement_ui) &&
+      #     intake.state_file1099_rs.any? { |form1099r| form1099r.taxable_amount&.to_f&.positive? } &&
+      #     !intake.filing_status_mfs? && meets_age_requirements?(intake)
+      # end
 
       def self.meets_age_requirements?(intake)
         primary_age = intake.calculate_age(intake.primary_birth_date, inclusive_of_jan_1: true)

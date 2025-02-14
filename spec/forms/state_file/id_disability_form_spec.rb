@@ -15,7 +15,7 @@ RSpec.describe StateFile::IdDisabilityForm do
 
         it "is invalid and attaches the correct error" do
           expect(form).not_to be_valid
-          expect(form.errors[:mfj_disability]).to include "can't be blank"
+          expect(form.errors[:mfj_disability]).to include "Can't be blank."
         end
       end
 
@@ -38,7 +38,7 @@ RSpec.describe StateFile::IdDisabilityForm do
 
         it "is invalid and attaches the correct error" do
           expect(form).not_to be_valid
-          expect(form.errors[:primary_disabled]).to include "can't be blank"
+          expect(form.errors[:primary_disabled]).to include "Can't be blank."
         end
       end
 
@@ -47,7 +47,7 @@ RSpec.describe StateFile::IdDisabilityForm do
 
         it "is invalid" do
           expect(form).not_to be_valid
-          expect(form.errors[:primary_disabled]).to include "can't be blank"
+          expect(form.errors[:primary_disabled]).to include "Can't be blank."
         end
       end
 
@@ -62,9 +62,25 @@ RSpec.describe StateFile::IdDisabilityForm do
   end
 
   describe "#save" do
-    context "when filing status is MFJ" do
+    let(:intake) { create :state_file_id_intake, :mfj_filer_with_json}
+    let!(:primary_1099r) do
+      create :state_file1099_r,
+             intake: intake,
+             recipient_ssn: "400000030",
+             taxable_amount: 1111
+    end
+
+    let!(:spouse_1099r) do
+      create :state_file1099_r,
+             intake: intake,
+             recipient_ssn: "600000030",
+             taxable_amount: 2222
+    end
+
+    context "when filing status is MFJ and both spouse and filer are eligible" do
       before do
-        allow(intake).to receive(:filing_status_mfj?).and_return true
+        intake.primary_birth_date = Date.new(MultiTenantService.statefile.current_tax_year - 62, 1, 1)
+        intake.spouse_birth_date = Date.new(MultiTenantService.statefile.current_tax_year - 62, 1, 1)
       end
 
       context "when mfj_disability is 'me'" do
