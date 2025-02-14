@@ -158,7 +158,8 @@ RSpec.describe StateFile::Questions::AzQualifyingOrganizationContributionsContro
              id: contribution.id,
              az321_contribution: {
                date_of_contribution_month: 6,
-               date_of_contribution_day: 16
+               date_of_contribution_day: 16,
+               date_of_contribution_year: Rails.configuration.statefile_current_tax_year
              }
            }
 
