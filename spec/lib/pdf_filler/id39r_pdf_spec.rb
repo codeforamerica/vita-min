@@ -18,6 +18,11 @@ RSpec.describe PdfFiller::Id39rPdf do
     ]
   end
 
+  before do
+    allow(Flipper).to receive(:enabled?).and_call_original
+    allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
+  end
+
   describe "#hash_for_pdf" do
     let(:pdf_fields) { filled_in_values(submission.generate_filing_pdf.path) }
     it 'uses field names that exist in the pdf' do
@@ -148,17 +153,23 @@ RSpec.describe PdfFiller::Id39rPdf do
         allow_any_instance_of(Efile::Id::Id39RCalculator).to receive(:calculate_sec_b_line_3).and_return 1
         allow_any_instance_of(Efile::Id::Id39RCalculator).to receive(:calculate_sec_b_line_6).and_return 2
         allow_any_instance_of(Efile::Id::Id39RCalculator).to receive(:calculate_sec_b_line_7).and_return 3
-        # line 8f is part of the calculation but it's always 0 for now
+        allow_any_instance_of(Efile::Id::Id39RCalculator).to receive(:calculate_sec_b_line_8a).and_return 100
+        allow_any_instance_of(Efile::Id::Id39RCalculator).to receive(:calculate_sec_b_line_8c).and_return 200
+        allow_any_instance_of(Efile::Id::Id39RCalculator).to receive(:calculate_sec_b_line_8e).and_return 300
+        allow_any_instance_of(Efile::Id::Id39RCalculator).to receive(:calculate_sec_b_line_8f).and_return 400
         allow_any_instance_of(Efile::Id::Id39RCalculator).to receive(:calculate_sec_b_line_18).and_return 4
       end
 
-      it "should add up all the subtractions" do
+      it "should show the values for the section" do
         expect(pdf_fields["BL3"]).to eq "1"
         expect(pdf_fields["BL6"]).to eq "2"
         expect(pdf_fields["BL7"]).to eq "3"
-        expect(pdf_fields["BL8f"]).to eq "0"
+        expect(pdf_fields["BL8a"]).to eq "100"
+        expect(pdf_fields["BL8c"]).to eq "200"
+        expect(pdf_fields["BL8e"]).to eq "300"
+        expect(pdf_fields["BL8f"]).to eq "400"
         expect(pdf_fields["BL18"]).to eq "4"
-        expect(pdf_fields["BL24"]).to eq "10"
+        expect(pdf_fields["BL24"]).to eq "410"
       end
     end
 

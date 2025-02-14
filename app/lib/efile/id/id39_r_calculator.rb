@@ -95,7 +95,11 @@ module Efile
       end
 
       def calculate_sec_b_line_8f
-        [line_or_zero(:ID39R_B_LINE_8d), line_or_zero(:ID39R_B_LINE_8e)].min
+        if Flipper.enabled?(:show_retirement_ui)
+          [line_or_zero(:ID39R_B_LINE_8d), line_or_zero(:ID39R_B_LINE_8e)].min
+        else
+          0
+        end
       end
 
       def calculate_sec_b_line_18

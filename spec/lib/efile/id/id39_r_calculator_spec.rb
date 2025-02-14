@@ -242,19 +242,33 @@ describe Efile::Id::Id39RCalculator do
       allow(instance).to receive(:calculate_sec_b_line_8e).and_return 1_000
     end
 
-    it "returns the lesser of line 8d or 8e" do
-      instance.calculate
-      expect(instance.lines[:ID39R_B_LINE_8f].value).to eq(1_000)
+    context 'when flipper is off for retirment ui' do
+      it "returns 0" do
+        instance.calculate
+        expect(instance.lines[:ID39R_B_LINE_8f].value).to eq(0)
+      end
     end
 
-    context "when line 8d is less than line 8e" do
+    context 'when flipper is on for retirment ui' do
       before do
-        allow(instance).to receive(:calculate_sec_b_line_8d).and_return 200
+        allow(Flipper).to receive(:enabled?).and_call_original
+        allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
       end
 
-      it "returns line 8d amount" do
+      it "returns the lesser of line 8d or 8e" do
         instance.calculate
-        expect(instance.lines[:ID39R_B_LINE_8f].value).to eq(200)
+        expect(instance.lines[:ID39R_B_LINE_8f].value).to eq(1_000)
+      end
+
+      context "when line 8d is less than line 8e" do
+        before do
+          allow(instance).to receive(:calculate_sec_b_line_8d).and_return 200
+        end
+
+        it "returns line 8d amount" do
+          instance.calculate
+          expect(instance.lines[:ID39R_B_LINE_8f].value).to eq(200)
+        end
       end
     end
   end
@@ -284,13 +298,13 @@ describe Efile::Id::Id39RCalculator do
         allow(instance).to receive(:calculate_sec_b_line_3).and_return 2_000
         allow(instance).to receive(:calculate_sec_b_line_6).and_return 50
         allow(instance).to receive(:calculate_sec_b_line_7).and_return 100
-        # line 8f is part of the calculation but it's always 0 for now
+        allow(instance).to receive(:calculate_sec_b_line_8f).and_return 200
         allow(instance).to receive(:calculate_sec_b_line_18).and_return 1_000
       end
 
-      it "sums the interest from government bonds across all reports" do
+      it "sums the interest from government bonds across all reports without deductions" do
         instance.calculate
-        expect(instance.lines[:ID39R_B_LINE_24].value).to eq(3150)
+        expect(instance.lines[:ID39R_B_LINE_24].value).to eq(3350)
       end
     end
 
@@ -299,7 +313,7 @@ describe Efile::Id::Id39RCalculator do
         allow(instance).to receive(:calculate_sec_b_line_3).and_return 0
         allow(instance).to receive(:calculate_sec_b_line_6).and_return 0
         allow(instance).to receive(:calculate_sec_b_line_7).and_return 0
-        # line 8f is part of the calculation but it's always 0 for now
+        allow(instance).to receive(:calculate_sec_b_line_8f).and_return 0
         allow(instance).to receive(:calculate_sec_b_line_18).and_return 0
       end
       it "returns 0" do
