@@ -708,6 +708,80 @@ describe Client do
     end
   end
 
+  describe "#has_archived_intake?" do
+    context "intake is blank" do
+      let(:client) { create :client, intake: nil }
+
+      context "there is an Archived::Intake2021 with a matching client id" do
+        let!(:archived_2021_intake) { create :archived_2021_gyr_intake, client: client }
+        it "returns true" do
+          expect(client.has_archived_intake?).to eq(true)
+        end
+      end
+
+      context "there is no matching archived intake" do
+        it "returns false" do
+          expect(client.has_archived_intake?).to eq(false)
+        end
+      end
+    end
+
+    context "intake is present" do
+      let(:intake) { create :intake, product_year: product_year }
+      let(:product_year) { Rails.configuration.product_year }
+
+      context "product year matches current product year" do
+        it "returns false" do
+          expect(intake.client.has_archived_intake?).to eq(false)
+        end
+      end
+
+      context "product year doesn't match current product year" do
+        let(:product_year) { (Rails.configuration.product_year.to_i - 1) }
+        it "returns true" do
+          expect(intake.client.has_archived_intake?).to eq(true)
+        end
+      end
+    end
+  end
+
+  describe "#archived_intake" do
+    context "intake is blank" do
+      let(:client) { create :client, intake: nil }
+
+      context "there is an Archived::Intake2021 with a matching client id" do
+        let!(:archived_2021_intake) { create :archived_2021_gyr_intake, client: client }
+        it "returns archived 2021 intake" do
+          expect(client.archived_intake).to eq(archived_2021_intake)
+        end
+      end
+
+      context "there is no matching archived intake" do
+        it "returns nil" do
+          expect(client.archived_intake).to eq(nil)
+        end
+      end
+    end
+
+    context "intake is present" do
+      let(:intake) { create :intake, product_year: product_year }
+      let(:product_year) { Rails.configuration.product_year }
+
+      context "product year matches current product year" do
+        it "returns nil" do
+          expect(intake.client.archived_intake).to eq(nil)
+        end
+      end
+
+      context "product year doesn't match current product year" do
+        let(:product_year) { (Rails.configuration.product_year.to_i - 1) }
+        it "returns intake with past product year" do
+          expect(intake.client.archived_intake).to eq(intake)
+        end
+      end
+    end
+  end
+
   describe "#request_doc_help" do
     let(:client) { create :client, intake: (build :intake) }
     let(:assigned_user_a) { create :user }

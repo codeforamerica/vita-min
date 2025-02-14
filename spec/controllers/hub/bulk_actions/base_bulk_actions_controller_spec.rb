@@ -62,6 +62,16 @@ RSpec.describe Hub::BulkActions::BaseBulkActionsController do
           end
         end
 
+        context "with a tax return selection connected to an archived intake" do
+          let!(:tax_return_selection) { create :tax_return_selection, tax_returns: [tax_return_1, tax_return_2, tax_return_3] }
+          let(:tax_return_3) { create :tax_return, year: 2021, client: create(:client, intake: build(:intake, product_year: Rails.configuration.product_year - 2)) }
+
+          it "response is forbidden (403)" do
+            get :edit, params: params
+            expect(response).to be_forbidden
+          end
+        end
+
         context "with only clients who don't have sufficient contact info" do
           let(:intake) { build :intake, email_notification_opt_in: "yes", email_address: nil, sms_notification_opt_in: "yes", sms_phone_number: nil }
 

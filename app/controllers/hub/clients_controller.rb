@@ -12,11 +12,8 @@ module Hub
     before_action :redirect_unless_client_is_hub_status_editable, only: [:edit, :edit_take_action, :update, :update_take_action]
     layout "hub"
 
-    MAX_COUNT = 1000
-
     def index
       @page_title = I18n.t("hub.clients.index.title")
-
       @clients = @client_sorter.filtered_and_sorted_clients.page(params[:page]).load
       @message_summaries = RecentMessageSummaryService.messages(@clients.map(&:id))
     end
@@ -47,7 +44,7 @@ module Hub
     end
 
     def edit
-      return render "public_pages/page_not_found", status: 404 if @client.intake.is_ctc?
+      raise CanCan::AccessDenied if @client.intake.is_ctc?
 
       @form = UpdateClientForm.from_client(@client)
     end
@@ -105,8 +102,6 @@ module Hub
     end
 
     def unlock
-      raise CanCan::AccessDenied unless current_user.admin? || current_user.org_lead? || current_user.site_coordinator?
-
       @client.unlock_access! if @client.access_locked?
       flash[:notice] = I18n.t("hub.clients.unlock.account_unlocked", name: @client.preferred_name)
       redirect_to(hub_client_path(id: @client))
@@ -297,13 +292,8 @@ module Hub
         @client = client
         __setobj__(client)
         @intake = client.intake
-        if @intake.present? && @intake.product_year != Rails.configuration.product_year
-          @archived = true
-        end
-        if @intake.blank?
-          @intake = Archived::Intake2021.find_by(client_id: @client.id)
-          @archived = true if @intake
-        end
+        @archived = client.has_archived_intake?
+        @intake = @archived ? client.archived_intake : client.intake
         # For a short while, we created Client records with no intake and/or moved which client the intake belonged to.
         if !@intake && @client.created_at < Date.parse('2022-04-15')
           @missing_intake = true
