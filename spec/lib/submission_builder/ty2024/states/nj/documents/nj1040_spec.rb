@@ -431,14 +431,19 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
         allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_20a).and_return 300
         expect(xml.at("PensAnnuitAndIraWithdraw")).to eq(nil)
       end
+
+      it "does not show line 20b TaxExemptPensAnnuit even when there is a value" do
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_20b).and_return 300
+        expect(xml.at("TaxExemptPensAnnuit")).to eq(nil)
+      end
     end
 
-    describe "retirement income - line 20a" do
+    describe "taxable retirement income - line 20a" do
       before do
         allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
       end
 
-      context "when applicable retirement income exists" do
+      context "when applicable taxable retirement income exists" do
         it "fills PensAnnuitAndIraWithdraw with the values from calculator" do
           expected_total = 30_000
           allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_20a).and_return expected_total
@@ -447,9 +452,30 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
       end
 
       context "when filer does not have applicable retirement income" do
-        it "does not include TotalIncome in the XML" do
+        it "does not include PensAnnuitAndIraWithdraw in the XML" do
           allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_20a).and_return 0
           expect(xml.at("PensAnnuitAndIraWithdraw")).to eq(nil)
+        end
+      end
+    end
+
+    describe "excludable retirement income - line 20b" do
+      before do
+        allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
+      end
+
+      context "when applicable excludable retirement income exists" do
+        it "fills TaxExemptPensAnnuit with the values from calculator" do
+          expected_total = 30_000
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_20b).and_return expected_total
+          expect(xml.at("TaxExemptPensAnnuit").text).to eq(expected_total.to_s)
+        end
+      end
+
+      context "when filer does not have applicable retirement income" do
+        it "does not include TaxExemptPensAnnuit in the XML" do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_20b).and_return 0
+          expect(xml.at("TaxExemptPensAnnuit")).to eq(nil)
         end
       end
     end
