@@ -7,6 +7,8 @@ describe StateFile::Questions::ContactPreferenceController do
   end
 
   describe '#edit' do
+    it_behaves_like :df_data_required, false, :az
+
     render_views
     it 'succeeds' do
       get :edit

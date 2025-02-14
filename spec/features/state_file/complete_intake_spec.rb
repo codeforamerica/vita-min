@@ -24,9 +24,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t('general.get_started'), id: "firstCta"
 
       click_on I18n.t("general.continue")
-
       
-
       step_through_initial_authentication(contact_preference: :email)
 
       check "Email"
