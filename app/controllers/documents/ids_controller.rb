@@ -32,11 +32,7 @@ module Documents
       end
     end
 
-    def after_update_success
-      current_intake.tax_returns.each do |tax_return|
-        tax_return.advance_to(:intake_needs_doc_help)
-      end
-    end
+    def after_update_success; end
 
     def illustration_path
       "ids.svg"
