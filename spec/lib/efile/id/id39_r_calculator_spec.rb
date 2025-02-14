@@ -153,6 +153,112 @@ describe Efile::Id::Id39RCalculator do
     end
   end
 
+  describe "Section B Line 8a: Base Amount" do
+    context "when filing single" do
+      before do
+        allow(intake).to receive(:filing_status_single?).and_return(true)
+        allow(intake).to receive(:filing_status_mfj?).and_return(false)
+      end
+
+      it "returns $45,864" do
+        instance.calculate
+        expect(instance.lines[:ID39R_B_LINE_8a].value).to eq(45_864)
+      end
+    end
+
+    context "when filing married filing jointly" do
+      before do
+        allow(intake).to receive(:filing_status_single?).and_return(false)
+        allow(intake).to receive(:filing_status_mfj?).and_return(true)
+      end
+
+      it "returns $68,796" do
+        instance.calculate
+        expect(instance.lines[:ID39R_B_LINE_8a].value).to eq(68_796)
+      end
+    end
+  end
+
+  describe "Section B Line 8c: Federal Social Security Benefits" do
+    context "when federal social security benefits exist" do
+      before do
+        allow(intake.direct_file_data).to receive(:fed_ssb).and_return(10_000)
+      end
+
+      it "returns the federal social security benefits amount" do
+        instance.calculate
+        expect(instance.lines[:ID39R_B_LINE_8c].value).to eq(10_000)
+      end
+    end
+  end
+
+  describe "Section B Line 8d: Maximum Allowable Retirement Benefits" do
+    before do
+      allow(instance).to receive(:calculate_sec_b_line_8a).and_return 2_000
+      allow(instance).to receive(:calculate_sec_b_line_8c).and_return 1_000
+    end
+
+    it "returns the difference between 8a and sum of 8b and 8c" do
+      instance.calculate
+      expect(instance.lines[:ID39R_B_LINE_8d].value).to eq(1_000)
+    end
+
+    context "when calculation results in negative number" do
+      before do
+        allow(instance).to receive(:calculate_sec_b_line_8a).and_return 2_000
+        allow(instance).to receive(:calculate_sec_b_line_8c).and_return 3_000
+      end
+
+      it "returns 0" do
+        instance.calculate
+        expect(instance.lines[:ID39R_B_LINE_8d].value).to eq(0)
+      end
+    end
+  end
+
+  describe "Section B Line 8e: Retirement Benefits" do
+    context "when eligible retirement benefits exist" do
+      let(:intake) { create(:state_file_id_intake, :with_eligible_1099r_income) }
+
+      it "sums only eligible retirement benefits" do
+        instance.calculate
+        expect(instance.lines[:ID39R_B_LINE_8e].value).to eq(2000)
+      end
+    end
+
+    context "when no eligible retirement benefits exist" do
+      let(:intake) { create(:state_file_id_intake, :with_ineligible_1099r_income) }
+
+      it "returns 0" do
+        instance.calculate
+        expect(instance.lines[:ID39R_B_LINE_8e].value).to eq(0)
+      end
+    end
+  end
+
+  describe "Section B Line 8f: Allowable Retirement Benefits Deduction" do
+    before do
+      allow(instance).to receive(:calculate_sec_b_line_8d).and_return 2_000
+      allow(instance).to receive(:calculate_sec_b_line_8e).and_return 1_000
+    end
+
+    it "returns the lesser of line 8d or 8e" do
+      instance.calculate
+      expect(instance.lines[:ID39R_B_LINE_8f].value).to eq(1_000)
+    end
+
+    context "when line 8d is less than line 8e" do
+      before do
+        allow(instance).to receive(:calculate_sec_b_line_8d).and_return 200
+      end
+
+      it "returns line 8d amount" do
+        instance.calculate
+        expect(instance.lines[:ID39R_B_LINE_8f].value).to eq(200)
+      end
+    end
+  end
+
   describe "Section B Line 18: Health Insurance Premium" do
     context "when there are health insurance premiums" do
       before do

@@ -2880,6 +2880,21 @@ es:
           spouse_esign: Mi cónyuge ha leído y acepta la certificación anterior
           submit: Envía tu declaración estatal
           title: Firma electrónicamente tu declaración de impuestos del estado de %{state_name}
+      id_disability:
+        edit:
+          help_b1: Una persona reconocida como discapacitada por la Administración del Seguro Social, la Junta de Jubilación Ferroviaria o la Oficina de Administración y Presupuesto
+          help_b2: Un veterano de una guerra de los Estados Unidos con una calificación de discapacidad relacionada con el servicio del 10% o más
+          help_b3: Un veterano de una guerra de los Estados Unidos con una pensión por discapacidad no relacionada con el servicio
+          help_b4: Una persona que tiene una discapacidad permanente certificada por un médico sin expectativa de mejoría
+          help_text: Las siguientes personas se clasifican como discapacitadas
+          help_title: "¿Qué se clasifica como discapacidad?"
+          no_neither: No, ninguno de nosotros lo está
+          question: "¿Cumple con los requisitos para ser clasificado como discapacitado?"
+          question_spouse: "¿Usted o su cónyuge cumplen con los requisitos para ser clasificados como discapacitados?"
+          title: Podría ser elegible para la Deducción de Ingresos de Jubilación de Idaho.
+          yes_both: Sí, ambos lo estamos
+          yes_me: Sí, yo lo estoy
+          yes_spouse: Sí, mi cónyuge lo está
       id_donations:
         edit:
           add_the_amount: Ingresa el valor que te gustaría donar a cualquiera de las organizaciones a continuación
@@ -2998,6 +3013,16 @@ es:
           subtitle: Ingresa el número de licencia de conducir o tarjeta de identificación al presentar tu declaración electrónicamente para ayudar a que tu reembolso se procese más rápido.
           title: Necesitamos algunos detalles de tu identificación emitida por el estado, si tienes una
           why_ask_this: "¿Por qué están pidiendo esta información?"
+      id_retirement_and_pension_income:
+        edit:
+          question: "¿Este ingreso de jubilación proviene de alguna de las siguientes fuentes:"
+          question_b1: Su servicio como empleado del Servicio Civil
+          question_b2: Su servicio como bombero de Idaho
+          question_b3: Su servicio como oficial de policía de una ciudad de Idaho
+          question_b4: Su servicio como miembro de las fuerzas armadas de los Estados Unidos
+          question_b5: Beneficios para sobrevivientes de la pensión de un cónyuge fallecido de una de las fuentes mencionadas anteriormente
+          read_more: Read more on the additional information on these qualified retirement benefits.
+          subtitle: Necesitamos más información sobre su formulario 1099-R para verificar su elegibilidad.
       id_review:
         edit:
           donations_optional: Los contribuyentes de Idaho pueden hacer donaciones caritativas voluntarias a organizaciones cuando presentan su declaración de impuestos estatal.

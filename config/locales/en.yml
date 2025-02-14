@@ -2914,6 +2914,21 @@ en:
           spouse_esign: My spouse has read the certification above and agrees
           submit: Submit your state return
           title: Electronically sign your %{state_name} state tax return
+      id_disability:
+        edit:
+          help_b1: An individual recognized as disabled by the Social Security Administration, the Railroad Retirement Board, or the Office of Management and Budget
+          help_b2: A veteran of a U.S. war with a service-connected disability rating of 10% or more
+          help_b3: A veteran of a U.S. war with a non service-connected disability pension
+          help_b4: A person who has a physician-certified permanent disability with no expectation of improvement
+          help_text: The following individuals are classified as disabled
+          help_title: What is classified as disabled?
+          no_neither: No, neither of us is
+          question: Do you meet the qualifications to be classified as disabled?
+          question_spouse: Do you or your spouse meet the qualifications to be classified as disabled?
+          title: You might be eligible for Idaho Retirement Income Deduction.
+          yes_both: Yes, we both are
+          yes_me: Yes, I am
+          yes_spouse: Yes, my spouse is
       id_donations:
         edit:
           add_the_amount: Add the amount you would like to donate to any organization below
@@ -3029,6 +3044,16 @@ en:
           subtitle: Provide your driver’s license or identity card number when you e-File to help your refund process faster.
           title: We need some details from your state-issued ID, if you have one
           why_ask_this: Why are you asking for this information?
+      id_retirement_and_pension_income:
+        edit:
+          question: 'Does this retirement income come from any of the following:'
+          question_b1: Your service as a Civil Service employee
+          question_b2: Your service as an Idaho firefighter
+          question_b3: Your service as a Police officer of an Idaho city
+          question_b4: Your service as a member of the U.S. military
+          question_b5: Survivor benefits from a deceased spouse’s pension from one of the sources listed above”
+          read_more: Read more on the additional information on these qualified retirement benefits.
+          subtitle: We need more information about your 1099-R to check your eligibility.
       id_review:
         edit:
           donations_optional: Idaho taxpayers can make voluntary charitable donations to organizations when they file their state income tax return.
