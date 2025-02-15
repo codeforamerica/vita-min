@@ -134,5 +134,30 @@ describe Hub::OrganizationsPresenter do
         end
       end
     end
+
+    context "with organizations that have a parent coalition" do
+      let(:user) { create :organization_lead_user, organization: org }
+      let!(:org) { create :organization, coalition: create(:coalition), capacity_limit: 300 }
+
+      before do
+        create :state_routing_target, target: org.coalition, state_abbreviation: "NC"
+        create :state_routing_target, target: org.coalition, state_abbreviation: "NY"
+      end
+
+      it "shows the organization but not the coalition" do
+        expect(subject.accessible_entities_for("NC")).to eq [org]
+        expect(subject.accessible_entities_for("NY")).to eq [org]
+      end
+
+      it "returns state capacities for org" do
+        capacity = subject.state_capacity("NC")
+        expect(capacity.current_count).to eq 0
+        expect(capacity.total_capacity).to eq 300
+
+        capacity = subject.state_capacity("NY")
+        expect(capacity.current_count).to eq 0
+        expect(capacity.total_capacity).to eq 300
+      end
+    end
   end
 end
