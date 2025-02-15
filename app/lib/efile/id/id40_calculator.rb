@@ -253,7 +253,13 @@ module Efile
       def calculate_line_46
         @intake.state_file_w2s.sum { |item| item.state_income_tax_amount.round } +
           @intake.state_file1099_gs.sum { |item| item.state_income_tax_withheld_amount.round } +
-          @intake.state_file1099_rs.sum { |item| item.state_tax_withheld_amount.round }
+          @intake.state_file1099_rs.sum do |item|
+            if item.state_specific_followup&.eligible_income_source_yes?
+              item.state_tax_withheld_amount.round || 0
+            else
+              0
+            end
+          end
       end
 
       def calculate_line_50

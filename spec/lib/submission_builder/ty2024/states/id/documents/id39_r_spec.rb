@@ -24,12 +24,29 @@ describe SubmissionBuilder::Ty2024::States::Id::Documents::Id39R, required_schem
         allow_any_instance_of(Efile::Id::Id39RCalculator).to receive(:calculate_sec_b_line_3).and_return 1
         allow_any_instance_of(Efile::Id::Id39RCalculator).to receive(:calculate_sec_b_line_6).and_return 2
         allow_any_instance_of(Efile::Id::Id39RCalculator).to receive(:calculate_sec_b_line_7).and_return 3
-        # line 8f is part of the calculation but it's always 0 for now
+        allow_any_instance_of(Efile::Id::Id39RCalculator).to receive(:calculate_sec_b_line_8a).and_return 100
+        allow_any_instance_of(Efile::Id::Id39RCalculator).to receive(:calculate_sec_b_line_8c).and_return 200
+        allow_any_instance_of(Efile::Id::Id39RCalculator).to receive(:calculate_sec_b_line_8e).and_return 300
+        allow_any_instance_of(Efile::Id::Id39RCalculator).to receive(:calculate_sec_b_line_8f).and_return 400
         allow_any_instance_of(Efile::Id::Id39RCalculator).to receive(:calculate_sec_b_line_18).and_return 4
       end
 
       it "should add up all the subtractions" do
-        expect(xml.at('TotalSubtractions')&.text).to eq "10"
+        expect(xml.at('TotalSubtractions')&.text).to eq "410"
+      end
+
+      context 'if flipper for retirement is on' do
+        before do
+          allow(Flipper).to receive(:enabled?).and_call_original
+          allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
+        end
+
+        it "correctly fills answers for deductions" do
+          expect(xml.at("PensionFilingStatusAmount").text).to eq "100"
+          expect(xml.at("SocialSecurityBenefits").text).to eq "200"
+          expect(xml.at("PensionExclusions").text).to eq "300"
+          expect(xml.at("RetirementBenefitsDeduction").text).to eq "400"
+        end
       end
     end
 
