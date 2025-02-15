@@ -6,12 +6,12 @@
       <h1 class="h1"><%= title %></h1>
       <div>
         <% if can? :create, VitaPartner %>
-          <%= link_to t("hub.organizations.index.add_organization"), new_hub_organization_path, class: "button"%>
+          <%= link_to t("hub.organizations.index.add_organization"), new_hub_organization_path, class: "button spacing-below-15"%>
         <% end %>
       </div>
       <div>
         <% if can? :create, Coalition %>
-          <%= link_to t("hub.organizations.index.add_coalition"), new_hub_coalition_path, class: "button"%>
+          <%= link_to t("hub.organizations.index.add_coalition"), new_hub_coalition_path, class: "button  spacing-below-25"%>
         <% end %>
       </div>
     </div>
@@ -24,7 +24,7 @@
           <% end %>
         <% else %>
           <% if @presenter.state_routing_targets.length > 0 %>
-            <%= @presenter.state_routing_targets.values.flatten.each do |state_routing_target| %>
+            <% @presenter.state_routing_targets.values.flatten.each do |state_routing_target| %>
               <%= render "state", state_abbreviation: state_routing_target.state_abbreviation, state_name: state_routing_target.full_state_name%>
             <% end %>
           <% else %>
