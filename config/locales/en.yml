@@ -5865,8 +5865,8 @@ en:
         relationship: Relationship to you
         save_cta: Save this person
         title: Tell us about your dependent. Please provide a few more details.
+        was_citizen: Is a US citizen
         was_married: Married as of 12/31/%{year}
-        was_not_citizen: Not a US citizen
         was_student: Full time higher education student
       index:
         add_person: Add a person

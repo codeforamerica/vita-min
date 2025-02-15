@@ -5859,8 +5859,8 @@ es:
         relationship: Su relación con usted
         save_cta: Guarde a esta persona
         title: Háblenos de su dependiente. Por favor, proporcione algunos detalles más.
+        was_citizen: Es ciudadano estadounidense
         was_married: Casado/a desde 12/31/%{year}
-        was_not_citizen: No es ciudadano estadounidense
         was_student: Estudiante de educación superior de tiempo completo
       index:
         add_person: Agregue a una persona
