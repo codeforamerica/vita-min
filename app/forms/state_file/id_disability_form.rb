@@ -31,25 +31,16 @@ module StateFile
 
     private
 
-    def eligible?(person)
-      birth_date = if person == :primary
-                     intake.primary_birth_date
-                   else
-                     intake.spouse_birth_date
-                   end
+    def eligible?(primary_or_spouse)
+      person = intake.send(primary_or_spouse)
+      birth_date = person.birth_date
       return false unless birth_date.present?
 
       age = intake.calculate_age(birth_date, inclusive_of_jan_1: true)
-
-      ssn = if person == :primary
-              intake.primary.ssn
-            else
-              intake.spouse.ssn
-            end
-
       age_eligible = age >= 62 && age < 65
+
       has_taxable_1099r = intake.state_file1099_rs.any? do |form|
-        form.recipient_ssn == ssn && form.taxable_amount&.to_f&.positive?
+        form.recipient_ssn == person.ssn && form.taxable_amount&.to_f&.positive?
       end
 
       age_eligible && has_taxable_1099r
