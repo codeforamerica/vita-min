@@ -215,15 +215,10 @@ class StateFileMdIntake < StateFileBaseIntake
     end
   end
 
-  def filer_1099_rs(primary_or_spouse)
-    state_file1099_rs.filter do |state_file_1099_r|
-      state_file_1099_r.recipient_ssn == send(primary_or_spouse).ssn
-    end
-  end
-
-  def sum_1099_r_followup_type_for_filer(primary_or_spouse, followup_type)
+  def sum_two_1099_r_followup_types_for_filer(primary_or_spouse, income_source, service_type)
     filer_1099_rs(primary_or_spouse).sum do |state_file_1099_r|
-      if state_file_1099_r.state_specific_followup&.send(followup_type)
+      state_specific_followup = state_file_1099_r.state_specific_followup
+      if state_specific_followup&.send(income_source) && state_specific_followup&.send(service_type)
         state_file_1099_r.taxable_amount&.round
       else
         0
@@ -241,5 +236,9 @@ class StateFileMdIntake < StateFileBaseIntake
 
   def allows_refund_amount_in_xml?
     false
+  end
+
+  def has_banking_information_in_financial_resolution?
+    true
   end
 end

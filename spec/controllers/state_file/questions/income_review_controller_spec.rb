@@ -114,7 +114,7 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
   end
 
   describe "W-2s card" do
-    before do
+    before(:each) do
       StateFileW2.delete_all
     end
 
@@ -257,13 +257,19 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
       end
     end
 
-    context "when W2 box 16 warnings are present" do
+    context "when W2 box 16 warnings are present in NJ" do
       let(:intake) { create(:state_file_nj_intake) }
       let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, state_wages_amount: 0, state_income_tax_amount: 0) }
       include_examples "displays one W2 warning"
     end
 
-    context "when W2 box 16 warnings are not present" do
+    context "when W2 box 16 warnings are not present due to not being in NJ" do
+      let(:intake) { create(:state_file_az_intake) }
+      let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, state_wages_amount: 0, state_income_tax_amount: 0) }
+      include_examples "does not display W2 warnings"
+    end
+
+    context "when W2 box 16 warnings are not present due to wages being 0" do
       let(:intake) { create(:state_file_nj_intake) }
       let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, wages: 0, state_wages_amount: 0, state_income_tax_amount: 0) }
       include_examples "does not display W2 warnings"

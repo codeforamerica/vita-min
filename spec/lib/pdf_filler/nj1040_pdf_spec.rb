@@ -1039,6 +1039,142 @@ RSpec.describe PdfFiller::Nj1040Pdf do
       end
     end
 
+    describe "disabled show_retirement_ui flag" do
+      before do
+        allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(false)
+      end
+
+      it "does not fill in any of the boxes on line 20a even when there is a value" do
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_20a).and_return 12_345_678
+        # millions
+        expect(pdf_fields["20a"]).to eq ""
+        expect(pdf_fields["undefined_54"]).to eq ""
+        # thousands
+        expect(pdf_fields["undefined_55"]).to eq ""
+        expect(pdf_fields["undefined_56"]).to eq ""
+        expect(pdf_fields["136"]).to eq ""
+        # hundreds
+        expect(pdf_fields["137"]).to eq ""
+        expect(pdf_fields["138"]).to eq ""
+        expect(pdf_fields["139"]).to eq ""
+        # decimals
+        expect(pdf_fields["140"]).to eq ""
+        expect(pdf_fields["141"]).to eq ""
+      end
+
+      it "does not fill in any of the boxes on line 20b even when there is a value" do
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_20b).and_return 1_234_567
+
+        # millions
+        expect(pdf_fields["20b"]).to eq ""
+        # thousands
+        expect(pdf_fields["undefined_57"]).to eq ""
+        expect(pdf_fields["142"]).to eq ""
+        expect(pdf_fields["143"]).to eq ""
+        # hundreds
+        expect(pdf_fields["undefined_58"]).to eq ""
+        expect(pdf_fields["144"]).to eq ""
+        expect(pdf_fields["145"]).to eq ""
+        # decimals
+        expect(pdf_fields["undefined_59"]).to eq ""
+        expect(pdf_fields["146"]).to eq ""
+      end
+    end
+
+    describe "line 20a - taxable retirement income" do
+      before do
+        allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
+      end
+
+      context "when taxpayer has taxable retirement income $12,345,678" do
+        it "fills in the boxes in the PDF on line 20a with the value" do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_20a).and_return 12_345_678
+
+          # millions
+          expect(pdf_fields["20a"]).to eq "1"
+          expect(pdf_fields["undefined_54"]).to eq "2"
+          # thousands
+          expect(pdf_fields["undefined_55"]).to eq "3"
+          expect(pdf_fields["undefined_56"]).to eq "4"
+          expect(pdf_fields["136"]).to eq "5"
+          # hundreds
+          expect(pdf_fields["137"]).to eq "6"
+          expect(pdf_fields["138"]).to eq "7"
+          expect(pdf_fields["139"]).to eq "8"
+          # decimals
+          expect(pdf_fields["140"]).to eq "0"
+          expect(pdf_fields["141"]).to eq "0"
+        end
+      end
+
+      context "when taxpayer has taxable retirement income of 0" do
+        it "does not fill in any of the boxes on line 20a" do
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_20a).and_return 0
+
+          # millions
+          expect(pdf_fields["20a"]).to eq ""
+          expect(pdf_fields["undefined_54"]).to eq ""
+          # thousands
+          expect(pdf_fields["undefined_55"]).to eq ""
+          expect(pdf_fields["undefined_56"]).to eq ""
+          expect(pdf_fields["136"]).to eq ""
+          # hundreds
+          expect(pdf_fields["137"]).to eq ""
+          expect(pdf_fields["138"]).to eq ""
+          expect(pdf_fields["139"]).to eq ""
+          # decimals
+          expect(pdf_fields["140"]).to eq ""
+          expect(pdf_fields["141"]).to eq ""
+        end
+      end
+    end
+
+    describe "line 20b - excludable retirement income" do
+      before do
+        allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
+      end
+
+      context "when taxpayer has excludable retirement income $1,234,567" do
+        it "fills in the boxes in the PDF on line 20b with the value" do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_20b).and_return 1_234_567
+
+          # millions
+          expect(pdf_fields["20b"]).to eq "1"
+          # thousands
+          expect(pdf_fields["undefined_57"]).to eq "2"
+          expect(pdf_fields["142"]).to eq "3"
+          expect(pdf_fields["143"]).to eq "4"
+          # hundreds
+          expect(pdf_fields["undefined_58"]).to eq "5"
+          expect(pdf_fields["144"]).to eq "6"
+          expect(pdf_fields["145"]).to eq "7"
+          # decimals
+          expect(pdf_fields["undefined_59"]).to eq "0"
+          expect(pdf_fields["146"]).to eq "0"
+        end
+      end
+
+      context "when taxpayer has excludable retirement income of 0" do
+        it "does not fill in any of the boxes on line 20b" do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_20b).and_return 0
+
+          # millions
+          expect(pdf_fields["20b"]).to eq ""
+          # thousands
+          expect(pdf_fields["undefined_57"]).to eq ""
+          expect(pdf_fields["142"]).to eq ""
+          expect(pdf_fields["143"]).to eq ""
+          # hundreds
+          expect(pdf_fields["undefined_58"]).to eq ""
+          expect(pdf_fields["144"]).to eq ""
+          expect(pdf_fields["145"]).to eq ""
+          # decimals
+          expect(pdf_fields["undefined_59"]).to eq ""
+          expect(pdf_fields["146"]).to eq ""
+        end
+      end
+    end
+
     describe "line 27 - total income" do
       context "when taxpayer provides total income with the sum 200,000" do
         let(:submission) {

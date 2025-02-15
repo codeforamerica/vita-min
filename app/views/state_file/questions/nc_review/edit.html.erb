@@ -1,6 +1,6 @@
 <% content_for :page_title, t("state_file.questions.shared.abstract_review_header.title") %>
 <% content_for :card do %>
-  <%= render "review_header" %>
+  <%= render "state_file/questions/shared/review_header" %>
 
   <div id="nc-county" class="white-group">
     <div class="spacing-below-5">
@@ -69,6 +69,16 @@
       <div class="spacing-below-25">
         <p class="text--bold spacing-below-5"><%= t(".interest_us_bonds") %></p>
         <p><%= number_to_currency(current_intake.calculator.line_or_zero(:NCD400_S_LINE_18)) %></p>
+      </div>
+
+      <div class="spacing-below-25">
+        <p class="text--bold spacing-below-5"><%= t(".benefits_vested_pensions") %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:NCD400_S_LINE_20)) %></p>
+      </div>
+
+      <div class="spacing-below-25">
+        <p class="text--bold spacing-below-5"><%= t(".service_members") %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:NCD400_S_LINE_21)) %></p>
       </div>
 
       <div class="spacing-below-25">

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>99d28588</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400007209</PrimarySSN>
+            <SpouseSSN>400007210</SpouseSSN>
+            <NameLine1Txt>EDWARD J &amp; ELIZA&lt;EEL</NameLine1Txt>
+            <PrimaryNameControlTxt>EEL</PrimaryNameControlTxt>
+            <SpouseNameControlTxt>EEL</SpouseNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>6565 Bounty Road</AddressLine1Txt>
+                <CityNm>Baltimore</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21201</ZIPCd>
+            </USAddress>
+            <PhoneNum>4104555555</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000720-93b3-4d28-84f2-2b0024f73041@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="4">
+        <IRS1040 documentId="IRS10400001">
+            <Form1040SRInd>X</Form1040SRInd>
+            <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <Primary65OrOlderInd>X</Primary65OrOlderInd>
+            <TotalBoxesCheckedCnt>1</TotalBoxesCheckedCnt>
+            <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>2</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">65000</WagesAmt>
+            <WagesSalariesAndTipsAmt>65000</WagesSalariesAndTipsAmt>
+            <TotalTaxablePensionsAmt>55000</TotalTaxablePensionsAmt>
+            <TotalIncomeAmt>120000</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>120000</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>30750</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>30750</TotalDeductionsAmt>
+            <TaxableIncomeAmt>89250</TaxableIncomeAmt>
+            <TaxAmt>10249</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>10249</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>10249</TaxLessCreditsAmt>
+            <TotalTaxAmt>10249</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>5500</FormW2WithheldTaxAmt>
+            <WithholdingTaxAmt>10500</WithholdingTaxAmt>
+            <TotalPaymentsAmt>10500</TotalPaymentsAmt>
+            <OverpaidAmt>251</OverpaidAmt>
+            <RefundAmt>251</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Retired</PrimaryOccupationTxt>
+            <SpouseOccupationTxt>Public Safety Officer</SpouseOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1099R documentId="IRS1099R0001">
+            <PayerNameControlTxt>SHOC</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Shocking Bank and Trust</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>1000 Sherwood Bank and Trust</AddressLine1Txt>
+                <CityNm>Cockeysville</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21030</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>910656890</PayerEIN>
+            <RecipientSSN>400007209</RecipientSSN>
+            <RecipientNm>Edward J Eel</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>6565 Bounty Road</AddressLine1Txt>
+                <CityNm>Baltimore</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21201</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>45000</GrossDistributionAmt>
+            <TaxableAmt>45000</TaxableAmt>
+            <TotalDistributionInd>X</TotalDistributionInd>
+            <FederalIncomeTaxWithheldAmt>4000</FederalIncomeTaxWithheldAmt>
+            <F1099RDistributionCd>7</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <StateTaxWithheldAmt>2000</StateTaxWithheldAmt>
+                    <StateAbbreviationCd>MD</StateAbbreviationCd>
+                    <PayerStateIdNum>102345</PayerStateIdNum>
+                    <StateDistributionAmt>45000</StateDistributionAmt>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRS1099R documentId="IRS1099R0002">
+            <PayerNameControlTxt>ELEC</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Electrifying Savings</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>101 Sherwood Road</AddressLine1Txt>
+                <CityNm>Cockeysville</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21030</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>010865956</PayerEIN>
+            <RecipientSSN>400007209</RecipientSSN>
+            <RecipientNm>Edward J Eel</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>6565 Bounty Road</AddressLine1Txt>
+                <CityNm>Baltimore</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21201</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>10000</GrossDistributionAmt>
+            <TaxableAmt>10000</TaxableAmt>
+            <TotalDistributionInd>X</TotalDistributionInd>
+            <FederalIncomeTaxWithheldAmt>1000</FederalIncomeTaxWithheldAmt>
+            <F1099RDistributionCd>7</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <StateTaxWithheldAmt>1000</StateTaxWithheldAmt>
+                    <StateAbbreviationCd>MD</StateAbbreviationCd>
+                    <PayerStateIdNum>102345</PayerStateIdNum>
+                    <StateDistributionAmt>45000</StateDistributionAmt>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>400007210</EmployeeSSN>
+            <EmployerEIN>526058645</EmployerEIN>
+            <EmployerNameControlTxt>BALT</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Baltimore City Police Department</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>601 E Fayette St</AddressLine1Txt>
+                <CityNm>Baltimore</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21201</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Eliza Eel</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>6565 Bounty Road</AddressLine1Txt>
+                <CityNm>Baltimore</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21201</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>65000</WagesAmt>
+            <WithholdingAmt>5500</WithholdingAmt>
+            <SocialSecurityWagesAmt>65000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>4030</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>65000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>943</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>MD</StateAbbreviationCd>
+                    <EmployerStateIdNum>5050505</EmployerStateIdNum>
+                    <StateWagesAmt>65000</StateWagesAmt>
+                    <StateIncomeTaxAmt>1000</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>

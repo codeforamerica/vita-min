@@ -5,14 +5,7 @@ module StateFile
 
     included do
       before_action :redirect_deprecated_state, :require_state_file_intake_login
-      helper_method :current_intake, :current_state_code, :current_state_name, :card_postscript
-    end
-
-    def current_intake
-      StateFile::StateInformationService.active_state_codes
-                                        .lazy
-                                        .map { |c| send("current_state_file_#{c}_intake".to_sym) }
-                                        .find(&:itself)
+      helper_method :current_state_code, :current_state_name, :card_postscript
     end
 
     def current_state_code
