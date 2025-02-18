@@ -8,7 +8,7 @@ RSpec.describe StateFile::Questions::PostDataTransferController do
   end
 
   describe "#edit" do
-    it_behaves_like :df_data_required, true, :az
+    it_behaves_like :df_data_required, false, :az
 
     it "displays the Data Review edit page" do
       get :edit

@@ -2,6 +2,9 @@ require "rails_helper"
 
 shared_examples :df_data_required do |required, state_code|
   let(:intake) { create(StateFile::StateInformationService.intake_class(state_code).name.underscore.to_sym) }
+  before do
+    sign_in intake
+  end
 
   context "when there is no df data" do
     before do
