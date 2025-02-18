@@ -258,7 +258,7 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
       select "2005", from: "Year"
       fill_in "Relationship to you", with: "Nibling"
       select "2", from: "How many months did they live in your home in #{current_tax_year}?"
-      check "Not a US citizen"
+      check "Is a US citizen"
       check "Married as of 12/31/#{current_tax_year}"
       click_on "Save this person"
       expect(page).to have_text("Gallagher Gnome")
