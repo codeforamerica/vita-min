@@ -2,6 +2,7 @@ module StateFile
   # This concern can be used by any StateFile::Questions::QuestionsController that needs to show a page repeatedly for each of a list of items
   # It requires you to add a hidden `index` input to your edit template
   module RepeatedQuestionConcern
+    include ReturnToReviewConcern
     extend ActiveSupport::Concern
 
     included do
@@ -21,6 +22,8 @@ module StateFile
     end
 
     def next_path
+      return super if params[:return_to_review].present?
+      
       next_index = current_index + 1
       if next_index >= num_items
         super
