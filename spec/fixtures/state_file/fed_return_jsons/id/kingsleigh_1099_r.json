@@ -1,0 +1,44 @@
+{
+  "filers": [
+    {
+      "tin": "688-00-7320",
+      "suffix": null,
+      "lastName": "Kingsleigh",
+      "firstName": "Alice",
+      "isStudent": false,
+      "isDisabled": false,
+      "dateOfBirth": "1955-01-08",
+      "middleInitial": null,
+      "isPrimaryFiler": true,
+      "form1099GsTotal": "0.00",
+      "educatorExpenses": "0.00",
+      "interestReportsTotal": "0.00",
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "formW2s": [],
+  "form1099Gs": [],
+  "interestReports": [],
+  "familyAndHousehold": [
+    {
+      "tin": "688-00-7570",
+      "suffix": null,
+      "lastName": "Kingsleigh",
+      "firstName": "Cheshire Cat",
+      "dateOfBirth": "2015-04-21",
+      "relationship": "biologicalChild",
+      "middleInitial": null,
+      "qualifyingChild": true,
+      "eligibleDependent": true,
+      "residencyDuration": "allYear",
+      "isClaimedDependent": true,
+      "hohQualifyingPerson": true,
+      "scheduleEicLine4aNo": false,
+      "scheduleEicLine4aYes": false,
+      "scheduleEicLine4bYes": false,
+      "monthsLivedWithTPInUS": "twelve",
+      "ssnNotValidForEmployment": false
+    }
+  ]
+}

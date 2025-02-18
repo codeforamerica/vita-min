@@ -12,6 +12,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
       wrapper_classes: []
   )
     # this override allows us to wrap the field in a label
+    # used only for file field
     if options[:input_id]
       for_options = options.merge(
           for: options[:input_id],
@@ -23,9 +24,10 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
 
     formatted_label = label(
         method,
-        label_contents(label_text, help_text, optional: optional) + field_html,
+        label_contents(label_text, has_help_text: !!help_text, optional: optional) + field_html,
         (for_options || options),
         )
+    formatted_label += help_text_html(help_text, method) if help_text
     formatted_label += notice_html(notice).html_safe if notice
 
     formatted_label.html_safe
@@ -55,6 +57,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
 
     html_options = {
       class: "select__element",
+      'aria-describedby': get_describedby(method, help_text: options[:help_text]),
     }
 
     label_class = options[:label_class] || ""
@@ -63,18 +66,20 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
       method,
       label_contents(
         label_text,
-        options[:help_text],
+        has_help_text: !!options[:help_text],
         optional: options[:optional],
-        ),
+      ),
       class: label_class,
-      )
-    html_options_with_errors = html_options.merge(error_attributes(method: method))
+    )
+
+    help_html = help_text_html(options[:help_text], method)
 
     html_output = <<~HTML
       <div class="form-group#{error_state(object, method)}">
         #{formatted_label}
+        #{help_html}
         <div class="select">
-          #{select(method, collection, options, html_options_with_errors, &block)}
+          #{select(method, collection, options, html_options, &block)}
         </div>
         #{errors_for(object, method)}
       </div>
@@ -285,9 +290,12 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
       classes: [],
       help_text: nil
     )
-    text_field_options = standard_options.merge(
+    describedby = get_describedby(method, help_text: help_text)
+
+    text_field_options = standard_options.merge(error_attributes(method: method)).merge(
       class: (classes + ["text-input money-input"]).join(" "),
-      ).merge(error_attributes(method: method)).merge(placeholder: '0.00').merge(options)
+      'aria-describedby': describedby
+    ).merge(placeholder: '0.00').merge(options)
 
     text_field_options[:id] ||= sanitized_id(method)
     options[:input_id] ||= sanitized_id(method)
@@ -449,7 +457,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     checkbox_container_classes << "question-with-follow-up" if includes_follow_up
 
     fieldset_classes = ["input-group", "form-group#{error_state(object, method)}"]
-    describedby = object.errors[method].any? ? "##{error_label(method)}" : nil
+    describedby = get_describedby(method, help_text: help_text)
 
     <<~HTML.html_safe
       <fieldset class="#{fieldset_classes.join(' ')}" aria-describedby="#{describedby}">
