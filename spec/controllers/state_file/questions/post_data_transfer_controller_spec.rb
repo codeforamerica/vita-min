@@ -9,26 +9,11 @@ RSpec.describe StateFile::Questions::PostDataTransferController do
 
   describe "#edit" do
 
-    context "when environment is production" do
-      before do
-        allow(Rails.env).to receive(:production?).and_return(true)
-      end
-
-      it "redirects to the next path" do
-        get :edit
-
-        expect(response).not_to render_template :edit
-        expect(response).to redirect_to(StateFile::Questions::AzPriorLastNamesController.to_path_helper)
-      end
-    end
-
-    context "when environment is not production" do
-      it "displays the Data Review edit page" do
+    it "displays the Data Review edit page" do
         get :edit
 
         expect(response).to render_template :edit
       end
-    end
 
     context "with valid federal data" do
       it "renders edit template and creates an initial StateFileEfileDeviceInfo" do

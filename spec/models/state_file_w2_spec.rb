@@ -82,6 +82,16 @@ describe StateFileW2 do
       end
     end
 
+    context "NJ" do
+      let(:intake) { create :state_file_nj_intake }
+      it "does not permit state_wages_amount to be blank if wages is positive" do
+        w2.wages = 10
+        w2.state_wages_amount = 0
+        w2.state_income_tax_amount = 0
+        expect(w2).not_to be_valid(:state_file_edit)
+      end
+    end
+
     it "requires both locality_nm to be present if wages_and_tips_amt is present" do
       w2.locality_nm = nil
       expect(w2).not_to be_valid(:state_file_edit)
@@ -108,7 +118,6 @@ describe StateFileW2 do
     end
 
     it "permits state_wages_amt to be blank if state_income_tax_amt is blank" do
-      w2.wages = 0
       w2.state_wages_amount = 0
       w2.state_income_tax_amount = 0
       expect(w2).to be_valid(:state_file_edit)
@@ -121,7 +130,6 @@ describe StateFileW2 do
     end
 
     it "permits state_wages_amt to be blank if state_income_tax_amt is blank" do
-      w2.wages = 0
       w2.employer_state_id_num = nil
       w2.state_wages_amount = 0
       w2.state_income_tax_amount = 0
@@ -134,6 +142,13 @@ describe StateFileW2 do
         w2.locality_nm = "YONKERS"
         expect(w2).not_to be_valid(:state_file_edit)
         expect(w2.errors[:locality_nm]).to be_present
+      end
+
+      it "permits state_wages_amount to be blank if wages is positive" do
+        w2.wages = 10
+        w2.state_wages_amount = 0
+        w2.state_income_tax_amount = 0
+        expect(w2).to be_valid(:state_file_edit)
       end
     end
 
@@ -166,9 +181,9 @@ describe StateFileW2 do
         w2.check_box14_limits = true
         allow(StateFile::StateInformationService).to receive(:w2_supported_box14_codes)
           .and_return([
-                        { name: "UI_WF_SWF", limit: 179.78 },
-                        { name: "FLI", limit: 145.26 }
-                      ])
+            { name: "UI_WF_SWF", limit: 179.78 },
+            { name: "FLI", limit: 145.26 }
+          ])
       end
   
       it "is invalid when box14_ui_wf_swf exceeds the state limit" do
@@ -273,9 +288,9 @@ describe StateFileW2 do
       before do
         allow(StateFile::StateInformationService).to receive(:w2_supported_box14_codes)
           .and_return([
-                        { name: "UI_WF_SWF", limit: 179.78 },
-                        { name: "FLI", limit: 145.26 }
-                      ])
+            { name: "UI_WF_SWF", limit: 179.78 },
+            { name: "FLI", limit: 145.26 }
+          ])
       end
 
       it "returns the correct limit for a valid name" do
