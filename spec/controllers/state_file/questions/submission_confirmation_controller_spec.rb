@@ -1,6 +1,10 @@
 require "rails_helper"
 
 describe StateFile::Questions::SubmissionConfirmationController do
+  StateFile::StateInformationService.active_state_codes.excluding("ny").each do |state_code|
+    it_behaves_like :df_data_required, true, state_code
+  end
+
   let(:intake) { create :state_file_az_refund_intake}
   let!(:submission) { create :efile_submission, :for_state, data_source: intake }
   before do

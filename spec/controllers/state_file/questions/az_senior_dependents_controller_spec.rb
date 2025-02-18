@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe StateFile::Questions::AzSeniorDependentsController do
+  it_behaves_like :df_data_required, true, :az
 
   let(:dependent_name) { :az_senior_dependent }
   let(:dependent) { create(dependent_name) }

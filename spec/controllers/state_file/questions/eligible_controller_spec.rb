@@ -1,14 +1,16 @@
 require "rails_helper"
 
 describe StateFile::Questions::EligibleController do
+  StateFile::StateInformationService.active_state_codes.excluding("ny").each do |state_code|
+    it_behaves_like :df_data_required, false, state_code
+  end
+
   let(:intake) { create :state_file_az_refund_intake}
   before do
     sign_in intake
   end
 
   describe '#edit' do
-    it_behaves_like :df_data_required, false, :az
-
     render_views
     it 'succeeds' do
       get :edit
