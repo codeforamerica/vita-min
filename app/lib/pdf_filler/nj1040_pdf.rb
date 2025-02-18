@@ -271,8 +271,8 @@ module PdfFiller
 
       # line 20a
       if @xml_document.at("PensAnnuitAndIraWithdraw")
-        retirement_income = @xml_document.at("PensAnnuitAndIraWithdraw").text.to_i
-        answers.merge!(insert_digits_into_fields(retirement_income, [
+        taxable_retirement_income = @xml_document.at("PensAnnuitAndIraWithdraw").text.to_i
+        answers.merge!(insert_digits_into_fields(taxable_retirement_income, [
           "141",
           "140",
           "139",
@@ -283,6 +283,22 @@ module PdfFiller
           "undefined_55",
           "undefined_54",
           "20a"
+        ]))
+      end
+
+      # line 20b
+      if @xml_document.at("TaxExemptPensAnnuit")
+        excludable_retirement_income = @xml_document.at("TaxExemptPensAnnuit").text.to_i
+        answers.merge!(insert_digits_into_fields(excludable_retirement_income, [
+          "146",
+          "undefined_59",
+          "145",
+          "144",
+          "undefined_58",
+          "143",
+          "142",
+          "undefined_57",
+          "20b"
         ]))
       end
 
