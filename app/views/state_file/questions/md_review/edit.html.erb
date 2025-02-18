@@ -24,7 +24,7 @@
   <%= render "state_file/questions/shared/review_header" %>
 
   <% if current_intake.state_file1099_rs.length.positive? && Flipper.enabled?(:show_retirement_ui) %>
-    <div id="retirement-income-source" class="white-group">
+    <section id="retirement-income-source" class="white-group">
       <div class="spacing-below-5">
         <h2 class="text--body text--bold spacing-below-25"><%=t(".retirement_income_deductions") %></h2>
 
@@ -60,9 +60,9 @@
           <% end %>
         <% end %>
       </div>
-    </div>
+    </section>
 
-    <div id="permanently-disabled" class="white-group">
+    <section id="permanently-disabled" class="white-group">
       <div class="spacing-below-5">
         <p class="text--bold spacing-below-5"><%=t(".disability_status") %></p>
         <% if current_intake.filing_status_mfj? %>
@@ -87,7 +87,7 @@
         <%= link_to t("general.review_and_edit"), StateFile::Questions::MdPermanentlyDisabledController.to_path_helper(return_to_review: "y"), class: "button--small" %>
         <span class="sr-only"><%= t(".disability_status") %></span>
       </div>
-    </div>
+    </section>
   <% end %>
 
   <div id="details" class="reveal">

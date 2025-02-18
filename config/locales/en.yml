@@ -3216,7 +3216,7 @@ en:
         edit:
           county_html: "<strong> County lived in on December 31, %{filing_year}</strong>"
           disability_status: Totally and permanently disabled status
-          military: Benefits from your military service or benefits received for the military service of  your deceased spouse or ex-spouse
+          military: Benefits from your military service or benefits received for the military service of your deceased spouse or ex-spouse
           none: None apply
           other: Other retirement income (For example, a Keogh plan)
           pension_annuity_endowment: Money from a pension, annuity, or other retirement plan from your job
