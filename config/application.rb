@@ -138,12 +138,6 @@ module VitaMin
     config.intercom_app_id_statefile = "rtcpj4hf"
     config.google_login_enabled = true
 
-    # # These need to happen after initialization because classes haven't been loaded yet
-    # config.after_initialize do
-    #   ConfigureTrustedProxiesJob.perform_now(current_or_cached: :cached)
-    #   ConfigureTrustedProxiesJob.perform_later(current_or_cached: :current)
-    # end
-
     # Add pdftk to PATH
     ENV['PATH'] += ":#{Rails.root}/vendor/pdftk"
 

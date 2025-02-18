@@ -1,5 +1,6 @@
 class ConfigureTrustedProxiesJob < ApplicationJob
   def perform(current_or_cached:)
+    puts "HELLO I AM RUNNING WITH #{current_or_cached}"
     trusted_proxies = if current_or_cached == :current
                         RemoteIpTrustedProxiesService.load_current_aws_ip_ranges
                       elsif current_or_cached == :cached
