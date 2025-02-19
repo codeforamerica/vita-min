@@ -23,7 +23,7 @@ module StateFile
 
     def next_path
       return super if params[:return_to_review].present?
-      
+
       next_index = current_index + 1
       if next_index >= num_items
         super

@@ -1,6 +1,10 @@
 require "rails_helper"
 
 RSpec.describe StateFile::Questions::PostDataTransferController do
+  StateFile::StateInformationService.active_state_codes.excluding("ny").each do |state_code|
+    it_behaves_like :df_data_required, false, state_code
+  end
+
   let(:intake) { create :state_file_az_intake }
   before do
     sign_in intake
@@ -8,12 +12,11 @@ RSpec.describe StateFile::Questions::PostDataTransferController do
   end
 
   describe "#edit" do
-
     it "displays the Data Review edit page" do
-        get :edit
+      get :edit
 
-        expect(response).to render_template :edit
-      end
+      expect(response).to render_template :edit
+    end
 
     context "with valid federal data" do
       it "renders edit template and creates an initial StateFileEfileDeviceInfo" do

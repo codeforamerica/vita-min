@@ -95,6 +95,7 @@ FactoryBot.define do
     raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.old_xml_sample }
     raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.old_json_sample }
     df_data_import_succeeded_at { DateTime.now }
+    state_file_analytics { StateFileAnalytics.create }
 
     transient do
       filing_status { "single" }

@@ -4,22 +4,6 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
   include MockTwilio
   include StateFileIntakeHelper
 
-  def wait_until(time: Capybara.default_max_wait_time)
-    Timeout.timeout(time) do
-      until value = yield
-        sleep(0.1)
-      end
-      value
-    end
-  end
-
-  def wait_for_device_info
-    wait_until do
-      device_id_input_element = page.find_all('input[name="state_file_income_review_form[device_id]"]', visible: false).last
-      device_id_input_element.value.present?
-    end
-  end
-
   before do
     allow_any_instance_of(Routes::StateFileDomain).to receive(:matches?).and_return(true)
   end
@@ -59,7 +43,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
         # Back on income review page
         expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
-        wait_for_device_info
+        wait_for_device_info("income_review")
         click_on I18n.t("general.continue")
 
         # Final review page
@@ -81,7 +65,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
         # Back on income review page
         expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
-        wait_for_device_info
+        wait_for_device_info("income_review")
         click_on I18n.t("general.continue")
 
         # Final review page
@@ -103,7 +87,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
         # Back on income review page
         expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
-        wait_for_device_info
+        wait_for_device_info("income_review")
         click_on I18n.t("general.continue")
 
         # Final review page
@@ -122,7 +106,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
         # Back on income review page
         expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
-        wait_for_device_info
+        wait_for_device_info("income_review")
         click_on I18n.t("general.continue")
 
         # Final review page
@@ -179,6 +163,69 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
     end
   end
 
+  context "NC" do
+    before do
+      allow(Flipper).to receive(:enabled?).and_call_original
+      allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
+      state_code = "nc"
+      set_up_intake_and_associated_records(state_code)
+
+      intake = StateFile::StateInformationService.intake_class(state_code).last
+      # First 1099R already created in set_up_intake_and_associated_records
+      second_1099r = create(:state_file1099_r, intake: intake, payer_name: "The People's Free Food Emporium")
+      third_1099r = create(:state_file1099_r, intake: intake, payer_name: "Boone Community Garden")
+      StateFileNc1099RFollowup.create(state_file1099_r: intake.state_file1099_rs.first, income_source: "bailey_settlement", bailey_settlement_at_least_five_years: "yes")
+      StateFileNc1099RFollowup.create(state_file1099_r: second_1099r, income_source: "uniformed_services", uniformed_services_retired: "no", uniformed_services_qualifying_plan: "no")
+      StateFileNc1099RFollowup.create(state_file1099_r: third_1099r, income_source: "other")
+
+      visit "/questions/#{state_code}-review"
+    end
+
+    it "allows user to view and edit their 1099R followup information" do
+      within "#retirement-income-source-0" do
+        expect(page).to have_text "Dorothy Red"
+        expect(page).to have_text I18n.t("state_file.questions.nc_review.edit.retirement_income_source_bailey_settlement")
+        expect(page).to have_text I18n.t("state_file.questions.nc_review.edit.bailey_settlement_at_least_five_years")
+      end
+
+      within "#retirement-income-source-1" do
+        expect(page).to have_text "The People's Free Food Emporium"
+        expect(page).to have_text I18n.t("state_file.questions.nc_review.edit.retirement_income_source_uniformed_services")
+        expect(page).to have_text I18n.t("state_file.questions.nc_review.edit.none_apply")
+      end
+
+      within "#retirement-income-source-2" do
+        expect(page).to have_text "Boone Community Garden"
+        expect(page).to have_text I18n.t("state_file.questions.nc_review.edit.none_apply")
+      end
+
+      within "#retirement-income-source-0" do
+        click_on I18n.t("general.review_and_edit")
+      end
+
+      check I18n.t("state_file.questions.nc_retirement_income_subtraction.edit.bailey_settlement_from_retirement_plan")
+      click_on I18n.t("general.continue")
+
+      within "#retirement-income-source-0" do
+        expect(page).to have_text "Dorothy Red"
+        expect(page).to have_text I18n.t("state_file.questions.nc_review.edit.retirement_income_source_bailey_settlement")
+        expect(page).to have_text I18n.t("state_file.questions.nc_review.edit.bailey_settlement_at_least_five_years")
+        expect(page).to have_text I18n.t("state_file.questions.nc_review.edit.bailey_settlement_from_retirement_plan")
+      end
+
+      within "#retirement-income-source-1" do
+        expect(page).to have_text "The People's Free Food Emporium"
+        expect(page).to have_text I18n.t("state_file.questions.nc_review.edit.retirement_income_source_uniformed_services")
+        expect(page).to have_text I18n.t("state_file.questions.nc_review.edit.none_apply")
+      end
+
+      within "#retirement-income-source-2" do
+        expect(page).to have_text "Boone Community Garden"
+        expect(page).to have_text I18n.t("state_file.questions.nc_review.edit.none_apply")
+      end
+    end
+  end
+
   def set_up_intake_and_associated_records(state_code)
     visit "/"
     click_on "Start Test #{state_code.upcase}"
@@ -202,6 +249,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
     intake.update(
       raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml("test_df_complete_sample"),
       raw_direct_file_intake_data: StateFile::DirectFileApiResponseSampleService.new.read_json("test_df_complete_sample"),
+      df_data_import_succeeded_at: DateTime.now,
       primary_first_name: "Deedee",
       primary_last_name: "Doodoo",
       primary_birth_date: Date.new((MultiTenantService.statefile.current_tax_year - 65), 12, 1),
