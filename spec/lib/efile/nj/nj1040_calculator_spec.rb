@@ -1617,6 +1617,18 @@ describe Efile::Nj::Nj1040Calculator do
       end
     end
 
+    # Remove when Flipper :show_retirement_ui is permanently enabled
+    context 'when has 1099-R and source is unknown' do
+      let(:intake) { create(:state_file_nj_intake, :df_data_minimal)}
+      let!(:state_file_1099r) { create :state_file1099_r, intake: intake, state_tax_withheld_amount: 100.1 }
+    
+      it 'sets line 55 to total income tax withheld, rounded' do
+        intake.reload
+        instance.calculate
+        expect(instance.lines[:NJ1040_LINE_55].value).to eq 100
+      end
+    end
+
     context 'when has both w2s and 1099-Rs' do
       let(:intake) { create(:state_file_nj_intake, :df_data_many_w2s)}
       let!(:state_file_1099r) { create :state_file1099_r, intake: intake, state_tax_withheld_amount: 100.1 }
