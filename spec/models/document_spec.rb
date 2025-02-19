@@ -285,6 +285,9 @@ describe Document do
     end
   end
 
+  # iOS 18 uses a different codec. We are relying now on safari and MMS to
+  # handle this before it gets to us. For more information, see ticket
+  # GYR1-673
   xdescribe "#convert_heic_upload_to_jpg!" do
     it "converts a heic attachment to jpg" do
       document = create :document, upload_path: Rails.root.join("spec", "fixtures", "files", "IMG_4851.HEIC")
