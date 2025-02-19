@@ -535,9 +535,9 @@ describe Efile::Nj::Nj1040Calculator do
     end
 
     context 'when all 1099-Rs are applicable (non-military)' do
-      let(:income_source_1) { :none }
-      let(:income_source_2) { :none }
-      let(:income_source_3) { :none }
+      let(:income_source_1) { :other }
+      let(:income_source_2) { :other }
+      let(:income_source_3) { :other }
 
       it 'sets line 20a to the sum of all 1099-Rs taxable amount, rounded' do
         expect(instance.lines[:NJ1040_LINE_20A].value).to eq(901)
@@ -547,7 +547,7 @@ describe Efile::Nj::Nj1040Calculator do
     context 'when some 1099-Rs are military pension or survivor benefits' do
       let(:income_source_1) { :military_pension }
       let(:income_source_2) { :military_survivors_benefits }
-      let(:income_source_3) { :none }
+      let(:income_source_3) { :other }
 
       it 'does not include military pension / survivor benefits in line 20a sum' do
         expect(instance.lines[:NJ1040_LINE_20A].value).to eq(500)
@@ -580,9 +580,9 @@ describe Efile::Nj::Nj1040Calculator do
     end
 
     context 'when all 1099-Rs are applicable (non-military)' do
-      let(:income_source_1) { :none }
-      let(:income_source_2) { :none }
-      let(:income_source_3) { :none }
+      let(:income_source_1) { :other }
+      let(:income_source_2) { :other }
+      let(:income_source_3) { :other }
 
       it 'sets line 20a to the sum of all 1099-Rs gross distribution amount minus taxable amount, rounded' do
         expected = 300 # 1200.01 - 900.50 = 299.51, rounded
@@ -593,7 +593,7 @@ describe Efile::Nj::Nj1040Calculator do
     context 'when some 1099-Rs are military pension or survivor benefits' do
       let(:income_source_1) { :military_pension }
       let(:income_source_2) { :military_survivors_benefits }
-      let(:income_source_3) { :none }
+      let(:income_source_3) { :other }
 
       it 'does not include military pension / survivor benefits in line 20b' do
         expect(instance.lines[:NJ1040_LINE_20B].value).to eq(100)
