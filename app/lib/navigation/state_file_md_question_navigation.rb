@@ -35,6 +35,7 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::MdCountyController),
         Navigation::NavigationStep.new(StateFile::Questions::IncomeReviewController),
         Navigation::NavigationStep.new(StateFile::Questions::UnemploymentController),
+        Navigation::NavigationStep.new(StateFile::Questions::FinalIncomeReviewController),
         Navigation::NavigationStep.new(StateFile::Questions::MdSocialSecurityBenefitsController),
         Navigation::NavigationStep.new(StateFile::Questions::MdRetirementIncomeSubtractionController),
         Navigation::NavigationStep.new(StateFile::Questions::MdPermanentlyDisabledController),

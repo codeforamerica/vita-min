@@ -71,7 +71,7 @@ RSpec.describe StateFile::Questions::UnemploymentController do
         post :create, params: params
       end.to change(StateFile1099G, :count).by 1
 
-      expect(response).to redirect_to(StateFile::Questions::UnemploymentController.to_path_helper(action: :index))
+      expect(response).to redirect_to(StateFile::Questions::FinalIncomeReviewController.to_path_helper)
 
       state_file1099_g = StateFile1099G.last
       expect(state_file1099_g.intake).to eq intake
@@ -177,7 +177,7 @@ RSpec.describe StateFile::Questions::UnemploymentController do
         expect do
           post :create, params: params
         end.to change(StateFile1099G, :count)
-        expect(response).to redirect_to(StateFile::Questions::UnemploymentController.to_path_helper(action: :index))
+        expect(response).to redirect_to(StateFile::Questions::FinalIncomeReviewController.to_path_helper)
       end
     end
   end
@@ -229,7 +229,7 @@ RSpec.describe StateFile::Questions::UnemploymentController do
     it "updates the form and redirects to the index" do
       post :update, params: params
 
-      expect(response).to redirect_to(StateFile::Questions::UnemploymentController.to_path_helper(action: :index))
+      expect(response).to redirect_to(StateFile::Questions::FinalIncomeReviewController.to_path_helper)
 
       form1099.reload
       expect(form1099.recipient).to eq "spouse"
@@ -286,7 +286,7 @@ RSpec.describe StateFile::Questions::UnemploymentController do
         delete :destroy, params: params
       end.to change(StateFile1099G, :count).by(-1)
 
-      expect(response).to redirect_to StateFile::Questions::UnemploymentController.to_path_helper(action: :index)
+      expect(response).to redirect_to StateFile::Questions::FinalIncomeReviewController.to_path_helper
       expect(flash[:notice]).to eq I18n.t('state_file.questions.unemployment.destroy.removed', name: intake.primary.full_name)
     end
   end

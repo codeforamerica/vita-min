@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe StateFile::Questions::IncomeReviewController do
+RSpec.describe StateFile::Questions::FinalIncomeReviewController do
   let(:primary_first_name) { "Filer" }
   let(:primary_last_name) { "Oftaxes" }
   let(:spouse_first_name) { "Mary" }
