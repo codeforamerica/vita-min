@@ -238,6 +238,18 @@ class StateFileMdIntake < StateFileBaseIntake
     false
   end
 
+  def at_least_one_disabled_filer_with_proof?
+    if filing_status_mfj?
+      (primary_disabled_yes? || spouse_disabled_yes?) && proof_of_disability_submitted_yes?
+    else
+      primary_disabled_yes? && proof_of_disability_submitted_yes?
+    end
+  end
+
+  def qualifies_for_pension_exclusion?(filer)
+    send("#{filer}_senior?".to_sym) || at_least_one_disabled_filer_with_proof?
+  end
+
   def has_banking_information_in_financial_resolution?
     true
   end
