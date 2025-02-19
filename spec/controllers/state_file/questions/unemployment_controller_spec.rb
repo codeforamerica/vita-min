@@ -23,6 +23,29 @@ RSpec.describe StateFile::Questions::UnemploymentController do
     end
   end
 
+  describe "#index" do
+    context "with existing 1099Gs" do
+      render_views
+      let!(:form1099a) { create :state_file1099_g, intake: intake, recipient: :primary }
+      let!(:form1099b) { create :state_file1099_g, intake: intake, recipient: :spouse }
+
+      it "renders information about each form" do
+        get :index
+
+        expect(response.body).to include intake.primary.full_name
+        expect(response.body).to include intake.spouse.full_name
+      end
+    end
+
+    context "with no existing 1099Gs" do
+      render_views
+      it "renders the new view" do
+        get :index
+        expect(response.body).to include(I18n.t("state_file.questions.unemployment.edit.title"))
+      end
+    end
+  end
+
   describe "#create" do
     let(:params) do
       {
@@ -43,12 +66,12 @@ RSpec.describe StateFile::Questions::UnemploymentController do
       }
     end
 
-    it "creates a new 1099G linked to the current intake and redirects to the income review" do
+    it "creates a new 1099G linked to the current intake and redirects to the index" do
       expect do
         post :create, params: params
       end.to change(StateFile1099G, :count).by 1
 
-      expect(response).to redirect_to(StateFile::Questions::IncomeReviewController.to_path_helper(unemployment_filled: "y"))
+      expect(response).to redirect_to(StateFile::Questions::UnemploymentController.to_path_helper(action: :index))
 
       state_file1099_g = StateFile1099G.last
       expect(state_file1099_g.intake).to eq intake
@@ -154,7 +177,7 @@ RSpec.describe StateFile::Questions::UnemploymentController do
         expect do
           post :create, params: params
         end.to change(StateFile1099G, :count)
-        expect(response).to redirect_to(StateFile::Questions::IncomeReviewController.to_path_helper(unemployment_filled: "y"))
+        expect(response).to redirect_to(StateFile::Questions::UnemploymentController.to_path_helper(action: :index))
       end
     end
   end
@@ -203,10 +226,10 @@ RSpec.describe StateFile::Questions::UnemploymentController do
       }
     end
 
-    it "updates the form and redirects to the income review" do
+    it "updates the form and redirects to the index" do
       post :update, params: params
 
-      expect(response).to redirect_to(StateFile::Questions::IncomeReviewController.to_path_helper(unemployment_filled: "y"))
+      expect(response).to redirect_to(StateFile::Questions::UnemploymentController.to_path_helper(action: :index))
 
       form1099.reload
       expect(form1099.recipient).to eq "spouse"
@@ -258,12 +281,12 @@ RSpec.describe StateFile::Questions::UnemploymentController do
     end
     let(:params) { { id: form1099.id } }
 
-    it "deletes the 1099 and adds a flash message and redirects to income review path" do
+    it "deletes the 1099 and adds a flash message and redirects to index path" do
       expect do
         delete :destroy, params: params
       end.to change(StateFile1099G, :count).by(-1)
 
-      expect(response).to redirect_to(StateFile::Questions::IncomeReviewController.to_path_helper(unemployment_filled: "y"))
+      expect(response).to redirect_to StateFile::Questions::UnemploymentController.to_path_helper(action: :index)
       expect(flash[:notice]).to eq I18n.t('state_file.questions.unemployment.destroy.removed', name: intake.primary.full_name)
     end
   end
