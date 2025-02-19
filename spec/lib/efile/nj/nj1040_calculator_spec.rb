@@ -1596,7 +1596,7 @@ describe Efile::Nj::Nj1040Calculator do
     context 'when has w2s' do
       let(:intake) { create(:state_file_nj_intake, :df_data_many_w2s)}
 
-      it 'sets line 55 to sum of state_income_tax_amount rounded' do
+      it 'sets line 55 to total income tax withheld, rounded' do
         w2 = intake.state_file_w2s.first
         w2.update_attribute(:state_income_tax_amount, 500.55)
         instance.calculate
@@ -1605,7 +1605,31 @@ describe Efile::Nj::Nj1040Calculator do
       end
     end
 
-    context 'when no w2s' do
+    context 'when has only 1099-Rs' do
+      let(:intake) { create(:state_file_nj_intake, :df_data_minimal)}
+      let!(:state_file_1099r) { create :state_file1099_r, intake: intake, state_tax_withheld_amount: 100 }
+      let!(:state_specific_followup) { create :state_file_nj1099_r_followup, state_file1099_r: state_file_1099r, income_source: :none }
+    
+      it 'sets line 55 to total income tax withheld, rounded' do
+        intake.reload
+        instance.calculate
+        expect(instance.lines[:NJ1040_LINE_55].value).to eq 100
+      end
+    end
+
+    context 'when has both w2s and 1099-Rs' do
+      let(:intake) { create(:state_file_nj_intake, :df_data_many_w2s)}
+      let!(:state_file_1099r) { create :state_file1099_r, intake: intake, state_tax_withheld_amount: 100 }
+      let!(:state_specific_followup) { create :state_file_nj1099_r_followup, state_file1099_r: state_file_1099r, income_source: :none }
+
+      it 'sets line 55 to total income tax withheld, rounded' do
+        intake.reload
+        instance.calculate
+        expect(instance.lines[:NJ1040_LINE_55].value).to eq 2100 # 2000 from W2, 100 from 1099-R
+      end
+    end
+
+    context 'when no tax withheld' do
       let(:intake) { create(:state_file_nj_intake, :df_data_minimal)}
       it 'sets line 55 to nil' do
         expect(instance.lines[:NJ1040_LINE_55].value).to eq nil
