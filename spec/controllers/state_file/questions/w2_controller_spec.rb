@@ -2,9 +2,11 @@ require "rails_helper"
 
 RSpec.describe StateFile::Questions::W2Controller do
   let(:intake) { create :state_file_az_intake }
+  let(:final_param) { "n" }
   let(:params) do
     {
       id: state_file_w2.id,
+      from_final_income_review: final_param,
       state_file_w2: {
         employer_state_id_num: "12345",
         box14_stpickup: 230,
@@ -106,6 +108,28 @@ RSpec.describe StateFile::Questions::W2Controller do
         expect(state_file_w2.locality_nm).to eq "BOOPVILLE"
 
         expect(response).to redirect_to(StateFile::Questions::InitialIncomeReviewController.to_path_helper)
+      end
+
+      context "with from_final_income_review param" do
+        let(:final_param) { "y" }
+
+        it "updates the w2 and redirects to income review" do
+          expect {
+            post :update, params: params
+          }.not_to change(StateFileW2, :count)
+
+          state_file_w2.reload
+          expect(state_file_w2.state_file_intake).to eq intake
+          expect(state_file_w2.employer_state_id_num).to eq "12345"
+          expect(state_file_w2.box14_stpickup).to eq 230
+          expect(state_file_w2.state_wages_amount).to eq 10000
+          expect(state_file_w2.state_income_tax_amount).to eq 500
+          expect(state_file_w2.local_wages_and_tips_amount).to eq 40
+          expect(state_file_w2.local_income_tax_amount).to eq 30
+          expect(state_file_w2.locality_nm).to eq "BOOPVILLE"
+
+          expect(response).to redirect_to(StateFile::Questions::FinalIncomeReviewController.to_path_helper)
+        end
       end
 
       context "with MD Box 14 fields" do

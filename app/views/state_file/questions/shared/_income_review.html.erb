@@ -16,6 +16,7 @@
                         StateFile::Questions::W2Controller.to_path_helper(
                           action: :edit,
                           id: w2.id,
+                          from_final_income_review: final ? "y" : "n",
                           return_to_review: params[:return_to_review]
                         ),
                         class: "button--small"
@@ -79,6 +80,7 @@
                       StateFile::Questions::RetirementIncomeController.to_path_helper(
                         action: :edit,
                         id: state_1099r.id,
+                        from_final_income_review: final ? "y" : "n",
                         return_to_review: params[:return_to_review]
                       ),
                       class: "button--small"

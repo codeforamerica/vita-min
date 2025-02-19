@@ -37,9 +37,11 @@ RSpec.describe StateFile::Questions::RetirementIncomeController do
       create :state_file1099_r,
              intake: intake
     end
+    let(:final_param) { "n" }
     let(:params) do
       {
         id: form1099r.id,
+        from_final_income_review: final_param,
         state_file1099_r: {
           state_distribution_amount: 20,
           payer_state_identification_number: 'Az3456789',
@@ -57,6 +59,21 @@ RSpec.describe StateFile::Questions::RetirementIncomeController do
       expect(form1099r.state_distribution_amount).to eq 20
       expect(form1099r.payer_state_identification_number).to eq 'Az3456789'
       expect(form1099r.state_tax_withheld_amount).to eq 50
+    end
+
+    context "with from_final_income_review param" do
+      let(:final_param) { "y" }
+
+      it "updates the 1099R information and redirects to the income review page" do
+        post :update, params: params
+
+        expect(response).to redirect_to(questions_final_income_review_path)
+
+        form1099r.reload
+        expect(form1099r.state_distribution_amount).to eq 20
+        expect(form1099r.payer_state_identification_number).to eq 'Az3456789'
+        expect(form1099r.state_tax_withheld_amount).to eq 50
+      end
     end
 
     context "with invalid params" do
