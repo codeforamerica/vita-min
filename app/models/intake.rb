@@ -405,6 +405,8 @@
 #
 
 class Intake < ApplicationRecord
+  self.strict_loading_by_default = true
+
   include PgSearch::Model
 
   def self.searchable_fields
