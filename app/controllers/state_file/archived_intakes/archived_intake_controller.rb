@@ -4,6 +4,7 @@ module StateFile
       before_action :check_feature_flag
       def current_request
         StateFileArchivedIntakeRequest.find_by(ip_address: ip_for_irs, email_address: session[:email_address])
+        Sentry.capture_message "A StateFileArchivedIntakeRequest was not able to be found with IP: #{ip_for_irs} email address: #{session[:email_address]}"
       end
 
       def current_archived_intake
