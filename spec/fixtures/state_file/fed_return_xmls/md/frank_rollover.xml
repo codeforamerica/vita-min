@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>a1978a1a</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400003041</PrimarySSN>
+            <NameLine1Txt>FRANK&lt;REYNOLDS</NameLine1Txt>
+            <PrimaryNameControlTxt>REYN</PrimaryNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>123 Fast Hands Lane</AddressLine1Txt>
+                <CityNm>Philadelphia</CityNm>
+                <StateAbbreviationCd>PA</StateAbbreviationCd>
+                <ZIPCd>19145</ZIPCd>
+            </USAddress>
+            <PhoneNum>3035555544</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000304-15c6-4691-93ef-4ebec0c39566@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="5">
+        <IRS1040 documentId="IRS10400001">
+            <Form1040SRInd>X</Form1040SRInd>
+            <IndividualReturnFilingStatusCd>1</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <PrimaryClaimAsDependentInd>X</PrimaryClaimAsDependentInd>
+            <Primary65OrOlderInd>X</Primary65OrOlderInd>
+            <TotalBoxesCheckedCnt>1</TotalBoxesCheckedCnt>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>1</TotalExemptionsCnt>
+            <PensionsAnnuitiesAmt>300000</PensionsAnnuitiesAmt>
+            <TotalTaxablePensionsAmt pensionsAnnuitiesLiteralCd="ROLLOVER">10000</TotalTaxablePensionsAmt>
+            <TotalIncomeAmt>10000</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>10000</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>3250</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>3250</TotalDeductionsAmt>
+            <TaxableIncomeAmt>6750</TaxableIncomeAmt>
+            <TaxAmt>678</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>678</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>678</TaxLessCreditsAmt>
+            <TotalTaxAmt>678</TotalTaxAmt>
+            <WithholdingTaxAmt>500</WithholdingTaxAmt>
+            <TotalPaymentsAmt>500</TotalPaymentsAmt>
+            <OwedAmt>178</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Bar owner</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1099R documentId="IRS1099R0001">
+            <PayerNameControlTxt>PADD</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Paddy's Pub Retirement Fund</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>555 Sweet Dee Drive</AddressLine1Txt>
+                <CityNm>Sudlersville</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21668</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>823967259</PayerEIN>
+            <RecipientSSN>400003041</RecipientSSN>
+            <RecipientNm>Frank Reynolds</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>123 Fast Hands Lane</AddressLine1Txt>
+                <CityNm>Philadelphia</CityNm>
+                <StateAbbreviationCd>PA</StateAbbreviationCd>
+                <ZIPCd>19145</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>5000</GrossDistributionAmt>
+            <TaxableAmt>5000</TaxableAmt>
+            <TotalDistributionInd>X</TotalDistributionInd>
+            <F1099RDistributionCd>B</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <F1099RLocalTaxGrp/>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRS1099R documentId="IRS1099R0002">
+            <PayerNameControlTxt>GANG</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>The Gang Retires</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>444 Charlie Court</AddressLine1Txt>
+                <CityNm>Annapolis</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21409</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>941737782</PayerEIN>
+            <RecipientSSN>400003041</RecipientSSN>
+            <RecipientNm>Frank Reynolds</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>123 Fast Hands Lane</AddressLine1Txt>
+                <CityNm>Philadelphia</CityNm>
+                <StateAbbreviationCd>PA</StateAbbreviationCd>
+                <ZIPCd>19145</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>250000</GrossDistributionAmt>
+            <F1099RDistributionCd>G</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <F1099RLocalTaxGrp/>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRS1099R documentId="IRS1099R0003">
+            <PayerNameControlTxt>CHAN</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Change in the Sofa Plan</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>333 Dennis Drive</AddressLine1Txt>
+                <CityNm>Severn</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21144</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>943025021</PayerEIN>
+            <RecipientSSN>400003041</RecipientSSN>
+            <RecipientNm>Frank Reynolds</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>123 Fast Hands Lane</AddressLine1Txt>
+                <CityNm>Philadelphia</CityNm>
+                <StateAbbreviationCd>PA</StateAbbreviationCd>
+                <ZIPCd>19145</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>50000</GrossDistributionAmt>
+            <F1099RDistributionCd>2H</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <F1099RLocalTaxGrp/>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRS1099R documentId="IRS1099R0004">
+            <PayerNameControlTxt>BARB</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Barbara Reynolds Fund</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>888 Mac Road</AddressLine1Txt>
+                <CityNm>Frederick</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21701</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>823967259</PayerEIN>
+            <RecipientSSN>400003041</RecipientSSN>
+            <RecipientNm>Frank Reynolds</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>123 Fast Hands Lane</AddressLine1Txt>
+                <CityNm>Philadelphia</CityNm>
+                <StateAbbreviationCd>PA</StateAbbreviationCd>
+                <ZIPCd>19145</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>10000</GrossDistributionAmt>
+            <TaxableAmt>10000</TaxableAmt>
+            <TotalDistributionInd>X</TotalDistributionInd>
+            <FederalIncomeTaxWithheldAmt>500</FederalIncomeTaxWithheldAmt>
+            <F1099RDistributionCd>7</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <F1099RLocalTaxGrp/>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+    </ReturnData>
+</Return>

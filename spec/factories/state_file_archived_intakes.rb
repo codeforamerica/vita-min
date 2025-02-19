@@ -2,18 +2,19 @@
 #
 # Table name: state_file_archived_intakes
 #
-#  id                :bigint           not null, primary key
-#  email_address     :string
-#  hashed_ssn        :string
-#  mailing_apartment :string
-#  mailing_city      :string
-#  mailing_state     :string
-#  mailing_street    :string
-#  mailing_zip       :string
-#  state_code        :string
-#  tax_year          :integer
-#  created_at        :datetime         not null
-#  updated_at        :datetime         not null
+#  id                    :bigint           not null, primary key
+#  email_address         :string
+#  hashed_ssn            :string
+#  mailing_apartment     :string
+#  mailing_city          :string
+#  mailing_state         :string
+#  mailing_street        :string
+#  mailing_zip           :string
+#  permanently_locked_at :datetime
+#  state_code            :string
+#  tax_year              :integer
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
 #
 FactoryBot.define do
   factory :state_file_archived_intake do
@@ -27,6 +28,12 @@ FactoryBot.define do
     state_code { "CA" }
     tax_year { 2023 }
     submission_pdf { nil }
+
+    trait :with_pdf do
+      after(:create) do |archived_intake|
+        archived_intake.submission_pdf.attach(io: File.open("public/pdfs/ID-VP.pdf"), filename: "ID-VP.pdf")
+      end
+    end
 
     transient do
       intake { nil }

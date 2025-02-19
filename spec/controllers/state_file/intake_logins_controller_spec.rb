@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe StateFile::IntakeLoginsController, type: :controller do
-  let(:intake) do
+  let!(:intake) do
     create(
       :state_file_az_intake,
       email_address: "client@example.com",
@@ -9,7 +9,6 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
       hashed_ssn: "hashed_ssn"
     )
   end
-  before { intake }
   let(:intake_query) { StateFileAzIntake.where(id: intake) }
 
   before do
@@ -47,7 +46,8 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
         get :new, params: { contact_method: "email_address" }
 
         expect(response.status).to eq(200)
-        expect(response.body).to include "Sign in with your email address. To continue filing your state tax return safely, we’ll send you a secure code."
+        expect(response.body).to include (I18n.t("state_file.intake_logins.new.email_address.title"))
+        expect(response.body).to include (I18n.t("state_file.intake_logins.new.to_continue"))
       end
     end
   end
@@ -73,6 +73,8 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
         end
 
         it "enqueues a RequestVerificationCodeEmailJob and renders a form for the code" do
+          intake.email_address_verified_at = DateTime.now
+          intake.save!
           expect {
             post :create, params: params
           }.to have_enqueued_job(RequestVerificationCodeForLoginJob).with(
@@ -98,6 +100,8 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
         end
 
         it "enqueues a text message login request job with the right data and renders the 'enter verification code' page" do
+          intake.phone_number_verified_at = DateTime.now
+          intake.save!
           expect {
             post :create, params: params
           }.to have_enqueued_job(RequestVerificationCodeForLoginJob).with(
@@ -170,7 +174,11 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
 
     context "as an authenticated intake" do
       render_views
-      before { sign_in intake }
+      before do
+        intake.phone_number_verified_at = DateTime.now
+        intake.save!
+        sign_in intake
+      end
 
       it "renders the login page" do
         post :create, params: { state_file_request_intake_login_form: { sms_phone_number: "(510) 555 1234"}}
@@ -374,7 +382,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
         get :edit, params: params
 
         expect(response.status).to eq(200)
-        expect(response.body).to include "Code verified! Authentication needed to continue."
+        expect(response.body).to include (I18n.t("state_file.intake_logins.edit.title"))
       end
 
       context "when the intake does not have an ssn" do
@@ -443,7 +451,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
           end
 
           context "when there are multiple intakes with a matching ssn" do
-            let(:second_intake) do
+            let!(:second_intake) do
               create(
                 :state_file_az_intake,
                 email_address: "client@example.com",
@@ -462,6 +470,20 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
 
                 expect(subject.current_state_file_az_intake).to eq(second_intake)
                 expect(response).to redirect_to questions_return_status_path
+                expect(session["warden.user.state_file_az_intake.key"].first.first).to eq second_intake.id
+              end
+            end
+
+            context "when one intake has an ssn and one does not" do
+              let(:intake_query) { StateFileAzIntake.where(phone_number: "+15105551234") }
+
+              it "chooses the one with an ssn" do
+                intake.update(hashed_ssn: nil)
+
+                post :update, params: params
+
+                expect(subject.current_state_file_az_intake).to eq(second_intake)
+                expect(response).to redirect_to questions_post_data_transfer_path
                 expect(session["warden.user.state_file_az_intake.key"].first.first).to eq second_intake.id
               end
             end
@@ -498,6 +520,43 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
               post :update, params: params
 
               expect(response).to redirect_to account_locked_intake_logins_path
+            end
+          end
+        end
+
+        context "with no matching intake" do
+          let(:contact_method) { "email_address" }
+          let(:params) do
+            {
+              id: "raw_token",
+              contact_method: contact_method,
+              state_file_intake_login_form: {
+                ssn: nil
+              }
+            }
+          end
+
+          before do
+            allow_any_instance_of(StateFile::IntakeLoginForm).to receive(:valid?).and_return(true)
+            allow_any_instance_of(StateFile::IntakeLoginForm).to receive(:intake_to_log_in).and_return(nil)
+            controller.instance_variable_set(:@contact_method, contact_method)
+          end
+
+          it "sets a flash alert with the email when contact method is email" do
+            post :update, params: params
+
+            expect(flash[:alert]).to eq I18n.t("state_file.intake_logins.new.email_address.not_found_html")
+            expect(response).to render_template(:new)
+          end
+
+          context "with sms phone number" do
+            let(:contact_method) { "sms_phone_number" }
+
+            it "sets flash alert for phone number" do
+              post :update, params: params
+
+              expect(flash[:alert]).to eq I18n.t("state_file.intake_logins.new.sms_phone_number.not_found_html")
+              expect(response).to render_template(:new)
             end
           end
         end

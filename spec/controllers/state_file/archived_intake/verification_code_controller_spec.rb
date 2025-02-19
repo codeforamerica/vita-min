@@ -1,7 +1,8 @@
 require "rails_helper"
 
 RSpec.describe StateFile::ArchivedIntakes::VerificationCodeController, type: :controller do
-  let(:current_request) { create(:state_file_archived_intake_request, email_address:email_address, failed_attempts: 0) }
+  let!(:archived_intake) { build(:state_file_archived_intake) }
+  let(:current_request) { create(:state_file_archived_intake_request, email_address:email_address, failed_attempts: 0, state_file_archived_intake: archived_intake) }
   let(:email_address) { "test@example.com" }
   let(:valid_verification_code) { "123456" }
   let(:invalid_verification_code) { "654321" }
@@ -51,13 +52,13 @@ RSpec.describe StateFile::ArchivedIntakes::VerificationCodeController, type: :co
         allow_any_instance_of(StateFile::ArchivedIntakes::VerificationCodeForm).to receive(:valid?).and_return(true)
       end
 
-      it "creates a success access log and does not increment failed_attempts" do
+      it "creates a success access log for correct email code, creates a access log for issued ssn challenge, and does not increment failed_attempts" do
         expect {
           post :update, params: { state_file_archived_intakes_verification_code_form: { verification_code: valid_verification_code } }
-        }.to change(StateFileArchivedIntakeAccessLog, :count).by(1)
+        }.to change(StateFileArchivedIntakeAccessLog, :count).by(2)
 
-        log = StateFileArchivedIntakeAccessLog.last
-        expect(log.event_type).to eq("correct_email_code")
+        last_two_logs = StateFileArchivedIntakeAccessLog.last(2).pluck(:event_type)
+        expect(last_two_logs).to include("issued_ssn_challenge", "correct_email_code")
         expect(session[:code_verified]).to eq(true)
         expect(current_request.failed_attempts).to eq(0)
         expect(response).to redirect_to(state_file_archived_intakes_edit_identification_number_path)

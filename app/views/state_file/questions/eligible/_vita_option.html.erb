@@ -1,7 +1,5 @@
-<p><%=t('state_file.questions.eligible.vita_option.want_to_claim_vita') %></p>
-<ul class="list--bulleted">
-  <li>
-    <a href="<%= @vita_link %>" target="_blank" rel="noopener nofollow"><%= t('state_file.questions.eligible.vita_option.vita_link') %></a>
-  </li>
-  <li><%=t('state_file.questions.eligible.vita_option.want_to_claim_learn_more_html', link: @faq_other_options_link) %></li>
-</ul>
+<p><%=t('state_file.questions.eligible.vita_option.want_to_claim_vita_1', state_name: current_state_name) %></p>
+<p><%=t('state_file.questions.eligible.vita_option.want_to_claim_vita_2') %></p>
+
+<%=t('state_file.questions.eligible.vita_option.want_to_claim_learn_more_html', link: @faq_other_options_link) %>
+

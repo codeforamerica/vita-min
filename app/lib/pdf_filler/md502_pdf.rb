@@ -78,6 +78,9 @@ module PdfFiller
         '2SU': generate_codes_for_502_su.at(1),
         '3SU': generate_codes_for_502_su.at(2),
         '4SU': generate_codes_for_502_su.at(3),
+        "primary_pension": check_box_if_x(@xml_document.at('Form502 Subtractions PriPensionExclusionInd')&.text),
+        "spouse_pension": check_box_if_x(@xml_document.at('Form502 Subtractions SecPensionExclusionInd')&.text),
+        "10a": @xml_document.at('Form502 Subtractions PensionExclusions')&.text,
         '13': @xml_document.at('Form502 Subtractions Other')&.text,
         '14': @xml_document.at('Form502 Subtractions TwoIncome')&.text,
         '40': @xml_document.at('Form502 TaxWithheld')&.text,
@@ -161,16 +164,11 @@ module PdfFiller
     end
 
     def generate_codes_for_502_su
-      calculated_fields_code_letters = {
-        MD502_SU_LINE_AB: "ab",
-        MD502_SU_LINE_U: "u",
-        MD502_SU_LINE_V: "v"
-      }
       applicable_codes = []
 
       if calculated_fields.fetch(:MD502_SU_LINE_1).positive?
-        calculated_fields_code_letters.each do |calculated_field, code_letter|
-          applicable_codes << code_letter if calculated_fields.fetch(calculated_field).to_i.positive?
+        Efile::Md::Md502SuCalculator::CALCULATED_FIELDS_AND_CODE_LETTERS.each do |calculated_field, code_letter|
+          applicable_codes << code_letter.downcase if calculated_fields.fetch(calculated_field).to_i.positive?
         end
       end
       applicable_codes

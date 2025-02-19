@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "Completing a state file intake", active_job: true do
+RSpec.feature "Completing a state file intake", active_job: true, js: true do
   include MockTwilio
   include StateFileIntakeHelper
 
@@ -8,8 +8,8 @@ RSpec.feature "Completing a state file intake", active_job: true do
     allow_any_instance_of(Routes::StateFileDomain).to receive(:matches?).and_return(true)
   end
 
-  StateFile::StateInformationService.active_state_codes.without("nc", "ny").each do |state_code|
-    context "#{state_code.upcase}", js: true do
+  StateFile::StateInformationService.active_state_codes.without("ny").each do |state_code|
+    context "#{state_code.upcase}" do
       it "allows user to navigate to income review page, edit an income form, and then navigate back to final review page", required_schema: state_code do
         set_up_intake_and_associated_records(state_code)
 
@@ -28,19 +28,22 @@ RSpec.feature "Completing a state file intake", active_job: true do
           click_on I18n.t("general.edit")
         end
 
-        # Income review page
-        expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
-        within "#w2s" do
-          click_on I18n.t("state_file.questions.income_review.edit.review_and_edit_state_info")
-        end
+        if intake.allows_w2_editing?
+          # Income review page
+          expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
+          within "#w2s" do
+            click_on I18n.t("state_file.questions.income_review.edit.review_and_edit_state_info")
+          end
 
-        # W2 edit page
-        expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.w2.edit.instructions_1_html", employer: intake.state_file_w2s.first.employer_name))
-        fill_in strip_html_tags(I18n.t("state_file.questions.w2.edit.box15_html")), with: "987654321"
-        click_on I18n.t("general.continue")
+          # W2 edit page
+          expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.w2.edit.instructions_1_html", employer: intake.state_file_w2s.first.employer_name))
+          fill_in strip_html_tags(I18n.t("state_file.questions.w2.edit.box15_html")), with: "987654321"
+          click_on I18n.t("general.continue")
+        end
 
         # Back on income review page
         expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
+        wait_for_device_info("income_review")
         click_on I18n.t("general.continue")
 
         # Final review page
@@ -62,6 +65,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
         # Back on income review page
         expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
+        wait_for_device_info("income_review")
         click_on I18n.t("general.continue")
 
         # Final review page
@@ -83,10 +87,12 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
         # Back on income review page
         expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
+        wait_for_device_info("income_review")
         click_on I18n.t("general.continue")
 
         # Final review page
         expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
+
         within "#income-info" do
           click_on I18n.t("general.edit")
         end
@@ -100,61 +106,12 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
         # Back on income review page
         expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
+        wait_for_device_info("income_review")
         click_on I18n.t("general.continue")
 
         # Final review page
         expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
       end
-    end
-  end
-
-  context "NC" do
-    it "allows user to navigate to unemployment review page, edit an unemployment 1099g form, and then navigate back to final review page", required_schema: "nc" do
-      state_code = "nc"
-      set_up_intake_and_associated_records(state_code)
-
-      intake = StateFile::StateInformationService.intake_class(state_code).last
-
-      visit "/questions/#{state_code}-review"
-
-      # Final review page
-      expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
-      within "#income-info" do
-        click_on I18n.t("general.edit")
-      end
-
-      # income-info edit navigates to unemployment index page
-      expect(page).to have_text(I18n.t('state_file.questions.unemployment.index.1099_label', name: intake.primary.full_name))
-      click_on I18n.t("general.continue")
-
-      # Back on final review page
-      expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
-      within "#income-info" do
-        click_on I18n.t("general.edit")
-      end
-      click_on I18n.t("general.edit")
-
-      # 1099G edit page
-      expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.unemployment.edit.title", count: intake.filer_count, year: MultiTenantService.statefile.current_tax_year))
-      fill_in strip_html_tags(I18n.t("state_file.questions.unemployment.edit.payer_name")), with: "beepboop"
-      click_on I18n.t("general.continue")
-
-      # takes them to the 1099G index page first
-      expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.unemployment.index.lets_review"))
-
-      # edit a 1099G (there's only one)
-      click_on I18n.t("general.edit")
-      click_on I18n.t("general.continue")
-
-      # back on index page
-      expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.unemployment.index.lets_review"))
-
-      # delete a 1099G (there's only one)
-      recipient_name = intake.state_file1099_gs.last.recipient_name
-      click_on I18n.t("general.delete")
-      # redirects to new because there are no 1099Gs left, need to select "no" in order to continue
-      expect(page).to have_text I18n.t("state_file.questions.unemployment.destroy.removed", name: recipient_name)
-      choose I18n.t("general.negative")
     end
   end
 
@@ -206,6 +163,69 @@ RSpec.feature "Completing a state file intake", active_job: true do
     end
   end
 
+  context "NC" do
+    before do
+      allow(Flipper).to receive(:enabled?).and_call_original
+      allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
+      state_code = "nc"
+      set_up_intake_and_associated_records(state_code)
+
+      intake = StateFile::StateInformationService.intake_class(state_code).last
+      # First 1099R already created in set_up_intake_and_associated_records
+      second_1099r = create(:state_file1099_r, intake: intake, payer_name: "The People's Free Food Emporium")
+      third_1099r = create(:state_file1099_r, intake: intake, payer_name: "Boone Community Garden")
+      StateFileNc1099RFollowup.create(state_file1099_r: intake.state_file1099_rs.first, income_source: "bailey_settlement", bailey_settlement_at_least_five_years: "yes")
+      StateFileNc1099RFollowup.create(state_file1099_r: second_1099r, income_source: "uniformed_services", uniformed_services_retired: "no", uniformed_services_qualifying_plan: "no")
+      StateFileNc1099RFollowup.create(state_file1099_r: third_1099r, income_source: "other")
+
+      visit "/questions/#{state_code}-review"
+    end
+
+    it "allows user to view and edit their 1099R followup information" do
+      within "#retirement-income-source-0" do
+        expect(page).to have_text "Dorothy Red"
+        expect(page).to have_text I18n.t("state_file.questions.nc_review.edit.retirement_income_source_bailey_settlement")
+        expect(page).to have_text I18n.t("state_file.questions.nc_review.edit.bailey_settlement_at_least_five_years")
+      end
+
+      within "#retirement-income-source-1" do
+        expect(page).to have_text "The People's Free Food Emporium"
+        expect(page).to have_text I18n.t("state_file.questions.nc_review.edit.retirement_income_source_uniformed_services")
+        expect(page).to have_text I18n.t("state_file.questions.nc_review.edit.none_apply")
+      end
+
+      within "#retirement-income-source-2" do
+        expect(page).to have_text "Boone Community Garden"
+        expect(page).to have_text I18n.t("state_file.questions.nc_review.edit.none_apply")
+      end
+
+      within "#retirement-income-source-0" do
+        click_on I18n.t("general.review_and_edit")
+      end
+
+      check I18n.t("state_file.questions.nc_retirement_income_subtraction.edit.bailey_settlement_from_retirement_plan")
+      click_on I18n.t("general.continue")
+
+      within "#retirement-income-source-0" do
+        expect(page).to have_text "Dorothy Red"
+        expect(page).to have_text I18n.t("state_file.questions.nc_review.edit.retirement_income_source_bailey_settlement")
+        expect(page).to have_text I18n.t("state_file.questions.nc_review.edit.bailey_settlement_at_least_five_years")
+        expect(page).to have_text I18n.t("state_file.questions.nc_review.edit.bailey_settlement_from_retirement_plan")
+      end
+
+      within "#retirement-income-source-1" do
+        expect(page).to have_text "The People's Free Food Emporium"
+        expect(page).to have_text I18n.t("state_file.questions.nc_review.edit.retirement_income_source_uniformed_services")
+        expect(page).to have_text I18n.t("state_file.questions.nc_review.edit.none_apply")
+      end
+
+      within "#retirement-income-source-2" do
+        expect(page).to have_text "Boone Community Garden"
+        expect(page).to have_text I18n.t("state_file.questions.nc_review.edit.none_apply")
+      end
+    end
+  end
+
   def set_up_intake_and_associated_records(state_code)
     visit "/"
     click_on "Start Test #{state_code.upcase}"
@@ -229,6 +249,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
     intake.update(
       raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml("test_df_complete_sample"),
       raw_direct_file_intake_data: StateFile::DirectFileApiResponseSampleService.new.read_json("test_df_complete_sample"),
+      df_data_import_succeeded_at: DateTime.now,
       primary_first_name: "Deedee",
       primary_last_name: "Doodoo",
       primary_birth_date: Date.new((MultiTenantService.statefile.current_tax_year - 65), 12, 1),

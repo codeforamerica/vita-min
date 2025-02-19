@@ -68,6 +68,7 @@
 #  primary_ssn                                :string
 #  primary_student_loan_interest_ded_amount   :decimal(12, 2)   default(0.0), not null
 #  primary_suffix                             :string
+#  proof_of_disability_submitted              :integer          default("unfilled"), not null
 #  raw_direct_file_data                       :text
 #  raw_direct_file_intake_data                :jsonb
 #  referrer                                   :string
@@ -129,6 +130,7 @@ class StateFileMdIntake < StateFileBaseIntake
   enum has_joint_account_holder: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_joint_account_holder
   enum primary_disabled: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_disabled
   enum spouse_disabled: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_disabled
+  enum proof_of_disability_submitted: { unfilled: 0, yes: 1, no: 2 }, _prefix: :proof_of_disability_submitted
 
   def disqualifying_df_data_reason
     w2_states = direct_file_data.parsed_xml.css('W2StateLocalTaxGrp W2StateTaxGrp StateAbbreviationCd')
@@ -154,6 +156,10 @@ class StateFileMdIntake < StateFileBaseIntake
   def calculate_age(dob, inclusive_of_jan_1)
     # MD never calculates age at the end of the year using Jan 1 inclusive
     super(dob, inclusive_of_jan_1: false)
+  end
+
+  def is_filer_55_and_older?(filer)
+    calculate_age(send(filer)&.birth_date, inclusive_of_jan_1: false) >= 55
   end
 
   def sanitize_bank_details
@@ -209,6 +215,17 @@ class StateFileMdIntake < StateFileBaseIntake
     end
   end
 
+  def sum_two_1099_r_followup_types_for_filer(primary_or_spouse, income_source, service_type)
+    filer_1099_rs(primary_or_spouse).sum do |state_file_1099_r|
+      state_specific_followup = state_file_1099_r.state_specific_followup
+      if state_specific_followup&.send(income_source) && state_specific_followup&.send(service_type)
+        state_file_1099_r.taxable_amount&.round
+      else
+        0
+      end
+    end
+  end
+
   def extract_apartment_from_mailing_street?
     true
   end
@@ -219,5 +236,21 @@ class StateFileMdIntake < StateFileBaseIntake
 
   def allows_refund_amount_in_xml?
     false
+  end
+
+  def at_least_one_disabled_filer_with_proof?
+    if filing_status_mfj?
+      (primary_disabled_yes? || spouse_disabled_yes?) && proof_of_disability_submitted_yes?
+    else
+      primary_disabled_yes? && proof_of_disability_submitted_yes?
+    end
+  end
+
+  def qualifies_for_pension_exclusion?(filer)
+    send("#{filer}_senior?".to_sym) || at_least_one_disabled_filer_with_proof?
+  end
+
+  def has_banking_information_in_financial_resolution?
+    true
   end
 end

@@ -72,14 +72,11 @@
   font-size: 1.6rem;
   -webkit-font-smoothing: antialiased;
   font-smooth: always;
+  background-color: $color-state-file-bg;
 
   .fyst-logo {
     width: 222px;
     height: 38px;
-  }
-
-  .question-layout {
-    background-color: $color-state-file-bg;
   }
 
   .main-header {
@@ -493,7 +490,7 @@
       margin-bottom: 2rem;
     }
 
-    radiogroup {
+    radiogroup, .honeycrisp-radiogroup {
       display: flex;
       margin-bottom: 1.5rem;
 
@@ -549,11 +546,9 @@
     line-height: 2.4rem;
   }
 
-  .review-header {
-    .with-top-separator {
-      padding-top: 25px;
-      border-top: 1px solid $color-state-file-separator;
-    }
+  .with-top-separator {
+    padding-top: 25px;
+    border-top: 1px solid $color-state-file-separator;
   }
 
   .review-section {

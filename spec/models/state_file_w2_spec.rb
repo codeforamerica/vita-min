@@ -32,7 +32,7 @@
 require "rails_helper"
 
 describe StateFileW2 do
-  let(:intake) { create :state_file_ny_intake }
+  let(:intake) { create :state_file_md_intake }
   let(:w2) {
     create(:state_file_w2,
       employer_state_id_num: "001245788",
@@ -58,21 +58,43 @@ describe StateFileW2 do
 
         it "does not permit strings" do
           w2.send("#{field}=", "nope")
-          expect(w2).not_to be_valid
+          expect(w2).not_to be_valid(:state_file_edit)
           expect(w2.errors[field]).to be_present
         end
 
         it "does not permit values less than 0" do
           w2.send("#{field}=", -1)
-          expect(w2).not_to be_valid
+          expect(w2).not_to be_valid(:state_file_edit)
           expect(w2.errors[field]).to be_present
         end
       end
     end
 
+    context "states where we don't show local boxes" do
+      let(:intake) { create :state_file_az_intake }
+
+      it "doesn't validate local tax fields" do
+        w2.locality_nm = "0"
+        w2.local_wages_and_tips_amount = -1
+        w2.local_income_tax_amount = -1
+        expect(w2).to be_valid(:state_file_edit)
+        expect(w2.errors).to be_empty
+      end
+    end
+
+    context "NJ" do
+      let(:intake) { create :state_file_nj_intake }
+      it "does not permit state_wages_amount to be blank if wages is positive" do
+        w2.wages = 10
+        w2.state_wages_amount = 0
+        w2.state_income_tax_amount = 0
+        expect(w2).not_to be_valid(:state_file_edit)
+      end
+    end
+
     it "requires both locality_nm to be present if wages_and_tips_amt is present" do
       w2.locality_nm = nil
-      expect(w2).not_to be_valid
+      expect(w2).not_to be_valid(:state_file_edit)
       expect(w2.errors[:locality_nm]).to be_present
     end
 
@@ -80,30 +102,30 @@ describe StateFileW2 do
       w2.locality_nm = nil
       w2.local_wages_and_tips_amount = 0
       w2.local_income_tax_amount = 0
-      expect(w2).to be_valid
+      expect(w2).to be_valid(:state_file_edit)
     end
 
     it "requires local_income_tax_amt to be less than local_wages_and_tips_amt" do
       w2.local_wages_and_tips_amount = 0
-      expect(w2).not_to be_valid
+      expect(w2).not_to be_valid(:state_file_edit)
       expect(w2.errors[:local_income_tax_amount]).to be_present
     end
 
     it "requires state_income_tax_amt to be less than state_wages_amt" do
       w2.state_wages_amount = 0
-      expect(w2).not_to be_valid
+      expect(w2).not_to be_valid(:state_file_edit)
       expect(w2.errors[:state_income_tax_amount]).to be_present
     end
 
     it "permits state_wages_amt to be blank if state_income_tax_amt is blank" do
       w2.state_wages_amount = 0
       w2.state_income_tax_amount = 0
-      expect(w2).to be_valid
+      expect(w2).to be_valid(:state_file_edit)
     end
 
     it "requires employer_state_id_num to be present if state_income_tax_amt is present" do
       w2.employer_state_id_num = nil
-      expect(w2).not_to be_valid
+      expect(w2).not_to be_valid(:state_file_edit)
       expect(w2.errors[:employer_state_id_num]).to be_present
     end
 
@@ -111,36 +133,46 @@ describe StateFileW2 do
       w2.employer_state_id_num = nil
       w2.state_wages_amount = 0
       w2.state_income_tax_amount = 0
-      expect(w2).to be_valid
+      expect(w2).to be_valid(:state_file_edit)
     end
 
-    it "rejects localities without the correct prefix" do
-      w2.locality_nm = "YONKERS"
-      expect(w2).not_to be_valid
-      expect(w2.errors[:locality_nm]).to be_present
+    context "NY" do
+      let(:intake) { create :state_file_ny_intake }
+      it "rejects localities without the correct prefix" do
+        w2.locality_nm = "YONKERS"
+        expect(w2).not_to be_valid(:state_file_edit)
+        expect(w2.errors[:locality_nm]).to be_present
+      end
+
+      it "permits state_wages_amount to be blank if wages is positive" do
+        w2.wages = 10
+        w2.state_wages_amount = 0
+        w2.state_income_tax_amount = 0
+        expect(w2).to be_valid(:state_file_edit)
+      end
     end
 
     it "permits localities prefixed with an approved value" do
       w2.locality_nm = "NYC JK ITS YONKERS"
-      expect(w2).to be_valid
+      expect(w2).to be_valid(:state_file_edit)
     end
 
     it "permits local_wages_and_tips_amt to be greater than w2.wagesAmt" do
       w2.local_wages_and_tips_amount = 1000000
-      expect(w2).to be_valid
+      expect(w2).to be_valid(:state_file_edit)
     end
 
     it "requires ein in the valid format" do
       w2.employer_ein = ''
-      expect(w2).not_to be_valid
+      expect(w2).not_to be_valid(:state_file_edit)
       expect(w2.errors[:employer_ein]).to be_present
 
       w2.employer_ein = 'RUTABAGA'
-      expect(w2).not_to be_valid
+      expect(w2).not_to be_valid(:state_file_edit)
       expect(w2.errors[:employer_ein]).to be_present
 
       w2.employer_ein = '123445678'
-      expect(w2).to be_valid
+      expect(w2).to be_valid(:state_file_edit)
       expect(w2.errors[:employer_ein]).not_to be_present
     end
 
@@ -156,20 +188,20 @@ describe StateFileW2 do
   
       it "is invalid when box14_ui_wf_swf exceeds the state limit" do
         w2.box14_ui_wf_swf = 179.79
-        expect(w2).not_to be_valid
+        expect(w2).not_to be_valid(:state_file_edit)
         expect(w2.errors[:box14_ui_wf_swf]).to include(I18n.t("validators.dollar_limit", limit: '179.78'))
       end
   
       it "is invalid when box14_fli exceeds the state limit" do
         w2.box14_fli = 145.27
-        expect(w2).not_to be_valid
+        expect(w2).not_to be_valid(:state_file_edit)
         expect(w2.errors[:box14_fli]).to include(I18n.t("validators.dollar_limit", limit: '145.26'))
       end
   
       it "is valid when both box14_ui_wf_swf and box14_fli are within limits" do
         w2.box14_ui_wf_swf = 179.78
         w2.box14_fli = 145.26
-        expect(w2).to be_valid
+        expect(w2).to be_valid(:state_file_edit)
       end
     end
   end
@@ -213,6 +245,14 @@ describe StateFileW2 do
       it "does not leave StateAbbreviationCd empty" do
         xml = Nokogiri::XML(w2.state_tax_group_xml_node)
         expect(xml.at("StateAbbreviationCd").text).to eq "MD"
+      end
+    end
+
+    context "when EmployerStateIdNum contains soft hyphens" do
+      it "removes soft hyphens when generating XML" do
+        w2.employer_state_id_num = "86­2124319"
+        xml = Nokogiri::XML(w2.state_tax_group_xml_node)
+        expect(xml.at("EmployerStateIdNum").text).to eq "862124319"
       end
     end
   end

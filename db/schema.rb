@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_01_23_160619) do
+ActiveRecord::Schema[7.1].define(version: 2025_02_14_234544) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1141,6 +1141,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_23_160619) do
 
   create_table "intakes", force: :cascade do |t|
     t.string "additional_info"
+    t.text "additional_notes_comments"
     t.integer "adopted_child", default: 0, null: false
     t.integer "advance_ctc_amount_received"
     t.integer "advance_ctc_entry_method", default: 0, null: false
@@ -1359,6 +1360,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_23_160619) do
     t.integer "needs_help_2020", default: 0, null: false
     t.integer "needs_help_2021", default: 0, null: false
     t.integer "needs_help_2022", default: 0, null: false
+    t.integer "needs_help_2023", default: 0, null: false
     t.integer "needs_help_current_year", default: 0, null: false
     t.integer "needs_help_previous_year_1", default: 0, null: false
     t.integer "needs_help_previous_year_2", default: 0, null: false
@@ -1785,6 +1787,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_23_160619) do
     t.datetime "created_at", null: false
     t.string "email_address"
     t.integer "failed_attempts", default: 0, null: false
+    t.string "fake_address_1"
+    t.string "fake_address_2"
     t.string "ip_address"
     t.datetime "locked_at"
     t.bigint "state_file_archived_intake_id"
@@ -1801,6 +1805,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_23_160619) do
     t.string "mailing_state"
     t.string "mailing_street"
     t.string "mailing_zip"
+    t.datetime "permanently_locked_at"
     t.string "state_code"
     t.integer "tax_year"
     t.datetime "updated_at", null: false
@@ -1808,6 +1813,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_23_160619) do
 
   create_table "state_file_az1099_r_followups", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.integer "income_source", default: 0, null: false
     t.datetime "updated_at", null: false
   end
 
@@ -1850,6 +1856,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_23_160619) do
     t.string "locale", default: "en"
     t.datetime "locked_at"
     t.integer "made_az321_contributions", default: 0, null: false
+    t.integer "made_az322_contributions", default: 0, null: false
     t.jsonb "message_tracker", default: {}
     t.integer "payment_or_deposit_type", default: 0, null: false
     t.string "phone_number"
@@ -2105,6 +2112,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_23_160619) do
     t.bigint "primary_state_id_id"
     t.decimal "primary_student_loan_interest_ded_amount", precision: 12, scale: 2, default: "0.0", null: false
     t.string "primary_suffix"
+    t.integer "proof_of_disability_submitted", default: 0, null: false
     t.text "raw_direct_file_data"
     t.jsonb "raw_direct_file_intake_data"
     t.string "referrer"
@@ -2142,7 +2150,12 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_23_160619) do
   end
 
   create_table "state_file_nc1099_r_followups", force: :cascade do |t|
+    t.integer "bailey_settlement_at_least_five_years", default: 0, null: false
+    t.integer "bailey_settlement_from_retirement_plan", default: 0, null: false
     t.datetime "created_at", null: false
+    t.integer "income_source", default: 0, null: false
+    t.integer "uniformed_services_qualifying_plan", default: 0, null: false
+    t.integer "uniformed_services_retired", default: 0, null: false
     t.datetime "updated_at", null: false
   end
 
@@ -2231,7 +2244,38 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_23_160619) do
 
   create_table "state_file_nj1099_r_followups", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.integer "income_source", default: 0, null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "state_file_nj_analytics", force: :cascade do |t|
+    t.integer "NJ1040_LINE_12_COUNT", default: 0, null: false
+    t.integer "NJ1040_LINE_15", default: 0, null: false
+    t.integer "NJ1040_LINE_16A", default: 0, null: false
+    t.integer "NJ1040_LINE_16B", default: 0, null: false
+    t.integer "NJ1040_LINE_29", default: 0, null: false
+    t.integer "NJ1040_LINE_31", default: 0, null: false
+    t.integer "NJ1040_LINE_41", default: 0, null: false
+    t.integer "NJ1040_LINE_42", default: 0, null: false
+    t.integer "NJ1040_LINE_43", default: 0, null: false
+    t.integer "NJ1040_LINE_51", default: 0, null: false
+    t.integer "NJ1040_LINE_56", default: 0, null: false
+    t.integer "NJ1040_LINE_58", default: 0, null: false
+    t.boolean "NJ1040_LINE_58_IRS"
+    t.integer "NJ1040_LINE_59", default: 0, null: false
+    t.integer "NJ1040_LINE_61", default: 0, null: false
+    t.integer "NJ1040_LINE_64", default: 0, null: false
+    t.integer "NJ1040_LINE_65", default: 0, null: false
+    t.integer "NJ1040_LINE_65_DEPENDENTS", default: 0, null: false
+    t.boolean "NJ1040_LINE_7_SELF"
+    t.boolean "NJ1040_LINE_7_SPOUSE"
+    t.boolean "NJ1040_LINE_8_SELF"
+    t.boolean "NJ1040_LINE_8_SPOUSE"
+    t.boolean "claimed_as_dep"
+    t.datetime "created_at", null: false
+    t.bigint "state_file_nj_intake_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["state_file_nj_intake_id"], name: "index_state_file_nj_analytics_on_state_file_nj_intake_id"
   end
 
   create_table "state_file_nj_intakes", force: :cascade do |t|

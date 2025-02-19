@@ -1,0 +1,24 @@
+{
+  "familyAndHousehold": [],
+  "filers": [
+    {
+      "lastName": "Reynolds",
+      "dateOfBirth": "1943-03-17",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "firstName": "Frank",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "400-00-3041",
+      "interestReportsTotal": "0.00",
+      "isDisabled": false,
+      "form1099GsTotal": "0.00",
+      "isStudent": false,
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [],
+  "interestReports": []
+}

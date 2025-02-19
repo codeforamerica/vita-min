@@ -114,6 +114,7 @@
 class StateFileNjIntake < StateFileBaseIntake
   self.ignored_columns += ["primary_signature_pin", "spouse_signature_pin"]
   encrypts :account_number, :routing_number, :raw_direct_file_data, :raw_direct_file_intake_data
+  has_many :state_file_nj_analytics
 
   enum household_rent_own: { unfilled: 0, rent: 1, own: 2, neither: 3, both: 4 }, _prefix: :household_rent_own
 
@@ -197,10 +198,12 @@ class StateFileNjIntake < StateFileBaseIntake
     }
   end
 
-  def validate_state_specific_w2_requirements(w2); end
-
   def ask_for_signature_pin?
     false
+  end
+
+  def check_nra_status?
+    true
   end
 
   def medical_expenses_threshold
@@ -208,5 +211,10 @@ class StateFileNjIntake < StateFileBaseIntake
     (nj_gross_income * 0.02).floor
   end
 
+  def validate_state_specific_w2_requirements(w2)
+    super
+    if w2.wages.positive? && !w2.state_wages_amount.positive?
+      w2.errors.add(:state_wages_amount, I18n.t("state_file.questions.w2.edit.state_wages_amt_error"))
+    end
+  end
 end
-

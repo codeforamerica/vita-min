@@ -1,6 +1,7 @@
 <div class="reveal">
   <p><button class="reveal__button"><%= t("state_file.questions.eligible.edit.credits_not_supported")%></button></p>
   <div class="reveal__content spacing-below-25">
+    <p><%=t('.not_supported_this_year') %></p>
     <ul>
       <li><%=t('.id_college_savings_program') %></li>
       <li><%=t('.id_youth_rehab_contributions') %></li>
@@ -10,8 +11,10 @@
       <li><%=t('.education_contribution_credit') %></li>
       <li><%=t('.itemized_deductions') %></li>
       <li><%=t('.dependents_not_claimed_fed_return') %></li>
-      <li><%=t('.voluntary_donations') %></li>
       <li><%=t('.change_in_filing_status') %></li>
     </ul>
+    <p>
+      <%= t('state_file.questions.eligible.edit.faq_link_html', url: "#{root_url}/id/faq/what_idaho_credits_and_deductions_does_fileyourstatetaxes_not_support_this_year") %>
+    </p>
   </div>
 </div>

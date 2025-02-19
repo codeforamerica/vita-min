@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>6ccde4dd</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400003035</PrimarySSN>
+            <SpouseSSN>400003036</SpouseSSN>
+            <NameLine1Txt>BLANCHE J&lt;DEAVERAUX&lt;&amp; ROSE NYLUND</NameLine1Txt>
+            <PrimaryNameControlTxt>DEAV</PrimaryNameControlTxt>
+            <SpouseNameControlTxt>NYLU</SpouseNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>555 Gloden Lane</AddressLine1Txt>
+                <CityNm>Owing Mills</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21117</ZIPCd>
+            </USAddress>
+            <PhoneNum>3034445555</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000303-5b4e-41b8-ac6d-ae3514b50b0e@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="3">
+        <IRS1040 documentId="IRS10400001">
+            <Form1040SRInd>X</Form1040SRInd>
+            <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <Spouse65OrOlderInd>X</Spouse65OrOlderInd>
+            <TotalBoxesCheckedCnt>1</TotalBoxesCheckedCnt>
+            <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>2</TotalExemptionsCnt>
+            <TotalTaxablePensionsAmt>95000</TotalTaxablePensionsAmt>
+            <TotalIncomeAmt>95000</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>95000</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>30750</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>30750</TotalDeductionsAmt>
+            <TaxableIncomeAmt>64250</TaxableIncomeAmt>
+            <TaxAmt>7249</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>7249</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>7249</TaxLessCreditsAmt>
+            <TotalTaxAmt>7249</TotalTaxAmt>
+            <WithholdingTaxAmt>8100</WithholdingTaxAmt>
+            <TotalPaymentsAmt>8100</TotalPaymentsAmt>
+            <OverpaidAmt>851</OverpaidAmt>
+            <RefundAmt>851</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Hotelier</PrimaryOccupationTxt>
+            <SpouseOccupationTxt>Retired</SpouseOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1099R documentId="IRS1099R0001">
+            <PayerNameControlTxt>FEDE</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Federal Employee Retirement System</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>500 9th Street NW</AddressLine1Txt>
+                <CityNm>Washington</CityNm>
+                <StateAbbreviationCd>DC</StateAbbreviationCd>
+                <ZIPCd>20001</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>561005071</PayerEIN>
+            <RecipientSSN>400003035</RecipientSSN>
+            <RecipientNm>Blanche J Deaveraux</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>6565 Southern Belle Way</AddressLine1Txt>
+                <CityNm>Atlanta</CityNm>
+                <StateAbbreviationCd>GA</StateAbbreviationCd>
+                <ZIPCd>30314</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>45000</GrossDistributionAmt>
+            <TaxableAmt>45000</TaxableAmt>
+            <TotalDistributionInd>X</TotalDistributionInd>
+            <FederalIncomeTaxWithheldAmt>3800</FederalIncomeTaxWithheldAmt>
+            <F1099RDistributionCd>2</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <StateTaxWithheldAmt>2100</StateTaxWithheldAmt>
+                    <StateAbbreviationCd>MD</StateAbbreviationCd>
+                    <PayerStateIdNum>123456789</PayerStateIdNum>
+                    <StateDistributionAmt>45000</StateDistributionAmt>
+                    <F1099RLocalTaxGrp/>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRS1099R documentId="IRS1099R0002">
+            <PayerNameControlTxt>STOL</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>St Olafs Retirement Plan</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>7000 St Olaf Ave</AddressLine1Txt>
+                <CityNm>Northfield</CityNm>
+                <StateAbbreviationCd>MN</StateAbbreviationCd>
+                <ZIPCd>55057</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>132796485</PayerEIN>
+            <RecipientSSN>400003036</RecipientSSN>
+            <RecipientNm>Rose Nylund</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>555 Gloden Lane</AddressLine1Txt>
+                <CityNm>Owing Mills</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21117</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>50000</GrossDistributionAmt>
+            <TaxableAmt>50000</TaxableAmt>
+            <TotalDistributionInd>X</TotalDistributionInd>
+            <FederalIncomeTaxWithheldAmt>4300</FederalIncomeTaxWithheldAmt>
+            <F1099RDistributionCd>7</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <StateTaxWithheldAmt>2500</StateTaxWithheldAmt>
+                    <StateAbbreviationCd>MD</StateAbbreviationCd>
+                    <PayerStateIdNum>123456789123465</PayerStateIdNum>
+                    <StateDistributionAmt>50000</StateDistributionAmt>
+                    <F1099RLocalTaxGrp/>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+    </ReturnData>
+</Return>

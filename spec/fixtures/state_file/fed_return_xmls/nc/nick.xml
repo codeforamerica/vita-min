@@ -139,6 +139,60 @@
       </W2StateLocalTaxGrp>
       <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
     </IRSW2>
+    <IRS1099R documentId="IRS1099R0001">
+      <PayerNameControlTxt>PAYE</PayerNameControlTxt>
+      <PayerName>
+        <BusinessNameLine1Txt>Payer Name</BusinessNameLine1Txt>
+      </PayerName>
+      <PayerUSAddress>
+        <AddressLine1Txt>2030 Pecan Street</AddressLine1Txt>
+        <CityNm>Raleigh</CityNm>
+        <StateAbbreviationCd>NC</StateAbbreviationCd>
+        <ZIPCd>27513</ZIPCd>
+      </PayerUSAddress>
+      <PayerEIN>000000001</PayerEIN>
+      <PhoneNum>2025551212</PhoneNum>
+      <RecipientNm>Nicky Nick</RecipientNm>
+      <GrossDistributionAmt>200</GrossDistributionAmt>
+      <TaxableAmt>1000</TaxableAmt>
+      <FederalIncomeTaxWithheldAmt>300</FederalIncomeTaxWithheldAmt>
+      <F1099RDistributionCd>7</F1099RDistributionCd>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+      <F1099RStateLocalTaxGrp>
+        <F1099RStateTaxGrp>
+          <StateTaxWithheldAmt>0</StateTaxWithheldAmt>
+          <StateDistributionAmt>0</StateDistributionAmt>
+        </F1099RStateTaxGrp>
+      </F1099RStateLocalTaxGrp>
+      <CapitalGainAmt>0</CapitalGainAmt>
+    </IRS1099R>
+    <IRS1099R documentId="IRS1099R0002">
+      <PayerNameControlTxt>PAYEE</PayerNameControlTxt>
+      <PayerName>
+        <BusinessNameLine1Txt>Payer Name 2</BusinessNameLine1Txt>
+      </PayerName>
+      <PayerUSAddress>
+        <AddressLine1Txt>2000 Pecan Street</AddressLine1Txt>
+        <CityNm>Raleigh</CityNm>
+        <StateAbbreviationCd>NC</StateAbbreviationCd>
+        <ZIPCd>27513</ZIPCd>
+      </PayerUSAddress>
+      <PayerEIN>000000002</PayerEIN>
+      <PhoneNum>2025551212</PhoneNum>
+      <RecipientNm>Nick Nicko</RecipientNm>
+      <GrossDistributionAmt>300</GrossDistributionAmt>
+      <TaxableAmt>2000</TaxableAmt>
+      <FederalIncomeTaxWithheldAmt>300</FederalIncomeTaxWithheldAmt>
+      <F1099RDistributionCd>7</F1099RDistributionCd>
+      <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+      <F1099RStateLocalTaxGrp>
+        <F1099RStateTaxGrp>
+          <StateTaxWithheldAmt>0</StateTaxWithheldAmt>
+          <StateDistributionAmt>0</StateDistributionAmt>
+        </F1099RStateTaxGrp>
+      </F1099RStateLocalTaxGrp>
+      <CapitalGainAmt>0</CapitalGainAmt>
+    </IRS1099R>
     <IRS2441><TotalQlfdExpensesOrLimitAmt>0</TotalQlfdExpensesOrLimitAmt></IRS2441>
   </ReturnData>
 </Return>

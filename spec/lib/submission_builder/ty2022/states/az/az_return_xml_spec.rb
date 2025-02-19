@@ -18,6 +18,10 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
       expect(build_response.errors).not_to be_present
     end
 
+    it "includes the SpecialProgram node in the RetrunHeaderState" do
+      expect(xml.document.at('ReturnHeaderState SpecialProgram').text).to eq "Direct File"
+    end
+
     context "married filing jointly" do
       let(:intake) { create(:state_file_az_intake, filing_status: :married_filing_jointly) }
 
@@ -44,7 +48,21 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
           expect(instance.send(:xml_hoh_qualifying_person)).to be_nil
         end
 
-        # TODO: Write tests for when xml exists, when they exist
+        context 'when there is qualifying person in the xml' do
+          let(:intake) do
+            create(
+              :state_file_az_intake,
+              filing_status: :head_of_household,
+              raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml('az_marge_hoh_no_deps'),
+              raw_direct_file_intake_data: StateFile::DirectFileApiResponseSampleService.new.read_json('az_marge_hoh_no_deps')
+            )
+          end
+          it 'should return a hash when there is a matching xml element' do
+            response = instance.send(:xml_hoh_qualifying_person)
+            expect(response).to be_kind_of(Hash)
+            expect(response.keys).to eq [:first_name, :last_name]
+          end
+        end
       end
 
       describe "#json_xml_qualifying_person" do
@@ -65,6 +83,21 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
       it 'should create the QualChildDependentName' do
         expect(xml.at('QualChildDependentName')).to be_present
         expect(xml.at('QualChildDependentName FirstName').text).to eq 'Axel'
+      end
+
+      describe 'when the filing status is not hoh but there is a qualifying person' do
+        let(:intake) do
+          create(
+            :state_file_az_intake,
+            filing_status: :single,
+            raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml('az_alexis_hoh'),
+            raw_direct_file_intake_data: StateFile::DirectFileApiResponseSampleService.new.read_json('az_alexis_hoh')
+          )
+        end
+
+        it 'does not create the QualChildDependentName' do
+          expect(xml.at('QualChildDependentName')).to be_nil
+        end
       end
     end
 
@@ -239,6 +272,18 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
       it "fills in the lines correctly" do
         intake.direct_file_json_data.interest_reports.first&.interest_on_government_bonds = "2.00"
         expect(xml.css("Subtractions IntUSObligations").text).to eq "2"
+      end
+
+      context "has 1099R subtractions" do
+        before do
+          allow_any_instance_of(Efile::Az::Az140Calculator).to receive(:calculate_line_29a).and_return 500
+          allow_any_instance_of(Efile::Az::Az140Calculator).to receive(:calculate_line_29b).and_return 420
+        end
+
+        it "should fill out the amount" do
+          expect(xml.at("Subtractions ExecFedStateLocGovPen").text).to eq "500"
+          expect(xml.at("Subtractions SubExclBenAnnPen").text).to eq "420"
+        end
       end
     end
   end

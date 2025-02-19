@@ -24,7 +24,7 @@ describe SubmissionBuilder::State1099R do
         expect(doc.at("PayerUSAddress AddressLine2Txt").text).to eq "Apt 202"
         expect(doc.at("PayerUSAddress CityNm").text).to eq "Long Island"
         expect(doc.at("PayerUSAddress StateAbbreviationCd").text).to eq "#{state_code.upcase}"
-        expect(doc.at("PayerUSAddress ZIPCd").text).to eq "12345"
+        expect(doc.at("PayerUSAddress ZIPCd").text).to eq "123451234"
         expect(doc.at("PayerEIN").text).to eq "22345"
         expect(doc.at("RecipientSSN").text).to eq "123456789"
         expect(doc.at("RecipientNm").text).to eq "Dorothy Jane Red"

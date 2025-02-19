@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>a1978a1a</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>622009256</PrimarySSN>
+            <NameLine1Txt>LYRA&lt;BELACQUA</NameLine1Txt>
+            <PrimaryNameControlTxt>BELA</PrimaryNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>300 Oxford Ave</AddressLine1Txt>
+                <CityNm>Boise</CityNm>
+                <StateAbbreviationCd>ID</StateAbbreviationCd>
+                <ZIPCd>83701</ZIPCd>
+            </USAddress>
+            <PhoneNum>3038881122</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+62200925-669c-4f9d-a951-a27bc453798e@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="3">
+        <IRS1040 documentId="IRS10400001">
+            <IndividualReturnFilingStatusCd>1</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <PrimaryClaimAsDependentInd>X</PrimaryClaimAsDependentInd>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>1</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">10500</WagesAmt>
+            <WagesSalariesAndTipsAmt>10500</WagesSalariesAndTipsAmt>
+            <TotalTaxablePensionsAmt>5000</TotalTaxablePensionsAmt>
+            <TotalIncomeAmt>15500</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>15500</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>10950</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>10950</TotalDeductionsAmt>
+            <TaxableIncomeAmt>4550</TaxableIncomeAmt>
+            <TaxAmt>458</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>458</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>458</TaxLessCreditsAmt>
+            <TotalTaxAmt>458</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>1000</FormW2WithheldTaxAmt>
+            <WithholdingTaxAmt>1000</WithholdingTaxAmt>
+            <TotalPaymentsAmt>1000</TotalPaymentsAmt>
+            <OverpaidAmt>542</OverpaidAmt>
+            <RefundAmt>542</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Student</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1099R documentId="IRS1099R0001">
+            <PayerNameControlTxt>OXFO</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Oxford Retirement Services</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>PO Box 82</AddressLine1Txt>
+                <CityNm>Lakewood</CityNm>
+                <StateAbbreviationCd>CO</StateAbbreviationCd>
+                <ZIPCd>80232</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>378765566</PayerEIN>
+            <RecipientSSN>622009256</RecipientSSN>
+            <RecipientNm>Lyra Belacqua</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>300 Oxford Ave</AddressLine1Txt>
+                <CityNm>Boise</CityNm>
+                <StateAbbreviationCd>ID</StateAbbreviationCd>
+                <ZIPCd>83701</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>5000</GrossDistributionAmt>
+            <TaxableAmt>5000</TaxableAmt>
+            <F1099RDistributionCd>2</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <StateAbbreviationCd>ID</StateAbbreviationCd>
+                    <PayerStateIdNum>881999321</PayerStateIdNum>
+                    <StateDistributionAmt>0</StateDistributionAmt>
+                    <F1099RLocalTaxGrp/>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>622009256</EmployeeSSN>
+            <EmployerEIN>023290123</EmployerEIN>
+            <EmployerNameControlTxt>WILL</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Will's Cutlery Supply</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>1 Mississippi Ave</AddressLine1Txt>
+                <CityNm>Charlotte</CityNm>
+                <StateAbbreviationCd>NC</StateAbbreviationCd>
+                <ZIPCd>28202</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Lyra Belacqua</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>300 Oxford Ave</AddressLine1Txt>
+                <CityNm>Boise</CityNm>
+                <StateAbbreviationCd>ID</StateAbbreviationCd>
+                <ZIPCd>83701</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>10500</WagesAmt>
+            <WithholdingAmt>1000</WithholdingAmt>
+            <SocialSecurityWagesAmt>10500</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>651</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>10500</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>152</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>ID</StateAbbreviationCd>
+                    <EmployerStateIdNum>ID 38-7763391</EmployerStateIdNum>
+                    <StateWagesAmt>10500</StateWagesAmt>
+                    <StateIncomeTaxAmt>500</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>

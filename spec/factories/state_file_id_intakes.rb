@@ -93,6 +93,7 @@ FactoryBot.define do
     raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.old_xml_sample }
     raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.old_json_sample }
     df_data_import_succeeded_at { DateTime.now }
+    state_file_analytics { StateFileAnalytics.create }
 
     transient do
       filing_status { "single" }
@@ -151,6 +152,10 @@ FactoryBot.define do
     trait :single_filer_with_json do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('id_lana_single') }
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('id_lana_single') }
+    end
+
+    trait :with_spouse do
+      :mfj_filer_with_json
     end
 
     trait :mfj_filer_with_json do

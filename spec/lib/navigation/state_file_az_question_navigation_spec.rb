@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe Navigation::StateFileAzQuestionNavigation do
   describe "Flow" do
     it "Flow has not changed" do
-      expect(Navigation::StateFileAzQuestionNavigation::FLOW).to eq([
+      expected_flow = [
         StateFile::Questions::EligibleController,
         StateFile::Questions::ContactPreferenceController,
         StateFile::Questions::PhoneNumberController,
@@ -24,6 +24,7 @@ RSpec.describe Navigation::StateFileAzQuestionNavigation do
         StateFile::Questions::AzPriorLastNamesController,
         StateFile::Questions::IncomeReviewController,
         StateFile::Questions::UnemploymentController,
+        StateFile::Questions::AzRetirementIncomeSubtractionController,
         StateFile::Questions::AzPublicSchoolContributionsController,
         StateFile::Questions::AzCharitableContributionsController,
         StateFile::Questions::AzQualifyingOrganizationContributionsController,
@@ -37,7 +38,8 @@ RSpec.describe Navigation::StateFileAzQuestionNavigation do
         StateFile::Questions::EsignDeclarationController, # creates EfileSubmission and transitions to preparing
         StateFile::Questions::SubmissionConfirmationController,
         StateFile::Questions::ReturnStatusController,
-      ])
+      ]
+      expect(Navigation::StateFileAzQuestionNavigation::FLOW).to eq(expected_flow)
     end
   end
 
@@ -58,7 +60,7 @@ RSpec.describe Navigation::StateFileAzQuestionNavigation do
     it "returns the correct progress" do
       progress = Navigation::StateFileAzQuestionNavigation.get_progress(StateFile::Questions::FederalInfoController)
       expect(progress).to eq({
-                               title: "Section 5: Complete your state tax return",
+                               title: "Complete your state tax return",
                                step_number: 4,
                                number_of_steps: 6
                              })

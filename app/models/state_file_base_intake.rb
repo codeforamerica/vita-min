@@ -145,7 +145,7 @@ class StateFileBaseIntake < ApplicationRecord
         employer_name: direct_file_w2.EmployerName,
         employee_name: direct_file_w2.EmployeeNm,
         employee_ssn: direct_file_w2.EmployeeSSN,
-        employer_state_id_num: direct_file_w2.EmployerStateIdNum,
+        employer_state_id_num: direct_file_w2.EmployerStateIdNum&.delete("\u00AD"),
         local_income_tax_amount: direct_file_w2.LocalIncomeTaxAmt,
         local_wages_and_tips_amount: direct_file_w2.LocalWagesAndTipsAmt,
         locality_nm: direct_file_w2.LocalityNm,
@@ -236,6 +236,22 @@ class StateFileBaseIntake < ApplicationRecord
     Person.new(self, :spouse)
   end
 
+  def filer_1099_rs(primary_or_spouse)
+    state_file1099_rs.filter do |state_file_1099_r|
+      state_file_1099_r.recipient_ssn == send(primary_or_spouse).ssn
+    end
+  end
+
+  def sum_1099_r_followup_type_for_filer(primary_or_spouse, followup_type)
+    filer_1099_rs(primary_or_spouse).sum do |state_file_1099_r|
+      if state_file_1099_r.state_specific_followup&.send(followup_type)
+        state_file_1099_r.taxable_amount&.round
+      else
+        0
+      end
+    end
+  end
+
   def ask_for_signature_pin?
     false
   end
@@ -252,6 +268,10 @@ class StateFileBaseIntake < ApplicationRecord
     false
   end
 
+  def check_nra_status?
+    false
+  end
+
   def ask_spouse_esign?
     filing_status_mfj? && !spouse_deceased?
   end
@@ -260,12 +280,7 @@ class StateFileBaseIntake < ApplicationRecord
     direct_file_data.spouse_deceased?
   end
 
-  def validate_state_specific_w2_requirements(w2)
-    w2_xml = direct_file_data.w2s[w2.w2_index]
-    if w2_xml.present? && w2.state_wages_amount.present? && w2.state_wages_amount > w2_xml.WagesAmt
-      w2.errors.add(:state_wages_amount, I18n.t("state_file.questions.w2.edit.state_wages_exceed_amt_error", wages_amount: w2_xml.WagesAmt))
-    end
-  end
+  def validate_state_specific_w2_requirements(w2); end
 
   def validate_state_specific_1099_g_requirements(state_file1099_g)
     unless /\A\d{9}\z/.match?(state_file1099_g.payer_tin)
@@ -283,6 +298,10 @@ class StateFileBaseIntake < ApplicationRecord
 
   def allows_w2_editing?
     true
+  end
+
+  def has_banking_information_in_financial_resolution?
+    false
   end
 
   class Person
@@ -375,8 +394,11 @@ class StateFileBaseIntake < ApplicationRecord
       StateFile::Questions::ReturnStatusController
     else
       step_name = current_step.split('/').last
-      controller_name = "StateFile::Questions::#{step_name.underscore.camelize}Controller"
-      controller_name.constantize
+      if step_name == "w2"
+        StateFile::Questions::IncomeReviewController
+      else
+        "StateFile::Questions::#{step_name.underscore.camelize}Controller".constantize
+      end
     end
   rescue StandardError
     if hashed_ssn.present?
@@ -384,7 +406,6 @@ class StateFileBaseIntake < ApplicationRecord
     else
       StateFile::Questions::TermsAndConditionsController
     end
-
   end
 
   def self.opted_out_state_file_intakes(email)
@@ -428,5 +449,9 @@ class StateFileBaseIntake < ApplicationRecord
       birth_year -= 1 if birthday_is_jan_1
     end
     MultiTenantService.statefile.current_tax_year - birth_year
+  end
+
+  def unsubscribed_from_sms?
+    self.sms_notification_opt_in == "no"
   end
 end

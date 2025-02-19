@@ -68,6 +68,7 @@
 #  primary_ssn                                :string
 #  primary_student_loan_interest_ded_amount   :decimal(12, 2)   default(0.0), not null
 #  primary_suffix                             :string
+#  proof_of_disability_submitted              :integer          default("unfilled"), not null
 #  raw_direct_file_data                       :text
 #  raw_direct_file_intake_data                :jsonb
 #  referrer                                   :string
@@ -119,6 +120,41 @@ RSpec.describe StateFileMdIntake, type: :model do
     it "doesn't include Jan 1st in the past tax year" do
       expect(intake.calculate_age(dob, inclusive_of_jan_1: true)).to eq 10
       expect(intake.calculate_age(dob, inclusive_of_jan_1: false)).to eq 10
+    end
+  end
+
+  describe "is_filer_55_and_older?" do
+
+    context "when primary is 55 or older" do
+      let(:dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 55), 1, 1) }
+      let(:intake) { create :state_file_md_intake, primary_birth_date: dob }
+      it "returns true" do
+        expect(intake.is_filer_55_and_older?(:primary)).to eq true
+      end
+    end
+
+    context "when the primary is younger than 55" do
+      let!(:intake) { create :state_file_md_intake, primary_birth_date: dob }
+      let(:dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 54), 1, 1) }
+      it "returns true" do
+        expect(intake.is_filer_55_and_older?(:primary)).to eq false
+      end
+    end
+
+    context "when the spouse is 55 or older" do
+      let(:dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 55), 1, 1) }
+      let(:intake) { create :state_file_md_intake, spouse_birth_date: dob }
+      it "returns true" do
+        expect(intake.is_filer_55_and_older?(:spouse)).to eq true
+      end
+    end
+
+    context "when the spouse is younger than 55" do
+      let(:dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 54), 1, 1) }
+      let(:intake) { create :state_file_md_intake, spouse_birth_date: dob }
+      it "returns true" do
+        expect(intake.is_filer_55_and_older?(:spouse)).to eq false
+      end
     end
   end
 
@@ -222,19 +258,194 @@ RSpec.describe StateFileMdIntake, type: :model do
   end
 
   describe "#address" do
-  context "a confirmed address" do
-    subject(:intake) { create :state_file_md_intake, :with_confirmed_address }
+    context "a confirmed address" do
+        subject(:intake) { create :state_file_md_intake, :with_confirmed_address }
 
-      it "returns the permanent address" do
-        expect(intake.address).to eq("321 Main St Apt 2, Baltimore, MD 21202")
+        it "returns the permanent address" do
+          expect(intake.address).to eq("321 Main St Apt 2, Baltimore, MD 21202")
+        end
       end
-    end
 
     context "an unconfirmed address" do
       subject(:intake) { create :state_file_md_intake, :with_permanent_address, confirmed_permanent_address: "no" }
 
       it "returns the submitted permanent address" do
         expect(intake.address).to eq("123 Main St Apt 1, Baltimore MD, 21201")
+      end
+    end
+  end
+
+  describe "#sum_two_1099_r_followup_types_for_filer" do
+    context "with followups present" do
+      let!(:intake) { create(:state_file_md_intake, :with_spouse) }
+      let(:state_file_md1099_r_followup_with_one_followup_criterion_for_primary) do
+        create(
+          :state_file_md1099_r_followup,
+          income_source: "pension_annuity_endowment",
+          state_file1099_r: create(:state_file1099_r, taxable_amount: 1_000, intake: intake, recipient_ssn: intake.primary.ssn)
+        )
+      end
+      let!(:state_file_md1099_r_followup_with_both_followup_criteria_for_spouse_1) do
+        create(
+          :state_file_md1099_r_followup,
+          income_source: "pension_annuity_endowment",
+          service_type: "public_safety",
+          state_file1099_r: create(:state_file1099_r, taxable_amount: 1_000, intake: intake, recipient_ssn: intake.spouse.ssn)
+        )
+      end
+      let!(:state_file_md1099_r_followup_with_both_followup_criteria_for_spouse_2) do
+        create(
+          :state_file_md1099_r_followup,
+          income_source: "pension_annuity_endowment",
+          service_type: "public_safety",
+          state_file1099_r: create(:state_file1099_r, taxable_amount: 1_500, intake: intake, recipient_ssn: intake.spouse.ssn)
+        )
+      end
+
+      context "when only one followup is present" do
+        it "returns 0" do
+          expect(intake.sum_two_1099_r_followup_types_for_filer(:primary, :income_source_pension_annuity_endowment?, :service_type_public_safety? )).to eq(0)
+        end
+      end
+
+      context "when the income source qualifies the filer" do
+        it "returns the sum of the taxable amount" do
+          expect(intake.sum_two_1099_r_followup_types_for_filer(:spouse, :income_source_pension_annuity_endowment?, :service_type_public_safety? )).to eq(2500)
+        end
+      end
+    end
+
+    context "when none of the 1099-Rs are from a qualifying source" do
+      let!(:intake) { create(:state_file_md_intake, :with_spouse) }
+      let(:state_file_md1099_r_followup_with_one_followup_criterion_for_primary) do
+        create(
+          :state_file_md1099_r_followup,
+          income_source: "other",
+          service_type: "none",
+          state_file1099_r: create(:state_file1099_r, taxable_amount: 1_000, intake: intake, recipient_ssn: intake.primary.ssn)
+        )
+      end
+      it "returns 0" do
+        expect(intake.sum_two_1099_r_followup_types_for_filer(:primary, :income_source_pension_annuity_endowment?, :service_type_public_safety? )).to eq(0)
+      end
+    end
+
+    context "without 1099Rs" do
+      let(:intake) { create(:state_file_md_intake) }
+      it "returns 0" do
+        expect(intake.sum_two_1099_r_followup_types_for_filer(:primary, :income_source_pension_annuity_endowment?, :service_type_public_safety? )).to eq(0)
+        expect(intake.sum_two_1099_r_followup_types_for_filer(:spouse, :income_source_pension_annuity_endowment?, :service_type_public_safety? )).to eq(0)
+      end
+    end
+  end
+
+  describe "#at_least_one_disabled_filer_with_proof?" do
+    context "when mfj" do
+      let(:intake) do
+        create(:state_file_md_intake,
+               :with_spouse,
+                primary_disabled: primary_disabled,
+                spouse_disabled: spouse_disabled,
+                proof_of_disability_submitted: proof_of_disability_submitted
+        )
+      end
+
+      context "when either the spouse or primary is disabled, but there is no proof" do
+        let(:primary_disabled) { "yes" }
+        let(:spouse_disabled) { "no" }
+        let(:proof_of_disability_submitted) { "no" }
+        it "returns false" do
+          expect(intake.at_least_one_disabled_filer_with_proof?).to eq(false)
+        end
+      end
+
+      context "when neither the spouse or primary is disabled and there is proof" do
+        let(:primary_disabled) { "no" }
+        let(:spouse_disabled) { "no" }
+        let(:proof_of_disability_submitted) { "yes" }
+        it "returns false" do
+          expect(intake.at_least_one_disabled_filer_with_proof?).to eq(false)
+        end
+      end
+
+      context "when either the spouse or primary is disabled and there is proof" do
+        let(:primary_disabled) { "no" }
+        let(:spouse_disabled) { "yes" }
+        let(:proof_of_disability_submitted) { "yes" }
+        it "returns true" do
+          expect(intake.at_least_one_disabled_filer_with_proof?).to eq(true)
+        end
+      end
+    end
+
+    context "when not mfj" do
+      let(:intake) do
+        create(:state_file_md_intake,
+               primary_disabled: primary_disabled,
+               proof_of_disability_submitted: proof_of_disability_submitted
+        )
+      end
+
+      context "when the primary is disabled but there is no proof" do
+        let(:primary_disabled) { "yes" }
+        let(:proof_of_disability_submitted) { "no" }
+        it "returns false" do
+          expect(intake.at_least_one_disabled_filer_with_proof?).to eq(false)
+        end
+      end
+
+      context "when the primary is not disabled and there is proof" do
+        let(:primary_disabled) { "no" }
+        let(:proof_of_disability_submitted) { "yes" }
+        it "returns false" do
+          expect(intake.at_least_one_disabled_filer_with_proof?).to eq(false)
+        end
+      end
+
+      context "when the primary is disabled and there is proof" do
+        let(:primary_disabled) { "yes" }
+        let(:proof_of_disability_submitted) { "yes" }
+        it "returns true" do
+          expect(intake.at_least_one_disabled_filer_with_proof?).to eq(true)
+        end
+      end
+    end
+  end
+
+  describe "qualifies_for_pension_exclusion?" do
+    before do
+      allow_any_instance_of(StateFileMdIntake).to receive(:at_least_one_disabled_filer_with_proof?).and_return is_disabled
+    end
+    let(:senior_primary_dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 65), 1, 1) }
+    let(:non_senior_spouse_dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 64), 1, 1) }
+    let(:intake) { create :state_file_md_intake, :with_spouse, primary_birth_date: senior_primary_dob, spouse_birth_date: non_senior_spouse_dob }
+
+
+    context "when the filer is a senior and is disabled with proof" do
+      let(:is_disabled) { true }
+      it "returns true" do
+        expect(intake.qualifies_for_pension_exclusion?(:primary)).to eq(true)
+      end
+    end
+
+    context "when the filer is a senior and is not disabled with proof" do
+      let(:is_disabled) { false }
+      it "returns true" do
+        expect(intake.qualifies_for_pension_exclusion?(:primary)).to eq(true)
+      end
+    end
+
+    context "when the filer is not a senior but is disabled with proof" do
+      let(:is_disabled) { true }
+      it "returns true" do
+        expect(intake.qualifies_for_pension_exclusion?(:spouse)).to eq(true)
+      end
+    end
+
+    context "when the filer is not a senior nor are they disabled with proof" do
+      let(:is_disabled) { false }
+      it "returns true" do
+        expect(intake.qualifies_for_pension_exclusion?(:spouse)).to eq(false)
       end
     end
   end

@@ -1,10 +1,10 @@
 GIT
   remote: https://github.com/codeforamerica/honeycrisp-gem
-  revision: 64379cc8e7cf77ed68a98e226146405864ab49b5
-  ref: 64379cc8e7cf77ed68a98e226146405864ab49b5
+  revision: 0e15fc7d74a330866049d58516c6f2449958fb1b
+  ref: 0e15fc7d74a330866049d58516c6f2449958fb1b
   branch: main
   specs:
-    cfa-styleguide (0.15.2)
+    cfa-styleguide (0.16.0)
       autoprefixer-rails
       bourbon
       jquery-rails
@@ -203,7 +203,7 @@ GEM
       activerecord (>= 5.a)
       database_cleaner-core (~> 2.0.0)
     database_cleaner-core (2.0.1)
-    date (3.3.4)
+    date (3.4.1)
     ddtrace (1.9.0)
       debase-ruby_core_source (>= 0.10.16, <= 3.2.0)
       libdatadog (~> 1.0.1.1.0)
@@ -247,7 +247,7 @@ GEM
     erubi (1.13.0)
     erubis (2.7.0)
     excon (0.104.0)
-    execjs (2.9.1)
+    execjs (2.10.0)
     factory_bot (6.2.1)
       activesupport (>= 5.0.0)
     factory_bot_rails (6.2.0)
@@ -384,7 +384,7 @@ GEM
       ruby2_keywords (~> 0.0.1)
     mutex_m (0.3.0)
     nenv (0.3.0)
-    net-imap (0.4.17)
+    net-imap (0.4.19)
       date
       net-protocol
     net-pop (0.1.2)
@@ -471,7 +471,7 @@ GEM
       nio4r (~> 2.0)
     pycall (1.5.1)
     racc (1.8.1)
-    rack (2.2.9)
+    rack (2.2.11)
     rack-attack (6.7.0)
       rack (>= 1.0, < 4)
     rack-mini-profiler (3.1.1)
@@ -687,7 +687,7 @@ GEM
     thread_safe (0.3.6)
     tilt (2.3.0)
     timecop (0.9.8)
-    timeout (0.4.1)
+    timeout (0.4.3)
     ttfunk (1.7.0)
     turbo_tests (2.2.4)
       parallel_tests (>= 3.3.0, < 5)
@@ -750,7 +750,7 @@ DEPENDENCIES
   byebug
   cancancan
   capybara (>= 2.15)
-  cfa-styleguide (= 0.15.2)!
+  cfa-styleguide (= 0.16.0)!
   combine_pdf
   data_migrate
   database_cleaner

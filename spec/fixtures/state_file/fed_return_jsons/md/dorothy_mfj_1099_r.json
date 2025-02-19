@@ -1,0 +1,40 @@
+{
+  "familyAndHousehold": [],
+  "filers": [
+    {
+      "lastName": "Deaveraux",
+      "dateOfBirth": "1960-10-05",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "firstName": "Blanche",
+      "middleInitial": "J",
+      "educatorExpenses": "0.00",
+      "tin": "400-00-3035",
+      "interestReportsTotal": "0.00",
+      "isDisabled": false,
+      "form1099GsTotal": "0.00",
+      "isStudent": false,
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": null
+    },
+    {
+      "lastName": "Nylund",
+      "dateOfBirth": "1958-04-23",
+      "suffix": null,
+      "isPrimaryFiler": false,
+      "firstName": "Rose",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "400-00-3036",
+      "interestReportsTotal": "0.00",
+      "isDisabled": false,
+      "form1099GsTotal": "0.00",
+      "isStudent": false,
+      "ssnNotValidForEmployment": null,
+      "hsaTotalDeductibleAmount": null
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [],
+  "interestReports": []
+}

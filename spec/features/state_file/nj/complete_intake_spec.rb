@@ -12,7 +12,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
   context "NJ", :flow_explorer_screenshot, js: true do
 
-    def advance_to_start_of_intake(df_persona_name, check_a11y: false, expect_income_review: true)
+    def advance_to_start_of_intake(df_persona_name, check_a11y: false, expect_income_review: true, expect_success: true)
       visit "/"
       click_on "Start Test NJ"
 
@@ -24,7 +24,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       continue
 
       expect(page).to be_axe_clean if check_a11y
-      step_through_initial_authentication(contact_preference: :email)
+      step_through_initial_authentication(contact_preference: :email, check_a11y: check_a11y)
       expect(page).to be_axe_clean if check_a11y
 
       check "Email"
@@ -38,15 +38,17 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("general.accept")
 
       expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
+      expect(page).to have_text I18n.t('general.owner.nj')
       expect(page).not_to have_css(".progress-steps")
       expect(page).to be_axe_clean if check_a11y
       click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
 
-      step_through_df_data_transfer("Transfer #{df_persona_name}")
+      step_through_df_data_transfer("Transfer #{df_persona_name}", expect_success)
 
       if expect_income_review
         expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
         expect(page).to have_css(".progress-steps")
+        expect(page).to have_text("Section 1 of 5: Income")
         expect(page).to be_axe_clean if check_a11y
         continue
       end
@@ -54,14 +56,13 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
     def advance_health_insurance_eligibility
       expect(page).to have_text I18n.t("state_file.questions.nj_eligibility_health_insurance.edit.title")
+      expect(page).to have_text("Section 2 of 5: Your household")
       choose I18n.t("general.affirmative")
       continue
     end
 
     def advance_county_and_municipality(county = "Atlantic", municipality = "Atlantic City")
       select county
-      continue
-
       select municipality
       continue
     end
@@ -96,11 +97,13 @@ RSpec.feature "Completing a state file intake", active_job: true do
           check I18n.t('state_file.questions.nj_college_dependents_exemption.edit.filer_pays_tuition_books')
         end
       end
+      expect_programmatically_associated_help_text
       continue
     end
 
     def advance_medical_expenses(amount: 1000)
       fill_in I18n.t('state_file.questions.nj_medical_expenses.edit.label', filing_year: filing_year), with: amount
+      expect(page).to have_text("Section 3 of 5: Deductions and credits")
       continue
     end
 
@@ -166,6 +169,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
     def expect_page_after_property_tax
       expect(page).to have_text I18n.t("state_file.questions.nj_sales_use_tax.edit.title", filing_year: filing_year)
+      expect(page).to have_text("Section 4 of 5: Your 2024 taxes")
     end
 
     def expect_ineligible_page(property, reason)
@@ -192,6 +196,11 @@ RSpec.feature "Completing a state file intake", active_job: true do
         advance_college_dependents
       end
       advance_medical_expenses
+    end
+
+    def check_xml_results
+      click_on "Main XML Doc"
+      expect(page.body).to include('<ZIPCd>071021234</ZIPCd>')
     end
 
     it "advances past the loading screen by listening for an actioncable broadcast", required_schema: "nj" do
@@ -270,7 +279,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       click_on I18n.t("state_file.questions.nj_review.edit.reveal.header")
       amounts_in_calculation_details = page.all(:xpath, '//*[contains(@class,"main-content-inner")]/section[last()]//p[contains(text(),"$")]')
-      expect(amounts_in_calculation_details.count).to eq(19)
+      expect(amounts_in_calculation_details.count).to eq(20)
       expect(page).to be_axe_clean
       continue
 
@@ -292,6 +301,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       expect(page).to be_axe_clean
       expect(page).to have_css(".progress-steps")
+      expect(page).to have_text("Section 5 of 5: Review and submit")
       check I18n.t('state_file.questions.esign_declaration.edit.primary_esign')
       check I18n.t('state_file.questions.esign_declaration.edit.spouse_esign')
       click_on I18n.t('state_file.questions.esign_declaration.edit.submit')
@@ -299,6 +309,26 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to be_axe_clean
       expect(page).not_to have_css(".progress-steps")
       expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", filing_year: 2024, state_name: "New Jersey")
+
+      check_xml_results
+    end
+
+    it "shown offboarding when exempt interest over 10k" do
+      advance_to_start_of_intake("Exempt interest over 10k", expect_income_review: false, expect_success: false)
+
+      expect(page).to be_axe_clean
+      expect(page).to have_text I18n.t("state_file.questions.data_transfer_offboarding.edit.title")
+    end
+
+    it "shown offboarding when no health insurance" do
+      advance_to_start_of_intake("Superman mfj")
+
+      expect(page).to have_text I18n.t("state_file.questions.nj_eligibility_health_insurance.edit.title")
+      choose I18n.t("general.negative")
+      continue
+
+      expect(page).to be_axe_clean
+      expect(page).to have_text I18n.t("state_file.questions.eligibility_offboarding.edit.title.nj")
     end
 
     it "handles property tax neither flow", required_schema: "nj" do
@@ -510,6 +540,75 @@ RSpec.feature "Completing a state file intake", active_job: true do
         expect_ineligible_page(nil, "income_mfj_qss_hoh")
         expect_page_after_property_tax
       end
+    end
+
+    context "county / municipality screen" do
+
+      def expect_county_question_exists
+        expect(page).to have_text I18n.t("state_file.questions.nj_county_municipality.edit.county")
+      end
+
+      def expect_municipality_question_exists
+        expect(page).to have_text I18n.t("state_file.questions.nj_county_municipality.edit.municipality")
+      end
+
+      def expect_municipality_question_hidden
+        expect(page).not_to have_text I18n.t("state_file.questions.nj_county_municipality.edit.municipality")
+      end
+
+      it "does not show municipality selector unless county selected" do
+        advance_to_start_of_intake("Minimal", expect_income_review: false)
+
+        # land on county/municipality page
+        expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.nj_county_municipality.edit.title_html", filing_year: 2024))
+        expect_county_question_exists
+        expect_municipality_question_hidden
+
+        # select county
+        select "Atlantic"
+        expect_county_question_exists
+        expect_municipality_question_exists
+
+        # unselect county
+        within find('#county-question') do
+          select I18n.t('general.select_prompt')
+        end
+        expect_county_question_exists
+        expect_municipality_question_hidden
+      end
+
+      it "populates municipality selector based on county" do
+        advance_to_start_of_intake("Minimal", expect_income_review: false)
+
+        select "Atlantic"
+        within find('#municipality-question') do
+          expect(page.all("option").length).to eq(24) # 23 municipalities + 1 "- Select -"
+          expect(page).to have_text "Absecon City"
+          expect(page).to have_text "Atlantic City"
+          expect(page).to have_text "Egg Harbor City"
+          expect(page).to have_text "Weymouth Township"
+        end
+
+        select "Mercer"
+        within find('#municipality-question') do
+          expect(page.all("option").length).to eq(13) # 12 municipalities + 1 "- Select -"
+          expect(page).to have_text "East Windsor Township"
+          expect(page).to have_text "Hopewell Township"
+          expect(page).to have_text "West Windsor Township"
+        end
+      end
+
+      it "un-selects municipality when county changes" do
+        advance_to_start_of_intake("Minimal", expect_income_review: false)
+
+        select "Atlantic"
+        select "Absecon City"
+        expect(find("#state_file_nj_county_municipality_form_municipality_code").value).to eq("0101")
+
+        select "Mercer"
+        expect(find("#state_file_nj_county_municipality_form_municipality_code").value).to eq("")
+      end
+
     end
   end
 end

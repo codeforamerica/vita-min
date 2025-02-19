@@ -27,7 +27,7 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::WaitingToLoadDataController),
       ]),
       Navigation::NavigationSection.new("state_file.navigation.section_5", [
-        Navigation::NavigationStep.new(StateFile::Questions::PostDataTransferController, false),
+        Navigation::NavigationStep.new(StateFile::Questions::PostDataTransferController),
         Navigation::NavigationStep.new(StateFile::Questions::DataTransferOffboardingController, false),
         # Federal info does not show to users
         Navigation::NavigationStep.new(StateFile::Questions::FederalInfoController),
@@ -36,6 +36,8 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::IncomeReviewController),
         Navigation::NavigationStep.new(StateFile::Questions::UnemploymentController),
         Navigation::NavigationStep.new(StateFile::Questions::MdSocialSecurityBenefitsController),
+        Navigation::NavigationStep.new(StateFile::Questions::MdRetirementIncomeSubtractionController),
+        Navigation::NavigationStep.new(StateFile::Questions::MdPermanentlyDisabledController),
         Navigation::NavigationStep.new(StateFile::Questions::MdTwoIncomeSubtractionsController),
         Navigation::NavigationStep.new(StateFile::Questions::PrimaryStateIdController),
         Navigation::NavigationStep.new(StateFile::Questions::SpouseStateIdController),
@@ -44,11 +46,11 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::MdTaxRefundController),
         Navigation::NavigationStep.new(StateFile::Questions::MdHadHealthInsuranceController),
         Navigation::NavigationStep.new(StateFile::Questions::EsignDeclarationController), # creates EfileSubmission and transitions to preparing
-      ]),
+      ], true, true),
       Navigation::NavigationSection.new("state_file.navigation.section_6", [
         Navigation::NavigationStep.new(StateFile::Questions::SubmissionConfirmationController),
         Navigation::NavigationStep.new(StateFile::Questions::ReturnStatusController),
-      ]),
+      ], true, true),
     ].freeze
     FLOW = SECTIONS.map(&:controllers).flatten.freeze
   end

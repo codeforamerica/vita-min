@@ -9,7 +9,13 @@ RSpec.feature "Editing a rejected intake with an auto-wait error" do
   let(:hashed_verification_code) { "hashed_verification_code" }
   let(:double_hashed_verification_code) { "double_hashed_verification_code" }
 
-  let!(:az_intake) { create :state_file_az_intake, email_address: email_address, hashed_ssn: hashed_ssn, primary_first_name: "Jerry" }
+  let!(:az_intake) {
+    create :state_file_az_intake,
+           email_address: email_address,
+           hashed_ssn: hashed_ssn,
+           primary_first_name: "Jerry",
+           email_address_verified_at: DateTime.now
+  }
   let!(:efile_submission) {
     create :efile_submission,
            :for_state,
@@ -80,7 +86,7 @@ RSpec.feature "Editing a rejected intake with an auto-wait error" do
     fill_in "Enter the 6-digit code", with: verification_code
     click_on "Verify code"
 
-    expect(page).to have_text "Code verified! Authentication needed to continue."
+    expect(page).to have_text I18n.t("state_file.intake_logins.edit.title")
     fill_in "Enter your Social Security number or ITIN. For example, 123-45-6789.", with: ssn
     click_on "Continue"
 

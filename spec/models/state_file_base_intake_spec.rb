@@ -210,11 +210,107 @@ describe StateFileBaseIntake do
       )
     }
 
-    it "rejects when state_wages_amount greater than w2.WagesAmt" do
+    it "allows state_wages_amount to be greater than w2.WagesAmt" do
       w2.state_wages_amount = 1000000
       intake.validate_state_specific_w2_requirements(w2)
-      expect(w2).not_to be_valid
-      expect(w2.errors[:state_wages_amount]).to be_present
+      expect(w2).to be_valid(:state_file_edit)
+      expect(w2.errors[:state_wages_amount]).not_to be_present
     end
   end
+
+  describe "#controller_for_current_step" do
+    let(:current_step) { "/en/questions/az-prior-last-names" }
+    let(:intake) { create :state_file_az_intake, current_step: current_step }
+
+    it "returns the correct controller" do
+      expect(intake.controller_for_current_step).to eq StateFile::Questions::AzPriorLastNamesController
+    end
+
+    context "there are efile submissions" do
+      let!(:efile_submission) { create :efile_submission, data_source: intake }
+
+      it "returns the return status controller" do
+        expect(intake.controller_for_current_step).to eq StateFile::Questions::ReturnStatusController
+      end
+    end
+
+    context "current step throws an error" do
+      let(:current_step) { "/en/questions/some-garbage" }
+
+      it "returns the terms and conditions controller" do
+        expect(intake.controller_for_current_step).to eq StateFile::Questions::TermsAndConditionsController
+      end
+
+      context "there is a hashed ssn" do
+        it "returns the post data transfer controller" do
+          intake.update(hashed_ssn: "123")
+          expect(intake.controller_for_current_step).to eq StateFile::Questions::PostDataTransferController
+        end
+      end
+    end
+
+    context "step is w2" do
+      let(:current_step) { "/en/questions/w2" }
+
+      it "returns the income review controller" do
+        expect(intake.controller_for_current_step).to eq StateFile::Questions::IncomeReviewController
+      end
+    end
+  end
+
+  describe "#sum_1099_r_followup_type_for_filer" do
+
+    context "with 1099Rs" do
+      let!(:intake) { create(:state_file_md_intake, :with_spouse) }
+      let!(:state_file_1099_r_without_followup) {
+        create(
+          :state_file1099_r,
+          taxable_amount: 1_000,
+          recipient_ssn: intake.primary.ssn,
+          intake: intake)
+      }
+      let!(:state_file_md1099_r_followup_with_military_service_for_primary_1) do
+        create(
+          :state_file_md1099_r_followup,
+          service_type: "military",
+          state_file1099_r: create(:state_file1099_r, taxable_amount: 1_000, intake: intake, recipient_ssn: intake.primary.ssn)
+        )
+      end
+      let!(:state_file_md1099_r_followup_with_military_service_for_primary_2) do
+        create(
+          :state_file_md1099_r_followup,
+          service_type: "military",
+          state_file1099_r: create(:state_file1099_r, taxable_amount: 1_500, intake: intake, recipient_ssn: intake.primary.ssn)
+        )
+      end
+      let!(:state_file_md1099_r_followup_with_military_service_for_spouse) do
+        create(
+          :state_file_md1099_r_followup,
+          service_type: "military",
+          state_file1099_r: create(:state_file1099_r, taxable_amount: 2_000, intake: intake, recipient_ssn: intake.spouse.ssn)
+        )
+      end
+      let!(:state_file_md1099_r_followup_without_military) do
+        create(
+          :state_file_md1099_r_followup,
+          service_type: "none",
+          state_file1099_r: create(:state_file1099_r, taxable_amount: 1_000, intake: intake, recipient_ssn: intake.spouse.ssn)
+        )
+      end
+
+      it "totals the followup income" do
+        expect(intake.sum_1099_r_followup_type_for_filer(:primary, :service_type_military?)).to eq(2_500)
+        expect(intake.sum_1099_r_followup_type_for_filer(:spouse, :service_type_military?)).to eq(2_000)
+      end
+    end
+
+    context "without 1099Rs" do
+      let(:intake) { create(:state_file_md_intake) }
+      it "returns 0" do
+        expect(intake.sum_1099_r_followup_type_for_filer(:primary, :service_type_military?)).to eq(0)
+        expect(intake.sum_1099_r_followup_type_for_filer(:spouse, :service_type_military?)).to eq(0)
+      end
+    end
+  end
+
 end

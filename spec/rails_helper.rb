@@ -96,6 +96,7 @@ RSpec.configure do |config|
   config.include NavigationHelpers
   config.include FeatureHelpers, type: :feature
   config.include ResponsiveHelper, type: :feature
+  config.include JavascriptHelpers, type: :feature
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and
   # `post` in specs under `spec/controllers`.
@@ -175,11 +176,18 @@ RSpec.configure do |config|
     Seeder.load_fraud_indicators
   end
 
+  # the browser window needs to be large enough that no elements are outside the viewport, or capybara won't find them
+  capybara_window_size = [2000, 4000]
+
+  config.before(:each, js: true) do |example|
+    Capybara.page.current_window.resize_to(*capybara_window_size)
+  end
+
   config.before(type: :feature) do |example|
     if config.filter.rules[:flow_explorer_screenshot]
       example.metadata[:js] = true
       Capybara.current_driver = Capybara.javascript_driver
-      Capybara.page.current_window.resize_to(2000, 4000)
+      Capybara.page.current_window.resize_to(*capybara_window_size)
     end
 
     unless Capybara.current_driver == Capybara.javascript_driver
