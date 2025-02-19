@@ -8,14 +8,14 @@ module ApplicationCable
       @current_user ||= env['warden'].user
     rescue UncaughtThrowError => e
       raise unless e.tag == :warden
-      Rails.logger.warn ([e.message]+e.backtrace).join($/)
+      Rails.logger.warn ([e.message] + e.backtrace).join($/)
       DatadogApi.increment "application_cable.uncaught_throw_warden_error"
       nil
     end
 
     def current_state_file_intake
       warden = env['warden']
-      @current_state_file_intake = StateFile::StateInformationService.active_state_codes.lazy.map{|c| warden.user("state_file_#{c}_intake".to_sym) }.find(&:itself)
+      @current_state_file_intake = StateFile::StateInformationService.active_state_codes.lazy.map {|c| warden.user("state_file_#{c}_intake".to_sym) }.find(&:itself)
     rescue UncaughtThrowError => e
       raise unless e.tag == :warden
 
