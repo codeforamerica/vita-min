@@ -13,8 +13,10 @@ module StateFile
            current_intake&.disqualifying_df_data_reason.present?
           redirect_to next_path and return
         end
-        # cleanup
-        remove_duplicate_w2s(:state_file_w2s)
+        # we need to remove duplicate associations here because sometimes we accidentally create duplicate records during data import
+        remove_duplicate_w2s
+        remove_duplicate_dependents
+
         StateFileEfileDeviceInfo.find_or_create_by!(
           event_type: "initial_creation",
           ip_address: ip_for_irs,
@@ -24,26 +26,26 @@ module StateFile
 
       private
 
-      def remove_duplicate_w2s(data_to_deduplicate)
+      def remove_duplicate_w2s
         indices = []
-        current_intake.send(data_to_deduplicate).each do |w2|
+        current_intake.state_file_w2s.each do |w2|
           current_index = w2.w2_index
-          if indices.include(current_index)
+          if indices.include?(current_index)
             w2.destroy!
           else
-            indices.add(current_index)
+            indices.push(current_index)
           end
         end
       end
 
-      def remove_duplicate_w2s(data_to_deduplicate)
-        indices = []
-        current_intake.send(data_to_deduplicate).each do |w2|
-          current_index = w2.w2_index
-          if indices.include(current_index)
-            w2.destroy!
+      def remove_duplicate_dependents
+        ssns = []
+        current_intake.dependents.each do |dependent|
+          ssn = dependent.ssn
+          if ssns.include?(ssn)
+            dependent.destroy!
           else
-            indices.add(current_index)
+            ssns.push(ssn)
           end
         end
       end
