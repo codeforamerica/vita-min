@@ -157,7 +157,6 @@ describe Efile::Id::Id39RCalculator do
     context "when filing single" do
       before do
         allow(intake).to receive(:filing_status_single?).and_return(true)
-        allow(intake).to receive(:filing_status_mfj?).and_return(false)
       end
 
       it "returns $45,864" do
@@ -175,6 +174,30 @@ describe Efile::Id::Id39RCalculator do
       it "returns $68,796" do
         instance.calculate
         expect(instance.lines[:ID39R_B_LINE_8a].value).to eq(68_796)
+      end
+    end
+
+    context "when filing head of household" do
+      before do
+        allow(intake).to receive(:filing_status_single?).and_return(false)
+        allow(intake).to receive(:filing_status_hoh?).and_return(true)
+      end
+
+      it "returns $45,864" do
+        instance.calculate
+        expect(instance.lines[:ID39R_B_LINE_8a].value).to eq(45_864)
+      end
+    end
+
+    context "when filing qualified widow" do
+      before do
+        allow(intake).to receive(:filing_status_single?).and_return(false)
+        allow(intake).to receive(:filing_status_qw?).and_return(true)
+      end
+
+      it "returns $45,864" do
+        instance.calculate
+        expect(instance.lines[:ID39R_B_LINE_8a].value).to eq(45_864)
       end
     end
   end
@@ -249,7 +272,7 @@ describe Efile::Id::Id39RCalculator do
       end
     end
 
-    context 'when flipper is on for retirment ui' do
+    context 'when flipper is on for retirement ui' do
       before do
         allow(Flipper).to receive(:enabled?).and_call_original
         allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)

@@ -69,7 +69,7 @@ module Efile
       end
 
       def calculate_sec_b_line_8a
-        if @intake.filing_status_single?
+        if @intake.filing_status_single? || @intake.filing_status_hoh? || @intake.filing_status_qw?
           45_864
         elsif @intake.filing_status_mfj?
           68_796
