@@ -89,7 +89,7 @@ RSpec.describe StateFile::ArchivedIntakes::MailingAddressValidationController, t
         expect(access_log.state_file_archived_intake_request).to eq(current_request)
         expect(access_log.event_type).to eq("incorrect_mailing_address")
         expect(session[:mailing_verified]).to eq(nil)
-        expect(current_request.access_locked?).to eq(true)
+        expect(intake.permanently_locked_at).to be_present
         expect(response).to redirect_to(state_file_archived_intakes_verification_error_path)
       end
     end
