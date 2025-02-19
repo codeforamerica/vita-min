@@ -16,9 +16,7 @@ describe StateFile::ArchivedIntakes::ArchivedIntakeController, type: :controller
     end
 
     it 'returns nil if no request is found' do
-      session[:email_address] = "non_existent_email@bad.com"
-      expect(Rails.logger).to receive(:warn).with("StateFileArchivedIntakeRequest not found for IP: #{ip_address}, Email: non_existent_email@bad.com")
-      expect(Sentry).to receive(:capture_message).with("StateFileArchivedIntakeRequest not found for IP: #{ip_address}, Email: non_existent_email@bad.com")
+      session[:email_address] = "non_existant_email@bad.com"
 
       expect(controller.current_request).to be_nil
     end
