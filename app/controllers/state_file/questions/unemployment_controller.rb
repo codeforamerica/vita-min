@@ -40,12 +40,12 @@ module StateFile
 
         if @state_file1099_g.had_box_11_no?
           @state_file1099_g.destroy
-          return redirect_with_review_param(:index)
+          return redirect_with_params
         end
 
         if @state_file1099_g.valid?
           @state_file1099_g.save
-          redirect_with_review_param(:index)
+          redirect_with_params
         else
           render :edit
         end
@@ -54,12 +54,12 @@ module StateFile
       def create
         @state_file1099_g = current_intake.state_file1099_gs.build(state_file1099_params)
         if @state_file1099_g.had_box_11_no?
-          return redirect_to next_path
+          return redirect_with_params
         end
 
         if @state_file1099_g.valid?
           @state_file1099_g.save
-          redirect_with_review_param(:index)
+          redirect_with_params
         else
           render :new
         end
@@ -70,14 +70,17 @@ module StateFile
         if @state_file1099_g.destroy
           flash[:notice] = I18n.t("state_file.questions.unemployment.destroy.removed", name: @state_file1099_g.recipient_name)
         end
-        redirect_with_review_param(:index)
+        redirect_with_params
       end
 
       private
 
       def next_path
         if params[:return_to_review].present?
-          StateFile::Questions::IncomeReviewController.to_path_helper(return_to_review: params[:return_to_review])
+          StateFile::Questions::IncomeReviewController.to_path_helper(
+            return_to_review: params[:return_to_review],
+            unemployment_filled: "y"
+          )
         else
           super
         end
@@ -85,14 +88,17 @@ module StateFile
 
       def prev_path
         if params[:return_to_review].present?
-          StateFile::Questions::IncomeReviewController.to_path_helper(return_to_review: params[:return_to_review])
+          StateFile::Questions::IncomeReviewController.to_path_helper(
+            return_to_review: params[:return_to_review],
+            unemployment_filled: "y"
+          )
         else
           super
         end
       end
 
-      def redirect_with_review_param(action)
-        redirect_to action: action, return_to_review: params[:return_to_review]
+      def redirect_with_params
+        redirect_to StateFile::Questions::IncomeReviewController.to_path_helper(unemployment_filled: "y")
       end
 
       def state_file1099_params
