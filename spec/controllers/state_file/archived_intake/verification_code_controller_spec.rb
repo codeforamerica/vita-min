@@ -1,7 +1,8 @@
 require "rails_helper"
 
 RSpec.describe StateFile::ArchivedIntakes::VerificationCodeController, type: :controller do
-  let(:current_request) { create(:state_file_archived_intake_request, email_address:email_address, failed_attempts: 0) }
+  let!(:archived_intake) { build(:state_file_archived_intake) }
+  let(:current_request) { create(:state_file_archived_intake_request, email_address:email_address, failed_attempts: 0, state_file_archived_intake: archived_intake) }
   let(:email_address) { "test@example.com" }
   let(:valid_verification_code) { "123456" }
   let(:invalid_verification_code) { "654321" }
