@@ -1226,10 +1226,6 @@ RSpec.describe PdfFiller::Nj1040Pdf do
     end
 
     describe "line 28a - Pension/Retirement Exclusion" do
-      before do
-        allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
-      end
-      
       context "when taxpayer has pension/retirement income exclusion with 123_456" do
         it "fills in the PDF line 28a boxes with the rounded value" do
           allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_28a).and_return 123_456
@@ -1250,10 +1246,6 @@ RSpec.describe PdfFiller::Nj1040Pdf do
     end
 
     describe "line 28b - Other Retirement Income Exclusion" do
-      before do
-        allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
-      end
-      
       context "when taxpayer has exclusion with 123_456" do
         it "fills in the PDF line 28b boxes with the rounded value" do
           allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_28b).and_return 123_456
@@ -1274,10 +1266,6 @@ RSpec.describe PdfFiller::Nj1040Pdf do
     end
 
     describe "line 28c - Total Retirement Income Exclusion" do
-      before do
-        allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
-      end
-      
       context "when taxpayer has total retirement income exclusion with 123_456" do
         it "fills in the PDF line 28c boxes with the rounded value" do
           allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_28c).and_return 123_456

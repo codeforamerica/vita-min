@@ -498,10 +498,6 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
     end
 
     describe "Other Retirement Income Exclusion - line 28a" do
-      before do
-        allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
-      end
-
       context "when filer is eligible" do
         it 'sets PensionExclusion to the line 28a value' do
           expected = 5_000
@@ -512,10 +508,6 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
     end
 
     describe "Other Retirement Income Exclusion - line 28b" do
-      before do
-        allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
-      end
-      
       context "when filer is eligible" do
         it 'sets OtherRetireIncomeExclus to the line 28b value' do
           expected = 1_000
@@ -533,10 +525,6 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
     end
 
     describe "Other Retirement Income Exclusion - line 28c" do
-      before do
-        allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
-      end
-
       context "when filer is eligible" do
         it 'sets TotalExclusionAmount to the line 28c value' do
           expected = 2_000
