@@ -83,10 +83,12 @@ RSpec.describe Efile::Nj::NjRetirementIncomeHelper do
         first_w2.update_attribute(:state_wages_amount, 1_000)
         first_1099_int = intake.direct_file_json_data.interest_reports.first
         first_1099_int.recipient_tin = primary_ssn.to_s
-        first_1099_int.interest_on_government_bonds = 2_000
+        first_1099_int.amount_1099 = 2_000
+        first_1099_int.amount_no_1099 = nil
         second_1099_int = intake.direct_file_json_data.interest_reports.second
         second_1099_int.recipient_tin = spouse_ssn.to_s
-        second_1099_int.interest_on_government_bonds = 4_000
+        second_1099_int.amount_1099 = nil
+        second_1099_int.amount_no_1099 = 4_000
       end
       context "when primary and spouse are both over 62" do
         let(:intake) { create(:state_file_nj_intake, :df_data_one_dep, :primary_over_65, :mfj_spouse_over_65) }

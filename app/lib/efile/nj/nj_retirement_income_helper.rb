@@ -19,10 +19,10 @@ module Efile
             total_income += w2.state_wages_amount.to_i
           end
         end
-        @intake.direct_file_json_data.interest_reports.each do |form1099|
-          sanitized_recipient_tin = form1099.recipient_tin.tr("-", "")
+        @intake.direct_file_json_data.interest_reports.each do |interest_report|
+          sanitized_recipient_tin = interest_report.recipient_tin.delete("-")
           if sanitized_recipient_tin.in?(eligible_ssn)
-            total_income += form1099.interest_on_government_bonds.to_i
+            total_income += (interest_report.amount_1099&.round || 0) + (interest_report.amount_no_1099&.round || 0)
           end
         end
         total_income
