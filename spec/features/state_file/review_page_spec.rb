@@ -4,22 +4,6 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
   include MockTwilio
   include StateFileIntakeHelper
 
-  def wait_until(time: Capybara.default_max_wait_time)
-    Timeout.timeout(time) do
-      until value = yield
-        sleep(0.1)
-      end
-      value
-    end
-  end
-
-  def wait_for_device_info
-    wait_until do
-      device_id_input_element = page.find_all('input[name="state_file_income_review_form[device_id]"]', visible: false).last
-      device_id_input_element.value.present?
-    end
-  end
-
   before do
     allow_any_instance_of(Routes::StateFileDomain).to receive(:matches?).and_return(true)
   end
@@ -59,7 +43,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
         # Back on income review page
         expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
-        wait_for_device_info
+        wait_for_device_info("income_review")
         click_on I18n.t("general.continue")
 
         # Final review page
@@ -81,7 +65,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
         # Back on income review page
         expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
-        wait_for_device_info
+        wait_for_device_info("income_review")
         click_on I18n.t("general.continue")
 
         # Final review page
@@ -103,7 +87,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
         # Back on income review page
         expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
-        wait_for_device_info
+        wait_for_device_info("income_review")
         click_on I18n.t("general.continue")
 
         # Final review page
@@ -122,7 +106,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
         # Back on income review page
         expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
-        wait_for_device_info
+        wait_for_device_info("income_review")
         click_on I18n.t("general.continue")
 
         # Final review page
