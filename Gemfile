@@ -117,6 +117,7 @@ group :development, :test do
   gem 'timecop'
   gem 'warning', require: false
   gem 'rspec_junit_formatter'
+  gem 'bullet'
 end
 
 group :development do
