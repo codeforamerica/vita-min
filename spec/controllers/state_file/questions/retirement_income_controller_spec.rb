@@ -51,7 +51,7 @@ RSpec.describe StateFile::Questions::RetirementIncomeController do
     it "updates the 1099R information and redirects to the income review page" do
       post :update, params: params
 
-      expect(response).to redirect_to(questions_income_review_path)
+      expect(response).to redirect_to(questions_initial_income_review_path)
 
       form1099r.reload
       expect(form1099r.state_distribution_amount).to eq 20

@@ -1,6 +1,6 @@
 module StateFile
   module Questions
-    class IncomeReviewController < QuestionsController
+    class InitialIncomeReviewController < QuestionsController
       include ReturnToReviewConcern
       before_action :set_sorted_vars
 

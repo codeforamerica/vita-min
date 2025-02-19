@@ -223,12 +223,12 @@ RSpec.feature "Completing a state file intake", active_job: true do
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t('state_file.questions.income_review.edit.title')
+      expect(page).to have_text I18n.t('state_file.questions.shared.income_review.title')
       within('#w2s') do
-        expect(page).to have_text(I18n.t('state_file.questions.income_review.edit.no_info_needed'))
+        expect(page).to have_text(I18n.t('state_file.questions.shared.income_review.no_info_needed'))
       end
       within('#form1099gs') do
-        expect(page).to have_text(I18n.t('state_file.questions.income_review.edit.state_info_to_be_collected'))
+        expect(page).to have_text(I18n.t('state_file.questions.shared.income_review.state_info_to_be_collected'))
       end
       click_on I18n.t("general.continue")
 

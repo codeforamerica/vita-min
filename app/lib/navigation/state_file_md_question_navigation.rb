@@ -33,7 +33,7 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::FederalInfoController),
         Navigation::NavigationStep.new(StateFile::Questions::MdPermanentAddressController),
         Navigation::NavigationStep.new(StateFile::Questions::MdCountyController),
-        Navigation::NavigationStep.new(StateFile::Questions::IncomeReviewController),
+        Navigation::NavigationStep.new(StateFile::Questions::InitialIncomeReviewController),
         Navigation::NavigationStep.new(StateFile::Questions::UnemploymentController),
         Navigation::NavigationStep.new(StateFile::Questions::FinalIncomeReviewController),
         Navigation::NavigationStep.new(StateFile::Questions::MdSocialSecurityBenefitsController),

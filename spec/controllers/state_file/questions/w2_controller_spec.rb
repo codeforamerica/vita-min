@@ -105,7 +105,7 @@ RSpec.describe StateFile::Questions::W2Controller do
         expect(state_file_w2.local_income_tax_amount).to eq 30
         expect(state_file_w2.locality_nm).to eq "BOOPVILLE"
 
-        expect(response).to redirect_to(StateFile::Questions::IncomeReviewController.to_path_helper)
+        expect(response).to redirect_to(StateFile::Questions::InitialIncomeReviewController.to_path_helper)
       end
 
       context "with MD Box 14 fields" do

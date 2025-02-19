@@ -10,7 +10,7 @@ RSpec.describe Navigation::StateFileNjQuestionNavigation do
     end
 
     context "screen that should show the progress bar" do
-      let(:controller_class) { StateFile::Questions::IncomeReviewController }
+      let(:controller_class) { StateFile::Questions::InitialIncomeReviewController }
       it "returns true" do
         expect(described_class.show_progress?(controller_class)).to eq(true)
       end

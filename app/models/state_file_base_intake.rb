@@ -395,7 +395,7 @@ class StateFileBaseIntake < ApplicationRecord
     else
       step_name = current_step.split('/').last
       if step_name == "w2"
-        StateFile::Questions::IncomeReviewController
+        StateFile::Questions::InitialIncomeReviewController
       else
         "StateFile::Questions::#{step_name.underscore.camelize}Controller".constantize
       end

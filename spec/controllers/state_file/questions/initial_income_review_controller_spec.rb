@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe StateFile::Questions::IncomeReviewController do
+RSpec.describe StateFile::Questions::InitialIncomeReviewController do
   let(:primary_first_name) { "Filer" }
   let(:primary_last_name) { "Oftaxes" }
   let(:spouse_first_name) { "Mary" }
@@ -16,7 +16,7 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
     )
   end
   let(:params) do
-    { state_file_income_review_form: {
+    { state_file_initial_income_review_form: {
       device_id: device_id
     } }
   end

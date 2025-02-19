@@ -1,5 +1,5 @@
 module StateFile
-  class IncomeReviewForm < QuestionsForm
+  class InitialIncomeReviewForm < QuestionsForm
     set_attributes_for :state_file_efile_device_info, :device_id
 
     def save

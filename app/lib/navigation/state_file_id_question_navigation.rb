@@ -30,7 +30,7 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::PostDataTransferController),
         Navigation::NavigationStep.new(StateFile::Questions::FederalInfoController),
         Navigation::NavigationStep.new(StateFile::Questions::DataTransferOffboardingController, false),
-        Navigation::NavigationStep.new(StateFile::Questions::IncomeReviewController),
+        Navigation::NavigationStep.new(StateFile::Questions::InitialIncomeReviewController),
         Navigation::NavigationStep.new(StateFile::Questions::UnemploymentController),
         Navigation::NavigationStep.new(StateFile::Questions::FinalIncomeReviewController),
         Navigation::NavigationStep.new(StateFile::Questions::IdHealthInsurancePremiumController),

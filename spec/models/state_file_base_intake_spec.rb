@@ -253,7 +253,7 @@ describe StateFileBaseIntake do
       let(:current_step) { "/en/questions/w2" }
 
       it "returns the income review controller" do
-        expect(intake.controller_for_current_step).to eq StateFile::Questions::IncomeReviewController
+        expect(intake.controller_for_current_step).to eq StateFile::Questions::InitialIncomeReviewController
       end
     end
   end

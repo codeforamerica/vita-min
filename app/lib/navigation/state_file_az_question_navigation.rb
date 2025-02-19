@@ -30,7 +30,7 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::DataTransferOffboardingController, false),
         Navigation::NavigationStep.new(StateFile::Questions::AzSeniorDependentsController),
         Navigation::NavigationStep.new(StateFile::Questions::AzPriorLastNamesController),
-        Navigation::NavigationStep.new(StateFile::Questions::IncomeReviewController),
+        Navigation::NavigationStep.new(StateFile::Questions::InitialIncomeReviewController),
         Navigation::NavigationStep.new(StateFile::Questions::UnemploymentController),
         Navigation::NavigationStep.new(StateFile::Questions::FinalIncomeReviewController),
         Navigation::NavigationStep.new(StateFile::Questions::AzRetirementIncomeSubtractionController),
