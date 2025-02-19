@@ -77,9 +77,15 @@ class EfileSubmission < ApplicationRecord
     result.except(*except)
   end
 
-  def self.statefile_state_counts(except: [])
+  def self.statefile_state_counts(except: [], nj: false)
     result = {}
     EfileSubmissionStateMachine.states.each { |state| result[state] = 0 }
+    intake_classes = case nj
+             when true
+               "StateFileNjIntake"
+             when false
+               StateFile::StateInformationService.state_intake_class_names.excluding("StateFileNjIntake").join("','")
+             end
     ActiveRecord::Base.connection.execute(<<~SQL).each { |row| result[row['to_state']] = row['count'] }
       SELECT to_state, COUNT(*) FROM "efile_submissions"
       LEFT OUTER JOIN efile_submission_transitions AS most_recent_efile_submission_transition ON (
@@ -88,7 +94,7 @@ class EfileSubmission < ApplicationRecord
       )
       WHERE most_recent_efile_submission_transition.to_state IS NOT NULL
       AND (
-        efile_submissions.data_source_type IN ('#{StateFile::StateInformationService.state_intake_class_names.join("','")}')
+        efile_submissions.data_source_type IN ('#{intake_classes}')
       )
       GROUP BY to_state
     SQL
