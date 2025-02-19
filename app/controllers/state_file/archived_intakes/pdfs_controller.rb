@@ -14,7 +14,7 @@ module StateFile
       end
 
       def index
-        @prior_year_intake = StateFileArchivedIntake.find_by!(email_address: current_request.email_address)
+        @prior_year_intake = current_archived_intake
         @pdf_url = @prior_year_intake.submission_pdf.url(expires_in: pdf_expiration_time, disposition: "inline")
         create_state_file_access_log("issued_pdf_download_link")
       end

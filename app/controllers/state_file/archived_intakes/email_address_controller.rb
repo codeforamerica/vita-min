@@ -10,7 +10,7 @@ module StateFile
         @form = EmailAddressForm.new(email_address_form_params)
 
         if @form.valid?
-          archived_intake = StateFileArchivedIntake.find_by(email_address: @form.email_address)
+          archived_intake = StateFileArchivedIntake.where("email_address ILIKE ?", @form.email_address).first
           session[:email_address] = @form.email_address
           StateFileArchivedIntakeRequest.find_or_create_by(email_address: @form.email_address, ip_address: ip_for_irs, state_file_archived_intake_id: archived_intake&.id )
           create_state_file_access_log("issued_email_challenge")
