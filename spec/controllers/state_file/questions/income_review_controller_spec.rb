@@ -62,14 +62,14 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
         it "shows error and does not proceed" do
           post :update, params: params
           expect(response).to render_template(:edit)
-          expect(response.body).to have_text I18n.t("state_file.questions.income_review.edit.invalid_income_form_error")
+          expect(response.body).to have_text I18n.t("state_file.questions.shared.income_review.invalid_income_form_error")
         end
       end
 
       shared_examples "proceeds as if there are no errors" do
         it "proceeds as if there are no errors" do
           post :update, params: params
-          expect(response.body).not_to have_text I18n.t("state_file.questions.income_review.edit.invalid_income_form_error")
+          expect(response.body).not_to have_text I18n.t("state_file.questions.shared.income_review.invalid_income_form_error")
           expect(response).to redirect_to mock_next_path
         end
       end
@@ -121,14 +121,14 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
     shared_examples "does not display W2 warnings" do
       it "does not display W2 warnings" do
         get :edit, params: params
-        expect(response.body).not_to have_text I18n.t("state_file.questions.income_review.edit.warning")
+        expect(response.body).not_to have_text I18n.t("state_file.questions.shared.income_review.warning")
       end
     end
 
     shared_examples "displays one W2 warning" do
       it "displays one W2 warning" do
         get :edit, params: params
-        expect(response.body.scan(I18n.t("state_file.questions.income_review.edit.warning")).size).to eq(1)
+        expect(response.body.scan(I18n.t("state_file.questions.shared.income_review.warning")).size).to eq(1)
       end
     end
 

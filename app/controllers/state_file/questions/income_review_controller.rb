@@ -22,13 +22,13 @@ module StateFile
 
       def edit
         if invalid_income_form?(current_intake)
-          @invalid_income_form_error = I18n.t("state_file.questions.income_review.edit.invalid_income_form_error")
+          @invalid_income_form_error = I18n.t("state_file.questions.shared.income_review.invalid_income_form_error")
         end
       end
 
       def update
         if invalid_income_form?(current_intake)
-          @invalid_income_form_error = I18n.t("state_file.questions.income_review.edit.invalid_income_form_error")
+          @invalid_income_form_error = I18n.t("state_file.questions.shared.income_review.invalid_income_form_error")
           render :edit
         else
           update_for_device_id_collection(current_intake&.initial_efile_device_info)

@@ -22,26 +22,20 @@ module StateFile
 
       def edit
         if invalid_income_form?(current_intake)
-          @invalid_income_form_error = I18n.t("state_file.questions.income_review.edit.invalid_income_form_error")
+          @invalid_income_form_error = I18n.t("state_file.questions.shared.income_review.invalid_income_form_error")
         end
       end
 
       def update
         if invalid_income_form?(current_intake)
-          @invalid_income_form_error = I18n.t("state_file.questions.income_review.edit.invalid_income_form_error")
+          @invalid_income_form_error = I18n.t("state_file.questions.shared.income_review.invalid_income_form_error")
           render :edit
         else
-          update_for_device_id_collection(current_intake&.initial_efile_device_info)
+          super
         end
       end
 
       private
-
-      def next_path
-        StateFile::Questions::IncomeReviewController.to_path_helper(
-          return_to_review: params[:return_to_review],
-        )
-      end
 
       def invalid_income_form?(intake)
         intake.allows_w2_editing? && @w2s.any? do |w2|
@@ -54,8 +48,8 @@ module StateFile
         return true unless w2.valid?(:state_file_edit)
 
         return false if StateFile::StateInformationService
-          .w2_supported_box14_codes(w2.state_file_intake.state_code)
-          .none? { |code| code[:name] == "UI_WF_SWF" || code[:name] == "FLI" }
+                          .w2_supported_box14_codes(w2.state_file_intake.state_code)
+                          .none? { |code| code[:name] == "UI_WF_SWF" || code[:name] == "FLI" }
 
         if w2_count_for_filer > 1
           return true if w2.get_box14_ui_overwrite.nil?

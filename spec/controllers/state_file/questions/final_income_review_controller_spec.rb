@@ -15,13 +15,7 @@ RSpec.describe StateFile::Questions::FinalIncomeReviewController do
       spouse_last_name: spouse_last_name
     )
   end
-  let(:params) do
-    { state_file_income_review_form: {
-      device_id: device_id
-    } }
-  end
-  let!(:efile_device_info) { create :state_file_efile_device_info, :initial_creation, intake: intake, device_id: nil }
-  let(:device_id) { "ABC123" }
+  let(:params) { {} }
   before do
     sign_in intake
   end
@@ -62,14 +56,14 @@ RSpec.describe StateFile::Questions::FinalIncomeReviewController do
         it "shows error and does not proceed" do
           post :update, params: params
           expect(response).to render_template(:edit)
-          expect(response.body).to have_text I18n.t("state_file.questions.income_review.edit.invalid_income_form_error")
+          expect(response.body).to have_text I18n.t("state_file.questions.shared.income_review.invalid_income_form_error")
         end
       end
 
       shared_examples "proceeds as if there are no errors" do
         it "proceeds as if there are no errors" do
           post :update, params: params
-          expect(response.body).not_to have_text I18n.t("state_file.questions.income_review.edit.invalid_income_form_error")
+          expect(response.body).not_to have_text I18n.t("state_file.questions.shared.income_review.invalid_income_form_error")
           expect(response).to redirect_to mock_next_path
         end
       end
@@ -92,7 +86,7 @@ RSpec.describe StateFile::Questions::FinalIncomeReviewController do
           before do
             allow_any_instance_of(StateFileW2).to receive(:valid?).and_return false
           end
-          
+
           include_examples "proceeds as if there are no errors"
         end
       end
@@ -121,14 +115,14 @@ RSpec.describe StateFile::Questions::FinalIncomeReviewController do
     shared_examples "does not display W2 warnings" do
       it "does not display W2 warnings" do
         get :edit, params: params
-        expect(response.body).not_to have_text I18n.t("state_file.questions.income_review.edit.warning")
+        expect(response.body).not_to have_text I18n.t("state_file.questions.shared.income_review.warning")
       end
     end
 
     shared_examples "displays one W2 warning" do
       it "displays one W2 warning" do
         get :edit, params: params
-        expect(response.body.scan(I18n.t("state_file.questions.income_review.edit.warning")).size).to eq(1)
+        expect(response.body.scan(I18n.t("state_file.questions.shared.income_review.warning")).size).to eq(1)
       end
     end
 
@@ -408,22 +402,6 @@ RSpec.describe StateFile::Questions::FinalIncomeReviewController do
         get :edit, params: params
         expect(response.body).to have_text "Interest income (1099-INT)"
       end
-    end
-  end
-
-  context "without device id information due to JS being disabled" do
-    let(:device_id) { nil }
-
-    it "flashes an alert and does re-renders edit" do
-      post :update, params: params
-      expect(flash[:alert]).to eq(I18n.t("general.enable_javascript"))
-    end
-  end
-
-  context "with device id" do
-    it "updates device id" do
-      post :update, params: params
-      expect(efile_device_info.reload.device_id).to eq "ABC123"
     end
   end
 end
