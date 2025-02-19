@@ -38,6 +38,8 @@
 #  fk_rails_...  (client_id => clients.id)
 #
 class TaxReturn < ApplicationRecord
+  self.strict_loading_by_default = true
+
   has_many :tax_return_transitions, dependent: :destroy, autosave: false
   include Statesman::Adapters::ActiveRecordQueries[
               transition_class: TaxReturnTransition,
