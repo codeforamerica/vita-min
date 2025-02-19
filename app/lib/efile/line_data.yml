@@ -798,6 +798,10 @@ MD502R_LINE_10A:
   label: "Primary Taxpayer amount of military income subtracted on Form 502SU with code u and amount of Correctional officers, Law Enforcement officers, or fire, rescue, or emergency services personnel income subtracted on Form 502SU with code v"
 MD502R_LINE_10B:
   label: "Secondary Taxpayer amount of military income subtracted on Form 502SU with code u and amount of Correctional officers, Law Enforcement officers, or fire, rescue, or emergency services personnel income subtracted on Form 502SU with code v"
+MD502R_LINE_11A:
+  label: "Primary Taxpayer Pension Exclusion (from line 5 of Worksheet 13A)."
+MD502R_LINE_11B:
+  label: "Secondary Taxpayer Pension Exclusion (from line 5 of Worksheet 13A)."
 NCD400_LINE_6:
   label: '6 Federal Adjusted Gross Income'
 NCD400_LINE_9:
