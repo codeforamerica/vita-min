@@ -1607,8 +1607,8 @@ describe Efile::Nj::Nj1040Calculator do
 
     context 'when has only 1099-Rs' do
       let(:intake) { create(:state_file_nj_intake, :df_data_minimal)}
-      let!(:state_file_1099r) { create :state_file1099_r, intake: intake, state_tax_withheld_amount: 100 }
-      let!(:state_specific_followup) { create :state_file_nj1099_r_followup, state_file1099_r: state_file_1099r, income_source: :none }
+      let!(:state_file_1099r) { create :state_file1099_r, intake: intake, state_tax_withheld_amount: 100.1 }
+      let!(:state_specific_followup) { create :state_file_nj1099_r_followup, state_file1099_r: state_file_1099r, income_source: :other }
     
       it 'sets line 55 to total income tax withheld, rounded' do
         intake.reload
@@ -1619,8 +1619,8 @@ describe Efile::Nj::Nj1040Calculator do
 
     context 'when has both w2s and 1099-Rs' do
       let(:intake) { create(:state_file_nj_intake, :df_data_many_w2s)}
-      let!(:state_file_1099r) { create :state_file1099_r, intake: intake, state_tax_withheld_amount: 100 }
-      let!(:state_specific_followup) { create :state_file_nj1099_r_followup, state_file1099_r: state_file_1099r, income_source: :none }
+      let!(:state_file_1099r) { create :state_file1099_r, intake: intake, state_tax_withheld_amount: 100.1 }
+      let!(:state_specific_followup) { create :state_file_nj1099_r_followup, state_file1099_r: state_file_1099r, income_source: :other }
 
       it 'sets line 55 to total income tax withheld, rounded' do
         intake.reload
