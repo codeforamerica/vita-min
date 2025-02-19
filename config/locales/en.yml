@@ -3056,7 +3056,6 @@ en:
           protect_identity: Many state revenue agencies, including Idaho, are requesting additional information in an effort to combat stolen-identity tax fraud and to protect you and your tax refund.
           title_html: We need some details from <strong>your spouse’s</strong> state-issued ID, if they have one
           why_ask_this: Why are you asking for this information?
-      income_review:
       initiate_data_transfer:
         data_transfer_buttons:
           from_fake_df_page: Transfer data from fake DF transfer page
