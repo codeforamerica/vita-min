@@ -47,17 +47,23 @@ describe StateId do
       end
     end
 
-    context "when a long dash is in the id number" do
-      it "removes the dash" do
-        state_id.update(id_number: "MD —123–456")
-        expect(state_id.id_number).to eq("MD 123456")
+    describe "#remove_long_dashes_and_spaces" do
+      context "with multiple long dashes" do
+        it "removes the long dash" do
+          expect(state_id.remove_long_dashes_and_spaces("MD—123–456")).to eq("MD123456")
+        end
       end
-    end
 
-    context "when a long dash is in the id number" do
-      it "removes the long dash but leaves the normal dash" do
-        state_id.update(id_number: "MD-—123–456")
-        expect(state_id.id_number).to eq("MD-123456")
+      context "with a long dash and normal dash" do
+        it "removes the long dash but leaves the normal dash" do
+          expect(state_id.remove_long_dashes_and_spaces("MD-—123-–456")).to eq("MD-123-456")
+        end
+      end
+
+      context "with spaces, long dash, and short dashes" do
+        it "removes the long dash and spaces but leaves the normal dash" do
+          expect(state_id.remove_long_dashes_and_spaces("MD-—12 3 456")).to eq("MD-123456")
+        end
       end
     end
   end
