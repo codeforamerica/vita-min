@@ -128,6 +128,10 @@ module SubmissionBuilder
                   if calculated_fields.fetch(:NJ1040_LINE_20A)&.positive? && Flipper.enabled?(:show_retirement_ui)
                     xml.PensAnnuitAndIraWithdraw calculated_fields.fetch(:NJ1040_LINE_20A)
                   end
+
+                  if calculated_fields.fetch(:NJ1040_LINE_20B)&.positive? && Flipper.enabled?(:show_retirement_ui)
+                    xml.TaxExemptPensAnnuit calculated_fields.fetch(:NJ1040_LINE_20B)
+                  end
                   
                   if calculated_fields.fetch(:NJ1040_LINE_27).positive?
                     xml.TotalIncome calculated_fields.fetch(:NJ1040_LINE_27)

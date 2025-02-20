@@ -1,6 +1,11 @@
 require "rails_helper"
 
 RSpec.describe StateFile::Questions::InitialIncomeReviewController do
+  StateFile::StateInformationService.active_state_codes.excluding("ny", "nj").each do |state_code|
+    it_behaves_like :df_data_required, true, state_code
+  end
+  it_behaves_like :df_data_required, false, :nj
+
   let(:primary_first_name) { "Filer" }
   let(:primary_last_name) { "Oftaxes" }
   let(:spouse_first_name) { "Mary" }

@@ -4,8 +4,9 @@ RSpec.describe StateFile::Questions::VerificationCodeController do
   before do
     sign_in intake
   end
-  describe "#edit" do
 
+  describe "#edit" do
+    it_behaves_like :df_data_required, false, :az
 
     context "with an intake that prefers text message" do
       let(:intake) { create(:state_file_az_intake, contact_preference: "text", phone_number: "+14153334444", visitor_id: "v1s1t1n9") }

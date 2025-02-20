@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>f0391307</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400007711</PrimarySSN>
+            <NameLine1Txt>CHARLIE&lt;SWAN</NameLine1Txt>
+            <PrimaryNameControlTxt>SWAN</PrimaryNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>47 Grass Road</AddressLine1Txt>
+                <CityNm>Forks</CityNm>
+                <StateAbbreviationCd>WA</StateAbbreviationCd>
+                <ZIPCd>98331</ZIPCd>
+            </USAddress>
+            <PhoneNum>3885559381</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000771-1f2f-44e2-817e-b5e4b6f0036d@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="9">
+        <IRS1040 documentId="IRS10400001">
+            <IndividualReturnFilingStatusCd>5</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <DependentDetail>
+                <DependentFirstNm>Isabella</DependentFirstNm>
+                <DependentLastNm>Swan</DependentLastNm>
+                <DependentNameControlTxt>SWAN</DependentNameControlTxt>
+                <DependentSSN>400008834</DependentSSN>
+                <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+                <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+            </DependentDetail>
+            <ChldWhoLivedWithYouCnt>1</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>2</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001 W20002" referenceDocumentName="IRSW2">35000</WagesAmt>
+            <WagesSalariesAndTipsAmt>35000</WagesSalariesAndTipsAmt>
+            <PensionsAnnuitiesAmt>18000</PensionsAnnuitiesAmt>
+            <TotalTaxablePensionsAmt pensionsAnnuitiesLiteralCd="ROLLOVER">6000</TotalTaxablePensionsAmt>
+            <TotalIncomeAmt>41000</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>41000</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>29200</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>29200</TotalDeductionsAmt>
+            <TaxableIncomeAmt>11800</TaxableIncomeAmt>
+            <TaxAmt>1183</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>1183</TotalTaxBeforeCrAndOthTaxesAmt>
+            <CTCODCAmt>523</CTCODCAmt>
+            <TotalNonrefundableCreditsAmt>660</TotalNonrefundableCreditsAmt>
+            <TotalCreditsAmt>1183</TotalCreditsAmt>
+            <TaxLessCreditsAmt>0</TaxLessCreditsAmt>
+            <TotalTaxAmt>0</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>2100</FormW2WithheldTaxAmt>
+            <WithholdingTaxAmt>3600</WithholdingTaxAmt>
+            <EarnedIncomeCreditAmt referenceDocumentId="IRSEIC0001" referenceDocumentName="IRS1040ScheduleEIC">1288</EarnedIncomeCreditAmt>
+            <AdditionalChildTaxCreditAmt referenceDocumentId="IRS8812001" referenceDocumentName="IRS1040Schedule8812">1477</AdditionalChildTaxCreditAmt>
+            <RefundableCreditsAmt>2765</RefundableCreditsAmt>
+            <TotalPaymentsAmt>6365</TotalPaymentsAmt>
+            <OverpaidAmt>6365</OverpaidAmt>
+            <RefundAmt>6365</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Sheriff</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1040Schedule3 documentId="IRS1040S3001">
+            <CreditForChildAndDepdCareAmt referenceDocumentId="IRS2441001" referenceDocumentName="IRS2441">660</CreditForChildAndDepdCareAmt>
+            <TotalNonrefundableCreditsAmt>660</TotalNonrefundableCreditsAmt>
+        </IRS1040Schedule3>
+        <IRS1040Schedule8812 documentId="IRS8812001" documentName="IRS1040Schedule8812">
+            <AdjustedGrossIncomeAmt>41000</AdjustedGrossIncomeAmt>
+            <ModifiedAGIAmt>41000</ModifiedAGIAmt>
+            <QlfyChildUnderAgeSSNCnt>1</QlfyChildUnderAgeSSNCnt>
+            <QlfyChildUnderAgeSSNLimtAmt>2000</QlfyChildUnderAgeSSNLimtAmt>
+            <OtherDependentCnt>0</OtherDependentCnt>
+            <InitialCTCODCAmt>2000</InitialCTCODCAmt>
+            <FilingStatusThresholdCd>200000</FilingStatusThresholdCd>
+            <ExcessAdjGrossIncomeAmt>0</ExcessAdjGrossIncomeAmt>
+            <ModifiedAGIPhaseOutAmt>0</ModifiedAGIPhaseOutAmt>
+            <CTCODCOverAGILimitInd>true</CTCODCOverAGILimitInd>
+            <CTCODCAfterAGILimitAmt>2000</CTCODCAfterAGILimitAmt>
+            <ACTCTaxLiabiltyLimitAmt>523</ACTCTaxLiabiltyLimitAmt>
+            <CTCODCAmt>523</CTCODCAmt>
+            <ClaimACTCAllFilersGrp>
+                <ACTCBeforeLimitAmt>1477</ACTCBeforeLimitAmt>
+                <QlfyChildUnderAgeSSNCnt>1</QlfyChildUnderAgeSSNCnt>
+                <QlfyChildUnderAgeSSNLimtAmt>1700</QlfyChildUnderAgeSSNLimtAmt>
+                <ACTCAfterLimitAmt>1477</ACTCAfterLimitAmt>
+                <TotalEarnedIncomeAmt>35000</TotalEarnedIncomeAmt>
+                <EarnedIncmMoreThanSpecifiedInd>true</EarnedIncmMoreThanSpecifiedInd>
+                <NetTotalEarnedIncomeAmt>32500</NetTotalEarnedIncomeAmt>
+                <NetEarnedIncomeCalculatedAmt>4875</NetEarnedIncomeCalculatedAmt>
+                <ThreeOrMoreQlfyChildrenInd>false</ThreeOrMoreQlfyChildrenInd>
+            </ClaimACTCAllFilersGrp>
+            <AdditionalChildTaxCreditAmt>1477</AdditionalChildTaxCreditAmt>
+        </IRS1040Schedule8812>
+        <IRS1040ScheduleEIC documentId="IRSEIC0001" documentName="IRS1040ScheduleEIC">
+            <QualifyingChildInformation>
+                <QualifyingChildNameControlTxt>SWAN</QualifyingChildNameControlTxt>
+                <ChildFirstAndLastName>
+                    <PersonFirstNm>Isabella</PersonFirstNm>
+                    <PersonLastNm>Swan</PersonLastNm>
+                </ChildFirstAndLastName>
+                <QualifyingChildSSN>400008834</QualifyingChildSSN>
+                <ChildBirthYr>2013</ChildBirthYr>
+                <ChildRelationshipCd>DAUGHTER</ChildRelationshipCd>
+                <MonthsChildLivedWithYouCnt>12</MonthsChildLivedWithYouCnt>
+            </QualifyingChildInformation>
+        </IRS1040ScheduleEIC>
+        <IRS1099R documentId="IRS1099R0001">
+            <PayerNameControlTxt>PUBL</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Public Employee Retirement System of Idaho</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>3 Rome Street</AddressLine1Txt>
+                <CityNm>Boise</CityNm>
+                <StateAbbreviationCd>ID</StateAbbreviationCd>
+                <ZIPCd>83706</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>871235438</PayerEIN>
+            <RecipientSSN>400007711</RecipientSSN>
+            <RecipientNm>Charlie Swan</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>47 Grass Road</AddressLine1Txt>
+                <CityNm>Forks</CityNm>
+                <StateAbbreviationCd>WA</StateAbbreviationCd>
+                <ZIPCd>98331</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>8000</GrossDistributionAmt>
+            <TaxableAmt>6000</TaxableAmt>
+            <FederalIncomeTaxWithheldAmt>1500</FederalIncomeTaxWithheldAmt>
+            <F1099RDistributionCd>7B</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <TotalEmployeeContributionsAmt>2000</TotalEmployeeContributionsAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRS1099R documentId="IRS1099R0002">
+            <PayerNameControlTxt>VOLT</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Volturi Retirement</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>44 Leich Ave</AddressLine1Txt>
+                <CityNm>Boston</CityNm>
+                <StateAbbreviationCd>MA</StateAbbreviationCd>
+                <ZIPCd>02120</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>341274569</PayerEIN>
+            <RecipientSSN>400007711</RecipientSSN>
+            <RecipientNm>Charlie Swan</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>PO Box 34</AddressLine1Txt>
+                <CityNm>Portland</CityNm>
+                <StateAbbreviationCd>OR</StateAbbreviationCd>
+                <ZIPCd>97203</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>10000</GrossDistributionAmt>
+            <F1099RDistributionCd>G</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRS2441 documentId="IRS2441001" documentName="IRS2441">
+            <CareProviderGrp>
+                <CareProviderBusinessName>
+                    <BusinessNameLine1Txt>Mushroom Valley Childcare</BusinessNameLine1Txt>
+                </CareProviderBusinessName>
+                <CareProviderBusNameControlTxt>MUSH</CareProviderBusNameControlTxt>
+                <USAddress>
+                    <AddressLine1Txt>38 Willow Creek Rd</AddressLine1Txt>
+                    <CityNm>Boise</CityNm>
+                    <StateAbbreviationCd>ID</StateAbbreviationCd>
+                    <ZIPCd>93712</ZIPCd>
+                </USAddress>
+                <EIN>879812746</EIN>
+                <HouseholdEmployeeInd>false</HouseholdEmployeeInd>
+                <PaidAmt>5000</PaidAmt>
+            </CareProviderGrp>
+            <QualifyingPersonGrp>
+                <QualifyingPersonName>
+                    <PersonFirstNm>Isabella</PersonFirstNm>
+                    <PersonLastNm>Swan</PersonLastNm>
+                </QualifyingPersonName>
+                <QualifyingPersonNameControlTxt>SWAN</QualifyingPersonNameControlTxt>
+                <QualifyingPersonSSN>400008834</QualifyingPersonSSN>
+                <QualifiedCareExpensesPaidAmt>5000</QualifiedCareExpensesPaidAmt>
+            </QualifyingPersonGrp>
+            <TotalQlfdExpensesOrLimitAmt>3000</TotalQlfdExpensesOrLimitAmt>
+            <PrimaryEarnedIncomeAmt>35000</PrimaryEarnedIncomeAmt>
+            <SpouseEarnedIncomeAmt>35000</SpouseEarnedIncomeAmt>
+            <SmallerOfExpensesOrIncomeAmt>3000</SmallerOfExpensesOrIncomeAmt>
+            <AdjustedGrossIncomeAmt>41000</AdjustedGrossIncomeAmt>
+            <CareExpensesDecimalAmt>0.22</CareExpensesDecimalAmt>
+            <CalculatedTentativeExpenseAmt>660</CalculatedTentativeExpenseAmt>
+            <TotalEligCDCCAmt>660</TotalEligCDCCAmt>
+            <TaxLiabLmtFromCrLmtWrkshtAmt>1183</TaxLiabLmtFromCrLmtWrkshtAmt>
+            <CreditForChildAndDepdCareAmt>660</CreditForChildAndDepdCareAmt>
+        </IRS2441>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>400007711</EmployeeSSN>
+            <EmployerEIN>347164920</EmployerEIN>
+            <EmployerNameControlTxt>FORK</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Forks Sheriff's Department</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>30 Wolf Way</AddressLine1Txt>
+                <CityNm>Forks</CityNm>
+                <StateAbbreviationCd>WA</StateAbbreviationCd>
+                <ZIPCd>98331</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Charlie Swan</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>47 Grass Road</AddressLine1Txt>
+                <CityNm>Forks</CityNm>
+                <StateAbbreviationCd>WA</StateAbbreviationCd>
+                <ZIPCd>98331</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>15000</WagesAmt>
+            <WithholdingAmt>2000</WithholdingAmt>
+            <SocialSecurityWagesAmt>15000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>930</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>15000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>218</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>ID</StateAbbreviationCd>
+                    <EmployerStateIdNum>ID 6678792</EmployerStateIdNum>
+                    <StateWagesAmt>15000</StateWagesAmt>
+                    <StateIncomeTaxAmt>1000</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+        <IRSW2 documentId="W20002" documentName="IRSW2">
+            <EmployeeSSN>400007711</EmployeeSSN>
+            <EmployerEIN>347164903</EmployerEIN>
+            <EmployerNameControlTxt>LITT</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Little Wolves Summer Camp</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>38 Alpine Drive</AddressLine1Txt>
+                <CityNm>Forks</CityNm>
+                <StateAbbreviationCd>WA</StateAbbreviationCd>
+                <ZIPCd>98331</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Charlie Swan</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>47 Grass Road</AddressLine1Txt>
+                <CityNm>Forks</CityNm>
+                <StateAbbreviationCd>WA</StateAbbreviationCd>
+                <ZIPCd>98331</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>20000</WagesAmt>
+            <WithholdingAmt>100</WithholdingAmt>
+            <SocialSecurityWagesAmt>20000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>1240</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>20000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>290</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>ID</StateAbbreviationCd>
+                    <EmployerStateIdNum>ID 6678792</EmployerStateIdNum>
+                    <StateWagesAmt>20000</StateWagesAmt>
+                    <StateIncomeTaxAmt>500</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>
