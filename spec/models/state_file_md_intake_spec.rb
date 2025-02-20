@@ -338,4 +338,115 @@ RSpec.describe StateFileMdIntake, type: :model do
       end
     end
   end
+
+  describe "#at_least_one_disabled_filer_with_proof?" do
+    context "when mfj" do
+      let(:intake) do
+        create(:state_file_md_intake,
+               :with_spouse,
+                primary_disabled: primary_disabled,
+                spouse_disabled: spouse_disabled,
+                proof_of_disability_submitted: proof_of_disability_submitted
+        )
+      end
+
+      context "when either the spouse or primary is disabled, but there is no proof" do
+        let(:primary_disabled) { "yes" }
+        let(:spouse_disabled) { "no" }
+        let(:proof_of_disability_submitted) { "no" }
+        it "returns false" do
+          expect(intake.at_least_one_disabled_filer_with_proof?).to eq(false)
+        end
+      end
+
+      context "when neither the spouse or primary is disabled and there is proof" do
+        let(:primary_disabled) { "no" }
+        let(:spouse_disabled) { "no" }
+        let(:proof_of_disability_submitted) { "yes" }
+        it "returns false" do
+          expect(intake.at_least_one_disabled_filer_with_proof?).to eq(false)
+        end
+      end
+
+      context "when either the spouse or primary is disabled and there is proof" do
+        let(:primary_disabled) { "no" }
+        let(:spouse_disabled) { "yes" }
+        let(:proof_of_disability_submitted) { "yes" }
+        it "returns true" do
+          expect(intake.at_least_one_disabled_filer_with_proof?).to eq(true)
+        end
+      end
+    end
+
+    context "when not mfj" do
+      let(:intake) do
+        create(:state_file_md_intake,
+               primary_disabled: primary_disabled,
+               proof_of_disability_submitted: proof_of_disability_submitted
+        )
+      end
+
+      context "when the primary is disabled but there is no proof" do
+        let(:primary_disabled) { "yes" }
+        let(:proof_of_disability_submitted) { "no" }
+        it "returns false" do
+          expect(intake.at_least_one_disabled_filer_with_proof?).to eq(false)
+        end
+      end
+
+      context "when the primary is not disabled and there is proof" do
+        let(:primary_disabled) { "no" }
+        let(:proof_of_disability_submitted) { "yes" }
+        it "returns false" do
+          expect(intake.at_least_one_disabled_filer_with_proof?).to eq(false)
+        end
+      end
+
+      context "when the primary is disabled and there is proof" do
+        let(:primary_disabled) { "yes" }
+        let(:proof_of_disability_submitted) { "yes" }
+        it "returns true" do
+          expect(intake.at_least_one_disabled_filer_with_proof?).to eq(true)
+        end
+      end
+    end
+  end
+
+  describe "qualifies_for_pension_exclusion?" do
+    before do
+      allow_any_instance_of(StateFileMdIntake).to receive(:at_least_one_disabled_filer_with_proof?).and_return is_disabled
+    end
+    let(:senior_primary_dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 65), 1, 1) }
+    let(:non_senior_spouse_dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 64), 1, 1) }
+    let(:intake) { create :state_file_md_intake, :with_spouse, primary_birth_date: senior_primary_dob, spouse_birth_date: non_senior_spouse_dob }
+
+
+    context "when the filer is a senior and is disabled with proof" do
+      let(:is_disabled) { true }
+      it "returns true" do
+        expect(intake.qualifies_for_pension_exclusion?(:primary)).to eq(true)
+      end
+    end
+
+    context "when the filer is a senior and is not disabled with proof" do
+      let(:is_disabled) { false }
+      it "returns true" do
+        expect(intake.qualifies_for_pension_exclusion?(:primary)).to eq(true)
+      end
+    end
+
+    context "when the filer is not a senior but is disabled with proof" do
+      let(:is_disabled) { true }
+      it "returns true" do
+        expect(intake.qualifies_for_pension_exclusion?(:spouse)).to eq(true)
+      end
+    end
+
+    context "when the filer is not a senior nor are they disabled with proof" do
+      let(:is_disabled) { false }
+      it "returns true" do
+        expect(intake.qualifies_for_pension_exclusion?(:spouse)).to eq(false)
+      end
+    end
+  end
 end

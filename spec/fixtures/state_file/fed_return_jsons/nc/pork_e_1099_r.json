@@ -1,0 +1,64 @@
+{
+  "familyAndHousehold": [
+    {
+      "monthsLivedWithTPInUS": "twelve",
+      "lastName": "Pig",
+      "isClaimedDependent": true,
+      "hohQualifyingPerson": true,
+      "qualifyingChild": true,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "2020-02-10",
+      "suffix": null,
+      "residencyDuration": "allYear",
+      "firstName": "Cutlet",
+      "middleInitial": "Q",
+      "scheduleEicLine4aNo": false,
+      "tin": "145-00-2904",
+      "eligibleDependent": true,
+      "relationship": "biologicalChild",
+      "ssnNotValidForEmployment": false
+    }
+  ],
+  "socialSecurityReports": [
+    {
+      "formType": "SSA-1099",
+      "recipientTin": "145-00-2903",
+      "netBenefits": "34330.00"
+    }
+  ],
+  "filers": [
+    {
+      "lastName": "Pig",
+      "dateOfBirth": "1939-08-31",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "firstName": "Pork",
+      "middleInitial": "E",
+      "educatorExpenses": "0.00",
+      "tin": "145-00-2903",
+      "interestReportsTotal": "1835.00",
+      "isDisabled": false,
+      "form1099GsTotal": "0.00",
+      "isStudent": false,
+      "ssnNotValidForEmployment": null,
+      "hsaTotalDeductibleAmount": null
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [],
+  "interestReports": [
+    {
+      "has1099": true,
+      "taxExemptAndTaxCreditBondCusipNo": null,
+      "interestOnGovernmentBonds": "1000.00",
+      "taxExemptInterest": "0.00",
+      "payerTin": null,
+      "payer": "Bacon Trust",
+      "recipientTin": "145-00-2903",
+      "1099Amount": "1835.00",
+      "taxWithheld": "0.00",
+      "no1099Amount": null
+    }
+  ]
+}
