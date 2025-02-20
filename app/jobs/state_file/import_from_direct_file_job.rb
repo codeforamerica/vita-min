@@ -55,29 +55,26 @@ module StateFile
 
     private
 
-    def remove_duplicate_w2s(intake)
-      indices = []
-      intake.state_file_w2s.each do |w2|
-        current_index = w2.w2_index
-        if indices.include?(current_index)
-          w2.destroy!
+    def remove_dups(collection, identifying_attribute_name)
+      Rails.logger.info("ImportFromDirectFileJob removing duplicates for #{collection&.klass&.name}")
+
+      values = []
+      collection.each do |record|
+        value = record.send(identifying_attribute_name)
+        if values.include?(value)
+          record.destroy!
         else
-          indices.push(current_index)
+          values.push(value)
         end
       end
+    end
+
+    def remove_duplicate_w2s(intake)
+      remove_dups(intake.state_file_w2s, :w2_index)
     end
 
     def remove_duplicate_dependents(intake)
-      ssns = []
-      intake.dependents.each do |dependent|
-        ssn = dependent.ssn
-        if ssns.include?(ssn)
-          dependent.destroy!
-        else
-          ssns.push(ssn)
-        end
-      end
+      remove_dups(intake.dependents, :ssn)
     end
-
   end
 end
