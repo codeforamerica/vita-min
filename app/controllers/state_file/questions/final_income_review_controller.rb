@@ -5,8 +5,10 @@ module StateFile
       before_action :set_sorted_vars
 
       def self.show?(intake)
+        fed_unemployment = intake.direct_file_data.fed_unemployment
+        return false unless fed_unemployment.present? && fed_unemployment > 0
+
         intake.state_file_w2s.present? ||
-          intake.direct_file_data.fed_unemployment.positive? ||
           intake.state_file1099_rs.present? ||
           intake.direct_file_json_data.interest_reports.count.positive? ||
           intake.direct_file_data.fed_ssb.positive? || intake.direct_file_data.fed_taxable_ssb.positive?

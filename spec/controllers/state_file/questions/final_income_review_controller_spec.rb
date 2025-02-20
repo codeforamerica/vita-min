@@ -36,6 +36,21 @@ RSpec.describe StateFile::Questions::FinalIncomeReviewController do
         expect(described_class).not_to be_show(intake)
       end
     end
+
+    context "when there is income but no unemployment questions were answered" do
+
+      before do
+        intake.direct_file_data.fed_unemployment = 0
+        intake.direct_file_data.fed_ssb = 100
+        intake.direct_file_data.fed_taxable_ssb = 100
+
+        intake.update!(raw_direct_file_data: intake.direct_file_data.to_s)
+      end
+
+      it "does not show the page" do
+        expect(described_class).not_to be_show(intake)
+      end
+    end
   end
 
   describe "#update" do
