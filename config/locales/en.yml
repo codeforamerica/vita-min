@@ -785,7 +785,6 @@ en:
           provided_over_half_own_support: Did this person provide more than 50% of his/ her own support?
           receive_written_communication: Receive written communications from the IRS in a language other than English?
           refund_check_by_mail: Check by mail
-          refund_other: Other
           refund_payment_method: "If you are due a refund, would you like:"
           refund_payment_method_direct_deposit: Direct Deposit
           refund_payment_method_split: Split refund between different accounts
