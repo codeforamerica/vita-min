@@ -36,14 +36,15 @@ module StateFile
 
         intake.update(df_data_import_succeeded_at: DateTime.now)
 
-        # removing duplicate associations here because sometimes we create duplicate records during data import
-        # future work will prevent this issue from happening and this can be removed
-        remove_duplicate_w2s(intake)
-        remove_duplicate_dependents(intake)
       rescue => err
         Rails.logger.error(err)
         intake.df_data_import_errors << DfDataImportError.new(message: err.to_s)
       end
+
+      # removing duplicate associations here because sometimes we create duplicate records during data import
+      # future work will prevent this issue from happening and this can be removed
+      remove_duplicate_w2s(intake)
+      remove_duplicate_dependents(intake)
 
       DfDataTransferJobChannel.broadcast_job_complete(intake)
     end
