@@ -78,17 +78,19 @@ RSpec.describe StateFile::ArchivedIntakes::PdfsController, type: :controller do
 
   describe "POST #log_and_redirect" do
     let(:pdf_url) { "https://example.com/test.pdf" }
+    let(:mock_pdf) { spy }
 
     before do
       allow(controller).to receive(:create_state_file_access_log)
+      allow_any_instance_of(StateFileArchivedIntake).to receive(:submission_pdf).and_return(mock_pdf)
+      allow(mock_pdf).to receive(:url).and_return(pdf_url)
     end
 
     it "logs the access event and redirects to the provided pdf_url" do
-      allow_any_instance_of(described_class).to receive(:redirect_to)
       post :log_and_redirect
 
       expect(controller).to have_received(:create_state_file_access_log).with("client_pdf_download_click")
-      expect(controller).to have_received(:redirect_to)
+      expect(response).to redirect_to(pdf_url)
     end
   end
 end
