@@ -63,8 +63,6 @@ RSpec.describe StateFile::Questions::PostDataTransferController do
       end
     end
 
-
-
     context 'when the session times out/ is destroyed' do
       it 'redirects to the landing page for the correct state' do
         session.destroy

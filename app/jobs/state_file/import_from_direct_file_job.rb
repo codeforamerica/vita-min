@@ -35,7 +35,6 @@ module StateFile
         intake.synchronize_filers_to_database
 
         intake.update(df_data_import_succeeded_at: DateTime.now)
-
       rescue => err
         Rails.logger.error(err)
         intake.df_data_import_errors << DfDataImportError.new(message: err.to_s)
@@ -60,7 +59,7 @@ module StateFile
       collection.each do |record|
         value = record.send(identifying_attribute_name)
         if values.include?(value)
-          Rails.logger.info("ImportFromDirectFileJob removing duplicates #{record.class&.name} for #{intake&.state_code} #{intake&.id}")
+          Rails.logger.info("ImportFromDirectFileJob removing duplicate #{record.class&.name} for #{intake&.state_code} #{intake&.id}")
           record.destroy!
         else
           values.push(value)

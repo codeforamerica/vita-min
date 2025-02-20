@@ -117,7 +117,7 @@ RSpec.describe StateFile::ImportFromDirectFileJob, type: :job do
 
         expect(intake.state_file_w2s.count).to eq(1)
         expect(intake.state_file_w2s.map(&:w2_index)).to include(0)
-        expect(Rails.logger).to have_received(:info).with("ImportFromDirectFileJob removing duplicates StateFileW2 for id #{intake.id}")
+        expect(Rails.logger).to have_received(:info).with("ImportFromDirectFileJob removing duplicate StateFileW2 for id #{intake.id}")
       end
     end
 
@@ -139,7 +139,7 @@ RSpec.describe StateFile::ImportFromDirectFileJob, type: :job do
         expect(intake.dependents.count).to eq(2)
         expect(intake.dependents.map(&:ssn)).to include("123456789")
         expect(intake.dependents.map(&:ssn)).to include("123456780")
-        expect(Rails.logger).to have_received(:info).with("ImportFromDirectFileJob removing duplicates StateFileDependent for id #{intake.id}")
+        expect(Rails.logger).to have_received(:info).with("ImportFromDirectFileJob removing duplicate StateFileDependent for id #{intake.id}")
       end
     end
   end

@@ -13,7 +13,6 @@ module StateFile
            current_intake&.disqualifying_df_data_reason.present?
           redirect_to next_path and return
         end
-
         StateFileEfileDeviceInfo.find_or_create_by!(
           event_type: "initial_creation",
           ip_address: ip_for_irs,
