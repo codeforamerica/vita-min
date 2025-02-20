@@ -101,32 +101,21 @@ RSpec.describe StateFile::ImportFromDirectFileJob, type: :job do
     end
 
     context "with duplicated state_file_w2s" do
-      let(:xml_result) { StateFile::DirectFileApiResponseSampleService.new.read_xml('nc_kramer_income_catch_all_no_1099r') }
-      let(:direct_file_intake_json) { StateFile::DirectFileApiResponseSampleService.new.read_json('nc_kramer_income_catch_all_no_1099r') }
       let(:authorization_code) { '78126520243400w44xy0' }
+      let!(:state_file_w2) { create :state_file_w2, w2_index: 0, employer_name: "First Enterprises", state_file_intake: intake }
+      let!(:state_file_w2_dup) { create :state_file_w2, w2_index: 0, state_file_intake: intake }
 
       before do
-        # added this mock so that app/models/state_file_base_intake.rb:134 will not find an existing record and create a duplicate
-        mock_relation = double("ActiveRecord::Relation")
-        allow(intake).to receive(:state_file_w2s).and_return(mock_relation)
-        allow(mock_relation).to receive(:where).and_return(double(first: nil))
+        allow(intake).to receive(:synchronize_df_w2s_to_database) # does nothing
       end
 
       it "should destroy duplicate state_file_w2s" do
-        expect(intake.state_file_w2s.count).to eq(0)
+        expect(intake.state_file_w2s.count).to eq(2)
 
-        2.times do
-          described_class.perform_later(authorization_code: authorization_code, intake: intake)
-        end
+        described_class.perform_now(authorization_code: authorization_code, intake: intake)
 
-        intake.reload
-        # currently failing because of the mock
-        # potential plan: query for the associate state_file_w2s without using "intake.state_file_w2s"
-        expect(intake.state_file_w2s.count).to eq(4)
+        expect(intake.state_file_w2s.count).to eq(1)
         expect(intake.state_file_w2s.map(&:w2_index)).to include(0)
-        expect(intake.state_file_w2s.map(&:w2_index)).to include(1)
-        expect(intake.state_file_w2s.map(&:w2_index)).to include(2)
-        expect(intake.state_file_w2s.map(&:w2_index)).to include(3)
       end
     end
 
@@ -135,15 +124,15 @@ RSpec.describe StateFile::ImportFromDirectFileJob, type: :job do
       let!(:duplicate_dependent) { create(:state_file_dependent, intake: intake, ssn: "123456789") }
       let!(:another_dependent) { create(:state_file_dependent, intake: intake, ssn: "123456780") }
 
+      before do
+        allow(intake).to receive(:synchronize_df_dependents_to_database) # does nothing
+      end
+
       it "should destroy duplicate dependent" do
         expect(intake.dependents.count).to eq(3)
 
-        2.times do
-          described_class.perform_later(authorization_code: authorization_code, intake: intake)
-        end
+        described_class.perform_now(authorization_code: authorization_code, intake: intake)
 
-        # this passes, but that's because the duplicates aren't being created
-        intake.reload
         expect(intake.dependents.count).to eq(2)
         expect(intake.dependents.map(&:ssn)).to include("123456789")
         expect(intake.dependents.map(&:ssn)).to include("123456780")
