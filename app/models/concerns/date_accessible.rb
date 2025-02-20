@@ -69,7 +69,7 @@ module DateAccessible
           define_method("#{property}_date_valid") do
             date = send(property)
             if date.present? && !Date.valid_date?(date.year, date.month, date.day)
-              errors.add(property, :invalid_date, message: "is not a valid calendar date")
+              errors.add(:date_of_contribution, :invalid_date, message: I18n.t("activerecord.errors.models.az321_contribution.attributes.date_of_contribution.inclusion"))
             end
           end
         end
