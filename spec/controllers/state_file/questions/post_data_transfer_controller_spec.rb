@@ -63,37 +63,6 @@ RSpec.describe StateFile::Questions::PostDataTransferController do
       end
     end
 
-    context "with duplicated state_file_w2s" do
-      let!(:state_file_w2) { create :state_file_w2, state_file_intake: intake, w2_index: 0 }
-      let!(:duplicate_state_file_w2) { create :state_file_w2, state_file_intake: intake, w2_index: 0 }
-      let!(:another_state_file_w2) { create :state_file_w2, state_file_intake: intake, w2_index: 1 }
-
-      it "should destroy duplicate state_file_w2s" do
-        expect(intake.state_file_w2s.count).to eq(3)
-
-        get :edit
-
-        expect(intake.state_file_w2s.count).to eq(2)
-        expect(intake.state_file_w2s.map(&:w2_index)).to include(0)
-        expect(intake.state_file_w2s.map(&:w2_index)).to include(1)
-      end
-    end
-
-    context "with duplicated state_file_dependents" do
-      let!(:dependent) { create(:state_file_dependent, intake: intake, ssn: "123456789") }
-      let!(:duplicate_dependent) { create(:state_file_dependent, intake: intake, ssn: "123456789") }
-      let!(:another_dependent) { create(:state_file_dependent, intake: intake, ssn: "123456780") }
-
-      it "should destroy duplicate dependent" do
-        expect(intake.dependents.count).to eq(3)
-
-        get :edit
-
-        expect(intake.dependents.count).to eq(2)
-        expect(intake.dependents.map(&:ssn)).to include("123456789")
-        expect(intake.dependents.map(&:ssn)).to include("123456780")
-      end
-    end
 
 
     context 'when the session times out/ is destroyed' do

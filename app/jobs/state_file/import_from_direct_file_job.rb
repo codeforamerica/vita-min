@@ -35,6 +35,11 @@ module StateFile
         intake.synchronize_filers_to_database
 
         intake.update(df_data_import_succeeded_at: DateTime.now)
+
+        # removing duplicate associations here because sometimes we create duplicate records during data import
+        # future work will prevent this issue from happening and this can be removed
+        remove_duplicate_w2s(intake)
+        remove_duplicate_dependents(intake)
       rescue => err
         Rails.logger.error(err)
         intake.df_data_import_errors << DfDataImportError.new(message: err.to_s)
@@ -46,5 +51,32 @@ module StateFile
     def priority
       PRIORITY_LOW
     end
+
+    private
+
+    def remove_duplicate_w2s(intake)
+      indices = []
+      intake.state_file_w2s.each do |w2|
+        current_index = w2.w2_index
+        if indices.include?(current_index)
+          w2.destroy!
+        else
+          indices.push(current_index)
+        end
+      end
+    end
+
+    def remove_duplicate_dependents(intake)
+      ssns = []
+      intake.dependents.each do |dependent|
+        ssn = dependent.ssn
+        if ssns.include?(ssn)
+          dependent.destroy!
+        else
+          ssns.push(ssn)
+        end
+      end
+    end
+
   end
 end

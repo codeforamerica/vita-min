@@ -78,3 +78,5 @@ jmeter_test/results/*
 jmeter_test/jmeter.log
 
 .env
+
+/config/credentials/test.key
