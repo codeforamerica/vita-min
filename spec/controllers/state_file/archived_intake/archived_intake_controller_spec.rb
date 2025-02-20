@@ -25,6 +25,7 @@ describe StateFile::ArchivedIntakes::ArchivedIntakeController, type: :controller
 
     it 'matches email case insensitively' do
       session[:email_address] = 'TeSt@ExAmPlE.cOm'
+
       expect(controller.current_request).to eq(request_instance)
     end
   end
