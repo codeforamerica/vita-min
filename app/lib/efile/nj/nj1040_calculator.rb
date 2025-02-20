@@ -21,6 +21,7 @@ module Efile
           intake: @intake,
           primary_or_spouse: :spouse
         )
+        @nj_retirement_income_helper = Efile::Nj::NjRetirementIncomeHelper.new(@intake)
       end
 
       def calculate
@@ -343,19 +344,22 @@ module Efile
       end
 
       def calculate_line_28b
-        helper = Efile::Nj::NjRetirementIncomeHelper.new(@intake)
-        return 0 unless helper.eligible?
+        return 0 unless @nj_retirement_income_helper.retirement_exclusion_eligible?(
+          line_or_zero(:NJ1040_LINE_15), 
+          line_or_zero(:NJ1040_LINE_27), 
+          line_or_zero(:NJ1040_LINE_28A))
         
-        total_income = calculate_line_27
-        [helper.calculate_maximum_exclusion(total_income) - calculate_line_28a, helper.total_eligible_nonretirement_income].min
+        total_income = line_or_zero(:NJ1040_LINE_27)
+        [@nj_retirement_income_helper.calculate_maximum_exclusion(total_income) - line_or_zero(:NJ1040_LINE_28A),
+         @nj_retirement_income_helper.total_eligible_nonretirement_income].min
       end
 
       def calculate_line_28c
-        calculate_line_28a + calculate_line_28b
+        line_or_zero(:NJ1040_LINE_28A) + line_or_zero(:NJ1040_LINE_28B)
       end
 
       def calculate_line_29
-        line_or_zero(:NJ1040_LINE_27) - calculate_line_28c
+        line_or_zero(:NJ1040_LINE_27) - line_or_zero(:NJ1040_LINE_28C)
       end
 
       def calculate_line_31

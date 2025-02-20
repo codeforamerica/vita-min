@@ -264,7 +264,7 @@ FactoryBot.define do
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_sinatra_qss') }
       filing_status { "qualifying_widow" }
     end
-    
+
     trait :df_data_taxes_owed do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_jones_mfj') }
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_jones_mfj') }
@@ -327,6 +327,20 @@ FactoryBot.define do
 
     trait :primary_over_65 do
       primary_birth_date { Date.new(1900, 1, 1) }
+    end
+
+    trait :primary_over_62 do
+      primary_birth_date { Date.new(MultiTenantService.new(:statefile).current_tax_year - 62, 12, 31) }
+    end
+
+    trait :primary_under_62 do
+      primary_birth_date { Date.new(MultiTenantService.new(:statefile).current_tax_year - 61, 1, 1) }
+    end
+
+    trait :mfj_spouse_over_62 do
+      filing_status { "married_filing_jointly" }
+      spouse_birth_date { Date.new(MultiTenantService.new(:statefile).current_tax_year - 62, 12, 31) }
+      spouse_ssn { "123456789" }
     end
 
     trait :mfj_spouse_over_65 do

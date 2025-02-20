@@ -29,22 +29,23 @@ module Efile
       end
 
       def primary_62_and_older?
-        @intake.calculate_age(@intake.primary_birth_date, inclusive_of_jan_1: true) >= 62
+        @intake.calculate_age(@intake.primary_birth_date, inclusive_of_jan_1: false) >= 62
       end
 
       def spouse_62_and_older?
-        @intake.calculate_age(@intake.spouse_birth_date, inclusive_of_jan_1: true) >= 62 
+        @intake.calculate_age(@intake.spouse_birth_date, inclusive_of_jan_1: false) >= 62 
       end
 
-      def eligible?
+      def retirement_exclusion_eligible?(line_15, line_27, line_28a)
         if @intake.spouse_birth_date.present?
-          return false unless spouse_62_and_older? || primary_62_and_older?
+          spouse_or_primary_is_age_eligible = spouse_62_and_older? || primary_62_and_older?
+          return false unless spouse_or_primary_is_age_eligible
         elsif !primary_62_and_older?
           return false
         end
-        return false if @intake.calculator.lines[:NJ1040_LINE_15].value > 3_000
-        return false if @intake.calculator.lines[:NJ1040_LINE_27].value > 150_000
-        return false if @intake.calculator.lines[:NJ1040_LINE_28A].value > calculate_maximum_exclusion(@intake.calculator.lines[:NJ1040_LINE_27].value)
+        return false if line_15 > 3_000
+        return false if line_27 > 150_000
+        return false if line_28a > calculate_maximum_exclusion(line_27)
 
         true
       end

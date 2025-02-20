@@ -1226,6 +1226,24 @@ RSpec.describe PdfFiller::Nj1040Pdf do
     end
 
     describe "line 28a - Pension/Retirement Exclusion" do
+      context "when taxpayer has pension/retirement income exclusion with 0" do
+        it "does not fill in the PDF line 28a boxes" do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_28a).and_return 0
+
+          # thousands
+          expect(pdf_fields["28a"]).to eq ""
+          expect(pdf_fields["189"]).to eq ""
+          expect(pdf_fields["190"]).to eq ""
+          # hundreds
+          expect(pdf_fields["undefined_81"]).to eq ""
+          expect(pdf_fields["191"]).to eq ""
+          expect(pdf_fields["192"]).to eq ""
+          # decimals
+          expect(pdf_fields["undefined_82"]).to eq ""
+          expect(pdf_fields["193"]).to eq ""
+        end
+      end
+
       context "when taxpayer has pension/retirement income exclusion with 123_456" do
         it "fills in the PDF line 28a boxes with the rounded value" do
           allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_28a).and_return 123_456
@@ -1246,6 +1264,24 @@ RSpec.describe PdfFiller::Nj1040Pdf do
     end
 
     describe "line 28b - Other Retirement Income Exclusion" do
+      context "when taxpayer has exclusion with 0" do
+        it "does not fill in the PDF line 28b boxes" do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_28b).and_return 0
+
+          # thousands
+          expect(pdf_fields["28b"]).to eq ""
+          expect(pdf_fields["194"]).to eq ""
+          expect(pdf_fields["195"]).to eq ""
+          # hundreds
+          expect(pdf_fields["undefined_83"]).to eq ""
+          expect(pdf_fields["196"]).to eq ""
+          expect(pdf_fields["197"]).to eq ""
+          # decimals
+          expect(pdf_fields["undefined_84"]).to eq ""
+          expect(pdf_fields["198"]).to eq ""
+        end
+      end
+
       context "when taxpayer has exclusion with 123_456" do
         it "fills in the PDF line 28b boxes with the rounded value" do
           allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_28b).and_return 123_456
@@ -1266,6 +1302,24 @@ RSpec.describe PdfFiller::Nj1040Pdf do
     end
 
     describe "line 28c - Total Retirement Income Exclusion" do
+      context "when taxpayer has total retirement income exclusion with 0" do
+        it "does not fill in the PDF line 28c boxes" do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_28c).and_return 0
+
+          # thousands
+          expect(pdf_fields["28c"]).to eq ""
+          expect(pdf_fields["199"]).to eq ""
+          expect(pdf_fields["200"]).to eq ""
+          # hundreds
+          expect(pdf_fields["undefined_85"]).to eq ""
+          expect(pdf_fields["201"]).to eq ""
+          expect(pdf_fields["202"]).to eq ""
+          # decimals
+          expect(pdf_fields["undefined_86"]).to eq ""
+          expect(pdf_fields["203"]).to eq ""
+        end
+      end
+
       context "when taxpayer has total retirement income exclusion with 123_456" do
         it "fills in the PDF line 28c boxes with the rounded value" do
           allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_28c).and_return 123_456
