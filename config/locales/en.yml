@@ -1473,7 +1473,7 @@ en:
           Your Tax Team at GetYourRefund
         subject: 'GetYourRefund: You have a submission in progress'
       sms:
-        body: Hello <<Client.PreferredName>> you haven''t completed providing the information we need to prepare your taxes at GetYourRefund. Continue where you left off here <<Client.LoginLink>>. Your Client ID is <<Client.ClientId>>. If you have any questions, please reply to this message.
+        body: Hello <<Client.PreferredName>>, you haven't completed providing the information we need to prepare your taxes at GetYourRefund. Continue where you left off here <<Client.LoginLink>>. Your Client ID is <<Client.ClientId>>. If you have any questions, please reply to this message.
     intercom_forwarding:
       email:
         body: This conversation has been forwarded to GetYourRefund.org's customer service specialists. You should expect to see a message from them at a different email shortly.
