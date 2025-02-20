@@ -106,6 +106,7 @@ RSpec.describe StateFile::ImportFromDirectFileJob, type: :job do
       let!(:state_file_w2_dup) { create :state_file_w2, w2_index: 0, state_file_intake: intake }
 
       before do
+        allow(Rails.logger).to receive(:info)
         allow(intake).to receive(:synchronize_df_w2s_to_database) # does nothing
       end
 
@@ -116,6 +117,7 @@ RSpec.describe StateFile::ImportFromDirectFileJob, type: :job do
 
         expect(intake.state_file_w2s.count).to eq(1)
         expect(intake.state_file_w2s.map(&:w2_index)).to include(0)
+        expect(Rails.logger).to have_received(:info).with("ImportFromDirectFileJob removing duplicates StateFileW2 for id #{intake.id}")
       end
     end
 
@@ -125,6 +127,7 @@ RSpec.describe StateFile::ImportFromDirectFileJob, type: :job do
       let!(:another_dependent) { create(:state_file_dependent, intake: intake, ssn: "123456780") }
 
       before do
+        allow(Rails.logger).to receive(:info)
         allow(intake).to receive(:synchronize_df_dependents_to_database) # does nothing
       end
 
@@ -136,6 +139,7 @@ RSpec.describe StateFile::ImportFromDirectFileJob, type: :job do
         expect(intake.dependents.count).to eq(2)
         expect(intake.dependents.map(&:ssn)).to include("123456789")
         expect(intake.dependents.map(&:ssn)).to include("123456780")
+        expect(Rails.logger).to have_received(:info).with("ImportFromDirectFileJob removing duplicates StateFileDependent for id #{intake.id}")
       end
     end
   end
