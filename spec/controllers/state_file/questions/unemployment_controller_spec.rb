@@ -42,41 +42,6 @@ RSpec.describe StateFile::Questions::UnemploymentController do
     end
   end
 
-  describe "#index" do
-    context "before_action redirect_if_df_data_required" do
-      before do
-        intake.update(df_data_import_succeeded_at: nil)
-      end
-
-      it "redirects to login on edit" do
-        get :index
-
-        expect(response).to redirect_to StateFile::StateFilePagesController.to_path_helper(action: :login_options)
-      end
-    end
-
-    context "with existing 1099Gs" do
-      render_views
-      let!(:form1099a) { create :state_file1099_g, intake: intake, recipient: :primary }
-      let!(:form1099b) { create :state_file1099_g, intake: intake, recipient: :spouse }
-
-      it "renders information about each form" do
-        get :index
-
-        expect(response.body).to include intake.primary.full_name
-        expect(response.body).to include intake.spouse.full_name
-      end
-    end
-
-    context "with no existing 1099Gs" do
-      render_views
-      it "renders the new view" do
-        get :index
-        expect(response.body).to include(I18n.t("state_file.questions.unemployment.edit.title"))
-      end
-    end
-  end
-
   describe "#create" do
     let(:params) do
       {
@@ -109,7 +74,7 @@ RSpec.describe StateFile::Questions::UnemploymentController do
       end
     end
 
-    it "creates a new 1099G linked to the current intake and redirects to the index" do
+    it "creates a new 1099G linked to the current intake and redirects to the final income review" do
       expect do
         post :create, params: params
       end.to change(StateFile1099G, :count).by 1
@@ -334,9 +299,9 @@ RSpec.describe StateFile::Questions::UnemploymentController do
   end
 
   describe "navigation" do
-    it "has index as the default action" do
+    it "has new as the default action" do
       action = StateFile::Questions::UnemploymentController.navigation_actions.first
-      expect(action).to eq :index
+      expect(action).to eq :new
     end
   end
 end

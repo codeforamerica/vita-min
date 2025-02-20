@@ -11,15 +11,7 @@ module StateFile
       end
 
       def self.navigation_actions
-        [:index, :new]
-      end
-
-      def index
-        @state_file1099_gs = current_intake.state_file1099_gs
-        unless @state_file1099_gs.present?
-          build_1099g
-          render :new
-        end
+        [:new]
       end
 
       def new
