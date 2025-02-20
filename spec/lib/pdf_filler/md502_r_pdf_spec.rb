@@ -131,17 +131,21 @@ RSpec.describe PdfFiller::Md502RPdf do
         end
       end
 
-      context "line 10" do
+      context "lines 10 and 11" do
         before do
           allow(Flipper).to receive(:enabled?).and_call_original
           allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
           allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_10a).and_return 50
           allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_10b).and_return 68
+          allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_11a).and_return 70
+          allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_11b).and_return 80
         end
 
         it "output correct information" do
           expect(pdf_fields["retirement from code letter v on Form 502SU income subtracted on Maryland Form 502  10a"]).to eq("50")
           expect(pdf_fields["10b"]).to eq("68")
+          expect(pdf_fields["11 Pension Exclusion from line 5 of Worksheet 13A                           11a 1"]).to eq("70")
+          expect(pdf_fields["11b"]).to eq("80")
         end
       end
     end
