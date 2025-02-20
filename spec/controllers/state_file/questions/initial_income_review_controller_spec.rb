@@ -155,10 +155,10 @@ RSpec.describe StateFile::Questions::InitialIncomeReviewController do
         expect(response.body).to have_text "Jobs (W-2)"
         expect(response.body).to have_text "Egg Person"
         expect(response.body).to have_text "Chicken Person"
-        expect(response.body).to have_link(href: edit_w2_path(id: state_file_w2_1.id))
+        expect(response.body).to have_link(href: edit_w2_path(id: state_file_w2_1.id, from_final_income_review: "n"))
         expect(response.body).to have_text "First Enterprises"
         expect(response.body).to have_text "First Corporation"
-        expect(response.body).to have_link(href: edit_w2_path(id: state_file_w2_2.id))
+        expect(response.body).to have_link(href: edit_w2_path(id: state_file_w2_2.id, from_final_income_review: "n"))
       end
     end
 
@@ -378,10 +378,10 @@ RSpec.describe StateFile::Questions::InitialIncomeReviewController do
         expect(response.body).to have_text "Retirement income (1099-R)"
         expect(response.body).to have_text "Payeur"
         expect(response.body).to have_text "Prim Rose"
-        expect(response.body).to have_link(href: edit_retirement_income_path(id: primary_1099r.id))
+        expect(response.body).to have_link(href: edit_retirement_income_path(id: primary_1099r.id, from_final_income_review: "n"))
         expect(response.body).to have_text "Payure"
         expect(response.body).to have_text "Sprout Vine"
-        expect(response.body).to have_link(href: edit_retirement_income_path(id: spouse_1099r.id))
+        expect(response.body).to have_link(href: edit_retirement_income_path(id: spouse_1099r.id, from_final_income_review: "n"))
       end
     end
 
