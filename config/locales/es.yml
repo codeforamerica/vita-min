@@ -2286,10 +2286,7 @@ es:
           why_are_you_asking: "¿Por qué estamos pidiéndote esta información?"
       az_prior_last_names:
         edit:
-          prior_last_names_label:
-            many: Ingresa todos los apellidos utilizados por usted y su cónyuge en los últimos cuatro años.
-            one: 'Ingresa todos los apellidos que usaste en los últimos cuatro años. (Ejemplo: Smith, Jones, Brown)'
-            other: Ingresa todos los apellidos que usaste en los últimos cuatro años.
+          prior_last_names_label: 'Ingresa todos los apellidos que usaste en los últimos cuatro años. (Ejemplo: Smith, Jones, Brown)'
           subtitle: Esto incluye los años fiscales del %{start_year} al %{end_year}
           title:
             one: "¿Declaraste con un apellido diferente en los últimos cuatro años?"
