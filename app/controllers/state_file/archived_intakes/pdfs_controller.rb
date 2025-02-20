@@ -22,7 +22,7 @@ module StateFile
       def log_and_redirect
         create_state_file_access_log("client_pdf_download_click")
         pdf_url = params[:pdf_url]
-        redirect_to pdf_url
+        redirect_to pdf_url, allow_other_host: true
       end
 
       private
