@@ -55,7 +55,7 @@ module StateFile
 
     private
 
-    def remove_dups(intake, collection, identifying_attribute_name)
+    def remove_duplicates(intake, collection, identifying_attribute_name)
       values = []
       collection.each do |record|
         value = record.send(identifying_attribute_name)
@@ -69,11 +69,11 @@ module StateFile
     end
 
     def remove_duplicate_w2s(intake)
-      remove_dups(intake, intake.state_file_w2s, :w2_index)
+      remove_duplicates(intake, intake.state_file_w2s, :w2_index)
     end
 
     def remove_duplicate_dependents(intake)
-      remove_dups(intake, intake.dependents, :ssn)
+      remove_duplicates(intake, intake.dependents, :ssn)
     end
   end
 end
