@@ -118,12 +118,16 @@
     </p>
   <% end %>
 
-  <%= form_with model: @form, url: { action: :update }, data: { efile_security_information: true, form_name: "state_file_initial_income_review_form" },
-                local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
-    <%= f.hidden_field(:device_id) %>
-    <% if params[:return_to_review].present? %>
-      <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
+  <% if final %>
+    <%= link_to t("general.continue"), next_path, class: "button button--wide button--primary text--centered" %>
+  <% else %>
+    <%= form_with model: @form, url: { action: :update }, data: { efile_security_information: true, form_name: "state_file_initial_income_review_form" },
+                  local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+      <%= f.hidden_field(:device_id) %>
+      <% if params[:return_to_review].present? %>
+        <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
+      <% end %>
+      <%= f.continue %>
     <% end %>
-    <%= f.continue %>
   <% end %>
 <% end %>

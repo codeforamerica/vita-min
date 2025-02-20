@@ -33,7 +33,7 @@ module StateFile
       end
 
       def source_income_review_path
-        if params[:from_final_income_review] == "y"
+        if params[:from_final_income_review] == "y" || params[:return_to_review] == "y"
           StateFile::Questions::FinalIncomeReviewController.to_path_helper(return_to_review: params[:return_to_review])
         else
           StateFile::Questions::InitialIncomeReviewController.to_path_helper(return_to_review: params[:return_to_review])

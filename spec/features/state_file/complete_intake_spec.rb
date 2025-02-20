@@ -74,7 +74,6 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       click_on I18n.t("general.continue")
 
       expect(page).to have_text "Here are the income forms we transferred from your federal tax return."
-      # wait_for_device_info("initial_income_review")
       click_on I18n.t("general.continue")
 
       expect(page).to have_text(I18n.t("state_file.questions.retirement_income_subtraction.title", state_name: "Arizona"))
