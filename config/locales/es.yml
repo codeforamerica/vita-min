@@ -793,7 +793,6 @@ es:
           provided_over_half_own_support: "¿Aportó esta persona más del 50% de su propia manutención?"
           receive_written_communication: Receive written communications from the IRS in a language other than English?
           refund_check_by_mail: Check by mail
-          refund_other: Other
           refund_payment_method: 'If you are due a refund, would you like:'
           refund_payment_method_direct_deposit: Direct Deposit
           refund_payment_method_split: Split refund between different accounts
@@ -1609,16 +1608,6 @@ es:
         email:
           body: "Hola %{primary_first_name},\n\nLamentablemente, %{state_name} rechazó tu declaración de impuestos estatales. ¡No te preocupes! Podemos ayudarte a corregirla y volver a enviarla en <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.\n\n¿Preguntas? Responde a este correo electrónico.\n\nSaludos, \nEl equipo de FileYourStateTaxes\n"
           subject: 'Actualización de FileYourStateTaxes: Declaración Estatal de %{state_name} Rechazada. Acción Necesaria.'
-        sms: |
-          Hola %{primary_first_name} - Lamentablemente, %{state_name} rechazó su declaración de impuestos estatales. ¡No te preocupes! Podemos ayudarle a solucionarlo y volver a enviarlo en %{return_status_link}.
-
-            Lamentablemente, %{state_name} rechazó tu declaración de impuestos estatales. ¡No te preocupes! Podemos ayudarte a corregirla y volver a enviarla en <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.
-
-            ¿Necesitas ayuda? Responde a este correo electrónico.
-
-            Atentamente,
-            El equipo de FileYourStateTaxes
-          subject: 'Acción necesaria: La declaración de Impuestos Estatales de %{state_name} fue rechazada.'
         sms: |
           Hola %{primary_first_name} - Lamentablemente, %{state_name} rechazó tu declaración de impuestos estatales. ¡No te preocupes! Podemos ayudarte a corregirla y volver a enviarla en %{return_status_link}.
 
