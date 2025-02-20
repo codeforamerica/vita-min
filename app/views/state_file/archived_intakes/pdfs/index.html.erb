@@ -6,10 +6,9 @@
   <div class="grid">
     <div class="grid__item question-wrapper">
       <h1 class="h2" id="main-question"><%= @title %></h1>
-      <p><%= t('.subtitle', state: @prior_year_intake.state_code) %></p>
+      <p><%= t('.subtitle', state: @state_code) %></p>
 
       <%= form_with url: state_file_archived_intakes_pdfs_log_and_redirect_path, method: :post, local: true do %>
-        <%= hidden_field_tag :pdf_url, @pdf_url %>
         <button type="submit" class="button button--primary button--wide spacing-below-15 button--icon button--icon--centered">
           <%= image_tag("icons/download.svg", alt: "", style: "filter: invert(1); vertical-align: middle;") %>
           <%= t(".download") %>
