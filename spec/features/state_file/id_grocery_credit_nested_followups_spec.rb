@@ -46,6 +46,10 @@ RSpec.feature "Idaho Grocery Credit nested questions with followup", active_job:
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
 
+      expect(page).to have_text "Here are the income forms we transferred from your federal tax return."
+      # TODO: add expectation about the change in copy under 1099G section
+      click_on I18n.t("general.continue")
+
       # Health Insurance Premium
       expect(page).to have_text I18n.t('state_file.questions.id_health_insurance_premium.edit.title')
       choose I18n.t("general.affirmative")
