@@ -1533,8 +1533,15 @@ en:
 
             Best,
             The FileYourStateTaxes team
-          subject: 'FileYourStateTaxes Update: %{state_name} State Return Accepted'
-        sms: "Hi %{primary_first_name} - %{state_name} accepted your state tax return! Make sure to pay your state taxes by April 15 at %{state_pay_taxes_link} if you have not paid via direct deposit or check. \n\nDownload your return at %{return_status_link}\n\nQuestions? Email us at help@fileyourstatetaxes.org.\n"
+          subject: "%{state_name} State Return Accepted- Payment Due"
+        sms: |
+          Hi %{primary_first_name} - Your %{state_name} state tax return has been accepted and a payment is due.
+
+          If you haven't submited your payment via direct debit, please do so by April 15 at %{state_pay_taxes_link}. Any amount not paid by the filing deadline could add extra penalties and fees.
+
+          Download your return at %{return_status_link}
+
+          Need help? Email us at help@fileyourstatetaxes.org
       accepted_refund:
         email:
           body: |
@@ -1546,8 +1553,8 @@ en:
 
             Best,
             The FileYourStateTaxes team
-          subject: 'FileYourStateTaxes Update: %{state_name} State Return Accepted'
-        sms: "Hi %{primary_first_name} - %{state_name} accepted your state tax return! You can expect to receive your refund as soon as %{state_name} approves your refund amount. \n\nDownload your return and check your refund status at %{return_status_link}\n\nNeed help? Email us at help@fileyourstatetaxes.org.\n"
+          subject: "%{state_name} State Return Accepted"
+        sms: "Hi %{primary_first_name} - Good news, %{state_name} accepted your state tax return! \n\nDownload your return and check your refund status at %{return_status_link}\n\nNeed help? Email us at help@fileyourstatetaxes.org.\n"
       df_transfer_issue_message:
         email:
           body: |
@@ -1606,7 +1613,7 @@ en:
 
             Best,
             The FileYourStateTaxes team
-          subject: 'Final Reminder: FileYourStateTaxes closes April 25.'
+          subject: Make sure to finish filing your state taxes as soon as possible
         sms: |
           Hi %{primary_first_name} - You haven't submitted your state tax return yet. Make sure to submit your state taxes as soon as possible to avoid late filing fees. Go to fileyourstatetaxes.org/en/login-options to finish them now.
           Need help? Email us at help@fileyourstatetaxes.org.
@@ -1656,7 +1663,7 @@ en:
 
             Best,
             The FileYourStateTaxes team
-          subject: 'FileYourStateTaxes Update: %{state_name} State Return Rejected. Action Needed'
+          subject: 'Action Needed: %{state_name} State Return Rejected'
         sms: |
           Hi %{primary_first_name} - Unfortunately, %{state_name} rejected your state tax return. Don't worry! We can help you fix and resubmit it at %{return_status_link}.
 
@@ -1672,8 +1679,8 @@ en:
 
             Best,
             The FileYourStateTaxes team
-          subject: 'FileYourStateTaxes Update: Your %{state_name} state tax return is taking longer than expected'
-        sms: Hi %{primary_first_name} - It's taking longer than expected to process your state tax return. Don't worry! We'll let you know as soon as we know your return status. You don't need to do anything right now. Questions? Email us at help@fileyourstatetaxes.org.
+          subject: Your %{state_name} state tax return is taking longer than expected
+        sms: Hi %{primary_first_name} - It's taking longer than expected to process your state tax return. Don't worry! We'll let you know as soon as we know your return status. You don't need to do anything right now. Need help? Email us at help@fileyourstatetaxes.org.
       successful_submission:
         email:
           body: |
@@ -1688,7 +1695,7 @@ en:
             Best,
             The FileYourStateTaxes team
           resubmitted: resubmitted
-          subject: 'FileYourStateTaxes Update: %{state_name} State Return Submitted'
+          subject: "%{state_name} State Return Submitted"
           submitted: submitted
         sms: Hi %{primary_first_name} - You successfully  %{submitted_or_resubmitted} your %{state_name} state tax return! We'll update you in 1-2 days on the status of your return. You can download your return and check the status at %{return_status_link}. Need help? Email us at help@fileyourstatetaxes.org.
       survey_notification:
@@ -1715,8 +1722,8 @@ en:
 
             Best,
             The FileYourStateTaxes team
-          subject: 'FileYourStateTaxes Update: %{state_name} State Return Rejected.'
-        sms: "Hi %{primary_first_name} - Unfortunately, %{state_name} rejected your state tax return for an issue that cannot be resolved on our tool. Don't worry! We can help provide guidance on next steps. Chat with us at %{return_status_link}. \n\nQuestions? Reply to this text.\n"
+          subject: "%{state_name} State Return Rejected."
+        sms: "Hi %{primary_first_name} - Unfortunately, %{state_name} rejected your state tax return for an issue that cannot be resolved on our service. Don't worry! We can help provide guidance on next steps. Chat with us at %{return_status_link}. \n\nNeed help? Email us at help@fileyourstatetaxes.org.\n"
       welcome:
         email:
           body: |
@@ -3001,7 +3008,7 @@ en:
           health_insurance_premium_question:
             one: Did you pay health insurance premiums for yourself in %{year}?
             other: Did you pay health insurance premiums for yourself and your household in %{year}?
-          medicaid_content: Yes, if you are on Medicaid, your health insurance premium counts.  Check your monthly letter from the Idaho Department of Health and Welfare for your premium amount. It could be as low as $0, depending on your income and other factors.
+          medicaid_content: Yes, if you are on Medicaid, your health insurance premium counts.  Check your monthly letter from the Idaho Department of Health and Welfare for your premium amount. It could be as low as $0, depending on your income and other factors.
           medicaid_title: Do Medicaid and Medicare payments count?
           qualifications_content_html: |
             You can deduct health insurance premiums paid for yourself, your spouse, and your dependents, including medical, dental, and vision, as long as they haven’t been deducted from your income pre-tax.
@@ -3962,7 +3969,7 @@ en:
           direct_debit_html: If you have a remaining tax balance, remember to <strong>pay it online at <a target="_blank" rel="noopener nofollow" href="%{tax_payment_info_url}">%{tax_payment_info_text}</a></strong> or by mail before the April 15 filing deadline.
           download_voucher: Download and print the completed payment voucher.
           feedback: We value your feedback—let us know what you think of this service.
-          include_payment: You'll need to include the payment voucher form.
+          include_payment: Fill out your payment voucher
           mail_voucher_and_payment: 'Mail the voucher form and payment to:'
           md:
             refund_details_html: |
@@ -4076,7 +4083,7 @@ en:
           bank_title: 'Please provide your bank details:'
           confirm_account_number: Confirm Account Number
           confirm_routing_number: Confirm Routing Number
-          date_withdraw_text: 'When would you like the funds withdrawn from your account? (Must be on or before %{withdrawal_deadline_date}, %{with_drawal_deadline_year}):'
+          date_withdraw_text: 'When would you like the funds withdrawn from your account? (must be on or before %{withdrawal_deadline_date}, %{with_drawal_deadline_year}):'
           foreign_accounts: Foreign accounts are not accepted
           routing_number: Routing Number
           withdraw_amount: How much do you authorize to be withdrawn from your account? (Your total amount due is&#58; $%{owed_amount}.)
@@ -5802,7 +5809,7 @@ en:
         45_changes_summary: We may change this Privacy Policy from time to time. Please check this page frequently for updates as your continued use of our Services after any changes in this Privacy Policy will constitute your acceptance of the changes. For material changes, we will notify you via email, or other means consistent with applicable law.
         46_access_request: Your Rights
         47_access_request_list_html:
-        - GetCTC.org respects your control over your information and, upon request, we will confirm whether we hold or are processing information that we have collected from you. You also have the right to amend or update inaccurate or incomplete personal information, request deletion of your personal information, or request that we no longer use it. Under certain circumstances we will not be able to fulfill your request, such as if it interferes with our regulatory obligations, affects legal matters, we cannot verify your identity, or it involves disproportionate cost or effort, but in any event we will respond to your request within a reasonable timeframe and provide you an explanation. In order to make such a request of us, please email us at %{email_link}.
+        - GetCTC.org respects your control over your information and, upon request, we will confirm whether we hold or are processing information that we have collected from you. You also have the right to amend or update inaccurate or incomplete personal information, request a portable copy or deletion of your personal information, or request that we no longer use it. Under certain circumstances we will not be able to fulfill your request, such as if it interferes with our regulatory obligations, affects legal matters, we cannot verify your identity, or it involves disproportionate cost or effort, but in any event we will respond to your request within a reasonable timeframe and provide you an explanation. In order to make such a request of us, please email us at %{email_link}.
         - Please note that for personal information about you that we have obtained or received for processing on behalf of a separate, unaffiliated entity--which determined the means and purposes of processing, all such requests should be made to that entity directly. We will honor and support any instructions they provide us with respect to your personal information.
         47_effective_date: Effective Date
         48_effective_date_info: This version of the policy is effective October 22, 2021.
