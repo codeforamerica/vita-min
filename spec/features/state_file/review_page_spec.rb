@@ -39,11 +39,12 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
           expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.w2.edit.instructions_1_html", employer: intake.state_file_w2s.first.employer_name))
           fill_in strip_html_tags(I18n.t("state_file.questions.w2.edit.box15_html")), with: "987654321"
           click_on I18n.t("general.continue")
+
+          wait_for_device_info("initial_income_review")
         end
 
         # Back on income review page
         expect(page).to have_text I18n.t("state_file.questions.shared.income_review.title")
-        wait_for_device_info("initial_income_review")
         click_on I18n.t("general.continue")
 
         # Final review page
