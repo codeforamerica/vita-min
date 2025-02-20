@@ -14,14 +14,14 @@ module StateFile
       end
 
       def index
-        @prior_year_intake = StateFileArchivedIntake.find_by!(email_address: current_request.email_address)
-        @pdf_url = @prior_year_intake.submission_pdf.url(expires_in: pdf_expiration_time, disposition: "inline")
+        @state_code = StateFileArchivedIntake.find_by!(email_address: current_request.email_address).state_code
         create_state_file_access_log("issued_pdf_download_link")
       end
 
       def log_and_redirect
         create_state_file_access_log("client_pdf_download_click")
-        pdf_url = params[:pdf_url]
+        prior_year_intake = StateFileArchivedIntake.find_by!(email_address: current_request.email_address)
+        pdf_url = prior_year_intake.submission_pdf.url(expires_in: pdf_expiration_time, disposition: "inline")
         redirect_to pdf_url
       end
 
