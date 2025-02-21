@@ -9,7 +9,7 @@ module StateFile
       private
 
       def form_params
-        params.require(:state_file_md_permanently_disabled_form).permit(:mfj_disability, :primary_disabled, :spouse_disabled, :proof_of_disability_submitted)
+        params.require(:state_file_md_permanently_disabled_form).permit(:mfj_disability, :primary_disabled, :spouse_disabled, :primary_proof_of_disability_submitted, :spouse_proof_of_disability_submitted)
       end
     end
   end

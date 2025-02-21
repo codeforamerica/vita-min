@@ -11,11 +11,18 @@
     <div class="question-with-follow-up">
       <div class="question-with-follow-up__question">
         <div class="white-group">
-          <% if current_intake.filing_status_mfj? %>
+          <% if current_intake.filing_status_mfj? && current_intake.primary_senior? && current_intake.spouse_senior? %>
             <%= f.cfa_radio_set(:mfj_disability, collection: [
-              { value: "me", label: t(".yes_me"), input_html: { "data-follow-up": "#disability-proof" } },
-              { value: "spouse", label: t(".yes_spouse"), input_html: { "data-follow-up": "#disability-proof" } },
-              { value: "both", label: t(".yes_both"), input_html: { "data-follow-up": "#disability-proof" } },
+              { value: "me", label: t(".yes_me") },
+              { value: "spouse", label: t(".yes_spouse") },
+              { value: "both", label: t(".yes_both") },
+              { value: "no", label: t(".no_neither") }
+            ]) %>
+          <% elsif current_intake.filing_status_mfj? %>
+            <%= f.cfa_radio_set(:mfj_disability, collection: [
+              { value: "me", label: t(".yes_me"), input_html: { "data-follow-up": "#primary-disability-proof" } },
+              { value: "spouse", label: t(".yes_spouse"), input_html: { "data-follow-up": "#spouse-disability-proof" } },
+              { value: "both", label: t(".yes_both"), input_html: { "data-follow-up": "#both-disability-proof" } },
               { value: "no", label: t(".no_neither") }
             ]) %>
           <% else %>
@@ -27,15 +34,40 @@
         </div>
       </div>
 
-      <div class="question-with-follow-up__follow-up" id="disability-proof">
-        <div class="white-group">
-          <%= f.cfa_radio_set(:proof_of_disability_submitted, label_text: t(".proof_question"), collection: [
-            { value: "yes", label: t("general.affirmative") },
-            { value: "no", label: t("general.negative") },
-          ]) %>
+        <div class="question-with-follow-up__follow-up" id="primary-disability-proof">
+          <div class="white-group">
+            <%= f.cfa_radio_set(:primary_proof_of_disability_submitted, label_text: t(".primary_proof_question_html"), collection: [
+              { value: "yes", label: t("general.affirmative") },
+              { value: "no", label: t("general.negative") },
+            ]) %>
+          </div>
+        </div>
+
+        <div class="question-with-follow-up__follow-up" id="spouse-disability-proof">
+          <div class="white-group">
+            <%= f.cfa_radio_set(:spouse_proof_of_disability_submitted, label_text: t(".spouse_proof_question_html"), collection: [
+              { value: "yes", label: t("general.affirmative") },
+              { value: "no", label: t("general.negative") },
+            ]) %>
+          </div>
+        </div>
+
+        <div class="question-with-follow-up__follow-up" id="both-disability-proof">
+          <div class="white-group">
+            <%= f.cfa_radio_set(:primary_proof_of_disability_submitted, label_text: t(".primary_proof_question_html"), collection: [
+              { value: "yes", label: t("general.affirmative") },
+              { value: "no", label: t("general.negative") },
+            ]) %>
+          </div>
+
+          <div class="white-group">
+            <%= f.cfa_radio_set(:spouse_proof_of_disability_submitted, label_text: t(".spouse_proof_question_html"), collection: [
+              { value: "yes", label: t("general.affirmative") },
+              { value: "no", label: t("general.negative") },
+            ]) %>
+          </div>
         </div>
       </div>
-    </div>
 
     <div class="reveal">
       <button class="reveal__button"><%= t(".help_title") %></button>

@@ -20,7 +20,7 @@ RSpec.describe StateFile::MdPermanentlyDisabledForm do
       end
 
       context "when mfj disability status and proof of disability submitted is present" do
-        let(:params) { { mfj_disability: "me", proof_of_disability_submitted: "yes" } }
+        let(:params) { { mfj_disability: "me", primary_proof_of_disability_submitted: "yes" } }
 
         it "is valid" do
           expect(form).to be_valid
@@ -28,11 +28,11 @@ RSpec.describe StateFile::MdPermanentlyDisabledForm do
       end
 
       context "when proof of disability submitted is required" do
-        let(:params) { { mfj_disability: "me", proof_of_disability_submitted: "" } }
+        let(:params) { { mfj_disability: "me", primary_proof_of_disability_submitted: "" } }
 
         it "is invalid if proof_of_disability_submitted is blank" do
           expect(form).not_to be_valid
-          expect(form.errors[:proof_of_disability_submitted]).to include "Can't be blank."
+          expect(form.errors[:primary_proof_of_disability_submitted]).to include "Can't be blank."
         end
       end
     end
@@ -52,7 +52,7 @@ RSpec.describe StateFile::MdPermanentlyDisabledForm do
       end
 
       context "when primary_disabled is present and proof of disability submitted is present" do
-        let(:params) { { primary_disabled: "yes", proof_of_disability_submitted: "yes" } }
+        let(:params) { { primary_disabled: "yes", primary_proof_of_disability_submitted: "yes" } }
 
         it "is valid" do
           expect(form).to be_valid
@@ -60,7 +60,7 @@ RSpec.describe StateFile::MdPermanentlyDisabledForm do
       end
 
       context "when primary_disabled is no and proof of disability submitted is not present" do
-        let(:params) { { primary_disabled: "no", proof_of_disability_submitted: "" } }
+        let(:params) { { primary_disabled: "no", primary_proof_of_disability_submitted: "" } }
 
         it "is valid" do
           expect(form).to be_valid
@@ -68,11 +68,11 @@ RSpec.describe StateFile::MdPermanentlyDisabledForm do
       end
 
       context "when proof_of_disability_submitted is required" do
-        let(:params) { { primary_disabled: "yes", proof_of_disability_submitted: "" } }
+        let(:params) { { primary_disabled: "yes", primary_proof_of_disability_submitted: "" } }
 
         it "is invalid if proof_of_disability_submitted is blank" do
           expect(form).not_to be_valid
-          expect(form.errors[:proof_of_disability_submitted]).to include "Can't be blank."
+          expect(form.errors[:primary_proof_of_disability_submitted]).to include "Can't be blank."
         end
       end
     end
