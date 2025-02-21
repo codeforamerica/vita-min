@@ -4,12 +4,12 @@
         <TaxYr>2024</TaxYr>
         <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
         <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
-        <SoftwareVersionNum>99d28588</SoftwareVersionNum>
+        <SoftwareVersionNum>276e3bdf</SoftwareVersionNum>
         <ReturnTypeCd>1040</ReturnTypeCd>
         <Filer>
             <PrimarySSN>400007209</PrimarySSN>
             <SpouseSSN>400007210</SpouseSSN>
-            <NameLine1Txt>EDWARD J &amp; ELIZA&lt;EEL</NameLine1Txt>
+            <NameLine1Txt>EDWARD &amp; ELIZA&lt;EEL</NameLine1Txt>
             <PrimaryNameControlTxt>EEL</PrimaryNameControlTxt>
             <SpouseNameControlTxt>EEL</SpouseNameControlTxt>
             <USAddress>
@@ -18,11 +18,11 @@
                 <StateAbbreviationCd>MD</StateAbbreviationCd>
                 <ZIPCd>21201</ZIPCd>
             </USAddress>
-            <PhoneNum>4104555555</PhoneNum>
+            <PhoneNum>4105555555</PhoneNum>
         </Filer>
         <AdditionalFilerInformation>
             <AtSubmissionFilingGrp>
-                <EmailAddressTxt>test-user+40000720-93b3-4d28-84f2-2b0024f73041@directfile.test</EmailAddressTxt>
+                <EmailAddressTxt>test-user+40000720-91c2-471f-b0be-4c1aab9c2553@directfile.test</EmailAddressTxt>
             </AtSubmissionFilingGrp>
         </AdditionalFilerInformation>
     </ReturnHeader>
@@ -66,14 +66,14 @@
                 <BusinessNameLine1Txt>Shocking Bank and Trust</BusinessNameLine1Txt>
             </PayerName>
             <PayerUSAddress>
-                <AddressLine1Txt>1000 Sherwood Bank and Trust</AddressLine1Txt>
+                <AddressLine1Txt>1000 Sherwood Road</AddressLine1Txt>
                 <CityNm>Cockeysville</CityNm>
                 <StateAbbreviationCd>MD</StateAbbreviationCd>
                 <ZIPCd>21030</ZIPCd>
             </PayerUSAddress>
             <PayerEIN>910656890</PayerEIN>
             <RecipientSSN>400007209</RecipientSSN>
-            <RecipientNm>Edward J Eel</RecipientNm>
+            <RecipientNm>Edward Eel</RecipientNm>
             <RecipientUSAddress>
                 <AddressLine1Txt>6565 Bounty Road</AddressLine1Txt>
                 <CityNm>Baltimore</CityNm>
@@ -109,8 +109,8 @@
                 <ZIPCd>21030</ZIPCd>
             </PayerUSAddress>
             <PayerEIN>010865956</PayerEIN>
-            <RecipientSSN>400007209</RecipientSSN>
-            <RecipientNm>Edward J Eel</RecipientNm>
+            <RecipientSSN>400007210</RecipientSSN>
+            <RecipientNm>Eliza Eel</RecipientNm>
             <RecipientUSAddress>
                 <AddressLine1Txt>6565 Bounty Road</AddressLine1Txt>
                 <CityNm>Baltimore</CityNm>
@@ -126,10 +126,8 @@
             <IRRAllocatedAmt>0</IRRAllocatedAmt>
             <F1099RStateLocalTaxGrp>
                 <F1099RStateTaxGrp>
-                    <StateTaxWithheldAmt>1000</StateTaxWithheldAmt>
                     <StateAbbreviationCd>MD</StateAbbreviationCd>
                     <PayerStateIdNum>102345</PayerStateIdNum>
-                    <StateDistributionAmt>45000</StateDistributionAmt>
                 </F1099RStateTaxGrp>
             </F1099RStateLocalTaxGrp>
             <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
@@ -145,7 +143,7 @@
                 <AddressLine1Txt>601 E Fayette St</AddressLine1Txt>
                 <CityNm>Baltimore</CityNm>
                 <StateAbbreviationCd>MD</StateAbbreviationCd>
-                <ZIPCd>21201</ZIPCd>
+                <ZIPCd>21202</ZIPCd>
             </EmployerUSAddress>
             <EmployeeNm>Eliza Eel</EmployeeNm>
             <EmployeeUSAddress>
@@ -166,7 +164,10 @@
                     <EmployerStateIdNum>5050505</EmployerStateIdNum>
                     <StateWagesAmt>65000</StateWagesAmt>
                     <StateIncomeTaxAmt>1000</StateIncomeTaxAmt>
-                    <W2LocalTaxGrp/>
+                    <W2LocalTaxGrp>
+                        <LocalWagesAndTipsAmt>65000</LocalWagesAndTipsAmt>
+                        <LocalIncomeTaxAmt>50</LocalIncomeTaxAmt>
+                    </W2LocalTaxGrp>
                 </W2StateTaxGrp>
             </W2StateLocalTaxGrp>
             <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
