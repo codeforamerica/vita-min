@@ -226,6 +226,115 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
     end
   end
 
+  context "MD" do
+    before do
+      allow(Flipper).to receive(:enabled?).and_call_original
+      allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
+      state_code = "md"
+      set_up_intake_and_associated_records(state_code)
+
+      intake = StateFile::StateInformationService.intake_class(state_code).last
+
+      second_1099r = create(:state_file1099_r, intake: intake, payer_name: "Maryland State Retirement")
+      third_1099r = create(:state_file1099_r, intake: intake, payer_name: "Baltimore County Pension")
+
+      StateFileMd1099RFollowup.create(state_file1099_r: intake.state_file1099_rs.first, income_source: "pension_annuity_endowment")
+      StateFileMd1099RFollowup.create(state_file1099_r: second_1099r, income_source: "other", service_type: "military")
+      StateFileMd1099RFollowup.create(state_file1099_r: third_1099r, income_source: "other", service_type: "public_safety")
+
+      visit "/questions/#{state_code}-review"
+    end
+
+    it "allows user to view and edit their 1099R followup information" do
+      within "#retirement-income-source-0" do
+        expect(page).to have_text "Dorothy Red"
+        expect(page).to have_text I18n.t("state_file.questions.md_review.edit.pension_annuity_endowment")
+      end
+
+      within "#retirement-income-source-1" do
+        expect(page).to have_text "Maryland State Retirement"
+        expect(page).to have_text I18n.t("state_file.questions.md_review.edit.other")
+        expect(page).to have_text I18n.t("state_file.questions.md_review.edit.military")
+      end
+
+      within "#retirement-income-source-2" do
+        expect(page).to have_text "Baltimore County Pension"
+        expect(page).to have_text I18n.t("state_file.questions.md_review.edit.other")
+        expect(page).to have_text I18n.t("state_file.questions.md_review.edit.public_safety")
+      end
+
+      within "#retirement-income-source-0" do
+        click_on I18n.t("general.review_and_edit")
+      end
+
+      choose I18n.t("state_file.questions.md_retirement_income_subtraction.edit.income_source_other")
+      choose I18n.t("state_file.questions.md_retirement_income_subtraction.edit.service_type_military")
+      click_on I18n.t("general.continue")
+
+      within "#retirement-income-source-0" do
+        expect(page).to have_text "Dorothy Red"
+        expect(page).to have_text I18n.t("state_file.questions.md_review.edit.other")
+        expect(page).to have_text I18n.t("state_file.questions.md_review.edit.military")
+      end
+
+      within "#retirement-income-source-1" do
+        expect(page).to have_text "Maryland State Retirement"
+        expect(page).to have_text I18n.t("state_file.questions.md_review.edit.other")
+        expect(page).to have_text I18n.t("state_file.questions.md_review.edit.military")
+      end
+
+      within "#retirement-income-source-2" do
+        expect(page).to have_text "Baltimore County Pension"
+        expect(page).to have_text I18n.t("state_file.questions.md_review.edit.other")
+        expect(page).to have_text I18n.t("state_file.questions.md_review.edit.public_safety")
+      end
+    end
+
+    it "allows user to view and edit their disability status" do
+      within "#permanently-disabled" do
+        expect(page).to have_text I18n.t("state_file.questions.md_review.edit.disability_status")
+        expect(page).to have_text I18n.t("general.negative")
+
+        click_on I18n.t("general.review_and_edit")
+      end
+
+      choose "Yes", name: "state_file_md_permanently_disabled_form[primary_disabled]"
+      choose "No", name: "state_file_md_permanently_disabled_form[proof_of_disability_submitted]"
+      click_on I18n.t("general.continue")
+
+      within "#permanently-disabled" do
+        expect(page).to have_text I18n.t("state_file.questions.md_review.edit.disability_status")
+        expect(page).to have_text I18n.t("general.affirmative")
+        expect(page).to have_text I18n.t("state_file.questions.md_review.edit.proof_of_disability")
+        expect(page).to have_text I18n.t("general.negative")
+      end
+    end
+
+    it "displays joint disability status correctly when filing MFJ" do
+      intake = StateFile::StateInformationService.intake_class("md").last
+      intake.direct_file_data.filing_status = 2 # mfj
+      intake.update(raw_direct_file_data: intake.direct_file_data, spouse_birth_date: Date.new(1994, 12, 31))
+      visit "/questions/md-review"
+
+      within "#permanently-disabled" do
+        expect(page).to have_text I18n.t("state_file.questions.md_permanently_disabled.edit.no_neither")
+
+        click_on I18n.t("general.review_and_edit")
+      end
+
+      choose "Yes, we both are"
+      choose "No"
+      click_on I18n.t("general.continue")
+
+      within "#permanently-disabled" do
+        expect(page).to have_text I18n.t("state_file.questions.md_review.edit.disability_status")
+        expect(page).to have_text I18n.t("state_file.questions.md_permanently_disabled.edit.yes_both")
+        expect(page).to have_text I18n.t("state_file.questions.md_review.edit.proof_of_disability")
+        expect(page).to have_text I18n.t("general.negative")
+      end
+    end
+  end
+
   def set_up_intake_and_associated_records(state_code)
     visit "/"
     click_on "Start Test #{state_code.upcase}"
