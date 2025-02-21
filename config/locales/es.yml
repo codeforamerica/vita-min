@@ -1506,14 +1506,41 @@ es:
     state_file:
       accepted_owe:
         email:
-          body: "Hola %{primary_first_name},\n\n¡%{state_name} aceptó tu declaración de impuestos estatales! Asegúrate de pagar tus impuestos estatales antes del 15 de abril en %{state_pay_taxes_link} si no los pagaste mediante débito directo al presentar tu declaración.\n\nDescarga tu declaración en <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.\n\n¿Preguntas? Responde a este correo electrónico.\n\nSaludos, \nEl equipo de FileYourStateTaxes\n"
-          subject: 'Actualización de FileYourStateTaxes: Declaración Estatal de %{state_name} Aceptada'
-        sms: "Hola %{primary_first_name} - %{state_name}¡Acepté su declaración de impuestos estatales! Asegúrese de pagar sus impuestos estatales antes del 15 de abril al %{state_pay_taxes_link} si no ha pagado mediante depósito directo o cheque. \n\n\nDescarga tu declaración en %{return_status_link}\n\n¿Preguntas? Envíenos un correo electrónico a help@fileyourstatetaxes.org.\n"
+          body: |
+            Hola %{primary_first_name},
+
+            Tu declaración de impuestos estatales de %{state_name} <strong>ha sido aceptada y hay un pago pendiente</strong>.
+
+            <strong>Si no pagaste ya mediante débito directo al presentar tu declaración, por favor, haz tu pago antes del 15 de abril visitando %{state_pay_taxes_link}</strong>. Cualquier cantidad no pagada antes de la fecha límite de presentación podría significar multas y costos adicionales.
+
+            Descarga tu declaración visitando <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.
+
+            ¿Necesitas ayuda? Responde a este correo.
+
+            Atentamente,
+            El equipo de FileYourStateTaxes
+          subject: Declaración de impuestos del estado %{state_name} aceptada - Pago pendiente
+        sms: |
+          Hola %{primary_first_name} - Tu declaración de impuestos estatales de %{state_name} ha sido aceptada y hay un pago pendiente.
+
+          Sino has hecho tu pago mediante débito directo, por favor hazlo antes del 15 de abril en %{state_pay_taxes_link}.
+
+          Cualquier cantidad no pagada antes de la fecha límite de presentación podría significar multas y costos adicionales.
+
+          Descarga tu declaración en %{return_status_link}
+
+          ¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org
       accepted_refund:
         email:
-          body: "Hola %{primary_first_name},\n\n¡%{state_name} ha aceptado tu declaración de impuestos estatales! Puedes esperar recibir tu reembolso tan pronto como %{state_name} apruebe la cantidad de tu reembolso.\n\nDescarga tu declaración y verifica el estado de tu reembolso en <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.\n\nSaludos, \nEl equipo de FileYourStateTaxes\n"
-          subject: 'Actualización de FileYourStateTaxes: Declaración Estatal de %{state_name} Aceptada'
-        sms: "Hola %{primary_first_name} - %{state_name} ¡Acepté su declaración de impuestos estatales! Puede esperar recibir su reembolso tan pronto como %{state_name} apruebe el monto de su reembolso. \n\nDescargue su devolución y verifique el estado de su reembolso en %{return_status_link}\n\n¿Necesitar ayuda? Envíenos un correo electrónico a help@fileyourstatetaxes.org.\n"
+          body: |
+            Hola %{primary_first_name},
+
+            ¡Tu declaración de impuestos estatales de %{state_name} ha sido <strong>aceptada</strong>! Descarga tu declaración y verifica el estado de tu reembolso visitando <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.
+
+            Atentamente,
+            El equipo de FileYourStateTaxes
+          subject: Declaración de impuestos estatales de %{state_name} aceptada
+        sms: "Hola %{primary_first_name} - Buenas noticias, ¡%{state_name} ha aceptado tu declaración de impuestos estatales! \n\nDescarga tu declaración y verifica el estado de tu reembolso en %{return_status_link}\n\n¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org.\"\n"
       df_transfer_issue_message:
         email:
           body: |
@@ -1567,7 +1594,7 @@ es:
 
             Atentamente,
             El equipo de FileYourStateTaxes
-          subject: 'Recordatorio final: FileYourStateTaxes cerrará el 25 de abril.'
+          subject: Recuerda completar tu declaración de impuestos estatales lo antes posible
         sms: |
           Hola %{primary_first_name} - Aún no has enviado tu declaración de impuestos estatales. Asegúrate de presentar tus impuestos estatales lo antes posible para evitar multas por declarar tarde. Ve a fileyourstatetaxes.org/es/login-options para completar tu declaración ahora.
           ¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org.
@@ -1606,8 +1633,16 @@ es:
         sms: Hola %{primary_first_name} - Te recordamos que tu declaración de impuestos estatales de %{state_name} fue rechazada. Podemos ayudarte a corregirla y volver a enviarla en %{return_status_link}. Asegúrate de tomar acción lo más pronto posible para evitar costos extra por declarar tarde. ¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org.
       rejected:
         email:
-          body: "Hola %{primary_first_name},\n\nLamentablemente, %{state_name} rechazó tu declaración de impuestos estatales. ¡No te preocupes! Podemos ayudarte a corregirla y volver a enviarla en <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.\n\n¿Preguntas? Responde a este correo electrónico.\n\nSaludos, \nEl equipo de FileYourStateTaxes\n"
-          subject: 'Actualización de FileYourStateTaxes: Declaración Estatal de %{state_name} Rechazada. Acción Necesaria.'
+          body: |
+            Hola %{primary_first_name},
+
+            Lamentablemente, %{state_name} rechazó tu declaración de impuestos estatales. ¡No te preocupes! Podemos ayudarte a corregirla y volver a enviarla en <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.
+
+            ¿Necesitas ayuda? Responde a este correo electrónico.
+
+            Atentamente,
+            El equipo de FileYourStateTaxes
+          subject: 'Acción necesaria: La declaración de Impuestos Estatales de %{state_name} fue rechazada.'
         sms: |
           Hola %{primary_first_name} - Lamentablemente, %{state_name} rechazó tu declaración de impuestos estatales. ¡No te preocupes! Podemos ayudarte a corregirla y volver a enviarla en %{return_status_link}.
 
@@ -1623,8 +1658,8 @@ es:
 
             Atentamente,
             El equipo de FileYourStateTaxes
-          subject: 'Actualización de FileYourStateTaxes: La declaración de impuestos estatales de %{state_name} está tardando más de lo esperado'
-        sms: Hola %{primary_first_name} - Está tardando más de lo esperado procesar su declaración de impuestos estatales. ¡No te preocupes! Le informaremos tan pronto como sepamos el estado de su devolución. No necesitas hacer nada ahora. ¿Preguntas? Envíenos un correo electrónico a help@fileyourstatetaxes.org.
+          subject: Tu declaración de impuestos del estado %{state_name} está tardando más de lo esperado
+        sms: Hola %{primary_first_name} - Procesar tu declaración de impuestos estatales está tardando más de lo esperado . ¡No te preocupes! Te avisaremos apenas tengamos actualizaciones del estado de tu declaración. No necesitas hacer nada en este momento. ¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org.
       successful_submission:
         email:
           body: |
@@ -1638,10 +1673,10 @@ es:
 
             Atentamente,
             El equipo de FileYourStateTaxes
-          resubmitted: Reenvió
-          subject: 'Actualización de FileYourStateTaxes: %{state_name} Declaración estatal enviada'
-          submitted: Envió
-        sms: Hola %{primary_first_name} - ¡Has %{submitted_or_resubmitted} tu %{state_name} declaración de impuestos estatales! Le informaremos en 1 o 2 días sobre el estado de su devolución. Puedes descargar tu declaración y consultar el estado en %{return_status_link}. ¿Necesitar ayuda? Envíenos un correo electrónico a help@fileyourstatetaxes.org.
+          resubmitted: vuelto a enviar
+          subject: Declaración de impuestos estatales de %{state_name} enviada
+          submitted: enviado
+        sms: Hola %{primary_first_name} - ¡Has %{submitted_or_resubmitted} con éxito tu declaración de impuestos estatales de %{state_name}! Te actualizaremos en 1-2 días sobre el estado de tu declaración. Puedes descargar y verificar el estado de tu declaración en %{return_status_link}. ¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org.
       survey_notification:
         email:
           body: |
@@ -1666,8 +1701,11 @@ es:
 
             Atentamente,
             El equipo de FileYourStateTaxes
-          subject: 'Actualización de FileYourStateTaxes: La Declaración de Impuestos Estatales de %{state_name}.'
-        sms: "Hola %{primary_first_name} - Lamentablemente, %{state_name} rechazó tu declaración de impuestos estatales por un problema que no se puede resolver en nuestra herramienta. ¡No te preocupes! Podemos ayudarte a brindar orientación sobre los próximos pasos. Chatea con nosotros en %{return_status_link}. \n\n¿Tienes preguntas? Responde a este texto.\n"
+          subject: Declaración de impuestos estatales de %{state_name} rechazada
+        sms: |
+          Hola, %{primary_first_name}: Lamentablemente, %{state_name} ha rechazado tu declaración de impuestos estatales debido a un problema que no se puede resolver a través de nuestro servicio. ¡No te preocupes! Podemos darte orientación sobre los siguientes pasos. Chatea con nosotros en %{return_status_link}.
+
+          ¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org.
       welcome:
         email:
           body: |
@@ -2113,7 +2151,7 @@ es:
           <li>Medicaid (NJ FamilyCare)</li>
         </ul>
         <p><a href="https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml" target="_blank" rel="noopener nofollow">Aquí está la lista completa de opciones de seguro que tienen cobertura mínima esencial (en inglés)</a></p>
-        <p>Debes responder no si tú o alguien en tu hogar solo tuvo plan de visión o dental independientes, cobertura de compensación laboral o un plan limitado a una enfermedad o dolencia específica. En New Jersey, a partir de 2018, necesitas cobertura mínima esencial, o podrías tener que pagar impuestos adicionales.</p>
+        <p>Debes responder no si tú o alguien en tu hogar solo tuvo plan de visión o dental independientes, cobertura de compensación laboral o un plan limitado a una enfermedad o dolencia específica. En New Jersey, a partir de 2018, necesitas cobertura mínima esencial, o podrías tener que pagar impuestos adicionales.</p>
       register_to_vote: Regístrate para votar
       see_detailed_return: Ver información detallada de la declaración
       standard_deduction: Deducción estándar
@@ -2169,7 +2207,7 @@ es:
             <li>El formulario 1099-G (si recibiste beneficios de desempleo en %{filing_year})</li>
             <li>Los números de ruta y cuenta bancaria (si deseas recibir tu reembolso o hacer un pago de impuestos electrónicamente)</li>
           </ul>
-        help_text_title: "¿Qué necesito para completar mi declaración de impuestos estatales?"
+        help_text_title: "¿Qué necesito para completar mi declaración de impuestos estatales?"
         id:
           closed_html: |
             Ya cerramos por esta temporada de impuestos. <br /><br />
@@ -2417,7 +2455,7 @@ es:
             one: "¿Cuánto recibiste en salario por servicio activo?"
             other: "¿Cuánto recibiste tú o tu cónyuge en salario por servicio activo?"
           learn_more_content_html: |
-            Si eres miembro de las <strong>Fuerzas Armadas de Estados Unidos</strong>, ingresa el salario que recibiste por servicio activo que reportaste en declaración de impuestos federales.<br><br>
+            Si eres miembro de las <strong>Fuerzas Armadas de Estados Unidos</strong>, ingresa el salario que recibiste por servicio activo que reportaste en declaración de impuestos federales.<br><br>
             Si eres miembro de <strong>la Reserva o la Guardia Nacional</strong>, ingresa el salario que recibiste por entrenamientos durante fines de semana o de dos semanas que hayas reportado en tu declaración de impuestos federal.<br><br>
             <strong>No</strong> puedes incluir ningún ingreso que hayas recibido por empleo a tiempo completo en el servicio civil como "técnico militar (doble estatus)".
           learn_more_title: Obtener más información
@@ -3025,7 +3063,7 @@ es:
           review_and_edit_state_info: Revisar y editar la información estatal
           ssa_title: Beneficios del Seguro Social (SSA-1099)
           state_info_to_be_collected: Información estatal que se recogerá
-          title: Estos son los formularios de ingresos que transferimos de tu declaración de impuestos federales.
+          title: Estos son los formularios de ingresos que transferimos de tu declaración de impuestos federales.
           unemployment_title: Beneficios de desempleo (1099-G)
           w2s_title: Empleos (W-2)
           warning: "⚠️ Necesitamos verificar de nuevo cierta información"
@@ -3861,8 +3899,8 @@ es:
           title: 'Selecciona tu estado de residencia en la ciudad de Nueva York durante el %{year}:'
       pending_federal_return:
         edit:
-          body_html: Lamentamos hacerte esperar.<br><br>Recibirás un correo electrónico de IRS Direct File cuando tu declaración de impuestos federales sea aceptada, con un enlace para traerte de regreso aquí. Revisa tu carpeta de spam.
-          title: Tu declaración de impuestos federales debe ser aceptada antes de que puedas presentar tu declaración de impuestos estatales
+          body_html: Lamentamos hacerte esperar.<br><br>Recibirás un correo electrónico de IRS Direct File cuando tu declaración de impuestos federales sea aceptada, con un enlace para traerte de regreso aquí. Revisa tu carpeta de spam.
+          title: Tu declaración de impuestos federales debe ser aceptada antes de que puedas presentar tu declaración de impuestos estatales
       phone_number:
         edit:
           action: Enviar el código
@@ -3917,7 +3955,7 @@ es:
           direct_debit_html: Si tienes un saldo de impuestos pendiente, recuerda <strong>pagarlo en línea en <a target="_blank" rel="noopener nofollow" href="%{tax_payment_info_url}">%{tax_payment_info_text}</a></strong> o por correo antes de la fecha límite de declaración que es el 15 de abril.
           download_voucher: Descarga e imprime el formulario de comprobante de pago completado.
           feedback: Valoramos sus comentarios; háganos saber lo que piensa de esta herramienta.
-          include_payment: Incluir el formulario de comprobante de pago.
+          include_payment: Completa el formulario de comprobante de pago
           mail_voucher_and_payment: 'Envía el formulario de comprobante de pago y tu pago por correo postal a:'
           md:
             refund_details_html: |
@@ -5765,7 +5803,7 @@ es:
         45_changes_summary: Es posible que modifiquemos esta Política de Privacidad de vez en cuando. Por favor, revise esta página con frecuencia para ver si hay actualizaciones, ya que su uso continuado de nuestros Servicios después de cualquier cambio en esta Política de Privacidad constituirá su aceptación de los cambios. En el caso de cambios sustanciales, se lo notificaremos por correo electrónico o por otros medios compatibles con la legislación aplicable.
         46_access_request: Tus derechos
         47_access_request_list_html:
-        - GetCTC.org respeta el control que usted ejerce sobre su información y, si lo solicita, le confirmaremos si tenemos o estamos procesando la información que hemos recopilado de usted. También tiene derecho a modificar o corregir la información personal inexacta o incompleta, a solicitar la eliminación de su información personal o a pedir que dejemos de utilizarla. En determinadas circunstancias no podremos atender su solicitud, como por ejemplo si interfiere con nuestras obligaciones reglamentarias, afecta a asuntos legales, no podemos verificar su identidad o supone un costo o esfuerzo desproporcionado, pero en cualquier caso responderemos a su solicitud en un plazo razonable y le daremos una explicación. Para hacernos una solicitud de este tipo, envíenos un correo electrónico a %{email_link}.
+        - GetCTC.org respeta el control que usted ejerce sobre su información y, si lo solicita, le confirmaremos si tenemos o estamos procesando la información que hemos recopilado de usted. También tiene derecho a modificar o corregir la información personal inexacta o incompleta, solicitar una copia portable o la eliminación de su información personal o a pedir que dejemos de utilizarla. En determinadas circunstancias no podremos atender su solicitud, como por ejemplo si interfiere con nuestras obligaciones reglamentarias, afecta a asuntos legales, no podemos verificar su identidad o supone un costo o esfuerzo desproporcionado, pero en cualquier caso responderemos a su solicitud en un plazo razonable y le daremos una explicación. Para hacernos una solicitud de este tipo, envíenos un correo electrónico a %{email_link}.
         - Favor de tener en cuenta que, en el caso de la información personal sobre usted que hayamos obtenido o recibido para su utilización en nombre de una entidad independiente y no afiliada, que haya determinado los medios y los fines del tratamiento, todas las solicitudes de este tipo deberán dirigirse directamente a dicha entidad. Respetaremos y apoyaremos cualquier instrucción que nos proporcionen con respecto a su información personal.
         47_effective_date: Fecha de vigencia
         48_effective_date_info: Esta versión de la política entrará en vigor a partir del 22 de octubre de 2021.
@@ -6285,7 +6323,7 @@ es:
         title: Pago de estímulo
       tax_questions:
         cannot_answer:
-          different_services: Preguntas sobre los impuestos declarados mediante otro servicio (p. ej., H&R Block o TurboTax)
+          different_services: Preguntas sobre los impuestos declarados mediante otro servicio (p. ej., H&R Block o TurboTax)
           header: 'No podemos responder a lo siguiente:'
           refund_amounts: El monto del reembolso que recibirá
         header: "¡Tratemos de responder a sus preguntas sobre los impuestos!"
@@ -6916,14 +6954,14 @@ es:
         enter_zip: Ingrese su código postal para encontrar proveedores cercanos.
         header: Obtenga ayuda gratuita en declarar sus impuestos
         info: Los programas de Asistencia Voluntaria al Contribuyente (VITA, por sus siglas en inglés) del IRS ofrecen ayuda con los impuestos gratis, a los contribuyentes que califiquen.
-        no_results: "¡Disculpe! No hemos encontrado ningún resultado dentro de 50 millas de su dirección."
-        results: Hemos encontrado %{total_entries} resultados dentro de 50 millas de %{zip}
+        no_results: "¡Disculpe! No hemos encontrado ningún resultado dentro de 50 millas de su dirección."
+        results: Hemos encontrado %{total_entries} resultados dentro de 50 millas de %{zip}
         search:
           header: Ingrese su código postal para encontrar proveedores cercanos.
-          no_results: No hemos encontrado ningún resultado dentro de 50 millas de %{zip} (%{zip_name}).
+          no_results: No hemos encontrado ningún resultado dentro de 50 millas de %{zip} (%{zip_name}).
           placeholder: Ingrese su código postal
           prepare_your_own_html: También puede preparar su propia declaración de impuestos utilizando el %{free_file_link} para encontrar una manera gratuita de hacerlo en línea.
-          results: Hemos encontrado %{total_entries} resultados dentro de 50 millas de %{zip} (%{zip_name}).
+          results: Hemos encontrado %{total_entries} resultados dentro de 50 millas de %{zip} (%{zip_name}).
           try_another_or_apply_html: Intente otro código postal.
         title: Ubicar
       show:
@@ -6933,4 +6971,4 @@ es:
         no_hours_listed: Disculpe, no hay horario de apertura.
         no_phone_number_listed: Disculpe, no hay número de teléfono.
         phone_number_title: Llame a %{provider_name}
-        search_radius: Dentro de %{distance} millas de %{zip} (%{zip_name})
+        search_radius: Dentro de %{distance} millas de %{zip} (%{zip_name})
