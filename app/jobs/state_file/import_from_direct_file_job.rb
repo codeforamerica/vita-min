@@ -34,16 +34,16 @@ module StateFile
         intake.synchronize_df_w2s_to_database
         intake.synchronize_filers_to_database
 
+        # removing duplicate associations here because sometimes we create duplicate records during data import
+        # future work will prevent this issue from happening and this can be removed
+        remove_duplicate_w2s(intake)
+        remove_duplicate_dependents(intake)
+
         intake.update(df_data_import_succeeded_at: DateTime.now)
       rescue => err
         Rails.logger.error(err)
         intake.df_data_import_errors << DfDataImportError.new(message: err.to_s)
       end
-
-      # removing duplicate associations here because sometimes we create duplicate records during data import
-      # future work will prevent this issue from happening and this can be removed
-      remove_duplicate_w2s(intake)
-      remove_duplicate_dependents(intake)
 
       DfDataTransferJobChannel.broadcast_job_complete(intake)
     end
