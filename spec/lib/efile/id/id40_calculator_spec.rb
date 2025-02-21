@@ -584,11 +584,26 @@ describe Efile::Id::Id40Calculator do
         end
       end
 
-      context "which have state tax withheld" do
+      context "which have state tax withheld on eligible 1099s" do
         # Miranda has two W-2s with state tax withheld amount (507, 1502) and 1099R with 200 amount
         let(:intake) {
           create(:state_file_id_intake,
                  :with_w2s_synced, :with_eligible_1099r_income,
+                 raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml('id_miranda_1099r'))
+        }
+        let!(:state_file1099_g) { create(:state_file1099_g, intake: intake, state_income_tax_withheld_amount: 10) }
+
+        it 'sums the ID tax withheld from w2s, 1099gs and 1099rs' do
+          instance.calculate
+          expect(instance.lines[:ID40_LINE_46].value).to eq(10 + 507 + 1502 + 200)
+        end
+      end
+
+      context "which have state tax withheld on ineligible 1099s" do
+        # Miranda has two W-2s with state tax withheld amount (507, 1502) and 1099R with 200 amount
+        let(:intake) {
+          create(:state_file_id_intake,
+                 :with_w2s_synced, :with_ineligible_1099r_income,
                  raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml('id_miranda_1099r'))
         }
         let!(:state_file1099_g) { create(:state_file1099_g, intake: intake, state_income_tax_withheld_amount: 10) }
