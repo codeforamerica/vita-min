@@ -1024,7 +1024,7 @@ es:
         add_doc: Agregar documento
         archived_documents: Documentos archivados
         client_doc: Cliente
-        edit_file_info: ''
+        edit_file_info: Editar información del archivo
         empty_file: "(archivo vacío)"
         expanded_id_allowed: Este cliente puede enviar tipos de ID ampliados como parte del experimento.
         file_name: Nombre de archivo
@@ -1458,7 +1458,7 @@ es:
           Su Equipo de Asistencia de Preparación de Impuestos en GetYourRefund
         subject: 'GetYourRefund: Tienes un envío en curso'
       sms:
-        body: ''
+        body: Hola <<Client.PreferredName>>, no has completado de proporcionar la información que necesitamos para preparar tus impuestos en GetYourRefund. Continúe donde lo dejó aquí <<Client.LoginLink>>. Su ID de cliente es <<Client.ClientId>>. Si tiene alguna pregunta, responda a este mensaje.
     intercom_forwarding:
       email:
         body: Esta conversación ha sido enviada a los especialistas del servicio al cliente de getyourrefund.org. Espere  recibir un mensaje de ellos por correo electrónico en breve.
@@ -1573,7 +1573,17 @@ es:
           ¿Preguntas? Envíenos un correo electrónico a help@fileyourstatetaxes.org.
       post_deadline_reminder:
         email:
-          body: ''
+          body: |-
+            Hola %{primary_first_name},
+
+            Aún no has enviado tu declaración de impuestos estatales. Te recordamos que el plazo para completar los impuestos estatales venció el 15 de abril. Asegúrate de enviar tu declaración de impuestos estatales lo antes posible para evitar multas por declarar tarde de %{state_name}.
+
+            Visita <a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/es/login-options">www.fileyourstatetaxes.org/es/login-options</a> para completar tu declaración ahora.
+
+            ¿Necesitas ayuda? Responde a este correo electrónico.
+
+            Atentamente,
+            El equipo de FileYourStateTaxes
           subject: Recuerda completar tu declaración de impuestos estatales lo antes posible
         sms: "Hola %{primary_first_name} - Aún no has enviado tu declaración de impuestos estatales. Asegúrate de presentar tus impuestos estatales lo antes posible para evitar multas por declarar tarde. Ve a fileyourstatetaxes.org/en/login-options para completar tu declaración ahora. \n¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org\n"
       pre_deadline_reminder:
@@ -2366,23 +2376,23 @@ es:
         edit:
           federal: Federal
           federal_bullet_points:
-          - ''
-          - ''
-          - ''
-          pension_plan: ''
-          state_local: ''
+          - Fondo de Jubilación y Discapacidad del Servicio del Gobierno de los Estados Unidos.
+          - Sistema de Jubilación y Discapacidad del Servicio Exterior de los Estados Unidos.
+          - Otros sistemas o planes de jubilación federales establecidos por la ley federal.
+          pension_plan: Plan de pensiones calificado del gobierno federal, de Arizona o gubernamental
+          state_local: Estatal/local
           state_local_bullet_points:
-          - ''
-          - ''
-          - ''
-          - ''
-          - ''
-          - ''
-          - ''
-          - ''
-          subtitle: ''
-          uniformed_services: ''
-          which_pensions: ''
+          - Sistema de Jubilación del Estado de Arizona
+          - Plan de Jubilación del Estado de Arizona
+          - Plan de Jubilación para Oficiales de Correccionales
+          - Sistema de Jubilación del Personal de Seguridad Pública
+          - Plan de Jubilación para Funcionarios Electos
+          - Programa de Jubilación establecido por la Junta de Regentes de Arizona
+          - Programa de Jubilación establecido por el distrito de colegios comunitarios de Arizona
+          - Plan de Jubilación establecido para empleados de un condado, ciudad o pueblo en Arizona
+          subtitle: Para ver si calificas, necesitamos más información de tu 1099-R.
+          uniformed_services: Pago de jubilación o retención de los servicios uniformados de los Estados Unidos
+          which_pensions: "¿Qué pensiones gubernamentales califican?"
       az_review:
         edit:
           armed_forces_member: Miembro de las Fuerzas Armadas de los Estados Unidos
@@ -2501,8 +2511,8 @@ es:
             eligibility_withdrew_msa_fthb: retiraste dinero de tu Cuenta de Ahorros Médicos de Idaho y lo usaste para un gasto no calificado, o retiraste dinero de tu Cuenta de Comprador de Vivienda por Primera Vez y lo usaste para costos de vivienda no elegibles
             eligibility_yonkers: viviste o recibiste ingresos en Yonkers en el %{filing_year}
             health_insurance_eligibility: alguien en tu hogar fiscal no tuvo seguro médico (con cobertura mínima esencial) durante todos los meses de %{filing_year}
-            nyc_maintained_home: ''
-            nyc_residency: ''
+            nyc_maintained_home: no viviste en Nueva York durante todo el
+            nyc_residency: viviste o mantuviste una casa en la Ciudad de Nueva York durante parte del año
             permanent_address_outside_md: no estabas viviendo en Maryland el 31 de diciembre
             permanent_address_outside_ny: no viviste en Nueva York durante todo el %{filing_year}
           title:
@@ -2530,7 +2540,7 @@ es:
         edit:
           credits_not_supported: "¿Qué restas, créditos y otras situaciones NO admite este servicio este año?"
           faq_link: Encuentra un desglose más detallado de los créditos y restas y otras situaciones no respaldadas este año aquí.
-          faq_link_html: ''
+          faq_link_html: Encuentra un desglose más detallado de los créditos y restas y otras situaciones no respaldadas este año <a href="%{url}">aquí</a>.
           md_title2_html: |
             Asegurémonos de que este servicio es el indicado para ti.<br><br>
             Estas son las restas y los créditos <strong>que puedes </strong> reclamar para maximizar tu reembolso.
@@ -2800,7 +2810,7 @@ es:
           vita_link: Comienza con VITA ahora
           want_to_claim_learn_more_html: Obtén más información sobre este proceso y otras opciones para presentar tu declaración  <a href="%{link}" target="_blank">aquí</a>.
           want_to_claim_vita_1: Si eliges esta opción, te conectarás con un socio de Asistencia Voluntaria para la Declaración de Impuestos ( VITA) en %{state_name}. Recibirás una llamada en los próximos días. Tendrás que responder algunas preguntas adicionales sobre tu situación tributaria y enviar de forma segura tus documentos en línea.
-          want_to_claim_vita_2: ''
+          want_to_claim_vita_2: Los voluntarios certificados por el IRS de VITA prepararán  tu declaración estatal generalmente entre 2 y 3 semanas.
       email_address:
         edit:
           action: Enviar el código
@@ -3010,7 +3020,7 @@ es:
           help_text: Te pediremos que ingreses la información que pueda faltar.
           interest_income_body: No se necesita información adicional.
           interest_income_title: Ingresos por intereses (1099-INT)
-          invalid_income_form_error: ''
+          invalid_income_form_error: Hay un problema con la información del estado en uno o más de sus formularios de ingresos. Revíselo y edítelo antes de continuar.
           no_info_needed: No se necesita información estatal adicional
           no_info_needed_nj: Este ingreso no es tributable en New Jersey.
           retirement_income_title: Jubilación (1099-R)
@@ -3162,15 +3172,15 @@ es:
       md_review:
         edit:
           county_html: "<strong>Condado donde vivías el 31 de diciembre de %{filing_year}</strong>"
-          disability_status: ''
-          military: ''
-          none: ''
-          other: ''
-          pension_annuity_endowment: ''
+          disability_status: Estado de discapacidad total y permanente
+          military: Tu servicio en el ejército o los beneficios por fallecimiento militar recibidos en nombre de un cónyuge o ex-cónyuge
+          none: Ninguno aplica.
+          other: Otros ingresos de jubilación (por ejemplo, un plan Keogh)
+          pension_annuity_endowment: Una pensión, renta vitalicia o dotación de un “sistema de jubilación para empleados”
           political_subdivision_html: "<strong>Subdivisión política donde vivías el 31 de diciembre de %{filing_year}</strong>"
-          proof_of_disability: ''
-          public_safety: ''
-          retirement_income_deductions: ''
+          proof_of_disability: Presentaste pruebas de una discapacidad para la exclusión de pensiones en años fiscales anteriores.
+          public_safety: Tu servicio como empleado de seguridad pública.
+          retirement_income_deductions: Detalles sobre los ingresos de jubilación de Maryland
           your_address: Dirección donde vivías el 31 de diciembre del %{filing_year}
       md_social_security_benefits:
         edit:
@@ -3274,25 +3284,25 @@ es:
       nc_review:
         edit:
           amount_earned: Amount earned
-          bailey_settlement_at_least_five_years: ''
-          bailey_settlement_from_retirement_plan: ''
-          benefits_vested_pensions: ''
+          bailey_settlement_at_least_five_years: Al menos cinco años de servicio acreditable antes del 12 de agosto de 1989
+          bailey_settlement_from_retirement_plan: Recibiste beneficios de jubilación del plan 401(k) o 457 de NC y contribuiste al plan antes del 12 de agosto de 1989
+          benefits_vested_pensions: Resta por beneficios de jubilación de pensiones gubernamentales calificadas
           child_deduction: Deducción por hijos
           interest_us_bonds: Ingresos por intereses de bonos de los Estados Unidos (no son sujetos a impuestos en Carolina del Norte)
-          none_apply: ''
+          none_apply: No aplica ninguno
           primary_veteran: Estado de veterano de las Fuerzas Armadas de los Estados Unidos
-          retirement_income_deductions: ''
-          retirement_income_deductions_explanation: ''
-          retirement_income_source_bailey_settlement: ''
-          retirement_income_source_review_and_edit: ''
-          retirement_income_source_uniformed_services: ''
-          service_members: ''
+          retirement_income_deductions: Deducciones por ingresos de jubilación en Carolina del Norte
+          retirement_income_deductions_explanation: Estas permiten a las personas deducir de sus impuestos todo o parte de sus ingresos de jubilación.
+          retirement_income_source_bailey_settlement: Beneficios de jubilación como parte del Acuerdo Bailey
+          retirement_income_source_review_and_edit: Revisar y editar 1099-R %{index}
+          retirement_income_source_uniformed_services: Beneficios de jubilación de los Servicios Uniformados
+          service_members: Resta por beneficios de jubilación recibidos por miembros del servicio
           social_security_benefits: Beneficios del Seguro Social (no sujetos a impuestos en Carolina del Norte)
           spouse_veteran: Estado de veterano de las Fuerzas Armadas de los Estados Unidos de tu cónyuge
           state_credit: Miembro inscrito de una tribu indígena reconocida por el gobierno federal y recibiste ingresos de una fuente dentro de una reserva
           subtraction_indian_tribe: Resta por ingresos de un miembro de una tribu india
-          uniformed_survivor_benefit_plan: ''
-          uniformed_twenty_years_medical_retired: ''
+          uniformed_survivor_benefit_plan: Pagos de un Plan de Beneficios para Sobrevivientes calificado a un beneficiario de un miembro retirado que prestó servicio al menos 20 años o que fue retirado por razones médicas de los Servicios Uniformados
+          uniformed_twenty_years_medical_retired: Miembro retirado que prestó servicio al menos 20 años o fue retirado por razones médicas de los Servicios Uniformados
           use_tax_amount: Cantidad del impuesto sobre uso
           use_tax_applied: Compras fuera del estado en %{filing_year} sin pagar impuesto sobre ventas
       nc_sales_use_tax:
@@ -3563,17 +3573,19 @@ es:
           title: Confirma tu Identidad (Opcional)
       nj_retirement_income_source:
         edit:
-          doc_1099r_label: ''
-          helper_description_html: ''
-          helper_heading: ''
-          label: ''
-          option_military_pension: ''
-          option_military_survivor_benefit: ''
-          option_none: ''
-          subtitle: ''
-          taxable_amount_label: ''
-          taxpayer_name_label: ''
-          title: ''
+          doc_1099r_label: '1099-R:'
+          helper_description_html: |
+            <p>U.S. military pensions result from service in the Army, Navy, Air Force, Marine Corps, or Coast Guard. Generally, qualifying military pensions and military survivor's benefit payments are paid by the U.S. Defense Finance and Accounting Service.</p>
+            <p>Civil service pensions and annuities do not count as military pensions, even if they are based on credit for military service. Generally, civil service annuities are paid by the U.S. Office of Personnel Management.</p>
+          helper_heading: What counts as a U.S. military pension?
+          label: 'Select the source of this income:'
+          option_military_pension: U.S. military pension
+          option_military_survivor_benefit: U.S. military survivor's benefits
+          option_none: None of these apply (Choose this if you have a civil service pension or annuity)
+          subtitle: We need more information about this 1099-R.
+          taxable_amount_label: 'Taxable Amount:'
+          taxpayer_name_label: 'Taxpayer Name:'
+          title: Some of your retirement income might not be taxed in New Jersey.
       nj_review:
         edit:
           amount_calculated: Monto calculado
@@ -3600,18 +3612,18 @@ es:
           property_tax_credit_deduction: Deducción o Crédito por Impuestos a la Propiedad
           property_tax_paid: Impuestos sobre la propiedad pagados en %{filing_year}
           rent_paid: Alquiler pagado en %{filing_year}
-          retirement_income_source: ''
-          retirement_income_source_doc_1099r_label: ''
-          retirement_income_source_label: ''
-          retirement_income_source_military_pension: ''
-          retirement_income_source_military_survivor_benefit: ''
-          retirement_income_source_none: ''
-          retirement_income_source_taxable_amount_label: ''
-          retirement_income_source_taxpayer_name_label: ''
+          retirement_income_source: 1099-R Retirement Income Source
+          retirement_income_source_doc_1099r_label: '1099-R:'
+          retirement_income_source_label: 'Source:'
+          retirement_income_source_military_pension: U.S. military pension
+          retirement_income_source_military_survivor_benefit: U.S. military survivor's benefits
+          retirement_income_source_none: Neither U.S. military pension nor U.S. military survivor's benefits
+          retirement_income_source_taxable_amount_label: 'Taxable Amount:'
+          retirement_income_source_taxpayer_name_label: 'Taxpayer Name:'
           reveal:
             15_wages_salaries_tips: Salarios, sueldos, propinas
             16a_interest_income: Ingreso total
-            20a_retirement_income: ''
+            20a_retirement_income: Retirement income
             27_total_income: Ingreso total
             29_nj_gross_income: Ingreso Bruto de New Jersey
             30_exemptions: Exenciones (según el tamaño de tu familia, estado de discapacidad, estado de veterano/a de guerra)
@@ -3892,11 +3904,11 @@ es:
           title_html: Por favor, revisa los detalles de los ingresos estatales (1099-R) que recibiste de <strong>%{payer_name}</strong>.
       retirement_income_subtraction:
         doc_1099r_label: 1099-R
-        income_source_question: ''
-        none_apply: ''
-        taxable_amount_label: ''
-        taxpayer_name_label: ''
-        title: ''
+        income_source_question: 'Seleccione la fuente de este ingreso:'
+        none_apply: Ninguna de estas opciones aplica
+        taxable_amount_label: Cantidad sujeta a impuestos
+        taxpayer_name_label: Nombre del contribuyente
+        title: "¡Podrías ser elegible para la deducción de ingresos por jubilación de %{state_name}!"
       return_status:
         accepted:
           check_payable_html: |
@@ -4186,10 +4198,10 @@ es:
           box14_fli_html: "<strong>FLI</strong>"
           box14_html: "<strong>Box 14,</strong> Other"
           box14_intro_nj_html: "<p>Los empleadores pueden usar el Casillero 14 para reportar datos que no encajen en otro lugar del Formulario W-2.</p>\n<p>Este año, solo necesitaremos cualquier monto indicado para <strong>UI/WF/SWF</strong> (también puede aparecer como <strong>\"UI/HC/WD\"</strong> en tu W2) <strong>y FLI</strong>.</p> \n<p><strong>Si no los ves, deja estos campos en blanco.</strong></p> \n<p>Puede haber otros datos en el casillero 14 que no necesitan ser reportados con esta herramienta.</p>\n"
-          box14_stpickup_help_text_html: ''
+          box14_stpickup_help_text_html: Para %{year}, solo procesaremos el código STPICKUP. Si no ves este código o tienes otros códigos en Box 14, por favor déjalo en blanco.
           box14_stpickup_html: "<strong>STPICKUP</strong>"
-          box14_ui_wf_swf_help_text_html: ''
-          box14_ui_wf_swf_html: ''
+          box14_ui_wf_swf_help_text_html: "(También puede aparecer en su W2 como <strong>UI/HC/WD.</strong>)"
+          box14_ui_wf_swf_html: "<strong>UI/WF/SWF</strong>"
           box15_html: "<strong>Casilla 15,</strong> Número de identificación estatal del empleador"
           box16_html: "<strong>Casilla 16</strong>, Salarios estatales, propinas, etc."
           box17_html: "<strong>Casilla 17</strong>, Impuesto estatal sobre los ingresos"
@@ -5754,7 +5766,7 @@ es:
         45_changes_summary: Es posible que modifiquemos esta Política de Privacidad de vez en cuando. Por favor, revise esta página con frecuencia para ver si hay actualizaciones, ya que su uso continuado de nuestros Servicios después de cualquier cambio en esta Política de Privacidad constituirá su aceptación de los cambios. En el caso de cambios sustanciales, se lo notificaremos por correo electrónico o por otros medios compatibles con la legislación aplicable.
         46_access_request: Tus derechos
         47_access_request_list_html:
-        - ''
+        - GetCTC.org respeta el control que usted ejerce sobre su información y, si lo solicita, le confirmaremos si tenemos o estamos procesando la información que hemos recopilado de usted. También tiene derecho a modificar o corregir la información personal inexacta o incompleta, solicitar una copia portable o la eliminación de su información personal o a pedir que dejemos de utilizarla. En determinadas circunstancias no podremos atender su solicitud, como por ejemplo si interfiere con nuestras obligaciones reglamentarias, afecta a asuntos legales, no podemos verificar su identidad o supone un costo o esfuerzo desproporcionado, pero en cualquier caso responderemos a su solicitud en un plazo razonable y le daremos una explicación. Para hacernos una solicitud de este tipo, envíenos un correo electrónico a %{email_link}.
         - Favor de tener en cuenta que, en el caso de la información personal sobre usted que hayamos obtenido o recibido para su utilización en nombre de una entidad independiente y no afiliada, que haya determinado los medios y los fines del tratamiento, todas las solicitudes de este tipo deberán dirigirse directamente a dicha entidad. Respetaremos y apoyaremos cualquier instrucción que nos proporcionen con respecto a su información personal.
         47_effective_date: Fecha de vigencia
         48_effective_date_info: Esta versión de la política entrará en vigor a partir del 22 de octubre de 2021.
