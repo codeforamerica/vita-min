@@ -137,7 +137,7 @@ module SubmissionBuilder
                     xml.TotalIncome calculated_fields.fetch(:NJ1040_LINE_27)
                   end
 
-                  if calculated_fields.fetch(:NJ1040_LINE_28A).positive?
+                  if calculated_fields.fetch(:NJ1040_LINE_28A).positive? && Flipper.enabled?(:show_retirement_ui)
                     xml.PensionExclusion calculated_fields.fetch(:NJ1040_LINE_28A)
                   end
 
