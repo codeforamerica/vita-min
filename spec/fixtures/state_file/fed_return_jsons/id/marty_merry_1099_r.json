@@ -1,0 +1,57 @@
+{
+  "filers": [
+    {
+      "tin": "400-00-1073",
+      "suffix": null,
+      "lastName": "Merry",
+      "firstName": "Terry",
+      "isStudent": false,
+      "isDisabled": false,
+      "dateOfBirth": "1951-01-08",
+      "middleInitial": null,
+      "isPrimaryFiler": false,
+      "form1099GsTotal": "0.00",
+      "educatorExpenses": "0.00",
+      "interestReportsTotal": "0.00",
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": null
+    },
+    {
+      "tin": "400-00-3654",
+      "suffix": null,
+      "lastName": "Merry",
+      "firstName": "Marty",
+      "isStudent": false,
+      "isDisabled": false,
+      "dateOfBirth": "1950-01-01",
+      "middleInitial": "J",
+      "isPrimaryFiler": true,
+      "form1099GsTotal": "0.00",
+      "educatorExpenses": "0.00",
+      "interestReportsTotal": "0.00",
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "formW2s": [
+    {
+      "usedTin": "400-00-3654",
+      "unionDuesAmount": null
+    }
+  ],
+  "form1099Gs": [],
+  "interestReports": [],
+  "familyAndHousehold": [],
+  "socialSecurityReports": [
+    {
+      "formType": "SSA-1099",
+      "netBenefits": "11000.00",
+      "recipientTin": "400-00-1073"
+    },
+    {
+      "formType": "SSA-1099",
+      "netBenefits": "10000.00",
+      "recipientTin": "400-00-3654"
+    }
+  ]
+}
