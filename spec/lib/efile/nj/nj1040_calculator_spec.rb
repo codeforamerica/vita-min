@@ -1607,33 +1607,25 @@ describe Efile::Nj::Nj1040Calculator do
 
     context 'when has only 1099-Rs' do
       let(:intake) { create(:state_file_nj_intake, :df_data_minimal)}
-      let!(:state_file_1099r) { create :state_file1099_r, intake: intake, state_tax_withheld_amount: 100.1 }
-      let!(:state_specific_followup) { create :state_file_nj1099_r_followup, state_file1099_r: state_file_1099r, income_source: :military_pension }
-    
+      let!(:state_file_1099r_1) { create :state_file1099_r, intake: intake, state_tax_withheld_amount: 10.1 }
+      let!(:state_specific_followup_1) { create :state_file_nj1099_r_followup, state_file1099_r: state_file_1099r_1, income_source: :military_pension }
+      let!(:state_file_1099r_2) { create :state_file1099_r, intake: intake, state_tax_withheld_amount: 30.1 }
+      let!(:state_specific_followup_2) { create :state_file_nj1099_r_followup, state_file1099_r: state_file_1099r_2, income_source: :military_survivors_benefits }
+      let!(:state_file_1099r_3) { create :state_file1099_r, intake: intake, state_tax_withheld_amount: 80.1 }
+      let!(:state_specific_followup_3) { create :state_file_nj1099_r_followup, state_file1099_r: state_file_1099r_3, income_source: :other }
+      let!(:state_file_1099r_4) { create :state_file1099_r, intake: intake, state_tax_withheld_amount: 210.1 }
+      
       it 'sets line 55 to total income tax withheld, rounded' do
         intake.reload
         instance.calculate
-        expect(instance.lines[:NJ1040_LINE_55].value).to eq 100
-      end
-    end
-
-    # Remove when Flipper :show_retirement_ui is permanently enabled
-    context 'when has 1099-R and source is unknown' do
-      let(:intake) { create(:state_file_nj_intake, :df_data_minimal)}
-      let!(:state_file_1099r) { create :state_file1099_r, intake: intake, state_tax_withheld_amount: 100.1 }
-    
-      it 'sets line 55 to total income tax withheld, rounded' do
-        intake.reload
-        instance.calculate
-        expect(instance.lines[:NJ1040_LINE_55].value).to eq 100
+        expect(instance.lines[:NJ1040_LINE_55].value).to eq 330
       end
     end
 
     context 'when has both w2s and 1099-Rs' do
       let(:intake) { create(:state_file_nj_intake, :df_data_many_w2s)}
       let!(:state_file_1099r) { create :state_file1099_r, intake: intake, state_tax_withheld_amount: 100.1 }
-      let!(:state_specific_followup) { create :state_file_nj1099_r_followup, state_file1099_r: state_file_1099r, income_source: :other }
-
+      
       it 'sets line 55 to total income tax withheld, rounded' do
         intake.reload
         instance.calculate
