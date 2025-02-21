@@ -137,18 +137,6 @@ module SubmissionBuilder
                     xml.TotalIncome calculated_fields.fetch(:NJ1040_LINE_27)
                   end
 
-                  if calculated_fields.fetch(:NJ1040_LINE_28A).positive?
-                    xml.PensionExclusion calculated_fields.fetch(:NJ1040_LINE_28A)
-                  end
-
-                  if calculated_fields.fetch(:NJ1040_LINE_28B).positive?
-                    xml.OtherRetireIncomeExclus calculated_fields.fetch(:NJ1040_LINE_28B)
-                  end
-
-                  if calculated_fields.fetch(:NJ1040_LINE_28C).positive?
-                    xml.TotalExclusionAmount calculated_fields.fetch(:NJ1040_LINE_28C)
-                  end
-
                   if calculated_fields.fetch(:NJ1040_LINE_29).positive?
                     xml.GrossIncome calculated_fields.fetch(:NJ1040_LINE_29)
                   end
