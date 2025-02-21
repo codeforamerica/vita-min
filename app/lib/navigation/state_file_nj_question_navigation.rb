@@ -27,11 +27,12 @@ module Navigation
                                           # Federal info does not show to users
                                           Navigation::NavigationStep.new(StateFile::Questions::FederalInfoController),
                                           Navigation::NavigationStep.new(StateFile::Questions::DataTransferOffboardingController, false),
-                                      ], false),
+                                        ], false),
       Navigation::NavigationSection.new("state_file.navigation.nj.section_1", [
                                           Navigation::NavigationStep.new(StateFile::Questions::IncomeReviewController), # line 15-27, but intentionally moved up for eligibility checks
                                           Navigation::NavigationStep.new(StateFile::Questions::W2Controller),
-                                      ]),
+                                          Navigation::NavigationStep.new(StateFile::Questions::NjRetirementIncomeSourceController),
+                                        ]),
       Navigation::NavigationSection.new("state_file.navigation.nj.section_2", [
                                           Navigation::NavigationStep.new(StateFile::Questions::NjEligibilityHealthInsuranceController),
                                           Navigation::NavigationStep.new(StateFile::Questions::EligibilityOffboardingController, false),
@@ -41,9 +42,8 @@ module Navigation
                                           Navigation::NavigationStep.new(StateFile::Questions::NjVeteransExemptionController), # Line 9
                                           Navigation::NavigationStep.new(StateFile::Questions::NjCollegeDependentsExemptionController), # Line 13
                                           Navigation::NavigationStep.new(StateFile::Questions::NjDependentsHealthInsuranceController), # Line 14
-                                      ]),
+                                        ]),
       Navigation::NavigationSection.new("state_file.navigation.nj.section_3", [
-                                          Navigation::NavigationStep.new(StateFile::Questions::NjRetirementIncomeSourceController),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjMedicalExpensesController), # Line 31
                                           Navigation::NavigationStep.new(StateFile::Questions::NjEitcQualifyingChildController), # Line 58, intentionally moved up to be in the context of other credits and deductions, and to ensure there is a consistent page after the property taxes section.
                                           Navigation::NavigationStep.new(StateFile::Questions::NjHouseholdRentOwnController), # Line 40b
@@ -55,15 +55,15 @@ module Navigation
                                           Navigation::NavigationStep.new(StateFile::Questions::NjTenantPropertyTaxWorksheetController), # Line 40a
                                           Navigation::NavigationStep.new(StateFile::Questions::NjTenantRentPaidController), # Line 40a
                                           # question after property taxes set in NjPropertyTaxFlowOffRamp
-                                      ]),
+                                        ]),
       Navigation::NavigationSection.new(I18n.t("state_file.navigation.nj.section_4", filing_year: MultiTenantService.statefile.current_tax_year), [
                                           Navigation::NavigationStep.new(StateFile::Questions::NjSalesUseTaxController), # Line 51
                                           Navigation::NavigationStep.new(StateFile::Questions::NjEstimatedTaxPaymentsController), # Line 57
-                                      ]),
+                                        ]),
       Navigation::NavigationSection.new("state_file.navigation.nj.section_5", [
                                           Navigation::NavigationStep.new(StateFile::Questions::PrimaryStateIdController), # Footer
                                           Navigation::NavigationStep.new(StateFile::Questions::SpouseStateIdController), # Footer
-                                          Navigation::NavigationStep.new(StateFile::Questions::NjReviewController), # review controller should come before taxes owed / refund due screens
+                                          Navigation::NavigationStep.new(StateFile::Questions::NjReviewController), # REVIEW: controller should come before taxes owed / refund due screens
                                           Navigation::NavigationStep.new(StateFile::Questions::TaxesOwedController),
                                           Navigation::NavigationStep.new(StateFile::Questions::TaxRefundController),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjGubernatorialElectionsController),
