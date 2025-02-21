@@ -304,6 +304,9 @@ FactoryBot.define do
       :married_filing_jointly
     end
 
+    trait :single do
+      filing_status { "single" }
+    end
 
     trait :head_of_household do
       filing_status { "head_of_household" }
@@ -341,6 +344,12 @@ FactoryBot.define do
     trait :mfj_spouse_over_62 do
       filing_status { "married_filing_jointly" }
       spouse_birth_date { Date.new(MultiTenantService.new(:statefile).current_tax_year - 62, 12, 31) }
+      spouse_ssn { "123456789" }
+    end
+
+    trait :mfj_spouse_under_62 do
+      filing_status { "married_filing_jointly" }
+      spouse_birth_date { Date.new(MultiTenantService.new(:statefile).current_tax_year - 61, 1, 1) }
       spouse_ssn { "123456789" }
     end
 
