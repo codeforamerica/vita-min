@@ -7,7 +7,7 @@ module StateFile
         direct_file_json = IrsApiService.import_federal_data(authorization_code, intake.state_code)
 
         if direct_file_json.blank?
-          raise StandardError, "Direct file data was not transferred for intake #{intake.state_code} #{intake.id}."
+          raise StandardError, "Direct file data was not transferred for intake #{intake.state_code}#{intake.id}."
         end
 
         intake.update(
@@ -59,7 +59,7 @@ module StateFile
       collection.each do |record|
         value = record.send(identifying_attribute_name)
         if values.include?(value)
-          Rails.logger.info("ImportFromDirectFileJob removing duplicate #{record.class&.name} for #{intake&.state_code} #{intake&.id}")
+          Rails.logger.info("ImportFromDirectFileJob removing duplicate #{record.class&.name} for #{intake&.state_code}#{intake&.id}")
           record.destroy!
         else
           values.push(value)
