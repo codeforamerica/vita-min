@@ -253,28 +253,6 @@ module Efile
         line_or_zero(:NJ1040_LINE_12_COUNT) * 1_000
       end
 
-      def calculate_line_15
-        @intake.state_file_w2s.sum do |w2|
-          w2.state_wages_amount.to_i
-        end
-      end
-
-      def calculate_line_20a
-        applicable_1099rs = @intake.state_file1099_rs.select do |state_file_1099r|
-          state_file_1099r.state_specific_followup.present? && state_file_1099r.state_specific_followup.income_source_none?
-        end
-
-        applicable_1099rs.sum(&:taxable_amount).round
-      end
-
-      def calculate_line_27
-        line_or_zero(:NJ1040_LINE_15) + line_or_zero(:NJ1040_LINE_16A) + line_or_zero(:NJ1040_LINE_20A)
-      end
-
-      def calculate_line_28a
-        0
-      end
-
       def line_53c_checkbox
         @intake.eligibility_all_members_health_insurance_yes?
       end
@@ -331,6 +309,12 @@ module Efile
           calculate_line_12
       end
 
+      def calculate_line_15
+        @intake.state_file_w2s.sum do |w2|
+          w2.state_wages_amount.to_i
+        end
+      end
+
       def calculate_line_16a
         @intake.direct_file_data.fed_taxable_income - interest_on_gov_bonds
       end
@@ -339,8 +323,24 @@ module Efile
         calculate_tax_exempt_interest_income if calculate_tax_exempt_interest_income.positive?
       end
 
+      def calculate_line_20a
+        applicable_1099rs = @intake.state_file1099_rs.select do |state_file_1099r|
+          state_file_1099r.state_specific_followup.present? && state_file_1099r.state_specific_followup.income_source_none?
+        end
+
+        applicable_1099rs.sum(&:taxable_amount).round
+      end
+
       def calculate_line_20b
         (non_military_1099rs.sum(&:gross_distribution_amount) - non_military_1099rs.sum(&:taxable_amount)).round
+      end
+
+      def calculate_line_27
+        line_or_zero(:NJ1040_LINE_15) + line_or_zero(:NJ1040_LINE_16A) + line_or_zero(:NJ1040_LINE_20A)
+      end
+
+      def calculate_line_28a
+        0
       end
 
       def calculate_line_28b
