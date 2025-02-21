@@ -932,17 +932,19 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
     end
 
     describe "total income tax withheld - line 55" do
-      context 'when has w2s' do
+      context 'when has tax withheld' do
         before do
           allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_55).and_return 12_345
         end
-        it 'sets TaxWithheld to sum of state_income_tax_amount' do
+        it 'sets TaxWithheld to total of tax withheld' do
           expect(xml.at("TaxWithheld").text).to eq(12_345.to_s)
         end
       end
 
-      context 'when no w2s' do
-        let(:intake) { create(:state_file_nj_intake, :df_data_minimal)}
+      context 'when no tax withheld' do
+        before do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_55).and_return nil
+        end
         it 'sets TaxWithheld to nil' do
           expect(xml.at("TaxWithheld")).to eq(nil)
         end
