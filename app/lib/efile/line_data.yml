@@ -896,12 +896,6 @@ NJ1040_LINE_20B:
   label: '20b Excludable pension, annuity, and IRA distributions/withdrawals (See instr)'
 NJ1040_LINE_27:
   label: '27 Total Income (Add lines 15, 16a, and 20a)'
-NJ1040_LINE_28A:
-  label: '28a Pension/Retirement Exclusion (See instructions)'
-NJ1040_LINE_28B:
-  label: '28b Retirement Income Exclusion (See Worksheet D and instructions pages 20–21)'
-NJ1040_LINE_28C:
-  label: '28c Total Exclusion Amount (Add lines 28a and 28b)'
 NJ1040_LINE_29:
   label: "29 New Jersey Gross Income (Subtract line 28c from line 27) (See instructions)"
 NJ1040_LINE_31:
