@@ -1,5 +1,7 @@
 module Documents
   class SsnItinsController < DocumentUploadQuestionController
+    include GyrDocuments
+
     before_action :set_required_person_names, only: [:edit, :update]
 
     def self.displayed_document_types
@@ -24,7 +26,10 @@ module Documents
       end
     end
 
-    def after_update_success; end
+    def after_update_success
+      transition_to = has_all_required_docs?(current_intake) ? :intake_ready : :intake_needs_doc_help
+      advance_to(current_intake, transition_to)
+    end
 
     def form_params
       if IdVerificationExperimentService.new(current_intake).show_expanded_id?
