@@ -26,7 +26,7 @@ RSpec.feature "Income Review", active_job: true do
     def advance_to_income_edit
       advance_to_data_transfer
       step_through_df_data_transfer("Transfer Lucky single")
-      all('a', text: I18n.t("state_file.questions.income_review.edit.review_and_edit_state_info"))[1].click
+      all('a', text: I18n.t("state_file.questions.shared.income_review.review_and_edit_state_info"))[1].click
     end
 
     it "displays review and edit pages with w2s, unemployment, and social security income" do
@@ -34,22 +34,22 @@ RSpec.feature "Income Review", active_job: true do
 
       step_through_df_data_transfer("Transfer O neal walker catchall mfj")
 
-      expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
-      expect(page).to have_text I18n.t("state_file.questions.income_review.edit.w2s_title")
+      expect(page).to have_text I18n.t("state_file.questions.shared.income_review.title")
+      expect(page).to have_text I18n.t("state_file.questions.shared.income_review.w2s_title")
 
       within '#form1099gs' do
-        expect(page).to have_text I18n.t("state_file.questions.income_review.edit.unemployment_title")
-        expect(page).to have_text I18n.t("state_file.questions.income_review.edit.no_info_needed_nj")
+        expect(page).to have_text I18n.t("state_file.questions.shared.income_review.unemployment_title")
+        expect(page).to have_text I18n.t("state_file.questions.shared.income_review.no_info_needed_nj")
       end
       
       within '#formssa1099s' do
-        expect(page).to have_text I18n.t("state_file.questions.income_review.edit.ssa_title")
-        expect(page).to have_text I18n.t("state_file.questions.income_review.edit.no_info_needed_nj")
+        expect(page).to have_text I18n.t("state_file.questions.shared.income_review.ssa_title")
+        expect(page).to have_text I18n.t("state_file.questions.shared.income_review.no_info_needed_nj")
       end
 
       within '#form1099ints' do
-        expect(page).to have_text I18n.t("state_file.questions.income_review.edit.interest_income_title")
-        expect(page).to have_text I18n.t("state_file.questions.income_review.edit.interest_income_body")
+        expect(page).to have_text I18n.t("state_file.questions.shared.income_review.interest_income_title")
+        expect(page).to have_text I18n.t("state_file.questions.shared.income_review.interest_income_body")
       end
     end
 
@@ -73,7 +73,7 @@ RSpec.feature "Income Review", active_job: true do
       fill_in 'state_file_w2_box14_fli', with: '145.26'
       click_on 'Continue'
 
-      expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
+      expect(page).to have_text I18n.t("state_file.questions.shared.income_review.title")
     end
 
     it "does not allow ui_wf_swf to be saved above limit" do

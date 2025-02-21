@@ -30,9 +30,9 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
         if intake.allows_w2_editing?
           # Income review page
-          expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
+          expect(page).to have_text I18n.t("state_file.questions.shared.income_review.title")
           within "#w2s" do
-            click_on I18n.t("state_file.questions.income_review.edit.review_and_edit_state_info")
+            click_on I18n.t("state_file.questions.shared.income_review.review_and_edit_state_info")
           end
 
           # W2 edit page
@@ -42,8 +42,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
         end
 
         # Back on income review page
-        expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
-        wait_for_device_info("income_review")
+        expect(page).to have_text I18n.t("state_file.questions.shared.income_review.title")
         click_on I18n.t("general.continue")
 
         # Final review page
@@ -53,9 +52,9 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
         end
 
         # Income review page
-        expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
+        expect(page).to have_text I18n.t("state_file.questions.shared.income_review.title")
         within "#form1099rs" do
-          click_on I18n.t("state_file.questions.income_review.edit.review_and_edit_state_info")
+          click_on I18n.t("state_file.questions.shared.income_review.review_and_edit_state_info")
         end
 
         # 1099R edit page
@@ -64,8 +63,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
         click_on I18n.t("general.continue")
 
         # Back on income review page
-        expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
-        wait_for_device_info("income_review")
+        expect(page).to have_text I18n.t("state_file.questions.shared.income_review.title")
         click_on I18n.t("general.continue")
 
         # Final review page
@@ -75,9 +73,9 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
         end
 
         # Income review page
-        expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
+        expect(page).to have_text I18n.t("state_file.questions.shared.income_review.title")
         within "#form1099rs" do
-          click_on I18n.t("state_file.questions.income_review.edit.review_and_edit_state_info")
+          click_on I18n.t("state_file.questions.shared.income_review.review_and_edit_state_info")
         end
 
         # 1099R edit page
@@ -86,8 +84,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
         click_on I18n.t("general.continue")
 
         # Back on income review page
-        expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
-        wait_for_device_info("income_review")
+        expect(page).to have_text I18n.t("state_file.questions.shared.income_review.title")
         click_on I18n.t("general.continue")
 
         # Final review page
@@ -97,7 +94,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
           click_on I18n.t("general.edit")
         end
 
-        not_taxed_key = "state_file.questions.income_review.edit.no_info_needed_#{state_code}"
+        not_taxed_key = "state_file.questions.shared.income_review.no_info_needed_#{state_code}"
         if I18n.exists?(not_taxed_key)
           expect(page).to have_text I18n.t(not_taxed_key)
         else
@@ -105,8 +102,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
         end
 
         # Back on income review page
-        expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
-        wait_for_device_info("income_review")
+        expect(page).to have_text I18n.t("state_file.questions.shared.income_review.title")
         click_on I18n.t("general.continue")
 
         # Final review page
@@ -372,37 +368,14 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
   def edit_unemployment(intake)
     # Income review page
-    expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
+    expect(page).to have_text I18n.t("state_file.questions.shared.income_review.title")
     within "#form1099gs" do
-      click_on I18n.t("state_file.questions.income_review.edit.review_and_edit_state_info")
+      click_on I18n.t("state_file.questions.shared.income_review.review_and_edit_state_info")
     end
 
     # 1099G edit page
     expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.unemployment.edit.title", count: intake.filer_count, year: MultiTenantService.statefile.current_tax_year))
     fill_in strip_html_tags(I18n.t("state_file.questions.unemployment.edit.payer_name")), with: "beepboop"
-    click_on I18n.t("general.continue")
-
-    # takes them to the 1099G index page first
-    expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.unemployment.index.lets_review"))
-
-    # edit a 1099G (there's only one)
-    click_on I18n.t("general.edit")
-    click_on I18n.t("general.continue")
-
-    # back on index page
-    expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.unemployment.index.lets_review"))
-
-    # delete a 1099G (there's only one)
-    recipient_name = intake.state_file1099_gs.last.recipient_name
-
-    # clicks "OK" on the alert that asks "Are you sure you want to delete this 1099-G?"
-    page.accept_confirm do
-      click_on I18n.t("general.delete")
-    end
-
-    # redirects to new because there are no 1099Gs left, need to select "no" in order to continue
-    expect(page).to have_text I18n.t("state_file.questions.unemployment.destroy.removed", name: recipient_name)
-    choose I18n.t("general.negative")
     click_on I18n.t("general.continue")
   end
 end

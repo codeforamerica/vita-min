@@ -3,27 +3,10 @@ module StateFile
     class UnemploymentController < QuestionsController
       include ReturnToReviewConcern
       include OtherOptionsLinksConcern
-      before_action :load_links, only: [:new, :edit]
 
       def self.show?(intake)
         fed_unemployment = intake.direct_file_data.fed_unemployment
         fed_unemployment.present? && fed_unemployment > 0
-      end
-
-      def self.navigation_actions
-        [:index, :new]
-      end
-
-      def index
-        @state_file1099_gs = current_intake.state_file1099_gs
-        unless @state_file1099_gs.present?
-          build_1099g
-          render :new
-        end
-      end
-
-      def new
-        build_1099g
       end
 
       def build_1099g
@@ -31,37 +14,33 @@ module StateFile
       end
 
       def edit
-        @state_file1099_g = current_intake.state_file1099_gs.find(params[:id])
+        if params[:id].present?
+          @state_file1099_g = current_intake.state_file1099_gs.find(params[:id])
+        else
+          @state_file1099_g = build_1099g
+        end
+        super
       end
 
       def update
-        @state_file1099_g = current_intake.state_file1099_gs.find(params[:id])
+        if params[:id].present?
+          @state_file1099_g = current_intake.state_file1099_gs.find(params[:id])
+        else
+          @state_file1099_g = build_1099g
+        end
+
         @state_file1099_g.assign_attributes(state_file1099_params)
 
         if @state_file1099_g.had_box_11_no?
           @state_file1099_g.destroy
-          return redirect_with_review_param(:index)
+          return redirect_to_final_income_review
         end
 
         if @state_file1099_g.valid?
           @state_file1099_g.save
-          redirect_with_review_param(:index)
+          redirect_to_final_income_review
         else
           render :edit
-        end
-      end
-
-      def create
-        @state_file1099_g = current_intake.state_file1099_gs.build(state_file1099_params)
-        if @state_file1099_g.had_box_11_no?
-          return redirect_to next_path
-        end
-
-        if @state_file1099_g.valid?
-          @state_file1099_g.save
-          redirect_with_review_param(:index)
-        else
-          render :new
         end
       end
 
@@ -70,14 +49,14 @@ module StateFile
         if @state_file1099_g.destroy
           flash[:notice] = I18n.t("state_file.questions.unemployment.destroy.removed", name: @state_file1099_g.recipient_name)
         end
-        redirect_with_review_param(:index)
+        redirect_to_final_income_review
       end
 
       private
 
       def next_path
         if params[:return_to_review].present?
-          StateFile::Questions::IncomeReviewController.to_path_helper(return_to_review: params[:return_to_review])
+          StateFile::Questions::FinalIncomeReviewController.to_path_helper(return_to_review: params[:return_to_review])
         else
           super
         end
@@ -85,16 +64,15 @@ module StateFile
 
       def prev_path
         if params[:return_to_review].present?
-          StateFile::Questions::IncomeReviewController.to_path_helper(return_to_review: params[:return_to_review])
+          StateFile::Questions::FinalIncomeReviewController.to_path_helper(return_to_review: params[:return_to_review])
         else
           super
         end
       end
 
-      def redirect_with_review_param(action)
-        redirect_to action: action, return_to_review: params[:return_to_review]
+      def redirect_to_final_income_review
+        redirect_to StateFile::Questions::FinalIncomeReviewController.to_path_helper(return_to_review: params[:return_to_review])
       end
-
       def state_file1099_params
         state_file_params = params.fetch(:state_file1099_g, {}).permit(
           :had_box_11,

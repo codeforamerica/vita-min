@@ -1,11 +1,6 @@
 require "rails_helper"
 
-RSpec.describe StateFile::Questions::IncomeReviewController do
-  StateFile::StateInformationService.active_state_codes.excluding("ny", "nj").each do |state_code|
-    it_behaves_like :df_data_required, true, state_code
-  end
-  it_behaves_like :df_data_required, false, :nj
-
+RSpec.describe StateFile::Questions::FinalIncomeReviewController do
   let(:primary_first_name) { "Filer" }
   let(:primary_last_name) { "Oftaxes" }
   let(:spouse_first_name) { "Mary" }
@@ -20,13 +15,7 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
       spouse_last_name: spouse_last_name
     )
   end
-  let(:params) do
-    { state_file_income_review_form: {
-      device_id: device_id
-    } }
-  end
-  let!(:efile_device_info) { create :state_file_efile_device_info, :initial_creation, intake: intake, device_id: nil }
-  let(:device_id) { "ABC123" }
+  let(:params) { {} }
   before do
     sign_in intake
   end
@@ -39,6 +28,21 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
         intake.direct_file_data.fed_unemployment = 0
         intake.direct_file_data.fed_ssb = 0
         intake.direct_file_data.fed_taxable_ssb = 0
+
+        intake.update!(raw_direct_file_data: intake.direct_file_data.to_s)
+      end
+
+      it "does not show the page" do
+        expect(described_class).not_to be_show(intake)
+      end
+    end
+
+    context "when there is income but no unemployment questions were answered" do
+
+      before do
+        intake.direct_file_data.fed_unemployment = 0
+        intake.direct_file_data.fed_ssb = 100
+        intake.direct_file_data.fed_taxable_ssb = 100
 
         intake.update!(raw_direct_file_data: intake.direct_file_data.to_s)
       end
@@ -67,14 +71,14 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
         it "shows error and does not proceed" do
           post :update, params: params
           expect(response).to render_template(:edit)
-          expect(response.body).to have_text I18n.t("state_file.questions.income_review.edit.invalid_income_form_error")
+          expect(response.body).to have_text I18n.t("state_file.questions.shared.income_review.invalid_income_form_error")
         end
       end
 
       shared_examples "proceeds as if there are no errors" do
         it "proceeds as if there are no errors" do
           post :update, params: params
-          expect(response.body).not_to have_text I18n.t("state_file.questions.income_review.edit.invalid_income_form_error")
+          expect(response.body).not_to have_text I18n.t("state_file.questions.shared.income_review.invalid_income_form_error")
           expect(response).to redirect_to mock_next_path
         end
       end
@@ -97,7 +101,7 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
           before do
             allow_any_instance_of(StateFileW2).to receive(:valid?).and_return false
           end
-          
+
           include_examples "proceeds as if there are no errors"
         end
       end
@@ -126,14 +130,14 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
     shared_examples "does not display W2 warnings" do
       it "does not display W2 warnings" do
         get :edit, params: params
-        expect(response.body).not_to have_text I18n.t("state_file.questions.income_review.edit.warning")
+        expect(response.body).not_to have_text I18n.t("state_file.questions.shared.income_review.warning")
       end
     end
 
     shared_examples "displays one W2 warning" do
       it "displays one W2 warning" do
         get :edit, params: params
-        expect(response.body.scan(I18n.t("state_file.questions.income_review.edit.warning")).size).to eq(1)
+        expect(response.body.scan(I18n.t("state_file.questions.shared.income_review.warning")).size).to eq(1)
       end
     end
 
@@ -155,129 +159,11 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
         expect(response.body).to have_text "Jobs (W-2)"
         expect(response.body).to have_text "Egg Person"
         expect(response.body).to have_text "Chicken Person"
-        expect(response.body).to have_link(href: edit_w2_path(id: state_file_w2_1.id))
+        expect(response.body).to have_link(href: edit_w2_path(id: state_file_w2_1.id, from_final_income_review: "y"))
         expect(response.body).to have_text "First Enterprises"
         expect(response.body).to have_text "First Corporation"
-        expect(response.body).to have_link(href: edit_w2_path(id: state_file_w2_2.id))
+        expect(response.body).to have_link(href: edit_w2_path(id: state_file_w2_2.id, from_final_income_review: "y"))
       end
-    end
-
-    context "when no W2 box 14 warnings" do
-      let(:intake) { create(:state_file_nj_intake) }
-
-      context "when not in a state that requires ui_wf_swf or fli Box 14 values" do
-        let(:intake) { create(:state_file_az_intake) }
-        let!(:w2_1) { create(:state_file_w2, state_file_intake: intake) }
-        let!(:w2_2) { create(:state_file_w2, state_file_intake: intake) }
-        include_examples "does not display W2 warnings"
-      end
-
-      context "when no w2s" do
-        include_examples "does not display W2 warnings"
-      end
-
-      context "when only one w2 and box14_ui_wf_swf is not present" do
-        let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_fli: 145.26) }
-        include_examples "does not display W2 warnings"
-      end
-
-      context "when only one w2 and fli is not present" do
-        let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_ui_wf_swf: 179.78) }
-        include_examples "does not display W2 warnings"
-      end
-
-      context "when there are two w2s where box14_ui_wf_swf is not present but they have different filers" do
-        let(:intake) { create(:state_file_nj_intake, :married_filing_jointly) }
-        let(:primary_ssn_from_fixture) { intake.primary.ssn }
-        let(:spouse_ssn_from_fixture) { intake.spouse.ssn }
-        let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_fli: 145.26) }
-        let!(:w2_2) { create(:state_file_w2, state_file_intake: intake, employee_ssn: spouse_ssn_from_fixture, box14_fli: 145.26) }
-        include_examples "does not display W2 warnings"
-      end
-
-      context "when there are two w2s where fli is not present but they have different filers" do
-        let(:intake) { create(:state_file_nj_intake, :married_filing_jointly) }
-        let(:primary_ssn_from_fixture) { intake.primary.ssn }
-        let(:spouse_ssn_from_fixture) { intake.spouse.ssn }
-        let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_ui_wf_swf: 179.78) }
-        let!(:w2_2) { create(:state_file_w2, state_file_intake: intake, employee_ssn: spouse_ssn_from_fixture, box14_ui_wf_swf: 179.78) }
-        include_examples "does not display W2 warnings"
-      end
-
-      context "when two or more w2s and box14_ui_wf_swf and fli are valid on both" do
-        let!(:state_file_w2_1) { create(:state_file_w2, state_file_intake: intake, box14_ui_wf_swf: 179.78, box14_fli: 145.26) }
-        let!(:state_file_w2_2) { create(:state_file_w2, state_file_intake: intake, box14_ui_wf_swf: 179.78, box14_fli: 145.26) }
-        include_examples "does not display W2 warnings"
-      end
-    end
-
-    context "when W2 box 14 warnings are present" do
-      let(:intake) { create(:state_file_nj_intake) }
-
-      context "when primary has two W2s and box14_ui_wf_swf is not present in one" do
-        let(:intake) { create(:state_file_nj_intake, :married_filing_jointly) }
-        let(:primary_ssn_from_fixture) { intake.primary.ssn }
-        let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_fli: 145.26) }
-        let!(:w2_2) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_ui_wf_swf: 179.78, box14_fli: 145.26) }
-        include_examples "displays one W2 warning"
-      end
-
-      context "when secondary has two W2s and box14_ui_wf_swf is not present in one" do
-        let(:intake) { create(:state_file_nj_intake, :married_filing_jointly) }
-        let(:spouse_ssn_from_fixture) { intake.spouse.ssn }
-        let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, employee_ssn: spouse_ssn_from_fixture, box14_fli: 145.26) }
-        let!(:w2_2) { create(:state_file_w2, state_file_intake: intake, employee_ssn: spouse_ssn_from_fixture, box14_ui_wf_swf: 179.78, box14_fli: 145.26) }
-        include_examples "displays one W2 warning"
-      end
-
-      context "when box14_ui_wf_swf is too high" do
-        let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_ui_wf_swf: 179.79) }
-        include_examples "displays one W2 warning"
-      end
-
-      context "when primary has two W2s and fli is not present in one" do
-        let(:intake) { create(:state_file_nj_intake, :married_filing_jointly) }
-        let(:primary_ssn_from_fixture) { intake.primary.ssn }
-        let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_ui_wf_swf: 179.78) }
-        let!(:w2_2) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_ui_wf_swf: 179.78, box14_fli: 145.26) }
-        include_examples "displays one W2 warning"
-      end
-
-      context "when secondary has two W2s and fli is not present in one" do
-        let(:intake) { create(:state_file_nj_intake, :married_filing_jointly) }
-        let(:spouse_ssn_from_fixture) { intake.spouse.ssn }
-        let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, employee_ssn: spouse_ssn_from_fixture, box14_ui_wf_swf: 179.78) }
-        let!(:w2_2) { create(:state_file_w2, state_file_intake: intake, employee_ssn: spouse_ssn_from_fixture, box14_ui_wf_swf: 179.78, box14_fli: 145.26) }
-        include_examples "displays one W2 warning"
-      end
-
-      context "when fli is too high" do
-        let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_fli: 145.27) }
-        include_examples "displays one W2 warning"
-      end
-
-      context "when a single W2 has values in both UI/HC/WD and UI/WF/SWF" do
-        let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_ui_wf_swf: 10, box14_ui_hc_wd: 10, box14_fli: 145.26) }
-        include_examples "displays one W2 warning"
-      end
-    end
-
-    context "when W2 box 16 warnings are present in NJ" do
-      let(:intake) { create(:state_file_nj_intake) }
-      let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, state_wages_amount: 0, state_income_tax_amount: 0) }
-      include_examples "displays one W2 warning"
-    end
-
-    context "when W2 box 16 warnings are not present due to not being in NJ" do
-      let(:intake) { create(:state_file_az_intake) }
-      let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, state_wages_amount: 0, state_income_tax_amount: 0) }
-      include_examples "does not display W2 warnings"
-    end
-
-    context "when W2 box 16 warnings are not present due to wages being 0" do
-      let(:intake) { create(:state_file_nj_intake) }
-      let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, wages: 0, state_wages_amount: 0, state_income_tax_amount: 0) }
-      include_examples "does not display W2 warnings"
     end
   end
 
@@ -303,6 +189,8 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
           expect(response.body).to have_text "Payure"
           expect(response.body).to have_text "Mary Taxfiler"
           expect(response.body).to have_link(href: edit_unemployment_path(id: spouse_1099g.id))
+
+          # Need to add a link to add a new unemployment
         end
       end
 
@@ -376,10 +264,10 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
         expect(response.body).to have_text "Retirement income (1099-R)"
         expect(response.body).to have_text "Payeur"
         expect(response.body).to have_text "Prim Rose"
-        expect(response.body).to have_link(href: edit_retirement_income_path(id: primary_1099r.id))
+        expect(response.body).to have_link(href: edit_retirement_income_path(id: primary_1099r.id, from_final_income_review: "y"))
         expect(response.body).to have_text "Payure"
         expect(response.body).to have_text "Sprout Vine"
-        expect(response.body).to have_link(href: edit_retirement_income_path(id: spouse_1099r.id))
+        expect(response.body).to have_link(href: edit_retirement_income_path(id: spouse_1099r.id, from_final_income_review: "y"))
       end
     end
 
@@ -411,22 +299,6 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
         get :edit, params: params
         expect(response.body).to have_text "Interest income (1099-INT)"
       end
-    end
-  end
-
-  context "without device id information due to JS being disabled" do
-    let(:device_id) { nil }
-
-    it "flashes an alert and does re-renders edit" do
-      post :update, params: params
-      expect(flash[:alert]).to eq(I18n.t("general.enable_javascript"))
-    end
-  end
-
-  context "with device id" do
-    it "updates device id" do
-      post :update, params: params
-      expect(efile_device_info.reload.device_id).to eq "ABC123"
     end
   end
 end

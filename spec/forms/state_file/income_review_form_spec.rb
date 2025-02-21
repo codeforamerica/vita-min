@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe StateFile::IncomeReviewForm do
+RSpec.describe StateFile::InitialIncomeReviewForm do
   let!(:intake) { create :state_file_az_intake }
   let!(:efile_device_info) { create :state_file_efile_device_info, :initial_creation, intake: intake, device_id: nil }
   let(:device_id) { "AA" * 20 }

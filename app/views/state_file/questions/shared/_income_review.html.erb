@@ -16,6 +16,7 @@
                         StateFile::Questions::W2Controller.to_path_helper(
                           action: :edit,
                           id: w2.id,
+                          from_final_income_review: final ? "y" : "n",
                           return_to_review: params[:return_to_review]
                         ),
                         class: "button--small"
@@ -35,10 +36,10 @@
     </div>
   <% end %>
 
-  <% if current_intake.direct_file_data.fed_unemployment > 0 %>
+  <% if current_intake.direct_file_data.fed_unemployment > 0 %><!-- put this section below 1099Rs -->
     <div class="white-group unemployment" id="form1099gs">
       <h2 class="text--body text--bold spacing-below-0"><%= t(".unemployment_title") %></h2>
-      <% not_taxed_key = "state_file.questions.income_review.edit.no_info_needed_#{current_state_code}" %>
+      <% not_taxed_key = "state_file.questions.shared.income_review.no_info_needed_#{current_state_code}" %>
       <% if I18n.exists?(not_taxed_key) %>
         <p class="text--grey-bold spacing-above-15 spacing-below-0">
           <%= t(not_taxed_key) %>
@@ -59,9 +60,10 @@
             %>
           </div>
         <% end %>
+        <!-- add "Add a 1099-G Form" button -->
       <% else %>
         <p class="text--red-bold spacing-above-15 spacing-below-0">
-          <%= t(".state_info_to_be_collected") %>
+          <%= t(".state_info_to_be_collected") %><!-- change text to "Information to be collected" -->
         </p>
       <% end %>
     </div>
@@ -78,6 +80,7 @@
                       StateFile::Questions::RetirementIncomeController.to_path_helper(
                         action: :edit,
                         id: state_1099r.id,
+                        from_final_income_review: final ? "y" : "n",
                         return_to_review: params[:return_to_review]
                       ),
                       class: "button--small"
@@ -100,7 +103,7 @@
     <div class="white-group" id="formssa1099s">
       <h2 class="text--body text--bold spacing-below-0"><%= t(".ssa_title") %></h2>
       <p class="text--grey-bold spacing-above-15 spacing-below-0">
-        <% # i18n-tasks-use t("state_file.questions.income_review.edit.no_info_needed") # hint for the i18n linter that, yes, we are using this key (sometimes) %>
+        <% # i18n-tasks-use t("state_file.questions.shared.income_review.no_info_needed") # hint for the i18n linter that, yes, we are using this key (sometimes) %>
         <%= t(".no_info_needed_#{current_state_code}", default: :'.no_info_needed') %>
       </p>
     </div>
@@ -115,12 +118,16 @@
     </p>
   <% end %>
 
-  <%= form_with model: @form, url: { action: :update }, data: { efile_security_information: true, form_name: "state_file_income_review_form" },
-                local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
-    <%= f.hidden_field(:device_id) %>
-    <% if params[:return_to_review].present? %>
-      <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
+  <% if final %>
+    <%= link_to t("general.continue"), next_path, class: "button button--wide button--primary text--centered" %>
+  <% else %>
+    <%= form_with model: @form, url: { action: :update }, data: { efile_security_information: true, form_name: "state_file_initial_income_review_form" },
+                  local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+      <%= f.hidden_field(:device_id) %>
+      <% if params[:return_to_review].present? %>
+        <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
+      <% end %>
+      <%= f.continue %>
     <% end %>
-    <%= f.continue %>
   <% end %>
 <% end %>

@@ -46,7 +46,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       step_through_df_data_transfer("Transfer #{df_persona_name}", expect_success)
 
       if expect_income_review
-        expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
+        expect(page).to have_text I18n.t("state_file.questions.shared.income_review.title")
         expect(page).to have_css(".progress-steps")
         expect(page).to have_text("Section 1 of 5: Income")
         expect(page).to be_axe_clean if check_a11y

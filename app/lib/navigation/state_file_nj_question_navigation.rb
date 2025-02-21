@@ -29,7 +29,7 @@ module Navigation
                                           Navigation::NavigationStep.new(StateFile::Questions::DataTransferOffboardingController, false),
                                       ], false),
       Navigation::NavigationSection.new("state_file.navigation.nj.section_1", [
-                                          Navigation::NavigationStep.new(StateFile::Questions::IncomeReviewController), # line 15-27, but intentionally moved up for eligibility checks
+                                          Navigation::NavigationStep.new(StateFile::Questions::InitialIncomeReviewController), # line 15-27, but intentionally moved up for eligibility checks
                                           Navigation::NavigationStep.new(StateFile::Questions::W2Controller),
                                       ]),
       Navigation::NavigationSection.new("state_file.navigation.nj.section_2", [

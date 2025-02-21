@@ -55,7 +55,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
       expect(page).to have_text "Here are the income forms we transferred from your federal tax return."
 
-      wait_for_device_info("income_review")
+      wait_for_device_info("initial_income_review")
 
       click_on I18n.t("general.continue")
 
@@ -73,7 +73,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       fill_in 'state_file1099_g_state_income_tax_withheld_amount', with: "789"
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text(I18n.t('state_file.questions.unemployment.index.1099_label', name: StateFileAzIntake.last.primary.full_name))
+      expect(page).to have_text "Here are the income forms we transferred from your federal tax return."
       click_on I18n.t("general.continue")
 
       expect(page).to have_text(I18n.t("state_file.questions.retirement_income_subtraction.title", state_name: "Arizona"))
@@ -227,15 +227,15 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t('state_file.questions.income_review.edit.title')
+      expect(page).to have_text I18n.t('state_file.questions.shared.income_review.title')
       within('#w2s') do
-        expect(page).to have_text(I18n.t('state_file.questions.income_review.edit.no_info_needed'))
+        expect(page).to have_text(I18n.t('state_file.questions.shared.income_review.no_info_needed'))
       end
       within('#form1099gs') do
-        expect(page).to have_text(I18n.t('state_file.questions.income_review.edit.state_info_to_be_collected'))
+        expect(page).to have_text(I18n.t('state_file.questions.shared.income_review.state_info_to_be_collected'))
       end
 
-      wait_for_device_info("income_review")
+      wait_for_device_info("initial_income_review")
 
       click_on I18n.t("general.continue")
 
@@ -254,7 +254,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       fill_in 'state_file1099_g_state_income_tax_withheld_amount', with: "789"
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text(I18n.t('state_file.questions.unemployment.index.1099_label', name: StateFileNcIntake.last.primary.full_name))
+      expect(page).to have_text I18n.t('state_file.questions.shared.income_review.title')
       click_on I18n.t("general.continue")
 
       expect(page).to have_text(I18n.t("state_file.questions.nc_retirement_income_subtraction.edit.title"))
@@ -345,7 +345,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
       expect(page).to have_text "Here are the income forms we transferred from your federal tax return."
 
-      wait_for_device_info("income_review")
+      wait_for_device_info("initial_income_review")
 
       click_on I18n.t("general.continue")
 
@@ -485,7 +485,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
       expect(page).to have_text "Here are the income forms we transferred from your federal tax return."
 
-      wait_for_device_info("income_review")
+      wait_for_device_info("initial_income_review")
 
       click_on I18n.t("general.continue")
 
