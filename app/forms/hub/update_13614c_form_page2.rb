@@ -132,11 +132,11 @@ module Hub
               :cv_p2_notes_comments]
       self.class.scoped_attributes[model].reduce({}) do |hash, attribute_name|
         v = send(attribute_name)
-        unless skip.include? attribute_name
-          hash[attribute_name] = v ? v : 'unfilled'
-        else
-          hash[attribute_name] = v
-        end
+        hash[attribute_name] = if skip.include? attribute_name
+                                 v
+                               else
+                                 v || 'unfilled'
+                               end
         hash
       end
     end

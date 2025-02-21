@@ -249,10 +249,10 @@ module PdfFiller
 
         # Other income
         "form1[0].page2[0].incomeIncluded[0].otherIncome[0].otherIncome[0]" => yes_no_unfilled_to_checkbox(@intake.cv_other_income_cb),
-
-        # Notes/Comments
-        "form1[0].page2[0].IncomeIncludedComment[0].IncomeIncludedComments[0]" => @intake.cv_p2_notes_comments,
       )
+
+      # Notes/Comments
+      answers["form1[0].page2[0].IncomeIncludedComment[0].IncomeIncludedComments[0]"] = "Other money received during the year includes: #{@intake.cv_p2_notes_comments}" if @intake.cv_p2_notes_comments.present?
 
       # PAGE 3
       answers.merge!(
