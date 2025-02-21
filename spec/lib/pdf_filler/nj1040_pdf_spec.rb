@@ -1079,6 +1079,22 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         expect(pdf_fields["undefined_59"]).to eq ""
         expect(pdf_fields["146"]).to eq ""
       end
+
+      it "does not fill in any of the boxes on line 28a even when there is a value" do
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_28a).and_return 123_456
+
+        # thousands
+        expect(pdf_fields["28a"]).to eq ""
+        expect(pdf_fields["189"]).to eq ""
+        expect(pdf_fields["190"]).to eq ""
+        # hundreds
+        expect(pdf_fields["undefined_81"]).to eq ""
+        expect(pdf_fields["191"]).to eq ""
+        expect(pdf_fields["192"]).to eq ""
+        # decimals
+        expect(pdf_fields["undefined_82"]).to eq ""
+        expect(pdf_fields["193"]).to eq ""
+      end
     end
 
     describe "line 20a - taxable retirement income" do
@@ -1226,6 +1242,10 @@ RSpec.describe PdfFiller::Nj1040Pdf do
     end
 
     describe "line 28a - Pension/Retirement Exclusion" do
+      before do
+        allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
+      end
+
       context "when taxpayer has pension/retirement income exclusion with 0" do
         it "does not fill in the PDF line 28a boxes" do
           allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_28a).and_return 0
