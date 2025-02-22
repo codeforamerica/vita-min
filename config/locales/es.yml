@@ -4269,7 +4269,7 @@ es:
         faq_prior_year_returns: Visita nuestra sección de preguntas frecuentes si tienes dudas sobre declaraciones de años anteriores.
         header: Un servicio sin costo para declarar los impuestos estatales para las personas que usaron IRS Direct File
         helper_heading_html: "<strong>¿Cómo funciona este servicio?</strong>"
-        looking_for_return_html: "<strong>¿Necesitas tu declaración de impuestos de Arizona o Nueva York de 2023?</strong> <a href='%{link}'>Inicia sesión</a> para descargar una copia de tu declaración estatal."
+        looking_for_return_html: "<strong>¿Necesitas tu declaración de impuestos de Arizona o Nueva York de 2023?</strong>"
         section1_html: |
           <ol class="list--numbered" style="padding-left: 2rem">
             <li>Primero, presenta y envía tu declaración federal con el servicio <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">Direct File del IRS</a> antes de usar este servicio.</li>
