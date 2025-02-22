@@ -76,7 +76,32 @@ class StateFileW2 < ApplicationRecord
     state_file_intake.validate_state_specific_w2_requirements(self) if state_file_intake.present?
   end
 
+  def validate_nil_tax_amounts
+    [:state_wages_amount, :state_income_tax_amount].each do |amount|
+      if self.send(amount).nil?
+        errors.add(amount, I18n.t('state_file.questions.w2.edit.no_money_amount'))
+      end
+    end
+
+    if StateFile::StateInformationService.w2_include_local_income_boxes(state_file_intake.state_code)
+      [:local_wages_and_tips_amount, :local_income_tax_amount].each do |amount|
+        if self.send(amount).nil?
+          errors.add(amount, I18n.t('state_file.questions.w2.edit.no_money_amount'))
+        end
+      end
+    end
+
+    supported_box14_codes.each do |code|
+      attribute_name = "box14_#{code.downcase}"
+      if self.send(attribute_name.to_sym).nil?
+        errors.add(attribute_name, I18n.t('state_file.questions.w2.edit.no_money_amount'))
+      end
+    end
+  end
+
   def validate_tax_amts
+    validate_nil_tax_amounts
+
     if (state_income_tax_amount || 0).positive? && (state_wages_amount || 0) <= 0
       errors.add(:state_wages_amount, I18n.t("state_file.questions.w2.edit.state_wages_amt_error"))
     end
@@ -145,6 +170,11 @@ class StateFileW2 < ApplicationRecord
   end
 
   private
+
+  def supported_box14_codes
+    box14_codes = StateFile::StateInformationService.w2_supported_box14_codes(state_file_intake.state_code)
+    box14_codes.map{ |code| code[:name] }
+  end
 
   def validate_box14_limits
     validate_limit(:box14_ui_wf_swf, self.class.find_limit("UI_WF_SWF", state_file_intake.state_code))
