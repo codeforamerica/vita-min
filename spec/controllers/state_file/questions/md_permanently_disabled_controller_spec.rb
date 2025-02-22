@@ -32,5 +32,36 @@ RSpec.describe StateFile::Questions::MdPermanentlyDisabledController do
       get :edit
       expect(response).to be_successful
     end
+
+    context "asking for proof" do
+      context "filer is not mfj" do
+        let(:intake) { create :state_file_md_intake, filing_status: "single" }
+
+        it "asks for proof when filer not 65 or older" do
+          intake.update(primary_birth_date: 64.years.ago)
+          get :edit
+
+          expect(response.body).to include I18n.t("state_file.questions.md_permanently_disabled.edit.proof_question")
+        end
+
+        it "does not ask for proof when filer is over 65" do
+          intake.update(primary_birth_date: 66.years.ago)
+          get :edit
+
+          expect(response.body).not_to include I18n.t("state_file.questions.md_permanently_disabled.edit.proof_question")
+        end
+      end
+
+      context "filer is mfj" do
+        let(:intake) { create :state_file_md_intake, filing_status: "married_filing_jointly" }
+
+        it "always asks for proof" do
+          intake.update(primary_birth_date: 64.years.ago)
+          get :edit
+
+          expect(response.body).to include I18n.t("state_file.questions.md_permanently_disabled.edit.proof_question")
+        end
+      end
+    end
   end
 end

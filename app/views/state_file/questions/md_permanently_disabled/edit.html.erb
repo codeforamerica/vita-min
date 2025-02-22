@@ -8,8 +8,9 @@
   <h1 class="h2"><%= title %></h1>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
-    <div class="question-with-follow-up">
-      <div class="question-with-follow-up__question">
+    <% show_proof_question = current_intake.filing_status_mfj? || !current_intake.primary_senior? %>
+    <div class="<%= "question-with-follow-up" if show_proof_question %>">
+      <div class="<%= "question-with-follow-up__question" if show_proof_question %>">
         <div class="white-group">
           <% if current_intake.filing_status_mfj? %>
             <%= f.cfa_radio_set(:mfj_disability, collection: [
@@ -27,13 +28,15 @@
         </div>
       </div>
 
-      <div class="question-with-follow-up__follow-up" id="disability-proof">
-        <div class="white-group">
-          <%= f.cfa_radio_set(:proof_of_disability_submitted, label_text: t(".proof_question"), collection: [
-            { value: "yes", label: t("general.affirmative") },
-            { value: "no", label: t("general.negative") },
-          ]) %>
-        </div>
+      <div class="<%= "question-with-follow-up__follow-up" if show_proof_question %>" id="disability-proof">
+        <% if show_proof_question %>
+          <div class="white-group">
+            <%= f.cfa_radio_set(:proof_of_disability_submitted, label_text: t(".proof_question"), collection: [
+              { value: "yes", label: t("general.affirmative") },
+              { value: "no", label: t("general.negative") },
+            ]) %>
+          </div>
+        <% end %>
       </div>
     </div>
 
