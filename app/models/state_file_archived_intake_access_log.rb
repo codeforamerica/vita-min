@@ -15,6 +15,7 @@
 #
 class StateFileArchivedIntakeAccessLog < ApplicationRecord
   belongs_to :state_file_archived_intake_request, optional: true
+  belongs_to :state_file_archived_intake, optional: true
   enum event_type: {
     issued_email_challenge: 0, 
     correct_email_code: 1,
