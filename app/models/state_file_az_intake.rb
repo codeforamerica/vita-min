@@ -151,15 +151,8 @@ class StateFileAzIntake < StateFileBaseIntake
                 end
     agi_over_limit = direct_file_data.fed_agi > agi_limit
     lacks_valid_ssn = primary.ssn.blank? || primary.has_itin?
-    all_filers_ssn_not_valid_for_employment =
-      if filing_status_mfj?
-        direct_file_json_data.primary_filer.ssn_not_valid_for_employment &&
-          direct_file_json_data.spouse_filer.ssn_not_valid_for_employment
-      else
-        direct_file_json_data.primary_filer.ssn_not_valid_for_employment
-      end
 
-    agi_over_limit || lacks_valid_ssn || all_filers_ssn_not_valid_for_employment
+    agi_over_limit || lacks_valid_ssn || direct_file_json_data.primary_filer.ssn_not_valid_for_employment
   end
 
   def incarcerated_filer_count
