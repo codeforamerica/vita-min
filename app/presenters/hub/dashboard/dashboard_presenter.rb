@@ -29,7 +29,7 @@ module Hub
               if model.instance_of? Site
                 model = available_by_id[model.parent_organization_id]
               end
-              model&.coalition_id == selected_model.id # model is nil when can't find model on available_by_id[model.parent_organization_id]
+              model&.coalition_id == selected_model.id
             end
           else
             available_orgs_and_sites.filter do |model|
