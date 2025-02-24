@@ -568,17 +568,34 @@ describe Efile::Id::Id40Calculator do
     end
 
     context "when there are income forms" do
-      context "which have no state tax withheld" do
-        # Miranda has two W-2s with state tax withheld amount (507, 1502) and two 1099Rs with no state tax withheld
-        # but we will not sync in this context to leave values blank in db
+      # Miranda has two W-2s with state tax withheld amount (507, 1502) and two 1099Rs with no state tax withheld
+      # but we will not sync in this context to leave values blank in db
+      let(:intake) {
+        create(:state_file_id_intake,
+               raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml('id_miranda_1099r'))
+      }
+      let!(:state_file1099_g) { create(:state_file1099_g, intake: intake, state_income_tax_withheld_amount: 0) }
+      let!(:state_file1099_r) { create(:state_file1099_r, intake: intake, state_tax_withheld_amount: 0) }
+
+      context "which have 0 state tax withheld" do
+        it "should return 0" do
+          instance.calculate
+          expect(instance.lines[:ID40_LINE_46].value).to eq(0)
+        end
+      end
+
+      context "which have nil state tax withheld" do
         let(:intake) {
           create(:state_file_id_intake,
-                 raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml('id_miranda_1099r'))
+                 :with_eligible_1099r_income,
+                 raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml('id_miranda_1099r'),
+          )
         }
-        let!(:state_file1099_g) { create(:state_file1099_g, intake: intake, state_income_tax_withheld_amount: 0) }
-        let!(:state_file1099_r) { create(:state_file1099_r, intake: intake, state_tax_withheld_amount: 0) }
+        before do
+          intake.state_file1099_rs.first&.update!(state_tax_withheld_amount: nil)
+        end
 
-        it "should return 0" do
+        it 'sums the ID tax withheld from 1099gs and 1099rs without error' do
           instance.calculate
           expect(instance.lines[:ID40_LINE_46].value).to eq(0)
         end
