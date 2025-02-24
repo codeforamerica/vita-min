@@ -3689,6 +3689,7 @@ en:
             16a_interest_income: Interest income
             20a_retirement_income: Retirement income
             27_total_income: Total income
+            28c_retirement_excluded_from_taxation: Retirement income excluded from Taxation
             29_nj_gross_income: New Jersey Gross Income
             30_exemptions: Exemptions (based on the size of your family, disability status, veteran status)
             31_medical: Medical expenses deducted
