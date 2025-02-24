@@ -651,7 +651,7 @@ RSpec.describe PdfFiller::F13614cPdf do
             cv_schedule_c_expenses_cb: 'yes',
             cv_schedule_c_expenses_amt: 768,
             cv_other_income_cb: 'yes',
-            cv_p2_notes_comments: 'twinkle twinkle little star'
+            cv_p2_notes_comments: "there's always money in the banana stand"
 
           )
 
@@ -705,7 +705,7 @@ RSpec.describe PdfFiller::F13614cPdf do
                               "form1[0].page2[0].incomeIncluded[0].scheduleCExpenses[0]" => '1',
                               "form1[0].page2[0].incomeIncluded[0].scheduleCExpensesAmount[0]" => '768.0',
                               "form1[0].page2[0].incomeIncluded[0].otherIncome[0].otherIncome[0]" => '1',
-                              "form1[0].page2[0].IncomeIncludedComment[0].IncomeIncludedComments[0]" => 'twinkle twinkle little star',
+                              "form1[0].page2[0].IncomeIncludedComment[0].IncomeIncludedComments[0]" => "Other money received during the year includes: there's always money in the banana stand",
                             )
         end
       end

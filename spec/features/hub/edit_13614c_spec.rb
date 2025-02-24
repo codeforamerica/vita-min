@@ -302,7 +302,7 @@ RSpec.describe "a user editing a clients 13614c form" do
 
       select "Yes", from: "hub_update13614c_form_page2_cv_other_income_cb"
 
-      fill_in "hub_update13614c_form_page2_cv_p2_notes_comments", with: "Hello"
+      fill_in "hub_update13614c_form_page2[cv_p2_notes_comments]", with: "additional income from banana stand"
 
       click_on I18n.t("general.save")
 
@@ -391,7 +391,7 @@ RSpec.describe "a user editing a clients 13614c form" do
 
       expect(intake.cv_other_income_cb_yes?).to eq true
 
-      expect(intake.cv_p2_notes_comments).to eq "Hello"
+      expect(intake.cv_p2_notes_comments).to eq "additional income from banana stand"
     end
 
     scenario "I can see and update the 13614c page 3 form", js: true do

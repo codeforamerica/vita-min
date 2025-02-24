@@ -228,8 +228,9 @@ scope of service chart)", yes_no_options_for_select) %>
 
         <!-- COMMENTS -->
         <hr style="margin: 5px;"/>
-        <div class="grid" style="background-color:#e5e5e5; padding: 10px; display: block; align-items: flex-start; justify-content: space-between;">
-            <%= f.cfa_input_field(:cv_p2_notes_comments, "Notes/Comments", classes: ["form-width--long"]) %>
+        <div style="background-color:#e5e5e5; padding: 10px;">
+          <div class="additional-notes">
+            <%= f.cfa_textarea :cv_p2_notes_comments, "Notes/Comments", options: { rows: '5', columns: 1000, id: "other_income_additional_comments" } %>
           </div>
         </div>
 
@@ -247,4 +248,28 @@ scope of service chart)", yes_no_options_for_select) %>
       </div>
     <% end %>
   </div>
+<% end %>
+<% content_for :script do %>
+  <<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        let textArea = document.getElementById("other_income_additional_comments");
+        let prefix = "Other money received during the year includes: ";
+
+        if (!textArea.value.startsWith(prefix)) {
+            textArea.value = prefix + (textArea.value || '');
+        }
+
+        textArea.addEventListener("input", function() {
+            if (!this.value.startsWith(prefix)) {
+                this.value = prefix + this.value.replace(prefix, '');
+            }
+        });
+
+        textArea.form.addEventListener("submit", function() {
+            if (textArea.value.startsWith(prefix)) {
+                textArea.value = textArea.value.replace(prefix, '').trim();
+            }
+        });
+    });
+</script>
 <% end %>
