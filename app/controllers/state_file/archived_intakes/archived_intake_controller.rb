@@ -1,6 +1,7 @@
 module StateFile
   module ArchivedIntakes
     class ArchivedIntakeController < ApplicationController
+      layout "state_file"
       before_action :check_feature_flag
       def current_request
         request = StateFileArchivedIntakeRequest.where("ip_address = ? AND LOWER(email_address) = LOWER(?)", ip_for_irs, session[:email_address]).first
