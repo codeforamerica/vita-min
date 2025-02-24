@@ -4239,7 +4239,7 @@ en:
           local_income_tax_amt_error: Cannot be greater than local wages and tips.
           local_wages_and_tips_amt_error: Please enter local wages and tips
           locality_nm_missing_error: Please select locality name
-          no_money_amount: "is not a number. If amount is blank, enter 0."
+          no_money_amount: is not a number. If amount is blank, enter 0.
           save_and_continue: Save and Continue
           state_income_tax_amt_error: Cannot be greater than State wages and tips.
           state_wages_amt_error: Please enter State wages and tips
