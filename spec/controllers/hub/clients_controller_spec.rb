@@ -865,7 +865,8 @@ RSpec.describe Hub::ClientsController do
     let(:params) do
       { id: client.id, client: { action: "set" } }
     end
-    let(:client) { create :client, vita_partner: organization }
+    let(:intake) { create :intake, client: create(:client, vita_partner: organization) }
+    let(:client) { intake.client }
     before { sign_in(user) }
 
     it "redirects to hub client path" do
@@ -910,6 +911,19 @@ RSpec.describe Hub::ClientsController do
         )
       end
     end
+
+    context "with a client with an archived intake" do
+      before do
+        client.intake.destroy!
+        create(:intake, client: client, product_year: Rails.configuration.product_year - 1)
+      end
+
+      it "response is forbidden (403)" do
+        patch :flag, params: params
+
+        expect(response).to be_forbidden
+      end
+    end
   end
 
   describe "#edit" do
@@ -937,10 +951,10 @@ RSpec.describe Hub::ClientsController do
           create(:archived_2021_gyr_intake, client: client)
         end
 
-        it "redirects to the /show page for the client" do
+        it "redirects to Access Denied page" do
           get :edit, params: params
 
-          expect(response).to redirect_to(hub_client_path(id: client.id))
+          expect(response).to be_forbidden
         end
       end
     end
@@ -1051,10 +1065,10 @@ RSpec.describe Hub::ClientsController do
           create(:archived_2021_gyr_intake, client: client)
         end
 
-        it "redirects to the /show page for the client" do
+        it "response is forbidden (403)" do
           post :update, params: { id: client.id }
 
-          expect(response).to redirect_to(hub_client_path(id: client.id))
+          expect(response).to be_forbidden
         end
       end
 
@@ -1153,6 +1167,11 @@ RSpec.describe Hub::ClientsController do
           delete :destroy, params: params
         end.not_to change(Client, :count)
       end
+
+      it "redirects to access denied page" do
+        delete :destroy, params: params
+        expect(response).to be_forbidden
+      end
     end
   end
 
@@ -1180,10 +1199,10 @@ RSpec.describe Hub::ClientsController do
           create(:archived_2021_gyr_intake, client: client)
         end
 
-        it "redirects to the /show page for the client" do
+        it "redirects to Access Denied page" do
           get :edit_take_action, params: params
 
-          expect(response).to redirect_to(hub_client_path(id: client.id))
+          expect(response).to be_forbidden
         end
       end
 
@@ -1298,13 +1317,11 @@ RSpec.describe Hub::ClientsController do
       end
 
       context "when the client is not hub updatable" do
-        before do
-          allow_any_instance_of(Hub::ClientsController::HubClientPresenter).to receive(:hub_status_updatable).and_return(false)
-        end
+        let(:intake) { build :ctc_intake, email_address: "gob@example.com", sms_phone_number: "+14155551212" }
 
         it "raises bad request" do
           post :update_take_action, params: params
-          expect(response).to redirect_to hub_client_path(id: client.id)
+          expect(response).to be_forbidden
         end
       end
 
@@ -1319,6 +1336,19 @@ RSpec.describe Hub::ClientsController do
           expect(TaxReturnService).to have_received(:handle_state_change).with(fake_form)
           expect(flash[:notice]).to eq "Success: Action taken! Updated status, sent email, added internal note."
           expect(response).to redirect_to hub_client_path(id: client.id)
+        end
+      end
+
+      context "with a client with an archived intake" do
+        before do
+          client.intake.destroy!
+          create(:intake, client: client, product_year: Rails.configuration.product_year - 1)
+        end
+
+        it "response is forbidden (403)" do
+          post :update_take_action, params: params
+
+          expect(response).to be_forbidden
         end
       end
     end
@@ -1381,6 +1411,18 @@ RSpec.describe Hub::ClientsController do
         expect(client.reload.access_locked?).to eq false
         expect(response).to redirect_to(hub_client_path(id: client))
         expect(flash[:notice]).to eq "Unlocked #{client.preferred_name}'s account."
+      end
+
+      context "with an archived intake" do
+        before do
+          client.intake.update(product_year: Rails.configuration.product_year - 2)
+        end
+
+        it "response is forbidden (403)" do
+          patch :unlock, params: params
+          expect(client.reload.access_locked?).to eq true
+          expect(response).to be_forbidden
+        end
       end
     end
 
@@ -1846,6 +1888,18 @@ RSpec.describe Hub::ClientsController do
             end
           end
         end
+
+        context "with a client with an archived intake" do
+          before do
+            client.intake.update(product_year: Rails.configuration.product_year - 1)
+          end
+
+          it "response is forbidden (403)" do
+            put :update_13614c_form_page1, params: params
+
+            expect(response).to be_forbidden
+          end
+        end
       end
     end
 
@@ -1979,6 +2033,18 @@ RSpec.describe Hub::ClientsController do
           client.reload
           expect(client.intake.job_count).to eq 3
         end
+
+        context "with a client with an archived intake" do
+          before do
+            client.intake.update(product_year: Rails.configuration.product_year - 1)
+          end
+
+          it "response is forbidden (403)" do
+            put :update_13614c_form_page2, params: params
+
+            expect(response).to be_forbidden
+          end
+        end
       end
     end
 
@@ -2030,6 +2096,18 @@ RSpec.describe Hub::ClientsController do
 
           client.reload
           expect(client.intake.tax_credit_disallowed_year).to eq 2001
+        end
+
+        context "with a client with an archived intake" do
+          before do
+            client.intake.update(product_year: Rails.configuration.product_year - 1)
+          end
+
+          it "response is forbidden (403)" do
+            put :update_13614c_form_page3, params: params
+
+            expect(response).to be_forbidden
+          end
         end
       end
     end
@@ -2103,6 +2181,18 @@ RSpec.describe Hub::ClientsController do
           client.reload
           expect(client.intake.demographic_english_conversation).to eq "well"
         end
+
+        context "with a client with an archived intake" do
+          before do
+            client.intake.update(product_year: Rails.configuration.product_year - 1)
+          end
+
+          it "response is forbidden (403)" do
+            put :update_13614c_form_page4, params: params
+
+            expect(response).to be_forbidden
+          end
+        end
       end
     end
 
@@ -2154,6 +2244,171 @@ RSpec.describe Hub::ClientsController do
           client.reload
           expect(client.intake.additional_notes_comments).to eq 'Call me Ishmael.'
         end
+
+        context "with a client with an archived intake" do
+          before do
+            client.intake.update(product_year: Rails.configuration.product_year - 1)
+          end
+
+          it "response is forbidden (403)" do
+            put :update_13614c_form_page5, params: params
+
+            expect(response).to be_forbidden
+          end
+        end
+      end
+    end
+  end
+
+  context "editing 13614c" do
+    let(:client) { create :client, vita_partner: organization, intake: intake }
+
+    let(:intake) { build :intake, :with_contact_info, preferred_interview_language: "en", ever_married: "yes", dependents: [build(:dependent), build(:dependent)] }
+    let(:first_dependent) { intake.dependents.first }
+    let(:params) { { id: client } }
+
+    describe "#edit_13614c_form_page1" do
+      it_behaves_like :a_get_action_for_authenticated_users_only, action: :edit_13614c_form_page1
+
+      context "with a signed in user" do
+        let(:user) { create(:user, role: create(:organization_lead_role, organization: organization)) }
+
+        before do
+          sign_in user
+        end
+
+        it "renders edit 13614c page 1" do
+            get :edit_13614c_form_page1, params: params
+            expect(response).to be_ok
+        end
+
+        context "with a client with an archived intake" do
+          before do
+            client.intake.update(product_year: Rails.configuration.product_year - 1)
+          end
+
+          it "response is forbidden (403)" do
+            put :update_13614c_form_page1, params: params
+
+            expect(response).to be_forbidden
+          end
+        end
+      end
+    end
+
+    describe "#edit_13614c_form_page2" do
+      it_behaves_like :a_get_action_for_authenticated_users_only, action: :edit_13614c_form_page2
+
+      context "with a signed in user" do
+        let(:user) { create(:user, role: create(:organization_lead_role, organization: organization)) }
+
+        before do
+          sign_in user
+        end
+
+        it "renders edit 13614c page 2" do
+          get :edit_13614c_form_page2, params: params
+          expect(response).to be_ok
+        end
+
+        context "with a client with an archived intake" do
+          before do
+            client.intake.update(product_year: Rails.configuration.product_year - 1)
+          end
+
+          it "response is forbidden (403)" do
+            put :update_13614c_form_page2, params: params
+
+            expect(response).to be_forbidden
+          end
+        end
+      end
+    end
+
+    describe "#edit_13614c_form_page3" do
+      it_behaves_like :a_get_action_for_authenticated_users_only, action: :edit_13614c_form_page3
+
+      context "with a signed in user" do
+        let(:user) { create(:user, role: create(:organization_lead_role, organization: organization)) }
+
+        before do
+          sign_in user
+        end
+
+        it "renders edit 13614c page 3" do
+          get :edit_13614c_form_page3, params: params
+          expect(response).to be_ok
+        end
+
+        context "with a client with an archived intake" do
+          before do
+            client.intake.update(product_year: Rails.configuration.product_year - 1)
+          end
+
+          it "response is forbidden (403)" do
+            put :update_13614c_form_page3, params: params
+
+            expect(response).to be_forbidden
+          end
+        end
+      end
+    end
+
+    describe "#edit_13614c_form_page4" do
+      it_behaves_like :a_get_action_for_authenticated_users_only, action: :edit_13614c_form_page4
+
+      context "with a signed in user" do
+        let(:user) { create(:user, role: create(:organization_lead_role, organization: organization)) }
+
+        before do
+          sign_in user
+        end
+
+        it "renders edit 13614c page 4" do
+          get :edit_13614c_form_page4, params: params
+          expect(response).to be_ok
+        end
+
+        context "with a client with an archived intake" do
+          before do
+            client.intake.update(product_year: Rails.configuration.product_year - 1)
+          end
+
+          it "response is forbidden (403)" do
+            put :update_13614c_form_page4, params: params
+
+            expect(response).to be_forbidden
+          end
+        end
+      end
+    end
+
+    describe "#edit_13614c_form_page5" do
+      it_behaves_like :a_get_action_for_authenticated_users_only, action: :edit_13614c_form_page5
+
+      context "with a signed in user" do
+        let(:user) { create(:user, role: create(:organization_lead_role, organization: organization)) }
+
+        before do
+          sign_in user
+        end
+
+        it "renders edit 13614c page 5" do
+          get :edit_13614c_form_page5, params: params
+          expect(response).to be_ok
+        end
+
+        context "with a client with an archived intake" do
+          before do
+            client.intake.update(product_year: Rails.configuration.product_year - 1)
+          end
+
+          it "response is forbidden (403)" do
+            put :update_13614c_form_page5, params: params
+
+            expect(response).to be_forbidden
+          end
+        end
       end
     end
   end
@@ -2199,7 +2454,6 @@ RSpec.describe Hub::ClientsController do
             create(:client, **good_client_params)
 
             get :index
-            # puts Client.where(filterable_product_year: 2024).first
             expect(assigns(:clients)).not_to be_empty
           end
 
@@ -2265,7 +2519,6 @@ RSpec.describe Hub::ClientsController do
             create(:client, **good_client_params)
 
             get :index
-            # puts Client.where(filterable_product_year: 2024).first
             expect(assigns(:clients)).to be_empty
           end
 
@@ -2333,7 +2586,6 @@ RSpec.describe Hub::ClientsController do
             create(:client, **good_client_params)
 
             get :index
-            # puts Client.where(filterable_product_year: 2024).first
             expect(assigns(:clients)).to be_empty
           end
 
@@ -2399,7 +2651,6 @@ RSpec.describe Hub::ClientsController do
             create(:client, **good_client_params)
 
             get :index
-            # puts Client.where(filterable_product_year: 2024).first
             expect(assigns(:clients)).to be_empty
           end
 
@@ -2465,7 +2716,6 @@ RSpec.describe Hub::ClientsController do
             create(:client, **good_client_params)
 
             get :index
-            # puts Client.where(filterable_product_year: 2024).first
             expect(assigns(:clients)).not_to be_empty
           end
 

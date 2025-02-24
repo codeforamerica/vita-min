@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Hub::BulkActions::ChangeAssigneeAndStatusController do
-  let(:client) { create :client, vita_partner: site, intake: build(:intake) }
+  let(:client) { create :client, vita_partner: site, intake: build(:intake, product_year: Rails.configuration.product_year) }
   let(:site) { create :site }
   let(:organization) { create :organization }
 
@@ -35,6 +35,17 @@ RSpec.describe Hub::BulkActions::ChangeAssigneeAndStatusController do
 
         expect(assigns(:assignable_users)).to match_array [team_member, site_coordinator]
         expect(assigns(:assignable_users)).not_to include inaccessible_user
+      end
+
+      context "with an archived intake" do
+        before do
+          client.intake.update(product_year: Rails.configuration.product_year - 2)
+        end
+
+        it "response is forbidden (403)" do
+          get :edit, params: params
+          expect(response).to be_forbidden
+        end
       end
     end
 
@@ -129,6 +140,17 @@ RSpec.describe Hub::BulkActions::ChangeAssigneeAndStatusController do
           expect do
             put :update, params: params
           end.not_to have_enqueued_job(BulkActionJob)
+        end
+      end
+
+      context "with an archived intake" do
+        before do
+          client.intake.update(product_year: Rails.configuration.product_year - 2)
+        end
+
+        it "response is forbidden (403)" do
+          put :update, params: params
+          expect(response).to be_forbidden
         end
       end
     end

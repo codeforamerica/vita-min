@@ -10,6 +10,8 @@ module Hub
         redirect_to next_path || hub_client_path(id: @tax_return.client.id)
       end
 
+      private
+
       def tax_return_params
         params.permit(:certification_level)
       end
