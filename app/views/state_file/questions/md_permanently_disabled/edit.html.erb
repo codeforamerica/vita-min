@@ -26,8 +26,9 @@
               { value: "no", label: t(".no_neither") }
             ]) %>
           <% else %>
+<!--            add variable to see if you should show the follow up -->
             <%= f.cfa_radio_set(:primary_disabled, collection: [
-              { value: "yes", label: t("general.affirmative"), input_html: { "data-follow-up": "#disability-proof" } },
+              { value: "yes", label: t("general.affirmative"), input_html: { "data-follow-up": "#primary-disability-proof" } },
               { value: "no", label: t("general.negative") }
             ], legend_class: "sr-only") %>
           <% end %>

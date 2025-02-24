@@ -347,8 +347,37 @@ RSpec.describe StateFileMdIntake, type: :model do
                :with_spouse,
                 primary_disabled: primary_disabled,
                 spouse_disabled: spouse_disabled,
-                proof_of_disability_submitted: proof_of_disability_submitted
+                primary_proof_of_disability_submitted: primary_proof_of_disability_submitted,
+                spouse_proof_of_disability_submitted: spouse_proof_of_disability_submitted,
         )
+      end
+
+      [:primary, :spouse].each do |filer|
+        let("#{filer}_disabled".to_sym ) { "yes" }
+        let("#{filer}_proof_of_disability_submitted".to_sym ) { "yes" }
+        context "when the primary is disabled with proof" do
+
+        end
+
+        context "when the primary is disabled without proof" do
+
+        end
+      end
+
+      context "when the spouse is disabled with no proof" do
+
+      end
+
+      context "when the spouse is disabled without proof" do
+
+      end
+
+      context "when both the spouse and primary are disabled with proof" do
+
+      end
+
+      context "when neither the spouse or primary are disabled with proof" do
+
       end
 
       context "when either the spouse or primary is disabled, but there is no proof" do

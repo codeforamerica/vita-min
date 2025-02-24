@@ -5,6 +5,9 @@ module StateFile
     attr_accessor :mfj_disability
     validates_presence_of :mfj_disability, if: -> { intake.filing_status_mfj?}
     validates :primary_disabled, inclusion: { in: %w[yes no], message: :blank }, unless: -> { intake.filing_status_mfj? }
+    # no skipping the validation if they're a senior
+    validates :primary_proof_of_disability_submitted, inclusion: { in: %w[yes no], message: :blank }, if: :primary_disability_selected?
+    validates :spouse_proof_of_disability_submitted, inclusion: { in: %w[yes no], message: :blank }, if: :spouse_disability_selected?
     validates :primary_proof_of_disability_submitted, inclusion: { in: %w[yes no], message: :blank }, if: -> { primary_disabled == "yes" }
     validates :spouse_proof_of_disability_submitted, inclusion: { in: %w[yes no], message: :blank }, if: -> { spouse_disabled == "yes" }
 
@@ -33,8 +36,12 @@ module StateFile
 
     private
 
-    def disability_selected?
-      mfj_disability.in?(%w[me, both]) || primary_disabled == "yes"
+    def primary_disability_selected?
+      mfj_disability.in?(%w[me both]) || primary_disabled == "yes"
+    end
+
+    def spouse_disability_selected?
+      mfj_disability.in?(%w[spouse both])
     end
   end
 end
