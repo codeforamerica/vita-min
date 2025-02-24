@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe StateFile::ArchivedIntakes::VerificationCodeController, type: :controller do
   let!(:archived_intake) { build(:state_file_archived_intake) }
-  let(:current_request) { create(:state_file_archived_intake_request, email_address:email_address, failed_attempts: 0, state_file_archived_intake: archived_intake) }
+  let(:current_request) { create(:state_file_archived_intake_request, email_address: email_address, failed_attempts: 0, state_file_archived_intake: archived_intake) }
   let(:email_address) { "test@example.com" }
   let(:valid_verification_code) { "123456" }
   let(:invalid_verification_code) { "654321" }
@@ -14,17 +14,7 @@ RSpec.describe StateFile::ArchivedIntakes::VerificationCodeController, type: :co
   end
 
   describe "GET #edit" do
-    context "when the request is locked" do
-      before do
-        allow(current_request).to receive(:access_locked?).and_return(true)
-      end
-
-      it "redirects to the root path" do
-        get :edit
-
-        expect(response).to redirect_to(state_file_archived_intakes_verification_error_path)
-      end
-    end
+    it_behaves_like 'archived intake request locked', action: :edit, method: :get
 
     context "when the request is not locked" do
       before do
