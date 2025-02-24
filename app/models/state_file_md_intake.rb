@@ -241,11 +241,7 @@ class StateFileMdIntake < StateFileBaseIntake
   end
 
   def at_least_one_disabled_filer_with_proof?
-    if filing_status_mfj?
-      primary_proof_of_disability_submitted_yes? || spouse_proof_of_disability_submitted_yes?
-    else
-      primary_proof_of_disability_submitted_yes?
-    end
+    primary_proof_of_disability_submitted_yes? || spouse_proof_of_disability_submitted_yes?
   end
 
   def qualifies_for_pension_exclusion?(filer)

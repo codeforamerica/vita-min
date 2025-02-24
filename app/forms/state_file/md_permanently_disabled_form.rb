@@ -37,11 +37,11 @@ module StateFile
     private
 
     def primary_disability_selected?
-      mfj_disability.in?(%w[me both]) || primary_disabled == "yes"
+      (mfj_disability.in?(%w[me both]) || primary_disabled == "yes") && !(intake.primary_senior? || intake.spouse_senior?)
     end
 
     def spouse_disability_selected?
-      mfj_disability.in?(%w[spouse both])
+      mfj_disability.in?(%w[spouse both]) && !(intake.primary_senior? || intake.spouse_senior?)
     end
   end
 end
