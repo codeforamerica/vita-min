@@ -28,6 +28,14 @@ module SubmissionBuilder
 
               xml_node.at("AgentForEmployerInd").remove if xml_node.at("AgentForEmployerInd").present?
               xml_node.at("W2SecurityInformation").remove if xml_node.at("W2SecurityInformation").present?
+
+              prev_node = xml_node.at("WagesAmt")
+              withholding_node = xml_node.at("WithholdingAmt")
+              if prev_node.present? && withholding_node.present?
+                withholding_node.remove
+                prev_node.add_next_sibling(withholding_node)
+              end
+
               xml_node
             end
           end

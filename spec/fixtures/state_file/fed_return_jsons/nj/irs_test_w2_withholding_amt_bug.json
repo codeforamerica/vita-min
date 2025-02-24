@@ -1,0 +1,18 @@
+{
+  "familyAndHousehold": [],
+  "filers": [
+    {
+      "lastName": "HIGH INTEREST INCOME J AMTRAK",
+      "firstName": "AMTR",
+      "middleInitial": "",
+      "tin": "555-00-5555",
+      "dateOfBirth": "1998-06-23",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "form1099Gs": [],
+  "interestReports": [
+  ]
+}

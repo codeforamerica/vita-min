@@ -84,6 +84,14 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
         end
       end
 
+      context "with withholding amount" do
+        let(:intake) { create(:state_file_nj_intake, :df_data_irs_test_w2_withholding_amt_bug) }
+        it "does not error" do
+          builder_response = described_class.build(submission)
+          expect(builder_response.errors).not_to be_present
+        end
+      end
+
       context "with many deps all under 5 yrs old" do
         let(:intake) { create(:state_file_nj_intake, :df_data_many_deps) }
 
