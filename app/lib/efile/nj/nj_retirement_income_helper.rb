@@ -92,15 +92,15 @@ module Efile
         spouse_62_and_older? || @intake.spouse_disabled_yes? || @intake.direct_file_data.is_spouse_blind?
       end
 
-      def calculate_maximum_exclusion(total_income, calculation_value)
+      def calculate_maximum_exclusion(total_income, income_for_exclusion)
         if @intake.filing_status_mfs?
           case total_income
           when 0..100_000
             50_000
           when 100_001..125_000
-            (0.25 * calculation_value).round
+            (0.25 * income_for_exclusion).round
           when 125_001..150_000
-            (0.125 * calculation_value).round
+            (0.125 * income_for_exclusion).round
           else
             0
           end
@@ -109,9 +109,9 @@ module Efile
           when 0..100_000
             100_000
           when 100_001..125_000
-            (0.5 * calculation_value).round
+            (0.5 * income_for_exclusion).round
           when 125_001..150_000
-            (0.25 * calculation_value).round
+            (0.25 * income_for_exclusion).round
           else
             0
           end
@@ -120,9 +120,9 @@ module Efile
           when 0..100_000
             75_000
           when 100_001..125_000
-            (0.375 * calculation_value).round
+            (0.375 * income_for_exclusion).round
           when 125_001..150_000
-            (0.1875 * calculation_value).round
+            (0.1875 * income_for_exclusion).round
           else
             0
           end

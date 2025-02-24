@@ -698,6 +698,17 @@ describe Efile::Nj::Nj1040Calculator do
           expect(instance.lines[:NJ1040_LINE_28B].value).to eq(49_000)
         end
       end
+
+      context 'when maximum_exclusion minus 28a is equal to total_eligible_nonretirement_income' do
+        it 'it sets line 28b to the shared value' do
+          allow(instance).to receive(:calculate_line_27).and_return 100_000
+          allow_any_instance_of(Efile::Nj::NjRetirementIncomeHelper).to receive(:calculate_maximum_exclusion).with(100_000, 100_000).and_return 50_000
+          allow(instance).to receive(:calculate_line_28a).and_return 1_000
+          allow_any_instance_of(Efile::Nj::NjRetirementIncomeHelper).to receive(:total_eligible_nonretirement_income).and_return 49_000
+          instance.calculate
+          expect(instance.lines[:NJ1040_LINE_28B].value).to eq(49_000)
+        end
+      end
     end
   end
 
