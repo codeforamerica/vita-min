@@ -269,10 +269,10 @@ RSpec.describe Efile::Nj::NjRetirementIncomeHelper do
 
     context 'when only primary is eligible' do
       let(:intake) { create(:state_file_nj_intake, :primary_disabled, :mfj_spouse_under_62) }
-      let(:income_source_primary_1) { :none }
+      let(:income_source_primary_1) { :other }
       let(:income_source_primary_2) { :military_pension }
-      let(:income_source_spouse_1) { :none }
-      let(:income_source_spouse_2) { :none }
+      let(:income_source_spouse_1) { :other }
+      let(:income_source_spouse_2) { :other }
 
       it 'sums taxable amount for only primary non-military 1099Rs, rounded' do
         expect(helper.total_eligible_nonmilitary_1099r_income).to eq(301)
@@ -281,10 +281,10 @@ RSpec.describe Efile::Nj::NjRetirementIncomeHelper do
 
     context 'when only spouse is eligible' do
       let(:intake) { create(:state_file_nj_intake, :primary_under_62, :mfj_spouse_over_62) }
-      let(:income_source_primary_1) { :none }
-      let(:income_source_primary_2) { :none }
+      let(:income_source_primary_1) { :other }
+      let(:income_source_primary_2) { :other }
       let(:income_source_spouse_1) { :military_pension }
-      let(:income_source_spouse_2) { :none }
+      let(:income_source_spouse_2) { :other }
 
       it 'sums taxable amount for only spouse non-military 1099Rs' do
         expect(helper.total_eligible_nonmilitary_1099r_income).to eq(600)
@@ -294,8 +294,8 @@ RSpec.describe Efile::Nj::NjRetirementIncomeHelper do
     context 'when both primary and spouse are eligible' do
       let(:intake) { create(:state_file_nj_intake, :primary_disabled, :mfj_spouse_over_62) }
       let(:income_source_primary_1) { :military_pension }
-      let(:income_source_primary_2) { :none }
-      let(:income_source_spouse_1) { :none }
+      let(:income_source_primary_2) { :other }
+      let(:income_source_spouse_1) { :other }
       let(:income_source_spouse_2) { :military_pension }
 
       it 'sums taxable amount for only all non-military 1099Rs' do
@@ -306,8 +306,8 @@ RSpec.describe Efile::Nj::NjRetirementIncomeHelper do
     context 'when neither primary and spouse are eligible' do
       let(:intake) { create(:state_file_nj_intake, :primary_under_62, :mfj_spouse_under_62) }
       let(:income_source_primary_1) { :military_pension }
-      let(:income_source_primary_2) { :none }
-      let(:income_source_spouse_1) { :none }
+      let(:income_source_primary_2) { :other }
+      let(:income_source_spouse_1) { :other }
       let(:income_source_spouse_2) { :military_pension }
 
       it 'returns 0' do

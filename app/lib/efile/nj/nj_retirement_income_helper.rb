@@ -6,7 +6,7 @@ module Efile
       def initialize(intake)
         @intake = intake
         @non_military_1099rs = @intake.state_file1099_rs.select do |state_file_1099r|
-          state_file_1099r.state_specific_followup.present? && state_file_1099r.state_specific_followup.income_source_none?
+          state_file_1099r.state_specific_followup.present? && state_file_1099r.state_specific_followup.income_source_other?
         end
       end
 
