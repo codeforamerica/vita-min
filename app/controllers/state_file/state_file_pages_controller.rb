@@ -23,12 +23,7 @@ module StateFile
 
     def data_import_failed; end
 
-    def about_page
-      puts "HELLO!!!!"
-      Rails.application.configure do
-        puts config.action_dispatch.trusted_proxies
-      end
-    end
+    def about_page; end
 
     def privacy_policy; end
 
