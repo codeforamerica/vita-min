@@ -1,7 +1,28 @@
 require 'rails_helper'
 
 class ExampleModel
-  # This was copied from OutgoingEmail to have a real example, but not literally tie to an existing model (which may change)
+  # This was copied from OutgoingEmail to have a real example, but not literally
+  # tie to an existing model (which may change)
+  def self.column_defaults
+    {
+      "id" => nil,
+      "body" => "some body text",
+      "client_id" => nil,
+      "created_at" => nil,
+      "mailgun_status" => "sending",
+      "message_id" => nil,
+      "sent_at" => nil,
+      "subject" => nil,
+      "to" => nil,
+      "updated_at" => nil,
+      "user_id" => nil
+    }
+  end
+end
+
+class SecondExampleModel
+  # This was copied from OutgoingEmail to have a real example, but not literally
+  # tie to an existing model (which may change)
   def self.column_defaults
     {
       "id" => nil,
@@ -48,6 +69,9 @@ class ModelExampleForm
     defaults: {
       mailgun_status: "not_sent",
     }
+
+  set_attributes_for SecondExampleModel,
+    :body
 end
 
 class MixedExampleForm
