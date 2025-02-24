@@ -35,20 +35,23 @@ describe StateFileW2 do
   let(:intake) { create :state_file_md_intake }
   let(:w2) {
     create(:state_file_w2,
-      employer_state_id_num: "001245788",
-      employer_ein: '123445678',
-      local_income_tax_amount: 200,
-      local_wages_and_tips_amount: 8000,
-      locality_nm: "NYC",
-      state_file_intake: intake,
-      state_income_tax_amount: 600,
-      state_wages_amount: 8000,
-      w2_index: 0
+           employer_state_id_num: "001245788",
+           employer_ein: '123445678',
+           local_income_tax_amount: 200,
+           local_wages_and_tips_amount: 8000,
+           locality_nm: "NYC",
+           state_file_intake: intake,
+           state_income_tax_amount: 600,
+           state_wages_amount: 8000,
+           box14_fli: 0,
+           box14_stpickup: 0,
+           box14_ui_hc_wd: 0,
+           box14_ui_wf_swf: 0,
+           w2_index: 0
     )
   }
 
   context "validation" do
-
     it "validates" do
       expect(w2).to be_valid
     end
@@ -66,6 +69,16 @@ describe StateFileW2 do
           w2.send("#{field}=", -1)
           expect(w2).not_to be_valid(:state_file_edit)
           expect(w2.errors[field]).to be_present
+        end
+      end
+    end
+
+    [:state_wages_amount, :state_income_tax_amount, :local_wages_and_tips_amount, :local_income_tax_amount, :box14_stpickup].each do |field|
+      context field do
+        it "does not permit values that are nil" do
+          w2.send("#{field}=", nil)
+          expect(w2).not_to be_valid(:state_file_edit)
+          expect(w2.errors[field]).to include(I18n.t("state_file.questions.w2.edit.no_money_amount"))
         end
       end
     end
@@ -94,6 +107,16 @@ describe StateFileW2 do
         w2.wages = 10
         w2.state_wages_amount = nil
         expect(w2).not_to be_valid(:state_file_edit)
+      end
+
+      [:box14_ui_wf_swf, :box14_fli].each do |field|
+        context field do
+          it "does not permit values that are nil" do
+            w2.send("#{field}=", nil)
+            expect(w2).not_to be_valid(:state_file_edit)
+            expect(w2.errors[field]).to include(I18n.t("state_file.questions.w2.edit.no_money_amount"))
+          end
+        end
       end
     end
 

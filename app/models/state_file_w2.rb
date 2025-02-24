@@ -51,7 +51,8 @@ class StateFileW2 < ApplicationRecord
   encrypts :employee_ssn
 
   validates :w2_index, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
-  with_options on: :state_file_edit do
+
+  with_options on: [:state_file_edit, :state_file_income_review] do
     validates :employer_state_id_num, length: { maximum: 16, message: ->(_object, _data) { I18n.t('state_file.questions.w2.edit.employer_state_id_error') } }
     validates :state_wages_amount, numericality: { greater_than_or_equal_to: 0 }, if: -> { state_wages_amount.present? }
     validates :state_income_tax_amount, numericality: { greater_than_or_equal_to: 0 }, if: -> { state_income_tax_amount.present? }
@@ -70,10 +71,36 @@ class StateFileW2 < ApplicationRecord
     validate :validate_tax_amts
     validate :state_specific_validation
   end
+
+  validate :validate_nil_tax_amounts, on: :state_file_edit
+
   before_validation :locality_nm_to_upper_case
 
   def state_specific_validation
     state_file_intake.validate_state_specific_w2_requirements(self) if state_file_intake.present?
+  end
+
+  def validate_nil_tax_amounts
+    [:state_wages_amount, :state_income_tax_amount].each do |amount|
+      if self.send(amount).nil?
+        errors.add(amount, I18n.t('state_file.questions.w2.edit.no_money_amount'))
+      end
+    end
+
+    if StateFile::StateInformationService.w2_include_local_income_boxes(state_file_intake.state_code)
+      [:local_wages_and_tips_amount, :local_income_tax_amount].each do |amount|
+        if self.send(amount).nil?
+          errors.add(amount, I18n.t('state_file.questions.w2.edit.no_money_amount'))
+        end
+      end
+    end
+
+    supported_box14_codes.each do |code|
+      attribute_name = "box14_#{code.downcase}"
+      if self.send(attribute_name.to_sym).nil?
+        errors.add(attribute_name, I18n.t('state_file.questions.w2.edit.no_money_amount'))
+      end
+    end
   end
 
   def validate_tax_amts
@@ -145,6 +172,11 @@ class StateFileW2 < ApplicationRecord
   end
 
   private
+
+  def supported_box14_codes
+    box14_codes = StateFile::StateInformationService.w2_supported_box14_codes(state_file_intake.state_code)
+    box14_codes.map{ |code| code[:name] }
+  end
 
   def validate_box14_limits
     validate_limit(:box14_ui_wf_swf, self.class.find_limit("UI_WF_SWF", state_file_intake.state_code))
