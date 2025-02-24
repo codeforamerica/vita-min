@@ -4,6 +4,7 @@ RSpec.describe StateFile::ArchivedIntakes::EmailAddressController, type: :contro
   before do
     Flipper.enable(:get_your_pdf)
   end
+
   describe "GET #edit" do
     it "renders the edit template with a new EmailAddressForm" do
       get :edit
@@ -24,9 +25,9 @@ RSpec.describe StateFile::ArchivedIntakes::EmailAddressController, type: :contro
     end
 
     context "when the form is valid" do
-      context "and a archived intake exists with the email address" do
+      context "and an archived intake exists with the email address" do
         let!(:archived_intake) { create :state_file_archived_intake, email_address: valid_email_address }
-        it "creates an access log create a request and redirects to the verification code page" do
+        it "creates an access log, creates a request, and redirects to the verification code page" do
           post :update, params: {
             state_file_archived_intakes_email_address_form: { email_address: valid_email_address }
           }
@@ -64,8 +65,8 @@ RSpec.describe StateFile::ArchivedIntakes::EmailAddressController, type: :contro
         end
       end
 
-      context "and a archived does not exist with the email address" do
-        it "creates an access log create a request and redirects to the verification code page" do
+      context "and an archived intake does not exist with the email address" do
+        it "creates an access log, creates a request, and redirects to the verification code page" do
           post :update, params: {
             state_file_archived_intakes_email_address_form: { email_address: valid_email_address }
           }
@@ -86,6 +87,7 @@ RSpec.describe StateFile::ArchivedIntakes::EmailAddressController, type: :contro
         end
       end
     end
+
     context "when the form is invalid" do
       it "renders the edit template" do
         post :update, params: {

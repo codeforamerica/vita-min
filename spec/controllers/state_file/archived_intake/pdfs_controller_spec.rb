@@ -2,9 +2,8 @@ require "rails_helper"
 
 RSpec.describe StateFile::ArchivedIntakes::PdfsController, type: :controller do
   let(:email_address) { "test@example.com" }
-  let!(:intake) { create(:state_file_archived_intake, state_code: "NY", mailing_state: "NY", email_address: email_address) }
-  let(:current_request) { create(:state_file_archived_intake_request, email_address: email_address, failed_attempts: 0, state_file_archived_intake: intake) }
-  let(:controller_instance) { described_class.new }
+  let!(:archived_intake) { create(:state_file_archived_intake, state_code: "NY", mailing_state: "NY", email_address: email_address) }
+  let(:current_request) { create(:state_file_archived_intake_request, email_address: email_address, failed_attempts: 0, state_file_archived_intake: archived_intake) }
   let(:valid_verification_code) { "123456" }
   let(:invalid_verification_code) { "654321" }
 
@@ -19,58 +18,12 @@ RSpec.describe StateFile::ArchivedIntakes::PdfsController, type: :controller do
   end
 
   describe "GET #index" do
-    context "request is locked" do
-      before do
-        allow(current_request).to receive(:access_locked?).and_return(true)
-      end
-
-      it "redirects to error page" do
-        get :index
-
-        expect(response).to redirect_to(state_file_archived_intakes_verification_error_path)
-      end
-    end
-
-    context "email address is not verified" do
-      before do
-        session[:code_verified] = nil
-      end
-
-      it "redirects to the email verification page" do
-        get :index
-
-        expect(response).to redirect_to(state_file_archived_intakes_verification_error_path)
-      end
-    end
-
-    context "ssn is not verified" do
-      before do
-        session[:ssn_verified] = nil
-      end
-
-      it "redirects to the ssn verification page" do
-        get :index
-
-        expect(response).to redirect_to(state_file_archived_intakes_verification_error_path)
-      end
-    end
-
-    context "mailing address is not verified" do
-      before do
-        session[:mailing_verified] = nil
-      end
-
-      it "redirects to the ssn verification page" do
-        get :index
-
-        expect(response).to redirect_to(state_file_archived_intakes_verification_error_path)
-      end
-    end
+    it_behaves_like 'archived intake request locked', action: :index, method: :get
 
     context "by default" do
       it "renders" do
         get :index
-        expect(assigns(:state_code)).to eq(intake.state_code)
+        expect(assigns(:state_code)).to eq(archived_intake.state_code)
         expect(response).to render_template(:index)
       end
     end
