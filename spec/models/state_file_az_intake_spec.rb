@@ -357,8 +357,8 @@ describe StateFileAzIntake do
       context "primary has valid-for-employment SSN but spouse does not" do
         before do
           allow(intake).to receive(:filing_status_mfj?).and_return(true)
-          intake.direct_file_json_data.primary_filer.ssn_not_valid_for_employment = true
-          intake.direct_file_json_data.spouse_filer.ssn_not_valid_for_employment = false
+          intake.direct_file_json_data.primary_filer.ssn_not_valid_for_employment = false
+          intake.direct_file_json_data.spouse_filer.ssn_not_valid_for_employment = true
         end
 
         it "they are not disqualified" do
@@ -369,12 +369,12 @@ describe StateFileAzIntake do
       context "spouse has valid-for-employment SSN but primary does not" do
         before do
           allow(intake).to receive(:filing_status_mfj?).and_return(true)
-          intake.direct_file_json_data.primary_filer.ssn_not_valid_for_employment = false
-          intake.direct_file_json_data.spouse_filer.ssn_not_valid_for_employment = true
+          intake.direct_file_json_data.primary_filer.ssn_not_valid_for_employment = true
+          intake.direct_file_json_data.spouse_filer.ssn_not_valid_for_employment = false
         end
 
-        it "they are not disqualified" do
-          expect(intake).not_to be_disqualified_from_excise_credit_df
+        it "they are disqualified" do
+          expect(intake).to be_disqualified_from_excise_credit_df
         end
       end
 
@@ -385,7 +385,7 @@ describe StateFileAzIntake do
           intake.direct_file_json_data.spouse_filer.ssn_not_valid_for_employment = true
         end
 
-        it "they are not disqualified" do
+        it "they are disqualified" do
           expect(intake).to be_disqualified_from_excise_credit_df
         end
       end
