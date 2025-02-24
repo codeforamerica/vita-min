@@ -74,9 +74,6 @@ class ModelExampleForm
     :body
 end
 
-class MixedExampleForm
-  include FormAttributes
-end
 
 RSpec.describe FormAttributes do
   describe "#set_attributes_for" do
