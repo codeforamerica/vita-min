@@ -37,7 +37,7 @@
 require "mini_magick"
 
 class Document < ApplicationRecord
-  ACCEPTED_FILE_TYPES = [:browser_native_image, :other_image, :document]
+  ACCEPTED_FILE_TYPES = [:browser_native_image, :document]
   has_paper_trail on: [:destroy]
   belongs_to :intake, optional: true
   belongs_to :client, touch: true

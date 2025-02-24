@@ -1,6 +1,11 @@
 require "rails_helper"
 
 RSpec.describe StateFile::Questions::UnemploymentController do
+  StateFile::StateInformationService.active_state_codes.excluding("ny", "nj").each do |state_code|
+    it_behaves_like :df_data_required, true, state_code, :state_file1099_g
+  end
+  it_behaves_like :df_data_required, false, :nj, :state_file1099_g
+
   let(:intake) { create :state_file_az_intake, filing_status: :married_filing_jointly, spouse_first_name: "Glenn", spouse_last_name: "Gary" }
   before do
     sign_in intake
@@ -23,7 +28,33 @@ RSpec.describe StateFile::Questions::UnemploymentController do
     end
   end
 
+  describe "#new" do
+    context "before_action redirect_if_df_data_required" do
+      before do
+        intake.update(df_data_import_succeeded_at: nil)
+      end
+
+      it "redirects to login on edit" do
+        get :new
+
+        expect(response).to redirect_to StateFile::StateFilePagesController.to_path_helper(action: :login_options)
+      end
+    end
+  end
+
   describe "#index" do
+    context "before_action redirect_if_df_data_required" do
+      before do
+        intake.update(df_data_import_succeeded_at: nil)
+      end
+
+      it "redirects to login on edit" do
+        get :index
+
+        expect(response).to redirect_to StateFile::StateFilePagesController.to_path_helper(action: :login_options)
+      end
+    end
+
     context "with existing 1099Gs" do
       render_views
       let!(:form1099a) { create :state_file1099_g, intake: intake, recipient: :primary }
@@ -64,6 +95,18 @@ RSpec.describe StateFile::Questions::UnemploymentController do
           state_identification_number: '123456789',
         }
       }
+    end
+
+    context "before_action redirect_if_df_data_required" do
+      before do
+        intake.update(df_data_import_succeeded_at: nil)
+      end
+
+      it "redirects to login on edit" do
+        post :create, params: params
+
+        expect(response).to redirect_to StateFile::StateFilePagesController.to_path_helper(action: :login_options)
+      end
     end
 
     it "creates a new 1099G linked to the current intake and redirects to the index" do
@@ -183,7 +226,6 @@ RSpec.describe StateFile::Questions::UnemploymentController do
   end
 
   describe "#edit" do
-    let(:client) { intake.client }
     let!(:form1099) do
       create :state_file1099_g,
              intake: intake,

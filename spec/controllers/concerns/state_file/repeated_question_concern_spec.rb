@@ -25,24 +25,32 @@ RSpec.describe StateFile::RepeatedQuestionConcern, type: :controller do
   end
 
   describe "#next_path" do
-    context "when no index is passed in" do
-      it "next path is index = 1" do
-        get :index
-        expect(subject.next_path).to eq("/path?index=1")
-      end
+    it "when return_to_review paramater is passed in, it should return to the review screen" do
+      get :index, params: { return_to_review: "y", index: "1" }
+
+      expect(subject.next_path).to eq("/next_path")
     end
 
-    context "when an index is passed in that is < num_items - 1" do
-      it "next path has an incremented index" do
-        get :index, params: { index: "1" }
-        expect(subject.next_path).to eq("/path?index=2")
+    context "when return_to_review parameter is not passed in" do
+      context "when no index is passed in" do
+        it "next path is index = 1" do
+          get :index
+          expect(subject.next_path).to eq("/path?index=1")
+        end
       end
-    end
 
-    context "when an index is passed in that == num_items - 1" do
-      it "next path is the next controller" do
-        get :index, params: { index: "2" }
-        expect(subject.next_path).to eq("/next_path")
+      context "when an index is passed in that is < num_items - 1" do
+        it "next path has an incremented index" do
+          get :index, params: { index: "1" }
+          expect(subject.next_path).to eq("/path?index=2")
+        end
+      end
+
+      context "when an index is passed in that == num_items - 1" do
+        it "next path is the next controller" do
+          get :index, params: { index: "2" }
+          expect(subject.next_path).to eq("/next_path")
+        end
       end
     end
   end

@@ -1,6 +1,10 @@
 require "rails_helper"
 
 describe StateFile::Questions::ContactPreferenceController do
+  StateFile::StateInformationService.active_state_codes.excluding("ny").each do |state_code|
+    it_behaves_like :df_data_required, false, state_code
+  end
+
   let(:intake) { create :state_file_az_refund_intake}
   before do
     sign_in intake

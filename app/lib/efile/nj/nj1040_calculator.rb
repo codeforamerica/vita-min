@@ -437,9 +437,12 @@ module Efile
       end
 
       def calculate_line_55
-        return nil if @intake.state_file_w2s.empty?
+        return nil if @intake.state_file_w2s.empty? && @intake.state_file1099_rs.empty?
 
-        @intake.state_file_w2s.inject(0) { |sum, w2| sum + w2.state_income_tax_amount }.round
+        (
+          @intake.state_file_w2s.sum(&:state_income_tax_amount) +
+          @intake.state_file1099_rs.sum(&:state_tax_withheld_amount)
+        ).round
       end
 
       def calculate_line_56
@@ -663,7 +666,7 @@ module Efile
 
       def non_military_1099rs
         @intake.state_file1099_rs.select do |state_file_1099r|
-          state_file_1099r.state_specific_followup.present? && state_file_1099r.state_specific_followup.income_source_none?
+          state_file_1099r.state_specific_followup.present? && state_file_1099r.state_specific_followup.income_source_other?
         end
       end
     end
