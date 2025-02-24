@@ -1,0 +1,30 @@
+{
+  "familyAndHousehold": [],
+  "socialSecurityReports": [],
+  "filers": [
+    {
+      "lastName": "Marchese",
+      "dateOfBirth": "1963-01-01",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "firstName": "Amber",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "400-00-4011",
+      "interestReportsTotal": "0.00",
+      "isDisabled": false,
+      "form1099GsTotal": "0.00",
+      "isStudent": false,
+      "ssnNotValidForEmployment": null,
+      "hsaTotalDeductibleAmount": null
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [
+    {
+      "usedTin": "400-00-4011",
+      "unionDuesAmount": null
+    }
+  ],
+  "interestReports": []
+}
