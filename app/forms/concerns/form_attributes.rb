@@ -5,8 +5,8 @@ module FormAttributes
     extend AutoStripAttributes
     class_attribute :attribute_names
 
-    def initialize
-      super
+    def initialize(*args, **kwargs)
+      super(*args, **kwargs)
 
       default_attrs = self.class.scoped_defaults.values.reduce(&:merge)
 
