@@ -51,7 +51,8 @@ class StateFileW2 < ApplicationRecord
   encrypts :employee_ssn
 
   validates :w2_index, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
-  with_options on: :state_file_edit do
+
+  with_options on: [:state_file_edit, :state_file_income_review] do
     validates :employer_state_id_num, length: { maximum: 16, message: ->(_object, _data) { I18n.t('state_file.questions.w2.edit.employer_state_id_error') } }
     validates :state_wages_amount, numericality: { greater_than_or_equal_to: 0 }, if: -> { state_wages_amount.present? }
     validates :state_income_tax_amount, numericality: { greater_than_or_equal_to: 0 }, if: -> { state_income_tax_amount.present? }
@@ -70,6 +71,9 @@ class StateFileW2 < ApplicationRecord
     validate :validate_tax_amts
     validate :state_specific_validation
   end
+
+  validate :validate_nil_tax_amounts, on: :state_file_edit
+
   before_validation :locality_nm_to_upper_case
 
   def state_specific_validation
@@ -100,8 +104,6 @@ class StateFileW2 < ApplicationRecord
   end
 
   def validate_tax_amts
-    validate_nil_tax_amounts
-
     if (state_income_tax_amount || 0).positive? && (state_wages_amount || 0) <= 0
       errors.add(:state_wages_amount, I18n.t("state_file.questions.w2.edit.state_wages_amt_error"))
     end
