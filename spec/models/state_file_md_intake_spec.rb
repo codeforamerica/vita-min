@@ -345,65 +345,48 @@ RSpec.describe StateFileMdIntake, type: :model do
       let(:intake) do
         create(:state_file_md_intake,
                :with_spouse,
-                primary_disabled: primary_disabled,
-                spouse_disabled: spouse_disabled,
+                primary_disabled: "yes",
+                spouse_disabled: "yes",
                 primary_proof_of_disability_submitted: primary_proof_of_disability_submitted,
                 spouse_proof_of_disability_submitted: spouse_proof_of_disability_submitted,
         )
       end
 
-      [:primary, :spouse].each do |filer|
-        let("#{filer}_disabled".to_sym ) { "yes" }
-        let("#{filer}_proof_of_disability_submitted".to_sym ) { "yes" }
-        context "when the primary is disabled with proof" do
+      context "one filer has proof of disability" do
+        context "primary" do
+          let(:primary_proof_of_disability_submitted) { "yes" }
+          let(:spouse_proof_of_disability_submitted) { "no" }
 
+          it "returns true" do
+            expect(intake.at_least_one_disabled_filer_with_proof?).to eq(true)
+          end
         end
 
-        context "when the primary is disabled without proof" do
+        context "spouse" do
+          let(:primary_proof_of_disability_submitted) { "no" }
+          let(:spouse_proof_of_disability_submitted) { "yes" }
 
-        end
-      end
-
-      context "when the spouse is disabled with no proof" do
-
-      end
-
-      context "when the spouse is disabled without proof" do
-
-      end
-
-      context "when both the spouse and primary are disabled with proof" do
-
-      end
-
-      context "when neither the spouse or primary are disabled with proof" do
-
-      end
-
-      context "when either the spouse or primary is disabled, but there is no proof" do
-        let(:primary_disabled) { "yes" }
-        let(:spouse_disabled) { "no" }
-        let(:proof_of_disability_submitted) { "no" }
-        it "returns false" do
-          expect(intake.at_least_one_disabled_filer_with_proof?).to eq(false)
+          it "returns true" do
+            expect(intake.at_least_one_disabled_filer_with_proof?).to eq(true)
+          end
         end
       end
 
-      context "when neither the spouse or primary is disabled and there is proof" do
-        let(:primary_disabled) { "no" }
-        let(:spouse_disabled) { "no" }
-        let(:proof_of_disability_submitted) { "yes" }
-        it "returns false" do
-          expect(intake.at_least_one_disabled_filer_with_proof?).to eq(false)
-        end
-      end
+      context "both filers have proof of disability" do
+        let(:primary_proof_of_disability_submitted) { "yes" }
+        let(:spouse_proof_of_disability_submitted) { "yes" }
 
-      context "when either the spouse or primary is disabled and there is proof" do
-        let(:primary_disabled) { "no" }
-        let(:spouse_disabled) { "yes" }
-        let(:proof_of_disability_submitted) { "yes" }
         it "returns true" do
           expect(intake.at_least_one_disabled_filer_with_proof?).to eq(true)
+        end
+      end
+
+      context "neither filer has proof of disability" do
+        let(:primary_proof_of_disability_submitted) { "no" }
+        let(:spouse_proof_of_disability_submitted) { "no" }
+
+        it "returns false" do
+          expect(intake.at_least_one_disabled_filer_with_proof?).to eq(false)
         end
       end
     end
@@ -411,32 +394,25 @@ RSpec.describe StateFileMdIntake, type: :model do
     context "when not mfj" do
       let(:intake) do
         create(:state_file_md_intake,
-               primary_disabled: primary_disabled,
-               proof_of_disability_submitted: proof_of_disability_submitted
+               filing_status: "single",
+               primary_disabled: "yes",
+               primary_proof_of_disability_submitted: proof_of_disability_submitted
         )
       end
 
-      context "when the primary is disabled but there is no proof" do
-        let(:primary_disabled) { "yes" }
-        let(:proof_of_disability_submitted) { "no" }
-        it "returns false" do
-          expect(intake.at_least_one_disabled_filer_with_proof?).to eq(false)
-        end
-      end
-
-      context "when the primary is not disabled and there is proof" do
-        let(:primary_disabled) { "no" }
+      context "when there is proof" do
         let(:proof_of_disability_submitted) { "yes" }
-        it "returns false" do
-          expect(intake.at_least_one_disabled_filer_with_proof?).to eq(false)
-        end
-      end
 
-      context "when the primary is disabled and there is proof" do
-        let(:primary_disabled) { "yes" }
-        let(:proof_of_disability_submitted) { "yes" }
         it "returns true" do
           expect(intake.at_least_one_disabled_filer_with_proof?).to eq(true)
+        end
+      end
+
+      context "when there is no proof" do
+        let(:proof_of_disability_submitted) { "no" }
+
+        it "returns false" do
+          expect(intake.at_least_one_disabled_filer_with_proof?).to eq(false)
         end
       end
     end
