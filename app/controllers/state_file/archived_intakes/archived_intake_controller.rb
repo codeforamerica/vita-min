@@ -30,7 +30,7 @@ module StateFile
       end
 
       def is_request_locked
-        if current_request.access_locked? || current_archived_intake&.permanently_locked_at.present?
+        if current_request.nil? || current_request.access_locked? || current_archived_intake&.permanently_locked_at.present?
           redirect_to state_file_archived_intakes_verification_error_path
         end
       end

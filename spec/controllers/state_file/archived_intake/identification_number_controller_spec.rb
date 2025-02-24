@@ -25,25 +25,16 @@ RSpec.describe StateFile::ArchivedIntakes::IdentificationNumberController, type:
   end
 
   describe "GET #edit" do
+    it_behaves_like 'archived intake request locked', action: :edit, method: :get do
+      let(:request_instance) { intake_request }
+      let(:archived_intake) { existing_archived_intake }
+    end
+
     it "renders the edit template with a new IdentificationNumberForm" do
       get :edit
 
       expect(assigns(:form)).to be_a(StateFile::ArchivedIntakes::IdentificationNumberForm)
       expect(response).to render_template(:edit)
-    end
-
-    it "redirects to the lockout path when the request is locked" do
-      intake_request.lock_access!
-      get :edit
-
-      expect(response).to redirect_to(state_file_archived_intakes_verification_error_path)
-    end
-
-    it "redirects to the lockout path when the request is permantly locked" do
-      archived_intake.update(permanently_locked_at: Time.now)
-      get :edit
-
-      expect(response).to redirect_to(state_file_archived_intakes_verification_error_path)
     end
 
     it "redirect to root if code verification was not completed" do
