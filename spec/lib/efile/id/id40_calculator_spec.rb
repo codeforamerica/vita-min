@@ -597,6 +597,17 @@ describe Efile::Id::Id40Calculator do
           instance.calculate
           expect(instance.lines[:ID40_LINE_46].value).to eq(10 + 507 + 1502 + 200)
         end
+
+        context "which have nil state_income_tax_amount" do
+          before do
+            intake.state_file_w2s.first&.update(state_income_tax_amount: nil)
+          end
+
+          it 'sums the ID tax withheld from 1099gs and 1099rs without error' do
+            instance.calculate
+            expect(instance.lines[:ID40_LINE_46].value).to eq(10 + 1502 + 200)
+          end
+        end
       end
     end
   end
