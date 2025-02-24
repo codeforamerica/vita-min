@@ -7,10 +7,7 @@ class ConfigureTrustedProxiesJob < ApplicationJob
           controller: 'aws_ip_ranges_webhooks',
           action: 'update_aws_ip_ranges' }
       ))
-    http = Net::HTTP.new(uri.hostname, uri.port)
-    http.use_ssl = uri.instance_of? URI::HTTPS
-    request = Net::HTTP::Get.new(uri.path)
-    http.request(request)
+    Net::HTTP.get_response(uri)
   end
 
   def priority

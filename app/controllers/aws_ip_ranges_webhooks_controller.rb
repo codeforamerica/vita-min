@@ -1,4 +1,5 @@
-class AwsIpRangesWebhooksController < ApplicationController
+class AwsIpRangesWebhooksController < ActionController::Base
+  skip_before_action :verify_authenticity_token
 
   def update_aws_ip_ranges
     RemoteIpTrustedProxiesService.configure_trusted_proxies(RemoteIpTrustedProxiesService.load_current_aws_ip_ranges)
