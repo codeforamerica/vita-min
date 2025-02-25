@@ -336,17 +336,22 @@ module Efile
       end
 
       def calculate_line_28a
-        0
+        total_income = line_or_zero(:NJ1040_LINE_27)
+        return 0 unless @nj_retirement_income_helper.line_28a_eligible?(total_income)
+
+        total_eligible_nonmilitary_1099r_income = @nj_retirement_income_helper.total_eligible_nonmilitary_1099r_income
+        max_exclusion = @nj_retirement_income_helper.calculate_maximum_exclusion(total_income, total_eligible_nonmilitary_1099r_income)
+        [total_eligible_nonmilitary_1099r_income, max_exclusion].min
       end
 
       def calculate_line_28b
-        return 0 unless @nj_retirement_income_helper.retirement_exclusion_eligible?(
-          line_or_zero(:NJ1040_LINE_15), 
-          line_or_zero(:NJ1040_LINE_27), 
+        return 0 unless @nj_retirement_income_helper.line_28b_eligible?(
+          line_or_zero(:NJ1040_LINE_15),
+          line_or_zero(:NJ1040_LINE_27),
           line_or_zero(:NJ1040_LINE_28A))
         
         total_income = line_or_zero(:NJ1040_LINE_27)
-        [@nj_retirement_income_helper.calculate_maximum_exclusion(total_income) - line_or_zero(:NJ1040_LINE_28A),
+        [@nj_retirement_income_helper.calculate_maximum_exclusion(total_income, total_income) - line_or_zero(:NJ1040_LINE_28A),
          @nj_retirement_income_helper.total_eligible_nonretirement_income].min
       end
 
