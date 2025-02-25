@@ -63,7 +63,7 @@ RSpec.describe StateFile::Questions::MdPermanentlyDisabledController do
       context "mfj filers" do
         let(:intake) { create :state_file_md_intake, :with_spouse }
 
-        it "has only spouse followup id when only spouse is not senior" do
+        it "has spouse followup and both followup when only spouse is not senior" do
           intake.update(primary_birth_date: 66.years.ago)
           intake.update(spouse_birth_date: 64.years.ago)
           get :edit
@@ -71,10 +71,10 @@ RSpec.describe StateFile::Questions::MdPermanentlyDisabledController do
           html = Nokogiri::HTML.parse(response.body)
           expect(html.at_css("input[data-follow-up='#spouse-disability-proof']")).to be_present
           expect(html.at_css("input[data-follow-up='#primary-disability-proof']")).not_to be_present
-          expect(html.at_css("input[data-follow-up='#both-disability-proof']")).not_to be_present
+          expect(html.at_css("input[data-follow-up='#both-disability-proof']")).to be_present
         end
 
-        it "has only primary followup id when only primary is not senior" do
+        it "has primary followup and both followup when only primary is not senior" do
           intake.update(primary_birth_date: 64.years.ago)
           intake.update(spouse_birth_date: 66.years.ago)
           get :edit
@@ -82,17 +82,17 @@ RSpec.describe StateFile::Questions::MdPermanentlyDisabledController do
           html = Nokogiri::HTML.parse(response.body)
           expect(html.at_css("input[data-follow-up='#primary-disability-proof']")).to be_present
           expect(html.at_css("input[data-follow-up='#spouse-disability-proof']")).not_to be_present
-          expect(html.at_css("input[data-follow-up='#both-disability-proof']")).not_to be_present
+          expect(html.at_css("input[data-follow-up='#both-disability-proof']")).to be_present
         end
 
-        it "has both followup id when neither are senior" do
+        it "has all followups when neither are senior" do
           intake.update(primary_birth_date: 64.years.ago)
           intake.update(spouse_birth_date: 64.years.ago)
           get :edit
 
           html = Nokogiri::HTML.parse(response.body)
-          expect(html.at_css("input[data-follow-up='#primary-disability-proof']")).not_to be_present
-          expect(html.at_css("input[data-follow-up='#spouse-disability-proof']")).not_to be_present
+          expect(html.at_css("input[data-follow-up='#primary-disability-proof']")).to be_present
+          expect(html.at_css("input[data-follow-up='#spouse-disability-proof']")).to be_present
           expect(html.at_css("input[data-follow-up='#both-disability-proof']")).to be_present
         end
 
