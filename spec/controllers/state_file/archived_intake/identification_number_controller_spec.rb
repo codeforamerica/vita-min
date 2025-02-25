@@ -21,12 +21,12 @@ RSpec.describe StateFile::ArchivedIntakes::IdentificationNumberController, type:
     allow(Flipper).to receive(:enabled?).with(:get_your_pdf).and_return(true)
     session[:code_verified] = true
     allow(controller).to receive(:ip_for_irs).and_return(ip_address)
-    allow(controller).to receive(:current_request).and_return(current_request)
+    allow(controller).to receive(:current_archived_intake).and_return(archived_intake)
     session[:email_address] = "ohhithere@gmail.com"
   end
 
   describe "GET #edit" do
-    it_behaves_like 'archived intake request locked', action: :edit, method: :get
+    it_behaves_like 'archived intake locked', action: :edit, method: :get
 
     it "renders the edit template with a new IdentificationNumberForm" do
       get :edit
@@ -53,23 +53,23 @@ RSpec.describe StateFile::ArchivedIntakes::IdentificationNumberController, type:
         expect(assigns(:form)).to be_valid
 
         access_log = StateFileArchivedIntakeAccessLog.last
-        expect(access_log.state_file_archived_intake_request).to eq(current_request)
+        expect(access_log.state_file_archived_intake).to eq(archived_intake)
         expect(access_log.event_type).to eq("correct_ssn_challenge")
         expect(session[:ssn_verified]).to eq(true)
-        expect(current_request.reload.failed_attempts).to eq(0)
+        expect(archived_intake.reload.failed_attempts).to eq(0)
 
         expect(response).to redirect_to(state_file_archived_intakes_edit_mailing_address_validation_path)
       end
 
       it "resets failed attempts to zero even if one failed attempt has already been made" do
-        current_request.update!(failed_attempts: 1)
+        archived_intake.update!(failed_attempts: 1)
 
         post :update, params: {
           state_file_archived_intakes_identification_number_form: { ssn: intake_ssn}
         }
 
         expect(assigns(:form)).to be_valid
-        expect(current_request.reload.failed_attempts).to eq(0)
+        expect(archived_intake.reload.failed_attempts).to eq(0)
       end
     end
 
@@ -86,12 +86,12 @@ RSpec.describe StateFile::ArchivedIntakes::IdentificationNumberController, type:
         log = StateFileArchivedIntakeAccessLog.last
         expect(log.event_type).to eq("incorrect_ssn_challenge")
 
-        expect(current_request.reload.failed_attempts).to eq(1)
+        expect(archived_intake.reload.failed_attempts).to eq(1)
         expect(response).to render_template(:edit)
       end
 
       it "locks the account and redirects to root path after multiple failed attempts" do
-        current_request.update!(failed_attempts: 1)
+        archived_intake.update!(failed_attempts: 1)
 
         expect {
           post :update, params: { state_file_archived_intakes_identification_number_form: { ssn: invalid_ssn } }
@@ -100,8 +100,8 @@ RSpec.describe StateFile::ArchivedIntakes::IdentificationNumberController, type:
         log = StateFileArchivedIntakeAccessLog.last
         expect(log.event_type).to eq("client_lockout_begin")
 
-        expect(current_request.reload.failed_attempts).to eq(2)
-        expect(current_request.reload.access_locked?).to be_truthy
+        expect(archived_intake.reload.failed_attempts).to eq(2)
+        expect(archived_intake.reload.access_locked?).to be_truthy
         expect(response).to redirect_to(state_file_archived_intakes_verification_error_path)
       end
     end
