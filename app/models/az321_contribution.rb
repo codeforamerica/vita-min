@@ -32,6 +32,7 @@ class Az321Contribution < ApplicationRecord
   validates :amount, presence: true, numericality: { greater_than: 0 }
   validates :date_of_contribution,
     inclusion: {
-      in: TAX_YEAR.beginning_of_year..TAX_YEAR.end_of_year
+      in: TAX_YEAR.beginning_of_year..TAX_YEAR.end_of_year,
+      message: ->(_object, _data) {I18n.t('activerecord.errors.concerns.date_accessible.inclusion')}
     }
 end

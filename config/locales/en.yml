@@ -19,6 +19,9 @@ en:
         state_file_1099_r:
           errors:
             must_be_less_than_gross_distribution: Must be less than gross distribution amount
+      concerns:
+        date_accessible:
+          inclusion: Date must be valid and in the current tax year
   attributes:
     confirm_primary_ssn: Confirm SSN or ITIN
     confirm_spouse_ssn: Confirm spouse's SSN or ITIN
