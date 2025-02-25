@@ -200,7 +200,7 @@ FactoryBot.define do
 
     trait :with_ineligible_1099r_income do
       after(:create) do |intake|
-        create(:state_file1099_r, intake: intake, taxable_amount: 2000) do |form_1099r|
+        create(:state_file1099_r, intake: intake, taxable_amount: 2000, state_tax_withheld_amount: 200) do |form_1099r|
           create(:state_file_id1099_r_followup, state_file1099_r: form_1099r, eligible_income_source: "no")
         end
       end

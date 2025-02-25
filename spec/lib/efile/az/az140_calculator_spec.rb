@@ -510,7 +510,7 @@ describe Efile::Az::Az140Calculator do
         intake.direct_file_json_data.primary_filer.ssn_not_valid_for_employment = true
 
         instance.calculate
-        expect(instance.lines[:AZ140_LINE_56].value).to eq(50) # (1 filers + 1 dependent) * 25
+        expect(instance.lines[:AZ140_LINE_56].value).to eq(0) # an inelegible primary sets credit to 0
       end
 
       it "sets the credit to the correct amount when spouse has ssn_not_valid_for_employment" do

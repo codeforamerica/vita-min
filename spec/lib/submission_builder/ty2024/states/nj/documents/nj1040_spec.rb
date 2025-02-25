@@ -497,6 +497,57 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
       end
     end
 
+    describe "Other Retirement Income Exclusion - line 28a" do
+      context "when line 28a has a value" do
+        it 'sets PensionExclusion to the line 28a value' do
+          expected = 5_000
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_28a).and_return expected
+          expect(xml.at("PensionExclusion").text).to eq(expected.to_s)
+        end
+      end
+
+      context "when line 28a is 0" do
+        it 'does not set the PensionExclusion value in the XML' do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_28a).and_return 0
+          expect(xml.at("PensionExclusion")).to be_nil
+        end
+      end
+    end
+
+    describe "Other Retirement Income Exclusion - line 28b" do
+      context "when line 28b has a value" do
+        it 'sets OtherRetireIncomeExclus to the line 28b value' do
+          expected = 1_000
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_28b).and_return expected
+          expect(xml.at("OtherRetireIncomeExclus").text).to eq(expected.to_s)
+        end
+      end
+
+      context "wwhen line 28b is 0" do
+        it "does not include TotalIncome in the XML" do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_28b).and_return 0
+          expect(xml.at("OtherRetireIncomeExclus")).to eq(nil)
+        end
+      end
+    end
+
+    describe "Other Retirement Income Exclusion - line 28c" do
+      context "when line 28c has a value" do
+        it 'sets TotalExclusionAmount to the line 28c value' do
+          expected = 2_000
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_28c).and_return expected
+          expect(xml.at("TotalExclusionAmount").text).to eq(expected.to_s)
+        end
+      end
+
+      context "when Line 28c is 0" do
+        it 'does not set the TotalExclusionAmount value in the XML' do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_28c).and_return 0
+          expect(xml.at("TotalExclusionAmount")).to be_nil
+        end
+      end
+    end
+
     describe "gross income - line 29" do
       context "when filer submits w2 wages" do
         it "fills TotalIncome with the value from Line 15" do
