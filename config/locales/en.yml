@@ -3681,7 +3681,7 @@ en:
           retirement_income_source_label: 'Source:'
           retirement_income_source_military_pension: U.S. military pension
           retirement_income_source_military_survivor_benefit: U.S. military survivor's benefits
-          retirement_income_source_none: Neither U.S. military pension nor U.S. military survivor's benefits
+          retirement_income_source_other: Neither U.S. military pension nor U.S. military survivor's benefits
           retirement_income_source_taxable_amount_label: 'Taxable Amount:'
           retirement_income_source_taxpayer_name_label: 'Taxpayer Name:'
           reveal:
