@@ -12,9 +12,10 @@
       <div class="question-with-follow-up__question">
         <div class="white-group">
           <% if current_intake.filing_status_mfj? %>
-            <% primary_data_followup = !current_intake.primary_senior? ? "#primary-disability-proof" : nil %>
-            <% spouse_data_followup = !current_intake.spouse_senior? ? "#spouse-disability-proof" : nil %>
-            <% both_data_followup = !current_intake.primary_senior? || !current_intake.spouse_senior? ? "#both-disability-proof" : nil %>
+            <% are_filers_under_65 = !(current_intake.primary_senior? && current_intake.spouse_senior?) %>
+            <% primary_data_followup = are_filers_under_65 ? "#primary-disability-proof" : nil %>
+            <% spouse_data_followup = are_filers_under_65 ? "#spouse-disability-proof" : nil %>
+            <% both_data_followup = are_filers_under_65 ? "#both-disability-proof" : nil %>
 
             <%= f.cfa_radio_set(:mfj_disability, collection: [
               { value: "primary", label: t(".yes_me"), input_html: { "data-follow-up": primary_data_followup } },
