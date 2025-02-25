@@ -174,8 +174,18 @@ ID39R_B_LINE_6:
   label: '6. Child/dependent care. Complete worksheet on page 30, and include federal Form 2441'
 ID39R_B_LINE_7:
   label: '7. Social security and railroad benefits, if included on federal income'
+ID39R_B_LINE_8a:
+  label: '8a. If single, enter $45,864 or if married filing jointly, enter $68,796'
+ID39R_B_LINE_8b:
+  label: '8b. Federal Railroad Retirement benefits received'
+ID39R_B_LINE_8c:
+  label: '8c. Social Security benefits received'
+ID39R_B_LINE_8d:
+  label: '8d. Line 8a minus lines 8b and 8c. If less than zero, enter zero'
+ID39R_B_LINE_8e:
+  label: '8e. Qualifying retirement benefits included in federal income'
 ID39R_B_LINE_8f:
-  label: '8f. Retirement benefits deduction (currently set to 0)'
+  label: '8f. Retirement benefits deduction. Enter the smaller of line 8d or 8e here'
 ID39R_B_LINE_18:
   label: '18. Health insurance premium paid amount for household'
 ID39R_B_LINE_24:
@@ -886,6 +896,12 @@ NJ1040_LINE_20B:
   label: '20b Excludable pension, annuity, and IRA distributions/withdrawals (See instr)'
 NJ1040_LINE_27:
   label: '27 Total Income (Add lines 15, 16a, and 20a)'
+NJ1040_LINE_28A:
+  label: '28a Pension/Retirement Exclusion (See instructions)'
+NJ1040_LINE_28B:
+  label: '28b Retirement Income Exclusion (See Worksheet D and instructions pages 20–21)'
+NJ1040_LINE_28C:
+  label: '28c Total Exclusion Amount (Add lines 28a and 28b)'
 NJ1040_LINE_29:
   label: "29 New Jersey Gross Income (Subtract line 28c from line 27) (See instructions)"
 NJ1040_LINE_31:

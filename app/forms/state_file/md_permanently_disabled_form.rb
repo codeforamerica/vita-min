@@ -12,7 +12,7 @@ module StateFile
       if intake.filing_status_mfj?
         case mfj_disability
         when "me"
-          @intake.update(primary_disabled: "yes", spouse_disabled: "no",  proof_of_disability_submitted: proof_of_disability_submitted)
+          @intake.update(primary_disabled: "yes", spouse_disabled: "no", proof_of_disability_submitted: proof_of_disability_submitted)
         when "spouse"
           @intake.update(primary_disabled: "no", spouse_disabled: "yes", proof_of_disability_submitted: proof_of_disability_submitted)
         when "both"

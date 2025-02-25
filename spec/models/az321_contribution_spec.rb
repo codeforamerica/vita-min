@@ -22,7 +22,7 @@ describe Az321Contribution do
 
   describe 'simple validation' do
     it { should validate_presence_of :charity_name }
-    it { should validate_presence_of :date_of_contribution }
+    it { should validate_inclusion_of(:date_of_contribution).in_range(described_class::TAX_YEAR.beginning_of_year..described_class::TAX_YEAR.end_of_year) }
   end
 
   describe '#made_az321_contributions' do
@@ -44,36 +44,6 @@ describe Az321Contribution do
   end
 
   describe '#date_of_contribution' do
-    it 'should be valid in the current tax year' do
-      az = Az321Contribution.new(state_file_az_intake: intake)
-
-      az.date_of_contribution_year = Rails.configuration.statefile_current_tax_year
-
-      az.valid?
-
-      expect(az.errors[:date_of_contribution]).to be_empty
-    end
-
-    it 'should be invalid in the previous year' do
-      az = Az321Contribution.new(state_file_az_intake: intake)
-
-      az.date_of_contribution_year = Rails.configuration.statefile_current_tax_year - 1
-
-      az.valid?
-
-      expect(az.errors[:date_of_contribution]).not_to be_empty
-    end
-
-    it 'should be invalid in the next year' do
-      az = Az321Contribution.new(state_file_az_intake: intake)
-
-      az.date_of_contribution_year = Rails.configuration.statefile_current_tax_year + 1
-
-      az.valid?
-
-      expect(az.errors[:date_of_contribution]).not_to be_empty
-    end
-
     it 'should be valid when a correct date is provided' do
       az = Az321Contribution.new(state_file_az_intake: intake)
 

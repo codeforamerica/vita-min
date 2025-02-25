@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>276e3bdf</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400004012</PrimarySSN>
+            <NameLine1Txt>NICOLE&lt;NAPOLITANO</NameLine1Txt>
+            <PrimaryNameControlTxt>NAPO</PrimaryNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>123 Sesame St</AddressLine1Txt>
+                <CityNm>Springfield</CityNm>
+                <StateAbbreviationCd>IL</StateAbbreviationCd>
+                <ZIPCd>62629</ZIPCd>
+            </USAddress>
+            <PhoneNum>5553334444</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000401-2e04-4212-82d6-36d3a2d09731@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="4">
+        <IRS1040 documentId="IRS10400001">
+            <IndividualReturnFilingStatusCd>1</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>1</TotalExemptionsCnt>
+            <TaxableInterestAmt referenceDocumentId="IRS1040B001" referenceDocumentName="IRS1040ScheduleB">10000</TaxableInterestAmt>
+            <PensionsAnnuitiesAmt>80000</PensionsAnnuitiesAmt>
+            <TotalTaxablePensionsAmt pensionsAnnuitiesLiteralCd="ROLLOVER">30000</TotalTaxablePensionsAmt>
+            <TotalIncomeAmt>40000</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>40000</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>14600</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>14600</TotalDeductionsAmt>
+            <TaxableIncomeAmt>25400</TaxableIncomeAmt>
+            <TaxAmt>2819</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>2819</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>2819</TaxLessCreditsAmt>
+            <TotalTaxAmt>2819</TotalTaxAmt>
+            <OwedAmt>2819</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Housewife</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1040ScheduleB documentId="IRS1040B001" documentName="IRS1040ScheduleB">
+            <Form1040SchBPartIGroup2>
+                <InterestPayerName>
+                    <BusinessNameLine1Txt>Housewife bank</BusinessNameLine1Txt>
+                </InterestPayerName>
+                <InterestAmt>10000</InterestAmt>
+            </Form1040SchBPartIGroup2>
+            <InterestSubtotalAmt interestSubtotalLiteralCd="INTEREST SUBTOTAL">10000</InterestSubtotalAmt>
+            <TaxableInterestSubtotalAmt>10000</TaxableInterestSubtotalAmt>
+            <CalculatedTotalTaxableIntAmt>10000</CalculatedTotalTaxableIntAmt>
+            <ForeignAccountsQuestionInd>false</ForeignAccountsQuestionInd>
+            <ForeignTrustQuestionInd>false</ForeignTrustQuestionInd>
+        </IRS1040ScheduleB>
+        <IRS1099R documentId="IRS1099R0001">
+            <PayerNameControlTxt>HOUS</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Housewife Retirement</BusinessNameLine1Txt>
+                <BusinessNameLine2Txt>Fund</BusinessNameLine2Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>1 Main St</AddressLine1Txt>
+                <CityNm>Newark</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07112</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>001000005</PayerEIN>
+            <RecipientSSN>400004012</RecipientSSN>
+            <RecipientNm>Nicole Napolitano</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>123 Sesame St</AddressLine1Txt>
+                <CityNm>Springfield</CityNm>
+                <StateAbbreviationCd>IL</StateAbbreviationCd>
+                <ZIPCd>62629</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>40000</GrossDistributionAmt>
+            <TaxableAmt>30000</TaxableAmt>
+            <F1099RDistributionCd>7</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <StateTaxWithheldAmt>800</StateTaxWithheldAmt>
+                    <PayerStateIdNum>10000005</PayerStateIdNum>
+                    <StateDistributionAmt>95000</StateDistributionAmt>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRS1099R documentId="IRS1099R0002">
+            <PayerNameControlTxt>JERS</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Jersey Retirement</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>1 Main St</AddressLine1Txt>
+                <CityNm>Newark</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07612</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>001000006</PayerEIN>
+            <RecipientSSN>400004012</RecipientSSN>
+            <RecipientNm>Nicole Napolitano</RecipientNm>
+            <PayerRecipientAccountNum>123-456</PayerRecipientAccountNum>
+            <GrossDistributionAmt>40000</GrossDistributionAmt>
+            <F1099RDistributionCd>G</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <StateTaxWithheldAmt>0</StateTaxWithheldAmt>
+                    <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                    <PayerStateIdNum>10000008</PayerStateIdNum>
+                    <StateDistributionAmt>93000</StateDistributionAmt>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+    </ReturnData>
+</Return>

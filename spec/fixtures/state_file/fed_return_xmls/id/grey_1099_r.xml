@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>276e3bdf</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400005978</PrimarySSN>
+            <SpouseSSN>400005979</SpouseSSN>
+            <NameLine1Txt>FRANK J &amp; AMBER&lt;GREY</NameLine1Txt>
+            <PrimaryNameControlTxt>GREY</PrimaryNameControlTxt>
+            <SpouseNameControlTxt>GREY</SpouseNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>PO Box 342</AddressLine1Txt>
+                <CityNm>Mackay</CityNm>
+                <StateAbbreviationCd>ID</StateAbbreviationCd>
+                <ZIPCd>83251</ZIPCd>
+            </USAddress>
+            <PhoneNum>2223334444</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000597-8310-4339-ad88-661df6e794c7@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="6">
+        <IRS1040 documentId="IRS10400001">
+            <Form1040SRInd>X</Form1040SRInd>
+            <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <Primary65OrOlderInd>X</Primary65OrOlderInd>
+            <SpouseBlindInd>X</SpouseBlindInd>
+            <TotalBoxesCheckedCnt>2</TotalBoxesCheckedCnt>
+            <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>2</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001 W20002" referenceDocumentName="IRSW2">60500</WagesAmt>
+            <WagesSalariesAndTipsAmt>60500</WagesSalariesAndTipsAmt>
+            <TotalTaxablePensionsAmt>70000</TotalTaxablePensionsAmt>
+            <SocSecBnftAmt>21000</SocSecBnftAmt>
+            <TaxableSocSecAmt>17850</TaxableSocSecAmt>
+            <TotalIncomeAmt>148350</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>148350</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>32300</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>32300</TotalDeductionsAmt>
+            <TaxableIncomeAmt>116050</TaxableIncomeAmt>
+            <TaxAmt>15637</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>15637</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>15637</TaxLessCreditsAmt>
+            <TotalTaxAmt>15637</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>3000</FormW2WithheldTaxAmt>
+            <Form1099WithheldTaxAmt referenceDocumentId="OTHERWITHHOLDING0001" referenceDocumentName="OtherWithholdingStatement">14000</Form1099WithheldTaxAmt>
+            <WithholdingTaxAmt>17000</WithholdingTaxAmt>
+            <TotalPaymentsAmt>17000</TotalPaymentsAmt>
+            <OverpaidAmt>1363</OverpaidAmt>
+            <RefundAmt>1363</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>ASL Instructor</PrimaryOccupationTxt>
+            <SpouseOccupationTxt>Retired</SpouseOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1099R documentId="IRS1099R0001">
+            <PayerNameControlTxt>MILI</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Military Services</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>400 Patriot Road</AddressLine1Txt>
+                <CityNm>Colorado Springs</CityNm>
+                <StateAbbreviationCd>CO</StateAbbreviationCd>
+                <ZIPCd>80904</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>376566547</PayerEIN>
+            <RecipientSSN>400005978</RecipientSSN>
+            <RecipientNm>Frank J Grey</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>PO Box 342</AddressLine1Txt>
+                <CityNm>Mackay</CityNm>
+                <StateAbbreviationCd>ID</StateAbbreviationCd>
+                <ZIPCd>83251</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>44000</GrossDistributionAmt>
+            <TaxableAmt>44000</TaxableAmt>
+            <FederalIncomeTaxWithheldAmt>5500</FederalIncomeTaxWithheldAmt>
+            <F1099RDistributionCd>7</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <StateTaxWithheldAmt>1000</StateTaxWithheldAmt>
+                    <StateAbbreviationCd>ID</StateAbbreviationCd>
+                    <PayerStateIdNum>12345</PayerStateIdNum>
+                    <StateDistributionAmt>44000</StateDistributionAmt>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRS1099R documentId="IRS1099R0002">
+            <PayerNameControlTxt>TEAC</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Teacher's United</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>478 Learning Lane</AddressLine1Txt>
+                <CityNm>Colorado Springs</CityNm>
+                <StateAbbreviationCd>CO</StateAbbreviationCd>
+                <ZIPCd>80904</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>438123211</PayerEIN>
+            <RecipientSSN>400005979</RecipientSSN>
+            <RecipientNm>Amber Grey</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>PO Box 342</AddressLine1Txt>
+                <CityNm>Mackay</CityNm>
+                <StateAbbreviationCd>ID</StateAbbreviationCd>
+                <ZIPCd>83251</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>26000</GrossDistributionAmt>
+            <TaxableAmt>26000</TaxableAmt>
+            <FederalIncomeTaxWithheldAmt>8000</FederalIncomeTaxWithheldAmt>
+            <F1099RDistributionCd>7</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <StateTaxWithheldAmt>300</StateTaxWithheldAmt>
+                    <StateAbbreviationCd>ID</StateAbbreviationCd>
+                    <PayerStateIdNum>43213</PayerStateIdNum>
+                    <StateDistributionAmt>26000</StateDistributionAmt>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>400005979</EmployeeSSN>
+            <EmployerEIN>013290134</EmployerEIN>
+            <EmployerNameControlTxt>TEAC</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Teachers R Us</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>1 Mississippi Ave</AddressLine1Txt>
+                <CityNm>Charlotte</CityNm>
+                <StateAbbreviationCd>NC</StateAbbreviationCd>
+                <ZIPCd>28202</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Amber Grey</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>PO Box 342</AddressLine1Txt>
+                <CityNm>Mackay</CityNm>
+                <StateAbbreviationCd>ID</StateAbbreviationCd>
+                <ZIPCd>83251</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>10500</WagesAmt>
+            <WithholdingAmt>1000</WithholdingAmt>
+            <SocialSecurityWagesAmt>10500</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>651</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>10500</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>152</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>ID</StateAbbreviationCd>
+                    <EmployerStateIdNum>38-7763391</EmployerStateIdNum>
+                    <StateWagesAmt>10500</StateWagesAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+        <IRSW2 documentId="W20002" documentName="IRSW2">
+            <EmployeeSSN>400005979</EmployeeSSN>
+            <EmployerEIN>678912345</EmployerEIN>
+            <EmployerNameControlTxt>NEUT</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Neutral Palette Inc</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>300 Fake Road</AddressLine1Txt>
+                <CityNm>Boise</CityNm>
+                <StateAbbreviationCd>ID</StateAbbreviationCd>
+                <ZIPCd>83638</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Amber Grey</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>PO Box 342</AddressLine1Txt>
+                <CityNm>Mackay</CityNm>
+                <StateAbbreviationCd>ID</StateAbbreviationCd>
+                <ZIPCd>83251</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>50000</WagesAmt>
+            <WithholdingAmt>2000</WithholdingAmt>
+            <SocialSecurityWagesAmt>50000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>3100</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>50000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>725</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>ID</StateAbbreviationCd>
+                    <EmployerStateIdNum>12345</EmployerStateIdNum>
+                    <StateWagesAmt>50000</StateWagesAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+        <OtherWithholdingStatement documentId="OTHERWITHHOLDING0001" documentName="OtherWithholdingStatement">
+            <OtherWithholdingStmt>
+                <WithholdingCd>FORM 1099</WithholdingCd>
+                <WithholdingAmt>500</WithholdingAmt>
+            </OtherWithholdingStmt>
+        </OtherWithholdingStatement>
+    </ReturnData>
+</Return>

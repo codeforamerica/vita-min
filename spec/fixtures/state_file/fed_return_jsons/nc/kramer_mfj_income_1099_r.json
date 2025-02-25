@@ -1,0 +1,161 @@
+{
+  "familyAndHousehold": [
+    {
+      "monthsLivedWithTPInUS": "twelve",
+      "lastName": "Newman",
+      "isClaimedDependent": true,
+      "hohQualifyingPerson": null,
+      "qualifyingChild": true,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "2022-12-12",
+      "suffix": null,
+      "residencyDuration": "allYear",
+      "firstName": "Baby",
+      "middleInitial": null,
+      "scheduleEicLine4aNo": false,
+      "tin": "700-00-9119",
+      "eligibleDependent": true,
+      "relationship": "biologicalChild",
+      "ssnNotValidForEmployment": false
+    }
+  ],
+  "socialSecurityReports": [
+    {
+      "formType": "SSA-1099",
+      "recipientTin": "400-00-0589",
+      "netBenefits": "10012.00"
+    },
+    {
+      "formType": "SSA-1099",
+      "recipientTin": "300-00-0590",
+      "netBenefits": "10011.00"
+    }
+  ],
+  "filers": [
+    {
+      "lastName": "Kramer",
+      "dateOfBirth": "1955-03-09",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "firstName": "Cosmo",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "300-00-0590",
+      "interestReportsTotal": "12924.00",
+      "isDisabled": false,
+      "form1099GsTotal": "10005.00",
+      "isStudent": false,
+      "ssnNotValidForEmployment": null,
+      "hsaTotalDeductibleAmount": null
+    },
+    {
+      "lastName": "Seinfeld",
+      "dateOfBirth": "1960-01-01",
+      "suffix": null,
+      "isPrimaryFiler": false,
+      "firstName": "Jerry",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "400-00-0589",
+      "interestReportsTotal": "10010.00",
+      "isDisabled": false,
+      "form1099GsTotal": "10006.00",
+      "isStudent": false,
+      "ssnNotValidForEmployment": null,
+      "hsaTotalDeductibleAmount": null
+    }
+  ],
+  "form1099Gs": [
+    {
+      "stateTaxWithheld": "0.00",
+      "has1099": true,
+      "amount": "10005.00",
+      "amountPaidBackForBenefitsInTaxYear": "0.00",
+      "federalTaxWithheld": "100.00",
+      "stateIdNumber": "123456789",
+      "payerTin": "01-4445555",
+      "payer": "NC Department of Commerce",
+      "recipientTin": "300-00-0590"
+    },
+    {
+      "stateTaxWithheld": "800.00",
+      "has1099": true,
+      "amount": "10006.00",
+      "federalTaxWithheld": "200.00",
+      "amountPaidBackForBenefitsInTaxYear": "0.00",
+      "stateIdNumber": "123456789",
+      "payerTin": "01-4445555",
+      "recipientTin": "400-00-0589",
+      "payer": "NC Department of Commerce"
+    }
+  ],
+  "formW2s": [
+    {
+      "usedTin": "300-00-0590",
+      "unionDuesAmount": null
+    },
+    {
+      "usedTin": "400-00-0589",
+      "unionDuesAmount": null
+    },
+    {
+      "usedTin": "400-00-0589",
+      "unionDuesAmount": null
+    },
+    {
+      "usedTin": "300-00-0590",
+      "unionDuesAmount": null
+    }
+  ],
+  "interestReports": [
+    {
+      "has1099": true,
+      "taxExemptAndTaxCreditBondCusipNo": null,
+      "interestOnGovernmentBonds": "100.00",
+      "taxExemptInterest": "0.00",
+      "payerTin": null,
+      "payer": "Serenity Now Computers",
+      "recipientTin": "300-00-0590",
+      "1099Amount": "909.00",
+      "taxWithheld": "0.00",
+      "no1099Amount": null
+    },
+    {
+      "has1099": true,
+      "taxExemptAndTaxCreditBondCusipNo": null,
+      "interestOnGovernmentBonds": "0.00",
+      "taxExemptInterest": "0.00",
+      "payerTin": null,
+      "recipientTin": "300-00-0590",
+      "payer": "Soup Nazi Investments",
+      "taxWithheld": "0.00",
+      "no1099Amount": null,
+      "1099Amount": "2007.00"
+    },
+    {
+      "has1099": true,
+      "taxExemptAndTaxCreditBondCusipNo": null,
+      "interestOnGovernmentBonds": "10000.00",
+      "payerTin": null,
+      "taxExemptInterest": "0.00",
+      "recipientTin": "300-00-0590",
+      "payer": "Marlboro Victims Fund",
+      "no1099Amount": null,
+      "1099Amount": "10008.00",
+      "taxWithheld": "0.00"
+    },
+    {
+      "has1099": true,
+      "taxExemptAndTaxCreditBondCusipNo": null,
+      "interestOnGovernmentBonds": "0.00",
+      "payerTin": null,
+      "taxExemptInterest": "0.00",
+      "recipientTin": "400-00-0589",
+      "payer": "Yankee Stadium",
+      "no1099Amount": null,
+      "taxWithheld": "0.00",
+      "1099Amount": "10010.00"
+    }
+  ]
+}

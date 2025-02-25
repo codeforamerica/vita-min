@@ -86,7 +86,7 @@ describe 'Az322Contribution' do
 
   describe '#date_of_contribution' do
     it 'should be valid in the current tax year' do
-      az.date_of_contribution_year = Rails.configuration.statefile_current_tax_year
+      az.date_of_contribution = Date.new(Rails.configuration.statefile_current_tax_year, 1, 1)
 
       az.valid?
 
@@ -94,7 +94,7 @@ describe 'Az322Contribution' do
     end
 
     it 'should be invalid in the previous year' do
-      az.date_of_contribution_year = Rails.configuration.statefile_current_tax_year - 1
+      az.date_of_contribution = Date.new(Rails.configuration.statefile_current_tax_year - 1, 1, 1)
 
       az.valid?
 
@@ -102,7 +102,7 @@ describe 'Az322Contribution' do
     end
 
     it 'should be invalid in the next year' do
-      az.date_of_contribution_year = Rails.configuration.statefile_current_tax_year + 1
+      az.date_of_contribution = Date.new(Rails.configuration.statefile_current_tax_year + 1, 1, 1)
 
       az.valid?
 
