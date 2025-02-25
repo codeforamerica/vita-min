@@ -27,7 +27,7 @@ module StateFile
 
     private
 
-    def is_senior
+    def proof_not_required?
       if intake.filing_status == "married_filing_jointly"
         intake.primary_senior? && intake.spouse_senior?
       else
@@ -36,12 +36,15 @@ module StateFile
     end
 
     def primary_requires_proof?
+      return false if proof_not_required?
 
-      (mfj_disability.in?(%w[primary both]) || primary_disabled == "yes") && !is_senior
+      mfj_disability.in?(%w[primary both]) || primary_disabled == "yes"
     end
 
     def spouse_requires_proof?
-      mfj_disability.in?(%w[spouse both]) && !(intake.primary_senior? && intake.primary_senior?)
+      return false if proof_not_required?
+
+      mfj_disability.in?(%w[spouse both])
     end
   end
 end

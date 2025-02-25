@@ -52,23 +52,19 @@
       </div>
 
       <div class="question-with-follow-up__follow-up" id="both-disability-proof">
-        <% if !current_intake.primary_senior? %>
-          <div class="white-group">
-            <%= f.cfa_radio_set(:primary_proof_of_disability_submitted, label_text: t(".primary_proof_question_html"), collection: [
-              { value: "yes", label: t("general.affirmative") },
-              { value: "no", label: t("general.negative") },
-            ]) %>
-          </div>
-        <% end %>
+        <div class="white-group">
+          <%= f.cfa_radio_set(:primary_proof_of_disability_submitted, label_text: t(".primary_proof_question_html"), collection: [
+            { value: "yes", label: t("general.affirmative") },
+            { value: "no", label: t("general.negative") },
+          ]) %>
+        </div>
 
-        <% if !current_intake.spouse_senior? %>
-          <div class="white-group">
-            <%= f.cfa_radio_set(:spouse_proof_of_disability_submitted, label_text: t(".spouse_proof_question_html"), collection: [
-              { value: "yes", label: t("general.affirmative") },
-              { value: "no", label: t("general.negative") },
-            ]) %>
-          </div>
-        <% end %>
+        <div class="white-group">
+          <%= f.cfa_radio_set(:spouse_proof_of_disability_submitted, label_text: t(".spouse_proof_question_html"), collection: [
+            { value: "yes", label: t("general.affirmative") },
+            { value: "no", label: t("general.negative") },
+          ]) %>
+        </div>
       </div>
     </div>
 
