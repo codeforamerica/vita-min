@@ -1,15 +1,14 @@
 module StateFile
   class MdPermanentlyDisabledForm < QuestionsForm
-    set_attributes_for :intake, :primary_disabled, :spouse_disabled, :primary_proof_of_disability_submitted, :spouse_proof_of_disability_submitted
+    set_attributes_for :intake, :mfj_disability, :primary_disabled, :spouse_disabled, :primary_proof_of_disability_submitted, :spouse_proof_of_disability_submitted
 
-    attr_accessor :mfj_disability
     validates_presence_of :mfj_disability, if: -> { intake.filing_status_mfj? }
     validates :primary_disabled, inclusion: { in: %w[yes no], message: :blank }, unless: -> { intake.filing_status_mfj? }
     validates :primary_proof_of_disability_submitted, inclusion: { in: %w[yes no], message: :blank }, if: :primary_requires_proof?
     validates :spouse_proof_of_disability_submitted, inclusion: { in: %w[yes no], message: :blank }, if: :spouse_requires_proof?
 
     def save
-      attributes_to_save = attributes_for(:intake)
+      attributes_to_save = attributes_for(:intake).except(:mfj_disability)
       if mfj_disability.present?
         attributes_to_save = case mfj_disability
                              when "primary"
