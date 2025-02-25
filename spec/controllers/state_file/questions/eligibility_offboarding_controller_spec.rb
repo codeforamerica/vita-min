@@ -61,6 +61,10 @@ RSpec.describe StateFile::Questions::EligibilityOffboardingController do
       it_behaves_like "check for NJ-specific content", "az", false
     end
 
+    context "ID" do
+      it_behaves_like "check for NJ-specific content", "id", false
+    end
+
     context "MD" do
       it_behaves_like "check for NJ-specific content", "md", false
     end
