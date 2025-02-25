@@ -1,9 +1,10 @@
 module StateFile
   module ArchivedIntakes
     class ArchivedIntakeController < ApplicationController
+      layout "state_file"
       before_action :check_feature_flag
       def current_request
-        request = StateFileArchivedIntakeRequest.find_by(ip_address: ip_for_irs, email_address: session[:email_address])
+        request = StateFileArchivedIntakeRequest.where("ip_address = ? AND LOWER(email_address) = LOWER(?)", ip_for_irs, session[:email_address]).first
         unless request
           Rails.logger.warn "StateFileArchivedIntakeRequest not found for IP: #{ip_for_irs}, Email: #{session[:email_address]}"
           Sentry.capture_message "StateFileArchivedIntakeRequest not found for IP: #{ip_for_irs}, Email: #{session[:email_address]}"
