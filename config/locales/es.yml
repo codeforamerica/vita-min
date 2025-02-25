@@ -3124,7 +3124,7 @@ es:
           help_title: "¿Qué se considera total y permanentemente discapacitado?"
           no_neither: No, ninguno de los dos lo está
           primary_proof_question_html: "¿Has presentado prueba de <strong>tu</strong> discapacidad para la Exclusión de Pensiones de Maryland en años fiscales anteriores?"
-          spouse_proof_question_html: ''
+          spouse_proof_question_html: "¿Ha presentado prueba de <strong>tu cónyuge</strong> discapacidad para la Exclusión de Pensiones de Maryland en años fiscales anteriores?"
           title: "¿Estás total y permanentemente discapacitado?"
           title_spouse: "¿Tú o tu cónyuge están total y permanentemente discapacitados?"
           yes_both: Sí, ambos lo estamos
