@@ -32,14 +32,13 @@ RSpec.describe StateFile::ArchivedIntakes::EmailAddressController, type: :contro
             state_file_archived_intakes_email_address_form: { email_address: valid_email_address }
           }
           expect(assigns(:form)).to be_valid
-
-          request = StateFileArchivedIntakeRequest.last
-          expect(request.ip_address).to eq(ip_address)
-          expect(request.email_address).to eq(valid_email_address)
-          expect(request.state_file_archived_intake_id).to eq(archived_intake.id)
+          active_archived_intake = controller.send(:current_archived_intake)
+          expect(active_archived_intake.email_address).to eq(valid_email_address)
+          expect(active_archived_intake.hashed_ssn).to eq(archived_intake.hashed_ssn)
+          expect(active_archived_intake.id).to eq(archived_intake.id)
 
           log = StateFileArchivedIntakeAccessLog.last
-          expect(log.state_file_archived_intake_request_id).to eq(request.id)
+          expect(log.state_file_archived_intake_id).to eq(archived_intake.id)
           expect(log.event_type).to eq("issued_email_challenge")
 
           expect(response).to redirect_to(
@@ -54,10 +53,10 @@ RSpec.describe StateFile::ArchivedIntakes::EmailAddressController, type: :contro
 
           expect(assigns(:form)).to be_valid
 
-          request = StateFileArchivedIntakeRequest.last
-          expect(request.ip_address).to eq(ip_address)
-          expect(request.email_address.downcase).to eq(valid_email_address)
-          expect(request.state_file_archived_intake_id).to eq(archived_intake.id)
+          active_archived_intake = controller.send(:current_archived_intake)
+          expect(active_archived_intake.email_address).to eq(valid_email_address)
+          expect(active_archived_intake.hashed_ssn).to eq(archived_intake.hashed_ssn)
+          expect(active_archived_intake.id).to eq(archived_intake.id)
 
           expect(response).to redirect_to(
                                 state_file_archived_intakes_edit_verification_code_path
@@ -66,19 +65,19 @@ RSpec.describe StateFile::ArchivedIntakes::EmailAddressController, type: :contro
       end
 
       context "and an archived intake does not exist with the email address" do
-        it "creates an access log, creates a request, and redirects to the verification code page" do
+        it "creates an access log, creates a new archived intake without a ssn or address, and redirects to the verification code page" do
           post :update, params: {
             state_file_archived_intakes_email_address_form: { email_address: valid_email_address }
           }
           expect(assigns(:form)).to be_valid
 
-          request = StateFileArchivedIntakeRequest.last
-          expect(request.ip_address).to eq(ip_address)
-          expect(request.email_address).to eq(valid_email_address)
-          expect(request.state_file_archived_intake_id).to eq(nil)
+          active_archived_intake = controller.send(:current_archived_intake)
+          expect(active_archived_intake.email_address).to eq(valid_email_address)
+          expect(active_archived_intake.hashed_ssn).to eq(nil)
+          expect(active_archived_intake.full_address).to eq("")
 
           log = StateFileArchivedIntakeAccessLog.last
-          expect(log.state_file_archived_intake_request_id).to eq(request.id)
+          expect(log.state_file_archived_intake_id).to eq(active_archived_intake.id)
           expect(log.event_type).to eq("issued_email_challenge")
 
           expect(response).to redirect_to(
