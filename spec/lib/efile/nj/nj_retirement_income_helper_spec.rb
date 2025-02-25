@@ -250,14 +250,100 @@ RSpec.describe Efile::Nj::NjRetirementIncomeHelper do
     end
   end
 
+  describe "#show_retirement_income_warning?" do
+    [
+      { traits: [:single], box_1_total: 0, expected: false },
+      { traits: [:head_of_household], box_1_total: 0, expected: false },
+      { traits: [:qualifying_widow], box_1_total: 0, expected: false },
+      { traits: [:married_filing_jointly], box_1_total: 0, expected: false },
+      { traits: [:married_filing_separately], box_1_total: 0, expected: false },
+
+      { traits: [:single], box_1_total: 25_000, line_15: 25_000, line_16a: 24_999, expected: false },
+      { traits: [:head_of_household], box_1_total: 25_000, line_15: 25_000, line_16a: 24_999, expected: false },
+      { traits: [:qualifying_widow], box_1_total: 25_000, line_15: 25_000, line_16a: 24_999, expected: false },
+      { traits: [:married_filing_jointly], box_1_total: 33_333, line_15: 33_333, line_16a: 33_333, expected: false },
+      { traits: [:married_filing_separately], box_1_total: 20_000, line_15: 20_000, line_16a: 9_999, expected: false },
+
+      { traits: [:single], box_1_total: 1, line_14: 3_001, line_15: 25_000, line_16a: 50_000, expected: false },
+      { traits: [:single], box_1_total: 1, line_14: 3_000, line_15: 25_000, line_16a: 50_000, expected: false },
+      { traits: [:single, :primary_over_62], box_1_total: 1, line_14: 3_001, line_15: 25_000, line_16a: 50_000, expected: false },
+      { traits: [:single, :primary_over_62], box_1_total: 1, line_14: 3_000, line_15: 25_000, line_16a: 50_000, expected: true },
+
+      { traits: [:head_of_household], box_1_total: 1, line_14: 3_001, line_15: 25_000, line_16a: 50_000, expected: false },
+      { traits: [:head_of_household], box_1_total: 1, line_14: 3_000, line_15: 25_000, line_16a: 50_000, expected: false },
+      { traits: [:head_of_household, :primary_over_62], box_1_total: 1, line_14: 3_001, line_15: 25_000, line_16a: 50_000, expected: false },
+      { traits: [:head_of_household, :primary_over_62], box_1_total: 1, line_14: 3_000, line_15: 25_000, line_16a: 50_000, expected: true },
+
+      { traits: [:qualifying_widow], box_1_total: 1, line_14: 3_001, line_15: 25_000, line_16a: 50_000, expected: false },
+      { traits: [:qualifying_widow], box_1_total: 1, line_14: 3_000, line_15: 25_000, line_16a: 50_000, expected: false },
+      { traits: [:qualifying_widow, :primary_over_62], box_1_total: 1, line_14: 3_001, line_15: 25_000, line_16a: 50_000, expected: false },
+      { traits: [:qualifying_widow, :primary_over_62], box_1_total: 1, line_14: 3_000, line_15: 25_000, line_16a: 50_000, expected: true },
+
+      { traits: [:married_filing_jointly], box_1_total: 1, line_14: 3_001, line_15: 50_000, line_16a: 50_000, expected: false },
+      { traits: [:married_filing_jointly], box_1_total: 1, line_14: 3_000, line_15: 50_000, line_16a: 50_000, expected: false },
+      { traits: [:married_filing_jointly, :primary_over_62], box_1_total: 1, line_14: 3_001, line_15: 50_000, line_16a: 50_000, expected: false },
+      { traits: [:married_filing_jointly, :mfj_spouse_over_62], box_1_total: 1, line_14: 3_001, line_15: 50_000, line_16a: 50_000, expected: false },
+      { traits: [:married_filing_jointly, :mfj_spouse_over_62, :primary_over_62], box_1_total: 1, line_14: 3_000, line_15: 50_000, line_16a: 50_000, expected: true },
+
+      { traits: [:married_filing_separately], box_1_total: 1, line_14: 3_001, line_15: 25_000, line_16a: 25_000, expected: false },
+      { traits: [:married_filing_separately], box_1_total: 1, line_14: 3_000, line_15: 25_000, line_16a: 25_000, expected: false },
+      { traits: [:married_filing_separately, :primary_over_62], box_1_total: 1, line_14: 3_001, line_15: 25_000, line_16a: 25_000, expected: false },
+      { traits: [:married_filing_separately, :primary_over_62], box_1_total: 1, line_14: 3_000, line_15: 25_000, line_16a: 25_000, expected: true },
+    ].each do |test_case|
+      context "when filing with #{test_case}" do
+        let(:intake) do
+          create(:state_file_nj_intake, *test_case[:traits])
+        end
+        it "returns #{test_case[:expected]}" do
+          allow_any_instance_of(Efile::Nj::NjRetirementIncomeHelper).to receive(:non_military_1099r_box_1_total).and_return(test_case[:box_1_total])
+          helper = Efile::Nj::NjRetirementIncomeHelper.new(intake)
+          result = helper.show_retirement_income_warning?(test_case[:line_14], test_case[:line_15], test_case[:line_16a])
+          expect(result).to eq(test_case[:expected])
+        end
+      end
+    end
+  end 
+
+  describe "#non_military_1099r_box_1_total" do
+    let(:helper) { Efile::Nj::NjRetirementIncomeHelper.new(intake) }
+    let!(:state_file_1099r_1) { create :state_file1099_r, intake: intake, gross_distribution_amount: 700 }
+    let!(:state_file_1099r_2) { create :state_file1099_r, intake: intake, gross_distribution_amount: 100.5 }
+    let!(:state_specific_followup_1) { create :state_file_nj1099_r_followup, state_file1099_r: state_file_1099r_1, income_source: income_source_1 }
+    let!(:state_specific_followup_2) { create :state_file_nj1099_r_followup, state_file1099_r: state_file_1099r_2, income_source: income_source_2 }
+
+    before do
+      intake.reload
+    end
+
+    context 'when all 1099rs are non-military 1099rs' do
+      let(:intake) { create(:state_file_nj_intake) }
+      let(:income_source_1) { :other }
+      let(:income_source_2) { :other }
+
+      it 'returns sum of all 1099rs, rounded' do
+        expect(helper.non_military_1099r_box_1_total).to eq(801)
+      end
+    end
+
+    context 'when there are military 1099rs' do
+      let(:intake) { create(:state_file_nj_intake) }
+      let(:income_source_1) { :military_pension }
+      let(:income_source_2) { :other }
+
+      it 'returns the sum of only non-military 1099rs, rounded' do
+        expect(helper.non_military_1099r_box_1_total).to eq(101)
+      end
+    end
+  end
+
   describe "#total_eligible_nonmilitary_1099r_income" do
     primary_ssn = 400000015
     spouse_ssn = 123456789
     let(:helper) { Efile::Nj::NjRetirementIncomeHelper.new(intake) }
-    let!(:state_file_1099r_primary_1) { create :state_file1099_r, intake: intake, taxable_amount: 300.55, recipient_ssn: primary_ssn }
-    let!(:state_file_1099r_primary_2) { create :state_file1099_r, intake: intake, taxable_amount: 400, recipient_ssn: primary_ssn }
-    let!(:state_file_1099r_spouse_1) { create :state_file1099_r, intake: intake, taxable_amount: 500, recipient_ssn: spouse_ssn }
-    let!(:state_file_1099r_spouse_2) { create :state_file1099_r, intake: intake, taxable_amount: 600, recipient_ssn: spouse_ssn }
+    let!(:state_file_1099r_primary_1) { create :state_file1099_r, intake: intake, taxable_amount: 300.55, gross_distribution_amount: 700, recipient_ssn: primary_ssn }
+    let!(:state_file_1099r_primary_2) { create :state_file1099_r, intake: intake, taxable_amount: 400, gross_distribution_amount: 800, recipient_ssn: primary_ssn }
+    let!(:state_file_1099r_spouse_1) { create :state_file1099_r, intake: intake, taxable_amount: 500, gross_distribution_amount: 900, recipient_ssn: spouse_ssn }
+    let!(:state_file_1099r_spouse_2) { create :state_file1099_r, intake: intake, taxable_amount: 600, gross_distribution_amount: 1000, recipient_ssn: spouse_ssn }
     let!(:state_specific_followup_primary_1) { create :state_file_nj1099_r_followup, state_file1099_r: state_file_1099r_primary_1, income_source: income_source_primary_1 }
     let!(:state_specific_followup_primary_2) { create :state_file_nj1099_r_followup, state_file1099_r: state_file_1099r_primary_2, income_source: income_source_primary_2 }
     let!(:state_specific_followup_spouse_1) { create :state_file_nj1099_r_followup, state_file1099_r: state_file_1099r_spouse_1, income_source: income_source_spouse_1 }

@@ -468,7 +468,7 @@ module Efile
         return nil if @intake.state_file_w2s.empty? && @intake.state_file1099_rs.empty?
 
         (
-          @intake.state_file_w2s.sum{ |item| item.state_income_tax_amount || 0} +
+          @intake.state_file_w2s.sum { |item| item.state_income_tax_amount || 0} +
           @intake.state_file1099_rs.sum(&:state_tax_withheld_amount)
         ).round
       end

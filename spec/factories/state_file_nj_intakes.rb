@@ -20,6 +20,7 @@
 #  eligibility_all_members_health_insurance               :integer          default("unfilled"), not null
 #  eligibility_lived_in_state                             :integer          default("unfilled"), not null
 #  eligibility_out_of_state_income                        :integer          default("unfilled"), not null
+#  eligibility_retirement_warning_continue                :integer          default("unfilled")
 #  email_address                                          :citext
 #  email_address_verified_at                              :datetime
 #  email_notification_opt_in                              :integer          default("unfilled"), not null
@@ -281,6 +282,18 @@ FactoryBot.define do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_latifah_hoh') }
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_latifah_hoh') }
       filing_status { "head_of_household" }
+    end
+
+    trait :df_data_giudice do
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_giudice_hoh_1099_r') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_giudice_hoh_1099_r') }
+      filing_status { "head_of_household" }
+    end
+
+    trait :df_data_napolitano do
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_napolitano_single_1099_r') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_napolitano_single_1099_r') }
+      filing_status { "single" }
     end
 
     factory :state_file_nj_payment_info_intake do
