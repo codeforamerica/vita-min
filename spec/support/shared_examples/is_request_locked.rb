@@ -1,6 +1,6 @@
-RSpec.shared_examples 'archived intake request locked' do |action:, method: :get, params: {}|
-  context 'when the request is nil' do
-    before { allow(controller).to receive(:current_request).and_return(nil) }
+RSpec.shared_examples 'archived intake locked' do |action:, method: :get, params: {}|
+  context 'when there is no archived intake' do
+    before { allow(controller).to receive(:current_archived_intake).and_return(nil) }
 
     it 'redirects to verification error page' do
       send(method, action, params: params)
@@ -8,8 +8,8 @@ RSpec.shared_examples 'archived intake request locked' do |action:, method: :get
     end
   end
 
-  context 'when the request is locked' do
-    before { allow(current_request).to receive(:access_locked?).and_return(true) }
+  context 'when the archived intake is locked' do
+    before { allow(controller.current_archived_intake).to receive(:access_locked?).and_return(true) }
 
     it 'redirects to verification error page' do
       send(method, action, params: params)
@@ -18,7 +18,7 @@ RSpec.shared_examples 'archived intake request locked' do |action:, method: :get
   end
 
   context 'when the archived intake is permanently locked' do
-    before { allow(archived_intake).to receive(:permanently_locked_at).and_return(Time.current) }
+    before { allow(controller.current_archived_intake).to receive(:permanently_locked_at).and_return(Time.current) }
 
     it 'redirects to verification error page' do
       send(method, action, params: params)
@@ -26,10 +26,10 @@ RSpec.shared_examples 'archived intake request locked' do |action:, method: :get
     end
   end
 
-  context 'when the request is valid and not locked' do
+  context 'when the archived intake is valid and not locked' do
     before do
-      allow(current_request).to receive(:access_locked?).and_return(false)
-      allow(archived_intake).to receive(:permanently_locked_at).and_return(nil)
+      allow(controller.current_archived_intake).to receive(:access_locked?).and_return(false)
+      allow(controller.current_archived_intake).to receive(:permanently_locked_at).and_return(nil)
     end
 
     it 'does not redirect' do
