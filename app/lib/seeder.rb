@@ -113,6 +113,11 @@ class Seeder
     additional_user.update(name: "Lea Amidala Organa", password: strong_shared_password)
     additional_user.update(role: OrganizationLeadRole.create(organization: first_org)) if additional_user.role_type != OrganizationLeadRole::TYPE
 
+    # nj user
+    nj_user = User.where(email: "stew@example.com").first_or_initialize
+    nj_user.update(name: "Stewart Stringbean", password: strong_shared_password)
+    nj_user.update(role: StateFileNjStaffRole.create) if nj_user.role_type != StateFileNjStaffRole::TYPE
+
     if Rails.configuration.google_login_enabled
       pairs_file_data = YAML.safe_load(File.read(Rails.root.join(".pairs")))
       admin_names = pairs_file_data["pairs"]

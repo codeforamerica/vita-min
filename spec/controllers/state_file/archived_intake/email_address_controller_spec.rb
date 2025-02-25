@@ -15,6 +15,7 @@ RSpec.describe StateFile::ArchivedIntakes::EmailAddressController, type: :contro
 
   describe "POST #update" do
     let(:valid_email_address) { "test@example.com" }
+    let(:mixed_case_email_address) { "Test@Example.COM" }
     let(:invalid_email_address) { "" }
     let(:ip_address) { "127.0.0.1" }
 
@@ -39,6 +40,23 @@ RSpec.describe StateFile::ArchivedIntakes::EmailAddressController, type: :contro
           log = StateFileArchivedIntakeAccessLog.last
           expect(log.state_file_archived_intake_request_id).to eq(request.id)
           expect(log.event_type).to eq("issued_email_challenge")
+
+          expect(response).to redirect_to(
+                                state_file_archived_intakes_edit_verification_code_path
+                              )
+        end
+
+        it "matches email case insensitively" do
+          post :update, params: {
+            state_file_archived_intakes_email_address_form: { email_address: mixed_case_email_address }
+          }
+
+          expect(assigns(:form)).to be_valid
+
+          request = StateFileArchivedIntakeRequest.last
+          expect(request.ip_address).to eq(ip_address)
+          expect(request.email_address.downcase).to eq(valid_email_address)
+          expect(request.state_file_archived_intake_id).to eq(archived_intake.id)
 
           expect(response).to redirect_to(
                                 state_file_archived_intakes_edit_verification_code_path

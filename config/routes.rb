@@ -571,6 +571,7 @@ Rails.application.routes.draw do
           get 'verification_error', to: "/state_file/state_file_pages#archived_intakes_verification_error"
           get 'identification_number/edit', to: 'identification_number#edit', as: 'edit_identification_number'
           patch 'identification_number', to: 'identification_number#update'
+          post 'pdfs/log_and_redirect', to: 'pdfs#log_and_redirect'
           resources :pdfs, only: [:index]
         end
         namespace :questions do
