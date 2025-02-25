@@ -28,7 +28,7 @@ module StateFile
     private
 
     def proof_not_required?
-      if intake.filing_status == "married_filing_jointly"
+      if intake.filing_status_mfj?
         intake.primary_senior? && intake.spouse_senior?
       else
         intake.primary_senior?

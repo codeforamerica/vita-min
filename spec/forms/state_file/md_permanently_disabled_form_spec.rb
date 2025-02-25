@@ -7,7 +7,18 @@ RSpec.describe StateFile::MdPermanentlyDisabledForm do
   let(:spouse_dob) { nil }
 
   describe "#valid?" do
+    shared_examples :is_invalid do |invalid_params|
+      it "has presence error(s)" do
+        expect(form).not_to be_valid
+        invalid_params.each do |param|
+          expect(form.errors[param]).to include "Can't be blank."
+        end
+      end
+    end
+
     context "when filing status is MFJ" do
+      let(:spouse_proof_of_disability_submitted) { nil }
+      let(:primary_proof_of_disability_submitted) { nil }
       let(:params) do
         {
           mfj_disability: mfj_disability,
@@ -20,6 +31,8 @@ RSpec.describe StateFile::MdPermanentlyDisabledForm do
       end
 
       context "when mfj_disability status is blank" do
+        let(:primary_dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 65), 1, 1) }
+        let(:spouse_dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 65), 1, 1) }
         let(:primary_proof_of_disability_submitted) { nil }
         let(:spouse_proof_of_disability_submitted) { nil }
         let(:mfj_disability) { nil }
@@ -30,47 +43,161 @@ RSpec.describe StateFile::MdPermanentlyDisabledForm do
         end
       end
 
-      ["primary", "spouse"].each do |filer|
-        context "when #{filer} is disabled and not a senior" do
-          let(:primary_proof_of_disability_submitted) { "yes" }
-          let(:spouse_proof_of_disability_submitted) { "yes" }
-          let(:primary_dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 65), 1, 1) }
-          let(:spouse_dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 65), 1, 1) }
-          let("#{filer}_dob".to_sym) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 64), 1, 1) }
+      context "when mfj_disability is primary" do
+        let(:mfj_disability) { "primary" }
+        let(:senior_dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 65), 1, 1) }
+        let(:not_senior_dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 64), 1, 1) }
 
-          [filer, "both"].each do |mfj_disability|
-            context "when mfj_disability is #{mfj_disability}" do
-              let(:mfj_disability) { mfj_disability }
+        context "all filers are senior" do
+          it "is valid if proof question is not answered" do
+            intake.update(primary_birth_date: senior_dob, spouse_birth_date: senior_dob)
+            form = described_class.new(intake, params)
+            expect(form).to be_valid
+          end
+        end
 
-              context "#{filer} is senior and did not answer proof question" do
-                let("#{filer}_dob".to_sym) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 65), 1, 1) }
-                let("#{filer}_proof_of_disability_submitted".to_sym) { nil }
+        context "one or more filers are not senior" do
+          context "proof question is not answered" do
+            context "primary is not senior" do
+              let(:primary_proof_of_disability_submitted) { nil }
+              let(:primary_dob) { not_senior_dob }
+              let(:spouse_dob) { senior_dob }
 
-                it "is valid" do
-                  expect(form).to be_valid
-                end
-              end
+              it_behaves_like :is_invalid, [:primary_proof_of_disability_submitted]
+            end
 
-              context "#{filer} is not senior" do
-                let("#{filer}_dob".to_sym) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 64), 1, 1) }
+            context "spouse is not senior" do
+              let(:primary_proof_of_disability_submitted) { nil }
+              let(:primary_dob) { senior_dob }
+              let(:spouse_dob) { not_senior_dob }
 
-                context "and answered proof question" do
-                  let("#{filer}_proof_of_disability_submitted".to_sym) { "no" }
+              it_behaves_like :is_invalid, [:primary_proof_of_disability_submitted]
+            end
 
-                  it "is valid" do
-                    expect(form).to be_valid
-                  end
-                end
+            context "both are not senior" do
+              let(:primary_proof_of_disability_submitted) { nil }
+              let(:primary_dob) { not_senior_dob }
+              let(:spouse_dob) { not_senior_dob }
 
-                context "and did not proof question" do
-                  let("#{filer}_proof_of_disability_submitted".to_sym) { nil }
+              it_behaves_like :is_invalid, [:primary_proof_of_disability_submitted]
+            end
+          end
 
-                  it "is not valid" do
-                    expect(form).not_to be_valid
-                    expect(form.errors["#{filer}_proof_of_disability_submitted".to_sym]).to include "Can't be blank."
-                  end
-                end
-              end
+          context "proof question is answered" do
+            let(:primary_proof_of_disability_submitted) { "yes" }
+            let(:primary_dob) { senior_dob }
+            let(:spouse_dob) { senior_dob }
+
+            it "is valid" do
+              expect(form).to be_valid
+            end
+          end
+        end
+      end
+
+      context "when mfj_disability is spouse" do
+        let(:mfj_disability) { "spouse" }
+        let(:senior_dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 65), 1, 1) }
+        let(:not_senior_dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 64), 1, 1) }
+
+        context "all filers are senior" do
+          it "is valid if proof question is not answered" do
+            intake.update(primary_birth_date: senior_dob, spouse_birth_date: senior_dob)
+            form = described_class.new(intake, params)
+            expect(form).to be_valid
+          end
+        end
+
+        context "one or more filers are not senior" do
+          context "proof question is not answered" do
+            context "primary is not senior" do
+              let(:spouse_proof_of_disability_submitted) { nil }
+              let(:primary_dob) { not_senior_dob }
+              let(:spouse_dob) { senior_dob }
+
+              it_behaves_like :is_invalid, [:spouse_proof_of_disability_submitted]
+            end
+
+            context "spouse is not senior" do
+              let(:spouse_proof_of_disability_submitted) { nil }
+              let(:primary_dob) { senior_dob }
+              let(:spouse_dob) { not_senior_dob }
+
+              it_behaves_like :is_invalid, [:spouse_proof_of_disability_submitted]
+            end
+
+            context "both are not senior" do
+              let(:spouse_proof_of_disability_submitted) { nil }
+              let(:primary_dob) { not_senior_dob }
+              let(:spouse_dob) { not_senior_dob }
+
+              it_behaves_like :is_invalid, [:spouse_proof_of_disability_submitted]
+            end
+          end
+
+          context "proof question is answered" do
+            let(:spouse_proof_of_disability_submitted) { "yes" }
+            let(:primary_dob) { senior_dob }
+            let(:spouse_dob) { senior_dob }
+
+            it "is valid" do
+              expect(form).to be_valid
+            end
+          end
+        end
+      end
+
+      context "when mfj_disability is both" do
+        let(:mfj_disability) { "both" }
+        let(:senior_dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 65), 1, 1) }
+        let(:not_senior_dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 64), 1, 1) }
+
+        context "all filers are senior" do
+          it "is valid if proof question is not answered" do
+            intake.update(primary_birth_date: senior_dob, spouse_birth_date: senior_dob)
+            form = described_class.new(intake, params)
+            expect(form).to be_valid
+          end
+        end
+
+        context "one or more filers are not senior" do
+          context "proof question is not answered" do
+            context "primary is not senior" do
+              let(:primary_proof_of_disability_submitted) { nil }
+              let(:spouse_proof_of_disability_submitted) { nil }
+              let(:primary_dob) { not_senior_dob }
+              let(:spouse_dob) { senior_dob }
+
+              it_behaves_like :is_invalid, [:primary_proof_of_disability_submitted, :spouse_proof_of_disability_submitted]
+            end
+
+            context "spouse is not senior" do
+              let(:primary_proof_of_disability_submitted) { nil }
+              let(:spouse_proof_of_disability_submitted) { nil }
+              let(:primary_dob) { senior_dob }
+              let(:spouse_dob) { not_senior_dob }
+
+              it_behaves_like :is_invalid, [:primary_proof_of_disability_submitted, :spouse_proof_of_disability_submitted]
+            end
+
+            context "both are not senior" do
+              let(:primary_proof_of_disability_submitted) { nil }
+              let(:spouse_proof_of_disability_submitted) { nil }
+              let(:primary_dob) { not_senior_dob }
+              let(:spouse_dob) { not_senior_dob }
+
+              it_behaves_like :is_invalid, [:primary_proof_of_disability_submitted, :spouse_proof_of_disability_submitted]
+            end
+          end
+
+          context "proof question is answered" do
+            let(:primary_proof_of_disability_submitted) { "no" }
+            let(:spouse_proof_of_disability_submitted) { "yes" }
+            let(:primary_dob) { senior_dob }
+            let(:spouse_dob) { senior_dob }
+
+            it "is valid" do
+              expect(form).to be_valid
             end
           end
         end
@@ -80,6 +207,8 @@ RSpec.describe StateFile::MdPermanentlyDisabledForm do
         let(:mfj_disability) { "none" }
         let(:primary_proof_of_disability_submitted) { nil }
         let(:spouse_proof_of_disability_submitted) { nil }
+        let(:primary_dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 64), 1, 1) }
+        let(:spouse_dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 64), 1, 1) }
 
         it "does not require proof of disability" do
           expect(form).to be_valid
@@ -93,6 +222,7 @@ RSpec.describe StateFile::MdPermanentlyDisabledForm do
       end
 
       context "when primary_disabled is blank" do
+        let(:primary_dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 64), 1, 1) }
         let(:params) { { primary_disabled: nil } }
 
         it "is invalid and attaches the correct error" do
