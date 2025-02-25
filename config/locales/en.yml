@@ -9,13 +9,16 @@ en:
               blank: To claim family member as a dependent for benefits, an SSN or ATIN is required.
   activerecord:
     errors:
+      concerns:
+        date_accessible:
+          inclusion: Date must be valid and in the current tax year
       models:
         az321_contribution:
           attributes:
             charity_code:
               invalid: should be a five digit number beginning with 2
             date_of_contribution:
-              inclusion: Date must be in the current tax year
+              inclusion: Date must be valid and in the current tax year
         state_file_1099_r:
           errors:
             must_be_less_than_gross_distribution: Must be less than gross distribution amount
@@ -3008,7 +3011,7 @@ en:
           health_insurance_premium_question:
             one: Did you pay health insurance premiums for yourself in %{year}?
             other: Did you pay health insurance premiums for yourself and your household in %{year}?
-          medicaid_content: Yes, if you are on Medicaid, your health insurance premium counts.  Check your monthly letter from the Idaho Department of Health and Welfare for your premium amount. It could be as low as $0, depending on your income and other factors.
+          medicaid_content: Yes, if you are on Medicaid, your health insurance premium counts.  Check your monthly letter from the Idaho Department of Health and Welfare for your premium amount. It could be as low as $0, depending on your income and other factors.
           medicaid_title: Do Medicaid and Medicare payments count?
           qualifications_content_html: |
             You can deduct health insurance premiums paid for yourself, your spouse, and your dependents, including medical, dental, and vision, as long as they haven’t been deducted from your income pre-tax.

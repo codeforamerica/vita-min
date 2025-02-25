@@ -9,13 +9,16 @@ es:
               blank: Para reclamar a un miembro de su familia como dependiente para los beneficios, se requiere un SSN o ATIN.
   activerecord:
     errors:
+      concerns:
+        date_accessible:
+          inclusion: Date must be valid and in the current tax year
       models:
         az321_contribution:
           attributes:
             charity_code:
               invalid: Debe ser un número de cinco dígitos que comience con 2
             date_of_contribution:
-              inclusion: La fecha debe estar en el año fiscal actual
+              inclusion: La fecha debe ser válida y corresponder al año fiscal actual.
         state_file_1099_r:
           errors:
             must_be_less_than_gross_distribution: Debe ser menor que el monto bruto de distribución
@@ -2151,7 +2154,7 @@ es:
           <li>Medicaid (NJ FamilyCare)</li>
         </ul>
         <p><a href="https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml" target="_blank" rel="noopener nofollow">Aquí está la lista completa de opciones de seguro que tienen cobertura mínima esencial (en inglés)</a></p>
-        <p>Debes responder no si tú o alguien en tu hogar solo tuvo plan de visión o dental independientes, cobertura de compensación laboral o un plan limitado a una enfermedad o dolencia específica. En New Jersey, a partir de 2018, necesitas cobertura mínima esencial, o podrías tener que pagar impuestos adicionales.</p>
+        <p>Debes responder no si tú o alguien en tu hogar solo tuvo plan de visión o dental independientes, cobertura de compensación laboral o un plan limitado a una enfermedad o dolencia específica. En New Jersey, a partir de 2018, necesitas cobertura mínima esencial, o podrías tener que pagar impuestos adicionales.</p>
       register_to_vote: Regístrate para votar
       see_detailed_return: Ver información detallada de la declaración
       standard_deduction: Deducción estándar
@@ -2207,7 +2210,7 @@ es:
             <li>El formulario 1099-G (si recibiste beneficios de desempleo en %{filing_year})</li>
             <li>Los números de ruta y cuenta bancaria (si deseas recibir tu reembolso o hacer un pago de impuestos electrónicamente)</li>
           </ul>
-        help_text_title: "¿Qué necesito para completar mi declaración de impuestos estatales?"
+        help_text_title: "¿Qué necesito para completar mi declaración de impuestos estatales?"
         id:
           closed_html: |
             Ya cerramos por esta temporada de impuestos. <br /><br />
@@ -2455,7 +2458,7 @@ es:
             one: "¿Cuánto recibiste en salario por servicio activo?"
             other: "¿Cuánto recibiste tú o tu cónyuge en salario por servicio activo?"
           learn_more_content_html: |
-            Si eres miembro de las <strong>Fuerzas Armadas de Estados Unidos</strong>, ingresa el salario que recibiste por servicio activo que reportaste en declaración de impuestos federales.<br><br>
+            Si eres miembro de las <strong>Fuerzas Armadas de Estados Unidos</strong>, ingresa el salario que recibiste por servicio activo que reportaste en declaración de impuestos federales.<br><br>
             Si eres miembro de <strong>la Reserva o la Guardia Nacional</strong>, ingresa el salario que recibiste por entrenamientos durante fines de semana o de dos semanas que hayas reportado en tu declaración de impuestos federal.<br><br>
             <strong>No</strong> puedes incluir ningún ingreso que hayas recibido por empleo a tiempo completo en el servicio civil como "técnico militar (doble estatus)".
           learn_more_title: Obtener más información
@@ -3063,7 +3066,7 @@ es:
           review_and_edit_state_info: Revisar y editar la información estatal
           ssa_title: Beneficios del Seguro Social (SSA-1099)
           state_info_to_be_collected: Información estatal que se recogerá
-          title: Estos son los formularios de ingresos que transferimos de tu declaración de impuestos federales.
+          title: Estos son los formularios de ingresos que transferimos de tu declaración de impuestos federales.
           unemployment_title: Beneficios de desempleo (1099-G)
           w2s_title: Empleos (W-2)
           warning: "⚠️ Necesitamos verificar de nuevo cierta información"
@@ -3899,8 +3902,8 @@ es:
           title: 'Selecciona tu estado de residencia en la ciudad de Nueva York durante el %{year}:'
       pending_federal_return:
         edit:
-          body_html: Lamentamos hacerte esperar.<br><br>Recibirás un correo electrónico de IRS Direct File cuando tu declaración de impuestos federales sea aceptada, con un enlace para traerte de regreso aquí. Revisa tu carpeta de spam.
-          title: Tu declaración de impuestos federales debe ser aceptada antes de que puedas presentar tu declaración de impuestos estatales
+          body_html: Lamentamos hacerte esperar.<br><br>Recibirás un correo electrónico de IRS Direct File cuando tu declaración de impuestos federales sea aceptada, con un enlace para traerte de regreso aquí. Revisa tu carpeta de spam.
+          title: Tu declaración de impuestos federales debe ser aceptada antes de que puedas presentar tu declaración de impuestos estatales
       phone_number:
         edit:
           action: Enviar el código
@@ -6324,7 +6327,7 @@ es:
         title: Pago de estímulo
       tax_questions:
         cannot_answer:
-          different_services: Preguntas sobre los impuestos declarados mediante otro servicio (p. ej., H&R Block o TurboTax)
+          different_services: Preguntas sobre los impuestos declarados mediante otro servicio (p. ej., H&R Block o TurboTax)
           header: 'No podemos responder a lo siguiente:'
           refund_amounts: El monto del reembolso que recibirá
         header: "¡Tratemos de responder a sus preguntas sobre los impuestos!"
@@ -6955,14 +6958,14 @@ es:
         enter_zip: Ingrese su código postal para encontrar proveedores cercanos.
         header: Obtenga ayuda gratuita en declarar sus impuestos
         info: Los programas de Asistencia Voluntaria al Contribuyente (VITA, por sus siglas en inglés) del IRS ofrecen ayuda con los impuestos gratis, a los contribuyentes que califiquen.
-        no_results: "¡Disculpe! No hemos encontrado ningún resultado dentro de 50 millas de su dirección."
-        results: Hemos encontrado %{total_entries} resultados dentro de 50 millas de %{zip}
+        no_results: "¡Disculpe! No hemos encontrado ningún resultado dentro de 50 millas de su dirección."
+        results: Hemos encontrado %{total_entries} resultados dentro de 50 millas de %{zip}
         search:
           header: Ingrese su código postal para encontrar proveedores cercanos.
-          no_results: No hemos encontrado ningún resultado dentro de 50 millas de %{zip} (%{zip_name}).
+          no_results: No hemos encontrado ningún resultado dentro de 50 millas de %{zip} (%{zip_name}).
           placeholder: Ingrese su código postal
           prepare_your_own_html: También puede preparar su propia declaración de impuestos utilizando el %{free_file_link} para encontrar una manera gratuita de hacerlo en línea.
-          results: Hemos encontrado %{total_entries} resultados dentro de 50 millas de %{zip} (%{zip_name}).
+          results: Hemos encontrado %{total_entries} resultados dentro de 50 millas de %{zip} (%{zip_name}).
           try_another_or_apply_html: Intente otro código postal.
         title: Ubicar
       show:
@@ -6972,4 +6975,4 @@ es:
         no_hours_listed: Disculpe, no hay horario de apertura.
         no_phone_number_listed: Disculpe, no hay número de teléfono.
         phone_number_title: Llame a %{provider_name}
-        search_radius: Dentro de %{distance} millas de %{zip} (%{zip_name})
+        search_radius: Dentro de %{distance} millas de %{zip} (%{zip_name})
