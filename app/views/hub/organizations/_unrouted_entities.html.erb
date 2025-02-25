@@ -6,8 +6,8 @@
   </div>
 
   <ul class="no-bullets">
-    <% if @presenter.unrouted_independent_organizations.any? %>
-      <% @presenter.unrouted_independent_organizations.each do |org| %>
+    <% if @presenter.unrouted_organizations.any? %>
+      <% @presenter.unrouted_organizations.each do |org| %>
         <%= render "organization", organization: org %>
       <% end %>
     <% end %>
@@ -19,7 +19,9 @@
     <% end %>
   </ul>
 
-  <% if @presenter.unrouted_independent_organizations.empty? && @presenter.unrouted_coalitions.empty? %>
+  <% if @presenter.unrouted_organizations.empty? && @presenter.unrouted_coalitions.empty? %>
     <%= t("general.NA") %>
   <% end %>
 </div>
+
+<!--not grabbing the orgs that have a coalition parent here for org leads-->
