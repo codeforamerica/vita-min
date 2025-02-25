@@ -9,6 +9,9 @@ en:
               blank: To claim family member as a dependent for benefits, an SSN or ATIN is required.
   activerecord:
     errors:
+      concerns:
+        date_accessible:
+          inclusion: Date must be valid and in the current tax year
       models:
         az321_contribution:
           attributes:
@@ -19,9 +22,6 @@ en:
         state_file_1099_r:
           errors:
             must_be_less_than_gross_distribution: Must be less than gross distribution amount
-      concerns:
-        date_accessible:
-          inclusion: Date must be valid and in the current tax year
   attributes:
     confirm_primary_ssn: Confirm SSN or ITIN
     confirm_spouse_ssn: Confirm spouse's SSN or ITIN
@@ -3684,7 +3684,7 @@ en:
           retirement_income_source_label: 'Source:'
           retirement_income_source_military_pension: U.S. military pension
           retirement_income_source_military_survivor_benefit: U.S. military survivor's benefits
-          retirement_income_source_none: Neither U.S. military pension nor U.S. military survivor's benefits
+          retirement_income_source_other: Neither U.S. military pension nor U.S. military survivor's benefits
           retirement_income_source_taxable_amount_label: 'Taxable Amount:'
           retirement_income_source_taxpayer_name_label: 'Taxpayer Name:'
           reveal:
