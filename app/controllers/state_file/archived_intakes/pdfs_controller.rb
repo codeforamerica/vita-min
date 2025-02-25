@@ -2,7 +2,7 @@ module StateFile
   module ArchivedIntakes
     class PdfsController < ArchivedIntakeController
       before_action :check_feature_flag
-      before_action :is_request_locked
+      before_action :is_intake_locked
       before_action :require_archived_intake_email
       before_action :require_archived_intake_email_code_verified
       before_action :require_archived_intake_ssn_verified

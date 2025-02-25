@@ -72,7 +72,7 @@ describe StateFile::ArchivedIntakes::ArchivedIntakeController, type: :controller
       end
     end
 
-    describe '#is_request_locked' do
+    describe '#is_intake_locked' do
       before do
         allow(controller).to receive(:current_archived_intake).and_return(archived_intake)
       end

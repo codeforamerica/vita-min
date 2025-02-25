@@ -2,7 +2,7 @@ module StateFile
   module ArchivedIntakes
     class IdentificationNumberController < ArchivedIntakeController
       before_action :confirm_code_verification
-      before_action :is_request_locked
+      before_action :is_intake_locked
 
       def edit
         @form = IdentificationNumberForm.new(archived_intake: current_archived_intake)

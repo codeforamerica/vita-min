@@ -4,7 +4,7 @@ module StateFile
   module ArchivedIntakes
     class MailingAddressValidationController < ArchivedIntakeController
       before_action :check_feature_flag
-      before_action :is_request_locked
+      before_action :is_intake_locked
       before_action :confirm_code_and_ssn_verification
       def edit
         create_state_file_access_log("issued_mailing_address_challenge")

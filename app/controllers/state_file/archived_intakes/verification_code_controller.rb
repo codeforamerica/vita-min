@@ -2,7 +2,7 @@ module StateFile
   module ArchivedIntakes
     class VerificationCodeController < ArchivedIntakeController
       before_action :check_feature_flag
-      before_action :is_request_locked
+      before_action :is_intake_locked
       def edit
         @form = VerificationCodeForm.new(email_address: current_archived_intake.email_address)
         @email_address = current_archived_intake.email_address
