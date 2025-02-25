@@ -32,6 +32,8 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::DataTransferOffboardingController, false),
         Navigation::NavigationStep.new(StateFile::Questions::IncomeReviewController),
         Navigation::NavigationStep.new(StateFile::Questions::UnemploymentController),
+        Navigation::NavigationStep.new(StateFile::Questions::IdDisabilityController),
+        Navigation::NavigationStep.new(StateFile::Questions::IdRetirementAndPensionIncomeController),
         Navigation::NavigationStep.new(StateFile::Questions::IdHealthInsurancePremiumController),
         Navigation::NavigationStep.new(StateFile::Questions::IdGroceryCreditController),
         Navigation::NavigationStep.new(StateFile::Questions::IdGroceryCreditReviewController),
@@ -44,11 +46,11 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::TaxesOwedController),
         Navigation::NavigationStep.new(StateFile::Questions::TaxRefundController),
         Navigation::NavigationStep.new(StateFile::Questions::EsignDeclarationController), # creates EfileSubmission and transitions to preparing
-      ]),
+      ], true, true),
       Navigation::NavigationSection.new("state_file.navigation.section_6", [
         Navigation::NavigationStep.new(StateFile::Questions::SubmissionConfirmationController),
         Navigation::NavigationStep.new(StateFile::Questions::ReturnStatusController),
-      ]),
+      ], true, true),
     ].freeze
     FLOW = SECTIONS.map(&:controllers).flatten.freeze
   end

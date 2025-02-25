@@ -115,6 +115,7 @@ FactoryBot.define do
     transient do
       filing_status { 'single' }
     end
+    state_file_analytics { StateFileAnalytics.create }
 
     factory :state_file_md_refund_intake do
       after(:build) do |intake|

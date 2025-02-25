@@ -44,11 +44,11 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::NcTaxesOwedController),
         Navigation::NavigationStep.new(StateFile::Questions::NcTaxRefundController),
         Navigation::NavigationStep.new(StateFile::Questions::EsignDeclarationController), # creates EfileSubmission and transitions to preparing
-      ]),
+      ], true, true),
       Navigation::NavigationSection.new("state_file.navigation.section_6", [
         Navigation::NavigationStep.new(StateFile::Questions::SubmissionConfirmationController),
         Navigation::NavigationStep.new(StateFile::Questions::ReturnStatusController),
-      ]),
+      ], true, true),
     ].freeze
     FLOW = SECTIONS.map(&:controllers).flatten.freeze
   end

@@ -766,7 +766,6 @@ en:
           filer_provided_over_half_housing_support: Did the taxpayer(s) pay more than half the cost of maintaining a home for this person?
           filer_provided_over_half_support: Did the taxpayer(s) provide more than 50% of support for this person?
           first_name: First Name
-          got_married_during_tax_year: A. If Yes, Did you get married in 2024?
           had_disability: Totally and permanently disabled
           issued_an_identity_protection_pin: Issued an identity protection PIN (IPPIN)
           issued_ippin: Issued IPPIN
@@ -786,7 +785,6 @@ en:
           provided_over_half_own_support: Did this person provide more than 50% of his/ her own support?
           receive_written_communication: Receive written communications from the IRS in a language other than English?
           refund_check_by_mail: Check by mail
-          refund_other: Other
           refund_payment_method: 'If you are due a refund, would you like:'
           refund_payment_method_direct_deposit: Direct Deposit
           refund_payment_method_split: Split refund between different accounts
@@ -1018,6 +1016,7 @@ en:
         add_doc: Add document
         archived_documents: Archived documents
         client_doc: Client
+        edit_file_info: Edit File Info
         empty_file: "(empty file)"
         expanded_id_allowed: This client is allowed to submit Expanded ID Types as part of the experiment.
         file_name: File Name
@@ -1474,7 +1473,7 @@ en:
           Your Tax Team at GetYourRefund
         subject: 'GetYourRefund: You have a submission in progress'
       sms:
-        body: Hello <<Client.PreferredName>> you haven''t completed providing the information we need to prepare your taxes at GetYourRefund. Continue where you left off here <<Client.LoginLink>>. Your Client ID is <<Client.ClientId>>. If you have any questions, please reply to this message.
+        body: Hello <<Client.PreferredName>>, you haven't completed providing the information we need to prepare your taxes at GetYourRefund. Continue where you left off here <<Client.LoginLink>>. Your Client ID is <<Client.ClientId>>. If you have any questions, please reply to this message.
     intercom_forwarding:
       email:
         body: This conversation has been forwarded to GetYourRefund.org's customer service specialists. You should expect to see a message from them at a different email shortly.
@@ -2915,6 +2914,21 @@ en:
           spouse_esign: My spouse has read the certification above and agrees
           submit: Submit your state return
           title: Electronically sign your %{state_name} state tax return
+      id_disability:
+        edit:
+          help_b1: An individual recognized as disabled by the Social Security Administration, the Railroad Retirement Board, or the Office of Management and Budget
+          help_b2: A veteran of a U.S. war with a service-connected disability rating of 10% or more
+          help_b3: A veteran of a U.S. war with a non service-connected disability pension
+          help_b4: A person who has a physician-certified permanent disability with no expectation of improvement
+          help_text: The following individuals are classified as disabled
+          help_title: What is classified as disabled?
+          no_neither: No, neither of us is
+          question: Do you meet the qualifications to be classified as disabled?
+          question_spouse: Do you or your spouse meet the qualifications to be classified as disabled?
+          title: You might be eligible for Idaho Retirement Income Deduction.
+          yes_both: Yes, we both are
+          yes_me: Yes, I am
+          yes_spouse: Yes, my spouse is
       id_donations:
         edit:
           add_the_amount: Add the amount you would like to donate to any organization below
@@ -3030,6 +3044,16 @@ en:
           subtitle: Provide your driver’s license or identity card number when you e-File to help your refund process faster.
           title: We need some details from your state-issued ID, if you have one
           why_ask_this: Why are you asking for this information?
+      id_retirement_and_pension_income:
+        edit:
+          question: 'Does this retirement income come from any of the following:'
+          question_b1: Your service as a Civil Service employee
+          question_b2: Your service as an Idaho firefighter
+          question_b3: Your service as a Police officer of an Idaho city
+          question_b4: Your service as a member of the U.S. military
+          question_b5: Survivor benefits from a deceased spouse’s pension from one of the sources listed above”
+          read_more: Read more on the additional information on these qualified retirement benefits.
+          subtitle: We need more information about your 1099-R to check your eligibility.
       id_review:
         edit:
           donations_optional: Idaho taxpayers can make voluntary charitable donations to organizations when they file their state income tax return.
@@ -3214,7 +3238,15 @@ en:
       md_review:
         edit:
           county_html: "<strong> County lived in on December 31, %{filing_year}</strong>"
+          disability_status: Totally and permanently disabled status
+          military: Benefits from your military service or benefits received for the military service of your deceased spouse or ex-spouse
+          none: None apply
+          other: Other retirement income (For example, a Keogh plan)
+          pension_annuity_endowment: Money from a pension, annuity, or other retirement plan from your job
           political_subdivision_html: "<strong>Political subdivision lived in on December 31, %{filing_year}</strong>"
+          proof_of_disability: Proof provided of disability for the pension exclusion in past tax years
+          public_safety: Your service as a public safety employee
+          retirement_income_deductions: Maryland retirement income details
           your_address: Address lived at on December 31, %{filing_year}
       md_social_security_benefits:
         edit:
@@ -3318,15 +3350,25 @@ en:
       nc_review:
         edit:
           amount_earned: Amount earned
+          bailey_settlement_at_least_five_years: At least five years of creditable service by August 12, 1989
+          bailey_settlement_from_retirement_plan: Received retirement benefits from NC’s 401(k) or 457 plan, and contributed to the plan before August 12, 1989
           benefits_vested_pensions: Subtraction for retirement benefits by vested qualifying government pensions
           child_deduction: Child deduction
           interest_us_bonds: Interest income from U.S. bonds (not taxable in North Carolina)
+          none_apply: None apply
           primary_veteran: United States Armed Forces veteran status
+          retirement_income_deductions: North Carolina retirement income deductions
+          retirement_income_deductions_explanation: These allow people to deduct all or a portion of their retirement income from their taxes.
+          retirement_income_source_bailey_settlement: Retirement benefits as part of the Bailey Settlement
+          retirement_income_source_review_and_edit: Review and edit 1099-R %{index}
+          retirement_income_source_uniformed_services: Retirement benefits from the Uniformed Services
           service_members: Subtraction for retirement benefits received by service members
           social_security_benefits: Social Security benefits (not taxable in North Carolina)
           spouse_veteran: Your spouse's United States Armed Forces veteran status
           state_credit: Enrolled member of a federally recognized Indian Tribe, and received income from a source within a reservation
           subtraction_indian_tribe: Subtraction for income of a member of an Indian tribe
+          uniformed_survivor_benefit_plan: Payments from a qualifying Survivor Benefit Plan to a beneficiary of a retired member who served at least 20 years or who was medically retired from the Uniformed Services
+          uniformed_twenty_years_medical_retired: Retired member who served at least 20 years or were medically retired from the Uniformed Services
           use_tax_amount: Amount of use tax
           use_tax_applied: Out-of-state purchases in %{filing_year} without paying sales tax
       nc_sales_use_tax:
@@ -3603,7 +3645,7 @@ en:
           label: 'Select the source of this income:'
           option_military_pension: U.S. military pension
           option_military_survivor_benefit: U.S. military survivor's benefits
-          option_none: None of these apply (Choose this if you have a civil service pension or annuity)
+          option_other: None of these apply (Choose this if you have a civil service pension or annuity)
           subtitle: We need more information about this 1099-R.
           taxable_amount_label: 'Taxable Amount:'
           taxpayer_name_label: 'Taxpayer Name:'
@@ -3639,7 +3681,7 @@ en:
           retirement_income_source_label: 'Source:'
           retirement_income_source_military_pension: U.S. military pension
           retirement_income_source_military_survivor_benefit: U.S. military survivor's benefits
-          retirement_income_source_none: Neither U.S. military pension nor U.S. military survivor's benefits
+          retirement_income_source_other: Neither U.S. military pension nor U.S. military survivor's benefits
           retirement_income_source_taxable_amount_label: 'Taxable Amount:'
           retirement_income_source_taxpayer_name_label: 'Taxpayer Name:'
           reveal:
@@ -3647,6 +3689,7 @@ en:
             16a_interest_income: Interest income
             20a_retirement_income: Retirement income
             27_total_income: Total income
+            28c_retirement_excluded_from_taxation: Retirement income excluded from Taxation
             29_nj_gross_income: New Jersey Gross Income
             30_exemptions: Exemptions (based on the size of your family, disability status, veteran status)
             31_medical: Medical expenses deducted
@@ -4189,7 +4232,7 @@ en:
           box14_explanation_md_html: For tax year %{year}, we will only process the <strong>STPICKUP</strong> code, which represents any contributions you made to the state retirement system.
           box14_explanation_nj_html: |
             <p>For this year, we will only need the amounts for <strong>UI/WF/SWF</strong> (may also appear as <strong>"UI/HC/WD"</strong> on your W2) <strong>and FLI</strong>.
-            <p><strong>If you do not see these, please leave these fields blank.</strong></p>
+            <p><strong>If you do not see these, please enter 0.</strong></p>
             <p><strong>Definitions:</strong></p>
             <ul class="list--bulleted">
               <li><strong>UI/WF/SWF</strong> (may also appear as <strong>"UI/HC/WD"</strong> on your W2) represents:</li>
@@ -4205,8 +4248,8 @@ en:
             <p>There may be other information in Box 14. That's ok. That information doesn't need to be reported with this tool. </p>
           box14_fli_html: "<strong>FLI</strong>"
           box14_html: "<strong>Box 14,</strong> Other"
-          box14_intro_nj_html: "<p>Employers may use Box 14 to report anything that doesn't fit somewhere else on a Form W-2.</p>\n<p>For this year, we will only need any amounts listed for <strong>UI/WF/SWF</strong> (may also appear as <strong>\"UI/HC/WD\"</strong> on your W2) <strong>and FLI</strong>.</p> \n<p><strong>If you do not see these, please leave these fields blank.</strong></p> \n<p>There may be other information in Box 14. That information doesn't need to be reported with this tool.</p>\n"
-          box14_stpickup_help_text_html: For %{year}, we will only process the STPICKUP code. If you do not see this code or have other codes in Box 14, please leave it blank.
+          box14_intro_nj_html: "<p>Employers may use Box 14 to report anything that doesn't fit somewhere else on a Form W-2.</p>\n<p>For this year, we will only need any amounts listed for <strong>UI/WF/SWF</strong> (may also appear as <strong>\"UI/HC/WD\"</strong> on your W2) <strong>and FLI</strong>.</p> \n<p><strong>If you do not see these, please enter 0.</strong></p> \n<p>There may be other information in Box 14. That information doesn't need to be reported with this tool.</p>\n"
+          box14_stpickup_help_text_html: For %{year}, we will only process the STPICKUP code. If you do not see this code or have other codes in Box 14, please enter 0.
           box14_stpickup_html: "<strong>STPICKUP</strong>"
           box14_ui_wf_swf_help_text_html: "(This may also appear on your W2 as <strong>UI/HC/WD.</strong>)"
           box14_ui_wf_swf_html: "<strong>UI/WF/SWF</strong>"
@@ -4221,6 +4264,7 @@ en:
           local_income_tax_amt_error: Cannot be greater than local wages and tips.
           local_wages_and_tips_amt_error: Please enter local wages and tips
           locality_nm_missing_error: Please select locality name
+          no_money_amount: Please enter an amount. If amount is blank, enter $0.
           save_and_continue: Save and Continue
           state_income_tax_amt_error: Cannot be greater than State wages and tips.
           state_wages_amt_error: Please enter State wages and tips
@@ -4241,7 +4285,7 @@ en:
         faq_prior_year_returns: Visit our FAQ for questions about prior year returns
         header: A free state filing service for taxpayers using IRS Direct File
         helper_heading_html: "<strong>How does this service work? </strong>"
-        looking_for_return_html: "<strong>Looking for your 2023 Arizona or New York State Tax Return?</strong> Sign in to download a copy of your state return."
+        looking_for_return_html: "<strong>Looking for your 2023 Arizona or New York State Tax Return?</strong> <a href='%{link}'>Sign in</a> to download a copy of your state return."
         section1_html: |
           <ol class="list--numbered"  style="padding-left: 2rem">
             <li>First, file and submit your federal return with <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">IRS Direct File</a> before using this service.</li>
@@ -5865,8 +5909,8 @@ en:
         relationship: Relationship to you
         save_cta: Save this person
         title: Tell us about your dependent. Please provide a few more details.
+        was_citizen: Is a US citizen
         was_married: Married as of 12/31/%{year}
-        was_not_citizen: Not a US citizen
         was_student: Full time higher education student
       index:
         add_person: Add a person

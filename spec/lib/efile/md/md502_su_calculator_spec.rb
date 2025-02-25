@@ -30,37 +30,36 @@ describe Efile::Md::Md502SuCalculator do
   end
 
   describe "#calculate_military_per_filer" do
-    context "when the taxable amount is higher than the age benefit amount" do
-      before do
-        allow_any_instance_of(StateFileMdIntake).to receive(:sum_1099_r_followup_type_for_filer).and_return 30_000
-        allow_any_instance_of(StateFileMdIntake).to receive(:is_filer_55_and_older?).and_return is_55_and_older
-      end
+    [:primary, :spouse].each do |filer|
+      context "when the taxable amount is higher than the age benefit amount" do
+        before do
+          allow_any_instance_of(StateFileMdIntake).to receive(:sum_1099_r_followup_type_for_filer).with(filer, :service_type_military?).and_return 30_000
+          allow_any_instance_of(StateFileMdIntake).to receive(:is_filer_55_and_older?).with(filer).and_return is_55_and_older
+        end
 
-      context "when the filer is older than 55" do
-        let(:is_55_and_older) { true }
-        it "returns 20,000" do
-          expect(instance.calculate_military_per_filer(:primary)).to eq(20_000)
-          expect(instance.calculate_military_per_filer(:spouse)).to eq(20_000)
+        context "when the filer is older than 55" do
+          let(:is_55_and_older) { true }
+          it "returns 20,000" do
+            expect(instance.calculate_military_per_filer(filer)).to eq(20_000)
+          end
+        end
+
+        context "when the filer is younger than 55" do
+          let(:is_55_and_older) { false }
+          it "returns 12,500" do
+            expect(instance.calculate_military_per_filer(filer)).to eq(12_500)
+          end
         end
       end
 
-      context "when the filer is younger than 55" do
-        let(:is_55_and_older) { false }
-        it "returns 12,500" do
-          expect(instance.calculate_military_per_filer(:primary)).to eq(12_500)
-          expect(instance.calculate_military_per_filer(:spouse)).to eq(12_500)
+      context "when the taxable amount is lower than the age benefit amount" do
+        before do
+          allow_any_instance_of(StateFileMdIntake).to receive(:sum_1099_r_followup_type_for_filer).with(filer, :service_type_military?).and_return 10_000
+          allow_any_instance_of(StateFileMdIntake).to receive(:is_filer_55_and_older?).with(filer).and_return false
         end
-      end
-    end
-
-    context "when the taxable amount is lower than the age benefit amount" do
-      before do
-        allow_any_instance_of(StateFileMdIntake).to receive(:sum_1099_r_followup_type_for_filer).and_return 10_000
-        allow_any_instance_of(StateFileMdIntake).to receive(:is_filer_55_and_older?).and_return false
-      end
-      it "returns the taxable amount" do
-        expect(instance.calculate_military_per_filer(:primary)).to eq(10_000)
-        expect(instance.calculate_military_per_filer(:spouse)).to eq(10_000)
+        it "returns the taxable amount" do
+          expect(instance.calculate_military_per_filer(filer)).to eq(10_000)
+        end
       end
     end
   end

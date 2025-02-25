@@ -1,0 +1,43 @@
+{
+  "familyAndHousehold": [],
+  "socialSecurityReports": [],
+  "filers": [
+    {
+      "lastName": "AmTrak",
+      "dateOfBirth": "1955-03-09",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "firstName": "High Interest Income",
+      "middleInitial": "J",
+      "educatorExpenses": "0.00",
+      "tin": "555-00-5555",
+      "interestReportsTotal": "248000.00",
+      "isDisabled": false,
+      "form1099GsTotal": "0.00",
+      "isStudent": false,
+      "ssnNotValidForEmployment": null,
+      "hsaTotalDeductibleAmount": null
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [
+    {
+      "usedTin": "555-00-5555",
+      "unionDuesAmount": null
+    }
+  ],
+  "interestReports": [
+    {
+      "has1099": true,
+      "taxExemptAndTaxCreditBondCusipNo": null,
+      "interestOnGovernmentBonds": "0.00",
+      "taxExemptInterest": "0.00",
+      "payerTin": null,
+      "payer": "Atlantic City Investments",
+      "recipientTin": "555-00-5555",
+      "taxWithheld": "0.00",
+      "no1099Amount": "124000.00",
+      "1099Amount": "124000.00"
+    }
+  ]
+}

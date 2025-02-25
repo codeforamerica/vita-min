@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>276e3bdf</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400004011</PrimarySSN>
+            <NameLine1Txt>AMBER&lt;MARCHESE</NameLine1Txt>
+            <PrimaryNameControlTxt>MARC</PrimaryNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>123 Main St</AddressLine1Txt>
+                <CityNm>Trenton</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>08611</ZIPCd>
+            </USAddress>
+            <PhoneNum>2015551234</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000401-18ff-486e-ab8b-da7f767fbcec@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="3">
+        <IRS1040 documentId="IRS10400001">
+            <IndividualReturnFilingStatusCd>1</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <PrimaryBlindInd>X</PrimaryBlindInd>
+            <TotalBoxesCheckedCnt>1</TotalBoxesCheckedCnt>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>1</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">500</WagesAmt>
+            <WagesSalariesAndTipsAmt>500</WagesSalariesAndTipsAmt>
+            <PensionsAnnuitiesAmt>98501</PensionsAnnuitiesAmt>
+            <TotalTaxablePensionsAmt>98500</TotalTaxablePensionsAmt>
+            <TotalIncomeAmt>99000</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>99000</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>16550</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>16550</TotalDeductionsAmt>
+            <TaxableIncomeAmt>82450</TaxableIncomeAmt>
+            <TaxAmt>13198</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>13198</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>13198</TaxLessCreditsAmt>
+            <TotalTaxAmt>13198</TotalTaxAmt>
+            <WithholdingTaxAmt>1000</WithholdingTaxAmt>
+            <TotalPaymentsAmt>1000</TotalPaymentsAmt>
+            <OwedAmt>12198</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Housewife</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1099R documentId="IRS1099R0001">
+            <PayerNameControlTxt>HOUS</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Housewife Retirement</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>10 Retirement Ave</AddressLine1Txt>
+                <CityNm>Trenton</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>08611</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>001000005</PayerEIN>
+            <RecipientSSN>400004011</RecipientSSN>
+            <RecipientNm>Amber Marchese</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>123 Main St</AddressLine1Txt>
+                <CityNm>Trenton</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>08611</ZIPCd>
+            </RecipientUSAddress>
+            <PayerRecipientAccountNum>agewe23875252-###</PayerRecipientAccountNum>
+            <GrossDistributionAmt>98501</GrossDistributionAmt>
+            <TaxableAmt>98500</TaxableAmt>
+            <FederalIncomeTaxWithheldAmt>1000</FederalIncomeTaxWithheldAmt>
+            <EmployeeContributionsAmt>50</EmployeeContributionsAmt>
+            <F1099RDistributionCd>7</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <TotalEmployeeContributionsAmt>20000</TotalEmployeeContributionsAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <DesignatedROTHAcctFirstYr>1985</DesignatedROTHAcctFirstYr>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <StateTaxWithheldAmt>800</StateTaxWithheldAmt>
+                    <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                    <PayerStateIdNum>3233 abc</PayerStateIdNum>
+                    <StateDistributionAmt>95000</StateDistributionAmt>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>400004011</EmployeeSSN>
+            <EmployerEIN>011919191</EmployerEIN>
+            <EmployerNameControlTxt>BRAV</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Bravo Inc</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>1 Main St</AddressLine1Txt>
+                <CityNm>Newark</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07112</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Amber Marchese</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>123 Main St</AddressLine1Txt>
+                <CityNm>Trenton</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>08611</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>500</WagesAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                    <EmployerStateIdNum>969696</EmployerStateIdNum>
+                    <StateWagesAmt>500</StateWagesAmt>
+                    <StateIncomeTaxAmt>100</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>
