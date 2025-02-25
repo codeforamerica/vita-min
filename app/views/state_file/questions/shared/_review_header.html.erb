@@ -30,6 +30,10 @@
       </div>
     </div>
   <% end %>
+
+  <% if @show_retirement_income_deductions %>
+    <%= render "state_file/questions/az_review/az_retirement_income_deductions_review_header" %>
+  <% end %>
 <% end %>
 
 <%= render "state_file/questions/shared/abstract_review_header" %>

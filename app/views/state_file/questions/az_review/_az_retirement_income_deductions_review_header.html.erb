@@ -1,0 +1,31 @@
+<div class="white-group" id="retirement-income-subtractions">
+  <div class="spacing-below-25">
+    <h2 class="text--body text--bold spacing-below-5"><%=t(".title") %></h2>
+    <p><%=t(".subtitle") %></p>
+  </div>
+
+  <div class="spacing-below-5">
+    <ul class="list--bulleted">
+      <% current_intake.state_file1099_rs.each do |ten_ninety_nine_r| %>
+        <p class="text--bold spacing-below-5">
+          <%= ten_ninety_nine_r.payer_name %>
+        </p>
+        <li>
+          <% case ten_ninety_nine_r&.state_specific_followup&.income_source %>
+          <% when "uniformed_services" %>
+            <%= t(".uniformed_services") %>
+          <% when "pension_plan" %>
+            <%= t(".government_pension") %>
+          <% else %>
+            <%= t(".none_apply") %>
+          <% end %>
+        </li>
+        <%= link_to StateFile::Questions::AzRetirementIncomeSubtractionController.to_path_helper(return_to_review: "y"), class: "button--small" do %>
+          <%= t("general.edit") %>
+          <span class="sr-only"><%= t("general.edit") %></span>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+</div>
+

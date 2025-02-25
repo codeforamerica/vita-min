@@ -2409,6 +2409,12 @@ es:
           uniformed_services: Pago de jubilación o retención de los servicios uniformados de los Estados Unidos
           which_pensions: "¿Qué pensiones gubernamentales califican?"
       az_review:
+        az_retirement_income_deductions_review_header:
+          government_pension: Qualifying federal, Arizona, or local government pension plan
+          none_apply: None apply
+          subtitle: These allow people to deduct all or a portion of their retirement income from their taxes.
+          title: Arizona retirement income deductions
+          uniformed_services: Retired or retainer pay of the uniformed services of the United States
         edit:
           armed_forces_member: Miembro de las Fuerzas Armadas de los Estados Unidos
           armed_forces_wages: Salario por servicio activo recibido como miembro de las Fuerzas Armadas de los Estados Unidos
