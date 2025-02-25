@@ -4,9 +4,11 @@ module StateFile
       before_action :check_feature_flag
       def current_archived_intake
         return unless session[:email_address].present?
-        StateFileArchivedIntake.where("LOWER(email_address) = LOWER(?)", session[:email_address])
-                               .first_or_create(email_address: session[:email_address].downcase)
+        email = session[:email_address].downcase
+        existing = StateFileArchivedIntake.find_by("LOWER(email_address) = ?", email)
+        existing || StateFileArchivedIntake.create(email_address: email)
       end
+
 
       def create_state_file_access_log(event_type)
         StateFileArchivedIntakeAccessLog.create!(

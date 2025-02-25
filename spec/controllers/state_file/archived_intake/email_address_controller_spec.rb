@@ -62,6 +62,20 @@ RSpec.describe StateFile::ArchivedIntakes::EmailAddressController, type: :contro
                                 state_file_archived_intakes_edit_verification_code_path
                               )
         end
+
+        it "resets verification session variables sets the email address" do
+          post :update, params: {
+            state_file_archived_intakes_email_address_form: { email_address: "new@example.com" }
+          }
+
+          expect(assigns(:form)).to be_valid
+
+          expect(session[:ssn_verified]).to be(false)
+          expect(session[:mailing_verified]).to be(false)
+          expect(session[:code_verified]).to be(false)
+
+          expect(session[:email_address]).to eq("new@example.com")
+        end
       end
 
       context "and an archived intake does not exist with the email address" do
@@ -83,6 +97,20 @@ RSpec.describe StateFile::ArchivedIntakes::EmailAddressController, type: :contro
           expect(response).to redirect_to(
                                 state_file_archived_intakes_edit_verification_code_path
                               )
+        end
+
+        it "resets verification session variables and sets email" do
+          post :update, params: {
+            state_file_archived_intakes_email_address_form: { email_address: valid_email_address }
+          }
+
+          expect(assigns(:form)).to be_valid
+
+          expect(session[:ssn_verified]).to be(false)
+          expect(session[:mailing_verified]).to be(false)
+          expect(session[:code_verified]).to be(false)
+
+          expect(session[:email_address]).to eq(valid_email_address)
         end
       end
     end

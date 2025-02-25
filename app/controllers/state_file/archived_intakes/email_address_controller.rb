@@ -10,6 +10,9 @@ module StateFile
         @form = EmailAddressForm.new(email_address_form_params)
 
         if @form.valid?
+          session[:ssn_verified] = false
+          session[:mailing_verified] = false
+          session[:code_verified] = false
           session[:email_address] = @form.email_address
           create_state_file_access_log("issued_email_challenge")
 

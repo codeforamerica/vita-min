@@ -3,8 +3,7 @@ require 'rails_helper'
 describe StateFile::ArchivedIntakes::ArchivedIntakeController, type: :controller do
   let(:ip_address) { '192.168.0.1' }
   let(:email_address) { 'test@example.com' }
-  let(:archived_intake) {create :state_file_archived_intake}
-  let!(:request_instance) { create :state_file_archived_intake_request, ip_address: ip_address, email_address: email_address, state_file_archived_intake: archived_intake }
+  let!(:archived_intake) {create :state_file_archived_intake, email_address: email_address}
   before do
     allow(controller).to receive(:ip_for_irs).and_return(ip_address)
     session[:email_address] = email_address
@@ -12,42 +11,33 @@ describe StateFile::ArchivedIntakes::ArchivedIntakeController, type: :controller
 
   describe '#current_request' do
     it 'finds the StateFileArchivedIntakeRequest by IP and email address' do
-      expect(controller.current_request).to eq(request_instance)
+      expect(controller.current_archived_intake).to eq(archived_intake)
     end
 
-    it 'returns nil if no request is found' do
-      session[:email_address] = "non_existent_email@bad.com"
-      expect(Rails.logger).to receive(:warn).with("StateFileArchivedIntakeRequest not found for IP: #{ip_address}, Email: non_existent_email@bad.com")
-      expect(Sentry).to receive(:capture_message).with("StateFileArchivedIntakeRequest not found for IP: #{ip_address}, Email: non_existent_email@bad.com")
-
-      expect(controller.current_request).to be_nil
-    end
 
     it 'matches email case insensitively' do
       session[:email_address] = 'TeSt@ExAmPlE.cOm'
 
-      expect(controller.current_request).to eq(request_instance)
-    end
-  end
-
-  describe '#current_archived_intake' do
-    it 'finds the StateFileArchivedIntakeRequest by IP and email address' do
       expect(controller.current_archived_intake).to eq(archived_intake)
     end
 
-    context 'when a request does not have an intake' do
-      let!(:request_instance) { create :state_file_archived_intake_request, ip_address: ip_address, email_address: email_address }
-      it 'returns nil if no intake is found' do
-        expect(controller.current_archived_intake).to be_nil
-      end
+    it 'creates a new StateFileArchivedIntake when an email does not exist' do
+      session[:email_address] = "new_email@domain.com"
+
+      expect {
+        @new_archived_intake = controller.current_archived_intake
+      }.to change { StateFileArchivedIntake.count }.by(1)
+
+      expect(@new_archived_intake.email_address).to eq("new_email@domain.com")
     end
   end
+
 
   describe '#create_state_file_access_log' do
     let(:event_type) { 'incorrect_ssn_challenge' }
 
     before do
-      allow(controller).to receive(:current_request).and_return(request_instance)
+      allow(controller).to receive(:current_archived_intake).and_return(archived_intake)
     end
 
     it 'creates a StateFileArchivedIntakeAccessLog with the correct attributes' do
@@ -55,20 +45,7 @@ describe StateFile::ArchivedIntakes::ArchivedIntakeController, type: :controller
 
       expect(result).to be_a(StateFileArchivedIntakeAccessLog)
       expect(result.event_type).to eq event_type
-      expect(result.state_file_archived_intake_request).to eq request_instance
-    end
-
-    context 'when current return is nil' do
-      before do
-        allow(controller).to receive(:current_request).and_return(nil)
-      end
-      it 'create a StateFileArchivedIntakeAccessLog' do
-        result = controller.create_state_file_access_log(event_type)
-
-        expect(result).to be_a(StateFileArchivedIntakeAccessLog)
-        expect(result.event_type).to eq event_type
-        expect(result.state_file_archived_intake_request).to eq nil
-      end
+      expect(result.state_file_archived_intake).to eq archived_intake
     end
 
     describe '#check_feature_flag' do
@@ -97,13 +74,12 @@ describe StateFile::ArchivedIntakes::ArchivedIntakeController, type: :controller
 
     describe '#is_request_locked' do
       before do
-        allow(controller).to receive(:current_request).and_return(request_instance)
         allow(controller).to receive(:current_archived_intake).and_return(archived_intake)
       end
 
       context 'when the request is nil' do
         before do
-          allow(controller).to receive(:current_request).and_return(nil)
+          allow(controller).to receive(:current_archived_intake).and_return(nil)
         end
 
         it 'redirects to verification error page' do
@@ -114,7 +90,7 @@ describe StateFile::ArchivedIntakes::ArchivedIntakeController, type: :controller
 
       context 'when the request is locked' do
         before do
-          allow(request_instance).to receive(:access_locked?).and_return(true)
+          allow(archived_intake).to receive(:access_locked?).and_return(true)
         end
 
         it 'redirects to verification error page' do
@@ -136,7 +112,7 @@ describe StateFile::ArchivedIntakes::ArchivedIntakeController, type: :controller
 
       context 'when the request is valid and not locked' do
         before do
-          allow(request_instance).to receive(:access_locked?).and_return(false)
+          allow(archived_intake).to receive(:access_locked?).and_return(false)
           allow(archived_intake).to receive(:permanently_locked_at).and_return(nil)
         end
 
