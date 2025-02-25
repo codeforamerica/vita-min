@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_02_05_160115) do
+ActiveRecord::Schema[7.1].define(version: 2025_02_25_013409) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1349,6 +1349,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_05_160115) do
     t.integer "made_estimated_tax_payments", default: 0, null: false
     t.decimal "made_estimated_tax_payments_amount", precision: 12, scale: 2
     t.integer "married", default: 0, null: false
+    t.integer "married_for_all_of_tax_year", default: 0, null: false
     t.bigint "matching_previous_year_intake_id"
     t.integer "multiple_states", default: 0, null: false
     t.boolean "navigator_has_verified_client_identity"
@@ -1421,6 +1422,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_05_160115) do
     t.integer "refund_check_by_mail"
     t.integer "refund_direct_deposit"
     t.string "refund_other"
+    t.integer "refund_other_cb", default: 0, null: false
     t.integer "refund_payment_method", default: 0, null: false
     t.integer "register_to_vote", default: 0, null: false
     t.integer "reported_asset_sale_loss", default: 0, null: false
@@ -1805,6 +1807,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_05_160115) do
     t.string "mailing_state"
     t.string "mailing_street"
     t.string "mailing_zip"
+    t.datetime "permanently_locked_at"
     t.string "state_code"
     t.integer "tax_year"
     t.datetime "updated_at", null: false
@@ -1945,6 +1948,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_05_160115) do
 
   create_table "state_file_id1099_r_followups", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.integer "eligible_income_source", default: 0, null: false
     t.datetime "updated_at", null: false
   end
 
@@ -1992,6 +1996,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_05_160115) do
     t.string "phone_number"
     t.datetime "phone_number_verified_at"
     t.date "primary_birth_date"
+    t.integer "primary_disabled", default: 0, null: false
     t.integer "primary_esigned", default: 0, null: false
     t.datetime "primary_esigned_at"
     t.string "primary_first_name"
@@ -2011,6 +2016,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_05_160115) do
     t.string "source"
     t.decimal "special_olympics_donation", precision: 12, scale: 2
     t.date "spouse_birth_date"
+    t.integer "spouse_disabled", default: 0, null: false
     t.integer "spouse_esigned", default: 0, null: false
     t.datetime "spouse_esigned_at"
     t.string "spouse_first_name"
@@ -2106,7 +2112,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_05_160115) do
     t.string "primary_middle_initial"
     t.string "primary_signature"
     t.text "primary_signature_pin"
-    t.decimal "primary_ssb_amount", precision: 12, scale: 2, default: "0.0", null: false
     t.string "primary_ssn"
     t.bigint "primary_state_id_id"
     t.decimal "primary_student_loan_interest_ded_amount", precision: 12, scale: 2, default: "0.0", null: false
@@ -2129,7 +2134,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_05_160115) do
     t.string "spouse_last_name"
     t.string "spouse_middle_initial"
     t.text "spouse_signature_pin"
-    t.decimal "spouse_ssb_amount", precision: 12, scale: 2, default: "0.0", null: false
     t.string "spouse_ssn"
     t.bigint "spouse_state_id_id"
     t.decimal "spouse_student_loan_interest_ded_amount", precision: 12, scale: 2, default: "0.0", null: false

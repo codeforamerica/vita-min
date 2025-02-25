@@ -69,6 +69,12 @@ class DirectFileJsonData
     json_accessor recipient_tin: { type: :string, key: "recipientTin" }
   end
 
+  class DfJsonSocialSecurityReport < DfJsonWrapper
+    json_accessor recipient_tin: { type: :string, key: "recipientTin" }
+    json_accessor form_type: { type: :string, key: "formType" }
+    json_accessor net_benefits: { type: :money_amount, key: "netBenefits" }
+  end
+
   attr_reader :data
   delegate :to_json, to: :data
 
@@ -84,6 +90,14 @@ class DirectFileJsonData
     filers.find { |filer| !filer.is_primary_filer }
   end
 
+  def primary_filer_social_security_benefit_amount
+    social_security_benefit_amount_for(primary_filer)
+  end
+
+  def spouse_filer_social_security_benefit_amount
+    social_security_benefit_amount_for(spouse_filer)
+  end
+
   def find_matching_json_dependent(dependent)
     dependents.find do |json_dependent|
       next unless json_dependent.present?
@@ -94,6 +108,10 @@ class DirectFileJsonData
       next unless json_tin && xml_ssn
       json_tin == xml_ssn
     end
+  end
+
+  def social_security_reports
+    data["socialSecurityReports"]&.map { |social_security_report| DfJsonSocialSecurityReport.new(social_security_report) } || []
   end
 
   def interest_reports
@@ -111,4 +129,11 @@ class DirectFileJsonData
   def dependents
     data["familyAndHousehold"]&.map { |dependent| DfJsonDependent.new(dependent) } || []
   end
+
+  private
+
+  def social_security_benefit_amount_for(filer)
+    social_security_reports.filter { |social_security_report| social_security_report.recipient_tin == filer.tin }.sum(&:net_benefits)
+  end
+
 end

@@ -150,7 +150,7 @@ describe Efile::Md::Md502RCalculator do
       let(:filing_status) { "married_filing_jointly" }
       before do
         allow(intake.direct_file_data).to receive(:fed_ssb).and_return(100)
-        intake.primary_ssb_amount = 600.32
+        allow(intake.direct_file_json_data).to receive(:primary_filer_social_security_benefit_amount).and_return(600.32)
         main_calculator.calculate
       end
 
@@ -182,7 +182,7 @@ describe Efile::Md::Md502RCalculator do
 
       before do
         allow(intake.direct_file_data).to receive(:fed_ssb).and_return(100)
-        intake.spouse_ssb_amount = 400.34
+        allow(intake.direct_file_json_data).to receive(:spouse_filer_social_security_benefit_amount).and_return(400.34)
         main_calculator.calculate
       end
 
