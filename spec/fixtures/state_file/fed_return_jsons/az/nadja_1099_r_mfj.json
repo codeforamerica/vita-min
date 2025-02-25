@@ -1,0 +1,40 @@
+{
+  "familyAndHousehold": [],
+  "filers": [
+    {
+      "lastName": "Cravensworth",
+      "dateOfBirth": "1950-08-05",
+      "suffix": null,
+      "isPrimaryFiler": false,
+      "firstName": "Laszlo",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "400-00-2107",
+      "interestReportsTotal": "0.00",
+      "isDisabled": false,
+      "form1099GsTotal": "0.00",
+      "isStudent": false,
+      "ssnNotValidForEmployment": null,
+      "hsaTotalDeductibleAmount": null
+    },
+    {
+      "lastName": "Shadows",
+      "dateOfBirth": "1955-07-01",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "firstName": "Nadja",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "400-00-2106",
+      "interestReportsTotal": "0.00",
+      "isDisabled": false,
+      "form1099GsTotal": "0.00",
+      "isStudent": false,
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [],
+  "interestReports": []
+}
