@@ -3,45 +3,37 @@ module StateFile
     set_attributes_for :intake, :primary_disabled, :spouse_disabled, :primary_proof_of_disability_submitted, :spouse_proof_of_disability_submitted
 
     attr_accessor :mfj_disability
-    validates_presence_of :mfj_disability, if: -> { intake.filing_status_mfj?}
+    validates_presence_of :mfj_disability, if: -> { intake.filing_status_mfj? }
     validates :primary_disabled, inclusion: { in: %w[yes no], message: :blank }, unless: -> { intake.filing_status_mfj? }
-    # no skipping the validation if they're a senior
-    validates :primary_proof_of_disability_submitted, inclusion: { in: %w[yes no], message: :blank }, if: :primary_disability_selected?
-    validates :spouse_proof_of_disability_submitted, inclusion: { in: %w[yes no], message: :blank }, if: :spouse_disability_selected?
-    validates :primary_proof_of_disability_submitted, inclusion: { in: %w[yes no], message: :blank }, if: -> { primary_disabled == "yes" }
-    validates :spouse_proof_of_disability_submitted, inclusion: { in: %w[yes no], message: :blank }, if: -> { spouse_disabled == "yes" }
-
+    validates :primary_proof_of_disability_submitted, inclusion: { in: %w[yes no], message: :blank }, if: :primary_requires_proof?
+    validates :spouse_proof_of_disability_submitted, inclusion: { in: %w[yes no], message: :blank }, if: :spouse_requires_proof?
 
     def save
-      if intake.filing_status_mfj?
-        case mfj_disability
-        when "me"
-          @intake.update(primary_disabled: "yes", spouse_disabled: "no",  primary_proof_of_disability_submitted: primary_proof_of_disability_submitted)
-        when "spouse"
-          @intake.update(primary_disabled: "no", spouse_disabled: "yes", spouse_proof_of_disability_submitted: spouse_proof_of_disability_submitted)
-        when "both"
-          @intake.update(primary_disabled: "yes", spouse_disabled: "yes", primary_proof_of_disability_submitted: primary_proof_of_disability_submitted, spouse_proof_of_disability_submitted: spouse_proof_of_disability_submitted)
-        when "none"
-          @intake.update(primary_disabled: "no", spouse_disabled: "no", primary_proof_of_disability_submitted: nil, spouse_proof_of_disability_submitted: nil)
-        end
-      elsif primary_disabled == "no"
-        @intake.update(
-            primary_disabled: "no",
-            primary_proof_of_disability_submitted: nil
-          )
-      else
-        @intake.update(attributes_for(:intake))
+      attributes_to_save = attributes_for(:intake)
+      if mfj_disability.present?
+        attributes_to_save = case mfj_disability
+                             when "primary"
+                               attributes_to_save.merge(primary_disabled: "yes", spouse_disabled: "no")
+                             when "spouse"
+                               attributes_to_save.merge(primary_disabled: "no", spouse_disabled: "yes")
+                             when "both"
+                               attributes_to_save.merge(primary_disabled: "yes", spouse_disabled: "yes")
+                             when "none"
+                               attributes_to_save.merge(primary_disabled: "no", spouse_disabled: "no")
+                             end
       end
+
+      @intake.update(attributes_to_save)
     end
 
     private
 
-    def primary_disability_selected?
-      (mfj_disability.in?(%w[me both]) || primary_disabled == "yes") && !(intake.primary_senior? || intake.spouse_senior?)
+    def primary_requires_proof?
+      (mfj_disability.in?(%w[primary both]) || primary_disabled == "yes") && !intake.primary_senior?
     end
 
-    def spouse_disability_selected?
-      mfj_disability.in?(%w[spouse both]) && !(intake.primary_senior? || intake.spouse_senior?)
+    def spouse_requires_proof?
+      mfj_disability.in?(%w[spouse both]) && !intake.spouse_senior?
     end
   end
 end
