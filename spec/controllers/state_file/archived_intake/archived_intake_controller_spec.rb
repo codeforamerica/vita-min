@@ -47,79 +47,79 @@ describe StateFile::ArchivedIntakes::ArchivedIntakeController, type: :controller
       expect(result.event_type).to eq event_type
       expect(result.state_file_archived_intake).to eq archived_intake
     end
+  end
 
-    describe '#check_feature_flag' do
-      context 'when the feature flag is enabled' do
-        before do
-          allow(Flipper).to receive(:enabled?).with(:get_your_pdf).and_return(true)
-        end
-
-        it 'does not redirect' do
-          expect(controller).not_to receive(:redirect_to)
-          controller.check_feature_flag
-        end
+  describe '#check_feature_flag' do
+    context 'when the feature flag is enabled' do
+      before do
+        allow(Flipper).to receive(:enabled?).with(:get_your_pdf).and_return(true)
       end
 
-      context 'when the feature flag is disabled' do
-        before do
-          allow(Flipper).to receive(:enabled?).with(:get_your_pdf).and_return(false)
-        end
-
-        it 'redirects to the root path' do
-          expect(controller).to receive(:redirect_to).with(root_path)
-          controller.check_feature_flag
-        end
+      it 'does not redirect' do
+        expect(controller).not_to receive(:redirect_to)
+        controller.check_feature_flag
       end
     end
 
-    describe '#is_intake_locked' do
+    context 'when the feature flag is disabled' do
       before do
-        allow(controller).to receive(:current_archived_intake).and_return(archived_intake)
+        allow(Flipper).to receive(:enabled?).with(:get_your_pdf).and_return(false)
       end
 
-      context 'when the request is nil' do
-        before do
-          allow(controller).to receive(:current_archived_intake).and_return(nil)
-        end
+      it 'redirects to the root path' do
+        expect(controller).to receive(:redirect_to).with(root_path)
+        controller.check_feature_flag
+      end
+    end
+  end
 
-        it 'redirects to verification error page' do
-          expect(controller).to receive(:redirect_to).with(state_file_archived_intakes_verification_error_path)
-          controller.is_request_locked
-        end
+  describe '#is_intake_locked' do
+    before do
+      allow(controller).to receive(:current_archived_intake).and_return(archived_intake)
+    end
+
+    context 'when the request is nil' do
+      before do
+        allow(controller).to receive(:current_archived_intake).and_return(nil)
       end
 
-      context 'when the request is locked' do
-        before do
-          allow(archived_intake).to receive(:access_locked?).and_return(true)
-        end
+      it 'redirects to verification error page' do
+        expect(controller).to receive(:redirect_to).with(state_file_archived_intakes_verification_error_path)
+        controller.is_intake_locked
+      end
+    end
 
-        it 'redirects to verification error page' do
-          expect(controller).to receive(:redirect_to).with(state_file_archived_intakes_verification_error_path)
-          controller.is_request_locked
-        end
+    context 'when the request is locked' do
+      before do
+        allow(archived_intake).to receive(:access_locked?).and_return(true)
       end
 
-      context 'when the archived intake is permanently locked' do
-        before do
-          allow(archived_intake).to receive(:permanently_locked_at).and_return(Time.current)
-        end
+      it 'redirects to verification error page' do
+        expect(controller).to receive(:redirect_to).with(state_file_archived_intakes_verification_error_path)
+        controller.is_intake_locked
+      end
+    end
 
-        it 'redirects to verification error page' do
-          expect(controller).to receive(:redirect_to).with(state_file_archived_intakes_verification_error_path)
-          controller.is_request_locked
-        end
+    context 'when the archived intake is permanently locked' do
+      before do
+        allow(archived_intake).to receive(:permanently_locked_at).and_return(Time.current)
       end
 
-      context 'when the request is valid and not locked' do
-        before do
-          allow(archived_intake).to receive(:access_locked?).and_return(false)
-          allow(archived_intake).to receive(:permanently_locked_at).and_return(nil)
-        end
+      it 'redirects to verification error page' do
+        expect(controller).to receive(:redirect_to).with(state_file_archived_intakes_verification_error_path)
+        controller.is_intake_locked
+      end
+    end
 
-        it 'does not redirect' do
-          expect(controller).not_to receive(:redirect_to)
-          controller.is_request_locked
-        end
+    context 'when the request is valid and not locked' do
+      before do
+        allow(archived_intake).to receive(:access_locked?).and_return(false)
+        allow(archived_intake).to receive(:permanently_locked_at).and_return(nil)
+      end
+
+      it 'does not redirect' do
+        expect(controller).not_to receive(:redirect_to)
+        controller.is_intake_locked
       end
     end
   end

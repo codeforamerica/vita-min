@@ -8,7 +8,7 @@ RSpec.describe StateFile::ArchivedIntakes::PdfsController, type: :controller do
 
   before do
     Flipper.enable(:get_your_pdf)
-    allow(controller).to receive(:current_request).and_return(current_request)
+    allow(controller).to receive(:current_archived_intake).and_return(archived_intake)
     allow(I18n).to receive(:locale).and_return(:en)
     session[:email_address] = true
     session[:code_verified] = true

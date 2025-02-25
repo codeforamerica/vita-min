@@ -51,8 +51,6 @@ class StateFileArchivedIntake < ApplicationRecord
 
   private
 
-  private
-
   # this is here because we don't want people to get new fake addresses if they refresh the page or return with a new session
   def populate_fake_addresses
     self.fake_address_1, self.fake_address_2 = fetch_random_addresses
@@ -65,7 +63,7 @@ class StateFileArchivedIntake < ApplicationRecord
       else
         bucket = select_bucket
 
-        file_key = Rails.env.production? ? "#{state_file_archived_intake.mailing_state.downcase}_addresses.csv" : 'non_prod_addresses.csv'
+        file_key = Rails.env.production? ? "#{mailing_state.downcase}_addresses.csv" : 'non_prod_addresses.csv'
 
         file_path = File.join(Rails.root, "tmp", File.basename(file_key))
 
