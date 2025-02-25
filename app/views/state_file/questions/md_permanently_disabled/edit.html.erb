@@ -16,7 +16,7 @@
               { value: "me", label: t(".yes_me"), input_html: { "data-follow-up": "#disability-proof" } },
               { value: "spouse", label: t(".yes_spouse"), input_html: { "data-follow-up": "#disability-proof" } },
               { value: "both", label: t(".yes_both"), input_html: { "data-follow-up": "#disability-proof" } },
-              { value: "no", label: t(".no_neither") }
+              { value: "none", label: t(".no_neither") }
             ]) %>
           <% else %>
             <%= f.cfa_radio_set(:primary_disabled, collection: [
@@ -44,6 +44,9 @@
       </div>
     </div>
 
+    <% if params[:return_to_review].present? %>
+      <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
+    <% end %>
     <%= f.continue %>
   <% end %>
 <% end %>

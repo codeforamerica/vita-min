@@ -209,7 +209,7 @@
 #  made_estimated_tax_payments                          :integer          default("unfilled"), not null
 #  made_estimated_tax_payments_amount                   :decimal(12, 2)
 #  married                                              :integer          default("unfilled"), not null
-#  married_for_all_of_tax_year                          :integer          default(0), not null
+#  married_for_all_of_tax_year                          :integer          default("unfilled"), not null
 #  multiple_states                                      :integer          default("unfilled"), not null
 #  navigator_has_verified_client_identity               :boolean
 #  navigator_name                                       :string
@@ -280,7 +280,7 @@
 #  refund_check_by_mail                                 :integer
 #  refund_direct_deposit                                :integer
 #  refund_other                                         :string
-#  refund_other_cb                                      :integer          default(0), not null
+#  refund_other_cb                                      :integer          default("unfilled"), not null
 #  refund_payment_method                                :integer          default("unfilled"), not null
 #  register_to_vote                                     :integer          default("unfilled"), not null
 #  reported_asset_sale_loss                             :integer          default("unfilled"), not null
@@ -454,6 +454,7 @@ class Intake::GyrIntake < Intake
   enum lived_with_spouse: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :lived_with_spouse
   enum made_estimated_tax_payments: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :made_estimated_tax_payments
   enum married: { unfilled: 0, yes: 1, no: 2 }, _prefix: :married
+  enum married_for_all_of_tax_year: { unfilled: 0, yes: 1, no: 2 }, _prefix: :married_for_all_of_tax_year
   enum multiple_states: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :multiple_states
   enum needs_help_2016: { unfilled: 0, yes: 1, no: 2 }, _prefix: :needs_help_2016 # TODO: drop this column, it's not populated on anything in `intakes`
   enum needs_help_2018: { unfilled: 0, yes: 1, no: 2 }, _prefix: :needs_help_2018
@@ -487,6 +488,7 @@ class Intake::GyrIntake < Intake
   enum received_stimulus_payment: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :received_stimulus_payment
   enum refund_check_by_mail: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :refund_check_by_mail
   enum refund_direct_deposit: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :refund_direct_deposit
+  enum refund_other_cb: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :refund_other_cb
   enum reported_asset_sale_loss: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :reported_asset_sale_loss
   enum reported_self_employment_loss: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :reported_self_employment_loss
   enum satisfaction_face: { unfilled: 0, positive: 1, neutral: 2, negative: 3 }, _prefix: :satisfaction_face

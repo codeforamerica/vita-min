@@ -39,7 +39,7 @@ module SubmissionBuilder
           xml.StateTaxWithheldAmt form1099g.state_income_tax_withheld_amount&.round
           xml.StateAbbreviationCd state_abbreviation
           if form1099g.state_identification_number.present?
-            xml.PayerStateIdNumber form1099g.state_identification_number
+            xml.PayerStateIdNumber sanitize_for_xml(form1099g.state_identification_number)
           end
         end
       end

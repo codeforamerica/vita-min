@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.describe StateFile::Questions::AzPriorLastNamesController do
+  it_behaves_like :df_data_required, true, :az
+
   let(:intake) { create :state_file_az_intake }
   before do
     sign_in intake

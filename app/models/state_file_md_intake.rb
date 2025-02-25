@@ -216,22 +216,6 @@ class StateFileMdIntake < StateFileBaseIntake
     end
   end
 
-  def filer_1099_rs(primary_or_spouse)
-    state_file1099_rs.filter do |state_file_1099_r|
-      state_file_1099_r.recipient_ssn == send(primary_or_spouse).ssn
-    end
-  end
-
-  def sum_1099_r_followup_type_for_filer(primary_or_spouse, followup_type)
-    filer_1099_rs(primary_or_spouse).sum do |state_file_1099_r|
-      if state_file_1099_r.state_specific_followup&.send(followup_type)
-        state_file_1099_r.taxable_amount&.round
-      else
-        0
-      end
-    end
-  end
-
   def sum_two_1099_r_followup_types_for_filer(primary_or_spouse, income_source, service_type)
     filer_1099_rs(primary_or_spouse).sum do |state_file_1099_r|
       state_specific_followup = state_file_1099_r.state_specific_followup
@@ -253,6 +237,18 @@ class StateFileMdIntake < StateFileBaseIntake
 
   def allows_refund_amount_in_xml?
     false
+  end
+
+  def at_least_one_disabled_filer_with_proof?
+    if filing_status_mfj?
+      (primary_disabled_yes? || spouse_disabled_yes?) && proof_of_disability_submitted_yes?
+    else
+      primary_disabled_yes? && proof_of_disability_submitted_yes?
+    end
+  end
+
+  def qualifies_for_pension_exclusion?(filer)
+    send("#{filer}_senior?".to_sym) || at_least_one_disabled_filer_with_proof?
   end
 
   def has_banking_information_in_financial_resolution?

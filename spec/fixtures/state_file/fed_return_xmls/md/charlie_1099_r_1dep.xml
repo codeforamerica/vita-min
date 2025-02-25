@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>4be83768</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400001957</PrimarySSN>
+            <NameLine1Txt>CHARLIE&lt;XCX</NameLine1Txt>
+            <PrimaryNameControlTxt>XCX</PrimaryNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>321 Von Dutch Blvd Apt 360</AddressLine1Txt>
+                <CityNm>Baltimore</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21223</ZIPCd>
+            </USAddress>
+            <PhoneNum>2225554444</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000195-7af7-435c-b677-0353f11d3652@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="7">
+        <IRS1040 documentId="IRS10400001">
+            <Form1040SRInd>X</Form1040SRInd>
+            <IndividualReturnFilingStatusCd>4</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <Primary65OrOlderInd>X</Primary65OrOlderInd>
+            <TotalBoxesCheckedCnt>1</TotalBoxesCheckedCnt>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <DependentDetail>
+                <DependentFirstNm>Brad</DependentFirstNm>
+                <DependentLastNm>Apple</DependentLastNm>
+                <DependentNameControlTxt>APPL</DependentNameControlTxt>
+                <DependentSSN>400003044</DependentSSN>
+                <DependentRelationshipCd>NEPHEW</DependentRelationshipCd>
+                <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+            </DependentDetail>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>1</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>2</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">20000</WagesAmt>
+            <WagesSalariesAndTipsAmt>20000</WagesSalariesAndTipsAmt>
+            <TaxableInterestAmt>50</TaxableInterestAmt>
+            <PensionsAnnuitiesAmt>25000</PensionsAnnuitiesAmt>
+            <TotalTaxablePensionsAmt>15000</TotalTaxablePensionsAmt>
+            <TotalIncomeAmt>35050</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>35050</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>23850</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>23850</TotalDeductionsAmt>
+            <TaxableIncomeAmt>11200</TaxableIncomeAmt>
+            <TaxAmt>1123</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>1123</TotalTaxBeforeCrAndOthTaxesAmt>
+            <CTCODCAmt>643</CTCODCAmt>
+            <TotalNonrefundableCreditsAmt>480</TotalNonrefundableCreditsAmt>
+            <TotalCreditsAmt>1123</TotalCreditsAmt>
+            <TaxLessCreditsAmt>0</TaxLessCreditsAmt>
+            <TotalTaxAmt>0</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>1000</FormW2WithheldTaxAmt>
+            <WithholdingTaxAmt>2500</WithholdingTaxAmt>
+            <EarnedIncomeCreditAmt referenceDocumentId="IRSEIC0001" referenceDocumentName="IRS1040ScheduleEIC">2239</EarnedIncomeCreditAmt>
+            <AdditionalChildTaxCreditAmt referenceDocumentId="IRS8812001" referenceDocumentName="IRS1040Schedule8812">1357</AdditionalChildTaxCreditAmt>
+            <RefundableCreditsAmt>3596</RefundableCreditsAmt>
+            <TotalPaymentsAmt>6096</TotalPaymentsAmt>
+            <OverpaidAmt>6096</OverpaidAmt>
+            <RefundAmt>6096</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Party Planner</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1040Schedule3 documentId="IRS1040S3001">
+            <CreditForChildAndDepdCareAmt referenceDocumentId="IRS2441001" referenceDocumentName="IRS2441">480</CreditForChildAndDepdCareAmt>
+            <TotalNonrefundableCreditsAmt>480</TotalNonrefundableCreditsAmt>
+        </IRS1040Schedule3>
+        <IRS1040Schedule8812 documentId="IRS8812001" documentName="IRS1040Schedule8812">
+            <AdjustedGrossIncomeAmt>35050</AdjustedGrossIncomeAmt>
+            <ModifiedAGIAmt>35050</ModifiedAGIAmt>
+            <QlfyChildUnderAgeSSNCnt>1</QlfyChildUnderAgeSSNCnt>
+            <QlfyChildUnderAgeSSNLimtAmt>2000</QlfyChildUnderAgeSSNLimtAmt>
+            <OtherDependentCnt>0</OtherDependentCnt>
+            <InitialCTCODCAmt>2000</InitialCTCODCAmt>
+            <FilingStatusThresholdCd>200000</FilingStatusThresholdCd>
+            <ExcessAdjGrossIncomeAmt>0</ExcessAdjGrossIncomeAmt>
+            <ModifiedAGIPhaseOutAmt>0</ModifiedAGIPhaseOutAmt>
+            <CTCODCOverAGILimitInd>true</CTCODCOverAGILimitInd>
+            <CTCODCAfterAGILimitAmt>2000</CTCODCAfterAGILimitAmt>
+            <ACTCTaxLiabiltyLimitAmt>643</ACTCTaxLiabiltyLimitAmt>
+            <CTCODCAmt>643</CTCODCAmt>
+            <ClaimACTCAllFilersGrp>
+                <ACTCBeforeLimitAmt>1357</ACTCBeforeLimitAmt>
+                <QlfyChildUnderAgeSSNCnt>1</QlfyChildUnderAgeSSNCnt>
+                <QlfyChildUnderAgeSSNLimtAmt>1700</QlfyChildUnderAgeSSNLimtAmt>
+                <ACTCAfterLimitAmt>1357</ACTCAfterLimitAmt>
+                <TotalEarnedIncomeAmt>20000</TotalEarnedIncomeAmt>
+                <EarnedIncmMoreThanSpecifiedInd>true</EarnedIncmMoreThanSpecifiedInd>
+                <NetTotalEarnedIncomeAmt>17500</NetTotalEarnedIncomeAmt>
+                <NetEarnedIncomeCalculatedAmt>2625</NetEarnedIncomeCalculatedAmt>
+                <ThreeOrMoreQlfyChildrenInd>false</ThreeOrMoreQlfyChildrenInd>
+            </ClaimACTCAllFilersGrp>
+            <AdditionalChildTaxCreditAmt>1357</AdditionalChildTaxCreditAmt>
+        </IRS1040Schedule8812>
+        <IRS1040ScheduleEIC documentId="IRSEIC0001" documentName="IRS1040ScheduleEIC">
+            <QualifyingChildInformation>
+                <QualifyingChildNameControlTxt>APPL</QualifyingChildNameControlTxt>
+                <ChildFirstAndLastName>
+                    <PersonFirstNm>Brad</PersonFirstNm>
+                    <PersonLastNm>Apple</PersonLastNm>
+                </ChildFirstAndLastName>
+                <QualifyingChildSSN>400003044</QualifyingChildSSN>
+                <ChildBirthYr>2019</ChildBirthYr>
+                <ChildRelationshipCd>NEPHEW</ChildRelationshipCd>
+                <MonthsChildLivedWithYouCnt>12</MonthsChildLivedWithYouCnt>
+            </QualifyingChildInformation>
+        </IRS1040ScheduleEIC>
+        <IRS1099R documentId="IRS1099R0001">
+            <PayerNameControlTxt>SONG</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Song of the summer fund</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>123 main street</AddressLine1Txt>
+                <CityNm>baltimore</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21223</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>823967259</PayerEIN>
+            <RecipientSSN>400001957</RecipientSSN>
+            <RecipientNm>Charlie XCX</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>321 Von Dutch Blvd</AddressLine1Txt>
+                <AddressLine2Txt>Apt 360</AddressLine2Txt>
+                <CityNm>Baltimore</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21223</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>25000</GrossDistributionAmt>
+            <TaxableAmt>15000</TaxableAmt>
+            <FederalIncomeTaxWithheldAmt>1500</FederalIncomeTaxWithheldAmt>
+            <F1099RDistributionCd>7</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRS2441 documentId="IRS2441001" documentName="IRS2441">
+            <CareProviderGrp>
+                <CareProviderBusinessName>
+                    <BusinessNameLine1Txt>Busy Bee</BusinessNameLine1Txt>
+                </CareProviderBusinessName>
+                <CareProviderBusNameControlTxt>BUSY</CareProviderBusNameControlTxt>
+                <USAddress>
+                    <AddressLine1Txt>123 main street</AddressLine1Txt>
+                    <CityNm>Denver</CityNm>
+                    <StateAbbreviationCd>CO</StateAbbreviationCd>
+                    <ZIPCd>80212</ZIPCd>
+                </USAddress>
+                <EIN>710415188</EIN>
+                <HouseholdEmployeeInd>false</HouseholdEmployeeInd>
+                <PaidAmt>2000</PaidAmt>
+            </CareProviderGrp>
+            <QualifyingPersonGrp>
+                <QualifyingPersonName>
+                    <PersonFirstNm>Brad</PersonFirstNm>
+                    <PersonLastNm>Apple</PersonLastNm>
+                </QualifyingPersonName>
+                <QualifyingPersonNameControlTxt>APPL</QualifyingPersonNameControlTxt>
+                <QualifyingPersonSSN>400003044</QualifyingPersonSSN>
+                <QualifiedCareExpensesPaidAmt>2000</QualifiedCareExpensesPaidAmt>
+            </QualifyingPersonGrp>
+            <TotalQlfdExpensesOrLimitAmt>2000</TotalQlfdExpensesOrLimitAmt>
+            <PrimaryEarnedIncomeAmt>20000</PrimaryEarnedIncomeAmt>
+            <SpouseEarnedIncomeAmt>20000</SpouseEarnedIncomeAmt>
+            <SmallerOfExpensesOrIncomeAmt>2000</SmallerOfExpensesOrIncomeAmt>
+            <AdjustedGrossIncomeAmt>35050</AdjustedGrossIncomeAmt>
+            <CareExpensesDecimalAmt>0.24</CareExpensesDecimalAmt>
+            <CalculatedTentativeExpenseAmt>480</CalculatedTentativeExpenseAmt>
+            <TotalEligCDCCAmt>480</TotalEligCDCCAmt>
+            <TaxLiabLmtFromCrLmtWrkshtAmt>1123</TaxLiabLmtFromCrLmtWrkshtAmt>
+            <CreditForChildAndDepdCareAmt>480</CreditForChildAndDepdCareAmt>
+        </IRS2441>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>400001957</EmployeeSSN>
+            <EmployerEIN>112617163</EmployerEIN>
+            <EmployerNameControlTxt>CLUB</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Club Classics</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>2000 Main Street</AddressLine1Txt>
+                <CityNm>Baltimore</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21223</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Charlie XCX</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>321 Von Dutch Blvd</AddressLine1Txt>
+                <AddressLine2Txt>Apt 360</AddressLine2Txt>
+                <CityNm>Baltimore</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21223</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>20000</WagesAmt>
+            <WithholdingAmt>1000</WithholdingAmt>
+            <SocialSecurityWagesAmt>20000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>1200</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>20000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>275</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>MD</StateAbbreviationCd>
+                    <EmployerStateIdNum>23456</EmployerStateIdNum>
+                    <StateWagesAmt>20000</StateWagesAmt>
+                    <StateIncomeTaxAmt>1500</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>

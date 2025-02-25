@@ -82,6 +82,21 @@ describe StateFileW2 do
       end
     end
 
+    context "NJ" do
+      let(:intake) { create :state_file_nj_intake }
+      it "does not permit state_wages_amount to be zero if wages is positive" do
+        w2.wages = 10
+        w2.state_wages_amount = 0
+        expect(w2).not_to be_valid(:state_file_edit)
+      end
+
+      it "does not permit state_wages_amount to be nil if wages is positive" do
+        w2.wages = 10
+        w2.state_wages_amount = nil
+        expect(w2).not_to be_valid(:state_file_edit)
+      end
+    end
+
     it "requires both locality_nm to be present if wages_and_tips_amt is present" do
       w2.locality_nm = nil
       expect(w2).not_to be_valid(:state_file_edit)
@@ -132,6 +147,13 @@ describe StateFileW2 do
         w2.locality_nm = "YONKERS"
         expect(w2).not_to be_valid(:state_file_edit)
         expect(w2.errors[:locality_nm]).to be_present
+      end
+
+      it "permits state_wages_amount to be blank if wages is positive" do
+        w2.wages = 10
+        w2.state_wages_amount = 0
+        w2.state_income_tax_amount = 0
+        expect(w2).to be_valid(:state_file_edit)
       end
     end
 

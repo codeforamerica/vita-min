@@ -1,6 +1,8 @@
 module StateFile
   module Questions
     class PostDataTransferController < QuestionsController
+      skip_before_action :redirect_if_df_data_required
+
       def edit
         super
         if current_intake&.df_data_import_succeeded_at.nil?
@@ -16,8 +18,6 @@ module StateFile
           ip_address: ip_for_irs,
           intake: current_intake,
         )
-
-        redirect_to next_path if acts_like_production?
       end
 
       private

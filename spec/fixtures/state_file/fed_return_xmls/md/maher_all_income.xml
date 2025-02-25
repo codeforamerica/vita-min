@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>4be83768</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400003035</PrimarySSN>
+            <SpouseSSN>400003036</SpouseSSN>
+            <NameLine1Txt>ILONA&lt;MAHER&lt;&amp; STEPHEN NEDOROSCIK</NameLine1Txt>
+            <PrimaryNameControlTxt>MAHE</PrimaryNameControlTxt>
+            <SpouseNameControlTxt>NEDO</SpouseNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>444 Olympic Village</AddressLine1Txt>
+                <CityNm>Scotland</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>20687</ZIPCd>
+            </USAddress>
+            <PhoneNum>2225555555</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000303-54c8-44bd-829b-8aa772741804@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="9">
+        <IRS1040 documentId="IRS10400001">
+            <Form1040SRInd>X</Form1040SRInd>
+            <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <Primary65OrOlderInd>X</Primary65OrOlderInd>
+            <Spouse65OrOlderInd>X</Spouse65OrOlderInd>
+            <SpouseBlindInd>X</SpouseBlindInd>
+            <TotalBoxesCheckedCnt>3</TotalBoxesCheckedCnt>
+            <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>2</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001 W20002" referenceDocumentName="IRSW2">50000</WagesAmt>
+            <WagesSalariesAndTipsAmt>50000</WagesSalariesAndTipsAmt>
+            <TaxableInterestAmt>650</TaxableInterestAmt>
+            <PensionsAnnuitiesAmt>20000</PensionsAnnuitiesAmt>
+            <TotalTaxablePensionsAmt>20000</TotalTaxablePensionsAmt>
+            <SocSecBnftAmt>15000</SocSecBnftAmt>
+            <TaxableSocSecAmt>12750</TaxableSocSecAmt>
+            <TotalAdditionalIncomeAmt>2500</TotalAdditionalIncomeAmt>
+            <TotalIncomeAmt>85900</TotalIncomeAmt>
+            <TotalAdjustmentsAmt>5600</TotalAdjustmentsAmt>
+            <AdjustedGrossIncomeAmt>80300</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>33850</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>33850</TotalDeductionsAmt>
+            <TaxableIncomeAmt>46450</TaxableIncomeAmt>
+            <TaxAmt>5113</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>5113</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>5113</TaxLessCreditsAmt>
+            <TotalTaxAmt>5113</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>5000</FormW2WithheldTaxAmt>
+            <Form1099WithheldTaxAmt referenceDocumentId="OTHERWITHHOLDING0001" referenceDocumentName="OtherWithholdingStatement">1701</Form1099WithheldTaxAmt>
+            <WithholdingTaxAmt>6701</WithholdingTaxAmt>
+            <TotalPaymentsAmt>6701</TotalPaymentsAmt>
+            <OverpaidAmt>1588</OverpaidAmt>
+            <RefundAmt>1588</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Olympian-Dancer-Influencer</PrimaryOccupationTxt>
+            <SpouseOccupationTxt>Olympian and beloved hero</SpouseOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1040Schedule1 documentId="IRS1040S1001">
+            <UnemploymentCompAmt repaymentAmt="1500" repaymentCd="REPAID">2500</UnemploymentCompAmt>
+            <TotalAdditionalIncomeAmt>2500</TotalAdditionalIncomeAmt>
+            <EducatorExpensesAmt>600</EducatorExpensesAmt>
+            <HealthSavingsAccountDedAmt referenceDocumentId="IRS88890001 IRS88890002" referenceDocumentName="IRS8889">3000</HealthSavingsAccountDedAmt>
+            <StudentLoanInterestDedAmt>2000</StudentLoanInterestDedAmt>
+            <TotalAdjustmentsAmt>5600</TotalAdjustmentsAmt>
+        </IRS1040Schedule1>
+        <IRS1099R documentId="IRS1099R0001">
+            <PayerNameControlTxt>RUGB</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Rugby Retirement Fund</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>PO Box 123</AddressLine1Txt>
+                <AddressLine2Txt>555 Sweet Dee Drive</AddressLine2Txt>
+                <CityNm>Sudlersville</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21668</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>823967259</PayerEIN>
+            <RecipientSSN>400003035</RecipientSSN>
+            <RecipientNm>Ilona Maher</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>444 Olympic Village</AddressLine1Txt>
+                <CityNm>Scotland</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>20687</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>20000</GrossDistributionAmt>
+            <TaxableAmt>15000</TaxableAmt>
+            <FederalIncomeTaxWithheldAmt>1500</FederalIncomeTaxWithheldAmt>
+            <F1099RDistributionCd>7</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <StateTaxWithheldAmt>20000</StateTaxWithheldAmt>
+                    <StateAbbreviationCd>MD</StateAbbreviationCd>
+                    <PayerStateIdNum>MD - 123456ha789</PayerStateIdNum>
+                    <StateDistributionAmt>0</StateDistributionAmt>
+                    <F1099RLocalTaxGrp>
+                        <LocalTaxWithheldAmt>50</LocalTaxWithheldAmt>
+                        <LocalityNm>0</LocalityNm>
+                        <LocalDistributionAmt>500</LocalDistributionAmt>
+                    </F1099RLocalTaxGrp>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRS1099R documentId="IRS1099R0002">
+            <PayerNameControlTxt>LETS</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Lets go team</BusinessNameLine1Txt>
+                <BusinessNameLine2Txt>watch me get a ten out of ten</BusinessNameLine2Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>300 pluto street</AddressLine1Txt>
+                <CityNm>flagstaff</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>86001</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>823967259</PayerEIN>
+            <RecipientSSN>400003036</RecipientSSN>
+            <RecipientNm>Stephen Nedoroscik</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>444 Olympic Village</AddressLine1Txt>
+                <CityNm>Scotland</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>20687</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>5000</GrossDistributionAmt>
+            <TaxableAmt>5000</TaxableAmt>
+            <TotalDistributionInd>X</TotalDistributionInd>
+            <F1099RDistributionCd>2</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <StateTaxWithheldAmt>0</StateTaxWithheldAmt>
+                    <PayerStateIdNum>errorcrabs123</PayerStateIdNum>
+                    <StateDistributionAmt>5000</StateDistributionAmt>
+                    <F1099RLocalTaxGrp>
+                        <LocalTaxWithheldAmt>500</LocalTaxWithheldAmt>
+                    </F1099RLocalTaxGrp>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRS8889 documentId="IRS88890001">
+            <PersonNm>Ilona Maher</PersonNm>
+            <RecipientSSN>400003035</RecipientSSN>
+            <HDHPSelfOnlyCoverageInd>X</HDHPSelfOnlyCoverageInd>
+            <HSAContributionAmt>1000</HSAContributionAmt>
+            <HSALimitedAnnualDeductibleAmt>5150</HSALimitedAnnualDeductibleAmt>
+            <HSALimitedDeductibleAllwdAmt>5150</HSALimitedDeductibleAllwdAmt>
+            <HSAFamilyDeductibleAmt>5150</HSAFamilyDeductibleAmt>
+            <HSALimitedGrossContributionAmt>5150</HSALimitedGrossContributionAmt>
+            <TotalHSAContributionAmt>0</TotalHSAContributionAmt>
+            <HSALimitedContributionAmt>5150</HSALimitedContributionAmt>
+            <TotalHSADeductionAmt>1000</TotalHSADeductionAmt>
+        </IRS8889>
+        <IRS8889 documentId="IRS88890002">
+            <PersonNm>Stephen Nedoroscik</PersonNm>
+            <RecipientSSN>400003036</RecipientSSN>
+            <HDHPSelfOnlyCoverageInd>X</HDHPSelfOnlyCoverageInd>
+            <HSAContributionAmt>2000</HSAContributionAmt>
+            <HSALimitedAnnualDeductibleAmt>5150</HSALimitedAnnualDeductibleAmt>
+            <HSALimitedDeductibleAllwdAmt>5150</HSALimitedDeductibleAllwdAmt>
+            <HSAFamilyDeductibleAmt>5150</HSAFamilyDeductibleAmt>
+            <HSALimitedGrossContributionAmt>5150</HSALimitedGrossContributionAmt>
+            <TotalHSAContributionAmt>0</TotalHSAContributionAmt>
+            <HSALimitedContributionAmt>5150</HSALimitedContributionAmt>
+            <TotalHSADeductionAmt>2000</TotalHSADeductionAmt>
+        </IRS8889>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>400003035</EmployeeSSN>
+            <EmployerEIN>112617163</EmployerEIN>
+            <EmployerNameControlTxt>DANC</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Dancing with the stars</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>400 Salsa Street</AddressLine1Txt>
+                <CityNm>Aspen</CityNm>
+                <StateAbbreviationCd>CO</StateAbbreviationCd>
+                <ZIPCd>81611</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Ilona Maher</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>444 Olympic Village</AddressLine1Txt>
+                <CityNm>Scotland</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>20687</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>30000</WagesAmt>
+            <WithholdingAmt>3000</WithholdingAmt>
+            <SocialSecurityWagesAmt>30000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>1900</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>30000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>435</MedicareTaxWithheldAmt>
+            <OtherDeductionsBenefitsGrp>
+                <Desc>STPICKUP</Desc>
+                <Amt>1000</Amt>
+            </OtherDeductionsBenefitsGrp>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>MD</StateAbbreviationCd>
+                    <EmployerStateIdNum>9876543219876543</EmployerStateIdNum>
+                    <StateWagesAmt>30000</StateWagesAmt>
+                    <StateIncomeTaxAmt>2300</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+        <IRSW2 documentId="W20002" documentName="IRSW2">
+            <EmployeeSSN>400003036</EmployeeSSN>
+            <EmployerEIN>840404235</EmployerEIN>
+            <EmployerNameControlTxt>POMM</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Pommel horse academy</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>400 Hype man blvd</AddressLine1Txt>
+                <CityNm>Baltimore</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21223</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Stephen Nedoroscik</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>444 Olympic Village</AddressLine1Txt>
+                <CityNm>Scotland</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>20687</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>20000</WagesAmt>
+            <WithholdingAmt>2000</WithholdingAmt>
+            <SocialSecurityWagesAmt>20000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>1420</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>20000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>300</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>MD</StateAbbreviationCd>
+                    <EmployerStateIdNum>123456</EmployerStateIdNum>
+                    <StateWagesAmt>20000</StateWagesAmt>
+                    <StateIncomeTaxAmt>1500</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+        <OtherWithholdingStatement documentId="OTHERWITHHOLDING0001" documentName="OtherWithholdingStatement">
+            <OtherWithholdingStmt>
+                <WithholdingCd>FORM 1099</WithholdingCd>
+                <EIN>522006962</EIN>
+                <WithholdingAmt>200</WithholdingAmt>
+            </OtherWithholdingStmt>
+            <OtherWithholdingStmt>
+                <WithholdingCd>FORM 1099</WithholdingCd>
+                <EIN>846023137</EIN>
+                <WithholdingAmt>1</WithholdingAmt>
+            </OtherWithholdingStmt>
+        </OtherWithholdingStatement>
+    </ReturnData>
+</Return>
