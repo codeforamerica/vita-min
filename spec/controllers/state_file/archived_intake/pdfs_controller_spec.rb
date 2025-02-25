@@ -3,7 +3,6 @@ require "rails_helper"
 RSpec.describe StateFile::ArchivedIntakes::PdfsController, type: :controller do
   let(:email_address) { "test@example.com" }
   let!(:archived_intake) { create(:state_file_archived_intake, state_code: "NY", mailing_state: "NY", email_address: email_address) }
-  let(:current_request) { create(:state_file_archived_intake_request, email_address: email_address, failed_attempts: 0, state_file_archived_intake: archived_intake) }
   let(:valid_verification_code) { "123456" }
   let(:invalid_verification_code) { "654321" }
 
@@ -18,7 +17,7 @@ RSpec.describe StateFile::ArchivedIntakes::PdfsController, type: :controller do
   end
 
   describe "GET #index" do
-    it_behaves_like 'archived intake request locked', action: :index, method: :get
+    it_behaves_like 'archived intake locked', action: :index, method: :get
 
     context "by default" do
       it "renders" do
