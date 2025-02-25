@@ -359,6 +359,7 @@ Rails.application.routes.draw do
         resources :ctc_intake_capacity, only: [:index, :create]
         resources :admin_toggles, only: [:index, :create]
         get "/profile" => "users#profile", as: :user_profile
+        resources :trusted_proxies, only: [:index]
       end
 
       put "hub/users/:user_id/resend", to: "hub/users#resend_invitation", as: :user_profile_resend_invitation

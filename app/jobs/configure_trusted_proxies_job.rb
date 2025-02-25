@@ -11,6 +11,6 @@ class ConfigureTrustedProxiesJob < ApplicationJob
   end
 
   def priority
-    PRIORITY_MEDIUM
+    PRIORITY_LOW
   end
 end
