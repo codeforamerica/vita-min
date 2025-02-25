@@ -18,9 +18,9 @@ RSpec.describe StateFile::Questions::EligibilityOffboardingController do
   end
 
   describe "#edit" do
-    let(:intake) { create :state_file_id_intake }
-
     context "with offboarded_from set in the session" do
+      let(:intake) { create :state_file_id_intake }
+
       render_views
       let(:offboarded_from_path) do
         StateFile::Questions::IdEligibilityResidenceController.to_path_helper
@@ -36,6 +36,44 @@ RSpec.describe StateFile::Questions::EligibilityOffboardingController do
 
         expect(Nokogiri::HTML.parse(response.body)).to have_link(href: offboarded_from_path)
         expect(session[:offboarded_from]).to be_nil
+      end
+    end
+
+    context "AZ" do
+      let(:intake) { create :state_file_az_intake }
+      render_views
+      before do
+        sign_in intake
+      end
+      it "does not show NJ-specific content" do
+        get :edit
+        expect(response.body).not_to have_text I18n.t("state_file.questions.eligible.vita_option.connect_to_vita")   
+      end
+    end
+
+    context "MD" do
+      let(:intake) { create :state_file_md_intake }
+      render_views
+      before do
+        sign_in intake
+      end
+      it "does not show NJ-specific content" do
+        get :edit
+        
+        expect(response.body).not_to have_text I18n.t("state_file.questions.eligible.vita_option.connect_to_vita") 
+      end
+    end
+
+    context "NJ" do
+      let(:intake) { create :state_file_nj_intake }
+      render_views
+      before do
+        sign_in intake
+      end
+      it "shows NJ-specific content" do
+        get :edit
+        expect(response.body).to have_text I18n.t("state_file.questions.eligible.vita_option.connect_to_vita")
+        expect(response.body).to have_text I18n.t("state_file.questions.eligible.vita_option.vita_introduction.nj")
       end
     end
   end
