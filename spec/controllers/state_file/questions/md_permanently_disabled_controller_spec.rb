@@ -64,8 +64,8 @@ RSpec.describe StateFile::Questions::MdPermanentlyDisabledController do
         let(:intake) { create :state_file_md_intake, :with_spouse }
 
         it "has all followups when spouse is not senior" do
-          intake.update(primary_birth_date: 66.years.ago)
-          intake.update(spouse_birth_date: 64.years.ago)
+          intake.update(primary_birth_date: Date.new((MultiTenantService.statefile.current_tax_year - 66), 1, 1))
+          intake.update(spouse_birth_date: Date.new((MultiTenantService.statefile.current_tax_year - 64), 1, 1))
           get :edit
 
           html = Nokogiri::HTML.parse(response.body)
@@ -75,8 +75,8 @@ RSpec.describe StateFile::Questions::MdPermanentlyDisabledController do
         end
 
         it "has all followups primary is not senior" do
-          intake.update(primary_birth_date: 64.years.ago)
-          intake.update(spouse_birth_date: 66.years.ago)
+          intake.update(primary_birth_date: Date.new((MultiTenantService.statefile.current_tax_year - 64), 1, 1))
+          intake.update(spouse_birth_date: Date.new((MultiTenantService.statefile.current_tax_year - 66), 1, 1))
           get :edit
 
           html = Nokogiri::HTML.parse(response.body)
@@ -86,8 +86,8 @@ RSpec.describe StateFile::Questions::MdPermanentlyDisabledController do
         end
 
         it "has all followups when neither are senior" do
-          intake.update(primary_birth_date: 64.years.ago)
-          intake.update(spouse_birth_date: 64.years.ago)
+          intake.update(primary_birth_date: Date.new((MultiTenantService.statefile.current_tax_year - 64), 1, 1))
+          intake.update(spouse_birth_date: Date.new((MultiTenantService.statefile.current_tax_year - 64), 1, 1))
           get :edit
 
           html = Nokogiri::HTML.parse(response.body)
@@ -97,8 +97,8 @@ RSpec.describe StateFile::Questions::MdPermanentlyDisabledController do
         end
 
         it "has no followup id when both are senior" do
-          intake.update(primary_birth_date: 66.years.ago)
-          intake.update(spouse_birth_date: 66.years.ago)
+          intake.update(primary_birth_date: Date.new((MultiTenantService.statefile.current_tax_year - 66), 1, 1))
+          intake.update(spouse_birth_date: Date.new((MultiTenantService.statefile.current_tax_year - 66), 1, 1))
           get :edit
 
           html = Nokogiri::HTML.parse(response.body)
@@ -112,7 +112,7 @@ RSpec.describe StateFile::Questions::MdPermanentlyDisabledController do
         let(:intake) { create :state_file_md_intake, filing_status: "single" }
 
         it "has primary data followup when primary is not senior" do
-          intake.update(primary_birth_date: 64.years.ago)
+          intake.update(primary_birth_date: Date.new((MultiTenantService.statefile.current_tax_year - 64), 1, 1))
           get :edit
 
           html = Nokogiri::HTML.parse(response.body)
@@ -122,7 +122,7 @@ RSpec.describe StateFile::Questions::MdPermanentlyDisabledController do
         end
 
         it "does not have primary data followup when primary is senior" do
-          intake.update(primary_birth_date: 66.years.ago)
+          intake.update(primary_birth_date: Date.new((MultiTenantService.statefile.current_tax_year - 66), 1, 1))
           get :edit
 
           html = Nokogiri::HTML.parse(response.body)

@@ -3220,9 +3220,10 @@ en:
           other: Other retirement income (For example, a Keogh plan)
           pension_annuity_endowment: Money from a pension, annuity, or other retirement plan from your job
           political_subdivision_html: "<strong>Political subdivision lived in on December 31, %{filing_year}</strong>"
-          proof_of_disability: Proof provided of disability for the pension exclusion in past tax years
+          primary_proof_of_disability: Proof provided of disability for the pension exclusion in past tax years
           public_safety: Your service as a public safety employee
           retirement_income_deductions: Maryland retirement income details
+          spouse_proof_of_disability: Spouse's proof provided of disability for the pension exclusion in past tax years
           your_address: Address lived at on December 31, %{filing_year}
       md_social_security_benefits:
         edit:
