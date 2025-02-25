@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>a1978a1a</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400002106</PrimarySSN>
+            <SpouseSSN>400002107</SpouseSSN>
+            <NameLine1Txt>NADJA&lt;SHADOWS&lt;&amp; LASZLO CRAVENSWORTH</NameLine1Txt>
+            <PrimaryNameControlTxt>SHAD</PrimaryNameControlTxt>
+            <SpouseNameControlTxt>CRAV</SpouseNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>5555 Coffin Court Apt 4</AddressLine1Txt>
+                <CityNm>Mt Lemmon</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>85619</ZIPCd>
+            </USAddress>
+            <PhoneNum>2225554444</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000210-691f-4ff6-9ae6-c36d6c53f1c1@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="3">
+        <IRS1040 documentId="IRS10400001">
+            <Form1040SRInd>X</Form1040SRInd>
+            <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <Primary65OrOlderInd>X</Primary65OrOlderInd>
+            <Spouse65OrOlderInd>X</Spouse65OrOlderInd>
+            <TotalBoxesCheckedCnt>2</TotalBoxesCheckedCnt>
+            <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>2</TotalExemptionsCnt>
+            <TotalTaxablePensionsAmt>46000</TotalTaxablePensionsAmt>
+            <TotalIncomeAmt>46000</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>46000</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>32300</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>32300</TotalDeductionsAmt>
+            <TaxableIncomeAmt>13700</TaxableIncomeAmt>
+            <TaxAmt>1373</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>1373</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>1373</TaxLessCreditsAmt>
+            <TotalTaxAmt>1373</TotalTaxAmt>
+            <WithholdingTaxAmt>4500</WithholdingTaxAmt>
+            <TotalPaymentsAmt>4500</TotalPaymentsAmt>
+            <OverpaidAmt>3127</OverpaidAmt>
+            <RefundAmt>3127</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>wall climber</PrimaryOccupationTxt>
+            <SpouseOccupationTxt>Phlebotomist</SpouseOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1099R documentId="IRS1099R0001">
+            <PayerNameControlTxt>VAMP</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Vampiric Council Retirement</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>123 main street</AddressLine1Txt>
+                <CityNm>Phoenix</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>85201</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>823967259</PayerEIN>
+            <RecipientSSN>400002106</RecipientSSN>
+            <RecipientNm>Nadja Shadows</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>5555 Coffin Court</AddressLine1Txt>
+                <AddressLine2Txt>Apt 4</AddressLine2Txt>
+                <CityNm>Mt Lemmon</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>85619</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>45000</GrossDistributionAmt>
+            <TaxableAmt>45000</TaxableAmt>
+            <TotalDistributionInd>X</TotalDistributionInd>
+            <FederalIncomeTaxWithheldAmt>4500</FederalIncomeTaxWithheldAmt>
+            <F1099RDistributionCd>7</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <StateTaxWithheldAmt>2000</StateTaxWithheldAmt>
+                    <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                    <PayerStateIdNum>123456</PayerStateIdNum>
+                    <StateDistributionAmt>45000</StateDistributionAmt>
+                    <F1099RLocalTaxGrp/>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRS1099R documentId="IRS1099R0002">
+            <PayerNameControlTxt>GUIL</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Guillermo Saves the Day</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>123 Main street</AddressLine1Txt>
+                <CityNm>phoenix</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>85201</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>823967259</PayerEIN>
+            <RecipientSSN>400002107</RecipientSSN>
+            <RecipientNm>Laszlo Cravensworth</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>5555 Coffin Court</AddressLine1Txt>
+                <AddressLine2Txt>Apt 4</AddressLine2Txt>
+                <CityNm>Mt Lemmon</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>85619</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>1000</GrossDistributionAmt>
+            <TaxableAmt>1000</TaxableAmt>
+            <TotalDistributionInd>X</TotalDistributionInd>
+            <F1099RDistributionCd>7</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <StateTaxWithheldAmt>0</StateTaxWithheldAmt>
+                    <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                    <PayerStateIdNum>123456</PayerStateIdNum>
+                    <F1099RLocalTaxGrp/>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+    </ReturnData>
+</Return>

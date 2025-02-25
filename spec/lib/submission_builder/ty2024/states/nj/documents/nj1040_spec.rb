@@ -436,6 +436,11 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
         allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_20b).and_return 300
         expect(xml.at("TaxExemptPensAnnuit")).to eq(nil)
       end
+
+      it "does not show line 28a PensionExclusion even when there is a value" do
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_28a).and_return 300
+        expect(xml.at("PensionExclusion")).to eq(nil)
+      end
     end
 
     describe "taxable retirement income - line 20a" do
@@ -497,7 +502,11 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
       end
     end
 
-    describe "Other Retirement Income Exclusion - line 28a" do
+    describe "Pension/Retirement Exclusion - line 28a" do
+      before do
+        allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
+      end
+
       context "when line 28a has a value" do
         it 'sets PensionExclusion to the line 28a value' do
           expected = 5_000
