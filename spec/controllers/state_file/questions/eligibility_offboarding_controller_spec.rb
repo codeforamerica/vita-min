@@ -30,7 +30,6 @@ RSpec.describe StateFile::Questions::EligibilityOffboardingController do
         session[:offboarded_from] = offboarded_from_path
       end
 
-
       it "uses the correct prev_path for the Go back button" do
         get :edit
 
@@ -39,42 +38,35 @@ RSpec.describe StateFile::Questions::EligibilityOffboardingController do
       end
     end
 
-    context "AZ" do
-      let(:intake) { create :state_file_az_intake }
+    shared_examples "check for NJ-specific content" do |current_state_code, show_nj_content|
+      let(:intake) { create "state_file_#{current_state_code}_intake" }
       render_views
       before do
         sign_in intake
       end
-      it "does not show NJ-specific content" do
+
+      it "checks for NJ-specific content" do
         get :edit
-        expect(response.body).not_to have_text I18n.t("state_file.questions.eligible.vita_option.connect_to_vita")   
+        if show_nj_content
+          expect(response.body).to have_text I18n.t("state_file.questions.eligible.vita_option.connect_to_vita")
+          expect(response.body).to have_text I18n.t("state_file.questions.eligible.vita_option.vita_introduction.nj")
+        else
+          expect(response.body).not_to have_text I18n.t("state_file.questions.eligible.vita_option.connect_to_vita")
+          expect(response.body).not_to have_text I18n.t("state_file.questions.eligible.vita_option.vita_introduction.nj")
+        end
       end
+    end
+
+    context "AZ" do
+      it_behaves_like "check for NJ-specific content", "az", false
     end
 
     context "MD" do
-      let(:intake) { create :state_file_md_intake }
-      render_views
-      before do
-        sign_in intake
-      end
-      it "does not show NJ-specific content" do
-        get :edit
-        
-        expect(response.body).not_to have_text I18n.t("state_file.questions.eligible.vita_option.connect_to_vita") 
-      end
+      it_behaves_like "check for NJ-specific content", "md", false
     end
 
     context "NJ" do
-      let(:intake) { create :state_file_nj_intake }
-      render_views
-      before do
-        sign_in intake
-      end
-      it "shows NJ-specific content" do
-        get :edit
-        expect(response.body).to have_text I18n.t("state_file.questions.eligible.vita_option.connect_to_vita")
-        expect(response.body).to have_text I18n.t("state_file.questions.eligible.vita_option.vita_introduction.nj")
-      end
+      it_behaves_like "check for NJ-specific content", "nj", true
     end
   end
 end
