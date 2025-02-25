@@ -25,7 +25,7 @@ module Efile
 
       def calculate_military_per_filer(filer)
         age_benefits = @intake.is_filer_55_and_older?(filer) ? 20_000 : 12_500
-        [@intake.sum_1099_r_followup_type_for_filer(:primary, :service_type_military?), age_benefits].min
+        [@intake.sum_1099_r_followup_type_for_filer(filer, :service_type_military?), age_benefits].min
       end
 
       def calculate_public_safety_employee(filer)

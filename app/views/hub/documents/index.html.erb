@@ -82,7 +82,7 @@
               <%= timestamp document.created_at %>
             </td>
             <td class="index-table__cell edit">
-              <%= link_to t("general.edit"), edit_hub_client_document_path(client_id: @client.id, id: document.id) %>
+              <%= link_to t(".edit_file_info"), edit_hub_client_document_path(client_id: @client.id, id: document.id) %>
             </td>
           </tr>
         <% end %>

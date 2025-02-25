@@ -1,0 +1,109 @@
+{
+  "familyAndHousehold": [],
+  "socialSecurityReports": [
+    {
+      "formType": "SSA-1099",
+      "recipientTin": "400-00-3035",
+      "netBenefits": "10000.00"
+    },
+    {
+      "formType": "SSA-1099",
+      "recipientTin": "400-00-3036",
+      "netBenefits": "5000.00"
+    }
+  ],
+  "filers": [
+    {
+      "lastName": "Nedoroscik",
+      "dateOfBirth": "1949-04-04",
+      "suffix": null,
+      "isPrimaryFiler": false,
+      "firstName": "Stephen",
+      "middleInitial": null,
+      "educatorExpenses": "300.00",
+      "tin": "400-00-3036",
+      "interestReportsTotal": "200.00",
+      "isDisabled": false,
+      "form1099GsTotal": "2000.00",
+      "isStudent": false,
+      "ssnNotValidForEmployment": null,
+      "hsaTotalDeductibleAmount": "2000.00"
+    },
+    {
+      "lastName": "Maher",
+      "dateOfBirth": "1953-10-21",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "firstName": "Ilona",
+      "middleInitial": null,
+      "educatorExpenses": "300.00",
+      "tin": "400-00-3035",
+      "interestReportsTotal": "250.00",
+      "isDisabled": false,
+      "form1099GsTotal": "2000.00",
+      "isStudent": false,
+      "hsaTotalDeductibleAmount": "1000.00",
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "form1099Gs": [
+    {
+      "stateTaxWithheld": "150.00",
+      "has1099": true,
+      "amount": "2000.00",
+      "federalTaxWithheld": "200.00",
+      "amountPaidBackForBenefitsInTaxYear": "0.00",
+      "stateIdNumber": "12345",
+      "payerTin": "52-2006962",
+      "payer": "Maryland Department of Labor",
+      "recipientTin": "400-00-3036"
+    },
+    {
+      "stateTaxWithheld": "0.00",
+      "has1099": true,
+      "amount": "2000.00",
+      "amountPaidBackForBenefitsInTaxYear": "1500.00",
+      "federalTaxWithheld": "0.00",
+      "stateIdNumber": "12345",
+      "payerTin": null,
+      "recipientTin": "400-00-3035",
+      "payer": "Maryland Department of Labor"
+    }
+  ],
+  "formW2s": [
+    {
+      "usedTin": "400-00-3036",
+      "unionDuesAmount": null
+    },
+    {
+      "usedTin": "400-00-3035",
+      "unionDuesAmount": "50.00"
+    }
+  ],
+  "interestReports": [
+    {
+      "has1099": false,
+      "taxExemptAndTaxCreditBondCusipNo": null,
+      "interestOnGovernmentBonds": "0.00",
+      "taxExemptInterest": "0.00",
+      "payerTin": null,
+      "payer": "Paris bank",
+      "recipientTin": "400-00-3035",
+      "no1099Amount": "250.00",
+      "taxWithheld": "0.00",
+      "1099Amount": "0.00"
+    },
+    {
+      "has1099": true,
+      "taxExemptAndTaxCreditBondCusipNo": null,
+      "interestOnGovernmentBonds": "200.00",
+      "taxExemptInterest": "0.00",
+      "payerTin": "84-6023137",
+      "recipientTin": "400-00-3036",
+      "payer": "USA credit union",
+      "no1099Amount": null,
+      "1099Amount": "200.00",
+      "taxWithheld": "1.00"
+    }
+  ]
+}

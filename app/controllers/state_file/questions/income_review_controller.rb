@@ -40,11 +40,13 @@ module StateFile
       def invalid_income_form?(intake)
         intake.allows_w2_editing? && @w2s.any? do |w2|
           w2.check_box14_limits = true
-          !w2.valid?(:state_file_edit)
+          !w2.valid?(:state_file_income_review)
         end
       end
 
       def should_show_warning?(w2, w2_count_for_filer)
+        return true unless w2.valid?(:state_file_income_review)
+
         return false if StateFile::StateInformationService
           .w2_supported_box14_codes(w2.state_file_intake.state_code)
           .none? { |code| code[:name] == "UI_WF_SWF" || code[:name] == "FLI" }

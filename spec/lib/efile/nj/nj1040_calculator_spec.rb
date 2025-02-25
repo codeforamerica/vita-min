@@ -535,11 +535,11 @@ describe Efile::Nj::Nj1040Calculator do
     end
 
     context 'when all 1099-Rs are applicable (non-military)' do
-      let(:income_source_1) { :none }
-      let(:income_source_2) { :none }
-      let(:income_source_3) { :none }
+      let(:income_source_1) { :other }
+      let(:income_source_2) { :other }
+      let(:income_source_3) { :other }
 
-      it 'sets line 20a to the sum of all 1099-Rs, rounded' do
+      it 'sets line 20a to the sum of all 1099-Rs taxable amount, rounded' do
         expect(instance.lines[:NJ1040_LINE_20A].value).to eq(901)
       end
     end
@@ -547,7 +547,7 @@ describe Efile::Nj::Nj1040Calculator do
     context 'when some 1099-Rs are military pension or survivor benefits' do
       let(:income_source_1) { :military_pension }
       let(:income_source_2) { :military_survivors_benefits }
-      let(:income_source_3) { :none }
+      let(:income_source_3) { :other }
 
       it 'does not include military pension / survivor benefits in line 20a sum' do
         expect(instance.lines[:NJ1040_LINE_20A].value).to eq(500)
@@ -565,6 +565,52 @@ describe Efile::Nj::Nj1040Calculator do
     end
   end
 
+  describe 'line 20b - excludable retirement income' do
+    let(:intake) { create(:state_file_nj_intake) }
+    let!(:state_file_1099r_1) { create :state_file1099_r, intake: intake, taxable_amount: 300, gross_distribution_amount: 400 }
+    let!(:state_file_1099r_2) { create :state_file1099_r, intake: intake, taxable_amount: 100.50, gross_distribution_amount: 200.01 }
+    let!(:state_file_1099r_3) { create :state_file1099_r, intake: intake, taxable_amount: 500, gross_distribution_amount: 600 }
+    let!(:state_specific_followup_1) { create :state_file_nj1099_r_followup, state_file1099_r: state_file_1099r_1, income_source: income_source_1 }
+    let!(:state_specific_followup_2) { create :state_file_nj1099_r_followup, state_file1099_r: state_file_1099r_2, income_source: income_source_2 }
+    let!(:state_specific_followup_3) { create :state_file_nj1099_r_followup, state_file1099_r: state_file_1099r_3, income_source: income_source_3 }
+
+    before do
+      intake.reload
+      instance.calculate
+    end
+
+    context 'when all 1099-Rs are applicable (non-military)' do
+      let(:income_source_1) { :other }
+      let(:income_source_2) { :other }
+      let(:income_source_3) { :other }
+
+      it 'sets line 20a to the sum of all 1099-Rs gross distribution amount minus taxable amount, rounded' do
+        expected = 300 # 1200.01 - 900.50 = 299.51, rounded
+        expect(instance.lines[:NJ1040_LINE_20B].value).to eq(expected)
+      end
+    end
+
+    context 'when some 1099-Rs are military pension or survivor benefits' do
+      let(:income_source_1) { :military_pension }
+      let(:income_source_2) { :military_survivors_benefits }
+      let(:income_source_3) { :other }
+
+      it 'does not include military pension / survivor benefits in line 20b' do
+        expect(instance.lines[:NJ1040_LINE_20B].value).to eq(100)
+      end
+    end
+
+    context 'when all 1099-Rs are military pension or survivor benefits' do
+      let(:income_source_1) { :military_pension }
+      let(:income_source_2) { :military_survivors_benefits }
+      let(:income_source_3) { :military_pension }
+
+      it 'line 20b results in zero' do
+        expect(instance.lines[:NJ1040_LINE_20B].value).to eq(0)
+      end
+    end
+  end
+
   describe 'line 27 - total income' do
     let(:intake) { create(:state_file_nj_intake) }
 
@@ -577,14 +623,113 @@ describe Efile::Nj::Nj1040Calculator do
     end
   end
 
+  describe 'line 28a - pension / retirement exclusion' do
+    let(:intake) { create(:state_file_nj_intake) }
+
+    context 'when taxpayer is ineligible' do
+      it 'sets line 28a to 0' do
+        allow_any_instance_of(Efile::Nj::NjRetirementIncomeHelper).to receive(:line_28a_eligible?).and_return false
+        instance.calculate
+        expect(instance.lines[:NJ1040_LINE_28A].value).to eq(0)
+      end
+    end
+
+    context 'when taxpayer is eligible' do
+      before do
+        allow_any_instance_of(Efile::Nj::NjRetirementIncomeHelper).to receive(:line_28a_eligible?).and_return true
+      end
+
+      context 'when maximum_exclusion is greater than total_eligible_nonmilitary_1099r_income' do
+        it 'sets line 28a to total_eligible_nonmilitary_1099r_income' do
+          allow(instance).to receive(:calculate_line_27).and_return 100_000
+          allow_any_instance_of(Efile::Nj::NjRetirementIncomeHelper).to receive(:total_eligible_nonmilitary_1099r_income).and_return 49_999
+          allow_any_instance_of(Efile::Nj::NjRetirementIncomeHelper).to receive(:calculate_maximum_exclusion).with(100_000, 49_999).and_return 50_000
+          instance.calculate
+          expect(instance.lines[:NJ1040_LINE_28A].value).to eq(49_999)
+        end
+      end
+
+      context 'when maximum_exclusion is less than than total_eligible_nonmilitary_1099r_income' do
+        it 'sets line 28a to maximum_exclusion' do
+          allow(instance).to receive(:calculate_line_27).and_return 100_000
+          allow_any_instance_of(Efile::Nj::NjRetirementIncomeHelper).to receive(:total_eligible_nonmilitary_1099r_income).and_return 50_000
+          allow_any_instance_of(Efile::Nj::NjRetirementIncomeHelper).to receive(:calculate_maximum_exclusion).with(100_000, 50_000).and_return 49_999
+          instance.calculate
+          expect(instance.lines[:NJ1040_LINE_28A].value).to eq(49_999)
+        end
+      end
+    end
+  end
+
+  describe 'line 28b - other retirement income exclusion' do
+    let(:intake) { create(:state_file_nj_intake) }
+
+    context 'when taxpayer is ineligible' do
+      it 'sets line 28b to 0' do
+        allow_any_instance_of(Efile::Nj::NjRetirementIncomeHelper).to receive(:line_28b_eligible?).and_return false
+        instance.calculate
+        expect(instance.lines[:NJ1040_LINE_28B].value).to eq(0)
+      end
+    end
+
+    context 'when taxpayer is eligible' do
+      before do
+        allow_any_instance_of(Efile::Nj::NjRetirementIncomeHelper).to receive(:line_28b_eligible?).and_return true
+      end
+
+      context 'when maximum_exclusion minus 28a is greater than total_eligible_nonretirement_income' do
+        it 'sets line 28b to total_eligible_nonretirement_income' do
+          allow(instance).to receive(:calculate_line_27).and_return 100_000
+          allow_any_instance_of(Efile::Nj::NjRetirementIncomeHelper).to receive(:calculate_maximum_exclusion).with(100_000, 100_000).and_return 50_000
+          allow(instance).to receive(:calculate_line_28a).and_return 48_000
+          allow_any_instance_of(Efile::Nj::NjRetirementIncomeHelper).to receive(:total_eligible_nonretirement_income).and_return 1_999
+          instance.calculate
+          expect(instance.lines[:NJ1040_LINE_28B].value).to eq(1_999)
+        end
+      end
+
+      context 'when maximum_exclusion minus 28a is less than total_eligible_nonretirement_income' do
+        it 'sets line 28b to maximum_exclusion minus 28a' do
+          allow(instance).to receive(:calculate_line_27).and_return 100_000
+          allow_any_instance_of(Efile::Nj::NjRetirementIncomeHelper).to receive(:calculate_maximum_exclusion).with(100_000, 100_000).and_return 50_000
+          allow(instance).to receive(:calculate_line_28a).and_return 1_000
+          allow_any_instance_of(Efile::Nj::NjRetirementIncomeHelper).to receive(:total_eligible_nonretirement_income).and_return 49_001
+          instance.calculate
+          expect(instance.lines[:NJ1040_LINE_28B].value).to eq(49_000)
+        end
+      end
+
+      context 'when maximum_exclusion minus 28a is equal to total_eligible_nonretirement_income' do
+        it 'it sets line 28b to the shared value' do
+          allow(instance).to receive(:calculate_line_27).and_return 100_000
+          allow_any_instance_of(Efile::Nj::NjRetirementIncomeHelper).to receive(:calculate_maximum_exclusion).with(100_000, 100_000).and_return 50_000
+          allow(instance).to receive(:calculate_line_28a).and_return 1_000
+          allow_any_instance_of(Efile::Nj::NjRetirementIncomeHelper).to receive(:total_eligible_nonretirement_income).and_return 49_000
+          instance.calculate
+          expect(instance.lines[:NJ1040_LINE_28B].value).to eq(49_000)
+        end
+      end
+    end
+  end
+
+  describe 'line 28c - total exclusion amount' do
+    it 'sets line 28c to 28a plus 28b' do
+      allow(instance).to receive(:calculate_line_28a).and_return 1_000
+      allow(instance).to receive(:calculate_line_28b).and_return 2_000
+      instance.calculate
+      expect(instance.lines[:NJ1040_LINE_28C].value).to eq(3_000)
+    end
+  end
+
   describe 'line 29 - gross income' do
     let(:intake) { create(:state_file_nj_intake) }
 
-    it 'sets line 29 to the sum of all state wage amounts' do
-      allow(instance).to receive(:calculate_line_15).and_return 50000
+    it 'sets line 29 to the sum of all state wage amounts minus 28c' do
+      allow(instance).to receive(:calculate_line_15).and_return 50_000
       allow(instance).to receive(:calculate_line_16a).and_return 1_000
+      allow(instance).to receive(:calculate_line_28c).and_return 3_000
       instance.calculate
-      expect(instance.lines[:NJ1040_LINE_29].value).to eq(51_000)
+      expect(instance.lines[:NJ1040_LINE_29].value).to eq(48_000)
     end
   end
 
@@ -1550,7 +1695,7 @@ describe Efile::Nj::Nj1040Calculator do
     context 'when has w2s' do
       let(:intake) { create(:state_file_nj_intake, :df_data_many_w2s)}
 
-      it 'sets line 55 to sum of state_income_tax_amount rounded' do
+      it 'sets line 55 to total income tax withheld, rounded' do
         w2 = intake.state_file_w2s.first
         w2.update_attribute(:state_income_tax_amount, 500.55)
         instance.calculate
@@ -1559,7 +1704,35 @@ describe Efile::Nj::Nj1040Calculator do
       end
     end
 
-    context 'when no w2s' do
+    context 'when has only 1099-Rs' do
+      let(:intake) { create(:state_file_nj_intake, :df_data_minimal)}
+      let!(:state_file_1099r_1) { create :state_file1099_r, intake: intake, state_tax_withheld_amount: 10.1 }
+      let!(:state_specific_followup_1) { create :state_file_nj1099_r_followup, state_file1099_r: state_file_1099r_1, income_source: :military_pension }
+      let!(:state_file_1099r_2) { create :state_file1099_r, intake: intake, state_tax_withheld_amount: 30.1 }
+      let!(:state_specific_followup_2) { create :state_file_nj1099_r_followup, state_file1099_r: state_file_1099r_2, income_source: :military_survivors_benefits }
+      let!(:state_file_1099r_3) { create :state_file1099_r, intake: intake, state_tax_withheld_amount: 80.1 }
+      let!(:state_specific_followup_3) { create :state_file_nj1099_r_followup, state_file1099_r: state_file_1099r_3, income_source: :other }
+      let!(:state_file_1099r_4) { create :state_file1099_r, intake: intake, state_tax_withheld_amount: 210.1 }
+      
+      it 'sets line 55 to total income tax withheld, rounded' do
+        intake.reload
+        instance.calculate
+        expect(instance.lines[:NJ1040_LINE_55].value).to eq 330
+      end
+    end
+
+    context 'when has both w2s and 1099-Rs' do
+      let(:intake) { create(:state_file_nj_intake, :df_data_many_w2s)}
+      let!(:state_file_1099r) { create :state_file1099_r, intake: intake, state_tax_withheld_amount: 100.1 }
+      
+      it 'sets line 55 to total income tax withheld, rounded' do
+        intake.reload
+        instance.calculate
+        expect(instance.lines[:NJ1040_LINE_55].value).to eq 2100 # 2000 from W2, 100 from 1099-R
+      end
+    end
+
+    context 'when no tax withheld' do
       let(:intake) { create(:state_file_nj_intake, :df_data_minimal)}
       it 'sets line 55 to nil' do
         expect(instance.lines[:NJ1040_LINE_55].value).to eq nil

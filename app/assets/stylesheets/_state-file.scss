@@ -360,6 +360,18 @@
         }
       }
     }
+
+    ul {
+      list-style-type: disc;
+      padding-left: 2rem;
+      margin: 1rem 0;
+    }
+
+    li {
+      font-size: 1.6rem;
+      line-height: 2.4rem;
+      margin-bottom: 0.5rem;
+    }
   }
 
   .checkbox.is-selected {
@@ -490,7 +502,7 @@
       margin-bottom: 2rem;
     }
 
-    radiogroup {
+    radiogroup, .honeycrisp-radiogroup {
       display: flex;
       margin-bottom: 1.5rem;
 
