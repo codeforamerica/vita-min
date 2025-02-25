@@ -22,8 +22,9 @@ class RemoteIpTrustedProxiesService
     private
 
     def parse_aws_ip_ranges(aws_ip_ranges_json)
-      ip_strings = JSON.parse(aws_ip_ranges_json)["prefixes"].map { |ip_json| ip_json["ip_prefix"] }
-      ip_strings.map { |ip_string| IPAddr.new(ip_string) }
+      ipv4_strings = JSON.parse(aws_ip_ranges_json)["prefixes"].map { |ip_json| ip_json["ip_prefix"] }
+      ipv6_strings = JSON.parse(aws_ip_ranges_json)["ipv6_prefixes"].map { |ip_json| ip_json["ipv6_prefix"] }
+      (ipv4_strings + ipv6_strings).map { |ip_string| IPAddr.new(ip_string) }
     end
 
   end
