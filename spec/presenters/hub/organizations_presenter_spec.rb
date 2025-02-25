@@ -137,7 +137,7 @@ describe Hub::OrganizationsPresenter do
 
     context "with organizations that have a parent coalition" do
       let(:user) { create :organization_lead_user, organization: org }
-      let!(:org) { create :organization, coalition: create(:coalition), capacity_limit: 300 }
+      let(:org) { create :organization, coalition: create(:coalition), capacity_limit: 300 }
 
       before do
         create :state_routing_target, target: org.coalition, state_abbreviation: "NC"
