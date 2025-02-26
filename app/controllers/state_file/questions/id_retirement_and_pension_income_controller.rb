@@ -47,6 +47,10 @@ module StateFile
         render "public_pages/page_not_found", status: 404 if @state_file_1099r.nil?
       end
 
+      def review_all_items_before_returning_to_review
+        true
+      end
+
       def followup_class = StateFileId1099RFollowup
     end
   end

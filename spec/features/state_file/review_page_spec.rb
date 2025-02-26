@@ -370,6 +370,25 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
             click_on I18n.t("general.review_and_edit")
           end
           expect(page).to have_text I18n.t("state_file.questions.id_retirement_and_pension_income.edit.subtitle")
+
+          # first eligible 1099R
+          expect(page).to have_text("Dorothy Red")
+          expect(page).to have_text("$200")
+          click_on I18n.t("general.continue")
+
+          # second eligible 1099R
+          expect(page).to have_text("Couch Potato Cafe")
+          expect(page).to have_text("$50")
+          choose "No"
+
+          click_on I18n.t("general.continue")
+
+          within "#qualified-retirement-benefits-deduction" do
+            expect(page).to have_text I18n.t("state_file.questions.id_review.edit.qualified_retirement_benefits_deduction")
+            expect(page).to have_text I18n.t("state_file.questions.id_review.edit.qualified_retirement_benefits_deduction_explain")
+            expect(page).to have_text I18n.t("state_file.questions.id_review.edit.qualified_disabled_retirement_benefits")
+            expect(page).to have_text "$200.00" # $50 less eligible
+          end
         end
       end
 
@@ -389,7 +408,21 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
             click_on I18n.t("general.review_and_edit")
           end
+
           expect(page).to have_text I18n.t("state_file.questions.id_disability.edit.title")
+          choose "No"
+          click_on I18n.t("general.continue")
+
+          # if they say no longer disabled, the eligible tax amount should be 0 b/c both 1099Rs are linked to the primary filer
+          within "#qualified-retirement-benefits-deduction" do
+            expect(page).to have_text I18n.t("state_file.questions.id_review.edit.qualified_retirement_benefits_deduction")
+            expect(page).to have_text I18n.t("state_file.questions.id_review.edit.qualified_retirement_benefits_deduction_explain")
+            expect(page).to have_text I18n.t("state_file.questions.id_review.edit.qualified_disabled_retirement_benefits")
+            expect(page).to have_text "$0.00"
+
+            click_on I18n.t("general.review_and_edit")
+          end
+
         end
       end
     end
