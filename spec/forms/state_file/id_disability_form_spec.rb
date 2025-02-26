@@ -77,12 +77,7 @@ RSpec.describe StateFile::IdDisabilityForm do
              taxable_amount: 2222
     end
 
-    context "when filing status is MFJ and both spouse and filer are eligible" do
-      before do
-        intake.primary_birth_date = Date.new(MultiTenantService.statefile.current_tax_year - 62, 1, 1)
-        intake.spouse_birth_date = Date.new(MultiTenantService.statefile.current_tax_year - 62, 1, 1)
-      end
-
+    context "when filing status is MFJ" do
       context "when mfj_disability is 'me'" do
         let(:params) { { mfj_disability: "me" } }
 
