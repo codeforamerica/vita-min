@@ -358,9 +358,10 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
     context "with line 8e value greater than 0" do
       context "with eligible senior at least 65 years old" do # current fixture has filer who is 65 years old
-        it "should allow review & edit by navigating back to answer questions on eligible_income_source and go through every 1099Rs that are applicable, then return to review" do
+        it "review & edit questions on eligible_income_source and go through every 1099Rs that are applicable, then return to review" do
           visit "/questions/id-review"
 
+          expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
           within "#qualified-retirement-benefits-deduction" do
             expect(page).to have_text I18n.t("state_file.questions.id_review.edit.qualified_retirement_benefits_deduction")
             expect(page).to have_text I18n.t("state_file.questions.id_review.edit.qualified_retirement_benefits_deduction_explain")
@@ -369,20 +370,21 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
             click_on I18n.t("general.review_and_edit")
           end
-          expect(page).to have_text I18n.t("state_file.questions.id_retirement_and_pension_income.edit.subtitle")
 
           # first eligible 1099R
+          expect(page).to have_text I18n.t("state_file.questions.id_retirement_and_pension_income.edit.subtitle")
           expect(page).to have_text("Dorothy Red")
           expect(page).to have_text("$200")
           click_on I18n.t("general.continue")
 
           # second eligible 1099R
+          expect(page).to have_text I18n.t("state_file.questions.id_retirement_and_pension_income.edit.subtitle")
           expect(page).to have_text("Couch Potato Cafe")
           expect(page).to have_text("$50")
           choose "No"
-
           click_on I18n.t("general.continue")
 
+          expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
           within "#qualified-retirement-benefits-deduction" do
             expect(page).to have_text I18n.t("state_file.questions.id_review.edit.qualified_retirement_benefits_deduction")
             expect(page).to have_text I18n.t("state_file.questions.id_review.edit.qualified_retirement_benefits_deduction_explain")
@@ -397,9 +399,10 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
           @intake.update(primary_birth_date: Date.new((MultiTenantService.statefile.current_tax_year - 64), 12, 31))
         end
 
-        it "should allow review & edit by navigating back to answer questions on disability, and ask about eligible_income_source for every applicable 1099R, only if disabled, then return to review" do
+        it "review & edit questions on disability, and skip eligible income question, then return to review & does not see the card (no longer eligible)" do
           visit "/questions/id-review"
 
+          expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
           within "#qualified-retirement-benefits-deduction" do
             expect(page).to have_text I18n.t("state_file.questions.id_review.edit.qualified_retirement_benefits_deduction")
             expect(page).to have_text I18n.t("state_file.questions.id_review.edit.qualified_retirement_benefits_deduction_explain")
@@ -413,16 +416,8 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
           choose "No"
           click_on I18n.t("general.continue")
 
-          # if they say no longer disabled, the eligible tax amount should be 0 b/c both 1099Rs are linked to the primary filer
-          within "#qualified-retirement-benefits-deduction" do
-            expect(page).to have_text I18n.t("state_file.questions.id_review.edit.qualified_retirement_benefits_deduction")
-            expect(page).to have_text I18n.t("state_file.questions.id_review.edit.qualified_retirement_benefits_deduction_explain")
-            expect(page).to have_text I18n.t("state_file.questions.id_review.edit.qualified_disabled_retirement_benefits")
-            expect(page).to have_text "$0.00"
-
-            click_on I18n.t("general.review_and_edit")
-          end
-
+          expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
+          expect(page).not_to have_text I18n.t("state_file.questions.id_review.edit.qualified_retirement_benefits_deduction")
         end
       end
     end
@@ -431,6 +426,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       allow_any_instance_of(Efile::Id::Id39RCalculator).to receive(:calculate_sec_b_line_8e).and_return(0)
       visit "/questions/id-review"
 
+      expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
       expect(page).not_to have_text(I18n.t("state_file.questions.id_review.edit.qualified_retirement_benefits_deduction"))
     end
   end
