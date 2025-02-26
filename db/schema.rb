@@ -1784,7 +1784,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_24_225821) do
     t.bigint "state_file_archived_intake_id"
     t.bigint "state_file_archived_intake_request_id"
     t.datetime "updated_at", null: false
-    t.index ["state_file_archived_intake_id"], name: "idx_on_state_file_archived_intake_id_a016b5cab5"
   end
 
   create_table "state_file_archived_intake_requests", force: :cascade do |t|

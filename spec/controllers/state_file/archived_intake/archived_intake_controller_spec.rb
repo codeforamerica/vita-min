@@ -32,7 +32,6 @@ describe StateFile::ArchivedIntakes::ArchivedIntakeController, type: :controller
     end
   end
 
-
   describe '#create_state_file_access_log' do
     let(:event_type) { 'incorrect_ssn_challenge' }
 
