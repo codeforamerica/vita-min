@@ -82,6 +82,11 @@
                       ),
                       class: "button--small"
           %>
+          <% if !state_1099r.valid?(:retirement_income_intake) %>
+            <div class="notice--warning spacing-above-5">
+              <p><%= t(".warning") %></p>
+            </div>
+          <% end %>
         </div>
       <% end %>
     </div>

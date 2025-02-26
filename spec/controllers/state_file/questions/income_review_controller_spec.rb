@@ -374,19 +374,44 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
   describe "1099R card" do
     render_views
 
-    context "when there are state 1099Rs" do
-      it "shows a summary of each" do
-        primary_1099r = create(:state_file1099_r, intake: intake, payer_name: "Payeur", recipient_name: 'Prim Rose')
-        spouse_1099r = create(:state_file1099_r, intake: intake, payer_name: "Payure", recipient_name: 'Sprout Vine')
+    shared_examples "does not display 1099R warning" do
+      it "has no warnings" do
         get :edit, params: params
+        expect(response.body).not_to have_text I18n.t("state_file.questions.income_review.edit.warning")
+      end
+    end
 
-        expect(response.body).to have_text "Retirement income (1099-R)"
-        expect(response.body).to have_text "Payeur"
-        expect(response.body).to have_text "Prim Rose"
-        expect(response.body).to have_link(href: edit_retirement_income_path(id: primary_1099r.id))
-        expect(response.body).to have_text "Payure"
-        expect(response.body).to have_text "Sprout Vine"
-        expect(response.body).to have_link(href: edit_retirement_income_path(id: spouse_1099r.id))
+    shared_examples "displays one 1099R warning" do
+      it "displays warning in 1099R card" do
+        get :edit, params: params
+        expect(response.body.scan(I18n.t("state_file.questions.income_review.edit.warning")).size).to eq(1)
+      end
+    end
+
+    context "when there are state 1099Rs" do
+      context "when 1099Rs are valid" do
+        let!(:primary_1099r) { create(:state_file1099_r, intake: intake, payer_name: "Payeur", recipient_name: "Prim Rose") }
+        let!(:spouse_1099r) { create(:state_file1099_r, intake: intake, payer_name: "Payure", recipient_name: "Sprout Vine") }
+
+        it_behaves_like "does not display 1099R warning"
+
+        it "shows a summary of each" do
+          get :edit, params: params
+
+          expect(response.body).to have_text "Retirement income (1099-R)"
+          expect(response.body).to have_text "Payeur"
+          expect(response.body).to have_text "Prim Rose"
+          expect(response.body).to have_link(href: edit_retirement_income_path(id: primary_1099r.id))
+          expect(response.body).to have_text "Payure"
+          expect(response.body).to have_text "Sprout Vine"
+          expect(response.body).to have_link(href: edit_retirement_income_path(id: spouse_1099r.id))
+        end
+      end
+
+      context "when a 1099R is invalid" do
+        let!(:invalid_1099r) { create(:state_file1099_r, intake: intake, gross_distribution_amount: 500, state_tax_withheld_amount: 550) }
+
+        it_behaves_like "displays one 1099R warning"
       end
     end
 
