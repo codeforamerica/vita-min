@@ -6,9 +6,17 @@
   </div>
 
   <ul class="no-bullets">
-    <% if @presenter.unrouted_organizations.any? %>
-      <% @presenter.unrouted_organizations.each do |org| %>
-        <%= render "organization", organization: org %>
+    <% if current_user.org_lead? %>
+      <% if @presenter.unrouted_organizations.any? %>
+        <% @presenter.unrouted_organizations.each do |org| %>
+          <%= render "organization", organization: org %>
+        <% end %>
+      <% end %>
+    <% else %>
+      <% if @presenter.unrouted_independent_organizations.any? %>
+        <% @presenter.unrouted_independent_organizations.each do |org| %>
+          <%= render "organization", organization: org %>
+        <% end %>
       <% end %>
     <% end %>
 
@@ -23,5 +31,3 @@
     <%= t("general.NA") %>
   <% end %>
 </div>
-
-<!--not grabbing the orgs that have a coalition parent here for org leads-->

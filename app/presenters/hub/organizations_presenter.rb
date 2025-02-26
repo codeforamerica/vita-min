@@ -7,7 +7,7 @@ module Hub
       accessible_organizations = Organization.accessible_by(current_ability)
       @organizations = accessible_organizations.includes(:child_sites).with_computed_client_count.load
       @coalitions = Coalition.accessible_by(current_ability)
-      coalition_parents_of_dependent_orgs = accessible_organizations.where.not(coalition_id: nil).reorder(nil).distinct.pluck(:coalition_id)
+      coalition_parents_of_dependent_orgs = accessible_organizations.where.not(coalition_id: nil).pluck(:coalition_id)
       @state_routing_targets = StateRoutingTarget.where(target: accessible_organizations)
                                                  .or(StateRoutingTarget.where(target: @coalitions))
                                                  .or(StateRoutingTarget.where(target_id: coalition_parents_of_dependent_orgs))
@@ -77,6 +77,10 @@ module Hub
 
     def unrouted_organizations
       organizations.where.missing(:state_routing_targets)
+    end
+
+    def unrouted_independent_organizations
+      organizations.where.missing(:state_routing_targets).where(coalition_id: nil)
     end
 
     def unrouted_coalitions

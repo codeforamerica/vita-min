@@ -63,6 +63,12 @@ describe Hub::OrganizationsPresenter do
       end
     end
 
+    describe "#unrouted_independent_organizations" do
+      it "returns a collection of the independent organizations that have no state routing rules" do
+        expect(subject.unrouted_independent_organizations).to match_array([unrouted_organization])
+      end
+    end
+
     describe "#unrouted_coalitions" do
       it "returns a collection of the independent organizations that have no state routing rules" do
         expect(subject.unrouted_coalitions).to match_array([unrouted_coalition])
