@@ -335,6 +335,73 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
     end
   end
 
+  context "ID" do
+    before do
+      allow(Flipper).to receive(:enabled?).and_call_original
+      allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
+
+      state_code = "id"
+      set_up_intake_and_associated_records(state_code)
+
+      @intake = StateFile::StateInformationService.intake_class(state_code).last
+      first_1099r = @intake.state_file1099_rs.first
+      first_1099r.update(taxable_amount: 200)
+      StateFileId1099RFollowup.create(state_file1099_r: @intake.state_file1099_rs.first, eligible_income_source: "yes")
+      allow_any_instance_of(StateFile::Questions::IdRetirementAndPensionIncomeController).to receive(:person_qualifies?).and_return(true)
+
+      second_1099r = create(:state_file1099_r, intake: @intake, payer_name: "Couch Potato Cafe", taxable_amount: 50)
+      StateFileId1099RFollowup.create(state_file1099_r: second_1099r, eligible_income_source: "yes")
+
+      # making this value always greater than 8e so 8f value always gets used
+      allow_any_instance_of(Efile::Id::Id39RCalculator).to receive(:calculate_sec_b_line_8d).and_return(first_1099r.taxable_amount + second_1099r.taxable_amount + 1)
+    end
+
+    context "with line 8e value greater than 0" do
+      context "with eligible senior at least 65 years old" do # current fixture has filer who is 65 years old
+        it "should allow review & edit by navigating back to answer questions on eligible_income_source and go through every 1099Rs that are applicable, then return to review" do
+          visit "/questions/id-review"
+
+          within "#qualified-retirement-benefits-deduction" do
+            expect(page).to have_text I18n.t("state_file.questions.id_review.edit.qualified_retirement_benefits_deduction")
+            expect(page).to have_text I18n.t("state_file.questions.id_review.edit.qualified_retirement_benefits_deduction_explain")
+            expect(page).to have_text I18n.t("state_file.questions.id_review.edit.qualified_disabled_retirement_benefits")
+            expect(page).to have_text "$250.00"
+
+            click_on I18n.t("general.review_and_edit")
+          end
+          expect(page).to have_text I18n.t("state_file.questions.id_retirement_and_pension_income.edit.subtitle")
+        end
+      end
+
+      context "with eligible disabled senior under 65 years old" do
+        before do
+          @intake.update(primary_birth_date: Date.new((MultiTenantService.statefile.current_tax_year - 64), 12, 31))
+        end
+
+        it "should allow review & edit by navigating back to answer questions on disability, and ask about eligible_income_source for every applicable 1099R, only if disabled, then return to review" do
+          visit "/questions/id-review"
+
+          within "#qualified-retirement-benefits-deduction" do
+            expect(page).to have_text I18n.t("state_file.questions.id_review.edit.qualified_retirement_benefits_deduction")
+            expect(page).to have_text I18n.t("state_file.questions.id_review.edit.qualified_retirement_benefits_deduction_explain")
+            expect(page).to have_text I18n.t("state_file.questions.id_review.edit.qualified_disabled_retirement_benefits")
+            expect(page).to have_text "$250.00"
+
+            click_on I18n.t("general.review_and_edit")
+          end
+          expect(page).to have_text I18n.t("state_file.questions.id_disability.edit.title")
+        end
+      end
+    end
+
+    it "should not show the Qualified Retirement Benefits Deduction card if line 8e is not positive" do
+      allow_any_instance_of(Efile::Id::Id39RCalculator).to receive(:calculate_sec_b_line_8e).and_return(0)
+      visit "/questions/id-review"
+
+      expect(page).not_to have_text(I18n.t("state_file.questions.id_review.edit.qualified_retirement_benefits_deduction"))
+    end
+  end
+
   def set_up_intake_and_associated_records(state_code)
     visit "/"
     click_on "Start Test #{state_code.upcase}"
