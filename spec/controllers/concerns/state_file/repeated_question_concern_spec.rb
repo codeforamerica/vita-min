@@ -13,10 +13,6 @@ RSpec.describe StateFile::RepeatedQuestionConcern, type: :controller do
     def load_item(index)
       index
     end
-
-    def review_all_items_before_returning_to_review
-      false
-    end
   end
 
   # Which state we use doesn't matter, we just need a signed-in intake to use QuestionsController
@@ -45,7 +41,7 @@ RSpec.describe StateFile::RepeatedQuestionConcern, type: :controller do
         it "goes to the next item with the return_to_review param" do
           get :index, params: { return_to_review: "y", index: "1" }
 
-          expect(subject.next_path).to eq("/next_path")
+          expect(subject.next_path).to eq("/path?index=2&return_to_review=y")
         end
       end
     end
