@@ -45,6 +45,7 @@ RSpec.describe StateFile::Questions::EligibilityOffboardingController do
   
       it "does not show NJ-specific content" do
         get :edit
+        expect(response.body).to include("Visit our FAQ")
         expect(response.body).not_to include("Get connected now")
       end
     end
@@ -54,6 +55,7 @@ RSpec.describe StateFile::Questions::EligibilityOffboardingController do
   
       it "does not show NJ-specific content" do
         get :edit
+        expect(response.body).to include("Visit our FAQ")
         expect(response.body).not_to include("Get connected now")
       end
     end
@@ -63,6 +65,7 @@ RSpec.describe StateFile::Questions::EligibilityOffboardingController do
   
       it "does not show NJ-specific content" do
         get :edit
+        expect(response.body).to include("Visit our FAQ")
         expect(response.body).not_to include("Get connected now")
       end
     end
@@ -72,6 +75,7 @@ RSpec.describe StateFile::Questions::EligibilityOffboardingController do
   
       it "shows NJ-specific content" do
         get :edit
+        expect(response.body).to include("Visit our FAQ")
         expect(response.body).to include("Get connected now")
       end
     end

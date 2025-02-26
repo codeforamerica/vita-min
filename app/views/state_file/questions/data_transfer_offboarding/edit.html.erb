@@ -13,6 +13,7 @@
     <p><%= vita_introduction %></p>
   <% end %>
 
+  <% # i18n-tasks-use t('state_file.questions.eligible.vita_option.connect_to_vita.nj') # hint for the i18n linter that, yes, we are using this key (sometimes) %>
   <% vita_link_key = "state_file.questions.eligible.vita_option.connect_to_vita.#{current_state_code}" %>
   <% vita_link_href = StateFile::StateInformationService.send("vita_link_#{I18n.locale}", current_state_code) %>
   <% faq_link_href = state_faq_path(us_state: current_state_code) %>
