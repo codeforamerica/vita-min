@@ -3490,7 +3490,7 @@ es:
               </li>
             </ul>
           label: 'Total:'
-          title: Por favor, dinos si ya pagaste parte de tus impuestos estatales de New Jersey de %{filing_year}.
+          title: Por favor, dinos si ya pagaste parte de tus impuestos estatales sobre los ingresos de New Jersey de %{filing_year}.
       nj_gubernatorial_elections:
         edit:
           description_html: "<p>Puede que conozcas esto como \"financiamiento público\" de campañas.</p> \n<p>Puedes contribuir con $1 de lo que va a tus impuestos al <a href=\"https://elec.nj.gov/pdffiles/temporary/WebsitePlugForGubfinProgram.pdf\" target=\"_blank\" rel=\"noopener nofollow\">Fondo de Elecciones para Gobernador</a> (link en inglés).</p>\n<p>Para tu información: Tus impuestos no aumentarán y tu reembolso no se reducirá. Esto autoriza a New Jersey usar $1 de tus dólares de impuestos para este Fondo.</p>\n"

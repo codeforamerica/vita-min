@@ -3518,7 +3518,7 @@ en:
               </li>
             </ul>
           label: 'Total:'
-          title: Please tell us if you already made any payments toward your %{filing_year} New Jersey taxes.
+          title: Please tell us if you already made any payments toward your %{filing_year} New Jersey state income taxes.
       nj_gubernatorial_elections:
         edit:
           description_html: "<p>You may have heard this referred to as \"public financing\" of campaigns.</p> \n<p>You can contribute $1 of where your taxes go to the <a href=\"https://elec.nj.gov/pdffiles/temporary/WebsitePlugForGubfinProgram.pdf\" target=\"_blank\" rel=\"noopener nofollow\">Gubernatorial Elections Fund</a>.</p>\n<p>FYI: Your taxes won’t increase and your refund won't be reduced. This just gives New Jersey permission to use $1 of your tax dollars for this Fund.</p>\n"
