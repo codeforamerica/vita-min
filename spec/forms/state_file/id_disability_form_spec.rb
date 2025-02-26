@@ -66,15 +66,13 @@ RSpec.describe StateFile::IdDisabilityForm do
     let!(:primary_1099r) do
       create :state_file1099_r,
              intake: intake,
-             recipient_ssn: "400000030",
-             taxable_amount: 1111
+             recipient_ssn: "400000030"
     end
 
     let!(:spouse_1099r) do
       create :state_file1099_r,
              intake: intake,
-             recipient_ssn: "600000030",
-             taxable_amount: 2222
+             recipient_ssn: "600000030"
     end
 
     context "when filing status is MFJ" do
