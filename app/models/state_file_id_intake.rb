@@ -118,4 +118,26 @@ class StateFileIdIntake < StateFileBaseIntake
   def has_filing_requirement?
     direct_file_data.total_income_amount >= direct_file_data.total_itemized_or_standard_deduction_amount
   end
+
+
+  def eligible_1099rs
+    state_file1099_rs.select do |form1099r|
+      form1099r.taxable_amount&.to_f&.positive? && person_qualifies?(form1099r)
+    end
+  end
+
+  private
+  def person_qualifies?(form1099r)
+    primary_tin = primary.ssn
+    spouse_tin = spouse&.ssn
+
+    case form1099r.recipient_ssn
+    when primary_tin
+      primary_disabled_yes? || primary_senior?
+    when spouse_tin
+      spouse_disabled_yes? || spouse_senior?
+    else
+      false
+    end
+  end
 end

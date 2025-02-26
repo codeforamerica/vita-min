@@ -93,4 +93,107 @@ require 'rails_helper'
 
 RSpec.describe StateFileIdIntake, type: :model do
   it_behaves_like :state_file_base_intake, factory: :state_file_id_intake
+
+  describe "#eligible_1099rs" do
+    let(:intake) {
+      create(
+        :state_file_id_intake, :with_spouse,
+        primary_disabled: "no",
+        spouse_disabled: "no",
+        primary_birth_date: 60.years.ago,
+        spouse_birth_date: 60.years.ago,
+      )
+    }
+    let!(:state_file1099_r) { create(:state_file1099_r, intake: intake, recipient_ssn: ssn, taxable_amount: taxable_amount) }
+
+    context "1099r has taxable_amount" do
+      let(:taxable_amount) { 100 }
+
+      context "primary" do
+        let(:ssn) { intake.primary.ssn }
+
+        context "disabled" do
+          before do
+            intake.update(primary_disabled: "yes")
+          end
+
+          it "contains primary's 1099r" do
+            expect(intake.eligible_1099rs).to include(state_file1099_r)
+          end
+        end
+
+        context "senior" do
+          before do
+            intake.update(primary_birth_date: 66.years.ago)
+          end
+
+          it "contains primary's 1099r" do
+            expect(intake.eligible_1099rs).to include(state_file1099_r)
+          end
+        end
+
+        context "not disabled and not senior" do
+          it "does not contain primary's 1099r" do
+            expect(intake.eligible_1099rs).not_to include(state_file1099_r)
+          end
+        end
+      end
+
+      context "spouse" do
+        let(:ssn) { intake.spouse.ssn }
+
+        context "disabled" do
+          before do
+            intake.update(spouse_disabled: "yes")
+          end
+
+          it "contains spouse's 1099r" do
+            expect(intake.eligible_1099rs).to include(state_file1099_r)
+          end
+        end
+
+        context "senior" do
+          before do
+            intake.update(spouse_birth_date: 66.years.ago)
+          end
+
+          it "contains spouse's 1099r" do
+            expect(intake.eligible_1099rs).to include(state_file1099_r)
+          end
+        end
+
+        context "not disabled and not senior" do
+          it "does not contain sposue's 1099r" do
+            expect(intake.eligible_1099rs).not_to include(state_file1099_r)
+          end
+        end
+      end
+    end
+
+    context "1099r has no taxable_amount" do
+      let(:taxable_amount) { nil }
+
+      context "even when primary senior and disabled" do
+        let(:ssn) { intake.primary.ssn }
+        before do
+          intake.update(primary_disabled: "yes", primary_birth_date: 65.years.ago)
+        end
+
+        it "does not contain primary's 1099r" do
+          expect(intake.eligible_1099rs).not_to include(state_file1099_r)
+        end
+      end
+
+      context "even when spouse senior and disabled" do
+        let(:ssn) { intake.spouse.ssn }
+        before do
+          intake.update(spouse_disabled: "yes", spouse_birth_date: 65.years.ago)
+        end
+
+        it "does not contain spouse's 1099r" do
+          expect(intake.eligible_1099rs).not_to include(state_file1099_r)
+        end
+      end
+    end
+  end
 end
