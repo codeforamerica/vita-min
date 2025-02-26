@@ -370,7 +370,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
     )
     intake.direct_file_data.fed_unemployment = 1000
     intake.update(raw_direct_file_data: intake.direct_file_data)
-    create(:state_file_w2, state_file_intake: intake)
+    create(:state_file_w2, state_file_intake: intake, box14_fli: 0, box14_ui_wf_swf: 0, box14_stpickup: 0)
     create(:state_file1099_r, intake: intake)
     create(:state_file1099_g, intake: intake)
   end

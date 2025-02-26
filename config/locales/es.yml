@@ -9,13 +9,16 @@ es:
               blank: Para reclamar a un miembro de su familia como dependiente para los beneficios, se requiere un SSN o ATIN.
   activerecord:
     errors:
+      concerns:
+        date_accessible:
+          inclusion: Date must be valid and in the current tax year
       models:
         az321_contribution:
           attributes:
             charity_code:
               invalid: Debe ser un número de cinco dígitos que comience con 2
             date_of_contribution:
-              inclusion: La fecha debe estar en el año fiscal actual
+              inclusion: La fecha debe ser válida y corresponder al año fiscal actual.
         state_file_1099_r:
           errors:
             must_be_less_than_gross_distribution: Debe ser menor que el monto bruto de distribución
@@ -2151,7 +2154,7 @@ es:
           <li>Medicaid (NJ FamilyCare)</li>
         </ul>
         <p><a href="https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml" target="_blank" rel="noopener nofollow">Aquí está la lista completa de opciones de seguro que tienen cobertura mínima esencial (en inglés)</a></p>
-        <p>Debes responder no si tú o alguien en tu hogar solo tuvo plan de visión o dental independientes, cobertura de compensación laboral o un plan limitado a una enfermedad o dolencia específica. En New Jersey, a partir de 2018, necesitas cobertura mínima esencial, o podrías tener que pagar impuestos adicionales.</p>
+        <p>Debes responder no si tú o alguien en tu hogar solo tuvo plan de visión o dental independientes, cobertura de compensación laboral o un plan limitado a una enfermedad o dolencia específica. En New Jersey, a partir de 2018, necesitas cobertura mínima esencial, o podrías tener que pagar impuestos adicionales.</p>
       register_to_vote: Regístrate para votar
       see_detailed_return: Ver información detallada de la declaración
       standard_deduction: Deducción estándar
@@ -2207,7 +2210,7 @@ es:
             <li>El formulario 1099-G (si recibiste beneficios de desempleo en %{filing_year})</li>
             <li>Los números de ruta y cuenta bancaria (si deseas recibir tu reembolso o hacer un pago de impuestos electrónicamente)</li>
           </ul>
-        help_text_title: "¿Qué necesito para completar mi declaración de impuestos estatales?"
+        help_text_title: "¿Qué necesito para completar mi declaración de impuestos estatales?"
         id:
           closed_html: |
             Ya cerramos por esta temporada de impuestos. <br /><br />
@@ -2455,7 +2458,7 @@ es:
             one: "¿Cuánto recibiste en salario por servicio activo?"
             other: "¿Cuánto recibiste tú o tu cónyuge en salario por servicio activo?"
           learn_more_content_html: |
-            Si eres miembro de las <strong>Fuerzas Armadas de Estados Unidos</strong>, ingresa el salario que recibiste por servicio activo que reportaste en declaración de impuestos federales.<br><br>
+            Si eres miembro de las <strong>Fuerzas Armadas de Estados Unidos</strong>, ingresa el salario que recibiste por servicio activo que reportaste en declaración de impuestos federales.<br><br>
             Si eres miembro de <strong>la Reserva o la Guardia Nacional</strong>, ingresa el salario que recibiste por entrenamientos durante fines de semana o de dos semanas que hayas reportado en tu declaración de impuestos federal.<br><br>
             <strong>No</strong> puedes incluir ningún ingreso que hayas recibido por empleo a tiempo completo en el servicio civil como "técnico militar (doble estatus)".
           learn_more_title: Obtener más información
@@ -2880,6 +2883,21 @@ es:
           spouse_esign: Mi cónyuge ha leído y acepta la certificación anterior
           submit: Envía tu declaración estatal
           title: Firma electrónicamente tu declaración de impuestos del estado de %{state_name}
+      id_disability:
+        edit:
+          help_b1: Un individuo reconocido como discapacitado por la Administración del Seguro Social, la Junta de Jubilación de los Ferrocarriles o la Oficina de Administración y Presupuesto (OMB, por sus siglas en inglés).
+          help_b2: Un veterano de una guerra de los Estados Unidos con una calificación de discapacidad relacionada con el servicio del 10% o más.
+          help_b3: Un veterano de una guerra de los Estados Unidos con una pensión por discapacidad no relacionada con el servicio.
+          help_b4: Una persona que tiene una discapacidad permanente sin expectativa de mejora certificada por un médico.
+          help_text: Las siguientes personas son clasifican como discapacitadas
+          help_title: "¿Qué se clasifica como discapacidad?"
+          no_neither: No, ninguno de los dos lo está
+          question: "¿Estás total y permanentemente discapacitado?"
+          question_spouse: "¿Tú o tu cónyuge están total y permanentemente discapacitados?"
+          title: "¡Podrías ser elegible para una deducción por ingresos de jubilación de Idaho!."
+          yes_both: Sí, ambos lo estamos
+          yes_me: Sí lo estoy
+          yes_spouse: Sí, mi cónyuge lo está
       id_donations:
         edit:
           add_the_amount: Ingresa el valor que te gustaría donar a cualquiera de las organizaciones a continuación
@@ -2998,6 +3016,16 @@ es:
           subtitle: Ingresa el número de licencia de conducir o tarjeta de identificación al presentar tu declaración electrónicamente para ayudar a que tu reembolso se procese más rápido.
           title: Necesitamos algunos detalles de tu identificación emitida por el estado, si tienes una
           why_ask_this: "¿Por qué están pidiendo esta información?"
+      id_retirement_and_pension_income:
+        edit:
+          question: "¿Este ingreso de jubilación proviene de alguno de los siguientes?"
+          question_b1: Tu servicio como empleado del Servicio Civil
+          question_b2: Tu servicio como bombero de Idaho
+          question_b3: Tu servicio como oficial de policía de una ciudad de Idaho
+          question_b4: Tu servicio como miembro del ejército de los Estados Unidos.
+          question_b5: Beneficios de sobreviviente de la pensión de un cónyuge fallecido de una de las fuentes mencionadas anteriormente.
+          read_more: Conoce más sobre estos beneficios calificados de jubilación calificados.
+          subtitle: Necesitamos más información de tu formulario 1099-R para confirmar tu elegibilidad.
       id_review:
         edit:
           donations_optional: Los contribuyentes de Idaho pueden hacer donaciones caritativas voluntarias a organizaciones cuando presentan su declaración de impuestos estatal.
@@ -3038,7 +3066,7 @@ es:
           review_and_edit_state_info: Revisar y editar la información estatal
           ssa_title: Beneficios del Seguro Social (SSA-1099)
           state_info_to_be_collected: Información estatal que se recogerá
-          title: Estos son los formularios de ingresos que transferimos de tu declaración de impuestos federales.
+          title: Estos son los formularios de ingresos que transferimos de tu declaración de impuestos federales.
           unemployment_title: Beneficios de desempleo (1099-G)
           w2s_title: Empleos (W-2)
           warning: "⚠️ Necesitamos verificar de nuevo cierta información"
@@ -3594,7 +3622,7 @@ es:
           label: 'Select the source of this income:'
           option_military_pension: U.S. military pension
           option_military_survivor_benefit: U.S. military survivor's benefits
-          option_none: None of these apply (Choose this if you have a civil service pension or annuity)
+          option_other: None of these apply (Choose this if you have a civil service pension or annuity)
           subtitle: We need more information about this 1099-R.
           taxable_amount_label: 'Taxable Amount:'
           taxpayer_name_label: 'Taxpayer Name:'
@@ -3630,7 +3658,7 @@ es:
           retirement_income_source_label: 'Source:'
           retirement_income_source_military_pension: U.S. military pension
           retirement_income_source_military_survivor_benefit: U.S. military survivor's benefits
-          retirement_income_source_none: Neither U.S. military pension nor U.S. military survivor's benefits
+          retirement_income_source_other: Neither U.S. military pension nor U.S. military survivor's benefits
           retirement_income_source_taxable_amount_label: 'Taxable Amount:'
           retirement_income_source_taxpayer_name_label: 'Taxpayer Name:'
           reveal:
@@ -3876,8 +3904,8 @@ es:
           title: 'Selecciona tu estado de residencia en la ciudad de Nueva York durante el %{year}:'
       pending_federal_return:
         edit:
-          body_html: Lamentamos hacerte esperar.<br><br>Recibirás un correo electrónico de IRS Direct File cuando tu declaración de impuestos federales sea aceptada, con un enlace para traerte de regreso aquí. Revisa tu carpeta de spam.
-          title: Tu declaración de impuestos federales debe ser aceptada antes de que puedas presentar tu declaración de impuestos estatales
+          body_html: Lamentamos hacerte esperar.<br><br>Recibirás un correo electrónico de IRS Direct File cuando tu declaración de impuestos federales sea aceptada, con un enlace para traerte de regreso aquí. Revisa tu carpeta de spam.
+          title: Tu declaración de impuestos federales debe ser aceptada antes de que puedas presentar tu declaración de impuestos estatales
       phone_number:
         edit:
           action: Enviar el código
@@ -4227,6 +4255,7 @@ es:
           local_income_tax_amt_error: No puede ser mayor que los salarios y propinas locales.
           local_wages_and_tips_amt_error: Ingresa los salarios y propinas locales
           locality_nm_missing_error: Selecciona el nombre de la localidad
+          no_money_amount: Please enter an amount. If amount is blank, enter $0.
           save_and_continue: Guardar y Continuar
           state_income_tax_amt_error: No puede ser mayor que los salarios y propinas estatales.
           state_wages_amt_error: Ingresa los salarios y propinas estatales
@@ -4247,7 +4276,7 @@ es:
         faq_prior_year_returns: Visita nuestra sección de preguntas frecuentes si tienes dudas sobre declaraciones de años anteriores.
         header: Un servicio sin costo para declarar los impuestos estatales para las personas que usaron IRS Direct File
         helper_heading_html: "<strong>¿Cómo funciona este servicio?</strong>"
-        looking_for_return_html: "<strong>¿Necesitas tu declaración de impuestos de Arizona o Nueva York de 2023?</strong>"
+        looking_for_return_html: "<strong>¿Necesitas tu declaración de impuestos de Arizona o Nueva York de 2023?</strong> <a href='%{link}'>Inicia sesión</a> para descargar una copia de tu declaración estatal."
         section1_html: |
           <ol class="list--numbered" style="padding-left: 2rem">
             <li>Primero, presenta y envía tu declaración federal con el servicio <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">Direct File del IRS</a> antes de usar este servicio.</li>
@@ -5879,8 +5908,8 @@ es:
         relationship: Su relación con usted
         save_cta: Guarde a esta persona
         title: Háblenos de su dependiente. Por favor, proporcione algunos detalles más.
+        was_citizen: Es ciudadano estadounidense
         was_married: Casado/a desde 12/31/%{year}
-        was_not_citizen: No es ciudadano estadounidense
         was_student: Estudiante de educación superior de tiempo completo
       index:
         add_person: Agregue a una persona
@@ -6300,7 +6329,7 @@ es:
         title: Pago de estímulo
       tax_questions:
         cannot_answer:
-          different_services: Preguntas sobre los impuestos declarados mediante otro servicio (p. ej., H&R Block o TurboTax)
+          different_services: Preguntas sobre los impuestos declarados mediante otro servicio (p. ej., H&R Block o TurboTax)
           header: 'No podemos responder a lo siguiente:'
           refund_amounts: El monto del reembolso que recibirá
         header: "¡Tratemos de responder a sus preguntas sobre los impuestos!"
@@ -6931,14 +6960,14 @@ es:
         enter_zip: Ingrese su código postal para encontrar proveedores cercanos.
         header: Obtenga ayuda gratuita en declarar sus impuestos
         info: Los programas de Asistencia Voluntaria al Contribuyente (VITA, por sus siglas en inglés) del IRS ofrecen ayuda con los impuestos gratis, a los contribuyentes que califiquen.
-        no_results: "¡Disculpe! No hemos encontrado ningún resultado dentro de 50 millas de su dirección."
-        results: Hemos encontrado %{total_entries} resultados dentro de 50 millas de %{zip}
+        no_results: "¡Disculpe! No hemos encontrado ningún resultado dentro de 50 millas de su dirección."
+        results: Hemos encontrado %{total_entries} resultados dentro de 50 millas de %{zip}
         search:
           header: Ingrese su código postal para encontrar proveedores cercanos.
-          no_results: No hemos encontrado ningún resultado dentro de 50 millas de %{zip} (%{zip_name}).
+          no_results: No hemos encontrado ningún resultado dentro de 50 millas de %{zip} (%{zip_name}).
           placeholder: Ingrese su código postal
           prepare_your_own_html: También puede preparar su propia declaración de impuestos utilizando el %{free_file_link} para encontrar una manera gratuita de hacerlo en línea.
-          results: Hemos encontrado %{total_entries} resultados dentro de 50 millas de %{zip} (%{zip_name}).
+          results: Hemos encontrado %{total_entries} resultados dentro de 50 millas de %{zip} (%{zip_name}).
           try_another_or_apply_html: Intente otro código postal.
         title: Ubicar
       show:
@@ -6948,4 +6977,4 @@ es:
         no_hours_listed: Disculpe, no hay horario de apertura.
         no_phone_number_listed: Disculpe, no hay número de teléfono.
         phone_number_title: Llame a %{provider_name}
-        search_radius: Dentro de %{distance} millas de %{zip} (%{zip_name})
+        search_radius: Dentro de %{distance} millas de %{zip} (%{zip_name})

@@ -359,6 +359,7 @@ Rails.application.routes.draw do
         resources :ctc_intake_capacity, only: [:index, :create]
         resources :admin_toggles, only: [:index, :create]
         get "/profile" => "users#profile", as: :user_profile
+        resources :trusted_proxies, only: [:index]
       end
 
       put "hub/users/:user_id/resend", to: "hub/users#resend_invitation", as: :user_profile_resend_invitation
@@ -395,6 +396,8 @@ Rails.application.routes.draw do
     post "/outgoing_email_status", to: "mailgun_webhooks#update_outgoing_email_status", as: :outgoing_email_status
     # OAuth login callback routes
     devise_for :users, path: "hub", only: :omniauth_callbacks, skip: [:session, :invitation], controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
+    # AWS IP ranges update trigger
+    post "/update_aws_ip_ranges", to: "aws_ip_ranges_webhooks#update_aws_ip_ranges", as: :update_aws_ip_ranges
 
     resources :ajax_mixpanel_events, only: [:create]
 

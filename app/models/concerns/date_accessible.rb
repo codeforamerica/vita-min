@@ -4,7 +4,6 @@ module DateAccessible
   TAX_YEAR = Date.new(Rails.configuration.statefile_current_tax_year)
 
   included do
-    private
 
     # Calls `date_reader` and `date_writer` on specified date properties to set
     # getters and setters on the specified date properties. For use with
@@ -29,15 +28,13 @@ module DateAccessible
 
       properties.each do |property|
         self.define_method("#{property}_month") do
-          send(property)&.month
+          self.instance_variable_get("@#{property}_month") || send(property)&.month
         end
-
         self.define_method("#{property}_year") do
-          send(property)&.year
+          self.instance_variable_get("@#{property}_year") || send(property)&.year
         end
-
         self.define_method("#{property}_day") do
-          send(property)&.day
+          self.instance_variable_get("@#{property}_day") || send(property)&.day
         end
       end
     end
@@ -52,42 +49,31 @@ module DateAccessible
       properties = [properties] unless properties.is_a?(Enumerable)
 
       properties.each do |property|
-        self.define_method("#{property}_month=") do |month|
-          change_date_property(property, month: month) unless month.blank?
+        attr_writer :"#{property}_month", :"#{property}_year", :"#{property}_day"
+
+        before_validation do
+          month_to_set = self.instance_variable_get("@#{property}_month")
+          day_to_set = self.instance_variable_get("@#{property}_day")
+          year_to_set = self.instance_variable_get("@#{property}_year")
+
+          if year_to_set.present? && month_to_set.present? && day_to_set.present?
+            send("#{property}=", Date.new(year_to_set.to_i, month_to_set.to_i, day_to_set.to_i))
+          end
+        rescue Date::Error
+          send("#{property}=", nil)
         end
 
-        self.define_method("#{property}_year=") do |year|
-          change_date_property(property, year: year) unless year.blank?
-        end
+        self.class_eval do
+          validate :"#{property}_date_valid"
 
-        self.define_method("#{property}_day=") do |day|
-          change_date_property(property, day: day) unless day.blank?
+          define_method("#{property}_date_valid") do
+            date = send(property)
+            if date.present? && !Date.valid_date?(date.year, date.month, date.day)
+              errors.add(:date_of_contribution, :invalid_date, message: I18n.t("activerecord.errors.concerns.date_accessible.inclusion"))
+            end
+          end
         end
       end
-    end
-
-    # Takes in valid arguments to Date#change. Will create a new date if
-    # `date_of_contribution` is nil, otherwise will merely modify the correct
-    # date part. Values can be strings as long as #to_i renders an appropriate
-    # integer. Note that Date#change only accepts :year, :month, and :day as
-    # keys, all other keys will be treated as nothing was passed at all.
-    #
-    # Note that until all three fragments are passed; month, day, and year
-    # For year, a range must be indicated on the validator on the property itself
-    #
-    # @see Date#change
-    #
-    # @param date_property [Symbol] The property to manipulate
-    # @param args [Hash<Symbol, String | Integer>] Arguments conforming to Date#change
-    def change_date_property(date_property, args)
-      existing_date = send(date_property) || Date.new
-
-      self.send(
-          "#{date_property}=",
-          existing_date.change(**args.transform_values(&:to_i))
-      )
-    rescue Date::Error
-      nil
     end
   end
 end

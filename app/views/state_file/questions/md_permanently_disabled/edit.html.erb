@@ -21,7 +21,7 @@
               { value: "primary", label: t(".yes_me"), input_html: { "data-follow-up": primary_data_followup } },
               { value: "spouse", label: t(".yes_spouse"), input_html: { "data-follow-up": spouse_data_followup } },
               { value: "both", label: t(".yes_both"), input_html: { "data-follow-up": both_data_followup } },
-              { value: "no", label: t(".no_neither") }
+              { value: "none", label: t(".no_neither") }
             ]) %>
           <% else %>
             <% primary_data_followup = !current_intake.primary_senior? ? "#primary-disability-proof" : nil %>

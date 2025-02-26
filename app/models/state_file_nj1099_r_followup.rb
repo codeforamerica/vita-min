@@ -11,5 +11,5 @@ class StateFileNj1099RFollowup < ApplicationRecord
 
   has_one :state_file1099_r, inverse_of: :state_specific_followup
 
-  enum income_source: { unfilled: 0, military_pension: 1, military_survivors_benefits: 2, none: 3 }, _prefix: :income_source
+  enum income_source: { unfilled: 0, military_pension: 1, military_survivors_benefits: 2, other: 3 }, _prefix: :income_source
 end
