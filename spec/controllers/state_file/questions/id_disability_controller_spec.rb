@@ -154,6 +154,17 @@ RSpec.describe StateFile::Questions::IdDisabilityController do
           post :update, params: form_params.merge({return_to_review: "y"})
           expect(response).to redirect_to(StateFile::Questions::IdRetirementAndPensionIncomeController.to_path_helper(return_to_review: "y"))
         end
+
+        context "with no eligible 1099Rs" do
+          before do
+            state_file1099_r.update(taxable_amount: 0)
+          end
+
+          it "goes back to the final review screen" do
+            post :update, params: form_params.merge({return_to_review: "y"})
+            expect(response).to redirect_to(StateFile::Questions::IdReviewController.to_path_helper(return_to_review: "y"))
+          end
+        end
       end
 
       context "has disability in household" do

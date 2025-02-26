@@ -18,17 +18,8 @@ module StateFile
       end
 
       def next_path
-        has_disability_in_household =
-          if current_intake.filing_status_mfj?
-            form_params[:primary_disabled] == "yes" || form_params[:spouse_disabled] == "yes"
-          else
-            form_params[:primary_disabled] == "yes"
-          end
-
-        has_over_65_senior_in_household = current_intake.primary_senior? || current_intake.spouse_senior?
-
         if params[:return_to_review] == "y"
-          if has_over_65_senior_in_household || has_disability_in_household
+          if eligible_1099rs.any?
             StateFile::Questions::IdRetirementAndPensionIncomeController.to_path_helper(return_to_review: params[:return_to_review])
           else
             StateFile::Questions::IdReviewController.to_path_helper(return_to_review: params[:return_to_review])
@@ -39,6 +30,26 @@ module StateFile
       end
 
       private
+
+      def eligible_1099rs
+        @eligible_1099rs ||= current_intake.state_file1099_rs.select do |form1099r|
+          form1099r.taxable_amount&.to_f&.positive? && person_qualifies?(form1099r)
+        end
+      end
+
+      def person_qualifies?(form1099r)
+        primary_tin = current_intake.primary.ssn
+        spouse_tin = current_intake.spouse&.ssn
+
+        case form1099r.recipient_ssn
+        when primary_tin
+          current_intake.primary_disabled_yes? || current_intake.primary_senior?
+        when spouse_tin
+          current_intake.spouse_disabled_yes? || current_intake.spouse_senior?
+        else
+          false
+        end
+      end
 
       def form_params
         params.require(:state_file_id_disability_form).permit(:mfj_disability, :primary_disabled, :spouse_disabled)
