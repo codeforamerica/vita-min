@@ -16,7 +16,12 @@ module Efile
         set_line(:ID39R_B_LINE_3, :calculate_sec_b_line_3)
         set_line(:ID39R_B_LINE_7, :calculate_sec_b_line_7)
         set_line(:ID39R_B_LINE_6, :calculate_sec_b_line_6)
-        set_line(:ID39R_B_LINE_8f, -> { 0 })
+        set_line(:ID39R_B_LINE_8a, :calculate_sec_b_line_8a)
+        set_line(:ID39R_B_LINE_8b, -> { 0 })
+        set_line(:ID39R_B_LINE_8c, :calculate_sec_b_line_8c)
+        set_line(:ID39R_B_LINE_8d, :calculate_sec_b_line_8d)
+        set_line(:ID39R_B_LINE_8e, :calculate_sec_b_line_8e)
+        set_line(:ID39R_B_LINE_8f, :calculate_sec_b_line_8f)
         set_line(:ID39R_B_LINE_18, :calculate_sec_b_line_18)
         set_line(:ID39R_B_LINE_24, :calculate_sec_b_line_24)
         set_line(:ID39R_D_LINE_4, -> { 0 })
@@ -61,6 +66,40 @@ module Efile
 
       def calculate_sec_b_line_7
         @direct_file_data.fed_taxable_ssb&.round || 0
+      end
+
+      def calculate_sec_b_line_8a
+        if @intake.filing_status_single? || @intake.filing_status_hoh? || @intake.filing_status_qw?
+          45_864
+        elsif @intake.filing_status_mfj?
+          68_796
+        end
+      end
+
+      def calculate_sec_b_line_8c
+        @direct_file_data.fed_ssb
+      end
+
+      def calculate_sec_b_line_8d
+        [line_or_zero(:ID39R_B_LINE_8a) - (line_or_zero(:ID39R_B_LINE_8b) + line_or_zero(:ID39R_B_LINE_8c)), 0].max
+      end
+
+      def calculate_sec_b_line_8e
+        @intake.state_file1099_rs.sum do |form1099r|
+          if form1099r.state_specific_followup&.eligible_income_source_yes? && form1099r.taxable_amount.present?
+            form1099r.taxable_amount.round
+          else
+            0
+          end
+        end
+      end
+
+      def calculate_sec_b_line_8f
+        if Flipper.enabled?(:show_retirement_ui)
+          [line_or_zero(:ID39R_B_LINE_8d), line_or_zero(:ID39R_B_LINE_8e)].min
+        else
+          0
+        end
       end
 
       def calculate_sec_b_line_18

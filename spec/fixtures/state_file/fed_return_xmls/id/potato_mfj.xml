@@ -109,6 +109,76 @@
                 <MonthsChildLivedWithYouCnt>12</MonthsChildLivedWithYouCnt>
             </QualifyingChildInformation>
         </IRS1040ScheduleEIC>
+        <IRS1099R documentId="IRS1099R0001">
+            <PayerNameControlTxt>IDRS</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Idaho Retirement System</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>450 W State Street</AddressLine1Txt>
+                <CityNm>Boise</CityNm>
+                <StateAbbreviationCd>ID</StateAbbreviationCd>
+                <ZIPCd>83702</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>826000952</PayerEIN>
+            <PhoneNum>2083324144</PhoneNum>
+            <RecipientSSN>400005969</RecipientSSN>
+            <RecipientNm>Potato Potahto</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>123 Main Street</AddressLine1Txt>
+                <CityNm>Boise</CityNm>
+                <StateAbbreviationCd>ID</StateAbbreviationCd>
+                <ZIPCd>83702</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>24000</GrossDistributionAmt>
+            <TaxableAmt>20000</TaxableAmt>
+            <FederalIncomeTaxWithheldAmt>4000</FederalIncomeTaxWithheldAmt>
+            <F1099RDistributionCd>7</F1099RDistributionCd>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <F1099RLocalTaxGrp/>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp/>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRS1099R documentId="IRS1099R0002">
+            <PayerNameControlTxt>PERS</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Public Employee Retirement System</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>11410 SW 68th Parkway</AddressLine1Txt>
+                <CityNm>Meridian</CityNm>
+                <StateAbbreviationCd>ID</StateAbbreviationCd>
+                <ZIPCd>83642</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>826000953</PayerEIN>
+            <PhoneNum>2083324145</PhoneNum>
+            <RecipientSSN>400005970</RecipientSSN>
+            <RecipientNm>Tomato Tomahto</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>123 Main Street</AddressLine1Txt>
+                <CityNm>Boise</CityNm>
+                <StateAbbreviationCd>ID</StateAbbreviationCd>
+                <ZIPCd>83702</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>18000</GrossDistributionAmt>
+            <TaxableAmt>15000</TaxableAmt>
+            <FederalIncomeTaxWithheldAmt>3000</FederalIncomeTaxWithheldAmt>
+            <F1099RDistributionCd>7</F1099RDistributionCd>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <F1099RLocalTaxGrp/>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp/>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
         <IRSW2 documentId="W20001" documentName="IRSW2">
             <EmployeeSSN>400005969</EmployeeSSN>
             <EmployerEIN>568912333</EmployerEIN>

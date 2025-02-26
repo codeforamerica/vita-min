@@ -302,10 +302,17 @@ RSpec.describe PdfFiller::Md502Pdf do
 
     context "subtractions" do
       let(:two_income_subtraction_amount) { 1200 }
+      let(:primary_exclusion) { 100 }
+      let(:secondary_exclusion) { 150 }
+
       before do
         intake.direct_file_data.total_qualifying_dependent_care_expenses_or_limit_amt = 1200
         intake.direct_file_data.fed_taxable_ssb = 240
+        allow(Flipper).to receive(:enabled?).and_call_original
+        allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
         allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_14).and_return two_income_subtraction_amount
+        allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_11a).and_return primary_exclusion
+        allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_11b).and_return secondary_exclusion
       end
 
       it "fills out subtractions fields correctly" do
@@ -318,14 +325,15 @@ RSpec.describe PdfFiller::Md502Pdf do
         before do
           allow_any_instance_of(Efile::Md::Md502SuCalculator).to receive(:calculate_line_ab).and_return 100
           allow_any_instance_of(Efile::Md::Md502SuCalculator).to receive(:calculate_line_u).and_return 100
+          allow_any_instance_of(Efile::Md::Md502SuCalculator).to receive(:calculate_line_v).and_return 100
         end
 
         it "fills out subtractions fields correctly" do
           expect(pdf_fields["1SU"]).to eq "ab"
           expect(pdf_fields["2SU"]).to eq "u"
-          expect(pdf_fields["3SU"]).to eq ""
+          expect(pdf_fields["3SU"]).to eq "v"
           expect(pdf_fields["4SU"]).to eq ""
-          expect(pdf_fields["13"].to_i).to eq 200
+          expect(pdf_fields["13"].to_i).to eq 300
         end
       end
 
@@ -336,6 +344,24 @@ RSpec.describe PdfFiller::Md502Pdf do
           expect(pdf_fields["3SU"]).to eq ""
           expect(pdf_fields["4SU"]).to eq ""
           expect(pdf_fields["13"].to_i).to eq 0
+        end
+      end
+
+      context "with lines 11A and 11B from 502R" do
+        it "fills out subtractions fields correctly" do
+          expect(pdf_fields["primary_pension"]).to eq "On"
+          expect(pdf_fields["spouse_pension"]).to eq "On"
+          expect(pdf_fields["10a"].to_i).to eq 250
+        end
+      end
+
+      context "without lines 11A and 11B from 502R" do
+        let(:primary_exclusion) { 0 }
+        let(:secondary_exclusion) { 0 }
+        it "fills out subtractions fields correctly" do
+          expect(pdf_fields["primary_pension"]).to eq "Off"
+          expect(pdf_fields["spouse_pension"]).to eq "Off"
+          expect(pdf_fields["10a"].to_i).to eq 0
         end
       end
 

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>276e3bdf</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>555005555</PrimarySSN>
+            <NameLine1Txt>HIGH INTEREST INCOME J&lt;AMTRAK</NameLine1Txt>
+            <PrimaryNameControlTxt>AMTR</PrimaryNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>742 Evergreen Terrace</AddressLine1Txt>
+                <CityNm>Newark</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07079</ZIPCd>
+            </USAddress>
+            <PhoneNum>2223334444</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+55500555-5793-4c97-b21e-02c2910547f1@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="3">
+        <IRS1040 documentId="IRS10400001">
+            <Form1040SRInd>X</Form1040SRInd>
+            <PECFPrimaryInd>X</PECFPrimaryInd>
+            <IndividualReturnFilingStatusCd>1</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <Primary65OrOlderInd>X</Primary65OrOlderInd>
+            <TotalBoxesCheckedCnt>1</TotalBoxesCheckedCnt>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>1</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">500</WagesAmt>
+            <WagesSalariesAndTipsAmt>500</WagesSalariesAndTipsAmt>
+            <TaxableInterestAmt referenceDocumentId="IRS1040B001" referenceDocumentName="IRS1040ScheduleB">124000</TaxableInterestAmt>
+            <TotalIncomeAmt>124500</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>124500</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>16550</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>16550</TotalDeductionsAmt>
+            <TaxableIncomeAmt>107950</TaxableIncomeAmt>
+            <TaxAmt>18951</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>18951</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>18951</TaxLessCreditsAmt>
+            <TotalTaxAmt>18951</TotalTaxAmt>
+            <OwedAmt>18951</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>job</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1040ScheduleB documentId="IRS1040B001" documentName="IRS1040ScheduleB">
+            <Form1040SchBPartIGroup2>
+                <InterestPayerName>
+                    <BusinessNameLine1Txt>Atlantic City Investments</BusinessNameLine1Txt>
+                </InterestPayerName>
+                <InterestAmt>124000</InterestAmt>
+            </Form1040SchBPartIGroup2>
+            <InterestSubtotalAmt interestSubtotalLiteralCd="INTEREST SUBTOTAL">124000</InterestSubtotalAmt>
+            <TaxableInterestSubtotalAmt>124000</TaxableInterestSubtotalAmt>
+            <CalculatedTotalTaxableIntAmt>124000</CalculatedTotalTaxableIntAmt>
+            <ForeignAccountsQuestionInd>false</ForeignAccountsQuestionInd>
+            <ForeignTrustQuestionInd>false</ForeignTrustQuestionInd>
+        </IRS1040ScheduleB>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>555005555</EmployeeSSN>
+            <EmployerEIN>011919191</EmployerEIN>
+            <EmployerNameControlTxt>BRAV</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>BRAV</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>1 Main St</AddressLine1Txt>
+                <CityNm>Newark</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07079</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>High Interest Income J AmTrak</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>742 Evergreen Terrace</AddressLine1Txt>
+                <CityNm>Newark</CityNm>
+                <StateAbbreviationCd>NJ</StateAbbreviationCd>
+                <ZIPCd>07079</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>500</WagesAmt>
+            <OtherDeductionsBenefitsGrp>
+                <Desc>UIHCWD</Desc>
+                <Amt>180</Amt>
+            </OtherDeductionsBenefitsGrp>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>

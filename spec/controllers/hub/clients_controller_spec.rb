@@ -1735,10 +1735,12 @@ RSpec.describe Hub::ClientsController do
             state: intake.state,
             zip_code: intake.zip_code,
             primary_us_citizen: "unfilled",
+            primary_visa: "unfilled",
             spouse_first_name: intake.spouse.first_name,
             spouse_last_name: intake.spouse.last_name,
             spouse_email_address: intake.spouse_email_address,
             spouse_us_citizen: "unfilled",
+            spouse_visa: "yes",
             preferred_written_language: "Greek",
             receive_written_communication: intake.receive_written_communication,
             refund_payment_method: intake.refund_payment_method,
@@ -1795,6 +1797,7 @@ RSpec.describe Hub::ClientsController do
           expect(system_note.data['changes']).to match({ "preferred_written_language" => [intake.preferred_written_language, "Greek"],
                                                          "primary_last_name" => [intake.primary.last_name, "Name"],
                                                          "primary_first_name" => [intake.primary.first_name, "Updated"],
+                                                         "spouse_visa" => ["unfilled", "yes"],
                                                        })
 
           expect(client.last_13614c_update_at).to be_within(1.second).of(DateTime.now)

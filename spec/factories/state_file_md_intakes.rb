@@ -115,6 +115,7 @@ FactoryBot.define do
     transient do
       filing_status { 'single' }
     end
+    state_file_analytics { StateFileAnalytics.create }
 
     factory :state_file_md_refund_intake do
       after(:build) do |intake|
@@ -124,6 +125,19 @@ FactoryBot.define do
         intake.account_type = "savings"
         intake.routing_number = 111111111
         intake.account_number = 222222222
+      end
+    end
+
+    factory :state_file_md_owed_intake do
+      after(:build) do |intake|
+        intake.direct_file_data.fed_agi = 120000
+        intake.raw_direct_file_data = intake.direct_file_data.to_s
+        intake.payment_or_deposit_type = "direct_deposit"
+        intake.account_type = "checking"
+        intake.routing_number = 111111111
+        intake.account_number = 222222222
+        intake.date_electronic_withdrawal = Date.new(Rails.configuration.statefile_current_tax_year, 4, 15)
+        intake.withdraw_amount = 5
       end
     end
 

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>276e3bdf</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400002109</PrimarySSN>
+            <NameLine1Txt>PRICKLY&lt;PEAR</NameLine1Txt>
+            <PrimaryNameControlTxt>PEAR</PrimaryNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>123 Dessert Bloom Blvd</AddressLine1Txt>
+                <CityNm>Flagstaff</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>86001</ZIPCd>
+            </USAddress>
+            <PhoneNum>2225554444</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000210-970f-49b3-97f7-8fab504e9cad@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="5">
+        <IRS1040 documentId="IRS10400001">
+            <Form1040SRInd>X</Form1040SRInd>
+            <IndividualReturnFilingStatusCd>1</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <PrimaryClaimAsDependentInd>X</PrimaryClaimAsDependentInd>
+            <Primary65OrOlderInd>X</Primary65OrOlderInd>
+            <TotalBoxesCheckedCnt>1</TotalBoxesCheckedCnt>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>1</TotalExemptionsCnt>
+            <PensionsAnnuitiesAmt>305000</PensionsAnnuitiesAmt>
+            <TotalTaxablePensionsAmt pensionsAnnuitiesLiteralCd="ROLLOVER">20000</TotalTaxablePensionsAmt>
+            <TotalIncomeAmt>20000</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>20000</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>3250</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>3250</TotalDeductionsAmt>
+            <TaxableIncomeAmt>16750</TaxableIncomeAmt>
+            <TaxAmt>1781</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>1781</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>1781</TaxLessCreditsAmt>
+            <TotalTaxAmt>1781</TotalTaxAmt>
+            <WithholdingTaxAmt>2000</WithholdingTaxAmt>
+            <EstimatedTaxPaymentsAmt>200</EstimatedTaxPaymentsAmt>
+            <TotalPaymentsAmt>2200</TotalPaymentsAmt>
+            <OverpaidAmt>419</OverpaidAmt>
+            <RefundAmt>419</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Retired</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1099R documentId="IRS1099R0001">
+            <PayerNameControlTxt>CHOL</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Cholla Savings and Loans</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>321 Creek Drive</AddressLine1Txt>
+                <CityNm>Phoenix</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>85034</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>823967259</PayerEIN>
+            <RecipientSSN>400002109</RecipientSSN>
+            <RecipientNm>Prickly Pear</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>123 Dessert Bloom Blvd</AddressLine1Txt>
+                <CityNm>Flagstaff</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>86001</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>5000</GrossDistributionAmt>
+            <CapitalGainAmt>0</CapitalGainAmt>
+            <F1099RDistributionCd>BG</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRS1099R documentId="IRS1099R0002">
+            <PayerNameControlTxt>SAGU</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Saguaro Strong Arms Trust</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>322 Creek Drive</AddressLine1Txt>
+                <CityNm>Phoenix</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>85034</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>941737782</PayerEIN>
+            <RecipientSSN>400002109</RecipientSSN>
+            <RecipientNm>Prickly Pear</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>123 Dessert Bloom Blvd</AddressLine1Txt>
+                <CityNm>Flagstaff</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>86001</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>250000</GrossDistributionAmt>
+            <F1099RDistributionCd>G</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRS1099R documentId="IRS1099R0003">
+            <PayerNameControlTxt>BARR</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Barrel Bank</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>323 Creek Drive</AddressLine1Txt>
+                <CityNm>Phoenix</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>85034</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>943025021</PayerEIN>
+            <RecipientSSN>400002109</RecipientSSN>
+            <RecipientNm>Prickly Pear</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>123 Dessert Bloom Blvd</AddressLine1Txt>
+                <CityNm>Flagstaff</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>86001</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>50000</GrossDistributionAmt>
+            <F1099RDistributionCd>4H</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRS1099R documentId="IRS1099R0004">
+            <PayerNameControlTxt>HEDG</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Hedgehog Hedge Fund</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>324 Creek Drive</AddressLine1Txt>
+                <CityNm>Phoenix</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>85034</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>823967259</PayerEIN>
+            <RecipientSSN>400002109</RecipientSSN>
+            <RecipientNm>Prickly Pear</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>123 Dessert Bloom Blvd</AddressLine1Txt>
+                <CityNm>Flagstaff</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>86001</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>20000</GrossDistributionAmt>
+            <TaxableAmt>20000</TaxableAmt>
+            <TotalDistributionInd>X</TotalDistributionInd>
+            <FederalIncomeTaxWithheldAmt>2000</FederalIncomeTaxWithheldAmt>
+            <F1099RDistributionCd>7</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <StateTaxWithheldAmt>500</StateTaxWithheldAmt>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+    </ReturnData>
+</Return>

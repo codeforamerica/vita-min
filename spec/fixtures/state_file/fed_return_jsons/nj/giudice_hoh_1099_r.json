@@ -1,0 +1,63 @@
+{
+  "familyAndHousehold": [
+    {
+      "monthsLivedWithTPInUS": "twelve",
+      "lastName": "Giudice",
+      "isClaimedDependent": true,
+      "hohQualifyingPerson": true,
+      "qualifyingChild": true,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "2020-05-10",
+      "suffix": "Jr",
+      "residencyDuration": "allYear",
+      "firstName": "Teresa",
+      "middleInitial": null,
+      "tin": "600-00-4010",
+      "scheduleEicLine4aNo": false,
+      "eligibleDependent": true,
+      "relationship": "biologicalChild",
+      "ssnNotValidForEmployment": false
+    }
+  ],
+  "socialSecurityReports": [],
+  "filers": [
+    {
+      "lastName": "Giudice",
+      "dateOfBirth": "1962-12-31",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "firstName": "Teresa",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "400-00-4010",
+      "interestReportsTotal": "115000.00",
+      "isDisabled": false,
+      "form1099GsTotal": "0.00",
+      "isStudent": false,
+      "ssnNotValidForEmployment": null,
+      "hsaTotalDeductibleAmount": null
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [
+    {
+      "usedTin": "400-00-4010",
+      "unionDuesAmount": null
+    }
+  ],
+  "interestReports": [
+    {
+      "has1099": false,
+      "taxExemptAndTaxCreditBondCusipNo": null,
+      "interestOnGovernmentBonds": "0.00",
+      "taxExemptInterest": "0.00",
+      "payerTin": null,
+      "recipientTin": "400-00-4010",
+      "payer": "Jersey Investments",
+      "1099Amount": "0.00",
+      "no1099Amount": "115000.00",
+      "taxWithheld": "0.00"
+    }
+  ]
+}

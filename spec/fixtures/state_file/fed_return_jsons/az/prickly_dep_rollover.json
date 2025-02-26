@@ -1,0 +1,25 @@
+{
+  "familyAndHousehold": [],
+  "socialSecurityReports": [],
+  "filers": [
+    {
+      "lastName": "Pear",
+      "dateOfBirth": "1943-03-17",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "firstName": "Prickly",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "400-00-2109",
+      "interestReportsTotal": "0.00",
+      "isDisabled": true,
+      "form1099GsTotal": "0.00",
+      "isStudent": false,
+      "ssnNotValidForEmployment": null,
+      "hsaTotalDeductibleAmount": null
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [],
+  "interestReports": []
+}

@@ -2,14 +2,17 @@ require 'rails_helper'
 
 describe SubmissionBuilder::FinancialTransaction do
   describe '.build' do
+    let(:intake) { create(:state_file_az_owed_intake) }
+    let(:kwargs) { {} }
+    let(:submission) { create(:efile_submission, data_source: intake) }
+    let(:xml) {
+      Nokogiri::XML::Document.parse(
+        described_class.build(
+          submission, validate: false, kwargs: kwargs
+        ).document.to_xml)
+    }
     context "when filer owes money" do
-      let(:intake) { create(:state_file_az_owed_intake) }
-      let(:submission) { create(:efile_submission, data_source: intake) }
       it "populates the StatePayment" do
-        xml = Nokogiri::XML::Document.parse(
-          described_class.build(
-            submission, validate: false
-          ).document.to_xml)
         expect(xml.at("StatePayment Checking").text).to eq "X"
         expect(xml.at("StatePayment RoutingTransitNumber").text).to eq "111111111"
         expect(xml.at("StatePayment BankAccountNumber").text).to eq "222222222"
@@ -29,10 +32,6 @@ describe SubmissionBuilder::FinancialTransaction do
         let(:intake) { create(:state_file_nc_intake, :taxes_owed) }
 
         it "populates the StatePayment with additional information" do
-          xml = Nokogiri::XML::Document.parse(
-            described_class.build(
-              submission, validate: false
-            ).document.to_xml)
           expect(xml.at("StatePayment Checking").text).to eq "X"
           expect(xml.at("StatePayment RoutingTransitNumber").text).to eq "111111111"
           expect(xml.at("StatePayment BankAccountNumber").text).to eq "222222222"
@@ -53,12 +52,9 @@ describe SubmissionBuilder::FinancialTransaction do
     context "when filer gets a refund" do
       let(:intake) { create(:state_file_az_refund_intake) }
       let(:submission) { create(:efile_submission, data_source: intake) }
+      let(:kwargs) { { refund_amount: 5 } }
 
       it "populates the RefundDirectDeposit" do
-        xml = Nokogiri::XML::Document.parse(
-          described_class.build(
-            submission, validate: false, kwargs: { refund_amount: 5 }
-          ).document.to_xml)
         expect(xml.at("RefundDirectDeposit Savings").text).to eq "X"
         expect(xml.at("RefundDirectDeposit RoutingTransitNumber").text).to eq "111111111"
         expect(xml.at("RefundDirectDeposit BankAccountNumber").text).to eq "222222222"

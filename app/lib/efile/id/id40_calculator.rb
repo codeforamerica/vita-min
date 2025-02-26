@@ -251,9 +251,11 @@ module Efile
       end
 
       def calculate_line_46
-        @intake.state_file_w2s.sum { |item| item.state_income_tax_amount.round } +
+        @intake.state_file_w2s.sum { |item| item.state_income_tax_amount&.round || 0 } +
           @intake.state_file1099_gs.sum { |item| item.state_income_tax_withheld_amount.round } +
-          @intake.state_file1099_rs.sum { |item| item.state_tax_withheld_amount.round }
+          @intake.state_file1099_rs.sum do |item|
+            item.state_tax_withheld_amount&.round || 0
+          end
       end
 
       def calculate_line_50

@@ -23,7 +23,6 @@ module Hub
 
         @efile_submissions = @efile_submissions.includes(:efile_submission_transitions).reorder(created_at: :desc).paginate(page: params[:page], per_page: 30)
         @efile_submissions = @efile_submissions.in_state(params[:status]) if params[:status].present?
-
       end
 
       def show
@@ -66,7 +65,8 @@ module Hub
       end
 
       def state_counts
-        @efile_submission_state_counts = EfileSubmission.statefile_state_counts(except: %w[new resubmitted ready_to_resubmit])
+        intake_classes = current_user.state_file_nj_staff? ? "StateFileNjIntake" : ::StateFile::StateInformationService.state_intake_class_names.excluding("StateFileNjIntake").join("','")
+        @efile_submission_state_counts = EfileSubmission.statefile_state_counts(except: %w[new resubmitted ready_to_resubmit], intake_classes: intake_classes)
         respond_to :js
       end
 

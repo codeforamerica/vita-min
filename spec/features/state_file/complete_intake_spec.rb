@@ -2,7 +2,7 @@ require "rails_helper"
 require 'axe-capybara'
 require 'axe-rspec'
 
-RSpec.feature "Completing a state file intake", active_job: true do
+RSpec.feature "Completing a state file intake", active_job: true, js: true do
   include MockTwilio
   include StateFileIntakeHelper
 
@@ -10,7 +10,12 @@ RSpec.feature "Completing a state file intake", active_job: true do
     allow_any_instance_of(Routes::StateFileDomain).to receive(:matches?).and_return(true)
   end
 
-  context "AZ", :flow_explorer_screenshot, js: true do
+  context "AZ", :flow_explorer_screenshot do
+    before do
+      allow(Flipper).to receive(:enabled?).and_call_original
+      allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
+    end
+
     it "has content", required_schema: "az" do
       visit "/"
       click_on "Start Test AZ"
@@ -49,6 +54,9 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("general.continue")
 
       expect(page).to have_text "Here are the income forms we transferred from your federal tax return."
+
+      wait_for_device_info("income_review")
+
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title', year: filing_year)
@@ -68,7 +76,10 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text(I18n.t('state_file.questions.unemployment.index.1099_label', name: StateFileAzIntake.last.primary.full_name))
       click_on I18n.t("general.continue")
 
-      # TODO: replace with unit spec
+      expect(page).to have_text(I18n.t("state_file.questions.retirement_income_subtraction.title", state_name: "Arizona"))
+      choose I18n.t("state_file.questions.retirement_income_subtraction.none_apply")
+      click_on I18n.t("general.continue")
+
       expect(strip_html_tags(page.body)).to have_text strip_html_tags(I18n.t('state_file.questions.az_public_school_contributions.edit.title_html'))
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
@@ -147,6 +158,9 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text(I18n.t('state_file.questions.esign_declaration.edit.title', state_name: "Arizona"))
       expect(page).to have_text("Under penalties of perjury, I declare that I have examined a copy of my electronic Arizona individual income tax return")
       check "state_file_esign_declaration_form_primary_esigned"
+
+      wait_for_device_info("esign_declaration")
+
       click_on I18n.t('state_file.questions.esign_declaration.edit.submit')
 
       expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Arizona", filing_year: filing_year)
@@ -169,7 +183,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
     end
   end
 
-  context "NC", :flow_explorer_screenshot, js: true do
+  context "NC", :flow_explorer_screenshot do
     before do
       allow_any_instance_of(Efile::Nc::D400Calculator).to receive(:refund_or_owed_amount).and_return 1000
       allow(Flipper).to receive(:enabled?).and_call_original
@@ -220,6 +234,9 @@ RSpec.feature "Completing a state file intake", active_job: true do
       within('#form1099gs') do
         expect(page).to have_text(I18n.t('state_file.questions.income_review.edit.state_info_to_be_collected'))
       end
+
+      wait_for_device_info("income_review")
+
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title', year: filing_year)
@@ -279,6 +296,9 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text I18n.t("state_file.questions.esign_declaration.edit.title", state_name: "North Carolina")
       check I18n.t("state_file.questions.esign_declaration.edit.primary_esign")
       check I18n.t("state_file.questions.esign_declaration.edit.spouse_esign")
+
+      wait_for_device_info("esign_declaration")
+
       click_on I18n.t("state_file.questions.esign_declaration.edit.submit")
 
       expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "North Carolina", filing_year: filing_year)
@@ -298,7 +318,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
     end
   end
 
-  context "ID", :flow_explorer_screenshot, js: true do
+  context "ID", :flow_explorer_screenshot do
     it "has content", required_schema: "id" do
       visit "/"
       click_on "Start Test ID"
@@ -324,6 +344,9 @@ RSpec.feature "Completing a state file intake", active_job: true do
       step_through_df_data_transfer
 
       expect(page).to have_text "Here are the income forms we transferred from your federal tax return."
+
+      wait_for_device_info("income_review")
+
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title', year: filing_year)
@@ -395,6 +418,9 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       expect(page).to have_text I18n.t("state_file.questions.esign_declaration.edit.title", state_name: "Idaho")
       check I18n.t("state_file.questions.esign_declaration.edit.primary_esign")
+
+      wait_for_device_info("esign_declaration")
+
       click_on I18n.t("state_file.questions.esign_declaration.edit.submit")
 
       expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Idaho", filing_year: filing_year)
@@ -413,7 +439,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
     end
   end
 
-  context "MD", :flow_explorer_screenshot, js: true do
+  context "MD", :flow_explorer_screenshot do
     before do
       # TODO: replace fixture used here with one that has all the characteristics we want to test
       allow_any_instance_of(DirectFileData).to receive(:fed_unemployment).and_return 100
@@ -458,6 +484,9 @@ RSpec.feature "Completing a state file intake", active_job: true do
       click_on I18n.t("general.continue")
 
       expect(page).to have_text "Here are the income forms we transferred from your federal tax return."
+
+      wait_for_device_info("income_review")
+
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title', year: filing_year)
@@ -527,6 +556,9 @@ RSpec.feature "Completing a state file intake", active_job: true do
       check I18n.t("state_file.questions.esign_declaration.edit.spouse_esign")
       check "state_file_esign_declaration_form_primary_esigned"
       check "state_file_esign_declaration_form_spouse_esigned"
+
+      wait_for_device_info("esign_declaration")
+
       click_on I18n.t("state_file.questions.esign_declaration.edit.submit")
 
       expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Maryland", filing_year: filing_year)
@@ -548,7 +580,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
   end
 
   context "deprecated" do
-    context "NY", js: true do
+    context "NY" do
       let(:email_address) { "someone@example.com" }
       let(:ssn) { "111223333" }
       let(:hashed_ssn) { "hashed_ssn" }
@@ -590,7 +622,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
         expect(page).to have_text "Enter the code to continue"
         fill_in "Enter the 6-digit code", with: verification_code
         click_on "Verify code"
-        expect(page).to have_text "Code verified! Authentication needed to continue."
+        expect(page).to have_text I18n.t("state_file.intake_logins.edit.title")
         fill_in "Enter your Social Security number or ITIN. For example, 123-45-6789.", with: ssn
         click_on "Continue"
         expect(page).to have_text I18n.t("state_file.landing_page.ny_closed.title")
