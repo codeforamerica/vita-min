@@ -1,7 +1,11 @@
 module StateFile
   class ImportFromDirectFileJob < ApplicationJob
     def perform(authorization_code:, intake:)
-      return if intake.raw_direct_file_data
+      intake.with_lock do
+        return if intake.df_data_import_started_at.present?
+        intake.touch(:df_data_import_started_at)
+      end
+      # return if intake.raw_direct_file_data
 
       begin
         direct_file_json = IrsApiService.import_federal_data(authorization_code, intake.state_code)
@@ -36,8 +40,8 @@ module StateFile
 
         # removing duplicate associations here because sometimes we create duplicate records during data import
         # future work will prevent this issue from happening and this can be removed
-        remove_duplicate_w2s(intake)
-        remove_duplicate_dependents(intake)
+        # remove_duplicate_w2s(intake)
+        # remove_duplicate_dependents(intake)
 
         intake.update(df_data_import_succeeded_at: DateTime.now)
       rescue => err
