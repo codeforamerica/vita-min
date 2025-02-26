@@ -209,26 +209,26 @@ describe StateFileW2 do
         w2.check_box14_limits = true
         allow(StateFile::StateInformationService).to receive(:w2_supported_box14_codes)
           .and_return([
-            { name: "UI_WF_SWF", limit: 180 },
-            { name: "FLI", limit: 145.26 }
+            { name: "UI_WF_SWF", limit: NjTestConstHelper::UI_WF_SWF_AT_LIMIT },
+            { name: "FLI", limit: NjTestConstHelper::FLI_AT_LIMIT }
           ])
       end
   
       it "is invalid when box14_ui_wf_swf exceeds the state limit" do
-        w2.box14_ui_wf_swf = 180.01
+        w2.box14_ui_wf_swf = NjTestConstHelper::UI_WF_SWF_ABOVE_LIMIT
         expect(w2).not_to be_valid(:state_file_edit)
         expect(w2.errors[:box14_ui_wf_swf]).to include(I18n.t("validators.dollar_limit", limit: '180.00'))
       end
   
       it "is invalid when box14_fli exceeds the state limit" do
-        w2.box14_fli = 145.27
+        w2.box14_fli = NjTestConstHelper::FLI_ABOVE_LIMIT
         expect(w2).not_to be_valid(:state_file_edit)
         expect(w2.errors[:box14_fli]).to include(I18n.t("validators.dollar_limit", limit: '145.26'))
       end
   
       it "is valid when both box14_ui_wf_swf and box14_fli are within limits" do
-        w2.box14_ui_wf_swf = 180
-        w2.box14_fli = 145.26
+        w2.box14_ui_wf_swf = NjTestConstHelper::UI_WF_SWF_AT_LIMIT
+        w2.box14_fli = NjTestConstHelper::FLI_AT_LIMIT
         expect(w2).to be_valid(:state_file_edit)
       end
     end
@@ -316,14 +316,14 @@ describe StateFileW2 do
       before do
         allow(StateFile::StateInformationService).to receive(:w2_supported_box14_codes)
           .and_return([
-            { name: "UI_WF_SWF", limit: 180 },
-            { name: "FLI", limit: 145.26 }
+            { name: "UI_WF_SWF", limit: NjTestConstHelper::UI_WF_SWF_AT_LIMIT },
+            { name: "FLI", limit: NjTestConstHelper::FLI_AT_LIMIT }
           ])
       end
 
       it "returns the correct limit for a valid name" do
-        expect(StateFileW2.find_limit("UI_WF_SWF", intake.state_code)).to eq(180)
-        expect(StateFileW2.find_limit("FLI", intake.state_code)).to eq(145.26)
+        expect(StateFileW2.find_limit("UI_WF_SWF", intake.state_code)).to eq(NjTestConstHelper::UI_WF_SWF_AT_LIMIT)
+        expect(StateFileW2.find_limit("FLI", intake.state_code)).to eq(NjTestConstHelper::FLI_AT_LIMIT)
       end
 
       it "returns nil for an invalid name" do

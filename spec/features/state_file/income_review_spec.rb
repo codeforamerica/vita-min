@@ -69,8 +69,8 @@ RSpec.feature "Income Review", active_job: true do
     it "allows ui_wf_swf and fli to be saved up to the limit" do
       advance_to_income_edit
 
-      fill_in 'state_file_w2_box14_ui_wf_swf', with: '180'
-      fill_in 'state_file_w2_box14_fli', with: '145.26'
+      fill_in 'state_file_w2_box14_ui_wf_swf', with: NjTestConstHelper::UI_WF_SWF_AT_LIMIT.to_s
+      fill_in 'state_file_w2_box14_fli', with: NjTestConstHelper::FLI_AT_LIMIT.to_s
       click_on 'Continue'
 
       expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
@@ -79,8 +79,8 @@ RSpec.feature "Income Review", active_job: true do
     it "does not allow ui_wf_swf to be saved above limit" do
       advance_to_income_edit
 
-      fill_in 'state_file_w2_box14_ui_wf_swf', with: '180.01'
-      fill_in 'state_file_w2_box14_fli', with: '145.26'
+      fill_in 'state_file_w2_box14_ui_wf_swf', with: NjTestConstHelper::UI_WF_SWF_ABOVE_LIMIT.to_s
+      fill_in 'state_file_w2_box14_fli', with: NjTestConstHelper::FLI_AT_LIMIT.to_s
       click_on 'Continue'
 
       expect(page).to have_text("This amount can't exceed $180.00.")
@@ -89,8 +89,8 @@ RSpec.feature "Income Review", active_job: true do
     it "does not allow fli to be saved above limit" do
       advance_to_income_edit
 
-      fill_in 'state_file_w2_box14_ui_wf_swf', with: '180'
-      fill_in 'state_file_w2_box14_fli', with: '145.27'
+      fill_in 'state_file_w2_box14_ui_wf_swf', with: NjTestConstHelper::UI_WF_SWF_AT_LIMIT.to_s
+      fill_in 'state_file_w2_box14_fli', with: NjTestConstHelper::FLI_ABOVE_LIMIT.to_s
       click_on 'Continue'
 
       expect(page).to have_text("This amount can't exceed $145.26.")

@@ -219,7 +219,7 @@ RSpec.describe StateFile::Questions::W2Controller do
         post :update, params: params
     
         expect(response).to render_template(:edit)
-        expect(response.body).to include "This amount can't exceed $180."
+        expect(response.body).to include "This amount can't exceed $180.00."
       end
     end
   end
