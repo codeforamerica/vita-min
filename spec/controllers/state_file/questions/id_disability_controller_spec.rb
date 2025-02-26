@@ -130,5 +130,88 @@ RSpec.describe StateFile::Questions::IdDisabilityController do
       end
     end
   end
+
+  describe "#update" do
+    let(:primary_disabled) { "no" }
+    let(:spouse_disabled) { "no" }
+    let(:form_params) do
+      {
+        state_file_id_disability_form: {
+          primary_disabled: primary_disabled,
+          spouse_disabled: spouse_disabled
+        }
+      }
+    end
+    let!(:state_file1099_r) { create(:state_file1099_r, intake: intake, taxable_amount: 25, recipient_ssn: intake.primary.ssn) }
+
+    context "returning from review" do
+      context "has over 65 year olds in household" do
+        before do
+          intake.update(primary_birth_date: Date.new(MultiTenantService.statefile.current_tax_year - 65, 1, 1))
+        end
+
+        it "should show the Id Retirement and Pension income controller" do
+          post :update, params: form_params.merge({return_to_review: "y"})
+          expect(response).to redirect_to(StateFile::Questions::IdRetirementAndPensionIncomeController.to_path_helper(return_to_review: "y"))
+        end
+      end
+
+      context "has disability in household" do
+        let(:primary_disabled) { "yes" }
+
+        before do
+          intake.update(primary_disabled: "yes")
+        end
+
+        it "should show the Id Retirement and Pension income controller" do
+          post :update, params: form_params.merge({return_to_review: "y"})
+          expect(response).to redirect_to(StateFile::Questions::IdRetirementAndPensionIncomeController.to_path_helper(return_to_review: "y"))
+        end
+      end
+
+      context "does not have disability in household" do
+        before do
+          intake.update(primary_disabled: "no")
+        end
+        it "goes back to the final review screen" do
+          post :update, params: form_params.merge({return_to_review: "y"})
+          expect(response).to redirect_to(StateFile::Questions::IdReviewController.to_path_helper(return_to_review: "y"))
+        end
+      end
+    end
+
+    context "not returning from review (first pass)" do
+      context "has over 65 year olds in household" do
+        before do
+          intake.update(primary_birth_date: Date.new(MultiTenantService.statefile.current_tax_year - 65, 1, 1))
+        end
+
+        it "should show the Id Retirement and Pension income controller" do
+          post :update, params: form_params
+          expect(response).to redirect_to(StateFile::Questions::IdRetirementAndPensionIncomeController.to_path_helper)
+        end
+      end
+
+      context "has disability in household" do
+        let(:primary_disabled) { "yes" }
+
+        before do
+          intake.update(primary_disabled: "yes")
+        end
+
+        it "should show the Id Retirement and Pension income controller" do
+          post :update, params: form_params
+          expect(response).to redirect_to(StateFile::Questions::IdRetirementAndPensionIncomeController.to_path_helper)
+        end
+      end
+
+      context "has no disability in household" do
+        it "should go to the next controller, skipping IdRetirementAndPensionIncomeController since no disability" do
+          post :update, params: form_params
+          expect(response).to redirect_to(StateFile::Questions::IdHealthInsurancePremiumController.to_path_helper)
+        end
+      end
+    end
+  end
 end
 

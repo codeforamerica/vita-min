@@ -345,11 +345,11 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
       @intake = StateFile::StateInformationService.intake_class(state_code).last
       first_1099r = @intake.state_file1099_rs.first
-      first_1099r.update(taxable_amount: 200)
+      first_1099r.update(taxable_amount: 200, recipient_ssn: @intake.primary.ssn)
       StateFileId1099RFollowup.create(state_file1099_r: @intake.state_file1099_rs.first, eligible_income_source: "yes")
       allow_any_instance_of(StateFile::Questions::IdRetirementAndPensionIncomeController).to receive(:person_qualifies?).and_return(true)
 
-      second_1099r = create(:state_file1099_r, intake: @intake, payer_name: "Couch Potato Cafe", taxable_amount: 50)
+      second_1099r = create(:state_file1099_r, intake: @intake, payer_name: "Couch Potato Cafe", taxable_amount: 50, recipient_ssn: @intake.primary.ssn)
       StateFileId1099RFollowup.create(state_file1099_r: second_1099r, eligible_income_source: "yes")
 
       # making this value always greater than 8e so 8f value always gets used

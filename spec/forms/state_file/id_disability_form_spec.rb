@@ -92,6 +92,16 @@ RSpec.describe StateFile::IdDisabilityForm do
           expect(intake.primary_disabled).to eq "yes"
           expect(intake.spouse_disabled).to eq "no"
         end
+
+        context "when a followup already exists for spouse no longer disabled" do
+          let!(:followup) { create :state_file_id1099_r_followup, state_file1099_r: spouse_1099r, eligible_income_source: "yes" }
+
+          it "updates intake using attributes_for" do
+            expect do
+              form.save
+            end.to change(StateFileId1099RFollowup, :count).by(-1)
+          end
+        end
       end
 
       context "when mfj_disability is 'spouse'" do
@@ -102,6 +112,16 @@ RSpec.describe StateFile::IdDisabilityForm do
           intake.reload
           expect(intake.primary_disabled).to eq "no"
           expect(intake.spouse_disabled).to eq "yes"
+        end
+
+        context "when a followup already exists and primary no longer disabled" do
+          let!(:followup) { create :state_file_id1099_r_followup, state_file1099_r: primary_1099r, eligible_income_source: "yes" }
+
+          it "updates intake using attributes_for" do
+            expect do
+              form.save
+            end.to change(StateFileId1099RFollowup, :count).by(-1)
+          end
         end
       end
 
@@ -114,6 +134,17 @@ RSpec.describe StateFile::IdDisabilityForm do
           expect(intake.primary_disabled).to eq "yes"
           expect(intake.spouse_disabled).to eq "yes"
         end
+
+        context "when a followup already exists" do
+          let!(:followup) { create :state_file_id1099_r_followup, state_file1099_r: primary_1099r, eligible_income_source: "yes" }
+          let!(:spouse_followup) { create :state_file_id1099_r_followup, state_file1099_r: spouse_1099r, eligible_income_source: "yes" }
+
+          it "does not change the number of followups (does not destroy existing followups)" do
+            expect do
+              form.save
+            end.to change(StateFileId1099RFollowup, :count).by(0)
+          end
+        end
       end
 
       context "when mfj_disability is 'none'" do
@@ -124,6 +155,17 @@ RSpec.describe StateFile::IdDisabilityForm do
           intake.reload
           expect(intake.primary_disabled).to eq "no"
           expect(intake.spouse_disabled).to eq "no"
+        end
+
+        context "when a followup already exists" do
+          let!(:followup) { create :state_file_id1099_r_followup, state_file1099_r: primary_1099r, eligible_income_source: "yes" }
+          let!(:spouse_followup) { create :state_file_id1099_r_followup, state_file1099_r: spouse_1099r, eligible_income_source: "yes" }
+
+          it "does not change the number of followups (does not destroy existing followups)" do
+            expect do
+              form.save
+            end.to change(StateFileId1099RFollowup, :count).by(-2)
+          end
         end
       end
     end
@@ -139,6 +181,18 @@ RSpec.describe StateFile::IdDisabilityForm do
         it "updates intake using attributes_for" do
           expect(intake).to receive(:update).with(form.send(:attributes_for, :intake))
           form.save
+        end
+      end
+
+      context "when a followup already exists and changes answer to 'no'" do
+        let!(:followup) { create :state_file_id1099_r_followup, state_file1099_r: primary_1099r, eligible_income_source: "yes" }
+        let(:params) { { primary_disabled: "no" } }
+
+        it "updates intake using attributes_for" do
+          expect(intake).to receive(:update).with(form.send(:attributes_for, :intake))
+          expect do
+            form.save
+          end.to change(StateFileId1099RFollowup, :count).by(-1)
         end
       end
     end

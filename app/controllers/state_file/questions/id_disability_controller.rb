@@ -17,6 +17,27 @@ module StateFile
         end
       end
 
+      def next_path
+        has_disability_in_household =
+          if current_intake.filing_status_mfj?
+            form_params[:primary_disabled] == "yes" || form_params[:spouse_disabled] == "yes"
+          else
+            form_params[:primary_disabled] == "yes"
+          end
+
+        has_over_65_senior_in_household = current_intake.primary_senior? || current_intake.spouse_senior?
+
+        if params[:return_to_review] == "y"
+          if has_over_65_senior_in_household || has_disability_in_household
+            StateFile::Questions::IdRetirementAndPensionIncomeController.to_path_helper(return_to_review: params[:return_to_review])
+          else
+            StateFile::Questions::IdReviewController.to_path_helper(return_to_review: params[:return_to_review])
+          end
+        else
+          super
+        end
+      end
+
       private
 
       def form_params

@@ -27,9 +27,23 @@ module StateFile
       else
         @intake.update(attributes_for(:intake))
       end
+
+      clean_up_followups
     end
 
     private
+
+    def clean_up_followups
+      primary_followups =  @intake.filer_1099_rs(:primary).map(&:state_specific_followup).compact
+      if primary_disabled == "no" || ["spouse", "none"].include?(mfj_disability)
+        primary_followups.each(&:destroy)
+      end
+
+      if @intake.filing_status_mfj? && ["me", "none"].include?(mfj_disability)
+        spouse_followups =  @intake.filer_1099_rs(:spouse).map(&:state_specific_followup).compact
+        spouse_followups.each(&:destroy)
+      end
+    end
 
     def eligible?(primary_or_spouse)
       person = intake.send(primary_or_spouse)
