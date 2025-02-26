@@ -8,7 +8,7 @@ module StateFile
       private
 
       def num_items
-        eligible_1099rs.count
+        current_intake.eligible_1099rs.count
       end
 
       def load_item(index)
