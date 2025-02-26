@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_02_21_220547) do
+ActiveRecord::Schema[7.1].define(version: 2025_02_26_234403) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1729,6 +1729,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_21_220547) do
     t.string "payer_city_name"
     t.string "payer_identification_number"
     t.string "payer_name"
+    t.string "payer_name2"
     t.string "payer_name_control"
     t.string "payer_state_code"
     t.string "payer_state_identification_number"

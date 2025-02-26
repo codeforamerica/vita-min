@@ -11,6 +11,7 @@ module SubmissionBuilder
         if form1099r.payer_name.present?
           xml.PayerName do
             xml.BusinessNameLine1Txt sanitize_for_xml(form1099r.payer_name.tr('-', ' '), 75)
+            xml.BusinessNameLine2Txt sanitize_for_xml(form1099r.payer_name2&.tr('-', ' '), 75)
           end
           xml.PayerUSAddress do
             xml.AddressLine1Txt sanitize_for_xml(form1099r.payer_address_line1, 35) if form1099r.payer_address_line1.present?
