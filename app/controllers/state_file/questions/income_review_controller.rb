@@ -38,10 +38,14 @@ module StateFile
       private
 
       def invalid_income_form?(intake)
-        intake.allows_w2_editing? && @w2s.any? do |w2|
+        has_invalid_w2 = intake.allows_w2_editing? && @w2s.any? do |w2|
           w2.check_box14_limits = true
           !w2.valid?(:state_file_income_review)
         end
+        has_invalid_1099r = current_intake.state_file1099_rs.any? do |form1099r|
+          !form1099r.valid?(:retirement_income_intake)
+        end
+        has_invalid_w2 || has_invalid_1099r
       end
 
       def should_show_warning?(w2, w2_count_for_filer)

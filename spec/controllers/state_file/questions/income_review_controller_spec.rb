@@ -57,7 +57,7 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
       let(:form_params) { params }
     end
 
-    context "W-2 validity" do
+    context "income form validity" do
       let(:mock_next_path) { root_path }
       before do
         allow(subject).to receive(:next_path).and_return mock_next_path
@@ -114,6 +114,13 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
         let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, wages: 0, state_wages_amount: 0, state_income_tax_amount: 0) }
 
         include_examples "proceeds as if there are no errors"
+      end
+
+      context "with 10x99rs having invalid Box 14 values" do
+        let(:intake) { create(:state_file_md_intake) }
+        let!(:state_file1099_r) { create(:state_file1099_r, intake: intake, gross_distribution_amount: 500, state_tax_withheld_amount: 550) }
+
+        include_examples "shows error and does not proceed"
       end
     end
   end
