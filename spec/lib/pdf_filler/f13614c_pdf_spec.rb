@@ -267,8 +267,7 @@ RSpec.describe PdfFiller::F13614cPdf do
                             )
       end
 
-      # TODO reenable for TY2024
-      xit "can successfully write everything that comes out of #hash_for_pdf to the PDF" do
+      it "can successfully write everything that comes out of #hash_for_pdf to the PDF" do
         expect(intake_pdf.hash_for_pdf.length).to be > 100 # sanity check
         form_fields = PdfForms.new.get_fields(intake_pdf.output_file)
 
