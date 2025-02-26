@@ -334,7 +334,6 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
         expect(page).to have_text I18n.t("state_file.questions.md_review.edit.disability_status")
         expect(page).to have_text I18n.t("state_file.questions.md_permanently_disabled.edit.yes_both")
         expect(page).to have_text I18n.t("state_file.questions.md_review.edit.primary_proof_of_disability")
-        # expect(page).to have_text I18n.t("state_file.questions.md_review.edit.primary_proof_of_disability")
         expect(page).to have_text I18n.t("general.negative")
       end
     end
