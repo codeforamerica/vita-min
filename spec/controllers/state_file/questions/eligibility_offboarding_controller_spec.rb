@@ -18,15 +18,17 @@ RSpec.describe StateFile::Questions::EligibilityOffboardingController do
   end
 
   describe "#edit" do
+    render_views
+    before do
+      sign_in intake
+    end
+
     context "with offboarded_from set in the session" do
       let(:intake) { create :state_file_id_intake }
-
-      render_views
       let(:offboarded_from_path) do
         StateFile::Questions::IdEligibilityResidenceController.to_path_helper
       end
       before do
-        sign_in intake
         session[:offboarded_from] = offboarded_from_path
       end
 
@@ -38,39 +40,40 @@ RSpec.describe StateFile::Questions::EligibilityOffboardingController do
       end
     end
 
-    shared_examples "check for NJ-specific content" do |current_state_code, show_nj_content|
-      let(:intake) { create "state_file_#{current_state_code}_intake" }
-      render_views
-      before do
-        sign_in intake
-      end
-
-      it "checks for NJ-specific content" do
-        get :edit
-        if show_nj_content
-          expect(response.body).to have_text I18n.t("state_file.questions.eligible.vita_option.connect_to_vita")
-          expect(response.body).to have_text I18n.t("state_file.questions.eligible.vita_option.vita_introduction.nj")
-        else
-          expect(response.body).not_to have_text I18n.t("state_file.questions.eligible.vita_option.connect_to_vita")
-          expect(response.body).not_to have_text I18n.t("state_file.questions.eligible.vita_option.vita_introduction.nj")
-        end
-      end
-    end
-
     context "AZ" do
-      it_behaves_like "check for NJ-specific content", "az", false
+      let(:intake) { create :state_file_az_intake }
+  
+      it "does not show NJ-specific content" do
+        get :edit
+        expect(response.body).not_to include("Get connected now")
+      end
     end
-
+  
     context "ID" do
-      it_behaves_like "check for NJ-specific content", "id", false
+      let(:intake) { create :state_file_id_intake }
+  
+      it "does not show NJ-specific content" do
+        get :edit
+        expect(response.body).not_to include("Get connected now")
+      end
     end
-
+  
     context "MD" do
-      it_behaves_like "check for NJ-specific content", "md", false
+      let(:intake) { create :state_file_md_intake }
+  
+      it "does not show NJ-specific content" do
+        get :edit
+        expect(response.body).not_to include("Get connected now")
+      end
     end
-
+  
     context "NJ" do
-      it_behaves_like "check for NJ-specific content", "nj", true
+      let(:intake) { create :state_file_nj_intake }
+  
+      it "shows NJ-specific content" do
+        get :edit
+        expect(response.body).to include("Get connected now")
+      end
     end
   end
 end

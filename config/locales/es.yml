@@ -2819,7 +2819,16 @@ es:
               default: "¿Qué opciones gratuitas tengo para declarar mis impuestos estatales?"
               nj: Lee más sobre el proceso de VITA
         vita_option:
-          connect_to_vita: Conéctate ahora
+          connect_to_vita:
+            nj: |
+              <p>
+                <a href="%{faq_link_href}" target="_blank" rel="noopener noreferrer">
+                  Visita nuestras Preguntas Frecuentes
+                </a>
+              </p>
+              <a href="%{vita_link_href}" target="_blank" rel="noopener noreferrer" class="button button--primary button--wide spacing-below-25">
+                Conéctate ahora
+              </a>
           vita_introduction:
             nj: Puedes presentar tus impuestos estatales de forma gratuita con la ayuda de preparadores de impuestos voluntarios certificados por el IRS del programa Volunteer Income Tax Assistance (VITA por las siglas en inglés) en Simplify CT.
           vita_link: Comienza con VITA ahora

@@ -13,15 +13,11 @@
     <p><%= vita_introduction %></p>
   <% end %>
 
-  <% if current_state_code == "nj" %>
-    <% vita_link = I18n.locale == :en ? StateFile::StateInformationService.vita_link_en(current_state_code) : StateFile::StateInformationService.vita_link_es(current_state_code) %>
-    <% if vita_link.present? %>
-      <p><%= link_to t("state_file.questions.eligible.faq_link"), state_faq_path(us_state: current_state_code) %></p>
-      <%= link_to(vita_link, class: "button button--primary button--wide spacing-below-15", target: "_blank", rel: "noopener noreferrer") do %>
-        <%= t('state_file.questions.eligible.vita_option.connect_to_vita') %>
-      <% end %>
-    <% end %>
-  <% end %>
+  <% vita_link_key = "state_file.questions.eligible.vita_option.connect_to_vita.#{current_state_code}" %>
+  <% vita_link_href = StateFile::StateInformationService.send("vita_link_#{I18n.locale}", current_state_code) %>
+  <% faq_link_href = state_faq_path(us_state: current_state_code) %>
+  <% vita_link = t(vita_link_key, faq_link_href: faq_link_href, vita_link_href: vita_link_href, default: '') %>
+  <%= vita_link.html_safe if vita_link.present? %>
 
   <%= render 'state_file/questions/eligible/other_filing_options' %>
 <% end %>
