@@ -1,7 +1,5 @@
 module Documents
   class SelfiesController < DocumentUploadQuestionController
-    include GyrDocuments
-
     before_action :set_required_person_names, only: [:edit, :update]
 
     def self.document_type
@@ -9,7 +7,9 @@ module Documents
     end
 
     def after_update_success
-      advance_to(current_intake, :intake_needs_doc_help)
+      current_intake.tax_returns.each do |tax_return|
+        tax_return.advance_to(:intake_needs_doc_help)
+      end
     end
 
     def illustration_path
