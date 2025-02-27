@@ -992,18 +992,6 @@ RSpec.describe PdfFiller::F13614cPdf do
             spouse_last_name: "Heifer",
           )
         end
-
-        # TODO reenable for TY2024
-        xit "15080 fields are nil" do
-          output_file = intake_pdf.output_file
-          result = non_preparer_fields(output_file.path)
-          expect(result).to include(
-                              "form1[0].page4[0].primaryTaxpayer[0]" => nil,
-                              "form1[0].page4[0].primarydateSigned[0]" => nil,
-                              "form1[0].page4[0].secondaryTaxpayer[0]" => nil,
-                              "form1[0].page4[0].secondaryDateSigned[0]" => nil
-                            )
-        end
       end
     end
   end
