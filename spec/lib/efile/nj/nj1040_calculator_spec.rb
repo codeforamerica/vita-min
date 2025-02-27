@@ -1738,6 +1738,19 @@ describe Efile::Nj::Nj1040Calculator do
         expect(instance.lines[:NJ1040_LINE_55].value).to eq nil
       end
     end
+
+    context "with nil state_income_tax_amount for W2" do
+      let(:intake) { create(:state_file_nj_intake, :df_data_many_w2s)}
+
+      before do
+        intake.state_file_w2s.first&.update(state_income_tax_amount: nil)
+      end
+
+      it "sums up all relevant values without error" do
+        instance.calculate
+        expect(instance.lines[:NJ1040_LINE_55].value).to eq(1500)
+      end
+    end
   end
 
   describe 'line 57 - estimated tax payments' do

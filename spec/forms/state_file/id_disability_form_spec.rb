@@ -20,7 +20,7 @@ RSpec.describe StateFile::IdDisabilityForm do
       end
 
       context "when mfj_disability is present" do
-        let(:params) { { mfj_disability: "me" } }
+        let(:params) { { mfj_disability: "primary" } }
 
         it "is valid" do
           expect(form).to be_valid
@@ -66,25 +66,18 @@ RSpec.describe StateFile::IdDisabilityForm do
     let!(:primary_1099r) do
       create :state_file1099_r,
              intake: intake,
-             recipient_ssn: "400000030",
-             taxable_amount: 1111
+             recipient_ssn: "400000030"
     end
 
     let!(:spouse_1099r) do
       create :state_file1099_r,
              intake: intake,
-             recipient_ssn: "600000030",
-             taxable_amount: 2222
+             recipient_ssn: "600000030"
     end
 
-    context "when filing status is MFJ and both spouse and filer are eligible" do
-      before do
-        intake.primary_birth_date = Date.new(MultiTenantService.statefile.current_tax_year - 62, 1, 1)
-        intake.spouse_birth_date = Date.new(MultiTenantService.statefile.current_tax_year - 62, 1, 1)
-      end
-
+    context "when filing status is MFJ" do
       context "when mfj_disability is 'me'" do
-        let(:params) { { mfj_disability: "me" } }
+        let(:params) { { mfj_disability: "primary" } }
 
         it "updates intake with primary_disabled: 'yes' and spouse_disabled: 'no'" do
           form.save
