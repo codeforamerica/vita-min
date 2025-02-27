@@ -20,7 +20,7 @@ describe SubmissionBuilder::State1099R do
       it "generates xml with the right values" do
         expect(doc.at("PayerNameControlTxt").text).to eq "DORO"
         expect(doc.at("PayerName BusinessNameLine1Txt").text).to eq "Dorothy Red"
-        expect(doc.at("PayerName BusinessNameLine2Txt").text).to eq ""
+        expect(doc.at("PayerName BusinessNameLine2Txt")).to be_nil
         expect(doc.at("PayerUSAddress AddressLine1Txt").text).to eq "123 Sesame ST"
         expect(doc.at("PayerUSAddress AddressLine2Txt").text).to eq "Apt 202"
         expect(doc.at("PayerUSAddress CityNm").text).to eq "Long Island"
