@@ -300,6 +300,10 @@ class StateFileBaseIntake < ApplicationRecord
     true
   end
 
+  def allows_1099_r_editing?
+    true
+  end
+
   def has_banking_information_in_financial_resolution?
     false
   end
