@@ -3,7 +3,6 @@ module StateFile
     class AzRetirementIncomeSubtractionController < RetirementIncomeSubtractionController
 
       def self.show?(intake)
-        binding.pry
         Flipper.enabled?(:show_retirement_ui) && intake.eligible_1099rs.present?
       end
 
