@@ -119,7 +119,7 @@ class StateFileIdIntake < StateFileBaseIntake
     direct_file_data.total_income_amount >= direct_file_data.total_itemized_or_standard_deduction_amount
   end
 
-  def meets_age_requirements_for_disability_check?
+  def has_filer_between_62_and_65_years_old?
     primary_age = calculate_age(primary_birth_date, inclusive_of_jan_1: true)
     if filing_status_mfj? && spouse_birth_date.present?
       spouse_age = calculate_age(spouse_birth_date, inclusive_of_jan_1: true)

@@ -4,7 +4,7 @@ module StateFile
       def self.show?(intake)
         Flipper.enabled?(:show_retirement_ui) &&
           intake.state_file1099_rs.any? { |form1099r| form1099r.taxable_amount&.to_f&.positive? } &&
-          !intake.filing_status_mfs? && intake.meets_age_requirements_for_disability_check?
+          !intake.filing_status_mfs? && intake.has_filer_between_62_and_65_years_old?
       end
 
       def next_path

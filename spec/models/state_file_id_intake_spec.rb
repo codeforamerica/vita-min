@@ -197,14 +197,14 @@ RSpec.describe StateFileIdIntake, type: :model do
     end
   end
 
-  describe "#meets_age_requirements_for_disability_check?" do
+  describe "#has_filer_between_62_and_65_years_old?" do
     let(:intake) { create(:state_file_id_intake) }
 
     context "with a 1099R but zero taxable amount" do
       let!(:state_file1099_r) { create(:state_file1099_r, intake: intake, taxable_amount: 0) }
 
       it "is false" do
-        expect(intake.meets_age_requirements_for_disability_check?).to eq false
+        expect(intake.has_filer_between_62_and_65_years_old?).to eq false
       end
     end
 
@@ -214,7 +214,7 @@ RSpec.describe StateFileIdIntake, type: :model do
       end
 
       it "is false" do
-        expect(intake.meets_age_requirements_for_disability_check?).to eq false
+        expect(intake.has_filer_between_62_and_65_years_old?).to eq false
       end
     end
 
@@ -224,7 +224,7 @@ RSpec.describe StateFileIdIntake, type: :model do
       end
 
       it "is true" do
-        expect(intake.meets_age_requirements_for_disability_check?).to eq true
+        expect(intake.has_filer_between_62_and_65_years_old?).to eq true
       end
     end
 
@@ -234,7 +234,7 @@ RSpec.describe StateFileIdIntake, type: :model do
       end
 
       it "is false" do
-        expect(intake.meets_age_requirements_for_disability_check?).to eq false
+        expect(intake.has_filer_between_62_and_65_years_old?).to eq false
       end
     end
   end
@@ -250,7 +250,7 @@ RSpec.describe StateFileIdIntake, type: :model do
       end
 
       it "is false" do
-        expect(intake.meets_age_requirements_for_disability_check?).to eq false
+        expect(intake.has_filer_between_62_and_65_years_old?).to eq false
       end
     end
 
@@ -261,7 +261,7 @@ RSpec.describe StateFileIdIntake, type: :model do
       end
 
       it "is true" do
-        expect(intake.meets_age_requirements_for_disability_check?).to eq true
+        expect(intake.has_filer_between_62_and_65_years_old?).to eq true
       end
     end
 
@@ -272,7 +272,7 @@ RSpec.describe StateFileIdIntake, type: :model do
       end
 
       it "is true" do
-        expect(intake.meets_age_requirements_for_disability_check?).to eq true
+        expect(intake.has_filer_between_62_and_65_years_old?).to eq true
       end
     end
 
@@ -283,7 +283,7 @@ RSpec.describe StateFileIdIntake, type: :model do
       end
 
       it "is false" do
-        expect(intake.meets_age_requirements_for_disability_check?).to eq false
+        expect(intake.has_filer_between_62_and_65_years_old?).to eq false
       end
     end
   end

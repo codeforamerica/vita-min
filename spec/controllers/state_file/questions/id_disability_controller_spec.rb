@@ -40,10 +40,10 @@ RSpec.describe StateFile::Questions::IdDisabilityController do
       end
     end
 
-    context "meets_age_requirements_for_disability_check?" do
+    context "has_filer_between_62_and_65_years_old?" do
       context "meets requirements" do
         before do
-          allow(intake).to receive(:meets_age_requirements_for_disability_check?).and_return(true)
+          allow(intake).to receive(:has_filer_between_62_and_65_years_old?).and_return(true)
         end
 
         it "does not show" do
@@ -53,7 +53,7 @@ RSpec.describe StateFile::Questions::IdDisabilityController do
 
       context "does not meet requirements" do
         before do
-          allow(intake).to receive(:meets_age_requirements_for_disability_check?).and_return(false)
+          allow(intake).to receive(:has_filer_between_62_and_65_years_old?).and_return(false)
         end
 
         it "does not show" do
