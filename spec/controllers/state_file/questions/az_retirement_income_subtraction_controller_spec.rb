@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe StateFile::Questions::MdRetirementIncomeSubtractionController do
+RSpec.describe StateFile::Questions::AzRetirementIncomeSubtractionController do
   let(:intake) { create :state_file_az_intake }
   let!(:primary_1099r) do
     create :state_file1099_r,
@@ -42,13 +42,23 @@ RSpec.describe StateFile::Questions::MdRetirementIncomeSubtractionController do
     end
 
     context "when they have no eligible 1099Rs" do
-      let(:intake) { create :state_file_md_intake }
+      let(:intake) { create(:state_file_az_intake) }
+
+      before do
+        intake.state_file1099_rs.update_all(taxable_amount: 0)
+      end
+
+      it "does not show" do
+        expect(described_class.show?(intake)).to eq false
+      end
+    end
+
+    context "when they have no  1099Rs" do
+      let(:intake) { create(:state_file_az_intake) }
 
       before do
         intake.state_file1099_rs.destroy_all
       end
-
-      let!(:non_qualified_1099r) { create :state_file1099_r, intake: intake, taxable_amount: 0 }
 
       it "does not show" do
         expect(described_class.show?(intake)).to eq false
@@ -104,7 +114,7 @@ RSpec.describe StateFile::Questions::MdRetirementIncomeSubtractionController do
       let!(:non_qualified_1099r) { create :state_file1099_r, intake: intake, taxable_amount: 0 }
 
       before do
-        intake.state_file1099_rs.destroy_all
+        intake.state_file1099_rs.update_all(taxable_amount: 0)
       end
 
       it "does not include ineligible 1099Rs" do
