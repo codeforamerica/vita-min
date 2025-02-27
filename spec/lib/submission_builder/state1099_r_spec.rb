@@ -42,6 +42,15 @@ describe SubmissionBuilder::State1099R do
         expect(doc.at("F1099RStateTaxGrp StateDistributionAmt").text).to eq "55"
         expect(doc.at("StandardOrNonStandardCd").text).to eq "N"
       end
+
+      context "when 1099R does not have state_code" do
+        before do
+          form1099r.update(state_code: nil)
+        end
+        it "fills in F1099RStateTaxGrp StateAbbreviationCd with intake's state_code" do
+          expect(doc.at("F1099RStateTaxGrp StateAbbreviationCd").text).to eq "#{intake.state_code.upcase}"
+        end
+      end
     end
   end
 end
