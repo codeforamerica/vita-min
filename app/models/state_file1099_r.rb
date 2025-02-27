@@ -50,7 +50,7 @@ class StateFile1099R < ApplicationRecord
     validates :gross_distribution_amount, numericality: { greater_than: 0 }
     validates :state_tax_withheld_amount, numericality: { greater_than_or_equal_to: 0 }, allow_blank: true
     validates :state_tax_withheld_amount, numericality: {
-      less_than: :gross_distribution_amount, message: I18n.t("activerecord.errors.models.state_file_1099_r.errors.must_be_less_than_gross_distribution")
+      less_than: :gross_distribution_amount, message: :must_be_less_than_gross_distribution
     }, if: -> { gross_distribution_amount.present? }, allow_blank: true
     validates :state_distribution_amount, numericality: { greater_than_or_equal_to: 0 }, allow_blank: true
   end
