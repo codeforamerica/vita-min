@@ -47,7 +47,7 @@ describe SubmissionBuilder::State1099R do
           form1099r.update(state_code: nil)
         end
         it "fills in F1099RStateTaxGrp StateAbbreviationCd with intake's state_code" do
-          expect(doc.at("F1099RStateTaxGrp StateAbbreviationCd").text).to eq "#{intake.state_code}"
+          expect(doc.at("F1099RStateTaxGrp StateAbbreviationCd").text).to eq "#{intake.state_code.upcase}"
         end
       end
     end

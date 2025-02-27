@@ -4,7 +4,7 @@ module SubmissionBuilder
 
     def document
       form1099r = @kwargs[:form1099r]
-      state_abbreviation = form1099r.intake.state_code.downcase
+      state_abbreviation = form1099r.intake.state_code.upcase
 
       build_xml_doc("IRS1099R", documentId: "IRS1099R-#{form1099r.id}") do |xml|
         xml.PayerNameControlTxt form1099r.payer_name_control
