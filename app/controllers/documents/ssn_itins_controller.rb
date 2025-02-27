@@ -27,8 +27,8 @@ module Documents
     end
 
     def after_update_success
-      transition_to = has_all_required_docs?(current_intake) ? :intake_ready : :intake_needs_doc_help
-      advance_to(current_intake, transition_to)
+      next_state = has_all_required_docs?(current_intake) ? :intake_ready : :intake_needs_doc_help
+      intake_transition_to(current_intake, next_state)
     end
 
     def form_params

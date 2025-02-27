@@ -8,7 +8,7 @@ module GyrDocuments
       required_docs.all? {|key| intake_doc_types.include?(key) }
   end
 
-  def advance_to(intake, next_state)
+  def intake_transition_to(intake, next_state)
     intake.tax_returns.each do |tax_return|
       tax_return.transition_to(next_state) if tax_return.current_state.to_sym != next_state
     end

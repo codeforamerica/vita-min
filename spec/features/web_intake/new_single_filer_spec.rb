@@ -417,12 +417,13 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
         click_on "Submit"
       }.to change(OutgoingTextMessage, :count).by(1).and change(OutgoingEmail, :count).by(1)
 
+
       # ID, secondary ID, and selfie were all uploaded.
       expect(intake.tax_returns.all? { |tr| tr.current_state == :intake_ready })
 
       expect(intake.reload.current_step).to end_with("/questions/successfully-submitted")
-      expect(page).to have_selector("h1", text: "Success! Your tax information has been submitted.")
-      expect(page).to have_text("Client ID number: #{intake.client_id}")
+      expect(page).to have_selector("h1", text: i18n.t("views.questions.successfully_submitted.title")
+      expect(page).to have_text(t(i18n.t("views.questions.successfully_submitted.client_id" #{intake.client_id}")
       choose('successfully_submitted_form[satisfaction_face]', option: 'positive').click
       fill_in "successfully_submitted_form_feedback", with: "I am the single filer. I file alone."
       click_on "Continue"
@@ -461,7 +462,9 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
       expect(page).to have_selector("h1", text: I18n.t("portal.client_logins.new.title"))
     end
 
-    scenario "new client filing single without dependents AND without uploading *required* docs" do
+    ############################################################################################
+
+    scenario "new client filing single - no dependents - no *required* docs uploaded" do
       intake = intake_up_to_documents
 
       # IRS guidance
