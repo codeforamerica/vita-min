@@ -365,6 +365,48 @@ describe Efile::Md::TwoIncomeSubtractionWorksheet do
         expect(instance.lines[:MD_TWO_INCOME_WK_LINE_4_B].value).to eq(100)
       end
     end
+
+    context "return has pension exclusion" do
+      before do
+        allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_11a).and_return(500)
+        allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_11b).and_return(300)
+      end
+
+      it "calculates the state subtraction amount for primary and spouse" do
+        main_calculator.calculate
+        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_4_A].value).to eq(500)
+        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_4_B].value).to eq(300)
+      end
+    end
+
+    context "return has military retirement exclusion" do
+      before do
+        allow_any_instance_of(Efile::Md::Md502SuCalculator).to receive(:calculate_line_u_primary).and_return(400)
+        allow_any_instance_of(Efile::Md::Md502SuCalculator).to receive(:calculate_line_u_spouse).and_return(200)
+      end
+
+      it "calculates the state subtraction amount for primary and spouse" do
+        main_calculator.calculate
+        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_4_A].value).to eq(400)
+        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_4_B].value).to eq(200)
+      end
+    end
+
+    context "return has all possible subtractions" do
+      before do
+        intake.direct_file_data.total_qualifying_dependent_care_expenses_or_limit_amt = 200
+        allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_11a).and_return(500)
+        allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_11b).and_return(300)
+        allow_any_instance_of(Efile::Md::Md502SuCalculator).to receive(:calculate_line_u_primary).and_return(400)
+        allow_any_instance_of(Efile::Md::Md502SuCalculator).to receive(:calculate_line_u_spouse).and_return(200)
+      end
+
+      it "calculates the combined state subtraction amount for primary and spouse" do
+        main_calculator.calculate
+        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_4_A].value).to eq(1000) # 100 + 500 + 400
+        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_4_B].value).to eq(600)  # 100 + 300 + 200
+      end
+    end
   end
 
   describe "#calculate_line_5" do

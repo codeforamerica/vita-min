@@ -48,7 +48,6 @@ module Efile
         unemployment_income = @direct_file_json_data.form_1099gs
           .select { |form_1099g| form_1099g.recipient_tin.delete("-") == filer_ssn }
           .sum { |form_1099g| (form_1099g.amount - form_1099g.amount_paid_back_for_benefits_in_tax_year).round }
-
         wage_income +
           interest_income +
           retirement_income +
@@ -93,10 +92,9 @@ module Efile
       def calculate_line_4(primary_or_spouse)
         cdc_expenses = (@direct_file_data.total_qualifying_dependent_care_expenses_or_limit_amt || 0) / 2
 
-        # NOTE: Stub alert - this data relies on 1099R followup questions, which have been deprioritized
-        pension_exclusion = 0
-        military_retirement_exclusion = 0
-
+        pension_exclusion = primary_or_spouse == :primary ? line_or_zero(:MD502R_LINE_11A) : line_or_zero(:MD502R_LINE_11B)
+        military_retirement_exclusion = primary_or_spouse == :primary ? line_or_zero(:MD502_SU_LINE_U_PRIMARY) : line_or_zero(:MD502_SU_LINE_U_SPOUSE)
+        
         cdc_expenses +
           pension_exclusion +
           military_retirement_exclusion
