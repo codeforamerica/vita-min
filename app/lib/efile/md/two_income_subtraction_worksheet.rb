@@ -48,6 +48,7 @@ module Efile
         unemployment_income = @direct_file_json_data.form_1099gs
           .select { |form_1099g| form_1099g.recipient_tin.delete("-") == filer_ssn }
           .sum { |form_1099g| (form_1099g.amount - form_1099g.amount_paid_back_for_benefits_in_tax_year).round }
+        
         wage_income +
           interest_income +
           retirement_income +
@@ -94,7 +95,7 @@ module Efile
 
         pension_exclusion = primary_or_spouse == :primary ? line_or_zero(:MD502R_LINE_11A) : line_or_zero(:MD502R_LINE_11B)
         military_retirement_exclusion = primary_or_spouse == :primary ? line_or_zero(:MD502_SU_LINE_U_PRIMARY) : line_or_zero(:MD502_SU_LINE_U_SPOUSE)
-        
+
         cdc_expenses +
           pension_exclusion +
           military_retirement_exclusion
