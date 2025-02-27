@@ -3167,6 +3167,8 @@ es:
           yes_both: Sí, ambos lo estamos
           yes_me: Sí lo estoy
           yes_spouse: Sí, mi cónyuge lo está
+          unfortunately_dont_support_html: Desafortunadamente, nuestro servicio no puede incluir la Exclusión de Pensiones de Maryland si no has presentado prueba de tu discapacidad en un año fiscal anterior.<br><br>
+                                            Si quieres reclamar la exclusión de pensiones, <a href="google.com">obtén más información aquí</a>.
       md_primary_state_id:
         md_primary:
           dmv_bmv_label: Identificación estatal del MVA

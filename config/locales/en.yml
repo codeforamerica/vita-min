@@ -3197,6 +3197,8 @@ en:
           yes_both: Yes, we both are
           yes_me: Yes, I am
           yes_spouse: Yes, my spouse is
+          unfortunately_dont_support_html: Unfortunately, our service doesn’t support the Maryland Pension Exclusion if you haven’t provided proof of your disability in a previous tax year.<br><br>
+                                          If you want to claim the pension exclusion, <a href="google.com">learn more here</a>.
       md_primary_state_id:
         md_primary:
           dmv_bmv_label: MVA State ID
