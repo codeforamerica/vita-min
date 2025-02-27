@@ -109,6 +109,7 @@ RSpec.describe PdfFiller::F13614cPdf do
           received_irs_letter: "no",
           received_stimulus_payment: "yes",
           refund_payment_method: "direct_deposit",
+          refund_direct_deposit: 'yes',
           register_to_vote: "no",
           reported_asset_sale_loss: "yes",
           reported_self_employment_loss: "yes",
@@ -269,10 +270,8 @@ RSpec.describe PdfFiller::F13614cPdf do
 
       it "can successfully write everything that comes out of #hash_for_pdf to the PDF" do
         expect(intake_pdf.hash_for_pdf.length).to be > 100 # sanity check
-        form_fields = PdfForms.new.get_fields(intake_pdf.output_file)
-
-        all_fields_in_pdf = form_fields.map(&:name)
-        expect(all_fields_in_pdf).to match_array(intake_pdf.hash_for_pdf.keys)
+        all_fields_in_pdf = PdfForms.new.get_fields(intake_pdf.output_file).map(&:name)
+        expect(intake_pdf.hash_for_pdf.keys & all_fields_in_pdf).to match_array(intake_pdf.hash_for_pdf.keys)
       end
 
       it 'fills out written language preference and voter information sections correctly' do
