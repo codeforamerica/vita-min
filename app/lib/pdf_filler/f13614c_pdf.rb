@@ -2,6 +2,45 @@ module PdfFiller
   class F13614cPdf
     include PdfHelper
 
+    GATES = {
+      ever_owned_home: [
+        :sold_a_home,
+        :received_homebuyer_credit,
+        :paid_mortgage_interest
+      ],
+      ever_married: [
+        :paid_alimony,
+        :divorced,
+        :lived_with_spouse,
+        :married,
+        :received_alimony,
+        :separated,
+        :widowed
+      ],
+      had_dependents: [
+        :adopted_child,
+        :paid_dependent_care
+      ],
+      sold_assets: [
+        :had_asset_sale_income,
+        :reported_asset_sale_loss
+      ],
+      wants_to_itemize: [
+        :paid_charitable_contributions,
+        :had_gambling_income,
+        :paid_local_tax,
+        :had_local_tax_refund,
+        :paid_medical_expenses,
+        :paid_mortgage_interest,
+        :paid_school_supplies
+      ],
+      had_social_security_or_retirement: [
+        :paid_retirement_contributions,
+        :had_retirement_income,
+        :had_social_security_income
+      ],
+    }
+
     def source_pdf_name
       "f13614c-TY2024"
     end
