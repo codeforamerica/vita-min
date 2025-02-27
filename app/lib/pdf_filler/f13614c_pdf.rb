@@ -2,45 +2,6 @@ module PdfFiller
   class F13614cPdf
     include PdfHelper
 
-    GATES = {
-      ever_owned_home: [
-        :sold_a_home,
-        :received_homebuyer_credit,
-        :paid_mortgage_interest
-      ],
-      ever_married: [
-        :paid_alimony,
-        :divorced,
-        :lived_with_spouse,
-        :married,
-        :received_alimony,
-        :separated,
-        :widowed
-      ],
-      had_dependents: [
-        :adopted_child,
-        :paid_dependent_care
-      ],
-      sold_assets: [
-        :had_asset_sale_income,
-        :reported_asset_sale_loss
-      ],
-      wants_to_itemize: [
-        :paid_charitable_contributions,
-        :had_gambling_income,
-        :paid_local_tax,
-        :had_local_tax_refund,
-        :paid_medical_expenses,
-        :paid_mortgage_interest,
-        :paid_school_supplies
-      ],
-      had_social_security_or_retirement: [
-        :paid_retirement_contributions,
-        :had_retirement_income,
-        :had_social_security_income
-      ],
-    }
-
     def source_pdf_name
       "f13614c-TY2024"
     end
@@ -429,20 +390,6 @@ module PdfFiller
         result["#{pdf_key_base}.optionUnsure[0]"] = enum_value == "unsure" ? "1" : "Off"
       end
       result
-    end
-
-    def fetch_gated_value(intake, field)
-      gating_question_columns = GATES.select do |_gating_question, gated_values|
-        gated_values.any?(field)
-      end.map(&:first)
-
-      gating_question_values = gating_question_columns.map { |c| intake.send(c) }
-      gated_question_value = intake.send(field)
-      if gating_question_values.any?("no") && gated_question_value == "unfilled"
-        "no"
-      else
-        gated_question_value
-      end
     end
 
     def dependents_info
