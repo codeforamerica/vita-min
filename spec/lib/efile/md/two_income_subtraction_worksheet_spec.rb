@@ -403,8 +403,8 @@ describe Efile::Md::TwoIncomeSubtractionWorksheet do
 
       it "calculates the combined state subtraction amount for primary and spouse" do
         main_calculator.calculate
-        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_4_A].value).to eq(1000) # 100 + 500 + 400
-        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_4_B].value).to eq(600)  # 100 + 300 + 200
+        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_4_A].value).to eq(100 + 500 + 400)
+        expect(instance.lines[:MD_TWO_INCOME_WK_LINE_4_B].value).to eq(100 + 300 + 200)
       end
     end
   end
