@@ -23,7 +23,7 @@ module StateFile
           if @eligible_1099rs.any?
             StateFile::Questions::IdRetirementAndPensionIncomeController.to_path_helper(return_to_review: params[:return_to_review])
           else
-            StateFile::Questions::IdReviewController.to_path_helper(return_to_review: params[:return_to_review])
+            StateFile::Questions::IdReviewController.to_path_helper
           end
         else
           super

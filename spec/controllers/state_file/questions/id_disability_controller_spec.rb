@@ -162,7 +162,7 @@ RSpec.describe StateFile::Questions::IdDisabilityController do
 
           it "goes back to the final review screen" do
             post :update, params: form_params.merge({return_to_review: "y"})
-            expect(response).to redirect_to(StateFile::Questions::IdReviewController.to_path_helper(return_to_review: "y"))
+            expect(response).to redirect_to(StateFile::Questions::IdReviewController.to_path_helper)
           end
         end
       end
@@ -186,7 +186,7 @@ RSpec.describe StateFile::Questions::IdDisabilityController do
         end
         it "goes back to the final review screen" do
           post :update, params: form_params.merge({return_to_review: "y"})
-          expect(response).to redirect_to(StateFile::Questions::IdReviewController.to_path_helper(return_to_review: "y"))
+          expect(response).to redirect_to(StateFile::Questions::IdReviewController.to_path_helper)
         end
       end
     end
