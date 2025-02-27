@@ -4,17 +4,7 @@ module StateFile
       def self.show?(intake)
         Flipper.enabled?(:show_retirement_ui) &&
           intake.state_file1099_rs.any? { |form1099r| form1099r.taxable_amount&.to_f&.positive? } &&
-          !intake.filing_status_mfs? && meets_age_requirements?(intake)
-      end
-
-      def self.meets_age_requirements?(intake)
-        primary_age = intake.calculate_age(intake.primary_birth_date, inclusive_of_jan_1: true)
-        if intake.filing_status_mfj? && intake.spouse_birth_date.present?
-          spouse_age = intake.calculate_age(intake.spouse_birth_date, inclusive_of_jan_1: true)
-          (primary_age >= 62 && primary_age < 65) || (spouse_age >= 62 && spouse_age < 65)
-        else
-          primary_age >= 62 && primary_age < 65
-        end
+          !intake.filing_status_mfs? && intake.has_filer_between_62_and_65_years_old?
       end
 
       def next_path
@@ -23,7 +13,7 @@ module StateFile
           if @eligible_1099rs.any?
             StateFile::Questions::IdRetirementAndPensionIncomeController.to_path_helper(return_to_review: params[:return_to_review])
           else
-            StateFile::Questions::IdReviewController.to_path_helper(return_to_review: params[:return_to_review])
+            StateFile::Questions::IdReviewController.to_path_helper
           end
         else
           super
