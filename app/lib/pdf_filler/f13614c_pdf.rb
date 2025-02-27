@@ -322,6 +322,23 @@ module PdfFiller
       answers
     end
 
+   def vita_consent_to_disclose_info
+      # aka form 15080 on page 4 info
+      return {} unless @intake.primary_consented_to_service_at.present?
+
+      data = {
+        "form1[0].page6[0].primaryTaxpayer[0]" => @intake.primary.first_and_last_name,
+        "form1[0].page6[0].primaryDateSigned[0]" => strftime_date(@intake.primary_consented_to_service_at),
+      }
+      if @intake.spouse_consented_to_service_at.present?
+        data.merge!(
+          "form1[0].page6[0].secondaryTaxpayer[0]" => @intake.spouse.first_and_last_name,
+          "form1[0].page6[0].secondaryDateSigned[0]" => strftime_date(@intake.spouse_consented_to_service_at),
+          )
+      end
+      data
+    end
+
     def you_and_spouse_info
       hash = {
         # You
