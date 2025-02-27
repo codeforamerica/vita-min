@@ -23,6 +23,9 @@
                     <% if followup.bailey_settlement_from_retirement_plan_yes? %>
                       <li><%= t(".bailey_settlement_from_retirement_plan") %></li>
                     <% end %>
+                    <% if !followup.bailey_settlement_from_retirement_plan_yes? && !followup.bailey_settlement_at_least_five_years_yes? %>
+                      <li><%= t(".none_apply") %></li>
+                    <% end %>
                   <% elsif followup.income_source_uniformed_services? %>
                     <li><%= t(".retirement_income_source_uniformed_services") %></li>
                     <% if followup.uniformed_services_retired_yes? %>
