@@ -2819,7 +2819,16 @@ es:
               default: "¿Qué opciones gratuitas tengo para declarar mis impuestos estatales?"
               nj: Lee más sobre el proceso de VITA
         vita_option:
-          connect_to_vita: Conéctate ahora
+          connect_to_vita:
+            nj: |
+              <p>
+                <a href="%{faq_link_href}" target="_blank" rel="noopener noreferrer">
+                  Visita nuestras Preguntas Frecuentes
+                </a>
+              </p>
+              <a href="%{vita_link_href}" target="_blank" rel="noopener noreferrer" class="button button--primary button--wide spacing-below-25">
+                Conéctate ahora
+              </a>
           vita_introduction:
             nj: Puedes presentar tus impuestos estatales de forma gratuita con la ayuda de preparadores de impuestos voluntarios certificados por el IRS del programa Volunteer Income Tax Assistance (VITA por las siglas en inglés) en Simplify CT.
           vita_link: Comienza con VITA ahora
@@ -3151,7 +3160,8 @@ es:
           help_text_html: Se considera que estás totalmente discapacitado si tienes una condición mental o física que te impide trabajar y recibir ingresos. <br><br>Se espera que esta condición dure mucho tiempo, por un período indefinido o que resulte en tu muerte. Si tienes menos de 65 años y deseas reclamar la exclusión de pensión, debes haber adjuntado una certificación de un médico calificado que indique la naturaleza de tu discapacidad y que estás totalmente incapacitado a una declaración de impuestos presentada anteriormente.
           help_title: "¿Qué se considera total y permanentemente discapacitado?"
           no_neither: No, ninguno de los dos lo está
-          proof_question: "¿Has presentado prueba de tu discapacidad para obtener la exclusión de pensión en años fiscales anteriores?"
+          primary_proof_question_html: ¿Has presentado prueba de <strong>tu</strong> discapacidad para <a href="https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php"> la Exclusión de Pensiones de Maryland </a> en años fiscales anteriores?
+          spouse_proof_question_html: ¿Ha presentado prueba de <strong>tu cónyuge</strong> discapacidad para <a href="https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php">la Exclusión de Pensiones de Maryland </a> en años fiscales anteriores?
           title: "¿Estás total y permanentemente discapacitado?"
           title_spouse: "¿Tú o tu cónyuge están total y permanentemente discapacitados?"
           yes_both: Sí, ambos lo estamos
@@ -3217,9 +3227,10 @@ es:
           other: Otros ingresos de jubilación (por ejemplo, un plan Keogh)
           pension_annuity_endowment: Una pensión, renta vitalicia o dotación de un “sistema de jubilación para empleados”
           political_subdivision_html: "<strong>Subdivisión política donde vivías el 31 de diciembre de %{filing_year}</strong>"
-          proof_of_disability: Presentaste pruebas de una discapacidad para la exclusión de pensiones en años fiscales anteriores.
+          primary_proof_of_disability: Presentaste pruebas de una discapacidad para la exclusión de pensiones en años fiscales anteriores.
           public_safety: Tu servicio como empleado de seguridad pública.
           retirement_income_deductions: Detalles sobre los ingresos de jubilación de Maryland
+          spouse_proof_of_disability: Su cónyuge presentó pruebas de una discapacidad para la exclusión de pensiones en años fiscales anteriores.
           your_address: Dirección donde vivías el 31 de diciembre del %{filing_year}
       md_social_security_benefits:
         edit:
