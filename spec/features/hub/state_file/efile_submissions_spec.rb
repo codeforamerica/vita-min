@@ -3,9 +3,11 @@ require "rails_helper"
 RSpec.feature "View state-file efile submissions page in hub" do
   context "As an authenticated state file admin user" do
     let(:user) { create :state_file_admin_user }
-    let!(:efile_submission) { create :efile_submission, :for_state}
+    let!(:intake) { create :state_file_az_intake, email_address: 'boop@beep.com' }
+    let!(:efile_submission) { create :efile_submission, :for_state, data_source: intake }
 
     before do
+      efile_submission.generate_irs_submission_id!
       login_as user
     end
 
