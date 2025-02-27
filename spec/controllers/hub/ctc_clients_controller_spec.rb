@@ -5,7 +5,7 @@ RSpec.describe Hub::CtcClientsController do
   let(:user) { create(:user, role: create(:organization_lead_role, organization: organization), timezone: "America/Los_Angeles") }
 
   describe "#edit" do
-    let(:client) { create :client, :with_ctc_return, intake: (build :ctc_intake), vita_partner: organization }
+    let(:client) { create :client, :with_ctc_return, intake: (build :ctc_intake, product_year: Rails.configuration.product_year), vita_partner: organization }
     let(:params) {
       { id: client.id }
     }
@@ -21,13 +21,22 @@ RSpec.describe Hub::CtcClientsController do
         expect(response).to be_ok
         expect(assigns(:form)).to be_an_instance_of Hub::UpdateCtcClientForm
       end
+
+      context "with an archived intake" do
+        let(:client) { create :client, :with_ctc_return, intake: (build :ctc_intake), vita_partner: organization }
+
+        it "response is forbidden (403)" do
+          get :edit, params: params
+          expect(response).to be_forbidden
+        end
+      end
     end
   end
 
   describe "#update" do
     let!(:client) { create :client, :with_ctc_return, intake: intake, vita_partner: organization }
 
-    let(:intake) { build :ctc_intake, :filled_out_ctc, :with_contact_info, :with_ssns, :with_dependents, email_address: "cher@example.com", primary_last_name: "Cherimoya" }
+    let(:intake) { build :ctc_intake, :filled_out_ctc, :with_contact_info, :with_ssns, :with_dependents, email_address: "cher@example.com", primary_last_name: "Cherimoya", product_year: Rails.configuration.product_year }
     let(:first_dependent) { intake.dependents.first }
     let!(:params) do
       {
@@ -121,7 +130,7 @@ RSpec.describe Hub::CtcClientsController do
           "spouse_last_four_ssn" => ["[REDACTED]", "[REDACTED]"],
           "primary_last_four_ssn" => ["[REDACTED]", "[REDACTED]"],
           "preferred_interview_language" => ["en", nil],
-        })
+       })
       end
 
       context "when the client's email address has changed" do
@@ -212,6 +221,15 @@ RSpec.describe Hub::CtcClientsController do
         it "displays a flash message" do
           post :update, params: params
           expect(flash[:alert]).to eq "Please fix indicated errors before continuing."
+        end
+      end
+
+      context "with an archived intake" do
+        let(:client) { create :client, :with_ctc_return, intake: (build :ctc_intake), vita_partner: organization }
+
+        it "response is forbidden (403)" do
+          post :update, params: params
+          expect(response).to be_forbidden
         end
       end
     end
