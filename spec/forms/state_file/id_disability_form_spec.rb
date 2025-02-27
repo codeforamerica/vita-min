@@ -20,7 +20,7 @@ RSpec.describe StateFile::IdDisabilityForm do
       end
 
       context "when mfj_disability is present" do
-        let(:params) { { mfj_disability: "me" } }
+        let(:params) { { mfj_disability: "primary" } }
 
         it "is valid" do
           expect(form).to be_valid
@@ -77,7 +77,7 @@ RSpec.describe StateFile::IdDisabilityForm do
 
     context "when filing status is MFJ" do
       context "when mfj_disability is 'me'" do
-        let(:params) { { mfj_disability: "me" } }
+        let(:params) { { mfj_disability: "primary" } }
 
         it "updates intake with primary_disabled: 'yes' and spouse_disabled: 'no'" do
           form.save
