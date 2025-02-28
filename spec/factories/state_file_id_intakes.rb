@@ -42,6 +42,7 @@
 #  phone_number                                   :string
 #  phone_number_verified_at                       :datetime
 #  primary_birth_date                             :date
+#  primary_disabled                               :integer          default("unfilled"), not null
 #  primary_esigned                                :integer          default("unfilled"), not null
 #  primary_esigned_at                             :datetime
 #  primary_first_name                             :string
@@ -60,6 +61,7 @@
 #  source                                         :string
 #  special_olympics_donation                      :decimal(12, 2)
 #  spouse_birth_date                              :date
+#  spouse_disabled                                :integer          default("unfilled"), not null
 #  spouse_esigned                                 :integer          default("unfilled"), not null
 #  spouse_esigned_at                              :datetime
 #  spouse_first_name                              :string
@@ -162,6 +164,8 @@ FactoryBot.define do
       filing_status { "married_filing_jointly" }
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('id_paul_mfj') }
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('id_paul_mfj') }
+
+      after(:create, &:synchronize_filers_to_database)
     end
 
     trait :with_dependents do
@@ -183,6 +187,23 @@ FactoryBot.define do
     trait :df_data_1099_int do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('id_estrada_donations') }
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('id_estrada_donations') }
+    end
+
+
+    trait :with_eligible_1099r_income do
+      after(:create) do |intake|
+        create(:state_file1099_r, intake: intake, taxable_amount: 2000, state_tax_withheld_amount: 200) do |form_1099r|
+          create(:state_file_id1099_r_followup, state_file1099_r: form_1099r, eligible_income_source: "yes")
+        end
+      end
+    end
+
+    trait :with_ineligible_1099r_income do
+      after(:create) do |intake|
+        create(:state_file1099_r, intake: intake, taxable_amount: 2000, state_tax_withheld_amount: 200) do |form_1099r|
+          create(:state_file_id1099_r_followup, state_file1099_r: form_1099r, eligible_income_source: "no")
+        end
+      end
     end
 
     trait :primary_blind do

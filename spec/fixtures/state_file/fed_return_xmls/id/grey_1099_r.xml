@@ -4,11 +4,11 @@
         <TaxYr>2024</TaxYr>
         <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
         <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
-        <SoftwareVersionNum>4be83768</SoftwareVersionNum>
+        <SoftwareVersionNum>276e3bdf</SoftwareVersionNum>
         <ReturnTypeCd>1040</ReturnTypeCd>
         <Filer>
-            <PrimarySSN>400005971</PrimarySSN>
-            <SpouseSSN>400005972</SpouseSSN>
+            <PrimarySSN>400005978</PrimarySSN>
+            <SpouseSSN>400005979</SpouseSSN>
             <NameLine1Txt>FRANK J &amp; AMBER&lt;GREY</NameLine1Txt>
             <PrimaryNameControlTxt>GREY</PrimaryNameControlTxt>
             <SpouseNameControlTxt>GREY</SpouseNameControlTxt>
@@ -22,11 +22,11 @@
         </Filer>
         <AdditionalFilerInformation>
             <AtSubmissionFilingGrp>
-                <EmailAddressTxt>test-user+40000597-174a-43f1-ad9d-5b85d51fda15@directfile.test</EmailAddressTxt>
+                <EmailAddressTxt>test-user+40000597-8310-4339-ad88-661df6e794c7@directfile.test</EmailAddressTxt>
             </AtSubmissionFilingGrp>
         </AdditionalFilerInformation>
     </ReturnHeader>
-    <ReturnData documentCnt="5">
+    <ReturnData documentCnt="6">
         <IRS1040 documentId="IRS10400001">
             <Form1040SRInd>X</Form1040SRInd>
             <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
@@ -41,20 +41,23 @@
             <WagesAmt referenceDocumentId="W20001 W20002" referenceDocumentName="IRSW2">60500</WagesAmt>
             <WagesSalariesAndTipsAmt>60500</WagesSalariesAndTipsAmt>
             <TotalTaxablePensionsAmt>70000</TotalTaxablePensionsAmt>
-            <TotalIncomeAmt>130500</TotalIncomeAmt>
-            <AdjustedGrossIncomeAmt>130500</AdjustedGrossIncomeAmt>
+            <SocSecBnftAmt>21000</SocSecBnftAmt>
+            <TaxableSocSecAmt>17850</TaxableSocSecAmt>
+            <TotalIncomeAmt>148350</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>148350</AdjustedGrossIncomeAmt>
             <TotalItemizedOrStandardDedAmt>32300</TotalItemizedOrStandardDedAmt>
             <TotalDeductionsAmt>32300</TotalDeductionsAmt>
-            <TaxableIncomeAmt>98200</TaxableIncomeAmt>
-            <TaxAmt>11716</TaxAmt>
-            <TotalTaxBeforeCrAndOthTaxesAmt>11716</TotalTaxBeforeCrAndOthTaxesAmt>
-            <TaxLessCreditsAmt>11716</TaxLessCreditsAmt>
-            <TotalTaxAmt>11716</TotalTaxAmt>
+            <TaxableIncomeAmt>116050</TaxableIncomeAmt>
+            <TaxAmt>15637</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>15637</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>15637</TaxLessCreditsAmt>
+            <TotalTaxAmt>15637</TotalTaxAmt>
             <FormW2WithheldTaxAmt>3000</FormW2WithheldTaxAmt>
-            <WithholdingTaxAmt>16500</WithholdingTaxAmt>
-            <TotalPaymentsAmt>16500</TotalPaymentsAmt>
-            <OverpaidAmt>4784</OverpaidAmt>
-            <RefundAmt>4784</RefundAmt>
+            <Form1099WithheldTaxAmt referenceDocumentId="OTHERWITHHOLDING0001" referenceDocumentName="OtherWithholdingStatement">14000</Form1099WithheldTaxAmt>
+            <WithholdingTaxAmt>17000</WithholdingTaxAmt>
+            <TotalPaymentsAmt>17000</TotalPaymentsAmt>
+            <OverpaidAmt>1363</OverpaidAmt>
+            <RefundAmt>1363</RefundAmt>
             <OwedAmt>0</OwedAmt>
             <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
             <PrimaryOccupationTxt>ASL Instructor</PrimaryOccupationTxt>
@@ -73,7 +76,7 @@
                 <ZIPCd>80904</ZIPCd>
             </PayerUSAddress>
             <PayerEIN>376566547</PayerEIN>
-            <RecipientSSN>400005971</RecipientSSN>
+            <RecipientSSN>400005978</RecipientSSN>
             <RecipientNm>Frank J Grey</RecipientNm>
             <RecipientUSAddress>
                 <AddressLine1Txt>PO Box 342</AddressLine1Txt>
@@ -100,7 +103,7 @@
         <IRS1099R documentId="IRS1099R0002">
             <PayerNameControlTxt>TEAC</PayerNameControlTxt>
             <PayerName>
-                <BusinessNameLine1Txt>Teachers United</BusinessNameLine1Txt>
+                <BusinessNameLine1Txt>Teacher's United</BusinessNameLine1Txt>
             </PayerName>
             <PayerUSAddress>
                 <AddressLine1Txt>478 Learning Lane</AddressLine1Txt>
@@ -109,7 +112,7 @@
                 <ZIPCd>80904</ZIPCd>
             </PayerUSAddress>
             <PayerEIN>438123211</PayerEIN>
-            <RecipientSSN>400005972</RecipientSSN>
+            <RecipientSSN>400005979</RecipientSSN>
             <RecipientNm>Amber Grey</RecipientNm>
             <RecipientUSAddress>
                 <AddressLine1Txt>PO Box 342</AddressLine1Txt>
@@ -134,8 +137,8 @@
             <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
         </IRS1099R>
         <IRSW2 documentId="W20001" documentName="IRSW2">
-            <EmployeeSSN>400005972</EmployeeSSN>
-            <EmployerEIN>003290134</EmployerEIN>
+            <EmployeeSSN>400005979</EmployeeSSN>
+            <EmployerEIN>013290134</EmployerEIN>
             <EmployerNameControlTxt>TEAC</EmployerNameControlTxt>
             <EmployerName>
                 <BusinessNameLine1Txt>Teachers R Us</BusinessNameLine1Txt>
@@ -170,7 +173,7 @@
             <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
         </IRSW2>
         <IRSW2 documentId="W20002" documentName="IRSW2">
-            <EmployeeSSN>400005972</EmployeeSSN>
+            <EmployeeSSN>400005979</EmployeeSSN>
             <EmployerEIN>678912345</EmployerEIN>
             <EmployerNameControlTxt>NEUT</EmployerNameControlTxt>
             <EmployerName>
@@ -205,5 +208,11 @@
             </W2StateLocalTaxGrp>
             <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
         </IRSW2>
+        <OtherWithholdingStatement documentId="OTHERWITHHOLDING0001" documentName="OtherWithholdingStatement">
+            <OtherWithholdingStmt>
+                <WithholdingCd>FORM 1099</WithholdingCd>
+                <WithholdingAmt>500</WithholdingAmt>
+            </OtherWithholdingStmt>
+        </OtherWithholdingStatement>
     </ReturnData>
 </Return>

@@ -195,7 +195,8 @@ describe Ability do
                 preferred_name: "George Sr.",
                 needs_help_2019: "yes",
                 needs_help_2018: "yes",
-                preferred_interview_language: "en", locale: "en"
+                preferred_interview_language: "en", locale: "en",
+                product_year: Rails.configuration.product_year
               ),
               tax_returns: [
                 build(
@@ -216,14 +217,65 @@ describe Ability do
           it "can access all data for the client" do
             expect(subject.can?(:read, accessible_client)).to eq true
             expect(subject.can?(:update, accessible_client)).to eq true
-            expect(subject.can?(:manage, Document.new(client: accessible_client))).to eq true
-            expect(subject.can?(:manage, IncomingEmail.new(client: accessible_client))).to eq true
-            expect(subject.can?(:manage, IncomingTextMessage.new(client: accessible_client))).to eq true
-            expect(subject.can?(:manage, Note.new(client: accessible_client))).to eq true
-            expect(subject.can?(:manage, OutgoingEmail.new(client: accessible_client))).to eq true
-            expect(subject.can?(:manage, OutgoingTextMessage.new(client: accessible_client))).to eq true
-            expect(subject.can?(:manage, SystemNote.new(client: accessible_client))).to eq true
-            expect(subject.can?(:manage, TaxReturn.new(client: accessible_client))).to eq true
+            expect(subject.can?(:edit, accessible_client)).to eq true
+            expect(subject.can?(:flag, accessible_client)).to eq true
+            expect(subject.can?(:toggle_field, accessible_client)).to eq true
+            expect(subject.can?(:edit_take_action, accessible_client)).to eq true
+            expect(subject.can?(:update_take_action, accessible_client)).to eq true
+            expect(subject.can?(:save_and_maybe_exit, accessible_client)).to eq true
+
+            expect(subject.can?(:edit_13614c_form_page1, accessible_client)).to eq true
+            expect(subject.can?(:edit_13614c_form_page2, accessible_client)).to eq true
+            expect(subject.can?(:edit_13614c_form_page3, accessible_client)).to eq true
+            expect(subject.can?(:edit_13614c_form_page4, accessible_client)).to eq true
+            expect(subject.can?(:edit_13614c_form_page5, accessible_client)).to eq true
+            expect(subject.can?(:update_13614c_form_page1, accessible_client)).to eq true
+            expect(subject.can?(:update_13614c_form_page2, accessible_client)).to eq true
+            expect(subject.can?(:update_13614c_form_page3, accessible_client)).to eq true
+            expect(subject.can?(:update_13614c_form_page4, accessible_client)).to eq true
+            expect(subject.can?(:update_13614c_form_page5, accessible_client)).to eq true
+            expect(subject.can?(:cancel_13614c, accessible_client)).to eq true
+
+            expect(subject.can?(:read, Document.new(client: accessible_client))).to eq true
+            expect(subject.can?(:create, Document.new(client: accessible_client))).to eq true
+            expect(subject.can?(:update, Document.new(client: accessible_client))).to eq true
+            expect(subject.can?(:destroy, Document.new(client: accessible_client))).to eq true
+
+            expect(subject.can?(:read, IncomingEmail.new(client: accessible_client))).to eq true
+            expect(subject.can?(:create, IncomingEmail.new(client: accessible_client))).to eq true
+            expect(subject.can?(:update, IncomingEmail.new(client: accessible_client))).to eq true
+            expect(subject.can?(:destroy, IncomingEmail.new(client: accessible_client))).to eq true
+
+            expect(subject.can?(:read, IncomingTextMessage.new(client: accessible_client))).to eq true
+            expect(subject.can?(:create, IncomingTextMessage.new(client: accessible_client))).to eq true
+            expect(subject.can?(:update, IncomingTextMessage.new(client: accessible_client))).to eq true
+            expect(subject.can?(:destroy, IncomingTextMessage.new(client: accessible_client))).to eq true
+
+            expect(subject.can?(:read, Note.new(client: accessible_client))).to eq true
+            expect(subject.can?(:create, Note.new(client: accessible_client))).to eq true
+            expect(subject.can?(:update, Note.new(client: accessible_client))).to eq true
+            expect(subject.can?(:destroy, Note.new(client: accessible_client))).to eq true
+
+            expect(subject.can?(:read, OutgoingEmail.new(client: accessible_client))).to eq true
+            expect(subject.can?(:create, OutgoingEmail.new(client: accessible_client))).to eq true
+            expect(subject.can?(:update, OutgoingEmail.new(client: accessible_client))).to eq true
+            expect(subject.can?(:destroy, OutgoingEmail.new(client: accessible_client))).to eq true
+
+            expect(subject.can?(:read, OutgoingTextMessage.new(client: accessible_client))).to eq true
+            expect(subject.can?(:create, OutgoingTextMessage.new(client: accessible_client))).to eq true
+            expect(subject.can?(:update, OutgoingTextMessage.new(client: accessible_client))).to eq true
+            expect(subject.can?(:destroy, OutgoingTextMessage.new(client: accessible_client))).to eq true
+
+            expect(subject.can?(:read, SystemNote.new(client: accessible_client))).to eq true
+            expect(subject.can?(:create, SystemNote.new(client: accessible_client))).to eq true
+            expect(subject.can?(:update, SystemNote.new(client: accessible_client))).to eq true
+            expect(subject.can?(:destroy, SystemNote.new(client: accessible_client))).to eq true
+
+            expect(subject.can?(:read, TaxReturn.new(client: accessible_client))).to eq true
+            expect(subject.can?(:create, TaxReturn.new(client: accessible_client))).to eq true
+            expect(subject.can?(:update, TaxReturn.new(client: accessible_client))).to eq true
+            expect(subject.can?(:destroy, TaxReturn.new(client: accessible_client))).to eq true
+
             expect(subject.can?(:manage, TaxReturnSelection.create!(tax_returns: [build(:gyr_tax_return, client: accessible_client)]))).to eq true
           end
 
@@ -268,14 +320,66 @@ describe Ability do
           it "can access all data for the client" do
             expect(subject.can?(:read, accessible_client)).to eq true
             expect(subject.can?(:update, accessible_client)).to eq true
-            expect(subject.can?(:manage, Document.new(client: accessible_client))).to eq true
-            expect(subject.can?(:manage, IncomingEmail.new(client: accessible_client))).to eq true
-            expect(subject.can?(:manage, IncomingTextMessage.new(client: accessible_client))).to eq true
-            expect(subject.can?(:manage, Note.new(client: accessible_client))).to eq true
-            expect(subject.can?(:manage, OutgoingEmail.new(client: accessible_client))).to eq true
-            expect(subject.can?(:manage, OutgoingTextMessage.new(client: accessible_client))).to eq true
-            expect(subject.can?(:manage, SystemNote.new(client: accessible_client))).to eq true
-            expect(subject.can?(:manage, TaxReturn.new(client: accessible_client))).to eq true
+            expect(subject.can?(:edit, accessible_client)).to eq true
+            expect(subject.can?(:flag, accessible_client)).to eq true
+            expect(subject.can?(:toggle_field, accessible_client)).to eq true
+            expect(subject.can?(:edit_take_action, accessible_client)).to eq true
+            expect(subject.can?(:update_take_action, accessible_client)).to eq true
+            expect(subject.can?(:unlock, accessible_client)).to eq false
+            expect(subject.can?(:save_and_maybe_exit, accessible_client)).to eq true
+
+            expect(subject.can?(:edit_13614c_form_page1, accessible_client)).to eq true
+            expect(subject.can?(:edit_13614c_form_page2, accessible_client)).to eq true
+            expect(subject.can?(:edit_13614c_form_page3, accessible_client)).to eq true
+            expect(subject.can?(:edit_13614c_form_page4, accessible_client)).to eq true
+            expect(subject.can?(:edit_13614c_form_page5, accessible_client)).to eq true
+            expect(subject.can?(:update_13614c_form_page1, accessible_client)).to eq true
+            expect(subject.can?(:update_13614c_form_page2, accessible_client)).to eq true
+            expect(subject.can?(:update_13614c_form_page3, accessible_client)).to eq true
+            expect(subject.can?(:update_13614c_form_page4, accessible_client)).to eq true
+            expect(subject.can?(:update_13614c_form_page5, accessible_client)).to eq true
+            expect(subject.can?(:cancel_13614c, accessible_client)).to eq true
+
+            expect(subject.can?(:read, Document.new(client: accessible_client))).to eq true
+            expect(subject.can?(:create, Document.new(client: accessible_client))).to eq true
+            expect(subject.can?(:update, Document.new(client: accessible_client))).to eq true
+            expect(subject.can?(:destroy, Document.new(client: accessible_client))).to eq true
+
+            expect(subject.can?(:read, IncomingEmail.new(client: accessible_client))).to eq true
+            expect(subject.can?(:create, IncomingEmail.new(client: accessible_client))).to eq true
+            expect(subject.can?(:update, IncomingEmail.new(client: accessible_client))).to eq true
+            expect(subject.can?(:destroy, IncomingEmail.new(client: accessible_client))).to eq true
+
+            expect(subject.can?(:read, IncomingTextMessage.new(client: accessible_client))).to eq true
+            expect(subject.can?(:create, IncomingTextMessage.new(client: accessible_client))).to eq true
+            expect(subject.can?(:update, IncomingTextMessage.new(client: accessible_client))).to eq true
+            expect(subject.can?(:destroy, IncomingTextMessage.new(client: accessible_client))).to eq true
+
+            expect(subject.can?(:read, Note.new(client: accessible_client))).to eq true
+            expect(subject.can?(:create, Note.new(client: accessible_client))).to eq true
+            expect(subject.can?(:update, Note.new(client: accessible_client))).to eq true
+            expect(subject.can?(:destroy, Note.new(client: accessible_client))).to eq true
+
+            expect(subject.can?(:read, OutgoingEmail.new(client: accessible_client))).to eq true
+            expect(subject.can?(:create, OutgoingEmail.new(client: accessible_client))).to eq true
+            expect(subject.can?(:update, OutgoingEmail.new(client: accessible_client))).to eq true
+            expect(subject.can?(:destroy, OutgoingEmail.new(client: accessible_client))).to eq true
+
+            expect(subject.can?(:read, OutgoingTextMessage.new(client: accessible_client))).to eq true
+            expect(subject.can?(:create, OutgoingTextMessage.new(client: accessible_client))).to eq true
+            expect(subject.can?(:update, OutgoingTextMessage.new(client: accessible_client))).to eq true
+            expect(subject.can?(:destroy, OutgoingTextMessage.new(client: accessible_client))).to eq true
+
+            expect(subject.can?(:read, SystemNote.new(client: accessible_client))).to eq true
+            expect(subject.can?(:create, SystemNote.new(client: accessible_client))).to eq true
+            expect(subject.can?(:update, SystemNote.new(client: accessible_client))).to eq true
+            expect(subject.can?(:destroy, SystemNote.new(client: accessible_client))).to eq true
+
+            expect(subject.can?(:read, TaxReturn.new(client: accessible_client))).to eq true
+            expect(subject.can?(:create, TaxReturn.new(client: accessible_client))).to eq true
+            expect(subject.can?(:update, TaxReturn.new(client: accessible_client))).to eq true
+            expect(subject.can?(:destroy, TaxReturn.new(client: accessible_client))).to eq true
+
             expect(subject.can?(:manage, TaxReturnSelection.create!(tax_returns: [build(:gyr_tax_return, client: accessible_client)]))).to eq true
           end
 
@@ -306,6 +410,113 @@ describe Ability do
             expect(subject.can?(:manage, SystemNote.new(client: inaccessible_client))).to eq false
             expect(subject.can?(:manage, TaxReturn.new(client: inaccessible_client))).to eq false
             expect(subject.can?(:manage, TaxReturnSelection.create!(tax_returns: [build(:gyr_tax_return, client: accessible_client), build(:gyr_tax_return, client: inaccessible_client)]))).to eq false
+          end
+        end
+      end
+
+      shared_examples :can_read_but_not_update_accessible_client_with_archived_intake do
+        context "when the user can access a particular site" do
+          let(:accessible_site) { create(:site) }
+          let(:accessible_client) do
+            create(
+              :client,
+              vita_partner: accessible_site,
+              intake: build(
+                :intake,
+                :filled_out,
+                preferred_name: "George Sr.",
+                needs_help_2019: "yes",
+                needs_help_2018: "yes",
+                preferred_interview_language: "en", locale: "en",
+                product_year: Rails.configuration.product_year - 2
+              ),
+              tax_returns: [
+                build(
+                  :tax_return,
+                  :intake_ready,
+                  year: 2019,
+                  service_type: "drop_off",
+                  filing_status: nil
+                ),
+              ]
+            )
+          end
+
+          before do
+            allow(user).to receive(:accessible_vita_partners).and_return(VitaPartner.where(id: accessible_site))
+          end
+
+          it "can access all data for the client" do
+            expect(subject.can?(:read, accessible_client)).to eq true
+            expect(subject.can?(:update, accessible_client)).to eq false
+            expect(subject.can?(:edit, accessible_client)).to eq false
+
+            expect(subject.can?(:flag, accessible_client)).to eq false
+            expect(subject.can?(:toggle_field, accessible_client)).to eq false
+            expect(subject.can?(:unlock, accessible_client)).to eq false
+
+            expect(subject.can?(:edit_take_action, accessible_client)).to eq false
+            expect(subject.can?(:update_take_action, accessible_client)).to eq false
+
+
+            expect(subject.can?(:edit_13614c_form_page1, accessible_client)).to eq false
+            expect(subject.can?(:edit_13614c_form_page2, accessible_client)).to eq false
+            expect(subject.can?(:edit_13614c_form_page3, accessible_client)).to eq false
+            expect(subject.can?(:edit_13614c_form_page4, accessible_client)).to eq false
+            expect(subject.can?(:edit_13614c_form_page5, accessible_client)).to eq false
+            expect(subject.can?(:update_13614c_form_page1, accessible_client)).to eq false
+            expect(subject.can?(:update_13614c_form_page2, accessible_client)).to eq false
+            expect(subject.can?(:update_13614c_form_page3, accessible_client)).to eq false
+            expect(subject.can?(:update_13614c_form_page4, accessible_client)).to eq false
+            expect(subject.can?(:update_13614c_form_page5, accessible_client)).to eq false
+            expect(subject.can?(:save_and_maybe_exit, accessible_client)).to eq false
+            expect(subject.can?(:cancel_13614c, accessible_client)).to eq false
+
+            expect(subject.can?(:read, Document.new(client: accessible_client))).to eq true
+            expect(subject.can?(:create, Document.new(client: accessible_client))).to eq false
+            expect(subject.can?(:update, Document.new(client: accessible_client))).to eq false
+            expect(subject.can?(:destroy, Document.new(client: accessible_client))).to eq false
+
+            expect(subject.can?(:read, IncomingEmail.new(client: accessible_client))).to eq true
+            expect(subject.can?(:create, IncomingEmail.new(client: accessible_client))).to eq true
+            expect(subject.can?(:update, IncomingEmail.new(client: accessible_client))).to eq true
+            expect(subject.can?(:destroy, IncomingEmail.new(client: accessible_client))).to eq true
+
+            expect(subject.can?(:read, IncomingTextMessage.new(client: accessible_client))).to eq true
+            expect(subject.can?(:create, IncomingTextMessage.new(client: accessible_client))).to eq true
+            expect(subject.can?(:update, IncomingTextMessage.new(client: accessible_client))).to eq true
+            expect(subject.can?(:destroy, IncomingTextMessage.new(client: accessible_client))).to eq true
+
+            expect(subject.can?(:read, Note.new(client: accessible_client))).to eq true
+            expect(subject.can?(:create, Note.new(client: accessible_client))).to eq false
+            expect(subject.can?(:update, Note.new(client: accessible_client))).to eq false
+            expect(subject.can?(:destroy, Note.new(client: accessible_client))).to eq false
+
+            expect(subject.can?(:read, OutgoingEmail.new(client: accessible_client))).to eq true
+            expect(subject.can?(:create, OutgoingEmail.new(client: accessible_client))).to eq true
+            expect(subject.can?(:update, OutgoingEmail.new(client: accessible_client))).to eq true
+            expect(subject.can?(:destroy, OutgoingEmail.new(client: accessible_client))).to eq true
+
+            expect(subject.can?(:read, OutgoingTextMessage.new(client: accessible_client))).to eq true
+            expect(subject.can?(:create, OutgoingTextMessage.new(client: accessible_client))).to eq true
+            expect(subject.can?(:update, OutgoingTextMessage.new(client: accessible_client))).to eq true
+            expect(subject.can?(:destroy, OutgoingTextMessage.new(client: accessible_client))).to eq true
+
+            expect(subject.can?(:read, SystemNote.new(client: accessible_client))).to eq true
+            expect(subject.can?(:create, SystemNote.new(client: accessible_client))).to eq true
+            expect(subject.can?(:update, SystemNote.new(client: accessible_client))).to eq true
+            expect(subject.can?(:destroy, SystemNote.new(client: accessible_client))).to eq true
+
+            expect(subject.can?(:read, TaxReturn.new(client: accessible_client))).to eq true
+            expect(subject.can?(:create, TaxReturn.new(client: accessible_client))).to eq false
+            expect(subject.can?(:update, TaxReturn.new(client: accessible_client))).to eq false
+            expect(subject.can?(:destroy, TaxReturn.new(client: accessible_client))).to eq false
+
+            expect(subject.can?(:manage, TaxReturnSelection.create!(tax_returns: [build(:gyr_tax_return, client: accessible_client)]))).to eq false
+          end
+
+          it "cannot delete a client" do
+            expect(subject.can?(:destroy, accessible_client)).to eq false
           end
         end
       end
@@ -345,6 +556,7 @@ describe Ability do
           it_behaves_like :cannot_manage_inaccessible_client
           it_behaves_like :can_only_read_accessible_org_or_site
           it_behaves_like :cannot_manage_any_sites_or_orgs
+          it_behaves_like :can_read_but_not_update_accessible_client_with_archived_intake
         end
 
         context "a greeter" do

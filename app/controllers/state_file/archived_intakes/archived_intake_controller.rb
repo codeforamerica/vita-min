@@ -1,6 +1,7 @@
 module StateFile
   module ArchivedIntakes
     class ArchivedIntakeController < ApplicationController
+      layout "state_file"
       before_action :check_feature_flag
 
       def current_archived_intake
