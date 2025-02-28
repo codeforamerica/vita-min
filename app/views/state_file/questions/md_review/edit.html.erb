@@ -80,9 +80,13 @@
         <% else %>
           <p><%=current_intake.primary_disabled_yes? ? t("general.affirmative") : t("general.negative") %></p>
         <% end %>
-        <% unless current_intake.proof_of_disability_submitted_unfilled? %>
-          <p class="text--bold spacing-below-5"><%=t(".proof_of_disability") %></p>
-          <p><%=current_intake.proof_of_disability_submitted_yes? ? t("general.affirmative") : t("general.negative") %></p>
+        <% unless current_intake.primary_proof_of_disability_submitted_unfilled? %>
+          <p class="text--bold spacing-below-5"><%=t(".primary_proof_of_disability") %></p>
+          <p><%=current_intake.primary_proof_of_disability_submitted_yes? ? t("general.affirmative") : t("general.negative") %></p>
+        <% end %>
+        <% unless current_intake.spouse_proof_of_disability_submitted_unfilled? %>
+          <p class="text--bold spacing-below-5"><%=t(".spouse_proof_of_disability") %></p>
+          <p><%=current_intake.spouse_proof_of_disability_submitted_yes? ? t("general.affirmative") : t("general.negative") %></p>
         <% end %>
         <%= link_to t("general.review_and_edit"), StateFile::Questions::MdPermanentlyDisabledController.to_path_helper(return_to_review: "y"), class: "button--small" %>
         <span class="sr-only"><%= t(".disability_status") %></span>

@@ -52,7 +52,7 @@
             <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
             <PrimaryOccupationTxt>job</PrimaryOccupationTxt>
             <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
-        <TaxableSocSecAmt>0</TaxableSocSecAmt><TotalTaxablePensionsAmt>0</TotalTaxablePensionsAmt></IRS1040>
+        </IRS1040>
         <IRS1040ScheduleB documentId="IRS1040B001" documentName="IRS1040ScheduleB">
             <Form1040SchBPartIGroup2>
                 <InterestPayerName>
@@ -93,10 +93,10 @@
             </OtherDeductionsBenefitsGrp>
             <W2StateLocalTaxGrp>
                 <W2StateTaxGrp>
-                    <W2LocalTaxGrp><LocalWagesAndTipsAmt>0</LocalWagesAndTipsAmt><LocalIncomeTaxAmt>0</LocalIncomeTaxAmt></W2LocalTaxGrp>
-                <StateWagesAmt>0</StateWagesAmt><StateIncomeTaxAmt>0</StateIncomeTaxAmt></W2StateTaxGrp>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
             </W2StateLocalTaxGrp>
             <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
-        <WithholdingAmt>0</WithholdingAmt></IRSW2>
-    <IRS2441><TotalQlfdExpensesOrLimitAmt>0</TotalQlfdExpensesOrLimitAmt></IRS2441></ReturnData>
+        </IRSW2>
+    </ReturnData>
 </Return>

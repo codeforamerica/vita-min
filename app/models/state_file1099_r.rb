@@ -14,6 +14,7 @@
 #  payer_city_name                    :string
 #  payer_identification_number        :string
 #  payer_name                         :string
+#  payer_name2                        :string
 #  payer_name_control                 :string
 #  payer_state_code                   :string
 #  payer_state_identification_number  :string
