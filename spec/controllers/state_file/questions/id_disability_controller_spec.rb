@@ -44,7 +44,7 @@ RSpec.describe StateFile::Questions::IdDisabilityController do
         it "shows mfj disability questions for both filers" do
           get :edit, params: {}
           expect(response).to render_template :edit
-          expect(response.body).to include(I18n.t('state_file.questions.id_disability.edit.question_spouse'))
+          expect(response.body).to include(I18n.t('state_file.questions.id_disability.edit.question_both'))
         end
       end
 
@@ -69,7 +69,7 @@ RSpec.describe StateFile::Questions::IdDisabilityController do
         it "spouse_disabled questions" do
           get :edit, params: {}
           expect(response).to render_template :edit
-          expect(response.body).to include(I18n.t('state_file.questions.id_disability.edit.question_spouse_only'))
+          expect(response.body).to include(I18n.t('state_file.questions.id_disability.edit.question_spouse'))
         end
       end
     end
