@@ -316,6 +316,99 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       expect(submission.submission_bundle).to be_present
       expect(submission.current_state).to eq("queued")
     end
+
+    it "properly calculates the sales/use tax", required_schema: "nc" do
+      visit "/"
+      click_on "Start Test NC"
+
+      expect(page).to have_text I18n.t("state_file.landing_page.edit.nc.title")
+      click_on I18n.t('general.get_started'), id: "firstCta"
+
+      step_through_eligibility_screener(us_state: "nc")
+
+      step_through_initial_authentication(contact_preference: :email)
+
+      check "Email"
+      check "Text message"
+      fill_in "Your phone number", with: "+12025551212"
+      click_on "Continue"
+
+      click_on I18n.t("general.accept")
+      click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
+
+      step_through_df_data_transfer("Transfer Bert 1099 r")
+
+      select("Buncombe", from: "County")
+      click_on I18n.t("general.continue")
+
+      choose "state_file_nc_veteran_status_form_primary_veteran_no"
+      choose "state_file_nc_veteran_status_form_spouse_veteran_no"
+      click_on I18n.t("general.continue")
+
+
+      expect(page).to have_text I18n.t("state_file.questions.nc_sales_use_tax.edit.title.other", year: filing_year, count: 2)
+
+      choose I18n.t("general.affirmative")
+      choose "state_file_nc_sales_use_tax_form_sales_use_tax_calculation_method_automated"
+      click_on I18n.t("general.continue")
+
+      # Of the 4 buttons on this page, select the first button that says "Review and edit state info"
+      click_on I18n.t("state_file.questions.income_review.edit.review_and_edit_state_info"), match: :first
+
+      # take a screenshot
+
+
+      click_on I18n.t("general.continue")
+
+
+      click_on I18n.t("state_file.questions.income_review.edit.review_and_edit_state_info"), match: :first
+      expect(page).to have_text(strip_html_tags(I18n.t("state_file.questions.retirement_income.edit.title_html", payer_name: "Elmo Retirement Ltd")))
+
+
+      click_on I18n.t("general.continue")
+
+
+
+      click_on I18n.t("general.continue")
+      choose strip_html_tags(I18n.t("state_file.questions.nc_retirement_income_subtraction.edit.income_source_bailey_settlement_html"))
+      check I18n.t("state_file.questions.nc_retirement_income_subtraction.edit.other")
+      click_on I18n.t("general.continue")
+      choose I18n.t("state_file.questions.nc_retirement_income_subtraction.edit.other")
+      click_on I18n.t("general.continue")
+      choose I18n.t("state_file.questions.nc_retirement_income_subtraction.edit.other")
+      click_on I18n.t("general.continue")
+      choose I18n.t("state_file.questions.nc_retirement_income_subtraction.edit.other")
+      click_on I18n.t("general.continue")
+
+
+      choose I18n.t("general.negative")
+      click_on I18n.t("general.continue")
+
+      page.save_screenshot("nc_sales_use_tax_5.png")
+
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text I18n.t("state_file.questions.primary_state_id.state_id.id_type_question.label")
+      choose I18n.t("state_file.questions.primary_state_id.state_id.id_type_question.drivers_license")
+      fill_in "state_file_primary_state_id_form_id_number", with: "123456789"
+      select_cfa_date "state_file_primary_state_id_form_issue_date", Date.new(2020, 1, 1)
+      check "state_file_primary_state_id_form_non_expiring"
+      select("Alaska", from: "State")
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text I18n.t("state_file.questions.primary_state_id.state_id.id_type_question.label")
+      choose I18n.t("state_file.questions.primary_state_id.state_id.id_type_question.drivers_license")
+      fill_in "state_file_spouse_state_id_form_id_number", with: "123456789"
+      select_cfa_date "state_file_spouse_state_id_form_issue_date", Date.new(2020, 1, 1)
+      check "state_file_spouse_state_id_form_non_expiring"
+      select("Alaska", from: "State")
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_css("#use-text-amount", text: "$11.00")
+    end
   end
 
   context "ID", :flow_explorer_screenshot do
