@@ -75,11 +75,12 @@ module StateFile
     end
 
     def withdrawal_date_within_range
-      payment_deadline = payment_deadline(intake&.state_code)
+      payment_deadline = state_specific_payment_deadline(intake&.state_code)
       if date_electronic_withdrawal < Date.parse(app_time) || date_electronic_withdrawal > payment_deadline
-        self.errors.add(:date_electronic_withdrawal, I18n.t("forms.errors.taxes_owed.withdrawal_date_deadline",
-                                                            year: payment_deadline.year,
-                                                            day: payment_deadline.day))
+        self.errors.add(:date_electronic_withdrawal,
+                        I18n.t("forms.errors.taxes_owed.withdrawal_date_deadline",
+                               payment_deadline_date: I18n.l(payment_deadline.to_date, format: :medium, locale: intake&.locale),
+                               payment_deadline_year: payment_deadline.year))
       end
     end
 

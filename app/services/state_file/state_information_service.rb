@@ -93,7 +93,8 @@ module StateFile
         voucher_form_name: "Form AZ-140V",
         voucher_path: "/pdfs/AZ-140V.pdf",
         w2_supported_box14_codes: [],
-        w2_include_local_income_boxes: false
+        w2_include_local_income_boxes: false,
+        payment_deadline: { month: 4, day: 15 }
       },
       id: {
         intake_class: StateFileIdIntake,
@@ -120,7 +121,8 @@ module StateFile
         voucher_form_name: "Form ID-VP",
         voucher_path: "/pdfs/idformIDVP-TY2024.pdf",
         w2_supported_box14_codes: [],
-        w2_include_local_income_boxes: false
+        w2_include_local_income_boxes: false,
+        payment_deadline: { month: 4, day: 15 }
       },
       md: {
         intake_class: StateFileMdIntake,
@@ -176,7 +178,8 @@ module StateFile
         voucher_form_name: "Form D-400V",
         voucher_path: "https://eservices.dor.nc.gov/vouchers/d400v.jsp?year=2024",
         w2_supported_box14_codes: [],
-        w2_include_local_income_boxes: false
+        w2_include_local_income_boxes: false,
+        payment_deadline: { month: 4, day: 15 }
       },
       nj: {
         intake_class: StateFileNjIntake,
@@ -204,7 +207,8 @@ module StateFile
         voucher_form_name: "NJ-1040-V (NJ Gross Income Tax Resident Payment Voucher)",
         voucher_path: "/pdfs/nj1040v-TY2024.pdf",
         w2_supported_box14_codes: [{name: "UI_WF_SWF", limit: 179.78}, {name: "FLI", limit: 145.26}],
-        w2_include_local_income_boxes: false
+        w2_include_local_income_boxes: false,
+        payment_deadline: { month: 4, day: 15 }
       },
       ny: {
         intake_class: StateFileNyIntake,
@@ -232,7 +236,8 @@ module StateFile
         voucher_form_name: "Form IT-201-V",
         voucher_path: "/pdfs/it201v_1223.pdf",
         w2_supported_box14_codes: [],
-        w2_include_local_income_boxes: false
+        w2_include_local_income_boxes: false,
+        payment_deadline: { month: 4, day: 15 }
       }
     }.with_indifferent_access)
   end

@@ -285,7 +285,7 @@ en:
         is_hsa: is HSA
       taxes_owed:
         withdraw_amount_higher_than_owed: Please enter in an amount less than or equal to %{owed_amount}
-        withdrawal_date_deadline: Please enter a date between today and on or before April %{day}, %{year}
+        withdrawal_date_deadline: Please enter a date between today and on or before %{payment_deadline_date}, %{payment_deadline_year}
   general:
     NA: N/A
     about: About
@@ -3423,11 +3423,11 @@ en:
           account_number: Account number
           account_type:
             label: Bank Account Type
-          after_deadline_default_withdrawal_info: Because you are submitting your return on or after %{withdrawal_deadline_date}, %{with_drawal_deadline_year}, the state will withdraw your payment as soon as they process your return.
+          after_deadline_default_withdrawal_info: Because you are submitting your return on or after %{payment_deadline_date}, %{payment_deadline_year}, the state will withdraw your payment as soon as they process your return.
           bank_title: 'Please provide your bank account details:'
           confirm_account_number: Confirm Account Number
           confirm_routing_number: Confirm Routing Number
-          date_withdraw_text: 'When would you like the funds withdrawn from your account? (Must be on or before %{withdrawal_deadline_date}, %{with_drawal_deadline_year}):'
+          date_withdraw_text: 'When would you like the funds withdrawn from your account? (Must be on or before %{payment_deadline_date}, %{payment_deadline_year}):'
           foreign_accounts_owed: International ACH payments are not allowed.
           foreign_accounts_refund: International ACH direct deposit refunds are not allowed.
           routing_number: Routing Number
@@ -4093,11 +4093,11 @@ en:
       tax_refund:
         bank_details:
           account_number: Account Number
-          after_deadline_default_withdrawal_info: Because you are submitting your return on or after %{withdrawal_deadline_date}, %{with_drawal_deadline_year}, the state will withdraw your payment as soon as they process your return.
+          after_deadline_default_withdrawal_info: Because you are submitting your return on or after %{payment_deadline_date}, %{payment_deadline_year}, the state will withdraw your payment as soon as they process your return.
           bank_title: 'Please provide your bank details:'
           confirm_account_number: Confirm Account Number
           confirm_routing_number: Confirm Routing Number
-          date_withdraw_text: 'When would you like the funds withdrawn from your account? (must be on or before %{withdrawal_deadline_date}, %{with_drawal_deadline_year}):'
+          date_withdraw_text: 'When would you like the funds withdrawn from your account? (must be on or before %{payment_deadline_date}, %{payment_deadline_year}):'
           foreign_accounts: Foreign accounts are not accepted
           routing_number: Routing Number
           withdraw_amount: How much do you authorize to be withdrawn from your account? (Your total amount due is&#58; $%{owed_amount}.)
