@@ -1,4 +1,4 @@
-<% if Flipper.enabled?(:show_retirement_ui) && current_intake.calculator.line_or_zero(:ID39R_B_LINE_8e).positive? %>
+<% if current_intake.calculator.line_or_zero(:ID39R_B_LINE_8e).positive? %>
   <div id="qualified-retirement-benefits-deduction" class="white-group">
     <div class="spacing-below-5">
       <p class="text--bold spacing-below-5"><%= t(".qualified_retirement_benefits_deduction") %></p>
