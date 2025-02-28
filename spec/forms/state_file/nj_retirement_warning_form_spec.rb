@@ -20,14 +20,14 @@ RSpec.describe StateFile::NjRetirementWarningForm do
   end
 
   describe "#save" do
-    context "when all tax household members had health insurance" do
+    context "when taxpayer selects that they want to continue" do
       let(:valid_params) do
         {
           eligibility_retirement_warning_continue: "yes",
         }
       end
       
-      it "saves the yes for all members to the intake" do
+      it "saves the yes to the intake" do
         form = described_class.new(intake, valid_params)
         form.save
         intake.reload
@@ -35,14 +35,14 @@ RSpec.describe StateFile::NjRetirementWarningForm do
       end
     end
 
-    context "when not all tax household members had health insurance" do
+    context "when taxpayer selects that they do NOT want to continue" do
       let(:valid_params) do
         {
           eligibility_retirement_warning_continue: "no",
         }
       end
       
-      it "saves the answers to the intake" do
+      it "saves the no to the intake" do
         form = described_class.new(intake, valid_params)
         form.save
         intake.reload

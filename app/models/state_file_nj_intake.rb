@@ -188,10 +188,7 @@ class StateFileNjIntake < StateFileBaseIntake
   end
 
   def nj_retirement_warning_eligibility
-    if eligibility_retirement_warning_continue_no?
-      return "ineligible"
-    end
-    "eligible"
+    eligibility_retirement_warning_continue_no? ? "ineligible" : "eligible"
   end
 
   def health_insurance_eligibility

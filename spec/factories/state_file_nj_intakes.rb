@@ -284,18 +284,6 @@ FactoryBot.define do
       filing_status { "head_of_household" }
     end
 
-    trait :df_data_giudice do
-      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_giudice_hoh_1099_r') }
-      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_giudice_hoh_1099_r') }
-      filing_status { "head_of_household" }
-    end
-
-    trait :df_data_napolitano do
-      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_napolitano_single_1099_r') }
-      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_napolitano_single_1099_r') }
-      filing_status { "single" }
-    end
-
     factory :state_file_nj_payment_info_intake do
       after(:build) do |intake, _evaluator|
         intake.direct_file_data.fed_agi = 10000

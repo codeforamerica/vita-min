@@ -35,11 +35,7 @@ module Efile
       end
 
       def non_military_1099r_box_1_total
-        box_1_totals = 0
-        @non_military_1099rs.each do |non_military_1099r|
-          box_1_totals += non_military_1099r.gross_distribution_amount.round
-        end
-        box_1_totals
+        @non_military_1099rs.sum { |non_military_1099r| non_military_1099r.gross_distribution_amount.round }
       end
 
       def total_eligible_nonmilitary_1099r_income
@@ -103,9 +99,7 @@ module Efile
       end
 
       def line_28b_eligible?(line_15, line_27, line_28a)
-        if all_filers_under_62?
-          return false
-        end
+        return false if all_filers_under_62?
         return false if line_15 > 3_000
         return false if line_27 > 150_000
         return false if line_28a > calculate_maximum_exclusion(line_27, line_27)
