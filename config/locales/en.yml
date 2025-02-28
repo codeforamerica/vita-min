@@ -106,7 +106,7 @@ en:
       edit:
         info:
         - File taxes online on your own using our partner website. This is our quickest option for households earning under $84,000 to file taxes and collect the tax credits you are owed!
-        - To get started, we'll need to collect some basic information.
+        - To get started, we’ll need to collect some basic information.
         title: File taxes on your own
   documents:
     documents_help:
@@ -654,7 +654,7 @@ en:
     01_hi: Hi %{first_name},
     02_this_is_gyr: This is GetYourRefund. Thank you for choosing our free %{diy_link} option! Need help while completing your return? See our %{guide_link} for step-by-step instructions, tips, and best practices.
     03_if_you_get_stuck: If you get stuck or have a question, chat with us %{chat_with_us_link} or email us at %{email_us_link}.
-    04_we_re_here_to_help: We're here to help,
+    04_we_re_here_to_help: We’re here to help,
     file_myself_guide_and_video_tutorials: File Myself Guide and Video Tutorials
     subject: We’re here to help you file your taxes with File Myself!
   hub:

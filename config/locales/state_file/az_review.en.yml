@@ -1,9 +1,0 @@
-en:
-  state_file:
-    questions:
-      az_review:
-        az_retirement_income_deductions_review_header:
-          title: "Arizona retirement income deductions"
-          uniformed_services: "Retired or retainer pay of the uniformed services of the United States"
-          government_pension: "Qualifying federal, Arizona, or local government pension plan"
-          none_apply: "None apply"
