@@ -114,9 +114,13 @@ class StateFileNcIntake < StateFileBaseIntake
     end
   end
 
-  def calculate_sales_use_tax
-    nc_taxable_income = calculator.lines[:NCD400_LINE_14].value
-    calculator.calculate_use_tax(nc_taxable_income)
+  def calculate_sales_use_tax(automated: false)
+    if automated
+      calculator.line_or_zero(:NCD400_LINE_18)
+    else
+      nc_taxable_income = calculator.lines[:NCD400_LINE_14].value
+      calculator.calculate_use_tax(nc_taxable_income)
+    end
   end
 
   def disaster_relief_county

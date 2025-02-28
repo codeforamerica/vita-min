@@ -22,7 +22,7 @@ module StateFile
         params[:sales_use_tax] = nil
       end
       if params[:sales_use_tax_calculation_method] == "automated"
-        params[:sales_use_tax] = intake.calculate_sales_use_tax
+        params[:sales_use_tax] = intake.calculate_sales_use_tax(automated: true)
       end
       super(intake, params)
     end
