@@ -64,7 +64,6 @@ class StateFileBaseIntake < ApplicationRecord
   end
 
   def synchronize_filers_to_database
-    raise "oh no"
     attributes_to_update = {}
 
     if direct_file_json_data.primary_filer.present?
