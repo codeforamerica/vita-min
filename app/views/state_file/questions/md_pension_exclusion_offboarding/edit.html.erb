@@ -1,5 +1,4 @@
-<% # i18n-tasks-use t('state_file.questions.eligibility_offboarding.edit.title.nj') # hint for the i18n linter that, yes, we are using this key (sometimes) %>
-<% title_key = "state_file.questions.eligibility_offboarding.edit.title.#{current_state_code}" %>
+<% title_key = ".title" %>
 <% title = I18n.exists?(title_key, locale) ? t(title_key) : t(".title.default") %>
 
 <% content_for :page_title, title %>
