@@ -10,7 +10,7 @@ module Efile
         end
       end
 
-      def show_retirement_income_warning?(line_14, line_15, line_16a)
+      def show_retirement_income_warning?(line_15, line_16a)
         if non_military_1099r_box_1_total.zero?
           return false
         end
@@ -27,7 +27,7 @@ module Efile
           return false
         end 
 
-        if non_military_1099r_box_1_total <= max_exclusion_threshold && (line_14 > 3_000 || all_filers_under_62?)
+        if non_military_1099r_box_1_total <= max_exclusion_threshold && (line_15 > 3_000 || all_filers_under_62?)
           return false
         end
 

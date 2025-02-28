@@ -251,54 +251,114 @@ RSpec.describe Efile::Nj::NjRetirementIncomeHelper do
   end
 
   describe "#show_retirement_income_warning?" do
-    [
-      { traits: [:single], box_1_total: 0, expected: false },
-      { traits: [:head_of_household], box_1_total: 0, expected: false },
-      { traits: [:qualifying_widow], box_1_total: 0, expected: false },
-      { traits: [:married_filing_jointly], box_1_total: 0, expected: false },
-      { traits: [:married_filing_separately], box_1_total: 0, expected: false },
-
-      { traits: [:single], box_1_total: 25_000, line_15: 25_000, line_16a: 24_999, expected: false },
-      { traits: [:head_of_household], box_1_total: 25_000, line_15: 25_000, line_16a: 24_999, expected: false },
-      { traits: [:qualifying_widow], box_1_total: 25_000, line_15: 25_000, line_16a: 24_999, expected: false },
-      { traits: [:married_filing_jointly], box_1_total: 33_333, line_15: 33_333, line_16a: 33_333, expected: false },
-      { traits: [:married_filing_separately], box_1_total: 20_000, line_15: 20_000, line_16a: 9_999, expected: false },
-
-      { traits: [:single], box_1_total: 1, line_14: 3_001, line_15: 25_000, line_16a: 50_000, expected: false },
-      { traits: [:single], box_1_total: 1, line_14: 3_000, line_15: 25_000, line_16a: 50_000, expected: false },
-      { traits: [:single, :primary_over_62], box_1_total: 1, line_14: 3_001, line_15: 25_000, line_16a: 50_000, expected: false },
-      { traits: [:single, :primary_over_62], box_1_total: 1, line_14: 3_000, line_15: 25_000, line_16a: 50_000, expected: true },
-
-      { traits: [:head_of_household], box_1_total: 1, line_14: 3_001, line_15: 25_000, line_16a: 50_000, expected: false },
-      { traits: [:head_of_household], box_1_total: 1, line_14: 3_000, line_15: 25_000, line_16a: 50_000, expected: false },
-      { traits: [:head_of_household, :primary_over_62], box_1_total: 1, line_14: 3_001, line_15: 25_000, line_16a: 50_000, expected: false },
-      { traits: [:head_of_household, :primary_over_62], box_1_total: 1, line_14: 3_000, line_15: 25_000, line_16a: 50_000, expected: true },
-
-      { traits: [:qualifying_widow], box_1_total: 1, line_14: 3_001, line_15: 25_000, line_16a: 50_000, expected: false },
-      { traits: [:qualifying_widow], box_1_total: 1, line_14: 3_000, line_15: 25_000, line_16a: 50_000, expected: false },
-      { traits: [:qualifying_widow, :primary_over_62], box_1_total: 1, line_14: 3_001, line_15: 25_000, line_16a: 50_000, expected: false },
-      { traits: [:qualifying_widow, :primary_over_62], box_1_total: 1, line_14: 3_000, line_15: 25_000, line_16a: 50_000, expected: true },
-
-      { traits: [:married_filing_jointly], box_1_total: 1, line_14: 3_001, line_15: 50_000, line_16a: 50_000, expected: false },
-      { traits: [:married_filing_jointly], box_1_total: 1, line_14: 3_000, line_15: 50_000, line_16a: 50_000, expected: false },
-      { traits: [:married_filing_jointly, :primary_over_62], box_1_total: 1, line_14: 3_001, line_15: 50_000, line_16a: 50_000, expected: false },
-      { traits: [:married_filing_jointly, :mfj_spouse_over_62], box_1_total: 1, line_14: 3_001, line_15: 50_000, line_16a: 50_000, expected: false },
-      { traits: [:married_filing_jointly, :mfj_spouse_over_62, :primary_over_62], box_1_total: 1, line_14: 3_000, line_15: 50_000, line_16a: 50_000, expected: true },
-
-      { traits: [:married_filing_separately], box_1_total: 1, line_14: 3_001, line_15: 25_000, line_16a: 25_000, expected: false },
-      { traits: [:married_filing_separately], box_1_total: 1, line_14: 3_000, line_15: 25_000, line_16a: 25_000, expected: false },
-      { traits: [:married_filing_separately, :primary_over_62], box_1_total: 1, line_14: 3_001, line_15: 25_000, line_16a: 25_000, expected: false },
-      { traits: [:married_filing_separately, :primary_over_62], box_1_total: 1, line_14: 3_000, line_15: 25_000, line_16a: 25_000, expected: true },
-    ].each do |test_case|
-      context "when filing with #{test_case}" do
-        let(:intake) do
-          create(:state_file_nj_intake, *test_case[:traits])
+    let (:helper) { Efile::Nj::NjRetirementIncomeHelper.new(intake) }
+    context "when the sum of non military 1099r box 1 income is 0" do
+      [
+        { traits: [:single], box_1_total: 0 },
+        { traits: [:head_of_household], box_1_total: 0 },
+        { traits: [:qualifying_widow], box_1_total: 0 },
+        { traits: [:married_filing_jointly], box_1_total: 0 },
+        { traits: [:married_filing_separately], box_1_total: 0 },
+      ].each do |test_case|
+        context "when filing with #{test_case}" do
+          let(:intake) do
+            create(:state_file_nj_intake, *test_case[:traits])
+          end
+          it "does NOT show the retirement income warning" do
+            allow_any_instance_of(Efile::Nj::NjRetirementIncomeHelper).to receive(:non_military_1099r_box_1_total).and_return(test_case[:box_1_total])
+            result = helper.show_retirement_income_warning?(test_case[:line_15], test_case[:line_16a])
+            expect(result).to eq(false)
+          end
         end
-        it "returns #{test_case[:expected]}" do
-          allow_any_instance_of(Efile::Nj::NjRetirementIncomeHelper).to receive(:non_military_1099r_box_1_total).and_return(test_case[:box_1_total])
-          helper = Efile::Nj::NjRetirementIncomeHelper.new(intake)
-          result = helper.show_retirement_income_warning?(test_case[:line_14], test_case[:line_15], test_case[:line_16a])
-          expect(result).to eq(test_case[:expected])
+      end
+    end
+
+    context "when the sum of non military 1099r box 1 income, line 15, and line 16a is less than or equal to the filing status threshold" do
+      [
+        { traits: [:single], box_1_total: 25_000, line_15: 25_000, line_16a: 24_999 },
+        { traits: [:head_of_household], box_1_total: 25_000, line_15: 25_000, line_16a: 24_999 },
+        { traits: [:qualifying_widow], box_1_total: 25_000, line_15: 25_000, line_16a: 24_999 },
+        { traits: [:married_filing_jointly], box_1_total: 33_333, line_15: 33_333, line_16a: 33_333 },
+        { traits: [:married_filing_separately], box_1_total: 20_000, line_15: 20_000, line_16a: 9_999 },
+      ].each do |test_case|
+        context "when filing with #{test_case}" do
+          let(:intake) do
+            create(:state_file_nj_intake, *test_case[:traits])
+          end
+          it "does NOT show the retirement income warning" do
+            allow_any_instance_of(Efile::Nj::NjRetirementIncomeHelper).to receive(:non_military_1099r_box_1_total).and_return(test_case[:box_1_total])
+            result = helper.show_retirement_income_warning?(test_case[:line_15], test_case[:line_16a])
+            expect(result).to eq(false)
+          end
+        end
+      end
+    end
+
+    context "the sum of non military 1099r box 1 income is less than or equal to the max exclusion threshold and line 15 is over 3000" do
+      [
+        { traits: [:single], box_1_total: 75_000, line_15: 3_001, line_16a: 0 },
+        { traits: [:single, :primary_over_62], box_1_total: 75_000, line_15: 3_001, line_16a: 0 },
+        { traits: [:head_of_household], box_1_total: 75_000, line_15: 3_001, line_16a: 0 },
+        { traits: [:head_of_household, :primary_over_62], box_1_total: 75_000, line_15: 3_001, line_16a: 0 },
+        { traits: [:qualifying_widow], box_1_total: 75_000, line_15: 3_001, line_16a: 0 },
+        { traits: [:qualifying_widow, :primary_over_62], box_1_total: 75_000, line_15: 3_001, line_16a: 0 },
+        { traits: [:married_filing_jointly], box_1_total: 100_000, line_15: 3_001, line_16a: 0 },
+        { traits: [:married_filing_jointly, :primary_over_62], box_1_total: 100_000, line_15: 3_001, line_16a: 0 },
+        { traits: [:married_filing_jointly, :mfj_spouse_over_62], box_1_total: 100_000, line_15: 3_001, line_16a: 0 },
+        { traits: [:married_filing_separately], box_1_total: 50_000, line_15: 3_001, line_16a: 0 },
+        { traits: [:married_filing_separately, :primary_over_62], box_1_total: 50_000, line_15: 3_001, line_16a: 0 },
+      ].each do |test_case|
+        context "when filing with #{test_case}" do
+          let(:intake) do
+            create(:state_file_nj_intake, *test_case[:traits])
+          end
+          it "does NOT show the retirement income warning" do
+            allow_any_instance_of(Efile::Nj::NjRetirementIncomeHelper).to receive(:non_military_1099r_box_1_total).and_return(test_case[:box_1_total])
+            result = helper.show_retirement_income_warning?(test_case[:line_15], test_case[:line_16a])
+            expect(result).to eq(false)
+          end
+        end
+      end
+    end
+
+    context "the sum of non military 1099r box 1 income is less than or equal to the max exclusion threshold and all filers are under 62" do
+      [
+        { traits: [:single], box_1_total: 75_000, line_15: 3_000, line_16a: 0 },
+        { traits: [:head_of_household], box_1_total: 75_000, line_15: 3_000, line_16a: 0 },
+        { traits: [:qualifying_widow], box_1_total: 75_000, line_15: 3_000, line_16a: 0 },
+        { traits: [:married_filing_jointly], box_1_total: 100_000, line_15: 3_000, line_16a: 0 },
+        { traits: [:married_filing_separately], box_1_total: 50_000, line_15: 3_000, line_16a: 0 },
+      ].each do |test_case|
+        context "when filing with #{test_case}" do
+          let(:intake) do
+            create(:state_file_nj_intake, *test_case[:traits])
+          end
+          it "does NOT show the retirement income warning" do
+            allow_any_instance_of(Efile::Nj::NjRetirementIncomeHelper).to receive(:non_military_1099r_box_1_total).and_return(test_case[:box_1_total])
+            result = helper.show_retirement_income_warning?(test_case[:line_15], test_case[:line_16a])
+            expect(result).to eq(false)
+          end
+        end
+      end
+    end
+
+    context "none of the conditions above apply" do
+      [
+        { traits: [:single, :primary_over_62], box_1_total: 75_000, line_15: 3_000, line_16a: 0 },
+        { traits: [:head_of_household, :primary_over_62], box_1_total: 75_000, line_15: 3_000, line_16a: 0 },
+        { traits: [:qualifying_widow, :primary_over_62], box_1_total: 75_000, line_15: 3_000, line_16a: 0 },
+        { traits: [:married_filing_jointly, :mfj_spouse_over_62, :primary_over_62], box_1_total: 100_000, line_15: 3_000, line_16a: 0 },
+        { traits: [:married_filing_separately, :primary_over_62], box_1_total: 50_000, line_15: 3_000, line_16a: 0 },
+      ].each do |test_case|
+        context "when filing with #{test_case}" do
+          let(:intake) do
+            create(:state_file_nj_intake, *test_case[:traits])
+          end
+          it "SHOWS the retirement income warning" do
+            allow_any_instance_of(Efile::Nj::NjRetirementIncomeHelper).to receive(:non_military_1099r_box_1_total).and_return(test_case[:box_1_total])
+            result = helper.show_retirement_income_warning?(test_case[:line_15], test_case[:line_16a])
+            expect(result).to eq(true)
+          end
         end
       end
     end
