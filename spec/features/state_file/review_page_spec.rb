@@ -383,8 +383,8 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
             expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
             within "#qualified-retirement-benefits-deduction" do
               expect(page).to have_text I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.qualified_retirement_benefits_deduction")
-              expect(page).to have_text I18n.t("state_file.questions.id_review.edit.qualified_retirement_benefits_deduction_explain")
-              expect(page).to have_text I18n.t("state_file.questions.id_review.edit.qualified_disabled_retirement_benefits")
+              expect(page).to have_text I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.qualified_retirement_benefits_deduction_explain")
+              expect(page).to have_text I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.qualified_disabled_retirement_benefits")
               expect(page).to have_text "$250.00"
 
               click_on I18n.t("general.review_and_edit")
