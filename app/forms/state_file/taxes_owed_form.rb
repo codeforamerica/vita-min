@@ -1,6 +1,7 @@
 module StateFile
   class TaxesOwedForm < TaxRefundForm
     include DateHelper
+    include DateAccessible
     set_attributes_for :intake,
                        :payment_or_deposit_type,
                        :routing_number,

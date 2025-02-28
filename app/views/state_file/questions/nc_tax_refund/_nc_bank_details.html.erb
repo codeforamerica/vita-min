@@ -35,10 +35,10 @@
           ]
         )
     %>
-    <%= form.cfa_input_field(:routing_number, t(".routing_number"), classes: ["form-width--long", "disablecopy"]) %>
-    <%= form.cfa_input_field(:routing_number_confirmation, t(".confirm_routing_number"), classes: ["form-width--long", "disablepaste", "disablecopy"]) %>
-    <%= form.cfa_input_field(:account_number, t(".account_number"), classes: ["form-width--long", "disablecopy"]) %>
-    <%= form.cfa_input_field(:account_number_confirmation, t(".confirm_account_number"), classes: ["form-width--long", "disablepaste", "disablecopy"]) %>
+    <%= form.cfa_input_field(:routing_number, t(".routing_number"), classes: %w[form-width--long disablecopy]) %>
+    <%= form.cfa_input_field(:routing_number_confirmation, t(".confirm_routing_number"), classes: %w[form-width--long disablepaste disablecopy]) %>
+    <%= form.cfa_input_field(:account_number, t(".account_number"), classes: %w[form-width--long disablecopy]) %>
+    <%= form.cfa_input_field(:account_number_confirmation, t(".confirm_account_number"), classes: %w[form-width--long disablepaste disablecopy]) %>
   </div>
   <% if owe_taxes && app_time.after?(payment_deadline) %>
     <p>

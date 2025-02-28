@@ -57,10 +57,10 @@
       </div>
     </div>
     <p class="text--bold spacing-below-0"><%= t('.bank_account_details') %></p>
-    <%= form.cfa_input_field(:routing_number, t("state_file.questions.tax_refund.bank_details.routing_number"), classes: ["form-width--long", "disablecopy"]) %>
-    <%= form.cfa_input_field(:routing_number_confirmation, t("state_file.questions.tax_refund.bank_details.confirm_routing_number"), classes: ["form-width--long", "disablepaste", "disablecopy"]) %>
-    <%= form.cfa_input_field(:account_number, t("state_file.questions.tax_refund.bank_details.account_number"), classes: ["form-width--long", "disablecopy"]) %>
-    <%= form.cfa_input_field(:account_number_confirmation, t("state_file.questions.tax_refund.bank_details.confirm_account_number"), classes: ["form-width--long", "disablepaste", "disablecopy"]) %>
+    <%= form.cfa_input_field(:routing_number, t("state_file.questions.tax_refund.bank_details.routing_number"), classes: %w[form-width--long disablecopy]) %>
+    <%= form.cfa_input_field(:routing_number_confirmation, t("state_file.questions.tax_refund.bank_details.confirm_routing_number"), classes: %w[form-width--long disablepaste disablecopy]) %>
+    <%= form.cfa_input_field(:account_number, t("state_file.questions.tax_refund.bank_details.account_number"), classes: %w[form-width--long disablecopy]) %>
+    <%= form.cfa_input_field(:account_number_confirmation, t("state_file.questions.tax_refund.bank_details.confirm_account_number"), classes: %w[form-width--long disablepaste disablecopy]) %>
   </div>
   <% if owe_taxes && app_time.after?(payment_deadline) %>
     <p>

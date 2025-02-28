@@ -44,7 +44,7 @@ module StateFile
 
     def add_business_days(num_days)
       current_date = app_time_eastern.to_date
-      while num_days > 0
+      while num_days.positive?
         current_date += 1.day
         # Check if the current date is a business day (Mon-Fri)
         if current_date.wday.between?(1, 5)  # wday 1-5 are Monday to Friday
