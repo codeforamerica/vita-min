@@ -111,7 +111,6 @@ RSpec.describe StateFile::Questions::AzRetirementIncomeSubtractionController do
 
     context "with ineligible recipients" do
       let(:intake) { create :state_file_md_intake }
-      let!(:non_qualified_1099r) { create :state_file1099_r, intake: intake, taxable_amount: 0 }
 
       before do
         intake.state_file1099_rs.update_all(taxable_amount: 0)
