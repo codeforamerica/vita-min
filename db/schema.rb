@@ -1787,6 +1787,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_27_234021) do
     t.datetime "created_at", null: false
     t.jsonb "details", default: "{}"
     t.integer "event_type"
+    t.bigint "state_file_archived_intake_id"
     t.bigint "state_file_archived_intake_request_id"
     t.datetime "updated_at", null: false
   end
@@ -1807,7 +1808,11 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_27_234021) do
   create_table "state_file_archived_intakes", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "email_address"
+    t.integer "failed_attempts", default: 0, null: false
+    t.string "fake_address_1"
+    t.string "fake_address_2"
     t.string "hashed_ssn"
+    t.datetime "locked_at"
     t.string "mailing_apartment"
     t.string "mailing_city"
     t.string "mailing_state"
@@ -2311,6 +2316,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_27_234021) do
     t.integer "eligibility_all_members_health_insurance", default: 0, null: false
     t.integer "eligibility_lived_in_state", default: 0, null: false
     t.integer "eligibility_out_of_state_income", default: 0, null: false
+    t.integer "eligibility_retirement_warning_continue", default: 0
     t.citext "email_address"
     t.datetime "email_address_verified_at"
     t.integer "email_notification_opt_in", default: 0, null: false
@@ -2992,6 +2998,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_27_234021) do
   add_foreign_key "site_coordinator_roles_vita_partners", "vita_partners"
   add_foreign_key "source_parameters", "vita_partners"
   add_foreign_key "state_file_archived_intake_access_logs", "state_file_archived_intake_requests"
+  add_foreign_key "state_file_archived_intake_access_logs", "state_file_archived_intakes", validate: false
   add_foreign_key "state_routing_fractions", "state_routing_targets"
   add_foreign_key "state_routing_fractions", "vita_partners"
   add_foreign_key "system_notes", "clients"
