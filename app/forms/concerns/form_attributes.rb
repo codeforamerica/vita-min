@@ -11,7 +11,7 @@ module FormAttributes
       default_attrs = self.class.scoped_defaults.values.reduce(&:merge)
 
       self.class.scoped_attributes.values.flatten.each do |attribute_string|
-        next unless send(attribute_string).nil?
+        next unless send(attribute_string).blank?
         send("#{attribute_string}=", default_attrs&.fetch(attribute_string, nil))
       end
     end
