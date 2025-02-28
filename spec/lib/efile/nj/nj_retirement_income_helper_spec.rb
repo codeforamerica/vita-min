@@ -294,7 +294,7 @@ RSpec.describe Efile::Nj::NjRetirementIncomeHelper do
       end
     end
 
-    context "the sum of non military 1099r box 1 income is less than or equal to the max exclusion threshold and line 15 is over 3000" do
+    context "when the sum of non military 1099r box 1 income is less than or equal to the max exclusion threshold and line 15 is over 3000" do
       [
         { traits: [:single], box_1_total: 75_000, line_15: 3_001, line_16a: 0 },
         { traits: [:single, :primary_over_62], box_1_total: 75_000, line_15: 3_001, line_16a: 0 },
@@ -321,7 +321,7 @@ RSpec.describe Efile::Nj::NjRetirementIncomeHelper do
       end
     end
 
-    context "the sum of non military 1099r box 1 income is less than or equal to the max exclusion threshold and all filers are under 62" do
+    context "when the sum of non military 1099r box 1 income is less than or equal to the max exclusion threshold and all filers are under 62" do
       [
         { traits: [:single], box_1_total: 75_000, line_15: 3_000, line_16a: 0 },
         { traits: [:head_of_household], box_1_total: 75_000, line_15: 3_000, line_16a: 0 },
@@ -342,7 +342,7 @@ RSpec.describe Efile::Nj::NjRetirementIncomeHelper do
       end
     end
 
-    context "none of the conditions above apply" do
+    context "when none of the conditions above apply" do
       [
         { traits: [:single, :primary_over_62], box_1_total: 75_000, line_15: 3_000, line_16a: 0 },
         { traits: [:head_of_household, :primary_over_62], box_1_total: 75_000, line_15: 3_000, line_16a: 0 },
