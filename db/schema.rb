@@ -1843,7 +1843,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_26_234403) do
     t.string "current_step"
     t.date "date_electronic_withdrawal"
     t.datetime "df_data_import_failed_at"
-    t.datetime "df_data_import_started_at"
     t.datetime "df_data_import_succeeded_at"
     t.datetime "df_data_imported_at"
     t.integer "eligibility_529_for_non_qual_expense", default: 0, null: false
@@ -1974,7 +1973,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_26_234403) do
     t.string "current_step"
     t.date "date_electronic_withdrawal"
     t.datetime "df_data_import_failed_at"
-    t.datetime "df_data_import_started_at"
     t.datetime "df_data_import_succeeded_at"
     t.datetime "df_data_imported_at"
     t.integer "donate_grocery_credit", default: 0, null: false
@@ -2075,7 +2073,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_26_234403) do
     t.string "current_step"
     t.date "date_electronic_withdrawal"
     t.datetime "df_data_import_failed_at"
-    t.datetime "df_data_import_started_at"
     t.datetime "df_data_import_succeeded_at"
     t.datetime "df_data_imported_at"
     t.integer "eligibility_filing_status_mfj", default: 0, null: false
@@ -2189,7 +2186,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_26_234403) do
     t.string "current_step"
     t.date "date_electronic_withdrawal"
     t.datetime "df_data_import_failed_at"
-    t.datetime "df_data_import_started_at"
     t.datetime "df_data_import_succeeded_at"
     t.datetime "df_data_imported_at"
     t.integer "eligibility_ed_loan_cancelled", default: 0, null: false
@@ -2310,7 +2306,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_26_234403) do
     t.string "current_step"
     t.date "date_electronic_withdrawal"
     t.datetime "df_data_import_failed_at"
-    t.datetime "df_data_import_started_at"
     t.datetime "df_data_import_succeeded_at"
     t.datetime "df_data_imported_at"
     t.integer "eligibility_all_members_health_insurance", default: 0, null: false

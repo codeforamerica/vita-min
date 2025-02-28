@@ -14,7 +14,6 @@
 #  current_sign_in_ip                             :inet
 #  current_step                                   :string
 #  date_electronic_withdrawal                     :date
-#  df_data_import_started_at                      :datetime
 #  df_data_import_succeeded_at                    :datetime
 #  df_data_imported_at                            :datetime
 #  donate_grocery_credit                          :integer          default("unfilled"), not null
