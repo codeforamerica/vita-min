@@ -1,7 +1,7 @@
 module Hub
   class NotesController < Hub::BaseController
     load_and_authorize_resource :client
-    load_and_authorize_resource through: :client, only: [:create]
+    load_and_authorize_resource through: :client
     load_and_authorize_resource :user, parent: false, only: [:index]
     layout "hub"
 

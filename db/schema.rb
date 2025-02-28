@@ -1729,6 +1729,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_27_182343) do
     t.string "payer_city_name"
     t.string "payer_identification_number"
     t.string "payer_name"
+    t.string "payer_name2"
     t.string "payer_name_control"
     t.string "payer_state_code"
     t.string "payer_state_identification_number"
