@@ -32,9 +32,7 @@
   <% end %>
 
   <% if Flipper.enabled?(:show_retirement_ui) %>
-    <% if @show_retirement_income_deductions %>
-      <%= render "state_file/questions/az_review/az_retirement_income_deductions_review_header" %>
-    <% end %>
+    <%= render "state_file/questions/shared/#{current_state_code}_retirement_income_deductions_review_header" %>
   <% end %>
 <% end %>
 

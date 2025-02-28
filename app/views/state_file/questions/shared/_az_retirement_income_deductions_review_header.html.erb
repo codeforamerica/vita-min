@@ -6,12 +6,12 @@
 
   <div class="spacing-below-5">
     <ul class="list--bulleted">
-      <% current_intake.state_file1099_rs.each do |ten_ninety_nine_r| %>
+      <% current_intake.state_file1099_rs.each do |state_file1099_r| %>
         <p class="text--bold spacing-below-5">
-          <%= ten_ninety_nine_r.payer_name %>
+          <%= state_file1099_r.payer_name %>
         </p>
         <li>
-          <% case ten_ninety_nine_r&.state_specific_followup&.income_source %>
+          <% case state_file1099_r&.state_specific_followup&.income_source %>
           <% when "uniformed_services" %>
             <%= t(".uniformed_services") %>
           <% when "pension_plan" %>
