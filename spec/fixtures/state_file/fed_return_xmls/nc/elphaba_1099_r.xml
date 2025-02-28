@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>f0391307</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400001123</PrimarySSN>
+            <NameLine1Txt>ELPHABA J&lt;THROPP</NameLine1Txt>
+            <PrimaryNameControlTxt>THRO</PrimaryNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>1382 Wizard Way</AddressLine1Txt>
+                <CityNm>Charlotte</CityNm>
+                <StateAbbreviationCd>NC</StateAbbreviationCd>
+                <ZIPCd>28205</ZIPCd>
+            </USAddress>
+            <PhoneNum>3035555555</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000112-3f80-45fe-971c-85418f2dab94@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="8">
+        <IRS1040 documentId="IRS10400001">
+            <IndividualReturnFilingStatusCd>4</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <DependentDetail>
+                <DependentFirstNm>Glinda</DependentFirstNm>
+                <DependentLastNm>Upland</DependentLastNm>
+                <DependentNameControlTxt>UPLA</DependentNameControlTxt>
+                <DependentSSN>400000833</DependentSSN>
+                <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+                <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+            </DependentDetail>
+            <ChldWhoLivedWithYouCnt>1</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>2</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">3000</WagesAmt>
+            <WagesSalariesAndTipsAmt>3000</WagesSalariesAndTipsAmt>
+            <PensionsAnnuitiesAmt>31000</PensionsAnnuitiesAmt>
+            <TotalTaxablePensionsAmt pensionsAnnuitiesLiteralCd="ROLLOVER">2000</TotalTaxablePensionsAmt>
+            <TotalIncomeAmt>5000</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>5000</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>21900</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>21900</TotalDeductionsAmt>
+            <TaxableIncomeAmt>0</TaxableIncomeAmt>
+            <TaxAmt>0</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>0</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>0</TaxLessCreditsAmt>
+            <TotalTaxAmt>0</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>300</FormW2WithheldTaxAmt>
+            <WithholdingTaxAmt>1900</WithholdingTaxAmt>
+            <EarnedIncomeCreditAmt referenceDocumentId="IRSEIC0001" referenceDocumentName="IRS1040ScheduleEIC">1029</EarnedIncomeCreditAmt>
+            <AdditionalChildTaxCreditAmt referenceDocumentId="IRS8812001" referenceDocumentName="IRS1040Schedule8812">75</AdditionalChildTaxCreditAmt>
+            <RefundableCreditsAmt>1104</RefundableCreditsAmt>
+            <TotalPaymentsAmt>3004</TotalPaymentsAmt>
+            <OverpaidAmt>3004</OverpaidAmt>
+            <RefundAmt>3004</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Teacher</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1040Schedule8812 documentId="IRS8812001" documentName="IRS1040Schedule8812">
+            <AdjustedGrossIncomeAmt>5000</AdjustedGrossIncomeAmt>
+            <ModifiedAGIAmt>5000</ModifiedAGIAmt>
+            <QlfyChildUnderAgeSSNCnt>1</QlfyChildUnderAgeSSNCnt>
+            <QlfyChildUnderAgeSSNLimtAmt>2000</QlfyChildUnderAgeSSNLimtAmt>
+            <OtherDependentCnt>0</OtherDependentCnt>
+            <InitialCTCODCAmt>2000</InitialCTCODCAmt>
+            <FilingStatusThresholdCd>200000</FilingStatusThresholdCd>
+            <ExcessAdjGrossIncomeAmt>0</ExcessAdjGrossIncomeAmt>
+            <ModifiedAGIPhaseOutAmt>0</ModifiedAGIPhaseOutAmt>
+            <CTCODCOverAGILimitInd>true</CTCODCOverAGILimitInd>
+            <CTCODCAfterAGILimitAmt>2000</CTCODCAfterAGILimitAmt>
+            <ACTCTaxLiabiltyLimitAmt>0</ACTCTaxLiabiltyLimitAmt>
+            <CTCODCAmt>0</CTCODCAmt>
+            <ClaimACTCAllFilersGrp>
+                <ACTCBeforeLimitAmt>2000</ACTCBeforeLimitAmt>
+                <QlfyChildUnderAgeSSNCnt>1</QlfyChildUnderAgeSSNCnt>
+                <QlfyChildUnderAgeSSNLimtAmt>1700</QlfyChildUnderAgeSSNLimtAmt>
+                <ACTCAfterLimitAmt>1700</ACTCAfterLimitAmt>
+                <TotalEarnedIncomeAmt>3000</TotalEarnedIncomeAmt>
+                <EarnedIncmMoreThanSpecifiedInd>true</EarnedIncmMoreThanSpecifiedInd>
+                <NetTotalEarnedIncomeAmt>500</NetTotalEarnedIncomeAmt>
+                <NetEarnedIncomeCalculatedAmt>75</NetEarnedIncomeCalculatedAmt>
+                <ThreeOrMoreQlfyChildrenInd>false</ThreeOrMoreQlfyChildrenInd>
+            </ClaimACTCAllFilersGrp>
+            <AdditionalChildTaxCreditAmt>75</AdditionalChildTaxCreditAmt>
+        </IRS1040Schedule8812>
+        <IRS1040ScheduleEIC documentId="IRSEIC0001" documentName="IRS1040ScheduleEIC">
+            <QualifyingChildInformation>
+                <QualifyingChildNameControlTxt>UPLA</QualifyingChildNameControlTxt>
+                <ChildFirstAndLastName>
+                    <PersonFirstNm>Glinda</PersonFirstNm>
+                    <PersonLastNm>Upland</PersonLastNm>
+                </ChildFirstAndLastName>
+                <QualifyingChildSSN>400000833</QualifyingChildSSN>
+                <ChildBirthYr>2014</ChildBirthYr>
+                <ChildRelationshipCd>DAUGHTER</ChildRelationshipCd>
+                <MonthsChildLivedWithYouCnt>12</MonthsChildLivedWithYouCnt>
+            </QualifyingChildInformation>
+        </IRS1040ScheduleEIC>
+        <IRS1099R documentId="IRS1099R0001">
+            <PayerNameControlTxt>MAGI</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Magical Retirement Services</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>40 Sparkle Drive</AddressLine1Txt>
+                <CityNm>Guilford</CityNm>
+                <StateAbbreviationCd>CT</StateAbbreviationCd>
+                <ZIPCd>06437</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>370088551</PayerEIN>
+            <RecipientSSN>400001123</RecipientSSN>
+            <RecipientNm>Elphaba J Thropp</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>1382 Wizard Way</AddressLine1Txt>
+                <CityNm>Charlotte</CityNm>
+                <StateAbbreviationCd>NC</StateAbbreviationCd>
+                <ZIPCd>28205</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>10000</GrossDistributionAmt>
+            <TotalDistributionInd>X</TotalDistributionInd>
+            <F1099RDistributionCd>G</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRS1099R documentId="IRS1099R0002">
+            <PayerNameControlTxt>DEST</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Destiny Corp</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>7 Magic Way</AddressLine1Txt>
+                <CityNm>Lakewood</CityNm>
+                <StateAbbreviationCd>CO</StateAbbreviationCd>
+                <ZIPCd>80232</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>398761234</PayerEIN>
+            <RecipientSSN>400001123</RecipientSSN>
+            <RecipientNm>Elphaba J Thropp</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>1382 Wizard Way</AddressLine1Txt>
+                <CityNm>Charlotte</CityNm>
+                <StateAbbreviationCd>NC</StateAbbreviationCd>
+                <ZIPCd>28205</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>13000</GrossDistributionAmt>
+            <FederalIncomeTaxWithheldAmt>1300</FederalIncomeTaxWithheldAmt>
+            <F1099RDistributionCd>4H</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <StateTaxWithheldAmt>500</StateTaxWithheldAmt>
+                    <StateAbbreviationCd>NC</StateAbbreviationCd>
+                    <PayerStateIdNum>NC 8192831</PayerStateIdNum>
+                    <StateDistributionAmt>13000</StateDistributionAmt>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRS1099R documentId="IRS1099R0003">
+            <PayerNameControlTxt>BROO</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Broom Brothers</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>1 Fiyero Place</AddressLine1Txt>
+                <CityNm>Oshkosh</CityNm>
+                <StateAbbreviationCd>WI</StateAbbreviationCd>
+                <ZIPCd>54902</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>849877890</PayerEIN>
+            <RecipientSSN>400001123</RecipientSSN>
+            <RecipientNm>Elphaba J Thropp</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>1382 Wizard Way</AddressLine1Txt>
+                <CityNm>Charlotte</CityNm>
+                <StateAbbreviationCd>NC</StateAbbreviationCd>
+                <ZIPCd>28205</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>5000</GrossDistributionAmt>
+            <TotalDistributionInd>X</TotalDistributionInd>
+            <F1099RDistributionCd>H</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRS1099R documentId="IRS1099R0004">
+            <PayerNameControlTxt>OZIN</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Oz Industries</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>2 Pink Hill St</AddressLine1Txt>
+                <CityNm>Oshkosh</CityNm>
+                <StateAbbreviationCd>WI</StateAbbreviationCd>
+                <ZIPCd>54902</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>761233211</PayerEIN>
+            <RecipientSSN>400001123</RecipientSSN>
+            <RecipientNm>Elphaba J Thropp</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>1382 Wizard Way</AddressLine1Txt>
+                <CityNm>Charlotte</CityNm>
+                <StateAbbreviationCd>NC</StateAbbreviationCd>
+                <ZIPCd>28205</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>3000</GrossDistributionAmt>
+            <TaxableAmt>2000</TaxableAmt>
+            <FederalIncomeTaxWithheldAmt>300</FederalIncomeTaxWithheldAmt>
+            <F1099RDistributionCd>2B</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <TotalEmployeeContributionsAmt>1000</TotalEmployeeContributionsAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <StateTaxWithheldAmt>3000</StateTaxWithheldAmt>
+                    <StateAbbreviationCd>NC</StateAbbreviationCd>
+                    <PayerStateIdNum>NCNC 23123452341</PayerStateIdNum>
+                    <StateDistributionAmt>2000</StateDistributionAmt>
+                    <F1099RLocalTaxGrp>
+                        <LocalTaxWithheldAmt>100</LocalTaxWithheldAmt>
+                        <LocalityNm>Localia</LocalityNm>
+                        <LocalDistributionAmt>2000</LocalDistributionAmt>
+                    </F1099RLocalTaxGrp>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>400001123</EmployeeSSN>
+            <EmployerEIN>003290782</EmployerEIN>
+            <EmployerNameControlTxt>JUNI</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Junior Corps Ltd</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>1 Mississippi Ave</AddressLine1Txt>
+                <CityNm>Charlotte</CityNm>
+                <StateAbbreviationCd>NC</StateAbbreviationCd>
+                <ZIPCd>28202</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Elphaba J Thropp</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>1382 Wizard Way</AddressLine1Txt>
+                <CityNm>Charlotte</CityNm>
+                <StateAbbreviationCd>NC</StateAbbreviationCd>
+                <ZIPCd>28205</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>3000</WagesAmt>
+            <WithholdingAmt>300</WithholdingAmt>
+            <SocialSecurityWagesAmt>3000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>196</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>3000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>44</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>NC</StateAbbreviationCd>
+                    <EmployerStateIdNum>38-1923321</EmployerStateIdNum>
+                    <StateWagesAmt>3000</StateWagesAmt>
+                    <StateIncomeTaxAmt>200</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>

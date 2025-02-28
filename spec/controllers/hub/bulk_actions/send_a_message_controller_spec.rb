@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Hub::BulkActions::SendAMessageController do
   let(:organization) { create :organization }
-  let(:client) { create :client, vita_partner: organization }
+  let(:client) { create :client, vita_partner: organization, intake: build(:intake, product_year: Rails.configuration.product_year) }
   let(:tax_return_1) { create :tax_return, client: client, year: 2020 }
   let(:tax_return_2) { create :tax_return, client: client, year: 2019 }
   let(:tax_return_3) { create :tax_return, client: client, year: 2018 }
@@ -67,6 +67,17 @@ RSpec.describe Hub::BulkActions::SendAMessageController do
               put :update, params: params
             }.not_to change { user.notifications.count }
           }.not_to have_enqueued_job
+        end
+      end
+
+      context "with an archived intake" do
+        before do
+          client.intake.update(product_year: Rails.configuration.product_year - 2)
+        end
+
+        it "response is forbidden (403)" do
+          put :update, params: params
+          expect(response).to be_forbidden
         end
       end
     end

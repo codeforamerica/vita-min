@@ -392,6 +392,28 @@ describe Efile::Az::Az140Calculator do
       instance.calculate
       expect(instance.lines[:AZ140_LINE_53].value).to eq(900 + 50 + 100)
     end
+
+    context "with nil state_income_tax_amount for W2" do
+      before do
+        intake.state_file_w2s.first&.update(state_income_tax_amount: nil)
+      end
+
+      it "sums up all relevant values without error" do
+        instance.calculate
+        expect(instance.lines[:AZ140_LINE_53].value).to eq(50 + 100)
+      end
+    end
+
+    context "with nil state_income_tax_amount for W2" do
+      before do
+        intake.state_file1099_rs.first&.update(state_tax_withheld_amount: nil)
+      end
+
+      it "sums up all relevant values without error" do
+        instance.calculate
+        expect(instance.lines[:AZ140_LINE_53].value).to eq(900 + 100)
+      end
+    end
   end
 
   describe "Line 56: Increased Excise Tax Credit" do

@@ -43,9 +43,8 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
       end
 
       it "is not allowed to access the page" do
-        expect do
-          get :new, params: params
-        end.to raise_error(ActiveRecord::RecordNotFound)
+        get :new, params: params
+        expect(response).to be_forbidden
       end
     end
 
@@ -62,6 +61,19 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
         expect(assigns(:tax_return)).to be_an_instance_of TaxReturn
         expect(assigns(:form).tax_return_years).to eq [2018]
         expect(assigns(:form).remaining_years).to eq(MultiTenantService.gyr.filing_years(fake_time) - [2018])
+      end
+
+      context "with an archived intake" do
+        let(:user) { team_member }
+
+        before do
+          client.intake.update(product_year: Rails.configuration.product_year - 2)
+        end
+
+        it "response is forbidden (403)" do
+          get :new, params: params
+          expect(response).to be_forbidden
+        end
       end
     end
   end
@@ -158,6 +170,30 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
           expect(response).to be_forbidden
         end
       end
+
+      context "with an archived intake" do
+        let(:user) { team_member }
+
+        before do
+          client.intake.update(product_year: Rails.configuration.product_year - 2)
+        end
+
+        it "response is forbidden (403)" do
+          post :create, params: params
+          expect(response).to be_forbidden
+        end
+      end
+    end
+
+    context "an unauthorized user" do
+      before do
+        sign_in unauthorized_team_member
+      end
+
+      it "is not allowed to access the page" do
+        post :create, params: params
+        expect(response).to be_forbidden
+      end
     end
   end
 
@@ -215,6 +251,28 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
 
           expect(assigns(:assignable_users)).not_to include suspended_user
         end
+      end
+
+      context "with an archived intake" do
+        before do
+          client.intake.update(product_year: Rails.configuration.product_year - 2)
+        end
+
+        it "response is forbidden (403)" do
+          get :edit, params: params
+          expect(response).to be_forbidden
+        end
+      end
+    end
+
+    context "an unauthorized user" do
+      before do
+        sign_in unauthorized_team_member
+      end
+
+      it "is not allowed to access the page" do
+        get :edit, params: params
+        expect(response).to be_forbidden
       end
     end
   end
@@ -327,6 +385,28 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
 
           expect(response).to be_forbidden
         end
+      end
+
+      context "with an archived intake" do
+        before do
+          client.intake.update(product_year: Rails.configuration.product_year - 2)
+        end
+
+        it "response is forbidden (403)" do
+          put :update, params: params
+          expect(response).to be_forbidden
+        end
+      end
+    end
+
+    context "an unauthorized user" do
+      before do
+        sign_in unauthorized_team_member
+      end
+
+      it "is not allowed to access the page" do
+        put :update, params: params
+        expect(response).to be_forbidden
       end
     end
   end

@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>276e3bdf</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400002110</PrimarySSN>
+            <SpouseSSN>400002111</SpouseSSN>
+            <NameLine1Txt>GRAND&lt;CANYON&lt;&amp; ROCKY MOUNTAIN</NameLine1Txt>
+            <PrimaryNameControlTxt>CANY</PrimaryNameControlTxt>
+            <SpouseNameControlTxt>MOUN</SpouseNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>300 National Park Ave</AddressLine1Txt>
+                <CityNm>Flagstaff</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>86001</ZIPCd>
+            </USAddress>
+            <PhoneNum>2225554444</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000211-03b7-4637-8f5d-395d8e23c47a@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="8">
+        <IRS1040 documentId="IRS10400001">
+            <Form1040SRInd>X</Form1040SRInd>
+            <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <Spouse65OrOlderInd>X</Spouse65OrOlderInd>
+            <SpouseBlindInd>X</SpouseBlindInd>
+            <TotalBoxesCheckedCnt>2</TotalBoxesCheckedCnt>
+            <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
+            <DependentDetail>
+                <DependentFirstNm>Zion</DependentFirstNm>
+                <DependentLastNm>Canyon</DependentLastNm>
+                <DependentNameControlTxt>CANY</DependentNameControlTxt>
+                <DependentSSN>300002112</DependentSSN>
+                <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+                <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+            </DependentDetail>
+            <ChldWhoLivedWithYouCnt>1</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>3</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001 W20002" referenceDocumentName="IRSW2">77000</WagesAmt>
+            <WagesSalariesAndTipsAmt>77000</WagesSalariesAndTipsAmt>
+            <TaxableInterestAmt>463</TaxableInterestAmt>
+            <PensionsAnnuitiesAmt>20000</PensionsAnnuitiesAmt>
+            <TotalTaxablePensionsAmt>20000</TotalTaxablePensionsAmt>
+            <SocSecBnftAmt>20000</SocSecBnftAmt>
+            <TaxableSocSecAmt>17000</TaxableSocSecAmt>
+            <TotalAdditionalIncomeAmt>23000</TotalAdditionalIncomeAmt>
+            <TotalIncomeAmt>137463</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>137463</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>32300</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>32300</TotalDeductionsAmt>
+            <TaxableIncomeAmt>105163</TaxableIncomeAmt>
+            <TaxAmt>13242</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>13242</TotalTaxBeforeCrAndOthTaxesAmt>
+            <CTCODCAmt>2000</CTCODCAmt>
+            <TotalCreditsAmt>2000</TotalCreditsAmt>
+            <TaxLessCreditsAmt>11242</TaxLessCreditsAmt>
+            <TotalTaxAmt>11242</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>7000</FormW2WithheldTaxAmt>
+            <Form1099WithheldTaxAmt referenceDocumentId="OTHERWITHHOLDING0001" referenceDocumentName="OtherWithholdingStatement">2551</Form1099WithheldTaxAmt>
+            <WithholdingTaxAmt>9551</WithholdingTaxAmt>
+            <TotalPaymentsAmt>9551</TotalPaymentsAmt>
+            <OwedAmt>1691</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>park ranger</PrimaryOccupationTxt>
+            <SpouseOccupationTxt>Gift shop cashier</SpouseOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1040Schedule1 documentId="IRS1040S1001">
+            <UnemploymentCompAmt>23000</UnemploymentCompAmt>
+            <TotalAdditionalIncomeAmt>23000</TotalAdditionalIncomeAmt>
+        </IRS1040Schedule1>
+        <IRS1040Schedule8812 documentId="IRS8812001" documentName="IRS1040Schedule8812">
+            <AdjustedGrossIncomeAmt>137463</AdjustedGrossIncomeAmt>
+            <ModifiedAGIAmt>137463</ModifiedAGIAmt>
+            <QlfyChildUnderAgeSSNCnt>1</QlfyChildUnderAgeSSNCnt>
+            <QlfyChildUnderAgeSSNLimtAmt>2000</QlfyChildUnderAgeSSNLimtAmt>
+            <OtherDependentCnt>0</OtherDependentCnt>
+            <InitialCTCODCAmt>2000</InitialCTCODCAmt>
+            <FilingStatusThresholdCd>400000</FilingStatusThresholdCd>
+            <ExcessAdjGrossIncomeAmt>0</ExcessAdjGrossIncomeAmt>
+            <ModifiedAGIPhaseOutAmt>0</ModifiedAGIPhaseOutAmt>
+            <CTCODCOverAGILimitInd>true</CTCODCOverAGILimitInd>
+            <CTCODCAfterAGILimitAmt>2000</CTCODCAfterAGILimitAmt>
+            <ACTCTaxLiabiltyLimitAmt>13242</ACTCTaxLiabiltyLimitAmt>
+            <CTCODCAmt>2000</CTCODCAmt>
+            <ClaimACTCAllFilersGrp/>
+        </IRS1040Schedule8812>
+        <IRS1099R documentId="IRS1099R0001">
+            <PayerNameControlTxt>GRAN</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Grand Tetons Trust</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>PO Box 123</AddressLine1Txt>
+                <AddressLine2Txt>555 Petrified Forest</AddressLine2Txt>
+                <CityNm>Hollbrook</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>86025</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>823967259</PayerEIN>
+            <RecipientSSN>400002110</RecipientSSN>
+            <RecipientNm>Grand Canyon</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>300 National Park Ave</AddressLine1Txt>
+                <CityNm>Flagstaff</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>86001</ZIPCd>
+            </RecipientUSAddress>
+            <PayerRecipientAccountNum>978654321123456789frf123-27-43</PayerRecipientAccountNum>
+            <GrossDistributionAmt>20000</GrossDistributionAmt>
+            <TaxableAmt>15000</TaxableAmt>
+            <FederalIncomeTaxWithheldAmt>1500</FederalIncomeTaxWithheldAmt>
+            <F1099RDistributionCd>7</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <StateTaxWithheldAmt>20000</StateTaxWithheldAmt>
+                    <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                    <PayerStateIdNum>AZ - 123456ha789</PayerStateIdNum>
+                    <F1099RLocalTaxGrp>
+                        <LocalDistributionAmt>500</LocalDistributionAmt>
+                    </F1099RLocalTaxGrp>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRS1099R documentId="IRS1099R0002">
+            <PayerNameControlTxt>ITIS</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>It is up to you to prevent forest fires</BusinessNameLine1Txt>
+                <BusinessNameLine2Txt>smokey the bear</BusinessNameLine2Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>300 Pluto Street</AddressLine1Txt>
+                <CityNm>Flagstaff</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>86001</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>823967259</PayerEIN>
+            <RecipientSSN>400002111</RecipientSSN>
+            <RecipientNm>Rocky Mountain</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>300 National Park Ave</AddressLine1Txt>
+                <CityNm>Flagstaff</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>86001</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>5000</GrossDistributionAmt>
+            <TaxableAmt>5000</TaxableAmt>
+            <TotalDistributionInd>X</TotalDistributionInd>
+            <F1099RDistributionCd>2</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <PayerStateIdNum>errorzona123</PayerStateIdNum>
+                    <StateDistributionAmt>5000</StateDistributionAmt>
+                    <F1099RLocalTaxGrp>
+                        <LocalTaxWithheldAmt>500</LocalTaxWithheldAmt>
+                    </F1099RLocalTaxGrp>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>400002110</EmployeeSSN>
+            <EmployerEIN>840575852</EmployerEIN>
+            <EmployerNameControlTxt>NATI</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>National Park Service</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>2 VITA Way</AddressLine1Txt>
+                <CityNm>Tucson</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>85641</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Grand Canyon</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>300 Elm Court</AddressLine1Txt>
+                <CityNm>Flagstaff</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>86001</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>37000</WagesAmt>
+            <WithholdingAmt>3000</WithholdingAmt>
+            <SocialSecurityWagesAmt>37000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>2220</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>37000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>537</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                    <EmployerStateIdNum>1234567890987654</EmployerStateIdNum>
+                    <StateWagesAmt>30000</StateWagesAmt>
+                    <StateIncomeTaxAmt>800</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+        <IRSW2 documentId="W20002" documentName="IRSW2">
+            <EmployeeSSN>400002111</EmployeeSSN>
+            <EmployerEIN>840404235</EmployerEIN>
+            <EmployerNameControlTxt>BIGB</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Big Bend Business</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>2 Main St</AddressLine1Txt>
+                <CityNm>Tucson</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>85641</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Rocky Mountain</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>250 Rosemary Road</AddressLine1Txt>
+                <CityNm>Crown King</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>86343</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>40000</WagesAmt>
+            <WithholdingAmt>4000</WithholdingAmt>
+            <SocialSecurityWagesAmt>40000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>2480</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>40000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>620</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                    <EmployerStateIdNum>123</EmployerStateIdNum>
+                    <StateWagesAmt>40000</StateWagesAmt>
+                    <StateIncomeTaxAmt>1000</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+        <OtherWithholdingStatement documentId="OTHERWITHHOLDING0001" documentName="OtherWithholdingStatement">
+            <OtherWithholdingStmt>
+                <WithholdingCd>FORM 1099</WithholdingCd>
+                <EIN>131635294</EIN>
+                <WithholdingAmt>1000</WithholdingAmt>
+            </OtherWithholdingStmt>
+            <OtherWithholdingStmt>
+                <WithholdingCd>FORM 1099</WithholdingCd>
+                <WithholdingAmt>50</WithholdingAmt>
+            </OtherWithholdingStmt>
+            <OtherWithholdingStmt>
+                <WithholdingCd>FORM 1099</WithholdingCd>
+                <EIN>846023137</EIN>
+                <WithholdingAmt>1</WithholdingAmt>
+            </OtherWithholdingStmt>
+        </OtherWithholdingStatement>
+    </ReturnData>
+</Return>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>a1978a1a</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>300007623</PrimarySSN>
+            <NameLine1Txt>STEVE J&lt;ROGERS</NameLine1Txt>
+            <PrimaryNameControlTxt>ROGE</PrimaryNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>PO Box 82</AddressLine1Txt>
+                <CityNm>Lakewood</CityNm>
+                <StateAbbreviationCd>CO</StateAbbreviationCd>
+                <ZIPCd>80232</ZIPCd>
+            </USAddress>
+            <PhoneNum>3045553333</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+30000762-3226-4443-b35e-531ff72cf812@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="3">
+        <IRS1040 documentId="IRS10400001">
+            <IndividualReturnFilingStatusCd>1</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <PrimaryClaimAsDependentInd>X</PrimaryClaimAsDependentInd>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>1</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">3000</WagesAmt>
+            <WagesSalariesAndTipsAmt>3000</WagesSalariesAndTipsAmt>
+            <TotalTaxablePensionsAmt>5000</TotalTaxablePensionsAmt>
+            <TotalIncomeAmt>8000</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>8000</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>3450</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>3450</TotalDeductionsAmt>
+            <TaxableIncomeAmt>4550</TaxableIncomeAmt>
+            <TaxAmt>458</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>458</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>458</TaxLessCreditsAmt>
+            <TotalTaxAmt>458</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>300</FormW2WithheldTaxAmt>
+            <WithholdingTaxAmt>300</WithholdingTaxAmt>
+            <TotalPaymentsAmt>300</TotalPaymentsAmt>
+            <OwedAmt>158</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Student</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1099R documentId="IRS1099R0001">
+            <PayerNameControlTxt>SHIE</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>SHIELD Services</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>399 Barnes Road</AddressLine1Txt>
+                <CityNm>Lakewood</CityNm>
+                <StateAbbreviationCd>CO</StateAbbreviationCd>
+                <ZIPCd>80214</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>378767890</PayerEIN>
+            <RecipientSSN>300007623</RecipientSSN>
+            <RecipientNm>Steve J Rogers</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>PO Box 82</AddressLine1Txt>
+                <CityNm>Lakewood</CityNm>
+                <StateAbbreviationCd>CO</StateAbbreviationCd>
+                <ZIPCd>80232</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>5000</GrossDistributionAmt>
+            <TaxableAmt>5000</TaxableAmt>
+            <F1099RDistributionCd>2</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <StateAbbreviationCd>NC</StateAbbreviationCd>
+                    <PayerStateIdNum>881999231</PayerStateIdNum>
+                    <F1099RLocalTaxGrp/>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>300007623</EmployeeSSN>
+            <EmployerEIN>003290782</EmployerEIN>
+            <EmployerNameControlTxt>JUNI</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Junior Corps Ltd</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>1 Mississippi Ave</AddressLine1Txt>
+                <CityNm>Charlotte</CityNm>
+                <StateAbbreviationCd>NC</StateAbbreviationCd>
+                <ZIPCd>28202</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Steve J Rogers</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>PO Box 82</AddressLine1Txt>
+                <CityNm>Lakewood</CityNm>
+                <StateAbbreviationCd>CO</StateAbbreviationCd>
+                <ZIPCd>80232</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>3000</WagesAmt>
+            <WithholdingAmt>300</WithholdingAmt>
+            <SocialSecurityWagesAmt>3000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>186</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>3000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>44</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>NC</StateAbbreviationCd>
+                    <EmployerStateIdNum>38-1923321</EmployerStateIdNum>
+                    <StateWagesAmt>3000</StateWagesAmt>
+                    <StateIncomeTaxAmt>200</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>

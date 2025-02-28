@@ -623,22 +623,64 @@ describe Efile::Nj::Nj1040Calculator do
     end
   end
 
+  describe 'line 28a - pension / retirement exclusion' do
+    let(:intake) { create(:state_file_nj_intake) }
+
+    context 'when taxpayer is ineligible' do
+      it 'sets line 28a to 0' do
+        allow_any_instance_of(Efile::Nj::NjRetirementIncomeHelper).to receive(:line_28a_eligible?).and_return false
+        instance.calculate
+        expect(instance.lines[:NJ1040_LINE_28A].value).to eq(0)
+      end
+    end
+
+    context 'when taxpayer is eligible' do
+      before do
+        allow_any_instance_of(Efile::Nj::NjRetirementIncomeHelper).to receive(:line_28a_eligible?).and_return true
+      end
+
+      context 'when maximum_exclusion is greater than total_eligible_nonmilitary_1099r_income' do
+        it 'sets line 28a to total_eligible_nonmilitary_1099r_income' do
+          allow(instance).to receive(:calculate_line_27).and_return 100_000
+          allow_any_instance_of(Efile::Nj::NjRetirementIncomeHelper).to receive(:total_eligible_nonmilitary_1099r_income).and_return 49_999
+          allow_any_instance_of(Efile::Nj::NjRetirementIncomeHelper).to receive(:calculate_maximum_exclusion).with(100_000, 49_999).and_return 50_000
+          instance.calculate
+          expect(instance.lines[:NJ1040_LINE_28A].value).to eq(49_999)
+        end
+      end
+
+      context 'when maximum_exclusion is less than than total_eligible_nonmilitary_1099r_income' do
+        it 'sets line 28a to maximum_exclusion' do
+          allow(instance).to receive(:calculate_line_27).and_return 100_000
+          allow_any_instance_of(Efile::Nj::NjRetirementIncomeHelper).to receive(:total_eligible_nonmilitary_1099r_income).and_return 50_000
+          allow_any_instance_of(Efile::Nj::NjRetirementIncomeHelper).to receive(:calculate_maximum_exclusion).with(100_000, 50_000).and_return 49_999
+          instance.calculate
+          expect(instance.lines[:NJ1040_LINE_28A].value).to eq(49_999)
+        end
+      end
+    end
+  end
+
   describe 'line 28b - other retirement income exclusion' do
     let(:intake) { create(:state_file_nj_intake) }
 
     context 'when taxpayer is ineligible' do
       it 'sets line 28b to 0' do
-        allow_any_instance_of(Efile::Nj::NjRetirementIncomeHelper).to receive(:retirement_exclusion_eligible?).and_return false
+        allow_any_instance_of(Efile::Nj::NjRetirementIncomeHelper).to receive(:line_28b_eligible?).and_return false
         instance.calculate
         expect(instance.lines[:NJ1040_LINE_28B].value).to eq(0)
       end
     end
 
     context 'when taxpayer is eligible' do
+      before do
+        allow_any_instance_of(Efile::Nj::NjRetirementIncomeHelper).to receive(:line_28b_eligible?).and_return true
+      end
+
       context 'when maximum_exclusion minus 28a is greater than total_eligible_nonretirement_income' do
         it 'sets line 28b to total_eligible_nonretirement_income' do
-          allow_any_instance_of(Efile::Nj::NjRetirementIncomeHelper).to receive(:retirement_exclusion_eligible?).and_return true
-          allow_any_instance_of(Efile::Nj::NjRetirementIncomeHelper).to receive(:calculate_maximum_exclusion).and_return 50_000
+          allow(instance).to receive(:calculate_line_27).and_return 100_000
+          allow_any_instance_of(Efile::Nj::NjRetirementIncomeHelper).to receive(:calculate_maximum_exclusion).with(100_000, 100_000).and_return 50_000
           allow(instance).to receive(:calculate_line_28a).and_return 48_000
           allow_any_instance_of(Efile::Nj::NjRetirementIncomeHelper).to receive(:total_eligible_nonretirement_income).and_return 1_999
           instance.calculate
@@ -648,8 +690,8 @@ describe Efile::Nj::Nj1040Calculator do
 
       context 'when maximum_exclusion minus 28a is less than total_eligible_nonretirement_income' do
         it 'sets line 28b to maximum_exclusion minus 28a' do
-          allow_any_instance_of(Efile::Nj::NjRetirementIncomeHelper).to receive(:retirement_exclusion_eligible?).and_return true
-          allow_any_instance_of(Efile::Nj::NjRetirementIncomeHelper).to receive(:calculate_maximum_exclusion).and_return 50_000
+          allow(instance).to receive(:calculate_line_27).and_return 100_000
+          allow_any_instance_of(Efile::Nj::NjRetirementIncomeHelper).to receive(:calculate_maximum_exclusion).with(100_000, 100_000).and_return 50_000
           allow(instance).to receive(:calculate_line_28a).and_return 1_000
           allow_any_instance_of(Efile::Nj::NjRetirementIncomeHelper).to receive(:total_eligible_nonretirement_income).and_return 49_001
           instance.calculate
@@ -658,9 +700,9 @@ describe Efile::Nj::Nj1040Calculator do
       end
 
       context 'when maximum_exclusion minus 28a is equal to total_eligible_nonretirement_income' do
-        it 'sets line 28b to total_eligible_nonretirement_income' do
-          allow_any_instance_of(Efile::Nj::NjRetirementIncomeHelper).to receive(:retirement_exclusion_eligible?).and_return true
-          allow_any_instance_of(Efile::Nj::NjRetirementIncomeHelper).to receive(:calculate_maximum_exclusion).and_return 50_000
+        it 'it sets line 28b to the shared value' do
+          allow(instance).to receive(:calculate_line_27).and_return 100_000
+          allow_any_instance_of(Efile::Nj::NjRetirementIncomeHelper).to receive(:calculate_maximum_exclusion).with(100_000, 100_000).and_return 50_000
           allow(instance).to receive(:calculate_line_28a).and_return 1_000
           allow_any_instance_of(Efile::Nj::NjRetirementIncomeHelper).to receive(:total_eligible_nonretirement_income).and_return 49_000
           instance.calculate
@@ -1694,6 +1736,19 @@ describe Efile::Nj::Nj1040Calculator do
       let(:intake) { create(:state_file_nj_intake, :df_data_minimal)}
       it 'sets line 55 to nil' do
         expect(instance.lines[:NJ1040_LINE_55].value).to eq nil
+      end
+    end
+
+    context "with nil state_income_tax_amount for W2" do
+      let(:intake) { create(:state_file_nj_intake, :df_data_many_w2s)}
+
+      before do
+        intake.state_file_w2s.first&.update(state_income_tax_amount: nil)
+      end
+
+      it "sums up all relevant values without error" do
+        instance.calculate
+        expect(instance.lines[:NJ1040_LINE_55].value).to eq(1500)
       end
     end
   end

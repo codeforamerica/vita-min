@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_02_25_013409) do
+ActiveRecord::Schema[7.1].define(version: 2025_02_26_234403) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1729,6 +1729,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_25_013409) do
     t.string "payer_city_name"
     t.string "payer_identification_number"
     t.string "payer_name"
+    t.string "payer_name2"
     t.string "payer_name_control"
     t.string "payer_state_code"
     t.string "payer_state_identification_number"
@@ -2110,13 +2111,13 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_25_013409) do
     t.string "primary_first_name"
     t.string "primary_last_name"
     t.string "primary_middle_initial"
+    t.integer "primary_proof_of_disability_submitted", default: 0, null: false
     t.string "primary_signature"
     t.text "primary_signature_pin"
     t.string "primary_ssn"
     t.bigint "primary_state_id_id"
     t.decimal "primary_student_loan_interest_ded_amount", precision: 12, scale: 2, default: "0.0", null: false
     t.string "primary_suffix"
-    t.integer "proof_of_disability_submitted", default: 0, null: false
     t.text "raw_direct_file_data"
     t.jsonb "raw_direct_file_intake_data"
     t.string "referrer"
@@ -2133,6 +2134,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_25_013409) do
     t.string "spouse_first_name"
     t.string "spouse_last_name"
     t.string "spouse_middle_initial"
+    t.integer "spouse_proof_of_disability_submitted", default: 0, null: false
     t.text "spouse_signature_pin"
     t.string "spouse_ssn"
     t.bigint "spouse_state_id_id"
