@@ -5,7 +5,7 @@ class DirectFileJsonData
     json_accessor last_name: { type: :string, key: "lastName" }
     json_accessor suffix: { type: :string, key: "suffix" }
     json_accessor dob: { type: :date, key: "dateOfBirth" }
-    json_accessor tin: { type: :string, key: "tin" }
+    json_accessor tin: { type: :tin, key: "tin" }
     json_accessor ssn_not_valid_for_employment: { type: :boolean, key: "ssnNotValidForEmployment" }
   end
 
@@ -49,10 +49,10 @@ class DirectFileJsonData
     json_accessor has_1099: { type: :boolean, key: "has1099" }
     json_accessor interest_on_government_bonds: { type: :money_amount, key: "interestOnGovernmentBonds" }
     json_accessor amount_no_1099: { type: :money_amount, key: "no1099Amount" }
-    json_accessor recipient_tin: { type: :string, key: "recipientTin" }
+    json_accessor recipient_tin: { type: :tin, key: "recipientTin" }
     json_accessor tax_exempt_interest: { type: :money_amount, key: "taxExemptInterest" }
     json_accessor payer: { type: :string, key: "payer" }
-    json_accessor payer_tin: { type: :string, key: "payerTin" }
+    json_accessor payer_tin: { type: :tin, key: "payerTin" }
     json_accessor tax_withheld: { type: :money_amount, key: "taxWithheld" }
     json_accessor tax_exempt_and_tax_credit_bond_cusip_number: { type: :string, key: "taxExemptAndTaxCreditBondCusipNo" }
   end
@@ -65,12 +65,12 @@ class DirectFileJsonData
     json_accessor state_id_number: { type: :string, key: "stateIdNumber" }
     json_accessor state_tax_withheld: { type: :money_amount, key: "stateTaxWithheld" }
     json_accessor payer: { type: :string, key: "payer" }
-    json_accessor payer_tin: { type: :string, key: "payerTin" }
-    json_accessor recipient_tin: { type: :string, key: "recipientTin" }
+    json_accessor payer_tin: { type: :tin, key: "payerTin" }
+    json_accessor recipient_tin: { type: :tin, key: "recipientTin" }
   end
 
   class DfJsonSocialSecurityReport < DfJsonWrapper
-    json_accessor recipient_tin: { type: :string, key: "recipientTin" }
+    json_accessor recipient_tin: { type: :tin, key: "recipientTin" }
     json_accessor form_type: { type: :string, key: "formType" }
     json_accessor net_benefits: { type: :money_amount, key: "netBenefits" }
   end
@@ -102,7 +102,7 @@ class DirectFileJsonData
     dependents.find do |json_dependent|
       next unless json_dependent.present?
 
-      json_tin = json_dependent.tin&.tr("-", "")
+      json_tin = json_dependent.tin
       xml_ssn = dependent.ssn
 
       next unless json_tin && xml_ssn

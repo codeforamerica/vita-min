@@ -148,15 +148,47 @@ describe Efile::Md::Md502RCalculator do
   describe '#calculate_9a' do
     context 'when filing MFJ with positive federal social security benefits' do
       let(:filing_status) { "married_filing_jointly" }
-      before do
-        allow(intake.direct_file_data).to receive(:fed_ssb).and_return(100)
-        allow(intake.direct_file_json_data).to receive(:primary_filer_social_security_benefit_amount).and_return(600.32)
-        main_calculator.calculate
+
+      context "before DF started sending us per-filer SSB amounts" do
+        before do
+          allow(intake.direct_file_data).to receive(:fed_ssb).and_return(100)
+          intake.primary_ssb_amount = 600.32
+          main_calculator.calculate
+        end
+
+        it 'returns primary social security benefits amount from the intake' do
+          expect(instance.lines[:MD502R_LINE_9A].value).to eq 600
+        end
       end
 
-      it 'returns primary social security benefits amount from the intake' do
-        expect(instance.lines[:MD502R_LINE_9A].value).to eq 600
+      context "after DF started sending us per-filer SSB amounts" do
+
+        context "if we only have the DF-provided data" do
+          before do
+            allow(intake.direct_file_data).to receive(:fed_ssb).and_return(100)
+            allow(intake.direct_file_json_data).to receive(:primary_filer_social_security_benefit_amount).and_return(600.32)
+            main_calculator.calculate
+          end
+
+          it 'returns primary social security benefits amount from the DF JSON' do
+            expect(instance.lines[:MD502R_LINE_9A].value).to eq 600
+          end
+        end
+
+        context "if we somehow have both amounts from DF and amounts from our form" do
+          before do
+            allow(intake.direct_file_data).to receive(:fed_ssb).and_return(100)
+            intake.primary_ssb_amount = 601.32
+            allow(intake.direct_file_json_data).to receive(:primary_filer_social_security_benefit_amount).and_return(600.32)
+            main_calculator.calculate
+          end
+
+          it 'returns primary social security benefits amount from the intake' do
+            expect(instance.lines[:MD502R_LINE_9A].value).to eq 601
+          end
+        end
       end
+
     end
 
     context 'when filing MFJ without positive federal social security benefits' do
