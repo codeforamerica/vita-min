@@ -117,6 +117,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
   context "AZ" do
     it "allows user to navigate to az public school contributions page, edit a contribution form, and then navigate back to final review page, and then to 1099r edit page and back", required_schema: "az" do
+      Flipper.enable(:show_retirement_ui)
       state_code = "az"
       set_up_intake_and_associated_records(state_code)
 
