@@ -3043,9 +3043,6 @@ es:
           no_donations_selected: "<strong>No hay donaciones seleccionadas</strong>"
           permanent_building_fund_tax: Impuesto sobre el Fondo de Edificios Permanentes
           purchases_without_sales_tax: Compras sin pagar impuesto de ventas
-          qualified_disabled_retirement_benefits: Beneficios calificados de jubilación para personas con discapacidad
-          qualified_retirement_benefits_deduction: Deducción por Beneficios Calificados de Jubilación
-          qualified_retirement_benefits_deduction_explain: Estos permiten a las personas deducir de sus impuestos la totalidad o una parte de sus ingresos por jubilación.
           voluntary_charitable_donations: Donaciones caritativas voluntarias
       id_sales_use_tax:
         edit:
@@ -4048,6 +4045,10 @@ es:
           subtitle: These allow people to deduct all or a portion of their retirement income from their taxes.
           title: Arizona retirement income deductions
           uniformed_services: Retired or retainer pay of the uniformed services of the United States
+        id_retirement_income_deductions_review_header:
+          qualified_disabled_retirement_benefits: Beneficios calificados de jubilación para personas con discapacidad
+          qualified_retirement_benefits_deduction: Deducción por Beneficios Calificados de Jubilación
+          qualified_retirement_benefits_deduction_explain: Estos permiten a las personas deducir de sus impuestos la totalidad o una parte de sus ingresos por jubilación.
         review_header:
           income_details: Detalles de ingresos
           income_forms_collected: 'Formulario(s) de ingresos recogidos:'
