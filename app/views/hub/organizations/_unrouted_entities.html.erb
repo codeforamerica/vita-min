@@ -7,16 +7,16 @@
 
   <ul class="no-bullets">
     <% if current_user.org_lead? %>
-      <% if @presenter.unrouted_organizations.any? %>
-        <% @presenter.unrouted_organizations.each do |org| %>
+      <% if @presenter.orgs_with_unrouted_coalitions.any? %>
+        <% @presenter.orgs_with_unrouted_coalitions.each do |org| %>
           <%= render "organization", organization: org %>
         <% end %>
       <% end %>
-    <% else %>
-      <% if @presenter.unrouted_independent_organizations.any? %>
-        <% @presenter.unrouted_independent_organizations.each do |org| %>
-          <%= render "organization", organization: org %>
-        <% end %>
+    <% end %>
+
+    <% if @presenter.unrouted_independent_organizations.any? %>
+      <% @presenter.unrouted_independent_organizations.each do |org| %>
+        <%= render "organization", organization: org %>
       <% end %>
     <% end %>
 
@@ -27,7 +27,7 @@
     <% end %>
   </ul>
 
-  <% if @presenter.unrouted_organizations.empty? && @presenter.unrouted_coalitions.empty? %>
+  <% if @presenter.orgs_with_unrouted_coalitions.empty? && @presenter.unrouted_coalitions.empty? %>
     <%= t("general.NA") %>
   <% end %>
 </div>

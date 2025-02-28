@@ -8,7 +8,7 @@ describe Hub::OrganizationsPresenter do
   let!(:high_capacity_unrouted_organization) { create :organization, coalition: coalition, capacity_limit: 500 }
   let!(:unrouted_organization) { create :organization }
   let!(:unrouted_coalition) { create(:coalition) }
-  let!(:unrouted_organization_with_coalition) { create :organization, coalition: unrouted_coalition }
+  let!(:organization_with_unrouted_coalition) { create :organization, coalition: unrouted_coalition }
 
   before do
     create :state_routing_target, target: organization, state_abbreviation: "CA"
@@ -57,9 +57,9 @@ describe Hub::OrganizationsPresenter do
       end
     end
 
-    describe "#unrouted_organizations" do
+    describe "#orgs_with_unrouted_coalitions" do
       it "returns a collection of the organizations that have no state routing rules" do
-        expect(subject.unrouted_organizations).to match_array([high_capacity_unrouted_organization, unrouted_organization, unrouted_organization_with_coalition])
+        expect(subject.orgs_with_unrouted_coalitions).to match_array([organization_with_unrouted_coalition])
       end
     end
 
@@ -121,12 +121,12 @@ describe Hub::OrganizationsPresenter do
       end
     end
 
-    describe "#unrouted_organizations" do
+    describe "#orgs_with_unrouted_coalitions" do
       context "with a user with access to one unrouted organization" do
-        let(:user) { create(:user, role: create(:organization_lead_role, organization: unrouted_organization)) }
+        let(:user) { create(:user, role: create(:organization_lead_role, organization: organization_with_unrouted_coalition)) }
 
         it "returns just the one organization even though other unrouted orgs exist" do
-          expect(subject.unrouted_organizations).to match_array([unrouted_organization])
+          expect(subject.orgs_with_unrouted_coalitions).to match_array([organization_with_unrouted_coalition])
         end
       end
     end
