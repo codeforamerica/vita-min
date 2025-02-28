@@ -63,7 +63,7 @@ class StateFileArchivedIntake < ApplicationRecord
       else
         bucket = select_bucket
 
-        file_key = Rails.env.production? ? "#{mailing_state.downcase}_addresses.csv" : 'non_prod_addresses.csv'
+        file_key = Rails.env.production? ? "#{state_code.downcase}_addresses.csv" : 'non_prod_addresses.csv'
 
         file_path = File.join(Rails.root, "tmp", File.basename(file_key))
 
