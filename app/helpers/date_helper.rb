@@ -29,8 +29,8 @@ module DateHelper
                  payment_deadline[:month],
                  payment_deadline[:day],
                  app_time.hour,
-                 app_time.minute,
-                 app_time.second).in_time_zone(StateFile::StateInformationService.timezone(state_code))
+                 app_time.min,
+                 app_time.sec).in_time_zone(StateFile::StateInformationService.timezone(state_code))
   end
 
   def valid_text_birth_date(birth_date_year, birth_date_month, birth_date_day, key = :birth_date)

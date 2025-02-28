@@ -5,7 +5,7 @@
     <% if owe_taxes %>
       <%= form.hidden_field :app_time, value: app_time %>
       <%= form.vita_min_money_field(:withdraw_amount, t('state_file.questions.tax_refund.bank_details.withdraw_amount', owed_amount: taxes_owed), classes: ["form-width--long"]) %>
-      <% if app_time < payment_deadline %>
+      <% if app_time.before?(payment_deadline) %>
         <div class="date-select">
           <% year = current_tax_year + 1 %>
           <%= form.cfa_date_select(
@@ -19,8 +19,6 @@
                 }
               ) %>
         </div>
-      <% else %>
-        <%= form.hidden_field :post_deadline_withdrawal_date, value: post_deadline_withdrawal_date(current_state_code) %>
       <% end %>
     <% end %>
 
@@ -64,7 +62,7 @@
     <%= form.cfa_input_field(:account_number, t("state_file.questions.tax_refund.bank_details.account_number"), classes: ["form-width--long", "disablecopy"]) %>
     <%= form.cfa_input_field(:account_number_confirmation, t("state_file.questions.tax_refund.bank_details.confirm_account_number"), classes: ["form-width--long", "disablepaste", "disablecopy"]) %>
   </div>
-  <% if owe_taxes && app_time >= payment_deadline %>
+  <% if owe_taxes && app_time.after?(payment_deadline) %>
     <p>
       <%= t("state_file.questions.tax_refund.bank_details.after_deadline_default_withdrawal_info",
             payment_deadline_date: I18n.l(payment_deadline.to_date, format: :medium, locale: locale),
