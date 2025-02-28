@@ -17,7 +17,7 @@
           { value: "yes", label: t("general.affirmative") },
           { value: "no", label: t("general.negative") }
         ]) %>
-      <% elsif current_intake.filing_status_mfs? && current_intake.spouse_between_62_and_65_years_old? %>
+      <% elsif current_intake.filing_status_mfj? && current_intake.spouse_between_62_and_65_years_old? %>
         <%= f.cfa_radio_set(:spouse_disabled, label_text: t(".question_spouse_only"), collection: [
           { value: "yes", label: t("general.affirmative") },
           { value: "no", label: t("general.negative") }
