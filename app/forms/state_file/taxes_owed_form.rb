@@ -1,7 +1,6 @@
 module StateFile
   class TaxesOwedForm < TaxRefundForm
     include DateHelper
-    include DateAccessible
     set_attributes_for :intake,
                        :payment_or_deposit_type,
                        :routing_number,
@@ -15,20 +14,11 @@ module StateFile
                        :date_electronic_withdrawal_year,
                        :date_electronic_withdrawal_day,
                        :app_time
-    # Position is important. Must be below `set_attributes_for` to overwrite the standard `attr_accessor`s
-    date_accessor :date_electronic_withdrawal
 
     with_options unless: -> { payment_or_deposit_type == "mail" } do
-      validates :date_electronic_withdrawal,
-                inclusion: {
-                  in: Date.parse(app_time)..state_specific_payment_deadline(intake.state_code),
-                  message: lambda { |_object, _data|
-                    I18n.t("forms.errors.taxes_owed.withdrawal_date_deadline",
-                           payment_deadline_date: I18n.l(payment_deadline.to_date, format: :medium, locale: intake.locale),
-                           payment_deadline_year: payment_deadline.year)
-                  },
-                  presence: true, unless: -> { app_time.after?(payment_deadline) }
-                }
+      validate :date_electronic_withdrawal_is_valid_date, if: -> { app_time.before?(payment_deadline) }
+      validate :withdrawal_date_within_range, if: -> { date_electronic_withdrawal.present? && app_time.before?(payment_deadline) }
+      validate :withdrawal_date_intake_validations, if: -> { date_electronic_withdrawal.present? }
       validates :withdraw_amount, presence: true, numericality: { greater_than: 0 }
       validate :withdraw_amount_higher_than_owed?
     end
@@ -52,11 +42,21 @@ module StateFile
 
     def date_electronic_withdrawal
       if app_time.before?(payment_deadline)
-        date_electronic_withdrawal
+        parse_date_params(date_electronic_withdrawal_year, date_electronic_withdrawal_month, date_electronic_withdrawal_day)
       else
-        # TODO: Does NC need us to increment this date if it breaks business rules?
         app_time.in_time_zone(StateFile::StateInformationService.timezone(state_code))
       end
+    end
+
+    def date_electronic_withdrawal_post_deadline
+      app_time.in_time_zone(StateFile::StateInformationService.timezone(state_code))
+    end
+
+    def date_electronic_withdrawal_is_valid_date
+      valid_text_date(date_electronic_withdrawal_year,
+                      date_electronic_withdrawal_month,
+                      date_electronic_withdrawal_day,
+                      :date_electronic_withdrawal)
     end
 
     def withdraw_amount_higher_than_owed?
@@ -66,6 +66,24 @@ module StateFile
           :withdraw_amount,
           I18n.t("forms.errors.taxes_owed.withdraw_amount_higher_than_owed", owed_amount: owed_amount)
         )
+      end
+    end
+
+    def withdrawal_date_within_range
+      payment_deadline = state_specific_payment_deadline(intake&.state_code)
+      if date_electronic_withdrawal < Date.parse(app_time) || date_electronic_withdrawal > payment_deadline
+        self.errors.add(:date_electronic_withdrawal,
+                        I18n.t("forms.errors.taxes_owed.withdrawal_date_deadline",
+                               payment_deadline_date: I18n.l(payment_deadline.to_date, format: :medium, locale: intake&.locale),
+                               payment_deadline_year: payment_deadline.year))
+      end
+    end
+
+    def withdrawal_date_intake_validations
+      @intake.date_electronic_withdrawal = date_electronic_withdrawal
+      @intake.validate(:date_electronic_withdrawal)
+      if @intake.errors[:date_electronic_withdrawal].present?
+        errors.add(:date_electronic_withdrawal, @intake.errors[:date_electronic_withdrawal])
       end
     end
   end

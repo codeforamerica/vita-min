@@ -7,14 +7,15 @@ RSpec.describe StateFile::TaxesOwedForm do
            payment_or_deposit_type: "unfilled",
            withdraw_amount: withdraw_amount
   }
-  let(:valid_params) do
-    {
-      payment_or_deposit_type: "mail"
-    }
-  end
   let(:current_year) { (MultiTenantService.new(:statefile).current_tax_year + 1).to_s }
   let(:pre_deadline_withdrawal_time) { DateTime.parse("April 15th, #{current_year} 11pm EST") }
   let(:post_deadline_withdrawal_time) { DateTime.parse("April 16th, #{current_year} 1am EST") }
+  let(:valid_params) do
+    {
+      payment_or_deposit_type: "mail",
+      app_time: pre_deadline_withdrawal_time.to_s
+    }
+  end
 
   describe "#save" do
     context "when params valid and payment type is mail" do
