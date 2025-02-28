@@ -42,7 +42,6 @@ module StateFile
     rescue StandardError => e
       Rails.logger.error(e)
       intake.df_data_import_errors << DfDataImportError.new(message: e.to_s)
-      raise e
     end
 
     def priority

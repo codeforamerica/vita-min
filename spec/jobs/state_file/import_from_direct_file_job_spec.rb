@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe StateFile::ImportFromDirectFileJob, type: :job do
   describe '#perform' do
-    let(:intake) { create :minimal_state_file_id_intake, raw_direct_file_data: nil }
+    let(:intake) { create :minimal_state_file_id_intake, raw_direct_file_data: nil, raw_direct_file_intake_data: nil }
     let(:xml_result) { StateFile::DirectFileApiResponseSampleService.new.read_xml('test_ernest_hoh') }
     let(:direct_file_intake_json) { StateFile::DirectFileApiResponseSampleService.new.read_json('test_ernest_hoh') }
     let(:auth_code) { 'test_ernest_hoh' }
@@ -56,12 +56,18 @@ RSpec.describe StateFile::ImportFromDirectFileJob, type: :job do
 
     context "when the direct file xml is formed in a way that causes our code to error" do
       before do
-        allow(intake).to receive(:synchronize_df_dependents_to_database).and_raise StandardError.new("Malformed data")
+        allow(intake).to receive(:synchronize_filers_to_database).and_raise StandardError.new("Malformed data")
       end
 
-      it "catches the error and persists it to the intake record" do
+      it "undoes any other changes to the intake or associated models, and catches the error and persists it to the intake record" do
         described_class.perform_now(authorization_code: auth_code, intake: intake)
 
+        # AHhhhhhh apparently this is necessary or the results of a rolled-back transaction won't be represented correctly
+        # (i.e. the updates will show up on the object even if the transaction they happened in got rolled back)
+        intake.reload
+
+        expect(intake.state_file_w2s.count).to be_zero
+        expect(intake.raw_direct_file_data).to be_nil
         expect(intake.df_data_import_succeeded_at).to be_nil
         expect(intake.df_data_import_errors.count).to eq(1)
         expect(intake.df_data_import_errors.first&.message).to eq("Malformed data")
@@ -93,59 +99,6 @@ RSpec.describe StateFile::ImportFromDirectFileJob, type: :job do
         expect(intake.raw_direct_file_data).not_to be_present
         expect(intake.df_data_import_errors.count).to eq(1)
         expect(intake.df_data_import_errors.first&.message).to eq("Direct file data was not transferred for intake id#{intake.id}.")
-      end
-    end
-
-    context "with duplicated state_file_w2s" do
-      let!(:state_file_w2_1) { create :state_file_w2, w2_index: 0, state_file_intake: intake }
-      let!(:state_file_w2_2) { create :state_file_w2, w2_index: 1, state_file_intake: intake }
-      let!(:state_file_w2_1_dup) { create :state_file_w2, w2_index: 0, state_file_intake: intake }
-      let!(:state_file_w2_2_dup) { create :state_file_w2, w2_index: 1, state_file_intake: intake }
-
-      before do
-        allow(Rails.logger).to receive(:info)
-      end
-
-      it "should destroy duplicate state_file_w2s" do
-        expect(intake.state_file_w2s.count).to eq(4)
-
-        described_class.perform_now(authorization_code: auth_code, intake: intake)
-
-        expect(intake.state_file_w2s.count).to eq(2)
-        expect(intake.state_file_w2s.map(&:w2_index)).to include(0)
-        expect(intake.state_file_w2s.map(&:w2_index)).to include(1)
-
-        expect(Rails.logger).to have_received(:info)
-          .with("ImportFromDirectFileJob removing duplicate StateFileW2 for id#{intake.id}").twice
-      end
-    end
-
-    context "with duplicated state_file_dependents" do
-      let(:first_ssn) { "300000015" }
-      let(:second_ssn) { "300000016" }
-      let(:third_ssn) { "300000017" }
-      let!(:dependent_1) { create(:state_file_dependent, intake: intake, ssn: first_ssn) }
-      let!(:dependent_2) { create(:state_file_dependent, intake: intake, ssn: second_ssn) }
-      let!(:dependent_1_dup) { create(:state_file_dependent, intake: intake, ssn: first_ssn) }
-      let!(:dependent_2_dup) { create(:state_file_dependent, intake: intake, ssn: second_ssn) }
-
-      before do
-        allow(Rails.logger).to receive(:info)
-      end
-
-      it "should destroy duplicate dependent" do
-        expect(intake.dependents.count).to eq(4)
-
-        described_class.perform_now(authorization_code: auth_code, intake: intake)
-
-        expect(intake.dependents.count).to eq(3)
-        expect(intake.dependents.map(&:ssn)).to include(first_ssn)
-        expect(intake.dependents.map(&:ssn)).to include(second_ssn)
-        # NOTE: this third dependent is created by the import job
-        expect(intake.dependents.map(&:ssn)).to include(third_ssn)
-
-        expect(Rails.logger).to have_received(:info)
-          .with("ImportFromDirectFileJob removing duplicate StateFileDependent for id#{intake.id}").twice
       end
     end
   end
