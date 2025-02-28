@@ -3058,13 +3058,12 @@ en:
           why_ask_this: Why are you asking for this information?
       id_retirement_and_pension_income:
         edit:
-          question: 'Does this retirement income come from any of the following:'
-          question_b1: Your service as a Civil Service employee
+          question_b1: Your service as a civil service employee
           question_b2: Your service as an Idaho firefighter
-          question_b3: Your service as a Police officer of an Idaho city
+          question_b3: Your service as a police officer of an Idaho city
           question_b4: Your service as a member of the U.S. military
-          question_b5: Survivor benefits from a deceased spouse’s pension from one of the sources listed above”
-          read_more: Read more on the additional information on these qualified retirement benefits.
+          question_b5: Survivor benefits from a deceased spouse’s pension from one of the sources listed above
+          question_html: Does this retirement income come from any of the following sources and does it meet the qualifications on <a href="https://tax.idaho.gov/wp-content/uploads/forms/EFO00088/EFO00088_08-22-2024.pdf#page=7" target="_blank" rel="noopener noreferrer">pages 7-8 of the instruction booklet?</a>?
           subtitle: We need more information about your 1099-R to check your eligibility.
       id_review:
         edit:
@@ -3074,6 +3073,9 @@ en:
           no_donations_selected: "<strong>No donations selected</strong>"
           permanent_building_fund_tax: Permanent Building Fund Tax
           purchases_without_sales_tax: Purchases without paying sales tax
+          qualified_disabled_retirement_benefits: Qualified disabled retirement benefits
+          qualified_retirement_benefits_deduction: Qualified Retirement Benefits Deduction
+          qualified_retirement_benefits_deduction_explain: These allow people to deduct all or a portion of their retirement income from their taxes.
           voluntary_charitable_donations: Voluntary Charitable Donations
       id_sales_use_tax:
         edit:

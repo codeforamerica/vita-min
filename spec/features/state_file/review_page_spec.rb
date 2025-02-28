@@ -351,6 +351,144 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
     end
   end
 
+  context "ID" do
+    before do
+      allow(Flipper).to receive(:enabled?).and_call_original
+      allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
+
+      state_code = "id"
+      set_up_intake_and_associated_records(state_code)
+
+      @intake = StateFile::StateInformationService.intake_class(state_code).last
+      @intake.update(primary_disabled: "no")
+      first_1099r = @intake.state_file1099_rs.first
+      first_1099r.update(taxable_amount: 200, recipient_ssn: @intake.primary.ssn)
+      StateFileId1099RFollowup.create(state_file1099_r: @intake.state_file1099_rs.first, eligible_income_source: "yes")
+
+      second_1099r = create(:state_file1099_r, intake: @intake, payer_name: "Couch Potato Cafe", taxable_amount: 50, recipient_ssn: @intake.primary.ssn)
+      StateFileId1099RFollowup.create(state_file1099_r: second_1099r, eligible_income_source: "yes")
+
+      # making this value always greater than 8e so 8f value always gets used
+      allow_any_instance_of(Efile::Id::Id39RCalculator).to receive(:calculate_sec_b_line_8d).and_return(first_1099r.taxable_amount + second_1099r.taxable_amount + 1)
+    end
+
+    context "with line 8e value greater than 0" do
+      context "with eligible senior at least 65 years old" do # current fixture has filer who is 65 years old
+        context "who indicated disability" do # current fixture has filer who is 65 years old
+          before do
+            @intake.update(primary_disabled: "yes")
+          end
+
+          it "review & edit questions on eligible_income_source and go through every 1099Rs that are applicable, then return to review" do
+            visit "/questions/id-review"
+
+            expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
+            within "#qualified-retirement-benefits-deduction" do
+              expect(page).to have_text I18n.t("state_file.questions.id_review.edit.qualified_retirement_benefits_deduction")
+              expect(page).to have_text I18n.t("state_file.questions.id_review.edit.qualified_retirement_benefits_deduction_explain")
+              expect(page).to have_text I18n.t("state_file.questions.id_review.edit.qualified_disabled_retirement_benefits")
+              expect(page).to have_text "$250.00"
+
+              click_on I18n.t("general.review_and_edit")
+            end
+
+            # first eligible 1099R
+            expect(page).to have_text I18n.t("state_file.questions.id_retirement_and_pension_income.edit.subtitle")
+            expect(page).to have_text("Dorothy Red")
+            expect(page).to have_text("$200")
+            click_on I18n.t("general.continue")
+
+            # second eligible 1099R
+            expect(page).to have_text I18n.t("state_file.questions.id_retirement_and_pension_income.edit.subtitle")
+            expect(page).to have_text("Couch Potato Cafe")
+            expect(page).to have_text("$50")
+            choose "No"
+            click_on I18n.t("general.continue")
+
+            expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
+            within "#qualified-retirement-benefits-deduction" do
+              expect(page).to have_text I18n.t("state_file.questions.id_review.edit.qualified_retirement_benefits_deduction")
+              expect(page).to have_text I18n.t("state_file.questions.id_review.edit.qualified_retirement_benefits_deduction_explain")
+              expect(page).to have_text I18n.t("state_file.questions.id_review.edit.qualified_disabled_retirement_benefits")
+              expect(page).to have_text "$200.00" # $50 less eligible
+            end
+          end
+        end
+
+        it "review & edit questions on eligible_income_source and go through every 1099Rs that are applicable, then return to review" do
+          visit "/questions/id-review"
+
+          expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
+          within "#qualified-retirement-benefits-deduction" do
+            expect(page).to have_text I18n.t("state_file.questions.id_review.edit.qualified_retirement_benefits_deduction")
+            expect(page).to have_text I18n.t("state_file.questions.id_review.edit.qualified_retirement_benefits_deduction_explain")
+            expect(page).to have_text I18n.t("state_file.questions.id_review.edit.qualified_disabled_retirement_benefits")
+            expect(page).to have_text "$250.00"
+
+            click_on I18n.t("general.review_and_edit")
+          end
+
+          # first eligible 1099R
+          expect(page).to have_text I18n.t("state_file.questions.id_retirement_and_pension_income.edit.subtitle")
+          expect(page).to have_text("Dorothy Red")
+          expect(page).to have_text("$200")
+          click_on I18n.t("general.continue")
+
+          # second eligible 1099R
+          expect(page).to have_text I18n.t("state_file.questions.id_retirement_and_pension_income.edit.subtitle")
+          expect(page).to have_text("Couch Potato Cafe")
+          expect(page).to have_text("$50")
+          choose "No"
+          click_on I18n.t("general.continue")
+
+          expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
+          within "#qualified-retirement-benefits-deduction" do
+            expect(page).to have_text I18n.t("state_file.questions.id_review.edit.qualified_retirement_benefits_deduction")
+            expect(page).to have_text I18n.t("state_file.questions.id_review.edit.qualified_retirement_benefits_deduction_explain")
+            expect(page).to have_text I18n.t("state_file.questions.id_review.edit.qualified_disabled_retirement_benefits")
+            expect(page).to have_text "$200.00" # $50 less eligible
+          end
+        end
+      end
+
+      context "with eligible disabled senior under 65 years old" do
+        before do
+          # if primary_disabled: no here, the card will not show up
+          @intake.update(primary_birth_date: Date.new((MultiTenantService.statefile.current_tax_year - 64), 12, 31), primary_disabled: "yes")
+        end
+
+        it "review & edit questions on disability, and skip eligible income question, then return to review & does not see the card (no longer eligible)" do
+          visit "/questions/id-review"
+
+          expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
+          within "#qualified-retirement-benefits-deduction" do
+            expect(page).to have_text I18n.t("state_file.questions.id_review.edit.qualified_retirement_benefits_deduction")
+            expect(page).to have_text I18n.t("state_file.questions.id_review.edit.qualified_retirement_benefits_deduction_explain")
+            expect(page).to have_text I18n.t("state_file.questions.id_review.edit.qualified_disabled_retirement_benefits")
+            expect(page).to have_text "$250.00"
+
+            click_on I18n.t("general.review_and_edit")
+          end
+
+          expect(page).to have_text I18n.t("state_file.questions.id_disability.edit.title")
+          choose "No"
+          click_on I18n.t("general.continue")
+
+          expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
+          expect(page).not_to have_text I18n.t("state_file.questions.id_review.edit.qualified_retirement_benefits_deduction")
+        end
+      end
+    end
+
+    it "should not show the Qualified Retirement Benefits Deduction card if line 8e is not positive" do
+      allow_any_instance_of(Efile::Id::Id39RCalculator).to receive(:calculate_sec_b_line_8e).and_return(0)
+      visit "/questions/id-review"
+
+      expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
+      expect(page).not_to have_text(I18n.t("state_file.questions.id_review.edit.qualified_retirement_benefits_deduction"))
+    end
+  end
+
   def set_up_intake_and_associated_records(state_code)
     visit "/"
     click_on "Start Test #{state_code.upcase}"

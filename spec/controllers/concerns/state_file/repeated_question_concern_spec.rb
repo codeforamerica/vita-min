@@ -25,10 +25,25 @@ RSpec.describe StateFile::RepeatedQuestionConcern, type: :controller do
   end
 
   describe "#next_path" do
-    it "when return_to_review paramater is passed in, it should return to the review screen" do
-      get :index, params: { return_to_review: "y", index: "1" }
+    context "when return_to_review parameter is passed in" do
+      context "and controller does not require all repeated items to be reviewed before returning" do
+        it "returns to the review screen" do
+          get :index, params: { return_to_review: "y", index: "1" }
 
-      expect(subject.next_path).to eq("/next_path")
+          expect(subject.next_path).to eq("/next_path")
+        end
+      end
+
+      context "and controller requires all repeated items should be reviewed before returning" do
+        before do
+          allow_any_instance_of(StateFile::RepeatedQuestionConcern).to receive(:review_all_items_before_returning_to_review).and_return(true)
+        end
+        it "goes to the next item with the return_to_review param" do
+          get :index, params: { return_to_review: "y", index: "1" }
+
+          expect(subject.next_path).to eq("/path?index=2&return_to_review=y")
+        end
+      end
     end
 
     context "when return_to_review parameter is not passed in" do
