@@ -1000,17 +1000,17 @@ RSpec.describe PdfFiller::F13614cPdf do
             spouse_last_name: "Heifer",
           )
         end
-      end
 
-      it "15080 fields are nil" do
-        output_file = intake_pdf.output_file
-        result = non_preparer_fields(output_file.path)
-        expect(result).to include(
-                            "form1[0].page6[0].primaryTaxpayer[0]" => nil,
-                            "form1[0].page6[0].primaryDateSigned[0]" => nil,
-                            "form1[0].page6[0].secondaryTaxpayer[0]" => nil,
-                            "form1[0].page6[0].secondaryDateSigned[0]" => nil
-                          )
+        it "15080 fields are nil" do
+          output_file = intake_pdf.output_file
+          result = non_preparer_fields(output_file.path)
+          expect(result).to include(
+                              "form1[0].page6[0].primaryTaxpayer[0]" => nil,
+                              "form1[0].page6[0].primaryDateSigned[0]" => nil,
+                              "form1[0].page6[0].secondaryTaxpayer[0]" => nil,
+                              "form1[0].page6[0].secondaryDateSigned[0]" => nil
+                            )
+        end
       end
     end
   end
