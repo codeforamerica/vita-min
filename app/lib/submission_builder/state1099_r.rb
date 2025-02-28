@@ -11,6 +11,7 @@ module SubmissionBuilder
         if form1099r.payer_name.present?
           xml.PayerName do
             xml.BusinessNameLine1Txt sanitize_for_xml(form1099r.payer_name.tr('-', ' '), 75)
+            xml.BusinessNameLine2Txt sanitize_for_xml(form1099r.payer_name2&.tr('-', ' '), 75) if form1099r.payer_name2.present?
           end
           xml.PayerUSAddress do
             xml.AddressLine1Txt sanitize_for_xml(form1099r.payer_address_line1, 35) if form1099r.payer_address_line1.present?
@@ -36,7 +37,7 @@ module SubmissionBuilder
           xml.F1099RStateLocalTaxGrp do
             xml.F1099RStateTaxGrp do
               xml.StateTaxWithheldAmt form1099r.state_tax_withheld_amount&.round
-              xml.StateAbbreviationCd form1099r.state_code if form1099r.state_code.present?
+              xml.StateAbbreviationCd form1099r.state_code || state_abbreviation
               xml.PayerStateIdNum form1099r.payer_state_identification_number if form1099r.payer_state_identification_number.present?
               xml.StateDistributionAmt form1099r.state_distribution_amount&.round
             end

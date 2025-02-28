@@ -9,13 +9,16 @@ en:
               blank: To claim family member as a dependent for benefits, an SSN or ATIN is required.
   activerecord:
     errors:
+      concerns:
+        date_accessible:
+          inclusion: Date must be valid and in the current tax year
       models:
         az321_contribution:
           attributes:
             charity_code:
               invalid: should be a five digit number beginning with 2
             date_of_contribution:
-              inclusion: Date must be in the current tax year
+              inclusion: Date must be valid and in the current tax year
         state_file_1099_r:
           errors:
             must_be_less_than_gross_distribution: Must be less than gross distribution amount
@@ -2849,7 +2852,16 @@ en:
               default: What are my free state filing options?
               nj: Learn more about the VITA process
         vita_option:
-          connect_to_vita: Get connected now
+          connect_to_vita:
+            nj: |
+              <p>
+                <a href="%{faq_link_href}" target="_blank" rel="noopener noreferrer">
+                  Visit our FAQ
+                </a>
+              </p>
+              <a href="%{vita_link_href}" target="_blank" rel="noopener noreferrer" class="button button--primary button--wide spacing-below-25">
+                Get connected now
+              </a>
           vita_introduction:
             nj: You can file your state taxes for free with help from IRS-certified Volunteer Income Tax Assistance (VITA) tax preparers at Simplify CT.
           vita_link: Get started with VITA now
@@ -3008,7 +3020,7 @@ en:
           health_insurance_premium_question:
             one: Did you pay health insurance premiums for yourself in %{year}?
             other: Did you pay health insurance premiums for yourself and your household in %{year}?
-          medicaid_content: Yes, if you are on Medicaid, your health insurance premium counts.  Check your monthly letter from the Idaho Department of Health and Welfare for your premium amount. It could be as low as $0, depending on your income and other factors.
+          medicaid_content: Yes, if you are on Medicaid, your health insurance premium counts.  Check your monthly letter from the Idaho Department of Health and Welfare for your premium amount. It could be as low as $0, depending on your income and other factors.
           medicaid_title: Do Medicaid and Medicare payments count?
           qualifications_content_html: |
             You can deduct health insurance premiums paid for yourself, your spouse, and your dependents, including medical, dental, and vision, as long as they haven’t been deducted from your income pre-tax.
@@ -3178,7 +3190,8 @@ en:
           help_text_html: You are considered totally disabled if you have a mental or physical condition that stops you from working and earning a living. <br><br>This condition is expected to last a long time, for an indefinite period, or to result in your death. If you are under 65 and want to claim the pension exclusion, you must have attached a certification from a qualified physician stating the nature of your impairment and that you are totally disabled to a previously filed tax return.
           help_title: What is considered totally and permanently disabled?
           no_neither: No, neither of us is
-          proof_question: Have you provided proof of your disability to Maryland for the pension exclusion in previous tax years?
+          primary_proof_question_html: Have <strong>you</strong> provided proof of your disability for the <a href="https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php">Maryland Pension Exclusion</a>in the previous tax years?
+          spouse_proof_question_html: Has <strong>your spouse</strong> provided proof of your disability for the  <a href="https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php">Maryland Pension Exclusion</a> in the previous tax years?
           title: Are you totally and permanently disabled?
           title_spouse: Are you or your spouse totally and permanently disabled?
           yes_both: Yes, we both are
@@ -3244,9 +3257,10 @@ en:
           other: Other retirement income (For example, a Keogh plan)
           pension_annuity_endowment: Money from a pension, annuity, or other retirement plan from your job
           political_subdivision_html: "<strong>Political subdivision lived in on December 31, %{filing_year}</strong>"
-          proof_of_disability: Proof provided of disability for the pension exclusion in past tax years
+          primary_proof_of_disability: Proof provided of disability for the pension exclusion in past tax years
           public_safety: Your service as a public safety employee
           retirement_income_deductions: Maryland retirement income details
+          spouse_proof_of_disability: Spouse's proof provided of disability for the pension exclusion in past tax years
           your_address: Address lived at on December 31, %{filing_year}
       md_social_security_benefits:
         edit:
@@ -3513,7 +3527,7 @@ en:
               </li>
             </ul>
           label: 'Total:'
-          title: Please tell us if you already made any payments toward your %{filing_year} New Jersey taxes.
+          title: Please tell us if you already made any payments toward your %{filing_year} New Jersey state income taxes.
       nj_gubernatorial_elections:
         edit:
           description_html: "<p>You may have heard this referred to as \"public financing\" of campaigns.</p> \n<p>You can contribute $1 of where your taxes go to the <a href=\"https://elec.nj.gov/pdffiles/temporary/WebsitePlugForGubfinProgram.pdf\" target=\"_blank\" rel=\"noopener nofollow\">Gubernatorial Elections Fund</a>.</p>\n<p>FYI: Your taxes won’t increase and your refund won't be reduced. This just gives New Jersey permission to use $1 of your tax dollars for this Fund.</p>\n"
@@ -3689,6 +3703,7 @@ en:
             16a_interest_income: Interest income
             20a_retirement_income: Retirement income
             27_total_income: Total income
+            28c_retirement_excluded_from_taxation: Retirement income excluded from Taxation
             29_nj_gross_income: New Jersey Gross Income
             30_exemptions: Exemptions (based on the size of your family, disability status, veteran status)
             31_medical: Medical expenses deducted
@@ -4231,7 +4246,7 @@ en:
           box14_explanation_md_html: For tax year %{year}, we will only process the <strong>STPICKUP</strong> code, which represents any contributions you made to the state retirement system.
           box14_explanation_nj_html: |
             <p>For this year, we will only need the amounts for <strong>UI/WF/SWF</strong> (may also appear as <strong>"UI/HC/WD"</strong> on your W2) <strong>and FLI</strong>.
-            <p><strong>If you do not see these, please leave these fields blank.</strong></p>
+            <p><strong>If you do not see these, please enter 0.</strong></p>
             <p><strong>Definitions:</strong></p>
             <ul class="list--bulleted">
               <li><strong>UI/WF/SWF</strong> (may also appear as <strong>"UI/HC/WD"</strong> on your W2) represents:</li>
@@ -4247,8 +4262,8 @@ en:
             <p>There may be other information in Box 14. That's ok. That information doesn't need to be reported with this tool. </p>
           box14_fli_html: "<strong>FLI</strong>"
           box14_html: "<strong>Box 14,</strong> Other"
-          box14_intro_nj_html: "<p>Employers may use Box 14 to report anything that doesn't fit somewhere else on a Form W-2.</p>\n<p>For this year, we will only need any amounts listed for <strong>UI/WF/SWF</strong> (may also appear as <strong>\"UI/HC/WD\"</strong> on your W2) <strong>and FLI</strong>.</p> \n<p><strong>If you do not see these, please leave these fields blank.</strong></p> \n<p>There may be other information in Box 14. That information doesn't need to be reported with this tool.</p>\n"
-          box14_stpickup_help_text_html: For %{year}, we will only process the STPICKUP code. If you do not see this code or have other codes in Box 14, please leave it blank.
+          box14_intro_nj_html: "<p>Employers may use Box 14 to report anything that doesn't fit somewhere else on a Form W-2.</p>\n<p>For this year, we will only need any amounts listed for <strong>UI/WF/SWF</strong> (may also appear as <strong>\"UI/HC/WD\"</strong> on your W2) <strong>and FLI</strong>.</p> \n<p><strong>If you do not see these, please enter 0.</strong></p> \n<p>There may be other information in Box 14. That information doesn't need to be reported with this tool.</p>\n"
+          box14_stpickup_help_text_html: For %{year}, we will only process the STPICKUP code. If you do not see this code or have other codes in Box 14, please enter 0.
           box14_stpickup_html: "<strong>STPICKUP</strong>"
           box14_ui_wf_swf_help_text_html: "(This may also appear on your W2 as <strong>UI/HC/WD.</strong>)"
           box14_ui_wf_swf_html: "<strong>UI/WF/SWF</strong>"
@@ -4263,6 +4278,7 @@ en:
           local_income_tax_amt_error: Cannot be greater than local wages and tips.
           local_wages_and_tips_amt_error: Please enter local wages and tips
           locality_nm_missing_error: Please select locality name
+          no_money_amount: Please enter an amount. If amount is blank, enter $0.
           save_and_continue: Save and Continue
           state_income_tax_amt_error: Cannot be greater than State wages and tips.
           state_wages_amt_error: Please enter State wages and tips
@@ -4283,7 +4299,7 @@ en:
         faq_prior_year_returns: Visit our FAQ for questions about prior year returns
         header: A free state filing service for taxpayers using IRS Direct File
         helper_heading_html: "<strong>How does this service work? </strong>"
-        looking_for_return_html: "<strong>Looking for your 2023 Arizona or New York State Tax Return?</strong> Sign in to download a copy of your state return."
+        looking_for_return_html: "<strong>Looking for your 2023 Arizona or New York State Tax Return?</strong> <a href='%{link}'>Sign in</a> to download a copy of your state return."
         section1_html: |
           <ol class="list--numbered"  style="padding-left: 2rem">
             <li>First, file and submit your federal return with <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">IRS Direct File</a> before using this service.</li>
@@ -5907,8 +5923,8 @@ en:
         relationship: Relationship to you
         save_cta: Save this person
         title: Tell us about your dependent. Please provide a few more details.
+        was_citizen: Is a US citizen
         was_married: Married as of 12/31/%{year}
-        was_not_citizen: Not a US citizen
         was_student: Full time higher education student
       index:
         add_person: Add a person

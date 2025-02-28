@@ -2,6 +2,7 @@ class Df1099rAccessor < DfXmlAccessor
   SELECTORS = {
     payer_name_control: "PayerNameControlTxt",
     payer_name: "PayerName BusinessNameLine1Txt",
+    payer_name2: "PayerName BusinessNameLine2Txt",
     payer_address_line1: "PayerUSAddress AddressLine1Txt",
     payer_address_line2: "PayerUSAddress AddressLine2Txt",
     payer_city_name: "PayerUSAddress CityNm",
