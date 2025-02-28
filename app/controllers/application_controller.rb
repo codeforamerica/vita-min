@@ -419,11 +419,6 @@ class ApplicationController < ActionController::Base
   end
   helper_method :before_state_file_launch?
 
-  def post_deadline_withdrawal_date(state_code)
-    app_time.in_time_zone(StateFile::StateInformationService.timezone(state_code))
-  end
-  helper_method :post_deadline_withdrawal_date
-
   def gyr_filing_years
     MultiTenantService.gyr.filing_years(app_time)
   end

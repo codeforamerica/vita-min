@@ -15,7 +15,7 @@ module StateFile
       def payment_deadline
         state_specific_payment_deadline(current_intake.state_code)
       end
-      helper_method :payment_deadline
+      # helper_method :payment_deadline
     end
   end
 end

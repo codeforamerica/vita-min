@@ -28,9 +28,9 @@ module DateHelper
     DateTime.new(MultiTenantService.statefile.current_tax_year.to_i + 1,
                  payment_deadline[:month],
                  payment_deadline[:day],
-                 app_time.hour,
-                 app_time.min,
-                 app_time.sec).in_time_zone(StateFile::StateInformationService.timezone(state_code))
+                 app_time&.hour || 0,
+                 app_time&.min || 0,
+                 app_time&.sec || 0).in_time_zone(StateFile::StateInformationService.timezone(state_code))
   end
 
   def valid_text_birth_date(birth_date_year, birth_date_month, birth_date_day, key = :birth_date)

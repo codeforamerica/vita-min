@@ -1450,30 +1450,6 @@ RSpec.describe ApplicationController do
     end
   end
 
-  describe "#post_deadline_withdrawal_date" do
-    let(:fake_time) { Time.find_zone('America/Los_Angeles').parse('2001-01-01 00:00:00') }
-
-    context "ny app" do
-      let(:state_code) { "ny" }
-
-      it "returns the current time in EST timezone" do
-        Timecop.freeze(fake_time) do
-          expect(subject.post_deadline_withdrawal_date(state_code)).to eq DateTime.parse('2001-01-01 3:00 EST')
-        end
-      end
-    end
-
-    context "az app" do
-      let(:state_code) { "az" }
-
-      it "returns the current time in MST timezone" do
-        Timecop.freeze(fake_time) do
-          expect(subject.post_deadline_withdrawal_date(state_code)).to eq DateTime.parse('2001-01-01 1:00 MST')
-        end
-      end
-    end
-  end
-
   describe "#client_has_return_for_every_gyr_filing_year?" do
     let(:client) { create(:client, intake: (build :intake)) }
 

@@ -16,8 +16,8 @@ module StateFile
                        :app_time
 
     with_options unless: -> { payment_or_deposit_type == "mail" } do
-      validate :date_electronic_withdrawal_is_valid_date, if: -> { app_time.before?(payment_deadline) }
-      validate :withdrawal_date_within_range, if: -> { date_electronic_withdrawal.present? && app_time.before?(payment_deadline) }
+      validate :date_electronic_withdrawal_is_valid_date
+      validate :withdrawal_date_within_range, if: -> { date_electronic_withdrawal.present? }
       validate :withdrawal_date_intake_validations, if: -> { date_electronic_withdrawal.present? }
       validates :withdraw_amount, presence: true, numericality: { greater_than: 0 }
       validate :withdraw_amount_higher_than_owed?
@@ -41,22 +41,23 @@ module StateFile
     private
 
     def date_electronic_withdrawal
-      if app_time.before?(payment_deadline)
+      if (app_time || Time.current).before?(state_specific_payment_deadline(@intake&.state_code))
+        # TODO: set the time to be within the State's timezone on the selected day
         parse_date_params(date_electronic_withdrawal_year, date_electronic_withdrawal_month, date_electronic_withdrawal_day)
       else
-        app_time.in_time_zone(StateFile::StateInformationService.timezone(state_code))
+        app_time.in_time_zone(StateFile::StateInformationService.timezone(@intake&.state_code))
       end
     end
 
-    def date_electronic_withdrawal_post_deadline
-      app_time.in_time_zone(StateFile::StateInformationService.timezone(state_code))
-    end
-
     def date_electronic_withdrawal_is_valid_date
-      valid_text_date(date_electronic_withdrawal_year,
-                      date_electronic_withdrawal_month,
-                      date_electronic_withdrawal_day,
-                      :date_electronic_withdrawal)
+      if app_time.before?(state_specific_payment_deadline(@intake&.state_code))
+        valid_text_date(date_electronic_withdrawal_year,
+                        date_electronic_withdrawal_month,
+                        date_electronic_withdrawal_day,
+                        :date_electronic_withdrawal)
+      else
+        true
+      end
     end
 
     def withdraw_amount_higher_than_owed?
@@ -71,7 +72,7 @@ module StateFile
 
     def withdrawal_date_within_range
       payment_deadline = state_specific_payment_deadline(intake&.state_code)
-      if date_electronic_withdrawal < Date.parse(app_time) || date_electronic_withdrawal > payment_deadline
+      if date_electronic_withdrawal < app_time || date_electronic_withdrawal > payment_deadline
         self.errors.add(:date_electronic_withdrawal,
                         I18n.t("forms.errors.taxes_owed.withdrawal_date_deadline",
                                payment_deadline_date: I18n.l(payment_deadline.to_date, format: :medium, locale: intake&.locale),
