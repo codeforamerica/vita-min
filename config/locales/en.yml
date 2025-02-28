@@ -2541,7 +2541,7 @@ en:
             eligibility_withdrew_msa_fthb: you either withdrew money from your Idaho Medical Savings Account and used it for a non-qualifying expense or you withdrew money from your First-Time Homebuyer Account and used it for non-eligible home costs
             eligibility_yonkers: you lived or earned income in Yonkers in %{filing_year}
             health_insurance_eligibility: someone in your tax household did not have health insurance (with minimum essential coverage) for every month in %{filing_year}
-            nj_retirement_warning_eligibility: you are using a method to calculate retirement income that our tool does not support
+            nj_retirement_warning_eligibility: you are using a method to calculate taxable retirement income that our tool does not support
             nyc_maintained_home: you lived in or maintained a home in New York City for some of the year
             nyc_residency: you lived in or maintained a home in New York City for some of the year
             permanent_address_outside_md: you did not reside in Maryland on Dec 31st
