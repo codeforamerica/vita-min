@@ -322,7 +322,7 @@ module PdfFiller
       answers
     end
 
-   def vita_consent_to_disclose_info
+    def vita_consent_to_disclose_info
       # aka form 15080 on page 4 info
       return {} unless @intake.primary_consented_to_service_at.present?
 
