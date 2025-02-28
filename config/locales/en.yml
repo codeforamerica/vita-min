@@ -3137,6 +3137,8 @@ en:
           political_subdivision_label_html: If you did not live within an incorporated city or area, choose “All other areas.”
           title: Select the county and political subdivision where you lived on December 31, %{filing_year}
           title_html: Select the <strong>county</strong> and <strong>political subdivision</strong> where you lived on December 31, %{filing_year}
+      md_pension_exclusion_offboarding:
+        title_html: "It looks like you may qualify for the <a href="%{https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php}" target="_blank" rel="noopener noreferrer">Maryland Pension Exclusion</a>"
       md_eligibility_filing_status:
         edit:
           eligibility_filing_status_label_text: Are you married and filing a joint state return?

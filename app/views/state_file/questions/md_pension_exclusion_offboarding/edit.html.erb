@@ -1,5 +1,5 @@
-<% title_key = ".title" %>
-<% title = I18n.exists?(title_key, locale) ? t(title_key) : t(".title.default") %>
+<% title = t(".title_html") %>
+<% content_for :page_title, title %>
 
 <% content_for :page_title, title %>
 <% content_for :card do %>
