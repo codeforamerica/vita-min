@@ -10,9 +10,68 @@ RSpec.describe StateFile::Questions::IdDisabilityController do
 
   describe "#edit" do
     render_views
+
+    let!(:state_file1099_r) { create(:state_file1099_r, intake: intake, taxable_amount: 25) }
+    let(:between_dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 63), 1, 1) }
+    let(:not_between_dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 60), 1, 1) }
+
     it 'succeeds' do
       get :edit
       expect(response).to be_successful
+    end
+
+    context "single" do
+      context "primary is within 62-65 years old" do
+        before do
+          intake.update(primary_birth_date: between_dob)
+        end
+
+        it "primary_disabled questions" do
+          get :edit, params: {}
+          expect(response).to render_template :edit
+          expect(response.body).to include(I18n.t('state_file.questions.id_disability.edit.question'))
+        end
+      end
+    end
+
+    context "mfj" do
+      let(:intake) { create :state_file_id_intake, :with_spouse, filing_status: :married_filing_jointly }
+      context "both filers are within 62-65 years old" do
+        before do
+          intake.update(primary_birth_date: between_dob)
+          intake.update(spouse_birth_date: between_dob)
+        end
+        it "shows mfj disability questions for both filers" do
+          get :edit, params: {}
+          expect(response).to render_template :edit
+          expect(response.body).to include(I18n.t('state_file.questions.id_disability.edit.question_spouse'))
+        end
+      end
+
+      context "only primary is within 62-65 years old" do
+        before do
+          intake.update(primary_birth_date: between_dob)
+          intake.update(spouse_birth_date: not_between_dob)
+        end
+
+        it "primary_disabled questions" do
+          get :edit, params: {}
+          expect(response).to render_template :edit
+          expect(response.body).to include(I18n.t('state_file.questions.id_disability.edit.question'))
+        end
+      end
+
+      context "only spouse is within 62-65 years old" do
+        before do
+          intake.update(primary_birth_date: not_between_dob)
+          intake.update(spouse_birth_date: between_dob)
+        end
+        it "spouse_disabled questions" do
+          get :edit, params: {}
+          expect(response).to render_template :edit
+          expect(response.body).to include(I18n.t('state_file.questions.id_disability.edit.question_spouse_only'))
+        end
+      end
     end
   end
 
