@@ -1,6 +1,7 @@
 module StateFile
   module Questions
     class RetirementIncomeController < QuestionsController
+      before_action :allows_1099_r_editing, only: [:edit, :update]
 
       def prev_path
         StateFile::Questions::IncomeReviewController.to_path_helper(return_to_review: params[:return_to_review])
@@ -34,6 +35,12 @@ module StateFile
           :payer_state_identification_number,
           :state_distribution_amount
         )
+      end
+
+      def allows_1099_r_editing
+        unless current_intake.allows_1099_r_editing?
+          redirect_to prev_path
+        end
       end
     end
   end
