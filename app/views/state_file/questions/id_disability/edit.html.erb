@@ -7,7 +7,7 @@
     <div class="white-group">
       <% if current_intake.filing_status_mfj? %>
         <%= f.cfa_radio_set(:mfj_disability, label_text: t(".question_spouse"), collection: [
-          { value: "me", label: t(".yes_me") },
+          { value: "primary", label: t(".yes_me") },
           { value: "spouse", label: t(".yes_spouse") },
           { value: "both", label: t(".yes_both") },
           { value: "none", label: t(".no_neither") }
@@ -33,6 +33,9 @@
       </div>
     </div>
 
+    <% if params[:return_to_review].present? %>
+      <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
+    <% end %>
     <%= f.continue %>
   <% end %>
 <% end %>

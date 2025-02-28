@@ -119,4 +119,36 @@ class StateFileIdIntake < StateFileBaseIntake
   def has_filing_requirement?
     direct_file_data.total_income_amount >= direct_file_data.total_itemized_or_standard_deduction_amount
   end
+
+  def has_filer_between_62_and_65_years_old?
+    primary_age = calculate_age(primary_birth_date, inclusive_of_jan_1: true)
+    if filing_status_mfj? && spouse_birth_date.present?
+      spouse_age = calculate_age(spouse_birth_date, inclusive_of_jan_1: true)
+      (primary_age >= 62 && primary_age < 65) || (spouse_age >= 62 && spouse_age < 65)
+    else
+      primary_age >= 62 && primary_age < 65
+    end
+  end
+
+  def eligible_1099rs
+    state_file1099_rs.select do |form1099r|
+      form1099r.taxable_amount&.to_f&.positive? && person_qualifies?(form1099r)
+    end
+  end
+
+  private
+
+  def person_qualifies?(form1099r)
+    primary_tin = primary.ssn
+    spouse_tin = spouse&.ssn
+
+    case form1099r.recipient_ssn
+    when primary_tin
+      primary_disabled_yes? || primary_senior?
+    when spouse_tin
+      spouse_disabled_yes? || spouse_senior?
+    else
+      false
+    end
+  end
 end

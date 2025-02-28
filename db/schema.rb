@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_02_26_025651) do
+ActiveRecord::Schema[7.1].define(version: 2025_02_26_234403) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1729,6 +1729,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_26_025651) do
     t.string "payer_city_name"
     t.string "payer_identification_number"
     t.string "payer_name"
+    t.string "payer_name2"
     t.string "payer_name_control"
     t.string "payer_state_code"
     t.string "payer_state_identification_number"
@@ -1781,6 +1782,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_26_025651) do
     t.datetime "created_at", null: false
     t.jsonb "details", default: "{}"
     t.integer "event_type"
+    t.bigint "state_file_archived_intake_id"
     t.bigint "state_file_archived_intake_request_id"
     t.datetime "updated_at", null: false
   end
@@ -1801,7 +1803,11 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_26_025651) do
   create_table "state_file_archived_intakes", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "email_address"
+    t.integer "failed_attempts", default: 0, null: false
+    t.string "fake_address_1"
+    t.string "fake_address_2"
     t.string "hashed_ssn"
+    t.datetime "locked_at"
     t.string "mailing_apartment"
     t.string "mailing_city"
     t.string "mailing_state"
@@ -2113,6 +2119,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_26_025651) do
     t.string "primary_first_name"
     t.string "primary_last_name"
     t.string "primary_middle_initial"
+    t.integer "primary_proof_of_disability_submitted", default: 0, null: false
     t.string "primary_signature"
     t.text "primary_signature_pin"
     t.decimal "primary_ssb_amount", precision: 12, scale: 2, default: "0.0", null: false
@@ -2120,7 +2127,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_26_025651) do
     t.bigint "primary_state_id_id"
     t.decimal "primary_student_loan_interest_ded_amount", precision: 12, scale: 2, default: "0.0", null: false
     t.string "primary_suffix"
-    t.integer "proof_of_disability_submitted", default: 0, null: false
     t.text "raw_direct_file_data"
     t.jsonb "raw_direct_file_intake_data"
     t.string "referrer"
@@ -2137,6 +2143,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_26_025651) do
     t.string "spouse_first_name"
     t.string "spouse_last_name"
     t.string "spouse_middle_initial"
+    t.integer "spouse_proof_of_disability_submitted", default: 0, null: false
     t.text "spouse_signature_pin"
     t.decimal "spouse_ssb_amount", precision: 12, scale: 2, default: "0.0", null: false
     t.string "spouse_ssn"
@@ -2990,6 +2997,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_26_025651) do
   add_foreign_key "site_coordinator_roles_vita_partners", "vita_partners"
   add_foreign_key "source_parameters", "vita_partners"
   add_foreign_key "state_file_archived_intake_access_logs", "state_file_archived_intake_requests"
+  add_foreign_key "state_file_archived_intake_access_logs", "state_file_archived_intakes", validate: false
   add_foreign_key "state_routing_fractions", "state_routing_targets"
   add_foreign_key "state_routing_fractions", "vita_partners"
   add_foreign_key "system_notes", "clients"
