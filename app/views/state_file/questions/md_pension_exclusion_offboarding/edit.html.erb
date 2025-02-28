@@ -1,31 +1,4 @@
 <% title = t(".title_html") %>
 <% content_for :page_title, title %>
 
-<% content_for :page_title, title %>
-<% content_for :card do %>
-  <h1 class="h2"><%= title %></h1>
-  <% unless ineligible_reason.nil? %>
-    <p><%= t(".body_html", ineligible_reason: ineligible_reason, prev_link: prev_path) %></p>
-  <% end %>
 
-  <% # i18n-tasks-use t('state_file.questions.eligible.vita_option.vita_introduction.nj') # hint for the i18n linter that, yes, we are using this key (sometimes) %>
-  <% vita_introduction_key = "state_file.questions.eligible.vita_option.vita_introduction.#{current_state_code}" %>
-  <% vita_introduction = I18n.exists?(vita_introduction_key, locale) ? t(vita_introduction_key) : nil %>
-  <% if vita_introduction.present? %>
-    <p><%= vita_introduction %></p>
-  <% end %>
-
-  <% # i18n-tasks-use t('state_file.questions.eligible.vita_option.connect_to_vita.nj') # hint for the i18n linter that, yes, we are using this key (sometimes) %>
-  <% vita_link_key = "state_file.questions.eligible.vita_option.connect_to_vita.#{current_state_code}" %>
-  <% vita_link_href = StateFile::StateInformationService.send("vita_link_#{I18n.locale}", current_state_code) %>
-  <% faq_link_href = state_faq_path(us_state: current_state_code) %>
-  <% vita_link = t(vita_link_key, faq_link_href: faq_link_href, vita_link_href: vita_link_href, default: '') %>
-  <%= vita_link.html_safe if vita_link.present? %>
-
-  <%= render 'state_file/questions/eligible/other_filing_options' %>
-
-  <% unless vita_link.present? %>
-    <p class="spacing-above-35"><%= link_to t("state_file.questions.eligible.vita_option.vita_link"), @vita_link, target: "_blank", rel: "noopener noreferrer" %></p>
-    <p><%= link_to t("state_file.questions.eligible.faq_link"), state_faq_path(us_state: current_state_code), target: "_blank", rel: "noopener noreferrer" %></p>
-  <% end %>
-<% end %>
