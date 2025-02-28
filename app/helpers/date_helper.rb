@@ -22,8 +22,15 @@ module DateHelper
     true
   end
 
+  # TODO: Deprecate
   def withdrawal_date_deadline(state_code)
     ApplicationController.new.withdrawal_date_deadline(state_code)
+  end
+
+  def payment_deadline(state_code)
+    payment_deadline = StateFile::StateInformationService.payment_deadline(state_code)
+    payment_deadline ||= { month: 4, day: 15 } # Default to April 15th
+    Date.new(MultiTenantService.statefile.current_tax_year + 1, payment_deadline[:month], payment_deadline[:day])
   end
 
   def valid_text_birth_date(birth_date_year, birth_date_month, birth_date_day, key = :birth_date)

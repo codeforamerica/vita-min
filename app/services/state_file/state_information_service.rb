@@ -26,6 +26,7 @@ module StateFile
       :voucher_path,
       :w2_supported_box14_codes,
       :w2_include_local_income_boxes,
+      :payment_deadline,
     ].freeze
 
     class << self
@@ -147,7 +148,8 @@ module StateFile
         voucher_form_name: "Form PV",
         voucher_path: "/pdfs/md-pv-TY2024.pdf",
         w2_supported_box14_codes: [{name: "STPICKUP"}],
-        w2_include_local_income_boxes: true
+        w2_include_local_income_boxes: true,
+        payment_deadline: { month: 4, day: 30 } # April 30th every year
       },
       nc: {
         intake_class: StateFileNcIntake,

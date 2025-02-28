@@ -6,8 +6,8 @@ RSpec.describe StateFile::TaxesOwedForm do
                                                    .and_return(Date.parse("April 30th, #{current_year}"))
   end
 
-  let!(:withdraw_amount) { 68 }
-  let!(:intake) {
+  let(:withdraw_amount) { 68 }
+  let(:intake) {
     create :state_file_id_intake,
            payment_or_deposit_type: "unfilled",
            withdraw_amount: withdraw_amount

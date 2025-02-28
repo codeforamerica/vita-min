@@ -419,6 +419,7 @@ class ApplicationController < ActionController::Base
   end
   helper_method :before_state_file_launch?
 
+  # TODO: Deprecate
   def withdrawal_date_deadline(state_code)
     case state_code
     when 'ny'
