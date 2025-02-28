@@ -56,6 +56,11 @@ FactoryBot.define do
     payer_identification_number { "22345" }
     recipient_ssn { "123456789" }
     recipient_name { "Dorothy Jane Red" }
+    recipient_address_line1 { "123 Sesame St" }
+    recipient_address_line2 { "Apt 202" }
+    recipient_city_name { "Long Island" }
+    recipient_state_code { "AZ" }
+    recipient_zip { "12345-1234" }
     gross_distribution_amount { 100.25 }
     taxable_amount { 50.5 }
     taxable_amount_not_determined { true }
