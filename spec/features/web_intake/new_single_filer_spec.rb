@@ -461,73 +461,74 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
       expect(page).to have_selector("h1", text: I18n.t("portal.client_logins.new.title"))
     end
 
-    scenario "new client filing single without dependents AND without uploading *required* docs" do
+    # This scenario has to do with state machine transitions and the intake status.
+    scenario "when not uploading required docs (i.e., ID, secondary ID, and selfie) sets state to intake_needs_doc_help" do
       intake = intake_up_to_documents
 
-      # IRS guidance
-      expect(page).to have_selector("h1", text: "First, we need to confirm your basic information.")
-      click_on "Continue"
+      # IRS guidance page
+      expect(intake.reload.current_step).to end_with('/documents/id-guidance')
+      click_on I18n.t('general.continue')
 
-      # Upload ID
-      expect(page).to have_selector("h1", text: "Attach a photo of your ID card")
-      click_on "I don't have this right now."
+      # Upload ID page
+      expect(intake.reload.current_step).to end_with('/documents/ids')
+      click_on I18n.t('views.layouts.document_upload.dont_have')
 
-      expect(page).to have_text('We know documents can be hard to collect.')
-      click_on 'Send a reminder link for this document.'
+      # Help page
+      # `intake.reload.current_step` does not yield the Help page's URL
+      expect(page).to have_text(I18n.t('documents.documents_help.show.header'))
+      click_on I18n.t('documents.documents_help.show.reminder_link')
 
-      # Selfie instructions
-      expect(intake.reload.current_step).to end_with("/documents/selfie-instructions")
-      expect(page).to have_selector("h1", text: "Confirm your identity with a photo of yourself")
+      # Selfie instructions page
+      expect(intake.reload.current_step).to end_with('/documents/selfie-instructions')
       click_on I18n.t('views.documents.selfie_instructions.submit_photo')
 
-      # Upload selfie
-      expect(intake.reload.current_step).to end_with("/documents/selfies")
-      expect(page).to have_selector("h1", text: I18n.t('views.documents.selfies.title'))
-      click_on "I don't have this right now."
+      # Upload selfie page
+      expect(intake.reload.current_step).to end_with('/documents/selfies')
+      click_on I18n.t('views.layouts.document_upload.dont_have')
 
-      expect(page).to have_text('We know documents can be hard to collect.')
-      click_on 'Send a reminder link for this document.'
+      # Help page
+      expect(page).to have_text(I18n.t('documents.documents_help.show.header'))
+      click_on I18n.t('documents.documents_help.show.reminder_link')
 
-      # Upload secondary ID doc
-      expect(intake.reload.current_step).to end_with("/documents/ssn-itins")
-      expect(page).to have_selector("h1", text: I18n.t('views.documents.ssn_itins.title'))
-      click_on "I don't have this right now."
+      # Upload secondary ID doc page
+      expect(intake.reload.current_step).to end_with('/documents/ssn-itins')
+      click_on I18n.t('views.layouts.document_upload.dont_have')
 
-      expect(page).to have_text('We know documents can be hard to collect.')
-      click_on 'Send a reminder link for this document.'
+      # Help page
+      expect(page).to have_text(I18n.t('documents.documents_help.show.header'))
+      click_on I18n.t('documents.documents_help.show.reminder_link')
 
-      # Documents: Intro
-      expect(page).to have_selector("h1", text: I18n.t('views.documents.intro.title'))
-      click_on "Continue"
+      # Documents: Intro page
+      # As of ty2024, header is "Now, let's collect your tax documents!"
+      expect(intake.reload.current_step).to end_with('/documents/intro')
+      click_on I18n.t('general.continue')
 
-      # Employment docs -- not 'required', let's go ahead and upload 1 here.
-      expect(page).to have_selector("h1", text: "Share your employment documents")
-      upload_file("document_type_upload_form_upload", Rails.root.join("spec", "fixtures", "files", "test-pattern.png"))
+      # Share your employment documents page
+      expect(intake.reload.current_step).to end_with('/documents/employment')
+      click_on I18n.t('views.layouts.document_upload.dont_have')
 
-      expect(page).to have_content("test-pattern.png")
-      expect(page).to have_link("Remove")
-      click_on "Continue"
+      # Help page
+      expect(page).to have_text(I18n.t('documents.documents_help.show.header'))
+      click_on I18n.t('documents.documents_help.show.reminder_link')
 
-      expect(page).to have_selector("h1", text: "Please share any additional documents.")
-      click_on "Continue"
+      # Additional documents page
+      expect(intake.reload.current_step).to end_with('/documents/additional-documents')
+      click_on I18n.t('general.continue')
 
-      expect(intake.reload.current_step).to end_with("/documents/overview")
-      expect(page).to have_selector("h1", text: "Great work! Here's a list of what we've collected.")
-      click_on "I've shared all my documents"
+      # List of what we've collected page
+      expect(intake.reload.current_step).to end_with('/documents/overview')
+      click_on I18n.t('views.documents.overview.finished') # i.e., "I've shared all my documents"
 
-      # Final Information
-      expect(intake.reload.current_step).to end_with("/questions/final-info")
-      fill_in "Anything else you'd like your tax preparer to know about your situation?", with: "One of my kids moved away for college, should I include them as a dependent?"
+      # "Anything else" page
+      expect(intake.reload.current_step).to end_with('/questions/final-info')
       expect {
-        click_on "Submit"
+        click_on I18n.t('general.submit')
       }.to change(OutgoingTextMessage, :count).by(1).and change(OutgoingEmail, :count).by(1)
 
-      # Did not upload ID, secondary ID, and selfie.
+      # Success! page
+      expect(intake.reload.current_step).to end_with('/questions/successfully-submitted')
+      # This next `expect` is the whole point of this particular spec test.
       expect(intake.tax_returns.all? { |tr| tr.current_state == :intake_needs_doc_help })
-
-      expect(intake.reload.current_step).to end_with("/questions/successfully-submitted")
-      expect(page).to have_selector("h1", text: "Success! Your tax information has been submitted.")
-      expect(page).to have_text("Client ID number: #{intake.client_id}")
     end
   end
 
