@@ -2833,8 +2833,7 @@ es:
             nj: Puedes presentar tus impuestos estatales de forma gratuita con la ayuda de preparadores de impuestos voluntarios certificados por el IRS del programa Volunteer Income Tax Assistance (VITA por las siglas en inglés) en Simplify CT.
           vita_link: Comienza con VITA ahora
           want_to_claim_learn_more_html: Obtén más información <a href="%{link}" target="_blank">aquí</a>.
-          want_to_claim_vita_1: Si eliges esta opción, te conectarás con un socio de Asistencia Voluntaria para la Declaración de Impuestos (VITA) en %{state_name}. Recibirás una llamada en los próximos días. Tendrás que responder algunas preguntas adicionales sobre tu situación tributaria y enviar de forma segura tus documentos en línea.
-          want_to_claim_vita_2: Los voluntarios certificados por el IRS de VITA prepararán  tu declaración estatal generalmente entre 2 y 3 semanas.
+          want_to_claim_vita_1: Es posible que puedas presentar tu declaración estatal de forma gratuita con voluntarios VITA certificados por el IRS, pero puede tardar de 2 a 3 semanas en completarse.
       email_address:
         edit:
           action: Enviar el código
