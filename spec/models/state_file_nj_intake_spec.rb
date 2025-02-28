@@ -20,6 +20,7 @@
 #  eligibility_all_members_health_insurance               :integer          default("unfilled"), not null
 #  eligibility_lived_in_state                             :integer          default("unfilled"), not null
 #  eligibility_out_of_state_income                        :integer          default("unfilled"), not null
+#  eligibility_retirement_warning_continue                :integer          default("unfilled")
 #  email_address                                          :citext
 #  email_address_verified_at                              :datetime
 #  email_notification_opt_in                              :integer          default("unfilled"), not null
