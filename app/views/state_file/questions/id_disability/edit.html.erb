@@ -5,15 +5,20 @@
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="white-group">
-      <% if current_intake.filing_status_mfj? %>
+      <% if current_intake.filing_status_mfj? && current_intake.all_filers_between_62_and_65_years_old? %>
         <%= f.cfa_radio_set(:mfj_disability, label_text: t(".question_spouse"), collection: [
           { value: "primary", label: t(".yes_me") },
           { value: "spouse", label: t(".yes_spouse") },
           { value: "both", label: t(".yes_both") },
           { value: "none", label: t(".no_neither") }
         ]) %>
-      <% else %>
+      <% elsif current_intake.primary_between_62_and_65_years_old? %>
         <%= f.cfa_radio_set(:primary_disabled, label_text: t(".question"), collection: [
+          { value: "yes", label: t("general.affirmative") },
+          { value: "no", label: t("general.negative") }
+        ]) %>
+      <% elsif current_intake.filing_status_mfs? && current_intake.spouse_between_62_and_65_years_old? %>
+        <%= f.cfa_radio_set(:spouse_disabled, label_text: t(".question_spouse_only"), collection: [
           { value: "yes", label: t("general.affirmative") },
           { value: "no", label: t("general.negative") }
         ]) %>

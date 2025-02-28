@@ -2937,6 +2937,7 @@ en:
           no_neither: No, neither of us is
           question: Do you meet the qualifications to be classified as disabled?
           question_spouse: Do you or your spouse meet the qualifications to be classified as disabled?
+          question_spouse_only: Does your spouse meet the qualification to be classified as disabled?
           title: You might be eligible for Idaho Retirement Income Deduction.
           yes_both: Yes, we both are
           yes_me: Yes, I am

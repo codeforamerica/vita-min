@@ -3,27 +3,71 @@ require "rails_helper"
 RSpec.describe StateFile::IdDisabilityForm do
   let(:intake) { create :state_file_id_intake }
   let(:form) { described_class.new(intake, params) }
+  let(:senior_dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 65), 1, 1) }
+  let(:not_senior_dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 63), 1, 1) }
+
 
   describe "#valid?" do
+    let(:primary_birth_date) { not_senior_dob }
+    let(:spouse_birth_date) { not_senior_dob }
+
+    before do
+      intake.update(primary_birth_date: primary_birth_date)
+      intake.update(spouse_birth_date: spouse_birth_date)
+    end
+
     context "when filing status is MFJ" do
       before do
         allow(intake).to receive(:filing_status_mfj?).and_return true
       end
 
-      context "when mfj_disability is blank" do
-        let(:params) { { mfj_disability: "" } }
+      context "when both filers are between 62-65" do
+        context "when mfj_disability is blank" do
+          let(:params) { { mfj_disability: "" } }
 
-        it "is invalid and attaches the correct error" do
-          expect(form).not_to be_valid
-          expect(form.errors[:mfj_disability]).to include "Can't be blank."
+          it "is invalid and attaches the correct error" do
+            expect(form).not_to be_valid
+            expect(form.errors[:mfj_disability]).to include "Can't be blank."
+          end
+        end
+
+        context "when mfj_disability is present" do
+          let(:params) { { mfj_disability: "primary" } }
+
+          it "is valid" do
+            expect(form).to be_valid
+          end
         end
       end
 
-      context "when mfj_disability is present" do
-        let(:params) { { mfj_disability: "primary" } }
+      context "when only primary is between 62-65" do
+        let(:primary_birth_date) { not_senior_dob }
+        let(:spouse_birth_date) { senior_dob }
 
-        it "is valid" do
-          expect(form).to be_valid
+        context "when primary_disabled is blank" do
+          let(:params) { { primary_disabled: "" } }
+
+          it "is invalid and attaches the correct error" do
+            expect(form).not_to be_valid
+            expect(form.errors[:primary_disabled]).to include "Can't be blank."
+          end
+        end
+
+        context "when primary_disabled is not yes/no" do
+          let(:params) { { primary_disabled: "invalid" } }
+
+          it "is invalid" do
+            expect(form).not_to be_valid
+            expect(form.errors[:primary_disabled]).to include "Can't be blank."
+          end
+        end
+
+        context "when primary_disabled is valid" do
+          let(:params) { { primary_disabled: "yes" } }
+
+          it "is valid" do
+            expect(form).to be_valid
+          end
         end
       end
     end
@@ -75,7 +119,12 @@ RSpec.describe StateFile::IdDisabilityForm do
              recipient_ssn: "600000030"
     end
 
-    context "when filing status is MFJ" do
+    context "when filing status is MFJ and both are between 62-65" do
+      before do
+        intake.update(primary_birth_date: not_senior_dob)
+        intake.update(spouse_birth_date: not_senior_dob)
+      end
+
       context "when mfj_disability is 'me'" do
         let(:params) { { mfj_disability: "primary" } }
 
