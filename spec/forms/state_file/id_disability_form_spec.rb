@@ -70,6 +70,37 @@ RSpec.describe StateFile::IdDisabilityForm do
           end
         end
       end
+
+      context "when only spouse is between 62-65" do
+        let(:primary_birth_date) { senior_dob }
+        let(:spouse_birth_date) { not_senior_dob }
+
+        context "when primary_disabled is blank" do
+          let(:params) { { spouse_disabled: "" } }
+
+          it "is invalid and attaches the correct error" do
+            expect(form).not_to be_valid
+            expect(form.errors[:spouse_disabled]).to include "Can't be blank."
+          end
+        end
+
+        context "when primary_disabled is not yes/no" do
+          let(:params) { { spouse_disabled: "invalid" } }
+
+          it "is invalid" do
+            expect(form).not_to be_valid
+            expect(form.errors[:spouse_disabled]).to include "Can't be blank."
+          end
+        end
+
+        context "when primary_disabled is valid" do
+          let(:params) { { spouse_disabled: "yes" } }
+
+          it "is valid" do
+            expect(form).to be_valid
+          end
+        end
+      end
     end
 
     context "when filing status is not MFJ" do
