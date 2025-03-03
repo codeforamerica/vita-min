@@ -454,4 +454,8 @@ class StateFileBaseIntake < ApplicationRecord
   def unsubscribed_from_sms?
     self.sms_notification_opt_in == "no"
   end
+
+  def eligible_1099rs
+    state_file1099_rs
+  end
 end

@@ -1,0 +1,22 @@
+<%
+    title = t(".title" )
+    content_for :page_title, title
+%>
+
+<% content_for :card do %>
+  <h1 class="h2"><%= title %></h1>
+  <%= t('.description_html') %>
+  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <div class="white-group">
+      <%= f.cfa_radio_set(
+            :eligibility_retirement_warning_continue,
+            label_text: t(".continue_heading"),
+            collection: [
+              { value: :yes, label: t(".continue_yes") },
+              { value: :no, label: t(".continue_no") },
+            ],
+          ) %>
+    </div>
+    <%= f.continue %>
+  <% end %>
+<% end %>

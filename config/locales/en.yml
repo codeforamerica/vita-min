@@ -2541,6 +2541,7 @@ en:
             eligibility_withdrew_msa_fthb: you either withdrew money from your Idaho Medical Savings Account and used it for a non-qualifying expense or you withdrew money from your First-Time Homebuyer Account and used it for non-eligible home costs
             eligibility_yonkers: you lived or earned income in Yonkers in %{filing_year}
             health_insurance_eligibility: someone in your tax household did not have health insurance (with minimum essential coverage) for every month in %{filing_year}
+            nj_retirement_warning_eligibility: you are using a method to calculate taxable retirement income that our tool does not support
             nyc_maintained_home: you lived in or maintained a home in New York City for some of the year
             nyc_residency: you lived in or maintained a home in New York City for some of the year
             permanent_address_outside_md: you did not reside in Maryland on Dec 31st
@@ -2852,7 +2853,16 @@ en:
               default: What are my free state filing options?
               nj: Learn more about the VITA process
         vita_option:
-          connect_to_vita: Get connected now
+          connect_to_vita:
+            nj: |
+              <p>
+                <a href="%{faq_link_href}" target="_blank" rel="noopener noreferrer">
+                  Visit our FAQ
+                </a>
+              </p>
+              <a href="%{vita_link_href}" target="_blank" rel="noopener noreferrer" class="button button--primary button--wide spacing-below-25">
+                Get connected now
+              </a>
           vita_introduction:
             nj: You can file your state taxes for free with help from IRS-certified Volunteer Income Tax Assistance (VITA) tax preparers at Simplify CT.
           vita_link: Get started with VITA now
@@ -3049,13 +3059,12 @@ en:
           why_ask_this: Why are you asking for this information?
       id_retirement_and_pension_income:
         edit:
-          question: 'Does this retirement income come from any of the following:'
-          question_b1: Your service as a Civil Service employee
+          question_b1: Your service as a civil service employee
           question_b2: Your service as an Idaho firefighter
-          question_b3: Your service as a Police officer of an Idaho city
+          question_b3: Your service as a police officer of an Idaho city
           question_b4: Your service as a member of the U.S. military
-          question_b5: Survivor benefits from a deceased spouse’s pension from one of the sources listed above”
-          read_more: Read more on the additional information on these qualified retirement benefits.
+          question_b5: Survivor benefits from a deceased spouse’s pension from one of the sources listed above
+          question_html: Does this retirement income come from any of the following sources and does it meet the qualifications on <a href="https://tax.idaho.gov/wp-content/uploads/forms/EFO00088/EFO00088_08-22-2024.pdf#page=7" target="_blank" rel="noopener noreferrer">pages 7-8 of the instruction booklet?</a>?
           subtitle: We need more information about your 1099-R to check your eligibility.
       id_review:
         edit:
@@ -3065,6 +3074,9 @@ en:
           no_donations_selected: "<strong>No donations selected</strong>"
           permanent_building_fund_tax: Permanent Building Fund Tax
           purchases_without_sales_tax: Purchases without paying sales tax
+          qualified_disabled_retirement_benefits: Qualified disabled retirement benefits
+          qualified_retirement_benefits_deduction: Qualified Retirement Benefits Deduction
+          qualified_retirement_benefits_deduction_explain: These allow people to deduct all or a portion of their retirement income from their taxes.
           voluntary_charitable_donations: Voluntary Charitable Donations
       id_sales_use_tax:
         edit:
@@ -3181,7 +3193,8 @@ en:
           help_text_html: You are considered totally disabled if you have a mental or physical condition that stops you from working and earning a living. <br><br>This condition is expected to last a long time, for an indefinite period, or to result in your death. If you are under 65 and want to claim the pension exclusion, you must have attached a certification from a qualified physician stating the nature of your impairment and that you are totally disabled to a previously filed tax return.
           help_title: What is considered totally and permanently disabled?
           no_neither: No, neither of us is
-          proof_question: Have you provided proof of your disability to Maryland for the pension exclusion in previous tax years?
+          primary_proof_question_html: Have <strong>you</strong> provided proof of your disability for the <a href="https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php">Maryland Pension Exclusion</a>in the previous tax years?
+          spouse_proof_question_html: Has <strong>your spouse</strong> provided proof of your disability for the  <a href="https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php">Maryland Pension Exclusion</a> in the previous tax years?
           title: Are you totally and permanently disabled?
           title_spouse: Are you or your spouse totally and permanently disabled?
           yes_both: Yes, we both are
@@ -3247,9 +3260,10 @@ en:
           other: Other retirement income (For example, a Keogh plan)
           pension_annuity_endowment: Money from a pension, annuity, or other retirement plan from your job
           political_subdivision_html: "<strong>Political subdivision lived in on December 31, %{filing_year}</strong>"
-          proof_of_disability: Proof provided of disability for the pension exclusion in past tax years
+          primary_proof_of_disability: Proof provided of disability for the pension exclusion in past tax years
           public_safety: Your service as a public safety employee
           retirement_income_deductions: Maryland retirement income details
+          spouse_proof_of_disability: Spouse's proof provided of disability for the pension exclusion in past tax years
           your_address: Address lived at on December 31, %{filing_year}
       md_social_security_benefits:
         edit:
@@ -3516,7 +3530,7 @@ en:
               </li>
             </ul>
           label: 'Total:'
-          title: Please tell us if you already made any payments toward your %{filing_year} New Jersey taxes.
+          title: Please tell us if you already made any payments toward your %{filing_year} New Jersey state income taxes.
       nj_gubernatorial_elections:
         edit:
           description_html: "<p>You may have heard this referred to as \"public financing\" of campaigns.</p> \n<p>You can contribute $1 of where your taxes go to the <a href=\"https://elec.nj.gov/pdffiles/temporary/WebsitePlugForGubfinProgram.pdf\" target=\"_blank\" rel=\"noopener nofollow\">Gubernatorial Elections Fund</a>.</p>\n<p>FYI: Your taxes won’t increase and your refund won't be reduced. This just gives New Jersey permission to use $1 of your tax dollars for this Fund.</p>\n"
@@ -3653,6 +3667,25 @@ en:
           taxable_amount_label: 'Taxable Amount:'
           taxpayer_name_label: 'Taxpayer Name:'
           title: Some of your retirement income might not be taxed in New Jersey.
+      nj_retirement_warning:
+        edit:
+          continue_heading: Do you want to continue with FileYourStateTaxes?
+          continue_no: No, I need a different solution to file my taxes
+          continue_yes: Yes, continue
+          description_html: |-
+            <p>New Jersey taxes some, but not all, of your retirement income.</p>
+            <p>If this is your first year filing taxes with retirement income, we recommend you review this <a href="https://www.nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git1&2.pdf" target="_blank" rel="noopener nofollow">guide</a>. It talks about the different methods to calculate what portion of your retirement income is subject to taxes.</p>
+            <p>Using the right method matters — it could save you money.</p>
+            <p>This tool uses the simplest, most common method: we use what's reported as the taxable amount on your 1099-R.</p>
+            <p><b>You Should NOT Continue Using This Tool If:</b></p>
+            <ul class="list--bulleted">
+              <li>You used the “three-year method” or the “general” method in a previous year.</li>
+              <li>You reviewed the guide and think one of those methods is right for you.</li>
+              <li>The retirement income you received is from a 401(k) account that you first contributed to prior to 1984. (Before 1984, New Jersey’s treatment of 401(k) plans differed from the federal government.)</li>
+            </ul>
+            <p>This tool can’t help with those scenarios, so you should not continue.</p>
+            <p>If you want to use what’s reported as the taxable amount on your 1099-R, you should continue.</p>
+          title: Let’s make sure we’re calculating your retirement income correctly.
       nj_review:
         edit:
           amount_calculated: Calculated Amount

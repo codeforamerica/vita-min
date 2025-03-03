@@ -62,13 +62,13 @@
 #  primary_first_name                         :string
 #  primary_last_name                          :string
 #  primary_middle_initial                     :string
+#  primary_proof_of_disability_submitted      :integer          default("unfilled"), not null
 #  primary_signature                          :string
 #  primary_signature_pin                      :text
 #  primary_ssb_amount                         :decimal(12, 2)   default(0.0), not null
 #  primary_ssn                                :string
 #  primary_student_loan_interest_ded_amount   :decimal(12, 2)   default(0.0), not null
 #  primary_suffix                             :string
-#  proof_of_disability_submitted              :integer          default("unfilled"), not null
 #  raw_direct_file_data                       :text
 #  raw_direct_file_intake_data                :jsonb
 #  referrer                                   :string
@@ -85,6 +85,7 @@
 #  spouse_first_name                          :string
 #  spouse_last_name                           :string
 #  spouse_middle_initial                      :string
+#  spouse_proof_of_disability_submitted       :integer          default("unfilled"), not null
 #  spouse_signature_pin                       :text
 #  spouse_ssb_amount                          :decimal(12, 2)   default(0.0), not null
 #  spouse_ssn                                 :string
@@ -130,7 +131,8 @@ class StateFileMdIntake < StateFileBaseIntake
   enum has_joint_account_holder: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_joint_account_holder
   enum primary_disabled: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_disabled
   enum spouse_disabled: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_disabled
-  enum proof_of_disability_submitted: { unfilled: 0, yes: 1, no: 2 }, _prefix: :proof_of_disability_submitted
+  enum primary_proof_of_disability_submitted: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_proof_of_disability_submitted
+  enum spouse_proof_of_disability_submitted: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_proof_of_disability_submitted
 
   def disqualifying_df_data_reason
     w2_states = direct_file_data.parsed_xml.css('W2StateLocalTaxGrp W2StateTaxGrp StateAbbreviationCd')
@@ -239,11 +241,7 @@ class StateFileMdIntake < StateFileBaseIntake
   end
 
   def at_least_one_disabled_filer_with_proof?
-    if filing_status_mfj?
-      (primary_disabled_yes? || spouse_disabled_yes?) && proof_of_disability_submitted_yes?
-    else
-      primary_disabled_yes? && proof_of_disability_submitted_yes?
-    end
+    primary_proof_of_disability_submitted_yes? || spouse_proof_of_disability_submitted_yes?
   end
 
   def qualifies_for_pension_exclusion?(filer)
@@ -252,5 +250,11 @@ class StateFileMdIntake < StateFileBaseIntake
 
   def has_banking_information_in_financial_resolution?
     true
+  end
+
+  def eligible_1099rs
+    @eligible_1099rs ||= self.state_file1099_rs.select do |form1099r|
+      form1099r.taxable_amount&.to_f&.positive?
+    end
   end
 end

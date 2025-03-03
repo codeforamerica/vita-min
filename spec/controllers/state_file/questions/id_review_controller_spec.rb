@@ -23,11 +23,12 @@ RSpec.describe StateFile::Questions::IdReviewController do
       intake.direct_file_data.fed_agi = 20_000
       intake.direct_file_data.fed_taxable_ssb = 1_000
       intake.direct_file_data.fed_taxable_income = 3_000
-      allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_7).and_return(25_000)
-      allow_any_instance_of(Efile::Id::Id39RCalculator).to receive(:calculate_sec_b_line_6).and_return(1_000)
-      allow_any_instance_of(Efile::Id::Id39RCalculator).to receive(:calculate_sec_b_line_18).and_return(400)
-      allow_any_instance_of(Efile::Id::Id39RCalculator).to receive(:calculate_sec_b_line_7).and_return(8_000)
       allow_any_instance_of(Efile::Id::Id39RCalculator).to receive(:calculate_sec_b_line_3).and_return(400)
+      allow_any_instance_of(Efile::Id::Id39RCalculator).to receive(:calculate_sec_b_line_6).and_return(1_000)
+      allow_any_instance_of(Efile::Id::Id39RCalculator).to receive(:calculate_sec_b_line_7).and_return(8_000)
+      allow_any_instance_of(Efile::Id::Id39RCalculator).to receive(:calculate_sec_b_line_8f).and_return(22)
+      allow_any_instance_of(Efile::Id::Id39RCalculator).to receive(:calculate_sec_b_line_18).and_return(400)
+      allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_7).and_return(25_000)
       allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_11).and_return(23_500)
       allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_16).and_return(500)
       allow_any_instance_of(Efile::Id::Id40Calculator).to receive(:calculate_line_19).and_return(600)
@@ -54,7 +55,7 @@ RSpec.describe StateFile::Questions::IdReviewController do
       expect(page_content).to include I18n.t("state_file.general.id_social_security_income")
       expect(page_content).to include "$8,000"
       expect(page_content).to include I18n.t("state_file.general.id_retirement_benefits")
-      expect(page_content).to include "$0"
+      expect(page_content).to include "$22"
       expect(page_content).to include I18n.t("state_file.general.id_interest_income")
       expect(page_content).to include "$400"
       expect(page_content).to include I18n.t("state_file.general.id_adjusted_income")

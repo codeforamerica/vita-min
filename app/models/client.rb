@@ -267,6 +267,18 @@ class Client < ApplicationRecord
     intake.is_ctc? && intake.tax_returns.any? { |tr| tr.service_type == "online_intake" }
   end
 
+  def has_archived_intake?
+    archived_intake.present?
+  end
+
+  def archived_intake
+    if intake.present? && intake.product_year != Rails.configuration.product_year
+      intake
+    elsif intake.blank?
+      Archived::Intake2021.find_by(client_id: self.id)
+    end
+  end
+
   def recaptcha_scores_average
     return efile_security_informations.last&.recaptcha_score unless recaptcha_scores.present?
 
