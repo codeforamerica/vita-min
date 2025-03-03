@@ -319,6 +319,7 @@ module PdfFiller
 
       # end - ty2024 page 5
 
+      answers.merge!(vita_consent_to_disclose_info) if @intake.client&.consent&.disclose_consented_at
       answers
     end
 
