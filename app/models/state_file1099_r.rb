@@ -72,7 +72,7 @@ class StateFile1099R < ApplicationRecord
     [:state_tax_withheld_amount, :state_distribution_amount].each do |attr_name|
       value = send(attr_name)
       if value.present? && value > gross_distribution_amount
-        errors.add(attr_name, I18n.t("activerecord.errors.models.state_file_1099_r.errors.must_be_less_than_gross_distribution"))
+        errors.add(attr_name, I18n.t("activerecord.errors.models.state_file1099_r.errors.must_be_less_than_gross_distribution"))
       end
     end
   end

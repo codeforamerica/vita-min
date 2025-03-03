@@ -20,7 +20,8 @@ en:
             date_of_contribution:
               inclusion: Date must be valid and in the current tax year
         state_file1099_r:
-          must_be_less_than_gross_distribution: Must be less than gross distribution amount
+          errors:
+            must_be_less_than_gross_distribution: Must be less than gross distribution amount
   attributes:
     confirm_primary_ssn: Confirm SSN or ITIN
     confirm_spouse_ssn: Confirm spouse's SSN or ITIN

@@ -116,7 +116,7 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
         include_examples "proceeds as if there are no errors"
       end
 
-      context "with 10x99rs having invalid Box 14 values" do
+      context "with 1099rs having invalid Box 14 values" do
         let(:intake) { create(:state_file_md_intake) }
         let!(:state_file1099_r) { create(:state_file1099_r, intake: intake, gross_distribution_amount: 500, state_tax_withheld_amount: 550) }
 
