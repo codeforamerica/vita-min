@@ -156,6 +156,10 @@ class StateFileNcIntake < StateFileBaseIntake
     false
   end
 
+  def allows_1099_r_editing?
+    false
+  end
+
   def check_nra_status?
     true
   end

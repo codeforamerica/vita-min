@@ -2525,6 +2525,7 @@ es:
             eligibility_withdrew_msa_fthb: retiraste dinero de tu Cuenta de Ahorros Médicos de Idaho y lo usaste para un gasto no calificado, o retiraste dinero de tu Cuenta de Comprador de Vivienda por Primera Vez y lo usaste para costos de vivienda no elegibles
             eligibility_yonkers: viviste o recibiste ingresos en Yonkers en el %{filing_year}
             health_insurance_eligibility: alguien en tu hogar fiscal no tuvo seguro médico (con cobertura mínima esencial) durante todos los meses de %{filing_year}
+            nj_retirement_warning_eligibility: estás usando un método para calcular tus ingresos imponibles de jubilación que esta herramienta no admite
             nyc_maintained_home: no viviste en Nueva York durante todo el
             nyc_residency: viviste o mantuviste una casa en la Ciudad de Nueva York durante parte del año
             permanent_address_outside_md: no estaban viviendo en Maryland el diciembre 31
@@ -2652,7 +2653,7 @@ es:
                   Puedes presentar tu declaración estatal de forma gratuita con voluntarios VITA certificados por el IRS en Maryland. Este proceso puede tardar de 2 a 3 semanas en completarse.
                   <ul>
                     <li>
-                      <a href="https://airtable.com/appAgBw351Iig0YI4/pagVvtGPWrpURJrrd/form" rel="noopener nofollow" target="_blank">Comienza con VITA ahora</a>
+                      <a href="https://airtable.com/appAgBw351Iig0YI4/pagpUP2HSWNXzPlIz/form" rel="noopener nofollow" target="_blank">Comienza con VITA ahora</a>
                     </li>
                     <li>
                       Obtén más información sobre este proceso y otras opciones para presentar tu declaración <a href="https://www.fileyourstatetaxes.org/es/md/faq/what_are_my_other_state_filing_options_this_year_46" rel="noopener nofollow" target="_blank">aquí</a>.
@@ -2832,8 +2833,7 @@ es:
             nj: Puedes presentar tus impuestos estatales de forma gratuita con la ayuda de preparadores de impuestos voluntarios certificados por el IRS del programa Volunteer Income Tax Assistance (VITA por las siglas en inglés) en Simplify CT.
           vita_link: Comienza con VITA ahora
           want_to_claim_learn_more_html: Obtén más información <a href="%{link}" target="_blank">aquí</a>.
-          want_to_claim_vita_1: Si eliges esta opción, te conectarás con un socio de Asistencia Voluntaria para la Declaración de Impuestos (VITA) en %{state_name}. Recibirás una llamada en los próximos días. Tendrás que responder algunas preguntas adicionales sobre tu situación tributaria y enviar de forma segura tus documentos en línea.
-          want_to_claim_vita_2: Los voluntarios certificados por el IRS de VITA prepararán  tu declaración estatal generalmente entre 2 y 3 semanas.
+          want_to_claim_vita_1: Es posible que puedas presentar tu declaración estatal de forma gratuita con voluntarios VITA certificados por el IRS, pero puede tardar de 2 a 3 semanas en completarse.
       email_address:
         edit:
           action: Enviar el código
@@ -2901,7 +2901,8 @@ es:
           help_title: "¿Qué se clasifica como discapacidad?"
           no_neither: No, ninguno de los dos lo está
           question: "¿Estás total y permanentemente discapacitado?"
-          question_spouse: "¿Tú o tu cónyuge están total y permanentemente discapacitados?"
+          question_both: "¿Tú o tu cónyuge están total y permanentemente discapacitados?"
+          question_spouse: "¿Tú cónyuge cumple con los requisitos para ser clasificados como discapacitado?"
           title: "¡Podrías ser elegible para una deducción por ingresos de jubilación de Idaho!."
           yes_both: Sí, ambos lo estamos
           yes_me: Sí lo estoy
@@ -3026,13 +3027,12 @@ es:
           why_ask_this: "¿Por qué están pidiendo esta información?"
       id_retirement_and_pension_income:
         edit:
-          question: "¿Este ingreso de jubilación proviene de alguno de los siguientes?"
-          question_b1: Tu servicio como empleado del Servicio Civil
+          question_b1: Tu servicio como empleado del servicio civil
           question_b2: Tu servicio como bombero de Idaho
-          question_b3: Tu servicio como oficial de policía de una ciudad de Idaho
-          question_b4: Tu servicio como miembro del ejército de los Estados Unidos.
-          question_b5: Beneficios de sobreviviente de la pensión de un cónyuge fallecido de una de las fuentes mencionadas anteriormente.
-          read_more: Conoce más sobre estos beneficios calificados de jubilación calificados.
+          question_b3: Tu servicio como policía de una ciudad en Idaho
+          question_b4: Tu servicio como miembro de las fuerzas armadas de los Estados unidos
+          question_b5: Beneficios de sobreviviente de la pensión de tu cónyuge fallecido que proviene de una de las fuentes enumeradas anteriormente
+          question_html: ¿Este ingreso de jubilación proviene de alguna de las siguientes fuentes y cumple con los requisitos de <a href="https://tax.idaho.gov/wp-content/uploads/forms/EFO00088/EFO00088_08-22-2024.pdf#page=7" target="_blank" rel="noopener noreferrer">las páginas 7 y 8 del folleto de instrucciones</a>?
           subtitle: Necesitamos más información de tu formulario 1099-R para confirmar tu elegibilidad.
       id_review:
         edit:
@@ -3042,6 +3042,9 @@ es:
           no_donations_selected: "<strong>No hay donaciones seleccionadas</strong>"
           permanent_building_fund_tax: Impuesto sobre el Fondo de Edificios Permanentes
           purchases_without_sales_tax: Compras sin pagar impuesto de ventas
+          qualified_disabled_retirement_benefits: Beneficios calificados de jubilación para personas con discapacidad
+          qualified_retirement_benefits_deduction: Deducción por Beneficios Calificados de Jubilación
+          qualified_retirement_benefits_deduction_explain: Estos permiten a las personas deducir de sus impuestos la totalidad o una parte de sus ingresos por jubilación.
           voluntary_charitable_donations: Donaciones caritativas voluntarias
       id_sales_use_tax:
         edit:
@@ -3072,6 +3075,7 @@ es:
           no_info_needed_nj: Este ingreso no es tributable en New Jersey.
           retirement_income_title: Jubilación (1099-R)
           review_and_edit_state_info: Revisar y editar la información estatal
+          review_state_info: Revisar la información estatal
           ssa_title: Beneficios del Seguro Social (SSA-1099)
           state_info_to_be_collected: Información estatal que se recogerá
           title: Estos son los formularios de ingresos que transferimos de tu declaración de impuestos federales.
@@ -3635,6 +3639,25 @@ es:
           taxable_amount_label: 'Taxable Amount:'
           taxpayer_name_label: 'Taxpayer Name:'
           title: Some of your retirement income might not be taxed in New Jersey.
+      nj_retirement_warning:
+        edit:
+          continue_heading: "¿Deseas continuar con FileYourStateTaxes?"
+          continue_no: No, necesito una solución diferente para presentar mis impuestos
+          continue_yes: Sí, continuar
+          description_html: |-
+            <p>New Jersey impone impuestos en una parte, pero no la totalidad, de tus ingresos de jubilación.</p>
+            <p>Si este es tu primer año declarando impuestos con ingresos de jubilación, te recomendamos que revises <a href="https://www.nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git1&2.pdf" target="_blank" rel="noopener nofollow">esta guía</a>. La guía trata diferentes métodos para calcular qué parte de tus ingresos de jubilación está sujeta a impuestos.</p>
+            <p>Usar el método correcto es importante: podría ahorrarte dinero.</p>
+            <p>Esta herramienta utiliza el método más simple y más común: utilizamos lo que esté presentado como el monto imponible en tu 1099-R.</p>
+            <p><b>No debes seguir utilizando esta herramienta si:</b></p>
+            <ul class="list--bulleted">
+              <li>Utilizaste el "método de tres años" o el método "general" en un año anterior.</li>
+              <li>Revisaste la guía y piensas que uno de esos métodos es mejor para ti.</li>
+              <li>Los ingresos de jubilación que recibiste provienen de una cuenta 401(k) a la que realizaste contribuciones por primera vez antes de 1984. (Antes de 1984, la ley sobre los planes 401(k) en New Jersey difería de la del gobierno federal).</li>
+            </ul>
+            <p>Esta herramienta no puede ayudarte con esos escenarios, por lo que no debes continuar.</p>
+            <p>Si deseas utilizar lo que se presenta como monto imponible en tu 1099-R, debes continuar.</p>
+          title: Asegurémonos de que calculamos correctamente tus ingresos de jubilación.
       nj_review:
         edit:
           amount_calculated: Monto calculado
