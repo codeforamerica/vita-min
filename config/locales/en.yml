@@ -247,7 +247,6 @@ en:
   forms:
     errors:
       at_least_one_year: Please pick at least one year.
-      no_money_amount: Please enter an amount. If amount is blank, enter $0.
       general: Please fix indicated errors before continuing.
       healthcare:
         one_box: You must select at least one box.
@@ -270,6 +269,7 @@ en:
         at_most_one_option_selected: You must either select none or the above options
       need_exactly_one_communication_method: Please enter only one form of contact.
       need_one_communication_method: Please choose some way for us to contact you.
+      no_money_amount: Please enter an amount. If amount is blank, enter $0.
       replace_me_text: Replace REPLACE ME with relevant information before proceeding.
       routing_account_number:
         not_same: Routing number and account number can not be the same
