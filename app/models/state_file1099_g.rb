@@ -41,19 +41,34 @@ class StateFile1099G < ApplicationRecord
 
   validates_inclusion_of :had_box_11, in: ['yes', 'no'], message: ->(_object, _data) { I18n.t("errors.messages.blank") }
   validates :address_confirmation, inclusion: { in: %w[yes no], message: ->(_object, _data) { I18n.t("errors.messages.blank") } }, if: :had_box_11_yes?
-  validates :payer_name, :presence => {message: ->(_object, _data) { I18n.t("errors.attributes.payer_name.blank") }}, format: { with: /\A([A-Za-z0-9#&'() -]*[A-Za-z0-9#&'()])?\z/.freeze, message: ->(_object, _data) { I18n.t("errors.attributes.payer_name.invalid") }}
-  validates :payer_street_address, :presence => {message: ->(_object, _data) { I18n.t("errors.attributes.address.street_address.blank") }}, format: { with: /\A[a-zA-Z0-9\/\s-]+\z/.freeze, message: ->(_object, _data) { I18n.t("errors.attributes.address.street_address.invalid") }}
-  validates :payer_city, :presence => {message: ->(_object, _data) { I18n.t("errors.attributes.address.city.blank") }}, format: { with: /\A[a-zA-Z\s]+\z/.freeze, message: ->(_object, _data) { I18n.t("errors.attributes.address.city.invalid") }}
+  validates :payer_name, :presence => {message: ->(_object, _data) { I18n.t("errors.attributes.payer_name.blank") }}, format: { with: /\A([A-Za-z0-9#&'() -]*[A-Za-z0-9#&'()])?\z/, message: ->(_object, _data) { I18n.t("errors.attributes.payer_name.invalid") }}
+  validates :payer_street_address, :presence => {message: ->(_object, _data) { I18n.t("errors.attributes.address.street_address.blank") }}, format: { with: %r{\A[a-zA-Z0-9/\s-]+\z}, message: ->(_object, _data) { I18n.t("errors.attributes.address.street_address.invalid") }}
+  validates :payer_city, :presence => {message: ->(_object, _data) { I18n.t("errors.attributes.address.city.blank") }}, format: { with: /\A[a-zA-Z\s]+\z/, message: ->(_object, _data) { I18n.t("errors.attributes.address.city.invalid") }}
   validates :payer_zip, zip_code: { zip_code_lengths: [5, 9, 12].freeze }
   validates_presence_of :state_identification_number, message: ->(_object, _data) { I18n.t("errors.attributes.state_id_number.empty") }
   validates_inclusion_of :recipient, in: ['primary', 'spouse'], message: ->(_object, _data) { I18n.t("errors.messages.blank") }
-  validates :recipient_street_address, presence: true, format: { :with => /\A[a-zA-Z0-9\/\s-]+\z/.freeze, message: ->(_object, _data) { I18n.t("errors.attributes.address.street_address.invalid") }}
-  validates :recipient_street_address_apartment, format: { :with => /\A[a-zA-Z0-9\/\s-]+\z/.freeze, message: ->(_object, _data) { I18n.t("errors.attributes.address.street_address.invalid") }}, allow_blank: true
-  validates :recipient_city, presence: true, format: { with: /\A[a-zA-Z\s]+\z/.freeze, message: ->(_object, _data) { I18n.t("errors.attributes.address.city.invalid") }}
+  validates :recipient_street_address, presence: true, format: { :with => %r{\A[a-zA-Z0-9/\s-]+\z}, message: ->(_object, _data) { I18n.t("errors.attributes.address.street_address.invalid") }}
+  validates :recipient_street_address_apartment, format: { :with => %r{\A[a-zA-Z0-9/\s-]+\z}, message: ->(_object, _data) { I18n.t("errors.attributes.address.street_address.invalid") }}, allow_blank: true
+  validates :recipient_city, presence: true, format: { with: /\A[a-zA-Z\s]+\z/, message: ->(_object, _data) { I18n.t("errors.attributes.address.city.invalid") }}
   validates :recipient_zip, zip_code: { zip_code_lengths: [5, 9, 12].freeze }
-  validates :unemployment_compensation_amount, numericality: { greater_than_or_equal_to: 1 }
-  validates :federal_income_tax_withheld_amount, numericality: { greater_than_or_equal_to: 0}
-  validates :state_income_tax_withheld_amount, numericality: { greater_than_or_equal_to: 0}
+  validates :unemployment_compensation_amount,
+    numericality: {
+      greater_than_or_equal_to: 1
+    }
+  validates :federal_income_tax_withheld_amount,
+    numericality: {
+      greater_than_or_equal_to: 0,
+    },
+    presence: {
+        message: proc { I18n.t('forms.errors.no_money_amount') }
+    }
+  validates :state_income_tax_withheld_amount,
+    numericality: {
+      greater_than_or_equal_to: 0,
+    },
+    presence: {
+        message: proc { I18n.t('forms.errors.no_money_amount') }
+    }
   validate :state_specific_validation
 
   def update_conditional_attributes
