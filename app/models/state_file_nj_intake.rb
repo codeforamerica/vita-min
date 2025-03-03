@@ -20,6 +20,7 @@
 #  eligibility_all_members_health_insurance               :integer          default("unfilled"), not null
 #  eligibility_lived_in_state                             :integer          default("unfilled"), not null
 #  eligibility_out_of_state_income                        :integer          default("unfilled"), not null
+#  eligibility_retirement_warning_continue                :integer          default("unfilled")
 #  email_address                                          :citext
 #  email_address_verified_at                              :datetime
 #  email_notification_opt_in                              :integer          default("unfilled"), not null
@@ -136,6 +137,7 @@ class StateFileNjIntake < StateFileBaseIntake
   enum spouse_contribution_gubernatorial_elections: { unfilled: 0, yes: 1, no: 2}, _prefix: :spouse_contribution_gubernatorial_elections
 
   enum eligibility_all_members_health_insurance: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_all_members_health_insurance
+  enum eligibility_retirement_warning_continue: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_retirement_warning_continue
 
   # checkboxes - "unfilled" means not-yet-seen because it saves as "no" when unchecked
   enum homeowner_home_subject_to_property_taxes: { unfilled: 0, yes: 1, no: 2}, _prefix: :homeowner_home_subject_to_property_taxes
@@ -185,6 +187,10 @@ class StateFileNjIntake < StateFileBaseIntake
     self.eligibility_made_less_than_threshold? || self.eligibility_claimed_as_dependent?
   end
 
+  def nj_retirement_warning_eligibility
+    eligibility_retirement_warning_continue_no? ? "ineligible" : "eligible"
+  end
+
   def health_insurance_eligibility
     if self.eligibility_all_members_health_insurance_no? && !self.has_health_insurance_requirement_exception?
       return "ineligible"
@@ -194,7 +200,8 @@ class StateFileNjIntake < StateFileBaseIntake
 
   def disqualifying_eligibility_rules
     {
-      health_insurance_eligibility: "ineligible"
+      health_insurance_eligibility: "ineligible",
+      nj_retirement_warning_eligibility: "ineligible"
     }
   end
 
