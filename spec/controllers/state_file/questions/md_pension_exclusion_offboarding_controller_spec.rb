@@ -5,9 +5,10 @@ RSpec.describe StateFile::Questions::MdPensionExclusionOffboardingController do
   let!(:state_file1099_r) { create(:state_file1099_r, intake: intake) }
 
   before do
-    allow(Flipper).to receive(:enabled?)
+    allow(Flipper).to receive(:enabled?).and_call_original
+    allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
   end
-  
+
   describe "#show?" do
     context "when they have no 1099Rs in their DF XML" do
       before { allow(intake).to receive(:state_file1099_rs).and_return([]) }
@@ -68,6 +69,17 @@ RSpec.describe StateFile::Questions::MdPensionExclusionOffboardingController do
             expect(described_class.show?(intake)).to eq false
           end
         end
+      end
+    end
+
+    context "when the flipper flag is not enabled " do
+      before do
+        allow(Flipper).to receive(:enabled?).and_call_original
+        allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(false)
+      end
+
+      it "shows" do
+        expect(described_class.show?(intake)).to eq false
       end
     end
   end
