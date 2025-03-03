@@ -71,7 +71,7 @@ RSpec.describe StateFileArchivedIntake, type: :model do
       before { allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new("production")) }
       context "when state_file_archived_intake has different mailing states" do
         it "uses the correct file key and for AZ" do
-          state_file_archived_intake.update!(mailing_state: "AZ")
+          state_file_archived_intake.update!(state_code: "AZ")
 
           allow(state_file_archived_intake).to receive(:download_file_from_s3).and_call_original
 
@@ -85,7 +85,7 @@ RSpec.describe StateFileArchivedIntake, type: :model do
         end
 
         it "uses the correct file key and bucket for NY" do
-          state_file_archived_intake.update!(mailing_state: "NY")
+          state_file_archived_intake.update!(state_code: "NY")
 
           allow(state_file_archived_intake).to receive(:download_file_from_s3).and_call_original
 

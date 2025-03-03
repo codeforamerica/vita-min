@@ -32,6 +32,7 @@ module Navigation
                                           Navigation::NavigationStep.new(StateFile::Questions::IncomeReviewController), # line 15-27, but intentionally moved up for eligibility checks
                                           Navigation::NavigationStep.new(StateFile::Questions::W2Controller),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjRetirementIncomeSourceController),
+                                          Navigation::NavigationStep.new(StateFile::Questions::NjRetirementWarningController),
                                         ]),
       Navigation::NavigationSection.new("state_file.navigation.nj.section_2", [
                                           Navigation::NavigationStep.new(StateFile::Questions::NjEligibilityHealthInsuranceController),
