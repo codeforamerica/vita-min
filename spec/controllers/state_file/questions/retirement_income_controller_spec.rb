@@ -6,7 +6,7 @@ RSpec.describe StateFile::Questions::RetirementIncomeController do
     sign_in intake
   end
 
-  describe "#edit" do
+  describe "#show" do
     let(:client) { intake.client }
     let!(:form1099r) do
       create :state_file1099_r,
@@ -22,7 +22,7 @@ RSpec.describe StateFile::Questions::RetirementIncomeController do
     render_views
 
     it "renders information about the existing retirement income" do
-      get :edit, params: params
+      get :show, params: params
 
       expect(response.body).to include("Ace Hardware")
       expect(response.body).to include("Phoenix Wright")
@@ -32,9 +32,49 @@ RSpec.describe StateFile::Questions::RetirementIncomeController do
     end
   end
 
+
+  describe "#edit" do
+    let(:client) { intake.client }
+    let!(:form1099r) do
+      create :state_file1099_r,
+             payer_name: "Ace Hardware",
+             recipient_name: "Phoenix Wright",
+             payer_state_identification_number: 'az123456669',
+             state_distribution_amount: 30,
+             state_tax_withheld_amount: 40,
+             intake: intake
+    end
+    let(:params) { { id: form1099r.id } }
+
+    render_views
+
+    context "when the intake's 1099R is editable" do
+      it "renders information about the existing retirement income" do
+        get :edit, params: params
+
+        expect(response.body).to include("Ace Hardware")
+        expect(response.body).to include("Phoenix Wright")
+        expect(response.body).to include("az123456669")
+        expect(response.body).to include("30")
+        expect(response.body).to include("40")
+      end
+    end
+
+    context "when the intake's 1099R is not editable" do
+      let(:intake) { create :state_file_nc_intake, :with_spouse }
+      it "renders information about the existing retirement income" do
+        get :edit, params: params
+        expect(response).to redirect_to(questions_income_review_path)
+      end
+    end
+  end
+
   describe "#update" do
     let!(:form1099r) do
       create :state_file1099_r,
+             state_distribution_amount: 15,
+             payer_state_identification_number: 'NC3456767',
+             state_tax_withheld_amount: 100,
              intake: intake
     end
     let(:params) do
@@ -48,7 +88,8 @@ RSpec.describe StateFile::Questions::RetirementIncomeController do
       }
     end
 
-    it "updates the 1099R information and redirects to the income review page" do
+
+    it "does not update the 1099R information and redirects to the income review page" do
       post :update, params: params
 
       expect(response).to redirect_to(questions_income_review_path)
@@ -60,26 +101,40 @@ RSpec.describe StateFile::Questions::RetirementIncomeController do
     end
 
     context "with invalid params" do
-      render_views
+        render_views
 
-      let(:params) do
-        {
-          id: form1099r.id,
-          state_file1099_r: {
-            state_tax_withheld_amount: '-10',
-            payer_state_identification_number: '123456789'
+        let(:params) do
+          {
+            id: form1099r.id,
+            state_file1099_r: {
+              state_tax_withheld_amount: '-10',
+              payer_state_identification_number: '123456789'
+            }
           }
-        }
+        end
+
+        it "renders edit with validation errors" do
+          expect do
+            post :update, params: params
+          end.not_to change(StateFile1099R, :count)
+
+          expect(response).to render_template(:edit)
+
+          expect(response.body).to include "must be greater than or equal to 0"
+        end
       end
 
-      it "renders edit with validation errors" do
-        expect do
-          post :update, params: params
-        end.not_to change(StateFile1099R, :count)
+    context "when the intake's 1099R is not editable" do
+      let(:intake) { create :state_file_nc_intake, :with_spouse }
+      it "updates the 1099R information and redirects to the income review page" do
+        post :update, params: params
 
-        expect(response).to render_template(:edit)
+        expect(response).to redirect_to(questions_income_review_path)
 
-        expect(response.body).to include "must be greater than or equal to 0"
+        form1099r.reload
+        expect(form1099r.state_distribution_amount).to eq 15
+        expect(form1099r.payer_state_identification_number).to eq 'NC3456767'
+        expect(form1099r.state_tax_withheld_amount).to eq 100
       end
     end
   end
