@@ -4059,11 +4059,11 @@ es:
           title: "¡Ya casi terminas! Por favor revisa la información que tenemos."
           your_name: Tu nombre
         az_retirement_income_deductions_review_header:
-          government_pension: Qualifying federal, Arizona, or local government pension plan
-          none_apply: None apply
+          government_pension: Plan de pensiones calificado del gobierno federal, de Arizona o gubernamental
+          none_apply: Ninguno aplica
           subtitle: These allow people to deduct all or a portion of their retirement income from their taxes.
           title: Arizona retirement income deductions
-          uniformed_services: Retired or retainer pay of the uniformed services of the United States
+          uniformed_services: Pago de jubilación o retención de los servicios uniformados de los Estados Unidos
         id_retirement_income_deductions_review_header:
           qualified_disabled_retirement_benefits: Beneficios calificados de jubilación para personas con discapacidad
           qualified_retirement_benefits_deduction: Deducción por Beneficios Calificados de Jubilación
