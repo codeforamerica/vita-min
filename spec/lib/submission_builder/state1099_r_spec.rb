@@ -10,7 +10,7 @@ describe SubmissionBuilder::State1099R do
           intake: intake,
           state_code: state_code.upcase,
           payer_state_code: state_code.upcase
-          )
+        )
       end
       let(:intake) do
         create("state_file_#{state_code}_intake".to_sym)
@@ -54,6 +54,21 @@ describe SubmissionBuilder::State1099R do
         end
         it "fills in F1099RStateTaxGrp StateAbbreviationCd with intake's state_code" do
           expect(doc.at("F1099RStateTaxGrp StateAbbreviationCd").text).to eq "#{intake.state_code.upcase}"
+        end
+      end
+
+      context "omitting recipient address tag when address absent" do
+        before do
+          form1099r.update(
+            recipient_address_line1: nil,
+            recipient_address_line2: nil,
+            recipient_city_name: nil,
+            recipient_state_code: nil,
+            recipient_zip: nil,
+          )
+        end
+        it "doesn't include the tag" do
+          expect(doc.at("RecipientUSAddress")).to be_nil
         end
       end
     end
