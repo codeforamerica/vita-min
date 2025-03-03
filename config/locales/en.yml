@@ -2541,6 +2541,7 @@ en:
             eligibility_withdrew_msa_fthb: you either withdrew money from your Idaho Medical Savings Account and used it for a non-qualifying expense or you withdrew money from your First-Time Homebuyer Account and used it for non-eligible home costs
             eligibility_yonkers: you lived or earned income in Yonkers in %{filing_year}
             health_insurance_eligibility: someone in your tax household did not have health insurance (with minimum essential coverage) for every month in %{filing_year}
+            nj_retirement_warning_eligibility: you are using a method to calculate taxable retirement income that our tool does not support
             nyc_maintained_home: you lived in or maintained a home in New York City for some of the year
             nyc_residency: you lived in or maintained a home in New York City for some of the year
             permanent_address_outside_md: you did not reside in Maryland on Dec 31st
@@ -3058,13 +3059,12 @@ en:
           why_ask_this: Why are you asking for this information?
       id_retirement_and_pension_income:
         edit:
-          question: 'Does this retirement income come from any of the following:'
-          question_b1: Your service as a Civil Service employee
+          question_b1: Your service as a civil service employee
           question_b2: Your service as an Idaho firefighter
-          question_b3: Your service as a Police officer of an Idaho city
+          question_b3: Your service as a police officer of an Idaho city
           question_b4: Your service as a member of the U.S. military
-          question_b5: Survivor benefits from a deceased spouse’s pension from one of the sources listed above”
-          read_more: Read more on the additional information on these qualified retirement benefits.
+          question_b5: Survivor benefits from a deceased spouse’s pension from one of the sources listed above
+          question_html: Does this retirement income come from any of the following sources and does it meet the qualifications on <a href="https://tax.idaho.gov/wp-content/uploads/forms/EFO00088/EFO00088_08-22-2024.pdf#page=7" target="_blank" rel="noopener noreferrer">pages 7-8 of the instruction booklet?</a>?
           subtitle: We need more information about your 1099-R to check your eligibility.
       id_review:
         edit:
@@ -3664,6 +3664,25 @@ en:
           taxable_amount_label: 'Taxable Amount:'
           taxpayer_name_label: 'Taxpayer Name:'
           title: Some of your retirement income might not be taxed in New Jersey.
+      nj_retirement_warning:
+        edit:
+          continue_heading: Do you want to continue with FileYourStateTaxes?
+          continue_no: No, I need a different solution to file my taxes
+          continue_yes: Yes, continue
+          description_html: |-
+            <p>New Jersey taxes some, but not all, of your retirement income.</p>
+            <p>If this is your first year filing taxes with retirement income, we recommend you review this <a href="https://www.nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git1&2.pdf" target="_blank" rel="noopener nofollow">guide</a>. It talks about the different methods to calculate what portion of your retirement income is subject to taxes.</p>
+            <p>Using the right method matters — it could save you money.</p>
+            <p>This tool uses the simplest, most common method: we use what's reported as the taxable amount on your 1099-R.</p>
+            <p><b>You Should NOT Continue Using This Tool If:</b></p>
+            <ul class="list--bulleted">
+              <li>You used the “three-year method” or the “general” method in a previous year.</li>
+              <li>You reviewed the guide and think one of those methods is right for you.</li>
+              <li>The retirement income you received is from a 401(k) account that you first contributed to prior to 1984. (Before 1984, New Jersey’s treatment of 401(k) plans differed from the federal government.)</li>
+            </ul>
+            <p>This tool can’t help with those scenarios, so you should not continue.</p>
+            <p>If you want to use what’s reported as the taxable amount on your 1099-R, you should continue.</p>
+          title: Let’s make sure we’re calculating your retirement income correctly.
       nj_review:
         edit:
           amount_calculated: Calculated Amount

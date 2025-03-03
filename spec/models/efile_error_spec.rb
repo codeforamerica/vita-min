@@ -101,6 +101,7 @@ describe 'EfileError' do
       "nj-ineligible-property-tax",
       "nj-medical-expenses",
       "nj-retirement-income-source",
+      "nj-retirement-warning",
       "nj-review",
       "nj-sales-use-tax",
       "nj-tenant-eligibility",

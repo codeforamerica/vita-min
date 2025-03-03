@@ -4,11 +4,11 @@ RSpec.describe StateFile::ArchivedIntakes::IdentificationNumberForm do
   let(:intake_ssn) { "123456789" }
   let(:hashed_ssn) { SsnHashingService.hash(intake_ssn) }
   let(:input_ssn) { "1234" }
-  let(:archived_intake) {
+  let(:state_file_archived_intake) {
     build(:state_file_archived_intake, hashed_ssn: hashed_ssn)
   }
-  let(:state_file_archived_intake_request) { build(:state_file_archived_intake_request, state_file_archived_intake: archived_intake) }
-  let(:form) { described_class.new(state_file_archived_intake_request, {ssn: input_ssn}) }
+
+  let(:form) { described_class.new(state_file_archived_intake, {ssn: input_ssn}) }
 
   describe "validations" do
     context "with an input that does not look like an ssn" do
@@ -28,17 +28,6 @@ RSpec.describe StateFile::ArchivedIntakes::IdentificationNumberForm do
         expect(form).not_to be_valid
         expect(form.errors).to include :ssn
         expect(form.errors[:ssn]).to include "Can't be blank."
-      end
-    end
-
-    context "with a valid matching ssn input but no matching intake" do
-      let(:archived_intake) { nil }
-      let(:input_ssn) { "123-45-6789" }
-
-      it "to not be valid" do
-        expect(form).to_not be_valid
-        expect(form.errors).to include :ssn
-        expect(form.errors[:ssn]).to include I18n.t("state_file.archived_intakes.identification_number.edit.error_message")
       end
     end
 
