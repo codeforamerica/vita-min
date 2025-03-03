@@ -16,7 +16,7 @@ module StateFile
       end
 
       def self.show?(intake)
-        Flipper.enabled?(:show_retirement_ui) && intake.eligible_1099rs.length.positive?
+        Flipper.enabled?(:show_retirement_ui) && intake.eligible_1099rs.present?
       end
 
       private
