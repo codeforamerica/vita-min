@@ -1,0 +1,31 @@
+{
+  "familyAndHousehold": [],
+  "socialSecurityReports": [
+    {
+      "formType": "SSA-1099",
+      "recipientTin": "400-00-2057",
+      "netBenefits": "25000.00"
+    }
+  ],
+  "filers": [
+    {
+      "lastName": "Eagan",
+      "dateOfBirth": "1966-07-01",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "firstName": "Helena",
+      "middleInitial": "R",
+      "educatorExpenses": "0.00",
+      "tin": "400-00-2057",
+      "interestReportsTotal": "0.00",
+      "isDisabled": false,
+      "form1099GsTotal": "0.00",
+      "isStudent": false,
+      "ssnNotValidForEmployment": null,
+      "hsaTotalDeductibleAmount": null
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [],
+  "interestReports": []
+}
