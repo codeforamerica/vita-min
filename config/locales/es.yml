@@ -269,6 +269,7 @@ es:
         at_most_one_option_selected: Debe seleccionar ninguna o las opciones anteriores.
       need_exactly_one_communication_method: Ingrese solo una forma de contacto.
       need_one_communication_method: Por favor, elija alguna manera para que nos comuniquemos con usted.
+      no_money_amount: Please enter an amount. If amount is blank, enter $0.
       replace_me_text: Reemplazar REPLACE ME con información relevante antes de continuar.
       routing_account_number:
         not_same: El número de ruta y el número de cuenta no pueden ser iguales
