@@ -2902,7 +2902,8 @@ es:
           help_title: "¿Qué se clasifica como discapacidad?"
           no_neither: No, ninguno de los dos lo está
           question: "¿Estás total y permanentemente discapacitado?"
-          question_spouse: "¿Tú o tu cónyuge están total y permanentemente discapacitados?"
+          question_both: "¿Tú o tu cónyuge están total y permanentemente discapacitados?"
+          question_spouse: "¿Tú cónyuge cumple con los requisitos para ser clasificados como discapacitado?"
           title: "¡Podrías ser elegible para una deducción por ingresos de jubilación de Idaho!."
           yes_both: Sí, ambos lo estamos
           yes_me: Sí lo estoy
