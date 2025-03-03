@@ -1,4 +1,41 @@
 <% title = t(".title_html") %>
+
 <% content_for :page_title, title %>
+<% content_for :card do %>
+  <h1 class="h2"><%= title %></h1>
+  <p><%= t(".description") %></p>
+  <p><%= t(".unfortunately") %></p>
+  <p><%= t(".go_back_html", path: questions_md_permanently_disabled_path) %></p>
+  <div class="white-group">
+    <h2><%= t(".what_to_expect_next") %></h2>
+    <ul class="list--bulleted">
+      <li><%= t(".like_to_continue") %></li>
+      <li><%= t(".like_to_claim") %></li>
+    </ul>
+  </div>
+  <div class="reveal">
+    <p>
+      <button class="reveal__button"><%= t('.what_if_i_want_to_claim') %></button>
+    </p>
+    <div class="reveal__content">
+      <p><%= t('.if_you_want_to_html') %></p>
+      <ul class="list--bulleted">
+        <li>
+          <%= t('.free_in_md') %>
+          <ul>
+            <li><%= t('.if_choose_this_option') %></li>
+            <li><%= t('.vita_option_html', link: @vita_link) %></li>
+            <li><%= t('.other_filing_options_html', path: "https://www.fileyourstatetaxes.org/#{I18n.locale}/md/faq/what_are_my_other_state_filing_options_this_year_46") %></li>
+          </ul>
+        </li>
+        <li><%= t('.free_income_tax_prep_html') %></li>
+        <li><%= t('.commercial_tax_prep_html') %></li>
+      </ul>
+      <p><%= t('.contact_info_html') %></p>
+    </div>
 
-
+  </div>
+  <%= link_to next_path, class: "button button--primary button--wide", id: "firstCta" do %>
+    <%= t("general.continue") %>
+  <% end %>
+<% end %>

@@ -3143,6 +3143,24 @@ es:
           which_members_not_have_insurance: Selecciona al(los) miembro(s) de tu hogar que <strong>no tenía(n)</strong> cobertura de salud al finalizar %{tax_year}.
           why_ask_explanation: Esta información ayudará a Maryland Health Connection a determinar la elegibilidad para miembros de tu hogar que no tienen seguro médico para que reciban cobertura de salud sin costo o de bajo costo. Compartir esta información<strong>no afectará</strong>tu declaración de impuestos y no generará penalizaciones.
           why_ask_this: "¿Por qué te preguntamos esto?"
+      md_pension_exclusion_offboarding:
+        edit:
+          commercial_tax_prep_html: Declara con un servicio de preparación de impuestos comercial. Obtén más información <a href='https://www.irs.gov/tax-professionals/choosing-a-tax-professional' target='_blank' rel='noopener noreferrer'>aquí</a>.
+          contact_info_html: Si tienes alguna pregunta o deseas que tu información sea eliminada de este servicio, por favor envíanos un correo electrónico a <a href='mailto:help@fileyourstatetaxes.org'>help@fileyourstatetaxes.org</a>.
+          description: La Exclusión de Pensiones de Maryland puede ahorrarte de cientos a miles de dólares en impuestos estatales y locales al reducir la cantidad de impuestos que deberás pagar de tus ingresos de jubilación.
+          free_in_md: Declara gratis con voluntarios VITA certificados por el IRS en Maryland.
+          free_income_tax_prep_html: Comienza con el <a href='https://www.marylandtaxes.gov/individual/tax-assistance/free-tax-prep.php' target='_blank' rel='noopener noreferrer'>servicio gratuito de preparación de impuestos sobre ingresos del Contralor de Maryland</a>.
+          go_back_html: "<strong>¿Has presentado prueba de tu discapacidad en años fiscales anteriores?</strong> <a href='%{path}'>Regresa para corregir.</a>"
+          if_choose_this_option: Si eliges esta opción, te conectarás con un socio de Asistencia Voluntaria para la Declaración de Impuestos (VITA) en Maryland. Recibirás una llamada en los próximos días. Tendrás que responder algunas preguntas adicionales sobre tu situación tributaria y enviar de forma segura tus documentos en línea. Este proceso puede tardar de 2 a 3 semanas en completarse.
+          if_you_want_to_html: Si deseas reclamar la Exclusión de Pensiones de Maryland utilizando un servicio diferente, tienes algunas opciones. Ten en cuenta que <strong>no podrás transferir ninguna información de FileYourStateTaxes a estos servicios:</strong>
+          like_to_claim: Si deseas reclamar esta exclusión utilizando un servicio diferente, puedes obtener más información a continuación.
+          like_to_continue: Si deseas continuar utilizando este servicio y no reclamar esta exclusión, puedes hacer clic en 'Continuar.'
+          other_filing_options_html: Obtén más información sobre este proceso y otras opciones de declaración <a href='%{path}' target='_blank' rel='noopener noreferrer'>aquí</a>.
+          title_html: Parece que podrías calificar para la <a href='https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php' target='_blank' rel='noopener noreferrer'>Exclusión de Pensiones de Maryland</a>.
+          unfortunately: Desafortunadamente, nuestro servicio no admite la exclusión máxima si tú o tu cónyuge no han presentado prueba de su discapacidad en un año anterior.
+          vita_option_html: "<a href='%{link}' rel='noopener noreferrer'>Comienza con VITA ahora</a>."
+          what_if_i_want_to_claim: "¿Qué pasa si quiero reclamar la Exclusión de Pensiones de Maryland?"
+          what_to_expect_next: 'Qué sigue:'
       md_permanent_address:
         edit:
           address_header: Dirección
@@ -3164,11 +3182,10 @@ es:
           spouse_proof_question_html: ¿Ha presentado prueba de <strong>tu cónyuge</strong> discapacidad para <a href="https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php">la Exclusión de Pensiones de Maryland </a> en años fiscales anteriores?
           title: "¿Estás total y permanentemente discapacitado?"
           title_spouse: "¿Tú o tu cónyuge están total y permanentemente discapacitados?"
+          unfortunately_dont_support_html: Desafortunadamente, nuestro servicio no puede incluir la Exclusión de Pensiones de Maryland si no has presentado prueba de tu discapacidad en un año fiscal anterior.<br><br> Si quieres reclamar la exclusión de pensiones, <a href="google.com">obtén más información aquí</a>.
           yes_both: Sí, ambos lo estamos
           yes_me: Sí lo estoy
           yes_spouse: Sí, mi cónyuge lo está
-          unfortunately_dont_support_html: Desafortunadamente, nuestro servicio no puede incluir la Exclusión de Pensiones de Maryland si no has presentado prueba de tu discapacidad en un año fiscal anterior.<br><br>
-                                            Si quieres reclamar la exclusión de pensiones, <a href="google.com">obtén más información aquí</a>.
       md_primary_state_id:
         md_primary:
           dmv_bmv_label: Identificación estatal del MVA
