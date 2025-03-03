@@ -3175,7 +3175,7 @@ en:
           why_ask_this: Why are you asking this?
       md_pension_exclusion_offboarding:
         edit:
-          commercial_tax_prep_html: File with a commercial tax preparation service. Learn more <a href='https://www.irs.gov/tax-professionals/choosing-a-tax-professional' target='_blank' rel='noopener noreferrer'>here</a>.
+          commercial_tax_prep_html: File with a commercial tax preparation service. Learn more <a href='%{path}' target='_blank' rel='noopener noreferrer'>here</a>.
           contact_info_html: If you have any questions or want your information removed from this service, please email us at <a href='mailto:help@fileyourstatetaxes.org'>help@fileyourstatetaxes.org</a>.
           description: The Maryland Pension Exclusion can save you hundreds to thousands of dollars in state and local taxes by reducing your taxable retirement income.
           free_in_md: File for free with IRS-Certified VITA volunteers in Maryland.
