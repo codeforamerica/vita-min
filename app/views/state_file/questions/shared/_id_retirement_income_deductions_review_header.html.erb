@@ -1,0 +1,14 @@
+<% if current_intake.calculator.line_or_zero(:ID39R_B_LINE_8e).positive? %>
+  <div id="qualified-retirement-benefits-deduction" class="white-group">
+    <div class="spacing-below-5">
+      <p class="text--bold spacing-below-5"><%= t(".qualified_retirement_benefits_deduction") %></p>
+      <p class="text spacing-below-2"><%= t(".qualified_retirement_benefits_deduction_explain") %></p>
+
+      <p class="text--bold spacing-below-5"><%= t(".qualified_disabled_retirement_benefits") %></p>
+      <p><%= number_to_currency(current_intake.calculator.line_or_zero(:ID39R_B_LINE_8f), precision: 2) %></p>
+      <% id_disability_or_retirement_link = current_intake.has_filer_between_62_and_65_years_old? ? StateFile::Questions::IdDisabilityController.to_path_helper(return_to_review: "y") : StateFile::Questions::IdRetirementAndPensionIncomeController.to_path_helper(return_to_review: "y", index: 0) %>
+      <%= link_to t("general.review_and_edit"), id_disability_or_retirement_link, class: "button--small" %>
+    </div>
+  </div>
+<% end %>
+
