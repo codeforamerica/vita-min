@@ -1,6 +1,8 @@
 module StateFile
   class ImportFromDirectFileJob < ApplicationJob
     def perform(authorization_code:, intake:)
+      # "NOWAIT" here prevents concurrent jobs from waiting for the lock, instead causing them to error out immediately
+      # See locking options documentation: https://www.postgresql.org/docs/current/sql-select.html#SQL-FOR-UPDATE-SHARE
       intake.with_lock("FOR UPDATE NOWAIT") do
         return if intake.raw_direct_file_data
 
