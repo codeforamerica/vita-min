@@ -408,10 +408,16 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
         end
       end
 
-      context "when a 1099R is invalid" do
+      context "when a 1099R is blocking-invalid" do
         let!(:invalid_1099r) { create(:state_file1099_r, intake: intake, gross_distribution_amount: 500, state_tax_withheld_amount: 550) }
 
         it_behaves_like "displays one 1099R warning"
+      end
+
+      context "when a 1099R is nonblocking-invalid" do
+        let!(:invalid_1099r) { create(:state_file1099_r, intake: intake, payer_state_identification_number: "123456789asdfghjklqwertyuiop") }
+
+        it_behaves_like "does not display 1099R warning"
       end
     end
 

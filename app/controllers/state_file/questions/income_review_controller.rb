@@ -42,8 +42,8 @@ module StateFile
           w2.check_box14_limits = true
           !w2.valid?(:state_file_income_review)
         end
-        has_invalid_1099r = current_intake.state_file1099_rs.any? do |form1099r|
-          !form1099r.valid?(:retirement_income_intake)
+        has_invalid_1099r = intake.allows_1099_r_editing? && intake.state_file1099_rs.any? do |form1099r|
+          !form1099r.valid?(:income_review)
         end
         has_invalid_w2 || has_invalid_1099r
       end
