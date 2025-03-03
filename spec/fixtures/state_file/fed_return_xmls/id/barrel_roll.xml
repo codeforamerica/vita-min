@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>4ce7d787</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400005051</PrimarySSN>
+            <SpouseSSN>400005053</SpouseSSN>
+            <NameLine1Txt>BARREL &amp; CAROL&lt;ROLL</NameLine1Txt>
+            <PrimaryNameControlTxt>ROLL</PrimaryNameControlTxt>
+            <SpouseNameControlTxt>ROLL</SpouseNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>55 Slay Drive</AddressLine1Txt>
+                <CityNm>Boise</CityNm>
+                <StateAbbreviationCd>ID</StateAbbreviationCd>
+                <ZIPCd>83706</ZIPCd>
+            </USAddress>
+            <PhoneNum>2223334444</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000505-1a4f-4fe7-9bec-9173b6089472@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="4">
+        <IRS1040 documentId="IRS10400001">
+            <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>2</TotalExemptionsCnt>
+            <TotalTaxablePensionsAmt>40000</TotalTaxablePensionsAmt>
+            <SocSecBnftAmt>21000</SocSecBnftAmt>
+            <TaxableSocSecAmt>11525</TaxableSocSecAmt>
+            <TotalIncomeAmt>51525</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>51525</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>29200</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>29200</TotalDeductionsAmt>
+            <TaxableIncomeAmt>22325</TaxableIncomeAmt>
+            <TaxAmt>2233</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>2233</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>2233</TaxLessCreditsAmt>
+            <TotalTaxAmt>2233</TotalTaxAmt>
+            <Form1099WithheldTaxAmt referenceDocumentId="OTHERWITHHOLDING0001" referenceDocumentName="OtherWithholdingStatement">6100</Form1099WithheldTaxAmt>
+            <WithholdingTaxAmt>6100</WithholdingTaxAmt>
+            <TotalPaymentsAmt>6100</TotalPaymentsAmt>
+            <OverpaidAmt>3867</OverpaidAmt>
+            <RefundAmt>3867</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Retired</PrimaryOccupationTxt>
+            <SpouseOccupationTxt>Retired</SpouseOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1099R documentId="IRS1099R0001">
+            <PayerNameControlTxt>FARM</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Farmer Retirement</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>10 Crops Circle</AddressLine1Txt>
+                <CityNm>Colorado Springs</CityNm>
+                <StateAbbreviationCd>CO</StateAbbreviationCd>
+                <ZIPCd>80908</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>361287510</PayerEIN>
+            <RecipientSSN>400005051</RecipientSSN>
+            <RecipientNm>Barrel Roll</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>55 Slay Drive</AddressLine1Txt>
+                <CityNm>Boise</CityNm>
+                <StateAbbreviationCd>ID</StateAbbreviationCd>
+                <ZIPCd>83706</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>10000</GrossDistributionAmt>
+            <TaxableAmt>10000</TaxableAmt>
+            <FederalIncomeTaxWithheldAmt>1000</FederalIncomeTaxWithheldAmt>
+            <F1099RDistributionCd>7</F1099RDistributionCd>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <StateTaxWithheldAmt>500</StateTaxWithheldAmt>
+                    <StateAbbreviationCd>ID</StateAbbreviationCd>
+                    <PayerStateIdNum>1234321</PayerStateIdNum>
+                    <StateDistributionAmt>10000</StateDistributionAmt>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRS1099R documentId="IRS1099R0002">
+            <PayerNameControlTxt>KOAL</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Koala Retirement</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>88 Crops Circle</AddressLine1Txt>
+                <CityNm>Colorado Springs</CityNm>
+                <StateAbbreviationCd>CO</StateAbbreviationCd>
+                <ZIPCd>80908</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>363337510</PayerEIN>
+            <RecipientSSN>400005053</RecipientSSN>
+            <RecipientNm>Carol Roll</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>55 Slay Drive</AddressLine1Txt>
+                <CityNm>Boise</CityNm>
+                <StateAbbreviationCd>ID</StateAbbreviationCd>
+                <ZIPCd>83706</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>30000</GrossDistributionAmt>
+            <TaxableAmt>30000</TaxableAmt>
+            <FederalIncomeTaxWithheldAmt>3000</FederalIncomeTaxWithheldAmt>
+            <F1099RDistributionCd>7</F1099RDistributionCd>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <OtherWithholdingStatement documentId="OTHERWITHHOLDING0001" documentName="OtherWithholdingStatement">
+            <OtherWithholdingStmt>
+                <WithholdingCd>FORM 1099</WithholdingCd>
+                <WithholdingAmt>2100</WithholdingAmt>
+            </OtherWithholdingStmt>
+        </OtherWithholdingStatement>
+    </ReturnData>
+</Return>
