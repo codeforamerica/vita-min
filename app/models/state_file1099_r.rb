@@ -53,12 +53,17 @@ class StateFile1099R < ApplicationRecord
     validates :state_tax_withheld_amount,
       numericality: {
         greater_than_or_equal_to: 0,
-        message: proc { I18n.t('state_file.questions.w2.edit.no_money_amount') }
+      },
+      presence: {
+        message: proc { I18n.t('forms.errors.no_money_amount') }
       }
+
     validates :state_distribution_amount,
       numericality: {
         greater_than_or_equal_to: 0,
-        message: proc { I18n.t('state_file.questions.w2.edit.no_money_amount') }
+      },
+      presence: {
+        message: proc { I18n.t('forms.errors.no_money_amount') }
       }
     validates :payer_state_identification_number, presence: true, length: { maximum: 16 }, if: -> { state_tax_withheld_amount&.positive? }
   end

@@ -53,18 +53,21 @@ class StateFile1099G < ApplicationRecord
   validates :recipient_zip, zip_code: { zip_code_lengths: [5, 9, 12].freeze }
   validates :unemployment_compensation_amount,
     numericality: {
-      greater_than_or_equal_to: 1,
-      message: proc { I18n.t('state_file.questions.w2.edit.no_money_amount') }
+      greater_than_or_equal_to: 1
     }
   validates :federal_income_tax_withheld_amount,
     numericality: {
       greater_than_or_equal_to: 0,
-      message: proc { I18n.t('state_file.questions.w2.edit.no_money_amount') }
+    },
+    presence: {
+        message: proc { I18n.t('forms.errors.no_money_amount') }
     }
   validates :state_income_tax_withheld_amount,
     numericality: {
       greater_than_or_equal_to: 0,
-      message: proc { I18n.t('state_file.questions.w2.edit.no_money_amount') }
+    },
+    presence: {
+        message: proc { I18n.t('forms.errors.no_money_amount') }
     }
   validate :state_specific_validation
 

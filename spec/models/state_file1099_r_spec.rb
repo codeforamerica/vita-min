@@ -44,6 +44,18 @@ require 'rails_helper'
 
 RSpec.describe StateFile1099R do
   describe "validation" do
+    it do
+      expect(subject).to validate_presence_of(:state_distribution_amount)
+        .on(:retirement_income_intake)
+        .with_message(I18n.t('forms.errors.no_money_amount'))
+    end
+
+    it do
+      expect(subject).to validate_presence_of(:state_tax_withheld_amount)
+        .on(:retirement_income_intake)
+        .with_message(I18n.t('forms.errors.no_money_amount'))
+    end
+
     context "retirement_income_intake" do
       let!(:state_file1099_r) { create(:state_file1099_r, intake: create(:state_file_nc_intake)) }
       let(:context) { :retirement_income_intake }
@@ -106,7 +118,7 @@ RSpec.describe StateFile1099R do
             expect(state_file1099_r.valid?(context)).to eq false
           end
 
-          [nil, 0, 1].each do |val|
+          [0, 1].each do |val|
             state_file1099_r.send("#{attr}=", val)
             expect(state_file1099_r.valid?(context)).to eq true
           end
@@ -116,10 +128,6 @@ RSpec.describe StateFile1099R do
 
       context "payer_state_identification_number" do
         it "validates present when has state_tax_withheld_amount" do
-          state_file1099_r.state_tax_withheld_amount = nil
-          state_file1099_r.payer_state_identification_number = nil
-          expect(state_file1099_r.valid?(context)).to eq true
-
           state_file1099_r.state_tax_withheld_amount = 0
           state_file1099_r.payer_state_identification_number = nil
           expect(state_file1099_r.valid?(context)).to eq true

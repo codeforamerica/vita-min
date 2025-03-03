@@ -247,6 +247,7 @@ es:
   forms:
     errors:
       at_least_one_year: Por favor, elija al menos un año.
+      no_money_amount: Please enter an amount. If amount is blank, enter $0.
       general: Por favor, corrija los errores indicados antes de continuar.
       healthcare:
         one_box: Debes seleccionar al menos una casilla.
