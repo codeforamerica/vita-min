@@ -1,7 +1,6 @@
 module SubmissionBuilder
   class State1099R < SubmissionBuilder::Document
     include SubmissionBuilder::FormattingMethods
-    include XmlMethods
 
     def document
       form1099r = @kwargs[:form1099r]
@@ -57,7 +56,7 @@ module SubmissionBuilder
           end
         end
       end
-      delete_blank_nodes(xml_doc.at(:RecipientUSAddress))
+      delete_blank_nodes(xml_doc)
       xml_doc
     end
   end
