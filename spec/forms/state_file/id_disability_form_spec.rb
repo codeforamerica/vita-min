@@ -75,7 +75,7 @@ RSpec.describe StateFile::IdDisabilityForm do
         let(:primary_birth_date) { senior_dob }
         let(:spouse_birth_date) { not_senior_dob }
 
-        context "when primary_disabled is blank" do
+        context "when spouse_disabled is blank" do
           let(:params) { { spouse_disabled: "" } }
 
           it "is invalid and attaches the correct error" do
@@ -84,7 +84,7 @@ RSpec.describe StateFile::IdDisabilityForm do
           end
         end
 
-        context "when primary_disabled is not yes/no" do
+        context "when spouse_disabled is not yes/no" do
           let(:params) { { spouse_disabled: "invalid" } }
 
           it "is invalid" do
@@ -93,7 +93,7 @@ RSpec.describe StateFile::IdDisabilityForm do
           end
         end
 
-        context "when primary_disabled is valid" do
+        context "when spouse_disabled is valid" do
           let(:params) { { spouse_disabled: "yes" } }
 
           it "is valid" do
