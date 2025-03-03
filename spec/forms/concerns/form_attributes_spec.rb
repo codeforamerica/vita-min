@@ -88,16 +88,16 @@ RSpec.describe FormAttributes do
 
       it 'should create initialize with nil if defaults are not passed' do
         attributes = subject.attributes_for(:without_defaults)
-        expect(attributes.keys).to eq [:attribute_one, :attribute_two]
-        expect(attributes.values).to be_all nil
+        expect(attributes).to match(attribute_one: nil, attribute_two: nil)
       end
 
       it 'should initialize with defaults when defaults are passed' do
         attributes = subject.attributes_for(:with_defaults)
-        expect(attributes.keys).to eq [:default_attribute_one, :default_attribute_two, :default_attribute_three]
-        expect(attributes[:default_attribute_one]).to eq 'foo'
-        expect(attributes[:default_attribute_two]).to eq 'bar'
-        expect(attributes[:default_attribute_three]).to be_nil
+        expect(attributes).to match(
+          default_attribute_one: 'foo',
+          default_attribute_two: 'bar',
+          default_attribute_three: nil,
+        )
       end
 
       it 'should create an hash for each symbol passed' do
