@@ -3175,6 +3175,26 @@ en:
           which_members_not_have_insurance: Select which member(s) of your household <strong> did not </strong> have health care coverage at the end of %{tax_year}?
           why_ask_explanation: This information will help Maryland Health Connection determine eligibility for uninsured members of your household for no-cost or low-cost health coverage. It <strong>won't affect</strong> your tax return and there are no penalties for providing this information.
           why_ask_this: Why are you asking this?
+      md_pension_exclusion_offboarding:
+        edit:
+          commercial_tax_prep_html: File with a commercial tax preparation service. Learn more <a href='%{path}' target='_blank' rel='noopener noreferrer'>here</a>.
+          contact_info_html: If you have any questions or want your information removed from this service, please email us at <a href='mailto:help@fileyourstatetaxes.org'>help@fileyourstatetaxes.org</a>.
+          description: The Maryland Pension Exclusion can save you hundreds to thousands of dollars in state and local taxes by reducing your taxable retirement income.
+          free_in_md: File for free with IRS-Certified VITA volunteers in Maryland.
+          free_income_tax_prep_html: Get started with the Comptroller of Maryland’s <a href='https://www.marylandtaxes.gov/individual/tax-assistance/free-tax-prep.php' target='_blank' rel='noopener noreferrer'>Free Income Tax Preparation</a> service.
+          go_back_html: "<strong>Have you provided proof of your disability in previous tax years?</strong> <a href='%{path}'>Go back to correct.</a>"
+          if_choose_this_option: If you choose this option, you'll be connected with a VITA partner in Maryland. Expect a quick intake call in a few days to discuss your tax situation and securely upload your documents. This process may take 2-3 weeks to complete.
+          if_you_want_to_html: If you want to claim the Maryland Pension Exclusion using a different service, you have a few options. Keep in mind, <strong>you will not be able to transfer any information from FileYourStateTaxes to these services:</strong>
+          like_to_claim: If you'd like to claim this exclusion using a different service, you can learn more below.
+          like_to_continue: If you'd like to continue using this service and not claim this exclusion, you can click 'Continue.'
+          other_filing_options_html: Learn more about other filing options <a href='%{path}' target='_blank' rel='noopener noreferrer'>here</a>.
+          title_html:
+            one: It looks like you may qualify for the <a href='https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php' target='_blank' rel='noopener noreferrer'>Maryland Pension Exclusion</a>.
+            other: It looks like you and your spouse may qualify for the <a href='https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php' target='_blank' rel='noopener noreferrer'>Maryland Pension Exclusion</a>.
+          unfortunately: Unfortunately, our service doesn’t support this exclusion if you haven’t provided proof of your disability in a previous tax year.
+          vita_option_html: "<a href='%{link}' rel='noopener noreferrer'>Get started with VITA now</a>."
+          what_if_i_want_to_claim: What if I want to claim the Maryland Pension Exclusion?
+          what_to_expect_next: 'Here''s what to expect next:'
       md_permanent_address:
         edit:
           address_header: Address
@@ -3196,6 +3216,7 @@ en:
           spouse_proof_question_html: Has <strong>your spouse</strong> provided proof of your disability for the  <a href="https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php">Maryland Pension Exclusion</a> in the previous tax years?
           title: Are you totally and permanently disabled?
           title_spouse: Are you or your spouse totally and permanently disabled?
+          unfortunately_dont_support_html: Unfortunately, our service doesn’t support the Maryland Pension Exclusion if you haven’t provided proof of your disability in a previous tax year.<br><br> If you want to claim the pension exclusion, <a href='%{path}'>learn more here</a>.
           yes_both: Yes, we both are
           yes_me: Yes, I am
           yes_spouse: Yes, my spouse is
