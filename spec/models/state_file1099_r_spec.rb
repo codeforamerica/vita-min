@@ -20,8 +20,13 @@
 #  payer_state_identification_number  :string
 #  payer_zip                          :string
 #  phone_number                       :string
+#  recipient_address_line1            :string
+#  recipient_address_line2            :string
+#  recipient_city_name                :string
 #  recipient_name                     :string
 #  recipient_ssn                      :string
+#  recipient_state_code               :string
+#  recipient_zip                      :string
 #  standard                           :boolean
 #  state_code                         :string
 #  state_distribution_amount          :decimal(12, 2)
