@@ -58,14 +58,14 @@ RSpec.describe StateFile::Questions::RetirementIncomeController do
         expect(response.body).to include("40")
       end
 
-      context "when there are box 14 errors from df" do
+      context "when there are box 14 warnings" do
         context "state tax withheld more than gross distribution amount" do
           let!(:form1099r) { create :state_file1099_r, state_tax_withheld_amount: 40, gross_distribution_amount: 30, intake: intake }
 
           it "displays the errors on edit" do
             get :edit, params: params
 
-            expect(response.body).to include I18n.t("activerecord.errors.models.state_file1099_r.errors.must_be_less_than_gross_distribution")
+            expect(response.body).to include I18n.t("state_file.questions.retirement_income.edit.state_tax_withheld_greater_than_gross_warning", gross_distribution_amount: 30)
           end
         end
 
@@ -75,7 +75,17 @@ RSpec.describe StateFile::Questions::RetirementIncomeController do
           it "displays the errors on edit" do
             get :edit, params: params
 
-            expect(response.body).to include I18n.t('forms.errors.no_money_amount')
+            expect(response.body).to include I18n.t("state_file.questions.retirement_income.edit.state_tax_withheld_absent_warning")
+          end
+        end
+
+        context "state tax withheld amount is 0" do
+          let!(:form1099r) { create :state_file1099_r, state_tax_withheld_amount: 0, intake: intake }
+
+          it "displays the errors on edit" do
+            get :edit, params: params
+
+            expect(response.body).to include I18n.t("state_file.questions.retirement_income.edit.state_tax_withheld_absent_warning")
           end
         end
       end

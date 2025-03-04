@@ -3976,6 +3976,8 @@ es:
           box14_html: "<b>Casilla 14</b>, Impuesto estatal retenido"
           box15_html: "<b>Casilla 15</b>, Número estatal del pagador"
           box16_html: "<b>Casilla 16</b>, Distribución estatal"
+          state_tax_withheld_absent_warning: Confirme que el monto en Casilla 14 de su 1099-R es 0
+          state_tax_withheld_greater_than_gross_warning: Casilla 14 impuesto estatal retenido no puede ser mayor que %{gross_distribution_amount}
           title_html: Por favor, revisa los detalles de los ingresos estatales (1099-R) que recibiste de <strong>%{payer_name}</strong>.
       retirement_income_subtraction:
         doc_1099r_label: 1099-R
