@@ -2295,7 +2295,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_04_145229) do
     t.boolean "NJ1040_LINE_8_SPOUSE"
     t.boolean "claimed_as_dep"
     t.datetime "created_at", null: false
-    t.integer "eligibility_retirement_warning_continue", default: 0, null: false
     t.bigint "state_file_nj_intake_id", null: false
     t.datetime "updated_at", null: false
     t.index ["state_file_nj_intake_id"], name: "index_state_file_nj_analytics_on_state_file_nj_intake_id"
