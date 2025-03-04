@@ -346,32 +346,19 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       click_on I18n.t("general.continue")
 
 
-      expect(page).to have_text I18n.t("state_file.questions.nc_sales_use_tax.edit.title.other", year: filing_year, count: 2)
-
-      choose I18n.t("general.affirmative")
-      choose "state_file_nc_sales_use_tax_form_sales_use_tax_calculation_method_automated"
-      click_on I18n.t("general.continue")
-
       # Of the 4 buttons on this page, select the first button that says "Review and edit state info"
       click_on I18n.t("state_file.questions.income_review.edit.review_and_edit_state_info"), match: :first
-
-      # take a screenshot
-
-
       click_on I18n.t("general.continue")
-
 
       click_on I18n.t("state_file.questions.income_review.edit.review_and_edit_state_info"), match: :first
       expect(page).to have_text(strip_html_tags(I18n.t("state_file.questions.retirement_income.edit.title_html", payer_name: "Elmo Retirement Ltd")))
-
-
       click_on I18n.t("general.continue")
-
-
 
       click_on I18n.t("general.continue")
       choose strip_html_tags(I18n.t("state_file.questions.nc_retirement_income_subtraction.edit.income_source_bailey_settlement_html"))
-      check I18n.t("state_file.questions.nc_retirement_income_subtraction.edit.other")
+      check "state_file_nc_retirement_income_subtraction_form_bailey_settlement_at_least_five_years"
+      check "state_file_nc_retirement_income_subtraction_form_bailey_settlement_from_retirement_plan"
+      click_on I18n.t("general.continue")
       click_on I18n.t("general.continue")
       choose I18n.t("state_file.questions.nc_retirement_income_subtraction.edit.other")
       click_on I18n.t("general.continue")
@@ -379,12 +366,14 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       click_on I18n.t("general.continue")
       choose I18n.t("state_file.questions.nc_retirement_income_subtraction.edit.other")
       click_on I18n.t("general.continue")
-
 
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
 
-      page.save_screenshot("nc_sales_use_tax_5.png")
+      expect(page).to have_text I18n.t("state_file.questions.nc_sales_use_tax.edit.title.other", year: filing_year, count: 2)
+
+      choose I18n.t("general.affirmative")
+      choose "state_file_nc_sales_use_tax_form_sales_use_tax_calculation_method_automated"
 
       click_on I18n.t("general.continue")
 
@@ -405,7 +394,6 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
-      binding.pry
       expect(page).to have_css("#use-tax-amount", text: "$11.00")
       click_on I18n.t("general.continue")
 

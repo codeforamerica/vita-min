@@ -96,15 +96,6 @@ RSpec.describe StateFileNcIntake, type: :model do
       allow(intake.calculator.lines).to receive(:[]).with(:NCD400_LINE_14).and_return(double(value: 2500))
       expect(intake.calculate_sales_use_tax).to eq 2
     end
-
-    context "when automated retirement income is present" do
-      let(:intake) { build :state_file_nc_intake }
-
-      it "calculates the sales use tax using the automated retirement income" do
-        allow(intake.calculator).to receive(:line_or_zero).with(:NCD400_LINE_18).and_return(11)
-        expect(intake.calculate_sales_use_tax(automated: true)).to eq 11
-      end
-    end
   end
 
   describe "#sanitize_county_details" do

@@ -17,13 +17,12 @@ module StateFile
       if: -> { sales_use_tax_calculation_method == "manual" }
 
     def initialize(intake = nil, params = nil)
-      binding.pry
       if params[:untaxed_out_of_state_purchases] == "no"
         params[:sales_use_tax_calculation_method] = "unfilled"
         params[:sales_use_tax] = nil
       end
       if params[:sales_use_tax_calculation_method] == "automated"
-        params[:sales_use_tax] = intake.calculate_sales_use_tax(automated: true)
+        params[:sales_use_tax] = intake.calculate_sales_use_tax
       end
       super(intake, params)
     end
