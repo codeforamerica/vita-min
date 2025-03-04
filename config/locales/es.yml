@@ -3044,9 +3044,6 @@ es:
           no_donations_selected: "<strong>No hay donaciones seleccionadas</strong>"
           permanent_building_fund_tax: Impuesto sobre el Fondo de Edificios Permanentes
           purchases_without_sales_tax: Compras sin pagar impuesto de ventas
-          qualified_disabled_retirement_benefits: Beneficios calificados de jubilación para personas con discapacidad
-          qualified_retirement_benefits_deduction: Deducción por Beneficios Calificados de Jubilación
-          qualified_retirement_benefits_deduction_explain: Estos permiten a las personas deducir de sus impuestos la totalidad o una parte de sus ingresos por jubilación.
           voluntary_charitable_donations: Donaciones caritativas voluntarias
       id_sales_use_tax:
         edit:
@@ -4063,6 +4060,16 @@ es:
           taxes_owed_html: Tu reembolso es $0. Esto significa <strong>que no</strong> recibirás un reembolso estatal y <strong>no</strong> debes pagar impuestos estatales. Debes completar tu declaración, es posible que tengas que presentarla aunque no recibirás ningún dinero.
           title: "¡Ya casi terminas! Por favor revisa la información que tenemos."
           your_name: Tu nombre
+        az_retirement_income_deductions_review_header:
+          government_pension: Plan de pensiones calificado del gobierno federal, de Arizona o gubernamental
+          none_apply: Ninguno aplica
+          subtitle: Estos permiten a las personas deducir de sus impuestos la totalidad o una parte de sus ingresos por jubilación.
+          title: La deducción de ingresos por jubilación de Arizona
+          uniformed_services: Pago de jubilación o retención de los servicios uniformados de los Estados Unidos
+        id_retirement_income_deductions_review_header:
+          qualified_disabled_retirement_benefits: Beneficios calificados de jubilación para personas con discapacidad
+          qualified_retirement_benefits_deduction: Deducción por Beneficios Calificados de Jubilación
+          qualified_retirement_benefits_deduction_explain: Estos permiten a las personas deducir de sus impuestos la totalidad o una parte de sus ingresos por jubilación.
         review_header:
           income_details: Detalles de ingresos
           income_forms_collected: 'Formulario(s) de ingresos recogidos:'
