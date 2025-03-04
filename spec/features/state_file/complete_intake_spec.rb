@@ -345,20 +345,12 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       choose "state_file_nc_veteran_status_form_spouse_veteran_no"
       click_on I18n.t("general.continue")
 
-
-      # Of the 4 buttons on this page, select the first button that says "Review and edit state info"
-      click_on I18n.t("state_file.questions.income_review.edit.review_and_edit_state_info"), match: :first
       click_on I18n.t("general.continue")
 
-      click_on I18n.t("state_file.questions.income_review.edit.review_and_edit_state_info"), match: :first
-      expect(page).to have_text(strip_html_tags(I18n.t("state_file.questions.retirement_income.edit.title_html", payer_name: "Elmo Retirement Ltd")))
-      click_on I18n.t("general.continue")
-
-      click_on I18n.t("general.continue")
+      # select bailey settlement for the first, and none for the rest
       choose strip_html_tags(I18n.t("state_file.questions.nc_retirement_income_subtraction.edit.income_source_bailey_settlement_html"))
       check "state_file_nc_retirement_income_subtraction_form_bailey_settlement_at_least_five_years"
       check "state_file_nc_retirement_income_subtraction_form_bailey_settlement_from_retirement_plan"
-      click_on I18n.t("general.continue")
       click_on I18n.t("general.continue")
       choose I18n.t("state_file.questions.nc_retirement_income_subtraction.edit.other")
       click_on I18n.t("general.continue")
@@ -370,11 +362,10 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
 
+      # select automated sales use tax calculation
       expect(page).to have_text I18n.t("state_file.questions.nc_sales_use_tax.edit.title.other", year: filing_year, count: 2)
-
       choose I18n.t("general.affirmative")
       choose "state_file_nc_sales_use_tax_form_sales_use_tax_calculation_method_automated"
-
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t("state_file.questions.primary_state_id.state_id.id_type_question.label")
