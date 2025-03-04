@@ -23,7 +23,9 @@ RSpec.describe Hub::Update13614cFormPage2 do
       had_unemployment_income: "yes",
       had_local_tax_refund: "no",
       had_interest_income: "no",
-      cv_p2_notes_comments: "money in the banana stand"
+      cv_p2_notes_comments: "other notes",
+      had_other_income: "yes",
+      other_income_types: "money from banana stand"
     }
   end
 
@@ -43,7 +45,8 @@ RSpec.describe Hub::Update13614cFormPage2 do
       expect(intake.had_unemployment_income).to eq "yes"
       expect(intake.had_local_tax_refund).to eq "no"
       expect(intake.had_interest_income).to eq "no"
-      expect(intake.cv_p2_notes_comments).to eq "money in the banana stand"
+      expect(intake.cv_p2_notes_comments).to eq "other notes"
+      expect(intake.other_income_types).to eq "money from banana stand"
     end
   end
 end
