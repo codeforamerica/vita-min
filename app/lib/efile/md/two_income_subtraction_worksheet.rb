@@ -93,9 +93,8 @@ module Efile
       def calculate_line_4(primary_or_spouse)
         cdc_expenses = (@direct_file_data.total_qualifying_dependent_care_expenses_or_limit_amt || 0) / 2
 
-        # NOTE: Stub alert - this data relies on 1099R followup questions, which have been deprioritized
-        pension_exclusion = 0
-        military_retirement_exclusion = 0
+        pension_exclusion = primary_or_spouse == :primary ? line_or_zero(:MD502R_LINE_11A) : line_or_zero(:MD502R_LINE_11B)
+        military_retirement_exclusion = primary_or_spouse == :primary ? line_or_zero(:MD502_SU_LINE_U_PRIMARY) : line_or_zero(:MD502_SU_LINE_U_SPOUSE)
 
         cdc_expenses +
           pension_exclusion +

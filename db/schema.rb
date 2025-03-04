@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_02_21_220547) do
+ActiveRecord::Schema[7.1].define(version: 2025_02_27_182343) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1729,6 +1729,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_21_220547) do
     t.string "payer_city_name"
     t.string "payer_identification_number"
     t.string "payer_name"
+    t.string "payer_name2"
     t.string "payer_name_control"
     t.string "payer_state_code"
     t.string "payer_state_identification_number"
@@ -1781,6 +1782,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_21_220547) do
     t.datetime "created_at", null: false
     t.jsonb "details", default: "{}"
     t.integer "event_type"
+    t.bigint "state_file_archived_intake_id"
     t.bigint "state_file_archived_intake_request_id"
     t.datetime "updated_at", null: false
   end
@@ -1801,7 +1803,11 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_21_220547) do
   create_table "state_file_archived_intakes", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "email_address"
+    t.integer "failed_attempts", default: 0, null: false
+    t.string "fake_address_1"
+    t.string "fake_address_2"
     t.string "hashed_ssn"
+    t.datetime "locked_at"
     t.string "mailing_apartment"
     t.string "mailing_city"
     t.string "mailing_state"
@@ -2305,6 +2311,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_21_220547) do
     t.integer "eligibility_all_members_health_insurance", default: 0, null: false
     t.integer "eligibility_lived_in_state", default: 0, null: false
     t.integer "eligibility_out_of_state_income", default: 0, null: false
+    t.integer "eligibility_retirement_warning_continue", default: 0
     t.citext "email_address"
     t.datetime "email_address_verified_at"
     t.integer "email_notification_opt_in", default: 0, null: false
@@ -2986,6 +2993,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_21_220547) do
   add_foreign_key "site_coordinator_roles_vita_partners", "vita_partners"
   add_foreign_key "source_parameters", "vita_partners"
   add_foreign_key "state_file_archived_intake_access_logs", "state_file_archived_intake_requests"
+  add_foreign_key "state_file_archived_intake_access_logs", "state_file_archived_intakes", validate: false
   add_foreign_key "state_routing_fractions", "state_routing_targets"
   add_foreign_key "state_routing_fractions", "vita_partners"
   add_foreign_key "system_notes", "clients"

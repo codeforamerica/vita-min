@@ -14,6 +14,7 @@
 #  payer_city_name                    :string
 #  payer_identification_number        :string
 #  payer_name                         :string
+#  payer_name2                        :string
 #  payer_name_control                 :string
 #  payer_state_code                   :string
 #  payer_state_identification_number  :string
@@ -49,8 +50,21 @@ class StateFile1099R < ApplicationRecord
   with_options on: :retirement_income_intake do
     validate :less_than_gross_distribution, if: -> { gross_distribution_amount.present? }
     validates :gross_distribution_amount, numericality: { greater_than: 0 }
-    validates :state_tax_withheld_amount, numericality: { greater_than_or_equal_to: 0 }, allow_blank: true
-    validates :state_distribution_amount, numericality: { greater_than_or_equal_to: 0 }, allow_blank: true
+    validates :state_tax_withheld_amount,
+      numericality: {
+        greater_than_or_equal_to: 0,
+      },
+      presence: {
+        message: proc { I18n.t('forms.errors.no_money_amount') }
+      }
+
+    validates :state_distribution_amount,
+      numericality: {
+        greater_than_or_equal_to: 0,
+      },
+      presence: {
+        message: proc { I18n.t('forms.errors.no_money_amount') }
+      }
     validates :payer_state_identification_number, presence: true, length: { maximum: 16 }, if: -> { state_tax_withheld_amount&.positive? }
   end
 

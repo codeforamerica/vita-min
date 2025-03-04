@@ -1,10 +1,8 @@
 module Hub
   class TaxReturnsController < Hub::BaseController
     include TaxReturnAssignableUsers
+    load_and_authorize_resource :client
     load_and_authorize_resource except: [:new, :create]
-    # on new/create, authorize through client but initialize tax return object
-    before_action :load_client, only: [:new, :create]
-    authorize_resource :client, parent: false, only: [:new, :create]
     before_action :load_assignable_users, except: [:show]
     before_action :load_and_authorize_assignee, only: [:update, :create]
 
@@ -58,10 +56,6 @@ module Hub
     end
 
     private
-
-    def load_client
-      @client = Client.accessible_to_user(current_user).find(params[:client_id])
-    end
 
     def load_assignable_users
       @client ||= @tax_return.client
