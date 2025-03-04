@@ -617,15 +617,6 @@ class Intake::GyrIntake < Intake
   after_save_commit { SearchIndexer.refresh_filterable_properties([client_id]) }
   after_destroy_commit { SearchIndexer.refresh_filterable_properties([client_id]) }
 
-  before_save :sync_other_income_types_with_notes, if: :other_income_types_changed?
-
-  def sync_other_income_types_with_notes
-    existing_notes = extract_existing_notes(cv_p2_notes_comments)
-    # yml?
-    updated_notes = "Other money received during the year includes: [#{other_income_types.join(', ')}]\n---\n#{existing_notes}"
-    self.cv_p2_notes_comments = updated_notes
-  end
-
   def matching_previous_year_intakes
     attrs = [:primary_birth_date, :hashed_primary_ssn]
     DeduplicationService.duplicates(self, *attrs, from_scope: self.class.previous_year_completed_intakes)
@@ -736,13 +727,5 @@ class Intake::GyrIntake < Intake
 
   def preferred_written_language_string
     I18n.t("general.written_language_options.#{preferred_written_language}", default: nil) || preferred_written_language&.capitalize
-  end
-
-  private
-
-  def extract_existing_notes(comments)
-    return "" if comments.blank?
-    parts = comments.split("---", 2)
-    parts.length > 1 ? parts.last.strip : comments.strip
   end
 end

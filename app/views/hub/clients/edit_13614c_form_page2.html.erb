@@ -228,10 +228,13 @@ scope of service chart)", yes_no_options_for_select) %>
 
         <!-- COMMENTS -->
         <hr style="margin: 5px;"/>
-        <div style="background-color:#e5e5e5; padding: 10px;">
-          <div class="additional-notes">
-            <%= f.cfa_textarea :cv_p2_notes_comments, "Notes/Comments", options: { rows: '5', columns: 1000} %>
-          </div>
+        <div class="additional-notes spacing-below-15">
+          <p class="spacing-below-5"><strong>Notes/Comments</strong></p>
+          <% show_other_income_notes = @client&.intake&.had_other_income_yes? && @client&.intake&.other_income_types.present? %>
+          <% if show_other_income_notes %>
+            <%= f.cfa_textarea :other_income_types, "", help_text: "Other money received during the year includes:" %>
+          <% end %>
+          <%= f.cfa_textarea :cv_p2_notes_comments, "", help_text: "Other additional notes/comments:", hide_label: !show_other_income_notes %>
         </div>
 
       </div> <!-- end of id="income-fields" -->

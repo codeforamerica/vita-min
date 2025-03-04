@@ -247,10 +247,10 @@ module PdfFiller
 
         # Other income
         "form1[0].page2[0].incomeIncluded[0].otherIncome[0].otherIncome[0]" => yes_no_unfilled_to_checkbox(@intake.cv_other_income_cb),
-
-        # Notes/Comments including other income types
-        "form1[0].page2[0].IncomeIncludedComment[0].IncomeIncludedComments[0]" => @intake.cv_p2_notes_comments
       )
+
+      # Notes/Comments including other income types
+      answers["form1[0].page2[0].IncomeIncludedComment[0].IncomeIncludedComments[0]"] = additional_notes_including_income
 
       # PAGE 3
       answers.merge!(
@@ -667,6 +667,14 @@ module PdfFiller
       end.join()
 
       s
+    end
+
+    def additional_notes_including_income
+      if @intake.had_other_income_yes? && @intake.other_income_types.present?
+        "Other money received during the year includes: #{@intake.other_income_types} \n---\n" + @intake.cv_p2_notes_comments
+      else
+        @intake.cv_p2_notes_comments
+      end
     end
 
     def yes_no_unfilled_to_YN(yes_no_unfilled)

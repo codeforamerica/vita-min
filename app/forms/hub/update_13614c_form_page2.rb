@@ -93,6 +93,7 @@ module Hub
 
                        :cv_other_income_cb,
 
+                       :other_income_types,
                        :cv_p2_notes_comments
 
     attr_accessor :client
@@ -129,6 +130,7 @@ module Hub
               :cv_1099nec_count,
               :cv_1099k_count,
               :cv_schedule_c_expenses_amt,
+              :other_income_types,
               :cv_p2_notes_comments]
       self.class.scoped_attributes[model].reduce({}) do |hash, attribute_name|
         v = send(attribute_name)
