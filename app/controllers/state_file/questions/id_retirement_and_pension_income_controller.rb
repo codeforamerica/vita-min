@@ -2,7 +2,7 @@ module StateFile
   module Questions
     class IdRetirementAndPensionIncomeController < RetirementIncomeSubtractionController
       def self.show?(intake)
-        Flipper.enabled?(:show_retirement_ui) && !intake.filing_status_mfs? && intake.eligible_1099rs.any?
+        super && !intake.filing_status_mfs?
       end
 
       private
