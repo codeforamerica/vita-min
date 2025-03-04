@@ -6,7 +6,7 @@ module SubmissionBuilder
       form1099r = @kwargs[:form1099r]
       state_abbreviation = form1099r.intake.state_code.upcase
 
-      build_xml_doc("IRS1099R", documentId: "IRS1099R-#{form1099r.id}") do |xml|
+      xml_doc = build_xml_doc("IRS1099R", documentId: "IRS1099R-#{form1099r.id}") do |xml|
         xml.PayerNameControlTxt form1099r.payer_name_control
         if form1099r.payer_name.present?
           xml.PayerName do
@@ -23,6 +23,13 @@ module SubmissionBuilder
           xml.PayerEIN form1099r.payer_identification_number
           xml.RecipientSSN sanitize_for_xml(form1099r.recipient_ssn) if form1099r.recipient_ssn.present?
           xml.RecipientNm sanitize_for_xml(form1099r.recipient_name) if form1099r.recipient_name.present?
+          xml.RecipientUSAddress do
+            xml.AddressLine1Txt sanitize_for_xml(form1099r.recipient_address_line1) if form1099r.recipient_address_line1.present?
+            xml.AddressLine2Txt sanitize_for_xml(form1099r.recipient_address_line2) if form1099r.recipient_address_line2.present?
+            xml.CityNm sanitize_for_xml(form1099r.recipient_city_name) if form1099r.recipient_city_name.present?
+            xml.StateAbbreviationCd sanitize_for_xml(form1099r.recipient_state_code) if form1099r.recipient_state_code.present?
+            xml.ZIPCd sanitize_for_xml(form1099r.recipient_zip) if form1099r.recipient_zip.present?
+          end
           xml.GrossDistributionAmt form1099r.gross_distribution_amount&.round
           xml.TaxableAmt form1099r.taxable_amount&.round
           if form1099r.taxable_amount_not_determined?
@@ -49,6 +56,8 @@ module SubmissionBuilder
           end
         end
       end
+      delete_blank_nodes(xml_doc)
+      xml_doc
     end
   end
 end

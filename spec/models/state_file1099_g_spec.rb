@@ -82,6 +82,16 @@ RSpec.describe StateFile1099G do
       )
     }
 
+    it do
+      expect(subject).to validate_presence_of(:state_income_tax_withheld_amount)
+        .with_message(I18n.t('forms.errors.no_money_amount'))
+    end
+
+    it do
+      expect(subject).to validate_presence_of(:federal_income_tax_withheld_amount)
+        .with_message(I18n.t('forms.errors.no_money_amount'))
+    end
+
     it "validates recipient" do
       state_file_1099.recipient = 'unfilled'
       expect(state_file_1099.save).to eq false

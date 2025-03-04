@@ -120,12 +120,32 @@ class StateFileIdIntake < StateFileBaseIntake
   end
 
   def has_filer_between_62_and_65_years_old?
-    primary_age = calculate_age(primary_birth_date, inclusive_of_jan_1: true)
-    if filing_status_mfj? && spouse_birth_date.present?
-      spouse_age = calculate_age(spouse_birth_date, inclusive_of_jan_1: true)
-      (primary_age >= 62 && primary_age < 65) || (spouse_age >= 62 && spouse_age < 65)
+    if filing_status_mfj?
+      primary_between_62_and_65_years_old? || spouse_between_62_and_65_years_old?
     else
-      primary_age >= 62 && primary_age < 65
+      primary_between_62_and_65_years_old?
+    end
+  end
+
+  def all_filers_between_62_and_65_years_old?
+    if filing_status_mfj?
+      primary_between_62_and_65_years_old? && spouse_between_62_and_65_years_old?
+    else
+      primary_between_62_and_65_years_old?
+    end
+  end
+
+  def primary_between_62_and_65_years_old?
+    primary_age = calculate_age(primary_birth_date, inclusive_of_jan_1: true)
+    primary_age >= 62 && primary_age < 65
+  end
+
+  def spouse_between_62_and_65_years_old?
+    if spouse_birth_date.present?
+      spouse_age = calculate_age(spouse_birth_date, inclusive_of_jan_1: true)
+      spouse_age >= 62 && spouse_age < 65
+    else
+      false
     end
   end
 
