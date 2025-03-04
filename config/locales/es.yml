@@ -3161,7 +3161,9 @@ es:
           like_to_claim: Si deseas reclamar esta exclusión utilizando un servicio diferente, puedes obtener más información a continuación.
           like_to_continue: Si deseas continuar utilizando este servicio y no reclamar esta exclusión, puedes hacer clic en 'Continuar.'
           other_filing_options_html: Obtén más información sobre este proceso y otras opciones de declaración <a href='%{path}' target='_blank' rel='noopener noreferrer'>aquí</a>.
-          title_html: Parece que podrías calificar para la <a href='https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php' target='_blank' rel='noopener noreferrer'>Exclusión de Pensiones de Maryland</a>.
+          title_html:
+            one: Parece que podrías calificar para la <a href='https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php' target='_blank' rel='noopener noreferrer'>Exclusión de Pensiones de Maryland</a>.
+            other: Parece que podrías calificar para la <a href='https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php' target='_blank' rel='noopener noreferrer'>Exclusión de Pensiones de Maryland</a>.
           unfortunately: Desafortunadamente, nuestro servicio no admite la exclusión máxima si tú o tu cónyuge no han presentado prueba de su discapacidad en un año anterior.
           vita_option_html: "<a href='%{link}' rel='noopener noreferrer'>Comienza con VITA ahora</a>."
           what_if_i_want_to_claim: "¿Qué pasa si quiero reclamar la Exclusión de Pensiones de Maryland?"
@@ -3182,15 +3184,15 @@ es:
         edit:
           help_text_html: Se considera que estás totalmente discapacitado si tienes una condición mental o física que te impide trabajar y recibir ingresos. <br><br>Se espera que esta condición dure mucho tiempo, por un período indefinido o que resulte en tu muerte. Si tienes menos de 65 años y deseas reclamar la exclusión de pensión, debes haber adjuntado una certificación de un médico calificado que indique la naturaleza de tu discapacidad y que estás totalmente incapacitado a una declaración de impuestos presentada anteriormente.
           help_title: "¿Qué se considera total y permanentemente discapacitado?"
-          no_neither: No, ninguno de los dos lo está
+          no_neither: No, ninguno de los dos lo es
           primary_proof_question_html: ¿Has presentado prueba de <strong>tu</strong> discapacidad para <a href="https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php"> la Exclusión de Pensiones de Maryland </a> en años fiscales anteriores?
           spouse_proof_question_html: ¿Ha presentado prueba de <strong>tu cónyuge</strong> discapacidad para <a href="https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php">la Exclusión de Pensiones de Maryland </a> en años fiscales anteriores?
           title: "¿Estás total y permanentemente discapacitado?"
           title_spouse: "¿Tú o tu cónyuge están total y permanentemente discapacitados?"
           unfortunately_dont_support_html: Desafortunadamente, nuestro servicio no puede incluir la Exclusión de Pensiones de Maryland si no has presentado prueba de tu discapacidad en un año fiscal anterior.<br><br> Si quieres reclamar la exclusión de pensiones, <a href='%{path}'>obtén más información aquí</a>.
-          yes_both: Sí, ambos lo estamos
-          yes_me: Sí lo estoy
-          yes_spouse: Sí, mi cónyuge lo está
+          yes_both: Sí, ambos lo somos
+          yes_me: Sí, yo lo soy
+          yes_spouse: Sí, mi cónyuge lo es
       md_primary_state_id:
         md_primary:
           dmv_bmv_label: Identificación estatal del MVA
@@ -3254,7 +3256,7 @@ es:
           primary_proof_of_disability: Presentaste pruebas de una discapacidad para la exclusión de pensiones en años fiscales anteriores.
           public_safety: Tu servicio como empleado de seguridad pública.
           retirement_income_deductions: Detalles sobre los ingresos de jubilación de Maryland
-          spouse_proof_of_disability: Su cónyuge presentó pruebas de una discapacidad para la exclusión de pensiones en años fiscales anteriores.
+          spouse_proof_of_disability: Prueba de discapacidad del cónyuge para la exclusión de pensión en años fiscales anteriores presentada.
           your_address: Dirección donde vivías el 31 de diciembre del %{filing_year}
       md_social_security_benefits:
         edit:

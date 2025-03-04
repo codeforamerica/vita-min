@@ -3191,7 +3191,9 @@ en:
           like_to_claim: If you'd like to claim this exclusion using a different service, you can learn more below.
           like_to_continue: If you'd like to continue using this service and not claim this exclusion, you can click 'Continue.'
           other_filing_options_html: Learn more about other filing options <a href='%{path}' target='_blank' rel='noopener noreferrer'>here</a>.
-          title_html: It looks like you may qualify for the <a href='https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php' target='_blank' rel='noopener noreferrer'>Maryland Pension Exclusion</a>.
+          title_html:
+            one: It looks like you may qualify for the <a href='https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php' target='_blank' rel='noopener noreferrer'>Maryland Pension Exclusion</a>.
+            other: It looks like you and your spouse may qualify for the <a href='https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php' target='_blank' rel='noopener noreferrer'>Maryland Pension Exclusion</a>.
           unfortunately: Unfortunately, our service doesn’t support this exclusion if you haven’t provided proof of your disability in a previous tax year.
           vita_option_html: "<a href='%{link}' rel='noopener noreferrer'>Get started with VITA now</a>."
           what_if_i_want_to_claim: What if I want to claim the Maryland Pension Exclusion?
