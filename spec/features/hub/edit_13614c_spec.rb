@@ -55,6 +55,8 @@ RSpec.describe "a user editing a clients 13614c form" do
                             had_local_tax_refund: "unsure",
                             paid_alimony: "yes",
                             had_self_employment_income: "no",
+                            had_other_income: "yes",
+                            other_income_types: "lemonade stand"
              )
 
     }
@@ -302,7 +304,8 @@ RSpec.describe "a user editing a clients 13614c form" do
 
       select "Yes", from: "hub_update13614c_form_page2_cv_other_income_cb"
 
-      fill_in "hub_update13614c_form_page2[cv_p2_notes_comments]", with: "additional income from banana stand"
+      fill_in "hub_update13614c_form_page2[other_income_types]", with: "additional income from banana stand"
+      fill_in "hub_update13614c_form_page2[cv_p2_notes_comments]", with: "other notes"
 
       click_on I18n.t("general.save")
 
@@ -391,7 +394,8 @@ RSpec.describe "a user editing a clients 13614c form" do
 
       expect(intake.cv_other_income_cb_yes?).to eq true
 
-      expect(intake.cv_p2_notes_comments).to eq "additional income from banana stand"
+      expect(intake.other_income_types).to eq "additional income from banana stand"
+      expect(intake.cv_p2_notes_comments).to eq "other notes"
     end
 
     scenario "I can see and update the 13614c page 3 form", js: true do

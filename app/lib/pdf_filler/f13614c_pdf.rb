@@ -671,7 +671,7 @@ module PdfFiller
 
     def additional_notes_including_income
       if @intake.had_other_income_yes? && @intake.other_income_types.present?
-        "Other money received during the year includes: #{@intake.other_income_types} \n---\n" + @intake.cv_p2_notes_comments
+        "Other money received during the year includes: #{@intake.other_income_types} \n---\n" + (@intake.cv_p2_notes_comments || "")
       else
         @intake.cv_p2_notes_comments
       end
