@@ -77,7 +77,7 @@ class StateFile1099R < ApplicationRecord
 
   def less_than_gross_distribution
     if state_tax_withheld_amount.present? && state_tax_withheld_amount > gross_distribution_amount
-      errors.add(:state_tax_withheld_amount, I18n.t("activerecord.errors.models.state_file1099_r.errors.must_be_less_than_gross_distribution"))
+      errors.add(:state_tax_withheld_amount, I18n.t("activerecord.errors.models.state_file1099_r.errors.must_be_less_than_gross_distribution", gross_distribution_amount: gross_distribution_amount))
     end
   end
 end

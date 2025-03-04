@@ -31,7 +31,7 @@ module StateFile
           @state_file1099_r.errors.add(:state_tax_withheld_amount, I18n.t("state_file.questions.retirement_income.edit.state_tax_withheld_absent_warning"))
         end
         if @state_file1099_r.state_tax_withheld_amount.present? && @state_file1099_r.state_tax_withheld_amount > @state_file1099_r.gross_distribution_amount
-          @state_file1099_r.errors.add(:state_tax_withheld_amount, I18n.t("state_file.questions.retirement_income.edit.state_tax_withheld_greater_than_gross_warning", gross_distribution_amount: @state_file1099_r.gross_distribution_amount))
+          @state_file1099_r.errors.add(:state_tax_withheld_amount, I18n.t("activerecord.errors.models.state_file1099_r.errors.must_be_less_than_gross_distribution", gross_distribution_amount: @state_file1099_r.gross_distribution_amount))
         end
       end
 

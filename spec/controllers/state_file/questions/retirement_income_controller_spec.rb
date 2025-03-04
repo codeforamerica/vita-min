@@ -65,7 +65,7 @@ RSpec.describe StateFile::Questions::RetirementIncomeController do
           it "displays the errors on edit" do
             get :edit, params: params
 
-            expect(response.body).to include I18n.t("state_file.questions.retirement_income.edit.state_tax_withheld_greater_than_gross_warning", gross_distribution_amount: 30)
+            expect(response.body).to include I18n.t("activerecord.errors.models.state_file1099_r.errors.must_be_less_than_gross_distribution", gross_distribution_amount: 30)
           end
         end
 
