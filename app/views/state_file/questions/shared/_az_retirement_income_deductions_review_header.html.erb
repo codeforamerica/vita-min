@@ -5,26 +5,27 @@
   </div>
 
   <div class="spacing-below-5">
+    <ul class="list--bulleted">
       <% current_intake.state_file1099_rs.each_with_index do |state_file1099_r, index| %>
         <p class="text--bold spacing-below-5">
           <%= state_file1099_r.payer_name %>
         </p>
-        <ul class="list--bulleted">
-          <li style="margin-left: 1rem;">
-            <% case state_file1099_r&.state_specific_followup&.income_source %>
-            <% when "uniformed_services" %>
-              <%= t(".uniformed_services") %>
-            <% when "pension_plan" %>
-              <%= t(".government_pension") %>
-            <% else %>
-              <%= t(".none_apply") %>
-            <% end %>
-          </li>
-
-          <%= link_to StateFile::Questions::AzRetirementIncomeSubtractionController.to_path_helper(return_to_review: "y", index: index), class: "button--small" do %>
-            <%= t("general.edit") %>
-            <span class="sr-only"><%= t("general.edit") %></span>
+        <li style="margin-left: 1rem;">
+          <% case state_file1099_r&.state_specific_followup&.income_source %>
+          <% when "uniformed_services" %>
+            <%= t(".uniformed_services") %>
+          <% when "pension_plan" %>
+            <%= t(".government_pension") %>
+          <% else %>
+            <%= t(".none_apply") %>
           <% end %>
+        </li>
+
+        <%= link_to StateFile::Questions::AzRetirementIncomeSubtractionController.to_path_helper(return_to_review: "y", index: index), class: "button--small" do %>
+          <%= t("general.edit") %>
+          <span class="sr-only"><%= t("general.edit") %></span>
+        <% end %>
+        <br />
       <% end %>
     </ul>
   </div>
