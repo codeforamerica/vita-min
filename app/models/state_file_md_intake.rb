@@ -257,15 +257,7 @@ class StateFileMdIntake < StateFileBaseIntake
   end
 
   def no_proof_of_disability_submitted?
-    if filing_status_mfj?
-      if primary_proof_of_disability_submitted_yes? || spouse_proof_of_disability_submitted_yes?
-        false
-      else
-        true
-      end
-    else
-      primary_proof_of_disability_submitted_no?
-    end
+    !(primary_proof_of_disability_submitted_yes? || spouse_proof_of_disability_submitted_yes?)
   end
 
   def has_banking_information_in_financial_resolution?
