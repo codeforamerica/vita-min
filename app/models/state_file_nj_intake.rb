@@ -137,7 +137,7 @@ class StateFileNjIntake < StateFileBaseIntake
   enum spouse_contribution_gubernatorial_elections: { unfilled: 0, yes: 1, no: 2}, _prefix: :spouse_contribution_gubernatorial_elections
 
   enum eligibility_all_members_health_insurance: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_all_members_health_insurance
-  enum eligibility_retirement_warning_continue: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_retirement_warning_continue
+  enum eligibility_retirement_warning_continue: { unfilled: 0, yes: 1, no: 2, shown: 3 }, _prefix: :eligibility_retirement_warning_continue
 
   # checkboxes - "unfilled" means not-yet-seen because it saves as "no" when unchecked
   enum homeowner_home_subject_to_property_taxes: { unfilled: 0, yes: 1, no: 2}, _prefix: :homeowner_home_subject_to_property_taxes
