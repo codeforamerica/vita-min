@@ -277,4 +277,8 @@ class StateFileMdIntake < StateFileBaseIntake
       form1099r.taxable_amount&.to_f&.positive?
     end
   end
+
+  def filer_disabled?
+    primary_disabled_yes? || spouse_disabled_yes?
+  end
 end

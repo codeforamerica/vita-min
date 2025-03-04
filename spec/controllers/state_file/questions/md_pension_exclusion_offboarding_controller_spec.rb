@@ -27,59 +27,78 @@ RSpec.describe StateFile::Questions::MdPensionExclusionOffboardingController do
     end
 
     context "when they have 1099Rs in their DF XML" do
-      context "has a filer under 65" do
+      context "when a filer is disabled" do
         before do
-          allow(intake).to receive(:has_filer_under_65?).and_return(true)
+          allow(intake).to receive(:filer_disabled?).and_return(true)
         end
-
-        context "has no proof of disability" do
+        context "has a disabled filer under 65" do
           before do
-            allow(intake).to receive(:no_proof_of_disability_submitted?).and_return(true)
+            allow(intake).to receive(:has_filer_under_65?).and_return(true)
           end
 
-          it "shows" do
-            expect(described_class.show?(intake)).to eq true
+          context "has no proof of disability" do
+            before do
+              allow(intake).to receive(:no_proof_of_disability_submitted?).and_return(true)
+            end
+
+            it "shows" do
+              expect(described_class.show?(intake)).to eq true
+            end
+          end
+
+          context "has proof of disability" do
+            before do
+              allow(intake).to receive(:no_proof_of_disability_submitted?).and_return(false)
+            end
+
+            it "shows" do
+              expect(described_class.show?(intake)).to eq false
+            end
           end
         end
 
-        context "has proof of disability" do
-          it "shows" do
-            expect(described_class.show?(intake)).to eq false
+        context "does not have a filer under 65" do
+          before do
+            allow(intake).to receive(:has_filer_under_65?).and_return(false)
+          end
+
+          context "has no proof of disability" do
+            before do
+              allow(intake).to receive(:no_proof_of_disability_submitted?).and_return(true)
+            end
+
+            it "shows" do
+              expect(described_class.show?(intake)).to eq false
+            end
+          end
+
+          context "has proof of disability" do
+            it "shows" do
+              expect(described_class.show?(intake)).to eq false
+            end
           end
         end
       end
 
-      context "does not have a filer under 65" do
+      context "when no filers are disabled" do
         before do
-          allow(intake).to receive(:has_filer_under_65?).and_return(false)
+          allow(intake).to receive(:filer_disabled?).and_return(false)
         end
 
-        context "has no proof of disability" do
-          before do
-            allow(intake).to receive(:no_proof_of_disability_submitted?).and_return(true)
-          end
-
-          it "shows" do
-            expect(described_class.show?(intake)).to eq false
-          end
-        end
-
-        context "has proof of disability" do
-          it "shows" do
-            expect(described_class.show?(intake)).to eq false
-          end
+        it "shows" do
+          expect(described_class.show?(intake)).to eq false
         end
       end
-    end
 
-    context "when the flipper flag is not enabled " do
-      before do
-        allow(Flipper).to receive(:enabled?).and_call_original
-        allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(false)
-      end
+      context "when the flipper flag is not enabled " do
+        before do
+          allow(Flipper).to receive(:enabled?).and_call_original
+          allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(false)
+        end
 
-      it "shows" do
-        expect(described_class.show?(intake)).to eq false
+        it "shows" do
+          expect(described_class.show?(intake)).to eq false
+        end
       end
     end
   end

@@ -590,4 +590,50 @@ RSpec.describe StateFileMdIntake, type: :model do
       end
     end
   end
+
+  describe "filer_disabled?" do
+    let(:intake) { create :state_file_md_intake }
+
+    before do
+      intake.update(primary_disabled: primary_disabled)
+      intake.update(spouse_disabled: spouse_disabled)
+    end
+
+    context "with disabled primary" do
+      let(:primary_disabled) { "yes" }
+      let(:spouse_disabled) { "unfilled" }
+
+      it "should return true" do
+        expect(intake.filer_disabled?).to eq(true)
+      end
+    end
+
+    context "with disabled spouse" do
+      let(:primary_disabled) { "unfilled" }
+      let(:spouse_disabled) { "yes" }
+
+      it "should return true" do
+        expect(intake.filer_disabled?).to eq(true)
+      end
+    end
+
+    context "with no one disabled" do
+      let(:primary_disabled) { "no" }
+      let(:spouse_disabled) { "no" }
+
+      it "should return false" do
+        expect(intake.filer_disabled?).to eq(false)
+      end
+    end
+
+    context "with disabled spouse not disabled primary" do
+      let(:primary_disabled) { "no" }
+      let(:spouse_disabled) { "yes" }
+
+      it "should return true" do
+        expect(intake.filer_disabled?).to eq(true)
+      end
+    end
+  end
+
 end
