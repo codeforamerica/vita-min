@@ -67,7 +67,7 @@ class StateFile1099R < ApplicationRecord
               },
               presence: {
                 message: proc { I18n.t('forms.errors.no_money_amount') }
-              }, on: [:income_review, :retirement_income_intake]
+              }
   end
 
   def less_than_gross_distribution
