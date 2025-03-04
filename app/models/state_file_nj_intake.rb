@@ -159,6 +159,11 @@ class StateFileNjIntake < StateFileBaseIntake
     calculator.calculate_use_tax(nj_gross_income)
   end
 
+  def non_military_1099rs
+    intake.state_file1099_rs.select do |state_file_1099r|
+    state_file_1099r.state_specific_followup.present? && state_file_1099r.state_specific_followup.income_source_other?
+  end
+
   def disqualifying_df_data_reason
     w2_states = direct_file_data.parsed_xml.css('W2StateLocalTaxGrp W2StateTaxGrp StateAbbreviationCd')
     return :has_out_of_state_w2 if w2_states.any? do |state|

@@ -5,38 +5,10 @@ module Efile
       attr_accessor :non_military_1099rs
       def initialize(intake)
         @intake = intake
-        @non_military_1099rs = @intake.state_file1099_rs.select do |state_file_1099r|
-          state_file_1099r.state_specific_followup.present? && state_file_1099r.state_specific_followup.income_source_other?
-        end
+
       end
 
-      def show_retirement_income_warning?(line_15, line_16a)
-        if non_military_1099r_box_1_total.zero?
-          return false
-        end
 
-        box_1_gross_income = non_military_1099r_box_1_total + line_15 + line_16a
-        max_exclusion_threshold = if @intake.filing_status_mfs? 
-                                    50_000
-                                  elsif @intake.filing_status_mfj?
-                                    100_000
-                                  else
-                                    75_000
-                                  end
-        if box_1_gross_income <= max_exclusion_threshold
-          return false
-        end 
-
-        if non_military_1099r_box_1_total <= max_exclusion_threshold && (line_15 > 3_000 || all_filers_under_62?)
-          return false
-        end
-
-        true
-      end
-
-      def non_military_1099r_box_1_total
-        @non_military_1099rs.sum { |non_military_1099r| non_military_1099r.gross_distribution_amount.round }
-      end
 
       def total_eligible_nonmilitary_1099r_income
         total_eligible_income = 0
@@ -48,7 +20,7 @@ module Efile
           eligible_ssns.push(@intake.spouse.ssn)
         end
 
-        @non_military_1099rs.each do |non_military_1099r|
+        intake.non_military_1099rs.each do |non_military_1099r|
           if non_military_1099r.recipient_ssn.in?(eligible_ssns)
             total_eligible_income += non_military_1099r.taxable_amount.round
           end
