@@ -62,8 +62,8 @@ RSpec.describe StateFile::ImportFromDirectFileJob, type: :job do
       it "undoes any other changes to the intake or associated models, and catches the error and persists it to the intake record" do
         described_class.perform_now(authorization_code: auth_code, intake: intake)
 
-        # AHhhhhhh apparently this is necessary or the results of a rolled-back transaction won't be represented correctly
-        # (i.e. the updates will show up on the object even if the transaction they happened in got rolled back)
+        # We have to reload the intake to see the results of a rolled-back transaction
+        # Otherwise, the updates will show up on the object even if the transaction they happened in got rolled back
         intake.reload
 
         expect(intake.state_file_w2s.count).to be_zero
@@ -71,6 +71,7 @@ RSpec.describe StateFile::ImportFromDirectFileJob, type: :job do
         expect(intake.df_data_import_succeeded_at).to be_nil
         expect(intake.df_data_import_errors.count).to eq(1)
         expect(intake.df_data_import_errors.first&.message).to eq("Malformed data")
+        expect(DfDataTransferJobChannel).to have_received(:broadcast_job_complete)
       end
     end
 

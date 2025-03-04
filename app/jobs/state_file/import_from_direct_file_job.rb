@@ -35,15 +35,14 @@ module StateFile
         intake.synchronize_filers_to_database
 
         intake.update(df_data_import_succeeded_at: DateTime.now)
-      ensure
-        DfDataTransferJobChannel.broadcast_job_complete(intake)
       end
     rescue ActiveRecord::LockWaitTimeout => e
       Rails.logger.error("Attempted to run StateFile::ImportForDirectFileJob for an intake while it was already running for that intake!")
-      raise e
     rescue StandardError => e
       Rails.logger.error(e)
       intake.df_data_import_errors << DfDataImportError.new(message: e.to_s)
+    ensure
+      DfDataTransferJobChannel.broadcast_job_complete(intake)
     end
 
     def priority
