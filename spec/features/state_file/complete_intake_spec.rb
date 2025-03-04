@@ -405,9 +405,10 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
+      binding.pry
+      expect(page).to have_css("#use-tax-amount", text: "$11.00")
       click_on I18n.t("general.continue")
 
-      expect(page).to have_css("#use-text-amount", text: "$11.00")
     end
   end
 
