@@ -12,7 +12,9 @@ module StateFile
       end
 
       def edit
-        @state_file1099_r = current_intake.state_file1099_rs.find(params[:id])
+        form1099r = current_intake.state_file1099_rs.find(params[:id])
+        form1099r.valid?(:income_review)
+        @state_file1099_r = form1099r
       end
 
       def update
