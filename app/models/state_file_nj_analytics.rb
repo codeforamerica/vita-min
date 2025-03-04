@@ -2,33 +2,39 @@
 #
 # Table name: state_file_nj_analytics
 #
-#  id                        :bigint           not null, primary key
-#  NJ1040_LINE_12_COUNT      :integer          default(0), not null
-#  NJ1040_LINE_15            :integer          default(0), not null
-#  NJ1040_LINE_16A           :integer          default(0), not null
-#  NJ1040_LINE_16B           :integer          default(0), not null
-#  NJ1040_LINE_29            :integer          default(0), not null
-#  NJ1040_LINE_31            :integer          default(0), not null
-#  NJ1040_LINE_41            :integer          default(0), not null
-#  NJ1040_LINE_42            :integer          default(0), not null
-#  NJ1040_LINE_43            :integer          default(0), not null
-#  NJ1040_LINE_51            :integer          default(0), not null
-#  NJ1040_LINE_56            :integer          default(0), not null
-#  NJ1040_LINE_58            :integer          default(0), not null
-#  NJ1040_LINE_58_IRS        :boolean
-#  NJ1040_LINE_59            :integer          default(0), not null
-#  NJ1040_LINE_61            :integer          default(0), not null
-#  NJ1040_LINE_64            :integer          default(0), not null
-#  NJ1040_LINE_65            :integer          default(0), not null
-#  NJ1040_LINE_65_DEPENDENTS :integer          default(0), not null
-#  NJ1040_LINE_7_SELF        :boolean
-#  NJ1040_LINE_7_SPOUSE      :boolean
-#  NJ1040_LINE_8_SELF        :boolean
-#  NJ1040_LINE_8_SPOUSE      :boolean
-#  claimed_as_dep            :boolean
-#  created_at                :datetime         not null
-#  updated_at                :datetime         not null
-#  state_file_nj_intake_id   :bigint           not null
+#  id                                      :bigint           not null, primary key
+#  NJ1040_LINE_12_COUNT                    :integer          default(0), not null
+#  NJ1040_LINE_15                          :integer          default(0), not null
+#  NJ1040_LINE_16A                         :integer          default(0), not null
+#  NJ1040_LINE_16B                         :integer          default(0), not null
+#  NJ1040_LINE_20A                         :integer          default(0), not null
+#  NJ1040_LINE_20B                         :integer          default(0), not null
+#  NJ1040_LINE_28A                         :integer          default(0), not null
+#  NJ1040_LINE_28B                         :integer          default(0), not null
+#  NJ1040_LINE_28C                         :integer          default(0), not null
+#  NJ1040_LINE_29                          :integer          default(0), not null
+#  NJ1040_LINE_31                          :integer          default(0), not null
+#  NJ1040_LINE_41                          :integer          default(0), not null
+#  NJ1040_LINE_42                          :integer          default(0), not null
+#  NJ1040_LINE_43                          :integer          default(0), not null
+#  NJ1040_LINE_51                          :integer          default(0), not null
+#  NJ1040_LINE_56                          :integer          default(0), not null
+#  NJ1040_LINE_58                          :integer          default(0), not null
+#  NJ1040_LINE_58_IRS                      :boolean
+#  NJ1040_LINE_59                          :integer          default(0), not null
+#  NJ1040_LINE_61                          :integer          default(0), not null
+#  NJ1040_LINE_64                          :integer          default(0), not null
+#  NJ1040_LINE_65                          :integer          default(0), not null
+#  NJ1040_LINE_65_DEPENDENTS               :integer          default(0), not null
+#  NJ1040_LINE_7_SELF                      :boolean
+#  NJ1040_LINE_7_SPOUSE                    :boolean
+#  NJ1040_LINE_8_SELF                      :boolean
+#  NJ1040_LINE_8_SPOUSE                    :boolean
+#  claimed_as_dep                          :boolean
+#  eligibility_retirement_warning_continue :integer          default(0), not null
+#  created_at                              :datetime         not null
+#  updated_at                              :datetime         not null
+#  state_file_nj_intake_id                 :bigint           not null
 #
 # Indexes
 #
@@ -47,7 +53,12 @@ class StateFileNjAnalytics < ApplicationRecord
       :NJ1040_LINE_12_COUNT, 
       :NJ1040_LINE_15, 
       :NJ1040_LINE_16A, 
-      :NJ1040_LINE_16B, 
+      :NJ1040_LINE_16B,
+      :NJ1040_LINE_20A,
+      :NJ1040_LINE_20B,
+      :NJ1040_LINE_28A,
+      :NJ1040_LINE_28B,
+      :NJ1040_LINE_28C,
       :NJ1040_LINE_29,
       :NJ1040_LINE_31,
       :NJ1040_LINE_41,
@@ -65,6 +76,7 @@ class StateFileNjAnalytics < ApplicationRecord
     ]
     metabase_metrics = {
       claimed_as_dep: state_file_nj_intake.direct_file_data.claimed_as_dependent?,
+      eligibility_retirement_warning_continue: state_file_nj_intake.eligibility_retirement_warning_continue
     }
     required_fields.each do |metric|
       metabase_metrics[metric] = nj1040_fields[metric] || 0
