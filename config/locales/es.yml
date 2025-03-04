@@ -19,9 +19,9 @@ es:
               invalid: Debe ser un número de cinco dígitos que comience con 2
             date_of_contribution:
               inclusion: La fecha debe ser válida y corresponder al año fiscal actual.
-        state_file_1099_r:
+        state_file1099_r:
           errors:
-            must_be_less_than_gross_distribution: Debe ser menor que el monto bruto de distribución
+            must_be_less_than_gross_distribution: Box 14 State tax withheld cannot be greater than %{gross_distribution_amount}
   attributes:
     confirm_primary_ssn: Confirme el Número de Seguro Social (SSN) o Número de Identificación Personal (ITIN)
     confirm_spouse_ssn: Confirme el Número de Seguro Social (SSN) o Número de Identificación Personal (ITIN) de su cónyuge
@@ -3973,6 +3973,7 @@ es:
           box14_html: "<b>Casilla 14</b>, Impuesto estatal retenido"
           box15_html: "<b>Casilla 15</b>, Número estatal del pagador"
           box16_html: "<b>Casilla 16</b>, Distribución estatal"
+          state_tax_withheld_absent_warning: Please confirm that the amount in Box 14 on your 1099-R is 0
           title_html: Por favor, revisa los detalles de los ingresos estatales (1099-R) que recibiste de <strong>%{payer_name}</strong>.
       retirement_income_subtraction:
         doc_1099r_label: 1099-R
