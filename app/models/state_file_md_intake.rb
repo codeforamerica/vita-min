@@ -258,7 +258,7 @@ class StateFileMdIntake < StateFileBaseIntake
 
   def no_proof_of_disability_submitted?
     if filing_status_mfj?
-      primary_proof_of_disability_submitted_no? || spouse_proof_of_disability_submitted_no?
+      primary_proof_of_disability_submitted_no? && spouse_proof_of_disability_submitted_no?
     else
       primary_proof_of_disability_submitted_no?
     end

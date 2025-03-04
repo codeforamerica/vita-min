@@ -568,7 +568,7 @@ RSpec.describe StateFileMdIntake, type: :model do
         let(:primary_proof) { "no"}
 
         it "should return true" do
-          expect(intake.no_proof_of_disability_submitted?).to eq(true)
+          expect(intake.no_proof_of_disability_submitted?).to eq(false)
         end
       end
 
@@ -576,7 +576,7 @@ RSpec.describe StateFileMdIntake, type: :model do
         let(:spouse_proof) { "no"}
 
         it "should return true" do
-          expect(intake.no_proof_of_disability_submitted?).to eq(true)
+          expect(intake.no_proof_of_disability_submitted?).to eq(false)
         end
       end
 
