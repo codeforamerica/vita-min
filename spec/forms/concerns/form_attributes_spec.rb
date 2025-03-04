@@ -86,7 +86,7 @@ RSpec.describe FormAttributes do
         expect(attributes).to be_empty
       end
 
-      it 'should create initialize with nil if defaults are not passed' do
+      it 'should initialize with nil if defaults are not passed' do
         attributes = subject.attributes_for(:without_defaults)
         expect(attributes).to match(attribute_one: nil, attribute_two: nil)
       end
