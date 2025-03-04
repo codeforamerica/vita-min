@@ -189,7 +189,6 @@ FactoryBot.define do
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('id_estrada_donations') }
     end
 
-
     trait :with_eligible_1099r_income do
       after(:create) do |intake|
         create(:state_file1099_r, intake: intake, taxable_amount: 2000, state_tax_withheld_amount: 200, recipient_ssn: intake.primary.ssn) do |form_1099r|
