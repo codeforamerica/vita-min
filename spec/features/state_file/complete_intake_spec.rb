@@ -223,10 +223,6 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       choose "state_file_nc_veteran_status_form_spouse_veteran_no"
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t("state_file.questions.nc_sales_use_tax.edit.title.other", year: filing_year, count: 2)
-      choose I18n.t("general.negative")
-      click_on I18n.t("general.continue")
-
       expect(page).to have_text I18n.t('state_file.questions.income_review.edit.title')
       within('#w2s') do
         expect(page).to have_text(I18n.t('state_file.questions.income_review.edit.no_info_needed'))
@@ -267,6 +263,10 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       click_on I18n.t("general.continue")
 
       expect(strip_html_tags(page.body)).to have_text strip_html_tags(I18n.t("state_file.questions.nc_subtractions.edit.title_html.other"))
+      choose I18n.t("general.negative")
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text I18n.t("state_file.questions.nc_sales_use_tax.edit.title.other", year: filing_year, count: 2)
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
 
