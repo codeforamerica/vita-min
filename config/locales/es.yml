@@ -3163,7 +3163,7 @@ es:
           other_filing_options_html: Obtén más información sobre este proceso y otras opciones de declaración <a href='%{path}' target='_blank' rel='noopener noreferrer'>aquí</a>.
           title_html:
             one: Parece que podrías calificar para la <a href='https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php' target='_blank' rel='noopener noreferrer'>Exclusión de Pensiones de Maryland</a>.
-            other: Parece que podrías calificar para la <a href='https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php' target='_blank' rel='noopener noreferrer'>Exclusión de Pensiones de Maryland</a>.
+            other: Parece que tú y tu cónyuge podrían calificar para la  <a href='https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php' target='_blank' rel='noopener noreferrer'>Exclusión de Pensiones de Maryland</a>.
           unfortunately: Desafortunadamente, nuestro servicio no admite la exclusión máxima si tú o tu cónyuge no han presentado prueba de su discapacidad en un año anterior.
           vita_option_html: "<a href='%{link}' rel='noopener noreferrer'>Comienza con VITA ahora</a>."
           what_if_i_want_to_claim: "¿Qué pasa si quiero reclamar la Exclusión de Pensiones de Maryland?"
