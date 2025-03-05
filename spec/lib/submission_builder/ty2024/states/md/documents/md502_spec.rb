@@ -712,11 +712,11 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
       # Shouldn't happen, but included for the sake of completeness
       context "if intake has no email address and none exists in direct_file_data" do
         before do
-          allow_any_instance_of(StateFileMdIntake).to receive(:direct_file_data).and_return nil
+          allow_any_instance_of(DirectFileData).to receive(:tax_payer_email).and_return nil
         end
 
         it "doesn't fill in email address" do
-          expect(xml.document.at('EmailAddress')).not_to be_present
+          expect(xml.document.at('EmailAddress')&.text).not_to be_present
         end
       end
 
