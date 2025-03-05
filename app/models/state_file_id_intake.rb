@@ -135,6 +135,10 @@ class StateFileIdIntake < StateFileBaseIntake
     end
   end
 
+  def show_mfj_disability_options
+    filing_status_mfj? && all_filers_between_62_and_65_years_old?
+  end
+
   def primary_between_62_and_65_years_old?
     primary_age = calculate_age(primary_birth_date, inclusive_of_jan_1: true)
     primary_age >= 62 && primary_age < 65
