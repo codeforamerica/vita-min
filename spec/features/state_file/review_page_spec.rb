@@ -128,7 +128,8 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
   end
 
   context "AZ" do
-    it "allows user to navigate to az public school contributions page, edit a contribution form, and then navigate back to final review page", required_schema: "az" do
+    it "allows user to navigate to az public school contributions page, edit a contribution form, and then navigate back to final review page, and then to 1099r edit page and back", required_schema: "az" do
+      Flipper.enable(:show_retirement_ui)
       state_code = "az"
       set_up_intake_and_associated_records(state_code)
 
@@ -169,9 +170,18 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
       # Back on final review page
       expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
-      within "#public-school-contributions" do
+
+      # 1099R edit page
+      within "#retirement-income-subtractions" do
         click_on I18n.t("general.edit")
       end
+
+      expect(page).to have_text intake.state_file1099_rs.first.payer_name
+      choose I18n.t("state_file.questions.az_retirement_income_subtraction.edit.uniformed_services")
+      click_on I18n.t("general.continue")
+
+      # Back on final review page
+      expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
     end
   end
 
@@ -384,9 +394,9 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
             expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
             within "#qualified-retirement-benefits-deduction" do
-              expect(page).to have_text I18n.t("state_file.questions.id_review.edit.qualified_retirement_benefits_deduction")
-              expect(page).to have_text I18n.t("state_file.questions.id_review.edit.qualified_retirement_benefits_deduction_explain")
-              expect(page).to have_text I18n.t("state_file.questions.id_review.edit.qualified_disabled_retirement_benefits")
+              expect(page).to have_text I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.qualified_retirement_benefits_deduction")
+              expect(page).to have_text I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.qualified_retirement_benefits_deduction_explain")
+              expect(page).to have_text I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.qualified_disabled_retirement_benefits")
               expect(page).to have_text "$250.00"
 
               click_on I18n.t("general.review_and_edit")
@@ -407,9 +417,9 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
             expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
             within "#qualified-retirement-benefits-deduction" do
-              expect(page).to have_text I18n.t("state_file.questions.id_review.edit.qualified_retirement_benefits_deduction")
-              expect(page).to have_text I18n.t("state_file.questions.id_review.edit.qualified_retirement_benefits_deduction_explain")
-              expect(page).to have_text I18n.t("state_file.questions.id_review.edit.qualified_disabled_retirement_benefits")
+              expect(page).to have_text I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.qualified_retirement_benefits_deduction")
+              expect(page).to have_text I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.qualified_retirement_benefits_deduction_explain")
+              expect(page).to have_text I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.qualified_disabled_retirement_benefits")
               expect(page).to have_text "$200.00" # $50 less eligible
             end
           end
@@ -420,9 +430,9 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
           expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
           within "#qualified-retirement-benefits-deduction" do
-            expect(page).to have_text I18n.t("state_file.questions.id_review.edit.qualified_retirement_benefits_deduction")
-            expect(page).to have_text I18n.t("state_file.questions.id_review.edit.qualified_retirement_benefits_deduction_explain")
-            expect(page).to have_text I18n.t("state_file.questions.id_review.edit.qualified_disabled_retirement_benefits")
+            expect(page).to have_text I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.qualified_retirement_benefits_deduction")
+            expect(page).to have_text I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.qualified_retirement_benefits_deduction_explain")
+            expect(page).to have_text I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.qualified_disabled_retirement_benefits")
             expect(page).to have_text "$250.00"
 
             click_on I18n.t("general.review_and_edit")
@@ -443,9 +453,9 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
           expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
           within "#qualified-retirement-benefits-deduction" do
-            expect(page).to have_text I18n.t("state_file.questions.id_review.edit.qualified_retirement_benefits_deduction")
-            expect(page).to have_text I18n.t("state_file.questions.id_review.edit.qualified_retirement_benefits_deduction_explain")
-            expect(page).to have_text I18n.t("state_file.questions.id_review.edit.qualified_disabled_retirement_benefits")
+            expect(page).to have_text I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.qualified_retirement_benefits_deduction")
+            expect(page).to have_text I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.qualified_retirement_benefits_deduction_explain")
+            expect(page).to have_text I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.qualified_disabled_retirement_benefits")
             expect(page).to have_text "$200.00" # $50 less eligible
           end
         end
@@ -462,9 +472,9 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
           expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
           within "#qualified-retirement-benefits-deduction" do
-            expect(page).to have_text I18n.t("state_file.questions.id_review.edit.qualified_retirement_benefits_deduction")
-            expect(page).to have_text I18n.t("state_file.questions.id_review.edit.qualified_retirement_benefits_deduction_explain")
-            expect(page).to have_text I18n.t("state_file.questions.id_review.edit.qualified_disabled_retirement_benefits")
+            expect(page).to have_text I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.qualified_retirement_benefits_deduction")
+            expect(page).to have_text I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.qualified_retirement_benefits_deduction_explain")
+            expect(page).to have_text I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.qualified_disabled_retirement_benefits")
             expect(page).to have_text "$250.00"
 
             click_on I18n.t("general.review_and_edit")
@@ -475,7 +485,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
           click_on I18n.t("general.continue")
 
           expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
-          expect(page).not_to have_text I18n.t("state_file.questions.id_review.edit.qualified_retirement_benefits_deduction")
+          expect(page).not_to have_text I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.qualified_retirement_benefits_deduction")
         end
       end
     end
@@ -485,7 +495,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       visit "/questions/id-review"
 
       expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
-      expect(page).not_to have_text(I18n.t("state_file.questions.id_review.edit.qualified_retirement_benefits_deduction"))
+      expect(page).not_to have_text(I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.qualified_retirement_benefits_deduction"))
     end
   end
 

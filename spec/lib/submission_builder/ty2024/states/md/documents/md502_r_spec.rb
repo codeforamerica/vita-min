@@ -108,12 +108,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502R, required_sche
       end
     end
 
-    context "show_md_ssa" do
-      before do
-        allow(Flipper).to receive(:enabled?).and_call_original
-        allow(Flipper).to receive(:enabled?).with(:show_md_ssa).and_return(true)
-      end
-
+    context "SSA benefit amounts" do
       context "Line 9" do
         before do
           allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_9a).and_return 100

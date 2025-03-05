@@ -32,7 +32,6 @@ RSpec.describe StateFile::Questions::RetirementIncomeController do
     end
   end
 
-
   describe "#edit" do
     let(:client) { intake.client }
     let!(:form1099r) do
@@ -57,6 +56,38 @@ RSpec.describe StateFile::Questions::RetirementIncomeController do
         expect(response.body).to include("az123456669")
         expect(response.body).to include("30")
         expect(response.body).to include("40")
+      end
+
+      context "when there are box 14 warnings" do
+        context "state tax withheld more than gross distribution amount" do
+          let!(:form1099r) { create :state_file1099_r, state_tax_withheld_amount: 40, gross_distribution_amount: 30, intake: intake }
+
+          it "displays the errors on edit" do
+            get :edit, params: params
+
+            expect(response.body).to include I18n.t("activerecord.errors.models.state_file1099_r.errors.must_be_less_than_gross_distribution", gross_distribution_amount: 30)
+          end
+        end
+
+        context "state tax withheld amount nil" do
+          let!(:form1099r) { create :state_file1099_r, state_tax_withheld_amount: nil, intake: intake }
+
+          it "displays the errors on edit" do
+            get :edit, params: params
+
+            expect(response.body).to include I18n.t("state_file.questions.retirement_income.edit.state_tax_withheld_absent_warning")
+          end
+        end
+
+        context "state tax withheld amount is 0" do
+          let!(:form1099r) { create :state_file1099_r, state_tax_withheld_amount: 0, intake: intake }
+
+          it "displays the errors on edit" do
+            get :edit, params: params
+
+            expect(response.body).to include I18n.t("state_file.questions.retirement_income.edit.state_tax_withheld_absent_warning")
+          end
+        end
       end
     end
 
