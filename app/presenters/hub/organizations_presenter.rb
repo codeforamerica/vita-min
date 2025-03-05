@@ -7,8 +7,13 @@ module Hub
       accessible_organizations = Organization.accessible_by(current_ability)
       @organizations = accessible_organizations.includes(:child_sites).with_computed_client_count.load
       @coalitions = Coalition.accessible_by(current_ability)
-      @state_routing_targets = StateRoutingTarget.where(target: accessible_organizations).or(StateRoutingTarget.where(target: @coalitions)).load.group_by(&:state_abbreviation)
+      coalition_parents_of_dependent_orgs = accessible_organizations.where.not(coalition_id: nil).pluck(:coalition_id)
+      @state_routing_targets = StateRoutingTarget.where(target: accessible_organizations)
+                                                 .or(StateRoutingTarget.where(target: @coalitions))
+                                                 .or(StateRoutingTarget.where(target_id: coalition_parents_of_dependent_orgs))
+                                                 .distinct.load.group_by(&:state_abbreviation)
     end
+
 
     Capacity = Struct.new(:current_count, :total_capacity) do
       def initialize(current_count = 0, total_capacity = 0)
@@ -17,9 +22,20 @@ module Hub
     end
 
     def accessible_entities_for(state)
-      @state_routing_targets[state]&.map do |target|
-        target.target_type == "Coalition" ? coalition(target.target_id) : organization(target.target_id)
-      end
+      return [] unless @state_routing_targets[state]
+
+      @state_routing_targets[state].flat_map do |srt|
+        case srt.target_type
+        when Coalition::TYPE
+          if (coalition_obj = coalition(srt.target_id))
+            coalition_obj
+          else
+            srt.target.organizations&.filter_map { |org| organization(org.id) }
+          end
+        when Organization::TYPE, VitaPartner::TYPE
+          organization(srt.target_id)
+        end
+      end.compact.uniq
     end
 
     # use instead of coalition.organizations in the view so that we're not loading organizations 2x
@@ -57,6 +73,12 @@ module Hub
         capacity.total_capacity += target_capacity.total_capacity
       end
       capacity
+    end
+
+    def orgs_with_unrouted_coalitions
+      organizations.where.not(coalition_id: nil).joins(:coalition)
+                   .left_joins(coalition: :state_routing_targets)
+                   .where(state_routing_targets: { id: nil })
     end
 
     def unrouted_independent_organizations
