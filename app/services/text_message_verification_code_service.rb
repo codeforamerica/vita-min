@@ -12,16 +12,16 @@ class TextMessageVerificationCodeService
   def request_code
     verification_code, access_token = TextMessageAccessToken.generate!(sms_phone_number: @phone_number, client_id: @client_id)
     outgoing_message_status = OutgoingMessageStatus.find_or_create_by!(message_type: :sms, parent: access_token)
-    args = {
+    message_arguments = {
       to: @phone_number,
       body: I18n.t("verification_code_sms.with_code",
                    service_name: @service_data.service_name,
                    locale: @locale,
                    verification_code: verification_code
-      ).strip
-    }
-    args = args.merge(status_callback: twilio_update_status_url(outgoing_message_status.id, locale: nil)) if @service_data.service_type != :statefile
-    twilio_response = TwilioService.new(@service_data.service_type).send_text_message(**args)
+      ).strip,
+      status_callback: @service_data.service_type == :statefile ? nil : twilio_update_status_url(outgoing_message_status.id, locale: nil),
+    }.compact
+    twilio_response = TwilioService.new(@service_data.service_type).send_text_message(**message_arguments)
     VerificationTextMessage.create!(
       text_message_access_token: access_token,
       visitor_id: @visitor_id,
@@ -31,8 +31,7 @@ class TextMessageVerificationCodeService
   end
 
   private
-
-
+  
   def self.request_code(**args)
     new(**args).request_code
   end
