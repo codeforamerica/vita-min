@@ -36,6 +36,43 @@ RSpec.describe StateFile::IdGroceryCreditForm do
       end
     end
 
+    context "answering that their were ineligible months without selecting a family member" do
+      let!(:intake) { create :state_file_id_intake, :mfj_filer_with_json, :with_dependents }
+      let(:first_dependent) { intake.dependents[0] }
+      let(:second_dependent) { intake.dependents[1] }
+      let(:third_dependent) { intake.dependents[2] }
+      let(:invalid_params) do
+        {
+          household_has_grocery_credit_ineligible_months: "yes",
+          primary_has_grocery_credit_ineligible_months: "no",
+          spouse_has_grocery_credit_ineligible_months: "no",
+          dependents_attributes: {
+            '0': {
+              id: first_dependent.id,
+              id_has_grocery_credit_ineligible_months: "yes"
+            },
+            '1': {
+              id: second_dependent.id,
+              id_has_grocery_credit_ineligible_months: "no"
+            },
+            '2': {
+              id: third_dependent.id,
+              id_has_grocery_credit_ineligible_months: "no"
+            },
+            '3': {
+              id: first_dependent.id,
+              id_months_ineligible_for_grocery_credit: ""
+            }
+          }
+        }
+      end
+      it "is invalid and has error message about needing to select a member" do
+        form = described_class.new(intake, invalid_params)
+        expect(form).not_to be_valid
+        expect(form.errors.first.type).to eq(I18n.t(".state_file.questions.id_grocery_credit.edit.select_a_household_member"))
+      end
+    end
+
     context "without selecting a spouse ineligible months number after specifying that spouse had ineligible months" do
       let!(:intake) { create :state_file_id_intake, :mfj_filer_with_json }
       let(:invalid_params) do

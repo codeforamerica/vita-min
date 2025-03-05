@@ -27,6 +27,8 @@ module StateFile
               },
               if: -> { spouse_has_grocery_credit_ineligible_months == "yes" }
 
+    validate :family_members_with_ineligible_months,
+             if: -> {household_has_grocery_credit_ineligible_months == "yes"}
     def initialize(intake = nil, params = nil)
       if params.present?
         params = remove_invalid_followups(params)
@@ -49,6 +51,12 @@ module StateFile
     def valid?
       dependents_valid = dependents.map { |d| d.valid?(:id_grocery_credit_form) }
       super && dependents_valid.all?
+    end
+
+    def family_members_with_ineligible_months
+      unless dependents.where(id_has_grocery_credit_ineligible_months: "yes").present? || primary_has_grocery_credit_ineligible_months == "yes" || spouse_has_grocery_credit_ineligible_months == "yes"
+        errors.add(:primary_has_grocery_credit_ineligible_months, I18n.t(".state_file.questions.id_grocery_credit.edit.select_a_household_member"))
+      end
     end
 
     def remove_invalid_followups(params)

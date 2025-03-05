@@ -2978,6 +2978,7 @@ en:
           see_if_you_qualify:
             one: To see if you qualify, we need more information about you.
             other: To see if you qualify, we need more information about you and your household.
+          select_a_household_member: Please select a household member
           select_household_members: 'Select the members of the household any of these situations applied to in %{tax_year}:'
           situation_incarceration: were incarcerated
           situation_snap: received food stamps / SNAP-EBT

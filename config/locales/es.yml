@@ -2945,6 +2945,7 @@ es:
             many: Para ver si califica, necesitamos más información sobre usted y su hogar.
             one: Para ver si usted califica, necesitamos más información sobre usted.
             other: Para ver si calificas, necesitamos más información sobre ti y tu hogar.
+          select_a_household_member: Por favor, seleccione una persona en su casa
           select_household_members: 'Selecciona a las personas de tu hogar para quienes aplican estas situaciones en %{tax_year}:'
           situation_incarceration: Estuvo encarcelado
           situation_snap: Recibir cupones de alimentos / SNAP-EBT
