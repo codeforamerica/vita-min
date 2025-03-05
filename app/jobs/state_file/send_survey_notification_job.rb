@@ -1,6 +1,8 @@
 module StateFile
   class SendSurveyNotificationJob < ApplicationJob
     def perform(intake, submission)
+      return if submission.data_source.efile_submissions.any? { |sub| sub.current_state == "cancelled" }
+
       StateFile::MessagingService.new(
         intake: intake,
         submission: submission,
