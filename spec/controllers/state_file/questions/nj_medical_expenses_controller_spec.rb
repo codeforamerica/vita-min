@@ -19,6 +19,24 @@ RSpec.describe StateFile::Questions::NjMedicalExpensesController do
       expect(response.body).to have_text "$246"
     end
 
+    describe "#show?" do
+      context "when nj gross income is zero" do
+        let(:intake) { create :state_file_nj_intake }
+        it "does not show" do
+          allow_any_instance_of(StateFileNjIntake).to receive(:nj_gross_income).and_return(0)
+          expect(described_class.show?(intake)).to eq false
+        end
+      end
+
+      context "when nj gross income is greater than zero" do
+        let(:intake) { create :state_file_nj_intake }
+        it "shows" do
+          allow_any_instance_of(StateFileNjIntake).to receive(:nj_gross_income).and_return(1)
+          expect(described_class.show?(intake)).to eq true
+        end
+      end
+    end
+
     describe "#update" do 
       context "when a user has medical expenses" do
         let(:form_params) {
