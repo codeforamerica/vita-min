@@ -7,6 +7,11 @@
 #  NJ1040_LINE_15            :integer          default(0), not null
 #  NJ1040_LINE_16A           :integer          default(0), not null
 #  NJ1040_LINE_16B           :integer          default(0), not null
+#  NJ1040_LINE_20A           :integer          default(0), not null
+#  NJ1040_LINE_20B           :integer          default(0), not null
+#  NJ1040_LINE_28A           :integer          default(0), not null
+#  NJ1040_LINE_28B           :integer          default(0), not null
+#  NJ1040_LINE_28C           :integer          default(0), not null
 #  NJ1040_LINE_29            :integer          default(0), not null
 #  NJ1040_LINE_31            :integer          default(0), not null
 #  NJ1040_LINE_41            :integer          default(0), not null
@@ -47,7 +52,12 @@ class StateFileNjAnalytics < ApplicationRecord
       :NJ1040_LINE_12_COUNT, 
       :NJ1040_LINE_15, 
       :NJ1040_LINE_16A, 
-      :NJ1040_LINE_16B, 
+      :NJ1040_LINE_16B,
+      :NJ1040_LINE_20A,
+      :NJ1040_LINE_20B,
+      :NJ1040_LINE_28A,
+      :NJ1040_LINE_28B,
+      :NJ1040_LINE_28C,
       :NJ1040_LINE_29,
       :NJ1040_LINE_31,
       :NJ1040_LINE_41,

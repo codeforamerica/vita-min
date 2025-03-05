@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe StateFile::NjRetirementWarningForm do
   let(:intake) {
     create :state_file_nj_intake,
-    eligibility_retirement_warning_continue: "unfilled"
+    eligibility_retirement_warning_continue: "shown"
   }
 
   describe "validations" do
@@ -46,7 +46,7 @@ RSpec.describe StateFile::NjRetirementWarningForm do
         form = described_class.new(intake, valid_params)
         form.save
         intake.reload
-        expect(intake.eligibility_retirement_warning_continue_yes?).to eq false
+        expect(intake.eligibility_retirement_warning_continue_no?).to eq true
       end
     end
   end
