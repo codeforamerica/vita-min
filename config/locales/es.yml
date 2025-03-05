@@ -3215,13 +3215,12 @@ es:
             </ul>
           public_service_reveal_header: "¿Qué servicios califican como empleado de seguridad pública?"
           public_service_reveal_html: |
-            <p>Para calificar, debes ser un empleado retirado como:</p>
+            <p>Para calificar, debes haber estado empleado por el gobierno federal, el gobierno de Maryland, o de una subdivisión política de Maryland como un:</p>
             <ul>
               <li>Oficial de correcciones, o</li>
               <li>Oficial de la ley, o</li>
               <li>Bombero, trabajador de rescate o personal de servicios de emergencia</li>
             </ul>
-            <p>Esto se aplica a empleados federales de los Estados Unidos, incluidos Maryland y sus subdivisiones políticas.</p>
           retirement_plan_reveal_header: "¿Qué planes de jubilación son parte de un sistema de jubilación de empleados?"
           retirement_plan_reveal_html: |
             <p>Los planes que son parte de un sistema de jubilación de empleados incluyen:</p>
@@ -3229,16 +3228,16 @@ es:
               <li>Planes 401(k)</li>
               <li>Planes de pensión, participación en ganancias o bonos en acciones (como 401(a), 403, 403(b) o 457(b))</li>
               <li>Planes de compensación diferida de gobiernos estatales o locales o de organizaciones exentas de impuestos (como 457(b))</li>
-              <li>Planes de ahorro para el retiro</li>
+              <li>Planes de Ahorro para la Jubilación</li>
               <li>Planes SIMPLE 401(k) para pequeñas empresas</li>
             </ul>
             <p>Esto no incluye planes Keogh ni ingresos de jubilación de otros países.</p>
             <p>Los ingresos de una IRA tradicional, IRA Roth, IRA de traspaso o un plan simplificado para empleados (SEP) no son compatibles con este servicio.</p>
           service_type_military: Tu servicio en el ejército o los beneficios por fallecimiento militar de un cónyuge o ex-cónyuge
-          service_type_none: Ninguna de estas aplica
+          service_type_none: Ninguna de estas opciones aplica
           service_type_public_safety: Tu servicio como trabajador de seguridad pública
           service_type_question: 'Este ingreso provino de:'
-          subtitle: Necesitamos más información de tu formulario 1099-R para confirmar tu elegibilidad.
+          subtitle_html: Algunos Formularios 1099-R con un monto imponible podrán calificar para esta deducción. Necesitamos más información sobre este 1099-R para verificar tu elegibilidad y presentar tu declaración estatal.<br><br>Si tienes varios 1099-R, se te pedirá completar este paso para cada uno cantidad sujeta a impuestos.
           taxable_amount_label: Cantidad sujeta a impuestos
           taxpayer_name_label: Nombre del contribuyente
           title: "¡Podrías ser elegible para una resta de ingresos por jubilación de Maryland!"
