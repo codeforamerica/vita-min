@@ -3266,7 +3266,7 @@ en:
           service_type_none: None of these apply
           service_type_public_safety: Your service as a public safety employee
           service_type_question: 'Did this income come from:'
-          subtitle_html: We need more information about this 1099-R to check your eligibility and file your state return. <br><br> If you reported multiple 1099-Rs, you’ll be asked to complete this step for each one with a taxable amount.
+          subtitle_html: Some 1099-Rs with a taxable amount listed may qualify for this deduction. We need more information about this 1099-R to check your eligibility and file your state return. <br><br> If you reported multiple 1099-Rs, you'll be asked to complete this step for each one with a taxable amount.
           taxable_amount_label: Taxable amount
           taxpayer_name_label: Taxpayer name
           title: You might be eligible for a Maryland retirement income subtraction!
