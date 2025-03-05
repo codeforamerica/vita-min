@@ -1,0 +1,141 @@
+{
+  "familyAndHousehold": [
+    {
+      "monthsLivedWithTPInUS": "twelve",
+      "lastName": "Canyon",
+      "hohQualifyingPerson": null,
+      "isClaimedDependent": true,
+      "qualifyingChild": true,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "2021-02-26",
+      "suffix": null,
+      "residencyDuration": "allYear",
+      "firstName": "Zion",
+      "middleInitial": null,
+      "scheduleEicLine4aNo": false,
+      "tin": "300-00-2112",
+      "eligibleDependent": true,
+      "relationship": "adoptedChild",
+      "ssnNotValidForEmployment": false
+    }
+  ],
+  "socialSecurityReports": [
+    {
+      "formType": "SSA-1099",
+      "recipientTin": "400-00-2110",
+      "netBenefits": "10000.00"
+    },
+    {
+      "formType": "SSA-1099",
+      "recipientTin": "400-00-2111",
+      "netBenefits": "10000.00"
+    }
+  ],
+  "filers": [
+    {
+      "lastName": "Canyon",
+      "dateOfBirth": "1960-02-01",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "firstName": "Grand",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "400-00-2110",
+      "interestReportsTotal": "250.00",
+      "isDisabled": false,
+      "form1099GsTotal": "10000.00",
+      "isStudent": false,
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": null
+    },
+    {
+      "lastName": "Mountain",
+      "dateOfBirth": "1955-01-02",
+      "suffix": null,
+      "isPrimaryFiler": false,
+      "firstName": "Rocky",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "400-00-2111",
+      "interestReportsTotal": "208.00",
+      "isDisabled": false,
+      "form1099GsTotal": "13000.00",
+      "isStudent": false,
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "form1099Gs": [
+    {
+      "has1099": true,
+      "stateTaxWithheld": "0.00",
+      "amount": "13000.00",
+      "amountPaidBackForBenefitsInTaxYear": "0.00",
+      "federalTaxWithheld": "0.00",
+      "stateIdNumber": "123456",
+      "payerTin": null,
+      "payer": "Arizona Department of Economic Security",
+      "recipientTin": "400-00-2111"
+    },
+    {
+      "stateTaxWithheld": "250.00",
+      "has1099": true,
+      "amount": "10000.00",
+      "amountPaidBackForBenefitsInTaxYear": "0.00",
+      "federalTaxWithheld": "1000.00",
+      "stateIdNumber": "123456",
+      "payerTin": "13-1635294",
+      "payer": "Arizona Department of Economic Security",
+      "recipientTin": "400-00-2110"
+    }
+  ],
+  "formW2s": [
+    {
+      "usedTin": "400-00-2110",
+      "unionDuesAmount": null
+    },
+    {
+      "usedTin": "400-00-2111",
+      "unionDuesAmount": null
+    }
+  ],
+  "interestReports": [
+    {
+      "has1099": true,
+      "taxExemptAndTaxCreditBondCusipNo": null,
+      "interestOnGovernmentBonds": "0.00",
+      "taxExemptInterest": "0.00",
+      "payerTin": null,
+      "recipientTin": "400-00-2110",
+      "payer": "Yellowstone Bank",
+      "no1099Amount": null,
+      "1099Amount": "250.00",
+      "taxWithheld": "0.00"
+    },
+    {
+      "has1099": true,
+      "taxExemptAndTaxCreditBondCusipNo": null,
+      "interestOnGovernmentBonds": "5.00",
+      "payerTin": "84-6023137",
+      "taxExemptInterest": "0.00",
+      "payer": "Yosemite",
+      "recipientTin": "400-00-2111",
+      "1099Amount": "200.00",
+      "taxWithheld": "1.00",
+      "no1099Amount": null
+    },
+    {
+      "has1099": false,
+      "taxExemptAndTaxCreditBondCusipNo": null,
+      "interestOnGovernmentBonds": "0.00",
+      "payerTin": null,
+      "taxExemptInterest": "0.00",
+      "recipientTin": "400-00-2111",
+      "payer": "Besties",
+      "1099Amount": "0.00",
+      "no1099Amount": "8.00",
+      "taxWithheld": "0.00"
+    }
+  ]
+}

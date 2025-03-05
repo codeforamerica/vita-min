@@ -21,6 +21,7 @@ module Efile
           intake: @intake,
           primary_or_spouse: :spouse
         )
+        @nj_retirement_income_helper = Efile::Nj::NjRetirementIncomeHelper.new(@intake)
       end
 
       def calculate
@@ -38,7 +39,12 @@ module Efile
         set_line(:NJ1040_LINE_15, :calculate_line_15)
         set_line(:NJ1040_LINE_16A, :calculate_line_16a)
         set_line(:NJ1040_LINE_16B, :calculate_line_16b)
+        set_line(:NJ1040_LINE_20A, :calculate_line_20a)
+        set_line(:NJ1040_LINE_20B, :calculate_line_20b)
         set_line(:NJ1040_LINE_27, :calculate_line_27)
+        set_line(:NJ1040_LINE_28A, :calculate_line_28a)
+        set_line(:NJ1040_LINE_28B, :calculate_line_28b)
+        set_line(:NJ1040_LINE_28C, :calculate_line_28c)
         set_line(:NJ1040_LINE_29, :calculate_line_29)
         set_line(:NJ1040_LINE_31, :calculate_line_31)
         set_line(:NJ1040_LINE_38, :calculate_line_38)
@@ -317,12 +323,44 @@ module Efile
         calculate_tax_exempt_interest_income if calculate_tax_exempt_interest_income.positive?
       end
 
+      def calculate_line_20a
+        non_military_1099rs.sum(&:taxable_amount).round
+      end
+
+      def calculate_line_20b
+        (non_military_1099rs.sum(&:gross_distribution_amount) - non_military_1099rs.sum(&:taxable_amount)).round
+      end
+
       def calculate_line_27
-        line_or_zero(:NJ1040_LINE_15) + line_or_zero(:NJ1040_LINE_16A)
+        line_or_zero(:NJ1040_LINE_15) + line_or_zero(:NJ1040_LINE_16A) + line_or_zero(:NJ1040_LINE_20A)
+      end
+
+      def calculate_line_28a
+        total_income = line_or_zero(:NJ1040_LINE_27)
+        return 0 unless @nj_retirement_income_helper.line_28a_eligible?(total_income)
+
+        total_eligible_nonmilitary_1099r_income = @nj_retirement_income_helper.total_eligible_nonmilitary_1099r_income
+        max_exclusion = @nj_retirement_income_helper.calculate_maximum_exclusion(total_income, total_eligible_nonmilitary_1099r_income)
+        [total_eligible_nonmilitary_1099r_income, max_exclusion].min
+      end
+
+      def calculate_line_28b
+        return 0 unless @nj_retirement_income_helper.line_28b_eligible?(
+          line_or_zero(:NJ1040_LINE_15),
+          line_or_zero(:NJ1040_LINE_27),
+          line_or_zero(:NJ1040_LINE_28A))
+        
+        total_income = line_or_zero(:NJ1040_LINE_27)
+        [@nj_retirement_income_helper.calculate_maximum_exclusion(total_income, total_income) - line_or_zero(:NJ1040_LINE_28A),
+         @nj_retirement_income_helper.total_eligible_nonretirement_income].min
+      end
+
+      def calculate_line_28c
+        line_or_zero(:NJ1040_LINE_28A) + line_or_zero(:NJ1040_LINE_28B)
       end
 
       def calculate_line_29
-        line_or_zero(:NJ1040_LINE_27)
+        line_or_zero(:NJ1040_LINE_27) - line_or_zero(:NJ1040_LINE_28C)
       end
 
       def calculate_line_31
@@ -427,9 +465,12 @@ module Efile
       end
 
       def calculate_line_55
-        return nil if @intake.state_file_w2s.empty?
+        return nil if @intake.state_file_w2s.empty? && @intake.state_file1099_rs.empty?
 
-        @intake.state_file_w2s.inject(0) { |sum, w2| sum + w2.state_income_tax_amount }.round
+        (
+          @intake.state_file_w2s.sum { |item| item.state_income_tax_amount || 0} +
+          @intake.state_file1099_rs.sum(&:state_tax_withheld_amount)
+        ).round
       end
 
       def calculate_line_56
@@ -649,6 +690,12 @@ module Efile
         is_mfs = @intake.filing_status_mfs?
         is_same_home = @intake.tenant_same_home_spouse_yes? || @intake.homeowner_same_home_spouse_yes?
         is_mfs && is_same_home
+      end
+
+      def non_military_1099rs
+        @intake.state_file1099_rs.select do |state_file_1099r|
+          state_file_1099r.state_specific_followup.present? && state_file_1099r.state_specific_followup.income_source_other?
+        end
       end
     end
   end

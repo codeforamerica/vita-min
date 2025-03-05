@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>f0391307</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>500009428</PrimarySSN>
+            <SpouseSSN>500002894</SpouseSSN>
+            <NameLine1Txt>VANESSA&lt;MATTEO</NameLine1Txt>
+            <PrimaryNameControlTxt>MATT</PrimaryNameControlTxt>
+            <SpouseNameControlTxt>HEIG</SpouseNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>17 Drag Ave</AddressLine1Txt>
+                <CityNm>New London</CityNm>
+                <StateAbbreviationCd>NC</StateAbbreviationCd>
+                <ZIPCd>28127</ZIPCd>
+            </USAddress>
+            <PhoneNum>5555555555</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+50000942-8d75-49d0-9a08-e1dcc4b89b0d@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="5">
+        <IRS1040 documentId="IRS10400001">
+            <Form1040SRInd>X</Form1040SRInd>
+            <IndividualReturnFilingStatusCd>3</IndividualReturnFilingStatusCd>
+            <SpouseNm>Bradley Heights</SpouseNm>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <Primary65OrOlderInd>X</Primary65OrOlderInd>
+            <TotalBoxesCheckedCnt>1</TotalBoxesCheckedCnt>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>1</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">10000</WagesAmt>
+            <WagesSalariesAndTipsAmt>10000</WagesSalariesAndTipsAmt>
+            <PensionsAnnuitiesAmt>50000</PensionsAnnuitiesAmt>
+            <TotalTaxablePensionsAmt pensionsAnnuitiesLiteralCd="ROLLOVER">30000</TotalTaxablePensionsAmt>
+            <SocSecBnftAmt socSecBnftCd="D">12000</SocSecBnftAmt>
+            <TaxableSocSecAmt>10200</TaxableSocSecAmt>
+            <TotalIncomeAmt>50200</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>50200</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>16150</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>16150</TotalDeductionsAmt>
+            <TaxableIncomeAmt>34050</TaxableIncomeAmt>
+            <TaxAmt>3857</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>3857</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>3857</TaxLessCreditsAmt>
+            <TotalTaxAmt>3857</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>1000</FormW2WithheldTaxAmt>
+            <Form1099WithheldTaxAmt referenceDocumentId="OTHERWITHHOLDING0001" referenceDocumentName="OtherWithholdingStatement">3200</Form1099WithheldTaxAmt>
+            <WithholdingTaxAmt>4200</WithholdingTaxAmt>
+            <TotalPaymentsAmt>4200</TotalPaymentsAmt>
+            <OverpaidAmt>343</OverpaidAmt>
+            <RefundAmt>343</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Retired</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1099R documentId="IRS1099R0001">
+            <PayerNameControlTxt>OZIN</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Oz Industries</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>2 Pink Hill St</AddressLine1Txt>
+                <CityNm>Oshkosh</CityNm>
+                <StateAbbreviationCd>WI</StateAbbreviationCd>
+                <ZIPCd>54902</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>761233211</PayerEIN>
+            <RecipientSSN>500009428</RecipientSSN>
+            <RecipientNm>Vanessa Matteo</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>17 Drag Ave</AddressLine1Txt>
+                <CityNm>New London</CityNm>
+                <StateAbbreviationCd>NC</StateAbbreviationCd>
+                <ZIPCd>28127</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>10000</GrossDistributionAmt>
+            <TotalDistributionInd>X</TotalDistributionInd>
+            <F1099RDistributionCd>G</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRS1099R documentId="IRS1099R0002">
+            <PayerNameControlTxt>VISA</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Visage Investments</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>44 Runway Ct</AddressLine1Txt>
+                <CityNm>Boston</CityNm>
+                <StateAbbreviationCd>MA</StateAbbreviationCd>
+                <ZIPCd>02108</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>871238476</PayerEIN>
+            <RecipientSSN>500009428</RecipientSSN>
+            <RecipientNm>Vanessa Matteo</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>17 Drag Ave</AddressLine1Txt>
+                <CityNm>New London</CityNm>
+                <StateAbbreviationCd>NC</StateAbbreviationCd>
+                <ZIPCd>28127</ZIPCd>
+            </RecipientUSAddress>
+            <PayerRecipientAccountNum>CRA 8129384</PayerRecipientAccountNum>
+            <GrossDistributionAmt>40000</GrossDistributionAmt>
+            <TaxableAmt>30000</TaxableAmt>
+            <TotalDistributionInd>X</TotalDistributionInd>
+            <FederalIncomeTaxWithheldAmt>2000</FederalIncomeTaxWithheldAmt>
+            <F1099RDistributionCd>7B</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <TotalEmployeeContributionsAmt>10000</TotalEmployeeContributionsAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>500009428</EmployeeSSN>
+            <EmployerEIN>431235421</EmployerEIN>
+            <EmployerNameControlTxt>TINY</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Tiny Tots Dance Academy</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>17 Rupaul Way</AddressLine1Txt>
+                <CityNm>New London</CityNm>
+                <StateAbbreviationCd>NC</StateAbbreviationCd>
+                <ZIPCd>28127</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Vanessa Matteo</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>17 Drag Ave</AddressLine1Txt>
+                <CityNm>New London</CityNm>
+                <StateAbbreviationCd>NC</StateAbbreviationCd>
+                <ZIPCd>28127</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>10000</WagesAmt>
+            <WithholdingAmt>1000</WithholdingAmt>
+            <SocialSecurityWagesAmt>10000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>620</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>10000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>145</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>NC</StateAbbreviationCd>
+                    <EmployerStateIdNum>NC 12395784</EmployerStateIdNum>
+                    <StateWagesAmt>10000</StateWagesAmt>
+                    <StateIncomeTaxAmt>500</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+        <OtherWithholdingStatement documentId="OTHERWITHHOLDING0001" documentName="OtherWithholdingStatement">
+            <OtherWithholdingStmt>
+                <WithholdingCd>FORM 1099</WithholdingCd>
+                <WithholdingAmt>1200</WithholdingAmt>
+            </OtherWithholdingStmt>
+        </OtherWithholdingStatement>
+    </ReturnData>
+</Return>

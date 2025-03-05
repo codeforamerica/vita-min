@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe StateFile::Questions::InitiateDataTransferController do
+  StateFile::StateInformationService.active_state_codes.excluding("ny").each do |state_code|
+    it_behaves_like :df_data_required, false, state_code
+  end
+
   let(:intake) { create :state_file_az_intake }
   let(:state_file_analytics) { intake.state_file_analytics }
   before do

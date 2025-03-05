@@ -25,13 +25,14 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::WaitingToLoadDataController),
       ]),
       Navigation::NavigationSection.new("state_file.navigation.section_5", [
-        Navigation::NavigationStep.new(StateFile::Questions::PostDataTransferController, false),
+        Navigation::NavigationStep.new(StateFile::Questions::PostDataTransferController),
         Navigation::NavigationStep.new(StateFile::Questions::FederalInfoController),
         Navigation::NavigationStep.new(StateFile::Questions::DataTransferOffboardingController, false),
         Navigation::NavigationStep.new(StateFile::Questions::AzSeniorDependentsController),
         Navigation::NavigationStep.new(StateFile::Questions::AzPriorLastNamesController),
         Navigation::NavigationStep.new(StateFile::Questions::IncomeReviewController),
         Navigation::NavigationStep.new(StateFile::Questions::UnemploymentController),
+        Navigation::NavigationStep.new(StateFile::Questions::AzRetirementIncomeSubtractionController),
         Navigation::NavigationStep.new(StateFile::Questions::AzPublicSchoolContributionsController),
         Navigation::NavigationStep.new(StateFile::Questions::AzCharitableContributionsController),
         Navigation::NavigationStep.new(StateFile::Questions::AzQualifyingOrganizationContributionsController),
@@ -43,11 +44,11 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::TaxesOwedController),
         Navigation::NavigationStep.new(StateFile::Questions::TaxRefundController),
         Navigation::NavigationStep.new(StateFile::Questions::EsignDeclarationController), # creates EfileSubmission and transitions to preparing
-      ]),
+      ], true, true),
       Navigation::NavigationSection.new("state_file.navigation.section_6", [
         Navigation::NavigationStep.new(StateFile::Questions::SubmissionConfirmationController),
         Navigation::NavigationStep.new(StateFile::Questions::ReturnStatusController),
-      ]),
+      ], true, true),
     ].freeze
     FLOW = SECTIONS.map(&:controllers).flatten.freeze
   end

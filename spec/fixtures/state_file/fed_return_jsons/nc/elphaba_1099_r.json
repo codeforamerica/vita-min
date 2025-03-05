@@ -1,0 +1,50 @@
+{
+  "familyAndHousehold": [
+    {
+      "monthsLivedWithTPInUS": "twelve",
+      "lastName": "Upland",
+      "hohQualifyingPerson": true,
+      "isClaimedDependent": true,
+      "qualifyingChild": true,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "2014-04-15",
+      "suffix": null,
+      "residencyDuration": "allYear",
+      "firstName": "Glinda",
+      "middleInitial": null,
+      "scheduleEicLine4aNo": false,
+      "tin": "400-00-0833",
+      "eligibleDependent": true,
+      "relationship": "biologicalChild",
+      "ssnNotValidForEmployment": false
+    }
+  ],
+  "socialSecurityReports": [],
+  "filers": [
+    {
+      "lastName": "Thropp",
+      "dateOfBirth": "1960-12-31",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "firstName": "Elphaba",
+      "middleInitial": "J",
+      "educatorExpenses": "0.00",
+      "tin": "400-00-1123",
+      "interestReportsTotal": "0.00",
+      "isDisabled": false,
+      "form1099GsTotal": "0.00",
+      "isStudent": false,
+      "ssnNotValidForEmployment": null,
+      "hsaTotalDeductibleAmount": null
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [
+    {
+      "usedTin": "400-00-1123",
+      "unionDuesAmount": null
+    }
+  ],
+  "interestReports": []
+}

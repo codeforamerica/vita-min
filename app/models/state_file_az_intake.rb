@@ -151,15 +151,8 @@ class StateFileAzIntake < StateFileBaseIntake
                 end
     agi_over_limit = direct_file_data.fed_agi > agi_limit
     lacks_valid_ssn = primary.ssn.blank? || primary.has_itin?
-    all_filers_ssn_not_valid_for_employment =
-      if filing_status_mfj?
-        direct_file_json_data.primary_filer.ssn_not_valid_for_employment &&
-          direct_file_json_data.spouse_filer.ssn_not_valid_for_employment
-      else
-        direct_file_json_data.primary_filer.ssn_not_valid_for_employment
-      end
 
-    agi_over_limit || lacks_valid_ssn || all_filers_ssn_not_valid_for_employment
+    agi_over_limit || lacks_valid_ssn || direct_file_json_data.primary_filer.ssn_not_valid_for_employment
   end
 
   def incarcerated_filer_count
@@ -213,5 +206,11 @@ class StateFileAzIntake < StateFileBaseIntake
   def eligible_for_az_subtractions?
     wages_salaries_tips = direct_file_data.fed_wages_salaries_tips
     wages_salaries_tips.present? && wages_salaries_tips > 0
+  end
+
+  def eligible_1099rs
+    @eligible_1099rs ||= self.state_file1099_rs.select do |form1099r|
+      form1099r.taxable_amount&.to_f&.positive?
+    end
   end
 end

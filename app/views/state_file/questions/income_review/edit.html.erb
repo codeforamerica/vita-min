@@ -74,14 +74,30 @@
         <div class="spacing-above-25">
           <p class="text--bold spacing-below-5"><%= state_1099r.recipient_name %></p>
           <p class="spacing-below-5"><%= state_1099r.payer_name %></p>
-          <%= link_to t(".review_and_edit_state_info"),
-                      StateFile::Questions::RetirementIncomeController.to_path_helper(
-                        action: :edit,
-                        id: state_1099r.id,
-                        return_to_review: params[:return_to_review]
-                      ),
-                      class: "button--small"
-          %>
+          <% if current_intake.allows_1099_r_editing? %>
+            <%= link_to t(".review_and_edit_state_info"),
+                        StateFile::Questions::RetirementIncomeController.to_path_helper(
+                          action: :edit,
+                          id: state_1099r.id,
+                          return_to_review: params[:return_to_review]
+                        ),
+                        class: "button--small"
+            %>
+            <% if !state_1099r.valid?(:income_review) %>
+              <div class="notice--warning spacing-above-5">
+                <p><%= t(".warning") %></p>
+              </div>
+            <% end %>
+          <% else %>
+            <%= link_to t(".review_state_info"),
+                        StateFile::Questions::RetirementIncomeController.to_path_helper(
+                          action: :show,
+                          id: state_1099r.id,
+                          return_to_review: params[:return_to_review]
+                        ),
+                        class: "button--small"
+            %>
+          <% end %>
         </div>
       <% end %>
     </div>

@@ -2,9 +2,10 @@ require 'rails_helper'
 
 RSpec.describe StateFile::ImportFromDirectFileJob, type: :job do
   describe '#perform' do
-    let(:intake) { create :minimal_state_file_id_intake, raw_direct_file_data: nil }
+    let(:intake) { create :minimal_state_file_id_intake, raw_direct_file_data: nil, raw_direct_file_intake_data: nil }
     let(:xml_result) { StateFile::DirectFileApiResponseSampleService.new.read_xml('test_ernest_hoh') }
     let(:direct_file_intake_json) { StateFile::DirectFileApiResponseSampleService.new.read_json('test_ernest_hoh') }
+    let(:auth_code) { 'test_ernest_hoh' }
     let(:json_result) do
       {
         "xml" => xml_result,
@@ -25,7 +26,6 @@ RSpec.describe StateFile::ImportFromDirectFileJob, type: :job do
 
     context "with a successful direct file response" do
       it "calls the DF api, updates the intake and broadcasts to the ActionCable channel" do
-        auth_code = "8700210c-781c-4db6-8e25-8db4e1082312"
         described_class.perform_now(authorization_code: auth_code, intake: intake)
 
         expect(IrsApiService).to have_received(:import_federal_data).with(auth_code, "id")
@@ -48,7 +48,6 @@ RSpec.describe StateFile::ImportFromDirectFileJob, type: :job do
       end
 
       it "sets df_data_import_succeeded_at" do
-        auth_code = "8700210c-781c-4db6-8e25-8db4e1082312"
         described_class.perform_now(authorization_code: auth_code, intake: intake)
 
         expect(intake.df_data_import_succeeded_at).to be_present
@@ -57,25 +56,31 @@ RSpec.describe StateFile::ImportFromDirectFileJob, type: :job do
 
     context "when the direct file xml is formed in a way that causes our code to error" do
       before do
-        allow(intake).to receive(:synchronize_df_dependents_to_database).and_raise StandardError.new("Malformed data")
+        allow(intake).to receive(:synchronize_filers_to_database).and_raise StandardError.new("Malformed data")
       end
 
-      it "catches the error and persists it to the intake record" do
-        auth_code = "8700210c-781c-4db6-8e25-8db4e1082312"
+      it "undoes any other changes to the intake or associated models, and catches the error and persists it to the intake record" do
         described_class.perform_now(authorization_code: auth_code, intake: intake)
 
+        # We have to reload the intake to see the results of a rolled-back transaction
+        # Otherwise, the updates will show up on the object even if the transaction they happened in got rolled back
+        intake.reload
+
+        expect(intake.state_file_w2s.count).to be_zero
+        expect(intake.raw_direct_file_data).to be_nil
         expect(intake.df_data_import_succeeded_at).to be_nil
         expect(intake.df_data_import_errors.count).to eq(1)
-        expect(intake.df_data_import_errors.first.message).to eq("Malformed data")
+        expect(intake.df_data_import_errors.first&.message).to eq("Malformed data")
+        expect(DfDataTransferJobChannel).to have_received(:broadcast_job_complete)
       end
     end
 
     context "when the DF data contains invalid data in associated models that can be corrected by the user later" do
       let(:xml_result) { StateFile::DirectFileApiResponseSampleService.new.read_xml('test_miranda_1099r_with_df_w2_error') }
       let(:direct_file_intake_json) { StateFile::DirectFileApiResponseSampleService.new.read_json('test_miranda_1099r_with_df_w2_error') }
+      let(:auth_code) { "miranda_1099r_with_df_w2_error" }
 
       it "ignores the errors so that the user can continue through the application" do
-        auth_code = "miranda_1099r_with_df_w2_error"
         described_class.perform_now(authorization_code: auth_code, intake: intake)
 
         expect(intake.df_data_import_succeeded_at).to be_present
@@ -89,13 +94,12 @@ RSpec.describe StateFile::ImportFromDirectFileJob, type: :job do
     context "when the direct file data is missing" do
       let(:json_result) { nil }
       it "marks the failure gracefully" do
-        auth_code = "8700210c-781c-4db6-8e25-8db4e1082312"
         described_class.perform_now(authorization_code: auth_code, intake: intake)
 
         expect(intake.df_data_import_succeeded_at).to be_nil
-        expect(intake.raw_direct_file_data).to_not be_present
+        expect(intake.raw_direct_file_data).not_to be_present
         expect(intake.df_data_import_errors.count).to eq(1)
-        expect(intake.df_data_import_errors.first.message).to eq("Direct file data was not transferred for intake id #{intake.id}.")
+        expect(intake.df_data_import_errors.first&.message).to eq("Direct file data was not transferred for intake id#{intake.id}.")
       end
     end
   end

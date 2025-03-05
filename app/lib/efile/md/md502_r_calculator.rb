@@ -22,6 +22,8 @@ module Efile
         set_line(:MD502R_LINE_9B, :calculate_line_9b)
         set_line(:MD502R_LINE_10A, :calculate_line_10a)
         set_line(:MD502R_LINE_10B, :calculate_line_10b)
+        set_line(:MD502R_LINE_11A, :calculate_line_11a)
+        set_line(:MD502R_LINE_11B, :calculate_line_11b)
       end
 
       private
@@ -59,7 +61,7 @@ module Efile
       def calculate_line_9a
         if @intake.direct_file_data.fed_ssb.positive?
           if @intake.filing_status_mfj?
-            @intake.primary_ssb_amount&.round || 0
+            @intake.primary_ssb_amount&.round || @intake.direct_file_json_data.primary_filer_social_security_benefit_amount&.round
           else
             @intake.direct_file_data.fed_ssb.round
           end
@@ -67,8 +69,8 @@ module Efile
       end
 
       def calculate_line_9b
-        if @intake.filing_status_mfj? && @intake.direct_file_data.fed_ssb.positive? && @intake.spouse_ssb_amount.present?
-          @intake.spouse_ssb_amount.round
+        if @intake.filing_status_mfj? && @intake.direct_file_data.fed_ssb.positive?
+          @intake.spouse_ssb_amount&.round || @intake.direct_file_json_data.spouse_filer_social_security_benefit_amount&.round
         end
       end
 
@@ -78,6 +80,30 @@ module Efile
 
       def calculate_line_10b
         line_or_zero(:MD502_SU_LINE_U_SPOUSE) + line_or_zero(:MD502_SU_LINE_V_SPOUSE)
+      end
+
+      def calculate_line_11(filer)
+        letter = filer == :primary ? "A" : "B"
+        qualifying_pension_minus_ssn_or_railroad = line_or_zero("MD502R_LINE_1#{letter}".to_sym) - line_or_zero("MD502R_LINE_10#{letter}".to_sym)
+        tentative_exclusion = 39_500 - line_or_zero("MD502R_LINE_9#{letter}".to_sym)
+        result = [qualifying_pension_minus_ssn_or_railroad, tentative_exclusion].min
+        [result, 0].max
+      end
+
+      def calculate_line_11a
+        if Flipper.enabled?(:show_retirement_ui)
+          @intake.qualifies_for_pension_exclusion?(:primary) ? calculate_line_11(:primary) : 0
+        else
+          0
+        end
+      end
+
+      def calculate_line_11b
+        if Flipper.enabled?(:show_retirement_ui)
+          @intake.filing_status_mfj? && @intake.qualifies_for_pension_exclusion?(:spouse) ? calculate_line_11(:spouse) : 0
+        else
+          0
+        end
       end
     end
   end

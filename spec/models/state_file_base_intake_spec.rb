@@ -79,7 +79,10 @@ describe StateFileBaseIntake do
       intake.synchronize_df_1099_rs_to_database
 
       expect(intake.state_file1099_rs.first.state_tax_withheld_amount).to eq 50
-      expect(intake.state_file1099_rs.count).to eq 1
+      expect(intake.state_file1099_rs.first.recipient_address_line1).to eq "200 Neptune Street"
+      expect(intake.state_file1099_rs.first.recipient_city_name).to eq "Flagstaff"
+      expect(intake.state_file1099_rs.first.recipient_state_code).to eq "AZ"
+      expect(intake.state_file1099_rs.first.recipient_zip).to eq "86001"
     end
   end
 
@@ -257,4 +260,60 @@ describe StateFileBaseIntake do
       end
     end
   end
+
+  describe "#sum_1099_r_followup_type_for_filer" do
+
+    context "with 1099Rs" do
+      let!(:intake) { create(:state_file_md_intake, :with_spouse) }
+      let!(:state_file_1099_r_without_followup) {
+        create(
+          :state_file1099_r,
+          taxable_amount: 1_000,
+          recipient_ssn: intake.primary.ssn,
+          intake: intake)
+      }
+      let!(:state_file_md1099_r_followup_with_military_service_for_primary_1) do
+        create(
+          :state_file_md1099_r_followup,
+          service_type: "military",
+          state_file1099_r: create(:state_file1099_r, taxable_amount: 1_000, intake: intake, recipient_ssn: intake.primary.ssn)
+        )
+      end
+      let!(:state_file_md1099_r_followup_with_military_service_for_primary_2) do
+        create(
+          :state_file_md1099_r_followup,
+          service_type: "military",
+          state_file1099_r: create(:state_file1099_r, taxable_amount: 1_500, intake: intake, recipient_ssn: intake.primary.ssn)
+        )
+      end
+      let!(:state_file_md1099_r_followup_with_military_service_for_spouse) do
+        create(
+          :state_file_md1099_r_followup,
+          service_type: "military",
+          state_file1099_r: create(:state_file1099_r, taxable_amount: 2_000, intake: intake, recipient_ssn: intake.spouse.ssn)
+        )
+      end
+      let!(:state_file_md1099_r_followup_without_military) do
+        create(
+          :state_file_md1099_r_followup,
+          service_type: "none",
+          state_file1099_r: create(:state_file1099_r, taxable_amount: 1_000, intake: intake, recipient_ssn: intake.spouse.ssn)
+        )
+      end
+
+      it "totals the followup income" do
+        expect(intake.sum_1099_r_followup_type_for_filer(:primary, :service_type_military?)).to eq(2_500)
+        expect(intake.sum_1099_r_followup_type_for_filer(:spouse, :service_type_military?)).to eq(2_000)
+      end
+    end
+
+    context "without 1099Rs" do
+      let(:intake) { create(:state_file_md_intake) }
+      it "returns 0" do
+        expect(intake.sum_1099_r_followup_type_for_filer(:primary, :service_type_military?)).to eq(0)
+        expect(intake.sum_1099_r_followup_type_for_filer(:spouse, :service_type_military?)).to eq(0)
+      end
+    end
+  end
+
 end

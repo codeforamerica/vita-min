@@ -1,0 +1,58 @@
+{
+  "familyAndHousehold": [],
+  "filers": [
+    {
+      "lastName": "Ivy",
+      "dateOfBirth": "1960-01-01",
+      "suffix": null,
+      "isPrimaryFiler": false,
+      "firstName": "Poison",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "400-00-3040",
+      "interestReportsTotal": "0.00",
+      "isDisabled": false,
+      "form1099GsTotal": "0.00",
+      "isStudent": false,
+      "ssnNotValidForEmployment": null,
+      "hsaTotalDeductibleAmount": null
+    },
+    {
+      "lastName": "Quinn",
+      "dateOfBirth": "1959-12-31",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "firstName": "Harley",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "400-00-3039",
+      "interestReportsTotal": "100.00",
+      "isDisabled": false,
+      "form1099GsTotal": "0.00",
+      "isStudent": false,
+      "ssnNotValidForEmployment": null,
+      "hsaTotalDeductibleAmount": null
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [
+    {
+      "usedTin": "400-00-3040",
+      "unionDuesAmount": null
+    }
+  ],
+  "interestReports": [
+    {
+      "has1099": true,
+      "taxExemptAndTaxCreditBondCusipNo": null,
+      "interestOnGovernmentBonds": "0.00",
+      "payerTin": null,
+      "taxExemptInterest": "0.00",
+      "recipientTin": "400-00-3039",
+      "payer": "Gotham National Bank",
+      "taxWithheld": "0.00",
+      "1099Amount": "100.00",
+      "no1099Amount": null
+    }
+  ]
+}

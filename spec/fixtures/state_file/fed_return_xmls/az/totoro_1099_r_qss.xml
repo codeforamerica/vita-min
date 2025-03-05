@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>4be83768</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400002107</PrimarySSN>
+            <NameLine1Txt>TOTORO&lt;MIYAZAKI</NameLine1Txt>
+            <PrimaryNameControlTxt>MIYA</PrimaryNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>555 Spirited Away Street</AddressLine1Txt>
+                <CityNm>Denver</CityNm>
+                <StateAbbreviationCd>CO</StateAbbreviationCd>
+                <ZIPCd>80202</ZIPCd>
+            </USAddress>
+            <PhoneNum>2225554444</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000210-75b8-4fef-ab64-a887974c2158@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="5">
+        <IRS1040 documentId="IRS10400001">
+            <IndividualReturnFilingStatusCd>5</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <DependentDetail>
+                <DependentFirstNm>Mononoke</DependentFirstNm>
+                <DependentLastNm>Miyazaki</DependentLastNm>
+                <DependentNameControlTxt>MIYA</DependentNameControlTxt>
+                <DependentSSN>400002108</DependentSSN>
+                <DependentRelationshipCd>DAUGHTER</DependentRelationshipCd>
+                <EligibleForChildTaxCreditInd>X</EligibleForChildTaxCreditInd>
+            </DependentDetail>
+            <ChldWhoLivedWithYouCnt>1</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>2</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">5000</WagesAmt>
+            <WagesSalariesAndTipsAmt>5000</WagesSalariesAndTipsAmt>
+            <PensionsAnnuitiesAmt>30000</PensionsAnnuitiesAmt>
+            <TotalTaxablePensionsAmt>10000</TotalTaxablePensionsAmt>
+            <SocSecBnftAmt>8500</SocSecBnftAmt>
+            <TotalIncomeAmt>15000</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>15000</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>29200</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>29200</TotalDeductionsAmt>
+            <TaxableIncomeAmt>0</TaxableIncomeAmt>
+            <TaxAmt>0</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>0</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>0</TaxLessCreditsAmt>
+            <TotalTaxAmt>0</TotalTaxAmt>
+            <WithholdingTaxAmt>750</WithholdingTaxAmt>
+            <EarnedIncomeCreditAmt referenceDocumentId="IRSEIC0001" referenceDocumentName="IRS1040ScheduleEIC">1709</EarnedIncomeCreditAmt>
+            <AdditionalChildTaxCreditAmt referenceDocumentId="IRS8812001" referenceDocumentName="IRS1040Schedule8812">375</AdditionalChildTaxCreditAmt>
+            <RefundableCreditsAmt>2084</RefundableCreditsAmt>
+            <TotalPaymentsAmt>2834</TotalPaymentsAmt>
+            <OverpaidAmt>2834</OverpaidAmt>
+            <RefundAmt>2834</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Babysitter</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1040Schedule8812 documentId="IRS8812001" documentName="IRS1040Schedule8812">
+            <AdjustedGrossIncomeAmt>15000</AdjustedGrossIncomeAmt>
+            <ModifiedAGIAmt>15000</ModifiedAGIAmt>
+            <QlfyChildUnderAgeSSNCnt>1</QlfyChildUnderAgeSSNCnt>
+            <QlfyChildUnderAgeSSNLimtAmt>2000</QlfyChildUnderAgeSSNLimtAmt>
+            <OtherDependentCnt>0</OtherDependentCnt>
+            <InitialCTCODCAmt>2000</InitialCTCODCAmt>
+            <FilingStatusThresholdCd>200000</FilingStatusThresholdCd>
+            <ExcessAdjGrossIncomeAmt>0</ExcessAdjGrossIncomeAmt>
+            <ModifiedAGIPhaseOutAmt>0</ModifiedAGIPhaseOutAmt>
+            <CTCODCOverAGILimitInd>true</CTCODCOverAGILimitInd>
+            <CTCODCAfterAGILimitAmt>2000</CTCODCAfterAGILimitAmt>
+            <ACTCTaxLiabiltyLimitAmt>0</ACTCTaxLiabiltyLimitAmt>
+            <CTCODCAmt>0</CTCODCAmt>
+            <ClaimACTCAllFilersGrp>
+                <ACTCBeforeLimitAmt>2000</ACTCBeforeLimitAmt>
+                <QlfyChildUnderAgeSSNCnt>1</QlfyChildUnderAgeSSNCnt>
+                <QlfyChildUnderAgeSSNLimtAmt>1700</QlfyChildUnderAgeSSNLimtAmt>
+                <ACTCAfterLimitAmt>1700</ACTCAfterLimitAmt>
+                <TotalEarnedIncomeAmt>5000</TotalEarnedIncomeAmt>
+                <EarnedIncmMoreThanSpecifiedInd>true</EarnedIncmMoreThanSpecifiedInd>
+                <NetTotalEarnedIncomeAmt>2500</NetTotalEarnedIncomeAmt>
+                <NetEarnedIncomeCalculatedAmt>375</NetEarnedIncomeCalculatedAmt>
+                <ThreeOrMoreQlfyChildrenInd>false</ThreeOrMoreQlfyChildrenInd>
+            </ClaimACTCAllFilersGrp>
+            <AdditionalChildTaxCreditAmt>375</AdditionalChildTaxCreditAmt>
+        </IRS1040Schedule8812>
+        <IRS1040ScheduleEIC documentId="IRSEIC0001" documentName="IRS1040ScheduleEIC">
+            <QualifyingChildInformation>
+                <QualifyingChildNameControlTxt>MIYA</QualifyingChildNameControlTxt>
+                <ChildFirstAndLastName>
+                    <PersonFirstNm>Mononoke</PersonFirstNm>
+                    <PersonLastNm>Miyazaki</PersonLastNm>
+                </ChildFirstAndLastName>
+                <QualifyingChildSSN>400002108</QualifyingChildSSN>
+                <ChildBirthYr>2020</ChildBirthYr>
+                <ChildRelationshipCd>DAUGHTER</ChildRelationshipCd>
+                <MonthsChildLivedWithYouCnt>12</MonthsChildLivedWithYouCnt>
+            </QualifyingChildInformation>
+        </IRS1040ScheduleEIC>
+        <IRS1099R documentId="IRS1099R0001">
+            <PayerNameControlTxt>KIKI</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Kikis Delivery Service</BusinessNameLine1Txt>
+                <BusinessNameLine2Txt>Jiji Retirement Division</BusinessNameLine2Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>PO Box 123</AddressLine1Txt>
+                <AddressLine2Txt>123 Main street</AddressLine2Txt>
+                <CityNm>Baltimore</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21223</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>823967259</PayerEIN>
+            <PhoneNum>3035555555</PhoneNum>
+            <RecipientSSN>400002107</RecipientSSN>
+            <RecipientNm>Totoro Miyazaki</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>4545 Tombo Drive</AddressLine1Txt>
+                <AddressLine2Txt>unit 32</AddressLine2Txt>
+                <CityNm>Chino</CityNm>
+                <StateAbbreviationCd>CA</StateAbbreviationCd>
+                <ZIPCd>91710</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>30000</GrossDistributionAmt>
+            <TaxableAmt>10000</TaxableAmt>
+            <FederalIncomeTaxWithheldAmt>750</FederalIncomeTaxWithheldAmt>
+            <F1099RDistributionCd>2</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <TotalEmployeeContributionsAmt>8000</TotalEmployeeContributionsAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <StateTaxWithheldAmt>50</StateTaxWithheldAmt>
+                    <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                    <PayerStateIdNum>123456</PayerStateIdNum>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>400002107</EmployeeSSN>
+            <EmployerEIN>112617163</EmployerEIN>
+            <EmployerNameControlTxt>CATB</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Catbus</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>333 Satsuki Street</AddressLine1Txt>
+                <CityNm>McNary</CityNm>
+                <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                <ZIPCd>85930</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Totoro Miyazaki</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>555 Spirited Away Street</AddressLine1Txt>
+                <CityNm>Denver</CityNm>
+                <StateAbbreviationCd>CO</StateAbbreviationCd>
+                <ZIPCd>80202</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>5000</WagesAmt>
+            <SocialSecurityWagesAmt>5000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>280</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>5000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>54</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>AZ</StateAbbreviationCd>
+                    <EmployerStateIdNum>23456</EmployerStateIdNum>
+                    <StateWagesAmt>5000</StateWagesAmt>
+                    <StateIncomeTaxAmt>25</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>

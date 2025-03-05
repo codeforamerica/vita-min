@@ -26,10 +26,21 @@ describe SubmissionBuilder::Ty2024::States::Id::Documents::Id40, required_schema
         expect(xml.at("StateIncomeTax").text).to eq "200"
       end
 
-      context "with no dependents" do
+      context "when primary is claimed as a dependent" do
+        before do
+          intake.direct_file_data.primary_claim_as_dependent = "X"
+        end
 
-        it "does not include primary in DependentGrid" do
+        it "does not include the primary in DependentGrid" do
           expect(xml.css('DependentGrid')).to be_empty
+        end
+      end
+
+      context "primary is not claimed as a dependent" do
+        it "includes primary in DependentGrid" do
+          expect(xml.css('DependentGrid')[0].at("DependentFirstName").text).to eq "Lana"
+          expect(xml.css('DependentGrid')[0].at("DependentLastName").text).to eq "Turner"
+          expect(xml.css('DependentGrid')[0].at("DependentDOB").text).to eq "1980-01-01"
         end
       end
 

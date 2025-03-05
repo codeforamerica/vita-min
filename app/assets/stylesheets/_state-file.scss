@@ -263,6 +263,7 @@
       font-weight: normal;
       margin: 0;
       min-height: auto;
+      max-width: none;
       padding: 1rem 0 1rem 3.5rem;
 
       input[type="radio"] {
@@ -359,6 +360,18 @@
           box-shadow: none;
         }
       }
+    }
+
+    ul {
+      list-style-type: disc;
+      padding-left: 2rem;
+      margin: 1rem 0;
+    }
+
+    li {
+      font-size: 1.6rem;
+      line-height: 2.4rem;
+      margin-bottom: 0.5rem;
     }
   }
 
@@ -490,7 +503,7 @@
       margin-bottom: 2rem;
     }
 
-    radiogroup {
+    radiogroup, .honeycrisp-radiogroup {
       display: flex;
       margin-bottom: 1.5rem;
 

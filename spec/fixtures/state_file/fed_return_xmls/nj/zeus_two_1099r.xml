@@ -160,7 +160,7 @@
         <StateAbbreviationCd>NC</StateAbbreviationCd>
         <ZIPCd>02301</ZIPCd>
       </RecipientUSAddress>
-      <GrossDistributionAmt>200</GrossDistributionAmt>
+      <GrossDistributionAmt>2000</GrossDistributionAmt>
       <TaxableAmt>1000</TaxableAmt>
       <FederalIncomeTaxWithheldAmt>300</FederalIncomeTaxWithheldAmt>
       <F1099RDistributionCd>7</F1099RDistributionCd>

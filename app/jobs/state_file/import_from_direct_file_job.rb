@@ -1,13 +1,15 @@
 module StateFile
   class ImportFromDirectFileJob < ApplicationJob
     def perform(authorization_code:, intake:)
-      return if intake.raw_direct_file_data
+      # "NOWAIT" here prevents concurrent jobs from waiting for the lock, instead causing them to error out immediately
+      # See locking options documentation: https://www.postgresql.org/docs/current/sql-select.html#SQL-FOR-UPDATE-SHARE
+      intake.with_lock("FOR UPDATE NOWAIT") do
+        return if intake.raw_direct_file_data
 
-      begin
         direct_file_json = IrsApiService.import_federal_data(authorization_code, intake.state_code)
 
         if direct_file_json.blank?
-          raise StandardError, "Direct file data was not transferred for intake #{intake.state_code} #{intake.id}."
+          raise StandardError, "Direct file data was not transferred for intake #{intake.state_code}#{intake.id}."
         end
 
         intake.update(
@@ -21,9 +23,7 @@ module StateFile
           hashed_ssn: SsnHashingService.hash(intake.direct_file_data.primary_ssn)
         )
 
-        # TODO: Add raw_direct_file_intake_data into the required_fields array
-
-        required_fields = [:raw_direct_file_data, :federal_submission_id, :federal_return_status, :hashed_ssn]
+        required_fields = [:raw_direct_file_data, :raw_direct_file_intake_data, :federal_submission_id, :federal_return_status, :hashed_ssn]
         missing_fields = required_fields.select { |field| intake.send(field).blank? }
         if missing_fields.any?
           raise StandardError, "Missing required fields: #{missing_fields.join(', ')}"
@@ -35,16 +35,18 @@ module StateFile
         intake.synchronize_filers_to_database
 
         intake.update(df_data_import_succeeded_at: DateTime.now)
-      rescue => err
-        Rails.logger.error(err)
-        intake.df_data_import_errors << DfDataImportError.new(message: err.to_s)
       end
-
+    rescue ActiveRecord::LockWaitTimeout => e
+      Rails.logger.error("Attempted to run StateFile::ImportForDirectFileJob for an intake while it was already running for that intake!")
+    rescue StandardError => e
+      Rails.logger.error(e)
+      intake.df_data_import_errors << DfDataImportError.new(message: e.to_s)
+    ensure
       DfDataTransferJobChannel.broadcast_job_complete(intake)
     end
 
     def priority
-      PRIORITY_LOW
+      PRIORITY_HIGH
     end
   end
 end
