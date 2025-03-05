@@ -74,7 +74,6 @@ describe 'EfileError' do
       "md-permanently-disabled",
       "md-retirement-income-subtraction",
       "md-review",
-      "md-social-security-benefits",
       "md-tax-refund",
       "md-two-income-subtractions",
       "nc-county",

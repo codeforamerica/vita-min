@@ -2406,7 +2406,8 @@ es:
           - Programa de Jubilación establecido por la Junta de Regentes de Arizona
           - Programa de Jubilación establecido por el distrito de colegios comunitarios de Arizona
           - Plan de Jubilación establecido para empleados de un condado, ciudad o pueblo en Arizona
-          subtitle: Para ver si calificas, necesitamos más información de tu 1099-R.
+          subtitle: Necesitamos más información sobre este 1099-R para verificar tu elegibilidad y presentar tu declaración estatal.
+          subtitle_2: Si tienes varios 1099-R, se te pedirá completar este paso para cada uno cantidad sujeta a impuestos.
           uniformed_services: Pago de jubilación o retención de los servicios uniformados de los Estados Unidos
           which_pensions: "¿Qué pensiones gubernamentales califican?"
       az_review:
@@ -3254,15 +3255,6 @@ es:
           retirement_income_deductions: Detalles sobre los ingresos de jubilación de Maryland
           spouse_proof_of_disability: Prueba de discapacidad del cónyuge para la exclusión de pensión en años fiscales anteriores presentada.
           your_address: Dirección donde vivías el 31 de diciembre del %{filing_year}
-      md_social_security_benefits:
-        edit:
-          description: Para poder registrar con precisión tus beneficios del Seguro Social en tu declaración de impuestos de Maryland, necesitamos recoger información adicional.
-          spouse_portion_label_html: "<strong>La porción de tu cónyuge de los beneficios del Seguro Social</strong>"
-          subtitle: Ingresa la porción de los beneficios del Seguro Social asignados entre tú y tu cónyuge. Consulta el/los formulario(s) SSA-1099, Casilla 5 para obtener más información.
-          sum_form_error: La suma de ambas debe ser igual a %{total_ssb}
-          title: Necesitamos más información sobre tus beneficios del Seguro Social
-          total_html: La cantidad total de beneficios del Seguro Social reportados en la declaración federal tuya y de tu cónyuge es <strong>%{total_ssb}</strong>.
-          your_portion_label_html: "<strong>Tu porción de los beneficios del Seguro</strong>"
       md_spouse_state_id:
         md_spouse:
           dmv_bmv_label: Identificación estatal del MVA
