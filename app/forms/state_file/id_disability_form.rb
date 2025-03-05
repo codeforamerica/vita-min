@@ -3,11 +3,24 @@ module StateFile
     set_attributes_for :intake, :primary_disabled, :spouse_disabled
 
     attr_accessor :mfj_disability
-    validates_presence_of :mfj_disability, if: -> { intake.filing_status_mfj?}
-    validates :primary_disabled, inclusion: { in: %w[yes no], message: :blank }, unless: -> { intake.filing_status_mfj? }
+    validates_presence_of :mfj_disability, if: -> { intake.filing_status_mfj? && intake.all_filers_between_62_and_65_years_old? }
+    validates :primary_disabled, inclusion: { in: %w[yes no], message: :blank }, if: -> { should_check_primary_disabled? }
+    validates :spouse_disabled, inclusion: { in: %w[yes no], message: :blank }, if: -> { should_check_spouse_disabled? }
+
+    def should_check_primary_disabled?
+      if intake.filing_status_mfj?
+        !intake.all_filers_between_62_and_65_years_old? && intake.primary_between_62_and_65_years_old?
+      else
+        intake.primary_between_62_and_65_years_old?
+      end
+    end
+
+    def should_check_spouse_disabled?
+      intake.filing_status_mfj? && !intake.all_filers_between_62_and_65_years_old? && intake.spouse_between_62_and_65_years_old?
+    end
 
     def save
-      if intake.filing_status_mfj?
+      if intake.filing_status_mfj? && intake.all_filers_between_62_and_65_years_old?
         case mfj_disability
         when "primary"
           @intake.update(primary_disabled: "yes", spouse_disabled: "no")
@@ -28,12 +41,12 @@ module StateFile
     private
 
     def clean_up_followups
-      primary_followups =  @intake.filer_1099_rs(:primary).map(&:state_specific_followup).compact
       if primary_disabled == "no" || %w[spouse none].include?(mfj_disability)
+        primary_followups =  @intake.filer_1099_rs(:primary).map(&:state_specific_followup).compact
         primary_followups.each(&:destroy)
       end
 
-      if @intake.filing_status_mfj? && %w[primary none].include?(mfj_disability)
+      if @intake.filing_status_mfj? && (spouse_disabled == "no" || %w[primary none].include?(mfj_disability))
         spouse_followups =  @intake.filer_1099_rs(:spouse).map(&:state_specific_followup).compact
         spouse_followups.each(&:destroy)
       end

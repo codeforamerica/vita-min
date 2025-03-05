@@ -61,7 +61,7 @@ module Efile
       def calculate_line_9a
         if @intake.direct_file_data.fed_ssb.positive?
           if @intake.filing_status_mfj?
-            @intake.primary_ssb_amount&.round || 0
+            @intake.primary_ssb_amount&.round || @intake.direct_file_json_data.primary_filer_social_security_benefit_amount&.round
           else
             @intake.direct_file_data.fed_ssb.round
           end
@@ -69,8 +69,8 @@ module Efile
       end
 
       def calculate_line_9b
-        if @intake.filing_status_mfj? && @intake.direct_file_data.fed_ssb.positive? && @intake.spouse_ssb_amount.present?
-          @intake.spouse_ssb_amount.round
+        if @intake.filing_status_mfj? && @intake.direct_file_data.fed_ssb.positive?
+          @intake.spouse_ssb_amount&.round || @intake.direct_file_json_data.spouse_filer_social_security_benefit_amount&.round
         end
       end
 
