@@ -3218,7 +3218,7 @@ es:
           service_type_none: Ninguna de estas opciones aplica
           service_type_public_safety: Tu servicio como trabajador de seguridad pública
           service_type_question: 'Este ingreso provino de:'
-          subtitle_html: Necesitamos más información sobre este 1099-R para verificar tu elegibilidad y presentar tu declaración estatal. <br></br> Si tienes varios 1099-R, se te pedirá completar este paso para cada uno with a taxable amount
+          subtitle_html: Necesitamos más información sobre este 1099-R para verificar tu elegibilidad y presentar tu declaración estatal. <br><br> Si tienes varios 1099-R, se te pedirá completar este paso para cada uno with a taxable amount
           taxable_amount_label: Cantidad sujeta a impuestos
           taxpayer_name_label: Nombre del contribuyente
           title: "¡Podrías ser elegible para una resta de ingresos por jubilación de Maryland!"
