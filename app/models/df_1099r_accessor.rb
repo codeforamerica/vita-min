@@ -25,6 +25,11 @@ class Df1099rAccessor < DfXmlAccessor
     total_distribution: "TotalDistributionInd",
     capital_gain_amount: "CapitalGainAmt",
     designated_roth_account_first_year: "DesignatedROTHAcctFirstYr",
+    recipient_address_line1: "RecipientUSAddress AddressLine1Txt",
+    recipient_address_line2: "RecipientUSAddress AddressLine2Txt",
+    recipient_city_name: "RecipientUSAddress CityNm",
+    recipient_state_code: "RecipientUSAddress StateAbbreviationCd",
+    recipient_zip: "RecipientUSAddress ZIPCd",
   }
 
   def self.selectors

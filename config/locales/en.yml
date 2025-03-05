@@ -19,9 +19,9 @@ en:
               invalid: should be a five digit number beginning with 2
             date_of_contribution:
               inclusion: Date must be valid and in the current tax year
-        state_file_1099_r:
+        state_file1099_r:
           errors:
-            must_be_less_than_gross_distribution: Must be less than gross distribution amount
+            must_be_less_than_gross_distribution: Box 14 State tax withheld cannot be greater than %{gross_distribution_amount}
   attributes:
     confirm_primary_ssn: Confirm SSN or ITIN
     confirm_spouse_ssn: Confirm spouse's SSN or ITIN
@@ -3075,9 +3075,6 @@ en:
           no_donations_selected: "<strong>No donations selected</strong>"
           permanent_building_fund_tax: Permanent Building Fund Tax
           purchases_without_sales_tax: Purchases without paying sales tax
-          qualified_disabled_retirement_benefits: Qualified disabled retirement benefits
-          qualified_retirement_benefits_deduction: Qualified Retirement Benefits Deduction
-          qualified_retirement_benefits_deduction_explain: These allow people to deduct all or a portion of their retirement income from their taxes.
           voluntary_charitable_donations: Voluntary Charitable Donations
       id_sales_use_tax:
         edit:
@@ -3178,6 +3175,26 @@ en:
           which_members_not_have_insurance: Select which member(s) of your household <strong> did not </strong> have health care coverage at the end of %{tax_year}?
           why_ask_explanation: This information will help Maryland Health Connection determine eligibility for uninsured members of your household for no-cost or low-cost health coverage. It <strong>won't affect</strong> your tax return and there are no penalties for providing this information.
           why_ask_this: Why are you asking this?
+      md_pension_exclusion_offboarding:
+        edit:
+          commercial_tax_prep_html: File with a commercial tax preparation service. Learn more <a href='%{path}' target='_blank' rel='noopener noreferrer'>here</a>.
+          contact_info_html: If you have any questions or want your information removed from this service, please email us at <a href='mailto:help@fileyourstatetaxes.org'>help@fileyourstatetaxes.org</a>.
+          description: The Maryland Pension Exclusion can save you hundreds to thousands of dollars in state and local taxes by reducing your taxable retirement income.
+          free_in_md: File for free with IRS-Certified VITA volunteers in Maryland.
+          free_income_tax_prep_html: Get started with the Comptroller of Maryland’s <a href='https://www.marylandtaxes.gov/individual/tax-assistance/free-tax-prep.php' target='_blank' rel='noopener noreferrer'>Free Income Tax Preparation</a> service.
+          go_back_html: "<strong>Have you provided proof of your disability in previous tax years?</strong> <a href='%{path}'>Go back to correct.</a>"
+          if_choose_this_option: If you choose this option, you'll be connected with a VITA partner in Maryland. Expect a quick intake call in a few days to discuss your tax situation and securely upload your documents. This process may take 2-3 weeks to complete.
+          if_you_want_to_html: If you want to claim the Maryland Pension Exclusion using a different service, you have a few options. Keep in mind, <strong>you will not be able to transfer any information from FileYourStateTaxes to these services:</strong>
+          like_to_claim: If you'd like to claim this exclusion using a different service, you can learn more below.
+          like_to_continue: If you'd like to continue using this service and not claim this exclusion, you can click 'Continue.'
+          other_filing_options_html: Learn more about other filing options <a href='%{path}' target='_blank' rel='noopener noreferrer'>here</a>.
+          title_html:
+            one: It looks like you may qualify for the <a href='https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php' target='_blank' rel='noopener noreferrer'>Maryland Pension Exclusion</a>.
+            other: It looks like you and your spouse may qualify for the <a href='https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php' target='_blank' rel='noopener noreferrer'>Maryland Pension Exclusion</a>.
+          unfortunately: Unfortunately, our service doesn’t support this exclusion if you haven’t provided proof of your disability in a previous tax year.
+          vita_option_html: "<a href='%{link}' rel='noopener noreferrer'>Get started with VITA now</a>."
+          what_if_i_want_to_claim: What if I want to claim the Maryland Pension Exclusion?
+          what_to_expect_next: 'Here''s what to expect next:'
       md_permanent_address:
         edit:
           address_header: Address
@@ -3199,6 +3216,7 @@ en:
           spouse_proof_question_html: Has <strong>your spouse</strong> provided proof of your disability for the  <a href="https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php">Maryland Pension Exclusion</a> in the previous tax years?
           title: Are you totally and permanently disabled?
           title_spouse: Are you or your spouse totally and permanently disabled?
+          unfortunately_dont_support_html: Unfortunately, our service doesn’t support the Maryland Pension Exclusion if you haven’t provided proof of your disability in a previous tax year.<br><br> If you want to claim the pension exclusion, <a href='%{path}'>learn more here</a>.
           yes_both: Yes, we both are
           yes_me: Yes, I am
           yes_spouse: Yes, my spouse is
@@ -3989,6 +4007,7 @@ en:
           box14_html: "<b>Box 14</b>, State tax withheld"
           box15_html: "<b>Box 15</b>, State/Payer’s State Number"
           box16_html: "<b>Box 16</b>, State distribution"
+          state_tax_withheld_absent_warning: Please confirm that the amount in Box 14 on your 1099-R is 0
           title_html: Please review your retirement income (1099-R) details for <strong>%{payer_name}</strong>.
       retirement_income_subtraction:
         doc_1099r_label: 1099-R
@@ -4076,6 +4095,16 @@ en:
           taxes_owed_html: Your refund is $0. This means that you <strong>will not</strong> receive a state refund and you <strong>do not</strong> owe state taxes. You should finish filing your return, since you may be required to file even though you won’t get or receive any money.
           title: You're almost done! Please review the information we have.
           your_name: Your name
+        az_retirement_income_deductions_review_header:
+          government_pension: Qualifying federal, Arizona, or local government pension plan
+          none_apply: None apply
+          subtitle: These allow people to deduct all or a portion of their retirement income for the taxes.
+          title: Arizona retirement income deductions
+          uniformed_services: Retired or retainer pay of the uniformed services of the United States
+        id_retirement_income_deductions_review_header:
+          qualified_disabled_retirement_benefits: Qualified disabled retirement benefits
+          qualified_retirement_benefits_deduction: Qualified Retirement Benefits Deduction
+          qualified_retirement_benefits_deduction_explain: These allow people to deduct all or a portion of their retirement income from their taxes.
         review_header:
           income_details: Income Details
           income_forms_collected: 'Income form(s) collected:'

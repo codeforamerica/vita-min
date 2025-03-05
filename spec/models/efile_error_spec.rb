@@ -69,6 +69,7 @@ describe 'EfileError' do
       "md-county",
       "md-eligibility-filing-status",
       "md-had-health-insurance",
+      "md-pension-exclusion-offboarding",
       "md-permanent-address",
       "md-permanently-disabled",
       "md-retirement-income-subtraction",

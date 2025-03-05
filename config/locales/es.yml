@@ -19,9 +19,9 @@ es:
               invalid: Debe ser un número de cinco dígitos que comience con 2
             date_of_contribution:
               inclusion: La fecha debe ser válida y corresponder al año fiscal actual.
-        state_file_1099_r:
+        state_file1099_r:
           errors:
-            must_be_less_than_gross_distribution: Debe ser menor que el monto bruto de distribución
+            must_be_less_than_gross_distribution: Box 14 State tax withheld cannot be greater than %{gross_distribution_amount}
   attributes:
     confirm_primary_ssn: Confirme el Número de Seguro Social (SSN) o Número de Identificación Personal (ITIN)
     confirm_spouse_ssn: Confirme el Número de Seguro Social (SSN) o Número de Identificación Personal (ITIN) de su cónyuge
@@ -3044,9 +3044,6 @@ es:
           no_donations_selected: "<strong>No hay donaciones seleccionadas</strong>"
           permanent_building_fund_tax: Impuesto sobre el Fondo de Edificios Permanentes
           purchases_without_sales_tax: Compras sin pagar impuesto de ventas
-          qualified_disabled_retirement_benefits: Beneficios calificados de jubilación para personas con discapacidad
-          qualified_retirement_benefits_deduction: Deducción por Beneficios Calificados de Jubilación
-          qualified_retirement_benefits_deduction_explain: Estos permiten a las personas deducir de sus impuestos la totalidad o una parte de sus ingresos por jubilación.
           voluntary_charitable_donations: Donaciones caritativas voluntarias
       id_sales_use_tax:
         edit:
@@ -3148,6 +3145,26 @@ es:
           which_members_not_have_insurance: Selecciona al(los) miembro(s) de tu hogar que <strong>no tenía(n)</strong> cobertura de salud al finalizar %{tax_year}.
           why_ask_explanation: Esta información ayudará a Maryland Health Connection a determinar la elegibilidad para miembros de tu hogar que no tienen seguro médico para que reciban cobertura de salud sin costo o de bajo costo. Compartir esta información<strong>no afectará</strong>tu declaración de impuestos y no generará penalizaciones.
           why_ask_this: "¿Por qué te preguntamos esto?"
+      md_pension_exclusion_offboarding:
+        edit:
+          commercial_tax_prep_html: Declara con un servicio de preparación de impuestos comercial. Obtén más información <a href='%{path}' target='_blank' rel='noopener noreferrer'>aquí</a>.
+          contact_info_html: Si tienes alguna pregunta o deseas que tu información sea eliminada de este servicio, por favor envíanos un correo electrónico a <a href='mailto:help@fileyourstatetaxes.org'>help@fileyourstatetaxes.org</a>.
+          description: La Exclusión de Pensiones de Maryland puede ahorrarte de cientos a miles de dólares en impuestos estatales y locales al reducir la cantidad de impuestos que deberás pagar de tus ingresos de jubilación.
+          free_in_md: Declara gratis con voluntarios VITA certificados por el IRS en Maryland.
+          free_income_tax_prep_html: Comienza con el <a href='https://www.marylandtaxes.gov/individual/tax-assistance/free-tax-prep.php' target='_blank' rel='noopener noreferrer'>servicio gratuito de preparación de impuestos sobre ingresos del Contralor de Maryland</a>.
+          go_back_html: "<strong>¿Has presentado prueba de tu discapacidad en años fiscales anteriores?</strong> <a href='%{path}'>Regresa para corregir.</a>"
+          if_choose_this_option: Si eliges esta opción, te conectarás con un socio de Asistencia Voluntaria para la Declaración de Impuestos (VITA) en Maryland. Recibirás una llamada en los próximos días. Tendrás que responder algunas preguntas adicionales sobre tu situación tributaria y enviar de forma segura tus documentos en línea. Este proceso puede tardar de 2 a 3 semanas en completarse.
+          if_you_want_to_html: Si deseas reclamar la Exclusión de Pensiones de Maryland utilizando un servicio diferente, tienes algunas opciones. Ten en cuenta que <strong>no podrás transferir ninguna información de FileYourStateTaxes a estos servicios:</strong>
+          like_to_claim: Si deseas reclamar esta exclusión utilizando un servicio diferente, puedes obtener más información a continuación.
+          like_to_continue: Si deseas continuar utilizando este servicio y no reclamar esta exclusión, puedes hacer clic en 'Continuar.'
+          other_filing_options_html: Obtén más información sobre este proceso y otras opciones de declaración <a href='%{path}' target='_blank' rel='noopener noreferrer'>aquí</a>.
+          title_html:
+            one: Parece que podrías calificar para la <a href='https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php' target='_blank' rel='noopener noreferrer'>Exclusión de Pensiones de Maryland</a>.
+            other: Parece que tú y tu cónyuge podrían calificar para la  <a href='https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php' target='_blank' rel='noopener noreferrer'>Exclusión de Pensiones de Maryland</a>.
+          unfortunately: Desafortunadamente, nuestro servicio no admite la exclusión máxima si tú o tu cónyuge no han presentado prueba de su discapacidad en un año anterior.
+          vita_option_html: "<a href='%{link}' rel='noopener noreferrer'>Comienza con VITA ahora</a>."
+          what_if_i_want_to_claim: "¿Qué pasa si quiero reclamar la Exclusión de Pensiones de Maryland?"
+          what_to_expect_next: 'Qué sigue:'
       md_permanent_address:
         edit:
           address_header: Dirección
@@ -3164,14 +3181,15 @@ es:
         edit:
           help_text_html: Se considera que estás totalmente discapacitado si tienes una condición mental o física que te impide trabajar y recibir ingresos. <br><br>Se espera que esta condición dure mucho tiempo, por un período indefinido o que resulte en tu muerte. Si tienes menos de 65 años y deseas reclamar la exclusión de pensión, debes haber adjuntado una certificación de un médico calificado que indique la naturaleza de tu discapacidad y que estás totalmente incapacitado a una declaración de impuestos presentada anteriormente.
           help_title: "¿Qué se considera total y permanentemente discapacitado?"
-          no_neither: No, ninguno de los dos lo está
+          no_neither: No, ninguno de los dos lo es
           primary_proof_question_html: ¿Has presentado prueba de <strong>tu</strong> discapacidad para <a href="https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php"> la Exclusión de Pensiones de Maryland </a> en años fiscales anteriores?
           spouse_proof_question_html: ¿Ha presentado prueba de <strong>tu cónyuge</strong> discapacidad para <a href="https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php">la Exclusión de Pensiones de Maryland </a> en años fiscales anteriores?
           title: "¿Estás total y permanentemente discapacitado?"
           title_spouse: "¿Tú o tu cónyuge están total y permanentemente discapacitados?"
-          yes_both: Sí, ambos lo estamos
-          yes_me: Sí lo estoy
-          yes_spouse: Sí, mi cónyuge lo está
+          unfortunately_dont_support_html: Desafortunadamente, nuestro servicio no puede incluir la Exclusión de Pensiones de Maryland si no has presentado prueba de tu discapacidad en un año fiscal anterior.<br><br> Si quieres reclamar la exclusión de pensiones, <a href='%{path}'>obtén más información aquí</a>.
+          yes_both: Sí, ambos lo somos
+          yes_me: Sí, yo lo soy
+          yes_spouse: Sí, mi cónyuge lo es
       md_primary_state_id:
         md_primary:
           dmv_bmv_label: Identificación estatal del MVA
@@ -3234,7 +3252,7 @@ es:
           primary_proof_of_disability: Presentaste pruebas de una discapacidad para la exclusión de pensiones en años fiscales anteriores.
           public_safety: Tu servicio como empleado de seguridad pública.
           retirement_income_deductions: Detalles sobre los ingresos de jubilación de Maryland
-          spouse_proof_of_disability: Su cónyuge presentó pruebas de una discapacidad para la exclusión de pensiones en años fiscales anteriores.
+          spouse_proof_of_disability: Prueba de discapacidad del cónyuge para la exclusión de pensión en años fiscales anteriores presentada.
           your_address: Dirección donde vivías el 31 de diciembre del %{filing_year}
       md_social_security_benefits:
         edit:
@@ -3975,6 +3993,7 @@ es:
           box14_html: "<b>Casilla 14</b>, Impuesto estatal retenido"
           box15_html: "<b>Casilla 15</b>, Número estatal del pagador"
           box16_html: "<b>Casilla 16</b>, Distribución estatal"
+          state_tax_withheld_absent_warning: Please confirm that the amount in Box 14 on your 1099-R is 0
           title_html: Por favor, revisa los detalles de los ingresos estatales (1099-R) que recibiste de <strong>%{payer_name}</strong>.
       retirement_income_subtraction:
         doc_1099r_label: 1099-R
@@ -4062,6 +4081,16 @@ es:
           taxes_owed_html: Tu reembolso es $0. Esto significa <strong>que no</strong> recibirás un reembolso estatal y <strong>no</strong> debes pagar impuestos estatales. Debes completar tu declaración, es posible que tengas que presentarla aunque no recibirás ningún dinero.
           title: "¡Ya casi terminas! Por favor revisa la información que tenemos."
           your_name: Tu nombre
+        az_retirement_income_deductions_review_header:
+          government_pension: Plan de pensiones calificado del gobierno federal, de Arizona o gubernamental
+          none_apply: Ninguno aplica
+          subtitle: Estos permiten a las personas deducir de sus impuestos la totalidad o una parte de sus ingresos por jubilación.
+          title: La deducción de ingresos por jubilación de Arizona
+          uniformed_services: Pago de jubilación o retención de los servicios uniformados de los Estados Unidos
+        id_retirement_income_deductions_review_header:
+          qualified_disabled_retirement_benefits: Beneficios calificados de jubilación para personas con discapacidad
+          qualified_retirement_benefits_deduction: Deducción por Beneficios Calificados de Jubilación
+          qualified_retirement_benefits_deduction_explain: Estos permiten a las personas deducir de sus impuestos la totalidad o una parte de sus ingresos por jubilación.
         review_header:
           income_details: Detalles de ingresos
           income_forms_collected: 'Formulario(s) de ingresos recogidos:'
