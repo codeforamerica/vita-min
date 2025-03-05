@@ -2426,7 +2426,8 @@ en:
           - Retirement program established by the Arizona Board of Regents
           - Retirement program established by Arizona community college district
           - Retirement plan established for employees of a county, city, or town in Arizona
-          subtitle: To see if you qualify, we need more information from your 1099-R
+          subtitle: We need more information about this 1099-R to check your eligibility and file your state return.
+          subtitle_2: If you reported multiple 1099-Rs, you’ll be asked to complete this step for each one with a taxable amount.
           uniformed_services: Retired or retainer pay of the uniformed services of the United States
           which_pensions: Which government pensions qualify?
       az_review:
