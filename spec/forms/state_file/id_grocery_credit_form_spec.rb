@@ -69,7 +69,7 @@ RSpec.describe StateFile::IdGroceryCreditForm do
       it "is invalid and has error message about needing to select a member" do
         form = described_class.new(intake, invalid_params)
         expect(form).not_to be_valid
-        expect(form.errors.first.type).to eq(I18n.t(".state_file.questions.id_grocery_credit.edit.select_a_household_member"))
+        expect(form.errors.first.type).to eq(I18n.t(".state_file.questions.id_grocery_credit.edit.select_a_household_member_error"))
       end
     end
 

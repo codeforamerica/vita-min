@@ -55,7 +55,7 @@ module StateFile
 
     def family_members_with_ineligible_months
       unless dependents.where(id_has_grocery_credit_ineligible_months: "yes").present? || primary_has_grocery_credit_ineligible_months == "yes" || spouse_has_grocery_credit_ineligible_months == "yes"
-        errors.add(:primary_has_grocery_credit_ineligible_months, I18n.t(".state_file.questions.id_grocery_credit.edit.select_a_household_member"))
+        errors.add(:primary_has_grocery_credit_ineligible_months, I18n.t("state_file.questions.id_grocery_credit.edit.select_a_household_member_error"))
       end
     end
 
