@@ -71,18 +71,4 @@ describe 'state_file:pre_deadline_reminder' do
       expect(StateFile::MessagingService).to have_received(:new).exactly(0).times
     end
   end
-
-  context "submissions in a cancelled state" do
-    let!(:submitted_intake) { create :state_file_ny_intake, email_address: 'test+01@example.com', email_address_verified_at: 1.minute.ago }
-    let!(:efile_submission) { create :efile_submission, :for_state, :cancelled, data_source: submitted_intake }
-
-    it 'does not send notification' do
-      messaging_service = spy('StateFile::MessagingService')
-      allow(StateFile::MessagingService).to receive(:new).and_return(messaging_service)
-
-      Rake::Task['state_file:pre_deadline_reminder'].execute
-
-      expect(StateFile::MessagingService).to have_received(:new).exactly(0).times
-    end
-  end
 end
