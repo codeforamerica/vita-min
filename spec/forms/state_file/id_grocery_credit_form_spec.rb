@@ -37,33 +37,15 @@ RSpec.describe StateFile::IdGroceryCreditForm do
     end
 
     context "answering that their were ineligible months without selecting a family member" do
-      let!(:intake) { create :state_file_id_intake, :mfj_filer_with_json, :with_dependents }
-      let(:first_dependent) { intake.dependents[0] }
-      let(:second_dependent) { intake.dependents[1] }
-      let(:third_dependent) { intake.dependents[2] }
+      let!(:intake) { create :state_file_id_intake, :mfj_filer_with_json}
+      let!(:dependent_1) {create :state_file_dependent, intake: intake, id_has_grocery_credit_ineligible_months: "no" }
+      let!(:dependent_2) {create :state_file_dependent, intake: intake, id_has_grocery_credit_ineligible_months: "no" }
+      let!(:dependent_3) {create :state_file_dependent, intake: intake, id_has_grocery_credit_ineligible_months: "no" }
       let(:invalid_params) do
         {
           household_has_grocery_credit_ineligible_months: "yes",
           primary_has_grocery_credit_ineligible_months: "no",
-          spouse_has_grocery_credit_ineligible_months: "no",
-          dependents_attributes: {
-            '0': {
-              id: first_dependent.id,
-              id_has_grocery_credit_ineligible_months: "yes"
-            },
-            '1': {
-              id: second_dependent.id,
-              id_has_grocery_credit_ineligible_months: "no"
-            },
-            '2': {
-              id: third_dependent.id,
-              id_has_grocery_credit_ineligible_months: "no"
-            },
-            '3': {
-              id: first_dependent.id,
-              id_months_ineligible_for_grocery_credit: ""
-            }
-          }
+          spouse_has_grocery_credit_ineligible_months: "no"
         }
       end
       it "is invalid and has error message about needing to select a member" do
