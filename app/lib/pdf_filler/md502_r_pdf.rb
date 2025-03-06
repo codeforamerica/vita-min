@@ -28,13 +28,9 @@ module PdfFiller
         'Spouses Age': @xml_document.at('SecondaryAge')&.text,
         You: check_box_if_x(@xml_document.at('PriTotalPermDisabledIndicator')&.text),
         Spouse: check_box_if_x(@xml_document.at('SecTotalPermDisabledIndicator')&.text),
+        'and Tier II See Instructions for Part 5                                   9a': @xml_document.at('PriSSecurityRailRoadBenefits')&.text,
+        '9b': @xml_document.at('SecSSecurityRailRoadBenefits')&.text
         }
-      if Flipper.enabled?(:show_md_ssa)
-        answers.merge!(
-          "and Tier II See Instructions for Part 5                                   9a" => @xml_document.at('PriSSecurityRailRoadBenefits')&.text,
-          "9b" => @xml_document.at('SecSSecurityRailRoadBenefits')&.text
-        )
-      end
       if Flipper.enabled?(:show_retirement_ui)
         answers.merge!(
           'compensation plan or foreign retirement income                           1a' => @xml_document.at('SourceRetirementIncome PrimaryTaxpayer EmployeeRetirementSystem')&.text,

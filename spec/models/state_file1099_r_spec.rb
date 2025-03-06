@@ -20,8 +20,13 @@
 #  payer_state_identification_number  :string
 #  payer_zip                          :string
 #  phone_number                       :string
+#  recipient_address_line1            :string
+#  recipient_address_line2            :string
+#  recipient_city_name                :string
 #  recipient_name                     :string
 #  recipient_ssn                      :string
+#  recipient_state_code               :string
+#  recipient_zip                      :string
 #  standard                           :boolean
 #  state_code                         :string
 #  state_distribution_amount          :decimal(12, 2)
@@ -44,43 +49,69 @@ require 'rails_helper'
 
 RSpec.describe StateFile1099R do
   describe "validation" do
-    context "retirement_income_intake" do
+    it do
+      expect(subject).to validate_presence_of(:state_distribution_amount)
+        .on(:retirement_income_intake)
+        .with_message(I18n.t('forms.errors.no_money_amount'))
+    end
+
+    it do
+      expect(subject).to validate_presence_of(:state_tax_withheld_amount)
+        .on(:retirement_income_intake)
+        .with_message(I18n.t('forms.errors.no_money_amount'))
+    end
+
+    context "both contexts" do
       let!(:state_file1099_r) { create(:state_file1099_r, intake: create(:state_file_nc_intake)) }
-      let(:context) { :retirement_income_intake }
 
-      context "state_tax_withheld_amount and state_distribution_amount must be less than gross_distribution_amount" do
-        let(:state_file1099_r) {
-          create :state_file1099_r,
-                 intake: create(:state_file_nc_intake),
-                 gross_distribution_amount: gross_distribution_amount,
-                 state_tax_withheld_amount: state_tax_withheld_amount,
-                 state_distribution_amount: state_distribution_amount
-        }
+      [:retirement_income_intake, :income_review].each do |context_name|
+        context "state_tax_withheld_amount must be less than gross_distribution_amount" do
+          let(:state_file1099_r) {
+            create :state_file1099_r,
+                   intake: create(:state_file_nc_intake),
+                   gross_distribution_amount: gross_distribution_amount,
+                   state_tax_withheld_amount: state_tax_withheld_amount
+          }
 
-        context "when the gross_distribution_amount is present" do
-          let(:gross_distribution_amount) { 100 }
+          context "when the gross_distribution_amount is present" do
+            let(:gross_distribution_amount) { 100 }
 
-          context "other values are less" do
-            let(:state_tax_withheld_amount) { 50 }
-            let(:state_distribution_amount) { 50 }
+            context "state tax withheld is less" do
+              let(:state_tax_withheld_amount) { 50 }
 
-            it "is valid" do
-              expect(state_file1099_r).to be_valid(context)
+              it "is valid" do
+                expect(state_file1099_r).to be_valid(context_name)
+              end
             end
-          end
 
-          context "other values are greater" do
-            let(:state_tax_withheld_amount) { 200 }
-            let(:state_distribution_amount) { 200 }
+            context "state tax withheld is greater" do
+              let(:state_tax_withheld_amount) { 200 }
 
-            it "is invalid" do
-              expect(state_file1099_r).not_to be_valid(context)
-              expect(state_file1099_r.errors[:state_tax_withheld_amount]).to be_present
-              expect(state_file1099_r.errors[:state_distribution_amount]).to be_present
+              it "is invalid" do
+                expect(state_file1099_r).not_to be_valid(context_name)
+                expect(state_file1099_r.errors[:state_tax_withheld_amount]).to be_present
+              end
             end
           end
         end
+
+        it "validates state_tax_withheld_amount is number if present" do
+          ['string', -1].each do |val|
+            state_file1099_r.state_tax_withheld_amount = val
+            expect(state_file1099_r.valid?(context_name)).to eq false
+          end
+
+          [0, 1].each do |val|
+            state_file1099_r.state_tax_withheld_amount = val
+            expect(state_file1099_r.valid?(context_name)).to eq true
+          end
+        end
       end
+    end
+
+    context "retirement_income_intake" do
+      let!(:state_file1099_r) { create(:state_file1099_r, intake: create(:state_file_nc_intake)) }
+      let(:context) { :retirement_income_intake }
 
       it "validates gross_distribution_amount is present and a positive number" do
         state_file1099_r.state_tax_withheld_amount = 0
@@ -106,20 +137,15 @@ RSpec.describe StateFile1099R do
             expect(state_file1099_r.valid?(context)).to eq false
           end
 
-          [nil, 0, 1].each do |val|
+          [0, 1].each do |val|
             state_file1099_r.send("#{attr}=", val)
             expect(state_file1099_r.valid?(context)).to eq true
           end
         end
-
       end
 
       context "payer_state_identification_number" do
         it "validates present when has state_tax_withheld_amount" do
-          state_file1099_r.state_tax_withheld_amount = nil
-          state_file1099_r.payer_state_identification_number = nil
-          expect(state_file1099_r.valid?(context)).to eq true
-
           state_file1099_r.state_tax_withheld_amount = 0
           state_file1099_r.payer_state_identification_number = nil
           expect(state_file1099_r.valid?(context)).to eq true

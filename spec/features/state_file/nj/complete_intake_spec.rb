@@ -460,7 +460,6 @@ RSpec.feature "Completing a state file intake", active_job: true do
         advance_county_and_municipality
         advance_disabled_exemption(true) # disabled exemption
         advance_veterans_exemption
-        advance_medical_expenses
         choose_household_rent_own("homeowner")
         select_homeowner_eligibility(["homeowner_home_subject_to_property_taxes"])
         # skips property tax paid page
@@ -472,7 +471,6 @@ RSpec.feature "Completing a state file intake", active_job: true do
         advance_county_and_municipality
         advance_disabled_exemption(true) # disabled exemption
         advance_veterans_exemption
-        advance_medical_expenses
         choose_household_rent_own("tenant")
         select_tenant_eligibility(["tenant_home_subject_to_property_taxes"])
         # skips rent paid page
@@ -484,7 +482,6 @@ RSpec.feature "Completing a state file intake", active_job: true do
         advance_county_and_municipality
         advance_disabled_exemption(true) # disabled exemption
         advance_veterans_exemption
-        advance_medical_expenses
         choose_household_rent_own("both")
         select_homeowner_eligibility(["homeowner_home_subject_to_property_taxes"])
         # skips property tax paid page
@@ -497,7 +494,6 @@ RSpec.feature "Completing a state file intake", active_job: true do
         advance_county_and_municipality
         advance_disabled_exemption(true) # disabled exemption
         advance_veterans_exemption
-        advance_medical_expenses
         choose_household_rent_own("both")
         select_homeowner_eligibility([])
         expect_ineligible_page("on_home", "property_taxes")
@@ -513,7 +509,6 @@ RSpec.feature "Completing a state file intake", active_job: true do
         advance_county_and_municipality
         advance_disabled_exemption(false) # does NOT meet disabled exemption
         advance_veterans_exemption
-        advance_medical_expenses
         choose_household_rent_own("homeowner")
         expect_ineligible_page(nil, "income_single_mfs")
         expect_page_after_property_tax

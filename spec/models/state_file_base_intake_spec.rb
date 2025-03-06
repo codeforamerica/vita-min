@@ -79,7 +79,10 @@ describe StateFileBaseIntake do
       intake.synchronize_df_1099_rs_to_database
 
       expect(intake.state_file1099_rs.first.state_tax_withheld_amount).to eq 50
-      expect(intake.state_file1099_rs.count).to eq 1
+      expect(intake.state_file1099_rs.first.recipient_address_line1).to eq "200 Neptune Street"
+      expect(intake.state_file1099_rs.first.recipient_city_name).to eq "Flagstaff"
+      expect(intake.state_file1099_rs.first.recipient_state_code).to eq "AZ"
+      expect(intake.state_file1099_rs.first.recipient_zip).to eq "86001"
     end
   end
 
