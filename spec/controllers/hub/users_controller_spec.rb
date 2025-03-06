@@ -143,6 +143,23 @@ RSpec.describe Hub::UsersController do
         end
       end
 
+      context "with a site coordinator user" do
+        let!(:team_member) { create :team_member_user }
+        let!(:other_team_member) { create :team_member_user, sites: team_member.role.sites }
+        let!(:site_coordinator) { create :site_coordinator_user, sites: team_member.role.sites }
+
+        before { sign_in site_coordinator }
+
+        it "only shows edit links for themselves" do
+          get :index
+
+          html = Nokogiri::HTML.parse(response.body)
+          expect(html.at_css("#user-#{team_member.id} a")["href"]).to eq edit_hub_user_path(id: team_member)
+          expect(html.at_css("#user-#{other_team_member.id} a")["href"]).to eq edit_hub_user_path(id: other_team_member)
+          expect(html.at_css("#user-#{site_coordinator.id} a")["href"]).to eq edit_hub_user_path(id: site_coordinator)
+        end
+      end
+
       context "searching" do
         context "when searching by email" do
           let(:params) do

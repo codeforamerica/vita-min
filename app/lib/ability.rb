@@ -189,6 +189,8 @@ class Ability
     end
 
     if user.site_coordinator?
+      can :manage, User, id: User.where(role: SiteCoordinatorRole.assignable_to_sites(user.role.sites)).pluck(:id)
+      can :manage, User, id: User.where(role: TeamMemberRole.assignable_to_sites(user.role.sites)).pluck(:id)
       # Site coordinators can create site coordinators and team members in their site
       can :manage, SiteCoordinatorRole do |role|
         user.role.sites.map.any? { |site| role.sites.map(&:id).include? site.id }
