@@ -102,7 +102,9 @@ export function initMultiSelectVitaPartner() {
 export function initSelectVitaPartner() {
     const input = document.querySelector('.select-vita-partner');
 
-    new Tagify(input, {
+    if (!input) return;
+
+    const tagify = new Tagify(input, {
         tagTextProp: 'name',  // <-- defines which attr is used as the tag display value
         // Array for initial interpolation, which allows only these tags to be used
         whitelist: window.taggableItems,
@@ -131,7 +133,35 @@ export function initSelectVitaPartner() {
             },
         }
     });
+
+    const tagifyContainer = document.querySelector(".tagify--select"); // tag element with drop-down arrow
+    const tagifyInput = tagifyContainer?.querySelector(".tagify__input"); // input with actual value
+
+    function toggleDropdown(event) {
+        event.preventDefault();
+
+        if (tagify.state.dropdown.visible) {
+            tagify.dropdown.hide();
+        } else {
+            tagify.dropdown.show();
+        }
+    }
+
+    if (tagifyContainer) {
+        tagifyContainer.addEventListener("mousedown", toggleDropdown);
+    }
+
+    if (tagifyInput) {
+        tagifyInput.addEventListener("mousedown", toggleDropdown);
+    }
+
+    document.addEventListener("click", (event) => {
+        if (!tagifyContainer.contains(event.target) && tagify.state.dropdown.visible) {
+            tagify.dropdown.hide();
+        }
+    });
 }
+
 
 export function initMultiSelectState() {
     const input = document.querySelector('.multi-select-state');
