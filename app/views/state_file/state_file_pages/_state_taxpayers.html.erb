@@ -1,6 +1,0 @@
-<% categories = FaqCategory.where(product_type: FaqCategory.state_to_product_type(state)) %>
-<% categories.each do |cat| %>
-  <div class="spacing-above-15">
-    <%= link_to cat.name(I18n.locale), state_faq_section_path(section_key: cat.slug, us_state: state) %>
-  </div>
-<% end %>
