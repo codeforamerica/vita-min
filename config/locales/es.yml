@@ -3641,7 +3641,7 @@ es:
           helper_description_html: |
             <p>Las pensiones militares de EE. UU. son el resultado del servicio en el Ejército, la Marina, la Fuerza Aérea, el Cuerpo de Infantería Marina, la Guardia Costera o la Fuerza Espacial. Por lo general, las pensiones militares que califican y los pagos de beneficios de supervivencia militar son pagados por el Servicio de Finanzas y Contabilidad de Defensa de EE. UU.</p>
             <p>Las pensiones y anualidades del servicio civil no cuentan como pensiones militares, incluso si se basan en el crédito por el servicio militar. Las anualidades del servicio civil las paga la Oficina de Administración de Personal de los EE. UU.</p>
-          helper_heading: ¿Qué se considera una pensión militar de EE. UU.?
+          helper_heading: "¿Qué se considera una pensión militar de EE. UU.?"
           label: 'Selecciona la fuente de este ingreso:'
           option_military_pension: Pensión militar de EE. UU.
           option_military_survivor_benefit: Beneficios de supervivencia militar de EE. UU.
