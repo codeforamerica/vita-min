@@ -178,7 +178,6 @@ class Ability
     end
 
     if user.org_lead?
-
       # Organization leads can view and edit users who are organization leads, site coordinators, and team members in their coalition
       can :manage, User, id: user.accessible_users.pluck(:id)
 
@@ -191,6 +190,7 @@ class Ability
     if user.site_coordinator?
       can :manage, User, id: User.where(role: SiteCoordinatorRole.assignable_to_sites(user.role.sites)).pluck(:id)
       can :manage, User, id: User.where(role: TeamMemberRole.assignable_to_sites(user.role.sites)).pluck(:id)
+
       # Site coordinators can create site coordinators and team members in their site
       can :manage, SiteCoordinatorRole do |role|
         user.role.sites.map.any? { |site| role.sites.map(&:id).include? site.id }
