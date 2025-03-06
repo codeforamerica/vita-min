@@ -1,5 +1,5 @@
 <% if current_intake.eligible_1099rs.length.positive? %>
-  <div class="white-group" id="retirement-income-subtractions">
+  <section class="white-group" id="retirement-income-subtractions">
     <div class="spacing-below-25">
       <h2 class="text--body text--bold spacing-below-5"><%=t(".title") %></h2>
       <p><%=t(".subtitle") %></p>
@@ -30,5 +30,5 @@
         <% end %>
       </ul>
     </div>
-  </div>
+  </section>
 <% end %>
