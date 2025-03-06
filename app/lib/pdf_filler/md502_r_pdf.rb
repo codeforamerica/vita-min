@@ -18,11 +18,11 @@ module PdfFiller
       answers = {
         'Your First Name': @xml_document.at('Primary TaxpayerName FirstName')&.text,
         'Primary MI': @xml_document.at('Primary TaxpayerName MiddleInitial')&.text,
-        'Your Last Name': @xml_document.at('Primary TaxpayerName LastName')&.text,
+        'Your Last Name': [@xml_document.at('Primary TaxpayerName LastName')&.text, @xml_document.at('Primary TaxpayerName NameSuffix')&.text].join(' '),
         'Your Social Security Number': @xml_document.at('Primary TaxpayerSSN')&.text,
         'Spouses First Name': @xml_document.at('Secondary TaxpayerName FirstName')&.text,
         'Spouse MI': @xml_document.at('Secondary TaxpayerName MiddleInitial')&.text,
-        'Spouses Last Name': @xml_document.at('Secondary TaxpayerName LastName')&.text,
+        'Spouses Last Name': [@xml_document.at('Secondary TaxpayerName LastName')&.text, @xml_document.at('Secondary TaxpayerName NameSuffix')&.text].join(' '),
         'Spouses Social Security Number': @xml_document.at('Secondary TaxpayerSSN')&.text,
         'Your Age 1': @xml_document.at('PrimaryAge')&.text,
         'Spouses Age': @xml_document.at('SecondaryAge')&.text,

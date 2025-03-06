@@ -17,12 +17,12 @@ module PdfFiller
 
     def hash_for_pdf
       answers = {
-        'FirstNameInitial' => @xml_document.at('Primary TaxpayerName FirstName')&.text,
-        'LastName' => @xml_document.at('Primary TaxpayerName LastName')&.text,
-        'SSN' => @xml_document.at('Primary TaxpayerSSN')&.text,
-        'SpouseFirstNameInitial' => @xml_document.at('Secondary TaxpayerName FirstName')&.text,
-        'SpouseLastName' => @xml_document.at('Secondary TaxpayerName LastName')&.text,
-        'SpouseSSN' => @xml_document.at('Secondary TaxpayerSSN')&.text,
+        'FirstNameInitial' => @submission.data_source.primary.first_name,
+        'LastName' => @submission.data_source.primary.last_name_and_suffix,
+        'SSN' => @submission.data_source.primary.ssn,
+        'SpouseFirstNameInitial' => @submission.data_source.spouse.first_name,
+        'SpouseLastName' => @submission.data_source.spouse.last_name_and_suffix,
+        'SpouseSSN' => @submission.data_source.spouse.ssn,
         'SpouseDeceased 2' => @submission.data_source.spouse_deceased? ? 'Yes' : 'Off',
         'CurrentMailing' => [@xml_document.at('Filer USAddress AddressLine1Txt')&.text, @xml_document.at('Filer USAddress AddressLine2Txt')&.text].compact.join(', '),
         'City' => @xml_document.at('Filer USAddress CityNm')&.text,

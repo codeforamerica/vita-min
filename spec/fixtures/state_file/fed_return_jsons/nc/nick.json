@@ -4,6 +4,7 @@
     {
       "firstName": "Nick",
       "lastName": "Cave",
+      "suffix": "JR",
       "middleInitial": null,
       "tin": "400-00-0030",
       "dateOfBirth": "1980-01-01",
@@ -12,6 +13,7 @@
     {
       "firstName": "Susie",
       "lastName": "Cave",
+      "suffix": "JR",
       "middleInitial": "K",
       "tin": "600-00-0030",
       "dateOfBirth": "1979-01-01",
