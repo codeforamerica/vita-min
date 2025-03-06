@@ -1,33 +1,34 @@
-<div class="white-group" id="retirement-income-subtractions">
-  <div class="spacing-below-25">
-    <h2 class="text--body text--bold spacing-below-5"><%=t(".title") %></h2>
-    <p><%=t(".subtitle") %></p>
-  </div>
+<% if current_intake.eligible_1099rs.length.positive? %>
+  <div class="white-group" id="retirement-income-subtractions">
+    <div class="spacing-below-25">
+      <h2 class="text--body text--bold spacing-below-5"><%=t(".title") %></h2>
+      <p><%=t(".subtitle") %></p>
+    </div>
 
-  <div class="spacing-below-5">
-    <ul class="list--bulleted">
-      <% current_intake.eligible_1099rs.each_with_index do |state_file1099_r, index| %>
-        <p class="text--bold spacing-below-5">
-          <%= state_file1099_r.payer_name %>
-        </p>
-        <li style="margin-left: 1rem;">
-          <% case state_file1099_r&.state_specific_followup&.income_source %>
-          <% when "uniformed_services" %>
-            <%= t(".uniformed_services") %>
-          <% when "pension_plan" %>
-            <%= t(".government_pension") %>
-          <% else %>
-            <%= t(".none_apply") %>
+    <div class="spacing-below-5">
+      <ul class="list--bulleted">
+        <% current_intake.eligible_1099rs.each_with_index do |state_file1099_r, index| %>
+          <p class="text--bold spacing-below-5">
+            <%= state_file1099_r.payer_name %>
+          </p>
+          <li style="margin-left: 1rem;">
+            <% case state_file1099_r&.state_specific_followup&.income_source %>
+            <% when "uniformed_services" %>
+              <%= t(".uniformed_services") %>
+            <% when "pension_plan" %>
+              <%= t(".government_pension") %>
+            <% else %>
+              <%= t(".none_apply") %>
+            <% end %>
+          </li>
+
+          <%= link_to StateFile::Questions::AzRetirementIncomeSubtractionController.to_path_helper(return_to_review: "y", index: index), class: "button--small" do %>
+            <%= t("general.edit") %>
+            <span class="sr-only"><%= t("general.edit") %></span>
           <% end %>
-        </li>
-
-        <%= link_to StateFile::Questions::AzRetirementIncomeSubtractionController.to_path_helper(return_to_review: "y", index: index), class: "button--small" do %>
-          <%= t("general.edit") %>
-          <span class="sr-only"><%= t("general.edit") %></span>
+          <br />
         <% end %>
-        <br />
-      <% end %>
-    </ul>
+      </ul>
+    </div>
   </div>
-</div>
-
+<% end %>
