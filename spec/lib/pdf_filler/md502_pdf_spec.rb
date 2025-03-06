@@ -647,7 +647,6 @@ RSpec.describe PdfFiller::Md502Pdf do
         let!(:previous_submission) { create :efile_submission, :failed, data_source: intake }
 
         it "it fills in exception code" do
-          intake.reload
           expect(pdf_fields["undefined_7"]).to eq "247"
         end
       end
