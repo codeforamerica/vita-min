@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe PdfFiller::Md502Pdf do
   include PdfSpecHelper
-
+  
   let(:intake) { create(:state_file_md_intake, primary_suffix: "JR") }
   let(:submission) { create :efile_submission, tax_return: nil, data_source: intake }
   let(:pdf) { described_class.new(submission) }
@@ -634,6 +634,22 @@ RSpec.describe PdfFiller::Md502Pdf do
         expect(pdf_fields["32"]).to eq "1300"
         expect(pdf_fields["33"]).to eq "1400"
         expect(pdf_fields["34"]).to eq "1500"
+      end
+    end
+
+    context "resubmission" do
+      context "when intake has one submission" do
+        it "does not fill in exception code" do
+          expect(pdf_fields["undefined_7"]).to be_nil
+        end
+      end
+
+      context "when intake has more than one submission" do
+        let!(:previous_submission) { create :efile_submission, :failed, data_source: intake }
+
+        it "it fills in exception code" do
+          expect(pdf_fields["undefined_7"]).to eq "247"
+        end
       end
     end
   end
