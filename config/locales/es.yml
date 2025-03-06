@@ -4453,15 +4453,19 @@ es:
       az:
         department_of_taxation: Departamento de Ingresos de Arizona
         state_name: Arizona
+        survey_link: https://codeforamerica.co1.qualtrics.com/jfe/form/SV_0v0BnYNRoLIqzhY?Q_Language=ES-ES
       id:
         department_of_taxation: Comisión Estatal de Impuestos de Idaho
         state_name: Idaho
+        survey_link: https://codeforamerica.co1.qualtrics.com/jfe/form/SV_0URdKLyW7K53rZc?Q_Language=ES-ES
       md:
         department_of_taxation: Contralor de Maryland
         state_name: Maryland
+        survey_link: https://codeforamerica.co1.qualtrics.com/jfe/form/SV_24BAmNMNrpkhLwy?Q_Language=ES-ES
       nc:
         department_of_taxation: Departamento de Ingresos de Carolina del Norte
         state_name: Carolina del Norte
+        survey_link: https://codeforamerica.co1.qualtrics.com/jfe/form/SV_1MM0vBfZ5N2OMLA?Q_Language=ES-ES
       nj:
         department_of_taxation: División de Impuestos de New Jersey
         state_name: New Jersey

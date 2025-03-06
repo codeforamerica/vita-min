@@ -4467,15 +4467,19 @@ en:
       az:
         department_of_taxation: Arizona Department of Revenue
         state_name: Arizona
+        survey_link: https://codeforamerica.co1.qualtrics.com/jfe/form/SV_0v0BnYNRoLIqzhY
       id:
         department_of_taxation: Idaho State Tax Commission
         state_name: Idaho
+        survey_link: https://codeforamerica.co1.qualtrics.com/jfe/form/SV_0URdKLyW7K53rZc
       md:
         department_of_taxation: Comptroller of Maryland
         state_name: Maryland
+        survey_link: https://codeforamerica.co1.qualtrics.com/jfe/form/SV_24BAmNMNrpkhLwy
       nc:
         department_of_taxation: N.C. Department of Revenue
         state_name: North Carolina
+        survey_link: https://codeforamerica.co1.qualtrics.com/jfe/form/SV_1MM0vBfZ5N2OMLA
       nj:
         department_of_taxation: New Jersey Division of Taxation
         state_name: New Jersey
