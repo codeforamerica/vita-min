@@ -3245,14 +3245,8 @@ es:
         edit:
           county_html: "<strong>Condado donde vivías el 31 de diciembre de %{filing_year}</strong>"
           disability_status: Estado de discapacidad total y permanente
-          military: Tu servicio en el ejército o los beneficios por fallecimiento militar recibidos en nombre de un cónyuge o ex-cónyuge
-          none: Ninguno aplica.
-          other: Otros ingresos de jubilación (por ejemplo, un plan Keogh)
-          pension_annuity_endowment: Una pensión, renta vitalicia o dotación de un “sistema de jubilación para empleados”
           political_subdivision_html: "<strong>Subdivisión política donde vivías el 31 de diciembre de %{filing_year}</strong>"
           primary_proof_of_disability: Presentaste pruebas de una discapacidad para la exclusión de pensiones en años fiscales anteriores.
-          public_safety: Tu servicio como empleado de seguridad pública.
-          retirement_income_deductions: Detalles sobre los ingresos de jubilación de Maryland
           spouse_proof_of_disability: Prueba de discapacidad del cónyuge para la exclusión de pensión en años fiscales anteriores presentada.
           your_address: Dirección donde vivías el 31 de diciembre del %{filing_year}
       md_spouse_state_id:
@@ -4073,6 +4067,13 @@ es:
           qualified_disabled_retirement_benefits: Beneficios calificados de jubilación para personas con discapacidad
           qualified_retirement_benefits_deduction: Deducción por Beneficios Calificados de Jubilación
           qualified_retirement_benefits_deduction_explain: Estos permiten a las personas deducir de sus impuestos la totalidad o una parte de sus ingresos por jubilación.
+        md_retirement_income_deductions_review_header:
+          military: Tu servicio en el ejército o los beneficios por fallecimiento militar recibidos en nombre de un cónyuge o ex-cónyuge
+          none: Ninguno aplica.
+          other: Otros ingresos de jubilación (por ejemplo, un plan Keogh)
+          pension_annuity_endowment: Una pensión, renta vitalicia o dotación de un “sistema de jubilación para empleados”
+          public_safety: Tu servicio como empleado de seguridad pública.
+          retirement_income_deductions: Detalles sobre los ingresos de jubilación de Maryland
         nc_retirement_income_deductions_review_header:
           bailey_settlement_at_least_five_years: Al menos cinco años de servicio acreditable antes del 12 de agosto de 1989
           bailey_settlement_from_retirement_plan: Recibiste beneficios de jubilación del plan 401(k) o 457 de NC y contribuiste al plan antes del 12 de agosto de 1989
