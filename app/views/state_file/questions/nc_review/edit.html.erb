@@ -8,7 +8,7 @@
         <h2 class="text--body text--bold spacing-below-5"><%=t(".retirement_income_deductions") %></h2>
         <p class="text--small"><%= t(".retirement_income_deductions_explanation") %></p>
 
-        <% current_intake.state_file1099_rs.each_with_index do |state_file1099_r, index| %>
+        <% current_intake.eligible_1099rs.each_with_index do |state_file1099_r, index| %>
           <% followup = state_file1099_r.state_specific_followup %>
           <% unless followup.nil? %>
             <div id="<%= "retirement-income-source-#{index}" %>" class="spacing-above-15 spacing-below-15">
