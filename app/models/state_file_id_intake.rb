@@ -130,7 +130,7 @@ class StateFileIdIntake < StateFileBaseIntake
     primary_between_62_and_65_years_old? && spouse_between_62_and_65_years_old?
   end
 
-  def show_mfj_disability_options
+  def show_mfj_disability_options?
     filing_status_mfj? && all_filers_between_62_and_65_years_old?
   end
 

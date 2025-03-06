@@ -417,7 +417,7 @@ RSpec.describe StateFileIdIntake, type: :model do
     end
   end
 
-  describe "show_mfj_disability_options" do
+  describe "show_mfj_disability_options?" do
     let(:filing_status) { "married_filing_jointly" }
     let(:all_filers_between) { true }
     let(:intake) { create(:state_file_id_intake, filing_status: filing_status) }
@@ -427,7 +427,7 @@ RSpec.describe StateFileIdIntake, type: :model do
 
     context "mfj and all filers between 62-65" do
       it "is true" do
-        expect(intake.show_mfj_disability_options).to eq true
+        expect(intake.show_mfj_disability_options?).to eq true
       end
     end
 
@@ -435,7 +435,7 @@ RSpec.describe StateFileIdIntake, type: :model do
       let(:all_filers_between) { false }
 
       it "is false" do
-        expect(intake.show_mfj_disability_options).to eq false
+        expect(intake.show_mfj_disability_options?).to eq false
       end
     end
 
@@ -443,7 +443,7 @@ RSpec.describe StateFileIdIntake, type: :model do
       let(:filing_status) { "single" }
 
       it "is false" do
-        expect(intake.show_mfj_disability_options).to eq false
+        expect(intake.show_mfj_disability_options?).to eq false
       end
     end
 
@@ -452,7 +452,7 @@ RSpec.describe StateFileIdIntake, type: :model do
       let(:all_filers_between) { false}
 
       it "is false" do
-        expect(intake.show_mfj_disability_options).to eq false
+        expect(intake.show_mfj_disability_options?).to eq false
       end
     end
   end

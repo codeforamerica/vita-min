@@ -5,7 +5,7 @@
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="white-group">
-      <% if current_intake.show_mfj_disability_options %>
+      <% if current_intake.show_mfj_disability_options? %>
         <%= f.cfa_radio_set(:mfj_disability, label_text: t(".question_both"), collection: [
           { value: "primary", label: t(".yes_me") },
           { value: "spouse", label: t(".yes_spouse") },
