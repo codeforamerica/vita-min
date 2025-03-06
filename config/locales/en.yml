@@ -3651,15 +3651,15 @@ en:
         edit:
           doc_1099r_label: '1099-R:'
           helper_description_html: |
-            <p>U.S. military pensions result from service in the Army, Navy, Air Force, Marine Corps, or Coast Guard. Generally, qualifying military pensions and military survivor's benefit payments are paid by the U.S. Defense Finance and Accounting Service.</p>
-            <p>Civil service pensions and annuities do not count as military pensions, even if they are based on credit for military service. Generally, civil service annuities are paid by the U.S. Office of Personnel Management.</p>
+            <p>U.S. military pensions result from service in the Army, Navy, Air Force, Marine Corps, Coast Guard, or Space Force. Generally, qualifying military pensions and military survivor's benefit payments are paid by the U.S. Defense Finance and Accounting Service.</p>
+            <p>Civil service pensions and annuities do not count as military pensions, even if they are based on credit for military service. Civil service annuities are paid by the U.S. Office of Personnel Management.</p>
           helper_heading: What counts as a U.S. military pension?
           label: 'Select the source of this income:'
           option_military_pension: U.S. military pension
           option_military_survivor_benefit: U.S. military survivor's benefits
-          option_other: None of these apply (Choose this if you have a civil service pension or annuity)
+          option_other: Neither of these apply
           subtitle: We need more information about this 1099-R.
-          taxable_amount_label: 'Taxable Amount:'
+          taxable_amount_label: 'Taxable Amount (Box 2a):'
           taxpayer_name_label: 'Taxpayer Name:'
           title: Some of your retirement income might not be taxed in New Jersey.
       nj_retirement_warning:

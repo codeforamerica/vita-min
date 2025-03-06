@@ -3623,17 +3623,17 @@ es:
         edit:
           doc_1099r_label: '1099-R:'
           helper_description_html: |
-            <p>U.S. military pensions result from service in the Army, Navy, Air Force, Marine Corps, or Coast Guard. Generally, qualifying military pensions and military survivor's benefit payments are paid by the U.S. Defense Finance and Accounting Service.</p>
-            <p>Civil service pensions and annuities do not count as military pensions, even if they are based on credit for military service. Generally, civil service annuities are paid by the U.S. Office of Personnel Management.</p>
-          helper_heading: What counts as a U.S. military pension?
-          label: 'Select the source of this income:'
-          option_military_pension: U.S. military pension
-          option_military_survivor_benefit: U.S. military survivor's benefits
-          option_other: None of these apply (Choose this if you have a civil service pension or annuity)
-          subtitle: We need more information about this 1099-R.
-          taxable_amount_label: 'Taxable Amount:'
-          taxpayer_name_label: 'Taxpayer Name:'
-          title: Some of your retirement income might not be taxed in New Jersey.
+            <p>Las pensiones militares de EE. UU. son el resultado del servicio en el Ejército, la Marina, la Fuerza Aérea, el Cuerpo de Infantería Marina, la Guardia Costera o la Fuerza Espacial. Por lo general, las pensiones militares que califican y los pagos de beneficios de supervivencia militar son pagados por el Servicio de Finanzas y Contabilidad de Defensa de EE. UU.</p>
+            <p>Las pensiones y anualidades del servicio civil no cuentan como pensiones militares, incluso si se basan en el crédito por el servicio militar. Las anualidades del servicio civil las paga la Oficina de Administración de Personal de los EE. UU.</p>
+          helper_heading: "¿Qué se considera una pensión militar de EE. UU.?"
+          label: 'Selecciona la fuente de este ingreso:'
+          option_military_pension: Pensión militar de EE. UU.
+          option_military_survivor_benefit: Beneficios de supervivencia militar de EE. UU.
+          option_other: Ninguno de estos corresponde
+          subtitle: Necesitamos más información sobre el formulario 1099-R.
+          taxable_amount_label: 'Monto imponible (Casillero 2a):'
+          taxpayer_name_label: 'Nombre del contribuyente:'
+          title: Puede que algunos de tus ingresos de jubilación no estén sujetos a impuestos en New Jersey.
       nj_retirement_warning:
         edit:
           continue_heading: "¿Deseas continuar con FileYourStateTaxes?"
@@ -3679,14 +3679,14 @@ es:
           property_tax_credit_deduction: Deducción o Crédito por Impuestos a la Propiedad
           property_tax_paid: Impuestos sobre la propiedad pagados en %{filing_year}
           rent_paid: Alquiler pagado en %{filing_year}
-          retirement_income_source: 1099-R Retirement Income Source
+          retirement_income_source: 1099-R Ingresos por Jubilación
           retirement_income_source_doc_1099r_label: '1099-R:'
-          retirement_income_source_label: 'Source:'
-          retirement_income_source_military_pension: U.S. military pension
-          retirement_income_source_military_survivor_benefit: U.S. military survivor's benefits
-          retirement_income_source_other: Neither U.S. military pension nor U.S. military survivor's benefits
-          retirement_income_source_taxable_amount_label: 'Taxable Amount:'
-          retirement_income_source_taxpayer_name_label: 'Taxpayer Name:'
+          retirement_income_source_label: 'Fuente:'
+          retirement_income_source_military_pension: Pensión militar de EE. UU.
+          retirement_income_source_military_survivor_benefit: Beneficios de supervivencia militar de EE. UU.
+          retirement_income_source_other: Ni la pensión militar de EE. UU. ni los beneficios de supervivencia militar de EE. UU.
+          retirement_income_source_taxable_amount_label: 'Monto imponible:'
+          retirement_income_source_taxpayer_name_label: 'Nombre del contribuyente:'
           reveal:
             15_wages_salaries_tips: Salarios, sueldos, propinas
             16a_interest_income: Ingreso total

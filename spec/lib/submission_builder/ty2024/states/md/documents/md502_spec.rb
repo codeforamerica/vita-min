@@ -724,5 +724,21 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
         end
       end
     end
+
+    describe "resubmission" do
+      context "when intake has one submission" do
+        it "does not fill in exception code" do
+          expect(xml.document.at('ExceptionCodes')).not_to be_present
+        end
+      end
+
+      context "when intake has more than one submission" do
+        let!(:previous_submission) { create :efile_submission, :failed, data_source: intake }
+
+        it "it fills in exception code" do
+          expect(xml.at("Form502 ExceptionCodes")&.text).to eq('247')
+        end
+      end
+    end
   end
 end
