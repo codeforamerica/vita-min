@@ -154,8 +154,11 @@ class StateFileNjIntake < StateFileBaseIntake
   enum tenant_shared_rent_not_spouse: { unfilled: 0, yes: 1, no: 2}, _prefix: :tenant_shared_rent_not_spouse
   enum tenant_same_home_spouse: { unfilled: 0, yes: 1, no: 2}, _prefix: :tenant_same_home_spouse
 
+  def nj_gross_income
+    calculator.lines[:NJ1040_LINE_29].value
+  end
+
   def calculate_sales_use_tax
-    nj_gross_income = calculator.lines[:NJ1040_LINE_29].value
     calculator.calculate_use_tax(nj_gross_income)
   end
 
@@ -178,7 +181,6 @@ class StateFileNjIntake < StateFileBaseIntake
   end
 
   def eligibility_made_less_than_threshold?
-    nj_gross_income = calculator.lines[:NJ1040_LINE_29].value
     threshold = self.filing_status_single? || self.filing_status_mfs? ? 10_000 : 20_000
     nj_gross_income <= threshold
   end
@@ -214,7 +216,6 @@ class StateFileNjIntake < StateFileBaseIntake
   end
 
   def medical_expenses_threshold
-    nj_gross_income = calculator.lines[:NJ1040_LINE_29].value
     (nj_gross_income * 0.02).floor
   end
 
