@@ -1,6 +1,4 @@
 class TextMessageVerificationCodeService
-  include Rails.application.routes.url_helpers
-
   def initialize(phone_number:, locale: :en, visitor_id:, client_id: nil, service_type:)
     @service_data = MultiTenantService.new(service_type)
     @phone_number = phone_number
@@ -19,7 +17,7 @@ class TextMessageVerificationCodeService
                    locale: @locale,
                    verification_code: verification_code
       ).strip,
-      status_callback: @service_data.service_type == :statefile ? nil : twilio_update_status_url(outgoing_message_status.id, locale: nil),
+      status_callback: @service_data.twilio_status_webhook_url(outgoing_message_status.id)
     }.compact
     twilio_response = TwilioService.new(@service_data.service_type).send_text_message(**message_arguments)
     VerificationTextMessage.create!(
