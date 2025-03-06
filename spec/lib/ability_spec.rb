@@ -632,11 +632,25 @@ describe Ability do
         shared_examples :user_cannot_manage_other_users_in_their_site do
           let(:target_user) { create :site_coordinator_user }
           before do
-            allow(user).to receive(:accessible_vita_partners).and_return(VitaPartner.where(id: target_user.role.sites))
+            user.role.update(vita_partners: VitaPartner.where(id: target_user.role.sites))
           end
 
           it "cannot manage other users in a site they have access to" do
             expect(subject.can?(:manage, target_user)).to eq false
+          end
+        end
+
+        shared_examples :user_can_manage_other_site_coordinators_and_team_members_in_their_site do
+          let(:target_site_coordinator) { create :site_coordinator_user }
+          let(:target_team_member) { create :team_member_user }
+          before do
+            sites = VitaPartner.where(id: target_site_coordinator.role.sites) + VitaPartner.where(id: target_team_member.role.sites)
+            user.role.update(vita_partners: sites)
+          end
+
+          it "cannot manage other users in a site they have access to" do
+            expect(subject.can?(:manage, target_site_coordinator)).to eq true
+            expect(subject.can?(:manage, target_team_member)).to eq true
           end
         end
 
@@ -701,7 +715,7 @@ describe Ability do
             let(:user) { create :site_coordinator_user }
 
             it_behaves_like :user_can_manage_themselves
-            it_behaves_like :user_cannot_manage_other_users_in_their_site
+            it_behaves_like :user_can_manage_other_site_coordinators_and_team_members_in_their_site
           end
 
           context "a team member" do
