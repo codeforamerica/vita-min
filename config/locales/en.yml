@@ -4170,12 +4170,8 @@ en:
       terms_and_conditions:
         edit:
           accept: Accept
-          body_text_closer_html: |
-            </ul>
-            <strong>By using FileYourStateTaxes, you're letting us know that you've read, understood, and agreed to these terms as well as our <a href="%{privacy_policy_link}" target="_blank" rel="noopener nofollow">Privacy Policy</a>. Thanks for choosing us for your tax filing needs!</strong>
-          body_text_opener_html: |
-            <strong>When you use the FileYourStateTaxes service, here's what you're agreeing to:</strong><br>
-            <ul class="list--numbered">
+          body_text_closer_html: <strong>By using FileYourStateTaxes, you're letting us know that you've read, understood, and agreed to these terms as well as our <a href="%{privacy_policy_link}" target="_blank" rel="noopener nofollow">Privacy Policy</a>. Thanks for choosing us for your tax filing needs!</strong>
+          body_text_opener_html: <strong>When you use the FileYourStateTaxes service, here's what you're agreeing to:</strong>
           decline: Decline
           list_items_html: |
             <li>
