@@ -25,8 +25,21 @@ class Seeder
     end
   end
 
+  def faqify!
+    faq_json = JSON.parse(File.read('./db/seeds/faq.json'))
+    faq_json.each do |cat_slug, data|
+      new_cat = FaqCategory.new(data.without("items"))
+      new_cat.slug = cat_slug
+      new_cat.faq_items = data["items"].map { |datum| FaqItem.create(datum) }
+      new_cat.save!
+    end
+  end
+
   def run
     self.class.load_fraud_indicators
+
+    # create some realistic faqs
+    faqify!
 
     Flipper.enable(:eitc)
 
