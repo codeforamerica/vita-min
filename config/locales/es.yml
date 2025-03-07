@@ -4157,7 +4157,7 @@ es:
         edit:
           accept: Aceptar
           body_text_closer_html: <strong>Al usar FileYourStateTaxes, nos estás informando que has leído, comprendido y aceptado estos términos, así como nuestra <a href="%{privacy_policy_link}" target="_blank" rel="noopener nofollow">Política de Privacidad</a>. ¡Gracias por elegirnos para presentar tus impuestos!</strong>
-          body_text_opener_html: <strong>Cuando usas el servicio FileYourStateTaxes, te estás comprometiendo a lo siguiente:</strong>
+          body_text_opener_html: "<strong>Cuando usas el servicio FileYourStateTaxes, te estás comprometiendo a lo siguiente:</strong>"
           decline: Rechazar
           list_items_html: |
             <li>
