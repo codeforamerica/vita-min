@@ -7,18 +7,25 @@
     <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
   <% end %>
 
-  <div class="white-group spacing-below-35" >
-    <div class="form-group spacing-below-25">
-      <p class="form-question"><strong><%= @state_file1099_r.recipient_name %></strong></p>
-      <p class="form-question"><%= @state_file1099_r.payer_name %></p>
+  <dl>
+    <div class="white-group spacing-below-35">
+      <div class="spacing-below-25">
+        <dt class="form-question"><strong><%= @state_file1099_r.recipient_name %></strong></dt>
+        <dd class="form-question"><%= @state_file1099_r.payer_name %></dd>
+      </div>
+      <div class="spacing-below-25">
+        <dt><%= t("state_file.questions.retirement_income.edit.box14_html") %></dt>
+        <dd>$<%= @state_file1099_r.state_tax_withheld_amount %></dd>
+      </div>
+      <div class="spacing-below-25">
+        <dt><%= t("state_file.questions.retirement_income.edit.box15_html") %></dt>
+        <dd><%= current_state_code.upcase %><%= @state_file1099_r.payer_state_identification_number %></dd>
+      </div>
+      <div class="spacing-below-25">
+        <dt><%= t("state_file.questions.retirement_income.edit.box16_html") %></dt>
+        <dd>$<%= @state_file1099_r.state_distribution_amount %></dd>
+      </div>
     </div>
-    <span class="form-question"><%= t("state_file.questions.retirement_income.edit.box14_html") %></span>
-    <p class="text-25">$<%= @state_file1099_r.state_tax_withheld_amount %></p>
-    <span class="form-question"><%= t("state_file.questions.retirement_income.edit.box15_html") %></span>
-    <p class="text-25"><%= current_state_code.upcase %><%= @state_file1099_r.payer_state_identification_number %></p>
-    <span class="form-question"><%= t("state_file.questions.retirement_income.edit.box16_html") %></span>
-    <p class="text-25 spacing-below-0">$<%= @state_file1099_r.state_distribution_amount %></p>
-  </div>
-
+  </dl>
   <%= link_to t('general.continue'), questions_income_review_path(return_to_review: params[:return_to_review]), class: "button button--primary button--wide text--centered" %>
 <% end %>
