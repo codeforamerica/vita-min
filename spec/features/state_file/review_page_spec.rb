@@ -275,19 +275,19 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
     it "allows user to view and edit their 1099R followup information" do
       within "#retirement-income-source-0" do
         expect(page).to have_text "Dorothy Red"
-        expect(page).to have_text I18n.t("state_file.questions.md_review.edit.pension_annuity_endowment")
+        expect(page).to have_text I18n.t("state_file.questions.shared.md_retirement_income_deductions_review_header.pension_annuity_endowment")
       end
 
       within "#retirement-income-source-1" do
         expect(page).to have_text "Maryland State Retirement"
-        expect(page).to have_text I18n.t("state_file.questions.md_review.edit.other")
-        expect(page).to have_text I18n.t("state_file.questions.md_review.edit.military")
+        expect(page).to have_text I18n.t("state_file.questions.shared.md_retirement_income_deductions_review_header.other")
+        expect(page).to have_text I18n.t("state_file.questions.shared.md_retirement_income_deductions_review_header.military")
       end
 
       within "#retirement-income-source-2" do
         expect(page).to have_text "Baltimore County Pension"
-        expect(page).to have_text I18n.t("state_file.questions.md_review.edit.other")
-        expect(page).to have_text I18n.t("state_file.questions.md_review.edit.public_safety")
+        expect(page).to have_text I18n.t("state_file.questions.shared.md_retirement_income_deductions_review_header.other")
+        expect(page).to have_text I18n.t("state_file.questions.shared.md_retirement_income_deductions_review_header.public_safety")
       end
 
       within "#retirement-income-source-0" do
@@ -300,20 +300,20 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
       within "#retirement-income-source-0" do
         expect(page).to have_text "Dorothy Red"
-        expect(page).to have_text I18n.t("state_file.questions.md_review.edit.other")
-        expect(page).to have_text I18n.t("state_file.questions.md_review.edit.military")
+        expect(page).to have_text I18n.t("state_file.questions.shared.md_retirement_income_deductions_review_header.other")
+        expect(page).to have_text I18n.t("state_file.questions.shared.md_retirement_income_deductions_review_header.military")
       end
 
       within "#retirement-income-source-1" do
         expect(page).to have_text "Maryland State Retirement"
-        expect(page).to have_text I18n.t("state_file.questions.md_review.edit.other")
-        expect(page).to have_text I18n.t("state_file.questions.md_review.edit.military")
+        expect(page).to have_text I18n.t("state_file.questions.shared.md_retirement_income_deductions_review_header.other")
+        expect(page).to have_text I18n.t("state_file.questions.shared.md_retirement_income_deductions_review_header.military")
       end
 
       within "#retirement-income-source-2" do
         expect(page).to have_text "Baltimore County Pension"
-        expect(page).to have_text I18n.t("state_file.questions.md_review.edit.other")
-        expect(page).to have_text I18n.t("state_file.questions.md_review.edit.public_safety")
+        expect(page).to have_text I18n.t("state_file.questions.shared.md_retirement_income_deductions_review_header.other")
+        expect(page).to have_text I18n.t("state_file.questions.shared.md_retirement_income_deductions_review_header.public_safety")
       end
     end
 
