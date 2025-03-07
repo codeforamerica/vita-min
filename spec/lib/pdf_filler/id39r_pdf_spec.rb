@@ -178,8 +178,8 @@ RSpec.describe PdfFiller::Id39rPdf do
   end
 
   describe "Names and SSN" do
-    let(:spouse_first_name) { "Mark" }
-    let(:spouse_last_name) { "Scout" }
+    let(:spouse_first_name) { "mark" }
+    let(:spouse_last_name) { "scout" }
 
     context "when non-mfj" do
       it "shows the primary's first and last name" do
@@ -199,7 +199,7 @@ RSpec.describe PdfFiller::Id39rPdf do
                spouse_last_name: spouse_last_name)
       }
       context "when last name is the same" do
-        let(:spouse_last_name) { "Eagan" }
+        let(:spouse_last_name) { "eagan" }
         it "only shows one last name" do
           expect(pdf_fields["Names"]).to eq("Helena & Mark Eagan")
           expect(pdf_fields["SSN"]).to eq("555002222")
