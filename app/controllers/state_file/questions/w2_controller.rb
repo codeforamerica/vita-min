@@ -4,6 +4,8 @@ module StateFile
       before_action :allows_w2_editing, only: [:edit, :update]
       before_action :load_w2
 
+      helper_method :box_14_codes_and_values
+
       def self.show?(intake) # only accessed via button, not navigator
         false
       end
@@ -35,6 +37,15 @@ module StateFile
         params.require(StateFileW2.name.underscore)
               .except(:state_file_intake_id, :state_file_intake_type)
               .permit(*StateFileW2.attribute_names)
+      end
+
+      def box_14_codes_and_values
+        @box14_codes.map do |code|
+          code_name = code['name'].downcase
+          field_name = "box14_#{code_name}"
+          value = code_name == "uiwfswf" ? @w2.get_box14_ui_overwrite : @w2.send(field_name)
+          { code_name:, field_name:, value: }
+        end
       end
 
       def load_w2

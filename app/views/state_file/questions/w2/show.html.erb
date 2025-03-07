@@ -5,19 +5,14 @@
     <p class="spacing-below-25"><%= @w2.employer_name %></p>
 
     <dl>
-      <% if @box14_codes.present? %>
+      <% if box_14_codes_and_values.present? %>
         <p class="text--small spacing-below-0"><%= t("state_file.questions.w2.edit.box14_html") %></p>
         <ul>
-          <% @box14_codes.each do |code| %>
+          <% box_14_codes_and_values.each do |box_14_item| %>
+            <% box_14_item => { code_name:, field_name:, value: } %>
             <li class="list--padded unbulleted">
               <div class="spacing-below-25">
-                <% field_name = "box14_#{code['name'].downcase}" %>
-                <% value = if code['name'] == "UIWFSWF"
-                             @w2.get_box14_ui_overwrite
-                           else
-                             @w2.send(field_name)
-                           end %>
-                <dt><%= t("state_file.questions.w2.edit.box14_#{code['name'].downcase}_html") %></dt>
+                <dt><%= t("state_file.questions.w2.edit.box14_#{code_name}_html") %></dt>
                 <dd>$<%= value %></dd>
               </div>
             </li>
