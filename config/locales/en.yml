@@ -2979,6 +2979,7 @@ en:
           see_if_you_qualify:
             one: To see if you qualify, we need more information about you.
             other: To see if you qualify, we need more information about you and your household.
+          select_a_household_member_error: Please select a household member
           select_household_members: 'Select the members of the household any of these situations applied to in %{tax_year}:'
           situation_incarceration: were incarcerated
           situation_snap: received food stamps / SNAP-EBT
@@ -3245,14 +3246,13 @@ en:
             </ul>
           public_service_reveal_header: What service qualifies as a public safety employee?
           public_service_reveal_html: |
-            <p>To qualify, you must be a retired:</p>
+            <p>To qualify, you must have been employed by the federal government, Maryland, or a Maryland political subdivision as a:</p>
             <ul>
               <li>Correctional officer, or</li>
               <li>Law enforcement officer, or</li>
               <li>Firefighter, rescue worker, or emergency services personnel</li>
             </ul>
-            <p>This applies to federal employees in the United States, including Maryland and its political subdivisions.</p>
-          retirement_plan_reveal_header: What retirement plans are considered part of an employee retirement system?
+          retirement_plan_reveal_header: What retirement plans are part of an employee retirement system?
           retirement_plan_reveal_html: |
             <p>Plans that are part of an employee retirement system include:</p>
             <ul>
@@ -3262,13 +3262,13 @@ en:
               <li>Thrift savings plan</li>
               <li>SIMPLE 401(k) plans for small businesses</li>
             </ul>
-            <p>This does not include Keogh plans or foreign retirement income.</p>
-            <p>Income from a traditional IRA, Roth IRA, rollover IRA, or a simplified employee plan (SEP) is not supported by this product.</p>
+            <p>This does not include Keogh plans or retirement income from other countries.</p>
+            <p>Income from a traditional IRA, Roth IRA, rollover IRA, or a simplified employee plan (SEP) is not supported by this service.</p>
           service_type_military: Your service in the military or military death benefits received on behalf of a spouse or ex-spouse
           service_type_none: None of these apply
           service_type_public_safety: Your service as a public safety employee
           service_type_question: 'Did this income come from:'
-          subtitle: We need more information about this 1099-R to file your state tax return and check your eligibility for subtractions.
+          subtitle_html: Some 1099-Rs with a taxable amount listed may qualify for this deduction. We need more information about this 1099-R to check your eligibility and file your state return. <br><br> If you reported multiple 1099-Rs, you'll be asked to complete this step for each one with a taxable amount.
           taxable_amount_label: Taxable amount
           taxpayer_name_label: Taxpayer name
           title: You might be eligible for a Maryland retirement income subtraction!
@@ -3379,25 +3379,15 @@ en:
       nc_review:
         edit:
           amount_earned: Amount earned
-          bailey_settlement_at_least_five_years: At least five years of creditable service by August 12, 1989
-          bailey_settlement_from_retirement_plan: Received retirement benefits from NC’s 401(k) or 457 plan, and contributed to the plan before August 12, 1989
           benefits_vested_pensions: Subtraction for retirement benefits by vested qualifying government pensions
           child_deduction: Child deduction
           interest_us_bonds: Interest income from U.S. bonds (not taxable in North Carolina)
-          none_apply: None apply
           primary_veteran: United States Armed Forces veteran status
-          retirement_income_deductions: North Carolina retirement income deductions
-          retirement_income_deductions_explanation: These allow people to deduct all or a portion of their retirement income from their taxes.
-          retirement_income_source_bailey_settlement: Retirement benefits as part of the Bailey Settlement
-          retirement_income_source_review_and_edit: Review and edit 1099-R %{index}
-          retirement_income_source_uniformed_services: Retirement benefits from the Uniformed Services
           service_members: Subtraction for retirement benefits received by service members
           social_security_benefits: Social Security benefits (not taxable in North Carolina)
           spouse_veteran: Your spouse's United States Armed Forces veteran status
           state_credit: Enrolled member of a federally recognized Indian Tribe, and received income from a source within a reservation
           subtraction_indian_tribe: Subtraction for income of a member of an Indian tribe
-          uniformed_survivor_benefit_plan: Payments from a qualifying Survivor Benefit Plan to a beneficiary of a retired member who served at least 20 years or who was medically retired from the Uniformed Services
-          uniformed_twenty_years_medical_retired: Retired member who served at least 20 years or were medically retired from the Uniformed Services
           use_tax_amount: Amount of use tax
           use_tax_applied: Out-of-state purchases in %{filing_year} without paying sales tax
       nc_sales_use_tax:
@@ -3668,15 +3658,15 @@ en:
         edit:
           doc_1099r_label: '1099-R:'
           helper_description_html: |
-            <p>U.S. military pensions result from service in the Army, Navy, Air Force, Marine Corps, or Coast Guard. Generally, qualifying military pensions and military survivor's benefit payments are paid by the U.S. Defense Finance and Accounting Service.</p>
-            <p>Civil service pensions and annuities do not count as military pensions, even if they are based on credit for military service. Generally, civil service annuities are paid by the U.S. Office of Personnel Management.</p>
+            <p>U.S. military pensions result from service in the Army, Navy, Air Force, Marine Corps, Coast Guard, or Space Force. Generally, qualifying military pensions and military survivor's benefit payments are paid by the U.S. Defense Finance and Accounting Service.</p>
+            <p>Civil service pensions and annuities do not count as military pensions, even if they are based on credit for military service. Civil service annuities are paid by the U.S. Office of Personnel Management.</p>
           helper_heading: What counts as a U.S. military pension?
           label: 'Select the source of this income:'
           option_military_pension: U.S. military pension
           option_military_survivor_benefit: U.S. military survivor's benefits
-          option_other: None of these apply (Choose this if you have a civil service pension or annuity)
+          option_other: Neither of these apply
           subtitle: We need more information about this 1099-R.
-          taxable_amount_label: 'Taxable Amount:'
+          taxable_amount_label: 'Taxable Amount (Box 2a):'
           taxpayer_name_label: 'Taxpayer Name:'
           title: Some of your retirement income might not be taxed in New Jersey.
       nj_retirement_warning:
@@ -4098,6 +4088,17 @@ en:
           qualified_disabled_retirement_benefits: Qualified disabled retirement benefits
           qualified_retirement_benefits_deduction: Qualified Retirement Benefits Deduction
           qualified_retirement_benefits_deduction_explain: These allow people to deduct all or a portion of their retirement income from their taxes.
+        nc_retirement_income_deductions_review_header:
+          bailey_settlement_at_least_five_years: At least five years of creditable service by August 12, 1989
+          bailey_settlement_from_retirement_plan: Received retirement benefits from NC’s 401(k) or 457 plan, and contributed to the plan before August 12, 1989
+          none_apply: None apply
+          retirement_income_deductions: North Carolina retirement income deductions
+          retirement_income_deductions_explanation: These allow people to deduct all or a portion of their retirement income from their taxes.
+          retirement_income_source_bailey_settlement: Retirement benefits as part of the Bailey Settlement
+          retirement_income_source_review_and_edit: Review and edit 1099-R %{index}
+          retirement_income_source_uniformed_services: Retirement benefits from the Uniformed Services
+          uniformed_survivor_benefit_plan: Payments from a qualifying Survivor Benefit Plan to a beneficiary of a retired member who served at least 20 years or who was medically retired from the Uniformed Services
+          uniformed_twenty_years_medical_retired: Retired member who served at least 20 years or were medically retired from the Uniformed Services
         review_header:
           income_details: Income Details
           income_forms_collected: 'Income form(s) collected:'
