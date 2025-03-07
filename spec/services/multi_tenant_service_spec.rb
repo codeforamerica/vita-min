@@ -117,4 +117,13 @@ describe MultiTenantService do
       }.to raise_error StandardError
     end
   end
+
+  describe "#twilio_status_webhook_url" do
+    it "returns the twilio callback url except when statefile" do
+      outgoing_message_id = create(:outgoing_text_message).id
+      expect(described_class.new(:ctc).twilio_status_webhook_url(outgoing_message_id)).to eq twilio_update_status_url(outgoing_message_id, locale: nil)
+      expect(described_class.new(:gyr).twilio_status_webhook_url(outgoing_message_id)).to eq twilio_update_status_url(outgoing_message_id, locale: nil)
+      expect(described_class.new(:statefile).twilio_status_webhook_url(outgoing_message_id)).to be_nil
+    end
+  end
 end
