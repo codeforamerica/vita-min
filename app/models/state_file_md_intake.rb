@@ -268,4 +268,8 @@ class StateFileMdIntake < StateFileBaseIntake
   def filer_disabled?
     primary_disabled_yes? || spouse_disabled_yes?
   end
+
+  def could_qualify_for_pension_exclusion?
+    eligible_1099rs.present? && has_filer_under_65?
+  end
 end

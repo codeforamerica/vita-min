@@ -31,9 +31,9 @@ RSpec.describe StateFile::Questions::MdPensionExclusionOffboardingController do
         before do
           allow(intake).to receive(:filer_disabled?).and_return(true)
         end
-        context "has a disabled filer under 65" do
+        context "when could qualify for pension exclusion" do
           before do
-            allow(intake).to receive(:has_filer_under_65?).and_return(true)
+            allow(intake).to receive(:could_qualify_for_pension_exclusion?).and_return(true)
           end
 
           context "has no proof of disability" do
@@ -57,9 +57,9 @@ RSpec.describe StateFile::Questions::MdPensionExclusionOffboardingController do
           end
         end
 
-        context "does not have a filer under 65" do
+        context "could not qualify for pension exclusion" do
           before do
-            allow(intake).to receive(:has_filer_under_65?).and_return(false)
+            allow(intake).to receive(:could_qualify_for_pension_exclusion?).and_return(false)
           end
 
           context "has no proof of disability" do
