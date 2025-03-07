@@ -21,8 +21,8 @@ module PdfFiller
         '1b': @xml_document.at("Form502 Income EarnedIncome")&.text,
         '1d': @xml_document.at("Form502 Income TaxablePensionsIRAsAnnuities")&.text,
         'Place a Y in this box if the amount of your investment income is more than 11600': @xml_document.at("Form502 Income InvestmentIncomeIndicator")&.text == "X" ? "Y" : "",
-        'Your Social Security Number': @xml_document.at('Primary TaxpayerSSN')&.text,
-        'Spouses Social Security Number': @xml_document.at('Secondary TaxpayerSSN')&.text,
+        'Your Social Security Number': @submission.data_source.primary.ssn,
+        'Spouses Social Security Number': @submission.data_source.spouse.ssn,
         'Your First Name': @submission.data_source.primary.first_name,
         'Primary MI': @submission.data_source.primary.middle_initial,
         'Your Last Name': @submission.data_source.primary.last_name_and_suffix,
@@ -125,7 +125,11 @@ module PdfFiller
         '33': @xml_document.at('Form502 LocalTaxComputation LocalTaxAfterCredits')&.text,
         '34': @xml_document.at('Form502 TotalStateAndLocalTax')&.text,
         'Check here if you authorize the State of Maryland to issue your refund by direct deposit': check_box_if_x(@xml_document.at('Form502 AuthToDirectDepositInd')&.text),
-        '51d Names as it appears on the bank account': full_names_of_bank_account_holders || ""
+        '51d Names as it appears on the bank account': full_names_of_bank_account_holders || "",
+        Name: @submission.data_source.primary.last_name_and_suffix,
+        SSN: @submission.data_source.primary.ssn,
+        Name_2: @submission.data_source.primary.last_name_and_suffix,
+        SSN_2: @submission.data_source.primary.ssn
       }
       if @xml_document.at('RefundDirectDeposit').present?
         answers.merge!({

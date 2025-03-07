@@ -120,10 +120,14 @@ RSpec.describe PdfFiller::Md502Pdf do
           expect(pdf_fields["OR FISCAL YEAR BEGINNING"]).to be_nil
           expect(pdf_fields["2024 ENDING"]).to be_nil
           expect(pdf_fields["Your Social Security Number"]).to eq("123456789")
+          expect(pdf_fields["SSN"]).to eq("123456789")
+          expect(pdf_fields["SSN_2"]).to eq("123456789")
           expect(pdf_fields["Spouses Social Security Number"]).to eq ""
           expect(pdf_fields["Your First Name"]).to eq("Mary")
           expect(pdf_fields["Primary MI"]).to eq("A")
           expect(pdf_fields["Your Last Name"]).to eq("Lando JR")
+          expect(pdf_fields["Name"]).to eq("Lando JR")
+          expect(pdf_fields["Name_2"]).to eq("Lando JR")
           expect(pdf_fields["Spouses First Name"]).not_to be_present
           expect(pdf_fields["Spouse MI"]).not_to be_present
           expect(pdf_fields["Spouses Last Name"]).not_to be_present
