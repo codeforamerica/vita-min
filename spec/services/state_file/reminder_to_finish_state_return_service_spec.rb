@@ -10,10 +10,13 @@ describe StateFile::ReminderToFinishStateReturnService do
       allow(state_file_messaging_service).to receive(:send_message)
     end
 
-    context "when there is an incomplete intake with df transfer from exactly 12 hours ago" do
+    context "when there is an incomplete intake with df transfer from exactly 6 hours ago" do
       let!(:intake) do
         create :state_file_az_intake,
-               df_data_imported_at: 6.hours.ago
+               df_data_imported_at: 6.hours.ago,
+               email_address_verified_at: 7.hours.ago,
+               email_notification_opt_in: "yes",
+               email_address: "dezie@example.com"
       end
 
       it "sends a message to the email associated with the intake" do
@@ -26,7 +29,10 @@ describe StateFile::ReminderToFinishStateReturnService do
     context "when there is an incomplete intake with df transfer from less than 6 hours ago" do
       let(:intake) do
         create :state_file_az_intake,
-               df_data_imported_at: (5.hours + 59.minutes).ago
+               df_data_imported_at: (5.hours + 59.minutes).ago,
+               email_address_verified_at: 7.hours.ago,
+               email_notification_opt_in: "yes",
+               email_address: "dezie@example.com"
       end
       it "does not send a message to the email associated with the intake" do
         StateFile::ReminderToFinishStateReturnService.run
