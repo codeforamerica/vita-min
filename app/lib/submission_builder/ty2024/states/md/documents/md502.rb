@@ -204,6 +204,9 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
       end
       xml.DaytimePhoneNumber @direct_file_data.phone_number if @direct_file_data.phone_number.present?
       xml.EmailAddress @intake.email_address if @intake.email_address.present?
+      if @intake.efile_submissions.count > 1
+        xml.ExceptionCodes "247"
+      end
     end
   end
 
