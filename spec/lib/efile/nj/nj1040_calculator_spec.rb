@@ -724,19 +724,17 @@ describe Efile::Nj::Nj1040Calculator do
   describe 'line 29 - gross income' do
     let(:intake) { create(:state_file_nj_intake) }
 
-    it 'sets line 29 to the sum of all state wage amounts minus 28c' do
-      allow(instance).to receive(:calculate_line_15).and_return 50_000
-      allow(instance).to receive(:calculate_line_16a).and_return 1_000
-      allow(instance).to receive(:calculate_line_28c).and_return 3_000
+    it 'sets line 29 to line 27 minus line 28c' do
+      allow(instance).to receive(:calculate_line_27).and_return 3_000
+      allow(instance).to receive(:calculate_line_28c).and_return 1_000
       instance.calculate
-      expect(instance.lines[:NJ1040_LINE_29].value).to eq(48_000)
+      expect(instance.lines[:NJ1040_LINE_29].value).to eq(2_000)
     end
 
-    context 'when 28c is larger than 29' do
+    context 'when 28c is larger than line 27' do
       it 'sets line 29 to zero' do
-        allow(instance).to receive(:calculate_line_15).and_return 1_000
-        allow(instance).to receive(:calculate_line_16a).and_return 1_000
-        allow(instance).to receive(:calculate_line_28c).and_return 2_001
+        allow(instance).to receive(:calculate_line_27).and_return 1_000
+        allow(instance).to receive(:calculate_line_28c).and_return 1_001
         instance.calculate
         expect(instance.lines[:NJ1040_LINE_29].value).to eq(0)
       end
