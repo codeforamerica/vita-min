@@ -1,6 +1,7 @@
 module StateFile
   module Questions
     class W2Controller < QuestionsController
+      before_action :allows_w2_editing, only: [:edit, :update]
       before_action :load_w2
 
       def self.show?(intake) # only accessed via button, not navigator
@@ -39,6 +40,12 @@ module StateFile
       def load_w2
         @w2 = current_intake.state_file_w2s.find(params[:id])
         @box14_codes = StateFile::StateInformationService.w2_supported_box14_codes(current_state_code)
+      end
+
+      def allows_w2_editing
+        unless current_intake.allows_w2_editing?
+          redirect_to prev_path
+        end
       end
     end
   end
