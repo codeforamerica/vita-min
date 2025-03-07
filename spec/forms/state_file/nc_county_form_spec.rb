@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe StateFile::NcCountyForm, type: :model do
 
-  describe "simple validations" do
+  describe "residence_county validations" do
     let(:intake) { create :state_file_nc_intake }
     let(:form) { described_class.new(intake, params) }
     let(:params) {
@@ -10,14 +10,14 @@ RSpec.describe StateFile::NcCountyForm, type: :model do
     }
     let(:residence_county) { nil }
 
-    context "when resident_county is not provided" do
+    context "when residence_county is not provided" do
       it "is invalid" do
         expect(form.valid?).to be false
         expect(form.errors[:residence_county]).to eq([I18n.t("forms.errors.nc_county.county.presence")])
       end
     end
 
-    context "when resident_county is not included" do
+    context "when residence_county is not included" do
       let(:residence_county) { "120" }
       it "is invalid" do
         expect(form.valid?).to be false
@@ -25,7 +25,7 @@ RSpec.describe StateFile::NcCountyForm, type: :model do
       end
     end
 
-    context "when resident_county is included and provided" do
+    context "when residence_county is included and provided" do
       let(:residence_county) { "003" }
       it "is valid" do
         expect(form.valid?).to be true
