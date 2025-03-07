@@ -5,7 +5,8 @@ module StateFile
         intake_class = StateFile::StateInformationService.intake_class(state_code)
         intake_class
           .left_joins(:efile_submissions)
-          .where(df_data_imported_at: Time.current.beginning_of_year..6.hours.ago)
+          .where("df_data_imported_at < ?", 6.hours.ago)
+          .where(created_at: Time.current.beginning_of_year..Time.current)
           .where(efile_submissions: { id: nil })
           .where.not("state_file_#{state_code}_intakes.message_tracker #> '{messages.state_file.finish_return}' IS NOT NULL")
           .where(<<~SQL)
