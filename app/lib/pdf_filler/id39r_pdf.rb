@@ -43,6 +43,11 @@ module PdfFiller
       answers
     end
 
+    private
+    def calculated_fields
+      @calculated_fields ||= @submission.data_source.tax_calculator.calculate
+    end
+
     def formatted_display_name
       if @intake.filing_status_mfj?
         if @intake.primary.last_name == @intake.spouse.last_name
@@ -53,11 +58,6 @@ module PdfFiller
       else
         "#{@intake.primary.first_name} #{@intake.primary.last_name}"
       end
-    end
-
-    private
-    def calculated_fields
-      @calculated_fields ||= @submission.data_source.tax_calculator.calculate
     end
   end
 end
