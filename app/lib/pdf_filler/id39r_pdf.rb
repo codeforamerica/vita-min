@@ -8,6 +8,7 @@ module PdfFiller
 
     def initialize(submission)
       @submission = submission
+      @intake = submission.data_source
 
       # Most PDF fields are grabbed right off the XML
       builder = StateFile::StateInformationService.submission_builder_class(:id)
@@ -16,6 +17,8 @@ module PdfFiller
 
     def hash_for_pdf
       answers = {
+        "Names" => formatted_display_name,
+        "SSN" => @xml_document.at('Primary TaxpayerSSN')&.text,
         "AL7" => @xml_document.at('Form39R TotalAdditions')&.text,
         "BL3" => @xml_document.at('Form39R IncomeUSObligations')&.text,
         "BL6" => @xml_document.at('Form39R ChildCareCreditAmt')&.text,
@@ -38,6 +41,18 @@ module PdfFiller
           )
       end
       answers
+    end
+
+    def formatted_display_name
+      if @intake.filing_status_mfj?
+        if @intake.primary.last_name == @intake.spouse.last_name
+          "#{@intake.primary.first_name} & #{@intake.spouse.first_name} #{@intake.primary.last_name}"
+        else
+          "#{@intake.primary.first_name} #{@intake.primary.last_name} & #{@intake.spouse.first_name} #{@intake.spouse.last_name}"
+        end
+      else
+        "#{@intake.primary.first_name} #{@intake.primary.last_name}"
+      end
     end
 
     private
