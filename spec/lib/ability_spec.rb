@@ -648,9 +648,11 @@ describe Ability do
             user.role.update(vita_partners: sites)
           end
 
-          it "cannot manage other users in a site they have access to" do
-            expect(subject.can?(:manage, target_site_coordinator)).to eq true
-            expect(subject.can?(:manage, target_team_member)).to eq true
+          [:suspend, :unsuspend, :update, :unlock, :resend_invitation].each do |action|
+            it "can #{action} other users in a site they have access to" do
+              expect(subject.can?(action, target_site_coordinator)).to eq true
+              expect(subject.can?(action, target_team_member)).to eq true
+            end
           end
         end
 

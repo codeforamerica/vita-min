@@ -188,8 +188,8 @@ class Ability
     end
 
     if user.site_coordinator?
-      can :manage, User, id: User.where(role: SiteCoordinatorRole.assignable_to_sites(user.role.sites)).pluck(:id)
-      can :manage, User, id: User.where(role: TeamMemberRole.assignable_to_sites(user.role.sites)).pluck(:id)
+      can [:suspend, :unsuspend, :update, :unlock, :resend_invitation], User, id: User.where(role: SiteCoordinatorRole.assignable_to_sites(user.role.sites)).pluck(:id)
+      can [:suspend, :unsuspend, :update, :unlock, :resend_invitation], User, id: User.where(role: TeamMemberRole.assignable_to_sites(user.role.sites)).pluck(:id)
 
       # Site coordinators can create site coordinators and team members in their site
       can :manage, SiteCoordinatorRole do |role|
