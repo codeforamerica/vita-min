@@ -731,6 +731,16 @@ describe Efile::Nj::Nj1040Calculator do
       instance.calculate
       expect(instance.lines[:NJ1040_LINE_29].value).to eq(48_000)
     end
+
+    context 'when 28c is larger than 29' do
+      it 'sets line 29 to zero' do
+        allow(instance).to receive(:calculate_line_15).and_return 1_000
+        allow(instance).to receive(:calculate_line_16a).and_return 1_000
+        allow(instance).to receive(:calculate_line_28c).and_return 2_001
+        instance.calculate
+        expect(instance.lines[:NJ1040_LINE_29].value).to eq(0)
+      end
+    end
   end
 
   describe 'line 31 - medical expenses' do
@@ -800,6 +810,15 @@ describe Efile::Nj::Nj1040Calculator do
     it 'sets line 39 to line 29 gross income minus line 38 total exemptions/deductions' do
       expected_total = instance.lines[:NJ1040_LINE_29].value - instance.lines[:NJ1040_LINE_38].value
       expect(instance.lines[:NJ1040_LINE_39].value).to eq(expected_total)
+    end
+
+    context 'when line 38 is larger than line 29' do
+      it 'sets line 39 to zero' do
+        allow(instance).to receive(:calculate_line_29).and_return 1_000
+        allow(instance).to receive(:calculate_line_38).and_return 1_001
+        instance.calculate
+        expect(instance.lines[:NJ1040_LINE_39].value).to eq(0)
+      end
     end
   end
 
@@ -2428,6 +2447,15 @@ describe Efile::Nj::Nj1040Calculator do
       allow(instance).to receive(:calculate_line_78).and_return 10
       instance.calculate
       expect(instance.lines[:NJ1040_LINE_80].value).to eq(20)
+    end
+
+    context 'when line 78 is larger than line 68' do
+      it 'sets line 80 to zero' do
+        allow(instance).to receive(:calculate_line_68).and_return 1_000
+        allow(instance).to receive(:calculate_line_78).and_return 1_001
+        instance.calculate
+        expect(instance.lines[:NJ1040_LINE_80].value).to eq(0)
+      end
     end
   end
 
