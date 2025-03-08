@@ -62,7 +62,7 @@ RSpec.describe StateFile::Questions::MdPermanentlyDisabledController do
     context "proof followup" do
       context "mfj filers" do
         let(:intake) { create :state_file_md_intake, :with_spouse }
-        context "with an eligible 1099rs " do
+        context "with an eligible 1099r" do
           let!(:state_file1099_r) { create :state_file1099_r, intake: intake }
 
           it "has all followups when spouse is not senior" do

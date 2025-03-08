@@ -591,7 +591,7 @@ RSpec.describe StateFileMdIntake, type: :model do
     end
   end
 
-  describe "filer_disabled?" do
+  describe "has_at_least_one_disabled_filer?" do
     let(:intake) { create :state_file_md_intake }
 
     before do
@@ -604,7 +604,7 @@ RSpec.describe StateFileMdIntake, type: :model do
       let(:spouse_disabled) { "unfilled" }
 
       it "should return true" do
-        expect(intake.filer_disabled?).to eq(true)
+        expect(intake.has_at_least_one_disabled_filer?).to eq(true)
       end
     end
 
@@ -613,7 +613,7 @@ RSpec.describe StateFileMdIntake, type: :model do
       let(:spouse_disabled) { "yes" }
 
       it "should return true" do
-        expect(intake.filer_disabled?).to eq(true)
+        expect(intake.has_at_least_one_disabled_filer?).to eq(true)
       end
     end
 
@@ -622,7 +622,7 @@ RSpec.describe StateFileMdIntake, type: :model do
       let(:spouse_disabled) { "no" }
 
       it "should return false" do
-        expect(intake.filer_disabled?).to eq(false)
+        expect(intake.has_at_least_one_disabled_filer?).to eq(false)
       end
     end
 
@@ -631,7 +631,7 @@ RSpec.describe StateFileMdIntake, type: :model do
       let(:spouse_disabled) { "yes" }
 
       it "should return true" do
-        expect(intake.filer_disabled?).to eq(true)
+        expect(intake.has_at_least_one_disabled_filer?).to eq(true)
       end
     end
   end

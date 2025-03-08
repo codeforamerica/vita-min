@@ -29,11 +29,11 @@ RSpec.describe StateFile::Questions::MdPensionExclusionOffboardingController do
     context "when they have 1099Rs in their DF XML" do
       context "when a filer is disabled" do
         before do
-          allow(intake).to receive(:filer_disabled?).and_return(true)
+          allow(intake).to receive(:has_at_least_one_disabled_filer?).and_return(true)
         end
-        context "when could qualify for pension exclusion" do
+        context "when we should warn about pension exclusion" do
           before do
-            allow(intake).to receive(:could_qualify_for_pension_exclusion?).and_return(true)
+            allow(intake).to receive(:should_warn_about_pension_exclusion?).and_return(true)
           end
 
           context "has no proof of disability" do
@@ -57,9 +57,9 @@ RSpec.describe StateFile::Questions::MdPensionExclusionOffboardingController do
           end
         end
 
-        context "could not qualify for pension exclusion" do
+        context "should not warn about pension exclusion" do
           before do
-            allow(intake).to receive(:could_qualify_for_pension_exclusion?).and_return(false)
+            allow(intake).to receive(:should_warn_about_pension_exclusion?).and_return(false)
           end
 
           context "has no proof of disability" do
@@ -82,7 +82,7 @@ RSpec.describe StateFile::Questions::MdPensionExclusionOffboardingController do
 
       context "when no filers are disabled" do
         before do
-          allow(intake).to receive(:filer_disabled?).and_return(false)
+          allow(intake).to receive(:has_at_least_one_disabled_filer?).and_return(false)
         end
 
         it "shows" do

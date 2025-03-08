@@ -265,7 +265,7 @@ class StateFileMdIntake < StateFileBaseIntake
     true
   end
 
-  def filer_disabled?
+  def has_at_least_one_disabled_filer?
     primary_disabled_yes? || spouse_disabled_yes?
   end
 
