@@ -11,11 +11,11 @@
     <div class="question-with-follow-up">
       <div class="question-with-follow-up__question">
         <div class="white-group">
-          <% could_qualify_for_pension_exclusion = current_intake.could_qualify_for_pension_exclusion? %>
-          <% primary_data_followup = could_qualify_for_pension_exclusion ? "#primary-disability-proof" : nil %>
+          <% should_warn_about_pension_exclusion = current_intake.should_warn_about_pension_exclusion? %>
+          <% primary_data_followup = should_warn_about_pension_exclusion ? "#primary-disability-proof" : nil %>
           <% if current_intake.filing_status_mfj? %>
-            <% spouse_data_followup = could_qualify_for_pension_exclusion ? "#spouse-disability-proof" : nil %>
-            <% both_data_followup = could_qualify_for_pension_exclusion ? "#both-disability-proof" : nil %>
+            <% spouse_data_followup = should_warn_about_pension_exclusion ? "#spouse-disability-proof" : nil %>
+            <% both_data_followup = should_warn_about_pension_exclusion ? "#both-disability-proof" : nil %>
             <%= f.cfa_radio_set(:mfj_disability, collection: [
               { value: "primary", label: t(".yes_me"), input_html: { "data-follow-up": primary_data_followup } },
               { value: "spouse", label: t(".yes_spouse"), input_html: { "data-follow-up": spouse_data_followup } },
@@ -35,7 +35,7 @@
         <div class="white-group">
           <div class="question-with-follow-up">
             <div class="question-with-follow-up__question">
-                <% show_disability_warning =  !current_intake.filing_status_mfj? && could_qualify_for_pension_exclusion ? "#disability-warning" : nil %>
+                <% show_disability_warning =  !current_intake.filing_status_mfj? ? "#disability-warning" : nil %>
                 <%= f.cfa_radio_set(:primary_proof_of_disability_submitted, label_text: t(".primary_proof_question_html"), collection: [
                   { value: "yes", label: t("general.affirmative") },
                   { value: "no", label: t("general.negative"), input_html: { "data-follow-up": show_disability_warning }},

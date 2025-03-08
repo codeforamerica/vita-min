@@ -176,7 +176,6 @@ RSpec.describe StateFile::Questions::MdPermanentlyDisabledController do
             html = Nokogiri::HTML.parse(response.body)
 
             expect(html.at_css("input[data-follow-up='#primary-disability-proof']")).not_to be_present
-            expect(html.to_s).not_to include('data-follow-up="#disability-warning"')
             expect(html.at_css("input[data-follow-up='#spouse-disability-proof']")).not_to be_present
             expect(html.at_css("input[data-follow-up='#both-disability-proof']")).not_to be_present
           end

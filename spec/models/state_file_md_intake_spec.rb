@@ -636,7 +636,7 @@ RSpec.describe StateFileMdIntake, type: :model do
     end
   end
 
-  describe "could_qualify_for_pension_exclusion?" do
+  describe "should_warn_about_pension_exclusion?" do
     let(:intake) { create :state_file_md_intake }
     context "with a filler under 65" do
       before do
@@ -648,7 +648,7 @@ RSpec.describe StateFileMdIntake, type: :model do
         let!(:second_1099r) { create(:state_file1099_r, intake: intake, taxable_amount: 0) }
 
         it "should return true" do
-          expect(intake.could_qualify_for_pension_exclusion?).to eq(true)
+          expect(intake.should_warn_about_pension_exclusion?).to eq(true)
         end
       end
 
@@ -656,19 +656,19 @@ RSpec.describe StateFileMdIntake, type: :model do
         let!(:first_1099r) { create(:state_file1099_r, intake: intake, taxable_amount: 0) }
         let!(:second_1099r) { create(:state_file1099_r, intake: intake, taxable_amount: 0) }
 
-        it "should return true" do
-          expect(intake.could_qualify_for_pension_exclusion?).to eq(false)
+        it "should return false" do
+          expect(intake.should_warn_about_pension_exclusion?).to eq(false)
         end
       end
 
       context "with no 1099rs"  do
-        it "should return true" do
-          expect(intake.could_qualify_for_pension_exclusion?).to eq(false)
+        it "should return false" do
+          expect(intake.should_warn_about_pension_exclusion?).to eq(false)
         end
       end
     end
 
-    context "with no fillers under 65" do
+    context "with no filers under 65" do
       before do
         allow_any_instance_of(StateFileMdIntake).to receive(:has_filer_under_65?).and_return false
       end
@@ -677,8 +677,8 @@ RSpec.describe StateFileMdIntake, type: :model do
         let!(:first_1099r) { create(:state_file1099_r, intake: intake, taxable_amount: 200) }
         let!(:second_1099r) { create(:state_file1099_r, intake: intake, taxable_amount: 0) }
 
-        it "should return true" do
-          expect(intake.could_qualify_for_pension_exclusion?).to eq(false)
+        it "should return false" do
+          expect(intake.should_warn_about_pension_exclusion?).to eq(false)
         end
       end
 
@@ -686,14 +686,14 @@ RSpec.describe StateFileMdIntake, type: :model do
         let!(:first_1099r) { create(:state_file1099_r, intake: intake, taxable_amount: 0) }
         let!(:second_1099r) { create(:state_file1099_r, intake: intake, taxable_amount: 0) }
 
-        it "should return true" do
-          expect(intake.could_qualify_for_pension_exclusion?).to eq(false)
+        it "should return false" do
+          expect(intake.should_warn_about_pension_exclusion?).to eq(false)
         end
       end
 
       context "with no 1099rs"  do
-        it "should return true" do
-          expect(intake.could_qualify_for_pension_exclusion?).to eq(false)
+        it "should return false" do
+          expect(intake.should_warn_about_pension_exclusion?).to eq(false)
         end
       end
     end
