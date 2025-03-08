@@ -2,11 +2,12 @@ require "rails_helper"
 
 RSpec.describe PdfFiller::Md502Pdf do
   include PdfSpecHelper
+  
+  let(:intake) { create(:state_file_md_intake, primary_suffix: "JR") }
   let(:submission) { create :efile_submission, tax_return: nil, data_source: intake }
   let(:pdf) { described_class.new(submission) }
   let(:file_path) { described_class.new(submission).output_file.path }
   let(:pdf_fields) { filled_in_values(file_path) }
-  let(:intake) { create(:state_file_md_intake) }
 
   describe "#hash_for_pdf" do
     it 'uses field names that exist in the pdf' do
@@ -119,10 +120,14 @@ RSpec.describe PdfFiller::Md502Pdf do
           expect(pdf_fields["OR FISCAL YEAR BEGINNING"]).to be_nil
           expect(pdf_fields["2024 ENDING"]).to be_nil
           expect(pdf_fields["Your Social Security Number"]).to eq("123456789")
+          expect(pdf_fields["SSN"]).to eq("123456789")
+          expect(pdf_fields["SSN_2"]).to eq("123456789")
           expect(pdf_fields["Spouses Social Security Number"]).to eq ""
           expect(pdf_fields["Your First Name"]).to eq("Mary")
           expect(pdf_fields["Primary MI"]).to eq("A")
-          expect(pdf_fields["Your Last Name"]).to eq("Lando")
+          expect(pdf_fields["Your Last Name"]).to eq("Lando JR")
+          expect(pdf_fields["Name"]).to eq("Lando JR")
+          expect(pdf_fields["Name_2"]).to eq("Lando JR")
           expect(pdf_fields["Spouses First Name"]).not_to be_present
           expect(pdf_fields["Spouse MI"]).not_to be_present
           expect(pdf_fields["Spouses Last Name"]).not_to be_present
@@ -138,17 +143,17 @@ RSpec.describe PdfFiller::Md502Pdf do
       end
 
       context "mfj" do
-        let(:intake) { create(:state_file_md_intake, :with_spouse) }
+        let(:intake) { create(:state_file_md_intake, :with_spouse, primary_suffix: "JR", spouse_suffix: "SR") }
 
         it "sets correct values for mfj filers" do
           expect(pdf_fields["Your Social Security Number"]).to eq("123456789")
           expect(pdf_fields["Spouses Social Security Number"]).to eq("987654321")
           expect(pdf_fields["Your First Name"]).to eq("Mary")
           expect(pdf_fields["Primary MI"]).to eq("A")
-          expect(pdf_fields["Your Last Name"]).to eq("Lando")
+          expect(pdf_fields["Your Last Name"]).to eq("Lando JR")
           expect(pdf_fields["Spouses First Name"]).to eq("Marty")
           expect(pdf_fields["Spouse MI"]).to eq("B")
-          expect(pdf_fields["Spouses Last Name"]).to eq("Lando")
+          expect(pdf_fields["Spouses Last Name"]).to eq("Lando SR")
           expect(pdf_fields["Single If you can be claimed on another persons tax return use Filing Status 6"]).to eq "Off"
           expect(pdf_fields["Married filing joint return or spouse had no income"]).to eq "On"
           expect(pdf_fields["Married filing separately Spouse SSN"]).to eq "Off"

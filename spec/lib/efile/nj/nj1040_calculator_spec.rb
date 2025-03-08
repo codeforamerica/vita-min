@@ -478,6 +478,14 @@ describe Efile::Nj::Nj1040Calculator do
         expected_sum = 50000 + 50000 + 50000 + 50000
         expect(instance.lines[:NJ1040_LINE_15].value).to eq(expected_sum)
       end
+
+      it "rounds to nearest whole number" do
+        w2 = intake.state_file_w2s.first
+        w2.update_attribute(:state_wages_amount, 50000.51)
+        instance.calculate
+        expected = 200_001 # 50000.51 + 50000 + 50000 + 50000
+        expect(instance.lines[:NJ1040_LINE_15].value).to eq expected
+      end
     end
   end
 

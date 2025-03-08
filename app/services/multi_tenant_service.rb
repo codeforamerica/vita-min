@@ -1,4 +1,5 @@
 class MultiTenantService
+  include Rails.application.routes.url_helpers
   attr_accessor :service_type
 
   SERVICE_TYPES = [:gyr, :ctc, :statefile]
@@ -118,6 +119,13 @@ class MultiTenantService
       auth_token: EnvironmentCredentials.dig(:twilio, service_type, :auth_token),
       messaging_service_sid: EnvironmentCredentials.dig(:twilio, service_type, :messaging_service_sid)
     }
+  end
+
+  def twilio_status_webhook_url(outgoing_message_status_id)
+    case service_type
+    when :ctc then twilio_update_status_url(outgoing_message_status_id, locale: nil)
+    when :gyr then twilio_update_status_url(outgoing_message_status_id, locale: nil)
+    end
   end
 
   class << self
