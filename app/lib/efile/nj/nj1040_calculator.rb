@@ -230,9 +230,7 @@ module Efile
       end
 
       def calculate_line_10_count
-        @intake.dependents.count do |dependent|
-          dependent.qualifying_child
-        end
+        @intake.dependents.count(&:qualifying_child)
       end
 
       def calculate_line_10_exemption
@@ -310,9 +308,7 @@ module Efile
       end
 
       def calculate_line_15
-        @intake.state_file_w2s.sum do |w2|
-          w2.state_wages_amount.to_i
-        end
+        @intake.state_file_w2s.sum(&:state_wages_amount).round
       end
 
       def calculate_line_16a

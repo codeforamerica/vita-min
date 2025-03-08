@@ -3276,14 +3276,8 @@ en:
         edit:
           county_html: "<strong> County lived in on December 31, %{filing_year}</strong>"
           disability_status: Totally and permanently disabled status
-          military: Benefits from your military service or benefits received for the military service of your deceased spouse or ex-spouse
-          none: None apply
-          other: Other retirement income (For example, a Keogh plan)
-          pension_annuity_endowment: Money from a pension, annuity, or other retirement plan from your job
           political_subdivision_html: "<strong>Political subdivision lived in on December 31, %{filing_year}</strong>"
           primary_proof_of_disability: Proof provided of disability for the pension exclusion in past tax years
-          public_safety: Your service as a public safety employee
-          retirement_income_deductions: Maryland retirement income details
           spouse_proof_of_disability: Spouse's proof provided of disability for the pension exclusion in past tax years
           your_address: Address lived at on December 31, %{filing_year}
       md_spouse_state_id:
@@ -4088,6 +4082,13 @@ en:
           qualified_disabled_retirement_benefits: Qualified disabled retirement benefits
           qualified_retirement_benefits_deduction: Qualified Retirement Benefits Deduction
           qualified_retirement_benefits_deduction_explain: These allow people to deduct all or a portion of their retirement income from their taxes.
+        md_retirement_income_deductions_review_header:
+          military: Benefits from your military service or benefits received for the military service of your deceased spouse or ex-spouse
+          none: None apply
+          other: Other retirement income (For example, a Keogh plan)
+          pension_annuity_endowment: Money from a pension, annuity, or other retirement plan from your job
+          public_safety: Your service as a public safety employee
+          retirement_income_deductions: Maryland retirement income details
         nc_retirement_income_deductions_review_header:
           bailey_settlement_at_least_five_years: At least five years of creditable service by August 12, 1989
           bailey_settlement_from_retirement_plan: Received retirement benefits from NC’s 401(k) or 457 plan, and contributed to the plan before August 12, 1989
