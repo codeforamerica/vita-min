@@ -608,7 +608,7 @@ Rails.application.routes.draw do
 
       match("/questions/pending-federal-return", action: :edit, controller: "state_file/questions/pending_federal_return", via: :get)
       match("/questions/pending_federal_return", action: :edit, controller: "state_file/questions/pending_federal_return", via: :get)
-      resources :w2, only: [:edit, :update], module: 'state_file/questions', path: 'questions/w2'
+      resources :w2, only: [:show, :edit, :update], module: 'state_file/questions', path: 'questions/w2'
 
       active_state_codes.each do |code|
         navigation_class = StateFile::StateInformationService.navigation_class(code)

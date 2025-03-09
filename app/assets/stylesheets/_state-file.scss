@@ -366,12 +366,24 @@
       list-style-type: disc;
       padding-left: 2rem;
       margin: 1rem 0;
+
+      .unbulleted {
+        list-style-type: none;
+      }
     }
 
     li {
       font-size: 1.6rem;
       line-height: 2.4rem;
       margin-bottom: 0.5rem;
+    }
+
+    dt {
+      font-size: 1.3rem;
+    }
+
+    dd {
+      margin-left: 0;
     }
   }
 
