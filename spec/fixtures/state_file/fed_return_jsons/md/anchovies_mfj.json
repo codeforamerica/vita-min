@@ -1,25 +1,59 @@
 {
   "familyAndHousehold": [],
+  "socialSecurityReports": [
+    {
+      "formType": "SSA-1099",
+      "recipientTin": "400-00-7202",
+      "netBenefits": "10000.00"
+    }
+  ],
   "filers": [
     {
-      "firstName": "Ann",
       "lastName": "Anchovy",
-      "middleInitial": null,
-      "tin": "400-00-7201",
       "dateOfBirth": "1965-10-10",
       "suffix": null,
       "isPrimaryFiler": true,
+      "firstName": "Ann",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "400-00-7201",
+      "interestReportsTotal": "0.00",
+      "isDisabled": false,
+      "form1099GsTotal": "0.00",
+      "isStudent": false,
+      "hsaTotalDeductibleAmount": null,
       "ssnNotValidForEmployment": null
     },
     {
       "lastName": "Anchovy",
-      "firstName": "Andrew",
-      "middleInitial": null,
-      "tin": "400-00-7202",
       "dateOfBirth": "1960-01-01",
       "suffix": null,
       "isPrimaryFiler": false,
-      "ssnNotValidForEmployment": null
+      "firstName": "Andrew",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "400-00-7202",
+      "interestReportsTotal": "0.00",
+      "isDisabled": false,
+      "form1099GsTotal": "0.00",
+      "isStudent": false,
+      "ssnNotValidForEmployment": null,
+      "hsaTotalDeductibleAmount": null
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [
+    {
+      "usedTin": "400-00-7201",
+      "unionDuesAmount": null
+    },
+    {
+      "usedTin": "400-00-7202",
+      "unionDuesAmount": null
+    },
+    {
+      "usedTin": "400-00-7201",
+      "unionDuesAmount": null
     }
   ],
   "interestReports": []
