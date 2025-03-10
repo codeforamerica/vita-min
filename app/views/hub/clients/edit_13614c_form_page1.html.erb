@@ -114,7 +114,7 @@
           <div class="grid__item width-one-whole">
             <p class="form-question"><%= "#{t(".fields.refund_payment_method")}" %></p>
           </div>
-          <div class="grid__item width-one-whole">
+          <div class="grid__item width-one-whole" style="display: flex; justify-content: space-between;">
             <%= f.cfa_select(:refund_direct_deposit, t(".fields.refund_payment_method_direct_deposit"), yes_no_options_for_select) %>
             <%= f.cfa_select(:refund_check_by_mail, t(".fields.refund_check_by_mail"), yes_no_options_for_select) %>
             <%= f.cfa_select(:savings_split_refund, t(".fields.refund_payment_method_split"), yes_no_options_for_select) %>
