@@ -120,19 +120,18 @@ class StateFileIdIntake < StateFileBaseIntake
   end
 
   def has_filer_between_62_and_65_years_old?
-    if filing_status_mfj?
-      primary_between_62_and_65_years_old? || spouse_between_62_and_65_years_old?
-    else
-      primary_between_62_and_65_years_old?
-    end
+    return primary_between_62_and_65_years_old? unless filing_status_mfj?
+
+    primary_between_62_and_65_years_old? || spouse_between_62_and_65_years_old?
+  end
+  def all_filers_between_62_and_65_years_old?
+    return primary_between_62_and_65_years_old? unless filing_status_mfj?
+
+    primary_between_62_and_65_years_old? && spouse_between_62_and_65_years_old?
   end
 
-  def all_filers_between_62_and_65_years_old?
-    if filing_status_mfj?
-      primary_between_62_and_65_years_old? && spouse_between_62_and_65_years_old?
-    else
-      primary_between_62_and_65_years_old?
-    end
+  def show_mfj_disability_options?
+    filing_status_mfj? && all_filers_between_62_and_65_years_old?
   end
 
   def primary_between_62_and_65_years_old?
