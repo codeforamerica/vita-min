@@ -1,5 +1,17 @@
 {
   "familyAndHousehold": [],
+  "socialSecurityReports": [
+    {
+      "formType": "SSA-1099",
+      "recipientTin": "400-00-3038",
+      "netBenefits": "5000.00"
+    },
+    {
+      "formType": "SSA-1099",
+      "recipientTin": "400-00-3037",
+      "netBenefits": "10000.00"
+    }
+  ],
   "filers": [
     {
       "lastName": "Ballerina",

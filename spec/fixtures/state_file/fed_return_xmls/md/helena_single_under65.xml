@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>4ce7d787</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400002057</PrimarySSN>
+            <NameLine1Txt>HELENA R&lt;EAGAN</NameLine1Txt>
+            <PrimaryNameControlTxt>EAGA</PrimaryNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>4546 Mysterious Way</AddressLine1Txt>
+                <CityNm>Hagerstown</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21740</ZIPCd>
+            </USAddress>
+            <PhoneNum>2223334444</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000205-76b3-4349-ac03-56fbd73df795@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="4">
+        <IRS1040 documentId="IRS10400001">
+            <IndividualReturnFilingStatusCd>1</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>1</TotalExemptionsCnt>
+            <TotalTaxablePensionsAmt>77000</TotalTaxablePensionsAmt>
+            <SocSecBnftAmt>25000</SocSecBnftAmt>
+            <TaxableSocSecAmt>21250</TaxableSocSecAmt>
+            <TotalIncomeAmt>98250</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>98250</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>14600</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>14600</TotalDeductionsAmt>
+            <TaxableIncomeAmt>83650</TaxableIncomeAmt>
+            <TaxAmt>13462</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>13462</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>13462</TaxLessCreditsAmt>
+            <TotalTaxAmt>13462</TotalTaxAmt>
+            <Form1099WithheldTaxAmt>7000</Form1099WithheldTaxAmt>
+            <WithholdingTaxAmt>7000</WithholdingTaxAmt>
+            <TotalPaymentsAmt>7000</TotalPaymentsAmt>
+            <OwedAmt>6462</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Biotech CEO</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1099R documentId="IRS1099R0001">
+            <PayerNameControlTxt>LUMO</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Lumon Industries</BusinessNameLine1Txt>
+                <BusinessNameLine2Txt>Main Floor</BusinessNameLine2Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>123 Main street</AddressLine1Txt>
+                <CityNm>Baltimore</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21223</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>823967259</PayerEIN>
+            <RecipientSSN>400002057</RecipientSSN>
+            <RecipientNm>Helena R Eagan</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>4546 Mysterious Way</AddressLine1Txt>
+                <CityNm>Hagerstown</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21740</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>45000</GrossDistributionAmt>
+            <TaxableAmt>45000</TaxableAmt>
+            <TotalDistributionInd>X</TotalDistributionInd>
+            <FederalIncomeTaxWithheldAmt>4500</FederalIncomeTaxWithheldAmt>
+            <F1099RDistributionCd>7</F1099RDistributionCd>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <StateTaxWithheldAmt>3200</StateTaxWithheldAmt>
+                    <StateAbbreviationCd>MD</StateAbbreviationCd>
+                    <PayerStateIdNum>123456</PayerStateIdNum>
+                    <StateDistributionAmt>45000</StateDistributionAmt>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRS1099R documentId="IRS1099R0002">
+            <PayerNameControlTxt>USDE</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>US Department of Defense</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>123 Main street</AddressLine1Txt>
+                <CityNm>Baltimore</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21223</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>943025021</PayerEIN>
+            <RecipientSSN>400002057</RecipientSSN>
+            <RecipientNm>Helena R Eagan</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>4546 Mysterious Way</AddressLine1Txt>
+                <CityNm>Hagerstown</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21740</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>18000</GrossDistributionAmt>
+            <TaxableAmt>18000</TaxableAmt>
+            <TotalDistributionInd>X</TotalDistributionInd>
+            <FederalIncomeTaxWithheldAmt>1500</FederalIncomeTaxWithheldAmt>
+            <F1099RDistributionCd>7</F1099RDistributionCd>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <StateTaxWithheldAmt>250</StateTaxWithheldAmt>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRS1099R documentId="IRS1099R0003">
+            <PayerNameControlTxt>CITY</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>City of Kier</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>123 Main street</AddressLine1Txt>
+                <CityNm>Baltimore</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21223</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>841233483</PayerEIN>
+            <RecipientSSN>400002057</RecipientSSN>
+            <RecipientNm>Helena R Eagan</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>4546 Mysterious Way</AddressLine1Txt>
+                <CityNm>Hagerstown</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21740</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>14000</GrossDistributionAmt>
+            <TaxableAmt>14000</TaxableAmt>
+            <TotalDistributionInd>X</TotalDistributionInd>
+            <FederalIncomeTaxWithheldAmt>1000</FederalIncomeTaxWithheldAmt>
+            <F1099RDistributionCd>7</F1099RDistributionCd>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <StateTaxWithheldAmt>100</StateTaxWithheldAmt>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+    </ReturnData>
+</Return>

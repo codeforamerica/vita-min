@@ -2,6 +2,16 @@ require 'rails_helper'
 
 describe DirectFileJsonData do
 
+  describe "Social Security Reports" do
+    let(:intake) { create :state_file_md_intake, :with_social_security_reports }
+
+    it "correctly filters social security reports by filer" do
+      expect(intake.direct_file_json_data.social_security_reports.count).to eq(2)
+      expect(intake.direct_file_json_data.primary_filer_social_security_benefit_amount).to eq(10000)
+      expect(intake.direct_file_json_data.spouse_filer_social_security_benefit_amount).to eq(5000)
+    end
+  end
+
   describe "1099-INT" do
     context "with 1099 INT present in the json" do
       let(:intake) { create :state_file_md_intake, :df_data_1099_int }
@@ -12,10 +22,10 @@ describe DirectFileJsonData do
         expect(interest_report.has_1099).to be(true)
         expect(interest_report.interest_on_government_bonds).to eq(2)
         expect(interest_report.amount_no_1099).to eq(3)
-        expect(interest_report.recipient_tin).to eq("123-45-6789")
+        expect(interest_report.recipient_tin).to eq("123456789")
         expect(interest_report.tax_exempt_interest).to eq(4)
         expect(interest_report.payer).to eq("The payer name")
-        expect(interest_report.payer_tin).to eq("101-23-4567")
+        expect(interest_report.payer_tin).to eq("101234567")
         expect(interest_report.tax_withheld).to eq(5)
         expect(interest_report.tax_exempt_and_tax_credit_bond_cusip_number).to eq("123456789")
       end

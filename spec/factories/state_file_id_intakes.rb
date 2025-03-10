@@ -127,12 +127,14 @@ FactoryBot.define do
       intake.direct_file_json_data.primary_filer.first_name = evaluator.primary_first_name if evaluator.primary_first_name
       intake.direct_file_json_data.primary_filer.middle_initial = evaluator.primary_middle_initial if evaluator.primary_middle_initial
       intake.direct_file_json_data.primary_filer.last_name = evaluator.primary_last_name if evaluator.primary_last_name
+      intake.direct_file_json_data.primary_filer.suffix = evaluator.primary_suffix if evaluator.primary_suffix
 
       if intake.direct_file_json_data.spouse_filer.present?
         intake.direct_file_json_data.spouse_filer.dob = evaluator.spouse_birth_date if evaluator.spouse_birth_date
         intake.direct_file_json_data.spouse_filer.first_name = evaluator.spouse_first_name if evaluator.spouse_first_name
         intake.direct_file_json_data.spouse_filer.middle_initial = evaluator.spouse_middle_initial if evaluator.spouse_middle_initial
         intake.direct_file_json_data.spouse_filer.last_name = evaluator.spouse_last_name if evaluator.spouse_last_name
+        intake.direct_file_json_data.spouse_filer.suffix = evaluator.spouse_suffix if evaluator.spouse_suffix
       else
         # this is necessary because we occasionally use xmls that include a spouse with a json without a spouse,
         # or change an intake's filing status and add spouse info after loading an xml without one
@@ -140,6 +142,7 @@ FactoryBot.define do
         intake.spouse_first_name = evaluator.spouse_first_name if evaluator.spouse_first_name
         intake.spouse_middle_initial = evaluator.spouse_middle_initial if evaluator.spouse_middle_initial
         intake.spouse_last_name = evaluator.spouse_last_name if evaluator.spouse_last_name
+        intake.spouse_suffix = evaluator.spouse_suffix if evaluator.spouse_suffix
       end
 
       intake.raw_direct_file_intake_data = intake.direct_file_json_data

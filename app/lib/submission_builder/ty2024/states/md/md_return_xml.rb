@@ -46,7 +46,7 @@ module SubmissionBuilder
 
           def supported_documents
             calculated_fields = @submission.data_source.tax_calculator.calculate
-            has_income_from_taxable_pensions_iras_annuities = calculated_fields.fetch(:MD502_LINE_1D)&.to_i&.positive? || (@submission.data_source.direct_file_data.fed_ssb.positive? && Flipper.enabled?(:show_md_ssa))
+            has_income_from_taxable_pensions_iras_annuities = calculated_fields.fetch(:MD502_LINE_1D)&.to_i&.positive? || @submission.data_source.direct_file_data.fed_ssb.positive?
             has_md_su_subtractions = calculated_fields.fetch(:MD502_LINE_13).positive? || form_has_non_zero_amounts("MD502_SU_", calculated_fields)
             has_individual_tax_credits = (calculated_fields.fetch(:MD502_LINE_24).positive? && @intake.tax_calculator.calculate.fetch(:MD502_DEDUCTION_METHOD) == "S") || calculated_fields.fetch(:MD502_LINE_43).positive?
 
@@ -86,6 +86,7 @@ module SubmissionBuilder
             supported_docs += form1099gs # must be sequenced here
             supported_docs += combined_w2s
             supported_docs += form1099rs
+            supported_docs += form1099ints
             supported_docs
           end
 

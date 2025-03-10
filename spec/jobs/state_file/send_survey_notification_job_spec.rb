@@ -21,6 +21,24 @@ RSpec.describe StateFile::SendSurveyNotificationJob, type: :job do
       expect(StateFile::MessagingService).to have_received(:new).with(intake: intake, submission: submission, message: message, body_args: body_args)
       expect(state_file_messaging_service).to have_received(:send_message)
     end
+
+    context "when submission is cancelled" do
+      let(:submission) { create(:efile_submission, :failed, data_source: intake) }
+
+      before do
+        submission.transition_to!(:cancelled)
+      end
+
+      it "does not send the message" do
+        allow(StateFile::MessagingService).to receive(:new).and_return(state_file_messaging_service)
+        allow(state_file_messaging_service).to receive(:send_message)
+
+        described_class.perform_now(intake, submission)
+
+        expect(StateFile::MessagingService).not_to have_received(:new)
+        expect(state_file_messaging_service).not_to have_received(:send_message)
+      end
+    end
   end
 end
 

@@ -266,6 +266,21 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
       end
     end
 
+    context "when there are 1099_ints present" do
+      let(:intake) { create(:state_file_az_intake, :df_data_1099_int) }
+
+      it "generates XML with 1099_int info" do
+        expect(xml.css('State1099Int').count).to eq 1
+        expect(xml.at('State1099Int PayerName BusinessNameLine1Txt').text).to eq 'Mockingbird Bank'
+        expect(xml.at('State1099Int RecipientSSN').text).to eq '900500011'
+        expect(xml.at('State1099Int RecipientName').text).to eq 'Ariz Onian'
+        expect(xml.at('State1099Int InterestIncome').text).to eq '4000.0'
+        expect(xml.at('State1099Int InterestOnBondsAndTreasury').text).to eq '0'
+        expect(xml.at('State1099Int FederalTaxWithheld').text).to eq '0.0'
+        expect(xml.at('State1099Int TaxExemptInterest').text).to eq '0'
+      end
+    end
+
     context "subtractions" do
       let(:intake) { create(:state_file_az_intake, :df_data_1099_int) }
 

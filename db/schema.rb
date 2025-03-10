@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_02_27_182343) do
+ActiveRecord::Schema[7.1].define(version: 2025_03_04_145229) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1735,8 +1736,13 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_27_182343) do
     t.string "payer_state_identification_number"
     t.string "payer_zip"
     t.string "phone_number"
+    t.string "recipient_address_line1"
+    t.string "recipient_address_line2"
+    t.string "recipient_city_name"
     t.string "recipient_name"
     t.string "recipient_ssn"
+    t.string "recipient_state_code"
+    t.string "recipient_zip"
     t.boolean "standard"
     t.string "state_code"
     t.decimal "state_distribution_amount", precision: 12, scale: 2
@@ -2119,7 +2125,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_27_182343) do
     t.integer "primary_proof_of_disability_submitted", default: 0, null: false
     t.string "primary_signature"
     t.text "primary_signature_pin"
-    t.decimal "primary_ssb_amount", precision: 12, scale: 2, default: "0.0", null: false
+    t.decimal "primary_ssb_amount", precision: 12, scale: 2
     t.string "primary_ssn"
     t.bigint "primary_state_id_id"
     t.decimal "primary_student_loan_interest_ded_amount", precision: 12, scale: 2, default: "0.0", null: false
@@ -2142,7 +2148,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_27_182343) do
     t.string "spouse_middle_initial"
     t.integer "spouse_proof_of_disability_submitted", default: 0, null: false
     t.text "spouse_signature_pin"
-    t.decimal "spouse_ssb_amount", precision: 12, scale: 2, default: "0.0", null: false
+    t.decimal "spouse_ssb_amount", precision: 12, scale: 2
     t.string "spouse_ssn"
     t.bigint "spouse_state_id_id"
     t.decimal "spouse_student_loan_interest_ded_amount", precision: 12, scale: 2, default: "0.0", null: false
@@ -2265,6 +2271,11 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_27_182343) do
     t.integer "NJ1040_LINE_15", default: 0, null: false
     t.integer "NJ1040_LINE_16A", default: 0, null: false
     t.integer "NJ1040_LINE_16B", default: 0, null: false
+    t.integer "NJ1040_LINE_20A", default: 0, null: false
+    t.integer "NJ1040_LINE_20B", default: 0, null: false
+    t.integer "NJ1040_LINE_28A", default: 0, null: false
+    t.integer "NJ1040_LINE_28B", default: 0, null: false
+    t.integer "NJ1040_LINE_28C", default: 0, null: false
     t.integer "NJ1040_LINE_29", default: 0, null: false
     t.integer "NJ1040_LINE_31", default: 0, null: false
     t.integer "NJ1040_LINE_41", default: 0, null: false
