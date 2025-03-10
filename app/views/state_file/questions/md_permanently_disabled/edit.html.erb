@@ -6,6 +6,11 @@
 <% content_for :page_title, title %>
 <% content_for :card do %>
   <h1 class="h2"><%= title %></h1>
+  <p>
+    <%= t('.help_text') %>
+    <br><br>
+    <%= t('.help_text_2') %>
+  </p>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="question-with-follow-up">
@@ -79,9 +84,17 @@
     </div>
 
     <div class="reveal">
-      <button class="reveal__button"><%= t(".help_title") %></button>
+      <button class="reveal__button"><%= t(".why") %></button>
       <div class="reveal__content">
-        <p><%= t(".help_text_html") %></p>
+        <% if current_intake.filing_status_mfj? %>
+          <p><%= t(".why_explained_mfj_html") %></p>
+          <p><%= t(".why_explained_mfj_1") %></p>
+          <p><%= t(".why_explained_mfj_2_html") %></p>
+        <% else %>
+          <p><%= t(".why_explained_html") %></p>
+          <p><%= t(".why_explained_1") %></p>
+          <p><%= t(".why_explained_2_html") %></p>
+        <% end %>
       </div>
     </div>
 
