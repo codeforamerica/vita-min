@@ -1,6 +1,6 @@
 module Hub
   class Update13614cFormPage1 < ClientForm
-    set_attributes_for :intake,
+    set_attributes_for Intake::GyrIntake,
                        :primary_first_name,
                        :primary_last_name,
                        :primary_middle_initial,
@@ -107,7 +107,7 @@ module Hub
     def save
       return false unless valid?
 
-      modified_attributes = attributes_for(:intake)
+      modified_attributes = attributes_for(Intake::GyrIntake)
                               .except(:primary_birth_date_year, :primary_birth_date_month, :primary_birth_date_day, :spouse_birth_date_year, :spouse_birth_date_month, :spouse_birth_date_day)
                               .merge(
                                 primary_birth_date: parse_date_params(primary_birth_date_year, primary_birth_date_month, primary_birth_date_day),
@@ -115,21 +115,6 @@ module Hub
                               )
       modified_attributes[:ever_married] = modified_attributes.delete(:never_married) == "yes" ? "no" : "yes"
       modified_attributes[:dependents_attributes] = formatted_dependents_attributes
-
-      # we are getting null violations from the database; the below lines fix that.
-      modified_attributes[:multiple_states] ||= 'unfilled'
-      modified_attributes[:primary_owned_or_held_any_digital_currencies] ||= 'unfilled'
-      modified_attributes[:spouse_issued_identity_pin] ||= 'unfilled'
-      modified_attributes[:spouse_owned_or_held_any_digital_currencies] ||= 'unfilled'
-      modified_attributes[:balance_pay_from_bank] ||= 'unfilled'
-      modified_attributes[:presidential_campaign_fund_donation] ||= 'unfilled'
-      modified_attributes[:receive_written_communication] ||= 'unfilled'
-      modified_attributes[:savings_split_refund] ||= 'unfilled'
-      modified_attributes[:register_to_vote] ||= 'unfilled'
-      modified_attributes[:primary_visa] ||= 'unfilled'
-      modified_attributes[:spouse_visa] ||= 'unfilled'
-      modified_attributes[:refund_other_cb] ||= 'unfilled'
-      modified_attributes[:married_for_all_of_tax_year] ||= 'unfilled'
 
       @client.intake.update(modified_attributes)
       @client.touch(:last_13614c_update_at)
