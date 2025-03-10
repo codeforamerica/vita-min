@@ -3181,14 +3181,21 @@ es:
           zip_label: Código postal
       md_permanently_disabled:
         edit:
-          help_text_html: Se considera que estás totalmente discapacitado si tienes una condición mental o física que te impide trabajar y recibir ingresos. <br><br>Se espera que esta condición dure mucho tiempo, por un período indefinido o que resulte en tu muerte. Si tienes menos de 65 años y deseas reclamar la exclusión de pensión, debes haber adjuntado una certificación de un médico calificado que indique la naturaleza de tu discapacidad y que estás totalmente incapacitado a una declaración de impuestos presentada anteriormente.
-          help_title: "¿Qué se considera total y permanentemente discapacitado?"
+          help_text: Se considera que estás totalmente discapacitado si tienes una condición mental o física que te impide trabajar y recibir ingresos.
+          help_text_2: Se espera que esta condición dure mucho tiempo, por un período indefinido o que resulte en tu muerte.
           no_neither: No, ninguno de los dos lo es
           primary_proof_question_html: ¿Has presentado prueba de <strong>tu</strong> discapacidad para <a href="https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php"> la Exclusión de Pensiones de Maryland </a> en años fiscales anteriores?
           spouse_proof_question_html: ¿Ha presentado prueba de <strong>tu cónyuge</strong> discapacidad para <a href="https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php">la Exclusión de Pensiones de Maryland </a> en años fiscales anteriores?
           title: "¿Estás total y permanentemente discapacitado?"
           title_spouse: "¿Tú o tu cónyuge están total y permanentemente discapacitados?"
           unfortunately_dont_support_html: Desafortunadamente, nuestro servicio no puede incluir la Exclusión de Pensiones de Maryland si no has presentado prueba de tu discapacidad en un año fiscal anterior.<br><br> Si quieres reclamar la exclusión de pensiones, <a href='%{path}'>obtén más información aquí</a>.
+          why: "¿Por qué están preguntando esto?"
+          why_explained_1: La Exclusión de Pensiones de Maryland puede ahorrarte cientos a miles de dólares en impuestos estatales y locales al reducir la cantidad de impuestos que deberás pagar de tus ingresos de jubilación. Si tú tienen más de 65 años, califican automáticamente para la exclusión de pensiones.
+          why_explained_2_html: Si tú tienen menos de 65 años y deseas reclamar la exclusión de pensiones utilizando este servicio, tú haber <strong>adjuntado una certificación de un médico calificado que indique la naturaleza de su discapacidad y que tú estén totalmente discapacitados a una declaración de impuestos presentada anteriormente</strong>.
+          why_explained_html: Si tú tienen 65 años o más, necesitamos esta información para completar el Formulario 502R. Si tú tienen menos de 65 años, necesitamos esta información para determinar si tú o tu cónyugue califican para la <a href="https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php" target="_blank" rel="noopener">Exclusión de Pensiones de Maryland</a>.
+          why_explained_mfj_1: La Exclusión de Pensiones de Maryland puede ahorrarte cientos a miles de dólares en impuestos estatales y locales al reducir la cantidad de impuestos que deberás pagar de tus ingresos de jubilación. Si tú y tu cónyugue tienen más de 65 años, califican automáticamente para la exclusión de pensiones.
+          why_explained_mfj_2_html: Si tú y tu cónyugue tienen menos de 65 años y deseas reclamar la exclusión de pensiones utilizando este servicio, tú o tu cónyuge deben haber <strong>adjuntado una certificación de un médico calificado que indique la naturaleza de su discapacidad y que tú o tu cónyuge estén totalmente discapacitados a una declaración de impuestos presentada anteriormente</strong>.
+          why_explained_mfj_html: Si tú y tu cónyugue tienen 65 años o más, necesitamos esta información para completar el Formulario 502R. Si tú y tu cónyugue tienen menos de 65 años, necesitamos esta información para determinar si tú o tu cónyugue califican para la <a href="https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php" target="_blank" rel="noopener">Exclusión de Pensiones de Maryland</a>.
           yes_both: Sí, ambos lo somos
           yes_me: Sí, yo lo soy
           yes_spouse: Sí, mi cónyuge lo es
