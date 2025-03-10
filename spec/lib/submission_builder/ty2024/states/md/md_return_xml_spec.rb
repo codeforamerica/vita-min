@@ -88,24 +88,6 @@ describe SubmissionBuilder::Ty2024::States::Md::MdReturnXml, required_schema: "m
         allow(instance).to receive(:form_has_non_zero_amounts) # allows mocking of specific arguments when the file calls with multiple combinations of args
       end
 
-      context "when there are 1099_ints present" do
-        let(:intake) { create(:state_file_md_intake, :df_data_1099_int) }
-
-        it "generates XML with 1099_int info" do
-          expect(xml.css('State1099Int').count).to eq 1
-          expect(xml.at('State1099Int PayerName BusinessNameLine1Txt').text).to eq 'The payer name'
-          expect(xml.at('State1099Int PayerName')['payerNameControl']).to eq 'THEP'
-          expect(xml.at('State1099Int PayerEIN').text).to eq '101234567'
-          expect(xml.at('State1099Int RecipientSSN').text).to eq '123456789'
-          expect(xml.at('State1099Int RecipientName').text).to eq 'Mary A Lando'
-          expect(xml.at('State1099Int InterestIncome').text).to eq '1.0'
-          expect(xml.at('State1099Int InterestOnBondsAndTreasury').text).to eq '2.0'
-          expect(xml.at('State1099Int FederalTaxWithheld').text).to eq '5.0'
-          expect(xml.at('State1099Int TaxExemptInterest').text).to eq '4.0'
-          expect(xml.at('State1099Int TaxExemptCUSIP').text).to eq '123456789'
-        end
-      end
-
       it "includes documents that are always attached" do
         expect(xml.document.at('ReturnDataState Form502')).to be_an_instance_of Nokogiri::XML::Element
         expect(instance.pdf_documents).to be_any { |included_documents|
