@@ -4281,7 +4281,7 @@ es:
           box17_html: "<strong>Casilla 17</strong>, Impuesto estatal sobre los ingresos"
           box18_html: "<strong>Box 18,</strong> Local wages, tips, etc."
           box19_html: "<strong>Box 19,</strong> Local income tax"
-          box20_locality_name: "<strong>Box 20,</strong> Locality name"
+          box20_locality_name_html: "<strong>Box 20,</strong> Locality name"
           employer_state_id_error: El EIN no puede tener más de 16 caracteres.
           instructions_1_html: Por favor revisa los detalles de tu trabajo (W-2) para <strong>%{employer}</strong>
           local_income_tax_amt_error: No puede ser mayor que los salarios y propinas locales.
