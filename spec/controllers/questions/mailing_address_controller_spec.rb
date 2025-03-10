@@ -73,5 +73,24 @@ RSpec.describe Questions::MailingAddressController do
         expect(response.body).to include("Please enter a valid 5-digit zip code.")
       end
     end
+
+    describe "#after_update_success" do
+      before do
+        sign_in intake.client
+
+        intake.update(
+          street_address: "789 Dogbert Court",
+          city: "Canineville",
+          state: "CA",
+          zip_code: "91234"
+        )
+      end
+
+      it "enqueues a job to generate optional consent form" do
+        expect(GenerateF13614cPdfJob).to receive(:perform_later).with(intake.client.id, "Preliminary 13614-C.pdf")
+
+        subject.after_update_success
+      end
+    end
   end
 end
