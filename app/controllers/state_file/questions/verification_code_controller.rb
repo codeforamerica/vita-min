@@ -39,6 +39,7 @@ module StateFile
           track_question_answer
           redirect_to(next_path)
         else
+          @contact_info = params[:state_file_verification_code_form][:contact_info]
           after_update_failure
           track_validation_error
           render :edit
