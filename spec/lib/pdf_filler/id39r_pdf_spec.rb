@@ -2,8 +2,9 @@ require 'rails_helper'
 
 RSpec.describe PdfFiller::Id39rPdf do
   include PdfSpecHelper
-
-  let(:intake) { create(:state_file_id_intake) }
+  let(:primary_first_name) { "Helena"}
+  let(:primary_last_name) { "Eagan" }
+  let(:intake) { create(:state_file_id_intake, primary_first_name: primary_first_name, primary_last_name: primary_last_name) }
   let(:submission) { create(:efile_submission, tax_return: nil, data_source: intake) }
   let(:pdf) { described_class.new(submission) }
   let(:file_path) { described_class.new(submission).output_file.path }
@@ -127,16 +128,10 @@ RSpec.describe PdfFiller::Id39rPdf do
       end
     end
 
-    context "fills out Total Additions" do
+    context "fills out Total Additions and Interest Income from Obligations of the US" do
       let(:intake) { create(:state_file_id_intake, :df_data_1099_int) }
       it "correctly fills answers" do
         expect(pdf_fields["AL7"]).to eq "0"
-      end
-    end
-
-    context "fills out Interest Income from Obligations of the US" do
-      let(:intake) { create(:state_file_id_intake, :df_data_1099_int) }
-      it "correctly fills answers" do
         expect(pdf_fields["BL3"]).to eq "50"
       end
     end
@@ -178,6 +173,44 @@ RSpec.describe PdfFiller::Id39rPdf do
     context "supplemental credits" do
       it "should always returns 0" do
         expect(pdf_fields["DL4"]).to eq "0"
+      end
+    end
+  end
+
+  describe "Names and SSN" do
+    let(:spouse_first_name) { "mark" }
+    let(:spouse_last_name) { "scout" }
+
+    context "when non-mfj" do
+      it "shows the primary's first and last name" do
+        expect(pdf_fields["Names"]).to eq("Helena Eagan")
+        expect(pdf_fields["SSN"]).to eq("555002222")
+      end
+    end
+
+    context "when mfj" do
+      let(:intake) {
+        create(:state_file_id_intake,
+               :with_spouse,
+               filing_status: :married_filing_jointly,
+               primary_first_name: primary_first_name,
+               primary_last_name: primary_last_name,
+               spouse_first_name: spouse_first_name,
+               spouse_last_name: spouse_last_name)
+      }
+      context "when last name is the same" do
+        let(:spouse_last_name) { "eagan" }
+        it "only shows one last name" do
+          expect(pdf_fields["Names"]).to eq("Helena & Mark Eagan")
+          expect(pdf_fields["SSN"]).to eq("555002222")
+        end
+      end
+
+      context "when last name is different" do
+        it "shows both last names" do
+          expect(pdf_fields["Names"]).to eq("Helena Eagan & Mark Scout")
+          expect(pdf_fields["SSN"]).to eq("555002222")
+        end
       end
     end
   end
