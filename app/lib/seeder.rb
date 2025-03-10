@@ -68,6 +68,7 @@ class Seeder
       type: Organization::TYPE
     )
     SourceParameter.find_or_create_by(code: "oregano", vita_partner_id: vp1.id)
+    StateRoutingTarget.find_or_create_by(target: vp1, state_abbreviation: "TX")
 
     vp2 = VitaPartner.find_or_create_by!(
       name: "Orangutan Organization",
