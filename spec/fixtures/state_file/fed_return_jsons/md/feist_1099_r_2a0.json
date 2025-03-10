@@ -1,0 +1,30 @@
+{
+  "familyAndHousehold": [],
+  "socialSecurityReports": [],
+  "filers": [
+    {
+      "lastName": "Feist",
+      "dateOfBirth": "1994-01-02",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "firstName": "Leslie",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "400-00-2058",
+      "interestReportsTotal": "0.00",
+      "isDisabled": false,
+      "form1099GsTotal": "0.00",
+      "isStudent": false,
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [
+    {
+      "usedTin": "400-00-2058",
+      "unionDuesAmount": null
+    }
+  ],
+  "interestReports": []
+}

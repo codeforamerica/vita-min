@@ -265,6 +265,9 @@ es:
           presence: Por favor seleccione un condado
         subdivision_code:
           presence: Por favor seleccione una subdivisión política
+      nc_county:
+        county:
+          presence: Por favor seleccione un condado
       nc_eligibility_form:
         at_most_one_option_selected: Debe seleccionar ninguna o las opciones anteriores.
       need_exactly_one_communication_method: Ingrese solo una forma de contacto.
@@ -3181,14 +3184,21 @@ es:
           zip_label: Código postal
       md_permanently_disabled:
         edit:
-          help_text_html: Se considera que estás totalmente discapacitado si tienes una condición mental o física que te impide trabajar y recibir ingresos. <br><br>Se espera que esta condición dure mucho tiempo, por un período indefinido o que resulte en tu muerte. Si tienes menos de 65 años y deseas reclamar la exclusión de pensión, debes haber adjuntado una certificación de un médico calificado que indique la naturaleza de tu discapacidad y que estás totalmente incapacitado a una declaración de impuestos presentada anteriormente.
-          help_title: "¿Qué se considera total y permanentemente discapacitado?"
+          help_text: Se considera que estás totalmente discapacitado si tienes una condición mental o física que te impide trabajar y recibir ingresos.
+          help_text_2: Se espera que esta condición dure mucho tiempo, por un período indefinido o que resulte en tu muerte.
           no_neither: No, ninguno de los dos lo es
           primary_proof_question_html: ¿Has presentado prueba de <strong>tu</strong> discapacidad para <a href="https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php"> la Exclusión de Pensiones de Maryland </a> en años fiscales anteriores?
           spouse_proof_question_html: ¿Ha presentado prueba de <strong>tu cónyuge</strong> discapacidad para <a href="https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php">la Exclusión de Pensiones de Maryland </a> en años fiscales anteriores?
           title: "¿Estás total y permanentemente discapacitado?"
           title_spouse: "¿Tú o tu cónyuge están total y permanentemente discapacitados?"
           unfortunately_dont_support_html: Desafortunadamente, nuestro servicio no puede incluir la Exclusión de Pensiones de Maryland si no has presentado prueba de tu discapacidad en un año fiscal anterior.<br><br> Si quieres reclamar la exclusión de pensiones, <a href='%{path}'>obtén más información aquí</a>.
+          why: "¿Por qué están preguntando esto?"
+          why_explained_1: La Exclusión de Pensiones de Maryland puede ahorrarte cientos a miles de dólares en impuestos estatales y locales al reducir la cantidad de impuestos que deberás pagar de tus ingresos de jubilación. Si tú tienen más de 65 años, califican automáticamente para la exclusión de pensiones.
+          why_explained_2_html: Si tú tienen menos de 65 años y deseas reclamar la exclusión de pensiones utilizando este servicio, tú haber <strong>adjuntado una certificación de un médico calificado que indique la naturaleza de su discapacidad y que tú estén totalmente discapacitados a una declaración de impuestos presentada anteriormente</strong>.
+          why_explained_html: Si tú tienen 65 años o más, necesitamos esta información para completar el Formulario 502R. Si tú tienen menos de 65 años, necesitamos esta información para determinar si tú o tu cónyugue califican para la <a href="https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php" target="_blank" rel="noopener">Exclusión de Pensiones de Maryland</a>.
+          why_explained_mfj_1: La Exclusión de Pensiones de Maryland puede ahorrarte cientos a miles de dólares en impuestos estatales y locales al reducir la cantidad de impuestos que deberás pagar de tus ingresos de jubilación. Si tú y tu cónyugue tienen más de 65 años, califican automáticamente para la exclusión de pensiones.
+          why_explained_mfj_2_html: Si tú y tu cónyugue tienen menos de 65 años y deseas reclamar la exclusión de pensiones utilizando este servicio, tú o tu cónyuge deben haber <strong>adjuntado una certificación de un médico calificado que indique la naturaleza de su discapacidad y que tú o tu cónyuge estén totalmente discapacitados a una declaración de impuestos presentada anteriormente</strong>.
+          why_explained_mfj_html: Si tú y tu cónyugue tienen 65 años o más, necesitamos esta información para completar el Formulario 502R. Si tú y tu cónyugue tienen menos de 65 años, necesitamos esta información para determinar si tú o tu cónyugue califican para la <a href="https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php" target="_blank" rel="noopener">Exclusión de Pensiones de Maryland</a>.
           yes_both: Sí, ambos lo somos
           yes_me: Sí, yo lo soy
           yes_spouse: Sí, mi cónyuge lo es
@@ -3246,14 +3256,8 @@ es:
         edit:
           county_html: "<strong>Condado donde vivías el 31 de diciembre de %{filing_year}</strong>"
           disability_status: Estado de discapacidad total y permanente
-          military: Tu servicio en el ejército o los beneficios por fallecimiento militar recibidos en nombre de un cónyuge o ex-cónyuge
-          none: Ninguno aplica.
-          other: Otros ingresos de jubilación (por ejemplo, un plan Keogh)
-          pension_annuity_endowment: Una pensión, renta vitalicia o dotación de un “sistema de jubilación para empleados”
           political_subdivision_html: "<strong>Subdivisión política donde vivías el 31 de diciembre de %{filing_year}</strong>"
           primary_proof_of_disability: Presentaste pruebas de una discapacidad para la exclusión de pensiones en años fiscales anteriores.
-          public_safety: Tu servicio como empleado de seguridad pública.
-          retirement_income_deductions: Detalles sobre los ingresos de jubilación de Maryland
           spouse_proof_of_disability: Prueba de discapacidad del cónyuge para la exclusión de pensión en años fiscales anteriores presentada.
           your_address: Dirección donde vivías el 31 de diciembre del %{filing_year}
       md_spouse_state_id:
@@ -4074,6 +4078,13 @@ es:
           qualified_disabled_retirement_benefits: Beneficios calificados de jubilación para personas con discapacidad
           qualified_retirement_benefits_deduction: Deducción por Beneficios Calificados de Jubilación
           qualified_retirement_benefits_deduction_explain: Estos permiten a las personas deducir de sus impuestos la totalidad o una parte de sus ingresos por jubilación.
+        md_retirement_income_deductions_review_header:
+          military: Tu servicio en el ejército o los beneficios por fallecimiento militar recibidos en nombre de un cónyuge o ex-cónyuge
+          none: Ninguno aplica.
+          other: Otros ingresos de jubilación (por ejemplo, un plan Keogh)
+          pension_annuity_endowment: Una pensión, renta vitalicia o dotación de un “sistema de jubilación para empleados”
+          public_safety: Tu servicio como empleado de seguridad pública.
+          retirement_income_deductions: Detalles sobre los ingresos de jubilación de Maryland
         nc_retirement_income_deductions_review_header:
           bailey_settlement_at_least_five_years: Al menos cinco años de servicio acreditable antes del 12 de agosto de 1989
           bailey_settlement_from_retirement_plan: Recibiste beneficios de jubilación del plan 401(k) o 457 de NC y contribuiste al plan antes del 12 de agosto de 1989
@@ -4158,57 +4169,23 @@ es:
       terms_and_conditions:
         edit:
           accept: Aceptar
-          body_text_closer_html: |
-            </ul>
-            <strong>Al usar FileYourStateTaxes, nos estás informando que has leído, comprendido y aceptado estos términos, así como nuestra <a href="%{privacy_policy_link}" target="_blank" rel="noopener nofollow">Política de Privacidad</a>. ¡Gracias por elegirnos para presentar tus impuestos!</strong>
-          body_text_opener_html: |
-            <strong>Cuando usas el servicio FileYourStateTaxes, te estás comprometiendo a lo siguiente:</strong><br>
-            <ul class="list--numbered">
+          body_text_closer_html: <strong>Al usar FileYourStateTaxes, nos estás informando que has leído, comprendido y aceptado estos términos, así como nuestra <a href="%{privacy_policy_link}" target="_blank" rel="noopener nofollow">Política de Privacidad</a>. ¡Gracias por elegirnos para presentar tus impuestos!</strong>
+          body_text_opener_html: "<strong>Cuando usas el servicio FileYourStateTaxes, te estás comprometiendo a lo siguiente:</strong>"
           decline: Rechazar
-          list_items_html: |
-            <li>
-            <strong>Presentación de tu declaración fácil:</strong> FileYourStateTaxes es un servicio gratis y fácil de usar desarrollado por %{owner} para ayudarte a declarar tus impuestos estatales, de manera conveniente, después de completar tu declaración de impuestos federales.
-            </li>
-            <li>
-            <strong>Transferencia de datos:</strong> Nos estás permitiendo usar los datos de tu declaración federal como punto de partida para tu declaración de impuestos estatales.
-            </li>
-            <li>
-            <strong>Preguntas para mayor precisión:</strong> Es posible que te hagamos algunas preguntas adicionales para asegurarnos que tu declaración de impuestos estatales quede completa y precisa.
-            </li>
-            <li>
-            <strong>Presentación electrónica modernizada:</strong> Enviaremos tu declaración de impuestos estatal y una copia de tu declaración de impuestos federal utilizando el sistema de Presentación Electrónica Modernizada (MeF por sus siglas en inglés), que la vincula a tu declaración federal.
-            </li>
-            <li>
-            <strong>Tu responsabilidad:</strong> Eres responsable de asegurar que la información que proporciones sea precisa y que estás cumpliendo con todas las leyes federales y estatales cuando usas FileYourStateTaxes.
-            </li>
-            <li>
-            <strong>Sin garantías:</strong> Hacemos nuestro mejor esfuerzo pero no podemos garantizar la exactitud o el éxito de tu declaración de impuestos estatales cuando utilizas FileYourStateTaxes.
-            </li>
-            <li>
-            <strong>Privacidad y seguridad:</strong> La protección de tu privacidad y tus datos es importante para nosotros. Consulta nuestra <a href="%{privacy_policy_link}" target="_blank" rel="noopener nofollow">Política de Privacidad</a> para obtener más información.
-            </li>
-            <li>
-            <strong>Mantente informado:</strong> Te enviaremos actualizaciones sobre tu declaración de impuestos estatales a través de tu método de comunicación preferido, ya sea por mensaje de texto o correo electrónico. Esto incluye actualizaciones de estado, recordatorios e información importante.
-            </li>
-            <li>
-            <strong>Tu elección:</strong> Puedes cambiar tu método de comunicación preferido o escoger no recibir actualizaciones en cualquier momento siguiendo las instrucciones en los mensajes o a través de la configuración de tu cuenta.
-            </li>
-            <li>
-            <strong>Eliminación de datos:</strong> Tienes derecho a pedirnos que eliminemos tus datos personales e información relacionada con tus impuestos de FileYourStateTaxes en cualquier momento. Simplemente envíanos un correo electrónico a help@fileyourtaxes.org. Pero ten en cuenta que esto podría afectar tu acceso al servicio.
-            </li>
-            <li>
-            <strong>Enlaces a sitios de terceros:</strong> Los enlaces en el software te permitirán salir de FileYourStateTaxes. Los sitios vinculados no están bajo el control de FileYourStateTaxes y FileYourStateTaxes no es responsable del contenido de ningún sitio vinculado ni de ningún enlace contenido en un sitio vinculado, ni de cambios o actualizaciones en dichos sitios. FileYourStateTaxes proporciona estos enlaces sólo como una conveniencia, y la inclusión de cualquier enlace no implica respaldo por parte de FileYourStateTaxes del sitio.
-            </li>
-            <li>
-            <strong>Ley Aplicable:</strong> Este acuerdo se regirá y se interpretará de acuerdo con las leyes del estado de California.
-            </li>
-            <li>
-            <strong>Preguntas e inquietudes:</strong> Si tienes alguna pregunta o inquietud sobre estos términos, no dudes en contactarnos en <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
-            </li>
-          list_items_no_sms_html: |
-            <li>
-            <strong>Mantente informado:</strong> Te enviaremos actualizaciones sobre tu declaración de impuestos estatales a través de tu método de comunicación preferido, ya sea por mensaje de texto o correo electrónico. Esto incluye actualizaciones de estado, recordatorios e información importante.
-            </li>
+          list_item_10_html: "<strong>Eliminación de datos:</strong> Tienes derecho a pedirnos que eliminemos tus datos personales e información relacionada con tus impuestos de FileYourStateTaxes en cualquier momento. Simplemente envíanos un correo electrónico a help@fileyourtaxes.org. Pero ten en cuenta que esto podría afectar tu acceso al servicio."
+          list_item_11_html: "<strong>Enlaces a sitios de terceros:</strong> Los enlaces en el software te permitirán salir de FileYourStateTaxes. Los sitios vinculados no están bajo el control de FileYourStateTaxes y FileYourStateTaxes no es responsable del contenido de ningún sitio vinculado ni de ningún enlace contenido en un sitio vinculado, ni de cambios o actualizaciones en dichos sitios. FileYourStateTaxes proporciona estos enlaces sólo como una conveniencia, y la inclusión de cualquier enlace no implica respaldo por parte de FileYourStateTaxes del sitio."
+          list_item_12_html: "<strong>Ley Aplicable:</strong> Este acuerdo se regirá y se interpretará de acuerdo con las leyes del estado de California."
+          list_item_13_html: <strong>Preguntas e inquietudes:</strong> Si tienes alguna pregunta o inquietud sobre estos términos, no dudes en contactarnos en <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
+          list_item_1_html: "<strong>Presentación de tu declaración fácil:</strong> FileYourStateTaxes es un servicio gratis y fácil de usar desarrollado por %{owner} para ayudarte a declarar tus impuestos estatales, de manera conveniente, después de completar tu declaración de impuestos federales."
+          list_item_2_html: "<strong>Transferencia de datos:</strong> Nos estás permitiendo usar los datos de tu declaración federal como punto de partida para tu declaración de impuestos estatales."
+          list_item_3_html: "<strong>Preguntas para mayor precisión:</strong> Es posible que te hagamos algunas preguntas adicionales para asegurarnos que tu declaración de impuestos estatales quede completa y precisa."
+          list_item_4_html: "<strong>Presentación electrónica modernizada:</strong> Enviaremos tu declaración de impuestos estatal y una copia de tu declaración de impuestos federal utilizando el sistema de Presentación Electrónica Modernizada (MeF por sus siglas en inglés), que la vincula a tu declaración federal."
+          list_item_5_html: "<strong>Tu responsabilidad:</strong> Eres responsable de asegurar que la información que proporciones sea precisa y que estás cumpliendo con todas las leyes federales y estatales cuando usas FileYourStateTaxes."
+          list_item_6_html: "<strong>Sin garantías:</strong> Hacemos nuestro mejor esfuerzo pero no podemos garantizar la exactitud o el éxito de tu declaración de impuestos estatales cuando utilizas FileYourStateTaxes."
+          list_item_7_html: <strong>Privacidad y seguridad:</strong> La protección de tu privacidad y tus datos es importante para nosotros. Consulta nuestra <a href="%{privacy_policy_link}" target="_blank" rel="noopener nofollow">Política de Privacidad</a> para obtener más información.
+          list_item_8_html: "<strong>Mantente informado:</strong> Te enviaremos actualizaciones sobre tu declaración de impuestos estatales a través de tu método de comunicación preferido, ya sea por mensaje de texto o correo electrónico. Esto incluye actualizaciones de estado, recordatorios e información importante."
+          list_item_9_html: "<strong>Tu elección:</strong> Puedes cambiar tu método de comunicación preferido o escoger no recibir actualizaciones en cualquier momento siguiendo las instrucciones en los mensajes o a través de la configuración de tu cuenta."
+          list_item_no_sms_html: "<strong>Mantente informado:</strong> Te enviaremos actualizaciones sobre tu declaración de impuestos estatales a través de tu método de comunicación preferido, ya sea por mensaje de texto o correo electrónico. Esto incluye actualizaciones de estado, recordatorios e información importante."
           ny_text_html: |
             <strong>Presenta tu declaración de impuestos del estado de Nueva York electrónicamente sin costo adicional. </strong><br><br>
             Antes de imprimir y enviar tu declaración, ten en cuenta que no hay un costo adicional por presentarla electrónicamente. Otras razones para presentar electrónicamente:

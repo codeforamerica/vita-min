@@ -18,7 +18,7 @@ RSpec.describe PdfFiller::Az322Pdf do
     end
 
     it "sets other fields to the correct values" do
-      expect(pdf_fields['TP_Name']).to eq 'Ariz  Onian '
+      expect(pdf_fields['TP_Name']).to eq 'Ariz Onian'
       expect(pdf_fields['TP_SSN']).to eq '555002222'
       expect(pdf_fields['Spouse_Name']).to eq ""
       expect(pdf_fields['Spouse_SSN']).to eq ""

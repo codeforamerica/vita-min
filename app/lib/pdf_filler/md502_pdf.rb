@@ -21,15 +21,14 @@ module PdfFiller
         '1b': @xml_document.at("Form502 Income EarnedIncome")&.text,
         '1d': @xml_document.at("Form502 Income TaxablePensionsIRAsAnnuities")&.text,
         'Place a Y in this box if the amount of your investment income is more than 11600': @xml_document.at("Form502 Income InvestmentIncomeIndicator")&.text == "X" ? "Y" : "",
-        'Your Social Security Number': @xml_document.at('Primary TaxpayerSSN')&.text,
-        'Spouses Social Security Number': @xml_document.at('Secondary TaxpayerSSN')&.text,
-        'Your First Name': @xml_document.at('Primary TaxpayerName FirstName')&.text,
-        'Primary MI': @xml_document.at('Primary TaxpayerName MiddleInitial')&.text,
-        'Your Last Name': @xml_document.at('Primary TaxpayerName LastName')&.text,
-        'Spouses First Name': @xml_document.at('Secondary TaxpayerName FirstName')&.text,
-        'Spouse MI': @xml_document.at('Secondary TaxpayerName MiddleInitial')&.text,
-        'Spouses Last Name': @xml_document.at('Secondary TaxpayerName LastName')&.text,
-
+        'Your Social Security Number': @submission.data_source.primary.ssn,
+        'Spouses Social Security Number': @submission.data_source.spouse.ssn,
+        'Your First Name': @submission.data_source.primary.first_name,
+        'Primary MI': @submission.data_source.primary.middle_initial,
+        'Your Last Name': @submission.data_source.primary.last_name_and_suffix,
+        'Spouses First Name': @submission.data_source.spouse.first_name,
+        'Spouse MI': @submission.data_source.spouse.middle_initial,
+        'Spouses Last Name': @submission.data_source.spouse.last_name_and_suffix,
         'Current Mailing Address Line 1 Street No and Street Name or PO Box': @xml_document.at('USAddress AddressLine1Txt')&.text,
         'Current Mailing Address Line 2 Apt No Suite No Floor No': @xml_document.at('USAddress AddressLine2Txt')&.text,
         'City or Town': @xml_document.at('USAddress CityNm')&.text,
@@ -126,7 +125,11 @@ module PdfFiller
         '33': @xml_document.at('Form502 LocalTaxComputation LocalTaxAfterCredits')&.text,
         '34': @xml_document.at('Form502 TotalStateAndLocalTax')&.text,
         'Check here if you authorize the State of Maryland to issue your refund by direct deposit': check_box_if_x(@xml_document.at('Form502 AuthToDirectDepositInd')&.text),
-        '51d Names as it appears on the bank account': full_names_of_bank_account_holders || ""
+        '51d Names as it appears on the bank account': full_names_of_bank_account_holders || "",
+        Name: @submission.data_source.primary.last_name_and_suffix,
+        SSN: @submission.data_source.primary.ssn,
+        Name_2: @submission.data_source.primary.last_name_and_suffix,
+        SSN_2: @submission.data_source.primary.ssn
       }
       if @xml_document.at('RefundDirectDeposit').present?
         answers.merge!({
