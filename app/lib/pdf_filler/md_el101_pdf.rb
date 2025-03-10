@@ -16,17 +16,17 @@ module PdfFiller
 
     def hash_for_pdf
 
-      signature = [@xml_document.at('Primary TaxpayerName FirstName')&.text, @xml_document.at('Primary TaxpayerName LastName')&.text].join(' ')
-      spouse_signature = @submission.data_source.spouse_esigned_yes? ? [@xml_document.at('Secondary TaxpayerName FirstName')&.text, @xml_document.at('Secondary TaxpayerName LastName')&.text].join(' ') : ""
+      signature = @submission.data_source.primary.full_name
+      spouse_signature = @submission.data_source.spouse_esigned_yes? ? @submission.data_source.spouse.full_name : ""
       {
-        'First Name': @xml_document.at('Primary TaxpayerName FirstName')&.text,
-        'Primary MI': @xml_document.at('Primary TaxpayerName MiddleInitial')&.text,
-        'Last Name': @xml_document.at('Primary TaxpayerName LastName')&.text,
-        'SSNTaxpayer Identification Number': @xml_document.at('Primary TaxpayerSSN')&.text,
-        'Spouses First Name': @xml_document.at('Secondary TaxpayerName FirstName')&.text,
-        'Spouse MI': @xml_document.at('Secondary TaxpayerName MiddleInitial')&.text,
-        'Spouses Last Name': @xml_document.at('Secondary TaxpayerName LastName')&.text,
-        'SSNTaxpayer Identification Number_2': @xml_document.at('Secondary TaxpayerSSN')&.text,
+        'First Name': @submission.data_source.primary.first_name,
+        'Primary MI': @submission.data_source.primary.middle_initial,
+        'Last Name': @submission.data_source.primary.last_name_and_suffix,
+        'SSNTaxpayer Identification Number': @submission.data_source.primary.ssn,
+        'Spouses First Name': @submission.data_source.spouse.first_name,
+        'Spouse MI': @submission.data_source.spouse.middle_initial,
+        'Spouses Last Name': @submission.data_source.spouse.last_name_and_suffix,
+        'SSNTaxpayer Identification Number_2': @submission.data_source.spouse.ssn,
         '2 Amount of overpayment to be refunded to you                                         2': calculated_fields.fetch(:MD502_LINE_48),
         '3': calculated_fields.fetch(:MD502_LINE_50),
         'I authorize': checkbox_value(@submission.data_source.primary_esigned_yes?),

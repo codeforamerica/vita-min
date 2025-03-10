@@ -16,8 +16,8 @@ module PdfFiller
 
     def hash_for_pdf
       {
-        y_d400schswf_ssn: @xml_document.at('Primary TaxpayerSSN')&.text,
-        y_d400wf_lname2_PG2: @xml_document.at('Primary TaxpayerName LastName')&.text,
+        y_d400schswf_ssn: @submission.data_source.primary.ssn,
+        y_d400wf_lname2_PG2: @submission.data_source.primary.last_name_and_suffix,
         y_d400schswf_li18_good: @xml_document.at('DedFedAGI USInterestInc')&.text || '0',
         y_d400schswf_li19_good: @xml_document.at('DedFedAGI TaxPortSSRRB')&.text || '0',
         y_d400schswf_li20_good: @xml_document.at('DedFedAGI BaileyRetireBenef')&.text || '0',

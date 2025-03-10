@@ -55,7 +55,6 @@ RSpec.feature "Logging in" do
       expect(twilio_service).to have_received(:send_text_message).with(
         to: phone_number,
         body: "Your 6-digit FileYourStateTaxes verification code is: #{verification_code}. This code will expire after 10 minutes.",
-        status_callback: twilio_update_status_url(OutgoingMessageStatus.last.id, locale: nil, host: 'test.host')
       )
 
       expect(page).to have_text "Enter the code to continue"

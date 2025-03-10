@@ -2979,6 +2979,7 @@ en:
           see_if_you_qualify:
             one: To see if you qualify, we need more information about you.
             other: To see if you qualify, we need more information about you and your household.
+          select_a_household_member_error: Please select a household member
           select_household_members: 'Select the members of the household any of these situations applied to in %{tax_year}:'
           situation_incarceration: were incarcerated
           situation_snap: received food stamps / SNAP-EBT
@@ -3282,14 +3283,8 @@ en:
         edit:
           county_html: "<strong> County lived in on December 31, %{filing_year}</strong>"
           disability_status: Totally and permanently disabled status
-          military: Benefits from your military service or benefits received for the military service of your deceased spouse or ex-spouse
-          none: None apply
-          other: Other retirement income (For example, a Keogh plan)
-          pension_annuity_endowment: Money from a pension, annuity, or other retirement plan from your job
           political_subdivision_html: "<strong>Political subdivision lived in on December 31, %{filing_year}</strong>"
           primary_proof_of_disability: Proof provided of disability for the pension exclusion in past tax years
-          public_safety: Your service as a public safety employee
-          retirement_income_deductions: Maryland retirement income details
           spouse_proof_of_disability: Spouse's proof provided of disability for the pension exclusion in past tax years
           your_address: Address lived at on December 31, %{filing_year}
       md_spouse_state_id:
@@ -3385,25 +3380,15 @@ en:
       nc_review:
         edit:
           amount_earned: Amount earned
-          bailey_settlement_at_least_five_years: At least five years of creditable service by August 12, 1989
-          bailey_settlement_from_retirement_plan: Received retirement benefits from NC’s 401(k) or 457 plan, and contributed to the plan before August 12, 1989
           benefits_vested_pensions: Subtraction for retirement benefits by vested qualifying government pensions
           child_deduction: Child deduction
           interest_us_bonds: Interest income from U.S. bonds (not taxable in North Carolina)
-          none_apply: None apply
           primary_veteran: United States Armed Forces veteran status
-          retirement_income_deductions: North Carolina retirement income deductions
-          retirement_income_deductions_explanation: These allow people to deduct all or a portion of their retirement income from their taxes.
-          retirement_income_source_bailey_settlement: Retirement benefits as part of the Bailey Settlement
-          retirement_income_source_review_and_edit: Review and edit 1099-R %{index}
-          retirement_income_source_uniformed_services: Retirement benefits from the Uniformed Services
           service_members: Subtraction for retirement benefits received by service members
           social_security_benefits: Social Security benefits (not taxable in North Carolina)
           spouse_veteran: Your spouse's United States Armed Forces veteran status
           state_credit: Enrolled member of a federally recognized Indian Tribe, and received income from a source within a reservation
           subtraction_indian_tribe: Subtraction for income of a member of an Indian tribe
-          uniformed_survivor_benefit_plan: Payments from a qualifying Survivor Benefit Plan to a beneficiary of a retired member who served at least 20 years or who was medically retired from the Uniformed Services
-          uniformed_twenty_years_medical_retired: Retired member who served at least 20 years or were medically retired from the Uniformed Services
           use_tax_amount: Amount of use tax
           use_tax_applied: Out-of-state purchases in %{filing_year} without paying sales tax
       nc_sales_use_tax:
@@ -4104,6 +4089,24 @@ en:
           qualified_disabled_retirement_benefits: Qualified disabled retirement benefits
           qualified_retirement_benefits_deduction: Qualified Retirement Benefits Deduction
           qualified_retirement_benefits_deduction_explain: These allow people to deduct all or a portion of their retirement income from their taxes.
+        md_retirement_income_deductions_review_header:
+          military: Benefits from your military service or benefits received for the military service of your deceased spouse or ex-spouse
+          none: None apply
+          other: Other retirement income (For example, a Keogh plan)
+          pension_annuity_endowment: Money from a pension, annuity, or other retirement plan from your job
+          public_safety: Your service as a public safety employee
+          retirement_income_deductions: Maryland retirement income details
+        nc_retirement_income_deductions_review_header:
+          bailey_settlement_at_least_five_years: At least five years of creditable service by August 12, 1989
+          bailey_settlement_from_retirement_plan: Received retirement benefits from NC’s 401(k) or 457 plan, and contributed to the plan before August 12, 1989
+          none_apply: None apply
+          retirement_income_deductions: North Carolina retirement income deductions
+          retirement_income_deductions_explanation: These allow people to deduct all or a portion of their retirement income from their taxes.
+          retirement_income_source_bailey_settlement: Retirement benefits as part of the Bailey Settlement
+          retirement_income_source_review_and_edit: Review and edit 1099-R %{index}
+          retirement_income_source_uniformed_services: Retirement benefits from the Uniformed Services
+          uniformed_survivor_benefit_plan: Payments from a qualifying Survivor Benefit Plan to a beneficiary of a retired member who served at least 20 years or who was medically retired from the Uniformed Services
+          uniformed_twenty_years_medical_retired: Retired member who served at least 20 years or were medically retired from the Uniformed Services
         review_header:
           income_details: Income Details
           income_forms_collected: 'Income form(s) collected:'
@@ -4177,57 +4180,23 @@ en:
       terms_and_conditions:
         edit:
           accept: Accept
-          body_text_closer_html: |
-            </ul>
-            <strong>By using FileYourStateTaxes, you're letting us know that you've read, understood, and agreed to these terms as well as our <a href="%{privacy_policy_link}" target="_blank" rel="noopener nofollow">Privacy Policy</a>. Thanks for choosing us for your tax filing needs!</strong>
-          body_text_opener_html: |
-            <strong>When you use the FileYourStateTaxes service, here's what you're agreeing to:</strong><br>
-            <ul class="list--numbered">
+          body_text_closer_html: <strong>By using FileYourStateTaxes, you're letting us know that you've read, understood, and agreed to these terms as well as our <a href="%{privacy_policy_link}" target="_blank" rel="noopener nofollow">Privacy Policy</a>. Thanks for choosing us for your tax filing needs!</strong>
+          body_text_opener_html: "<strong>When you use the FileYourStateTaxes service, here's what you're agreeing to:</strong>"
           decline: Decline
-          list_items_html: |
-            <li>
-              <strong>Easy Tax Filing:</strong> FileYourStateTaxes is a free and easy to use service built by %{owner} to help you file your state tax return conveniently after you've completed your federal return.
-            </li>
-            <li>
-              <strong>Data Transfer:</strong> You're letting us use your federal return data as the starting point for your state tax return.
-            </li>
-            <li>
-              <strong>Questions for Accuracy:</strong> Sometimes we might ask you a few more questions to make sure your state tax return is complete and accurate.
-            </li>
-            <li>
-              <strong>Modernized eFile:</strong> We'll submit your state tax return using the Modernized eFile (MeF) system, which links it to your federal return.
-            </li>
-            <li>
-              <strong>Your Responsibility:</strong> You're responsible for making sure the information you provide is accurate and that you follow all federal and state tax laws.
-            </li>
-            <li>
-              <strong>No Guarantees:</strong> We do our best, but we can't guarantee the accuracy or success of your state tax return when you use FileYourStateTaxes.
-            </li>
-            <li>
-              <strong>Privacy and Security:</strong> We're serious about protecting your privacy and data. Check out our <a href="%{privacy_policy_link}" target="_blank" rel="noopener nofollow">Privacy Policy</a> for all the details.
-            </li>
-            <li>
-              <strong>Stay Updated:</strong> We'll send you updates about your state tax return through your preferred communication method - either text message (SMS) or email. This includes status updates, reminders, and important information.
-            </li>
-            <li>
-              <strong>Your Choice:</strong> You can change your preferred communication method or opt out of these updates anytime by following the instructions in the messages or through your account settings.
-            </li>
-            <li>
-              <strong>Data Removal:</strong> You have the right to ask us to remove your personal data and tax-related information from FileYourStateTaxes whenever you want. Just contact us or use the data removal function in the software. But keep in mind, this might affect your access to the service.
-            </li>
-            <li>
-              <strong>Links to Third Party Sites:</strong> Links in the software will let you leave FileYourStateTaxes. The linked sites are not under the control of FileYourStateTaxes and FileYourStateTaxes is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. FileYourStateTaxes is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement by FileYourStateTaxes of the site.
-            </li>
-            <li>
-              <strong>Governing Law:</strong> This Agreement will be governed by and construed in accordance with the laws of the state of California.
-            </li>
-            <li>
-              <strong>Questions and Concerns:</strong> If you have any questions or concerns about these terms, feel free to reach out to us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
-            </li>
-          list_items_no_sms_html: |
-            <li>
-              <strong>Stay Updated:</strong> We'll send you updates about your state tax return through your preferred communication method - either SMS or email. This includes status updates, reminders, and important information.
-            </li>
+          list_item_10_html: "<strong>Data Removal:</strong> You have the right to ask us to remove your personal data and tax-related information from FileYourStateTaxes whenever you want. Just contact us or use the data removal function in the software. But keep in mind, this might affect your access to the service."
+          list_item_11_html: "<strong>Links to Third Party Sites:</strong> Links in the software will let you leave FileYourStateTaxes. The linked sites are not under the control of FileYourStateTaxes and FileYourStateTaxes is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. FileYourStateTaxes is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement by FileYourStateTaxes of the site."
+          list_item_12_html: "<strong>Governing Law:</strong> This Agreement will be governed by and construed in accordance with the laws of the state of California."
+          list_item_13_html: <strong>Questions and Concerns:</strong> If you have any questions or concerns about these terms, feel free to reach out to us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
+          list_item_1_html: "<strong>Easy Tax Filing:</strong> FileYourStateTaxes is a free and easy to use service built by %{owner} to help you file your state tax return conveniently after you've completed your federal return."
+          list_item_2_html: "<strong>Data Transfer:</strong> You're letting us use your federal return data as the starting point for your state tax return."
+          list_item_3_html: "<strong>Questions for Accuracy:</strong> Sometimes we might ask you a few more questions to make sure your state tax return is complete and accurate."
+          list_item_4_html: "<strong>Modernized eFile:</strong> We'll submit your state tax return using the Modernized eFile (MeF) system, which links it to your federal return."
+          list_item_5_html: "<strong>Your Responsibility:</strong> You're responsible for making sure the information you provide is accurate and that you follow all federal and state tax laws."
+          list_item_6_html: "<strong>No Guarantees:</strong> We do our best, but we can't guarantee the accuracy or success of your state tax return when you use FileYourStateTaxes."
+          list_item_7_html: <strong>Privacy and Security:</strong> We're serious about protecting your privacy and data. Check out our <a href="%{privacy_policy_link}" target="_blank" rel="noopener nofollow">Privacy Policy</a> for all the details.
+          list_item_8_html: "<strong>Stay Updated:</strong> We'll send you updates about your state tax return through your preferred communication method - either text message (SMS) or email. This includes status updates, reminders, and important information."
+          list_item_9_html: "<strong>Your Choice:</strong> You can change your preferred communication method or opt out of these updates anytime by following the instructions in the messages or through your account settings."
+          list_item_no_sms_html: "<strong>Stay Updated:</strong> We'll send you updates about your state tax return through your preferred communication method - either SMS or email. This includes status updates, reminders, and important information."
           ny_text_html: |
             <strong>E-file your New York State income tax return at no extra charge.</strong><br><br>
             Before you print and mail your return, please note that there is no additional fee for filing it electronically. Other reasons to e-file:

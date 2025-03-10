@@ -16,10 +16,10 @@ module PdfFiller
 
     def hash_for_pdf
       {
-        "Tp_Name" => [@xml_document.at('Primary TaxpayerName FirstName')&.text, @xml_document.at('Primary TaxpayerName MiddleInitial')&.text, @xml_document.at('Primary TaxpayerName LastName')&.text, @xml_document.at('Primary TaxpayerName NameSuffix')&.text].join(' '),
-        "Tp_SSN" => @xml_document.at('Primary TaxpayerSSN')&.text,
-        "Spouse_Name" => [@xml_document.at('Secondary TaxpayerName FirstName')&.text, @xml_document.at('Secondary TaxpayerName MiddleInitial')&.text, @xml_document.at('Secondary TaxpayerName LastName')&.text, @xml_document.at('Secondary TaxpayerName NameSuffix')&.text].join(' '),
-        "Spouse_SSN" => @xml_document.at('Secondary TaxpayerSSN')&.text,
+        "Tp_Name" => @submission.data_source.primary.full_name,
+        "Tp_SSN" => @submission.data_source.primary.ssn,
+        "Spouse_Name" => @submission.data_source.spouse.full_name,
+        "Spouse_SSN" => @submission.data_source.spouse.ssn,
         "6a" => @xml_document.at('ColumnA CtrbChrtyPrvdAstWrkgPor')&.text,
         "6c" => @xml_document.at('ColumnC CtrbChrtyPrvdAstWrkgPor')&.text,
         "7a" => @xml_document.at('ColumnA CtrbMdFePdPblcSchl')&.text,
