@@ -1,10 +1,8 @@
 require "rails_helper"
 
 RSpec.describe StateFile::MdPermanentlyDisabledForm do
-  let(:intake) { create :state_file_md_intake, primary_birth_date: primary_dob, spouse_birth_date: spouse_dob }
+  let(:intake) { create :state_file_md_intake }
   let(:form) { described_class.new(intake, params) }
-  let(:primary_dob) { nil }
-  let(:spouse_dob) { nil }
 
   describe "#valid?" do
     shared_examples :is_invalid do |invalid_params|
@@ -98,8 +96,6 @@ RSpec.describe StateFile::MdPermanentlyDisabledForm do
           let(:mfj_disability) { "none" }
           let(:primary_proof_of_disability_submitted) { nil }
           let(:spouse_proof_of_disability_submitted) { nil }
-          let(:primary_dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 64), 1, 1) }
-          let(:spouse_dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 64), 1, 1) }
 
           it "does not require proof of disability" do
             expect(form).to be_valid
