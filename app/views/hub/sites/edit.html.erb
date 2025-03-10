@@ -2,7 +2,9 @@
 <% content_for :page_title, @title %>
 <% content_for :card do %>
   <section class="slab slab--padded">
-    <%= link_to(@site.parent_organization.name, edit_hub_organization_path(id: @site.parent_organization)) %>
+    <% if @site.parent_organization %>
+      <%= link_to(@site.parent_organization.name, edit_hub_organization_path(id: @site.parent_organization)) %>
+    <% end %>
     <div class="grid">
       <div class="grid--item width-one-half">
         <%= render "form", url: hub_site_path(id: @site.id), http_method: :patch %>
