@@ -76,6 +76,7 @@ gem 'ordinalize_full'
 gem 'awesome_print'
 gem 'rack-attack'
 gem 'holidays'
+gem 'view_component', '~>3.21'
 
 # Use Flipper for feature flagging
 gem 'flipper'
