@@ -14,10 +14,10 @@ class PdfFiller::Az321Pdf
 
   def hash_for_pdf
     answers = {
-      "TP_Name" => name('Primary'),
-      "TP_SSN" => @xml_document.at('Primary TaxpayerSSN')&.text,
-      "Spouse_Name" => name('Secondary'),
-      "Spouse_SSN" => @xml_document.at('Secondary TaxpayerSSN')&.text,
+      "TP_Name" => @submission.data_source.primary.full_name,
+      "TP_SSN" => @submission.data_source.primary.ssn,
+      "Spouse_Name" => @submission.data_source.spouse.full_name,
+      "Spouse_SSN" => @submission.data_source.spouse.ssn,
       "4h" => @xml_document.at('Form321 ContTotalCharityAmt')&.text,
       "4" => @xml_document.at('Form321 TotalCharityAmtContSheet')&.text,
       "5" => @xml_document.at('Form321 TotalCharityAmt')&.text,
@@ -45,16 +45,5 @@ class PdfFiller::Az321Pdf
     end
 
     answers
-  end
-
-  private
-
-  def name(taxpayer)
-    [
-      @xml_document.at("#{taxpayer} TaxpayerName FirstName")&.text,
-      @xml_document.at("#{taxpayer} TaxpayerName MiddleInitial")&.text,
-      @xml_document.at("#{taxpayer} TaxpayerName LastName")&.text,
-      @xml_document.at("#{taxpayer} TaxpayerName NameSuffix")&.text
-    ].join(' ')
   end
 end

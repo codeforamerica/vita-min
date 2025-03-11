@@ -30,6 +30,10 @@
       </div>
     </div>
   <% end %>
+
+  <% if Flipper.enabled?(:show_retirement_ui) %>
+    <%= render "state_file/questions/shared/#{current_state_code}_retirement_income_deductions_review_header" rescue nil %>
+  <% end %>
 <% end %>
 
 <%= render "state_file/questions/shared/abstract_review_header" %>

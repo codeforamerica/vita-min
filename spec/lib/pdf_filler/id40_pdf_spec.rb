@@ -35,6 +35,7 @@ RSpec.describe PdfFiller::Id40Pdf do
                :single_filer_with_json,
                primary_first_name: "Ida",
                primary_last_name: "Idahoan",
+               primary_suffix: "JR",
                payment_or_deposit_type: :direct_deposit,
                routing_number: "123456789",
                account_number: "87654321",
@@ -55,7 +56,7 @@ RSpec.describe PdfFiller::Id40Pdf do
 
       it "sets other fields to the correct values" do
         expect(pdf_fields['FirstNameInitial']).to eq 'Ida'
-        expect(pdf_fields['LastName']).to eq 'Idahoan'
+        expect(pdf_fields['LastName']).to eq 'Idahoan JR'
         expect(pdf_fields['SSN']).to eq '400000012'
         expect(pdf_fields['CurrentMailing']).to eq '321 Creek Drive'
         expect(pdf_fields['City']).to eq 'Wallace'
@@ -144,17 +145,18 @@ RSpec.describe PdfFiller::Id40Pdf do
     end
 
     context "married filing jointly" do
-      let(:intake) {
+      let!(:intake) {
         create(:state_file_id_intake,
                :mfj_filer_with_json,
                spouse_first_name: "Spida",
-               spouse_last_name: "Spidahoan")
+               spouse_last_name: "Spidahoan",
+               spouse_suffix: "SR")
       }
 
       context "with a spouse that is claimed as a dependent" do
         it "sets spouse fields correctly" do
           expect(pdf_fields['SpouseFirstNameInitial']).to eq 'Spida'
-          expect(pdf_fields['SpouseLastName']).to eq 'Spidahoan'
+          expect(pdf_fields['SpouseLastName']).to eq 'Spidahoan SR'
           expect(pdf_fields['SpouseSSN']).to eq '600000030'
           expect(pdf_fields['SpouseDeceased 2']).to eq 'Off'
           expect(pdf_fields['FilingStatusMarriedJoint']).to eq 'Yes'

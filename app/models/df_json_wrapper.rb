@@ -22,6 +22,10 @@ class DfJsonWrapper
         define_method(selector_name) do
           Date.parse(df_json_value(key_path)) if df_json_value(key_path).present?
         end
+      when :tin
+        define_method(selector_name) do
+          df_json_value(key_path)&.delete("-")
+        end
       when :string, :boolean
         define_method(selector_name) do
           df_json_value(key_path)

@@ -230,9 +230,7 @@ module Efile
       end
 
       def calculate_line_10_count
-        @intake.dependents.count do |dependent|
-          dependent.qualifying_child
-        end
+        @intake.dependents.count(&:qualifying_child)
       end
 
       def calculate_line_10_exemption
@@ -310,9 +308,7 @@ module Efile
       end
 
       def calculate_line_15
-        @intake.state_file_w2s.sum do |w2|
-          w2.state_wages_amount.to_i
-        end
+        @intake.state_file_w2s.sum(&:state_wages_amount).round
       end
 
       def calculate_line_16a
@@ -360,7 +356,7 @@ module Efile
       end
 
       def calculate_line_29
-        line_or_zero(:NJ1040_LINE_27) - line_or_zero(:NJ1040_LINE_28C)
+        [line_or_zero(:NJ1040_LINE_27) - line_or_zero(:NJ1040_LINE_28C), 0].max
       end
 
       def calculate_line_31
@@ -376,7 +372,7 @@ module Efile
       end
 
       def calculate_line_39
-        line_or_zero(:NJ1040_LINE_29) - line_or_zero(:NJ1040_LINE_38)
+        [line_or_zero(:NJ1040_LINE_29) - line_or_zero(:NJ1040_LINE_38), 0].max
       end
 
       def is_ineligible_or_unsupported_for_property_tax_credit
@@ -468,7 +464,7 @@ module Efile
         return nil if @intake.state_file_w2s.empty? && @intake.state_file1099_rs.empty?
 
         (
-          @intake.state_file_w2s.sum{ |item| item.state_income_tax_amount || 0} +
+          @intake.state_file_w2s.sum { |item| item.state_income_tax_amount || 0} +
           @intake.state_file1099_rs.sum(&:state_tax_withheld_amount)
         ).round
       end
@@ -659,9 +655,7 @@ module Efile
 
       def calculate_line_80
         if line_or_zero(:NJ1040_LINE_68).positive?
-          # Line 78 is always 0 now
-          # When implemented we will have to make sure this doesn't become negative
-          return line_or_zero(:NJ1040_LINE_68) - line_or_zero(:NJ1040_LINE_78)
+          return [line_or_zero(:NJ1040_LINE_68) - line_or_zero(:NJ1040_LINE_78), 0].max
         end
         0
       end

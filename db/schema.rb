@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_02_26_234403) do
+ActiveRecord::Schema[7.1].define(version: 2025_03_04_145229) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1735,8 +1735,13 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_26_234403) do
     t.string "payer_state_identification_number"
     t.string "payer_zip"
     t.string "phone_number"
+    t.string "recipient_address_line1"
+    t.string "recipient_address_line2"
+    t.string "recipient_city_name"
     t.string "recipient_name"
     t.string "recipient_ssn"
+    t.string "recipient_state_code"
+    t.string "recipient_zip"
     t.boolean "standard"
     t.string "state_code"
     t.decimal "state_distribution_amount", precision: 12, scale: 2
@@ -1782,6 +1787,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_26_234403) do
     t.datetime "created_at", null: false
     t.jsonb "details", default: "{}"
     t.integer "event_type"
+    t.bigint "state_file_archived_intake_id"
     t.bigint "state_file_archived_intake_request_id"
     t.datetime "updated_at", null: false
   end
@@ -1802,7 +1808,11 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_26_234403) do
   create_table "state_file_archived_intakes", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "email_address"
+    t.integer "failed_attempts", default: 0, null: false
+    t.string "fake_address_1"
+    t.string "fake_address_2"
     t.string "hashed_ssn"
+    t.datetime "locked_at"
     t.string "mailing_apartment"
     t.string "mailing_city"
     t.string "mailing_state"
@@ -2114,7 +2124,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_26_234403) do
     t.integer "primary_proof_of_disability_submitted", default: 0, null: false
     t.string "primary_signature"
     t.text "primary_signature_pin"
-    t.decimal "primary_ssb_amount", precision: 12, scale: 2, default: "0.0", null: false
+    t.decimal "primary_ssb_amount", precision: 12, scale: 2
     t.string "primary_ssn"
     t.bigint "primary_state_id_id"
     t.decimal "primary_student_loan_interest_ded_amount", precision: 12, scale: 2, default: "0.0", null: false
@@ -2137,7 +2147,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_26_234403) do
     t.string "spouse_middle_initial"
     t.integer "spouse_proof_of_disability_submitted", default: 0, null: false
     t.text "spouse_signature_pin"
-    t.decimal "spouse_ssb_amount", precision: 12, scale: 2, default: "0.0", null: false
+    t.decimal "spouse_ssb_amount", precision: 12, scale: 2
     t.string "spouse_ssn"
     t.bigint "spouse_state_id_id"
     t.decimal "spouse_student_loan_interest_ded_amount", precision: 12, scale: 2, default: "0.0", null: false
@@ -2260,6 +2270,11 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_26_234403) do
     t.integer "NJ1040_LINE_15", default: 0, null: false
     t.integer "NJ1040_LINE_16A", default: 0, null: false
     t.integer "NJ1040_LINE_16B", default: 0, null: false
+    t.integer "NJ1040_LINE_20A", default: 0, null: false
+    t.integer "NJ1040_LINE_20B", default: 0, null: false
+    t.integer "NJ1040_LINE_28A", default: 0, null: false
+    t.integer "NJ1040_LINE_28B", default: 0, null: false
+    t.integer "NJ1040_LINE_28C", default: 0, null: false
     t.integer "NJ1040_LINE_29", default: 0, null: false
     t.integer "NJ1040_LINE_31", default: 0, null: false
     t.integer "NJ1040_LINE_41", default: 0, null: false
@@ -2306,6 +2321,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_26_234403) do
     t.integer "eligibility_all_members_health_insurance", default: 0, null: false
     t.integer "eligibility_lived_in_state", default: 0, null: false
     t.integer "eligibility_out_of_state_income", default: 0, null: false
+    t.integer "eligibility_retirement_warning_continue", default: 0
     t.citext "email_address"
     t.datetime "email_address_verified_at"
     t.integer "email_notification_opt_in", default: 0, null: false
@@ -2987,6 +3003,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_26_234403) do
   add_foreign_key "site_coordinator_roles_vita_partners", "vita_partners"
   add_foreign_key "source_parameters", "vita_partners"
   add_foreign_key "state_file_archived_intake_access_logs", "state_file_archived_intake_requests"
+  add_foreign_key "state_file_archived_intake_access_logs", "state_file_archived_intakes", validate: false
   add_foreign_key "state_routing_fractions", "state_routing_targets"
   add_foreign_key "state_routing_fractions", "vita_partners"
   add_foreign_key "system_notes", "clients"

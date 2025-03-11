@@ -10,20 +10,76 @@ RSpec.describe StateFile::Questions::IdDisabilityController do
 
   describe "#edit" do
     render_views
+
+    let!(:state_file1099_r) { create(:state_file1099_r, intake: intake, taxable_amount: 25) }
+    let(:between_dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 63), 1, 1) }
+    let(:not_between_dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 60), 1, 1) }
+
     it 'succeeds' do
       get :edit
       expect(response).to be_successful
     end
+
+    context "single" do
+      context "primary is within 62-65 years old" do
+        before do
+          intake.update(primary_birth_date: between_dob)
+        end
+
+        it "primary_disabled questions" do
+          get :edit, params: {}
+          expect(response).to render_template :edit
+          expect(response.body).to include(I18n.t('state_file.questions.id_disability.edit.question'))
+        end
+      end
+    end
+
+    context "mfj" do
+      let(:intake) { create :state_file_id_intake, :with_spouse, filing_status: :married_filing_jointly }
+      context "both filers are within 62-65 years old" do
+        before do
+          intake.update(primary_birth_date: between_dob)
+          intake.update(spouse_birth_date: between_dob)
+        end
+        it "shows mfj disability questions for both filers" do
+          get :edit, params: {}
+          expect(response).to render_template :edit
+          expect(response.body).to include(I18n.t('state_file.questions.id_disability.edit.question_both'))
+        end
+      end
+
+      context "only primary is within 62-65 years old" do
+        before do
+          intake.update(primary_birth_date: between_dob)
+          intake.update(spouse_birth_date: not_between_dob)
+        end
+
+        it "primary_disabled questions" do
+          get :edit, params: {}
+          expect(response).to render_template :edit
+          expect(response.body).to include(I18n.t('state_file.questions.id_disability.edit.question'))
+        end
+      end
+
+      context "only spouse is within 62-65 years old" do
+        before do
+          intake.update(primary_birth_date: not_between_dob)
+          intake.update(spouse_birth_date: between_dob)
+        end
+        it "spouse_disabled questions" do
+          get :edit, params: {}
+          expect(response).to render_template :edit
+          expect(response.body).to include(I18n.t('state_file.questions.id_disability.edit.question_spouse'))
+        end
+      end
+    end
   end
 
   describe ".show?" do
-    context "when single" do
-      let(:intake) { create :state_file_id_intake}
-      let!(:state_file1099_r) { create(:state_file1099_r, intake: intake, taxable_amount: 25) }
-      before do
-        intake.primary_birth_date = Date.new(MultiTenantService.statefile.current_tax_year - 61, 1, 1)
-      end
+    let(:intake) { create :state_file_id_intake}
+    let!(:state_file1099_r) { create(:state_file1099_r, intake: intake, taxable_amount: 25) }
 
+    context "when single" do
       context "when feature flag is disabled" do
         before do
           allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(false)
@@ -33,46 +89,30 @@ RSpec.describe StateFile::Questions::IdDisabilityController do
           expect(described_class.show?(intake)).to eq false
         end
       end
+    end
 
-      context "with a 1099R but zero taxable amount" do
-        let!(:state_file1099_r) { create(:state_file1099_r, intake: intake, taxable_amount: 0) }
+    context "with married filing separately status" do
+      let(:intake) { create :state_file_id_intake, filing_status: "married_filing_separately" }
 
-        it "does not show" do
-          expect(described_class.show?(intake)).to eq false
-        end
+      it "does not show" do
+        expect(described_class.show?(intake)).to eq false
       end
+    end
 
-      context "with married filing separately status" do
-        let(:intake) { create :state_file_id_intake, filing_status: "married_filing_separately" }
-
-        it "does not show" do
-          expect(described_class.show?(intake)).to eq false
-        end
-      end
-
-      context "when filer is under 62" do
+    context "has_filer_between_62_and_65_years_old?" do
+      context "meets requirements" do
         before do
-          intake.primary_birth_date = Date.new(MultiTenantService.statefile.current_tax_year - 60, 1, 1)
+          allow(intake).to receive(:has_filer_between_62_and_65_years_old?).and_return(true)
         end
 
         it "does not show" do
-          expect(described_class.show?(intake)).to eq false
-        end
-      end
-
-      context "when filer is within the age range qualifications" do
-        before do
-          intake.primary_birth_date = Date.new(MultiTenantService.statefile.current_tax_year - 62, 1, 1)
-        end
-
-        it "shows" do
           expect(described_class.show?(intake)).to eq true
         end
       end
 
-      context "when filer is above the age requirements" do
+      context "does not meet requirements" do
         before do
-          intake.primary_birth_date = Date.new(MultiTenantService.statefile.current_tax_year - 65, 1, 1)
+          allow(intake).to receive(:has_filer_between_62_and_65_years_old?).and_return(false)
         end
 
         it "does not show" do
@@ -80,52 +120,97 @@ RSpec.describe StateFile::Questions::IdDisabilityController do
         end
       end
     end
+  end
 
-    context "when married filing jointly" do
-      let(:intake) { create :state_file_id_intake, :mfj_filer_with_json}
-      let!(:state_file1099_r) { create(:state_file1099_r, intake: intake, taxable_amount: 25) }
+  describe "#update" do
+    let(:primary_disabled) { "no" }
+    let(:spouse_disabled) { "no" }
+    let(:form_params) do
+      {
+        state_file_id_disability_form: {
+          primary_disabled: primary_disabled,
+          spouse_disabled: spouse_disabled
+        }
+      }
+    end
+    let!(:state_file1099_r) { create(:state_file1099_r, intake: intake, taxable_amount: 25, recipient_ssn: intake.primary.ssn) }
 
-      context "when both spouses are under 62" do
+    context "returning from review" do
+      context "has over 65 year olds in household" do
         before do
-          intake.primary_birth_date = Date.new(MultiTenantService.statefile.current_tax_year - 60, 1, 1)
-          intake.spouse_birth_date = Date.new(MultiTenantService.statefile.current_tax_year - 60, 1, 1)
+          intake.update(primary_birth_date: Date.new(MultiTenantService.statefile.current_tax_year - 65, 1, 1))
         end
 
-        it "does not show" do
-          expect(described_class.show?(intake)).to eq false
+        it "should show the Id Retirement and Pension income controller" do
+          post :update, params: form_params.merge({return_to_review: "y"})
+          expect(response).to redirect_to(StateFile::Questions::IdRetirementAndPensionIncomeController.to_path_helper(return_to_review: "y"))
+        end
+
+        context "with no eligible 1099Rs" do
+          before do
+            state_file1099_r.update(taxable_amount: 0)
+          end
+
+          it "goes back to the final review screen" do
+            post :update, params: form_params.merge({return_to_review: "y"})
+            expect(response).to redirect_to(StateFile::Questions::IdReviewController.to_path_helper)
+          end
         end
       end
 
-      context "when primary is 62 and spouse is under 62" do
+      context "has disability in household" do
+        let(:primary_disabled) { "yes" }
+
         before do
-          intake.primary_birth_date = Date.new(MultiTenantService.statefile.current_tax_year - 61, 1, 1)
-          intake.spouse_birth_date = Date.new(MultiTenantService.statefile.current_tax_year - 60, 1, 1)
+          intake.update(primary_disabled: "yes")
         end
 
-        it "shows" do
-          expect(described_class.show?(intake)).to eq true
+        it "should show the Id Retirement and Pension income controller" do
+          post :update, params: form_params.merge({return_to_review: "y"})
+          expect(response).to redirect_to(StateFile::Questions::IdRetirementAndPensionIncomeController.to_path_helper(return_to_review: "y"))
         end
       end
 
-      context "when primary is under 62 and spouse is 62" do
+      context "does not have disability in household" do
         before do
-          intake.primary_birth_date = Date.new(MultiTenantService.statefile.current_tax_year - 60, 1, 1)
-          intake.spouse_birth_date = Date.new(MultiTenantService.statefile.current_tax_year - 61, 1, 1)
+          intake.update(primary_disabled: "no")
+        end
+        it "goes back to the final review screen" do
+          post :update, params: form_params.merge({return_to_review: "y"})
+          expect(response).to redirect_to(StateFile::Questions::IdReviewController.to_path_helper)
+        end
+      end
+    end
+
+    context "not returning from review (first pass)" do
+      context "has over 65 year olds in household" do
+        before do
+          intake.update(primary_birth_date: Date.new(MultiTenantService.statefile.current_tax_year - 65, 1, 1))
         end
 
-        it "shows" do
-          expect(described_class.show?(intake)).to eq true
+        it "should show the Id Retirement and Pension income controller" do
+          post :update, params: form_params
+          expect(response).to redirect_to(StateFile::Questions::IdRetirementAndPensionIncomeController.to_path_helper)
         end
       end
 
-      context "when both spouses are 65" do
+      context "has disability in household" do
+        let(:primary_disabled) { "yes" }
+
         before do
-          intake.primary_birth_date = Date.new(MultiTenantService.statefile.current_tax_year - 65, 1, 1)
-          intake.spouse_birth_date = Date.new(MultiTenantService.statefile.current_tax_year - 65, 1, 1)
+          intake.update(primary_disabled: "yes")
         end
 
-        it "does not show" do
-          expect(described_class.show?(intake)).to eq false
+        it "should show the Id Retirement and Pension income controller" do
+          post :update, params: form_params
+          expect(response).to redirect_to(StateFile::Questions::IdRetirementAndPensionIncomeController.to_path_helper)
+        end
+      end
+
+      context "has no disability in household" do
+        it "should go to the next controller, skipping IdRetirementAndPensionIncomeController since no disability" do
+          post :update, params: form_params
+          expect(response).to redirect_to(StateFile::Questions::IdHealthInsurancePremiumController.to_path_helper)
         end
       end
     end
