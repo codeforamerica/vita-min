@@ -9,6 +9,10 @@
   .notice--warning {
     max-width: 30em;
   }
+
+  p {
+    max-width: none;
+  }
 }
 
 .form-group--error {
