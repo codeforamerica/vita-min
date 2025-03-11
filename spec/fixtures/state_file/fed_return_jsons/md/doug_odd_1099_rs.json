@@ -1,0 +1,41 @@
+{
+  "familyAndHousehold": [],
+  "socialSecurityReports": [],
+  "filers": [
+    {
+      "lastName": "Funnie",
+      "dateOfBirth": "1950-01-02",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "firstName": "Douglas",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "400-00-3045",
+      "interestReportsTotal": "0.00",
+      "isDisabled": false,
+      "form1099GsTotal": "0.00",
+      "isStudent": false,
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": null
+    },
+    {
+      "lastName": "Mayonnaise",
+      "dateOfBirth": null,
+      "suffix": null,
+      "isPrimaryFiler": false,
+      "firstName": "Pattie",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "400-00-3046",
+      "interestReportsTotal": "0.00",
+      "isDisabled": null,
+      "form1099GsTotal": "0.00",
+      "isStudent": null,
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [],
+  "interestReports": []
+}

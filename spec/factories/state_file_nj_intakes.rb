@@ -20,6 +20,7 @@
 #  eligibility_all_members_health_insurance               :integer          default("unfilled"), not null
 #  eligibility_lived_in_state                             :integer          default("unfilled"), not null
 #  eligibility_out_of_state_income                        :integer          default("unfilled"), not null
+#  eligibility_retirement_warning_continue                :integer          default("unfilled")
 #  email_address                                          :citext
 #  email_address_verified_at                              :datetime
 #  email_notification_opt_in                              :integer          default("unfilled"), not null
@@ -125,6 +126,7 @@ FactoryBot.define do
     raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("nj_zeus_one_dep") }
     raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_zeus_one_dep') }
     df_data_import_succeeded_at { DateTime.now }
+    state_file_analytics { StateFileAnalytics.create }
 
     after(:build) do |intake, evaluator|
       intake.municipality_code = "0101"
@@ -303,6 +305,9 @@ FactoryBot.define do
       :married_filing_jointly
     end
 
+    trait :single do
+      filing_status { "single" }
+    end
 
     trait :head_of_household do
       filing_status { "head_of_household" }
@@ -327,6 +332,26 @@ FactoryBot.define do
 
     trait :primary_over_65 do
       primary_birth_date { Date.new(1900, 1, 1) }
+    end
+
+    trait :primary_over_62 do
+      primary_birth_date { Date.new(MultiTenantService.new(:statefile).current_tax_year - 62, 12, 31) }
+    end
+
+    trait :primary_under_62 do
+      primary_birth_date { Date.new(MultiTenantService.new(:statefile).current_tax_year - 61, 1, 1) }
+    end
+
+    trait :mfj_spouse_over_62 do
+      filing_status { "married_filing_jointly" }
+      spouse_birth_date { Date.new(MultiTenantService.new(:statefile).current_tax_year - 62, 12, 31) }
+      spouse_ssn { "123456789" }
+    end
+
+    trait :mfj_spouse_under_62 do
+      filing_status { "married_filing_jointly" }
+      spouse_birth_date { Date.new(MultiTenantService.new(:statefile).current_tax_year - 61, 1, 1) }
+      spouse_ssn { "123456789" }
     end
 
     trait :mfj_spouse_over_65 do

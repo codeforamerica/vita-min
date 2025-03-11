@@ -87,7 +87,6 @@
 #  index_state_file_az_intakes_on_spouse_state_id_id   (spouse_state_id_id)
 #
 class StateFileAzIntake < StateFileBaseIntake
-  self.ignored_columns += %w[charitable_cash charitable_noncash household_excise_credit_claimed_amt tribal_wages armed_forces_wages]
   encrypts :account_number, :routing_number, :raw_direct_file_data, :raw_direct_file_intake_data
 
   has_many :az322_contributions, dependent: :destroy
@@ -151,15 +150,8 @@ class StateFileAzIntake < StateFileBaseIntake
                 end
     agi_over_limit = direct_file_data.fed_agi > agi_limit
     lacks_valid_ssn = primary.ssn.blank? || primary.has_itin?
-    all_filers_ssn_not_valid_for_employment =
-      if filing_status_mfj?
-        direct_file_json_data.primary_filer.ssn_not_valid_for_employment &&
-          direct_file_json_data.spouse_filer.ssn_not_valid_for_employment
-      else
-        direct_file_json_data.primary_filer.ssn_not_valid_for_employment
-      end
 
-    agi_over_limit || lacks_valid_ssn || all_filers_ssn_not_valid_for_employment
+    agi_over_limit || lacks_valid_ssn || direct_file_json_data.primary_filer.ssn_not_valid_for_employment
   end
 
   def incarcerated_filer_count

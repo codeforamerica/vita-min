@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>a1978a1a</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400003039</PrimarySSN>
+            <SpouseSSN>400003040</SpouseSSN>
+            <NameLine1Txt>HARLEY&lt;QUINN&lt;&amp; POISON IVY</NameLine1Txt>
+            <PrimaryNameControlTxt>QUIN</PrimaryNameControlTxt>
+            <SpouseNameControlTxt>IVY</SpouseNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>123 Gotham Street</AddressLine1Txt>
+                <CityNm>New York</CityNm>
+                <StateAbbreviationCd>NY</StateAbbreviationCd>
+                <ZIPCd>10010</ZIPCd>
+            </USAddress>
+            <PhoneNum>2223334444</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000303-9584-4ee1-8c10-7e3025610f56@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="4">
+        <IRS1040 documentId="IRS10400001">
+            <Form1040SRInd>X</Form1040SRInd>
+            <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <Primary65OrOlderInd>X</Primary65OrOlderInd>
+            <Spouse65OrOlderInd>X</Spouse65OrOlderInd>
+            <TotalBoxesCheckedCnt>2</TotalBoxesCheckedCnt>
+            <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>2</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">50000</WagesAmt>
+            <WagesSalariesAndTipsAmt>50000</WagesSalariesAndTipsAmt>
+            <TaxableInterestAmt>100</TaxableInterestAmt>
+            <TotalTaxablePensionsAmt>49000</TotalTaxablePensionsAmt>
+            <TotalIncomeAmt>99100</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>99100</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>32300</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>32300</TotalDeductionsAmt>
+            <TaxableIncomeAmt>66800</TaxableIncomeAmt>
+            <TaxAmt>7555</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>7555</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>7555</TaxLessCreditsAmt>
+            <TotalTaxAmt>7555</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>5000</FormW2WithheldTaxAmt>
+            <WithholdingTaxAmt>10100</WithholdingTaxAmt>
+            <TotalPaymentsAmt>10100</TotalPaymentsAmt>
+            <OverpaidAmt>2545</OverpaidAmt>
+            <RefundAmt>2545</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Retired</PrimaryOccupationTxt>
+            <SpouseOccupationTxt>Botanist</SpouseOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1099R documentId="IRS1099R0001">
+            <PayerNameControlTxt>COBB</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Cobb Squad Plan</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>500 9th st NW</AddressLine1Txt>
+                <CityNm>Washington</CityNm>
+                <StateAbbreviationCd>DC</StateAbbreviationCd>
+                <ZIPCd>20001</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>823967259</PayerEIN>
+            <RecipientSSN>400003039</RecipientSSN>
+            <RecipientNm>Harley Quinn</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>123 Gotham Street</AddressLine1Txt>
+                <CityNm>New York</CityNm>
+                <StateAbbreviationCd>NY</StateAbbreviationCd>
+                <ZIPCd>10010</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>39000</GrossDistributionAmt>
+            <TaxableAmt>39000</TaxableAmt>
+            <TotalDistributionInd>X</TotalDistributionInd>
+            <FederalIncomeTaxWithheldAmt>4000</FederalIncomeTaxWithheldAmt>
+            <F1099RDistributionCd>7</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <F1099RLocalTaxGrp/>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRS1099R documentId="IRS1099R0002">
+            <PayerNameControlTxt>LEGI</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Legion of Doom Pension Plan</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>500 9th ST NW</AddressLine1Txt>
+                <CityNm>Washington</CityNm>
+                <StateAbbreviationCd>DC</StateAbbreviationCd>
+                <ZIPCd>20001</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>941737782</PayerEIN>
+            <RecipientSSN>400003040</RecipientSSN>
+            <RecipientNm>Poison Ivy</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>123 Gotham Street</AddressLine1Txt>
+                <CityNm>New York</CityNm>
+                <StateAbbreviationCd>NY</StateAbbreviationCd>
+                <ZIPCd>10010</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>10000</GrossDistributionAmt>
+            <TaxableAmt>10000</TaxableAmt>
+            <TotalDistributionInd>X</TotalDistributionInd>
+            <FederalIncomeTaxWithheldAmt>1100</FederalIncomeTaxWithheldAmt>
+            <F1099RDistributionCd>2</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <StateTaxWithheldAmt>50</StateTaxWithheldAmt>
+                    <StateAbbreviationCd>MD</StateAbbreviationCd>
+                    <PayerStateIdNum>123456</PayerStateIdNum>
+                    <F1099RLocalTaxGrp/>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>400003040</EmployeeSSN>
+            <EmployerEIN>112617163</EmployerEIN>
+            <EmployerNameControlTxt>LEGI</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Legion of Doom</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>2000 Isley St</AddressLine1Txt>
+                <CityNm>Chicago</CityNm>
+                <StateAbbreviationCd>IL</StateAbbreviationCd>
+                <ZIPCd>60604</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Poison Ivy</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>123 Gotham Street</AddressLine1Txt>
+                <CityNm>New York</CityNm>
+                <StateAbbreviationCd>NY</StateAbbreviationCd>
+                <ZIPCd>10010</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>50000</WagesAmt>
+            <WithholdingAmt>5000</WithholdingAmt>
+            <SocialSecurityWagesAmt>50000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>3720</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>50000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>870</MedicareTaxWithheldAmt>
+            <OtherDeductionsBenefitsGrp>
+                <Desc>STPICKUP</Desc>
+                <Amt>1000</Amt>
+            </OtherDeductionsBenefitsGrp>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>MD</StateAbbreviationCd>
+                    <EmployerStateIdNum>23456</EmployerStateIdNum>
+                    <StateWagesAmt>50000</StateWagesAmt>
+                    <StateIncomeTaxAmt>3500</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>

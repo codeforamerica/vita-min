@@ -1,6 +1,7 @@
 module SubmissionBuilder
   class Document
     include SubmissionBuilder::FormattingMethods
+    include XmlMethods
     attr_accessor :submission, :schema_file, :schema_version
 
     def initialize(submission, validate: true, kwargs: {})

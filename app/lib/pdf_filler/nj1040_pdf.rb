@@ -269,6 +269,40 @@ module PdfFiller
                                                  ]))
       end
 
+      # line 20a
+      if @xml_document.at("PensAnnuitAndIraWithdraw")
+        taxable_retirement_income = @xml_document.at("PensAnnuitAndIraWithdraw").text.to_i
+        answers.merge!(insert_digits_into_fields(taxable_retirement_income, [
+                                                   "141",
+                                                   "140",
+                                                   "139",
+                                                   "138",
+                                                   "137",
+                                                   "136",
+                                                   "undefined_56",
+                                                   "undefined_55",
+                                                   "undefined_54",
+                                                   "20a"
+                                                 ]))
+      end
+
+      # line 20b
+      if @xml_document.at("TaxExemptPensAnnuit")
+        excludable_retirement_income = @xml_document.at("TaxExemptPensAnnuit").text.to_i
+        answers.merge!(insert_digits_into_fields(excludable_retirement_income, [
+                                                   "146",
+                                                   "undefined_59",
+                                                   "145",
+                                                   "144",
+                                                   "undefined_58",
+                                                   "143",
+                                                   "142",
+                                                   "undefined_57",
+                                                   "20b"
+                                                 ]))
+      end
+
+      # line 27
       if @xml_document.at("TotalIncome").present?
         total_income = @xml_document.at("TotalIncome").text.to_i
         answers.merge!(insert_digits_into_fields(total_income, [
@@ -283,6 +317,51 @@ module PdfFiller
                                                    "183",
                                                    "27",
                                                    "263"
+                                                 ]))
+      end
+
+      # line 28a
+      if @xml_document.at("PensionExclusion").present?
+        other_retirement_income_exclusion = @xml_document.at("PensionExclusion").text.to_i
+        answers.merge!(insert_digits_into_fields(other_retirement_income_exclusion, [
+                                                   "193",
+                                                   "undefined_82",
+                                                   "192",
+                                                   "191",
+                                                   "undefined_81",
+                                                   "190",
+                                                   "189",
+                                                   "28a"
+                                                 ]))
+      end
+
+      # line 28b
+      if @xml_document.at("OtherRetireIncomeExclus").present?
+        other_retirement_income_exclusion = @xml_document.at("OtherRetireIncomeExclus").text.to_i
+        answers.merge!(insert_digits_into_fields(other_retirement_income_exclusion, [
+                                                   "198",
+                                                   "undefined_84",
+                                                   "197",
+                                                   "196",
+                                                   "undefined_83",
+                                                   "195",
+                                                   "194",
+                                                   "28b"
+                                                 ]))
+      end
+
+      # line 28c
+      if @xml_document.at("TotalExclusionAmount").present?
+        other_retirement_income_exclusion = @xml_document.at("TotalExclusionAmount").text.to_i
+        answers.merge!(insert_digits_into_fields(other_retirement_income_exclusion, [
+                                                   "203",
+                                                   "undefined_86",
+                                                   "202",
+                                                   "201",
+                                                   "undefined_85",
+                                                   "200",
+                                                   "199",
+                                                   "28c"
                                                  ]))
       end
 

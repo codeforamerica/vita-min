@@ -14,13 +14,19 @@
 #  payer_city_name                    :string
 #  payer_identification_number        :string
 #  payer_name                         :string
+#  payer_name2                        :string
 #  payer_name_control                 :string
 #  payer_state_code                   :string
 #  payer_state_identification_number  :string
 #  payer_zip                          :string
 #  phone_number                       :string
+#  recipient_address_line1            :string
+#  recipient_address_line2            :string
+#  recipient_city_name                :string
 #  recipient_name                     :string
 #  recipient_ssn                      :string
+#  recipient_state_code               :string
+#  recipient_zip                      :string
 #  standard                           :boolean
 #  state_code                         :string
 #  state_distribution_amount          :decimal(12, 2)
@@ -50,6 +56,11 @@ FactoryBot.define do
     payer_identification_number { "22345" }
     recipient_ssn { "123456789" }
     recipient_name { "Dorothy Jane Red" }
+    recipient_address_line1 { "123 Sesame St" }
+    recipient_address_line2 { "Apt 202" }
+    recipient_city_name { "Long Island" }
+    recipient_state_code { "AZ" }
+    recipient_zip { "12345-1234" }
     gross_distribution_amount { 100.25 }
     taxable_amount { 50.5 }
     taxable_amount_not_determined { true }

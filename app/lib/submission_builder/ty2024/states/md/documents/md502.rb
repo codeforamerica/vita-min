@@ -132,6 +132,11 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
       end
       xml.Subtractions do
         add_element_if_present(xml, "ChildAndDependentCareExpenses", :MD502_LINE_9)
+        if Flipper.enabled?(:show_retirement_ui)
+          xml.PriPensionExclusionInd "X" if calculated_fields.fetch(:MD502R_LINE_11A).positive?
+          xml.SecPensionExclusionInd "X" if calculated_fields.fetch(:MD502R_LINE_11B).positive?
+          add_non_zero_value(xml, "PensionExclusions", :MD502_LINE_10A)
+        end
         add_element_if_present(xml, "SocialSecurityRailRoadBenefits", :MD502_LINE_11)
         add_element_if_present(xml, "Other", :MD502_LINE_13)
         add_element_if_present(xml, "TwoIncome", :MD502_LINE_14)
@@ -199,6 +204,9 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
       end
       xml.DaytimePhoneNumber @direct_file_data.phone_number if @direct_file_data.phone_number.present?
       xml.EmailAddress @intake.email_address if @intake.email_address.present?
+      if @intake.efile_submissions.count > 1
+        xml.ExceptionCodes "247"
+      end
     end
   end
 

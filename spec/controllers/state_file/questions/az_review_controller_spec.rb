@@ -84,8 +84,8 @@ RSpec.describe StateFile::Questions::AzReviewController do
         intake.direct_file_data.fed_agi = 23_112
         intake.direct_file_data.fed_taxable_ssb = 1_000
         allow_any_instance_of(StateFileAzIntake).to receive(:total_exemptions).and_return(25)
-        allow_any_instance_of(Efile::Az::Az140Calculator).to receive(:calculate_line_29A).and_return(5)
-        allow_any_instance_of(Efile::Az::Az140Calculator).to receive(:calculate_line_29B).and_return(10)
+        allow_any_instance_of(Efile::Az::Az140Calculator).to receive(:calculate_line_29a).and_return(5)
+        allow_any_instance_of(Efile::Az::Az140Calculator).to receive(:calculate_line_29b).and_return(10)
         allow_any_instance_of(Efile::Az::Az140Calculator).to receive(:calculate_line_31).and_return(15)
         allow_any_instance_of(Efile::Az::Az140Calculator).to receive(:calculate_line_32).and_return(20)
         allow_any_instance_of(Efile::Az::Az140Calculator).to receive(:calculate_line_42).and_return(30)

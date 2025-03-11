@@ -22,6 +22,14 @@ RSpec.describe StateFile::Questions::NjRetirementIncomeSourceController do
         expect(described_class.show?(intake)).to eq true
       end
     end
+
+    context "when show_retirement_ui flag is disabled" do
+      let(:intake) { create :state_file_nj_intake, :df_data_2_1099r }
+      it "does not show" do
+        allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(false)
+        expect(described_class.show?(intake)).to eq false
+      end
+    end
   end
 
   describe "#edit" do

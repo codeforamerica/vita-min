@@ -24,33 +24,37 @@ RSpec.describe PdfFiller::Md502RPdf do
       let(:primary_first_name) { "Prim" }
       let(:primary_middle_initial) { "W" }
       let(:primary_last_name) { "Filerton" }
+      let(:primary_suffix) { "JR" }
 
       let(:spouse_ssn) { "100000030" }
       let(:spouse_first_name) { "Rose" }
       let(:spouse_middle_initial) { "B" }
       let(:spouse_last_name) { "Folderton" }
+      let(:spouse_suffix) { "SR" }
 
       before do
         intake.primary_first_name = primary_first_name
         intake.primary_middle_initial = primary_middle_initial
         intake.primary_last_name = primary_last_name
+        intake.primary_suffix = primary_suffix
         intake.direct_file_data.primary_ssn = primary_ssn
 
         intake.spouse_first_name = spouse_first_name
         intake.spouse_middle_initial = spouse_middle_initial
         intake.spouse_last_name = spouse_last_name
+        intake.spouse_suffix = spouse_suffix
         intake.direct_file_data.spouse_ssn = spouse_ssn
       end
 
       it "output correct information" do
         expect(pdf_fields["Your First Name"]).to eq(primary_first_name)
         expect(pdf_fields["Primary MI"]).to eq(primary_middle_initial)
-        expect(pdf_fields["Your Last Name"]).to eq(primary_last_name)
+        expect(pdf_fields["Your Last Name"]).to eq("#{primary_last_name} #{primary_suffix}")
         expect(pdf_fields["Your Social Security Number"]).to eq(primary_ssn)
 
         expect(pdf_fields["Spouses First Name"]).to eq(spouse_first_name)
         expect(pdf_fields["Spouse MI"]).to eq(spouse_middle_initial)
-        expect(pdf_fields["Spouses Last Name"]).to eq(spouse_last_name)
+        expect(pdf_fields["Spouses Last Name"]).to eq("#{spouse_last_name} #{spouse_suffix}")
         expect(pdf_fields["Spouses Social Security Number"]).to eq(spouse_ssn)
       end
     end
@@ -121,8 +125,6 @@ RSpec.describe PdfFiller::Md502RPdf do
         before do
           allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_9a).and_return 100
           allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_9b).and_return 200
-          allow(Flipper).to receive(:enabled?).and_call_original
-          allow(Flipper).to receive(:enabled?).with(:show_md_ssa).and_return(true)
         end
 
         it "output correct information" do
@@ -131,17 +133,21 @@ RSpec.describe PdfFiller::Md502RPdf do
         end
       end
 
-      context "line 10" do
+      context "lines 10 and 11" do
         before do
           allow(Flipper).to receive(:enabled?).and_call_original
           allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
           allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_10a).and_return 50
           allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_10b).and_return 68
+          allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_11a).and_return 70
+          allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_11b).and_return 80
         end
 
         it "output correct information" do
           expect(pdf_fields["retirement from code letter v on Form 502SU income subtracted on Maryland Form 502  10a"]).to eq("50")
           expect(pdf_fields["10b"]).to eq("68")
+          expect(pdf_fields["11 Pension Exclusion from line 5 of Worksheet 13A                           11a 1"]).to eq("70")
+          expect(pdf_fields["11b"]).to eq("80")
         end
       end
     end

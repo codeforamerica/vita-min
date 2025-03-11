@@ -11,6 +11,7 @@ RSpec.describe PdfFiller::Md502SuPdf do
     intake.direct_file_data.spouse_ssn = spouse_ssn
     allow_any_instance_of(Efile::Md::Md502SuCalculator).to receive(:calculate_line_ab).and_return 100
     allow_any_instance_of(Efile::Md::Md502SuCalculator).to receive(:calculate_line_u).and_return 100
+    allow_any_instance_of(Efile::Md::Md502SuCalculator).to receive(:calculate_line_v).and_return 100
   end
 
   describe "#hash_for_pdf" do
@@ -51,7 +52,8 @@ RSpec.describe PdfFiller::Md502SuPdf do
       expect(pdf_fields["Spouses Social Security Number"]).to eq spouse_ssn
       expect(pdf_fields["ab Income from US Government obligations See Instruction 13                         ab"]).to eq("100")
       expect(pdf_fields["retirement income received in the taxable year                                     u"]).to eq("100")
-      expect(pdf_fields["appropriate code letters                                                  TOTAL 1"]).to eq("200")
+      expect(pdf_fields["v"]).to eq("100")
+      expect(pdf_fields["appropriate code letters                                                  TOTAL 1"]).to eq("300")
     end
   end
 end

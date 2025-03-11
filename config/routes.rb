@@ -359,6 +359,7 @@ Rails.application.routes.draw do
         resources :ctc_intake_capacity, only: [:index, :create]
         resources :admin_toggles, only: [:index, :create]
         get "/profile" => "users#profile", as: :user_profile
+        resources :trusted_proxies, only: [:index]
       end
 
       put "hub/users/:user_id/resend", to: "hub/users#resend_invitation", as: :user_profile_resend_invitation
@@ -395,6 +396,8 @@ Rails.application.routes.draw do
     post "/outgoing_email_status", to: "mailgun_webhooks#update_outgoing_email_status", as: :outgoing_email_status
     # OAuth login callback routes
     devise_for :users, path: "hub", only: :omniauth_callbacks, skip: [:session, :invitation], controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
+    # AWS IP ranges update trigger
+    post "/update_aws_ip_ranges", to: "aws_ip_ranges_webhooks#update_aws_ip_ranges", as: :update_aws_ip_ranges
 
     resources :ajax_mixpanel_events, only: [:create]
 
@@ -571,6 +574,7 @@ Rails.application.routes.draw do
           get 'verification_error', to: "/state_file/state_file_pages#archived_intakes_verification_error"
           get 'identification_number/edit', to: 'identification_number#edit', as: 'edit_identification_number'
           patch 'identification_number', to: 'identification_number#update'
+          post 'pdfs/log_and_redirect', to: 'pdfs#log_and_redirect'
           resources :pdfs, only: [:index]
         end
         namespace :questions do
@@ -582,7 +586,7 @@ Rails.application.routes.draw do
       resources :submission_pdfs, only: [:show], module: 'state_file/questions', path: 'questions/submission_pdfs'
       resources :federal_dependents, only: [:index, :new, :create, :edit, :update, :destroy], module: 'state_file/questions', path: 'questions/federal_dependents'
       resources :unemployment, only: [:index, :new, :create, :edit, :update, :destroy], module: 'state_file/questions', path: 'questions/unemployment'
-      resources :retirement_income, only: [:edit, :update], module: 'state_file/questions', path: 'questions/retirement_income'
+      resources :retirement_income, only: [:show, :edit, :update], module: 'state_file/questions', path: 'questions/retirement_income'
       resources :az_qualifying_organization_contributions,
         only: [
           :index, :new, :create, :edit,
@@ -595,6 +599,9 @@ Rails.application.routes.draw do
       get "/data-import-failed", to: "state_file/state_file_pages#data_import_failed"
       get "/initiate-data-transfer", to: "state_file/questions/initiate_data_transfer#initiate_data_transfer"
 
+      get '/az/questions/return-status', to: redirect('/')
+      get '/az/questions/submission-confirmation', to: redirect('/')
+
       resources :intake_logins, only: [:new, :create, :edit, :update], module: "state_file", path: "login" do
         put "check-verification-code", to: "intake_logins#check_verification_code", as: :check_verification_code, on: :collection
         get "locked", to: "intake_logins#account_locked", as: :account_locked, on: :collection
@@ -604,7 +611,7 @@ Rails.application.routes.draw do
 
       match("/questions/pending-federal-return", action: :edit, controller: "state_file/questions/pending_federal_return", via: :get)
       match("/questions/pending_federal_return", action: :edit, controller: "state_file/questions/pending_federal_return", via: :get)
-      resources :w2, only: [:edit, :update], module: 'state_file/questions', path: 'questions/w2'
+      resources :w2, only: [:show, :edit, :update], module: 'state_file/questions', path: 'questions/w2'
 
       active_state_codes.each do |code|
         navigation_class = StateFile::StateInformationService.navigation_class(code)

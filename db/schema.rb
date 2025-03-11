@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_02_05_160115) do
+ActiveRecord::Schema[7.1].define(version: 2025_03_04_145229) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1349,6 +1349,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_05_160115) do
     t.integer "made_estimated_tax_payments", default: 0, null: false
     t.decimal "made_estimated_tax_payments_amount", precision: 12, scale: 2
     t.integer "married", default: 0, null: false
+    t.integer "married_for_all_of_tax_year", default: 0, null: false
     t.bigint "matching_previous_year_intake_id"
     t.integer "multiple_states", default: 0, null: false
     t.boolean "navigator_has_verified_client_identity"
@@ -1421,6 +1422,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_05_160115) do
     t.integer "refund_check_by_mail"
     t.integer "refund_direct_deposit"
     t.string "refund_other"
+    t.integer "refund_other_cb", default: 0, null: false
     t.integer "refund_payment_method", default: 0, null: false
     t.integer "register_to_vote", default: 0, null: false
     t.integer "reported_asset_sale_loss", default: 0, null: false
@@ -1727,13 +1729,19 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_05_160115) do
     t.string "payer_city_name"
     t.string "payer_identification_number"
     t.string "payer_name"
+    t.string "payer_name2"
     t.string "payer_name_control"
     t.string "payer_state_code"
     t.string "payer_state_identification_number"
     t.string "payer_zip"
     t.string "phone_number"
+    t.string "recipient_address_line1"
+    t.string "recipient_address_line2"
+    t.string "recipient_city_name"
     t.string "recipient_name"
     t.string "recipient_ssn"
+    t.string "recipient_state_code"
+    t.string "recipient_zip"
     t.boolean "standard"
     t.string "state_code"
     t.decimal "state_distribution_amount", precision: 12, scale: 2
@@ -1779,6 +1787,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_05_160115) do
     t.datetime "created_at", null: false
     t.jsonb "details", default: "{}"
     t.integer "event_type"
+    t.bigint "state_file_archived_intake_id"
     t.bigint "state_file_archived_intake_request_id"
     t.datetime "updated_at", null: false
   end
@@ -1799,12 +1808,17 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_05_160115) do
   create_table "state_file_archived_intakes", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "email_address"
+    t.integer "failed_attempts", default: 0, null: false
+    t.string "fake_address_1"
+    t.string "fake_address_2"
     t.string "hashed_ssn"
+    t.datetime "locked_at"
     t.string "mailing_apartment"
     t.string "mailing_city"
     t.string "mailing_state"
     t.string "mailing_street"
     t.string "mailing_zip"
+    t.datetime "permanently_locked_at"
     t.string "state_code"
     t.integer "tax_year"
     t.datetime "updated_at", null: false
@@ -1812,6 +1826,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_05_160115) do
 
   create_table "state_file_az1099_r_followups", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.integer "income_source", default: 0, null: false
     t.datetime "updated_at", null: false
   end
 
@@ -1944,6 +1959,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_05_160115) do
 
   create_table "state_file_id1099_r_followups", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.integer "eligible_income_source", default: 0, null: false
     t.datetime "updated_at", null: false
   end
 
@@ -1991,6 +2007,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_05_160115) do
     t.string "phone_number"
     t.datetime "phone_number_verified_at"
     t.date "primary_birth_date"
+    t.integer "primary_disabled", default: 0, null: false
     t.integer "primary_esigned", default: 0, null: false
     t.datetime "primary_esigned_at"
     t.string "primary_first_name"
@@ -2010,6 +2027,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_05_160115) do
     t.string "source"
     t.decimal "special_olympics_donation", precision: 12, scale: 2
     t.date "spouse_birth_date"
+    t.integer "spouse_disabled", default: 0, null: false
     t.integer "spouse_esigned", default: 0, null: false
     t.datetime "spouse_esigned_at"
     t.string "spouse_first_name"
@@ -2103,14 +2121,14 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_05_160115) do
     t.string "primary_first_name"
     t.string "primary_last_name"
     t.string "primary_middle_initial"
+    t.integer "primary_proof_of_disability_submitted", default: 0, null: false
     t.string "primary_signature"
     t.text "primary_signature_pin"
-    t.decimal "primary_ssb_amount", precision: 12, scale: 2, default: "0.0", null: false
+    t.decimal "primary_ssb_amount", precision: 12, scale: 2
     t.string "primary_ssn"
     t.bigint "primary_state_id_id"
     t.decimal "primary_student_loan_interest_ded_amount", precision: 12, scale: 2, default: "0.0", null: false
     t.string "primary_suffix"
-    t.integer "proof_of_disability_submitted", default: 0, null: false
     t.text "raw_direct_file_data"
     t.jsonb "raw_direct_file_intake_data"
     t.string "referrer"
@@ -2127,8 +2145,9 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_05_160115) do
     t.string "spouse_first_name"
     t.string "spouse_last_name"
     t.string "spouse_middle_initial"
+    t.integer "spouse_proof_of_disability_submitted", default: 0, null: false
     t.text "spouse_signature_pin"
-    t.decimal "spouse_ssb_amount", precision: 12, scale: 2, default: "0.0", null: false
+    t.decimal "spouse_ssb_amount", precision: 12, scale: 2
     t.string "spouse_ssn"
     t.bigint "spouse_state_id_id"
     t.decimal "spouse_student_loan_interest_ded_amount", precision: 12, scale: 2, default: "0.0", null: false
@@ -2251,6 +2270,11 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_05_160115) do
     t.integer "NJ1040_LINE_15", default: 0, null: false
     t.integer "NJ1040_LINE_16A", default: 0, null: false
     t.integer "NJ1040_LINE_16B", default: 0, null: false
+    t.integer "NJ1040_LINE_20A", default: 0, null: false
+    t.integer "NJ1040_LINE_20B", default: 0, null: false
+    t.integer "NJ1040_LINE_28A", default: 0, null: false
+    t.integer "NJ1040_LINE_28B", default: 0, null: false
+    t.integer "NJ1040_LINE_28C", default: 0, null: false
     t.integer "NJ1040_LINE_29", default: 0, null: false
     t.integer "NJ1040_LINE_31", default: 0, null: false
     t.integer "NJ1040_LINE_41", default: 0, null: false
@@ -2297,6 +2321,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_05_160115) do
     t.integer "eligibility_all_members_health_insurance", default: 0, null: false
     t.integer "eligibility_lived_in_state", default: 0, null: false
     t.integer "eligibility_out_of_state_income", default: 0, null: false
+    t.integer "eligibility_retirement_warning_continue", default: 0
     t.citext "email_address"
     t.datetime "email_address_verified_at"
     t.integer "email_notification_opt_in", default: 0, null: false
@@ -2978,6 +3003,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_05_160115) do
   add_foreign_key "site_coordinator_roles_vita_partners", "vita_partners"
   add_foreign_key "source_parameters", "vita_partners"
   add_foreign_key "state_file_archived_intake_access_logs", "state_file_archived_intake_requests"
+  add_foreign_key "state_file_archived_intake_access_logs", "state_file_archived_intakes", validate: false
   add_foreign_key "state_routing_fractions", "state_routing_targets"
   add_foreign_key "state_routing_fractions", "vita_partners"
   add_foreign_key "system_notes", "clients"

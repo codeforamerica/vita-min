@@ -35,20 +35,23 @@ describe StateFileW2 do
   let(:intake) { create :state_file_md_intake }
   let(:w2) {
     create(:state_file_w2,
-      employer_state_id_num: "001245788",
-      employer_ein: '123445678',
-      local_income_tax_amount: 200,
-      local_wages_and_tips_amount: 8000,
-      locality_nm: "NYC",
-      state_file_intake: intake,
-      state_income_tax_amount: 600,
-      state_wages_amount: 8000,
-      w2_index: 0
+           employer_state_id_num: "001245788",
+           employer_ein: '123445678',
+           local_income_tax_amount: 200,
+           local_wages_and_tips_amount: 8000,
+           locality_nm: "NYC",
+           state_file_intake: intake,
+           state_income_tax_amount: 600,
+           state_wages_amount: 8000,
+           box14_fli: 0,
+           box14_stpickup: 0,
+           box14_ui_hc_wd: 0,
+           box14_ui_wf_swf: 0,
+           w2_index: 0
     )
   }
 
   context "validation" do
-
     it "validates" do
       expect(w2).to be_valid
     end
@@ -70,6 +73,16 @@ describe StateFileW2 do
       end
     end
 
+    [:state_wages_amount, :state_income_tax_amount, :local_wages_and_tips_amount, :local_income_tax_amount, :box14_stpickup].each do |field|
+      context field do
+        it "does not permit values that are nil" do
+          w2.send("#{field}=", nil)
+          expect(w2).not_to be_valid(:state_file_edit)
+          expect(w2.errors[field]).to include(I18n.t("state_file.questions.w2.edit.no_money_amount"))
+        end
+      end
+    end
+
     context "states where we don't show local boxes" do
       let(:intake) { create :state_file_az_intake }
 
@@ -79,6 +92,31 @@ describe StateFileW2 do
         w2.local_income_tax_amount = -1
         expect(w2).to be_valid(:state_file_edit)
         expect(w2.errors).to be_empty
+      end
+    end
+
+    context "NJ" do
+      let(:intake) { create :state_file_nj_intake }
+      it "does not permit state_wages_amount to be zero if wages is positive" do
+        w2.wages = 10
+        w2.state_wages_amount = 0
+        expect(w2).not_to be_valid(:state_file_edit)
+      end
+
+      it "does not permit state_wages_amount to be nil if wages is positive" do
+        w2.wages = 10
+        w2.state_wages_amount = nil
+        expect(w2).not_to be_valid(:state_file_edit)
+      end
+
+      [:box14_ui_wf_swf, :box14_fli].each do |field|
+        context field do
+          it "does not permit values that are nil" do
+            w2.send("#{field}=", nil)
+            expect(w2).not_to be_valid(:state_file_edit)
+            expect(w2.errors[field]).to include(I18n.t("state_file.questions.w2.edit.no_money_amount"))
+          end
+        end
       end
     end
 
@@ -108,7 +146,6 @@ describe StateFileW2 do
     end
 
     it "permits state_wages_amt to be blank if state_income_tax_amt is blank" do
-      w2.wages = 0
       w2.state_wages_amount = 0
       w2.state_income_tax_amount = 0
       expect(w2).to be_valid(:state_file_edit)
@@ -121,7 +158,6 @@ describe StateFileW2 do
     end
 
     it "permits state_wages_amt to be blank if state_income_tax_amt is blank" do
-      w2.wages = 0
       w2.employer_state_id_num = nil
       w2.state_wages_amount = 0
       w2.state_income_tax_amount = 0
@@ -134,6 +170,13 @@ describe StateFileW2 do
         w2.locality_nm = "YONKERS"
         expect(w2).not_to be_valid(:state_file_edit)
         expect(w2.errors[:locality_nm]).to be_present
+      end
+
+      it "permits state_wages_amount to be blank if wages is positive" do
+        w2.wages = 10
+        w2.state_wages_amount = 0
+        w2.state_income_tax_amount = 0
+        expect(w2).to be_valid(:state_file_edit)
       end
     end
 
@@ -166,26 +209,26 @@ describe StateFileW2 do
         w2.check_box14_limits = true
         allow(StateFile::StateInformationService).to receive(:w2_supported_box14_codes)
           .and_return([
-                        { name: "UI_WF_SWF", limit: 179.78 },
-                        { name: "FLI", limit: 145.26 }
-                      ])
+            { name: "UI_WF_SWF", limit: NjTestConstHelper::UI_WF_SWF_AT_LIMIT },
+            { name: "FLI", limit: NjTestConstHelper::FLI_AT_LIMIT }
+          ])
       end
   
       it "is invalid when box14_ui_wf_swf exceeds the state limit" do
-        w2.box14_ui_wf_swf = 179.79
+        w2.box14_ui_wf_swf = NjTestConstHelper::UI_WF_SWF_ABOVE_LIMIT
         expect(w2).not_to be_valid(:state_file_edit)
-        expect(w2.errors[:box14_ui_wf_swf]).to include(I18n.t("validators.dollar_limit", limit: '179.78'))
+        expect(w2.errors[:box14_ui_wf_swf]).to include(I18n.t("validators.dollar_limit", limit: '180.00'))
       end
   
       it "is invalid when box14_fli exceeds the state limit" do
-        w2.box14_fli = 145.27
+        w2.box14_fli = NjTestConstHelper::FLI_ABOVE_LIMIT
         expect(w2).not_to be_valid(:state_file_edit)
         expect(w2.errors[:box14_fli]).to include(I18n.t("validators.dollar_limit", limit: '145.26'))
       end
   
       it "is valid when both box14_ui_wf_swf and box14_fli are within limits" do
-        w2.box14_ui_wf_swf = 179.78
-        w2.box14_fli = 145.26
+        w2.box14_ui_wf_swf = NjTestConstHelper::UI_WF_SWF_AT_LIMIT
+        w2.box14_fli = NjTestConstHelper::FLI_AT_LIMIT
         expect(w2).to be_valid(:state_file_edit)
       end
     end
@@ -273,14 +316,14 @@ describe StateFileW2 do
       before do
         allow(StateFile::StateInformationService).to receive(:w2_supported_box14_codes)
           .and_return([
-                        { name: "UI_WF_SWF", limit: 179.78 },
-                        { name: "FLI", limit: 145.26 }
-                      ])
+            { name: "UI_WF_SWF", limit: NjTestConstHelper::UI_WF_SWF_AT_LIMIT },
+            { name: "FLI", limit: NjTestConstHelper::FLI_AT_LIMIT }
+          ])
       end
 
       it "returns the correct limit for a valid name" do
-        expect(StateFileW2.find_limit("UI_WF_SWF", intake.state_code)).to eq(179.78)
-        expect(StateFileW2.find_limit("FLI", intake.state_code)).to eq(145.26)
+        expect(StateFileW2.find_limit("UI_WF_SWF", intake.state_code)).to eq(NjTestConstHelper::UI_WF_SWF_AT_LIMIT)
+        expect(StateFileW2.find_limit("FLI", intake.state_code)).to eq(NjTestConstHelper::FLI_AT_LIMIT)
       end
 
       it "returns nil for an invalid name" do

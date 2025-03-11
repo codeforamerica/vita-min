@@ -62,13 +62,13 @@
 #  primary_first_name                         :string
 #  primary_last_name                          :string
 #  primary_middle_initial                     :string
+#  primary_proof_of_disability_submitted      :integer          default("unfilled"), not null
 #  primary_signature                          :string
 #  primary_signature_pin                      :text
-#  primary_ssb_amount                         :decimal(12, 2)   default(0.0), not null
+#  primary_ssb_amount                         :decimal(12, 2)
 #  primary_ssn                                :string
 #  primary_student_loan_interest_ded_amount   :decimal(12, 2)   default(0.0), not null
 #  primary_suffix                             :string
-#  proof_of_disability_submitted              :integer          default("unfilled"), not null
 #  raw_direct_file_data                       :text
 #  raw_direct_file_intake_data                :jsonb
 #  referrer                                   :string
@@ -85,8 +85,9 @@
 #  spouse_first_name                          :string
 #  spouse_last_name                           :string
 #  spouse_middle_initial                      :string
+#  spouse_proof_of_disability_submitted       :integer          default("unfilled"), not null
 #  spouse_signature_pin                       :text
-#  spouse_ssb_amount                          :decimal(12, 2)   default(0.0), not null
+#  spouse_ssb_amount                          :decimal(12, 2)
 #  spouse_ssn                                 :string
 #  spouse_student_loan_interest_ded_amount    :decimal(12, 2)   default(0.0), not null
 #  spouse_suffix                              :string
@@ -112,6 +113,7 @@
 #
 class StateFileMdIntake < StateFileBaseIntake
   include MdResidenceCountyConcern
+
   encrypts :account_number, :routing_number, :raw_direct_file_data, :raw_direct_file_intake_data
 
   enum eligibility_lived_in_state: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_lived_in_state
@@ -130,7 +132,8 @@ class StateFileMdIntake < StateFileBaseIntake
   enum has_joint_account_holder: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_joint_account_holder
   enum primary_disabled: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_disabled
   enum spouse_disabled: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_disabled
-  enum proof_of_disability_submitted: { unfilled: 0, yes: 1, no: 2 }, _prefix: :proof_of_disability_submitted
+  enum primary_proof_of_disability_submitted: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_proof_of_disability_submitted
+  enum spouse_proof_of_disability_submitted: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_proof_of_disability_submitted
 
   def disqualifying_df_data_reason
     w2_states = direct_file_data.parsed_xml.css('W2StateLocalTaxGrp W2StateTaxGrp StateAbbreviationCd')
@@ -215,15 +218,10 @@ class StateFileMdIntake < StateFileBaseIntake
     end
   end
 
-  def filer_1099_rs(primary_or_spouse)
-    state_file1099_rs.filter do |state_file_1099_r|
-      state_file_1099_r.recipient_ssn == send(primary_or_spouse).ssn
-    end
-  end
-
-  def sum_1099_r_followup_type_for_filer(primary_or_spouse, followup_type)
+  def sum_two_1099_r_followup_types_for_filer(primary_or_spouse, income_source, service_type)
     filer_1099_rs(primary_or_spouse).sum do |state_file_1099_r|
-      if state_file_1099_r.state_specific_followup&.send(followup_type)
+      state_specific_followup = state_file_1099_r.state_specific_followup
+      if state_specific_followup&.send(income_source) && state_specific_followup&.send(service_type)
         state_file_1099_r.taxable_amount&.round
       else
         0
@@ -241,5 +239,37 @@ class StateFileMdIntake < StateFileBaseIntake
 
   def allows_refund_amount_in_xml?
     false
+  end
+
+  def at_least_one_disabled_filer_with_proof?
+    primary_proof_of_disability_submitted_yes? || spouse_proof_of_disability_submitted_yes?
+  end
+
+  def qualifies_for_pension_exclusion?(filer)
+    send("#{filer}_senior?".to_sym) || at_least_one_disabled_filer_with_proof?
+  end
+
+  def has_filer_under_65?
+    if filing_status_mfj?
+      !primary_senior? || !spouse_senior?
+    else
+      !primary_senior?
+    end
+  end
+
+  def no_proof_of_disability_submitted?
+    !(primary_proof_of_disability_submitted_yes? || spouse_proof_of_disability_submitted_yes?)
+  end
+
+  def has_banking_information_in_financial_resolution?
+    true
+  end
+
+  def has_at_least_one_disabled_filer?
+    primary_disabled_yes? || spouse_disabled_yes?
+  end
+
+  def should_warn_about_pension_exclusion?
+    eligible_1099rs.present? && has_filer_under_65?
   end
 end

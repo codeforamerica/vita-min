@@ -9,16 +9,19 @@ en:
               blank: To claim family member as a dependent for benefits, an SSN or ATIN is required.
   activerecord:
     errors:
+      concerns:
+        date_accessible:
+          inclusion: Date must be valid and in the current tax year
       models:
         az321_contribution:
           attributes:
             charity_code:
               invalid: should be a five digit number beginning with 2
             date_of_contribution:
-              inclusion: Date must be in the current tax year
-        state_file_1099_r:
+              inclusion: Date must be valid and in the current tax year
+        state_file1099_r:
           errors:
-            must_be_less_than_gross_distribution: Must be less than gross distribution amount
+            must_be_less_than_gross_distribution: Box 14 State tax withheld cannot be greater than %{gross_distribution_amount}
   attributes:
     confirm_primary_ssn: Confirm SSN or ITIN
     confirm_spouse_ssn: Confirm spouse's SSN or ITIN
@@ -262,10 +265,14 @@ en:
           presence: Please select a county
         subdivision_code:
           presence: Please select a political subdivision
+      nc_county:
+        county:
+          presence: Please select a county
       nc_eligibility_form:
         at_most_one_option_selected: You must either select none or the above options
       need_exactly_one_communication_method: Please enter only one form of contact.
       need_one_communication_method: Please choose some way for us to contact you.
+      no_money_amount: Please enter an amount. If amount is blank, enter $0.
       replace_me_text: Replace REPLACE ME with relevant information before proceeding.
       routing_account_number:
         not_same: Routing number and account number can not be the same
@@ -766,7 +773,6 @@ en:
           filer_provided_over_half_housing_support: Did the taxpayer(s) pay more than half the cost of maintaining a home for this person?
           filer_provided_over_half_support: Did the taxpayer(s) provide more than 50% of support for this person?
           first_name: First Name
-          got_married_during_tax_year: A. If Yes, Did you get married in 2024?
           had_disability: Totally and permanently disabled
           issued_an_identity_protection_pin: Issued an identity protection PIN (IPPIN)
           issued_ippin: Issued IPPIN
@@ -786,7 +792,6 @@ en:
           provided_over_half_own_support: Did this person provide more than 50% of his/ her own support?
           receive_written_communication: Receive written communications from the IRS in a language other than English?
           refund_check_by_mail: Check by mail
-          refund_other: Other
           refund_payment_method: 'If you are due a refund, would you like:'
           refund_payment_method_direct_deposit: Direct Deposit
           refund_payment_method_split: Split refund between different accounts
@@ -1018,6 +1023,7 @@ en:
         add_doc: Add document
         archived_documents: Archived documents
         client_doc: Client
+        edit_file_info: Edit File Info
         empty_file: "(empty file)"
         expanded_id_allowed: This client is allowed to submit Expanded ID Types as part of the experiment.
         file_name: File Name
@@ -1474,7 +1480,7 @@ en:
           Your Tax Team at GetYourRefund
         subject: 'GetYourRefund: You have a submission in progress'
       sms:
-        body: Hello <<Client.PreferredName>> you haven''t completed providing the information we need to prepare your taxes at GetYourRefund. Continue where you left off here <<Client.LoginLink>>. Your Client ID is <<Client.ClientId>>. If you have any questions, please reply to this message.
+        body: Hello <<Client.PreferredName>>, you haven't completed providing the information we need to prepare your taxes at GetYourRefund. Continue where you left off here <<Client.LoginLink>>. Your Client ID is <<Client.ClientId>>. If you have any questions, please reply to this message.
     intercom_forwarding:
       email:
         body: This conversation has been forwarded to GetYourRefund.org's customer service specialists. You should expect to see a message from them at a different email shortly.
@@ -1524,29 +1530,38 @@ en:
           body: |
             Hi %{primary_first_name},
 
-            %{state_name} accepted your state tax return! Make sure to pay your state taxes by April 15 at %{state_pay_taxes_link} if you have not paid via direct debit while filing your return.
+            Your %{state_name} state tax return has been <strong>accepted and a payment is due</strong>.
+
+            <strong>If you have not already paid via direct debit while filing your return, please submit your payment by April 15 at %{state_pay_taxes_link}</strong>. Any amount not paid by the filing deadline could add extra penalties and fees.
 
             Download your return at <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
 
-            Questions? Reply to this email.
+            Need help? Reply to this email.
 
             Best,
             The FileYourStateTaxes team
-          subject: 'FileYourStateTaxes Update: %{state_name} State Return Accepted'
-        sms: "Hi %{primary_first_name} - %{state_name} accepted your state tax return! Make sure to pay your state taxes by April 15 at %{state_pay_taxes_link} if you have not paid via direct deposit or check. \n\nDownload your return at %{return_status_link}\n\nQuestions? Email us at help@fileyourstatetaxes.org.\n"
+          subject: "%{state_name} State Return Accepted- Payment Due"
+        sms: |
+          Hi %{primary_first_name} - Your %{state_name} state tax return has been accepted and a payment is due.
+
+          If you haven't submited your payment via direct debit, please do so by April 15 at %{state_pay_taxes_link}. Any amount not paid by the filing deadline could add extra penalties and fees.
+
+          Download your return at %{return_status_link}
+
+          Need help? Email us at help@fileyourstatetaxes.org
       accepted_refund:
         email:
           body: |
             Hi %{primary_first_name},
 
-            %{state_name} accepted your state tax return!  You can expect to receive your refund as soon as %{state_name} approves your refund amount.
+            Your %{state_name} state return has been <strong>accepted</strong>!
 
             Download your return and check your refund status at <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
 
             Best,
             The FileYourStateTaxes team
-          subject: 'FileYourStateTaxes Update: %{state_name} State Return Accepted'
-        sms: "Hi %{primary_first_name} - %{state_name} accepted your state tax return! You can expect to receive your refund as soon as %{state_name} approves your refund amount. \n\nDownload your return and check your refund status at %{return_status_link}\n\nNeed help? Email us at help@fileyourstatetaxes.org.\n"
+          subject: "%{state_name} State Return Accepted"
+        sms: "Hi %{primary_first_name} - Good news, %{state_name} accepted your state tax return! \n\nDownload your return and check your refund status at %{return_status_link}\n\nNeed help? Email us at help@fileyourstatetaxes.org.\n"
       df_transfer_issue_message:
         email:
           body: |
@@ -1567,17 +1582,21 @@ en:
           body: |
             Hi %{primary_first_name},
 
-            You haven't submitted your state tax return yet. As a reminder, state taxes are due by April 15.
+            You haven't submitted your state tax return yet. State taxes are due by April 15.
 
-            Go to <a target="_blank" rel="noopener nofollow" href="https://fileyourstatetaxes.org">fileyourstatetaxes.org</a> to finish them now.
+            Go to <a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/en/login-options">fileyourstatetaxes.org/en/login-options</a> to finish them now.
 
             Need help? Reply to this email.
 
             Best,
             The FileYourStateTaxes team
-          subject: Don't forget to finish your state tax return!
+          subject: Remember to finish your state tax return
         sms: |
-          Hi %{primary_first_name} - You haven't submitted your state tax return yet. As a reminder, state taxes are due by April 15. Go to fileyourstatetaxes.org to finish them now.
+          Hi %{primary_first_name} - You haven't submitted your state tax return yet.
+
+          State taxes are due by April 15.
+
+          Go to www.fileyourstatetaxes.org/en/login-options to finish them now.
 
           Need help? Email us at help@fileyourstatetaxes.org.
       issue_resolved:
@@ -1593,21 +1612,31 @@ en:
           body: |-
             Hi %{primary_first_name},
 
-            We noticed that you have not submitted a state tax return yet with the account associated with this email address. If you submitted your state return another way, or you submitted your return under a different email address, you can disregard this message.
+            You haven't submitted your state tax return yet. As a reminder, state taxes were due by April 15. Make sure to submit your state  tax return as soon as possible in order to avoid late filing fees from %{state_name}.
 
-            This is a reminder that state taxes were due by April 15, but it's still not too late to file! Go to https://www.fileyourstatetaxes.org/en/login-options to check your return status or finish your return now. We encourage you to submit your return as soon as possible in order to avoid late filings fees from %{state_name}. Our services will be closing for the year on April 25. After this date, you will no longer be able to file through FileYourStateTaxes.
+            Go to <a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/en/login-options">fileyourstatetaxes.org/en/login-options</a> to finish them now.
 
             Need help? Reply to this email.
 
             Best,
             The FileYourStateTaxes team
-          subject: 'Final Reminder: FileYourStateTaxes closes April 25.'
+          subject: Make sure to finish filing your state taxes as soon as possible
         sms: |
-          Hi %{primary_first_name} - You haven't submitted your state tax return yet. Make sure to submit your state taxes as soon as possible to avoid late filing fees. Go to fileyourstatetaxes.org/en/login-options to finish them now. FileYourStateTaxes will be closing its services for the year on April 25.
+          Hi %{primary_first_name} - You haven't submitted your state tax return yet. Make sure to submit your state taxes as soon as possible to avoid late filing fees. Go to fileyourstatetaxes.org/en/login-options to finish them now.
           Need help? Email us at help@fileyourstatetaxes.org.
       pre_deadline_reminder:
         email:
-          body: "Hi %{primary_first_name},\n\nYou haven't submitted your state tax return yet. As a reminder, state taxes are due by April 15. Make sure to submit your state tax return by April 15 in order to avoid late filing fees from %{state_name}. \n\nGo to fileyourstatetaxes.org/en/login-options to finish them now.\n\nNeed help? Reply to this email.\n\nBest,\nThe FileYourStateTaxes team\n"
+          body: |
+            Hi %{primary_first_name},
+
+            You haven't submitted your state tax return yet. As a reminder, state taxes are due by April 15. Make sure to submit your state tax return by April 15 in order to avoid late filing fees from %{state_name}.
+
+            Go to <a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/en/login-options">fileyourstatetaxes.org/en/login-options</a> to finish them now.
+
+            Need help? Reply to this email.
+
+            Best,
+            The FileYourStateTaxes team
           subject: Don't forget to finish your state tax return by April 15!
         sms: |
           Hi %{primary_first_name} - You haven't submitted your state tax return yet. Make sure to submit your state taxes by April 15 in order to avoid late filing fees. Go to fileyourstatetaxes.org/en/login-options to finish them now.
@@ -1617,16 +1646,19 @@ en:
           body: |
             Hi %{primary_first_name},
 
-            As a reminder,  %{state_name} rejected your state tax return. Don't worry! We can help you fix and resubmit it at <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>. Make sure to take action on your rejected return as soon as possible in order to avoid late filing fees from  %{state_name} state.
+            A reminder that your %{state_name} state tax return was rejected. Don’t worry! You can fix and resubmit it at <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
 
-            FileYourStateTaxes will be closing its services for the year on April 25.
+            <strong>Please take action as soon as possible to avoid late filing fees from %{state_name}.</strong>
 
-            Questions? Reply to this email.
+            Need help? Reply to this email.
 
             Best,
             The FileYourStateTaxes team
           subject: Take action on your rejected %{state_name} state return.
-        sms: Hi %{primary_first_name} - This is a reminder that %{state_name} rejected your state tax return. We can help you fix and resubmit it at %{return_status_link}. Make sure to take action as soon as possible in order to avoid late filing fees. FileYourStateTaxes will be closing its services for the year on April 25. Questions? Email us at help@fileyourstatetaxes.org.
+        sms: |
+          Hi %{primary_first_name} - This is a reminder that %{state_name} rejected your state tax return. We can help you fix and resubmit it at %{return_status_link}. Make sure to take action as soon as possible in order to avoid late filing fees.
+
+          Need help? Email us at help@fileyourstatetaxes.org.
       rejected:
         email:
           body: |
@@ -1634,41 +1666,43 @@ en:
 
             Unfortunately, %{state_name} rejected your state tax return. Don't worry! We can help you fix and resubmit it at <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
 
-            Questions? Reply to this email.
+            Need help? Reply to this email.
 
             Best,
             The FileYourStateTaxes team
-          subject: 'FileYourStateTaxes Update: %{state_name} State Return Rejected. Action Needed'
+          subject: 'Action Needed: %{state_name} State Return Rejected'
         sms: |
           Hi %{primary_first_name} - Unfortunately, %{state_name} rejected your state tax return. Don't worry! We can help you fix and resubmit it at %{return_status_link}.
 
-          Questions? Email us at help@fileyourstatetaxes.org.
+          Need help? Email us at help@fileyourstatetaxes.org.
       still_processing:
         email:
           body: |
             Hi %{primary_first_name},
 
-            It's taking longer than expected to process your state tax return. Don't worry! We'll let you know as soon as we know your return status. You don't need to do anything right now.
+            It's taking longer than expected to process your state tax return. Don't worry! <strong>No action is needed right now</strong>. We'll update you as we know your return status.
 
-            Questions? Reply to this email.
+            Need help? Reply to this email.
 
             Best,
             The FileYourStateTaxes team
-          subject: 'FileYourStateTaxes Update: Your %{state_name} state tax return is taking longer than expected'
-        sms: Hi %{primary_first_name} - It's taking longer than expected to process your state tax return. Don't worry! We'll let you know as soon as we know your return status. You don't need to do anything right now. Questions? Email us at help@fileyourstatetaxes.org.
+          subject: Your %{state_name} state tax return is taking longer than expected
+        sms: Hi %{primary_first_name} - It's taking longer than expected to process your state tax return. Don't worry! We'll let you know as soon as we know your return status. You don't need to do anything right now. Need help? Email us at help@fileyourstatetaxes.org.
       successful_submission:
         email:
           body: |
             Hi %{primary_first_name},
 
-            You successfully %{submitted_or_resubmitted} your %{state_name} state tax return! We'll update you in 1-2 days on the status of your return. You can download your return and check the status at <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
+            You successfully %{submitted_or_resubmitted} your %{state_name} state tax return! We'll update you in 1-2 business days on the status of your return.
+
+            You can download your return and check the status at <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
 
             Need help? Reply to this email.
 
             Best,
             The FileYourStateTaxes team
           resubmitted: resubmitted
-          subject: 'FileYourStateTaxes Update: %{state_name} State Return Submitted'
+          subject: "%{state_name} State Return Submitted"
           submitted: submitted
         sms: Hi %{primary_first_name} - You successfully  %{submitted_or_resubmitted} your %{state_name} state tax return! We'll update you in 1-2 days on the status of your return. You can download your return and check the status at %{return_status_link}. Need help? Email us at help@fileyourstatetaxes.org.
       survey_notification:
@@ -1683,32 +1717,28 @@ en:
             Best,
             The FileYourStateTaxes team
           subject: Your feedback on FileYourStateTaxes
-        sms: |
-          Hi %{primary_first_name} - Thank you for submitting your taxes with FileYourStateTaxes! We would love feedback on your experience so we can improve! Could you tell us about how it went? Take our 5 minute survey here: %{survey_link}
-
-          Best,
-          The FileYourStateTaxes team
+        sms: 'Hi %{primary_first_name} - Thank you for submitting your taxes with FileYourStateTaxes! We would love feedback on your experience so we can improve! Could you tell us about how it went? Take our 5 minute survey here: %{survey_link}'
       terminal_rejected:
         email:
           body: |
             Hi %{primary_first_name},
 
-            Unfortunately, %{state_name} rejected your state tax return due to an issue that cannot be resolved on our tool. Don't worry! We can help provide guidance on next steps. You can chat with us at %{return_status_link}.
+            Unfortunately, %{state_name} rejected your state tax return due to an issue that cannot be resolved on our service. Don't worry! We can help provide guidance on next steps. Chat with us at %{return_status_link}.
 
-            Questions? Reply to this email.
+            Need help? Reply to this email.
 
             Best,
             The FileYourStateTaxes team
-          subject: 'FileYourStateTaxes Update: %{state_name} State Return Rejected.'
-        sms: "Hi %{primary_first_name} - Unfortunately, %{state_name} rejected your state tax return for an issue that cannot be resolved on our tool. Don't worry! We can help provide guidance on next steps. Chat with us at %{return_status_link}. \n\nQuestions? Reply to this text.\n"
+          subject: "%{state_name} State Return Rejected."
+        sms: "Hi %{primary_first_name} - Unfortunately, %{state_name} rejected your state tax return for an issue that cannot be resolved on our service. Don't worry! We can help provide guidance on next steps. Chat with us at %{return_status_link}. \n\nNeed help? Email us at help@fileyourstatetaxes.org.\n"
       welcome:
         email:
           body: |
-            Welcome!
+            Hi,
 
-            We successfully created your FileYourStateTaxes account! We'll send you updates on your state tax return status once you submit it. While you are filing, your responses will be saved as you go. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org.
+            Your FileYourStateTaxes account is ready to use! We'll send updates once you submit your state tax return. Your progress is saved as you go, and you can log back in anytime at <a  target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/en/login-options">fileyourstatetaxes.org</a>.
 
-            Your Client ID is %{intake_id}. This is an important piece of account information that you may need when talking to our support team. Please keep track of this number and do not delete this message.
+            <strong>Your Client ID is %{intake_id}. Keep it handy for support.</strong>
 
             Need help? Reply to this email.
 
@@ -1716,9 +1746,11 @@ en:
             The FileYourStateTaxes team
           subject: Welcome to FileYourStateTaxes
         sms: |
-          Welcome! We successfully created your FileYourStateTaxes account! We'll send you updates on your state tax return status once you submit it. While you are filing, your responses will be saved as you go. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org
+          Hi! Your FileYourStateTaxes account is ready to use. We'll send updates when you submit your state tax return. Your progress is saved as you go, so you can log back in anytime.
 
-          Need help? Email us at help@fileyourstatetaxes.org. Text "STOP" to unsubscribe.
+          Your Client ID is %{intake_id}. Keep it handy for support.
+
+          Need help? Email us at help@fileyourstatetaxes.org Text "STOP" to opt out of notifications.
     successful_submission_drop_off:
       email:
         body: |
@@ -2051,14 +2083,14 @@ en:
           enter_email: Enter the email address linked to your account
       identification_number:
         edit:
-          error_message: Incorrect SSN/ITIN. After 2 failed attempts, accounts are locked.
+          error_message: Please enter the correct SSN/ITIN
           help_text: To keep your identity safe, we need to confirm your social security number.
           ssn_label: Social Security Number or ITIN
           title: We found your account! Please confirm your identity
       mailing_address_validation:
         edit:
           identity_safe: To keep your identity safe, we need to confirm the address on your 2023 tax return.
-          radio_button_title: Select the mailing address for your 2023 tax return.
+          radio_button_title: 'Select the mailing address for your 2023 tax return:'
           title: Confirm your address to access your tax return
       pdfs:
         index:
@@ -2067,14 +2099,15 @@ en:
           title: Your account has been successfully verified!
       verification_code:
         edit:
-          error_message: Incorrect verification code. After 2 failed attempts, accounts are locked.
+          error_message: Please enter a valid code
           subtitle_2_html: If you still need help, <a class="open-intercom">chat with us</a>.
           subtitle_html: If you didn’t receive a code, please check your spam folder.
-          title_html: We’ve sent your code to <strong>%{email_address}</strong>
+          title_html: We’ve sent a code to <strong>%{email_address}</strong>
           verify: Verify code
       verification_error:
         az_dor: Arizona Department of Revenue
         ny_dor: NY State Tax Department
+        return_to_home: Return to Homepage
         subtitle: Please visit your state's tax agency website to request your %{year} tax return
         title: Sorry, we were not able to verify your account
     faq:
@@ -2153,9 +2186,9 @@ en:
         body_html: This account has been locked due to too many failed login attempts. If you need help unlocking this account, please email us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
         title: This account has been locked
       edit:
-        help_text: To safeguard your identity, we need to confirm your social security number for identification verification.
+        help_text: To keep your identity safe, we need to confirm your social security number.
         ssn_label: Enter your Social Security number or ITIN. For example, 123-45-6789.
-        title: Code verified! Authentication needed to continue.
+        title: We found your account! Please confirm your identity to finish signing in.
       enter_verification_code:
         code_sent_to_closed_html: We’ve sent your code to %{contact_info}. If you didn’t receive a code, and need help resubscribing, email us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
         code_sent_to_html: We’ve sent your code to %{contact_info}. If you didn’t receive a code, and need help resubscribing, chat with us.
@@ -2169,11 +2202,12 @@ en:
         email_address:
           label: Your email address
           not_found_html: Sorry, we don’t have an account registered for that email address. <a href="https://www.fileyourstatetaxes.org/en/us/faq">Click here</a> to get started with FileYourStateTaxes.
-          title: Sign in with your email address. To continue filing your state tax return safely, we’ll send you a secure code.
+          title: Sign in with your email address.
         sms_phone_number:
           label: Your phone number
           not_found_html: Sorry, we don’t have an account registered for that phone number. <a href="https://www.fileyourstatetaxes.org/en/us/faq">Click here</a> to get started with FileYourStateTaxes.
-          title: Sign in with your phone number. To continue filing your state tax return safely, we’ll send you a secure code.
+          title: Sign in with your phone number.
+        to_continue: To continue filing your state tax return safely, we’ll send you a secure code.
       no_match_sms: Someone tried to sign in to FileYourStateTaxes with this phone number, but we couldn't find a match. Did you sign up with a different phone number? You can also visit %{url} to get started.
     landing_page:
       edit:
@@ -2181,8 +2215,9 @@ en:
         already_started_html: Already started filing your state return? <a href="%{sign_in_url}">Sign in</a>.
         az:
           closed_html: |
+            We're closed for the tax season.<br /><br />
             <strong>FileYourStateTaxes</strong> is built in partnership with the state of Arizona to integrate with IRS Direct File.<br /><br />
-            We're closed for the tax season. Unfortunately you can no longer file your state return with us this year.
+            Unfortunately you cannot file your state return with us this year.
           supported_by: Supported by the state of Arizona
           title: File your Arizona state taxes for free
         built_with_html: |
@@ -2202,20 +2237,23 @@ en:
         help_text_title: What will I need to complete my state tax return?
         id:
           closed_html: |
+            We're closed for the tax season.<br /><br />
             <strong>FileYourStateTaxes</strong> is built in partnership with the state of Idaho to integrate with IRS Direct File.<br /><br />
-            We're closed for the tax season. Unfortunately you can no longer file your state return with us this year.
+            Unfortunately you cannot file your state return with us this year.
           supported_by: Supported by the state of Idaho
           title: File your Idaho state taxes for free
         md:
           closed_html: |
-            <strong>FileYourStateTaxes</strong> is built in partnership with Maryland to integrate with IRS Direct File.<br /><br />
-            We're closed for the tax season. Unfortunately you can no longer file your state return with us this year.
+            We're closed for the tax season.<br /><br />
+            <strong>FileYourStateTaxes</strong> is built in partnership with the state of Maryland to integrate with IRS Direct File.<br /><br />
+            Unfortunately you cannot file your state return with us this year.
           supported_by: Supported by the state of Maryland
           title: File your Maryland state taxes for free
         nc:
           closed_html: |
+            We're closed for the tax season.<br /><br />
             <strong>FileYourStateTaxes</strong> is built in partnership with the state of North Carolina to integrate with IRS Direct File.<br /><br />
-            We're closed for the tax season. Unfortunately you can no longer file your state return with us this year.
+            Unfortunately you cannot file your state return with us this year.
           supported_by: Supported by the state of North Carolina
           title: File your North Carolina state taxes for free
         nj:
@@ -2261,7 +2299,7 @@ en:
       step_description: 'Section %{current_step} of %{total_steps}: '
     notification_mailer:
       user_message:
-        unsubscribe: If you would like to unsubscribe from emails, click <a href="%{unsubscribe_link}">here</a>.
+        unsubscribe: To unsubscribe from emails, <a href="%{unsubscribe_link}">click here</a>.
     notifications_settings:
       unsubscribe_from_emails:
         help_text_html: If you change your mind and would like to opt in later, <a class="open-intercom">chat with us</a> or email us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org.</a>
@@ -2287,11 +2325,19 @@ en:
           primary_was_incarcerated: Were you incarcerated in a county, state, or federal prison for at least 60 days in %{tax_year}?
           spouse_was_incarcerated: Was your spouse incarcerated in a county, state, or federal prison for at least 60 days in %{tax_year}?
           title: You might be eligible for the Increased Excise Tax Credit.
+      az_primary_state_id:
+        az_primary:
+          learn_more_html: |
+            To learn more, visit:<br>
+            <a href="https://azdor.gov/individuals/income-tax-filing-assistance/verifying-identity-and-avoiding-identity-theft" target="_blank">
+            azdor.gov/individuals/income-tax-filing-assistance/verifying-identity-and-avoiding-identity-theft
+            </a>
+          ongoing_effort: In an ongoing effort to protect taxpayers from identity theft, the IRS, state tax agencies, and the tax industry are asking you to provide your driver’s license or state-issued identification number.
+          requests_drivers_license: The Arizona Department of Revenue requests the Driver’s License/Identification card to be included with the return but won’t reject the return if it’s not included.
+          why_are_you_asking: Why are you asking for this information?
       az_prior_last_names:
         edit:
-          prior_last_names_label:
-            one: 'Enter all last names used in the last four years. (Ex: Smith, Jones, Brown)'
-            other: Enter all last names used by you and your spouse in the last four years.
+          prior_last_names_label: 'Enter all last names used in the last four years. (Ex: Smith, Jones, Brown)'
           subtitle: This includes tax years %{start_year}-%{end_year}.
           title:
             one: Did you file with a different last name in the last four years?
@@ -2303,14 +2349,14 @@ en:
           additional_info: Please add details for each public school you paid fees or made donations to.
           amount: Amount of donations/fees paid in %{year}
           amount_help_text:
-            one: Arizona will credit up to $200
-            other: Arizona will credit up to $400
+            one: Arizona credits up to $200
+            other: Arizona credits up to $400
           ctds_code: School Code/CTDS
           date_of_contribution: Date of payment in %{year}
           district_name: School District Name
           school_name: School Name
           school_name_help_text: Please use the official school name
-          title_html: You might be eligible for the <a href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_guideline-public-school-ECA-tax-credit.pdf" target="_blank">Arizona Public School Credit</a>!
+          title_html: You might be eligible for the <a href="https://azdor.gov/sites/default/files/document/PUBLICATION_2024_ADESchoolListing.pdf" target="_blank">Arizona Public School Credit</a>!
         form:
           donations_this_year: What about donations made in %{current_year}?
           donations_this_year_details_html: |
@@ -2320,7 +2366,7 @@ en:
           made_az322_contributions:
             one: Did you pay any fees or make any qualified cash donation to an Arizona public school in %{year}?
             other: Did you or your spouse pay any fees or make any qualified cash donation to an Arizona public school in %{year}?
-          more_details_html: Visit the <a href="https://azdor.gov/sites/default/files/2023-03/PUBLICATION_guideline-public-school-ECA-tax-credit.pdf" target="_blank">Arizona Department of Revenue Guide</a> for more details.
+          more_details_html: Visit the <a href="https://azdor.gov/sites/default/files/document/PUBLICATION_2024_ADESchoolListing.pdf" target="_blank">Arizona Department of Revenue Guide</a> for more details.
           qualifying_list:
           - Extracurricular Activities
           - Character Education
@@ -2332,7 +2378,7 @@ en:
             <br/><br/>
             OR
             <br/><br/>
-            Visit the Arizona Department of Revenue to find the details.
+            Visit the <a href="https://azdor.gov/sites/default/files/document/PUBLICATION_2024_ADESchoolListing.pdf" target="_blank">Arizona Department of Revenue</a> to find the details.
             <br/><br/>
             To avoid any errors, highlight the text in the pdf then copy (Ctrl + C) and paste (Ctrl + V) directly to this page.
           school_details_question: Where can I find the school details?
@@ -2365,6 +2411,28 @@ en:
           delete_confirmation: Are you sure you want to delete this contribution?
           maximum_records: You have provided the maximum amount of records.
           title: Here are the Qualifying Charitable donations we've collected.
+      az_retirement_income_subtraction:
+        edit:
+          federal: Federal
+          federal_bullet_points:
+          - US Government Service Retirement and Disability Fund
+          - US Foreign Service Retirement and Disability System
+          - Other federal retirement systems or plans established by federal law
+          pension_plan: Qualifying federal, Arizona, or government pension plan
+          state_local: State/local
+          state_local_bullet_points:
+          - Arizona State Retirement System
+          - Arizona State Retirement Plan
+          - Corrections Officer Retirement Plan
+          - Public Safety Personnel Retirement System
+          - Elected Officials Retirement Plan
+          - Retirement program established by the Arizona Board of Regents
+          - Retirement program established by Arizona community college district
+          - Retirement plan established for employees of a county, city, or town in Arizona
+          subtitle: We need more information about this 1099-R to check your eligibility and file your state return.
+          subtitle_2: If you reported multiple 1099-Rs, you’ll be asked to complete this step for each one with a taxable amount.
+          uniformed_services: Retired or retainer pay of the uniformed services of the United States
+          which_pensions: Which government pensions qualify?
       az_review:
         edit:
           armed_forces_member: Member of the U.S. Armed Forces
@@ -2435,13 +2503,12 @@ en:
           title: You canceled the transfer of your federal return.
       code_verified:
         edit:
-          subtitle_email: You’ll now receive email updates when your state tax return is accepted.
-          subtitle_text: You’ll now receive text updates when your state tax return is accepted.
+          continue_to_set_up: Continue to finish setting up your account.
           title: Code verified!
       contact_preference:
         edit:
           email_option: Email me a code
-          subtitle: With an account, you’ll receive status updates on your state tax return.
+          subtitle: You can log back in to your account at any time using the phone number or email you add.
           text_message_option: Text me a code
           title: Next, create your account with a quick code
       data_transfer_offboarding:
@@ -2462,12 +2529,12 @@ en:
           title: You’ve declined the terms and conditions.
       eligibility_offboarding:
         edit:
-          body_html: You cannot use this service this year because %{ineligible_reason}. <br><br><strong>Is this a mistake?</strong> <a href=%{prev_link}>Go back to correct.</a>
+          body_html: You cannot use this service this year because <strong>%{ineligible_reason}.</strong> <br><br><strong>Is this a mistake?</strong> <a href=%{prev_link}>Go back to correct.</a>
           ineligible_reason:
             eligibility_529_for_non_qual_expense: you withdrew money from a 529 college savings account and used it for a non-qualifying expense in %{filing_year}
-            eligibility_ed_loan_cancelled: you had student loan debt canceled under the American Rescue Plan Act.
-            eligibility_ed_loan_emp_payment: you received a Qualified Education Loan Payment paid by your employer.
-            eligibility_emergency_rental_assistance: you received emergency rental assistance in %{filing_year}
+            eligibility_ed_loan_cancelled: you had student loan debt canceled under the American Rescue Plan Act
+            eligibility_ed_loan_emp_payment: you received a Qualified Education Loan Payment paid by your employer
+            eligibility_emergency_rental_assistance: you (or your spouse) received emergency rental assistance in %{filing_year}
             eligibility_home_different_areas: you and your spouse had your permanent homes in two different counties, cities, towns, or taxing areas on the last day of %{filing_year}
             eligibility_homebuyer_withdrawal: you withdrew money from a first-time homebuyer account not used to buy a home in Maryland
             eligibility_homebuyer_withdrawal_mfj: you or your spouse withdrew money from a first-time homebuyer account not used to buy a home in Maryland
@@ -2476,19 +2543,20 @@ en:
             eligibility_out_of_state_income: you earned income in another state in %{filing_year}
             eligibility_part_year_nyc_resident: you were a part-time New York City resident in %{filing_year}
             eligibility_withdrew_529: you withdrew money from a 529 college savings account in %{filing_year}
-            eligibility_withdrew_msa_fthb: you withdrew money from a medical savings account or a first-time homebuyer account
+            eligibility_withdrew_msa_fthb: you either withdrew money from your Idaho Medical Savings Account and used it for a non-qualifying expense or you withdrew money from your First-Time Homebuyer Account and used it for non-eligible home costs
             eligibility_yonkers: you lived or earned income in Yonkers in %{filing_year}
             health_insurance_eligibility: someone in your tax household did not have health insurance (with minimum essential coverage) for every month in %{filing_year}
-            nyc_maintained_home: you lived in or maintained a home in New York City for some of the year.
-            nyc_residency: you lived in or maintained a home in New York City for some of the year.
+            nj_retirement_warning_eligibility: you are using a method to calculate taxable retirement income that our tool does not support
+            nyc_maintained_home: you lived in or maintained a home in New York City for some of the year
+            nyc_residency: you lived in or maintained a home in New York City for some of the year
             permanent_address_outside_md: you did not reside in Maryland on Dec 31st
             permanent_address_outside_ny: you did not live in New York for all of %{filing_year}
           title:
-            default: Unfortunately, you can't use this service this year. Don't worry, there are other filing options.
+            default: Unfortunately you can’t use this service this year. Don’t worry, there are other filing options.
             nj: Unfortunately, based on the information we have, you can't use this tool this year. Don't worry; there are other filing options.
       eligible:
         az_credits_unsupported:
-          other_credits_301_html: Nonrefundable credits listed on <a href="https://azdor.gov/sites/default/files/2023-03/FORMS_CREDIT_2022_301-SBI_f.pdf" target="_blank" rel="noopener nofollow">AZ Form 301</a>
+          other_credits_301_html: Nonrefundable credits listed on <a href="https://azdor.gov/sites/default/files/document/FORMS_CREDIT_2024_301_f.pdf" target="_blank" rel="noopener nofollow">AZ Form 301</a>
           other_credits_529_html: <a href="https://az529.gov/what-is-a-529-plan/az-tax-incentives/" target="_blank" rel="noopener nofollow">Arizona 529 plan contributions deduction</a>
           other_credits_add_dependents: Adding dependents not claimed on the federal return
           other_credits_change_filing_status: Change in filing status from federal to state return
@@ -2508,6 +2576,7 @@ en:
         edit:
           credits_not_supported: What subtractions, credits, and household situations does this service not support this year?
           faq_link: Find a more detailed breakdown of this year's unsupported credits, deductions, and other situations here.
+          faq_link_html: Find a more detailed breakdown of this year's unsupported credits, deductions, and other situations <a href="%{url}">here</a>.
           md_title2_html: |
             Let's make sure this is the right service for you.<br><br>
             Here are the credits and subtractions you <strong>may</strong> be able to claim to maximize your refund.
@@ -2789,12 +2858,21 @@ en:
               default: What are my free state filing options?
               nj: Learn more about the VITA process
         vita_option:
-          connect_to_vita: Get connected now
+          connect_to_vita:
+            nj: |
+              <p>
+                <a href="%{faq_link_href}" target="_blank" rel="noopener noreferrer">
+                  Visit our FAQ
+                </a>
+              </p>
+              <a href="%{vita_link_href}" target="_blank" rel="noopener noreferrer" class="button button--primary button--wide spacing-below-25">
+                Get connected now
+              </a>
           vita_introduction:
             nj: You can file your state taxes for free with help from IRS-certified Volunteer Income Tax Assistance (VITA) tax preparers at Simplify CT.
           vita_link: Get started with VITA now
           want_to_claim_learn_more_html: Learn more about this process and other filing options <a href="%{link}" target="_blank">here</a>.
-          want_to_claim_vita: You may be able to file your state return for free with help from IRS-certified VITA volunteers, but it may take 2-3 weeks to complete.
+          want_to_claim_vita_1: You may be able to file your state return for free with IRS-certified VITA volunteers, but it may take 2-3 weeks to complete.
       email_address:
         edit:
           action: Send code
@@ -2814,6 +2892,7 @@ en:
               </ul>
               <p>If I have filed a balance due return, I understand that if the ADOR does not receive full and timely payment of my tax liability by April 15, 2024, I will remain liable for the tax liability and all applicable interest and penalties.</p>
               <p>I consent to my Electronic Return Originator (ERO) or On-Line Service Provider (OLSP) sending my electronic Arizona individual income tax return and accompanying schedules and statements to ADOR, and I consent to my ERO or OLSP sending such information to ADOR through a transmitter. I consent to ADOR sending my ERO, OLSP and/or transmitter an acknowledgement of receipt of transmission and an indication of whether or not the transmission of my return is accepted and, if the return is rejected, the reason(s) for the rejection. If the processing of my return or refund is delayed, I authorize ADOR to disclose to my ERO, OLSP and/ or transmitter the reason(s) for the delay, or when the refund was sent. If ADOR contacts my ERO for a copy of my return, any documents or schedules to my return, and/or this authorization form, I authorize my ERO to release copies of the requested documents to ADOR.</p>
+              <p>By using a computer system and software to prepare and/or file my tax return(s) electronically, I consent to the transmission of my return(s) and to the disclosure of all information about my use of the system and software to the Arizona State Tax Commission.</p>
               <p>I declare under penalties of perjury that to the best of my knowledge and belief the return is true, correct and complete.</p>
           id:
             body_html: |
@@ -2852,6 +2931,22 @@ en:
           spouse_esign: My spouse has read the certification above and agrees
           submit: Submit your state return
           title: Electronically sign your %{state_name} state tax return
+      id_disability:
+        edit:
+          help_b1: An individual recognized as disabled by the Social Security Administration, the Railroad Retirement Board, or the Office of Management and Budget
+          help_b2: A veteran of a U.S. war with a service-connected disability rating of 10% or more
+          help_b3: A veteran of a U.S. war with a non service-connected disability pension
+          help_b4: A person who has a physician-certified permanent disability with no expectation of improvement
+          help_text: The following individuals are classified as disabled
+          help_title: What is classified as disabled?
+          no_neither: No, neither of us is
+          question: Do you meet the qualifications to be classified as disabled?
+          question_both: Do you or your spouse meet the qualifications to be classified as disabled?
+          question_spouse: Does your spouse meet the qualification to be classified as disabled?
+          title: You might be eligible for Idaho Retirement Income Deduction.
+          yes_both: Yes, we both are
+          yes_me: Yes, I am
+          yes_spouse: Yes, my spouse is
       id_donations:
         edit:
           add_the_amount: Add the amount you would like to donate to any organization below
@@ -2887,6 +2982,7 @@ en:
           see_if_you_qualify:
             one: To see if you qualify, we need more information about you.
             other: To see if you qualify, we need more information about you and your household.
+          select_a_household_member_error: Please select a household member
           select_household_members: 'Select the members of the household any of these situations applied to in %{tax_year}:'
           situation_incarceration: were incarcerated
           situation_snap: received food stamps / SNAP-EBT
@@ -2931,7 +3027,7 @@ en:
           health_insurance_premium_question:
             one: Did you pay health insurance premiums for yourself in %{year}?
             other: Did you pay health insurance premiums for yourself and your household in %{year}?
-          medicaid_content: Yes, if you are on Medicaid, your health insurance premium counts.  Check your monthly letter from the Idaho Department of Health and Welfare for your premium amount. It could be as low as $0, depending on your income and other factors.
+          medicaid_content: Yes, if you are on Medicaid, your health insurance premium counts.  Check your monthly letter from the Idaho Department of Health and Welfare for your premium amount. It could be as low as $0, depending on your income and other factors.
           medicaid_title: Do Medicaid and Medicare payments count?
           qualifications_content_html: |
             You can deduct health insurance premiums paid for yourself, your spouse, and your dependents, including medical, dental, and vision, as long as they haven’t been deducted from your income pre-tax.
@@ -2967,6 +3063,15 @@ en:
           subtitle: Provide your driver’s license or identity card number when you e-File to help your refund process faster.
           title: We need some details from your state-issued ID, if you have one
           why_ask_this: Why are you asking for this information?
+      id_retirement_and_pension_income:
+        edit:
+          question_b1: Your service as a civil service employee
+          question_b2: Your service as an Idaho firefighter
+          question_b3: Your service as a police officer of an Idaho city
+          question_b4: Your service as a member of the U.S. military
+          question_b5: Survivor benefits from a deceased spouse’s pension from one of the sources listed above
+          question_html: Does this retirement income come from any of the following sources and does it meet the qualifications on <a href="https://tax.idaho.gov/wp-content/uploads/forms/EFO00088/EFO00088_08-22-2024.pdf#page=7" target="_blank" rel="noopener noreferrer">pages 7-8 of the instruction booklet?</a>?
+          subtitle: We need more information about your 1099-R to check your eligibility.
       id_review:
         edit:
           donations_optional: Idaho taxpayers can make voluntary charitable donations to organizations when they file their state income tax return.
@@ -3004,6 +3109,7 @@ en:
           no_info_needed_nj: This income is not taxed in New Jersey.
           retirement_income_title: Retirement income (1099-R)
           review_and_edit_state_info: Review and edit state info
+          review_state_info: Review state info
           ssa_title: Social Security benefits (SSA-1099)
           state_info_to_be_collected: State info to be collected
           title: Here are the income forms we transferred from your federal tax return.
@@ -3074,6 +3180,26 @@ en:
           which_members_not_have_insurance: Select which member(s) of your household <strong> did not </strong> have health care coverage at the end of %{tax_year}?
           why_ask_explanation: This information will help Maryland Health Connection determine eligibility for uninsured members of your household for no-cost or low-cost health coverage. It <strong>won't affect</strong> your tax return and there are no penalties for providing this information.
           why_ask_this: Why are you asking this?
+      md_pension_exclusion_offboarding:
+        edit:
+          commercial_tax_prep_html: File with a commercial tax preparation service. Learn more <a href='%{path}' target='_blank' rel='noopener noreferrer'>here</a>.
+          contact_info_html: If you have any questions or want your information removed from this service, please email us at <a href='mailto:help@fileyourstatetaxes.org'>help@fileyourstatetaxes.org</a>.
+          description: The Maryland Pension Exclusion can save you hundreds to thousands of dollars in state and local taxes by reducing your taxable retirement income.
+          free_in_md: File for free with IRS-Certified VITA volunteers in Maryland.
+          free_income_tax_prep_html: Get started with the Comptroller of Maryland’s <a href='https://www.marylandtaxes.gov/individual/tax-assistance/free-tax-prep.php' target='_blank' rel='noopener noreferrer'>Free Income Tax Preparation</a> service.
+          go_back_html: "<strong>Have you provided proof of your disability in previous tax years?</strong> <a href='%{path}'>Go back to correct.</a>"
+          if_choose_this_option: If you choose this option, you'll be connected with a VITA partner in Maryland. Expect a quick intake call in a few days to discuss your tax situation and securely upload your documents. This process may take 2-3 weeks to complete.
+          if_you_want_to_html: If you want to claim the Maryland Pension Exclusion using a different service, you have a few options. Keep in mind, <strong>you will not be able to transfer any information from FileYourStateTaxes to these services:</strong>
+          like_to_claim: If you'd like to claim this exclusion using a different service, you can learn more below.
+          like_to_continue: If you'd like to continue using this service and not claim this exclusion, you can click 'Continue.'
+          other_filing_options_html: Learn more about other filing options <a href='%{path}' target='_blank' rel='noopener noreferrer'>here</a>.
+          title_html:
+            one: It looks like you may qualify for the <a href='https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php' target='_blank' rel='noopener noreferrer'>Maryland Pension Exclusion</a>.
+            other: It looks like you and your spouse may qualify for the <a href='https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php' target='_blank' rel='noopener noreferrer'>Maryland Pension Exclusion</a>.
+          unfortunately: Unfortunately, our service doesn’t support this exclusion if you haven’t provided proof of your disability in a previous tax year.
+          vita_option_html: "<a href='%{link}' rel='noopener noreferrer'>Get started with VITA now</a>."
+          what_if_i_want_to_claim: What if I want to claim the Maryland Pension Exclusion?
+          what_to_expect_next: 'Here''s what to expect next:'
       md_permanent_address:
         edit:
           address_header: Address
@@ -3088,12 +3214,21 @@ en:
           zip_label: Zip Code
       md_permanently_disabled:
         edit:
-          help_text_html: You are considered totally disabled if you have a mental or physical condition that stops you from working and earning a living. <br><br>This condition is expected to last a long time, for an indefinite period, or to result in your death. If you are under 65 and want to claim the pension exclusion, you must have attached a certification from a qualified physician stating the nature of your impairment and that you are totally disabled to a previously filed tax return.
-          help_title: What is considered totally and permanently disabled?
+          help_text: You are considered totally disabled if you have a mental or physical condition that stops you from working and earning a living.
+          help_text_2: This condition is expected to last a long time, for an indefinite period, or to result in your death. If you are under 65 and want to claim the pension exclusion, you must have attached a certification from a qualified physician stating the nature of your impairment and that you are totally disabled to a previously filed tax return.
           no_neither: No, neither of us is
-          proof_question: Have you provided proof of your disability to Maryland for the pension exclusion in previous tax years?
+          primary_proof_question_html: Have <strong>you</strong> provided proof of your disability for the <a href="https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php">Maryland Pension Exclusion</a>in the previous tax years?
+          spouse_proof_question_html: Has <strong>your spouse</strong> provided proof of your disability for the  <a href="https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php">Maryland Pension Exclusion</a> in the previous tax years?
           title: Are you totally and permanently disabled?
           title_spouse: Are you or your spouse totally and permanently disabled?
+          unfortunately_dont_support_html: Unfortunately, our service doesn’t support the Maryland Pension Exclusion if you haven’t provided proof of your disability in a previous tax year.<br><br> If you want to claim the pension exclusion, <a href='%{path}'>learn more here</a>.
+          why: Why are you asking this?
+          why_explained_1: The Maryland Pension Exclusion can save you hundreds to thousands of dollars in state and local taxes by reducing your taxable retirement income. If you are over 65, you automatically qualify for the pension exclusion.
+          why_explained_2_html: If you are under 65 and want to claim the pension exclusion, you <strong>must have attached a certification from a qualified physician stating the nature of your impairment and that you are totally disabled to a previously filed tax return</strong>.
+          why_explained_html: If you are age 65 or older, we need this information to complete Form 502R. If you are under 65, we need this information to determine if you qualify for the <a href="https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php" target="_blank" rel="noopener">Maryland Pension Exclusion</a>.
+          why_explained_mfj_1: The Maryland Pension Exclusion can save you hundreds to thousands of dollars in state and local taxes by reducing your taxable retirement income. If you or your spouse are over 65, you automatically qualify for the pension exclusion.
+          why_explained_mfj_2_html: If you or your spouse are under 65 and want to claim the pension exclusion, you or your spouse <strong>must have attached a certification from a qualified physician stating the nature of your or their impairment and that you or they are totally disabled to a previously filed tax return</strong>.
+          why_explained_mfj_html: If you and your spouse are age 65 or older, we need this information to complete Form 502R. If you or your spouse are under 65, we need this information to determine if you qualify for the <a href="https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php" target="_blank" rel="noopener">Maryland Pension Exclusion</a>.
           yes_both: Yes, we both are
           yes_me: Yes, I am
           yes_spouse: Yes, my spouse is
@@ -3121,14 +3256,13 @@ en:
             </ul>
           public_service_reveal_header: What service qualifies as a public safety employee?
           public_service_reveal_html: |
-            <p>To qualify, you must be a retired:</p>
+            <p>To qualify, you must have been employed by the federal government, Maryland, or a Maryland political subdivision as a:</p>
             <ul>
               <li>Correctional officer, or</li>
               <li>Law enforcement officer, or</li>
               <li>Firefighter, rescue worker, or emergency services personnel</li>
             </ul>
-            <p>This applies to federal employees in the United States, including Maryland and its political subdivisions.</p>
-          retirement_plan_reveal_header: What retirement plans are considered part of an employee retirement system?
+          retirement_plan_reveal_header: What retirement plans are part of an employee retirement system?
           retirement_plan_reveal_html: |
             <p>Plans that are part of an employee retirement system include:</p>
             <ul>
@@ -3138,30 +3272,24 @@ en:
               <li>Thrift savings plan</li>
               <li>SIMPLE 401(k) plans for small businesses</li>
             </ul>
-            <p>This does not include Keogh plans or foreign retirement income.</p>
-            <p>Income from a traditional IRA, Roth IRA, rollover IRA, or a simplified employee plan (SEP) is not supported by this product.</p>
+            <p>This does not include Keogh plans or retirement income from other countries.</p>
+            <p>Income from a traditional IRA, Roth IRA, rollover IRA, or a simplified employee plan (SEP) is not supported by this service.</p>
           service_type_military: Your service in the military or military death benefits received on behalf of a spouse or ex-spouse
           service_type_none: None of these apply
           service_type_public_safety: Your service as a public safety employee
           service_type_question: 'Did this income come from:'
-          subtitle: We need more information about this 1099-R to file your state tax return and check your eligibility for subtractions.
+          subtitle_html: Some 1099-Rs with a taxable amount listed may qualify for this deduction. We need more information about this 1099-R to check your eligibility and file your state return. <br><br> If you reported multiple 1099-Rs, you'll be asked to complete this step for each one with a taxable amount.
           taxable_amount_label: Taxable amount
           taxpayer_name_label: Taxpayer name
           title: You might be eligible for a Maryland retirement income subtraction!
       md_review:
         edit:
           county_html: "<strong> County lived in on December 31, %{filing_year}</strong>"
+          disability_status: Totally and permanently disabled status
           political_subdivision_html: "<strong>Political subdivision lived in on December 31, %{filing_year}</strong>"
+          primary_proof_of_disability: Proof provided of disability for the pension exclusion in past tax years
+          spouse_proof_of_disability: Spouse's proof provided of disability for the pension exclusion in past tax years
           your_address: Address lived at on December 31, %{filing_year}
-      md_social_security_benefits:
-        edit:
-          description: In order to accurately report your Social Security benefits on your Maryland tax return, we need to collect some additional information.
-          spouse_portion_label_html: "<strong>Your spouse’s portion of Social Security benefits</strong>"
-          subtitle: Enter the portion of the Social Security benefits allocated between you and your spouse. See Form(s) SSA-1099, Box 5 for more information.
-          sum_form_error: Allocation must equal %{total_ssb}
-          title: We need more information about your Social Security Benefits
-          total_html: The total amount of Social Security benefits reported on your and your spouse’s federal return is <strong>%{total_ssb}</strong>.
-          your_portion_label_html: "<strong>Your portion of Social Security benefits</strong>"
       md_spouse_state_id:
         md_spouse:
           dmv_bmv_label: MVA State ID
@@ -3255,17 +3383,17 @@ en:
       nc_review:
         edit:
           amount_earned: Amount earned
+          benefits_vested_pensions: Subtraction for retirement benefits by vested qualifying government pensions
           child_deduction: Child deduction
           interest_us_bonds: Interest income from U.S. bonds (not taxable in North Carolina)
           primary_veteran: United States Armed Forces veteran status
+          service_members: Subtraction for retirement benefits received by service members
           social_security_benefits: Social Security benefits (not taxable in North Carolina)
           spouse_veteran: Your spouse's United States Armed Forces veteran status
           state_credit: Enrolled member of a federally recognized Indian Tribe, and received income from a source within a reservation
           subtraction_indian_tribe: Subtraction for income of a member of an Indian tribe
           use_tax_amount: Amount of use tax
           use_tax_applied: Out-of-state purchases in %{filing_year} without paying sales tax
-        review_header:
-          unemployment_compensation: Unemployment Compensation
       nc_sales_use_tax:
         edit:
           calculated_use_tax: Enter calculated use tax
@@ -3408,7 +3536,7 @@ en:
               </li>
             </ul>
           label: 'Total:'
-          title: Please tell us if you already made any payments toward your %{filing_year} New Jersey taxes.
+          title: Please tell us if you already made any payments toward your %{filing_year} New Jersey state income taxes.
       nj_gubernatorial_elections:
         edit:
           description_html: "<p>You may have heard this referred to as \"public financing\" of campaigns.</p> \n<p>You can contribute $1 of where your taxes go to the <a href=\"https://elec.nj.gov/pdffiles/temporary/WebsitePlugForGubfinProgram.pdf\" target=\"_blank\" rel=\"noopener nofollow\">Gubernatorial Elections Fund</a>.</p>\n<p>FYI: Your taxes won’t increase and your refund won't be reduced. This just gives New Jersey permission to use $1 of your tax dollars for this Fund.</p>\n"
@@ -3534,17 +3662,36 @@ en:
         edit:
           doc_1099r_label: '1099-R:'
           helper_description_html: |
-            <p>U.S. military pensions result from service in the Army, Navy, Air Force, Marine Corps, or Coast Guard. Generally, qualifying military pensions and military survivor's benefit payments are paid by the U.S. Defense Finance and Accounting Service.</p>
-            <p>Civil service pensions and annuities do not count as military pensions, even if they are based on credit for military service. Generally, civil service annuities are paid by the U.S. Office of Personnel Management.</p>
+            <p>U.S. military pensions result from service in the Army, Navy, Air Force, Marine Corps, Coast Guard, or Space Force. Generally, qualifying military pensions and military survivor's benefit payments are paid by the U.S. Defense Finance and Accounting Service.</p>
+            <p>Civil service pensions and annuities do not count as military pensions, even if they are based on credit for military service. Civil service annuities are paid by the U.S. Office of Personnel Management.</p>
           helper_heading: What counts as a U.S. military pension?
           label: 'Select the source of this income:'
           option_military_pension: U.S. military pension
           option_military_survivor_benefit: U.S. military survivor's benefits
-          option_none: None of these apply (Choose this if you have a civil service pension or annuity)
+          option_other: Neither of these apply
           subtitle: We need more information about this 1099-R.
-          taxable_amount_label: 'Taxable Amount:'
+          taxable_amount_label: 'Taxable Amount (Box 2a):'
           taxpayer_name_label: 'Taxpayer Name:'
           title: Some of your retirement income might not be taxed in New Jersey.
+      nj_retirement_warning:
+        edit:
+          continue_heading: Do you want to continue with FileYourStateTaxes?
+          continue_no: No, I need a different solution to file my taxes
+          continue_yes: Yes, continue
+          description_html: |-
+            <p>New Jersey taxes some, but not all, of your retirement income.</p>
+            <p>If this is your first year filing taxes with retirement income, we recommend you review this <a href="https://www.nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git1&2.pdf" target="_blank" rel="noopener nofollow">guide</a>. It talks about the different methods to calculate what portion of your retirement income is subject to taxes.</p>
+            <p>Using the right method matters — it could save you money.</p>
+            <p>This tool uses the simplest, most common method: we use what's reported as the taxable amount on your 1099-R.</p>
+            <p><b>You Should NOT Continue Using This Tool If:</b></p>
+            <ul class="list--bulleted">
+              <li>You used the “three-year method” or the “general” method in a previous year.</li>
+              <li>You reviewed the guide and think one of those methods is right for you.</li>
+              <li>The retirement income you received is from a 401(k) account that you first contributed to prior to 1984. (Before 1984, New Jersey’s treatment of 401(k) plans differed from the federal government.)</li>
+            </ul>
+            <p>This tool can’t help with those scenarios, so you should not continue.</p>
+            <p>If you want to use what’s reported as the taxable amount on your 1099-R, you should continue.</p>
+          title: Let’s make sure we’re calculating your retirement income correctly.
       nj_review:
         edit:
           amount_calculated: Calculated Amount
@@ -3576,13 +3723,15 @@ en:
           retirement_income_source_label: 'Source:'
           retirement_income_source_military_pension: U.S. military pension
           retirement_income_source_military_survivor_benefit: U.S. military survivor's benefits
-          retirement_income_source_none: Neither U.S. military pension nor U.S. military survivor's benefits
+          retirement_income_source_other: Neither U.S. military pension nor U.S. military survivor's benefits
           retirement_income_source_taxable_amount_label: 'Taxable Amount:'
           retirement_income_source_taxpayer_name_label: 'Taxpayer Name:'
           reveal:
             15_wages_salaries_tips: Wages, salaries, tips
             16a_interest_income: Interest income
+            20a_retirement_income: Retirement income
             27_total_income: Total income
+            28c_retirement_excluded_from_taxation: Retirement income excluded from Taxation
             29_nj_gross_income: New Jersey Gross Income
             30_exemptions: Exemptions (based on the size of your family, disability status, veteran status)
             31_medical: Medical expenses deducted
@@ -3686,13 +3835,13 @@ en:
           message_body_one: We will not share your information with any outside parties. Message frequency will vary. Message and data rates may apply.
           message_body_two_html: Text HELP to 46207 for help. Text STOP to 46207 to cancel. Carriers (e.g. AT&T, Verizon, T-Mobile, Sprint, etc.) are not responsible or liable for undelivered or delayed messages. See our <a target="_blank" href=%{sms_terms_link}>SMS Terms and Conditions</a> and <a target="_blank" href=%{privacy_link}>Privacy Policy</a>.
           message_title: Messaging details
-          opt_in_label: Please select the option(s) that work best for you.
+          opt_in_label: 'Select how you would like to receive notifications:'
           phone_number: Your phone number
           phone_number_help_text: Enter numbers only
           provided_contact: We’ll send updates about your tax return to %{contact_info}.
           sms_notification_opt_in: Text message
-          subtitle: We'll need to reach out with questions and updates.
-          title: What is the best way to reach you?
+          subtitle: We will reach out with questions and updates on the status of your tax return.
+          title: How would you like to get updates on your tax return?
         form:
           at_least_one: At least one notification preference is required
       ny_county:
@@ -3812,6 +3961,9 @@ en:
         edit:
           action: Send code
           helper_text: Enter numbers only
+          message_body_one: We will not share your information with any outside parties. Message frequency will vary. Message and data rates may apply.
+          message_body_two_html: Text HELP to 46207 for help. Text STOP to 46207 to cancel. Carriers (e.g. AT&T, Verizon, T-Mobile, Sprint, etc.) are not responsible or liable for undelivered or delayed messages. See our <a target="_blank" href=%{sms_terms_link}>SMS Terms and Conditions</a> and <a target="_blank" href=%{privacy_link}>Privacy Policy</a>.
+          messaging_details: Messaging details
           phone_number_label: Your phone number
           subtitle_html: To create a new account, provide a phone number that isn't already in use.<br><br>Use a phone number you can access.
           title: Enter your phone number
@@ -3842,7 +3994,15 @@ en:
           box14_html: "<b>Box 14</b>, State tax withheld"
           box15_html: "<b>Box 15</b>, State/Payer’s State Number"
           box16_html: "<b>Box 16</b>, State distribution"
+          state_tax_withheld_absent_warning: Please confirm that the amount in Box 14 on your 1099-R is 0
           title_html: Please review your retirement income (1099-R) details for <strong>%{payer_name}</strong>.
+      retirement_income_subtraction:
+        doc_1099r_label: 1099-R
+        income_source_question: 'Select the source of this income:'
+        none_apply: None of these apply
+        taxable_amount_label: Taxable amount
+        taxpayer_name_label: Taxpayer name
+        title: You might be eligible for a %{state_name} retirement income deduction!
       return_status:
         accepted:
           check_payable_html: |
@@ -3850,9 +4010,9 @@ en:
               Make your check or money order payable to %{payable_to}. Write your full SSN or ITIN, “%{filing_year} Tax”, and "Form %{form_number}" on your payment.
             </li>
           direct_debit_html: If you have a remaining tax balance, remember to <strong>pay it online at <a target="_blank" rel="noopener nofollow" href="%{tax_payment_info_url}">%{tax_payment_info_text}</a></strong> or by mail before the April 15 filing deadline.
-          download_voucher: Download payment voucher form
+          download_voucher: Download and print the completed payment voucher.
           feedback: We value your feedback—let us know what you think of this service.
-          include_payment: You'll need to include the payment voucher form.
+          include_payment: Fill out your payment voucher
           mail_voucher_and_payment: 'Mail the voucher form and payment to:'
           md:
             refund_details_html: |
@@ -3889,7 +4049,7 @@ en:
           download_title: Download a copy of your %{filing_year} %{state_name} state tax return until December 31, %{year}
           thank_you_html: Thank you for filing your return with <strong>FileYourStateTaxes</strong>, built in partnership with the state of %{state_name} to integrate with IRS Direct File.
         pending:
-          check_spam: If it's been more than two days since you submitted your state taxes and you haven’t heard from us, check your spam folder.
+          check_spam: If it's been more than two days since you submitted your state taxes and you still haven’t heard from us, check your spam folder.
           title: You have submitted your %{filing_year} %{state_name} state tax return
           waiting_for acceptance: Your state tax return is still waiting to be accepted.
         rejected:
@@ -3922,6 +4082,34 @@ en:
           taxes_owed_html: Your refund is $0. This means that you <strong>will not</strong> receive a state refund and you <strong>do not</strong> owe state taxes. You should finish filing your return, since you may be required to file even though you won’t get or receive any money.
           title: You're almost done! Please review the information we have.
           your_name: Your name
+        az_retirement_income_deductions_review_header:
+          government_pension: Qualifying federal, Arizona, or local government pension plan
+          none_apply: None apply
+          subtitle: These allow people to deduct all or a portion of their retirement income for the taxes.
+          title: Arizona retirement income deductions
+          uniformed_services: Retired or retainer pay of the uniformed services of the United States
+        id_retirement_income_deductions_review_header:
+          qualified_disabled_retirement_benefits: Qualified disabled retirement benefits
+          qualified_retirement_benefits_deduction: Qualified Retirement Benefits Deduction
+          qualified_retirement_benefits_deduction_explain: These allow people to deduct all or a portion of their retirement income from their taxes.
+        md_retirement_income_deductions_review_header:
+          military: Benefits from your military service or benefits received for the military service of your deceased spouse or ex-spouse
+          none: None apply
+          other: Other retirement income (For example, a Keogh plan)
+          pension_annuity_endowment: Money from a pension, annuity, or other retirement plan from your job
+          public_safety: Your service as a public safety employee
+          retirement_income_deductions: Maryland retirement income details
+        nc_retirement_income_deductions_review_header:
+          bailey_settlement_at_least_five_years: At least five years of creditable service by August 12, 1989
+          bailey_settlement_from_retirement_plan: Received retirement benefits from NC’s 401(k) or 457 plan, and contributed to the plan before August 12, 1989
+          none_apply: None apply
+          retirement_income_deductions: North Carolina retirement income deductions
+          retirement_income_deductions_explanation: These allow people to deduct all or a portion of their retirement income from their taxes.
+          retirement_income_source_bailey_settlement: Retirement benefits as part of the Bailey Settlement
+          retirement_income_source_review_and_edit: Review and edit 1099-R %{index}
+          retirement_income_source_uniformed_services: Retirement benefits from the Uniformed Services
+          uniformed_survivor_benefit_plan: Payments from a qualifying Survivor Benefit Plan to a beneficiary of a retired member who served at least 20 years or who was medically retired from the Uniformed Services
+          uniformed_twenty_years_medical_retired: Retired member who served at least 20 years or were medically retired from the Uniformed Services
         review_header:
           income_details: Income Details
           income_forms_collected: 'Income form(s) collected:'
@@ -3966,7 +4154,7 @@ en:
           bank_title: 'Please provide your bank details:'
           confirm_account_number: Confirm Account Number
           confirm_routing_number: Confirm Routing Number
-          date_withdraw_text: 'When would you like the funds withdrawn from your account? (Must be on or before %{withdrawal_deadline_date}, %{with_drawal_deadline_year}):'
+          date_withdraw_text: 'When would you like the funds withdrawn from your account? (must be on or before %{withdrawal_deadline_date}, %{with_drawal_deadline_year}):'
           foreign_accounts: Foreign accounts are not accepted
           routing_number: Routing Number
           withdraw_amount: How much do you authorize to be withdrawn from your account? (Your total amount due is&#58; $%{owed_amount}.)
@@ -3995,57 +4183,23 @@ en:
       terms_and_conditions:
         edit:
           accept: Accept
-          body_text_closer_html: |
-            </ul>
-            <strong>By using FileYourStateTaxes, you're letting us know that you've read, understood, and agreed to these terms as well as our <a href="%{privacy_policy_link}" target="_blank" rel="noopener nofollow">Privacy Policy</a>. Thanks for choosing us for your tax filing needs!</strong>
-          body_text_opener_html: |
-            <strong>When you use the FileYourStateTaxes service, here's what you're agreeing to:</strong><br>
-            <ul class="list--numbered">
+          body_text_closer_html: <strong>By using FileYourStateTaxes, you're letting us know that you've read, understood, and agreed to these terms as well as our <a href="%{privacy_policy_link}" target="_blank" rel="noopener nofollow">Privacy Policy</a>. Thanks for choosing us for your tax filing needs!</strong>
+          body_text_opener_html: "<strong>When you use the FileYourStateTaxes service, here's what you're agreeing to:</strong>"
           decline: Decline
-          list_items_html: |
-            <li>
-              <strong>Easy Tax Filing:</strong> FileYourStateTaxes is a free and easy to use service built by %{owner} to help you file your state tax return conveniently after you've completed your federal return.
-            </li>
-            <li>
-              <strong>Data Transfer:</strong> You're letting us use your federal return data as the starting point for your state tax return.
-            </li>
-            <li>
-              <strong>Questions for Accuracy:</strong> Sometimes we might ask you a few more questions to make sure your state tax return is complete and accurate.
-            </li>
-            <li>
-              <strong>Modernized eFile:</strong> We'll submit your state tax return using the Modernized eFile (MeF) system, which links it to your federal return.
-            </li>
-            <li>
-              <strong>Your Responsibility:</strong> You're responsible for making sure the information you provide is accurate and that you follow all federal and state tax laws.
-            </li>
-            <li>
-              <strong>No Guarantees:</strong> We do our best, but we can't guarantee the accuracy or success of your state tax return when you use FileYourStateTaxes.
-            </li>
-            <li>
-              <strong>Privacy and Security:</strong> We're serious about protecting your privacy and data. Check out our <a href="%{privacy_policy_link}" target="_blank" rel="noopener nofollow">Privacy Policy</a> for all the details.
-            </li>
-            <li>
-              <strong>Stay Updated:</strong> We'll send you updates about your state tax return through your preferred communication method - either text message (SMS) or email. This includes status updates, reminders, and important information.
-            </li>
-            <li>
-              <strong>Your Choice:</strong> You can change your preferred communication method or opt out of these updates anytime by following the instructions in the messages or through your account settings.
-            </li>
-            <li>
-              <strong>Data Removal:</strong> You have the right to ask us to remove your personal data and tax-related information from FileYourStateTaxes whenever you want. Just contact us or use the data removal function in the software. But keep in mind, this might affect your access to the service.
-            </li>
-            <li>
-              <strong>Links to Third Party Sites:</strong> Links in the software will let you leave FileYourStateTaxes. The linked sites are not under the control of FileYourStateTaxes and FileYourStateTaxes is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. FileYourStateTaxes is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement by FileYourStateTaxes of the site.
-            </li>
-            <li>
-              <strong>Governing Law:</strong> This Agreement will be governed by and construed in accordance with the laws of the state of California.
-            </li>
-            <li>
-              <strong>Questions and Concerns:</strong> If you have any questions or concerns about these terms, feel free to reach out to us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
-            </li>
-          list_items_no_sms_html: |
-            <li>
-              <strong>Stay Updated:</strong> We'll send you updates about your state tax return through your preferred communication method - either SMS or email. This includes status updates, reminders, and important information.
-            </li>
+          list_item_10_html: "<strong>Data Removal:</strong> You have the right to ask us to remove your personal data and tax-related information from FileYourStateTaxes whenever you want. Just contact us or use the data removal function in the software. But keep in mind, this might affect your access to the service."
+          list_item_11_html: "<strong>Links to Third Party Sites:</strong> Links in the software will let you leave FileYourStateTaxes. The linked sites are not under the control of FileYourStateTaxes and FileYourStateTaxes is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. FileYourStateTaxes is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement by FileYourStateTaxes of the site."
+          list_item_12_html: "<strong>Governing Law:</strong> This Agreement will be governed by and construed in accordance with the laws of the state of California."
+          list_item_13_html: <strong>Questions and Concerns:</strong> If you have any questions or concerns about these terms, feel free to reach out to us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
+          list_item_1_html: "<strong>Easy Tax Filing:</strong> FileYourStateTaxes is a free and easy to use service built by %{owner} to help you file your state tax return conveniently after you've completed your federal return."
+          list_item_2_html: "<strong>Data Transfer:</strong> You're letting us use your federal return data as the starting point for your state tax return."
+          list_item_3_html: "<strong>Questions for Accuracy:</strong> Sometimes we might ask you a few more questions to make sure your state tax return is complete and accurate."
+          list_item_4_html: "<strong>Modernized eFile:</strong> We'll submit your state tax return using the Modernized eFile (MeF) system, which links it to your federal return."
+          list_item_5_html: "<strong>Your Responsibility:</strong> You're responsible for making sure the information you provide is accurate and that you follow all federal and state tax laws."
+          list_item_6_html: "<strong>No Guarantees:</strong> We do our best, but we can't guarantee the accuracy or success of your state tax return when you use FileYourStateTaxes."
+          list_item_7_html: <strong>Privacy and Security:</strong> We're serious about protecting your privacy and data. Check out our <a href="%{privacy_policy_link}" target="_blank" rel="noopener nofollow">Privacy Policy</a> for all the details.
+          list_item_8_html: "<strong>Stay Updated:</strong> We'll send you updates about your state tax return through your preferred communication method - either text message (SMS) or email. This includes status updates, reminders, and important information."
+          list_item_9_html: "<strong>Your Choice:</strong> You can change your preferred communication method or opt out of these updates anytime by following the instructions in the messages or through your account settings."
+          list_item_no_sms_html: "<strong>Stay Updated:</strong> We'll send you updates about your state tax return through your preferred communication method - either SMS or email. This includes status updates, reminders, and important information."
           ny_text_html: |
             <strong>E-file your New York State income tax return at no extra charge.</strong><br><br>
             Before you print and mail your return, please note that there is no additional fee for filing it electronically. Other reasons to e-file:
@@ -4107,7 +4261,7 @@ en:
       verification_code:
         edit:
           action: Verify code
-          subtitle_html: If you didn’t receive a code, please check your spam folder. If you still need help, <a class="open-intercom">chat with us</a>.
+          subtitle_html: If you didn’t receive a code, please <a class="open-intercom">chat with us</a>.
           title_html: We’ve sent your code to <strong>%{contact_info}</strong>
           verification_code_label: Enter the 6-digit code
       w2:
@@ -4115,7 +4269,7 @@ en:
           box14_explanation_md_html: For tax year %{year}, we will only process the <strong>STPICKUP</strong> code, which represents any contributions you made to the state retirement system.
           box14_explanation_nj_html: |
             <p>For this year, we will only need the amounts for <strong>UI/WF/SWF</strong> (may also appear as <strong>"UI/HC/WD"</strong> on your W2) <strong>and FLI</strong>.
-            <p><strong>If you do not see these, please leave these fields blank.</strong></p>
+            <p><strong>If you do not see these, please enter 0.</strong></p>
             <p><strong>Definitions:</strong></p>
             <ul class="list--bulleted">
               <li><strong>UI/WF/SWF</strong> (may also appear as <strong>"UI/HC/WD"</strong> on your W2) represents:</li>
@@ -4131,21 +4285,23 @@ en:
             <p>There may be other information in Box 14. That's ok. That information doesn't need to be reported with this tool. </p>
           box14_fli_html: "<strong>FLI</strong>"
           box14_html: "<strong>Box 14,</strong> Other"
-          box14_intro_nj_html: "<p>Employers may use Box 14 to report anything that doesn't fit somewhere else on a Form W-2.</p>\n<p>For this year, we will only need any amounts listed for <strong>UI/WF/SWF</strong> (may also appear as <strong>\"UI/HC/WD\"</strong> on your W2) <strong>and FLI</strong>.</p> \n<p><strong>If you do not see these, please leave these fields blank.</strong></p> \n<p>There may be other information in Box 14. That information doesn't need to be reported with this tool.</p>\n"
-          box14_stpickup_help_text: For %{year}, we will only process the STPICKUP code. If you do not see this code or have other codes in Box 14, please leave it blank.
+          box14_intro_nj_html: "<p>Employers may use Box 14 to report anything that doesn't fit somewhere else on a Form W-2.</p>\n<p>For this year, we will only need any amounts listed for <strong>UI/WF/SWF</strong> (may also appear as <strong>\"UI/HC/WD\"</strong> on your W2) <strong>and FLI</strong>.</p> \n<p><strong>If you do not see these, please enter 0.</strong></p> \n<p>There may be other information in Box 14. That information doesn't need to be reported with this tool.</p>\n"
+          box14_stpickup_help_text_html: For %{year}, we will only process the STPICKUP code. If you do not see this code or have other codes in Box 14, please enter 0.
           box14_stpickup_html: "<strong>STPICKUP</strong>"
-          box14_ui_wf_swf_html: "<strong>UI/WF/SWF</strong> (This may also appear on your W2 as <strong>UI/HC/WD.</strong>)"
+          box14_ui_wf_swf_help_text_html: "(This may also appear on your W2 as <strong>UI/HC/WD.</strong>)"
+          box14_ui_wf_swf_html: "<strong>UI/WF/SWF</strong>"
           box15_html: "<strong>Box 15,</strong> Employer’s state ID number"
           box16_html: "<strong>Box 16,</strong> State wages, tips, etc."
           box17_html: "<strong>Box 17,</strong> State income tax"
           box18_html: "<strong>Box 18,</strong> Local wages, tips, etc."
           box19_html: "<strong>Box 19,</strong> Local income tax"
-          box20_locality_name: "<strong>Box 20,</strong> Locality name"
+          box20_locality_name_html: "<strong>Box 20,</strong> Locality name"
           employer_state_id_error: EIN cannot be more than 16 characters.
           instructions_1_html: Please review your job (W-2) details for <strong>%{employer}</strong>
           local_income_tax_amt_error: Cannot be greater than local wages and tips.
           local_wages_and_tips_amt_error: Please enter local wages and tips
           locality_nm_missing_error: Please select locality name
+          no_money_amount: Please enter an amount. If amount is blank, enter $0.
           save_and_continue: Save and Continue
           state_income_tax_amt_error: Cannot be greater than State wages and tips.
           state_wages_amt_error: Please enter State wages and tips
@@ -4166,10 +4322,10 @@ en:
         faq_prior_year_returns: Visit our FAQ for questions about prior year returns
         header: A free state filing service for taxpayers using IRS Direct File
         helper_heading_html: "<strong>How does this service work? </strong>"
-        looking_for_return_html: "<strong>Looking for your 2023 Arizona or New York State Tax Return?</strong>"
+        looking_for_return_html: "<strong>Looking for your 2023 Arizona or New York State Tax Return?</strong> <a href='%{link}'>Sign in</a> to download a copy of your state return."
         section1_html: |
           <ol class="list--numbered"  style="padding-left: 2rem">
-            <li>File and submit your federal return with <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">IRS Direct File</a> before using this service.</li>
+            <li>First, file and submit your federal return with <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">IRS Direct File</a> before using this service.</li>
             <li>Follow the link from Direct File to FileYourStateTaxes.</li>
             <li>Answer a few questions to make sure this is the right service for you. <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">Learn more</a> about who is eligible for this tax year.</li>
             <li>Transfer your federal return to fill in most of your state return.</li>
@@ -4185,10 +4341,9 @@ en:
           <br /><br />
           <strong>In 2025, this service will support filing state tax returns in Arizona, Idaho, North Carolina, New Jersey, and Maryland.</strong>
         subheader_2_html: To start filing your federal return, go to <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">directfile.irs.gov.</a>
-        subheader_3_html: "<strong>Already filed your federal return with IRS Direct File and need to complete your state return?</strong> <a href=%{login_path}>Sign in here</a>."
-        tax_return_link: Click here to access your tax return
+        subheader_3_html: "<strong>Already started your state return and need to complete it?</strong> <a href=%{login_path}>Sign in here</a>."
       card_postscript:
-        responses_saved_html: Your responses are saved. If you need a break, you can come back and log in to your account at <a href="https://fileyourstatetaxes.org">fileyourstatetaxes.org</a>.
+        responses_saved_html: Your responses are saved. You can come back and log in to your account at <a href="https://fileyourstatetaxes.org">fileyourstatetaxes.org</a> anytime.
       coming_soon:
         title: Coming soon
       data_import_failed:
@@ -4241,13 +4396,13 @@ en:
         how_we_collect_your_info_item_2: Provide us with documents to use our Services
         how_we_collect_your_info_item_3: Communicate with us (for instance through email, chat, social media, or otherwise)
         independent_recourse_body_html: If you have an unresolved privacy or data use concern that we have not addressed satisfactorily, please contact our U.S.-based third party dispute resolution provider (free of charge) at <a href="https://feedback-form.truste.com/watchdog/request">https://feedback-form.truste.com/watchdog/request</a>.
-        independent_recourse_header: Independent Recourse Mechanism
+        independent_recourse_header: How to appeal a decision
         info_collect_1_html: We do not sell your personal information. We do not share your personal information with any third party, except as provided in this Privacy Policy, and consistent with <a href="https://www.law.cornell.edu/cfr/text/26/301.7216-2" target="_blank" rel="noopener nofollow">26 CFR 301.7216-2.</a> Consistent with regulation, we may use or disclose your information in the following instances&#58;
         info_collect_item_1: For analysis and reporting, we may share limited aggregate information with government agencies or other third parties, including the IRS or state departments of revenue, to analyze the use of our Services, in order to improve and expand our services. Such analysis is always performed using anonymized data, and data is never disclosed in cells smaller than ten returns.
         info_collect_item_2: 'For research to improve our tax filing products, including:'
         info_collect_item_2_1: To invite you to complete questionnaires regarding your experience using our product.
         info_collect_item_2_2: To send you opportunities to participate in paid user research sessions, to learn more about your experience using our product and to guide the development of future free tax filing products.
-        info_collect_item_3_html: "<em>For Arizona FileYourStateTaxes users only&#58;</em> To notify you of the availability of free tax filing services in the future."
+        info_collect_item_3_html: To notify you of the availability of free tax filing services in the future.
         info_collect_item_4: If necessary, we may disclose your information to contractors who help us provide our services. We require our third parties acting on our behalf to keep your personal information secure, and do not allow these third parties to use or share your personal information for any purpose other than providing services on our behalf.
         info_collect_item_5: 'Legal Compliance: In certain situations, we may be required to disclose personal data in response to lawful requests by public authorities, including to meet national security or law enforcement requirements. We may also disclose your personal information as required by law, such as to comply with a subpoena or other legal process, when we believe in good faith that disclosure is necessary to protect our rights, protect your safety or the safety of others, investigate fraud, or respond to a government request.'
         info_we_collect_1: 'We follow the Data Minimization principle in the collection and use of your personal information. We may collect the following information about you, your dependents, or members of your household:'
@@ -4271,8 +4426,8 @@ en:
         postal_mail_item_2: follow the opt-out instructions provided in emails or postal mail
         protect_info_1: Protecting your personal information is extremely important to us so we take reasonable administrative, technical, and physical precautions to protect your information both online and offline.
         protect_info_2: Still, no system can be guaranteed to be 100% secure.
-        protect_info_3_html: 'For Arizona FileYourStateTaxes users: In the event of a security system breach, you will be notified pursuant to <a href="https://www.azleg.gov/ars/18/00552.htm">ARS 18-552</a>.'
-        protect_info_4: If you have questions about the security of your personal information, or if you have reason to believe that the personal information that we hold about you is no longer secure, please contact us immediately as described in this Privacy Notice.
+        protect_info_3_html: In the event of a security system breach, you will be notified pursuant to applicable state statutes regarding breach notifications.
+        protect_info_4: If you have questions about the security of your personal information, or if you have reason to believe that the personal information that we hold about you is no longer secure, please contact us immediately by email at help@fileyourstatetaxes.org.
         protect_info_header: How we protect your information
         questions_1_html: 'If you have any questions, comments, concerns, or complaints with the Site, please contact us by email at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a> or by mail at:'
         questions_2: We will do our best to resolve the issue.
@@ -5690,9 +5845,9 @@ en:
         43_children_details: We do not knowingly collect personal information from unemancipated minors under 16 years of age.
         44_changes: Changes
         45_changes_summary: We may change this Privacy Policy from time to time. Please check this page frequently for updates as your continued use of our Services after any changes in this Privacy Policy will constitute your acceptance of the changes. For material changes, we will notify you via email, or other means consistent with applicable law.
-        46_access_request: Access Request
+        46_access_request: Your Rights
         47_access_request_list_html:
-        - GetCTC.org respects your control over your information and, upon request, we will confirm whether we hold or are processing information that we have collected from you. You also have the right to amend or update inaccurate or incomplete personal information, request deletion of your personal information, or request that we no longer use it. Under certain circumstances we will not be able to fulfill your request, such as if it interferes with our regulatory obligations, affects legal matters, we cannot verify your identity, or it involves disproportionate cost or effort, but in any event we will respond to your request within a reasonable timeframe and provide you an explanation. In order to make such a request of us, please email us at %{email_link}.
+        - GetCTC.org respects your control over your information and, upon request, we will confirm whether we hold or are processing information that we have collected from you. You also have the right to amend or update inaccurate or incomplete personal information, request a portable copy or deletion of your personal information, or request that we no longer use it. Under certain circumstances we will not be able to fulfill your request, such as if it interferes with our regulatory obligations, affects legal matters, we cannot verify your identity, or it involves disproportionate cost or effort, but in any event we will respond to your request within a reasonable timeframe and provide you an explanation. In order to make such a request of us, please email us at %{email_link}.
         - Please note that for personal information about you that we have obtained or received for processing on behalf of a separate, unaffiliated entity--which determined the means and purposes of processing, all such requests should be made to that entity directly. We will honor and support any instructions they provide us with respect to your personal information.
         47_effective_date: Effective Date
         48_effective_date_info: This version of the policy is effective October 22, 2021.
@@ -5791,8 +5946,8 @@ en:
         relationship: Relationship to you
         save_cta: Save this person
         title: Tell us about your dependent. Please provide a few more details.
+        was_citizen: Is a US citizen
         was_married: Married as of 12/31/%{year}
-        was_not_citizen: Not a US citizen
         was_student: Full time higher education student
       index:
         add_person: Add a person

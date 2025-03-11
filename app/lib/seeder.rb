@@ -25,8 +25,26 @@ class Seeder
     end
   end
 
+  def faqify!
+    faq_json = JSON.parse(File.read('./db/seeds/faq.json'))
+    faq_json.each do |cat_slug, data|
+      new_cat = FaqCategory.find_or_create_by(slug: cat_slug)
+      new_cat.update(data.without("items"))
+      data["items"].each do |data|
+        fi = FaqItem.find_or_initialize_by(slug: data["slug"])
+        fi.update(data)
+        fi.faq_category = new_cat
+        fi.save!
+      end
+      new_cat.save!
+    end
+  end
+
   def run
     self.class.load_fraud_indicators
+
+    # create some realistic faqs
+    faqify!
 
     Flipper.enable(:eitc)
 
@@ -112,6 +130,11 @@ class Seeder
     additional_user = User.where(email: "princess@example.com").first_or_initialize
     additional_user.update(name: "Lea Amidala Organa", password: strong_shared_password)
     additional_user.update(role: OrganizationLeadRole.create(organization: first_org)) if additional_user.role_type != OrganizationLeadRole::TYPE
+
+    # nj user
+    nj_user = User.where(email: "stew@example.com").first_or_initialize
+    nj_user.update(name: "Stewart Stringbean", password: strong_shared_password)
+    nj_user.update(role: StateFileNjStaffRole.create) if nj_user.role_type != StateFileNjStaffRole::TYPE
 
     if Rails.configuration.google_login_enabled
       pairs_file_data = YAML.safe_load(File.read(Rails.root.join(".pairs")))

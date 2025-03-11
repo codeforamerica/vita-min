@@ -1,0 +1,46 @@
+{
+  "familyAndHousehold": [],
+  "socialSecurityReports": [],
+  "filers": [
+    {
+      "lastName": "Eel",
+      "dateOfBirth": "1957-05-05",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "firstName": "Edward",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "400-00-7209",
+      "interestReportsTotal": "0.00",
+      "isDisabled": false,
+      "form1099GsTotal": "0.00",
+      "isStudent": false,
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": null
+    },
+    {
+      "lastName": "Eel",
+      "dateOfBirth": "1968-08-07",
+      "suffix": null,
+      "isPrimaryFiler": false,
+      "firstName": "Eliza",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "400-00-7210",
+      "interestReportsTotal": "0.00",
+      "isDisabled": false,
+      "form1099GsTotal": "0.00",
+      "isStudent": false,
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [
+    {
+      "usedTin": "400-00-7210",
+      "unionDuesAmount": null
+    }
+  ],
+  "interestReports": []
+}
