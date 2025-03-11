@@ -27,6 +27,7 @@ RSpec.describe PdfFiller::NcD400Pdf do
         create(:state_file_nc_intake,
                filing_status: "single",
                primary_last_name: "Carolinianian",
+               primary_suffix: "JR",
                untaxed_out_of_state_purchases: "no",
                primary_esigned: "yes",
                primary_esigned_at: signature_date)
@@ -49,7 +50,7 @@ RSpec.describe PdfFiller::NcD400Pdf do
         it "sets other fields to the correct values" do
           expect(pdf_fields['y_d400wf_fname1']).to eq 'North'
           expect(pdf_fields['y_d400wf_mi1']).to eq 'A'
-          expect(pdf_fields['y_d400wf_lname1']).to eq 'Carolinianian'
+          expect(pdf_fields['y_d400wf_lname1']).to eq 'Carolinianian JR'
           expect(pdf_fields['y_d400wf_ssn1']).to eq '145004904'
           expect(pdf_fields['y_d400wf_add']).to eq '7 Heavens Lane'
           expect(pdf_fields['y_d400wf_apartment number']).to eq mailing_apartment
@@ -111,7 +112,7 @@ RSpec.describe PdfFiller::NcD400Pdf do
       end
 
       context "mfj filers" do
-        let(:intake) { create(:state_file_nc_intake, :with_spouse, filing_status: "married_filing_jointly", primary_esigned: "yes", primary_esigned_at: signature_date, spouse_esigned: "yes", spouse_esigned_at: signature_date) }
+        let(:intake) { create(:state_file_nc_intake, :with_spouse, filing_status: "married_filing_jointly", primary_esigned: "yes", primary_esigned_at: signature_date, spouse_esigned: "yes", spouse_esigned_at: signature_date, spouse_suffix: "SR") }
 
         before do
           submission.data_source.direct_file_data.spouse_ssn = "111100030"
@@ -129,7 +130,7 @@ RSpec.describe PdfFiller::NcD400Pdf do
         it "sets fields specific to filing status" do
           expect(pdf_fields['y_d400wf_fname2']).to eq 'Susie'
           expect(pdf_fields['y_d400wf_mi2']).to eq 'B'
-          expect(pdf_fields['y_d400wf_lname2']).to eq 'Spouse'
+          expect(pdf_fields['y_d400wf_lname2']).to eq 'Spouse SR'
           expect(pdf_fields['y_d400wf_ssn2']).to eq '111100030'
           expect(pdf_fields['y_d400wf_dead2']).to eq '09-30-24'
 

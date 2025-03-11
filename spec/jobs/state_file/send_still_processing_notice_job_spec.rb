@@ -61,5 +61,18 @@ RSpec.describe StateFile::SendStillProcessingNoticeJob, type: :job do
         expect(after_transition_messaging_service).not_to have_received(:send_efile_submission_still_processing_message)
       end
     end
+
+    context "when submission is cancelled" do
+      let(:submission) { create(:efile_submission, :failed, data_source: intake) }
+
+      before do
+        submission.transition_to!(:cancelled)
+      end
+
+      it "does not send the message" do
+        described_class.perform_now(submission)
+        expect(after_transition_messaging_service).not_to have_received(:send_efile_submission_still_processing_message)
+      end
+    end
   end
 end

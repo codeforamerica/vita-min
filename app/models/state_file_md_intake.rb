@@ -265,13 +265,11 @@ class StateFileMdIntake < StateFileBaseIntake
     true
   end
 
-  def eligible_1099rs
-    @eligible_1099rs ||= self.state_file1099_rs.select do |form1099r|
-      form1099r.taxable_amount&.to_f&.positive?
-    end
+  def has_at_least_one_disabled_filer?
+    primary_disabled_yes? || spouse_disabled_yes?
   end
 
-  def filer_disabled?
-    primary_disabled_yes? || spouse_disabled_yes?
+  def should_warn_about_pension_exclusion?
+    eligible_1099rs.present? && has_filer_under_65?
   end
 end

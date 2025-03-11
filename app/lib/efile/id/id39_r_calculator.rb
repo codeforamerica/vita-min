@@ -85,8 +85,8 @@ module Efile
       end
 
       def calculate_sec_b_line_8e
-        @intake.state_file1099_rs.sum do |form1099r|
-          if form1099r.state_specific_followup&.eligible_income_source_yes? && form1099r.taxable_amount.present?
+        @intake.eligible_1099rs.sum do |form1099r|
+          if form1099r.state_specific_followup&.eligible_income_source_yes?
             form1099r.taxable_amount.round
           else
             0
