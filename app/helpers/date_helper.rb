@@ -48,6 +48,14 @@ module DateHelper
     true
   end
 
+  def valid_expiration_date(date_year, date_month, date_day, key = :expiration_date)
+    if date_year.present? && date_year.starts_with?("19")
+      errors.add(key, I18n.t('errors.attributes.expiration_date.format'))
+      return false
+    end
+    valid_text_date(date_year, date_month, date_day, key)
+  end
+
   def valid_text_date(date_year, date_month, date_day, key = :date)
     if date_year.present?
       unless date_year.length == 4 && (date_year.starts_with?("19") || date_year.starts_with?("20"))
