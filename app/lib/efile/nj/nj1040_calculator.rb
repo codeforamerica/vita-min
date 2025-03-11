@@ -356,7 +356,7 @@ module Efile
       end
 
       def calculate_line_29
-        line_or_zero(:NJ1040_LINE_27) - line_or_zero(:NJ1040_LINE_28C)
+        [line_or_zero(:NJ1040_LINE_27) - line_or_zero(:NJ1040_LINE_28C), 0].max
       end
 
       def calculate_line_31
@@ -372,7 +372,7 @@ module Efile
       end
 
       def calculate_line_39
-        line_or_zero(:NJ1040_LINE_29) - line_or_zero(:NJ1040_LINE_38)
+        [line_or_zero(:NJ1040_LINE_29) - line_or_zero(:NJ1040_LINE_38), 0].max
       end
 
       def is_ineligible_or_unsupported_for_property_tax_credit
@@ -655,9 +655,7 @@ module Efile
 
       def calculate_line_80
         if line_or_zero(:NJ1040_LINE_68).positive?
-          # Line 78 is always 0 now
-          # When implemented we will have to make sure this doesn't become negative
-          return line_or_zero(:NJ1040_LINE_68) - line_or_zero(:NJ1040_LINE_78)
+          return [line_or_zero(:NJ1040_LINE_68) - line_or_zero(:NJ1040_LINE_78), 0].max
         end
         0
       end

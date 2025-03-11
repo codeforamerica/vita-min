@@ -15,6 +15,7 @@ RSpec.describe PdfFiller::MdEl101Pdf do
     let(:intake) { create(:state_file_md_intake) }
 
     before do
+      submission.data_source.primary_suffix = "JR"
       submission.data_source.direct_file_data.primary_ssn = '555123666'
       submission.data_source.primary_esigned_yes!
       submission.data_source.primary_esigned_at = signature_date
@@ -30,11 +31,11 @@ RSpec.describe PdfFiller::MdEl101Pdf do
       it "fills out the required fields" do
         expect(pdf_fields["First Name"]).to eq("Mary")
         expect(pdf_fields["Primary MI"]).to eq("A")
-        expect(pdf_fields["Last Name"]).to eq("Lando")
+        expect(pdf_fields["Last Name"]).to eq("Lando JR")
         expect(pdf_fields["SSNTaxpayer Identification Number"]).to eq("555123666")
         expect(pdf_fields["ERO firm name"]).to eq "FileYourStateTaxes"
         expect(pdf_fields["to enter or generate my PIN"]).to eq "23456"
-        expect(pdf_fields["Primary signature"]).to eq "Mary Lando"
+        expect(pdf_fields["Primary signature"]).to eq "Mary A Lando JR"
         expect(pdf_fields["Date"]).to eq expected_signature_date_pdf_value
         expect(pdf_fields["Spouses First Name"]).to eq("")
         expect(pdf_fields["Spouse MI"]).to eq("")
@@ -73,6 +74,7 @@ RSpec.describe PdfFiller::MdEl101Pdf do
       let(:intake) { create(:state_file_md_intake, :with_spouse) }
 
       before do
+        submission.data_source.spouse_suffix = "SR"
         submission.data_source.direct_file_data.spouse_ssn = '555123456'
         submission.data_source.spouse_esigned_yes!
         submission.data_source.spouse_esigned_at = signature_date
@@ -82,11 +84,11 @@ RSpec.describe PdfFiller::MdEl101Pdf do
       it "fills out spouse information" do
         expect(pdf_fields["Spouses First Name"]).to eq("Marty")
         expect(pdf_fields["Spouse MI"]).to eq("B")
-        expect(pdf_fields["Spouses Last Name"]).to eq("Lando")
+        expect(pdf_fields["Spouses Last Name"]).to eq("Lando SR")
         expect(pdf_fields["SSNTaxpayer Identification Number_2"]).to eq("555123456")
         expect(pdf_fields["ERO firm name_2"]).to eq "FileYourStateTaxes"
         expect(pdf_fields["to enter or generate my PIN_2"]).to eq "11111"
-        expect(pdf_fields["Spouses signature"]).to eq "Marty Lando"
+        expect(pdf_fields["Spouses signature"]).to eq "Marty B Lando SR"
         expect(pdf_fields["Date_2"]).to eq expected_signature_date_pdf_value
       end
     end

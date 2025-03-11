@@ -265,6 +265,9 @@ en:
           presence: Please select a county
         subdivision_code:
           presence: Please select a political subdivision
+      nc_county:
+        county:
+          presence: Please select a county
       nc_eligibility_form:
         at_most_one_option_selected: You must either select none or the above options
       need_exactly_one_communication_method: Please enter only one form of contact.
@@ -3211,14 +3214,21 @@ en:
           zip_label: Zip Code
       md_permanently_disabled:
         edit:
-          help_text_html: You are considered totally disabled if you have a mental or physical condition that stops you from working and earning a living. <br><br>This condition is expected to last a long time, for an indefinite period, or to result in your death. If you are under 65 and want to claim the pension exclusion, you must have attached a certification from a qualified physician stating the nature of your impairment and that you are totally disabled to a previously filed tax return.
-          help_title: What is considered totally and permanently disabled?
+          help_text: You are considered totally disabled if you have a mental or physical condition that stops you from working and earning a living.
+          help_text_2: This condition is expected to last a long time, for an indefinite period, or to result in your death. If you are under 65 and want to claim the pension exclusion, you must have attached a certification from a qualified physician stating the nature of your impairment and that you are totally disabled to a previously filed tax return.
           no_neither: No, neither of us is
           primary_proof_question_html: Have <strong>you</strong> provided proof of your disability for the <a href="https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php">Maryland Pension Exclusion</a>in the previous tax years?
           spouse_proof_question_html: Has <strong>your spouse</strong> provided proof of your disability for the  <a href="https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php">Maryland Pension Exclusion</a> in the previous tax years?
           title: Are you totally and permanently disabled?
           title_spouse: Are you or your spouse totally and permanently disabled?
           unfortunately_dont_support_html: Unfortunately, our service doesn’t support the Maryland Pension Exclusion if you haven’t provided proof of your disability in a previous tax year.<br><br> If you want to claim the pension exclusion, <a href='%{path}'>learn more here</a>.
+          why: Why are you asking this?
+          why_explained_1: The Maryland Pension Exclusion can save you hundreds to thousands of dollars in state and local taxes by reducing your taxable retirement income. If you are over 65, you automatically qualify for the pension exclusion.
+          why_explained_2_html: If you are under 65 and want to claim the pension exclusion, you <strong>must have attached a certification from a qualified physician stating the nature of your impairment and that you are totally disabled to a previously filed tax return</strong>.
+          why_explained_html: If you are age 65 or older, we need this information to complete Form 502R. If you are under 65, we need this information to determine if you qualify for the <a href="https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php" target="_blank" rel="noopener">Maryland Pension Exclusion</a>.
+          why_explained_mfj_1: The Maryland Pension Exclusion can save you hundreds to thousands of dollars in state and local taxes by reducing your taxable retirement income. If you or your spouse are over 65, you automatically qualify for the pension exclusion.
+          why_explained_mfj_2_html: If you or your spouse are under 65 and want to claim the pension exclusion, you or your spouse <strong>must have attached a certification from a qualified physician stating the nature of your or their impairment and that you or they are totally disabled to a previously filed tax return</strong>.
+          why_explained_mfj_html: If you and your spouse are age 65 or older, we need this information to complete Form 502R. If you or your spouse are under 65, we need this information to determine if you qualify for the <a href="https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php" target="_blank" rel="noopener">Maryland Pension Exclusion</a>.
           yes_both: Yes, we both are
           yes_me: Yes, I am
           yes_spouse: Yes, my spouse is
@@ -4173,57 +4183,23 @@ en:
       terms_and_conditions:
         edit:
           accept: Accept
-          body_text_closer_html: |
-            </ul>
-            <strong>By using FileYourStateTaxes, you're letting us know that you've read, understood, and agreed to these terms as well as our <a href="%{privacy_policy_link}" target="_blank" rel="noopener nofollow">Privacy Policy</a>. Thanks for choosing us for your tax filing needs!</strong>
-          body_text_opener_html: |
-            <strong>When you use the FileYourStateTaxes service, here's what you're agreeing to:</strong><br>
-            <ul class="list--numbered">
+          body_text_closer_html: <strong>By using FileYourStateTaxes, you're letting us know that you've read, understood, and agreed to these terms as well as our <a href="%{privacy_policy_link}" target="_blank" rel="noopener nofollow">Privacy Policy</a>. Thanks for choosing us for your tax filing needs!</strong>
+          body_text_opener_html: "<strong>When you use the FileYourStateTaxes service, here's what you're agreeing to:</strong>"
           decline: Decline
-          list_items_html: |
-            <li>
-              <strong>Easy Tax Filing:</strong> FileYourStateTaxes is a free and easy to use service built by %{owner} to help you file your state tax return conveniently after you've completed your federal return.
-            </li>
-            <li>
-              <strong>Data Transfer:</strong> You're letting us use your federal return data as the starting point for your state tax return.
-            </li>
-            <li>
-              <strong>Questions for Accuracy:</strong> Sometimes we might ask you a few more questions to make sure your state tax return is complete and accurate.
-            </li>
-            <li>
-              <strong>Modernized eFile:</strong> We'll submit your state tax return using the Modernized eFile (MeF) system, which links it to your federal return.
-            </li>
-            <li>
-              <strong>Your Responsibility:</strong> You're responsible for making sure the information you provide is accurate and that you follow all federal and state tax laws.
-            </li>
-            <li>
-              <strong>No Guarantees:</strong> We do our best, but we can't guarantee the accuracy or success of your state tax return when you use FileYourStateTaxes.
-            </li>
-            <li>
-              <strong>Privacy and Security:</strong> We're serious about protecting your privacy and data. Check out our <a href="%{privacy_policy_link}" target="_blank" rel="noopener nofollow">Privacy Policy</a> for all the details.
-            </li>
-            <li>
-              <strong>Stay Updated:</strong> We'll send you updates about your state tax return through your preferred communication method - either text message (SMS) or email. This includes status updates, reminders, and important information.
-            </li>
-            <li>
-              <strong>Your Choice:</strong> You can change your preferred communication method or opt out of these updates anytime by following the instructions in the messages or through your account settings.
-            </li>
-            <li>
-              <strong>Data Removal:</strong> You have the right to ask us to remove your personal data and tax-related information from FileYourStateTaxes whenever you want. Just contact us or use the data removal function in the software. But keep in mind, this might affect your access to the service.
-            </li>
-            <li>
-              <strong>Links to Third Party Sites:</strong> Links in the software will let you leave FileYourStateTaxes. The linked sites are not under the control of FileYourStateTaxes and FileYourStateTaxes is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. FileYourStateTaxes is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement by FileYourStateTaxes of the site.
-            </li>
-            <li>
-              <strong>Governing Law:</strong> This Agreement will be governed by and construed in accordance with the laws of the state of California.
-            </li>
-            <li>
-              <strong>Questions and Concerns:</strong> If you have any questions or concerns about these terms, feel free to reach out to us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
-            </li>
-          list_items_no_sms_html: |
-            <li>
-              <strong>Stay Updated:</strong> We'll send you updates about your state tax return through your preferred communication method - either SMS or email. This includes status updates, reminders, and important information.
-            </li>
+          list_item_10_html: "<strong>Data Removal:</strong> You have the right to ask us to remove your personal data and tax-related information from FileYourStateTaxes whenever you want. Just contact us or use the data removal function in the software. But keep in mind, this might affect your access to the service."
+          list_item_11_html: "<strong>Links to Third Party Sites:</strong> Links in the software will let you leave FileYourStateTaxes. The linked sites are not under the control of FileYourStateTaxes and FileYourStateTaxes is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. FileYourStateTaxes is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement by FileYourStateTaxes of the site."
+          list_item_12_html: "<strong>Governing Law:</strong> This Agreement will be governed by and construed in accordance with the laws of the state of California."
+          list_item_13_html: <strong>Questions and Concerns:</strong> If you have any questions or concerns about these terms, feel free to reach out to us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
+          list_item_1_html: "<strong>Easy Tax Filing:</strong> FileYourStateTaxes is a free and easy to use service built by %{owner} to help you file your state tax return conveniently after you've completed your federal return."
+          list_item_2_html: "<strong>Data Transfer:</strong> You're letting us use your federal return data as the starting point for your state tax return."
+          list_item_3_html: "<strong>Questions for Accuracy:</strong> Sometimes we might ask you a few more questions to make sure your state tax return is complete and accurate."
+          list_item_4_html: "<strong>Modernized eFile:</strong> We'll submit your state tax return using the Modernized eFile (MeF) system, which links it to your federal return."
+          list_item_5_html: "<strong>Your Responsibility:</strong> You're responsible for making sure the information you provide is accurate and that you follow all federal and state tax laws."
+          list_item_6_html: "<strong>No Guarantees:</strong> We do our best, but we can't guarantee the accuracy or success of your state tax return when you use FileYourStateTaxes."
+          list_item_7_html: <strong>Privacy and Security:</strong> We're serious about protecting your privacy and data. Check out our <a href="%{privacy_policy_link}" target="_blank" rel="noopener nofollow">Privacy Policy</a> for all the details.
+          list_item_8_html: "<strong>Stay Updated:</strong> We'll send you updates about your state tax return through your preferred communication method - either text message (SMS) or email. This includes status updates, reminders, and important information."
+          list_item_9_html: "<strong>Your Choice:</strong> You can change your preferred communication method or opt out of these updates anytime by following the instructions in the messages or through your account settings."
+          list_item_no_sms_html: "<strong>Stay Updated:</strong> We'll send you updates about your state tax return through your preferred communication method - either SMS or email. This includes status updates, reminders, and important information."
           ny_text_html: |
             <strong>E-file your New York State income tax return at no extra charge.</strong><br><br>
             Before you print and mail your return, please note that there is no additional fee for filing it electronically. Other reasons to e-file:
@@ -4319,7 +4295,7 @@ en:
           box17_html: "<strong>Box 17,</strong> State income tax"
           box18_html: "<strong>Box 18,</strong> Local wages, tips, etc."
           box19_html: "<strong>Box 19,</strong> Local income tax"
-          box20_locality_name: "<strong>Box 20,</strong> Locality name"
+          box20_locality_name_html: "<strong>Box 20,</strong> Locality name"
           employer_state_id_error: EIN cannot be more than 16 characters.
           instructions_1_html: Please review your job (W-2) details for <strong>%{employer}</strong>
           local_income_tax_amt_error: Cannot be greater than local wages and tips.

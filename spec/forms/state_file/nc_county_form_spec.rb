@@ -2,9 +2,35 @@ require 'rails_helper'
 
 RSpec.describe StateFile::NcCountyForm, type: :model do
 
-  describe "simple validations" do
-    it { should validate_presence_of :residence_county }
-    it { should validate_inclusion_of(:residence_county).in_array(StateFileNcIntake::COUNTIES.keys) }
+  describe "residence_county validations" do
+    let(:intake) { create :state_file_nc_intake }
+    let(:form) { described_class.new(intake, params) }
+    let(:params) {
+      { residence_county: residence_county }
+    }
+    let(:residence_county) { nil }
+
+    context "when residence_county is not provided" do
+      it "is invalid" do
+        expect(form.valid?).to be false
+        expect(form.errors[:residence_county]).to eq([I18n.t("forms.errors.nc_county.county.presence")])
+      end
+    end
+
+    context "when residence_county is not included" do
+      let(:residence_county) { "120" }
+      it "is invalid" do
+        expect(form.valid?).to be false
+        expect(form.errors[:residence_county]).to eq([I18n.t("forms.errors.nc_county.county.presence")])
+      end
+    end
+
+    context "when residence_county is included and provided" do
+      let(:residence_county) { "003" }
+      it "is valid" do
+        expect(form.valid?).to be true
+      end
+    end
   end
 
   describe "#save" do
@@ -54,6 +80,7 @@ RSpec.describe StateFile::NcCountyForm, type: :model do
             intake = create(:state_file_nc_intake)
             form = described_class.new(intake, params)
             expect(form.valid?).to be false
+            expect(form.errors[:county_during_hurricane_helene]).to eq([I18n.t("forms.errors.nc_county.county.presence")])
           end
         end
 

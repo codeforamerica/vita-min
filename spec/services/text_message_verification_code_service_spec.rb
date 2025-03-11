@@ -9,12 +9,13 @@ describe TextMessageVerificationCodeService do
   let(:service_type) { :gyr }
   let(:params) do
     {
-        phone_number: phone_number,
-        locale: locale,
-        visitor_id: visitor_id,
-        service_type: service_type
+      phone_number: phone_number,
+      locale: locale,
+      visitor_id: visitor_id,
+      service_type: service_type
     }
   end
+
   describe "initialization" do
     context "service_type" do
       let(:service_type) { :unsupported }
@@ -95,6 +96,32 @@ describe TextMessageVerificationCodeService do
               to: phone_number,
               body: text_body
             ))
+        end
+      end
+    end
+
+    context "status callback" do
+      context "service_type is :gyr" do
+        let(:service_type) { :gyr }
+
+        it "includes a callback url" do
+          described_class.request_code(**params)
+
+          expect(twilio_service).to have_received(:send_text_message).with(
+            a_hash_including(:status_callback)
+          )
+        end
+      end
+
+      context "service_type is :statefile" do
+        let(:service_type) { :statefile }
+
+        it "does not include a callback url" do
+          described_class.request_code(**params)
+
+          expect(twilio_service).to have_received(:send_text_message).with(
+            hash_excluding(:status_callback)
+          )
         end
       end
     end
