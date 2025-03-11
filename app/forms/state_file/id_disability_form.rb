@@ -3,47 +3,54 @@ module StateFile
     set_attributes_for :intake, :primary_disabled, :spouse_disabled
 
     attr_accessor :mfj_disability
-    validates_presence_of :mfj_disability, if: -> { intake.filing_status_mfj?}
-    validates :primary_disabled, inclusion: { in: %w[yes no], message: :blank }, unless: -> { intake.filing_status_mfj? }
+    validates_presence_of :mfj_disability, if: -> { intake.show_mfj_disability_options? }
+    validates :primary_disabled, inclusion: { in: %w[yes no], message: :blank }, if: -> { should_check_primary_disabled? }
+    validates :spouse_disabled, inclusion: { in: %w[yes no], message: :blank }, if: -> { should_check_spouse_disabled? }
+
+
+    def should_check_primary_disabled?
+      return false if intake.show_mfj_disability_options?
+
+      intake.primary_between_62_and_65_years_old?
+    end
+
+    def should_check_spouse_disabled?
+      return false if intake.show_mfj_disability_options?
+
+      intake.filing_status_mfj? && intake.spouse_between_62_and_65_years_old?
+    end
 
     def save
-      if intake.filing_status_mfj?
-        primary_eligible = eligible?(:primary)
-        spouse_eligible = eligible?(:spouse)
-
+      if intake.show_mfj_disability_options?
         case mfj_disability
-        when "me"
-          @intake.update(primary_disabled: primary_eligible ? "yes" : "no", spouse_disabled: "no")
+        when "primary"
+          @intake.update(primary_disabled: "yes", spouse_disabled: "no")
         when "spouse"
-          @intake.update(primary_disabled: "no", spouse_disabled: spouse_eligible ? "yes" : "no")
+          @intake.update(primary_disabled: "no", spouse_disabled: "yes")
         when "both"
-          @intake.update(
-            primary_disabled: primary_eligible ? "yes" : "no",
-            spouse_disabled: spouse_eligible ? "yes" : "no"
-          )
+          @intake.update(primary_disabled: "yes", spouse_disabled: "yes")
         when "none"
           @intake.update(primary_disabled: "no", spouse_disabled: "no")
         end
       else
         @intake.update(attributes_for(:intake))
       end
+
+      clean_up_followups
     end
 
     private
 
-    def eligible?(primary_or_spouse)
-      person = intake.send(primary_or_spouse)
-      birth_date = person.birth_date
-      return false unless birth_date.present?
-
-      age = intake.calculate_age(birth_date, inclusive_of_jan_1: true)
-      age_eligible = age >= 62 && age < 65
-
-      has_taxable_1099r = intake.state_file1099_rs.any? do |form|
-        form.recipient_ssn == person.ssn && form.taxable_amount&.to_f&.positive?
+    def clean_up_followups
+      if primary_disabled == "no" || %w[spouse none].include?(mfj_disability)
+        primary_followups = @intake.filer_1099_rs(:primary).map(&:state_specific_followup).compact
+        primary_followups.each(&:destroy)
       end
 
-      age_eligible && has_taxable_1099r
+      if @intake.filing_status_mfj? && (spouse_disabled == "no" || %w[primary none].include?(mfj_disability))
+        spouse_followups = @intake.filer_1099_rs(:spouse).map(&:state_specific_followup).compact
+        spouse_followups.each(&:destroy)
+      end
     end
   end
 end

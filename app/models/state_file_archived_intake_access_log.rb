@@ -7,14 +7,17 @@
 #  event_type                            :integer
 #  created_at                            :datetime         not null
 #  updated_at                            :datetime         not null
+#  state_file_archived_intake_id         :bigint
 #  state_file_archived_intake_request_id :bigint
 #
 # Foreign Keys
 #
+#  fk_rails_...  (state_file_archived_intake_id => state_file_archived_intakes.id)
 #  fk_rails_...  (state_file_archived_intake_request_id => state_file_archived_intake_requests.id)
 #
 class StateFileArchivedIntakeAccessLog < ApplicationRecord
   belongs_to :state_file_archived_intake_request, optional: true
+  belongs_to :state_file_archived_intake, optional: true
   enum event_type: {
     issued_email_challenge: 0, 
     correct_email_code: 1,

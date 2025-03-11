@@ -65,7 +65,7 @@
 #  primary_proof_of_disability_submitted      :integer          default("unfilled"), not null
 #  primary_signature                          :string
 #  primary_signature_pin                      :text
-#  primary_ssb_amount                         :decimal(12, 2)   default(0.0), not null
+#  primary_ssb_amount                         :decimal(12, 2)
 #  primary_ssn                                :string
 #  primary_student_loan_interest_ded_amount   :decimal(12, 2)   default(0.0), not null
 #  primary_suffix                             :string
@@ -87,7 +87,7 @@
 #  spouse_middle_initial                      :string
 #  spouse_proof_of_disability_submitted       :integer          default("unfilled"), not null
 #  spouse_signature_pin                       :text
-#  spouse_ssb_amount                          :decimal(12, 2)   default(0.0), not null
+#  spouse_ssb_amount                          :decimal(12, 2)
 #  spouse_ssn                                 :string
 #  spouse_student_loan_interest_ded_amount    :decimal(12, 2)   default(0.0), not null
 #  spouse_suffix                              :string
@@ -259,6 +259,11 @@ FactoryBot.define do
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('md_frodo_hoh_cdcc') }
 
       after(:create, &:synchronize_df_dependents_to_database)
+    end
+
+    trait :with_social_security_reports do
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('md_tiger_55') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('md_tiger_55') }
     end
   end
 end

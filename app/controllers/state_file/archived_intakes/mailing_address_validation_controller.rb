@@ -4,17 +4,17 @@ module StateFile
   module ArchivedIntakes
     class MailingAddressValidationController < ArchivedIntakeController
       before_action :check_feature_flag
-      before_action :is_request_locked
+      before_action :is_intake_locked
       before_action :confirm_code_and_ssn_verification
       def edit
         create_state_file_access_log("issued_mailing_address_challenge")
-        @addresses = current_request.address_challenge_set
+        @addresses = current_archived_intake.address_challenge_set
         @form = MailingAddressValidationForm.new(addresses: @addresses, current_address: current_archived_intake.full_address)
       end
 
       def update
         @form = MailingAddressValidationForm.new(mailing_address_validation_form_params, addresses: @addresses, current_address: current_archived_intake.full_address)
-        @addresses = current_request.address_challenge_set
+        @addresses = current_archived_intake.address_challenge_set
 
         if @form.valid?
           create_state_file_access_log("correct_mailing_address")

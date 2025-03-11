@@ -65,7 +65,7 @@
 #  primary_proof_of_disability_submitted      :integer          default("unfilled"), not null
 #  primary_signature                          :string
 #  primary_signature_pin                      :text
-#  primary_ssb_amount                         :decimal(12, 2)   default(0.0), not null
+#  primary_ssb_amount                         :decimal(12, 2)
 #  primary_ssn                                :string
 #  primary_student_loan_interest_ded_amount   :decimal(12, 2)   default(0.0), not null
 #  primary_suffix                             :string
@@ -87,7 +87,7 @@
 #  spouse_middle_initial                      :string
 #  spouse_proof_of_disability_submitted       :integer          default("unfilled"), not null
 #  spouse_signature_pin                       :text
-#  spouse_ssb_amount                          :decimal(12, 2)   default(0.0), not null
+#  spouse_ssb_amount                          :decimal(12, 2)
 #  spouse_ssn                                 :string
 #  spouse_student_loan_interest_ded_amount    :decimal(12, 2)   default(0.0), not null
 #  spouse_suffix                              :string
@@ -113,6 +113,7 @@
 #
 class StateFileMdIntake < StateFileBaseIntake
   include MdResidenceCountyConcern
+
   encrypts :account_number, :routing_number, :raw_direct_file_data, :raw_direct_file_intake_data
 
   enum eligibility_lived_in_state: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_lived_in_state
@@ -248,7 +249,23 @@ class StateFileMdIntake < StateFileBaseIntake
     send("#{filer}_senior?".to_sym) || at_least_one_disabled_filer_with_proof?
   end
 
+  def has_filer_under_65?
+    if filing_status_mfj?
+      !primary_senior? || !spouse_senior?
+    else
+      !primary_senior?
+    end
+  end
+
+  def no_proof_of_disability_submitted?
+    !(primary_proof_of_disability_submitted_yes? || spouse_proof_of_disability_submitted_yes?)
+  end
+
   def has_banking_information_in_financial_resolution?
     true
+  end
+
+  def filer_disabled?
+    primary_disabled_yes? || spouse_disabled_yes?
   end
 end

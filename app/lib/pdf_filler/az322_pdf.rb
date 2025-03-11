@@ -16,10 +16,10 @@ module PdfFiller
 
     def hash_for_pdf
       answers = {
-        "TP_Name" => [@xml_document.at('Primary TaxpayerName FirstName')&.text, @xml_document.at('Primary TaxpayerName MiddleInitial')&.text, @xml_document.at('Primary TaxpayerName LastName')&.text, @xml_document.at('Primary TaxpayerName NameSuffix')&.text].join(' '),
-        "TP_SSN" => @xml_document.at('Primary TaxpayerSSN')&.text,
-        "Spouse_Name" => [@xml_document.at('Secondary TaxpayerName FirstName')&.text, @xml_document.at('Secondary TaxpayerName MiddleInitial')&.text, @xml_document.at('Secondary TaxpayerName LastName')&.text, @xml_document.at('Secondary TaxpayerName NameSuffix')&.text].join(' '),
-        "Spouse_SSN" => @xml_document.at('Secondary TaxpayerSSN')&.text,
+        "TP_Name" => @submission.data_source.primary.full_name,
+        "TP_SSN" => @submission.data_source.primary.ssn,
+        "Spouse_Name" => @submission.data_source.spouse.full_name,
+        "Spouse_SSN" => @submission.data_source.spouse.ssn,
         "4" => @xml_document.at('Form322 TotalContributionsContSheet')&.text,
         "5" => @xml_document.at('Form322 TotalContributions')&.text,
         "9" => '0',

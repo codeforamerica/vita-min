@@ -11,9 +11,11 @@ RSpec.describe PdfFiller::Md502bPdf do
       primary_first_name: "Janet",
       primary_middle_initial: "G",
       primary_last_name: "Jormp",
+      primary_suffix: "JR",
       spouse_first_name: "Jane",
       spouse_middle_initial: "M",
       spouse_last_name: "Jomp",
+      spouse_suffix: "SR",
       spouse_birth_date: Date.new(1950, 04, 12)
     )
   end
@@ -64,11 +66,11 @@ RSpec.describe PdfFiller::Md502bPdf do
       it "sets fields to the correct values" do
         expect(pdf_fields["Your First Name"]).to eq "Janet"
         expect(pdf_fields["Primary MI"]).to eq "G"
-        expect(pdf_fields["Your Last Name"]).to eq "Jormp"
+        expect(pdf_fields["Your Last Name"]).to eq "Jormp JR"
         expect(pdf_fields["Your Social Security Number"]).to eq "345678901"
         expect(pdf_fields["Spouses First Name"]).to eq "Jane"
         expect(pdf_fields["Spouse MI"]).to eq "M"
-        expect(pdf_fields["Spouses Last Name"]).to eq "Jomp"
+        expect(pdf_fields["Spouses Last Name"]).to eq "Jomp SR"
         expect(pdf_fields["Spouses Social Security Number"]).to eq "987654321"
 
         expect(pdf_fields["CountRegular"]).to eq "2" # regular dependents

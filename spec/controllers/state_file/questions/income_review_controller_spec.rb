@@ -57,7 +57,7 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
       let(:form_params) { params }
     end
 
-    context "W-2 validity" do
+    context "income form validity" do
       let(:mock_next_path) { root_path }
       before do
         allow(subject).to receive(:next_path).and_return mock_next_path
@@ -114,6 +114,13 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
         let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, wages: 0, state_wages_amount: 0, state_income_tax_amount: 0) }
 
         include_examples "proceeds as if there are no errors"
+      end
+
+      context "with 1099rs having invalid Box 14 values" do
+        let(:intake) { create(:state_file_md_intake) }
+        let!(:state_file1099_r) { create(:state_file1099_r, intake: intake, gross_distribution_amount: 500, state_tax_withheld_amount: 550) }
+
+        include_examples "shows error and does not proceed"
       end
     end
   end
@@ -177,12 +184,12 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
       end
 
       context "when only one w2 and box14_ui_wf_swf is not present" do
-        let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_fli: 145.26) }
+        let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_fli: NjTestConstHelper::FLI_AT_LIMIT) }
         include_examples "does not display W2 warnings"
       end
 
       context "when only one w2 and fli is not present" do
-        let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_ui_wf_swf: 179.78) }
+        let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_ui_wf_swf: NjTestConstHelper::UI_WF_SWF_AT_LIMIT) }
         include_examples "does not display W2 warnings"
       end
 
@@ -190,8 +197,8 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
         let(:intake) { create(:state_file_nj_intake, :married_filing_jointly) }
         let(:primary_ssn_from_fixture) { intake.primary.ssn }
         let(:spouse_ssn_from_fixture) { intake.spouse.ssn }
-        let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_fli: 145.26) }
-        let!(:w2_2) { create(:state_file_w2, state_file_intake: intake, employee_ssn: spouse_ssn_from_fixture, box14_fli: 145.26) }
+        let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_fli: NjTestConstHelper::FLI_AT_LIMIT) }
+        let!(:w2_2) { create(:state_file_w2, state_file_intake: intake, employee_ssn: spouse_ssn_from_fixture, box14_fli: NjTestConstHelper::FLI_AT_LIMIT) }
         include_examples "does not display W2 warnings"
       end
 
@@ -199,14 +206,14 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
         let(:intake) { create(:state_file_nj_intake, :married_filing_jointly) }
         let(:primary_ssn_from_fixture) { intake.primary.ssn }
         let(:spouse_ssn_from_fixture) { intake.spouse.ssn }
-        let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_ui_wf_swf: 179.78) }
-        let!(:w2_2) { create(:state_file_w2, state_file_intake: intake, employee_ssn: spouse_ssn_from_fixture, box14_ui_wf_swf: 179.78) }
+        let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_ui_wf_swf: NjTestConstHelper::UI_WF_SWF_AT_LIMIT) }
+        let!(:w2_2) { create(:state_file_w2, state_file_intake: intake, employee_ssn: spouse_ssn_from_fixture, box14_ui_wf_swf: NjTestConstHelper::UI_WF_SWF_AT_LIMIT) }
         include_examples "does not display W2 warnings"
       end
 
       context "when two or more w2s and box14_ui_wf_swf and fli are valid on both" do
-        let!(:state_file_w2_1) { create(:state_file_w2, state_file_intake: intake, box14_ui_wf_swf: 179.78, box14_fli: 145.26) }
-        let!(:state_file_w2_2) { create(:state_file_w2, state_file_intake: intake, box14_ui_wf_swf: 179.78, box14_fli: 145.26) }
+        let!(:state_file_w2_1) { create(:state_file_w2, state_file_intake: intake, box14_ui_wf_swf: NjTestConstHelper::UI_WF_SWF_AT_LIMIT, box14_fli: NjTestConstHelper::FLI_AT_LIMIT) }
+        let!(:state_file_w2_2) { create(:state_file_w2, state_file_intake: intake, box14_ui_wf_swf: NjTestConstHelper::UI_WF_SWF_AT_LIMIT, box14_fli: NjTestConstHelper::FLI_AT_LIMIT) }
         include_examples "does not display W2 warnings"
       end
     end
@@ -217,47 +224,47 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
       context "when primary has two W2s and box14_ui_wf_swf is not present in one" do
         let(:intake) { create(:state_file_nj_intake, :married_filing_jointly) }
         let(:primary_ssn_from_fixture) { intake.primary.ssn }
-        let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_fli: 145.26) }
-        let!(:w2_2) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_ui_wf_swf: 179.78, box14_fli: 145.26) }
+        let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_fli: NjTestConstHelper::FLI_AT_LIMIT) }
+        let!(:w2_2) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_ui_wf_swf: NjTestConstHelper::UI_WF_SWF_AT_LIMIT, box14_fli: NjTestConstHelper::FLI_AT_LIMIT) }
         include_examples "displays one W2 warning"
       end
 
       context "when secondary has two W2s and box14_ui_wf_swf is not present in one" do
         let(:intake) { create(:state_file_nj_intake, :married_filing_jointly) }
         let(:spouse_ssn_from_fixture) { intake.spouse.ssn }
-        let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, employee_ssn: spouse_ssn_from_fixture, box14_fli: 145.26) }
-        let!(:w2_2) { create(:state_file_w2, state_file_intake: intake, employee_ssn: spouse_ssn_from_fixture, box14_ui_wf_swf: 179.78, box14_fli: 145.26) }
+        let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, employee_ssn: spouse_ssn_from_fixture, box14_fli: NjTestConstHelper::FLI_AT_LIMIT) }
+        let!(:w2_2) { create(:state_file_w2, state_file_intake: intake, employee_ssn: spouse_ssn_from_fixture, box14_ui_wf_swf: NjTestConstHelper::UI_WF_SWF_AT_LIMIT, box14_fli: NjTestConstHelper::FLI_AT_LIMIT) }
         include_examples "displays one W2 warning"
       end
 
       context "when box14_ui_wf_swf is too high" do
-        let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_ui_wf_swf: 179.79) }
+        let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_ui_wf_swf: NjTestConstHelper::UI_WF_SWF_ABOVE_LIMIT) }
         include_examples "displays one W2 warning"
       end
 
       context "when primary has two W2s and fli is not present in one" do
         let(:intake) { create(:state_file_nj_intake, :married_filing_jointly) }
         let(:primary_ssn_from_fixture) { intake.primary.ssn }
-        let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_ui_wf_swf: 179.78) }
-        let!(:w2_2) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_ui_wf_swf: 179.78, box14_fli: 145.26) }
+        let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_ui_wf_swf: NjTestConstHelper::UI_WF_SWF_AT_LIMIT) }
+        let!(:w2_2) { create(:state_file_w2, state_file_intake: intake, employee_ssn: primary_ssn_from_fixture, box14_ui_wf_swf: NjTestConstHelper::UI_WF_SWF_AT_LIMIT, box14_fli: NjTestConstHelper::FLI_AT_LIMIT) }
         include_examples "displays one W2 warning"
       end
 
       context "when secondary has two W2s and fli is not present in one" do
         let(:intake) { create(:state_file_nj_intake, :married_filing_jointly) }
         let(:spouse_ssn_from_fixture) { intake.spouse.ssn }
-        let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, employee_ssn: spouse_ssn_from_fixture, box14_ui_wf_swf: 179.78) }
-        let!(:w2_2) { create(:state_file_w2, state_file_intake: intake, employee_ssn: spouse_ssn_from_fixture, box14_ui_wf_swf: 179.78, box14_fli: 145.26) }
+        let!(:w2_1) { create(:state_file_w2, state_file_intake: intake, employee_ssn: spouse_ssn_from_fixture, box14_ui_wf_swf: NjTestConstHelper::UI_WF_SWF_AT_LIMIT) }
+        let!(:w2_2) { create(:state_file_w2, state_file_intake: intake, employee_ssn: spouse_ssn_from_fixture, box14_ui_wf_swf: NjTestConstHelper::UI_WF_SWF_AT_LIMIT, box14_fli: NjTestConstHelper::FLI_AT_LIMIT) }
         include_examples "displays one W2 warning"
       end
 
       context "when fli is too high" do
-        let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_fli: 145.27) }
+        let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_fli: NjTestConstHelper::FLI_ABOVE_LIMIT) }
         include_examples "displays one W2 warning"
       end
 
       context "when a single W2 has values in both UI/HC/WD and UI/WF/SWF" do
-        let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_ui_wf_swf: 10, box14_ui_hc_wd: 10, box14_fli: 145.26) }
+        let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_ui_wf_swf: 10, box14_ui_hc_wd: 10, box14_fli: NjTestConstHelper::FLI_AT_LIMIT) }
         include_examples "displays one W2 warning"
       end
     end
@@ -367,19 +374,50 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
   describe "1099R card" do
     render_views
 
-    context "when there are state 1099Rs" do
-      it "shows a summary of each" do
-        primary_1099r = create(:state_file1099_r, intake: intake, payer_name: "Payeur", recipient_name: 'Prim Rose')
-        spouse_1099r = create(:state_file1099_r, intake: intake, payer_name: "Payure", recipient_name: 'Sprout Vine')
+    shared_examples "does not display 1099R warning" do
+      it "has no warnings" do
         get :edit, params: params
+        expect(response.body).not_to have_text I18n.t("state_file.questions.income_review.edit.warning")
+      end
+    end
 
-        expect(response.body).to have_text "Retirement income (1099-R)"
-        expect(response.body).to have_text "Payeur"
-        expect(response.body).to have_text "Prim Rose"
-        expect(response.body).to have_link(href: edit_retirement_income_path(id: primary_1099r.id))
-        expect(response.body).to have_text "Payure"
-        expect(response.body).to have_text "Sprout Vine"
-        expect(response.body).to have_link(href: edit_retirement_income_path(id: spouse_1099r.id))
+    shared_examples "displays one 1099R warning" do
+      it "displays warning in 1099R card" do
+        get :edit, params: params
+        expect(response.body.scan(I18n.t("state_file.questions.income_review.edit.warning")).size).to eq(1)
+      end
+    end
+
+    context "when there are state 1099Rs" do
+      context "when 1099Rs are valid" do
+        let!(:primary_1099r) { create(:state_file1099_r, intake: intake, payer_name: "Payeur", recipient_name: "Prim Rose") }
+        let!(:spouse_1099r) { create(:state_file1099_r, intake: intake, payer_name: "Payure", recipient_name: "Sprout Vine") }
+
+        it_behaves_like "does not display 1099R warning"
+
+        it "shows a summary of each" do
+          get :edit, params: params
+
+          expect(response.body).to have_text "Retirement income (1099-R)"
+          expect(response.body).to have_text "Payeur"
+          expect(response.body).to have_text "Prim Rose"
+          expect(response.body).to have_link(href: edit_retirement_income_path(id: primary_1099r.id))
+          expect(response.body).to have_text "Payure"
+          expect(response.body).to have_text "Sprout Vine"
+          expect(response.body).to have_link(href: edit_retirement_income_path(id: spouse_1099r.id))
+        end
+      end
+
+      context "when a 1099R is blocking-invalid" do
+        let!(:invalid_1099r) { create(:state_file1099_r, intake: intake, gross_distribution_amount: 500, state_tax_withheld_amount: 550) }
+
+        it_behaves_like "displays one 1099R warning"
+      end
+
+      context "when a 1099R is nonblocking-invalid" do
+        let!(:invalid_1099r) { create(:state_file1099_r, intake: intake, payer_state_identification_number: "123456789asdfghjklqwertyuiop") }
+
+        it_behaves_like "does not display 1099R warning"
       end
     end
 
